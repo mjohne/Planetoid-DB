@@ -187,5 +187,14 @@ namespace Planetoid_DB.Properties {
                 return ((string)(this["systemWebsiteMpcorb"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("_")]
+        public string systemFilenameTemp {
+            get {
+                return ((string)(this["systemFilenameTemp"]));
+            }
+        }
     }
 }
