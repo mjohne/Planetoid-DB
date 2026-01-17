@@ -1,6 +1,8 @@
-﻿using System.Diagnostics;
-using Krypton.Toolkit;
+﻿using Krypton.Toolkit;
+
 using NLog;
+
+using System.Diagnostics;
 
 namespace Planetoid_DB
 {
@@ -8,7 +10,7 @@ namespace Planetoid_DB
 	/// A form that allows users to copy data to the clipboard.
 	/// </summary>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-	public partial class CopyDataToClipboardForm : Form	
+	public partial class CopyDataToClipboardForm : KryptonForm
 	{
 		// NLog logger instance
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();

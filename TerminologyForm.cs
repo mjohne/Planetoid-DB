@@ -1,5 +1,8 @@
-﻿using System.Diagnostics;
+﻿using Krypton.Toolkit;
+
 using NLog;
+
+using System.Diagnostics;
 
 namespace Planetoid_DB
 {
@@ -7,7 +10,7 @@ namespace Planetoid_DB
 	/// Represents a form that displays terminology information.
 	/// </summary>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-	public partial class TerminologyForm : Form
+	public partial class TerminologyForm : KryptonForm
 	{
 		// NLog logger instance
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();

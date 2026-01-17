@@ -1,6 +1,9 @@
-﻿using System.Diagnostics;
-using System.Drawing.Printing;
+﻿using Krypton.Toolkit;
+
 using NLog;
+
+using System.Diagnostics;
+using System.Drawing.Printing;
 
 namespace Planetoid_DB
 {
@@ -8,7 +11,7 @@ namespace Planetoid_DB
 	/// Represents a form for printing data sheets.
 	/// </summary>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-	public partial class PrintDataSheetForm : Form
+	public partial class PrintDataSheetForm : KryptonForm
 	{
 		// NLog logger instance
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();

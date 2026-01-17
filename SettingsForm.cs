@@ -1,6 +1,8 @@
-﻿using System.Diagnostics;
+﻿using Krypton.Toolkit;
 
 using NLog;
+
+using System.Diagnostics;
 
 namespace Planetoid_DB
 {
@@ -8,7 +10,7 @@ namespace Planetoid_DB
 	/// Represents the settings form of the application.
 	/// </summary>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-	public partial class SettingsForm : Form
+	public partial class SettingsForm : KryptonForm
 	{
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger(); // NLog logger instance
 

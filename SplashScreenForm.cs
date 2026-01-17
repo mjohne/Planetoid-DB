@@ -1,6 +1,8 @@
-﻿using System.Diagnostics;
-using Krypton.Toolkit;
+﻿using Krypton.Toolkit;
+
 using NLog;
+
+using System.Diagnostics;
 
 namespace Planetoid_DB
 {
@@ -8,7 +10,7 @@ namespace Planetoid_DB
 	/// Represents the splash screen form of the application.
 	/// </summary>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-	public partial class SplashScreenForm : Form
+	public partial class SplashScreenForm : KryptonForm
 	{
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger(); // NLog logger instance
 

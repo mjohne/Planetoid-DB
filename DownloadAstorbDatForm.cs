@@ -1,4 +1,10 @@
-﻿using System.ComponentModel;
+﻿using Krypton.Toolkit;
+
+using NLog;
+
+using Planetoid_DB.Properties;
+
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -7,17 +13,13 @@ using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
 
-using NLog;
-
-using Planetoid_DB.Properties;
-
 namespace Planetoid_DB
 {
 	/// <summary>
 	/// Form to handle downloading updates for the application.
 	/// </summary>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-	public partial class DownloadAstorbDatForm : Form
+	public partial class DownloadAstorbDatForm : KryptonForm
 	{
 		// NLog logger instance
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
@@ -318,11 +320,11 @@ namespace Planetoid_DB
 			// Set the initial download progress to 0%
 			labelDownload.Text = I10nStrings.NumberZero + I10nStrings.PercentSign;
 			// Set the proxy to null to avoid using any proxy settings
-			httpClient.DefaultProxy = null;
+			//httpClient.DefaultProxy = null;
 			// Event handler for download completion
-			httpClient.DownloadFileCompleted += Completed;
+			//httpClient.DownloadFileCompleted += Completed;
 			// Event handler for download progress
-			httpClient.DownloadProgressChanged += ProgressChanged;
+			//httpClient.DownloadProgressChanged += ProgressChanged;
 		}
 
 		/// <summary>

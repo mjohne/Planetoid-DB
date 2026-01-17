@@ -1,11 +1,13 @@
-﻿using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Net.Http;
+﻿using Krypton.Toolkit;
 
 using NLog;
 
 using Planetoid_DB.Properties;
+
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Net.Http;
 
 namespace Planetoid_DB
 {
@@ -13,7 +15,7 @@ namespace Planetoid_DB
 	/// ASTRORB Data Verification Form.
 	/// </summary>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-	public partial class CheckAstorbDatForm : Form
+	public partial class CheckAstorbDatForm : KryptonForm
 	{
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger(); // NLog logger instance
 
@@ -113,7 +115,7 @@ namespace Planetoid_DB
 			try
 			{
 				// Send a HEAD request to the specified URI
-				HttpResponseMessage response = await Client.SendAsync(request: new HttpRequestMessage(method: HttpMethod.Head, requestUri: uri)).ConfigureAwait(continueOnCapturedContext: false);
+				var response = await Client.SendAsync(request: new HttpRequestMessage(method: HttpMethod.Head, requestUri: uri)).ConfigureAwait(continueOnCapturedContext: false);
 				// Check if the response is successful and return the last modified date
 				return response.IsSuccessStatusCode ? response.Content.Headers.LastModified?.UtcDateTime ?? DateTime.MinValue : DateTime.MinValue;
 			}

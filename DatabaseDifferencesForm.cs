@@ -1,7 +1,9 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
+﻿using Krypton.Toolkit;
 
 using NLog;
+
+using System.ComponentModel;
+using System.Diagnostics;
 
 namespace Planetoid_DB
 {
@@ -9,7 +11,7 @@ namespace Planetoid_DB
 	/// Form for displaying and managing database differences.
 	/// </summary>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-	public partial class DatabaseDifferencesForm : Form
+	public partial class DatabaseDifferencesForm : KryptonForm
 	{
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger(); // NLog logger instance
 

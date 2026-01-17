@@ -40,6 +40,9 @@
     <Compile Update="FilterForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FileDownloaderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="LicenseForm.cs">
       <SubType>Form</SubType>
     </Compile>

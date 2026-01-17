@@ -70,7 +70,8 @@ namespace Planetoid_DB
 			labelName.AccessibleRole = AccessibleRole.Text;
 			labelName.Dock = DockStyle.Fill;
 			labelName.LabelStyle = LabelStyle.BoldPanel;
-			labelName.Location = new Point(3, 3);
+			labelName.Location = new Point(4, 3);
+			labelName.Margin = new Padding(4, 3, 4, 3);
 			labelName.Name = "labelName";
 			labelName.Size = new Size(102, 20);
 			labelName.TabIndex = 0;
@@ -89,7 +90,8 @@ namespace Planetoid_DB
 			labelDirectory.AccessibleRole = AccessibleRole.Text;
 			labelDirectory.Dock = DockStyle.Fill;
 			labelDirectory.LabelStyle = LabelStyle.BoldPanel;
-			labelDirectory.Location = new Point(3, 29);
+			labelDirectory.Location = new Point(4, 29);
+			labelDirectory.Margin = new Padding(4, 3, 4, 3);
 			labelDirectory.Name = "labelDirectory";
 			labelDirectory.Size = new Size(102, 20);
 			labelDirectory.TabIndex = 2;
@@ -108,7 +110,8 @@ namespace Planetoid_DB
 			labelSize.AccessibleRole = AccessibleRole.Text;
 			labelSize.Dock = DockStyle.Fill;
 			labelSize.LabelStyle = LabelStyle.BoldPanel;
-			labelSize.Location = new Point(3, 55);
+			labelSize.Location = new Point(4, 55);
+			labelSize.Margin = new Padding(4, 3, 4, 3);
 			labelSize.Name = "labelSize";
 			labelSize.Size = new Size(102, 20);
 			labelSize.TabIndex = 4;
@@ -127,7 +130,8 @@ namespace Planetoid_DB
 			labelDateCreated.AccessibleRole = AccessibleRole.Text;
 			labelDateCreated.Dock = DockStyle.Fill;
 			labelDateCreated.LabelStyle = LabelStyle.BoldPanel;
-			labelDateCreated.Location = new Point(3, 81);
+			labelDateCreated.Location = new Point(4, 81);
+			labelDateCreated.Margin = new Padding(4, 3, 4, 3);
 			labelDateCreated.Name = "labelDateCreated";
 			labelDateCreated.Size = new Size(102, 20);
 			labelDateCreated.TabIndex = 6;
@@ -146,7 +150,8 @@ namespace Planetoid_DB
 			labelDateAccessed.AccessibleRole = AccessibleRole.Text;
 			labelDateAccessed.Dock = DockStyle.Fill;
 			labelDateAccessed.LabelStyle = LabelStyle.BoldPanel;
-			labelDateAccessed.Location = new Point(3, 107);
+			labelDateAccessed.Location = new Point(4, 107);
+			labelDateAccessed.Margin = new Padding(4, 3, 4, 3);
 			labelDateAccessed.Name = "labelDateAccessed";
 			labelDateAccessed.Size = new Size(102, 20);
 			labelDateAccessed.TabIndex = 8;
@@ -165,7 +170,8 @@ namespace Planetoid_DB
 			labelDateWrited.AccessibleRole = AccessibleRole.Text;
 			labelDateWrited.Dock = DockStyle.Fill;
 			labelDateWrited.LabelStyle = LabelStyle.BoldPanel;
-			labelDateWrited.Location = new Point(3, 133);
+			labelDateWrited.Location = new Point(4, 133);
+			labelDateWrited.Margin = new Padding(4, 3, 4, 3);
 			labelDateWrited.Name = "labelDateWrited";
 			labelDateWrited.Size = new Size(102, 20);
 			labelDateWrited.TabIndex = 10;
@@ -184,7 +190,8 @@ namespace Planetoid_DB
 			labelAttributes.AccessibleRole = AccessibleRole.Text;
 			labelAttributes.Dock = DockStyle.Fill;
 			labelAttributes.LabelStyle = LabelStyle.BoldPanel;
-			labelAttributes.Location = new Point(3, 159);
+			labelAttributes.Location = new Point(4, 159);
+			labelAttributes.Margin = new Padding(4, 3, 4, 3);
 			labelAttributes.Name = "labelAttributes";
 			labelAttributes.Size = new Size(102, 25);
 			labelAttributes.TabIndex = 12;
@@ -202,9 +209,10 @@ namespace Planetoid_DB
 			labelNameValue.AccessibleName = "Name value";
 			labelNameValue.AccessibleRole = AccessibleRole.Text;
 			labelNameValue.Dock = DockStyle.Fill;
-			labelNameValue.Location = new Point(111, 3);
+			labelNameValue.Location = new Point(114, 3);
+			labelNameValue.Margin = new Padding(4, 3, 4, 3);
 			labelNameValue.Name = "labelNameValue";
-			labelNameValue.Size = new Size(375, 20);
+			labelNameValue.Size = new Size(252, 20);
 			labelNameValue.TabIndex = 1;
 			toolTip.SetToolTip(labelNameValue, "Shows the name of the database");
 			labelNameValue.Values.Text = "..........";
@@ -220,9 +228,10 @@ namespace Planetoid_DB
 			labelDirectoryValue.AccessibleName = "Directory value";
 			labelDirectoryValue.AccessibleRole = AccessibleRole.Text;
 			labelDirectoryValue.Dock = DockStyle.Fill;
-			labelDirectoryValue.Location = new Point(111, 29);
+			labelDirectoryValue.Location = new Point(114, 29);
+			labelDirectoryValue.Margin = new Padding(4, 3, 4, 3);
 			labelDirectoryValue.Name = "labelDirectoryValue";
-			labelDirectoryValue.Size = new Size(375, 20);
+			labelDirectoryValue.Size = new Size(252, 20);
 			labelDirectoryValue.TabIndex = 3;
 			toolTip.SetToolTip(labelDirectoryValue, "Shows the directory of the database");
 			labelDirectoryValue.Values.Text = "..........";
@@ -238,9 +247,10 @@ namespace Planetoid_DB
 			labelSizeValue.AccessibleName = "size value";
 			labelSizeValue.AccessibleRole = AccessibleRole.Text;
 			labelSizeValue.Dock = DockStyle.Fill;
-			labelSizeValue.Location = new Point(111, 55);
+			labelSizeValue.Location = new Point(114, 55);
+			labelSizeValue.Margin = new Padding(4, 3, 4, 3);
 			labelSizeValue.Name = "labelSizeValue";
-			labelSizeValue.Size = new Size(375, 20);
+			labelSizeValue.Size = new Size(252, 20);
 			labelSizeValue.TabIndex = 5;
 			toolTip.SetToolTip(labelSizeValue, "Shows the size of the database");
 			labelSizeValue.Values.Text = "..........";
@@ -256,9 +266,10 @@ namespace Planetoid_DB
 			labelDateCreatedValue.AccessibleName = "Creation date value";
 			labelDateCreatedValue.AccessibleRole = AccessibleRole.Text;
 			labelDateCreatedValue.Dock = DockStyle.Fill;
-			labelDateCreatedValue.Location = new Point(111, 81);
+			labelDateCreatedValue.Location = new Point(114, 81);
+			labelDateCreatedValue.Margin = new Padding(4, 3, 4, 3);
 			labelDateCreatedValue.Name = "labelDateCreatedValue";
-			labelDateCreatedValue.Size = new Size(375, 20);
+			labelDateCreatedValue.Size = new Size(252, 20);
 			labelDateCreatedValue.TabIndex = 7;
 			toolTip.SetToolTip(labelDateCreatedValue, "Shows the creation date of the database");
 			labelDateCreatedValue.Values.Text = "..........";
@@ -274,9 +285,10 @@ namespace Planetoid_DB
 			labelDateAccessedValue.AccessibleName = "Last access date value";
 			labelDateAccessedValue.AccessibleRole = AccessibleRole.Text;
 			labelDateAccessedValue.Dock = DockStyle.Fill;
-			labelDateAccessedValue.Location = new Point(111, 107);
+			labelDateAccessedValue.Location = new Point(114, 107);
+			labelDateAccessedValue.Margin = new Padding(4, 3, 4, 3);
 			labelDateAccessedValue.Name = "labelDateAccessedValue";
-			labelDateAccessedValue.Size = new Size(375, 20);
+			labelDateAccessedValue.Size = new Size(252, 20);
 			labelDateAccessedValue.TabIndex = 9;
 			toolTip.SetToolTip(labelDateAccessedValue, "Shows the last access date of the database");
 			labelDateAccessedValue.Values.Text = "..........";
@@ -292,9 +304,10 @@ namespace Planetoid_DB
 			labelDateWritedValue.AccessibleName = "Last write date value";
 			labelDateWritedValue.AccessibleRole = AccessibleRole.Text;
 			labelDateWritedValue.Dock = DockStyle.Fill;
-			labelDateWritedValue.Location = new Point(111, 133);
+			labelDateWritedValue.Location = new Point(114, 133);
+			labelDateWritedValue.Margin = new Padding(4, 3, 4, 3);
 			labelDateWritedValue.Name = "labelDateWritedValue";
-			labelDateWritedValue.Size = new Size(375, 20);
+			labelDateWritedValue.Size = new Size(252, 20);
 			labelDateWritedValue.TabIndex = 11;
 			toolTip.SetToolTip(labelDateWritedValue, "Shows the last write date of the database");
 			labelDateWritedValue.Values.Text = "..........";
@@ -310,9 +323,10 @@ namespace Planetoid_DB
 			labelAttributesValue.AccessibleName = "Attributes value";
 			labelAttributesValue.AccessibleRole = AccessibleRole.Text;
 			labelAttributesValue.Dock = DockStyle.Fill;
-			labelAttributesValue.Location = new Point(111, 159);
+			labelAttributesValue.Location = new Point(114, 159);
+			labelAttributesValue.Margin = new Padding(4, 3, 4, 3);
 			labelAttributesValue.Name = "labelAttributesValue";
-			labelAttributesValue.Size = new Size(375, 25);
+			labelAttributesValue.Size = new Size(252, 25);
 			labelAttributesValue.TabIndex = 13;
 			toolTip.SetToolTip(labelAttributesValue, "Shows the attributes of the database");
 			labelAttributesValue.Values.Text = "..........";
@@ -347,6 +361,7 @@ namespace Planetoid_DB
 			tableLayoutPanel.Controls.Add(labelAttributesValue, 1, 6);
 			tableLayoutPanel.Dock = DockStyle.Fill;
 			tableLayoutPanel.Location = new Point(0, 0);
+			tableLayoutPanel.Margin = new Padding(4, 3, 4, 3);
 			tableLayoutPanel.Name = "tableLayoutPanel";
 			tableLayoutPanel.PanelBackStyle = PaletteBackStyle.FormMain;
 			tableLayoutPanel.RowCount = 7;
@@ -357,7 +372,7 @@ namespace Planetoid_DB
 			tableLayoutPanel.RowStyles.Add(new RowStyle());
 			tableLayoutPanel.RowStyles.Add(new RowStyle());
 			tableLayoutPanel.RowStyles.Add(new RowStyle());
-			tableLayoutPanel.Size = new Size(489, 187);
+			tableLayoutPanel.Size = new Size(370, 187);
 			tableLayoutPanel.TabIndex = 0;
 			tableLayoutPanel.TabStop = true;
 			toolTip.SetToolTip(tableLayoutPanel, "Groups the information");
@@ -375,11 +390,13 @@ namespace Planetoid_DB
 			// toolStripContainer.ContentPanel
 			// 
 			toolStripContainer.ContentPanel.Controls.Add(tableLayoutPanel);
-			toolStripContainer.ContentPanel.Size = new Size(489, 187);
+			toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
+			toolStripContainer.ContentPanel.Size = new Size(370, 187);
 			toolStripContainer.Dock = DockStyle.Fill;
 			toolStripContainer.Location = new Point(0, 0);
+			toolStripContainer.Margin = new Padding(4, 3, 4, 3);
 			toolStripContainer.Name = "toolStripContainer";
-			toolStripContainer.Size = new Size(489, 209);
+			toolStripContainer.Size = new Size(370, 209);
 			toolStripContainer.TabIndex = 3;
 			toolStripContainer.Text = "toolStripContainer";
 			toolTip.SetToolTip(toolStripContainer, "Container to arrange the toolbars");
@@ -397,7 +414,7 @@ namespace Planetoid_DB
 			statusStrip.Name = "statusStrip";
 			statusStrip.ProgressBars = null;
 			statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-			statusStrip.Size = new Size(489, 22);
+			statusStrip.Size = new Size(370, 22);
 			statusStrip.TabIndex = 2;
 			statusStrip.Text = "status bar";
 			// 
@@ -417,19 +434,22 @@ namespace Planetoid_DB
 			// kryptonManager
 			// 
 			kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+			kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+			kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 			// 
 			// DatabaseInformationForm
 			// 
 			AccessibleDescription = "Shows the informations about the MPCORB.DAT database";
 			AccessibleName = "Database Information";
 			AccessibleRole = AccessibleRole.Dialog;
-			AutoScaleDimensions = new SizeF(6F, 13F);
+			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(489, 209);
+			ClientSize = new Size(370, 209);
+			ControlBox = false;
 			Controls.Add(toolStripContainer);
-			Font = new Font("Segoe UI", 8.5F);
 			FormBorderStyle = FormBorderStyle.SizableToolWindow;
 			Icon = (Icon)resources.GetObject("$this.Icon");
+			Margin = new Padding(4, 3, 4, 3);
 			MaximizeBox = false;
 			MinimizeBox = false;
 			Name = "DatabaseInformationForm";

@@ -66,9 +66,10 @@ namespace Planetoid_DB
 			tableLayoutPanel.SetColumnSpan(labelUpdateNeeded, 3);
 			labelUpdateNeeded.Dock = DockStyle.Fill;
 			labelUpdateNeeded.LabelStyle = LabelStyle.TitleControl;
-			labelUpdateNeeded.Location = new Point(3, 81);
+			labelUpdateNeeded.Location = new Point(4, 81);
+			labelUpdateNeeded.Margin = new Padding(4, 3, 4, 3);
 			labelUpdateNeeded.Name = "labelUpdateNeeded";
-			labelUpdateNeeded.Size = new Size(366, 29);
+			labelUpdateNeeded.Size = new Size(365, 29);
 			labelUpdateNeeded.TabIndex = 8;
 			toolTip.SetToolTip(labelUpdateNeeded, "Informs if an update is recommended");
 			labelUpdateNeeded.Values.Image = FatcowIcons16px.fatcow_help_16px;
@@ -86,7 +87,8 @@ namespace Planetoid_DB
 			labelAstorbDatLocal.AccessibleRole = AccessibleRole.Text;
 			labelAstorbDatLocal.Dock = DockStyle.Fill;
 			labelAstorbDatLocal.LabelStyle = LabelStyle.BoldControl;
-			labelAstorbDatLocal.Location = new Point(110, 3);
+			labelAstorbDatLocal.Location = new Point(113, 3);
+			labelAstorbDatLocal.Margin = new Padding(4, 3, 4, 3);
 			labelAstorbDatLocal.Name = "labelAstorbDatLocal";
 			labelAstorbDatLocal.Size = new Size(118, 20);
 			labelAstorbDatLocal.TabIndex = 0;
@@ -104,9 +106,10 @@ namespace Planetoid_DB
 			labelAstorbDatOnline.AccessibleRole = AccessibleRole.Text;
 			labelAstorbDatOnline.Dock = DockStyle.Fill;
 			labelAstorbDatOnline.LabelStyle = LabelStyle.BoldControl;
-			labelAstorbDatOnline.Location = new Point(234, 3);
+			labelAstorbDatOnline.Location = new Point(239, 3);
+			labelAstorbDatOnline.Margin = new Padding(4, 3, 4, 3);
 			labelAstorbDatOnline.Name = "labelAstorbDatOnline";
-			labelAstorbDatOnline.Size = new Size(135, 20);
+			labelAstorbDatOnline.Size = new Size(130, 20);
 			labelAstorbDatOnline.TabIndex = 1;
 			toolTip.SetToolTip(labelAstorbDatOnline, "Information about the online ASTORB.DAT file");
 			labelAstorbDatOnline.Values.Text = "ASTORB.DAT online";
@@ -121,7 +124,8 @@ namespace Planetoid_DB
 			labelContentLengthText.AccessibleName = "Content length";
 			labelContentLengthText.AccessibleRole = AccessibleRole.Text;
 			labelContentLengthText.LabelStyle = LabelStyle.BoldControl;
-			labelContentLengthText.Location = new Point(3, 29);
+			labelContentLengthText.Location = new Point(4, 29);
+			labelContentLengthText.Margin = new Padding(4, 3, 4, 3);
 			labelContentLengthText.Name = "labelContentLengthText";
 			labelContentLengthText.Size = new Size(101, 20);
 			labelContentLengthText.TabIndex = 2;
@@ -139,7 +143,8 @@ namespace Planetoid_DB
 			labelModifiedDateText.AccessibleRole = AccessibleRole.Text;
 			labelModifiedDateText.Dock = DockStyle.Left;
 			labelModifiedDateText.LabelStyle = LabelStyle.BoldControl;
-			labelModifiedDateText.Location = new Point(3, 55);
+			labelModifiedDateText.Location = new Point(4, 55);
+			labelModifiedDateText.Margin = new Padding(4, 3, 4, 3);
 			labelModifiedDateText.Name = "labelModifiedDateText";
 			labelModifiedDateText.Size = new Size(96, 20);
 			labelModifiedDateText.TabIndex = 5;
@@ -156,7 +161,8 @@ namespace Planetoid_DB
 			labelContentLengthValueLocal.AccessibleName = "Local content length";
 			labelContentLengthValueLocal.AccessibleRole = AccessibleRole.Text;
 			labelContentLengthValueLocal.Dock = DockStyle.Fill;
-			labelContentLengthValueLocal.Location = new Point(110, 29);
+			labelContentLengthValueLocal.Location = new Point(113, 29);
+			labelContentLengthValueLocal.Margin = new Padding(4, 3, 4, 3);
 			labelContentLengthValueLocal.Name = "labelContentLengthValueLocal";
 			labelContentLengthValueLocal.Size = new Size(118, 20);
 			labelContentLengthValueLocal.TabIndex = 3;
@@ -174,7 +180,8 @@ namespace Planetoid_DB
 			labelModifiedDateValueLocal.AccessibleName = "Local modified date";
 			labelModifiedDateValueLocal.AccessibleRole = AccessibleRole.Text;
 			labelModifiedDateValueLocal.Dock = DockStyle.Fill;
-			labelModifiedDateValueLocal.Location = new Point(110, 55);
+			labelModifiedDateValueLocal.Location = new Point(113, 55);
+			labelModifiedDateValueLocal.Margin = new Padding(4, 3, 4, 3);
 			labelModifiedDateValueLocal.Name = "labelModifiedDateValueLocal";
 			labelModifiedDateValueLocal.Size = new Size(118, 20);
 			labelModifiedDateValueLocal.TabIndex = 6;
@@ -192,9 +199,10 @@ namespace Planetoid_DB
 			labelContentLengthValueOnline.AccessibleName = "Online content length";
 			labelContentLengthValueOnline.AccessibleRole = AccessibleRole.Text;
 			labelContentLengthValueOnline.Dock = DockStyle.Fill;
-			labelContentLengthValueOnline.Location = new Point(234, 29);
+			labelContentLengthValueOnline.Location = new Point(239, 29);
+			labelContentLengthValueOnline.Margin = new Padding(4, 3, 4, 3);
 			labelContentLengthValueOnline.Name = "labelContentLengthValueOnline";
-			labelContentLengthValueOnline.Size = new Size(135, 20);
+			labelContentLengthValueOnline.Size = new Size(130, 20);
 			labelContentLengthValueOnline.TabIndex = 4;
 			toolTip.SetToolTip(labelContentLengthValueOnline, "Shows the online content length");
 			labelContentLengthValueOnline.Values.Text = "123456789 bytes";
@@ -210,9 +218,10 @@ namespace Planetoid_DB
 			labelModifiedDateValueOnline.AccessibleName = "Online Modified date";
 			labelModifiedDateValueOnline.AccessibleRole = AccessibleRole.Text;
 			labelModifiedDateValueOnline.Dock = DockStyle.Fill;
-			labelModifiedDateValueOnline.Location = new Point(234, 55);
+			labelModifiedDateValueOnline.Location = new Point(239, 55);
+			labelModifiedDateValueOnline.Margin = new Padding(4, 3, 4, 3);
 			labelModifiedDateValueOnline.Name = "labelModifiedDateValueOnline";
-			labelModifiedDateValueOnline.Size = new Size(135, 20);
+			labelModifiedDateValueOnline.Size = new Size(130, 20);
 			labelModifiedDateValueOnline.TabIndex = 7;
 			toolTip.SetToolTip(labelModifiedDateValueOnline, "Shows the online modified date");
 			labelModifiedDateValueOnline.Values.Text = "00.00.0000 00:00";
@@ -242,6 +251,7 @@ namespace Planetoid_DB
 			tableLayoutPanel.Controls.Add(labelUpdateNeeded, 0, 3);
 			tableLayoutPanel.Dock = DockStyle.Fill;
 			tableLayoutPanel.Location = new Point(0, 0);
+			tableLayoutPanel.Margin = new Padding(4, 3, 4, 3);
 			tableLayoutPanel.Name = "tableLayoutPanel";
 			tableLayoutPanel.PanelBackStyle = PaletteBackStyle.FormMain;
 			tableLayoutPanel.RowCount = 4;
@@ -249,7 +259,7 @@ namespace Planetoid_DB
 			tableLayoutPanel.RowStyles.Add(new RowStyle());
 			tableLayoutPanel.RowStyles.Add(new RowStyle());
 			tableLayoutPanel.RowStyles.Add(new RowStyle());
-			tableLayoutPanel.Size = new Size(372, 111);
+			tableLayoutPanel.Size = new Size(373, 112);
 			tableLayoutPanel.TabIndex = 0;
 			toolTip.SetToolTip(tableLayoutPanel, "Groups the data");
 			// 
@@ -266,11 +276,13 @@ namespace Planetoid_DB
 			// toolStripContainer.ContentPanel
 			// 
 			toolStripContainer.ContentPanel.Controls.Add(tableLayoutPanel);
-			toolStripContainer.ContentPanel.Size = new Size(372, 111);
+			toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
+			toolStripContainer.ContentPanel.Size = new Size(373, 112);
 			toolStripContainer.Dock = DockStyle.Fill;
 			toolStripContainer.Location = new Point(0, 0);
+			toolStripContainer.Margin = new Padding(4, 3, 4, 3);
 			toolStripContainer.Name = "toolStripContainer";
-			toolStripContainer.Size = new Size(372, 133);
+			toolStripContainer.Size = new Size(373, 134);
 			toolStripContainer.TabIndex = 3;
 			toolStripContainer.Text = "toolStripContainer";
 			toolTip.SetToolTip(toolStripContainer, "Container to arrange the toolbars");
@@ -288,7 +300,8 @@ namespace Planetoid_DB
 			statusStrip.Name = "statusStrip";
 			statusStrip.ProgressBars = null;
 			statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-			statusStrip.Size = new Size(372, 22);
+			statusStrip.Size = new Size(373, 22);
+			statusStrip.SizingGrip = false;
 			statusStrip.TabIndex = 0;
 			statusStrip.Text = "status bar";
 			// 
@@ -308,19 +321,22 @@ namespace Planetoid_DB
 			// kryptonManager
 			// 
 			kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+			kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+			kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 			// 
 			// CheckAstorbDatForm
 			// 
 			AccessibleDescription = "Shows the informations about the ASTORB.DAT database local and online";
 			AccessibleName = "Check ASTORB.DAT";
 			AccessibleRole = AccessibleRole.Dialog;
-			AutoScaleDimensions = new SizeF(6F, 13F);
+			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(372, 133);
+			ClientSize = new Size(373, 134);
+			ControlBox = false;
 			Controls.Add(toolStripContainer);
-			Font = new Font("Segoe UI", 8.5F);
-			FormBorderStyle = FormBorderStyle.SizableToolWindow;
+			FormBorderStyle = FormBorderStyle.FixedToolWindow;
 			Icon = (Icon)resources.GetObject("$this.Icon");
+			Margin = new Padding(4, 3, 4, 3);
 			MaximizeBox = false;
 			MinimizeBox = false;
 			Name = "CheckAstorbDatForm";
