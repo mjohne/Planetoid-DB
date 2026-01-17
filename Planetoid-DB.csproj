@@ -703,9 +703,9 @@ the library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.  But first, please read
 &lt;https://www.gnu.org/licenses/why-not-lgpl.html&gt;.</PackageReleaseNotes>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <TargetFrameworks>net9.0-windows</TargetFrameworks>
     <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+    <TargetFramework>net10.0-windows7.0</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -851,13 +851,13 @@ Public License instead of this License.  But first, please read
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Krypton.Docking" Version="95.25.8.235" />
-    <PackageReference Include="Krypton.Navigator" Version="95.25.8.235" />
-    <PackageReference Include="Krypton.Ribbon" Version="95.25.8.235" />
-    <PackageReference Include="Krypton.Toolkit" Version="95.25.8.235" />
+    <PackageReference Include="Krypton.Docking" Version="100.25.11.328" />
+    <PackageReference Include="Krypton.Navigator" Version="100.25.11.328" />
+    <PackageReference Include="Krypton.Ribbon" Version="100.25.11.328" />
+    <PackageReference Include="Krypton.Toolkit" Version="100.25.11.328" />
     <PackageReference Include="Krypton.Toolkit.Suite.Extended.Ultimate" Version="95.25.5.145" />
-    <PackageReference Include="Krypton.Workspace" Version="95.25.8.235" />
-    <PackageReference Include="NLog" Version="6.0.3" />
+    <PackageReference Include="Krypton.Workspace" Version="100.25.11.328" />
+    <PackageReference Include="NLog" Version="6.0.7" />
   </ItemGroup>
 
   <ItemGroup>

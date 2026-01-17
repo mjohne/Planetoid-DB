@@ -1,11 +1,13 @@
-﻿using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Net.Http;
+﻿using Krypton.Toolkit;
 
 using NLog;
 
 using Planetoid_DB.Properties;
+
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Net.Http;
 
 namespace Planetoid_DB
 {
@@ -13,7 +15,7 @@ namespace Planetoid_DB
 	/// MPCORB Data Verification Form.
 	/// </summary>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-	public partial class CheckMpcorbDatForm : Form
+	public partial class CheckMpcorbDatForm : KryptonForm
 	{
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger(); // NLog logger instance
 

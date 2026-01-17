@@ -46,12 +46,15 @@ namespace Planetoid_DB
 			progressBarSplash.AccessibleName = "Progress Bar";
 			progressBarSplash.AccessibleRole = AccessibleRole.ProgressBar;
 			progressBarSplash.Dock = DockStyle.Bottom;
-			progressBarSplash.Location = new Point(0, 294);
+			progressBarSplash.Location = new Point(0, 337);
+			progressBarSplash.Margin = new Padding(4, 3, 4, 3);
 			progressBarSplash.Name = "progressBarSplash";
-			progressBarSplash.Size = new Size(487, 20);
+			progressBarSplash.Size = new Size(481, 23);
 			progressBarSplash.Step = 1;
 			progressBarSplash.TabIndex = 3;
 			progressBarSplash.Text = "Loading data...";
+			progressBarSplash.TextBackdropColor = Color.Empty;
+			progressBarSplash.TextShadowColor = Color.Empty;
 			toolTip.SetToolTip(progressBarSplash, "Loads the data");
 			progressBarSplash.Values.Text = "Loading data...";
 			// 
@@ -65,7 +68,8 @@ namespace Planetoid_DB
 			labelTitle.BackColor = Color.Transparent;
 			labelTitle.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
 			labelTitle.ForeColor = Color.LightCyan;
-			labelTitle.Location = new Point(266, 22);
+			labelTitle.Location = new Point(223, 25);
+			labelTitle.Margin = new Padding(4, 0, 4, 0);
 			labelTitle.Name = "labelTitle";
 			labelTitle.Size = new Size(221, 45);
 			labelTitle.TabIndex = 0;
@@ -82,32 +86,38 @@ namespace Planetoid_DB
 			labelVersion.BackColor = Color.Transparent;
 			labelVersion.Font = new Font("Segoe UI", 8.5F);
 			labelVersion.ForeColor = Color.White;
-			labelVersion.Location = new Point(266, 67);
+			labelVersion.Location = new Point(223, 77);
+			labelVersion.Margin = new Padding(4, 0, 4, 0);
 			labelVersion.Name = "labelVersion";
-			labelVersion.Size = new Size(221, 22);
+			labelVersion.Size = new Size(258, 25);
 			labelVersion.TabIndex = 1;
 			labelVersion.Text = "Version: X.X.X.X";
 			labelVersion.TextAlign = ContentAlignment.MiddleCenter;
 			toolTip.SetToolTip(labelVersion, "Version number");
 			labelVersion.DoubleClick += CopyToClipboard_DoubleClick;
 			// 
+			// kryptonManager
+			// 
+			kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+			kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+			kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
+			// 
 			// SplashScreenForm
 			// 
 			AccessibleDescription = "Shows the splash screen and the loading progress of the data";
 			AccessibleName = "splash screen";
 			AccessibleRole = AccessibleRole.Window;
-			AutoScaleDimensions = new SizeF(6F, 13F);
+			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-			BackgroundImageLayout = ImageLayout.Stretch;
-			ClientSize = new Size(487, 314);
+			ClientSize = new Size(481, 360);
 			Controls.Add(labelVersion);
 			Controls.Add(labelTitle);
 			Controls.Add(progressBarSplash);
 			Cursor = Cursors.AppStarting;
-			Font = new Font("Segoe UI", 8.5F);
 			FormBorderStyle = FormBorderStyle.Fixed3D;
 			Icon = (Icon)resources.GetObject("$this.Icon");
+			Margin = new Padding(4, 3, 4, 3);
 			MaximizeBox = false;
 			MinimizeBox = false;
 			Name = "SplashScreenForm";

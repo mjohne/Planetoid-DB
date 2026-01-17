@@ -1,7 +1,10 @@
-﻿using System.Diagnostics;
+﻿using Krypton.Toolkit;
+
+using NLog;
+
+using System.Diagnostics;
 using System.IO;
 using System.Text;
-using NLog;
 
 namespace Planetoid_DB
 {
@@ -9,7 +12,7 @@ namespace Planetoid_DB
 	/// Form for exporting data sheets with various formats.
 	/// </summary>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-	public partial class ExportDataSheetForm : Form
+	public partial class ExportDataSheetForm : KryptonForm
 	{
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger(); // NLog logger instance
 		private List<string> orbitElements = []; // List of orbit elements to be exported

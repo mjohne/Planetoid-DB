@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿using Krypton.Toolkit;
+
+using NLog;
+
+using Planetoid_DB.Properties;
+
+using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -8,10 +14,6 @@ using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
 
-using NLog;
-
-using Planetoid_DB.Properties;
-
 namespace Planetoid_DB
 {
 	/// <summary>
@@ -19,7 +21,7 @@ namespace Planetoid_DB
 	/// </summary>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 
-	public partial class PlanetoidDbForm : Form
+	public partial class PlanetoidDbForm : KryptonForm
 	{
 		// NLog logger instance
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
@@ -690,12 +692,26 @@ namespace Planetoid_DB
 			}
 			else
 			{
+
+				/*
 				// Create and show the downloader form for the MPCORB database
 				using DownloadMpcorbDatForm formDownloaderForMpcorbDat = new();
 				// Set the TopMost property to true to keep the form on top of other windows
 				formDownloaderForMpcorbDat.TopMost = TopMost;
 				// Show the downloader form as a modal dialog
 				if (formDownloaderForMpcorbDat.ShowDialog() == DialogResult.OK)
+				{
+					// Ask the user if they want to restart the application after downloading the database
+					AskForRestartAfterDownloadingDatabase();
+				}
+				*/
+
+				// Create and show the downloader form for the MPCORB database
+				using FileDownloaderForm downloaderForm = new(url: Settings.Default.systemMpcorbDatGzUrl);
+				// Set the TopMost property to true to keep the form on top of other windows
+				downloaderForm.TopMost = TopMost;
+				// Show the downloader form as a modal dialog
+				if (downloaderForm.ShowDialog() == DialogResult.OK)
 				{
 					// Ask the user if they want to restart the application after downloading the database
 					AskForRestartAfterDownloadingDatabase();
@@ -1131,7 +1147,7 @@ namespace Planetoid_DB
 		{
 			//MessageBox.Show(text: e.ProgressPercentage.ToString());
 			// TODO: Not implemented yet
-			MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			_ = MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 
 		/// <summary>
@@ -1907,7 +1923,7 @@ namespace Planetoid_DB
 		private static void ToolStripMenuItemEnableCopyingByDoubleClicking_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
-			MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			_ = MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 
 		/// <summary>
@@ -1919,7 +1935,7 @@ namespace Planetoid_DB
 		private static void ToolStripMenuItemEnableLinkingToTerminology_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
-			MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			_ = MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 
 		/// <summary>
@@ -1931,7 +1947,7 @@ namespace Planetoid_DB
 		private static void ToolStripMenuItemIconSetSilk_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
-			MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			_ = MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 
 		/// <summary>
@@ -1943,7 +1959,7 @@ namespace Planetoid_DB
 		private static void ToolStripMenuItemIconSetFugue_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
-			MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			_ = MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 
 		/// <summary>
@@ -1955,7 +1971,7 @@ namespace Planetoid_DB
 		private static void ToolStripMenuItemIconSetFatcow_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
-			MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			_ = MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 
 		/// <summary>
@@ -2271,7 +2287,7 @@ namespace Planetoid_DB
 		private static void MenuitemDistributionMeanAnomalyAtTheEpoch_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
-			MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			_ = MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 
 		/// <summary>
@@ -2283,7 +2299,7 @@ namespace Planetoid_DB
 		private static void MenuitemDistributionArgumentOfPerihelion_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
-			MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			_ = MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 
 		/// <summary>
@@ -2295,7 +2311,7 @@ namespace Planetoid_DB
 		private static void MenuitemDistributionLongitudeOfTheAscendingNode_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
-			MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			_ = MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 
 		/// <summary>
@@ -2307,7 +2323,7 @@ namespace Planetoid_DB
 		private static void MenuitemDistributionInclination_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
-			MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			_ = MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 
 		/// <summary>
@@ -2319,7 +2335,7 @@ namespace Planetoid_DB
 		private static void MenuitemDistributionOrbitalEccentricity_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
-			MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			_ = MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 
 		/// <summary>
@@ -2331,7 +2347,7 @@ namespace Planetoid_DB
 		private static void MenuitemDistributionMeanDailyMotion_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
-			MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			_ = MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 
 		/// <summary>
@@ -2343,7 +2359,7 @@ namespace Planetoid_DB
 		private static void MenuitemDistributionSemiMajorAxis_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
-			MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			_ = MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 
 		/// <summary>
@@ -2355,7 +2371,7 @@ namespace Planetoid_DB
 		private static void MenuitemDistributionAbsoluteMagnitude_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
-			MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			_ = MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 
 		/// <summary>
@@ -2367,7 +2383,7 @@ namespace Planetoid_DB
 		private static void MenuitemDistributionSlopeParameter_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
-			MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			_ = MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 
 		/// <summary>
@@ -2379,7 +2395,7 @@ namespace Planetoid_DB
 		private static void MenuitemDistributionNumberOfOppositions_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
-			MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			_ = MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 
 		/// <summary>
@@ -2391,7 +2407,7 @@ namespace Planetoid_DB
 		private static void MenuitemDistributionNumberOfObservations_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
-			MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			_ = MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 
 		/// <summary>
@@ -2403,7 +2419,7 @@ namespace Planetoid_DB
 		private static void MenuitemDistributionObservationSpan_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
-			MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			_ = MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 
 		/// <summary>
@@ -2415,7 +2431,7 @@ namespace Planetoid_DB
 		private static void MenuitemDistributionRmsResidual_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
-			MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			_ = MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 
 		/// <summary>
@@ -2427,7 +2443,7 @@ namespace Planetoid_DB
 		private static void MenuitemDistributionComputerName_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
-			MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			_ = MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 
 		/// <summary>
@@ -2439,7 +2455,7 @@ namespace Planetoid_DB
 		private static void SplitButtonDistribution_ButtonClick(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
-			MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			_ = MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 
 		/// <summary>
@@ -2451,7 +2467,7 @@ namespace Planetoid_DB
 		private static void MenuitemDistribution_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
-			MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			_ = MessageBox.Show(text: "Not implemented yet", caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 
 		/// <summary>

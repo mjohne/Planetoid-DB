@@ -1,5 +1,8 @@
-﻿using System.Diagnostics;
+﻿using Krypton.Toolkit;
+
 using NLog;
+
+using System.Diagnostics;
 
 namespace Planetoid_DB
 {
@@ -7,7 +10,7 @@ namespace Planetoid_DB
 	/// Form for displaying derived orbit elements.
 	/// </summary>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-	public partial class DerivativeOrbitElementsForm : Form
+	public partial class DerivativeOrbitElementsForm : KryptonForm
 	{
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger(); // NLog logger instance
 

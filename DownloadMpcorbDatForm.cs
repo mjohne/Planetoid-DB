@@ -1,4 +1,10 @@
-﻿using System.ComponentModel;
+﻿using Krypton.Toolkit;
+
+using NLog;
+
+using Planetoid_DB.Properties;
+
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -7,17 +13,10 @@ using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
 
-using NLog;
-
-using Planetoid_DB.Properties;
-
 namespace Planetoid_DB
 {
-	/// <summary>
-	/// Form to handle downloading updates for the application.
-	/// </summary>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-	public partial class DownloadMpcorbDatForm : Form
+	public partial class DownloadMpcorbDatForm : KryptonForm
 	{
 		// NLog logger instance
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
@@ -470,7 +469,10 @@ namespace Planetoid_DB
 			{
 				labelStatusValue.Text = I10nStrings.StatusDownloading;
 
-				using HttpResponseMessage response = await HttpClient.GetAsync(requestUri: strUriMpcorb, completionOption: HttpCompletionOption.ResponseHeadersRead);
+				// Ersetze in der Methode ButtonDownload2_Click die Zeile:
+				// using HttpResponseMessage response = await HttpClient.GetAsync(requestUri: strUriMpcorb, completionOption: HttpCompletionOption.ResponseHeadersRead);
+				// durch:
+				using HttpResponseMessage response = await httpClient.GetAsync(requestUri: strUriMpcorb, completionOption: HttpCompletionOption.ResponseHeadersRead);
 				_ = response.EnsureSuccessStatusCode();
 
 				using Stream contentStream = await response.Content.ReadAsStreamAsync();

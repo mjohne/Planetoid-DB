@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using Krypton.Toolkit;
+
+using NLog;
+
+using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-
-using NLog;
 
 namespace Planetoid_DB
 {
@@ -11,7 +13,7 @@ namespace Planetoid_DB
 	/// Form to list readable designations from the planetoids database.
 	/// </summary>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-	public partial class ListReadableDesignationsForm : Form
+	public partial class ListReadableDesignationsForm : KryptonForm
 	{
 		// NLog logger instance
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();

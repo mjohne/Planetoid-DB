@@ -36,232 +36,244 @@ namespace Planetoid_DB
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new Container();
-			var resources = new ComponentResourceManager(typeof(AppInfoForm));
-			this.labelVersion = new KryptonLabel();
-			this.labelTitle = new KryptonLabel();
-			this.labelDescription = new KryptonLabel();
-			this.toolTip = new ToolTip(this.components);
-			this.pictureBoxBanner = new PictureBox();
-			this.labelCopyright = new KryptonLabel();
-			this.linkLabelEmail = new KryptonLinkLabel();
-			this.linkLabelWebsite = new KryptonLinkLabel();
-			this.panel = new KryptonPanel();
-			this.statusStrip = new KryptonStatusStrip();
-			this.labelInformation = new ToolStripStatusLabel();
-			this.kryptonManager = new KryptonManager(this.components);
-			((ISupportInitialize)this.pictureBoxBanner).BeginInit();
-			((ISupportInitialize)this.panel).BeginInit();
-			this.panel.SuspendLayout();
-			this.statusStrip.SuspendLayout();
-			this.SuspendLayout();
+			components = new Container();
+			ComponentResourceManager resources = new ComponentResourceManager(typeof(AppInfoForm));
+			labelVersion = new KryptonLabel();
+			labelTitle = new KryptonLabel();
+			labelDescription = new KryptonLabel();
+			toolTip = new ToolTip(components);
+			pictureBoxBanner = new PictureBox();
+			labelCopyright = new KryptonLabel();
+			linkLabelEmail = new KryptonLinkLabel();
+			linkLabelWebsite = new KryptonLinkLabel();
+			panel = new KryptonPanel();
+			statusStrip = new KryptonStatusStrip();
+			labelInformation = new ToolStripStatusLabel();
+			kryptonManager = new KryptonManager(components);
+			((ISupportInitialize)pictureBoxBanner).BeginInit();
+			((ISupportInitialize)panel).BeginInit();
+			panel.SuspendLayout();
+			statusStrip.SuspendLayout();
+			SuspendLayout();
 			// 
 			// labelVersion
 			// 
-			this.labelVersion.AccessibleDescription = "Shows the version number";
-			this.labelVersion.AccessibleName = "Version";
-			this.labelVersion.AccessibleRole = AccessibleRole.StaticText;
-			this.labelVersion.Location = new Point(12, 154);
-			this.labelVersion.Name = "labelVersion";
-			this.labelVersion.Size = new Size(95, 20);
-			this.labelVersion.TabIndex = 1;
-			this.toolTip.SetToolTip(this.labelVersion, "Shows the version number");
-			this.labelVersion.Values.Text = "Version: X.X.X.X";
-			this.labelVersion.DoubleClick += this.CopyToClipboard_DoubleClick;
-			this.labelVersion.Enter += this.SetStatusBar_Enter;
-			this.labelVersion.Leave += this.ClearStatusBar_Leave;
-			this.labelVersion.MouseEnter += this.SetStatusBar_Enter;
-			this.labelVersion.MouseLeave += this.ClearStatusBar_Leave;
+			labelVersion.AccessibleDescription = "Shows the version number";
+			labelVersion.AccessibleName = "Version";
+			labelVersion.AccessibleRole = AccessibleRole.StaticText;
+			labelVersion.Location = new Point(14, 178);
+			labelVersion.Margin = new Padding(4, 3, 4, 3);
+			labelVersion.Name = "labelVersion";
+			labelVersion.Size = new Size(95, 20);
+			labelVersion.TabIndex = 1;
+			toolTip.SetToolTip(labelVersion, "Shows the version number");
+			labelVersion.Values.Text = "Version: X.X.X.X";
+			labelVersion.DoubleClick += CopyToClipboard_DoubleClick;
+			labelVersion.Enter += SetStatusBar_Enter;
+			labelVersion.Leave += ClearStatusBar_Leave;
+			labelVersion.MouseEnter += SetStatusBar_Enter;
+			labelVersion.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// labelTitle
 			// 
-			this.labelTitle.AccessibleDescription = "Shows the application name";
-			this.labelTitle.AccessibleName = "Application Name";
-			this.labelTitle.AccessibleRole = AccessibleRole.StaticText;
-			this.labelTitle.LabelStyle = LabelStyle.TitlePanel;
-			this.labelTitle.Location = new Point(12, 129);
-			this.labelTitle.Name = "labelTitle";
-			this.labelTitle.Size = new Size(129, 29);
-			this.labelTitle.TabIndex = 0;
-			this.toolTip.SetToolTip(this.labelTitle, "Shows the application name");
-			this.labelTitle.Values.Text = "Planetoid-DB";
-			this.labelTitle.DoubleClick += this.CopyToClipboard_DoubleClick;
-			this.labelTitle.Enter += this.SetStatusBar_Enter;
-			this.labelTitle.Leave += this.ClearStatusBar_Leave;
-			this.labelTitle.MouseEnter += this.SetStatusBar_Enter;
-			this.labelTitle.MouseLeave += this.ClearStatusBar_Leave;
+			labelTitle.AccessibleDescription = "Shows the application name";
+			labelTitle.AccessibleName = "Application Name";
+			labelTitle.AccessibleRole = AccessibleRole.StaticText;
+			labelTitle.LabelStyle = LabelStyle.TitlePanel;
+			labelTitle.Location = new Point(14, 149);
+			labelTitle.Margin = new Padding(4, 3, 4, 3);
+			labelTitle.Name = "labelTitle";
+			labelTitle.Size = new Size(129, 29);
+			labelTitle.TabIndex = 0;
+			toolTip.SetToolTip(labelTitle, "Shows the application name");
+			labelTitle.Values.Text = "Planetoid-DB";
+			labelTitle.DoubleClick += CopyToClipboard_DoubleClick;
+			labelTitle.Enter += SetStatusBar_Enter;
+			labelTitle.Leave += ClearStatusBar_Leave;
+			labelTitle.MouseEnter += SetStatusBar_Enter;
+			labelTitle.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// labelDescription
 			// 
-			this.labelDescription.AccessibleDescription = "Shows the program description";
-			this.labelDescription.AccessibleName = "Program descripton";
-			this.labelDescription.AccessibleRole = AccessibleRole.StaticText;
-			this.labelDescription.Location = new Point(12, 180);
-			this.labelDescription.Name = "labelDescription";
-			this.labelDescription.Size = new Size(80, 20);
-			this.labelDescription.TabIndex = 2;
-			this.toolTip.SetToolTip(this.labelDescription, "Shows the program description");
-			this.labelDescription.Values.Text = "[Description]";
-			this.labelDescription.DoubleClick += this.CopyToClipboard_DoubleClick;
-			this.labelDescription.Enter += this.SetStatusBar_Enter;
-			this.labelDescription.Leave += this.ClearStatusBar_Leave;
-			this.labelDescription.MouseEnter += this.SetStatusBar_Enter;
-			this.labelDescription.MouseLeave += this.ClearStatusBar_Leave;
+			labelDescription.AccessibleDescription = "Shows the program description";
+			labelDescription.AccessibleName = "Program descripton";
+			labelDescription.AccessibleRole = AccessibleRole.StaticText;
+			labelDescription.Location = new Point(14, 208);
+			labelDescription.Margin = new Padding(4, 3, 4, 3);
+			labelDescription.Name = "labelDescription";
+			labelDescription.Size = new Size(80, 20);
+			labelDescription.TabIndex = 2;
+			toolTip.SetToolTip(labelDescription, "Shows the program description");
+			labelDescription.Values.Text = "[Description]";
+			labelDescription.DoubleClick += CopyToClipboard_DoubleClick;
+			labelDescription.Enter += SetStatusBar_Enter;
+			labelDescription.Leave += ClearStatusBar_Leave;
+			labelDescription.MouseEnter += SetStatusBar_Enter;
+			labelDescription.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// pictureBoxBanner
 			// 
-			this.pictureBoxBanner.AccessibleDescription = "Shows the banner";
-			this.pictureBoxBanner.AccessibleName = "Banner";
-			this.pictureBoxBanner.AccessibleRole = AccessibleRole.Graphic;
-			this.pictureBoxBanner.Image = (Image)resources.GetObject("pictureBoxBanner.Image");
-			this.pictureBoxBanner.Location = new Point(3, 3);
-			this.pictureBoxBanner.Name = "pictureBoxBanner";
-			this.pictureBoxBanner.Size = new Size(497, 120);
-			this.pictureBoxBanner.TabIndex = 0;
-			this.pictureBoxBanner.TabStop = false;
-			this.toolTip.SetToolTip(this.pictureBoxBanner, "On the graphic you see the minor planet \"(243) Ida \".");
-			this.pictureBoxBanner.MouseEnter += this.SetStatusBar_Enter;
-			this.pictureBoxBanner.MouseLeave += this.ClearStatusBar_Leave;
+			pictureBoxBanner.AccessibleDescription = "Shows the banner";
+			pictureBoxBanner.AccessibleName = "Banner";
+			pictureBoxBanner.AccessibleRole = AccessibleRole.Graphic;
+			pictureBoxBanner.Image = (Image)resources.GetObject("pictureBoxBanner.Image");
+			pictureBoxBanner.Location = new Point(4, 3);
+			pictureBoxBanner.Margin = new Padding(4, 3, 4, 3);
+			pictureBoxBanner.Name = "pictureBoxBanner";
+			pictureBoxBanner.Size = new Size(500, 119);
+			pictureBoxBanner.TabIndex = 0;
+			pictureBoxBanner.TabStop = false;
+			toolTip.SetToolTip(pictureBoxBanner, "On the graphic you see the minor planet \"(243) Ida \".");
+			pictureBoxBanner.MouseEnter += SetStatusBar_Enter;
+			pictureBoxBanner.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// labelCopyright
 			// 
-			this.labelCopyright.AccessibleDescription = "Shows the copyright";
-			this.labelCopyright.AccessibleName = "Copyright";
-			this.labelCopyright.AccessibleRole = AccessibleRole.StaticText;
-			this.labelCopyright.Location = new Point(12, 200);
-			this.labelCopyright.Name = "labelCopyright";
-			this.labelCopyright.Size = new Size(72, 20);
-			this.labelCopyright.TabIndex = 3;
-			this.toolTip.SetToolTip(this.labelCopyright, "Shows the copyright");
-			this.labelCopyright.Values.Text = "[Copyright]";
-			this.labelCopyright.DoubleClick += this.CopyToClipboard_DoubleClick;
-			this.labelCopyright.Enter += this.SetStatusBar_Enter;
-			this.labelCopyright.Leave += this.ClearStatusBar_Leave;
-			this.labelCopyright.MouseEnter += this.SetStatusBar_Enter;
-			this.labelCopyright.MouseLeave += this.ClearStatusBar_Leave;
+			labelCopyright.AccessibleDescription = "Shows the copyright";
+			labelCopyright.AccessibleName = "Copyright";
+			labelCopyright.AccessibleRole = AccessibleRole.StaticText;
+			labelCopyright.Location = new Point(14, 231);
+			labelCopyright.Margin = new Padding(4, 3, 4, 3);
+			labelCopyright.Name = "labelCopyright";
+			labelCopyright.Size = new Size(72, 20);
+			labelCopyright.TabIndex = 3;
+			toolTip.SetToolTip(labelCopyright, "Shows the copyright");
+			labelCopyright.Values.Text = "[Copyright]";
+			labelCopyright.DoubleClick += CopyToClipboard_DoubleClick;
+			labelCopyright.Enter += SetStatusBar_Enter;
+			labelCopyright.Leave += ClearStatusBar_Leave;
+			labelCopyright.MouseEnter += SetStatusBar_Enter;
+			labelCopyright.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// linkLabelEmail
 			// 
-			this.linkLabelEmail.AccessibleDescription = "Opens the mail client";
-			this.linkLabelEmail.AccessibleName = "E-Mail";
-			this.linkLabelEmail.AccessibleRole = AccessibleRole.Link;
-			this.linkLabelEmail.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
-			this.linkLabelEmail.Location = new Point(420, 200);
-			this.linkLabelEmail.Name = "linkLabelEmail";
-			this.linkLabelEmail.Size = new Size(62, 20);
-			this.linkLabelEmail.TabIndex = 5;
-			this.toolTip.SetToolTip(this.linkLabelEmail, "E-Mail");
-			this.linkLabelEmail.Values.Image = FatcowIcons16px.fatcow_email_16px;
-			this.linkLabelEmail.Values.Text = "E-Mail";
-			this.linkLabelEmail.Visible = false;
-			this.linkLabelEmail.LinkClicked += this.LinkLabelEmail_Clicked;
-			this.linkLabelEmail.Enter += this.SetStatusBar_Enter;
-			this.linkLabelEmail.Leave += this.ClearStatusBar_Leave;
-			this.linkLabelEmail.MouseEnter += this.SetStatusBar_Enter;
-			this.linkLabelEmail.MouseLeave += this.ClearStatusBar_Leave;
+			linkLabelEmail.AccessibleDescription = "Opens the mail client";
+			linkLabelEmail.AccessibleName = "E-Mail";
+			linkLabelEmail.AccessibleRole = AccessibleRole.Link;
+			linkLabelEmail.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
+			linkLabelEmail.Location = new Point(432, 238);
+			linkLabelEmail.Margin = new Padding(4, 3, 4, 3);
+			linkLabelEmail.Name = "linkLabelEmail";
+			linkLabelEmail.Size = new Size(62, 20);
+			linkLabelEmail.TabIndex = 5;
+			toolTip.SetToolTip(linkLabelEmail, "E-Mail");
+			linkLabelEmail.Values.Image = FatcowIcons16px.fatcow_email_16px;
+			linkLabelEmail.Values.Text = "E-Mail";
+			linkLabelEmail.Visible = false;
+			linkLabelEmail.LinkClicked += LinkLabelEmail_Clicked;
+			linkLabelEmail.Enter += SetStatusBar_Enter;
+			linkLabelEmail.Leave += ClearStatusBar_Leave;
+			linkLabelEmail.MouseEnter += SetStatusBar_Enter;
+			linkLabelEmail.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// linkLabelWebsite
 			// 
-			this.linkLabelWebsite.AccessibleDescription = "Opens the website";
-			this.linkLabelWebsite.AccessibleName = "Website";
-			this.linkLabelWebsite.AccessibleRole = AccessibleRole.Link;
-			this.linkLabelWebsite.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
-			this.linkLabelWebsite.Location = new Point(420, 174);
-			this.linkLabelWebsite.Name = "linkLabelWebsite";
-			this.linkLabelWebsite.Size = new Size(72, 20);
-			this.linkLabelWebsite.TabIndex = 4;
-			this.toolTip.SetToolTip(this.linkLabelWebsite, "Website");
-			this.linkLabelWebsite.Values.Image = FatcowIcons16px.fatcow_world_16px;
-			this.linkLabelWebsite.Values.Text = "Website";
-			this.linkLabelWebsite.Visible = false;
-			this.linkLabelWebsite.LinkClicked += this.LinkLabelWebsite_Clicked;
-			this.linkLabelWebsite.Enter += this.SetStatusBar_Enter;
-			this.linkLabelWebsite.Leave += this.ClearStatusBar_Leave;
-			this.linkLabelWebsite.MouseEnter += this.SetStatusBar_Enter;
-			this.linkLabelWebsite.MouseLeave += this.ClearStatusBar_Leave;
+			linkLabelWebsite.AccessibleDescription = "Opens the website";
+			linkLabelWebsite.AccessibleName = "Website";
+			linkLabelWebsite.AccessibleRole = AccessibleRole.Link;
+			linkLabelWebsite.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
+			linkLabelWebsite.Location = new Point(432, 208);
+			linkLabelWebsite.Margin = new Padding(4, 3, 4, 3);
+			linkLabelWebsite.Name = "linkLabelWebsite";
+			linkLabelWebsite.Size = new Size(72, 20);
+			linkLabelWebsite.TabIndex = 4;
+			toolTip.SetToolTip(linkLabelWebsite, "Website");
+			linkLabelWebsite.Values.Image = FatcowIcons16px.fatcow_world_16px;
+			linkLabelWebsite.Values.Text = "Website";
+			linkLabelWebsite.Visible = false;
+			linkLabelWebsite.LinkClicked += LinkLabelWebsite_Clicked;
+			linkLabelWebsite.Enter += SetStatusBar_Enter;
+			linkLabelWebsite.Leave += ClearStatusBar_Leave;
+			linkLabelWebsite.MouseEnter += SetStatusBar_Enter;
+			linkLabelWebsite.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// panel
 			// 
-			this.panel.AccessibleDescription = "Groups the data";
-			this.panel.AccessibleName = "pane";
-			this.panel.AccessibleRole = AccessibleRole.Pane;
-			this.panel.Controls.Add(this.linkLabelEmail);
-			this.panel.Controls.Add(this.linkLabelWebsite);
-			this.panel.Controls.Add(this.statusStrip);
-			this.panel.Controls.Add(this.labelCopyright);
-			this.panel.Controls.Add(this.labelTitle);
-			this.panel.Controls.Add(this.labelVersion);
-			this.panel.Controls.Add(this.labelDescription);
-			this.panel.Controls.Add(this.pictureBoxBanner);
-			this.panel.Dock = DockStyle.Fill;
-			this.panel.Location = new Point(0, 0);
-			this.panel.Name = "panel";
-			this.panel.PanelBackStyle = PaletteBackStyle.FormMain;
-			this.panel.Size = new Size(512, 246);
-			this.panel.TabIndex = 0;
+			panel.AccessibleDescription = "Groups the data";
+			panel.AccessibleName = "pane";
+			panel.AccessibleRole = AccessibleRole.Pane;
+			panel.Controls.Add(linkLabelEmail);
+			panel.Controls.Add(linkLabelWebsite);
+			panel.Controls.Add(statusStrip);
+			panel.Controls.Add(labelCopyright);
+			panel.Controls.Add(labelTitle);
+			panel.Controls.Add(labelVersion);
+			panel.Controls.Add(labelDescription);
+			panel.Controls.Add(pictureBoxBanner);
+			panel.Dock = DockStyle.Fill;
+			panel.Location = new Point(0, 0);
+			panel.Margin = new Padding(4, 3, 4, 3);
+			panel.Name = "panel";
+			panel.PanelBackStyle = PaletteBackStyle.FormMain;
+			panel.Size = new Size(508, 284);
+			panel.TabIndex = 0;
 			// 
 			// statusStrip
 			// 
-			this.statusStrip.AccessibleDescription = "Shows some information";
-			this.statusStrip.AccessibleName = "Status bar of some information";
-			this.statusStrip.AccessibleRole = AccessibleRole.StatusBar;
-			this.statusStrip.Font = new Font("Segoe UI", 9F);
-			this.statusStrip.Items.AddRange(new ToolStripItem[] { this.labelInformation });
-			this.statusStrip.Location = new Point(0, 224);
-			this.statusStrip.Name = "statusStrip";
-			this.statusStrip.ProgressBars = null;
-			this.statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-			this.statusStrip.Size = new Size(512, 22);
-			this.statusStrip.SizingGrip = false;
-			this.statusStrip.TabIndex = 6;
-			this.statusStrip.Text = "status bar";
+			statusStrip.AccessibleDescription = "Shows some information";
+			statusStrip.AccessibleName = "Status bar of some information";
+			statusStrip.AccessibleRole = AccessibleRole.StatusBar;
+			statusStrip.Font = new Font("Segoe UI", 9F);
+			statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
+			statusStrip.Location = new Point(0, 262);
+			statusStrip.Name = "statusStrip";
+			statusStrip.Padding = new Padding(1, 0, 16, 0);
+			statusStrip.ProgressBars = null;
+			statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+			statusStrip.Size = new Size(508, 22);
+			statusStrip.SizingGrip = false;
+			statusStrip.TabIndex = 6;
+			statusStrip.Text = "status bar";
 			// 
 			// labelInformation
 			// 
-			this.labelInformation.AccessibleDescription = "Shows some information";
-			this.labelInformation.AccessibleName = "Shows some information";
-			this.labelInformation.AccessibleRole = AccessibleRole.StaticText;
-			this.labelInformation.AutoToolTip = true;
-			this.labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
-			this.labelInformation.Margin = new Padding(5, 3, 0, 2);
-			this.labelInformation.Name = "labelInformation";
-			this.labelInformation.Size = new Size(144, 17);
-			this.labelInformation.Text = "some information here";
-			this.labelInformation.ToolTipText = "Shows some information";
+			labelInformation.AccessibleDescription = "Shows some information";
+			labelInformation.AccessibleName = "Shows some information";
+			labelInformation.AccessibleRole = AccessibleRole.StaticText;
+			labelInformation.AutoToolTip = true;
+			labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
+			labelInformation.Margin = new Padding(5, 3, 0, 2);
+			labelInformation.Name = "labelInformation";
+			labelInformation.Size = new Size(144, 17);
+			labelInformation.Text = "some information here";
+			labelInformation.ToolTipText = "Shows some information";
 			// 
 			// kryptonManager
 			// 
-			this.kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+			kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+			kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+			kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 			// 
 			// AppInfoForm
 			// 
-			this.AccessibleDescription = "Shows the program information";
-			this.AccessibleName = "Program information";
-			this.AccessibleRole = AccessibleRole.Dialog;
-			this.AutoScaleDimensions = new SizeF(6F, 13F);
-			this.AutoScaleMode = AutoScaleMode.Font;
-			this.ClientSize = new Size(512, 246);
-			this.Controls.Add(this.panel);
-			this.Font = new Font("Segoe UI", 8.5F);
-			this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
-			this.Icon = (Icon)resources.GetObject("$this.Icon");
-			this.MaximizeBox = false;
-			this.MinimizeBox = false;
-			this.Name = "AppInfoForm";
-			this.ShowInTaskbar = false;
-			this.StartPosition = FormStartPosition.CenterParent;
-			this.Text = "Program information";
-			this.toolTip.SetToolTip(this, "Program information");
-			this.FormClosed += this.AppInfoForm_FormClosed;
-			this.Load += this.AppInfoForm_Load;
-			this.KeyDown += this.AppInfoForm_KeyDown;
-			((ISupportInitialize)this.pictureBoxBanner).EndInit();
-			((ISupportInitialize)this.panel).EndInit();
-			this.panel.ResumeLayout(false);
-			this.panel.PerformLayout();
-			this.statusStrip.ResumeLayout(false);
-			this.statusStrip.PerformLayout();
-			this.ResumeLayout(false);
+			AccessibleDescription = "Shows the program information";
+			AccessibleName = "Program information";
+			AccessibleRole = AccessibleRole.Dialog;
+			AutoScaleDimensions = new SizeF(7F, 15F);
+			AutoScaleMode = AutoScaleMode.Font;
+			ClientSize = new Size(508, 284);
+			ControlBox = false;
+			Controls.Add(panel);
+			FormBorderStyle = FormBorderStyle.FixedToolWindow;
+			Icon = (Icon)resources.GetObject("$this.Icon");
+			Margin = new Padding(4, 3, 4, 3);
+			MaximizeBox = false;
+			MinimizeBox = false;
+			Name = "AppInfoForm";
+			ShowInTaskbar = false;
+			StartPosition = FormStartPosition.CenterParent;
+			Text = "Program information";
+			toolTip.SetToolTip(this, "Program information");
+			FormClosed += AppInfoForm_FormClosed;
+			Load += AppInfoForm_Load;
+			KeyDown += AppInfoForm_KeyDown;
+			((ISupportInitialize)pictureBoxBanner).EndInit();
+			((ISupportInitialize)panel).EndInit();
+			panel.ResumeLayout(false);
+			panel.PerformLayout();
+			statusStrip.ResumeLayout(false);
+			statusStrip.PerformLayout();
+			ResumeLayout(false);
 
 		}
 
