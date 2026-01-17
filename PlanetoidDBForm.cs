@@ -692,20 +692,6 @@ namespace Planetoid_DB
 			}
 			else
 			{
-
-				/*
-				// Create and show the downloader form for the MPCORB database
-				using DownloadMpcorbDatForm formDownloaderForMpcorbDat = new();
-				// Set the TopMost property to true to keep the form on top of other windows
-				formDownloaderForMpcorbDat.TopMost = TopMost;
-				// Show the downloader form as a modal dialog
-				if (formDownloaderForMpcorbDat.ShowDialog() == DialogResult.OK)
-				{
-					// Ask the user if they want to restart the application after downloading the database
-					AskForRestartAfterDownloadingDatabase();
-				}
-				*/
-
 				// Create and show the downloader form for the MPCORB database
 				using FileDownloaderForm downloaderForm = new(url: Settings.Default.systemMpcorbDatGzUrl);
 				// Set the TopMost property to true to keep the form on top of other windows
@@ -732,19 +718,16 @@ namespace Planetoid_DB
 			}
 			else
 			{
-				// Create and show the downloader form for the ASTORB database
-				using DownloadAstorbDatForm formDownloaderForAstorbDat = new();
+				// Create and show the downloader form for the MPCORB database
+				using FileDownloaderForm downloaderForm = new(url: Settings.Default.systemAstorbDatGzUrl);
 				// Set the TopMost property to true to keep the form on top of other windows
-				formDownloaderForAstorbDat.TopMost = TopMost;
+				downloaderForm.TopMost = TopMost;
 				// Show the downloader form as a modal dialog
-				_ = formDownloaderForAstorbDat.ShowDialog();
-				/* Meanwhile not necessary
-				if (formDownloaderForAstorbDat.ShowDialog() == DialogResult.OK)
+				if (downloaderForm.ShowDialog() == DialogResult.OK)
 				{
 					// Ask the user if they want to restart the application after downloading the database
 					AskForRestartAfterDownloadingDatabase();
 				}
-				*/
 			}
 		}
 

@@ -134,6 +134,35 @@ namespace Planetoid_DB
 		[DesignerSerializationVisibility(visibility: DesignerSerializationVisibility.Hidden)]
 		public string MpcOrbDatFilePath { get; set; } = string.Empty;
 
+		/// <summary>
+		/// Shows the downloader form for the MPCORB database.
+		/// </summary>
+		private void ShowMpcorbDatDownloader()
+		{
+			// Check if the network is available before proceeding with the download
+			if (!NetworkInterface.GetIsNetworkAvailable())
+			{
+				// Display an error message if the network is not available
+				_ = MessageBox.Show(text: I10nStrings.NoInternetConnectionText, caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			else
+			{
+				// Create and show the downloader form for the MPCORB database
+				using FileDownloaderForm downloaderForm = new(url: Settings.Default.systemMpcorbDatGzUrl);
+				// Set the TopMost property to true to keep the form on top of other windows
+				downloaderForm.TopMost = TopMost;
+
+				/*
+				// Show the downloader form as a modal dialog
+				if (downloaderForm.ShowDialog() == DialogResult.OK)
+				{
+					// Ask the user if they want to restart the application after downloading the database
+					AskForRestartAfterDownloadingDatabase();
+				}
+				 */
+			}
+		}
+
 		#endregion
 
 		#region form event handler

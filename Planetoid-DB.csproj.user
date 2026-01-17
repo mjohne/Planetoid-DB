@@ -25,9 +25,6 @@
     <Compile Update="DerivativeOrbitElementsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="DownloadAstorbDatForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="DownloadMpcorbDatForm.cs">
       <SubType>Form</SubType>
     </Compile>

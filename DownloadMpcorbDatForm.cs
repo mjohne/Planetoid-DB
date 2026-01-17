@@ -15,25 +15,42 @@ using System.Net.NetworkInformation;
 
 namespace Planetoid_DB
 {
+	/// <summary>
+	/// Form responsible for downloading and installing the MPCORB.DAT database file.
+	/// Provides UI helpers, progress reporting and both WebClient- and HttpClient-based download paths.
+	/// </summary>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 	public partial class DownloadMpcorbDatForm : KryptonForm
 	{
-		// NLog logger instance
+		/// <summary>
+		/// NLog logger instance for the class.
+		/// </summary>
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-		// Filename for the MPCORB data file
+		/// <summary>
+		/// Filename (full path) for the local MPCORB data file.
+		/// </summary>
 		private readonly string strFilenameMpcorb = Settings.Default.systemFilenameMpcorb;
 
-		// Temporary filename for the MPCORB data file during download
+		/// <summary>
+		/// Temporary filename (full path) used while downloading the MPCORB data file.
+		/// </summary>
 		private readonly string strFilenameMpcorbTemp = Settings.Default.systemFilenameMpcorbTemp;
 
-		// URI for the MPCORB data file
+		/// <summary>
+		/// Remote URI of the MPCORB.GZ resource to download.
+		/// </summary>
 		private readonly Uri strUriMpcorb = new(uriString: Settings.Default.systemMpcorbDatGzUrl);
 
-		// WebClient instance for handling the download
+		/// <summary>
+		/// Instance of <see cref="WebClient"/> used for the legacy async download path.
+		/// </summary>
 		private readonly WebClient webClient = new();
 
-		// Static HttpClient instance for making HTTP requests
+		/// <summary>
+		/// Shared <see cref="HttpClient"/> used for modern, streamed downloads.
+		/// Reuse recommended to avoid socket exhaustion.
+		/// </summary>
 		private static readonly HttpClient httpClient = new();
 
 		#region Constructor
