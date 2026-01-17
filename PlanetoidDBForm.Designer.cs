@@ -46,10 +46,10 @@ namespace Planetoid_DB
 			menuitemNavigateStep1000 = new ToolStripMenuItem();
 			menuitemNavigateStep10000 = new ToolStripMenuItem();
 			menuitemNavigateStep100000 = new ToolStripMenuItem();
-			toolStripSplitButtonStepBackward = new ToolStripSplitButton();
-			menuitemNavigateSomeDataBackward = new ToolStripMenuItem();
 			menuitemNavigateSomeDataForward = new ToolStripMenuItem();
 			toolStripSplitButtonStepForward = new ToolStripSplitButton();
+			toolStripSplitButtonStepBackward = new ToolStripSplitButton();
+			menuitemNavigateSomeDataBackward = new ToolStripMenuItem();
 			tableLayoutPanelData = new KryptonTableLayoutPanel();
 			labelIndexData = new KryptonLabel();
 			labelReadableDesignationData = new KryptonLabel();
@@ -274,7 +274,7 @@ namespace Planetoid_DB
 			contextMenuNavigationStep.Font = new Font("Segoe UI", 9F);
 			contextMenuNavigationStep.Items.AddRange(new ToolStripItem[] { menuitemNavigateStep10, menuitemNavigateStep100, menuitemNavigateStep1000, menuitemNavigateStep10000, menuitemNavigateStep100000 });
 			contextMenuNavigationStep.Name = "contextMenu";
-			contextMenuNavigationStep.OwnerItem = toolStripSplitButtonStepForward;
+			contextMenuNavigationStep.OwnerItem = menuitemNavigateSomeDataBackward;
 			contextMenuNavigationStep.ShowCheckMargin = true;
 			contextMenuNavigationStep.ShowImageMargin = false;
 			contextMenuNavigationStep.Size = new Size(111, 114);
@@ -356,39 +356,6 @@ namespace Planetoid_DB
 			menuitemNavigateStep100000.MouseEnter += SetStatusBar_Enter;
 			menuitemNavigateStep100000.MouseLeave += ClearStatusBar_Leave;
 			// 
-			// toolStripSplitButtonStepBackward
-			// 
-			toolStripSplitButtonStepBackward.AccessibleDescription = "Navigates some data backward";
-			toolStripSplitButtonStepBackward.AccessibleName = "Navigate some data backward";
-			toolStripSplitButtonStepBackward.AccessibleRole = AccessibleRole.SplitButton;
-			toolStripSplitButtonStepBackward.DisplayStyle = ToolStripItemDisplayStyle.Image;
-			toolStripSplitButtonStepBackward.DropDown = contextMenuNavigationStep;
-			toolStripSplitButtonStepBackward.Image = FatcowIcons16px.fatcow_control_rewind_blue_16px;
-			toolStripSplitButtonStepBackward.ImageTransparentColor = Color.Magenta;
-			toolStripSplitButtonStepBackward.Name = "toolStripSplitButtonStepBackward";
-			toolStripSplitButtonStepBackward.Size = new Size(32, 22);
-			toolStripSplitButtonStepBackward.Text = "Navigate some data backward";
-			toolStripSplitButtonStepBackward.ButtonClick += ToolStripButtonStepBackward_Click;
-			toolStripSplitButtonStepBackward.MouseEnter += SetStatusBar_Enter;
-			toolStripSplitButtonStepBackward.MouseLeave += ClearStatusBar_Leave;
-			// 
-			// menuitemNavigateSomeDataBackward
-			// 
-			menuitemNavigateSomeDataBackward.AccessibleDescription = "Navigates some data backward";
-			menuitemNavigateSomeDataBackward.AccessibleName = "Navigates some data backward";
-			menuitemNavigateSomeDataBackward.AccessibleRole = AccessibleRole.MenuItem;
-			menuitemNavigateSomeDataBackward.AutoToolTip = true;
-			menuitemNavigateSomeDataBackward.DoubleClickEnabled = true;
-			menuitemNavigateSomeDataBackward.DropDown = contextMenuNavigationStep;
-			menuitemNavigateSomeDataBackward.Image = FatcowIcons16px.fatcow_control_rewind_blue_16px;
-			menuitemNavigateSomeDataBackward.Name = "menuitemNavigateSomeDataBackward";
-			menuitemNavigateSomeDataBackward.ShortcutKeys = Keys.Control | Keys.D2;
-			menuitemNavigateSomeDataBackward.Size = new Size(275, 22);
-			menuitemNavigateSomeDataBackward.Text = "Navigate some data back&ward";
-			menuitemNavigateSomeDataBackward.Click += ToolStripMenuItemNavigateSomeDataBackward_Click;
-			menuitemNavigateSomeDataBackward.MouseEnter += SetStatusBar_Enter;
-			menuitemNavigateSomeDataBackward.MouseLeave += ClearStatusBar_Leave;
-			// 
 			// menuitemNavigateSomeDataForward
 			// 
 			menuitemNavigateSomeDataForward.AccessibleDescription = "Navigates some data forward";
@@ -421,6 +388,39 @@ namespace Planetoid_DB
 			toolStripSplitButtonStepForward.ButtonClick += ToolStripButtonStepForward_Click;
 			toolStripSplitButtonStepForward.MouseEnter += SetStatusBar_Enter;
 			toolStripSplitButtonStepForward.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// toolStripSplitButtonStepBackward
+			// 
+			toolStripSplitButtonStepBackward.AccessibleDescription = "Navigates some data backward";
+			toolStripSplitButtonStepBackward.AccessibleName = "Navigate some data backward";
+			toolStripSplitButtonStepBackward.AccessibleRole = AccessibleRole.SplitButton;
+			toolStripSplitButtonStepBackward.DisplayStyle = ToolStripItemDisplayStyle.Image;
+			toolStripSplitButtonStepBackward.DropDown = contextMenuNavigationStep;
+			toolStripSplitButtonStepBackward.Image = FatcowIcons16px.fatcow_control_rewind_blue_16px;
+			toolStripSplitButtonStepBackward.ImageTransparentColor = Color.Magenta;
+			toolStripSplitButtonStepBackward.Name = "toolStripSplitButtonStepBackward";
+			toolStripSplitButtonStepBackward.Size = new Size(32, 22);
+			toolStripSplitButtonStepBackward.Text = "Navigate some data backward";
+			toolStripSplitButtonStepBackward.ButtonClick += ToolStripButtonStepBackward_Click;
+			toolStripSplitButtonStepBackward.MouseEnter += SetStatusBar_Enter;
+			toolStripSplitButtonStepBackward.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// menuitemNavigateSomeDataBackward
+			// 
+			menuitemNavigateSomeDataBackward.AccessibleDescription = "Navigates some data backward";
+			menuitemNavigateSomeDataBackward.AccessibleName = "Navigates some data backward";
+			menuitemNavigateSomeDataBackward.AccessibleRole = AccessibleRole.MenuItem;
+			menuitemNavigateSomeDataBackward.AutoToolTip = true;
+			menuitemNavigateSomeDataBackward.DoubleClickEnabled = true;
+			menuitemNavigateSomeDataBackward.DropDown = contextMenuNavigationStep;
+			menuitemNavigateSomeDataBackward.Image = FatcowIcons16px.fatcow_control_rewind_blue_16px;
+			menuitemNavigateSomeDataBackward.Name = "menuitemNavigateSomeDataBackward";
+			menuitemNavigateSomeDataBackward.ShortcutKeys = Keys.Control | Keys.D2;
+			menuitemNavigateSomeDataBackward.Size = new Size(275, 22);
+			menuitemNavigateSomeDataBackward.Text = "Navigate some data back&ward";
+			menuitemNavigateSomeDataBackward.Click += ToolStripMenuItemNavigateSomeDataBackward_Click;
+			menuitemNavigateSomeDataBackward.MouseEnter += SetStatusBar_Enter;
+			menuitemNavigateSomeDataBackward.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// tableLayoutPanelData
 			// 
