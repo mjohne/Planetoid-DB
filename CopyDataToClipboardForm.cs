@@ -76,9 +76,11 @@ namespace Planetoid_DB
 		#region form event handlers
 
 		/// <summary>
-		/// Handles the Load event of the form.
+		/// Fired when the CopyDataToClipboardForm loads.
+		/// Clears the status area and initializes button tags with the values provided via <see cref="SetDatabase(List{string})"/>.
+		/// Each button's <c>tag</c> will contain the corresponding data item or an empty string if the item is missing.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void CopyDataToClipboardForm_Load(object sender, EventArgs e)
 		{
@@ -100,9 +102,10 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
-		/// Handles the FormClosed event of the form.
+		/// Fired when the CopyDataToClipboardForm is closed.
+		/// Disposes managed resources associated with the form.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
 		private void CopyDataToClipboardForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
 
@@ -148,11 +151,6 @@ namespace Planetoid_DB
 
 		#region Click event handlers
 
-		/// <summary>
-		/// Handles the Click event of the buttonIndexNumber control.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void ButtonIndexNumber_Click(object sender, EventArgs e) => CopyToClipboard(text: buttonIndexNumber.Tag?.ToString() ?? string.Empty);
 
 		/// <summary>

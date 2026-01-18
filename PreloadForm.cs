@@ -112,10 +112,7 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void PreloadForm_Load(object sender, EventArgs e)
-		{
-			ClearStatusBar();
-		}
+		private void PreloadForm_Load(object sender, EventArgs e) => ClearStatusBar();
 
 		/// <summary>
 		/// Fired when the preload form is closed.
@@ -123,10 +120,8 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
-		private void PreloadForm_FormClosed(object sender, FormClosedEventArgs e)
-		{
-			Dispose();
-		}
+		private void PreloadForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
+
 		#endregion
 
 		#region Enter event handlers
