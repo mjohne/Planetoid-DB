@@ -277,7 +277,6 @@ namespace Planetoid_DB
 			checkedListBoxOrbitalElements.TabIndex = 0;
 			toolTip.SetToolTip(checkedListBoxOrbitalElements, "Check orbital elements");
 			checkedListBoxOrbitalElements.SelectedIndexChanged += CheckedListBoxOrbitalElements_SelectedIndexChanged;
-			checkedListBoxOrbitalElements.ItemCheck += CheckedListBoxOrbitalElements_ItemCheck;
 			checkedListBoxOrbitalElements.Enter += SetStatusBar_Enter;
 			checkedListBoxOrbitalElements.Leave += ClearStatusBar_Leave;
 			checkedListBoxOrbitalElements.MouseEnter += SetStatusBar_Enter;
@@ -306,6 +305,8 @@ namespace Planetoid_DB
 			// kryptonManager
 			// 
 			kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+			kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+			kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 			// 
 			// ExportDataSheetForm
 			// 
@@ -315,6 +316,7 @@ namespace Planetoid_DB
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(474, 330);
+			ControlBox = false;
 			Controls.Add(toolStripContainer);
 			FormBorderStyle = FormBorderStyle.FixedToolWindow;
 			Icon = (Icon)resources.GetObject("$this.Icon");
@@ -326,6 +328,7 @@ namespace Planetoid_DB
 			StartPosition = FormStartPosition.CenterScreen;
 			Text = "Export data sheet";
 			toolTip.SetToolTip(this, "Export data sheet");
+			FormClosed += ExportDataSheetForm_FormClosed;
 			Load += ExportDataSheetForm_Load;
 			statusStrip.ResumeLayout(false);
 			statusStrip.PerformLayout();

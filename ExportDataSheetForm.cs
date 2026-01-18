@@ -65,15 +65,15 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
-		/// Sets the database with the provided list of orbit elements.
+		/// Sets the internal list of orbit elements that will be used for export operations.
 		/// </summary>
-		/// <param name="list">The list of orbit elements.</param>
+		/// <param name="list">A list of orbit element values (strings). The list is stored by reference.</param>
 		public void SetDatabase(List<string> list) => orbitElements = list;
 
 		/// <summary>
-		/// Checks or unchecks all items in the list.
+		/// Checks or unchecks all items in the orbital elements checklist and toggles export buttons.
 		/// </summary>
-		/// <param name="check">True to check all items, false to uncheck all items.</param>
+		/// <param name="check">If true, all items are checked; if false, all items are unchecked.</param>
 		private void CheckIt(bool check)
 		{
 			// Check or uncheck all items in the checked list box
@@ -89,25 +89,27 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
-		/// Marks all items in the list.
+		/// Checks all items in the orbital elements checklist.
 		/// </summary>
 		private void MarkAll() => CheckIt(check: true);
 
 		/// <summary>
-		/// Unmarks all items in the list.
+		/// Unchecks all items in the orbital elements checklist.
 		/// </summary>
 		private void UnmarkAll() => CheckIt(check: false);
 
 		/// <summary>
-		/// Determines whether all items are unmarked.
+		/// Determines whether all items in the orbital elements checklist are unmarked (unchecked).
 		/// </summary>
-		/// <returns>True if all items are unmarked, otherwise false.</returns>
+		/// <returns><c>true</c> if every item is unchecked; otherwise <c>false</c>.</returns>
 		private bool IsAllUnmarked()
 		{
 			// Check if all items in the checked list box are unmarked
 			// and return true if they are, otherwise return false
-			return checkedListBoxOrbitalElements.Items.OfType<object>().Select(item => item.ToString() ?? string.Empty).Select(itemString => checkedListBoxOrbitalElements.GetItemChecked(index: checkedListBoxOrbitalElements.FindStringExact(str: itemString))).All(isChecked => !isChecked);
-			// If all items are unmarked, return true
+			return checkedListBoxOrbitalElements.Items.OfType<object>()
+				.Select(selector: item => item.ToString() ?? string.Empty)
+				.Select(selector: itemString => checkedListBoxOrbitalElements.GetItemChecked(index: checkedListBoxOrbitalElements.FindStringExact(str: itemString)))
+				.All(predicate: isChecked => !isChecked);
 		}
 
 		#endregion
@@ -115,15 +117,24 @@ namespace Planetoid_DB
 		#region form event handlers
 
 		/// <summary>
-		/// Handles the Load event of the form.
+		/// Fired when the export form loads.
+		/// Clears the status area and selects all available orbital elements by default.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void ExportDataSheetForm_Load(object sender, EventArgs e)
 		{
 			ClearStatusBar(); // Clear the status bar text
 			MarkAll(); // Mark all items in the list
 		}
+
+		/// <summary>
+		/// Fired when the export form is closed.
+		/// Releases managed resources and disposes the form instance.
+		/// </summary>
+		/// <param name="sender">Event source (the form).</param>
+		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
+		private void ExportDataSheetForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
 
 		#endregion
 
@@ -168,9 +179,11 @@ namespace Planetoid_DB
 		#region Click & ButtonClick event handlers
 
 		/// <summary>
-		/// Handles the Click event of the ButtonExportAsTxt control.
+		/// Handles the Click event of the Export As TXT button.
+		/// Prompts the user for a destination file, then writes each checked orbital element
+		/// and its corresponding value as plain text lines in the format "Label: Value".
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the export button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void ButtonExportAsTxt_Click(object sender, EventArgs e)
 		{
@@ -208,9 +221,11 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
-		/// Handles the Click event of the ButtonExportAsHtml control.
+		/// Handles the Click event of the Export As HTML button.
+		/// Prompts the user for a destination file, then writes each checked orbital element
+		/// and its corresponding value as HTML lines in the format "<p>Label: Value</p>".
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the export button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void ButtonExportAsHtml_Click(object sender, EventArgs e)
 		{
@@ -267,9 +282,11 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
-		/// Handles the Click event of the ButtonExportAsXml control.
+		/// Handles the Click event of the Export As XML button.
+		/// Prompts the user for a destination file, then writes each checked orbital element
+		/// and its corresponding value as XML lines in the format "Label: Value".
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the export button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void ButtonExportAsXml_Click(object sender, EventArgs e)
 		{
@@ -349,26 +366,37 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
-		/// Handles the Click event of the ButtonExportAsJson control.
+		/// Handles the Click event of the Export As JSON button.
+		/// Prompts the user for a destination file, then writes each checked orbital element
+		/// and its corresponding value as JSON lines in the format "\"Label\": \"Value\"".
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the export button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void ButtonExportAsJson_Click(object sender, EventArgs e)
 		{
+			// Set the initial directory for the save file dialog to the user's documents folder
 			saveFileDialogJson.InitialDirectory = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyDocuments);
+			// Set the initial directory for the save file dialog to the user's documents folder
 			saveFileDialogJson.FileName = $"{orbitElements[index: 0]}.{saveFileDialogJson.DefaultExt}";
+			// Show the save file dialog to select the file path and name
 			if (saveFileDialogJson.ShowDialog() != DialogResult.OK)
 			{
 				return;
 			}
-
+			// Create a new StreamWriter to write the JSON content to the specified file
 			using StreamWriter streamWriter = new(path: saveFileDialogJson.FileName);
+			// Create a StringBuilder to build the JSON content
 			StringBuilder sb = new();
+			// Append the JSON content to the StringBuilder
 			_ = sb.AppendLine(value: "{");
+			// Append the orbit elements to the JSON content
 			for (int i = 0; i < checkedListBoxOrbitalElements.Items.Count; i++)
 			{
+				// Check if the item is checked
+				// If it is checked, append the orbit element to the JSON content
 				if (checkedListBoxOrbitalElements.GetItemChecked(index: i))
 				{
+					// Append the orbit element to the JSON content
 					_ = sb.AppendLine(value: i switch
 					{
 						0 => $"\t\"Index\": \"{orbitElements[index: i]}\",",
@@ -410,52 +438,42 @@ namespace Planetoid_DB
 						36 => $"\t\"SemiMeanAxis\": {orbitElements[index: i]},",
 						37 => $"\t\"MeanAxis\": {orbitElements[index: i]},",
 						38 => $"\t\"StandardGravitationalParameter\": {orbitElements[index: i]}",
-						_ => string.Empty
+						_ => string.Empty // Default case if no match is found
 					});
 				}
 			}
+			// Append the closing tag for the JSON content
 			_ = sb.AppendLine(value: "}");
+			// Write the JSON content to the file
 			streamWriter.Write(value: sb.ToString());
 		}
 
 		/// <summary>
-		/// Handles the Click event of the ButtonMarkAll control.
-		/// Marks all items in the list.
+		/// Handles the Click event of the Mark All button.
+		/// Marks all items in the orbital elements checklist and enables export buttons.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the Mark All button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void ButtonMarkAll_Click(object sender, EventArgs e) => MarkAll();
 
 		/// <summary>
-		/// Handles the Click event of the ButtonUnmarkAll control.
-		/// Unmarks all items in the list.
+		/// Handles the Click event of the Unmark All button.
+		/// Unmarks all items in the orbital elements checklist and disables export buttons.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the Unmark All button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void ButtonUnmarkAll_Click(object sender, EventArgs e) => UnmarkAll();
-
-		#endregion
-
-		#region ItemCheck event handlers
-
-		/// <summary>
-		/// Handles the ItemCheck event of the CheckedListBoxOrbitalElements control.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void CheckedListBoxOrbitalElements_ItemCheck(object sender, ItemCheckEventArgs e)
-		{
-		}
 
 		#endregion
 
 		#region SelectedIndexChanged event handlers
 
 		/// <summary>
-		/// Handles the SelectedIndexChanged event of the CheckedListBoxOrbitalElements control.
-		/// Enables or disables export buttons based on whether all items are unmarked.
+		/// Handles the SelectedIndexChanged event of the orbital elements checklist.
+		/// Enables or disables the export buttons depending on whether any items are checked.
+		/// If all items are unmarked (unchecked) the export buttons are disabled; otherwise they are enabled.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the checked list box).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void CheckedListBoxOrbitalElements_SelectedIndexChanged(object sender, EventArgs e)
 		{
