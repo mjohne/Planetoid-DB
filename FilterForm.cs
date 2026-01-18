@@ -116,10 +116,11 @@ namespace Planetoid_DB
 		#region Enter event handler
 
 		/// <summary>
-		/// Called when the mouse pointer moves over a control.
+		/// Handles Enter (mouse over / focus) events for controls and ToolStrip items.
+		/// If the sender provides a non-null <c>AccessibleDescription</c>, that text is shown in the status bar.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
+		/// <param name="e">Event arguments.</param>
 		private void SetStatusBar_Enter(object sender, EventArgs e)
 		{
 			// Set the status bar text based on the sender's accessible description
