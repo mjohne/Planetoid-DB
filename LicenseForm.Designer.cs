@@ -221,7 +221,6 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(this, "License information");
 			FormClosed += LicenseForm_FormClosed;
 			Load += LicenseForm_Load;
-			KeyDown += LicenseForm_KeyDown;
 			((ISupportInitialize)panel).EndInit();
 			panel.ResumeLayout(false);
 			panel.PerformLayout();

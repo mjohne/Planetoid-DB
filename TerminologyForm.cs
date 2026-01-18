@@ -1,6 +1,4 @@
-﻿using Krypton.Toolkit;
-
-using NLog;
+﻿using NLog;
 
 using System.Diagnostics;
 
@@ -10,7 +8,7 @@ namespace Planetoid_DB
 	/// Represents a form that displays terminology information.
 	/// </summary>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-	public partial class TerminologyForm : KryptonForm
+	public partial class TerminologyForm : BaseKryptonForm
 	{
 		// NLog logger instance
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
@@ -190,8 +188,6 @@ namespace Planetoid_DB
 		{
 			// Initialize the form components
 			InitializeComponent();
-			KeyDown += TerminologyForm_KeyDown;
-			KeyPreview = true; // Ensures the form receives key events before the controls
 		}
 
 		#endregion
@@ -583,28 +579,6 @@ namespace Planetoid_DB
 			selectedElement = (TerminologyElement)listBox.SelectedIndex;
 			// Set the active element based on the selected value
 			SetActiveElement();
-		}
-
-		#endregion
-
-		#region KeyDown event handler
-
-		/// <summary>
-		/// Handles the KeyDown event of the TerminologyForm.
-		/// Closes the form when the Escape key is pressed.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void TerminologyForm_KeyDown(object? sender, KeyEventArgs e)
-		{
-			// Check if the sender is null
-			ArgumentNullException.ThrowIfNull(argument: sender);
-			// Check if the Escape key is pressed
-			if (e.KeyCode == Keys.Escape)
-			{
-				// Close the form
-				Close();
-			}
 		}
 
 		#endregion

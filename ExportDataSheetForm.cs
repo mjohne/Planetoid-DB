@@ -1,6 +1,4 @@
-﻿using Krypton.Toolkit;
-
-using NLog;
+﻿using NLog;
 
 using System.Diagnostics;
 using System.IO;
@@ -12,7 +10,7 @@ namespace Planetoid_DB
 	/// Form for exporting data sheets with various formats.
 	/// </summary>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-	public partial class ExportDataSheetForm : KryptonForm
+	public partial class ExportDataSheetForm : BaseKryptonForm
 	{
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger(); // NLog logger instance
 		private List<string> orbitElements = []; // List of orbit elements to be exported
@@ -26,8 +24,6 @@ namespace Planetoid_DB
 		{
 			// Initialize the form components
 			InitializeComponent();
-			KeyDown += ExportDataSheetForm_KeyDown;
-			KeyPreview = true; // Ensures the form receives key events before the controls
 		}
 
 		#endregion
@@ -495,28 +491,6 @@ namespace Planetoid_DB
 			buttonExportAsTxt.Enabled = IsAllUnmarked()
 				? (buttonExportAsHtml.Enabled = buttonExportAsXml.Enabled = buttonExportAsJson.Enabled = false)
 				: (buttonExportAsHtml.Enabled = buttonExportAsXml.Enabled = buttonExportAsJson.Enabled = true);
-		}
-
-		#endregion
-
-		#region KeyDown event handler
-
-		/// <summary>
-		/// Handles the KeyDown event of the ExportDataSheetForm.
-		/// Closes the form when the Escape key is pressed.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void ExportDataSheetForm_KeyDown(object? sender, KeyEventArgs e)
-		{
-			// Check if the sender is null
-			ArgumentNullException.ThrowIfNull(argument: sender);
-			// Check if the Escape key is pressed
-			if (e.KeyCode == Keys.Escape)
-			{
-				// Close the form
-				Close();
-			}
 		}
 
 		#endregion

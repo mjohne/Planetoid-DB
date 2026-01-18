@@ -7,6 +7,9 @@
     <Compile Update="AppInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="BaseKryptonForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="CheckAstorbDatForm.cs">
       <SubType>Form</SubType>
     </Compile>

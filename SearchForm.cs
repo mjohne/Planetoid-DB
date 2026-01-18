@@ -1,6 +1,4 @@
-﻿using Krypton.Toolkit;
-
-using NLog;
+﻿using NLog;
 
 using System.Collections;
 using System.ComponentModel;
@@ -12,7 +10,7 @@ namespace Planetoid_DB
 	/// 
 	/// </summary>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-	public partial class SearchForm : KryptonForm
+	public partial class SearchForm : BaseKryptonForm
 	{
 		// NLog logger instance
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
@@ -98,8 +96,6 @@ namespace Planetoid_DB
 		{
 			// Initialize the form components
 			InitializeComponent();
-			KeyDown += SearchForm_KeyDown;
-			KeyPreview = true; // Ensures the form receives key events before the controls
 		}
 
 		#endregion
@@ -488,28 +484,6 @@ namespace Planetoid_DB
 				buttonLoad.Enabled = true;
 			}
 			this.selectedIndex = listViewSelectedIndex;
-		}
-
-		#endregion
-
-		#region KeyDown event handler
-
-		/// <summary>
-		/// Handles the KeyDown event of the SearchForm.
-		/// Closes the form when the Escape key is pressed.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void SearchForm_KeyDown(object? sender, KeyEventArgs e)
-		{
-			// Check if the sender is null
-			ArgumentNullException.ThrowIfNull(argument: sender);
-			// Check if the Escape key is pressed
-			if (e.KeyCode == Keys.Escape)
-			{
-				// Close the form
-				Close();
-			}
 		}
 
 		#endregion
