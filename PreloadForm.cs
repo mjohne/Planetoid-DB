@@ -102,53 +102,31 @@ namespace Planetoid_DB
 		[DesignerSerializationVisibility(visibility: DesignerSerializationVisibility.Hidden)]
 		public string MpcOrbDatFilePath { get; set; } = string.Empty;
 
-		/// <summary>
-		/// Shows the downloader form for the MPCORB database.
-		/// </summary>
-		private void ShowMpcorbDatDownloader()
-		{
-			// Check if the network is available before proceeding with the download
-			if (!NetworkInterface.GetIsNetworkAvailable())
-			{
-				// Display an error message if the network is not available
-				_ = MessageBox.Show(text: I10nStrings.NoInternetConnectionText, caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
-			}
-			else
-			{
-				// Create and show the downloader form for the MPCORB database
-				using FileDownloaderForm downloaderForm = new(url: Settings.Default.systemMpcorbDatGzUrl);
-				// Set the TopMost property to true to keep the form on top of other windows
-				downloaderForm.TopMost = TopMost;
-
-				/*
-				// Show the downloader form as a modal dialog
-				if (downloaderForm.ShowDialog() == DialogResult.OK)
-				{
-					// Ask the user if they want to restart the application after downloading the database
-					AskForRestartAfterDownloadingDatabase();
-				}
-				 */
-			}
-		}
-
 		#endregion
 
 		#region form event handler
 
 		/// <summary>
-		/// Fired when the form loads.
+		/// Fired when the preload form has finished loading.
+		/// Clears the status area so no message is shown on startup.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void PreloadForm_Load(object sender, EventArgs e) => ClearStatusBar();
+		private void PreloadForm_Load(object sender, EventArgs e)
+		{
+			ClearStatusBar();
+		}
 
 		/// <summary>
-		/// Fired when the form closes.
+		/// Fired when the preload form is closed.
+		/// Disposes managed resources associated with the form.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
-		private void PreloadForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
-
+		private void PreloadForm_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			Dispose();
+		}
 		#endregion
 
 		#region Enter event handlers
@@ -191,10 +169,11 @@ namespace Planetoid_DB
 		#region Click event handlers
 
 		/// <summary>
-		/// Handles the click event for opening a local MPCORB.DAT file.
-		/// Prompts the user with a file dialog to select a file and sets the file path if a file is selected.
+		/// Handles the Click event of the Open Local File command link.
+		/// Shows an <see cref="OpenFileDialog"/> to let the user select a local MPCORB.DAT file and,
+		/// if a file is selected, stores its path in <see cref="MpcOrbDatFilePath"/> and closes the dialog with <see cref="DialogResult.OK"/>.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the command link button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void KryptonCommandLinkButtonOpenLocalFile_Click(object sender, EventArgs e)
 		{
@@ -211,10 +190,10 @@ namespace Planetoid_DB
 
 		/// <summary>
 		/// Handles the click event for downloading the MPCORB.DAT file.
-		/// Checks for an active internet connection and opens a download form.
-		/// Sets the file path if the download is successful.
+		/// Checks network availability and opens the download dialog; if the download completes successfully,
+		/// sets <see cref="MpcOrbDatFilePath"/> to the downloaded file and closes the form with <see cref="DialogResult.OK"/>.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the command link button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void KryptonCommandLinkButtonDownloadMprcorbDat_Click(object sender, EventArgs e)
 		{
@@ -241,9 +220,10 @@ namespace Planetoid_DB
 
 		/// <summary>
 		/// Handles the click event for loading internal demo data.
-		/// Extracts a demo data file from embedded resources and sets the file path to the extracted file.
+		/// Extracts an embedded demo data file to the application's working directory,
+		/// sets <see cref="MpcOrbDatFilePath"/> to the extracted filename and closes the dialog with <see cref="DialogResult.OK"/>.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the command link button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void KryptonCommandLinkButtonLoadInternalDemoData_Click(object sender, EventArgs e)
 		{
