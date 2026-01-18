@@ -8,7 +8,7 @@ namespace Planetoid_DB
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 	public partial class RecordsSelectionForm : BaseKryptonForm
 	{
-		#region Constructor
+		#region constructor
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="RecordsSelectionForm"/> class.
@@ -21,7 +21,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Local Methods
+		#region helper methods
 
 		/// <summary>
 		/// Returns a short debugger display string for this instance.
@@ -73,17 +73,14 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Form event handler
+		#region form event handlers
 
 		/// <summary>
 		/// Handles the Load event of the form.
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void RecordsSelectionForm_Load(object sender, EventArgs e)
-		{
-			ClearStatusBar();
-		}
+		private void RecordsSelectionForm_Load(object sender, EventArgs e) => ClearStatusBar();
 
 		/// <summary>
 		/// Handles the FormClosed event of the RecordsSelectionForm.
@@ -95,7 +92,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Enter event handler
+		#region Enter event handlers
 
 		/// <summary>
 		/// Handles Enter (mouse over / focus) events for controls and ToolStrip items.
@@ -121,7 +118,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Leave event handler
+		#region Leave event handlers
 
 		/// <summary>
 		/// Called when the mouse pointer leaves a control or the control loses focus.

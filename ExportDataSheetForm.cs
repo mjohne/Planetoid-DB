@@ -12,7 +12,7 @@ namespace Planetoid_DB
 	{
 		private List<string> orbitElements = []; // List of orbit elements to be exported
 
-		#region Constructor
+		#region constructor
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ExportDataSheetForm"/> class.
@@ -25,7 +25,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Local methods
+		#region helper methods
 
 		/// <summary>
 		/// Returns a short debugger display string for this instance.
@@ -112,7 +112,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Form event handler
+		#region form event handlers
 
 		/// <summary>
 		/// Handles the Load event of the form.
@@ -127,7 +127,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Enter-Handler
+		#region Enter event handlers
 
 		/// <summary>
 		/// Handles Enter (mouse over / focus) events for controls and ToolStrip items.
@@ -153,7 +153,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Leave-Handler
+		#region Leave event handlers
 
 		/// <summary>
 		/// Called when the mouse pointer leaves a control or the control loses focus.
@@ -165,7 +165,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Click & ButtonClick event handler
+		#region Click & ButtonClick event handlers
 
 		/// <summary>
 		/// Handles the Click event of the ButtonExportAsTxt control.
@@ -436,7 +436,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region ItemCheck event handler
+		#region ItemCheck event handlers
 
 		/// <summary>
 		/// Handles the ItemCheck event of the CheckedListBoxOrbitalElements control.
@@ -449,7 +449,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region SelectedIndexChanged event handler
+		#region SelectedIndexChanged event handlers
 
 		/// <summary>
 		/// Handles the SelectedIndexChanged event of the CheckedListBoxOrbitalElements control.

@@ -348,7 +348,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Constructor
+		#region constructor
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="FileDownloaderForm"/> class.

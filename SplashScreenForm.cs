@@ -21,7 +21,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region local methods
+		#region helper methods
 
 		/// <summary>
 		/// Returns a short debugger display string for this instance.
@@ -51,7 +51,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region form event handler
+		#region form event handlers
 
 		/// <summary>
 		/// Fired when the form loads.
@@ -75,7 +75,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region double-click event handler
+		#region DoubleClick event handlers
 
 		/// <summary>
 		/// Called when a control is double-clicked to copy its text to the clipboard.
