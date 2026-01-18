@@ -256,10 +256,11 @@ namespace Planetoid_DB
 		#region double-click event handler
 
 		/// <summary>
-		/// Called when a control is double-clicked to copy the text to the clipboard.
+		/// Called when a control is double-clicked to copy its text to the clipboard.
+		/// If the sender is a <see cref="Control"/>, the control's <see cref="Control.Text"/> is copied.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <param name="sender">Event source (expected to be a <see cref="Control"/>).</param>
+		/// <param name="e">Event arguments.</param>
 		private void CopyToClipboard_DoubleClick(object sender, EventArgs e)
 		{
 			// Check if the sender is null
