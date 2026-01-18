@@ -69,9 +69,10 @@ namespace Planetoid_DB
 		#region form event handlers
 
 		/// <summary>
-		/// Handles the Load event of the DatabaseInformationForm control.
+		/// Fired when the database information form loads.
+		/// Populates UI labels with file information for the configured MPCORB.DAT file and displays detected file attributes.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void DatabaseInformationForm_Load(object sender, EventArgs e)
 		{
@@ -140,9 +141,10 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
-		/// Handles the FormClosed event of the DatabaseInformationForm control.
+		/// Fired when the database information form is closed.
+		/// Disposes managed resources associated with the form.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
 		private void DatabaseInformationForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
 
