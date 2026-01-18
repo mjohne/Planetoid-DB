@@ -144,10 +144,11 @@ namespace Planetoid_DB
 		#region form event handlers
 
 		/// <summary>
-		/// Handles the Load event of the form.
-		/// Initializes the form controls based on the planetoids database.
+		/// Fired when the ListReadableDesignationsForm loads.
+		/// Initializes UI state: clears the status area, disables controls until data is available,
+		/// and sets numeric up/down ranges based on the loaded planetoids database.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void ListReadableDesignationsForm_Load(object? sender, EventArgs? e)
 		{
@@ -167,26 +168,26 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
-		/// Handles the FormClosed event of the form.
-		/// Disposes the list view and the form.
+		/// Fired when the form is closed. Releases list view resources and disposes the form.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
 		private void ListReadableDesignationsForm_FormClosed(object? sender, FormClosedEventArgs? e)
 		{
 			listView.Dispose();
 			Dispose();
 		}
-
 		#endregion
 
 		#region BackgroundWorker event handlers
 
 		/// <summary>
-		/// Handles the DoWork event of the background worker.
-		/// Formats rows in the list view based on the planetoids database.
+		/// Handles the <see cref="BackgroundWorker.DoWork"/> event.
+		/// Processes the planetoid records in the configured numeric range on a background thread,
+		/// formats each row and reports progress to the UI. The operation cooperatively cancels
+		/// when the <see cref="isCancelled"/> flag is set.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the background worker).</param>
 		/// <param name="e">The <see cref="DoWorkEventArgs"/> instance that contains the event data.</param>
 		private void BackgroundWorker_DoWork(object? sender, DoWorkEventArgs? e)
 		{
@@ -208,19 +209,19 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
-		/// Handles the RunWorkerCompleted event of the background worker.
-		/// Updates the form controls after the background worker completes its task.
+		/// Handles the <see cref="BackgroundWorker.ProgressChanged"/> event.
+		/// Updates the UI progress bar on the UI thread with the percentage reported by the background worker.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="RunWorkerCompletedEventArgs"/> instance that contains the event data.</param>
+		/// <param name="sender">Event source (the background worker).</param>
+		/// <param name="e">The <see cref="ProgressChangedEventArgs"/> instance that contains the event data, including <see cref="ProgressChangedEventArgs.ProgressPercentage"/>.</param>
 		private void BackgroundWorker_ProgressChanged(object? sender, ProgressChangedEventArgs e) => progressBar.Value = e.ProgressPercentage;
 
 		/// <summary>
-		/// Called when the mouse pointer moves over a control.
-		/// Sets the status bar text based on the control's accessible description.
+		/// Handles the <see cref="BackgroundWorker.RunWorkerCompleted"/> event.
+		/// Finalizes background processing: re-enables UI controls, hides progress indicators and resets taskbar state.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <param name="sender">Event source (the background worker).</param>
+		/// <param name="e">The <see cref="RunWorkerCompletedEventArgs"/> instance that contains the event data, including error or cancellation information.</param>
 		private void BackgroundWorker_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs? e)
 		{
 			listView.Visible = true; // Show the list view
@@ -278,10 +279,11 @@ namespace Planetoid_DB
 		#region SelectedIndexChanged event handlers
 
 		/// <summary>
-		/// Handles the SelectedIndexChanged event of the list view.
-		/// Updates the status bar and enables the load button based on the selected index.
+		/// Handles the ListView <c>SelectedIndexChanged</c> event.
+		/// Updates the status bar with the selected planetoid's index and readable designation,
+		/// enables the load button if necessary and stores the currently selected index.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (expected to be the list view).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void SelectedIndexChanged(object? sender, EventArgs? e)
 		{
@@ -311,9 +313,11 @@ namespace Planetoid_DB
 
 		/// <summary>
 		/// Handles the Click event of the List button.
-		/// Initializes the list view and starts the background worker to format rows.
+		/// Prepares the list view (clears columns, hides it), disables/enables the appropriate UI controls,
+		/// configures the background worker for progress reporting and cancellation, and starts the background operation
+		/// that formats rows for the currently configured numeric range.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the List button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void ButtonList_Click(object? sender, EventArgs? e)
 		{
@@ -342,16 +346,19 @@ namespace Planetoid_DB
 
 		/// <summary>
 		/// Handles the Click event of the Cancel button.
-		/// Cancels the background worker operation.
+		/// Requests cancellation of the background worker operation by setting the internal <c>isCancelled</c> flag.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the Cancel button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void ButtonCancel_Click(object? sender, EventArgs? e) => isCancelled = true;
 
 		/// <summary>
 		/// Handles the Click event of the Save As CSV menu item.
-		/// Saves the list view data as a CSV file.
+		/// Opens a SaveFileDialog, then writes the currently displayed readable designation list to a CSV file.
+		/// The file contains index and designation pairs separated by a semicolon.
 		/// </summary>
+		/// <param name="sender">Event source (the Save As CSV menu item).</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void ToolStripMenuItemSaveAsCsv_Click(object? sender, EventArgs? e)
 		{
 			// Set the initial directory for the save file dialog
@@ -382,9 +389,10 @@ namespace Planetoid_DB
 
 		/// <summary>
 		/// Handles the Click event of the Save As HTML menu item.
-		/// Saves the list view data as an HTML file.
+		/// Opens a SaveFileDialog, then writes the currently displayed readable designation list to an HTML file.
+		/// The file contains index and designation pairs formatted as HTML.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the Save As HTML menu item).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void ToolStripMenuItemSaveAsHtml_Click(object? sender, EventArgs? e)
 		{
@@ -439,9 +447,10 @@ namespace Planetoid_DB
 
 		/// <summary>
 		/// Handles the Click event of the Save As XML menu item.
-		/// Saves the list view data as an XML file.
+		/// Opens a SaveFileDialog, then writes the currently displayed readable designation list to an XML file.
+		/// The file contains index and designation pairs formatted as XML.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the Save As XML menu item).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void ToolStripMenuItemSaveAsXml_Click(object? sender, EventArgs? e)
 		{
@@ -476,10 +485,11 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
-		/// Handles the Click event of the Save As Json menu item.
-		/// Saves the list view data as a Json file.
+		/// Handles the Click event of the Save As JSON menu item.
+		/// Opens a SaveFileDialog, then writes the currently displayed readable designation list to a JSON file.
+		/// The file contains index and designation pairs formatted as JSON.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the Save As JSON menu item).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void ToolStripMenuItemSaveAsJson_Click(object? sender, EventArgs? e)
 		{
