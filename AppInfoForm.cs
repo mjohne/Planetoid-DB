@@ -69,9 +69,11 @@ namespace Planetoid_DB
 		#region form event handlers
 
 		/// <summary>
-		/// Fired when the form loads.
+		/// Fired when the application info form loads.
+		/// Populates UI labels with product, version and description information from the assembly
+		/// and clears the status area.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void AppInfoForm_Load(object sender, EventArgs e)
 		{
@@ -83,9 +85,10 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
-		/// Fired when the form closes.
+		/// Fired when the application info form is closed.
+		/// Disposes managed resources associated with the form.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
 		private void AppInfoForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
 
@@ -132,9 +135,10 @@ namespace Planetoid_DB
 		#region Click event handlers
 
 		/// <summary>
-		/// Called when the link to open the website is clicked.
+		/// Called when the website link is clicked.
+		/// Attempts to open the application's website in the user's default browser and logs any error.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the link label).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private async void LinkLabelWebsite_Clicked(object sender, EventArgs e)
 		{
@@ -156,9 +160,11 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
-		/// Called when the link to send an email is clicked.
+		/// Called when the email link is clicked.
+		/// Attempts to open the user's default mail client with a new message addressed to the application's support email.
+		/// Any error during the operation is logged and shown to the user.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the link label).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private async void LinkLabelEmail_Clicked(object sender, EventArgs e)
 		{
