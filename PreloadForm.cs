@@ -23,7 +23,6 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AppInfoForm"/> class.
 		/// </summary>
-
 		public PreloadForm()
 		{
 			// Initialize the form components
@@ -39,14 +38,6 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <returns>A string representation of the object.</returns>
 		private string GetDebuggerDisplay() => ToString();
-
-		/// <summary>
-		/// Displays an error message.
-		/// </summary>
-		/// <param name="message">The error message.</param>
-		private static void ShowErrorMessage(string message) =>
-			// Show an error message box with the specified message
-			_ = MessageBox.Show(text: message, caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 
 		/// <summary>
 		/// Extracts an embedded resource from the assembly and writes it to a specified output directory.
@@ -72,29 +63,6 @@ namespace Planetoid_DB
 			using BinaryWriter w = new(output: fs);
 			// Read the bytes from the resource stream and write them to the output file
 			w.Write(buffer: r.ReadBytes(count: (int)s.Length));
-		}
-
-		/// <summary>
-		/// Copies the specified text to the clipboard and displays a confirmation message.
-		/// </summary>
-		/// <param name="text">The text to be copied.</param>
-		private static void CopyToClipboard(string text)
-		{
-			try
-			{
-				// Copy the text to the clipboard
-				Clipboard.SetText(text: text);
-				_ = MessageBox.Show(text: I10nStrings.CopiedToClipboard, caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
-			}
-			catch (Exception ex)
-			{
-				// Log the exception and show an error message
-				Logger.Error(exception: ex, message: "File not found");
-				// Show an error message
-				ShowErrorMessage(message: $"File not found: {ex.Message}");
-				// Set the exit code to indicate an error
-				Environment.ExitCode = 1;
-			}
 		}
 
 		/// <summary>

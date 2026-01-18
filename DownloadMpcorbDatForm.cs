@@ -73,14 +73,6 @@ namespace Planetoid_DB
 		private string GetDebuggerDisplay() => ToString();
 
 		/// <summary>
-		/// Displays an error message.
-		/// </summary>
-		/// <param name="message">The error message.</param>
-		private static void ShowErrorMessage(string message) =>
-			// Show an error message box with the specified message
-			_ = MessageBox.Show(text: message, caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
-
-		/// <summary>
 		/// Extracts a GZIP-compressed file to a specified output file.
 		/// </summary>
 		private static void ExtractGzipFile(string gzipFilePath, string outputFilePath)
@@ -171,27 +163,6 @@ namespace Planetoid_DB
 				ShowErrorMessage(message: $"Error retrieving content length: {ex.Message}");
 				// Return 0 to indicate an error
 				return 0;
-			}
-		}
-
-		/// <summary>
-		/// Copies the specified text to the clipboard and displays a confirmation message.
-		/// </summary>
-		/// <param name="text">The text to be copied.</param>
-		private static void CopyToClipboard(string text)
-		{
-			try
-			{
-				// Copy the text to the clipboard
-				Clipboard.SetText(text: text);
-				_ = MessageBox.Show(text: I10nStrings.CopiedToClipboard, caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
-			}
-			catch (Exception ex)
-			{
-				// Log the exception and show an error message
-				Logger.Error(exception: ex, message: ex.Message);
-				// Show an error message
-				ShowErrorMessage(message: $"File not found: {ex.Message}");
 			}
 		}
 
