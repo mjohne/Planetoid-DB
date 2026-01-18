@@ -66,7 +66,7 @@ namespace Planetoid_DB
 		/// The method streams the compressed input to the output file using <see cref="GZipStream"/>.
 		/// It throws exceptions (e.g. <see cref="IOException"/>, <see cref="InvalidDataException"/>) to the caller.
 		/// </remarks>
-		private static void ExtractGzipFile(string gzipFilePath, string outputFilePath)
+		protected static void ExtractGzipFile(string gzipFilePath, string outputFilePath)
 		{
 			// Open the gzip file and create a new file stream for the output file
 			using FileStream originalFileStream = new(path: gzipFilePath, mode: FileMode.Open, access: FileAccess.Read);

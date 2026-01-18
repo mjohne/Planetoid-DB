@@ -1,6 +1,4 @@
-﻿using Krypton.Toolkit;
-
-using NLog;
+﻿using NLog;
 
 using System.Diagnostics;
 
@@ -80,33 +78,19 @@ namespace Planetoid_DB
 		#region double-click event handler
 
 		/// <summary>
-		/// Occurs when a control is double-clicked to copy the text to the clipboard.
+		/// Called when a control is double-clicked to copy its text to the clipboard.
+		/// If the sender is a <see cref="Control"/>, the control's <see cref="Control.Text"/> is copied.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <param name="sender">Event source (expected to be a <see cref="Control"/>).</param>
+		/// <param name="e">Event arguments.</param>
 		private void CopyToClipboard_DoubleClick(object sender, EventArgs e)
 		{
-
 			// Check if the sender is null
 			ArgumentNullException.ThrowIfNull(argument: sender);
-			// Check if the sender is a Label, KryptonLabel, or ToolStripLabel
-			// and if the Text property is not null
-			// If the sender is a Label, KryptonLabel, or ToolStripLabel
-			// and the Text property is not null, copy the text to the clipboard
-			switch (sender)
+			if (sender is Control control)
 			{
-				case Label { Text: not null } label:
-					// Copy the text to the clipboard
-					CopyToClipboard(text: label.Text);
-					break;
-				case KryptonLabel { Text: not null } kryptonLabel:
-					// Copy the text to the clipboard
-					CopyToClipboard(text: kryptonLabel.Text);
-					break;
-				case ToolStripLabel { Text: not null } labelToolStripCombo:
-					// Copy the text to the clipboard
-					CopyToClipboard(text: labelToolStripCombo.Text);
-					break;
+				// Copy the text to the clipboard
+				CopyToClipboard(text: control.Text);
 			}
 		}
 
