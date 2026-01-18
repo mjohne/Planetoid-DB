@@ -33,7 +33,6 @@ namespace Planetoid_DB
 		/// </summary>
 		private bool isCancelled;
 
-		// 
 		/// <summary>
 		/// Index and label name as character strings
 		/// </summary>
@@ -42,7 +41,7 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Stopwatch for performance measurement
 		/// </summary>
-		private Stopwatch stopwatch = new();
+		private readonly Stopwatch stopwatch = new();
 
 		#region constructor
 
@@ -168,13 +167,16 @@ namespace Planetoid_DB
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void ListReadableDesignationsForm_Load(object? sender, EventArgs? e)
 		{
+			// Clear the status bar on load
 			ClearStatusBar();
+			// Disable controls until data is available
 			labelInformation.Enabled = listView.Visible = buttonCancel.Enabled = buttonLoad.Enabled = dropButtonSaveList.Enabled = false;
+			// Check if the planetoids database is empty
 			if (planetoidsDatabase.Count <= 0)
 			{
 				return;
 			}
-
+			// Set numeric up/down ranges based on the planetoids database
 			numericUpDownMinimum.Minimum = 1;
 			numericUpDownMaximum.Minimum = 1;
 			numericUpDownMinimum.Maximum = planetoidsDatabase.Count;
@@ -337,27 +339,34 @@ namespace Planetoid_DB
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void ButtonList_Click(object? sender, EventArgs? e)
 		{
+			// Start the stopwatch for performance measurement
+			stopwatch.Restart();
 			// Clear the list view
 			listView.Clear();
 			// Add columns to the list view
 			listView.Columns.AddRange(values: [
 				 columnHeaderIndex,
 				 columnHeaderReadableDesignation,]);
-			listView.Visible = false; // Hide the list view
-									  // Disable the numeric up-down controls
+			// Hide the list view
+			listView.Visible = false;
+			// Disable the numeric up-down controls
 			numericUpDownMinimum.Enabled = false;
 			numericUpDownMaximum.Enabled = false;
-			buttonCancel.Enabled = true; // Enable the cancel button
-			buttonLoad.Enabled = false; // Disable the load button
-			buttonList.Enabled = false; // Disable the list button
-			dropButtonSaveList.Enabled = false; // Disable the save button
-			isCancelled = false; // Set the cancel flag to false
-			progressBar.Enabled = true; // Set the progress bar to enabled
-			backgroundWorker.WorkerReportsProgress = true; // Set the worker to report progress
-			backgroundWorker.WorkerSupportsCancellation = true; // Set the worker to support cancellation
-			backgroundWorker.ProgressChanged += BackgroundWorker_ProgressChanged; // Handle progress changes
-			backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted; // Handle completion
-			backgroundWorker.RunWorkerAsync(); // Start the background worker
+			// Enable the cancel button and disable other buttons
+			buttonCancel.Enabled = true;
+			buttonLoad.Enabled = false;
+			buttonList.Enabled = false;
+			dropButtonSaveList.Enabled = false;
+			// Reset the progress bar and cancellation flag
+			isCancelled = false;
+			progressBar.Enabled = true;
+			// Configure the background worker
+			backgroundWorker.WorkerReportsProgress = true;
+			backgroundWorker.WorkerSupportsCancellation = true;
+			backgroundWorker.ProgressChanged += BackgroundWorker_ProgressChanged;
+			backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
+			// Start the background worker to process the planetoid records
+			backgroundWorker.RunWorkerAsync();
 		}
 
 		/// <summary>
@@ -366,7 +375,15 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the Cancel button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void ButtonCancel_Click(object? sender, EventArgs? e) => isCancelled = true;
+		private void ButtonCancel_Click(object? sender, EventArgs? e)
+		{
+			// Stop the stopwatch for performance measurement
+			stopwatch.Stop();
+			// Set the cancel flag to true to request cancellation
+			isCancelled = true;
+			// Show a message box indicating the operation was cancelled
+			MessageBox.Show(text: listView.Items.Count + " objects processed in " + stopwatch.Elapsed + " hh:mm:ss.ms", caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		}
 
 		/// <summary>
 		/// Handles the Click event of the Save As CSV menu item.
