@@ -1,5 +1,3 @@
-using Krypton.Toolkit;
-
 using NLog;
 
 using Planetoid_DB.Properties;
@@ -17,7 +15,7 @@ namespace Planetoid_DB
 	/// Form to handle downloading updates for the application.
 	/// </summary>
 	[DebuggerDisplay(value: $"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
-	public partial class FileDownloaderForm : KryptonForm
+	public partial class FileDownloaderForm : BaseKryptonForm
 	{
 		/// <summary>
 		/// NLog logger instance for the class.
@@ -403,7 +401,6 @@ namespace Planetoid_DB
 			httpClient = new HttpClient();
 			this.url = url;
 			extractFilePath = Path.GetFileNameWithoutExtension(path: url);
-			KeyDown += FileDownloaderForm_KeyDown;
 			StartDownload();
 		}
 
@@ -485,27 +482,6 @@ namespace Planetoid_DB
 		private void ClearStatusBar_Leave(object sender, EventArgs e) =>
 			// Clear the status bar text
 			ClearStatusBar();
-
-		#endregion
-
-		#region Key event handlers
-
-		/// <summary>
-		/// Handles the KeyDown event for the form. Closes the form when the Escape key is pressed.
-		/// </summary>
-		/// <param name="sender">Event source.</param>
-		/// <param name="e">Key event arguments.</param>
-		private void FileDownloaderForm_KeyDown(object? sender, KeyEventArgs e)
-		{
-			// Check if the sender is null
-			ArgumentNullException.ThrowIfNull(argument: sender);
-			// Check if the Escape key is pressed
-			if (e.KeyCode == Keys.Escape)
-			{
-				// Close the form
-				Close();
-			}
-		}
 
 		#endregion
 	}

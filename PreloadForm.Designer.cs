@@ -244,7 +244,6 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(this, "Preloader");
 			FormClosed += PreloadForm_FormClosed;
 			Load += PreloadForm_Load;
-			KeyDown += PreloadForm_KeyDown;
 			statusStrip.ResumeLayout(false);
 			statusStrip.PerformLayout();
 			((ISupportInitialize)panel).EndInit();

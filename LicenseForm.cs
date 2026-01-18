@@ -1,6 +1,4 @@
-﻿using Krypton.Toolkit;
-
-using NLog;
+﻿using NLog;
 
 using System.Diagnostics;
 using System.IO;
@@ -12,7 +10,7 @@ namespace Planetoid_DB
 	/// A form that displays application information.
 	/// </summary>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-	public partial class LicenseForm : KryptonForm
+	public partial class LicenseForm : BaseKryptonForm
 	{
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger(); // NLog logger instance
 
@@ -21,13 +19,10 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AppInfoForm"/> class.
 		/// </summary>
-
 		public LicenseForm()
 		{
 			// Initialize the form components
 			InitializeComponent();
-			KeyDown += LicenseForm_KeyDown;
-			KeyPreview = true; // Ensures the form receives key events before the controls
 		}
 
 		#endregion
@@ -210,28 +205,6 @@ namespace Planetoid_DB
 		private void KryptonButtonCopyLicenseToClipboard_Click(object sender, EventArgs e) =>
 			// Copy the text from the KryptonTextBox to the clipboard
 			CopyToClipboard(text: kryptonTextBoxLicense.Text);
-
-		#endregion
-
-		#region KeyDown event handler
-
-		/// <summary>
-		/// Handles the KeyDown event of the LicenseForm.
-		/// Closes the form when the Escape key is pressed.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LicenseForm_KeyDown(object? sender, KeyEventArgs e)
-		{
-			// Check if the sender is null
-			ArgumentNullException.ThrowIfNull(argument: sender);
-			// Check if the Escape key is pressed
-			if (e.KeyCode == Keys.Escape)
-			{
-				// Close the form
-				Close();
-			}
-		}
 
 		#endregion
 	}

@@ -1,6 +1,4 @@
-﻿using Krypton.Toolkit;
-
-using NLog;
+﻿using NLog;
 
 using Planetoid_DB.Properties;
 
@@ -14,7 +12,7 @@ namespace Planetoid_DB
 	/// Form to display database information.
 	/// </summary>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-	public partial class DatabaseInformationForm : KryptonForm
+	public partial class DatabaseInformationForm : BaseKryptonForm
 	{
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger(); // NLog logger instance
 
@@ -27,8 +25,6 @@ namespace Planetoid_DB
 		{
 			// Initialize the form components
 			InitializeComponent();
-			KeyDown += DatabaseInformationForm_KeyDown;
-			KeyPreview = true; // Ensures the form receives key events before the controls
 		}
 
 		#endregion
@@ -232,28 +228,6 @@ namespace Planetoid_DB
 			{
 				// Copy the text to the clipboard
 				CopyToClipboard(text: control.Text);
-			}
-		}
-
-		#endregion
-
-		#region KeyDown event handler
-
-		/// <summary>
-		/// Handles the KeyDown event of the DatabaseInformationForm.
-		/// Closes the form when the Escape key is pressed.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void DatabaseInformationForm_KeyDown(object? sender, KeyEventArgs e)
-		{
-			// Check if the sender is null
-			ArgumentNullException.ThrowIfNull(argument: sender);
-			// Check if the Escape key is pressed
-			if (e.KeyCode == Keys.Escape)
-			{
-				// Close the form
-				Close();
 			}
 		}
 
