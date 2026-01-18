@@ -187,19 +187,19 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region local methods
+		#region helper methods
 
 		/// <summary>
-		/// Returns a string representation of the object for the debugger.
+		/// Returns a short debugger display string for this instance.
 		/// </summary>
-		/// <returns>A string representation of the object.</returns>
+		/// <returns>A string representation of the current instance for use in the debugger.</returns>
 		private string GetDebuggerDisplay() => ToString();
 
 		/// <summary>
-		/// Sets the status bar text.
+		/// Sets the status bar text and enables the information label when text is provided.
 		/// </summary>
-		/// <param name="text">The main text to be displayed on the status bar.</param>
-		/// <param name="additionalInfo">Additional information to be displayed alongside the main text.</param>
+		/// <param name="text">Main status text to display. If null or whitespace the method returns without changing the UI.</param>
+		/// <param name="additionalInfo">Optional additional information appended to the main text, separated by " - ".</param>
 		private void SetStatusBar(string text, string additionalInfo = "")
 		{
 			// Check if the text is not null or whitespace
@@ -471,12 +471,13 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Form event handlers
+		#region form event handlers
 
 		/// <summary>
-		/// Fired when the form loads.
+		/// Fired when the form has finished loading.
+		/// Initializes the displayed content (sets the active terminology element) and clears the status bar.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">The event source (the form).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void TerminologyForm_Load(object sender, EventArgs e)
 		{
@@ -487,12 +488,11 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
-		/// Fired when the form closes.
+		/// Fired when the form is closed. Disposes managed resources associated with the form.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">The event source (the form).</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
 		private void TerminologyForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
-
 		#endregion
 
 		#region Enter event handlers
@@ -521,7 +521,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Leave-Handler
+		#region Leave event handlers
 
 		/// <summary>
 		/// Called when the mouse pointer leaves a control or the control loses focus.
@@ -537,10 +537,10 @@ namespace Planetoid_DB
 
 		/// <summary>
 		/// Handles the list box SelectedValueChanged event.
-		/// Updates the current <see cref="TerminologyElement"/> based on the list box selection
-		/// and refreshes the displayed content in the web browser.
+		/// Updates the current <see cref="TerminologyElement"/> based on the selected index
+		/// and refreshes the displayed content in the embedded web browser.
 		/// </summary>
-		/// <param name="sender">The event source (the terminology list box).</param>
+		/// <param name="sender">The event source (expected to be the terminology list box).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void ListBox_SelectedValueChanged(object sender, EventArgs e)
 		{
