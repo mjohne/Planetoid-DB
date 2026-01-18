@@ -9,7 +9,7 @@ namespace Planetoid_DB
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 	public partial class EphemerisForm : BaseKryptonForm
 	{
-		#region Constructor
+		#region constructor
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="EphemerisForm"/> class.
@@ -22,7 +22,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Local methods
+		#region helper methods
 
 		/// <summary>
 		/// Returns a short debugger display string for this instance.
@@ -63,7 +63,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Form event handlers
+		#region form event handlers
 
 		/// <summary>
 		/// Handles the Load event of the form.
@@ -84,7 +84,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region BackgroundWorker event handler
+		#region BackgroundWorker event handlers
 
 		/// <summary>
 		/// Handles the DoWork event of the BackgroundWorker.
@@ -145,7 +145,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Leave-Handler
+		#region Leave event handlers
 
 		/// <summary>
 		/// Called when the mouse pointer leaves a control or the control loses focus.
@@ -157,7 +157,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Click-Handler
+		#region Click event handlers
 
 		/// <summary>
 		/// Handles the Click event of the Calculate button.

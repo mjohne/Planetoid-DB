@@ -82,7 +82,7 @@ namespace Planetoid_DB
 		// The date of the last observation of the planetoids.
 		private string strObsLastDate = string.Empty;
 
-		#region Constructor
+		#region constructor
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="SearchForm"/> class.
@@ -95,7 +95,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Local methods
+		#region helper methods
 
 		/// <summary>
 		/// Returns a short debugger display string for this instance.
@@ -256,7 +256,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Form* event handlers
+		#region form event handlers
 
 		/// <summary>
 		/// 
@@ -279,7 +279,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region BackgroundWorker event handler
+		#region BackgroundWorker event handlers
 
 		/// <summary>
 		/// 
@@ -323,7 +323,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Enter-Handler
+		#region Enter event handlers
 
 		/// <summary>
 		/// Handles Enter (mouse over / focus) events for controls and ToolStrip items.
@@ -349,7 +349,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Leave-Handler
+		#region Leave event handlers
 
 		/// <summary>
 		/// Called when the mouse pointer leaves a control or the control loses focus.
@@ -437,7 +437,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region SelectedIndexChanged
+		#region SelectedIndexChanged event handlers
 
 		private void ListView_SelectedIndexChanged(object sender, EventArgs e)
 		{

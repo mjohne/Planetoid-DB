@@ -31,7 +31,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Helpers
+		#region helper methods
 
 		/// <summary>
 		/// Returns a short debugger display string for this instance.
@@ -151,7 +151,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region enter event handlers
+		#region Enter event handlers
 
 		/// <summary>
 		/// Handles Enter (mouse over / focus) events for controls and ToolStrip items.
@@ -177,7 +177,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region leave event handlers
+		#region Leave event handlers
 
 		/// <summary>
 		/// Called when the mouse pointer leaves a control.
@@ -188,7 +188,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region click event handlers
+		#region Click event handlers
 
 		/// <summary>
 		/// Handles the click event for opening a local MPCORB.DAT file.
@@ -257,7 +257,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region double-click event handler
+		#region DoubleClick event handler
 
 		/// <summary>
 		/// Called when a control is double-clicked to copy its text to the clipboard.

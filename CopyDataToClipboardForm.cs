@@ -13,7 +13,7 @@ namespace Planetoid_DB
 		// The list of data to be copied to the clipboard.
 		private List<string> dataToCopy = [];
 
-		#region Constructor
+		#region constructor
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CopyDataToClipboardForm"/> class.
@@ -26,7 +26,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region local methods
+		#region helper methods
 
 		/// <summary>
 		/// Returns a short debugger display string for this instance.
@@ -73,7 +73,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Form event handler
+		#region form event handlers
 
 		/// <summary>
 		/// Handles the Load event of the form.
@@ -108,7 +108,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Enter-Handler
+		#region Enter event handlers
 
 		/// <summary>
 		/// Handles Enter (mouse over / focus) events for controls and ToolStrip items.
@@ -134,7 +134,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Leave-Handler
+		#region Leave event handlers
 
 		/// <summary>
 		/// Called when the mouse pointer leaves a control or the control loses focus.
@@ -146,7 +146,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Click-Handler
+		#region Click event handlers
 
 		/// <summary>
 		/// Handles the Click event of the buttonIndexNumber control.

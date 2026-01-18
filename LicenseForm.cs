@@ -95,7 +95,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region form event handler
+		#region form event handlers
 
 		/// <summary>
 		/// Fired when the form loads.
@@ -113,7 +113,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region enter event handlers
+		#region Enter event handlers
 
 		/// <summary>
 		/// Handles Enter (mouse over / focus) events for controls and ToolStrip items.
@@ -139,7 +139,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region leave event handlers
+		#region Leave event handlers
 
 		/// <summary>
 		/// Called when the mouse pointer leaves a control or the control loses focus.
@@ -151,7 +151,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region click event handlers
+		#region Click event handlers
 
 		/// <summary>
 		/// Saves the license to a file.

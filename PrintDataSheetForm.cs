@@ -17,7 +17,7 @@ namespace Planetoid_DB
 		// The PrintDocument instance used for printing.
 		private readonly PrintDocument printDoc;
 
-		#region Constructor
+		#region constructor
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="PrintDataSheetForm"/> class.
@@ -32,7 +32,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Local methods
+		#region helper methods
 
 		/// <summary>
 		/// Returns a short debugger display string for this instance.
@@ -73,7 +73,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Form event handlers
+		#region form event handlers
 
 		/// <summary>
 		/// Handles the Load event of the form.
@@ -224,7 +224,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region PrintPage event handler
+		#region PrintPage event handlers
 
 		/// <summary>
 		/// Handles the PrintPage event of the PrintDocument.

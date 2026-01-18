@@ -51,7 +51,7 @@ namespace Planetoid_DB
 		/// </summary>
 		private static readonly HttpClient httpClient = new();
 
-		#region Constructor
+		#region constructor
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DownloadMpcorbDatForm"/> class.
@@ -283,7 +283,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Form event handler
+		#region form event handlers
 
 		/// <summary>
 		/// Handles the Load event of the DownloadMpcorbDatForm control.
@@ -525,7 +525,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region DoubleClick event handler
+		#region DoubleClick event handlers
 
 		/// <summary>
 		/// Called when a control is double-clicked to copy its text to the clipboard.

@@ -92,7 +92,7 @@ namespace Planetoid_DB
 		private const string mpcorbDatGzFileHeader = "\x1F\x8B"; // Expected header in the MPCORB.DAT.GZ file
 		*/
 
-		#region Constructor
+		#region constructor
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="PlanetoidDbForm"/> class.
@@ -118,7 +118,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Local methods
+		#region helper methods
 
 		/// <summary>
 		/// Gets the file path of the MPCORB.DAT file.
@@ -972,7 +972,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Form* event handlers
+		#region form event handlers
 
 		/// <summary>
 		/// Handles the Load event of the PlanetoidDBForm.
@@ -1044,7 +1044,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region BackgroundWorker for database loading on start up
+		#region BackgroundWorker event handlers for database loading on start up
 
 		/// <summary>
 		/// Handles the DoWork event of the BackgroundWorker for loading the database.
@@ -1272,7 +1272,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Timer
+		#region Timer event handlers
 
 		/// <summary>
 		/// Handles the tick event for checking new MPCORB data file.
@@ -1292,7 +1292,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Clear-Handler
+		#region Clear event handlers
 
 		/// <summary>
 		/// Clears the checked state of all navigation step menu items.
@@ -1309,7 +1309,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region KeyPress-Handler
+		#region KeyPress event handlers
 
 		/// <summary>
 		/// Handles the KeyPress event for the ToolStripTextBoxGotoIndex.
@@ -1335,7 +1335,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Enter-Handler
+		#region Enter event handlers
 
 		/// <summary>
 		/// Handles Enter (mouse over / focus) events for controls and ToolStrip items.
@@ -1361,7 +1361,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Leave-Handler
+		#region Leave event handlers
 
 		/// <summary>
 		/// Called when the mouse pointer leaves a control or the control loses focus.
@@ -1373,7 +1373,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Click & ButtonClick Event Handler
+		#region Click & ButtonClick event Handlers
 
 		/// <summary>
 		/// Handles the click event for the ToolStripButtonStepToBegin.
@@ -2450,7 +2450,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region DoubleClick-Handler
+		#region DoubleClick event handlers
 
 		/// <summary>
 		/// Called when a control is double-clicked to copy its text to the clipboard.

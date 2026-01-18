@@ -28,7 +28,7 @@ namespace Planetoid_DB
 		// Index and label name as character strings
 		private string strIndex, strDesignationName;
 
-		#region Constructor
+		#region constructor
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AppInfoForm"/> class.
@@ -43,7 +43,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region local methods
+		#region helper methods
 
 		/// <summary>
 		/// Returns a short debugger display string for this instance.
@@ -141,7 +141,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region Form event handlers
+		#region form event handlers
 
 		/// <summary>
 		/// Handles the Load event of the form.
@@ -180,7 +180,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		#region BackgroundWorker
+		#region BackgroundWorker event handlers
 
 		/// <summary>
 		/// Handles the DoWork event of the background worker.
