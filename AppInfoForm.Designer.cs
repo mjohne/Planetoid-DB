@@ -61,7 +61,7 @@ namespace Planetoid_DB
 			labelVersion.AccessibleDescription = "Shows the version number";
 			labelVersion.AccessibleName = "Version";
 			labelVersion.AccessibleRole = AccessibleRole.StaticText;
-			labelVersion.Location = new Point(14, 178);
+			labelVersion.Location = new Point(13, 157);
 			labelVersion.Margin = new Padding(4, 3, 4, 3);
 			labelVersion.Name = "labelVersion";
 			labelVersion.Size = new Size(95, 20);
@@ -80,7 +80,7 @@ namespace Planetoid_DB
 			labelTitle.AccessibleName = "Application Name";
 			labelTitle.AccessibleRole = AccessibleRole.StaticText;
 			labelTitle.LabelStyle = LabelStyle.TitlePanel;
-			labelTitle.Location = new Point(14, 149);
+			labelTitle.Location = new Point(13, 128);
 			labelTitle.Margin = new Padding(4, 3, 4, 3);
 			labelTitle.Name = "labelTitle";
 			labelTitle.Size = new Size(129, 29);
@@ -98,7 +98,7 @@ namespace Planetoid_DB
 			labelDescription.AccessibleDescription = "Shows the program description";
 			labelDescription.AccessibleName = "Program descripton";
 			labelDescription.AccessibleRole = AccessibleRole.StaticText;
-			labelDescription.Location = new Point(14, 208);
+			labelDescription.Location = new Point(13, 187);
 			labelDescription.Margin = new Padding(4, 3, 4, 3);
 			labelDescription.Name = "labelDescription";
 			labelDescription.Size = new Size(80, 20);
@@ -132,7 +132,7 @@ namespace Planetoid_DB
 			labelCopyright.AccessibleDescription = "Shows the copyright";
 			labelCopyright.AccessibleName = "Copyright";
 			labelCopyright.AccessibleRole = AccessibleRole.StaticText;
-			labelCopyright.Location = new Point(14, 231);
+			labelCopyright.Location = new Point(13, 210);
 			labelCopyright.Margin = new Padding(4, 3, 4, 3);
 			labelCopyright.Name = "labelCopyright";
 			labelCopyright.Size = new Size(72, 20);
@@ -151,7 +151,7 @@ namespace Planetoid_DB
 			linkLabelEmail.AccessibleName = "E-Mail";
 			linkLabelEmail.AccessibleRole = AccessibleRole.Link;
 			linkLabelEmail.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
-			linkLabelEmail.Location = new Point(432, 238);
+			linkLabelEmail.Location = new Point(431, 217);
 			linkLabelEmail.Margin = new Padding(4, 3, 4, 3);
 			linkLabelEmail.Name = "linkLabelEmail";
 			linkLabelEmail.Size = new Size(62, 20);
@@ -172,7 +172,7 @@ namespace Planetoid_DB
 			linkLabelWebsite.AccessibleName = "Website";
 			linkLabelWebsite.AccessibleRole = AccessibleRole.Link;
 			linkLabelWebsite.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
-			linkLabelWebsite.Location = new Point(432, 208);
+			linkLabelWebsite.Location = new Point(431, 187);
 			linkLabelWebsite.Margin = new Padding(4, 3, 4, 3);
 			linkLabelWebsite.Name = "linkLabelWebsite";
 			linkLabelWebsite.Size = new Size(72, 20);
@@ -205,7 +205,7 @@ namespace Planetoid_DB
 			panel.Margin = new Padding(4, 3, 4, 3);
 			panel.Name = "panel";
 			panel.PanelBackStyle = PaletteBackStyle.FormMain;
-			panel.Size = new Size(508, 284);
+			panel.Size = new Size(508, 262);
 			panel.TabIndex = 0;
 			// 
 			// statusStrip
@@ -215,7 +215,7 @@ namespace Planetoid_DB
 			statusStrip.AccessibleRole = AccessibleRole.StatusBar;
 			statusStrip.Font = new Font("Segoe UI", 9F);
 			statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-			statusStrip.Location = new Point(0, 262);
+			statusStrip.Location = new Point(0, 240);
 			statusStrip.Name = "statusStrip";
 			statusStrip.Padding = new Padding(1, 0, 16, 0);
 			statusStrip.ProgressBars = null;
@@ -251,7 +251,7 @@ namespace Planetoid_DB
 			AccessibleRole = AccessibleRole.Dialog;
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(508, 284);
+			ClientSize = new Size(508, 262);
 			ControlBox = false;
 			Controls.Add(panel);
 			FormBorderStyle = FormBorderStyle.FixedToolWindow;
