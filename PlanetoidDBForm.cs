@@ -125,11 +125,10 @@ namespace Planetoid_DB
 		/// </summary>
 		private string MpcOrbDatFilePath { get; set; } = string.Empty;
 
-
 		/// <summary>
-		/// Returns a string representation of the object for the debugger.
+		/// Returns a short debugger display string for this instance.
 		/// </summary>
-		/// <returns>A string representation of the object.</returns>
+		/// <returns>A string representation of the current instance for use in the debugger.</returns>
 		private string GetDebuggerDisplay() => ToString();
 
 		/// <summary>
