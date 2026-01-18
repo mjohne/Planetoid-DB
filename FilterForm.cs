@@ -65,20 +65,18 @@ namespace Planetoid_DB
 		#region form event handlers
 
 		/// <summary>
-		/// Handles the Load event of the form.
+		/// Fired when the filter form has finished loading.
+		/// Clears the status area so no message is shown on startup.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void FilterForm_Load(object sender, EventArgs e)
-		{
-			ClearStatusBar();
-		}
+		private void FilterForm_Load(object sender, EventArgs e) => ClearStatusBar();
 
 		/// <summary>
-		/// Handles the FormClosed event of the FilterForm.
-		/// Disposes the form when it is closed.
+		/// Fired when the filter form is closed.
+		/// Disposes managed resources associated with the form.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
 		private void FilterForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
 
