@@ -13,20 +13,36 @@ namespace Planetoid_DB
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 	public partial class ListReadableDesignationsForm : BaseKryptonForm
 	{
-		// NLog logger instance
+		/// <summary>
+		/// NLog logger instance for the class
+		/// </summary>
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-		// List of the database
+		/// <summary>
+		/// list of planetoid records from the database
+		/// </summary>
 		private List<string> planetoidsDatabase = [];
 
-		// Number of planetoids and the selected index
+		/// <summary>
+		/// number of planetoids in the database and currently selected index
+		/// </summary>
 		private int numberPlanetoids, selectedIndex;
 
-		// Indicates whether the operation was aborted
+		/// <summary>
+		/// Gets a value indicating whether the operation was cancelled.
+		/// </summary>
 		private bool isCancelled;
 
-		// Index and label name as character strings
+		// 
+		/// <summary>
+		/// Index and label name as character strings
+		/// </summary>
 		private string strIndex, strDesignationName;
+
+		/// <summary>
+		/// Stopwatch for performance measurement
+		/// </summary>
+		private Stopwatch stopwatch = new();
 
 		#region constructor
 

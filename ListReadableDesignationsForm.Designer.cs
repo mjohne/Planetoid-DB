@@ -454,6 +454,8 @@ namespace Planetoid_DB
 			// kryptonManager
 			// 
 			kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+			kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+			kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 			// 
 			// ListReadableDesignationsForm
 			// 
@@ -463,6 +465,7 @@ namespace Planetoid_DB
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(312, 415);
+			ControlBox = false;
 			Controls.Add(panel);
 			Controls.Add(statusStrip);
 			FormBorderStyle = FormBorderStyle.FixedToolWindow;
