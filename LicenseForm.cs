@@ -63,13 +63,13 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
-		/// Extracts an embedded resource from the assembly and writes it to a specified output directory.
+		/// Extracts an embedded resource from the executing assembly and writes it to the specified output directory.
 		/// </summary>
-		/// <param name="nameSpace">The namespace where the resource is located.</param>
-		/// <param name="outDir">The output directory where the resource will be written.</param>
-		/// <param name="internFilePath">The internal file path within the namespace (optional).</param>
-		/// <param name="resourceName">The name of the resource to extract.</param>
-		/// <exception cref="FileNotFoundException">Thrown if the specified resource is not found in the assembly.</exception>
+		/// <param name="nameSpace">The root namespace where the resource is located.</param>
+		/// <param name="outDir">The output directory where the resource will be written. Directory will be created if it does not exist.</param>
+		/// <param name="internFilePath">Optional internal path within the namespace (e.g. "Resources").</param>
+		/// <param name="resourceName">The name of the resource to extract (including extension).</param>
+		/// <exception cref="FileNotFoundException">Thrown when the specified resource is not found in the assembly.</exception>
 		private static void ExtractResource(string nameSpace, string outDir, string internFilePath, string resourceName)
 		{
 			// Get the assembly and the resource path
@@ -98,16 +98,18 @@ namespace Planetoid_DB
 		#region form event handlers
 
 		/// <summary>
-		/// Fired when the form loads.
+		/// Fired when the preload form has finished loading.
+		/// Clears the status area so no message is shown on startup.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void LicenseForm_Load(object sender, EventArgs e) => ClearStatusBar();
 
 		/// <summary>
-		/// Fired when the form closes.
+		/// Fired when the license form is closed.
+		/// Disposes managed resources associated with the form.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
 		private void LicenseForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
 
@@ -154,10 +156,14 @@ namespace Planetoid_DB
 		#region Click event handlers
 
 		/// <summary>
-		/// Saves the license to a file.
+		/// Handles the Save License button click.
+		/// Prompts the user for a destination via <see cref="SaveFileDialog"/>, extracts the embedded LICENSE resource
+		/// to a temporary file and copies it to the selected destination.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the save button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <exception cref="FileNotFoundException">Thrown when the embedded LICENSE resource cannot be found.</exception>
+		/// <exception cref="IOException">Propagated when file copy or delete operations fail.</exception>
 		private void KryptonButtonSaveLicense_Click(object sender, EventArgs e)
 		{
 			// Create a SaveFileDialog to prompt the user for a file location
@@ -171,10 +177,16 @@ namespace Planetoid_DB
 			ExtractResource(nameSpace: "Planetoid_DB", outDir: Path.GetDirectoryName(path: fullFileName) ?? string.Empty, internFilePath: "", resourceName: "LICENSE");
 			// Copy the LICENSE file to the selected file location
 			File.Copy(sourceFileName: Path.Combine(path1: Path.GetDirectoryName(path: fullFileName) ?? string.Empty, path2: "LICENSE"), destFileName: fullFileName, overwrite: true);
-			// Set the status bar text to indicate that the file has been saved
+			// Remove the temporary extracted LICENSE file
 			File.Delete(path: Path.Combine(path1: Path.GetDirectoryName(path: fullFileName) ?? string.Empty, path2: "LICENSE"));
 		}
 
+		/// <summary>
+		/// Handles the Copy License to Clipboard button click.
+		/// Copies the contents of <c>kryptonTextBoxLicense.Text</c> to the clipboard.
+		/// </summary>
+		/// <param name="sender">Event source (the copy button).</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void KryptonButtonCopyLicenseToClipboard_Click(object sender, EventArgs e) =>
 			// Copy the text from the KryptonTextBox to the clipboard
 			CopyToClipboard(text: kryptonTextBoxLicense.Text);
