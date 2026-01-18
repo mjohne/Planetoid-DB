@@ -30,9 +30,10 @@ namespace Planetoid_DB
 		private string GetDebuggerDisplay() => ToString();
 
 		/// <summary>
-		/// Sets the value of the progress bar.
+		/// Sets the splash screen progress bar value.
 		/// </summary>
-		/// <param name="value">The progress value.</param>
+		/// <param name="value">The value to set on the progress bar. Must be between <c>progressBarSplash.Minimum</c> and <c>progressBarSplash.Maximum</c>.</param>
+		/// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is outside the valid range of the progress bar.</exception>
 		public void SetProgressbar(int value)
 		{
 			// Validate the value
@@ -54,9 +55,10 @@ namespace Planetoid_DB
 		#region form event handlers
 
 		/// <summary>
-		/// Fired when the form loads.
+		/// Fired when the splash screen form loads.
+		/// Sets the product title and the formatted version text on the form's labels.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void SplashScreenForm_Load(object sender, EventArgs e)
 		{
@@ -67,12 +69,12 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
-		/// Fired when the form closes.
+		/// Fired when the splash screen form is closed.
+		/// Disposes managed resources associated with the form.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
 		private void SplashScreenForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
-
 		#endregion
 
 		#region DoubleClick event handlers
