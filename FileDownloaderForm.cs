@@ -58,14 +58,6 @@ namespace Planetoid_DB
 		private string GetDebuggerDisplay() => ToString();
 
 		/// <summary>
-		/// Displays an error message box using the standard error caption and icon.
-		/// </summary>
-		/// <param name="message">The message text to show to the user.</param>
-		private static void ShowErrorMessage(string message) =>
-			// Show an error message box with the specified message
-			_ = MessageBox.Show(text: message, caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
-
-		/// <summary>
 		/// Extracts a GZIP-compressed file to the specified output file.
 		/// </summary>
 		/// <param name="gzipFilePath">Full path to the source .gz file.</param>
@@ -130,33 +122,6 @@ namespace Planetoid_DB
 				ShowErrorMessage(message: $"Error retrieving last modified date: {ex.Message}");
 				// Return DateTime.MinValue to indicate failure
 				return DateTime.MinValue;
-			}
-		}
-
-		/// <summary>
-		/// Copies the specified text to the clipboard and shows a confirmation dialog.
-		/// </summary>
-		/// <param name="text">The text to copy to the clipboard.</param>
-		/// <remarks>
-		/// The method displays an informational message on success and logs + shows an error
-		/// message if the clipboard operation fails.
-		/// </remarks>
-		private static void CopyToClipboard(string text)
-		{
-			// Try to copy the text to the clipboard
-			try
-			{
-				// Copy the text to the clipboard
-				Clipboard.SetText(text: text);
-				_ = MessageBox.Show(text: I10nStrings.CopiedToClipboard, caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
-			}
-			// Handle any exceptions that occur during the clipboard operation
-			catch (Exception ex)
-			{
-				// Log the exception and show an error message
-				Logger.Error(exception: ex, message: ex.Message);
-				// Show an error message
-				ShowErrorMessage(message: $"Error copying to clipboard: {ex.Message}");
 			}
 		}
 
