@@ -132,9 +132,14 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
-		/// Fills the planetoids database with the specified array.
+		/// Fills the internal planetoids database from the provided <see cref="ArrayList"/>.
 		/// </summary>
-		/// <param name="arrTemp">The array to fill the database with.</param>
+		/// <param name="arrTemp">An <see cref="ArrayList"/> containing planetoid records as strings. Each entry is cast to <see cref="string"/> and appended to the internal database.</param>
+		/// <remarks>
+		/// The method casts the elements of <paramref name="arrTemp"/> to <see cref="string"/>, stores them
+		/// in the internal <see cref="planetoidsDatabase"/> list and updates <see cref="numberPlanetoids"/>.
+		/// The caller is responsible for providing data in the expected string format.
+		/// </remarks>
 		public void FillArray(ArrayList arrTemp)
 		{
 			planetoidsDatabase = [.. arrTemp.Cast<string>()];
@@ -142,9 +147,16 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
-		/// Formats the row at the specified position.
+		/// Formats a single planetoid record and adds it as a <see cref="ListViewItem"/> to the list view.
+		/// Extracts fixed-width fields from the record at <paramref name="currentPosition"/>,
+		/// trims them and appends the resulting subitems to the list view.
 		/// </summary>
-		/// <param name="currentPosition">The position of the row to format.</param>
+		/// <param name="currentPosition">Zero-based index of the record in the internal <see cref="planetoidsDatabase"/> list to format.</param>
+		/// <remarks>
+		/// Caller must ensure <paramref name="currentPosition"/> is within bounds. The method expects
+		/// a fixed-width record layout and may throw <see cref="ArgumentOutOfRangeException"/> if the
+		/// record is malformed.
+		/// </remarks>
 		private void FormatRow(int currentPosition)
 		{
 			// ReSharper disable once IdentifierTypo
@@ -216,10 +228,10 @@ namespace Planetoid_DB
 		#region form event handlers
 
 		/// <summary>
-		/// Handles the Load event of the TableModeForm.
-		/// Initializes the form controls and sets their initial values.
+		/// Handles the form Load event.
+		/// Initializes UI controls, clears the status area and sets up numeric ranges based on the loaded database.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void TableModeForm_Load(object sender, EventArgs e)
 		{
@@ -241,10 +253,9 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
-		/// Handles the FormClosed event of the TableModeForm.
-		/// Disposes the list view and the form.
+		/// Fired when the form is closed. Releases list view resources and disposes the form.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
 		private void TableModeForm_FormClosed(object sender, FormClosedEventArgs e)
 		{
@@ -257,10 +268,12 @@ namespace Planetoid_DB
 		#region BackgroundWorker
 
 		/// <summary>
-		/// Handles the DoWork event of the BackgroundWorker.
-		/// Processes the planetoids data in the background.
+		/// Handles the <see cref="BackgroundWorker.DoWork"/> event.
+		/// Processes the planetoid records in the configured range on a background thread,
+		/// formats each row and reports progress to the UI. The operation checks the
+		/// <see cref="isCancelled"/> flag to support cooperative cancellation.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the background worker).</param>
 		/// <param name="e">The <see cref="DoWorkEventArgs"/> instance that contains the event data.</param>
 		private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
 		{
@@ -283,19 +296,19 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
-		/// Handles the ProgressChanged event of the BackgroundWorker.
-		/// Updates the progress bar with the current progress.
+		/// Handles the <see cref="BackgroundWorker.ProgressChanged"/> event.
+		/// Updates the UI progress bar on the UI thread with the percentage reported by the background worker.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="ProgressChangedEventArgs"/> instance that contains the event data.</param>
+		/// <param name="sender">Event source (the background worker).</param>
+		/// <param name="e">The <see cref="ProgressChangedEventArgs"/> instance that contains the event data, including <see cref="ProgressChangedEventArgs.ProgressPercentage"/>.</param>
 		private void BackgroundWorker_ProgressChanged(object? sender, ProgressChangedEventArgs e) => progressBar.Value = e.ProgressPercentage;
 
 		/// <summary>
-		/// Handles the RunWorkerCompleted event of the BackgroundWorker.
-		/// Finalizes the background work and updates the UI.
+		/// Handles the <see cref="BackgroundWorker.RunWorkerCompleted"/> event.
+		/// Finalizes background processing: re-enables UI controls, hides progress indicators and resets taskbar state.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="RunWorkerCompletedEventArgs"/> instance that contains the event data.</param>
+		/// <param name="sender">Event source (the background worker).</param>
+		/// <param name="e">The <see cref="RunWorkerCompletedEventArgs"/> instance that contains the event data, including error or cancellation information.</param>
 		private void BackgroundWorker_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
 		{
 			// Show the list view
@@ -356,10 +369,11 @@ namespace Planetoid_DB
 		#region SelectedIndexChanged event handlers
 
 		/// <summary>
-		/// Handles the SelectedIndexChanged event of the ListView.
-		/// Updates the status bar with the selected planetoids index and designation name.
+		/// Handles the ListView <c>SelectedIndexChanged</c> event.
+		/// Updates the status bar with the selected planetoid's index and designation name.
+		/// If no item is selected the method returns without modifying the UI.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the list view).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void ListViewTableMode_SelectedIndexChanged(object sender, EventArgs e)
 		{
@@ -381,9 +395,10 @@ namespace Planetoid_DB
 
 		/// <summary>
 		/// Handles the Click event of the List button.
-		/// Starts the background worker to process the planetoids data.
+		/// Prepares the list view, disables/enables the appropriate UI controls, enables progress reporting
+		/// and starts the background worker to process planetoid records in the configured range.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the List button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void ButtonList_Click(object sender, EventArgs e)
 		{
@@ -438,23 +453,21 @@ namespace Planetoid_DB
 
 		/// <summary>
 		/// Handles the Click event of the Cancel button.
-		/// Cancels the background worker operation.
+		/// Requests cancellation of the background processing by setting the internal cancellation flag.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source (the Cancel button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void ButtonCancel_Click(object sender, EventArgs e)
-		{
-			isCancelled = true;
-		}
+		private void ButtonCancel_Click(object sender, EventArgs e) => isCancelled = true;
 
 		#endregion
 
 		#region DoubleClick event handlers
 
 		/// <summary>
-		/// Called when a control is double-clicked to copy the text to the clipboard.
+		/// Called when a control is double-clicked. If the <paramref name="sender"/> is a <see cref="Control"/>,
+		/// its <see cref="Control.Text"/> value is copied to the clipboard using the shared helper.
 		/// </summary>
-		/// <param name="sender">The event source.</param>
+		/// <param name="sender">Event source — expected to be a <see cref="Control"/>.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void CopyToClipboard_DoubleClick(object sender, EventArgs e)
 		{
