@@ -557,10 +557,11 @@ namespace Planetoid_DB
 		#region Leave-Handler
 
 		/// <summary>
-		/// Called when the mouse pointer leaves a control.
+		/// Called when the mouse pointer leaves a control or the control loses focus.
+		/// Clears the status bar text (delegates to <see cref="ClearStatusBar"/>).
 		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <param name="sender">Event source.</param>
+		/// <param name="e">Event arguments.</param>
 		private void ClearStatusBar_Leave(object sender, EventArgs e) => ClearStatusBar();
 
 		#endregion
@@ -568,11 +569,12 @@ namespace Planetoid_DB
 		#region SelectedValueChanged event handler
 
 		/// <summary>
-		/// Handles the event when the selected value in the list box changes.
-		/// Updates the selected terminology element and sets the active element accordingly.
+		/// Handles the list box SelectedValueChanged event.
+		/// Updates the current <see cref="TerminologyElement"/> based on the list box selection
+		/// and refreshes the displayed content in the web browser.
 		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		/// <param name="sender">The event source (the terminology list box).</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void ListBox_SelectedValueChanged(object sender, EventArgs e)
 		{
 			// Get the selected element from the list box

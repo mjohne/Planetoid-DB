@@ -380,10 +380,11 @@ namespace Planetoid_DB
 		#region Leave event handlers
 
 		/// <summary>
-		/// Handles the Leave event of controls to clear the status bar.
+		/// Called when the mouse pointer leaves a control or the control loses focus.
+		/// Clears the status bar text (delegates to <see cref="ClearStatusBar"/>).
 		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		/// <param name="sender">Event source.</param>
+		/// <param name="e">Event arguments.</param>
 		private void ClearStatusBar_Leave(object? sender, EventArgs? e) => ClearStatusBar();
 
 		#endregion
