@@ -479,9 +479,7 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source.</param>
 		/// <param name="e">Event arguments.</param>
-		private void ClearStatusBar_Leave(object sender, EventArgs e) =>
-			// Clear the status bar text
-			ClearStatusBar();
+		private void ClearStatusBar_Leave(object sender, EventArgs e) => ClearStatusBar();
 
 		#endregion
 	}

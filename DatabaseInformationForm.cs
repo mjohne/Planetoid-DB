@@ -205,10 +205,10 @@ namespace Planetoid_DB
 		#region Leave event handlers
 
 		/// <summary>
-		/// Called when the mouse pointer leaves a control or the control loses focus.
-		/// Clears the status bar text (delegates to <see cref="ClearStatusBar"/>).
+		/// Handles Enter (mouse over / focus) events for controls and ToolStrip items.
+		/// If the sender provides a non-null <c>AccessibleDescription</c>, that text is shown in the status bar.
 		/// </summary>
-		/// <param name="sender">Event source.</param>
+		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">Event arguments.</param>
 		private void ClearStatusBar_Leave(object sender, EventArgs e) => ClearStatusBar();
 
