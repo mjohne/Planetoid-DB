@@ -32,10 +32,10 @@ namespace Planetoid_DB
 		private string GetDebuggerDisplay() => ToString();
 
 		/// <summary>
-		/// Sets the status bar text.
+		/// Sets the status bar text and enables the information label when text is provided.
 		/// </summary>
-		/// <param name="text">The main text to be displayed on the status bar.</param>
-		/// <param name="additionalInfo">Additional information to be displayed alongside the main text.</param>
+		/// <param name="text">Main status text to display. If null or whitespace the method returns without changing the UI.</param>
+		/// <param name="additionalInfo">Optional additional information appended to the main text, separated by " - ".</param>
 		private void SetStatusBar(string text, string additionalInfo = "")
 		{
 			// Check if the text is not null or whitespace
@@ -49,8 +49,12 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
-		/// Clears the status bar text.
+		/// Clears the status bar text and disables the information label.
 		/// </summary>
+		/// <remarks>
+		/// Resets the UI state of the status area so that no message is shown.
+		/// Use when there is no status to display or when leaving a control.
+		/// </remarks>
 		private void ClearStatusBar()
 		{
 			// Clear the status bar text and disable it

@@ -213,8 +213,12 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
-		/// Clears the status bar text.
+		/// Clears the status bar text and disables the information label.
 		/// </summary>
+		/// <remarks>
+		/// Resets the UI state of the status area so that no message is shown.
+		/// Use when there is no status to display or when leaving a control.
+		/// </remarks>
 		private void ClearStatusBar()
 		{
 			// Clear the status bar text and disable it
