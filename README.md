@@ -1,6 +1,7 @@
 # Planetoid-DB
 Viewer for the MPCORB.DAT file
 
+![visitors](https://visitor-badge.laobi.icu/badge?page_id=Planetoid-DB)
 ![GitHub License](https://img.shields.io/github/license/mjohne/Planetoid-DB)
 ![GitHub Created At](https://img.shields.io/github/created-at/mjohne/Planetoid-DB)
 ![GitHub contributors](https://img.shields.io/github/contributors/mjohne/Planetoid-DB)
