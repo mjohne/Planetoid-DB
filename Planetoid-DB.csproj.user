@@ -4,82 +4,82 @@
     <_LastSelectedProfileId>D:\Programming\Visual Studio 2026\Planetoid-DB\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Update="AppInfoForm.cs">
+    <Compile Update="Forms\AppInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="BaseKryptonForm.cs">
+    <Compile Update="Forms\BaseKryptonForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="CheckAstorbDatForm.cs">
+    <Compile Update="Forms\CheckAstorbDatForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="CheckMpcorbDatForm.cs">
+    <Compile Update="Forms\CheckMpcorbDatForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="CopyDataToClipboardForm.cs">
+    <Compile Update="Forms\CopyDataToClipboardForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="DatabaseDifferencesForm.cs">
+    <Compile Update="Forms\DatabaseDifferencesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="DatabaseInformationForm.cs">
+    <Compile Update="Forms\DatabaseInformationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="DerivativeOrbitElementsForm.cs">
+    <Compile Update="Forms\DerivativeOrbitElementsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="DownloadMpcorbDatForm.cs">
+    <Compile Update="Forms\DownloadMpcorbDatForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="EphemerisForm.cs">
+    <Compile Update="Forms\EphemerisForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="ExportDataSheetForm.cs">
+    <Compile Update="Forms\ExportDataSheetForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FilterForm.cs">
+    <Compile Update="Forms\FilterForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FileDownloaderForm.cs">
+    <Compile Update="Forms\DatabaseDownloaderForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="LicenseForm.cs">
+    <Compile Update="Forms\LicenseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="ListReadableDesignationsForm.cs">
+    <Compile Update="Forms\ListReadableDesignationsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="PlanetoidDBForm.cs">
+    <Compile Update="Forms\PlanetoidDBForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="PlanetoidDBForm.DerivativeElements.cs">
+    <Compile Update="Forms\PlanetoidDBForm.DerivativeElements.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="PreloadForm.cs">
+    <Compile Update="Forms\PreloadForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="PrintDataSheetForm.cs">
+    <Compile Update="Forms\PrintDataSheetForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="RecordsMainForm.cs">
+    <Compile Update="Forms\RecordsMainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="RecordsSelectionForm.cs">
+    <Compile Update="Forms\RecordsSelectionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="SearchForm.cs">
+    <Compile Update="Forms\SearchForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="SettingsForm.cs">
+    <Compile Update="Forms\SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="SplashScreenForm.cs">
+    <Compile Update="Forms\SplashScreenForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="TableModeForm.cs">
+    <Compile Update="Forms\TableModeForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="TerminologyForm.cs">
+    <Compile Update="Forms\TerminologyForm.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
@@ -93,7 +93,7 @@
     <EmbeddedResource Update="Resources\FatcowIcons16px.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Update="SettingsForm.resx">
+    <EmbeddedResource Update="Forms\SettingsForm.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
