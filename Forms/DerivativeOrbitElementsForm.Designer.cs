@@ -145,6 +145,8 @@ namespace Planetoid_DB
 			toolStripMenuItemOpenTerminology.Size = new Size(249, 22);
 			toolStripMenuItemOpenTerminology.Text = "&Open in the terminology";
 			toolStripMenuItemOpenTerminology.Click += OpenTerminology_DoubleClick;
+			toolStripMenuItemOpenTerminology.MouseEnter += SetStatusBar_Enter;
+			toolStripMenuItemOpenTerminology.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// labelLinearEccentricityData
 			// 

@@ -49,6 +49,29 @@ namespace Planetoid_DB
 		/// </summary>
 		private CancellationTokenSource? cancellationTokenSource;
 
+		#region constructor
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="DatabaseDownloaderForm"/> class.
+		/// Prepares HTTP client and UI, stores the download <paramref name="url"/>, derives the extraction path
+		/// and starts the download workflow.
+		/// </summary>
+		/// <param name="url">The URL to download the file from. The filename part is used to derive the extraction path.</param>
+		/// <remarks>
+		/// This constructor performs UI initialization and immediately begins the download by calling <see cref="StartDownload"/>.
+		/// It must be called from the UI thread.
+		/// </remarks>
+		public DatabaseDownloaderForm(string url)
+		{
+			InitializeComponent();
+			httpClient = new HttpClient();
+			this.url = url;
+			extractFilePath = Path.GetFileNameWithoutExtension(path: url);
+			StartDownload();
+		}
+
+		#endregion
+
 		#region helper methods
 
 		/// <summary>
@@ -344,29 +367,6 @@ namespace Planetoid_DB
 					progressBarDownload.Text = $"{progress}%";
 				}
 			}
-		}
-
-		#endregion
-
-		#region constructor
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="DatabaseDownloaderForm"/> class.
-		/// Prepares HTTP client and UI, stores the download <paramref name="url"/>, derives the extraction path
-		/// and starts the download workflow.
-		/// </summary>
-		/// <param name="url">The URL to download the file from. The filename part is used to derive the extraction path.</param>
-		/// <remarks>
-		/// This constructor performs UI initialization and immediately begins the download by calling <see cref="StartDownload"/>.
-		/// It must be called from the UI thread.
-		/// </remarks>
-		public DatabaseDownloaderForm(string url)
-		{
-			InitializeComponent();
-			httpClient = new HttpClient();
-			this.url = url;
-			extractFilePath = Path.GetFileNameWithoutExtension(path: url);
-			StartDownload();
 		}
 
 		#endregion
