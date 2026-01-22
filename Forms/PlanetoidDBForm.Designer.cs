@@ -152,6 +152,7 @@ namespace Planetoid_DB
 			menuitemCopyToClipboardComputerName = new ToolStripMenuItem();
 			menuitemCopyToClipboardDateOfTheLastObservation = new ToolStripMenuItem();
 			menuitemCopyToClipboardFlags = new ToolStripMenuItem();
+			menuitemCopytoClipboard = new ToolStripMenuItem();
 			menu = new MenuStrip();
 			menuitemFile = new ToolStripMenuItem();
 			menuitemExportDataEntry = new ToolStripMenuItem();
@@ -160,7 +161,6 @@ namespace Planetoid_DB
 			menuitemRestart = new ToolStripMenuItem();
 			menuitemExit = new ToolStripMenuItem();
 			menuitemEdit = new ToolStripMenuItem();
-			menuitemCopytoClipboard = new ToolStripMenuItem();
 			menuitemSearch = new ToolStripMenuItem();
 			menuitemNavigation = new ToolStripMenuItem();
 			menuitemRandomMinorPlanet = new ToolStripMenuItem();
@@ -2193,6 +2193,23 @@ namespace Planetoid_DB
 			menuitemCopyToClipboardFlags.MouseEnter += SetStatusBar_Enter;
 			menuitemCopyToClipboardFlags.MouseLeave += ClearStatusBar_Leave;
 			// 
+			// menuitemCopytoClipboard
+			// 
+			menuitemCopytoClipboard.AccessibleDescription = "Copy to clipboard";
+			menuitemCopytoClipboard.AccessibleName = "Copy to clipboard";
+			menuitemCopytoClipboard.AccessibleRole = AccessibleRole.MenuItem;
+			menuitemCopytoClipboard.AutoToolTip = true;
+			menuitemCopytoClipboard.DoubleClickEnabled = true;
+			menuitemCopytoClipboard.DropDown = contextMenuCopyToClipboardOrbitalElements;
+			menuitemCopytoClipboard.Image = FatcowIcons16px.fatcow_page_white_copy_16px;
+			menuitemCopytoClipboard.Name = "menuitemCopytoClipboard";
+			menuitemCopytoClipboard.ShortcutKeys = Keys.Control | Keys.C;
+			menuitemCopytoClipboard.Size = new Size(151, 22);
+			menuitemCopytoClipboard.Text = "&Copy";
+			menuitemCopytoClipboard.Click += ToolStripButtonCopyToClipboard_Click;
+			menuitemCopytoClipboard.MouseEnter += SetStatusBar_Enter;
+			menuitemCopytoClipboard.MouseLeave += ClearStatusBar_Leave;
+			// 
 			// menu
 			// 
 			menu.AccessibleDescription = "Shows the menubar";
@@ -2313,23 +2330,6 @@ namespace Planetoid_DB
 			menuitemEdit.Text = "&Edit";
 			menuitemEdit.MouseEnter += SetStatusBar_Enter;
 			menuitemEdit.MouseLeave += ClearStatusBar_Leave;
-			// 
-			// menuitemCopytoClipboard
-			// 
-			menuitemCopytoClipboard.AccessibleDescription = "Copy to clipboard";
-			menuitemCopytoClipboard.AccessibleName = "Copy to clipboard";
-			menuitemCopytoClipboard.AccessibleRole = AccessibleRole.MenuItem;
-			menuitemCopytoClipboard.AutoToolTip = true;
-			menuitemCopytoClipboard.DoubleClickEnabled = true;
-			menuitemCopytoClipboard.DropDown = contextMenuCopyToClipboardOrbitalElements;
-			menuitemCopytoClipboard.Image = FatcowIcons16px.fatcow_page_white_copy_16px;
-			menuitemCopytoClipboard.Name = "menuitemCopytoClipboard";
-			menuitemCopytoClipboard.ShortcutKeys = Keys.Control | Keys.C;
-			menuitemCopytoClipboard.Size = new Size(151, 22);
-			menuitemCopytoClipboard.Text = "&Copy";
-			menuitemCopytoClipboard.Click += ToolStripButtonCopyToClipboard_Click;
-			menuitemCopytoClipboard.MouseEnter += SetStatusBar_Enter;
-			menuitemCopytoClipboard.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// menuitemSearch
 			// 
@@ -3478,9 +3478,13 @@ namespace Planetoid_DB
 			toolStripLabelIndexPosition.AccessibleName = "Index info";
 			toolStripLabelIndexPosition.AccessibleRole = AccessibleRole.StaticText;
 			toolStripLabelIndexPosition.AutoToolTip = true;
+			toolStripLabelIndexPosition.DoubleClickEnabled = true;
 			toolStripLabelIndexPosition.Name = "toolStripLabelIndexPosition";
 			toolStripLabelIndexPosition.Size = new Size(125, 22);
-			toolStripLabelIndexPosition.Text = "index: 123456 / 999999";
+			toolStripLabelIndexPosition.Text = "Index: 123456 / 999999";
+			toolStripLabelIndexPosition.ToolTipText = "Index: 123456 / 999999";
+			toolStripLabelIndexPosition.DoubleClick += CopyToClipboard_DoubleClick;
+			toolStripLabelIndexPosition.MouseDown += Control_MouseDown;
 			toolStripLabelIndexPosition.MouseEnter += SetStatusBar_Enter;
 			toolStripLabelIndexPosition.MouseLeave += ClearStatusBar_Leave;
 			// 

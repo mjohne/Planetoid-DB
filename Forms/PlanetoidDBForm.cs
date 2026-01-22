@@ -23,9 +23,9 @@ namespace Planetoid_DB
 	public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		/// <summary>
-		/// Stores the currently selected control for clipboard operations.
+		/// Stores the currently selected ToolStripLabel for clipboard operations.
 		/// </summary>
-		private Control currentControl;
+		private ToolStripLabel currentLabel;
 
 		/// <summary>
 		/// NLog logger instance.
@@ -2491,10 +2491,10 @@ namespace Planetoid_DB
 				CopyToClipboard(text: control.Text);
 			}
 			// Check if the sender is a ToolStripItem
-			else if (sender is ToolStripItem)
+			else if (sender is ToolStripLabel)
 			{
 				// Copy the text to the clipboard
-				CopyToClipboard(text: currentControl.Text);
+				CopyToClipboard(text: currentLabel.Text);
 			}
 		}
 
@@ -2657,9 +2657,9 @@ namespace Planetoid_DB
 		/// <param name="e">The <see cref="MouseEventArgs"/> instance that contains the event data.</param>
 		private void Control_MouseDown(object sender, MouseEventArgs e)
 		{
-			if (sender is Control control)
+			if (sender is ToolStripLabel label)
 			{
-				currentControl = control;
+				currentLabel = label;
 			}
 		}
 
