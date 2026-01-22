@@ -38,6 +38,8 @@ namespace Planetoid_DB
 			toolTip = new ToolTip(components);
 			labelLinearEccentricityDesc = new KryptonLabel();
 			labelLinearEccentricityData = new KryptonLabel();
+			contextMenuStripCopyToClipboard = new ContextMenuStrip(components);
+			ToolStripMenuItemCpyToClipboard = new ToolStripMenuItem();
 			labelSemiMinorAxisDesc = new KryptonLabel();
 			labelMajorAxisDesc = new KryptonLabel();
 			labelMinorAxisDesc = new KryptonLabel();
@@ -79,6 +81,8 @@ namespace Planetoid_DB
 			labelInformation = new ToolStripStatusLabel();
 			tableLayoutPanel = new KryptonTableLayoutPanel();
 			kryptonManager = new KryptonManager(components);
+			kryptonContextMenu = new KryptonContextMenu();
+			contextMenuStripCopyToClipboard.SuspendLayout();
 			toolStripContainer.BottomToolStripPanel.SuspendLayout();
 			toolStripContainer.ContentPanel.SuspendLayout();
 			toolStripContainer.SuspendLayout();
@@ -112,6 +116,7 @@ namespace Planetoid_DB
 			labelLinearEccentricityData.AccessibleDescription = "Shows the information of \"Linear eccentricity\"";
 			labelLinearEccentricityData.AccessibleName = "Shows the information of \"Linear eccentricity\"";
 			labelLinearEccentricityData.AccessibleRole = AccessibleRole.StaticText;
+			labelLinearEccentricityData.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelLinearEccentricityData.Dock = DockStyle.Fill;
 			labelLinearEccentricityData.Location = new Point(280, 3);
 			labelLinearEccentricityData.Margin = new Padding(4, 3, 4, 3);
@@ -123,8 +128,41 @@ namespace Planetoid_DB
 			labelLinearEccentricityData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelLinearEccentricityData.Enter += SetStatusBar_Enter;
 			labelLinearEccentricityData.Leave += ClearStatusBar_Leave;
+			labelLinearEccentricityData.MouseDown += Control_MouseDown;
 			labelLinearEccentricityData.MouseEnter += SetStatusBar_Enter;
 			labelLinearEccentricityData.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// contextMenuStripCopyToClipboard
+			// 
+			contextMenuStripCopyToClipboard.AccessibleDescription = "Shows context menu for some options";
+			contextMenuStripCopyToClipboard.AccessibleName = "Some options";
+			contextMenuStripCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
+			contextMenuStripCopyToClipboard.AllowClickThrough = true;
+			contextMenuStripCopyToClipboard.Font = new Font("Segoe UI", 9F);
+			contextMenuStripCopyToClipboard.Items.AddRange(new ToolStripItem[] { ToolStripMenuItemCpyToClipboard });
+			contextMenuStripCopyToClipboard.Name = "contextMenuStrip";
+			contextMenuStripCopyToClipboard.Size = new Size(214, 26);
+			contextMenuStripCopyToClipboard.TabStop = true;
+			contextMenuStripCopyToClipboard.Text = "ContextMenu";
+			toolTip.SetToolTip(contextMenuStripCopyToClipboard, "Context Menu for copying to clipboard");
+			contextMenuStripCopyToClipboard.MouseEnter += SetStatusBar_Enter;
+			contextMenuStripCopyToClipboard.MouseHover += ClearStatusBar_Leave;
+			// 
+			// ToolStripMenuItemCpyToClipboard
+			// 
+			ToolStripMenuItemCpyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
+			ToolStripMenuItemCpyToClipboard.AccessibleName = "Copy to clipboard";
+			ToolStripMenuItemCpyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
+			ToolStripMenuItemCpyToClipboard.AutoToolTip = true;
+			ToolStripMenuItemCpyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
+			ToolStripMenuItemCpyToClipboard.Name = "ToolStripMenuItemCpyToClipboard";
+			ToolStripMenuItemCpyToClipboard.ShortcutKeyDisplayString = "Strg+C";
+			ToolStripMenuItemCpyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
+			ToolStripMenuItemCpyToClipboard.Size = new Size(213, 22);
+			ToolStripMenuItemCpyToClipboard.Text = "&Copy to clipboard";
+			ToolStripMenuItemCpyToClipboard.Click += CopyToClipboard_DoubleClick;
+			ToolStripMenuItemCpyToClipboard.MouseEnter += SetStatusBar_Enter;
+			ToolStripMenuItemCpyToClipboard.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// labelSemiMinorAxisDesc
 			// 
@@ -415,6 +453,7 @@ namespace Planetoid_DB
 			labelSemiMinorAxisData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelSemiMinorAxisData.Enter += SetStatusBar_Enter;
 			labelSemiMinorAxisData.Leave += ClearStatusBar_Leave;
+			labelSemiMinorAxisData.MouseDown += Control_MouseDown;
 			labelSemiMinorAxisData.MouseEnter += SetStatusBar_Enter;
 			labelSemiMinorAxisData.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -434,6 +473,7 @@ namespace Planetoid_DB
 			labelMajorAxisData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelMajorAxisData.Enter += SetStatusBar_Enter;
 			labelMajorAxisData.Leave += ClearStatusBar_Leave;
+			labelMajorAxisData.MouseDown += Control_MouseDown;
 			labelMajorAxisData.MouseEnter += SetStatusBar_Enter;
 			labelMajorAxisData.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -453,6 +493,7 @@ namespace Planetoid_DB
 			labelMinorAxisData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelMinorAxisData.Enter += SetStatusBar_Enter;
 			labelMinorAxisData.Leave += ClearStatusBar_Leave;
+			labelMinorAxisData.MouseDown += Control_MouseDown;
 			labelMinorAxisData.MouseEnter += SetStatusBar_Enter;
 			labelMinorAxisData.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -472,6 +513,7 @@ namespace Planetoid_DB
 			labelEccentricAnomalyData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelEccentricAnomalyData.Enter += SetStatusBar_Enter;
 			labelEccentricAnomalyData.Leave += ClearStatusBar_Leave;
+			labelEccentricAnomalyData.MouseDown += Control_MouseDown;
 			labelEccentricAnomalyData.MouseEnter += SetStatusBar_Enter;
 			labelEccentricAnomalyData.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -491,6 +533,7 @@ namespace Planetoid_DB
 			labelTrueAnomalyData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelTrueAnomalyData.Enter += SetStatusBar_Enter;
 			labelTrueAnomalyData.Leave += ClearStatusBar_Leave;
+			labelTrueAnomalyData.MouseDown += Control_MouseDown;
 			labelTrueAnomalyData.MouseEnter += SetStatusBar_Enter;
 			labelTrueAnomalyData.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -510,6 +553,7 @@ namespace Planetoid_DB
 			labelPerihelionDistanceData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelPerihelionDistanceData.Enter += SetStatusBar_Enter;
 			labelPerihelionDistanceData.Leave += ClearStatusBar_Leave;
+			labelPerihelionDistanceData.MouseDown += Control_MouseDown;
 			labelPerihelionDistanceData.MouseEnter += SetStatusBar_Enter;
 			labelPerihelionDistanceData.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -529,6 +573,7 @@ namespace Planetoid_DB
 			labelAphelionDistanceData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelAphelionDistanceData.Enter += SetStatusBar_Enter;
 			labelAphelionDistanceData.Leave += ClearStatusBar_Leave;
+			labelAphelionDistanceData.MouseDown += Control_MouseDown;
 			labelAphelionDistanceData.MouseEnter += SetStatusBar_Enter;
 			labelAphelionDistanceData.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -548,6 +593,7 @@ namespace Planetoid_DB
 			labelLongitudeDescendingNodeData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelLongitudeDescendingNodeData.Enter += SetStatusBar_Enter;
 			labelLongitudeDescendingNodeData.Leave += ClearStatusBar_Leave;
+			labelLongitudeDescendingNodeData.MouseDown += Control_MouseDown;
 			labelLongitudeDescendingNodeData.MouseEnter += SetStatusBar_Enter;
 			labelLongitudeDescendingNodeData.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -567,6 +613,7 @@ namespace Planetoid_DB
 			labelArgumentAphelionData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelArgumentAphelionData.Enter += SetStatusBar_Enter;
 			labelArgumentAphelionData.Leave += ClearStatusBar_Leave;
+			labelArgumentAphelionData.MouseDown += Control_MouseDown;
 			labelArgumentAphelionData.MouseEnter += SetStatusBar_Enter;
 			labelArgumentAphelionData.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -586,6 +633,7 @@ namespace Planetoid_DB
 			labelFocalParameterData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelFocalParameterData.Enter += SetStatusBar_Enter;
 			labelFocalParameterData.Leave += ClearStatusBar_Leave;
+			labelFocalParameterData.MouseDown += Control_MouseDown;
 			labelFocalParameterData.MouseEnter += SetStatusBar_Enter;
 			labelFocalParameterData.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -605,6 +653,7 @@ namespace Planetoid_DB
 			labelSemiLatusRectumData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelSemiLatusRectumData.Enter += SetStatusBar_Enter;
 			labelSemiLatusRectumData.Leave += ClearStatusBar_Leave;
+			labelSemiLatusRectumData.MouseDown += Control_MouseDown;
 			labelSemiLatusRectumData.MouseEnter += SetStatusBar_Enter;
 			labelSemiLatusRectumData.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -624,6 +673,7 @@ namespace Planetoid_DB
 			labelLatusRectumData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelLatusRectumData.Enter += SetStatusBar_Enter;
 			labelLatusRectumData.Leave += ClearStatusBar_Leave;
+			labelLatusRectumData.MouseDown += Control_MouseDown;
 			labelLatusRectumData.MouseEnter += SetStatusBar_Enter;
 			labelLatusRectumData.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -643,6 +693,7 @@ namespace Planetoid_DB
 			labelPeriodData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelPeriodData.Enter += SetStatusBar_Enter;
 			labelPeriodData.Leave += ClearStatusBar_Leave;
+			labelPeriodData.MouseDown += Control_MouseDown;
 			labelPeriodData.MouseEnter += SetStatusBar_Enter;
 			labelPeriodData.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -746,6 +797,7 @@ namespace Planetoid_DB
 			labelOrbitalAreaData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelOrbitalAreaData.Enter += SetStatusBar_Enter;
 			labelOrbitalAreaData.Leave += ClearStatusBar_Leave;
+			labelOrbitalAreaData.MouseDown += Control_MouseDown;
 			labelOrbitalAreaData.MouseEnter += SetStatusBar_Enter;
 			labelOrbitalAreaData.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -765,6 +817,7 @@ namespace Planetoid_DB
 			labelOrbitalPerimeterData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelOrbitalPerimeterData.Enter += SetStatusBar_Enter;
 			labelOrbitalPerimeterData.Leave += ClearStatusBar_Leave;
+			labelOrbitalPerimeterData.MouseDown += Control_MouseDown;
 			labelOrbitalPerimeterData.MouseEnter += SetStatusBar_Enter;
 			labelOrbitalPerimeterData.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -784,6 +837,7 @@ namespace Planetoid_DB
 			labelSemiMeanAxisData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelSemiMeanAxisData.Enter += SetStatusBar_Enter;
 			labelSemiMeanAxisData.Leave += ClearStatusBar_Leave;
+			labelSemiMeanAxisData.MouseDown += Control_MouseDown;
 			labelSemiMeanAxisData.MouseEnter += SetStatusBar_Enter;
 			labelSemiMeanAxisData.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -824,6 +878,7 @@ namespace Planetoid_DB
 			labelMeanAxisData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelMeanAxisData.Enter += SetStatusBar_Enter;
 			labelMeanAxisData.Leave += ClearStatusBar_Leave;
+			labelMeanAxisData.MouseDown += Control_MouseDown;
 			labelMeanAxisData.MouseEnter += SetStatusBar_Enter;
 			labelMeanAxisData.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -843,6 +898,7 @@ namespace Planetoid_DB
 			labelStandardGravitationalParameterData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelStandardGravitationalParameterData.Enter += SetStatusBar_Enter;
 			labelStandardGravitationalParameterData.Leave += ClearStatusBar_Leave;
+			labelStandardGravitationalParameterData.MouseDown += Control_MouseDown;
 			labelStandardGravitationalParameterData.MouseEnter += SetStatusBar_Enter;
 			labelStandardGravitationalParameterData.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -1005,6 +1061,7 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(this, "Derivated orbit elements");
 			FormClosed += DerivativeOrbitElementsForm_FormClosed;
 			Load += DerivativeOrbitElementsForm_Load;
+			contextMenuStripCopyToClipboard.ResumeLayout(false);
 			toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
 			toolStripContainer.BottomToolStripPanel.PerformLayout();
 			toolStripContainer.ContentPanel.ResumeLayout(false);
@@ -1063,5 +1120,8 @@ namespace Planetoid_DB
 		private ToolStripStatusLabel labelInformation;
 		private ToolStripContainer toolStripContainer;
 		private KryptonManager kryptonManager;
+		private KryptonContextMenu kryptonContextMenu;
+		private ContextMenuStrip contextMenuStripCopyToClipboard;
+		private ToolStripMenuItem ToolStripMenuItemCpyToClipboard;
 	}
 }
