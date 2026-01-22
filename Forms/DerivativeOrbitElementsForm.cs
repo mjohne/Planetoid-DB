@@ -103,7 +103,7 @@ namespace Planetoid_DB
 			if (string.IsNullOrWhiteSpace(value: input))
 			{
 				// Set the error message and return false
-				errorMessage = "Der eingegebene Text ist leer oder besteht nur aus Leerzeichen.";
+				errorMessage = "The entered text is empty or consists only of spaces.";
 				return false;
 			}
 			// Try to parse the integer
@@ -111,13 +111,12 @@ namespace Planetoid_DB
 			if (!int.TryParse(s: input, result: out value))
 			{
 				// Set the error message and return false
-				errorMessage = $"Der Wert \"{input}\" ist keine gültige Ganzzahl.";
+				errorMessage = $"The value \"{input}\" is not a valid integer.";
 				return false;
 			}
 			// Parsing was successful
 			return true;
 		}
-
 
 		/// <summary>
 		/// Opens the terminology dialog for a specific derived orbit element.

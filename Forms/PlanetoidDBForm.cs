@@ -194,6 +194,37 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
+		/// Tries to parse an integer from the input string.
+		/// </summary>
+		/// <param name="input">The input string to parse.</param>
+		/// <param name="value">The parsed integer value if successful.</param>
+		/// <param name="errorMessage">An error message if parsing fails.</param>
+		/// <returns>True if parsing was successful; otherwise, false.</returns>
+		public static bool TryParseInt(string input, out int value, out string errorMessage)
+		{
+			// Initialize output parameters
+			value = 0;
+			errorMessage = string.Empty;
+			// Check if the input is null or whitespace
+			if (string.IsNullOrWhiteSpace(value: input))
+			{
+				// Set the error message and return false
+				errorMessage = "The entered text is empty or consists only of spaces.";
+				return false;
+			}
+			// Try to parse the integer
+			// If parsing fails, set the error message
+			if (!int.TryParse(s: input, result: out value))
+			{
+				// Set the error message and return false
+				errorMessage = $"The value \"{input}\" is not a valid integer.";
+				return false;
+			}
+			// Parsing was successful
+			return true;
+		}
+
+		/// <summary>
 		/// Restarts the application.
 		/// </summary>
 		private void Restart()
@@ -1165,6 +1196,15 @@ namespace Planetoid_DB
 			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: 0, progressMax: 100);
 		}
 
+		/// <summary>
+		/// Extracts a GZIP-compressed file to the specified output file.
+		/// </summary>
+		/// <param name="gzipFilePath">Full path to the source .gz file.</param>
+		/// <param name="outputFilePath">Full path where the decompressed file will be written.</param>
+		/// <remarks>
+		/// The method streams the compressed input to the output file using <see cref="GZipStream"/>.
+		/// It throws exceptions (e.g. <see cref="IOException"/>, <see cref="InvalidDataException"/>) to the caller.
+		/// </remarks>
 		private static void ExtractGzipFile(string gzipFilePath, string outputFilePath)
 		{
 			// Create a new file stream for the gzip file
@@ -2525,151 +2565,36 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
+		/// Handles double-click events on the control to open the terminology dialog.
+		/// </summary>
+		/// <param name="sender">Event source (the control).</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method attempts to parse the current tag text as an integer and opens the terminology dialog
+		/// for the corresponding entry if successful.
+		/// </remarks>
+		private void OpenTerminology_DoubleClick(object sender, EventArgs e)
+		{
+			// Try to parse the index from the current tag text
+			// If successful, open the terminology dialog for that index
+			// If parsing fails, log an error and show an error message
+			if (TryParseInt(input: currentTagText, value: out int index, errorMessage: out string errorMessage))
+			{
+				// Open the terminology dialog for the parsed index
+				OpenTerminology(index: (uint)index);
+				return;
+			}
+			// Log the error and show an error message
+			Logger.Error(message: $"Failed to parse index from tag text '{currentTagText}': {errorMessage}");
+			ShowErrorMessage(message: $"Failed to parse index from tag text '{currentTagText}': {errorMessage}");
+		}
+
+		/// <summary>
 		/// Handles the double-click event to show an Easter egg message.
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void EasterEgg_DoubleClick(object sender, EventArgs e) => MessageBox.Show(text: I10nStrings.EasterEgg, caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
-
-		/// <summary>
-		/// Handles the double-click event on the index label to open the terminology form.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelIndexDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 0);
-
-		/// <summary>
-		/// Handles the double-click event on the readable designation name label to open the terminology form.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelReadableDesignationNameDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 1);
-
-		/// <summary>
-		/// Handles the double-click event on the epoch label to open the terminology form.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelEpochDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 2);
-
-		/// <summary>
-		/// Handles the double-click event on the argument of perihelion label to open the terminology form.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelArgumentOfPerihelionDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 3);
-
-		/// <summary>
-		/// Handles the double-click event on the longitude of the ascending node label to open the terminology form.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelLongitudeOfTheAscendingNodeDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 4);
-
-		/// <summary>
-		/// Handles the double-click event on the mean anomaly at the epoch label to open the terminology form.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void KryptonLabelMeanAnomalyAtTheEpochDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 5);
-
-		/// <summary>
-		/// Handles the double-click event on the inclination to the ecliptic label to open the terminology form.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelInclinationToTheEclipticDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 6);
-
-		/// <summary>
-		/// Handles the double-click event on the orbital eccentricity label to open the terminology form.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelOrbitalEccentricityDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 7);
-
-		/// <summary>
-		/// Handles the double-click event on the mean daily motion label to open the terminology form.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelMeanDailyMotionDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 8);
-
-		/// <summary>
-		/// Handles the double-click event on the semi-major axis label to open the terminology form.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelSemiMajorAxisDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 9);
-
-		/// <summary>
-		/// Handles the double-click event on the absolute magnitude label to open the terminology form.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelAbsoluteMagnitudeDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 10);
-
-		/// <summary>
-		/// Handles the double-click event on the slope parameter label to open the terminology form.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelSlopeParameterDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 11);
-
-		/// <summary>
-		/// Handles the double-click event on the reference label to open the terminology form.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelReferenceDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 12);
-
-		/// <summary>
-		/// Handles the double-click event on the number of oppositions label to open the terminology form.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelNumberOfOppositionsDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 13);
-
-		/// <summary>
-		/// Handles the double-click event on the number of observations label to open the terminology form.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelNumberOfObservationsDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 14);
-
-		/// <summary>
-		/// Handles the double-click event on the observation span label to open the terminology form.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelObservationSpanDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 15);
-
-		/// <summary>
-		/// Handles the double-click event on the RMS residual label to open the terminology form.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelRmsResidualDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 16);
-
-		/// <summary>
-		/// Handles the double-click event on the computer name label to open the terminology form.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelComputerNameDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 17);
-
-		/// <summary>
-		/// Handles the double-click event on the flags label to open the terminology form.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelFlagsDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 18);
-
-		/// <summary>
-		/// Handles the double-click event on the date of last observation label to open the terminology form.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelDateLastObservationDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 19);
 
 		#endregion
 
