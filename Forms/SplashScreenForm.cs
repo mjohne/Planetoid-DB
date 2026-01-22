@@ -10,7 +10,15 @@ namespace Planetoid_DB
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 	public partial class SplashScreenForm : BaseKryptonForm
 	{
-		private static readonly Logger Logger = LogManager.GetCurrentClassLogger(); // NLog logger instance
+		/// <summary>
+		/// Stores the currently selected control for clipboard operations.
+		/// </summary>
+		private Control currentControl;
+
+		/// <summary>
+		/// NLog logger instance.
+		/// </summary>
+		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
 		#region constructor
 
@@ -80,19 +88,45 @@ namespace Planetoid_DB
 		#region DoubleClick event handlers
 
 		/// <summary>
-		/// Called when a control is double-clicked. If the <paramref name="sender"/> is a <see cref="Control"/>,
-		/// its <see cref="Control.Text"/> value is copied to the clipboard using the shared helper.
+		/// Called when a control is double-clicked. If the <paramref name="sender"/> is a <see cref="Control"/> or
+		/// or a <see cref="ToolStripItem"/>, its <see cref="Control.Text"/> value is copied to the clipboard
+		/// using the shared helper.
 		/// </summary>
-		/// <param name="sender">Event source — expected to be a <see cref="Control"/>.</param>
+		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or a <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void CopyToClipboard_DoubleClick(object sender, EventArgs e)
 		{
 			// Check if the sender is null
 			ArgumentNullException.ThrowIfNull(argument: sender);
+			// Check the type of the sender and copy the text accordingly
 			if (sender is Control control)
 			{
 				// Copy the text to the clipboard
 				CopyToClipboard(text: control.Text);
+			}
+			// Check if the sender is a ToolStripItem
+			else if (sender is ToolStripItem)
+			{
+				// Copy the text to the clipboard
+				CopyToClipboard(text: currentControl.Text);
+			}
+		}
+
+		#endregion
+
+		#region MouseDown event handlers
+
+		/// <summary>
+		/// Handles the MouseDown event for controls.
+		/// Stores the control that triggered the event for future reference.
+		/// </summary>
+		/// <param name="sender">Event source (the control).</param>
+		/// <param name="e">The <see cref="MouseEventArgs"/> instance that contains the event data.</param>
+		private void Control_MouseDown(object sender, MouseEventArgs e)
+		{
+			if (sender is Control control)
+			{
+				currentControl = control;
 			}
 		}
 
