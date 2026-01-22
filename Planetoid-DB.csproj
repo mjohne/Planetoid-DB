@@ -851,12 +851,12 @@ Public License instead of this License.  But first, please read
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Krypton.Docking" Version="100.25.11.328" />
-    <PackageReference Include="Krypton.Navigator" Version="100.25.11.328" />
-    <PackageReference Include="Krypton.Ribbon" Version="100.25.11.328" />
-    <PackageReference Include="Krypton.Toolkit" Version="100.25.11.328" />
+    <PackageReference Include="Krypton.Docking" Version="100.26.1.19" />
+    <PackageReference Include="Krypton.Navigator" Version="100.26.1.19" />
+    <PackageReference Include="Krypton.Ribbon" Version="100.26.1.19" />
+    <PackageReference Include="Krypton.Toolkit" Version="100.26.1.19" />
     <PackageReference Include="Krypton.Toolkit.Suite.Extended.Ultimate" Version="95.25.5.145" />
-    <PackageReference Include="Krypton.Workspace" Version="100.25.11.328" />
+    <PackageReference Include="Krypton.Workspace" Version="100.26.1.19" />
     <PackageReference Include="NLog" Version="6.0.7" />
   </ItemGroup>
 
