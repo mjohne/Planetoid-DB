@@ -11,19 +11,24 @@ namespace Planetoid_DB
 	public partial class DerivativeOrbitElementsForm : BaseKryptonForm
 	{
 		/// <summary>
-		/// Stores the currently selected control for clipboard operations.
-		/// </summary>
-		private Control currentControl;
-
-		/// <summary>
 		/// NLog logger instance.
 		/// </summary>
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
 		/// <summary>
+		/// Stores the currently selected control for clipboard operations.
+		/// </summary>
+		private Control currentControl;
+
+		/// <summary>
 		/// Stores the current tag text of the control.
 		/// </summary>
 		private string currentTagText = string.Empty;
+
+		/// <summary>
+		/// Stores the currently selected ToolStripLabel for clipboard operations.
+		/// </summary>
+		private readonly ToolStripLabel currentLabel;
 
 		/// <summary>
 		/// List of derived orbit elements.
@@ -285,14 +290,15 @@ namespace Planetoid_DB
 		#region DoubleClick event handlers
 
 		/// <summary>
-		/// Called when a control is double-clicked. If the <paramref name="sender"/> is a <see cref="Control"/> or
+		/// Called when a control is double-clicked. If the <paramref name="sender"/> is a <see cref="Control"/>
 		/// or a <see cref="ToolStripItem"/>, its <see cref="Control.Text"/> value is copied to the clipboard
 		/// using the shared helper.
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or a <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		/// <remarks>
-		/// This method checks the type of the sender and copies its text to the clipboard.
+		/// If the <paramref name="sender"/> is a <see cref="Control"/>, its <see cref="Control.Text"/> value is copied to the clipboard.
+		/// If the <paramref name="sender"/> is a <see cref="ToolStripItem"/>, its <see cref="ToolStripItem.Text"/> value is copied to the clipboard.
 		/// </remarks>
 		private void CopyToClipboard_DoubleClick(object sender, EventArgs e)
 		{
@@ -309,6 +315,18 @@ namespace Planetoid_DB
 			{
 				// Copy the text to the clipboard
 				CopyToClipboard(text: currentControl.Text);
+			}
+			// Check if the sender is a ToolStripItem
+			else if (sender is ToolStripLabel)
+			{
+				// Copy the text to the clipboard
+				CopyToClipboard(text: currentLabel.Text);
+			}
+			// Unsupported type
+			else
+			{
+				// Throw an exception
+				throw new ArgumentException(message: "Unsupported sender type", paramName: nameof(sender));
 			}
 		}
 
