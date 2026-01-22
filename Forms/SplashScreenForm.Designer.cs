@@ -38,6 +38,9 @@ namespace Planetoid_DB
 			labelVersion = new Label();
 			toolTip = new ToolTip(components);
 			kryptonManager = new KryptonManager(components);
+			contextMenuStripCopyToClipboard = new ContextMenuStrip(components);
+			ToolStripMenuItemCpyToClipboard = new ToolStripMenuItem();
+			contextMenuStripCopyToClipboard.SuspendLayout();
 			SuspendLayout();
 			// 
 			// progressBarSplash
@@ -66,6 +69,7 @@ namespace Planetoid_DB
 			labelTitle.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 			labelTitle.AutoSize = true;
 			labelTitle.BackColor = Color.Transparent;
+			labelTitle.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelTitle.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
 			labelTitle.ForeColor = Color.LightCyan;
 			labelTitle.Location = new Point(223, 25);
@@ -76,6 +80,7 @@ namespace Planetoid_DB
 			labelTitle.Text = "Planetoid-DB";
 			toolTip.SetToolTip(labelTitle, "Application name");
 			labelTitle.DoubleClick += CopyToClipboard_DoubleClick;
+			labelTitle.MouseDown += Control_MouseDown;
 			// 
 			// labelVersion
 			// 
@@ -84,23 +89,57 @@ namespace Planetoid_DB
 			labelVersion.AccessibleRole = AccessibleRole.Text;
 			labelVersion.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 			labelVersion.BackColor = Color.Transparent;
+			labelVersion.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelVersion.Font = new Font("Segoe UI", 8.5F);
 			labelVersion.ForeColor = Color.White;
 			labelVersion.Location = new Point(223, 77);
 			labelVersion.Margin = new Padding(4, 0, 4, 0);
 			labelVersion.Name = "labelVersion";
-			labelVersion.Size = new Size(258, 25);
+			labelVersion.Size = new Size(221, 25);
 			labelVersion.TabIndex = 1;
 			labelVersion.Text = "Version: X.X.X.X";
 			labelVersion.TextAlign = ContentAlignment.MiddleCenter;
 			toolTip.SetToolTip(labelVersion, "Version number");
 			labelVersion.DoubleClick += CopyToClipboard_DoubleClick;
+			labelVersion.MouseDown += Control_MouseDown;
 			// 
 			// kryptonManager
 			// 
 			kryptonManager.GlobalPaletteMode = PaletteMode.Global;
 			kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 			kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
+			// 
+			// contextMenuStripCopyToClipboard
+			// 
+			contextMenuStripCopyToClipboard.AccessibleDescription = "Shows context menu for some options";
+			contextMenuStripCopyToClipboard.AccessibleName = "Some options";
+			contextMenuStripCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
+			contextMenuStripCopyToClipboard.AllowClickThrough = true;
+			contextMenuStripCopyToClipboard.Font = new Font("Segoe UI", 9F);
+			contextMenuStripCopyToClipboard.Items.AddRange(new ToolStripItem[] { ToolStripMenuItemCpyToClipboard });
+			contextMenuStripCopyToClipboard.Name = "contextMenuStrip";
+			contextMenuStripCopyToClipboard.Size = new Size(214, 26);
+			contextMenuStripCopyToClipboard.TabStop = true;
+			contextMenuStripCopyToClipboard.Text = "ContextMenu";
+			toolTip.SetToolTip(contextMenuStripCopyToClipboard, "Context Menu for copying to clipboard");
+			contextMenuStripCopyToClipboard.MouseEnter += SplashScreenForm_Load;
+			contextMenuStripCopyToClipboard.MouseLeave += CopyToClipboard_DoubleClick;
+			// 
+			// ToolStripMenuItemCpyToClipboard
+			// 
+			ToolStripMenuItemCpyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
+			ToolStripMenuItemCpyToClipboard.AccessibleName = "Copy to clipboard";
+			ToolStripMenuItemCpyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
+			ToolStripMenuItemCpyToClipboard.AutoToolTip = true;
+			ToolStripMenuItemCpyToClipboard.Image = Resources.FatcowIcons16px.fatcow_page_copy_16px;
+			ToolStripMenuItemCpyToClipboard.Name = "ToolStripMenuItemCpyToClipboard";
+			ToolStripMenuItemCpyToClipboard.ShortcutKeyDisplayString = "Strg+C";
+			ToolStripMenuItemCpyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
+			ToolStripMenuItemCpyToClipboard.Size = new Size(213, 22);
+			ToolStripMenuItemCpyToClipboard.Text = "&Copy to clipboard";
+			ToolStripMenuItemCpyToClipboard.Click += CopyToClipboard_DoubleClick;
+			ToolStripMenuItemCpyToClipboard.MouseEnter += SplashScreenForm_Load;
+			ToolStripMenuItemCpyToClipboard.MouseLeave += CopyToClipboard_DoubleClick;
 			// 
 			// SplashScreenForm
 			// 
@@ -128,6 +167,7 @@ namespace Planetoid_DB
 			TopMost = true;
 			FormClosed += SplashScreenForm_FormClosed;
 			Load += SplashScreenForm_Load;
+			contextMenuStripCopyToClipboard.ResumeLayout(false);
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -139,5 +179,7 @@ namespace Planetoid_DB
     private Label labelVersion;
 		private ToolTip toolTip;
 		private KryptonManager kryptonManager;
+		private ContextMenuStrip contextMenuStripCopyToClipboard;
+		private ToolStripMenuItem ToolStripMenuItemCpyToClipboard;
 	}
 }
