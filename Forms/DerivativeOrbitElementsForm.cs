@@ -21,6 +21,11 @@ namespace Planetoid_DB
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
 		/// <summary>
+		/// Stores the current tag text of the control.
+		/// </summary>
+		private string currentTagText = string.Empty;
+
+		/// <summary>
 		/// List of derived orbit elements.
 		/// </summary>
 		private List<object> derivativeOrbitElements = [];
@@ -76,6 +81,38 @@ namespace Planetoid_DB
 			labelInformation.Enabled = false;
 			labelInformation.Text = string.Empty;
 		}
+
+		/// <summary>
+		/// Tries to parse an integer from the input string.
+		/// </summary>
+		/// <param name="input">The input string to parse.</param>
+		/// <param name="value">The parsed integer value if successful.</param>
+		/// <param name="errorMessage">An error message if parsing fails.</param>
+		/// <returns>True if parsing was successful; otherwise, false.</returns>
+		public static bool TryParseInt(string input, out int value, out string errorMessage)
+		{
+			// Initialize output parameters
+			value = 0;
+			errorMessage = string.Empty;
+			// Check if the input is null or whitespace
+			if (string.IsNullOrWhiteSpace(value: input))
+			{
+				// Set the error message and return false
+				errorMessage = "Der eingegebene Text ist leer oder besteht nur aus Leerzeichen.";
+				return false;
+			}
+			// Try to parse the integer
+			// If parsing fails, set the error message
+			if (!int.TryParse(s: input, result: out value))
+			{
+				// Set the error message and return false
+				errorMessage = $"Der Wert \"{input}\" ist keine gültige Ganzzahl.";
+				return false;
+			}
+			// Parsing was successful
+			return true;
+		}
+
 
 		/// <summary>
 		/// Opens the terminology dialog for a specific derived orbit element.
@@ -254,6 +291,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or a <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method checks the type of the sender and copies its text to the clipboard.
+		/// </remarks>
 		private void CopyToClipboard_DoubleClick(object sender, EventArgs e)
 		{
 			// Check if the sender is null
@@ -273,156 +313,29 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
-		/// Called when the Linear Eccentricity label is double-clicked.
-		/// Opens the terminology dialog for the linear eccentricity entry.
+		/// Handles double-click events on the control to open the terminology dialog.
 		/// </summary>
-		/// <param name="sender">Event source (the label).</param>
+		/// <param name="sender">Event source (the control).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelLinearEccentricityDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 20);
-
-		/// <summary>
-		/// Called when the Semi Minor Axis label is double-clicked.
-		/// Opens the terminology dialog for the semi-minor axis entry.
-		/// </summary>
-		/// <param name="sender">Event source (the label).</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelSemiMinorAxisDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 21);
-
-		/// <summary>
-		/// Called when the Major Axis label is double-clicked.
-		/// Opens the terminology dialog for the major axis entry.
-		/// </summary>
-		/// <param name="sender">Event source (the label).</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelMajorAxisDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 22);
-
-		/// <summary>
-		/// Called when the Minor Axis label is double-clicked.
-		/// Opens the terminology dialog for the minor axis entry.
-		/// </summary>
-		/// <param name="sender">Event source (the label).</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelMinorAxisDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 23);
-
-		/// <summary>
-		/// Called when the Eccentric Anomaly label is double-clicked.
-		/// Opens the terminology dialog for the eccentric anomaly entry.
-		/// </summary>
-		/// <param name="sender">Event source (the label).</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelEccentricAnomalyDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 24);
-
-		/// <summary>
-		/// Called when the True Anomaly label is double-clicked.
-		/// Opens the terminology dialog for the true anomaly entry.
-		/// </summary>
-		/// <param name="sender">Event source (the label).</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelTrueAnomalyDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 25);
-
-		/// <summary>
-		/// Called when the Perihelion Distance label is double-clicked.
-		/// Opens the terminology dialog for the perihelion distance entry.
-		/// </summary>
-		/// <param name="sender">Event source (the label).</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelPerihelionDistanceDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 26);
-
-		/// <summary>
-		/// Called when the Aphelion Distance label is double-clicked.
-		/// Opens the terminology dialog for the aphelion distance entry.
-		/// </summary>
-		/// <param name="sender">Event source (the label).</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelAphelionDistanceDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 27);
-
-		/// <summary>
-		/// Called when the Longitude of the Descending Node label is double-clicked.
-		/// Opens the terminology dialog for the longitude of the descending node entry.
-		/// </summary>
-		/// <param name="sender">Event source (the label).</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelLongitudeDescendingNodeDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 28);
-
-		/// <summary>
-		/// Called when the Argument of the Aphelion label is double-clicked.
-		/// Opens the terminology dialog for the argument of the aphelion entry.
-		/// </summary>
-		/// <param name="sender">Event source (the label).</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelArgumentAphelionDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 29);
-
-		/// <summary>
-		/// Called when the Focal Parameter label is double-clicked.
-		/// Opens the terminology dialog for the focal parameter entry.
-		/// </summary>
-		/// <param name="sender">Event source (the label).</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelFocalParameterDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 30);
-
-		/// <summary>
-		/// Called when the Semi Latus Rectum label is double-clicked.
-		/// Opens the terminology dialog for the semi latus rectum entry.
-		/// </summary>
-		/// <param name="sender">Event source (the label).</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelSemiLatusRectumDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 31);
-
-		/// <summary>
-		/// Called when the Latus Rectum label is double-clicked.
-		/// Opens the terminology dialog for the latus rectum entry.
-		/// </summary>
-		/// <param name="sender">Event source (the label).</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelLatusRectumDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 32);
-
-		/// <summary>
-		/// Called when the Orbital Period label is double-clicked.
-		/// Opens the terminology dialog for the orbital period entry.
-		/// </summary>
-		/// <param name="sender">Event source (the label).</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelOrbitalPeriodDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 33);
-
-		/// <summary>
-		/// Called when the Orbital Area label is double-clicked.
-		/// Opens the terminology dialog for the orbital area entry.
-		/// </summary>
-		/// <param name="sender">Event source (the label).</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelOrbitalAreaDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 34);
-
-		/// <summary>
-		/// Called when the Orbital Perimeter label is double-clicked.
-		/// Opens the terminology dialog for the orbital perimeter entry.
-		/// </summary>
-		/// <param name="sender">Event source (the label).</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelOrbitalPerimeterDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 35);
-
-		/// <summary>
-		/// Called when the Orbital Semi-major axis label is double-clicked.
-		/// Opens the terminology dialog for the orbital semi-major axis entry.
-		/// </summary>
-		/// <param name="sender">Event source (the label).</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelSemiMeanAxisDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 36);
-
-		/// <summary>
-		/// Called when the Semi-mean Axis label is double-clicked.
-		/// Opens the terminology dialog for the semi-mean axis entry.
-		/// </summary>
-		/// <param name="sender">Event source (the label).</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelMeanAxisDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 37);
-
-		/// <summary>
-		/// Called when the Gravitational Parameter label is double-clicked.
-		/// Opens the terminology dialog for the gravitational parameter entry.
-		/// </summary>
-		/// <param name="sender">Event source (the label).</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void LabelStandardGravitationalParameterDesc_DoubleClick(object sender, EventArgs e) => OpenTerminology(index: 38);
+		/// <remarks>
+		/// This method attempts to parse the current tag text as an integer and opens the terminology dialog
+		/// for the corresponding entry if successful.
+		/// </remarks>
+		private void OpenTerminology_DoubleClick(object sender, EventArgs e)
+		{
+			// Try to parse the index from the current tag text
+			// If successful, open the terminology dialog for that index
+			// If parsing fails, log an error and show an error message
+			if (TryParseInt(input: currentTagText, value: out int index, errorMessage: out string errorMessage))
+			{
+				// Open the terminology dialog for the parsed index
+				OpenTerminology(index: (uint)index);
+				return;
+			}
+			// Log the error and show an error message
+			Logger.Error(message: $"Failed to parse index from tag text '{currentTagText}': {errorMessage}");
+			ShowErrorMessage(message: $"Failed to parse index from tag text '{currentTagText}': {errorMessage}");
+		}
 
 		#endregion
 
@@ -439,6 +352,10 @@ namespace Planetoid_DB
 			if (sender is Control control)
 			{
 				currentControl = control;
+				if (control.Tag != null)
+				{
+					currentTagText = control.Tag.ToString();
+				}
 			}
 		}
 

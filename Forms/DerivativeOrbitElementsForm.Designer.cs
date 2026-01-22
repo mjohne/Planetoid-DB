@@ -102,12 +102,14 @@ namespace Planetoid_DB
 			labelLinearEccentricityDesc.Name = "labelLinearEccentricityDesc";
 			labelLinearEccentricityDesc.Size = new Size(268, 20);
 			labelLinearEccentricityDesc.TabIndex = 0;
+			labelLinearEccentricityDesc.Tag = "20";
 			toolTip.SetToolTip(labelLinearEccentricityDesc, "Linear eccentricity (AU)");
 			labelLinearEccentricityDesc.Values.ExtraText = "AU";
 			labelLinearEccentricityDesc.Values.Text = "Linear eccentricity";
-			labelLinearEccentricityDesc.DoubleClick += LabelLinearEccentricityDesc_DoubleClick;
+			labelLinearEccentricityDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelLinearEccentricityDesc.Enter += SetStatusBar_Enter;
 			labelLinearEccentricityDesc.Leave += ClearStatusBar_Leave;
+			labelLinearEccentricityDesc.MouseDown += Control_MouseDown;
 			labelLinearEccentricityDesc.MouseEnter += SetStatusBar_Enter;
 			labelLinearEccentricityDesc.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -176,12 +178,14 @@ namespace Planetoid_DB
 			labelSemiMinorAxisDesc.Name = "labelSemiMinorAxisDesc";
 			labelSemiMinorAxisDesc.Size = new Size(268, 20);
 			labelSemiMinorAxisDesc.TabIndex = 2;
+			labelSemiMinorAxisDesc.Tag = "21";
 			toolTip.SetToolTip(labelSemiMinorAxisDesc, "Semi-minor axis (AU)");
 			labelSemiMinorAxisDesc.Values.ExtraText = "AU";
 			labelSemiMinorAxisDesc.Values.Text = "Semi-minor axis";
-			labelSemiMinorAxisDesc.DoubleClick += LabelSemiMinorAxisDesc_DoubleClick;
+			labelSemiMinorAxisDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelSemiMinorAxisDesc.Enter += SetStatusBar_Enter;
 			labelSemiMinorAxisDesc.Leave += ClearStatusBar_Leave;
+			labelSemiMinorAxisDesc.MouseDown += Control_MouseDown;
 			labelSemiMinorAxisDesc.MouseEnter += SetStatusBar_Enter;
 			labelSemiMinorAxisDesc.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -197,12 +201,14 @@ namespace Planetoid_DB
 			labelMajorAxisDesc.Name = "labelMajorAxisDesc";
 			labelMajorAxisDesc.Size = new Size(268, 20);
 			labelMajorAxisDesc.TabIndex = 4;
+			labelMajorAxisDesc.Tag = "22";
 			toolTip.SetToolTip(labelMajorAxisDesc, "Major axis (AU)");
 			labelMajorAxisDesc.Values.ExtraText = "AU";
 			labelMajorAxisDesc.Values.Text = "Major axis";
-			labelMajorAxisDesc.DoubleClick += LabelMajorAxisDesc_DoubleClick;
+			labelMajorAxisDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelMajorAxisDesc.Enter += SetStatusBar_Enter;
 			labelMajorAxisDesc.Leave += ClearStatusBar_Leave;
+			labelMajorAxisDesc.MouseDown += Control_MouseDown;
 			labelMajorAxisDesc.MouseEnter += SetStatusBar_Enter;
 			labelMajorAxisDesc.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -218,12 +224,14 @@ namespace Planetoid_DB
 			labelMinorAxisDesc.Name = "labelMinorAxisDesc";
 			labelMinorAxisDesc.Size = new Size(268, 20);
 			labelMinorAxisDesc.TabIndex = 6;
+			labelMinorAxisDesc.Tag = "23";
 			toolTip.SetToolTip(labelMinorAxisDesc, "Minor axis (AU)");
 			labelMinorAxisDesc.Values.ExtraText = "AU";
 			labelMinorAxisDesc.Values.Text = "Minor axis";
-			labelMinorAxisDesc.DoubleClick += LabelMinorAxisDesc_DoubleClick;
+			labelMinorAxisDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelMinorAxisDesc.Enter += SetStatusBar_Enter;
 			labelMinorAxisDesc.Leave += ClearStatusBar_Leave;
+			labelMinorAxisDesc.MouseDown += Control_MouseDown;
 			labelMinorAxisDesc.MouseEnter += SetStatusBar_Enter;
 			labelMinorAxisDesc.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -239,12 +247,14 @@ namespace Planetoid_DB
 			labelEccenctricAnomalyDesc.Name = "labelEccenctricAnomalyDesc";
 			labelEccenctricAnomalyDesc.Size = new Size(268, 20);
 			labelEccenctricAnomalyDesc.TabIndex = 8;
+			labelEccenctricAnomalyDesc.Tag = "24";
 			toolTip.SetToolTip(labelEccenctricAnomalyDesc, "Eccentric anomaly (°)");
 			labelEccenctricAnomalyDesc.Values.ExtraText = "°";
 			labelEccenctricAnomalyDesc.Values.Text = "Eccentric anomaly";
-			labelEccenctricAnomalyDesc.DoubleClick += LabelEccentricAnomalyDesc_DoubleClick;
+			labelEccenctricAnomalyDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelEccenctricAnomalyDesc.Enter += SetStatusBar_Enter;
 			labelEccenctricAnomalyDesc.Leave += ClearStatusBar_Leave;
+			labelEccenctricAnomalyDesc.MouseDown += Control_MouseDown;
 			labelEccenctricAnomalyDesc.MouseEnter += SetStatusBar_Enter;
 			labelEccenctricAnomalyDesc.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -260,12 +270,14 @@ namespace Planetoid_DB
 			labelTrueAnomalyDesc.Name = "labelTrueAnomalyDesc";
 			labelTrueAnomalyDesc.Size = new Size(268, 20);
 			labelTrueAnomalyDesc.TabIndex = 10;
+			labelTrueAnomalyDesc.Tag = "25";
 			toolTip.SetToolTip(labelTrueAnomalyDesc, "True anomaly (°)");
 			labelTrueAnomalyDesc.Values.ExtraText = "°";
 			labelTrueAnomalyDesc.Values.Text = "True anomaly";
-			labelTrueAnomalyDesc.DoubleClick += LabelTrueAnomalyDesc_DoubleClick;
+			labelTrueAnomalyDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelTrueAnomalyDesc.Enter += SetStatusBar_Enter;
 			labelTrueAnomalyDesc.Leave += ClearStatusBar_Leave;
+			labelTrueAnomalyDesc.MouseDown += Control_MouseDown;
 			labelTrueAnomalyDesc.MouseEnter += SetStatusBar_Enter;
 			labelTrueAnomalyDesc.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -281,12 +293,14 @@ namespace Planetoid_DB
 			labelPerihelionDistanceDesc.Name = "labelPerihelionDistanceDesc";
 			labelPerihelionDistanceDesc.Size = new Size(268, 20);
 			labelPerihelionDistanceDesc.TabIndex = 12;
+			labelPerihelionDistanceDesc.Tag = "26";
 			toolTip.SetToolTip(labelPerihelionDistanceDesc, "Perihelion distance (AU)");
 			labelPerihelionDistanceDesc.Values.ExtraText = "AU";
 			labelPerihelionDistanceDesc.Values.Text = "Perihelion distance";
-			labelPerihelionDistanceDesc.DoubleClick += LabelPerihelionDistanceDesc_DoubleClick;
+			labelPerihelionDistanceDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelPerihelionDistanceDesc.Enter += SetStatusBar_Enter;
 			labelPerihelionDistanceDesc.Leave += ClearStatusBar_Leave;
+			labelPerihelionDistanceDesc.MouseDown += Control_MouseDown;
 			labelPerihelionDistanceDesc.MouseEnter += SetStatusBar_Enter;
 			labelPerihelionDistanceDesc.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -302,12 +316,14 @@ namespace Planetoid_DB
 			LabelAphelionDistanceDesc.Name = "LabelAphelionDistanceDesc";
 			LabelAphelionDistanceDesc.Size = new Size(268, 20);
 			LabelAphelionDistanceDesc.TabIndex = 14;
+			LabelAphelionDistanceDesc.Tag = "27";
 			toolTip.SetToolTip(LabelAphelionDistanceDesc, "Aphelion distance (AU)");
 			LabelAphelionDistanceDesc.Values.ExtraText = "AU";
 			LabelAphelionDistanceDesc.Values.Text = "Aphelion distance";
-			LabelAphelionDistanceDesc.DoubleClick += LabelAphelionDistanceDesc_DoubleClick;
+			LabelAphelionDistanceDesc.DoubleClick += OpenTerminology_DoubleClick;
 			LabelAphelionDistanceDesc.Enter += SetStatusBar_Enter;
 			LabelAphelionDistanceDesc.Leave += ClearStatusBar_Leave;
+			LabelAphelionDistanceDesc.MouseDown += Control_MouseDown;
 			LabelAphelionDistanceDesc.MouseEnter += SetStatusBar_Enter;
 			LabelAphelionDistanceDesc.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -323,12 +339,14 @@ namespace Planetoid_DB
 			labelLongitudeDescendingNodeDesc.Name = "labelLongitudeDescendingNodeDesc";
 			labelLongitudeDescendingNodeDesc.Size = new Size(268, 20);
 			labelLongitudeDescendingNodeDesc.TabIndex = 16;
+			labelLongitudeDescendingNodeDesc.Tag = "28";
 			toolTip.SetToolTip(labelLongitudeDescendingNodeDesc, "Longitude of the descending node (°)");
 			labelLongitudeDescendingNodeDesc.Values.ExtraText = "°";
 			labelLongitudeDescendingNodeDesc.Values.Text = "Longitude of the descending node";
-			labelLongitudeDescendingNodeDesc.DoubleClick += LabelLongitudeDescendingNodeDesc_DoubleClick;
+			labelLongitudeDescendingNodeDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelLongitudeDescendingNodeDesc.Enter += SetStatusBar_Enter;
 			labelLongitudeDescendingNodeDesc.Leave += ClearStatusBar_Leave;
+			labelLongitudeDescendingNodeDesc.MouseDown += Control_MouseDown;
 			labelLongitudeDescendingNodeDesc.MouseEnter += SetStatusBar_Enter;
 			labelLongitudeDescendingNodeDesc.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -344,12 +362,14 @@ namespace Planetoid_DB
 			labelArgumentAphelionDesc.Name = "labelArgumentAphelionDesc";
 			labelArgumentAphelionDesc.Size = new Size(268, 20);
 			labelArgumentAphelionDesc.TabIndex = 18;
+			labelArgumentAphelionDesc.Tag = "29";
 			toolTip.SetToolTip(labelArgumentAphelionDesc, "Argument of aphelion (°)");
 			labelArgumentAphelionDesc.Values.ExtraText = "°";
 			labelArgumentAphelionDesc.Values.Text = "Argument of aphelion";
-			labelArgumentAphelionDesc.DoubleClick += LabelArgumentAphelionDesc_DoubleClick;
+			labelArgumentAphelionDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelArgumentAphelionDesc.Enter += SetStatusBar_Enter;
 			labelArgumentAphelionDesc.Leave += ClearStatusBar_Leave;
+			labelArgumentAphelionDesc.MouseDown += Control_MouseDown;
 			labelArgumentAphelionDesc.MouseEnter += SetStatusBar_Enter;
 			labelArgumentAphelionDesc.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -365,12 +385,14 @@ namespace Planetoid_DB
 			labelFocalParameterDesc.Name = "labelFocalParameterDesc";
 			labelFocalParameterDesc.Size = new Size(268, 20);
 			labelFocalParameterDesc.TabIndex = 20;
+			labelFocalParameterDesc.Tag = "30";
 			toolTip.SetToolTip(labelFocalParameterDesc, "Focal parameter");
 			labelFocalParameterDesc.Values.ExtraText = "AU";
 			labelFocalParameterDesc.Values.Text = "Focal parameter";
-			labelFocalParameterDesc.DoubleClick += LabelFocalParameterDesc_DoubleClick;
+			labelFocalParameterDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelFocalParameterDesc.Enter += SetStatusBar_Enter;
 			labelFocalParameterDesc.Leave += ClearStatusBar_Leave;
+			labelFocalParameterDesc.MouseDown += Control_MouseDown;
 			labelFocalParameterDesc.MouseEnter += SetStatusBar_Enter;
 			labelFocalParameterDesc.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -386,12 +408,14 @@ namespace Planetoid_DB
 			labelSemiLatusRectumDesc.Name = "labelSemiLatusRectumDesc";
 			labelSemiLatusRectumDesc.Size = new Size(268, 20);
 			labelSemiLatusRectumDesc.TabIndex = 22;
+			labelSemiLatusRectumDesc.Tag = "31";
 			toolTip.SetToolTip(labelSemiLatusRectumDesc, "Semi-latus rectum (AU)");
 			labelSemiLatusRectumDesc.Values.ExtraText = "AU";
 			labelSemiLatusRectumDesc.Values.Text = "Semi-latus rectum";
-			labelSemiLatusRectumDesc.DoubleClick += LabelSemiLatusRectumDesc_DoubleClick;
+			labelSemiLatusRectumDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelSemiLatusRectumDesc.Enter += SetStatusBar_Enter;
 			labelSemiLatusRectumDesc.Leave += ClearStatusBar_Leave;
+			labelSemiLatusRectumDesc.MouseDown += Control_MouseDown;
 			labelSemiLatusRectumDesc.MouseEnter += SetStatusBar_Enter;
 			labelSemiLatusRectumDesc.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -407,12 +431,14 @@ namespace Planetoid_DB
 			labelLatusRectumDesc.Name = "labelLatusRectumDesc";
 			labelLatusRectumDesc.Size = new Size(268, 20);
 			labelLatusRectumDesc.TabIndex = 24;
+			labelLatusRectumDesc.Tag = "32";
 			toolTip.SetToolTip(labelLatusRectumDesc, "Latus rectum (AU)");
 			labelLatusRectumDesc.Values.ExtraText = "AU";
 			labelLatusRectumDesc.Values.Text = "Latus rectum";
-			labelLatusRectumDesc.DoubleClick += LabelLatusRectumDesc_DoubleClick;
+			labelLatusRectumDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelLatusRectumDesc.Enter += SetStatusBar_Enter;
 			labelLatusRectumDesc.Leave += ClearStatusBar_Leave;
+			labelLatusRectumDesc.MouseDown += Control_MouseDown;
 			labelLatusRectumDesc.MouseEnter += SetStatusBar_Enter;
 			labelLatusRectumDesc.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -428,12 +454,14 @@ namespace Planetoid_DB
 			labelOrbitalPeriodDesc.Name = "labelOrbitalPeriodDesc";
 			labelOrbitalPeriodDesc.Size = new Size(268, 20);
 			labelOrbitalPeriodDesc.TabIndex = 26;
+			labelOrbitalPeriodDesc.Tag = "33";
 			toolTip.SetToolTip(labelOrbitalPeriodDesc, "Orbital Period (years)");
 			labelOrbitalPeriodDesc.Values.ExtraText = "years";
 			labelOrbitalPeriodDesc.Values.Text = "Orbital period";
-			labelOrbitalPeriodDesc.DoubleClick += LabelOrbitalPeriodDesc_DoubleClick;
+			labelOrbitalPeriodDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelOrbitalPeriodDesc.Enter += SetStatusBar_Enter;
 			labelOrbitalPeriodDesc.Leave += ClearStatusBar_Leave;
+			labelOrbitalPeriodDesc.MouseDown += Control_MouseDown;
 			labelOrbitalPeriodDesc.MouseEnter += SetStatusBar_Enter;
 			labelOrbitalPeriodDesc.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -722,12 +750,14 @@ namespace Planetoid_DB
 			labelOrbitalAreaDesc.Name = "labelOrbitalAreaDesc";
 			labelOrbitalAreaDesc.Size = new Size(268, 20);
 			labelOrbitalAreaDesc.TabIndex = 28;
+			labelOrbitalAreaDesc.Tag = "34";
 			toolTip.SetToolTip(labelOrbitalAreaDesc, "Orbital area (AU²)");
 			labelOrbitalAreaDesc.Values.ExtraText = "AU²";
 			labelOrbitalAreaDesc.Values.Text = "Orbital area";
-			labelOrbitalAreaDesc.DoubleClick += LabelOrbitalAreaDesc_DoubleClick;
+			labelOrbitalAreaDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelOrbitalAreaDesc.Enter += SetStatusBar_Enter;
 			labelOrbitalAreaDesc.Leave += ClearStatusBar_Leave;
+			labelOrbitalAreaDesc.MouseDown += Control_MouseDown;
 			labelOrbitalAreaDesc.MouseEnter += SetStatusBar_Enter;
 			labelOrbitalAreaDesc.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -743,12 +773,14 @@ namespace Planetoid_DB
 			labelOrbitalPerimeterDesc.Name = "labelOrbitalPerimeterDesc";
 			labelOrbitalPerimeterDesc.Size = new Size(268, 20);
 			labelOrbitalPerimeterDesc.TabIndex = 30;
+			labelOrbitalPerimeterDesc.Tag = "35";
 			toolTip.SetToolTip(labelOrbitalPerimeterDesc, "Orbital perimeter (AU)");
 			labelOrbitalPerimeterDesc.Values.ExtraText = "AU";
 			labelOrbitalPerimeterDesc.Values.Text = "Orbital perimeter";
-			labelOrbitalPerimeterDesc.DoubleClick += LabelOrbitalPerimeterDesc_DoubleClick;
+			labelOrbitalPerimeterDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelOrbitalPerimeterDesc.Enter += SetStatusBar_Enter;
 			labelOrbitalPerimeterDesc.Leave += ClearStatusBar_Leave;
+			labelOrbitalPerimeterDesc.MouseDown += Control_MouseDown;
 			labelOrbitalPerimeterDesc.MouseEnter += SetStatusBar_Enter;
 			labelOrbitalPerimeterDesc.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -764,12 +796,14 @@ namespace Planetoid_DB
 			labelSemiMeanAxisDesc.Name = "labelSemiMeanAxisDesc";
 			labelSemiMeanAxisDesc.Size = new Size(268, 20);
 			labelSemiMeanAxisDesc.TabIndex = 32;
+			labelSemiMeanAxisDesc.Tag = "36";
 			toolTip.SetToolTip(labelSemiMeanAxisDesc, "Semi-mean axis (AU)");
 			labelSemiMeanAxisDesc.Values.ExtraText = "AU";
 			labelSemiMeanAxisDesc.Values.Text = "Semi-mean axis";
-			labelSemiMeanAxisDesc.DoubleClick += LabelSemiMeanAxisDesc_DoubleClick;
+			labelSemiMeanAxisDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelSemiMeanAxisDesc.Enter += SetStatusBar_Enter;
 			labelSemiMeanAxisDesc.Leave += ClearStatusBar_Leave;
+			labelSemiMeanAxisDesc.MouseDown += Control_MouseDown;
 			labelSemiMeanAxisDesc.MouseEnter += SetStatusBar_Enter;
 			labelSemiMeanAxisDesc.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -785,12 +819,14 @@ namespace Planetoid_DB
 			labelMeanAxisDesc.Name = "labelMeanAxisDesc";
 			labelMeanAxisDesc.Size = new Size(268, 20);
 			labelMeanAxisDesc.TabIndex = 34;
+			labelMeanAxisDesc.Tag = "37";
 			toolTip.SetToolTip(labelMeanAxisDesc, "Mean axis (AU)");
 			labelMeanAxisDesc.Values.ExtraText = "AU";
 			labelMeanAxisDesc.Values.Text = "Mean axis";
-			labelMeanAxisDesc.DoubleClick += LabelMeanAxisDesc_DoubleClick;
+			labelMeanAxisDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelMeanAxisDesc.Enter += SetStatusBar_Enter;
 			labelMeanAxisDesc.Leave += ClearStatusBar_Leave;
+			labelMeanAxisDesc.MouseDown += Control_MouseDown;
 			labelMeanAxisDesc.MouseEnter += SetStatusBar_Enter;
 			labelMeanAxisDesc.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -869,12 +905,14 @@ namespace Planetoid_DB
 			labelStandardGravitationalParameterDesc.Name = "labelStandardGravitationalParameterDesc";
 			labelStandardGravitationalParameterDesc.Size = new Size(268, 21);
 			labelStandardGravitationalParameterDesc.TabIndex = 36;
+			labelStandardGravitationalParameterDesc.Tag = "38";
 			toolTip.SetToolTip(labelStandardGravitationalParameterDesc, "Standard gravitational parameter (AU³/a²)");
 			labelStandardGravitationalParameterDesc.Values.ExtraText = "AU³/a²";
 			labelStandardGravitationalParameterDesc.Values.Text = "Standard gravitational parameter";
-			labelStandardGravitationalParameterDesc.DoubleClick += LabelStandardGravitationalParameterDesc_DoubleClick;
+			labelStandardGravitationalParameterDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelStandardGravitationalParameterDesc.Enter += SetStatusBar_Enter;
 			labelStandardGravitationalParameterDesc.Leave += ClearStatusBar_Leave;
+			labelStandardGravitationalParameterDesc.MouseDown += Control_MouseDown;
 			labelStandardGravitationalParameterDesc.MouseEnter += SetStatusBar_Enter;
 			labelStandardGravitationalParameterDesc.MouseLeave += ClearStatusBar_Leave;
 			// 
