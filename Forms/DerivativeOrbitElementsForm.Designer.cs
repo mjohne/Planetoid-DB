@@ -1181,7 +1181,6 @@ namespace Planetoid_DB
 			tableLayoutPanel.ResumeLayout(false);
 			tableLayoutPanel.PerformLayout();
 			ResumeLayout(false);
-			PerformLayout();
 
 		}
 

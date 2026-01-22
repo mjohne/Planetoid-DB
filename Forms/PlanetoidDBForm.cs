@@ -23,14 +23,24 @@ namespace Planetoid_DB
 	public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		/// <summary>
-		/// Stores the currently selected ToolStripLabel for clipboard operations.
-		/// </summary>
-		private ToolStripLabel currentLabel;
-
-		/// <summary>
 		/// NLog logger instance.
 		/// </summary>
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+		/// <summary>
+		/// Stores the currently selected control for clipboard operations.
+		/// </summary>
+		private Control currentControl;
+
+		/// <summary>
+		/// Stores the current tag text of the control.
+		/// </summary>
+		private string currentTagText = string.Empty;
+
+		/// <summary>
+		/// Stores the currently selected ToolStripLabel for clipboard operations.
+		/// </summary>
+		private readonly ToolStripLabel currentLabel;
 
 		/// <summary>
 		/// Stores the current position in the planetoids database and the step position for navigation.
@@ -2474,12 +2484,16 @@ namespace Planetoid_DB
 		#region DoubleClick event handlers
 
 		/// <summary>
-		/// Called when a control is double-clicked. If the <paramref name="sender"/> is a <see cref="Control"/> or
+		/// Called when a control is double-clicked. If the <paramref name="sender"/> is a <see cref="Control"/>
 		/// or a <see cref="ToolStripItem"/>, its <see cref="Control.Text"/> value is copied to the clipboard
 		/// using the shared helper.
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or a <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// If the <paramref name="sender"/> is a <see cref="Control"/>, its <see cref="Control.Text"/> value is copied to the clipboard.
+		/// If the <paramref name="sender"/> is a <see cref="ToolStripItem"/>, its <see cref="ToolStripItem.Text"/> value is copied to the clipboard.
+		/// </remarks>
 		private void CopyToClipboard_DoubleClick(object sender, EventArgs e)
 		{
 			// Check if the sender is null
@@ -2491,10 +2505,22 @@ namespace Planetoid_DB
 				CopyToClipboard(text: control.Text);
 			}
 			// Check if the sender is a ToolStripItem
+			else if (sender is ToolStripItem)
+			{
+				// Copy the text to the clipboard
+				CopyToClipboard(text: currentControl.Text);
+			}
+			// Check if the sender is a ToolStripItem
 			else if (sender is ToolStripLabel)
 			{
 				// Copy the text to the clipboard
 				CopyToClipboard(text: currentLabel.Text);
+			}
+			// Unsupported type
+			else
+			{
+				// Throw an exception
+				throw new ArgumentException(message: "Unsupported sender type", paramName: nameof(sender));
 			}
 		}
 
@@ -2657,9 +2683,13 @@ namespace Planetoid_DB
 		/// <param name="e">The <see cref="MouseEventArgs"/> instance that contains the event data.</param>
 		private void Control_MouseDown(object sender, MouseEventArgs e)
 		{
-			if (sender is ToolStripLabel label)
+			if (sender is Control control)
 			{
-				currentLabel = label;
+				currentControl = control;
+				if (control.Tag != null)
+				{
+					currentTagText = control.Tag.ToString();
+				}
 			}
 		}
 
