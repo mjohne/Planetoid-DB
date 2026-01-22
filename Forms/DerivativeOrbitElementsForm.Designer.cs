@@ -442,6 +442,7 @@ namespace Planetoid_DB
 			labelSemiMinorAxisData.AccessibleDescription = "Shows the information of \"Semi-minor axis\"";
 			labelSemiMinorAxisData.AccessibleName = "Shows the information of \"Semi-minor axis\"";
 			labelSemiMinorAxisData.AccessibleRole = AccessibleRole.StaticText;
+			labelSemiMinorAxisData.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelSemiMinorAxisData.Dock = DockStyle.Fill;
 			labelSemiMinorAxisData.Location = new Point(280, 29);
 			labelSemiMinorAxisData.Margin = new Padding(4, 3, 4, 3);
@@ -462,6 +463,7 @@ namespace Planetoid_DB
 			labelMajorAxisData.AccessibleDescription = "Shows the information of \"Major axis\"";
 			labelMajorAxisData.AccessibleName = "Shows the information of \"Major axis\"";
 			labelMajorAxisData.AccessibleRole = AccessibleRole.StaticText;
+			labelMajorAxisData.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelMajorAxisData.Dock = DockStyle.Fill;
 			labelMajorAxisData.Location = new Point(280, 55);
 			labelMajorAxisData.Margin = new Padding(4, 3, 4, 3);
@@ -482,6 +484,7 @@ namespace Planetoid_DB
 			labelMinorAxisData.AccessibleDescription = "Shows the information of \"Minor axis\"";
 			labelMinorAxisData.AccessibleName = "Shows the information of \"Minor axis\"";
 			labelMinorAxisData.AccessibleRole = AccessibleRole.StaticText;
+			labelMinorAxisData.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelMinorAxisData.Dock = DockStyle.Fill;
 			labelMinorAxisData.Location = new Point(280, 81);
 			labelMinorAxisData.Margin = new Padding(4, 3, 4, 3);
@@ -502,6 +505,7 @@ namespace Planetoid_DB
 			labelEccentricAnomalyData.AccessibleDescription = "Shows the information of \"Eccentric anomaly\"";
 			labelEccentricAnomalyData.AccessibleName = "Shows the information of \"Eccentric anomaly\"";
 			labelEccentricAnomalyData.AccessibleRole = AccessibleRole.StaticText;
+			labelEccentricAnomalyData.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelEccentricAnomalyData.Dock = DockStyle.Fill;
 			labelEccentricAnomalyData.Location = new Point(280, 107);
 			labelEccentricAnomalyData.Margin = new Padding(4, 3, 4, 3);
@@ -522,6 +526,7 @@ namespace Planetoid_DB
 			labelTrueAnomalyData.AccessibleDescription = "Shows the information of \"True anomaly\"";
 			labelTrueAnomalyData.AccessibleName = "Shows the information of \"True anomaly\"";
 			labelTrueAnomalyData.AccessibleRole = AccessibleRole.StaticText;
+			labelTrueAnomalyData.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelTrueAnomalyData.Dock = DockStyle.Fill;
 			labelTrueAnomalyData.Location = new Point(280, 133);
 			labelTrueAnomalyData.Margin = new Padding(4, 3, 4, 3);
@@ -542,6 +547,7 @@ namespace Planetoid_DB
 			labelPerihelionDistanceData.AccessibleDescription = "Shows the information of \"Perihelion distance\"";
 			labelPerihelionDistanceData.AccessibleName = "Shows the information of \"Perihelion distance\"";
 			labelPerihelionDistanceData.AccessibleRole = AccessibleRole.StaticText;
+			labelPerihelionDistanceData.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelPerihelionDistanceData.Dock = DockStyle.Fill;
 			labelPerihelionDistanceData.Location = new Point(280, 159);
 			labelPerihelionDistanceData.Margin = new Padding(4, 3, 4, 3);
@@ -562,6 +568,7 @@ namespace Planetoid_DB
 			labelAphelionDistanceData.AccessibleDescription = "Shows the information of \"Aphelion distance\"";
 			labelAphelionDistanceData.AccessibleName = "Shows the information of \"Aphelion distance\"";
 			labelAphelionDistanceData.AccessibleRole = AccessibleRole.StaticText;
+			labelAphelionDistanceData.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelAphelionDistanceData.Dock = DockStyle.Fill;
 			labelAphelionDistanceData.Location = new Point(280, 185);
 			labelAphelionDistanceData.Margin = new Padding(4, 3, 4, 3);
@@ -582,6 +589,7 @@ namespace Planetoid_DB
 			labelLongitudeDescendingNodeData.AccessibleDescription = "Shows the information of \"Longitude of descending node\"";
 			labelLongitudeDescendingNodeData.AccessibleName = "Shows the information of \"Longitude of descending node\"";
 			labelLongitudeDescendingNodeData.AccessibleRole = AccessibleRole.StaticText;
+			labelLongitudeDescendingNodeData.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelLongitudeDescendingNodeData.Dock = DockStyle.Fill;
 			labelLongitudeDescendingNodeData.Location = new Point(280, 211);
 			labelLongitudeDescendingNodeData.Margin = new Padding(4, 3, 4, 3);
@@ -602,6 +610,7 @@ namespace Planetoid_DB
 			labelArgumentAphelionData.AccessibleDescription = "Shows the information of \"Argument of aphelion\"";
 			labelArgumentAphelionData.AccessibleName = "Shows the information of \"Argument of aphelion\"";
 			labelArgumentAphelionData.AccessibleRole = AccessibleRole.StaticText;
+			labelArgumentAphelionData.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelArgumentAphelionData.Dock = DockStyle.Fill;
 			labelArgumentAphelionData.Location = new Point(280, 237);
 			labelArgumentAphelionData.Margin = new Padding(4, 3, 4, 3);
@@ -622,6 +631,7 @@ namespace Planetoid_DB
 			labelFocalParameterData.AccessibleDescription = "Shows the information of \"Focal parameter\"";
 			labelFocalParameterData.AccessibleName = "Shows the information of \"Focal parameter\"";
 			labelFocalParameterData.AccessibleRole = AccessibleRole.StaticText;
+			labelFocalParameterData.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelFocalParameterData.Dock = DockStyle.Fill;
 			labelFocalParameterData.Location = new Point(280, 263);
 			labelFocalParameterData.Margin = new Padding(4, 3, 4, 3);
@@ -642,6 +652,7 @@ namespace Planetoid_DB
 			labelSemiLatusRectumData.AccessibleDescription = "Shows the information of \"Semi-latus rectum\"";
 			labelSemiLatusRectumData.AccessibleName = "Shows the information of \"Semi-latus rectum\"";
 			labelSemiLatusRectumData.AccessibleRole = AccessibleRole.StaticText;
+			labelSemiLatusRectumData.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelSemiLatusRectumData.Dock = DockStyle.Fill;
 			labelSemiLatusRectumData.Location = new Point(280, 289);
 			labelSemiLatusRectumData.Margin = new Padding(4, 3, 4, 3);
@@ -662,6 +673,7 @@ namespace Planetoid_DB
 			labelLatusRectumData.AccessibleDescription = "Shows the information of \"Latus rectum\"";
 			labelLatusRectumData.AccessibleName = "Shows the information of \"Latus rectum\"";
 			labelLatusRectumData.AccessibleRole = AccessibleRole.StaticText;
+			labelLatusRectumData.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelLatusRectumData.Dock = DockStyle.Fill;
 			labelLatusRectumData.Location = new Point(280, 315);
 			labelLatusRectumData.Margin = new Padding(4, 3, 4, 3);
@@ -682,6 +694,7 @@ namespace Planetoid_DB
 			labelPeriodData.AccessibleDescription = "Shows the information of \"Period\"";
 			labelPeriodData.AccessibleName = "Shows the information of \"Period\"";
 			labelPeriodData.AccessibleRole = AccessibleRole.StaticText;
+			labelPeriodData.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelPeriodData.Dock = DockStyle.Fill;
 			labelPeriodData.Location = new Point(280, 341);
 			labelPeriodData.Margin = new Padding(4, 3, 4, 3);
@@ -786,6 +799,7 @@ namespace Planetoid_DB
 			labelOrbitalAreaData.AccessibleDescription = "Shows the information of \"Orbital area\"";
 			labelOrbitalAreaData.AccessibleName = "Shows the information of \"Orbital area\"";
 			labelOrbitalAreaData.AccessibleRole = AccessibleRole.StaticText;
+			labelOrbitalAreaData.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelOrbitalAreaData.Dock = DockStyle.Fill;
 			labelOrbitalAreaData.Location = new Point(280, 367);
 			labelOrbitalAreaData.Margin = new Padding(4, 3, 4, 3);
@@ -806,6 +820,7 @@ namespace Planetoid_DB
 			labelOrbitalPerimeterData.AccessibleDescription = "Shows the information of \"Orbital perimeter\"";
 			labelOrbitalPerimeterData.AccessibleName = "Shows the information of \"Orbital perimeter\"";
 			labelOrbitalPerimeterData.AccessibleRole = AccessibleRole.StaticText;
+			labelOrbitalPerimeterData.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelOrbitalPerimeterData.Dock = DockStyle.Fill;
 			labelOrbitalPerimeterData.Location = new Point(280, 393);
 			labelOrbitalPerimeterData.Margin = new Padding(4, 3, 4, 3);
@@ -826,6 +841,7 @@ namespace Planetoid_DB
 			labelSemiMeanAxisData.AccessibleDescription = "Shows the information of \"Semi-mean axis\"";
 			labelSemiMeanAxisData.AccessibleName = "Shows the information of \"Semi-mean axis\"";
 			labelSemiMeanAxisData.AccessibleRole = AccessibleRole.StaticText;
+			labelSemiMeanAxisData.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelSemiMeanAxisData.Dock = DockStyle.Fill;
 			labelSemiMeanAxisData.Location = new Point(280, 419);
 			labelSemiMeanAxisData.Margin = new Padding(4, 3, 4, 3);
@@ -867,6 +883,7 @@ namespace Planetoid_DB
 			labelMeanAxisData.AccessibleDescription = "Shows the information of \"Mean axis\"";
 			labelMeanAxisData.AccessibleName = "Shows the information of \"Mean axis\"";
 			labelMeanAxisData.AccessibleRole = AccessibleRole.StaticText;
+			labelMeanAxisData.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelMeanAxisData.Dock = DockStyle.Fill;
 			labelMeanAxisData.Location = new Point(280, 445);
 			labelMeanAxisData.Margin = new Padding(4, 3, 4, 3);
@@ -887,6 +904,7 @@ namespace Planetoid_DB
 			labelStandardGravitationalParameterData.AccessibleDescription = "Shows the information of \"Standard gravitational parameter\"";
 			labelStandardGravitationalParameterData.AccessibleName = "Shows the information of \"Standard gravitational parameter\"";
 			labelStandardGravitationalParameterData.AccessibleRole = AccessibleRole.StaticText;
+			labelStandardGravitationalParameterData.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelStandardGravitationalParameterData.Dock = DockStyle.Fill;
 			labelStandardGravitationalParameterData.Location = new Point(280, 471);
 			labelStandardGravitationalParameterData.Margin = new Padding(4, 3, 4, 3);
