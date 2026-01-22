@@ -46,11 +46,14 @@ namespace Planetoid_DB
 			labelCopyright = new KryptonLabel();
 			linkLabelEmail = new KryptonLinkLabel();
 			linkLabelWebsite = new KryptonLinkLabel();
+			contextMenuStripCopyToClipboard = new ContextMenuStrip(components);
+			ToolStripMenuItemCpyToClipboard = new ToolStripMenuItem();
 			panel = new KryptonPanel();
 			statusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
 			kryptonManager = new KryptonManager(components);
 			((ISupportInitialize)pictureBoxBanner).BeginInit();
+			contextMenuStripCopyToClipboard.SuspendLayout();
 			((ISupportInitialize)panel).BeginInit();
 			panel.SuspendLayout();
 			statusStrip.SuspendLayout();
@@ -61,6 +64,7 @@ namespace Planetoid_DB
 			labelVersion.AccessibleDescription = "Shows the version number";
 			labelVersion.AccessibleName = "Version";
 			labelVersion.AccessibleRole = AccessibleRole.StaticText;
+			labelVersion.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelVersion.Location = new Point(13, 157);
 			labelVersion.Margin = new Padding(4, 3, 4, 3);
 			labelVersion.Name = "labelVersion";
@@ -71,6 +75,7 @@ namespace Planetoid_DB
 			labelVersion.DoubleClick += CopyToClipboard_DoubleClick;
 			labelVersion.Enter += SetStatusBar_Enter;
 			labelVersion.Leave += ClearStatusBar_Leave;
+			labelVersion.MouseDown += Control_MouseDown;
 			labelVersion.MouseEnter += SetStatusBar_Enter;
 			labelVersion.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -79,6 +84,7 @@ namespace Planetoid_DB
 			labelTitle.AccessibleDescription = "Shows the application name";
 			labelTitle.AccessibleName = "Application Name";
 			labelTitle.AccessibleRole = AccessibleRole.StaticText;
+			labelTitle.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelTitle.LabelStyle = LabelStyle.TitlePanel;
 			labelTitle.Location = new Point(13, 128);
 			labelTitle.Margin = new Padding(4, 3, 4, 3);
@@ -90,6 +96,7 @@ namespace Planetoid_DB
 			labelTitle.DoubleClick += CopyToClipboard_DoubleClick;
 			labelTitle.Enter += SetStatusBar_Enter;
 			labelTitle.Leave += ClearStatusBar_Leave;
+			labelTitle.MouseDown += Control_MouseDown;
 			labelTitle.MouseEnter += SetStatusBar_Enter;
 			labelTitle.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -98,6 +105,7 @@ namespace Planetoid_DB
 			labelDescription.AccessibleDescription = "Shows the program description";
 			labelDescription.AccessibleName = "Program descripton";
 			labelDescription.AccessibleRole = AccessibleRole.StaticText;
+			labelDescription.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelDescription.Location = new Point(13, 187);
 			labelDescription.Margin = new Padding(4, 3, 4, 3);
 			labelDescription.Name = "labelDescription";
@@ -108,6 +116,7 @@ namespace Planetoid_DB
 			labelDescription.DoubleClick += CopyToClipboard_DoubleClick;
 			labelDescription.Enter += SetStatusBar_Enter;
 			labelDescription.Leave += ClearStatusBar_Leave;
+			labelDescription.MouseDown += Control_MouseDown;
 			labelDescription.MouseEnter += SetStatusBar_Enter;
 			labelDescription.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -132,6 +141,7 @@ namespace Planetoid_DB
 			labelCopyright.AccessibleDescription = "Shows the copyright";
 			labelCopyright.AccessibleName = "Copyright";
 			labelCopyright.AccessibleRole = AccessibleRole.StaticText;
+			labelCopyright.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelCopyright.Location = new Point(13, 210);
 			labelCopyright.Margin = new Padding(4, 3, 4, 3);
 			labelCopyright.Name = "labelCopyright";
@@ -142,6 +152,7 @@ namespace Planetoid_DB
 			labelCopyright.DoubleClick += CopyToClipboard_DoubleClick;
 			labelCopyright.Enter += SetStatusBar_Enter;
 			labelCopyright.Leave += ClearStatusBar_Leave;
+			labelCopyright.MouseDown += Control_MouseDown;
 			labelCopyright.MouseEnter += SetStatusBar_Enter;
 			labelCopyright.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -186,6 +197,38 @@ namespace Planetoid_DB
 			linkLabelWebsite.Leave += ClearStatusBar_Leave;
 			linkLabelWebsite.MouseEnter += SetStatusBar_Enter;
 			linkLabelWebsite.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// contextMenuStripCopyToClipboard
+			// 
+			contextMenuStripCopyToClipboard.AccessibleDescription = "Shows context menu for some options";
+			contextMenuStripCopyToClipboard.AccessibleName = "Some options";
+			contextMenuStripCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
+			contextMenuStripCopyToClipboard.AllowClickThrough = true;
+			contextMenuStripCopyToClipboard.Font = new Font("Segoe UI", 9F);
+			contextMenuStripCopyToClipboard.Items.AddRange(new ToolStripItem[] { ToolStripMenuItemCpyToClipboard });
+			contextMenuStripCopyToClipboard.Name = "contextMenuStrip";
+			contextMenuStripCopyToClipboard.Size = new Size(214, 26);
+			contextMenuStripCopyToClipboard.TabStop = true;
+			contextMenuStripCopyToClipboard.Text = "ContextMenu";
+			toolTip.SetToolTip(contextMenuStripCopyToClipboard, "Context Menu for copying to clipboard");
+			contextMenuStripCopyToClipboard.MouseEnter += SetStatusBar_Enter;
+			contextMenuStripCopyToClipboard.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// ToolStripMenuItemCpyToClipboard
+			// 
+			ToolStripMenuItemCpyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
+			ToolStripMenuItemCpyToClipboard.AccessibleName = "Copy to clipboard";
+			ToolStripMenuItemCpyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
+			ToolStripMenuItemCpyToClipboard.AutoToolTip = true;
+			ToolStripMenuItemCpyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
+			ToolStripMenuItemCpyToClipboard.Name = "ToolStripMenuItemCpyToClipboard";
+			ToolStripMenuItemCpyToClipboard.ShortcutKeyDisplayString = "Strg+C";
+			ToolStripMenuItemCpyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
+			ToolStripMenuItemCpyToClipboard.Size = new Size(213, 22);
+			ToolStripMenuItemCpyToClipboard.Text = "&Copy to clipboard";
+			ToolStripMenuItemCpyToClipboard.Click += CopyToClipboard_DoubleClick;
+			ToolStripMenuItemCpyToClipboard.MouseEnter += SetStatusBar_Enter;
+			ToolStripMenuItemCpyToClipboard.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// panel
 			// 
@@ -267,6 +310,7 @@ namespace Planetoid_DB
 			FormClosed += AppInfoForm_FormClosed;
 			Load += AppInfoForm_Load;
 			((ISupportInitialize)pictureBoxBanner).EndInit();
+			contextMenuStripCopyToClipboard.ResumeLayout(false);
 			((ISupportInitialize)panel).EndInit();
 			panel.ResumeLayout(false);
 			panel.PerformLayout();
@@ -290,5 +334,7 @@ namespace Planetoid_DB
 		private KryptonLinkLabel linkLabelWebsite;
 		private KryptonLinkLabel linkLabelEmail;
 		private KryptonManager kryptonManager;
+		private ContextMenuStrip contextMenuStripCopyToClipboard;
+		private ToolStripMenuItem ToolStripMenuItemCpyToClipboard;
 	}
 }
