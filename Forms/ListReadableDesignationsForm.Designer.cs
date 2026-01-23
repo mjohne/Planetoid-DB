@@ -48,12 +48,14 @@ namespace Planetoid_DB
 			numericUpDownMinimum = new KryptonNumericUpDown();
 			numericUpDownMaximum = new KryptonNumericUpDown();
 			labelMaximum = new KryptonLabel();
-			contextMenuStripSaveList = new ContextMenuStrip(components);
+			contextMenuSaveList = new ContextMenuStrip(components);
 			toolStripMenuItemSaveAsCsv = new ToolStripMenuItem();
 			toolStripMenuItemSaveAsHtml = new ToolStripMenuItem();
 			toolStripMenuItemSaveAsXml = new ToolStripMenuItem();
 			toolStripMenuItemSaveAsJson = new ToolStripMenuItem();
 			dropButtonSaveList = new KryptonDropButton();
+			contextMenuCopyToClipboard = new ContextMenuStrip(components);
+			ToolStripMenuItemCpyToClipboard = new ToolStripMenuItem();
 			panel = new KryptonPanel();
 			listView = new ListView();
 			columnHeaderIndex = new ColumnHeader();
@@ -64,7 +66,8 @@ namespace Planetoid_DB
 			saveFileDialogXml = new SaveFileDialog();
 			kryptonManager = new KryptonManager(components);
 			statusStrip.SuspendLayout();
-			contextMenuStripSaveList.SuspendLayout();
+			contextMenuSaveList.SuspendLayout();
+			contextMenuCopyToClipboard.SuspendLayout();
 			((ISupportInitialize)panel).BeginInit();
 			panel.SuspendLayout();
 			SuspendLayout();
@@ -168,6 +171,7 @@ namespace Planetoid_DB
 			labelWarning.AccessibleRole = AccessibleRole.Text;
 			labelWarning.BackColor = Color.SeaShell;
 			labelWarning.BorderStyle = BorderStyle.Fixed3D;
+			labelWarning.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelWarning.Font = new Font("Segoe UI", 7F);
 			labelWarning.Location = new Point(12, 97);
 			labelWarning.Name = "labelWarning";
@@ -176,9 +180,10 @@ namespace Planetoid_DB
 			labelWarning.Text = "Be careful: This can increase loading time and memory. You can cancel any time.";
 			labelWarning.TextAlign = ContentAlignment.MiddleLeft;
 			toolTip.SetToolTip(labelWarning, "Be careful: do not use large ranges between minimum and maximum! This can increase loading time and memory. Use small spans!");
-			labelWarning.Click += CopyToClipboard_DoubleClick;
+			labelWarning.DoubleClick += CopyToClipboard_DoubleClick;
 			labelWarning.Enter += SetStatusBar_Enter;
 			labelWarning.Leave += ClearStatusBar_Leave;
+			labelWarning.MouseDown += Control_MouseDown;
 			labelWarning.MouseEnter += SetStatusBar_Enter;
 			labelWarning.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -275,20 +280,20 @@ namespace Planetoid_DB
 			labelMaximum.MouseEnter += SetStatusBar_Enter;
 			labelMaximum.MouseLeave += ClearStatusBar_Leave;
 			// 
-			// contextMenuStripSaveList
+			// contextMenuSaveList
 			// 
-			contextMenuStripSaveList.AccessibleDescription = "Save the list as file";
-			contextMenuStripSaveList.AccessibleName = "Save list";
-			contextMenuStripSaveList.AccessibleRole = AccessibleRole.MenuPopup;
-			contextMenuStripSaveList.Font = new Font("Segoe UI", 9F);
-			contextMenuStripSaveList.Items.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsCsv, toolStripMenuItemSaveAsHtml, toolStripMenuItemSaveAsXml, toolStripMenuItemSaveAsJson });
-			contextMenuStripSaveList.Name = "contextMenuStrip1";
-			contextMenuStripSaveList.Size = new Size(148, 92);
-			contextMenuStripSaveList.TabStop = true;
-			contextMenuStripSaveList.Text = "&Save List";
-			toolTip.SetToolTip(contextMenuStripSaveList, "Save List");
-			contextMenuStripSaveList.MouseEnter += SetStatusBar_Enter;
-			contextMenuStripSaveList.MouseLeave += ClearStatusBar_Leave;
+			contextMenuSaveList.AccessibleDescription = "Save the list as file";
+			contextMenuSaveList.AccessibleName = "Save list";
+			contextMenuSaveList.AccessibleRole = AccessibleRole.MenuPopup;
+			contextMenuSaveList.Font = new Font("Segoe UI", 9F);
+			contextMenuSaveList.Items.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsCsv, toolStripMenuItemSaveAsHtml, toolStripMenuItemSaveAsXml, toolStripMenuItemSaveAsJson });
+			contextMenuSaveList.Name = "contextMenuStrip1";
+			contextMenuSaveList.Size = new Size(148, 92);
+			contextMenuSaveList.TabStop = true;
+			contextMenuSaveList.Text = "&Save List";
+			toolTip.SetToolTip(contextMenuSaveList, "Save List");
+			contextMenuSaveList.MouseEnter += SetStatusBar_Enter;
+			contextMenuSaveList.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// toolStripMenuItemSaveAsCsv
 			// 
@@ -351,7 +356,7 @@ namespace Planetoid_DB
 			dropButtonSaveList.AccessibleDescription = "Saves the list as file";
 			dropButtonSaveList.AccessibleName = "Save list";
 			dropButtonSaveList.AccessibleRole = AccessibleRole.ButtonDropDown;
-			dropButtonSaveList.ContextMenuStrip = contextMenuStripSaveList;
+			dropButtonSaveList.ContextMenuStrip = contextMenuSaveList;
 			dropButtonSaveList.Location = new Point(207, 38);
 			dropButtonSaveList.Name = "dropButtonSaveList";
 			dropButtonSaveList.Size = new Size(93, 31);
@@ -371,6 +376,38 @@ namespace Planetoid_DB
 			dropButtonSaveList.Leave += ClearStatusBar_Leave;
 			dropButtonSaveList.MouseEnter += SetStatusBar_Enter;
 			dropButtonSaveList.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// contextMenuCopyToClipboard
+			// 
+			contextMenuCopyToClipboard.AccessibleDescription = "Shows context menu for some options";
+			contextMenuCopyToClipboard.AccessibleName = "Some options";
+			contextMenuCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
+			contextMenuCopyToClipboard.AllowClickThrough = true;
+			contextMenuCopyToClipboard.Font = new Font("Segoe UI", 9F);
+			contextMenuCopyToClipboard.Items.AddRange(new ToolStripItem[] { ToolStripMenuItemCpyToClipboard });
+			contextMenuCopyToClipboard.Name = "contextMenuStrip";
+			contextMenuCopyToClipboard.Size = new Size(214, 26);
+			contextMenuCopyToClipboard.TabStop = true;
+			contextMenuCopyToClipboard.Text = "ContextMenu";
+			toolTip.SetToolTip(contextMenuCopyToClipboard, "Context menu for copying to clipboard");
+			contextMenuCopyToClipboard.MouseEnter += SetStatusBar_Enter;
+			contextMenuCopyToClipboard.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// ToolStripMenuItemCpyToClipboard
+			// 
+			ToolStripMenuItemCpyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
+			ToolStripMenuItemCpyToClipboard.AccessibleName = "Copy to clipboard";
+			ToolStripMenuItemCpyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
+			ToolStripMenuItemCpyToClipboard.AutoToolTip = true;
+			ToolStripMenuItemCpyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
+			ToolStripMenuItemCpyToClipboard.Name = "ToolStripMenuItemCpyToClipboard";
+			ToolStripMenuItemCpyToClipboard.ShortcutKeyDisplayString = "Strg+C";
+			ToolStripMenuItemCpyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
+			ToolStripMenuItemCpyToClipboard.Size = new Size(213, 22);
+			ToolStripMenuItemCpyToClipboard.Text = "&Copy to clipboard";
+			ToolStripMenuItemCpyToClipboard.Click += CopyToClipboard_DoubleClick;
+			ToolStripMenuItemCpyToClipboard.MouseEnter += SetStatusBar_Enter;
+			ToolStripMenuItemCpyToClipboard.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// panel
 			// 
@@ -481,7 +518,8 @@ namespace Planetoid_DB
 			Load += ListReadableDesignationsForm_Load;
 			statusStrip.ResumeLayout(false);
 			statusStrip.PerformLayout();
-			contextMenuStripSaveList.ResumeLayout(false);
+			contextMenuSaveList.ResumeLayout(false);
+			contextMenuCopyToClipboard.ResumeLayout(false);
 			((ISupportInitialize)panel).EndInit();
 			panel.ResumeLayout(false);
 			panel.PerformLayout();
@@ -509,7 +547,7 @@ namespace Planetoid_DB
 		private KryptonNumericUpDown numericUpDownMaximum;
 		private KryptonLabel labelMaximum;
 		private KryptonDropButton dropButtonSaveList;
-		private ContextMenuStrip contextMenuStripSaveList;
+		private ContextMenuStrip contextMenuSaveList;
 		private ToolStripMenuItem toolStripMenuItemSaveAsCsv;
 		private ToolStripMenuItem toolStripMenuItemSaveAsHtml;
 		private ToolStripMenuItem toolStripMenuItemSaveAsXml;
@@ -519,5 +557,7 @@ namespace Planetoid_DB
 		private SaveFileDialog saveFileDialogHtml;
 		private SaveFileDialog saveFileDialogXml;
 		private KryptonManager kryptonManager;
+		private ContextMenuStrip contextMenuCopyToClipboard;
+		private ToolStripMenuItem ToolStripMenuItemCpyToClipboard;
 	}
 }
