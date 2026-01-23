@@ -1,5 +1,7 @@
 ﻿using NLog;
 
+using Planetoid_DB.Forms;
+
 using System.Diagnostics;
 
 namespace Planetoid_DB
