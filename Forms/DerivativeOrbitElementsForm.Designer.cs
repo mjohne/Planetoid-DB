@@ -178,7 +178,7 @@ namespace Planetoid_DB
 			contextMenuCopyToClipboard.Font = new Font("Segoe UI", 9F);
 			contextMenuCopyToClipboard.Items.AddRange(new ToolStripItem[] { ToolStripMenuItemCpyToClipboard });
 			contextMenuCopyToClipboard.Name = "contextMenuStrip";
-			contextMenuCopyToClipboard.Size = new Size(214, 26);
+			contextMenuCopyToClipboard.Size = new Size(214, 48);
 			contextMenuCopyToClipboard.TabStop = true;
 			contextMenuCopyToClipboard.Text = "ContextMenu";
 			toolTip.SetToolTip(contextMenuCopyToClipboard, "Context menu for copying to clipboard");
