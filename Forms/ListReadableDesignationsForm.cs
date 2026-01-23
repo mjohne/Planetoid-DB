@@ -692,6 +692,7 @@ namespace Planetoid_DB
 				throw new ArgumentException(message: "Unsupported sender type", paramName: nameof(sender));
 			}
 		}
+
 		#endregion
 
 		#region MouseDown event handlers
