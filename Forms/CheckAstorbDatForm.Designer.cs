@@ -43,6 +43,8 @@ namespace Planetoid_DB
 			labelContentLengthText = new KryptonLabel();
 			labelModifiedDateText = new KryptonLabel();
 			labelContentLengthValueLocal = new KryptonLabel();
+			contextMenuCopyToClipboard = new ContextMenuStrip(components);
+			ToolStripMenuItemCpyToClipboard = new ToolStripMenuItem();
 			labelModifiedDateValueLocal = new KryptonLabel();
 			labelContentLengthValueOnline = new KryptonLabel();
 			labelModifiedDateValueOnline = new KryptonLabel();
@@ -51,6 +53,7 @@ namespace Planetoid_DB
 			statusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
 			kryptonManager = new KryptonManager(components);
+			contextMenuCopyToClipboard.SuspendLayout();
 			tableLayoutPanel.SuspendLayout();
 			toolStripContainer.BottomToolStripPanel.SuspendLayout();
 			toolStripContainer.ContentPanel.SuspendLayout();
@@ -160,6 +163,7 @@ namespace Planetoid_DB
 			labelContentLengthValueLocal.AccessibleDescription = "Shows the local content length";
 			labelContentLengthValueLocal.AccessibleName = "Local content length";
 			labelContentLengthValueLocal.AccessibleRole = AccessibleRole.Text;
+			labelContentLengthValueLocal.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelContentLengthValueLocal.Dock = DockStyle.Fill;
 			labelContentLengthValueLocal.Location = new Point(113, 29);
 			labelContentLengthValueLocal.Margin = new Padding(4, 3, 4, 3);
@@ -171,14 +175,48 @@ namespace Planetoid_DB
 			labelContentLengthValueLocal.DoubleClick += CopyToClipboard_DoubleClick;
 			labelContentLengthValueLocal.Enter += SetStatusBar_Enter;
 			labelContentLengthValueLocal.Leave += ClearStatusBar_Leave;
+			labelContentLengthValueLocal.MouseDown += Control_MouseDown;
 			labelContentLengthValueLocal.MouseEnter += SetStatusBar_Enter;
 			labelContentLengthValueLocal.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// contextMenuCopyToClipboard
+			// 
+			contextMenuCopyToClipboard.AccessibleDescription = "Shows context menu for some options";
+			contextMenuCopyToClipboard.AccessibleName = "Some options";
+			contextMenuCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
+			contextMenuCopyToClipboard.AllowClickThrough = true;
+			contextMenuCopyToClipboard.Font = new Font("Segoe UI", 9F);
+			contextMenuCopyToClipboard.Items.AddRange(new ToolStripItem[] { ToolStripMenuItemCpyToClipboard });
+			contextMenuCopyToClipboard.Name = "contextMenuStrip";
+			contextMenuCopyToClipboard.Size = new Size(214, 26);
+			contextMenuCopyToClipboard.TabStop = true;
+			contextMenuCopyToClipboard.Text = "ContextMenu";
+			toolTip.SetToolTip(contextMenuCopyToClipboard, "Context menu for copying to clipboard");
+			contextMenuCopyToClipboard.MouseEnter += SetStatusBar_Enter;
+			contextMenuCopyToClipboard.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// ToolStripMenuItemCpyToClipboard
+			// 
+			ToolStripMenuItemCpyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
+			ToolStripMenuItemCpyToClipboard.AccessibleName = "Copy to clipboard";
+			ToolStripMenuItemCpyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
+			ToolStripMenuItemCpyToClipboard.AutoToolTip = true;
+			ToolStripMenuItemCpyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
+			ToolStripMenuItemCpyToClipboard.Name = "ToolStripMenuItemCpyToClipboard";
+			ToolStripMenuItemCpyToClipboard.ShortcutKeyDisplayString = "Strg+C";
+			ToolStripMenuItemCpyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
+			ToolStripMenuItemCpyToClipboard.Size = new Size(213, 22);
+			ToolStripMenuItemCpyToClipboard.Text = "&Copy to clipboard";
+			ToolStripMenuItemCpyToClipboard.Click += CopyToClipboard_DoubleClick;
+			ToolStripMenuItemCpyToClipboard.MouseEnter += SetStatusBar_Enter;
+			ToolStripMenuItemCpyToClipboard.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// labelModifiedDateValueLocal
 			// 
 			labelModifiedDateValueLocal.AccessibleDescription = "Shows the local modified date";
 			labelModifiedDateValueLocal.AccessibleName = "Local modified date";
 			labelModifiedDateValueLocal.AccessibleRole = AccessibleRole.Text;
+			labelModifiedDateValueLocal.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelModifiedDateValueLocal.Dock = DockStyle.Fill;
 			labelModifiedDateValueLocal.Location = new Point(113, 55);
 			labelModifiedDateValueLocal.Margin = new Padding(4, 3, 4, 3);
@@ -190,6 +228,7 @@ namespace Planetoid_DB
 			labelModifiedDateValueLocal.DoubleClick += CopyToClipboard_DoubleClick;
 			labelModifiedDateValueLocal.Enter += SetStatusBar_Enter;
 			labelModifiedDateValueLocal.Leave += ClearStatusBar_Leave;
+			labelModifiedDateValueLocal.MouseDown += Control_MouseDown;
 			labelModifiedDateValueLocal.MouseEnter += SetStatusBar_Enter;
 			labelModifiedDateValueLocal.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -198,6 +237,7 @@ namespace Planetoid_DB
 			labelContentLengthValueOnline.AccessibleDescription = "Shows the online content length";
 			labelContentLengthValueOnline.AccessibleName = "Online content length";
 			labelContentLengthValueOnline.AccessibleRole = AccessibleRole.Text;
+			labelContentLengthValueOnline.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelContentLengthValueOnline.Dock = DockStyle.Fill;
 			labelContentLengthValueOnline.Location = new Point(239, 29);
 			labelContentLengthValueOnline.Margin = new Padding(4, 3, 4, 3);
@@ -209,6 +249,7 @@ namespace Planetoid_DB
 			labelContentLengthValueOnline.DoubleClick += CopyToClipboard_DoubleClick;
 			labelContentLengthValueOnline.Enter += SetStatusBar_Enter;
 			labelContentLengthValueOnline.Leave += ClearStatusBar_Leave;
+			labelContentLengthValueOnline.MouseDown += Control_MouseDown;
 			labelContentLengthValueOnline.MouseEnter += SetStatusBar_Enter;
 			labelContentLengthValueOnline.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -217,6 +258,7 @@ namespace Planetoid_DB
 			labelModifiedDateValueOnline.AccessibleDescription = "Shows the online modified date";
 			labelModifiedDateValueOnline.AccessibleName = "Online Modified date";
 			labelModifiedDateValueOnline.AccessibleRole = AccessibleRole.Text;
+			labelModifiedDateValueOnline.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelModifiedDateValueOnline.Dock = DockStyle.Fill;
 			labelModifiedDateValueOnline.Location = new Point(239, 55);
 			labelModifiedDateValueOnline.Margin = new Padding(4, 3, 4, 3);
@@ -228,6 +270,7 @@ namespace Planetoid_DB
 			labelModifiedDateValueOnline.DoubleClick += CopyToClipboard_DoubleClick;
 			labelModifiedDateValueOnline.Enter += SetStatusBar_Enter;
 			labelModifiedDateValueOnline.Leave += ClearStatusBar_Leave;
+			labelModifiedDateValueOnline.MouseDown += Control_MouseDown;
 			labelModifiedDateValueOnline.MouseEnter += SetStatusBar_Enter;
 			labelModifiedDateValueOnline.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -259,7 +302,7 @@ namespace Planetoid_DB
 			tableLayoutPanel.RowStyles.Add(new RowStyle());
 			tableLayoutPanel.RowStyles.Add(new RowStyle());
 			tableLayoutPanel.RowStyles.Add(new RowStyle());
-			tableLayoutPanel.Size = new Size(373, 112);
+			tableLayoutPanel.Size = new Size(369, 109);
 			tableLayoutPanel.TabIndex = 0;
 			toolTip.SetToolTip(tableLayoutPanel, "Groups the data");
 			// 
@@ -277,12 +320,12 @@ namespace Planetoid_DB
 			// 
 			toolStripContainer.ContentPanel.Controls.Add(tableLayoutPanel);
 			toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
-			toolStripContainer.ContentPanel.Size = new Size(373, 112);
+			toolStripContainer.ContentPanel.Size = new Size(369, 109);
 			toolStripContainer.Dock = DockStyle.Fill;
 			toolStripContainer.Location = new Point(0, 0);
 			toolStripContainer.Margin = new Padding(4, 3, 4, 3);
 			toolStripContainer.Name = "toolStripContainer";
-			toolStripContainer.Size = new Size(373, 134);
+			toolStripContainer.Size = new Size(369, 131);
 			toolStripContainer.TabIndex = 3;
 			toolStripContainer.Text = "toolStripContainer";
 			toolTip.SetToolTip(toolStripContainer, "Container to arrange the toolbars");
@@ -300,7 +343,7 @@ namespace Planetoid_DB
 			statusStrip.Name = "statusStrip";
 			statusStrip.ProgressBars = null;
 			statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-			statusStrip.Size = new Size(373, 22);
+			statusStrip.Size = new Size(369, 22);
 			statusStrip.SizingGrip = false;
 			statusStrip.TabIndex = 0;
 			statusStrip.Text = "status bar";
@@ -331,7 +374,7 @@ namespace Planetoid_DB
 			AccessibleRole = AccessibleRole.Dialog;
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(373, 134);
+			ClientSize = new Size(369, 131);
 			ControlBox = false;
 			Controls.Add(toolStripContainer);
 			FormBorderStyle = FormBorderStyle.FixedToolWindow;
@@ -346,6 +389,7 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(this, "Check ASTORB.DAT");
 			FormClosed += CheckAstorbDatForm_FormClosed;
 			Load += CheckAstorbDatForm_Load;
+			contextMenuCopyToClipboard.ResumeLayout(false);
 			tableLayoutPanel.ResumeLayout(false);
 			tableLayoutPanel.PerformLayout();
 			toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
@@ -376,5 +420,7 @@ namespace Planetoid_DB
 		private ToolStripStatusLabel labelInformation;
 		private ToolStripContainer toolStripContainer;
 		private KryptonManager kryptonManager;
+		private ContextMenuStrip contextMenuCopyToClipboard;
+		private ToolStripMenuItem ToolStripMenuItemCpyToClipboard;
 	}
 }
