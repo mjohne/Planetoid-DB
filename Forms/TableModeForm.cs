@@ -126,6 +126,11 @@ namespace Planetoid_DB
 		private string strObservationLastDate = string.Empty;
 
 		/// <summary>
+		/// Stopwatch for performance measurement
+		/// </summary>
+		private readonly Stopwatch stopwatch = new();
+
+		/// <summary>
 		/// Stores the currently selected control for clipboard operations.
 		/// </summary>
 		private Control currentControl;
@@ -458,6 +463,8 @@ namespace Planetoid_DB
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		private void ButtonList_Click(object sender, EventArgs e)
 		{
+			// Start the stopwatch for performance measurement
+			stopwatch.Restart();
 			// Clear the list view
 			listView.Clear();
 			// Add columns to the list view
@@ -513,7 +520,15 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the Cancel button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void ButtonCancel_Click(object sender, EventArgs e) => isCancelled = true;
+		private void ButtonCancel_Click(object? sender, EventArgs? e)
+		{
+			// Stop the stopwatch for performance measurement
+			stopwatch.Stop();
+			// Set the cancel flag to true to request cancellation
+			isCancelled = true;
+			// Show a message box indicating the operation was cancelled
+			MessageBox.Show(text: listView.Items.Count + " objects processed in " + stopwatch.Elapsed + " hh:mm:ss.ms", caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		}
 
 		#endregion
 
