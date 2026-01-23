@@ -10,74 +10,130 @@ namespace Planetoid_DB
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 	public partial class TableModeForm : BaseKryptonForm
 	{
-		// The database of planetoids.
+		/// <summary>
+		/// List of planetoid records from the database
+		/// </summary>
 		private List<string> planetoidsDatabase = [];
 
-		// The number of planetoids in the database.
+		/// <summary>
+		/// Number of planetoids in the database.
+		/// </summary>
 		private int numberPlanetoids;
 
-		// Indicates whether the operation is cancelled.
+		/// <summary>
+		/// Indicates whether the operation is cancelled.
+		/// </summary>
 		private bool isCancelled;
 
-		// The index of the planetoids.
+		/// <summary>
+		/// The index of the planetoids.
+		/// </summary>
 		private string strIndex = string.Empty;
 
-		// The absolute magnitude of the planetoids.
+		/// <summary>
+		/// The absolute magnitude of the planetoids.
+		/// </summary>
 		private string strMagAbs = string.Empty;
 
-		// The slope parameter of the planetoids.
+		/// <summary>
+		/// The slope parameter of the planetoids.
+		/// </summary>
 		private string strSlopeParam = string.Empty;
 
-		// The epoch of the planetoids.
+		/// <summary>
+		/// The epoch of the planetoids.
+		/// </summary>
 		private string strEpoch = string.Empty;
 
-		// The mean anomaly of the planetoids.
+		/// <summary>
+		/// The mean anomaly of the planetoids.
+		/// </summary>
 		private string strMeanAnomaly = string.Empty;
 
-		// The argument of perihelion of the planetoids.
+		/// <summary>
+		/// The argument of perihelion of the planetoids.
+		/// </summary>
 		private string strArgPeri = string.Empty;
 
-		// The longitude of the ascending node of the planetoids.
+		/// <summary>
+		/// The longitude of the ascending node of the planetoids.
+		/// </summary>
 		private string strLongAscNode = string.Empty;
 
-		// The inclination of the planetoids.
+		/// <summary>
+		/// The inclination of the planetoids.
+		/// </summary>
 		private string strIncl = string.Empty;
 
-		// The orbital eccentricity of the planetoids.
+		/// <summary>
+		/// The orbital eccentricity of the planetoids.
+		/// </summary>
 		private string strOrbEcc = string.Empty;
 
-		// The mean daily motion of the planetoids.
+		/// <summary>
+		/// The mean daily motion of the planetoids.
+		/// </summary>
 		private string strMotion = string.Empty;
 
-		// The semi-major axis of the planetoids.
+		/// <summary>
+		/// The semi-major axis of the planetoids.
+		/// </summary>
 		private string strSemiMajorAxis = string.Empty;
 
-		// The reference for the planetoids data.
+		/// <summary>
+		/// The reference for the planetoids data.
+		/// </summary>
 		private string strRef = string.Empty;
 
-		// The number of observations of the planetoids.
+		/// <summary>
+		/// The number of observations of the planetoids.
+		/// </summary>
 		private string strNumberObservation = string.Empty;
 
-		// The number of oppositions of the planetoids.
+		/// <summary>
+		/// The number of oppositions of the planetoids.
+		/// </summary>
 		private string strNumberOpposition = string.Empty;
 
-		// The observation span of the planetoids.
+		/// <summary>
+		/// The observation span of the planetoids.
+		/// </summary>
 		private string strObsSpan = string.Empty;
 
-		// The RMS residual of the planetoids.
+		/// <summary>
+		/// The RMS residual of the planetoids.
+		/// </summary>
 		private string strRmsResidual = string.Empty;
 
-		// The name of the computer that processed the planetoids data.
+		/// <summary>
+		/// The name of the computer that processed the planetoids data.
+		/// </summary>
 		private string strComputerName = string.Empty;
 
-		// The flags associated with the planetoids.
+		/// <summary>
+		/// The flags associated with the planetoids.
+		/// </summary>
 		private string strFlags = string.Empty;
 
-		// The designation name of the planetoids.
+		/// <summary>
+		/// The designation name of the planetoids.
+		/// </summary>
 		private string strDesignationName = string.Empty;
 
-		// The date of the last observation of the planetoids.
+		/// <summary>
+		/// The date of the last observation of the planetoids.
+		/// </summary>
 		private string strObservationLastDate = string.Empty;
+
+		/// <summary>
+		/// Stores the currently selected control for clipboard operations.
+		/// </summary>
+		private Control currentControl;
+
+		/// <summary>
+		/// Stores the current tag text of the control.
+		/// </summary>
+		private string currentTagText = string.Empty;
 
 		#region constructor
 
@@ -464,19 +520,59 @@ namespace Planetoid_DB
 		#region DoubleClick event handlers
 
 		/// <summary>
-		/// Called when a control is double-clicked. If the <paramref name="sender"/> is a <see cref="Control"/>,
-		/// its <see cref="Control.Text"/> value is copied to the clipboard using the shared helper.
+		/// Called when a control is double-clicked. If the <paramref name="sender"/> is a <see cref="Control"/>
+		/// or a <see cref="ToolStripItem"/>, its <see cref="Control.Text"/> value is copied to the clipboard
+		/// using the shared helper.
 		/// </summary>
-		/// <param name="sender">Event source — expected to be a <see cref="Control"/>.</param>
+		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or a <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// If the <paramref name="sender"/> is a <see cref="Control"/>, its <see cref="Control.Text"/> value is copied to the clipboard.
+		/// If the <paramref name="sender"/> is a <see cref="ToolStripItem"/>, its <see cref="ToolStripItem.Text"/> value is copied to the clipboard.
+		/// </remarks>
 		private void CopyToClipboard_DoubleClick(object sender, EventArgs e)
 		{
 			// Check if the sender is null
 			ArgumentNullException.ThrowIfNull(argument: sender);
+			// Check the type of the sender and copy the text accordingly
 			if (sender is Control control)
 			{
 				// Copy the text to the clipboard
 				CopyToClipboard(text: control.Text);
+			}
+			// Check if the sender is a ToolStripItem
+			else if (sender is ToolStripItem)
+			{
+				// Copy the text to the clipboard
+				CopyToClipboard(text: currentControl.Text);
+			}
+			// Unsupported type
+			else
+			{
+				// Throw an exception
+				throw new ArgumentException(message: "Unsupported sender type", paramName: nameof(sender));
+			}
+		}
+
+		#endregion
+
+		#region MouseDown event handlers
+
+		/// <summary>
+		/// Handles the MouseDown event for controls.
+		/// Stores the control that triggered the event for future reference.
+		/// </summary>
+		/// <param name="sender">Event source (the control).</param>
+		/// <param name="e">The <see cref="MouseEventArgs"/> instance that contains the event data.</param>
+		private void Control_MouseDown(object sender, MouseEventArgs e)
+		{
+			if (sender is Control control)
+			{
+				currentControl = control;
+				if (control.Tag != null)
+				{
+					currentTagText = control.Tag.ToString();
+				}
 			}
 		}
 
