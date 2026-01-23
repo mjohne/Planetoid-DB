@@ -32,10 +32,13 @@ namespace Planetoid_DB
 			statusStrip = new Krypton.Toolkit.KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
 			panel = new Krypton.Toolkit.KryptonPanel();
+			contextMenuCopyToClipboard = new ContextMenuStrip(components);
+			ToolStripMenuItemCpyToClipboard = new ToolStripMenuItem();
 			tableLayoutPanel.SuspendLayout();
 			statusStrip.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)panel).BeginInit();
 			panel.SuspendLayout();
+			contextMenuCopyToClipboard.SuspendLayout();
 			SuspendLayout();
 			// 
 			// kryptonManager
@@ -100,6 +103,7 @@ namespace Planetoid_DB
 			labelSizeValue.AccessibleDescription = "Shows the file size of the download";
 			labelSizeValue.AccessibleName = "Size of the dowload file";
 			labelSizeValue.AccessibleRole = AccessibleRole.Text;
+			labelSizeValue.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelSizeValue.Dock = DockStyle.Fill;
 			labelSizeValue.Location = new Point(59, 81);
 			labelSizeValue.Name = "labelSizeValue";
@@ -110,6 +114,7 @@ namespace Planetoid_DB
 			labelSizeValue.DoubleClick += CopyToClipboard_DoubleClick;
 			labelSizeValue.Enter += SetStatusBar_Enter;
 			labelSizeValue.Leave += ClearStatusBar_Leave;
+			labelSizeValue.MouseDown += Control_MouseDown;
 			labelSizeValue.MouseEnter += SetStatusBar_Enter;
 			labelSizeValue.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -136,6 +141,7 @@ namespace Planetoid_DB
 			labelDateValue.AccessibleDescription = "Shows the last modified date of the download file";
 			labelDateValue.AccessibleName = "Date of the download file";
 			labelDateValue.AccessibleRole = AccessibleRole.Text;
+			labelDateValue.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelDateValue.Dock = DockStyle.Fill;
 			labelDateValue.Location = new Point(59, 29);
 			labelDateValue.Name = "labelDateValue";
@@ -146,6 +152,7 @@ namespace Planetoid_DB
 			labelDateValue.DoubleClick += CopyToClipboard_DoubleClick;
 			labelDateValue.Enter += SetStatusBar_Enter;
 			labelDateValue.Leave += ClearStatusBar_Leave;
+			labelDateValue.MouseDown += Control_MouseDown;
 			labelDateValue.MouseEnter += SetStatusBar_Enter;
 			labelDateValue.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -154,6 +161,7 @@ namespace Planetoid_DB
 			labelSourceValue.AccessibleDescription = "Shows the download source";
 			labelSourceValue.AccessibleName = "Source of the download";
 			labelSourceValue.AccessibleRole = AccessibleRole.Text;
+			labelSourceValue.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelSourceValue.Dock = DockStyle.Fill;
 			labelSourceValue.Location = new Point(59, 55);
 			labelSourceValue.Name = "labelSourceValue";
@@ -164,6 +172,7 @@ namespace Planetoid_DB
 			labelSourceValue.DoubleClick += CopyToClipboard_DoubleClick;
 			labelSourceValue.Enter += SetStatusBar_Enter;
 			labelSourceValue.Leave += ClearStatusBar_Leave;
+			labelSourceValue.MouseDown += Control_MouseDown;
 			labelSourceValue.MouseEnter += SetStatusBar_Enter;
 			labelSourceValue.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -208,6 +217,7 @@ namespace Planetoid_DB
 			labelStatusValue.AccessibleDescription = "Shows the status of the download";
 			labelStatusValue.AccessibleName = "Status of the download";
 			labelStatusValue.AccessibleRole = AccessibleRole.Text;
+			labelStatusValue.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelStatusValue.Dock = DockStyle.Fill;
 			labelStatusValue.Location = new Point(59, 3);
 			labelStatusValue.Name = "labelStatusValue";
@@ -218,6 +228,7 @@ namespace Planetoid_DB
 			labelStatusValue.DoubleClick += CopyToClipboard_DoubleClick;
 			labelStatusValue.Enter += SetStatusBar_Enter;
 			labelStatusValue.Leave += ClearStatusBar_Leave;
+			labelStatusValue.MouseDown += Control_MouseDown;
 			labelStatusValue.MouseEnter += SetStatusBar_Enter;
 			labelStatusValue.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -321,6 +332,38 @@ namespace Planetoid_DB
 			panel.TabIndex = 9;
 			panel.TabStop = true;
 			// 
+			// contextMenuCopyToClipboard
+			// 
+			contextMenuCopyToClipboard.AccessibleDescription = "Shows context menu for some options";
+			contextMenuCopyToClipboard.AccessibleName = "Some options";
+			contextMenuCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
+			contextMenuCopyToClipboard.AllowClickThrough = true;
+			contextMenuCopyToClipboard.Font = new Font("Segoe UI", 9F);
+			contextMenuCopyToClipboard.Items.AddRange(new ToolStripItem[] { ToolStripMenuItemCpyToClipboard });
+			contextMenuCopyToClipboard.Name = "contextMenuStrip";
+			contextMenuCopyToClipboard.Size = new Size(214, 26);
+			contextMenuCopyToClipboard.TabStop = true;
+			contextMenuCopyToClipboard.Text = "ContextMenu";
+			toolTip.SetToolTip(contextMenuCopyToClipboard, "Context menu for copying to clipboard");
+			contextMenuCopyToClipboard.MouseEnter += SetStatusBar_Enter;
+			contextMenuCopyToClipboard.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// ToolStripMenuItemCpyToClipboard
+			// 
+			ToolStripMenuItemCpyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
+			ToolStripMenuItemCpyToClipboard.AccessibleName = "Copy to clipboard";
+			ToolStripMenuItemCpyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
+			ToolStripMenuItemCpyToClipboard.AutoToolTip = true;
+			ToolStripMenuItemCpyToClipboard.Image = Resources.FatcowIcons16px.fatcow_page_copy_16px;
+			ToolStripMenuItemCpyToClipboard.Name = "ToolStripMenuItemCpyToClipboard";
+			ToolStripMenuItemCpyToClipboard.ShortcutKeyDisplayString = "Strg+C";
+			ToolStripMenuItemCpyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
+			ToolStripMenuItemCpyToClipboard.Size = new Size(213, 22);
+			ToolStripMenuItemCpyToClipboard.Text = "&Copy to clipboard";
+			ToolStripMenuItemCpyToClipboard.Click += CopyToClipboard_DoubleClick;
+			ToolStripMenuItemCpyToClipboard.MouseEnter += CopyToClipboard_DoubleClick;
+			ToolStripMenuItemCpyToClipboard.MouseLeave += ClearStatusBar_Leave;
+			// 
 			// DatabaseDownloaderForm
 			// 
 			AccessibleDescription = "Downloads the files";
@@ -345,6 +388,7 @@ namespace Planetoid_DB
 			statusStrip.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)panel).EndInit();
 			panel.ResumeLayout(false);
+			contextMenuCopyToClipboard.ResumeLayout(false);
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -365,5 +409,7 @@ namespace Planetoid_DB
 		private Krypton.Toolkit.KryptonProgressBar progressBarDownload;
 		private Krypton.Toolkit.KryptonButton buttonCancel;
 		private Krypton.Toolkit.KryptonButton buttonDownload;
+		private ContextMenuStrip contextMenuCopyToClipboard;
+		private ToolStripMenuItem ToolStripMenuItemCpyToClipboard;
 	}
 }
