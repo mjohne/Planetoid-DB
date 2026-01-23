@@ -1,6 +1,7 @@
 ﻿using NLog;
 
 using Planetoid_DB.Forms;
+using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 
 using System.ComponentModel;
@@ -18,38 +19,59 @@ namespace Planetoid_DB
 	/// Form responsible for downloading and installing the MPCORB.DAT database file.
 	/// Provides UI helpers, progress reporting and both WebClient- and HttpClient-based download paths.
 	/// </summary>
+	/// <remarks>
+	/// This form is used to download and install the MPCORB.DAT database file.
+	/// </remarks>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 	public partial class DownloadMpcorbDatForm : BaseKryptonForm
 	{
 		/// <summary>
 		/// NLog logger instance for the class.
 		/// </summary>
+		/// <remarks>
+		/// This logger is used to log messages for the form.
+		/// </remarks>
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
 		/// <summary>
 		/// Filename (full path) for the local MPCORB data file.
 		/// </summary>
+		/// <remarks>
+		/// This is the full path to the local MPCORB data file.
+		/// </remarks>
 		private readonly string strFilenameMpcorb = Settings.Default.systemFilenameMpcorb;
 
 		/// <summary>
 		/// Temporary filename (full path) used while downloading the MPCORB data file.
 		/// </summary>
+		/// <remarks>
+		/// This is the full path to the temporary MPCORB data file.
+		/// </remarks>
 		private readonly string strFilenameMpcorbTemp = Settings.Default.systemFilenameMpcorbTemp;
 
 		/// <summary>
 		/// Remote URI of the MPCORB.GZ resource to download.
 		/// </summary>
+		/// <remarks>
+		/// This is the remote URI of the MPCORB.GZ resource to download.
+		/// </remarks>
 		private readonly Uri strUriMpcorb = new(uriString: Settings.Default.systemMpcorbDatGzUrl);
 
 		/// <summary>
 		/// Instance of <see cref="WebClient"/> used for the legacy async download path.
 		/// </summary>
+		/// <remarks>
+		/// This is the WebClient instance used for downloading the MPCORB.GZ file.
+		/// </remarks>
 		private readonly WebClient webClient = new();
 
 		/// <summary>
 		/// Shared <see cref="HttpClient"/> used for modern, streamed downloads.
 		/// Reuse recommended to avoid socket exhaustion.
 		/// </summary>
+		/// <remarks>
+		/// This is the HttpClient instance used for downloading the MPCORB.GZ file.
+		/// </remarks>
 		private static readonly HttpClient httpClient = new();
 
 		#region constructor
@@ -57,11 +79,12 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DownloadMpcorbDatForm"/> class.
 		/// </summary>
-		public DownloadMpcorbDatForm()
-		{
+		/// <remarks>
+		/// This constructor initializes the form components.
+		/// </remarks>
+		public DownloadMpcorbDatForm() =>
 			// Initialize the form components
 			InitializeComponent();
-		}
 
 		#endregion
 
@@ -71,11 +94,17 @@ namespace Planetoid_DB
 		/// Returns a short debugger display string for this instance.
 		/// </summary>
 		/// <returns>A string representation of the current instance for use in the debugger.</returns>
+		/// <remarks>
+		/// This method is used to provide a visual representation of the object in the debugger.
+		/// </remarks>
 		private string GetDebuggerDisplay() => ToString();
 
 		/// <summary>
 		/// Extracts a GZIP-compressed file to a specified output file.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to extract a GZIP-compressed file to a specified output file.
+		/// </remarks>
 		private static void ExtractGzipFile(string gzipFilePath, string outputFilePath)
 		{
 			// Open the gzip file and create a new file stream for the output file
@@ -93,6 +122,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="uri">The URI to check.</param>
 		/// <returns>The last modified date of the URI.</returns>
+		/// <remarks>
+		/// This method is used to retrieve the last modified date of a resource at the specified URI.
+		/// </remarks>
 		private static DateTime GetLastModified(Uri uri)
 		{
 			try
@@ -132,6 +164,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="uri">The URI to check.</param>
 		/// <returns>The content length of the URI.</returns>
+		/// <remarks>
+		/// This method is used to retrieve the content length of a resource at the specified URI.
+		/// </remarks>
 		private static long GetContentLength(Uri uri)
 		{
 			try
@@ -172,6 +207,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="text">Main status text to display. If null or whitespace the method returns without changing the UI.</param>
 		/// <param name="additionalInfo">Optional additional information appended to the main text, separated by " - ".</param>
+		/// <remarks>
+		/// This method is used to update the status bar with the specified text and additional information.
+		/// </remarks>
 		private void SetStatusBar(string text, string additionalInfo = "")
 		{
 			// Check if the text is not null or whitespace
@@ -201,6 +239,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Shows the MPCORB data check form.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to display the MPCORB data check form.
+		/// </remarks>
 		private static void ShowMpcorbDatCheck()
 		{
 			// Check if there is an internet connection available
@@ -227,6 +268,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="DownloadProgressChangedEventArgs"/> instance containing the event data.</param>
+		/// <remarks>
+		/// This method is used to update the progress bar and label with the current download progress.
+		/// </remarks>
 		private void ProgressChanged(object? sender, DownloadProgressChangedEventArgs e)
 		{
 			// Set the progress bar style to continuous
@@ -242,6 +286,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="AsyncCompletedEventArgs"/> instance containing the event data.</param>
+		/// <remarks>
+		/// This method is used to handle the completion of the download operation.
+		/// </remarks>
 		private void Completed(object? sender, AsyncCompletedEventArgs e)
 		{
 			// Reset the taskbar progress
@@ -291,6 +338,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		/// <remarks>
+		/// This method is used to initialize the form and its controls.
+		/// </remarks>
 
 		[Obsolete(message: "Obsolete")]
 		private void DownloadMpcorbDatForm_Load(object? sender, EventArgs? e)
@@ -318,6 +368,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance containing the event data.</param>
+		/// <remarks>
+		/// This method is used to clean up resources when the form is closed.
+		/// </remarks>
 		[Obsolete(message: "Obsolete")]
 		private void DownloadMpcorbDatForm_FormClosed(object? sender, FormClosedEventArgs? e)
 		{
@@ -336,6 +389,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This method is used to set the status bar text when a control or ToolStripItem is focused.
+		/// </remarks>
 		private void SetStatusBar_Enter(object sender, EventArgs e)
 		{
 			// Set the status bar text based on the sender's accessible description
@@ -362,6 +418,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This method is used to clear the status bar text when the mouse pointer leaves a control or the control loses focus.
+		/// </remarks>
 		private void ClearStatusBar_Leave(object? sender, EventArgs? e) => ClearStatusBar();
 
 		#endregion
@@ -373,6 +432,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		/// <remarks>
+		/// This method is used to start the download process when the Download button is clicked.
+		/// </remarks>
 		[Obsolete(message: "Obsolete")]
 		private void ButtonDownload_Click(object? sender, EventArgs? e)
 		{
@@ -495,6 +557,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		/// <remarks>
+		/// This method is used to cancel the ongoing download operation if one is in progress.
+		/// </remarks>
 		[Obsolete(message: "Obsolete")]
 		private void ButtonCancelDownload_Click(object? sender, EventArgs? e) => webClient.CancelAsync();
 
@@ -503,6 +568,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="FormClosingEventArgs"/> instance containing the event data.</param>
+		/// <remarks>
+		/// This method is used to cancel the ongoing download operation if one is in progress.
+		/// </remarks>
 		[Obsolete(message: "Obsolete")]
 		private void DownloadMpcorbDatForm_FormClosing(object? sender, FormClosingEventArgs? e)
 		{
@@ -522,6 +590,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		/// <remarks>
+		/// This method is used to show the MPCORB data check form.
+		/// </remarks>
 		private void ButtonCheckForUpdate_Click(object? sender, EventArgs? e) => ShowMpcorbDatCheck();
 
 		#endregion
@@ -534,6 +605,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/>.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to copy the text of a control to the clipboard when it is double-clicked.
+		/// </remarks>
 		private void CopyToClipboard_DoubleClick(object sender, EventArgs e)
 		{
 			// Check if the sender is null

@@ -7,6 +7,9 @@ namespace Planetoid_DB
 	/// <summary>
 	/// Represents a form for filtering data in the Planetoid database.
 	/// </summary>
+	/// <remarks>
+	/// This form allows users to specify filter criteria for querying the database.
+	/// </remarks>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 	public partial class FilterForm : BaseKryptonForm
 	{
@@ -15,11 +18,12 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Initializes a new instance of the <see cref="FilterForm"/> class.
 		/// </summary>
-		public FilterForm()
-		{
+		/// <remarks>
+		/// This constructor initializes the form components.
+		/// </remarks>
+		public FilterForm() =>
 			// Initialize the form components
 			InitializeComponent();
-		}
 
 		#endregion
 
@@ -29,6 +33,9 @@ namespace Planetoid_DB
 		/// Returns a short debugger display string for this instance.
 		/// </summary>
 		/// <returns>A string representation of the current instance for use in the debugger.</returns>
+		/// <remarks>
+		/// This method is used to provide a visual representation of the object in the debugger.
+		/// </remarks>
 		private string GetDebuggerDisplay() => ToString();
 
 		/// <summary>
@@ -36,6 +43,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="text">Main status text to display. If null or whitespace the method returns without changing the UI.</param>
 		/// <param name="additionalInfo">Optional additional information appended to the main text, separated by " - ".</param>
+		/// <remarks>
+		/// This method is used to set the status bar text and enable the information label.
+		/// </remarks>
 		private void SetStatusBar(string text, string additionalInfo = "")
 		{
 			// Check if the text is not null or whitespace
@@ -72,6 +82,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to initialize the form and set up any necessary data.
+		/// </remarks>
 		private void FilterForm_Load(object sender, EventArgs e) => ClearStatusBar();
 
 		/// <summary>
@@ -80,6 +93,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to release any resources held by the form.
+		/// </remarks>
 		private void FilterForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
 
 		#endregion
@@ -92,6 +108,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This method is used to set the status bar text when a control or ToolStrip item is focused.
+		/// </remarks>
 		private void SetStatusBar_Enter(object sender, EventArgs e)
 		{
 			// Set the status bar text based on the sender's accessible description
@@ -118,6 +137,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This method is used to clear the status bar text when the mouse leaves a control or the control loses focus.
+		/// </remarks>
 		private void ClearStatusBar_Leave(object sender, EventArgs e) => ClearStatusBar();
 
 		#endregion
@@ -130,8 +152,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to reset the mean anomaly at the epoch filter.
+		/// </remarks>
 		private void ButtonResetMeanAnomalyAtTheEpoch_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -140,8 +166,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to reset the argument of perihelion filter.
+		/// </remarks>
 		private void ButtonResetArgumentOfPerihelion_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -150,8 +180,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to reset the longitude of the ascending node filter.
+		/// </remarks>
 		private void ButtonResetLongitudeOfTheAscendingNode_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -160,8 +194,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to reset the inclination filter.
+		/// </remarks>
 		private void ButtonResetInclination_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -170,8 +208,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to reset the orbital eccentricity filter.
+		/// </remarks>
 		private void ButtonResetOrbitalEccentricity_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -180,8 +222,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to reset the mean daily motion filter.
+		/// </remarks>
 		private void ButtonResetMeanDailyMotion_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -190,8 +236,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to reset the semi-major axis filter.
+		/// </remarks>
 		private void ButtonResetSemiMajorAxis_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -200,8 +250,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to reset the absolute magnitude filter.
+		/// </remarks>
 		private void ButtonResetAbsoluteMagnitude_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -210,8 +264,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to reset the slope parameter filter.
+		/// </remarks>
 		private void ButtonResetSlopeParameter_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -220,8 +278,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to reset the number of oppositions filter.
+		/// </remarks>
 		private void ButtonNumberOfOppositions_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -230,8 +292,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to reset the number of observations filter.
+		/// </remarks>
 		private void ButtonResetNumberOfObservations_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -240,8 +306,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to reset the RMS residual filter.
+		/// </remarks>
 		private void ButtonResetRmsResidual_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -250,8 +320,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to apply the filter settings.
+		/// </remarks>
 		private void ButtonApply_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -260,8 +334,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to cancel the filter settings and close the form.
+		/// </remarks>
 		private void ButtonCancel_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -270,8 +348,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to reset all filter settings to their default values.
+		/// </remarks>
 		private void ButtonReset_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		#endregion
@@ -284,8 +366,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to update the minimum mean anomaly at the epoch filter.
+		/// </remarks>
 		private void NumericUpDownMinimumMeanAnomalyAtTheEpoch_ValueChanged(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -294,8 +380,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to update the maximum mean anomaly at the epoch filter.
+		/// </remarks>
 		private void NumericUpDownMaximumMeanAnomalyAtTheEpoch_ValueChanged(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -304,8 +394,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to update the minimum argument of perihelion filter.
+		/// </remarks>
 		private void NumericUpDownMinimumArgumentOfPerihelion_ValueChanged(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -314,8 +408,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to update the maximum argument of perihelion filter.
+		/// </remarks>
 		private void NumericUpDownMaximumArgumentOfPerihelion_ValueChanged(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -324,8 +422,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to update the minimum longitude of the ascending node filter.
+		/// </remarks>
 		private void NumericUpDownMinimumLongitudeOfTheAscendingNode_ValueChanged(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -334,8 +436,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to update the maximum longitude of the ascending node filter.
+		/// </remarks>
 		private void NumericUpDownMaximumLongitudeOfTheAscendingNode_ValueChanged(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -344,8 +450,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to update the minimum inclination filter.
+		/// </remarks>
 		private void NumericUpDownMinimumInclination_ValueChanged(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -354,8 +464,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to update the maximum inclination filter.
+		/// </remarks>
 		private void NumericUpDownMaximumInclination_ValueChanged(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -364,8 +478,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to update the minimum orbital eccentricity filter.
+		/// </remarks>
 		private void NumericUpDownMinimumOrbitalEccentricity_ValueChanged(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -374,8 +492,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to update the maximum orbital eccentricity filter.
+		/// </remarks>
 		private void NumericUpDownMaximumOrbitalEccentricity_ValueChanged(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -384,8 +506,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to update the minimum mean daily motion filter.
+		/// </remarks>
 		private void NumericUpDownMinimumMeanDailyMotion_ValueChanged(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -394,8 +520,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to update the maximum mean daily motion filter.
+		/// </remarks>
 		private void NumericUpDownMaximumMeanDailyMotion_ValueChanged(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -404,8 +534,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to update the minimum semi-major axis filter.
+		/// </remarks>
 		private void NumericUpDownMinimumSemiMajorAxis_ValueChanged(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -414,8 +548,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to update the maximum semi-major axis filter.
+		/// </remarks>
 		private void NumericUpDownMaximumSemiMajorAxis_ValueChanged(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -424,8 +562,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to update the minimum absolute magnitude filter.
+		/// </remarks>
 		private void NumericUpDownMinimumAbsoluteMagnitude_ValueChanged(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -434,8 +576,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to update the maximum absolute magnitude filter.
+		/// </remarks>
 		private void NumericUpDownMaximumAbsoluteMagnitude_ValueChanged(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -444,8 +590,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to update the minimum slope parameter filter.
+		/// </remarks>
 		private void NumericUpDownMinimumSlopeParameter_ValueChanged(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -454,8 +604,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to update the maximum slope parameter filter.
+		/// </remarks>
 		private void NumericUpDownMaximumSlopeParameter_ValueChanged(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -464,8 +618,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to update the minimum number of oppositions filter.
+		/// </remarks>
 		private void NumericUpDownMinimumNumberOfOppositions_ValueChanged(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -474,8 +632,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to update the maximum number of oppositions filter.
+		/// </remarks>
 		private void NumericUpDownMaximumNumberOfOppositions_ValueChanged(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -484,8 +646,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to update the minimum number of observations filter.
+		/// </remarks>
 		private void NumericUpDownMinimumNumberOfObservations_ValueChanged(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -494,8 +660,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to update the maximum number of observations filter.
+		/// </remarks>
 		private void NumericUpDownMaximumNumberOfObservations_ValueChanged(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -504,8 +674,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to update the minimum RMS residual filter.
+		/// </remarks>
 		private void NumericUpDownMinimumRmsResidual_ValueChanged(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		/// <summary>
@@ -514,8 +688,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to update the maximum RMS residual filter.
+		/// </remarks>
 		private void NumericUpDownMaximumRmsResidual_ValueChanged(object sender, EventArgs e)
 		{
+			//TODO: Implement method
 		}
 
 		#endregion

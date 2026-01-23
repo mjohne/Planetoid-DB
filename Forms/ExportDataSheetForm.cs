@@ -9,21 +9,31 @@ namespace Planetoid_DB
 	/// <summary>
 	/// Form for exporting data sheets with various formats.
 	/// </summary>
+	/// <remarks>
+	/// This form allows users to select orbital elements and export them in different formats.
+	/// </remarks>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 	public partial class ExportDataSheetForm : BaseKryptonForm
 	{
-		private List<string> orbitElements = []; // List of orbit elements to be exported
+		/// <summary>
+		/// List of orbit elements to be exported
+		/// </summary>
+		/// <remarks>
+		/// This list contains the names of the orbital elements that the user has selected for export.
+		/// </remarks>
+		private List<string> orbitElements = [];
 
 		#region constructor
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ExportDataSheetForm"/> class.
 		/// </summary>
-		public ExportDataSheetForm()
-		{
+		/// <remarks>
+		/// This constructor initializes the form components.
+		/// </remarks>
+		public ExportDataSheetForm() =>
 			// Initialize the form components
 			InitializeComponent();
-		}
 
 		#endregion
 
@@ -33,6 +43,9 @@ namespace Planetoid_DB
 		/// Returns a short debugger display string for this instance.
 		/// </summary>
 		/// <returns>A string representation of the current instance for use in the debugger.</returns>
+		/// <remarks>
+		/// This method is used to provide a visual representation of the object in the debugger.
+		/// </remarks>
 		private string GetDebuggerDisplay() => ToString();
 
 		/// <summary>
@@ -40,6 +53,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="text">Main status text to display. If null or whitespace the method returns without changing the UI.</param>
 		/// <param name="additionalInfo">Optional additional information appended to the main text, separated by " - ".</param>
+		/// <remarks>
+		/// This method is used to set the status bar text and enable the information label.
+		/// </remarks>
 		private void SetStatusBar(string text, string additionalInfo = "")
 		{
 			// Check if the text is not null or whitespace
@@ -70,12 +86,19 @@ namespace Planetoid_DB
 		/// Sets the internal list of orbit elements that will be used for export operations.
 		/// </summary>
 		/// <param name="list">A list of orbit element values (strings). The list is stored by reference.</param>
+		/// <remarks>
+		/// This method is used to set the internal list of orbit elements that will be used for export operations.
+		/// </remarks>
 		public void SetDatabase(List<string> list) => orbitElements = list;
 
 		/// <summary>
 		/// Checks or unchecks all items in the orbital elements checklist and toggles export buttons.
 		/// </summary>
 		/// <param name="check">If true, all items are checked; if false, all items are unchecked.</param>
+		/// <remarks>
+		/// This method is used to check or uncheck all items in the orbital elements checklist
+		/// and toggle the export buttons accordingly.
+		/// </remarks>
 		private void CheckIt(bool check)
 		{
 			// Check or uncheck all items in the checked list box
@@ -93,17 +116,26 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Checks all items in the orbital elements checklist.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to mark all items in the orbital elements checklist.
+		/// </remarks>
 		private void MarkAll() => CheckIt(check: true);
 
 		/// <summary>
 		/// Unchecks all items in the orbital elements checklist.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to unmark all items in the orbital elements checklist.
+		/// </remarks>
 		private void UnmarkAll() => CheckIt(check: false);
 
 		/// <summary>
 		/// Determines whether all items in the orbital elements checklist are unmarked (unchecked).
 		/// </summary>
 		/// <returns><c>true</c> if every item is unchecked; otherwise <c>false</c>.</returns>
+		/// <remarks>
+		/// This method is used to determine whether all items in the orbital elements checklist are unmarked (unchecked).
+		/// </remarks>
 		private bool IsAllUnmarked()
 		{
 			// Check if all items in the checked list box are unmarked
@@ -124,6 +156,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to initialize the form and set up any necessary data.
+		/// </remarks>
 		private void ExportDataSheetForm_Load(object sender, EventArgs e)
 		{
 			ClearStatusBar(); // Clear the status bar text
@@ -136,6 +171,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to release any resources held by the form.
+		/// </remarks>
 		private void ExportDataSheetForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
 
 		#endregion
@@ -148,6 +186,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This method is used to set the status bar text when a control or ToolStrip item is focused.
+		/// </remarks>
 		private void SetStatusBar_Enter(object sender, EventArgs e)
 		{
 			// Set the status bar text based on the sender's accessible description
@@ -174,6 +215,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This method is used to clear the status bar text when the mouse pointer leaves a control or the control loses focus.
+		/// </remarks>
 		private void ClearStatusBar_Leave(object sender, EventArgs e) => ClearStatusBar();
 
 		#endregion
@@ -187,6 +231,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the export button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to export the selected orbital elements as a plain text file.
+		/// </remarks>
 		private void ButtonExportAsTxt_Click(object sender, EventArgs e)
 		{
 			// Set the initial directory for the save file dialog to the user's documents folder
@@ -229,6 +276,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the export button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to export the selected orbital elements as an HTML file.
+		/// </remarks>
 		private void ButtonExportAsHtml_Click(object sender, EventArgs e)
 		{
 			// Set the initial directory for the save file dialog to the user's documents folder
@@ -290,6 +340,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the export button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to export the selected orbital elements as an XML file.
+		/// </remarks>
 		private void ButtonExportAsXml_Click(object sender, EventArgs e)
 		{
 			// Set the initial directory for the save file dialog to the user's documents folder
@@ -374,6 +427,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the export button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to export the selected orbital elements as JSON.
+		/// </remarks>
 		private void ButtonExportAsJson_Click(object sender, EventArgs e)
 		{
 			// Set the initial directory for the save file dialog to the user's documents folder
@@ -456,6 +512,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the Mark All button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to mark all items in the orbital elements checklist.
+		/// </remarks>
 		private void ButtonMarkAll_Click(object sender, EventArgs e) => MarkAll();
 
 		/// <summary>
@@ -464,6 +523,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the Unmark All button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to unmark all items in the orbital elements checklist.
+		/// </remarks>
 		private void ButtonUnmarkAll_Click(object sender, EventArgs e) => UnmarkAll();
 
 		#endregion
@@ -477,6 +539,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the checked list box).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to enable or disable the export buttons based on the selection state of the orbital elements.
+		/// </remarks>
 		private void CheckedListBoxOrbitalElements_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			// Enable or disable the export buttons based on whether all items are unmarked

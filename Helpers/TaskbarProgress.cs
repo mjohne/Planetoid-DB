@@ -1,36 +1,57 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace Planetoid_DB
+namespace Planetoid_DB.Helpers
 {
 	/// <summary>
 	/// Provides methods to control taskbar progress.
 	/// </summary>
+	/// <remarks>
+	/// This class provides methods to control the taskbar progress indicator.
+	/// </remarks>
 	public static class TaskbarProgress
 	{
 		/// <summary>
 		/// Defines the different states of the taskbar progress.
 		/// </summary>
+		/// <remarks>
+		/// This enumeration defines the various states of the taskbar progress.
+		/// </remarks>
 		public enum TaskbarStates
 		{
 			/// <summary>
 			/// No progress.
 			/// </summary>
+			/// <remarks>
+			/// This state indicates that there is no progress to report.
+			/// </remarks>
 			NoProgress = 0,
 			/// <summary>
 			/// Indeterminate Progress.
 			/// </summary>
+			/// <remarks>
+			/// This state indicates that the progress is indeterminate.
+			/// </remarks>
 			Indeterminate = 0x1,
 			/// <summary>
 			/// Normal progress.
 			/// </summary>
+			/// <remarks>
+			/// This state indicates that the progress is normal.
+			/// </remarks>
 			Normal = 0x2,
 			/// <summary>
 			/// Faulty progress.
 			/// </summary>
+			/// <remarks>
+			/// This state indicates that the progress has encountered an error.
+			/// </remarks>
 			Error = 0x4,
 			/// <summary>
 			/// Paused progress.
 			/// </summary>
+			/// <remarks>
+			/// This state indicates that the progress is paused.
+			/// </remarks>
 			Paused = 0x8
 		}
 
@@ -77,6 +98,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="windowHandle">The handle of the window.</param>
 		/// <param name="taskbarState">The new state of the taskbar progress.</param>
+		/// <remarks>
+		/// This method sets the state of the taskbar progress indicator for the specified window.
+		/// </remarks>
 		public static void SetState(IntPtr windowHandle, TaskbarStates taskbarState)
 		{
 			if (!taskbarSupported)
@@ -101,6 +125,9 @@ namespace Planetoid_DB
 		/// <param name="windowHandle">The handle of the window.</param>
 		/// <param name="progressValue">The current progress value.</param>
 		/// <param name="progressMax">The maximum progress value.</param>
+		/// <remarks>
+		/// This method sets the progress value of the taskbar progress indicator for the specified window.
+		/// </remarks>
 		public static void SetValue(IntPtr windowHandle, double progressValue, double progressMax)
 		{
 			if (!taskbarSupported)

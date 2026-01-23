@@ -15,39 +15,60 @@ namespace Planetoid_DB
 	/// <summary>
 	/// Form to handle downloading updates for the application.
 	/// </summary>
+	/// <remarks>
+	/// This form provides a user interface for downloading and installing updates.
+	/// </remarks>
 	[DebuggerDisplay(value: $"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
 	public partial class DatabaseDownloaderForm : BaseKryptonForm
 	{
 		/// <summary>
 		/// NLog logger instance for the class.
 		/// </summary>
+		/// <remarks>
+		/// This logger is used to log messages for the database downloader.
+		/// </remarks>
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
 		/// <summary>
 		/// Shared <see cref="HttpClient"/> used for HTTP requests. Initialized in the constructor.
 		/// Reuse to avoid socket exhaustion.
 		/// </summary>
+		/// <remarks>
+		/// This HttpClient instance is reused for all HTTP requests to improve performance.
+		/// </remarks>
 		private readonly HttpClient httpClient;
 
 		/// <summary>
 		/// Temporary filename (including path) used to store the downloaded gzip file.
 		/// </summary>
+		/// <remarks>
+		/// This temporary file is used to store the downloaded gzip file before extraction.
+		/// </remarks>
 		private readonly string strFilenameTemp = Settings.Default.systemFilenameTemp;
 
 		/// <summary>
 		/// Source URL to download the file from. Provided by the caller when the form is created.
 		/// </summary>
+		/// <remarks>
+		/// This URL is used to initiate the download process.
+		/// </remarks>
 		private readonly string url;
 
 		/// <summary>
 		/// Output path (filename without extension) where the downloaded archive will be extracted.
 		/// </summary>
+		/// <remarks>
+		/// This path is derived from the URL and is used to extract the contents of the downloaded archive.
+		/// </remarks>
 		private readonly string extractFilePath;
 
 		/// <summary>
 		/// Cancellation token source used to cancel an ongoing download operation.
 		/// May be null when no download is active.
 		/// </summary>
+		/// <remarks>
+		/// This token is used to cancel the download operation if needed.
+		/// </remarks>
 		private CancellationTokenSource? cancellationTokenSource;
 
 		#region constructor
@@ -79,6 +100,9 @@ namespace Planetoid_DB
 		/// Returns a short debugger display string for this instance.
 		/// </summary>
 		/// <returns>A string representation of the current instance for use in the debugger.</returns>
+		/// <remarks>
+		/// This method is used to provide a visual representation of the object in the debugger.
+		/// </remarks>
 		private string GetDebuggerDisplay() => ToString();
 
 		/// <summary>
@@ -154,6 +178,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="text">Main status text to display. If null or whitespace the method returns without changing the UI.</param>
 		/// <param name="additionalInfo">Optional additional information appended to the main text, separated by " - ".</param>
+		/// <remarks>
+		/// This method updates the status bar with the provided text and additional information.
+		/// </remarks>
 		private void SetStatusBar(string text, string additionalInfo = "")
 		{
 			// Check if the text is not null or whitespace
@@ -379,6 +406,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source (the Download button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the Download button is clicked.
+		/// </remarks>
 		private async void ButtonDownload_Click(object sender, EventArgs e) => StartDownload();
 
 		/// <summary>
@@ -386,6 +416,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source (the Cancel button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the Cancel button is clicked.
+		/// </remarks>
 		private void ButtonCancel_Click(object sender, EventArgs e) => cancellationTokenSource?.Cancel();
 
 		#endregion
@@ -398,6 +431,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/>.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		///	<remarks>
+		/// This method is called when a control is double-clicked.
+		/// </remarks>
 		private void CopyToClipboard_DoubleClick(object sender, EventArgs e)
 		{
 			// Check if the sender is null
@@ -419,6 +455,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This method is called when the mouse pointer enters a control or the control receives focus.
+		/// </remarks>
 		private void SetStatusBar_Enter(object sender, EventArgs e)
 		{
 			// Set the status bar text based on the sender's accessible description
@@ -445,6 +484,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This method is called when the mouse pointer leaves a control or the control loses focus.
+		/// </remarks>
 		private void ClearStatusBar_Leave(object sender, EventArgs e) => ClearStatusBar();
 
 		#endregion

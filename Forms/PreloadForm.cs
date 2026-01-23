@@ -14,9 +14,18 @@ namespace Planetoid_DB
 	/// <summary>
 	/// A form that gets the file MPCORB.DAT.
 	/// </summary>
+	/// <remarks>
+	/// This form is responsible for preloading the necessary data files for the application.
+	/// </remarks>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 	public partial class PreloadForm : BaseKryptonForm
 	{
+		/// <summary>
+		/// NLog logger instance for logging events and errors.
+		/// </summary>
+		/// <remarks>
+		/// This logger is used to log events and errors that occur within the form.
+		/// </remarks>
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger(); // NLog logger instance
 
 		#region constructor
@@ -24,11 +33,12 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AppInfoForm"/> class.
 		/// </summary>
-		public PreloadForm()
-		{
+		/// <remarks>
+		/// This constructor initializes the form components.
+		/// </remarks>
+		public PreloadForm() =>
 			// Initialize the form components
 			InitializeComponent();
-		}
 
 		#endregion
 
@@ -38,6 +48,9 @@ namespace Planetoid_DB
 		/// Returns a short debugger display string for this instance.
 		/// </summary>
 		/// <returns>A string representation of the current instance for use in the debugger.</returns>
+		/// <remarks>
+		/// This method is used to provide a custom display string for the debugger.
+		/// </remarks>
 		private string GetDebuggerDisplay() => ToString();
 
 		/// <summary>
@@ -48,6 +61,9 @@ namespace Planetoid_DB
 		/// <param name="internFilePath">The internal file path within the namespace (optional).</param>
 		/// <param name="resourceName">The name of the resource to extract.</param>
 		/// <exception cref="FileNotFoundException">Thrown if the specified resource is not found in the assembly.</exception>
+		/// <remarks>
+		/// This method extracts an embedded resource from the assembly and writes it to the specified output directory.
+		/// </remarks>
 		private static void ExtractResource(string nameSpace, string outDir, string internFilePath, string resourceName)
 		{
 			// Get the assembly and the resource path
@@ -71,6 +87,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="text">Main status text to display. If null or whitespace the method returns without changing the UI.</param>
 		/// <param name="additionalInfo">Optional additional information appended to the main text, separated by " - ".</param>
+		/// <remarks>
+		/// This method is used to set the status bar text and enable the information label.
+		/// </remarks>
 		private void SetStatusBar(string text, string additionalInfo = "")
 		{
 			// Check if the text is not null or whitespace
@@ -100,6 +119,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Gets the file path of the MPCORB.DAT file.
 		/// </summary>
+		/// <remarks>
+		/// This property is used to get the file path of the MPCORB.DAT file.
+		/// </remarks>
 		[DesignerSerializationVisibility(visibility: DesignerSerializationVisibility.Hidden)]
 		public string MpcOrbDatFilePath { get; set; } = string.Empty;
 
@@ -113,6 +135,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the preload form has finished loading.
+		/// </remarks>
 		private void PreloadForm_Load(object sender, EventArgs e) => ClearStatusBar();
 
 		/// <summary>
@@ -121,6 +146,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the preload form is closed.
+		/// </remarks>
 		private void PreloadForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
 
 		#endregion
@@ -133,6 +161,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This method is called when a control is focused.
+		/// </remarks>
 		private void SetStatusBar_Enter(object sender, EventArgs e)
 		{
 			// Set the status bar text based on the sender's accessible description
@@ -158,6 +189,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the mouse pointer leaves a control.
+		/// </remarks>
 		private void ClearStatusBar_Leave(object sender, EventArgs e) => ClearStatusBar();
 
 		#endregion
@@ -171,6 +205,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the command link button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the Open Local File command link is clicked.
+		/// </remarks>
 		private void KryptonCommandLinkButtonOpenLocalFile_Click(object sender, EventArgs e)
 		{
 			// Create an OpenFileDialog to select a local file
@@ -191,6 +228,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the command link button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the Download MPCORB.DAT command link is clicked.
+		/// </remarks>
 		private void KryptonCommandLinkButtonDownloadMprcorbDat_Click(object sender, EventArgs e)
 		{
 			if (!NetworkInterface.GetIsNetworkAvailable())
@@ -221,6 +261,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the command link button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the Load Internal Demo Data command link is clicked.
+		/// </remarks>
 		private void KryptonCommandLinkButtonLoadInternalDemoData_Click(object sender, EventArgs e)
 		{
 			// Extract the demo data file from the embedded resources
@@ -241,6 +284,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/>.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when a control is double-clicked.
+		/// </remarks>
 		private void CopyToClipboard_DoubleClick(object sender, EventArgs e)
 		{
 			// Check if the sender is null

@@ -1,4 +1,5 @@
 ﻿using Planetoid_DB.Forms;
+using Planetoid_DB.Helpers;
 
 using System.Collections;
 using System.ComponentModel;
@@ -9,137 +10,218 @@ namespace Planetoid_DB
 	/// <summary>
 	/// Represents the form for displaying planetoids data in table mode.
 	/// </summary>
+	/// <remarks>
+	/// This form provides a user interface for viewing and managing planetoids data in a tabular format.
+	/// </remarks>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 	public partial class TableModeForm : BaseKryptonForm
 	{
 		/// <summary>
 		/// List of planetoid records from the database
 		/// </summary>
+		/// <remarks>
+		/// This field stores the list of planetoid records retrieved from the database.
+		/// </remarks>
 		private List<string> planetoidsDatabase = [];
 
 		/// <summary>
 		/// Number of planetoids in the database.
 		/// </summary>
+		/// <remarks>
+		/// This field stores the number of planetoids retrieved from the database.
+		/// </remarks>
 		private int numberPlanetoids;
 
 		/// <summary>
 		/// Indicates whether the operation is cancelled.
 		/// </summary>
+		/// <remarks>
+		/// This field is used to track the cancellation state of the operation.
+		/// </remarks>
 		private bool isCancelled;
 
 		/// <summary>
 		/// The index of the planetoids.
 		/// </summary>
+		/// <remarks>
+		/// This field stores the index of the planetoids.
+		/// </remarks>
 		private string strIndex = string.Empty;
 
 		/// <summary>
 		/// The absolute magnitude of the planetoids.
 		/// </summary>
+		/// <remarks>
+		/// This field stores the absolute magnitude of the planetoids.
+		/// </remarks>
 		private string strMagAbs = string.Empty;
 
 		/// <summary>
 		/// The slope parameter of the planetoids.
 		/// </summary>
+		/// <remarks>
+		/// This field stores the slope parameter of the planetoids.
+		/// </remarks>
 		private string strSlopeParam = string.Empty;
 
 		/// <summary>
 		/// The epoch of the planetoids.
 		/// </summary>
+		/// <remarks>
+		/// This field stores the epoch of the planetoids.
+		/// </remarks>
 		private string strEpoch = string.Empty;
 
 		/// <summary>
 		/// The mean anomaly of the planetoids.
 		/// </summary>
+		/// <remarks>
+		/// This field stores the mean anomaly of the planetoids.
+		/// </remarks>
 		private string strMeanAnomaly = string.Empty;
 
 		/// <summary>
 		/// The argument of perihelion of the planetoids.
 		/// </summary>
+		/// <remarks>
+		/// This field stores the argument of perihelion of the planetoids.
+		/// </remarks>
 		private string strArgPeri = string.Empty;
 
 		/// <summary>
 		/// The longitude of the ascending node of the planetoids.
 		/// </summary>
+		/// <remarks>
+		/// This field stores the longitude of the ascending node of the planetoids.
+		/// </remarks>
 		private string strLongAscNode = string.Empty;
 
 		/// <summary>
 		/// The inclination of the planetoids.
 		/// </summary>
+		/// <remarks>
+		/// This field stores the inclination of the planetoids.
+		/// </remarks>
 		private string strIncl = string.Empty;
 
 		/// <summary>
 		/// The orbital eccentricity of the planetoids.
 		/// </summary>
+		/// <remarks>
+		/// This field stores the orbital eccentricity of the planetoids.
+		/// </remarks>
 		private string strOrbEcc = string.Empty;
 
 		/// <summary>
 		/// The mean daily motion of the planetoids.
 		/// </summary>
+		/// <remarks>
+		/// This field stores the mean daily motion of the planetoids.
+		/// </remarks>
 		private string strMotion = string.Empty;
 
 		/// <summary>
 		/// The semi-major axis of the planetoids.
 		/// </summary>
+		/// <remarks>
+		/// This field stores the semi-major axis of the planetoids.
+		/// </remarks>
 		private string strSemiMajorAxis = string.Empty;
 
 		/// <summary>
 		/// The reference for the planetoids data.
 		/// </summary>
+		/// <remarks>
+		/// This field stores the reference for the planetoids data.
+		/// </remarks>
 		private string strRef = string.Empty;
 
 		/// <summary>
 		/// The number of observations of the planetoids.
 		/// </summary>
+		/// <remarks>
+		/// This field stores the number of observations of the planetoids.
+		/// </remarks>
 		private string strNumberObservation = string.Empty;
 
 		/// <summary>
 		/// The number of oppositions of the planetoids.
 		/// </summary>
+		/// <remarks>
+		/// This field stores the number of oppositions of the planetoids.
+		/// </remarks>
 		private string strNumberOpposition = string.Empty;
 
 		/// <summary>
 		/// The observation span of the planetoids.
 		/// </summary>
+		/// <remarks>
+		/// This field stores the observation span of the planetoids.
+		/// </remarks>
 		private string strObsSpan = string.Empty;
 
 		/// <summary>
 		/// The RMS residual of the planetoids.
 		/// </summary>
+		/// <remarks>
+		/// This field stores the RMS residual of the planetoids.
+		/// </remarks>
 		private string strRmsResidual = string.Empty;
 
 		/// <summary>
 		/// The name of the computer that processed the planetoids data.
 		/// </summary>
+		/// <remarks>
+		/// This field stores the name of the computer that processed the planetoids data.
+		/// </remarks>
 		private string strComputerName = string.Empty;
 
 		/// <summary>
 		/// The flags associated with the planetoids.
 		/// </summary>
+		/// <remarks>
+		/// This field stores the flags associated with the planetoids.
+		/// </remarks>
 		private string strFlags = string.Empty;
 
 		/// <summary>
 		/// The designation name of the planetoids.
 		/// </summary>
+		/// <remarks>
+		/// This field stores the designation name of the planetoids.
+		/// </remarks>
 		private string strDesignationName = string.Empty;
 
 		/// <summary>
 		/// The date of the last observation of the planetoids.
 		/// </summary>
+		/// <remarks>
+		/// This field stores the date of the last observation of the planetoids.
+		/// </remarks>
 		private string strObservationLastDate = string.Empty;
 
 		/// <summary>
 		/// Stopwatch for performance measurement
 		/// </summary>
+		/// <remarks>
+		/// This field stores the stopwatch for performance measurement.
+		/// </remarks>
 		private readonly Stopwatch stopwatch = new();
 
 		/// <summary>
 		/// Stores the currently selected control for clipboard operations.
 		/// </summary>
+		/// <remarks>
+		/// This field stores the currently selected control for clipboard operations.
+		/// </remarks>
 		private Control currentControl;
 
 		/// <summary>
 		/// Stores the current tag text of the control.
 		/// </summary>
+		/// <remarks>
+		/// This field stores the current tag text of the control.
+		/// </remarks>
 		private string currentTagText = string.Empty;
 
 		#region constructor
@@ -147,11 +229,12 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Initializes a new instance of the <see cref="TableModeForm"/> class.
 		/// </summary>
-		public TableModeForm()
-		{
+		/// <remarks>
+		/// This constructor initializes the form components.
+		/// </remarks>
+		public TableModeForm() =>
 			// Initialize the form components
 			InitializeComponent();
-		}
 
 		#endregion
 
@@ -161,6 +244,9 @@ namespace Planetoid_DB
 		/// Returns a short debugger display string for this instance.
 		/// </summary>
 		/// <returns>A string representation of the current instance for use in the debugger.</returns>
+		/// <remarks>
+		/// This method is called to obtain a string representation of the current instance.
+		/// </remarks>
 		private string GetDebuggerDisplay() => ToString();
 
 		/// <summary>
@@ -168,6 +254,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="text">Main status text to display. If null or whitespace the method returns without changing the UI.</param>
 		/// <param name="additionalInfo">Optional additional information appended to the main text, separated by " - ".</param>
+		/// <remarks>
+		/// This method is called to set the status bar text and enable the information label.
+		/// </remarks>
 		private void SetStatusBar(string text, string additionalInfo = "")
 		{
 			// Check if the text is not null or whitespace
@@ -296,6 +385,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the form is loaded.
+		/// </remarks>
 		private void TableModeForm_Load(object sender, EventArgs e)
 		{
 			// Clear the status bar text
@@ -320,6 +412,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the form is closed.
+		/// </remarks>
 		private void TableModeForm_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			listView.Dispose();
@@ -338,6 +433,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the background worker).</param>
 		/// <param name="e">The <see cref="DoWorkEventArgs"/> instance that contains the event data.</param>
+		///	<remarks>
+		///	Background processing for the table mode form.
+		/// </remarks>
 		private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
 		{
 			// Set the maximum value of the progress bar
@@ -364,6 +462,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the background worker).</param>
 		/// <param name="e">The <see cref="ProgressChangedEventArgs"/> instance that contains the event data, including <see cref="ProgressChangedEventArgs.ProgressPercentage"/>.</param>
+		/// <remarks>
+		/// This method is called when the background worker reports progress.
+		/// </remarks>
 		private void BackgroundWorker_ProgressChanged(object? sender, ProgressChangedEventArgs e) => progressBar.Value = e.ProgressPercentage;
 
 		/// <summary>
@@ -372,6 +473,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the background worker).</param>
 		/// <param name="e">The <see cref="RunWorkerCompletedEventArgs"/> instance that contains the event data, including error or cancellation information.</param>
+		/// <remarks>
+		/// This method is called when the background worker completes its work.
+		/// </remarks>
 		private void BackgroundWorker_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
 		{
 			// Show the list view
@@ -399,6 +503,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This method is called when the mouse pointer enters a control or the control receives focus.
+		/// </remarks>
 		private void SetStatusBar_Enter(object sender, EventArgs e)
 		{
 			// Set the status bar text based on the sender's accessible description
@@ -425,6 +532,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This method is called when the mouse pointer leaves a control or the control loses focus.
+		/// </remarks>
 		private void ClearStatusBar_Leave(object sender, EventArgs e) => ClearStatusBar();
 
 		#endregion
@@ -438,8 +548,17 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the list view).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the selected index of the list view changes.
+		/// </remarks>
 		private void ListViewTableMode_SelectedIndexChanged(object sender, EventArgs e)
 		{
+			// Cast the sender to a ListView
+			if (sender is not ListView listView)
+			{
+				return;
+			}
+			// Check if there are any selected indices
 			if (listView.SelectedIndices.Count <= 0)
 			{
 				return;
@@ -463,6 +582,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the List button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the List button is clicked.
+		/// </remarks>
 		private void ButtonList_Click(object sender, EventArgs e)
 		{
 			// Start the stopwatch for performance measurement
@@ -522,6 +644,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the Cancel button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the Cancel button is clicked.
+		/// </remarks>
 		private void ButtonCancel_Click(object? sender, EventArgs? e)
 		{
 			// Stop the stopwatch for performance measurement
@@ -581,6 +706,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the control).</param>
 		/// <param name="e">The <see cref="MouseEventArgs"/> instance that contains the event data.</param>
+		///	<remarks>
+		/// This method is called when the mouse button is pressed down on a control.
+		/// </remarks>
 		private void Control_MouseDown(object sender, MouseEventArgs e)
 		{
 			if (sender is Control control)

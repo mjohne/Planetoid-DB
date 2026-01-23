@@ -56,7 +56,7 @@ namespace Planetoid_DB
 			buttonNumberOfObservations = new KryptonButton();
 			buttonNumberOfOppositions = new KryptonButton();
 			buttonFlags = new KryptonButton();
-			buttonComputername = new KryptonButton();
+			buttonComputerName = new KryptonButton();
 			buttonRmsResidual = new KryptonButton();
 			buttonDateOfLastObservation = new KryptonButton();
 			panel = new KryptonPanel();
@@ -414,23 +414,23 @@ namespace Planetoid_DB
 			// 
 			// buttonComputername
 			// 
-			buttonComputername.AccessibleDescription = "Copy to clipboard: Computer name";
-			buttonComputername.AccessibleName = "Copy to clipboard: Computer name";
-			buttonComputername.AccessibleRole = AccessibleRole.PushButton;
-			buttonComputername.ButtonStyle = ButtonStyle.Form;
-			buttonComputername.Location = new Point(327, 264);
-			buttonComputername.Margin = new Padding(4, 3, 4, 3);
-			buttonComputername.Name = "buttonComputername";
-			buttonComputername.Size = new Size(306, 29);
-			buttonComputername.TabIndex = 17;
-			toolTip.SetToolTip(buttonComputername, "Computer name");
-			buttonComputername.Values.DropDownArrowColor = Color.Empty;
-			buttonComputername.Values.Text = "Computer name";
-			buttonComputername.Click += ButtonComputerName_Click;
-			buttonComputername.Enter += SetStatusBar_Enter;
-			buttonComputername.Leave += ClearStatusBar_Leave;
-			buttonComputername.MouseEnter += SetStatusBar_Enter;
-			buttonComputername.MouseLeave += ClearStatusBar_Leave;
+			buttonComputerName.AccessibleDescription = "Copy to clipboard: Computer name";
+			buttonComputerName.AccessibleName = "Copy to clipboard: Computer name";
+			buttonComputerName.AccessibleRole = AccessibleRole.PushButton;
+			buttonComputerName.ButtonStyle = ButtonStyle.Form;
+			buttonComputerName.Location = new Point(327, 264);
+			buttonComputerName.Margin = new Padding(4, 3, 4, 3);
+			buttonComputerName.Name = "buttonComputername";
+			buttonComputerName.Size = new Size(306, 29);
+			buttonComputerName.TabIndex = 17;
+			toolTip.SetToolTip(buttonComputerName, "Computer name");
+			buttonComputerName.Values.DropDownArrowColor = Color.Empty;
+			buttonComputerName.Values.Text = "Computer name";
+			buttonComputerName.Click += ButtonComputerName_Click;
+			buttonComputerName.Enter += SetStatusBar_Enter;
+			buttonComputerName.Leave += ClearStatusBar_Leave;
+			buttonComputerName.MouseEnter += SetStatusBar_Enter;
+			buttonComputerName.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// buttonRmsResidual
 			// 
@@ -479,7 +479,7 @@ namespace Planetoid_DB
 			panel.AccessibleRole = AccessibleRole.Pane;
 			panel.Controls.Add(buttonDateOfLastObservation);
 			panel.Controls.Add(buttonFlags);
-			panel.Controls.Add(buttonComputername);
+			panel.Controls.Add(buttonComputerName);
 			panel.Controls.Add(buttonRmsResidual);
 			panel.Controls.Add(buttonObservationSpan);
 			panel.Controls.Add(buttonNumberOfObservations);
@@ -611,7 +611,7 @@ namespace Planetoid_DB
 		private KryptonButton buttonInclination;
 		private KryptonButton buttonDateOfLastObservation;
 		private KryptonButton buttonFlags;
-		private KryptonButton buttonComputername;
+		private KryptonButton buttonComputerName;
 		private KryptonButton buttonRmsResidual;
 		private KryptonButton buttonObservationSpan;
 		private KryptonButton buttonNumberOfObservations;

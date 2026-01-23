@@ -13,12 +13,26 @@ namespace Planetoid_DB
 	/// <summary>
 	/// MPCORB Data Verification Form.
 	/// </summary>
+	/// <remarks>
+	/// This form is used to verify the integrity of MPCORB data files.
+	/// </remarks>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 	public partial class CheckMpcorbDatForm : BaseKryptonForm
 	{
-		private static readonly Logger Logger = LogManager.GetCurrentClassLogger(); // NLog logger instance
+		/// <summary>
+		/// NLog logger instance.
+		/// </summary>
+		/// <remarks>
+		/// This logger is used to log messages and errors for the class.
+		/// </remarks>
+		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-		// The HttpClient instance used for making HTTP requests.
+		/// <summary>
+		/// The HttpClient instance used for making HTTP requests.
+		/// </summary>
+		/// <remarks>
+		/// This HttpClient is used to send requests and receive responses from web services.
+		/// </remarks>
 		private static readonly HttpClient Client = new();
 
 		#region constructor
@@ -26,11 +40,12 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CheckMpcorbDatForm"/> class.
 		/// </summary>
-		public CheckMpcorbDatForm()
-		{
+		/// <remarks>
+		/// This constructor initializes the form components.
+		/// </remarks>
+		public CheckMpcorbDatForm() =>
 			// Initialize the form components
 			InitializeComponent();
-		}
 
 		#endregion
 
@@ -40,6 +55,9 @@ namespace Planetoid_DB
 		/// Returns a short debugger display string for this instance.
 		/// </summary>
 		/// <returns>A string representation of the current instance for use in the debugger.</returns>
+		/// <remarks>
+		/// This method is used to provide a visual representation of the object in the debugger.
+		/// </remarks>
 		private string GetDebuggerDisplay() => ToString();
 
 		/// <summary>
@@ -47,6 +65,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="text">Main status text to display. If null or whitespace the method returns without changing the UI.</param>
 		/// <param name="additionalInfo">Optional additional information appended to the main text, separated by " - ".</param>
+		/// <remarks>
+		/// This method updates the status bar with the provided text and additional information.
+		/// </remarks>
 		private void SetStatusBar(string text, string additionalInfo = "")
 		{
 			// Check if the text is not null or whitespace
@@ -82,6 +103,10 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="uri">The URI of the resource.</param>
 		/// <returns>The date of the last modification or <see cref="DateTime.MinValue"/> in case of an error.</returns>
+		/// <remarks>
+		/// This method sends a HEAD request to the specified URI and retrieves the last modified date
+		/// from the response headers.
+		/// </remarks>
 		private static async Task<DateTime> GetLastModifiedAsync(Uri uri)
 		{
 			try
@@ -107,6 +132,10 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="uri">The URI of the resource.</param>
 		/// <returns>The content length or 0 in case of error.</returns>
+		/// <remarks>
+		/// This method sends a HEAD request to the specified URI and retrieves the content length
+		/// from the response headers.
+		/// </remarks>
 		private static async Task<long> GetContentLengthAsync(Uri uri)
 		{
 			try
@@ -136,6 +165,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This event is used to initialize the form's UI elements with information from the assembly.
+		/// </remarks>
 		private async void CheckMpcorbDatForm_Load(object sender, EventArgs e)
 		{
 			// Clear the status bar
@@ -191,6 +223,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This event is used to clean up resources when the form is closed.
+		/// </remarks>
 		private void CheckMpcorbDatForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
 
 		#endregion
@@ -203,6 +238,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This event is used to set the status bar text when a control is focused.
+		/// </remarks>
 		private void SetStatusBar_Enter(object sender, EventArgs e)
 		{
 			// Set the status bar text based on the sender's accessible description
@@ -229,6 +267,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This event is used to clear the status bar text when a control loses focus.
+		/// </remarks>
 		private void ClearStatusBar_Leave(object sender, EventArgs e) => ClearStatusBar();
 
 		#endregion
@@ -241,6 +282,10 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/>.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This event is used to copy the control's text to the clipboard when double-clicked.
+		/// </remarks>
+		/// <exception cref="ArgumentNullException">Thrown when the sender is null.</exception>
 		private void CopyToClipboard_DoubleClick(object sender, EventArgs e)
 		{
 			// Check if the sender is null
@@ -258,6 +303,10 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source, typically the label being double-clicked.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		/// <remarks>
+		/// This event is used to reset the displayed information and reload the form data.
+		/// </remarks>
+		/// <exception cref="ArgumentNullException">Thrown when the sender is null.</exception>
 		private void LabelUpdateNeeded_DoubleClick(object sender, EventArgs e)
 		{
 			// Check if the sender is null

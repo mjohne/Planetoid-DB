@@ -1,6 +1,7 @@
 ﻿using NLog;
 
 using Planetoid_DB.Forms;
+using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
 
@@ -9,17 +10,26 @@ namespace Planetoid_DB
 	/// <summary>
 	/// Represents the splash screen form of the application.
 	/// </summary>
+	/// <remarks>
+	/// This form is displayed while the application is loading.
+	/// </remarks>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 	public partial class SplashScreenForm : BaseKryptonForm
 	{
 		/// <summary>
 		/// Stores the currently selected control for clipboard operations.
 		/// </summary>
+		/// <remarks>
+		/// This field is used to keep track of the control that is currently selected for clipboard operations.
+		/// </remarks>
 		private Control currentControl;
 
 		/// <summary>
 		/// NLog logger instance.
 		/// </summary>
+		/// <remarks>
+		/// This field is used to log messages for the splash screen form.
+		/// </remarks>
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
 		#region constructor
@@ -27,6 +37,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Initializes a new instance of the <see cref="SplashScreenForm"/> class.
 		/// </summary>
+		/// <remarks>
+		/// This constructor initializes the form components.
+		/// </remarks>
 		public SplashScreenForm() => InitializeComponent();
 
 		#endregion
@@ -37,6 +50,9 @@ namespace Planetoid_DB
 		/// Returns a short debugger display string for this instance.
 		/// </summary>
 		/// <returns>A string representation of the current instance for use in the debugger.</returns>
+		/// <remarks>
+		/// This method is called to obtain a string representation of the current instance.
+		/// </remarks>
 		private string GetDebuggerDisplay() => ToString();
 
 		/// <summary>
@@ -44,6 +60,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="value">The value to set on the progress bar. Must be between <c>progressBarSplash.Minimum</c> and <c>progressBarSplash.Maximum</c>.</param>
 		/// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is outside the valid range of the progress bar.</exception>
+		/// <remarks>
+		/// This method is called to set the value of the splash screen progress bar.
+		/// </remarks>
 		public void SetProgressbar(int value)
 		{
 			// Validate the value
@@ -70,6 +89,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the splash screen form loads.
+		/// </remarks>
 		private void SplashScreenForm_Load(object sender, EventArgs e)
 		{
 			// Set the title label text to the product name
@@ -84,6 +106,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the splash screen form is closed.
+		/// </remarks>
 		private void SplashScreenForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
 		#endregion
 
@@ -96,6 +121,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or a <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when a control is double-clicked.
+		/// </remarks>
 		private void CopyToClipboard_DoubleClick(object sender, EventArgs e)
 		{
 			// Check if the sender is null
@@ -124,6 +152,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the control).</param>
 		/// <param name="e">The <see cref="MouseEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the mouse button is pressed over a control.
+		/// </remarks>
 		private void Control_MouseDown(object sender, MouseEventArgs e)
 		{
 			if (sender is Control control)

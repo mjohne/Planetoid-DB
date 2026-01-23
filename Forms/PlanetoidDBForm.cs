@@ -1,6 +1,7 @@
 ﻿using NLog;
 
 using Planetoid_DB.Forms;
+using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 
 using System.Collections;
@@ -19,6 +20,9 @@ namespace Planetoid_DB
 	/// <summary>
 	/// Represents a form that displays terminology information.
 	/// </summary>
+	/// <remarks>
+	/// This form is responsible for displaying and managing terminology information within the application.
+	/// </remarks>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 
 	public partial class PlanetoidDbForm : BaseKryptonForm
@@ -26,57 +30,90 @@ namespace Planetoid_DB
 		/// <summary>
 		/// NLog logger instance.
 		/// </summary>
+		/// <remarks>
+		/// This logger is used throughout the application to log important events and errors.
+		/// </remarks>
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
 		/// <summary>
 		/// Stores the currently selected control for clipboard operations.
 		/// </summary>
+		/// <remarks>
+		/// This control is used for clipboard operations such as copy and paste.
+		/// </remarks>
 		private Control currentControl;
 
 		/// <summary>
 		/// Stores the current tag text of the control.
 		/// </summary>
+		/// <remarks>
+		/// This string is used to store the current tag text of the control for clipboard operations.
+		/// </remarks>
 		private string currentTagText = string.Empty;
 
 		/// <summary>
 		/// Stores the currently selected ToolStripLabel for clipboard operations.
 		/// </summary>
+		/// <remarks>
+		/// This label is used for clipboard operations such as copy and paste.
+		/// </remarks>
 		private readonly ToolStripLabel currentLabel;
 
 		/// <summary>
 		/// Stores the current position in the planetoids database and the step position for navigation.
 		/// </summary>
+		/// <remarks>
+		/// This integer is used to store the current position in the planetoids database and the step position for navigation.
+		/// </remarks>
 		private int currentPosition, stepPosition;
 
 		/// <summary>
 		/// Stores the planetoids database.
 		/// </summary>
+		/// <remarks>
+		/// This ArrayList is used to store the planetoids database entries.
+		/// </remarks>
 		private readonly ArrayList planetoidsDatabase = [];
 
 		/// <summary>
 		/// Splash screen form instance.
 		/// </summary>
+		/// <remarks>
+		/// This form is displayed while the application is loading.
+		/// </remarks>
 		private readonly SplashScreenForm formSplashScreen = new();
 
 		/// <summary>
 		/// Filenames for the MPCORB database.
 		/// </summary>
+		/// <remarks>
+		/// These strings are used to store the filenames for the MPCORB database.
+		/// </remarks>
 		private readonly string filenameMpcorb = Settings.Default.systemFilenameMpcorb;
 		private readonly string filenameMpcorbTemp = Settings.Default.systemFilenameMpcorbTemp;
 
 		/// <summary>
 		/// URI for the MPCORB database.
 		/// </summary>
+		/// <remarks>
+		/// This URI is used to access the MPCORB database.
+		/// </remarks>
 		private readonly Uri uriMpcorb = new(uriString: Settings.Default.systemMpcorbDatGzUrl);
 
 		/// <summary>
 		/// Cancellation token source for download operations.
 		/// </summary>
+		/// <remarks>
+		/// This token source is used to cancel ongoing download operations.
+		/// </remarks>
 		private CancellationTokenSource? downloadCancellationTokenSource;
 
 		/// <summary>
 		/// HttpClient instance for making HTTP requests.
 		/// </summary>
+		/// <remarks>
+		/// This HttpClient instance is used for making HTTP requests to download files.
+		/// </remarks>
 		private static readonly HttpClient httpClient = new();
 
 		/*
@@ -129,6 +166,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Initializes a new instance of the <see cref="PlanetoidDbForm"/> class.
 		/// </summary>
+		/// <remarks>
+		/// This constructor initializes the form and sets the version text.
+		/// </remarks>
 		public PlanetoidDbForm()
 		{
 			InitializeComponent();
@@ -139,6 +179,9 @@ namespace Planetoid_DB
 		/// Initializes a new instance of the <see cref="PlanetoidDbForm"/> class with a specified MPCORB.DAT file path.
 		/// </summary>
 		/// <param name="mpcorbDatFilePath">The file path to the MPCORB.DAT file.</param>
+		/// <remarks>
+		/// This constructor initializes the form and sets the version text.
+		/// </remarks>
 		public PlanetoidDbForm(string mpcorbDatFilePath)
 		{
 			// Initialize the form components
@@ -155,12 +198,18 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Gets the file path of the MPCORB.DAT file.
 		/// </summary>
+		/// <remarks>
+		/// This property is used to store the file path of the MPCORB.DAT file.
+		/// </remarks>
 		private string MpcOrbDatFilePath { get; set; } = string.Empty;
 
 		/// <summary>
 		/// Returns a short debugger display string for this instance.
 		/// </summary>
 		/// <returns>A string representation of the current instance for use in the debugger.</returns>
+		/// <remarks>
+		/// This method is used to provide a custom display string for the debugger.
+		/// </remarks>
 		private string GetDebuggerDisplay() => ToString();
 
 		/// <summary>
@@ -168,6 +217,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="text">Main status text to display. If null or whitespace the method returns without changing the UI.</param>
 		/// <param name="additionalInfo">Optional additional information appended to the main text, separated by " - ".</param>
+		/// <remarks>
+		/// This method is used to set the status bar text and enable the information label when text is provided.
+		/// </remarks>
 		private void SetStatusBar(string text, string additionalInfo = "")
 		{
 			// Check if the text is not null or whitespace
@@ -201,6 +253,9 @@ namespace Planetoid_DB
 		/// <param name="value">The parsed integer value if successful.</param>
 		/// <param name="errorMessage">An error message if parsing fails.</param>
 		/// <returns>True if parsing was successful; otherwise, false.</returns>
+		/// <remarks>
+		/// This method is used to try parsing an integer from the input string.
+		/// </remarks>
 		public static bool TryParseInt(string input, out int value, out string errorMessage)
 		{
 			// Initialize output parameters
@@ -228,6 +283,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Restarts the application.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to restart the application.
+		/// </remarks>
 		private void Restart()
 		{
 			// Close the current form and start a new instance of the application
@@ -238,6 +296,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Asks the user if they want to restart the application after downloading the database.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to ask the user if they want to restart the application after downloading the database.
+		/// </remarks>
 		private void AskForRestartAfterDownloadingDatabase()
 		{
 			// Ask the user if they want to restart the application after downloading the database
@@ -257,6 +318,9 @@ namespace Planetoid_DB
 		/// Navigates to the specified position in the planetoids database.
 		/// </summary>
 		/// <param name="position">The position to navigate to.</param>
+		/// <remarks>
+		/// This method is used to navigate to the specified position in the planetoids database.
+		/// </remarks>
 		private void GotoCurrentPosition(int position)
 		{
 			// Validate the position
@@ -366,6 +430,9 @@ namespace Planetoid_DB
 		/// The <see cref="DateTime"/> representing the last modified date and time in UTC if available; 
 		/// otherwise, <see cref="DateTime.MinValue"/>.
 		/// </returns>
+		/// <remarks>
+		/// This method is used to retrieve the last modified date and time of a resource.
+		/// </remarks>
 		private static DateTime GetLastModified(Uri uri)
 		{
 			// Validate the input URI
@@ -395,6 +462,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="uri">The URI to check.</param>
 		/// <returns>The content length of the URI.</returns>
+		/// <remarks>
+		/// This method is used to retrieve the content length of a resource.
+		/// </remarks>
 		private static long GetContentLength(Uri uri)
 		{
 			// Validate the input URI
@@ -423,6 +493,9 @@ namespace Planetoid_DB
 		/// Checks if an update for the MPCORB database is available.
 		/// </summary>
 		/// <returns>true if an update is available, otherwise false.</returns>
+		/// <remarks>
+		/// This method is used to check if an update for the MPCORB database is available.
+		/// </remarks>
 		private bool IsMpcorbDatUpdateAvailable()
 		{
 			// Check if the file exists before attempting to delete it
@@ -450,16 +523,25 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Loads a random minor planet from the database.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to load a random minor planet from the database.
+		/// </remarks>
 		private void LoadRandomMinorPlanet() => GotoCurrentPosition(position: currentPosition = new Random().Next(maxValue: planetoidsDatabase.Count + 1));
 
 		/// <summary>
 		/// Navigates to the beginning of the data.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to navigate to the beginning of the data.
+		/// </remarks>
 		private void NavigateToTheBeginOfTheData() => GotoCurrentPosition(position: currentPosition = 0);
 
 		/// <summary>
 		/// Navigates backward by a specified step in the data.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to navigate backward by a specified step in the data.
+		/// </remarks>
 		private void NavigateSomeDataBackward()
 		{
 			// Decrease the current position by the step size
@@ -476,6 +558,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Navigates to the previous data entry.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to navigate to the previous data entry in the planetoids database.
+		/// </remarks>
 		private void NavigateToThePreviousData()
 		{
 			// If the current position is 0, wrap around to the last entry in the database
@@ -498,6 +583,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Navigates to the next data entry.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to navigate to the next data entry in the planetoids database.
+		/// </remarks>
 		private void NavigateToTheNextData()
 		{
 			// If the current position is the last entry in the database, wrap around to the first entry
@@ -520,6 +608,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Navigates forward by a specified step in the data.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to navigate forward by a specified step in the data.
+		/// </remarks>
 		private void NavigateSomeDataForward()
 		{
 			// Increase the current position by the step size
@@ -540,12 +631,18 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Navigates to the end of the data.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to navigate to the end of the data.
+		/// </remarks>
 		private void NavigateToTheEndOfTheData() => GotoCurrentPosition(position: currentPosition = planetoidsDatabase.Count - 1);
 
 		/// <summary>
 		/// Opens the terminology form with the specified index.
 		/// </summary>
 		/// <param name="index">The index to set active in the terminology form.</param>
+		/// <remarks>
+		/// This method is used to open the terminology form with the specified index.
+		/// </remarks>
 		private void OpenTerminology(uint index)
 		{
 			// Create a new instance of the TerminologyForm
@@ -603,6 +700,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Opens the table mode form.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to open the table mode form.
+		/// </remarks>
 		private void OpenTableMode()
 		{
 			// Create a new instance of the TableModeForm
@@ -618,6 +718,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Shows the application information form.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to show the application information form.
+		/// </remarks>
 		private void ShowAppInfo()
 		{
 			// Create a new instance of the AppInfoForm
@@ -631,6 +734,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Shows the license form.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to show the license form.
+		/// </remarks>
 		private void ShowLicense()
 		{
 			// Create a new instance of the LicenseForm
@@ -644,6 +750,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Shows the records selection form.
 		/// </summary>
+		///	<remarks>
+		///	This method is used to show the records selection form.
+		/// </remarks>
 		private void ShowRecordsSelection()
 		{
 			// Create a new instance of the RecordsSelectionForm
@@ -657,6 +766,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Shows the main records form.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to show the main records form.
+		/// </remarks>
 		private void ShowRecordsMain()
 		{
 			// Create a new instance of the RecordsMainForm
@@ -670,6 +782,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Shows the MPCORB data check form.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to check the MPCORB data for updates.
+		/// </remarks>
 		private void ShowMpcorbDatCheck()
 		{
 			// Check if the network is available before proceeding with the download
@@ -692,6 +807,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Shows the MPCORB data check form.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to check the ASTORB data for updates.
+		/// </remarks>
 		private void ShowAstorbDatCheck()
 		{
 			// Check if the network is available before proceeding with the download
@@ -714,6 +832,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Shows the downloader form for the MPCORB database.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to show the downloader form for the MPCORB database.
+		/// </remarks>
 		private void ShowMpcorbDatDownloader()
 		{
 			// Check if the network is available before proceeding with the download
@@ -740,6 +861,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Shows the downloader form for the ASTORB database.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to show the downloader form for the ASTORB database.
+		/// </remarks>
 		private void ShowAstorbDatDownloader()
 		{
 			// Check if the network is available before proceeding with the download
@@ -766,6 +890,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Shows the database information form.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to show the database information form.
+		/// </remarks>
 		private void ShowDatabaseInformation()
 		{
 			// Create a new instance of the DatabaseInformationForm
@@ -779,6 +906,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Shows the form to copy data to the clipboard.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to show the form for copying data to the clipboard.
+		/// </remarks>
 		private void ShowCopyDataToClipboard()
 		{
 			// Create a new ArrayList to store the data to copy
@@ -825,6 +955,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Shows the search form.
 		/// </summary>
+		///	<remarks>
+		///	This method is used to show the search form.
+		/// </remarks>
 		private void ShowSearch()
 		{
 			// Create a new instance of the SearchForm
@@ -850,6 +983,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Shows the filter form.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to show the filter form.
+		/// </remarks>
 		private void ShowFilter()
 		{
 			// Create a new instance of the FilterForm
@@ -863,6 +999,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Shows the settings form.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to show the settings form.
+		/// </remarks>
 		private void ShowSettings()
 		{
 			// Create a new instance of the SettingsForm
@@ -876,6 +1015,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Opens the database differences form.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to show the database differences form.
+		/// </remarks>
 		private void OpenDatabaseDifferences()
 		{
 			// Create a new instance of the DatabaseDifferencesForm
@@ -889,6 +1031,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Lists readable designations.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to show the list of readable designations.
+		/// </remarks>
 		private void ListReadableDesignations()
 		{
 			// Create a new instance of the ListReadableDesignationsForm
@@ -912,6 +1057,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Exports the data sheet.
 		/// </summary>
+		///	<remarks>
+		/// This method is used to export the data sheet.
+		/// </remarks>
 		private void ExportDataSheet()
 		{
 			// Create a new ArrayList to store the orbital elements
@@ -975,6 +1123,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Shows the print data sheet form.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to show the print data sheet form.
+		/// </remarks>
 		private void PrintDataSheet()
 		{
 			// Create a new instance of the PrintDataSheetForm
@@ -988,6 +1139,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Shows the derived orbit elements form.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to show the derived orbit elements form.
+		/// </remarks>
 		private void ShowDerivativeOrbitElements()
 		{
 			// Create a new ArrayList to store the derivative orbit elements
@@ -1031,6 +1185,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Checks if the form should stay on top of other windows.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to check if the form should stay on top of other windows.
+		/// </remarks>
 		private void CheckStayOnTop() => TopMost = menuitemOptionStayOnTop.Checked;
 
 		#endregion
@@ -1042,6 +1199,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to initialize the form and its controls.
+		/// </remarks>
 		private void PlanetoidDBForm_Load(object sender, EventArgs e)
 		{
 			ClearStatusBar();
@@ -1058,6 +1218,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to handle the shown event of the form.
+		/// </remarks>
 		private void PlanetoidDBForm_Shown(object sender, EventArgs e)
 		{
 			// Disable the background download label
@@ -1095,6 +1258,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="FormClosingEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to handle the form closing event.
+		/// </remarks>
 		private void PlanetoidDBForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			// Check if the file exists before attempting to delete it
@@ -1114,6 +1280,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="DoWorkEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to load the database in a background thread.
+		/// </remarks>
 		private void BackgroundWorkerLoadingDatabase_DoWork(object sender, DoWorkEventArgs e)
 		{
 			Enabled = false; // Disable the form while loading the database
@@ -1158,6 +1327,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="ProgressChangedEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to handle the progress changed event during the database loading process.
+		/// </remarks>
 		private static void BackgroundWorkerLoadingDatabase_ProgressChanged(object? sender, ProgressChangedEventArgs e)
 		{
 			//MessageBox.Show(text: e.ProgressPercentage.ToString());
@@ -1170,6 +1342,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="RunWorkerCompletedEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to handle the completion of the database loading process.
+		/// </remarks>
 		private void BackgroundWorkerLoadingDatabase_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
 		{
 			toolStripTextBoxGotoIndex.Text = 1.ToString(); // Set the initial value of the goto index text box
@@ -1189,6 +1364,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="DownloadProgressChangedEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to update the progress bar and taskbar progress during the download process.
+		/// </remarks>
 		private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
 		{
 			// Update the progress bar value
@@ -1224,6 +1402,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="AsyncCompletedEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to handle the completion of the download process.
+		/// </remarks>
 		private async void ToolStripStatusLabelUpdate_Click(object sender, EventArgs e)
 		{
 			// Check if the user wants to download the latest MPCORB.DAT file
@@ -1352,6 +1533,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to check for a new MPCORB data file.
+		/// </remarks>
 		private void TimerCheckForNewMpcorbDatFile_Tick(object sender, EventArgs e) => PlanetoidDBForm_Shown(sender: sender, e: e);
 
 		/// <summary>
@@ -1360,6 +1544,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to blink the update available status label.
+		/// </remarks>
 		private void TimerBlinkForUpdateAvailable_Tick(object sender, EventArgs e) => toolStripStatusLabelUpdate.ForeColor = toolStripStatusLabelUpdate.ForeColor == SystemColors.HotTrack ? SystemColors.ControlText : SystemColors.HotTrack;
 
 		#endregion
@@ -1369,6 +1556,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Clears the checked state of all navigation step menu items.
 		/// </summary>
+		/// <remarks>
+		/// This method is used to clear the checked state of all navigation step menu items.
+		/// </remarks>
 		private void ToolStripMenuItem_Clear()
 		{
 			// Clear the checked state of all navigation step menu items
@@ -1389,6 +1579,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="KeyPressEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to ensure only numeric input is allowed in the ToolStripTextBoxGotoIndex.
+		/// </remarks>
 		private void ToolStripTextBoxGotoIndex_KeyPress(object sender, KeyPressEventArgs e)
 		{
 			// Check if the pressed key is a control character or a digit
@@ -1415,6 +1608,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This method is used to set the status bar text based on the sender's accessible description.
+		/// </remarks>
 		private void SetStatusBar_Enter(object sender, EventArgs e)
 		{
 			// Set the status bar text based on the sender's accessible description
@@ -1441,6 +1637,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This method is used to clear the status bar.
+		/// </remarks>
 		private void ClearStatusBar_Leave(object sender, EventArgs e) => ClearStatusBar();
 
 		#endregion
@@ -1453,6 +1652,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to navigate to the beginning of the data.
+		/// </remarks>
 		private void ToolStripButtonStepToBegin_Click(object sender, EventArgs e) => NavigateToTheBeginOfTheData();
 
 		/// <summary>
@@ -1461,6 +1663,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to navigate backward by a specified step in the data.
+		/// </remarks>
 		private void ToolStripButtonStepBackward_Click(object sender, EventArgs e) => NavigateSomeDataBackward();
 
 		/// <summary>
@@ -1469,6 +1674,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		///	<remarks>
+		/// This method is used to navigate to the previous data entry.
+		/// </remarks>
 		private void ToolStripButtonStepBackwardOne_Click(object sender, EventArgs e) => NavigateToThePreviousData();
 
 		/// <summary>
@@ -1477,6 +1685,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to navigate to the next data entry.
+		/// </remarks>
 		private void ToolStripButtonStepForwardOne_Click(object sender, EventArgs e) => NavigateToTheNextData();
 
 		/// <summary>
@@ -1485,6 +1696,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to navigate forward by a specified step in the data.
+		/// </remarks>
 		private void ToolStripButtonStepForward_Click(object sender, EventArgs e) => NavigateSomeDataForward();
 
 		/// <summary>
@@ -1493,6 +1707,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		///	<remarks>
+		///	This method is used to navigate to the end of the data.
+		/// </remarks>
 		private void ToolStripButtonStepToEnd_Click(object sender, EventArgs e) => NavigateToTheEndOfTheData();
 
 		/// <summary>
@@ -1501,6 +1718,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		///	<remarks>
+		///	This method is used to navigate to a specific index in the data.
+		/// </remarks>
 		private void ToolStripButtonGoToIndex_Click(object? sender, EventArgs? e)
 		{
 			int pos = 0;
@@ -1542,6 +1762,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to open the terminology form with the specified index.
+		/// </remarks>
 		private void ToolStripMenuItemTerminology_Click(object sender, EventArgs e) => OpenTerminology(index: 0);
 
 		/// <summary>
@@ -1550,8 +1773,20 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to open the terminology form with the specified index.
+		/// </remarks>
 		private void ToolStripButtonTerminology_Click(object sender, EventArgs e) => OpenTerminology(index: 0);
 
+		/// <summary>
+		/// Handles the click event for the ToolStripStatusLabelCancelBackgroundDownload.
+		/// Cancels the background download.
+		/// </summary>
+		/// <param name="sender">The event source.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to cancel the background download.
+		/// </remarks>
 		private void ToolStripStatusLabelCancelBackgroundDownload_Click(object sender, EventArgs e)
 		{
 			// Download abbrechen
@@ -1570,6 +1805,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to navigate to a specific index in the data.
+		/// </remarks>
 		private void ToolStripMenuItem10_Click(object sender, EventArgs e)
 		{
 			// Set the step position to 10
@@ -1586,6 +1824,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to navigate to a specific index in the data.
+		/// </remarks>
 		private void ToolStripMenuItem100_Click(object sender, EventArgs e)
 		{
 			// Set the step position to 100
@@ -1602,6 +1843,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to navigate to a specific index in the data.
+		/// </remarks>
 		private void ToolStripMenuItem1000_Click(object sender, EventArgs e)
 		{
 			// Set the step position to 1000
@@ -1618,6 +1862,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to navigate to a specific index in the data.
+		/// </remarks>
 		private void ToolStripMenuItem10000_Click(object sender, EventArgs e)
 		{
 			// Set the step position to 10000
@@ -1634,6 +1881,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to navigate to a specific index in the data.
+		/// </remarks>
 		private void ToolStripMenuItem100000_Click(object sender, EventArgs e)
 		{
 			// Set the step position to 100000
@@ -1650,6 +1900,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to close the application.
+		/// </remarks>
 		private void MenuitemExit_Click(object sender, EventArgs e) => Close();
 
 		/// <summary>
@@ -1658,6 +1911,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the application information form.
+		/// </remarks>
 		private void MenuitemAbout_Click(object sender, EventArgs e) => ShowAppInfo();
 
 		/// <summary>
@@ -1666,6 +1922,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the license form.
+		/// </remarks>
 		private void MenuitemLicense_Click(object sender, EventArgs e) => ShowLicense();
 
 		/// <summary>
@@ -1674,6 +1933,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to open the Planetoid Database website.
+		/// </remarks>
 		private void MenuitemOpenWebsitePDB_Click(object sender, EventArgs e) => Process.Start(fileName: Settings.Default.systemHomepage);
 
 		/// <summary>
@@ -1682,6 +1944,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to open the Minor Planet Center website.
+		/// </remarks>
 		private void MenuitemOpenWebsiteMPC_Click(object sender, EventArgs e) => Process.Start(fileName: Settings.Default.systemWebsiteMpc);
 
 		/// <summary>
@@ -1690,6 +1955,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to open the MPCORB website.
+		/// </remarks>
 		private void MenuitemOpenMPCORBWebsite_Click(object sender, EventArgs e) => Process.Start(fileName: Settings.Default.systemWebsiteMpcorb);
 
 		/// <summary>
@@ -1698,6 +1966,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the downloader form for the MPCORB database.
+		/// </remarks>
 		private void MenuitemDownloadMpcorbDat_Click(object sender, EventArgs e) => ShowMpcorbDatDownloader();
 
 		/// <summary>
@@ -1706,6 +1977,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the downloader form for the ASTORB database.
+		/// </remarks>
 		private void MenuitemDownloadAstorbDat_Click(object sender, EventArgs e) => ShowAstorbDatDownloader();
 
 		/// <summary>
@@ -1714,6 +1988,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		///	<remarks>
+		/// This method is used to show the MPCORB data check form.
+		/// </remarks>
 		private void MenuitemCheckMpcorbDat_Click(object sender, EventArgs e) => ShowMpcorbDatCheck();
 
 		/// <summary>
@@ -1722,6 +1999,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the ASTORB data check form.
+		/// </remarks>
 		private void MenuitemCheckAstorbDat_Click(object sender, EventArgs e) => ShowAstorbDatCheck();
 
 		/// <summary>
@@ -1730,6 +2010,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		///	<remarks>
+		///	This method is used to show the MPCORB data check form.
+		/// </remarks>
 		private void ToolStripButtonCheckMpcorbDat_Click(object sender, EventArgs e) => ShowMpcorbDatCheck();
 
 		/// <summary>
@@ -1738,6 +2021,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the downloader form for the MPCORB database.
+		/// </remarks>
 		private void ToolStripButtonDownloadMpcorbDat_Click(object sender, EventArgs e) => ShowMpcorbDatDownloader();
 
 		/// <summary>
@@ -1746,6 +2032,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the application information form.
+		/// </remarks>
 		private void ToolStripButtonAbout_Click(object sender, EventArgs e) => ShowAppInfo();
 
 		/// <summary>
@@ -1754,6 +2043,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to open the Planetoid Database website.
+		/// </remarks>
 		private void ToolStripButtonOpenWebsitePDB_Click(object sender, EventArgs e) => Process.Start(fileName: Settings.Default.systemHomepage);
 
 		/// <summary>
@@ -1762,6 +2054,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to open the table mode form.
+		/// </remarks>
 		private void ToolStripButtonTableMode_Click(object sender, EventArgs e) => OpenTableMode();
 
 		/// <summary>
@@ -1770,6 +2065,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to open the table mode form.
+		/// </remarks>
 		private void ToolStripMenuItemTableMode_Click(object sender, EventArgs e) => OpenTableMode();
 
 		/// <summary>
@@ -1778,6 +2076,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		///	<remarks>
+		///	This method is used to show the database information form.
+		/// </remarks>
 		private void ToolStripButtonDatabaseInformation_Click(object sender, EventArgs e) => ShowDatabaseInformation();
 
 		/// <summary>
@@ -1786,6 +2087,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the print data sheet form.
+		/// </remarks>
 		private void ToolStripButtonPrint_Click(object sender, EventArgs e) => PrintDataSheet();
 
 		/// <summary>
@@ -1794,6 +2098,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the form to copy data to the clipboard.
+		/// </remarks>
 		private void ToolStripButtonCopyToClipboard_Click(object sender, EventArgs e) => ShowCopyDataToClipboard();
 
 		/// <summary>
@@ -1802,6 +2109,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the print data sheet form.
+		/// </remarks>
 		private void ToolStripMenuItemPrint_Click(object sender, EventArgs e) => PrintDataSheet();
 
 		/// <summary>
@@ -1810,6 +2120,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the search form.
+		/// </remarks>
 		private void ToolStripMenuItemSearch_Click(object sender, EventArgs e) => ShowSearch();
 
 		/// <summary>
@@ -1818,6 +2131,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the database information form.
+		/// </remarks>
 		private void ToolStripMenuItemDatabaseInformation_Click(object sender, EventArgs e) => ShowDatabaseInformation();
 
 		/// <summary>
@@ -1826,6 +2142,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to load a random minor planet from the database.
+		/// </remarks>
 		private void ToolStripButtonLoadRandomMinorPlanet_Click(object sender, EventArgs e) => LoadRandomMinorPlanet();
 
 		/// <summary>
@@ -1834,6 +2153,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to load a random minor planet from the database.
+		/// </remarks>
 		private void ToolStripMenuItemRandomMinorPlanet_Click(object sender, EventArgs e) => LoadRandomMinorPlanet();
 
 		/// <summary>
@@ -1842,6 +2164,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to navigate to the beginning of the data.
+		/// </remarks>
 		private void ToolStripMenuItemNavigateToTheBegin_Click(object sender, EventArgs e) => NavigateToTheBeginOfTheData();
 
 		/// <summary>
@@ -1850,6 +2175,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to navigate backward by a specified step in the data.
+		/// </remarks>
 		private void ToolStripMenuItemNavigateSomeDataBackward_Click(object sender, EventArgs e) => NavigateSomeDataBackward();
 
 		/// <summary>
@@ -1858,6 +2186,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to navigate to the previous data entry.
+		/// </remarks>
 		private void ToolStripMenuItemNavigateToThePreviousData_Click(object sender, EventArgs e) => NavigateToThePreviousData();
 
 		/// <summary>
@@ -1866,6 +2197,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to navigate to the next data entry.
+		/// </remarks>
 		private void ToolStripMenuItemNavigateToTheNextData_Click(object sender, EventArgs e) => NavigateToTheNextData();
 
 		/// <summary>
@@ -1874,6 +2208,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to navigate forward by a specified step in the data.
+		/// </remarks>
 		private void ToolStripMenuItemNavigateSomeDataForward_Click(object sender, EventArgs e) => NavigateSomeDataForward();
 
 		/// <summary>
@@ -1882,6 +2219,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to navigate to the end of the data.
+		/// </remarks>
 		private void ToolStripMenuItemNavigateToTheEnd_Click(object sender, EventArgs e) => NavigateToTheEndOfTheData();
 
 		/// <summary>
@@ -1890,6 +2230,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the settings form.
+		/// </remarks>
 		private void ToolStripMenuItemSettings_Click(object sender, EventArgs e) => ShowSettings();
 
 		/// <summary>
@@ -1898,6 +2241,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the filter form.
+		/// </remarks>
 		private void ToolStripMenuItemFilter_Click(object sender, EventArgs e) => ShowFilter();
 
 		/// <summary>
@@ -1906,6 +2252,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the filter form.
+		/// </remarks>
 		private void ToolStripButtonFilter_Click(object sender, EventArgs e) => ShowFilter();
 
 		/// <summary>
@@ -1914,6 +2263,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the derived orbit elements form.
+		/// </remarks>
 		private void ToolStripButtonDerivativeOrbitElements_Click(object sender, EventArgs e) => ShowDerivativeOrbitElements();
 
 		/// <summary>
@@ -1922,6 +2274,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to restart the application.
+		/// </remarks>
 		private void ToolStripMenuItemRestart_Click(object sender, EventArgs e) => Restart();
 
 		/// <summary>
@@ -1930,6 +2285,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the derived orbit elements form.
+		/// </remarks>
 		private void ToolStripMenuItemDerivativeOrbitElements_Click(object sender, EventArgs e) => ShowDerivativeOrbitElements();
 
 		/// <summary>
@@ -1938,6 +2296,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to check if the form should stay on top of other windows.
+		/// </remarks>
 		private void ToolStripMenuItemStayOnTop_Click(object sender, EventArgs e) => CheckStayOnTop();
 
 		/// <summary>
@@ -1946,6 +2307,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to enable copying by double-clicking.
+		/// </remarks>
 		private static void ToolStripMenuItemEnableCopyingByDoubleClicking_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
@@ -1958,6 +2322,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to enable linking to terminology.
+		/// </remarks>
 		private static void ToolStripMenuItemEnableLinkingToTerminology_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
@@ -1970,6 +2337,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to set the icon set to Silk.
+		/// </remarks>
 		private static void ToolStripMenuItemIconSetSilk_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
@@ -1982,6 +2352,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to set the icon set to Fugue.
+		/// </remarks>
 		private static void ToolStripMenuItemIconSetFugue_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
@@ -1994,6 +2367,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to set the icon set to Fatcow.
+		/// </remarks>
 		private static void ToolStripMenuItemIconSetFatcow_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
@@ -2006,6 +2382,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to copy the index number to the clipboard.
+		/// </remarks>
 		private void ToolStripMenuItemCopyToClipboardIndexNumber_Click(object sender, EventArgs e) => CopyToClipboard(text: labelIndexData.Text);
 
 		/// <summary>
@@ -2014,6 +2393,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to copy the readable designation to the clipboard.
+		/// </remarks>
 		private void ToolStripMenuItemCopyToClipboardReadableDesignation_Click(object sender, EventArgs e) => CopyToClipboard(text: labelReadableDesignationData.Text);
 
 		/// <summary>
@@ -2022,6 +2404,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to copy the epoch to the clipboard.
+		/// </remarks>
 		private void ToolStripMenuItemCopyToClipboardEpoch_Click(object sender, EventArgs e) => CopyToClipboard(text: labelEpochData.Text);
 
 		/// <summary>
@@ -2030,6 +2415,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to copy the mean anomaly to the clipboard.
+		/// </remarks>
 		private void ToolStripMenuItemCopyToClipboardMeanAnomaly_Click(object sender, EventArgs e) => CopyToClipboard(text: labelMeanAnomalyAtTheEpochData.Text);
 
 		/// <summary>
@@ -2038,6 +2426,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to copy the argument of perihelion to the clipboard.
+		/// </remarks>
 		private void ToolStripMenuItemCopyToClipboardArgumentOfPerihelion_Click(object sender, EventArgs e) => CopyToClipboard(text: labelArgumentOfPerihelionData.Text);
 
 		/// <summary>
@@ -2046,6 +2437,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to copy the longitude of the ascending node to the clipboard.
+		/// </remarks>
 		private void ToolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode_Click(object sender, EventArgs e) => CopyToClipboard(text: labelLongitudeOfTheAscendingNodeData.Text);
 
 		/// <summary>
@@ -2054,6 +2448,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to copy the inclination to the ecliptic data to the clipboard.
+		/// </remarks>
 		private void ToolStripMenuItemCopyToClipboardInclinationToTheEcliptic_Click(object sender, EventArgs e) => CopyToClipboard(text: labelInclinationToTheEclipticData.Text);
 
 		/// <summary>
@@ -2062,6 +2459,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to copy the orbital eccentricity data to the clipboard.
+		/// </remarks>
 		private void ToolStripMenuItemCopyToClipboardOrbitalEccentricity_Click(object sender, EventArgs e) => CopyToClipboard(text: labelOrbitalEccentricityData.Text);
 
 		/// <summary>
@@ -2070,6 +2470,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to copy the mean daily motion data to the clipboard.
+		/// </remarks>
 		private void ToolStripMenuItemCopyToClipboardMeanDailyMotion_Click(object sender, EventArgs e) => CopyToClipboard(text: labelMeanDailyMotionData.Text);
 
 		/// <summary>
@@ -2078,6 +2481,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to copy the semi-major axis data to the clipboard.
+		/// </remarks>
 		private void ToolStripMenuItemCopyToClipboardSemiMajorAxis_Click(object sender, EventArgs e) => CopyToClipboard(text: labelSemiMajorAxisData.Text);
 
 		/// <summary>
@@ -2086,6 +2492,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to copy the absolute magnitude data to the clipboard.
+		/// </remarks>
 		private void ToolStripMenuItemCopyToClipboardAbsoluteMagnitude_Click(object sender, EventArgs e) => CopyToClipboard(text: labelAbsoluteMagnitudeData.Text);
 
 		/// <summary>
@@ -2094,6 +2503,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to copy the slope parameter data to the clipboard.
+		/// </remarks>
 		private void ToolStripMenuItemCopyToClipboardSlopeParameter_Click(object sender, EventArgs e) => CopyToClipboard(text: labelSlopeParameterData.Text);
 
 		/// <summary>
@@ -2102,6 +2514,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to copy the reference data to the clipboard.
+		/// </remarks>
 		private void ToolStripMenuItemCopyToClipboardReference_Click(object sender, EventArgs e) => CopyToClipboard(text: labelReferenceData.Text);
 
 		/// <summary>
@@ -2110,6 +2525,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to copy the number of oppositions data to the clipboard.
+		/// </remarks>
 		private void ToolStripMenuItemCopyToClipboardNumberOfOppositions_Click(object sender, EventArgs e) => CopyToClipboard(text: labelNumberOfOppositionsData.Text);
 
 		/// <summary>
@@ -2118,6 +2536,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to copy the number of observations data to the clipboard.
+		/// </remarks>
 		private void ToolStripMenuItemCopyToClipboardNumberOfObservations_Click(object sender, EventArgs e) => CopyToClipboard(text: labelNumberOfObservationsData.Text);
 
 		/// <summary>
@@ -2126,6 +2547,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to copy the observation span data to the clipboard.
+		/// </remarks>
 		private void ToolStripMenuItemCopyToClipboardObservationSpan_Click(object sender, EventArgs e) => CopyToClipboard(text: labelObservationSpanData.Text);
 
 		/// <summary>
@@ -2134,6 +2558,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to copy the RMS residual data to the clipboard.
+		/// </remarks>
 		private void ToolStripMenuItemCopyToClipboardRmsResidual_Click(object sender, EventArgs e) => CopyToClipboard(text: labelRmsResidualData.Text);
 
 		/// <summary>
@@ -2142,6 +2569,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to copy the computer name data to the clipboard.
+		/// </remarks>
 		private void ToolStripMenuItemCopyToClipboardComputerName_Click(object sender, EventArgs e) => CopyToClipboard(text: labelComputerNameData.Text);
 
 		/// <summary>
@@ -2150,6 +2580,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to copy the date of last observation data to the clipboard.
+		/// </remarks>
 		private void ToolStripMenuItemCopyToClipboardDateOfLastObservation_Click(object sender, EventArgs e) => CopyToClipboard(text: labelDateLastObservationData.Text);
 
 		/// <summary>
@@ -2158,6 +2591,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to copy the flags data to the clipboard.
+		/// </remarks>
 		private void ToolStripMenuItemCopyToClipboardFlags_Click(object sender, EventArgs e) => CopyToClipboard(text: labelFlagsData.Text);
 
 		/// <summary>
@@ -2166,6 +2602,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to export the data sheet.
+		/// </remarks>
 		private void ToolStripSplitButtonExport_Click(object sender, EventArgs e) => ExportDataSheet();
 
 		/// <summary>
@@ -2174,6 +2613,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the records selection form.
+		/// </remarks>
 		private void MenuitemTopTenRecords_Click(object sender, EventArgs e) => ShowRecordsSelection();
 
 		/// <summary>
@@ -2182,6 +2624,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the records selection form.
+		/// </remarks>
 		private void SplitButtonTopTenRecords_ButtonClick(object sender, EventArgs e) => ShowRecordsSelection();
 
 		/// <summary>
@@ -2190,6 +2635,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the records main form for mean anomaly at the epoch.
+		/// </remarks>
 		private void MenuitemRecordsMeanAnomalyAtTheEpoch_Click(object sender, EventArgs e) => ShowRecordsMain();
 
 		/// <summary>
@@ -2198,6 +2646,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the records main form for argument of perihelion.
+		/// </remarks>
 		private void MenuitemRecordsArgumentOfPerihelion_Click(object sender, EventArgs e) => ShowRecordsMain();
 
 		/// <summary>
@@ -2206,6 +2657,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the records main form for the longitude of the ascending node.
+		/// </remarks>
 		private void MenuitemRecordsLongitudeOfTheAscendingNode_Click(object sender, EventArgs e) => ShowRecordsMain();
 
 		/// <summary>
@@ -2214,6 +2668,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the records main form for inclination.
+		/// </remarks>
 		private void MenuitemRecordsInclination_Click(object sender, EventArgs e) => ShowRecordsMain();
 
 		/// <summary>
@@ -2222,6 +2679,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the records main form for orbital eccentricity.
+		/// </remarks>
 		private void MenuitemRecordsOrbitalEccentricity_Click(object sender, EventArgs e) => ShowRecordsMain();
 
 		/// <summary>
@@ -2230,6 +2690,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the records main form for mean daily motion.
+		/// </remarks>
 		private void MenuitemRecordsMeanDailyMotion_Click(object sender, EventArgs e) => ShowRecordsMain();
 
 		/// <summary>
@@ -2238,6 +2701,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the records main form for semi-major axis.
+		/// </remarks>
 		private void MenuitemRecordsSemiMajorAxis_Click(object sender, EventArgs e) => ShowRecordsMain();
 
 		/// <summary>
@@ -2246,6 +2712,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the records main form for absolute magnitude.
+		/// </remarks>
 		private void MenuitemRecordsAbsoluteMagnitude_Click(object sender, EventArgs e) => ShowRecordsMain();
 
 		/// <summary>
@@ -2254,6 +2723,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the records main form for slope parameter.
+		/// </remarks>
 		private void MenuitemRecordsSlopeParameter_Click(object sender, EventArgs e) => ShowRecordsMain();
 
 		/// <summary>
@@ -2262,6 +2734,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the records main form for number of oppositions.
+		/// </remarks>
 		private void MenuitemRecordsNumberOfOppositions_Click(object sender, EventArgs e) => ShowRecordsMain();
 
 		/// <summary>
@@ -2270,6 +2745,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the records main form for number of observations.
+		/// </remarks>
 		private void MenuitemRecordsNumberOfObservations_Click(object sender, EventArgs e) => ShowRecordsMain();
 
 		/// <summary>
@@ -2278,6 +2756,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the records main form for observation span.
+		/// </remarks>
 		private void MenuitemRecordsObservationSpan_Click(object sender, EventArgs e) => ShowRecordsMain();
 
 		/// <summary>
@@ -2286,6 +2767,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the records main form for RMS residual.
+		/// </remarks>
 		private void MenuitemRecordsRmsResidual_Click(object sender, EventArgs e) => ShowRecordsMain();
 
 		/// <summary>
@@ -2294,6 +2778,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the records main form for computer name.
+		/// </remarks>
 		private void MenuitemRecordsComputerName_Click(object sender, EventArgs e) => ShowRecordsMain();
 
 		/// <summary>
@@ -2302,6 +2789,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the records main form for date of the last observation.
+		/// </remarks>
 		private void MenuitemRecordsDateOfTheLastObservation_Click(object sender, EventArgs e) => ShowRecordsMain();
 
 		/// <summary>
@@ -2310,6 +2800,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the distribution form for mean anomaly at the epoch.
+		/// </remarks>
 		private static void MenuitemDistributionMeanAnomalyAtTheEpoch_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
@@ -2322,6 +2815,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the distribution form for argument of perihelion.
+		/// </remarks>
 		private static void MenuitemDistributionArgumentOfPerihelion_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
@@ -2334,6 +2830,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the distribution form for longitude of the ascending node.
+		/// </remarks>
 		private static void MenuitemDistributionLongitudeOfTheAscendingNode_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
@@ -2346,6 +2845,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the distribution form for inclination.
+		/// </remarks>
 		private static void MenuitemDistributionInclination_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
@@ -2358,6 +2860,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the distribution form for orbital eccentricity.
+		/// </remarks>
 		private static void MenuitemDistributionOrbitalEccentricity_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
@@ -2370,6 +2875,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the distribution form for mean daily motion.
+		/// </remarks>
 		private static void MenuitemDistributionMeanDailyMotion_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
@@ -2382,6 +2890,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the distribution form for semi-major axis.
+		/// </remarks>
 		private static void MenuitemDistributionSemiMajorAxis_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
@@ -2394,6 +2905,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the distribution form for absolute magnitude.
+		/// </remarks>
 		private static void MenuitemDistributionAbsoluteMagnitude_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
@@ -2406,6 +2920,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the distribution form for slope parameter.
+		/// </remarks>
 		private static void MenuitemDistributionSlopeParameter_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
@@ -2418,6 +2935,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the distribution form for number of oppositions.
+		/// </remarks>
 		private static void MenuitemDistributionNumberOfOppositions_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
@@ -2430,6 +2950,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the distribution form for number of observations.
+		/// </remarks>
 		private static void MenuitemDistributionNumberOfObservations_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
@@ -2442,6 +2965,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the distribution form for observation span.
+		/// </remarks>
 		private static void MenuitemDistributionObservationSpan_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
@@ -2454,6 +2980,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the distribution form for RMS residual.
+		/// </remarks>
 		private static void MenuitemDistributionRmsResidual_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
@@ -2466,6 +2995,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the distribution form for computer name.
+		/// </remarks>
 		private static void MenuitemDistributionComputerName_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
@@ -2478,6 +3010,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		///	<remarks>
+		///	This method is used to show the distribution form for the selected parameter.
+		/// </remarks>
 		private static void SplitButtonDistribution_ButtonClick(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
@@ -2490,6 +3025,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the distribution form for the selected parameter.
+		/// </remarks>
 		private static void MenuitemDistribution_Click(object sender, EventArgs e)
 		{
 			// TODO: Not implemented yet
@@ -2502,6 +3040,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the distribution form for the selected parameter.
+		/// </remarks>
 		private void ToolStripButtonListReadableDesignations_Click(object sender, EventArgs e) => ListReadableDesignations();
 
 		/// <summary>
@@ -2510,6 +3051,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the distribution form for the selected parameter.
+		/// </remarks>
 		private void MenuitemListReadableDesignations_Click(object sender, EventArgs e) => ListReadableDesignations();
 
 		/// <summary>
@@ -2518,6 +3062,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the license.
+		/// </remarks>
 		private void ToolStripButtonLicense_Click(object sender, EventArgs e) => ShowLicense();
 
 		#endregion
@@ -2595,6 +3142,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show an Easter egg message when the user double-clicks on a control.
+		/// </remarks>
 		private void EasterEgg_DoubleClick(object sender, EventArgs e) => MessageBox.Show(text: I10nStrings.EasterEgg, caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 
 		#endregion
@@ -2607,6 +3157,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the control).</param>
 		/// <param name="e">The <see cref="MouseEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to store the control that triggered the event for future reference.
+		/// </remarks>
 		private void Control_MouseDown(object sender, MouseEventArgs e)
 		{
 			if (sender is Control control)

@@ -1,6 +1,7 @@
 ﻿using NLog;
 
 using Planetoid_DB.Forms;
+using Planetoid_DB.Helpers;
 
 using System.Collections;
 using System.ComponentModel;
@@ -12,47 +13,74 @@ namespace Planetoid_DB
 	/// <summary>
 	/// Form to list readable designations from the planetoids database.
 	/// </summary>
+	/// <remarks>
+	/// This form is used to display a list of all readable designations from the planetoids database.
+	/// </remarks>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 	public partial class ListReadableDesignationsForm : BaseKryptonForm
 	{
 		/// <summary>
 		/// NLog logger instance for the class
 		/// </summary>
+		/// <remarks>
+		/// This logger is used to log messages for the ListReadableDesignationsForm class.
+		/// </remarks>
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
 		/// <summary>
 		/// List of planetoid records from the database
 		/// </summary>
+		/// <remarks>
+		/// This list contains all the planetoid records retrieved from the database.
+		/// </remarks>
 		private List<string> planetoidsDatabase = [];
 
 		/// <summary>
 		/// Number of planetoids in the database and currently selected index
 		/// </summary>
+		/// <remarks>
+		/// This field stores the total number of planetoids in the database.
+		/// </remarks>
 		private int numberPlanetoids, selectedIndex;
 
 		/// <summary>
 		/// Gets a value indicating whether the operation was cancelled.
 		/// </summary>
+		/// <remarks>
+		/// This field is used to track whether the operation was cancelled by the user.
+		/// </remarks>
 		private bool isCancelled;
 
 		/// <summary>
 		/// Index and label name as character strings
 		/// </summary>
+		/// <remarks>
+		/// This field is used to store the index and label name as character strings.
+		/// </remarks>
 		private string strIndex, strDesignationName;
 
 		/// <summary>
 		/// Stopwatch for performance measurement
 		/// </summary>
+		/// <remarks>
+		/// This field is used to measure the time taken for operations.
+		/// </remarks>
 		private readonly Stopwatch stopwatch = new();
 
 		/// <summary>
 		/// Stores the currently selected control for clipboard operations.
 		/// </summary>
+		/// <remarks>
+		/// This field is used to store the currently selected control for clipboard operations.
+		/// </remarks>
 		private Control currentControl;
 
 		/// <summary>
 		/// Stores the current tag text of the control.
 		/// </summary>
+		/// <remarks>
+		/// This field is used to store the current tag text of the control.
+		/// </remarks>
 		private string currentTagText = string.Empty;
 
 		#region constructor
@@ -60,6 +88,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AppInfoForm"/> class.
 		/// </summary>
+		/// <remarks>
+		/// This constructor initializes the form and its components.
+		/// </remarks>
 		public ListReadableDesignationsForm()
 		{
 			// Initialize the form components
@@ -76,6 +107,9 @@ namespace Planetoid_DB
 		/// Returns a short debugger display string for this instance.
 		/// </summary>
 		/// <returns>A string representation of the current instance for use in the debugger.</returns>
+		/// <remarks>
+		/// This method is used to provide a short string representation of the current instance for debugging purposes.
+		/// </remarks>
 		private string GetDebuggerDisplay() => ToString();
 
 		/// <summary>
@@ -83,6 +117,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="text">Main status text to display. If null or whitespace the method returns without changing the UI.</param>
 		/// <param name="additionalInfo">Optional additional information appended to the main text, separated by " - ".</param>
+		/// <remarks>
+		/// This method is used to set the status bar text and enable the information label when text is provided.
+		/// </remarks>
 		private void SetStatusBar(string text, string additionalInfo = "")
 		{
 			// Check if the text is not null or whitespace
@@ -113,6 +150,9 @@ namespace Planetoid_DB
 		/// Formats a row in the list view with the current planetoids data.
 		/// </summary>
 		/// <param name="currentPosition">The current position in the planetoids database.</param>
+		/// <remarks>
+		/// This method is used to format a row in the list view with the current planetoids data.
+		/// </remarks>
 		private void FormatRow(int currentPosition)
 		{
 			// Check if the current position is within the valid range
@@ -146,6 +186,9 @@ namespace Planetoid_DB
 		/// Fills the planetoids database with the provided array list.
 		/// </summary>
 		/// <param name="arrTemp">The array list to fill the database with.</param>
+		/// <remarks>
+		/// This method is used to fill the planetoids database with the provided array list.
+		/// </remarks>
 		public void FillArray(ArrayList arrTemp)
 		{
 			// Fill the planetoids database with the provided array list
@@ -158,12 +201,18 @@ namespace Planetoid_DB
 		/// Sets the maximum index for the planetoids database.
 		/// </summary>
 		/// <param name="maxIndex">The maximum index.</param>
+		/// <remarks>
+		/// This method is used to set the maximum index for the planetoids database.
+		/// </remarks>
 		public void SetMaxIndex(int maxIndex) => numberPlanetoids = maxIndex;
 
 		/// <summary>
 		/// Gets the selected index in the list view.
 		/// </summary>
 		/// <returns>The selected index.</returns>
+		/// <remarks>
+		/// This method is used to get the selected index in the list view.
+		/// </remarks>
 		public int GetSelectedIndex() => selectedIndex;
 
 		#endregion
@@ -177,6 +226,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to initialize the form's UI components and state.
+		/// </remarks>
 		private void ListReadableDesignationsForm_Load(object? sender, EventArgs? e)
 		{
 			// Clear the status bar on load
@@ -202,6 +254,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
+		///	<remarks>
+		///	This method is used to release resources and perform cleanup when the form is closed.
+		/// </remarks>
 		private void ListReadableDesignationsForm_FormClosed(object? sender, FormClosedEventArgs? e)
 		{
 			listView.Dispose();
@@ -219,6 +274,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the background worker).</param>
 		/// <param name="e">The <see cref="DoWorkEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to perform the background work of processing planetoid records.
+		/// </remarks>
 		private void BackgroundWorker_DoWork(object? sender, DoWorkEventArgs? e)
 		{
 			// Set the maximum value of the progress bar
@@ -244,6 +302,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the background worker).</param>
 		/// <param name="e">The <see cref="ProgressChangedEventArgs"/> instance that contains the event data, including <see cref="ProgressChangedEventArgs.ProgressPercentage"/>.</param>
+		/// <remarks>
+		/// This method is used to update the UI progress bar on the UI thread with the percentage reported by the background worker.
+		/// </remarks>
 		private void BackgroundWorker_ProgressChanged(object? sender, ProgressChangedEventArgs e) => progressBar.Value = e.ProgressPercentage;
 
 		/// <summary>
@@ -252,6 +313,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the background worker).</param>
 		/// <param name="e">The <see cref="RunWorkerCompletedEventArgs"/> instance that contains the event data, including error or cancellation information.</param>
+		/// <remarks>
+		/// This method is used to finalize background processing: re-enables UI controls, hides progress indicators and resets taskbar state.
+		/// </remarks>
 		private void BackgroundWorker_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs? e)
 		{
 			listView.Visible = true; // Show the list view
@@ -276,6 +340,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This method is used to handle the Enter event for controls and ToolStrip items.
+		/// </remarks>
 		private void SetStatusBar_Enter(object sender, EventArgs e)
 		{
 			// Set the status bar text based on the sender's accessible description
@@ -302,6 +369,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This method is used to handle the Leave event for controls and ToolStrip items.
+		/// </remarks>
 		private void ClearStatusBar_Leave(object sender, EventArgs e) => ClearStatusBar();
 
 		#endregion
@@ -315,6 +385,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (expected to be the list view).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to handle the SelectedIndexChanged event of the ListView.
+		/// </remarks>
 		private void SelectedIndexChanged(object? sender, EventArgs? e)
 		{
 			if (listView.SelectedIndices.Count <= 0)
@@ -349,6 +422,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the List button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to handle the Click event for the List button.
+		/// </remarks>
 		private void ButtonList_Click(object? sender, EventArgs? e)
 		{
 			// Start the stopwatch for performance measurement
@@ -387,6 +463,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the Cancel button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to handle the Click event for the Cancel button.
+		/// </remarks>
 		private void ButtonCancel_Click(object? sender, EventArgs? e)
 		{
 			// Stop the stopwatch for performance measurement
@@ -404,6 +483,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the Save As CSV menu item).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to handle the Click event for the Save As CSV menu item.
+		/// </remarks>
 		private void ToolStripMenuItemSaveAsCsv_Click(object? sender, EventArgs? e)
 		{
 			// Set the initial directory for the save file dialog
@@ -439,6 +521,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the Save As HTML menu item).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to handle the Click event for the Save As HTML menu item.
+		/// </remarks>
 		private void ToolStripMenuItemSaveAsHtml_Click(object? sender, EventArgs? e)
 		{
 			// Set the initial directory for the save file dialog
@@ -497,6 +582,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the Save As XML menu item).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to handle the Click event of the Save As XML menu item.
+		/// </remarks>
 		private void ToolStripMenuItemSaveAsXml_Click(object? sender, EventArgs? e)
 		{
 			// Set the initial directory for the save file dialog
@@ -536,6 +624,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the Save As JSON menu item).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to handle the Click event of the Save As JSON menu item.
+		/// </remarks>
 		private void ToolStripMenuItemSaveAsJson_Click(object? sender, EventArgs? e)
 		{
 			// Set the initial directory for the save file dialog
@@ -611,6 +702,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the control).</param>
 		/// <param name="e">The <see cref="MouseEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to handle the MouseDown event for controls.
+		/// </remarks>
 		private void Control_MouseDown(object sender, MouseEventArgs e)
 		{
 			if (sender is Control control)
