@@ -44,6 +44,8 @@ namespace Planetoid_DB
 			buttonList = new KryptonButton();
 			labelWarning = new Label();
 			buttonCancel = new KryptonButton();
+			contextMenuCopyToClipboard = new ContextMenuStrip(components);
+			ToolStripMenuItemCpyToClipboard = new ToolStripMenuItem();
 			listView = new ListView();
 			columnHeaderIndex = new ColumnHeader();
 			columnHeaderReadableDesignation = new ColumnHeader();
@@ -70,6 +72,7 @@ namespace Planetoid_DB
 			statusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
 			kryptonManager = new KryptonManager(components);
+			contextMenuCopyToClipboard.SuspendLayout();
 			((ISupportInitialize)panel).BeginInit();
 			panel.SuspendLayout();
 			statusStrip.SuspendLayout();
@@ -80,11 +83,14 @@ namespace Planetoid_DB
 			progressBar.AccessibleDescription = "Shows the progress";
 			progressBar.AccessibleName = "Progress";
 			progressBar.AccessibleRole = AccessibleRole.ProgressBar;
-			progressBar.Location = new Point(13, 56);
+			progressBar.Location = new Point(15, 65);
+			progressBar.Margin = new Padding(4, 3, 4, 3);
 			progressBar.Name = "progressBar";
-			progressBar.Size = new Size(720, 19);
+			progressBar.Size = new Size(840, 22);
 			progressBar.Step = 1;
 			progressBar.TabIndex = 7;
+			progressBar.TextBackdropColor = Color.Empty;
+			progressBar.TextShadowColor = Color.Empty;
 			toolTip.SetToolTip(progressBar, "Shows the progress");
 			progressBar.Values.Text = "";
 			progressBar.MouseEnter += SetStatusBar_Enter;
@@ -95,10 +101,10 @@ namespace Planetoid_DB
 			labelMinimum.AccessibleDescription = "Shows the minimum";
 			labelMinimum.AccessibleName = "Minimum";
 			labelMinimum.AccessibleRole = AccessibleRole.Text;
-			labelMinimum.Font = new Font("Segoe UI", 8.5F);
-			labelMinimum.Location = new Point(13, 21);
+			labelMinimum.Location = new Point(15, 24);
+			labelMinimum.Margin = new Padding(4, 3, 4, 3);
 			labelMinimum.Name = "labelMinimum";
-			labelMinimum.Size = new Size(66, 20);
+			labelMinimum.Size = new Size(77, 23);
 			labelMinimum.TabIndex = 0;
 			toolTip.SetToolTip(labelMinimum, "Minimum");
 			labelMinimum.Values.Text = "M&inimum:";
@@ -113,13 +119,13 @@ namespace Planetoid_DB
 			numericUpDownMinimum.AccessibleDescription = "Shows the minimum value";
 			numericUpDownMinimum.AccessibleName = "Minimum value";
 			numericUpDownMinimum.AccessibleRole = AccessibleRole.SpinButton;
-			numericUpDownMinimum.Font = new Font("Segoe UI", 8.5F);
 			numericUpDownMinimum.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMinimum.Location = new Point(82, 18);
+			numericUpDownMinimum.Location = new Point(96, 21);
+			numericUpDownMinimum.Margin = new Padding(4, 3, 4, 3);
 			numericUpDownMinimum.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 			numericUpDownMinimum.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimum.Name = "numericUpDownMinimum";
-			numericUpDownMinimum.Size = new Size(64, 22);
+			numericUpDownMinimum.Size = new Size(75, 22);
 			numericUpDownMinimum.StateCommon.Content.TextH = PaletteRelativeAlign.Center;
 			numericUpDownMinimum.TabIndex = 1;
 			toolTip.SetToolTip(numericUpDownMinimum, "Minimum value for the list");
@@ -132,13 +138,13 @@ namespace Planetoid_DB
 			numericUpDownMaximum.AccessibleDescription = "Shows the maximum value";
 			numericUpDownMaximum.AccessibleName = "Maximum value";
 			numericUpDownMaximum.AccessibleRole = AccessibleRole.SpinButton;
-			numericUpDownMaximum.Font = new Font("Segoe UI", 8.5F);
 			numericUpDownMaximum.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMaximum.Location = new Point(222, 18);
+			numericUpDownMaximum.Location = new Point(259, 21);
+			numericUpDownMaximum.Margin = new Padding(4, 3, 4, 3);
 			numericUpDownMaximum.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 			numericUpDownMaximum.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximum.Name = "numericUpDownMaximum";
-			numericUpDownMaximum.Size = new Size(64, 22);
+			numericUpDownMaximum.Size = new Size(75, 22);
 			numericUpDownMaximum.StateCommon.Content.TextH = PaletteRelativeAlign.Center;
 			numericUpDownMaximum.TabIndex = 3;
 			toolTip.SetToolTip(numericUpDownMaximum, "Maximum value for the list");
@@ -151,10 +157,10 @@ namespace Planetoid_DB
 			labelMaximum.AccessibleDescription = "Shows the maximum";
 			labelMaximum.AccessibleName = "Maximum";
 			labelMaximum.AccessibleRole = AccessibleRole.Text;
-			labelMaximum.Font = new Font("Segoe UI", 8.5F);
-			labelMaximum.Location = new Point(152, 21);
+			labelMaximum.Location = new Point(177, 24);
+			labelMaximum.Margin = new Padding(4, 3, 4, 3);
 			labelMaximum.Name = "labelMaximum";
-			labelMaximum.Size = new Size(68, 20);
+			labelMaximum.Size = new Size(79, 23);
 			labelMaximum.TabIndex = 2;
 			toolTip.SetToolTip(labelMaximum, "Maximum");
 			labelMaximum.Values.Text = "M&aximum:";
@@ -169,10 +175,10 @@ namespace Planetoid_DB
 			buttonList.AccessibleDescription = "Starts the progress and list";
 			buttonList.AccessibleName = "List";
 			buttonList.AccessibleRole = AccessibleRole.PushButton;
-			buttonList.Font = new Font("Segoe UI", 8.5F);
-			buttonList.Location = new Point(292, 14);
+			buttonList.Location = new Point(341, 16);
+			buttonList.Margin = new Padding(4, 3, 4, 3);
 			buttonList.Name = "buttonList";
-			buttonList.Size = new Size(52, 31);
+			buttonList.Size = new Size(61, 36);
 			buttonList.TabIndex = 4;
 			toolTip.SetToolTip(buttonList, "Start the progress and list");
 			buttonList.Values.DropDownArrowColor = Color.Empty;
@@ -191,10 +197,12 @@ namespace Planetoid_DB
 			labelWarning.AccessibleRole = AccessibleRole.Text;
 			labelWarning.BackColor = Color.SeaShell;
 			labelWarning.BorderStyle = BorderStyle.Fixed3D;
+			labelWarning.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelWarning.Font = new Font("Segoe UI", 7F);
-			labelWarning.Location = new Point(425, 14);
+			labelWarning.Location = new Point(496, 16);
+			labelWarning.Margin = new Padding(4, 0, 4, 0);
 			labelWarning.Name = "labelWarning";
-			labelWarning.Size = new Size(308, 39);
+			labelWarning.Size = new Size(359, 45);
 			labelWarning.TabIndex = 6;
 			labelWarning.Text = "Be careful: Do not use large ranges between minimum and maximum! This can increase loading time and memory. Use small ranges! You can cancel any time.";
 			labelWarning.TextAlign = ContentAlignment.MiddleLeft;
@@ -202,6 +210,7 @@ namespace Planetoid_DB
 			labelWarning.DoubleClick += CopyToClipboard_DoubleClick;
 			labelWarning.Enter += SetStatusBar_Enter;
 			labelWarning.Leave += ClearStatusBar_Leave;
+			labelWarning.MouseDown += Control_MouseDown;
 			labelWarning.MouseEnter += SetStatusBar_Enter;
 			labelWarning.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -210,10 +219,10 @@ namespace Planetoid_DB
 			buttonCancel.AccessibleDescription = "Cancels the progress";
 			buttonCancel.AccessibleName = "Cancel";
 			buttonCancel.AccessibleRole = AccessibleRole.PushButton;
-			buttonCancel.Font = new Font("Segoe UI", 8.5F);
-			buttonCancel.Location = new Point(350, 14);
+			buttonCancel.Location = new Point(408, 16);
+			buttonCancel.Margin = new Padding(4, 3, 4, 3);
 			buttonCancel.Name = "buttonCancel";
-			buttonCancel.Size = new Size(69, 31);
+			buttonCancel.Size = new Size(80, 36);
 			buttonCancel.TabIndex = 5;
 			toolTip.SetToolTip(buttonCancel, "Cancel the progress");
 			buttonCancel.Values.DropDownArrowColor = Color.Empty;
@@ -224,6 +233,38 @@ namespace Planetoid_DB
 			buttonCancel.Leave += ClearStatusBar_Leave;
 			buttonCancel.MouseEnter += SetStatusBar_Enter;
 			buttonCancel.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// contextMenuCopyToClipboard
+			// 
+			contextMenuCopyToClipboard.AccessibleDescription = "Shows context menu for some options";
+			contextMenuCopyToClipboard.AccessibleName = "Some options";
+			contextMenuCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
+			contextMenuCopyToClipboard.AllowClickThrough = true;
+			contextMenuCopyToClipboard.Font = new Font("Segoe UI", 9F);
+			contextMenuCopyToClipboard.Items.AddRange(new ToolStripItem[] { ToolStripMenuItemCpyToClipboard });
+			contextMenuCopyToClipboard.Name = "contextMenuStrip";
+			contextMenuCopyToClipboard.Size = new Size(214, 26);
+			contextMenuCopyToClipboard.TabStop = true;
+			contextMenuCopyToClipboard.Text = "ContextMenu";
+			toolTip.SetToolTip(contextMenuCopyToClipboard, "Context menu for copying to clipboard");
+			contextMenuCopyToClipboard.MouseEnter += SetStatusBar_Enter;
+			contextMenuCopyToClipboard.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// ToolStripMenuItemCpyToClipboard
+			// 
+			ToolStripMenuItemCpyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
+			ToolStripMenuItemCpyToClipboard.AccessibleName = "Copy to clipboard";
+			ToolStripMenuItemCpyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
+			ToolStripMenuItemCpyToClipboard.AutoToolTip = true;
+			ToolStripMenuItemCpyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
+			ToolStripMenuItemCpyToClipboard.Name = "ToolStripMenuItemCpyToClipboard";
+			ToolStripMenuItemCpyToClipboard.ShortcutKeyDisplayString = "Strg+C";
+			ToolStripMenuItemCpyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
+			ToolStripMenuItemCpyToClipboard.Size = new Size(213, 22);
+			ToolStripMenuItemCpyToClipboard.Text = "&Copy to clipboard";
+			ToolStripMenuItemCpyToClipboard.Click += CopyToClipboard_DoubleClick;
+			ToolStripMenuItemCpyToClipboard.MouseEnter += SetStatusBar_Enter;
+			ToolStripMenuItemCpyToClipboard.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// listView
 			// 
@@ -236,11 +277,12 @@ namespace Planetoid_DB
 			listView.Font = new Font("Segoe UI", 8.5F);
 			listView.FullRowSelect = true;
 			listView.GridLines = true;
-			listView.Location = new Point(13, 81);
+			listView.Location = new Point(15, 93);
+			listView.Margin = new Padding(4, 3, 4, 3);
 			listView.MultiSelect = false;
 			listView.Name = "listView";
 			listView.ShowItemToolTips = true;
-			listView.Size = new Size(720, 299);
+			listView.Size = new Size(839, 344);
 			listView.TabIndex = 8;
 			listView.UseCompatibleStateImageBehavior = false;
 			listView.View = View.Details;
@@ -383,9 +425,10 @@ namespace Planetoid_DB
 			panel.Controls.Add(labelMaximum);
 			panel.Dock = DockStyle.Fill;
 			panel.Location = new Point(0, 0);
+			panel.Margin = new Padding(4, 3, 4, 3);
 			panel.Name = "panel";
 			panel.PanelBackStyle = PaletteBackStyle.FormMain;
-			panel.Size = new Size(744, 415);
+			panel.Size = new Size(868, 479);
 			panel.TabIndex = 0;
 			panel.TabStop = true;
 			// 
@@ -396,11 +439,12 @@ namespace Planetoid_DB
 			statusStrip.AccessibleRole = AccessibleRole.StatusBar;
 			statusStrip.Font = new Font("Segoe UI", 9F);
 			statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-			statusStrip.Location = new Point(0, 393);
+			statusStrip.Location = new Point(0, 457);
 			statusStrip.Name = "statusStrip";
+			statusStrip.Padding = new Padding(1, 0, 16, 0);
 			statusStrip.ProgressBars = null;
 			statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-			statusStrip.Size = new Size(744, 22);
+			statusStrip.Size = new Size(868, 22);
 			statusStrip.SizingGrip = false;
 			statusStrip.TabIndex = 9;
 			statusStrip.Text = "status bar";
@@ -418,18 +462,25 @@ namespace Planetoid_DB
 			labelInformation.Text = "some information here";
 			labelInformation.ToolTipText = "Shows some information";
 			// 
+			// kryptonManager
+			// 
+			kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+			kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+			kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
+			// 
 			// TableModeForm
 			// 
 			AccessibleDescription = "Lists the MPCORB.DAT into a  table";
 			AccessibleName = "Table Mode";
 			AccessibleRole = AccessibleRole.Dialog;
-			AutoScaleDimensions = new SizeF(6F, 13F);
+			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(744, 415);
+			ClientSize = new Size(868, 479);
+			ControlBox = false;
 			Controls.Add(panel);
-			Font = new Font("Segoe UI", 8.5F);
 			FormBorderStyle = FormBorderStyle.FixedToolWindow;
 			Icon = (Icon)resources.GetObject("$this.Icon");
+			Margin = new Padding(4, 3, 4, 3);
 			MaximizeBox = false;
 			MinimizeBox = false;
 			Name = "TableModeForm";
@@ -439,6 +490,7 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(this, "Table Mode");
 			FormClosed += TableModeForm_FormClosed;
 			Load += TableModeForm_Load;
+			contextMenuCopyToClipboard.ResumeLayout(false);
 			((ISupportInitialize)panel).EndInit();
 			panel.ResumeLayout(false);
 			panel.PerformLayout();
@@ -484,5 +536,7 @@ namespace Planetoid_DB
 		private KryptonStatusStrip statusStrip;
 		private ToolStripStatusLabel labelInformation;
 		private KryptonManager kryptonManager;
+		private ContextMenuStrip contextMenuCopyToClipboard;
+		private ToolStripMenuItem ToolStripMenuItemCpyToClipboard;
 	}
 }
