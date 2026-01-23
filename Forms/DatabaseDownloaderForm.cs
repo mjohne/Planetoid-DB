@@ -71,6 +71,22 @@ namespace Planetoid_DB
 		/// </remarks>
 		private CancellationTokenSource? cancellationTokenSource;
 
+		/// <summary>
+		/// Stores the currently selected control for clipboard operations.
+		/// </summary>
+		/// <remarks>
+		/// This field is used to store the currently selected control for clipboard operations.
+		/// </remarks>
+		private Control currentControl;
+
+		/// <summary>
+		/// Stores the current tag text of the control.
+		/// </summary>
+		/// <remarks>
+		/// This field is used to store the current tag text of the control.
+		/// </remarks>
+		private string currentTagText = string.Empty;
+
 		#region constructor
 
 		/// <summary>
@@ -426,22 +442,37 @@ namespace Planetoid_DB
 		#region DoubleClick event handlers
 
 		/// <summary>
-		/// Called when a control is double-clicked. If the <paramref name="sender"/> is a <see cref="Control"/>,
-		/// its <see cref="Control.Text"/> value is copied to the clipboard using the shared helper.
+		/// Called when a control is double-clicked. If the <paramref name="sender"/> is a <see cref="Control"/>
+		/// or a <see cref="ToolStripItem"/>, its <see cref="Control.Text"/> value is copied to the clipboard
+		/// using the shared helper.
 		/// </summary>
-		/// <param name="sender">Event source — expected to be a <see cref="Control"/>.</param>
+		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or a <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		///	<remarks>
-		/// This method is called when a control is double-clicked.
+		/// <remarks>
+		/// If the <paramref name="sender"/> is a <see cref="Control"/>, its <see cref="Control.Text"/> value is copied to the clipboard.
+		/// If the <paramref name="sender"/> is a <see cref="ToolStripItem"/>, its <see cref="ToolStripItem.Text"/> value is copied to the clipboard.
 		/// </remarks>
 		private void CopyToClipboard_DoubleClick(object sender, EventArgs e)
 		{
 			// Check if the sender is null
 			ArgumentNullException.ThrowIfNull(argument: sender);
+			// Check the type of the sender and copy the text accordingly
 			if (sender is Control control)
 			{
 				// Copy the text to the clipboard
 				CopyToClipboard(text: control.Text);
+			}
+			// Check if the sender is a ToolStripItem
+			else if (sender is ToolStripItem)
+			{
+				// Copy the text to the clipboard
+				CopyToClipboard(text: currentControl.Text);
+			}
+			// Unsupported type
+			else
+			{
+				// Throw an exception
+				throw new ArgumentException(message: "Unsupported sender type", paramName: nameof(sender));
 			}
 		}
 
@@ -488,6 +519,31 @@ namespace Planetoid_DB
 		/// This method is called when the mouse pointer leaves a control or the control loses focus.
 		/// </remarks>
 		private void ClearStatusBar_Leave(object sender, EventArgs e) => ClearStatusBar();
+
+		#endregion
+
+		#region MouseDown event handlers
+
+		/// <summary>
+		/// Handles the MouseDown event for controls.
+		/// Stores the control that triggered the event for future reference.
+		/// </summary>
+		/// <param name="sender">Event source (the control).</param>
+		/// <param name="e">The <see cref="MouseEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to handle the MouseDown event for controls.
+		/// </remarks>
+		private void Control_MouseDown(object sender, MouseEventArgs e)
+		{
+			if (sender is Control control)
+			{
+				currentControl = control;
+				if (control.Tag != null)
+				{
+					currentTagText = control.Tag.ToString();
+				}
+			}
+		}
 
 		#endregion
 	}
