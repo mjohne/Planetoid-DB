@@ -8,6 +8,10 @@ namespace Planetoid_DB
 	/// semi-latus rectum, orbital period, orbital area, orbital perimeter, semi-mean axis,
 	/// mean axis, and the standard gravitational parameter.
 	/// </summary>
+	/// <remarks>
+	/// This partial class contains methods for calculating various orbital elements
+	/// and properties of ellipses.
+	/// </remarks>
 	public partial class PlanetoidDbForm
 	{
 		/// <summary>
@@ -16,6 +20,9 @@ namespace Planetoid_DB
 		/// <param name="semiMajorAxis">The semi-major axis of the ellipse.</param>
 		/// <param name="numericalEccentricity">The numerical eccentricity of the ellipse.</param>
 		/// <returns>The semi-minor axis of the ellipse.</returns>
+		/// <remarks>
+		/// This method is used to calculate the semi-minor axis of an ellipse.
+		/// </remarks>
 		private static double CalculateSemiMinorAxis(double semiMajorAxis, double numericalEccentricity) => semiMajorAxis * Math.Sqrt(d: 1 - Math.Pow(x: numericalEccentricity, y: 2));
 
 		/// <summary>
@@ -24,6 +31,9 @@ namespace Planetoid_DB
 		/// <param name="semiMajorAxis">The semi-major axis of the ellipse.</param>
 		/// <param name="numericalEccentricity">The numerical eccentricity of the ellipse.</param>
 		/// <returns>The linear eccentricity of the ellipse.</returns>
+		/// <remarks>
+		/// This method is used to calculate the linear eccentricity of an ellipse.
+		/// </remarks>
 		private static double CalculateLinearEccentricity(double semiMajorAxis, double numericalEccentricity)
 		{
 			double semiMinorAxis = CalculateSemiMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity);
@@ -41,6 +51,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="semiMajorAxis">The semi-major axis of the ellipse.</param>
 		/// <returns>The major axis of the ellipse.</returns>
+		/// <remarks>
+		/// This method is used to calculate the major axis of an ellipse.
+		/// </remarks>
 		private static double CalculateMajorAxis(double semiMajorAxis) => 2 * semiMajorAxis;
 
 		/// <summary>
@@ -49,6 +62,9 @@ namespace Planetoid_DB
 		/// <param name="semiMajorAxis">The semi-major axis of the ellipse.</param>
 		/// <param name="numericalEccentricity">The numerical eccentricity of the ellipse.</param>
 		/// <returns>The minor axis of the ellipse.</returns>
+		/// <remarks>
+		/// This method is used to calculate the minor axis of an ellipse.
+		/// </remarks>
 		private static double CalculateMinorAxis(double semiMajorAxis, double numericalEccentricity) => 2 * CalculateSemiMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity);
 
 		/// <summary>
@@ -58,6 +74,9 @@ namespace Planetoid_DB
 		/// <param name="numericalEccentricity">The numerical eccentricity of the orbit.</param>
 		/// <param name="numberDecimalPlaces">The number of decimal places for the result.</param>
 		/// <returns>The eccentric anomaly of the orbit.</returns>
+		/// <remarks>
+		/// This method is used to calculate the eccentric anomaly of an orbit.
+		/// </remarks>
 		private static double CalculateEccentricAnomaly(double meanAnomaly, double numericalEccentricity, double numberDecimalPlaces)
 		{
 			const double k = Math.PI / 180.0;
@@ -85,6 +104,9 @@ namespace Planetoid_DB
 		/// <param name="numericalEccentricity">The numerical eccentricity of the orbit.</param>
 		/// <param name="numberDecimalPlaces">The number of decimal places for the result.</param>
 		/// <returns>The true anomaly of the orbit.</returns>
+		/// <remarks>
+		/// This method is used to calculate the true anomaly of an orbit.
+		/// </remarks>
 		private static double CalculateTrueAnomaly(double meanAnomaly, double numericalEccentricity, double numberDecimalPlaces)
 		{
 			const double k = Math.PI / 180.0;
@@ -102,6 +124,9 @@ namespace Planetoid_DB
 		/// <param name="semiMajorAxis">The semi-major axis of the orbit.</param>
 		/// <param name="numericalEccentricity">The numerical eccentricity of the orbit.</param>
 		/// <returns>The perihelion distance of the orbit.</returns>
+		/// <remarks>
+		/// This method is used to calculate the perihelion distance of an orbit.
+		/// </remarks>
 		private static double CalculatePerihelionDistance(double semiMajorAxis, double numericalEccentricity) => (1 - numericalEccentricity) * semiMajorAxis;
 
 		/// <summary>
@@ -110,6 +135,9 @@ namespace Planetoid_DB
 		/// <param name="semiMajorAxis">The semi-major axis of the orbit.</param>
 		/// <param name="numericalEccentricity">The numerical eccentricity of the orbit.</param>
 		/// <returns>The aphelion distance of the orbit.</returns>
+		/// <remarks>
+		/// This method is used to calculate the aphelion distance of an orbit.
+		/// </remarks>
 		private static double CalculateAphelionDistance(double semiMajorAxis, double numericalEccentricity) => (1 + numericalEccentricity) * semiMajorAxis;
 
 		/// <summary>
@@ -117,6 +145,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="longitudeAscendingNode">The longitude of the ascending node of the orbit.</param>
 		/// <returns>The longitude of the descending node of the orbit.</returns>
+		/// <remarks>
+		/// This method is used to calculate the longitude of the descending node of an orbit.
+		/// </remarks>
 		private static double CalculateLongitudeDescendingNode(double longitudeAscendingNode) =>
 			longitudeAscendingNode switch
 			{
@@ -130,6 +161,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="argumentAphelion">The argument of perihelion of the orbit.</param>
 		/// <returns>The argument of aphelion of the orbit.</returns>
+		/// <remarks>
+		/// This method is used to calculate the argument of aphelion of an orbit.
+		/// </remarks>
 		private static double CalculateArgumentOfAphelion(double argumentAphelion) =>
 			argumentAphelion switch
 			{
@@ -144,6 +178,9 @@ namespace Planetoid_DB
 		/// <param name="semiMajorAxis">The semi-major axis of the orbit.</param>
 		/// <param name="numericalEccentricity">The numerical eccentricity of the orbit.</param>
 		/// <returns>The focal parameter of the orbit.</returns>
+		/// <remarks>
+		/// This method is used to calculate the focal parameter of an orbit.
+		/// </remarks>
 		private static double CalculateFocalParameter(double semiMajorAxis, double numericalEccentricity)
 		{
 			double semiMinorAxis = CalculateSemiMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity);
@@ -161,6 +198,9 @@ namespace Planetoid_DB
 		/// <param name="semiMajorAxis">The semi-major axis of the ellipse.</param>
 		/// <param name="numericalEccentricity">The numerical eccentricity of the ellipse.</param>
 		/// <returns>The semi-latus rectum of the ellipse.</returns>
+		/// <remarks>
+		/// This method is used to calculate the semi-latus rectum of an ellipse.
+		/// </remarks>
 		private static double CalculateSemiLatusRectum(double semiMajorAxis, double numericalEccentricity) => semiMajorAxis * (1 - Math.Pow(x: numericalEccentricity, y: 2));
 
 		/// <summary>
@@ -169,6 +209,9 @@ namespace Planetoid_DB
 		/// <param name="semiMajorAxis">The semi-major axis of the ellipse.</param>
 		/// <param name="numericalEccentricity">The numerical eccentricity of the ellipse.</param>
 		/// <returns>The latus rectum of the ellipse.</returns>
+		/// <remarks>
+		/// This method is used to calculate the latus rectum of an ellipse.
+		/// </remarks>
 		private static double CalculateLatusRectum(double semiMajorAxis, double numericalEccentricity) => 2 * CalculateSemiLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity);
 
 		/// <summary>
@@ -176,6 +219,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="semiMajorAxis">The semi-major axis of the ellipse.</param>
 		/// <returns>The orbital period of the ellipse.</returns>
+		/// <remarks>
+		/// This method is used to calculate the orbital period of an ellipse.
+		/// </remarks>
 		private static double CalculatePeriod(double semiMajorAxis) => Math.Sqrt(d: Math.Pow(x: semiMajorAxis, y: 3));
 
 		/// <summary>
@@ -184,6 +230,9 @@ namespace Planetoid_DB
 		/// <param name="semiMajorAxis">The semi-major axis of the ellipse.</param>
 		/// <param name="numericalEccentricity">The numerical eccentricity of the ellipse.</param>
 		/// <returns>The orbital area of the ellipse.</returns>
+		/// <remarks>
+		/// This method is used to calculate the orbital area of an ellipse.
+		/// </remarks>
 		private static double CalculateOrbitalArea(double semiMajorAxis, double numericalEccentricity)
 		{
 			double semiMinorAxis = CalculateSemiMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity);
@@ -199,6 +248,9 @@ namespace Planetoid_DB
 		/// <param name="semiMajorAxis">The semi-major axis of the ellipse.</param>
 		/// <param name="numericalEccentricity">The numerical eccentricity of the ellipse.</param>
 		/// <returns>The orbital perimeter of the ellipse.</returns>
+		/// <remarks>
+		/// This method is used to calculate the orbital perimeter of an ellipse.
+		/// </remarks>
 		private static double CalculateOrbitalPerimeter(double semiMajorAxis, double numericalEccentricity) => semiMajorAxis * CalculateSemiMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity) * Math.PI;
 
 		/// <summary>
@@ -207,6 +259,9 @@ namespace Planetoid_DB
 		/// <param name="semiMajorAxis">The semi-major axis of the ellipse.</param>
 		/// <param name="numericalEccentricity">The numerical eccentricity of the ellipse.</param>
 		/// <returns>The semi-mean axis of the ellipse.</returns>
+		/// <remarks>
+		/// This method is used to calculate the semi-mean axis of an ellipse.
+		/// </remarks>
 		private static double CalculateSemiMeanAxis(double semiMajorAxis, double numericalEccentricity) => (semiMajorAxis + CalculateSemiMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity)) / 2;
 
 		/// <summary>
@@ -215,6 +270,9 @@ namespace Planetoid_DB
 		/// <param name="semiMajorAxis">The semi-major axis of the ellipse.</param>
 		/// <param name="numericalEccentricity">The numerical eccentricity of the ellipse.</param>
 		/// <returns>The mean axis of the ellipse.</returns>
+		/// <remarks>
+		/// This method is used to calculate the mean axis of an ellipse.
+		/// </remarks>
 		private static double CalculateMeanAxis(double semiMajorAxis, double numericalEccentricity) => 2 * CalculateSemiMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity);
 
 		/// <summary>
@@ -222,6 +280,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="semiMajorAxis">The semi-major axis of the ellipse.</param>
 		/// <returns>The standard gravitational parameter of the ellipse.</returns>
+		/// <remarks>
+		/// This method is used to calculate the standard gravitational parameter of an ellipse.
+		/// </remarks>
 		private static double CalculateStandardGravitationalParameter(double semiMajorAxis) => 4 * Math.Pow(x: Math.PI, y: 2) * Math.Pow(x: semiMajorAxis, y: 3) / CalculatePeriod(semiMajorAxis: semiMajorAxis);
 	}
 }

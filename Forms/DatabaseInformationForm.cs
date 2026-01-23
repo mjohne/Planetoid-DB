@@ -10,12 +10,18 @@ namespace Planetoid_DB
 	/// <summary>
 	/// Form to display database information.
 	/// </summary>
+	/// <remarks>
+	/// This form provides a user interface for displaying information about the database.
+	/// </remarks>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 	public partial class DatabaseInformationForm : BaseKryptonForm
 	{
 		/// <summary>
 		/// Stores the currently selected control for clipboard operations.
 		/// </summary>
+		/// <remarks>
+		/// This field is used to keep track of the control that is currently selected for clipboard operations.
+		/// </remarks>
 		private Control currentControl;
 
 		#region constructor
@@ -23,11 +29,12 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DatabaseInformationForm"/> class.
 		/// </summary>
-		public DatabaseInformationForm()
-		{
+		/// <remarks>
+		/// This constructor initializes the form components.
+		/// </remarks>
+		public DatabaseInformationForm() =>
 			// Initialize the form components
 			InitializeComponent();
-		}
 
 		#endregion
 
@@ -37,6 +44,9 @@ namespace Planetoid_DB
 		/// Returns a short debugger display string for this instance.
 		/// </summary>
 		/// <returns>A string representation of the current instance for use in the debugger.</returns>
+		/// <remarks>
+		/// This method is used to provide a visual representation of the object in the debugger.
+		/// </remarks>
 		private string GetDebuggerDisplay() => ToString();
 
 		/// <summary>
@@ -44,6 +54,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="text">Main status text to display. If null or whitespace the method returns without changing the UI.</param>
 		/// <param name="additionalInfo">Optional additional information appended to the main text, separated by " - ".</param>
+		/// <remarks>
+		/// This method is used to update the status bar with the provided text.
+		/// </remarks>
 		private void SetStatusBar(string text, string additionalInfo = "")
 		{
 			// Check if the text is not null or whitespace
@@ -80,6 +93,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the database information form loads.
+		/// </remarks>
 		private void DatabaseInformationForm_Load(object sender, EventArgs e)
 		{
 			// Path to the database file
@@ -152,6 +168,10 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the database information form is closed.
+		/// Disposes managed resources associated with the form.
+		/// </remarks>
 		private void DatabaseInformationForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
 
 		#endregion
@@ -163,6 +183,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to set the status bar text when a control is entered.
+		/// </remarks>
 		private void SetStatusBar_Enter(object sender, EventArgs e)
 		{
 			// Set the status bar text based on the sender's accessible description
@@ -189,6 +212,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This method is called when the mouse leaves a control.
+		/// </remarks>
 		private void ClearStatusBar_Leave(object sender, EventArgs e) => ClearStatusBar();
 
 		#endregion
@@ -202,6 +228,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or a <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when a control is double-clicked.
+		/// </remarks>
 		private void CopyToClipboard_DoubleClick(object sender, EventArgs e)
 		{
 			// Check if the sender is null
@@ -230,6 +259,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the control).</param>
 		/// <param name="e">The <see cref="MouseEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to store the control that triggered the event for future reference.
+		/// </remarks>
 		private void Control_MouseDown(object sender, MouseEventArgs e)
 		{
 			if (sender is Control control)

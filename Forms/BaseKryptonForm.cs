@@ -10,17 +10,27 @@ namespace Planetoid_DB.Forms
 	/// Base form providing common behaviours for application forms.
 	/// Currently: enables <c>KeyPreview</c> and closes the form when the Escape key is pressed.
 	/// </summary>
+	/// <remarks>
+	/// This class serves as a base form for the application, providing common functionality
+	/// and behaviors that can be shared across derived forms.
+	/// </remarks>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 	public class BaseKryptonForm : KryptonForm
 	{
 		/// <summary>
 		/// NLog logger instance for the class.
 		/// </summary>
+		/// <remarks>
+		/// This logger is used to log messages and errors for the class.
+		/// </remarks>
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="BaseKryptonForm"/> class.
 		/// </summary>
+		/// <remarks>
+		/// This constructor sets up the form to receive key events and handle them appropriately.
+		/// </remarks>
 		protected BaseKryptonForm()
 		{
 			// Ensure the form receives key events before child controls
@@ -32,6 +42,9 @@ namespace Planetoid_DB.Forms
 		/// Returns a short debugger display string for this instance.
 		/// </summary>
 		/// <returns>A string representation for the debugger.</returns>
+		/// <remarks>
+		/// This method is used to provide a visual representation of the object in the debugger.
+		/// </remarks>
 		private string GetDebuggerDisplay() => ToString();
 
 		/// <summary>
@@ -39,6 +52,9 @@ namespace Planetoid_DB.Forms
 		/// </summary>
 		/// <param name="sender">Event source.</param>
 		/// <param name="e">Key event args.</param>
+		/// <remarks>
+		/// This method is used to handle key down events for the form.
+		/// </remarks>
 		private void BaseKryptonForm_KeyDown(object? sender, KeyEventArgs e)
 		{
 			// Close the form when Escape is pressed
@@ -52,6 +68,9 @@ namespace Planetoid_DB.Forms
 		/// Displays an error message.
 		/// </summary>
 		/// <param name="message">The error message.</param>
+		/// <remarks>
+		/// This method is used to display an error message to the user.
+		/// </remarks>
 		protected static void ShowErrorMessage(string message) =>
 			// Show an error message box with the specified message
 			_ = MessageBox.Show(text: message, caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);

@@ -8,6 +8,9 @@ namespace Planetoid_DB
 	/// <summary>
 	/// Form for displaying and managing database differences.
 	/// </summary>
+	/// <remarks>
+	/// This form provides a user interface for viewing and resolving differences between database records.
+	/// </remarks>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 	public partial class DatabaseDifferencesForm : BaseKryptonForm
 	{
@@ -16,11 +19,12 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DatabaseDifferencesForm"/> class.
 		/// </summary>
-		public DatabaseDifferencesForm()
-		{
+		/// <remarks>
+		/// This constructor initializes the form components.
+		/// </remarks>
+		public DatabaseDifferencesForm() =>
 			// Initialize the form components
 			InitializeComponent();
-		}
 
 		#endregion
 
@@ -30,6 +34,9 @@ namespace Planetoid_DB
 		/// Returns a short debugger display string for this instance.
 		/// </summary>
 		/// <returns>A string representation of the current instance for use in the debugger.</returns>
+		/// <remarks>
+		/// This method is used to provide a visual representation of the object in the debugger.
+		/// </remarks>
 		private string GetDebuggerDisplay() => ToString();
 
 		/// <summary>
@@ -37,6 +44,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="text">Main status text to display. If null or whitespace the method returns without changing the UI.</param>
 		/// <param name="additionalInfo">Optional additional information appended to the main text, separated by " - ".</param>
+		/// <remarks>
+		/// This method updates the status bar with the provided text and additional information.
+		/// </remarks>
 		private void SetStatusBar(string text, string additionalInfo = "")
 		{
 			// Check if the text is not null or whitespace
@@ -72,6 +82,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This event is used to initialize the form's UI elements.
+		/// </remarks>
 		private void DatabaseDifferencesForm_Load(object sender, EventArgs e)
 		{
 			ClearStatusBar();
@@ -82,6 +95,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance containing the event data.</param>
+		/// <remarks>
+		/// This event is used to clean up resources when the form is closed.
+		/// </remarks>
 		private void DatabaseDifferencesForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
 
 		#endregion
@@ -93,6 +109,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.ComponentModel.DoWorkEventArgs"/> instance containing the event data.</param>
+		/// <remarks>
+		/// This event is used to perform background work.
+		/// </remarks>
 		private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
 		{
 			// Implement background work here
@@ -103,6 +122,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.ComponentModel.ProgressChangedEventArgs"/> instance containing the event data.</param>
+		/// <remarks>
+		/// This event is used to report progress updates from the background worker.
+		/// </remarks>
 		private void BackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e) => progressBar.Value = e.ProgressPercentage;
 
 		/// <summary>
@@ -110,6 +132,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.ComponentModel.RunWorkerCompletedEventArgs"/> instance containing the event data.</param>
+		/// <remarks>
+		/// This event is used to report the completion of the background worker.
+		/// </remarks>
 		private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
 		{
 			// Implement completion logic here
@@ -124,6 +149,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="DragEventArgs"/> instance containing the event data.</param>
+		/// <remarks>
+		/// This event is used to handle drag and drop operations for the control.
+		/// </remarks>
 		private void GroupBox1stMpcorbDatFileDatabase_DragDrop(object sender, DragEventArgs e)
 		{
 			// Implement drag and drop logic here
@@ -134,6 +162,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="DragEventArgs"/> instance containing the event data.</param>
+		/// <remarks>
+		/// This event is used to handle drag and drop operations for the control.
+		/// </remarks>
 		private void GroupBox2ndMpcorbDatFileDatabase_DragDrop(object sender, DragEventArgs e)
 		{
 			// Implement drag and drop logic here
@@ -149,6 +180,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This event is used to update the status bar when the mouse enters a control.
+		/// </remarks>
 		private void SetStatusBar_Enter(object sender, EventArgs e)
 		{
 			// Set the status bar text based on the sender's accessible description
@@ -175,6 +209,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This event is used to clear the status bar when the mouse leaves a control.
+		/// </remarks>
 		private void ClearStatusBar_Leave(object sender, EventArgs e) => ClearStatusBar();
 
 		#endregion
@@ -186,6 +223,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		/// <remarks>
+		/// This event is used to handle the click event for the button.
+		/// </remarks>
 		private void ButtonOpen1stMpcorbDatFileDatabase_Click(object sender, EventArgs e)
 		{
 			// Implement button click logic here
@@ -196,6 +236,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		/// <remarks>
+		/// This event is used to handle the click event for the button.
+		/// </remarks>
 		private void ButtonOpen2ndMpcorbDatFileDatabase_Click(object sender, EventArgs e)
 		{
 			// Implement button click logic here
@@ -206,6 +249,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		/// <remarks>
+		/// This event is used to handle the click event for the button.
+		/// </remarks>
 		private void ButtonCompare_Click(object sender, EventArgs e)
 		{
 			// Implement button click logic here
@@ -216,6 +262,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		/// <remarks>
+		/// This event is used to handle the click event for the button.
+		/// </remarks>
 		private void ButtonCancel_Click(object sender, EventArgs e)
 		{
 			// Implement button click logic here
@@ -231,6 +280,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/>.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This event is used to handle double-click operations for the control.
+		/// </remarks>
 		private void CopyToClipboard_DoubleClick(object sender, EventArgs e)
 		{
 			// Check if the sender is null

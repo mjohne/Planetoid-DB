@@ -9,6 +9,9 @@ namespace Planetoid_DB
 	/// <summary>
 	/// A form that displays application information.
 	/// </summary>
+	/// <remarks>
+	/// This form is used to display information about the application, including version and copyright details.
+	/// </remarks>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 	public partial class LicenseForm : BaseKryptonForm
 	{
@@ -17,11 +20,12 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AppInfoForm"/> class.
 		/// </summary>
-		public LicenseForm()
-		{
+		/// <remarks>
+		/// This constructor initializes the form components.
+		/// </remarks>
+		public LicenseForm() =>
 			// Initialize the form components
 			InitializeComponent();
-		}
 
 		#endregion
 
@@ -31,6 +35,9 @@ namespace Planetoid_DB
 		/// Returns a short debugger display string for this instance.
 		/// </summary>
 		/// <returns>A string representation of the current instance for use in the debugger.</returns>
+		/// <remarks>
+		/// This method is used to provide a visual representation of the object in the debugger.
+		/// </remarks>
 		private string GetDebuggerDisplay() => ToString();
 
 		/// <summary>
@@ -38,6 +45,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="text">Main status text to display. If null or whitespace the method returns without changing the UI.</param>
 		/// <param name="additionalInfo">Optional additional information appended to the main text, separated by " - ".</param>
+		/// <remarks>
+		/// This method is used to set the status bar text and enable the information label.
+		/// </remarks>
 		private void SetStatusBar(string text, string additionalInfo = "")
 		{
 			// Check if the text is not null or whitespace
@@ -72,6 +82,9 @@ namespace Planetoid_DB
 		/// <param name="internFilePath">Optional internal path within the namespace (e.g. "Resources").</param>
 		/// <param name="resourceName">The name of the resource to extract (including extension).</param>
 		/// <exception cref="FileNotFoundException">Thrown when the specified resource is not found in the assembly.</exception>
+		/// <remarks>
+		/// This method is used to extract an embedded resource from the assembly and write it to the specified output directory.
+		/// </remarks>
 		private static void ExtractResource(string nameSpace, string outDir, string internFilePath, string resourceName)
 		{
 			// Get the assembly and the resource path
@@ -105,6 +118,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to initialize the form and set up any necessary data.
+		/// </remarks>
 		private void LicenseForm_Load(object sender, EventArgs e) => ClearStatusBar();
 
 		/// <summary>
@@ -113,6 +129,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to release any resources held by the form.
+		/// </remarks>
 		private void LicenseForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
 
 		#endregion
@@ -125,6 +144,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This method is used to set the status bar text when a control or ToolStrip item is focused.
+		/// </remarks>
 		private void SetStatusBar_Enter(object sender, EventArgs e)
 		{
 			// Set the status bar text based on the sender's accessible description
@@ -151,6 +173,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This method is used to clear the status bar text when the mouse leaves a control or the control loses focus.
+		/// </remarks>
 		private void ClearStatusBar_Leave(object sender, EventArgs e) => ClearStatusBar();
 
 		#endregion
@@ -166,6 +191,9 @@ namespace Planetoid_DB
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 		/// <exception cref="FileNotFoundException">Thrown when the embedded LICENSE resource cannot be found.</exception>
 		/// <exception cref="IOException">Propagated when file copy or delete operations fail.</exception>
+		/// <remarks>
+		/// This method is used to save the LICENSE file to a user-specified location.
+		/// </remarks>
 		private void KryptonButtonSaveLicense_Click(object sender, EventArgs e)
 		{
 			// Create a SaveFileDialog to prompt the user for a file location
@@ -189,6 +217,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the copy button).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to copy the license text to the clipboard.
+		/// </remarks>
 		private void KryptonButtonCopyLicenseToClipboard_Click(object sender, EventArgs e) =>
 			// Copy the text from the KryptonTextBox to the clipboard
 			CopyToClipboard(text: kryptonTextBoxLicense.Text);

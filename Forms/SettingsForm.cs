@@ -7,6 +7,9 @@ namespace Planetoid_DB
 	/// <summary>
 	/// Represents the settings form of the application.
 	/// </summary>
+	/// <remarks>
+	/// This form provides a user interface for configuring application settings.
+	/// </remarks>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 	public partial class SettingsForm : BaseKryptonForm
 	{
@@ -15,11 +18,12 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Initializes a new instance of the <see cref="SettingsForm"/> class.
 		/// </summary>
-		public SettingsForm()
-		{
+		/// <remarks>
+		/// This constructor initializes the form components.
+		/// </remarks>
+		public SettingsForm() =>
 			// Initialize the form components
 			InitializeComponent();
-		}
 
 		#endregion
 
@@ -29,6 +33,9 @@ namespace Planetoid_DB
 		/// Returns a short debugger display string for this instance.
 		/// </summary>
 		/// <returns>A string representation of the current instance for use in the debugger.</returns>
+		/// <remarks>
+		/// This method is called to obtain a string representation of the current instance.
+		/// </remarks>
 		private string GetDebuggerDisplay() => ToString();
 
 		/// <summary>
@@ -36,6 +43,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="text">Main status text to display. If null or whitespace the method returns without changing the UI.</param>
 		/// <param name="additionalInfo">Optional additional information appended to the main text, separated by " - ".</param>
+		/// <remarks>
+		/// This method is called to set the status bar text and enable the information label.
+		/// </remarks>
 		private void SetStatusBar(string text, string additionalInfo = "")
 		{
 			// Check if the text is not null or whitespace
@@ -66,16 +76,24 @@ namespace Planetoid_DB
 
 		#region form event handlers
 
-		private void SettingsForm_Load(object sender, EventArgs e)
-		{
-			ClearStatusBar();
-		}
+		/// <summary>
+		/// Handles the Load event of the SettingsForm.
+		/// </summary>
+		/// <param name="sender">The event source.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the SettingsForm is loaded.
+		/// </remarks>
+		private void SettingsForm_Load(object sender, EventArgs e) => ClearStatusBar();
 
 		/// <summary>
 		/// Event handler for closing the form.
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the SettingsForm is closed.
+		/// </remarks>
 		private void SettingsForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
 
 		#endregion
@@ -88,6 +106,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This method is called when the mouse pointer enters a control or the control receives focus.
+		/// </remarks>
 		private void SetStatusBar_Enter(object sender, EventArgs e)
 		{
 			// Set the status bar text based on the sender's accessible description
@@ -114,6 +135,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This method is called when the mouse pointer leaves a control or the control loses focus.
+		/// </remarks>
 		private void ClearStatusBar_Leave(object sender, EventArgs e) => ClearStatusBar();
 
 		#endregion
@@ -125,8 +149,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the Print button is clicked.
+		/// </remarks>
 		private void ToolStripButtonPrint_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement print functionality
 		}
 
 		/// <summary>
@@ -134,8 +162,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the Copy to Clipboard button is clicked.
+		/// </remarks>
 		private void ToolStripButtonCopyToClipboard_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement copy to clipboard functionality
 		}
 
 		/// <summary>
@@ -143,8 +175,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the Database Information button is clicked.
+		/// </remarks>
 		private void ToolStripButtonDatabaseInformation_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement database information functionality
 		}
 
 		/// <summary>
@@ -152,8 +188,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the Table Mode button is clicked.
+		/// </remarks>
 		private void ToolStripButtonTableMode_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement table mode functionality
 		}
 
 		/// <summary>
@@ -161,8 +201,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the Terminology button is clicked.
+		/// </remarks>
 		private void ToolStripButtonTerminology_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement terminology functionality
 		}
 
 		/// <summary>
@@ -170,8 +214,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the Check MPCORB.DAT button is clicked.
+		/// </remarks>
 		private void ToolStripButtonCheckMpcorbDat_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement check MPCORB.DAT functionality
 		}
 
 		/// <summary>
@@ -179,8 +227,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the Download MPCORB.DAT button is clicked.
+		/// </remarks>
 		private void ToolStripButtonDownloadMpcorbDat_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement download MPCORB.DAT functionality
 		}
 
 		/// <summary>
@@ -188,8 +240,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the About button is clicked.
+		/// </remarks>
 		private void ToolStripButtonAbout_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement about functionality
 		}
 
 		/// <summary>
@@ -197,8 +253,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the Open Website PDB button is clicked.
+		/// </remarks>
 		private void ToolStripButtonOpenWebsitePDB_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement open website PDB functionality
 		}
 
 		/// <summary>
@@ -206,8 +266,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the Search button is clicked.
+		/// </remarks>
 		private void ToolStripButtonSearch_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement search functionality
 		}
 
 		#endregion

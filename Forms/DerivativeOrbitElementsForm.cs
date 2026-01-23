@@ -9,32 +9,50 @@ namespace Planetoid_DB
 	/// <summary>
 	/// Form for displaying derived orbit elements.
 	/// </summary>
+	/// <remarks>
+	/// This form provides a user interface for displaying derived orbit elements.
+	/// </remarks>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 	public partial class DerivativeOrbitElementsForm : BaseKryptonForm
 	{
 		/// <summary>
 		/// NLog logger instance.
 		/// </summary>
+		/// <remarks>
+		/// This field is used to log messages for the form.
+		/// </remarks>
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
 		/// <summary>
 		/// Stores the currently selected control for clipboard operations.
 		/// </summary>
+		/// <remarks>
+		/// This field is used to keep track of the control that is currently selected for clipboard operations.
+		/// </remarks>
 		private Control currentControl;
 
 		/// <summary>
 		/// Stores the current tag text of the control.
 		/// </summary>
+		/// <remarks>
+		/// This field is used to keep track of the current tag text of the control.
+		/// </remarks>
 		private string currentTagText = string.Empty;
 
 		/// <summary>
 		/// Stores the currently selected ToolStripLabel for clipboard operations.
 		/// </summary>
+		/// <remarks>
+		/// This field is used to keep track of the currently selected ToolStripLabel for clipboard operations.
+		/// </remarks>
 		private readonly ToolStripLabel currentLabel;
 
 		/// <summary>
 		/// List of derived orbit elements.
 		/// </summary>
+		/// <remarks>
+		/// This field is used to store the list of derived orbit elements.
+		/// </remarks>
 		private List<object> derivativeOrbitElements = [];
 
 		#region constructor
@@ -42,11 +60,12 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DerivativeOrbitElementsForm"/> class.
 		/// </summary>
-		public DerivativeOrbitElementsForm()
-		{
+		/// <remarks>
+		/// This constructor initializes the form components.
+		/// </remarks>
+		public DerivativeOrbitElementsForm() =>
 			// Initialize the form components
 			InitializeComponent();
-		}
 
 		#endregion
 
@@ -56,6 +75,9 @@ namespace Planetoid_DB
 		/// Returns a short debugger display string for this instance.
 		/// </summary>
 		/// <returns>A string representation of the current instance for use in the debugger.</returns>
+		/// <remarks>
+		/// This method is used to provide a visual representation of the object in the debugger.
+		/// </remarks>
 		private string GetDebuggerDisplay() => ToString();
 
 		/// <summary>
@@ -63,6 +85,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="text">Main status text to display. If null or whitespace the method returns without changing the UI.</param>
 		/// <param name="additionalInfo">Optional additional information appended to the main text, separated by " - ".</param>
+		/// <remarks>
+		/// This method is used to update the status bar with the provided text.
+		/// </remarks>
 		private void SetStatusBar(string text, string additionalInfo = "")
 		{
 			// Check if the text is not null or whitespace
@@ -96,6 +121,9 @@ namespace Planetoid_DB
 		/// <param name="value">The parsed integer value if successful.</param>
 		/// <param name="errorMessage">An error message if parsing fails.</param>
 		/// <returns>True if parsing was successful; otherwise, false.</returns>
+		/// <remarks>
+		/// This method is used to parse an integer from the input string.
+		/// </remarks>
 		public static bool TryParseInt(string input, out int value, out string errorMessage)
 		{
 			// Initialize output parameters
@@ -126,6 +154,9 @@ namespace Planetoid_DB
 		/// are normalized to the default (index 0).
 		/// </summary>
 		/// <param name="index">Zero-based index selecting the terminology topic (valid range: 0..38).</param>
+		/// <remarks>
+		/// This method is used to open the terminology dialog for a specific derived orbit element.
+		/// </remarks>
 		private void OpenTerminology(uint index)
 		{
 			// Check if the index is valid
@@ -194,6 +225,9 @@ namespace Planetoid_DB
 		/// Sets the internal list of derived orbit elements used by the form.
 		/// </summary>
 		/// <param name="list">A list of derived orbit element values. The list is stored by reference and will be used to populate the UI when the form loads.</param>
+		/// <remarks>
+		/// This method is used to set the internal list of derived orbit elements.
+		/// </remarks>
 		public void SetDatabase(List<object> list) => derivativeOrbitElements = list;
 
 		#endregion
@@ -207,6 +241,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the form is loaded.
+		/// </remarks>
 		private void DerivativeOrbitElementsForm_Load(object sender, EventArgs e)
 		{
 			// Set the status bar text
@@ -246,6 +283,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the form is closed.
+		/// </remarks>
 		private void DerivativeOrbitElementsForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
 
 		#endregion
@@ -258,6 +298,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This method is used to set the status bar text when a control or ToolStrip item is focused.
+		/// </remarks>
 		private void SetStatusBar_Enter(object sender, EventArgs e)
 		{
 			// Set the status bar text based on the sender's accessible description
@@ -284,6 +327,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This method is called when the mouse pointer leaves a control or the control loses focus.
+		/// </remarks>
 		private void ClearStatusBar_Leave(object sender, EventArgs e) => ClearStatusBar();
 
 		#endregion
@@ -366,6 +412,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the control).</param>
 		/// <param name="e">The <see cref="MouseEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to store the control that triggered the event for future reference.
+		/// </remarks>
 		private void Control_MouseDown(object sender, MouseEventArgs e)
 		{
 			if (sender is Control control)

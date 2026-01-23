@@ -13,10 +13,20 @@ namespace Planetoid_DB
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 	public partial class PrintDataSheetForm : BaseKryptonForm
 	{
-		// NLog logger instance
+		/// <summary>
+		/// NLog logger for logging messages and errors.
+		/// </summary>
+		/// <remarks>
+		/// This logger is used to log messages and errors that occur within the form.
+		/// </remarks>
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-		// The PrintDocument instance used for printing.
+		/// <summary>
+		/// Print document used for printing data sheets.
+		/// </summary>
+		/// <remarks>
+		/// This document is used to print the data sheets.
+		/// </remarks>
 		private readonly PrintDocument printDoc;
 
 		#region constructor
@@ -24,6 +34,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Initializes a new instance of the <see cref="PrintDataSheetForm"/> class.
 		/// </summary>
+		/// <remarks>
+		/// This constructor initializes the form components and sets up the print document.
+		/// </remarks>
 		public PrintDataSheetForm()
 		{
 			// Initialize the form components
@@ -40,6 +53,9 @@ namespace Planetoid_DB
 		/// Returns a short debugger display string for this instance.
 		/// </summary>
 		/// <returns>A string representation of the current instance for use in the debugger.</returns>
+		/// <remarks>
+		/// This method is used to provide a custom debugger display string.
+		/// </remarks>
 		private string GetDebuggerDisplay() => ToString();
 
 		/// <summary>
@@ -47,6 +63,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="text">Main status text to display. If null or whitespace the method returns without changing the UI.</param>
 		/// <param name="additionalInfo">Optional additional information appended to the main text, separated by " - ".</param>
+		/// <remarks>
+		/// This method is used to set the status bar text and enable the information label.
+		/// </remarks>
 		private void SetStatusBar(string text, string additionalInfo = "")
 		{
 			// Check if the text is not null or whitespace
@@ -83,6 +102,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the form loads.
+		/// </remarks>
 		private void PrintDataSheetForm_Load(object sender, EventArgs e)
 		{
 			// Clear the status bar text
@@ -107,6 +129,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the form is closed.
+		/// </remarks>
 		private void PrintDataSheetForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
 
 		#endregion
@@ -119,6 +144,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This method is called when a control is focused.
+		/// </remarks>
 		private void SetStatusBar_Enter(object sender, EventArgs e)
 		{
 			// Set the status bar text based on the sender's accessible description
@@ -145,6 +173,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This method is called when the mouse pointer leaves a control.
+		/// </remarks>
 		private void ClearStatusBar_Leave(object sender, EventArgs e) => ClearStatusBar();
 
 		#endregion
@@ -157,6 +188,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the print button is clicked.
+		/// </remarks>
 		private void ButtonPrintDataSheet_Click(object sender, EventArgs e)
 		{
 			// Create a new PrintDialog instance
@@ -191,6 +225,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the cancel button is clicked.
+		/// </remarks>
 		private void ButtonCancelPrint_Click(object sender, EventArgs e) => Close();
 
 		/// <summary>
@@ -199,6 +236,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the print preview button is clicked.
+		/// </remarks>
 		private void ButtonPrintPreview_Click(object sender, EventArgs e)
 		{
 			using PrintPreviewDialog previewDialog = new();
@@ -212,6 +252,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the page setup button is clicked.
+		/// </remarks>
 		private void ButtonPageSetup_Click(object sender, EventArgs e)
 		{
 			using PageSetupDialog pageSetupDialog = new();
@@ -234,6 +277,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="PrintPageEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when a page is printed.
+		/// </remarks>
 		private static void PrintDoc_PrintPage(object sender, PrintPageEventArgs e)
 		{
 			// Check if the sender is null

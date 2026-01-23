@@ -7,6 +7,9 @@ namespace Planetoid_DB
 	/// <summary>
 	/// Main form for managing records in the Planetoid database.
 	/// </summary>
+	/// <remarks>
+	/// This form provides a user interface for viewing and editing records in the database.
+	/// </remarks>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 	public partial class RecordsMainForm : BaseKryptonForm
 	{
@@ -15,11 +18,12 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Initializes a new instance of the <see cref="RecordsMainForm"/> class.
 		/// </summary>
-		public RecordsMainForm()
-		{
+		/// <remarks>
+		/// This constructor initializes the form components.
+		/// </remarks>
+		public RecordsMainForm() =>
 			// Initialize the form components
 			InitializeComponent();
-		}
 
 		#endregion
 
@@ -29,6 +33,9 @@ namespace Planetoid_DB
 		/// Returns a short debugger display string for this instance.
 		/// </summary>
 		/// <returns>A string representation of the current instance for use in the debugger.</returns>
+		/// <remarks>
+		/// This method is called to obtain a string representation of the current instance.
+		/// </remarks>
 		private string GetDebuggerDisplay() => ToString();
 
 		/// <summary>
@@ -36,6 +43,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="text">Main status text to display. If null or whitespace the method returns without changing the UI.</param>
 		/// <param name="additionalInfo">Optional additional information appended to the main text, separated by " - ".</param>
+		/// <remarks>
+		/// This method is called to set the status bar text and enable the information label.
+		/// </remarks>
 		private void SetStatusBar(string text, string additionalInfo = "")
 		{
 			// Check if the text is not null or whitespace
@@ -71,10 +81,10 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		private void RecordsMainForm_Load(object sender, EventArgs e)
-		{
-			ClearStatusBar();
-		}
+		/// <remarks>
+		/// This method is called when the RecordsMainForm is loaded.
+		/// </remarks>
+		private void RecordsMainForm_Load(object sender, EventArgs e) => ClearStatusBar();
 
 		/// <summary>
 		/// Handles the FormClosed event of the RecordsMainForm.
@@ -82,6 +92,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the RecordsMainForm is closed.
+		/// </remarks>
 		private void RecordsMainForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
 
 		#endregion
@@ -94,6 +107,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">Event arguments.</param>
+		///	<remarks>
+		/// This method is called when the mouse pointer enters a control or the control receives focus.
+		/// </remarks>
 		private void SetStatusBar_Enter(object sender, EventArgs e)
 		{
 			// Set the status bar text based on the sender's accessible description
@@ -120,6 +136,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This method is called when the mouse pointer leaves a control or the control loses focus.
+		/// </remarks>
 		private void ClearStatusBar_Leave(object sender, EventArgs e) => ClearStatusBar();
 
 		#endregion
@@ -132,8 +151,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the ButtonStart control is clicked.
+		/// </remarks>
 		private void ButtonStart_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement start logic here
 		}
 
 		/// <summary>
@@ -142,8 +165,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the ButtonExportAsTxt control is clicked.
+		/// </remarks>
 		private void ButtonExportAsTxt_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement start logic here
 		}
 
 		/// <summary>
@@ -152,8 +179,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the ButtonExportAsHtml control is clicked.
+		/// </remarks>
 		private void ButtonExportAsHtml_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement start logic here
 		}
 
 		/// <summary>
@@ -162,8 +193,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the ButtonExportAsXml control is clicked.
+		/// </remarks>
 		private void ButtonExportAsXml_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement start logic here
 		}
 
 		/// <summary>
@@ -172,8 +207,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the ButtonExportAsJson control is clicked.
+		/// </remarks>
 		private void ButtonExportAsJson_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement start logic here
 		}
 
 		/// <summary>
@@ -182,8 +221,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the ButtonGoto01 control is clicked.
+		/// </remarks>
 		private void ButtonGoto01_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement start logic here
 		}
 
 		/// <summary>
@@ -192,8 +235,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the ButtonGoto02 control is clicked.
+		/// </remarks>
 		private void ButtonGoto02_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement start logic here
 		}
 
 		/// <summary>
@@ -202,8 +249,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the ButtonGoto03 control is clicked.
+		/// </remarks>
 		private void ButtonGoto03_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement start logic here
 		}
 
 		/// <summary>
@@ -212,8 +263,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the ButtonGoto04 control is clicked.
+		/// </remarks>
 		private void ButtonGoto04_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement start logic here
 		}
 
 		/// <summary>
@@ -222,8 +277,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the ButtonGoto05 control is clicked.
+		/// </remarks>
 		private void ButtonGoto05_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement start logic here
 		}
 
 		/// <summary>
@@ -232,8 +291,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the ButtonGoto06 control is clicked.
+		/// </remarks>
 		private void ButtonGoto06_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement start logic here
 		}
 
 		/// <summary>
@@ -242,8 +305,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the ButtonGoto07 control is clicked.
+		/// </remarks>
 		private void ButtonGoto07_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement start logic here
 		}
 
 		/// <summary>
@@ -252,8 +319,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the ButtonGoto08 control is clicked.
+		/// </remarks>
 		private void ButtonGoto08_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement start logic here
 		}
 
 		/// <summary>
@@ -262,8 +333,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the ButtonGoto09 control is clicked.
+		/// </remarks>
 		private void ButtonGoto09_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement start logic here
 		}
 
 		/// <summary>
@@ -272,8 +347,12 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">The event source.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when the ButtonGoto10 control is clicked.
+		/// </remarks>
 		private void ButtonGoto10_Click(object sender, EventArgs e)
 		{
+			//TODO: Implement start logic here
 		}
 
 		#endregion
@@ -286,6 +365,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/>.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is called when a control is double-clicked.
+		/// </remarks>
 		private void CopyToClipboard_DoubleClick(object sender, EventArgs e)
 		{
 			// Check if the sender is null

@@ -1,11 +1,14 @@
 ﻿using System.IO;
 using System.Reflection;
 
-namespace Planetoid_DB
+namespace Planetoid_DB.Helpers
 {
 	/// <summary>
 	/// Provide some assembly information
 	/// </summary>
+	/// <remarks>
+	/// This class provides access to assembly-level attributes.
+	/// </remarks>
 	public static class AssemblyInfo
 	{
 		#region Assembly attribute accessors
@@ -13,6 +16,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Return the title of the assembly
 		/// </summary>
+		/// <remarks>
+		/// This property retrieves the title of the assembly.
+		/// </remarks>
 		public static string? AssemblyTitle
 		{
 			get
@@ -28,11 +34,17 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Return the version of the assembly
 		/// </summary>
+		/// <remarks>
+		/// This property retrieves the version of the assembly.
+		/// </remarks>
 		public static string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "Unknown Version";
 
 		/// <summary>
 		/// Return the description of the assembly
 		/// </summary>
+		/// <remarks>
+		/// This property retrieves the description of the assembly.
+		/// </remarks>
 		public static string AssemblyDescription
 		{
 			get
@@ -46,6 +58,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Return the product name of the assembly
 		/// </summary>
+		/// <remarks>
+		/// This property retrieves the product name of the assembly.
+		/// </remarks>
 		public static string AssemblyProduct
 		{
 			get
@@ -59,6 +74,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Return the copyright of the assembly
 		/// </summary>
+		/// <remarks>
+		/// This property retrieves the copyright of the assembly.
+		/// </remarks>
 		public static string AssemblyCopyright
 		{
 			get
@@ -72,6 +90,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Return the company name of the assembly
 		/// </summary>
+		/// <remarks>
+		/// This property retrieves the company name of the assembly.
+		/// </remarks>
 		public static string AssemblyCompany
 		{
 			get

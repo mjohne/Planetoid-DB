@@ -1,6 +1,7 @@
 ﻿using NLog;
 
 using Planetoid_DB.Forms;
+using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
 
@@ -9,17 +10,28 @@ namespace Planetoid_DB
 	/// <summary>
 	/// A form that displays application information.
 	/// </summary>
+	/// <remarks>
+	/// This form is used to present information about the application, such as its version,
+	/// description, and copyright details.
+	/// </remarks>
 	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 	public partial class AppInfoForm : BaseKryptonForm
 	{
 		/// <summary>
 		/// NLog logger instance.
 		/// </summary>
+		/// <remarks>
+		/// This logger is used to log messages and errors for the class.
+		/// </remarks>
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
 		/// <summary>
 		/// Stores the currently selected control for clipboard operations.
 		/// </summary>
+		/// <remarks>
+		/// This field is used to keep track of the control that is currently selected
+		/// for clipboard operations, such as copying text.
+		/// </remarks>
 		private Control currentControl;
 
 		#region constructor
@@ -27,6 +39,9 @@ namespace Planetoid_DB
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AppInfoForm"/> class.
 		/// </summary>
+		/// <remarks>
+		/// This constructor initializes the form components.
+		/// </remarks>
 		public AppInfoForm()
 		{
 			// Initialize the form components
@@ -41,6 +56,9 @@ namespace Planetoid_DB
 		/// Returns a short debugger display string for this instance.
 		/// </summary>
 		/// <returns>A string representation of the current instance for use in the debugger.</returns>
+		/// <remarks>
+		/// This method is used to provide a visual representation of the object in the debugger.
+		/// </remarks>
 		private string GetDebuggerDisplay() => ToString();
 
 		/// <summary>
@@ -48,6 +66,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="text">Main status text to display. If null or whitespace the method returns without changing the UI.</param>
 		/// <param name="additionalInfo">Optional additional information appended to the main text, separated by " - ".</param>
+		/// <remarks>
+		/// This method updates the status bar with the provided text and additional information.
+		/// </remarks>
 		private void SetStatusBar(string text, string additionalInfo = "")
 		{
 			// Check if the text is not null or whitespace
@@ -85,6 +106,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This event is used to initialize the form's UI elements with information from the assembly.
+		/// </remarks>
 		private void AppInfoForm_Load(object sender, EventArgs e)
 		{
 			labelTitle.Text = AssemblyInfo.AssemblyProduct;
@@ -100,6 +124,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the form).</param>
 		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This event is used to clean up resources when the form is closed.
+		/// </remarks>
 		private void AppInfoForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
 
 		#endregion
@@ -112,6 +139,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This event is used to update the status bar when a control or ToolStrip item is focused.
+		/// </remarks>
 		private void SetStatusBar_Enter(object sender, EventArgs e)
 		{
 			// Set the status bar text based on the sender's accessible description
@@ -138,6 +168,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source.</param>
 		/// <param name="e">Event arguments.</param>
+		/// <remarks>
+		/// This event is used to clear the status bar when the mouse leaves a control or the control loses focus.
+		/// </remarks>
 		private void ClearStatusBar_Leave(object sender, EventArgs e) => ClearStatusBar();
 
 		#endregion
@@ -150,6 +183,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the link label).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This event is used to open the application's website in the user's default browser.
+		/// </remarks>
 		private async void LinkLabelWebsite_Clicked(object sender, EventArgs e)
 		{
 			try
@@ -176,6 +212,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the link label).</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This event is used to open the user's default mail client with a new message addressed to the application's support email.
+		/// </remarks>
 		private async void LinkLabelEmail_Clicked(object sender, EventArgs e)
 		{
 			try
@@ -206,6 +245,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or a <see cref="ToolStripItem"/>.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to copy the text of a control or ToolStrip item to the clipboard.
+		/// </remarks>
 		private void CopyToClipboard_DoubleClick(object sender, EventArgs e)
 		{
 			// Check if the sender is null
@@ -234,6 +276,9 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="sender">Event source (the control).</param>
 		/// <param name="e">The <see cref="MouseEventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This event is used to store the control that triggered the event for future reference.
+		/// </remarks>
 		private void Control_MouseDown(object sender, MouseEventArgs e)
 		{
 			if (sender is Control control)
