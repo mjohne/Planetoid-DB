@@ -56,11 +56,7 @@ namespace Planetoid_DB
 			kryptonCommandLinkButtonExit.AccessibleName = "Quit the application";
 			kryptonCommandLinkButtonExit.AccessibleRole = AccessibleRole.PushButton;
 			kryptonCommandLinkButtonExit.CommandLinkTextValues.Description = "Cancel and quit the application";
-			kryptonCommandLinkButtonExit.CommandLinkTextValues.DescriptionTextHAlignment = PaletteRelativeAlign.Near;
-			kryptonCommandLinkButtonExit.CommandLinkTextValues.DescriptionTextVAlignment = PaletteRelativeAlign.Far;
 			kryptonCommandLinkButtonExit.CommandLinkTextValues.Heading = "Quit the application";
-			kryptonCommandLinkButtonExit.CommandLinkTextValues.HeadingTextHAlignment = PaletteRelativeAlign.Near;
-			kryptonCommandLinkButtonExit.CommandLinkTextValues.HeadingTextVAlignment = PaletteRelativeAlign.Center;
 			kryptonCommandLinkButtonExit.DialogResult = DialogResult.Cancel;
 			kryptonCommandLinkButtonExit.Location = new Point(12, 210);
 			kryptonCommandLinkButtonExit.Name = "kryptonCommandLinkButtonExit";
@@ -85,11 +81,7 @@ namespace Planetoid_DB
 			kryptonCommandLinkButtonLoadInternalDemoData.AccessibleName = "Load internal demo data";
 			kryptonCommandLinkButtonLoadInternalDemoData.AccessibleRole = AccessibleRole.PushButton;
 			kryptonCommandLinkButtonLoadInternalDemoData.CommandLinkTextValues.Description = "The internal demo data contains 10'000 minor planets";
-			kryptonCommandLinkButtonLoadInternalDemoData.CommandLinkTextValues.DescriptionTextHAlignment = PaletteRelativeAlign.Near;
-			kryptonCommandLinkButtonLoadInternalDemoData.CommandLinkTextValues.DescriptionTextVAlignment = PaletteRelativeAlign.Far;
 			kryptonCommandLinkButtonLoadInternalDemoData.CommandLinkTextValues.Heading = "Load internal demo data";
-			kryptonCommandLinkButtonLoadInternalDemoData.CommandLinkTextValues.HeadingTextHAlignment = PaletteRelativeAlign.Near;
-			kryptonCommandLinkButtonLoadInternalDemoData.CommandLinkTextValues.HeadingTextVAlignment = PaletteRelativeAlign.Center;
 			kryptonCommandLinkButtonLoadInternalDemoData.Location = new Point(12, 144);
 			kryptonCommandLinkButtonLoadInternalDemoData.Name = "kryptonCommandLinkButtonLoadInternalDemoData";
 			kryptonCommandLinkButtonLoadInternalDemoData.OverrideFocus.Border.Draw = InheritBool.True;
@@ -114,11 +106,7 @@ namespace Planetoid_DB
 			kryptonCommandLinkButtonDownloadMprcorbDat.AccessibleName = "Download MPCORB.DAT";
 			kryptonCommandLinkButtonDownloadMprcorbDat.AccessibleRole = AccessibleRole.PushButton;
 			kryptonCommandLinkButtonDownloadMprcorbDat.CommandLinkTextValues.Description = "Download MPCORB.DAT from the IAU Minor Planet Center";
-			kryptonCommandLinkButtonDownloadMprcorbDat.CommandLinkTextValues.DescriptionTextHAlignment = PaletteRelativeAlign.Near;
-			kryptonCommandLinkButtonDownloadMprcorbDat.CommandLinkTextValues.DescriptionTextVAlignment = PaletteRelativeAlign.Far;
 			kryptonCommandLinkButtonDownloadMprcorbDat.CommandLinkTextValues.Heading = "Download MPCORB.DAT";
-			kryptonCommandLinkButtonDownloadMprcorbDat.CommandLinkTextValues.HeadingTextHAlignment = PaletteRelativeAlign.Near;
-			kryptonCommandLinkButtonDownloadMprcorbDat.CommandLinkTextValues.HeadingTextVAlignment = PaletteRelativeAlign.Center;
 			kryptonCommandLinkButtonDownloadMprcorbDat.Location = new Point(12, 78);
 			kryptonCommandLinkButtonDownloadMprcorbDat.Name = "kryptonCommandLinkButtonDownloadMprcorbDat";
 			kryptonCommandLinkButtonDownloadMprcorbDat.OverrideFocus.Border.Draw = InheritBool.True;
@@ -143,11 +131,7 @@ namespace Planetoid_DB
 			kryptonCommandLinkButtonOpenLocalFile.AccessibleName = "Open a local MPCORB.DAT file";
 			kryptonCommandLinkButtonOpenLocalFile.AccessibleRole = AccessibleRole.PushButton;
 			kryptonCommandLinkButtonOpenLocalFile.CommandLinkTextValues.Description = "Open a local MPCORB.DAT file from hard drive";
-			kryptonCommandLinkButtonOpenLocalFile.CommandLinkTextValues.DescriptionTextHAlignment = PaletteRelativeAlign.Near;
-			kryptonCommandLinkButtonOpenLocalFile.CommandLinkTextValues.DescriptionTextVAlignment = PaletteRelativeAlign.Far;
 			kryptonCommandLinkButtonOpenLocalFile.CommandLinkTextValues.Heading = "Open a local MPCORB.DAT file";
-			kryptonCommandLinkButtonOpenLocalFile.CommandLinkTextValues.HeadingTextHAlignment = PaletteRelativeAlign.Near;
-			kryptonCommandLinkButtonOpenLocalFile.CommandLinkTextValues.HeadingTextVAlignment = PaletteRelativeAlign.Center;
 			kryptonCommandLinkButtonOpenLocalFile.Location = new Point(12, 12);
 			kryptonCommandLinkButtonOpenLocalFile.Name = "kryptonCommandLinkButtonOpenLocalFile";
 			kryptonCommandLinkButtonOpenLocalFile.OverrideFocus.Border.Draw = InheritBool.True;
@@ -222,6 +206,8 @@ namespace Planetoid_DB
 			// kryptonManager
 			// 
 			kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+			kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+			kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 			// 
 			// PreloadForm
 			// 
@@ -232,6 +218,7 @@ namespace Planetoid_DB
 			AutoScaleMode = AutoScaleMode.Font;
 			CancelButton = kryptonCommandLinkButtonExit;
 			ClientSize = new Size(376, 300);
+			ControlBox = false;
 			Controls.Add(panel);
 			Controls.Add(statusStrip);
 			FormBorderStyle = FormBorderStyle.FixedToolWindow;

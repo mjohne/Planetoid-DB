@@ -321,7 +321,7 @@ namespace Planetoid_DB
 			panel.TabIndex = 9;
 			panel.TabStop = true;
 			// 
-			// FileDownloaderForm
+			// DatabaseDownloaderForm
 			// 
 			AccessibleDescription = "Downloads the files";
 			AccessibleName = "Download files";
@@ -335,7 +335,7 @@ namespace Planetoid_DB
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			MaximizeBox = false;
 			MinimizeBox = false;
-			Name = "FileDownloaderForm";
+			Name = "DatabaseDownloaderForm";
 			ShowInTaskbar = false;
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Downloader";

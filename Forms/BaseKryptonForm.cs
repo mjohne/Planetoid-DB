@@ -4,7 +4,7 @@ using NLog;
 
 using System.Diagnostics;
 
-namespace Planetoid_DB
+namespace Planetoid_DB.Forms
 {
 	/// <summary>
 	/// Base form providing common behaviours for application forms.

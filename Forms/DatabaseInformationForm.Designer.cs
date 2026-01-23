@@ -45,6 +45,8 @@ namespace Planetoid_DB
 			labelDateWrited = new KryptonLabel();
 			labelAttributes = new KryptonLabel();
 			labelNameValue = new KryptonLabel();
+			contextMenuCopyToClipboard = new ContextMenuStrip(components);
+			ToolStripMenuItemCpyToClipboard = new ToolStripMenuItem();
 			labelDirectoryValue = new KryptonLabel();
 			labelSizeValue = new KryptonLabel();
 			labelDateCreatedValue = new KryptonLabel();
@@ -55,15 +57,13 @@ namespace Planetoid_DB
 			toolStripContainer = new ToolStripContainer();
 			statusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
-			contextMenuStripCopyToClipboard = new ContextMenuStrip(components);
-			ToolStripMenuItemCpyToClipboard = new ToolStripMenuItem();
 			kryptonManager = new KryptonManager(components);
+			contextMenuCopyToClipboard.SuspendLayout();
 			tableLayoutPanel.SuspendLayout();
 			toolStripContainer.BottomToolStripPanel.SuspendLayout();
 			toolStripContainer.ContentPanel.SuspendLayout();
 			toolStripContainer.SuspendLayout();
 			statusStrip.SuspendLayout();
-			contextMenuStripCopyToClipboard.SuspendLayout();
 			SuspendLayout();
 			// 
 			// labelName
@@ -211,7 +211,7 @@ namespace Planetoid_DB
 			labelNameValue.AccessibleDescription = "Shows the name of the database";
 			labelNameValue.AccessibleName = "Name value";
 			labelNameValue.AccessibleRole = AccessibleRole.Text;
-			labelNameValue.ContextMenuStrip = contextMenuStripCopyToClipboard;
+			labelNameValue.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelNameValue.Dock = DockStyle.Fill;
 			labelNameValue.Location = new Point(114, 3);
 			labelNameValue.Margin = new Padding(4, 3, 4, 3);
@@ -227,12 +227,44 @@ namespace Planetoid_DB
 			labelNameValue.MouseEnter += SetStatusBar_Enter;
 			labelNameValue.MouseLeave += ClearStatusBar_Leave;
 			// 
+			// contextMenuCopyToClipboard
+			// 
+			contextMenuCopyToClipboard.AccessibleDescription = "Shows context menu for some options";
+			contextMenuCopyToClipboard.AccessibleName = "Some options";
+			contextMenuCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
+			contextMenuCopyToClipboard.AllowClickThrough = true;
+			contextMenuCopyToClipboard.Font = new Font("Segoe UI", 9F);
+			contextMenuCopyToClipboard.Items.AddRange(new ToolStripItem[] { ToolStripMenuItemCpyToClipboard });
+			contextMenuCopyToClipboard.Name = "contextMenuStrip";
+			contextMenuCopyToClipboard.Size = new Size(214, 48);
+			contextMenuCopyToClipboard.TabStop = true;
+			contextMenuCopyToClipboard.Text = "ContextMenu";
+			toolTip.SetToolTip(contextMenuCopyToClipboard, "Context Menu for copying to clipboard");
+			contextMenuCopyToClipboard.MouseEnter += SetStatusBar_Enter;
+			contextMenuCopyToClipboard.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// ToolStripMenuItemCpyToClipboard
+			// 
+			ToolStripMenuItemCpyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
+			ToolStripMenuItemCpyToClipboard.AccessibleName = "Copy to clipboard";
+			ToolStripMenuItemCpyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
+			ToolStripMenuItemCpyToClipboard.AutoToolTip = true;
+			ToolStripMenuItemCpyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
+			ToolStripMenuItemCpyToClipboard.Name = "ToolStripMenuItemCpyToClipboard";
+			ToolStripMenuItemCpyToClipboard.ShortcutKeyDisplayString = "Strg+C";
+			ToolStripMenuItemCpyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
+			ToolStripMenuItemCpyToClipboard.Size = new Size(213, 22);
+			ToolStripMenuItemCpyToClipboard.Text = "&Copy to clipboard";
+			ToolStripMenuItemCpyToClipboard.Click += CopyToClipboard_DoubleClick;
+			ToolStripMenuItemCpyToClipboard.MouseEnter += SetStatusBar_Enter;
+			ToolStripMenuItemCpyToClipboard.MouseLeave += ClearStatusBar_Leave;
+			// 
 			// labelDirectoryValue
 			// 
 			labelDirectoryValue.AccessibleDescription = "Shows the directory of the database";
 			labelDirectoryValue.AccessibleName = "Directory value";
 			labelDirectoryValue.AccessibleRole = AccessibleRole.Text;
-			labelDirectoryValue.ContextMenuStrip = contextMenuStripCopyToClipboard;
+			labelDirectoryValue.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelDirectoryValue.Dock = DockStyle.Fill;
 			labelDirectoryValue.Location = new Point(114, 29);
 			labelDirectoryValue.Margin = new Padding(4, 3, 4, 3);
@@ -253,7 +285,7 @@ namespace Planetoid_DB
 			labelSizeValue.AccessibleDescription = "Shows the size of the database";
 			labelSizeValue.AccessibleName = "size value";
 			labelSizeValue.AccessibleRole = AccessibleRole.Text;
-			labelSizeValue.ContextMenuStrip = contextMenuStripCopyToClipboard;
+			labelSizeValue.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelSizeValue.Dock = DockStyle.Fill;
 			labelSizeValue.Location = new Point(114, 55);
 			labelSizeValue.Margin = new Padding(4, 3, 4, 3);
@@ -274,7 +306,7 @@ namespace Planetoid_DB
 			labelDateCreatedValue.AccessibleDescription = "Shows the creation date of the database";
 			labelDateCreatedValue.AccessibleName = "Creation date value";
 			labelDateCreatedValue.AccessibleRole = AccessibleRole.Text;
-			labelDateCreatedValue.ContextMenuStrip = contextMenuStripCopyToClipboard;
+			labelDateCreatedValue.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelDateCreatedValue.Dock = DockStyle.Fill;
 			labelDateCreatedValue.Location = new Point(114, 81);
 			labelDateCreatedValue.Margin = new Padding(4, 3, 4, 3);
@@ -295,7 +327,7 @@ namespace Planetoid_DB
 			labelDateAccessedValue.AccessibleDescription = "Shows the last access date of the database";
 			labelDateAccessedValue.AccessibleName = "Last access date value";
 			labelDateAccessedValue.AccessibleRole = AccessibleRole.Text;
-			labelDateAccessedValue.ContextMenuStrip = contextMenuStripCopyToClipboard;
+			labelDateAccessedValue.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelDateAccessedValue.Dock = DockStyle.Fill;
 			labelDateAccessedValue.Location = new Point(114, 107);
 			labelDateAccessedValue.Margin = new Padding(4, 3, 4, 3);
@@ -316,7 +348,7 @@ namespace Planetoid_DB
 			labelDateWritedValue.AccessibleDescription = "Shows the last write date of the database";
 			labelDateWritedValue.AccessibleName = "Last write date value";
 			labelDateWritedValue.AccessibleRole = AccessibleRole.Text;
-			labelDateWritedValue.ContextMenuStrip = contextMenuStripCopyToClipboard;
+			labelDateWritedValue.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelDateWritedValue.Dock = DockStyle.Fill;
 			labelDateWritedValue.Location = new Point(114, 133);
 			labelDateWritedValue.Margin = new Padding(4, 3, 4, 3);
@@ -337,7 +369,7 @@ namespace Planetoid_DB
 			labelAttributesValue.AccessibleDescription = "Shows the attributes of the database";
 			labelAttributesValue.AccessibleName = "Attributes value";
 			labelAttributesValue.AccessibleRole = AccessibleRole.Text;
-			labelAttributesValue.ContextMenuStrip = contextMenuStripCopyToClipboard;
+			labelAttributesValue.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelAttributesValue.Dock = DockStyle.Fill;
 			labelAttributesValue.Location = new Point(114, 159);
 			labelAttributesValue.Margin = new Padding(4, 3, 4, 3);
@@ -448,38 +480,6 @@ namespace Planetoid_DB
 			labelInformation.Text = "some information here";
 			labelInformation.ToolTipText = "Shows some information";
 			// 
-			// contextMenuStripCopyToClipboard
-			// 
-			contextMenuStripCopyToClipboard.AccessibleDescription = "Shows context menu for some options";
-			contextMenuStripCopyToClipboard.AccessibleName = "Some options";
-			contextMenuStripCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
-			contextMenuStripCopyToClipboard.AllowClickThrough = true;
-			contextMenuStripCopyToClipboard.Font = new Font("Segoe UI", 9F);
-			contextMenuStripCopyToClipboard.Items.AddRange(new ToolStripItem[] { ToolStripMenuItemCpyToClipboard });
-			contextMenuStripCopyToClipboard.Name = "contextMenuStrip";
-			contextMenuStripCopyToClipboard.Size = new Size(214, 26);
-			contextMenuStripCopyToClipboard.TabStop = true;
-			contextMenuStripCopyToClipboard.Text = "ContextMenu";
-			toolTip.SetToolTip(contextMenuStripCopyToClipboard, "Context Menu for copying to clipboard");
-			contextMenuStripCopyToClipboard.MouseEnter += SetStatusBar_Enter;
-			contextMenuStripCopyToClipboard.MouseLeave += ClearStatusBar_Leave;
-			// 
-			// ToolStripMenuItemCpyToClipboard
-			// 
-			ToolStripMenuItemCpyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
-			ToolStripMenuItemCpyToClipboard.AccessibleName = "Copy to clipboard";
-			ToolStripMenuItemCpyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
-			ToolStripMenuItemCpyToClipboard.AutoToolTip = true;
-			ToolStripMenuItemCpyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
-			ToolStripMenuItemCpyToClipboard.Name = "ToolStripMenuItemCpyToClipboard";
-			ToolStripMenuItemCpyToClipboard.ShortcutKeyDisplayString = "Strg+C";
-			ToolStripMenuItemCpyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
-			ToolStripMenuItemCpyToClipboard.Size = new Size(213, 22);
-			ToolStripMenuItemCpyToClipboard.Text = "&Copy to clipboard";
-			ToolStripMenuItemCpyToClipboard.Click += CopyToClipboard_DoubleClick;
-			ToolStripMenuItemCpyToClipboard.MouseEnter += SetStatusBar_Enter;
-			ToolStripMenuItemCpyToClipboard.MouseLeave += ClearStatusBar_Leave;
-			// 
 			// kryptonManager
 			// 
 			kryptonManager.GlobalPaletteMode = PaletteMode.Global;
@@ -508,6 +508,7 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(this, "Database Information");
 			FormClosed += DatabaseInformationForm_FormClosed;
 			Load += DatabaseInformationForm_Load;
+			contextMenuCopyToClipboard.ResumeLayout(false);
 			tableLayoutPanel.ResumeLayout(false);
 			tableLayoutPanel.PerformLayout();
 			toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
@@ -517,7 +518,6 @@ namespace Planetoid_DB
 			toolStripContainer.PerformLayout();
 			statusStrip.ResumeLayout(false);
 			statusStrip.PerformLayout();
-			contextMenuStripCopyToClipboard.ResumeLayout(false);
 			ResumeLayout(false);
 
 		}
@@ -543,7 +543,7 @@ namespace Planetoid_DB
 	private ToolStripStatusLabel labelInformation;
 	private ToolStripContainer toolStripContainer;
 		private KryptonManager kryptonManager;
-		private ContextMenuStrip contextMenuStripCopyToClipboard;
+		private ContextMenuStrip contextMenuCopyToClipboard;
 		private ToolStripMenuItem ToolStripMenuItemCpyToClipboard;
 	}
 }
