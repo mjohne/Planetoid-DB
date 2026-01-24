@@ -1173,7 +1173,7 @@ namespace Planetoid_DB
 			_ = derivativeOrbitElements.Add(value: DerivativeElements.CalculateMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 			_ = derivativeOrbitElements.Add(value: DerivativeElements.CalculateStandardGravitationalParameter(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
 			// Create a new instance of the DerivativeOrbitElementsForm
-			using DerivativeOrbitElementsForm formDerivativeOrbitElements = new();
+			using DerivedOrbitElementsForm formDerivativeOrbitElements = new();
 			// Set the TopMost property to true to keep the form on top of other windows
 			formDerivativeOrbitElements.TopMost = TopMost;
 			// Fill the form with the derivative orbit elements
