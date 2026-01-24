@@ -2305,7 +2305,7 @@ namespace Planetoid_DB
 			menuitemExportDataEntry.Name = "menuitemExportDataEntry";
 			menuitemExportDataEntry.Size = new Size(164, 22);
 			menuitemExportDataEntry.Text = "&Export data entry";
-			menuitemExportDataEntry.Click += ToolStripSplitButtonExport_Click;
+			menuitemExportDataEntry.Click += ToolStripButtonExport_Click;
 			menuitemExportDataEntry.MouseEnter += SetStatusBar_Enter;
 			menuitemExportDataEntry.MouseLeave += ClearStatusBar_Leave;
 			// 
@@ -3206,7 +3206,7 @@ namespace Planetoid_DB
 			toolStripButtonExport.Name = "toolStripButtonExport";
 			toolStripButtonExport.Size = new Size(23, 22);
 			toolStripButtonExport.Text = "Export";
-			toolStripButtonExport.Click += ToolStripSplitButtonExport_Click;
+			toolStripButtonExport.Click += ToolStripButtonExport_Click;
 			toolStripButtonExport.MouseEnter += SetStatusBar_Enter;
 			toolStripButtonExport.MouseLeave += ClearStatusBar_Leave;
 			// 
