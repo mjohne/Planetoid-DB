@@ -288,6 +288,22 @@ namespace Planetoid_DB
 			_ = formCopyDerivedDataToClipboard.ShowDialog();
 		}
 
+		/// <summary>
+		/// Shows the print data sheet form.
+		/// </summary>
+		/// <remarks>
+		/// This method is used to show the print data sheet form.
+		/// </remarks>
+		private void PrintDataSheet()
+		{
+			// Create a new instance of the PrintDataSheetForm
+			using PrintDataSheetForm formPrintDataSheet = new();
+			// Set the TopMost property to true to keep the form on top of other windows
+			formPrintDataSheet.TopMost = TopMost;
+			// Fill the form with the planetoids database
+			_ = formPrintDataSheet.ShowDialog();
+		}
+
 		#endregion
 
 		#region form event handlers
@@ -393,6 +409,17 @@ namespace Planetoid_DB
 		#endregion
 
 		#region Click event handlers
+
+		/// <summary>
+		/// Handles the click event for the ToolStripButtonPrint.
+		/// Shows the print data sheet form.
+		/// </summary>
+		/// <param name="sender">The event source.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+		/// <remarks>
+		/// This method is used to show the print data sheet form.
+		/// </remarks>
+		private void ToolStripButtonPrint_Click(object sender, EventArgs e) => PrintDataSheet();
 
 		/// <summary>
 		/// Handles the click event for the ToolStripButtonCopyToClipboard.
