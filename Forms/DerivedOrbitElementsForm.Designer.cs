@@ -1498,10 +1498,10 @@ namespace Planetoid_DB
 			Name = "DerivativeOrbitElementsForm";
 			ShowInTaskbar = false;
 			StartPosition = FormStartPosition.CenterParent;
-			Text = "Derivated orbit elements";
-			toolTip.SetToolTip(this, "Derivated orbit elements");
+			Text = "Derived orbit elements";
+			toolTip.SetToolTip(this, "Derived orbit elements");
 			FormClosed += DerivedOrbitElementsForm_FormClosed;
-			Load += DerivativeOrbitElementsForm_Load;
+			Load += DerivedOrbitElementsForm_Load;
 			contextMenuOpenTerminology.ResumeLayout(false);
 			contextMenuCopyToClipboard.ResumeLayout(false);
 			toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
