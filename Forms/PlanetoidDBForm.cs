@@ -1091,25 +1091,25 @@ namespace Planetoid_DB
 			_ = orbitalElements.Add(value: labelComputerNameData.Text);
 			_ = orbitalElements.Add(value: labelFlagsData.Text);
 			_ = orbitalElements.Add(value: labelDateLastObservationData.Text);
-			_ = orbitalElements.Add(value: DerivativeElements.CalculateLinearEccentricity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-			_ = orbitalElements.Add(value: DerivativeElements.CalculateSemiMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-			_ = orbitalElements.Add(value: DerivativeElements.CalculateMajorAxis(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
-			_ = orbitalElements.Add(value: DerivativeElements.CalculateMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-			_ = orbitalElements.Add(value: DerivativeElements.CalculateEccentricAnomaly(meanAnomaly: meanAnomaly, numericalEccentricity: numericalEccentricity, numberDecimalPlaces: 8).ToString(provider: provider));
-			_ = orbitalElements.Add(value: DerivativeElements.CalculateTrueAnomaly(meanAnomaly: meanAnomaly, numericalEccentricity: numericalEccentricity, numberDecimalPlaces: 8).ToString(provider: provider));
-			_ = orbitalElements.Add(value: DerivativeElements.CalculatePerihelionDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-			_ = orbitalElements.Add(value: DerivativeElements.CalculateAphelionDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-			_ = orbitalElements.Add(value: DerivativeElements.CalculateLongitudeDescendingNode(longitudeAscendingNode: longitudeAscendingNode).ToString(provider: provider));
-			_ = orbitalElements.Add(value: DerivativeElements.CalculateArgumentOfAphelion(argumentAphelion: argumentAphelion).ToString(provider: provider));
-			_ = orbitalElements.Add(value: DerivativeElements.CalculateFocalParameter(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-			_ = orbitalElements.Add(value: DerivativeElements.CalculateSemiLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-			_ = orbitalElements.Add(value: DerivativeElements.CalculateLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-			_ = orbitalElements.Add(value: DerivativeElements.CalculatePeriod(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
-			_ = orbitalElements.Add(value: DerivativeElements.CalculateOrbitalArea(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-			_ = orbitalElements.Add(value: DerivativeElements.CalculateOrbitalPerimeter(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-			_ = orbitalElements.Add(value: DerivativeElements.CalculateSemiMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-			_ = orbitalElements.Add(value: DerivativeElements.CalculateMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-			_ = orbitalElements.Add(value: DerivativeElements.CalculateStandardGravitationalParameter(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+			_ = orbitalElements.Add(value: DerivedElements.CalculateLinearEccentricity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			_ = orbitalElements.Add(value: DerivedElements.CalculateSemiMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			_ = orbitalElements.Add(value: DerivedElements.CalculateMajorAxis(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+			_ = orbitalElements.Add(value: DerivedElements.CalculateMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			_ = orbitalElements.Add(value: DerivedElements.CalculateEccentricAnomaly(meanAnomaly: meanAnomaly, numericalEccentricity: numericalEccentricity, numberDecimalPlaces: 8).ToString(provider: provider));
+			_ = orbitalElements.Add(value: DerivedElements.CalculateTrueAnomaly(meanAnomaly: meanAnomaly, numericalEccentricity: numericalEccentricity, numberDecimalPlaces: 8).ToString(provider: provider));
+			_ = orbitalElements.Add(value: DerivedElements.CalculatePerihelionDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			_ = orbitalElements.Add(value: DerivedElements.CalculateAphelionDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			_ = orbitalElements.Add(value: DerivedElements.CalculateLongitudeDescendingNode(longitudeAscendingNode: longitudeAscendingNode).ToString(provider: provider));
+			_ = orbitalElements.Add(value: DerivedElements.CalculateArgumentOfAphelion(argumentAphelion: argumentAphelion).ToString(provider: provider));
+			_ = orbitalElements.Add(value: DerivedElements.CalculateFocalParameter(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			_ = orbitalElements.Add(value: DerivedElements.CalculateSemiLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			_ = orbitalElements.Add(value: DerivedElements.CalculateLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			_ = orbitalElements.Add(value: DerivedElements.CalculatePeriod(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+			_ = orbitalElements.Add(value: DerivedElements.CalculateOrbitalArea(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			_ = orbitalElements.Add(value: DerivedElements.CalculateOrbitalPerimeter(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			_ = orbitalElements.Add(value: DerivedElements.CalculateSemiMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			_ = orbitalElements.Add(value: DerivedElements.CalculateMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			_ = orbitalElements.Add(value: DerivedElements.CalculateStandardGravitationalParameter(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
 			// Create a new instance of the ExportDataSheetForm
 			using ExportDataSheetForm formExportDataSheet = new();
 			// Set the TopMost property to true to keep the form on top of other windows
@@ -1142,10 +1142,10 @@ namespace Planetoid_DB
 		/// <remarks>
 		/// This method is used to show the derived orbit elements form.
 		/// </remarks>
-		private void ShowDerivativeOrbitElements()
+		private void ShowDerivedOrbitElements()
 		{
-			// Create a new ArrayList to store the derivative orbit elements
-			ArrayList derivativeOrbitElements = [];
+			// Create a new ArrayList to store the derived orbit elements
+			ArrayList derivedOrbitElements = [];
 			// Create a specific culture for formatting
 			IFormatProvider provider = CultureInfo.CreateSpecificCulture(name: "en");
 			double semiMajorAxis = double.Parse(s: labelSemiMajorAxisData.Text, provider: provider);
@@ -1153,33 +1153,33 @@ namespace Planetoid_DB
 			double meanAnomaly = double.Parse(s: labelMeanAnomalyAtTheEpochData.Text, provider: provider);
 			double longitudeAscendingNode = double.Parse(s: labelLongitudeOfTheAscendingNodeData.Text, provider: provider);
 			double argumentAphelion = double.Parse(s: labelArgumentOfPerihelionData.Text, provider: provider);
-			_ = derivativeOrbitElements.Add(value: DerivativeElements.CalculateLinearEccentricity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-			_ = derivativeOrbitElements.Add(value: DerivativeElements.CalculateSemiMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-			_ = derivativeOrbitElements.Add(value: DerivativeElements.CalculateMajorAxis(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
-			_ = derivativeOrbitElements.Add(value: DerivativeElements.CalculateMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-			_ = derivativeOrbitElements.Add(value: DerivativeElements.CalculateEccentricAnomaly(meanAnomaly: meanAnomaly, numericalEccentricity: numericalEccentricity, numberDecimalPlaces: 8).ToString(provider: provider));
-			_ = derivativeOrbitElements.Add(value: DerivativeElements.CalculateTrueAnomaly(meanAnomaly: meanAnomaly, numericalEccentricity: numericalEccentricity, numberDecimalPlaces: 8).ToString(provider: provider));
-			_ = derivativeOrbitElements.Add(value: DerivativeElements.CalculatePerihelionDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-			_ = derivativeOrbitElements.Add(value: DerivativeElements.CalculateAphelionDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-			_ = derivativeOrbitElements.Add(value: DerivativeElements.CalculateLongitudeDescendingNode(longitudeAscendingNode: longitudeAscendingNode).ToString(provider: provider));
-			_ = derivativeOrbitElements.Add(value: DerivativeElements.CalculateArgumentOfAphelion(argumentAphelion: argumentAphelion).ToString(provider: provider));
-			_ = derivativeOrbitElements.Add(value: DerivativeElements.CalculateFocalParameter(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-			_ = derivativeOrbitElements.Add(value: DerivativeElements.CalculateSemiLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-			_ = derivativeOrbitElements.Add(value: DerivativeElements.CalculateLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-			_ = derivativeOrbitElements.Add(value: DerivativeElements.CalculatePeriod(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
-			_ = derivativeOrbitElements.Add(value: DerivativeElements.CalculateOrbitalArea(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-			_ = derivativeOrbitElements.Add(value: DerivativeElements.CalculateOrbitalPerimeter(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-			_ = derivativeOrbitElements.Add(value: DerivativeElements.CalculateSemiMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-			_ = derivativeOrbitElements.Add(value: DerivativeElements.CalculateMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-			_ = derivativeOrbitElements.Add(value: DerivativeElements.CalculateStandardGravitationalParameter(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
-			// Create a new instance of the DerivativeOrbitElementsForm
-			using DerivedOrbitElementsForm formDerivativeOrbitElements = new();
+			_ = derivedOrbitElements.Add(value: DerivedElements.CalculateLinearEccentricity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			_ = derivedOrbitElements.Add(value: DerivedElements.CalculateSemiMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			_ = derivedOrbitElements.Add(value: DerivedElements.CalculateMajorAxis(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+			_ = derivedOrbitElements.Add(value: DerivedElements.CalculateMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			_ = derivedOrbitElements.Add(value: DerivedElements.CalculateEccentricAnomaly(meanAnomaly: meanAnomaly, numericalEccentricity: numericalEccentricity, numberDecimalPlaces: 8).ToString(provider: provider));
+			_ = derivedOrbitElements.Add(value: DerivedElements.CalculateTrueAnomaly(meanAnomaly: meanAnomaly, numericalEccentricity: numericalEccentricity, numberDecimalPlaces: 8).ToString(provider: provider));
+			_ = derivedOrbitElements.Add(value: DerivedElements.CalculatePerihelionDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			_ = derivedOrbitElements.Add(value: DerivedElements.CalculateAphelionDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			_ = derivedOrbitElements.Add(value: DerivedElements.CalculateLongitudeDescendingNode(longitudeAscendingNode: longitudeAscendingNode).ToString(provider: provider));
+			_ = derivedOrbitElements.Add(value: DerivedElements.CalculateArgumentOfAphelion(argumentAphelion: argumentAphelion).ToString(provider: provider));
+			_ = derivedOrbitElements.Add(value: DerivedElements.CalculateFocalParameter(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			_ = derivedOrbitElements.Add(value: DerivedElements.CalculateSemiLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			_ = derivedOrbitElements.Add(value: DerivedElements.CalculateLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			_ = derivedOrbitElements.Add(value: DerivedElements.CalculatePeriod(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+			_ = derivedOrbitElements.Add(value: DerivedElements.CalculateOrbitalArea(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			_ = derivedOrbitElements.Add(value: DerivedElements.CalculateOrbitalPerimeter(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			_ = derivedOrbitElements.Add(value: DerivedElements.CalculateSemiMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			_ = derivedOrbitElements.Add(value: DerivedElements.CalculateMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+			_ = derivedOrbitElements.Add(value: DerivedElements.CalculateStandardGravitationalParameter(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+			// Create a new instance of the DerivedOrbitElementsForm
+			using DerivedOrbitElementsForm formDerivedOrbitElements = new();
 			// Set the TopMost property to true to keep the form on top of other windows
-			formDerivativeOrbitElements.TopMost = TopMost;
-			// Fill the form with the derivative orbit elements
-			formDerivativeOrbitElements.SetDatabase(list: [.. derivativeOrbitElements.Cast<object>()]);
-			// Show the derivative orbit elements form as a modal dialog
-			_ = formDerivativeOrbitElements.ShowDialog();
+			formDerivedOrbitElements.TopMost = TopMost;
+			// Fill the form with the derived orbit elements
+			formDerivedOrbitElements.SetDatabase(list: [.. derivedOrbitElements.Cast<object>()]);
+			// Show the derived orbit elements form as a modal dialog
+			_ = formDerivedOrbitElements.ShowDialog();
 		}
 
 		/// <summary>
@@ -2258,7 +2258,7 @@ namespace Planetoid_DB
 		private void ToolStripButtonFilter_Click(object sender, EventArgs e) => ShowFilter();
 
 		/// <summary>
-		/// Handles the click event for the ToolStripButtonDerivativeOrbitElements.
+		/// Handles the click event for the ToolStripButtonDerivedOrbitElements.
 		/// Shows the derived orbit elements form.
 		/// </summary>
 		/// <param name="sender">The event source.</param>
@@ -2266,7 +2266,7 @@ namespace Planetoid_DB
 		/// <remarks>
 		/// This method is used to show the derived orbit elements form.
 		/// </remarks>
-		private void ToolStripButtonDerivativeOrbitElements_Click(object sender, EventArgs e) => ShowDerivativeOrbitElements();
+		private void ToolStripButtonDerivedOrbitElements_Click(object sender, EventArgs e) => ShowDerivedOrbitElements();
 
 		/// <summary>
 		/// Handles the click event for the ToolStripMenuItemRestart.
@@ -2280,7 +2280,7 @@ namespace Planetoid_DB
 		private void ToolStripMenuItemRestart_Click(object sender, EventArgs e) => Restart();
 
 		/// <summary>
-		/// Handles the click event for the ToolStripMenuItemDerivativeOrbitElements.
+		/// Handles the click event for the ToolStripMenuItemDerivedtiveOrbitElements.
 		/// Shows the derived orbit elements form.
 		/// </summary>
 		/// <param name="sender">The event source.</param>
@@ -2288,7 +2288,7 @@ namespace Planetoid_DB
 		/// <remarks>
 		/// This method is used to show the derived orbit elements form.
 		/// </remarks>
-		private void ToolStripMenuItemDerivativeOrbitElements_Click(object sender, EventArgs e) => ShowDerivativeOrbitElements();
+		private void ToolStripMenuItemDerivedOrbitElements_Click(object sender, EventArgs e) => ShowDerivedOrbitElements();
 
 		/// <summary>
 		/// Handles the click event for the ToolStripMenuItemStayOnTop.
