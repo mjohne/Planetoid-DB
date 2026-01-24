@@ -1,4 +1,4 @@
-namespace Planetoid_DB.Helpers
+﻿namespace Planetoid_DB.Helpers
 {
 	/// <summary>
 	/// Provides methods for calculating various orbital elements.
