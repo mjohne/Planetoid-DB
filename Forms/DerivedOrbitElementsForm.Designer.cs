@@ -83,9 +83,8 @@ namespace Planetoid_DB
 			labelInformation = new ToolStripStatusLabel();
 			tableLayoutPanel = new KryptonTableLayoutPanel();
 			toolStripIcons = new ToolStrip();
-			toolStripButtonPrint = new ToolStripButton();
 			splitbuttonCopyToClipboard = new ToolStripSplitButton();
-			contextMenuFullCopyToClipboardDerivatedOrbitalElements = new ContextMenuStrip(components);
+			contextMenuFullCopyToClipboardDerivedOrbitalElements = new ContextMenuStrip(components);
 			menuitemCopyToClipboardLinearEccentricity = new ToolStripMenuItem();
 			menuitemCopyToClipboardSemiMinorAxis = new ToolStripMenuItem();
 			menuitemCopyToClipboardMajorAxis = new ToolStripMenuItem();
@@ -114,7 +113,7 @@ namespace Planetoid_DB
 			statusStrip.SuspendLayout();
 			tableLayoutPanel.SuspendLayout();
 			toolStripIcons.SuspendLayout();
-			contextMenuFullCopyToClipboardDerivatedOrbitalElements.SuspendLayout();
+			contextMenuFullCopyToClipboardDerivedOrbitalElements.SuspendLayout();
 			SuspendLayout();
 			// 
 			// labelLinearEccentricityDesc
@@ -1179,7 +1178,7 @@ namespace Planetoid_DB
 			toolStripIcons.BackColor = Color.Transparent;
 			toolStripIcons.Dock = DockStyle.None;
 			toolStripIcons.Font = new Font("Segoe UI", 9F);
-			toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonPrint, splitbuttonCopyToClipboard });
+			toolStripIcons.Items.AddRange(new ToolStripItem[] { splitbuttonCopyToClipboard });
 			toolStripIcons.Location = new Point(0, 0);
 			toolStripIcons.Name = "toolStripIcons";
 			toolStripIcons.Size = new Size(554, 25);
@@ -1192,52 +1191,35 @@ namespace Planetoid_DB
 			toolStripIcons.MouseEnter += SetStatusBar_Enter;
 			toolStripIcons.MouseLeave += ClearStatusBar_Leave;
 			// 
-			// toolStripButtonPrint
-			// 
-			toolStripButtonPrint.AccessibleDescription = "Prints the information";
-			toolStripButtonPrint.AccessibleName = "Print";
-			toolStripButtonPrint.AccessibleRole = AccessibleRole.PushButton;
-			toolStripButtonPrint.DisplayStyle = ToolStripItemDisplayStyle.Image;
-			toolStripButtonPrint.Image = FatcowIcons16px.fatcow_printer_16px;
-			toolStripButtonPrint.ImageTransparentColor = Color.Magenta;
-			toolStripButtonPrint.Name = "toolStripButtonPrint";
-			toolStripButtonPrint.Size = new Size(23, 22);
-			toolStripButtonPrint.Text = "Print";
-			toolStripButtonPrint.Click += ToolStripButtonPrint_Click;
-			toolStripButtonPrint.MouseEnter += SetStatusBar_Enter;
-			toolStripButtonPrint.MouseLeave += ClearStatusBar_Leave;
-			// 
 			// splitbuttonCopyToClipboard
 			// 
 			splitbuttonCopyToClipboard.AccessibleDescription = "Copys to clipboard";
 			splitbuttonCopyToClipboard.AccessibleName = "Copy to clipboard";
 			splitbuttonCopyToClipboard.AccessibleRole = AccessibleRole.SplitButton;
 			splitbuttonCopyToClipboard.BackColor = Color.Transparent;
-			splitbuttonCopyToClipboard.DisplayStyle = ToolStripItemDisplayStyle.Image;
-			splitbuttonCopyToClipboard.DropDown = contextMenuFullCopyToClipboardDerivatedOrbitalElements;
+			splitbuttonCopyToClipboard.DropDown = contextMenuFullCopyToClipboardDerivedOrbitalElements;
 			splitbuttonCopyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
 			splitbuttonCopyToClipboard.ImageTransparentColor = Color.Magenta;
 			splitbuttonCopyToClipboard.Name = "splitbuttonCopyToClipboard";
-			splitbuttonCopyToClipboard.Size = new Size(32, 22);
-			splitbuttonCopyToClipboard.Text = "Copy to clipboard";
+			splitbuttonCopyToClipboard.Size = new Size(134, 22);
+			splitbuttonCopyToClipboard.Text = "&Copy to clipboard";
 			splitbuttonCopyToClipboard.ButtonClick += ToolStripButtonCopyToClipboard_Click;
 			splitbuttonCopyToClipboard.MouseEnter += SetStatusBar_Enter;
 			splitbuttonCopyToClipboard.MouseLeave += ClearStatusBar_Leave;
 			// 
-			// contextMenuFullCopyToClipboardDerivatedOrbitalElements
+			// contextMenuFullCopyToClipboardDerivedOrbitalElements
 			// 
-			contextMenuFullCopyToClipboardDerivatedOrbitalElements.AccessibleDescription = "Shows the context menu of the derivated orbital elements to copy to clipboard";
-			contextMenuFullCopyToClipboardDerivatedOrbitalElements.AccessibleName = "context menu of the derivated orbital elements to copy to clipboard";
-			contextMenuFullCopyToClipboardDerivatedOrbitalElements.AccessibleRole = AccessibleRole.MenuPopup;
-			contextMenuFullCopyToClipboardDerivatedOrbitalElements.Font = new Font("Segoe UI", 9F);
-			contextMenuFullCopyToClipboardDerivatedOrbitalElements.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardLinearEccentricity, menuitemCopyToClipboardSemiMinorAxis, menuitemCopyToClipboardMajorAxis, menuitemCopyToClipboardMinorAxis, menuitemCopyToClipboardEccentricAnomaly, menuitemCopyToClipboardTrueAnomaly, menuitemCopyToClipboardPerihelionDistance, menuitemCopyToClipboardAphelionDistance, menuitemCopyToClipboardLongitudeDescendingNode, menuitemCopyToClipboardArgumentAphelion, menuitemCopyToClipboardFocalParameter, menuitemCopyToClipboardSemiLatusRectum, menuitemCopyToClipboardLatusRectum, menuitemCopyToClipboardOrbitalPeriod, menuitemCopyToClipboardOrbitalArea, menuitemCopyToClipboardSemiMeanAxis, menuitemCopyToClipboardMeanAxis, menuitemCopyToClipboardStandardGravitationalParameter });
-			contextMenuFullCopyToClipboardDerivatedOrbitalElements.Name = resources.GetString("contextMenuFullCopyToClipboardDerivatedOrbitalElements.Name");
-			contextMenuFullCopyToClipboardDerivatedOrbitalElements.OwnerItem = splitbuttonCopyToClipboard;
-			contextMenuFullCopyToClipboardDerivatedOrbitalElements.Size = new Size(257, 400);
-			contextMenuFullCopyToClipboardDerivatedOrbitalElements.Text = "Copy to clipboard";
-			toolTip.SetToolTip(contextMenuFullCopyToClipboardDerivatedOrbitalElements, "Copy to clipboard");
-			contextMenuFullCopyToClipboardDerivatedOrbitalElements.MouseEnter += SetStatusBar_Enter;
-			contextMenuFullCopyToClipboardDerivatedOrbitalElements.MouseLeave += ClearStatusBar_Leave;
+			contextMenuFullCopyToClipboardDerivedOrbitalElements.AccessibleDescription = "Shows the context menu of the derived orbital elements to copy to clipboard";
+			contextMenuFullCopyToClipboardDerivedOrbitalElements.AccessibleName = "context menu of the derived orbital elements to copy to clipboard";
+			contextMenuFullCopyToClipboardDerivedOrbitalElements.AccessibleRole = AccessibleRole.MenuPopup;
+			contextMenuFullCopyToClipboardDerivedOrbitalElements.Font = new Font("Segoe UI", 9F);
+			contextMenuFullCopyToClipboardDerivedOrbitalElements.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardLinearEccentricity, menuitemCopyToClipboardSemiMinorAxis, menuitemCopyToClipboardMajorAxis, menuitemCopyToClipboardMinorAxis, menuitemCopyToClipboardEccentricAnomaly, menuitemCopyToClipboardTrueAnomaly, menuitemCopyToClipboardPerihelionDistance, menuitemCopyToClipboardAphelionDistance, menuitemCopyToClipboardLongitudeDescendingNode, menuitemCopyToClipboardArgumentAphelion, menuitemCopyToClipboardFocalParameter, menuitemCopyToClipboardSemiLatusRectum, menuitemCopyToClipboardLatusRectum, menuitemCopyToClipboardOrbitalPeriod, menuitemCopyToClipboardOrbitalArea, menuitemCopyToClipboardSemiMeanAxis, menuitemCopyToClipboardMeanAxis, menuitemCopyToClipboardStandardGravitationalParameter });
+			contextMenuFullCopyToClipboardDerivedOrbitalElements.Name = resources.GetString("contextMenuFullCopyToClipboardDerivedOrbitalElements.Name");
+			contextMenuFullCopyToClipboardDerivedOrbitalElements.Size = new Size(257, 400);
+			contextMenuFullCopyToClipboardDerivedOrbitalElements.Text = "Copy to clipboard";
+			toolTip.SetToolTip(contextMenuFullCopyToClipboardDerivedOrbitalElements, "Copy to clipboard");
+			contextMenuFullCopyToClipboardDerivedOrbitalElements.MouseEnter += SetStatusBar_Enter;
+			contextMenuFullCopyToClipboardDerivedOrbitalElements.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// menuitemCopyToClipboardLinearEccentricity
 			// 
@@ -1534,7 +1516,7 @@ namespace Planetoid_DB
 			tableLayoutPanel.PerformLayout();
 			toolStripIcons.ResumeLayout(false);
 			toolStripIcons.PerformLayout();
-			contextMenuFullCopyToClipboardDerivatedOrbitalElements.ResumeLayout(false);
+			contextMenuFullCopyToClipboardDerivedOrbitalElements.ResumeLayout(false);
 			ResumeLayout(false);
 
 		}
@@ -1590,7 +1572,7 @@ namespace Planetoid_DB
 		private ToolStripMenuItem toolStripMenuItemOpenTerminology;
 		private ToolStrip toolStripIcons;
 		private ToolStripSplitButton splitbuttonCopyToClipboard;
-		private ContextMenuStrip contextMenuFullCopyToClipboardDerivatedOrbitalElements;
+		private ContextMenuStrip contextMenuFullCopyToClipboardDerivedOrbitalElements;
 		private ToolStripMenuItem menuitemCopyToClipboardLinearEccentricity;
 		private ToolStripMenuItem menuitemCopyToClipboardSemiMinorAxis;
 		private ToolStripMenuItem menuitemCopyToClipboardMajorAxis;
@@ -1609,6 +1591,5 @@ namespace Planetoid_DB
 		private ToolStripMenuItem menuitemCopyToClipboardSemiMeanAxis;
 		private ToolStripMenuItem menuitemCopyToClipboardMeanAxis;
 		private ToolStripMenuItem menuitemCopyToClipboardStandardGravitationalParameter;
-		private ToolStripButton toolStripButtonPrint;
 	}
 }

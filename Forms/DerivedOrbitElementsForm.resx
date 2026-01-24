@@ -132,7 +132,7 @@
   <metadata name="toolStripIcons.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>1082, 19</value>
   </metadata>
-  <metadata name="contextMenuFullCopyToClipboardDerivatedOrbitalElements.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="contextMenuFullCopyToClipboardDerivedOrbitalElements.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>515, 19</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
@@ -442,7 +442,7 @@
         93PYBwAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="contextMenuFullCopyToClipboardDerivatedOrbitalElements.Name" xml:space="preserve">
+  <data name="contextMenuFullCopyToClipboardDerivedOrbitalElements.Name" xml:space="preserve">
     <value>contry
         {
             // Ask the user for a valid palette definition file
