@@ -172,7 +172,7 @@ namespace Planetoid_DB
 			toolStripSeparator11 = new ToolStripSeparator();
 			menuitemListReadableDesignations = new ToolStripMenuItem();
 			menuitemTools = new ToolStripMenuItem();
-			menuitemDerivatedOrbitElements = new ToolStripMenuItem();
+			menuitemDerivedOrbitElements = new ToolStripMenuItem();
 			menuitemFilter = new ToolStripMenuItem();
 			toolStripSeparatorTools1 = new ToolStripSeparator();
 			menuitemRecords = new ToolStripMenuItem();
@@ -246,7 +246,7 @@ namespace Planetoid_DB
 			toolStripButtonGoToIndex = new ToolStripButton();
 			toolStripButtonListReadableDesignations = new ToolStripButton();
 			toolStripSeparator9 = new ToolStripSeparator();
-			toolStripButtonDerivatedOrbitElements = new ToolStripButton();
+			toolStripButtonDerivedOrbitElements = new ToolStripButton();
 			toolStripButtonFilter = new ToolStripButton();
 			toolStripSeparatorOptions2 = new ToolStripSeparator();
 			toolStripSeparatorOptions1 = new ToolStripSeparator();
@@ -2545,26 +2545,26 @@ namespace Planetoid_DB
 			menuitemTools.AccessibleName = "Tools";
 			menuitemTools.AccessibleRole = AccessibleRole.MenuPopup;
 			menuitemTools.AutoToolTip = true;
-			menuitemTools.DropDownItems.AddRange(new ToolStripItem[] { menuitemDerivatedOrbitElements, menuitemFilter, toolStripSeparatorTools1, menuitemRecords, toolStripSeparator10, menuitemDistribution, toolStripSeparatorTools2, menuitemDatabaseInformation, menuitemTableMode, menuitemTerminology });
+			menuitemTools.DropDownItems.AddRange(new ToolStripItem[] { menuitemDerivedOrbitElements, menuitemFilter, toolStripSeparatorTools1, menuitemRecords, toolStripSeparator10, menuitemDistribution, toolStripSeparatorTools2, menuitemDatabaseInformation, menuitemTableMode, menuitemTerminology });
 			menuitemTools.Name = "menuitemTools";
 			menuitemTools.Size = new Size(46, 24);
 			menuitemTools.Text = "&Tools";
 			menuitemTools.MouseEnter += SetStatusBar_Enter;
 			menuitemTools.MouseLeave += ClearStatusBar_Leave;
 			// 
-			// menuitemDerivatedOrbitElements
+			// menuitemDerivedOrbitElements
 			// 
-			menuitemDerivatedOrbitElements.AccessibleDescription = "Calculates derivated orbital elements";
-			menuitemDerivatedOrbitElements.AccessibleName = "Derivated orbital elements";
-			menuitemDerivatedOrbitElements.AccessibleRole = AccessibleRole.MenuItem;
-			menuitemDerivatedOrbitElements.AutoToolTip = true;
-			menuitemDerivatedOrbitElements.Image = FatcowIcons16px.fatcow_page_white_text_16px;
-			menuitemDerivatedOrbitElements.Name = "menuitemDerivatedOrbitElements";
-			menuitemDerivatedOrbitElements.Size = new Size(227, 22);
-			menuitemDerivatedOrbitElements.Text = "Derivated &orbital elements";
-			menuitemDerivatedOrbitElements.Click += ToolStripMenuItemDerivativeOrbitElements_Click;
-			menuitemDerivatedOrbitElements.MouseEnter += SetStatusBar_Enter;
-			menuitemDerivatedOrbitElements.MouseLeave += ClearStatusBar_Leave;
+			menuitemDerivedOrbitElements.AccessibleDescription = "Calculates derived orbital elements";
+			menuitemDerivedOrbitElements.AccessibleName = "Derived orbital elements";
+			menuitemDerivedOrbitElements.AccessibleRole = AccessibleRole.MenuItem;
+			menuitemDerivedOrbitElements.AutoToolTip = true;
+			menuitemDerivedOrbitElements.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+			menuitemDerivedOrbitElements.Name = "menuitemDerivedOrbitElements";
+			menuitemDerivedOrbitElements.Size = new Size(227, 22);
+			menuitemDerivedOrbitElements.Text = "Derived &orbital elements";
+			menuitemDerivedOrbitElements.Click += ToolStripMenuItemDerivedOrbitElements_Click;
+			menuitemDerivedOrbitElements.MouseEnter += SetStatusBar_Enter;
+			menuitemDerivedOrbitElements.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// menuitemFilter
 			// 
@@ -3463,7 +3463,7 @@ namespace Planetoid_DB
 			toolStripNavigation.AccessibleRole = AccessibleRole.ToolBar;
 			toolStripNavigation.Dock = DockStyle.None;
 			toolStripNavigation.Font = new Font("Segoe UI", 9F);
-			toolStripNavigation.Items.AddRange(new ToolStripItem[] { toolStripButtonLoadRandomMinorPlanet, toolStripSeparator8, toolStripButtonStepToBegin, toolStripSplitButtonStepBackward, toolStripButtonStepBackwardOne, toolStripButtonStepForwardOne, toolStripSplitButtonStepForward, toolStripButtonStepToEnd, toolStripSeparator6, toolStripLabelIndexPosition, toolStripSeparator7, toolStripLabelGoToIndex, toolStripTextBoxGotoIndex, toolStripButtonGoToIndex, toolStripButtonListReadableDesignations, toolStripSeparator9, toolStripButtonDerivatedOrbitElements, toolStripButtonFilter });
+			toolStripNavigation.Items.AddRange(new ToolStripItem[] { toolStripButtonLoadRandomMinorPlanet, toolStripSeparator8, toolStripButtonStepToBegin, toolStripSplitButtonStepBackward, toolStripButtonStepBackwardOne, toolStripButtonStepForwardOne, toolStripSplitButtonStepForward, toolStripButtonStepToEnd, toolStripSeparator6, toolStripLabelIndexPosition, toolStripSeparator7, toolStripLabelGoToIndex, toolStripTextBoxGotoIndex, toolStripButtonGoToIndex, toolStripButtonListReadableDesignations, toolStripSeparator9, toolStripButtonDerivedOrbitElements, toolStripButtonFilter });
 			toolStripNavigation.Location = new Point(0, 49);
 			toolStripNavigation.Name = "toolStripNavigation";
 			toolStripNavigation.Size = new Size(852, 25);
@@ -3664,20 +3664,20 @@ namespace Planetoid_DB
 			toolStripSeparator9.MouseEnter += SetStatusBar_Enter;
 			toolStripSeparator9.MouseLeave += ClearStatusBar_Leave;
 			// 
-			// toolStripButtonDerivatedOrbitElements
+			// toolStripButtonDerivedOrbitElements
 			// 
-			toolStripButtonDerivatedOrbitElements.AccessibleDescription = "Calculates derivated orbital elements";
-			toolStripButtonDerivatedOrbitElements.AccessibleName = "Derivated orbit elements";
-			toolStripButtonDerivatedOrbitElements.AccessibleRole = AccessibleRole.PushButton;
-			toolStripButtonDerivatedOrbitElements.DisplayStyle = ToolStripItemDisplayStyle.Image;
-			toolStripButtonDerivatedOrbitElements.Image = FatcowIcons16px.fatcow_arrow_branch_16px;
-			toolStripButtonDerivatedOrbitElements.ImageTransparentColor = Color.Magenta;
-			toolStripButtonDerivatedOrbitElements.Name = "toolStripButtonDerivatedOrbitElements";
-			toolStripButtonDerivatedOrbitElements.Size = new Size(23, 22);
-			toolStripButtonDerivatedOrbitElements.Text = "Derivated orbit elements";
-			toolStripButtonDerivatedOrbitElements.Click += ToolStripButtonDerivativeOrbitElements_Click;
-			toolStripButtonDerivatedOrbitElements.MouseEnter += SetStatusBar_Enter;
-			toolStripButtonDerivatedOrbitElements.MouseLeave += ClearStatusBar_Leave;
+			toolStripButtonDerivedOrbitElements.AccessibleDescription = "Calculates derived orbital elements";
+			toolStripButtonDerivedOrbitElements.AccessibleName = "Derived orbit elements";
+			toolStripButtonDerivedOrbitElements.AccessibleRole = AccessibleRole.PushButton;
+			toolStripButtonDerivedOrbitElements.DisplayStyle = ToolStripItemDisplayStyle.Image;
+			toolStripButtonDerivedOrbitElements.Image = FatcowIcons16px.fatcow_arrow_branch_16px;
+			toolStripButtonDerivedOrbitElements.ImageTransparentColor = Color.Magenta;
+			toolStripButtonDerivedOrbitElements.Name = "toolStripButtonDerivedOrbitElements";
+			toolStripButtonDerivedOrbitElements.Size = new Size(23, 22);
+			toolStripButtonDerivedOrbitElements.Text = "Derived orbit elements";
+			toolStripButtonDerivedOrbitElements.Click += ToolStripButtonDerivedOrbitElements_Click;
+			toolStripButtonDerivedOrbitElements.MouseEnter += SetStatusBar_Enter;
+			toolStripButtonDerivedOrbitElements.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// toolStripButtonFilter
 			// 
@@ -3873,10 +3873,10 @@ namespace Planetoid_DB
 		private ToolStripSeparator toolStripSeparatorOptions;
 		private ToolStripSeparator toolStripSeparatorFile1;
 		private ToolStripMenuItem menuitemRestart;
-		private ToolStripMenuItem menuitemDerivatedOrbitElements;
+		private ToolStripMenuItem menuitemDerivedOrbitElements;
 		private ToolStripSeparator toolStripSeparatorTools2;
 		private ToolStripSeparator toolStripSeparator9;
-		private ToolStripButton toolStripButtonDerivatedOrbitElements;
+		private ToolStripButton toolStripButtonDerivedOrbitElements;
         private ToolStripMenuItem menuitemExportDataEntry;
         private ToolStripSeparator toolStripSeparator10;
         private ToolStripMenuItem menuitemRecords;
