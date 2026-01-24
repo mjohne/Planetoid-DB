@@ -2377,17 +2377,6 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
-		/// Handles the click event for the ToolStripMenuItemCopyToClipboardIndexNumber.
-		/// Copies the index number to the clipboard.
-		/// </summary>
-		/// <param name="sender">The event source.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		/// <remarks>
-		/// This method is used to copy the index number to the clipboard.
-		/// </remarks>
-		private void ToolStripMenuItemCopyToClipboardIndexNumber_Click(object sender, EventArgs e) => CopyToClipboard(text: labelIndexData.Text);
-
-		/// <summary>
 		/// Handles the click event for the ToolStripMenuItemCopyToClipboardReadableDesignation.
 		/// Copies the readable designation to the clipboard.
 		/// </summary>

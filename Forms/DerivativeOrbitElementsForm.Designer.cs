@@ -67,7 +67,7 @@ namespace Planetoid_DB
 			labelFocalParameterData = new KryptonLabel();
 			labelSemiLatusRectumData = new KryptonLabel();
 			labelLatusRectumData = new KryptonLabel();
-			labelPeriodData = new KryptonLabel();
+			labelOrbitalPeriodData = new KryptonLabel();
 			labelOrbitalAreaDesc = new KryptonLabel();
 			labelOrbitalPerimeterDesc = new KryptonLabel();
 			labelSemiMeanAxisDesc = new KryptonLabel();
@@ -82,14 +82,38 @@ namespace Planetoid_DB
 			statusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
 			tableLayoutPanel = new KryptonTableLayoutPanel();
+			toolStripIcons = new ToolStrip();
+			splitbuttonCopyToClipboard = new ToolStripSplitButton();
+			contextMenuFullCopyToClipboardDerivatedOrbitalElements = new ContextMenuStrip(components);
+			menuitemCopyToClipboardLinearEccentricity = new ToolStripMenuItem();
+			menuitemCopyToClipboardSemiMinorAxis = new ToolStripMenuItem();
+			menuitemCopyToClipboardMajorAxis = new ToolStripMenuItem();
+			menuitemCopyToClipboardMinorAxis = new ToolStripMenuItem();
+			menuitemCopyToClipboardEccentricAnomaly = new ToolStripMenuItem();
+			menuitemCopyToClipboardTrueAnomaly = new ToolStripMenuItem();
+			menuitemCopyToClipboardPerihelionDistance = new ToolStripMenuItem();
+			menuitemCopyToClipboardAphelionDistance = new ToolStripMenuItem();
+			menuitemCopyToClipboardLongitudeDescendingNode = new ToolStripMenuItem();
+			menuitemCopyToClipboardArgumentAphelion = new ToolStripMenuItem();
+			menuitemCopyToClipboardFocalParameter = new ToolStripMenuItem();
+			menuitemCopyToClipboardSemiLatusRectum = new ToolStripMenuItem();
+			menuitemCopyToClipboardLatusRectum = new ToolStripMenuItem();
+			menuitemCopyToClipboardOrbitalPeriod = new ToolStripMenuItem();
+			menuitemCopyToClipboardOrbitalArea = new ToolStripMenuItem();
+			menuitemCopyToClipboardSemiMeanAxis = new ToolStripMenuItem();
+			menuitemCopyToClipboardMeanAxis = new ToolStripMenuItem();
+			menuitemCopyToClipboardStandardGravitationalParameter = new ToolStripMenuItem();
 			kryptonManager = new KryptonManager(components);
 			contextMenuOpenTerminology.SuspendLayout();
 			contextMenuCopyToClipboard.SuspendLayout();
 			toolStripContainer.BottomToolStripPanel.SuspendLayout();
 			toolStripContainer.ContentPanel.SuspendLayout();
+			toolStripContainer.TopToolStripPanel.SuspendLayout();
 			toolStripContainer.SuspendLayout();
 			statusStrip.SuspendLayout();
 			tableLayoutPanel.SuspendLayout();
+			toolStripIcons.SuspendLayout();
+			contextMenuFullCopyToClipboardDerivatedOrbitalElements.SuspendLayout();
 			SuspendLayout();
 			// 
 			// labelLinearEccentricityDesc
@@ -178,7 +202,7 @@ namespace Planetoid_DB
 			contextMenuCopyToClipboard.Font = new Font("Segoe UI", 9F);
 			contextMenuCopyToClipboard.Items.AddRange(new ToolStripItem[] { ToolStripMenuItemCpyToClipboard });
 			contextMenuCopyToClipboard.Name = "contextMenuStrip";
-			contextMenuCopyToClipboard.Size = new Size(214, 48);
+			contextMenuCopyToClipboard.Size = new Size(214, 26);
 			contextMenuCopyToClipboard.TabStop = true;
 			contextMenuCopyToClipboard.Text = "ContextMenu";
 			toolTip.SetToolTip(contextMenuCopyToClipboard, "Context menu for copying to clipboard");
@@ -347,8 +371,8 @@ namespace Planetoid_DB
 			// 
 			// LabelAphelionDistanceDesc
 			// 
-			LabelAphelionDistanceDesc.AccessibleDescription = "Aphelion distance";
-			LabelAphelionDistanceDesc.AccessibleName = "Aphelion distance";
+			LabelAphelionDistanceDesc.AccessibleDescription = "Aphelion distance (AU)";
+			LabelAphelionDistanceDesc.AccessibleName = "Aphelion distance (AU)";
 			LabelAphelionDistanceDesc.AccessibleRole = AccessibleRole.StaticText;
 			LabelAphelionDistanceDesc.ContextMenuStrip = contextMenuOpenTerminology;
 			LabelAphelionDistanceDesc.Dock = DockStyle.Fill;
@@ -419,8 +443,8 @@ namespace Planetoid_DB
 			// 
 			// labelFocalParameterDesc
 			// 
-			labelFocalParameterDesc.AccessibleDescription = "Focal parameter";
-			labelFocalParameterDesc.AccessibleName = "Focal parameter";
+			labelFocalParameterDesc.AccessibleDescription = "Focal parameter (AU)";
+			labelFocalParameterDesc.AccessibleName = "Focal parameter (AU)";
 			labelFocalParameterDesc.AccessibleRole = AccessibleRole.StaticText;
 			labelFocalParameterDesc.ContextMenuStrip = contextMenuOpenTerminology;
 			labelFocalParameterDesc.Dock = DockStyle.Fill;
@@ -431,7 +455,7 @@ namespace Planetoid_DB
 			labelFocalParameterDesc.Size = new Size(268, 20);
 			labelFocalParameterDesc.TabIndex = 20;
 			labelFocalParameterDesc.Tag = "30";
-			toolTip.SetToolTip(labelFocalParameterDesc, "Focal parameter");
+			toolTip.SetToolTip(labelFocalParameterDesc, "Focal parameter (AU)");
 			labelFocalParameterDesc.Values.ExtraText = "AU";
 			labelFocalParameterDesc.Values.Text = "Focal parameter";
 			labelFocalParameterDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -765,26 +789,26 @@ namespace Planetoid_DB
 			labelLatusRectumData.MouseEnter += SetStatusBar_Enter;
 			labelLatusRectumData.MouseLeave += ClearStatusBar_Leave;
 			// 
-			// labelPeriodData
+			// labelOrbitalPeriodData
 			// 
-			labelPeriodData.AccessibleDescription = "Shows the information of \"Period\"";
-			labelPeriodData.AccessibleName = "Shows the information of \"Period\"";
-			labelPeriodData.AccessibleRole = AccessibleRole.StaticText;
-			labelPeriodData.ContextMenuStrip = contextMenuCopyToClipboard;
-			labelPeriodData.Dock = DockStyle.Fill;
-			labelPeriodData.Location = new Point(280, 341);
-			labelPeriodData.Margin = new Padding(4, 3, 4, 3);
-			labelPeriodData.Name = "labelPeriodData";
-			labelPeriodData.Size = new Size(270, 20);
-			labelPeriodData.TabIndex = 27;
-			toolTip.SetToolTip(labelPeriodData, "Shows the information of \"Period\"");
-			labelPeriodData.Values.Text = "..................";
-			labelPeriodData.DoubleClick += CopyToClipboard_DoubleClick;
-			labelPeriodData.Enter += SetStatusBar_Enter;
-			labelPeriodData.Leave += ClearStatusBar_Leave;
-			labelPeriodData.MouseDown += Control_MouseDown;
-			labelPeriodData.MouseEnter += SetStatusBar_Enter;
-			labelPeriodData.MouseLeave += ClearStatusBar_Leave;
+			labelOrbitalPeriodData.AccessibleDescription = "Shows the information of \"Period\"";
+			labelOrbitalPeriodData.AccessibleName = "Shows the information of \"Period\"";
+			labelOrbitalPeriodData.AccessibleRole = AccessibleRole.StaticText;
+			labelOrbitalPeriodData.ContextMenuStrip = contextMenuCopyToClipboard;
+			labelOrbitalPeriodData.Dock = DockStyle.Fill;
+			labelOrbitalPeriodData.Location = new Point(280, 341);
+			labelOrbitalPeriodData.Margin = new Padding(4, 3, 4, 3);
+			labelOrbitalPeriodData.Name = "labelOrbitalPeriodData";
+			labelOrbitalPeriodData.Size = new Size(270, 20);
+			labelOrbitalPeriodData.TabIndex = 27;
+			toolTip.SetToolTip(labelOrbitalPeriodData, "Shows the information of \"Period\"");
+			labelOrbitalPeriodData.Values.Text = "..................";
+			labelOrbitalPeriodData.DoubleClick += CopyToClipboard_DoubleClick;
+			labelOrbitalPeriodData.Enter += SetStatusBar_Enter;
+			labelOrbitalPeriodData.Leave += ClearStatusBar_Leave;
+			labelOrbitalPeriodData.MouseDown += Control_MouseDown;
+			labelOrbitalPeriodData.MouseEnter += SetStatusBar_Enter;
+			labelOrbitalPeriodData.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// labelOrbitalAreaDesc
 			// 
@@ -1030,11 +1054,14 @@ namespace Planetoid_DB
 			toolStripContainer.Location = new Point(0, 0);
 			toolStripContainer.Margin = new Padding(4, 3, 4, 3);
 			toolStripContainer.Name = "toolStripContainer";
-			toolStripContainer.Size = new Size(554, 517);
+			toolStripContainer.Size = new Size(554, 542);
 			toolStripContainer.TabIndex = 3;
 			toolStripContainer.Text = "toolStripContainer";
 			toolTip.SetToolTip(toolStripContainer, "Container to arrange the toolbars");
-			toolStripContainer.TopToolStripPanelVisible = false;
+			// 
+			// toolStripContainer.TopToolStripPanel
+			// 
+			toolStripContainer.TopToolStripPanel.Controls.Add(toolStripIcons);
 			// 
 			// statusStrip
 			// 
@@ -1102,7 +1129,7 @@ namespace Planetoid_DB
 			tableLayoutPanel.Controls.Add(labelFocalParameterData, 1, 10);
 			tableLayoutPanel.Controls.Add(labelSemiLatusRectumData, 1, 11);
 			tableLayoutPanel.Controls.Add(labelLatusRectumData, 1, 12);
-			tableLayoutPanel.Controls.Add(labelPeriodData, 1, 13);
+			tableLayoutPanel.Controls.Add(labelOrbitalPeriodData, 1, 13);
 			tableLayoutPanel.Controls.Add(labelOrbitalAreaDesc, 0, 14);
 			tableLayoutPanel.Controls.Add(labelOrbitalPerimeterDesc, 0, 15);
 			tableLayoutPanel.Controls.Add(labelSemiMeanAxisDesc, 0, 16);
@@ -1143,6 +1170,310 @@ namespace Planetoid_DB
 			tableLayoutPanel.TabIndex = 0;
 			tableLayoutPanel.TabStop = true;
 			// 
+			// toolStripIcons
+			// 
+			toolStripIcons.AccessibleDescription = "Toolbar of copying, printing and exporting";
+			toolStripIcons.AccessibleName = "Toolbar of copying, printing and exporting";
+			toolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
+			toolStripIcons.BackColor = Color.Transparent;
+			toolStripIcons.Dock = DockStyle.None;
+			toolStripIcons.Font = new Font("Segoe UI", 9F);
+			toolStripIcons.Items.AddRange(new ToolStripItem[] { splitbuttonCopyToClipboard });
+			toolStripIcons.Location = new Point(0, 0);
+			toolStripIcons.Name = "toolStripIcons";
+			toolStripIcons.Size = new Size(554, 25);
+			toolStripIcons.Stretch = true;
+			toolStripIcons.TabIndex = 0;
+			toolStripIcons.TabStop = true;
+			toolStripIcons.Text = "Toolbar of copying, printing and exporting";
+			toolStripIcons.Enter += SetStatusBar_Enter;
+			toolStripIcons.Leave += ClearStatusBar_Leave;
+			toolStripIcons.MouseEnter += SetStatusBar_Enter;
+			toolStripIcons.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// splitbuttonCopyToClipboard
+			// 
+			splitbuttonCopyToClipboard.AccessibleDescription = "Copys to clipboard";
+			splitbuttonCopyToClipboard.AccessibleName = "Copy to clipboard";
+			splitbuttonCopyToClipboard.AccessibleRole = AccessibleRole.SplitButton;
+			splitbuttonCopyToClipboard.BackColor = Color.Transparent;
+			splitbuttonCopyToClipboard.DisplayStyle = ToolStripItemDisplayStyle.Image;
+			splitbuttonCopyToClipboard.DropDown = contextMenuFullCopyToClipboardDerivatedOrbitalElements;
+			splitbuttonCopyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
+			splitbuttonCopyToClipboard.ImageTransparentColor = Color.Magenta;
+			splitbuttonCopyToClipboard.Name = "splitbuttonCopyToClipboard";
+			splitbuttonCopyToClipboard.Size = new Size(32, 22);
+			splitbuttonCopyToClipboard.Text = "Copy to clipboard";
+			splitbuttonCopyToClipboard.ButtonClick += ToolStripButtonCopyToClipboard_Click;
+			splitbuttonCopyToClipboard.MouseEnter += SetStatusBar_Enter;
+			splitbuttonCopyToClipboard.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// contextMenuFullCopyToClipboardDerivatedOrbitalElements
+			// 
+			contextMenuFullCopyToClipboardDerivatedOrbitalElements.AccessibleDescription = "Shows the context menu of the derivated orbital elements to copy to clipboard";
+			contextMenuFullCopyToClipboardDerivatedOrbitalElements.AccessibleName = "context menu of the derivated orbital elements to copy to clipboard";
+			contextMenuFullCopyToClipboardDerivatedOrbitalElements.AccessibleRole = AccessibleRole.MenuPopup;
+			contextMenuFullCopyToClipboardDerivatedOrbitalElements.Font = new Font("Segoe UI", 9F);
+			contextMenuFullCopyToClipboardDerivatedOrbitalElements.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardLinearEccentricity, menuitemCopyToClipboardSemiMinorAxis, menuitemCopyToClipboardMajorAxis, menuitemCopyToClipboardMinorAxis, menuitemCopyToClipboardEccentricAnomaly, menuitemCopyToClipboardTrueAnomaly, menuitemCopyToClipboardPerihelionDistance, menuitemCopyToClipboardAphelionDistance, menuitemCopyToClipboardLongitudeDescendingNode, menuitemCopyToClipboardArgumentAphelion, menuitemCopyToClipboardFocalParameter, menuitemCopyToClipboardSemiLatusRectum, menuitemCopyToClipboardLatusRectum, menuitemCopyToClipboardOrbitalPeriod, menuitemCopyToClipboardOrbitalArea, menuitemCopyToClipboardSemiMeanAxis, menuitemCopyToClipboardMeanAxis, menuitemCopyToClipboardStandardGravitationalParameter });
+			contextMenuFullCopyToClipboardDerivatedOrbitalElements.Name = resources.GetString("contextMenuFullCopyToClipboardDerivatedOrbitalElements.Name");
+			contextMenuFullCopyToClipboardDerivatedOrbitalElements.Size = new Size(257, 400);
+			contextMenuFullCopyToClipboardDerivatedOrbitalElements.Text = "Copy to clipboard";
+			toolTip.SetToolTip(contextMenuFullCopyToClipboardDerivatedOrbitalElements, "Copy to clipboard");
+			contextMenuFullCopyToClipboardDerivatedOrbitalElements.MouseEnter += SetStatusBar_Enter;
+			contextMenuFullCopyToClipboardDerivatedOrbitalElements.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// menuitemCopyToClipboardLinearEccentricity
+			// 
+			menuitemCopyToClipboardLinearEccentricity.AccessibleDescription = "Copy to clipboard: Linear eccentricity";
+			menuitemCopyToClipboardLinearEccentricity.AccessibleName = "Copy to clipboard: Linear eccentricity";
+			menuitemCopyToClipboardLinearEccentricity.AccessibleRole = AccessibleRole.MenuItem;
+			menuitemCopyToClipboardLinearEccentricity.AutoToolTip = true;
+			menuitemCopyToClipboardLinearEccentricity.Image = (Image)resources.GetObject("menuitemCopyToClipboardLinearEccentricity.Image");
+			menuitemCopyToClipboardLinearEccentricity.Name = "menuitemCopyToClipboardLinearEccentricity";
+			menuitemCopyToClipboardLinearEccentricity.Size = new Size(256, 22);
+			menuitemCopyToClipboardLinearEccentricity.Text = "Linear eccentricity";
+			menuitemCopyToClipboardLinearEccentricity.Click += MenuitemCopyToClipboardLinearEccentricity_Click;
+			menuitemCopyToClipboardLinearEccentricity.MouseEnter += SetStatusBar_Enter;
+			menuitemCopyToClipboardLinearEccentricity.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// menuitemCopyToClipboardSemiMinorAxis
+			// 
+			menuitemCopyToClipboardSemiMinorAxis.AccessibleDescription = "Copy to clipboard: Semi minor axis";
+			menuitemCopyToClipboardSemiMinorAxis.AccessibleName = "Copy to clipboard: Semi minor axis";
+			menuitemCopyToClipboardSemiMinorAxis.AccessibleRole = AccessibleRole.MenuItem;
+			menuitemCopyToClipboardSemiMinorAxis.AutoToolTip = true;
+			menuitemCopyToClipboardSemiMinorAxis.Image = (Image)resources.GetObject("menuitemCopyToClipboardSemiMinorAxis.Image");
+			menuitemCopyToClipboardSemiMinorAxis.Name = "menuitemCopyToClipboardSemiMinorAxis";
+			menuitemCopyToClipboardSemiMinorAxis.Size = new Size(256, 22);
+			menuitemCopyToClipboardSemiMinorAxis.Text = "Semi minor axis";
+			menuitemCopyToClipboardSemiMinorAxis.Click += MenuitemCopyToClipboardSemiMinorAxis_Click;
+			menuitemCopyToClipboardSemiMinorAxis.MouseEnter += SetStatusBar_Enter;
+			menuitemCopyToClipboardSemiMinorAxis.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// menuitemCopyToClipboardMajorAxis
+			// 
+			menuitemCopyToClipboardMajorAxis.AccessibleDescription = "Copy to clipboard: Major axis";
+			menuitemCopyToClipboardMajorAxis.AccessibleName = "Copy to clipboard: Major axis";
+			menuitemCopyToClipboardMajorAxis.AccessibleRole = AccessibleRole.MenuItem;
+			menuitemCopyToClipboardMajorAxis.AutoToolTip = true;
+			menuitemCopyToClipboardMajorAxis.Image = (Image)resources.GetObject("menuitemCopyToClipboardMajorAxis.Image");
+			menuitemCopyToClipboardMajorAxis.Name = "menuitemCopyToClipboardMajorAxis";
+			menuitemCopyToClipboardMajorAxis.Size = new Size(256, 22);
+			menuitemCopyToClipboardMajorAxis.Text = "Major axis";
+			menuitemCopyToClipboardMajorAxis.Click += MenuitemCopyToClipboardMajorAxis_Click;
+			menuitemCopyToClipboardMajorAxis.MouseEnter += SetStatusBar_Enter;
+			menuitemCopyToClipboardMajorAxis.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// menuitemCopyToClipboardMinorAxis
+			// 
+			menuitemCopyToClipboardMinorAxis.AccessibleDescription = "Copy to clipboard: Minor axis";
+			menuitemCopyToClipboardMinorAxis.AccessibleName = "Copy to clipboard: Minor axis";
+			menuitemCopyToClipboardMinorAxis.AccessibleRole = AccessibleRole.MenuItem;
+			menuitemCopyToClipboardMinorAxis.AutoToolTip = true;
+			menuitemCopyToClipboardMinorAxis.Image = (Image)resources.GetObject("menuitemCopyToClipboardMinorAxis.Image");
+			menuitemCopyToClipboardMinorAxis.Name = "menuitemCopyToClipboardMinorAxis";
+			menuitemCopyToClipboardMinorAxis.Size = new Size(256, 22);
+			menuitemCopyToClipboardMinorAxis.Text = "Minor axis";
+			menuitemCopyToClipboardMinorAxis.Click += MenuitemCopyToClipboardMinorAxis_Click;
+			menuitemCopyToClipboardMinorAxis.MouseEnter += SetStatusBar_Enter;
+			menuitemCopyToClipboardMinorAxis.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// menuitemCopyToClipboardEccentricAnomaly
+			// 
+			menuitemCopyToClipboardEccentricAnomaly.AccessibleDescription = "Copy to clipboard: Eccentric anomaly";
+			menuitemCopyToClipboardEccentricAnomaly.AccessibleName = "Copy to clipboard: Eccentric anomaly";
+			menuitemCopyToClipboardEccentricAnomaly.AccessibleRole = AccessibleRole.MenuItem;
+			menuitemCopyToClipboardEccentricAnomaly.AutoToolTip = true;
+			menuitemCopyToClipboardEccentricAnomaly.Image = (Image)resources.GetObject("menuitemCopyToClipboardEccentricAnomaly.Image");
+			menuitemCopyToClipboardEccentricAnomaly.Name = "menuitemCopyToClipboardEccentricAnomaly";
+			menuitemCopyToClipboardEccentricAnomaly.Size = new Size(256, 22);
+			menuitemCopyToClipboardEccentricAnomaly.Text = "Eccentric anomaly";
+			menuitemCopyToClipboardEccentricAnomaly.Click += MenuitemCopyToClipboardEccentricAnomaly_Click;
+			menuitemCopyToClipboardEccentricAnomaly.MouseEnter += SetStatusBar_Enter;
+			menuitemCopyToClipboardEccentricAnomaly.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// menuitemCopyToClipboardTrueAnomaly
+			// 
+			menuitemCopyToClipboardTrueAnomaly.AccessibleDescription = "Copy to clipboard: True anomaly";
+			menuitemCopyToClipboardTrueAnomaly.AccessibleName = "Copy to clipboard: True anomaly";
+			menuitemCopyToClipboardTrueAnomaly.AccessibleRole = AccessibleRole.MenuItem;
+			menuitemCopyToClipboardTrueAnomaly.AutoToolTip = true;
+			menuitemCopyToClipboardTrueAnomaly.Image = (Image)resources.GetObject("menuitemCopyToClipboardTrueAnomaly.Image");
+			menuitemCopyToClipboardTrueAnomaly.Name = "menuitemCopyToClipboardTrueAnomaly";
+			menuitemCopyToClipboardTrueAnomaly.Size = new Size(256, 22);
+			menuitemCopyToClipboardTrueAnomaly.Text = "True anomaly";
+			menuitemCopyToClipboardTrueAnomaly.Click += MenuitemCopyToClipboardTrueAnomaly_Click;
+			menuitemCopyToClipboardTrueAnomaly.MouseEnter += SetStatusBar_Enter;
+			menuitemCopyToClipboardTrueAnomaly.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// menuitemCopyToClipboardPerihelionDistance
+			// 
+			menuitemCopyToClipboardPerihelionDistance.AccessibleDescription = "Copy to clipboard: Perihelion distance";
+			menuitemCopyToClipboardPerihelionDistance.AccessibleName = "Copy to clipboard: Perihelion distance";
+			menuitemCopyToClipboardPerihelionDistance.AccessibleRole = AccessibleRole.MenuItem;
+			menuitemCopyToClipboardPerihelionDistance.AutoToolTip = true;
+			menuitemCopyToClipboardPerihelionDistance.Image = (Image)resources.GetObject("menuitemCopyToClipboardPerihelionDistance.Image");
+			menuitemCopyToClipboardPerihelionDistance.Name = "menuitemCopyToClipboardPerihelionDistance";
+			menuitemCopyToClipboardPerihelionDistance.Size = new Size(256, 22);
+			menuitemCopyToClipboardPerihelionDistance.Text = "Perihelion distance";
+			menuitemCopyToClipboardPerihelionDistance.Click += MenuitemCopyToClipboardPerihelionDistance_Click;
+			menuitemCopyToClipboardPerihelionDistance.MouseEnter += SetStatusBar_Enter;
+			menuitemCopyToClipboardPerihelionDistance.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// menuitemCopyToClipboardAphelionDistance
+			// 
+			menuitemCopyToClipboardAphelionDistance.AccessibleDescription = "Copy to clipboard: Aphelion distance";
+			menuitemCopyToClipboardAphelionDistance.AccessibleName = "Copy to clipboard: Aphelion distance";
+			menuitemCopyToClipboardAphelionDistance.AccessibleRole = AccessibleRole.MenuItem;
+			menuitemCopyToClipboardAphelionDistance.AutoToolTip = true;
+			menuitemCopyToClipboardAphelionDistance.Image = (Image)resources.GetObject("menuitemCopyToClipboardAphelionDistance.Image");
+			menuitemCopyToClipboardAphelionDistance.Name = "menuitemCopyToClipboardAphelionDistance";
+			menuitemCopyToClipboardAphelionDistance.Size = new Size(256, 22);
+			menuitemCopyToClipboardAphelionDistance.Text = "Aphelion distance";
+			menuitemCopyToClipboardAphelionDistance.Click += MenuitemCopyToClipboardAphelionDistance_Click;
+			menuitemCopyToClipboardAphelionDistance.MouseEnter += SetStatusBar_Enter;
+			menuitemCopyToClipboardAphelionDistance.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// menuitemCopyToClipboardLongitudeDescendingNode
+			// 
+			menuitemCopyToClipboardLongitudeDescendingNode.AccessibleDescription = "Copy to clipboard: Longitude of the descending node";
+			menuitemCopyToClipboardLongitudeDescendingNode.AccessibleName = "Copy to clipboard: Longitude of the descending node";
+			menuitemCopyToClipboardLongitudeDescendingNode.AccessibleRole = AccessibleRole.MenuItem;
+			menuitemCopyToClipboardLongitudeDescendingNode.AutoToolTip = true;
+			menuitemCopyToClipboardLongitudeDescendingNode.Image = (Image)resources.GetObject("menuitemCopyToClipboardLongitudeDescendingNode.Image");
+			menuitemCopyToClipboardLongitudeDescendingNode.Name = "menuitemCopyToClipboardLongitudeDescendingNode";
+			menuitemCopyToClipboardLongitudeDescendingNode.Size = new Size(256, 22);
+			menuitemCopyToClipboardLongitudeDescendingNode.Text = "Longitude of the descending node";
+			menuitemCopyToClipboardLongitudeDescendingNode.Click += MenuitemCopyToClipboardLongitudeDescendingNode_Click;
+			menuitemCopyToClipboardLongitudeDescendingNode.MouseEnter += SetStatusBar_Enter;
+			menuitemCopyToClipboardLongitudeDescendingNode.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// menuitemCopyToClipboardArgumentAphelion
+			// 
+			menuitemCopyToClipboardArgumentAphelion.AccessibleDescription = "Copy to clipboard: Argument of aphelion";
+			menuitemCopyToClipboardArgumentAphelion.AccessibleName = "Copy to clipboard: Argument of aphelion";
+			menuitemCopyToClipboardArgumentAphelion.AccessibleRole = AccessibleRole.MenuItem;
+			menuitemCopyToClipboardArgumentAphelion.AutoToolTip = true;
+			menuitemCopyToClipboardArgumentAphelion.Image = (Image)resources.GetObject("menuitemCopyToClipboardArgumentAphelion.Image");
+			menuitemCopyToClipboardArgumentAphelion.Name = "menuitemCopyToClipboardArgumentAphelion";
+			menuitemCopyToClipboardArgumentAphelion.Size = new Size(256, 22);
+			menuitemCopyToClipboardArgumentAphelion.Text = "Argument of aphelion";
+			menuitemCopyToClipboardArgumentAphelion.Click += MenuitemCopyToClipboardArgumentAphelion_Click;
+			menuitemCopyToClipboardArgumentAphelion.MouseEnter += SetStatusBar_Enter;
+			menuitemCopyToClipboardArgumentAphelion.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// menuitemCopyToClipboardFocalParameter
+			// 
+			menuitemCopyToClipboardFocalParameter.AccessibleDescription = "Copy to clipboard: Focal parameter";
+			menuitemCopyToClipboardFocalParameter.AccessibleName = "Copy to clipboard: Focal parameter";
+			menuitemCopyToClipboardFocalParameter.AccessibleRole = AccessibleRole.MenuItem;
+			menuitemCopyToClipboardFocalParameter.AutoToolTip = true;
+			menuitemCopyToClipboardFocalParameter.Image = (Image)resources.GetObject("menuitemCopyToClipboardFocalParameter.Image");
+			menuitemCopyToClipboardFocalParameter.Name = "menuitemCopyToClipboardFocalParameter";
+			menuitemCopyToClipboardFocalParameter.Size = new Size(256, 22);
+			menuitemCopyToClipboardFocalParameter.Text = "Focal parameter";
+			menuitemCopyToClipboardFocalParameter.Click += MenuitemCopyToClipboardFocalParameter_Click;
+			menuitemCopyToClipboardFocalParameter.MouseEnter += SetStatusBar_Enter;
+			menuitemCopyToClipboardFocalParameter.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// menuitemCopyToClipboardSemiLatusRectum
+			// 
+			menuitemCopyToClipboardSemiLatusRectum.AccessibleDescription = "Copy to clipboard: Semi-latus rectum";
+			menuitemCopyToClipboardSemiLatusRectum.AccessibleName = "Copy to clipboard: Semi-latus rectum";
+			menuitemCopyToClipboardSemiLatusRectum.AccessibleRole = AccessibleRole.MenuItem;
+			menuitemCopyToClipboardSemiLatusRectum.AutoToolTip = true;
+			menuitemCopyToClipboardSemiLatusRectum.Image = (Image)resources.GetObject("menuitemCopyToClipboardSemiLatusRectum.Image");
+			menuitemCopyToClipboardSemiLatusRectum.Name = "menuitemCopyToClipboardSemiLatusRectum";
+			menuitemCopyToClipboardSemiLatusRectum.Size = new Size(256, 22);
+			menuitemCopyToClipboardSemiLatusRectum.Text = "Semi-latus rectum";
+			menuitemCopyToClipboardSemiLatusRectum.Click += MenuitemCopyToClipboardSemiLatusRectum_Click;
+			menuitemCopyToClipboardSemiLatusRectum.MouseEnter += SetStatusBar_Enter;
+			menuitemCopyToClipboardSemiLatusRectum.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// menuitemCopyToClipboardLatusRectum
+			// 
+			menuitemCopyToClipboardLatusRectum.AccessibleDescription = "Copy to clipboard: Latus rectum";
+			menuitemCopyToClipboardLatusRectum.AccessibleName = "Copy to clipboard: Latus rectum";
+			menuitemCopyToClipboardLatusRectum.AccessibleRole = AccessibleRole.MenuItem;
+			menuitemCopyToClipboardLatusRectum.AutoToolTip = true;
+			menuitemCopyToClipboardLatusRectum.Image = (Image)resources.GetObject("menuitemCopyToClipboardLatusRectum.Image");
+			menuitemCopyToClipboardLatusRectum.Name = "menuitemCopyToClipboardLatusRectum";
+			menuitemCopyToClipboardLatusRectum.Size = new Size(256, 22);
+			menuitemCopyToClipboardLatusRectum.Text = "Latus rectum";
+			menuitemCopyToClipboardLatusRectum.Click += MenuitemCopyToClipboardLatusRectum_Click;
+			menuitemCopyToClipboardLatusRectum.MouseEnter += SetStatusBar_Enter;
+			menuitemCopyToClipboardLatusRectum.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// menuitemCopyToClipboardOrbitalPeriod
+			// 
+			menuitemCopyToClipboardOrbitalPeriod.AccessibleDescription = "Copy to clipboard: Orbital period";
+			menuitemCopyToClipboardOrbitalPeriod.AccessibleName = "Copy to clipboard: Orbital period";
+			menuitemCopyToClipboardOrbitalPeriod.AccessibleRole = AccessibleRole.MenuItem;
+			menuitemCopyToClipboardOrbitalPeriod.AutoToolTip = true;
+			menuitemCopyToClipboardOrbitalPeriod.Image = (Image)resources.GetObject("menuitemCopyToClipboardOrbitalPeriod.Image");
+			menuitemCopyToClipboardOrbitalPeriod.Name = "menuitemCopyToClipboardOrbitalPeriod";
+			menuitemCopyToClipboardOrbitalPeriod.Size = new Size(256, 22);
+			menuitemCopyToClipboardOrbitalPeriod.Text = "Orbital period";
+			menuitemCopyToClipboardOrbitalPeriod.Click += MenuitemCopyToClipboardOrbitalPeriod_Click;
+			menuitemCopyToClipboardOrbitalPeriod.MouseEnter += SetStatusBar_Enter;
+			menuitemCopyToClipboardOrbitalPeriod.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// menuitemCopyToClipboardOrbitalArea
+			// 
+			menuitemCopyToClipboardOrbitalArea.AccessibleDescription = "Copy to clipboard: Orbital area";
+			menuitemCopyToClipboardOrbitalArea.AccessibleName = "Copy to clipboard: Orbital area";
+			menuitemCopyToClipboardOrbitalArea.AccessibleRole = AccessibleRole.MenuItem;
+			menuitemCopyToClipboardOrbitalArea.AutoToolTip = true;
+			menuitemCopyToClipboardOrbitalArea.Image = (Image)resources.GetObject("menuitemCopyToClipboardOrbitalArea.Image");
+			menuitemCopyToClipboardOrbitalArea.Name = "menuitemCopyToClipboardOrbitalArea";
+			menuitemCopyToClipboardOrbitalArea.Size = new Size(256, 22);
+			menuitemCopyToClipboardOrbitalArea.Text = "Orbital area";
+			menuitemCopyToClipboardOrbitalArea.Click += MenuitemCopyToClipboardOrbitalArea_Click;
+			menuitemCopyToClipboardOrbitalArea.MouseEnter += SetStatusBar_Enter;
+			menuitemCopyToClipboardOrbitalArea.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// menuitemCopyToClipboardSemiMeanAxis
+			// 
+			menuitemCopyToClipboardSemiMeanAxis.AccessibleDescription = "Copy to clipboard: Semi-mean axis";
+			menuitemCopyToClipboardSemiMeanAxis.AccessibleName = "Copy to clipboard: Semi-mean axis";
+			menuitemCopyToClipboardSemiMeanAxis.AccessibleRole = AccessibleRole.MenuItem;
+			menuitemCopyToClipboardSemiMeanAxis.AutoToolTip = true;
+			menuitemCopyToClipboardSemiMeanAxis.Image = (Image)resources.GetObject("menuitemCopyToClipboardSemiMeanAxis.Image");
+			menuitemCopyToClipboardSemiMeanAxis.Name = "menuitemCopyToClipboardSemiMeanAxis";
+			menuitemCopyToClipboardSemiMeanAxis.Size = new Size(256, 22);
+			menuitemCopyToClipboardSemiMeanAxis.Text = "Semi-mean axis";
+			menuitemCopyToClipboardSemiMeanAxis.Click += MenuitemCopyToClipboardSemiMeanAxis_Click;
+			menuitemCopyToClipboardSemiMeanAxis.MouseEnter += SetStatusBar_Enter;
+			menuitemCopyToClipboardSemiMeanAxis.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// menuitemCopyToClipboardMeanAxis
+			// 
+			menuitemCopyToClipboardMeanAxis.AccessibleDescription = "Copy to clipboard: Mean axis";
+			menuitemCopyToClipboardMeanAxis.AccessibleName = "Copy to clipboard: Mean axis";
+			menuitemCopyToClipboardMeanAxis.AccessibleRole = AccessibleRole.MenuItem;
+			menuitemCopyToClipboardMeanAxis.AutoToolTip = true;
+			menuitemCopyToClipboardMeanAxis.Image = (Image)resources.GetObject("menuitemCopyToClipboardMeanAxis.Image");
+			menuitemCopyToClipboardMeanAxis.Name = "menuitemCopyToClipboardMeanAxis";
+			menuitemCopyToClipboardMeanAxis.Size = new Size(256, 22);
+			menuitemCopyToClipboardMeanAxis.Text = "Mean axis";
+			menuitemCopyToClipboardMeanAxis.Click += MenuitemCopyToClipboardMeanAxis_Click;
+			menuitemCopyToClipboardMeanAxis.MouseEnter += SetStatusBar_Enter;
+			menuitemCopyToClipboardMeanAxis.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// menuitemCopyToClipboardStandardGravitationalParameter
+			// 
+			menuitemCopyToClipboardStandardGravitationalParameter.AccessibleDescription = "Copy to clipboard: Standard gravitational parameter";
+			menuitemCopyToClipboardStandardGravitationalParameter.AccessibleName = "Copy to clipboard: Standard gravitational parameter";
+			menuitemCopyToClipboardStandardGravitationalParameter.AccessibleRole = AccessibleRole.MenuItem;
+			menuitemCopyToClipboardStandardGravitationalParameter.AutoToolTip = true;
+			menuitemCopyToClipboardStandardGravitationalParameter.Image = (Image)resources.GetObject("menuitemCopyToClipboardStandardGravitationalParameter.Image");
+			menuitemCopyToClipboardStandardGravitationalParameter.Name = "menuitemCopyToClipboardStandardGravitationalParameter";
+			menuitemCopyToClipboardStandardGravitationalParameter.Size = new Size(256, 22);
+			menuitemCopyToClipboardStandardGravitationalParameter.Text = "Standard gravitational parameter";
+			menuitemCopyToClipboardStandardGravitationalParameter.Click += MenuitemCopyToClipboardStandardGravitationalParameter_Click;
+			menuitemCopyToClipboardStandardGravitationalParameter.MouseEnter += SetStatusBar_Enter;
+			menuitemCopyToClipboardStandardGravitationalParameter.MouseLeave += ClearStatusBar_Leave;
+			// 
 			// kryptonManager
 			// 
 			kryptonManager.GlobalPaletteMode = PaletteMode.Global;
@@ -1156,7 +1487,7 @@ namespace Planetoid_DB
 			AccessibleRole = AccessibleRole.Dialog;
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(554, 517);
+			ClientSize = new Size(554, 542);
 			ControlBox = false;
 			Controls.Add(toolStripContainer);
 			FormBorderStyle = FormBorderStyle.FixedToolWindow;
@@ -1176,12 +1507,17 @@ namespace Planetoid_DB
 			toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
 			toolStripContainer.BottomToolStripPanel.PerformLayout();
 			toolStripContainer.ContentPanel.ResumeLayout(false);
+			toolStripContainer.TopToolStripPanel.ResumeLayout(false);
+			toolStripContainer.TopToolStripPanel.PerformLayout();
 			toolStripContainer.ResumeLayout(false);
 			toolStripContainer.PerformLayout();
 			statusStrip.ResumeLayout(false);
 			statusStrip.PerformLayout();
 			tableLayoutPanel.ResumeLayout(false);
 			tableLayoutPanel.PerformLayout();
+			toolStripIcons.ResumeLayout(false);
+			toolStripIcons.PerformLayout();
+			contextMenuFullCopyToClipboardDerivatedOrbitalElements.ResumeLayout(false);
 			ResumeLayout(false);
 
 		}
@@ -1204,7 +1540,7 @@ namespace Planetoid_DB
 		private KryptonLabel labelOrbitalPeriodDesc;
 		private KryptonLabel labelMinorAxisDesc;
 		private KryptonLabel labelEccenctricAnomalyDesc;
-		private KryptonLabel labelPeriodData;
+		private KryptonLabel labelOrbitalPeriodData;
 		private KryptonLabel labelSemiMinorAxisData;
 		private KryptonLabel labelMajorAxisData;
 		private KryptonLabel labelMinorAxisData;
@@ -1235,5 +1571,26 @@ namespace Planetoid_DB
 		private ToolStripMenuItem ToolStripMenuItemCpyToClipboard;
 		private ContextMenuStrip contextMenuOpenTerminology;
 		private ToolStripMenuItem toolStripMenuItemOpenTerminology;
+		private ToolStrip toolStripIcons;
+		private ToolStripSplitButton splitbuttonCopyToClipboard;
+		private ContextMenuStrip contextMenuFullCopyToClipboardDerivatedOrbitalElements;
+		private ToolStripMenuItem menuitemCopyToClipboardLinearEccentricity;
+		private ToolStripMenuItem menuitemCopyToClipboardSemiMinorAxis;
+		private ToolStripMenuItem menuitemCopyToClipboardMajorAxis;
+		private ToolStripMenuItem menuitemCopyToClipboardMinorAxis;
+		private ToolStripMenuItem menuitemCopyToClipboardEccentricAnomaly;
+		private ToolStripMenuItem menuitemCopyToClipboardTrueAnomaly;
+		private ToolStripMenuItem menuitemCopyToClipboardPerihelionDistance;
+		private ToolStripMenuItem menuitemCopyToClipboardAphelionDistance;
+		private ToolStripMenuItem menuitemCopyToClipboardLongitudeDescendingNode;
+		private ToolStripMenuItem menuitemCopyToClipboardArgumentAphelion;
+		private ToolStripMenuItem menuitemCopyToClipboardFocalParameter;
+		private ToolStripMenuItem menuitemCopyToClipboardSemiLatusRectum;
+		private ToolStripMenuItem menuitemCopyToClipboardLatusRectum;
+		private ToolStripMenuItem menuitemCopyToClipboardOrbitalPeriod;
+		private ToolStripMenuItem menuitemCopyToClipboardOrbitalArea;
+		private ToolStripMenuItem menuitemCopyToClipboardSemiMeanAxis;
+		private ToolStripMenuItem menuitemCopyToClipboardMeanAxis;
+		private ToolStripMenuItem menuitemCopyToClipboardStandardGravitationalParameter;
 	}
 }

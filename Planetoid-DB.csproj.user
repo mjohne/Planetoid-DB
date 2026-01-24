@@ -19,6 +19,9 @@
     <Compile Update="Forms\CopyDataToClipboardForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\CopyDerivedDataToClipboardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\DatabaseDifferencesForm.cs">
       <SubType>Form</SubType>
     </Compile>
