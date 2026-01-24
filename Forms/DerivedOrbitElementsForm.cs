@@ -329,7 +329,7 @@ namespace Planetoid_DB
 				ShowErrorMessage(message: "Invalid data");
 				return;
 			}
-			// Set the text of the labels with the derived orbit elements
+			// Set the text of the labels with the orbit elements
 			labelLinearEccentricityData.Text = derivedOrbitElements[index: 0]?.ToString();
 			labelSemiMinorAxisData.Text = derivedOrbitElements[index: 1]?.ToString();
 			labelMajorAxisData.Text = derivedOrbitElements[index: 2]?.ToString();
