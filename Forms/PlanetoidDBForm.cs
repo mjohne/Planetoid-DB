@@ -1789,7 +1789,7 @@ namespace Planetoid_DB
 		/// </remarks>
 		private void ToolStripStatusLabelCancelBackgroundDownload_Click(object sender, EventArgs e)
 		{
-			// Download abbrechen
+			// Cancel download
 			toolStripStatusLabelBackgroundDownload.Enabled = false;
 			toolStripProgressBarBackgroundDownload.Enabled = false;
 			toolStripStatusLabelCancelBackgroundDownload.Enabled = false;

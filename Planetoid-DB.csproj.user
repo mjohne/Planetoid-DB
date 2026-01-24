@@ -28,7 +28,7 @@
     <Compile Update="Forms\DatabaseInformationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\DerivativeOrbitElementsForm.cs">
+    <Compile Update="Forms\DerivedOrbitElementsForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\DownloadMpcorbDatForm.cs">

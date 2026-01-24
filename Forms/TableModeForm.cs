@@ -315,7 +315,7 @@ namespace Planetoid_DB
 			string planetoid = planetoidsDatabase[index: currentPosition];
 			// Check if the planetoids is not null
 			// and the length is greater than 0
-			if (planetoid.Length <= 0)
+			if (string.IsNullOrEmpty(value: planetoid))
 			{
 				return;
 			}
