@@ -104,6 +104,7 @@ namespace Planetoid_DB
 			menuitemCopyToClipboardMeanAxis = new ToolStripMenuItem();
 			menuitemCopyToClipboardStandardGravitationalParameter = new ToolStripMenuItem();
 			kryptonManager = new KryptonManager(components);
+			toolStripButtonPrint = new ToolStripButton();
 			contextMenuOpenTerminology.SuspendLayout();
 			contextMenuCopyToClipboard.SuspendLayout();
 			toolStripContainer.BottomToolStripPanel.SuspendLayout();
@@ -1178,7 +1179,7 @@ namespace Planetoid_DB
 			toolStripIcons.BackColor = Color.Transparent;
 			toolStripIcons.Dock = DockStyle.None;
 			toolStripIcons.Font = new Font("Segoe UI", 9F);
-			toolStripIcons.Items.AddRange(new ToolStripItem[] { splitbuttonCopyToClipboard });
+			toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonPrint, splitbuttonCopyToClipboard });
 			toolStripIcons.Location = new Point(0, 0);
 			toolStripIcons.Name = "toolStripIcons";
 			toolStripIcons.Size = new Size(554, 25);
@@ -1216,6 +1217,7 @@ namespace Planetoid_DB
 			contextMenuFullCopyToClipboardDerivatedOrbitalElements.Font = new Font("Segoe UI", 9F);
 			contextMenuFullCopyToClipboardDerivatedOrbitalElements.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardLinearEccentricity, menuitemCopyToClipboardSemiMinorAxis, menuitemCopyToClipboardMajorAxis, menuitemCopyToClipboardMinorAxis, menuitemCopyToClipboardEccentricAnomaly, menuitemCopyToClipboardTrueAnomaly, menuitemCopyToClipboardPerihelionDistance, menuitemCopyToClipboardAphelionDistance, menuitemCopyToClipboardLongitudeDescendingNode, menuitemCopyToClipboardArgumentAphelion, menuitemCopyToClipboardFocalParameter, menuitemCopyToClipboardSemiLatusRectum, menuitemCopyToClipboardLatusRectum, menuitemCopyToClipboardOrbitalPeriod, menuitemCopyToClipboardOrbitalArea, menuitemCopyToClipboardSemiMeanAxis, menuitemCopyToClipboardMeanAxis, menuitemCopyToClipboardStandardGravitationalParameter });
 			contextMenuFullCopyToClipboardDerivatedOrbitalElements.Name = resources.GetString("contextMenuFullCopyToClipboardDerivatedOrbitalElements.Name");
+			contextMenuFullCopyToClipboardDerivatedOrbitalElements.OwnerItem = splitbuttonCopyToClipboard;
 			contextMenuFullCopyToClipboardDerivatedOrbitalElements.Size = new Size(257, 400);
 			contextMenuFullCopyToClipboardDerivatedOrbitalElements.Text = "Copy to clipboard";
 			toolTip.SetToolTip(contextMenuFullCopyToClipboardDerivatedOrbitalElements, "Copy to clipboard");
@@ -1480,7 +1482,22 @@ namespace Planetoid_DB
 			kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 			kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 			// 
-			// DerivativeOrbitElementsForm
+			// toolStripButtonPrint
+			// 
+			toolStripButtonPrint.AccessibleDescription = "Prints the information";
+			toolStripButtonPrint.AccessibleName = "Print";
+			toolStripButtonPrint.AccessibleRole = AccessibleRole.PushButton;
+			toolStripButtonPrint.DisplayStyle = ToolStripItemDisplayStyle.Image;
+			toolStripButtonPrint.Image = FatcowIcons16px.fatcow_printer_16px;
+			toolStripButtonPrint.ImageTransparentColor = Color.Magenta;
+			toolStripButtonPrint.Name = "toolStripButtonPrint";
+			toolStripButtonPrint.Size = new Size(23, 22);
+			toolStripButtonPrint.Text = "Print";
+			toolStripButtonPrint.Click += this.ToolStripButtonPrint_Click;
+			toolStripButtonPrint.MouseEnter += SetStatusBar_Enter;
+			toolStripButtonPrint.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// DerivedOrbitElementsForm
 			// 
 			AccessibleDescription = "Calculates some derivated orbit elements";
 			AccessibleName = "Derivated orbit elements";
@@ -1495,7 +1512,7 @@ namespace Planetoid_DB
 			Margin = new Padding(4, 3, 4, 3);
 			MaximizeBox = false;
 			MinimizeBox = false;
-			Name = "DerivativeOrbitElementsForm";
+			Name = "DerivedOrbitElementsForm";
 			ShowInTaskbar = false;
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Derived orbit elements";
@@ -1592,5 +1609,6 @@ namespace Planetoid_DB
 		private ToolStripMenuItem menuitemCopyToClipboardSemiMeanAxis;
 		private ToolStripMenuItem menuitemCopyToClipboardMeanAxis;
 		private ToolStripMenuItem menuitemCopyToClipboardStandardGravitationalParameter;
+		private ToolStripButton toolStripButtonPrint;
 	}
 }

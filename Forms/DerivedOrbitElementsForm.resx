@@ -135,23 +135,6 @@
   <metadata name="contextMenuFullCopyToClipboardDerivatedOrbitalElements.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>515, 19</value>
   </metadata>
-  <data name="contextMenuFullCopyToClipboardDerivatedOrbitalElements.Name" xml:space="preserve">
-    <value>contry
-        {
-            // Ask the user for a valid palette definition file
-            kryptonPalette1.Import();
-
-            // Set the krypton manager's GlobalPalette to kryptonPalette1
-            kryptonManager1.GlobalPalette = kryptonPalette1;
-
-            // Finally, set the krypton manager's GlobalPaletteMode to custom
-            kryptonManager1.GlobalPaletteMode = PaletteModeManager.Custom;
-        }
-        catch (Exception exc)
-        {
-            // TODO: Handle the exception
-        }textMenuCopyToClipboardOrbitalElements</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="menuitemCopyToClipboardLinearEccentricity.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -458,6 +441,23 @@
         QNmgVFdA2YCyMV0hHzc6GHFy7W55rwYmN9cHpgKHlim/brFzssUeJBsnJw9N+RuD9o3yyExY/AtgyKNq
         93PYBwAAAABJRU5ErkJggg==
 </value>
+  </data>
+  <data name="contextMenuFullCopyToClipboardDerivatedOrbitalElements.Name" xml:space="preserve">
+    <value>contry
+        {
+            // Ask the user for a valid palette definition file
+            kryptonPalette1.Import();
+
+            // Set the krypton manager's GlobalPalette to kryptonPalette1
+            kryptonManager1.GlobalPalette = kryptonPalette1;
+
+            // Finally, set the krypton manager's GlobalPaletteMode to custom
+            kryptonManager1.GlobalPaletteMode = PaletteModeManager.Custom;
+        }
+        catch (Exception exc)
+        {
+            // TODO: Handle the exception
+        }textMenuCopyToClipboardOrbitalElements</value>
   </data>
   <metadata name="kryptonManager.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>186, 19</value>
