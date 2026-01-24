@@ -2586,7 +2586,7 @@ namespace Planetoid_DB
 		private void ToolStripMenuItemCopyToClipboardFlags_Click(object sender, EventArgs e) => CopyToClipboard(text: labelFlagsData.Text);
 
 		/// <summary>
-		/// Handles the click event for the ToolStripSplitButtonExport.
+		/// Handles the click event for the ToolStripButtonExport.
 		/// Exports the data sheet.
 		/// </summary>
 		/// <param name="sender">The event source.</param>
@@ -2594,7 +2594,7 @@ namespace Planetoid_DB
 		/// <remarks>
 		/// This method is used to export the data sheet.
 		/// </remarks>
-		private void ToolStripSplitButtonExport_Click(object sender, EventArgs e) => ExportDataSheet();
+		private void ToolStripButtonExport_Click(object sender, EventArgs e) => ExportDataSheet();
 
 		/// <summary>
 		/// Handles the click event for the MenuitemTopTenRecords.
