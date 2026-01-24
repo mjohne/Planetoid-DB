@@ -83,6 +83,7 @@ namespace Planetoid_DB
 			labelInformation = new ToolStripStatusLabel();
 			tableLayoutPanel = new KryptonTableLayoutPanel();
 			toolStripIcons = new ToolStrip();
+			toolStripButtonPrint = new ToolStripButton();
 			splitbuttonCopyToClipboard = new ToolStripSplitButton();
 			contextMenuFullCopyToClipboardDerivatedOrbitalElements = new ContextMenuStrip(components);
 			menuitemCopyToClipboardLinearEccentricity = new ToolStripMenuItem();
@@ -104,7 +105,6 @@ namespace Planetoid_DB
 			menuitemCopyToClipboardMeanAxis = new ToolStripMenuItem();
 			menuitemCopyToClipboardStandardGravitationalParameter = new ToolStripMenuItem();
 			kryptonManager = new KryptonManager(components);
-			toolStripButtonPrint = new ToolStripButton();
 			contextMenuOpenTerminology.SuspendLayout();
 			contextMenuCopyToClipboard.SuspendLayout();
 			toolStripContainer.BottomToolStripPanel.SuspendLayout();
@@ -1192,6 +1192,21 @@ namespace Planetoid_DB
 			toolStripIcons.MouseEnter += SetStatusBar_Enter;
 			toolStripIcons.MouseLeave += ClearStatusBar_Leave;
 			// 
+			// toolStripButtonPrint
+			// 
+			toolStripButtonPrint.AccessibleDescription = "Prints the information";
+			toolStripButtonPrint.AccessibleName = "Print";
+			toolStripButtonPrint.AccessibleRole = AccessibleRole.PushButton;
+			toolStripButtonPrint.DisplayStyle = ToolStripItemDisplayStyle.Image;
+			toolStripButtonPrint.Image = FatcowIcons16px.fatcow_printer_16px;
+			toolStripButtonPrint.ImageTransparentColor = Color.Magenta;
+			toolStripButtonPrint.Name = "toolStripButtonPrint";
+			toolStripButtonPrint.Size = new Size(23, 22);
+			toolStripButtonPrint.Text = "Print";
+			toolStripButtonPrint.Click += ToolStripButtonPrint_Click;
+			toolStripButtonPrint.MouseEnter += SetStatusBar_Enter;
+			toolStripButtonPrint.MouseLeave += ClearStatusBar_Leave;
+			// 
 			// splitbuttonCopyToClipboard
 			// 
 			splitbuttonCopyToClipboard.AccessibleDescription = "Copys to clipboard";
@@ -1481,21 +1496,6 @@ namespace Planetoid_DB
 			kryptonManager.GlobalPaletteMode = PaletteMode.Global;
 			kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 			kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
-			// 
-			// toolStripButtonPrint
-			// 
-			toolStripButtonPrint.AccessibleDescription = "Prints the information";
-			toolStripButtonPrint.AccessibleName = "Print";
-			toolStripButtonPrint.AccessibleRole = AccessibleRole.PushButton;
-			toolStripButtonPrint.DisplayStyle = ToolStripItemDisplayStyle.Image;
-			toolStripButtonPrint.Image = FatcowIcons16px.fatcow_printer_16px;
-			toolStripButtonPrint.ImageTransparentColor = Color.Magenta;
-			toolStripButtonPrint.Name = "toolStripButtonPrint";
-			toolStripButtonPrint.Size = new Size(23, 22);
-			toolStripButtonPrint.Text = "Print";
-			toolStripButtonPrint.Click += this.ToolStripButtonPrint_Click;
-			toolStripButtonPrint.MouseEnter += SetStatusBar_Enter;
-			toolStripButtonPrint.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// DerivedOrbitElementsForm
 			// 
