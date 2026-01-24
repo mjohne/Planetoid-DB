@@ -52,9 +52,6 @@
     <Compile Update="Forms\PlanetoidDBForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\PlanetoidDBForm.DerivativeElements.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Forms\PreloadForm.cs">
       <SubType>Form</SubType>
     </Compile>
