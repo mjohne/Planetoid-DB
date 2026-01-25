@@ -5,164 +5,170 @@ using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
 
-namespace Planetoid_DB
+namespace Planetoid_DB;
+
+/// <summary>
+/// Represents the splash screen form of the application.
+/// </summary>
+/// <remarks>
+/// This form is displayed while the application is loading.
+/// </remarks>
+[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
+public partial class SplashScreenForm : BaseKryptonForm
 {
 	/// <summary>
-	/// Represents the splash screen form of the application.
+	/// Stores the currently selected control for clipboard operations.
 	/// </summary>
 	/// <remarks>
-	/// This form is displayed while the application is loading.
+	/// This field is used to keep track of the control that is currently selected for clipboard operations.
 	/// </remarks>
-	[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-	public partial class SplashScreenForm : BaseKryptonForm
+	private Control currentControl;
+
+	/// <summary>
+	/// NLog logger instance.
+	/// </summary>
+	/// <remarks>
+	/// This field is used to log messages for the splash screen form.
+	/// </remarks>
+	private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+	#region constructor
+
+	/// <summary>
+	/// Initializes a new instance of the <see cref="SplashScreenForm"/> class.
+	/// </summary>
+	/// <remarks>
+	/// This constructor initializes the form components.
+	/// </remarks>
+	public SplashScreenForm() => InitializeComponent();
+
+	#endregion
+
+	#region helper methods
+
+	/// <summary>
+	/// Returns a short debugger display string for this instance.
+	/// </summary>
+	/// <returns>A string representation of the current instance for use in the debugger.</returns>
+	/// <remarks>
+	/// This method is called to obtain a string representation of the current instance.
+	/// </remarks>
+	private string GetDebuggerDisplay() => ToString();
+
+	/// <summary>
+	/// Sets the splash screen progress bar value.
+	/// </summary>
+	/// <param name="value">The value to set on the progress bar. Must be between <c>progressBarSplash.Minimum</c> and <c>progressBarSplash.Maximum</c>.</param>
+	/// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is outside the valid range of the progress bar.</exception>
+	/// <remarks>
+	/// This method is called to set the value of the splash screen progress bar.
+	/// </remarks>
+	public void SetProgressbar(int value)
 	{
-		/// <summary>
-		/// Stores the currently selected control for clipboard operations.
-		/// </summary>
-		/// <remarks>
-		/// This field is used to keep track of the control that is currently selected for clipboard operations.
-		/// </remarks>
-		private Control currentControl;
-
-		/// <summary>
-		/// NLog logger instance.
-		/// </summary>
-		/// <remarks>
-		/// This field is used to log messages for the splash screen form.
-		/// </remarks>
-		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
-		#region constructor
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="SplashScreenForm"/> class.
-		/// </summary>
-		/// <remarks>
-		/// This constructor initializes the form components.
-		/// </remarks>
-		public SplashScreenForm() => InitializeComponent();
-
-		#endregion
-
-		#region helper methods
-
-		/// <summary>
-		/// Returns a short debugger display string for this instance.
-		/// </summary>
-		/// <returns>A string representation of the current instance for use in the debugger.</returns>
-		/// <remarks>
-		/// This method is called to obtain a string representation of the current instance.
-		/// </remarks>
-		private string GetDebuggerDisplay() => ToString();
-
-		/// <summary>
-		/// Sets the splash screen progress bar value.
-		/// </summary>
-		/// <param name="value">The value to set on the progress bar. Must be between <c>progressBarSplash.Minimum</c> and <c>progressBarSplash.Maximum</c>.</param>
-		/// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is outside the valid range of the progress bar.</exception>
-		/// <remarks>
-		/// This method is called to set the value of the splash screen progress bar.
-		/// </remarks>
-		public void SetProgressbar(int value)
+		// Validate the value
+		// Check if the value is within the range of the progress bar
+		// If the value is less than the minimum or greater than the maximum, throw an exception
+		if (value < progressBarSplash.Minimum || value > progressBarSplash.Maximum)
 		{
-			// Validate the value
-			// Check if the value is within the range of the progress bar
-			// If the value is less than the minimum or greater than the maximum, throw an exception
-			if (value < progressBarSplash.Minimum || value > progressBarSplash.Maximum)
-			{
-				// Log the error and throw an exception
-				Logger.Error(message: $"Value {value} is out of range for the progress bar. Minimum: {progressBarSplash.Minimum}, Maximum: {progressBarSplash.Maximum}");
-				// Throw an exception indicating that the value is out of range
-				throw new ArgumentOutOfRangeException(paramName: nameof(value), message: I10nStrings.IndexOutOfRange);
-			}
-			// Set the value of the progress bar
-			progressBarSplash.Value = value;
+			// Log the error and throw an exception
+			Logger.Error(message: $"Value {value} is out of range for the progress bar. Minimum: {progressBarSplash.Minimum}, Maximum: {progressBarSplash.Maximum}");
+			// Throw an exception indicating that the value is out of range
+			throw new ArgumentOutOfRangeException(paramName: nameof(value), message: I10nStrings.IndexOutOfRange);
 		}
-
-		#endregion
-
-		#region form event handlers
-
-		/// <summary>
-		/// Fired when the splash screen form loads.
-		/// Sets the product title and the formatted version text on the form's labels.
-		/// </summary>
-		/// <param name="sender">Event source (the form).</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		/// <remarks>
-		/// This method is called when the splash screen form loads.
-		/// </remarks>
-		private void SplashScreenForm_Load(object sender, EventArgs e)
-		{
-			// Set the title label text to the product name
-			labelTitle.Text = AssemblyInfo.AssemblyProduct;
-			// Set the version label text to the assembly version
-			labelVersion.Text = string.Format(format: I10nStrings.VersionTemplate, arg0: AssemblyInfo.AssemblyVersion);
-		}
-
-		/// <summary>
-		/// Fired when the splash screen form is closed.
-		/// Disposes managed resources associated with the form.
-		/// </summary>
-		/// <param name="sender">Event source (the form).</param>
-		/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
-		/// <remarks>
-		/// This method is called when the splash screen form is closed.
-		/// </remarks>
-		private void SplashScreenForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
-		#endregion
-
-		#region DoubleClick event handlers
-
-		/// <summary>
-		/// Called when a control is double-clicked. If the <paramref name="sender"/> is a <see cref="Control"/> or
-		/// or a <see cref="ToolStripItem"/>, its <see cref="Control.Text"/> value is copied to the clipboard
-		/// using the shared helper.
-		/// </summary>
-		/// <param name="sender">Event source — expected to be a <see cref="Control"/> or a <see cref="ToolStripItem"/>.</param>
-		/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-		/// <remarks>
-		/// This method is called when a control is double-clicked.
-		/// </remarks>
-		private void CopyToClipboard_DoubleClick(object sender, EventArgs e)
-		{
-			// Check if the sender is null
-			ArgumentNullException.ThrowIfNull(argument: sender);
-			// Check the type of the sender and copy the text accordingly
-			if (sender is Control control)
-			{
-				// Copy the text to the clipboard
-				CopyToClipboard(text: control.Text);
-			}
-			// Check if the sender is a ToolStripItem
-			else if (sender is ToolStripItem)
-			{
-				// Copy the text to the clipboard
-				CopyToClipboard(text: currentControl.Text);
-			}
-		}
-
-		#endregion
-
-		#region MouseDown event handlers
-
-		/// <summary>
-		/// Handles the MouseDown event for controls.
-		/// Stores the control that triggered the event for future reference.
-		/// </summary>
-		/// <param name="sender">Event source (the control).</param>
-		/// <param name="e">The <see cref="MouseEventArgs"/> instance that contains the event data.</param>
-		/// <remarks>
-		/// This method is called when the mouse button is pressed over a control.
-		/// </remarks>
-		private void Control_MouseDown(object sender, MouseEventArgs e)
-		{
-			if (sender is Control control)
-			{
-				currentControl = control;
-			}
-		}
-
-		#endregion
+		// Set the value of the progress bar
+		progressBarSplash.Value = value;
 	}
+
+	#endregion
+
+	#region form event handlers
+
+	/// <summary>
+	/// Fired when the splash screen form loads.
+	/// Sets the product title and the formatted version text on the form's labels.
+	/// </summary>
+	/// <param name="sender">Event source (the form).</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>
+	/// This method is called when the splash screen form loads.
+	/// </remarks>
+	private void SplashScreenForm_Load(object sender, EventArgs e)
+	{
+		// Set the title label text to the product name
+		labelTitle.Text = AssemblyInfo.AssemblyProduct;
+		// Set the version label text to the assembly version
+		labelVersion.Text = string.Format(format: I10nStrings.VersionTemplate, arg0: AssemblyInfo.AssemblyVersion);
+	}
+
+	/// <summary>
+	/// Fired when the splash screen form is closed.
+	/// Disposes managed resources associated with the form.
+	/// </summary>
+	/// <param name="sender">Event source (the form).</param>
+	/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
+	/// <remarks>
+	/// This method is called when the splash screen form is closed.
+	/// </remarks>
+	private void SplashScreenForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
+	#endregion
+
+	#region MouseDown event handlers
+
+	/// <summary>
+	/// Handles the MouseDown event for controls.
+	/// Stores the control that triggered the event for future reference.
+	/// </summary>
+	/// <param name="sender">Event source (the control).</param>
+	/// <param name="e">The <see cref="MouseEventArgs"/> instance that contains the event data.</param>
+	/// <remarks>
+	/// This method is called when the mouse button is pressed over a control.
+	/// </remarks>
+	private void Control_MouseDown(object sender, MouseEventArgs e)
+	{
+		// Check if the sender is a Control
+		if (sender is Control control)
+		{
+			// Store the control that triggered the event
+			currentControl = control;
+		}
+	}
+
+	#endregion
+
+	#region DoubleClick event handlers
+
+	/// <summary>
+	/// Called when a control is double-clicked. If the <paramref name="sender"/> is a <see cref="Control"/> or
+	/// or a <see cref="ToolStripItem"/>, its <see cref="Control.Text"/> value is copied to the clipboard
+	/// using the shared helper.
+	/// </summary>
+	/// <param name="sender">Event source — expected to be a <see cref="Control"/> or a <see cref="ToolStripItem"/>.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>
+	/// This method is called when a control is double-clicked.
+	/// </remarks>
+	private void CopyToClipboard_DoubleClick(object sender, EventArgs e)
+	{
+		// Check if the sender is null
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Get the text to copy based on the sender type
+		string? textToCopy = sender switch
+		{
+			Control c => c.Text,
+			ToolStripItem => currentControl?.Text,
+			_ => null
+		};
+		// If we have text to copy, use the helper method to copy it to the clipboard
+		if (!string.IsNullOrEmpty(value: textToCopy))
+		{
+			// Try to set the clipboard text
+			try { CopyToClipboard(text: textToCopy); }
+			catch
+			{ // Throw an exception
+				throw new ArgumentException(message: "Unsupported sender type", paramName: nameof(sender));
+			}
+		}
+	}
+
+	#endregion
 }
