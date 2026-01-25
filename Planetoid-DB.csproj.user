@@ -82,6 +82,9 @@
     <Compile Update="Forms\TerminologyForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\TerminologyForm.TerminologyElement.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="I10nStrings.resx">
