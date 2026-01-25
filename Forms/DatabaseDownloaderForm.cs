@@ -4,9 +4,9 @@ using Planetoid_DB.Forms;
 using Planetoid_DB.Properties;
 
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.IO.Compression;
+using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
 
@@ -36,7 +36,13 @@ namespace Planetoid_DB
 		/// <remarks>
 		/// This HttpClient instance is reused for all HTTP requests to improve performance.
 		/// </remarks>
-		private readonly HttpClient httpClient;
+		private static readonly HttpClient httpClient = new(handler: new HttpClientHandler
+		{
+			AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+		})
+		{
+			Timeout = TimeSpan.FromMinutes(10)
+		};
 
 		/// <summary>
 		/// Temporary filename (including path) used to store the downloaded gzip file.
@@ -96,16 +102,16 @@ namespace Planetoid_DB
 		/// </summary>
 		/// <param name="url">The URL to download the file from. The filename part is used to derive the extraction path.</param>
 		/// <remarks>
-		/// This constructor performs UI initialization and immediately begins the download by calling <see cref="StartDownload"/>.
+		/// This constructor performs UI initialization and immediately begins the download by calling <see cref="StartDownloadAsync"/>.
 		/// It must be called from the UI thread.
 		/// </remarks>
 		public DatabaseDownloaderForm(string url)
 		{
 			InitializeComponent();
-			httpClient = new HttpClient();
+			using HttpClient client = new();
 			this.url = url;
 			extractFilePath = Path.GetFileNameWithoutExtension(path: url);
-			StartDownload();
+			Shown += async (_, _) => await StartDownloadAsync();
 		}
 
 		#endregion
@@ -143,50 +149,26 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
-		/// Sends an HTTP HEAD request to the specified <paramref name="uri"/> using the provided <paramref name="httpClient"/>
-		/// and returns the resource's Last-Modified date in UTC when available.
+		/// Asynchronously retrieves the Last-Modified date of a resource.
 		/// </summary>
 		/// <param name="uri">The URI of the resource to query.</param>
-		/// <param name="httpClient">An <see cref="HttpClient"/> used to send the request.</param>
+		/// <param name="client">An <see cref="HttpClient"/> used to send the request.</param>
 		/// <returns>
 		/// The last modified <see cref="DateTime"/> in UTC if the header is present and the request succeeds;
 		/// otherwise <see cref="DateTime.MinValue"/>.
 		/// </returns>
-		/// <exception cref="ArgumentNullException">Thrown when <paramref name="uri"/> or <paramref name="httpClient"/> is null.</exception>
+		/// <exception cref="ArgumentNullException">Thrown when <paramref name="uri"/> or <paramref name="client"/> is null.</exception>
 		/// <remarks>
 		/// The method logs and displays errors and returns <see cref="DateTime.MinValue"/> on failure.
 		/// A HEAD request is used to avoid downloading the response body.
 		/// </remarks>
-		private static DateTime GetLastModified(Uri uri, HttpClient httpClient)
+		private static async Task<DateTime?> GetLastModifiedAsync(Uri uri, HttpClient client)
 		{
 			// Validate input parameters
-			ArgumentNullException.ThrowIfNull(argument: uri);
-			ArgumentNullException.ThrowIfNull(argument: httpClient);
-
-			// Send a HEAD request to get the Last-Modified header
-			// This avoids downloading the entire file content
-			// and only retrieves the metadata.
-			// On success, return the Last-Modified date in UTC; otherwise return DateTime.MinValue.
-			// Log and show errors if the request fails.
-			try
-			{
-				// Create and send the HEAD request
-				HttpRequestMessage request = new(method: HttpMethod.Head, requestUri: uri);
-				// Send the request and get the response
-				HttpResponseMessage response = httpClient.Send(request: request);
-				// Return the Last-Modified date if available
-				return response.IsSuccessStatusCode ? response.Content.Headers.LastModified?.UtcDateTime ?? DateTime.MinValue : DateTime.MinValue;
-			}
-			// Handle any exceptions that occur during the request
-			catch (Exception ex)
-			{
-				// Log the exception and show an error message
-				Logger.Error(exception: ex, message: "Error retrieving last modified date.");
-				// Show an error message
-				ShowErrorMessage(message: $"Error retrieving last modified date: {ex.Message}");
-				// Return DateTime.MinValue to indicate failure
-				return DateTime.MinValue;
-			}
+			using HttpRequestMessage request = new(method: HttpMethod.Head, requestUri: uri);
+			using HttpResponseMessage response = await client.SendAsync(request);
+			// Return the Last-Modified date if available
+			return !response.IsSuccessStatusCode ? null : (response.Content.Headers.LastModified?.UtcDateTime);
 		}
 
 		/// <summary>
@@ -224,6 +206,35 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
+		/// Checks if the device has an active internet connection.
+		/// </summary>
+		/// <param name="client">The <see cref="HttpClient"/> instance to use for the request.</param>
+		/// <param name="url">The URL to check for internet connectivity.</param>
+		/// <returns><c>true</c> if the device has an active internet connection; otherwise, <c>false</c>.</returns>
+		/// <remarks>
+		/// This method sends a GET request to the specified URL and checks the response status.
+		/// </remarks>
+		private static async Task<bool> HasInternetAsync(HttpClient client, string url)
+		{
+			// Send a GET request to the specified URL
+			// and check if the response indicates success
+			// Return true if the response is successful; otherwise, return false
+			// Catch any exceptions and return false
+			try
+			{
+				using HttpResponseMessage response = await client.GetAsync(
+					requestUri: url, // The URL to check
+					completionOption: HttpCompletionOption.ResponseHeadersRead // Only read headers to minimize data usage
+				);
+				return response.IsSuccessStatusCode;
+			}
+			catch
+			{
+				return false;
+			}
+		}
+
+		/// <summary>
 		/// Starts the download workflow: validates network and input, disables/enables UI controls,
 		/// downloads the file, extracts the GZIP archive and notifies the user.
 		/// </summary>
@@ -233,13 +244,15 @@ namespace Planetoid_DB
 		/// (buttons, labels, progress bar) and handles exceptions internally (shows message boxes).
 		/// No exceptions are propagated to the caller.
 		/// </remarks>
-		private async void StartDownload()
+		private async Task StartDownloadAsync()
 		{
 			// Check if there is an internet connection available
 			// If not, log the error and show an error message
 			// Then return without proceeding further
 			// This prevents attempting to download when offline.
+
 			if (!NetworkInterface.GetIsNetworkAvailable())
+			//if (!await HasInternetAsync(client: httpClient, url: url))
 			{
 				// Log the error if there is no internet connection
 				Logger.Error(message: "No internet connection available.");
@@ -295,7 +308,10 @@ namespace Planetoid_DB
 				await DownloadFileAsync(url: url, filePath: strFilenameTemp, cancellationToken: cancellationTokenSource.Token);
 				// Extract the downloaded GZIP file
 				labelStatusValue.Text = "Extracting...";
-				ExtractGzipFile(gzipFilePath: strFilenameTemp, outputFilePath: extractFilePath);
+				progressBarDownload.Style = ProgressBarStyle.Marquee;
+				await Task.Run(action: () =>
+					ExtractGzipFile(gzipFilePath: strFilenameTemp, outputFilePath: extractFilePath),
+					cancellationToken: cancellationTokenSource.Token);
 				// Notify the user of successful completion
 				labelStatusValue.Text = "Download completed";
 				_ = MessageBox.Show(text: "Download completed successfully!", caption: "Finished", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
@@ -325,7 +341,7 @@ namespace Planetoid_DB
 				// Log the exception and show an error message
 				labelStatusValue.Text = "Download error";
 				_ = MessageBox.Show(text: $"Error during download: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
-				Logger.Error(exception: ex, message: "Error during download.");
+				Logger.Error(exception: ex, message: "Download failed. Url={Url}, TempFile={TempFile}", url, strFilenameTemp);
 				DialogResult = DialogResult.Abort;
 			}
 			// Reset UI elements and clean up resources
@@ -376,7 +392,7 @@ namespace Planetoid_DB
 			bool canReportProgress = totalBytes != -1;
 
 			// Update UI elements with download information
-			labelDateValue.Text = GetLastModified(uri: new Uri(uriString: url), httpClient: httpClient).ToString(provider: CultureInfo.CurrentCulture);
+			labelDateValue.Text = (await GetLastModifiedAsync(uri: new Uri(uriString: url), client: httpClient)).ToString();
 			labelSourceValue.Text = url;
 			//labelSizeValue.Text = canReportProgress ? $"{totalBytes / 1024.0 / 1024.0:F2} MB" : "Unknown";
 			labelSizeValue.Text = canReportProgress ? $"{totalBytes:N0} {I10nStrings.BytesText}" : "Unknown";
@@ -405,10 +421,10 @@ namespace Planetoid_DB
 				if (canReportProgress)
 				{
 					// Calculate progress percentage
-					int progress = (int)(totalRead * 100L / totalBytes);
+					int percent = (int)(totalRead * 100L / totalBytes);
 					// Update progress bar value and text
-					progressBarDownload.Value = progress;
-					progressBarDownload.Text = $"{progress}%";
+					progressBarDownload.Value = percent;
+					progressBarDownload.Text = $"{percent}%";
 				}
 			}
 		}
@@ -425,7 +441,7 @@ namespace Planetoid_DB
 		/// <remarks>
 		/// This method is called when the Download button is clicked.
 		/// </remarks>
-		private async void ButtonDownload_Click(object sender, EventArgs e) => StartDownload();
+		private async void ButtonDownload_Click(object sender, EventArgs e) => await StartDownloadAsync();
 
 		/// <summary>
 		/// Click handler for the Cancel button. Cancels the active download operation if one is running.
