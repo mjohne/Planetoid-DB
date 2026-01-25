@@ -36,6 +36,15 @@ namespace Planetoid_DB
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
 		/// <summary>
+		/// Cancellation token source used to cancel an ongoing download operation.
+		/// May be null when no download is active.
+		/// </summary>
+		/// <remarks>
+		/// This token is used to cancel the download operation if needed.
+		/// </remarks>
+		private CancellationTokenSource? cancellationTokenSource;
+
+		/// <summary>
 		/// Stores the currently selected control for clipboard operations.
 		/// </summary>
 		/// <remarks>
@@ -109,12 +118,19 @@ namespace Planetoid_DB
 		private CancellationTokenSource? downloadCancellationTokenSource;
 
 		/// <summary>
-		/// HttpClient instance for making HTTP requests.
+		/// Shared <see cref="HttpClient"/> used for HTTP requests. Initialized in the constructor.
+		/// Reuse to avoid socket exhaustion.
 		/// </summary>
 		/// <remarks>
-		/// This HttpClient instance is used for making HTTP requests to download files.
+		/// This HttpClient instance is reused for all HTTP requests to improve performance.
 		/// </remarks>
-		private static readonly HttpClient httpClient = new();
+		private static readonly HttpClient httpClient = new(handler: new HttpClientHandler
+		{
+			AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+		})
+		{
+			Timeout = TimeSpan.FromMinutes(10)
+		};
 
 		/*
 		private readonly IProgress<int>? downloadProgress;
@@ -458,6 +474,29 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
+		/// Asynchronously retrieves the Last-Modified date of a resource.
+		/// </summary>
+		/// <param name="uri">The URI of the resource to query.</param>
+		/// <param name="client">An <see cref="HttpClient"/> used to send the request.</param>
+		/// <returns>
+		/// The last modified <see cref="DateTime"/> in UTC if the header is present and the request succeeds;
+		/// otherwise <see cref="DateTime.MinValue"/>.
+		/// </returns>
+		/// <exception cref="ArgumentNullException">Thrown when <paramref name="uri"/> or <paramref name="client"/> is null.</exception>
+		/// <remarks>
+		/// The method logs and displays errors and returns <see cref="DateTime.MinValue"/> on failure.
+		/// A HEAD request is used to avoid downloading the response body.
+		/// </remarks>
+		private static async Task<DateTime?> GetLastModifiedAsync(Uri uri, HttpClient client)
+		{
+			// Validate input parameters
+			using HttpRequestMessage request = new(method: HttpMethod.Head, requestUri: uri);
+			using HttpResponseMessage response = await client.SendAsync(request);
+			// Return the Last-Modified date if available
+			return !response.IsSuccessStatusCode ? null : (response.Content.Headers.LastModified?.UtcDateTime);
+		}
+
+		/// <summary>
 		/// Gets the content length of the specified URI.
 		/// </summary>
 		/// <param name="uri">The URI to check.</param>
@@ -490,6 +529,35 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
+		/// Checks if the device has an active internet connection.
+		/// </summary>
+		/// <param name="client">The <see cref="HttpClient"/> instance to use for the request.</param>
+		/// <param name="url">The URL to check for internet connectivity.</param>
+		/// <returns><c>true</c> if the device has an active internet connection; otherwise, <c>false</c>.</returns>
+		/// <remarks>
+		/// This method sends a GET request to the specified URL and checks the response status.
+		/// </remarks>
+		private static async Task<bool> HasInternetAsync(HttpClient client, string url)
+		{
+			// Send a GET request to the specified URL
+			// and check if the response indicates success
+			// Return true if the response is successful; otherwise, return false
+			// Catch any exceptions and return false
+			try
+			{
+				using HttpResponseMessage response = await client.GetAsync(
+					requestUri: url, // The URL to check
+					completionOption: HttpCompletionOption.ResponseHeadersRead // Only read headers to minimize data usage
+				);
+				return response.IsSuccessStatusCode;
+			}
+			catch
+			{
+				return false;
+			}
+		}
+
+		/// <summary>
 		/// Checks if an update for the MPCORB database is available.
 		/// </summary>
 		/// <returns>true if an update is available, otherwise false.</returns>
@@ -508,6 +576,9 @@ namespace Planetoid_DB
 			// Get the last modified date of the local file
 			DateTime datetimeFileLocal = fileInfo.LastWriteTime;
 			// Get the last modified date of the online file
+
+			//string url = uriMpcorb.ToString();
+			//DateTime datetimeFileOnline = (await GetLastModifiedAsync(uri: new Uri(uriString: url), client: httpClient)).ToString();
 			DateTime datetimeFileOnline = GetLastModified(uri: uriMpcorb);
 			// Get the content length of the online file
 			_ = GetContentLength(uri: uriMpcorb);
@@ -517,7 +588,6 @@ namespace Planetoid_DB
 			// If it greater, return true (update available)
 			// Otherwise, return false (no update available)
 			return datetimeFileOnline > datetimeFileLocal;
-
 		}
 
 		/// <summary>
@@ -785,10 +855,11 @@ namespace Planetoid_DB
 		/// <remarks>
 		/// This method is used to check the MPCORB data for updates.
 		/// </remarks>
-		private void ShowMpcorbDatCheck()
+		private async void ShowMpcorbDatCheck()
 		{
 			// Check if the network is available before proceeding with the download
 			if (!NetworkInterface.GetIsNetworkAvailable())
+			//if (!await HasInternetAsync(client: httpClient, url: uriMpcorb.OriginalString))
 			{
 				// Display an error message if the network is not available
 				_ = MessageBox.Show(text: I10nStrings.NoInternetConnectionText, caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
@@ -1472,8 +1543,12 @@ namespace Planetoid_DB
 				File.Delete(path: filenameMpcorb);
 				// Set the progress bar style to Marquee to indicate processing
 				toolStripProgressBarBackgroundDownload.Style = ProgressBarStyle.Marquee;
+				// Create a new CancellationTokenSource for this download
+				cancellationTokenSource = new CancellationTokenSource();
 				// Extract the downloaded GZIP file
-				ExtractGzipFile(gzipFilePath: filenameMpcorbTemp, outputFilePath: Settings.Default.systemFilenameMpcorb);
+				await Task.Run(action: () =>
+					ExtractGzipFile(gzipFilePath: filenameMpcorbTemp, outputFilePath: Settings.Default.systemFilenameMpcorb),
+					cancellationToken: cancellationTokenSource.Token);
 				// Delete the temporary GZIP file
 				File.Delete(path: filenameMpcorbTemp);
 				// Notify the user that the update was successful

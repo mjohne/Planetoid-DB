@@ -6,7 +6,6 @@ using Planetoid_DB.Properties;
 
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
@@ -32,6 +31,15 @@ namespace Planetoid_DB
 		/// This logger is used to log messages for the form.
 		/// </remarks>
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+		/// <summary>
+		/// Cancellation token source used to cancel an ongoing download operation.
+		/// May be null when no download is active.
+		/// </summary>
+		/// <remarks>
+		/// This token is used to cancel the download operation if needed.
+		/// </remarks>
+		private CancellationTokenSource? cancellationTokenSource;
 
 		/// <summary>
 		/// Filename (full path) for the local MPCORB data file.
@@ -66,13 +74,19 @@ namespace Planetoid_DB
 		private readonly WebClient webClient = new();
 
 		/// <summary>
-		/// Shared <see cref="HttpClient"/> used for modern, streamed downloads.
-		/// Reuse recommended to avoid socket exhaustion.
+		/// Shared <see cref="HttpClient"/> used for HTTP requests. Initialized in the constructor.
+		/// Reuse to avoid socket exhaustion.
 		/// </summary>
 		/// <remarks>
-		/// This is the HttpClient instance used for downloading the MPCORB.GZ file.
+		/// This HttpClient instance is reused for all HTTP requests to improve performance.
 		/// </remarks>
-		private static readonly HttpClient httpClient = new();
+		private static readonly HttpClient httpClient = new(handler: new HttpClientHandler
+		{
+			AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+		})
+		{
+			Timeout = TimeSpan.FromMinutes(10)
+		};
 
 		/// <summary>
 		/// Stores the currently selected control for clipboard operations.
@@ -134,45 +148,26 @@ namespace Planetoid_DB
 		}
 
 		/// <summary>
-		/// Gets the last modified date of the specified URI.
+		/// Asynchronously retrieves the Last-Modified date of a resource.
 		/// </summary>
-		/// <param name="uri">The URI to check.</param>
-		/// <returns>The last modified date of the URI.</returns>
+		/// <param name="uri">The URI of the resource to query.</param>
+		/// <param name="client">An <see cref="HttpClient"/> used to send the request.</param>
+		/// <returns>
+		/// The last modified <see cref="DateTime"/> in UTC if the header is present and the request succeeds;
+		/// otherwise <see cref="DateTime.MinValue"/>.
+		/// </returns>
+		/// <exception cref="ArgumentNullException">Thrown when <paramref name="uri"/> or <paramref name="client"/> is null.</exception>
 		/// <remarks>
-		/// This method is used to retrieve the last modified date of a resource at the specified URI.
+		/// The method logs and displays errors and returns <see cref="DateTime.MinValue"/> on failure.
+		/// A HEAD request is used to avoid downloading the response body.
 		/// </remarks>
-		private static DateTime GetLastModified(Uri uri)
+		private static async Task<DateTime?> GetLastModifiedAsync(Uri uri, HttpClient client)
 		{
-			try
-			{
-				// Create a new HttpRequestMessage with the HEAD method and the specified URI
-				HttpRequestMessage request = new(method: HttpMethod.Head, requestUri: uri);
-				// Send the request and get the response
-				HttpResponseMessage response = httpClient.Send(request: request);
-				// Check if the response is successful and return the last modified date
-				// If the response is not successful, return DateTime.MinValue
-				// If the response is successful, return the last modified date or DateTime.MinValue if not available
-				if (response.IsSuccessStatusCode)
-				{
-					// Return the last modified date or DateTime.MinValue if not available
-					return response.Content.Headers.LastModified?.UtcDateTime ?? DateTime.MinValue;
-				}
-				else
-				{
-					// Return DateTime.MinValue to indicate an error
-					return DateTime.MinValue;
-				}
-			}
-			// Catch any exceptions that occur during the request
-			catch (Exception ex)
-			{
-				// Log the exception and show an error message
-				Logger.Error(exception: ex, message: "Error retrieving last modified date.");
-				// Show an error message with the exception message
-				ShowErrorMessage(message: $"Error retrieving last modified date: {ex.Message}");
-				// Return DateTime.MinValue to indicate an error
-				return DateTime.MinValue;
-			}
+			// Validate input parameters
+			using HttpRequestMessage request = new(method: HttpMethod.Head, requestUri: uri);
+			using HttpResponseMessage response = await client.SendAsync(request);
+			// Return the Last-Modified date if available
+			return !response.IsSuccessStatusCode ? null : (response.Content.Headers.LastModified?.UtcDateTime);
 		}
 
 		/// <summary>
@@ -305,7 +300,7 @@ namespace Planetoid_DB
 		/// <remarks>
 		/// This method is used to handle the completion of the download operation.
 		/// </remarks>
-		private void Completed(object? sender, AsyncCompletedEventArgs e)
+		private async void Completed(object? sender, AsyncCompletedEventArgs e)
 		{
 			// Reset the taskbar progress
 			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: 0, progressMax: 100);
@@ -317,8 +312,12 @@ namespace Planetoid_DB
 				File.Delete(path: strFilenameMpcorb);
 				// Set the progress bar style to marquee
 				progressBarDownload.Style = ProgressBarStyle.Marquee;
+				// Create a new CancellationTokenSource for this download
+				cancellationTokenSource = new CancellationTokenSource();
 				// Extract the downloaded GZIP file
-				ExtractGzipFile(gzipFilePath: strFilenameMpcorbTemp, outputFilePath: strFilenameMpcorb);
+				await Task.Run(action: () =>
+					ExtractGzipFile(gzipFilePath: strFilenameMpcorbTemp, outputFilePath: strFilenameMpcorb),
+					cancellationToken: cancellationTokenSource.Token);
 				// Set the status to "Download complete"
 				labelStatusValue.Text = I10nStrings.StatusDownloadCompleteText;
 				// Enable the download and check for update buttons
@@ -452,7 +451,7 @@ namespace Planetoid_DB
 		/// This method is used to start the download process when the Download button is clicked.
 		/// </remarks>
 		[Obsolete(message: "Obsolete")]
-		private void ButtonDownload_Click(object? sender, EventArgs? e)
+		private async void ButtonDownload_Click(object? sender, EventArgs? e)
 		{
 			// Check if the sender is null
 			ArgumentNullException.ThrowIfNull(argument: sender);
@@ -476,7 +475,9 @@ namespace Planetoid_DB
 			// Make the source value visible
 			labelSourceValue.Visible = true;
 			// Get the last modified date of the URI
-			labelDateValue.Text = GetLastModified(uri: strUriMpcorb).ToUniversalTime().ToString(provider: CultureInfo.CurrentCulture);
+			//labelDateValue.Text = GetLastModified(uri: strUriMpcorb).ToUniversalTime().ToString(provider: CultureInfo.CurrentCulture);
+			string url = strUriMpcorb.AbsoluteUri;
+			labelDateValue.Text = (await GetLastModifiedAsync(uri: new Uri(uriString: url), client: httpClient)).ToString();
 			// Make the date value visible
 			labelDateValue.Visible = true;
 			// Set the size value to the content length of the URI
@@ -526,7 +527,10 @@ namespace Planetoid_DB
 			labelSourceValue.Text = strUriMpcorb.AbsoluteUri;
 			labelSourceValue.Visible = true;
 
-			labelDateValue.Text = GetLastModified(uri: strUriMpcorb).ToUniversalTime().ToString(CultureInfo.CurrentCulture);
+			// Get the last modified date of the URI
+			//labelDateValue.Text = GetLastModified(uri: strUriMpcorb).ToUniversalTime().ToString(provider: CultureInfo.CurrentCulture);
+			string url = strUriMpcorb.AbsoluteUri;
+			labelDateValue.Text = (await GetLastModifiedAsync(uri: new Uri(uriString: url), client: httpClient)).ToString();
 			labelDateValue.Visible = true;
 
 			labelSizeValue.Text = $"{GetContentLength(uri: strUriMpcorb):N0} {I10nStrings.BytesText}";
@@ -551,8 +555,13 @@ namespace Planetoid_DB
 				labelStatusValue.Text = I10nStrings.StatusRefreshingDatabaseText;
 
 				File.Delete(path: strFilenameMpcorb);
-				ExtractGzipFile(gzipFilePath: strFilenameMpcorbTemp, outputFilePath: strFilenameMpcorb);
-
+				// Create a new CancellationTokenSource for this download
+				cancellationTokenSource = new CancellationTokenSource();
+				// Extract the downloaded GZIP file
+				progressBarDownload.Style = ProgressBarStyle.Marquee;
+				await Task.Run(action: () =>
+					ExtractGzipFile(gzipFilePath: strFilenameMpcorbTemp, outputFilePath: strFilenameMpcorb),
+					cancellationToken: cancellationTokenSource.Token);
 				labelStatusValue.Text = I10nStrings.StatusDownloadCompleteText;
 				buttonDownload.Enabled = buttonCheckForUpdate.Enabled = true;
 				DialogResult = DialogResult.OK;
