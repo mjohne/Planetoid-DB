@@ -1,4 +1,6 @@
-﻿using Planetoid_DB.Forms;
+﻿using NLog;
+
+using Planetoid_DB.Forms;
 
 using System.Diagnostics;
 
@@ -13,6 +15,22 @@ namespace Planetoid_DB;
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class RecordsMainForm : BaseKryptonForm
 {
+	/// <summary>
+	/// NLog logger instance for the class.
+	/// </summary>
+	/// <remarks>
+	/// This logger is used to log messages for the database downloader.
+	/// </remarks>
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+	/// <summary>
+	/// Stores the currently selected control for clipboard operations.
+	/// </summary>
+	/// <remarks>
+	/// This field is used to store the currently selected control for clipboard operations.
+	/// </remarks>
+	private Control? currentControl;
+
 	#region constructor
 
 	/// <summary>
@@ -362,22 +380,36 @@ public partial class RecordsMainForm : BaseKryptonForm
 	#region DoubleClick event handlers
 
 	/// <summary>
-	/// Called when a control is double-clicked. If the <paramref name="sender"/> is a <see cref="Control"/>,
-	/// its <see cref="Control.Text"/> value is copied to the clipboard using the shared helper.
+	/// Called when a control is double-clicked. If the <paramref name="sender"/> is a <see cref="Control"/>
+	/// or a <see cref="ToolStripItem"/>, its <see cref="Control.Text"/> value is copied to the clipboard
+	/// using the shared helper.
 	/// </summary>
-	/// <param name="sender">Event source — expected to be a <see cref="Control"/>.</param>
+	/// <param name="sender">Event source — expected to be a <see cref="Control"/> or a <see cref="ToolStripItem"/>.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>
-	/// This method is called when a control is double-clicked.
+	/// If the <paramref name="sender"/> is a <see cref="Control"/>, its <see cref="Control.Text"/> value is copied to the clipboard.
+	/// If the <paramref name="sender"/> is a <see cref="ToolStripItem"/>, its <see cref="ToolStripItem.Text"/> value is copied to the clipboard.
 	/// </remarks>
 	private void CopyToClipboard_DoubleClick(object sender, EventArgs e)
 	{
 		// Check if the sender is null
 		ArgumentNullException.ThrowIfNull(argument: sender);
-		if (sender is Control control)
+		// Get the text to copy based on the sender type
+		string? textToCopy = sender switch
 		{
-			// Copy the text to the clipboard
-			CopyToClipboard(text: control.Text);
+			Control c => c.Text,
+			ToolStripItem => currentControl?.Text,
+			_ => null
+		};
+		// Check if the text to copy is not null or empty
+		if (!string.IsNullOrEmpty(value: textToCopy))
+		{
+			// Try to set the clipboard text
+			try { CopyToClipboard(text: textToCopy); }
+			catch
+			{ // Throw an exception
+				throw new ArgumentException(message: "Unsupported sender type", paramName: nameof(sender));
+			}
 		}
 	}
 

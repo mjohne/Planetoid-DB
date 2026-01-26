@@ -27,7 +27,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 	/// <remarks>
 	/// This logger is used to log messages for the database downloader.
 	/// </remarks>
-	private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 	/// <summary>
 	/// Shared <see cref="HttpClient"/> used for HTTP requests. Initialized in the constructor.
@@ -260,7 +260,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		//if (!await HasInternetAsync(client: httpClient, url: url))
 		{
 			// Log the error if there is no internet connection
-			Logger.Error(message: "No internet connection available.");
+			logger.Error(message: "No internet connection available.");
 			// Show an error message if there is no internet connection
 			ShowErrorMessage(message: I10nStrings.NoInternetConnectionText);
 			return;
@@ -321,7 +321,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			// Notify the user of successful completion
 			labelStatusValue.Text = "Download completed";
 			_ = MessageBox.Show(text: "Download completed successfully!", caption: "Finished", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
-			Logger.Info(message: "Download and extraction completed successfully.");
+			logger.Info(message: "Download and extraction completed successfully.");
 			// Set the dialog result to OK and close the form
 			DialogResult = DialogResult.OK;
 			Close();
@@ -336,7 +336,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			labelStatusValue.Text = "Download canceled";
 			//TODO: Optionally disable the Cancel button here to prevent multiple clicks
 			_ = MessageBox.Show(text: "Download canceled!", caption: "Canceled", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
-			Logger.Info(message: "Download canceled by user.");
+			logger.Info(message: "Download canceled by user.");
 			DialogResult = DialogResult.Cancel;
 		}
 		// Handle other exceptions
@@ -349,7 +349,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			labelStatusValue.Text = "Download error";
 			//TODO: Optionally disable the Cancel button here to prevent multiple clicks
 			_ = MessageBox.Show(text: $"Error during download: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
-			Logger.Error(exception: ex, message: "Download failed. Url={Url}, TempFile={TempFile}", url, strFilenameTemp);
+			logger.Error(exception: ex, message: "Download failed. Url={Url}, TempFile={TempFile}", url, strFilenameTemp);
 			DialogResult = DialogResult.Abort;
 		}
 		// Reset UI elements and clean up resources
@@ -550,7 +550,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			ToolStripItem => currentControl?.Text,
 			_ => null
 		};
-		// If we have text to copy, use the helper method to copy it to the clipboard
+		// Check if the text to copy is not null or empty
 		if (!string.IsNullOrEmpty(value: textToCopy))
 		{
 			// Try to set the clipboard text

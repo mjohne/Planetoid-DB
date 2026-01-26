@@ -1,9 +1,11 @@
-﻿using Planetoid_DB.Forms;
+﻿using NLog;
+
+using Planetoid_DB.Forms;
 using Planetoid_DB.Properties;
 
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
-using System.Text;
 
 namespace Planetoid_DB;
 
@@ -17,12 +19,20 @@ namespace Planetoid_DB;
 public partial class DatabaseInformationForm : BaseKryptonForm
 {
 	/// <summary>
+	/// NLog logger instance for the class.
+	/// </summary>
+	/// <remarks>
+	/// This logger is used to log messages for the database downloader.
+	/// </remarks>
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+	/// <summary>
 	/// Stores the currently selected control for clipboard operations.
 	/// </summary>
 	/// <remarks>
 	/// This field is used to keep track of the control that is currently selected for clipboard operations.
 	/// </remarks>
-	private Control currentControl;
+	private Control? currentControl;
 
 	#region constructor
 
@@ -100,18 +110,14 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 	{
 		// Path to the database file
 		FileInfo fileInfo = new(fileName: Settings.Default.systemFilenameMpcorb);
-		// Get the file attributes
-		FileAttributes attributes = File.GetAttributes(path: fileInfo.FullName);
-		// Check if the file is an archive
-		bool isArchive = (attributes & FileAttributes.Archive) == FileAttributes.Archive;
-		// Check if the file is compressed
-		bool isCompressed = (attributes & FileAttributes.Compressed) == FileAttributes.Compressed;
-		// Check if the file is hidden
-		bool isHidden = (attributes & FileAttributes.Hidden) == FileAttributes.Hidden;
-		// Check if the file is read-only
-		bool isReadOnly = (attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly;
-		// Check if the file is a system file
-		bool isSystem = (attributes & FileAttributes.System) == FileAttributes.System;
+		// Check if the file exists
+		if (!File.Exists(path: fileInfo.FullName))
+		{
+			// Log an error and show a message if the file does not exist
+			logger.Error(message: $"Database file not found: {fileInfo.FullName}");
+			ShowErrorMessage(message: $"Database file not found: {fileInfo.FullName}");
+			return;
+		}
 		// Set the file information in the labels
 		labelNameValue.Text = fileInfo.Name;
 		// Set the file name in the label
@@ -119,47 +125,13 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		// Set the file size in the label
 		labelSizeValue.Text = $"{fileInfo.Length:N0} {I10nStrings.BytesText}";
 		// Set the file type in the label
-		labelDateCreatedValue.Text = fileInfo.CreationTime.ToString();
+		labelDateCreatedValue.Text = fileInfo.CreationTime.ToString(format: "G", provider: CultureInfo.CurrentCulture);
 		// Set the file creation time in the label
-		labelDateAccessedValue.Text = fileInfo.LastAccessTime.ToString();
+		labelDateAccessedValue.Text = fileInfo.LastAccessTime.ToString(format: "G", provider: CultureInfo.CurrentCulture);
 		// Set the file last access time in the label
-		labelDateWritedValue.Text = fileInfo.LastWriteTime.ToString();
+		labelDateWritedValue.Text = fileInfo.LastWriteTime.ToString(format: "G", provider: CultureInfo.CurrentCulture);
 		// Set the file attributes in the label
-		StringBuilder attributesText = new(value: $"({fileInfo.Attributes})");
-		// Check if the file is an archive, compressed, hidden, read-only, or a system file
-		// and prepend the corresponding attribute name to the attributes text
-		// Check if the file is an archive
-		if (isArchive)
-		{
-			// Prepend "archive" to the attributes text
-			_ = attributesText.Insert(index: 0, value: "archive, ");
-		}
-		// Check if the file is compressed
-		if (isCompressed)
-		{
-			// Prepend "compressed" to the attributes text
-			_ = attributesText.Insert(index: 0, value: "compressed, ");
-		}
-		// Check if the file is hidden
-		if (isHidden)
-		{
-			// Prepend "hidden" to the attributes text
-			_ = attributesText.Insert(index: 0, value: "hidden, ");
-		}
-		// Check if the file is read-only
-		if (isReadOnly)
-		{
-			// Prepend "read-only" to the attributes text
-			_ = attributesText.Insert(index: 0, value: "readonly, ");
-		}
-		// Check if the file is a system file
-		if (isSystem)
-		{
-			// Prepend "system" to the attributes text
-			_ = attributesText.Insert(index: 0, value: "system, ");
-		}
-		// Set the file attributes text in the label
-		labelAttributesValue.Text = attributesText.ToString();
+		labelAttributesValue.Text = $"{fileInfo.Attributes}";
 	}
 
 	/// <summary>
@@ -267,7 +239,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 			ToolStripItem => currentControl?.Text,
 			_ => null
 		};
-		// If we have text to copy, use the helper method to copy it to the clipboard
+		// Check if the text to copy is not null or empty
 		if (!string.IsNullOrEmpty(value: textToCopy))
 		{
 			// Try to set the clipboard text

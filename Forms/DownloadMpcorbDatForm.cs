@@ -94,7 +94,7 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 	/// <remarks>
 	/// This field is used to store the currently selected control for clipboard operations.
 	/// </remarks>
-	private Control currentControl;
+	private Control? currentControl;
 
 	#region constructor
 
@@ -663,7 +663,7 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 			ToolStripItem => currentControl?.Text,
 			_ => null
 		};
-		// If we have text to copy, use the helper method to copy it to the clipboard
+		// Check if the text to copy is not null or empty
 		if (!string.IsNullOrEmpty(value: textToCopy))
 		{
 			// Try to set the clipboard text
