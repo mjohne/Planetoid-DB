@@ -26,7 +26,15 @@ public partial class PreloadForm : BaseKryptonForm
 	/// <remarks>
 	/// This logger is used to log events and errors that occur within the form.
 	/// </remarks>
-	private static readonly Logger Logger = LogManager.GetCurrentClassLogger(); // NLog logger instance
+	private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+	/// <summary>
+	/// Stores the currently selected control for clipboard operations.
+	/// </summary>
+	/// <remarks>
+	/// This field is used to store the currently selected control for clipboard operations.
+	/// </remarks>
+	private Control? currentControl;
 
 	#region constructor
 
@@ -293,10 +301,22 @@ public partial class PreloadForm : BaseKryptonForm
 	{
 		// Check if the sender is null
 		ArgumentNullException.ThrowIfNull(argument: sender);
-		if (sender is Control control)
+		// Get the text to copy based on the sender type
+		string? textToCopy = sender switch
 		{
-			// Copy the text to the clipboard
-			CopyToClipboard(text: control.Text);
+			Control c => c.Text,
+			ToolStripItem => currentControl?.Text,
+			_ => null
+		};
+		// Check if the text to copy is not null or empty
+		if (!string.IsNullOrEmpty(value: textToCopy))
+		{
+			// Try to set the clipboard text
+			try { CopyToClipboard(text: textToCopy); }
+			catch
+			{ // Throw an exception
+				throw new ArgumentException(message: "Unsupported sender type", paramName: nameof(sender));
+			}
 		}
 	}
 

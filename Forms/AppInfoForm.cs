@@ -32,7 +32,7 @@ public partial class AppInfoForm : BaseKryptonForm
 	/// This field is used to keep track of the control that is currently selected
 	/// for clipboard operations, such as copying text.
 	/// </remarks>
-	private Control currentControl;
+	private Control? currentControl;
 
 	#region constructor
 
@@ -284,7 +284,7 @@ public partial class AppInfoForm : BaseKryptonForm
 			ToolStripItem => currentControl?.Text,
 			_ => null
 		};
-		// If we have text to copy, use the helper method to copy it to the clipboard
+		// Check if the text to copy is not null or empty
 		if (!string.IsNullOrEmpty(value: textToCopy))
 		{
 			// Assuming CopyToClipboard is a helper method in BaseKryptonForm or similar

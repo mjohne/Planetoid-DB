@@ -52,8 +52,8 @@ namespace Planetoid_DB
 			labelDateCreatedValue = new KryptonLabel();
 			labelDateAccessedValue = new KryptonLabel();
 			labelDateWritedValue = new KryptonLabel();
-			labelAttributesValue = new KryptonLabel();
 			tableLayoutPanel = new KryptonTableLayoutPanel();
+			labelAttributesValue = new KryptonLabel();
 			toolStripContainer = new ToolStripContainer();
 			statusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
@@ -236,7 +236,7 @@ namespace Planetoid_DB
 			contextMenuCopyToClipboard.Font = new Font("Segoe UI", 9F);
 			contextMenuCopyToClipboard.Items.AddRange(new ToolStripItem[] { ToolStripMenuItemCpyToClipboard });
 			contextMenuCopyToClipboard.Name = "contextMenuStrip";
-			contextMenuCopyToClipboard.Size = new Size(214, 48);
+			contextMenuCopyToClipboard.Size = new Size(214, 26);
 			contextMenuCopyToClipboard.TabStop = true;
 			contextMenuCopyToClipboard.Text = "ContextMenu";
 			toolTip.SetToolTip(contextMenuCopyToClipboard, "Context Menu for copying to clipboard");
@@ -364,27 +364,6 @@ namespace Planetoid_DB
 			labelDateWritedValue.MouseEnter += SetStatusBar_Enter;
 			labelDateWritedValue.MouseLeave += ClearStatusBar_Leave;
 			// 
-			// labelAttributesValue
-			// 
-			labelAttributesValue.AccessibleDescription = "Shows the attributes of the database";
-			labelAttributesValue.AccessibleName = "Attributes value";
-			labelAttributesValue.AccessibleRole = AccessibleRole.Text;
-			labelAttributesValue.ContextMenuStrip = contextMenuCopyToClipboard;
-			labelAttributesValue.Dock = DockStyle.Fill;
-			labelAttributesValue.Location = new Point(114, 159);
-			labelAttributesValue.Margin = new Padding(4, 3, 4, 3);
-			labelAttributesValue.Name = "labelAttributesValue";
-			labelAttributesValue.Size = new Size(252, 25);
-			labelAttributesValue.TabIndex = 13;
-			toolTip.SetToolTip(labelAttributesValue, "Shows the attributes of the database");
-			labelAttributesValue.Values.Text = "..........";
-			labelAttributesValue.DoubleClick += CopyToClipboard_DoubleClick;
-			labelAttributesValue.Enter += SetStatusBar_Enter;
-			labelAttributesValue.Leave += ClearStatusBar_Leave;
-			labelAttributesValue.MouseDown += Control_MouseDown;
-			labelAttributesValue.MouseEnter += SetStatusBar_Enter;
-			labelAttributesValue.MouseLeave += ClearStatusBar_Leave;
-			// 
 			// tableLayoutPanel
 			// 
 			tableLayoutPanel.AccessibleDescription = "Groups the information";
@@ -425,6 +404,28 @@ namespace Planetoid_DB
 			tableLayoutPanel.TabIndex = 0;
 			tableLayoutPanel.TabStop = true;
 			toolTip.SetToolTip(tableLayoutPanel, "Groups the information");
+			// 
+			// labelAttributesValue
+			// 
+			labelAttributesValue.AccessibleDescription = "Shows the attributes of the database";
+			labelAttributesValue.AccessibleName = "Attributes value";
+			labelAttributesValue.AccessibleRole = AccessibleRole.Text;
+			labelAttributesValue.ContextMenuStrip = contextMenuCopyToClipboard;
+			labelAttributesValue.Dock = DockStyle.Fill;
+			labelAttributesValue.Location = new Point(114, 159);
+			labelAttributesValue.Margin = new Padding(4, 3, 4, 3);
+			labelAttributesValue.Name = "labelAttributesValue";
+			labelAttributesValue.Size = new Size(252, 25);
+			labelAttributesValue.TabIndex = 13;
+			toolTip.SetToolTip(labelAttributesValue, "Shows the attributes of the database");
+			labelAttributesValue.ToolTipValues.Description = "";
+			labelAttributesValue.Values.Text = "..........";
+			labelAttributesValue.DoubleClick += CopyToClipboard_DoubleClick;
+			labelAttributesValue.Enter += SetStatusBar_Enter;
+			labelAttributesValue.Leave += ClearStatusBar_Leave;
+			labelAttributesValue.MouseDown += Control_MouseDown;
+			labelAttributesValue.MouseEnter += SetStatusBar_Enter;
+			labelAttributesValue.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// toolStripContainer
 			// 

@@ -50,7 +50,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>
 	/// This control is used for clipboard operations such as copy and paste.
 	/// </remarks>
-	private Control currentControl;
+	private Control? currentControl;
 
 	/// <summary>
 	/// Stores the current tag text of the control.
@@ -3175,7 +3175,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			ToolStripItem => currentControl?.Text,
 			_ => null
 		};
-		// If we have text to copy, use the helper method to copy it to the clipboard
+		// Check if the text to copy is not null or empty
 		if (!string.IsNullOrEmpty(value: textToCopy))
 		{
 			// Try to set the clipboard text
