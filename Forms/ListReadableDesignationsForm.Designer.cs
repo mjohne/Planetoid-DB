@@ -37,7 +37,6 @@ namespace Planetoid_DB
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(ListReadableDesignationsForm));
 			statusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
-			backgroundWorker = new BackgroundWorker();
 			toolTip = new ToolTip(components);
 			buttonCancel = new KryptonButton();
 			progressBar = new KryptonProgressBar();
@@ -65,6 +64,11 @@ namespace Planetoid_DB
 			saveFileDialogHtml = new SaveFileDialog();
 			saveFileDialogXml = new SaveFileDialog();
 			kryptonManager = new KryptonManager(components);
+			saveFileDialogMarkdown = new SaveFileDialog();
+			saveFileDialogYaml = new SaveFileDialog();
+			saveFileDialogSql = new SaveFileDialog();
+			saveFileDialogTsv = new SaveFileDialog();
+			saveFileDialogLatex = new SaveFileDialog();
 			statusStrip.SuspendLayout();
 			contextMenuCopyToClipboard.SuspendLayout();
 			contextMenuSaveList.SuspendLayout();
@@ -100,14 +104,6 @@ namespace Planetoid_DB
 			labelInformation.Size = new Size(144, 17);
 			labelInformation.Text = "some information here";
 			labelInformation.ToolTipText = "Shows some information";
-			// 
-			// backgroundWorker
-			// 
-			backgroundWorker.WorkerReportsProgress = true;
-			backgroundWorker.WorkerSupportsCancellation = true;
-			backgroundWorker.DoWork += BackgroundWorker_DoWork;
-			backgroundWorker.ProgressChanged += BackgroundWorker_ProgressChanged;
-			backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
 			// 
 			// buttonCancel
 			// 
@@ -320,7 +316,7 @@ namespace Planetoid_DB
 			contextMenuSaveList.Font = new Font("Segoe UI", 9F);
 			contextMenuSaveList.Items.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsCsv, toolStripMenuItemSaveAsHtml, toolStripMenuItemSaveAsXml, toolStripMenuItemSaveAsJson });
 			contextMenuSaveList.Name = "contextMenuStrip1";
-			contextMenuSaveList.Size = new Size(193, 114);
+			contextMenuSaveList.Size = new Size(193, 92);
 			contextMenuSaveList.TabStop = true;
 			contextMenuSaveList.Text = "&Save List";
 			toolTip.SetToolTip(contextMenuSaveList, "Save List");
@@ -502,6 +498,31 @@ namespace Planetoid_DB
 			kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 			kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 			// 
+			// saveFileDialogMarkdown
+			// 
+			saveFileDialogMarkdown.DefaultExt = "json";
+			saveFileDialogMarkdown.Filter = "Markdown files|*.md|all files|*.*";
+			// 
+			// saveFileDialogYaml
+			// 
+			saveFileDialogYaml.DefaultExt = "json";
+			saveFileDialogYaml.Filter = "YAML files|*.yaml|all files|*.*";
+			// 
+			// saveFileDialogSql
+			// 
+			saveFileDialogSql.DefaultExt = "sql";
+			saveFileDialogSql.Filter = "SQL script|*.sql|all files|*.*";
+			// 
+			// saveFileDialogTsv
+			// 
+			saveFileDialogTsv.DefaultExt = "tsv";
+			saveFileDialogTsv.Filter = "TSV files|*.tsv|all files|*.*";
+			// 
+			// saveFileDialogLatex
+			// 
+			saveFileDialogLatex.DefaultExt = "tex";
+			saveFileDialogLatex.Filter = "Latex files|*.tex|all files|*.*";
+			// 
 			// ListReadableDesignationsForm
 			// 
 			AccessibleDescription = "List readable designations";
@@ -539,7 +560,6 @@ namespace Planetoid_DB
 
 		private KryptonStatusStrip statusStrip;
 		private ToolStripStatusLabel labelInformation;
-		private BackgroundWorker backgroundWorker;
 		private ToolTip toolTip;
 		private KryptonPanel panel;
 		private KryptonButton buttonCancel;
@@ -567,5 +587,10 @@ namespace Planetoid_DB
 		private KryptonManager kryptonManager;
 		private ContextMenuStrip contextMenuCopyToClipboard;
 		private ToolStripMenuItem ToolStripMenuItemCpyToClipboard;
+		private SaveFileDialog saveFileDialogMarkdown;
+		private SaveFileDialog saveFileDialogYaml;
+		private SaveFileDialog saveFileDialogSql;
+		private SaveFileDialog saveFileDialogTsv;
+		private SaveFileDialog saveFileDialogLatex;
 	}
 }

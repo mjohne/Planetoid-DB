@@ -455,7 +455,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			ToolStripItem t => t.AccessibleDescription,
 			_ => null
 		};
-		// If we have a description, set it in the status bar
+		// If a description is available, set it in the status bar
 		if (description != null)
 		{
 			SetStatusBar(text: description);

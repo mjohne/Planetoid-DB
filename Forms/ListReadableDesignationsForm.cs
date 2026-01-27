@@ -4,9 +4,11 @@ using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 
 using System.Collections;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
+using System.Text.Json;
+using System.Xml;
 
 namespace Planetoid_DB;
 
@@ -19,13 +21,33 @@ namespace Planetoid_DB;
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class ListReadableDesignationsForm : BaseKryptonForm
 {
+	#region Constants
+
 	/// <summary>
-	/// NLog logger instance for the class
+	/// Length of the index field in the planetoid record.
 	/// </summary>
 	/// <remarks>
-	/// This logger is used to log messages for the ListReadableDesignationsForm class.
+	/// This constant defines the length of the index field in the planetoid record.
 	/// </remarks>
-	private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+	private const int IndexLength = 7;
+
+	/// <summary>
+	/// Length of the name field in the planetoid record.
+	/// </summary>
+	/// <remarks>
+	/// This constant defines the starting index of the name field in the planetoid record.
+	/// </remarks>
+	private const int NameStartIndex = 166;
+
+	/// <summary>
+	/// Length of the name field in the planetoid record.
+	/// </summary>
+	/// <remarks>
+	/// This constant defines the length of the name field in the planetoid record.
+	/// </remarks>
+	private const int NameLength = 28;
+
+	#endregion
 
 	/// <summary>
 	/// List of planetoid records from the database
@@ -36,36 +58,44 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	private List<string> planetoidsDatabase = [];
 
 	/// <summary>
-	/// Number of planetoids in the database and currently selected index
+	/// Number of planetoids in the database.
 	/// </summary>
 	/// <remarks>
-	/// This field stores the total number of planetoids in the database.
+	/// This field keeps track of the total number of planetoids in the database.
 	/// </remarks>
-	private int numberPlanetoids, selectedIndex;
+	private int numberPlanetoids;
 
 	/// <summary>
-	/// Gets a value indicating whether the operation was cancelled.
+	/// Index of the currently selected planetoid.
 	/// </summary>
 	/// <remarks>
-	/// This field is used to track whether the operation was cancelled by the user.
+	/// This index is used to keep track of the currently selected planetoid in the list.
 	/// </remarks>
-	private bool isCancelled;
+	private int selectedIndex;
 
 	/// <summary>
-	/// Index and label name as character strings
+	/// Cancellation token source for cancelling operations.
 	/// </summary>
 	/// <remarks>
-	/// This field is used to store the index and label name as character strings.
+	/// This token can be used to cancel ongoing operations.
 	/// </remarks>
-	private string strIndex, strDesignationName;
+	private CancellationTokenSource? _cancellationTokenSource;
 
 	/// <summary>
-	/// Stopwatch for performance measurement
+	/// Stopwatch for measuring elapsed time.
 	/// </summary>
 	/// <remarks>
-	/// This field is used to measure the time taken for operations.
+	/// This stopwatch is used to measure the elapsed time for various operations.
 	/// </remarks>
 	private readonly Stopwatch stopwatch = new();
+
+	/// <summary>
+	/// NLog logger instance for the class.
+	/// </summary>
+	/// <remarks>
+	/// This logger is used to log messages for the database downloader.
+	/// </remarks>
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 	/// <summary>
 	/// Stores the currently selected control for clipboard operations.
@@ -78,18 +108,12 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	#region constructor
 
 	/// <summary>
-	/// Initializes a new instance of the <see cref="AppInfoForm"/> class.
+	/// Initializes a new instance of the <see cref="ListReadableDesignationsForm"/> class.
 	/// </summary>
 	/// <remarks>
 	/// This constructor initializes the form and its components.
 	/// </remarks>
-	public ListReadableDesignationsForm()
-	{
-		// Initialize the form components
-		InitializeComponent();
-		strIndex = string.Empty;
-		strDesignationName = string.Empty;
-	}
+	public ListReadableDesignationsForm() => InitializeComponent();
 
 	#endregion
 
@@ -139,39 +163,44 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	}
 
 	/// <summary>
-	/// Formats a row in the list view with the current planetoids data.
+	/// Creates a ListViewItem for the specified index.
 	/// </summary>
-	/// <param name="currentPosition">The current position in the planetoids database.</param>
+	/// <param name="index">The index of the planetoid.</param>
+	/// <returns>A ListViewItem representing the planetoid, or null if the index is invalid.</returns>
 	/// <remarks>
-	/// This method is used to format a row in the list view with the current planetoids data.
+	/// This method is used to create a ListViewItem for the specified index.
 	/// </remarks>
-	private void FormatRow(int currentPosition)
+	private ListViewItem? CreateListViewItem(int index)
 	{
-		// Check if the current position is within the valid range
-		if (currentPosition < 0 || currentPosition >= numberPlanetoids)
+		// Check if the index is valid
+		if (index < 0 || index >= numberPlanetoids)
 		{
-			// Log an error message and return
-			Logger.Error(message: $"Invalid position: {currentPosition}");
-			// Show an error message
-			ShowErrorMessage(message: $"Invalid position: {currentPosition}");
-			return;
+			// Log a warning and return null
+			logger.Warn(message: $"Invalid index {index} requested.");
+			return null;
 		}
-		// Format the row in the list view
-		string currentData = planetoidsDatabase[index: currentPosition];
-		// Extract the index from the current data
-		strIndex = currentData[..7].Trim();
-		// Extract the designation name from the current data
-		strDesignationName = currentData.Substring(startIndex: 166, length: 28).Trim();
-		// Add the formatted row to the list view
-		ListViewItem listViewItem = new(text: strIndex)
+		// Get the current planetoid data
+		string currentData = planetoidsDatabase[index];
+		// Check if the current data is long enough
+		if (currentData.Length < NameStartIndex + NameLength)
 		{
-			// Set the tooltip text to show both the index and the designation name
+			// Log a warning and return null
+			logger.Warn(message: $"The record at index {index} is too short.");
+			return null;
+		}
+		// Extract the index and designation name
+		string strIndex = currentData[..IndexLength].Trim();
+		string strDesignationName = currentData.Substring(startIndex: NameStartIndex, length: NameLength).Trim();
+		// Create and return the ListViewItem
+		ListViewItem item = new(text: strIndex)
+		{
+			// Set the tool tip text
 			ToolTipText = $"{strIndex}: {strDesignationName}"
 		};
 		// Add the designation name as a subitem
-		_ = listViewItem.SubItems.Add(text: strDesignationName);
-		// Add the list view item to the list view
-		_ = listView.Items.Add(value: listViewItem);
+		item.SubItems.Add(text: strDesignationName);
+		// Return the created item
+		return item;
 	}
 
 	/// <summary>
@@ -183,9 +212,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// </remarks>
 	public void FillArray(ArrayList arrTemp)
 	{
-		// Fill the planetoids database with the provided array list
-		planetoidsDatabase = [.. arrTemp.Cast<string>()];
-		// Set the number of planetoids
+		planetoidsDatabase = [.. arrTemp.OfType<string>()];
 		numberPlanetoids = planetoidsDatabase.Count;
 	}
 
@@ -206,6 +233,69 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// This method is used to get the selected index in the list view.
 	/// </remarks>
 	public int GetSelectedIndex() => selectedIndex;
+
+	/// <summary>
+	/// Gets the export data from the list view.
+	/// </summary>
+	/// <returns>An enumerable collection of tuples containing the index and name.</returns>
+	/// <remarks>
+	/// This method is used to retrieve the export data from the list view.
+	/// </remarks>
+	private IEnumerable<(string Index, string Name)> GetExportData()
+	{
+		// Iterate through each item in the list view and yield the index and name
+		foreach (ListViewItem item in listView.Items)
+		{
+			// Yield the index and name as a tuple
+			yield return (Index: item.SubItems[index: 0].Text, Name: item.SubItems[index: 1].Text);
+		}
+	}
+
+	/// <summary>
+	/// Prepares the save dialog for exporting data.
+	/// </summary>
+	/// <param name="dialog">The file dialog to prepare.</param>
+	/// <param name="ext">The file extension.</param>
+	/// <returns>True if the dialog was shown successfully; otherwise, false.</returns>
+	/// <remarks>
+	/// This method is used to prepare the save dialog for exporting data.
+	/// </remarks>
+	private bool PrepareSaveDialog(FileDialog dialog, string ext)
+	{
+		// Set up the save dialog properties
+		dialog.InitialDirectory = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyDocuments);
+		// Set default file name
+		dialog.FileName = $"Readable-Designation-List_{numericUpDownMinimum.Value}-{numericUpDownMaximum.Value}.{ext}";
+		// Show the dialog and return the result
+		return dialog.ShowDialog() == DialogResult.OK;
+	}
+
+	/// <summary>
+	/// Handles the ListView <c>SelectedIndexChanged</c> event.
+	/// Updates the status bar with the selected planetoid's index and readable designation,
+	/// enables the load button if necessary and stores the currently selected index.
+	/// </summary>
+	/// <param name="sender">Event source (expected to be the list view).</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>
+	/// This method is used to handle the SelectedIndexChanged event of the ListView.
+	/// </remarks>
+	private void SelectedIndexChanged(object? sender, EventArgs? e)
+	{
+		// Check if there are any selected indices
+		if (listView.SelectedIndices.Count <= 0)
+		{
+			return;
+		}
+		// Get the selected index and item
+		int index = listView.SelectedIndices[index: 0];
+		ListViewItem item = listView.Items[index: index];
+		// Update the status bar with the selected item's details
+		SetStatusBar(text: $"{I10nStrings.Index}: {item.Text} - {item.SubItems[index: 1].Text}");
+		// Enable the load button
+		buttonLoad.Enabled = true;
+		selectedIndex = index;
+	}
 
 	#endregion
 
@@ -254,72 +344,430 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		listView.Dispose();
 		Dispose();
 	}
+
 	#endregion
 
-	#region BackgroundWorker event handlers
+	#region click event handlers
 
 	/// <summary>
-	/// Handles the <see cref="BackgroundWorker.DoWork"/> event.
-	/// Processes the planetoid records in the configured numeric range on a background thread,
-	/// formats each row and reports progress to the UI. The operation cooperatively cancels
-	/// when the <see cref="isCancelled"/> flag is set.
+	/// Handles the click event for the List button.
 	/// </summary>
-	/// <param name="sender">Event source (the background worker).</param>
-	/// <param name="e">The <see cref="DoWorkEventArgs"/> instance that contains the event data.</param>
+	/// <param name="sender">Event source (the button).</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>
-	/// This method is used to perform the background work of processing planetoid records.
+	/// This method is used to handle the click event for the List button.
 	/// </remarks>
-	private void BackgroundWorker_DoWork(object? sender, DoWorkEventArgs? e)
+	private async void ButtonList_Click(object? sender, EventArgs? e)
 	{
-		// Set the maximum value of the progress bar
-		progressBar.Maximum = (int)numericUpDownMaximum.Value - 1;
-		for (int i = (int)numericUpDownMinimum.Value - 1; i < (int)numericUpDownMaximum.Value; i++)
+		// Local column headers for the list view
+		ColumnHeader columnHeaderIndex = new()
 		{
-			// Format the row in the list view
-			FormatRow(currentPosition: i);
-			// Report progress to the UI thread
-			backgroundWorker.ReportProgress(percentProgress: i);
-			// Update the taskbar progress
-			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: i, progressMax: (int)numericUpDownMaximum.Value);
-			if (isCancelled)
+			Text = I10nStrings.Index,
+			TextAlign = HorizontalAlignment.Right,
+			Width = 100
+		};
+		// Readable designation column
+		ColumnHeader columnHeaderReadableDesignation = new()
+		{
+			Text = "Readable Designation",
+			TextAlign = HorizontalAlignment.Left,
+			Width = 300
+		};
+		// Start measuring time
+		stopwatch.Restart();
+		// Reset UI state
+		listView.Visible = false;
+		listView.Items.Clear();
+		listView.Columns.Clear();
+		listView.Columns.AddRange(values: [columnHeaderIndex, columnHeaderReadableDesignation]);
+		// Disable controls during processing
+		numericUpDownMinimum.Enabled = false;
+		numericUpDownMaximum.Enabled = false;
+		buttonList.Enabled = false;
+		dropButtonSaveList.Enabled = false;
+		buttonLoad.Enabled = false;
+		// Enable cancel button and progress bar
+		buttonCancel.Enabled = true;
+		progressBar.Enabled = true;
+		// Set up progress bar
+		int min = (int)numericUpDownMinimum.Value - 1;
+		int max = (int)numericUpDownMaximum.Value;
+		int total = max - min;
+		progressBar.Maximum = total;
+		progressBar.Value = 0;
+		// Set taskbar progress state
+		_cancellationTokenSource = new CancellationTokenSource();
+		CancellationToken token = _cancellationTokenSource.Token;
+		// Set taskbar progress to normal state
+		try
+		{
+			/*
+			// Start loading items asynchronously
+			token.ThrowIfCancellationRequested();
+			TaskbarProgress.SetState(windowHandle: Handle, taskbarState: TaskbarProgress.TaskbarStates.Normal);
+			*/
+			// Load items in a background task
+			List<ListViewItem> itemsToAdd = await Task.Run(function: () =>
 			{
-				break;
+				// Prepare a list to hold the results
+				List<ListViewItem> results = [];
+				for (int i = min; i < max; i++)
+				{
+					// Check for cancellation
+					if (token.IsCancellationRequested)
+					{
+						break;
+					}
+					// Create the ListViewItem
+					ListViewItem? item = CreateListViewItem(index: i);
+					// If the item is valid, add it to the results
+					if (item != null)
+					{
+						results.Add(item);
+					}
+					// Update progress every 100 items
+					if (i % 100 == 0)
+					{
+						// Update taskbar progress
+						Invoke(method: () =>
+						{
+							progressBar.Value = i - min;
+						});
+					}
+				}
+				return results;
+			}, cancellationToken: token);
+			// Check for cancellation
+			listView.BeginUpdate();
+			listView.Items.AddRange(items: [.. itemsToAdd]);
+			listView.EndUpdate();
+			// Show the list view
+			listView.Visible = true;
+			// Finalize progress bar
+			if (token.IsCancellationRequested)
+			{
+				// Set taskbar progress to no progress state
+				MessageBox.Show(text: $"{listView.Items.Count} objects processed (Cancelled).", caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
+		}
+		// Handle exceptions
+		catch (Exception ex)
+		{
+			// Log the error and show an error message
+			logger.Error(exception: ex, message: "Error loading list.");
+			ShowErrorMessage(message: $"Error loading list: {ex.Message}");
+		}
+		// Finalize UI state
+		finally
+		{
+			// Stop measuring time
+			stopwatch.Stop();
+			// Update status bar with elapsed time
+			buttonCancel.Enabled = false;
+			buttonList.Enabled = true;
+			dropButtonSaveList.Enabled = true;
+			numericUpDownMinimum.Enabled = true;
+			numericUpDownMaximum.Enabled = true;
+			progressBar.Enabled = false;
+			progressBar.Value = 0;
+			// Reset taskbar progress
+			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: 0, progressMax: 100);
+			// Show elapsed time in status bar
+			_cancellationTokenSource.Dispose();
+			_cancellationTokenSource = null;
 		}
 	}
 
 	/// <summary>
-	/// Handles the <see cref="BackgroundWorker.ProgressChanged"/> event.
-	/// Updates the UI progress bar on the UI thread with the percentage reported by the background worker.
+	/// Cancels the ongoing operation.
 	/// </summary>
-	/// <param name="sender">Event source (the background worker).</param>
-	/// <param name="e">The <see cref="ProgressChangedEventArgs"/> instance that contains the event data, including <see cref="ProgressChangedEventArgs.ProgressPercentage"/>.</param>
 	/// <remarks>
-	/// This method is used to update the UI progress bar on the UI thread with the percentage reported by the background worker.
+	/// This method is invoked when the user clicks the "Cancel" button.
 	/// </remarks>
-	private void BackgroundWorker_ProgressChanged(object? sender, ProgressChangedEventArgs e) => progressBar.Value = e.ProgressPercentage;
+	private void ButtonCancel_Click(object? sender, EventArgs? e) => _cancellationTokenSource?.Cancel();
 
 	/// <summary>
-	/// Handles the <see cref="BackgroundWorker.RunWorkerCompleted"/> event.
-	/// Finalizes background processing: re-enables UI controls, hides progress indicators and resets taskbar state.
+	/// Saves the current list as a CSV file.
 	/// </summary>
-	/// <param name="sender">Event source (the background worker).</param>
-	/// <param name="e">The <see cref="RunWorkerCompletedEventArgs"/> instance that contains the event data, including error or cancellation information.</param>
+	/// <param name="e">Event arguments.</param>
+	/// <param name="sender">Event source (the menu item).</param>
 	/// <remarks>
-	/// This method is used to finalize background processing: re-enables UI controls, hides progress indicators and resets taskbar state.
+	/// This method is invoked when the user selects the "Save As CSV" menu item.
 	/// </remarks>
-	private void BackgroundWorker_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs? e)
+	private void ToolStripMenuItemSaveAsCsv_Click(object? sender, EventArgs? e)
 	{
-		listView.Visible = true; // Show the list view
-								 // Enable the numeric up-down controls
-		numericUpDownMinimum.Enabled = true;
-		numericUpDownMaximum.Enabled = true;
-		buttonList.Enabled = true; // Enable the list button
-		dropButtonSaveList.Enabled = true; // Enable the save button
-		buttonCancel.Enabled = false; // Disable the cancel button
-		buttonLoad.Enabled = false; // Disable the load button
-		progressBar.Enabled = false; // Disable the progress bar
-		TaskbarProgress.SetValue(windowHandle: Handle, progressValue: 0, progressMax: 100); // Reset the taskbar progress
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogCsv, ext: "csv"))
+		{
+			return;
+		}
+		// Write the data to the CSV file
+		using StreamWriter streamWriter = new(path: saveFileDialogCsv.FileName, append: false, encoding: Encoding.UTF8);
+		foreach ((string? index, string? name) in GetExportData())
+		{
+			streamWriter.WriteLine(value: $"{index}; {name}");
+		}
+	}
+
+	/// <summary>
+	/// Saves the current list as an HTML file.
+	/// </summary>
+	/// <param name="e">Event arguments.</param>
+	/// <param name="sender">Event source (the menu item).</param>
+	/// <remarks>
+	/// This method is invoked when the user selects the "Save As HTML" menu item.
+	/// </remarks>
+	private void ToolStripMenuItemSaveAsHtml_Click(object? sender, EventArgs? e)
+	{
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogHtml, ext: "html"))
+		{
+			return;
+		}
+		// Write the data to the HTML file
+		using StreamWriter w = new(path: saveFileDialogHtml.FileName, append: false, encoding: Encoding.UTF8);
+		// Write HTML header
+		w.WriteLine(value: "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>Planetoid List</title>");
+		w.WriteLine(value: "<style>body{font-family:sans-serif;} .idx{font-weight:bold;display:inline-block;width:60px;}</style></head><body>");
+		// Write each item
+		foreach ((string? index, string? name) in GetExportData())
+		{
+			w.WriteLine(value: $"<div><span class=\"idx\">{index}:</span> <span>{name}</span></div>");
+		}
+		// Write HTML footer
+		w.WriteLine(value: "</body></html>");
+	}
+
+	/// <summary>
+	/// Saves the current list as an XML file.
+	/// </summary>
+	/// <param name="e">Event arguments.</param>
+	/// <param name="sender">Event source (the menu item).</param>
+	/// <remarks>
+	/// This method is invoked when the user selects the "Save As XML" menu item.
+	/// </remarks>
+	private void ToolStripMenuItemSaveAsXml_Click(object? sender, EventArgs? e)
+	{
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogXml, ext: "xml"))
+		{
+			return;
+		}
+		// Write the data to the XML file
+		XmlWriterSettings settings = new() { Indent = true };
+		using XmlWriter writer = XmlWriter.Create(outputFileName: saveFileDialogXml.FileName, settings: settings);
+		// Write XML document
+		writer.WriteStartDocument();
+		writer.WriteStartElement(localName: "ListReadableDesignations", ns: "https://planetoid-db.de");
+		// Write each item
+		foreach ((string? index, string? name) in GetExportData())
+		{
+			writer.WriteStartElement(localName: "item");
+			writer.WriteAttributeString(localName: "index", value: index);
+			writer.WriteAttributeString(localName: "name", value: name);
+			writer.WriteEndElement();
+		}
+		// End XML document
+		writer.WriteEndElement();
+		writer.WriteEndDocument();
+	}
+
+	/// <summary>
+	/// Saves the current list as a JSON file.
+	/// </summary>
+	/// <param name="e">Event arguments.</param>
+	/// <param name="sender">Event source (the menu item).</param>
+	/// <remarks>
+	/// This method is invoked when the user selects the "Save As JSON" menu item.
+	/// </remarks>
+	private void ToolStripMenuItemSaveAsJson_Click(object? sender, EventArgs? e)
+	{
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogJson, ext: "json"))
+		{
+			return;
+		}
+		// Prepare the export data
+		var exportList = GetExportData().Select(selector: static x => new { x.Index, Designation = x.Name });
+		// Serialize to JSON and write to file
+		string jsonString = JsonSerializer.Serialize(value: exportList, options: new() { WriteIndented = true });
+		File.WriteAllText(path: saveFileDialogJson.FileName, contents: jsonString);
+	}
+
+	/// <summary>
+	/// Saves the current list as a SQL script.
+	/// Exports the list as a series of SQL INSERT statements.
+	/// </summary>
+	/// <param name="e">Event arguments.</param>
+	/// <param name="sender">Event source (the menu item).</param>
+	/// <remarks>
+	/// This method is invoked when the user selects the "Save As SQL" menu item.
+	/// </remarks>
+	private void ToolStripMenuItemSaveAsSql_Click(object? sender, EventArgs? e)
+	{
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogSql, ext: "sql"))
+		{
+			return;
+		}
+		// Write the data to the SQL file
+		using StreamWriter streamWriter = new(path: saveFileDialogSql.FileName, append: false, encoding: Encoding.UTF8);
+		// Define the table name
+		string tableName = "Planetoids";
+		// Write SQL header; Metadata and table creation (optional, but helpful)
+		streamWriter.WriteLine(value: $"-- Export generated by Planetoid-DB");
+		streamWriter.WriteLine(value: $"-- Date: {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
+		streamWriter.WriteLine();
+		// Create table statement
+		streamWriter.WriteLine(value: $"CREATE TABLE IF NOT EXISTS {tableName} (");
+		streamWriter.WriteLine(value: $"    Id VARCHAR(20) PRIMARY KEY,");
+		streamWriter.WriteLine(value: $"    Designation VARCHAR(255)");
+		streamWriter.WriteLine(value: $"  );");
+		streamWriter.WriteLine();
+		// Start transaction (significantly speeds up import!)
+		streamWriter.WriteLine(value: $"BEGIN TRANSACTION;");
+		// Iterate over data (uses helper method from previous code)
+		foreach (var (index, name) in GetExportData())
+		{
+			// IMPORTANT: SQL Escaping for apostrophes (e.g. "O'Neil" -> "O''Neil")
+			string safeIndex = index.Replace(oldValue: "'", newValue: "''");
+			string safeName = name.Replace(oldValue: "'", newValue: "''");
+			streamWriter.WriteLine(value: $"INSERT INTO {tableName} (Id, Designation) VALUES ('{safeIndex}', '{safeName}');");
+		}
+		// Commit transaction
+		streamWriter.WriteLine(value: $"COMMIT;");
+	}
+
+	/// <summary>
+	/// Saves the list as a Markdown table.
+	/// Ideal for documentation, GitHub Readmes, or Wikis.
+	/// </summary>
+	/// <param name="e">Event arguments.</param>
+	/// <param name="sender">Event source (the menu item).</param>
+	/// <remarks>
+	/// This method is invoked when the user selects the "Save As Markdown" menu item.
+	/// </remarks>
+	private void ToolStripMenuItemSaveAsMarkdown_Click(object? sender, EventArgs? e)
+	{
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogMarkdown, ext: "md"))
+		{
+			return;
+		}
+		// Write the data to the Markdown file
+		using StreamWriter streamWriter = new(path: saveFileDialogMarkdown.FileName, append: false, encoding: Encoding.UTF8);
+		// Write Markdown table header
+		streamWriter.WriteLine(value: "| Index | Readable designation |");
+		// :--- means left-aligned
+		streamWriter.WriteLine(value: "| :--- | :--- |");
+		// Write each item as a table row
+		foreach (var (index, name) in GetExportData())
+		{
+			streamWriter.WriteLine(value: $"| {index} | {name} |");
+		}
+	}
+
+	/// <summary>
+	/// Saves the list in YAML format.
+	/// A human-readable data serialization standard.
+	/// </summary>
+	/// <param name="sender">Event source (the menu item).</param>
+	/// <param name="e">Event arguments.</param>
+	/// <remarks>
+	/// This method is invoked when the user selects the "Save As YAML" menu item.
+	/// </remarks>
+	private void ToolStripMenuItemSaveAsYaml_Click(object? sender, EventArgs? e)
+	{
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogYaml, ext: "yaml"))
+		{
+			return;
+		}
+		// Write the data to the YAML file
+		using StreamWriter streamWriter = new(path: saveFileDialogYaml.FileName, append: false, encoding: Encoding.UTF8);
+		// Write YAML document header
+		streamWriter.WriteLine(value: "---"); // Start of YAML document
+		streamWriter.WriteLine(value: "# List of Readable Designations");
+		streamWriter.WriteLine(value: $"created_at: \"{DateTime.Now:O}\"");
+		streamWriter.WriteLine(value: "planetoids:");
+		// Write each item
+		foreach ((string? index, string? name) in GetExportData())
+		{
+			// YAML uses indentation (spaces) instead of brackets.
+			streamWriter.WriteLine(value: "  - item:");
+			streamWriter.WriteLine(value: $"      index: \"{index}\"");
+			// Quotes are important if the name contains special characters
+			streamWriter.WriteLine(value: $"      name: \"{name}\"");
+		}
+	}
+
+	/// <summary>
+	/// Saves the list as a TSV (Tab-Separated Values) file.
+	/// Ideal for spreadsheet applications.
+	/// </summary>
+	/// <param name="sender">Event source (the menu item).</param>
+	/// <param name="e">Event arguments.</param>
+	/// <remarks>
+	/// This method is invoked when the user selects the "Save As TSV" menu item.
+	/// </remarks>
+	private void ToolStripMenuItemSaveAsTsv_Click(object? sender, EventArgs? e)
+	{
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogTsv, ext: "tsv"))
+		{
+			return;
+		}
+		// Write the data to the TSV file
+		using StreamWriter streamWriter = new(path: saveFileDialogTsv.FileName, append: false, encoding: Encoding.UTF8);
+		// Write TSV header
+		streamWriter.WriteLine(value: "Index\tDesignation");
+		// Write each item
+		foreach ((string? index, string? name) in GetExportData())
+		{
+			streamWriter.WriteLine(value: $"{index}\t{name}");
+		}
+	}
+
+	/// <summary>
+	/// Saves the list as a LaTeX document.
+	/// </summary>
+	/// <param name="sender">Event source (the menu item).</param>
+	/// <param name="e">Event arguments.</param>
+	/// <remarks>
+	/// This method is invoked when the user selects the "Save As LaTeX" menu item.
+	/// </remarks>
+	private void ToolStripMenuItemSaveAsLatex_Click(object? sender, EventArgs? e)
+	{
+		if (!PrepareSaveDialog(dialog: saveFileDialogLatex, ext: "tex"))
+		{
+			return;
+		}
+		// Write the data to the LaTeX file
+		using StreamWriter w = new(path: saveFileDialogLatex.FileName, append: false, encoding: Encoding.UTF8);
+		// Write LaTeX document header
+		w.WriteLine(value: "\\documentclass{article}");
+		w.WriteLine(value: "\\usepackage[utf8]{inputenc}");
+		w.WriteLine(value: "\\begin{document}");
+		w.WriteLine(value: "\\begin{table}[h!]");
+		w.WriteLine(value: "\\centering");
+		// Definition: 2 columns, left-aligned (l) with a vertical line between them
+		w.WriteLine(value: "\\begin{tabular}{|l|l|}");
+		w.WriteLine(value: "\\hline");
+		w.WriteLine(value: "Index & Designation \\\\");
+		w.WriteLine(value: "\\hline");
+		// Write each item
+		foreach (var (index, name) in GetExportData())
+		{
+			// LaTeX uses & as a separator and \\ for new lines
+			// IMPORTANT: If names contain special characters like _ or %, they must be escaped.
+			w.WriteLine(value: $"{index} & {name} \\\\");
+		}
+		// Write table footer
+		w.WriteLine(value: "\\hline");
+		w.WriteLine(value: "\\end{tabular}");
+		w.WriteLine(value: "\\caption{List of Readable Designations}");
+		w.WriteLine(value: "\\end{table}");
+		w.WriteLine(value: "\\end{document}");
 	}
 
 	#endregion
@@ -346,62 +794,11 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			ToolStripItem t => t.AccessibleDescription,
 			_ => null
 		};
-		// If we have a description, set it in the status bar
+		// If a description is available, set it in the status bar
 		if (description != null)
 		{
 			SetStatusBar(text: description);
 		}
-	}
-
-	#endregion
-
-	#region Leave event handlers
-
-	/// <summary>
-	/// Called when the mouse pointer leaves a control or the control loses focus.
-	/// Clears the status bar text (delegates to <see cref="ClearStatusBar"/>).
-	/// </summary>
-	/// <param name="sender">Event source.</param>
-	/// <param name="e">Event arguments.</param>
-	/// <remarks>
-	/// This method is used to handle the Leave event for controls and ToolStrip items.
-	/// </remarks>
-	private void ClearStatusBar_Leave(object sender, EventArgs e) => ClearStatusBar();
-
-	#endregion
-
-	#region SelectedIndexChanged event handlers
-
-	/// <summary>
-	/// Handles the ListView <c>SelectedIndexChanged</c> event.
-	/// Updates the status bar with the selected planetoid's index and readable designation,
-	/// enables the load button if necessary and stores the currently selected index.
-	/// </summary>
-	/// <param name="sender">Event source (expected to be the list view).</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to handle the SelectedIndexChanged event of the ListView.
-	/// </remarks>
-	private void SelectedIndexChanged(object? sender, EventArgs? e)
-	{
-		if (listView.SelectedIndices.Count <= 0)
-		{
-			return;
-		}
-		// Get the selected index from the list view
-		int listViewSelectedIndex = listView.SelectedIndices[index: 0];
-		if (listViewSelectedIndex >= 0)
-		{
-			// Set the status bar text to show the selected index and designation name
-			SetStatusBar(text: $"{I10nStrings.Index}: {listView.Items[index: listViewSelectedIndex].Text} - {listView.Items[index: listViewSelectedIndex].SubItems[index: 1].Text}");
-		}
-		if (!buttonLoad.Enabled)
-		{
-			// Enable the load button if it is not already enabled
-			buttonLoad.Enabled = true;
-		}
-		// Set the selected index to the current index
-		this.selectedIndex = listViewSelectedIndex;
 	}
 
 	#endregion
@@ -429,247 +826,18 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 
 	#endregion
 
-	#region Clicks event handlers
+	#region Leave event handlers
 
 	/// <summary>
-	/// Handles the Click event of the List button.
-	/// Prepares the list view (clears columns, hides it), disables/enables the appropriate UI controls,
-	/// configures the background worker for progress reporting and cancellation, and starts the background operation
-	/// that formats rows for the currently configured numeric range.
+	/// Called when the mouse pointer leaves a control or the control loses focus.
+	/// Clears the status bar text (delegates to <see cref="ClearStatusBar"/>).
 	/// </summary>
-	/// <param name="sender">Event source (the List button).</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <param name="sender">Event source.</param>
+	/// <param name="e">Event arguments.</param>
 	/// <remarks>
-	/// This method is used to handle the Click event for the List button.
+	/// This method is used to handle the Leave event for controls and ToolStrip items.
 	/// </remarks>
-	private void ButtonList_Click(object? sender, EventArgs? e)
-	{
-		// Start the stopwatch for performance measurement
-		stopwatch.Restart();
-		// Clear the list view
-		listView.Clear();
-		// Add columns to the list view
-		listView.Columns.AddRange(values: [
-			 columnHeaderIndex,
-			 columnHeaderReadableDesignation,]);
-		// Hide the list view
-		listView.Visible = false;
-		// Disable the numeric up-down controls
-		numericUpDownMinimum.Enabled = false;
-		numericUpDownMaximum.Enabled = false;
-		// Enable the cancel button and disable other buttons
-		buttonCancel.Enabled = true;
-		buttonLoad.Enabled = false;
-		buttonList.Enabled = false;
-		dropButtonSaveList.Enabled = false;
-		// Reset the progress bar and cancellation flag
-		isCancelled = false;
-		progressBar.Enabled = true;
-		// Configure the background worker
-		backgroundWorker.WorkerReportsProgress = true;
-		backgroundWorker.WorkerSupportsCancellation = true;
-		backgroundWorker.ProgressChanged += BackgroundWorker_ProgressChanged;
-		backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
-		// Start the background worker to process the planetoid records
-		backgroundWorker.RunWorkerAsync();
-	}
-
-	/// <summary>
-	/// Handles the Click event of the Cancel button.
-	/// Requests cancellation of the background worker operation by setting the internal <c>isCancelled</c> flag.
-	/// </summary>
-	/// <param name="sender">Event source (the Cancel button).</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to handle the Click event for the Cancel button.
-	/// </remarks>
-	private void ButtonCancel_Click(object? sender, EventArgs? e)
-	{
-		// Stop the stopwatch for performance measurement
-		stopwatch.Stop();
-		// Set the cancel flag to true to request cancellation
-		isCancelled = true;
-		// Show a message box indicating the operation was cancelled
-		MessageBox.Show(text: listView.Items.Count + " objects processed in " + stopwatch.Elapsed + " hh:mm:ss.ms", caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
-	}
-
-	/// <summary>
-	/// Handles the Click event of the Save As CSV menu item.
-	/// Opens a SaveFileDialog, then writes the currently displayed readable designation list to a CSV file.
-	/// The file contains index and designation pairs separated by a semicolon.
-	/// </summary>
-	/// <param name="sender">Event source (the Save As CSV menu item).</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to handle the Click event for the Save As CSV menu item.
-	/// </remarks>
-	private void ToolStripMenuItemSaveAsCsv_Click(object? sender, EventArgs? e)
-	{
-		// Set the initial directory for the save file dialog
-		saveFileDialogCsv.InitialDirectory = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyDocuments);
-		// Set the default file name for the CSV file
-		saveFileDialogCsv.FileName = $"Readable-Designation-List_{numericUpDownMinimum.Value}-{numericUpDownMaximum.Value}.{saveFileDialogCsv.DefaultExt}";
-		// Show the save file dialog to select the CSV file location
-		if (saveFileDialogCsv.ShowDialog() != DialogResult.OK)
-		{
-			return;
-		}
-		// Create a new CSV file and write the data to it
-		using StreamWriter streamWriter = new(path: saveFileDialogCsv.FileName);
-		// Write the header line
-		for (int i = (int)numericUpDownMinimum.Value - 1; i < listView.Items.Count; i++)
-		{
-			// Write the index and designation name to the CSV file
-			streamWriter.Write(value: $"{listView.Items[index: i].SubItems[index: 0].Text}; {listView.Items[index: i].SubItems[index: 1].Text}");
-			// If this is not the last item, write a new line
-			// to separate the items
-			if (i < listView.Items.Count - 1)
-			{
-				// Write a new line to separate the items
-				streamWriter.Write(value: Environment.NewLine);
-			}
-		}
-	}
-
-	/// <summary>
-	/// Handles the Click event of the Save As HTML menu item.
-	/// Opens a SaveFileDialog, then writes the currently displayed readable designation list to an HTML file.
-	/// The file contains index and designation pairs formatted as HTML.
-	/// </summary>
-	/// <param name="sender">Event source (the Save As HTML menu item).</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to handle the Click event for the Save As HTML menu item.
-	/// </remarks>
-	private void ToolStripMenuItemSaveAsHtml_Click(object? sender, EventArgs? e)
-	{
-		// Set the initial directory for the save file dialog
-		saveFileDialogHtml.InitialDirectory = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyDocuments);
-		// Set the default file name for the HTML file
-		saveFileDialogHtml.FileName = $"Readable-Designation-List_{numericUpDownMinimum.Value}-{numericUpDownMaximum.Value}.{saveFileDialogHtml.DefaultExt}";
-		// Show the save file dialog to select the HTML file location
-		if (saveFileDialogHtml.ShowDialog() != DialogResult.OK)
-		{
-			return;
-		}
-		// Create a new HTML file and write the data to it
-		using StreamWriter streamWriter = new(path: saveFileDialogHtml.FileName);
-		// Write the HTML header and metadata
-		streamWriter.WriteLine(value: "<!DOCTYPE html>");
-		streamWriter.WriteLine(value: "<html lang=\"en\">");
-		streamWriter.WriteLine(value: "\t<head>");
-		streamWriter.WriteLine(value: "\t\t<meta charset=\"utf-8\">");
-		streamWriter.WriteLine(value: "\t\t<meta name=\"description\" content=\"\">");
-		streamWriter.WriteLine(value: "\t\t<meta name=\"keywords\" content=\"\">");
-		streamWriter.WriteLine(value: "\t\t<meta name=\"generator\" content=\"Planetoid-DB\">");
-		streamWriter.WriteLine(value: "\t\t<title>List of readable designations</title>");
-		streamWriter.WriteLine(value: "\t\t<style>");
-		streamWriter.WriteLine(value: "\t\t\t* {font-family: sans-serif;}");
-		streamWriter.WriteLine(value: "\t\t\t.italic {font-style: italic;}");
-		streamWriter.WriteLine(value: "\t\t\t.bold {font-weight: bold;}");
-		streamWriter.WriteLine(value: "\t\t\t.sup {vertical-align: super; font-size: smaller;}");
-		streamWriter.WriteLine(value: "\t\t\t.sub {vertical-align: sub; font-size: smaller;}");
-		streamWriter.WriteLine(value: "\t\t\t.block {width:50px; display: inline-block;}");
-		streamWriter.WriteLine(value: "\t\t</style>");
-		streamWriter.WriteLine(value: "\t</head>");
-		streamWriter.WriteLine(value: "\t<body>");
-		streamWriter.WriteLine(value: "\t\t<p>");
-		for (int i = (int)numericUpDownMinimum.Value - 1; i < listView.Items.Count; i++)
-		{
-			// Write the index and designation name to the HTML file
-			streamWriter.Write(value: $"\t\t\t<span class=\"bold block\" xml:id=\"element-id-{i}\">{listView.Items[index: i].SubItems[index: 0].Text}:</span> <span xml:id=\"value-id-{i}\">{listView.Items[index: i].SubItems[index: 1].Text}</span>");
-			// If this is not the last item, write a line break
-			// to separate the items
-			if (i < listView.Items.Count - 1)
-			{
-				// Write a line break to separate the items
-				streamWriter.WriteLine(value: "<br />");
-			}
-		}
-		// Write the closing tags for the paragraph and body
-		streamWriter.WriteLine(value: "\t\t</p>");
-		streamWriter.WriteLine(value: "\t</body>");
-		streamWriter.Write(value: "</html>");
-	}
-
-	/// <summary>
-	/// Handles the Click event of the Save As XML menu item.
-	/// Opens a SaveFileDialog, then writes the currently displayed readable designation list to an XML file.
-	/// The file contains index and designation pairs formatted as XML.
-	/// </summary>
-	/// <param name="sender">Event source (the Save As XML menu item).</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to handle the Click event of the Save As XML menu item.
-	/// </remarks>
-	private void ToolStripMenuItemSaveAsXml_Click(object? sender, EventArgs? e)
-	{
-		// Set the initial directory for the save file dialog
-		saveFileDialogXml.InitialDirectory = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyDocuments);
-		// Set the default file name for the XML file
-		saveFileDialogXml.FileName = $"Readable-Designation-List_{numericUpDownMinimum.Value}-{numericUpDownMaximum.Value}.{saveFileDialogXml.DefaultExt}";
-		// Show the save file dialog to select the XML file location
-		if (saveFileDialogXml.ShowDialog() != DialogResult.OK)
-		{
-			return;
-		}
-		// Create a new XML file and write the data to it
-		using StreamWriter streamWriter = new(path: saveFileDialogXml.FileName);
-		// Write the XML header and root element
-		streamWriter.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF.8\" standalone=\"yes\"?>");
-		streamWriter.WriteLine(value: "<ListReadableDesignations xmlns=\"https://planet-db.de\">");
-		for (int i = (int)numericUpDownMinimum.Value - 1; i < listView.Items.Count; i++)
-		{
-			// Write the index and designation name to the XML file
-			streamWriter.Write(value: $"\t<item xml:id=\"element-id-{i}\" index=\"{listView.Items[index: i].SubItems[index: 0].Text}\" name=\"{listView.Items[index: i].SubItems[index: 1].Text}\" />");
-			// If this is not the last item, write a new line
-			// to separate the items
-			if (i < listView.Items.Count - 1)
-			{
-				// Write a new line to separate the items
-				streamWriter.Write(value: Environment.NewLine);
-			}
-		}
-		// Write the closing tag for the root element
-		streamWriter.Write(value: "</ListReadableDesignations>");
-	}
-
-	/// <summary>
-	/// Handles the Click event of the Save As JSON menu item.
-	/// Opens a SaveFileDialog, then writes the currently displayed readable designation list to a JSON file.
-	/// The file contains index and designation pairs formatted as JSON.
-	/// </summary>
-	/// <param name="sender">Event source (the Save As JSON menu item).</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to handle the Click event of the Save As JSON menu item.
-	/// </remarks>
-	private void ToolStripMenuItemSaveAsJson_Click(object? sender, EventArgs? e)
-	{
-		// Set the initial directory for the save file dialog
-		saveFileDialogJson.InitialDirectory = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyDocuments);
-		// Set the default file name for the JSON file
-		saveFileDialogJson.FileName = $"Readable-Designation-List_{numericUpDownMinimum.Value}-{numericUpDownMaximum.Value}.{saveFileDialogJson.DefaultExt}";
-		// Show the save file dialog to select the JSON file location
-		if (saveFileDialogJson.ShowDialog() == DialogResult.OK)
-		{
-			// Create a new JSON file and write the data to it
-			using StreamWriter streamWriter = new(path: saveFileDialogJson.FileName);
-			// Write the JSON header and root element
-			streamWriter.WriteLine(value: "{");
-			for (int i = (int)numericUpDownMinimum.Value - 1; i < listView.Items.Count; i++)
-			{
-				// Write the index and designation name to the JSON file
-				streamWriter.WriteLine(value: "\t\"item\"");
-				streamWriter.WriteLine(value: "\t{");
-				streamWriter.WriteLine(value: $"\t\t\"index\": \"{listView.Items[index: i].SubItems[index: 0].Text}\",");
-				streamWriter.WriteLine(value: $"\t\t\"readable designations\": \"{listView.Items[index: i].SubItems[index: 1].Text}\"");
-				streamWriter.WriteLine(value: "\t}");
-			}
-			// Write the closing tag for the root element
-			streamWriter.Write(value: "}");
-		}
-	}
+	private void ClearStatusBar_Leave(object sender, EventArgs e) => ClearStatusBar();
 
 	#endregion
 
