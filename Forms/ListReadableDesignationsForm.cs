@@ -333,6 +333,29 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 
 	#endregion
 
+	#region MouseDown event handlers
+
+	/// <summary>
+	/// Handles the MouseDown event for controls.
+	/// Stores the control that triggered the event for future reference.
+	/// </summary>
+	/// <param name="sender">Event source (the control).</param>
+	/// <param name="e">The <see cref="MouseEventArgs"/> instance that contains the event data.</param>
+	/// <remarks>
+	/// This method is used to handle the MouseDown event for controls.
+	/// </remarks>
+	private void Control_MouseDown(object sender, MouseEventArgs e)
+	{
+		// Check if the sender is a Control
+		if (sender is Control control)
+		{
+			// Store the control that triggered the event
+			currentControl = control;
+		}
+	}
+
+	#endregion
+
 	#region click event handlers
 
 	/// <summary>
@@ -767,9 +790,9 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>
-	/// This method is used to handle the Enter event for controls and ToolStrip items.
+	/// This method is called when the mouse pointer enters a control or the control receives focus.
 	/// </remarks>
-	private void SetStatusBar_Enter(object sender, EventArgs e)
+	private void Control_Enter(object sender, EventArgs e)
 	{
 		// Check if the sender is null
 		ArgumentNullException.ThrowIfNull(argument: sender);
@@ -789,29 +812,6 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 
 	#endregion
 
-	#region MouseDown event handlers
-
-	/// <summary>
-	/// Handles the MouseDown event for controls.
-	/// Stores the control that triggered the event for future reference.
-	/// </summary>
-	/// <param name="sender">Event source (the control).</param>
-	/// <param name="e">The <see cref="MouseEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to handle the MouseDown event for controls.
-	/// </remarks>
-	private void Control_MouseDown(object sender, MouseEventArgs e)
-	{
-		// Check if the sender is a Control
-		if (sender is Control control)
-		{
-			// Store the control that triggered the event
-			currentControl = control;
-		}
-	}
-
-	#endregion
-
 	#region Leave event handlers
 
 	/// <summary>
@@ -821,9 +821,9 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <param name="sender">Event source.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>
-	/// This method is used to handle the Leave event for controls and ToolStrip items.
+	/// This method is called when the mouse pointer leaves a control or the control loses focus.
 	/// </remarks>
-	private void ClearStatusBar_Leave(object sender, EventArgs e) => ClearStatusBar();
+	private void Control_Leave(object sender, EventArgs e) => ClearStatusBar();
 
 	#endregion
 

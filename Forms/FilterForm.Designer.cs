@@ -165,10 +165,10 @@ namespace Planetoid_DB
 			buttonReset.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonReset.Values.Text = "&Reset all";
 			buttonReset.Click += ButtonReset_Click;
-			buttonReset.Enter += SetStatusBar_Enter;
-			buttonReset.Leave += ClearStatusBar_Leave;
-			buttonReset.MouseEnter += SetStatusBar_Enter;
-			buttonReset.MouseLeave += ClearStatusBar_Leave;
+			buttonReset.Enter += Control_Enter;
+			buttonReset.Leave += Control_Leave;
+			buttonReset.MouseEnter += Control_Enter;
+			buttonReset.MouseLeave += Control_Leave;
 			// 
 			// buttonCancel
 			// 
@@ -186,10 +186,10 @@ namespace Planetoid_DB
 			buttonCancel.Values.Image = FatcowIcons16px.fatcow_cancel_16px;
 			buttonCancel.Values.Text = "&Cancel";
 			buttonCancel.Click += ButtonCancel_Click;
-			buttonCancel.Enter += SetStatusBar_Enter;
-			buttonCancel.Leave += ClearStatusBar_Leave;
-			buttonCancel.MouseEnter += SetStatusBar_Enter;
-			buttonCancel.MouseLeave += ClearStatusBar_Leave;
+			buttonCancel.Enter += Control_Enter;
+			buttonCancel.Leave += Control_Leave;
+			buttonCancel.MouseEnter += Control_Enter;
+			buttonCancel.MouseLeave += Control_Leave;
 			// 
 			// buttonApply
 			// 
@@ -207,10 +207,10 @@ namespace Planetoid_DB
 			buttonApply.Values.Image = FatcowIcons16px.fatcow_accept_button_16px;
 			buttonApply.Values.Text = "&Apply";
 			buttonApply.Click += ButtonApply_Click;
-			buttonApply.Enter += SetStatusBar_Enter;
-			buttonApply.Leave += ClearStatusBar_Leave;
-			buttonApply.MouseEnter += SetStatusBar_Enter;
-			buttonApply.MouseLeave += ClearStatusBar_Leave;
+			buttonApply.Enter += Control_Enter;
+			buttonApply.Leave += Control_Leave;
+			buttonApply.MouseEnter += Control_Enter;
+			buttonApply.MouseLeave += Control_Leave;
 			// 
 			// tableLayoutPanel
 			// 
@@ -310,10 +310,10 @@ namespace Planetoid_DB
 			labelHeaderReset.TabIndex = 3;
 			toolTip.SetToolTip(labelHeaderReset, "Header of the reset buttons");
 			labelHeaderReset.Values.Text = "Reset";
-			labelHeaderReset.Enter += SetStatusBar_Enter;
-			labelHeaderReset.Leave += ClearStatusBar_Leave;
-			labelHeaderReset.MouseEnter += SetStatusBar_Enter;
-			labelHeaderReset.MouseLeave += ClearStatusBar_Leave;
+			labelHeaderReset.Enter += Control_Enter;
+			labelHeaderReset.Leave += Control_Leave;
+			labelHeaderReset.MouseEnter += Control_Enter;
+			labelHeaderReset.MouseLeave += Control_Leave;
 			// 
 			// labelHeaderMaximum
 			// 
@@ -329,10 +329,10 @@ namespace Planetoid_DB
 			labelHeaderMaximum.TabIndex = 2;
 			toolTip.SetToolTip(labelHeaderMaximum, "Header of the maximum spin buttons");
 			labelHeaderMaximum.Values.Text = "Maximum";
-			labelHeaderMaximum.Enter += SetStatusBar_Enter;
-			labelHeaderMaximum.Leave += ClearStatusBar_Leave;
-			labelHeaderMaximum.MouseEnter += SetStatusBar_Enter;
-			labelHeaderMaximum.MouseLeave += ClearStatusBar_Leave;
+			labelHeaderMaximum.Enter += Control_Enter;
+			labelHeaderMaximum.Leave += Control_Leave;
+			labelHeaderMaximum.MouseEnter += Control_Enter;
+			labelHeaderMaximum.MouseLeave += Control_Leave;
 			// 
 			// labelHeaderMinimum
 			// 
@@ -348,10 +348,10 @@ namespace Planetoid_DB
 			labelHeaderMinimum.TabIndex = 1;
 			toolTip.SetToolTip(labelHeaderMinimum, "Header of the minimum spin buttons");
 			labelHeaderMinimum.Values.Text = "Minimum";
-			labelHeaderMinimum.Enter += SetStatusBar_Enter;
-			labelHeaderMinimum.Leave += ClearStatusBar_Leave;
-			labelHeaderMinimum.MouseEnter += SetStatusBar_Enter;
-			labelHeaderMinimum.MouseLeave += ClearStatusBar_Leave;
+			labelHeaderMinimum.Enter += Control_Enter;
+			labelHeaderMinimum.Leave += Control_Leave;
+			labelHeaderMinimum.MouseEnter += Control_Enter;
+			labelHeaderMinimum.MouseLeave += Control_Leave;
 			// 
 			// buttonResetRmsResidual
 			// 
@@ -371,10 +371,10 @@ namespace Planetoid_DB
 			buttonResetRmsResidual.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonResetRmsResidual.Values.Text = "";
 			buttonResetRmsResidual.Click += ButtonResetRmsResidual_Click;
-			buttonResetRmsResidual.Enter += SetStatusBar_Enter;
-			buttonResetRmsResidual.Leave += ClearStatusBar_Leave;
-			buttonResetRmsResidual.MouseEnter += SetStatusBar_Enter;
-			buttonResetRmsResidual.MouseLeave += ClearStatusBar_Leave;
+			buttonResetRmsResidual.Enter += Control_Enter;
+			buttonResetRmsResidual.Leave += Control_Leave;
+			buttonResetRmsResidual.MouseEnter += Control_Enter;
+			buttonResetRmsResidual.MouseLeave += Control_Leave;
 			// 
 			// buttonResetNumberOfObservations
 			// 
@@ -394,10 +394,10 @@ namespace Planetoid_DB
 			buttonResetNumberOfObservations.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonResetNumberOfObservations.Values.Text = "";
 			buttonResetNumberOfObservations.Click += ButtonResetNumberOfObservations_Click;
-			buttonResetNumberOfObservations.Enter += SetStatusBar_Enter;
-			buttonResetNumberOfObservations.Leave += ClearStatusBar_Leave;
-			buttonResetNumberOfObservations.MouseEnter += SetStatusBar_Enter;
-			buttonResetNumberOfObservations.MouseLeave += ClearStatusBar_Leave;
+			buttonResetNumberOfObservations.Enter += Control_Enter;
+			buttonResetNumberOfObservations.Leave += Control_Leave;
+			buttonResetNumberOfObservations.MouseEnter += Control_Enter;
+			buttonResetNumberOfObservations.MouseLeave += Control_Leave;
 			// 
 			// buttonNumberOfOppositions
 			// 
@@ -417,10 +417,10 @@ namespace Planetoid_DB
 			buttonNumberOfOppositions.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonNumberOfOppositions.Values.Text = "";
 			buttonNumberOfOppositions.Click += ButtonNumberOfOppositions_Click;
-			buttonNumberOfOppositions.Enter += SetStatusBar_Enter;
-			buttonNumberOfOppositions.Leave += ClearStatusBar_Leave;
-			buttonNumberOfOppositions.MouseEnter += SetStatusBar_Enter;
-			buttonNumberOfOppositions.MouseLeave += ClearStatusBar_Leave;
+			buttonNumberOfOppositions.Enter += Control_Enter;
+			buttonNumberOfOppositions.Leave += Control_Leave;
+			buttonNumberOfOppositions.MouseEnter += Control_Enter;
+			buttonNumberOfOppositions.MouseLeave += Control_Leave;
 			// 
 			// buttonResetSlopeParameter
 			// 
@@ -440,10 +440,10 @@ namespace Planetoid_DB
 			buttonResetSlopeParameter.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonResetSlopeParameter.Values.Text = "";
 			buttonResetSlopeParameter.Click += ButtonResetSlopeParameter_Click;
-			buttonResetSlopeParameter.Enter += SetStatusBar_Enter;
-			buttonResetSlopeParameter.Leave += ClearStatusBar_Leave;
-			buttonResetSlopeParameter.MouseEnter += SetStatusBar_Enter;
-			buttonResetSlopeParameter.MouseLeave += ClearStatusBar_Leave;
+			buttonResetSlopeParameter.Enter += Control_Enter;
+			buttonResetSlopeParameter.Leave += Control_Leave;
+			buttonResetSlopeParameter.MouseEnter += Control_Enter;
+			buttonResetSlopeParameter.MouseLeave += Control_Leave;
 			// 
 			// buttonResetAbsoluteMagnitude
 			// 
@@ -463,10 +463,10 @@ namespace Planetoid_DB
 			buttonResetAbsoluteMagnitude.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonResetAbsoluteMagnitude.Values.Text = "";
 			buttonResetAbsoluteMagnitude.Click += ButtonResetAbsoluteMagnitude_Click;
-			buttonResetAbsoluteMagnitude.Enter += SetStatusBar_Enter;
-			buttonResetAbsoluteMagnitude.Leave += ClearStatusBar_Leave;
-			buttonResetAbsoluteMagnitude.MouseEnter += SetStatusBar_Enter;
-			buttonResetAbsoluteMagnitude.MouseLeave += ClearStatusBar_Leave;
+			buttonResetAbsoluteMagnitude.Enter += Control_Enter;
+			buttonResetAbsoluteMagnitude.Leave += Control_Leave;
+			buttonResetAbsoluteMagnitude.MouseEnter += Control_Enter;
+			buttonResetAbsoluteMagnitude.MouseLeave += Control_Leave;
 			// 
 			// buttonResetSemiMajorAxis
 			// 
@@ -486,10 +486,10 @@ namespace Planetoid_DB
 			buttonResetSemiMajorAxis.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonResetSemiMajorAxis.Values.Text = "";
 			buttonResetSemiMajorAxis.Click += ButtonResetSemiMajorAxis_Click;
-			buttonResetSemiMajorAxis.Enter += SetStatusBar_Enter;
-			buttonResetSemiMajorAxis.Leave += ClearStatusBar_Leave;
-			buttonResetSemiMajorAxis.MouseEnter += SetStatusBar_Enter;
-			buttonResetSemiMajorAxis.MouseLeave += ClearStatusBar_Leave;
+			buttonResetSemiMajorAxis.Enter += Control_Enter;
+			buttonResetSemiMajorAxis.Leave += Control_Leave;
+			buttonResetSemiMajorAxis.MouseEnter += Control_Enter;
+			buttonResetSemiMajorAxis.MouseLeave += Control_Leave;
 			// 
 			// buttonResetMeanDailyMotion
 			// 
@@ -509,10 +509,10 @@ namespace Planetoid_DB
 			buttonResetMeanDailyMotion.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonResetMeanDailyMotion.Values.Text = "";
 			buttonResetMeanDailyMotion.Click += ButtonResetMeanDailyMotion_Click;
-			buttonResetMeanDailyMotion.Enter += SetStatusBar_Enter;
-			buttonResetMeanDailyMotion.Leave += ClearStatusBar_Leave;
-			buttonResetMeanDailyMotion.MouseEnter += SetStatusBar_Enter;
-			buttonResetMeanDailyMotion.MouseLeave += ClearStatusBar_Leave;
+			buttonResetMeanDailyMotion.Enter += Control_Enter;
+			buttonResetMeanDailyMotion.Leave += Control_Leave;
+			buttonResetMeanDailyMotion.MouseEnter += Control_Enter;
+			buttonResetMeanDailyMotion.MouseLeave += Control_Leave;
 			// 
 			// buttonResetLongitudeOfTheAscendingNode
 			// 
@@ -532,10 +532,10 @@ namespace Planetoid_DB
 			buttonResetLongitudeOfTheAscendingNode.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonResetLongitudeOfTheAscendingNode.Values.Text = "";
 			buttonResetLongitudeOfTheAscendingNode.Click += ButtonResetLongitudeOfTheAscendingNode_Click;
-			buttonResetLongitudeOfTheAscendingNode.Enter += SetStatusBar_Enter;
-			buttonResetLongitudeOfTheAscendingNode.Leave += ClearStatusBar_Leave;
-			buttonResetLongitudeOfTheAscendingNode.MouseEnter += SetStatusBar_Enter;
-			buttonResetLongitudeOfTheAscendingNode.MouseLeave += ClearStatusBar_Leave;
+			buttonResetLongitudeOfTheAscendingNode.Enter += Control_Enter;
+			buttonResetLongitudeOfTheAscendingNode.Leave += Control_Leave;
+			buttonResetLongitudeOfTheAscendingNode.MouseEnter += Control_Enter;
+			buttonResetLongitudeOfTheAscendingNode.MouseLeave += Control_Leave;
 			// 
 			// buttonResetArgumentOfPerihelion
 			// 
@@ -555,10 +555,10 @@ namespace Planetoid_DB
 			buttonResetArgumentOfPerihelion.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonResetArgumentOfPerihelion.Values.Text = "";
 			buttonResetArgumentOfPerihelion.Click += ButtonResetArgumentOfPerihelion_Click;
-			buttonResetArgumentOfPerihelion.Enter += SetStatusBar_Enter;
-			buttonResetArgumentOfPerihelion.Leave += ClearStatusBar_Leave;
-			buttonResetArgumentOfPerihelion.MouseEnter += SetStatusBar_Enter;
-			buttonResetArgumentOfPerihelion.MouseLeave += ClearStatusBar_Leave;
+			buttonResetArgumentOfPerihelion.Enter += Control_Enter;
+			buttonResetArgumentOfPerihelion.Leave += Control_Leave;
+			buttonResetArgumentOfPerihelion.MouseEnter += Control_Enter;
+			buttonResetArgumentOfPerihelion.MouseLeave += Control_Leave;
 			// 
 			// buttonResetMeanAnomalyAtTheEpoch
 			// 
@@ -578,10 +578,10 @@ namespace Planetoid_DB
 			buttonResetMeanAnomalyAtTheEpoch.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonResetMeanAnomalyAtTheEpoch.Values.Text = "";
 			buttonResetMeanAnomalyAtTheEpoch.Click += ButtonResetMeanAnomalyAtTheEpoch_Click;
-			buttonResetMeanAnomalyAtTheEpoch.Enter += SetStatusBar_Enter;
-			buttonResetMeanAnomalyAtTheEpoch.Leave += ClearStatusBar_Leave;
-			buttonResetMeanAnomalyAtTheEpoch.MouseEnter += SetStatusBar_Enter;
-			buttonResetMeanAnomalyAtTheEpoch.MouseLeave += ClearStatusBar_Leave;
+			buttonResetMeanAnomalyAtTheEpoch.Enter += Control_Enter;
+			buttonResetMeanAnomalyAtTheEpoch.Leave += Control_Leave;
+			buttonResetMeanAnomalyAtTheEpoch.MouseEnter += Control_Enter;
+			buttonResetMeanAnomalyAtTheEpoch.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMaximumRmsResidual
 			// 
@@ -603,10 +603,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(numericUpDownMaximumRmsResidual, "Maximum of r.m.s. residual");
 			numericUpDownMaximumRmsResidual.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumRmsResidual.ValueChanged += NumericUpDownMaximumRmsResidual_ValueChanged;
-			numericUpDownMaximumRmsResidual.Enter += SetStatusBar_Enter;
-			numericUpDownMaximumRmsResidual.Leave += ClearStatusBar_Leave;
-			numericUpDownMaximumRmsResidual.MouseEnter += SetStatusBar_Enter;
-			numericUpDownMaximumRmsResidual.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownMaximumRmsResidual.Enter += Control_Enter;
+			numericUpDownMaximumRmsResidual.Leave += Control_Leave;
+			numericUpDownMaximumRmsResidual.MouseEnter += Control_Enter;
+			numericUpDownMaximumRmsResidual.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMaximumNumberOfObservations
 			// 
@@ -628,10 +628,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(numericUpDownMaximumNumberOfObservations, "Maximum of number of observations");
 			numericUpDownMaximumNumberOfObservations.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumNumberOfObservations.ValueChanged += NumericUpDownMaximumNumberOfObservations_ValueChanged;
-			numericUpDownMaximumNumberOfObservations.Enter += SetStatusBar_Enter;
-			numericUpDownMaximumNumberOfObservations.Leave += ClearStatusBar_Leave;
-			numericUpDownMaximumNumberOfObservations.MouseEnter += SetStatusBar_Enter;
-			numericUpDownMaximumNumberOfObservations.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownMaximumNumberOfObservations.Enter += Control_Enter;
+			numericUpDownMaximumNumberOfObservations.Leave += Control_Leave;
+			numericUpDownMaximumNumberOfObservations.MouseEnter += Control_Enter;
+			numericUpDownMaximumNumberOfObservations.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMaximumNumberOfOppositions
 			// 
@@ -653,10 +653,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(numericUpDownMaximumNumberOfOppositions, "Maximum of number of oppositions");
 			numericUpDownMaximumNumberOfOppositions.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumNumberOfOppositions.ValueChanged += NumericUpDownMaximumNumberOfOppositions_ValueChanged;
-			numericUpDownMaximumNumberOfOppositions.Enter += SetStatusBar_Enter;
-			numericUpDownMaximumNumberOfOppositions.Leave += ClearStatusBar_Leave;
-			numericUpDownMaximumNumberOfOppositions.MouseEnter += SetStatusBar_Enter;
-			numericUpDownMaximumNumberOfOppositions.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownMaximumNumberOfOppositions.Enter += Control_Enter;
+			numericUpDownMaximumNumberOfOppositions.Leave += Control_Leave;
+			numericUpDownMaximumNumberOfOppositions.MouseEnter += Control_Enter;
+			numericUpDownMaximumNumberOfOppositions.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMaximumSlopeParameter
 			// 
@@ -678,10 +678,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(numericUpDownMaximumSlopeParameter, "Maximum of slope parameter");
 			numericUpDownMaximumSlopeParameter.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumSlopeParameter.ValueChanged += NumericUpDownMaximumSlopeParameter_ValueChanged;
-			numericUpDownMaximumSlopeParameter.Enter += SetStatusBar_Enter;
-			numericUpDownMaximumSlopeParameter.Leave += ClearStatusBar_Leave;
-			numericUpDownMaximumSlopeParameter.MouseEnter += SetStatusBar_Enter;
-			numericUpDownMaximumSlopeParameter.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownMaximumSlopeParameter.Enter += Control_Enter;
+			numericUpDownMaximumSlopeParameter.Leave += Control_Leave;
+			numericUpDownMaximumSlopeParameter.MouseEnter += Control_Enter;
+			numericUpDownMaximumSlopeParameter.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMaximumAbsoluteMagnitude
 			// 
@@ -703,10 +703,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(numericUpDownMaximumAbsoluteMagnitude, "Maximum of absolute magnitude");
 			numericUpDownMaximumAbsoluteMagnitude.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumAbsoluteMagnitude.ValueChanged += NumericUpDownMaximumAbsoluteMagnitude_ValueChanged;
-			numericUpDownMaximumAbsoluteMagnitude.Enter += SetStatusBar_Enter;
-			numericUpDownMaximumAbsoluteMagnitude.Leave += ClearStatusBar_Leave;
-			numericUpDownMaximumAbsoluteMagnitude.MouseEnter += SetStatusBar_Enter;
-			numericUpDownMaximumAbsoluteMagnitude.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownMaximumAbsoluteMagnitude.Enter += Control_Enter;
+			numericUpDownMaximumAbsoluteMagnitude.Leave += Control_Leave;
+			numericUpDownMaximumAbsoluteMagnitude.MouseEnter += Control_Enter;
+			numericUpDownMaximumAbsoluteMagnitude.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMaximumSemiMajorAxis
 			// 
@@ -728,10 +728,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(numericUpDownMaximumSemiMajorAxis, "Maximum of semi-major axis");
 			numericUpDownMaximumSemiMajorAxis.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumSemiMajorAxis.ValueChanged += NumericUpDownMaximumSemiMajorAxis_ValueChanged;
-			numericUpDownMaximumSemiMajorAxis.Enter += SetStatusBar_Enter;
-			numericUpDownMaximumSemiMajorAxis.Leave += ClearStatusBar_Leave;
-			numericUpDownMaximumSemiMajorAxis.MouseEnter += SetStatusBar_Enter;
-			numericUpDownMaximumSemiMajorAxis.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownMaximumSemiMajorAxis.Enter += Control_Enter;
+			numericUpDownMaximumSemiMajorAxis.Leave += Control_Leave;
+			numericUpDownMaximumSemiMajorAxis.MouseEnter += Control_Enter;
+			numericUpDownMaximumSemiMajorAxis.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMaximumMeanDailyMotion
 			// 
@@ -753,10 +753,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(numericUpDownMaximumMeanDailyMotion, "Maximum of mean daily motion");
 			numericUpDownMaximumMeanDailyMotion.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumMeanDailyMotion.ValueChanged += NumericUpDownMaximumMeanDailyMotion_ValueChanged;
-			numericUpDownMaximumMeanDailyMotion.Enter += SetStatusBar_Enter;
-			numericUpDownMaximumMeanDailyMotion.Leave += ClearStatusBar_Leave;
-			numericUpDownMaximumMeanDailyMotion.MouseEnter += SetStatusBar_Enter;
-			numericUpDownMaximumMeanDailyMotion.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownMaximumMeanDailyMotion.Enter += Control_Enter;
+			numericUpDownMaximumMeanDailyMotion.Leave += Control_Leave;
+			numericUpDownMaximumMeanDailyMotion.MouseEnter += Control_Enter;
+			numericUpDownMaximumMeanDailyMotion.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMaximumOrbitalEccentricity
 			// 
@@ -778,10 +778,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(numericUpDownMaximumOrbitalEccentricity, "Maximum of orbital eccentricity");
 			numericUpDownMaximumOrbitalEccentricity.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumOrbitalEccentricity.ValueChanged += NumericUpDownMaximumOrbitalEccentricity_ValueChanged;
-			numericUpDownMaximumOrbitalEccentricity.Enter += SetStatusBar_Enter;
-			numericUpDownMaximumOrbitalEccentricity.Leave += ClearStatusBar_Leave;
-			numericUpDownMaximumOrbitalEccentricity.MouseEnter += SetStatusBar_Enter;
-			numericUpDownMaximumOrbitalEccentricity.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownMaximumOrbitalEccentricity.Enter += Control_Enter;
+			numericUpDownMaximumOrbitalEccentricity.Leave += Control_Leave;
+			numericUpDownMaximumOrbitalEccentricity.MouseEnter += Control_Enter;
+			numericUpDownMaximumOrbitalEccentricity.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMaximumInclination
 			// 
@@ -803,10 +803,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(numericUpDownMaximumInclination, "Maximum of inclination to the ecliptic");
 			numericUpDownMaximumInclination.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumInclination.ValueChanged += NumericUpDownMaximumInclination_ValueChanged;
-			numericUpDownMaximumInclination.Enter += SetStatusBar_Enter;
-			numericUpDownMaximumInclination.Leave += ClearStatusBar_Leave;
-			numericUpDownMaximumInclination.MouseEnter += SetStatusBar_Enter;
-			numericUpDownMaximumInclination.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownMaximumInclination.Enter += Control_Enter;
+			numericUpDownMaximumInclination.Leave += Control_Leave;
+			numericUpDownMaximumInclination.MouseEnter += Control_Enter;
+			numericUpDownMaximumInclination.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMaximumLongitudeOfTheAscendingNode
 			// 
@@ -828,10 +828,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(numericUpDownMaximumLongitudeOfTheAscendingNode, "Maximum of longitude of the ascending node");
 			numericUpDownMaximumLongitudeOfTheAscendingNode.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumLongitudeOfTheAscendingNode.ValueChanged += NumericUpDownMaximumLongitudeOfTheAscendingNode_ValueChanged;
-			numericUpDownMaximumLongitudeOfTheAscendingNode.Enter += SetStatusBar_Enter;
-			numericUpDownMaximumLongitudeOfTheAscendingNode.Leave += ClearStatusBar_Leave;
-			numericUpDownMaximumLongitudeOfTheAscendingNode.MouseEnter += SetStatusBar_Enter;
-			numericUpDownMaximumLongitudeOfTheAscendingNode.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownMaximumLongitudeOfTheAscendingNode.Enter += Control_Enter;
+			numericUpDownMaximumLongitudeOfTheAscendingNode.Leave += Control_Leave;
+			numericUpDownMaximumLongitudeOfTheAscendingNode.MouseEnter += Control_Enter;
+			numericUpDownMaximumLongitudeOfTheAscendingNode.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMaximumArgumentOfPerihelion
 			// 
@@ -853,10 +853,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(numericUpDownMaximumArgumentOfPerihelion, "Maximum of argument of perihelion");
 			numericUpDownMaximumArgumentOfPerihelion.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumArgumentOfPerihelion.ValueChanged += NumericUpDownMaximumArgumentOfPerihelion_ValueChanged;
-			numericUpDownMaximumArgumentOfPerihelion.Enter += SetStatusBar_Enter;
-			numericUpDownMaximumArgumentOfPerihelion.Leave += ClearStatusBar_Leave;
-			numericUpDownMaximumArgumentOfPerihelion.MouseEnter += SetStatusBar_Enter;
-			numericUpDownMaximumArgumentOfPerihelion.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownMaximumArgumentOfPerihelion.Enter += Control_Enter;
+			numericUpDownMaximumArgumentOfPerihelion.Leave += Control_Leave;
+			numericUpDownMaximumArgumentOfPerihelion.MouseEnter += Control_Enter;
+			numericUpDownMaximumArgumentOfPerihelion.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMaximumMeanAnomalyAtTheEpoch
 			// 
@@ -878,10 +878,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(numericUpDownMaximumMeanAnomalyAtTheEpoch, "Maximum of mean anomaly at the epoch");
 			numericUpDownMaximumMeanAnomalyAtTheEpoch.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumMeanAnomalyAtTheEpoch.ValueChanged += NumericUpDownMaximumMeanAnomalyAtTheEpoch_ValueChanged;
-			numericUpDownMaximumMeanAnomalyAtTheEpoch.Enter += SetStatusBar_Enter;
-			numericUpDownMaximumMeanAnomalyAtTheEpoch.Leave += ClearStatusBar_Leave;
-			numericUpDownMaximumMeanAnomalyAtTheEpoch.MouseEnter += SetStatusBar_Enter;
-			numericUpDownMaximumMeanAnomalyAtTheEpoch.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownMaximumMeanAnomalyAtTheEpoch.Enter += Control_Enter;
+			numericUpDownMaximumMeanAnomalyAtTheEpoch.Leave += Control_Leave;
+			numericUpDownMaximumMeanAnomalyAtTheEpoch.MouseEnter += Control_Enter;
+			numericUpDownMaximumMeanAnomalyAtTheEpoch.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMinimumRmsResidual
 			// 
@@ -903,10 +903,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(numericUpDownMinimumRmsResidual, "Minimum of r.m.s. residual");
 			numericUpDownMinimumRmsResidual.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumRmsResidual.ValueChanged += NumericUpDownMinimumRmsResidual_ValueChanged;
-			numericUpDownMinimumRmsResidual.Enter += SetStatusBar_Enter;
-			numericUpDownMinimumRmsResidual.Leave += ClearStatusBar_Leave;
-			numericUpDownMinimumRmsResidual.MouseEnter += SetStatusBar_Enter;
-			numericUpDownMinimumRmsResidual.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownMinimumRmsResidual.Enter += Control_Enter;
+			numericUpDownMinimumRmsResidual.Leave += Control_Leave;
+			numericUpDownMinimumRmsResidual.MouseEnter += Control_Enter;
+			numericUpDownMinimumRmsResidual.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMinimumNumberOfObservations
 			// 
@@ -928,10 +928,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(numericUpDownMinimumNumberOfObservations, "Minimum of number of observations");
 			numericUpDownMinimumNumberOfObservations.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumNumberOfObservations.ValueChanged += NumericUpDownMinimumNumberOfObservations_ValueChanged;
-			numericUpDownMinimumNumberOfObservations.Enter += SetStatusBar_Enter;
-			numericUpDownMinimumNumberOfObservations.Leave += ClearStatusBar_Leave;
-			numericUpDownMinimumNumberOfObservations.MouseEnter += SetStatusBar_Enter;
-			numericUpDownMinimumNumberOfObservations.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownMinimumNumberOfObservations.Enter += Control_Enter;
+			numericUpDownMinimumNumberOfObservations.Leave += Control_Leave;
+			numericUpDownMinimumNumberOfObservations.MouseEnter += Control_Enter;
+			numericUpDownMinimumNumberOfObservations.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMinimumNumberOfOppositions
 			// 
@@ -953,10 +953,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(numericUpDownMinimumNumberOfOppositions, "Minimum of number of oppositions");
 			numericUpDownMinimumNumberOfOppositions.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumNumberOfOppositions.ValueChanged += NumericUpDownMinimumNumberOfOppositions_ValueChanged;
-			numericUpDownMinimumNumberOfOppositions.Enter += SetStatusBar_Enter;
-			numericUpDownMinimumNumberOfOppositions.Leave += ClearStatusBar_Leave;
-			numericUpDownMinimumNumberOfOppositions.MouseEnter += SetStatusBar_Enter;
-			numericUpDownMinimumNumberOfOppositions.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownMinimumNumberOfOppositions.Enter += Control_Enter;
+			numericUpDownMinimumNumberOfOppositions.Leave += Control_Leave;
+			numericUpDownMinimumNumberOfOppositions.MouseEnter += Control_Enter;
+			numericUpDownMinimumNumberOfOppositions.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMinimumSlopeParameter
 			// 
@@ -978,10 +978,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(numericUpDownMinimumSlopeParameter, "Minimum of slope parameter");
 			numericUpDownMinimumSlopeParameter.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumSlopeParameter.ValueChanged += NumericUpDownMinimumSlopeParameter_ValueChanged;
-			numericUpDownMinimumSlopeParameter.Enter += SetStatusBar_Enter;
-			numericUpDownMinimumSlopeParameter.Leave += ClearStatusBar_Leave;
-			numericUpDownMinimumSlopeParameter.MouseEnter += SetStatusBar_Enter;
-			numericUpDownMinimumSlopeParameter.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownMinimumSlopeParameter.Enter += Control_Enter;
+			numericUpDownMinimumSlopeParameter.Leave += Control_Leave;
+			numericUpDownMinimumSlopeParameter.MouseEnter += Control_Enter;
+			numericUpDownMinimumSlopeParameter.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMinimumAbsoluteMagnitude
 			// 
@@ -1003,10 +1003,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(numericUpDownMinimumAbsoluteMagnitude, "Minimum of absolute magnitude");
 			numericUpDownMinimumAbsoluteMagnitude.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumAbsoluteMagnitude.ValueChanged += NumericUpDownMinimumAbsoluteMagnitude_ValueChanged;
-			numericUpDownMinimumAbsoluteMagnitude.Enter += SetStatusBar_Enter;
-			numericUpDownMinimumAbsoluteMagnitude.Leave += ClearStatusBar_Leave;
-			numericUpDownMinimumAbsoluteMagnitude.MouseEnter += SetStatusBar_Enter;
-			numericUpDownMinimumAbsoluteMagnitude.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownMinimumAbsoluteMagnitude.Enter += Control_Enter;
+			numericUpDownMinimumAbsoluteMagnitude.Leave += Control_Leave;
+			numericUpDownMinimumAbsoluteMagnitude.MouseEnter += Control_Enter;
+			numericUpDownMinimumAbsoluteMagnitude.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMinimumSemiMajorAxis
 			// 
@@ -1028,10 +1028,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(numericUpDownMinimumSemiMajorAxis, "Minimum of semi-major axis");
 			numericUpDownMinimumSemiMajorAxis.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumSemiMajorAxis.ValueChanged += NumericUpDownMinimumSemiMajorAxis_ValueChanged;
-			numericUpDownMinimumSemiMajorAxis.Enter += SetStatusBar_Enter;
-			numericUpDownMinimumSemiMajorAxis.Leave += ClearStatusBar_Leave;
-			numericUpDownMinimumSemiMajorAxis.MouseEnter += SetStatusBar_Enter;
-			numericUpDownMinimumSemiMajorAxis.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownMinimumSemiMajorAxis.Enter += Control_Enter;
+			numericUpDownMinimumSemiMajorAxis.Leave += Control_Leave;
+			numericUpDownMinimumSemiMajorAxis.MouseEnter += Control_Enter;
+			numericUpDownMinimumSemiMajorAxis.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMinimumMeanDailyMotion
 			// 
@@ -1053,10 +1053,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(numericUpDownMinimumMeanDailyMotion, "Minimum of mean daily motion");
 			numericUpDownMinimumMeanDailyMotion.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumMeanDailyMotion.ValueChanged += NumericUpDownMinimumMeanDailyMotion_ValueChanged;
-			numericUpDownMinimumMeanDailyMotion.Enter += SetStatusBar_Enter;
-			numericUpDownMinimumMeanDailyMotion.Leave += ClearStatusBar_Leave;
-			numericUpDownMinimumMeanDailyMotion.MouseEnter += SetStatusBar_Enter;
-			numericUpDownMinimumMeanDailyMotion.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownMinimumMeanDailyMotion.Enter += Control_Enter;
+			numericUpDownMinimumMeanDailyMotion.Leave += Control_Leave;
+			numericUpDownMinimumMeanDailyMotion.MouseEnter += Control_Enter;
+			numericUpDownMinimumMeanDailyMotion.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMinimumOrbitalEccentricity
 			// 
@@ -1078,10 +1078,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(numericUpDownMinimumOrbitalEccentricity, "Minimum of orbital eccentricity");
 			numericUpDownMinimumOrbitalEccentricity.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumOrbitalEccentricity.ValueChanged += NumericUpDownMinimumOrbitalEccentricity_ValueChanged;
-			numericUpDownMinimumOrbitalEccentricity.Enter += SetStatusBar_Enter;
-			numericUpDownMinimumOrbitalEccentricity.Leave += ClearStatusBar_Leave;
-			numericUpDownMinimumOrbitalEccentricity.MouseEnter += SetStatusBar_Enter;
-			numericUpDownMinimumOrbitalEccentricity.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownMinimumOrbitalEccentricity.Enter += Control_Enter;
+			numericUpDownMinimumOrbitalEccentricity.Leave += Control_Leave;
+			numericUpDownMinimumOrbitalEccentricity.MouseEnter += Control_Enter;
+			numericUpDownMinimumOrbitalEccentricity.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMinimumInclination
 			// 
@@ -1103,10 +1103,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(numericUpDownMinimumInclination, "Minimum of inclination to the ecliptic");
 			numericUpDownMinimumInclination.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumInclination.ValueChanged += NumericUpDownMinimumInclination_ValueChanged;
-			numericUpDownMinimumInclination.Enter += SetStatusBar_Enter;
-			numericUpDownMinimumInclination.Leave += ClearStatusBar_Leave;
-			numericUpDownMinimumInclination.MouseEnter += SetStatusBar_Enter;
-			numericUpDownMinimumInclination.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownMinimumInclination.Enter += Control_Enter;
+			numericUpDownMinimumInclination.Leave += Control_Leave;
+			numericUpDownMinimumInclination.MouseEnter += Control_Enter;
+			numericUpDownMinimumInclination.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMinimumLongitudeOfTheAscendingNode
 			// 
@@ -1128,10 +1128,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(numericUpDownMinimumLongitudeOfTheAscendingNode, "Minimum of longitude of the ascending node");
 			numericUpDownMinimumLongitudeOfTheAscendingNode.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumLongitudeOfTheAscendingNode.ValueChanged += NumericUpDownMinimumLongitudeOfTheAscendingNode_ValueChanged;
-			numericUpDownMinimumLongitudeOfTheAscendingNode.Enter += SetStatusBar_Enter;
-			numericUpDownMinimumLongitudeOfTheAscendingNode.Leave += ClearStatusBar_Leave;
-			numericUpDownMinimumLongitudeOfTheAscendingNode.MouseEnter += SetStatusBar_Enter;
-			numericUpDownMinimumLongitudeOfTheAscendingNode.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownMinimumLongitudeOfTheAscendingNode.Enter += Control_Enter;
+			numericUpDownMinimumLongitudeOfTheAscendingNode.Leave += Control_Leave;
+			numericUpDownMinimumLongitudeOfTheAscendingNode.MouseEnter += Control_Enter;
+			numericUpDownMinimumLongitudeOfTheAscendingNode.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMinimumArgumentOfPerihelion
 			// 
@@ -1153,10 +1153,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(numericUpDownMinimumArgumentOfPerihelion, "Minimum of argument of perihelion");
 			numericUpDownMinimumArgumentOfPerihelion.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumArgumentOfPerihelion.ValueChanged += NumericUpDownMinimumArgumentOfPerihelion_ValueChanged;
-			numericUpDownMinimumArgumentOfPerihelion.Enter += SetStatusBar_Enter;
-			numericUpDownMinimumArgumentOfPerihelion.Leave += ClearStatusBar_Leave;
-			numericUpDownMinimumArgumentOfPerihelion.MouseEnter += SetStatusBar_Enter;
-			numericUpDownMinimumArgumentOfPerihelion.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownMinimumArgumentOfPerihelion.Enter += Control_Enter;
+			numericUpDownMinimumArgumentOfPerihelion.Leave += Control_Leave;
+			numericUpDownMinimumArgumentOfPerihelion.MouseEnter += Control_Enter;
+			numericUpDownMinimumArgumentOfPerihelion.MouseLeave += Control_Leave;
 			// 
 			// labelArgumentOfPerihelion
 			// 
@@ -1171,10 +1171,10 @@ namespace Planetoid_DB
 			labelArgumentOfPerihelion.TabIndex = 8;
 			toolTip.SetToolTip(labelArgumentOfPerihelion, "Argument of perihelion, J2000.0");
 			labelArgumentOfPerihelion.Values.Text = "Argument of perihelion, J2000.0";
-			labelArgumentOfPerihelion.Enter += SetStatusBar_Enter;
-			labelArgumentOfPerihelion.Leave += ClearStatusBar_Leave;
-			labelArgumentOfPerihelion.MouseEnter += SetStatusBar_Enter;
-			labelArgumentOfPerihelion.MouseLeave += ClearStatusBar_Leave;
+			labelArgumentOfPerihelion.Enter += Control_Enter;
+			labelArgumentOfPerihelion.Leave += Control_Leave;
+			labelArgumentOfPerihelion.MouseEnter += Control_Enter;
+			labelArgumentOfPerihelion.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMinimumMeanAnomalyAtTheEpoch
 			// 
@@ -1196,10 +1196,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(numericUpDownMinimumMeanAnomalyAtTheEpoch, "Minimum of mean anomaly at the epoch");
 			numericUpDownMinimumMeanAnomalyAtTheEpoch.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumMeanAnomalyAtTheEpoch.ValueChanged += NumericUpDownMinimumMeanAnomalyAtTheEpoch_ValueChanged;
-			numericUpDownMinimumMeanAnomalyAtTheEpoch.Enter += SetStatusBar_Enter;
-			numericUpDownMinimumMeanAnomalyAtTheEpoch.Leave += ClearStatusBar_Leave;
-			numericUpDownMinimumMeanAnomalyAtTheEpoch.MouseEnter += SetStatusBar_Enter;
-			numericUpDownMinimumMeanAnomalyAtTheEpoch.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownMinimumMeanAnomalyAtTheEpoch.Enter += Control_Enter;
+			numericUpDownMinimumMeanAnomalyAtTheEpoch.Leave += Control_Leave;
+			numericUpDownMinimumMeanAnomalyAtTheEpoch.MouseEnter += Control_Enter;
+			numericUpDownMinimumMeanAnomalyAtTheEpoch.MouseLeave += Control_Leave;
 			// 
 			// labelRmsResidual
 			// 
@@ -1214,10 +1214,10 @@ namespace Planetoid_DB
 			labelRmsResidual.TabIndex = 48;
 			toolTip.SetToolTip(labelRmsResidual, "r.m.s. residual");
 			labelRmsResidual.Values.Text = "r.m.s. residual";
-			labelRmsResidual.Enter += SetStatusBar_Enter;
-			labelRmsResidual.Leave += ClearStatusBar_Leave;
-			labelRmsResidual.MouseEnter += SetStatusBar_Enter;
-			labelRmsResidual.MouseLeave += ClearStatusBar_Leave;
+			labelRmsResidual.Enter += Control_Enter;
+			labelRmsResidual.Leave += Control_Leave;
+			labelRmsResidual.MouseEnter += Control_Enter;
+			labelRmsResidual.MouseLeave += Control_Leave;
 			// 
 			// labelLongitudeOfTheAscendingNode
 			// 
@@ -1232,10 +1232,10 @@ namespace Planetoid_DB
 			labelLongitudeOfTheAscendingNode.TabIndex = 12;
 			toolTip.SetToolTip(labelLongitudeOfTheAscendingNode, "Longitude of the ascending node, J2000.0");
 			labelLongitudeOfTheAscendingNode.Values.Text = "Longitude of the ascending node, J2000.0";
-			labelLongitudeOfTheAscendingNode.Enter += SetStatusBar_Enter;
-			labelLongitudeOfTheAscendingNode.Leave += ClearStatusBar_Leave;
-			labelLongitudeOfTheAscendingNode.MouseEnter += SetStatusBar_Enter;
-			labelLongitudeOfTheAscendingNode.MouseLeave += ClearStatusBar_Leave;
+			labelLongitudeOfTheAscendingNode.Enter += Control_Enter;
+			labelLongitudeOfTheAscendingNode.Leave += Control_Leave;
+			labelLongitudeOfTheAscendingNode.MouseEnter += Control_Enter;
+			labelLongitudeOfTheAscendingNode.MouseLeave += Control_Leave;
 			// 
 			// labelNumberOfObservations
 			// 
@@ -1250,10 +1250,10 @@ namespace Planetoid_DB
 			labelNumberOfObservations.TabIndex = 44;
 			toolTip.SetToolTip(labelNumberOfObservations, "Number of observations");
 			labelNumberOfObservations.Values.Text = "Number of observations";
-			labelNumberOfObservations.Enter += SetStatusBar_Enter;
-			labelNumberOfObservations.Leave += ClearStatusBar_Leave;
-			labelNumberOfObservations.MouseEnter += SetStatusBar_Enter;
-			labelNumberOfObservations.MouseLeave += ClearStatusBar_Leave;
+			labelNumberOfObservations.Enter += Control_Enter;
+			labelNumberOfObservations.Leave += Control_Leave;
+			labelNumberOfObservations.MouseEnter += Control_Enter;
+			labelNumberOfObservations.MouseLeave += Control_Leave;
 			// 
 			// labelInclination
 			// 
@@ -1268,10 +1268,10 @@ namespace Planetoid_DB
 			labelInclination.TabIndex = 16;
 			toolTip.SetToolTip(labelInclination, "Inclination to the ecliptic, J2000.0");
 			labelInclination.Values.Text = "Inclination to the ecliptic, J2000.0";
-			labelInclination.Enter += SetStatusBar_Enter;
-			labelInclination.Leave += ClearStatusBar_Leave;
-			labelInclination.MouseEnter += SetStatusBar_Enter;
-			labelInclination.MouseLeave += ClearStatusBar_Leave;
+			labelInclination.Enter += Control_Enter;
+			labelInclination.Leave += Control_Leave;
+			labelInclination.MouseEnter += Control_Enter;
+			labelInclination.MouseLeave += Control_Leave;
 			// 
 			// labelNumberOfOppositions
 			// 
@@ -1286,10 +1286,10 @@ namespace Planetoid_DB
 			labelNumberOfOppositions.TabIndex = 40;
 			toolTip.SetToolTip(labelNumberOfOppositions, "Number of oppositions");
 			labelNumberOfOppositions.Values.Text = "Number of oppositions";
-			labelNumberOfOppositions.Enter += SetStatusBar_Enter;
-			labelNumberOfOppositions.Leave += ClearStatusBar_Leave;
-			labelNumberOfOppositions.MouseEnter += SetStatusBar_Enter;
-			labelNumberOfOppositions.MouseLeave += ClearStatusBar_Leave;
+			labelNumberOfOppositions.Enter += Control_Enter;
+			labelNumberOfOppositions.Leave += Control_Leave;
+			labelNumberOfOppositions.MouseEnter += Control_Enter;
+			labelNumberOfOppositions.MouseLeave += Control_Leave;
 			// 
 			// labelOrbitalEccentricity
 			// 
@@ -1304,10 +1304,10 @@ namespace Planetoid_DB
 			labelOrbitalEccentricity.TabIndex = 20;
 			toolTip.SetToolTip(labelOrbitalEccentricity, "Orbital eccentricity");
 			labelOrbitalEccentricity.Values.Text = "Orbital eccentricity";
-			labelOrbitalEccentricity.Enter += SetStatusBar_Enter;
-			labelOrbitalEccentricity.Leave += ClearStatusBar_Leave;
-			labelOrbitalEccentricity.MouseEnter += SetStatusBar_Enter;
-			labelOrbitalEccentricity.MouseLeave += ClearStatusBar_Leave;
+			labelOrbitalEccentricity.Enter += Control_Enter;
+			labelOrbitalEccentricity.Leave += Control_Leave;
+			labelOrbitalEccentricity.MouseEnter += Control_Enter;
+			labelOrbitalEccentricity.MouseLeave += Control_Leave;
 			// 
 			// labelSlopeParameter
 			// 
@@ -1322,10 +1322,10 @@ namespace Planetoid_DB
 			labelSlopeParameter.TabIndex = 36;
 			toolTip.SetToolTip(labelSlopeParameter, "Slope parameter, G");
 			labelSlopeParameter.Values.Text = "Slope parameter, G";
-			labelSlopeParameter.Enter += SetStatusBar_Enter;
-			labelSlopeParameter.Leave += ClearStatusBar_Leave;
-			labelSlopeParameter.MouseEnter += SetStatusBar_Enter;
-			labelSlopeParameter.MouseLeave += ClearStatusBar_Leave;
+			labelSlopeParameter.Enter += Control_Enter;
+			labelSlopeParameter.Leave += Control_Leave;
+			labelSlopeParameter.MouseEnter += Control_Enter;
+			labelSlopeParameter.MouseLeave += Control_Leave;
 			// 
 			// labelMeanDailyMotion
 			// 
@@ -1340,10 +1340,10 @@ namespace Planetoid_DB
 			labelMeanDailyMotion.TabIndex = 24;
 			toolTip.SetToolTip(labelMeanDailyMotion, "Mean daily motion");
 			labelMeanDailyMotion.Values.Text = "Mean daily motion";
-			labelMeanDailyMotion.Enter += SetStatusBar_Enter;
-			labelMeanDailyMotion.Leave += ClearStatusBar_Leave;
-			labelMeanDailyMotion.MouseEnter += SetStatusBar_Enter;
-			labelMeanDailyMotion.MouseLeave += ClearStatusBar_Leave;
+			labelMeanDailyMotion.Enter += Control_Enter;
+			labelMeanDailyMotion.Leave += Control_Leave;
+			labelMeanDailyMotion.MouseEnter += Control_Enter;
+			labelMeanDailyMotion.MouseLeave += Control_Leave;
 			// 
 			// labelAbsoluteMagnitude
 			// 
@@ -1358,10 +1358,10 @@ namespace Planetoid_DB
 			labelAbsoluteMagnitude.TabIndex = 32;
 			toolTip.SetToolTip(labelAbsoluteMagnitude, "Absolute magnitude, H");
 			labelAbsoluteMagnitude.Values.Text = "Absolute magnitude, H";
-			labelAbsoluteMagnitude.Enter += SetStatusBar_Enter;
-			labelAbsoluteMagnitude.Leave += ClearStatusBar_Leave;
-			labelAbsoluteMagnitude.MouseEnter += SetStatusBar_Enter;
-			labelAbsoluteMagnitude.MouseLeave += ClearStatusBar_Leave;
+			labelAbsoluteMagnitude.Enter += Control_Enter;
+			labelAbsoluteMagnitude.Leave += Control_Leave;
+			labelAbsoluteMagnitude.MouseEnter += Control_Enter;
+			labelAbsoluteMagnitude.MouseLeave += Control_Leave;
 			// 
 			// labelSemiMajorAxis
 			// 
@@ -1376,10 +1376,10 @@ namespace Planetoid_DB
 			labelSemiMajorAxis.TabIndex = 28;
 			toolTip.SetToolTip(labelSemiMajorAxis, "Semi-major axis");
 			labelSemiMajorAxis.Values.Text = "Semi-major axis";
-			labelSemiMajorAxis.Enter += SetStatusBar_Enter;
-			labelSemiMajorAxis.Leave += ClearStatusBar_Leave;
-			labelSemiMajorAxis.MouseEnter += SetStatusBar_Enter;
-			labelSemiMajorAxis.MouseLeave += ClearStatusBar_Leave;
+			labelSemiMajorAxis.Enter += Control_Enter;
+			labelSemiMajorAxis.Leave += Control_Leave;
+			labelSemiMajorAxis.MouseEnter += Control_Enter;
+			labelSemiMajorAxis.MouseLeave += Control_Leave;
 			// 
 			// labelMeanAnomalyAtTheEpoch
 			// 
@@ -1394,10 +1394,10 @@ namespace Planetoid_DB
 			labelMeanAnomalyAtTheEpoch.TabIndex = 4;
 			toolTip.SetToolTip(labelMeanAnomalyAtTheEpoch, "Mean anomaly at the epoch");
 			labelMeanAnomalyAtTheEpoch.Values.Text = "Mean anomaly at the epoch";
-			labelMeanAnomalyAtTheEpoch.Enter += SetStatusBar_Enter;
-			labelMeanAnomalyAtTheEpoch.Leave += ClearStatusBar_Leave;
-			labelMeanAnomalyAtTheEpoch.MouseEnter += SetStatusBar_Enter;
-			labelMeanAnomalyAtTheEpoch.MouseLeave += ClearStatusBar_Leave;
+			labelMeanAnomalyAtTheEpoch.Enter += Control_Enter;
+			labelMeanAnomalyAtTheEpoch.Leave += Control_Leave;
+			labelMeanAnomalyAtTheEpoch.MouseEnter += Control_Enter;
+			labelMeanAnomalyAtTheEpoch.MouseLeave += Control_Leave;
 			// 
 			// buttonResetInclination
 			// 
@@ -1417,10 +1417,10 @@ namespace Planetoid_DB
 			buttonResetInclination.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonResetInclination.Values.Text = "";
 			buttonResetInclination.Click += ButtonResetInclination_Click;
-			buttonResetInclination.Enter += SetStatusBar_Enter;
-			buttonResetInclination.Leave += ClearStatusBar_Leave;
-			buttonResetInclination.MouseEnter += SetStatusBar_Enter;
-			buttonResetInclination.MouseLeave += ClearStatusBar_Leave;
+			buttonResetInclination.Enter += Control_Enter;
+			buttonResetInclination.Leave += Control_Leave;
+			buttonResetInclination.MouseEnter += Control_Enter;
+			buttonResetInclination.MouseLeave += Control_Leave;
 			// 
 			// buttonResetOrbitalEccentricity
 			// 
@@ -1440,10 +1440,10 @@ namespace Planetoid_DB
 			buttonResetOrbitalEccentricity.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonResetOrbitalEccentricity.Values.Text = "";
 			buttonResetOrbitalEccentricity.Click += ButtonResetOrbitalEccentricity_Click;
-			buttonResetOrbitalEccentricity.Enter += SetStatusBar_Enter;
-			buttonResetOrbitalEccentricity.Leave += ClearStatusBar_Leave;
-			buttonResetOrbitalEccentricity.MouseEnter += SetStatusBar_Enter;
-			buttonResetOrbitalEccentricity.MouseLeave += ClearStatusBar_Leave;
+			buttonResetOrbitalEccentricity.Enter += Control_Enter;
+			buttonResetOrbitalEccentricity.Leave += Control_Leave;
+			buttonResetOrbitalEccentricity.MouseEnter += Control_Enter;
+			buttonResetOrbitalEccentricity.MouseLeave += Control_Leave;
 			// 
 			// labelHeaderElement
 			// 
@@ -1459,10 +1459,10 @@ namespace Planetoid_DB
 			labelHeaderElement.TabIndex = 0;
 			toolTip.SetToolTip(labelHeaderElement, "Header of the orbital elements");
 			labelHeaderElement.Values.Text = "Element";
-			labelHeaderElement.Enter += SetStatusBar_Enter;
-			labelHeaderElement.Leave += ClearStatusBar_Leave;
-			labelHeaderElement.MouseEnter += SetStatusBar_Enter;
-			labelHeaderElement.MouseLeave += ClearStatusBar_Leave;
+			labelHeaderElement.Enter += Control_Enter;
+			labelHeaderElement.Leave += Control_Leave;
+			labelHeaderElement.MouseEnter += Control_Enter;
+			labelHeaderElement.MouseLeave += Control_Leave;
 			// 
 			// kryptonManager
 			// 

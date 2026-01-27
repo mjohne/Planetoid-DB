@@ -24,13 +24,7 @@ public partial class TableModeForm : BaseKryptonForm
 	/// </remarks>
 	private List<string> planetoidsDatabase = [];
 
-	/// <summary>
-	/// Number of planetoids in the database.
-	/// </summary>
-	/// <remarks>
-	/// This field stores the number of planetoids retrieved from the database.
-	/// </remarks>
-	private int numberPlanetoids;
+	private CancellationTokenSource? cancellationTokenSource;
 
 	/// <summary>
 	/// Indicates whether the operation is cancelled.
@@ -286,8 +280,108 @@ public partial class TableModeForm : BaseKryptonForm
 	/// </remarks>
 	public void FillArray(ArrayList arrTemp)
 	{
+		// Fill the internal planetoids database
 		planetoidsDatabase = [.. arrTemp.Cast<string>()];
-		numberPlanetoids = planetoidsDatabase.Count;
+		// Update the UI controls if the form handle is created
+		if (IsHandleCreated)
+		{
+			// Update the numeric controls
+			UpdateNumericControls();
+		}
+	}
+
+	/// <summary>
+	/// Updates the numeric controls based on the current state of the planetoids database.
+	/// </summary>
+	/// <remarks>
+	/// This method is called to update the numeric controls when the planetoids database changes.
+	/// </remarks>
+	private void UpdateNumericControls()
+	{
+		// Update the numeric controls based on the current state of the planetoids database.
+		if (planetoidsDatabase.Count <= 0)
+		{
+			return;
+		}
+
+		numericUpDownMinimum.Minimum = 1;
+		numericUpDownMaximum.Minimum = 1;
+		numericUpDownMinimum.Maximum = planetoidsDatabase.Count;
+		numericUpDownMaximum.Maximum = planetoidsDatabase.Count;
+		numericUpDownMinimum.Value = 1;
+		numericUpDownMaximum.Value = planetoidsDatabase.Count;
+	}
+
+	/// <summary>
+	/// Sets the UI state based on the processing state.
+	/// </summary>
+	/// <param name="processing">True if processing is ongoing, false otherwise.</param>
+	/// <remarks>
+	/// This method updates the enabled state of the UI controls based on the processing state.
+	/// </remarks>
+	private void SetUiState(bool processing)
+	{
+		// Update the enabled state of the UI controls based on the processing state
+		numericUpDownMinimum.Enabled = !processing;
+		numericUpDownMaximum.Enabled = !processing;
+		buttonList.Enabled = !processing;
+		buttonCancel.Enabled = processing;
+		progressBar.Enabled = processing;
+		// Show the list view only when not processing
+		listView.Visible = !processing; // Erst zeigen, wenn fertig, oder VirtualMode nutzen
+										// Update the taskbar progress state
+		if (!processing)
+		{
+			progressBar.Value = 0;
+			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: 0, progressMax: 100);
+		}
+	}
+
+	/// <summary>
+	/// Sets up the columns for the ListView control.
+	/// </summary>
+	/// <remarks>
+	/// This method configures the columns of the ListView control to display the relevant
+	/// information for each planetoid record.
+	/// </remarks>
+	private void SetupColumns()
+	{
+		listView.Columns.AddRange(values: [
+			 columnHeaderIndex, columnHeaderReadableDesignation, columnHeaderEpoch,
+			 columnHeaderMeanAnomaly, columnHeaderArgumentPerihelion, columnHeaderLongitudeAscendingNode,
+			 columnHeaderInclination, columnHeaderOrbitalEccentricity, columnHeaderMeanDailyMotion,
+			 columnHeaderSemimajorAxis, columnHeaderAbsoluteMagnitude, columnHeaderSlopeParameter,
+			 columnHeaderReference, columnHeaderNumberOppositions, columnHeaderNumberObservations,
+			 columnHeaderObservationSpan, columnHeaderRmsResidual, columnHeaderComputerName,
+			 columnHeaderFlags, columnHeaderDateLastObservation
+		]);
+	}
+
+	/// <summary>
+	/// Creates a ListViewItem from a record.
+	/// </summary>
+	/// <param name="p">The planetoid record to convert.</param>
+	/// <returns>A ListViewItem representing the planetoid record.</returns>
+	/// <remarks>
+	/// This method is used to create a ListViewItem from a PlanetoidRecord.
+	/// </remarks>
+	private ListViewItem CreateListViewItem(PlanetoidRecord p)
+	{
+		// Create a new ListViewItem with the index as the main text
+		ListViewItem item = new(text: p.Index)
+		{
+			ToolTipText = $"{p.Index}: {p.DesignationName}"
+		};
+		// Create an array of subitems from the planetoid record
+		string[] subItems = [
+			p.DesignationName, p.Epoch, p.MeanAnomaly, p.ArgPeri, p.LongAscNode,
+			p.Incl, p.OrbEcc, p.Motion, p.SemiMajorAxis, p.MagAbs,
+			p.SlopeParam, p.Ref, p.NumberOpposition, p.NumberObservation,
+			p.ObsSpan, p.RmsResidual, p.ComputerName, p.Flags, p.ObservationLastDate
+		];
+		// Add the subitems to the ListViewItem
+		item.SubItems.AddRange(items: subItems);
+		return item;
 	}
 
 	/// <summary>
@@ -386,17 +480,31 @@ public partial class TableModeForm : BaseKryptonForm
 		ClearStatusBar();
 		// Disable the status bar, the list view and the cancel button
 		labelInformation.Enabled = listView.Visible = buttonCancel.Enabled = false;
+		// Check if the planetoids database is empty
 		if (planetoidsDatabase.Count <= 0)
 		{
 			return;
 		}
-		// Set the minimum and maximum values for the numeric up-down controls
-		numericUpDownMinimum.Minimum = 1;
-		numericUpDownMaximum.Minimum = 1;
-		numericUpDownMinimum.Maximum = planetoidsDatabase.Count;
-		numericUpDownMaximum.Maximum = planetoidsDatabase.Count;
-		numericUpDownMinimum.Value = 1;
-		numericUpDownMaximum.Value = planetoidsDatabase.Count;
+		// Update the numeric up-down controls
+		UpdateNumericControls();
+	}
+
+	/// <summary>
+	/// Handles the form Closed event.
+	/// Cleans up resources and cancels any ongoing operations.
+	/// </summary>
+	/// <param name="sender">Event source (the form).</param>
+	/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
+	/// <remarks>
+	/// This method is called when the form is closed.
+	/// </remarks>
+	private void TableModeForm_FormClosed(object sender, FormClosedEventArgs e)
+	{
+		// Cancel any ongoing operations
+		// Clearing the token if the window is closed during work
+		cancellationTokenSource?.Cancel();
+		cancellationTokenSource?.Dispose();
+		listView.Dispose();
 	}
 
 	#endregion
@@ -484,7 +592,7 @@ public partial class TableModeForm : BaseKryptonForm
 	/// <remarks>
 	/// This method is called when the mouse pointer enters a control or the control receives focus.
 	/// </remarks>
-	private void SetStatusBar_Enter(object sender, EventArgs e)
+	private void Control_Enter(object sender, EventArgs e)
 	{
 		// Check if the sender is null
 		ArgumentNullException.ThrowIfNull(argument: sender);
@@ -515,7 +623,7 @@ public partial class TableModeForm : BaseKryptonForm
 	/// <remarks>
 	/// This method is called when the mouse pointer leaves a control or the control loses focus.
 	/// </remarks>
-	private void ClearStatusBar_Leave(object sender, EventArgs e) => ClearStatusBar();
+	private void Control_Leave(object sender, EventArgs e) => ClearStatusBar();
 
 	#endregion
 
@@ -588,8 +696,109 @@ public partial class TableModeForm : BaseKryptonForm
 	/// <remarks>
 	/// This method is called when the List button is clicked.
 	/// </remarks>
-	private void ButtonList_Click(object sender, EventArgs e)
+	private async void ButtonList_ClickAsync(object sender, EventArgs e)
 	{
+		// Start the stopwatch for performance measurement
+		stopwatch.Restart();
+		listView.Items.Clear(); // Nur Items clearen, nicht Columns neu setzen (Columns besser im Designer oder Konstruktor 1x setzen)
+								// Only add columns if none already exist.
+		if (listView.Columns.Count == 0)
+		{
+			SetupColumns();
+		}
+		// Hide the list view
+		listView.Visible = false;
+		SetUiState(processing: true);
+		// Initialize the cancellation token source
+		cancellationTokenSource = new CancellationTokenSource();
+		CancellationToken token = cancellationTokenSource.Token;
+		// Determine the range to process
+		int minIndex = (int)numericUpDownMinimum.Value - 1;
+		int maxIndex = (int)numericUpDownMaximum.Value; // Exklusiv im Slice, also passt es
+		int count = maxIndex - minIndex;
+		// Progress reporting setup
+		Progress<int> progress = new(handler: percent =>
+		{
+			progressBar.Value = percent;
+			// Optional: TaskbarProgress update here
+		});
+		// Configure the progress bar
+		progressBar.Maximum = count;
+		progressBar.Value = 0;
+		try
+		{
+			// --- THIS IS WHERE THE WORK HAPPENS IN THE BACKGROUND ---
+			// Clear any previous items
+			List<ListViewItem> newItems = await Task.Run(function: () =>
+			{
+				// List to hold the newly created ListViewItems
+				var resultList = new List<ListViewItem>();
+				int progressCounter = 0;
+				// Get the range of planetoids to process
+				IEnumerable<string> rangeToProcess = planetoidsDatabase.Skip(count: minIndex).Take(count: count);
+				// Process each line in the specified range
+				foreach (string line in rangeToProcess)
+				{
+					// Check for cancellation
+					if (token.IsCancellationRequested)
+					{
+						break;
+					}
+					// Parse the line into a PlanetoidRecord
+					PlanetoidRecord record = PlanetoidRecord.Parse(line);
+					// IMPORTANT: ListViewItems can be created in the background thread,
+					// but cannot be added to the ListView.
+					// This is done in the UI thread
+					ListViewItem lvi = CreateListViewItem(p: record);
+					resultList.Add(item: lvi);
+					// Update progress
+					progressCounter++;
+					// Update the progress bar in the UI thread
+					// Not report for every item (performance), but e.g. every 100 items
+					if (progressCounter % 100 == 0)
+					{
+						((IProgress<int>)progress).Report(value: progressCounter);
+					}
+				}
+				return resultList;
+			}, cancellationToken: token);
+
+			// --- BACK IN THE UI THREAD ---
+			// Add the new items to the ListView in a single batch
+			if (!token.IsCancellationRequested)
+			{
+				// This is done in the UI thread
+				// Mass update for performance
+				listView.BeginUpdate();
+				listView.Items.AddRange(items: [.. newItems]);
+				listView.EndUpdate();
+			}
+		}
+		catch (OperationCanceledException)
+		{
+			// Termination was treated
+		}
+		catch (Exception ex)
+		{
+			MessageBox.Show(text: $"An error has occurred: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+		}
+		finally
+		{
+			// Stop the stopwatch and reset the UI state
+			stopwatch.Stop();
+			SetUiState(processing: false);
+			// Show completion or cancellation message
+			if (cancellationTokenSource.IsCancellationRequested)
+			{
+				MessageBox.Show(text: $"{listView.Items.Count} objects processed in {stopwatch.Elapsed:hh\\:mm\\:ss\\.fff}",
+					caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			// Dispose the cancellation token source
+			cancellationTokenSource.Dispose();
+			cancellationTokenSource = null;
+		}
+
+		/*
 		// Start the stopwatch for performance measurement
 		stopwatch.Restart();
 		// Clear the list view
@@ -639,6 +848,7 @@ public partial class TableModeForm : BaseKryptonForm
 		backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
 		// Start the background worker
 		backgroundWorker.RunWorkerAsync();
+		*/
 	}
 
 	/// <summary>

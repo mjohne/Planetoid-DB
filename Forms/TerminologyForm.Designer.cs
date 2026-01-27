@@ -147,10 +147,10 @@ namespace Planetoid_DB
 			listBox.TabIndex = 7;
 			toolTip.SetToolTip(listBox, "Terms that can be looked up");
 			listBox.SelectedValueChanged += ListBox_SelectedValueChanged;
-			listBox.Enter += SetStatusBar_Enter;
-			listBox.Leave += ClearStatusBar_Leave;
-			listBox.MouseEnter += SetStatusBar_Enter;
-			listBox.MouseLeave += ClearStatusBar_Leave;
+			listBox.Enter += Control_Enter;
+			listBox.Leave += Control_Leave;
+			listBox.MouseEnter += Control_Enter;
+			listBox.MouseLeave += Control_Leave;
 			// 
 			// webBrowser
 			// 

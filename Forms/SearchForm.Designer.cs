@@ -79,10 +79,10 @@ namespace Planetoid_DB
 			checkedListBox.Size = new Size(266, 194);
 			checkedListBox.TabIndex = 1;
 			toolTip.SetToolTip(checkedListBox, "Box with selectable orbital elements");
-			checkedListBox.Enter += SetStatusBar_Enter;
-			checkedListBox.Leave += ClearStatusBar_Leave;
-			checkedListBox.MouseEnter += SetStatusBar_Enter;
-			checkedListBox.MouseLeave += ClearStatusBar_Leave;
+			checkedListBox.Enter += Control_Enter;
+			checkedListBox.Leave += Control_Leave;
+			checkedListBox.MouseEnter += Control_Enter;
+			checkedListBox.MouseLeave += Control_Leave;
 			// 
 			// panel
 			// 
@@ -124,10 +124,10 @@ namespace Planetoid_DB
 			listView.UseCompatibleStateImageBehavior = false;
 			listView.View = View.Details;
 			listView.SelectedIndexChanged += ListView_SelectedIndexChanged;
-			listView.Enter += SetStatusBar_Enter;
-			listView.Leave += ClearStatusBar_Leave;
-			listView.MouseEnter += SetStatusBar_Enter;
-			listView.MouseLeave += ClearStatusBar_Leave;
+			listView.Enter += Control_Enter;
+			listView.Leave += Control_Leave;
+			listView.MouseEnter += Control_Enter;
+			listView.MouseLeave += Control_Leave;
 			// 
 			// columnHeaderIndex
 			// 
@@ -163,10 +163,10 @@ namespace Planetoid_DB
 			buttonCancel.Values.Image = FatcowIcons16px.fatcow_cancel_16px;
 			buttonCancel.Values.Text = "&Cancel";
 			buttonCancel.Click += ButtonCancel_Click;
-			buttonCancel.Enter += SetStatusBar_Enter;
-			buttonCancel.Leave += ClearStatusBar_Leave;
-			buttonCancel.MouseEnter += SetStatusBar_Enter;
-			buttonCancel.MouseLeave += ClearStatusBar_Leave;
+			buttonCancel.Enter += Control_Enter;
+			buttonCancel.Leave += Control_Leave;
+			buttonCancel.MouseEnter += Control_Enter;
+			buttonCancel.MouseLeave += Control_Leave;
 			// 
 			// statusStrip
 			// 
@@ -211,10 +211,10 @@ namespace Planetoid_DB
 			labelEntriesFound.TabIndex = 8;
 			toolTip.SetToolTip(labelEntriesFound, "Shows the found entries");
 			labelEntriesFound.Values.Text = "0 entries found";
-			labelEntriesFound.Enter += SetStatusBar_Enter;
-			labelEntriesFound.Leave += ClearStatusBar_Leave;
-			labelEntriesFound.MouseEnter += SetStatusBar_Enter;
-			labelEntriesFound.MouseLeave += ClearStatusBar_Leave;
+			labelEntriesFound.Enter += Control_Enter;
+			labelEntriesFound.Leave += Control_Leave;
+			labelEntriesFound.MouseEnter += Control_Enter;
+			labelEntriesFound.MouseLeave += Control_Leave;
 			// 
 			// progressBar
 			// 
@@ -230,8 +230,8 @@ namespace Planetoid_DB
 			progressBar.TextShadowColor = Color.Empty;
 			toolTip.SetToolTip(progressBar, "Shows the progress status of the search");
 			progressBar.Values.Text = "";
-			progressBar.MouseEnter += SetStatusBar_Enter;
-			progressBar.MouseLeave += ClearStatusBar_Leave;
+			progressBar.MouseEnter += Control_Enter;
+			progressBar.MouseLeave += Control_Leave;
 			// 
 			// groupBox
 			// 
@@ -254,10 +254,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(groupBox, "Group the search element");
 			groupBox.Values.Heading = "Word, number, keyword, ...";
 			groupBox.Values.Image = FatcowIcons16px.fatcow_pencil_16px;
-			groupBox.Enter += SetStatusBar_Enter;
-			groupBox.Leave += ClearStatusBar_Leave;
-			groupBox.MouseEnter += SetStatusBar_Enter;
-			groupBox.MouseLeave += ClearStatusBar_Leave;
+			groupBox.Enter += Control_Enter;
+			groupBox.Leave += Control_Leave;
+			groupBox.MouseEnter += Control_Enter;
+			groupBox.MouseLeave += Control_Leave;
 			// 
 			// buttonClear
 			// 
@@ -275,10 +275,10 @@ namespace Planetoid_DB
 			buttonClear.Values.Image = FatcowIcons16px.fatcow_cross_16px;
 			buttonClear.Values.Text = "&Clear";
 			buttonClear.Click += ButtonClear_Click;
-			buttonClear.Enter += SetStatusBar_Enter;
-			buttonClear.Leave += ClearStatusBar_Leave;
-			buttonClear.MouseEnter += SetStatusBar_Enter;
-			buttonClear.MouseLeave += ClearStatusBar_Leave;
+			buttonClear.Enter += Control_Enter;
+			buttonClear.Leave += Control_Leave;
+			buttonClear.MouseEnter += Control_Enter;
+			buttonClear.MouseLeave += Control_Leave;
 			// 
 			// textBox
 			// 
@@ -292,10 +292,10 @@ namespace Planetoid_DB
 			textBox.TabIndex = 0;
 			toolTip.SetToolTip(textBox, "Search box");
 			textBox.TextChanged += TextBox_TextChanged;
-			textBox.Enter += SetStatusBar_Enter;
-			textBox.Leave += ClearStatusBar_Leave;
-			textBox.MouseEnter += SetStatusBar_Enter;
-			textBox.MouseLeave += ClearStatusBar_Leave;
+			textBox.Enter += Control_Enter;
+			textBox.Leave += Control_Leave;
+			textBox.MouseEnter += Control_Enter;
+			textBox.MouseLeave += Control_Leave;
 			// 
 			// buttonLoad
 			// 
@@ -313,10 +313,10 @@ namespace Planetoid_DB
 			buttonLoad.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
 			buttonLoad.Values.Text = "&Load";
 			buttonLoad.Click += ButtonLoad_Click;
-			buttonLoad.Enter += SetStatusBar_Enter;
-			buttonLoad.Leave += ClearStatusBar_Leave;
-			buttonLoad.MouseEnter += SetStatusBar_Enter;
-			buttonLoad.MouseLeave += ClearStatusBar_Leave;
+			buttonLoad.Enter += Control_Enter;
+			buttonLoad.Leave += Control_Leave;
+			buttonLoad.MouseEnter += Control_Enter;
+			buttonLoad.MouseLeave += Control_Leave;
 			// 
 			// buttonUnmarkAll
 			// 
@@ -333,10 +333,10 @@ namespace Planetoid_DB
 			buttonUnmarkAll.Values.DropDownArrowColor = Color.Empty;
 			buttonUnmarkAll.Values.Text = "&Unmark all";
 			buttonUnmarkAll.Click += ButtonUnmarkAll_Click;
-			buttonUnmarkAll.Enter += SetStatusBar_Enter;
-			buttonUnmarkAll.Leave += ClearStatusBar_Leave;
-			buttonUnmarkAll.MouseEnter += SetStatusBar_Enter;
-			buttonUnmarkAll.MouseLeave += ClearStatusBar_Leave;
+			buttonUnmarkAll.Enter += Control_Enter;
+			buttonUnmarkAll.Leave += Control_Leave;
+			buttonUnmarkAll.MouseEnter += Control_Enter;
+			buttonUnmarkAll.MouseLeave += Control_Leave;
 			// 
 			// buttonMarkAll
 			// 
@@ -354,10 +354,10 @@ namespace Planetoid_DB
 			buttonMarkAll.Values.Image = FatcowIcons16px.fatcow_asterisk_orange_16px;
 			buttonMarkAll.Values.Text = "&Mark all";
 			buttonMarkAll.Click += ButtonMarkAll_Click;
-			buttonMarkAll.Enter += SetStatusBar_Enter;
-			buttonMarkAll.Leave += ClearStatusBar_Leave;
-			buttonMarkAll.MouseEnter += SetStatusBar_Enter;
-			buttonMarkAll.MouseLeave += ClearStatusBar_Leave;
+			buttonMarkAll.Enter += Control_Enter;
+			buttonMarkAll.Leave += Control_Leave;
+			buttonMarkAll.MouseEnter += Control_Enter;
+			buttonMarkAll.MouseLeave += Control_Leave;
 			// 
 			// buttonSearch
 			// 
@@ -374,10 +374,10 @@ namespace Planetoid_DB
 			buttonSearch.Values.Image = FatcowIcons16px.fatcow_magnifier_16px;
 			buttonSearch.Values.Text = "&Search";
 			buttonSearch.Click += ButtonSearch_Click;
-			buttonSearch.Enter += SetStatusBar_Enter;
-			buttonSearch.Leave += ClearStatusBar_Leave;
-			buttonSearch.MouseEnter += SetStatusBar_Enter;
-			buttonSearch.MouseLeave += ClearStatusBar_Leave;
+			buttonSearch.Enter += Control_Enter;
+			buttonSearch.Leave += Control_Leave;
+			buttonSearch.MouseEnter += Control_Enter;
+			buttonSearch.MouseLeave += Control_Leave;
 			// 
 			// backgroundWorker
 			// 

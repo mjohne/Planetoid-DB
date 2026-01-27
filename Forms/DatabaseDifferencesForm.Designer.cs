@@ -198,10 +198,10 @@ namespace Planetoid_DB
 			groupBoxResults.Panel.AccessibleRole = AccessibleRole.Grouping;
 			groupBoxResults.Panel.Controls.Add(listBoxResults);
 			groupBoxResults.Panel.UseWaitCursor = true;
-			groupBoxResults.Panel.Enter += SetStatusBar_Enter;
-			groupBoxResults.Panel.Leave += ClearStatusBar_Leave;
-			groupBoxResults.Panel.MouseEnter += SetStatusBar_Enter;
-			groupBoxResults.Panel.MouseLeave += ClearStatusBar_Leave;
+			groupBoxResults.Panel.Enter += Control_Enter;
+			groupBoxResults.Panel.Leave += Control_Leave;
+			groupBoxResults.Panel.MouseEnter += Control_Enter;
+			groupBoxResults.Panel.MouseLeave += Control_Leave;
 			groupBoxResults.Size = new Size(954, 285);
 			groupBoxResults.TabIndex = 20;
 			toolTip.SetToolTip(groupBoxResults, "Results");
@@ -241,10 +241,10 @@ namespace Planetoid_DB
 			buttonCancel.Values.Image = FatcowIcons16px.fatcow_cancel_16px;
 			buttonCancel.Values.Text = "C&ancel";
 			buttonCancel.Click += ButtonCancel_Click;
-			buttonCancel.Enter += SetStatusBar_Enter;
-			buttonCancel.Leave += ClearStatusBar_Leave;
-			buttonCancel.MouseEnter += SetStatusBar_Enter;
-			buttonCancel.MouseLeave += ClearStatusBar_Leave;
+			buttonCancel.Enter += Control_Enter;
+			buttonCancel.Leave += Control_Leave;
+			buttonCancel.MouseEnter += Control_Enter;
+			buttonCancel.MouseLeave += Control_Leave;
 			// 
 			// buttonCompare
 			// 
@@ -262,10 +262,10 @@ namespace Planetoid_DB
 			buttonCompare.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
 			buttonCompare.Values.Text = "C&ompare";
 			buttonCompare.Click += ButtonCompare_Click;
-			buttonCompare.Enter += SetStatusBar_Enter;
-			buttonCompare.Leave += ClearStatusBar_Leave;
-			buttonCompare.MouseEnter += SetStatusBar_Enter;
-			buttonCompare.MouseLeave += ClearStatusBar_Leave;
+			buttonCompare.Enter += Control_Enter;
+			buttonCompare.Leave += Control_Leave;
+			buttonCompare.MouseEnter += Control_Enter;
+			buttonCompare.MouseLeave += Control_Leave;
 			// 
 			// groupBoxProgress
 			// 
@@ -282,10 +282,10 @@ namespace Planetoid_DB
 			groupBoxProgress.Panel.AccessibleRole = AccessibleRole.Pane;
 			groupBoxProgress.Panel.Controls.Add(progressBar);
 			groupBoxProgress.Panel.UseWaitCursor = true;
-			groupBoxProgress.Panel.Enter += SetStatusBar_Enter;
-			groupBoxProgress.Panel.Leave += ClearStatusBar_Leave;
-			groupBoxProgress.Panel.MouseEnter += SetStatusBar_Enter;
-			groupBoxProgress.Panel.MouseLeave += ClearStatusBar_Leave;
+			groupBoxProgress.Panel.Enter += Control_Enter;
+			groupBoxProgress.Panel.Leave += Control_Leave;
+			groupBoxProgress.Panel.MouseEnter += Control_Enter;
+			groupBoxProgress.Panel.MouseLeave += Control_Leave;
 			groupBoxProgress.Size = new Size(754, 36);
 			groupBoxProgress.TabIndex = 17;
 			toolTip.SetToolTip(groupBoxProgress, "Shows the progress status of the comparison");
@@ -293,10 +293,10 @@ namespace Planetoid_DB
 			groupBoxProgress.Values.Description = "100 %";
 			groupBoxProgress.Values.Heading = "Progress";
 			groupBoxProgress.Values.Image = FatcowIcons16px.fatcow_time_16px;
-			groupBoxProgress.Enter += SetStatusBar_Enter;
-			groupBoxProgress.Leave += ClearStatusBar_Leave;
-			groupBoxProgress.MouseEnter += SetStatusBar_Enter;
-			groupBoxProgress.MouseLeave += ClearStatusBar_Leave;
+			groupBoxProgress.Enter += Control_Enter;
+			groupBoxProgress.Leave += Control_Leave;
+			groupBoxProgress.MouseEnter += Control_Enter;
+			groupBoxProgress.MouseLeave += Control_Leave;
 			// 
 			// progressBar
 			// 
@@ -314,8 +314,8 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(progressBar, "Shows the progress status of the comparison");
 			progressBar.UseWaitCursor = true;
 			progressBar.Values.Text = "";
-			progressBar.MouseEnter += SetStatusBar_Enter;
-			progressBar.MouseLeave += ClearStatusBar_Leave;
+			progressBar.MouseEnter += Control_Enter;
+			progressBar.MouseLeave += Control_Leave;
 			// 
 			// groupBox2ndMpcorbDatFileDatabase
 			// 
@@ -332,10 +332,10 @@ namespace Planetoid_DB
 			groupBox2ndMpcorbDatFileDatabase.Panel.AccessibleRole = AccessibleRole.Pane;
 			groupBox2ndMpcorbDatFileDatabase.Panel.Controls.Add(kryptonTableLayoutPanel1);
 			groupBox2ndMpcorbDatFileDatabase.Panel.UseWaitCursor = true;
-			groupBox2ndMpcorbDatFileDatabase.Panel.Enter += SetStatusBar_Enter;
-			groupBox2ndMpcorbDatFileDatabase.Panel.Leave += ClearStatusBar_Leave;
-			groupBox2ndMpcorbDatFileDatabase.Panel.MouseEnter += SetStatusBar_Enter;
-			groupBox2ndMpcorbDatFileDatabase.Panel.MouseLeave += ClearStatusBar_Leave;
+			groupBox2ndMpcorbDatFileDatabase.Panel.Enter += Control_Enter;
+			groupBox2ndMpcorbDatFileDatabase.Panel.Leave += Control_Leave;
+			groupBox2ndMpcorbDatFileDatabase.Panel.MouseEnter += Control_Enter;
+			groupBox2ndMpcorbDatFileDatabase.Panel.MouseLeave += Control_Leave;
 			groupBox2ndMpcorbDatFileDatabase.Size = new Size(475, 158);
 			groupBox2ndMpcorbDatFileDatabase.TabIndex = 16;
 			toolTip.SetToolTip(groupBox2ndMpcorbDatFileDatabase, "Open the 2nd MPCORB.DAT file");
@@ -388,10 +388,10 @@ namespace Planetoid_DB
 			labelSize2ndMpcorbDatFileDatabaseValue.UseWaitCursor = true;
 			labelSize2ndMpcorbDatFileDatabaseValue.Values.Text = "1234567890 bytes";
 			labelSize2ndMpcorbDatFileDatabaseValue.DoubleClick += CopyToClipboard_DoubleClick;
-			labelSize2ndMpcorbDatFileDatabaseValue.Enter += SetStatusBar_Enter;
-			labelSize2ndMpcorbDatFileDatabaseValue.Leave += ClearStatusBar_Leave;
-			labelSize2ndMpcorbDatFileDatabaseValue.MouseEnter += SetStatusBar_Enter;
-			labelSize2ndMpcorbDatFileDatabaseValue.MouseLeave += ClearStatusBar_Leave;
+			labelSize2ndMpcorbDatFileDatabaseValue.Enter += Control_Enter;
+			labelSize2ndMpcorbDatFileDatabaseValue.Leave += Control_Leave;
+			labelSize2ndMpcorbDatFileDatabaseValue.MouseEnter += Control_Enter;
+			labelSize2ndMpcorbDatFileDatabaseValue.MouseLeave += Control_Leave;
 			// 
 			// labelPath2ndMpcorbDatFileDatabase
 			// 
@@ -408,10 +408,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelPath2ndMpcorbDatFileDatabase, "Path");
 			labelPath2ndMpcorbDatFileDatabase.UseWaitCursor = true;
 			labelPath2ndMpcorbDatFileDatabase.Values.Text = "Path";
-			labelPath2ndMpcorbDatFileDatabase.Enter += SetStatusBar_Enter;
-			labelPath2ndMpcorbDatFileDatabase.Leave += ClearStatusBar_Leave;
-			labelPath2ndMpcorbDatFileDatabase.MouseEnter += SetStatusBar_Enter;
-			labelPath2ndMpcorbDatFileDatabase.MouseLeave += ClearStatusBar_Leave;
+			labelPath2ndMpcorbDatFileDatabase.Enter += Control_Enter;
+			labelPath2ndMpcorbDatFileDatabase.Leave += Control_Leave;
+			labelPath2ndMpcorbDatFileDatabase.MouseEnter += Control_Enter;
+			labelPath2ndMpcorbDatFileDatabase.MouseLeave += Control_Leave;
 			// 
 			// buttonOpen2ndMpcorbDatFileDatabase
 			// 
@@ -430,10 +430,10 @@ namespace Planetoid_DB
 			buttonOpen2ndMpcorbDatFileDatabase.Values.Image = FatcowIcons16px.fatcow_folder_16px;
 			buttonOpen2ndMpcorbDatFileDatabase.Values.Text = "Open &2nd MPRCORB.DAT file";
 			buttonOpen2ndMpcorbDatFileDatabase.Click += ButtonOpen2ndMpcorbDatFileDatabase_Click;
-			buttonOpen2ndMpcorbDatFileDatabase.Enter += SetStatusBar_Enter;
-			buttonOpen2ndMpcorbDatFileDatabase.Leave += ClearStatusBar_Leave;
-			buttonOpen2ndMpcorbDatFileDatabase.MouseEnter += SetStatusBar_Enter;
-			buttonOpen2ndMpcorbDatFileDatabase.MouseLeave += ClearStatusBar_Leave;
+			buttonOpen2ndMpcorbDatFileDatabase.Enter += Control_Enter;
+			buttonOpen2ndMpcorbDatFileDatabase.Leave += Control_Leave;
+			buttonOpen2ndMpcorbDatFileDatabase.MouseEnter += Control_Enter;
+			buttonOpen2ndMpcorbDatFileDatabase.MouseLeave += Control_Leave;
 			// 
 			// labelDate2ndMpcorbDatFileDatabaseValue
 			// 
@@ -450,10 +450,10 @@ namespace Planetoid_DB
 			labelDate2ndMpcorbDatFileDatabaseValue.UseWaitCursor = true;
 			labelDate2ndMpcorbDatFileDatabaseValue.Values.Text = "00.00.0000 00:00:00";
 			labelDate2ndMpcorbDatFileDatabaseValue.DoubleClick += CopyToClipboard_DoubleClick;
-			labelDate2ndMpcorbDatFileDatabaseValue.Enter += SetStatusBar_Enter;
-			labelDate2ndMpcorbDatFileDatabaseValue.Leave += ClearStatusBar_Leave;
-			labelDate2ndMpcorbDatFileDatabaseValue.MouseEnter += SetStatusBar_Enter;
-			labelDate2ndMpcorbDatFileDatabaseValue.MouseLeave += ClearStatusBar_Leave;
+			labelDate2ndMpcorbDatFileDatabaseValue.Enter += Control_Enter;
+			labelDate2ndMpcorbDatFileDatabaseValue.Leave += Control_Leave;
+			labelDate2ndMpcorbDatFileDatabaseValue.MouseEnter += Control_Enter;
+			labelDate2ndMpcorbDatFileDatabaseValue.MouseLeave += Control_Leave;
 			// 
 			// labelDate2ndMpcorbDatFileDatabase
 			// 
@@ -470,10 +470,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelDate2ndMpcorbDatFileDatabase, "Date");
 			labelDate2ndMpcorbDatFileDatabase.UseWaitCursor = true;
 			labelDate2ndMpcorbDatFileDatabase.Values.Text = "Date";
-			labelDate2ndMpcorbDatFileDatabase.Enter += SetStatusBar_Enter;
-			labelDate2ndMpcorbDatFileDatabase.Leave += ClearStatusBar_Leave;
-			labelDate2ndMpcorbDatFileDatabase.MouseEnter += SetStatusBar_Enter;
-			labelDate2ndMpcorbDatFileDatabase.MouseLeave += ClearStatusBar_Leave;
+			labelDate2ndMpcorbDatFileDatabase.Enter += Control_Enter;
+			labelDate2ndMpcorbDatFileDatabase.Leave += Control_Leave;
+			labelDate2ndMpcorbDatFileDatabase.MouseEnter += Control_Enter;
+			labelDate2ndMpcorbDatFileDatabase.MouseLeave += Control_Leave;
 			// 
 			// labelPath2ndMpcorbDatFileDatabaseValue
 			// 
@@ -490,10 +490,10 @@ namespace Planetoid_DB
 			labelPath2ndMpcorbDatFileDatabaseValue.UseWaitCursor = true;
 			labelPath2ndMpcorbDatFileDatabaseValue.Values.Text = "C:\\This-can-be-a\\very-very-long\\path\\to-the-file\\MPCORB.DAT";
 			labelPath2ndMpcorbDatFileDatabaseValue.DoubleClick += CopyToClipboard_DoubleClick;
-			labelPath2ndMpcorbDatFileDatabaseValue.Enter += SetStatusBar_Enter;
-			labelPath2ndMpcorbDatFileDatabaseValue.Leave += ClearStatusBar_Leave;
-			labelPath2ndMpcorbDatFileDatabaseValue.MouseEnter += SetStatusBar_Enter;
-			labelPath2ndMpcorbDatFileDatabaseValue.MouseLeave += ClearStatusBar_Leave;
+			labelPath2ndMpcorbDatFileDatabaseValue.Enter += Control_Enter;
+			labelPath2ndMpcorbDatFileDatabaseValue.Leave += Control_Leave;
+			labelPath2ndMpcorbDatFileDatabaseValue.MouseEnter += Control_Enter;
+			labelPath2ndMpcorbDatFileDatabaseValue.MouseLeave += Control_Leave;
 			// 
 			// labelSize2ndMpcorbDatFileDatabase
 			// 
@@ -510,10 +510,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelSize2ndMpcorbDatFileDatabase, "Size");
 			labelSize2ndMpcorbDatFileDatabase.UseWaitCursor = true;
 			labelSize2ndMpcorbDatFileDatabase.Values.Text = "Size";
-			labelSize2ndMpcorbDatFileDatabase.Enter += SetStatusBar_Enter;
-			labelSize2ndMpcorbDatFileDatabase.Leave += ClearStatusBar_Leave;
-			labelSize2ndMpcorbDatFileDatabase.MouseEnter += SetStatusBar_Enter;
-			labelSize2ndMpcorbDatFileDatabase.MouseLeave += ClearStatusBar_Leave;
+			labelSize2ndMpcorbDatFileDatabase.Enter += Control_Enter;
+			labelSize2ndMpcorbDatFileDatabase.Leave += Control_Leave;
+			labelSize2ndMpcorbDatFileDatabase.MouseEnter += Control_Enter;
+			labelSize2ndMpcorbDatFileDatabase.MouseLeave += Control_Leave;
 			// 
 			// groupBox1stMpcorbDatFileDatabase
 			// 
@@ -530,10 +530,10 @@ namespace Planetoid_DB
 			groupBox1stMpcorbDatFileDatabase.Panel.AccessibleRole = AccessibleRole.Pane;
 			groupBox1stMpcorbDatFileDatabase.Panel.Controls.Add(tableLayoutPanel1stMpcorbDatFile);
 			groupBox1stMpcorbDatFileDatabase.Panel.UseWaitCursor = true;
-			groupBox1stMpcorbDatFileDatabase.Panel.Enter += SetStatusBar_Enter;
-			groupBox1stMpcorbDatFileDatabase.Panel.Leave += ClearStatusBar_Leave;
-			groupBox1stMpcorbDatFileDatabase.Panel.MouseEnter += SetStatusBar_Enter;
-			groupBox1stMpcorbDatFileDatabase.Panel.MouseLeave += ClearStatusBar_Leave;
+			groupBox1stMpcorbDatFileDatabase.Panel.Enter += Control_Enter;
+			groupBox1stMpcorbDatFileDatabase.Panel.Leave += Control_Leave;
+			groupBox1stMpcorbDatFileDatabase.Panel.MouseEnter += Control_Enter;
+			groupBox1stMpcorbDatFileDatabase.Panel.MouseLeave += Control_Leave;
 			groupBox1stMpcorbDatFileDatabase.Size = new Size(475, 158);
 			groupBox1stMpcorbDatFileDatabase.TabIndex = 15;
 			toolTip.SetToolTip(groupBox1stMpcorbDatFileDatabase, "Open the 1st MPCORB.DAT file");
@@ -541,10 +541,10 @@ namespace Planetoid_DB
 			groupBox1stMpcorbDatFileDatabase.Values.Heading = "The first MPCORB.DAT file";
 			groupBox1stMpcorbDatFileDatabase.Values.Image = FatcowIcons16px.fatcow_database_16px;
 			groupBox1stMpcorbDatFileDatabase.DragDrop += GroupBox1stMpcorbDatFileDatabase_DragDrop;
-			groupBox1stMpcorbDatFileDatabase.Enter += SetStatusBar_Enter;
-			groupBox1stMpcorbDatFileDatabase.Leave += ClearStatusBar_Leave;
-			groupBox1stMpcorbDatFileDatabase.MouseEnter += SetStatusBar_Enter;
-			groupBox1stMpcorbDatFileDatabase.MouseLeave += ClearStatusBar_Leave;
+			groupBox1stMpcorbDatFileDatabase.Enter += Control_Enter;
+			groupBox1stMpcorbDatFileDatabase.Leave += Control_Leave;
+			groupBox1stMpcorbDatFileDatabase.MouseEnter += Control_Enter;
+			groupBox1stMpcorbDatFileDatabase.MouseLeave += Control_Leave;
 			// 
 			// tableLayoutPanel1stMpcorbDatFile
 			// 
@@ -574,10 +574,10 @@ namespace Planetoid_DB
 			tableLayoutPanel1stMpcorbDatFile.TabIndex = 13;
 			toolTip.SetToolTip(tableLayoutPanel1stMpcorbDatFile, "Groups the data");
 			tableLayoutPanel1stMpcorbDatFile.UseWaitCursor = true;
-			tableLayoutPanel1stMpcorbDatFile.Enter += ClearStatusBar_Leave;
-			tableLayoutPanel1stMpcorbDatFile.Leave += ClearStatusBar_Leave;
-			tableLayoutPanel1stMpcorbDatFile.MouseEnter += SetStatusBar_Enter;
-			tableLayoutPanel1stMpcorbDatFile.MouseLeave += ClearStatusBar_Leave;
+			tableLayoutPanel1stMpcorbDatFile.Enter += Control_Leave;
+			tableLayoutPanel1stMpcorbDatFile.Leave += Control_Leave;
+			tableLayoutPanel1stMpcorbDatFile.MouseEnter += Control_Enter;
+			tableLayoutPanel1stMpcorbDatFile.MouseLeave += Control_Leave;
 			// 
 			// labelSize1stMpcorbDatFileDatabaseValue
 			// 
@@ -594,10 +594,10 @@ namespace Planetoid_DB
 			labelSize1stMpcorbDatFileDatabaseValue.UseWaitCursor = true;
 			labelSize1stMpcorbDatFileDatabaseValue.Values.Text = "1234567890 bytes";
 			labelSize1stMpcorbDatFileDatabaseValue.DoubleClick += CopyToClipboard_DoubleClick;
-			labelSize1stMpcorbDatFileDatabaseValue.Enter += SetStatusBar_Enter;
-			labelSize1stMpcorbDatFileDatabaseValue.Leave += ClearStatusBar_Leave;
-			labelSize1stMpcorbDatFileDatabaseValue.MouseEnter += SetStatusBar_Enter;
-			labelSize1stMpcorbDatFileDatabaseValue.MouseLeave += ClearStatusBar_Leave;
+			labelSize1stMpcorbDatFileDatabaseValue.Enter += Control_Enter;
+			labelSize1stMpcorbDatFileDatabaseValue.Leave += Control_Leave;
+			labelSize1stMpcorbDatFileDatabaseValue.MouseEnter += Control_Enter;
+			labelSize1stMpcorbDatFileDatabaseValue.MouseLeave += Control_Leave;
 			// 
 			// labelPath1stMpcorbDatFileDatabase
 			// 
@@ -614,10 +614,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelPath1stMpcorbDatFileDatabase, "Path");
 			labelPath1stMpcorbDatFileDatabase.UseWaitCursor = true;
 			labelPath1stMpcorbDatFileDatabase.Values.Text = "Path";
-			labelPath1stMpcorbDatFileDatabase.Enter += SetStatusBar_Enter;
-			labelPath1stMpcorbDatFileDatabase.Leave += ClearStatusBar_Leave;
-			labelPath1stMpcorbDatFileDatabase.MouseEnter += SetStatusBar_Enter;
-			labelPath1stMpcorbDatFileDatabase.MouseLeave += ClearStatusBar_Leave;
+			labelPath1stMpcorbDatFileDatabase.Enter += Control_Enter;
+			labelPath1stMpcorbDatFileDatabase.Leave += Control_Leave;
+			labelPath1stMpcorbDatFileDatabase.MouseEnter += Control_Enter;
+			labelPath1stMpcorbDatFileDatabase.MouseLeave += Control_Leave;
 			// 
 			// buttonOpen1stMpcorbDatFileDatabase
 			// 
@@ -636,10 +636,10 @@ namespace Planetoid_DB
 			buttonOpen1stMpcorbDatFileDatabase.Values.Image = FatcowIcons16px.fatcow_folder_16px;
 			buttonOpen1stMpcorbDatFileDatabase.Values.Text = "Open &1st MPRCORB.DAT file";
 			buttonOpen1stMpcorbDatFileDatabase.Click += ButtonOpen1stMpcorbDatFileDatabase_Click;
-			buttonOpen1stMpcorbDatFileDatabase.Enter += SetStatusBar_Enter;
-			buttonOpen1stMpcorbDatFileDatabase.Leave += ClearStatusBar_Leave;
-			buttonOpen1stMpcorbDatFileDatabase.MouseEnter += SetStatusBar_Enter;
-			buttonOpen1stMpcorbDatFileDatabase.MouseLeave += ClearStatusBar_Leave;
+			buttonOpen1stMpcorbDatFileDatabase.Enter += Control_Enter;
+			buttonOpen1stMpcorbDatFileDatabase.Leave += Control_Leave;
+			buttonOpen1stMpcorbDatFileDatabase.MouseEnter += Control_Enter;
+			buttonOpen1stMpcorbDatFileDatabase.MouseLeave += Control_Leave;
 			// 
 			// labelDate1stMpcorbDatFileDatabaseValue
 			// 
@@ -656,10 +656,10 @@ namespace Planetoid_DB
 			labelDate1stMpcorbDatFileDatabaseValue.UseWaitCursor = true;
 			labelDate1stMpcorbDatFileDatabaseValue.Values.Text = "00.00.0000 00:00:00";
 			labelDate1stMpcorbDatFileDatabaseValue.DoubleClick += CopyToClipboard_DoubleClick;
-			labelDate1stMpcorbDatFileDatabaseValue.Enter += SetStatusBar_Enter;
-			labelDate1stMpcorbDatFileDatabaseValue.Leave += ClearStatusBar_Leave;
-			labelDate1stMpcorbDatFileDatabaseValue.MouseEnter += SetStatusBar_Enter;
-			labelDate1stMpcorbDatFileDatabaseValue.MouseLeave += ClearStatusBar_Leave;
+			labelDate1stMpcorbDatFileDatabaseValue.Enter += Control_Enter;
+			labelDate1stMpcorbDatFileDatabaseValue.Leave += Control_Leave;
+			labelDate1stMpcorbDatFileDatabaseValue.MouseEnter += Control_Enter;
+			labelDate1stMpcorbDatFileDatabaseValue.MouseLeave += Control_Leave;
 			// 
 			// labelDate1stMpcorbDatFileDatabase
 			// 
@@ -676,10 +676,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelDate1stMpcorbDatFileDatabase, "Date");
 			labelDate1stMpcorbDatFileDatabase.UseWaitCursor = true;
 			labelDate1stMpcorbDatFileDatabase.Values.Text = "Date";
-			labelDate1stMpcorbDatFileDatabase.Enter += SetStatusBar_Enter;
-			labelDate1stMpcorbDatFileDatabase.Leave += ClearStatusBar_Leave;
-			labelDate1stMpcorbDatFileDatabase.MouseEnter += SetStatusBar_Enter;
-			labelDate1stMpcorbDatFileDatabase.MouseLeave += ClearStatusBar_Leave;
+			labelDate1stMpcorbDatFileDatabase.Enter += Control_Enter;
+			labelDate1stMpcorbDatFileDatabase.Leave += Control_Leave;
+			labelDate1stMpcorbDatFileDatabase.MouseEnter += Control_Enter;
+			labelDate1stMpcorbDatFileDatabase.MouseLeave += Control_Leave;
 			// 
 			// labelPath1stMpcorbDatFileDatabaseValue
 			// 
@@ -696,10 +696,10 @@ namespace Planetoid_DB
 			labelPath1stMpcorbDatFileDatabaseValue.UseWaitCursor = true;
 			labelPath1stMpcorbDatFileDatabaseValue.Values.Text = "C:\\This-can-be-a\\very-very-long\\path\\to-the-file\\MPCORB.DAT";
 			labelPath1stMpcorbDatFileDatabaseValue.DoubleClick += CopyToClipboard_DoubleClick;
-			labelPath1stMpcorbDatFileDatabaseValue.Enter += SetStatusBar_Enter;
-			labelPath1stMpcorbDatFileDatabaseValue.Leave += ClearStatusBar_Leave;
-			labelPath1stMpcorbDatFileDatabaseValue.MouseEnter += SetStatusBar_Enter;
-			labelPath1stMpcorbDatFileDatabaseValue.MouseLeave += ClearStatusBar_Leave;
+			labelPath1stMpcorbDatFileDatabaseValue.Enter += Control_Enter;
+			labelPath1stMpcorbDatFileDatabaseValue.Leave += Control_Leave;
+			labelPath1stMpcorbDatFileDatabaseValue.MouseEnter += Control_Enter;
+			labelPath1stMpcorbDatFileDatabaseValue.MouseLeave += Control_Leave;
 			// 
 			// labelSize1stMpcorbDatFileDatabase
 			// 
@@ -716,10 +716,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelSize1stMpcorbDatFileDatabase, "Size");
 			labelSize1stMpcorbDatFileDatabase.UseWaitCursor = true;
 			labelSize1stMpcorbDatFileDatabase.Values.Text = "Size";
-			labelSize1stMpcorbDatFileDatabase.Enter += SetStatusBar_Enter;
-			labelSize1stMpcorbDatFileDatabase.Leave += ClearStatusBar_Leave;
-			labelSize1stMpcorbDatFileDatabase.MouseEnter += SetStatusBar_Enter;
-			labelSize1stMpcorbDatFileDatabase.MouseLeave += ClearStatusBar_Leave;
+			labelSize1stMpcorbDatFileDatabase.Enter += Control_Enter;
+			labelSize1stMpcorbDatFileDatabase.Leave += Control_Leave;
+			labelSize1stMpcorbDatFileDatabase.MouseEnter += Control_Enter;
+			labelSize1stMpcorbDatFileDatabase.MouseLeave += Control_Leave;
 			// 
 			// backgroundWorker
 			// 

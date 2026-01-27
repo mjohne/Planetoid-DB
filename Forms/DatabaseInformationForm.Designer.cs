@@ -81,10 +81,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelName, "Name");
 			labelName.Values.Text = "Name";
 			labelName.DoubleClick += CopyToClipboard_DoubleClick;
-			labelName.Enter += SetStatusBar_Enter;
-			labelName.Leave += ClearStatusBar_Leave;
-			labelName.MouseEnter += SetStatusBar_Enter;
-			labelName.MouseLeave += ClearStatusBar_Leave;
+			labelName.Enter += Control_Enter;
+			labelName.Leave += Control_Leave;
+			labelName.MouseEnter += Control_Enter;
+			labelName.MouseLeave += Control_Leave;
 			// 
 			// labelDirectory
 			// 
@@ -101,10 +101,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelDirectory, "Directory");
 			labelDirectory.Values.Text = "Directory";
 			labelDirectory.DoubleClick += CopyToClipboard_DoubleClick;
-			labelDirectory.Enter += SetStatusBar_Enter;
-			labelDirectory.Leave += ClearStatusBar_Leave;
-			labelDirectory.MouseEnter += SetStatusBar_Enter;
-			labelDirectory.MouseLeave += ClearStatusBar_Leave;
+			labelDirectory.Enter += Control_Enter;
+			labelDirectory.Leave += Control_Leave;
+			labelDirectory.MouseEnter += Control_Enter;
+			labelDirectory.MouseLeave += Control_Leave;
 			// 
 			// labelSize
 			// 
@@ -121,10 +121,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelSize, "Size");
 			labelSize.Values.Text = "Size";
 			labelSize.DoubleClick += CopyToClipboard_DoubleClick;
-			labelSize.Enter += SetStatusBar_Enter;
-			labelSize.Leave += ClearStatusBar_Leave;
-			labelSize.MouseEnter += SetStatusBar_Enter;
-			labelSize.MouseLeave += ClearStatusBar_Leave;
+			labelSize.Enter += Control_Enter;
+			labelSize.Leave += Control_Leave;
+			labelSize.MouseEnter += Control_Enter;
+			labelSize.MouseLeave += Control_Leave;
 			// 
 			// labelDateCreated
 			// 
@@ -141,10 +141,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelDateCreated, "Creation date");
 			labelDateCreated.Values.Text = "Creation date";
 			labelDateCreated.DoubleClick += CopyToClipboard_DoubleClick;
-			labelDateCreated.Enter += SetStatusBar_Enter;
-			labelDateCreated.Leave += ClearStatusBar_Leave;
-			labelDateCreated.MouseEnter += SetStatusBar_Enter;
-			labelDateCreated.MouseLeave += ClearStatusBar_Leave;
+			labelDateCreated.Enter += Control_Enter;
+			labelDateCreated.Leave += Control_Leave;
+			labelDateCreated.MouseEnter += Control_Enter;
+			labelDateCreated.MouseLeave += Control_Leave;
 			// 
 			// labelDateAccessed
 			// 
@@ -161,10 +161,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelDateAccessed, "Last access date");
 			labelDateAccessed.Values.Text = "Last access date";
 			labelDateAccessed.DoubleClick += CopyToClipboard_DoubleClick;
-			labelDateAccessed.Enter += SetStatusBar_Enter;
-			labelDateAccessed.Leave += ClearStatusBar_Leave;
-			labelDateAccessed.MouseEnter += SetStatusBar_Enter;
-			labelDateAccessed.MouseLeave += ClearStatusBar_Leave;
+			labelDateAccessed.Enter += Control_Enter;
+			labelDateAccessed.Leave += Control_Leave;
+			labelDateAccessed.MouseEnter += Control_Enter;
+			labelDateAccessed.MouseLeave += Control_Leave;
 			// 
 			// labelDateWrited
 			// 
@@ -181,10 +181,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelDateWrited, "Last write date");
 			labelDateWrited.Values.Text = "Last write date";
 			labelDateWrited.DoubleClick += CopyToClipboard_DoubleClick;
-			labelDateWrited.Enter += SetStatusBar_Enter;
-			labelDateWrited.Leave += ClearStatusBar_Leave;
-			labelDateWrited.MouseEnter += SetStatusBar_Enter;
-			labelDateWrited.MouseLeave += ClearStatusBar_Leave;
+			labelDateWrited.Enter += Control_Enter;
+			labelDateWrited.Leave += Control_Leave;
+			labelDateWrited.MouseEnter += Control_Enter;
+			labelDateWrited.MouseLeave += Control_Leave;
 			// 
 			// labelAttributes
 			// 
@@ -201,10 +201,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelAttributes, "Attributes");
 			labelAttributes.Values.Text = "Attributes";
 			labelAttributes.DoubleClick += CopyToClipboard_DoubleClick;
-			labelAttributes.Enter += SetStatusBar_Enter;
-			labelAttributes.Leave += ClearStatusBar_Leave;
-			labelAttributes.MouseEnter += SetStatusBar_Enter;
-			labelAttributes.MouseLeave += ClearStatusBar_Leave;
+			labelAttributes.Enter += Control_Enter;
+			labelAttributes.Leave += Control_Leave;
+			labelAttributes.MouseEnter += Control_Enter;
+			labelAttributes.MouseLeave += Control_Leave;
 			// 
 			// labelNameValue
 			// 
@@ -221,11 +221,11 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelNameValue, "Shows the name of the database");
 			labelNameValue.Values.Text = "..........";
 			labelNameValue.DoubleClick += CopyToClipboard_DoubleClick;
-			labelNameValue.Enter += SetStatusBar_Enter;
-			labelNameValue.Leave += ClearStatusBar_Leave;
+			labelNameValue.Enter += Control_Enter;
+			labelNameValue.Leave += Control_Leave;
 			labelNameValue.MouseDown += Control_MouseDown;
-			labelNameValue.MouseEnter += SetStatusBar_Enter;
-			labelNameValue.MouseLeave += ClearStatusBar_Leave;
+			labelNameValue.MouseEnter += Control_Enter;
+			labelNameValue.MouseLeave += Control_Leave;
 			// 
 			// contextMenuCopyToClipboard
 			// 
@@ -240,8 +240,8 @@ namespace Planetoid_DB
 			contextMenuCopyToClipboard.TabStop = true;
 			contextMenuCopyToClipboard.Text = "ContextMenu";
 			toolTip.SetToolTip(contextMenuCopyToClipboard, "Context Menu for copying to clipboard");
-			contextMenuCopyToClipboard.MouseEnter += SetStatusBar_Enter;
-			contextMenuCopyToClipboard.MouseLeave += ClearStatusBar_Leave;
+			contextMenuCopyToClipboard.MouseEnter += Control_Enter;
+			contextMenuCopyToClipboard.MouseLeave += Control_Leave;
 			// 
 			// ToolStripMenuItemCpyToClipboard
 			// 
@@ -256,8 +256,8 @@ namespace Planetoid_DB
 			ToolStripMenuItemCpyToClipboard.Size = new Size(213, 22);
 			ToolStripMenuItemCpyToClipboard.Text = "&Copy to clipboard";
 			ToolStripMenuItemCpyToClipboard.Click += CopyToClipboard_DoubleClick;
-			ToolStripMenuItemCpyToClipboard.MouseEnter += SetStatusBar_Enter;
-			ToolStripMenuItemCpyToClipboard.MouseLeave += ClearStatusBar_Leave;
+			ToolStripMenuItemCpyToClipboard.MouseEnter += Control_Enter;
+			ToolStripMenuItemCpyToClipboard.MouseLeave += Control_Leave;
 			// 
 			// labelDirectoryValue
 			// 
@@ -274,11 +274,11 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelDirectoryValue, "Shows the directory of the database");
 			labelDirectoryValue.Values.Text = "..........";
 			labelDirectoryValue.DoubleClick += CopyToClipboard_DoubleClick;
-			labelDirectoryValue.Enter += SetStatusBar_Enter;
-			labelDirectoryValue.Leave += ClearStatusBar_Leave;
+			labelDirectoryValue.Enter += Control_Enter;
+			labelDirectoryValue.Leave += Control_Leave;
 			labelDirectoryValue.MouseDown += Control_MouseDown;
-			labelDirectoryValue.MouseEnter += SetStatusBar_Enter;
-			labelDirectoryValue.MouseLeave += ClearStatusBar_Leave;
+			labelDirectoryValue.MouseEnter += Control_Enter;
+			labelDirectoryValue.MouseLeave += Control_Leave;
 			// 
 			// labelSizeValue
 			// 
@@ -295,11 +295,11 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelSizeValue, "Shows the size of the database");
 			labelSizeValue.Values.Text = "..........";
 			labelSizeValue.DoubleClick += CopyToClipboard_DoubleClick;
-			labelSizeValue.Enter += SetStatusBar_Enter;
-			labelSizeValue.Leave += ClearStatusBar_Leave;
+			labelSizeValue.Enter += Control_Enter;
+			labelSizeValue.Leave += Control_Leave;
 			labelSizeValue.MouseDown += Control_MouseDown;
-			labelSizeValue.MouseEnter += SetStatusBar_Enter;
-			labelSizeValue.MouseLeave += ClearStatusBar_Leave;
+			labelSizeValue.MouseEnter += Control_Enter;
+			labelSizeValue.MouseLeave += Control_Leave;
 			// 
 			// labelDateCreatedValue
 			// 
@@ -316,11 +316,11 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelDateCreatedValue, "Shows the creation date of the database");
 			labelDateCreatedValue.Values.Text = "..........";
 			labelDateCreatedValue.DoubleClick += CopyToClipboard_DoubleClick;
-			labelDateCreatedValue.Enter += SetStatusBar_Enter;
-			labelDateCreatedValue.Leave += ClearStatusBar_Leave;
+			labelDateCreatedValue.Enter += Control_Enter;
+			labelDateCreatedValue.Leave += Control_Leave;
 			labelDateCreatedValue.MouseDown += Control_MouseDown;
-			labelDateCreatedValue.MouseEnter += SetStatusBar_Enter;
-			labelDateCreatedValue.MouseLeave += ClearStatusBar_Leave;
+			labelDateCreatedValue.MouseEnter += Control_Enter;
+			labelDateCreatedValue.MouseLeave += Control_Leave;
 			// 
 			// labelDateAccessedValue
 			// 
@@ -337,11 +337,11 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelDateAccessedValue, "Shows the last access date of the database");
 			labelDateAccessedValue.Values.Text = "..........";
 			labelDateAccessedValue.DoubleClick += CopyToClipboard_DoubleClick;
-			labelDateAccessedValue.Enter += SetStatusBar_Enter;
-			labelDateAccessedValue.Leave += ClearStatusBar_Leave;
+			labelDateAccessedValue.Enter += Control_Enter;
+			labelDateAccessedValue.Leave += Control_Leave;
 			labelDateAccessedValue.MouseDown += Control_MouseDown;
-			labelDateAccessedValue.MouseEnter += SetStatusBar_Enter;
-			labelDateAccessedValue.MouseLeave += ClearStatusBar_Leave;
+			labelDateAccessedValue.MouseEnter += Control_Enter;
+			labelDateAccessedValue.MouseLeave += Control_Leave;
 			// 
 			// labelDateWritedValue
 			// 
@@ -358,11 +358,11 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelDateWritedValue, "Shows the last write date of the database");
 			labelDateWritedValue.Values.Text = "..........";
 			labelDateWritedValue.DoubleClick += CopyToClipboard_DoubleClick;
-			labelDateWritedValue.Enter += SetStatusBar_Enter;
-			labelDateWritedValue.Leave += ClearStatusBar_Leave;
+			labelDateWritedValue.Enter += Control_Enter;
+			labelDateWritedValue.Leave += Control_Leave;
 			labelDateWritedValue.MouseDown += Control_MouseDown;
-			labelDateWritedValue.MouseEnter += SetStatusBar_Enter;
-			labelDateWritedValue.MouseLeave += ClearStatusBar_Leave;
+			labelDateWritedValue.MouseEnter += Control_Enter;
+			labelDateWritedValue.MouseLeave += Control_Leave;
 			// 
 			// tableLayoutPanel
 			// 
@@ -421,11 +421,11 @@ namespace Planetoid_DB
 			labelAttributesValue.ToolTipValues.Description = "";
 			labelAttributesValue.Values.Text = "..........";
 			labelAttributesValue.DoubleClick += CopyToClipboard_DoubleClick;
-			labelAttributesValue.Enter += SetStatusBar_Enter;
-			labelAttributesValue.Leave += ClearStatusBar_Leave;
+			labelAttributesValue.Enter += Control_Enter;
+			labelAttributesValue.Leave += Control_Leave;
 			labelAttributesValue.MouseDown += Control_MouseDown;
-			labelAttributesValue.MouseEnter += SetStatusBar_Enter;
-			labelAttributesValue.MouseLeave += ClearStatusBar_Leave;
+			labelAttributesValue.MouseEnter += Control_Enter;
+			labelAttributesValue.MouseLeave += Control_Leave;
 			// 
 			// toolStripContainer
 			// 

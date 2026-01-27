@@ -75,10 +75,10 @@ namespace Planetoid_DB
 			tableLayoutPanel.Size = new Size(476, 106);
 			tableLayoutPanel.TabIndex = 0;
 			toolTip.SetToolTip(tableLayoutPanel, "Groups the data");
-			tableLayoutPanel.Enter += SetStatusBar_Enter;
-			tableLayoutPanel.Leave += ClearStatusBar_Leave;
-			tableLayoutPanel.MouseEnter += SetStatusBar_Enter;
-			tableLayoutPanel.MouseLeave += ClearStatusBar_Leave;
+			tableLayoutPanel.Enter += Control_Enter;
+			tableLayoutPanel.Leave += Control_Leave;
+			tableLayoutPanel.MouseEnter += Control_Enter;
+			tableLayoutPanel.MouseLeave += Control_Leave;
 			// 
 			// labelStatusText
 			// 
@@ -93,10 +93,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelStatusText, "Status");
 			labelStatusText.Values.Text = "Status:";
 			labelStatusText.DoubleClick += CopyToClipboard_DoubleClick;
-			labelStatusText.Enter += SetStatusBar_Enter;
-			labelStatusText.Leave += ClearStatusBar_Leave;
-			labelStatusText.MouseEnter += SetStatusBar_Enter;
-			labelStatusText.MouseLeave += ClearStatusBar_Leave;
+			labelStatusText.Enter += Control_Enter;
+			labelStatusText.Leave += Control_Leave;
+			labelStatusText.MouseEnter += Control_Enter;
+			labelStatusText.MouseLeave += Control_Leave;
 			// 
 			// labelSizeValue
 			// 
@@ -112,11 +112,11 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelSizeValue, "Shows the file size of the download");
 			labelSizeValue.Values.Text = "...";
 			labelSizeValue.DoubleClick += CopyToClipboard_DoubleClick;
-			labelSizeValue.Enter += SetStatusBar_Enter;
-			labelSizeValue.Leave += ClearStatusBar_Leave;
+			labelSizeValue.Enter += Control_Enter;
+			labelSizeValue.Leave += Control_Leave;
 			labelSizeValue.MouseDown += Control_MouseDown;
-			labelSizeValue.MouseEnter += SetStatusBar_Enter;
-			labelSizeValue.MouseLeave += ClearStatusBar_Leave;
+			labelSizeValue.MouseEnter += Control_Enter;
+			labelSizeValue.MouseLeave += Control_Leave;
 			// 
 			// labelSizeText
 			// 
@@ -131,10 +131,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelSizeText, "Size");
 			labelSizeText.Values.Text = "Size:";
 			labelSizeText.DoubleClick += CopyToClipboard_DoubleClick;
-			labelSizeText.Enter += SetStatusBar_Enter;
-			labelSizeText.Leave += ClearStatusBar_Leave;
-			labelSizeText.MouseEnter += SetStatusBar_Enter;
-			labelSizeText.MouseLeave += ClearStatusBar_Leave;
+			labelSizeText.Enter += Control_Enter;
+			labelSizeText.Leave += Control_Leave;
+			labelSizeText.MouseEnter += Control_Enter;
+			labelSizeText.MouseLeave += Control_Leave;
 			// 
 			// labelDateValue
 			// 
@@ -150,11 +150,11 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelDateValue, "Shows the last modified date of the download");
 			labelDateValue.Values.Text = "...";
 			labelDateValue.DoubleClick += CopyToClipboard_DoubleClick;
-			labelDateValue.Enter += SetStatusBar_Enter;
-			labelDateValue.Leave += ClearStatusBar_Leave;
+			labelDateValue.Enter += Control_Enter;
+			labelDateValue.Leave += Control_Leave;
 			labelDateValue.MouseDown += Control_MouseDown;
-			labelDateValue.MouseEnter += SetStatusBar_Enter;
-			labelDateValue.MouseLeave += ClearStatusBar_Leave;
+			labelDateValue.MouseEnter += Control_Enter;
+			labelDateValue.MouseLeave += Control_Leave;
 			// 
 			// labelSourceValue
 			// 
@@ -170,11 +170,11 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelSourceValue, "Shows the download source");
 			labelSourceValue.Values.Text = "...";
 			labelSourceValue.DoubleClick += CopyToClipboard_DoubleClick;
-			labelSourceValue.Enter += SetStatusBar_Enter;
-			labelSourceValue.Leave += ClearStatusBar_Leave;
+			labelSourceValue.Enter += Control_Enter;
+			labelSourceValue.Leave += Control_Leave;
 			labelSourceValue.MouseDown += Control_MouseDown;
-			labelSourceValue.MouseEnter += SetStatusBar_Enter;
-			labelSourceValue.MouseLeave += ClearStatusBar_Leave;
+			labelSourceValue.MouseEnter += Control_Enter;
+			labelSourceValue.MouseLeave += Control_Leave;
 			// 
 			// labelDateText
 			// 
@@ -189,10 +189,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelDateText, "Date");
 			labelDateText.Values.Text = "Date:";
 			labelDateText.DoubleClick += CopyToClipboard_DoubleClick;
-			labelDateText.Enter += SetStatusBar_Enter;
-			labelDateText.Leave += ClearStatusBar_Leave;
-			labelDateText.MouseEnter += SetStatusBar_Enter;
-			labelDateText.MouseLeave += ClearStatusBar_Leave;
+			labelDateText.Enter += Control_Enter;
+			labelDateText.Leave += Control_Leave;
+			labelDateText.MouseEnter += Control_Enter;
+			labelDateText.MouseLeave += Control_Leave;
 			// 
 			// labelSourceText
 			// 
@@ -207,10 +207,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelSourceText, "Source");
 			labelSourceText.Values.Text = "Source:";
 			labelSourceText.DoubleClick += CopyToClipboard_DoubleClick;
-			labelSourceText.Enter += SetStatusBar_Enter;
-			labelSourceText.Leave += ClearStatusBar_Leave;
-			labelSourceText.MouseEnter += SetStatusBar_Enter;
-			labelSourceText.MouseLeave += ClearStatusBar_Leave;
+			labelSourceText.Enter += Control_Enter;
+			labelSourceText.Leave += Control_Leave;
+			labelSourceText.MouseEnter += Control_Enter;
+			labelSourceText.MouseLeave += Control_Leave;
 			// 
 			// labelStatusValue
 			// 
@@ -226,11 +226,11 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelStatusValue, "Shows the status of the download");
 			labelStatusValue.Values.Text = "...";
 			labelStatusValue.DoubleClick += CopyToClipboard_DoubleClick;
-			labelStatusValue.Enter += SetStatusBar_Enter;
-			labelStatusValue.Leave += ClearStatusBar_Leave;
+			labelStatusValue.Enter += Control_Enter;
+			labelStatusValue.Leave += Control_Leave;
 			labelStatusValue.MouseDown += Control_MouseDown;
-			labelStatusValue.MouseEnter += SetStatusBar_Enter;
-			labelStatusValue.MouseLeave += ClearStatusBar_Leave;
+			labelStatusValue.MouseEnter += Control_Enter;
+			labelStatusValue.MouseLeave += Control_Leave;
 			// 
 			// progressBarDownload
 			// 
@@ -245,8 +245,8 @@ namespace Planetoid_DB
 			progressBarDownload.TextShadowColor = Color.Empty;
 			toolTip.SetToolTip(progressBarDownload, "Shows the progress of the download");
 			progressBarDownload.Values.Text = "";
-			progressBarDownload.MouseEnter += SetStatusBar_Enter;
-			progressBarDownload.MouseLeave += ClearStatusBar_Leave;
+			progressBarDownload.MouseEnter += Control_Enter;
+			progressBarDownload.MouseLeave += Control_Leave;
 			// 
 			// buttonCancel
 			// 
@@ -262,10 +262,10 @@ namespace Planetoid_DB
 			buttonCancel.Values.Image = Resources.FatcowIcons16px.fatcow_cancel_16px;
 			buttonCancel.Values.Text = "&Cancel download";
 			buttonCancel.Click += ButtonCancel_Click;
-			buttonCancel.Enter += SetStatusBar_Enter;
-			buttonCancel.Leave += ClearStatusBar_Leave;
-			buttonCancel.MouseEnter += SetStatusBar_Enter;
-			buttonCancel.MouseLeave += ClearStatusBar_Leave;
+			buttonCancel.Enter += Control_Enter;
+			buttonCancel.Leave += Control_Leave;
+			buttonCancel.MouseEnter += Control_Enter;
+			buttonCancel.MouseLeave += Control_Leave;
 			// 
 			// buttonDownload
 			// 
@@ -281,10 +281,10 @@ namespace Planetoid_DB
 			buttonDownload.Values.Image = Resources.FatcowIcons16px.fatcow_package_go_16px;
 			buttonDownload.Values.Text = "&Download";
 			buttonDownload.Click += ButtonDownload_Click;
-			buttonDownload.Enter += SetStatusBar_Enter;
-			buttonDownload.Leave += ClearStatusBar_Leave;
-			buttonDownload.MouseEnter += SetStatusBar_Enter;
-			buttonDownload.MouseLeave += ClearStatusBar_Leave;
+			buttonDownload.Enter += Control_Enter;
+			buttonDownload.Leave += Control_Leave;
+			buttonDownload.MouseEnter += Control_Enter;
+			buttonDownload.MouseLeave += Control_Leave;
 			// 
 			// statusStrip
 			// 
@@ -345,8 +345,8 @@ namespace Planetoid_DB
 			contextMenuCopyToClipboard.TabStop = true;
 			contextMenuCopyToClipboard.Text = "ContextMenu";
 			toolTip.SetToolTip(contextMenuCopyToClipboard, "Context menu for copying to clipboard");
-			contextMenuCopyToClipboard.MouseEnter += SetStatusBar_Enter;
-			contextMenuCopyToClipboard.MouseLeave += ClearStatusBar_Leave;
+			contextMenuCopyToClipboard.MouseEnter += Control_Enter;
+			contextMenuCopyToClipboard.MouseLeave += Control_Leave;
 			// 
 			// ToolStripMenuItemCpyToClipboard
 			// 
@@ -362,7 +362,7 @@ namespace Planetoid_DB
 			ToolStripMenuItemCpyToClipboard.Text = "&Copy to clipboard";
 			ToolStripMenuItemCpyToClipboard.Click += CopyToClipboard_DoubleClick;
 			ToolStripMenuItemCpyToClipboard.MouseEnter += CopyToClipboard_DoubleClick;
-			ToolStripMenuItemCpyToClipboard.MouseLeave += ClearStatusBar_Leave;
+			ToolStripMenuItemCpyToClipboard.MouseLeave += Control_Leave;
 			// 
 			// DatabaseDownloaderForm
 			// 

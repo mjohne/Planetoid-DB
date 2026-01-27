@@ -142,10 +142,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(groupBoxExport, "Groups the export buttons");
 			groupBoxExport.Values.Heading = "Export list";
 			groupBoxExport.Values.Image = FatcowIcons16px.fatcow_page_save_16px;
-			groupBoxExport.Enter += SetStatusBar_Enter;
-			groupBoxExport.Leave += ClearStatusBar_Leave;
-			groupBoxExport.MouseEnter += SetStatusBar_Enter;
-			groupBoxExport.MouseLeave += ClearStatusBar_Leave;
+			groupBoxExport.Enter += Control_Enter;
+			groupBoxExport.Leave += Control_Leave;
+			groupBoxExport.MouseEnter += Control_Enter;
+			groupBoxExport.MouseLeave += Control_Leave;
 			// 
 			// buttonExportAsJson
 			// 
@@ -163,10 +163,10 @@ namespace Planetoid_DB
 			buttonExportAsJson.Values.Image = FatcowIcons16px.fatcow_page_white_code_16px;
 			buttonExportAsJson.Values.Text = "Export as JSON";
 			buttonExportAsJson.Click += ButtonExportAsJson_Click;
-			buttonExportAsJson.Enter += SetStatusBar_Enter;
-			buttonExportAsJson.Leave += ClearStatusBar_Leave;
-			buttonExportAsJson.MouseEnter += SetStatusBar_Enter;
-			buttonExportAsJson.MouseLeave += ClearStatusBar_Leave;
+			buttonExportAsJson.Enter += Control_Enter;
+			buttonExportAsJson.Leave += Control_Leave;
+			buttonExportAsJson.MouseEnter += Control_Enter;
+			buttonExportAsJson.MouseLeave += Control_Leave;
 			// 
 			// buttonExportAsXml
 			// 
@@ -184,10 +184,10 @@ namespace Planetoid_DB
 			buttonExportAsXml.Values.Image = FatcowIcons16px.fatcow_page_white_code_16px;
 			buttonExportAsXml.Values.Text = "Export as XML";
 			buttonExportAsXml.Click += ButtonExportAsXml_Click;
-			buttonExportAsXml.Enter += SetStatusBar_Enter;
-			buttonExportAsXml.Leave += ClearStatusBar_Leave;
-			buttonExportAsXml.MouseEnter += SetStatusBar_Enter;
-			buttonExportAsXml.MouseLeave += ClearStatusBar_Leave;
+			buttonExportAsXml.Enter += Control_Enter;
+			buttonExportAsXml.Leave += Control_Leave;
+			buttonExportAsXml.MouseEnter += Control_Enter;
+			buttonExportAsXml.MouseLeave += Control_Leave;
 			// 
 			// buttonExportAsTxt
 			// 
@@ -205,10 +205,10 @@ namespace Planetoid_DB
 			buttonExportAsTxt.Values.Image = FatcowIcons16px.fatcow_page_white_text_16px;
 			buttonExportAsTxt.Values.Text = "Export as TXT";
 			buttonExportAsTxt.Click += ButtonExportAsTxt_Click;
-			buttonExportAsTxt.Enter += SetStatusBar_Enter;
-			buttonExportAsTxt.Leave += ClearStatusBar_Leave;
-			buttonExportAsTxt.MouseEnter += SetStatusBar_Enter;
-			buttonExportAsTxt.MouseLeave += ClearStatusBar_Leave;
+			buttonExportAsTxt.Enter += Control_Enter;
+			buttonExportAsTxt.Leave += Control_Leave;
+			buttonExportAsTxt.MouseEnter += Control_Enter;
+			buttonExportAsTxt.MouseLeave += Control_Leave;
 			// 
 			// buttonExportAsHtml
 			// 
@@ -226,10 +226,10 @@ namespace Planetoid_DB
 			buttonExportAsHtml.Values.Image = FatcowIcons16px.fatcow_page_white_code_16px;
 			buttonExportAsHtml.Values.Text = "Export as HTML";
 			buttonExportAsHtml.Click += ButtonExportAsHtml_Click;
-			buttonExportAsHtml.Enter += SetStatusBar_Enter;
-			buttonExportAsHtml.Leave += ClearStatusBar_Leave;
-			buttonExportAsHtml.MouseEnter += SetStatusBar_Enter;
-			buttonExportAsHtml.MouseLeave += ClearStatusBar_Leave;
+			buttonExportAsHtml.Enter += Control_Enter;
+			buttonExportAsHtml.Leave += Control_Leave;
+			buttonExportAsHtml.MouseEnter += Control_Enter;
+			buttonExportAsHtml.MouseLeave += Control_Leave;
 			// 
 			// tableLayoutPanel
 			// 
@@ -318,10 +318,10 @@ namespace Planetoid_DB
 			buttonGoto09.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
 			buttonGoto09.Values.Text = "Goto";
 			buttonGoto09.Click += ButtonGoto09_Click;
-			buttonGoto09.Enter += SetStatusBar_Enter;
-			buttonGoto09.Leave += ClearStatusBar_Leave;
-			buttonGoto09.MouseEnter += SetStatusBar_Enter;
-			buttonGoto09.MouseLeave += ClearStatusBar_Leave;
+			buttonGoto09.Enter += Control_Enter;
+			buttonGoto09.Leave += Control_Leave;
+			buttonGoto09.MouseEnter += Control_Enter;
+			buttonGoto09.MouseLeave += Control_Leave;
 			// 
 			// buttonGoto08
 			// 
@@ -339,10 +339,10 @@ namespace Planetoid_DB
 			buttonGoto08.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
 			buttonGoto08.Values.Text = "Goto";
 			buttonGoto08.Click += ButtonGoto08_Click;
-			buttonGoto08.Enter += SetStatusBar_Enter;
-			buttonGoto08.Leave += ClearStatusBar_Leave;
-			buttonGoto08.MouseEnter += SetStatusBar_Enter;
-			buttonGoto08.MouseLeave += ClearStatusBar_Leave;
+			buttonGoto08.Enter += Control_Enter;
+			buttonGoto08.Leave += Control_Leave;
+			buttonGoto08.MouseEnter += Control_Enter;
+			buttonGoto08.MouseLeave += Control_Leave;
 			// 
 			// buttonGoto07
 			// 
@@ -360,10 +360,10 @@ namespace Planetoid_DB
 			buttonGoto07.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
 			buttonGoto07.Values.Text = "Goto";
 			buttonGoto07.Click += ButtonGoto07_Click;
-			buttonGoto07.Enter += SetStatusBar_Enter;
-			buttonGoto07.Leave += ClearStatusBar_Leave;
-			buttonGoto07.MouseEnter += SetStatusBar_Enter;
-			buttonGoto07.MouseLeave += ClearStatusBar_Leave;
+			buttonGoto07.Enter += Control_Enter;
+			buttonGoto07.Leave += Control_Leave;
+			buttonGoto07.MouseEnter += Control_Enter;
+			buttonGoto07.MouseLeave += Control_Leave;
 			// 
 			// buttonGoto06
 			// 
@@ -381,10 +381,10 @@ namespace Planetoid_DB
 			buttonGoto06.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
 			buttonGoto06.Values.Text = "Goto";
 			buttonGoto06.Click += ButtonGoto06_Click;
-			buttonGoto06.Enter += SetStatusBar_Enter;
-			buttonGoto06.Leave += ClearStatusBar_Leave;
-			buttonGoto06.MouseEnter += SetStatusBar_Enter;
-			buttonGoto06.MouseLeave += ClearStatusBar_Leave;
+			buttonGoto06.Enter += Control_Enter;
+			buttonGoto06.Leave += Control_Leave;
+			buttonGoto06.MouseEnter += Control_Enter;
+			buttonGoto06.MouseLeave += Control_Leave;
 			// 
 			// buttonGoto05
 			// 
@@ -402,10 +402,10 @@ namespace Planetoid_DB
 			buttonGoto05.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
 			buttonGoto05.Values.Text = "Goto";
 			buttonGoto05.Click += ButtonGoto05_Click;
-			buttonGoto05.Enter += SetStatusBar_Enter;
-			buttonGoto05.Leave += ClearStatusBar_Leave;
-			buttonGoto05.MouseEnter += SetStatusBar_Enter;
-			buttonGoto05.MouseLeave += ClearStatusBar_Leave;
+			buttonGoto05.Enter += Control_Enter;
+			buttonGoto05.Leave += Control_Leave;
+			buttonGoto05.MouseEnter += Control_Enter;
+			buttonGoto05.MouseLeave += Control_Leave;
 			// 
 			// buttonGoto04
 			// 
@@ -423,10 +423,10 @@ namespace Planetoid_DB
 			buttonGoto04.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
 			buttonGoto04.Values.Text = "Goto";
 			buttonGoto04.Click += ButtonGoto04_Click;
-			buttonGoto04.Enter += SetStatusBar_Enter;
-			buttonGoto04.Leave += ClearStatusBar_Leave;
-			buttonGoto04.MouseEnter += SetStatusBar_Enter;
-			buttonGoto04.MouseLeave += ClearStatusBar_Leave;
+			buttonGoto04.Enter += Control_Enter;
+			buttonGoto04.Leave += Control_Leave;
+			buttonGoto04.MouseEnter += Control_Enter;
+			buttonGoto04.MouseLeave += Control_Leave;
 			// 
 			// buttonGoto03
 			// 
@@ -444,10 +444,10 @@ namespace Planetoid_DB
 			buttonGoto03.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
 			buttonGoto03.Values.Text = "Goto";
 			buttonGoto03.Click += ButtonGoto03_Click;
-			buttonGoto03.Enter += SetStatusBar_Enter;
-			buttonGoto03.Leave += ClearStatusBar_Leave;
-			buttonGoto03.MouseEnter += SetStatusBar_Enter;
-			buttonGoto03.MouseLeave += ClearStatusBar_Leave;
+			buttonGoto03.Enter += Control_Enter;
+			buttonGoto03.Leave += Control_Leave;
+			buttonGoto03.MouseEnter += Control_Enter;
+			buttonGoto03.MouseLeave += Control_Leave;
 			// 
 			// buttonGoto02
 			// 
@@ -465,10 +465,10 @@ namespace Planetoid_DB
 			buttonGoto02.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
 			buttonGoto02.Values.Text = "Goto";
 			buttonGoto02.Click += ButtonGoto02_Click;
-			buttonGoto02.Enter += SetStatusBar_Enter;
-			buttonGoto02.Leave += ClearStatusBar_Leave;
-			buttonGoto02.MouseEnter += SetStatusBar_Enter;
-			buttonGoto02.MouseLeave += ClearStatusBar_Leave;
+			buttonGoto02.Enter += Control_Enter;
+			buttonGoto02.Leave += Control_Leave;
+			buttonGoto02.MouseEnter += Control_Enter;
+			buttonGoto02.MouseLeave += Control_Leave;
 			// 
 			// labelPlace10
 			// 
@@ -484,10 +484,10 @@ namespace Planetoid_DB
 			labelPlace10.TabIndex = 38;
 			toolTip.SetToolTip(labelPlace10, "Record place no. 10");
 			labelPlace10.Values.Text = "10";
-			labelPlace10.Enter += SetStatusBar_Enter;
-			labelPlace10.Leave += ClearStatusBar_Leave;
-			labelPlace10.MouseEnter += SetStatusBar_Enter;
-			labelPlace10.MouseLeave += ClearStatusBar_Leave;
+			labelPlace10.Enter += Control_Enter;
+			labelPlace10.Leave += Control_Leave;
+			labelPlace10.MouseEnter += Control_Enter;
+			labelPlace10.MouseLeave += Control_Leave;
 			// 
 			// labelPlace05
 			// 
@@ -503,10 +503,10 @@ namespace Planetoid_DB
 			labelPlace05.TabIndex = 18;
 			toolTip.SetToolTip(labelPlace05, "Record place no. 5");
 			labelPlace05.Values.Text = "5";
-			labelPlace05.Enter += SetStatusBar_Enter;
-			labelPlace05.Leave += ClearStatusBar_Leave;
-			labelPlace05.MouseEnter += SetStatusBar_Enter;
-			labelPlace05.MouseLeave += ClearStatusBar_Leave;
+			labelPlace05.Enter += Control_Enter;
+			labelPlace05.Leave += Control_Leave;
+			labelPlace05.MouseEnter += Control_Enter;
+			labelPlace05.MouseLeave += Control_Leave;
 			// 
 			// labelPlace04
 			// 
@@ -522,10 +522,10 @@ namespace Planetoid_DB
 			labelPlace04.TabIndex = 14;
 			toolTip.SetToolTip(labelPlace04, "Record place no. 4");
 			labelPlace04.Values.Text = "4";
-			labelPlace04.Enter += SetStatusBar_Enter;
-			labelPlace04.Leave += ClearStatusBar_Leave;
-			labelPlace04.MouseEnter += SetStatusBar_Enter;
-			labelPlace04.MouseLeave += ClearStatusBar_Leave;
+			labelPlace04.Enter += Control_Enter;
+			labelPlace04.Leave += Control_Leave;
+			labelPlace04.MouseEnter += Control_Enter;
+			labelPlace04.MouseLeave += Control_Leave;
 			// 
 			// labelPlace03
 			// 
@@ -541,10 +541,10 @@ namespace Planetoid_DB
 			labelPlace03.TabIndex = 10;
 			toolTip.SetToolTip(labelPlace03, "Record place no. 3");
 			labelPlace03.Values.Text = "3";
-			labelPlace03.Enter += SetStatusBar_Enter;
-			labelPlace03.Leave += ClearStatusBar_Leave;
-			labelPlace03.MouseEnter += SetStatusBar_Enter;
-			labelPlace03.MouseLeave += ClearStatusBar_Leave;
+			labelPlace03.Enter += Control_Enter;
+			labelPlace03.Leave += Control_Leave;
+			labelPlace03.MouseEnter += Control_Enter;
+			labelPlace03.MouseLeave += Control_Leave;
 			// 
 			// labelPlace01
 			// 
@@ -560,10 +560,10 @@ namespace Planetoid_DB
 			labelPlace01.TabIndex = 2;
 			toolTip.SetToolTip(labelPlace01, "Record place no. ");
 			labelPlace01.Values.Text = "1";
-			labelPlace01.Enter += SetStatusBar_Enter;
-			labelPlace01.Leave += ClearStatusBar_Leave;
-			labelPlace01.MouseEnter += SetStatusBar_Enter;
-			labelPlace01.MouseLeave += ClearStatusBar_Leave;
+			labelPlace01.Enter += Control_Enter;
+			labelPlace01.Leave += Control_Leave;
+			labelPlace01.MouseEnter += Control_Enter;
+			labelPlace01.MouseLeave += Control_Leave;
 			// 
 			// labelPlace02
 			// 
@@ -579,10 +579,10 @@ namespace Planetoid_DB
 			labelPlace02.TabIndex = 6;
 			toolTip.SetToolTip(labelPlace02, "Record place no. 2");
 			labelPlace02.Values.Text = "2";
-			labelPlace02.Enter += SetStatusBar_Enter;
-			labelPlace02.Leave += ClearStatusBar_Leave;
-			labelPlace02.MouseEnter += SetStatusBar_Enter;
-			labelPlace02.MouseLeave += ClearStatusBar_Leave;
+			labelPlace02.Enter += Control_Enter;
+			labelPlace02.Leave += Control_Leave;
+			labelPlace02.MouseEnter += Control_Enter;
+			labelPlace02.MouseLeave += Control_Leave;
 			// 
 			// labelPlace06
 			// 
@@ -598,10 +598,10 @@ namespace Planetoid_DB
 			labelPlace06.TabIndex = 22;
 			toolTip.SetToolTip(labelPlace06, "Record place no. 6");
 			labelPlace06.Values.Text = "6";
-			labelPlace06.Enter += SetStatusBar_Enter;
-			labelPlace06.Leave += ClearStatusBar_Leave;
-			labelPlace06.MouseEnter += SetStatusBar_Enter;
-			labelPlace06.MouseLeave += ClearStatusBar_Leave;
+			labelPlace06.Enter += Control_Enter;
+			labelPlace06.Leave += Control_Leave;
+			labelPlace06.MouseEnter += Control_Enter;
+			labelPlace06.MouseLeave += Control_Leave;
 			// 
 			// labelPlace07
 			// 
@@ -617,10 +617,10 @@ namespace Planetoid_DB
 			labelPlace07.TabIndex = 26;
 			toolTip.SetToolTip(labelPlace07, "Record place no. 7");
 			labelPlace07.Values.Text = "7";
-			labelPlace07.Enter += SetStatusBar_Enter;
-			labelPlace07.Leave += ClearStatusBar_Leave;
-			labelPlace07.MouseEnter += SetStatusBar_Enter;
-			labelPlace07.MouseLeave += ClearStatusBar_Leave;
+			labelPlace07.Enter += Control_Enter;
+			labelPlace07.Leave += Control_Leave;
+			labelPlace07.MouseEnter += Control_Enter;
+			labelPlace07.MouseLeave += Control_Leave;
 			// 
 			// labelPlace08
 			// 
@@ -636,10 +636,10 @@ namespace Planetoid_DB
 			labelPlace08.TabIndex = 30;
 			toolTip.SetToolTip(labelPlace08, "Record place no. 8");
 			labelPlace08.Values.Text = "8";
-			labelPlace08.Enter += SetStatusBar_Enter;
-			labelPlace08.Leave += ClearStatusBar_Leave;
-			labelPlace08.MouseEnter += SetStatusBar_Enter;
-			labelPlace08.MouseLeave += ClearStatusBar_Leave;
+			labelPlace08.Enter += Control_Enter;
+			labelPlace08.Leave += Control_Leave;
+			labelPlace08.MouseEnter += Control_Enter;
+			labelPlace08.MouseLeave += Control_Leave;
 			// 
 			// labelPlace09
 			// 
@@ -655,10 +655,10 @@ namespace Planetoid_DB
 			labelPlace09.TabIndex = 34;
 			toolTip.SetToolTip(labelPlace09, "Record place no. 9");
 			labelPlace09.Values.Text = "9";
-			labelPlace09.Enter += SetStatusBar_Enter;
-			labelPlace09.Leave += ClearStatusBar_Leave;
-			labelPlace09.MouseEnter += SetStatusBar_Enter;
-			labelPlace09.MouseLeave += ClearStatusBar_Leave;
+			labelPlace09.Enter += Control_Enter;
+			labelPlace09.Leave += Control_Leave;
+			labelPlace09.MouseEnter += Control_Enter;
+			labelPlace09.MouseLeave += Control_Leave;
 			// 
 			// buttonGoto01
 			// 
@@ -676,10 +676,10 @@ namespace Planetoid_DB
 			buttonGoto01.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
 			buttonGoto01.Values.Text = "Goto";
 			buttonGoto01.Click += ButtonGoto01_Click;
-			buttonGoto01.Enter += SetStatusBar_Enter;
-			buttonGoto01.Leave += ClearStatusBar_Leave;
-			buttonGoto01.MouseEnter += SetStatusBar_Enter;
-			buttonGoto01.MouseLeave += ClearStatusBar_Leave;
+			buttonGoto01.Enter += Control_Enter;
+			buttonGoto01.Leave += Control_Leave;
+			buttonGoto01.MouseEnter += Control_Enter;
+			buttonGoto01.MouseLeave += Control_Leave;
 			// 
 			// labelReadableDesignationHeader
 			// 
@@ -695,10 +695,10 @@ namespace Planetoid_DB
 			labelReadableDesignationHeader.TabIndex = 0;
 			toolTip.SetToolTip(labelReadableDesignationHeader, "Readable  designation header");
 			labelReadableDesignationHeader.Values.Text = "Readable \r\ndesignation";
-			labelReadableDesignationHeader.Enter += SetStatusBar_Enter;
-			labelReadableDesignationHeader.Leave += ClearStatusBar_Leave;
-			labelReadableDesignationHeader.MouseEnter += SetStatusBar_Enter;
-			labelReadableDesignationHeader.MouseLeave += ClearStatusBar_Leave;
+			labelReadableDesignationHeader.Enter += Control_Enter;
+			labelReadableDesignationHeader.Leave += Control_Leave;
+			labelReadableDesignationHeader.MouseEnter += Control_Enter;
+			labelReadableDesignationHeader.MouseLeave += Control_Leave;
 			// 
 			// labelValueHeader
 			// 
@@ -714,10 +714,10 @@ namespace Planetoid_DB
 			labelValueHeader.TabIndex = 1;
 			toolTip.SetToolTip(labelValueHeader, "Value header");
 			labelValueHeader.Values.Text = "Value";
-			labelValueHeader.Enter += SetStatusBar_Enter;
-			labelValueHeader.Leave += ClearStatusBar_Leave;
-			labelValueHeader.MouseEnter += SetStatusBar_Enter;
-			labelValueHeader.MouseLeave += ClearStatusBar_Leave;
+			labelValueHeader.Enter += Control_Enter;
+			labelValueHeader.Leave += Control_Leave;
+			labelValueHeader.MouseEnter += Control_Enter;
+			labelValueHeader.MouseLeave += Control_Leave;
 			// 
 			// labelReadableDesignation01
 			// 
@@ -733,10 +733,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelReadableDesignation01, "Readable designation no. 1");
 			labelReadableDesignation01.Values.Text = "designation 01";
 			labelReadableDesignation01.DoubleClick += CopyToClipboard_DoubleClick;
-			labelReadableDesignation01.Enter += SetStatusBar_Enter;
-			labelReadableDesignation01.Leave += ClearStatusBar_Leave;
-			labelReadableDesignation01.MouseEnter += SetStatusBar_Enter;
-			labelReadableDesignation01.MouseLeave += ClearStatusBar_Leave;
+			labelReadableDesignation01.Enter += Control_Enter;
+			labelReadableDesignation01.Leave += Control_Leave;
+			labelReadableDesignation01.MouseEnter += Control_Enter;
+			labelReadableDesignation01.MouseLeave += Control_Leave;
 			// 
 			// labelReadableDesignation02
 			// 
@@ -752,10 +752,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelReadableDesignation02, "Readable designation no. 2");
 			labelReadableDesignation02.Values.Text = "designation 02";
 			labelReadableDesignation02.DoubleClick += CopyToClipboard_DoubleClick;
-			labelReadableDesignation02.Enter += SetStatusBar_Enter;
-			labelReadableDesignation02.Leave += ClearStatusBar_Leave;
-			labelReadableDesignation02.MouseEnter += SetStatusBar_Enter;
-			labelReadableDesignation02.MouseLeave += ClearStatusBar_Leave;
+			labelReadableDesignation02.Enter += Control_Enter;
+			labelReadableDesignation02.Leave += Control_Leave;
+			labelReadableDesignation02.MouseEnter += Control_Enter;
+			labelReadableDesignation02.MouseLeave += Control_Leave;
 			// 
 			// labelReadableDesignation03
 			// 
@@ -771,10 +771,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelReadableDesignation03, "Readable designation no. 3");
 			labelReadableDesignation03.Values.Text = "designation 03";
 			labelReadableDesignation03.DoubleClick += CopyToClipboard_DoubleClick;
-			labelReadableDesignation03.Enter += SetStatusBar_Enter;
-			labelReadableDesignation03.Leave += ClearStatusBar_Leave;
-			labelReadableDesignation03.MouseEnter += SetStatusBar_Enter;
-			labelReadableDesignation03.MouseLeave += ClearStatusBar_Leave;
+			labelReadableDesignation03.Enter += Control_Enter;
+			labelReadableDesignation03.Leave += Control_Leave;
+			labelReadableDesignation03.MouseEnter += Control_Enter;
+			labelReadableDesignation03.MouseLeave += Control_Leave;
 			// 
 			// labelReadableDesignation04
 			// 
@@ -790,10 +790,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelReadableDesignation04, "Readable designation no. 4");
 			labelReadableDesignation04.Values.Text = "designation 04";
 			labelReadableDesignation04.DoubleClick += CopyToClipboard_DoubleClick;
-			labelReadableDesignation04.Enter += SetStatusBar_Enter;
-			labelReadableDesignation04.Leave += ClearStatusBar_Leave;
-			labelReadableDesignation04.MouseEnter += SetStatusBar_Enter;
-			labelReadableDesignation04.MouseLeave += ClearStatusBar_Leave;
+			labelReadableDesignation04.Enter += Control_Enter;
+			labelReadableDesignation04.Leave += Control_Leave;
+			labelReadableDesignation04.MouseEnter += Control_Enter;
+			labelReadableDesignation04.MouseLeave += Control_Leave;
 			// 
 			// labelReadableDesignation05
 			// 
@@ -809,10 +809,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelReadableDesignation05, "Readable designation no. 5");
 			labelReadableDesignation05.Values.Text = "designation 05";
 			labelReadableDesignation05.DoubleClick += CopyToClipboard_DoubleClick;
-			labelReadableDesignation05.Enter += SetStatusBar_Enter;
-			labelReadableDesignation05.Leave += ClearStatusBar_Leave;
-			labelReadableDesignation05.MouseEnter += SetStatusBar_Enter;
-			labelReadableDesignation05.MouseLeave += ClearStatusBar_Leave;
+			labelReadableDesignation05.Enter += Control_Enter;
+			labelReadableDesignation05.Leave += Control_Leave;
+			labelReadableDesignation05.MouseEnter += Control_Enter;
+			labelReadableDesignation05.MouseLeave += Control_Leave;
 			// 
 			// labelReadableDesignation06
 			// 
@@ -828,10 +828,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelReadableDesignation06, "Readable designation no. 6");
 			labelReadableDesignation06.Values.Text = "designation 06";
 			labelReadableDesignation06.DoubleClick += CopyToClipboard_DoubleClick;
-			labelReadableDesignation06.Enter += SetStatusBar_Enter;
-			labelReadableDesignation06.Leave += ClearStatusBar_Leave;
-			labelReadableDesignation06.MouseEnter += SetStatusBar_Enter;
-			labelReadableDesignation06.MouseLeave += ClearStatusBar_Leave;
+			labelReadableDesignation06.Enter += Control_Enter;
+			labelReadableDesignation06.Leave += Control_Leave;
+			labelReadableDesignation06.MouseEnter += Control_Enter;
+			labelReadableDesignation06.MouseLeave += Control_Leave;
 			// 
 			// labelReadableDesignation07
 			// 
@@ -847,10 +847,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelReadableDesignation07, "Readable designation no. 7");
 			labelReadableDesignation07.Values.Text = "designation 07";
 			labelReadableDesignation07.DoubleClick += CopyToClipboard_DoubleClick;
-			labelReadableDesignation07.Enter += SetStatusBar_Enter;
-			labelReadableDesignation07.Leave += ClearStatusBar_Leave;
-			labelReadableDesignation07.MouseEnter += SetStatusBar_Enter;
-			labelReadableDesignation07.MouseLeave += ClearStatusBar_Leave;
+			labelReadableDesignation07.Enter += Control_Enter;
+			labelReadableDesignation07.Leave += Control_Leave;
+			labelReadableDesignation07.MouseEnter += Control_Enter;
+			labelReadableDesignation07.MouseLeave += Control_Leave;
 			// 
 			// labelReadableDesignation08
 			// 
@@ -866,10 +866,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelReadableDesignation08, "Readable designation no. 8");
 			labelReadableDesignation08.Values.Text = "designation 08";
 			labelReadableDesignation08.DoubleClick += CopyToClipboard_DoubleClick;
-			labelReadableDesignation08.Enter += SetStatusBar_Enter;
-			labelReadableDesignation08.Leave += ClearStatusBar_Leave;
-			labelReadableDesignation08.MouseEnter += SetStatusBar_Enter;
-			labelReadableDesignation08.MouseLeave += ClearStatusBar_Leave;
+			labelReadableDesignation08.Enter += Control_Enter;
+			labelReadableDesignation08.Leave += Control_Leave;
+			labelReadableDesignation08.MouseEnter += Control_Enter;
+			labelReadableDesignation08.MouseLeave += Control_Leave;
 			// 
 			// labelReadableDesignation09
 			// 
@@ -885,10 +885,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelReadableDesignation09, "Readable designation no. 9");
 			labelReadableDesignation09.Values.Text = "designation 09";
 			labelReadableDesignation09.DoubleClick += CopyToClipboard_DoubleClick;
-			labelReadableDesignation09.Enter += SetStatusBar_Enter;
-			labelReadableDesignation09.Leave += ClearStatusBar_Leave;
-			labelReadableDesignation09.MouseEnter += SetStatusBar_Enter;
-			labelReadableDesignation09.MouseLeave += ClearStatusBar_Leave;
+			labelReadableDesignation09.Enter += Control_Enter;
+			labelReadableDesignation09.Leave += Control_Leave;
+			labelReadableDesignation09.MouseEnter += Control_Enter;
+			labelReadableDesignation09.MouseLeave += Control_Leave;
 			// 
 			// labelReadableDesignation10
 			// 
@@ -904,10 +904,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelReadableDesignation10, "Readable designation no. 10");
 			labelReadableDesignation10.Values.Text = "designation 10";
 			labelReadableDesignation10.DoubleClick += CopyToClipboard_DoubleClick;
-			labelReadableDesignation10.Enter += SetStatusBar_Enter;
-			labelReadableDesignation10.Leave += ClearStatusBar_Leave;
-			labelReadableDesignation10.MouseEnter += SetStatusBar_Enter;
-			labelReadableDesignation10.MouseLeave += ClearStatusBar_Leave;
+			labelReadableDesignation10.Enter += Control_Enter;
+			labelReadableDesignation10.Leave += Control_Leave;
+			labelReadableDesignation10.MouseEnter += Control_Enter;
+			labelReadableDesignation10.MouseLeave += Control_Leave;
 			// 
 			// labelValue01
 			// 
@@ -923,10 +923,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelValue01, "Value no. 1");
 			labelValue01.Values.Text = "value 01";
 			labelValue01.DoubleClick += CopyToClipboard_DoubleClick;
-			labelValue01.Enter += SetStatusBar_Enter;
-			labelValue01.Leave += ClearStatusBar_Leave;
-			labelValue01.MouseEnter += SetStatusBar_Enter;
-			labelValue01.MouseLeave += ClearStatusBar_Leave;
+			labelValue01.Enter += Control_Enter;
+			labelValue01.Leave += Control_Leave;
+			labelValue01.MouseEnter += Control_Enter;
+			labelValue01.MouseLeave += Control_Leave;
 			// 
 			// labelValue02
 			// 
@@ -942,10 +942,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelValue02, "Value no. 2");
 			labelValue02.Values.Text = "value 02";
 			labelValue02.DoubleClick += CopyToClipboard_DoubleClick;
-			labelValue02.Enter += SetStatusBar_Enter;
-			labelValue02.Leave += ClearStatusBar_Leave;
-			labelValue02.MouseEnter += SetStatusBar_Enter;
-			labelValue02.MouseLeave += ClearStatusBar_Leave;
+			labelValue02.Enter += Control_Enter;
+			labelValue02.Leave += Control_Leave;
+			labelValue02.MouseEnter += Control_Enter;
+			labelValue02.MouseLeave += Control_Leave;
 			// 
 			// labelValue03
 			// 
@@ -961,10 +961,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelValue03, "Value no. 3");
 			labelValue03.Values.Text = "value 03";
 			labelValue03.DoubleClick += CopyToClipboard_DoubleClick;
-			labelValue03.Enter += SetStatusBar_Enter;
-			labelValue03.Leave += ClearStatusBar_Leave;
-			labelValue03.MouseEnter += SetStatusBar_Enter;
-			labelValue03.MouseLeave += ClearStatusBar_Leave;
+			labelValue03.Enter += Control_Enter;
+			labelValue03.Leave += Control_Leave;
+			labelValue03.MouseEnter += Control_Enter;
+			labelValue03.MouseLeave += Control_Leave;
 			// 
 			// labelValue04
 			// 
@@ -980,10 +980,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelValue04, "Value no. 4");
 			labelValue04.Values.Text = "value 04";
 			labelValue04.DoubleClick += CopyToClipboard_DoubleClick;
-			labelValue04.Enter += SetStatusBar_Enter;
-			labelValue04.Leave += ClearStatusBar_Leave;
-			labelValue04.MouseEnter += SetStatusBar_Enter;
-			labelValue04.MouseLeave += ClearStatusBar_Leave;
+			labelValue04.Enter += Control_Enter;
+			labelValue04.Leave += Control_Leave;
+			labelValue04.MouseEnter += Control_Enter;
+			labelValue04.MouseLeave += Control_Leave;
 			// 
 			// labelValue05
 			// 
@@ -999,10 +999,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelValue05, "Value no. 5");
 			labelValue05.Values.Text = "value 05";
 			labelValue05.DoubleClick += CopyToClipboard_DoubleClick;
-			labelValue05.Enter += SetStatusBar_Enter;
-			labelValue05.Leave += ClearStatusBar_Leave;
-			labelValue05.MouseEnter += SetStatusBar_Enter;
-			labelValue05.MouseLeave += ClearStatusBar_Leave;
+			labelValue05.Enter += Control_Enter;
+			labelValue05.Leave += Control_Leave;
+			labelValue05.MouseEnter += Control_Enter;
+			labelValue05.MouseLeave += Control_Leave;
 			// 
 			// labelValue06
 			// 
@@ -1018,10 +1018,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelValue06, "Value no. 6");
 			labelValue06.Values.Text = "value 06";
 			labelValue06.DoubleClick += CopyToClipboard_DoubleClick;
-			labelValue06.Enter += SetStatusBar_Enter;
-			labelValue06.Leave += ClearStatusBar_Leave;
-			labelValue06.MouseEnter += SetStatusBar_Enter;
-			labelValue06.MouseLeave += ClearStatusBar_Leave;
+			labelValue06.Enter += Control_Enter;
+			labelValue06.Leave += Control_Leave;
+			labelValue06.MouseEnter += Control_Enter;
+			labelValue06.MouseLeave += Control_Leave;
 			// 
 			// labelValue07
 			// 
@@ -1037,10 +1037,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelValue07, "Value no. 7");
 			labelValue07.Values.Text = "value 07";
 			labelValue07.DoubleClick += CopyToClipboard_DoubleClick;
-			labelValue07.Enter += SetStatusBar_Enter;
-			labelValue07.Leave += ClearStatusBar_Leave;
-			labelValue07.MouseEnter += SetStatusBar_Enter;
-			labelValue07.MouseLeave += ClearStatusBar_Leave;
+			labelValue07.Enter += Control_Enter;
+			labelValue07.Leave += Control_Leave;
+			labelValue07.MouseEnter += Control_Enter;
+			labelValue07.MouseLeave += Control_Leave;
 			// 
 			// labelValue08
 			// 
@@ -1056,10 +1056,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelValue08, "Value no. 8");
 			labelValue08.Values.Text = "value 08";
 			labelValue08.DoubleClick += CopyToClipboard_DoubleClick;
-			labelValue08.Enter += SetStatusBar_Enter;
-			labelValue08.Leave += ClearStatusBar_Leave;
-			labelValue08.MouseEnter += SetStatusBar_Enter;
-			labelValue08.MouseLeave += ClearStatusBar_Leave;
+			labelValue08.Enter += Control_Enter;
+			labelValue08.Leave += Control_Leave;
+			labelValue08.MouseEnter += Control_Enter;
+			labelValue08.MouseLeave += Control_Leave;
 			// 
 			// labelValue09
 			// 
@@ -1075,10 +1075,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelValue09, "Value no. 9");
 			labelValue09.Values.Text = "value 09";
 			labelValue09.DoubleClick += CopyToClipboard_DoubleClick;
-			labelValue09.Enter += SetStatusBar_Enter;
-			labelValue09.Leave += ClearStatusBar_Leave;
-			labelValue09.MouseEnter += SetStatusBar_Enter;
-			labelValue09.MouseLeave += ClearStatusBar_Leave;
+			labelValue09.Enter += Control_Enter;
+			labelValue09.Leave += Control_Leave;
+			labelValue09.MouseEnter += Control_Enter;
+			labelValue09.MouseLeave += Control_Leave;
 			// 
 			// labelValue10
 			// 
@@ -1094,10 +1094,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelValue10, "Value no. 10");
 			labelValue10.Values.Text = "value 10";
 			labelValue10.DoubleClick += CopyToClipboard_DoubleClick;
-			labelValue10.Enter += SetStatusBar_Enter;
-			labelValue10.Leave += ClearStatusBar_Leave;
-			labelValue10.MouseEnter += SetStatusBar_Enter;
-			labelValue10.MouseLeave += ClearStatusBar_Leave;
+			labelValue10.Enter += Control_Enter;
+			labelValue10.Leave += Control_Leave;
+			labelValue10.MouseEnter += Control_Enter;
+			labelValue10.MouseLeave += Control_Leave;
 			// 
 			// buttonGoto10
 			// 
@@ -1115,10 +1115,10 @@ namespace Planetoid_DB
 			buttonGoto10.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
 			buttonGoto10.Values.Text = "Goto";
 			buttonGoto10.Click += ButtonGoto10_Click;
-			buttonGoto10.Enter += SetStatusBar_Enter;
-			buttonGoto10.Leave += ClearStatusBar_Leave;
-			buttonGoto10.MouseEnter += SetStatusBar_Enter;
-			buttonGoto10.MouseLeave += ClearStatusBar_Leave;
+			buttonGoto10.Enter += Control_Enter;
+			buttonGoto10.Leave += Control_Leave;
+			buttonGoto10.MouseEnter += Control_Enter;
+			buttonGoto10.MouseLeave += Control_Leave;
 			// 
 			// buttonStart
 			// 
@@ -1135,10 +1135,10 @@ namespace Planetoid_DB
 			buttonStart.Values.Image = FatcowIcons16px.fatcow_resultset_next_16px;
 			buttonStart.Values.Text = "&Start";
 			buttonStart.Click += ButtonStart_Click;
-			buttonStart.Enter += SetStatusBar_Enter;
-			buttonStart.Leave += ClearStatusBar_Leave;
-			buttonStart.MouseEnter += SetStatusBar_Enter;
-			buttonStart.MouseLeave += ClearStatusBar_Leave;
+			buttonStart.Enter += Control_Enter;
+			buttonStart.Leave += Control_Leave;
+			buttonStart.MouseEnter += Control_Enter;
+			buttonStart.MouseLeave += Control_Leave;
 			// 
 			// labelPercent
 			// 
@@ -1152,10 +1152,10 @@ namespace Planetoid_DB
 			labelPercent.TabIndex = 2;
 			toolTip.SetToolTip(labelPercent, "Percent status of the record detection");
 			labelPercent.Values.Text = "100 %";
-			labelPercent.Enter += SetStatusBar_Enter;
-			labelPercent.Leave += ClearStatusBar_Leave;
-			labelPercent.MouseEnter += SetStatusBar_Enter;
-			labelPercent.MouseLeave += ClearStatusBar_Leave;
+			labelPercent.Enter += Control_Enter;
+			labelPercent.Leave += Control_Leave;
+			labelPercent.MouseEnter += Control_Enter;
+			labelPercent.MouseLeave += Control_Leave;
 			// 
 			// progressBar
 			// 
@@ -1171,8 +1171,8 @@ namespace Planetoid_DB
 			progressBar.TextBackdropColor = Color.Empty;
 			progressBar.TextShadowColor = Color.Empty;
 			toolTip.SetToolTip(progressBar, "Shows the progress status of the record detection");
-			progressBar.MouseEnter += SetStatusBar_Enter;
-			progressBar.MouseLeave += ClearStatusBar_Leave;
+			progressBar.MouseEnter += Control_Enter;
+			progressBar.MouseLeave += Control_Leave;
 			// 
 			// statusStrip
 			// 

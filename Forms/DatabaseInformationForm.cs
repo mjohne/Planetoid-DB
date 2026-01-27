@@ -139,14 +139,15 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 	#region Enter event handlers
 
 	/// <summary>
-	/// Called when the mouse pointer moves over a control.
+	/// Handles Enter (mouse over / focus) events for controls and ToolStrip items.
+	/// If the sender provides a non-null <c>AccessibleDescription</c>, that text is shown in the status bar.
 	/// </summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
+	/// <param name="e">Event arguments.</param>
 	/// <remarks>
-	/// This method is used to set the status bar text when a control is entered.
+	/// This method is called when the mouse pointer enters a control or the control receives focus.
 	/// </remarks>
-	private void SetStatusBar_Enter(object sender, EventArgs e)
+	private void Control_Enter(object sender, EventArgs e)
 	{
 		// Check if the sender is null
 		ArgumentNullException.ThrowIfNull(argument: sender);
@@ -169,15 +170,15 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 	#region Leave event handlers
 
 	/// <summary>
-	/// Handles Enter (mouse over / focus) events for controls and ToolStrip items.
-	/// If the sender provides a non-null <c>AccessibleDescription</c>, that text is shown in the status bar.
+	/// Handles Leave (mouse out / focus lost) events for controls and ToolStrip items.
+	/// Clears the status bar text (delegates to <see cref="ClearStatusBar"/>).
 	/// </summary>
 	/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>
 	/// This method is called when the mouse leaves a control.
 	/// </remarks>
-	private void ClearStatusBar_Leave(object sender, EventArgs e) => ClearStatusBar();
+	private void Control_Leave(object sender, EventArgs e) => ClearStatusBar();
 
 	#endregion
 
