@@ -119,10 +119,10 @@ namespace Planetoid_DB
 			buttonCancel.Values.Image = FatcowIcons16px.fatcow_cancel_16px;
 			buttonCancel.Values.Text = "&Cancel";
 			buttonCancel.Click += ButtonCancel_Click;
-			buttonCancel.Enter += SetStatusBar_Enter;
-			buttonCancel.Leave += ClearStatusBar_Leave;
-			buttonCancel.MouseEnter += SetStatusBar_Enter;
-			buttonCancel.MouseLeave += ClearStatusBar_Leave;
+			buttonCancel.Enter += Control_Enter;
+			buttonCancel.Leave += Control_Leave;
+			buttonCancel.MouseEnter += Control_Enter;
+			buttonCancel.MouseLeave += Control_Leave;
 			// 
 			// progressBar
 			// 
@@ -138,8 +138,8 @@ namespace Planetoid_DB
 			progressBar.TextShadowColor = Color.Empty;
 			toolTip.SetToolTip(progressBar, "Shows the progress");
 			progressBar.Values.Text = "";
-			progressBar.MouseEnter += SetStatusBar_Enter;
-			progressBar.MouseLeave += ClearStatusBar_Leave;
+			progressBar.MouseEnter += Control_Enter;
+			progressBar.MouseLeave += Control_Leave;
 			// 
 			// buttonList
 			// 
@@ -155,10 +155,10 @@ namespace Planetoid_DB
 			buttonList.Values.Image = FatcowIcons16px.fatcow_page_white_text_16px;
 			buttonList.Values.Text = "&List";
 			buttonList.Click += ButtonList_Click;
-			buttonList.Enter += SetStatusBar_Enter;
-			buttonList.Leave += ClearStatusBar_Leave;
-			buttonList.MouseEnter += SetStatusBar_Enter;
-			buttonList.MouseLeave += ClearStatusBar_Leave;
+			buttonList.Enter += Control_Enter;
+			buttonList.Leave += Control_Leave;
+			buttonList.MouseEnter += Control_Enter;
+			buttonList.MouseLeave += Control_Leave;
 			// 
 			// labelWarning
 			// 
@@ -177,11 +177,11 @@ namespace Planetoid_DB
 			labelWarning.TextAlign = ContentAlignment.MiddleLeft;
 			toolTip.SetToolTip(labelWarning, "Be careful: do not use large ranges between minimum and maximum! This can increase loading time and memory. Use small spans!");
 			labelWarning.DoubleClick += CopyToClipboard_DoubleClick;
-			labelWarning.Enter += SetStatusBar_Enter;
-			labelWarning.Leave += ClearStatusBar_Leave;
+			labelWarning.Enter += Control_Enter;
+			labelWarning.Leave += Control_Leave;
 			labelWarning.MouseDown += Control_MouseDown;
-			labelWarning.MouseEnter += SetStatusBar_Enter;
-			labelWarning.MouseLeave += ClearStatusBar_Leave;
+			labelWarning.MouseEnter += Control_Enter;
+			labelWarning.MouseLeave += Control_Leave;
 			// 
 			// contextMenuCopyToClipboard
 			// 
@@ -196,8 +196,8 @@ namespace Planetoid_DB
 			contextMenuCopyToClipboard.TabStop = true;
 			contextMenuCopyToClipboard.Text = "ContextMenu";
 			toolTip.SetToolTip(contextMenuCopyToClipboard, "Context menu for copying to clipboard");
-			contextMenuCopyToClipboard.MouseEnter += SetStatusBar_Enter;
-			contextMenuCopyToClipboard.MouseLeave += ClearStatusBar_Leave;
+			contextMenuCopyToClipboard.MouseEnter += Control_Enter;
+			contextMenuCopyToClipboard.MouseLeave += Control_Leave;
 			// 
 			// ToolStripMenuItemCpyToClipboard
 			// 
@@ -212,8 +212,8 @@ namespace Planetoid_DB
 			ToolStripMenuItemCpyToClipboard.Size = new Size(213, 22);
 			ToolStripMenuItemCpyToClipboard.Text = "&Copy to clipboard";
 			ToolStripMenuItemCpyToClipboard.Click += CopyToClipboard_DoubleClick;
-			ToolStripMenuItemCpyToClipboard.MouseEnter += SetStatusBar_Enter;
-			ToolStripMenuItemCpyToClipboard.MouseLeave += ClearStatusBar_Leave;
+			ToolStripMenuItemCpyToClipboard.MouseEnter += Control_Enter;
+			ToolStripMenuItemCpyToClipboard.MouseLeave += Control_Leave;
 			// 
 			// buttonLoad
 			// 
@@ -229,10 +229,10 @@ namespace Planetoid_DB
 			buttonLoad.Values.DropDownArrowColor = Color.Empty;
 			buttonLoad.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
 			buttonLoad.Values.Text = "L&oad";
-			buttonLoad.Enter += SetStatusBar_Enter;
-			buttonLoad.Leave += ClearStatusBar_Leave;
-			buttonLoad.MouseEnter += SetStatusBar_Enter;
-			buttonLoad.MouseLeave += ClearStatusBar_Leave;
+			buttonLoad.Enter += Control_Enter;
+			buttonLoad.Leave += Control_Leave;
+			buttonLoad.MouseEnter += Control_Enter;
+			buttonLoad.MouseLeave += Control_Leave;
 			// 
 			// labelMinimum
 			// 
@@ -246,10 +246,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelMinimum, "Minimum");
 			labelMinimum.Values.Text = "M&inimum:";
 			labelMinimum.Click += CopyToClipboard_DoubleClick;
-			labelMinimum.Enter += SetStatusBar_Enter;
-			labelMinimum.Leave += ClearStatusBar_Leave;
-			labelMinimum.MouseEnter += SetStatusBar_Enter;
-			labelMinimum.MouseLeave += ClearStatusBar_Leave;
+			labelMinimum.Enter += Control_Enter;
+			labelMinimum.Leave += Control_Leave;
+			labelMinimum.MouseEnter += Control_Enter;
+			labelMinimum.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMinimum
 			// 
@@ -266,10 +266,10 @@ namespace Planetoid_DB
 			numericUpDownMinimum.TabIndex = 1;
 			toolTip.SetToolTip(numericUpDownMinimum, "Minimum value for the list");
 			numericUpDownMinimum.Value = new decimal(new int[] { 0, 0, 0, 0 });
-			numericUpDownMinimum.Enter += SetStatusBar_Enter;
-			numericUpDownMinimum.Leave += ClearStatusBar_Leave;
-			numericUpDownMinimum.MouseEnter += SetStatusBar_Enter;
-			numericUpDownMinimum.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownMinimum.Enter += Control_Enter;
+			numericUpDownMinimum.Leave += Control_Leave;
+			numericUpDownMinimum.MouseEnter += Control_Enter;
+			numericUpDownMinimum.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMaximum
 			// 
@@ -286,10 +286,10 @@ namespace Planetoid_DB
 			numericUpDownMaximum.TabIndex = 3;
 			toolTip.SetToolTip(numericUpDownMaximum, "Maximum value for the list");
 			numericUpDownMaximum.Value = new decimal(new int[] { 0, 0, 0, 0 });
-			numericUpDownMaximum.Enter += SetStatusBar_Enter;
-			numericUpDownMaximum.Leave += ClearStatusBar_Leave;
-			numericUpDownMaximum.MouseEnter += SetStatusBar_Enter;
-			numericUpDownMaximum.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownMaximum.Enter += Control_Enter;
+			numericUpDownMaximum.Leave += Control_Leave;
+			numericUpDownMaximum.MouseEnter += Control_Enter;
+			numericUpDownMaximum.MouseLeave += Control_Leave;
 			// 
 			// labelMaximum
 			// 
@@ -303,10 +303,10 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelMaximum, "Maximum");
 			labelMaximum.Values.Text = "M&aximum:";
 			labelMaximum.Click += CopyToClipboard_DoubleClick;
-			labelMaximum.Enter += SetStatusBar_Enter;
-			labelMaximum.Leave += ClearStatusBar_Leave;
-			labelMaximum.MouseEnter += SetStatusBar_Enter;
-			labelMaximum.MouseLeave += ClearStatusBar_Leave;
+			labelMaximum.Enter += Control_Enter;
+			labelMaximum.Leave += Control_Leave;
+			labelMaximum.MouseEnter += Control_Enter;
+			labelMaximum.MouseLeave += Control_Leave;
 			// 
 			// contextMenuSaveList
 			// 
@@ -320,8 +320,8 @@ namespace Planetoid_DB
 			contextMenuSaveList.TabStop = true;
 			contextMenuSaveList.Text = "&Save List";
 			toolTip.SetToolTip(contextMenuSaveList, "Save List");
-			contextMenuSaveList.MouseEnter += SetStatusBar_Enter;
-			contextMenuSaveList.MouseLeave += ClearStatusBar_Leave;
+			contextMenuSaveList.MouseEnter += Control_Enter;
+			contextMenuSaveList.MouseLeave += Control_Leave;
 			// 
 			// toolStripMenuItemSaveAsCsv
 			// 
@@ -336,8 +336,8 @@ namespace Planetoid_DB
 			toolStripMenuItemSaveAsCsv.Size = new Size(192, 22);
 			toolStripMenuItemSaveAsCsv.Text = "Save as &CSV";
 			toolStripMenuItemSaveAsCsv.Click += ToolStripMenuItemSaveAsCsv_Click;
-			toolStripMenuItemSaveAsCsv.MouseEnter += SetStatusBar_Enter;
-			toolStripMenuItemSaveAsCsv.MouseLeave += ClearStatusBar_Leave;
+			toolStripMenuItemSaveAsCsv.MouseEnter += Control_Enter;
+			toolStripMenuItemSaveAsCsv.MouseLeave += Control_Leave;
 			// 
 			// toolStripMenuItemSaveAsHtml
 			// 
@@ -352,8 +352,8 @@ namespace Planetoid_DB
 			toolStripMenuItemSaveAsHtml.Size = new Size(192, 22);
 			toolStripMenuItemSaveAsHtml.Text = "Save as &HTML";
 			toolStripMenuItemSaveAsHtml.Click += ToolStripMenuItemSaveAsHtml_Click;
-			toolStripMenuItemSaveAsHtml.MouseEnter += SetStatusBar_Enter;
-			toolStripMenuItemSaveAsHtml.MouseLeave += ClearStatusBar_Leave;
+			toolStripMenuItemSaveAsHtml.MouseEnter += Control_Enter;
+			toolStripMenuItemSaveAsHtml.MouseLeave += Control_Leave;
 			// 
 			// toolStripMenuItemSaveAsXml
 			// 
@@ -368,8 +368,8 @@ namespace Planetoid_DB
 			toolStripMenuItemSaveAsXml.Size = new Size(192, 22);
 			toolStripMenuItemSaveAsXml.Text = "Save as &XML";
 			toolStripMenuItemSaveAsXml.Click += ToolStripMenuItemSaveAsXml_Click;
-			toolStripMenuItemSaveAsXml.MouseEnter += SetStatusBar_Enter;
-			toolStripMenuItemSaveAsXml.MouseLeave += ClearStatusBar_Leave;
+			toolStripMenuItemSaveAsXml.MouseEnter += Control_Enter;
+			toolStripMenuItemSaveAsXml.MouseLeave += Control_Leave;
 			// 
 			// toolStripMenuItemSaveAsJson
 			// 
@@ -384,8 +384,8 @@ namespace Planetoid_DB
 			toolStripMenuItemSaveAsJson.Size = new Size(192, 22);
 			toolStripMenuItemSaveAsJson.Text = "Save as &JSON";
 			toolStripMenuItemSaveAsJson.Click += ToolStripMenuItemSaveAsJson_Click;
-			toolStripMenuItemSaveAsJson.MouseEnter += SetStatusBar_Enter;
-			toolStripMenuItemSaveAsJson.MouseLeave += ClearStatusBar_Leave;
+			toolStripMenuItemSaveAsJson.MouseEnter += Control_Enter;
+			toolStripMenuItemSaveAsJson.MouseLeave += Control_Leave;
 			// 
 			// dropButtonSaveList
 			// 
@@ -408,10 +408,10 @@ namespace Planetoid_DB
 			dropButtonSaveList.Values.ImageStates.ImagePressed = FatcowIcons16px.fatcow_diskette_16px;
 			dropButtonSaveList.Values.ImageStates.ImageTracking = FatcowIcons16px.fatcow_diskette_16px;
 			dropButtonSaveList.Values.Text = "&Save List";
-			dropButtonSaveList.Enter += SetStatusBar_Enter;
-			dropButtonSaveList.Leave += ClearStatusBar_Leave;
-			dropButtonSaveList.MouseEnter += SetStatusBar_Enter;
-			dropButtonSaveList.MouseLeave += ClearStatusBar_Leave;
+			dropButtonSaveList.Enter += Control_Enter;
+			dropButtonSaveList.Leave += Control_Leave;
+			dropButtonSaveList.MouseEnter += Control_Enter;
+			dropButtonSaveList.MouseLeave += Control_Leave;
 			// 
 			// panel
 			// 
@@ -457,10 +457,10 @@ namespace Planetoid_DB
 			listView.UseCompatibleStateImageBehavior = false;
 			listView.View = View.Details;
 			listView.SelectedIndexChanged += SelectedIndexChanged;
-			listView.Enter += SetStatusBar_Enter;
-			listView.Leave += ClearStatusBar_Leave;
-			listView.MouseEnter += SetStatusBar_Enter;
-			listView.MouseLeave += ClearStatusBar_Leave;
+			listView.Enter += Control_Enter;
+			listView.Leave += Control_Leave;
+			listView.MouseEnter += Control_Enter;
+			listView.MouseLeave += Control_Leave;
 			// 
 			// columnHeaderIndex
 			// 

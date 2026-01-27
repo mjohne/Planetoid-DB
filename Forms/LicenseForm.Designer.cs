@@ -84,10 +84,10 @@ namespace Planetoid_DB
 			kryptonButtonCopyLicenseToClipboard.Values.Image = FatcowIcons16px.fatcow_clipboard_empty_16px;
 			kryptonButtonCopyLicenseToClipboard.Values.Text = "&Copy to clipboard";
 			kryptonButtonCopyLicenseToClipboard.Click += KryptonButtonCopyLicenseToClipboard_Click;
-			kryptonButtonCopyLicenseToClipboard.Enter += SetStatusBar_Enter;
-			kryptonButtonCopyLicenseToClipboard.Leave += ClearStatusBar_Leave;
-			kryptonButtonCopyLicenseToClipboard.MouseEnter += SetStatusBar_Enter;
-			kryptonButtonCopyLicenseToClipboard.MouseLeave += ClearStatusBar_Leave;
+			kryptonButtonCopyLicenseToClipboard.Enter += Control_Enter;
+			kryptonButtonCopyLicenseToClipboard.Leave += Control_Leave;
+			kryptonButtonCopyLicenseToClipboard.MouseEnter += Control_Enter;
+			kryptonButtonCopyLicenseToClipboard.MouseLeave += Control_Leave;
 			// 
 			// kryptonButtonSaveLicense
 			// 
@@ -103,10 +103,10 @@ namespace Planetoid_DB
 			kryptonButtonSaveLicense.Values.Image = FatcowIcons16px.fatcow_diskette_16px;
 			kryptonButtonSaveLicense.Values.Text = "&Save license";
 			kryptonButtonSaveLicense.Click += KryptonButtonSaveLicense_Click;
-			kryptonButtonSaveLicense.Enter += SetStatusBar_Enter;
-			kryptonButtonSaveLicense.Leave += ClearStatusBar_Leave;
-			kryptonButtonSaveLicense.MouseEnter += SetStatusBar_Enter;
-			kryptonButtonSaveLicense.MouseLeave += ClearStatusBar_Leave;
+			kryptonButtonSaveLicense.Enter += Control_Enter;
+			kryptonButtonSaveLicense.Leave += Control_Leave;
+			kryptonButtonSaveLicense.MouseEnter += Control_Enter;
+			kryptonButtonSaveLicense.MouseLeave += Control_Leave;
 			// 
 			// kryptonButtonClose
 			// 
@@ -122,10 +122,10 @@ namespace Planetoid_DB
 			kryptonButtonClose.Values.DropDownArrowColor = Color.Empty;
 			kryptonButtonClose.Values.Image = FatcowIcons16px.fatcow_cancel_16px;
 			kryptonButtonClose.Values.Text = "C&lose";
-			kryptonButtonClose.Enter += SetStatusBar_Enter;
-			kryptonButtonClose.Leave += ClearStatusBar_Leave;
-			kryptonButtonClose.MouseEnter += SetStatusBar_Enter;
-			kryptonButtonClose.MouseLeave += ClearStatusBar_Leave;
+			kryptonButtonClose.Enter += Control_Enter;
+			kryptonButtonClose.Leave += Control_Leave;
+			kryptonButtonClose.MouseEnter += Control_Enter;
+			kryptonButtonClose.MouseLeave += Control_Leave;
 			// 
 			// kryptonPictureBoxLicenseLogo
 			// 
@@ -140,8 +140,8 @@ namespace Planetoid_DB
 			kryptonPictureBoxLicenseLogo.TabIndex = 8;
 			kryptonPictureBoxLicenseLogo.TabStop = false;
 			toolTip.SetToolTip(kryptonPictureBoxLicenseLogo, "GPL v3 Logo");
-			kryptonPictureBoxLicenseLogo.MouseEnter += SetStatusBar_Enter;
-			kryptonPictureBoxLicenseLogo.MouseLeave += ClearStatusBar_Leave;
+			kryptonPictureBoxLicenseLogo.MouseEnter += Control_Enter;
+			kryptonPictureBoxLicenseLogo.MouseLeave += Control_Leave;
 			// 
 			// kryptonTextBoxLicense
 			// 
@@ -159,10 +159,10 @@ namespace Planetoid_DB
 			kryptonTextBoxLicense.TabStop = false;
 			kryptonTextBoxLicense.Text = resources.GetString("kryptonTextBoxLicense.Text");
 			toolTip.SetToolTip(kryptonTextBoxLicense, "License");
-			kryptonTextBoxLicense.Enter += SetStatusBar_Enter;
-			kryptonTextBoxLicense.Leave += ClearStatusBar_Leave;
-			kryptonTextBoxLicense.MouseEnter += SetStatusBar_Enter;
-			kryptonTextBoxLicense.MouseLeave += ClearStatusBar_Leave;
+			kryptonTextBoxLicense.Enter += Control_Enter;
+			kryptonTextBoxLicense.Leave += Control_Leave;
+			kryptonTextBoxLicense.MouseEnter += Control_Enter;
+			kryptonTextBoxLicense.MouseLeave += Control_Leave;
 			// 
 			// statusStrip
 			// 

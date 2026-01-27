@@ -151,10 +151,10 @@ namespace Planetoid_DB
 			buttonCalculate.Values.Image = FatcowIcons16px.fatcow_calculator_16px;
 			buttonCalculate.Values.Text = "&Calculate";
 			buttonCalculate.Click += ButtonCalculate_Click;
-			buttonCalculate.Enter += SetStatusBar_Enter;
-			buttonCalculate.Leave += ClearStatusBar_Leave;
-			buttonCalculate.MouseEnter += SetStatusBar_Enter;
-			buttonCalculate.MouseLeave += ClearStatusBar_Leave;
+			buttonCalculate.Enter += Control_Enter;
+			buttonCalculate.Leave += Control_Leave;
+			buttonCalculate.MouseEnter += Control_Enter;
+			buttonCalculate.MouseLeave += Control_Leave;
 			// 
 			// listView
 			// 
@@ -170,10 +170,10 @@ namespace Planetoid_DB
 			listView.Size = new Size(378, 209);
 			listView.TabIndex = 9;
 			toolTip.SetToolTip(listView, "Search results");
-			listView.Enter += SetStatusBar_Enter;
-			listView.Leave += ClearStatusBar_Leave;
-			listView.MouseEnter += SetStatusBar_Enter;
-			listView.MouseLeave += ClearStatusBar_Leave;
+			listView.Enter += Control_Enter;
+			listView.Leave += Control_Leave;
+			listView.MouseEnter += Control_Enter;
+			listView.MouseLeave += Control_Leave;
 			// 
 			// labelPercent
 			// 
@@ -187,10 +187,10 @@ namespace Planetoid_DB
 			labelPercent.TabIndex = 8;
 			toolTip.SetToolTip(labelPercent, "Shows the progress status of the search");
 			labelPercent.Values.Text = "100 %";
-			labelPercent.Enter += SetStatusBar_Enter;
-			labelPercent.Leave += ClearStatusBar_Leave;
-			labelPercent.MouseEnter += SetStatusBar_Enter;
-			labelPercent.MouseLeave += ClearStatusBar_Leave;
+			labelPercent.Enter += Control_Enter;
+			labelPercent.Leave += Control_Leave;
+			labelPercent.MouseEnter += Control_Enter;
+			labelPercent.MouseLeave += Control_Leave;
 			// 
 			// progressBar
 			// 
@@ -206,8 +206,8 @@ namespace Planetoid_DB
 			progressBar.TextShadowColor = Color.Empty;
 			toolTip.SetToolTip(progressBar, "Shows the progress status of the search");
 			progressBar.Values.Text = "";
-			progressBar.MouseEnter += SetStatusBar_Enter;
-			progressBar.MouseLeave += ClearStatusBar_Leave;
+			progressBar.MouseEnter += Control_Enter;
+			progressBar.MouseLeave += Control_Leave;
 			// 
 			// labelEphemeridesStepsInDays
 			// 
@@ -218,10 +218,10 @@ namespace Planetoid_DB
 			labelEphemeridesStepsInDays.Size = new Size(82, 20);
 			labelEphemeridesStepsInDays.TabIndex = 4;
 			labelEphemeridesStepsInDays.Values.Text = "&Steps in days";
-			labelEphemeridesStepsInDays.Enter += SetStatusBar_Enter;
-			labelEphemeridesStepsInDays.Leave += ClearStatusBar_Leave;
-			labelEphemeridesStepsInDays.MouseEnter += SetStatusBar_Enter;
-			labelEphemeridesStepsInDays.MouseLeave += ClearStatusBar_Leave;
+			labelEphemeridesStepsInDays.Enter += Control_Enter;
+			labelEphemeridesStepsInDays.Leave += Control_Leave;
+			labelEphemeridesStepsInDays.MouseEnter += Control_Enter;
+			labelEphemeridesStepsInDays.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownStepsInDays
 			// 
@@ -238,10 +238,10 @@ namespace Planetoid_DB
 			numericUpDownStepsInDays.TabIndex = 5;
 			toolTip.SetToolTip(numericUpDownStepsInDays, "Steps in days");
 			numericUpDownStepsInDays.Value = new decimal(new int[] { 0, 0, 0, 0 });
-			numericUpDownStepsInDays.Enter += SetStatusBar_Enter;
-			numericUpDownStepsInDays.Leave += ClearStatusBar_Leave;
-			numericUpDownStepsInDays.MouseEnter += SetStatusBar_Enter;
-			numericUpDownStepsInDays.MouseLeave += ClearStatusBar_Leave;
+			numericUpDownStepsInDays.Enter += Control_Enter;
+			numericUpDownStepsInDays.Leave += Control_Leave;
+			numericUpDownStepsInDays.MouseEnter += Control_Enter;
+			numericUpDownStepsInDays.MouseLeave += Control_Leave;
 			// 
 			// labelEphemeridesEnd
 			// 
@@ -255,10 +255,10 @@ namespace Planetoid_DB
 			labelEphemeridesEnd.TabIndex = 2;
 			toolTip.SetToolTip(labelEphemeridesEnd, "Ephemerides end");
 			labelEphemeridesEnd.Values.Text = "Ephemerides &end:";
-			labelEphemeridesEnd.Enter += SetStatusBar_Enter;
-			labelEphemeridesEnd.Leave += ClearStatusBar_Leave;
-			labelEphemeridesEnd.MouseEnter += SetStatusBar_Enter;
-			labelEphemeridesEnd.MouseLeave += ClearStatusBar_Leave;
+			labelEphemeridesEnd.Enter += Control_Enter;
+			labelEphemeridesEnd.Leave += Control_Leave;
+			labelEphemeridesEnd.MouseEnter += Control_Enter;
+			labelEphemeridesEnd.MouseLeave += Control_Leave;
 			// 
 			// dateTimePickerEphemeridesEnd
 			// 
@@ -269,10 +269,10 @@ namespace Planetoid_DB
 			dateTimePickerEphemeridesEnd.Size = new Size(173, 21);
 			dateTimePickerEphemeridesEnd.TabIndex = 3;
 			toolTip.SetToolTip(dateTimePickerEphemeridesEnd, "Date of the ephemerides end");
-			dateTimePickerEphemeridesEnd.Enter += SetStatusBar_Enter;
-			dateTimePickerEphemeridesEnd.Leave += ClearStatusBar_Leave;
-			dateTimePickerEphemeridesEnd.MouseEnter += SetStatusBar_Enter;
-			dateTimePickerEphemeridesEnd.MouseLeave += ClearStatusBar_Leave;
+			dateTimePickerEphemeridesEnd.Enter += Control_Enter;
+			dateTimePickerEphemeridesEnd.Leave += Control_Leave;
+			dateTimePickerEphemeridesEnd.MouseEnter += Control_Enter;
+			dateTimePickerEphemeridesEnd.MouseLeave += Control_Leave;
 			// 
 			// labelEphemeridesBegin
 			// 
@@ -286,10 +286,10 @@ namespace Planetoid_DB
 			labelEphemeridesBegin.TabIndex = 0;
 			toolTip.SetToolTip(labelEphemeridesBegin, "Ephemerides begin");
 			labelEphemeridesBegin.Values.Text = "Ephemerides &begin:";
-			labelEphemeridesBegin.Enter += SetStatusBar_Enter;
-			labelEphemeridesBegin.Leave += ClearStatusBar_Leave;
-			labelEphemeridesBegin.MouseEnter += SetStatusBar_Enter;
-			labelEphemeridesBegin.MouseLeave += ClearStatusBar_Leave;
+			labelEphemeridesBegin.Enter += Control_Enter;
+			labelEphemeridesBegin.Leave += Control_Leave;
+			labelEphemeridesBegin.MouseEnter += Control_Enter;
+			labelEphemeridesBegin.MouseLeave += Control_Leave;
 			// 
 			// dateTimePickerEphemeridesBegin
 			// 
@@ -300,10 +300,10 @@ namespace Planetoid_DB
 			dateTimePickerEphemeridesBegin.Size = new Size(173, 21);
 			dateTimePickerEphemeridesBegin.TabIndex = 1;
 			toolTip.SetToolTip(dateTimePickerEphemeridesBegin, "Date of the ephemerides begin");
-			dateTimePickerEphemeridesBegin.Enter += SetStatusBar_Enter;
-			dateTimePickerEphemeridesBegin.Leave += ClearStatusBar_Leave;
-			dateTimePickerEphemeridesBegin.MouseEnter += SetStatusBar_Enter;
-			dateTimePickerEphemeridesBegin.MouseLeave += ClearStatusBar_Leave;
+			dateTimePickerEphemeridesBegin.Enter += Control_Enter;
+			dateTimePickerEphemeridesBegin.Leave += Control_Leave;
+			dateTimePickerEphemeridesBegin.MouseEnter += Control_Enter;
+			dateTimePickerEphemeridesBegin.MouseLeave += Control_Leave;
 			// 
 			// backgroundWorker
 			// 

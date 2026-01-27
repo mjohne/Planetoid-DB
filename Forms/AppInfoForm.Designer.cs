@@ -73,11 +73,11 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelVersion, "Shows the version number");
 			labelVersion.Values.Text = "Version: X.X.X.X";
 			labelVersion.DoubleClick += CopyToClipboard_DoubleClick;
-			labelVersion.Enter += SetStatusBar_Enter;
-			labelVersion.Leave += ClearStatusBar_Leave;
+			labelVersion.Enter += Control_Enter;
+			labelVersion.Leave += Control_Leave;
 			labelVersion.MouseDown += Control_MouseDown;
-			labelVersion.MouseEnter += SetStatusBar_Enter;
-			labelVersion.MouseLeave += ClearStatusBar_Leave;
+			labelVersion.MouseEnter += Control_Enter;
+			labelVersion.MouseLeave += Control_Leave;
 			// 
 			// contextMenuStripCopyToClipboard
 			// 
@@ -92,8 +92,8 @@ namespace Planetoid_DB
 			contextMenuStripCopyToClipboard.TabStop = true;
 			contextMenuStripCopyToClipboard.Text = "ContextMenu";
 			toolTip.SetToolTip(contextMenuStripCopyToClipboard, "Context Menu for copying to clipboard");
-			contextMenuStripCopyToClipboard.MouseEnter += SetStatusBar_Enter;
-			contextMenuStripCopyToClipboard.MouseLeave += ClearStatusBar_Leave;
+			contextMenuStripCopyToClipboard.MouseEnter += Control_Enter;
+			contextMenuStripCopyToClipboard.MouseLeave += Control_Leave;
 			// 
 			// ToolStripMenuItemCpyToClipboard
 			// 
@@ -108,8 +108,8 @@ namespace Planetoid_DB
 			ToolStripMenuItemCpyToClipboard.Size = new Size(213, 22);
 			ToolStripMenuItemCpyToClipboard.Text = "&Copy to clipboard";
 			ToolStripMenuItemCpyToClipboard.Click += CopyToClipboard_DoubleClick;
-			ToolStripMenuItemCpyToClipboard.MouseEnter += SetStatusBar_Enter;
-			ToolStripMenuItemCpyToClipboard.MouseLeave += ClearStatusBar_Leave;
+			ToolStripMenuItemCpyToClipboard.MouseEnter += Control_Enter;
+			ToolStripMenuItemCpyToClipboard.MouseLeave += Control_Leave;
 			// 
 			// labelTitle
 			// 
@@ -126,11 +126,11 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelTitle, "Shows the application name");
 			labelTitle.Values.Text = "Planetoid-DB";
 			labelTitle.DoubleClick += CopyToClipboard_DoubleClick;
-			labelTitle.Enter += SetStatusBar_Enter;
-			labelTitle.Leave += ClearStatusBar_Leave;
+			labelTitle.Enter += Control_Enter;
+			labelTitle.Leave += Control_Leave;
 			labelTitle.MouseDown += Control_MouseDown;
-			labelTitle.MouseEnter += SetStatusBar_Enter;
-			labelTitle.MouseLeave += ClearStatusBar_Leave;
+			labelTitle.MouseEnter += Control_Enter;
+			labelTitle.MouseLeave += Control_Leave;
 			// 
 			// labelDescription
 			// 
@@ -146,11 +146,11 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelDescription, "Shows the program description");
 			labelDescription.Values.Text = "[Description]";
 			labelDescription.DoubleClick += CopyToClipboard_DoubleClick;
-			labelDescription.Enter += SetStatusBar_Enter;
-			labelDescription.Leave += ClearStatusBar_Leave;
+			labelDescription.Enter += Control_Enter;
+			labelDescription.Leave += Control_Leave;
 			labelDescription.MouseDown += Control_MouseDown;
-			labelDescription.MouseEnter += SetStatusBar_Enter;
-			labelDescription.MouseLeave += ClearStatusBar_Leave;
+			labelDescription.MouseEnter += Control_Enter;
+			labelDescription.MouseLeave += Control_Leave;
 			// 
 			// pictureBoxBanner
 			// 
@@ -165,8 +165,8 @@ namespace Planetoid_DB
 			pictureBoxBanner.TabIndex = 0;
 			pictureBoxBanner.TabStop = false;
 			toolTip.SetToolTip(pictureBoxBanner, "On the graphic you see the minor planet \"(243) Ida \".");
-			pictureBoxBanner.MouseEnter += SetStatusBar_Enter;
-			pictureBoxBanner.MouseLeave += ClearStatusBar_Leave;
+			pictureBoxBanner.MouseEnter += Control_Enter;
+			pictureBoxBanner.MouseLeave += Control_Leave;
 			// 
 			// labelCopyright
 			// 
@@ -182,11 +182,11 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelCopyright, "Shows the copyright");
 			labelCopyright.Values.Text = "[Copyright]";
 			labelCopyright.DoubleClick += CopyToClipboard_DoubleClick;
-			labelCopyright.Enter += SetStatusBar_Enter;
-			labelCopyright.Leave += ClearStatusBar_Leave;
+			labelCopyright.Enter += Control_Enter;
+			labelCopyright.Leave += Control_Leave;
 			labelCopyright.MouseDown += Control_MouseDown;
-			labelCopyright.MouseEnter += SetStatusBar_Enter;
-			labelCopyright.MouseLeave += ClearStatusBar_Leave;
+			labelCopyright.MouseEnter += Control_Enter;
+			labelCopyright.MouseLeave += Control_Leave;
 			// 
 			// linkLabelEmail
 			// 
@@ -204,10 +204,10 @@ namespace Planetoid_DB
 			linkLabelEmail.Values.Text = "E-Mail";
 			linkLabelEmail.Visible = false;
 			linkLabelEmail.LinkClicked += LinkLabelEmail_Clicked;
-			linkLabelEmail.Enter += SetStatusBar_Enter;
-			linkLabelEmail.Leave += ClearStatusBar_Leave;
-			linkLabelEmail.MouseEnter += SetStatusBar_Enter;
-			linkLabelEmail.MouseLeave += ClearStatusBar_Leave;
+			linkLabelEmail.Enter += Control_Enter;
+			linkLabelEmail.Leave += Control_Leave;
+			linkLabelEmail.MouseEnter += Control_Enter;
+			linkLabelEmail.MouseLeave += Control_Leave;
 			// 
 			// linkLabelWebsite
 			// 
@@ -225,10 +225,10 @@ namespace Planetoid_DB
 			linkLabelWebsite.Values.Text = "Website";
 			linkLabelWebsite.Visible = false;
 			linkLabelWebsite.LinkClicked += LinkLabelWebsite_Clicked;
-			linkLabelWebsite.Enter += SetStatusBar_Enter;
-			linkLabelWebsite.Leave += ClearStatusBar_Leave;
-			linkLabelWebsite.MouseEnter += SetStatusBar_Enter;
-			linkLabelWebsite.MouseLeave += ClearStatusBar_Leave;
+			linkLabelWebsite.Enter += Control_Enter;
+			linkLabelWebsite.Leave += Control_Leave;
+			linkLabelWebsite.MouseEnter += Control_Enter;
+			linkLabelWebsite.MouseLeave += Control_Leave;
 			// 
 			// panel
 			// 

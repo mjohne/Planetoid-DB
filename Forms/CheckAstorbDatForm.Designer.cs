@@ -78,10 +78,10 @@ namespace Planetoid_DB
 			labelUpdateNeeded.Values.Image = FatcowIcons16px.fatcow_help_16px;
 			labelUpdateNeeded.Values.Text = "Update needed?";
 			labelUpdateNeeded.DoubleClick += LabelUpdateNeeded_DoubleClick;
-			labelUpdateNeeded.Enter += SetStatusBar_Enter;
-			labelUpdateNeeded.Leave += ClearStatusBar_Leave;
-			labelUpdateNeeded.MouseEnter += SetStatusBar_Enter;
-			labelUpdateNeeded.MouseLeave += ClearStatusBar_Leave;
+			labelUpdateNeeded.Enter += Control_Enter;
+			labelUpdateNeeded.Leave += Control_Leave;
+			labelUpdateNeeded.MouseEnter += Control_Enter;
+			labelUpdateNeeded.MouseLeave += Control_Leave;
 			// 
 			// labelAstorbDatLocal
 			// 
@@ -97,10 +97,10 @@ namespace Planetoid_DB
 			labelAstorbDatLocal.TabIndex = 0;
 			toolTip.SetToolTip(labelAstorbDatLocal, "Information about the local ASTORB.DAT file");
 			labelAstorbDatLocal.Values.Text = "ASTORB.DAT local";
-			labelAstorbDatLocal.Enter += SetStatusBar_Enter;
-			labelAstorbDatLocal.Leave += ClearStatusBar_Leave;
-			labelAstorbDatLocal.MouseEnter += SetStatusBar_Enter;
-			labelAstorbDatLocal.MouseLeave += ClearStatusBar_Leave;
+			labelAstorbDatLocal.Enter += Control_Enter;
+			labelAstorbDatLocal.Leave += Control_Leave;
+			labelAstorbDatLocal.MouseEnter += Control_Enter;
+			labelAstorbDatLocal.MouseLeave += Control_Leave;
 			// 
 			// labelAstorbDatOnline
 			// 
@@ -116,10 +116,10 @@ namespace Planetoid_DB
 			labelAstorbDatOnline.TabIndex = 1;
 			toolTip.SetToolTip(labelAstorbDatOnline, "Information about the online ASTORB.DAT file");
 			labelAstorbDatOnline.Values.Text = "ASTORB.DAT online";
-			labelAstorbDatOnline.Enter += SetStatusBar_Enter;
-			labelAstorbDatOnline.Leave += ClearStatusBar_Leave;
-			labelAstorbDatOnline.MouseEnter += SetStatusBar_Enter;
-			labelAstorbDatOnline.MouseLeave += ClearStatusBar_Leave;
+			labelAstorbDatOnline.Enter += Control_Enter;
+			labelAstorbDatOnline.Leave += Control_Leave;
+			labelAstorbDatOnline.MouseEnter += Control_Enter;
+			labelAstorbDatOnline.MouseLeave += Control_Leave;
 			// 
 			// labelContentLengthText
 			// 
@@ -134,10 +134,10 @@ namespace Planetoid_DB
 			labelContentLengthText.TabIndex = 2;
 			toolTip.SetToolTip(labelContentLengthText, "Shows the content length");
 			labelContentLengthText.Values.Text = "Content length:";
-			labelContentLengthText.Enter += SetStatusBar_Enter;
-			labelContentLengthText.Leave += ClearStatusBar_Leave;
-			labelContentLengthText.MouseEnter += SetStatusBar_Enter;
-			labelContentLengthText.MouseLeave += ClearStatusBar_Leave;
+			labelContentLengthText.Enter += Control_Enter;
+			labelContentLengthText.Leave += Control_Leave;
+			labelContentLengthText.MouseEnter += Control_Enter;
+			labelContentLengthText.MouseLeave += Control_Leave;
 			// 
 			// labelModifiedDateText
 			// 
@@ -153,10 +153,10 @@ namespace Planetoid_DB
 			labelModifiedDateText.TabIndex = 5;
 			toolTip.SetToolTip(labelModifiedDateText, "Shows the modified date");
 			labelModifiedDateText.Values.Text = "Modified date:";
-			labelModifiedDateText.Enter += SetStatusBar_Enter;
-			labelModifiedDateText.Leave += ClearStatusBar_Leave;
-			labelModifiedDateText.MouseEnter += SetStatusBar_Enter;
-			labelModifiedDateText.MouseLeave += ClearStatusBar_Leave;
+			labelModifiedDateText.Enter += Control_Enter;
+			labelModifiedDateText.Leave += Control_Leave;
+			labelModifiedDateText.MouseEnter += Control_Enter;
+			labelModifiedDateText.MouseLeave += Control_Leave;
 			// 
 			// labelContentLengthValueLocal
 			// 
@@ -173,11 +173,11 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelContentLengthValueLocal, "Shows the local content length");
 			labelContentLengthValueLocal.Values.Text = "123456789 bytes";
 			labelContentLengthValueLocal.DoubleClick += CopyToClipboard_DoubleClick;
-			labelContentLengthValueLocal.Enter += SetStatusBar_Enter;
-			labelContentLengthValueLocal.Leave += ClearStatusBar_Leave;
+			labelContentLengthValueLocal.Enter += Control_Enter;
+			labelContentLengthValueLocal.Leave += Control_Leave;
 			labelContentLengthValueLocal.MouseDown += Control_MouseDown;
-			labelContentLengthValueLocal.MouseEnter += SetStatusBar_Enter;
-			labelContentLengthValueLocal.MouseLeave += ClearStatusBar_Leave;
+			labelContentLengthValueLocal.MouseEnter += Control_Enter;
+			labelContentLengthValueLocal.MouseLeave += Control_Leave;
 			// 
 			// contextMenuCopyToClipboard
 			// 
@@ -192,8 +192,8 @@ namespace Planetoid_DB
 			contextMenuCopyToClipboard.TabStop = true;
 			contextMenuCopyToClipboard.Text = "ContextMenu";
 			toolTip.SetToolTip(contextMenuCopyToClipboard, "Context menu for copying to clipboard");
-			contextMenuCopyToClipboard.MouseEnter += SetStatusBar_Enter;
-			contextMenuCopyToClipboard.MouseLeave += ClearStatusBar_Leave;
+			contextMenuCopyToClipboard.MouseEnter += Control_Enter;
+			contextMenuCopyToClipboard.MouseLeave += Control_Leave;
 			// 
 			// ToolStripMenuItemCpyToClipboard
 			// 
@@ -208,8 +208,8 @@ namespace Planetoid_DB
 			ToolStripMenuItemCpyToClipboard.Size = new Size(213, 22);
 			ToolStripMenuItemCpyToClipboard.Text = "&Copy to clipboard";
 			ToolStripMenuItemCpyToClipboard.Click += CopyToClipboard_DoubleClick;
-			ToolStripMenuItemCpyToClipboard.MouseEnter += SetStatusBar_Enter;
-			ToolStripMenuItemCpyToClipboard.MouseLeave += ClearStatusBar_Leave;
+			ToolStripMenuItemCpyToClipboard.MouseEnter += Control_Enter;
+			ToolStripMenuItemCpyToClipboard.MouseLeave += Control_Leave;
 			// 
 			// labelModifiedDateValueLocal
 			// 
@@ -226,11 +226,11 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelModifiedDateValueLocal, "Shows the local modified date");
 			labelModifiedDateValueLocal.Values.Text = "00.00.0000 00:00";
 			labelModifiedDateValueLocal.DoubleClick += CopyToClipboard_DoubleClick;
-			labelModifiedDateValueLocal.Enter += SetStatusBar_Enter;
-			labelModifiedDateValueLocal.Leave += ClearStatusBar_Leave;
+			labelModifiedDateValueLocal.Enter += Control_Enter;
+			labelModifiedDateValueLocal.Leave += Control_Leave;
 			labelModifiedDateValueLocal.MouseDown += Control_MouseDown;
-			labelModifiedDateValueLocal.MouseEnter += SetStatusBar_Enter;
-			labelModifiedDateValueLocal.MouseLeave += ClearStatusBar_Leave;
+			labelModifiedDateValueLocal.MouseEnter += Control_Enter;
+			labelModifiedDateValueLocal.MouseLeave += Control_Leave;
 			// 
 			// labelContentLengthValueOnline
 			// 
@@ -247,11 +247,11 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelContentLengthValueOnline, "Shows the online content length");
 			labelContentLengthValueOnline.Values.Text = "123456789 bytes";
 			labelContentLengthValueOnline.DoubleClick += CopyToClipboard_DoubleClick;
-			labelContentLengthValueOnline.Enter += SetStatusBar_Enter;
-			labelContentLengthValueOnline.Leave += ClearStatusBar_Leave;
+			labelContentLengthValueOnline.Enter += Control_Enter;
+			labelContentLengthValueOnline.Leave += Control_Leave;
 			labelContentLengthValueOnline.MouseDown += Control_MouseDown;
-			labelContentLengthValueOnline.MouseEnter += SetStatusBar_Enter;
-			labelContentLengthValueOnline.MouseLeave += ClearStatusBar_Leave;
+			labelContentLengthValueOnline.MouseEnter += Control_Enter;
+			labelContentLengthValueOnline.MouseLeave += Control_Leave;
 			// 
 			// labelModifiedDateValueOnline
 			// 
@@ -268,11 +268,11 @@ namespace Planetoid_DB
 			toolTip.SetToolTip(labelModifiedDateValueOnline, "Shows the online modified date");
 			labelModifiedDateValueOnline.Values.Text = "00.00.0000 00:00";
 			labelModifiedDateValueOnline.DoubleClick += CopyToClipboard_DoubleClick;
-			labelModifiedDateValueOnline.Enter += SetStatusBar_Enter;
-			labelModifiedDateValueOnline.Leave += ClearStatusBar_Leave;
+			labelModifiedDateValueOnline.Enter += Control_Enter;
+			labelModifiedDateValueOnline.Leave += Control_Leave;
 			labelModifiedDateValueOnline.MouseDown += Control_MouseDown;
-			labelModifiedDateValueOnline.MouseEnter += SetStatusBar_Enter;
-			labelModifiedDateValueOnline.MouseLeave += ClearStatusBar_Leave;
+			labelModifiedDateValueOnline.MouseEnter += Control_Enter;
+			labelModifiedDateValueOnline.MouseLeave += Control_Leave;
 			// 
 			// tableLayoutPanel
 			// 

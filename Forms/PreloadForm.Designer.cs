@@ -70,10 +70,10 @@ namespace Planetoid_DB
 			kryptonCommandLinkButtonExit.StateCommon.Content.ShortText.TextV = PaletteRelativeAlign.Center;
 			kryptonCommandLinkButtonExit.TabIndex = 3;
 			toolTip.SetToolTip(kryptonCommandLinkButtonExit, "Quit the application");
-			kryptonCommandLinkButtonExit.Enter += SetStatusBar_Enter;
-			kryptonCommandLinkButtonExit.Leave += ClearStatusBar_Leave;
-			kryptonCommandLinkButtonExit.MouseEnter += SetStatusBar_Enter;
-			kryptonCommandLinkButtonExit.MouseLeave += ClearStatusBar_Leave;
+			kryptonCommandLinkButtonExit.Enter += Control_Enter;
+			kryptonCommandLinkButtonExit.Leave += Control_Leave;
+			kryptonCommandLinkButtonExit.MouseEnter += Control_Enter;
+			kryptonCommandLinkButtonExit.MouseLeave += Control_Leave;
 			// 
 			// kryptonCommandLinkButtonLoadInternalDemoData
 			// 
@@ -95,10 +95,10 @@ namespace Planetoid_DB
 			kryptonCommandLinkButtonLoadInternalDemoData.TabIndex = 2;
 			toolTip.SetToolTip(kryptonCommandLinkButtonLoadInternalDemoData, "Load internal demo data");
 			kryptonCommandLinkButtonLoadInternalDemoData.Click += KryptonCommandLinkButtonLoadInternalDemoData_Click;
-			kryptonCommandLinkButtonLoadInternalDemoData.Enter += SetStatusBar_Enter;
-			kryptonCommandLinkButtonLoadInternalDemoData.Leave += ClearStatusBar_Leave;
-			kryptonCommandLinkButtonLoadInternalDemoData.MouseEnter += SetStatusBar_Enter;
-			kryptonCommandLinkButtonLoadInternalDemoData.MouseLeave += ClearStatusBar_Leave;
+			kryptonCommandLinkButtonLoadInternalDemoData.Enter += Control_Enter;
+			kryptonCommandLinkButtonLoadInternalDemoData.Leave += Control_Leave;
+			kryptonCommandLinkButtonLoadInternalDemoData.MouseEnter += Control_Enter;
+			kryptonCommandLinkButtonLoadInternalDemoData.MouseLeave += Control_Leave;
 			// 
 			// kryptonCommandLinkButtonDownloadMprcorbDat
 			// 
@@ -120,10 +120,10 @@ namespace Planetoid_DB
 			kryptonCommandLinkButtonDownloadMprcorbDat.TabIndex = 1;
 			toolTip.SetToolTip(kryptonCommandLinkButtonDownloadMprcorbDat, "Download MPCORB.DAT");
 			kryptonCommandLinkButtonDownloadMprcorbDat.Click += KryptonCommandLinkButtonDownloadMprcorbDat_Click;
-			kryptonCommandLinkButtonDownloadMprcorbDat.Enter += SetStatusBar_Enter;
-			kryptonCommandLinkButtonDownloadMprcorbDat.Leave += ClearStatusBar_Leave;
-			kryptonCommandLinkButtonDownloadMprcorbDat.MouseEnter += SetStatusBar_Enter;
-			kryptonCommandLinkButtonDownloadMprcorbDat.MouseLeave += ClearStatusBar_Leave;
+			kryptonCommandLinkButtonDownloadMprcorbDat.Enter += Control_Enter;
+			kryptonCommandLinkButtonDownloadMprcorbDat.Leave += Control_Leave;
+			kryptonCommandLinkButtonDownloadMprcorbDat.MouseEnter += Control_Enter;
+			kryptonCommandLinkButtonDownloadMprcorbDat.MouseLeave += Control_Leave;
 			// 
 			// kryptonCommandLinkButtonOpenLocalFile
 			// 
@@ -145,10 +145,10 @@ namespace Planetoid_DB
 			kryptonCommandLinkButtonOpenLocalFile.TabIndex = 0;
 			toolTip.SetToolTip(kryptonCommandLinkButtonOpenLocalFile, "Open a local MPCORB.DAT file");
 			kryptonCommandLinkButtonOpenLocalFile.Click += KryptonCommandLinkButtonOpenLocalFile_Click;
-			kryptonCommandLinkButtonOpenLocalFile.Enter += SetStatusBar_Enter;
-			kryptonCommandLinkButtonOpenLocalFile.Leave += ClearStatusBar_Leave;
-			kryptonCommandLinkButtonOpenLocalFile.MouseEnter += SetStatusBar_Enter;
-			kryptonCommandLinkButtonOpenLocalFile.MouseLeave += ClearStatusBar_Leave;
+			kryptonCommandLinkButtonOpenLocalFile.Enter += Control_Enter;
+			kryptonCommandLinkButtonOpenLocalFile.Leave += Control_Leave;
+			kryptonCommandLinkButtonOpenLocalFile.MouseEnter += Control_Enter;
+			kryptonCommandLinkButtonOpenLocalFile.MouseLeave += Control_Leave;
 			// 
 			// statusStrip
 			// 

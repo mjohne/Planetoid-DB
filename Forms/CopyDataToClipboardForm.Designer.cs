@@ -87,10 +87,10 @@ namespace Planetoid_DB
 			buttonIndexNumber.Values.DropDownArrowColor = Color.Empty;
 			buttonIndexNumber.Values.Text = "Index No.";
 			buttonIndexNumber.Click += ButtonIndexNumber_Click;
-			buttonIndexNumber.Enter += SetStatusBar_Enter;
-			buttonIndexNumber.Leave += ClearStatusBar_Leave;
-			buttonIndexNumber.MouseEnter += SetStatusBar_Enter;
-			buttonIndexNumber.MouseLeave += ClearStatusBar_Leave;
+			buttonIndexNumber.Enter += Control_Enter;
+			buttonIndexNumber.Leave += Control_Leave;
+			buttonIndexNumber.MouseEnter += Control_Enter;
+			buttonIndexNumber.MouseLeave += Control_Leave;
 			// 
 			// buttonReadableDesignation
 			// 
@@ -107,10 +107,10 @@ namespace Planetoid_DB
 			buttonReadableDesignation.Values.DropDownArrowColor = Color.Empty;
 			buttonReadableDesignation.Values.Text = "Readable designation";
 			buttonReadableDesignation.Click += ButtonReadableDesignation_Click;
-			buttonReadableDesignation.Enter += SetStatusBar_Enter;
-			buttonReadableDesignation.Leave += ClearStatusBar_Leave;
-			buttonReadableDesignation.MouseEnter += SetStatusBar_Enter;
-			buttonReadableDesignation.MouseLeave += ClearStatusBar_Leave;
+			buttonReadableDesignation.Enter += Control_Enter;
+			buttonReadableDesignation.Leave += Control_Leave;
+			buttonReadableDesignation.MouseEnter += Control_Enter;
+			buttonReadableDesignation.MouseLeave += Control_Leave;
 			// 
 			// buttonEpoch
 			// 
@@ -127,10 +127,10 @@ namespace Planetoid_DB
 			buttonEpoch.Values.DropDownArrowColor = Color.Empty;
 			buttonEpoch.Values.Text = "Epoch (in packed form, .0 TT)";
 			buttonEpoch.Click += ButtonEpoch_Click;
-			buttonEpoch.Enter += SetStatusBar_Enter;
-			buttonEpoch.Leave += ClearStatusBar_Leave;
-			buttonEpoch.MouseEnter += SetStatusBar_Enter;
-			buttonEpoch.MouseLeave += ClearStatusBar_Leave;
+			buttonEpoch.Enter += Control_Enter;
+			buttonEpoch.Leave += Control_Leave;
+			buttonEpoch.MouseEnter += Control_Enter;
+			buttonEpoch.MouseLeave += Control_Leave;
 			// 
 			// buttonMeanAnomaly
 			// 
@@ -147,10 +147,10 @@ namespace Planetoid_DB
 			buttonMeanAnomaly.Values.DropDownArrowColor = Color.Empty;
 			buttonMeanAnomaly.Values.Text = "Mean anomaly at the epoch (°)";
 			buttonMeanAnomaly.Click += ButtonMeanAnomaly_Click;
-			buttonMeanAnomaly.Enter += SetStatusBar_Enter;
-			buttonMeanAnomaly.Leave += ClearStatusBar_Leave;
-			buttonMeanAnomaly.MouseEnter += SetStatusBar_Enter;
-			buttonMeanAnomaly.MouseLeave += ClearStatusBar_Leave;
+			buttonMeanAnomaly.Enter += Control_Enter;
+			buttonMeanAnomaly.Leave += Control_Leave;
+			buttonMeanAnomaly.MouseEnter += Control_Enter;
+			buttonMeanAnomaly.MouseLeave += Control_Leave;
 			// 
 			// buttonArgumentOfPerihelion
 			// 
@@ -167,10 +167,10 @@ namespace Planetoid_DB
 			buttonArgumentOfPerihelion.Values.DropDownArrowColor = Color.Empty;
 			buttonArgumentOfPerihelion.Values.Text = "Argument of perihelion, J2000.0 (°)";
 			buttonArgumentOfPerihelion.Click += ButtonArgumentOfPerihelion_Click;
-			buttonArgumentOfPerihelion.Enter += SetStatusBar_Enter;
-			buttonArgumentOfPerihelion.Leave += ClearStatusBar_Leave;
-			buttonArgumentOfPerihelion.MouseEnter += SetStatusBar_Enter;
-			buttonArgumentOfPerihelion.MouseLeave += ClearStatusBar_Leave;
+			buttonArgumentOfPerihelion.Enter += Control_Enter;
+			buttonArgumentOfPerihelion.Leave += Control_Leave;
+			buttonArgumentOfPerihelion.MouseEnter += Control_Enter;
+			buttonArgumentOfPerihelion.MouseLeave += Control_Leave;
 			// 
 			// buttonLongitudeOfTheAscendingNode
 			// 
@@ -187,10 +187,10 @@ namespace Planetoid_DB
 			buttonLongitudeOfTheAscendingNode.Values.DropDownArrowColor = Color.Empty;
 			buttonLongitudeOfTheAscendingNode.Values.Text = "Longitude of the ascending node, J2000.0 (°)";
 			buttonLongitudeOfTheAscendingNode.Click += ButtonLongitudeOfTheAscendingNode_Click;
-			buttonLongitudeOfTheAscendingNode.Enter += SetStatusBar_Enter;
-			buttonLongitudeOfTheAscendingNode.Leave += ClearStatusBar_Leave;
-			buttonLongitudeOfTheAscendingNode.MouseEnter += SetStatusBar_Enter;
-			buttonLongitudeOfTheAscendingNode.MouseLeave += ClearStatusBar_Leave;
+			buttonLongitudeOfTheAscendingNode.Enter += Control_Enter;
+			buttonLongitudeOfTheAscendingNode.Leave += Control_Leave;
+			buttonLongitudeOfTheAscendingNode.MouseEnter += Control_Enter;
+			buttonLongitudeOfTheAscendingNode.MouseLeave += Control_Leave;
 			// 
 			// buttonInclination
 			// 
@@ -207,10 +207,10 @@ namespace Planetoid_DB
 			buttonInclination.Values.DropDownArrowColor = Color.Empty;
 			buttonInclination.Values.Text = "Inclination to the ecliptic, J2000.0 (°)";
 			buttonInclination.Click += ButtonInclination_Click;
-			buttonInclination.Enter += SetStatusBar_Enter;
-			buttonInclination.Leave += ClearStatusBar_Leave;
-			buttonInclination.MouseEnter += SetStatusBar_Enter;
-			buttonInclination.MouseLeave += ClearStatusBar_Leave;
+			buttonInclination.Enter += Control_Enter;
+			buttonInclination.Leave += Control_Leave;
+			buttonInclination.MouseEnter += Control_Enter;
+			buttonInclination.MouseLeave += Control_Leave;
 			// 
 			// buttonOrbitalEccentricity
 			// 
@@ -227,10 +227,10 @@ namespace Planetoid_DB
 			buttonOrbitalEccentricity.Values.DropDownArrowColor = Color.Empty;
 			buttonOrbitalEccentricity.Values.Text = "Orbital eccentricity";
 			buttonOrbitalEccentricity.Click += ButtonOrbitalEccentricity_Click;
-			buttonOrbitalEccentricity.Enter += SetStatusBar_Enter;
-			buttonOrbitalEccentricity.Leave += ClearStatusBar_Leave;
-			buttonOrbitalEccentricity.MouseEnter += SetStatusBar_Enter;
-			buttonOrbitalEccentricity.MouseLeave += ClearStatusBar_Leave;
+			buttonOrbitalEccentricity.Enter += Control_Enter;
+			buttonOrbitalEccentricity.Leave += Control_Leave;
+			buttonOrbitalEccentricity.MouseEnter += Control_Enter;
+			buttonOrbitalEccentricity.MouseLeave += Control_Leave;
 			// 
 			// buttonMeanDailyMotion
 			// 
@@ -247,10 +247,10 @@ namespace Planetoid_DB
 			buttonMeanDailyMotion.Values.DropDownArrowColor = Color.Empty;
 			buttonMeanDailyMotion.Values.Text = "Mean daily motion (°/day)";
 			buttonMeanDailyMotion.Click += ButtonMeanDailyMotion_Click;
-			buttonMeanDailyMotion.Enter += SetStatusBar_Enter;
-			buttonMeanDailyMotion.Leave += ClearStatusBar_Leave;
-			buttonMeanDailyMotion.MouseEnter += SetStatusBar_Enter;
-			buttonMeanDailyMotion.MouseLeave += ClearStatusBar_Leave;
+			buttonMeanDailyMotion.Enter += Control_Enter;
+			buttonMeanDailyMotion.Leave += Control_Leave;
+			buttonMeanDailyMotion.MouseEnter += Control_Enter;
+			buttonMeanDailyMotion.MouseLeave += Control_Leave;
 			// 
 			// buttonSemimajorAxis
 			// 
@@ -267,10 +267,10 @@ namespace Planetoid_DB
 			buttonSemimajorAxis.Values.DropDownArrowColor = Color.Empty;
 			buttonSemimajorAxis.Values.Text = "Semi-major axis (AU)";
 			buttonSemimajorAxis.Click += ButtonSemiMajorAxis_Click;
-			buttonSemimajorAxis.Enter += SetStatusBar_Enter;
-			buttonSemimajorAxis.Leave += ClearStatusBar_Leave;
-			buttonSemimajorAxis.MouseEnter += SetStatusBar_Enter;
-			buttonSemimajorAxis.MouseLeave += ClearStatusBar_Leave;
+			buttonSemimajorAxis.Enter += Control_Enter;
+			buttonSemimajorAxis.Leave += Control_Leave;
+			buttonSemimajorAxis.MouseEnter += Control_Enter;
+			buttonSemimajorAxis.MouseLeave += Control_Leave;
 			// 
 			// buttonAbsoluteMagnitude
 			// 
@@ -287,10 +287,10 @@ namespace Planetoid_DB
 			buttonAbsoluteMagnitude.Values.DropDownArrowColor = Color.Empty;
 			buttonAbsoluteMagnitude.Values.Text = "Absolute magnitude, H";
 			buttonAbsoluteMagnitude.Click += ButtonAbsoluteMagnitude_Click;
-			buttonAbsoluteMagnitude.Enter += SetStatusBar_Enter;
-			buttonAbsoluteMagnitude.Leave += ClearStatusBar_Leave;
-			buttonAbsoluteMagnitude.MouseEnter += SetStatusBar_Enter;
-			buttonAbsoluteMagnitude.MouseLeave += ClearStatusBar_Leave;
+			buttonAbsoluteMagnitude.Enter += Control_Enter;
+			buttonAbsoluteMagnitude.Leave += Control_Leave;
+			buttonAbsoluteMagnitude.MouseEnter += Control_Enter;
+			buttonAbsoluteMagnitude.MouseLeave += Control_Leave;
 			// 
 			// buttonSlopeParameter
 			// 
@@ -307,10 +307,10 @@ namespace Planetoid_DB
 			buttonSlopeParameter.Values.DropDownArrowColor = Color.Empty;
 			buttonSlopeParameter.Values.Text = "Slope parameter, G";
 			buttonSlopeParameter.Click += ButtonSlopeParameter_Click;
-			buttonSlopeParameter.Enter += SetStatusBar_Enter;
-			buttonSlopeParameter.Leave += ClearStatusBar_Leave;
-			buttonSlopeParameter.MouseEnter += SetStatusBar_Enter;
-			buttonSlopeParameter.MouseLeave += ClearStatusBar_Leave;
+			buttonSlopeParameter.Enter += Control_Enter;
+			buttonSlopeParameter.Leave += Control_Leave;
+			buttonSlopeParameter.MouseEnter += Control_Enter;
+			buttonSlopeParameter.MouseLeave += Control_Leave;
 			// 
 			// buttonReference
 			// 
@@ -327,10 +327,10 @@ namespace Planetoid_DB
 			buttonReference.Values.DropDownArrowColor = Color.Empty;
 			buttonReference.Values.Text = "Reference";
 			buttonReference.Click += ButtonReference_Click;
-			buttonReference.Enter += SetStatusBar_Enter;
-			buttonReference.Leave += ClearStatusBar_Leave;
-			buttonReference.MouseEnter += SetStatusBar_Enter;
-			buttonReference.MouseLeave += ClearStatusBar_Leave;
+			buttonReference.Enter += Control_Enter;
+			buttonReference.Leave += Control_Leave;
+			buttonReference.MouseEnter += Control_Enter;
+			buttonReference.MouseLeave += Control_Leave;
 			// 
 			// buttonObservationSpan
 			// 
@@ -347,10 +347,10 @@ namespace Planetoid_DB
 			buttonObservationSpan.Values.DropDownArrowColor = Color.Empty;
 			buttonObservationSpan.Values.Text = "Observation span";
 			buttonObservationSpan.Click += ButtonObservationSpan_Click;
-			buttonObservationSpan.Enter += SetStatusBar_Enter;
-			buttonObservationSpan.Leave += ClearStatusBar_Leave;
-			buttonObservationSpan.MouseEnter += SetStatusBar_Enter;
-			buttonObservationSpan.MouseLeave += ClearStatusBar_Leave;
+			buttonObservationSpan.Enter += Control_Enter;
+			buttonObservationSpan.Leave += Control_Leave;
+			buttonObservationSpan.MouseEnter += Control_Enter;
+			buttonObservationSpan.MouseLeave += Control_Leave;
 			// 
 			// buttonNumberOfObservations
 			// 
@@ -367,10 +367,10 @@ namespace Planetoid_DB
 			buttonNumberOfObservations.Values.DropDownArrowColor = Color.Empty;
 			buttonNumberOfObservations.Values.Text = "Number of observations";
 			buttonNumberOfObservations.Click += ButtonNumberOfObservations_Click;
-			buttonNumberOfObservations.Enter += SetStatusBar_Enter;
-			buttonNumberOfObservations.Leave += ClearStatusBar_Leave;
-			buttonNumberOfObservations.MouseEnter += SetStatusBar_Enter;
-			buttonNumberOfObservations.MouseLeave += ClearStatusBar_Leave;
+			buttonNumberOfObservations.Enter += Control_Enter;
+			buttonNumberOfObservations.Leave += Control_Leave;
+			buttonNumberOfObservations.MouseEnter += Control_Enter;
+			buttonNumberOfObservations.MouseLeave += Control_Leave;
 			// 
 			// buttonNumberOfOppositions
 			// 
@@ -387,10 +387,10 @@ namespace Planetoid_DB
 			buttonNumberOfOppositions.Values.DropDownArrowColor = Color.Empty;
 			buttonNumberOfOppositions.Values.Text = "Number of oppositions";
 			buttonNumberOfOppositions.Click += ButtonNumberOfOppositions_Click;
-			buttonNumberOfOppositions.Enter += SetStatusBar_Enter;
-			buttonNumberOfOppositions.Leave += ClearStatusBar_Leave;
-			buttonNumberOfOppositions.MouseEnter += SetStatusBar_Enter;
-			buttonNumberOfOppositions.MouseLeave += ClearStatusBar_Leave;
+			buttonNumberOfOppositions.Enter += Control_Enter;
+			buttonNumberOfOppositions.Leave += Control_Leave;
+			buttonNumberOfOppositions.MouseEnter += Control_Enter;
+			buttonNumberOfOppositions.MouseLeave += Control_Leave;
 			// 
 			// buttonFlags
 			// 
@@ -407,10 +407,10 @@ namespace Planetoid_DB
 			buttonFlags.Values.DropDownArrowColor = Color.Empty;
 			buttonFlags.Values.Text = "4-hexdigit flags";
 			buttonFlags.Click += ButtonFlags_Click;
-			buttonFlags.Enter += SetStatusBar_Enter;
-			buttonFlags.Leave += ClearStatusBar_Leave;
-			buttonFlags.MouseEnter += SetStatusBar_Enter;
-			buttonFlags.MouseLeave += ClearStatusBar_Leave;
+			buttonFlags.Enter += Control_Enter;
+			buttonFlags.Leave += Control_Leave;
+			buttonFlags.MouseEnter += Control_Enter;
+			buttonFlags.MouseLeave += Control_Leave;
 			// 
 			// buttonComputerName
 			// 
@@ -427,10 +427,10 @@ namespace Planetoid_DB
 			buttonComputerName.Values.DropDownArrowColor = Color.Empty;
 			buttonComputerName.Values.Text = "Computer name";
 			buttonComputerName.Click += ButtonComputerName_Click;
-			buttonComputerName.Enter += SetStatusBar_Enter;
-			buttonComputerName.Leave += ClearStatusBar_Leave;
-			buttonComputerName.MouseEnter += SetStatusBar_Enter;
-			buttonComputerName.MouseLeave += ClearStatusBar_Leave;
+			buttonComputerName.Enter += Control_Enter;
+			buttonComputerName.Leave += Control_Leave;
+			buttonComputerName.MouseEnter += Control_Enter;
+			buttonComputerName.MouseLeave += Control_Leave;
 			// 
 			// buttonRmsResidual
 			// 
@@ -447,10 +447,10 @@ namespace Planetoid_DB
 			buttonRmsResidual.Values.DropDownArrowColor = Color.Empty;
 			buttonRmsResidual.Values.Text = "r.m.s. residual (\")";
 			buttonRmsResidual.Click += ButtonRmsResidual_Click;
-			buttonRmsResidual.Enter += SetStatusBar_Enter;
-			buttonRmsResidual.Leave += ClearStatusBar_Leave;
-			buttonRmsResidual.MouseEnter += SetStatusBar_Enter;
-			buttonRmsResidual.MouseLeave += ClearStatusBar_Leave;
+			buttonRmsResidual.Enter += Control_Enter;
+			buttonRmsResidual.Leave += Control_Leave;
+			buttonRmsResidual.MouseEnter += Control_Enter;
+			buttonRmsResidual.MouseLeave += Control_Leave;
 			// 
 			// buttonDateOfLastObservation
 			// 
@@ -467,10 +467,10 @@ namespace Planetoid_DB
 			buttonDateOfLastObservation.Values.DropDownArrowColor = Color.Empty;
 			buttonDateOfLastObservation.Values.Text = "Date of last observation (YYYMMDD)";
 			buttonDateOfLastObservation.Click += ButtonDateOfLastObservation_Click;
-			buttonDateOfLastObservation.Enter += SetStatusBar_Enter;
-			buttonDateOfLastObservation.Leave += ClearStatusBar_Leave;
-			buttonDateOfLastObservation.MouseEnter += SetStatusBar_Enter;
-			buttonDateOfLastObservation.MouseLeave += ClearStatusBar_Leave;
+			buttonDateOfLastObservation.Enter += Control_Enter;
+			buttonDateOfLastObservation.Leave += Control_Leave;
+			buttonDateOfLastObservation.MouseEnter += Control_Enter;
+			buttonDateOfLastObservation.MouseLeave += Control_Leave;
 			// 
 			// panel
 			// 

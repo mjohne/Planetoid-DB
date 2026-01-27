@@ -64,10 +64,10 @@ namespace Planetoid_DB
 			checkedListBoxOrbitalElements.Size = new Size(327, 254);
 			checkedListBoxOrbitalElements.TabIndex = 0;
 			toolTip.SetToolTip(checkedListBoxOrbitalElements, "Checks some orbital elements to print on a data sheet");
-			checkedListBoxOrbitalElements.Enter += SetStatusBar_Enter;
-			checkedListBoxOrbitalElements.Leave += ClearStatusBar_Leave;
-			checkedListBoxOrbitalElements.MouseEnter += SetStatusBar_Enter;
-			checkedListBoxOrbitalElements.MouseLeave += ClearStatusBar_Leave;
+			checkedListBoxOrbitalElements.Enter += Control_Enter;
+			checkedListBoxOrbitalElements.Leave += Control_Leave;
+			checkedListBoxOrbitalElements.MouseEnter += Control_Enter;
+			checkedListBoxOrbitalElements.MouseLeave += Control_Leave;
 			// 
 			// buttonPrintDataSheet
 			// 
@@ -84,10 +84,10 @@ namespace Planetoid_DB
 			buttonPrintDataSheet.Values.Image = FatcowIcons16px.fatcow_printer_16px;
 			buttonPrintDataSheet.Values.Text = "&Print the sheet";
 			buttonPrintDataSheet.Click += ButtonPrintDataSheet_Click;
-			buttonPrintDataSheet.Enter += SetStatusBar_Enter;
-			buttonPrintDataSheet.Leave += ClearStatusBar_Leave;
-			buttonPrintDataSheet.MouseEnter += SetStatusBar_Enter;
-			buttonPrintDataSheet.MouseLeave += ClearStatusBar_Leave;
+			buttonPrintDataSheet.Enter += Control_Enter;
+			buttonPrintDataSheet.Leave += Control_Leave;
+			buttonPrintDataSheet.MouseEnter += Control_Enter;
+			buttonPrintDataSheet.MouseLeave += Control_Leave;
 			// 
 			// buttonCancelPrint
 			// 
@@ -104,10 +104,10 @@ namespace Planetoid_DB
 			buttonCancelPrint.Values.Image = FatcowIcons16px.fatcow_cancel_16px;
 			buttonCancelPrint.Values.Text = "&Cancel print";
 			buttonCancelPrint.Click += ButtonCancelPrint_Click;
-			buttonCancelPrint.Enter += SetStatusBar_Enter;
-			buttonCancelPrint.Leave += ClearStatusBar_Leave;
-			buttonCancelPrint.MouseEnter += SetStatusBar_Enter;
-			buttonCancelPrint.MouseLeave += ClearStatusBar_Leave;
+			buttonCancelPrint.Enter += Control_Enter;
+			buttonCancelPrint.Leave += Control_Leave;
+			buttonCancelPrint.MouseEnter += Control_Enter;
+			buttonCancelPrint.MouseLeave += Control_Leave;
 			// 
 			// panel
 			// 

@@ -338,9 +338,9 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>
-	/// This method is used to set the status bar text when a control or ToolStrip item is focused.
+	/// This method is called when the mouse pointer enters a control or the control receives focus.
 	/// </remarks>
-	private void SetStatusBar_Enter(object sender, EventArgs e)
+	private void Control_Enter(object sender, EventArgs e)
 	{
 		// Check if the sender is null
 		ArgumentNullException.ThrowIfNull(argument: sender);
@@ -371,7 +371,7 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	/// <remarks>
 	/// This method is called when the mouse pointer leaves a control or the control loses focus.
 	/// </remarks>
-	private void ClearStatusBar_Leave(object sender, EventArgs e) => ClearStatusBar();
+	private void Control_Leave(object sender, EventArgs e) => ClearStatusBar();
 
 	#endregion
 

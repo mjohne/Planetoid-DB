@@ -76,10 +76,10 @@ namespace Planetoid_DB
 			buttonExportAsJson.Values.Image = FatcowIcons16px.fatcow_page_white_code_16px;
 			buttonExportAsJson.Values.Text = "Export as JSON";
 			buttonExportAsJson.Click += ButtonExportAsJson_Click;
-			buttonExportAsJson.Enter += SetStatusBar_Enter;
-			buttonExportAsJson.Leave += ClearStatusBar_Leave;
-			buttonExportAsJson.MouseEnter += SetStatusBar_Enter;
-			buttonExportAsJson.MouseLeave += ClearStatusBar_Leave;
+			buttonExportAsJson.Enter += Control_Enter;
+			buttonExportAsJson.Leave += Control_Leave;
+			buttonExportAsJson.MouseEnter += Control_Enter;
+			buttonExportAsJson.MouseLeave += Control_Leave;
 			// 
 			// buttonExportAsTxt
 			// 
@@ -97,10 +97,10 @@ namespace Planetoid_DB
 			buttonExportAsTxt.Values.Image = FatcowIcons16px.fatcow_page_white_text_16px;
 			buttonExportAsTxt.Values.Text = "Export as TXT";
 			buttonExportAsTxt.Click += ButtonExportAsTxt_Click;
-			buttonExportAsTxt.Enter += SetStatusBar_Enter;
-			buttonExportAsTxt.Leave += ClearStatusBar_Leave;
-			buttonExportAsTxt.MouseEnter += SetStatusBar_Enter;
-			buttonExportAsTxt.MouseLeave += ClearStatusBar_Leave;
+			buttonExportAsTxt.Enter += Control_Enter;
+			buttonExportAsTxt.Leave += Control_Leave;
+			buttonExportAsTxt.MouseEnter += Control_Enter;
+			buttonExportAsTxt.MouseLeave += Control_Leave;
 			// 
 			// buttonExportAsXml
 			// 
@@ -118,10 +118,10 @@ namespace Planetoid_DB
 			buttonExportAsXml.Values.Image = FatcowIcons16px.fatcow_page_white_code_16px;
 			buttonExportAsXml.Values.Text = "Export as XML";
 			buttonExportAsXml.Click += ButtonExportAsXml_Click;
-			buttonExportAsXml.Enter += SetStatusBar_Enter;
-			buttonExportAsXml.Leave += ClearStatusBar_Leave;
-			buttonExportAsXml.MouseEnter += SetStatusBar_Enter;
-			buttonExportAsXml.MouseLeave += ClearStatusBar_Leave;
+			buttonExportAsXml.Enter += Control_Enter;
+			buttonExportAsXml.Leave += Control_Leave;
+			buttonExportAsXml.MouseEnter += Control_Enter;
+			buttonExportAsXml.MouseLeave += Control_Leave;
 			// 
 			// buttonExportAsHtml
 			// 
@@ -139,10 +139,10 @@ namespace Planetoid_DB
 			buttonExportAsHtml.Values.Image = FatcowIcons16px.fatcow_page_white_code_16px;
 			buttonExportAsHtml.Values.Text = "Export as HTML";
 			buttonExportAsHtml.Click += ButtonExportAsHtml_Click;
-			buttonExportAsHtml.Enter += SetStatusBar_Enter;
-			buttonExportAsHtml.Leave += ClearStatusBar_Leave;
-			buttonExportAsHtml.MouseEnter += SetStatusBar_Enter;
-			buttonExportAsHtml.MouseLeave += ClearStatusBar_Leave;
+			buttonExportAsHtml.Enter += Control_Enter;
+			buttonExportAsHtml.Leave += Control_Leave;
+			buttonExportAsHtml.MouseEnter += Control_Enter;
+			buttonExportAsHtml.MouseLeave += Control_Leave;
 			// 
 			// statusStrip
 			// 
@@ -189,10 +189,10 @@ namespace Planetoid_DB
 			buttonUnmarkAll.Values.DropDownArrowColor = Color.Empty;
 			buttonUnmarkAll.Values.Text = "&Unmark all";
 			buttonUnmarkAll.Click += ButtonUnmarkAll_Click;
-			buttonUnmarkAll.Enter += SetStatusBar_Enter;
-			buttonUnmarkAll.Leave += ClearStatusBar_Leave;
-			buttonUnmarkAll.MouseEnter += SetStatusBar_Enter;
-			buttonUnmarkAll.MouseLeave += ClearStatusBar_Leave;
+			buttonUnmarkAll.Enter += Control_Enter;
+			buttonUnmarkAll.Leave += Control_Leave;
+			buttonUnmarkAll.MouseEnter += Control_Enter;
+			buttonUnmarkAll.MouseLeave += Control_Leave;
 			// 
 			// buttonMarkAll
 			// 
@@ -210,10 +210,10 @@ namespace Planetoid_DB
 			buttonMarkAll.Values.Image = FatcowIcons16px.fatcow_asterisk_orange_16px;
 			buttonMarkAll.Values.Text = "&Mark all";
 			buttonMarkAll.Click += ButtonMarkAll_Click;
-			buttonMarkAll.Enter += SetStatusBar_Enter;
-			buttonMarkAll.Leave += ClearStatusBar_Leave;
-			buttonMarkAll.MouseEnter += SetStatusBar_Enter;
-			buttonMarkAll.MouseLeave += ClearStatusBar_Leave;
+			buttonMarkAll.Enter += Control_Enter;
+			buttonMarkAll.Leave += Control_Leave;
+			buttonMarkAll.MouseEnter += Control_Enter;
+			buttonMarkAll.MouseLeave += Control_Leave;
 			// 
 			// toolStripContainer
 			// 
@@ -277,10 +277,10 @@ namespace Planetoid_DB
 			checkedListBoxOrbitalElements.TabIndex = 0;
 			toolTip.SetToolTip(checkedListBoxOrbitalElements, "Check orbital elements");
 			checkedListBoxOrbitalElements.SelectedIndexChanged += CheckedListBoxOrbitalElements_SelectedIndexChanged;
-			checkedListBoxOrbitalElements.Enter += SetStatusBar_Enter;
-			checkedListBoxOrbitalElements.Leave += ClearStatusBar_Leave;
-			checkedListBoxOrbitalElements.MouseEnter += SetStatusBar_Enter;
-			checkedListBoxOrbitalElements.MouseLeave += ClearStatusBar_Leave;
+			checkedListBoxOrbitalElements.Enter += Control_Enter;
+			checkedListBoxOrbitalElements.Leave += Control_Leave;
+			checkedListBoxOrbitalElements.MouseEnter += Control_Enter;
+			checkedListBoxOrbitalElements.MouseLeave += Control_Leave;
 			// 
 			// saveFileDialogTxt
 			// 
