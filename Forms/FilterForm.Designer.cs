@@ -1490,7 +1490,6 @@ namespace Planetoid_DB
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Filter";
 			toolTip.SetToolTip(this, "Filter");
-			FormClosed += FilterForm_FormClosed;
 			Load += FilterForm_Load;
 			((ISupportInitialize)panel).EndInit();
 			panel.ResumeLayout(false);

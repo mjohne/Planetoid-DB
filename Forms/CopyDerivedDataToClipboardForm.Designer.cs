@@ -559,7 +559,6 @@ namespace Planetoid_DB
 			StartPosition = FormStartPosition.CenterScreen;
 			Text = "Copy derived data to clipboard";
 			toolTip.SetToolTip(this, "Copy derived data to clipboard");
-			FormClosed += CopyDerivedDataToClipboardForm_FormClosed;
 			Load += CopyDerivedDataToClipboardForm_Load;
 			((ISupportInitialize)panel).EndInit();
 			panel.ResumeLayout(false);

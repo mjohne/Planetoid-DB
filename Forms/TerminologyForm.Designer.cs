@@ -67,11 +67,13 @@ namespace Planetoid_DB
 			// toolStripContainer.ContentPanel
 			// 
 			toolStripContainer.ContentPanel.Controls.Add(splitContainer);
-			toolStripContainer.ContentPanel.Size = new Size(609, 503);
+			toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
+			toolStripContainer.ContentPanel.Size = new Size(710, 584);
 			toolStripContainer.Dock = DockStyle.Fill;
 			toolStripContainer.Location = new Point(0, 0);
+			toolStripContainer.Margin = new Padding(4, 3, 4, 3);
 			toolStripContainer.Name = "toolStripContainer";
-			toolStripContainer.Size = new Size(609, 525);
+			toolStripContainer.Size = new Size(710, 606);
 			toolStripContainer.TabIndex = 5;
 			toolStripContainer.Text = "toolStripContainer";
 			toolTip.SetToolTip(toolStripContainer, "Container to arrange the toolbars");
@@ -90,7 +92,7 @@ namespace Planetoid_DB
 			statusStrip.ProgressBars = null;
 			statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
 			statusStrip.ShowItemToolTips = true;
-			statusStrip.Size = new Size(609, 22);
+			statusStrip.Size = new Size(710, 22);
 			statusStrip.TabIndex = 4;
 			statusStrip.Text = "status bar";
 			// 
@@ -115,6 +117,7 @@ namespace Planetoid_DB
 			splitContainer.ContainerBackStyle = PaletteBackStyle.FormMain;
 			splitContainer.Dock = DockStyle.Fill;
 			splitContainer.Location = new Point(0, 0);
+			splitContainer.Margin = new Padding(4, 3, 4, 3);
 			// 
 			// 
 			// 
@@ -124,8 +127,8 @@ namespace Planetoid_DB
 			// 
 			splitContainer.Panel2.Controls.Add(webBrowser);
 			splitContainer.SeparatorStyle = SeparatorStyle.HighProfile;
-			splitContainer.Size = new Size(609, 503);
-			splitContainer.SplitterDistance = 263;
+			splitContainer.Size = new Size(710, 584);
+			splitContainer.SplitterDistance = 306;
 			splitContainer.TabIndex = 8;
 			toolTip.SetToolTip(splitContainer, "Splits the pane in half with the list of terms you can look up and in the other half with the web browser");
 			// 
@@ -138,8 +141,9 @@ namespace Planetoid_DB
 			listBox.Dock = DockStyle.Fill;
 			listBox.Items.AddRange(new object[] { "Index No.", "Readable designation", "Epoch (in packed form, .0 TT)", "Mean anomaly at the epoch", "Argument of perihelion, J2000.0", "Longitude of the ascending node, J2000.0", "Inclination to the ecliptic, J2000.0", "Orbital eccentricity", "Mean daily motion", "Semi-major axis", "Absolute magnitude, H", "Slope parameter, G", "Reference", "Number of oppositions", "Number of observations", "Observation span", "r.m.s. residual", "Computer name", "4-hexdigit flags", "Date of last observation", "Linear eccentricity", "Semi-minor axis", "Major axis", "Minor axis", "Eccenctric anomaly", "True anomaly", "Perihelion distance", "Aphelion distance", "Longitude of the descending node", "Argument of aphelion", "Focal parameter", "Semi-latus rectum", "Latus rectum", "Orbital period", "Orbital area", "Orbital perimeter", "Semi-mean axis", "Mean axis", "Standard gravitational parameter" });
 			listBox.Location = new Point(0, 0);
+			listBox.Margin = new Padding(4, 3, 4, 3);
 			listBox.Name = "listBox";
-			listBox.Size = new Size(263, 503);
+			listBox.Size = new Size(306, 584);
 			listBox.TabIndex = 7;
 			toolTip.SetToolTip(listBox, "Terms that can be looked up");
 			listBox.SelectedValueChanged += ListBox_SelectedValueChanged;
@@ -155,34 +159,37 @@ namespace Planetoid_DB
 			webBrowser.AccessibleRole = AccessibleRole.Document;
 			webBrowser.Dock = DockStyle.Fill;
 			webBrowser.Location = new Point(0, 0);
+			webBrowser.Margin = new Padding(4, 3, 4, 3);
 			webBrowser.Name = "webBrowser";
-			webBrowser.Size = new Size(341, 503);
+			webBrowser.Size = new Size(399, 584);
 			webBrowser.TabIndex = 1;
 			toolTip.SetToolTip(webBrowser, "Webbrowser");
 			// 
 			// kryptonManager
 			// 
 			kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+			kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+			kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 			// 
 			// TerminologyForm
 			// 
 			AccessibleDescription = "Informs about some definitions";
 			AccessibleName = "Terminology";
 			AccessibleRole = AccessibleRole.Window;
-			AutoScaleDimensions = new SizeF(6F, 13F);
+			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(609, 525);
+			ClientSize = new Size(710, 606);
+			ControlBox = false;
 			Controls.Add(toolStripContainer);
-			Font = new Font("Segoe UI", 8.5F);
 			FormBorderStyle = FormBorderStyle.SizableToolWindow;
 			Icon = (Icon)resources.GetObject("$this.Icon");
+			Margin = new Padding(4, 3, 4, 3);
 			MaximizeBox = false;
 			MinimizeBox = false;
 			Name = "TerminologyForm";
 			ShowInTaskbar = false;
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Terminology";
-			FormClosed += TerminologyForm_FormClosed;
 			Load += TerminologyForm_Load;
 			toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
 			toolStripContainer.BottomToolStripPanel.PerformLayout();

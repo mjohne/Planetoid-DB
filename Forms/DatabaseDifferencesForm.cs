@@ -108,16 +108,6 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		ClearStatusBar();
 	}
 
-	/// <summary>
-	/// Handles the FormClosed event of the DatabaseDifferencesForm control.
-	/// </summary>
-	/// <param name="sender">The source of the event.</param>
-	/// <param name="e">The <see cref="FormClosedEventArgs"/> instance containing the event data.</param>
-	/// <remarks>
-	/// This event is used to clean up resources when the form is closed.
-	/// </remarks>
-	private void DatabaseDifferencesForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
-
 	#endregion
 
 	#region BackgroundWorker event handlers

@@ -742,6 +742,8 @@ namespace Planetoid_DB
 			// kryptonManager
 			// 
 			kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+			kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+			kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 			// 
 			// DatabaseDifferencesForm
 			// 
@@ -751,6 +753,7 @@ namespace Planetoid_DB
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(981, 545);
+			ControlBox = false;
 			Controls.Add(toolStripContainer);
 			FormBorderStyle = FormBorderStyle.FixedToolWindow;
 			Icon = (Icon)resources.GetObject("$this.Icon");
@@ -763,7 +766,6 @@ namespace Planetoid_DB
 			Text = "Database Differences";
 			toolTip.SetToolTip(this, "Database Differences");
 			UseWaitCursor = true;
-			FormClosed += DatabaseDifferencesForm_FormClosed;
 			Load += DatabaseDifferencesForm_Load;
 			statusStrip.ResumeLayout(false);
 			statusStrip.PerformLayout();

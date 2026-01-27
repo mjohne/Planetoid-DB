@@ -164,7 +164,7 @@ namespace Planetoid_DB
 			tabPageNavigator.Margin = new Padding(4, 3, 4, 3);
 			tabPageNavigator.Name = "tabPageNavigator";
 			tabPageNavigator.Padding = new Padding(4, 3, 4, 3);
-			tabPageNavigator.Size = new Size(495, 232);
+			tabPageNavigator.Size = new Size(495, 235);
 			tabPageNavigator.TabIndex = 0;
 			tabPageNavigator.Text = "Navigator";
 			tabPageNavigator.UseVisualStyleBackColor = true;
@@ -230,7 +230,7 @@ namespace Planetoid_DB
 			tabPageUpdate.Margin = new Padding(4, 3, 4, 3);
 			tabPageUpdate.Name = "tabPageUpdate";
 			tabPageUpdate.Padding = new Padding(4, 3, 4, 3);
-			tabPageUpdate.Size = new Size(495, 232);
+			tabPageUpdate.Size = new Size(495, 235);
 			tabPageUpdate.TabIndex = 1;
 			tabPageUpdate.Text = "MPCORB.DAT Update";
 			tabPageUpdate.UseVisualStyleBackColor = true;
@@ -261,7 +261,7 @@ namespace Planetoid_DB
 			tabPageLookAndFeel.Margin = new Padding(4, 3, 4, 3);
 			tabPageLookAndFeel.Name = "tabPageLookAndFeel";
 			tabPageLookAndFeel.Padding = new Padding(4, 3, 4, 3);
-			tabPageLookAndFeel.Size = new Size(495, 232);
+			tabPageLookAndFeel.Size = new Size(495, 235);
 			tabPageLookAndFeel.TabIndex = 2;
 			tabPageLookAndFeel.Text = "Look and feel";
 			tabPageLookAndFeel.UseVisualStyleBackColor = true;
@@ -504,7 +504,6 @@ namespace Planetoid_DB
 			ShowInTaskbar = false;
 			StartPosition = FormStartPosition.CenterScreen;
 			Text = "Settings";
-			FormClosed += SettingsForm_FormClosed;
 			Load += SettingsForm_Load;
 			tabControlSettings.ResumeLayout(false);
 			tabPageGeneral.ResumeLayout(false);

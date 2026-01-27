@@ -222,7 +222,6 @@ namespace Planetoid_DB
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "License: GPL-3.0";
 			toolTip.SetToolTip(this, "License information");
-			FormClosed += LicenseForm_FormClosed;
 			Load += LicenseForm_Load;
 			((ISupportInitialize)panel).EndInit();
 			panel.ResumeLayout(false);

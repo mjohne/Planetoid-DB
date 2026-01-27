@@ -58,9 +58,10 @@ namespace Planetoid_DB
 			checkedListBoxOrbitalElements.FormattingEnabled = true;
 			checkedListBoxOrbitalElements.HorizontalScrollbar = true;
 			checkedListBoxOrbitalElements.Items.AddRange(new object[] { "Index No.", "Readable designation", "Epoch (in packed form, .0 TT)", "Mean anomaly at the epoch, in degrees", "Argument of perihelion, J2000.0 (degrees)", "Longitude of the ascending node, J2000.0", "Inclination to the ecliptic, J2000.0 (degrees)", "Orbital eccentricity", "Mean daily motion (degrees per day)", "Semimajor axis (AU)", "Absolute magnitude, H", "Slope parameter, G", "Reference", "Number of oppositions", "Number of observations", "Observation span", "r.m.s. residual (\")", "Computer name", "4-hexdigit flags", "Date of last observation", "Linear eccentricity", "Semi-minor axis", "Major axis", "Minor axis", "Eccenctric anomaly", "True anomaly", "Perihelion distance", "Aphelion distance", "Longitude of Descending node", "Argument of aphelion", "Focal parameter", "Semi-latus rectum", "Latus rectum", "Period", "Orbital area", "Orbital perimeter", "Semi-mean axis", "Mean axis", "Standard gravitational parameter" });
-			checkedListBoxOrbitalElements.Location = new Point(12, 12);
+			checkedListBoxOrbitalElements.Location = new Point(14, 14);
+			checkedListBoxOrbitalElements.Margin = new Padding(4, 3, 4, 3);
 			checkedListBoxOrbitalElements.Name = "checkedListBoxOrbitalElements";
-			checkedListBoxOrbitalElements.Size = new Size(280, 220);
+			checkedListBoxOrbitalElements.Size = new Size(327, 254);
 			checkedListBoxOrbitalElements.TabIndex = 0;
 			toolTip.SetToolTip(checkedListBoxOrbitalElements, "Checks some orbital elements to print on a data sheet");
 			checkedListBoxOrbitalElements.Enter += SetStatusBar_Enter;
@@ -73,9 +74,10 @@ namespace Planetoid_DB
 			buttonPrintDataSheet.AccessibleDescription = "Prints a data sheet with some orbit elements";
 			buttonPrintDataSheet.AccessibleName = "Print data sheet";
 			buttonPrintDataSheet.AccessibleRole = AccessibleRole.PushButton;
-			buttonPrintDataSheet.Location = new Point(12, 238);
+			buttonPrintDataSheet.Location = new Point(14, 275);
+			buttonPrintDataSheet.Margin = new Padding(4, 3, 4, 3);
 			buttonPrintDataSheet.Name = "buttonPrintDataSheet";
-			buttonPrintDataSheet.Size = new Size(132, 36);
+			buttonPrintDataSheet.Size = new Size(154, 42);
 			buttonPrintDataSheet.TabIndex = 1;
 			toolTip.SetToolTip(buttonPrintDataSheet, "Print a data sheet with some orbit elements");
 			buttonPrintDataSheet.Values.DropDownArrowColor = Color.Empty;
@@ -92,9 +94,10 @@ namespace Planetoid_DB
 			buttonCancelPrint.AccessibleDescription = "Cancels the print";
 			buttonCancelPrint.AccessibleName = "Cancel print";
 			buttonCancelPrint.AccessibleRole = AccessibleRole.PushButton;
-			buttonCancelPrint.Location = new Point(164, 238);
+			buttonCancelPrint.Location = new Point(191, 275);
+			buttonCancelPrint.Margin = new Padding(4, 3, 4, 3);
 			buttonCancelPrint.Name = "buttonCancelPrint";
-			buttonCancelPrint.Size = new Size(128, 36);
+			buttonCancelPrint.Size = new Size(149, 42);
 			buttonCancelPrint.TabIndex = 2;
 			toolTip.SetToolTip(buttonCancelPrint, "Cancel the print");
 			buttonCancelPrint.Values.DropDownArrowColor = Color.Empty;
@@ -117,9 +120,10 @@ namespace Planetoid_DB
 			panel.Controls.Add(buttonCancelPrint);
 			panel.Dock = DockStyle.Fill;
 			panel.Location = new Point(0, 0);
+			panel.Margin = new Padding(4, 3, 4, 3);
 			panel.Name = "panel";
 			panel.PanelBackStyle = PaletteBackStyle.FormMain;
-			panel.Size = new Size(306, 308);
+			panel.Size = new Size(357, 355);
 			panel.TabIndex = 0;
 			panel.TabStop = true;
 			// 
@@ -130,11 +134,12 @@ namespace Planetoid_DB
 			statusStrip.AccessibleRole = AccessibleRole.StatusBar;
 			statusStrip.Font = new Font("Segoe UI", 9F);
 			statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-			statusStrip.Location = new Point(0, 286);
+			statusStrip.Location = new Point(0, 333);
 			statusStrip.Name = "statusStrip";
+			statusStrip.Padding = new Padding(1, 0, 16, 0);
 			statusStrip.ProgressBars = null;
 			statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-			statusStrip.Size = new Size(306, 22);
+			statusStrip.Size = new Size(357, 22);
 			statusStrip.SizingGrip = false;
 			statusStrip.TabIndex = 3;
 			statusStrip.Text = "status bar";
@@ -155,19 +160,22 @@ namespace Planetoid_DB
 			// kryptonManager
 			// 
 			kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+			kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+			kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 			// 
 			// PrintDataSheetForm
 			// 
 			AccessibleDescription = "Prints a data sheet with some orbit elements";
 			AccessibleName = "Print data sheet";
 			AccessibleRole = AccessibleRole.Dialog;
-			AutoScaleDimensions = new SizeF(6F, 13F);
+			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(306, 308);
+			ClientSize = new Size(357, 355);
+			ControlBox = false;
 			Controls.Add(panel);
-			Font = new Font("Segoe UI", 8.5F);
 			FormBorderStyle = FormBorderStyle.FixedToolWindow;
 			Icon = (Icon)resources.GetObject("$this.Icon");
+			Margin = new Padding(4, 3, 4, 3);
 			MaximizeBox = false;
 			MinimizeBox = false;
 			Name = "PrintDataSheetForm";
@@ -175,7 +183,6 @@ namespace Planetoid_DB
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Print data sheet";
 			toolTip.SetToolTip(this, "Print data sheet");
-			FormClosed += PrintDataSheetForm_FormClosed;
 			Load += PrintDataSheetForm_Load;
 			((ISupportInitialize)panel).EndInit();
 			panel.ResumeLayout(false);

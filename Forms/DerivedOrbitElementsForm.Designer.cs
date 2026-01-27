@@ -1215,6 +1215,7 @@ namespace Planetoid_DB
 			contextMenuFullCopyToClipboardDerivedOrbitalElements.Font = new Font("Segoe UI", 9F);
 			contextMenuFullCopyToClipboardDerivedOrbitalElements.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardLinearEccentricity, menuitemCopyToClipboardSemiMinorAxis, menuitemCopyToClipboardMajorAxis, menuitemCopyToClipboardMinorAxis, menuitemCopyToClipboardEccentricAnomaly, menuitemCopyToClipboardTrueAnomaly, menuitemCopyToClipboardPerihelionDistance, menuitemCopyToClipboardAphelionDistance, menuitemCopyToClipboardLongitudeDescendingNode, menuitemCopyToClipboardArgumentAphelion, menuitemCopyToClipboardFocalParameter, menuitemCopyToClipboardSemiLatusRectum, menuitemCopyToClipboardLatusRectum, menuitemCopyToClipboardOrbitalPeriod, menuitemCopyToClipboardOrbitalArea, menuitemCopyToClipboardSemiMeanAxis, menuitemCopyToClipboardMeanAxis, menuitemCopyToClipboardStandardGravitationalParameter });
 			contextMenuFullCopyToClipboardDerivedOrbitalElements.Name = resources.GetString("contextMenuFullCopyToClipboardDerivedOrbitalElements.Name");
+			contextMenuFullCopyToClipboardDerivedOrbitalElements.OwnerItem = splitbuttonCopyToClipboard;
 			contextMenuFullCopyToClipboardDerivedOrbitalElements.Size = new Size(257, 400);
 			contextMenuFullCopyToClipboardDerivedOrbitalElements.Text = "Copy to clipboard";
 			toolTip.SetToolTip(contextMenuFullCopyToClipboardDerivedOrbitalElements, "Copy to clipboard");
@@ -1499,7 +1500,6 @@ namespace Planetoid_DB
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Derived orbit elements";
 			toolTip.SetToolTip(this, "Derived orbit elements");
-			FormClosed += DerivedOrbitElementsForm_FormClosed;
 			Load += DerivedOrbitElementsForm_Load;
 			contextMenuOpenTerminology.ResumeLayout(false);
 			contextMenuCopyToClipboard.ResumeLayout(false);

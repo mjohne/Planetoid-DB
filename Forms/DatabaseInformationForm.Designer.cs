@@ -507,7 +507,6 @@ namespace Planetoid_DB
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Database information";
 			toolTip.SetToolTip(this, "Database Information");
-			FormClosed += DatabaseInformationForm_FormClosed;
 			Load += DatabaseInformationForm_Load;
 			contextMenuCopyToClipboard.ResumeLayout(false);
 			tableLayoutPanel.ResumeLayout(false);

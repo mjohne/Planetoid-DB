@@ -165,17 +165,6 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		MarkAll(); // Mark all items in the list
 	}
 
-	/// <summary>
-	/// Fired when the export form is closed.
-	/// Releases managed resources and disposes the form instance.
-	/// </summary>
-	/// <param name="sender">Event source (the form).</param>
-	/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to release any resources held by the form.
-	/// </remarks>
-	private void ExportDataSheetForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
-
 	#endregion
 
 	#region Enter event handlers

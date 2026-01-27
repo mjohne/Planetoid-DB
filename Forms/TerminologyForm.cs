@@ -468,15 +468,6 @@ public partial class TerminologyForm : BaseKryptonForm
 		ClearStatusBar();
 	}
 
-	/// <summary>
-	/// Fired when the form is closed. Disposes managed resources associated with the form.
-	/// </summary>
-	/// <param name="sender">The event source (the form).</param>
-	/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This event is triggered when the form is closed.
-	/// </remarks>
-	private void TerminologyForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
 	#endregion
 
 	#region Enter event handlers

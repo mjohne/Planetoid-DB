@@ -43,9 +43,9 @@ namespace Planetoid_DB
 			labelMaximum = new KryptonLabel();
 			buttonList = new KryptonButton();
 			labelWarning = new Label();
-			buttonCancel = new KryptonButton();
 			contextMenuCopyToClipboard = new ContextMenuStrip(components);
 			ToolStripMenuItemCpyToClipboard = new ToolStripMenuItem();
+			buttonCancel = new KryptonButton();
 			listView = new ListView();
 			columnHeaderIndex = new ColumnHeader();
 			columnHeaderReadableDesignation = new ColumnHeader();
@@ -214,26 +214,6 @@ namespace Planetoid_DB
 			labelWarning.MouseEnter += SetStatusBar_Enter;
 			labelWarning.MouseLeave += ClearStatusBar_Leave;
 			// 
-			// buttonCancel
-			// 
-			buttonCancel.AccessibleDescription = "Cancels the progress";
-			buttonCancel.AccessibleName = "Cancel";
-			buttonCancel.AccessibleRole = AccessibleRole.PushButton;
-			buttonCancel.Location = new Point(408, 16);
-			buttonCancel.Margin = new Padding(4, 3, 4, 3);
-			buttonCancel.Name = "buttonCancel";
-			buttonCancel.Size = new Size(80, 36);
-			buttonCancel.TabIndex = 5;
-			toolTip.SetToolTip(buttonCancel, "Cancel the progress");
-			buttonCancel.Values.DropDownArrowColor = Color.Empty;
-			buttonCancel.Values.Image = FatcowIcons16px.fatcow_cancel_16px;
-			buttonCancel.Values.Text = "&Cancel";
-			buttonCancel.Click += ButtonCancel_Click;
-			buttonCancel.Enter += SetStatusBar_Enter;
-			buttonCancel.Leave += ClearStatusBar_Leave;
-			buttonCancel.MouseEnter += SetStatusBar_Enter;
-			buttonCancel.MouseLeave += ClearStatusBar_Leave;
-			// 
 			// contextMenuCopyToClipboard
 			// 
 			contextMenuCopyToClipboard.AccessibleDescription = "Shows context menu for some options";
@@ -265,6 +245,26 @@ namespace Planetoid_DB
 			ToolStripMenuItemCpyToClipboard.Click += CopyToClipboard_DoubleClick;
 			ToolStripMenuItemCpyToClipboard.MouseEnter += SetStatusBar_Enter;
 			ToolStripMenuItemCpyToClipboard.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// buttonCancel
+			// 
+			buttonCancel.AccessibleDescription = "Cancels the progress";
+			buttonCancel.AccessibleName = "Cancel";
+			buttonCancel.AccessibleRole = AccessibleRole.PushButton;
+			buttonCancel.Location = new Point(408, 16);
+			buttonCancel.Margin = new Padding(4, 3, 4, 3);
+			buttonCancel.Name = "buttonCancel";
+			buttonCancel.Size = new Size(80, 36);
+			buttonCancel.TabIndex = 5;
+			toolTip.SetToolTip(buttonCancel, "Cancel the progress");
+			buttonCancel.Values.DropDownArrowColor = Color.Empty;
+			buttonCancel.Values.Image = FatcowIcons16px.fatcow_cancel_16px;
+			buttonCancel.Values.Text = "&Cancel";
+			buttonCancel.Click += ButtonCancel_Click;
+			buttonCancel.Enter += SetStatusBar_Enter;
+			buttonCancel.Leave += ClearStatusBar_Leave;
+			buttonCancel.MouseEnter += SetStatusBar_Enter;
+			buttonCancel.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// listView
 			// 
@@ -488,7 +488,6 @@ namespace Planetoid_DB
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Table Mode";
 			toolTip.SetToolTip(this, "Table Mode");
-			FormClosed += TableModeForm_FormClosed;
 			Load += TableModeForm_Load;
 			contextMenuCopyToClipboard.ResumeLayout(false);
 			((ISupportInitialize)panel).EndInit();

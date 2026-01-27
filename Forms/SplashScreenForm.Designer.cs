@@ -35,11 +35,11 @@ namespace Planetoid_DB
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(SplashScreenForm));
 			progressBarSplash = new KryptonProgressBar();
 			labelTitle = new Label();
+			contextMenuStripCopyToClipboard = new ContextMenuStrip(components);
+			ToolStripMenuItemCpyToClipboard = new ToolStripMenuItem();
 			labelVersion = new Label();
 			toolTip = new ToolTip(components);
 			kryptonManager = new KryptonManager(components);
-			contextMenuStripCopyToClipboard = new ContextMenuStrip(components);
-			ToolStripMenuItemCpyToClipboard = new ToolStripMenuItem();
 			contextMenuStripCopyToClipboard.SuspendLayout();
 			SuspendLayout();
 			// 
@@ -82,33 +82,6 @@ namespace Planetoid_DB
 			labelTitle.DoubleClick += CopyToClipboard_DoubleClick;
 			labelTitle.MouseDown += Control_MouseDown;
 			// 
-			// labelVersion
-			// 
-			labelVersion.AccessibleDescription = "Shows the version number";
-			labelVersion.AccessibleName = "Version";
-			labelVersion.AccessibleRole = AccessibleRole.Text;
-			labelVersion.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			labelVersion.BackColor = Color.Transparent;
-			labelVersion.ContextMenuStrip = contextMenuStripCopyToClipboard;
-			labelVersion.Font = new Font("Segoe UI", 8.5F);
-			labelVersion.ForeColor = Color.White;
-			labelVersion.Location = new Point(223, 77);
-			labelVersion.Margin = new Padding(4, 0, 4, 0);
-			labelVersion.Name = "labelVersion";
-			labelVersion.Size = new Size(221, 25);
-			labelVersion.TabIndex = 1;
-			labelVersion.Text = "Version: X.X.X.X";
-			labelVersion.TextAlign = ContentAlignment.MiddleCenter;
-			toolTip.SetToolTip(labelVersion, "Version number");
-			labelVersion.DoubleClick += CopyToClipboard_DoubleClick;
-			labelVersion.MouseDown += Control_MouseDown;
-			// 
-			// kryptonManager
-			// 
-			kryptonManager.GlobalPaletteMode = PaletteMode.Global;
-			kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
-			kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
-			// 
 			// contextMenuStripCopyToClipboard
 			// 
 			contextMenuStripCopyToClipboard.AccessibleDescription = "Shows context menu for some options";
@@ -141,6 +114,33 @@ namespace Planetoid_DB
 			ToolStripMenuItemCpyToClipboard.MouseEnter += SplashScreenForm_Load;
 			ToolStripMenuItemCpyToClipboard.MouseLeave += CopyToClipboard_DoubleClick;
 			// 
+			// labelVersion
+			// 
+			labelVersion.AccessibleDescription = "Shows the version number";
+			labelVersion.AccessibleName = "Version";
+			labelVersion.AccessibleRole = AccessibleRole.Text;
+			labelVersion.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			labelVersion.BackColor = Color.Transparent;
+			labelVersion.ContextMenuStrip = contextMenuStripCopyToClipboard;
+			labelVersion.Font = new Font("Segoe UI", 8.5F);
+			labelVersion.ForeColor = Color.White;
+			labelVersion.Location = new Point(223, 77);
+			labelVersion.Margin = new Padding(4, 0, 4, 0);
+			labelVersion.Name = "labelVersion";
+			labelVersion.Size = new Size(221, 25);
+			labelVersion.TabIndex = 1;
+			labelVersion.Text = "Version: X.X.X.X";
+			labelVersion.TextAlign = ContentAlignment.MiddleCenter;
+			toolTip.SetToolTip(labelVersion, "Version number");
+			labelVersion.DoubleClick += CopyToClipboard_DoubleClick;
+			labelVersion.MouseDown += Control_MouseDown;
+			// 
+			// kryptonManager
+			// 
+			kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+			kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+			kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
+			// 
 			// SplashScreenForm
 			// 
 			AccessibleDescription = "Shows the splash screen and the loading progress of the data";
@@ -165,7 +165,6 @@ namespace Planetoid_DB
 			Text = "Splash Screen";
 			toolTip.SetToolTip(this, "splash screen");
 			TopMost = true;
-			FormClosed += SplashScreenForm_FormClosed;
 			Load += SplashScreenForm_Load;
 			contextMenuStripCopyToClipboard.ResumeLayout(false);
 			ResumeLayout(false);

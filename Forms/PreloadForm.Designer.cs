@@ -229,7 +229,6 @@ namespace Planetoid_DB
 			StartPosition = FormStartPosition.CenterScreen;
 			Text = "Planetoid-DB Preloader";
 			toolTip.SetToolTip(this, "Preloader");
-			FormClosed += PreloadForm_FormClosed;
 			Load += PreloadForm_Load;
 			statusStrip.ResumeLayout(false);
 			statusStrip.PerformLayout();

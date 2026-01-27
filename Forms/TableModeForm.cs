@@ -399,20 +399,6 @@ public partial class TableModeForm : BaseKryptonForm
 		numericUpDownMaximum.Value = planetoidsDatabase.Count;
 	}
 
-	/// <summary>
-	/// Fired when the form is closed. Releases list view resources and disposes the form.
-	/// </summary>
-	/// <param name="sender">Event source (the form).</param>
-	/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the form is closed.
-	/// </remarks>
-	private void TableModeForm_FormClosed(object sender, FormClosedEventArgs e)
-	{
-		listView.Dispose();
-		Dispose();
-	}
-
 	#endregion
 
 	#region BackgroundWorker

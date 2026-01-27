@@ -327,17 +327,6 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		labelStandardGravitationalParameterData.Text = derivedOrbitElements[index: 18]?.ToString();
 	}
 
-	/// <summary>
-	/// Fired when the derived orbit elements form is closed.
-	/// Disposes managed resources associated with the form.
-	/// </summary>
-	/// <param name="sender">Event source (the form).</param>
-	/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the form is closed.
-	/// </remarks>
-	private void DerivedOrbitElementsForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
-
 	#endregion
 
 	#region Enter event handlers

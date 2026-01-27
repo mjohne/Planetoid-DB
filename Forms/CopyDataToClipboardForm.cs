@@ -121,17 +121,6 @@ public partial class CopyDataToClipboardForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Fired when the CopyDataToClipboardForm is closed.
-	/// Disposes managed resources associated with the form.
-	/// </summary>
-	/// <param name="sender">Event source (the form).</param>
-	/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This event is used to clean up resources when the form is closed.
-	/// </remarks>
-	private void CopyDataToClipboardForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
-
 	#endregion
 
 	#region Enter event handlers

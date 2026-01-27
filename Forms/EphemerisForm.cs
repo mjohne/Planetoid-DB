@@ -87,16 +87,6 @@ public partial class EphemerisForm : BaseKryptonForm
 	/// </remarks>
 	private void EphemerisForm_Load(object sender, EventArgs e) => ClearStatusBar();
 
-	/// <summary>
-	/// Handles the form closed event.
-	/// </summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to handle the form closed event.
-	/// </remarks>
-	private void EphemerisForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
-
 	#endregion
 
 	#region BackgroundWorker event handlers

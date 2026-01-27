@@ -398,13 +398,6 @@ public partial class SearchForm : BaseKryptonForm
 		ClearStatusBar();
 	}
 
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="sender"></param>
-	/// <param name="e"></param>
-	private void SearchForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
-
 	#endregion
 
 	#region BackgroundWorker event handlers
