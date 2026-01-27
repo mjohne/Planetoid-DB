@@ -387,7 +387,6 @@ namespace Planetoid_DB
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Check ASTORB.DAT";
 			toolTip.SetToolTip(this, "Check ASTORB.DAT");
-			FormClosed += CheckAstorbDatForm_FormClosed;
 			Load += CheckAstorbDatForm_Load;
 			contextMenuCopyToClipboard.ResumeLayout(false);
 			tableLayoutPanel.ResumeLayout(false);

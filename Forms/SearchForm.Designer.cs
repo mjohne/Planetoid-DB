@@ -390,6 +390,8 @@ namespace Planetoid_DB
 			// kryptonManager
 			// 
 			kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+			kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+			kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 			// 
 			// SearchForm
 			// 
@@ -399,6 +401,7 @@ namespace Planetoid_DB
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(387, 525);
+			ControlBox = false;
 			Controls.Add(panel);
 			FormBorderStyle = FormBorderStyle.FixedToolWindow;
 			Icon = (Icon)resources.GetObject("$this.Icon");
@@ -410,7 +413,6 @@ namespace Planetoid_DB
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Search";
 			toolTip.SetToolTip(this, "Search");
-			FormClosed += SearchForm_FormClosed;
 			Load += SearchForm_Load;
 			((ISupportInitialize)panel).EndInit();
 			panel.ResumeLayout(false);

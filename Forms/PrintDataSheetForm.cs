@@ -123,17 +123,6 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Handles the FormClosed event of the form.
-	/// Disposes the form when it is closed.
-	/// </summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the form is closed.
-	/// </remarks>
-	private void PrintDataSheetForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
-
 	#endregion
 
 	#region Enter event handlers

@@ -328,7 +328,6 @@ namespace Planetoid_DB
 			StartPosition = FormStartPosition.CenterScreen;
 			Text = "Export data sheet";
 			toolTip.SetToolTip(this, "Export data sheet");
-			FormClosed += ExportDataSheetForm_FormClosed;
 			Load += ExportDataSheetForm_Load;
 			statusStrip.ResumeLayout(false);
 			statusStrip.PerformLayout();

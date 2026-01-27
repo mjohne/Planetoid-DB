@@ -87,17 +87,6 @@ public partial class FilterForm : BaseKryptonForm
 	/// </remarks>
 	private void FilterForm_Load(object sender, EventArgs e) => ClearStatusBar();
 
-	/// <summary>
-	/// Fired when the filter form is closed.
-	/// Disposes managed resources associated with the form.
-	/// </summary>
-	/// <param name="sender">Event source (the form).</param>
-	/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to release any resources held by the form.
-	/// </remarks>
-	private void FilterForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
-
 	#endregion
 
 	#region Enter event handlers

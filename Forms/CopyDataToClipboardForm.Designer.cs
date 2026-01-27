@@ -412,7 +412,7 @@ namespace Planetoid_DB
 			buttonFlags.MouseEnter += SetStatusBar_Enter;
 			buttonFlags.MouseLeave += ClearStatusBar_Leave;
 			// 
-			// buttonComputername
+			// buttonComputerName
 			// 
 			buttonComputerName.AccessibleDescription = "Copy to clipboard: Computer name";
 			buttonComputerName.AccessibleName = "Copy to clipboard: Computer name";
@@ -420,7 +420,7 @@ namespace Planetoid_DB
 			buttonComputerName.ButtonStyle = ButtonStyle.Form;
 			buttonComputerName.Location = new Point(327, 264);
 			buttonComputerName.Margin = new Padding(4, 3, 4, 3);
-			buttonComputerName.Name = "buttonComputername";
+			buttonComputerName.Name = "buttonComputerName";
 			buttonComputerName.Size = new Size(306, 29);
 			buttonComputerName.TabIndex = 17;
 			toolTip.SetToolTip(buttonComputerName, "Computer name");
@@ -558,6 +558,8 @@ namespace Planetoid_DB
 			// kryptonManager
 			// 
 			kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+			kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+			kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 			// 
 			// CopyDataToClipboardForm
 			// 
@@ -567,6 +569,7 @@ namespace Planetoid_DB
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(644, 399);
+			ControlBox = false;
 			Controls.Add(toolStripContainer);
 			FormBorderStyle = FormBorderStyle.FixedToolWindow;
 			Icon = (Icon)resources.GetObject("$this.Icon");
@@ -578,7 +581,6 @@ namespace Planetoid_DB
 			StartPosition = FormStartPosition.CenterScreen;
 			Text = "Copy data to clipboard";
 			toolTip.SetToolTip(this, "Copy data to clipboard");
-			FormClosed += CopyDataToClipboardForm_FormClosed;
 			Load += CopyDataToClipboardForm_Load;
 			((ISupportInitialize)panel).EndInit();
 			panel.ResumeLayout(false);

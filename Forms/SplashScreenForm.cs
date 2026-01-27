@@ -99,17 +99,6 @@ public partial class SplashScreenForm : BaseKryptonForm
 		// Set the version label text to the assembly version
 		labelVersion.Text = string.Format(format: I10nStrings.VersionTemplate, arg0: AssemblyInfo.AssemblyVersion);
 	}
-
-	/// <summary>
-	/// Fired when the splash screen form is closed.
-	/// Disposes managed resources associated with the form.
-	/// </summary>
-	/// <param name="sender">Event source (the form).</param>
-	/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the splash screen form is closed.
-	/// </remarks>
-	private void SplashScreenForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
 	#endregion
 
 	#region MouseDown event handlers

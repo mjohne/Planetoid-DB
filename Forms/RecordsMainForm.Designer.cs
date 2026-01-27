@@ -1207,6 +1207,8 @@ namespace Planetoid_DB
 			// kryptonManager
 			// 
 			kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+			kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+			kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 			// 
 			// RecordsMainForm
 			// 
@@ -1216,6 +1218,7 @@ namespace Planetoid_DB
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(517, 532);
+			ControlBox = false;
 			Controls.Add(statusStrip);
 			Controls.Add(panel);
 			FormBorderStyle = FormBorderStyle.FixedToolWindow;
@@ -1228,7 +1231,6 @@ namespace Planetoid_DB
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Top ten records";
 			toolTip.SetToolTip(this, "Top ten records");
-			FormClosed += RecordsMainForm_FormClosed;
 			Load += RecordsMainForm_Load;
 			((ISupportInitialize)panel).EndInit();
 			panel.ResumeLayout(false);

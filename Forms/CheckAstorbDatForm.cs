@@ -226,16 +226,6 @@ public partial class CheckAstorbDatForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Event handler for closing the form.
-	/// </summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This event is used to clean up resources when the form is closed.
-	/// </remarks>
-	private void CheckAstorbDatForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
-
 	#endregion
 
 	#region Enter event handlers

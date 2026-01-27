@@ -86,16 +86,6 @@ public partial class SettingsForm : BaseKryptonForm
 	/// </remarks>
 	private void SettingsForm_Load(object sender, EventArgs e) => ClearStatusBar();
 
-	/// <summary>
-	/// Event handler for closing the form.
-	/// </summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the SettingsForm is closed.
-	/// </remarks>
-	private void SettingsForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
-
 	#endregion
 
 	#region Enter event handlers

@@ -104,17 +104,6 @@ public partial class RecordsMainForm : BaseKryptonForm
 	/// </remarks>
 	private void RecordsMainForm_Load(object sender, EventArgs e) => ClearStatusBar();
 
-	/// <summary>
-	/// Handles the FormClosed event of the RecordsMainForm.
-	/// Disposes the form when it is closed.
-	/// </summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the RecordsMainForm is closed.
-	/// </remarks>
-	private void RecordsMainForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
-
 	#endregion
 
 	#region Enter event handlers

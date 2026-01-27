@@ -39,6 +39,8 @@ namespace Planetoid_DB
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(AppInfoForm));
 			labelVersion = new KryptonLabel();
+			contextMenuStripCopyToClipboard = new ContextMenuStrip(components);
+			ToolStripMenuItemCpyToClipboard = new ToolStripMenuItem();
 			labelTitle = new KryptonLabel();
 			labelDescription = new KryptonLabel();
 			toolTip = new ToolTip(components);
@@ -46,14 +48,12 @@ namespace Planetoid_DB
 			labelCopyright = new KryptonLabel();
 			linkLabelEmail = new KryptonLinkLabel();
 			linkLabelWebsite = new KryptonLinkLabel();
-			contextMenuStripCopyToClipboard = new ContextMenuStrip(components);
-			ToolStripMenuItemCpyToClipboard = new ToolStripMenuItem();
 			panel = new KryptonPanel();
 			statusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
 			kryptonManager = new KryptonManager(components);
-			((ISupportInitialize)pictureBoxBanner).BeginInit();
 			contextMenuStripCopyToClipboard.SuspendLayout();
+			((ISupportInitialize)pictureBoxBanner).BeginInit();
 			((ISupportInitialize)panel).BeginInit();
 			panel.SuspendLayout();
 			statusStrip.SuspendLayout();
@@ -78,6 +78,38 @@ namespace Planetoid_DB
 			labelVersion.MouseDown += Control_MouseDown;
 			labelVersion.MouseEnter += SetStatusBar_Enter;
 			labelVersion.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// contextMenuStripCopyToClipboard
+			// 
+			contextMenuStripCopyToClipboard.AccessibleDescription = "Shows context menu for some options";
+			contextMenuStripCopyToClipboard.AccessibleName = "Some options";
+			contextMenuStripCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
+			contextMenuStripCopyToClipboard.AllowClickThrough = true;
+			contextMenuStripCopyToClipboard.Font = new Font("Segoe UI", 9F);
+			contextMenuStripCopyToClipboard.Items.AddRange(new ToolStripItem[] { ToolStripMenuItemCpyToClipboard });
+			contextMenuStripCopyToClipboard.Name = "contextMenuStrip";
+			contextMenuStripCopyToClipboard.Size = new Size(214, 26);
+			contextMenuStripCopyToClipboard.TabStop = true;
+			contextMenuStripCopyToClipboard.Text = "ContextMenu";
+			toolTip.SetToolTip(contextMenuStripCopyToClipboard, "Context Menu for copying to clipboard");
+			contextMenuStripCopyToClipboard.MouseEnter += SetStatusBar_Enter;
+			contextMenuStripCopyToClipboard.MouseLeave += ClearStatusBar_Leave;
+			// 
+			// ToolStripMenuItemCpyToClipboard
+			// 
+			ToolStripMenuItemCpyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
+			ToolStripMenuItemCpyToClipboard.AccessibleName = "Copy to clipboard";
+			ToolStripMenuItemCpyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
+			ToolStripMenuItemCpyToClipboard.AutoToolTip = true;
+			ToolStripMenuItemCpyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
+			ToolStripMenuItemCpyToClipboard.Name = "ToolStripMenuItemCpyToClipboard";
+			ToolStripMenuItemCpyToClipboard.ShortcutKeyDisplayString = "Strg+C";
+			ToolStripMenuItemCpyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
+			ToolStripMenuItemCpyToClipboard.Size = new Size(213, 22);
+			ToolStripMenuItemCpyToClipboard.Text = "&Copy to clipboard";
+			ToolStripMenuItemCpyToClipboard.Click += CopyToClipboard_DoubleClick;
+			ToolStripMenuItemCpyToClipboard.MouseEnter += SetStatusBar_Enter;
+			ToolStripMenuItemCpyToClipboard.MouseLeave += ClearStatusBar_Leave;
 			// 
 			// labelTitle
 			// 
@@ -198,38 +230,6 @@ namespace Planetoid_DB
 			linkLabelWebsite.MouseEnter += SetStatusBar_Enter;
 			linkLabelWebsite.MouseLeave += ClearStatusBar_Leave;
 			// 
-			// contextMenuStripCopyToClipboard
-			// 
-			contextMenuStripCopyToClipboard.AccessibleDescription = "Shows context menu for some options";
-			contextMenuStripCopyToClipboard.AccessibleName = "Some options";
-			contextMenuStripCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
-			contextMenuStripCopyToClipboard.AllowClickThrough = true;
-			contextMenuStripCopyToClipboard.Font = new Font("Segoe UI", 9F);
-			contextMenuStripCopyToClipboard.Items.AddRange(new ToolStripItem[] { ToolStripMenuItemCpyToClipboard });
-			contextMenuStripCopyToClipboard.Name = "contextMenuStrip";
-			contextMenuStripCopyToClipboard.Size = new Size(214, 26);
-			contextMenuStripCopyToClipboard.TabStop = true;
-			contextMenuStripCopyToClipboard.Text = "ContextMenu";
-			toolTip.SetToolTip(contextMenuStripCopyToClipboard, "Context Menu for copying to clipboard");
-			contextMenuStripCopyToClipboard.MouseEnter += SetStatusBar_Enter;
-			contextMenuStripCopyToClipboard.MouseLeave += ClearStatusBar_Leave;
-			// 
-			// ToolStripMenuItemCpyToClipboard
-			// 
-			ToolStripMenuItemCpyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
-			ToolStripMenuItemCpyToClipboard.AccessibleName = "Copy to clipboard";
-			ToolStripMenuItemCpyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
-			ToolStripMenuItemCpyToClipboard.AutoToolTip = true;
-			ToolStripMenuItemCpyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
-			ToolStripMenuItemCpyToClipboard.Name = "ToolStripMenuItemCpyToClipboard";
-			ToolStripMenuItemCpyToClipboard.ShortcutKeyDisplayString = "Strg+C";
-			ToolStripMenuItemCpyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
-			ToolStripMenuItemCpyToClipboard.Size = new Size(213, 22);
-			ToolStripMenuItemCpyToClipboard.Text = "&Copy to clipboard";
-			ToolStripMenuItemCpyToClipboard.Click += CopyToClipboard_DoubleClick;
-			ToolStripMenuItemCpyToClipboard.MouseEnter += SetStatusBar_Enter;
-			ToolStripMenuItemCpyToClipboard.MouseLeave += ClearStatusBar_Leave;
-			// 
 			// panel
 			// 
 			panel.AccessibleDescription = "Groups the data";
@@ -307,10 +307,9 @@ namespace Planetoid_DB
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Program information";
 			toolTip.SetToolTip(this, "Program information");
-			FormClosed += AppInfoForm_FormClosed;
 			Load += AppInfoForm_Load;
-			((ISupportInitialize)pictureBoxBanner).EndInit();
 			contextMenuStripCopyToClipboard.ResumeLayout(false);
+			((ISupportInitialize)pictureBoxBanner).EndInit();
 			((ISupportInitialize)panel).EndInit();
 			panel.ResumeLayout(false);
 			panel.PerformLayout();

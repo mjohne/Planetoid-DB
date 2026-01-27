@@ -148,17 +148,6 @@ public partial class PreloadForm : BaseKryptonForm
 	/// </remarks>
 	private void PreloadForm_Load(object sender, EventArgs e) => ClearStatusBar();
 
-	/// <summary>
-	/// Fired when the preload form is closed.
-	/// Disposes managed resources associated with the form.
-	/// </summary>
-	/// <param name="sender">Event source (the form).</param>
-	/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the preload form is closed.
-	/// </remarks>
-	private void PreloadForm_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
-
 	#endregion
 
 	#region Enter event handlers
