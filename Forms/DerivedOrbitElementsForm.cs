@@ -46,7 +46,7 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	/// <remarks>
 	/// This field is used to keep track of the current tag text of the control.
 	/// </remarks>
-	private readonly string currentTagText = string.Empty;
+	private string currentTagText = string.Empty;
 
 	/// <summary>
 	/// List of derived orbit elements.
@@ -393,6 +393,8 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			// Store the control that triggered the event
 			currentControl = control;
+			// Store the current tag text of the control
+			currentTagText = control.Tag?.ToString() ?? string.Empty;
 		}
 	}
 

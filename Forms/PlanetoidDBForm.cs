@@ -58,7 +58,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>
 	/// This string is used to store the current tag text of the control for clipboard operations.
 	/// </remarks>
-	private readonly string currentTagText = string.Empty;
+	private string currentTagText = string.Empty;
 
 	/// <summary>
 	/// Stores the current position in the planetoids database and the step position for navigation.
@@ -334,12 +334,10 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Validate the position
 		if (position < 0 || position >= planetoidsDatabase.Count)
 		{
+			toolStripLabelIndexPosition.ToolTipText = "Index: 0";
 			return;
 		}
-		else if (planetoidsDatabase.Count == 0)
-		{
-			return;
-		}
+
 		// Extract and display the data for the specified position
 		// Each field is extracted using substring operations based on fixed positions
 		// The extracted strings are trimmed to remove leading and trailing whitespace
@@ -384,6 +382,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		//Achtung: Wenn später die Teilstrings in Zahlen konvertiert werden, dann muss darauf geachtet werden, dass die eingelesenen Zeichenketten keine Leerstrings sind.
 		// if (teilstring == "0") zahl = 0; ...
 
+		toolStripLabelIndexPosition.ToolTipText = $"Index: {currentPosition + 1}/{planetoidsDatabase.Count}";
 		object? entry = planetoidsDatabase[index: position];
 		labelIndexData.Text = entry?.ToString() is string entryStr ? entryStr[..7].Trim() : string.Empty;
 		labelAbsoluteMagnitudeData.Text = entry?.ToString() is string entryStr1 ? entryStr1.Substring(startIndex: 8, length: 5).Trim() : string.Empty;
@@ -1731,6 +1730,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		{
 			// Store the control that triggered the event
 			currentControl = control;
+			// Store the current tag text of the control
+			currentTagText = control.Tag?.ToString() ?? string.Empty;
 		}
 	}
 
