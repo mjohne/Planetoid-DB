@@ -404,9 +404,6 @@ namespace Planetoid_DB
 			// 
 			backgroundWorker.WorkerReportsProgress = true;
 			backgroundWorker.WorkerSupportsCancellation = true;
-			backgroundWorker.DoWork += BackgroundWorker_DoWork;
-			backgroundWorker.ProgressChanged += BackgroundWorker_ProgressChanged;
-			backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
 			// 
 			// panel
 			// 
