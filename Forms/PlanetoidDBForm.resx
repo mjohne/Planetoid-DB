@@ -542,6 +542,23 @@
   <metadata name="contextMenuFullCopyToClipboardOrbitalElements.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>225, 95</value>
   </metadata>
+  <data name="contextMenuFullCopyToClipboardOrbitalElements.Name" xml:space="preserve">
+    <value>contry
+        {
+            // Ask the user for a valid palette definition file
+            kryptonPalette1.Import();
+
+            // Set the krypton manager's GlobalPalette to kryptonPalette1
+            kryptonManager1.GlobalPalette = kryptonPalette1;
+
+            // Finally, set the krypton manager's GlobalPaletteMode to custom
+            kryptonManager1.GlobalPaletteMode = PaletteModeManager.Custom;
+        }
+        catch (Exception exc)
+        {
+            // TODO: Handle the exception
+        }textMenuCopyToClipboardOrbitalElements</value>
+  </data>
   <data name="menuitemCopyToClipboardIndexNumber.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
@@ -881,23 +898,6 @@
         QNmgVFdA2YCyMV0hHzc6GHFy7W55rwYmN9cHpgKHlim/brFzssUeJBsnJw9N+RuD9o3yyExY/AtgyKNq
         93PYBwAAAABJRU5ErkJggg==
 </value>
-  </data>
-  <data name="contextMenuFullCopyToClipboardOrbitalElements.Name" xml:space="preserve">
-    <value>contry
-        {
-            // Ask the user for a valid palette definition file
-            kryptonPalette1.Import();
-
-            // Set the krypton manager's GlobalPalette to kryptonPalette1
-            kryptonManager1.GlobalPalette = kryptonPalette1;
-
-            // Finally, set the krypton manager's GlobalPaletteMode to custom
-            kryptonManager1.GlobalPaletteMode = PaletteModeManager.Custom;
-        }
-        catch (Exception exc)
-        {
-            // TODO: Handle the exception
-        }textMenuCopyToClipboardOrbitalElements</value>
   </data>
   <metadata name="menu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 15</value>
