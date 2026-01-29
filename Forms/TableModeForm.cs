@@ -1,4 +1,6 @@
-﻿using Planetoid_DB.Forms;
+﻿using NLog;
+
+using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 
 using System.Collections;
@@ -16,6 +18,14 @@ namespace Planetoid_DB;
 public partial class TableModeForm : BaseKryptonForm
 {
 	/// <summary>
+	/// NLog logger instance.
+	/// </summary>
+	/// <remarks>
+	/// This logger is used throughout the application to log important events and errors.
+	/// </remarks>
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+	/// <summary>
 	/// List of planetoid records from the database
 	/// </summary>
 	/// <remarks>
@@ -23,7 +33,21 @@ public partial class TableModeForm : BaseKryptonForm
 	/// </remarks>
 	private List<string> planetoidsDatabase = [];
 
+	/// <summary>
+	/// Cancellation token source for managing cancellation of asynchronous operations.
+	/// </summary>
+	/// <remarks>
+	/// This field is used to cancel ongoing asynchronous operations.
+	/// </remarks>
 	private CancellationTokenSource? cancellationTokenSource;
+
+	/// <summary>
+	/// Cache for displaying planetoid records
+	/// </summary>
+	/// <remarks>
+	/// This field is used to cache planetoid records for display purposes.
+	/// </remarks>
+	private List<PlanetoidRecord> displayCache = [];
 
 	/// <summary>
 	/// Stopwatch for performance measurement
@@ -49,9 +73,13 @@ public partial class TableModeForm : BaseKryptonForm
 	/// <remarks>
 	/// This constructor initializes the form components.
 	/// </remarks>
-	public TableModeForm() =>
+	public TableModeForm()
+	{
 		// Initialize the form components
 		InitializeComponent();
+		// Set up the ListView for virtual mode
+		listView.RetrieveVirtualItem += ListView_RetrieveVirtualItem;
+	}
 
 	#endregion
 
@@ -159,9 +187,6 @@ public partial class TableModeForm : BaseKryptonForm
 		buttonList.Enabled = !processing;
 		buttonCancel.Enabled = processing;
 		progressBar.Enabled = processing;
-		// Show the list view only when not processing
-		// Show only when finished, or use VirtualMode.
-		listView.Visible = !processing;
 		// Update the taskbar progress state
 		if (!processing)
 		{
@@ -346,6 +371,35 @@ public partial class TableModeForm : BaseKryptonForm
 	}
 	#endregion
 
+	#region RetrieveVirtualItem event handlers
+
+	/// <summary>
+	/// Handles the retrieval of virtual items for the ListView.
+	/// </summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>
+	/// This method is called to retrieve virtual items for the ListView.
+	/// </remarks>
+	private void ListView_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
+	{
+		// Ensure that the index is within the valid range.
+		if (e.ItemIndex >= 0 && e.ItemIndex < displayCache.Count)
+		{
+			// Retrieve data from our cache
+			PlanetoidRecord record = displayCache[index: e.ItemIndex];
+			// Create a ListViewItem "on the fly"
+			e.Item = CreateListViewItem(p: record);
+		}
+		else
+		{
+			// Fallback for error cases
+			e.Item = new ListViewItem(text: "Error");
+		}
+	}
+
+	#endregion
+
 	#region MouseDown event handlers
 
 	/// <summary>
@@ -369,7 +423,7 @@ public partial class TableModeForm : BaseKryptonForm
 
 	#endregion
 
-	#region Clicks event handlers
+	#region Click event handlers
 
 	/// <summary>
 	/// Handles the Click event of the List button.
@@ -385,12 +439,9 @@ public partial class TableModeForm : BaseKryptonForm
 	{
 		// Start the stopwatch for performance measurement
 		stopwatch.Restart();
-		listView.Items.Clear();
-		// Only add columns if none already exist.
-		if (listView.Columns.Count == 0)
-		{
-			SetupColumns();
-		}
+		// IMPORTANT: In Virtual Mode, set the size to 0 while loading.
+		listView.VirtualListSize = 0;
+		displayCache.Clear();
 		// Hide the list view
 		listView.Visible = false;
 		SetUiState(processing: true);
@@ -410,76 +461,82 @@ public partial class TableModeForm : BaseKryptonForm
 		// Configure the progress bar
 		progressBar.Maximum = count;
 		progressBar.Value = 0;
+
 		try
 		{
-			// --- THIS IS WHERE THE WORK HAPPENS IN THE BACKGROUND ---
-			// Clear any previous items
-			List<ListViewItem> newItems = await Task.Run(function: () =>
+			// Data processing in the background
+			// Parse the desired strings into PlanetoidRecords
+			List<PlanetoidRecord> parsedData = await Task.Run(function: () =>
 			{
-				// List to hold the newly created ListViewItems
-				List<ListViewItem> resultList = [];
-				int progressCounter = 0;
-				// Get the range of planetoids to process
+				List<PlanetoidRecord> tempResults = new(capacity: count);
 				IEnumerable<string> rangeToProcess = planetoidsDatabase.Skip(count: minIndex).Take(count: count);
-				// Process each line in the specified range
+				int progressCounter = 0;
+				IProgress<int> progressReporter = new Progress<int>(handler: value => progressBar.Value = value);
+
 				foreach (string line in rangeToProcess)
 				{
-					// Check for cancellation
 					if (token.IsCancellationRequested)
 					{
 						break;
 					}
-					// Parse the line into a PlanetoidRecord
-					PlanetoidRecord record = PlanetoidRecord.Parse(rawLine: line);
-					// IMPORTANT: ListViewItems can be created in the background thread,
-					// but cannot be added to the ListView.
-					// This is done in the UI thread
-					resultList.Add(item: CreateListViewItem(p: record));
-					// Update progress
+
+					tempResults.Add(item: PlanetoidRecord.Parse(rawLine: line));
+
 					progressCounter++;
-					// Update the progress bar in the UI thread
-					// Not report for every item (performance), but e.g. every 100 items
-					if (progressCounter % 100 == 0)
+					// Update progress every 500 items for performance
+					// Don't flood the UI
+					if (progressCounter % 500 == 0)
 					{
-						((IProgress<int>)progress).Report(value: progressCounter);
+						progressReporter.Report(value: progressCounter);
 					}
 				}
-				return resultList;
+				return tempResults;
 			}, cancellationToken: token);
 
-			// --- BACK IN THE UI THREAD ---
-			// Add the new items to the ListView in a single batch
 			if (!token.IsCancellationRequested)
 			{
-				// This is done in the UI thread
-				// Mass update for performance
-				listView.BeginUpdate();
-				listView.Items.AddRange(items: [.. newItems]);
-				listView.EndUpdate();
+				// Prepare the internal cache for the ListView
+				// and store the parsed data in the display cache
+				displayCache = parsedData;
+
+				// Update the ListView size and make it visible
+				// The ListView immediately calls "RetrieveVirtualItem" for the visible rows.
+				listView.VirtualListSize = displayCache.Count;
+				listView.Visible = true;
+
+				// Ensure columns are set up
+				if (listView.Columns.Count == 0)
+				{
+					SetupColumns();
+				}
 			}
 		}
-		// Handle cancellation
+		// Handle cancellation and other exceptions
 		catch (Exception ex)
 		{
+			logger.Error(message: $"An error occurred during background processing: {ex}");
 			MessageBox.Show(text: $"An error has occurred: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
+		// Final UI updates
 		finally
 		{
 			// Stop the stopwatch and reset the UI state
 			stopwatch.Stop();
 			SetUiState(processing: false);
-			// Show cancellation or completion message
-			if (token.IsCancellationRequested)
+			// Show completion or cancellation message
+			if (cancellationTokenSource?.IsCancellationRequested == true)
 			{
-				MessageBox.Show(text: "Cancelled!", caption: "Cancellation", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Exclamation);
+				MessageBox.Show(text: $"{listView.VirtualListSize} objects processed (cancellation).",
+					caption: "cancellation", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
 			}
+			// Show completion message
 			else
 			{
-				MessageBox.Show(text: $"{listView.Items.Count} objects processed in {stopwatch.Elapsed:hh\\:mm\\:ss\\.fff} hh:mm:ss.fff",
+				MessageBox.Show(text: $"{listView.VirtualListSize} objects processed in {stopwatch.Elapsed:hh\\:mm\\:ss\\.fff} hh:mm:ss.fff",
 					caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			// Dispose the cancellation token source
-			cancellationTokenSource.Dispose();
+			cancellationTokenSource?.Dispose();
 			cancellationTokenSource = null;
 		}
 	}

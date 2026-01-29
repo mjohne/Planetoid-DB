@@ -286,6 +286,7 @@ namespace Planetoid_DB
 			listView.TabIndex = 8;
 			listView.UseCompatibleStateImageBehavior = false;
 			listView.View = View.Details;
+			listView.VirtualMode = true;
 			listView.SelectedIndexChanged += ListViewTableMode_SelectedIndexChanged;
 			listView.Enter += Control_Enter;
 			listView.Leave += Control_Leave;
