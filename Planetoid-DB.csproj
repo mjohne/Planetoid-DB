@@ -902,6 +902,9 @@ Public License instead of this License.  But first, please read
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\FatcowIcons16px.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>FatcowIcons16px.Designer.cs</LastGenOutput>

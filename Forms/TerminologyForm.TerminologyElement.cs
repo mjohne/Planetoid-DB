@@ -44,7 +44,7 @@ public partial class TerminologyForm
 		/// <remarks>
 		/// This field stores the argument of perihelion of the element.
 		/// </remarks>
-		ArgumentOfPerihelion,
+		ArgumentOfThePerihelion,
 		/// <summary>
 		/// Longitude of the ascending node of the element.
 		/// </summary>
@@ -219,7 +219,7 @@ public partial class TerminologyForm
 		/// <remarks>
 		/// This field stores the argument of aphelion of the element.
 		/// </remarks>
-		ArgumentOfAphelion,
+		ArgumentOfTheAphelion,
 		/// <summary>
 		/// Focal parameter of the element.
 		/// </summary>
