@@ -2,9 +2,16 @@ namespace Planetoid_DB
 {
     partial class DatabaseDownloaderForm
     {
-        private System.ComponentModel.IContainer components = null;
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
 
-        protected override void Dispose(bool disposing)
+		/// <summary>
+		/// Clean up any resources being used.
+		/// </summary>
+		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+		protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
                 components.Dispose();

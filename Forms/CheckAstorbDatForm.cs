@@ -25,7 +25,7 @@ public partial class CheckAstorbDatForm : BaseKryptonForm
 	/// <remarks>
 	/// This logger is used to log messages and errors for the class.
 	/// </remarks>
-	private readonly Logger logger = LogManager.GetCurrentClassLogger();
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 	/// <summary>
 	/// The HttpClient instance used for making HTTP requests.
