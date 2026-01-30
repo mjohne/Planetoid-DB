@@ -13,14 +13,6 @@ namespace Planetoid_DB;
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class TerminologyForm : BaseKryptonForm
 {
-	/// <summary>
-	/// The currently selected terminology element.
-	/// </summary>
-	/// <remarks>
-	/// This field stores the currently selected terminology element.
-	/// </remarks>
-	private TerminologyElement selectedElement = TerminologyElement.IndexNumber;
-
 	#region constructor
 
 	/// <summary>
@@ -45,6 +37,51 @@ public partial class TerminologyForm : BaseKryptonForm
 	/// This method is used to provide a visual representation of the object in the debugger.
 	/// </remarks>
 	private string GetDebuggerDisplay() => ToString();
+
+	/// <summary>
+	/// Updates the content displayed in the web browser control.
+	/// </summary>
+	/// <remarks>
+	/// This method is used to update the web browser content based on the selected terminology element.
+	/// </remarks>
+	private void UpdateBrowserContent()
+	{
+		// Dynamically generate the resource name based on the selected element.
+		string resourceKey = $"terminology_{SelectedElement}";
+		// Try to load the text. Fallback to IndexNumber if not found.
+		// This is a trick to avoid a large switch statement.
+		string? text = I10nStrings.ResourceManager.GetString(name: resourceKey);
+		webBrowser.DocumentText = text ?? I10nStrings.terminology_IndexNumber;
+	}
+
+	/// <summary>
+	/// Retrieves or sets the currently selected terminology element.
+	/// Automatically updates the display when set.
+	/// </summary>
+	/// <value>The currently selected terminology element.</value>
+	/// <remarks>
+	/// This property is configured for code serialization.
+	/// </remarks>
+	[System.ComponentModel.DesignerSerializationVisibility(visibility: System.ComponentModel.DesignerSerializationVisibility.Visible)]
+	public TerminologyElement SelectedElement
+	{
+		get;
+		set
+		{
+			// Check if the value is different from the current field
+			if (field != value)
+			{
+				// Update the field and refresh the browser content
+				field = value;
+				UpdateBrowserContent();
+				// Update the list box selection if needed
+				if (listBox.SelectedIndex != (int)value)
+				{
+					listBox.SelectedIndex = (int)value;
+				}
+			}
+		}
+	} = TerminologyElement.IndexNumber;
 
 	/// <summary>
 	/// Sets the status bar text and enables the information label when text is provided.
@@ -89,13 +126,13 @@ public partial class TerminologyForm : BaseKryptonForm
 	private void SetActiveElement()
 	{
 		// Set the selected element in the list box
-		webBrowser.DocumentText = selectedElement switch
+		webBrowser.DocumentText = SelectedElement switch
 		{
 			TerminologyElement.IndexNumber => I10nStrings.terminology_IndexNumber,
-			TerminologyElement.ReadableDesignation => I10nStrings.terminology_ReadableDesignaton,
+			TerminologyElement.ReadableDesignation => I10nStrings.terminology_ReadableDesignation,
 			TerminologyElement.Epoch => I10nStrings.terminology_Epoch,
 			TerminologyElement.MeanAnomalyAtTheEpoch => I10nStrings.terminology_MeanAnomalyAtTheEpoch,
-			TerminologyElement.ArgumentOfPerihelion => I10nStrings.terminology_ArgumentOfPerihelion,
+			TerminologyElement.ArgumentOfThePerihelion => I10nStrings.terminology_ArgumentOfThePerihelion,
 			TerminologyElement.LongitudeOfTheAscendingNode => I10nStrings.terminology_LongitudeOfTheAscendingNode,
 			TerminologyElement.InclinationToTheEcliptic => I10nStrings.terminology_InclinationToTheEcliptic,
 			TerminologyElement.OrbitalEccentricity => I10nStrings.terminology_OrbitalEccentricity,
@@ -120,7 +157,7 @@ public partial class TerminologyForm : BaseKryptonForm
 			TerminologyElement.PerihelionDistance => I10nStrings.terminology_PerihelionDistance,
 			TerminologyElement.AphelionDistance => I10nStrings.terminology_AphelionDistance,
 			TerminologyElement.LongitudeOfTheDescendingNode => I10nStrings.terminology_LongitudeOfTheDescendingNode,
-			TerminologyElement.ArgumentOfAphelion => I10nStrings.terminology_ArgumentOfAphelion,
+			TerminologyElement.ArgumentOfTheAphelion => I10nStrings.terminology_ArgumentOfTheAphelion,
 			TerminologyElement.FocalParameter => I10nStrings.terminology_FocalParameter,
 			TerminologyElement.SemiLatusRectum => I10nStrings.terminology_SemiLatusRectum,
 			TerminologyElement.LatusRectum => I10nStrings.terminology_LatusRectum,
@@ -134,318 +171,6 @@ public partial class TerminologyForm : BaseKryptonForm
 			_ => I10nStrings.terminology_IndexNumber,
 		};
 	}
-
-	/// <summary>
-	/// Sets the selected element to IndexNumber.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to IndexNumber.
-	/// </remarks>
-	public void SetIndexNumberActive() => selectedElement = TerminologyElement.IndexNumber;
-
-	/// <summary>
-	/// Sets the selected element to ReadableDesignation.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to ReadableDesignation.
-	/// </remarks>
-	public void SetReadableDesignationActive() => selectedElement = TerminologyElement.ReadableDesignation;
-
-	/// <summary>
-	/// Sets the selected element to Epoch.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to Epoch.
-	/// </remarks>
-	public void SetEpochActive() => selectedElement = TerminologyElement.Epoch;
-
-	/// <summary>
-	/// Sets the selected element to MeanAnomalyAtTheEpoch.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to MeanAnomalyAtTheEpoch.
-	/// </remarks>
-	public void SetMeanAnomalyAtTheEpochActive() => selectedElement = TerminologyElement.MeanAnomalyAtTheEpoch;
-
-	/// <summary>
-	/// Sets the selected element to ArgumentOfPerihelion.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to ArgumentOfPerihelion.
-	/// </remarks>
-	public void SetArgumentOfPerihelionActive() => selectedElement = TerminologyElement.ArgumentOfPerihelion;
-
-	/// <summary>
-	/// Sets the selected element to LongitudeOfTheAscendingNode.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to LongitudeOfTheAscendingNode.
-	/// </remarks>
-	public void SetLongitudeOfTheAscendingNodeActive() => selectedElement = TerminologyElement.LongitudeOfTheAscendingNode;
-
-	/// <summary>
-	/// Sets the selected element to InclinationToTheEcliptic.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to InclinationToTheEcliptic.
-	/// </remarks>
-	public void SetInclinationToTheEclipticActive() => selectedElement = TerminologyElement.InclinationToTheEcliptic;
-
-	/// <summary>
-	/// Sets the selected element to OrbitalEccentricity.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to OrbitalEccentricity.
-	/// </remarks>
-	public void SetOrbitalEccentricityActive() => selectedElement = TerminologyElement.OrbitalEccentricity;
-
-	/// <summary>
-	/// Sets the selected element to MeanDailyMotion.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to MeanDailyMotion.
-	/// </remarks>
-	public void SetMeanDailyMotionActive() => selectedElement = TerminologyElement.MeanDailyMotion;
-
-	/// <summary>
-	/// Sets the selected element to SemiMajorAxis.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to SemiMajorAxis.
-	/// </remarks>
-	public void SetSemiMajorAxisActive() => selectedElement = TerminologyElement.SemiMajorAxis;
-
-	/// <summary>
-	/// Sets the selected element to AbsoluteMagnitude.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to AbsoluteMagnitude.
-	/// </remarks>
-	public void SetAbsoluteMagnitudeActive() => selectedElement = TerminologyElement.AbsoluteMagnitude;
-
-	/// <summary>
-	/// Sets the selected element to SlopeParameter.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to SlopeParameter.
-	/// </remarks>
-	public void SetSlopeParamActive() => selectedElement = TerminologyElement.SlopeParameter;
-
-	/// <summary>
-	/// Sets the selected element to Reference.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to Reference.
-	/// </remarks>
-	public void SetReferenceActive() => selectedElement = TerminologyElement.Reference;
-
-	/// <summary>
-	/// Sets the selected element to NumberOfOppositions.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to NumberOfOppositions.
-	/// </remarks>
-	public void SetNumberOfOppositionsActive() => selectedElement = TerminologyElement.NumberOfOppositions;
-
-	/// <summary>
-	/// Sets the selected element to NumberOfObservations.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to NumberOfObservations.
-	/// </remarks>
-	public void SetNumberOfObservationsActive() => selectedElement = TerminologyElement.NumberOfObservations;
-
-	/// <summary>
-	/// Sets the selected element to ObservationSpan.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to ObservationSpan.
-	/// </remarks>
-	public void SetObservationSpanActive() => selectedElement = TerminologyElement.ObservationSpan;
-
-	/// <summary>
-	/// Sets the selected element to RmsResidual.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to RmsResidual.
-	/// </remarks>
-	public void SetRmsResidualActive() => selectedElement = TerminologyElement.RmsResidual;
-
-	/// <summary>
-	/// Sets the selected element to ComputerName.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to ComputerName.
-	/// </remarks>
-	public void SetComputerNameActive() => selectedElement = TerminologyElement.ComputerName;
-
-	/// <summary>
-	/// Sets the selected element to Flags.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to Flags.
-	/// </remarks>
-	public void SetFlagsActive() => selectedElement = TerminologyElement.Flags;
-
-	/// <summary>
-	/// Sets the selected element to DateOfLastObservation.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to DateOfLastObservation.
-	/// </remarks>
-	public void SetDateOfTheLastObservationActive() => selectedElement = TerminologyElement.DateOfLastObservation;
-
-	/// <summary>
-	/// Sets the selected element to LinearEccentricity.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to LinearEccentricity.
-	/// </remarks>
-	public void SetLinearEccentricityActive() => selectedElement = TerminologyElement.LinearEccentricity;
-
-	/// <summary>
-	/// Sets the selected element to SemiMinorAxis.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to SemiMinorAxis.
-	/// </remarks>
-	public void SetSemiMinorAxisActive() => selectedElement = TerminologyElement.SemiMinorAxis;
-
-	/// <summary>
-	/// Sets the selected element to MajorAxis.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to MajorAxis.
-	/// </remarks>
-	public void SetMajorAxisActive() => selectedElement = TerminologyElement.MajorAxis;
-
-	/// <summary>
-	/// Sets the selected element to MinorAxis.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to MinorAxis.
-	/// </remarks>
-	public void SetMinorAxisActive() => selectedElement = TerminologyElement.MinorAxis;
-
-	/// <summary>
-	/// Sets the selected element to EccentricAnomaly.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to EccentricAnomaly.
-	/// </remarks>
-	public void SetEccentricAnomalyActive() => selectedElement = TerminologyElement.EccentricAnomaly;
-
-	/// <summary>
-	/// Sets the selected element to TrueAnomaly.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to TrueAnomaly.
-	/// </remarks>
-	public void SetTrueAnomalyActive() => selectedElement = TerminologyElement.TrueAnomaly;
-
-	/// <summary>
-	/// Sets the selected element to PerihelionDistance.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to PerihelionDistance.
-	/// </remarks>
-	public void SetPerihelionDistanceActive() => selectedElement = TerminologyElement.PerihelionDistance;
-
-	/// <summary>
-	/// Sets the selected element to AphelionDistance.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to AphelionDistance.
-	/// </remarks>
-	public void SetAphelionDistanceActive() => selectedElement = TerminologyElement.AphelionDistance;
-
-	/// <summary>
-	/// Sets the selected element to LongitudeOfTheDescendingNode.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to LongitudeOfTheDescendingNode.
-	/// </remarks>
-	public void SetLongitudeOfTheDescendingNodeActive() => selectedElement = TerminologyElement.LongitudeOfTheDescendingNode;
-
-	/// <summary>
-	/// Sets the selected element to ArgumentOfAphelion.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to ArgumentOfAphelion.
-	/// </remarks>
-	public void SetArgumentOfTheAphelionActive() => selectedElement = TerminologyElement.ArgumentOfAphelion;
-
-	/// <summary>
-	/// Sets the selected element to FocalParameter.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to FocalParameter.
-	/// </remarks>
-	public void SetFocalParameterActive() => selectedElement = TerminologyElement.FocalParameter;
-
-	/// <summary>
-	/// Sets the selected element to SemiLatusRectum.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to SemiLatusRectum.
-	/// </remarks>
-	public void SetSemiLatusRectumActive() => selectedElement = TerminologyElement.SemiLatusRectum;
-
-	/// <summary>
-	/// Sets the selected element to LatusRectum.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to LatusRectum.
-	/// </remarks>
-	public void SetLatusRectumActive() => selectedElement = TerminologyElement.LatusRectum;
-
-	/// <summary>
-	/// Sets the selected element to OrbitalPeriod.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to OrbitalPeriod.
-	/// </remarks>
-	public void SetOrbitalPeriodActive() => selectedElement = TerminologyElement.OrbitalPeriod;
-
-	/// <summary>
-	/// Sets the selected element to OrbitalArea.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to OrbitalArea.
-	/// </remarks>
-	public void SetOrbitalAreaActive() => selectedElement = TerminologyElement.OrbitalArea;
-
-	/// <summary>
-	/// Sets the selected element to OrbitalPerimeter.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to OrbitalPerimeter.
-	/// </remarks>
-	public void SetOrbitalPerimeterActive() => selectedElement = TerminologyElement.OrbitalPerimeter;
-
-	/// <summary>
-	/// Sets the selected element to SemiMeanAxis.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to SemiMeanAxis.
-	/// </remarks>
-	public void SetSemiMeanAxisActive() => selectedElement = TerminologyElement.SemiMeanAxis;
-
-	/// <summary>
-	/// Sets the selected element to MeanAxis.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to MeanAxis.
-	/// </remarks>
-	public void SetMeanAxisActive() => selectedElement = TerminologyElement.MeanAxis;
-
-	/// <summary>
-	/// Sets the selected element to StandardGravitationalParameter.
-	/// </summary>
-	/// <remarks>
-	/// This method sets the selected element to StandardGravitationalParameter.
-	/// </remarks>
-	public void SetStandardGravitationalParameterActive() => selectedElement = TerminologyElement.StandardGravitationalParameter;
 
 	#endregion
 
@@ -531,9 +256,7 @@ public partial class TerminologyForm : BaseKryptonForm
 	private void ListBox_SelectedValueChanged(object sender, EventArgs e)
 	{
 		// Get the selected element from the list box
-		selectedElement = (TerminologyElement)listBox.SelectedIndex;
-		// Set the active element based on the selected value
-		SetActiveElement();
+		SelectedElement = (TerminologyElement)listBox.SelectedIndex;
 	}
 
 	#endregion

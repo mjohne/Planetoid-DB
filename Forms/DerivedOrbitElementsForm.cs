@@ -5,6 +5,8 @@ using Planetoid_DB.Forms;
 using System.Collections;
 using System.Diagnostics;
 
+using static Planetoid_DB.TerminologyForm;
+
 namespace Planetoid_DB;
 
 /// <summary>
@@ -169,53 +171,49 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		// Create a new instance of the TerminologyForm and set the active terminology based on the index
 		using TerminologyForm formTerminology = new();
 		// Set the active terminology based on the index
-		switch (index)
+		formTerminology.SelectedElement = index switch
 		{
-			// Set the active terminology based on the index
-			// Each case corresponds to a specific terminology
-			// and calls the appropriate method in the TerminologyForm
-			case 0: formTerminology.SetIndexNumberActive(); break;
-			case 1: formTerminology.SetReadableDesignationActive(); break;
-			case 2: formTerminology.SetEpochActive(); break;
-			case 3: formTerminology.SetMeanAnomalyAtTheEpochActive(); break;
-			case 4: formTerminology.SetArgumentOfPerihelionActive(); break;
-			case 5: formTerminology.SetLongitudeOfTheAscendingNodeActive(); break;
-			case 6: formTerminology.SetInclinationToTheEclipticActive(); break;
-			case 7: formTerminology.SetOrbitalEccentricityActive(); break;
-			case 8: formTerminology.SetMeanDailyMotionActive(); break;
-			case 9: formTerminology.SetSemiMajorAxisActive(); break;
-			case 10: formTerminology.SetAbsoluteMagnitudeActive(); break;
-			case 11: formTerminology.SetSlopeParamActive(); break;
-			case 12: formTerminology.SetReferenceActive(); break;
-			case 13: formTerminology.SetNumberOfOppositionsActive(); break;
-			case 14: formTerminology.SetNumberOfObservationsActive(); break;
-			case 15: formTerminology.SetObservationSpanActive(); break;
-			case 16: formTerminology.SetRmsResidualActive(); break;
-			case 17: formTerminology.SetComputerNameActive(); break;
-			case 18: formTerminology.SetFlagsActive(); break;
-			case 19: formTerminology.SetDateOfTheLastObservationActive(); break;
-			case 20: formTerminology.SetLinearEccentricityActive(); break;
-			case 21: formTerminology.SetSemiMinorAxisActive(); break;
-			case 22: formTerminology.SetMajorAxisActive(); break;
-			case 23: formTerminology.SetMinorAxisActive(); break;
-			case 24: formTerminology.SetEccentricAnomalyActive(); break;
-			case 25: formTerminology.SetTrueAnomalyActive(); break;
-			case 26: formTerminology.SetPerihelionDistanceActive(); break;
-			case 27: formTerminology.SetAphelionDistanceActive(); break;
-			case 28: formTerminology.SetLongitudeOfTheDescendingNodeActive(); break;
-			case 29: formTerminology.SetArgumentOfTheAphelionActive(); break;
-			case 30: formTerminology.SetFocalParameterActive(); break;
-			case 31: formTerminology.SetSemiLatusRectumActive(); break;
-			case 32: formTerminology.SetLatusRectumActive(); break;
-			case 33: formTerminology.SetOrbitalPeriodActive(); break;
-			case 34: formTerminology.SetOrbitalAreaActive(); break;
-			case 35: formTerminology.SetOrbitalPerimeterActive(); break;
-			case 36: formTerminology.SetSemiMeanAxisActive(); break;
-			case 37: formTerminology.SetMeanAxisActive(); break;
-			case 38: formTerminology.SetStandardGravitationalParameterActive(); break;
-			// Default case to handle unexpected values
-			default: formTerminology.SetIndexNumberActive(); break;
-		}
+			0 => TerminologyElement.IndexNumber,
+			1 => TerminologyElement.ReadableDesignation,
+			2 => TerminologyElement.Epoch,
+			3 => TerminologyElement.MeanAnomalyAtTheEpoch,
+			4 => TerminologyElement.ArgumentOfThePerihelion,
+			5 => TerminologyElement.LongitudeOfTheAscendingNode,
+			6 => TerminologyElement.InclinationToTheEcliptic,
+			7 => TerminologyElement.OrbitalEccentricity,
+			8 => TerminologyElement.MeanDailyMotion,
+			9 => TerminologyElement.SemiMajorAxis,
+			10 => TerminologyElement.AbsoluteMagnitude,
+			11 => TerminologyElement.SlopeParameter,
+			12 => TerminologyElement.Reference,
+			13 => TerminologyElement.NumberOfOppositions,
+			14 => TerminologyElement.NumberOfObservations,
+			15 => TerminologyElement.ObservationSpan,
+			16 => TerminologyElement.RmsResidual,
+			17 => TerminologyElement.ComputerName,
+			18 => TerminologyElement.Flags,
+			19 => TerminologyElement.DateOfLastObservation,
+			20 => TerminologyElement.LinearEccentricity,
+			21 => TerminologyElement.SemiMinorAxis,
+			22 => TerminologyElement.MajorAxis,
+			23 => TerminologyElement.MinorAxis,
+			24 => TerminologyElement.EccentricAnomaly,
+			25 => TerminologyElement.TrueAnomaly,
+			26 => TerminologyElement.PerihelionDistance,
+			27 => TerminologyElement.AphelionDistance,
+			28 => TerminologyElement.LongitudeOfTheDescendingNode,
+			29 => TerminologyElement.ArgumentOfTheAphelion,
+			30 => TerminologyElement.FocalParameter,
+			31 => TerminologyElement.SemiLatusRectum,
+			32 => TerminologyElement.LatusRectum,
+			33 => TerminologyElement.OrbitalPeriod,
+			34 => TerminologyElement.OrbitalArea,
+			35 => TerminologyElement.OrbitalPerimeter,
+			36 => TerminologyElement.SemiMeanAxis,
+			37 => TerminologyElement.MeanAxis,
+			38 => TerminologyElement.StandardGravitationalParameter,
+			_ => TerminologyElement.IndexNumber,
+		};
 		// Set the form to be topmost if the main form is topmost
 		formTerminology.TopMost = TopMost;
 		// Show the terminology form as a dialog

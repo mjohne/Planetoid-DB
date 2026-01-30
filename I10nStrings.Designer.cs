@@ -416,61 +416,61 @@ namespace Planetoid_DB {
         ///		&lt;h1&gt;Argument of aphelion&lt;/h1&gt;
         ///		&lt;p&gt;The &lt;span class=&quot;bold&quot;&gt;argument of aphelion&lt;/span&gt; is the  [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
-        internal static string terminology_ArgumentOfAphelion {
+        internal static string terminology_ArgumentOfTheAphelion {
             get {
-                return ResourceManager.GetString("terminology_ArgumentOfAphelion", resourceCulture);
+                return ResourceManager.GetString("terminology_ArgumentOfTheAphelion", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Argument of perihelion, J2000.0 (degrees)&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Argument of perihelion, J2000.0 (degrees)&lt;/h1&gt;
-        ///		&lt;p&gt;The &lt;span class= [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
-        /// </summary>
-        internal static string terminology_ArgumentOfPerihelion {
-            get {
-                return ResourceManager.GetString("terminology_ArgumentOfPerihelion", resourceCulture);
+
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Argument of perihelion, J2000.0 (degrees)&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Argument of perihelion, J2000.0 (degrees)&lt;/h1&gt;
+		///		&lt;p&gt;The &lt;span class= [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+		/// </summary>
+		internal static string terminology_ArgumentOfThePerihelion{
+			get {
+                return ResourceManager.GetString("terminology_ArgumentOfThePerihelion", resourceCulture);
             }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
-        ///&lt;html lang=&quot;en&quot;&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot;&gt;
-        ///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
-        ///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
-        ///		&lt;title&gt;Computer name&lt;/title&gt;
-        ///		&lt;style&gt;
-        ///			* {font-family:sans-serif;}
-        ///			.bold {font-weight: bold;}
-        ///			.italic {font-variant: italic;}
-        ///			.sup {vertical-align: super; font-size: smaller;}
-        ///			.sub {vertical-align: sub; font-size: smaller;}
-        ///		&lt;/style&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///		&lt;h1&gt;Computer name&lt;/h1&gt;
-        ///		&lt;p&gt;This is the computer name.&lt;/p&gt;
-        ///	&lt;/body&gt;
-        ///&lt;/html&gt; ähnelt.
-        /// </summary>
-        internal static string terminology_ComputerName {
+		}
+
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die &lt;!DOCTYPE html&gt;
+		///&lt;html lang=&quot;en&quot;&gt;
+		///	&lt;head&gt;
+		///		&lt;meta charset=&quot;utf-8&quot;&gt;
+		///		&lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+		///		&lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;
+		///		&lt;title&gt;Computer name&lt;/title&gt;
+		///		&lt;style&gt;
+		///			* {font-family:sans-serif;}
+		///			.bold {font-weight: bold;}
+		///			.italic {font-variant: italic;}
+		///			.sup {vertical-align: super; font-size: smaller;}
+		///			.sub {vertical-align: sub; font-size: smaller;}
+		///		&lt;/style&gt;
+		///	&lt;/head&gt;
+		///	&lt;body&gt;
+		///		&lt;h1&gt;Computer name&lt;/h1&gt;
+		///		&lt;p&gt;This is the computer name.&lt;/p&gt;
+		///	&lt;/body&gt;
+		///&lt;/html&gt; ähnelt.
+		/// </summary>
+		internal static string terminology_ComputerName {
             get {
                 return ResourceManager.GetString("terminology_ComputerName", resourceCulture);
             }
@@ -1127,9 +1127,9 @@ namespace Planetoid_DB {
         ///		&lt;p&gt;This is the readable designation.&lt;/p&gt;
         ///  &lt;/bod [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
-        internal static string terminology_ReadableDesignaton {
+        internal static string terminology_ReadableDesignation {
             get {
-                return ResourceManager.GetString("terminology_ReadableDesignaton", resourceCulture);
+                return ResourceManager.GetString("terminology_ReadableDesignation", resourceCulture);
             }
         }
         
