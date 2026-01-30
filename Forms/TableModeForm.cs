@@ -65,6 +65,22 @@ public partial class TableModeForm : BaseKryptonForm
 	/// </remarks>
 	private Control? currentControl;
 
+	/// <summary>
+	/// Stores the index of the currently sorted column.
+	/// </summary>
+	/// <remarks>
+	/// This field stores the index of the currently sorted column.
+	/// </remarks>
+	private int sortColumn = -1;
+
+	/// <summary>
+	/// Stores the sort order for the currently sorted column.
+	/// </summary>
+	/// <remarks>
+	/// This field stores the sort order for the currently sorted column.
+	/// </remarks>
+	private SortOrder sortOrder = SortOrder.None;
+
 	#region constructor
 
 	/// <summary>
@@ -77,8 +93,12 @@ public partial class TableModeForm : BaseKryptonForm
 	{
 		// Initialize the form components
 		InitializeComponent();
+		// Enable virtual mode for the ListView
+		listView.VirtualMode = true;
 		// Set up the ListView for virtual mode
 		listView.RetrieveVirtualItem += ListView_RetrieveVirtualItem;
+		// Handle column click events for sorting
+		listView.ColumnClick += ListView_ColumnClick;
 	}
 
 	#endregion
@@ -193,6 +213,79 @@ public partial class TableModeForm : BaseKryptonForm
 			progressBar.Value = 0;
 			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: 0, progressMax: 100);
 		}
+	}
+
+	/// <summary>
+	/// Gets the value of a specific column from a PlanetoidRecord.
+	/// </summary>
+	/// <param name="p">The PlanetoidRecord to retrieve the value from.</param>
+	/// <param name="columnIndex">The index of the column to retrieve.</param>
+	/// <returns>The value of the specified column as a string.</returns>
+	/// <remarks>
+	/// This method uses pattern matching to return the value of the specified column.
+	/// The order MUST exactly match your column order in the ListView!
+	/// </remarks>
+	private static string GetValueByColumn(PlanetoidRecord p, int columnIndex) => columnIndex switch
+	{
+		0 => p.Index,
+		1 => p.DesignationName,
+		2 => p.Epoch,
+		3 => p.MeanAnomaly,
+		4 => p.ArgPeri,
+		5 => p.LongAscNode,
+		6 => p.Incl,
+		7 => p.OrbEcc,
+		8 => p.Motion,
+		9 => p.SemiMajorAxis,
+		10 => p.MagAbs,
+		11 => p.SlopeParam,
+		12 => p.Ref,
+		13 => p.NumberOpposition,
+		14 => p.NumberObservation,
+		15 => p.ObsSpan,
+		16 => p.RmsResidual,
+		17 => p.ComputerName,
+		18 => p.Flags,
+		19 => p.ObservationLastDate,
+		_ => string.Empty
+	};
+
+	/// <summary>
+	/// Sorts the display cache based on the specified column and sort order.
+	/// </summary>
+	/// <param name="columnIndex">The index of the column to sort by.</param>
+	/// <param name="order">The sort order (ascending or descending).</param>
+	/// <remarks>
+	/// This method modifies the display cache in place to reflect the new sort order.
+	/// </remarks>
+	private void SortDisplayCache(int columnIndex, SortOrder order)
+	{
+		// Determine the sort direction
+		int direction = (order == SortOrder.Ascending) ? 1 : -1;
+		// Perform the sort using a custom comparison
+		// The comparison handles both numeric and string sorting
+		// depending on the content of the column.
+		// This ensures that numeric columns are sorted numerically
+		// and string columns are sorted alphabetically.
+		// List<T>.Sort uses QuickSort (very fast, O(n log n))
+		displayCache.Sort(comparison: (x, y) =>
+		{
+			// Retrieve values based on the column
+			string valX = GetValueByColumn(p: x, columnIndex: columnIndex);
+			string valY = GetValueByColumn(p: y, columnIndex: columnIndex);
+			// Sort numerically (Important for index, magnitude, etc.)
+			// We use double.TryParse, which is robust.
+			bool isNumX = double.TryParse(s: valX, result: out double numX);
+			bool isNumY = double.TryParse(s: valY, result: out double numY);
+			// If both values are numeric, perform numeric comparison
+			if (isNumX && isNumY)
+			{
+				// Numeric comparison
+				return numX.CompareTo(value: numY) * direction;
+			}
+			// Case-insensitive ordinal comparison
+			return string.Compare(strA: valX, strB: valY, comparisonType: StringComparison.OrdinalIgnoreCase) * direction;
+		});
 	}
 
 	/// <summary>
@@ -381,7 +474,7 @@ public partial class TableModeForm : BaseKryptonForm
 	/// <remarks>
 	/// This method is called to retrieve virtual items for the ListView.
 	/// </remarks>
-	private void ListView_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
+	private void ListView_RetrieveVirtualItem(object? sender, RetrieveVirtualItemEventArgs e)
 	{
 		// Ensure that the index is within the valid range.
 		if (e.ItemIndex >= 0 && e.ItemIndex < displayCache.Count)
@@ -542,6 +635,53 @@ public partial class TableModeForm : BaseKryptonForm
 	}
 
 	/// <summary>
+	/// Handles the ColumnClick event of the ListView.
+	/// </summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>
+	/// This method is called when a column header is clicked.
+	/// </remarks>
+	private void ListView_ColumnClick(object? sender, ColumnClickEventArgs e)
+	{
+		// If empty list, do nothing
+		if (displayCache.Count == 0)
+		{
+			return;
+		}
+		// Logic:
+		// If click on the same column -> reverse direction.
+		// If click on new column -> sort ascending.
+		if (e.Column != sortColumn)
+		{
+			// New column clicked, set to ascending
+			sortColumn = e.Column;
+			sortOrder = SortOrder.Ascending;
+		}
+		else
+		{
+			// Reverse the sort order
+			sortOrder = (sortOrder == SortOrder.Ascending) ? SortOrder.Descending : SortOrder.Ascending;
+		}
+		// Set wait cursor
+		Cursor.Current = Cursors.WaitCursor;
+		// Sort the display cache
+		SortDisplayCache(columnIndex: e.Column, order: sortOrder);
+		// Refresh the ListView to reflect the new order
+		listView.Refresh();
+		Cursor.Current = Cursors.Default;
+		// Update arrows in column headers
+		foreach (ColumnHeader ch in listView.Columns)
+		{
+			// Remove old arrows from the names
+			ch.Text = ch.Text.Replace(oldValue: "▲", newValue: "").Replace(oldValue: "▼", newValue: "");
+		}
+		// Add new arrow to the sorted column
+		string arrow = (sortOrder == SortOrder.Ascending) ? "▲" : "▼";
+		listView.Columns[index: sortColumn].Text = $"{arrow} {listView.Columns[index: sortColumn].Text}";
+	}
+
+	/// <summary>
 	/// Handles the Click event of the Cancel button.
 	/// Requests cancellation of the background processing by setting the internal cancellation flag.
 	/// </summary>
@@ -555,7 +695,7 @@ public partial class TableModeForm : BaseKryptonForm
 		// Stop the stopwatch for performance measurement
 		stopwatch.Stop();
 		// Set the cancel flag to true to request cancellation
-		cancellationTokenSource.Cancel();
+		cancellationTokenSource?.Cancel();
 	}
 
 	#endregion
