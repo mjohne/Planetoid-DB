@@ -120,7 +120,8 @@ public partial class CheckMpcorbDatForm : BaseKryptonForm
 		try
 		{
 			// Send a HEAD request to the specified URI
-			HttpResponseMessage response = await Client.SendAsync(request: new HttpRequestMessage(method: HttpMethod.Head, requestUri: uri)).ConfigureAwait(continueOnCapturedContext: false);
+			using HttpRequestMessage request = new(method: HttpMethod.Head, requestUri: uri);
+			using HttpResponseMessage response = await Client.SendAsync(request: request).ConfigureAwait(continueOnCapturedContext: false);
 			// Check if the response is successful and return the last modified date
 			return response.IsSuccessStatusCode ? response.Content.Headers.LastModified?.UtcDateTime ?? DateTime.MinValue : DateTime.MinValue;
 		}
@@ -149,7 +150,8 @@ public partial class CheckMpcorbDatForm : BaseKryptonForm
 		try
 		{
 			// Send a HEAD request to the specified URI
-			HttpResponseMessage response = await Client.SendAsync(request: new HttpRequestMessage(method: HttpMethod.Head, requestUri: uri)).ConfigureAwait(continueOnCapturedContext: false);
+			using HttpRequestMessage request = new(method: HttpMethod.Head, requestUri: uri);
+			using HttpResponseMessage response = await Client.SendAsync(request: request).ConfigureAwait(continueOnCapturedContext: false);
 			// Check if the response is successful and return the content length
 			return response.IsSuccessStatusCode ? response.Content.Headers.ContentLength ?? 0 : 0;
 		}

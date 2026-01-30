@@ -32,14 +32,6 @@ public partial class SplashScreenForm : BaseKryptonForm
 	/// </remarks>
 	private Control? currentControl;
 
-	/// <summary>
-	/// NLog logger instance.
-	/// </summary>
-	/// <remarks>
-	/// This field is used to log messages for the splash screen form.
-	/// </remarks>
-	private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
 	#region constructor
 
 	/// <summary>
@@ -79,7 +71,7 @@ public partial class SplashScreenForm : BaseKryptonForm
 		if (value < progressBarSplash.Minimum || value > progressBarSplash.Maximum)
 		{
 			// Log the error and throw an exception
-			Logger.Error(message: $"Value {value} is out of range for the progress bar. Minimum: {progressBarSplash.Minimum}, Maximum: {progressBarSplash.Maximum}");
+			logger.Error(message: $"Value {value} is out of range for the progress bar. Minimum: {progressBarSplash.Minimum}, Maximum: {progressBarSplash.Maximum}");
 			// Throw an exception indicating that the value is out of range
 			throw new ArgumentOutOfRangeException(paramName: nameof(value), message: I10nStrings.IndexOutOfRange);
 		}

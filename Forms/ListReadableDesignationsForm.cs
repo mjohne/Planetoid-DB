@@ -300,7 +300,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <summary>
 	/// Escapes LaTeX special characters in a string.
 	/// </summary>
-	/// <param name="input">The input string.</param>
+	/// <param name="input">The input string, which may be <c>null</c>.</param>
 	/// <returns>The escaped string.</returns>
 	/// <remarks>
 	/// This method is used to escape LaTeX special characters in the input string.
