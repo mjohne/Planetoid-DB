@@ -30,7 +30,7 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 	/// <remarks>
 	/// This logger is used to log messages for the form.
 	/// </remarks>
-	private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 	/// <summary>
 	/// Cancellation token source used to cancel an ongoing download operation.
@@ -197,7 +197,7 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			// Log the exception and show an error message
-			Logger.Error(exception: ex, message: "Error retrieving content length.");
+			logger.Error(exception: ex, message: "Error retrieving content length.");
 			// Show an error message with the exception message
 			ShowErrorMessage(message: $"Error retrieving content length: {ex.Message}");
 			// Return 0 to indicate an error
@@ -260,7 +260,7 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 		else
 		{
 			// Log the error if there is no internet connection
-			Logger.Error(message: "No internet connection available.");
+			logger.Error(message: "No internet connection available.");
 			// Show an error message if there is no internet connection
 			ShowErrorMessage(message: I10nStrings.NoInternetConnectionText);
 		}
@@ -453,7 +453,7 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 		if (!NetworkInterface.GetIsNetworkAvailable())
 		{
 			// Log the error if there is no internet connection
-			Logger.Error(message: "No internet connection available.");
+			logger.Error(message: "No internet connection available.");
 			// Show an error message if there is no internet connection
 			ShowErrorMessage(message: I10nStrings.NoInternetConnectionText);
 			return;
@@ -497,7 +497,7 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 			// Enable the check for update button
 			buttonCheckForUpdate.Enabled = true;
 			// Log and show an error message
-			Logger.Error(exception: ex, message: ex.Message);
+			logger.Error(exception: ex, message: ex.Message);
 			ShowErrorMessage(message: $"{I10nStrings.StatusUnknownError} {ex.Message}");
 		}
 	}
@@ -509,7 +509,7 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 
 		if (!NetworkInterface.GetIsNetworkAvailable())
 		{
-			Logger.Error(message: "No internet connection available.");
+			logger.Error(message: "No internet connection available.");
 			ShowErrorMessage(message: I10nStrings.NoInternetConnectionText);
 			return;
 		}
@@ -523,10 +523,22 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 
 		// Get the last modified date of the URI
 		//labelDateValue.Text = GetLastModified(uri: strUriMpcorb).ToUniversalTime().ToString(provider: CultureInfo.CurrentCulture);
-		string url = strUriMpcorb.AbsoluteUri;
-		labelDateValue.Text = (await GetLastModifiedAsync(uri: new Uri(uriString: url), client: httpClient)).ToString();
-		labelDateValue.Visible = true;
-
+		try
+		{
+			string url = strUriMpcorb.AbsoluteUri;
+			labelDateValue.Text = (await GetLastModifiedAsync(uri: new Uri(uriString: url), client: httpClient)).ToString();
+			labelDateValue.Visible = true;
+		}
+		catch (Exception ex)
+		{
+			labelStatusValue.Text = $"{I10nStrings.StatusUnknownError} {ex.Message}";
+			buttonDownload.Enabled = true;
+			buttonCancelDownload.Enabled = false;
+			buttonCheckForUpdate.Enabled = true;
+			logger.Error(exception: ex, message: ex.Message);
+			ShowErrorMessage(message: $"{I10nStrings.StatusUnknownError} {ex.Message}");
+			return;
+		}
 		labelSizeValue.Text = $"{GetContentLength(uri: strUriMpcorb):N0} {I10nStrings.BytesText}";
 		labelSizeValue.Visible = true;
 
@@ -549,13 +561,10 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 			labelStatusValue.Text = I10nStrings.StatusRefreshingDatabaseText;
 
 			File.Delete(path: strFilenameMpcorb);
-			// Create a new CancellationTokenSource for this download
-			cancellationTokenSource = new CancellationTokenSource();
 			// Extract the downloaded GZIP file
 			progressBarDownload.Style = ProgressBarStyle.Marquee;
 			await Task.Run(action: () =>
-				ExtractGzipFile(gzipFilePath: strFilenameMpcorbTemp, outputFilePath: strFilenameMpcorb),
-				cancellationToken: cancellationTokenSource.Token);
+				ExtractGzipFile(gzipFilePath: strFilenameMpcorbTemp, outputFilePath: strFilenameMpcorb));
 			labelStatusValue.Text = I10nStrings.StatusDownloadCompleteText;
 			buttonDownload.Enabled = buttonCheckForUpdate.Enabled = true;
 			DialogResult = DialogResult.OK;
@@ -565,7 +574,7 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 			labelStatusValue.Text = $"{I10nStrings.StatusUnknownError} {ex.Message}";
 			buttonDownload.Enabled = true;
 			buttonCheckForUpdate.Enabled = true;
-			Logger.Error(exception: ex, message: ex.Message);
+			logger.Error(exception: ex, message: ex.Message);
 			ShowErrorMessage(message: $"{I10nStrings.StatusUnknownError} {ex.Message}");
 		}
 	}
@@ -666,11 +675,17 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 		// Check if the text to copy is not null or empty
 		if (!string.IsNullOrEmpty(value: textToCopy))
 		{
-			// Try to set the clipboard text
-			try { CopyToClipboard(text: textToCopy); }
-			catch
-			{ // Throw an exception
-				throw new ArgumentException(message: "Unsupported sender type", paramName: nameof(sender));
+			// Assuming CopyToClipboard is a helper method in BaseKryptonForm or similar
+			// If not, use Clipboard.SetText(textToCopy);
+			try
+			{
+				CopyToClipboard(text: textToCopy);
+			}
+			// Log any exception that occurs during the clipboard operation
+			catch (Exception ex)
+			{
+				logger.Error(exception: ex, message: "Failed to copy text to the clipboard.");
+				throw new InvalidOperationException(message: "Failed to copy text to the clipboard.", innerException: ex);
 			}
 		}
 	}

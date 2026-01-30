@@ -25,7 +25,7 @@ public partial class CheckAstorbDatForm : BaseKryptonForm
 	/// <remarks>
 	/// This logger is used to log messages and errors for the class.
 	/// </remarks>
-	private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+	private Logger logger = LogManager.GetCurrentClassLogger();
 
 	/// <summary>
 	/// The HttpClient instance used for making HTTP requests.
@@ -115,21 +115,21 @@ public partial class CheckAstorbDatForm : BaseKryptonForm
 	/// This method sends a HEAD request to the specified URI and retrieves the last modified date
 	/// from the response headers.
 	/// </remarks>
-	private static async Task<DateTime> GetLastModifiedAsync(Uri uri)
+	private async Task<DateTime> GetLastModifiedAsync(Uri uri)
 	{
 		try
 		{
 			// Send a HEAD request to the specified URI
-			var response = await Client.SendAsync(request: new HttpRequestMessage(method: HttpMethod.Head, requestUri: uri)).ConfigureAwait(continueOnCapturedContext: false);
+			HttpResponseMessage response = await Client.SendAsync(request: new HttpRequestMessage(method: HttpMethod.Head, requestUri: uri)).ConfigureAwait(continueOnCapturedContext: false);
 			// Check if the response is successful and return the last modified date
 			return response.IsSuccessStatusCode ? response.Content.Headers.LastModified?.UtcDateTime ?? DateTime.MinValue : DateTime.MinValue;
 		}
-		catch (HttpRequestException)
+		catch (HttpRequestException ex)
 		{
 			// Log the exception
-			Logger.Error(message: "Error retrieving last modified date.", exception: new HttpRequestException());
+			logger.Error(message: "Error retrieving last modified date.", exception: ex);
 			// Show an error message
-			ShowErrorMessage(message: new HttpRequestException().Message);
+			ShowErrorMessage(message: ex.Message);
 			// Return DateTime.MinValue to indicate an error
 			return DateTime.MinValue;
 		}
@@ -144,7 +144,7 @@ public partial class CheckAstorbDatForm : BaseKryptonForm
 	/// This method sends a HEAD request to the specified URI and retrieves the content length
 	/// from the response headers.
 	/// </remarks>
-	private static async Task<long> GetContentLengthAsync(Uri uri)
+	private async Task<long> GetContentLengthAsync(Uri uri)
 	{
 		try
 		{
@@ -153,12 +153,12 @@ public partial class CheckAstorbDatForm : BaseKryptonForm
 			// Check if the response is successful and return the content length
 			return response.IsSuccessStatusCode ? response.Content.Headers.ContentLength ?? 0 : 0;
 		}
-		catch (HttpRequestException)
+		catch (HttpRequestException ex)
 		{
 			// Log the exception
-			Logger.Error(message: "Error retrieving last modified date.", exception: new HttpRequestException());
+			logger.Error(message: "Error retrieving content length.", exception: ex);
 			// Show an error message
-			ShowErrorMessage(message: new HttpRequestException().Message);
+			ShowErrorMessage(message: ex.Message);
 			// Log the exception and return 0
 			return 0;
 		}
@@ -324,11 +324,17 @@ public partial class CheckAstorbDatForm : BaseKryptonForm
 		// Check if the text to copy is not null or empty
 		if (!string.IsNullOrEmpty(value: textToCopy))
 		{
-			// Try to set the clipboard text
-			try { CopyToClipboard(text: textToCopy); }
-			catch
-			{ // Throw an exception
-				throw new ArgumentException(message: "Unsupported sender type", paramName: nameof(sender));
+			// Assuming CopyToClipboard is a helper method in BaseKryptonForm or similar
+			// If not, use Clipboard.SetText(textToCopy);
+			try
+			{
+				CopyToClipboard(text: textToCopy);
+			}
+			// Log any exception that occurs during the clipboard operation
+			catch (Exception ex)
+			{
+				logger.Error(exception: ex, message: "Failed to copy text to the clipboard.");
+				throw new InvalidOperationException(message: "Failed to copy text to the clipboard.", innerException: ex);
 			}
 		}
 	}

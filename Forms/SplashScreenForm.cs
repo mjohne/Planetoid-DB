@@ -17,6 +17,14 @@ namespace Planetoid_DB;
 public partial class SplashScreenForm : BaseKryptonForm
 {
 	/// <summary>
+	/// NLog logger instance.
+	/// </summary>
+	/// <remarks>
+	/// This logger is used throughout the application to log important events and errors.
+	/// </remarks>
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+	/// <summary>
 	/// Stores the currently selected control for clipboard operations.
 	/// </summary>
 	/// <remarks>
@@ -150,11 +158,17 @@ public partial class SplashScreenForm : BaseKryptonForm
 		// Check if the text to copy is not null or empty
 		if (!string.IsNullOrEmpty(value: textToCopy))
 		{
-			// Try to set the clipboard text
-			try { CopyToClipboard(text: textToCopy); }
-			catch
-			{ // Throw an exception
-				throw new ArgumentException(message: "Unsupported sender type", paramName: nameof(sender));
+			// Assuming CopyToClipboard is a helper method in BaseKryptonForm or similar
+			// If not, use Clipboard.SetText(textToCopy);
+			try
+			{
+				CopyToClipboard(text: textToCopy);
+			}
+			// Log any exception that occurs during the clipboard operation
+			catch (Exception ex)
+			{
+				logger.Error(exception: ex, message: "Failed to copy text to the clipboard.");
+				throw new InvalidOperationException(message: "Failed to copy text to the clipboard.", innerException: ex);
 			}
 		}
 	}

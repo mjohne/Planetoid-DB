@@ -74,11 +74,14 @@ public partial class TableModeForm : BaseKryptonForm
 	private int sortColumn = -1;
 
 	/// <summary>
-	/// Stores the sort order for the currently sorted column.
+	/// The value indicates how items in the currently sorted column are ordered:
+	/// <list type="bullet">
+	/// <item><description><see cref="SortOrder.None"/>: No sorting is applied.</description></item>
+	/// <item><description><see cref="SortOrder.Ascending"/>: Items are sorted in ascending order.</description></item>
+	/// <item><description><see cref="SortOrder.Descending"/>: Items are sorted in descending order.</description></item>
+	/// </list>
+	/// This field is typically updated when the user clicks a column header in the list view to toggle the sort order.
 	/// </summary>
-	/// <remarks>
-	/// This field stores the sort order for the currently sorted column.
-	/// </remarks>
 	private SortOrder sortOrder = SortOrder.None;
 
 	#region constructor
@@ -260,6 +263,12 @@ public partial class TableModeForm : BaseKryptonForm
 	/// </remarks>
 	private void SortDisplayCache(int columnIndex, SortOrder order)
 	{
+		// If no sorting is requested, log a warning and return
+		if (order == SortOrder.None)
+		{
+			logger.Warn(message: "SortDisplayCache was called with SortOrder.None for column index {ColumnIndex}. No sorting will be performed.", columnIndex);
+			return;
+		}
 		// Determine the sort direction
 		int direction = (order == SortOrder.Ascending) ? 1 : -1;
 		// Perform the sort using a custom comparison
@@ -549,12 +558,12 @@ public partial class TableModeForm : BaseKryptonForm
 		Progress<int> progress = new(handler: percent =>
 		{
 			progressBar.Value = percent;
-			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: percent, progressMax: 100);
+			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: percent, progressMax: count);
 		});
 		// Configure the progress bar
 		progressBar.Maximum = count;
 		progressBar.Value = 0;
-
+		// Background data processing
 		try
 		{
 			// Data processing in the background
@@ -565,16 +574,15 @@ public partial class TableModeForm : BaseKryptonForm
 				IEnumerable<string> rangeToProcess = planetoidsDatabase.Skip(count: minIndex).Take(count: count);
 				int progressCounter = 0;
 				IProgress<int> progressReporter = new Progress<int>(handler: value => progressBar.Value = value);
-
+				// Process each line in the specified range
 				foreach (string line in rangeToProcess)
 				{
 					if (token.IsCancellationRequested)
 					{
 						break;
 					}
-
+					// Parse the line into a PlanetoidRecord and add it to the temporary results
 					tempResults.Add(item: PlanetoidRecord.Parse(rawLine: line));
-
 					progressCounter++;
 					// Update progress every 500 items for performance
 					// Don't flood the UI
@@ -585,23 +593,22 @@ public partial class TableModeForm : BaseKryptonForm
 				}
 				return tempResults;
 			}, cancellationToken: token);
-
+			// If not cancelled, update the UI with the parsed data
 			if (!token.IsCancellationRequested)
 			{
 				// Prepare the internal cache for the ListView
 				// and store the parsed data in the display cache
 				displayCache = parsedData;
 
-				// Update the ListView size and make it visible
-				// The ListView immediately calls "RetrieveVirtualItem" for the visible rows.
-				listView.VirtualListSize = displayCache.Count;
-				listView.Visible = true;
-
-				// Ensure columns are set up
+				// Ensure columns are set up before the ListView becomes visible and requests items
 				if (listView.Columns.Count == 0)
 				{
 					SetupColumns();
 				}
+				// Update the ListView size and make it visible
+				// The ListView immediately calls "RetrieveVirtualItem" for the visible rows.
+				listView.VirtualListSize = displayCache.Count;
+				listView.Visible = true;
 			}
 		}
 		// Handle cancellation and other exceptions
@@ -663,22 +670,37 @@ public partial class TableModeForm : BaseKryptonForm
 			// Reverse the sort order
 			sortOrder = (sortOrder == SortOrder.Ascending) ? SortOrder.Descending : SortOrder.Ascending;
 		}
-		// Set wait cursor
-		Cursor.Current = Cursors.WaitCursor;
-		// Sort the display cache
-		SortDisplayCache(columnIndex: e.Column, order: sortOrder);
-		// Refresh the ListView to reflect the new order
-		listView.Refresh();
-		Cursor.Current = Cursors.Default;
+		// Set wait cursor and ensure it is always restored
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			// Sort the display cache
+			SortDisplayCache(columnIndex: e.Column, order: sortOrder);
+			// Refresh the ListView to reflect the new order
+			listView.Refresh();
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 		// Update arrows in column headers
 		foreach (ColumnHeader ch in listView.Columns)
 		{
-			// Remove old arrows from the names
-			ch.Text = ch.Text.Replace(oldValue: "▲", newValue: "").Replace(oldValue: "▼", newValue: "");
+			// Ensure original header text is stored in Tag
+			if (ch.Tag is string originalHeaderText)
+			{
+				ch.Text = originalHeaderText;
+			}
+			else
+			{
+				ch.Tag = ch.Text;
+			}
 		}
 		// Add new arrow to the sorted column
 		string arrow = (sortOrder == SortOrder.Ascending) ? "▲" : "▼";
-		listView.Columns[index: sortColumn].Text = $"{arrow} {listView.Columns[index: sortColumn].Text}";
+		ColumnHeader sortedColumnHeader = listView.Columns[index: sortColumn];
+		string sortedColumnBaseText = sortedColumnHeader.Tag as string ?? sortedColumnHeader.Text;
+		sortedColumnHeader.Text = $"{arrow} {sortedColumnBaseText}";
 	}
 
 	/// <summary>
@@ -727,11 +749,17 @@ public partial class TableModeForm : BaseKryptonForm
 		// Check if the text to copy is not null or empty
 		if (!string.IsNullOrEmpty(value: textToCopy))
 		{
-			// Try to set the clipboard text
-			try { CopyToClipboard(text: textToCopy); }
-			catch
-			{ // Throw an exception
-				throw new ArgumentException(message: "Unsupported sender type", paramName: nameof(sender));
+			// Assuming CopyToClipboard is a helper method in BaseKryptonForm or similar
+			// If not, use Clipboard.SetText(textToCopy);
+			try
+			{
+				CopyToClipboard(text: textToCopy);
+			}
+			// Log any exception that occurs during the clipboard operation
+			catch (Exception ex)
+			{
+				logger.Error(exception: ex, message: "Failed to copy text to the clipboard.");
+				throw new InvalidOperationException(message: "Failed to copy text to the clipboard.", innerException: ex);
 			}
 		}
 	}

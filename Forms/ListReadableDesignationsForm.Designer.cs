@@ -500,12 +500,12 @@ namespace Planetoid_DB
 			// 
 			// saveFileDialogMarkdown
 			// 
-			saveFileDialogMarkdown.DefaultExt = "json";
+			saveFileDialogMarkdown.DefaultExt = "md";
 			saveFileDialogMarkdown.Filter = "Markdown files|*.md|all files|*.*";
 			// 
 			// saveFileDialogYaml
 			// 
-			saveFileDialogYaml.DefaultExt = "json";
+			saveFileDialogYaml.DefaultExt = "yaml";
 			saveFileDialogYaml.Filter = "YAML files|*.yaml|all files|*.*";
 			// 
 			// saveFileDialogSql

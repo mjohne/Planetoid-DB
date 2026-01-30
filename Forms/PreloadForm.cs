@@ -26,7 +26,7 @@ public partial class PreloadForm : BaseKryptonForm
 	/// <remarks>
 	/// This logger is used to log events and errors that occur within the form.
 	/// </remarks>
-	private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 	/// <summary>
 	/// Stores the currently selected control for clipboard operations.
@@ -236,7 +236,7 @@ public partial class PreloadForm : BaseKryptonForm
 		if (!NetworkInterface.GetIsNetworkAvailable())
 		{
 			// Log the error and show an error message if there is no internet connection
-			Logger.Error(message: "No internet connection");
+			logger.Error(message: "No internet connection");
 			ShowErrorMessage(message: I10nStrings.NoInternetConnectionText);
 		}
 		else
@@ -301,11 +301,17 @@ public partial class PreloadForm : BaseKryptonForm
 		// Check if the text to copy is not null or empty
 		if (!string.IsNullOrEmpty(value: textToCopy))
 		{
-			// Try to set the clipboard text
-			try { CopyToClipboard(text: textToCopy); }
-			catch
-			{ // Throw an exception
-				throw new ArgumentException(message: "Unsupported sender type", paramName: nameof(sender));
+			// Assuming CopyToClipboard is a helper method in BaseKryptonForm or similar
+			// If not, use Clipboard.SetText(textToCopy);
+			try
+			{
+				CopyToClipboard(text: textToCopy);
+			}
+			// Log any exception that occurs during the clipboard operation
+			catch (Exception ex)
+			{
+				logger.Error(exception: ex, message: "Failed to copy text to the clipboard.");
+				throw new InvalidOperationException(message: "Failed to copy text to the clipboard.", innerException: ex);
 			}
 		}
 	}
