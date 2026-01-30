@@ -21,73 +21,46 @@ internal static class Program
 	/// <summary>
 	/// Feature ID for disabling navigation sounds.
 	/// </summary>
-	/// <remarks>
-	/// This feature ID is used to disable navigation sounds in the application.
-	/// </remarks>
 	private const int FeatureDisableNavigationSounds = 21;
 
 	/// <summary>
 	/// Feature ID for setting the feature on the current thread.
 	/// </summary>
-	/// <remarks>
-	/// This feature ID is used to set the feature on the current thread.
-	/// </remarks>
 	private const int SetFeatureOnThread = 0x00000001;
 
 	/// <summary>
 	/// Feature ID for setting the feature on the current process.
 	/// </summary>
-	/// <remarks>
-	/// This feature ID is used to set the feature on the current process.
-	/// </remarks>
 	private const int SetFeatureOnProcess = 0x00000002;
 
 	/// <summary>
 	/// Feature ID for setting the feature in the registry.
 	/// </summary>
-	/// <remarks>
-	/// This feature ID is used to set the feature in the registry.
-	/// </remarks>
 	private const int SetFeatureInRegistry = 0x00000004;
 
 	/// <summary>
 	/// Feature ID for setting the feature on the current thread for local machine.
 	/// </summary>
-	/// <remarks>
-	/// This feature ID is used to set the feature on the current thread for local machine.
-	/// </remarks>
 	private const int SetFeatureOnThreadLocalMachine = 0x00000008;
 
 	/// <summary>
 	/// Feature ID for setting the feature on the current thread for intranet.
 	/// </summary>
-	/// <remarks>
-	/// This feature ID is used to set the feature on the current thread for intranet.
-	/// </remarks>
 	private const int SetFeatureOnThreadIntranet = 0x00000010;
 
 	/// <summary>
 	/// Feature ID for setting the feature on the current thread for trusted sites.
 	/// </summary>
-	/// <remarks>
-	/// This feature ID is used to set the feature on the current thread for trusted sites.
-	/// </remarks>
 	private const int SetFeatureOnThreadTrusted = 0x00000020;
 
 	/// <summary>
 	/// Feature ID for setting the feature on the current thread for internet.
 	/// </summary>
-	/// <remarks>
-	/// This feature ID is used to set the feature on the current thread for internet.
-	/// </remarks>
 	private const int SetFeatureOnThreadInternet = 0x00000040;
 
 	/// <summary>
 	/// Feature ID for setting the feature on the current thread for restricted sites.
 	/// </summary>
-	/// <remarks>
-	/// This feature ID is used to set the feature on the current thread for restricted sites.
-	/// </remarks>
 	private const int SetFeatureOnThreadRestricted = 0x00000080;
 
 	/// <summary>
@@ -97,9 +70,6 @@ internal static class Program
 	/// <param name="dwFlags">The flags.</param>
 	/// <param name="fEnable">Specifies whether the feature should be enabled or disabled.</param>
 	/// <returns>An HRESULT value indicating success or failure.</returns>
-	/// <remarks>
-	/// This method sets the specified feature for the current process.
-	/// </remarks>
 	[DllImport(dllName: "urlmon.dll")]
 	[PreserveSig]
 	[return: MarshalAs(unmanagedType: UnmanagedType.Error)]
@@ -108,9 +78,6 @@ internal static class Program
 	/// <summary>
 	/// The main entry point for the application.
 	/// </summary>
-	/// <remarks>
-	/// This method is responsible for starting the application and initializing the main form.
-	/// </remarks>
 	[STAThread]
 	private static void Main()
 	{
@@ -184,9 +151,6 @@ internal static class Program
 	/// <summary>
 	/// Disables the navigation sounds.
 	/// </summary>
-	/// <remarks>
-	/// This method disables the navigation sounds for the current process.
-	/// </remarks>
 	private static void DisableNavigationSounds() =>
 		// Disable navigation sounds for the current process
 		_ = CoInternetSetFeatureEnabled(featureEntry: FeatureDisableNavigationSounds, dwFlags: SetFeatureOnProcess, fEnable: true);
@@ -194,9 +158,6 @@ internal static class Program
 	/// <summary>
 	/// Handles the case when the file is missing.
 	/// </summary>
-	/// <remarks>
-	/// This method handles the case when the file is missing.
-	/// </remarks>
 	private static void HandleMissingFile()
 	{
 		// Create an instance of the PreLoadForm
@@ -229,9 +190,6 @@ internal static class Program
 	/// Displays an error message.
 	/// </summary>
 	/// <param name="message">The error message.</param>
-	/// <remarks>
-	/// This method displays an error message to the user.
-	/// </remarks>
 	private static void ShowErrorMessage(string message) =>
 		// Log the error message
 		_ = MessageBox.Show(text: message, caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);

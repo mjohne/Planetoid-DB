@@ -9,6 +9,10 @@
 internal class DerivedElements
 {
 	/// <summary>
+	/// Eccentricity threshold for selecting initial eccentric anomaly value.
+	/// </summary>
+	private const double EccentricityThreshold = 0.8;
+	/// <summary>
 	/// Calculates the semi-minor axis of an ellipse.
 	/// </summary>
 	/// <param name="semiMajorAxis">The semi-major axis of the ellipse.</param>
@@ -76,19 +80,20 @@ internal class DerivedElements
 		const double k = Math.PI / 180.0;
 		const int maxIteration = 30;
 		int i = 0;
-		double delta = Math.Pow(x: 10, y: -numberDecimalPlaces);
+		double powerFactor = Math.Pow(x: 10, y: numberDecimalPlaces);
+		double delta = 1.0 / powerFactor;
 		meanAnomaly /= 360.0;
 		meanAnomaly = 2.0 * Math.PI * (meanAnomaly - Math.Floor(d: meanAnomaly));
-		double e = numericalEccentricity < 0.8 ? meanAnomaly : Math.PI;
+		double e = numericalEccentricity < EccentricityThreshold ? meanAnomaly : Math.PI;
 		double f = e - (numericalEccentricity * Math.Sin(a: meanAnomaly)) - meanAnomaly;
 		while ((Math.Abs(value: f) > delta) && (i < maxIteration))
 		{
 			e -= f / (1.0 - (numericalEccentricity * Math.Cos(d: e)));
 			f = e - (numericalEccentricity * Math.Sin(a: e)) - meanAnomaly;
-			i += 1;
+			i++;
 		}
 		e /= k;
-		return Math.Round(a: e * Math.Pow(x: 10, y: numberDecimalPlaces)) / Math.Pow(x: 10, y: numberDecimalPlaces);
+		return Math.Round(a: e * powerFactor) / powerFactor;
 	}
 
 	/// <summary>
@@ -109,7 +114,8 @@ internal class DerivedElements
 		double c = Math.Cos(d: e);
 		double fak = Math.Sqrt(d: 1.0 - (numericalEccentricity * numericalEccentricity));
 		double phi = Math.Atan2(y: fak * s, x: c - numericalEccentricity) / k;
-		return Math.Round(a: phi * Math.Pow(x: 10, y: numberDecimalPlaces)) / Math.Pow(x: 10, y: numberDecimalPlaces);
+		double powerFactor = Math.Pow(x: 10, y: numberDecimalPlaces);
+		return Math.Round(a: phi * powerFactor) / powerFactor;
 	}
 
 	/// <summary>
