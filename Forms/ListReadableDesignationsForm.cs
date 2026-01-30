@@ -79,7 +79,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <remarks>
 	/// This token can be used to cancel ongoing operations.
 	/// </remarks>
-	private CancellationTokenSource? _cancellationTokenSource;
+	private CancellationTokenSource? cancellationTokenSource;
 
 	/// <summary>
 	/// Stopwatch for measuring elapsed time.
@@ -93,7 +93,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// NLog logger instance for the class.
 	/// </summary>
 	/// <remarks>
-	/// This logger is used to log messages for the database downloader.
+	/// This logger is used to log messages for the <see cref="ListReadableDesignationsForm"/> class.
 	/// </remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -297,6 +297,81 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		selectedIndex = index;
 	}
 
+	/// <summary>
+	/// Escapes LaTeX special characters in a string.
+	/// </summary>
+	/// <param name="input">The input string.</param>
+	/// <returns>The escaped string.</returns>
+	/// <remarks>
+	/// This method is used to escape LaTeX special characters in the input string.
+	/// </remarks>
+	private static string EscapeLatex(string input)
+	{
+		if (input == null)
+		{
+			return string.Empty;
+		}
+		StringBuilder builder = new(capacity: input.Length);
+		foreach (char ch in input)
+		{
+			switch (ch)
+			{
+				case '\\':
+					builder.Append(value: "\\textbackslash{}");
+					break;
+				case '{':
+					builder.Append(value: "\\{");
+					break;
+				case '}':
+					builder.Append(value: "\\}");
+					break;
+				case '%':
+					builder.Append(value: "\\%");
+					break;
+				case '$':
+					builder.Append(value: "\\$");
+					break;
+				case '&':
+					builder.Append(value: "\\&");
+					break;
+				case '#':
+					builder.Append(value: "\\#");
+					break;
+				case '_':
+					builder.Append(value: "\\_");
+					break;
+				case '^':
+					builder.Append(value: "\\^{}");
+					break;
+				case '~':
+					builder.Append(value: "\\~{}");
+					break;
+				default:
+					builder.Append(value: ch);
+					break;
+			}
+		}
+		return builder.ToString();
+	}
+
+	/// <summary>
+	/// Escapes Markdown-table-specific characters in a cell value.
+	/// </summary>
+	/// <param name="value">The raw cell value.</param>
+	/// <returns>The cell value escaped for use in a Markdown table.</returns>
+	/// <remarks>
+	/// This method is used to escape Markdown-table-specific characters in the cell value.
+	/// </remarks>
+	private static string EscapeMarkdownCell(string? value)
+	{
+		if (value is null)
+		{
+			return string.Empty;
+		}
+		// Escape the pipe character, which is used as a column separator in Markdown tables.
+		return value.Replace(oldValue: "|", newValue: "\\|");
+	}
+
 	#endregion
 
 	#region form event handlers
@@ -405,8 +480,8 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		progressBar.Maximum = total;
 		progressBar.Value = 0;
 		// Set taskbar progress state
-		_cancellationTokenSource = new CancellationTokenSource();
-		CancellationToken token = _cancellationTokenSource.Token;
+		cancellationTokenSource = new CancellationTokenSource();
+		CancellationToken token = cancellationTokenSource.Token;
 		// Set taskbar progress to normal state
 		try
 		{
@@ -458,6 +533,11 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 				// Set taskbar progress to no progress state
 				MessageBox.Show(text: $"{listView.Items.Count} objects processed (Cancelled).", caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
+			else
+			{
+				// Inform the user that processing completed successfully
+				MessageBox.Show(text: $"{listView.Items.Count} objects processed.", caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
 		}
 		// Handle exceptions
 		catch (Exception ex)
@@ -471,7 +551,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		{
 			// Stop measuring time
 			stopwatch.Stop();
-			// Update status bar with elapsed time
+			// Restore UI state after loading operation
 			buttonCancel.Enabled = false;
 			buttonList.Enabled = true;
 			dropButtonSaveList.Enabled = true;
@@ -481,9 +561,9 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			progressBar.Value = 0;
 			// Reset taskbar progress
 			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: 0, progressMax: 100);
-			// Show elapsed time in status bar
-			_cancellationTokenSource.Dispose();
-			_cancellationTokenSource = null;
+			// Dispose of the cancellation token source if it was created
+			cancellationTokenSource?.Dispose();
+			cancellationTokenSource = null;
 		}
 	}
 
@@ -493,7 +573,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <remarks>
 	/// This method is invoked when the user clicks the "Cancel" button.
 	/// </remarks>
-	private void ButtonCancel_Click(object? sender, EventArgs? e) => _cancellationTokenSource?.Cancel();
+	private void ButtonCancel_Click(object? sender, EventArgs? e) => cancellationTokenSource?.Cancel();
 
 	/// <summary>
 	/// Saves the current list as a CSV file.
@@ -636,7 +716,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// Start transaction (significantly speeds up import!)
 		streamWriter.WriteLine(value: $"BEGIN TRANSACTION;");
 		// Iterate over data (uses helper method from previous code)
-		foreach (var (index, name) in GetExportData())
+		foreach ((string? index, string? name) in GetExportData())
 		{
 			// IMPORTANT: SQL Escaping for apostrophes (e.g. "O'Neil" -> "O''Neil")
 			string safeIndex = index.Replace(oldValue: "'", newValue: "''");
@@ -670,9 +750,9 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// :--- means left-aligned
 		streamWriter.WriteLine(value: "| :--- | :--- |");
 		// Write each item as a table row
-		foreach (var (index, name) in GetExportData())
+		foreach ((string? index, string? name) in GetExportData())
 		{
-			streamWriter.WriteLine(value: $"| {index} | {name} |");
+			streamWriter.WriteLine(value: $"| {index} | {EscapeMarkdownCell(value: name)} |");
 		}
 	}
 
@@ -764,12 +844,14 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		w.WriteLine(value: "\\hline");
 		w.WriteLine(value: "Index & Designation \\\\");
 		w.WriteLine(value: "\\hline");
+
 		// Write each item
-		foreach (var (index, name) in GetExportData())
+		foreach ((string? index, string? name) in GetExportData())
 		{
 			// LaTeX uses & as a separator and \\ for new lines
 			// IMPORTANT: If names contain special characters like _ or %, they must be escaped.
-			w.WriteLine(value: $"{index} & {name} \\\\");
+			string escapedName = EscapeLatex(input: name);
+			w.WriteLine(value: $"{index} & {escapedName} \\\\");
 		}
 		// Write table footer
 		w.WriteLine(value: "\\hline");
@@ -854,11 +936,17 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// Check if the text to copy is not null or empty
 		if (!string.IsNullOrEmpty(value: textToCopy))
 		{
-			// Try to set the clipboard text
-			try { CopyToClipboard(text: textToCopy); }
-			catch
-			{ // Throw an exception
-				throw new ArgumentException(message: "Unsupported sender type", paramName: nameof(sender));
+			// Assuming CopyToClipboard is a helper method in BaseKryptonForm or similar
+			// If not, use Clipboard.SetText(textToCopy);
+			try
+			{
+				CopyToClipboard(text: textToCopy);
+			}
+			// Log any exception that occurs during the clipboard operation
+			catch (Exception ex)
+			{
+				logger.Error(exception: ex, message: "Failed to copy text to the clipboard.");
+				throw new InvalidOperationException(message: "Failed to copy text to the clipboard.", innerException: ex);
 			}
 		}
 	}

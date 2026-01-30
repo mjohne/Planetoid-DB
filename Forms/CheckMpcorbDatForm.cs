@@ -25,7 +25,7 @@ public partial class CheckMpcorbDatForm : BaseKryptonForm
 	/// <remarks>
 	/// This logger is used to log messages and errors for the class.
 	/// </remarks>
-	private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 	/// <summary>
 	/// The HttpClient instance used for making HTTP requests.
@@ -127,7 +127,7 @@ public partial class CheckMpcorbDatForm : BaseKryptonForm
 		catch (HttpRequestException)
 		{
 			// Log the exception
-			Logger.Error(message: "Error retrieving last modified date.", exception: new HttpRequestException());
+			logger.Error(message: "Error retrieving last modified date.", exception: new HttpRequestException());
 			// Show an error message
 			ShowErrorMessage(message: new HttpRequestException().Message);
 			// Return DateTime.MinValue to indicate an error
@@ -156,7 +156,7 @@ public partial class CheckMpcorbDatForm : BaseKryptonForm
 		catch (HttpRequestException)
 		{
 			// Log the exception
-			Logger.Error(message: "Error retrieving last modified date.", exception: new HttpRequestException());
+			logger.Error(message: "Error retrieving last modified date.", exception: new HttpRequestException());
 			// Show an error message
 			ShowErrorMessage(message: new HttpRequestException().Message);
 			// Log the exception and return 0
@@ -324,11 +324,17 @@ public partial class CheckMpcorbDatForm : BaseKryptonForm
 		// Check if the text to copy is not null or empty
 		if (!string.IsNullOrEmpty(value: textToCopy))
 		{
-			// Try to set the clipboard text
-			try { CopyToClipboard(text: textToCopy); }
-			catch
-			{ // Throw an exception
-				throw new ArgumentException(message: "Unsupported sender type", paramName: nameof(sender));
+			// Assuming CopyToClipboard is a helper method in BaseKryptonForm or similar
+			// If not, use Clipboard.SetText(textToCopy);
+			try
+			{
+				CopyToClipboard(text: textToCopy);
+			}
+			// Log any exception that occurs during the clipboard operation
+			catch (Exception ex)
+			{
+				logger.Error(exception: ex, message: "Failed to copy text to the clipboard.");
+				throw new InvalidOperationException(message: "Failed to copy text to the clipboard.", innerException: ex);
 			}
 		}
 	}

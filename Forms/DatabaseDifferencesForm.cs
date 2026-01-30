@@ -11,7 +11,7 @@ namespace Planetoid_DB;
 /// Form for displaying and managing database differences.
 /// </summary>
 /// <remarks>
-/// This form provides a user interface for viewing and resolving differences between database records.
+/// This form provides a user interface for viewing and resolving differences between differences form.
 /// </remarks>
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class DatabaseDifferencesForm : BaseKryptonForm
@@ -286,8 +286,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 
 	/// <summary>
 	/// Called when a control is double-clicked. If the <paramref name="sender"/> is a <see cref="Control"/>
-	/// or a <see cref="ToolStripItem"/>, its <see cref="Control.Text"/> value is copied to the clipboard
-	/// using the shared helper.
+	/// or a <see cref="ToolStripItem"/>, its text value (from <see cref="Control.Text"/> or <see cref="ToolStripItem.Text"/>,
+	/// respectively) is copied to the clipboard using the shared helper.
 	/// </summary>
 	/// <param name="sender">Event source — expected to be a <see cref="Control"/> or a <see cref="ToolStripItem"/>.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
@@ -309,11 +309,17 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		// Check if the text to copy is not null or empty
 		if (!string.IsNullOrEmpty(value: textToCopy))
 		{
-			// Try to set the clipboard text
-			try { CopyToClipboard(text: textToCopy); }
-			catch
-			{ // Throw an exception
-				throw new ArgumentException(message: "Unsupported sender type", paramName: nameof(sender));
+			// Assuming CopyToClipboard is a helper method in BaseKryptonForm or similar
+			// If not, use Clipboard.SetText(textToCopy);
+			try
+			{
+				CopyToClipboard(text: textToCopy);
+			}
+			// Log any exception that occurs during the clipboard operation
+			catch (Exception ex)
+			{
+				logger.Error(exception: ex, message: "Failed to copy text to the clipboard.");
+				throw new InvalidOperationException(message: "Failed to copy text to the clipboard.", innerException: ex);
 			}
 		}
 	}

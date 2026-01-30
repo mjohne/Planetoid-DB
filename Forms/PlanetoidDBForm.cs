@@ -33,7 +33,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>
 	/// This logger is used throughout the application to log important events and errors.
 	/// </remarks>
-	private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 	/// <summary>
 	/// Cancellation token source used to cancel an ongoing download operation.
@@ -331,7 +331,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// </remarks>
 	private void GotoCurrentPosition(int position)
 	{
-		// Validate the position
+		// Handle the case where the database is empty
 		if (position < 0 || position >= planetoidsDatabase.Count)
 		{
 			toolStripLabelIndexPosition.ToolTipText = "Index: 0";
@@ -1827,7 +1827,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			// Log the error message
-			Logger.Error(message: ex.Message);
+			logger.Error(message: ex.Message);
 			// Show an error message box with the exception message
 			ShowErrorMessage(message: $"{nameof(ToolStripButtonGoToIndex_Click)}  {ex.Message}");
 			_ = MessageBox.Show(text: ex.Message, caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
@@ -1837,7 +1837,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		if (pos <= 0 || pos >= planetoidsDatabase.Count + 1)
 		{
 			// Log the error message
-			Logger.Error(message: "Index out of range");
+			logger.Error(message: "Index out of range");
 			// Show an error message if the index is out of range
 			ShowErrorMessage(message: $"{I10nStrings.IndexOutOfRange}");
 		}
@@ -3172,18 +3172,23 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		string? textToCopy = sender switch
 		{
 			Control c => c.Text,
-			ToolStripLabel l => l.Text,
 			ToolStripItem => currentControl?.Text,
 			_ => null
 		};
 		// Check if the text to copy is not null or empty
 		if (!string.IsNullOrEmpty(value: textToCopy))
 		{
-			// Try to set the clipboard text
-			try { CopyToClipboard(text: textToCopy); }
-			catch
-			{ // Throw an exception
-				throw new ArgumentException(message: "Unsupported sender type", paramName: nameof(sender));
+			// Assuming CopyToClipboard is a helper method in BaseKryptonForm or similar
+			// If not, use Clipboard.SetText(textToCopy);
+			try
+			{
+				CopyToClipboard(text: textToCopy);
+			}
+			// Log any exception that occurs during the clipboard operation
+			catch (Exception ex)
+			{
+				logger.Error(exception: ex, message: "Failed to copy text to the clipboard.");
+				throw new InvalidOperationException(message: "Failed to copy text to the clipboard.", innerException: ex);
 			}
 		}
 	}
@@ -3209,7 +3214,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			return;
 		}
 		// Log the error and show an error message
-		Logger.Error(message: $"Failed to parse index from tag text '{currentTagText}': {errorMessage}");
+		logger.Error(message: $"Failed to parse index from tag text '{currentTagText}': {errorMessage}");
 		ShowErrorMessage(message: $"Failed to parse index from tag text '{currentTagText}': {errorMessage}");
 	}
 
