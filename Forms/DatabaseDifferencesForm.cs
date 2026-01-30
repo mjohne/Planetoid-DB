@@ -8,10 +8,10 @@ using System.Diagnostics;
 namespace Planetoid_DB;
 
 /// <summary>
-/// Form for displaying and managing database differences.
+/// Form for displaying and managing database records.
 /// </summary>
 /// <remarks>
-/// This form provides a user interface for viewing and resolving differences between differences form.
+/// This form provides a user interface for viewing and resolving differences between database records.
 /// </remarks>
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class DatabaseDifferencesForm : BaseKryptonForm

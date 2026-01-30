@@ -25,7 +25,7 @@ public partial class CheckAstorbDatForm : BaseKryptonForm
 	/// <remarks>
 	/// This logger is used to log messages and errors for the class.
 	/// </remarks>
-	private Logger logger = LogManager.GetCurrentClassLogger();
+	private readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 	/// <summary>
 	/// The HttpClient instance used for making HTTP requests.
@@ -120,7 +120,8 @@ public partial class CheckAstorbDatForm : BaseKryptonForm
 		try
 		{
 			// Send a HEAD request to the specified URI
-			HttpResponseMessage response = await Client.SendAsync(request: new HttpRequestMessage(method: HttpMethod.Head, requestUri: uri)).ConfigureAwait(continueOnCapturedContext: false);
+			using HttpRequestMessage request = new(method: HttpMethod.Head, requestUri: uri);
+			using HttpResponseMessage response = await Client.SendAsync(request: request).ConfigureAwait(continueOnCapturedContext: false);
 			// Check if the response is successful and return the last modified date
 			return response.IsSuccessStatusCode ? response.Content.Headers.LastModified?.UtcDateTime ?? DateTime.MinValue : DateTime.MinValue;
 		}
@@ -149,7 +150,8 @@ public partial class CheckAstorbDatForm : BaseKryptonForm
 		try
 		{
 			// Send a HEAD request to the specified URI
-			HttpResponseMessage response = await Client.SendAsync(request: new HttpRequestMessage(method: HttpMethod.Head, requestUri: uri)).ConfigureAwait(continueOnCapturedContext: false);
+			using HttpRequestMessage request = new(method: HttpMethod.Head, requestUri: uri);
+			using HttpResponseMessage response = await Client.SendAsync(request: request).ConfigureAwait(continueOnCapturedContext: false);
 			// Check if the response is successful and return the content length
 			return response.IsSuccessStatusCode ? response.Content.Headers.ContentLength ?? 0 : 0;
 		}
