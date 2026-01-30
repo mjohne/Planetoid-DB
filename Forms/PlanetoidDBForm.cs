@@ -1240,7 +1240,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Set the TopMost property to true to keep the form on top of other windows
 		formDerivedOrbitElements.TopMost = TopMost;
 		// Fill the form with the derived orbit elements
-		formDerivedOrbitElements.SetDatabase(list: [.. derivedOrbitElements]);
+		formDerivedOrbitElements.SetDatabase(list: derivedOrbitElements.Cast<object>().ToList());
 		// Show the derived orbit elements form as a modal dialog
 		_ = formDerivedOrbitElements.ShowDialog();
 	}
