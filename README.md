@@ -3,18 +3,14 @@
 ![GitHub License](https://img.shields.io/github/license/mjohne/Planetoid-DB)
 ![GitHub Created At](https://img.shields.io/github/created-at/mjohne/Planetoid-DB)
 ![GitHub contributors](https://img.shields.io/github/contributors/mjohne/Planetoid-DB)
-![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/mjohne/Planetoid-DB)
-![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-closed/mjohne/Planetoid-DB)
-![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-pr/mjohne/Planetoid-DB)
-![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-pr-closed/mjohne/Planetoid-DB)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/mjohne/Planetoid-DB)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/y/mjohne/Planetoid-DB)
 ![GitHub last commit](https://img.shields.io/github/last-commit/mjohne/Planetoid-DB)
 ![GitHub Release Date](https://img.shields.io/github/release-date/mjohne/Planetoid-DB)
 ![GitHub Release](https://img.shields.io/github/v/release/mjohne/Planetoid-DB)
 ![GitHub language count](https://img.shields.io/github/languages/count/mjohne/Planetoid-DB)
 ![GitHub top language](https://img.shields.io/github/languages/top/mjohne/Planetoid-DB)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mjohne/Planetoid-DB)
+![GitHub branch status](https://img.shields.io/github/checks-status/mjohne/Planetoid-DB/master)
 ![GitHub repo size](https://img.shields.io/github/repo-size/mjohne/Planetoid-DB)
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/mjohne/Planetoid-DB/total)
 ![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/mjohne/Planetoid-DB/latest/total)
@@ -22,8 +18,6 @@
 ![GitHub number of milestones](https://img.shields.io/github/milestones/open/mjohne/Planetoid-DB)
 ![GitHub number of milestones](https://img.shields.io/github/milestones/closed/mjohne/Planetoid-DB)
 ![GitHub Discussions](https://img.shields.io/github/discussions/mjohne/Planetoid-DB)
-![GitHub Sponsors](https://img.shields.io/github/sponsors/mjohne)
-
 
 ---
 

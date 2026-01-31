@@ -236,7 +236,11 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	/// </remarks>
 	private void ShowCopyDataToClipboard()
 	{
-		// Create a new list to store the data to copy
+		// Create a new List to store the data to copy
+		// The capacity is set to 0 because we will add items dynamically
+		// The items in the List are the labels that contain the data to be copied
+		// The labels are accessed using their respective properties
+
 		List<string> dataToCopy = [
 			labelLinearEccentricityData.Text,
 			labelSemiMinorAxisData.Text,
@@ -259,7 +263,7 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 			labelStandardGravitationalParameterData.Text
 		];
 		// Create a new list to store the non-empty data items
-		List<string> dataToCopyList = dataToCopy.Where(predicate: static item => !string.IsNullOrEmpty(value: item)).ToList();
+		List<string> dataToCopyList = [.. dataToCopy.Where(predicate: static item => !string.IsNullOrEmpty(value: item))];
 		// Iterate through each item in the dataToCopy array
 		// Create a new instance of the CopyDataToClipboardForm
 		using CopyDerivedDataToClipboardForm formCopyDerivedDataToClipboard = new();

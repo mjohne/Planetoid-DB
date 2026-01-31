@@ -1,5 +1,6 @@
-## Planetoid-DB 0.7.18.45
+# Changelog
 
+## Planetoid-DB 0.7.18.45
 * Updated version number by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/238
 * Moved terminology docs to subfolder "Resources\TerminologyDocs" by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/239
 * Updated I10nStrings resources by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/240
@@ -383,7 +384,7 @@
 **Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.3.0.18...0.3.1.19
 
 
-## Planetoid-DB 0.3.0.18
+## Panetoid-DB 0.3.0.18
 
 **Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.2.3.17...0.3.0.18
 
@@ -398,9 +399,9 @@
 **Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.2.0.14...0.2.2.16
 
 
-## Planetoid-DB 0.2.1.15
+## Planetoid-DB 0.2.2.16
 
-- missing
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.2.0.14...0.2.2.16
 
 
 ## Planetoid-DB 0.2.0.14

@@ -180,8 +180,8 @@ internal class DerivedElements
 		double semiMinorAxis = CalculateSemiMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity);
 		return numericalEccentricity switch
 		{
-			> 1 => (semiMinorAxis * semiMinorAxis) / Math.Sqrt(d: (semiMajorAxis * semiMajorAxis) + (semiMinorAxis * semiMinorAxis)),
-			> 0 and < 1 => (semiMinorAxis * semiMinorAxis) / Math.Sqrt(d: (semiMajorAxis * semiMajorAxis) - (semiMinorAxis * semiMinorAxis)),
+			> 1 => semiMinorAxis * semiMinorAxis / Math.Sqrt(d: (semiMajorAxis * semiMajorAxis) + (semiMinorAxis * semiMinorAxis)),
+			> 0 and < 1 => semiMinorAxis * semiMinorAxis / Math.Sqrt(d: (semiMajorAxis * semiMajorAxis) - (semiMinorAxis * semiMinorAxis)),
 			_ => 2 * semiMajorAxis
 		};
 	}
