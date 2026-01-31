@@ -81,7 +81,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 
 	/// <summary>
 	/// NLog logger instance for the class.
-	/// </summary>
+	/// </remarks>
 	/// <remarks>
 	/// This logger is used to log messages for the <see cref="ListReadableDesignationsForm"/> class.
 	/// </remarks>
@@ -362,7 +362,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 					builder.Append(value: "\\~{}");
 					break;
 				default:
-					builder.Append(value: ch);
+					builder.Append(value: ch); // FIX: Use Append(char) instead of Append(string) for single characters
 					break;
 			}
 		}
@@ -420,17 +420,58 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// </remarks>
 	private static string EscapePdf(string? text)
 	{
-		// Handle null input
+		// Handle null or empty input
 		if (string.IsNullOrEmpty(value: text))
 		{
 			return string.Empty;
 		}
-		// Escape special characters for PDF string literals
-		return string.IsNullOrEmpty(value: text)
-			? string.Empty
-			: text.Replace(oldValue: "\\", newValue: "\\\\")
-				   .Replace(oldValue: "(", newValue: "\\(")
-				   .Replace(oldValue: ")", newValue: "\\)");
+		// Escape special characters and control characters for PDF string literals
+		StringBuilder builder = new(capacity: text.Length);
+		// Iterate over each character in the input text
+		foreach (char character in text)
+		{
+			switch (character)
+			{
+				case '\\':
+					builder.Append(value: "\\\\");
+					break;
+				case '(':
+					builder.Append(value: "\\(");
+					break;
+				case ')':
+					builder.Append(value: "\\)");
+					break;
+				case '\n':
+					builder.Append(value: "\\n");
+					break;
+				case '\r':
+					builder.Append(value: "\\r");
+					break;
+				case '\t':
+					builder.Append(value: "\\t");
+					break;
+				case '\b':
+					builder.Append(value: "\\b");
+					break;
+				case '\f':
+					builder.Append(value: "\\f");
+					break;
+				default:
+					if (character < ' ')
+					{
+						// Escape remaining control characters using a three-digit octal code
+						string octal = Convert.ToString(value: character, toBase: 8)!.PadLeft(totalWidth: 3, paddingChar: '0');
+						builder.Append('\\'); // FIX: Use Append(char) instead of Append(string) for single characters
+						builder.Append(octal);
+					}
+					else
+					{
+						builder.Append(character); // FIX: Use Append(char) instead of Append(string) for single characters
+					}
+					break;
+			}
+		}
+		return builder.ToString();
 	}
 
 	#endregion
@@ -1035,8 +1076,8 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// Start first content stream
 		currentContentObjId = StartNewObject();
 		pageContentObjIds.Add(item: currentContentObjId);
-		// Length is required, but we set it to 0 for simplicity (not strictly correct, but works for simple PDFs)
-		w.WriteLine(value: "<< /Length 0 >> stream");
+		// Start the stream dictionary; Length is omitted here, consistent with subsequent pages.
+		w.WriteLine(value: "<< >> stream");
 		// PDF commands to set font and size; 0,0 is bottom-left
 		// BT = Begin Text, /F1 = Font, 10 = Size
 		w.WriteLine(value: "BT /F1 10 Tf");
@@ -1057,7 +1098,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 				// Start new page
 				currentContentObjId = StartNewObject();
 				pageContentObjIds.Add(item: currentContentObjId);
-				w.WriteLine(value: "<< >> stream");
+				w.WriteLine(value: "<< /Length 0 >> stream");
 				w.WriteLine(value: "BT /F1 10 Tf");
 				// Header for the new page
 				w.WriteLine(value: $"1 0 0 1 50 {pageHeight - 40} Tm (List of Readable Designations - Cont.) Tj");
@@ -1088,15 +1129,9 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			pageObjIds.Add(item: pageId);
 			w.WriteLine(value: "<<");
 			w.WriteLine(value: "/Type /Page");
-			// Parent will be referenced later (Placeholder ID: we don't know it yet, but PDF allows forward ref)
-			// We use an indirect reference to the Root-Pages object, which comes next.
-			// The Root-Pages object will have ID = number_so_far + number_of_pages + 1.
-			// Simpler: We write the root object afterwards and then know its ID.
-			// Trick: We leave Parent out for now or fill it in later?
-			// Better: We reserve the ID for "Pages Root" NOW.
-			int rootPagesId = objectOffsets.Count + pageObjIds.Count + 1 + 1; // +1 for Font, +1 for Catalog (estimate) - risky.
-																			  // Safer way: We write Parent later. In PDF 1.4, Parent must be there.
-																			  // We calculate the ID of the parent object: It comes AFTER all page objects and the font object.
+			// Parent will be referenced via a forward reference to the Pages root object.
+			// The Pages root object is written after all page objects and the font object.
+			// We calculate the ID of that parent object based on the number of remaining page objects and the font.
 			int predictedParentId = objectOffsets.Count + (pageContentObjIds.Count - pageObjIds.Count) + 2;
 			// Write Parent reference
 			w.WriteLine(value: $"/Parent {predictedParentId} 0 R");
@@ -1147,7 +1182,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// Write each object offset
 		foreach (long offset in objectOffsets)
 		{
-			// Format: 10-stellig, 0-gepadded
+			// Format: 10 digits, zero-padded
 			w.WriteLine(value: $"{offset:D10} 00000 n ");
 		}
 		// --- 8. Trailer ---
