@@ -3,7 +3,6 @@
 using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 
-using System.Collections;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
@@ -204,15 +203,15 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	}
 
 	/// <summary>
-	/// Fills the planetoids database with the provided array list.
+	/// Fills the planetoids database with the provided list.
 	/// </summary>
-	/// <param name="arrTemp">The array list to fill the database with.</param>
+	/// <param name="arrTemp">The list to fill the database with.</param>
 	/// <remarks>
-	/// This method is used to fill the planetoids database with the provided array list.
+	/// This method is used to fill the planetoids database with the provided list.
 	/// </remarks>
-	public void FillArray(ArrayList arrTemp)
+	public void FillArray(List<string> arrTemp)
 	{
-		planetoidsDatabase = [.. arrTemp.OfType<string>()];
+		planetoidsDatabase = [.. arrTemp];
 		numberPlanetoids = planetoidsDatabase.Count;
 	}
 

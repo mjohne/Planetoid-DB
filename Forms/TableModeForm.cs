@@ -3,7 +3,6 @@
 using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 
-using System.Collections;
 using System.Diagnostics;
 
 namespace Planetoid_DB;
@@ -152,18 +151,17 @@ public partial class TableModeForm : BaseKryptonForm
 	}
 
 	/// <summary>
-	/// Fills the internal planetoids database from the provided <see cref="ArrayList"/>.
+	/// Fills the internal planetoids database from the provided list.
 	/// </summary>
-	/// <param name="arrTemp">An <see cref="ArrayList"/> containing planetoid records as strings. Each entry is cast to <see cref="string"/> and appended to the internal database.</param>
+	/// <param name="arrTemp">A list containing planetoid records as strings. Each entry is appended to the internal database.</param>
 	/// <remarks>
-	/// The method casts the elements of <paramref name="arrTemp"/> to <see cref="string"/>, stores them
-	/// in the internal <see cref="planetoidsDatabase"/> list.
+	/// The method stores the elements of <paramref name="arrTemp"/> in the internal <see cref="planetoidsDatabase"/> list.
 	/// The caller is responsible for providing data in the expected string format.
 	/// </remarks>
-	public void FillArray(ArrayList arrTemp)
+	public void FillArray(List<string> arrTemp)
 	{
 		// Fill the internal planetoids database
-		planetoidsDatabase = [.. arrTemp.Cast<string>()];
+		planetoidsDatabase = [.. arrTemp];
 		// Update the UI controls if the form handle is created
 		if (IsHandleCreated)
 		{

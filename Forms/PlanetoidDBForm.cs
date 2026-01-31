@@ -4,7 +4,6 @@ using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 
-using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -74,9 +73,9 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// Stores the planetoids database.
 	/// </summary>
 	/// <remarks>
-	/// This ArrayList is used to store the planetoids database entries.
+	/// This list is used to store the planetoids database entries.
 	/// </remarks>
-	private readonly ArrayList planetoidsDatabase = [];
+	private readonly List<string> planetoidsDatabase = [];
 
 	/// <summary>
 	/// Splash screen form instance.
@@ -975,36 +974,31 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// </remarks>
 	private void ShowCopyDataToClipboard()
 	{
-		// Create a new ArrayList to store the data to copy
-		// The capacity is set to 0 because we will add items dynamically
-		// The items in the ArrayList are the labels that contain the data to be copied
-		// The labels are accessed using their respective properties
-		ArrayList dataToCopy = new(capacity: 0)
-							   {
-								   labelIndexData.Text,
-								   labelReadableDesignationData.Text,
-								   labelEpochData.Text,
-								   labelMeanAnomalyAtTheEpochData.Text,
-								   labelArgumentOfPerihelionData.Text,
-								   labelLongitudeOfTheAscendingNodeData.Text,
-								   labelInclinationToTheEclipticData.Text,
-								   labelOrbitalEccentricityData.Text,
-								   labelMeanDailyMotionData.Text,
-								   labelSemiMajorAxisData.Text,
-								   labelAbsoluteMagnitudeData.Text,
-								   labelSlopeParameterData.Text,
-								   labelReferenceData.Text,
-								   labelNumberOfOppositionsData.Text,
-								   labelNumberOfObservationsData.Text,
-								   labelObservationSpanData.Text,
-								   labelRmsResidualData.Text,
-								   labelComputerNameData.Text,
-								   labelFlagsData.Text,
-								   labelDateLastObservationData.Text
-							   };
 		// Create a new list to store the data to copy
-		List<string> dataToCopyList = [];
-		dataToCopyList.AddRange(collection: dataToCopy.OfType<object>().Select(selector: static item => item.ToString()).Where(predicate: static itemString => !string.IsNullOrEmpty(value: itemString))!);
+		List<string> dataToCopy = [
+			labelIndexData.Text,
+			labelReadableDesignationData.Text,
+			labelEpochData.Text,
+			labelMeanAnomalyAtTheEpochData.Text,
+			labelArgumentOfPerihelionData.Text,
+			labelLongitudeOfTheAscendingNodeData.Text,
+			labelInclinationToTheEclipticData.Text,
+			labelOrbitalEccentricityData.Text,
+			labelMeanDailyMotionData.Text,
+			labelSemiMajorAxisData.Text,
+			labelAbsoluteMagnitudeData.Text,
+			labelSlopeParameterData.Text,
+			labelReferenceData.Text,
+			labelNumberOfOppositionsData.Text,
+			labelNumberOfObservationsData.Text,
+			labelObservationSpanData.Text,
+			labelRmsResidualData.Text,
+			labelComputerNameData.Text,
+			labelFlagsData.Text,
+			labelDateLastObservationData.Text
+		];
+		// Create a new list to store the non-empty data items
+		List<string> dataToCopyList = dataToCopy.Where(predicate: static item => !string.IsNullOrEmpty(value: item)).ToList();
 		// Iterate through each item in the dataToCopy array
 		// Create a new instance of the CopyDataToClipboardForm
 		using CopyDataToClipboardForm formCopyDataToClipboard = new();
@@ -1126,8 +1120,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// </remarks>
 	private void ExportDataSheet()
 	{
-		// Create a new ArrayList to store the orbital elements
-		ArrayList orbitalElements = [];
+		// Create a new list to store the orbital elements
+		List<string> orbitalElements = [];
 		// Create a specific culture for formatting
 		IFormatProvider provider = CultureInfo.CreateSpecificCulture(name: "en");
 		double semiMajorAxis = double.Parse(s: labelSemiMajorAxisData.Text, provider: provider);
@@ -1208,8 +1202,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// </remarks>
 	private void ShowDerivedOrbitElements()
 	{
-		// Create a new ArrayList to store the derived orbit elements
-		ArrayList derivedOrbitElements = [];
+		// Create a new list to store the derived orbit elements
+		List<string> derivedOrbitElements = [];
 		// Create a specific culture for formatting
 		IFormatProvider provider = CultureInfo.CreateSpecificCulture(name: "en");
 		double semiMajorAxis = double.Parse(s: labelSemiMajorAxisData.Text, provider: provider);
