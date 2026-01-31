@@ -102,7 +102,7 @@ namespace Planetoid_DB
 			kryptonButtonSaveLicense.Values.DropDownArrowColor = Color.Empty;
 			kryptonButtonSaveLicense.Values.Image = FatcowIcons16px.fatcow_diskette_16px;
 			kryptonButtonSaveLicense.Values.Text = "&Save license";
-			kryptonButtonSaveLicense.Click += KryptonButtonSaveLicense_Click;
+			kryptonButtonSaveLicense.Click += KryptonButtonSaveLicense_ClickAsync;
 			kryptonButtonSaveLicense.Enter += Control_Enter;
 			kryptonButtonSaveLicense.Leave += Control_Leave;
 			kryptonButtonSaveLicense.MouseEnter += Control_Enter;

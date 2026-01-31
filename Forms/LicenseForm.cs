@@ -15,6 +15,22 @@ namespace Planetoid_DB;
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class LicenseForm : BaseKryptonForm
 {
+	/// <summary>
+	/// The root namespace for embedded resources.
+	/// </summary>
+	/// <remarks>
+	/// This is used to locate embedded resources within the assembly.
+	/// </remarks>
+	private const string resourceRootNamespace = "Planetoid_DB";
+
+	/// <summary>
+	/// The name of the license resource.
+	/// </summary>
+	/// <remarks>
+	/// This is used to locate the license resource within the assembly.
+	/// </remarks>
+	private const string licenseResourceName = "LICENSE";
+
 	#region constructor
 
 	/// <summary>
@@ -75,37 +91,35 @@ public partial class LicenseForm : BaseKryptonForm
 	}
 
 	/// <summary>
-	/// Extracts an embedded resource from the executing assembly and writes it to the specified output directory.
+	/// Asynchronously extracts an embedded resource to a file.
 	/// </summary>
-	/// <param name="nameSpace">The root namespace where the resource is located.</param>
-	/// <param name="outDir">The output directory where the resource will be written. Directory will be created if it does not exist.</param>
-	/// <param name="internFilePath">Optional internal path within the namespace (e.g. "Resources").</param>
-	/// <param name="resourceName">The name of the resource to extract (including extension).</param>
-	/// <exception cref="FileNotFoundException">Thrown when the specified resource is not found in the assembly.</exception>
+	/// <param name="nameSpace">The root namespace.</param>
+	/// <param name="destinationPath">The full output path.</param>
+	/// <param name="resourceName">The resource name.</param>
+	/// <param name="token">Cancellation token.</param>
+	/// <returns>A task representing the asynchronous operation.</returns>
 	/// <remarks>
-	/// This method is used to extract an embedded resource from the assembly and write it to the specified output directory.
+	/// This method is used to extract an embedded resource asynchronously.
 	/// </remarks>
-	private static void ExtractResource(string nameSpace, string outDir, string internFilePath, string resourceName)
+	private static async Task ExtractResourceAsync(string nameSpace, string destinationPath, string resourceName, CancellationToken token = default)
 	{
-		// Get the assembly and the resource path
+		// Get the executing assembly
 		Assembly assembly = Assembly.GetExecutingAssembly();
-		// Construct the resource path
-		string resourcePath = $"{nameSpace}.{(string.IsNullOrEmpty(value: internFilePath) ? "" : internFilePath + ".")}{resourceName}";
-		// Check if the output directory exists, if not create it
-		if (!Directory.Exists(path: outDir))
-		{
-			_ = Directory.CreateDirectory(path: outDir);
-		}
-		// Open the resource stream and read the bytes
-		using Stream s = assembly.GetManifestResourceStream(name: resourcePath) ?? throw new FileNotFoundException(message: $"Resource '{resourcePath}' not found in assembly.");
-		// Create the output file stream
-		using BinaryReader r = new(input: s);
-		// Create the output file stream and write the bytes to it
-		using FileStream fs = new(path: Path.Combine(path1: outDir, path2: resourceName), mode: FileMode.OpenOrCreate);
-		// Ensure the file stream is writable
-		using BinaryWriter w = new(output: fs);
-		// Read the bytes from the resource stream and write them to the output file
-		w.Write(buffer: r.ReadBytes(count: (int)s.Length));
+		// Get the resource path
+		string resourcePath = $"{nameSpace}.{resourceName}";
+		// Try to get the resource stream
+		using Stream? resourceStream = assembly.GetManifestResourceStream(name: resourcePath) ?? throw new FileNotFoundException(message: $"Embedded resource '{resourcePath}' not found.");
+		// Create the file stream
+		// 'useAsync: true' enables internal buffer optimizations for asynchronous writing.
+		using FileStream fileStream = new(
+			path: destinationPath,
+			mode: FileMode.Create,
+			access: FileAccess.Write,
+			share: FileShare.None,
+			bufferSize: 4096,
+			useAsync: true);
+		// Copy the resource stream to the file stream
+		await resourceStream.CopyToAsync(destination: fileStream, cancellationToken: token);
 	}
 
 	#endregion
@@ -185,21 +199,23 @@ public partial class LicenseForm : BaseKryptonForm
 	/// <remarks>
 	/// This method is used to save the LICENSE file to a user-specified location.
 	/// </remarks>
-	private void KryptonButtonSaveLicense_Click(object sender, EventArgs e)
+	private async void KryptonButtonSaveLicense_ClickAsync(object sender, EventArgs e)
 	{
 		// Create a SaveFileDialog to prompt the user for a file location
 		if (saveFileDialog.ShowDialog() != DialogResult.OK)
 		{
 			return;
 		}
-		// Get the selected file name
-		string fullFileName = saveFileDialog.FileName;
 		// Extract the LICENSE file from the embedded resources and copy it to the selected file location
-		ExtractResource(nameSpace: "Planetoid_DB", outDir: Path.GetDirectoryName(path: fullFileName) ?? string.Empty, internFilePath: "", resourceName: "LICENSE");
-		// Copy the LICENSE file to the selected file location
-		File.Copy(sourceFileName: Path.Combine(path1: Path.GetDirectoryName(path: fullFileName) ?? string.Empty, path2: "LICENSE"), destFileName: fullFileName, overwrite: true);
-		// Remove the temporary extracted LICENSE file
-		File.Delete(path: Path.Combine(path1: Path.GetDirectoryName(path: fullFileName) ?? string.Empty, path2: "LICENSE"));
+		try
+		{
+			await ExtractResourceAsync(nameSpace: resourceRootNamespace, destinationPath: saveFileDialog.FileName, resourceName: licenseResourceName);
+			MessageBox.Show(text: "License saved successfully.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		}
+		catch (Exception ex)
+		{
+			MessageBox.Show(text: $"Error saving license: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+		}
 	}
 
 	/// <summary>
