@@ -97,8 +97,6 @@ public partial class TableModeForm : BaseKryptonForm
 		InitializeComponent();
 		// Enable virtual mode for the ListView
 		listView.VirtualMode = true;
-		// Set up the ListView for virtual mode
-		listView.RetrieveVirtualItem += ListView_RetrieveVirtualItem;
 		// Handle column click events for sorting
 		listView.ColumnClick += ListView_ColumnClick;
 	}
