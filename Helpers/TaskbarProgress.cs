@@ -12,7 +12,7 @@ namespace Planetoid_DB.Helpers;
 /// </remarks>
 public static class TaskbarProgress
 {
-	/// <summary>
+	// <summary>
 	/// NLog logger instance for logging application events.
 	/// </summary>
 	/// <remarks>
@@ -124,7 +124,7 @@ public static class TaskbarProgress
 		}
 		catch (Exception ex)
 		{
-			// Fehlerbehandlung hinzufügen
+			// Log the error using NLog
 			Logger.Error(exception: ex, message: "Error setting taskbar progress state");
 		}
 	}
@@ -151,8 +151,8 @@ public static class TaskbarProgress
 		}
 		catch (Exception ex)
 		{
-			// Fehlerbehandlung hinzufügen
-			Logger.Error(exception: ex, message: "Error setting taskbar progress value");
+			// Log the error using NLog
+			Logger.Error(exception: ex, message: "Error setting taskbar progress state");
 		}
 	}
 }
