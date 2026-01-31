@@ -58,7 +58,7 @@ public class BaseKryptonForm : KryptonForm
 	private void BaseKryptonForm_KeyDown(object? sender, KeyEventArgs e)
 	{
 		// Close the form when Escape is pressed
-		if (e.KeyCode == Keys.Escape && this.InvokeRequired == false)
+		if (e.KeyCode == Keys.Escape && !this.InvokeRequired)
 		{
 			Close();
 		}

@@ -216,7 +216,7 @@ internal class DerivedElements
 	/// <remarks>
 	/// This method is used to calculate the orbital period of an ellipse.
 	/// </remarks>
-	public static double CalculatePeriod(double semiMajorAxis) => Math.Cbrt(semiMajorAxis * semiMajorAxis * semiMajorAxis);
+	public static double CalculatePeriod(double semiMajorAxis) => Math.Sqrt(d: semiMajorAxis * semiMajorAxis * semiMajorAxis);
 
 	/// <summary>
 	/// Calculates the orbital area of an ellipse.
