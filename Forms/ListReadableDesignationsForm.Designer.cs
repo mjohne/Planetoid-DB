@@ -69,6 +69,7 @@ namespace Planetoid_DB
 			saveFileDialogSql = new SaveFileDialog();
 			saveFileDialogTsv = new SaveFileDialog();
 			saveFileDialogLatex = new SaveFileDialog();
+			toolStripMenuItemSaveAsSql = new ToolStripMenuItem();
 			statusStrip.SuspendLayout();
 			contextMenuCopyToClipboard.SuspendLayout();
 			contextMenuSaveList.SuspendLayout();
@@ -314,9 +315,9 @@ namespace Planetoid_DB
 			contextMenuSaveList.AccessibleName = "Save list";
 			contextMenuSaveList.AccessibleRole = AccessibleRole.MenuPopup;
 			contextMenuSaveList.Font = new Font("Segoe UI", 9F);
-			contextMenuSaveList.Items.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsCsv, toolStripMenuItemSaveAsHtml, toolStripMenuItemSaveAsXml, toolStripMenuItemSaveAsJson });
+			contextMenuSaveList.Items.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsCsv, toolStripMenuItemSaveAsHtml, toolStripMenuItemSaveAsXml, toolStripMenuItemSaveAsJson, toolStripMenuItemSaveAsSql });
 			contextMenuSaveList.Name = "contextMenuStrip1";
-			contextMenuSaveList.Size = new Size(193, 92);
+			contextMenuSaveList.Size = new Size(193, 114);
 			contextMenuSaveList.TabStop = true;
 			contextMenuSaveList.Text = "&Save List";
 			toolTip.SetToolTip(contextMenuSaveList, "Save List");
@@ -523,6 +524,22 @@ namespace Planetoid_DB
 			saveFileDialogLatex.DefaultExt = "tex";
 			saveFileDialogLatex.Filter = "Latex files|*.tex|all files|*.*";
 			// 
+			// toolStripMenuItemSaveAsSql
+			// 
+			toolStripMenuItemSaveAsSql.AccessibleDescription = "Save the list as SQL script";
+			toolStripMenuItemSaveAsSql.AccessibleName = "Save as SQL";
+			toolStripMenuItemSaveAsSql.AccessibleRole = AccessibleRole.MenuItem;
+			toolStripMenuItemSaveAsSql.AutoToolTip = true;
+			toolStripMenuItemSaveAsSql.Image = FatcowIcons16px.fatcow_script_16px;
+			toolStripMenuItemSaveAsSql.Name = "toolStripMenuItemSaveAsSql";
+			toolStripMenuItemSaveAsSql.ShortcutKeyDisplayString = "Strg+S";
+			toolStripMenuItemSaveAsSql.ShortcutKeys = Keys.Control | Keys.S;
+			toolStripMenuItemSaveAsSql.Size = new Size(192, 22);
+			toolStripMenuItemSaveAsSql.Text = "Save as &SQL";
+			toolStripMenuItemSaveAsSql.Click += ToolStripMenuItemSaveAsSql_Click;
+			toolStripMenuItemSaveAsSql.MouseEnter += Control_Enter;
+			toolStripMenuItemSaveAsSql.MouseLeave += Control_Leave;
+			// 
 			// ListReadableDesignationsForm
 			// 
 			AccessibleDescription = "List readable designations";
@@ -593,5 +610,6 @@ namespace Planetoid_DB
 		private SaveFileDialog saveFileDialogSql;
 		private SaveFileDialog saveFileDialogTsv;
 		private SaveFileDialog saveFileDialogLatex;
+		private ToolStripMenuItem toolStripMenuItemSaveAsSql;
 	}
 }

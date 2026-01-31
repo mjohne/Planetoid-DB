@@ -516,11 +516,9 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// Set taskbar progress to normal state
 		try
 		{
-			/*
 			// Start loading items asynchronously
 			token.ThrowIfCancellationRequested();
 			TaskbarProgress.SetState(windowHandle: Handle, taskbarState: TaskbarProgress.TaskbarStates.Normal);
-			*/
 			// Load items in a background task
 			List<ListViewItem> itemsToAdd = await Task.Run(function: () =>
 			{
