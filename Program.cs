@@ -16,7 +16,7 @@ internal static class Program
 	/// <remarks>
 	/// This logger is used throughout the application to log important events and errors.
 	/// </remarks>
-	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+	private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
 	/// <summary>
 	/// Feature ID for disabling navigation sounds.
@@ -137,7 +137,7 @@ internal static class Program
 		catch (UnauthorizedAccessException ex)
 		{
 			// Log the error and show a message box
-			logger.Error(exception: ex, message: "Access denied");
+			Logger.Error(exception: ex, message: "Access denied");
 			ShowErrorMessage(message: $"Access denied: {ex.Message}");
 			// Exit the application with a non-zero exit code
 			Environment.Exit(exitCode: 1);
@@ -145,7 +145,7 @@ internal static class Program
 		catch (FileNotFoundException ex)
 		{
 			// Log the error and show a message box
-			logger.Error(exception: ex, message: "File not found");
+			Logger.Error(exception: ex, message: "File not found");
 			ShowErrorMessage(message: $"File not found: {ex.Message}");
 			// Exit the application with a non-zero exit code
 			Environment.Exit(exitCode: 1);
@@ -153,7 +153,7 @@ internal static class Program
 		catch (IOException ex)
 		{
 			// Log the error and show a message box
-			logger.Error(exception: ex, message: "I/O error");
+			Logger.Error(exception: ex, message: "I/O error");
 			ShowErrorMessage(message: $"I/O error: {ex.Message}");
 			// Exit the application with a non-zero exit code
 			Environment.Exit(exitCode: 1);
@@ -161,7 +161,7 @@ internal static class Program
 		catch (NetworkInformationException ex)
 		{
 			// Log the error and show a message box
-			logger.Error(exception: ex, message: "network error");
+			Logger.Error(exception: ex, message: "network error");
 			ShowErrorMessage(message: $"network error: {ex.Message}");
 			// Exit the application with a non-zero exit code
 			Environment.Exit(exitCode: 1);
@@ -169,7 +169,7 @@ internal static class Program
 		catch (Exception ex)
 		{
 			// Log the error and show a message box
-			logger.Error(exception: ex, message: "An unexpected error occurred.");
+			Logger.Error(exception: ex, message: "An unexpected error occurred.");
 			ShowErrorMessage(message: $"An unexpected error occurred: {ex.Message}");
 			// Exit the application with a non-zero exit code
 			Environment.Exit(exitCode: 1);
@@ -213,7 +213,7 @@ internal static class Program
 		if (string.IsNullOrEmpty(value: formPreload.MpcOrbDatFilePath))
 		{
 			// Show an error message if the file path is empty
-			logger.Error(message: "File not found");
+			Logger.Error(message: "File not found");
 			ShowErrorMessage(message: "File not found");
 			// Exit the application with a non-zero exit code
 			Environment.Exit(exitCode: 1);
