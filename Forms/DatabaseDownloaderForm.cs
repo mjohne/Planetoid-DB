@@ -412,7 +412,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		int bytesRead;
 		// Determine if progress can be reported based on content length availability
 		// Progress Throttling (Don't update UI every 8KB, unnecessary overhead)
-		var stopwatch = Stopwatch.StartNew();
+		Stopwatch stopwatch = Stopwatch.StartNew();
 		// Read from the content stream and write to the file stream
 		// Update progress bar if content length is known
 		// Support cancellation via the provided token
