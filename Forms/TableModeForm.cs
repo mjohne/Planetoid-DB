@@ -372,6 +372,22 @@ public partial class TableModeForm : BaseKryptonForm
 	}
 
 	/// <summary>
+	/// Handles the form Closing event.
+	/// Requests cancellation of any ongoing operations while the form and its controls are still valid.
+	/// </summary>
+	/// <param name="sender">Event source (the form).</param>
+	/// <param name="e">The <see cref="FormClosingEventArgs"/> instance that contains the event data.</param>
+	/// <remarks>
+	/// This method is called when the form begins closing, allowing pending asynchronous work to be cancelled
+	/// before UI controls are disposed.
+	/// </remarks>
+	private void TableModeForm_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		// Request cancellation of any ongoing operations while the UI is still alive
+		cancellationTokenSource?.Cancel();
+	}
+
+	/// <summary>
 	/// Handles the form Closed event.
 	/// Cleans up resources and cancels any ongoing operations.
 	/// </summary>
@@ -382,9 +398,7 @@ public partial class TableModeForm : BaseKryptonForm
 	/// </remarks>
 	private void TableModeForm_FormClosed(object sender, FormClosedEventArgs e)
 	{
-		// Cancel any ongoing operations
 		// Clearing the token if the window is closed during work
-		cancellationTokenSource?.Cancel();
 		cancellationTokenSource?.Dispose();
 		listView.Dispose();
 	}

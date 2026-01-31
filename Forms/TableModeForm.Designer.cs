@@ -486,6 +486,7 @@ namespace Planetoid_DB
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Table Mode";
 			toolTip.SetToolTip(this, "Table Mode");
+			FormClosing += TableModeForm_FormClosing;
 			FormClosed += TableModeForm_FormClosed;
 			Load += TableModeForm_Load;
 			contextMenuCopyToClipboard.ResumeLayout(false);
