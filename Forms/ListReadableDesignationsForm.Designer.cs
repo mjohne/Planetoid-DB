@@ -51,9 +51,11 @@ namespace Planetoid_DB
 			labelMaximum = new KryptonLabel();
 			contextMenuSaveList = new ContextMenuStrip(components);
 			toolStripMenuItemSaveAsCsv = new ToolStripMenuItem();
+			toolStripMenuItemSaveAsMarkdown = new ToolStripMenuItem();
 			toolStripMenuItemSaveAsHtml = new ToolStripMenuItem();
 			toolStripMenuItemSaveAsXml = new ToolStripMenuItem();
 			toolStripMenuItemSaveAsJson = new ToolStripMenuItem();
+			toolStripMenuItemSaveAsYaml = new ToolStripMenuItem();
 			toolStripMenuItemSaveAsSql = new ToolStripMenuItem();
 			dropButtonSaveList = new KryptonDropButton();
 			panel = new KryptonPanel();
@@ -70,7 +72,6 @@ namespace Planetoid_DB
 			saveFileDialogSql = new SaveFileDialog();
 			saveFileDialogTsv = new SaveFileDialog();
 			saveFileDialogLatex = new SaveFileDialog();
-			toolStripMenuItemSaveAsMarkdown = new ToolStripMenuItem();
 			statusStrip.SuspendLayout();
 			contextMenuCopyToClipboard.SuspendLayout();
 			contextMenuSaveList.SuspendLayout();
@@ -316,7 +317,7 @@ namespace Planetoid_DB
 			contextMenuSaveList.AccessibleName = "Save list";
 			contextMenuSaveList.AccessibleRole = AccessibleRole.MenuPopup;
 			contextMenuSaveList.Font = new Font("Segoe UI", 9F);
-			contextMenuSaveList.Items.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsCsv, toolStripMenuItemSaveAsHtml, toolStripMenuItemSaveAsXml, toolStripMenuItemSaveAsJson, toolStripMenuItemSaveAsSql, toolStripMenuItemSaveAsMarkdown });
+			contextMenuSaveList.Items.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsCsv, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsHtml, toolStripMenuItemSaveAsXml, toolStripMenuItemSaveAsJson, toolStripMenuItemSaveAsYaml, toolStripMenuItemSaveAsSql });
 			contextMenuSaveList.Name = "contextMenuStrip1";
 			contextMenuSaveList.Size = new Size(193, 158);
 			contextMenuSaveList.TabStop = true;
@@ -340,6 +341,22 @@ namespace Planetoid_DB
 			toolStripMenuItemSaveAsCsv.Click += ToolStripMenuItemSaveAsCsv_Click;
 			toolStripMenuItemSaveAsCsv.MouseEnter += Control_Enter;
 			toolStripMenuItemSaveAsCsv.MouseLeave += Control_Leave;
+			// 
+			// toolStripMenuItemSaveAsMarkdown
+			// 
+			toolStripMenuItemSaveAsMarkdown.AccessibleDescription = "Save the list as Markdown document";
+			toolStripMenuItemSaveAsMarkdown.AccessibleName = "Save as MD";
+			toolStripMenuItemSaveAsMarkdown.AccessibleRole = AccessibleRole.MenuItem;
+			toolStripMenuItemSaveAsMarkdown.AutoToolTip = true;
+			toolStripMenuItemSaveAsMarkdown.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+			toolStripMenuItemSaveAsMarkdown.Name = "toolStripMenuItemSaveAsMarkdown";
+			toolStripMenuItemSaveAsMarkdown.ShortcutKeyDisplayString = "Strg+M";
+			toolStripMenuItemSaveAsMarkdown.ShortcutKeys = Keys.Control | Keys.M;
+			toolStripMenuItemSaveAsMarkdown.Size = new Size(192, 22);
+			toolStripMenuItemSaveAsMarkdown.Text = "Save as &MD";
+			toolStripMenuItemSaveAsMarkdown.Click += ToolStripMenuItemSaveAsMarkdown_Click;
+			toolStripMenuItemSaveAsMarkdown.MouseEnter += Control_Enter;
+			toolStripMenuItemSaveAsMarkdown.MouseLeave += Control_Leave;
 			// 
 			// toolStripMenuItemSaveAsHtml
 			// 
@@ -379,7 +396,7 @@ namespace Planetoid_DB
 			toolStripMenuItemSaveAsJson.AccessibleName = "Save as JSON";
 			toolStripMenuItemSaveAsJson.AccessibleRole = AccessibleRole.MenuItem;
 			toolStripMenuItemSaveAsJson.AutoToolTip = true;
-			toolStripMenuItemSaveAsJson.Image = FatcowIcons16px.fatcow_page_white_code_16px;
+			toolStripMenuItemSaveAsJson.Image = FatcowIcons16px.fatcow_page_white_code_red_16px;
 			toolStripMenuItemSaveAsJson.Name = "toolStripMenuItemSaveAsJson";
 			toolStripMenuItemSaveAsJson.ShortcutKeyDisplayString = "Strg+J";
 			toolStripMenuItemSaveAsJson.ShortcutKeys = Keys.Control | Keys.J;
@@ -388,6 +405,22 @@ namespace Planetoid_DB
 			toolStripMenuItemSaveAsJson.Click += ToolStripMenuItemSaveAsJson_Click;
 			toolStripMenuItemSaveAsJson.MouseEnter += Control_Enter;
 			toolStripMenuItemSaveAsJson.MouseLeave += Control_Leave;
+			// 
+			// toolStripMenuItemSaveAsYaml
+			// 
+			toolStripMenuItemSaveAsYaml.AccessibleDescription = "Save the list as Yaml file";
+			toolStripMenuItemSaveAsYaml.AccessibleName = "Save as YAML";
+			toolStripMenuItemSaveAsYaml.AccessibleRole = AccessibleRole.MenuItem;
+			toolStripMenuItemSaveAsYaml.AutoToolTip = true;
+			toolStripMenuItemSaveAsYaml.Image = FatcowIcons16px.fatcow_page_white_code_red_16px;
+			toolStripMenuItemSaveAsYaml.Name = "toolStripMenuItemSaveAsYaml";
+			toolStripMenuItemSaveAsYaml.ShortcutKeyDisplayString = "Strg+Y";
+			toolStripMenuItemSaveAsYaml.ShortcutKeys = Keys.Control | Keys.Y;
+			toolStripMenuItemSaveAsYaml.Size = new Size(192, 22);
+			toolStripMenuItemSaveAsYaml.Text = "Save as &YAML";
+			toolStripMenuItemSaveAsYaml.Click += ToolStripMenuItemSaveAsYaml_Click;
+			toolStripMenuItemSaveAsYaml.MouseEnter += Control_Enter;
+			toolStripMenuItemSaveAsYaml.MouseLeave += Control_Leave;
 			// 
 			// toolStripMenuItemSaveAsSql
 			// 
@@ -541,22 +574,6 @@ namespace Planetoid_DB
 			saveFileDialogLatex.DefaultExt = "tex";
 			saveFileDialogLatex.Filter = "Latex files|*.tex|all files|*.*";
 			// 
-			// toolStripMenuItemSaveAsMarkdown
-			// 
-			toolStripMenuItemSaveAsMarkdown.AccessibleDescription = "Save the list as Markdown document";
-			toolStripMenuItemSaveAsMarkdown.AccessibleName = "Save as MD";
-			toolStripMenuItemSaveAsMarkdown.AccessibleRole = AccessibleRole.ToolTip;
-			toolStripMenuItemSaveAsMarkdown.AutoToolTip = true;
-			toolStripMenuItemSaveAsMarkdown.Image = FatcowIcons16px.fatcow_page_white_text_16px;
-			toolStripMenuItemSaveAsMarkdown.Name = "toolStripMenuItemSaveAsMarkdown";
-			toolStripMenuItemSaveAsMarkdown.ShortcutKeyDisplayString = "Strg+M";
-			toolStripMenuItemSaveAsMarkdown.ShortcutKeys = Keys.Control | Keys.M;
-			toolStripMenuItemSaveAsMarkdown.Size = new Size(192, 22);
-			toolStripMenuItemSaveAsMarkdown.Text = "Save as &MD";
-			toolStripMenuItemSaveAsMarkdown.Click += ToolStripMenuItemSaveAsMarkdown_Click;
-			toolStripMenuItemSaveAsMarkdown.MouseEnter += Control_Enter;
-			toolStripMenuItemSaveAsMarkdown.MouseLeave += Control_Leave;
-			// 
 			// ListReadableDesignationsForm
 			// 
 			AccessibleDescription = "List readable designations";
@@ -629,5 +646,6 @@ namespace Planetoid_DB
 		private SaveFileDialog saveFileDialogLatex;
 		private ToolStripMenuItem toolStripMenuItemSaveAsSql;
 		private ToolStripMenuItem toolStripMenuItemSaveAsMarkdown;
+		private ToolStripMenuItem toolStripMenuItemSaveAsYaml;
 	}
 }
