@@ -2,7 +2,6 @@
 
 using Planetoid_DB.Forms;
 
-using System.Collections;
 using System.Diagnostics;
 
 using static Planetoid_DB.TerminologyForm;
@@ -30,9 +29,9 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	/// Stores the planetoids database.
 	/// </summary>
 	/// <remarks>
-	/// This ArrayList is used to store the planetoids database entries.
+	/// This list is used to store the planetoids database entries.
 	/// </remarks>
-	private readonly ArrayList planetoidsDatabase = [];
+	private readonly List<string> planetoidsDatabase = [];
 
 	/// <summary>
 	/// Stores the currently selected control for clipboard operations.
@@ -237,13 +236,8 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	/// </remarks>
 	private void ShowCopyDataToClipboard()
 	{
-		// Create a new ArrayList to store the data to copy
-		// The capacity is set to 0 because we will add items dynamically
-		// The items in the ArrayList are the labels that contain the data to be copied
-		// The labels are accessed using their respective properties
-
-		ArrayList dataToCopy = new(capacity: 0)
-		{
+		// Create a new list to store the data to copy
+		List<string> dataToCopy = [
 			labelLinearEccentricityData.Text,
 			labelSemiMinorAxisData.Text,
 			labelMajorAxisData.Text,
@@ -263,10 +257,9 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 			labelSemiMeanAxisData.Text,
 			labelMeanAxisData.Text,
 			labelStandardGravitationalParameterData.Text
-		};
-		// Create a new list to store the data to copy
-		List<string> dataToCopyList = [];
-		dataToCopyList.AddRange(collection: dataToCopy.OfType<object>().Select(selector: static item => item.ToString()).Where(predicate: static itemString => !string.IsNullOrEmpty(value: itemString))!);
+		];
+		// Create a new list to store the non-empty data items
+		List<string> dataToCopyList = dataToCopy.Where(predicate: static item => !string.IsNullOrEmpty(value: item)).ToList();
 		// Iterate through each item in the dataToCopy array
 		// Create a new instance of the CopyDataToClipboardForm
 		using CopyDerivedDataToClipboardForm formCopyDerivedDataToClipboard = new();

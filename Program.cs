@@ -140,7 +140,7 @@ internal static class Program
 			Logger.Error(exception: ex, message: "Access denied");
 			ShowErrorMessage(message: $"Access denied: {ex.Message}");
 			// Exit the application with a non-zero exit code
-			Environment.Exit(exitCode: Environment.ExitCode);
+			Environment.Exit(exitCode: 1);
 		}
 		catch (FileNotFoundException ex)
 		{
@@ -148,7 +148,7 @@ internal static class Program
 			Logger.Error(exception: ex, message: "File not found");
 			ShowErrorMessage(message: $"File not found: {ex.Message}");
 			// Exit the application with a non-zero exit code
-			Environment.Exit(exitCode: Environment.ExitCode);
+			Environment.Exit(exitCode: 1);
 		}
 		catch (IOException ex)
 		{
@@ -156,7 +156,7 @@ internal static class Program
 			Logger.Error(exception: ex, message: "I/O error");
 			ShowErrorMessage(message: $"I/O error: {ex.Message}");
 			// Exit the application with a non-zero exit code
-			Environment.Exit(exitCode: Environment.ExitCode);
+			Environment.Exit(exitCode: 1);
 		}
 		catch (NetworkInformationException ex)
 		{
@@ -164,7 +164,7 @@ internal static class Program
 			Logger.Error(exception: ex, message: "network error");
 			ShowErrorMessage(message: $"network error: {ex.Message}");
 			// Exit the application with a non-zero exit code
-			Environment.Exit(exitCode: Environment.ExitCode);
+			Environment.Exit(exitCode: 1);
 		}
 		catch (Exception ex)
 		{
@@ -172,7 +172,7 @@ internal static class Program
 			Logger.Error(exception: ex, message: "An unexpected error occurred.");
 			ShowErrorMessage(message: $"An unexpected error occurred: {ex.Message}");
 			// Exit the application with a non-zero exit code
-			Environment.Exit(exitCode: Environment.ExitCode);
+			Environment.Exit(exitCode: 1);
 		}
 		finally
 		{
@@ -207,7 +207,7 @@ internal static class Program
 		if (formPreload.DialogResult == DialogResult.Cancel)
 		{
 			// Exit the application with a non-zero exit code
-			Environment.Exit(exitCode: Environment.ExitCode);
+			Environment.Exit(exitCode: 1);
 		}
 		// Check if the file path is empty
 		if (string.IsNullOrEmpty(value: formPreload.MpcOrbDatFilePath))
@@ -216,7 +216,7 @@ internal static class Program
 			Logger.Error(message: "File not found");
 			ShowErrorMessage(message: "File not found");
 			// Exit the application with a non-zero exit code
-			Environment.Exit(exitCode: Environment.ExitCode);
+			Environment.Exit(exitCode: 1);
 		}
 		else
 		{

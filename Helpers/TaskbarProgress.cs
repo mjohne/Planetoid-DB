@@ -1,4 +1,6 @@
-﻿using System.Runtime.InteropServices;
+﻿using NLog;
+
+using System.Runtime.InteropServices;
 
 namespace Planetoid_DB.Helpers;
 
@@ -10,6 +12,14 @@ namespace Planetoid_DB.Helpers;
 /// </remarks>
 public static class TaskbarProgress
 {
+	/// <summary>
+	/// NLog logger instance for logging application events.
+	/// </summary>
+	/// <remarks>
+	/// This logger is used for logging taskbar progress errors.
+	/// </remarks>
+	private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
 	/// <summary>
 	/// Defines the different states of the taskbar progress.
 	/// </summary>
@@ -115,7 +125,7 @@ public static class TaskbarProgress
 		catch (Exception ex)
 		{
 			// Fehlerbehandlung hinzufügen
-			Console.WriteLine(value: $@"Error setting taskbar progress value: {ex.Message}");
+			Logger.Error(exception: ex, message: "Error setting taskbar progress state");
 		}
 	}
 
@@ -142,7 +152,7 @@ public static class TaskbarProgress
 		catch (Exception ex)
 		{
 			// Fehlerbehandlung hinzufügen
-			Console.WriteLine(value: $@"Error setting taskbar progress value: {ex.Message}");
+			Logger.Error(exception: ex, message: "Error setting taskbar progress value");
 		}
 	}
 }

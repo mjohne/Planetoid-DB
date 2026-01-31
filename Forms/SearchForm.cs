@@ -1,7 +1,6 @@
 ﻿using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 
-using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics;
 
@@ -17,12 +16,12 @@ namespace Planetoid_DB;
 public partial class SearchForm : BaseKryptonForm
 {
 	/// <summary>
-	/// Planetoids database array.
+	/// Planetoids database list.
 	/// </summary>
 	/// <remarks>
-	/// This array stores the data of all planetoids in the database.
+	/// This list stores the data of all planetoids in the database.
 	/// </remarks>
-	private ArrayList planetoidsDatabase = [];
+	private List<string> planetoidsDatabase = [];
 
 	/// <summary>
 	/// Variables for tracking the number of planetoids, entries found, and selected index.
@@ -285,10 +284,10 @@ public partial class SearchForm : BaseKryptonForm
 	private void UnmarkAll() => CheckItems(check: false);
 
 	/// <summary>
-	/// 
+	/// Fills the planetoids database with data.
 	/// </summary>
-	/// <param name="arrTemp"></param>
-	public void FillArray(ArrayList arrTemp)
+	/// <param name="arrTemp">The list containing planetoid data.</param>
+	public void FillArray(List<string> arrTemp)
 	{
 		planetoidsDatabase = arrTemp;
 		numberPlanetoids = planetoidsDatabase.Count;

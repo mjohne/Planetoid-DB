@@ -383,6 +383,7 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 	{
 		webClient.CancelAsync();
 		webClient.Dispose();
+		cancellationTokenSource?.Dispose();
 		Dispose();
 	}
 
