@@ -1388,14 +1388,24 @@ namespace Planetoid_DB {
                 return ResourceManager.GetString("VersionTemplate", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die www ähnelt.
-        /// </summary>
-        internal static string Www {
-            get {
-                return ResourceManager.GetString("Www", resourceCulture);
-            }
-        }
-    }
+
+		/// <summary>
+		///   Sucht eine lokalisierte Zeichenfolge, die www ähnelt.
+		/// </summary>
+		internal static string Www
+		{
+			get
+			{
+				return ResourceManager.GetString("Www", resourceCulture);
+			}
+		}
+	
+		internal static string FileSavedSuccessfully
+		{
+			get
+			{
+				return ResourceManager.GetString("FileSavedSuccessfully", resourceCulture);
+			}
+		}
+	}
 }
