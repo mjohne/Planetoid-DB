@@ -56,6 +56,8 @@ namespace Planetoid_DB
 			toolStripMenuItemSaveAsJson = new ToolStripMenuItem();
 			toolStripMenuItemSaveAsYaml = new ToolStripMenuItem();
 			toolStripMenuItemSaveAsSql = new ToolStripMenuItem();
+			toolStripMenuItemSaveAsPdf = new ToolStripMenuItem();
+			toolStripMenuItemSaveAsPostScript = new ToolStripMenuItem();
 			dropButtonSaveList = new KryptonDropButton();
 			panel = new KryptonPanel();
 			listView = new ListView();
@@ -71,6 +73,8 @@ namespace Planetoid_DB
 			saveFileDialogSql = new SaveFileDialog();
 			saveFileDialogTsv = new SaveFileDialog();
 			saveFileDialogLatex = new SaveFileDialog();
+			saveFileDialogPostScript = new SaveFileDialog();
+			saveFileDialogPdf = new SaveFileDialog();
 			statusStrip.SuspendLayout();
 			contextMenuCopyToClipboard.SuspendLayout();
 			contextMenuSaveList.SuspendLayout();
@@ -257,9 +261,9 @@ namespace Planetoid_DB
 			contextMenuSaveList.AccessibleName = "Save list";
 			contextMenuSaveList.AccessibleRole = AccessibleRole.MenuPopup;
 			contextMenuSaveList.Font = new Font("Segoe UI", 9F);
-			contextMenuSaveList.Items.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsCsv, toolStripMenuItemSaveAsTsv, toolStripMenuItemSaveAsHtml, toolStripMenuItemSaveAsXml, toolStripMenuItemSaveAsJson, toolStripMenuItemSaveAsYaml, toolStripMenuItemSaveAsSql });
+			contextMenuSaveList.Items.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsCsv, toolStripMenuItemSaveAsTsv, toolStripMenuItemSaveAsHtml, toolStripMenuItemSaveAsXml, toolStripMenuItemSaveAsJson, toolStripMenuItemSaveAsYaml, toolStripMenuItemSaveAsSql, toolStripMenuItemSaveAsPdf, toolStripMenuItemSaveAsPostScript });
 			contextMenuSaveList.Name = "contextMenuStrip1";
-			contextMenuSaveList.Size = new Size(193, 202);
+			contextMenuSaveList.Size = new Size(193, 246);
 			contextMenuSaveList.TabStop = true;
 			contextMenuSaveList.Text = "&Save List";
 			toolTip.SetToolTip(contextMenuSaveList, "Save List");
@@ -409,6 +413,38 @@ namespace Planetoid_DB
 			toolStripMenuItemSaveAsSql.MouseEnter += Control_Enter;
 			toolStripMenuItemSaveAsSql.MouseLeave += Control_Leave;
 			// 
+			// toolStripMenuItemSaveAsPdf
+			// 
+			toolStripMenuItemSaveAsPdf.AccessibleDescription = "Save the list as PDF";
+			toolStripMenuItemSaveAsPdf.AccessibleName = "Save as PDF";
+			toolStripMenuItemSaveAsPdf.AccessibleRole = AccessibleRole.MenuItem;
+			toolStripMenuItemSaveAsPdf.AutoToolTip = true;
+			toolStripMenuItemSaveAsPdf.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
+			toolStripMenuItemSaveAsPdf.Name = "toolStripMenuItemSaveAsPdf";
+			toolStripMenuItemSaveAsPdf.ShortcutKeyDisplayString = "Strg+F";
+			toolStripMenuItemSaveAsPdf.ShortcutKeys = Keys.Control | Keys.F;
+			toolStripMenuItemSaveAsPdf.Size = new Size(192, 22);
+			toolStripMenuItemSaveAsPdf.Text = "Save as PD&F";
+			toolStripMenuItemSaveAsPdf.Click += ToolStripMenuItemSaveAsPdf_Click;
+			toolStripMenuItemSaveAsPdf.MouseEnter += Control_Enter;
+			toolStripMenuItemSaveAsPdf.MouseLeave += Control_Leave;
+			// 
+			// toolStripMenuItemSaveAsPostScript
+			// 
+			toolStripMenuItemSaveAsPostScript.AccessibleDescription = "Save the list as PostScript";
+			toolStripMenuItemSaveAsPostScript.AccessibleName = "Save as PS";
+			toolStripMenuItemSaveAsPostScript.AccessibleRole = AccessibleRole.MenuItem;
+			toolStripMenuItemSaveAsPostScript.AutoToolTip = true;
+			toolStripMenuItemSaveAsPostScript.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
+			toolStripMenuItemSaveAsPostScript.Name = "toolStripMenuItemSaveAsPostScript";
+			toolStripMenuItemSaveAsPostScript.ShortcutKeyDisplayString = "Strg+P";
+			toolStripMenuItemSaveAsPostScript.ShortcutKeys = Keys.Control | Keys.P;
+			toolStripMenuItemSaveAsPostScript.Size = new Size(192, 22);
+			toolStripMenuItemSaveAsPostScript.Text = "Save as &PS";
+			toolStripMenuItemSaveAsPostScript.Click += ToolStripMenuItemSaveAsPostScript_Click;
+			toolStripMenuItemSaveAsPostScript.MouseEnter += Control_Enter;
+			toolStripMenuItemSaveAsPostScript.MouseLeave += Control_Leave;
+			// 
 			// dropButtonSaveList
 			// 
 			dropButtonSaveList.AccessibleDescription = "Saves the list as file";
@@ -542,7 +578,17 @@ namespace Planetoid_DB
 			// saveFileDialogLatex
 			// 
 			saveFileDialogLatex.DefaultExt = "tex";
-			saveFileDialogLatex.Filter = "Latex files|*.tex|all files|*.*";
+			saveFileDialogLatex.Filter = "LaTex files|*.tex|all files|*.*";
+			// 
+			// saveFileDialogPostScript
+			// 
+			saveFileDialogPostScript.DefaultExt = "ps";
+			saveFileDialogPostScript.Filter = "PostScript files|*.ps|all files|*.*";
+			// 
+			// saveFileDialogPdf
+			// 
+			saveFileDialogPdf.DefaultExt = "pdf";
+			saveFileDialogPdf.Filter = "PDF files|*.pdf|all files|*.*";
 			// 
 			// ListReadableDesignationsForm
 			// 
@@ -615,5 +661,9 @@ namespace Planetoid_DB
 		private ToolStripMenuItem toolStripMenuItemSaveAsYaml;
 		private ToolStripMenuItem toolStripMenuItemSaveAsTsv;
 		private ToolStripMenuItem toolStripMenuItemSaveAsLatex;
+		private SaveFileDialog saveFileDialogPostScript;
+		private ToolStripMenuItem toolStripMenuItemSaveAsPostScript;
+		private SaveFileDialog saveFileDialogPdf;
+		private ToolStripMenuItem toolStripMenuItemSaveAsPdf;
 	}
 }

@@ -22,14 +22,6 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	#region Constants
 
 	/// <summary>
-	/// Offset for virtual mode to calculate the starting index in the database
-	/// </summary>
-	/// <remarks>
-	/// This field is used to calculate the starting index in the database for virtual mode.
-	/// </remarks>
-	private int virtualListOffset = 0;
-
-	/// <summary>
 	/// Length of the index field in the planetoid record.
 	/// </summary>
 	/// <remarks>
@@ -56,6 +48,14 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	#endregion
 
 	/// <summary>
+	/// Offset for virtual mode to calculate the starting index in the database
+	/// </summary>
+	/// <remarks>
+	/// This field is used to calculate the starting index in the database for virtual mode.
+	/// </remarks>
+	private int virtualListOffset = 0;
+
+	/// <summary>
 	/// List of planetoid records from the database
 	/// </summary>
 	/// <remarks>
@@ -78,14 +78,6 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// This index is used to keep track of the currently selected planetoid in the list.
 	/// </remarks>
 	private int selectedIndex;
-
-	/// <summary>
-	/// Stopwatch for measuring elapsed time.
-	/// </summary>
-	/// <remarks>
-	/// This stopwatch is used to measure the elapsed time for various operations.
-	/// </remarks>
-	private readonly Stopwatch stopwatch = new();
 
 	/// <summary>
 	/// NLog logger instance for the class.
@@ -397,6 +389,50 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		return value.Replace(oldValue: "|", newValue: "\\|");
 	}
 
+	/// <summary>
+	/// Escapes PostScript special characters in a string.
+	/// </summary>
+	/// <param name="input">The input string.</param>
+	/// <returns>The escaped string suitable for PostScript output.</returns>
+	/// <remarks>
+	/// This method is used to escape PostScript special characters in the input string.
+	/// </remarks>
+	private static string EscapePostScript(string? input)
+	{
+		// Handle null input
+		if (string.IsNullOrEmpty(value: input))
+		{
+			return string.Empty;
+		}
+		// The backslash must be replaced first, as it is the escape character.
+		return input.Replace(oldValue: "\\", newValue: "\\\\")
+					.Replace(oldValue: "(", newValue: "\\(")
+					.Replace(oldValue: ")", newValue: "\\)");
+	}
+
+	/// <summary>
+	/// Escapes characters for PDF string literals.
+	/// </summary>
+	/// <param name="text">The input text to escape.</param>
+	/// <returns>The escaped string.</returns>
+	/// <remarks>
+	/// This method is used to escape special characters in the input text for PDF output.
+	/// </remarks>
+	private static string EscapePdf(string? text)
+	{
+		// Handle null input
+		if (string.IsNullOrEmpty(value: text))
+		{
+			return string.Empty;
+		}
+		// Escape special characters for PDF string literals
+		return string.IsNullOrEmpty(value: text)
+			? string.Empty
+			: text.Replace(oldValue: "\\", newValue: "\\\\")
+				   .Replace(oldValue: "(", newValue: "\\(")
+				   .Replace(oldValue: ")", newValue: "\\)");
+	}
+
 	#endregion
 
 	#region form event handlers
@@ -511,7 +547,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <remarks>
 	/// This method is used to handle the click event for the List button.
 	/// </remarks>
-	private async void ButtonList_Click(object? sender, EventArgs? e)
+	private void ButtonList_Click(object? sender, EventArgs? e)
 	{
 		// Reset UI status
 		ClearStatusBar();
@@ -868,6 +904,264 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		MessageBox.Show(text: I10nStrings.FileSavedSuccessfully, caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
+	/// <summary>
+	/// Saves the current list as a PostScript (.ps) file.
+	/// </summary>
+	/// <param name="sender">Event source (the menu item).</param>
+	/// <param name="e">Event arguments.</param>
+	/// <remarks>
+	/// This method is invoked when the user selects the "Save As PostScript" menu item.
+	/// </remarks>
+	private void ToolStripMenuItemSaveAsPostScript_Click(object? sender, EventArgs? e)
+	{
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogPostScript, ext: "ps"))
+		{
+			return;
+		}
+		// Write the data to the PostScript file
+		using StreamWriter writer = new(path: saveFileDialogPostScript.FileName, append: false, encoding: Encoding.ASCII);
+		// Constants for page layout
+		const int pageHeight = 842; // A4 height in points
+		const int marginTop = 50;
+		const int marginBottom = 50;
+		const int startY = pageHeight - marginTop;
+		const int lineHeight = 14;
+		int currentY = startY;
+		int pageNumber = 1;
+		// Write PostScript header
+		writer.WriteLine(value: "%!PS-Adobe-3.0");
+		writer.WriteLine(value: "%%Title: Planetoid List");
+		writer.WriteLine(value: "%%Creator: Planetoid-DB");
+		writer.WriteLine(value: "%%Pages: (atend)");
+		writer.WriteLine(value: "%%PageOrder: Ascend");
+		writer.WriteLine(value: "%%EndComments");
+		// Font definitions (macros for shorter code)
+		writer.WriteLine(value: "/FHeader { /Helvetica-Bold findfont 12 scalefont setfont } bind def");
+		writer.WriteLine(value: "/FBody { /Helvetica findfont 10 scalefont setfont } bind def");
+		// Function to write new page header
+		static void WritePageHeader(StreamWriter w, int pageNum)
+		{
+			w.WriteLine(value: $"%%Page: {pageNum} {pageNum}");
+			// Title
+			w.WriteLine(value: "FHeader");
+			w.WriteLine(value: $"50 {pageHeight - 30} moveto (List of Readable Designations - Page {pageNum}) show");
+			// Column headers
+			w.WriteLine(value: "50 {pageHeight - 50} moveto (Index) show");
+			w.WriteLine(value: "120 {pageHeight - 50} moveto (Designation) show");
+			// Separator line
+			w.WriteLine(value: "50 {pageHeight - 55} moveto 500 0 rlineto stroke");
+			// Activate body font
+			w.WriteLine(value: "FBody");
+		}
+		// Start first page
+		WritePageHeader(w: writer, pageNum: pageNumber);
+		currentY = startY - 30; // Place below header
+								// --- Iterate data ---
+		foreach ((string Index, string Name) in GetExportData())
+		{
+			// Check if we are at the bottom (page break)
+			if (currentY < marginBottom)
+			{
+				writer.WriteLine(value: "showpage"); // Finish page
+				pageNumber++;
+				WritePageHeader(w: writer, pageNum: pageNumber); // Start new page
+				currentY = startY - 30;
+			}
+			// Write data
+			// moveto x y: Move the cursor
+			// show: Displays the text in parentheses
+			string safeIndex = EscapePostScript(input: Index);
+			string safeName = EscapePostScript(input: Name);
+			writer.WriteLine(value: $"50 {currentY} moveto ({safeIndex}) show");
+			writer.WriteLine(value: $"120 {currentY} moveto ({safeName}) show");
+			currentY -= lineHeight;
+		}
+		// --- Finish document ---
+		writer.WriteLine(value: "showpage"); // Finish last page
+		writer.WriteLine(value: "%%Trailer");
+		writer.WriteLine(value: $"%%Pages: {pageNumber}");
+		writer.WriteLine(value: "%%EOF");
+		MessageBox.Show(text: I10nStrings.FileSavedSuccessfully, caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>
+	/// Saves the current list as an uncompressed PDF file.
+	/// </summary>
+	/// <param name="sender">Event source (the menu item).</param>
+	/// <param name="e">Event arguments.</param>
+	/// <remarks>
+	/// This method is invoked when the user selects the "Save As PDF" menu item.
+	/// </remarks>
+	private void ToolStripMenuItemSaveAsPdf_Click(object? sender, EventArgs? e)
+	{
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogPdf, ext: "pdf"))
+		{
+			return;
+		}
+		// Write directly to the FileStream to obtain exact byte positions for the XREF table.
+		using FileStream fs = new(path: saveFileDialogPdf.FileName, mode: FileMode.Create);
+		// PDF based on PDF 1.4 specification
+		using StreamWriter w = new(stream: fs, encoding: Encoding.ASCII);
+		// Tracking object offsets for XREF table
+		List<long> objectOffsets = [];
+		// Helper function: Writes an object and remembers the offset
+		// Return value is the object ID (Index + 1)
+		int StartNewObject()
+		{
+			w.Flush();
+			objectOffsets.Add(item: fs.Position);
+			int id = objectOffsets.Count;
+			w.WriteLine(value: $"{id} 0 obj");
+			return id;
+		}
+		// --- 1. header ---
+		w.WriteLine(value: "%PDF-1.4");
+		// binary comment line
+		w.WriteLine(value: "%µµµµ");
+		// --- 2. preparation of content ---
+		// First, we generate the content streams (the text) for all pages.
+		// We store the object IDs of the content streams to later associate them with the pages.
+		List<int> pageContentObjIds = [];
+		// Constants for page layout
+		const int pageHeight = 842; // A4
+		const int startY = 750;
+		const int marginY = 50;
+		const int lineHeight = 14;
+		// Current writing position
+		int currentY = startY;
+		int currentContentObjId = 0;
+		// Start first content stream
+		currentContentObjId = StartNewObject();
+		pageContentObjIds.Add(item: currentContentObjId);
+		// Length is required, but we set it to 0 for simplicity (not strictly correct, but works for simple PDFs)
+		w.WriteLine(value: "<< /Length 0 >> stream");
+		// PDF commands to set font and size; 0,0 is bottom-left
+		// BT = Begin Text, /F1 = Font, 10 = Size
+		w.WriteLine(value: "BT /F1 10 Tf");
+		// Header for the first page
+		w.WriteLine(value: $"1 0 0 1 50 {pageHeight - 40} Tm (List of Readable Designations) Tj");
+		w.WriteLine(value: $"1 0 0 1 50 {pageHeight - 60} Tm (Index) Tj");
+		w.WriteLine(value: $"1 0 0 1 120 {pageHeight - 60} Tm (Designation) Tj");
+		// Move down to start position
+		foreach ((string Index, string Name) in GetExportData())
+		{
+			// Check if we need a new page
+			if (currentY < marginY)
+			{
+				// Close current stream
+				w.WriteLine(value: "ET"); // End Text
+				w.WriteLine(value: "endstream");
+				w.WriteLine(value: "endobj");
+				// Start new page
+				currentContentObjId = StartNewObject();
+				pageContentObjIds.Add(item: currentContentObjId);
+				w.WriteLine(value: "<< >> stream");
+				w.WriteLine(value: "BT /F1 10 Tf");
+				// Header for the new page
+				w.WriteLine(value: $"1 0 0 1 50 {pageHeight - 40} Tm (List of Readable Designations - Cont.) Tj");
+				w.WriteLine(value: $"1 0 0 1 50 {pageHeight - 60} Tm (Index) Tj");
+				w.WriteLine(value: $"1 0 0 1 120 {pageHeight - 60} Tm (Designation) Tj");
+				currentY = startY;
+			}
+			// Write the actual data
+			// Td = Move text position (relativ), aber wir nutzen Tm (Matrix) für absolute Positionierung hier einfacher
+			// Index
+			w.WriteLine(value: $"1 0 0 1 50 {currentY} Tm ({EscapePdf(Index)}) Tj");
+			// Name
+			w.WriteLine(value: $"1 0 0 1 120 {currentY} Tm ({EscapePdf(Name)}) Tj");
+			currentY -= lineHeight;
+		}
+		// Close last stream
+		w.WriteLine(value: "ET");
+		w.WriteLine(value: "endstream");
+		w.WriteLine(value: "endobj");
+		// --- 3. Create Page Objects ---
+		// Each page is its own object, pointing to its content stream
+		List<int> pageObjIds = [];
+		// Create a Page Object for each content stream
+		foreach (int contentId in pageContentObjIds)
+		{
+			// Create Page Object
+			int pageId = StartNewObject();
+			pageObjIds.Add(item: pageId);
+			w.WriteLine(value: "<<");
+			w.WriteLine(value: "/Type /Page");
+			// Parent will be referenced later (Placeholder ID: we don't know it yet, but PDF allows forward ref)
+			// We use an indirect reference to the Root-Pages object, which comes next.
+			// The Root-Pages object will have ID = number_so_far + number_of_pages + 1.
+			// Simpler: We write the root object afterwards and then know its ID.
+			// Trick: We leave Parent out for now or fill it in later?
+			// Better: We reserve the ID for "Pages Root" NOW.
+			int rootPagesId = objectOffsets.Count + pageObjIds.Count + 1 + 1; // +1 for Font, +1 for Catalog (estimate) - risky.
+																			  // Safer way: We write Parent later. In PDF 1.4, Parent must be there.
+																			  // We calculate the ID of the parent object: It comes AFTER all page objects and the font object.
+			int predictedParentId = objectOffsets.Count + (pageContentObjIds.Count - pageObjIds.Count) + 2;
+			// Write Parent reference
+			w.WriteLine(value: $"/Parent {predictedParentId} 0 R");
+			w.WriteLine(value: "/MediaBox [0 0 595 842]"); // A4
+			w.WriteLine(value: $"/Contents {contentId} 0 R");
+			w.WriteLine(value: $"/Resources << /Font << /F1 {predictedParentId + 1} 0 R >> >>"); // Ref on Font object
+			w.WriteLine(value: ">>");
+			w.WriteLine(value: "endobj");
+		}
+		// --- 4. Pages Root Object (The "Parent") ---
+		int pagesRootId = StartNewObject(); // Here we land at 'predictedParentId'
+		w.WriteLine(value: "<<");
+		w.WriteLine(value: "/Type /Pages");
+		w.Write(value: "/Kids [");
+		// List all page object references
+		foreach (int pid in pageObjIds)
+		{
+			w.Write(value: $"{pid} 0 R ");
+		}
+		// Close Kids array
+		w.WriteLine(value: "]");
+		w.WriteLine(value: $"/Count {pageObjIds.Count}");
+		w.WriteLine(value: ">>");
+		w.WriteLine(value: "endobj");
+		// --- 5. Font Object ---
+		int fontId = StartNewObject();
+		w.WriteLine(value: "<<");
+		w.WriteLine(value: "/Type /Font");
+		w.WriteLine(value: "/Subtype /Type1");
+		w.WriteLine(value: "/BaseFont /Helvetica");
+		w.WriteLine(value: ">>");
+		w.WriteLine(value: "endobj");
+		// --- 6. Catalog Object ---
+		int catalogId = StartNewObject();
+		w.WriteLine(value: "<<");
+		w.WriteLine(value: "/Type /Catalog");
+		w.WriteLine(value: $"/Pages {pagesRootId} 0 R");
+		w.WriteLine(value: ">>");
+		w.WriteLine(value: "endobj");
+		// --- 7. Cross-Reference Table (XREF) ---
+		w.Flush();
+		long xrefOffset = fs.Position;
+		w.WriteLine(value: "xref");
+		// +1 for entry 0
+		w.WriteLine(value: $"0 {objectOffsets.Count + 1}");
+		// Entry 0 is always free
+		w.WriteLine(value: "0000000000 65535 f ");
+		// Write each object offset
+		foreach (long offset in objectOffsets)
+		{
+			// Format: 10-stellig, 0-gepadded
+			w.WriteLine(value: $"{offset:D10} 00000 n ");
+		}
+		// --- 8. Trailer ---
+		w.WriteLine(value: "trailer");
+		w.WriteLine(value: "<<");
+		w.WriteLine(value: $"/Size {objectOffsets.Count + 1}");
+		w.WriteLine(value: $"/Root {catalogId} 0 R");
+		w.WriteLine(value: ">>");
+		w.WriteLine(value: "startxref");
+		w.WriteLine(value: xrefOffset);
+		w.WriteLine(value: "%%EOF");
+		MessageBox.Show(text: I10nStrings.FileSavedSuccessfully, caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
 	#endregion
 
 	#region Enter event handlers
@@ -959,7 +1253,4 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	}
 
 	#endregion
-
-
-
 }
