@@ -23,7 +23,7 @@ public class BaseKryptonForm : KryptonForm
 	/// <remarks>
 	/// This logger is used to log messages and errors for the class.
 	/// </remarks>
-	private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="BaseKryptonForm"/> class.
@@ -96,7 +96,7 @@ public class BaseKryptonForm : KryptonForm
 		catch (Exception ex)
 		{
 			// Log the exception and show an error message
-			Logger.Error(exception: ex, message: ex.Message);
+			logger.Error(exception: ex, message: ex.Message);
 			// Show an error message
 			ShowErrorMessage(message: $"Error copying to clipboard: {ex.Message}");
 		}
