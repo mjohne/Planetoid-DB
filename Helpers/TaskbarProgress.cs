@@ -18,7 +18,7 @@ public static class TaskbarProgress
 	/// <remarks>
 	/// This logger is used for logging taskbar progress errors.
 	/// </remarks>
-	private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 	/// <summary>
 	/// Defines the different states of the taskbar progress.
@@ -125,7 +125,7 @@ public static class TaskbarProgress
 		catch (Exception ex)
 		{
 			// Log the error using NLog
-			Logger.Error(exception: ex, message: "Error setting taskbar progress state");
+			logger.Error(exception: ex, message: "Error setting taskbar progress value");
 		}
 	}
 
@@ -152,7 +152,7 @@ public static class TaskbarProgress
 		catch (Exception ex)
 		{
 			// Log the error using NLog
-			Logger.Error(exception: ex, message: "Error setting taskbar progress value");
+			logger.Error(exception: ex, message: "Error setting taskbar progress value");
 		}
 	}
 }

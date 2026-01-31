@@ -399,9 +399,9 @@
 **Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.2.0.14...0.2.2.16
 
 
-## Planetoid-DB 0.2.1.15
+## Planetoid-DB 0.2.2.16
 
-**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.2.0.14...0.2.1.15
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.2.0.14...0.2.2.16
 
 
 ## Planetoid-DB 0.2.0.14
