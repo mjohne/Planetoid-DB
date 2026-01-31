@@ -50,8 +50,9 @@ namespace Planetoid_DB
 			numericUpDownMaximum = new KryptonNumericUpDown();
 			labelMaximum = new KryptonLabel();
 			contextMenuSaveList = new ContextMenuStrip(components);
-			toolStripMenuItemSaveAsCsv = new ToolStripMenuItem();
 			toolStripMenuItemSaveAsMarkdown = new ToolStripMenuItem();
+			toolStripMenuItemSaveAsCsv = new ToolStripMenuItem();
+			toolStripMenuItemSaveAsTsv = new ToolStripMenuItem();
 			toolStripMenuItemSaveAsHtml = new ToolStripMenuItem();
 			toolStripMenuItemSaveAsXml = new ToolStripMenuItem();
 			toolStripMenuItemSaveAsJson = new ToolStripMenuItem();
@@ -317,30 +318,14 @@ namespace Planetoid_DB
 			contextMenuSaveList.AccessibleName = "Save list";
 			contextMenuSaveList.AccessibleRole = AccessibleRole.MenuPopup;
 			contextMenuSaveList.Font = new Font("Segoe UI", 9F);
-			contextMenuSaveList.Items.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsCsv, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsHtml, toolStripMenuItemSaveAsXml, toolStripMenuItemSaveAsJson, toolStripMenuItemSaveAsYaml, toolStripMenuItemSaveAsSql });
+			contextMenuSaveList.Items.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsCsv, toolStripMenuItemSaveAsTsv, toolStripMenuItemSaveAsHtml, toolStripMenuItemSaveAsXml, toolStripMenuItemSaveAsJson, toolStripMenuItemSaveAsYaml, toolStripMenuItemSaveAsSql });
 			contextMenuSaveList.Name = "contextMenuStrip1";
-			contextMenuSaveList.Size = new Size(193, 158);
+			contextMenuSaveList.Size = new Size(193, 180);
 			contextMenuSaveList.TabStop = true;
 			contextMenuSaveList.Text = "&Save List";
 			toolTip.SetToolTip(contextMenuSaveList, "Save List");
 			contextMenuSaveList.MouseEnter += Control_Enter;
 			contextMenuSaveList.MouseLeave += Control_Leave;
-			// 
-			// toolStripMenuItemSaveAsCsv
-			// 
-			toolStripMenuItemSaveAsCsv.AccessibleDescription = "Save the list as CSV file";
-			toolStripMenuItemSaveAsCsv.AccessibleName = "Save as CSV";
-			toolStripMenuItemSaveAsCsv.AccessibleRole = AccessibleRole.MenuItem;
-			toolStripMenuItemSaveAsCsv.AutoToolTip = true;
-			toolStripMenuItemSaveAsCsv.Image = FatcowIcons16px.fatcow_page_white_text_16px;
-			toolStripMenuItemSaveAsCsv.Name = "toolStripMenuItemSaveAsCsv";
-			toolStripMenuItemSaveAsCsv.ShortcutKeyDisplayString = "Strg+C";
-			toolStripMenuItemSaveAsCsv.ShortcutKeys = Keys.Control | Keys.C;
-			toolStripMenuItemSaveAsCsv.Size = new Size(192, 22);
-			toolStripMenuItemSaveAsCsv.Text = "Save as &CSV";
-			toolStripMenuItemSaveAsCsv.Click += ToolStripMenuItemSaveAsCsv_Click;
-			toolStripMenuItemSaveAsCsv.MouseEnter += Control_Enter;
-			toolStripMenuItemSaveAsCsv.MouseLeave += Control_Leave;
 			// 
 			// toolStripMenuItemSaveAsMarkdown
 			// 
@@ -357,6 +342,37 @@ namespace Planetoid_DB
 			toolStripMenuItemSaveAsMarkdown.Click += ToolStripMenuItemSaveAsMarkdown_Click;
 			toolStripMenuItemSaveAsMarkdown.MouseEnter += Control_Enter;
 			toolStripMenuItemSaveAsMarkdown.MouseLeave += Control_Leave;
+			// 
+			// toolStripMenuItemSaveAsCsv
+			// 
+			toolStripMenuItemSaveAsCsv.AccessibleDescription = "Save the list as CSV file";
+			toolStripMenuItemSaveAsCsv.AccessibleName = "Save as CSV";
+			toolStripMenuItemSaveAsCsv.AccessibleRole = AccessibleRole.MenuItem;
+			toolStripMenuItemSaveAsCsv.AutoToolTip = true;
+			toolStripMenuItemSaveAsCsv.Image = FatcowIcons16px.fatcow_page_white_excel_16px;
+			toolStripMenuItemSaveAsCsv.Name = "toolStripMenuItemSaveAsCsv";
+			toolStripMenuItemSaveAsCsv.ShortcutKeyDisplayString = "Strg+C";
+			toolStripMenuItemSaveAsCsv.ShortcutKeys = Keys.Control | Keys.C;
+			toolStripMenuItemSaveAsCsv.Size = new Size(192, 22);
+			toolStripMenuItemSaveAsCsv.Text = "Save as &CSV";
+			toolStripMenuItemSaveAsCsv.Click += ToolStripMenuItemSaveAsCsv_Click;
+			toolStripMenuItemSaveAsCsv.MouseEnter += Control_Enter;
+			toolStripMenuItemSaveAsCsv.MouseLeave += Control_Leave;
+			// 
+			// toolStripMenuItemSaveAsTsv
+			// 
+			toolStripMenuItemSaveAsTsv.AccessibleDescription = "Save the list as TSV file";
+			toolStripMenuItemSaveAsTsv.AccessibleName = "Save as TSV";
+			toolStripMenuItemSaveAsTsv.AccessibleRole = AccessibleRole.MenuItem;
+			toolStripMenuItemSaveAsTsv.AutoToolTip = true;
+			toolStripMenuItemSaveAsTsv.Image = FatcowIcons16px.fatcow_page_white_excel_16px;
+			toolStripMenuItemSaveAsTsv.Name = "toolStripMenuItemSaveAsTsv";
+			toolStripMenuItemSaveAsTsv.ShortcutKeyDisplayString = "Strg+T";
+			toolStripMenuItemSaveAsTsv.Size = new Size(192, 22);
+			toolStripMenuItemSaveAsTsv.Text = "Save as &TSV";
+			toolStripMenuItemSaveAsTsv.Click += ToolStripMenuItemSaveAsTsv_Click;
+			toolStripMenuItemSaveAsTsv.MouseEnter += Control_Enter;
+			toolStripMenuItemSaveAsTsv.MouseLeave += Control_Leave;
 			// 
 			// toolStripMenuItemSaveAsHtml
 			// 
@@ -408,7 +424,7 @@ namespace Planetoid_DB
 			// 
 			// toolStripMenuItemSaveAsYaml
 			// 
-			toolStripMenuItemSaveAsYaml.AccessibleDescription = "Save the list as Yaml file";
+			toolStripMenuItemSaveAsYaml.AccessibleDescription = "Save the list as YAML file";
 			toolStripMenuItemSaveAsYaml.AccessibleName = "Save as YAML";
 			toolStripMenuItemSaveAsYaml.AccessibleRole = AccessibleRole.MenuItem;
 			toolStripMenuItemSaveAsYaml.AutoToolTip = true;
@@ -428,7 +444,7 @@ namespace Planetoid_DB
 			toolStripMenuItemSaveAsSql.AccessibleName = "Save as SQL";
 			toolStripMenuItemSaveAsSql.AccessibleRole = AccessibleRole.MenuItem;
 			toolStripMenuItemSaveAsSql.AutoToolTip = true;
-			toolStripMenuItemSaveAsSql.Image = FatcowIcons16px.fatcow_script_16px;
+			toolStripMenuItemSaveAsSql.Image = FatcowIcons16px.fatcow_page_white_database_16px;
 			toolStripMenuItemSaveAsSql.Name = "toolStripMenuItemSaveAsSql";
 			toolStripMenuItemSaveAsSql.ShortcutKeyDisplayString = "Strg+S";
 			toolStripMenuItemSaveAsSql.ShortcutKeys = Keys.Control | Keys.S;
@@ -647,5 +663,6 @@ namespace Planetoid_DB
 		private ToolStripMenuItem toolStripMenuItemSaveAsSql;
 		private ToolStripMenuItem toolStripMenuItemSaveAsMarkdown;
 		private ToolStripMenuItem toolStripMenuItemSaveAsYaml;
+		private ToolStripMenuItem toolStripMenuItemSaveAsTsv;
 	}
 }
