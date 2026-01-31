@@ -108,25 +108,6 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 		// Initialize the form components
 		InitializeComponent();
 
-	/// <summary>
-	/// Releases the unmanaged resources used by the <see cref="DownloadMpcorbDatForm"/> and optionally releases the managed resources.
-	/// </summary>
-	/// <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
-	/// <remarks>
-	/// This method overrides the base Dispose to properly clean up the WebClient resource.
-	/// </remarks>
-	protected override void Dispose(bool disposing)
-	{
-		if (disposing)
-		{
-			// Dispose of the WebClient instance
-			webClient?.Dispose();
-			// Dispose of the cancellation token source
-			cancellationTokenSource?.Dispose();
-		}
-		base.Dispose(disposing);
-	}
-
 	#endregion
 
 	#region helper methods
@@ -402,6 +383,7 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 	{
 		webClient.CancelAsync();
 		webClient.Dispose();
+		cancellationTokenSource?.Dispose();
 		Dispose();
 	}
 
