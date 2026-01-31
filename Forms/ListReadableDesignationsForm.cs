@@ -873,7 +873,6 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		w.WriteLine(value: "\\hline");
 		w.WriteLine(value: "Index & Designation \\\\");
 		w.WriteLine(value: "\\hline");
-
 		// Write each item
 		foreach ((string? index, string? name) in GetExportData())
 		{
