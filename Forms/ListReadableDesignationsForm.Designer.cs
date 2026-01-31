@@ -543,6 +543,7 @@ namespace Planetoid_DB
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "List of readable designations";
 			toolTip.SetToolTip(this, "List of readable designations ");
+			FormClosed += ListReadableDesignationsForm_FormClosed;
 			Load += ListReadableDesignationsForm_Load;
 			statusStrip.ResumeLayout(false);
 			statusStrip.PerformLayout();

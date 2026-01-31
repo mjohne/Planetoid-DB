@@ -405,6 +405,25 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		numericUpDownMaximum.Value = planetoidsDatabase.Count;
 	}
 
+	/// <summary>
+	/// Handles the form Closed event.
+	/// Cleans up resources and cancels any ongoing operations.
+	/// </summary>
+	/// <param name="sender">Event source (the form).</param>
+	/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
+	/// <remarks>
+	/// This method is called when the form is closed.
+	/// </remarks>
+	private void ListReadableDesignationsForm_FormClosed(object sender, FormClosedEventArgs e)
+	{
+		// Cancel any ongoing operations
+		// Clearing the token if the window is closed during work
+		cancellationTokenSource?.Cancel();
+		cancellationTokenSource?.Dispose();
+		listView.Dispose();
+	}
+
+
 	#endregion
 
 	#region MouseDown event handlers
