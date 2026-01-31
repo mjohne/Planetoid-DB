@@ -17,11 +17,11 @@
 * Added some code improvements by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/275
 * Fixed issue with accessing the terminology via right-click by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/276
 * Changed listview in virtual mode in TableModeForm() class by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/277
-* Did the listview sortable in TableModeForm() class by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/278
+* Made the ListView sortable in TableModeForm() class by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/278
 * Added some code improvements by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/279
 * Added some code improvements by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/280
 * Added some code improvements by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/281
-* [WIP] Implement code improvements using AI by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/282
+* Implement code improvements using AI by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/282
 * Renamed terminology_ReadableDesignaton.html to terminology_ReadableDesignation.html by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/285
 * Added some code improvements by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/286
 * Added some code improvements by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/287
