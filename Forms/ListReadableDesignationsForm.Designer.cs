@@ -38,10 +38,7 @@ namespace Planetoid_DB
 			statusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
 			toolTip = new ToolTip(components);
-			buttonCancel = new KryptonButton();
-			progressBar = new KryptonProgressBar();
 			buttonList = new KryptonButton();
-			labelWarning = new Label();
 			contextMenuCopyToClipboard = new ContextMenuStrip(components);
 			ToolStripMenuItemCpyToClipboard = new ToolStripMenuItem();
 			buttonLoad = new KryptonButton();
@@ -110,42 +107,6 @@ namespace Planetoid_DB
 			labelInformation.Text = "some information here";
 			labelInformation.ToolTipText = "Shows some information";
 			// 
-			// buttonCancel
-			// 
-			buttonCancel.AccessibleDescription = "Cancels the progress";
-			buttonCancel.AccessibleName = "Cancel";
-			buttonCancel.AccessibleRole = AccessibleRole.PushButton;
-			buttonCancel.Location = new Point(70, 38);
-			buttonCancel.Name = "buttonCancel";
-			buttonCancel.Size = new Size(69, 31);
-			buttonCancel.TabIndex = 5;
-			toolTip.SetToolTip(buttonCancel, "Cancel the progress");
-			buttonCancel.Values.DropDownArrowColor = Color.Empty;
-			buttonCancel.Values.Image = FatcowIcons16px.fatcow_cancel_16px;
-			buttonCancel.Values.Text = "&Cancel";
-			buttonCancel.Click += ButtonCancel_Click;
-			buttonCancel.Enter += Control_Enter;
-			buttonCancel.Leave += Control_Leave;
-			buttonCancel.MouseEnter += Control_Enter;
-			buttonCancel.MouseLeave += Control_Leave;
-			// 
-			// progressBar
-			// 
-			progressBar.AccessibleDescription = "Shows the progress";
-			progressBar.AccessibleName = "Progress";
-			progressBar.AccessibleRole = AccessibleRole.ProgressBar;
-			progressBar.Location = new Point(12, 75);
-			progressBar.Name = "progressBar";
-			progressBar.Size = new Size(288, 19);
-			progressBar.Step = 1;
-			progressBar.TabIndex = 8;
-			progressBar.TextBackdropColor = Color.Empty;
-			progressBar.TextShadowColor = Color.Empty;
-			toolTip.SetToolTip(progressBar, "Shows the progress");
-			progressBar.Values.Text = "";
-			progressBar.MouseEnter += Control_Enter;
-			progressBar.MouseLeave += Control_Leave;
-			// 
 			// buttonList
 			// 
 			buttonList.AccessibleDescription = "Starts the progress and list";
@@ -164,29 +125,6 @@ namespace Planetoid_DB
 			buttonList.Leave += Control_Leave;
 			buttonList.MouseEnter += Control_Enter;
 			buttonList.MouseLeave += Control_Leave;
-			// 
-			// labelWarning
-			// 
-			labelWarning.AccessibleDescription = "Warning message: Be careful: do not use large ranges between minimum and maximum! This can increase loading time and memory. Use small spans!";
-			labelWarning.AccessibleName = "Warning message";
-			labelWarning.AccessibleRole = AccessibleRole.Text;
-			labelWarning.BackColor = Color.SeaShell;
-			labelWarning.BorderStyle = BorderStyle.Fixed3D;
-			labelWarning.ContextMenuStrip = contextMenuCopyToClipboard;
-			labelWarning.Font = new Font("Segoe UI", 7F);
-			labelWarning.Location = new Point(12, 97);
-			labelWarning.Name = "labelWarning";
-			labelWarning.Size = new Size(288, 35);
-			labelWarning.TabIndex = 9;
-			labelWarning.Text = "Be careful: This can increase loading time and memory. You can cancel any time.";
-			labelWarning.TextAlign = ContentAlignment.MiddleLeft;
-			toolTip.SetToolTip(labelWarning, "Be careful: do not use large ranges between minimum and maximum! This can increase loading time and memory. Use small spans!");
-			labelWarning.DoubleClick += CopyToClipboard_DoubleClick;
-			labelWarning.Enter += Control_Enter;
-			labelWarning.Leave += Control_Leave;
-			labelWarning.MouseDown += Control_MouseDown;
-			labelWarning.MouseEnter += Control_Enter;
-			labelWarning.MouseLeave += Control_Leave;
 			// 
 			// contextMenuCopyToClipboard
 			// 
@@ -226,7 +164,7 @@ namespace Planetoid_DB
 			buttonLoad.AccessibleName = "Load";
 			buttonLoad.AccessibleRole = AccessibleRole.PushButton;
 			buttonLoad.DialogResult = DialogResult.OK;
-			buttonLoad.Location = new Point(145, 38);
+			buttonLoad.Location = new Point(70, 38);
 			buttonLoad.Name = "buttonLoad";
 			buttonLoad.Size = new Size(56, 31);
 			buttonLoad.TabIndex = 6;
@@ -508,10 +446,7 @@ namespace Planetoid_DB
 			panel.Controls.Add(numericUpDownMaximum);
 			panel.Controls.Add(labelMaximum);
 			panel.Controls.Add(buttonLoad);
-			panel.Controls.Add(labelWarning);
-			panel.Controls.Add(buttonCancel);
 			panel.Controls.Add(listView);
-			panel.Controls.Add(progressBar);
 			panel.Controls.Add(buttonList);
 			panel.Dock = DockStyle.Fill;
 			panel.Location = new Point(0, 0);
@@ -532,14 +467,16 @@ namespace Planetoid_DB
 			listView.Font = new Font("Segoe UI", 8.5F);
 			listView.FullRowSelect = true;
 			listView.GridLines = true;
-			listView.Location = new Point(12, 135);
+			listView.Location = new Point(12, 75);
 			listView.MultiSelect = false;
 			listView.Name = "listView";
 			listView.ShowItemToolTips = true;
-			listView.Size = new Size(288, 255);
+			listView.Size = new Size(288, 315);
 			listView.TabIndex = 10;
 			listView.UseCompatibleStateImageBehavior = false;
 			listView.View = View.Details;
+			listView.VirtualMode = true;
+			listView.RetrieveVirtualItem += ListView_RetrieveVirtualItem;
 			listView.SelectedIndexChanged += SelectedIndexChanged;
 			listView.Enter += Control_Enter;
 			listView.Leave += Control_Leave;
@@ -627,7 +564,6 @@ namespace Planetoid_DB
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "List of readable designations";
 			toolTip.SetToolTip(this, "List of readable designations ");
-			FormClosing += ListReadableDesignationsForm_FormClosing;
 			FormClosed += ListReadableDesignationsForm_FormClosed;
 			Load += ListReadableDesignationsForm_Load;
 			statusStrip.ResumeLayout(false);
@@ -647,13 +583,10 @@ namespace Planetoid_DB
 		private ToolStripStatusLabel labelInformation;
 		private ToolTip toolTip;
 		private KryptonPanel panel;
-		private KryptonButton buttonCancel;
 		private ListView listView;
 		private ColumnHeader columnHeaderIndex;
 		private ColumnHeader columnHeaderReadableDesignation;
-		private KryptonProgressBar progressBar;
 		private KryptonButton buttonList;
-		private Label labelWarning;
 		private KryptonButton buttonLoad;
 		private KryptonLabel labelMinimum;
 		private KryptonNumericUpDown numericUpDownMinimum;
