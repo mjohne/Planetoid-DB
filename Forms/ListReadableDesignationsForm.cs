@@ -1,7 +1,6 @@
 ﻿using NLog;
 
 using Planetoid_DB.Forms;
-using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
 using System.IO;
@@ -21,6 +20,14 @@ namespace Planetoid_DB;
 public partial class ListReadableDesignationsForm : BaseKryptonForm
 {
 	#region Constants
+
+	/// <summary>
+	/// Offset for virtual mode to calculate the starting index in the database
+	/// </summary>
+	/// <remarks>
+	/// This field is used to calculate the starting index in the database for virtual mode.
+	/// </remarks>
+	private int virtualListOffset = 0;
 
 	/// <summary>
 	/// Length of the index field in the planetoid record.
@@ -71,14 +78,6 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// This index is used to keep track of the currently selected planetoid in the list.
 	/// </remarks>
 	private int selectedIndex;
-
-	/// <summary>
-	/// Cancellation token source for cancelling operations.
-	/// </summary>
-	/// <remarks>
-	/// This token can be used to cancel ongoing operations.
-	/// </remarks>
-	private CancellationTokenSource? cancellationTokenSource;
 
 	/// <summary>
 	/// Stopwatch for measuring elapsed time.
@@ -234,19 +233,40 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	public int GetSelectedIndex() => selectedIndex;
 
 	/// <summary>
-	/// Gets the export data from the list view.
+	/// Gets the export data from the virtual list.
 	/// </summary>
 	/// <returns>An enumerable collection of tuples containing the index and name.</returns>
 	/// <remarks>
-	/// This method is used to retrieve the export data from the list view.
+	/// It iterates over the indices and creates the data on-the-fly, instead of accessing listView.Items.
 	/// </remarks>
 	private IEnumerable<(string Index, string Name)> GetExportData()
 	{
-		// Iterate through each item in the list view and yield the index and name
-		foreach (ListViewItem item in listView.Items)
+		// If not in Virtual Mode, simply iterate over the items
+		if (!listView.VirtualMode)
 		{
-			// Yield the index and name as a tuple
-			yield return (Index: item.SubItems[index: 0].Text, Name: item.SubItems[index: 1].Text);
+			// Iterate over each item in the ListView
+			foreach (ListViewItem item in listView.Items)
+			{
+				// Yield the index and name as a tuple
+				yield return (Index: item.SubItems[index: 0].Text, Name: item.SubItems[index: 1].Text);
+			}
+			yield break;
+		}
+		// In Virtual Mode over the indices iterate
+		for (int i = 0; i < listView.VirtualListSize; i++)
+		{
+			// Calculate the real database index
+			int dbIndex = virtualListOffset + i;
+			// Generate item (we use the existing logic, but without GUI overhead)
+			// Since CreateListViewItem returns a ListViewItem, we extract the data again.
+			// Performance tip: For pure export, one could bypass CreateListViewItem and parse the string directly,
+			// but this keeps the code consistent.
+			ListViewItem? item = CreateListViewItem(index: dbIndex);
+			// If the item is valid, yield the data
+			if (item != null)
+			{
+				yield return (Index: item.Text, Name: item.SubItems[index: 1].Text);
+			}
 		}
 	}
 
@@ -306,13 +326,17 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// </remarks>
 	private static string EscapeLatex(string input)
 	{
+		// Handle null input
 		if (input == null)
 		{
 			return string.Empty;
 		}
+		// Escape LaTeX special characters
 		StringBuilder builder = new(capacity: input.Length);
+		// Iterate over each character in the input string
 		foreach (char ch in input)
 		{
+			// Escape special LaTeX characters
 			switch (ch)
 			{
 				case '\\':
@@ -350,6 +374,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 					break;
 			}
 		}
+		// Return the escaped string
 		return builder.ToString();
 	}
 
@@ -363,6 +388,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// </remarks>
 	private static string EscapeMarkdownCell(string? value)
 	{
+		// Handle null input
 		if (value is null)
 		{
 			return string.Empty;
@@ -390,7 +416,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// Clear the status bar on load
 		ClearStatusBar();
 		// Disable controls until data is available
-		labelInformation.Enabled = listView.Visible = buttonCancel.Enabled = buttonLoad.Enabled = dropButtonSaveList.Enabled = false;
+		labelInformation.Enabled = listView.Visible = buttonLoad.Enabled = dropButtonSaveList.Enabled = false;
 		// Check if the planetoids database is empty
 		if (planetoidsDatabase.Count <= 0)
 		{
@@ -406,22 +432,6 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	}
 
 	/// <summary>
-	/// Handles the form Closing event.
-	/// Requests cancellation of any ongoing operations while the form and its controls are still valid.
-	/// </summary>
-	/// <param name="sender">Event source (the form).</param>
-	/// <param name="e">The <see cref="FormClosingEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the form begins closing, allowing pending asynchronous work to be cancelled
-	/// before UI controls are disposed.
-	/// </remarks>
-	private void ListReadableDesignationsForm_FormClosing(object sender, FormClosingEventArgs e)
-	{
-		// Request cancellation of any ongoing operations while the UI is still alive
-		cancellationTokenSource?.Cancel();
-	}
-
-	/// <summary>
 	/// Handles the form Closed event.
 	/// Cleans up resources and cancels any ongoing operations.
 	/// </summary>
@@ -430,11 +440,40 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <remarks>
 	/// This method is called when the form is closed.
 	/// </remarks>
-	private void ListReadableDesignationsForm_FormClosed(object sender, FormClosedEventArgs e)
-	{
+	private void ListReadableDesignationsForm_FormClosed(object sender, FormClosedEventArgs e) =>
 		// Clearing the token if the window is closed during work
-		cancellationTokenSource?.Dispose();
 		listView.Dispose();
+
+	#endregion
+
+	#region ListView event handlers
+
+	/// <summary>
+	/// Handles the retrieval of virtual items for the ListView.
+	/// Dynamically creates ListViewItems when they are needed for display.
+	/// </summary>
+	/// <param name="sender">Event source (the ListView).</param>
+	/// <param name="e">The <see cref="RetrieveVirtualItemEventArgs"/> instance that contains the event data.</param>
+	/// <remarks>
+	/// This method is used to retrieve virtual items for the ListView.
+	/// </remarks>
+	private void ListView_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
+	{
+		// Calculating the true index in the database based on the offset
+		int realIndex = virtualListOffset + e.ItemIndex;
+		// Creating the item (uses the existing logic)
+		ListViewItem? item = CreateListViewItem(index: realIndex);
+		// If the item was created successfully, assign it.
+		// If null is returned (error), create a placeholder to avoid crashes.
+		if (item != null)
+		{
+			e.Item = item;
+		}
+		else
+		{
+			e.Item = new ListViewItem(text: "Error");
+			e.Item.SubItems.Add(text: "Invalid Data");
+		}
 	}
 
 	#endregion
@@ -474,135 +513,66 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// </remarks>
 	private async void ButtonList_Click(object? sender, EventArgs? e)
 	{
-		// Local column headers for the list view
+		// Reset UI status
+		ClearStatusBar();
+		// Check if the database is loaded
+		if (planetoidsDatabase.Count == 0)
+		{
+			return;
+		}
+		// Define columns (as in the original)
 		ColumnHeader columnHeaderIndex = new()
 		{
 			Text = I10nStrings.Index,
 			TextAlign = HorizontalAlignment.Right,
 			Width = 100
 		};
-		// Readable designation column
 		ColumnHeader columnHeaderReadableDesignation = new()
 		{
 			Text = "Readable Designation",
 			TextAlign = HorizontalAlignment.Left,
 			Width = 300
 		};
-		// Start measuring time
-		stopwatch.Restart();
-		// Reset UI state
-		listView.Visible = false;
-		listView.Items.Clear();
-		listView.Columns.Clear();
-		listView.Columns.AddRange(values: [columnHeaderIndex, columnHeaderReadableDesignation]);
-		// Disable controls during processing
-		numericUpDownMinimum.Enabled = false;
-		numericUpDownMaximum.Enabled = false;
-		buttonList.Enabled = false;
-		dropButtonSaveList.Enabled = false;
-		buttonLoad.Enabled = false;
-		// Enable cancel button and progress bar
-		buttonCancel.Enabled = true;
-		progressBar.Enabled = true;
-		// Set up progress bar
-		int min = (int)numericUpDownMinimum.Value - 1;
-		int max = (int)numericUpDownMaximum.Value;
-		int total = max - min;
-		progressBar.Maximum = total;
-		progressBar.Value = 0;
-		// Set taskbar progress state
-		cancellationTokenSource = new CancellationTokenSource();
-		CancellationToken token = cancellationTokenSource.Token;
-		// Set taskbar progress to normal state
+		// Begin UI update
 		try
 		{
-			// Start loading items asynchronously
-			token.ThrowIfCancellationRequested();
-			TaskbarProgress.SetState(windowHandle: Handle, taskbarState: TaskbarProgress.TaskbarStates.Normal);
-			// Load items in a background task
-			List<ListViewItem> itemsToAdd = await Task.Run(function: () =>
-			{
-				// Prepare a list to hold the results
-				List<ListViewItem> results = [];
-				for (int i = min; i < max; i++)
-				{
-					// Check for cancellation
-					if (token.IsCancellationRequested)
-					{
-						break;
-					}
-					// Create the ListViewItem
-					ListViewItem? item = CreateListViewItem(index: i);
-					// If the item is valid, add it to the results
-					if (item != null)
-					{
-						results.Add(item);
-					}
-					// Update progress every 100 items
-					if (i % 100 == 0)
-					{
-						// Update taskbar progress
-						Invoke(method: () =>
-						{
-							progressBar.Value = i - min;
-						});
-					}
-				}
-				return results;
-			}, cancellationToken: token);
-			// Check for cancellation
 			listView.BeginUpdate();
-			listView.Items.AddRange(items: [.. itemsToAdd]);
-			listView.EndUpdate();
-			// Show the list view
+			// Reset list
+			listView.Visible = false;
+			// Clear selection before resetting, very important!
+			listView.SelectedIndices.Clear();
+			// Temporarily disable to clear
+			listView.VirtualMode = false;
+			listView.Items.Clear();
+			listView.Columns.Clear();
+			listView.Columns.AddRange(values: [columnHeaderIndex, columnHeaderReadableDesignation]);
+			// Calculate range
+			int min = (int)numericUpDownMinimum.Value - 1;
+			int max = (int)numericUpDownMaximum.Value;
+			int count = max - min;
+			if (count <= 0)
+			{
+				listView.Visible = true;
+				listView.EndUpdate();
+				return;
+			}
+			// Virtual Mode configure
+			virtualListOffset = min; // Start offset save
+			listView.VirtualMode = true; // Activate virtual mode
+			listView.VirtualListSize = count; // Set number of rows (triggers RetrieveVirtualItem when scrolling)
 			listView.Visible = true;
-			// Finalize progress bar
-			if (token.IsCancellationRequested)
-			{
-				// Set taskbar progress to no progress state
-				MessageBox.Show(text: $"{listView.Items.Count} objects processed (Cancelled).", caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
-			}
-			else
-			{
-				// Inform the user that processing completed successfully
-				MessageBox.Show(text: $"{listView.Items.Count} objects processed.", caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
-			}
 		}
-		// Handle exceptions
 		catch (Exception ex)
 		{
-			// Log the error and show an error message
-			logger.Error(exception: ex, message: "Error loading list.");
+			logger.Error(exception: ex, message: "Error initializing virtual list.");
 			ShowErrorMessage(message: $"Error loading list: {ex.Message}");
 		}
-		// Finalize UI state
 		finally
 		{
-			// Stop measuring time
-			stopwatch.Stop();
-			// Restore UI state after loading operation
-			buttonCancel.Enabled = false;
-			buttonList.Enabled = true;
+			listView.EndUpdate();
 			dropButtonSaveList.Enabled = true;
-			numericUpDownMinimum.Enabled = true;
-			numericUpDownMaximum.Enabled = true;
-			progressBar.Enabled = false;
-			progressBar.Value = 0;
-			// Reset taskbar progress
-			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: 0, progressMax: 100);
-			// Dispose of the cancellation token source if it was created
-			cancellationTokenSource?.Dispose();
-			cancellationTokenSource = null;
 		}
 	}
-
-	/// <summary>
-	/// Cancels the ongoing operation.
-	/// </summary>
-	/// <remarks>
-	/// This method is invoked when the user clicks the "Cancel" button.
-	/// </remarks>
-	private void ButtonCancel_Click(object? sender, EventArgs? e) => cancellationTokenSource?.Cancel();
 
 	/// <summary>
 	/// Saves the current list as a CSV file.
@@ -989,4 +959,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	}
 
 	#endregion
+
+
+
 }
