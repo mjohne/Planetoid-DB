@@ -17,7 +17,7 @@ internal class DerivedElements
 	/// <remarks>
 	/// This method is used to calculate the semi-minor axis of an ellipse.
 	/// </remarks>
-	public static double CalculateSemiMinorAxis(double semiMajorAxis, double numericalEccentricity) => semiMajorAxis * Math.Sqrt(d: 1 - Math.Pow(x: numericalEccentricity, y: 2));
+	public static double CalculateSemiMinorAxis(double semiMajorAxis, double numericalEccentricity) => semiMajorAxis * Math.Sqrt(d: 1 - (numericalEccentricity * numericalEccentricity));
 
 	/// <summary>
 	/// Calculates the linear eccentricity of an ellipse.
@@ -34,8 +34,8 @@ internal class DerivedElements
 		return numericalEccentricity switch
 		{
 			0 => 0,
-			< 1 and > 0 => Math.Sqrt(d: Math.Pow(x: semiMajorAxis, y: 2) - Math.Pow(x: semiMinorAxis, y: 2)),
-			> 1 => Math.Sqrt(d: Math.Pow(x: semiMajorAxis, y: 2) + Math.Pow(x: semiMinorAxis, y: 2)),
+			< 1 and > 0 => Math.Sqrt(d: (semiMajorAxis * semiMajorAxis) - (semiMinorAxis * semiMinorAxis)),
+			> 1 => Math.Sqrt(d: (semiMajorAxis * semiMajorAxis) + (semiMinorAxis * semiMinorAxis)),
 			_ => 0
 		};
 	}
@@ -180,8 +180,8 @@ internal class DerivedElements
 		double semiMinorAxis = CalculateSemiMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity);
 		return numericalEccentricity switch
 		{
-			> 1 => Math.Pow(x: semiMinorAxis, y: 2) / Math.Sqrt(d: Math.Pow(x: semiMajorAxis, y: 2) + Math.Pow(x: semiMinorAxis, y: 2)),
-			> 0 and < 1 => Math.Pow(x: semiMinorAxis, y: 2) / Math.Sqrt(d: Math.Pow(x: semiMajorAxis, y: 2) - Math.Pow(x: semiMinorAxis, y: 2)),
+			> 1 => (semiMinorAxis * semiMinorAxis) / Math.Sqrt(d: (semiMajorAxis * semiMajorAxis) + (semiMinorAxis * semiMinorAxis)),
+			> 0 and < 1 => (semiMinorAxis * semiMinorAxis) / Math.Sqrt(d: (semiMajorAxis * semiMajorAxis) - (semiMinorAxis * semiMinorAxis)),
 			_ => 2 * semiMajorAxis
 		};
 	}
@@ -195,7 +195,7 @@ internal class DerivedElements
 	/// <remarks>
 	/// This method is used to calculate the semi-latus rectum of an ellipse.
 	/// </remarks>
-	public static double CalculateSemiLatusRectum(double semiMajorAxis, double numericalEccentricity) => semiMajorAxis * (1 - Math.Pow(x: numericalEccentricity, y: 2));
+	public static double CalculateSemiLatusRectum(double semiMajorAxis, double numericalEccentricity) => semiMajorAxis * (1 - (numericalEccentricity * numericalEccentricity));
 
 	/// <summary>
 	/// Calculates the latus rectum of an ellipse.
@@ -216,7 +216,7 @@ internal class DerivedElements
 	/// <remarks>
 	/// This method is used to calculate the orbital period of an ellipse.
 	/// </remarks>
-	public static double CalculatePeriod(double semiMajorAxis) => Math.Sqrt(d: Math.Pow(x: semiMajorAxis, y: 3));
+	public static double CalculatePeriod(double semiMajorAxis) => Math.Cbrt(semiMajorAxis * semiMajorAxis * semiMajorAxis);
 
 	/// <summary>
 	/// Calculates the orbital area of an ellipse.
@@ -231,8 +231,9 @@ internal class DerivedElements
 	{
 		double semiMinorAxis = CalculateSemiMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity);
 		double term1 = semiMajorAxis + semiMinorAxis;
-		double term2 = 3 * Math.Pow(x: semiMajorAxis - semiMinorAxis, y: 2) / (10 * term1);
-		double term3 = Math.Sqrt(d: Math.Pow(x: semiMajorAxis, y: 2) + (14 * semiMajorAxis * semiMinorAxis) + Math.Pow(x: semiMinorAxis, y: 2));
+		double diff = semiMajorAxis - semiMinorAxis;
+		double term2 = 3 * (diff * diff) / (10 * term1);
+		double term3 = Math.Sqrt(d: (semiMajorAxis * semiMajorAxis) + (14 * semiMajorAxis * semiMinorAxis) + (semiMinorAxis * semiMinorAxis));
 		return term1 + term2 + term3;
 	}
 
@@ -277,5 +278,5 @@ internal class DerivedElements
 	/// <remarks>
 	/// This method is used to calculate the standard gravitational parameter of an ellipse.
 	/// </remarks>
-	public static double CalculateStandardGravitationalParameter(double semiMajorAxis) => 4 * Math.Pow(x: Math.PI, y: 2) * Math.Pow(x: semiMajorAxis, y: 3) / CalculatePeriod(semiMajorAxis: semiMajorAxis);
+	public static double CalculateStandardGravitationalParameter(double semiMajorAxis) => 4 * (Math.PI * Math.PI) * (semiMajorAxis * semiMajorAxis * semiMajorAxis) / CalculatePeriod(semiMajorAxis: semiMajorAxis);
 }
