@@ -355,4 +355,7 @@
   <data name="InvalidData" xml:space="preserve">
     <value>Invalid data</value>
   </data>
+  <data name="FileSavedSuccessfully" xml:space="preserve">
+    <value>File saved successfully.</value>
+  </data>
 </root>

@@ -625,7 +625,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		{
 			streamWriter.WriteLine(value: $"{index}; {name}");
 		}
-		MessageBox.Show(text: "File saved successfully.", caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		MessageBox.Show(text: I10nStrings.FileSavedSuccessfully, caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>
@@ -655,7 +655,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		}
 		// Write HTML footer
 		w.WriteLine(value: "</body></html>");
-		MessageBox.Show(text: "File saved successfully.", caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		MessageBox.Show(text: I10nStrings.FileSavedSuccessfully, caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>
@@ -690,7 +690,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// End XML document
 		writer.WriteEndElement();
 		writer.WriteEndDocument();
-		MessageBox.Show(text: "File saved successfully.", caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		MessageBox.Show(text: I10nStrings.FileSavedSuccessfully, caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>
@@ -713,7 +713,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// Serialize to JSON and write to file
 		string jsonString = JsonSerializer.Serialize(value: exportList, options: new() { WriteIndented = true });
 		File.WriteAllText(path: saveFileDialogJson.FileName, contents: jsonString);
-		MessageBox.Show(text: "File saved successfully.", caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		MessageBox.Show(text: I10nStrings.FileSavedSuccessfully, caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>
@@ -758,7 +758,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		}
 		// Commit transaction
 		streamWriter.WriteLine(value: $"COMMIT;");
-		MessageBox.Show(text: "File saved successfully.", caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		MessageBox.Show(text: I10nStrings.FileSavedSuccessfully, caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>
@@ -788,7 +788,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		{
 			streamWriter.WriteLine(value: $"| {index} | {EscapeMarkdownCell(value: name)} |");
 		}
-		MessageBox.Show(text: "File saved successfully.", caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		MessageBox.Show(text: I10nStrings.FileSavedSuccessfully, caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>
@@ -823,7 +823,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			// Quotes are important if the name contains special characters
 			streamWriter.WriteLine(value: $"      name: \"{name}\"");
 		}
-		MessageBox.Show(text: "File saved successfully.", caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		MessageBox.Show(text: I10nStrings.FileSavedSuccessfully, caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>
@@ -851,7 +851,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		{
 			streamWriter.WriteLine(value: $"{index}\t{name}");
 		}
-		MessageBox.Show(text: "File saved successfully.", caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		MessageBox.Show(text: I10nStrings.FileSavedSuccessfully, caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>
@@ -895,7 +895,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		w.WriteLine(value: "\\caption{List of Readable Designations}");
 		w.WriteLine(value: "\\end{table}");
 		w.WriteLine(value: "\\end{document}");
-		MessageBox.Show(text: "File saved successfully.", caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		MessageBox.Show(text: I10nStrings.FileSavedSuccessfully, caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	#endregion
