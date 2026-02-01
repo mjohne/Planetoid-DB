@@ -1,22 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Minor axis</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Minor axis</h1>
-		<p>In addition to the eccentricity (<span class="italic">e</span>), foci, and directrix, various geometric features and lengths are associated with a conic section.</p>
-		<p>The <span class="bold">minor axis</span> is the shortest chord of an ellipse, and its half-length is the semi-minor axis (<span class="italic">b</span>).</p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Minor Axis – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2, h3 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Minor Axis</h1>
+
+<h2>1. Geometrical Definition</h2>
+<p>
+The <strong>minor axis</strong> is a fundamental geometric concept associated with conic sections, in particular
+with the <strong>ellipse</strong>. It is defined as the <em>shortest straight line segment</em> that passes through
+the center of the ellipse and connects two opposite points on the curve.
+</p>
+
+<p>
+The endpoints of the minor axis are the points at which the ellipse reaches its minimum extent. The midpoint of
+the minor axis coincides with the geometric center of the ellipse.
+</p>
+
+<h2>2. Relation to Semi-Axes</h2>
+<p>
+An ellipse is characterized by two mutually perpendicular principal axes:
+</p>
+<ul>
+    <li><em>a</em>: the <strong>semi major axis</strong></li>
+    <li><em>b</em>: the <strong>semi minor axis</strong></li>
+</ul>
+
+<p>
+The total length of the minor axis is therefore:
+</p>
+
+<span class="formula">
+Minor axis length = 2b
+</span>
+
+<p>
+The minor axis is orthogonal to the major axis and defines the direction of minimum spatial extent of the ellipse.
+</p>
+
+<h2>3. Mathematical Description</h2>
+
+<h3>3.1 Ellipse in Cartesian Coordinates</h3>
+<p>
+For an ellipse centered at the origin and aligned with the coordinate axes, the standard equation is:
+</p>
+
+<span class="formula">
+(x² / a²) + (y² / b²) = 1
+</span>
+
+<p>
+In this formulation, the minor axis lies along the coordinate axis associated with the smaller denominator
+(<em>b²</em>), indicating the direction of minimal extension.
+</p>
+
+<h3>3.2 Relation to Foci and Eccentricity</h3>
+<p>
+The foci of an ellipse lie along the major axis. If <em>c</em> denotes the distance from the center of the ellipse
+to either focus, then the fundamental geometric relationship holds:
+</p>
+
+<span class="formula">
+b² = a² − c²
+</span>
+
+<p>
+The <strong>eccentricity</strong> <em>e</em> of the ellipse is defined as:
+</p>
+
+<span class="formula">
+e = c / a
+</span>
+
+<p>
+Thus, the semi minor axis can be expressed as:
+</p>
+
+<span class="formula">
+b = a √(1 − e²)
+</span>
+
+<p>
+This relation shows that the minor axis is uniquely determined by the semi major axis and the eccentricity.
+</p>
+
+<h2>4. Physical Significance in Celestial Mechanics</h2>
+
+<h3>4.1 Keplerian Orbits</h3>
+<p>
+In classical celestial mechanics, bound orbits are elliptical, with the central body located at one focus.
+The minor axis of the orbital ellipse represents the direction of minimum transverse extent of the orbit.
+</p>
+
+<p>
+Although the minor axis itself is not a standard orbital element, it is directly related to the geometry of the
+orbit and the area enclosed by it.
+</p>
+
+<h3>4.2 Orbital Area</h3>
+<p>
+The area <em>A</em> of an elliptical orbit is given by:
+</p>
+
+<span class="formula">
+A = π a b
+</span>
+
+<p>
+The minor axis therefore contributes directly to the total orbital area and to the application of Kepler’s
+second law.
+</p>
+
+<h2>5. Limiting Cases and Interpretation</h2>
+
+<table>
+    <tr>
+        <th>Geometry</th>
+        <th>Interpretation of the Minor Axis</th>
+    </tr>
+    <tr>
+        <td>Circle</td>
+        <td>Minor axis equals the diameter of the circle</td>
+    </tr>
+    <tr>
+        <td>Ellipse</td>
+        <td>Shortest diameter of the figure</td>
+    </tr>
+    <tr>
+        <td>Highly elongated ellipse</td>
+        <td>Minor axis approaches zero</td>
+    </tr>
+</table>
+
+<h2>6. Applications</h2>
+<p>
+The concept of the minor axis is relevant in many scientific and technical fields, including:
+</p>
+<ul>
+    <li>Analytical geometry</li>
+    <li>Astrodynamics and orbital mechanics</li>
+    <li>Geodesy and planetary reference ellipsoids</li>
+    <li>Statistics (e.g., covariance and confidence ellipses)</li>
+</ul>
+
+<h2>7. Concise Scientific Definition</h2>
+<p>
+<strong>The minor axis</strong> of an ellipse is the shortest line segment passing through its center and connecting
+two opposite points on the curve. Its length equals twice the semi minor axis and defines the minimum spatial
+extent of the ellipse.
+</p>
+
+</body>
 </html>

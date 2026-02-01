@@ -1,22 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Focal parameter</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Focal parameter</h1>
-		<p>In addition to the eccentricity (<span class="italic">e</span>), foci, and directrix, various geometric features and lengths are associated with a conic section.</p>
-		<p>The <span class="bold">focal parameter</span> (<span class="italic">p</span>) is the distance from a focus to the corresponding directrix.</p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Focal Parameter – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 6px 10px;
+            border-radius: 4px;
+            display: block;
+            margin: 12px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Focal Parameter</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+The <strong>focal parameter</strong>, also known as the <strong>semi-latus rectum</strong>,
+is a fundamental geometric quantity associated with conic sections and plays an
+important role in <strong>orbital mechanics</strong>.
+</p>
+
+<p>
+In celestial mechanics, the focal parameter characterizes the size and shape of an
+orbit relative to its focus, which is occupied by the central gravitating body.
+</p>
+
+<h2>2. Definition in Orbital Mechanics</h2>
+<p>
+For a Keplerian orbit expressed in polar coordinates with the origin at the focus,
+the radial distance <em>r</em> as a function of true anomaly <em>ν</em> is given by:
+</p>
+
+<span class="formula">
+r(ν) = p / (1 + e cos ν)
+</span>
+
+<p>
+where:
+</p>
+<ul>
+    <li><em>p</em> is the focal parameter</li>
+    <li><em>e</em> is the orbital eccentricity</li>
+    <li><em>ν</em> is the true anomaly</li>
+</ul>
+
+<h2>3. Relation to Classical Orbital Elements</h2>
+<p>
+For elliptical orbits, the focal parameter is related to the semi-major axis <em>a</em>
+and eccentricity <em>e</em> by:
+</p>
+
+<span class="formula">
+p = a (1 − e²)
+</span>
+
+<p>
+This expression shows that the focal parameter depends on both the size and shape of
+the orbit.
+</p>
+
+<h2>4. Interpretation as Semi-Latus Rectum</h2>
+<p>
+Geometrically, the focal parameter corresponds to the length of the
+<strong>semi-latus rectum</strong>, which is half the chord passing through the focus
+and perpendicular to the major axis of the orbit.
+</p>
+
+<div class="note">
+The full latus rectum has length 2p.
+</div>
+
+<h2>5. Dynamical Significance</h2>
+<p>
+The focal parameter has a direct dynamical interpretation. It is related to the
+specific angular momentum <em>h</em> of the orbit by:
+</p>
+
+<span class="formula">
+p = h² / μ
+</span>
+
+<p>
+where <em>μ</em> is the standard gravitational parameter.
+</p>
+
+<p>
+This relation highlights that the focal parameter encodes information about angular
+momentum conservation.
+</p>
+
+<h2>6. Applicability to Different Orbit Types</h2>
+<p>
+The focal parameter is defined for all Keplerian conic-section orbits:
+</p>
+
+<table>
+    <tr>
+        <th>Orbit Type</th>
+        <th>Focal Parameter</th>
+    </tr>
+    <tr>
+        <td>Elliptical (e &lt; 1)</td>
+        <td>p = a (1 − e²)</td>
+    </tr>
+    <tr>
+        <td>Parabolic (e = 1)</td>
+        <td>p = 2q</td>
+    </tr>
+    <tr>
+        <td>Hyperbolic (e &gt; 1)</td>
+        <td>p = a (e² − 1)</td>
+    </tr>
+</table>
+
+<h2>7. Physical Interpretation</h2>
+<p>
+The focal parameter sets the scale of the orbit in the direction perpendicular to the
+major axis and determines how rapidly the radial distance changes with true anomaly.
+</p>
+
+<p>
+It is especially useful in analytical treatments of orbital motion and appears
+naturally in the polar form of the equation of motion.
+</p>
+
+<h2>8. Applications</h2>
+<p>
+The focal parameter is widely used in:
+</p>
+<ul>
+    <li>Analytical celestial mechanics</li>
+    <li>Derivations of Keplerian orbits</li>
+    <li>Orbit propagation and perturbation theory</li>
+    <li>Astrodynamics and spacecraft trajectory analysis</li>
+</ul>
+
+<h2>9. Concise Scientific Definition</h2>
+<p>
+<strong>The focal parameter</strong> is a geometric and dynamical quantity equal to the
+semi-latus rectum of a Keplerian orbit. It determines the radial scale of the orbit in
+polar coordinates and is directly proportional to the square of the specific angular
+momentum.
+</p>
+
+</body>
 </html>

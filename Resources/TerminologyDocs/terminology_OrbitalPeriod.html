@@ -1,21 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Period</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Period</h1>
-		<p>The <span class="bold">orbital period</span> is the time a given astronomical object takes to complete one orbit around another object, and applies in astronomy usually to planets or asteroids orbiting the Sun, moons orbiting planets, exoplanets orbiting other stars, or binary stars.</p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Orbital Period – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2, h3 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Orbital Period</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+The <strong>orbital period</strong> is a fundamental physical quantity in
+<strong>celestial mechanics</strong> that denotes the time required for an orbiting
+body to complete one full revolution around its primary under the influence of gravity.
+</p>
+
+<p>
+It represents the characteristic temporal scale of orbital motion and is one of the
+most important descriptors of dynamical systems bound by gravity.
+</p>
+
+<h2>2. Definition for Keplerian Orbits</h2>
+<p>
+For a body moving on a closed (elliptical or circular) Keplerian orbit, the orbital
+period <strong>T</strong> is defined as:
+</p>
+
+<div class="note">
+The elapsed time between two successive passages of the body through the same orbital
+phase, most commonly measured from periapsis to periapsis.
+</div>
+
+<p>
+This definition ensures that the orbital period corresponds to a complete cycle of
+the orbit.
+</p>
+
+<h2>3. Mathematical Formulation</h2>
+<p>
+According to <strong>Kepler’s Third Law</strong>, the orbital period of a body orbiting
+a central mass with standard gravitational parameter <em>μ</em> is related to the
+semi major axis <em>a</em> by:
+</p>
+
+<span class="formula">
+T = 2π √(a³ / μ)
+</span>
+
+<p>
+where:
+</p>
+<ul>
+    <li><em>a</em> is the semi major axis of the orbit</li>
+    <li><em>μ = G(M + m)</em> is the standard gravitational parameter</li>
+</ul>
+
+<p>
+For most astronomical systems, the orbiting mass <em>m</em> is negligible compared to
+the central mass <em>M</em>.
+</p>
+
+<h2>4. Circular Orbit as a Special Case</h2>
+<p>
+For circular motion of radius <em>r</em>, the orbital period reduces to:
+</p>
+
+<span class="formula">
+T = 2π √(r³ / μ)
+</span>
+
+<p>
+which is consistent with uniform circular motion under Newtonian gravity.
+</p>
+
+<h2>5. Relation to Mean Motion</h2>
+<p>
+The orbital period is inversely related to the <strong>mean motion</strong> <em>n</em>,
+defined as the average angular rate of orbital motion:
+</p>
+
+<span class="formula">
+n = 2π / T
+</span>
+
+<p>
+Mean motion is commonly used in analytical and numerical orbit propagation.
+</p>
+
+<h2>6. Validity and Limitations</h2>
+<p>
+The classical definition of orbital period applies strictly to:
+</p>
+<ul>
+    <li>Bound Keplerian orbits (<em>e &lt; 1</em>)</li>
+    <li>Two-body systems with negligible perturbations</li>
+</ul>
+
+<div class="note">
+For parabolic and hyperbolic trajectories (<em>e ≥ 1</em>), no orbital period exists,
+as the motion is not periodic.
+</div>
+
+<h2>7. Physical Interpretation</h2>
+<p>
+The orbital period reflects the balance between gravitational attraction and inertial
+motion. Larger orbits have longer periods, while more massive central bodies yield
+shorter periods for the same orbital size.
+</p>
+
+<p>
+This relationship underlies many scaling laws in planetary systems and stellar dynamics.
+</p>
+
+<h2>8. Applications</h2>
+<p>
+The orbital period is a key parameter in:
+</p>
+<ul>
+    <li>Planetary motion and calendar systems</li>
+    <li>Satellite mission design and tracking</li>
+    <li>Binary star and exoplanet studies</li>
+    <li>Asteroid dynamics and resonance analysis</li>
+</ul>
+
+<h2>9. Concise Scientific Definition</h2>
+<p>
+<strong>The orbital period</strong> is the time required for a body on a bound orbit to
+complete one full revolution around its primary. In Keplerian motion, it is uniquely
+determined by the semi major axis and the gravitational parameter of the system.
+</p>
+
+</body>
 </html>

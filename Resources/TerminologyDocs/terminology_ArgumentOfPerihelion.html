@@ -1,24 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Argument of perihelion, J2000.0 (degrees)</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Argument of perihelion, J2000.0 (degrees)</h1>
-		<p>The <span class="bold">argument of periapsis</span> (also called <span class="bold">argument of perifocus</span> or <span class="bold">argument of pericenter</span>), symbolized as <<span class="italic">ω</span>, is one of the orbital elements of an orbiting body. Parametrically, <span class="italic">ω</span> is the angle from the body's ascending node to its periapsis, measured in the direction of motion.</p>
-		<p>For specific types of orbits, words such as <span class="bold">perihelion</span> (for heliocentric orbits), <span class="bold">perigee</span> (for geocentric orbits), <span class="bold">periastron</span> (for orbits around stars), and so on may replace the word <span class="bold">periapsis</span>.</p>
-		<p>An argument of periapsis of 0° means that the orbiting body will be at its closest approach to the central body at the same moment that it crosses the plane of reference from South to North. An argument of periapsis of 90° means that the orbiting body will reach periapsis at its northmost distance from the plane of reference.</p>
-		<p>Adding the argument of periapsis to the longitude of the ascending node gives the longitude of the periapsis. However, especially in discussions of binary stars and exoplanets, the terms "longitude of periapsis" or "longitude of periastron" are often used synonymously with "argument of periapsis".</p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Argument of Perihelion – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2, h3 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Argument of Perihelion</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+The <strong>argument of perihelion</strong> is a fundamental angular parameter in
+<strong>celestial mechanics</strong> that specifies the orientation of an orbit’s
+<em>perihelion</em> within the orbital plane.
+</p>
+
+<p>
+It is one of the six classical <strong>Keplerian orbital elements</strong> and defines
+how the line of apsides is oriented relative to the line of nodes.
+</p>
+
+<h2>2. Perihelion and Orbital Geometry</h2>
+<p>
+For a body moving on an inclined heliocentric orbit:
+</p>
+<ul>
+    <li>The <strong>perihelion</strong> is the point of minimum distance to the Sun</li>
+    <li>The opposite point of maximum distance is the <strong>aphelion</strong></li>
+</ul>
+
+<p>
+The straight line connecting perihelion and aphelion is known as the
+<strong>line of apsides</strong>, which lies entirely within the orbital plane.
+</p>
+
+<h2>3. Angular Definition</h2>
+<p>
+The argument of perihelion, commonly denoted by the symbol <strong>ω</strong> (lowercase
+omega), is defined as the angle:
+</p>
+<ul>
+    <li>Measured in the orbital plane</li>
+    <li>From the <strong>ascending node</strong></li>
+    <li>To the direction of perihelion</li>
+    <li>In the direction of orbital motion</li>
+</ul>
+
+<span class="formula">
+0° ≤ ω &lt; 360°
+</span>
+
+<h2>4. Mathematical Interpretation</h2>
+<p>
+Let:
+</p>
+<ul>
+    <li><em>Ω</em> be the longitude of the ascending node</li>
+    <li><em>ω</em> be the argument of perihelion</li>
+</ul>
+
+<p>
+The <strong>longitude of perihelion</strong> <em>ϖ</em> is then given by:
+</p>
+
+<span class="formula">
+ϖ = Ω + ω
+</span>
+
+<p>
+This quantity locates the perihelion direction in the chosen reference plane.
+</p>
+
+<h2>5. Relation to True Anomaly</h2>
+<p>
+The argument of perihelion establishes the zero-point for the
+<strong>true anomaly</strong> <em>ν</em>:
+</p>
+
+<span class="formula">
+ν = 0  at perihelion
+</span>
+
+<p>
+Thus, ω determines the absolute orientation of the true anomaly scale within the
+orbital plane.
+</p>
+
+<h2>6. Physical and Dynamical Significance</h2>
+<p>
+The argument of perihelion controls where the closest approach to the Sun occurs
+relative to the reference plane. It plays a critical role in:
+</p>
+<ul>
+    <li>Apsidal precession and secular perturbation theory</li>
+    <li>Long-term stability studies of planetary systems</li>
+    <li>Resonance dynamics and orbital clustering analysis</li>
+</ul>
+
+<p>
+In dynamical systems, ω may vary slowly over time due to gravitational perturbations
+from other bodies.
+</p>
+
+<h2>7. Special and Limiting Cases</h2>
+
+<table>
+    <tr>
+        <th>Condition</th>
+        <th>Interpretation</th>
+    </tr>
+    <tr>
+        <td>e = 0</td>
+        <td>Circular orbit; perihelion undefined, ω meaningless</td>
+    </tr>
+    <tr>
+        <td>i = 0°</td>
+        <td>Coplanar orbit; ascending node undefined</td>
+    </tr>
+    <tr>
+        <td>0 &lt; e &lt; 1</td>
+        <td>Argument of perihelion well defined</td>
+    </tr>
+</table>
+
+<h2>8. Applications</h2>
+<p>
+The argument of perihelion is widely used in:
+</p>
+<ul>
+    <li>Planetary, asteroid, and comet orbit catalogs (e.g., MPCORB)</li>
+    <li>Secular dynamics and perturbation analysis</li>
+    <li>Mission trajectory geometry and orbit design</li>
+    <li>Transformation between orbital elements and Cartesian state vectors</li>
+</ul>
+
+<h2>9. Concise Scientific Definition</h2>
+<p>
+<strong>The argument of perihelion</strong> is the angle measured in the orbital plane
+from the ascending node to the perihelion direction, taken in the direction of motion.
+It specifies the orientation of the line of apsides and is a fundamental Keplerian
+orbital element.
+</p>
+
+</body>
 </html>

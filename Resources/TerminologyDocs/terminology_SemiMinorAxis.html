@@ -1,22 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Semi-minor axis</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Semi-minor axis</h1>
-		<p>In addition to the eccentricity (<span class="italic">e</span>), foci, and directrix, various geometric features and lengths are associated with a conic section.</p>
-		<p>The minor axis is the shortest chord of an ellipse, and its half-length is the <span class="bold">semi-minor axis</span> (<span class="italic">b</span>).</p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Semi Minor Axis – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2, h3 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        code, .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .formula {
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Semi Minor Axis</h1>
+
+<h2>1. Geometrical Definition</h2>
+<p>
+The <strong>semi minor axis</strong>, commonly denoted by the symbol <em>b</em>, is a fundamental geometric parameter
+of an <strong>ellipse</strong>. An ellipse is defined as the locus of all points in a plane for which the sum of the
+distances to two fixed points, called the <em>foci</em>, is constant.
+</p>
+
+<p>
+An ellipse possesses two mutually perpendicular principal axes:
+</p>
+<ul>
+    <li><strong>Semi major axis (<em>a</em>)</strong>: half of the longest diameter of the ellipse</li>
+    <li><strong>Semi minor axis (<em>b</em>)</strong>: half of the shortest diameter of the ellipse</li>
+</ul>
+
+<p>
+The semi minor axis is oriented perpendicular to the semi major axis and passes through the center of the ellipse.
+By definition, its magnitude satisfies:
+</p>
+
+<span class="formula">b ≤ a</span>
+
+<h2>2. Mathematical Formulation</h2>
+
+<h3>2.1 Cartesian Equation of an Ellipse</h3>
+<p>
+For an ellipse centered at the origin and aligned with the coordinate axes, the standard Cartesian equation is:
+</p>
+
+<span class="formula">
+(x² / a²) + (y² / b²) = 1
+</span>
+
+<p>
+Here, the semi minor axis <em>b</em> determines the maximum extent of the ellipse along the axis orthogonal to the
+semi major axis.
+</p>
+
+<h3>2.2 Relation to Focal Distance and Eccentricity</h3>
+<p>
+Let <em>c</em> be the distance from the center of the ellipse to either focus. The geometric relationship between
+<em>a</em>, <em>b</em>, and <em>c</em> is given by:
+</p>
+
+<span class="formula">
+c = √(a² − b²)
+</span>
+
+<p>
+The <strong>eccentricity</strong> <em>e</em> of the ellipse is defined as:
+</p>
+
+<span class="formula">
+e = c / a
+</span>
+
+<p>
+Combining these relations yields a direct expression for the semi minor axis:
+</p>
+
+<span class="formula">
+b = a √(1 − e²)
+</span>
+
+<p>
+This equation demonstrates that the semi minor axis is uniquely determined by the semi major axis and the
+eccentricity.
+</p>
+
+<h2>3. Physical Significance in Celestial Mechanics</h2>
+
+<h3>3.1 Keplerian Orbits</h3>
+<p>
+In classical celestial mechanics, the orbit of a body under a central inverse-square force (the two-body problem)
+is a conic section. For bound orbits, this conic section is an ellipse, with the central mass located at one focus.
+</p>
+
+<p>
+In this context:
+</p>
+<ul>
+    <li>The semi major axis <em>a</em> defines the overall size and orbital energy</li>
+    <li>The semi minor axis <em>b</em> characterizes the transverse extent of the orbit</li>
+</ul>
+
+<p>
+The semi minor axis is not an independent orbital element but is derived from <em>a</em> and <em>e</em> via:
+</p>
+
+<span class="formula">
+b = a √(1 − e²)
+</span>
+
+<h3>3.2 Orbital Area and Kepler’s Second Law</h3>
+<p>
+The area <em>A</em> of an elliptical orbit is given by:
+</p>
+
+<span class="formula">
+A = π a b
+</span>
+
+<p>
+This area is directly related to Kepler’s second law, which states that a line connecting the orbiting body to the
+central mass sweeps out equal areas in equal times.
+</p>
+
+<h2>4. Limiting Cases and Interpretation</h2>
+
+<table>
+    <tr>
+        <th>Eccentricity (e)</th>
+        <th>Geometric Shape</th>
+        <th>Behavior of the Semi Minor Axis</th>
+    </tr>
+    <tr>
+        <td>e = 0</td>
+        <td>Circle</td>
+        <td>b = a</td>
+    </tr>
+    <tr>
+        <td>0 &lt; e &lt; 1</td>
+        <td>Ellipse</td>
+        <td>b &lt; a</td>
+    </tr>
+    <tr>
+        <td>e → 1</td>
+        <td>Highly elongated ellipse</td>
+        <td>b → 0</td>
+    </tr>
+</table>
+
+<h2>5. Applications</h2>
+<p>
+The semi minor axis appears in numerous scientific and technical disciplines, including:
+</p>
+<ul>
+    <li>Astrodynamics and orbital mechanics</li>
+    <li>Geodesy and reference ellipsoids of planetary bodies</li>
+    <li>Physics of bound dynamical systems</li>
+    <li>Statistics (e.g., covariance and confidence ellipses)</li>
+</ul>
+
+<h2>6. Concise Scientific Definition</h2>
+<p>
+<strong>The semi minor axis</strong> is defined as half the length of the shorter principal axis of an ellipse. It
+represents the maximum radial extent of the ellipse perpendicular to the semi major axis and is mathematically
+expressed as:
+</p>
+
+<span class="formula">
+b = a √(1 − e²)
+</span>
+
+</body>
 </html>

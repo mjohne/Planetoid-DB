@@ -1,21 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Mean axis</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Mean axis</h1>
-		<p>The <span class="bold">mean axis</span> is the arithmetic mean of the major axis and the minor axis, and its half-length is the semi-mean axis</p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Mean Axis – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2, h3 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Mean Axis</h1>
+
+<h2>1. Terminological Clarification</h2>
+<p>
+The term <strong>mean axis</strong> is <em>not</em> a formally standardized geometric or orbital parameter in classical
+analytic geometry or celestial mechanics. Instead, it is an <strong>informal or context-dependent term</strong>
+used to denote an averaged characteristic axis length of an ellipse or ellipsoid.
+</p>
+
+<div class="note">
+<strong>Important distinction:</strong><br>
+The <em>mean axis</em> must not be confused with the <strong>semi major axis</strong>, which is sometimes colloquially
+called the “mean distance” in astronomy. The mean axis is a derived, non-canonical quantity whose exact definition
+depends on the chosen averaging method.
+</div>
+
+<h2>2. Mean Axis in Elliptical Geometry</h2>
+<p>
+Consider an ellipse defined by:
+</p>
+<ul>
+    <li>Major axis length: <em>2a</em></li>
+    <li>Minor axis length: <em>2b</em></li>
+</ul>
+
+<p>
+A <strong>mean axis</strong> is introduced to represent a single effective axis length lying between the major and
+minor axes. Several mathematical definitions exist, depending on the application.
+</p>
+
+<h2>3. Common Mathematical Definitions</h2>
+
+<h3>3.1 Arithmetic Mean Axis</h3>
+<p>
+The arithmetic mean axis length is defined as:
+</p>
+
+<span class="formula">
+Mean axis (arithmetic) = a + b
+</span>
+
+<p>
+or, in semi-axis form:
+</p>
+
+<span class="formula">
+a<sub>mean</sub> = (a + b) / 2
+</span>
+
+<p>
+This definition is simple but lacks invariant geometric significance.
+</p>
+
+<h3>3.2 Geometric Mean Axis</h3>
+<p>
+A more geometrically meaningful definition uses the geometric mean:
+</p>
+
+<span class="formula">
+a<sub>mean</sub> = √(a · b)
+</span>
+
+<p>
+This form is commonly referred to as the <em>semi-mean axis</em> and corresponds to the radius of a circle with the
+same area as the ellipse.
+</p>
+
+<h3>3.3 Quadratic (Root-Mean-Square) Axis</h3>
+<p>
+In physical and statistical contexts, a quadratic mean may be used:
+</p>
+
+<span class="formula">
+a<sub>mean</sub> = √((a² + b²) / 2)
+</span>
+
+<p>
+This definition emphasizes larger axis contributions and is sometimes applied in inertia-related calculations.
+</p>
+
+<h2>4. Relation to Eccentricity</h2>
+<p>
+Using the eccentricity <em>e</em> of the ellipse, where:
+</p>
+
+<span class="formula">
+b = a √(1 − e²)
+</span>
+
+<p>
+the geometric mean axis may be written as:
+</p>
+
+<span class="formula">
+a<sub>mean</sub> = a (1 − e²)<sup>1/4</sup>
+</span>
+
+<p>
+This expression explicitly shows how the mean axis decreases as the ellipse becomes more eccentric.
+</p>
+
+<h2>5. Use in Physics and Applied Sciences</h2>
+<p>
+Although not part of the canonical orbital element set, the mean axis is sometimes employed in:
+</p>
+<ul>
+    <li>Approximate analytical treatments of elliptical geometries</li>
+    <li>Geodesy and planetary shape modeling</li>
+    <li>Engineering problems involving effective length scales</li>
+    <li>Statistical analysis of covariance ellipses</li>
+</ul>
+
+<p>
+In celestial mechanics, the term <em>mean axis</em> should be avoided unless explicitly defined, as it has no unique
+physical meaning in orbital dynamics.
+</p>
+
+<h2>6. Comparison with Standard Axes</h2>
+
+<table>
+    <tr>
+        <th>Quantity</th>
+        <th>Symbol</th>
+        <th>Definition</th>
+        <th>Status</th>
+    </tr>
+    <tr>
+        <td>Major axis</td>
+        <td>2a</td>
+        <td>Longest diameter</td>
+        <td>Fundamental</td>
+    </tr>
+    <tr>
+        <td>Minor axis</td>
+        <td>2b</td>
+        <td>Shortest diameter</td>
+        <td>Fundamental</td>
+    </tr>
+    <tr>
+        <td>Mean axis</td>
+        <td>a<sub>mean</sub></td>
+        <td>Average of a and b (definition-dependent)</td>
+        <td>Derived</td>
+    </tr>
+</table>
+
+<h2>7. Concise Scientific Definition</h2>
+<p>
+<strong>The mean axis</strong> is a non-standard, derived geometric quantity representing an averaged characteristic
+axis length of an ellipse. Its value depends on the chosen averaging method (arithmetic, geometric, or quadratic)
+and must therefore be explicitly defined in any scientific or technical application.
+</p>
+
+</body>
 </html>

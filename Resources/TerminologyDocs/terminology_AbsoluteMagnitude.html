@@ -1,26 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Absolute magnitude, H</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Absolute magnitude, H</h1>
-		<p><span class="bold">Absolute magnitude <span class="italic">(M)</span></span> is a measure of the luminosity of a celestial object, on an inverse logarithmic astronomical magnitude scale. An object's absolute magnitude is defined to be equal to the apparent magnitude that the object would have if it were viewed from a distance of exactly 10.0 parsecs (32.6 light-years), without extinction (or dimming) of its light due to absorption by interstellar matter and cosmic dust. By hypothetically placing all objects at a standard reference distance from the observer, their luminosities can be directly compared on a magnitude scale.</p>
-		<p>As with all astronomical magnitudes, the absolute magnitude can be specified for different wavelength ranges corresponding to specified filter bands or passbands; for stars a commonly quoted absolute magnitude is the <span class="bold">absolute visual magnitude</span>, which uses the visual (V) band of the spectrum (in the UBV photometric system). Absolute magnitudes are denoted by a capital M, with a subscript representing the filter band used for measurement, such as M<span class="sub">V</span> for absolute magnitude in the V band.</p>
-		<p>The more luminous an object, the smaller the numerical value of its absolute magnitude. A difference of 5 magnitudes between the absolute magnitudes of two objects corresponds to a ratio of 100 in their luminosities, and a difference of n magnitudes in absolute magnitude corresponds to a luminosity ratio of 100<span class="sup">(n/5)</span>. For example, a star of absolute magnitude M<span class="sub">V</span>=3.0 would be 100 times more luminous than a star of absolute magnitude M<span class="sub">V</span>=8.0 as measured in the V filter band. The Sun has absolute magnitude M<span class="sup">V</span>=+4.83. Highly luminous objects can have negative absolute magnitudes: for example, the Milky Way galaxy has an absolute B magnitude of about -20.8.</p>
-		<p>An object's absolute <span class="italic">bolometric</span> magnitude (M<span class="sub">bol</span>) represents its total luminosity over all wavelengths, rather than in a single filter band, as expressed on a logarithmic magnitude scale. To convert from an absolute magnitude in a specific filter band to absolute bolometric magnitude, a bolometric correction (BC) is applied.</p>
-		<p>For Solar System bodies that shine in reflected light, a different definition of absolute magnitude (H) is used, based on a standard reference distance of one astronomical unit.</p>
-		<p>Read more: <a href="https://en.wikipedia.org/wiki/Absolute_magnitude/" target="_blank">https://en.wikipedia.org/wiki/Absolute_magnitude/</a></p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Absolute Magnitude – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2, h3 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Absolute Magnitude</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+<strong>Absolute magnitude</strong> is a fundamental quantitative measure in
+<strong>astronomy and astrophysics</strong> that describes the intrinsic brightness
+(luminosity) of an astronomical object, independent of its distance from the observer.
+</p>
+
+<p>
+It provides a standardized brightness scale that allows direct comparison of the
+true luminous output of stars, planets, asteroids, and other celestial bodies.
+</p>
+
+<h2>2. Definition for Stars</h2>
+<p>
+For stellar astronomy, the absolute magnitude <strong>M</strong> is defined as:
+</p>
+
+<div class="note">
+The apparent magnitude a star would have if it were located at a distance of exactly
+<strong>10 parsecs</strong> from the observer, with no interstellar extinction.
+</div>
+
+<p>
+This definition removes the effect of distance and isolates the intrinsic radiative
+power of the star.
+</p>
+
+<h2>3. Relation to Apparent Magnitude</h2>
+<p>
+The relationship between apparent magnitude <em>m</em>, absolute magnitude <em>M</em>,
+and distance <em>d</em> (in parsecs) is given by the <strong>distance modulus</strong>:
+</p>
+
+<span class="formula">
+M = m − 5 log<sub>10</sub>(d / 10)
+</span>
+
+<p>
+or equivalently:
+</p>
+
+<span class="formula">
+m − M = 5 log<sub>10</sub>(d) − 5
+</span>
+
+<h2>4. Physical Interpretation</h2>
+<p>
+Absolute magnitude is a logarithmic measure of luminosity. A difference of
+<strong>5 magnitudes</strong> corresponds to a factor of exactly
+<strong>100</strong> in received flux.
+</p>
+
+<p>
+Thus, a difference of one magnitude corresponds to a brightness ratio of:
+</p>
+
+<span class="formula">
+2.512 ≈ 100<sup>1/5</sup>
+</span>
+
+<h2>5. Absolute Magnitude in the Solar System</h2>
+<p>
+For Solar System objects such as asteroids and comets, a different definition is used.
+The absolute magnitude <strong>H</strong> is defined as:
+</p>
+
+<div class="note">
+The apparent magnitude the object would have if it were located
+<strong>1 astronomical unit (AU)</strong> from both the Sun and the observer, and observed
+at zero phase angle.
+</div>
+
+<p>
+This definition is particularly important in planetary science and small-body dynamics.
+</p>
+
+<h2>6. Relation to Size and Albedo</h2>
+<p>
+For asteroids, the absolute magnitude <em>H</em> is related to the effective diameter
+<em>D</em> and geometric albedo <em>p</em> by:
+</p>
+
+<span class="formula">
+D (km) = 1329 × 10<sup>−H/5</sup> / √p
+</span>
+
+<p>
+This relation shows that absolute magnitude alone does not uniquely determine size;
+surface reflectivity must also be known.
+</p>
+
+<h2>7. Wavelength Dependence</h2>
+<p>
+Absolute magnitude is defined for specific photometric bands (e.g., V, B, R, infrared).
+The quoted value must always specify the observational bandpass.
+</p>
+
+<p>
+Different bands probe different physical properties, such as temperature, composition,
+and surface characteristics.
+</p>
+
+<h2>8. Applications</h2>
+<p>
+Absolute magnitude is widely used in:
+</p>
+<ul>
+    <li>Stellar classification and Hertzsprung–Russell diagrams</li>
+    <li>Distance determination and cosmological studies</li>
+    <li>Asteroid catalogs and impact risk assessment</li>
+    <li>Exoplanet and minor-body population statistics</li>
+</ul>
+
+<h2>9. Concise Scientific Definition</h2>
+<p>
+<strong>Absolute magnitude</strong> is a standardized logarithmic measure of the intrinsic
+brightness of an astronomical object. For stars, it is defined as the apparent magnitude
+at a distance of 10 parsecs; for Solar System objects, it is defined at unit heliocentric
+and observer distance with zero phase angle.
+</p>
+
+</body>
 </html>

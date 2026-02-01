@@ -1,22 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Major axis</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Major axis</h1>
-		<p>In addition to the eccentricity (<span class="italic">e</span>), foci, and directrix, various geometric features and lengths are associated with a conic section.</p>
-		<p>The major axis is the chord between the two vertices: the longest chord of an ellipse, the shortest chord between the branches of a hyperbola.</p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Major Axis – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2, h3 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Major Axis</h1>
+
+<h2>1. Geometrical Definition</h2>
+<p>
+The <strong>major axis</strong> is a fundamental geometric concept associated with conic sections, in particular
+with the <strong>ellipse</strong> and the <strong>ellipsoid</strong>. In the planar case of an ellipse, the major
+axis is defined as the <em>longest straight line segment</em> that passes through the center of the figure and
+connects the two points of maximum separation on the boundary.
+</p>
+
+<p>
+The endpoints of the major axis are referred to as the <strong>vertices</strong> of the ellipse. The midpoint of
+the major axis coincides with the geometric center of the ellipse.
+</p>
+
+<h2>2. Relation to Semi-Axes</h2>
+<p>
+Let an ellipse be characterized by:
+</p>
+<ul>
+    <li><em>a</em>: the <strong>semi major axis</strong></li>
+    <li><em>b</em>: the <strong>semi minor axis</strong></li>
+</ul>
+
+<p>
+The total length of the major axis is therefore:
+</p>
+
+<span class="formula">
+Major axis length = 2a
+</span>
+
+<p>
+The major axis is orthogonal to the minor axis and defines the principal direction of elongation of the ellipse.
+</p>
+
+<h2>3. Mathematical Description</h2>
+
+<h3>3.1 Ellipse in Cartesian Coordinates</h3>
+<p>
+For an ellipse centered at the origin and aligned with the coordinate axes, the standard equation is:
+</p>
+
+<span class="formula">
+(x² / a²) + (y² / b²) = 1
+</span>
+
+<p>
+In this representation, the major axis lies along the axis associated with the larger denominator (<em>a²</em>),
+indicating the direction of maximum extent.
+</p>
+
+<h3>3.2 Relation to Foci and Eccentricity</h3>
+<p>
+The two foci of an ellipse are located symmetrically along the major axis. If <em>c</em> denotes the distance from
+the center to either focus, then:
+</p>
+
+<span class="formula">
+c = √(a² − b²)
+</span>
+
+<p>
+The <strong>eccentricity</strong> <em>e</em> is defined as:
+</p>
+
+<span class="formula">
+e = c / a
+</span>
+
+<p>
+Thus, the major axis determines both the focal separation and the overall scale of the ellipse.
+</p>
+
+<h2>4. Physical Significance in Celestial Mechanics</h2>
+
+<h3>4.1 Keplerian Orbits</h3>
+<p>
+In classical celestial mechanics, the orbit of a body in a bound two-body system is an ellipse with the central
+mass located at one focus. The major axis of the orbital ellipse represents the direction of maximum radial
+excursion between the periapsis and apoapsis.
+</p>
+
+<p>
+The length of the major axis is given by:
+</p>
+
+<span class="formula">
+Major axis = r<sub>periapsis</sub> + r<sub>apoapsis</sub>
+</span>
+
+<p>
+where:
+</p>
+<ul>
+    <li><em>r<sub>periapsis</sub></em> is the minimum orbital distance</li>
+    <li><em>r<sub>apoapsis</sub></em> is the maximum orbital distance</li>
+</ul>
+
+<h3>4.2 Energetic Interpretation</h3>
+<p>
+Although the major axis itself is a geometric quantity, it is directly related to the orbital energy through the
+semi major axis <em>a</em>. Since the major axis equals <em>2a</em>, it indirectly reflects the total mechanical
+energy of the orbit.
+</p>
+
+<h2>5. Limiting Cases</h2>
+
+<table>
+    <tr>
+        <th>Geometry</th>
+        <th>Interpretation of the Major Axis</th>
+    </tr>
+    <tr>
+        <td>Circle</td>
+        <td>Major axis equals the diameter of the circle</td>
+    </tr>
+    <tr>
+        <td>Ellipse</td>
+        <td>Longest diameter of the figure</td>
+    </tr>
+    <tr>
+        <td>Degenerate ellipse</td>
+        <td>Major axis collapses into a line segment</td>
+    </tr>
+</table>
+
+<h2>6. Applications</h2>
+<p>
+The concept of the major axis appears in numerous scientific and technical fields, including:
+</p>
+<ul>
+    <li>Analytical geometry and linear algebra</li>
+    <li>Astrodynamics and orbital mechanics</li>
+    <li>Geodesy and planetary reference ellipsoids</li>
+    <li>Physics of bound dynamical systems</li>
+</ul>
+
+<h2>7. Concise Scientific Definition</h2>
+<p>
+<strong>The major axis</strong> of an ellipse is the longest line segment passing through its center and connecting
+the two most distant points on the curve. Its length equals twice the semi major axis and defines the principal
+direction and maximum spatial extent of the figure.
+</p>
+
+</body>
 </html>

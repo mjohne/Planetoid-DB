@@ -1,22 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Aphelion distance</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Aphelion distance</h1>
-		<p><span class="bold">Apsis</span> (Greek: ἁψίς; plural <span class="bold">apsides</span> /ˈæpsɪdiːz/, Greek: ἁψῖδες; "orbit") denotes either of the two extreme points (i.e., the farthest or nearest point) in the orbit of a planetary body about its primary body (or simply, "the primary"). The plural term, "apsides," usually implies both apsis points (i.e., farthest and nearest); apsides can also refer to the distance of the extreme range of an object orbiting a host body. For example, the apsides of Earth's orbit of the Sun are two: the <span class="italic">apsis</span> for Earth's farthest point from the Sun, dubbed the <span class="bold">aphelion</span>; and the <span class="italic">apsia</span> for Earth's nearest point, the <span class="bold">perihelion</span>. (The term "apsis", a cognate with <span class="italic">apse</span>, comes via Latin from Greek).</p>
-		<p>The <span class="bold">Aphelion distance</span> is the distance between baricenter and the aphelion.</p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Aphelion Distance – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2, h3 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Aphelion Distance</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+The <strong>aphelion distance</strong> is a fundamental parameter in <strong>celestial mechanics</strong>
+that defines the maximum distance between an orbiting body and the <em>Sun</em> during a complete orbital
+revolution.
+</p>
+
+<p>
+It corresponds to the point of greatest heliocentric separation along an orbit and provides a key measure
+of the spatial extent of heliocentric trajectories.
+</p>
+
+<h2>2. Aphelion and Orbital Geometry</h2>
+<p>
+For an object moving along a Keplerian orbit around the Sun:
+</p>
+<ul>
+    <li>The <strong>aphelion</strong> is the point of maximum heliocentric distance</li>
+    <li>The opposite point of minimum distance is the <strong>perihelion</strong></li>
+</ul>
+
+<p>
+The straight line connecting perihelion and aphelion is called the <strong>line of apsides</strong> and
+defines the principal axis of the orbit.
+</p>
+
+<h2>3. Mathematical Definition</h2>
+<p>
+For an elliptical heliocentric orbit with semi major axis <em>a</em> and orbital eccentricity <em>e</em>,
+the aphelion distance <em>Q</em> is given by:
+</p>
+
+<span class="formula">
+Q = a (1 + e)
+</span>
+
+<p>
+This expression follows directly from the polar equation of a Keplerian orbit evaluated at true anomaly
+<em>ν = π</em>.
+</p>
+
+<h2>4. Relation to Other Orbital Parameters</h2>
+<p>
+Using the linear eccentricity <em>c</em>, the aphelion distance can be written as:
+</p>
+
+<span class="formula">
+Q = a + c
+</span>
+
+<p>
+where:
+</p>
+<ul>
+    <li><em>a</em> is the semi major axis</li>
+    <li><em>c = a e</em> is the linear eccentricity</li>
+</ul>
+
+<p>
+For a circular orbit (<em>e = 0</em>), the aphelion distance equals the perihelion distance:
+</p>
+
+<span class="formula">
+Q = a
+</span>
+
+<h2>5. Applicability to Different Orbit Types</h2>
+<p>
+The aphelion distance is well defined for bound heliocentric orbits:
+</p>
+
+<table>
+    <tr>
+        <th>Orbit Type</th>
+        <th>Aphelion Distance</th>
+    </tr>
+    <tr>
+        <td>Elliptical (0 ≤ e &lt; 1)</td>
+        <td>Finite maximum distance</td>
+    </tr>
+    <tr>
+        <td>Circular (e = 0)</td>
+        <td>Equal to orbital radius</td>
+    </tr>
+</table>
+
+<div class="note">
+For parabolic and hyperbolic trajectories (<em>e ≥ 1</em>), the aphelion distance is not defined, as the
+orbit does not possess a maximum heliocentric separation.
+</div>
+
+<h2>6. Dynamical and Physical Significance</h2>
+<p>
+The aphelion distance influences several important physical properties of an orbit:
+</p>
+<ul>
+    <li>The minimum orbital velocity of the body</li>
+    <li>The duration spent in the outer regions of the orbit</li>
+    <li>The exposure to solar radiation and gravitational perturbations</li>
+</ul>
+
+<p>
+Bodies near aphelion move most slowly, in accordance with Kepler’s second law.
+</p>
+
+<h2>7. Relation to True Anomaly and Motion</h2>
+<p>
+The aphelion occurs at true anomaly:
+</p>
+
+<span class="formula">
+ν = π
+</span>
+
+<p>
+At this point, the orbital speed reaches its minimum value for bound orbits.
+</p>
+
+<h2>8. Applications</h2>
+<p>
+The aphelion distance is widely used in:
+</p>
+<ul>
+    <li>Planetary and small-body orbit catalogs</li>
+    <li>Classification of trans-Neptunian objects</li>
+    <li>Studies of orbital stability and dynamical evolution</li>
+    <li>Mission analysis involving outer Solar System trajectories</li>
+</ul>
+
+<h2>9. Concise Scientific Definition</h2>
+<p>
+<strong>The aphelion distance</strong> is the maximum heliocentric distance attained by an orbiting body.
+For elliptical orbits, it is given by <em>Q = a (1 + e)</em> and represents the point of greatest separation
+from the Sun along a Keplerian trajectory.
+</p>
+
+</body>
 </html>

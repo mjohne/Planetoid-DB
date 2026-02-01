@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Minor Orbital Speed – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2, h3 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Minor Orbital Speed</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+The term <strong>minor orbital speed</strong> is not a formally standardized quantity
+in classical celestial mechanics. In scientific usage, it is most reasonably interpreted
+as a <em>characteristic orbital velocity associated with the semi-minor axis</em> of an
+elliptical orbit.
+</p>
+
+<p>
+It therefore represents a <strong>derived reference speed</strong>, analogous to the
+major orbital speed associated with the semi-major axis.
+</p>
+
+<h2>2. Geometric and Dynamical Interpretation</h2>
+<p>
+For an elliptical Keplerian orbit characterized by:
+</p>
+<ul>
+    <li>Semi-major axis <em>a</em></li>
+    <li>Semi-minor axis <em>b</em></li>
+    <li>Standard gravitational parameter <em>μ</em></li>
+</ul>
+
+<p>
+the <strong>minor orbital speed</strong> is defined as the circular orbital speed at a
+radius equal to the semi-minor axis:
+</p>
+
+<span class="formula">
+v<sub>b</sub> = √( μ / b )
+</span>
+
+<div class="note">
+This definition provides a natural velocity scale associated with the transverse
+dimension of the orbit.
+</div>
+
+<h2>3. Relation to Orbital Geometry</h2>
+<p>
+Using the relation between the semi-minor axis and eccentricity:
+</p>
+
+<span class="formula">
+b = a √(1 − e²)
+</span>
+
+<p>
+the minor orbital speed can be written as:
+</p>
+
+<span class="formula">
+v<sub>b</sub> = √( μ / (a √(1 − e²)) )
+</span>
+
+<p>
+This expression highlights the dependence of the minor orbital speed on orbital
+eccentricity.
+</p>
+
+<h2>4. Comparison with Major Orbital Speed</h2>
+<p>
+The major orbital speed is defined as:
+</p>
+
+<span class="formula">
+v<sub>a</sub> = √( μ / a )
+</span>
+
+<p>
+The ratio between minor and major orbital speeds is therefore:
+</p>
+
+<span class="formula">
+v<sub>b</sub> / v<sub>a</sub> = (1 − e²)<sup>−1/4</sup>
+</span>
+
+<p>
+For increasing eccentricity, the minor orbital speed becomes larger than the major
+orbital speed.
+</p>
+
+<h2>5. Physical Meaning and Limitations</h2>
+<p>
+Minor orbital speed does <em>not</em> correspond to the instantaneous velocity of the
+orbiting body at any specific orbital point. It is a hypothetical reference velocity
+used for scaling and comparative purposes.
+</p>
+
+<div class="note">
+The actual orbital speed is always given by the vis-viva equation and varies continuously
+along the orbit.
+</div>
+
+<h2>6. Applicability</h2>
+<p>
+The concept of minor orbital speed is applicable only to:
+</p>
+<ul>
+    <li>Elliptical orbits (<em>0 ≤ e &lt; 1</em>)</li>
+</ul>
+
+<p>
+It is undefined for circular orbits (where <em>a = b</em> and the distinction vanishes)
+and for unbound trajectories.
+</p>
+
+<h2>7. Applications</h2>
+<p>
+Minor orbital speed may be used in:
+</p>
+<ul>
+    <li>Geometric scaling of elliptical orbits</li>
+    <li>Educational analysis of orbital velocity distributions</li>
+    <li>Comparative studies of orbital shape effects</li>
+    <li>Nondimensionalization of orbital equations</li>
+</ul>
+
+<h2>8. Concise Scientific Definition</h2>
+<p>
+<strong>Minor orbital speed</strong> is a derived characteristic velocity associated with
+the semi-minor axis of an elliptical orbit. It is defined as the circular orbital speed
+at radius <em>b</em> and serves as a reference velocity scale related to the transverse
+dimension of the orbit.
+</p>
+
+</body>
+</html>

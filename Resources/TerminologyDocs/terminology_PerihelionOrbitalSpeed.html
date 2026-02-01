@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Perihelion Orbital Speed – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2, h3 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Perihelion Orbital Speed</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+The <strong>perihelion orbital speed</strong> is the instantaneous velocity of an orbiting
+body at the <em>perihelion</em>, the point of minimum distance from the Sun along a
+heliocentric orbit.
+</p>
+
+<p>
+It represents the <strong>maximum orbital speed</strong> attained by a body moving on a
+bound (elliptical) Keplerian trajectory.
+</p>
+
+<h2>2. Perihelion in Orbital Geometry</h2>
+<p>
+For a heliocentric Keplerian orbit:
+</p>
+<ul>
+    <li><strong>Perihelion</strong> is the point of closest approach to the Sun</li>
+    <li><strong>Aphelion</strong> is the point of greatest heliocentric distance</li>
+</ul>
+
+<p>
+These two points define the <strong>line of apsides</strong> and correspond to the extrema
+of orbital distance and speed.
+</p>
+
+<h2>3. Mathematical Definition</h2>
+<p>
+For an elliptical orbit with semi-major axis <em>a</em> and eccentricity <em>e</em>, the
+perihelion distance <em>q</em> is:
+</p>
+
+<span class="formula">
+q = a (1 − e)
+</span>
+
+<p>
+The perihelion orbital speed <em>v<sub>q</sub></em> is obtained from the
+<strong>vis-viva equation</strong> evaluated at <em>r = q</em>:
+</p>
+
+<span class="formula">
+v<sub>q</sub> = √( μ ( 2/q − 1/a ) )
+</span>
+
+<p>
+Substituting for <em>q</em> yields:
+</p>
+
+<span class="formula">
+v<sub>q</sub> = √( μ / a · (1 + e) / (1 − e) )
+</span>
+
+<h2>4. Relation to Aphelion Orbital Speed</h2>
+<p>
+The aphelion orbital speed <em>v<sub>Q</sub></em> is:
+</p>
+
+<span class="formula">
+v<sub>Q</sub> = √( μ / a · (1 − e) / (1 + e) )
+</span>
+
+<p>
+The ratio between perihelion and aphelion speeds is therefore:
+</p>
+
+<span class="formula">
+v<sub>q</sub> / v<sub>Q</sub> = (1 + e) / (1 − e)
+</span>
+
+<p>
+This relation directly reflects conservation of angular momentum.
+</p>
+
+<h2>5. Physical Interpretation</h2>
+<p>
+At perihelion, the orbiting body moves most rapidly, spending the least amount of time
+near this point. This behavior is a direct consequence of
+<strong>Kepler’s Second Law</strong>, which states that equal areas are swept out in equal
+times.
+</p>
+
+<p>
+The perihelion orbital speed therefore represents the maximum kinetic energy attained
+along the orbit.
+</p>
+
+<h2>6. Applicability and Limitations</h2>
+<p>
+The concept of perihelion orbital speed applies exclusively to:
+</p>
+<ul>
+    <li>Elliptical heliocentric orbits (<em>0 ≤ e &lt; 1</em>)</li>
+</ul>
+
+<div class="note">
+For circular orbits, perihelion and aphelion coincide, and orbital speed is constant.
+For parabolic and hyperbolic trajectories, no perihelion orbital speed maximum exists
+in the same sense.
+</div>
+
+<h2>7. Applications</h2>
+<p>
+Perihelion orbital speed is relevant in:
+</p>
+<ul>
+    <li>Energy and angular momentum analysis</li>
+    <li>Thermal and tidal studies of near-Sun objects</li>
+    <li>Mission trajectory design and flyby analysis</li>
+    <li>Comparative studies of orbital velocity extremes</li>
+</ul>
+
+<h2>8. Concise Scientific Definition</h2>
+<p>
+<strong>The perihelion orbital speed</strong> is the instantaneous velocity of a body at
+its minimum heliocentric distance. For an elliptical orbit, it is given by
+<em>v = √( μ / a · (1 + e) / (1 − e) )</em> and represents the maximum orbital speed
+along the trajectory.
+</p>
+
+</body>
+</html>

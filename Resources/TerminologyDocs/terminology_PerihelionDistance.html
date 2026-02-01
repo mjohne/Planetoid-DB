@@ -1,22 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Perihelion distance</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Perihelion distance</h1>
-		<p><span class="bold">Apsis</span> (Greek: ἁψίς; plural <span class="bold">apsides</span> /ˈæpsɪdiːz/, Greek: ἁψῖδες; "orbit") denotes either of the two extreme points (i.e., the farthest or nearest point) in the orbit of a planetary body about its primary body (or simply, "the primary"). The plural term, "apsides," usually implies both apsis points (i.e., farthest and nearest); apsides can also refer to the distance of the extreme range of an object orbiting a host body. For example, the apsides of Earth's orbit of the Sun are two: the <span class="italic">apsis</span> for Earth's farthest point from the Sun, dubbed the <span class="bold">aphelion</span>; and the <span class="italic">apsia</span> for Earth's nearest point, the <span class="bold">perihelion</span>. (The term "apsis", a cognate with <span class="italic">apse</span>, comes via Latin from Greek).</p>
-		<p>The <span class="bold">Perihelion distance</span> is the distance between baricenter and the perihelion.</p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Perihelion Distance – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2, h3 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Perihelion Distance</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+The <strong>perihelion distance</strong> is a fundamental parameter in <strong>celestial mechanics</strong>
+that defines the minimum distance between an orbiting body and the <em>Sun</em> during one complete orbital
+revolution.
+</p>
+
+<p>
+It corresponds to the point of closest approach of the body to the Sun and is a key descriptor of the size
+and shape of heliocentric orbits.
+</p>
+
+<h2>2. Perihelion and Orbital Geometry</h2>
+<p>
+For an object moving along a Keplerian orbit around the Sun:
+</p>
+<ul>
+    <li>The <strong>perihelion</strong> is the point of minimum heliocentric distance</li>
+    <li>The opposite point of maximum distance is the <strong>aphelion</strong></li>
+</ul>
+
+<p>
+The line connecting perihelion and aphelion is known as the <strong>line of apsides</strong>.
+</p>
+
+<h2>3. Mathematical Definition</h2>
+<p>
+For an elliptical orbit with semi major axis <em>a</em> and orbital eccentricity <em>e</em>, the perihelion
+distance <em>q</em> is given by:
+</p>
+
+<span class="formula">
+q = a (1 − e)
+</span>
+
+<p>
+This relation follows directly from the polar equation of a Keplerian orbit evaluated at true anomaly
+<em>ν = 0</em>.
+</p>
+
+<h2>4. Relation to Other Orbital Parameters</h2>
+<p>
+Using the linear eccentricity <em>c</em>, the perihelion distance can also be written as:
+</p>
+
+<span class="formula">
+q = a − c
+</span>
+
+<p>
+where:
+</p>
+<ul>
+    <li><em>a</em> is the semi major axis</li>
+    <li><em>c = a e</em> is the linear eccentricity</li>
+</ul>
+
+<p>
+For a circular orbit (<em>e = 0</em>), the perihelion distance equals the orbital radius:
+</p>
+
+<span class="formula">
+q = a
+</span>
+
+<h2>5. Applicability to Different Orbit Types</h2>
+<p>
+The perihelion distance is defined for all heliocentric Keplerian orbits:
+</p>
+
+<table>
+    <tr>
+        <th>Orbit Type</th>
+        <th>Perihelion Distance</th>
+    </tr>
+    <tr>
+        <td>Elliptical (0 ≤ e &lt; 1)</td>
+        <td>Finite minimum distance</td>
+    </tr>
+    <tr>
+        <td>Parabolic (e = 1)</td>
+        <td>Minimum distance equals semi latus rectum / 2</td>
+    </tr>
+    <tr>
+        <td>Hyperbolic (e &gt; 1)</td>
+        <td>Finite closest approach during flyby</td>
+    </tr>
+</table>
+
+<h2>6. Dynamical and Physical Significance</h2>
+<p>
+The perihelion distance strongly influences:
+</p>
+<ul>
+    <li>The maximum orbital velocity (via conservation of angular momentum)</li>
+    <li>Thermal and tidal effects experienced by the body</li>
+    <li>Solar radiation pressure and sublimation processes (for comets)</li>
+</ul>
+
+<p>
+Objects with very small perihelion distances may experience intense heating and strong gravitational
+perturbations.
+</p>
+
+<h2>7. Relation to True Anomaly and Motion</h2>
+<p>
+The perihelion occurs at true anomaly:
+</p>
+
+<span class="formula">
+ν = 0
+</span>
+
+<p>
+At this point, the orbital speed reaches its maximum value, consistent with Kepler’s second law.
+</p>
+
+<h2>8. Applications</h2>
+<p>
+The perihelion distance is widely used in:
+</p>
+<ul>
+    <li>Planetary and small-body orbit catalogs (e.g., MPCORB)</li>
+    <li>Classification of comets and near-Sun objects</li>
+    <li>Mission trajectory design and flyby analysis</li>
+    <li>Long-term dynamical studies of the Solar System</li>
+</ul>
+
+<h2>9. Concise Scientific Definition</h2>
+<p>
+<strong>The perihelion distance</strong> is the minimum heliocentric distance of an orbiting body. It is given
+by <em>q = a (1 − e)</em> for elliptical orbits and represents the point of closest approach to the Sun along a
+Keplerian trajectory.
+</p>
+
+</body>
 </html>

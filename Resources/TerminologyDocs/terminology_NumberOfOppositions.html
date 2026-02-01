@@ -1,24 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Number of oppositions</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Number of oppositions</h1>
-		<p>This is the number of oppositions.</p>
-		<p>In positional astronomy, two astronomical objects are said to be in opposition when they are on opposite sides of the celestial sphere, as observed from a given body (usually Earth).</p>
-		<p>A planet (or asteroid or comet) is said to be "in opposition" when it is in opposition to the Sun. Because most orbits in the Solar System are nearly coplanar to the ecliptic, this occurs when the Sun, Earth, and the body are configured in an approximately straight line, or syzygy; that is, Earth and the body are in the same direction as seen from the Sun. Opposition occurs only for superior planets.</p>
-		<p>Read more: <a href="https://en.wikipedia.org/wiki/Opposition_(astronomy)" target="_blank">https://en.wikipedia.org/wiki/Opposition_(astronomy)</a></p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Number of Oppositions – MPCORB Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 6px 10px;
+            border-radius: 4px;
+            display: block;
+            margin: 12px 0;
+        }
+        ul {
+            margin-left: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Number of Oppositions in MPCORB</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+In the context of the <strong>MPCORB</strong> catalog, the <strong>number of oppositions</strong>
+is an integer quantity indicating how many distinct orbital apparitions of a minor planet
+have been observed and successfully linked in the determination of its orbit.
+</p>
+
+<p>
+It is a discrete measure of long-term observational coverage and orbit confirmation.
+</p>
+
+<h2>2. Astronomical Meaning of an Opposition</h2>
+<p>
+An <strong>opposition</strong> occurs when a Solar System body is observed at a solar
+elongation of approximately 180°, placing it opposite the Sun in the sky as seen from
+Earth.
+</p>
+
+<p>
+At opposition, a minor planet is typically:
+</p>
+<ul>
+    <li>Closest to Earth</li>
+    <li>Brightest and easiest to observe</li>
+    <li>Observable over long nightly arcs</li>
+</ul>
+
+<h2>3. Definition of Number of Oppositions</h2>
+<p>
+The number of oppositions counts how many <em>distinct observing seasons</em>, separated
+by at least one synodic period, have contributed astrometric data to the orbit solution.
+</p>
+
+<p>
+Observations within a single apparition count as <strong>one opposition</strong>, even if
+many measurements are obtained.
+</p>
+
+<h2>4. Representation in MPCORB</h2>
+<p>
+In MPCORB, the number of oppositions is typically given as a small integer:
+</p>
+<ul>
+    <li>1 – single-opposition object</li>
+    <li>2–3 – moderately well-established orbit</li>
+    <li>≥ 4 – well-observed, long-arc object</li>
+</ul>
+
+<h2>5. Scientific Significance</h2>
+<p>
+The number of oppositions is one of the strongest qualitative indicators of orbital
+reliability. Each additional opposition:
+</p>
+<ul>
+    <li>Reduces orbital element degeneracies</li>
+    <li>Improves determination of mean motion</li>
+    <li>Stabilizes long-term ephemeris predictions</li>
+</ul>
+
+<div class="note">
+A single-opposition orbit may have a low RMS residual but still be highly uncertain when
+propagated far from the observation interval.
+</div>
+
+<h2>6. Relation to Observation Span</h2>
+<p>
+While the observation span measures the total temporal extent of observations, the
+number of oppositions captures the <strong>seasonal repetition</strong> of successful
+recovery.
+</p>
+
+<table>
+    <tr>
+        <th>Metric</th>
+        <th>Primary Meaning</th>
+    </tr>
+    <tr>
+        <td>Observation span</td>
+        <td>Total time baseline</td>
+    </tr>
+    <tr>
+        <td>Number of oppositions</td>
+        <td>Number of linked apparitions</td>
+    </tr>
+</table>
+
+<h2>7. Limitations</h2>
+<p>
+The number of oppositions does not directly reflect:
+</p>
+<ul>
+    <li>Astrometric precision</li>
+    <li>Distribution of observations within each apparition</li>
+    <li>Quality of individual measurements</li>
+</ul>
+
+<p>
+It must therefore be interpreted together with RMS residuals and observation span.
+</p>
+
+<h2>8. Practical Applications</h2>
+<p>
+The number of oppositions is used to:
+</p>
+<ul>
+    <li>Assess orbit confirmation status</li>
+    <li>Prioritize recovery and follow-up observations</li>
+    <li>Identify potentially lost or poorly constrained objects</li>
+    <li>Classify single- vs. multi-opposition objects</li>
+</ul>
+
+<h2>9. Concise Scientific Definition</h2>
+<p>
+<strong>The number of oppositions</strong> in MPCORB is the count of distinct observing
+apparitions at opposition that have contributed astrometric data to an orbital solution.
+It provides a discrete measure of long-term orbit confirmation and predictive stability.
+</p>
+
+</body>
 </html>

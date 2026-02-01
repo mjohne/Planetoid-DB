@@ -1,52 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>4-hexdigit flags</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>4-hexdigit flags</h1>
-		<p>This information has been updated 2014 July 16, for files created after 18:40 UTC on that day.  Classification of distant-orbit types will resume after the MPC ingest data from an outside collaborator.</p>
-		<p>The bottom 6 bits (bits 0 to 5) are used to encode a value representing the orbit type (other values are undefined):</p>
-		<table>
-			<th><td>Value</td><td>Object Class</td></th>
-			<tr><td>1</td><td>Atira</td></tr>
-			<tr><td>2</td><td>Aten</td></tr>
-			<tr><td>3</td><td>Apollo</td></tr>
-			<tr><td>4</td><td>Amor</td></tr>
-			<tr><td>5</td><td>Object with q < 1.665 AU</td></tr>
-			<tr><td>6</td><td>Hungaria</td></tr>
-			<tr><td>7</td><td>Unused or internal MPC use only</td></tr>
-			<tr><td>8</td><td>Hilda</td></tr>
-			<tr><td>9</td><td>Jupiter Trojan</td></tr>
-			<tr><td>10</td><td>Distant object</td></tr>
-			<tr><td></td><td></td></tr>
-		</table>
-		<p>Additional information is conveyed by adding in the following bit values:</p>
-		<table>
-			<th><td>Bit</td><td>Value</td><td></td></th>
-			<tr><td>6</td><td>64</td><td>Unused or internal MPC use only</td></tr>
-			<tr><td>7</td><td>128</td><td>Unused or internal MPC use only</td></tr>
-			<tr><td>8</td><td>256</td><td>Unused or internal MPC use only</td></tr>
-			<tr><td>9</td><td>512</td><td>Unused or internal MPC use only</td></tr>
-			<tr><td>10</td><td>1024</td><td>Unused or internal MPC use only</td></tr>
-			<tr><td>11</td><td>2048</td><td>Object is NEO</td></tr>
-			<tr><td>12</td><td>4096</td><td>Object is 1-km (or larger) NEO</td></tr>
-			<tr><td>13</td><td>8192</td><td>1-opposition object seen at earlier opposition</td></tr>
-			<tr><td>14</td><td>16384</td><td>Critical list numbered object</td></tr>
-			<tr><td>15</td><td>32768</td><td>Object is PHA</td></tr>
-		</table>
-		<p>Note that the orbit classification is based on cuts in osculating element space and is not 100% reliable.</p>
-		<p>Note also that certain of the flags are for internal MPC use and are not documented.</p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Flags – MPCORB Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        ul {
+            margin-left: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+        .mono {
+            font-family: "Consolas", "Courier New", monospace;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Flags in MPCORB</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+In the context of the <strong>MPCORB</strong> catalog, <strong>flags</strong> are compact,
+encoded indicators that provide additional metadata about the status, treatment, or
+special properties of a minor planet’s orbital solution.
+</p>
+
+<p>
+They function as boolean or categorical markers that modify the interpretation of the
+associated orbital elements.
+</p>
+
+<h2>2. Purpose of Flags</h2>
+<p>
+Flags are used to efficiently communicate information that cannot be expressed through
+numerical orbital parameters alone. Their primary purposes include:
+</p>
+<ul>
+    <li>Identifying special dynamical or observational cases</li>
+    <li>Indicating catalog or processing status</li>
+    <li>Supporting automated filtering and selection</li>
+</ul>
+
+<h2>3. Nature of MPCORB Flags</h2>
+<p>
+MPCORB flags are typically:
+</p>
+<ul>
+    <li>Single-character or short alphanumeric codes</li>
+    <li>Catalog-specific in meaning</li>
+    <li>Designed for machine parsing rather than narrative description</li>
+</ul>
+
+<div class="note">
+The exact meaning of individual flags is defined by MPC documentation and may evolve
+over time.
+</div>
+
+<h2>4. Examples of Flag Usage</h2>
+<p>
+Although the specific flag set may vary by MPCORB version, flags are commonly used to
+indicate conditions such as:
+</p>
+<ul>
+    <li>Objects with non-standard orbits</li>
+    <li>Special observation or solution handling</li>
+    <li>Supplementary or provisional status indicators</li>
+</ul>
+
+<p class="mono">
+Example (conceptual): FLAGS = "P"
+</p>
+
+<h2>5. Scientific Interpretation</h2>
+<p>
+Flags do not represent physical quantities. Instead, they provide contextual qualifiers
+that inform how the orbital data should be interpreted, trusted, or processed.
+</p>
+
+<p>
+They are particularly important in large-scale statistical analyses, where automated
+filters rely on flag values to include or exclude certain objects.
+</p>
+
+<h2>6. Relationship to Other MPCORB Fields</h2>
+<p>
+Flags complement, but do not replace, other orbit-quality indicators such as:
+</p>
+<ul>
+    <li>RMS residual</li>
+    <li>Observation span</li>
+    <li>Number of oppositions</li>
+    <li>Reference codes</li>
+</ul>
+
+<p>
+They often act as interpretive modifiers rather than primary metrics.
+</p>
+
+<h2>7. Limitations</h2>
+<p>
+Because flags are compact and catalog-specific:
+</p>
+<ul>
+    <li>They require external documentation to interpret correctly</li>
+    <li>They may be misused if treated as physical parameters</li>
+    <li>They are not always comparable across different MPCORB releases</li>
+</ul>
+
+<div class="note">
+Scientific conclusions should never be based solely on flags without examining the
+underlying observational and orbital data.
+</div>
+
+<h2>8. Practical Applications</h2>
+<p>
+In practice, MPCORB flags are used to:
+</p>
+<ul>
+    <li>Enable fast catalog filtering</li>
+    <li>Signal special processing requirements</li>
+    <li>Assist in data validation and quality control</li>
+    <li>Annotate orbit records with non-numeric metadata</li>
+</ul>
+
+<h2>9. Concise Scientific Definition</h2>
+<p>
+<strong>Flags</strong> in MPCORB are compact catalog indicators that encode non-numeric
+metadata about the status, handling, or special conditions of a minor planet’s orbit.
+They provide contextual qualifiers for orbit interpretation but carry no direct physical
+meaning.
+</p>
+
+</body>
 </html>

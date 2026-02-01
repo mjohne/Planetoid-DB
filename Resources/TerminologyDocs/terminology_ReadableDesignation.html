@@ -1,21 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Terminology: Readable designation</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Readable designation</h1>
-		<p>This is the readable designation.</p>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <title>Readable Designation – MPCORB Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 6px 10px;
+            border-radius: 4px;
+            display: block;
+            margin: 12px 0;
+        }
+        ul {
+            margin-left: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Readable Designation in MPCORB</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+In the context of the <strong>MPCORB</strong> catalog, the term
+<strong>readable designation</strong> refers to a <em>human-readable textual identifier</em>
+used to label a minor planet in a clear and interpretable form.
+</p>
+
+<p>
+It contrasts with the compact packed designations used internally by the Minor Planet
+Center for storage efficiency.
+</p>
+
+<h2>2. Purpose of the Readable Designation</h2>
+<p>
+The readable designation is designed to:
+</p>
+<ul>
+    <li>Be easily interpreted by humans</li>
+    <li>Preserve the official MPC naming conventions</li>
+    <li>Provide an unambiguous identifier for scientific communication</li>
+</ul>
+
+<p>
+It plays a crucial role in catalog browsing, reporting, and documentation.
+</p>
+
+<h2>3. Types of Readable Designations</h2>
+<p>
+In MPCORB, readable designations typically fall into one of the following categories:
+</p>
+
+<table>
+    <tr>
+        <th>Type</th>
+        <th>Example</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>Numbered designation</td>
+        <td>(433) Eros</td>
+        <td>Permanently numbered minor planet, optionally with name</td>
+    </tr>
+    <tr>
+        <td>Provisional designation</td>
+        <td>2021 AB</td>
+        <td>Temporary identifier based on discovery date</td>
+    </tr>
+    <tr>
+        <td>Named but unnumbered</td>
+        <td>1998 OR2</td>
+        <td>Provisional designation still in use</td>
+    </tr>
+</table>
+
+<h2>4. Relationship to Packed Designations</h2>
+<p>
+Internally, MPCORB stores designations in a <strong>packed format</strong> to minimize
+file size and optimize processing speed.
+</p>
+
+<p>
+The readable designation is the <em>decoded representation</em> of this packed form.
+For example:
+</p>
+
+<span class="formula">
+Packed: K21A00B  →  Readable: 2021 AB
+</span>
+
+<div class="note">
+Both representations refer to the same physical object and are strictly equivalent in
+meaning.
+</div>
+
+<h2>5. Scientific and Catalog Consistency</h2>
+<p>
+The readable designation ensures consistency with:
+</p>
+<ul>
+    <li>Minor Planet Circulars (MPCs)</li>
+    <li>Minor Planet Electronic Circulars (MPECs)</li>
+    <li>IAU-approved naming conventions</li>
+</ul>
+
+<p>
+It provides a stable identifier suitable for citation in scientific literature.
+</p>
+
+<h2>6. Interpretation Rules</h2>
+<p>
+Readable designations follow standardized MPC rules:
+</p>
+<ul>
+    <li>Year of discovery</li>
+    <li>Half-month letter code</li>
+    <li>Sequential discovery code</li>
+</ul>
+
+<p>
+These rules guarantee uniqueness and chronological meaning.
+</p>
+
+<h2>7. Practical Usage</h2>
+<p>
+Within MPCORB-derived software and databases, the readable designation is commonly used
+for:
+</p>
+<ul>
+    <li>User interfaces and visual displays</li>
+    <li>Logging and reporting</li>
+    <li>Cross-referencing with external catalogs</li>
+    <li>Scientific communication</li>
+</ul>
+
+<h2>8. Limitations</h2>
+<p>
+The readable designation does not encode:
+</p>
+<ul>
+    <li>Orbital quality or uncertainty</li>
+    <li>Dynamical classification</li>
+    <li>Physical properties</li>
+</ul>
+
+<p>
+It is purely an identification and labeling construct.
+</p>
+
+<h2>9. Concise Scientific Definition</h2>
+<p>
+<strong>The readable designation</strong> in MPCORB is the human-readable form of a minor
+planet identifier, derived from the MPC packed designation or permanent number. It
+provides an unambiguous, standardized label suitable for interpretation, display, and
+scientific reference.
+</p>
+
+</body>
 </html>

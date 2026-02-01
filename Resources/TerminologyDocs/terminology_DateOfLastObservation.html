@@ -1,21 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Date of last observation</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Date of last observation</h1>
-		<p>This is the date of last observation included in orbit solution (YYYYMMDD format).</p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Date of Last Observation – MPCORB Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        ul {
+            margin-left: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 6px 10px;
+            border-radius: 4px;
+            display: block;
+            margin: 12px 0;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Date of Last Observation in MPCORB</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+In the context of the <strong>MPCORB</strong> catalog, the
+<strong>date of last observation</strong> is the calendar date corresponding to the
+most recent astrometric observation that was included in the computation of the
+published orbital elements of a minor planet.
+</p>
+
+<p>
+It marks the temporal endpoint of the observational data set underlying the orbit
+solution.
+</p>
+
+<h2>2. Formal Definition</h2>
+<p>
+Let <em>t<sub>i</sub></em> denote the times of all accepted astrometric observations used
+in orbit determination. The date of last observation is defined as:
+</p>
+
+<span class="formula">
+t<sub>last</sub> = max(t<sub>i</sub>)
+</span>
+
+<p>
+expressed in a standardized astronomical date format.
+</p>
+
+<h2>3. Representation in MPCORB</h2>
+<p>
+In MPCORB, the date of last observation is typically given as a calendar year or a
+compact date code corresponding to the most recent observation epoch.
+</p>
+
+<div class="note">
+The date of last observation is not necessarily the epoch of the orbital elements; it
+simply identifies the most recent data point used.
+</div>
+
+<h2>4. Scientific Significance</h2>
+<p>
+The date of last observation provides crucial information about the
+<strong>recency of observational constraints</strong>. Orbits with a recent last
+observation are generally:
+</p>
+<ul>
+    <li>Better constrained for near-term predictions</li>
+    <li>Less susceptible to unmodeled perturbations</li>
+    <li>More reliable for recovery and follow-up planning</li>
+</ul>
+
+<h2>5. Relation to Observation Span</h2>
+<p>
+The date of last observation forms one endpoint of the observation span:
+</p>
+
+<span class="formula">
+Observation span = t<sub>last</sub> − t<sub>first</sub>
+</span>
+
+<p>
+Thus, it must be interpreted together with the date of first observation.
+</p>
+
+<h2>6. Date of Last Observation vs. Epoch</h2>
+<p>
+These two concepts serve different purposes:
+</p>
+
+<table>
+    <tr>
+        <th>Parameter</th>
+        <th>Meaning</th>
+    </tr>
+    <tr>
+        <td>Date of last observation</td>
+        <td>Most recent data point used</td>
+    </tr>
+    <tr>
+        <td>Epoch</td>
+        <td>Reference time of orbital elements</td>
+    </tr>
+</table>
+
+<p>
+The epoch is a computational reference, whereas the date of last observation reflects
+data availability.
+</p>
+
+<h2>7. Implications for Orbit Reliability</h2>
+<p>
+A long time interval between the date of last observation and the current date may
+indicate:
+</p>
+<ul>
+    <li>Increased ephemeris uncertainty</li>
+    <li>Higher risk of orbit degradation</li>
+    <li>Need for recovery observations</li>
+</ul>
+
+<div class="note">
+This is especially critical for objects with short observation spans or few oppositions.
+</div>
+
+<h2>8. Practical Applications</h2>
+<p>
+The date of last observation is used to:
+</p>
+<ul>
+    <li>Assess orbit freshness and recency</li>
+    <li>Prioritize follow-up and recovery campaigns</li>
+    <li>Estimate extrapolation uncertainty</li>
+    <li>Monitor catalog update status</li>
+</ul>
+
+<h2>9. Concise Scientific Definition</h2>
+<p>
+<strong>The date of last observation</strong> in MPCORB is the date of the most recent
+astrometric measurement included in an orbital solution. It defines the upper temporal
+boundary of the observational data set and is a key indicator of the recency and
+near-term reliability of the orbit.
+</p>
+
+</body>
 </html>
