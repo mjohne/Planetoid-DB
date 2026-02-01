@@ -81,7 +81,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 
 	/// <summary>
 	/// NLog logger instance for the class.
-	/// </remarks>
+	/// </summary>
 	/// <remarks>
 	/// This logger is used to log messages for the <see cref="ListReadableDesignationsForm"/> class.
 	/// </remarks>
@@ -461,12 +461,12 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 					{
 						// Escape remaining control characters using a three-digit octal code
 						string octal = Convert.ToString(value: character, toBase: 8)!.PadLeft(totalWidth: 3, paddingChar: '0');
-						builder.Append('\\'); // FIX: Use Append(char) instead of Append(string) for single characters
-						builder.Append(octal);
+						builder.Append(value: '\\'); // Use Append(char) overload for single characters
+						builder.Append(value: octal);
 					}
 					else
 					{
-						builder.Append(character); // FIX: Use Append(char) instead of Append(string) for single characters
+						builder.Append(value: character); // Append the character directly using the char overload
 					}
 					break;
 			}
@@ -1098,7 +1098,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 				// Start new page
 				currentContentObjId = StartNewObject();
 				pageContentObjIds.Add(item: currentContentObjId);
-				w.WriteLine(value: "<< /Length 0 >> stream");
+				w.WriteLine(value: "<< >> stream");
 				w.WriteLine(value: "BT /F1 10 Tf");
 				// Header for the new page
 				w.WriteLine(value: $"1 0 0 1 50 {pageHeight - 40} Tm (List of Readable Designations - Cont.) Tj");
@@ -1109,9 +1109,9 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			// Write the actual data
 			// Td = Move text position (relativ), aber wir nutzen Tm (Matrix) für absolute Positionierung hier einfacher
 			// Index
-			w.WriteLine(value: $"1 0 0 1 50 {currentY} Tm ({EscapePdf(Index)}) Tj");
+			w.WriteLine(value: $"1 0 0 1 50 {currentY} Tm ({EscapePdf(text: Index)}) Tj");
 			// Name
-			w.WriteLine(value: $"1 0 0 1 120 {currentY} Tm ({EscapePdf(Name)}) Tj");
+			w.WriteLine(value: $"1 0 0 1 120 {currentY} Tm ({EscapePdf(text: Name)}) Tj");
 			currentY -= lineHeight;
 		}
 		// Close last stream
