@@ -443,7 +443,7 @@
 </value>
   </data>
   <data name="contextMenuFullCopyToClipboardDerivedOrbitalElements.Name" xml:space="preserve">
-    <value />
+    <value>Context menu of copying to clipboard of derived orbital elements</value>
   </data>
   <data name="kryptonManager.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>186, 19</value>

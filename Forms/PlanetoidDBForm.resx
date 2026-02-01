@@ -543,7 +543,7 @@
     <value>225, 95</value>
   </data>
   <data name="contextMenuFullCopyToClipboardOrbitalElements.Name" xml:space="preserve">
-    <value />
+    <value>Context menu of copying to clipboard of orbital elements</value>
   </data>
   <data name="menuitemCopyToClipboardIndexNumber.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
