@@ -68,12 +68,12 @@ namespace Planetoid_DB
 			// 
 			toolStripContainer.ContentPanel.Controls.Add(splitContainer);
 			toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
-			toolStripContainer.ContentPanel.Size = new Size(710, 584);
+			toolStripContainer.ContentPanel.Size = new Size(763, 337);
 			toolStripContainer.Dock = DockStyle.Fill;
 			toolStripContainer.Location = new Point(0, 0);
 			toolStripContainer.Margin = new Padding(4, 3, 4, 3);
 			toolStripContainer.Name = "toolStripContainer";
-			toolStripContainer.Size = new Size(710, 606);
+			toolStripContainer.Size = new Size(763, 359);
 			toolStripContainer.TabIndex = 5;
 			toolStripContainer.Text = "toolStripContainer";
 			toolTip.SetToolTip(toolStripContainer, "Container to arrange the toolbars");
@@ -92,7 +92,7 @@ namespace Planetoid_DB
 			statusStrip.ProgressBars = null;
 			statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
 			statusStrip.ShowItemToolTips = true;
-			statusStrip.Size = new Size(710, 22);
+			statusStrip.Size = new Size(763, 22);
 			statusStrip.TabIndex = 4;
 			statusStrip.Text = "status bar";
 			// 
@@ -127,8 +127,8 @@ namespace Planetoid_DB
 			// 
 			splitContainer.Panel2.Controls.Add(webBrowser);
 			splitContainer.SeparatorStyle = SeparatorStyle.HighProfile;
-			splitContainer.Size = new Size(710, 584);
-			splitContainer.SplitterDistance = 306;
+			splitContainer.Size = new Size(763, 337);
+			splitContainer.SplitterDistance = 260;
 			splitContainer.TabIndex = 8;
 			toolTip.SetToolTip(splitContainer, "Splits the pane in half with the list of terms you can look up and in the other half with the web browser");
 			// 
@@ -143,7 +143,7 @@ namespace Planetoid_DB
 			listBox.Location = new Point(0, 0);
 			listBox.Margin = new Padding(4, 3, 4, 3);
 			listBox.Name = "listBox";
-			listBox.Size = new Size(306, 584);
+			listBox.Size = new Size(260, 337);
 			listBox.TabIndex = 7;
 			toolTip.SetToolTip(listBox, "Terms that can be looked up");
 			listBox.SelectedValueChanged += ListBox_SelectedValueChanged;
@@ -161,7 +161,7 @@ namespace Planetoid_DB
 			webBrowser.Location = new Point(0, 0);
 			webBrowser.Margin = new Padding(4, 3, 4, 3);
 			webBrowser.Name = "webBrowser";
-			webBrowser.Size = new Size(399, 584);
+			webBrowser.Size = new Size(498, 337);
 			webBrowser.TabIndex = 1;
 			toolTip.SetToolTip(webBrowser, "Webbrowser");
 			// 
@@ -178,7 +178,7 @@ namespace Planetoid_DB
 			AccessibleRole = AccessibleRole.Window;
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(710, 606);
+			ClientSize = new Size(763, 359);
 			ControlBox = false;
 			Controls.Add(toolStripContainer);
 			FormBorderStyle = FormBorderStyle.SizableToolWindow;
