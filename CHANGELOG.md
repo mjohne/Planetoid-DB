@@ -6,15 +6,15 @@
 * Updated CHANGELOG for version 0.7.19.46 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/294
 * Fix CHANGELOG grammar and remove WIP marker for v0.7.19.46 by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/295
 * Added FormClosed event handler to ListReadableDesignationsForm class by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/296
-* Added list export as sql script in the ListReadableDesignationForm class by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/297
-* Added list export as markdown in the ListReadableDesignationForm class by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/298
-* Added list export as yaml file in the ListReadableDesignationForm class by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/299
+* Added list export as SQL script in the ListReadableDesignationForm class by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/297
+* Added list export as Markdown in the ListReadableDesignationForm class by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/298
+* Added list export as YAML file in the ListReadableDesignationForm class by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/299
 * Added list export as TSV file in the ListReadableDesignationForm class by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/300
-* Added list export as Latex file in the ListReadableDesignationForm class by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/301
+* Added list export as LaTex file in the ListReadableDesignationForm class by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/301
 * Added message box after list export in the ListReadableForm class by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/302
 * Updated I10N resources for list exports by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/303
 * Improved listview in the ListReadableDesignationsForm class by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/304
-* Added list export as pdf and PostScript file in the ListReadableDesignationForm class by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/305
+* Added list export as PDF and PostScript file in the ListReadableDesignationForm class by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/305
 * Some improvements by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/306
 * Some improvements by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/307
 * Updated terms of the terminology by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/308
