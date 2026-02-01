@@ -857,6 +857,7 @@ Public License instead of this License.  But first, please read
     <PackageReference Include="Krypton.Toolkit" Version="100.26.1.19" />
     <PackageReference Include="Krypton.Toolkit.Suite.Extended.Ultimate" Version="95.25.5.145" />
     <PackageReference Include="Krypton.Workspace" Version="100.26.1.19" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3719.77" />
     <PackageReference Include="NLog" Version="6.1.0" />
   </ItemGroup>
 
