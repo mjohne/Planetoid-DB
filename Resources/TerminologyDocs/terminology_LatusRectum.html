@@ -1,22 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Latus rectum</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Latus rectum</h1>
-		<p>In addition to the eccentricity (<span class="italic">e</span>), foci, and directrix, various geometric features and lengths are associated with a conic section.</p>
-		<p>The <span class="bold">latus rectum</span> is the chord parallel to the directrix and passing through a focus; its half-length is the semi-latus rectum (<span class="italic">ℓ</span>).</p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Latus Rectum – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2, h3 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Latus Rectum</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+The <strong>latus rectum</strong> is a fundamental geometric property of a <strong>conic section</strong>
+(ellipse, parabola, or hyperbola). It is defined as the <em>line segment that passes through a focus of the conic
+and is perpendicular to the principal axis (axis of symmetry)</em>.
+</p>
+
+<p>
+The latus rectum provides a characteristic measure of the transverse width of a conic section in the vicinity of
+its focus.
+</p>
+
+<h2>2. Geometrical Construction</h2>
+<p>
+For a given conic section:
+</p>
+<ul>
+    <li>The <strong>principal axis</strong> is the axis of symmetry of the conic</li>
+    <li>A <strong>focus</strong> lies on this axis</li>
+</ul>
+
+<p>
+The latus rectum is constructed by drawing a line through the focus that is perpendicular to the principal axis.
+The segment of this line intercepted by the conic is the latus rectum.
+</p>
+
+<div class="note">
+The latus rectum always passes through a focus and is orthogonal to the axis of symmetry.
+</div>
+
+<h2>3. Mathematical Description</h2>
+
+<h3>3.1 Polar Form of a Conic</h3>
+<p>
+In polar coordinates, with the origin located at a focus, the equation of a conic section is:
+</p>
+
+<span class="formula">
+r(ν) = p / (1 + e cos ν)
+</span>
+
+<p>
+where:
+</p>
+<ul>
+    <li><em>r</em> is the radial distance</li>
+    <li><em>ν</em> is the true anomaly</li>
+    <li><em>e</em> is the eccentricity</li>
+    <li><em>p</em> is the <strong>semi latus rectum</strong></li>
+</ul>
+
+<p>
+The full length of the latus rectum is therefore:
+</p>
+
+<span class="formula">
+L = 2p
+</span>
+
+<h3>3.2 Relation to Other Geometric Parameters</h3>
+<p>
+For an ellipse with semi major axis <em>a</em> and semi minor axis <em>b</em>:
+</p>
+
+<span class="formula">
+L = 2b² / a
+</span>
+
+<p>
+For a parabola with focal parameter <em>a</em>:
+</p>
+
+<span class="formula">
+L = 4a
+</span>
+
+<p>
+For a hyperbola with semi major axis <em>a</em> and eccentricity <em>e</em>:
+</p>
+
+<span class="formula">
+L = 2a (e² − 1)
+</span>
+
+<h2>4. Physical and Dynamical Significance</h2>
+<p>
+In celestial mechanics, the latus rectum is closely related to the conservation of angular momentum. Its half,
+the <em>semi latus rectum</em>, is given by:
+</p>
+
+<span class="formula">
+p = h² / μ
+</span>
+
+<p>
+where <em>h</em> is the specific orbital angular momentum and <em>μ</em> is the standard gravitational parameter of
+the central body.
+</p>
+
+<p>
+This relation holds for all Keplerian orbits, including elliptical, parabolic, and hyperbolic trajectories.
+</p>
+
+<h2>5. Interpretation</h2>
+<p>
+The latus rectum represents the characteristic transverse dimension of a conic near its focus. It determines how
+rapidly the trajectory curves around the focus and provides a natural length scale for describing orbital motion
+in polar coordinates.
+</p>
+
+<h2>6. Special Cases</h2>
+
+<table>
+    <tr>
+        <th>Conic Type</th>
+        <th>Latus Rectum Length</th>
+    </tr>
+    <tr>
+        <td>Circle (e = 0)</td>
+        <td>Equal to the diameter</td>
+    </tr>
+    <tr>
+        <td>Ellipse (0 &lt; e &lt; 1)</td>
+        <td>2b² / a</td>
+    </tr>
+    <tr>
+        <td>Parabola (e = 1)</td>
+        <td>4a</td>
+    </tr>
+    <tr>
+        <td>Hyperbola (e &gt; 1)</td>
+        <td>2a (e² − 1)</td>
+    </tr>
+</table>
+
+<h2>7. Applications</h2>
+<p>
+The latus rectum is used in:
+</p>
+<ul>
+    <li>Analytical geometry of conic sections</li>
+    <li>Orbital mechanics and astrodynamics</li>
+    <li>Trajectory propagation in polar form</li>
+    <li>Derivation of orbital elements from state vectors</li>
+</ul>
+
+<h2>8. Concise Scientific Definition</h2>
+<p>
+<strong>The latus rectum</strong> of a conic section is the chord passing through a focus and perpendicular to the
+axis of symmetry. Its length characterizes the transverse width of the conic near the focus and is directly
+related to the angular momentum in Keplerian motion.
+</p>
+
+</body>
 </html>

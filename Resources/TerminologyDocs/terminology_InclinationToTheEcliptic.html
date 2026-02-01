@@ -1,25 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Inclination to the ecliptic, J2000.0 (degrees)</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Inclination to the ecliptic, J2000.0 (degrees)</h1>
-		<p><span class="bold">Orbital inclination</span> measures the tilt of an object's orbit around a celestial body. It is expressed as the angle between a reference plane and the orbital plane or axis of direction of the orbiting object.</p>
-		<p>For a satellite orbiting the Earth directly above the equator, the plane of the satellite's orbit is the same as the Earth's equatorial plane, and the satellite's orbital inclination is 0&deg;. The general case for a circular orbit is that it is tilted, spending half an orbit over the northern hemisphere and half over the southern. If the orbit swung between 20&deg; north latitude and 20&deg; south latitude, then its orbital inclination would be 20&deg;.</p>
-		<p>The inclination is one of the six orbital elements describing the shape and orientation of a celestial orbit. It is the angle between the orbital plane and the plane of reference, normally stated in degrees. For a satellite orbiting a planet, the plane of reference is usually the plane containing the planet's equator. For planets in the Solar System, the plane of reference is usually the ecliptic, the plane in which the Earth orbits the Sun. This reference plane is most practical for Earth-based observers. Therefore, Earth's inclination is, by definition, zero.</p>
-		<p>Inclination can instead be measured with respect to another plane, such as the Sun's equator or the invariable plane (the plane that represents the angular momentum of the Solar System, approximately the orbital plane of Jupiter).</p>
-		<p>Read more: <a href="https://en.wikipedia.org/wiki/Orbital_inclination" target="_blank">https://en.wikipedia.org/wiki/Orbital_inclination</a></p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Inclination to the Ecliptic – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2, h3 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Inclination to the Ecliptic</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+The <strong>inclination to the ecliptic</strong>, commonly denoted by the symbol
+<strong>i</strong>, is one of the six classical <strong>Keplerian orbital elements</strong>.
+It specifies the angular tilt of an orbital plane with respect to the <em>ecliptic plane</em>.
+</p>
+
+<p>
+The inclination quantitatively describes how much an orbit deviates from the plane of the Earth's revolution
+around the Sun and is a fundamental parameter for defining the three-dimensional orientation of an orbit.
+</p>
+
+<h2>2. The Ecliptic as Reference Plane</h2>
+<p>
+The <strong>ecliptic plane</strong> is defined as the plane of the Earth's orbit around the Sun. In heliocentric
+celestial mechanics, it is commonly adopted as the reference plane for planetary, asteroid, and cometary orbits.
+</p>
+
+<p>
+All angular orbital elements related to inclination and nodal orientation are measured relative to this plane
+unless another reference plane (e.g., the celestial equator) is explicitly specified.
+</p>
+
+<h2>3. Geometrical Definition</h2>
+<p>
+The inclination to the ecliptic is defined as the angle between:
+</p>
+<ul>
+    <li>The <strong>orbital plane</strong> of the body</li>
+    <li>The <strong>ecliptic plane</strong></li>
+</ul>
+
+<p>
+This angle is measured at the line of intersection of the two planes, known as the <strong>line of nodes</strong>.
+</p>
+
+<span class="formula">
+0° ≤ i ≤ 180°
+</span>
+
+<h2>4. Mathematical Representation</h2>
+<p>
+Let <strong>h</strong> be the specific orbital angular momentum vector of the orbiting body, and let
+<strong>k</strong> be the unit vector normal to the ecliptic plane. The inclination is given by:
+</p>
+
+<span class="formula">
+i = arccos( (h · k) / |h| )
+</span>
+
+<p>
+This formulation emphasizes that the inclination depends solely on the direction of the orbital angular momentum
+vector and is independent of the size or shape of the orbit.
+</p>
+
+<h2>5. Physical and Geometrical Interpretation</h2>
+<p>
+The inclination determines whether an orbit is <strong>prograde</strong> or <strong>retrograde</strong> with respect
+to the ecliptic:
+</p>
+<ul>
+    <li><strong>0° ≤ i &lt; 90°</strong>: prograde orbit</li>
+    <li><strong>i = 90°</strong>: polar orbit</li>
+    <li><strong>90° &lt; i ≤ 180°</strong>: retrograde orbit</li>
+</ul>
+
+<p>
+An inclination of zero indicates that the orbit lies entirely within the ecliptic plane.
+</p>
+
+<h2>6. Relation to Nodes and Other Orbital Elements</h2>
+<p>
+The inclination is intrinsically linked to the <strong>longitude of the ascending node</strong>. Together, these
+two elements define the full orientation of the orbital plane in three-dimensional space.
+</p>
+
+<p>
+Without inclination, nodal longitudes would be undefined, as the orbital plane would coincide with the reference
+plane.
+</p>
+
+<h2>7. Special and Limiting Cases</h2>
+
+<table>
+    <tr>
+        <th>Inclination</th>
+        <th>Interpretation</th>
+    </tr>
+    <tr>
+        <td>i = 0°</td>
+        <td>Orbit lies in the ecliptic plane; nodes are undefined</td>
+    </tr>
+    <tr>
+        <td>i = 90°</td>
+        <td>Orbit is perpendicular to the ecliptic (polar orbit)</td>
+    </tr>
+    <tr>
+        <td>i = 180°</td>
+        <td>Retrograde coplanar orbit; nodes are undefined</td>
+    </tr>
+</table>
+
+<h2>8. Applications</h2>
+<p>
+Inclination to the ecliptic is a key parameter in:
+</p>
+<ul>
+    <li>Planetary and asteroid orbit catalogs (e.g., MPCORB)</li>
+    <li>Solar system dynamics and stability studies</li>
+    <li>Mission design and trajectory optimization</li>
+    <li>Long-term orbital evolution and perturbation analysis</li>
+</ul>
+
+<h2>9. Concise Scientific Definition</h2>
+<p>
+<strong>The inclination to the ecliptic</strong> is the angle between an orbital plane and the ecliptic plane,
+measured at their line of intersection. It defines the tilt of the orbit relative to the Earth's orbital plane and
+is a fundamental Keplerian element governing the three-dimensional orientation of the orbit.
+</p>
+
+</body>
 </html>

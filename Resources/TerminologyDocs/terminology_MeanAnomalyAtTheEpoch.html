@@ -1,22 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Terminology: Mean anomaly at the epoch, in degrees</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-  <body>
-  	<h1>Mean anomaly at the epoch, in degrees</h1>
-		<p>In celestial mechanics, the <span class="bold">mean anomaly</span> is the fraction of an elliptical orbit's period that has elapsed since the orbiting body passed periapsis, expressed as an angle which can be used in calculating the position of that body in the classical two-body problem. It is the angular distance from the pericenter which a fictitious body would have if it moved in a circular orbit, with constant speed, in the same orbital period as the actual body in its elliptical orbit.</p>
-		<p>Read more: <a href="https://en.wikipedia.org/wiki/Mean_anomaly" target="_blank">https://en.wikipedia.org/wiki/Mean_anomaly</a></p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Mean Anomaly at the Epoch – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2, h3 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Mean Anomaly at the Epoch</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+The <strong>mean anomaly at the epoch</strong> is a fundamental angular parameter in
+<strong>celestial mechanics</strong> that specifies the position of an orbiting body
+along its Keplerian orbit at a specified reference time known as the
+<strong>epoch</strong>.
+</p>
+
+<p>
+It is one of the classical Keplerian orbital elements and serves as the temporal
+reference from which the future (or past) position of the body can be propagated.
+</p>
+
+<h2>2. Mean Anomaly</h2>
+<p>
+The <strong>mean anomaly</strong>, usually denoted by <strong>M</strong>, is an auxiliary
+angle that increases linearly with time for unperturbed Keplerian motion. It is defined
+by:
+</p>
+
+<span class="formula">
+M = n (t − τ)
+</span>
+
+<p>
+where:
+</p>
+<ul>
+    <li><em>n</em> is the mean motion</li>
+    <li><em>t</em> is time</li>
+    <li><em>τ</em> is the time of perihelion passage</li>
+</ul>
+
+<h2>3. Definition of the Epoch</h2>
+<p>
+The <strong>epoch</strong> is a specified reference instant in time at which the orbital
+elements are defined. Commonly used epochs include:
+</p>
+<ul>
+    <li>Julian Date (e.g., J2000.0)</li>
+    <li>Barycentric Dynamical Time (TDB)</li>
+    <li>Terrestrial Time (TT)</li>
+</ul>
+
+<p>
+Orbital elements, including the mean anomaly, are strictly valid only at their
+associated epoch.
+</p>
+
+<h2>4. Mean Anomaly at the Epoch</h2>
+<p>
+The <strong>mean anomaly at the epoch</strong>, usually denoted by <strong>M₀</strong>,
+is the value of the mean anomaly evaluated at the epoch time <em>t₀</em>:
+</p>
+
+<span class="formula">
+M₀ = M(t₀)
+</span>
+
+<p>
+Equivalently, it may be expressed as:
+</p>
+
+<span class="formula">
+M₀ = n (t₀ − τ)
+</span>
+
+<p>
+This quantity fixes the phase of the orbit at the reference time.
+</p>
+
+<h2>5. Relation to Orbital Propagation</h2>
+<p>
+Once the mean anomaly at the epoch is known, the mean anomaly at any later time <em>t</em>
+is obtained by:
+</p>
+
+<span class="formula">
+M(t) = M₀ + n (t − t₀)
+</span>
+
+<p>
+This linear relation is the basis for orbit propagation in the two-body approximation.
+</p>
+
+<h2>6. Connection to Eccentric and True Anomalies</h2>
+<p>
+The mean anomaly at the epoch is converted to the eccentric anomaly <em>E</em> by solving
+<strong>Kepler’s equation</strong>:
+</p>
+
+<span class="formula">
+M = E − e sin E
+</span>
+
+<p>
+The eccentric anomaly is then transformed into the true anomaly <em>ν</em>, which gives
+the actual geometric position of the body along the orbit.
+</p>
+
+<h2>7. Physical Interpretation</h2>
+<p>
+Although the mean anomaly has no direct geometric meaning, the mean anomaly at the epoch
+encodes the <strong>initial phase</strong> of the orbital motion. It determines where the
+body is located along its orbit at the chosen reference time.
+</p>
+
+<p>
+Different choices of epoch lead to different values of <em>M₀</em> for the same physical
+orbit.
+</p>
+
+<h2>8. Special and Limiting Cases</h2>
+
+<table>
+    <tr>
+        <th>Condition</th>
+        <th>Interpretation</th>
+    </tr>
+    <tr>
+        <td>e = 0</td>
+        <td>Circular orbit; mean anomaly equals true anomaly</td>
+    </tr>
+    <tr>
+        <td>i = 0°</td>
+        <td>Mean anomaly still well defined</td>
+    </tr>
+    <tr>
+        <td>e ≥ 1</td>
+        <td>Mean anomaly at epoch not defined (non-periodic orbit)</td>
+    </tr>
+</table>
+
+<h2>9. Applications</h2>
+<p>
+The mean anomaly at the epoch is essential in:
+</p>
+<ul>
+    <li>Orbit propagation and ephemeris computation</li>
+    <li>Planetary and asteroid orbit catalogs (e.g., MPCORB)</li>
+    <li>Numerical integration and initial condition specification</li>
+    <li>Astrodynamics and mission analysis</li>
+</ul>
+
+<h2>10. Concise Scientific Definition</h2>
+<p>
+<strong>The mean anomaly at the epoch</strong> is the value of the mean anomaly specified
+at a chosen reference time. It defines the orbital phase of a body at that epoch and
+serves as the starting point for time propagation of Keplerian motion.
+</p>
+
+</body>
 </html>

@@ -1,21 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Argument of aphelion</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Argument of aphelion</h1>
-		<p>The <span class="bold">argument of aphelion</span> is the angle from the body's ascending node to its aphelion, measured in the direction of motion.</p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Argument of Aphelion – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2, h3 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Argument of Aphelion</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+The <strong>argument of aphelion</strong> is an angular orbital parameter in <strong>celestial mechanics</strong>
+that specifies the orientation of the <em>aphelion</em> point of a heliocentric orbit within the orbital plane.
+</p>
+
+<p>
+It is a <strong>derived angular quantity</strong> that is directly related to the argument of perihelion and
+describes where the point of maximum heliocentric distance is located relative to the line of nodes.
+</p>
+
+<h2>2. Aphelion and Orbital Geometry</h2>
+<p>
+For a body moving on an inclined Keplerian orbit around the Sun:
+</p>
+<ul>
+    <li>The <strong>aphelion</strong> is the point of maximum heliocentric distance</li>
+    <li>The opposite point of minimum distance is the <strong>perihelion</strong></li>
+</ul>
+
+<p>
+Both points lie on the <strong>line of apsides</strong>, which is fixed within the orbital plane.
+</p>
+
+<h2>3. Angular Definition</h2>
+<p>
+The argument of aphelion is defined as the angle:
+</p>
+<ul>
+    <li>Measured within the orbital plane</li>
+    <li>From the ascending node</li>
+    <li>To the aphelion direction</li>
+    <li>In the direction of orbital motion</li>
+</ul>
+
+<p>
+It is usually denoted by <strong>ω<sub>a</sub></strong>.
+</p>
+
+<span class="formula">
+0° ≤ ω<sub>a</sub> &lt; 360°
+</span>
+
+<h2>4. Relation to the Argument of Perihelion</h2>
+<p>
+The argument of perihelion (<em>ω</em>) is one of the six classical Keplerian orbital elements. Since perihelion
+and aphelion are separated by 180 degrees along the orbit, the argument of aphelion is given by:
+</p>
+
+<span class="formula">
+ω<sub>a</sub> = ω + 180°  (mod 360°)
+</span>
+
+<p>
+Thus, the argument of aphelion contains no independent information once the argument of perihelion is known.
+</p>
+
+<h2>5. Mathematical Interpretation</h2>
+<p>
+Let:
+</p>
+<ul>
+    <li><em>Ω</em> be the longitude of the ascending node</li>
+    <li><em>ω</em> be the argument of perihelion</li>
+</ul>
+
+<p>
+Then the longitude of aphelion <em>ϖ<sub>a</sub></em> is:
+</p>
+
+<span class="formula">
+ϖ<sub>a</sub> = Ω + ω + 180°
+</span>
+
+<p>
+The argument of aphelion is the component of this longitude measured relative to the ascending node.
+</p>
+
+<h2>6. Physical and Geometrical Interpretation</h2>
+<p>
+The argument of aphelion specifies the orientation of the orbit’s farthest point from the Sun within the orbital
+plane. It plays a role in studies of secular orbital evolution and apsidal precession.
+</p>
+
+<p>
+In practice, orbital catalogs usually list the argument of perihelion rather than the argument of aphelion,
+as the latter is trivially derived.
+</p>
+
+<h2>7. Special and Limiting Cases</h2>
+
+<table>
+    <tr>
+        <th>Condition</th>
+        <th>Interpretation</th>
+    </tr>
+    <tr>
+        <td>e = 0</td>
+        <td>Circular orbit; aphelion and perihelion undefined</td>
+    </tr>
+    <tr>
+        <td>i = 0°</td>
+        <td>Coplanar orbit; node undefined, argument loses meaning</td>
+    </tr>
+    <tr>
+        <td>0 &lt; e &lt; 1</td>
+        <td>Argument of aphelion well defined</td>
+    </tr>
+</table>
+
+<h2>8. Applications</h2>
+<p>
+The argument of aphelion is relevant in:
+</p>
+<ul>
+    <li>Analytical studies of apsidal alignment</li>
+    <li>Long-term secular perturbation theory</li>
+    <li>Comparative orbital geometry analysis</li>
+    <li>Educational treatments of orbital elements</li>
+</ul>
+
+<h2>9. Concise Scientific Definition</h2>
+<p>
+<strong>The argument of aphelion</strong> is the angular distance, measured in the orbital plane from the ascending
+node to the aphelion direction. It is equal to the argument of perihelion plus 180 degrees and specifies the
+orientation of the farthest orbital point from the Sun.
+</p>
+
+</body>
 </html>

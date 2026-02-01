@@ -1,23 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Semimajor axis (AU)</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Semimajor axis (AU)</h1>
-		<p>In geometry, the major axis of an ellipse is its longest diameter: a line segment that runs through the center and both foci, with ends at the widest points of the perimeter.</p>
-		<p>The <span class="bold">semi-major axis</span> (more properly, <span class="bold">major semi-axis</span>) is one half of the major axis, and thus runs from the centre, through a focus, and to the perimeter. The <span class="bold">semi-minor axis</span> (more properly, <span class="bold">minor semi-axis</span>) of an ellipse or hyperbola is a line segment that is at right angles with the semi-major axis and has one end at the center of the conic section. For the special case of a circle, the lengths of the semi-axes are both equal to the radius of the circle.</p>
-		<p>The length of the semi-major axis <span class="italic">a</span> of an ellipse is related to the semi-minor axis's length <span class="italic">b</span> through the eccentricity e and the semi-latus rectum <span class="italic">l</span>.</p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Semi Major Axis – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2, h3 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        code, .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .formula {
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Semi Major Axis</h1>
+
+<h2>1. Geometrical Definition</h2>
+<p>
+The <strong>semi major axis</strong>, commonly denoted by the symbol <em>a</em>, is the most important geometric
+parameter of an <strong>ellipse</strong>. An ellipse is defined as the locus of all points in a plane for which the
+sum of the distances to two fixed points, known as the <em>foci</em>, is constant.
+</p>
+
+<p>
+An ellipse possesses two mutually perpendicular principal axes:
+</p>
+<ul>
+    <li><strong>Semi major axis (<em>a</em>)</strong>: half of the longest diameter of the ellipse</li>
+    <li><strong>Semi minor axis (<em>b</em>)</strong>: half of the shortest diameter of the ellipse</li>
+</ul>
+
+<p>
+The semi major axis lies along the direction of maximum extent of the ellipse, passes through its center, and
+connects the two vertices located farthest apart.
+</p>
+
+<h2>2. Mathematical Formulation</h2>
+
+<h3>2.1 Cartesian Equation of an Ellipse</h3>
+<p>
+For an ellipse centered at the origin and aligned with the coordinate axes, the standard Cartesian equation is:
+</p>
+
+<span class="formula">
+(x² / a²) + (y² / b²) = 1
+</span>
+
+<p>
+In this representation, the semi major axis <em>a</em> determines the scale of the ellipse along its principal
+(long) direction.
+</p>
+
+<h3>2.2 Relation to Foci and Eccentricity</h3>
+<p>
+Let <em>c</em> denote the distance from the center of the ellipse to either focus. The fundamental geometric
+relationship between the ellipse parameters is:
+</p>
+
+<span class="formula">
+a² = b² + c²
+</span>
+
+<p>
+The <strong>eccentricity</strong> <em>e</em> is defined as the ratio:
+</p>
+
+<span class="formula">
+e = c / a
+</span>
+
+<p>
+Thus, the semi major axis may be expressed as:
+</p>
+
+<span class="formula">
+a = c / e
+</span>
+
+<p>
+for any non-circular ellipse (<em>e ≠ 0</em>). The semi major axis therefore governs the overall size of the ellipse,
+while the eccentricity controls its shape.
+</p>
+
+<h2>3. Physical Significance in Celestial Mechanics</h2>
+
+<h3>3.1 Keplerian Orbits</h3>
+<p>
+In classical celestial mechanics, the motion of two bodies interacting via Newtonian gravitation results in a
+conic section. For bound systems, this conic section is an ellipse with the central mass located at one focus.
+</p>
+
+<p>
+In this context, the semi major axis <em>a</em> is the most fundamental orbital element:
+</p>
+<ul>
+    <li>It determines the characteristic size of the orbit</li>
+    <li>It is directly related to the specific orbital energy</li>
+    <li>It controls the orbital period via Kepler’s third law</li>
+</ul>
+
+<h3>3.2 Orbital Energy and Period</h3>
+<p>
+For a body of negligible mass orbiting a central mass with standard gravitational parameter <em>μ</em>, the
+specific orbital energy <em>ε</em> is given by:
+</p>
+
+<span class="formula">
+ε = − μ / (2a)
+</span>
+
+<p>
+The orbital period <em>T</em> of a bound Keplerian orbit is:
+</p>
+
+<span class="formula">
+T = 2π √(a³ / μ)
+</span>
+
+<p>
+These relations highlight that the semi major axis uniquely determines both the energy state and the temporal
+scale of the orbit.
+</p>
+
+<h2>4. Limiting Cases and Interpretation</h2>
+
+<table>
+    <tr>
+        <th>Eccentricity (e)</th>
+        <th>Orbit Shape</th>
+        <th>Interpretation of the Semi Major Axis</th>
+    </tr>
+    <tr>
+        <td>e = 0</td>
+        <td>Circle</td>
+        <td>a equals the radius of the circle</td>
+    </tr>
+    <tr>
+        <td>0 &lt; e &lt; 1</td>
+        <td>Ellipse</td>
+        <td>a defines the mean orbital size</td>
+    </tr>
+    <tr>
+        <td>e = 1</td>
+        <td>Parabola</td>
+        <td>a → ∞ (marginally bound orbit)</td>
+    </tr>
+    <tr>
+        <td>e &gt; 1</td>
+        <td>Hyperbola</td>
+        <td>a is negative (unbound orbit)</td>
+    </tr>
+</table>
+
+<h2>5. Applications</h2>
+<p>
+The semi major axis is a central parameter in many scientific and engineering disciplines, including:
+</p>
+<ul>
+    <li>Orbital mechanics and astrodynamics</li>
+    <li>Planetary science and exoplanet characterization</li>
+    <li>Satellite mission design and trajectory analysis</li>
+    <li>Geodesy and reference ellipsoids</li>
+</ul>
+
+<h2>6. Concise Scientific Definition</h2>
+<p>
+<strong>The semi major axis</strong> is defined as half the length of the longest diameter of an ellipse. In
+gravitational two-body dynamics, it represents the fundamental measure of orbital size and is directly related to
+the system’s total mechanical energy and orbital period.
+</p>
+
+</body>
 </html>

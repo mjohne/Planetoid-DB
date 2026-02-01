@@ -1,21 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Observation span</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Observation span</h1>
-		<p>This is the observation span with the year of first observation and year of last observation for multiple-opposition orbits or the arc length in days for single-opposition orbits.</p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Observation Span – MPCORB Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 6px 10px;
+            border-radius: 4px;
+            display: block;
+            margin: 12px 0;
+        }
+        ul {
+            margin-left: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Observation Span in MPCORB</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+In the context of the <strong>MPCORB</strong> catalog, the <strong>observation span</strong>
+describes the total time interval over which astrometric observations of a minor planet
+have been collected and used to determine its orbit.
+</p>
+
+<p>
+It is a temporal measure of observational coverage and is one of the most important
+indicators of orbital reliability.
+</p>
+
+<h2>2. Formal Definition</h2>
+<p>
+The observation span is defined as the elapsed time between the <em>earliest</em> and
+<em>latest</em> accepted astrometric observations included in the orbit solution:
+</p>
+
+<span class="formula">
+Observation span = t<sub>last</sub> − t<sub>first</sub>
+</span>
+
+<p>
+It is typically expressed in units of days, months, or years.
+</p>
+
+<h2>3. Representation in MPCORB</h2>
+<p>
+In MPCORB, the observation span is commonly presented in a compact textual form such as:
+</p>
+<ul>
+    <li><em>1998–2024</em></li>
+    <li><em>2015–2015</em> (single-opposition orbit)</li>
+</ul>
+
+<p>
+This notation provides a quick overview of the temporal extent of the data set.
+</p>
+
+<h2>4. Scientific Significance</h2>
+<p>
+The observation span is a key determinant of orbit quality. Longer spans:
+</p>
+<ul>
+    <li>Reduce uncertainties in orbital elements</li>
+    <li>Improve prediction accuracy</li>
+    <li>Stabilize long-term dynamical behavior</li>
+</ul>
+
+<p>
+Short observation spans, especially those covering a single apparition, often lead to
+poorly constrained orbits.
+</p>
+
+<h2>5. Relation to Orbit Determination</h2>
+<p>
+Orbit determination is fundamentally an inverse problem. A longer observation span
+provides stronger constraints on:
+</p>
+<ul>
+    <li>Semi-major axis</li>
+    <li>Eccentricity</li>
+    <li>Mean motion and period</li>
+</ul>
+
+<div class="note">
+A large number of observations within a very short time span cannot compensate for a
+lack of long-term temporal coverage.
+</div>
+
+<h2>6. Observation Span vs. Number of Observations</h2>
+<p>
+The observation span must be distinguished from the total number of observations:
+</p>
+
+<table>
+    <tr>
+        <th>Metric</th>
+        <th>Meaning</th>
+    </tr>
+    <tr>
+        <td>Observation span</td>
+        <td>Temporal extent of data</td>
+    </tr>
+    <tr>
+        <td>Number of observations</td>
+        <td>Sampling density</td>
+    </tr>
+</table>
+
+<p>
+Both metrics are complementary and should be considered jointly.
+</p>
+
+<h2>7. Relation to RMS Residual</h2>
+<p>
+While the RMS residual measures how well the orbit fits the existing data, the
+observation span determines how well the orbit extrapolates beyond the observation
+interval.
+</p>
+
+<p>
+A low RMS residual combined with a short observation span may still indicate a highly
+uncertain future orbit.
+</p>
+
+<h2>8. Practical Applications</h2>
+<p>
+The observation span is used in:
+</p>
+<ul>
+    <li>Assessing the reliability of MPCORB orbital elements</li>
+    <li>Prioritizing objects for follow-up observations</li>
+    <li>Identifying long-arc versus single-opposition objects</li>
+    <li>Long-term dynamical and impact risk studies</li>
+</ul>
+
+<h2>9. Concise Scientific Definition</h2>
+<p>
+<strong>The observation span</strong> in MPCORB is the time interval between the first and
+last astrometric observations used in an orbital solution. It quantifies the temporal
+coverage of the data set and is a primary indicator of orbital robustness and predictive
+reliability.
+</p>
+
+</body>
 </html>

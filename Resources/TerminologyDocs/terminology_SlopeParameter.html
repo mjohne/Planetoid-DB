@@ -1,22 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Slope parameter, G</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Slope parameter, G</h1>
-		<p>The Slope parameter (<span class="italic">G</span>) as calculated or assumed by the MPC. It is a measure of how much brighter the asteroid gets as its <a href="https://en.wikipedia.org/wiki/Phase_curve_%28astronomy%29" target="_blank">phase angle</a> decreases. When not known, a value of <span class="italic">G</span> = 0.15 is assumed.</p>
-		<p>Read more: <a href="http://www.britastro.org/asteroids/dymock4.pdf" target="_blank">http://www.britastro.org/asteroids/dymock4.pdf</a></p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Slope Parameter (G) – MPCORB Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 6px 10px;
+            border-radius: 4px;
+            display: block;
+            margin: 12px 0;
+        }
+        ul {
+            margin-left: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Slope Parameter (G) in MPCORB</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+The <strong>slope parameter</strong>, commonly denoted by <strong>G</strong>, is a
+photometric parameter used in the <strong>MPCORB</strong> asteroid orbit catalog. It
+quantifies how the observed brightness of a small Solar System body varies with
+<strong>solar phase angle</strong>.
+</p>
+
+<p>
+The slope parameter is an essential component of the standardized asteroid
+<strong>H–G photometric system</strong> adopted by the Minor Planet Center.
+</p>
+
+<h2>2. Role in the H–G Photometric System</h2>
+<p>
+In the H–G system, the apparent visual magnitude <em>V</em> of an asteroid is modeled as:
+</p>
+
+<span class="formula">
+V(α) = H + 5 log<sub>10</sub>(r Δ) − 2.5 log<sub>10</sub>
+[ (1 − G) Φ<sub>1</sub>(α) + G Φ<sub>2</sub>(α) ]
+</span>
+
+<p>
+where:
+</p>
+<ul>
+    <li><em>H</em> is the absolute magnitude</li>
+    <li><em>G</em> is the slope parameter</li>
+    <li><em>r</em> is the heliocentric distance (AU)</li>
+    <li><em>Δ</em> is the observer distance (AU)</li>
+    <li><em>α</em> is the solar phase angle</li>
+    <li><em>Φ<sub>1</sub></em> and <em>Φ<sub>2</sub></em> are standardized phase functions</li>
+</ul>
+
+<h2>3. Physical Meaning</h2>
+<p>
+The slope parameter controls the <strong>shape of the phase curve</strong>, i.e. how
+rapidly brightness decreases as the phase angle increases.
+</p>
+
+<p>
+It is influenced by:
+</p>
+<ul>
+    <li>Surface roughness</li>
+    <li>Particle size distribution</li>
+    <li>Albedo and regolith properties</li>
+    <li>The strength of the opposition surge</li>
+</ul>
+
+<p>
+A larger value of <em>G</em> corresponds to a shallower brightness decline with phase
+angle.
+</p>
+
+<h2>4. Typical Values and Interpretation</h2>
+
+<table>
+    <tr>
+        <th>G Value</th>
+        <th>Interpretation</th>
+    </tr>
+    <tr>
+        <td>≈ 0.00</td>
+        <td>Steep phase curve, strong opposition effect</td>
+    </tr>
+    <tr>
+        <td>≈ 0.15</td>
+        <td>Canonical default value used in MPCORB</td>
+    </tr>
+    <tr>
+        <td>≈ 0.30 – 0.50</td>
+        <td>Shallow phase curve, higher surface reflectivity</td>
+    </tr>
+</table>
+
+<div class="note">
+If no measured value is available, MPCORB typically assumes G = 0.15.
+</div>
+
+<h2>5. Relation to Asteroid Classification</h2>
+<p>
+Although the slope parameter is not a taxonomic classifier, it correlates statistically
+with asteroid types:
+</p>
+<ul>
+    <li>Low-G values are more common among C-type asteroids</li>
+    <li>Higher-G values are more common among S-type asteroids</li>
+</ul>
+
+<p>
+These correlations arise from differences in surface texture and albedo.
+</p>
+
+<h2>6. Limitations of the G Parameter</h2>
+<p>
+The H–G model is a simplified empirical representation. It has known limitations:
+</p>
+<ul>
+    <li>Inadequate modeling of complex phase curves</li>
+    <li>Limited accuracy at very small phase angles</li>
+    <li>Single-parameter representation of diverse surface physics</li>
+</ul>
+
+<div class="note">
+More advanced models such as H–G<sub>1</sub>–G<sub>2</sub> and Hapke models are used for
+high-precision photometry.
+</div>
+
+<h2>7. Importance in MPCORB</h2>
+<p>
+Within MPCORB, the slope parameter is essential for:
+</p>
+<ul>
+    <li>Predicting apparent magnitudes</li>
+    <li>Comparing brightness observations at different phase angles</li>
+    <li>Estimating sizes when combined with albedo</li>
+    <li>Standardizing photometric data across observations</li>
+</ul>
+
+<h2>8. Concise Scientific Definition</h2>
+<p>
+<strong>The slope parameter (G)</strong> in MPCORB is a dimensionless photometric
+parameter that controls the phase-angle dependence of asteroid brightness in the
+H–G magnitude system. It describes how rapidly an object’s brightness decreases with
+increasing solar phase angle and reflects physical surface properties.
+</p>
+
+</body>
 </html>

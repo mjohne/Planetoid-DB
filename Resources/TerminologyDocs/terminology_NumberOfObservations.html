@@ -1,21 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Number of observations</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Number of observations</h1>
-		<p>This is the number of observations.</p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Number of Observations – MPCORB Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 6px 10px;
+            border-radius: 4px;
+            display: block;
+            margin: 12px 0;
+        }
+        ul {
+            margin-left: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Number of Observations in MPCORB</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+In the context of the <strong>MPCORB</strong> catalog, the <strong>number of observations</strong>
+denotes the total count of individual astrometric measurements that have been accepted
+and used in the determination of a minor planet’s orbit.
+</p>
+
+<p>
+It represents the raw observational data volume underlying the published orbital
+elements.
+</p>
+
+<h2>2. Nature of an Observation</h2>
+<p>
+An observation typically consists of a time-stamped measurement of the object’s sky
+position, usually expressed in right ascension and declination, obtained by a specific
+observatory.
+</p>
+
+<p>
+Each accepted measurement contributes one unit to the observation count.
+</p>
+
+<h2>3. Representation in MPCORB</h2>
+<p>
+In MPCORB, the number of observations is listed as an integer value associated with each
+orbit solution.
+</p>
+
+<p>
+It includes:
+</p>
+<ul>
+    <li>Observations from different observatories</li>
+    <li>Measurements spanning one or multiple apparitions</li>
+    <li>Only data accepted by the MPC’s orbit determination process</li>
+</ul>
+
+<h2>4. Scientific Significance</h2>
+<p>
+The number of observations provides a measure of the <strong>statistical sampling</strong>
+of the orbit. A larger number of observations generally:
+</p>
+<ul>
+    <li>Improves numerical stability of orbit fitting</li>
+    <li>Reduces sensitivity to individual outliers</li>
+    <li>Enhances confidence in the fitted parameters</li>
+</ul>
+
+<div class="note">
+A large number of observations does not guarantee a well-constrained orbit if all data
+are confined to a short time interval.
+</div>
+
+<h2>5. Relation to RMS Residual</h2>
+<p>
+The number of observations directly affects the interpretation of the RMS residual.
+</p>
+
+<p>
+For a given RMS value:
+</p>
+<ul>
+    <li>Few observations → limited statistical significance</li>
+    <li>Many observations → stronger confidence in the fit quality</li>
+</ul>
+
+<h2>6. Relation to Observation Span and Oppositions</h2>
+<p>
+The number of observations must be considered together with:
+</p>
+<ul>
+    <li><strong>Observation span</strong> – temporal coverage</li>
+    <li><strong>Number of oppositions</strong> – long-term confirmation</li>
+</ul>
+
+<table>
+    <tr>
+        <th>Metric</th>
+        <th>Primary Meaning</th>
+    </tr>
+    <tr>
+        <td>Number of observations</td>
+        <td>Data volume</td>
+    </tr>
+    <tr>
+        <td>Observation span</td>
+        <td>Time baseline</td>
+    </tr>
+    <tr>
+        <td>Number of oppositions</td>
+        <td>Repeat apparitions</td>
+    </tr>
+</table>
+
+<h2>7. Limitations</h2>
+<p>
+The number of observations does not encode:
+</p>
+<ul>
+    <li>Measurement precision</li>
+    <li>Systematic errors</li>
+    <li>Temporal distribution of data</li>
+</ul>
+
+<p>
+It is therefore an incomplete indicator of orbit quality when used in isolation.
+</p>
+
+<h2>8. Practical Applications</h2>
+<p>
+Within MPCORB-based analyses, the number of observations is used to:
+</p>
+<ul>
+    <li>Assess robustness of orbit solutions</li>
+    <li>Filter poorly constrained objects</li>
+    <li>Support weighting schemes in orbit fitting</li>
+    <li>Prioritize objects for follow-up observations</li>
+</ul>
+
+<h2>9. Concise Scientific Definition</h2>
+<p>
+<strong>The number of observations</strong> in MPCORB is the total count of accepted
+astrometric measurements used to compute an object’s orbit. It quantifies the volume of
+observational data supporting the orbital solution but must be interpreted together with
+temporal coverage and fit quality indicators.
+</p>
+
+</body>
 </html>

@@ -1,23 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Linear eccentricity</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Linear eccentricity</h1>
-		<p>In addition to the eccentricity (<span class="italic">e</span>), foci, and directrix, various geometric features and lengths are associated with a conic section.</p>
-		<p>The <span class="bold">linear eccentricity</span> (<span class="italic">c</span>) is the distance between the center and a focus</p>
-		<p>Read more: <a href="https://en.wikipedia.org/wiki/Orbital_eccentricity" target="_blank">https://en.wikipedia.org/wiki/Orbital_eccentricity</a></p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Linear Eccentricity – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2, h3 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Linear Eccentricity</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+<strong>Linear eccentricity</strong> is a fundamental geometric parameter of an <strong>ellipse</strong> and,
+by extension, of elliptic Keplerian orbits. It is defined as the <em>linear distance between the center of the
+ellipse and either of its two foci</em>.
+</p>
+
+<p>
+The linear eccentricity provides a direct spatial measure of how far the foci are displaced from the geometric
+center and therefore quantifies the elongation of the ellipse in absolute (length) units.
+</p>
+
+<h2>2. Geometrical Definition</h2>
+<p>
+Consider an ellipse with:
+</p>
+<ul>
+    <li>Semi major axis: <em>a</em></li>
+    <li>Semi minor axis: <em>b</em></li>
+</ul>
+
+<p>
+The <strong>linear eccentricity</strong>, commonly denoted by the symbol <strong>c</strong>, is given by:
+</p>
+
+<span class="formula">
+c = √(a² − b²)
+</span>
+
+<p>
+The two foci are therefore located at positions ±<em>c</em> along the major axis, measured from the center of the
+ellipse.
+</p>
+
+<h2>3. Relation to Orbital Eccentricity</h2>
+<p>
+The linear eccentricity must be distinguished from the <strong>orbital (dimensionless) eccentricity</strong>
+<em>e</em>. The two quantities are related by:
+</p>
+
+<span class="formula">
+e = c / a
+</span>
+
+<p>
+or equivalently:
+</p>
+
+<span class="formula">
+c = a e
+</span>
+
+<p>
+Thus, the linear eccentricity represents the dimensional counterpart of orbital eccentricity.
+</p>
+
+<h2>4. Interpretation in Celestial Mechanics</h2>
+<p>
+In celestial mechanics, the linear eccentricity describes the distance between the central gravitating body
+(placed at a focus) and the geometric center of the orbit.
+</p>
+
+<p>
+For circular orbits (<em>e = 0</em>):
+</p>
+
+<span class="formula">
+c = 0
+</span>
+
+<p>
+indicating that the focus coincides with the center of the orbit.
+</p>
+
+<p>
+As eccentricity increases, the focus moves farther away from the center, leading to more elongated orbits.
+</p>
+
+<h2>5. Relation to Periapsis and Apoapsis</h2>
+<p>
+Using the linear eccentricity, the distances to periapsis and apoapsis can be written as:
+</p>
+
+<span class="formula">
+r<sub>periapsis</sub> = a − c
+</span>
+
+<span class="formula">
+r<sub>apoapsis</sub> = a + c
+</span>
+
+<p>
+These relations illustrate how linear eccentricity directly controls the asymmetry of orbital distances.
+</p>
+
+<h2>6. Extension to Other Conic Sections</h2>
+<p>
+While the concept of linear eccentricity is most commonly applied to ellipses, it can be generalized to
+hyperbolas, where <em>c</em> represents the distance from the center to each focus and satisfies:
+</p>
+
+<span class="formula">
+c = √(a² + b²)
+</span>
+
+<p>
+For parabolic trajectories, the concept of linear eccentricity is not defined, as a parabola has only one focus
+and no geometric center.
+</p>
+
+<h2>7. Comparison with Related Quantities</h2>
+
+<table>
+    <tr>
+        <th>Quantity</th>
+        <th>Symbol</th>
+        <th>Units</th>
+        <th>Definition</th>
+    </tr>
+    <tr>
+        <td>Linear eccentricity</td>
+        <td>c</td>
+        <td>Length</td>
+        <td>Distance from center to focus</td>
+    </tr>
+    <tr>
+        <td>Orbital eccentricity</td>
+        <td>e</td>
+        <td>Dimensionless</td>
+        <td>c / a</td>
+    </tr>
+    <tr>
+        <td>Semi major axis</td>
+        <td>a</td>
+        <td>Length</td>
+        <td>Half of major axis</td>
+    </tr>
+</table>
+
+<h2>8. Applications</h2>
+<p>
+Linear eccentricity is used in:
+</p>
+<ul>
+    <li>Analytical geometry of conic sections</li>
+    <li>Orbital geometry interpretation</li>
+    <li>Derivation of periapsis and apoapsis distances</li>
+    <li>Educational and theoretical treatments of elliptical motion</li>
+</ul>
+
+<h2>9. Concise Scientific Definition</h2>
+<p>
+<strong>Linear eccentricity</strong> is the distance from the center of an ellipse to either focus. It is a
+dimensional measure of orbital elongation and is related to orbital eccentricity by the relation
+<em>c = a e</em>.
+</p>
+
+</body>
 </html>

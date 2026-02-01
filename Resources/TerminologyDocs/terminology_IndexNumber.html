@@ -1,22 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Terminology: Index No.</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Index No.</h1>
-		<p>This is the intern index number.</p>
-		<p><a href="https://minorplanetcenter.net/iau/info/PackedDes.html" target="_blank">https://minorplanetcenter.net/iau/info/PackedDes.html</a></p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Index Number – MPCORB Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        ul {
+            margin-left: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Index Number in MPCORB</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+In the context of the <strong>MPCORB</strong> catalog, the <strong>index number</strong> is an
+internal numerical identifier assigned to each record to indicate its position within
+the catalog data set.
+</p>
+
+<p>
+It is a purely technical construct used for data organization, access, and processing.
+</p>
+
+<h2>2. Purpose of the Index Number</h2>
+<p>
+The index number serves as:
+</p>
+<ul>
+    <li>A sequential locator within the MPCORB file</li>
+    <li>A stable reference for database indexing</li>
+    <li>A performance aid for searching and sorting large data sets</li>
+</ul>
+
+<p>
+It is not intended to encode physical, orbital, or observational information.
+</p>
+
+<h2>3. Distinction from Physical Identifiers</h2>
+<p>
+The index number must be clearly distinguished from:
+</p>
+<ul>
+    <li>Permanent minor planet numbers</li>
+    <li>Packed or readable designations</li>
+    <li>Provisional designations</li>
+</ul>
+
+<div class="note">
+Unlike these identifiers, the index number has no astronomical meaning and no official
+status outside the specific MPCORB distribution.
+</div>
+
+<h2>4. Stability and Scope</h2>
+<p>
+The index number is only guaranteed to be meaningful within a particular version of the
+MPCORB catalog. When the catalog is updated:
+</p>
+<ul>
+    <li>New objects may be inserted</li>
+    <li>Records may be reordered</li>
+    <li>Index numbers may change</li>
+</ul>
+
+<p>
+Therefore, index numbers should not be used as persistent identifiers.
+</p>
+
+<h2>5. Scientific Interpretation</h2>
+<p>
+From a scientific perspective, the index number has no interpretive value. It does not
+reflect:
+</p>
+<ul>
+    <li>Orbit quality</li>
+    <li>Discovery chronology</li>
+    <li>Dynamical classification</li>
+    <li>Physical properties</li>
+</ul>
+
+<h2>6. Practical Applications</h2>
+<p>
+Despite its lack of physical meaning, the index number is useful in:
+</p>
+<ul>
+    <li>Software implementations processing MPCORB line-by-line</li>
+    <li>Cross-referencing rows in derived databases</li>
+    <li>Debugging and validation of parsing routines</li>
+</ul>
+
+<h2>7. Best Practices</h2>
+<p>
+When designing software or databases based on MPCORB:
+</p>
+<ul>
+    <li>Use index numbers only for internal indexing</li>
+    <li>Use MPC designations or permanent numbers for scientific identification</li>
+    <li>Avoid storing index numbers as long-term references</li>
+</ul>
+
+<h2>8. Concise Scientific Definition</h2>
+<p>
+<strong>The index number</strong> in MPCORB is an internal, catalog-specific integer used
+to identify the position of a record within the data set. It has no astronomical or
+physical significance and should be used exclusively for technical indexing purposes.
+</p>
+
+</body>
 </html>

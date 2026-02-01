@@ -1,21 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Semi-mean axis</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Semi-mean axis</h1>
-		<p>The mean axis is the arithmetic mean of the major axis and the minor axis, and its half-length is the <span class="bold">semi-mean axis</span></p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Semi-Mean Axis – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2, h3 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Semi-Mean Axis</h1>
+
+<h2>1. Terminological Clarification</h2>
+<p>
+The term <strong>semi-mean axis</strong> is <em>not</em> a formally standardized geometric or orbital element in
+classical mathematics or celestial mechanics. However, it appears in some scientific, historical, and applied
+contexts as a <strong>derived characteristic length</strong> of an ellipse, intended to represent an averaged
+measure between the semi major and semi minor axes.
+</p>
+
+<div class="note">
+<strong>Important:</strong> The semi-mean axis must be clearly distinguished from the
+<strong>semi major axis</strong>, which is a fundamental and rigorously defined orbital element. The semi-mean
+axis is a secondary, derived quantity and is not used in Kepler’s laws or standard orbital element sets.
+</div>
+
+<h2>2. Definition in Elliptical Geometry</h2>
+<p>
+Let an ellipse be defined by:
+</p>
+<ul>
+    <li>Semi major axis: <em>a</em></li>
+    <li>Semi minor axis: <em>b</em></li>
+</ul>
+
+<p>
+The <strong>semi-mean axis</strong>, usually denoted here by <em>a<sub>m</sub></em>, is most commonly defined as the
+<strong>geometric mean</strong> of the two principal semi-axes:
+</p>
+
+<span class="formula">
+a<sub>m</sub> = √(a · b)
+</span>
+
+<p>
+This definition yields a single characteristic length scale that lies between <em>b</em> and <em>a</em> and is
+invariant under exchange of the two axes.
+</p>
+
+<h2>3. Mathematical Properties</h2>
+<p>
+The semi-mean axis satisfies the inequality:
+</p>
+
+<span class="formula">
+b ≤ √(a · b) ≤ a
+</span>
+
+<p>
+Equality holds only in the circular limit (<em>a = b</em>). In that case:
+</p>
+
+<span class="formula">
+a<sub>m</sub> = a = b
+</span>
+
+<p>
+Using the eccentricity <em>e</em> of the ellipse, where:
+</p>
+
+<span class="formula">
+b = a √(1 − e²)
+</span>
+
+<p>
+the semi-mean axis may also be written as:
+</p>
+
+<span class="formula">
+a<sub>m</sub> = a (1 − e²)<sup>1/4</sup>
+</span>
+
+<h2>4. Relation to Area and Equivalent Circles</h2>
+<p>
+The area <em>A</em> of an ellipse is:
+</p>
+
+<span class="formula">
+A = π a b
+</span>
+
+<p>
+Defining a circle with the same area as the ellipse yields an equivalent radius <em>r<sub>eq</sub></em>:
+</p>
+
+<span class="formula">
+r<sub>eq</sub> = √(a b)
+</span>
+
+<p>
+Thus, the semi-mean axis corresponds exactly to the radius of a circle having the same area as the ellipse. This
+interpretation is often the primary motivation for introducing this quantity.
+</p>
+
+<h2>5. Use in Physics and Applied Sciences</h2>
+<p>
+While not part of the canonical orbital elements, the semi-mean axis is occasionally used in:
+</p>
+<ul>
+    <li>Analytical approximations involving elliptical cross-sections</li>
+    <li>Geophysics and geodesy for equivalent-radius representations</li>
+    <li>Engineering problems involving averaged curvature or scaling laws</li>
+    <li>Statistical analysis of covariance ellipses</li>
+</ul>
+
+<p>
+In celestial mechanics, the term <em>mean distance</em> is sometimes informally used to refer to the semi major
+axis. This should <strong>not</strong> be confused with the semi-mean axis defined here.
+</p>
+
+<h2>6. Comparison with Other Axes</h2>
+
+<table>
+    <tr>
+        <th>Quantity</th>
+        <th>Symbol</th>
+        <th>Definition</th>
+        <th>Status</th>
+    </tr>
+    <tr>
+        <td>Semi major axis</td>
+        <td>a</td>
+        <td>Half of the longest diameter</td>
+        <td>Fundamental</td>
+    </tr>
+    <tr>
+        <td>Semi minor axis</td>
+        <td>b</td>
+        <td>Half of the shortest diameter</td>
+        <td>Fundamental</td>
+    </tr>
+    <tr>
+        <td>Semi-mean axis</td>
+        <td>a<sub>m</sub></td>
+        <td>√(a · b)</td>
+        <td>Derived</td>
+    </tr>
+</table>
+
+<h2>7. Concise Scientific Definition</h2>
+<p>
+<strong>The semi-mean axis</strong> is a derived characteristic length of an ellipse, defined as the geometric mean
+of the semi major and semi minor axes:
+</p>
+
+<span class="formula">
+a<sub>m</sub> = √(a · b)
+</span>
+
+<p>
+It represents the radius of a circle with the same area as the ellipse and serves as an averaged geometric measure
+in analytical and applied contexts.
+</p>
+
+</body>
 </html>

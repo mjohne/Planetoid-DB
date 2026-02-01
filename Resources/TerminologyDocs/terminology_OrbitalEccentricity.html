@@ -1,21 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Orbital eccentricity</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Orbital eccentricity</h1>
-		<p>The <span class="bold">orbital eccentricity</span> of an astronomical object is a dimensionless parameter that determines the amount by which its orbit around another body deviates from a perfect circle. A value of 0 is a circular orbit, values between 0 and 1 form an elliptic orbit, 1 is a parabolic escape orbit, and greater than 1 is a hyperbola. The term derives its name from the parameters of conic sections, as every Kepler orbit is a conic section. It is normally used for the isolated two-body problem, but extensions exist for objects following a Klemperer rosette orbit through the galaxy.</p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Orbital Eccentricity – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2, h3 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Orbital Eccentricity</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+<strong>Orbital eccentricity</strong>, commonly denoted by the symbol <strong>e</strong>, is a fundamental,
+dimensionless parameter that characterizes the <em>shape</em> of an orbit in classical celestial mechanics.
+It quantifies the degree to which an orbit deviates from a perfect circle.
+</p>
+
+<p>
+Orbital eccentricity is one of the six classical <strong>Keplerian orbital elements</strong> and applies to all
+conic-section trajectories resulting from motion under an inverse-square central force.
+</p>
+
+<h2>2. Geometrical Interpretation</h2>
+<p>
+Geometrically, the eccentricity of a conic section is defined as the ratio of:
+</p>
+<ul>
+    <li>The distance between a point on the conic and a focus</li>
+    <li>The distance between the same point and the corresponding directrix</li>
+</ul>
+
+<p>
+For an ellipse with semi major axis <em>a</em>, semi minor axis <em>b</em>, and focal distance <em>c</em>:
+</p>
+
+<span class="formula">
+e = c / a
+</span>
+
+<p>
+where:
+</p>
+<ul>
+    <li><em>c = √(a² − b²)</em></li>
+    <li><em>0 ≤ e &lt; 1</em></li>
+</ul>
+
+<h2>3. Classification of Orbits by Eccentricity</h2>
+
+<table>
+    <tr>
+        <th>Eccentricity</th>
+        <th>Orbit Type</th>
+        <th>Geometrical Shape</th>
+    </tr>
+    <tr>
+        <td>e = 0</td>
+        <td>Circular</td>
+        <td>Circle</td>
+    </tr>
+    <tr>
+        <td>0 &lt; e &lt; 1</td>
+        <td>Elliptical</td>
+        <td>Ellipse</td>
+    </tr>
+    <tr>
+        <td>e = 1</td>
+        <td>Parabolic</td>
+        <td>Parabola</td>
+    </tr>
+    <tr>
+        <td>e &gt; 1</td>
+        <td>Hyperbolic</td>
+        <td>Hyperbola</td>
+    </tr>
+</table>
+
+<h2>4. Mathematical Formulation in Orbital Mechanics</h2>
+<p>
+In polar coordinates, with the origin at a focus, the equation of a Keplerian orbit is:
+</p>
+
+<span class="formula">
+r(ν) = p / (1 + e cos ν)
+</span>
+
+<p>
+where:
+</p>
+<ul>
+    <li><em>r</em> is the radial distance</li>
+    <li><em>ν</em> is the true anomaly</li>
+    <li><em>p</em> is the semi latus rectum</li>
+</ul>
+
+<p>
+The eccentricity determines how strongly the radial distance varies with the true anomaly.
+</p>
+
+<h2>5. Dynamical Definition</h2>
+<p>
+From a dynamical perspective, orbital eccentricity can be expressed in terms of the orbital energy and angular
+momentum. The eccentricity vector <strong>e⃗</strong> is defined as:
+</p>
+
+<span class="formula">
+e⃗ = (v × h) / μ − r̂
+</span>
+
+<p>
+where:
+</p>
+<ul>
+    <li><em>v</em> is the velocity vector</li>
+    <li><em>h</em> is the specific angular momentum vector</li>
+    <li><em>μ</em> is the standard gravitational parameter</li>
+    <li><em>r̂</em> is the radial unit vector</li>
+</ul>
+
+<p>
+The magnitude of this vector equals the scalar eccentricity:
+</p>
+
+<span class="formula">
+e = |e⃗|
+</span>
+
+<h2>6. Physical Interpretation</h2>
+<p>
+Orbital eccentricity governs the ratio between periapsis and apoapsis distances:
+</p>
+
+<span class="formula">
+r<sub>periapsis</sub> = a (1 − e)
+</span>
+
+<span class="formula">
+r<sub>apoapsis</sub> = a (1 + e)
+</span>
+
+<p>
+As eccentricity increases, the orbit becomes more elongated, leading to stronger variations in orbital velocity
+and distance from the central body.
+</p>
+
+<h2>7. Special and Limiting Cases</h2>
+<div class="note">
+For circular orbits (<em>e = 0</em>), the orientation of periapsis is undefined, and several orbital elements
+become degenerate.
+</div>
+
+<p>
+For parabolic and hyperbolic trajectories, eccentricity determines whether the orbit is marginally bound or
+unbound.
+</p>
+
+<h2>8. Applications</h2>
+<p>
+Orbital eccentricity is a key parameter in:
+</p>
+<ul>
+    <li>Planetary, asteroid, and cometary orbit catalogs</li>
+    <li>Mission analysis and trajectory design</li>
+    <li>Long-term dynamical stability studies</li>
+    <li>Astrophysics and exoplanet characterization</li>
+</ul>
+
+<h2>9. Concise Scientific Definition</h2>
+<p>
+<strong>Orbital eccentricity</strong> is a dimensionless parameter that defines the shape of an orbit. It measures
+the deviation of a trajectory from circularity and uniquely classifies Keplerian motion into circular,
+elliptical, parabolic, or hyperbolic regimes.
+</p>
+
+</body>
 </html>

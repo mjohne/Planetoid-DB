@@ -1,21 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Orbital area</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Orbital area</h1>
-		<p>The <span class="bold">orbital area</span> is the area of the orbit.</p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Orbital Area – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2, h3 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Orbital Area</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+The <strong>orbital area</strong> is a geometric quantity that describes the total
+<strong>two-dimensional area enclosed by a closed orbital trajectory</strong>.
+In classical celestial mechanics, it most commonly refers to the area enclosed by an
+<strong>elliptical Keplerian orbit</strong>.
+</p>
+
+<p>
+Orbital area is a purely geometric property with units of length squared and must be
+distinguished from swept area, which is a time-dependent quantity.
+</p>
+
+<h2>2. Orbital Area of an Elliptical Orbit</h2>
+<p>
+For a bound Keplerian orbit, the trajectory is an ellipse characterized by:
+</p>
+<ul>
+    <li>Semi major axis <em>a</em></li>
+    <li>Semi minor axis <em>b</em></li>
+</ul>
+
+<p>
+The total orbital area <em>A</em> enclosed by the ellipse is given by:
+</p>
+
+<span class="formula">
+A = π a b
+</span>
+
+<p>
+This result follows directly from elementary geometry and is independent of the
+orbital eccentricity when expressed in terms of both semi-axes.
+</p>
+
+<h2>3. Expression in Terms of Eccentricity</h2>
+<p>
+Using the relation between the semi minor axis and eccentricity:
+</p>
+
+<span class="formula">
+b = a √(1 − e²)
+</span>
+
+<p>
+the orbital area can be written as:
+</p>
+
+<span class="formula">
+A = π a² √(1 − e²)
+</span>
+
+<p>
+This form explicitly shows how the enclosed area decreases as orbital eccentricity
+increases for a fixed semi major axis.
+</p>
+
+<h2>4. Relation to Kepler’s Second Law</h2>
+<p>
+The orbital area is closely related to <strong>Kepler’s Second Law</strong>, which states
+that the line connecting an orbiting body to the central mass sweeps out equal areas
+in equal times.
+</p>
+
+<p>
+While Kepler’s law concerns the <em>rate</em> at which area is swept out, the orbital
+area represents the <em>total area</em> available to be swept over one complete
+revolution.
+</p>
+
+<div class="note">
+The areal velocity is constant and equals A / T, where T is the orbital period.
+</div>
+
+<h2>5. Dynamical Interpretation</h2>
+<p>
+In Newtonian gravity, the constancy of areal velocity arises from the conservation
+of angular momentum. The orbital area therefore provides a geometric measure linked
+indirectly to orbital dynamics.
+</p>
+
+<p>
+For circular orbits (<em>e = 0</em>), the orbital area reduces to:
+</p>
+
+<span class="formula">
+A = π a²
+</span>
+
+<h2>6. Applicability and Limitations</h2>
+<p>
+The concept of orbital area is strictly applicable to:
+</p>
+<ul>
+    <li>Closed, bound orbits (elliptical or circular)</li>
+</ul>
+
+<div class="note">
+For parabolic and hyperbolic trajectories, the orbital area is undefined, as these
+orbits do not enclose a finite area.
+</div>
+
+<h2>7. Physical Significance</h2>
+<p>
+Although the orbital area does not directly determine the dynamics of motion, it
+provides a useful global measure of orbit size when combined with other parameters
+such as orbital period and semi major axis.
+</p>
+
+<p>
+It is particularly useful in comparative studies of planetary systems and
+statistical analyses of orbital populations.
+</p>
+
+<h2>8. Applications</h2>
+<p>
+Orbital area appears in:
+</p>
+<ul>
+    <li>Geometric analysis of Keplerian orbits</li>
+    <li>Derivations of Kepler’s laws</li>
+    <li>Educational demonstrations of orbital mechanics</li>
+    <li>Comparative studies of planetary and satellite systems</li>
+</ul>
+
+<h2>9. Concise Scientific Definition</h2>
+<p>
+<strong>The orbital area</strong> is the total area enclosed by a closed orbital path.
+For elliptical Keplerian orbits, it is equal to <em>πab</em> and represents the
+geometric extent of the orbit in its plane.
+</p>
+
+</body>
 </html>

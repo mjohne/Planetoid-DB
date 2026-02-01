@@ -1,21 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Longitude of Descending node</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Longitude of Descending node</h1>
-		<p>The <span class="bold">longitude of the descending node</span> is the angle from a reference direction, called the origin of longitude, to the direction of the descending node, measured in a reference plane.</p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Longitude of the Descending Node – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2, h3 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Longitude of the Descending Node</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+The <strong>longitude of the descending node</strong> is an angular parameter in celestial mechanics that specifies
+the position of the <em>descending node</em> of an orbit with respect to a chosen reference direction within a
+reference plane.
+</p>
+
+<p>
+It is a <strong>derived nodal quantity</strong> and is directly related to the longitude of the ascending node,
+one of the six classical Keplerian orbital elements.
+</p>
+
+<h2>2. Descending Node and Reference Geometry</h2>
+<p>
+For an orbit inclined with respect to a reference plane, two fundamental planes are defined:
+</p>
+<ul>
+    <li>The <strong>reference plane</strong> (e.g., the ecliptic or the celestial equator)</li>
+    <li>The <strong>orbital plane</strong></li>
+</ul>
+
+<p>
+The intersection of these two planes forms the <strong>line of nodes</strong>, which meets the reference plane at
+two points:
+</p>
+<ul>
+    <li><strong>Ascending node</strong>: crossing from south to north</li>
+    <li><strong>Descending node</strong>: crossing from north to south</li>
+</ul>
+
+<p>
+The descending node is located exactly opposite the ascending node along the line of nodes.
+</p>
+
+<h2>3. Angular Definition</h2>
+<p>
+The longitude of the descending node is defined as the angle:
+</p>
+<ul>
+    <li>Measured in the reference plane</li>
+    <li>From the fixed reference direction (e.g., the vernal equinox)</li>
+    <li>To the descending node</li>
+    <li>In the direction of increasing longitude</li>
+</ul>
+
+<p>
+Because the ascending and descending nodes are separated by 180 degrees, the longitude of the descending node
+(<strong>Ω<sub>d</sub></strong>) is given by:
+</p>
+
+<span class="formula">
+Ω<sub>d</sub> = Ω + 180°  (mod 360°)
+</span>
+
+<p>
+where <strong>Ω</strong> is the longitude of the ascending node.
+</p>
+
+<h2>4. Mathematical Representation</h2>
+<p>
+Let <strong>N</strong> be the node vector pointing toward the ascending node. The descending node vector is:
+</p>
+
+<span class="formula">
+N<sub>d</sub> = −N
+</span>
+
+<p>
+Consequently, the longitude of the descending node differs by exactly π radians from that of the ascending node:
+</p>
+
+<span class="formula">
+Ω<sub>d</sub> = Ω + π
+</span>
+
+<p>
+expressed in radians.
+</p>
+
+<h2>5. Physical and Geometrical Interpretation</h2>
+<p>
+The longitude of the descending node specifies the spatial orientation of the point at which an orbiting body
+passes downward through the reference plane. It fully determines, together with the inclination, the orientation
+of the orbital plane.
+</p>
+
+<p>
+In practical applications, this parameter is rarely listed independently because it is uniquely determined once
+the longitude of the ascending node is known.
+</p>
+
+<h2>6. Special and Limiting Cases</h2>
+
+<table>
+    <tr>
+        <th>Condition</th>
+        <th>Interpretation</th>
+    </tr>
+    <tr>
+        <td>i = 0°</td>
+        <td>Orbit lies in the reference plane; nodes are undefined</td>
+    </tr>
+    <tr>
+        <td>i = 180°</td>
+        <td>Retrograde coplanar orbit; nodes are undefined</td>
+    </tr>
+    <tr>
+        <td>0° &lt; i &lt; 180°</td>
+        <td>Descending node and its longitude are well defined</td>
+    </tr>
+</table>
+
+<h2>7. Applications</h2>
+<p>
+The longitude of the descending node is relevant in:
+</p>
+<ul>
+    <li>Orbital geometry analysis</li>
+    <li>Trajectory visualization and ground track computation</li>
+    <li>Celestial mechanics education and documentation</li>
+    <li>Symmetry considerations in orbital dynamics</li>
+</ul>
+
+<h2>8. Concise Scientific Definition</h2>
+<p>
+<strong>The longitude of the descending node</strong> is the angular coordinate, measured in a reference plane from
+a fixed reference direction to the point where an orbit crosses the plane from north to south. It is equal to the
+longitude of the ascending node plus 180 degrees and represents the opposite intersection of the orbital plane
+with the reference plane.
+</p>
+
+</body>
 </html>

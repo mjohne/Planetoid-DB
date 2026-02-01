@@ -1,23 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Standard gravitational parameter</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Standard gravitational parameter</h1>
-		<p>In celestial mechanics, the <span class="bold">standard gravitational parameter</span> <span class="italic">&mu;</span> of a celestial body is the product of the gravitational constant <span class="italic">G</span> and the mass <span class="italic">M</span> of the body. For two bodies the parameter may be expressed as <span class="italic">G(m<span class="sub">1</span>+m<span class="sub">2</span>)</span>, or as <span class="italic">GM</span> when one body is much larger than the other.</p>
-		<p>For several objects in the Solar System, the value of <span class="italic">&mu;</span> is known to greater accuracy than either <span class="italic">G</span> or <span class="italic">M</span>. The SI units of the standard gravitational parameter are m<span class="sup">3</span> s<span class="sup">-2</span>. However, units of km<span class="sup">3</span> s<span class="sup">-2</span> are frequently used in the scientific literature and in spacecraft navigation.</p>
-		<p>Read more: <a href="https://en.wikipedia.org/wiki/Standard_gravitational_parameter" target="_blank">https://en.wikipedia.org/wiki/Standard_gravitational_parameter</a></p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Standard Gravitational Parameter – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 6px 10px;
+            border-radius: 4px;
+            display: block;
+            margin: 12px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Standard Gravitational Parameter</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+The <strong>standard gravitational parameter</strong>, commonly denoted by the symbol
+<strong>μ</strong>, is a fundamental physical constant in <strong>celestial mechanics</strong>
+and <strong>astrodynamics</strong>. It characterizes the strength of the gravitational
+field produced by a massive body.
+</p>
+
+<p>
+It combines Newton’s gravitational constant with the mass of the gravitating body and
+appears naturally in the equations of orbital motion.
+</p>
+
+<h2>2. Formal Definition</h2>
+<p>
+The standard gravitational parameter of a body with mass <em>M</em> is defined as:
+</p>
+
+<span class="formula">
+μ = G M
+</span>
+
+<p>
+where:
+</p>
+<ul>
+    <li><em>G</em> is the Newtonian gravitational constant</li>
+    <li><em>M</em> is the mass of the central body</li>
+</ul>
+
+<div class="note">
+For two-body problems where the orbiting mass <em>m</em> is not negligible, the more
+general form is μ = G (M + m). In most astronomical applications, m ≪ M and can be
+ignored.
+</div>
+
+<h2>3. Units and Dimensions</h2>
+<p>
+In SI units, the standard gravitational parameter has dimensions of:
+</p>
+
+<span class="formula">
+[m³ s⁻²]
+</span>
+
+<p>
+Typical numerical values are expressed in km³ s⁻² in planetary science and astrodynamics.
+</p>
+
+<h2>4. Role in Orbital Mechanics</h2>
+<p>
+The standard gravitational parameter governs the motion of bodies in a central
+gravitational field. It appears explicitly in:
+</p>
+<ul>
+    <li>Kepler’s third law</li>
+    <li>The vis-viva equation</li>
+    <li>Equations of motion for two-body dynamics</li>
+</ul>
+
+<p>
+For example, the orbital period <em>T</em> of a body with semi-major axis <em>a</em> is:
+</p>
+
+<span class="formula">
+T = 2π √( a³ / μ )
+</span>
+
+<h2>5. Physical Interpretation</h2>
+<p>
+The parameter μ represents the effective gravitational influence of a body. A larger μ
+implies a stronger gravitational field and shorter orbital periods for a given orbital
+size.
+</p>
+
+<p>
+Because μ incorporates both G and M, it is typically known with much higher precision
+than the mass M alone.
+</p>
+
+<h2>6. Measurement and Practical Importance</h2>
+<p>
+In practice, μ is determined directly from observations of orbital motion rather than
+from independent measurements of G and M.
+</p>
+
+<div class="note">
+This makes the standard gravitational parameter the preferred quantity in orbit
+determination, ephemeris generation, and spacecraft navigation.
+</div>
+
+<h2>7. Central Bodies and Reference Frames</h2>
+<p>
+Each gravitating body has its own standard gravitational parameter. Common examples
+include:
+</p>
+
+<table>
+    <tr>
+        <th>Body</th>
+        <th>μ (km³ s⁻²)</th>
+    </tr>
+    <tr>
+        <td>Sun</td>
+        <td>≈ 1.327 × 10¹¹</td>
+    </tr>
+    <tr>
+        <td>Earth</td>
+        <td>≈ 3.986 × 10⁵</td>
+    </tr>
+    <tr>
+        <td>Moon</td>
+        <td>≈ 4.904 × 10³</td>
+    </tr>
+</table>
+
+<h2>8. Applicability and Limitations</h2>
+<p>
+The use of a constant standard gravitational parameter assumes:
+</p>
+<ul>
+    <li>A point-mass or spherically symmetric central body</li>
+    <li>Newtonian gravity</li>
+    <li>Negligible relativistic and non-gravitational effects</li>
+</ul>
+
+<p>
+For high-precision applications, corrections due to general relativity and gravitational
+harmonics may be required.
+</p>
+
+<h2>9. Concise Scientific Definition</h2>
+<p>
+<strong>The standard gravitational parameter</strong> is the product of the gravitational
+constant and the mass of a central body. It quantifies the strength of the body’s
+gravitational field and is the fundamental constant governing Keplerian orbital motion.
+</p>
+
+</body>
 </html>

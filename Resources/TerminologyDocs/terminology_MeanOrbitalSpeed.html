@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mean Orbital Speed – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2, h3 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Mean Orbital Speed</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+The <strong>mean orbital speed</strong> is a derived kinematic quantity in
+<strong>celestial mechanics</strong> that represents the average speed of an orbiting
+body over one complete orbital revolution.
+</p>
+
+<p>
+It is defined as the ratio of the total path length of the orbit to the orbital period
+and must be distinguished from instantaneous orbital speed, which varies continuously
+along non-circular trajectories.
+</p>
+
+<h2>2. Formal Definition</h2>
+<p>
+For a bound Keplerian orbit, the mean orbital speed <strong>v̄</strong> is defined as:
+</p>
+
+<span class="formula">
+v̄ = P / T
+</span>
+
+<p>
+where:
+</p>
+<ul>
+    <li><em>P</em> is the orbital perimeter (total path length)</li>
+    <li><em>T</em> is the orbital period</li>
+</ul>
+
+<h2>3. Circular Orbit as a Special Case</h2>
+<p>
+For a circular orbit of radius <em>r</em>, the orbital perimeter is <em>2πr</em> and the
+orbital period is given by Kepler’s third law. The mean orbital speed therefore equals
+the instantaneous speed everywhere along the orbit:
+</p>
+
+<span class="formula">
+v̄ = √( μ / r )
+</span>
+
+<h2>4. Elliptical Orbits</h2>
+<p>
+For elliptical orbits, the instantaneous orbital speed varies according to the
+<strong>vis-viva equation</strong>:
+</p>
+
+<span class="formula">
+v = √( μ ( 2/r − 1/a ) )
+</span>
+
+<p>
+The mean orbital speed, however, is obtained by averaging over the entire path and can
+be written as:
+</p>
+
+<span class="formula">
+v̄ = (4a E(e)) / T
+</span>
+
+<p>
+where <em>E(e)</em> is the complete elliptic integral of the second kind.
+</p>
+
+<h2>5. Approximate Expression</h2>
+<p>
+Using accurate approximations for the orbital perimeter, a commonly used approximation
+for mean orbital speed is:
+</p>
+
+<span class="formula">
+v̄ ≈ 2πa (1 − e² / 4) / T
+</span>
+
+<p>
+This approximation is valid for low to moderate eccentricities.
+</p>
+
+<h2>6. Relation to Other Orbital Speeds</h2>
+<p>
+Mean orbital speed must be clearly distinguished from:
+</p>
+<ul>
+    <li><strong>Perihelion speed</strong> (maximum instantaneous speed)</li>
+    <li><strong>Aphelion speed</strong> (minimum instantaneous speed)</li>
+    <li><strong>Major orbital speed</strong> (characteristic speed at semi-major axis)</li>
+</ul>
+
+<div class="note">
+The mean orbital speed has no direct dynamical significance but is useful as a global
+average descriptor.
+</div>
+
+<h2>7. Physical Interpretation</h2>
+<p>
+The mean orbital speed represents the average distance traveled per unit time over one
+orbit. It does not obey simple conservation laws and does not uniquely characterize
+the orbital dynamics.
+</p>
+
+<p>
+Nevertheless, it provides a convenient scalar measure for comparing different orbits.
+</p>
+
+<h2>8. Applicability and Limitations</h2>
+<p>
+Mean orbital speed is defined only for:
+</p>
+<ul>
+    <li>Closed, bound orbits (elliptical or circular)</li>
+</ul>
+
+<div class="note">
+For parabolic and hyperbolic trajectories, the mean orbital speed is undefined, as no
+finite orbital period or perimeter exists.
+</div>
+
+<h2>9. Applications</h2>
+<p>
+Mean orbital speed is used in:
+</p>
+<ul>
+    <li>Educational treatments of orbital motion</li>
+    <li>Comparative analysis of orbital trajectories</li>
+    <li>Simplified modeling and visualization</li>
+    <li>Order-of-magnitude estimates of orbital motion</li>
+</ul>
+
+<h2>10. Concise Scientific Definition</h2>
+<p>
+<strong>The mean orbital speed</strong> is the total length of a closed orbital path
+divided by the orbital period. It represents the average speed of an orbiting body over
+one full revolution and is a derived, non-fundamental quantity in orbital mechanics.
+</p>
+
+</body>
+</html>

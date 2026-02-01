@@ -1,27 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Longitude of the ascending node, J2000.0</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Longitude of the ascending node, J2000.0</h1>
-		<p>The <span class="bold">longitude of the ascending node</span> (☊ or Ω) is one of the orbital elements used to specify the orbit of an object in space. It is the angle from a reference direction, called the <span class="italic">origin of longitude</span>, to the direction of the ascending node, measured in a reference plane. The ascending node is the point where the orbit of the object passes through the plane of reference, as seen in the adjacent image. Commonly used reference planes and origins of longitude include:</p>
-		<ul>
-			<li>For a geocentric orbit, Earth's equatorial plane as the reference plane, and the First Point of Aries as the origin of longitude. In this case, the longitude is also called the <span class="bold">right ascension of the ascending node</span>, or <span class="bold">RAAN</span>. The angle is measured eastwards (or, as seen from the north, counterclockwise) from the First Point of Aries to the node.</li>
-			<li>For a heliocentric orbit, the ecliptic as the reference plane, and the First Point of Aries as the origin of longitude. The angle is measured counterclockwise (as seen from north of the ecliptic) from the First Point of Aries to the node.</li>
-			<li>For an orbit outside the Solar System, the plane tangent to the celestial sphere at the point of interest (called the plane of the sky) as the reference plane, and north, i.e. the perpendicular projection of the direction from the observer to the North Celestial Pole onto the <span class="italic">plane of the sky</span>, as the origin of longitude. The angle is measured eastwards (or, as seen by the observer, counterclockwise) from north to the node.</li>
-		</ul>
-		<p>In the case of a binary star known only from visual observations, it is not possible to tell which node is ascending and which is descending. In this case the orbital parameter which is recorded is the <span class="bold">longitude of the node</span>, Ω, which is the longitude of whichever node has a longitude between 0 and 180 degrees.</p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Longitude of the Ascending Node – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2, h3 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Longitude of the Ascending Node</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+The <strong>longitude of the ascending node</strong>, commonly denoted by the symbol
+<strong>Ω</strong> (capital omega), is one of the six classical <strong>Keplerian orbital elements</strong> used
+to uniquely describe the orientation of an orbit in three-dimensional space.
+</p>
+
+<p>
+It specifies the angular position of the <em>ascending node</em> of an orbit, measured within a chosen reference
+plane and relative to a fixed reference direction.
+</p>
+
+<h2>2. Ascending Node and Reference Planes</h2>
+<p>
+For a given orbit, two fundamental planes are defined:
+</p>
+<ul>
+    <li>The <strong>reference plane</strong> (e.g., the celestial equator or the ecliptic)</li>
+    <li>The <strong>orbital plane</strong>, in which the orbiting body moves</li>
+</ul>
+
+<p>
+The intersection of these two planes defines a straight line known as the <strong>line of nodes</strong>. This line
+intersects the reference plane at two points:
+</p>
+<ul>
+    <li><strong>Ascending node</strong>: where the body crosses the reference plane from south to north</li>
+    <li><strong>Descending node</strong>: where the body crosses from north to south</li>
+</ul>
+
+<h2>3. Angular Definition</h2>
+<p>
+The longitude of the ascending node Ω is defined as the angle:
+</p>
+
+<ul>
+    <li>Measured in the reference plane</li>
+    <li>From the fixed reference direction (the <em>reference direction</em>)</li>
+    <li>To the ascending node</li>
+    <li>In the direction of increasing longitude</li>
+</ul>
+
+<p>
+In most astronomical applications, the reference direction is:
+</p>
+<ul>
+    <li>The <strong>vernal equinox direction</strong> for equatorial or ecliptic coordinate systems</li>
+</ul>
+
+<span class="formula">
+0° ≤ Ω &lt; 360°
+</span>
+
+<h2>4. Mathematical Representation</h2>
+<p>
+Let <strong>i</strong> be the orbital inclination, and let the orbital angular momentum vector be
+<strong>h</strong>. The longitude of the ascending node defines the orientation of the projection of
+<strong>h</strong> onto the reference plane.
+</p>
+
+<p>
+In vector form, Ω can be computed from the <em>node vector</em> <strong>N</strong>:
+</p>
+
+<span class="formula">
+N = k × h
+</span>
+
+<p>
+where <strong>k</strong> is the unit vector normal to the reference plane. The longitude of the ascending node is
+then:
+</p>
+
+<span class="formula">
+Ω = arccos( N<sub>x</sub> / |N| )
+</span>
+
+<p>
+with an additional quadrant check using <em>N<sub>y</sub></em> to ensure the correct angular value.
+</p>
+
+<h2>5. Physical and Geometrical Interpretation</h2>
+<p>
+The longitude of the ascending node determines the <strong>azimuthal orientation</strong> of the orbital plane in
+space. Together with the inclination <em>i</em>, it fully specifies how the orbital plane is tilted and rotated
+relative to the reference plane.
+</p>
+
+<p>
+Without Ω, the orbital plane would be free to rotate about the reference plane’s normal, leaving the orbit
+orientation ambiguous.
+</p>
+
+<h2>6. Special and Limiting Cases</h2>
+
+<table>
+    <tr>
+        <th>Condition</th>
+        <th>Interpretation</th>
+    </tr>
+    <tr>
+        <td>i = 0°</td>
+        <td>Orbit lies in the reference plane; Ω is undefined</td>
+    </tr>
+    <tr>
+        <td>i = 180°</td>
+        <td>Retrograde coplanar orbit; Ω is undefined</td>
+    </tr>
+    <tr>
+        <td>0° &lt; i &lt; 180°</td>
+        <td>Ω uniquely defines the line of nodes</td>
+    </tr>
+</table>
+
+<h2>7. Applications</h2>
+<p>
+The longitude of the ascending node is essential in:
+</p>
+<ul>
+    <li>Satellite orbit determination and propagation</li>
+    <li>Planetary and asteroid orbital catalogs (e.g., MPCORB)</li>
+    <li>Mission design and orbital maneuver planning</li>
+    <li>Long-term orbital evolution and perturbation theory</li>
+</ul>
+
+<h2>8. Concise Scientific Definition</h2>
+<p>
+<strong>The longitude of the ascending node</strong> (Ω) is the angular coordinate, measured in a chosen reference
+plane from a fixed reference direction to the ascending node of an orbit. It defines the orientation of the
+orbital plane around the reference plane’s normal and is a fundamental Keplerian orbital element.
+</p>
+
+</body>
 </html>

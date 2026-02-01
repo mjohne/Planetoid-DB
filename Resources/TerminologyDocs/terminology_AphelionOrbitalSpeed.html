@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aphelion Orbital Speed – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2, h3 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Aphelion Orbital Speed</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+The <strong>aphelion orbital speed</strong> is the instantaneous speed of an orbiting
+body at the <em>aphelion</em>, the point of maximum distance from the Sun in a
+heliocentric orbit.
+</p>
+
+<p>
+It represents the <strong>minimum orbital speed</strong> attained by a body moving on
+a bound (elliptical) Keplerian trajectory.
+</p>
+
+<h2>2. Aphelion in Orbital Geometry</h2>
+<p>
+For a heliocentric Keplerian orbit:
+</p>
+<ul>
+    <li><strong>Perihelion</strong> is the point of minimum heliocentric distance</li>
+    <li><strong>Aphelion</strong> is the point of maximum heliocentric distance</li>
+</ul>
+
+<p>
+These points lie on the <strong>line of apsides</strong> and correspond to extreme
+values of orbital distance and speed.
+</p>
+
+<h2>3. Mathematical Definition</h2>
+<p>
+For an elliptical orbit with semi-major axis <em>a</em> and eccentricity <em>e</em>,
+the aphelion distance <em>Q</em> is:
+</p>
+
+<span class="formula">
+Q = a (1 + e)
+</span>
+
+<p>
+The aphelion orbital speed <em>v<sub>Q</sub></em> is given by the
+<strong>vis-viva equation</strong> evaluated at <em>r = Q</em>:
+</p>
+
+<span class="formula">
+v<sub>Q</sub> = √( μ ( 2/Q − 1/a ) )
+</span>
+
+<p>
+Substituting for <em>Q</em> yields:
+</p>
+
+<span class="formula">
+v<sub>Q</sub> = √( μ / a · (1 − e) / (1 + e) )
+</span>
+
+<h2>4. Relation to Perihelion Orbital Speed</h2>
+<p>
+The perihelion orbital speed <em>v<sub>q</sub></em> is:
+</p>
+
+<span class="formula">
+v<sub>q</sub> = √( μ / a · (1 + e) / (1 − e) )
+</span>
+
+<p>
+The ratio of aphelion to perihelion speed is therefore:
+</p>
+
+<span class="formula">
+v<sub>Q</sub> / v<sub>q</sub> = (1 − e) / (1 + e)
+</span>
+
+<p>
+This relation directly reflects conservation of angular momentum.
+</p>
+
+<h2>5. Physical Interpretation</h2>
+<p>
+At aphelion, the orbiting body moves most slowly, spending a significant fraction of
+its orbital period near this point. This behavior follows from
+<strong>Kepler’s Second Law</strong>, which states that equal areas are swept out in
+equal times.
+</p>
+
+<p>
+The aphelion orbital speed therefore provides a clear manifestation of the inverse
+relationship between orbital distance and velocity.
+</p>
+
+<h2>6. Applicability and Limitations</h2>
+<p>
+The concept of aphelion orbital speed applies exclusively to:
+</p>
+<ul>
+    <li>Elliptical heliocentric orbits (<em>0 ≤ e &lt; 1</em>)</li>
+</ul>
+
+<div class="note">
+For circular orbits, perihelion and aphelion coincide, and orbital speed is constant.
+For parabolic and hyperbolic trajectories, no aphelion exists.
+</div>
+
+<h2>7. Applications</h2>
+<p>
+Aphelion orbital speed is relevant in:
+</p>
+<ul>
+    <li>Energy and angular momentum analysis</li>
+    <li>Orbit determination and propagation</li>
+    <li>Comparison of orbital velocity extremes</li>
+    <li>Astrodynamics education and visualization</li>
+</ul>
+
+<h2>8. Concise Scientific Definition</h2>
+<p>
+<strong>The aphelion orbital speed</strong> is the instantaneous velocity of a body at
+its maximum heliocentric distance. For an elliptical orbit, it is given by
+<em>v = √( μ / a · (1 − e) / (1 + e) )</em> and represents the minimum orbital speed
+along the trajectory.
+</p>
+
+</body>
+</html>

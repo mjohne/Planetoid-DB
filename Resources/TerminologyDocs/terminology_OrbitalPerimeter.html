@@ -1,21 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Orbital perimeter</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Orbital perimeter</h1>
-		<p>The <span class="bold">orbital perimeter</span> is the perimeter of the orbit.</p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Orbital Perimeter – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2, h3 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Orbital Perimeter</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+The <strong>orbital perimeter</strong> is a geometric quantity that describes the
+<strong>total path length</strong> of a closed orbital trajectory. In celestial mechanics,
+it most commonly refers to the <em>circumference of an elliptical orbit</em>.
+</p>
+
+<p>
+Unlike the orbital period, which measures time, the orbital perimeter is a purely
+geometrical property with units of length.
+</p>
+
+<h2>2. Applicability and Terminology</h2>
+<p>
+The term <strong>orbital perimeter</strong> is <em>not</em> a standard Keplerian orbital
+element. It is a derived geometric quantity used primarily in analytical studies,
+numerical simulations, and comparative orbit geometry.
+</p>
+
+<div class="note">
+In formal orbital mechanics, quantities such as the semi major axis, eccentricity,
+and semi latus rectum are preferred over orbital perimeter because they allow
+closed-form dynamical relations.
+</div>
+
+<h2>3. Orbital Perimeter of an Elliptical Orbit</h2>
+<p>
+For a bound Keplerian orbit, the trajectory is an ellipse with:
+</p>
+<ul>
+    <li>Semi major axis <em>a</em></li>
+    <li>Semi minor axis <em>b</em></li>
+</ul>
+
+<p>
+The orbital perimeter <em>P</em> is equal to the circumference of the ellipse.
+</p>
+
+<h2>4. Exact Mathematical Expression</h2>
+<p>
+The exact circumference of an ellipse cannot be expressed in elementary functions.
+It is given by an <strong>elliptic integral of the second kind</strong>:
+</p>
+
+<span class="formula">
+P = 4a E(e)
+</span>
+
+<p>
+where:
+</p>
+<ul>
+    <li><em>e</em> is the orbital eccentricity</li>
+    <li><em>E(e)</em> is the complete elliptic integral of the second kind</li>
+</ul>
+
+<h2>5. Approximate Formulae</h2>
+<p>
+Several accurate approximations are commonly used in practice. One of the most
+widely used is <strong>Ramanujan’s approximation</strong>:
+</p>
+
+<span class="formula">
+P ≈ π [ 3(a + b) − √((3a + b)(a + 3b)) ]
+</span>
+
+<p>
+For low eccentricity orbits, a simple approximation is:
+</p>
+
+<span class="formula">
+P ≈ 2πa (1 − e² / 4)
+</span>
+
+<h2>6. Relation to Orbital Eccentricity</h2>
+<p>
+The orbital perimeter decreases with increasing eccentricity for a fixed semi major
+axis. In the circular limit (<em>e = 0</em>), the perimeter reduces to:
+</p>
+
+<span class="formula">
+P = 2πa
+</span>
+
+<p>
+which is the circumference of a circle with radius <em>a</em>.
+</p>
+
+<h2>7. Physical Interpretation</h2>
+<p>
+The orbital perimeter represents the total distance traveled by an orbiting body
+during one complete revolution. Combined with the orbital period, it can be used
+to define an <em>average orbital speed</em>:
+</p>
+
+<span class="formula">
+v<sub>avg</sub> = P / T
+</span>
+
+<p>
+This average speed has limited dynamical significance, as orbital velocity varies
+continuously along an elliptical orbit.
+</p>
+
+<h2>8. Limitations and Special Cases</h2>
+<div class="note">
+For unbound trajectories (parabolic and hyperbolic orbits), the orbital perimeter
+is undefined, as the path length is infinite.
+</div>
+
+<p>
+Thus, the concept of orbital perimeter applies exclusively to closed, bound orbits.
+</p>
+
+<h2>9. Applications</h2>
+<p>
+The orbital perimeter is occasionally used in:
+</p>
+<ul>
+    <li>Numerical orbit simulations</li>
+    <li>Comparative geometry of planetary orbits</li>
+    <li>Educational demonstrations of elliptical motion</li>
+    <li>Average velocity estimates in simplified models</li>
+</ul>
+
+<h2>10. Concise Scientific Definition</h2>
+<p>
+<strong>The orbital perimeter</strong> is the total geometric length of a closed orbital
+path. For bound Keplerian motion, it corresponds to the circumference of the orbital
+ellipse and can be expressed exactly using elliptic integrals or approximated by
+analytical formulae.
+</p>
+
+</body>
 </html>

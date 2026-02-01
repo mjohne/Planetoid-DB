@@ -1,22 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Eccenctric anomaly</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Eccenctric anomaly</h1>
-		<p>In orbital mechanics, the <span class="bold">eccentric anomaly</span> is an angular parameter that defines the position of a body that is moving along an elliptic Kepler orbit. The eccentric anomaly is one of three angular parameters ("anomalies") that define a position along an orbit, the other two being the true anomaly and the mean anomaly.</p>
-		<p>Read more: <a href="https://en.wikipedia.org/wiki/Eccentric_anomaly" target="_blank">https://en.wikipedia.org/wiki/Eccentric_anomaly</a></p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Eccentric Anomaly – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2, h3 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Eccentric Anomaly</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+The <strong>eccentric anomaly</strong>, commonly denoted by the symbol <strong>E</strong>, is an auxiliary angular
+parameter used in <strong>celestial mechanics</strong> to describe the position of a body moving along an
+elliptical Keplerian orbit.
+</p>
+
+<p>
+It is not a directly observable physical angle but a <em>mathematical construct</em> that greatly simplifies the
+solution of Kepler’s equation and the computation of orbital motion as a function of time.
+</p>
+
+<h2>2. Geometrical Construction</h2>
+<p>
+Consider an ellipse with semi major axis <em>a</em> and center at the origin. Let a circle of radius <em>a</em>
+(the <strong>auxiliary circle</strong>) be drawn concentrically with the ellipse.
+</p>
+
+<p>
+For a body located at a point <em>P</em> on the ellipse:
+</p>
+<ul>
+    <li>Project <em>P</em> orthogonally onto the auxiliary circle</li>
+    <li>The angle between the positive direction of the major axis and the line from the center to the projected
+    point is the <strong>eccentric anomaly</strong></li>
+</ul>
+
+<p>
+This angle is measured at the center of the ellipse.
+</p>
+
+<h2>3. Mathematical Definition</h2>
+<p>
+Let the Cartesian coordinates of a point on an ellipse be expressed parametrically as:
+</p>
+
+<span class="formula">
+x = a cos E
+</span>
+
+<span class="formula">
+y = b sin E
+</span>
+
+<p>
+where:
+</p>
+<ul>
+    <li><em>a</em> is the semi major axis</li>
+    <li><em>b</em> is the semi minor axis</li>
+</ul>
+
+<p>
+The parameter <em>E</em> appearing in this representation is the eccentric anomaly.
+</p>
+
+<h2>4. Relation to True Anomaly</h2>
+<p>
+The eccentric anomaly <em>E</em> is related to the <strong>true anomaly</strong> <em>ν</em> by:
+</p>
+
+<span class="formula">
+tan(ν / 2) = √((1 + e) / (1 − e)) · tan(E / 2)
+</span>
+
+<p>
+This relation allows conversion between the geometrically defined true anomaly and the auxiliary eccentric
+anomaly.
+</p>
+
+<h2>5. Relation to Mean Anomaly and Kepler’s Equation</h2>
+<p>
+The <strong>mean anomaly</strong> <em>M</em> is related to the eccentric anomaly by <strong>Kepler’s equation</strong>:
+</p>
+
+<span class="formula">
+M = E − e sin E
+</span>
+
+<p>
+This transcendental equation links orbital geometry with time and must be solved numerically in most practical
+applications.
+</p>
+
+<h2>6. Physical Interpretation</h2>
+<p>
+Although the eccentric anomaly has no direct physical meaning, it provides a uniform angular parameter that
+advances linearly with time in the absence of perturbations when expressed through the mean anomaly.
+</p>
+
+<p>
+It serves as an essential intermediate variable connecting:
+</p>
+<ul>
+    <li>Time (mean anomaly)</li>
+    <li>Orbital geometry (true anomaly)</li>
+    <li>Orbital shape (eccentricity)</li>
+</ul>
+
+<h2>7. Range and Special Cases</h2>
+<p>
+For elliptical orbits:
+</p>
+
+<span class="formula">
+0 ≤ E &lt; 2π
+</span>
+
+<p>
+Special cases include:
+</p>
+<ul>
+    <li><strong>e = 0</strong>: circular orbit, where <em>E = ν = M</em></li>
+    <li><strong>e → 1</strong>: highly elongated ellipse, where <em>E</em> becomes strongly nonlinear in time</li>
+</ul>
+
+<div class="note">
+The eccentric anomaly is defined only for elliptical orbits (<em>0 ≤ e &lt; 1</em>). Hyperbolic orbits use the
+<em>hyperbolic anomaly</em> instead.
+</div>
+
+<h2>8. Applications</h2>
+<p>
+The eccentric anomaly is indispensable in:
+</p>
+<ul>
+    <li>Numerical orbit propagation</li>
+    <li>Solving Kepler’s equation</li>
+    <li>Ephemeris generation</li>
+    <li>Astrodynamics software and orbital catalogs</li>
+</ul>
+
+<h2>9. Concise Scientific Definition</h2>
+<p>
+<strong>The eccentric anomaly</strong> is an auxiliary angular parameter used to parametrize the position of a body
+on an elliptical orbit. Defined via the projection onto an auxiliary circle, it provides the mathematical link
+between mean anomaly, true anomaly, and orbital eccentricity through Kepler’s equation.
+</p>
+
+</body>
 </html>

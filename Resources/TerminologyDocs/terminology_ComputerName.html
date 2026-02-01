@@ -1,21 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Computer name</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Computer name</h1>
-		<p>This is the computer name. Who or what computed the object's orbit.</p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Computer Name – MPCORB Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        ul {
+            margin-left: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Computer Name in MPCORB</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+In the context of the <strong>MPCORB</strong> catalog, the <strong>computer name</strong>
+refers to an internal identifier that denotes the computational system or software
+environment used by the Minor Planet Center to generate a particular orbital solution.
+</p>
+
+<p>
+It serves as metadata describing the <em>computational provenance</em> of the orbit
+determination.
+</p>
+
+<h2>2. Purpose of the Computer Name</h2>
+<p>
+The computer name is used to:
+</p>
+<ul>
+    <li>Identify the processing environment responsible for orbit computation</li>
+    <li>Support internal quality control and reproducibility</li>
+    <li>Differentiate between orbit solutions produced by different systems</li>
+</ul>
+
+<p>
+It is primarily intended for catalog management rather than scientific analysis.
+</p>
+
+<h2>3. Role in Orbit Determination Workflow</h2>
+<p>
+Orbit solutions published in MPCORB are generated using automated pipelines. The
+computer name records which computational node or processing configuration was used
+during the generation of the solution.
+</p>
+
+<div class="note">
+The computer name does not describe the hardware architecture in detail and should not
+be interpreted as a performance or accuracy indicator.
+</div>
+
+<h2>4. Scientific Interpretation</h2>
+<p>
+From a scientific standpoint, the computer name has no direct physical or dynamical
+meaning. It does not affect:
+</p>
+<ul>
+    <li>Orbital elements</li>
+    <li>Orbit quality metrics</li>
+    <li>Physical interpretation of the object</li>
+</ul>
+
+<p>
+Its relevance lies solely in documentation and traceability of the computational process.
+</p>
+
+<h2>5. Relation to Reference and Flags</h2>
+<p>
+The computer name complements other metadata fields such as:
+</p>
+<ul>
+    <li><strong>Reference</strong> – publication or data source</li>
+    <li><strong>Flags</strong> – status and categorical indicators</li>
+</ul>
+
+<p>
+Together, these fields provide a complete record of how and where an orbit solution was
+produced.
+</p>
+
+<h2>6. Stability and Scope</h2>
+<p>
+The meaning and format of computer names are internal to the Minor Planet Center and may
+change between MPCORB releases.
+</p>
+
+<div class="note">
+Users should not rely on the computer name for long-term identification or version
+tracking.
+</div>
+
+<h2>7. Practical Usage</h2>
+<p>
+In practice, the computer name may be used by:
+</p>
+<ul>
+    <li>MPC staff for diagnostics and validation</li>
+    <li>Developers debugging MPCORB parsing pipelines</li>
+</ul>
+
+<p>
+It is generally not required for scientific use of MPCORB data.
+</p>
+
+<h2>8. Concise Scientific Definition</h2>
+<p>
+<strong>The computer name</strong> in MPCORB is an internal metadata field identifying the
+computational system or processing environment used to generate an orbital solution. It
+has no astronomical significance and is intended solely for catalog management and
+traceability.
+</p>
+
+</body>
 </html>

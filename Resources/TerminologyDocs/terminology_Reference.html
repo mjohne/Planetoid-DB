@@ -1,22 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Reference</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Reference</h1>
-		<p>This is the reference where the observation data published.</p>
-		<p><a href="https://minorplanetcenter.net/iau/info/References.html" target="_blank">https://minorplanetcenter.net/iau/info/References.html</a></p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Reference – MPCORB Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 6px 10px;
+            border-radius: 4px;
+            display: block;
+            margin: 12px 0;
+        }
+        ul {
+            margin-left: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Reference in MPCORB</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+In the context of the <strong>MPCORB</strong> catalog, the term <strong>reference</strong>
+denotes the identifier of the data source or publication from which the orbital elements
+and associated parameters of a minor planet were derived.
+</p>
+
+<p>
+It provides traceability and scientific provenance for the orbital solution listed in
+the catalog.
+</p>
+
+<h2>2. Role of References in MPCORB</h2>
+<p>
+The Minor Planet Center aggregates astrometric observations and computes orbital
+elements using standardized procedures. Each published orbit solution is associated
+with a reference code that identifies:
+</p>
+<ul>
+    <li>The observation set used</li>
+    <li>The publication or circular where the orbit was announced</li>
+    <li>The computational context of the solution</li>
+</ul>
+
+<p>
+This allows users to track the historical and methodological origin of the data.
+</p>
+
+<h2>3. Reference Codes</h2>
+<p>
+In MPCORB, references are typically given as compact alphanumeric codes corresponding
+to Minor Planet Circulars (MPCs), Minor Planet Electronic Circulars (MPECs), or other
+official MPC publications.
+</p>
+
+<div class="note">
+The reference field is not a bibliographic citation in the traditional sense, but a
+catalog-specific identifier that can be resolved through MPC archives.
+</div>
+
+<h2>4. Scientific Importance</h2>
+<p>
+The reference is essential for scientific reproducibility. It enables researchers to:
+</p>
+<ul>
+    <li>Identify the exact orbit solution used</li>
+    <li>Assess the context in which the orbit was computed</li>
+    <li>Compare different orbital solutions across time</li>
+</ul>
+
+<p>
+Changes in reference codes often reflect updates to the orbit based on new observations.
+</p>
+
+<h2>5. Relation to Orbit Quality and Updates</h2>
+<p>
+When additional astrometric data become available, the Minor Planet Center may publish
+an updated orbital solution with a new reference. The reference therefore acts as a
+version marker for the orbital elements.
+</p>
+
+<p>
+It should always be considered together with other quality indicators such as:
+</p>
+<ul>
+    <li>RMS residual</li>
+    <li>Observation arc length</li>
+    <li>Number of observations</li>
+</ul>
+
+<h2>6. Interpretation and Limitations</h2>
+<p>
+The reference field does not encode:
+</p>
+<ul>
+    <li>The numerical accuracy of the orbit</li>
+    <li>The dynamical model used in detail</li>
+    <li>The weighting of individual observations</li>
+</ul>
+
+<div class="note">
+For detailed methodological information, the referenced MPC or MPEC publication must
+be consulted directly.
+</div>
+
+<h2>7. Practical Usage</h2>
+<p>
+In practical applications, the reference is used to:
+</p>
+<ul>
+    <li>Cross-check orbit data against MPC publications</li>
+    <li>Ensure consistency across databases</li>
+    <li>Document the provenance of orbital elements in scientific analyses</li>
+</ul>
+
+<h2>8. Concise Scientific Definition</h2>
+<p>
+<strong>The reference</strong> in MPCORB is a catalog identifier that links a set of
+orbital elements to the official Minor Planet Center publication or data source from
+which they originate. It ensures traceability, version control, and scientific
+provenance of minor planet orbit data.
+</p>
+
+</body>
 </html>

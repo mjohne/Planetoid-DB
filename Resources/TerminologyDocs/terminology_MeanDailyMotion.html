@@ -1,22 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<title>Mean daily motion (degrees per day)</title>
-		<style>
-			* {font-family:sans-serif;}
-			.bold {font-weight: bold;}
-			.italic {font-style: italic;}
-			.sup {vertical-align: super; font-size: smaller;}
-			.sub {vertical-align: sub; font-size: smaller;}
-		</style>
-	</head>
-	<body>
-		<h1>Mean daily motion (degrees per day)</h1>
-		<p>In orbital mechanics, <span class="bold">mean motion</span> (represented by <span class="italic">n</span>) is the angular speed required for a body to complete one orbit, assuming constant speed in a circular orbit which completes in the same time as the variable speed, elliptical orbit of the actual body. The concept applies equally well to a small body revolving about a large, massive primary body or to two relatively same-sized bodies revolving about a common center of mass. While nominally a mean, and theoretically so in the case of two-body motion, in practice the mean motion is not typically an average over time for the orbits of real bodies, which only approximate the two-body assumption. It is rather the instantaneous value which satisfies the above conditions as calculated from the current gravitational and geometric circumstances of the body's constantly-changing, perturbed orbit.</p>
-		<p>Mean motion is used as an approximation of the actual orbital speed in making an initial calculation of the body's position in its orbit, for instance, from a set of orbital elements. This mean position is refined by Kepler's equation to produce the true position.</p>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Mean Daily Motion – Scientific Definition</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #222;
+        }
+        h1, h2 {
+            color: #003366;
+        }
+        h1 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+        }
+        .formula {
+            font-family: "Consolas", "Courier New", monospace;
+            background: #f4f4f4;
+            padding: 6px 10px;
+            border-radius: 4px;
+            display: block;
+            margin: 12px 0;
+        }
+        ul {
+            margin-left: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+        }
+        th {
+            background: #e6eef7;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Mean Daily Motion</h1>
+
+<h2>1. Conceptual Definition</h2>
+<p>
+<strong>Mean daily motion</strong> is a fundamental temporal parameter in
+<strong>celestial mechanics</strong> that describes the average angular rate at which an
+orbiting body progresses along its orbit per day.
+</p>
+
+<p>
+It represents the daily increment of the <strong>mean anomaly</strong> under the
+assumption of unperturbed Keplerian motion.
+</p>
+
+<h2>2. Relation to Mean Motion</h2>
+<p>
+Mean daily motion is a specific expression of the more general concept of
+<strong>mean motion</strong>. While mean motion is usually expressed in radians or
+degrees per unit time, mean daily motion is conventionally given in
+<strong>degrees per day</strong>.
+</p>
+
+<span class="formula">
+n = 360° / T
+</span>
+
+<p>
+where:
+</p>
+<ul>
+    <li><em>n</em> is the mean daily motion</li>
+    <li><em>T</em> is the orbital period (in days)</li>
+</ul>
+
+<h2>3. Mathematical Formulation</h2>
+<p>
+Using Kepler’s third law, the mean daily motion for a body orbiting a central mass with
+standard gravitational parameter <em>μ</em> can be written as:
+</p>
+
+<span class="formula">
+n = √( μ / a³ ) · (180° / π)
+</span>
+
+<p>
+when expressed in degrees per unit time.
+</p>
+
+<h2>4. Mean Daily Motion and Mean Anomaly</h2>
+<p>
+The mean daily motion determines how the mean anomaly evolves with time:
+</p>
+
+<span class="formula">
+M(t) = M₀ + n · Δt
+</span>
+
+<p>
+where:
+</p>
+<ul>
+    <li><em>M₀</em> is the mean anomaly at the epoch</li>
+    <li><em>Δt</em> is the elapsed time in days</li>
+</ul>
+
+<h2>5. Physical Interpretation</h2>
+<p>
+Mean daily motion does not describe the instantaneous angular velocity of the body.
+Instead, it represents the <strong>average angular progress</strong> that a fictitious
+uniformly moving body would make along a circular orbit with the same period.
+</p>
+
+<p>
+This abstraction allows time to be mapped linearly onto orbital phase.
+</p>
+
+<h2>6. Applicability and Limitations</h2>
+<p>
+Mean daily motion is strictly valid for:
+</p>
+<ul>
+    <li>Bound Keplerian orbits (<em>e &lt; 1</em>)</li>
+    <li>Two-body systems without significant perturbations</li>
+</ul>
+
+<div class="note">
+In real multi-body systems, mean daily motion may vary slowly over time due to
+gravitational perturbations, relativistic effects, or non-gravitational forces.
+</div>
+
+<h2>7. Units and Conventions</h2>
+<p>
+Common units for mean daily motion include:
+</p>
+<ul>
+    <li>Degrees per day (deg/day) – most common in orbital catalogs</li>
+    <li>Radians per day</li>
+    <li>Revolutions per day</li>
+</ul>
+
+<h2>8. Applications</h2>
+<p>
+Mean daily motion is widely used in:
+</p>
+<ul>
+    <li>Planetary and asteroid orbit catalogs (e.g., MPCORB)</li>
+    <li>Ephemeris generation and orbit propagation</li>
+    <li>Analytical celestial mechanics</li>
+    <li>Astrodynamics and mission analysis</li>
+</ul>
+
+<h2>9. Concise Scientific Definition</h2>
+<p>
+<strong>The mean daily motion</strong> is the average angular rate of orbital motion
+expressed per day. It is equal to 360 degrees divided by the orbital period and governs
+the linear time evolution of the mean anomaly in Keplerian motion.
+</p>
+
+</body>
 </html>
