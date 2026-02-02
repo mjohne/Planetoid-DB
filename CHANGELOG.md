@@ -29,16 +29,14 @@
 ## Planetoid-DB 0.7.19.46
 
 * Updated version number by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/254
-* Added some code improvements by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/255, https://github.com/mjohne/Planetoid-DB/pull/258, https://github.com/mjohne/Planetoid-DB/pull/268, https://github.com/mjohne/Planetoid-DB/pull/269,  https://github.com/mjohne/Planetoid-DB/pull/271, https://github.com/mjohne/Planetoid-DB/pull/272, https://github.com/mjohne/Planetoid-DB/pull/275, https://github.com/mjohne/Planetoid-DB/pull/279, https://github.com/mjohne/Planetoid-DB/pull/280, https://github.com/mjohne/Planetoid-DB/pull/281, https://github.com/mjohne/Planetoid-DB/pull/286, https://github.com/mjohne/Planetoid-DB/pull/287 and https://github.com/mjohne/Planetoid-DB/pull/288
-* Updated demoset-10000.txt by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/256
+* Added some code improvements by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/255, https://github.com/mjohne/Planetoid-DB/pull/258, https://github.com/mjohne/Planetoid-DB/pull/268, https://github.com/mjohne/Planetoid-DB/pull/269, https://github.com/mjohne/Planetoid-DB/pull/271, https://github.com/mjohne/Planetoid-DB/pull/272, https://github.com/mjohne/Planetoid-DB/pull/275, https://github.com/mjohne/Planetoid-DB/pull/279, https://github.com/mjohne/Planetoid-DB/pull/280, https://github.com/mjohne/Planetoid-DB/pull/281, https://github.com/mjohne/Planetoid-DB/pull/286, https://github.com/mjohne/Planetoid-DB/pull/287 and https://github.com/mjohne/Planetoid-DB/pull/288
 * Updated README.md by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/266
 * Created CHANGELOG.md by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/270
 * Updated CHANGELOG.md by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/273
 * Updated README.md by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/274
 * Fixed issue with accessing the terminology via right-click by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/276
-* Changed listview in virtual mode in TableModeForm() class by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/277
-* Did the listview sortable in TableModeForm() class by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/278
-* [WIP] Implement code improvements using AI by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/282
+* Changed ListView in virtual mode in the TableModeForm class by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/277
+* Made the ListView sortable in the TableModeForm class by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/278
 * Renamed terminology_ReadableDesignaton.html to terminology_ReadableDesignation.html by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/285
 * Optimize performance and modernize codebase by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/289
 * Updated to version 0.7.19.46 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/290
