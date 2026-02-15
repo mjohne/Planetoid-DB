@@ -214,8 +214,8 @@
     <value>Information</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="terminology_ArgumentOfPerihelion" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\TerminologyDocs\terminology_ArgumentOfPerihelion.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="terminology_ArgumentOfThePerihelion" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\TerminologyDocs\terminology_ArgumentOfThePerihelion.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="terminology_ComputerName" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\TerminologyDocs\terminology_ComputerName.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
@@ -286,11 +286,11 @@
   <data name="terminology_AphelionDistance" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\TerminologyDocs\terminology_AphelionDistance.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="terminology_ArgumentOfAphelion" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\TerminologyDocs\terminology_ArgumentOfAphelion.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="terminology_ArgumentOfTheAphelion" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\TerminologyDocs\terminology_ArgumentOfTheAphelion.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="terminology_EccenctricAnomaly" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\TerminologyDocs\terminology_EccenctricAnomaly.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="terminology_EccentricAnomaly" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\TerminologyDocs\terminology_EccentricAnomaly.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="terminology_FocalParameter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\TerminologyDocs\terminology_FocalParameter.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>

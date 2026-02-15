@@ -101,4 +101,45 @@ public class BaseKryptonForm : KryptonForm
 			ShowErrorMessage(message: $"Error copying to clipboard: {ex.Message}");
 		}
 	}
+
+	/// <summary>
+	/// Sets the status bar text and enables the information label when text is provided.
+	/// </summary>
+	/// <param name="label">The status label to update.</param>
+	/// <param name="text">Main status text to display. If null or whitespace the method returns without changing the UI.</param>
+	/// <param name="additionalInfo">Optional additional information appended to the main text, separated by " - ".</param>
+	/// <remarks>
+	/// This method is used to set the status bar text and enable the information label.
+	/// </remarks>
+	protected static void SetStatusBar(ToolStripStatusLabel label, string text, string additionalInfo = "")
+	{
+		// Check if the label is null or text is null or whitespace
+		if (label is null || string.IsNullOrWhiteSpace(value: text))
+		{
+			return;
+		}
+		// Set the status bar text and enable it
+		label.Enabled = true;
+		label.Text = string.IsNullOrWhiteSpace(value: additionalInfo) ? text : $"{text} - {additionalInfo}";
+	}
+
+	/// <summary>
+	/// Clears the status bar text and disables the information label.
+	/// </summary>
+	/// <param name="label">The status label to clear.</param>
+	/// <remarks>
+	/// Resets the UI state of the status area so that no message is shown.
+	/// Use when there is no status to display or when leaving a control.
+	/// </remarks>
+	protected static void ClearStatusBar(ToolStripStatusLabel label)
+	{
+		// Check if the label is null
+		if (label is null)
+		{
+			return;
+		}
+		// Clear the status bar text and disable it
+		label.Enabled = false;
+		label.Text = string.Empty;
+	}
 }

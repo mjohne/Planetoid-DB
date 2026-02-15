@@ -522,9 +522,9 @@ namespace Planetoid_DB {
         ///		&lt;h1&gt;Eccenctric anomaly&lt;/h1&gt;
         ///		&lt;p&gt;In orbital mechanics, the &lt;span class=&quot;bold&quot;&gt;eccentric anomaly [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
-        internal static string terminology_EccenctricAnomaly {
+        internal static string terminology_EccentricAnomaly {
             get {
-                return ResourceManager.GetString("terminology_EccenctricAnomaly", resourceCulture);
+                return ResourceManager.GetString("terminology_EccentricAnomaly", resourceCulture);
             }
         }
         
