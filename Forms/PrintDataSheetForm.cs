@@ -116,7 +116,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		// If a description is available, set it in the status bar
 		if (description != null)
 		{
-			SetStatusBar(text: description, label: labelInformation);
+			SetStatusBar(label: labelInformation, text: description);
 		}
 	}
 
