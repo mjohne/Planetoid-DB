@@ -247,7 +247,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		// Set the text to be printed
 		const string textToPrint = "This is a sample data sheet.";
 		// Set the font for the text
-		Font printFont = new(familyName: "Arial", emSize: 12);
+		using Font printFont = new(familyName: "Arial", emSize: 12);
 		// Set the text color to black
 		e.Graphics.DrawString(s: textToPrint, font: printFont, brush: Brushes.Black, point: new PointF(x: 100, y: 100));
 		// Indicate that no more pages are to be printed
