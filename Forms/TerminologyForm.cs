@@ -146,7 +146,7 @@ public partial class TerminologyForm : BaseKryptonForm
 
 	/// <summary>
 	/// Called when the mouse pointer leaves a control or the control loses focus.
-	/// Clears the status bar text).
+	/// Clears the status bar text.
 	/// </summary>
 	/// <param name="sender">Event source.</param>
 	/// <param name="e">Event arguments.</param>
