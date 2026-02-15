@@ -176,8 +176,8 @@ namespace Planetoid_DB
 			// 
 			// buttonUnmarkAll
 			// 
-			buttonUnmarkAll.AccessibleDescription = "Umarks all orbital elements";
-			buttonUnmarkAll.AccessibleName = "Umark all orbital elements";
+			buttonUnmarkAll.AccessibleDescription = "Unmarks all orbital elements";
+			buttonUnmarkAll.AccessibleName = "Unmark all orbital elements";
 			buttonUnmarkAll.AccessibleRole = AccessibleRole.PushButton;
 			buttonUnmarkAll.ButtonStyle = ButtonStyle.Form;
 			buttonUnmarkAll.Location = new Point(349, 50);
@@ -185,7 +185,7 @@ namespace Planetoid_DB
 			buttonUnmarkAll.Name = "buttonUnmarkAll";
 			buttonUnmarkAll.Size = new Size(110, 29);
 			buttonUnmarkAll.TabIndex = 2;
-			toolTip.SetToolTip(buttonUnmarkAll, "Umark all orbital elements");
+			toolTip.SetToolTip(buttonUnmarkAll, "Unmark all orbital elements");
 			buttonUnmarkAll.Values.DropDownArrowColor = Color.Empty;
 			buttonUnmarkAll.Values.Text = "&Unmark all";
 			buttonUnmarkAll.Click += ButtonUnmarkAll_Click;
@@ -241,7 +241,7 @@ namespace Planetoid_DB
 			// 
 			// panel
 			// 
-			panel.AccessibleDescription = "Grpups the data";
+			panel.AccessibleDescription = "Groups the data";
 			panel.AccessibleName = "pane";
 			panel.AccessibleRole = AccessibleRole.Pane;
 			panel.Controls.Add(buttonExportAsJson);

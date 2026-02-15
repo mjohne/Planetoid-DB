@@ -19,7 +19,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	/// <remarks>
 	/// This logger is used to log messages and errors that occur within the form.
 	/// </remarks>
-	private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 	/// <summary>
 	/// Print document used for printing data sheets.
@@ -58,40 +58,6 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	/// </remarks>
 	private string GetDebuggerDisplay() => ToString();
 
-	/// <summary>
-	/// Sets the status bar text and enables the information label when text is provided.
-	/// </summary>
-	/// <param name="text">Main status text to display. If null or whitespace the method returns without changing the UI.</param>
-	/// <param name="additionalInfo">Optional additional information appended to the main text, separated by " - ".</param>
-	/// <remarks>
-	/// This method is used to set the status bar text and enable the information label.
-	/// </remarks>
-	private void SetStatusBar(string text, string additionalInfo = "")
-	{
-		// Check if the text is not null or whitespace
-		if (string.IsNullOrWhiteSpace(value: text))
-		{
-			return;
-		}
-		// Set the status bar text and enable it
-		labelInformation.Enabled = true;
-		labelInformation.Text = string.IsNullOrWhiteSpace(value: additionalInfo) ? text : $"{text} - {additionalInfo}";
-	}
-
-	/// <summary>
-	/// Clears the status bar text and disables the information label.
-	/// </summary>
-	/// <remarks>
-	/// Resets the UI state of the status area so that no message is shown.
-	/// Use when there is no status to display or when leaving a control.
-	/// </remarks>
-	private void ClearStatusBar()
-	{
-		// Clear the status bar text and disable it
-		labelInformation.Enabled = false;
-		labelInformation.Text = string.Empty;
-	}
-
 	#endregion
 
 	#region form event handlers
@@ -108,7 +74,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	private void PrintDataSheetForm_Load(object sender, EventArgs e)
 	{
 		// Clear the status bar text
-		ClearStatusBar();
+		ClearStatusBar(label: labelInformation);
 		// Check if the checked list box has items
 		if (checkedListBoxOrbitalElements.Items.Count == 0)
 		{
@@ -150,7 +116,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		// If a description is available, set it in the status bar
 		if (description != null)
 		{
-			SetStatusBar(text: description);
+			SetStatusBar(label: labelInformation, text: description);
 		}
 	}
 
@@ -160,14 +126,14 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 
 	/// <summary>
 	/// Called when the mouse pointer leaves a control or the control loses focus.
-	/// Clears the status bar text (delegates to <see cref="ClearStatusBar"/>).
+	/// Clears the status bar text.
 	/// </summary>
 	/// <param name="sender">Event source.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>
 	/// This method is called when the mouse pointer leaves a control or the control loses focus.
 	/// </remarks>
-	private void Control_Leave(object sender, EventArgs e) => ClearStatusBar();
+	private void Control_Leave(object sender, EventArgs e) => ClearStatusBar(label: labelInformation);
 
 	#endregion
 
@@ -203,7 +169,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			// Log the exception and show an error message
-			Logger.Error(exception: ex, message: "Error while printing");
+			logger.Error(exception: ex, message: "Error while printing");
 			ShowErrorMessage(message: $"Error while printing: {ex.Message}");
 		}
 		// Close the form after printing
@@ -281,7 +247,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		// Set the text to be printed
 		const string textToPrint = "This is a sample data sheet.";
 		// Set the font for the text
-		Font printFont = new(familyName: "Arial", emSize: 12);
+		using Font printFont = new(familyName: "Arial", emSize: 12);
 		// Set the text color to black
 		e.Graphics.DrawString(s: textToPrint, font: printFont, brush: Brushes.Black, point: new PointF(x: 100, y: 100));
 		// Indicate that no more pages are to be printed

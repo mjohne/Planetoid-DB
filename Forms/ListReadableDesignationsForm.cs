@@ -27,7 +27,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <remarks>
 	/// This constant defines the length of the index field in the planetoid record.
 	/// </remarks>
-	private const int IndexLength = 7;
+	private const int indexLength = 7;
 
 	/// <summary>
 	/// Length of the name field in the planetoid record.
@@ -35,7 +35,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <remarks>
 	/// This constant defines the starting index of the name field in the planetoid record.
 	/// </remarks>
-	private const int NameStartIndex = 166;
+	private const int nameStartIndex = 166;
 
 	/// <summary>
 	/// Length of the name field in the planetoid record.
@@ -43,7 +43,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <remarks>
 	/// This constant defines the length of the name field in the planetoid record.
 	/// </remarks>
-	private const int NameLength = 28;
+	private const int nameLength = 28;
 
 	#endregion
 
@@ -119,40 +119,6 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	private string GetDebuggerDisplay() => ToString();
 
 	/// <summary>
-	/// Sets the status bar text and enables the information label when text is provided.
-	/// </summary>
-	/// <param name="text">Main status text to display. If null or whitespace the method returns without changing the UI.</param>
-	/// <param name="additionalInfo">Optional additional information appended to the main text, separated by " - ".</param>
-	/// <remarks>
-	/// This method is used to set the status bar text and enable the information label when text is provided.
-	/// </remarks>
-	private void SetStatusBar(string text, string additionalInfo = "")
-	{
-		// Check if the text is not null or whitespace
-		if (string.IsNullOrWhiteSpace(value: text))
-		{
-			return;
-		}
-		// Set the status bar text and enable it
-		labelInformation.Enabled = true;
-		labelInformation.Text = string.IsNullOrWhiteSpace(value: additionalInfo) ? text : $"{text} - {additionalInfo}";
-	}
-
-	/// <summary>
-	/// Clears the status bar text and disables the information label.
-	/// </summary>
-	/// <remarks>
-	/// Resets the UI state of the status area so that no message is shown.
-	/// Use when there is no status to display or when leaving a control.
-	/// </remarks>
-	private void ClearStatusBar()
-	{
-		// Clear the status bar text and disable it
-		labelInformation.Enabled = false;
-		labelInformation.Text = string.Empty;
-	}
-
-	/// <summary>
 	/// Creates a ListViewItem for the specified index.
 	/// </summary>
 	/// <param name="index">The index of the planetoid.</param>
@@ -172,15 +138,15 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// Get the current planetoid data
 		string currentData = planetoidsDatabase[index];
 		// Check if the current data is long enough
-		if (currentData.Length < NameStartIndex + NameLength)
+		if (currentData.Length < nameStartIndex + nameLength)
 		{
 			// Log a warning and return null
 			logger.Warn(message: $"The record at index {index} is too short.");
 			return null;
 		}
 		// Extract the index and designation name
-		string strIndex = currentData[..IndexLength].Trim();
-		string strDesignationName = currentData.Substring(startIndex: NameStartIndex, length: NameLength).Trim();
+		string strIndex = currentData[..indexLength].Trim();
+		string strDesignationName = currentData.Substring(startIndex: nameStartIndex, length: nameLength).Trim();
 		// Create and return the ListViewItem
 		ListViewItem item = new(text: strIndex)
 		{
@@ -302,7 +268,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		int index = listView.SelectedIndices[index: 0];
 		ListViewItem item = listView.Items[index: index];
 		// Update the status bar with the selected item's details
-		SetStatusBar(text: $"{I10nStrings.Index}: {item.Text} - {item.SubItems[index: 1].Text}");
+		SetStatusBar(label: labelInformation, text: $"{I10nStrings.Index}: {item.Text} - {item.SubItems[index: 1].Text}");
 		// Enable the load button
 		buttonLoad.Enabled = true;
 		selectedIndex = index;
@@ -491,7 +457,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	private void ListReadableDesignationsForm_Load(object? sender, EventArgs? e)
 	{
 		// Clear the status bar on load
-		ClearStatusBar();
+		ClearStatusBar(label: labelInformation);
 		// Disable controls until data is available
 		labelInformation.Enabled = listView.Visible = buttonLoad.Enabled = dropButtonSaveList.Enabled = false;
 		// Check if the planetoids database is empty
@@ -578,7 +544,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 
 	#endregion
 
-	#region click event handlers
+	#region Click event handlers
 
 	/// <summary>
 	/// Handles the click event for the List button.
@@ -591,7 +557,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	private void ButtonList_Click(object? sender, EventArgs? e)
 	{
 		// Reset UI status
-		ClearStatusBar();
+		ClearStatusBar(label: labelInformation);
 		// Check if the database is loaded
 		if (planetoidsDatabase.Count == 0)
 		{
@@ -1224,7 +1190,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// If a description is available, set it in the status bar
 		if (description != null)
 		{
-			SetStatusBar(text: description);
+			SetStatusBar(label: labelInformation, text: description);
 		}
 	}
 
@@ -1234,14 +1200,14 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 
 	/// <summary>
 	/// Called when the mouse pointer leaves a control or the control loses focus.
-	/// Clears the status bar text (delegates to <see cref="ClearStatusBar"/>).
+	/// Clears the status bar text.
 	/// </summary>
 	/// <param name="sender">Event source.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>
 	/// This method is called when the mouse pointer leaves a control or the control loses focus.
 	/// </remarks>
-	private void Control_Leave(object sender, EventArgs e) => ClearStatusBar();
+	private void Control_Leave(object sender, EventArgs e) => ClearStatusBar(label: labelInformation);
 
 	#endregion
 

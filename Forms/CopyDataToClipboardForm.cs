@@ -46,40 +46,6 @@ public partial class CopyDataToClipboardForm : BaseKryptonForm
 	private string GetDebuggerDisplay() => ToString();
 
 	/// <summary>
-	/// Sets the status bar text and enables the information label when text is provided.
-	/// </summary>
-	/// <param name="text">Main status text to display. If null or whitespace the method returns without changing the UI.</param>
-	/// <param name="additionalInfo">Optional additional information appended to the main text, separated by " - ".</param>
-	/// <remarks>
-	/// This method updates the status bar with the provided text and additional information.
-	/// </remarks>
-	private void SetStatusBar(string text, string additionalInfo = "")
-	{
-		// Check if the text is not null or whitespace
-		if (string.IsNullOrWhiteSpace(value: text))
-		{
-			return;
-		}
-		// Set the status bar text and enable it
-		labelInformation.Enabled = true;
-		labelInformation.Text = string.IsNullOrWhiteSpace(value: additionalInfo) ? text : $"{text} - {additionalInfo}";
-	}
-
-	/// <summary>
-	/// Clears the status bar text and disables the information label.
-	/// </summary>
-	/// <remarks>
-	/// Resets the UI state of the status area so that no message is shown.
-	/// Use when there is no status to display or when leaving a control.
-	/// </remarks>
-	private void ClearStatusBar()
-	{
-		// Clear the status bar text and disable it
-		labelInformation.Enabled = false;
-		labelInformation.Text = string.Empty;
-	}
-
-	/// <summary>
 	/// Sets the data to be copied to the clipboard.
 	/// </summary>
 	/// <param name="list">The list of data to be copied.</param>
@@ -105,7 +71,7 @@ public partial class CopyDataToClipboardForm : BaseKryptonForm
 	private void CopyDataToClipboardForm_Load(object sender, EventArgs e)
 	{
 		// Set the status bar text
-		ClearStatusBar();
+		ClearStatusBar(label: labelInformation);
 		// Set the text of the buttons with the data to be copied
 		KryptonButton[] buttons =
 		[
@@ -148,7 +114,7 @@ public partial class CopyDataToClipboardForm : BaseKryptonForm
 		// If a description is available, set it in the status bar
 		if (description != null)
 		{
-			SetStatusBar(text: description);
+			SetStatusBar(label: labelInformation, text: description);
 		}
 	}
 
@@ -158,14 +124,14 @@ public partial class CopyDataToClipboardForm : BaseKryptonForm
 
 	/// <summary>
 	/// Called when the mouse pointer leaves a control or the control loses focus.
-	/// Clears the status bar text (delegates to <see cref="ClearStatusBar"/>).
+	/// Clears the status bar text.
 	/// </summary>
 	/// <param name="sender">Event source.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>
 	/// This method is called when the mouse pointer leaves a control or the control loses focus.
 	/// </remarks>
-	private void Control_Leave(object sender, EventArgs e) => ClearStatusBar();
+	private void Control_Leave(object sender, EventArgs e) => ClearStatusBar(label: labelInformation);
 
 	#endregion
 

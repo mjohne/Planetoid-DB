@@ -39,7 +39,7 @@ public partial class PreloadForm : BaseKryptonForm
 	#region constructor
 
 	/// <summary>
-	/// Initializes a new instance of the <see cref="AppInfoForm"/> class.
+	/// Initializes a new instance of the <see cref="PreloadForm"/> class.
 	/// </summary>
 	/// <remarks>
 	/// This constructor initializes the form components.
@@ -83,45 +83,11 @@ public partial class PreloadForm : BaseKryptonForm
 		// Create the output file stream
 		using BinaryReader r = new(input: s);
 		// Create the output file stream and write the bytes to it
-		using FileStream fs = new(path: Path.Combine(path1: outDir, path2: resourceName), mode: FileMode.OpenOrCreate);
+		using FileStream fs = new(path: Path.Combine(path1: outDir, path2: resourceName), mode: FileMode.Create);
 		// Ensure the file stream is writable
 		using BinaryWriter w = new(output: fs);
 		// Read the bytes from the resource stream and write them to the output file
 		w.Write(buffer: r.ReadBytes(count: (int)s.Length));
-	}
-
-	/// <summary>
-	/// Sets the status bar text and enables the information label when text is provided.
-	/// </summary>
-	/// <param name="text">Main status text to display. If null or whitespace the method returns without changing the UI.</param>
-	/// <param name="additionalInfo">Optional additional information appended to the main text, separated by " - ".</param>
-	/// <remarks>
-	/// This method is used to set the status bar text and enable the information label.
-	/// </remarks>
-	private void SetStatusBar(string text, string additionalInfo = "")
-	{
-		// Check if the text is not null or whitespace
-		if (string.IsNullOrWhiteSpace(value: text))
-		{
-			return;
-		}
-		// Set the status bar text and enable it
-		labelInformation.Enabled = true;
-		labelInformation.Text = string.IsNullOrWhiteSpace(value: additionalInfo) ? text : $"{text} - {additionalInfo}";
-	}
-
-	/// <summary>
-	/// Clears the status bar text and disables the information label.
-	/// </summary>
-	/// <remarks>
-	/// Resets the UI state of the status area so that no message is shown.
-	/// Use when there is no status to display or when leaving a control.
-	/// </remarks>
-	private void ClearStatusBar()
-	{
-		// Clear the status bar text and disable it
-		labelInformation.Enabled = false;
-		labelInformation.Text = string.Empty;
 	}
 
 	/// <summary>
@@ -146,7 +112,7 @@ public partial class PreloadForm : BaseKryptonForm
 	/// <remarks>
 	/// This method is called when the preload form has finished loading.
 	/// </remarks>
-	private void PreloadForm_Load(object sender, EventArgs e) => ClearStatusBar();
+	private void PreloadForm_Load(object sender, EventArgs e) => ClearStatusBar(label: labelInformation);
 
 	#endregion
 
@@ -175,7 +141,7 @@ public partial class PreloadForm : BaseKryptonForm
 		// If a description is available, set it in the status bar
 		if (description != null)
 		{
-			SetStatusBar(text: description);
+			SetStatusBar(label: labelInformation, text: description);
 		}
 	}
 
@@ -185,14 +151,14 @@ public partial class PreloadForm : BaseKryptonForm
 
 	/// <summary>
 	/// Called when the mouse pointer leaves a control or the control loses focus.
-	/// Clears the status bar text (delegates to <see cref="ClearStatusBar"/>).
+	/// Clears the status bar text.
 	/// </summary>
 	/// <param name="sender">Event source.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>
 	/// This method is called when the mouse pointer leaves a control or the control loses focus.
 	/// </remarks>
-	private void Control_Leave(object sender, EventArgs e) => ClearStatusBar();
+	private void Control_Leave(object sender, EventArgs e) => ClearStatusBar(label: labelInformation);
 
 	#endregion
 
