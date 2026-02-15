@@ -63,7 +63,7 @@ namespace Planetoid_DB
 			// 
 			// labelTitle
 			// 
-			labelTitle.AccessibleDescription = "Shows the applicatiopn name";
+			labelTitle.AccessibleDescription = "Shows the application name";
 			labelTitle.AccessibleName = "Application name";
 			labelTitle.AccessibleRole = AccessibleRole.Text;
 			labelTitle.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -95,8 +95,6 @@ namespace Planetoid_DB
 			contextMenuStripCopyToClipboard.TabStop = true;
 			contextMenuStripCopyToClipboard.Text = "ContextMenu";
 			toolTip.SetToolTip(contextMenuStripCopyToClipboard, "Context Menu for copying to clipboard");
-			contextMenuStripCopyToClipboard.MouseEnter += SplashScreenForm_Load;
-			contextMenuStripCopyToClipboard.MouseLeave += CopyToClipboard_DoubleClick;
 			// 
 			// ToolStripMenuItemCpyToClipboard
 			// 
@@ -111,8 +109,6 @@ namespace Planetoid_DB
 			ToolStripMenuItemCpyToClipboard.Size = new Size(213, 22);
 			ToolStripMenuItemCpyToClipboard.Text = "&Copy to clipboard";
 			ToolStripMenuItemCpyToClipboard.Click += CopyToClipboard_DoubleClick;
-			ToolStripMenuItemCpyToClipboard.MouseEnter += SplashScreenForm_Load;
-			ToolStripMenuItemCpyToClipboard.MouseLeave += CopyToClipboard_DoubleClick;
 			// 
 			// labelVersion
 			// 

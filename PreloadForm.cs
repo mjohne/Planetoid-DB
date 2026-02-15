@@ -83,7 +83,7 @@ public partial class PreloadForm : BaseKryptonForm
 		// Create the output file stream
 		using BinaryReader r = new(input: s);
 		// Create the output file stream and write the bytes to it
-		using FileStream fs = new(path: Path.Combine(path1: outDir, path2: resourceName), mode: FileMode.OpenOrCreate);
+		using FileStream fs = new(path: Path.Combine(path1: outDir, path2: resourceName), mode: FileMode.Create);
 		// Ensure the file stream is writable
 		using BinaryWriter w = new(output: fs);
 		// Read the bytes from the resource stream and write them to the output file

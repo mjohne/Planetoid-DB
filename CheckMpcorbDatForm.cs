@@ -91,12 +91,12 @@ public partial class CheckMpcorbDatForm : BaseKryptonForm
 			// Check if the response is successful and return the last modified date
 			return response.IsSuccessStatusCode ? response.Content.Headers.LastModified?.UtcDateTime ?? DateTime.MinValue : DateTime.MinValue;
 		}
-		catch (HttpRequestException)
+		catch (HttpRequestException ex)
 		{
 			// Log the exception
-			logger.Error(message: "Error retrieving last modified date.", exception: new HttpRequestException());
+			logger.Error(message: "Error retrieving last modified date.", exception: ex);
 			// Show an error message
-			ShowErrorMessage(message: new HttpRequestException().Message);
+			ShowErrorMessage(message: ex.Message);
 			// Return DateTime.MinValue to indicate an error
 			return DateTime.MinValue;
 		}
@@ -121,12 +121,12 @@ public partial class CheckMpcorbDatForm : BaseKryptonForm
 			// Check if the response is successful and return the content length
 			return response.IsSuccessStatusCode ? response.Content.Headers.ContentLength ?? 0 : 0;
 		}
-		catch (HttpRequestException)
+		catch (HttpRequestException ex)
 		{
 			// Log the exception
-			logger.Error(message: "Error retrieving last modified date.", exception: new HttpRequestException());
+			logger.Error(message: "Error retrieving last modified date.", exception: ex);
 			// Show an error message
-			ShowErrorMessage(message: new HttpRequestException().Message);
+			ShowErrorMessage(message: ex.Message);
 			// Log the exception and return 0
 			return 0;
 		}
