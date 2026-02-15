@@ -115,40 +115,6 @@ public partial class TableModeForm : BaseKryptonForm
 	private string GetDebuggerDisplay() => ToString();
 
 	/// <summary>
-	/// Sets the status bar text and enables the information label when text is provided.
-	/// </summary>
-	/// <param name="text">Main status text to display. If null or whitespace the method returns without changing the UI.</param>
-	/// <param name="additionalInfo">Optional additional information appended to the main text, separated by " - ".</param>
-	/// <remarks>
-	/// This method is called to set the status bar text and enable the information label.
-	/// </remarks>
-	private void SetStatusBar(string text, string additionalInfo = "")
-	{
-		// Check if the text is not null or whitespace
-		if (string.IsNullOrWhiteSpace(value: text))
-		{
-			return;
-		}
-		// Set the status bar text and enable it
-		labelInformation.Enabled = true;
-		labelInformation.Text = string.IsNullOrWhiteSpace(value: additionalInfo) ? text : $"{text} - {additionalInfo}";
-	}
-
-	/// <summary>
-	/// Clears the status bar text and disables the information label.
-	/// </summary>
-	/// <remarks>
-	/// Resets the UI state of the status area so that no message is shown.
-	/// Use when there is no status to display or when leaving a control.
-	/// </remarks>
-	private void ClearStatusBar()
-	{
-		// Clear the status bar text and disable it
-		labelInformation.Enabled = false;
-		labelInformation.Text = string.Empty;
-	}
-
-	/// <summary>
 	/// Fills the internal planetoids database from the provided list.
 	/// </summary>
 	/// <param name="arrTemp">A list containing planetoid records as strings. Each entry is appended to the internal database.</param>
@@ -262,7 +228,7 @@ public partial class TableModeForm : BaseKryptonForm
 		// If no sorting is requested, log a warning and return
 		if (order == SortOrder.None)
 		{
-			logger.Warn(message: "SortDisplayCache was called with SortOrder.None for column index {ColumnIndex}. No sorting will be performed.", columnIndex);
+			logger.Warn(message: "SortDisplayCache was called with SortOrder.None for column index {ColumnIndex}. No sorting will be performed.", argument: columnIndex);
 			return;
 		}
 		// Determine the sort direction
@@ -357,7 +323,7 @@ public partial class TableModeForm : BaseKryptonForm
 	private void TableModeForm_Load(object sender, EventArgs e)
 	{
 		// Clear the status bar text
-		ClearStatusBar();
+		ClearStatusBar(label: labelInformation);
 		// Disable the status bar, the list view and the cancel button
 		labelInformation.Enabled = listView.Visible = buttonCancel.Enabled = false;
 		// Check if the planetoids database is empty
@@ -428,7 +394,7 @@ public partial class TableModeForm : BaseKryptonForm
 		// If a description is available, set it in the status bar
 		if (description != null)
 		{
-			SetStatusBar(text: description);
+			SetStatusBar(label: labelInformation, text: description);
 		}
 	}
 
@@ -438,14 +404,14 @@ public partial class TableModeForm : BaseKryptonForm
 
 	/// <summary>
 	/// Called when the mouse pointer leaves a control or the control loses focus.
-	/// Clears the status bar text (delegates to <see cref="ClearStatusBar"/>).
+	/// Clears the status bar text.
 	/// </summary>
 	/// <param name="sender">Event source.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>
 	/// This method is called when the mouse pointer leaves a control or the control loses focus.
 	/// </remarks>
-	private void Control_Leave(object sender, EventArgs e) => ClearStatusBar();
+	private void Control_Leave(object sender, EventArgs e) => ClearStatusBar(label: labelInformation);
 
 	#endregion
 
@@ -478,7 +444,7 @@ public partial class TableModeForm : BaseKryptonForm
 		if (selectedIndex >= 0)
 		{
 			// Set the status bar text to the selected planetoids index and designation name
-			SetStatusBar(text: $"{I10nStrings.Index}: {listView.Items[index: selectedIndex].Text} - {listView.Items[index: selectedIndex].SubItems[index: 1].Text}");
+			SetStatusBar(label: labelInformation, text: $"{I10nStrings.Index}: {listView.Items[index: selectedIndex].Text} - {listView.Items[index: selectedIndex].SubItems[index: 1].Text}");
 		}
 	}
 	#endregion
