@@ -154,7 +154,7 @@ namespace Planetoid_DB
 			ToolStripMenuItemCopyToClipboard.Size = new Size(213, 22);
 			ToolStripMenuItemCopyToClipboard.Text = "&Copy to clipboard";
 			ToolStripMenuItemCopyToClipboard.Click += CopyToClipboard_DoubleClick;
-			ToolStripMenuItemCopyToClipboard.MouseEnter += CopyToClipboard_DoubleClick;
+			ToolStripMenuItemCopyToClipboard.MouseEnter += Control_Enter;
 			ToolStripMenuItemCopyToClipboard.MouseLeave += Control_Leave;
 			// 
 			// labelSizeText
