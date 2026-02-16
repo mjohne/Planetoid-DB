@@ -36,7 +36,6 @@ namespace Planetoid_DB
 		{
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(DatabaseInformationForm));
-			toolTip = new KryptonToolTip(components);
 			labelName = new KryptonLabel();
 			labelDirectory = new KryptonLabel();
 			labelSize = new KryptonLabel();
@@ -78,7 +77,9 @@ namespace Planetoid_DB
 			labelName.Name = "labelName";
 			labelName.Size = new Size(102, 20);
 			labelName.TabIndex = 0;
-			toolTip.SetToolTip(labelName, "Name");
+			labelName.ToolTipValues.Description = "Shows the name of the database";
+			labelName.ToolTipValues.EnableToolTips = true;
+			labelName.ToolTipValues.Heading = "Name";
 			labelName.Values.Text = "Name";
 			labelName.DoubleClick += CopyToClipboard_DoubleClick;
 			labelName.Enter += Control_Enter;
@@ -98,7 +99,9 @@ namespace Planetoid_DB
 			labelDirectory.Name = "labelDirectory";
 			labelDirectory.Size = new Size(102, 20);
 			labelDirectory.TabIndex = 2;
-			toolTip.SetToolTip(labelDirectory, "Directory");
+			labelDirectory.ToolTipValues.Description = "Shows the directory of the database";
+			labelDirectory.ToolTipValues.EnableToolTips = true;
+			labelDirectory.ToolTipValues.Heading = "Directory";
 			labelDirectory.Values.Text = "Directory";
 			labelDirectory.DoubleClick += CopyToClipboard_DoubleClick;
 			labelDirectory.Enter += Control_Enter;
@@ -118,7 +121,9 @@ namespace Planetoid_DB
 			labelSize.Name = "labelSize";
 			labelSize.Size = new Size(102, 20);
 			labelSize.TabIndex = 4;
-			toolTip.SetToolTip(labelSize, "Size");
+			labelSize.ToolTipValues.Description = "Shows the size of the database";
+			labelSize.ToolTipValues.EnableToolTips = true;
+			labelSize.ToolTipValues.Heading = "Size";
 			labelSize.Values.Text = "Size";
 			labelSize.DoubleClick += CopyToClipboard_DoubleClick;
 			labelSize.Enter += Control_Enter;
@@ -138,7 +143,9 @@ namespace Planetoid_DB
 			labelDateCreated.Name = "labelDateCreated";
 			labelDateCreated.Size = new Size(102, 20);
 			labelDateCreated.TabIndex = 6;
-			toolTip.SetToolTip(labelDateCreated, "Creation date");
+			labelDateCreated.ToolTipValues.Description = "Shows the creation date of the database";
+			labelDateCreated.ToolTipValues.EnableToolTips = true;
+			labelDateCreated.ToolTipValues.Heading = "Creation date";
 			labelDateCreated.Values.Text = "Creation date";
 			labelDateCreated.DoubleClick += CopyToClipboard_DoubleClick;
 			labelDateCreated.Enter += Control_Enter;
@@ -158,7 +165,9 @@ namespace Planetoid_DB
 			labelDateAccessed.Name = "labelDateAccessed";
 			labelDateAccessed.Size = new Size(102, 20);
 			labelDateAccessed.TabIndex = 8;
-			toolTip.SetToolTip(labelDateAccessed, "Last access date");
+			labelDateAccessed.ToolTipValues.Description = "Shows the last access date of the database";
+			labelDateAccessed.ToolTipValues.EnableToolTips = true;
+			labelDateAccessed.ToolTipValues.Heading = "Last access date";
 			labelDateAccessed.Values.Text = "Last access date";
 			labelDateAccessed.DoubleClick += CopyToClipboard_DoubleClick;
 			labelDateAccessed.Enter += Control_Enter;
@@ -178,7 +187,9 @@ namespace Planetoid_DB
 			labelDateWrited.Name = "labelDateWrited";
 			labelDateWrited.Size = new Size(102, 20);
 			labelDateWrited.TabIndex = 10;
-			toolTip.SetToolTip(labelDateWrited, "Last write date");
+			labelDateWrited.ToolTipValues.Description = "Shows the last write date of the database";
+			labelDateWrited.ToolTipValues.EnableToolTips = true;
+			labelDateWrited.ToolTipValues.Heading = "Last write date";
 			labelDateWrited.Values.Text = "Last write date";
 			labelDateWrited.DoubleClick += CopyToClipboard_DoubleClick;
 			labelDateWrited.Enter += Control_Enter;
@@ -198,7 +209,9 @@ namespace Planetoid_DB
 			labelAttributes.Name = "labelAttributes";
 			labelAttributes.Size = new Size(102, 25);
 			labelAttributes.TabIndex = 12;
-			toolTip.SetToolTip(labelAttributes, "Attributes");
+			labelAttributes.ToolTipValues.Description = "Shows the attributes of the database";
+			labelAttributes.ToolTipValues.EnableToolTips = true;
+			labelAttributes.ToolTipValues.Heading = "Attributes";
 			labelAttributes.Values.Text = "Attributes";
 			labelAttributes.DoubleClick += CopyToClipboard_DoubleClick;
 			labelAttributes.Enter += Control_Enter;
@@ -218,7 +231,9 @@ namespace Planetoid_DB
 			labelNameValue.Name = "labelNameValue";
 			labelNameValue.Size = new Size(252, 20);
 			labelNameValue.TabIndex = 1;
-			toolTip.SetToolTip(labelNameValue, "Shows the name of the database");
+			labelNameValue.ToolTipValues.Description = "Shows the name of the database";
+			labelNameValue.ToolTipValues.EnableToolTips = true;
+			labelNameValue.ToolTipValues.Heading = "Name value";
 			labelNameValue.Values.Text = "..........";
 			labelNameValue.DoubleClick += CopyToClipboard_DoubleClick;
 			labelNameValue.Enter += Control_Enter;
@@ -239,7 +254,6 @@ namespace Planetoid_DB
 			contextMenuCopyToClipboard.Size = new Size(214, 26);
 			contextMenuCopyToClipboard.TabStop = true;
 			contextMenuCopyToClipboard.Text = "ContextMenu";
-			toolTip.SetToolTip(contextMenuCopyToClipboard, "Context Menu for copying to clipboard");
 			contextMenuCopyToClipboard.MouseEnter += Control_Enter;
 			contextMenuCopyToClipboard.MouseLeave += Control_Leave;
 			// 
@@ -271,7 +285,9 @@ namespace Planetoid_DB
 			labelDirectoryValue.Name = "labelDirectoryValue";
 			labelDirectoryValue.Size = new Size(252, 20);
 			labelDirectoryValue.TabIndex = 3;
-			toolTip.SetToolTip(labelDirectoryValue, "Shows the directory of the database");
+			labelDirectoryValue.ToolTipValues.Description = "Shows the directory of the database";
+			labelDirectoryValue.ToolTipValues.EnableToolTips = true;
+			labelDirectoryValue.ToolTipValues.Heading = "Directory value";
 			labelDirectoryValue.Values.Text = "..........";
 			labelDirectoryValue.DoubleClick += CopyToClipboard_DoubleClick;
 			labelDirectoryValue.Enter += Control_Enter;
@@ -283,7 +299,7 @@ namespace Planetoid_DB
 			// labelSizeValue
 			// 
 			labelSizeValue.AccessibleDescription = "Shows the size of the database";
-			labelSizeValue.AccessibleName = "size value";
+			labelSizeValue.AccessibleName = "Size value";
 			labelSizeValue.AccessibleRole = AccessibleRole.Text;
 			labelSizeValue.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelSizeValue.Dock = DockStyle.Fill;
@@ -292,7 +308,9 @@ namespace Planetoid_DB
 			labelSizeValue.Name = "labelSizeValue";
 			labelSizeValue.Size = new Size(252, 20);
 			labelSizeValue.TabIndex = 5;
-			toolTip.SetToolTip(labelSizeValue, "Shows the size of the database");
+			labelSizeValue.ToolTipValues.Description = "Shows the size of the database";
+			labelSizeValue.ToolTipValues.EnableToolTips = true;
+			labelSizeValue.ToolTipValues.Heading = "Size value";
 			labelSizeValue.Values.Text = "..........";
 			labelSizeValue.DoubleClick += CopyToClipboard_DoubleClick;
 			labelSizeValue.Enter += Control_Enter;
@@ -313,7 +331,9 @@ namespace Planetoid_DB
 			labelDateCreatedValue.Name = "labelDateCreatedValue";
 			labelDateCreatedValue.Size = new Size(252, 20);
 			labelDateCreatedValue.TabIndex = 7;
-			toolTip.SetToolTip(labelDateCreatedValue, "Shows the creation date of the database");
+			labelDateCreatedValue.ToolTipValues.Description = "Shows the creation date of the database";
+			labelDateCreatedValue.ToolTipValues.EnableToolTips = true;
+			labelDateCreatedValue.ToolTipValues.Heading = "Creation date value";
 			labelDateCreatedValue.Values.Text = "..........";
 			labelDateCreatedValue.DoubleClick += CopyToClipboard_DoubleClick;
 			labelDateCreatedValue.Enter += Control_Enter;
@@ -334,7 +354,9 @@ namespace Planetoid_DB
 			labelDateAccessedValue.Name = "labelDateAccessedValue";
 			labelDateAccessedValue.Size = new Size(252, 20);
 			labelDateAccessedValue.TabIndex = 9;
-			toolTip.SetToolTip(labelDateAccessedValue, "Shows the last access date of the database");
+			labelDateAccessedValue.ToolTipValues.Description = "Shows the last access date of the database";
+			labelDateAccessedValue.ToolTipValues.EnableToolTips = true;
+			labelDateAccessedValue.ToolTipValues.Heading = "Last access date value";
 			labelDateAccessedValue.Values.Text = "..........";
 			labelDateAccessedValue.DoubleClick += CopyToClipboard_DoubleClick;
 			labelDateAccessedValue.Enter += Control_Enter;
@@ -355,7 +377,9 @@ namespace Planetoid_DB
 			labelDateWritedValue.Name = "labelDateWritedValue";
 			labelDateWritedValue.Size = new Size(252, 20);
 			labelDateWritedValue.TabIndex = 11;
-			toolTip.SetToolTip(labelDateWritedValue, "Shows the last write date of the database");
+			labelDateWritedValue.ToolTipValues.Description = "Shows the last write date of the database";
+			labelDateWritedValue.ToolTipValues.EnableToolTips = true;
+			labelDateWritedValue.ToolTipValues.Heading = "Last write date value";
 			labelDateWritedValue.Values.Text = "..........";
 			labelDateWritedValue.DoubleClick += CopyToClipboard_DoubleClick;
 			labelDateWritedValue.Enter += Control_Enter;
@@ -403,7 +427,6 @@ namespace Planetoid_DB
 			tableLayoutPanel.Size = new Size(370, 187);
 			tableLayoutPanel.TabIndex = 0;
 			tableLayoutPanel.TabStop = true;
-			toolTip.SetToolTip(tableLayoutPanel, "Groups the information");
 			// 
 			// labelAttributesValue
 			// 
@@ -417,8 +440,9 @@ namespace Planetoid_DB
 			labelAttributesValue.Name = "labelAttributesValue";
 			labelAttributesValue.Size = new Size(252, 25);
 			labelAttributesValue.TabIndex = 13;
-			toolTip.SetToolTip(labelAttributesValue, "Shows the attributes of the database");
-			labelAttributesValue.ToolTipValues.Description = "";
+			labelAttributesValue.ToolTipValues.Description = "Shows the attributes of the database";
+			labelAttributesValue.ToolTipValues.EnableToolTips = true;
+			labelAttributesValue.ToolTipValues.Heading = "Attributes value";
 			labelAttributesValue.Values.Text = "..........";
 			labelAttributesValue.DoubleClick += CopyToClipboard_DoubleClick;
 			labelAttributesValue.Enter += Control_Enter;
@@ -449,7 +473,6 @@ namespace Planetoid_DB
 			toolStripContainer.Size = new Size(370, 209);
 			toolStripContainer.TabIndex = 3;
 			toolStripContainer.Text = "toolStripContainer";
-			toolTip.SetToolTip(toolStripContainer, "Container to arrange the toolbars");
 			toolStripContainer.TopToolStripPanelVisible = false;
 			// 
 			// statusStrip
@@ -506,7 +529,6 @@ namespace Planetoid_DB
 			ShowInTaskbar = false;
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Database information";
-			toolTip.SetToolTip(this, "Database Information");
 			Load += DatabaseInformationForm_Load;
 			contextMenuCopyToClipboard.ResumeLayout(false);
 			tableLayoutPanel.ResumeLayout(false);
@@ -523,8 +545,7 @@ namespace Planetoid_DB
 		}
 
 		#endregion
-		private KryptonToolTip toolTip;
-    private KryptonTableLayoutPanel tableLayoutPanel;
+		private KryptonTableLayoutPanel tableLayoutPanel;
     private KryptonLabel labelName;
     private KryptonLabel labelDirectory;
     private KryptonLabel labelSize;
