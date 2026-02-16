@@ -36,7 +36,7 @@ namespace Planetoid_DB
 		{
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(CheckMpcorbDatForm));
-			toolTip = new ToolTip(components);
+			toolTip = new KryptonToolTip(components);
 			labelUpdateNeeded = new KryptonLabel();
 			labelMpcorbDatLocal = new KryptonLabel();
 			labelMpcorbDatOnline = new KryptonLabel();
@@ -404,7 +404,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		private ToolTip toolTip;
+		private KryptonToolTip toolTip;
 		private KryptonTableLayoutPanel tableLayoutPanel;
 		private KryptonLabel labelUpdateNeeded;
 		private KryptonLabel labelMpcorbDatLocal;

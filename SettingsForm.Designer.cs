@@ -37,7 +37,7 @@ namespace Planetoid_DB
 		{
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(SettingsForm));
-			toolTip = new ToolTip(components);
+			toolTip = new KryptonToolTip(components);
 			tabControlSettings = new TabControl();
 			tabPageGeneral = new TabPage();
 			checkBox10 = new KryptonCheckBox();
@@ -537,7 +537,7 @@ namespace Planetoid_DB
 		}
 
 		#endregion
-		private ToolTip toolTip;
+		private KryptonToolTip toolTip;
         private TabControl tabControlSettings;
         private TabPage tabPageNavigator;
         private TabPage tabPageUpdate;

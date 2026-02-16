@@ -35,7 +35,7 @@ namespace Planetoid_DB
 		{
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(TerminologyForm));
-			toolTip = new ToolTip(components);
+			toolTip = new KryptonToolTip(components);
 			toolStripContainer = new ToolStripContainer();
 			statusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
@@ -209,7 +209,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		private ToolTip toolTip;
+		private KryptonToolTip toolTip;
 		private KryptonStatusStrip statusStrip;
 		private ToolStripStatusLabel labelInformation;
 		private ToolStripContainer toolStripContainer;

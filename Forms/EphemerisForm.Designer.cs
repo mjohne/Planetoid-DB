@@ -49,7 +49,7 @@ namespace Planetoid_DB
 			dateTimePickerEphemeridesEnd = new KryptonDateTimePicker();
 			labelEphemeridesBegin = new KryptonLabel();
 			dateTimePickerEphemeridesBegin = new KryptonDateTimePicker();
-			toolTip = new ToolTip(components);
+			toolTip = new KryptonToolTip(components);
 			backgroundWorker = new BackgroundWorker();
 			kryptonManager = new KryptonManager(components);
 			statusStrip.SuspendLayout();
@@ -360,7 +360,7 @@ namespace Planetoid_DB
 		private ToolStripContainer toolStripContainer;
 		private KryptonPanel panel;
 		private KryptonDateTimePicker dateTimePickerEphemeridesBegin;
-		private ToolTip toolTip;
+		private KryptonToolTip toolTip;
 		private BackgroundWorker backgroundWorker;
 		private KryptonLabel labelEphemeridesEnd;
 		private KryptonDateTimePicker dateTimePickerEphemeridesEnd;

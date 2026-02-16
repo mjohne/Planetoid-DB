@@ -35,7 +35,7 @@ namespace Planetoid_DB
 		{
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(TableModeForm));
-			toolTip = new ToolTip(components);
+			toolTip = new KryptonToolTip(components);
 			progressBar = new KryptonProgressBar();
 			labelMinimum = new KryptonLabel();
 			numericUpDownMinimum = new KryptonNumericUpDown();
@@ -501,7 +501,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		private ToolTip toolTip;
+		private KryptonToolTip toolTip;
     private ListView listView;
     private ColumnHeader columnHeaderIndex;
     private ColumnHeader columnHeaderReadableDesignation;

@@ -35,7 +35,7 @@ namespace Planetoid_DB
 		{
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(DerivedOrbitElementsForm));
-			toolTip = new ToolTip(components);
+			toolTip = new KryptonToolTip(components);
 			labelLinearEccentricityDesc = new KryptonLabel();
 			contextMenuOpenTerminology = new ContextMenuStrip(components);
 			toolStripMenuItemOpenTerminology = new ToolStripMenuItem();
@@ -1522,7 +1522,7 @@ namespace Planetoid_DB
 		}
 
 		#endregion
-		private ToolTip toolTip;
+		private KryptonToolTip toolTip;
 		private KryptonTableLayoutPanel tableLayoutPanel;
 		private KryptonLabel labelLinearEccentricityData;
 		private KryptonLabel labelLinearEccentricityDesc;

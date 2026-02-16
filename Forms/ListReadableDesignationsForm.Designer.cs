@@ -37,7 +37,7 @@ namespace Planetoid_DB
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(ListReadableDesignationsForm));
 			statusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
-			toolTip = new ToolTip(components);
+			toolTip = new KryptonToolTip(components);
 			buttonList = new KryptonButton();
 			contextMenuCopyToClipboard = new ContextMenuStrip(components);
 			ToolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
@@ -627,7 +627,7 @@ namespace Planetoid_DB
 
 		private KryptonStatusStrip statusStrip;
 		private ToolStripStatusLabel labelInformation;
-		private ToolTip toolTip;
+		private KryptonToolTip toolTip;
 		private KryptonPanel panel;
 		private ListView listView;
 		private ColumnHeader columnHeaderIndex;

@@ -44,7 +44,7 @@ namespace Planetoid_DB
 			buttonCheckForUpdate = new KryptonButton();
 			labelDateValue = new KryptonLabel();
 			labelSizeValue = new KryptonLabel();
-			toolTip = new ToolTip(components);
+			toolTip = new KryptonToolTip(components);
 			labelStatusText = new KryptonLabel();
 			labelDateText = new KryptonLabel();
 			labelSourceText = new KryptonLabel();
@@ -508,7 +508,7 @@ namespace Planetoid_DB
 		private KryptonButton buttonCheckForUpdate;
 		private KryptonLabel labelDateValue;
 		private KryptonLabel labelSizeValue;
-		private ToolTip toolTip;
+		private KryptonToolTip toolTip;
 		private KryptonLabel labelStatusText;
 		private KryptonLabel labelDateText;
 		private KryptonLabel labelSourceText;

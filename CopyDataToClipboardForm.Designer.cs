@@ -39,7 +39,7 @@ namespace Planetoid_DB
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(CopyDataToClipboardForm));
 			buttonIndexNumber = new KryptonButton();
-			toolTip = new ToolTip(components);
+			toolTip = new KryptonToolTip(components);
 			buttonReadableDesignation = new KryptonButton();
 			buttonEpoch = new KryptonButton();
 			buttonMeanAnomaly = new KryptonButton();
@@ -597,7 +597,7 @@ namespace Planetoid_DB
 		#endregion
 
 		private KryptonButton buttonIndexNumber;
-		private ToolTip toolTip;
+		private KryptonToolTip toolTip;
 		private KryptonButton buttonReadableDesignation;
 		private KryptonPanel panel;
 		private KryptonButton buttonArgumentOfPerihelion;

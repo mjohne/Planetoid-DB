@@ -39,7 +39,7 @@ namespace Planetoid_DB
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(CopyDerivedDataToClipboardForm));
 			buttonLinearEccentricity = new KryptonButton();
-			toolTip = new ToolTip(components);
+			toolTip = new KryptonToolTip(components);
 			buttonSemiMinorAxis = new KryptonButton();
 			buttonMajorAxis = new KryptonButton();
 			buttonMinorAxis = new KryptonButton();
@@ -575,7 +575,7 @@ namespace Planetoid_DB
 		#endregion
 
 		private KryptonButton buttonLinearEccentricity;
-		private ToolTip toolTip;
+		private KryptonToolTip toolTip;
 		private KryptonButton buttonSemiMinorAxis;
 		private KryptonPanel panel;
 		private KryptonButton buttonEccentricAnomaly;

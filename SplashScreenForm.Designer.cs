@@ -38,7 +38,7 @@ namespace Planetoid_DB
 			contextMenuStripCopyToClipboard = new ContextMenuStrip(components);
 			ToolStripMenuItemCpyToClipboard = new ToolStripMenuItem();
 			labelVersion = new Label();
-			toolTip = new ToolTip(components);
+			toolTip = new KryptonToolTip(components);
 			kryptonManager = new KryptonManager(components);
 			contextMenuStripCopyToClipboard.SuspendLayout();
 			SuspendLayout();
@@ -172,7 +172,7 @@ namespace Planetoid_DB
 		private KryptonProgressBar progressBarSplash;
     private Label labelTitle;
     private Label labelVersion;
-		private ToolTip toolTip;
+		private KryptonToolTip toolTip;
 		private KryptonManager kryptonManager;
 		private ContextMenuStrip contextMenuStripCopyToClipboard;
 		private ToolStripMenuItem ToolStripMenuItemCpyToClipboard;

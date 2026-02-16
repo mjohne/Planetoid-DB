@@ -43,7 +43,7 @@ namespace Planetoid_DB
 			ToolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
 			labelTitle = new KryptonLabel();
 			labelDescription = new KryptonLabel();
-			toolTip = new ToolTip(components);
+			toolTip = new KryptonToolTip(components);
 			pictureBoxBanner = new PictureBox();
 			labelCopyright = new KryptonLabel();
 			linkLabelEmail = new KryptonLinkLabel();
@@ -325,7 +325,7 @@ namespace Planetoid_DB
     private KryptonLabel labelVersion;
     private KryptonLabel labelTitle;
     private KryptonLabel labelDescription;
-    private ToolTip toolTip;
+    private KryptonToolTip toolTip;
 		private KryptonLabel labelCopyright;
         private KryptonPanel panel;
 		private KryptonStatusStrip statusStrip;

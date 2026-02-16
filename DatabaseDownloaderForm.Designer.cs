@@ -1,3 +1,5 @@
+using Krypton.Toolkit;
+
 namespace Planetoid_DB
 {
     partial class DatabaseDownloaderForm
@@ -23,7 +25,7 @@ namespace Planetoid_DB
 			components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DatabaseDownloaderForm));
 			kryptonManager = new Krypton.Toolkit.KryptonManager(components);
-			toolTip = new ToolTip(components);
+			toolTip = new KryptonToolTip(components);
 			tableLayoutPanel = new Krypton.Toolkit.KryptonTableLayoutPanel();
 			labelStatusText = new Krypton.Toolkit.KryptonLabel();
 			labelSizeValue = new Krypton.Toolkit.KryptonLabel();
@@ -400,7 +402,7 @@ namespace Planetoid_DB
 			PerformLayout();
 		}
 		private Krypton.Toolkit.KryptonManager kryptonManager;
-		private ToolTip toolTip;
+		private KryptonToolTip toolTip;
 		private Krypton.Toolkit.KryptonStatusStrip statusStrip;
 		private ToolStripStatusLabel labelInformation;
 		private Krypton.Toolkit.KryptonPanel panel;

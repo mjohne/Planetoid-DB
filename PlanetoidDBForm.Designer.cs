@@ -95,7 +95,7 @@ namespace Planetoid_DB
 			labelComputerNameDesc = new KryptonLabel();
 			labelFlagsDesc = new KryptonLabel();
 			labelDateLastObservationDesc = new KryptonLabel();
-			toolTip = new ToolTip(components);
+			toolTip = new KryptonToolTip(components);
 			contextMenuTopTenRecords = new ContextMenuStrip(components);
 			menuitemRecordsSortDirection = new ToolStripMenuItem();
 			menuitemRecordsSortDirectionAscending = new ToolStripMenuItem();
@@ -3784,7 +3784,7 @@ namespace Planetoid_DB
 		}
 
 		#endregion
-		private ToolTip toolTip;
+		private KryptonToolTip toolTip;
     private KryptonStatusStrip statusBar;
     private ContextMenuStrip contextMenuNavigationStep;
     private ToolStripMenuItem menuitemNavigateStep10;

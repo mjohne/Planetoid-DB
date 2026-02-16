@@ -36,7 +36,7 @@ namespace Planetoid_DB
 		{
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(DatabaseInformationForm));
-			toolTip = new ToolTip(components);
+			toolTip = new KryptonToolTip(components);
 			labelName = new KryptonLabel();
 			labelDirectory = new KryptonLabel();
 			labelSize = new KryptonLabel();
@@ -523,7 +523,7 @@ namespace Planetoid_DB
 		}
 
 		#endregion
-		private ToolTip toolTip;
+		private KryptonToolTip toolTip;
     private KryptonTableLayoutPanel tableLayoutPanel;
     private KryptonLabel labelName;
     private KryptonLabel labelDirectory;
