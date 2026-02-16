@@ -56,7 +56,7 @@ namespace Planetoid_DB
 			buttonArgumentOfPerihelion = new KryptonButton();
 			buttonLongitudeOfTheAscendingNode = new KryptonButton();
 			buttonMeanAnomaly = new KryptonButton();
-			toolTip = new ToolTip(components);
+			toolTip = new KryptonToolTip(components);
 			kryptonManager = new KryptonManager(components);
 			((ISupportInitialize)panel).BeginInit();
 			panel.SuspendLayout();
@@ -523,7 +523,7 @@ namespace Planetoid_DB
 		private KryptonCheckButton checkButtonRecordSortDirectionDescending;
 		private KryptonStatusStrip statusStrip;
 		private ToolStripStatusLabel labelInformation;
-		private ToolTip toolTip;
+		private KryptonToolTip toolTip;
 		private KryptonManager kryptonManager;
 	}
 }

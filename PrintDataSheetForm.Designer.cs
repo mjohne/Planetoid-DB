@@ -36,7 +36,7 @@ namespace Planetoid_DB
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(PrintDataSheetForm));
 			checkedListBoxOrbitalElements = new KryptonCheckedListBox();
-			toolTip = new ToolTip(components);
+			toolTip = new KryptonToolTip(components);
 			buttonPrintDataSheet = new KryptonButton();
 			buttonCancelPrint = new KryptonButton();
 			panel = new KryptonPanel();
@@ -196,7 +196,7 @@ namespace Planetoid_DB
 		#endregion
 
 		private KryptonCheckedListBox checkedListBoxOrbitalElements;
-        private ToolTip toolTip;
+        private KryptonToolTip toolTip;
         private KryptonButton buttonPrintDataSheet;
         private KryptonButton buttonCancelPrint;
         private KryptonPanel panel;

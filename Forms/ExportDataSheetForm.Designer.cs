@@ -41,7 +41,7 @@ namespace Planetoid_DB
 			buttonExportAsHtml = new KryptonButton();
 			statusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
-			toolTip = new ToolTip(components);
+			toolTip = new KryptonToolTip(components);
 			buttonUnmarkAll = new KryptonButton();
 			buttonMarkAll = new KryptonButton();
 			toolStripContainer = new ToolStripContainer();
@@ -348,7 +348,7 @@ namespace Planetoid_DB
 		private KryptonButton buttonExportAsJson;
 		private KryptonStatusStrip statusStrip;
 		private ToolStripStatusLabel labelInformation;
-		private ToolTip toolTip;
+		private KryptonToolTip toolTip;
 		private SaveFileDialog saveFileDialogTxt;
 		private SaveFileDialog saveFileDialogHtml;
 		private SaveFileDialog saveFileDialogXml;

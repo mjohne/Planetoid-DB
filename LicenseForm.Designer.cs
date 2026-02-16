@@ -43,7 +43,7 @@ namespace Planetoid_DB
 			kryptonTextBoxLicense = new KryptonTextBox();
 			statusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
-			toolTip = new ToolTip(components);
+			toolTip = new KryptonToolTip(components);
 			saveFileDialog = new SaveFileDialog();
 			kryptonManager = new KryptonManager(components);
 			((ISupportInitialize)panel).BeginInit();
@@ -237,7 +237,7 @@ namespace Planetoid_DB
 		private KryptonPanel panel;
 		private KryptonStatusStrip statusStrip;
 		private ToolStripStatusLabel labelInformation;
-		private ToolTip toolTip;
+		private KryptonToolTip toolTip;
 		private KryptonTextBox kryptonTextBoxLicense;
 		private KryptonPictureBox kryptonPictureBoxLicenseLogo;
 		private KryptonButton kryptonButtonClose;

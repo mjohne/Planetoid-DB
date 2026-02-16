@@ -66,7 +66,7 @@ namespace Planetoid_DB
 			labelDate1stMpcorbDatFileDatabase = new KryptonLabel();
 			labelPath1stMpcorbDatFileDatabaseValue = new KryptonLabel();
 			labelSize1stMpcorbDatFileDatabase = new KryptonLabel();
-			toolTip = new ToolTip(components);
+			toolTip = new KryptonToolTip(components);
 			backgroundWorker = new BackgroundWorker();
 			openFileDialog1stMpcorbDatFileDatabase = new OpenFileDialog();
 			openFileDialog2ndMpcorbDatFileDatabase = new OpenFileDialog();
@@ -802,7 +802,7 @@ namespace Planetoid_DB
 		private ToolStripStatusLabel labelInformation;
 		private ToolStripContainer toolStripContainer;
 		private KryptonPanel panel;
-		private ToolTip toolTip;
+		private KryptonToolTip toolTip;
 		private BackgroundWorker backgroundWorker;
 		private KryptonProgressBar progressBar;
 		private KryptonButton buttonOpen1stMpcorbDatFileDatabase;

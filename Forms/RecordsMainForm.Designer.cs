@@ -89,7 +89,7 @@ namespace Planetoid_DB
 			progressBar = new KryptonProgressBar();
 			statusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
-			toolTip = new ToolTip(components);
+			toolTip = new KryptonToolTip(components);
 			kryptonManager = new KryptonManager(components);
 			((ISupportInitialize)panel).BeginInit();
 			panel.SuspendLayout();
@@ -1302,7 +1302,7 @@ namespace Planetoid_DB
 		private KryptonButton buttonExportAsHtml;
 		private KryptonStatusStrip statusStrip;
 		private ToolStripStatusLabel labelInformation;
-		private ToolTip toolTip;
+		private KryptonToolTip toolTip;
 		private KryptonManager kryptonManager;
 	}
 }

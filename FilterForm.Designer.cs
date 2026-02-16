@@ -95,7 +95,7 @@ namespace Planetoid_DB
 			buttonResetInclination = new KryptonButton();
 			buttonResetOrbitalEccentricity = new KryptonButton();
 			labelHeaderElement = new KryptonLabel();
-			toolTip = new ToolTip(components);
+			toolTip = new KryptonToolTip(components);
 			kryptonManager = new KryptonManager(components);
 			((ISupportInitialize)panel).BeginInit();
 			panel.SuspendLayout();
@@ -1562,7 +1562,7 @@ namespace Planetoid_DB
 		private KryptonButton buttonCancel;
 		private KryptonStatusStrip statusStrip;
 		private ToolStripStatusLabel labelInformation;
-		private ToolTip toolTip;
+		private KryptonToolTip toolTip;
 		private KryptonManager kryptonManager;
 	}
 }

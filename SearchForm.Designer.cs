@@ -54,7 +54,7 @@ namespace Planetoid_DB
 			buttonUnmarkAll = new KryptonButton();
 			buttonMarkAll = new KryptonButton();
 			buttonSearch = new KryptonButton();
-			toolTip = new ToolTip(components);
+			toolTip = new KryptonToolTip(components);
 			backgroundWorker = new BackgroundWorker();
 			kryptonManager = new KryptonManager(components);
 			((ISupportInitialize)panel).BeginInit();
@@ -440,7 +440,7 @@ namespace Planetoid_DB
 		private KryptonProgressBar progressBar;
 		private KryptonStatusStrip statusStrip;
 		private ToolStripStatusLabel labelInformation;
-		private ToolTip toolTip;
+		private KryptonToolTip toolTip;
 		private BackgroundWorker backgroundWorker;
 		private KryptonButton buttonCancel;
 		private ListView listView;

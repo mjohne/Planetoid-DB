@@ -35,7 +35,7 @@ namespace Planetoid_DB
 		{
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(PreloadForm));
-			toolTip = new ToolTip(components);
+			toolTip = new KryptonToolTip(components);
 			kryptonCommandLinkButtonExit = new KryptonCommandLinkButton();
 			kryptonCommandLinkButtonLoadInternalDemoData = new KryptonCommandLinkButton();
 			kryptonCommandLinkButtonDownloadMprcorbDat = new KryptonCommandLinkButton();
@@ -240,7 +240,7 @@ namespace Planetoid_DB
 
 		#endregion
 
-		private ToolTip toolTip;
+		private KryptonToolTip toolTip;
 		private KryptonStatusStrip statusStrip;
 		private ToolStripStatusLabel labelInformation;
 		private KryptonPanel panel;
