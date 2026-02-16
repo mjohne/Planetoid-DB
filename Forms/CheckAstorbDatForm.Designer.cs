@@ -36,7 +36,6 @@ namespace Planetoid_DB
 		{
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(CheckAstorbDatForm));
-			toolTip = new KryptonToolTip(components);
 			labelUpdateNeeded = new KryptonLabel();
 			labelAstorbDatLocal = new KryptonLabel();
 			labelAstorbDatOnline = new KryptonLabel();
@@ -74,7 +73,9 @@ namespace Planetoid_DB
 			labelUpdateNeeded.Name = "labelUpdateNeeded";
 			labelUpdateNeeded.Size = new Size(365, 29);
 			labelUpdateNeeded.TabIndex = 8;
-			toolTip.SetToolTip(labelUpdateNeeded, "Informs if an update is recommended");
+			labelUpdateNeeded.ToolTipValues.Description = "Informs if an update is recommended";
+			labelUpdateNeeded.ToolTipValues.EnableToolTips = true;
+			labelUpdateNeeded.ToolTipValues.Heading = "Update text";
 			labelUpdateNeeded.Values.Image = FatcowIcons16px.fatcow_help_16px;
 			labelUpdateNeeded.Values.Text = "Update needed?";
 			labelUpdateNeeded.DoubleClick += LabelUpdateNeeded_DoubleClick;
@@ -95,7 +96,9 @@ namespace Planetoid_DB
 			labelAstorbDatLocal.Name = "labelAstorbDatLocal";
 			labelAstorbDatLocal.Size = new Size(118, 20);
 			labelAstorbDatLocal.TabIndex = 0;
-			toolTip.SetToolTip(labelAstorbDatLocal, "Information about the local ASTORB.DAT file");
+			labelAstorbDatLocal.ToolTipValues.Description = "Information about the local ASTORB.DAT file";
+			labelAstorbDatLocal.ToolTipValues.EnableToolTips = true;
+			labelAstorbDatLocal.ToolTipValues.Heading = "Local ASTORB.DAT file";
 			labelAstorbDatLocal.Values.Text = "ASTORB.DAT local";
 			labelAstorbDatLocal.Enter += Control_Enter;
 			labelAstorbDatLocal.Leave += Control_Leave;
@@ -114,7 +117,9 @@ namespace Planetoid_DB
 			labelAstorbDatOnline.Name = "labelAstorbDatOnline";
 			labelAstorbDatOnline.Size = new Size(130, 20);
 			labelAstorbDatOnline.TabIndex = 1;
-			toolTip.SetToolTip(labelAstorbDatOnline, "Information about the online ASTORB.DAT file");
+			labelAstorbDatOnline.ToolTipValues.Description = "Information about the online ASTORB.DAT file";
+			labelAstorbDatOnline.ToolTipValues.EnableToolTips = true;
+			labelAstorbDatOnline.ToolTipValues.Heading = "Online ASTORB.DAT file";
 			labelAstorbDatOnline.Values.Text = "ASTORB.DAT online";
 			labelAstorbDatOnline.Enter += Control_Enter;
 			labelAstorbDatOnline.Leave += Control_Leave;
@@ -132,7 +137,9 @@ namespace Planetoid_DB
 			labelContentLengthText.Name = "labelContentLengthText";
 			labelContentLengthText.Size = new Size(101, 20);
 			labelContentLengthText.TabIndex = 2;
-			toolTip.SetToolTip(labelContentLengthText, "Shows the content length");
+			labelContentLengthText.ToolTipValues.Description = "Shows the content length";
+			labelContentLengthText.ToolTipValues.EnableToolTips = true;
+			labelContentLengthText.ToolTipValues.Heading = "Content length";
 			labelContentLengthText.Values.Text = "Content length:";
 			labelContentLengthText.Enter += Control_Enter;
 			labelContentLengthText.Leave += Control_Leave;
@@ -151,7 +158,9 @@ namespace Planetoid_DB
 			labelModifiedDateText.Name = "labelModifiedDateText";
 			labelModifiedDateText.Size = new Size(96, 20);
 			labelModifiedDateText.TabIndex = 5;
-			toolTip.SetToolTip(labelModifiedDateText, "Shows the modified date");
+			labelModifiedDateText.ToolTipValues.Description = "Shows the modified date";
+			labelModifiedDateText.ToolTipValues.EnableToolTips = true;
+			labelModifiedDateText.ToolTipValues.Heading = "Modified date";
 			labelModifiedDateText.Values.Text = "Modified date:";
 			labelModifiedDateText.Enter += Control_Enter;
 			labelModifiedDateText.Leave += Control_Leave;
@@ -170,7 +179,9 @@ namespace Planetoid_DB
 			labelContentLengthValueLocal.Name = "labelContentLengthValueLocal";
 			labelContentLengthValueLocal.Size = new Size(118, 20);
 			labelContentLengthValueLocal.TabIndex = 3;
-			toolTip.SetToolTip(labelContentLengthValueLocal, "Shows the local content length");
+			labelContentLengthValueLocal.ToolTipValues.Description = "Shows the local content length";
+			labelContentLengthValueLocal.ToolTipValues.EnableToolTips = true;
+			labelContentLengthValueLocal.ToolTipValues.Heading = "Local content length";
 			labelContentLengthValueLocal.Values.Text = "123456789 bytes";
 			labelContentLengthValueLocal.DoubleClick += CopyToClipboard_DoubleClick;
 			labelContentLengthValueLocal.Enter += Control_Enter;
@@ -191,7 +202,6 @@ namespace Planetoid_DB
 			contextMenuCopyToClipboard.Size = new Size(214, 26);
 			contextMenuCopyToClipboard.TabStop = true;
 			contextMenuCopyToClipboard.Text = "ContextMenu";
-			toolTip.SetToolTip(contextMenuCopyToClipboard, "Context menu for copying to clipboard");
 			contextMenuCopyToClipboard.MouseEnter += Control_Enter;
 			contextMenuCopyToClipboard.MouseLeave += Control_Leave;
 			// 
@@ -223,7 +233,9 @@ namespace Planetoid_DB
 			labelModifiedDateValueLocal.Name = "labelModifiedDateValueLocal";
 			labelModifiedDateValueLocal.Size = new Size(118, 20);
 			labelModifiedDateValueLocal.TabIndex = 6;
-			toolTip.SetToolTip(labelModifiedDateValueLocal, "Shows the local modified date");
+			labelModifiedDateValueLocal.ToolTipValues.Description = "Shows the local modified date";
+			labelModifiedDateValueLocal.ToolTipValues.EnableToolTips = true;
+			labelModifiedDateValueLocal.ToolTipValues.Heading = "Local modified date";
 			labelModifiedDateValueLocal.Values.Text = "00.00.0000 00:00";
 			labelModifiedDateValueLocal.DoubleClick += CopyToClipboard_DoubleClick;
 			labelModifiedDateValueLocal.Enter += Control_Enter;
@@ -244,7 +256,9 @@ namespace Planetoid_DB
 			labelContentLengthValueOnline.Name = "labelContentLengthValueOnline";
 			labelContentLengthValueOnline.Size = new Size(130, 20);
 			labelContentLengthValueOnline.TabIndex = 4;
-			toolTip.SetToolTip(labelContentLengthValueOnline, "Shows the online content length");
+			labelContentLengthValueOnline.ToolTipValues.Description = "Shows the online content length";
+			labelContentLengthValueOnline.ToolTipValues.EnableToolTips = true;
+			labelContentLengthValueOnline.ToolTipValues.Heading = "Online content length";
 			labelContentLengthValueOnline.Values.Text = "123456789 bytes";
 			labelContentLengthValueOnline.DoubleClick += CopyToClipboard_DoubleClick;
 			labelContentLengthValueOnline.Enter += Control_Enter;
@@ -256,7 +270,7 @@ namespace Planetoid_DB
 			// labelModifiedDateValueOnline
 			// 
 			labelModifiedDateValueOnline.AccessibleDescription = "Shows the online modified date";
-			labelModifiedDateValueOnline.AccessibleName = "Online Modified date";
+			labelModifiedDateValueOnline.AccessibleName = "Online modified date";
 			labelModifiedDateValueOnline.AccessibleRole = AccessibleRole.Text;
 			labelModifiedDateValueOnline.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelModifiedDateValueOnline.Dock = DockStyle.Fill;
@@ -265,7 +279,9 @@ namespace Planetoid_DB
 			labelModifiedDateValueOnline.Name = "labelModifiedDateValueOnline";
 			labelModifiedDateValueOnline.Size = new Size(130, 20);
 			labelModifiedDateValueOnline.TabIndex = 7;
-			toolTip.SetToolTip(labelModifiedDateValueOnline, "Shows the online modified date");
+			labelModifiedDateValueOnline.ToolTipValues.Description = "Shows the online modified date";
+			labelModifiedDateValueOnline.ToolTipValues.EnableToolTips = true;
+			labelModifiedDateValueOnline.ToolTipValues.Heading = "Online modified date";
 			labelModifiedDateValueOnline.Values.Text = "00.00.0000 00:00";
 			labelModifiedDateValueOnline.DoubleClick += CopyToClipboard_DoubleClick;
 			labelModifiedDateValueOnline.Enter += Control_Enter;
@@ -304,7 +320,6 @@ namespace Planetoid_DB
 			tableLayoutPanel.RowStyles.Add(new RowStyle());
 			tableLayoutPanel.Size = new Size(369, 109);
 			tableLayoutPanel.TabIndex = 0;
-			toolTip.SetToolTip(tableLayoutPanel, "Groups the data");
 			// 
 			// toolStripContainer
 			// 
@@ -328,7 +343,6 @@ namespace Planetoid_DB
 			toolStripContainer.Size = new Size(369, 131);
 			toolStripContainer.TabIndex = 3;
 			toolStripContainer.Text = "toolStripContainer";
-			toolTip.SetToolTip(toolStripContainer, "Container to arrange the toolbars");
 			toolStripContainer.TopToolStripPanelVisible = false;
 			// 
 			// statusStrip
@@ -386,7 +400,6 @@ namespace Planetoid_DB
 			ShowInTaskbar = false;
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Check ASTORB.DAT";
-			toolTip.SetToolTip(this, "Check ASTORB.DAT");
 			Load += CheckAstorbDatForm_Load;
 			contextMenuCopyToClipboard.ResumeLayout(false);
 			tableLayoutPanel.ResumeLayout(false);
@@ -403,8 +416,6 @@ namespace Planetoid_DB
 		}
 
 		#endregion
-
-		private KryptonToolTip toolTip;
 		private KryptonTableLayoutPanel tableLayoutPanel;
 		private KryptonLabel labelUpdateNeeded;
 		private KryptonLabel labelAstorbDatLocal;
