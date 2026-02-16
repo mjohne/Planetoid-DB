@@ -1,4 +1,9 @@
-﻿using NLog;
+﻿// This file is used by Code Analysis to maintain SuppressMessage
+// attributes that are applied to this project.
+// Project-level suppressions either have no target or are given
+// a specific target and scoped to a namespace, type, member, etc.
+
+using NLog;
 
 using Planetoid_DB.Forms;
 
@@ -48,6 +53,14 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	/// This field is used to keep track of the current tag text of the control.
 	/// </remarks>
 	private string currentTagText = string.Empty;
+
+	/// <summary>
+	/// Gets the status label to be used for displaying information.
+	/// </summary>
+	/// <remarks>
+	/// Derived classes should override this property to provide the specific label.
+	/// </remarks>
+	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	/// <summary>
 	/// List of derived orbit elements.
@@ -287,52 +300,6 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		labelMeanAxisData.Text = derivedOrbitElements[index: 17]?.ToString();
 		labelStandardGravitationalParameterData.Text = derivedOrbitElements[index: 18]?.ToString();
 	}
-
-	#endregion
-
-	#region Enter event handlers
-
-	/// <summary>
-	/// Handles Enter (mouse over / focus) events for controls and ToolStrip items.
-	/// If the sender provides a non-null <c>AccessibleDescription</c>, that text is shown in the status bar.
-	/// </summary>
-	/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
-	/// <param name="e">Event arguments.</param>
-	/// <remarks>
-	/// This method is called when the mouse pointer enters a control or the control receives focus.
-	/// </remarks>
-	private void Control_Enter(object sender, EventArgs e)
-	{
-		// Check if the sender is null
-		ArgumentNullException.ThrowIfNull(argument: sender);
-		// Get the accessible description based on the sender type
-		string? description = sender switch
-		{
-			Control c => c.AccessibleDescription,
-			ToolStripItem t => t.AccessibleDescription,
-			_ => null
-		};
-		// If a description is available, set it in the status bar
-		if (description != null)
-		{
-			SetStatusBar(label: labelInformation, text: description);
-		}
-	}
-
-	#endregion
-
-	#region Leave event handlers
-
-	/// <summary>
-	/// Called when the mouse pointer leaves a control or the control loses focus.
-	/// Clears the status bar text.
-	/// </summary>
-	/// <param name="sender">Event source.</param>
-	/// <param name="e">Event arguments.</param>
-	/// <remarks>
-	/// This method is called when the mouse pointer leaves a control or the control loses focus.
-	/// </remarks>
-	private void Control_Leave(object sender, EventArgs e) => ClearStatusBar(label: labelInformation);
 
 	#endregion
 

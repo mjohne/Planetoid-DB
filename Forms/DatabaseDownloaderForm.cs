@@ -1,13 +1,16 @@
+// This file is used by Code Analysis to maintain SuppressMessage
+// attributes that are applied to this project.
+// Project-level suppressions either have no target or are given
+// a specific target and scoped to a namespace, type, member, etc.
+
 using NLog;
 
 using Planetoid_DB.Forms;
 using Planetoid_DB.Properties;
 
 using System.Diagnostics;
-using System.IO;
 using System.IO.Compression;
 using System.Net;
-using System.Net.Http;
 using System.Net.NetworkInformation;
 
 namespace Planetoid_DB;
@@ -85,6 +88,14 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 	/// This field is used to store the currently selected control for clipboard operations.
 	/// </remarks>
 	private Control? currentControl;
+
+	/// <summary>
+	/// Gets the status label to be used for displaying information.
+	/// </summary>
+	/// <remarks>
+	/// Derived classes should override this property to provide the specific label.
+	/// </remarks>
+	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	#region constructor
 
@@ -228,7 +239,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			// Log the error if there is no internet connection
 			logger.Error(message: "No internet connection available.");
 			// Show an error message if there is no internet connection
-			ShowErrorMessage(message: I10nStrings.NoInternetConnectionText);
+			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
 			return;
 		}
 		// Validate the URL and temporary filename
@@ -364,7 +375,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		DateTime? lastMod = response.Content.Headers.LastModified?.UtcDateTime;
 		labelDateValue.Text = lastMod.HasValue ? lastMod.ToString() : "-";
 		labelSourceValue.Text = fileUrl;
-		labelSizeValue.Text = totalBytes.HasValue ? $"{totalBytes:N0} {I10nStrings.BytesText}" : "Unknown";
+		labelSizeValue.Text = totalBytes.HasValue ? $"{totalBytes:N0} {I18nStrings.BytesText}" : "Unknown";
 		//labelSizeValue.Text = totalBytes.HasValue ? $"{totalBytes / 1024.0 / 1024.0:F2} MB" : "Unknown";
 		// Stream the response content to the specified file path
 		await using Stream contentStream = await response.Content.ReadAsStreamAsync(cancellationToken: token);
@@ -396,52 +407,6 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			}
 		}
 	}
-
-	#endregion
-
-	#region Enter event handlers
-
-	/// <summary>
-	/// Handles Enter (mouse over / focus) events for controls and ToolStrip items.
-	/// If the sender provides a non-null <c>AccessibleDescription</c>, that text is shown in the status bar.
-	/// </summary>
-	/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
-	/// <param name="e">Event arguments.</param>
-	/// <remarks>
-	/// This method is called when the mouse pointer enters a control or the control receives focus.
-	/// </remarks>
-	private void Control_Enter(object sender, EventArgs e)
-	{
-		// Check if the sender is null
-		ArgumentNullException.ThrowIfNull(argument: sender);
-		// Get the accessible description based on the sender type
-		string? description = sender switch
-		{
-			Control c => c.AccessibleDescription,
-			ToolStripItem t => t.AccessibleDescription,
-			_ => null
-		};
-		// If a description is available, set it in the status bar
-		if (description != null)
-		{
-			SetStatusBar(label: labelInformation, text: description);
-		}
-	}
-
-	#endregion
-
-	#region Leave event handlers
-
-	/// <summary>
-	/// Called when the mouse pointer leaves a control or the control loses focus.
-	/// Clears the status bar text.
-	/// </summary>
-	/// <param name="sender">Event source.</param>
-	/// <param name="e">Event arguments.</param>
-	/// <remarks>
-	/// This method is called when the mouse pointer leaves a control or the control loses focus.
-	/// </remarks>
-	private void Control_Leave(object sender, EventArgs e) => ClearStatusBar(label: labelInformation);
 
 	#endregion
 

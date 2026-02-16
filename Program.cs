@@ -1,8 +1,12 @@
+// This file is used by Code Analysis to maintain SuppressMessage
+// attributes that are applied to this project.
+// Project-level suppressions either have no target or are given
+// a specific target and scoped to a namespace, type, member, etc.
+
 using NLog;
 
 using Planetoid_DB.Properties;
 
-using System.IO;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 
@@ -234,5 +238,5 @@ internal static class Program
 	/// </remarks>
 	private static void ShowErrorMessage(string message) =>
 		// Log the error message
-		_ = MessageBox.Show(text: message, caption: I10nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+		_ = MessageBox.Show(text: message, caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 }

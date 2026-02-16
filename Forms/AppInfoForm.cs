@@ -1,4 +1,9 @@
-﻿using NLog;
+﻿// This file is used by Code Analysis to maintain SuppressMessage
+// attributes that are applied to this project.
+// Project-level suppressions either have no target or are given
+// a specific target and scoped to a namespace, type, member, etc.
+
+using NLog;
 
 using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
@@ -23,7 +28,15 @@ public partial class AppInfoForm : BaseKryptonForm
 	/// <remarks>
 	/// This logger is used to log messages and errors for the class.
 	/// </remarks>
-	private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+	/// <summary>
+	/// Gets the status label to be used for displaying information.
+	/// </summary>
+	/// <remarks>
+	/// Derived classes should override this property to provide the specific label.
+	/// </remarks>
+	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	/// <summary>
 	/// Stores the currently selected control for clipboard operations.
@@ -78,57 +91,11 @@ public partial class AppInfoForm : BaseKryptonForm
 	private void AppInfoForm_Load(object sender, EventArgs e)
 	{
 		labelTitle.Text = AssemblyInfo.AssemblyProduct;
-		labelVersion.Text = string.Format(format: I10nStrings.VersionTemplate, arg0: AssemblyInfo.AssemblyVersion);
+		labelVersion.Text = string.Format(format: I18nStrings.VersionTemplate, arg0: AssemblyInfo.AssemblyVersion);
 		labelDescription.Text = AssemblyInfo.AssemblyDescription;
 		labelCopyright.Text = AssemblyInfo.AssemblyCopyright;
 		ClearStatusBar(label: labelInformation);
 	}
-
-	#endregion
-
-	#region Enter event handlers
-
-	/// <summary>
-	/// Handles Enter (mouse over / focus) events for controls and ToolStrip items.
-	/// If the sender provides a non-null <c>AccessibleDescription</c>, that text is shown in the status bar.
-	/// </summary>
-	/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
-	/// <param name="e">Event arguments.</param>
-	/// <remarks>
-	/// This method is called when the mouse pointer enters a control or the control receives focus.
-	/// </remarks>
-	private void Control_Enter(object sender, EventArgs e)
-	{
-		// Check if the sender is null
-		ArgumentNullException.ThrowIfNull(argument: sender);
-		// Get the accessible description based on the sender type
-		string? description = sender switch
-		{
-			Control c => c.AccessibleDescription,
-			ToolStripItem t => t.AccessibleDescription,
-			_ => null
-		};
-		// If a description is available, set it in the status bar
-		if (description != null)
-		{
-			SetStatusBar(label: labelInformation, text: description);
-		}
-	}
-
-	#endregion
-
-	#region Leave event handlers
-
-	/// <summary>
-	/// Called when the mouse pointer leaves a control or the control loses focus.
-	/// Clears the status bar text.
-	/// </summary>
-	/// <param name="sender">Event source.</param>
-	/// <param name="e">Event arguments.</param>
-	/// <remarks>
-	/// This method is called when the mouse pointer leaves a control or the control loses focus.
-	/// </remarks>
-	private void Control_Leave(object sender, EventArgs e) => ClearStatusBar(label: labelInformation);
 
 	#endregion
 
@@ -179,7 +146,7 @@ public partial class AppInfoForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			// Log the exception and show an error message
-			Logger.Error(exception: ex, message: ex.Message);
+			logger.Error(exception: ex, message: ex.Message);
 			// Show an error message if the website cannot be opened
 			ShowErrorMessage(message: $"Error opening the website: {ex.Message}");
 		}
@@ -208,7 +175,7 @@ public partial class AppInfoForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			// Log the exception and show an error message
-			Logger.Error(exception: ex, message: ex.Message);
+			logger.Error(exception: ex, message: ex.Message);
 			// Show an error message if the email client cannot be opened
 			ShowErrorMessage(message: $"Error opening the website: {ex.Message}");
 		}
@@ -251,7 +218,7 @@ public partial class AppInfoForm : BaseKryptonForm
 			// Log any exception that occurs during the clipboard operation
 			catch (Exception ex)
 			{
-				Logger.Error(exception: ex, message: "Failed to copy text to the clipboard.");
+				logger.Error(exception: ex, message: "Failed to copy text to the clipboard.");
 				throw new InvalidOperationException(message: "Failed to copy text to the clipboard.", innerException: ex);
 			}
 		}
