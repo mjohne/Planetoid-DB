@@ -1,4 +1,9 @@
-﻿using Planetoid_DB.Forms;
+﻿// This file is used by Code Analysis to maintain SuppressMessage
+// attributes that are applied to this project.
+// Project-level suppressions either have no target or are given
+// a specific target and scoped to a namespace, type, member, etc.
+
+using Planetoid_DB.Forms;
 
 using System.Diagnostics;
 
@@ -39,6 +44,14 @@ public partial class TerminologyForm : BaseKryptonForm
 	private string GetDebuggerDisplay() => ToString();
 
 	/// <summary>
+	/// Gets the status label to be used for displaying information.
+	/// </summary>
+	/// <remarks>
+	/// Derived classes should override this property to provide the specific label.
+	/// </remarks>
+	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
+
+	/// <summary>
 	/// Updates the content displayed in the web browser control.
 	/// </summary>
 	/// <remarks>
@@ -46,17 +59,12 @@ public partial class TerminologyForm : BaseKryptonForm
 	/// </remarks>
 	private void UpdateBrowserContent()
 	{
-		// If the selected element is IndexNumber and the current document text is already the corresponding string, do nothing
-		if (SelectedElement == TerminologyElement.IndexNumber && webBrowser.DocumentText == I10nStrings.terminology_IndexNumber)
-		{
-			return;
-		}
 		// Construct the resource key based on the selected element
 		string resourceKey = $"terminology_{SelectedElement}";
 		// Attempt to retrieve the corresponding string from the resource manager
-		string? text = I10nStrings.ResourceManager.GetString(name: resourceKey);
+		string? text = I18nStrings.ResourceManager.GetString(name: resourceKey);
 		// Fallback to IndexNumber if not found to avoid empty screen
-		webBrowser.DocumentText = text ?? I10nStrings.terminology_IndexNumber;
+		webBrowser.DocumentText = text ?? I18nStrings.terminology_IndexNumber;
 	}
 
 	/// <summary>
@@ -80,7 +88,7 @@ public partial class TerminologyForm : BaseKryptonForm
 				field = value;
 				UpdateBrowserContent();
 				// Update the list box selection if needed
-				if (listBox.SelectedIndex != (int)value)
+				if ((int)value >= -1 && (int)value < listBox.Items.Count && listBox.SelectedIndex != (int)value)
 				{
 					listBox.SelectedIndex = (int)value;
 				}
@@ -108,52 +116,6 @@ public partial class TerminologyForm : BaseKryptonForm
 		// Clear the status bar text
 		ClearStatusBar(label: labelInformation);
 	}
-
-	#endregion
-
-	#region Enter event handlers
-
-	/// <summary>
-	/// Handles Enter (mouse over / focus) events for controls and ToolStrip items.
-	/// If the sender provides a non-null <c>AccessibleDescription</c>, that text is shown in the status bar.
-	/// </summary>
-	/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
-	/// <param name="e">Event arguments.</param>
-	/// <remarks>
-	/// This method is called when the mouse pointer enters a control or the control receives focus.
-	/// </remarks>
-	private void Control_Enter(object sender, EventArgs e)
-	{
-		// Check if the sender is null
-		ArgumentNullException.ThrowIfNull(argument: sender);
-		// Get the accessible description based on the sender type
-		string? description = sender switch
-		{
-			Control c => c.AccessibleDescription,
-			ToolStripItem t => t.AccessibleDescription,
-			_ => null
-		};
-		// If a description is available, set it in the status bar
-		if (description != null)
-		{
-			SetStatusBar(label: labelInformation, text: description);
-		}
-	}
-
-	#endregion
-
-	#region Leave event handlers
-
-	/// <summary>
-	/// Called when the mouse pointer leaves a control or the control loses focus.
-	/// Clears the status bar text.
-	/// </summary>
-	/// <param name="sender">Event source.</param>
-	/// <param name="e">Event arguments.</param>
-	/// <remarks>
-	/// This method is called when the mouse pointer leaves a control or the control loses focus.
-	/// </remarks>
-	private void Control_Leave(object sender, EventArgs e) => ClearStatusBar(label: labelInformation);
 
 	#endregion
 

@@ -1,4 +1,9 @@
-﻿using NLog;
+﻿// This file is used by Code Analysis to maintain SuppressMessage
+// attributes that are applied to this project.
+// Project-level suppressions either have no target or are given
+// a specific target and scoped to a namespace, type, member, etc.
+
+using NLog;
 
 using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
@@ -6,10 +11,8 @@ using Planetoid_DB.Properties;
 
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.IO.Compression;
 using System.Net;
-using System.Net.Http;
 using System.Net.NetworkInformation;
 
 namespace Planetoid_DB;
@@ -95,6 +98,14 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 	/// This field is used to store the currently selected control for clipboard operations.
 	/// </remarks>
 	private Control? currentControl;
+
+	/// <summary>
+	/// Gets the status label to be used for displaying information.
+	/// </summary>
+	/// <remarks>
+	/// Derived classes should override this property to provide the specific label.
+	/// </remarks>
+	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	#region constructor
 
@@ -228,7 +239,7 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 			// Log the error if there is no internet connection
 			logger.Error(message: "No internet connection available.");
 			// Show an error message if there is no internet connection
-			ShowErrorMessage(message: I10nStrings.NoInternetConnectionText);
+			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
 		}
 	}
 
@@ -245,7 +256,7 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 		// Set the progress bar style to continuous
 		progressBarDownload.Value = e.ProgressPercentage;
 		// Update the label with the current progress percentage
-		labelDownload.Text = e.ProgressPercentage + I10nStrings.PercentSign;
+		labelDownload.Text = e.ProgressPercentage + I18nStrings.PercentSign;
 		// Update the status bar with the current progress
 		TaskbarProgress.SetValue(windowHandle: Handle, progressValue: e.ProgressPercentage, progressMax: 100);
 	}
@@ -265,7 +276,7 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 		if (e.Error == null)
 		{
 			// Set the status to "Refreshing database"
-			labelStatusValue.Text = I10nStrings.StatusRefreshingDatabaseText;
+			labelStatusValue.Text = I18nStrings.StatusRefreshingDatabaseText;
 			// Delete the existing file if it exists
 			File.Delete(path: strFilenameMpcorb);
 			// Set the progress bar style to marquee
@@ -277,7 +288,7 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 				ExtractGzipFile(gzipFilePath: strFilenameMpcorbTemp, outputFilePath: strFilenameMpcorb),
 				cancellationToken: cancellationTokenSource.Token);
 			// Set the status to "Download complete"
-			labelStatusValue.Text = I10nStrings.StatusDownloadCompleteText;
+			labelStatusValue.Text = I18nStrings.StatusDownloadCompleteText;
 			// Enable the download and check for update buttons
 			buttonDownload.Enabled = buttonCheckForUpdate.Enabled = true;
 			// Set the dialog result to OK
@@ -286,7 +297,7 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 		else
 		{
 			// Handle the error
-			labelStatusValue.Text = e.Cancelled ? I10nStrings.StatusDownloadCancelled : $"{I10nStrings.StatusUnknownError} {e.Error}";
+			labelStatusValue.Text = e.Cancelled ? I18nStrings.StatusDownloadCancelled : $"{I18nStrings.StatusUnknownError} {e.Error}";
 			// Clear the labels
 			labelSourceValue.Text = labelDateValue.Text = labelSizeValue.Text = string.Empty;
 			// Enable the download button
@@ -298,7 +309,7 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 			// Reset the progress bar
 			progressBarDownload.Value = 0;
 			// Reset the download label
-			labelDownload.Text = $"{progressBarDownload.Value}{I10nStrings.PercentSign}";
+			labelDownload.Text = $"{progressBarDownload.Value}{I18nStrings.PercentSign}";
 		}
 	}
 
@@ -321,13 +332,13 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 		// Clear the status bar text
 		ClearStatusBar(label: labelInformation);
 		// Set the initial status to "Nothing to do"
-		labelStatusValue.Text = I10nStrings.StatusNothingToDoText;
+		labelStatusValue.Text = I18nStrings.StatusNothingToDoText;
 		// Clear the labels
 		labelDateValue.Text = labelSizeValue.Text = labelSourceValue.Text = "";
 		// Hide the labels and disable the cancel button
 		labelDateValue.Visible = labelSizeValue.Visible = labelSizeValue.Visible = labelSourceValue.Visible = buttonCancelDownload.Enabled = false;
 		// Set the initial download progress to 0%
-		labelDownload.Text = I10nStrings.NumberZero + I10nStrings.PercentSign;
+		labelDownload.Text = I18nStrings.NumberZero + I18nStrings.PercentSign;
 		// Set the proxy to null to avoid using any proxy settings
 		webClient.Proxy = null;
 		// Event handler for download completion
@@ -355,52 +366,6 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 
 	#endregion
 
-	#region Enter event handlers
-
-	/// <summary>
-	/// Handles Enter (mouse over / focus) events for controls and ToolStrip items.
-	/// If the sender provides a non-null <c>AccessibleDescription</c>, that text is shown in the status bar.
-	/// </summary>
-	/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
-	/// <param name="e">Event arguments.</param>
-	/// <remarks>
-	/// This method is called when the mouse pointer enters a control or the control receives focus.
-	/// </remarks>
-	private void Control_Enter(object sender, EventArgs e)
-	{
-		// Check if the sender is null
-		ArgumentNullException.ThrowIfNull(argument: sender);
-		// Get the accessible description based on the sender type
-		string? description = sender switch
-		{
-			Control c => c.AccessibleDescription,
-			ToolStripItem t => t.AccessibleDescription,
-			_ => null
-		};
-		// If a description is available, set it in the status bar
-		if (description != null)
-		{
-			SetStatusBar(label: labelInformation, text: description);
-		}
-	}
-
-	#endregion
-
-	#region Leave event handlers
-
-	/// <summary>
-	/// Called when the mouse pointer leaves a control or the control loses focus.
-	/// Clears the status bar text.
-	/// </summary>
-	/// <param name="sender">Event source.</param>
-	/// <param name="e">Event arguments.</param>
-	/// <remarks>
-	/// This method is called when the mouse pointer leaves a control or the control loses focus.
-	/// </remarks>
-	private void Control_Leave(object? sender, EventArgs? e) => ClearStatusBar(label: labelInformation);
-
-	#endregion
-
 	#region Click event handlers
 
 	/// <summary>
@@ -422,7 +387,7 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 			// Log the error if there is no internet connection
 			logger.Error(message: "No internet connection available.");
 			// Show an error message if there is no internet connection
-			ShowErrorMessage(message: I10nStrings.NoInternetConnectionText);
+			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
 			return;
 		}
 		// Disable the download button
@@ -442,30 +407,30 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 		// Make the date value visible
 		labelDateValue.Visible = true;
 		// Set the size value to the content length of the URI
-		labelSizeValue.Text = $"{GetContentLength(uri: strUriMpcorb):N0} {I10nStrings.BytesText}";
+		labelSizeValue.Text = $"{GetContentLength(uri: strUriMpcorb):N0} {I18nStrings.BytesText}";
 		// Make the size value visible
 		labelSizeValue.Visible = true;
 		// Set the status value to "Try to connect"
-		labelStatusValue.Text = I10nStrings.StatusTryToConnect;
+		labelStatusValue.Text = I18nStrings.StatusTryToConnect;
 		//Try to download the file
 		try
 		{
 			// Set the status value to "Downloading"
-			labelStatusValue.Text = I10nStrings.StatusDownloading;
+			labelStatusValue.Text = I18nStrings.StatusDownloading;
 			// Start the download asynchronously
 			webClient.DownloadFileAsync(address: strUriMpcorb, fileName: strFilenameMpcorbTemp);
 		}
 		catch (Exception ex)
 		{
 			// Set the status value to "Unknown error"
-			labelStatusValue.Text = $"{I10nStrings.StatusUnknownError} {ex.Message}";
+			labelStatusValue.Text = $"{I18nStrings.StatusUnknownError} {ex.Message}";
 			// Enable the download button
 			buttonDownload.Enabled = true;
 			// Enable the check for update button
 			buttonCheckForUpdate.Enabled = true;
 			// Log and show an error message
 			logger.Error(exception: ex, message: ex.Message);
-			ShowErrorMessage(message: $"{I10nStrings.StatusUnknownError} {ex.Message}");
+			ShowErrorMessage(message: $"{I18nStrings.StatusUnknownError} {ex.Message}");
 		}
 	}
 
@@ -477,7 +442,7 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 		if (!NetworkInterface.GetIsNetworkAvailable())
 		{
 			logger.Error(message: "No internet connection available.");
-			ShowErrorMessage(message: I10nStrings.NoInternetConnectionText);
+			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
 			return;
 		}
 
@@ -498,22 +463,22 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 		}
 		catch (Exception ex)
 		{
-			labelStatusValue.Text = $"{I10nStrings.StatusUnknownError} {ex.Message}";
+			labelStatusValue.Text = $"{I18nStrings.StatusUnknownError} {ex.Message}";
 			buttonDownload.Enabled = true;
 			buttonCancelDownload.Enabled = false;
 			buttonCheckForUpdate.Enabled = true;
 			logger.Error(exception: ex, message: ex.Message);
-			ShowErrorMessage(message: $"{I10nStrings.StatusUnknownError} {ex.Message}");
+			ShowErrorMessage(message: $"{I18nStrings.StatusUnknownError} {ex.Message}");
 			return;
 		}
-		labelSizeValue.Text = $"{GetContentLength(uri: strUriMpcorb):N0} {I10nStrings.BytesText}";
+		labelSizeValue.Text = $"{GetContentLength(uri: strUriMpcorb):N0} {I18nStrings.BytesText}";
 		labelSizeValue.Visible = true;
 
-		labelStatusValue.Text = I10nStrings.StatusTryToConnect;
+		labelStatusValue.Text = I18nStrings.StatusTryToConnect;
 
 		try
 		{
-			labelStatusValue.Text = I10nStrings.StatusDownloading;
+			labelStatusValue.Text = I18nStrings.StatusDownloading;
 
 			// Ersetze in der Methode ButtonDownload2_Click die Zeile:
 			// using HttpResponseMessage response = await HttpClient.GetAsync(requestUri: strUriMpcorb, completionOption: HttpCompletionOption.ResponseHeadersRead);
@@ -525,24 +490,24 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 			using FileStream fileStream = new(path: strFilenameMpcorbTemp, mode: FileMode.Create, access: FileAccess.Write, share: FileShare.None);
 			await contentStream.CopyToAsync(destination: fileStream);
 
-			labelStatusValue.Text = I10nStrings.StatusRefreshingDatabaseText;
+			labelStatusValue.Text = I18nStrings.StatusRefreshingDatabaseText;
 
 			File.Delete(path: strFilenameMpcorb);
 			// Extract the downloaded GZIP file
 			progressBarDownload.Style = ProgressBarStyle.Marquee;
 			await Task.Run(action: () =>
 				ExtractGzipFile(gzipFilePath: strFilenameMpcorbTemp, outputFilePath: strFilenameMpcorb));
-			labelStatusValue.Text = I10nStrings.StatusDownloadCompleteText;
+			labelStatusValue.Text = I18nStrings.StatusDownloadCompleteText;
 			buttonDownload.Enabled = buttonCheckForUpdate.Enabled = true;
 			DialogResult = DialogResult.OK;
 		}
 		catch (Exception ex)
 		{
-			labelStatusValue.Text = $"{I10nStrings.StatusUnknownError} {ex.Message}";
+			labelStatusValue.Text = $"{I18nStrings.StatusUnknownError} {ex.Message}";
 			buttonDownload.Enabled = true;
 			buttonCheckForUpdate.Enabled = true;
 			logger.Error(exception: ex, message: ex.Message);
-			ShowErrorMessage(message: $"{I10nStrings.StatusUnknownError} {ex.Message}");
+			ShowErrorMessage(message: $"{I18nStrings.StatusUnknownError} {ex.Message}");
 		}
 	}
 

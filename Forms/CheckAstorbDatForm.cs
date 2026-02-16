@@ -1,12 +1,15 @@
-﻿using NLog;
+﻿// This file is used by Code Analysis to maintain SuppressMessage
+// attributes that are applied to this project.
+// Project-level suppressions either have no target or are given
+// a specific target and scoped to a namespace, type, member, etc.
+
+using NLog;
 
 using Planetoid_DB.Forms;
 using Planetoid_DB.Properties;
 
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
-using System.Net.Http;
 
 namespace Planetoid_DB;
 
@@ -42,6 +45,14 @@ public partial class CheckAstorbDatForm : BaseKryptonForm
 	/// This field is used to store the currently selected control for clipboard operations.
 	/// </remarks>
 	private Control? currentControl;
+
+	/// <summary>
+	/// Gets the status label to be used for displaying information.
+	/// </summary>
+	/// <remarks>
+	/// Derived classes should override this property to provide the specific label.
+	/// </remarks>
+	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	#region constructor
 
@@ -158,9 +169,9 @@ public partial class CheckAstorbDatForm : BaseKryptonForm
 		if (!File.Exists(path: Settings.Default.systemFilenameAstorb))
 		{
 			// Set the content length and modified date labels to indicate no file found
-			labelContentLengthValueLocal.Text = I10nStrings.NoFileFoundText;
+			labelContentLengthValueLocal.Text = I18nStrings.NoFileFoundText;
 			// Set the modified date label to indicate no file found
-			labelModifiedDateValueLocal.Text = I10nStrings.NoFileFoundText;
+			labelModifiedDateValueLocal.Text = I18nStrings.NoFileFoundText;
 		}
 		else
 		{
@@ -169,12 +180,12 @@ public partial class CheckAstorbDatForm : BaseKryptonForm
 			// Get the file attributes
 			datetimeFileLocal = fileInfo.LastWriteTime;
 			// Set the content length and modified date labels to the local file's information
-			labelContentLengthValueLocal.Text = $"{fileInfo.Length:N0} {I10nStrings.BytesText}";
+			labelContentLengthValueLocal.Text = $"{fileInfo.Length:N0} {I18nStrings.BytesText}";
 			// Set the modified date label to the local file's last write time
 			labelModifiedDateValueLocal.Text = datetimeFileLocal.ToString(provider: CultureInfo.CurrentCulture);
 		}
 		// Set the content length and modified date labels to the online file's information
-		labelContentLengthValueOnline.Text = $"{await GetContentLengthAsync(uri: uriAstorb).ConfigureAwait(continueOnCapturedContext: false):N0} {I10nStrings.BytesText}";
+		labelContentLengthValueOnline.Text = $"{await GetContentLengthAsync(uri: uriAstorb).ConfigureAwait(continueOnCapturedContext: false):N0} {I18nStrings.BytesText}";
 		// Set the modified date label to the online file's last modified date
 		labelModifiedDateValueOnline.Text = datetimeFileOnline.ToString(provider: CultureInfo.CurrentCulture);
 		// Compare the last modified dates of the local and online files
@@ -183,62 +194,16 @@ public partial class CheckAstorbDatForm : BaseKryptonForm
 			// Set the label to indicate an update is needed
 			labelUpdateNeeded.Values.Image = Resources.FatcowIcons16px.fatcow_new_16px;
 			// Set the label text to indicate an update is recommended
-			labelUpdateNeeded.Text = I10nStrings.UpdateRecommendedText;
+			labelUpdateNeeded.Text = I18nStrings.UpdateRecommendedText;
 		}
 		else
 		{
 			// Set the label to indicate no update is needed
 			labelUpdateNeeded.Values.Image = Resources.FatcowIcons16px.fatcow_cancel_16px;
 			// Set the label text to indicate no update is needed
-			labelUpdateNeeded.Text = I10nStrings.NoUpdateNeededText;
+			labelUpdateNeeded.Text = I18nStrings.NoUpdateNeededText;
 		}
 	}
-
-	#endregion
-
-	#region Enter event handlers
-
-	/// <summary>
-	/// Handles Enter (mouse over / focus) events for controls and ToolStrip items.
-	/// If the sender provides a non-null <c>AccessibleDescription</c>, that text is shown in the status bar.
-	/// </summary>
-	/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
-	/// <param name="e">Event arguments.</param>
-	/// <remarks>
-	/// This method is called when the mouse pointer enters a control or the control receives focus.
-	/// </remarks>
-	private void Control_Enter(object sender, EventArgs e)
-	{
-		// Check if the sender is null
-		ArgumentNullException.ThrowIfNull(argument: sender);
-		// Get the accessible description based on the sender type
-		string? description = sender switch
-		{
-			Control c => c.AccessibleDescription,
-			ToolStripItem t => t.AccessibleDescription,
-			_ => null
-		};
-		// If a description is available, set it in the status bar
-		if (description != null)
-		{
-			SetStatusBar(label: labelInformation, text: description);
-		}
-	}
-
-	#endregion
-
-	#region Leave event handlers
-
-	/// <summary>
-	/// Called when the mouse pointer leaves a control or the control loses focus.
-	/// Clears the status bar text.
-	/// </summary>
-	/// <param name="sender">Event source.</param>
-	/// <param name="e">Event arguments.</param>
-	/// <remarks>
-	/// This method is called when the mouse pointer leaves a control or the control loses focus.
-	/// </remarks>
-	private void Control_Leave(object sender, EventArgs e) => ClearStatusBar(label: labelInformation);
 
 	#endregion
 

@@ -1,9 +1,13 @@
-﻿using NLog;
+﻿// This file is used by Code Analysis to maintain SuppressMessage
+// attributes that are applied to this project.
+// Project-level suppressions either have no target or are given
+// a specific target and scoped to a namespace, type, member, etc.
+
+using NLog;
 
 using Planetoid_DB.Forms;
 
 using System.Diagnostics;
-using System.IO;
 using System.Text;
 using System.Text.Json;
 using System.Xml;
@@ -94,6 +98,14 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// This field is used to store the currently selected control for clipboard operations.
 	/// </remarks>
 	private Control? currentControl;
+
+	/// <summary>
+	/// Gets the status label to be used for displaying information.
+	/// </summary>
+	/// <remarks>
+	/// Derived classes should override this property to provide the specific label.
+	/// </remarks>
+	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	#region constructor
 
@@ -268,7 +280,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		int index = listView.SelectedIndices[index: 0];
 		ListViewItem item = listView.Items[index: index];
 		// Update the status bar with the selected item's details
-		SetStatusBar(label: labelInformation, text: $"{I10nStrings.Index}: {item.Text} - {item.SubItems[index: 1].Text}");
+		SetStatusBar(label: labelInformation, text: $"{I18nStrings.Index}: {item.Text} - {item.SubItems[index: 1].Text}");
 		// Enable the load button
 		buttonLoad.Enabled = true;
 		selectedIndex = index;
@@ -566,7 +578,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// Define columns (as in the original)
 		ColumnHeader columnHeaderIndex = new()
 		{
-			Text = I10nStrings.Index,
+			Text = I18nStrings.Index,
 			TextAlign = HorizontalAlignment.Right,
 			Width = 100
 		};
@@ -638,7 +650,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		{
 			streamWriter.WriteLine(value: $"{index}; {name}");
 		}
-		MessageBox.Show(text: I10nStrings.FileSavedSuccessfully, caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>
@@ -668,7 +680,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		}
 		// Write HTML footer
 		w.WriteLine(value: "</body></html>");
-		MessageBox.Show(text: I10nStrings.FileSavedSuccessfully, caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>
@@ -703,7 +715,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// End XML document
 		writer.WriteEndElement();
 		writer.WriteEndDocument();
-		MessageBox.Show(text: I10nStrings.FileSavedSuccessfully, caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>
@@ -726,7 +738,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// Serialize to JSON and write to file
 		string jsonString = JsonSerializer.Serialize(value: exportList, options: new() { WriteIndented = true });
 		File.WriteAllText(path: saveFileDialogJson.FileName, contents: jsonString);
-		MessageBox.Show(text: I10nStrings.FileSavedSuccessfully, caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>
@@ -771,7 +783,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		}
 		// Commit transaction
 		streamWriter.WriteLine(value: $"COMMIT;");
-		MessageBox.Show(text: I10nStrings.FileSavedSuccessfully, caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>
@@ -801,7 +813,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		{
 			streamWriter.WriteLine(value: $"| {index} | {EscapeMarkdownCell(value: name)} |");
 		}
-		MessageBox.Show(text: I10nStrings.FileSavedSuccessfully, caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>
@@ -836,7 +848,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			// Quotes are important if the name contains special characters
 			streamWriter.WriteLine(value: $"      name: \"{name}\"");
 		}
-		MessageBox.Show(text: I10nStrings.FileSavedSuccessfully, caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>
@@ -864,7 +876,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		{
 			streamWriter.WriteLine(value: $"{index}\t{name}");
 		}
-		MessageBox.Show(text: I10nStrings.FileSavedSuccessfully, caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>
@@ -908,7 +920,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		w.WriteLine(value: "\\caption{List of Readable Designations}");
 		w.WriteLine(value: "\\end{table}");
 		w.WriteLine(value: "\\end{document}");
-		MessageBox.Show(text: I10nStrings.FileSavedSuccessfully, caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>
@@ -989,7 +1001,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		writer.WriteLine(value: "%%Trailer");
 		writer.WriteLine(value: $"%%Pages: {pageNumber}");
 		writer.WriteLine(value: "%%EOF");
-		MessageBox.Show(text: I10nStrings.FileSavedSuccessfully, caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>
@@ -1160,54 +1172,8 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		w.WriteLine(value: "startxref");
 		w.WriteLine(value: xrefOffset);
 		w.WriteLine(value: "%%EOF");
-		MessageBox.Show(text: I10nStrings.FileSavedSuccessfully, caption: I10nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
-
-	#endregion
-
-	#region Enter event handlers
-
-	/// <summary>
-	/// Handles Enter (mouse over / focus) events for controls and ToolStrip items.
-	/// If the sender provides a non-null <c>AccessibleDescription</c>, that text is shown in the status bar.
-	/// </summary>
-	/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
-	/// <param name="e">Event arguments.</param>
-	/// <remarks>
-	/// This method is called when the mouse pointer enters a control or the control receives focus.
-	/// </remarks>
-	private void Control_Enter(object sender, EventArgs e)
-	{
-		// Check if the sender is null
-		ArgumentNullException.ThrowIfNull(argument: sender);
-		// Get the accessible description based on the sender type
-		string? description = sender switch
-		{
-			Control c => c.AccessibleDescription,
-			ToolStripItem t => t.AccessibleDescription,
-			_ => null
-		};
-		// If a description is available, set it in the status bar
-		if (description != null)
-		{
-			SetStatusBar(label: labelInformation, text: description);
-		}
-	}
-
-	#endregion
-
-	#region Leave event handlers
-
-	/// <summary>
-	/// Called when the mouse pointer leaves a control or the control loses focus.
-	/// Clears the status bar text.
-	/// </summary>
-	/// <param name="sender">Event source.</param>
-	/// <param name="e">Event arguments.</param>
-	/// <remarks>
-	/// This method is called when the mouse pointer leaves a control or the control loses focus.
-	/// </remarks>
-	private void Control_Leave(object sender, EventArgs e) => ClearStatusBar(label: labelInformation);
 
 	#endregion
 

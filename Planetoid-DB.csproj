@@ -23,7 +23,7 @@
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <UseWPF>True</UseWPF>
+    <UseWPF>False</UseWPF>
     <SignAssembly>False</SignAssembly>
     <Title>$(AssemblyName)</Title>
     <Authors>Michael Johne @ Mijo Software</Authors>

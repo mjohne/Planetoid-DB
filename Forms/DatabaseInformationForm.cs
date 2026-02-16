@@ -1,11 +1,15 @@
-﻿using NLog;
+﻿// This file is used by Code Analysis to maintain SuppressMessage
+// attributes that are applied to this project.
+// Project-level suppressions either have no target or are given
+// a specific target and scoped to a namespace, type, member, etc.
+
+using NLog;
 
 using Planetoid_DB.Forms;
 using Planetoid_DB.Properties;
 
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
 
 namespace Planetoid_DB;
 
@@ -33,6 +37,14 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 	/// This field is used to keep track of the control that is currently selected for clipboard operations.
 	/// </remarks>
 	private Control? currentControl;
+
+	/// <summary>
+	/// Gets the status label to be used for displaying information.
+	/// </summary>
+	/// <remarks>
+	/// Derived classes should override this property to provide the specific label.
+	/// </remarks>
+	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	#region constructor
 
@@ -89,7 +101,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		// Set the file name in the label
 		labelDirectoryValue.Text = fileInfo.DirectoryName;
 		// Set the file size in the label
-		labelSizeValue.Text = $"{fileInfo.Length:N0} {I10nStrings.BytesText}";
+		labelSizeValue.Text = $"{fileInfo.Length:N0} {I18nStrings.BytesText}";
 		// Set the file type in the label
 		labelDateCreatedValue.Text = fileInfo.CreationTime.ToString(format: "G", provider: CultureInfo.CurrentCulture);
 		// Set the file creation time in the label
@@ -99,52 +111,6 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		// Set the file attributes in the label
 		labelAttributesValue.Text = $"{fileInfo.Attributes}";
 	}
-
-	#endregion
-
-	#region Enter event handlers
-
-	/// <summary>
-	/// Handles Enter (mouse over / focus) events for controls and ToolStrip items.
-	/// If the sender provides a non-null <c>AccessibleDescription</c>, that text is shown in the status bar.
-	/// </summary>
-	/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
-	/// <param name="e">Event arguments.</param>
-	/// <remarks>
-	/// This method is called when the mouse pointer enters a control or the control receives focus.
-	/// </remarks>
-	private void Control_Enter(object sender, EventArgs e)
-	{
-		// Check if the sender is null
-		ArgumentNullException.ThrowIfNull(argument: sender);
-		// Get the accessible description based on the sender type
-		string? description = sender switch
-		{
-			Control c => c.AccessibleDescription,
-			ToolStripItem t => t.AccessibleDescription,
-			_ => null
-		};
-		// If a description is available, set it in the status bar
-		if (description != null)
-		{
-			SetStatusBar(label: labelInformation, text: description);
-		}
-	}
-
-	#endregion
-
-	#region Leave event handlers
-
-	/// <summary>
-	/// Handles Leave (mouse out / focus lost) events for controls and ToolStrip items.
-	/// Clears the status bar text.
-	/// </summary>
-	/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
-	/// <param name="e">Event arguments.</param>
-	/// <remarks>
-	/// This method is called when the mouse leaves a control.
-	/// </remarks>
-	private void Control_Leave(object sender, EventArgs e) => ClearStatusBar(label: labelInformation);
 
 	#endregion
 

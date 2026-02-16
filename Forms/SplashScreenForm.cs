@@ -1,4 +1,9 @@
-﻿using NLog;
+﻿// This file is used by Code Analysis to maintain SuppressMessage
+// attributes that are applied to this project.
+// Project-level suppressions either have no target or are given
+// a specific target and scoped to a namespace, type, member, etc.
+
+using NLog;
 
 using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
@@ -73,7 +78,7 @@ public partial class SplashScreenForm : BaseKryptonForm
 			// Log the error and throw an exception
 			logger.Error(message: $"Value {value} is out of range for the progress bar. Minimum: {progressBarSplash.Minimum}, Maximum: {progressBarSplash.Maximum}");
 			// Throw an exception indicating that the value is out of range
-			throw new ArgumentOutOfRangeException(paramName: nameof(value), message: I10nStrings.IndexOutOfRange);
+			throw new ArgumentOutOfRangeException(paramName: nameof(value), message: I18nStrings.IndexOutOfRange);
 		}
 		// Set the value of the progress bar
 		progressBarSplash.Value = value;
@@ -97,7 +102,7 @@ public partial class SplashScreenForm : BaseKryptonForm
 		// Set the title label text to the product name
 		labelTitle.Text = AssemblyInfo.AssemblyProduct;
 		// Set the version label text to the assembly version
-		labelVersion.Text = string.Format(format: I10nStrings.VersionTemplate, arg0: AssemblyInfo.AssemblyVersion);
+		labelVersion.Text = string.Format(format: I18nStrings.VersionTemplate, arg0: AssemblyInfo.AssemblyVersion);
 	}
 	#endregion
 
