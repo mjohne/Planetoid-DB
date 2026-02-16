@@ -43,7 +43,6 @@ namespace Planetoid_DB
 			kryptonTextBoxLicense = new KryptonTextBox();
 			statusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
-			toolTip = new KryptonToolTip(components);
 			saveFileDialog = new SaveFileDialog();
 			kryptonManager = new KryptonManager(components);
 			((ISupportInitialize)panel).BeginInit();
@@ -72,14 +71,16 @@ namespace Planetoid_DB
 			// 
 			// kryptonButtonCopyLicenseToClipboard
 			// 
-			kryptonButtonCopyLicenseToClipboard.AccessibleDescription = "Copys the license to the clipboard";
+			kryptonButtonCopyLicenseToClipboard.AccessibleDescription = "Copies the license to the clipboard";
 			kryptonButtonCopyLicenseToClipboard.AccessibleName = "Copy the license to the clipboard";
 			kryptonButtonCopyLicenseToClipboard.AccessibleRole = AccessibleRole.PushButton;
 			kryptonButtonCopyLicenseToClipboard.Location = new Point(438, 105);
 			kryptonButtonCopyLicenseToClipboard.Name = "kryptonButtonCopyLicenseToClipboard";
 			kryptonButtonCopyLicenseToClipboard.Size = new Size(127, 25);
 			kryptonButtonCopyLicenseToClipboard.TabIndex = 1;
-			toolTip.SetToolTip(kryptonButtonCopyLicenseToClipboard, "Copy the license to the clipboard");
+			kryptonButtonCopyLicenseToClipboard.ToolTipValues.Description = "Copies the license to the clipboard";
+			kryptonButtonCopyLicenseToClipboard.ToolTipValues.EnableToolTips = true;
+			kryptonButtonCopyLicenseToClipboard.ToolTipValues.Heading = "Copy the license to the clipboard";
 			kryptonButtonCopyLicenseToClipboard.Values.DropDownArrowColor = Color.Empty;
 			kryptonButtonCopyLicenseToClipboard.Values.Image = FatcowIcons16px.fatcow_clipboard_empty_16px;
 			kryptonButtonCopyLicenseToClipboard.Values.Text = "&Copy to clipboard";
@@ -98,7 +99,9 @@ namespace Planetoid_DB
 			kryptonButtonSaveLicense.Name = "kryptonButtonSaveLicense";
 			kryptonButtonSaveLicense.Size = new Size(127, 25);
 			kryptonButtonSaveLicense.TabIndex = 2;
-			toolTip.SetToolTip(kryptonButtonSaveLicense, "Save the license");
+			kryptonButtonSaveLicense.ToolTipValues.Description = "Saves the license to the hard drive";
+			kryptonButtonSaveLicense.ToolTipValues.EnableToolTips = true;
+			kryptonButtonSaveLicense.ToolTipValues.Heading = "Save the license";
 			kryptonButtonSaveLicense.Values.DropDownArrowColor = Color.Empty;
 			kryptonButtonSaveLicense.Values.Image = FatcowIcons16px.fatcow_diskette_16px;
 			kryptonButtonSaveLicense.Values.Text = "&Save license";
@@ -118,7 +121,9 @@ namespace Planetoid_DB
 			kryptonButtonClose.Name = "kryptonButtonClose";
 			kryptonButtonClose.Size = new Size(127, 25);
 			kryptonButtonClose.TabIndex = 3;
-			toolTip.SetToolTip(kryptonButtonClose, "Close");
+			kryptonButtonClose.ToolTipValues.Description = "Closes the form";
+			kryptonButtonClose.ToolTipValues.EnableToolTips = true;
+			kryptonButtonClose.ToolTipValues.Heading = "Close";
 			kryptonButtonClose.Values.DropDownArrowColor = Color.Empty;
 			kryptonButtonClose.Values.Image = FatcowIcons16px.fatcow_cancel_16px;
 			kryptonButtonClose.Values.Text = "C&lose";
@@ -139,13 +144,15 @@ namespace Planetoid_DB
 			kryptonPictureBoxLicenseLogo.SizeMode = PictureBoxSizeMode.Zoom;
 			kryptonPictureBoxLicenseLogo.TabIndex = 8;
 			kryptonPictureBoxLicenseLogo.TabStop = false;
-			toolTip.SetToolTip(kryptonPictureBoxLicenseLogo, "GPL v3 Logo");
+			kryptonPictureBoxLicenseLogo.ToolTipValues.Description = "Shows the logo of the license";
+			kryptonPictureBoxLicenseLogo.ToolTipValues.EnableToolTips = true;
+			kryptonPictureBoxLicenseLogo.ToolTipValues.Heading = "GPL v3 Logo";
 			kryptonPictureBoxLicenseLogo.MouseEnter += Control_Enter;
 			kryptonPictureBoxLicenseLogo.MouseLeave += Control_Leave;
 			// 
 			// kryptonTextBoxLicense
 			// 
-			kryptonTextBoxLicense.AccessibleDescription = "Show the license";
+			kryptonTextBoxLicense.AccessibleDescription = "Shows the license";
 			kryptonTextBoxLicense.AccessibleName = "License";
 			kryptonTextBoxLicense.AccessibleRole = AccessibleRole.Text;
 			kryptonTextBoxLicense.InputControlStyle = InputControlStyle.PanelAlternate;
@@ -158,7 +165,9 @@ namespace Planetoid_DB
 			kryptonTextBoxLicense.TabIndex = 0;
 			kryptonTextBoxLicense.TabStop = false;
 			kryptonTextBoxLicense.Text = resources.GetString("kryptonTextBoxLicense.Text");
-			toolTip.SetToolTip(kryptonTextBoxLicense, "License");
+			kryptonTextBoxLicense.ToolTipValues.Description = "Shows the license";
+			kryptonTextBoxLicense.ToolTipValues.EnableToolTips = true;
+			kryptonTextBoxLicense.ToolTipValues.Heading = "License";
 			kryptonTextBoxLicense.Enter += Control_Enter;
 			kryptonTextBoxLicense.Leave += Control_Leave;
 			kryptonTextBoxLicense.MouseEnter += Control_Enter;
@@ -221,7 +230,6 @@ namespace Planetoid_DB
 			ShowInTaskbar = false;
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "License: GPL-3.0";
-			toolTip.SetToolTip(this, "License information");
 			Load += LicenseForm_Load;
 			((ISupportInitialize)panel).EndInit();
 			panel.ResumeLayout(false);
@@ -237,7 +245,6 @@ namespace Planetoid_DB
 		private KryptonPanel panel;
 		private KryptonStatusStrip statusStrip;
 		private ToolStripStatusLabel labelInformation;
-		private KryptonToolTip toolTip;
 		private KryptonTextBox kryptonTextBoxLicense;
 		private KryptonPictureBox kryptonPictureBoxLicenseLogo;
 		private KryptonButton kryptonButtonClose;
