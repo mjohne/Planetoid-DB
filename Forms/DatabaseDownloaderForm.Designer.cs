@@ -1,5 +1,3 @@
-using Krypton.Toolkit;
-
 namespace Planetoid_DB
 {
     partial class DatabaseDownloaderForm
@@ -25,7 +23,6 @@ namespace Planetoid_DB
 			components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DatabaseDownloaderForm));
 			kryptonManager = new Krypton.Toolkit.KryptonManager(components);
-			toolTip = new KryptonToolTip(components);
 			tableLayoutPanel = new Krypton.Toolkit.KryptonTableLayoutPanel();
 			labelStatusText = new Krypton.Toolkit.KryptonLabel();
 			labelSizeValue = new Krypton.Toolkit.KryptonLabel();
@@ -83,7 +80,6 @@ namespace Planetoid_DB
 			tableLayoutPanel.RowStyles.Add(new RowStyle());
 			tableLayoutPanel.Size = new Size(476, 106);
 			tableLayoutPanel.TabIndex = 0;
-			toolTip.SetToolTip(tableLayoutPanel, "Groups the data");
 			tableLayoutPanel.Enter += Control_Enter;
 			tableLayoutPanel.Leave += Control_Leave;
 			tableLayoutPanel.MouseEnter += Control_Enter;
@@ -99,7 +95,9 @@ namespace Planetoid_DB
 			labelStatusText.Name = "labelStatusText";
 			labelStatusText.Size = new Size(50, 20);
 			labelStatusText.TabIndex = 0;
-			toolTip.SetToolTip(labelStatusText, "Status");
+			labelStatusText.ToolTipValues.Description = "Status of the download";
+			labelStatusText.ToolTipValues.EnableToolTips = true;
+			labelStatusText.ToolTipValues.Heading = "Status";
 			labelStatusText.Values.Text = "Status:";
 			labelStatusText.DoubleClick += CopyToClipboard_DoubleClick;
 			labelStatusText.Enter += Control_Enter;
@@ -118,7 +116,9 @@ namespace Planetoid_DB
 			labelSizeValue.Name = "labelSizeValue";
 			labelSizeValue.Size = new Size(414, 22);
 			labelSizeValue.TabIndex = 7;
-			toolTip.SetToolTip(labelSizeValue, "Shows the file size of the download");
+			labelSizeValue.ToolTipValues.Description = "Shows the file size of the download";
+			labelSizeValue.ToolTipValues.EnableToolTips = true;
+			labelSizeValue.ToolTipValues.Heading = "Size of the dowload file";
 			labelSizeValue.Values.Text = "...";
 			labelSizeValue.DoubleClick += CopyToClipboard_DoubleClick;
 			labelSizeValue.Enter += Control_Enter;
@@ -139,7 +139,6 @@ namespace Planetoid_DB
 			contextMenuCopyToClipboard.Size = new Size(214, 26);
 			contextMenuCopyToClipboard.TabStop = true;
 			contextMenuCopyToClipboard.Text = "ContextMenu";
-			toolTip.SetToolTip(contextMenuCopyToClipboard, "Context menu for copying to clipboard");
 			contextMenuCopyToClipboard.MouseEnter += Control_Enter;
 			contextMenuCopyToClipboard.MouseLeave += Control_Leave;
 			// 
@@ -169,7 +168,9 @@ namespace Planetoid_DB
 			labelSizeText.Name = "labelSizeText";
 			labelSizeText.Size = new Size(50, 22);
 			labelSizeText.TabIndex = 6;
-			toolTip.SetToolTip(labelSizeText, "Size");
+			labelSizeText.ToolTipValues.Description = "Shows the file size of the download";
+			labelSizeText.ToolTipValues.EnableToolTips = true;
+			labelSizeText.ToolTipValues.Heading = "Size";
 			labelSizeText.Values.Text = "Size:";
 			labelSizeText.DoubleClick += CopyToClipboard_DoubleClick;
 			labelSizeText.Enter += Control_Enter;
@@ -188,7 +189,9 @@ namespace Planetoid_DB
 			labelDateValue.Name = "labelDateValue";
 			labelDateValue.Size = new Size(414, 20);
 			labelDateValue.TabIndex = 3;
-			toolTip.SetToolTip(labelDateValue, "Shows the last modified date of the download");
+			labelDateValue.ToolTipValues.Description = "Shows the last modified date of the download";
+			labelDateValue.ToolTipValues.EnableToolTips = true;
+			labelDateValue.ToolTipValues.Heading = "Date of the download file";
 			labelDateValue.Values.Text = "...";
 			labelDateValue.DoubleClick += CopyToClipboard_DoubleClick;
 			labelDateValue.Enter += Control_Enter;
@@ -208,7 +211,9 @@ namespace Planetoid_DB
 			labelSourceValue.Name = "labelSourceValue";
 			labelSourceValue.Size = new Size(414, 20);
 			labelSourceValue.TabIndex = 5;
-			toolTip.SetToolTip(labelSourceValue, "Shows the download source");
+			labelSourceValue.ToolTipValues.Description = "Shows the download source";
+			labelSourceValue.ToolTipValues.EnableToolTips = true;
+			labelSourceValue.ToolTipValues.Heading = "Source of the download";
 			labelSourceValue.Values.Text = "...";
 			labelSourceValue.DoubleClick += CopyToClipboard_DoubleClick;
 			labelSourceValue.Enter += Control_Enter;
@@ -227,7 +232,9 @@ namespace Planetoid_DB
 			labelDateText.Name = "labelDateText";
 			labelDateText.Size = new Size(50, 20);
 			labelDateText.TabIndex = 2;
-			toolTip.SetToolTip(labelDateText, "Date");
+			labelDateText.ToolTipValues.Description = "Date of the download file";
+			labelDateText.ToolTipValues.EnableToolTips = true;
+			labelDateText.ToolTipValues.Heading = "Date";
 			labelDateText.Values.Text = "Date:";
 			labelDateText.DoubleClick += CopyToClipboard_DoubleClick;
 			labelDateText.Enter += Control_Enter;
@@ -245,7 +252,9 @@ namespace Planetoid_DB
 			labelSourceText.Name = "labelSourceText";
 			labelSourceText.Size = new Size(50, 20);
 			labelSourceText.TabIndex = 4;
-			toolTip.SetToolTip(labelSourceText, "Source");
+			labelSourceText.ToolTipValues.Description = "Shows the download source";
+			labelSourceText.ToolTipValues.EnableToolTips = true;
+			labelSourceText.ToolTipValues.Heading = "Source";
 			labelSourceText.Values.Text = "Source:";
 			labelSourceText.DoubleClick += CopyToClipboard_DoubleClick;
 			labelSourceText.Enter += Control_Enter;
@@ -264,7 +273,9 @@ namespace Planetoid_DB
 			labelStatusValue.Name = "labelStatusValue";
 			labelStatusValue.Size = new Size(414, 20);
 			labelStatusValue.TabIndex = 1;
-			toolTip.SetToolTip(labelStatusValue, "Shows the status of the download");
+			labelStatusValue.ToolTipValues.Description = "Shows the status of the download";
+			labelStatusValue.ToolTipValues.EnableToolTips = true;
+			labelStatusValue.ToolTipValues.Heading = "Status of the download";
 			labelStatusValue.Values.Text = "...";
 			labelStatusValue.DoubleClick += CopyToClipboard_DoubleClick;
 			labelStatusValue.Enter += Control_Enter;
@@ -284,7 +295,6 @@ namespace Planetoid_DB
 			progressBarDownload.TabIndex = 1;
 			progressBarDownload.TextBackdropColor = Color.Empty;
 			progressBarDownload.TextShadowColor = Color.Empty;
-			toolTip.SetToolTip(progressBarDownload, "Shows the progress of the download");
 			progressBarDownload.Values.Text = "";
 			progressBarDownload.MouseEnter += Control_Enter;
 			progressBarDownload.MouseLeave += Control_Leave;
@@ -298,7 +308,9 @@ namespace Planetoid_DB
 			buttonCancel.Name = "buttonCancel";
 			buttonCancel.Size = new Size(128, 36);
 			buttonCancel.TabIndex = 3;
-			toolTip.SetToolTip(buttonCancel, "Cancel download");
+			buttonCancel.ToolTipValues.Description = "Cancels the download";
+			buttonCancel.ToolTipValues.EnableToolTips = true;
+			buttonCancel.ToolTipValues.Heading = "Cancel download";
 			buttonCancel.Values.DropDownArrowColor = Color.Empty;
 			buttonCancel.Values.Image = Resources.FatcowIcons16px.fatcow_cancel_16px;
 			buttonCancel.Values.Text = "&Cancel download";
@@ -317,7 +329,9 @@ namespace Planetoid_DB
 			buttonDownload.Name = "buttonDownload";
 			buttonDownload.Size = new Size(128, 36);
 			buttonDownload.TabIndex = 2;
-			toolTip.SetToolTip(buttonDownload, "Download");
+			buttonDownload.ToolTipValues.Description = "Downloads the selected file";
+			buttonDownload.ToolTipValues.EnableToolTips = true;
+			buttonDownload.ToolTipValues.Heading = "Download";
 			buttonDownload.Values.DropDownArrowColor = Color.Empty;
 			buttonDownload.Values.Image = Resources.FatcowIcons16px.fatcow_package_go_16px;
 			buttonDownload.Values.Text = "&Download";
@@ -402,7 +416,6 @@ namespace Planetoid_DB
 			PerformLayout();
 		}
 		private Krypton.Toolkit.KryptonManager kryptonManager;
-		private KryptonToolTip toolTip;
 		private Krypton.Toolkit.KryptonStatusStrip statusStrip;
 		private ToolStripStatusLabel labelInformation;
 		private Krypton.Toolkit.KryptonPanel panel;
