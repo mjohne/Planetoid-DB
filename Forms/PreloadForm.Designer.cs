@@ -51,7 +51,7 @@ namespace Planetoid_DB
 			// 
 			// kryptonCommandLinkButtonExit
 			// 
-			kryptonCommandLinkButtonExit.AccessibleDescription = "Cancels und quits the application";
+			kryptonCommandLinkButtonExit.AccessibleDescription = "Cancels And quits the application";
 			kryptonCommandLinkButtonExit.AccessibleName = "Quit the application";
 			kryptonCommandLinkButtonExit.AccessibleRole = AccessibleRole.PushButton;
 			kryptonCommandLinkButtonExit.CommandLinkTextValues.Description = "Cancel and quit the application";
@@ -68,7 +68,7 @@ namespace Planetoid_DB
 			kryptonCommandLinkButtonExit.StateCommon.Content.ShortText.TextH = PaletteRelativeAlign.Near;
 			kryptonCommandLinkButtonExit.StateCommon.Content.ShortText.TextV = PaletteRelativeAlign.Center;
 			kryptonCommandLinkButtonExit.TabIndex = 3;
-			kryptonCommandLinkButtonExit.ToolTipValues.Description = "Cancels und quits the application";
+			kryptonCommandLinkButtonExit.ToolTipValues.Description = "Cancels And quits the application";
 			kryptonCommandLinkButtonExit.ToolTipValues.EnableToolTips = true;
 			kryptonCommandLinkButtonExit.ToolTipValues.Heading = "Quit the application";
 			kryptonCommandLinkButtonExit.Enter += Control_Enter;

@@ -39,7 +39,6 @@ namespace Planetoid_DB
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(CopyDataToClipboardForm));
 			buttonIndexNumber = new KryptonButton();
-			toolTip = new KryptonToolTip(components);
 			buttonReadableDesignation = new KryptonButton();
 			buttonEpoch = new KryptonButton();
 			buttonMeanAnomaly = new KryptonButton();
@@ -83,7 +82,9 @@ namespace Planetoid_DB
 			buttonIndexNumber.Name = "buttonIndexNumber";
 			buttonIndexNumber.Size = new Size(306, 29);
 			buttonIndexNumber.TabIndex = 0;
-			toolTip.SetToolTip(buttonIndexNumber, "Index No.");
+			buttonIndexNumber.ToolTipValues.Description = "Copy to clipboard: Index No.";
+			buttonIndexNumber.ToolTipValues.EnableToolTips = true;
+			buttonIndexNumber.ToolTipValues.Heading = "Index No.";
 			buttonIndexNumber.Values.DropDownArrowColor = Color.Empty;
 			buttonIndexNumber.Values.Text = "Index No.";
 			buttonIndexNumber.Click += ButtonIndexNumber_Click;
@@ -103,7 +104,9 @@ namespace Planetoid_DB
 			buttonReadableDesignation.Name = "buttonReadableDesignation";
 			buttonReadableDesignation.Size = new Size(306, 29);
 			buttonReadableDesignation.TabIndex = 1;
-			toolTip.SetToolTip(buttonReadableDesignation, "Readable designation");
+			buttonReadableDesignation.ToolTipValues.Description = "Copy to clipboard: Readable designation";
+			buttonReadableDesignation.ToolTipValues.EnableToolTips = true;
+			buttonReadableDesignation.ToolTipValues.Heading = "Readable designation";
 			buttonReadableDesignation.Values.DropDownArrowColor = Color.Empty;
 			buttonReadableDesignation.Values.Text = "Readable designation";
 			buttonReadableDesignation.Click += ButtonReadableDesignation_Click;
@@ -123,7 +126,9 @@ namespace Planetoid_DB
 			buttonEpoch.Name = "buttonEpoch";
 			buttonEpoch.Size = new Size(306, 29);
 			buttonEpoch.TabIndex = 2;
-			toolTip.SetToolTip(buttonEpoch, "Epoch (in packed form, .0 TT)");
+			buttonEpoch.ToolTipValues.Description = "Copy to clipboard: Epoch (in packed form, .0 TT)";
+			buttonEpoch.ToolTipValues.EnableToolTips = true;
+			buttonEpoch.ToolTipValues.Heading = "Epoch (in packed form, .0 TT)";
 			buttonEpoch.Values.DropDownArrowColor = Color.Empty;
 			buttonEpoch.Values.Text = "Epoch (in packed form, .0 TT)";
 			buttonEpoch.Click += ButtonEpoch_Click;
@@ -143,7 +148,9 @@ namespace Planetoid_DB
 			buttonMeanAnomaly.Name = "buttonMeanAnomaly";
 			buttonMeanAnomaly.Size = new Size(306, 29);
 			buttonMeanAnomaly.TabIndex = 3;
-			toolTip.SetToolTip(buttonMeanAnomaly, "Mean anomaly at the epoch (degrees)");
+			buttonMeanAnomaly.ToolTipValues.Description = "Copy to clipboard: Mean anomaly at the epoch (degrees)";
+			buttonMeanAnomaly.ToolTipValues.EnableToolTips = true;
+			buttonMeanAnomaly.ToolTipValues.Heading = "Mean anomaly at the epoch (degrees)";
 			buttonMeanAnomaly.Values.DropDownArrowColor = Color.Empty;
 			buttonMeanAnomaly.Values.Text = "Mean anomaly at the epoch (°)";
 			buttonMeanAnomaly.Click += ButtonMeanAnomaly_Click;
@@ -163,7 +170,9 @@ namespace Planetoid_DB
 			buttonArgumentOfPerihelion.Name = "buttonArgumentOfPerihelion";
 			buttonArgumentOfPerihelion.Size = new Size(306, 29);
 			buttonArgumentOfPerihelion.TabIndex = 4;
-			toolTip.SetToolTip(buttonArgumentOfPerihelion, "Argument of perihelion, J2000.0 (degrees)");
+			buttonArgumentOfPerihelion.ToolTipValues.Description = "Copy to clipboard: Argument of perihelion, J2000.0 (degrees)";
+			buttonArgumentOfPerihelion.ToolTipValues.EnableToolTips = true;
+			buttonArgumentOfPerihelion.ToolTipValues.Heading = "Argument of perihelion, J2000.0 (degrees)";
 			buttonArgumentOfPerihelion.Values.DropDownArrowColor = Color.Empty;
 			buttonArgumentOfPerihelion.Values.Text = "Argument of perihelion, J2000.0 (°)";
 			buttonArgumentOfPerihelion.Click += ButtonArgumentOfPerihelion_Click;
@@ -183,7 +192,9 @@ namespace Planetoid_DB
 			buttonLongitudeOfTheAscendingNode.Name = "buttonLongitudeOfTheAscendingNode";
 			buttonLongitudeOfTheAscendingNode.Size = new Size(306, 29);
 			buttonLongitudeOfTheAscendingNode.TabIndex = 5;
-			toolTip.SetToolTip(buttonLongitudeOfTheAscendingNode, "Longitude of the ascending node, J2000.0 (degrees)");
+			buttonLongitudeOfTheAscendingNode.ToolTipValues.Description = "Copy to clipboard: Longitude of the ascending node, J2000.0 (degrees)";
+			buttonLongitudeOfTheAscendingNode.ToolTipValues.EnableToolTips = true;
+			buttonLongitudeOfTheAscendingNode.ToolTipValues.Heading = "Longitude of the ascending node, J2000.0 (degrees)";
 			buttonLongitudeOfTheAscendingNode.Values.DropDownArrowColor = Color.Empty;
 			buttonLongitudeOfTheAscendingNode.Values.Text = "Longitude of the ascending node, J2000.0 (°)";
 			buttonLongitudeOfTheAscendingNode.Click += ButtonLongitudeOfTheAscendingNode_Click;
@@ -203,7 +214,9 @@ namespace Planetoid_DB
 			buttonInclination.Name = "buttonInclination";
 			buttonInclination.Size = new Size(306, 29);
 			buttonInclination.TabIndex = 6;
-			toolTip.SetToolTip(buttonInclination, "Inclination to the ecliptic, J2000.0 (degrees)");
+			buttonInclination.ToolTipValues.Description = "Copy to clipboard: Inclination to the ecliptic, J2000.0 (degrees)";
+			buttonInclination.ToolTipValues.EnableToolTips = true;
+			buttonInclination.ToolTipValues.Heading = "Inclination to the ecliptic, J2000.0 (degrees)";
 			buttonInclination.Values.DropDownArrowColor = Color.Empty;
 			buttonInclination.Values.Text = "Inclination to the ecliptic, J2000.0 (°)";
 			buttonInclination.Click += ButtonInclination_Click;
@@ -223,7 +236,9 @@ namespace Planetoid_DB
 			buttonOrbitalEccentricity.Name = "buttonOrbitalEccentricity";
 			buttonOrbitalEccentricity.Size = new Size(306, 29);
 			buttonOrbitalEccentricity.TabIndex = 7;
-			toolTip.SetToolTip(buttonOrbitalEccentricity, "Orbital eccentricity");
+			buttonOrbitalEccentricity.ToolTipValues.Description = "Copy to clipboard: Orbital eccentricity";
+			buttonOrbitalEccentricity.ToolTipValues.EnableToolTips = true;
+			buttonOrbitalEccentricity.ToolTipValues.Heading = "Orbital eccentricity";
 			buttonOrbitalEccentricity.Values.DropDownArrowColor = Color.Empty;
 			buttonOrbitalEccentricity.Values.Text = "Orbital eccentricity";
 			buttonOrbitalEccentricity.Click += ButtonOrbitalEccentricity_Click;
@@ -243,7 +258,9 @@ namespace Planetoid_DB
 			buttonMeanDailyMotion.Name = "buttonMeanDailyMotion";
 			buttonMeanDailyMotion.Size = new Size(306, 29);
 			buttonMeanDailyMotion.TabIndex = 8;
-			toolTip.SetToolTip(buttonMeanDailyMotion, "Mean daily motion (degrees per day)");
+			buttonMeanDailyMotion.ToolTipValues.Description = "Copy to clipboard: Mean daily motion (degrees per day)";
+			buttonMeanDailyMotion.ToolTipValues.EnableToolTips = true;
+			buttonMeanDailyMotion.ToolTipValues.Heading = "Mean daily motion (degrees per day)";
 			buttonMeanDailyMotion.Values.DropDownArrowColor = Color.Empty;
 			buttonMeanDailyMotion.Values.Text = "Mean daily motion (°/day)";
 			buttonMeanDailyMotion.Click += ButtonMeanDailyMotion_Click;
@@ -263,7 +280,9 @@ namespace Planetoid_DB
 			buttonSemimajorAxis.Name = "buttonSemimajorAxis";
 			buttonSemimajorAxis.Size = new Size(306, 29);
 			buttonSemimajorAxis.TabIndex = 9;
-			toolTip.SetToolTip(buttonSemimajorAxis, "Semi-major axis (AU)");
+			buttonSemimajorAxis.ToolTipValues.Description = "Copy to clipboard: Semi-major axis (AU)";
+			buttonSemimajorAxis.ToolTipValues.EnableToolTips = true;
+			buttonSemimajorAxis.ToolTipValues.Heading = "Semi-major axis (AU)";
 			buttonSemimajorAxis.Values.DropDownArrowColor = Color.Empty;
 			buttonSemimajorAxis.Values.Text = "Semi-major axis (AU)";
 			buttonSemimajorAxis.Click += ButtonSemiMajorAxis_Click;
@@ -283,7 +302,9 @@ namespace Planetoid_DB
 			buttonAbsoluteMagnitude.Name = "buttonAbsoluteMagnitude";
 			buttonAbsoluteMagnitude.Size = new Size(306, 29);
 			buttonAbsoluteMagnitude.TabIndex = 10;
-			toolTip.SetToolTip(buttonAbsoluteMagnitude, "Absolute magnitude, H");
+			buttonAbsoluteMagnitude.ToolTipValues.Description = "Copy to clipboard: Absolute magnitude, H";
+			buttonAbsoluteMagnitude.ToolTipValues.EnableToolTips = true;
+			buttonAbsoluteMagnitude.ToolTipValues.Heading = "Absolute magnitude, H";
 			buttonAbsoluteMagnitude.Values.DropDownArrowColor = Color.Empty;
 			buttonAbsoluteMagnitude.Values.Text = "Absolute magnitude, H";
 			buttonAbsoluteMagnitude.Click += ButtonAbsoluteMagnitude_Click;
@@ -303,7 +324,9 @@ namespace Planetoid_DB
 			buttonSlopeParameter.Name = "buttonSlopeParameter";
 			buttonSlopeParameter.Size = new Size(306, 29);
 			buttonSlopeParameter.TabIndex = 11;
-			toolTip.SetToolTip(buttonSlopeParameter, "Slope parameter, G");
+			buttonSlopeParameter.ToolTipValues.Description = "Copy to clipboard: Slope parameter, G";
+			buttonSlopeParameter.ToolTipValues.EnableToolTips = true;
+			buttonSlopeParameter.ToolTipValues.Heading = "Slope parameter, G";
 			buttonSlopeParameter.Values.DropDownArrowColor = Color.Empty;
 			buttonSlopeParameter.Values.Text = "Slope parameter, G";
 			buttonSlopeParameter.Click += ButtonSlopeParameter_Click;
@@ -323,7 +346,9 @@ namespace Planetoid_DB
 			buttonReference.Name = "buttonReference";
 			buttonReference.Size = new Size(306, 29);
 			buttonReference.TabIndex = 12;
-			toolTip.SetToolTip(buttonReference, "Reference");
+			buttonReference.ToolTipValues.Description = "Copy to clipboard: Reference";
+			buttonReference.ToolTipValues.EnableToolTips = true;
+			buttonReference.ToolTipValues.Heading = "Reference";
 			buttonReference.Values.DropDownArrowColor = Color.Empty;
 			buttonReference.Values.Text = "Reference";
 			buttonReference.Click += ButtonReference_Click;
@@ -343,7 +368,9 @@ namespace Planetoid_DB
 			buttonObservationSpan.Name = "buttonObservationSpan";
 			buttonObservationSpan.Size = new Size(306, 29);
 			buttonObservationSpan.TabIndex = 15;
-			toolTip.SetToolTip(buttonObservationSpan, "Observation span");
+			buttonObservationSpan.ToolTipValues.Description = "Copy to clipboard: Observation span";
+			buttonObservationSpan.ToolTipValues.EnableToolTips = true;
+			buttonObservationSpan.ToolTipValues.Heading = "Observation span";
 			buttonObservationSpan.Values.DropDownArrowColor = Color.Empty;
 			buttonObservationSpan.Values.Text = "Observation span";
 			buttonObservationSpan.Click += ButtonObservationSpan_Click;
@@ -363,7 +390,9 @@ namespace Planetoid_DB
 			buttonNumberOfObservations.Name = "buttonNumberOfObservations";
 			buttonNumberOfObservations.Size = new Size(306, 29);
 			buttonNumberOfObservations.TabIndex = 14;
-			toolTip.SetToolTip(buttonNumberOfObservations, "Number of observations");
+			buttonNumberOfObservations.ToolTipValues.Description = "Copy to clipboard: Number of observations";
+			buttonNumberOfObservations.ToolTipValues.EnableToolTips = true;
+			buttonNumberOfObservations.ToolTipValues.Heading = "Number of observations";
 			buttonNumberOfObservations.Values.DropDownArrowColor = Color.Empty;
 			buttonNumberOfObservations.Values.Text = "Number of observations";
 			buttonNumberOfObservations.Click += ButtonNumberOfObservations_Click;
@@ -383,7 +412,9 @@ namespace Planetoid_DB
 			buttonNumberOfOppositions.Name = "buttonNumberOfOppositions";
 			buttonNumberOfOppositions.Size = new Size(306, 29);
 			buttonNumberOfOppositions.TabIndex = 13;
-			toolTip.SetToolTip(buttonNumberOfOppositions, "Number of oppositions");
+			buttonNumberOfOppositions.ToolTipValues.Description = "Copy to clipboard: Number of oppositions";
+			buttonNumberOfOppositions.ToolTipValues.EnableToolTips = true;
+			buttonNumberOfOppositions.ToolTipValues.Heading = "Number of oppositions";
 			buttonNumberOfOppositions.Values.DropDownArrowColor = Color.Empty;
 			buttonNumberOfOppositions.Values.Text = "Number of oppositions";
 			buttonNumberOfOppositions.Click += ButtonNumberOfOppositions_Click;
@@ -403,7 +434,9 @@ namespace Planetoid_DB
 			buttonFlags.Name = "buttonFlags";
 			buttonFlags.Size = new Size(306, 29);
 			buttonFlags.TabIndex = 18;
-			toolTip.SetToolTip(buttonFlags, "4-hexdigit flags");
+			buttonFlags.ToolTipValues.Description = "Copy to clipboard: 4-hexdigit flags";
+			buttonFlags.ToolTipValues.EnableToolTips = true;
+			buttonFlags.ToolTipValues.Heading = "4-hexdigit flags";
 			buttonFlags.Values.DropDownArrowColor = Color.Empty;
 			buttonFlags.Values.Text = "4-hexdigit flags";
 			buttonFlags.Click += ButtonFlags_Click;
@@ -423,7 +456,9 @@ namespace Planetoid_DB
 			buttonComputerName.Name = "buttonComputerName";
 			buttonComputerName.Size = new Size(306, 29);
 			buttonComputerName.TabIndex = 17;
-			toolTip.SetToolTip(buttonComputerName, "Computer name");
+			buttonComputerName.ToolTipValues.Description = "Copy to clipboard: Computer name";
+			buttonComputerName.ToolTipValues.EnableToolTips = true;
+			buttonComputerName.ToolTipValues.Heading = "Computer name";
 			buttonComputerName.Values.DropDownArrowColor = Color.Empty;
 			buttonComputerName.Values.Text = "Computer name";
 			buttonComputerName.Click += ButtonComputerName_Click;
@@ -443,7 +478,9 @@ namespace Planetoid_DB
 			buttonRmsResidual.Name = "buttonRmsResidual";
 			buttonRmsResidual.Size = new Size(306, 29);
 			buttonRmsResidual.TabIndex = 16;
-			toolTip.SetToolTip(buttonRmsResidual, "r.m.s. residual (\")");
+			buttonRmsResidual.ToolTipValues.Description = "Copy to clipboard: r.m.s. residual (\")";
+			buttonRmsResidual.ToolTipValues.EnableToolTips = true;
+			buttonRmsResidual.ToolTipValues.Heading = "r.m.s. residual (\")";
 			buttonRmsResidual.Values.DropDownArrowColor = Color.Empty;
 			buttonRmsResidual.Values.Text = "r.m.s. residual (\")";
 			buttonRmsResidual.Click += ButtonRmsResidual_Click;
@@ -463,7 +500,9 @@ namespace Planetoid_DB
 			buttonDateOfLastObservation.Name = "buttonDateOfLastObservation";
 			buttonDateOfLastObservation.Size = new Size(306, 29);
 			buttonDateOfLastObservation.TabIndex = 19;
-			toolTip.SetToolTip(buttonDateOfLastObservation, "Date of last observation (YYYMMDD)");
+			buttonDateOfLastObservation.ToolTipValues.Description = "Copy to clipboard: Date of last observation (YYYMMDD)";
+			buttonDateOfLastObservation.ToolTipValues.EnableToolTips = true;
+			buttonDateOfLastObservation.ToolTipValues.Heading = "Date of last observation (YYYMMDD)";
 			buttonDateOfLastObservation.Values.DropDownArrowColor = Color.Empty;
 			buttonDateOfLastObservation.Values.Text = "Date of last observation (YYYMMDD)";
 			buttonDateOfLastObservation.Click += ButtonDateOfLastObservation_Click;
@@ -580,7 +619,6 @@ namespace Planetoid_DB
 			ShowInTaskbar = false;
 			StartPosition = FormStartPosition.CenterScreen;
 			Text = "Copy data to clipboard";
-			toolTip.SetToolTip(this, "Copy data to clipboard");
 			Load += CopyDataToClipboardForm_Load;
 			((ISupportInitialize)panel).EndInit();
 			panel.ResumeLayout(false);
@@ -597,7 +635,6 @@ namespace Planetoid_DB
 		#endregion
 
 		private KryptonButton buttonIndexNumber;
-		private KryptonToolTip toolTip;
 		private KryptonButton buttonReadableDesignation;
 		private KryptonPanel panel;
 		private KryptonButton buttonArgumentOfPerihelion;
