@@ -43,8 +43,7 @@ namespace Planetoid_DB
 			ToolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
 			labelTitle = new KryptonLabel();
 			labelDescription = new KryptonLabel();
-			toolTip = new KryptonToolTip(components);
-			pictureBoxBanner = new PictureBox();
+			pictureBoxBanner = new KryptonPictureBox();
 			labelCopyright = new KryptonLabel();
 			linkLabelEmail = new KryptonLinkLabel();
 			linkLabelWebsite = new KryptonLinkLabel();
@@ -70,7 +69,9 @@ namespace Planetoid_DB
 			labelVersion.Name = "labelVersion";
 			labelVersion.Size = new Size(95, 20);
 			labelVersion.TabIndex = 1;
-			toolTip.SetToolTip(labelVersion, "Shows the version number");
+			labelVersion.ToolTipValues.Description = "Shows the version number";
+			labelVersion.ToolTipValues.EnableToolTips = true;
+			labelVersion.ToolTipValues.Heading = "Version number";
 			labelVersion.Values.Text = "Version: X.X.X.X";
 			labelVersion.DoubleClick += CopyToClipboard_DoubleClick;
 			labelVersion.Enter += Control_Enter;
@@ -91,7 +92,6 @@ namespace Planetoid_DB
 			contextMenuStripCopyToClipboard.Size = new Size(214, 26);
 			contextMenuStripCopyToClipboard.TabStop = true;
 			contextMenuStripCopyToClipboard.Text = "ContextMenu";
-			toolTip.SetToolTip(contextMenuStripCopyToClipboard, "Context Menu for copying to clipboard");
 			contextMenuStripCopyToClipboard.MouseEnter += Control_Enter;
 			contextMenuStripCopyToClipboard.MouseLeave += Control_Leave;
 			// 
@@ -123,7 +123,9 @@ namespace Planetoid_DB
 			labelTitle.Name = "labelTitle";
 			labelTitle.Size = new Size(129, 29);
 			labelTitle.TabIndex = 0;
-			toolTip.SetToolTip(labelTitle, "Shows the application name");
+			labelTitle.ToolTipValues.Description = "Shows the application name";
+			labelTitle.ToolTipValues.EnableToolTips = true;
+			labelTitle.ToolTipValues.Heading = "Application name";
 			labelTitle.Values.Text = "Planetoid-DB";
 			labelTitle.DoubleClick += CopyToClipboard_DoubleClick;
 			labelTitle.Enter += Control_Enter;
@@ -143,7 +145,9 @@ namespace Planetoid_DB
 			labelDescription.Name = "labelDescription";
 			labelDescription.Size = new Size(80, 20);
 			labelDescription.TabIndex = 2;
-			toolTip.SetToolTip(labelDescription, "Shows the program description");
+			labelDescription.ToolTipValues.Description = "Shows the program description";
+			labelDescription.ToolTipValues.EnableToolTips = true;
+			labelDescription.ToolTipValues.Heading = "Description";
 			labelDescription.Values.Text = "[Description]";
 			labelDescription.DoubleClick += CopyToClipboard_DoubleClick;
 			labelDescription.Enter += Control_Enter;
@@ -164,7 +168,9 @@ namespace Planetoid_DB
 			pictureBoxBanner.Size = new Size(500, 119);
 			pictureBoxBanner.TabIndex = 0;
 			pictureBoxBanner.TabStop = false;
-			toolTip.SetToolTip(pictureBoxBanner, "On the graphic you see the minor planet \"(243) Ida \".");
+			pictureBoxBanner.ToolTipValues.Description = "On the graphic you see the minor planet \"(243) Ida \".";
+			pictureBoxBanner.ToolTipValues.EnableToolTips = true;
+			pictureBoxBanner.ToolTipValues.Heading = "Banner";
 			pictureBoxBanner.MouseEnter += Control_Enter;
 			pictureBoxBanner.MouseLeave += Control_Leave;
 			// 
@@ -179,7 +185,9 @@ namespace Planetoid_DB
 			labelCopyright.Name = "labelCopyright";
 			labelCopyright.Size = new Size(72, 20);
 			labelCopyright.TabIndex = 3;
-			toolTip.SetToolTip(labelCopyright, "Shows the copyright");
+			labelCopyright.ToolTipValues.Description = "Shows the copyright";
+			labelCopyright.ToolTipValues.EnableToolTips = true;
+			labelCopyright.ToolTipValues.Heading = "Copyright";
 			labelCopyright.Values.Text = "[Copyright]";
 			labelCopyright.DoubleClick += CopyToClipboard_DoubleClick;
 			labelCopyright.Enter += Control_Enter;
@@ -199,7 +207,9 @@ namespace Planetoid_DB
 			linkLabelEmail.Name = "linkLabelEmail";
 			linkLabelEmail.Size = new Size(62, 20);
 			linkLabelEmail.TabIndex = 5;
-			toolTip.SetToolTip(linkLabelEmail, "E-Mail");
+			linkLabelEmail.ToolTipValues.Description = "Opens the mail client";
+			linkLabelEmail.ToolTipValues.EnableToolTips = true;
+			linkLabelEmail.ToolTipValues.Heading = "E-Mail";
 			linkLabelEmail.Values.Image = FatcowIcons16px.fatcow_email_16px;
 			linkLabelEmail.Values.Text = "E-Mail";
 			linkLabelEmail.Visible = false;
@@ -220,7 +230,9 @@ namespace Planetoid_DB
 			linkLabelWebsite.Name = "linkLabelWebsite";
 			linkLabelWebsite.Size = new Size(72, 20);
 			linkLabelWebsite.TabIndex = 4;
-			toolTip.SetToolTip(linkLabelWebsite, "Website");
+			linkLabelWebsite.ToolTipValues.Description = "Opens the website";
+			linkLabelWebsite.ToolTipValues.EnableToolTips = true;
+			linkLabelWebsite.ToolTipValues.Heading = "Website";
 			linkLabelWebsite.Values.Image = FatcowIcons16px.fatcow_world_16px;
 			linkLabelWebsite.Values.Text = "Website";
 			linkLabelWebsite.Visible = false;
@@ -306,7 +318,6 @@ namespace Planetoid_DB
 			ShowInTaskbar = false;
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Program information";
-			toolTip.SetToolTip(this, "Program information");
 			Load += AppInfoForm_Load;
 			contextMenuStripCopyToClipboard.ResumeLayout(false);
 			((ISupportInitialize)pictureBoxBanner).EndInit();
@@ -321,11 +332,10 @@ namespace Planetoid_DB
 
 		#endregion
 
-		private PictureBox pictureBoxBanner;
+		private KryptonPictureBox pictureBoxBanner;
     private KryptonLabel labelVersion;
     private KryptonLabel labelTitle;
     private KryptonLabel labelDescription;
-    private KryptonToolTip toolTip;
 		private KryptonLabel labelCopyright;
         private KryptonPanel panel;
 		private KryptonStatusStrip statusStrip;
