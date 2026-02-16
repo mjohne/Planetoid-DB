@@ -35,7 +35,6 @@ namespace Planetoid_DB
 		{
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(PreloadForm));
-			toolTip = new KryptonToolTip(components);
 			kryptonCommandLinkButtonExit = new KryptonCommandLinkButton();
 			kryptonCommandLinkButtonLoadInternalDemoData = new KryptonCommandLinkButton();
 			kryptonCommandLinkButtonDownloadMprcorbDat = new KryptonCommandLinkButton();
@@ -58,18 +57,20 @@ namespace Planetoid_DB
 			kryptonCommandLinkButtonExit.CommandLinkTextValues.Description = "Cancel and quit the application";
 			kryptonCommandLinkButtonExit.CommandLinkTextValues.Heading = "Quit the application";
 			kryptonCommandLinkButtonExit.DialogResult = DialogResult.Cancel;
-			kryptonCommandLinkButtonExit.Location = new Point(12, 210);
+			kryptonCommandLinkButtonExit.Location = new Point(0, 210);
 			kryptonCommandLinkButtonExit.Name = "kryptonCommandLinkButtonExit";
 			kryptonCommandLinkButtonExit.OverrideFocus.Border.Draw = InheritBool.True;
 			kryptonCommandLinkButtonExit.OverrideFocus.Border.DrawBorders = PaletteDrawBorders.Top | PaletteDrawBorders.Bottom | PaletteDrawBorders.Left | PaletteDrawBorders.Right;
 			kryptonCommandLinkButtonExit.OverrideFocus.Border.GraphicsHint = PaletteGraphicsHint.AntiAlias;
-			kryptonCommandLinkButtonExit.Size = new Size(350, 60);
+			kryptonCommandLinkButtonExit.Size = new Size(334, 60);
 			kryptonCommandLinkButtonExit.StateCommon.Content.LongText.TextH = PaletteRelativeAlign.Near;
 			kryptonCommandLinkButtonExit.StateCommon.Content.LongText.TextV = PaletteRelativeAlign.Far;
 			kryptonCommandLinkButtonExit.StateCommon.Content.ShortText.TextH = PaletteRelativeAlign.Near;
 			kryptonCommandLinkButtonExit.StateCommon.Content.ShortText.TextV = PaletteRelativeAlign.Center;
 			kryptonCommandLinkButtonExit.TabIndex = 3;
-			toolTip.SetToolTip(kryptonCommandLinkButtonExit, "Quit the application");
+			kryptonCommandLinkButtonExit.ToolTipValues.Description = "Cancels und quits the application";
+			kryptonCommandLinkButtonExit.ToolTipValues.EnableToolTips = true;
+			kryptonCommandLinkButtonExit.ToolTipValues.Heading = "Quit the application";
 			kryptonCommandLinkButtonExit.Enter += Control_Enter;
 			kryptonCommandLinkButtonExit.Leave += Control_Leave;
 			kryptonCommandLinkButtonExit.MouseEnter += Control_Enter;
@@ -82,18 +83,20 @@ namespace Planetoid_DB
 			kryptonCommandLinkButtonLoadInternalDemoData.AccessibleRole = AccessibleRole.PushButton;
 			kryptonCommandLinkButtonLoadInternalDemoData.CommandLinkTextValues.Description = "The internal demo data contains 10'000 minor planets";
 			kryptonCommandLinkButtonLoadInternalDemoData.CommandLinkTextValues.Heading = "Load internal demo data";
-			kryptonCommandLinkButtonLoadInternalDemoData.Location = new Point(12, 144);
+			kryptonCommandLinkButtonLoadInternalDemoData.Location = new Point(0, 144);
 			kryptonCommandLinkButtonLoadInternalDemoData.Name = "kryptonCommandLinkButtonLoadInternalDemoData";
 			kryptonCommandLinkButtonLoadInternalDemoData.OverrideFocus.Border.Draw = InheritBool.True;
 			kryptonCommandLinkButtonLoadInternalDemoData.OverrideFocus.Border.DrawBorders = PaletteDrawBorders.Top | PaletteDrawBorders.Bottom | PaletteDrawBorders.Left | PaletteDrawBorders.Right;
 			kryptonCommandLinkButtonLoadInternalDemoData.OverrideFocus.Border.GraphicsHint = PaletteGraphicsHint.AntiAlias;
-			kryptonCommandLinkButtonLoadInternalDemoData.Size = new Size(350, 60);
+			kryptonCommandLinkButtonLoadInternalDemoData.Size = new Size(334, 60);
 			kryptonCommandLinkButtonLoadInternalDemoData.StateCommon.Content.LongText.TextH = PaletteRelativeAlign.Near;
 			kryptonCommandLinkButtonLoadInternalDemoData.StateCommon.Content.LongText.TextV = PaletteRelativeAlign.Far;
 			kryptonCommandLinkButtonLoadInternalDemoData.StateCommon.Content.ShortText.TextH = PaletteRelativeAlign.Near;
 			kryptonCommandLinkButtonLoadInternalDemoData.StateCommon.Content.ShortText.TextV = PaletteRelativeAlign.Center;
 			kryptonCommandLinkButtonLoadInternalDemoData.TabIndex = 2;
-			toolTip.SetToolTip(kryptonCommandLinkButtonLoadInternalDemoData, "Load internal demo data");
+			kryptonCommandLinkButtonLoadInternalDemoData.ToolTipValues.Description = "Loads internal demo data";
+			kryptonCommandLinkButtonLoadInternalDemoData.ToolTipValues.EnableToolTips = true;
+			kryptonCommandLinkButtonLoadInternalDemoData.ToolTipValues.Heading = "Load internal demo data";
 			kryptonCommandLinkButtonLoadInternalDemoData.Click += KryptonCommandLinkButtonLoadInternalDemoData_Click;
 			kryptonCommandLinkButtonLoadInternalDemoData.Enter += Control_Enter;
 			kryptonCommandLinkButtonLoadInternalDemoData.Leave += Control_Leave;
@@ -107,18 +110,20 @@ namespace Planetoid_DB
 			kryptonCommandLinkButtonDownloadMprcorbDat.AccessibleRole = AccessibleRole.PushButton;
 			kryptonCommandLinkButtonDownloadMprcorbDat.CommandLinkTextValues.Description = "Download MPCORB.DAT from the IAU Minor Planet Center";
 			kryptonCommandLinkButtonDownloadMprcorbDat.CommandLinkTextValues.Heading = "Download MPCORB.DAT";
-			kryptonCommandLinkButtonDownloadMprcorbDat.Location = new Point(12, 78);
+			kryptonCommandLinkButtonDownloadMprcorbDat.Location = new Point(0, 78);
 			kryptonCommandLinkButtonDownloadMprcorbDat.Name = "kryptonCommandLinkButtonDownloadMprcorbDat";
 			kryptonCommandLinkButtonDownloadMprcorbDat.OverrideFocus.Border.Draw = InheritBool.True;
 			kryptonCommandLinkButtonDownloadMprcorbDat.OverrideFocus.Border.DrawBorders = PaletteDrawBorders.Top | PaletteDrawBorders.Bottom | PaletteDrawBorders.Left | PaletteDrawBorders.Right;
 			kryptonCommandLinkButtonDownloadMprcorbDat.OverrideFocus.Border.GraphicsHint = PaletteGraphicsHint.AntiAlias;
-			kryptonCommandLinkButtonDownloadMprcorbDat.Size = new Size(350, 60);
+			kryptonCommandLinkButtonDownloadMprcorbDat.Size = new Size(334, 60);
 			kryptonCommandLinkButtonDownloadMprcorbDat.StateCommon.Content.LongText.TextH = PaletteRelativeAlign.Near;
 			kryptonCommandLinkButtonDownloadMprcorbDat.StateCommon.Content.LongText.TextV = PaletteRelativeAlign.Far;
 			kryptonCommandLinkButtonDownloadMprcorbDat.StateCommon.Content.ShortText.TextH = PaletteRelativeAlign.Near;
 			kryptonCommandLinkButtonDownloadMprcorbDat.StateCommon.Content.ShortText.TextV = PaletteRelativeAlign.Center;
 			kryptonCommandLinkButtonDownloadMprcorbDat.TabIndex = 1;
-			toolTip.SetToolTip(kryptonCommandLinkButtonDownloadMprcorbDat, "Download MPCORB.DAT");
+			kryptonCommandLinkButtonDownloadMprcorbDat.ToolTipValues.Description = "Downloads MPCORB.DAT from the IAU Minor Planet Center";
+			kryptonCommandLinkButtonDownloadMprcorbDat.ToolTipValues.EnableToolTips = true;
+			kryptonCommandLinkButtonDownloadMprcorbDat.ToolTipValues.Heading = "Download MPCORB.DAT";
 			kryptonCommandLinkButtonDownloadMprcorbDat.Click += KryptonCommandLinkButtonDownloadMprcorbDat_Click;
 			kryptonCommandLinkButtonDownloadMprcorbDat.Enter += Control_Enter;
 			kryptonCommandLinkButtonDownloadMprcorbDat.Leave += Control_Leave;
@@ -132,18 +137,20 @@ namespace Planetoid_DB
 			kryptonCommandLinkButtonOpenLocalFile.AccessibleRole = AccessibleRole.PushButton;
 			kryptonCommandLinkButtonOpenLocalFile.CommandLinkTextValues.Description = "Open a local MPCORB.DAT file from hard drive";
 			kryptonCommandLinkButtonOpenLocalFile.CommandLinkTextValues.Heading = "Open a local MPCORB.DAT file";
-			kryptonCommandLinkButtonOpenLocalFile.Location = new Point(12, 12);
+			kryptonCommandLinkButtonOpenLocalFile.Location = new Point(0, 12);
 			kryptonCommandLinkButtonOpenLocalFile.Name = "kryptonCommandLinkButtonOpenLocalFile";
 			kryptonCommandLinkButtonOpenLocalFile.OverrideFocus.Border.Draw = InheritBool.True;
 			kryptonCommandLinkButtonOpenLocalFile.OverrideFocus.Border.DrawBorders = PaletteDrawBorders.Top | PaletteDrawBorders.Bottom | PaletteDrawBorders.Left | PaletteDrawBorders.Right;
 			kryptonCommandLinkButtonOpenLocalFile.OverrideFocus.Border.GraphicsHint = PaletteGraphicsHint.AntiAlias;
-			kryptonCommandLinkButtonOpenLocalFile.Size = new Size(350, 60);
+			kryptonCommandLinkButtonOpenLocalFile.Size = new Size(334, 60);
 			kryptonCommandLinkButtonOpenLocalFile.StateCommon.Content.LongText.TextH = PaletteRelativeAlign.Near;
 			kryptonCommandLinkButtonOpenLocalFile.StateCommon.Content.LongText.TextV = PaletteRelativeAlign.Far;
 			kryptonCommandLinkButtonOpenLocalFile.StateCommon.Content.ShortText.TextH = PaletteRelativeAlign.Near;
 			kryptonCommandLinkButtonOpenLocalFile.StateCommon.Content.ShortText.TextV = PaletteRelativeAlign.Center;
 			kryptonCommandLinkButtonOpenLocalFile.TabIndex = 0;
-			toolTip.SetToolTip(kryptonCommandLinkButtonOpenLocalFile, "Open a local MPCORB.DAT file");
+			kryptonCommandLinkButtonOpenLocalFile.ToolTipValues.Description = "Opens a local MPCORB.DAT file from hard drive";
+			kryptonCommandLinkButtonOpenLocalFile.ToolTipValues.EnableToolTips = true;
+			kryptonCommandLinkButtonOpenLocalFile.ToolTipValues.Heading = "Open a local MPCORB.DAT file";
 			kryptonCommandLinkButtonOpenLocalFile.Click += KryptonCommandLinkButtonOpenLocalFile_Click;
 			kryptonCommandLinkButtonOpenLocalFile.Enter += Control_Enter;
 			kryptonCommandLinkButtonOpenLocalFile.Leave += Control_Leave;
@@ -161,7 +168,7 @@ namespace Planetoid_DB
 			statusStrip.Name = "statusStrip";
 			statusStrip.ProgressBars = null;
 			statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-			statusStrip.Size = new Size(376, 22);
+			statusStrip.Size = new Size(334, 22);
 			statusStrip.SizingGrip = false;
 			statusStrip.TabIndex = 1;
 			statusStrip.Text = "status bar";
@@ -192,7 +199,7 @@ namespace Planetoid_DB
 			panel.Location = new Point(0, 0);
 			panel.Name = "panel";
 			panel.PanelBackStyle = PaletteBackStyle.FormMain;
-			panel.Size = new Size(376, 278);
+			panel.Size = new Size(334, 278);
 			panel.TabIndex = 0;
 			panel.TabStop = true;
 			// 
@@ -217,7 +224,7 @@ namespace Planetoid_DB
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			CancelButton = kryptonCommandLinkButtonExit;
-			ClientSize = new Size(376, 300);
+			ClientSize = new Size(334, 300);
 			ControlBox = false;
 			Controls.Add(panel);
 			Controls.Add(statusStrip);
@@ -228,7 +235,6 @@ namespace Planetoid_DB
 			Name = "PreloadForm";
 			StartPosition = FormStartPosition.CenterScreen;
 			Text = "Planetoid-DB Preloader";
-			toolTip.SetToolTip(this, "Preloader");
 			Load += PreloadForm_Load;
 			statusStrip.ResumeLayout(false);
 			statusStrip.PerformLayout();
@@ -239,8 +245,6 @@ namespace Planetoid_DB
 		}
 
 		#endregion
-
-		private KryptonToolTip toolTip;
 		private KryptonStatusStrip statusStrip;
 		private ToolStripStatusLabel labelInformation;
 		private KryptonPanel panel;
