@@ -35,7 +35,6 @@ namespace Planetoid_DB
 		{
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(TerminologyForm));
-			toolTip = new KryptonToolTip(components);
 			toolStripContainer = new ToolStripContainer();
 			statusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
@@ -76,7 +75,6 @@ namespace Planetoid_DB
 			toolStripContainer.Size = new Size(820, 359);
 			toolStripContainer.TabIndex = 5;
 			toolStripContainer.Text = "toolStripContainer";
-			toolTip.SetToolTip(toolStripContainer, "Container to arrange the toolbars");
 			toolStripContainer.TopToolStripPanelVisible = false;
 			// 
 			// statusStrip
@@ -130,7 +128,6 @@ namespace Planetoid_DB
 			splitContainer.Size = new Size(820, 337);
 			splitContainer.SplitterDistance = 279;
 			splitContainer.TabIndex = 8;
-			toolTip.SetToolTip(splitContainer, "Splits the pane in half with the list of terms you can look up and in the other half with the web browser");
 			// 
 			// listBox
 			// 
@@ -145,7 +142,9 @@ namespace Planetoid_DB
 			listBox.Name = "listBox";
 			listBox.Size = new Size(279, 337);
 			listBox.TabIndex = 7;
-			toolTip.SetToolTip(listBox, "Terms that can be looked up");
+			listBox.ToolTipValues.Description = "Lists the terms that can be looked up";
+			listBox.ToolTipValues.EnableToolTips = true;
+			listBox.ToolTipValues.Heading = "Terms that can be looked up";
 			listBox.SelectedValueChanged += ListBox_SelectedValueChanged;
 			listBox.Enter += Control_Enter;
 			listBox.Leave += Control_Leave;
@@ -163,7 +162,6 @@ namespace Planetoid_DB
 			webBrowser.Name = "webBrowser";
 			webBrowser.Size = new Size(536, 337);
 			webBrowser.TabIndex = 1;
-			toolTip.SetToolTip(webBrowser, "Webbrowser");
 			// 
 			// kryptonManager
 			// 
@@ -208,8 +206,6 @@ namespace Planetoid_DB
 		}
 
 		#endregion
-
-		private KryptonToolTip toolTip;
 		private KryptonStatusStrip statusStrip;
 		private ToolStripStatusLabel labelInformation;
 		private ToolStripContainer toolStripContainer;
