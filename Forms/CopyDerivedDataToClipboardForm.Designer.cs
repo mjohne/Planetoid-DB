@@ -169,9 +169,9 @@ namespace Planetoid_DB
 			buttonEccentricAnomaly.Name = "buttonEccentricAnomaly";
 			buttonEccentricAnomaly.Size = new Size(306, 29);
 			buttonEccentricAnomaly.TabIndex = 4;
-			buttonEccentricAnomaly.ToolTipValues.Description = "Copy to clipboard: Eccentric anomaly (°)";
+			buttonEccentricAnomaly.ToolTipValues.Description = "Copy to clipboard: Eccentric anomaly ((degrees)";
 			buttonEccentricAnomaly.ToolTipValues.EnableToolTips = true;
-			buttonEccentricAnomaly.ToolTipValues.Heading = "Eccentric anomaly (°)";
+			buttonEccentricAnomaly.ToolTipValues.Heading = "Eccentric anomaly ((degrees)";
 			buttonEccentricAnomaly.Values.DropDownArrowColor = Color.Empty;
 			buttonEccentricAnomaly.Values.Text = "Eccentric anomaly (°)";
 			buttonEccentricAnomaly.Click += ButtonEccentricAnomaly_Click;
@@ -191,9 +191,9 @@ namespace Planetoid_DB
 			buttonTrueAnomaly.Name = "buttonTrueAnomaly";
 			buttonTrueAnomaly.Size = new Size(306, 29);
 			buttonTrueAnomaly.TabIndex = 5;
-			buttonTrueAnomaly.ToolTipValues.Description = "Copy to clipboard: True anomaly (°)";
+			buttonTrueAnomaly.ToolTipValues.Description = "Copy to clipboard: True anomaly ((degrees)";
 			buttonTrueAnomaly.ToolTipValues.EnableToolTips = true;
-			buttonTrueAnomaly.ToolTipValues.Heading = "True anomaly (°)";
+			buttonTrueAnomaly.ToolTipValues.Heading = "True anomaly (degrees)";
 			buttonTrueAnomaly.Values.DropDownArrowColor = Color.Empty;
 			buttonTrueAnomaly.Values.Text = "True anomaly (°)";
 			buttonTrueAnomaly.Click += ButtonTrueAnomaly_Click;
@@ -455,9 +455,9 @@ namespace Planetoid_DB
 			buttonMeanAxis.Name = "buttonMeanAxis";
 			buttonMeanAxis.Size = new Size(306, 29);
 			buttonMeanAxis.TabIndex = 17;
-			buttonMeanAxis.ToolTipValues.Description = "Orbital perimeter (AU)";
+			buttonMeanAxis.ToolTipValues.Description = "Copy to clipboard: Mean axis (AU)";
 			buttonMeanAxis.ToolTipValues.EnableToolTips = true;
-			buttonMeanAxis.ToolTipValues.Heading = "Orbital perimeter (AU)";
+			buttonMeanAxis.ToolTipValues.Heading = "Mean axis (AU)";
 			buttonMeanAxis.Values.DropDownArrowColor = Color.Empty;
 			buttonMeanAxis.Values.Text = "Mean axis (AU)";
 			buttonMeanAxis.Click += ButtonMeanAxis_Click;
@@ -477,9 +477,9 @@ namespace Planetoid_DB
 			buttonSemiMeanAxis.Name = "buttonSemiMeanAxis";
 			buttonSemiMeanAxis.Size = new Size(306, 29);
 			buttonSemiMeanAxis.TabIndex = 16;
-			buttonSemiMeanAxis.ToolTipValues.Description = "Copy to clipboard: Orbital perimeter (AU)";
+			buttonSemiMeanAxis.ToolTipValues.Description = "Copy to clipboard: Semi-mean axis (AU)";
 			buttonSemiMeanAxis.ToolTipValues.EnableToolTips = true;
-			buttonSemiMeanAxis.ToolTipValues.Heading = "Orbital perimeter (AU)";
+			buttonSemiMeanAxis.ToolTipValues.Heading = "Semi-mean axis (AU)";
 			buttonSemiMeanAxis.Values.DropDownArrowColor = Color.Empty;
 			buttonSemiMeanAxis.Values.Text = "Semi-mean axis (AU)";
 			buttonSemiMeanAxis.Click += ButtonSemiMeanAxis_Click;
