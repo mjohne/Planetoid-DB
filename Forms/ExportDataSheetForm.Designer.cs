@@ -41,7 +41,7 @@ namespace Planetoid_DB
 			buttonExportAsHtml = new KryptonButton();
 			statusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
-			toolTip = new KryptonToolTip(components);
+			toolTip = new ToolTip(components);
 			buttonUnmarkAll = new KryptonButton();
 			buttonMarkAll = new KryptonButton();
 			toolStripContainer = new ToolStripContainer();
@@ -72,6 +72,9 @@ namespace Planetoid_DB
 			buttonExportAsJson.StateCommon.Content.Image.ImageV = PaletteRelativeAlign.Near;
 			buttonExportAsJson.TabIndex = 6;
 			toolTip.SetToolTip(buttonExportAsJson, "Export as JSON");
+			buttonExportAsJson.ToolTipValues.Description = "Exports the data sheet as JSON file";
+			buttonExportAsJson.ToolTipValues.EnableToolTips = true;
+			buttonExportAsJson.ToolTipValues.Heading = "Export as JSON";
 			buttonExportAsJson.Values.DropDownArrowColor = Color.Empty;
 			buttonExportAsJson.Values.Image = FatcowIcons16px.fatcow_page_white_code_16px;
 			buttonExportAsJson.Values.Text = "Export as JSON";
@@ -93,6 +96,9 @@ namespace Planetoid_DB
 			buttonExportAsTxt.StateCommon.Content.Image.ImageV = PaletteRelativeAlign.Near;
 			buttonExportAsTxt.TabIndex = 3;
 			toolTip.SetToolTip(buttonExportAsTxt, "Export as TXT");
+			buttonExportAsTxt.ToolTipValues.Description = "Exports the data sheet as text file";
+			buttonExportAsTxt.ToolTipValues.EnableToolTips = true;
+			buttonExportAsTxt.ToolTipValues.Heading = "Export as TXT";
 			buttonExportAsTxt.Values.DropDownArrowColor = Color.Empty;
 			buttonExportAsTxt.Values.Image = FatcowIcons16px.fatcow_page_white_text_16px;
 			buttonExportAsTxt.Values.Text = "Export as TXT";
@@ -114,6 +120,9 @@ namespace Planetoid_DB
 			buttonExportAsXml.StateCommon.Content.Image.ImageV = PaletteRelativeAlign.Near;
 			buttonExportAsXml.TabIndex = 5;
 			toolTip.SetToolTip(buttonExportAsXml, "Export as XML");
+			buttonExportAsXml.ToolTipValues.Description = "Exports the data sheet as XML file";
+			buttonExportAsXml.ToolTipValues.EnableToolTips = true;
+			buttonExportAsXml.ToolTipValues.Heading = "Export as XML";
 			buttonExportAsXml.Values.DropDownArrowColor = Color.Empty;
 			buttonExportAsXml.Values.Image = FatcowIcons16px.fatcow_page_white_code_16px;
 			buttonExportAsXml.Values.Text = "Export as XML";
@@ -135,6 +144,9 @@ namespace Planetoid_DB
 			buttonExportAsHtml.StateCommon.Content.Image.ImageV = PaletteRelativeAlign.Near;
 			buttonExportAsHtml.TabIndex = 4;
 			toolTip.SetToolTip(buttonExportAsHtml, "Export as HTML");
+			buttonExportAsHtml.ToolTipValues.Description = "Exports the data sheet as HTML file";
+			buttonExportAsHtml.ToolTipValues.EnableToolTips = true;
+			buttonExportAsHtml.ToolTipValues.Heading = "Export as HTML";
 			buttonExportAsHtml.Values.DropDownArrowColor = Color.Empty;
 			buttonExportAsHtml.Values.Image = FatcowIcons16px.fatcow_page_white_code_16px;
 			buttonExportAsHtml.Values.Text = "Export as HTML";
@@ -186,6 +198,9 @@ namespace Planetoid_DB
 			buttonUnmarkAll.Size = new Size(110, 29);
 			buttonUnmarkAll.TabIndex = 2;
 			toolTip.SetToolTip(buttonUnmarkAll, "Unmark all orbital elements");
+			buttonUnmarkAll.ToolTipValues.Description = "Unmarks all orbital elements";
+			buttonUnmarkAll.ToolTipValues.EnableToolTips = true;
+			buttonUnmarkAll.ToolTipValues.Heading = "Unmark all orbital elements";
 			buttonUnmarkAll.Values.DropDownArrowColor = Color.Empty;
 			buttonUnmarkAll.Values.Text = "&Unmark all";
 			buttonUnmarkAll.Click += ButtonUnmarkAll_Click;
@@ -206,6 +221,9 @@ namespace Planetoid_DB
 			buttonMarkAll.Size = new Size(110, 29);
 			buttonMarkAll.TabIndex = 1;
 			toolTip.SetToolTip(buttonMarkAll, "Mark all orbital elements");
+			buttonMarkAll.ToolTipValues.Description = "Marks all orbital elements";
+			buttonMarkAll.ToolTipValues.EnableToolTips = true;
+			buttonMarkAll.ToolTipValues.Heading = "Mark all orbital elements";
 			buttonMarkAll.Values.DropDownArrowColor = Color.Empty;
 			buttonMarkAll.Values.Image = FatcowIcons16px.fatcow_asterisk_orange_16px;
 			buttonMarkAll.Values.Text = "&Mark all";
@@ -276,6 +294,9 @@ namespace Planetoid_DB
 			checkedListBoxOrbitalElements.Size = new Size(327, 277);
 			checkedListBoxOrbitalElements.TabIndex = 0;
 			toolTip.SetToolTip(checkedListBoxOrbitalElements, "Check orbital elements");
+			checkedListBoxOrbitalElements.ToolTipValues.Description = "Checks some orbital elements to print on a data sheet";
+			checkedListBoxOrbitalElements.ToolTipValues.EnableToolTips = true;
+			checkedListBoxOrbitalElements.ToolTipValues.Heading = "Check orbital elements";
 			checkedListBoxOrbitalElements.SelectedIndexChanged += CheckedListBoxOrbitalElements_SelectedIndexChanged;
 			checkedListBoxOrbitalElements.Enter += Control_Enter;
 			checkedListBoxOrbitalElements.Leave += Control_Leave;
@@ -348,7 +369,7 @@ namespace Planetoid_DB
 		private KryptonButton buttonExportAsJson;
 		private KryptonStatusStrip statusStrip;
 		private ToolStripStatusLabel labelInformation;
-		private KryptonToolTip toolTip;
+		private ToolTip toolTip;
 		private SaveFileDialog saveFileDialogTxt;
 		private SaveFileDialog saveFileDialogHtml;
 		private SaveFileDialog saveFileDialogXml;
