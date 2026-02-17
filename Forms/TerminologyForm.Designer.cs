@@ -132,7 +132,7 @@ namespace Planetoid_DB
 			// listBox
 			// 
 			listBox.AccessibleDescription = "Lists the terms that can be looked up";
-			listBox.AccessibleName = "Terms that can be looked up";
+			listBox.AccessibleName = "Terms list";
 			listBox.AccessibleRole = AccessibleRole.List;
 			listBox.BackStyle = PaletteBackStyle.PanelClient;
 			listBox.Dock = DockStyle.Fill;
@@ -144,7 +144,7 @@ namespace Planetoid_DB
 			listBox.TabIndex = 7;
 			listBox.ToolTipValues.Description = "Lists the terms that can be looked up";
 			listBox.ToolTipValues.EnableToolTips = true;
-			listBox.ToolTipValues.Heading = "Terms that can be looked up";
+			listBox.ToolTipValues.Heading = "Terms list";
 			listBox.SelectedValueChanged += ListBox_SelectedValueChanged;
 			listBox.Enter += Control_Enter;
 			listBox.Leave += Control_Leave;
