@@ -37,7 +37,6 @@ namespace Planetoid_DB
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(ListReadableDesignationsForm));
 			statusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
-			toolTip = new KryptonToolTip(components);
 			buttonList = new KryptonButton();
 			contextMenuCopyToClipboard = new ContextMenuStrip(components);
 			ToolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
@@ -120,7 +119,9 @@ namespace Planetoid_DB
 			buttonList.Name = "buttonList";
 			buttonList.Size = new Size(52, 31);
 			buttonList.TabIndex = 4;
-			toolTip.SetToolTip(buttonList, "Start the progress and list");
+			buttonList.ToolTipValues.Description = "Starts the progress and list";
+			buttonList.ToolTipValues.EnableToolTips = true;
+			buttonList.ToolTipValues.Heading = "List";
 			buttonList.Values.DropDownArrowColor = Color.Empty;
 			buttonList.Values.Image = FatcowIcons16px.fatcow_page_white_text_16px;
 			buttonList.Values.Text = "&List";
@@ -142,7 +143,6 @@ namespace Planetoid_DB
 			contextMenuCopyToClipboard.Size = new Size(214, 26);
 			contextMenuCopyToClipboard.TabStop = true;
 			contextMenuCopyToClipboard.Text = "ContextMenu";
-			toolTip.SetToolTip(contextMenuCopyToClipboard, "Context menu for copying to clipboard");
 			contextMenuCopyToClipboard.MouseEnter += Control_Enter;
 			contextMenuCopyToClipboard.MouseLeave += Control_Leave;
 			// 
@@ -164,7 +164,7 @@ namespace Planetoid_DB
 			// 
 			// buttonLoad
 			// 
-			buttonLoad.AccessibleDescription = "Load the selected planetoid";
+			buttonLoad.AccessibleDescription = "Loads the selected planetoid";
 			buttonLoad.AccessibleName = "Load";
 			buttonLoad.AccessibleRole = AccessibleRole.PushButton;
 			buttonLoad.DialogResult = DialogResult.OK;
@@ -172,7 +172,9 @@ namespace Planetoid_DB
 			buttonLoad.Name = "buttonLoad";
 			buttonLoad.Size = new Size(56, 31);
 			buttonLoad.TabIndex = 6;
-			toolTip.SetToolTip(buttonLoad, "Load the selected planetoid");
+			buttonLoad.ToolTipValues.Description = "Loads the selected planetoid";
+			buttonLoad.ToolTipValues.EnableToolTips = true;
+			buttonLoad.ToolTipValues.Heading = "Load";
 			buttonLoad.Values.DropDownArrowColor = Color.Empty;
 			buttonLoad.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
 			buttonLoad.Values.Text = "L&oad";
@@ -190,7 +192,9 @@ namespace Planetoid_DB
 			labelMinimum.Name = "labelMinimum";
 			labelMinimum.Size = new Size(66, 20);
 			labelMinimum.TabIndex = 0;
-			toolTip.SetToolTip(labelMinimum, "Minimum");
+			labelMinimum.ToolTipValues.Description = "Shows the minimum";
+			labelMinimum.ToolTipValues.EnableToolTips = true;
+			labelMinimum.ToolTipValues.Heading = "Minimum";
 			labelMinimum.Values.Text = "M&inimum:";
 			labelMinimum.Click += CopyToClipboard_DoubleClick;
 			labelMinimum.Enter += Control_Enter;
@@ -200,8 +204,8 @@ namespace Planetoid_DB
 			// 
 			// numericUpDownMinimum
 			// 
-			numericUpDownMinimum.AccessibleDescription = "Shows the minimum value";
-			numericUpDownMinimum.AccessibleName = "Minimum value";
+			numericUpDownMinimum.AccessibleDescription = "Shows the minimum value for the list";
+			numericUpDownMinimum.AccessibleName = "Minimum value for the list";
 			numericUpDownMinimum.AccessibleRole = AccessibleRole.SpinButton;
 			numericUpDownMinimum.Increment = new decimal(new int[] { 1, 0, 0, 0 });
 			numericUpDownMinimum.Location = new Point(84, 10);
@@ -211,7 +215,9 @@ namespace Planetoid_DB
 			numericUpDownMinimum.Size = new Size(64, 22);
 			numericUpDownMinimum.StateCommon.Content.TextH = PaletteRelativeAlign.Center;
 			numericUpDownMinimum.TabIndex = 1;
-			toolTip.SetToolTip(numericUpDownMinimum, "Minimum value for the list");
+			numericUpDownMinimum.ToolTipValues.Description = "Shows the minimum value for the list";
+			numericUpDownMinimum.ToolTipValues.EnableToolTips = true;
+			numericUpDownMinimum.ToolTipValues.Heading = "Minimum value for the list";
 			numericUpDownMinimum.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimum.Enter += Control_Enter;
 			numericUpDownMinimum.Leave += Control_Leave;
@@ -220,8 +226,8 @@ namespace Planetoid_DB
 			// 
 			// numericUpDownMaximum
 			// 
-			numericUpDownMaximum.AccessibleDescription = "Shows the maximum value";
-			numericUpDownMaximum.AccessibleName = "Maximum value";
+			numericUpDownMaximum.AccessibleDescription = "Shows the maximum value for the list";
+			numericUpDownMaximum.AccessibleName = "Maximum value for the list";
 			numericUpDownMaximum.AccessibleRole = AccessibleRole.SpinButton;
 			numericUpDownMaximum.Increment = new decimal(new int[] { 1, 0, 0, 0 });
 			numericUpDownMaximum.Location = new Point(226, 10);
@@ -231,7 +237,9 @@ namespace Planetoid_DB
 			numericUpDownMaximum.Size = new Size(64, 22);
 			numericUpDownMaximum.StateCommon.Content.TextH = PaletteRelativeAlign.Center;
 			numericUpDownMaximum.TabIndex = 3;
-			toolTip.SetToolTip(numericUpDownMaximum, "Maximum value for the list");
+			numericUpDownMaximum.ToolTipValues.Description = "Shows the maximum value for the list";
+			numericUpDownMaximum.ToolTipValues.EnableToolTips = true;
+			numericUpDownMaximum.ToolTipValues.Heading = "Maximum value for the list";
 			numericUpDownMaximum.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximum.Enter += Control_Enter;
 			numericUpDownMaximum.Leave += Control_Leave;
@@ -247,7 +255,9 @@ namespace Planetoid_DB
 			labelMaximum.Name = "labelMaximum";
 			labelMaximum.Size = new Size(68, 20);
 			labelMaximum.TabIndex = 2;
-			toolTip.SetToolTip(labelMaximum, "Maximum");
+			labelMaximum.ToolTipValues.Description = "Shows the maximum";
+			labelMaximum.ToolTipValues.EnableToolTips = true;
+			labelMaximum.ToolTipValues.Heading = "Maximum";
 			labelMaximum.Values.Text = "M&aximum:";
 			labelMaximum.Click += CopyToClipboard_DoubleClick;
 			labelMaximum.Enter += Control_Enter;
@@ -266,7 +276,6 @@ namespace Planetoid_DB
 			contextMenuSaveList.Size = new Size(193, 246);
 			contextMenuSaveList.TabStop = true;
 			contextMenuSaveList.Text = "&Save List";
-			toolTip.SetToolTip(contextMenuSaveList, "Save List");
 			contextMenuSaveList.MouseEnter += Control_Enter;
 			contextMenuSaveList.MouseLeave += Control_Leave;
 			// 
@@ -456,7 +465,9 @@ namespace Planetoid_DB
 			dropButtonSaveList.Size = new Size(93, 31);
 			dropButtonSaveList.Splitter = false;
 			dropButtonSaveList.TabIndex = 7;
-			toolTip.SetToolTip(dropButtonSaveList, "Save List");
+			dropButtonSaveList.ToolTipValues.Description = "Saves the list as file";
+			dropButtonSaveList.ToolTipValues.EnableToolTips = true;
+			dropButtonSaveList.ToolTipValues.Heading = "Save List";
 			dropButtonSaveList.Values.DropDownArrowColor = Color.Empty;
 			dropButtonSaveList.Values.ImageStates.ImageCheckedNormal = null;
 			dropButtonSaveList.Values.ImageStates.ImageCheckedPressed = null;
@@ -609,7 +620,6 @@ namespace Planetoid_DB
 			ShowInTaskbar = false;
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "List of readable designations";
-			toolTip.SetToolTip(this, "List of readable designations ");
 			FormClosed += ListReadableDesignationsForm_FormClosed;
 			Load += ListReadableDesignationsForm_Load;
 			statusStrip.ResumeLayout(false);
@@ -627,7 +637,6 @@ namespace Planetoid_DB
 
 		private KryptonStatusStrip statusStrip;
 		private ToolStripStatusLabel labelInformation;
-		private KryptonToolTip toolTip;
 		private KryptonPanel panel;
 		private ListView listView;
 		private ColumnHeader columnHeaderIndex;
