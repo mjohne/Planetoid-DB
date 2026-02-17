@@ -35,7 +35,6 @@ namespace Planetoid_DB
 		{
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(DerivedOrbitElementsForm));
-			toolTip = new KryptonToolTip(components);
 			labelLinearEccentricityDesc = new KryptonLabel();
 			contextMenuOpenTerminology = new ContextMenuStrip(components);
 			toolStripMenuItemOpenTerminology = new ToolStripMenuItem();
@@ -49,8 +48,8 @@ namespace Planetoid_DB
 			labelTrueAnomalyDesc = new KryptonLabel();
 			labelPerihelionDistanceDesc = new KryptonLabel();
 			LabelAphelionDistanceDesc = new KryptonLabel();
-			labelLongitudeDescendingNodeDesc = new KryptonLabel();
-			labelArgumentAphelionDesc = new KryptonLabel();
+			labelLongitudeOfTheDescendingNodeDesc = new KryptonLabel();
+			labelArgumentOfTheAphelionDesc = new KryptonLabel();
 			labelFocalParameterDesc = new KryptonLabel();
 			labelSemiLatusRectumDesc = new KryptonLabel();
 			labelLatusRectumDesc = new KryptonLabel();
@@ -130,7 +129,9 @@ namespace Planetoid_DB
 			labelLinearEccentricityDesc.Size = new Size(268, 20);
 			labelLinearEccentricityDesc.TabIndex = 0;
 			labelLinearEccentricityDesc.Tag = "20";
-			toolTip.SetToolTip(labelLinearEccentricityDesc, "Linear eccentricity (AU)");
+			labelLinearEccentricityDesc.ToolTipValues.Description = "Linear eccentricity (AU)";
+			labelLinearEccentricityDesc.ToolTipValues.EnableToolTips = true;
+			labelLinearEccentricityDesc.ToolTipValues.Heading = "Linear eccentricity (AU)";
 			labelLinearEccentricityDesc.Values.ExtraText = "AU";
 			labelLinearEccentricityDesc.Values.Text = "Linear eccentricity";
 			labelLinearEccentricityDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -152,7 +153,6 @@ namespace Planetoid_DB
 			contextMenuOpenTerminology.Size = new Size(250, 26);
 			contextMenuOpenTerminology.TabStop = true;
 			contextMenuOpenTerminology.Text = "ContextMenu";
-			toolTip.SetToolTip(contextMenuOpenTerminology, "Context menu for opening the terminology by id");
 			contextMenuOpenTerminology.MouseEnter += Control_Enter;
 			contextMenuOpenTerminology.MouseLeave += Control_Leave;
 			// 
@@ -184,7 +184,9 @@ namespace Planetoid_DB
 			labelLinearEccentricityData.Name = "labelLinearEccentricityData";
 			labelLinearEccentricityData.Size = new Size(270, 20);
 			labelLinearEccentricityData.TabIndex = 1;
-			toolTip.SetToolTip(labelLinearEccentricityData, "Shows the information of \"Linear eccentricity\"");
+			labelLinearEccentricityData.ToolTipValues.Description = "Shows the information of \"Linear eccentricity\"";
+			labelLinearEccentricityData.ToolTipValues.EnableToolTips = true;
+			labelLinearEccentricityData.ToolTipValues.Heading = "Shows the information of \"Linear eccentricity\"";
 			labelLinearEccentricityData.Values.Text = "..................";
 			labelLinearEccentricityData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelLinearEccentricityData.Enter += Control_Enter;
@@ -205,7 +207,6 @@ namespace Planetoid_DB
 			contextMenuCopyToClipboard.Size = new Size(214, 26);
 			contextMenuCopyToClipboard.TabStop = true;
 			contextMenuCopyToClipboard.Text = "ContextMenu";
-			toolTip.SetToolTip(contextMenuCopyToClipboard, "Context menu for copying to clipboard");
 			contextMenuCopyToClipboard.MouseEnter += Control_Enter;
 			contextMenuCopyToClipboard.MouseLeave += Control_Leave;
 			// 
@@ -239,7 +240,9 @@ namespace Planetoid_DB
 			labelSemiMinorAxisDesc.Size = new Size(268, 20);
 			labelSemiMinorAxisDesc.TabIndex = 2;
 			labelSemiMinorAxisDesc.Tag = "21";
-			toolTip.SetToolTip(labelSemiMinorAxisDesc, "Semi-minor axis (AU)");
+			labelSemiMinorAxisDesc.ToolTipValues.Description = "Semi-minor axis (AU)";
+			labelSemiMinorAxisDesc.ToolTipValues.EnableToolTips = true;
+			labelSemiMinorAxisDesc.ToolTipValues.Heading = "Semi-minor axis (AU)";
 			labelSemiMinorAxisDesc.Values.ExtraText = "AU";
 			labelSemiMinorAxisDesc.Values.Text = "Semi-minor axis";
 			labelSemiMinorAxisDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -263,7 +266,9 @@ namespace Planetoid_DB
 			labelMajorAxisDesc.Size = new Size(268, 20);
 			labelMajorAxisDesc.TabIndex = 4;
 			labelMajorAxisDesc.Tag = "22";
-			toolTip.SetToolTip(labelMajorAxisDesc, "Major axis (AU)");
+			labelMajorAxisDesc.ToolTipValues.Description = "Major axis (AU)";
+			labelMajorAxisDesc.ToolTipValues.EnableToolTips = true;
+			labelMajorAxisDesc.ToolTipValues.Heading = "Major axis (AU)";
 			labelMajorAxisDesc.Values.ExtraText = "AU";
 			labelMajorAxisDesc.Values.Text = "Major axis";
 			labelMajorAxisDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -287,7 +292,8 @@ namespace Planetoid_DB
 			labelMinorAxisDesc.Size = new Size(268, 20);
 			labelMinorAxisDesc.TabIndex = 6;
 			labelMinorAxisDesc.Tag = "23";
-			toolTip.SetToolTip(labelMinorAxisDesc, "Minor axis (AU)");
+			labelMinorAxisDesc.ToolTipValues.Description = "Minor axis (AU)";
+			labelMinorAxisDesc.ToolTipValues.EnableToolTips = true;
 			labelMinorAxisDesc.Values.ExtraText = "AU";
 			labelMinorAxisDesc.Values.Text = "Minor axis";
 			labelMinorAxisDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -311,7 +317,9 @@ namespace Planetoid_DB
 			labelEccenctricAnomalyDesc.Size = new Size(268, 20);
 			labelEccenctricAnomalyDesc.TabIndex = 8;
 			labelEccenctricAnomalyDesc.Tag = "24";
-			toolTip.SetToolTip(labelEccenctricAnomalyDesc, "Eccentric anomaly (°)");
+			labelEccenctricAnomalyDesc.ToolTipValues.Description = "Eccentric anomaly (degrees)";
+			labelEccenctricAnomalyDesc.ToolTipValues.EnableToolTips = true;
+			labelEccenctricAnomalyDesc.ToolTipValues.Heading = "Eccentric anomaly (degrees)";
 			labelEccenctricAnomalyDesc.Values.ExtraText = "°";
 			labelEccenctricAnomalyDesc.Values.Text = "Eccentric anomaly";
 			labelEccenctricAnomalyDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -335,7 +343,9 @@ namespace Planetoid_DB
 			labelTrueAnomalyDesc.Size = new Size(268, 20);
 			labelTrueAnomalyDesc.TabIndex = 10;
 			labelTrueAnomalyDesc.Tag = "25";
-			toolTip.SetToolTip(labelTrueAnomalyDesc, "True anomaly (°)");
+			labelTrueAnomalyDesc.ToolTipValues.Description = "True anomaly (degrees)";
+			labelTrueAnomalyDesc.ToolTipValues.EnableToolTips = true;
+			labelTrueAnomalyDesc.ToolTipValues.Heading = "True anomaly (degrees)";
 			labelTrueAnomalyDesc.Values.ExtraText = "°";
 			labelTrueAnomalyDesc.Values.Text = "True anomaly";
 			labelTrueAnomalyDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -359,7 +369,9 @@ namespace Planetoid_DB
 			labelPerihelionDistanceDesc.Size = new Size(268, 20);
 			labelPerihelionDistanceDesc.TabIndex = 12;
 			labelPerihelionDistanceDesc.Tag = "26";
-			toolTip.SetToolTip(labelPerihelionDistanceDesc, "Perihelion distance (AU)");
+			labelPerihelionDistanceDesc.ToolTipValues.Description = "Perihelion distance (AU)";
+			labelPerihelionDistanceDesc.ToolTipValues.EnableToolTips = true;
+			labelPerihelionDistanceDesc.ToolTipValues.Heading = "Perihelion distance (AU)";
 			labelPerihelionDistanceDesc.Values.ExtraText = "AU";
 			labelPerihelionDistanceDesc.Values.Text = "Perihelion distance";
 			labelPerihelionDistanceDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -383,7 +395,9 @@ namespace Planetoid_DB
 			LabelAphelionDistanceDesc.Size = new Size(268, 20);
 			LabelAphelionDistanceDesc.TabIndex = 14;
 			LabelAphelionDistanceDesc.Tag = "27";
-			toolTip.SetToolTip(LabelAphelionDistanceDesc, "Aphelion distance (AU)");
+			LabelAphelionDistanceDesc.ToolTipValues.Description = "Aphelion distance (AU)";
+			LabelAphelionDistanceDesc.ToolTipValues.EnableToolTips = true;
+			LabelAphelionDistanceDesc.ToolTipValues.Heading = "Aphelion distance (AU)";
 			LabelAphelionDistanceDesc.Values.ExtraText = "AU";
 			LabelAphelionDistanceDesc.Values.Text = "Aphelion distance";
 			LabelAphelionDistanceDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -393,53 +407,57 @@ namespace Planetoid_DB
 			LabelAphelionDistanceDesc.MouseEnter += Control_Enter;
 			LabelAphelionDistanceDesc.MouseLeave += Control_Leave;
 			// 
-			// labelLongitudeDescendingNodeDesc
+			// labelLongitudeOfTheDescendingNodeDesc
 			// 
-			labelLongitudeDescendingNodeDesc.AccessibleDescription = "Longitude of the descending node (degrees)";
-			labelLongitudeDescendingNodeDesc.AccessibleName = "Longitude of the descending node (degrees)";
-			labelLongitudeDescendingNodeDesc.AccessibleRole = AccessibleRole.StaticText;
-			labelLongitudeDescendingNodeDesc.ContextMenuStrip = contextMenuOpenTerminology;
-			labelLongitudeDescendingNodeDesc.Dock = DockStyle.Fill;
-			labelLongitudeDescendingNodeDesc.LabelStyle = LabelStyle.BoldPanel;
-			labelLongitudeDescendingNodeDesc.Location = new Point(4, 211);
-			labelLongitudeDescendingNodeDesc.Margin = new Padding(4, 3, 4, 3);
-			labelLongitudeDescendingNodeDesc.Name = "labelLongitudeDescendingNodeDesc";
-			labelLongitudeDescendingNodeDesc.Size = new Size(268, 20);
-			labelLongitudeDescendingNodeDesc.TabIndex = 16;
-			labelLongitudeDescendingNodeDesc.Tag = "28";
-			toolTip.SetToolTip(labelLongitudeDescendingNodeDesc, "Longitude of the descending node (°)");
-			labelLongitudeDescendingNodeDesc.Values.ExtraText = "°";
-			labelLongitudeDescendingNodeDesc.Values.Text = "Longitude of the descending node";
-			labelLongitudeDescendingNodeDesc.DoubleClick += OpenTerminology_DoubleClick;
-			labelLongitudeDescendingNodeDesc.Enter += Control_Enter;
-			labelLongitudeDescendingNodeDesc.Leave += Control_Leave;
-			labelLongitudeDescendingNodeDesc.MouseDown += Control_MouseDown;
-			labelLongitudeDescendingNodeDesc.MouseEnter += Control_Enter;
-			labelLongitudeDescendingNodeDesc.MouseLeave += Control_Leave;
+			labelLongitudeOfTheDescendingNodeDesc.AccessibleDescription = "Longitude of the descending node (degrees)";
+			labelLongitudeOfTheDescendingNodeDesc.AccessibleName = "Longitude of the descending node (degrees)";
+			labelLongitudeOfTheDescendingNodeDesc.AccessibleRole = AccessibleRole.StaticText;
+			labelLongitudeOfTheDescendingNodeDesc.ContextMenuStrip = contextMenuOpenTerminology;
+			labelLongitudeOfTheDescendingNodeDesc.Dock = DockStyle.Fill;
+			labelLongitudeOfTheDescendingNodeDesc.LabelStyle = LabelStyle.BoldPanel;
+			labelLongitudeOfTheDescendingNodeDesc.Location = new Point(4, 211);
+			labelLongitudeOfTheDescendingNodeDesc.Margin = new Padding(4, 3, 4, 3);
+			labelLongitudeOfTheDescendingNodeDesc.Name = "labelLongitudeOfTheDescendingNodeDesc";
+			labelLongitudeOfTheDescendingNodeDesc.Size = new Size(268, 20);
+			labelLongitudeOfTheDescendingNodeDesc.TabIndex = 16;
+			labelLongitudeOfTheDescendingNodeDesc.Tag = "28";
+			labelLongitudeOfTheDescendingNodeDesc.ToolTipValues.Description = "Longitude of the descending node (degrees)";
+			labelLongitudeOfTheDescendingNodeDesc.ToolTipValues.EnableToolTips = true;
+			labelLongitudeOfTheDescendingNodeDesc.ToolTipValues.Heading = "Longitude of the descending node (degrees)";
+			labelLongitudeOfTheDescendingNodeDesc.Values.ExtraText = "°";
+			labelLongitudeOfTheDescendingNodeDesc.Values.Text = "Longitude of the descending node";
+			labelLongitudeOfTheDescendingNodeDesc.DoubleClick += OpenTerminology_DoubleClick;
+			labelLongitudeOfTheDescendingNodeDesc.Enter += Control_Enter;
+			labelLongitudeOfTheDescendingNodeDesc.Leave += Control_Leave;
+			labelLongitudeOfTheDescendingNodeDesc.MouseDown += Control_MouseDown;
+			labelLongitudeOfTheDescendingNodeDesc.MouseEnter += Control_Enter;
+			labelLongitudeOfTheDescendingNodeDesc.MouseLeave += Control_Leave;
 			// 
-			// labelArgumentAphelionDesc
+			// labelArgumentOfTheAphelionDesc
 			// 
-			labelArgumentAphelionDesc.AccessibleDescription = "Argument of aphelion (degrees)";
-			labelArgumentAphelionDesc.AccessibleName = "Argument of aphelion (degrees)";
-			labelArgumentAphelionDesc.AccessibleRole = AccessibleRole.StaticText;
-			labelArgumentAphelionDesc.ContextMenuStrip = contextMenuOpenTerminology;
-			labelArgumentAphelionDesc.Dock = DockStyle.Fill;
-			labelArgumentAphelionDesc.LabelStyle = LabelStyle.BoldPanel;
-			labelArgumentAphelionDesc.Location = new Point(4, 237);
-			labelArgumentAphelionDesc.Margin = new Padding(4, 3, 4, 3);
-			labelArgumentAphelionDesc.Name = "labelArgumentAphelionDesc";
-			labelArgumentAphelionDesc.Size = new Size(268, 20);
-			labelArgumentAphelionDesc.TabIndex = 18;
-			labelArgumentAphelionDesc.Tag = "29";
-			toolTip.SetToolTip(labelArgumentAphelionDesc, "Argument of aphelion (°)");
-			labelArgumentAphelionDesc.Values.ExtraText = "°";
-			labelArgumentAphelionDesc.Values.Text = "Argument of aphelion";
-			labelArgumentAphelionDesc.DoubleClick += OpenTerminology_DoubleClick;
-			labelArgumentAphelionDesc.Enter += Control_Enter;
-			labelArgumentAphelionDesc.Leave += Control_Leave;
-			labelArgumentAphelionDesc.MouseDown += Control_MouseDown;
-			labelArgumentAphelionDesc.MouseEnter += Control_Enter;
-			labelArgumentAphelionDesc.MouseLeave += Control_Leave;
+			labelArgumentOfTheAphelionDesc.AccessibleDescription = "Argument of the aphelion (degrees)";
+			labelArgumentOfTheAphelionDesc.AccessibleName = "Argument of the aphelion (degrees)";
+			labelArgumentOfTheAphelionDesc.AccessibleRole = AccessibleRole.StaticText;
+			labelArgumentOfTheAphelionDesc.ContextMenuStrip = contextMenuOpenTerminology;
+			labelArgumentOfTheAphelionDesc.Dock = DockStyle.Fill;
+			labelArgumentOfTheAphelionDesc.LabelStyle = LabelStyle.BoldPanel;
+			labelArgumentOfTheAphelionDesc.Location = new Point(4, 237);
+			labelArgumentOfTheAphelionDesc.Margin = new Padding(4, 3, 4, 3);
+			labelArgumentOfTheAphelionDesc.Name = "labelArgumentOfTheAphelionDesc";
+			labelArgumentOfTheAphelionDesc.Size = new Size(268, 20);
+			labelArgumentOfTheAphelionDesc.TabIndex = 18;
+			labelArgumentOfTheAphelionDesc.Tag = "29";
+			labelArgumentOfTheAphelionDesc.ToolTipValues.Description = "Argument of the aphelion (degrees)";
+			labelArgumentOfTheAphelionDesc.ToolTipValues.EnableToolTips = true;
+			labelArgumentOfTheAphelionDesc.ToolTipValues.Heading = "Argument of the aphelion (degrees)";
+			labelArgumentOfTheAphelionDesc.Values.ExtraText = "°";
+			labelArgumentOfTheAphelionDesc.Values.Text = "Argument of the aphelion";
+			labelArgumentOfTheAphelionDesc.DoubleClick += OpenTerminology_DoubleClick;
+			labelArgumentOfTheAphelionDesc.Enter += Control_Enter;
+			labelArgumentOfTheAphelionDesc.Leave += Control_Leave;
+			labelArgumentOfTheAphelionDesc.MouseDown += Control_MouseDown;
+			labelArgumentOfTheAphelionDesc.MouseEnter += Control_Enter;
+			labelArgumentOfTheAphelionDesc.MouseLeave += Control_Leave;
 			// 
 			// labelFocalParameterDesc
 			// 
@@ -455,7 +473,9 @@ namespace Planetoid_DB
 			labelFocalParameterDesc.Size = new Size(268, 20);
 			labelFocalParameterDesc.TabIndex = 20;
 			labelFocalParameterDesc.Tag = "30";
-			toolTip.SetToolTip(labelFocalParameterDesc, "Focal parameter (AU)");
+			labelFocalParameterDesc.ToolTipValues.Description = "Focal parameter (AU)";
+			labelFocalParameterDesc.ToolTipValues.EnableToolTips = true;
+			labelFocalParameterDesc.ToolTipValues.Heading = "Focal parameter (AU)";
 			labelFocalParameterDesc.Values.ExtraText = "AU";
 			labelFocalParameterDesc.Values.Text = "Focal parameter";
 			labelFocalParameterDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -479,7 +499,9 @@ namespace Planetoid_DB
 			labelSemiLatusRectumDesc.Size = new Size(268, 20);
 			labelSemiLatusRectumDesc.TabIndex = 22;
 			labelSemiLatusRectumDesc.Tag = "31";
-			toolTip.SetToolTip(labelSemiLatusRectumDesc, "Semi-latus rectum (AU)");
+			labelSemiLatusRectumDesc.ToolTipValues.Description = "Semi-latus rectum (AU)";
+			labelSemiLatusRectumDesc.ToolTipValues.EnableToolTips = true;
+			labelSemiLatusRectumDesc.ToolTipValues.Heading = "Semi-latus rectum (AU)";
 			labelSemiLatusRectumDesc.Values.ExtraText = "AU";
 			labelSemiLatusRectumDesc.Values.Text = "Semi-latus rectum";
 			labelSemiLatusRectumDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -503,7 +525,9 @@ namespace Planetoid_DB
 			labelLatusRectumDesc.Size = new Size(268, 20);
 			labelLatusRectumDesc.TabIndex = 24;
 			labelLatusRectumDesc.Tag = "32";
-			toolTip.SetToolTip(labelLatusRectumDesc, "Latus rectum (AU)");
+			labelLatusRectumDesc.ToolTipValues.Description = "Semi-latus rectum (AU)";
+			labelLatusRectumDesc.ToolTipValues.EnableToolTips = true;
+			labelLatusRectumDesc.ToolTipValues.Heading = "Semi-latus rectum (AU)";
 			labelLatusRectumDesc.Values.ExtraText = "AU";
 			labelLatusRectumDesc.Values.Text = "Latus rectum";
 			labelLatusRectumDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -527,7 +551,9 @@ namespace Planetoid_DB
 			labelOrbitalPeriodDesc.Size = new Size(268, 20);
 			labelOrbitalPeriodDesc.TabIndex = 26;
 			labelOrbitalPeriodDesc.Tag = "33";
-			toolTip.SetToolTip(labelOrbitalPeriodDesc, "Orbital Period (years)");
+			labelOrbitalPeriodDesc.ToolTipValues.Description = "Orbital Period (years)";
+			labelOrbitalPeriodDesc.ToolTipValues.EnableToolTips = true;
+			labelOrbitalPeriodDesc.ToolTipValues.Heading = "Orbital Period (years)";
 			labelOrbitalPeriodDesc.Values.ExtraText = "years";
 			labelOrbitalPeriodDesc.Values.Text = "Orbital period";
 			labelOrbitalPeriodDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -549,7 +575,9 @@ namespace Planetoid_DB
 			labelSemiMinorAxisData.Name = "labelSemiMinorAxisData";
 			labelSemiMinorAxisData.Size = new Size(270, 20);
 			labelSemiMinorAxisData.TabIndex = 3;
-			toolTip.SetToolTip(labelSemiMinorAxisData, "Shows the information of \"Semi-minor axis\"");
+			labelSemiMinorAxisData.ToolTipValues.Description = "Shows the information of \"Semi-minor axis\"";
+			labelSemiMinorAxisData.ToolTipValues.EnableToolTips = true;
+			labelSemiMinorAxisData.ToolTipValues.Heading = "Shows the information of \"Semi-minor axis\"";
 			labelSemiMinorAxisData.Values.Text = "..................";
 			labelSemiMinorAxisData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelSemiMinorAxisData.Enter += Control_Enter;
@@ -570,7 +598,9 @@ namespace Planetoid_DB
 			labelMajorAxisData.Name = "labelMajorAxisData";
 			labelMajorAxisData.Size = new Size(270, 20);
 			labelMajorAxisData.TabIndex = 5;
-			toolTip.SetToolTip(labelMajorAxisData, "Shows the information of \"Major axis\"");
+			labelMajorAxisData.ToolTipValues.Description = "Shows the information of \"Major axis\"";
+			labelMajorAxisData.ToolTipValues.EnableToolTips = true;
+			labelMajorAxisData.ToolTipValues.Heading = "Shows the information of \"Major axis\"";
 			labelMajorAxisData.Values.Text = "..................";
 			labelMajorAxisData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelMajorAxisData.Enter += Control_Enter;
@@ -591,7 +621,9 @@ namespace Planetoid_DB
 			labelMinorAxisData.Name = "labelMinorAxisData";
 			labelMinorAxisData.Size = new Size(270, 20);
 			labelMinorAxisData.TabIndex = 7;
-			toolTip.SetToolTip(labelMinorAxisData, "Shows the information of \"Minor axis\"");
+			labelMinorAxisData.ToolTipValues.Description = "Shows the information of \"Minor axis\"";
+			labelMinorAxisData.ToolTipValues.EnableToolTips = true;
+			labelMinorAxisData.ToolTipValues.Heading = "Shows the information of \"Minor axis\"";
 			labelMinorAxisData.Values.Text = "..................";
 			labelMinorAxisData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelMinorAxisData.Enter += Control_Enter;
@@ -612,7 +644,9 @@ namespace Planetoid_DB
 			labelEccentricAnomalyData.Name = "labelEccentricAnomalyData";
 			labelEccentricAnomalyData.Size = new Size(270, 20);
 			labelEccentricAnomalyData.TabIndex = 9;
-			toolTip.SetToolTip(labelEccentricAnomalyData, "Shows the information of \"Eccentric anomaly\"");
+			labelEccentricAnomalyData.ToolTipValues.Description = "Shows the information of \"Eccentric anomaly\"";
+			labelEccentricAnomalyData.ToolTipValues.EnableToolTips = true;
+			labelEccentricAnomalyData.ToolTipValues.Heading = "Shows the information of \"Eccentric anomaly\"";
 			labelEccentricAnomalyData.Values.Text = "..................";
 			labelEccentricAnomalyData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelEccentricAnomalyData.Enter += Control_Enter;
@@ -633,7 +667,9 @@ namespace Planetoid_DB
 			labelTrueAnomalyData.Name = "labelTrueAnomalyData";
 			labelTrueAnomalyData.Size = new Size(270, 20);
 			labelTrueAnomalyData.TabIndex = 11;
-			toolTip.SetToolTip(labelTrueAnomalyData, "Shows the information of \"True anomaly\"");
+			labelTrueAnomalyData.ToolTipValues.Description = "Shows the information of \"True anomaly\"";
+			labelTrueAnomalyData.ToolTipValues.EnableToolTips = true;
+			labelTrueAnomalyData.ToolTipValues.Heading = "Shows the information of \"True anomaly\"";
 			labelTrueAnomalyData.Values.Text = "..................";
 			labelTrueAnomalyData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelTrueAnomalyData.Enter += Control_Enter;
@@ -654,7 +690,9 @@ namespace Planetoid_DB
 			labelPerihelionDistanceData.Name = "labelPerihelionDistanceData";
 			labelPerihelionDistanceData.Size = new Size(270, 20);
 			labelPerihelionDistanceData.TabIndex = 13;
-			toolTip.SetToolTip(labelPerihelionDistanceData, "Shows the information of \"Perihelion distance\"");
+			labelPerihelionDistanceData.ToolTipValues.Description = "Shows the information of \"Perihelion distance\"";
+			labelPerihelionDistanceData.ToolTipValues.EnableToolTips = true;
+			labelPerihelionDistanceData.ToolTipValues.Heading = "Shows the information of \"Perihelion distance\"";
 			labelPerihelionDistanceData.Values.Text = "..................";
 			labelPerihelionDistanceData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelPerihelionDistanceData.Enter += Control_Enter;
@@ -675,7 +713,9 @@ namespace Planetoid_DB
 			labelAphelionDistanceData.Name = "labelAphelionDistanceData";
 			labelAphelionDistanceData.Size = new Size(270, 20);
 			labelAphelionDistanceData.TabIndex = 15;
-			toolTip.SetToolTip(labelAphelionDistanceData, "Shows the information of \"Aphelion distance\"");
+			labelAphelionDistanceData.ToolTipValues.Description = "Shows the information of \"Aphelion distance\"";
+			labelAphelionDistanceData.ToolTipValues.EnableToolTips = true;
+			labelAphelionDistanceData.ToolTipValues.Heading = "Shows the information of \"Aphelion distance\"";
 			labelAphelionDistanceData.Values.Text = "..................";
 			labelAphelionDistanceData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelAphelionDistanceData.Enter += Control_Enter;
@@ -686,8 +726,8 @@ namespace Planetoid_DB
 			// 
 			// labelLongitudeDescendingNodeData
 			// 
-			labelLongitudeDescendingNodeData.AccessibleDescription = "Shows the information of \"Longitude of descending node\"";
-			labelLongitudeDescendingNodeData.AccessibleName = "Shows the information of \"Longitude of descending node\"";
+			labelLongitudeDescendingNodeData.AccessibleDescription = "Shows the information of \"Longitude of the descending node\"";
+			labelLongitudeDescendingNodeData.AccessibleName = "Shows the information of \"Longitude of the descending node\"";
 			labelLongitudeDescendingNodeData.AccessibleRole = AccessibleRole.StaticText;
 			labelLongitudeDescendingNodeData.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelLongitudeDescendingNodeData.Dock = DockStyle.Fill;
@@ -696,7 +736,9 @@ namespace Planetoid_DB
 			labelLongitudeDescendingNodeData.Name = "labelLongitudeDescendingNodeData";
 			labelLongitudeDescendingNodeData.Size = new Size(270, 20);
 			labelLongitudeDescendingNodeData.TabIndex = 17;
-			toolTip.SetToolTip(labelLongitudeDescendingNodeData, "Shows the information of \"Longitude of descending node\"");
+			labelLongitudeDescendingNodeData.ToolTipValues.Description = "Shows the information of \"Longitude of the descending node\"";
+			labelLongitudeDescendingNodeData.ToolTipValues.EnableToolTips = true;
+			labelLongitudeDescendingNodeData.ToolTipValues.Heading = "Shows the information of \"Longitude of the descending node\"";
 			labelLongitudeDescendingNodeData.Values.Text = "..................";
 			labelLongitudeDescendingNodeData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelLongitudeDescendingNodeData.Enter += Control_Enter;
@@ -707,8 +749,8 @@ namespace Planetoid_DB
 			// 
 			// labelArgumentAphelionData
 			// 
-			labelArgumentAphelionData.AccessibleDescription = "Shows the information of \"Argument of aphelion\"";
-			labelArgumentAphelionData.AccessibleName = "Shows the information of \"Argument of aphelion\"";
+			labelArgumentAphelionData.AccessibleDescription = "Shows the information of \"Argument of the aphelion\"";
+			labelArgumentAphelionData.AccessibleName = "Shows the information of \"Argument of the aphelion\"";
 			labelArgumentAphelionData.AccessibleRole = AccessibleRole.StaticText;
 			labelArgumentAphelionData.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelArgumentAphelionData.Dock = DockStyle.Fill;
@@ -717,7 +759,9 @@ namespace Planetoid_DB
 			labelArgumentAphelionData.Name = "labelArgumentAphelionData";
 			labelArgumentAphelionData.Size = new Size(270, 20);
 			labelArgumentAphelionData.TabIndex = 19;
-			toolTip.SetToolTip(labelArgumentAphelionData, "Shows the information of \"Argument of aphelion\"");
+			labelArgumentAphelionData.ToolTipValues.Description = "Shows the information of \"Argument of the aphelion\"";
+			labelArgumentAphelionData.ToolTipValues.EnableToolTips = true;
+			labelArgumentAphelionData.ToolTipValues.Heading = "Shows the information of \"Argument of the aphelion\"";
 			labelArgumentAphelionData.Values.Text = "..................";
 			labelArgumentAphelionData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelArgumentAphelionData.Enter += Control_Enter;
@@ -738,7 +782,9 @@ namespace Planetoid_DB
 			labelFocalParameterData.Name = "labelFocalParameterData";
 			labelFocalParameterData.Size = new Size(270, 20);
 			labelFocalParameterData.TabIndex = 21;
-			toolTip.SetToolTip(labelFocalParameterData, "Shows the information of \"Focal parameter\"");
+			labelFocalParameterData.ToolTipValues.Description = "Shows the information of \"Semi-latus rectum\"";
+			labelFocalParameterData.ToolTipValues.EnableToolTips = true;
+			labelFocalParameterData.ToolTipValues.Heading = "Shows the information of \"Semi-latus rectum\"";
 			labelFocalParameterData.Values.Text = "..................";
 			labelFocalParameterData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelFocalParameterData.Enter += Control_Enter;
@@ -759,7 +805,9 @@ namespace Planetoid_DB
 			labelSemiLatusRectumData.Name = "labelSemiLatusRectumData";
 			labelSemiLatusRectumData.Size = new Size(270, 20);
 			labelSemiLatusRectumData.TabIndex = 23;
-			toolTip.SetToolTip(labelSemiLatusRectumData, "Shows the information of \"Semi-latus rectum\"");
+			labelSemiLatusRectumData.ToolTipValues.Description = "Shows the information of \"Semi-latus rectum\"";
+			labelSemiLatusRectumData.ToolTipValues.EnableToolTips = true;
+			labelSemiLatusRectumData.ToolTipValues.Heading = "Shows the information of \"Semi-latus rectum\"";
 			labelSemiLatusRectumData.Values.Text = "..................";
 			labelSemiLatusRectumData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelSemiLatusRectumData.Enter += Control_Enter;
@@ -780,7 +828,9 @@ namespace Planetoid_DB
 			labelLatusRectumData.Name = "labelLatusRectumData";
 			labelLatusRectumData.Size = new Size(270, 20);
 			labelLatusRectumData.TabIndex = 25;
-			toolTip.SetToolTip(labelLatusRectumData, "Shows the information of \"Latus rectum\"");
+			labelLatusRectumData.ToolTipValues.Description = "Shows the information of \"Latus rectum\"";
+			labelLatusRectumData.ToolTipValues.EnableToolTips = true;
+			labelLatusRectumData.ToolTipValues.Heading = "Shows the information of \"Latus rectum\"";
 			labelLatusRectumData.Values.Text = "..................";
 			labelLatusRectumData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelLatusRectumData.Enter += Control_Enter;
@@ -801,7 +851,9 @@ namespace Planetoid_DB
 			labelOrbitalPeriodData.Name = "labelOrbitalPeriodData";
 			labelOrbitalPeriodData.Size = new Size(270, 20);
 			labelOrbitalPeriodData.TabIndex = 27;
-			toolTip.SetToolTip(labelOrbitalPeriodData, "Shows the information of \"Period\"");
+			labelOrbitalPeriodData.ToolTipValues.Description = "Shows the information of \"Period\"";
+			labelOrbitalPeriodData.ToolTipValues.EnableToolTips = true;
+			labelOrbitalPeriodData.ToolTipValues.Heading = "Shows the information of \"Period\"";
 			labelOrbitalPeriodData.Values.Text = "..................";
 			labelOrbitalPeriodData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelOrbitalPeriodData.Enter += Control_Enter;
@@ -824,7 +876,9 @@ namespace Planetoid_DB
 			labelOrbitalAreaDesc.Size = new Size(268, 20);
 			labelOrbitalAreaDesc.TabIndex = 28;
 			labelOrbitalAreaDesc.Tag = "34";
-			toolTip.SetToolTip(labelOrbitalAreaDesc, "Orbital area (AU²)");
+			labelOrbitalAreaDesc.ToolTipValues.Description = "Orbital area (AU²)";
+			labelOrbitalAreaDesc.ToolTipValues.EnableToolTips = true;
+			labelOrbitalAreaDesc.ToolTipValues.Heading = "Orbital area (AU²)";
 			labelOrbitalAreaDesc.Values.ExtraText = "AU²";
 			labelOrbitalAreaDesc.Values.Text = "Orbital area";
 			labelOrbitalAreaDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -848,7 +902,9 @@ namespace Planetoid_DB
 			labelOrbitalPerimeterDesc.Size = new Size(268, 20);
 			labelOrbitalPerimeterDesc.TabIndex = 30;
 			labelOrbitalPerimeterDesc.Tag = "35";
-			toolTip.SetToolTip(labelOrbitalPerimeterDesc, "Orbital perimeter (AU)");
+			labelOrbitalPerimeterDesc.ToolTipValues.Description = "Orbital perimeter (AU)";
+			labelOrbitalPerimeterDesc.ToolTipValues.EnableToolTips = true;
+			labelOrbitalPerimeterDesc.ToolTipValues.Heading = "Orbital perimeter (AU)";
 			labelOrbitalPerimeterDesc.Values.ExtraText = "AU";
 			labelOrbitalPerimeterDesc.Values.Text = "Orbital perimeter";
 			labelOrbitalPerimeterDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -872,7 +928,9 @@ namespace Planetoid_DB
 			labelSemiMeanAxisDesc.Size = new Size(268, 20);
 			labelSemiMeanAxisDesc.TabIndex = 32;
 			labelSemiMeanAxisDesc.Tag = "36";
-			toolTip.SetToolTip(labelSemiMeanAxisDesc, "Semi-mean axis (AU)");
+			labelSemiMeanAxisDesc.ToolTipValues.Description = "Semi-mean axis (AU)";
+			labelSemiMeanAxisDesc.ToolTipValues.EnableToolTips = true;
+			labelSemiMeanAxisDesc.ToolTipValues.Heading = "Semi-mean axis (AU)";
 			labelSemiMeanAxisDesc.Values.ExtraText = "AU";
 			labelSemiMeanAxisDesc.Values.Text = "Semi-mean axis";
 			labelSemiMeanAxisDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -896,7 +954,9 @@ namespace Planetoid_DB
 			labelMeanAxisDesc.Size = new Size(268, 20);
 			labelMeanAxisDesc.TabIndex = 34;
 			labelMeanAxisDesc.Tag = "37";
-			toolTip.SetToolTip(labelMeanAxisDesc, "Mean axis (AU)");
+			labelMeanAxisDesc.ToolTipValues.Description = "Mean axis (AU)";
+			labelMeanAxisDesc.ToolTipValues.EnableToolTips = true;
+			labelMeanAxisDesc.ToolTipValues.Heading = "Mean axis (AU)";
 			labelMeanAxisDesc.Values.ExtraText = "AU";
 			labelMeanAxisDesc.Values.Text = "Mean axis";
 			labelMeanAxisDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -918,7 +978,9 @@ namespace Planetoid_DB
 			labelOrbitalAreaData.Name = "labelOrbitalAreaData";
 			labelOrbitalAreaData.Size = new Size(270, 20);
 			labelOrbitalAreaData.TabIndex = 29;
-			toolTip.SetToolTip(labelOrbitalAreaData, "Shows the information of \"Orbital area\"");
+			labelOrbitalAreaData.ToolTipValues.Description = "Shows the information of \"Orbital area\"";
+			labelOrbitalAreaData.ToolTipValues.EnableToolTips = true;
+			labelOrbitalAreaData.ToolTipValues.Heading = "Shows the information of \"Orbital area\"";
 			labelOrbitalAreaData.Values.Text = "..................";
 			labelOrbitalAreaData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelOrbitalAreaData.Enter += Control_Enter;
@@ -939,7 +1001,9 @@ namespace Planetoid_DB
 			labelOrbitalPerimeterData.Name = "labelOrbitalPerimeterData";
 			labelOrbitalPerimeterData.Size = new Size(270, 20);
 			labelOrbitalPerimeterData.TabIndex = 31;
-			toolTip.SetToolTip(labelOrbitalPerimeterData, "Shows the information of \"Orbital perimeter\"");
+			labelOrbitalPerimeterData.ToolTipValues.Description = "Shows the information of \"Orbital perimeter\"";
+			labelOrbitalPerimeterData.ToolTipValues.EnableToolTips = true;
+			labelOrbitalPerimeterData.ToolTipValues.Heading = "Shows the information of \"Orbital perimeter\"";
 			labelOrbitalPerimeterData.Values.Text = "..................";
 			labelOrbitalPerimeterData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelOrbitalPerimeterData.Enter += Control_Enter;
@@ -960,7 +1024,9 @@ namespace Planetoid_DB
 			labelSemiMeanAxisData.Name = "labelSemiMeanAxisData";
 			labelSemiMeanAxisData.Size = new Size(270, 20);
 			labelSemiMeanAxisData.TabIndex = 33;
-			toolTip.SetToolTip(labelSemiMeanAxisData, "Shows the information of \"Semi-mean axis\"");
+			labelSemiMeanAxisData.ToolTipValues.Description = "Shows the information of \"Semi-mean axis\"";
+			labelSemiMeanAxisData.ToolTipValues.EnableToolTips = true;
+			labelSemiMeanAxisData.ToolTipValues.Heading = "Shows the information of \"Semi-mean axis\"";
 			labelSemiMeanAxisData.Values.Text = "..................";
 			labelSemiMeanAxisData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelSemiMeanAxisData.Enter += Control_Enter;
@@ -983,7 +1049,9 @@ namespace Planetoid_DB
 			labelStandardGravitationalParameterDesc.Size = new Size(268, 21);
 			labelStandardGravitationalParameterDesc.TabIndex = 36;
 			labelStandardGravitationalParameterDesc.Tag = "38";
-			toolTip.SetToolTip(labelStandardGravitationalParameterDesc, "Standard gravitational parameter (AU³/a²)");
+			labelStandardGravitationalParameterDesc.ToolTipValues.Description = "Standard gravitational parameter (AU³/a²)";
+			labelStandardGravitationalParameterDesc.ToolTipValues.EnableToolTips = true;
+			labelStandardGravitationalParameterDesc.ToolTipValues.Heading = "Standard gravitational parameter (AU³/a²)";
 			labelStandardGravitationalParameterDesc.Values.ExtraText = "AU³/a²";
 			labelStandardGravitationalParameterDesc.Values.Text = "Standard gravitational parameter";
 			labelStandardGravitationalParameterDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -1005,7 +1073,9 @@ namespace Planetoid_DB
 			labelMeanAxisData.Name = "labelMeanAxisData";
 			labelMeanAxisData.Size = new Size(270, 20);
 			labelMeanAxisData.TabIndex = 35;
-			toolTip.SetToolTip(labelMeanAxisData, "Shows the information of \"Mean axis\"");
+			labelMeanAxisData.ToolTipValues.Description = "Shows the information of \"Mean axis\"";
+			labelMeanAxisData.ToolTipValues.EnableToolTips = true;
+			labelMeanAxisData.ToolTipValues.Heading = "Shows the information of \"Mean axis\"";
 			labelMeanAxisData.Values.Text = "..................";
 			labelMeanAxisData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelMeanAxisData.Enter += Control_Enter;
@@ -1026,7 +1096,9 @@ namespace Planetoid_DB
 			labelStandardGravitationalParameterData.Name = "labelStandardGravitationalParameterData";
 			labelStandardGravitationalParameterData.Size = new Size(270, 21);
 			labelStandardGravitationalParameterData.TabIndex = 37;
-			toolTip.SetToolTip(labelStandardGravitationalParameterData, "Shows the information of \"Standard gravitational parameter\"");
+			labelStandardGravitationalParameterData.ToolTipValues.Description = "Shows the information of \"Standard gravitational parameter\"";
+			labelStandardGravitationalParameterData.ToolTipValues.EnableToolTips = true;
+			labelStandardGravitationalParameterData.ToolTipValues.Heading = "Shows the information of \"Standard gravitational parameter\"";
 			labelStandardGravitationalParameterData.Values.Text = "..................";
 			labelStandardGravitationalParameterData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelStandardGravitationalParameterData.Enter += Control_Enter;
@@ -1057,7 +1129,6 @@ namespace Planetoid_DB
 			toolStripContainer.Size = new Size(554, 542);
 			toolStripContainer.TabIndex = 3;
 			toolStripContainer.Text = "toolStripContainer";
-			toolTip.SetToolTip(toolStripContainer, "Container to arrange the toolbars");
 			// 
 			// toolStripContainer.TopToolStripPanel
 			// 
@@ -1111,8 +1182,8 @@ namespace Planetoid_DB
 			tableLayoutPanel.Controls.Add(labelTrueAnomalyDesc, 0, 5);
 			tableLayoutPanel.Controls.Add(labelPerihelionDistanceDesc, 0, 6);
 			tableLayoutPanel.Controls.Add(LabelAphelionDistanceDesc, 0, 7);
-			tableLayoutPanel.Controls.Add(labelLongitudeDescendingNodeDesc, 0, 8);
-			tableLayoutPanel.Controls.Add(labelArgumentAphelionDesc, 0, 9);
+			tableLayoutPanel.Controls.Add(labelLongitudeOfTheDescendingNodeDesc, 0, 8);
+			tableLayoutPanel.Controls.Add(labelArgumentOfTheAphelionDesc, 0, 9);
 			tableLayoutPanel.Controls.Add(labelFocalParameterDesc, 0, 10);
 			tableLayoutPanel.Controls.Add(labelSemiLatusRectumDesc, 0, 11);
 			tableLayoutPanel.Controls.Add(labelLatusRectumDesc, 0, 12);
@@ -1215,10 +1286,8 @@ namespace Planetoid_DB
 			contextMenuFullCopyToClipboardDerivedOrbitalElements.Font = new Font("Segoe UI", 9F);
 			contextMenuFullCopyToClipboardDerivedOrbitalElements.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardLinearEccentricity, menuitemCopyToClipboardSemiMinorAxis, menuitemCopyToClipboardMajorAxis, menuitemCopyToClipboardMinorAxis, menuitemCopyToClipboardEccentricAnomaly, menuitemCopyToClipboardTrueAnomaly, menuitemCopyToClipboardPerihelionDistance, menuitemCopyToClipboardAphelionDistance, menuitemCopyToClipboardLongitudeDescendingNode, menuitemCopyToClipboardArgumentAphelion, menuitemCopyToClipboardFocalParameter, menuitemCopyToClipboardSemiLatusRectum, menuitemCopyToClipboardLatusRectum, menuitemCopyToClipboardOrbitalPeriod, menuitemCopyToClipboardOrbitalArea, menuitemCopyToClipboardSemiMeanAxis, menuitemCopyToClipboardMeanAxis, menuitemCopyToClipboardStandardGravitationalParameter });
 			contextMenuFullCopyToClipboardDerivedOrbitalElements.Name = "Context menu of copying to clipboard of derived orbital elements";
-			contextMenuFullCopyToClipboardDerivedOrbitalElements.OwnerItem = splitbuttonCopyToClipboard;
 			contextMenuFullCopyToClipboardDerivedOrbitalElements.Size = new Size(257, 400);
 			contextMenuFullCopyToClipboardDerivedOrbitalElements.Text = "Copy to clipboard";
-			toolTip.SetToolTip(contextMenuFullCopyToClipboardDerivedOrbitalElements, "Copy to clipboard");
 			contextMenuFullCopyToClipboardDerivedOrbitalElements.MouseEnter += Control_Enter;
 			contextMenuFullCopyToClipboardDerivedOrbitalElements.MouseLeave += Control_Leave;
 			// 
@@ -1499,7 +1568,6 @@ namespace Planetoid_DB
 			ShowInTaskbar = false;
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Derived orbit elements";
-			toolTip.SetToolTip(this, "Derived orbit elements");
 			Load += DerivedOrbitElementsForm_Load;
 			contextMenuOpenTerminology.ResumeLayout(false);
 			contextMenuCopyToClipboard.ResumeLayout(false);
@@ -1522,7 +1590,6 @@ namespace Planetoid_DB
 		}
 
 		#endregion
-		private KryptonToolTip toolTip;
 		private KryptonTableLayoutPanel tableLayoutPanel;
 		private KryptonLabel labelLinearEccentricityData;
 		private KryptonLabel labelLinearEccentricityDesc;
@@ -1531,8 +1598,8 @@ namespace Planetoid_DB
 		private KryptonLabel labelTrueAnomalyDesc;
 		private KryptonLabel labelPerihelionDistanceDesc;
 		private KryptonLabel LabelAphelionDistanceDesc;
-		private KryptonLabel labelLongitudeDescendingNodeDesc;
-		private KryptonLabel labelArgumentAphelionDesc;
+		private KryptonLabel labelLongitudeOfTheDescendingNodeDesc;
+		private KryptonLabel labelArgumentOfTheAphelionDesc;
 		private KryptonLabel labelFocalParameterDesc;
 		private KryptonLabel labelSemiLatusRectumDesc;
 		private KryptonLabel labelLatusRectumDesc;
