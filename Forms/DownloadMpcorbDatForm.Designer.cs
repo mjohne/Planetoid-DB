@@ -271,7 +271,7 @@ namespace Planetoid_DB
 			// labelSizeValue
 			// 
 			labelSizeValue.AccessibleDescription = "Shows the file size of the download";
-			labelSizeValue.AccessibleName = "Size of the dowload file";
+			labelSizeValue.AccessibleName = "Size of the download file";
 			labelSizeValue.AccessibleRole = AccessibleRole.Text;
 			labelSizeValue.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelSizeValue.Dock = DockStyle.Fill;
@@ -282,7 +282,7 @@ namespace Planetoid_DB
 			labelSizeValue.TabIndex = 7;
 			labelSizeValue.ToolTipValues.Description = "Shows the file size of the download";
 			labelSizeValue.ToolTipValues.EnableToolTips = true;
-			labelSizeValue.ToolTipValues.Heading = "Size of the dowload file";
+			labelSizeValue.ToolTipValues.Heading = "Size of the download file";
 			labelSizeValue.Values.Text = "...";
 			labelSizeValue.DoubleClick += CopyToClipboard_DoubleClick;
 			labelSizeValue.Enter += Control_Enter;
