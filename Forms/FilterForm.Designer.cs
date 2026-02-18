@@ -196,7 +196,7 @@ namespace Planetoid_DB
 			// 
 			// buttonApply
 			// 
-			buttonApply.AccessibleDescription = "Applys the filter settings";
+			buttonApply.AccessibleDescription = "Applies the filter settings";
 			buttonApply.AccessibleName = "Apply the filter settings";
 			buttonApply.AccessibleRole = AccessibleRole.PushButton;
 			buttonApply.DialogResult = DialogResult.OK;
@@ -205,7 +205,7 @@ namespace Planetoid_DB
 			buttonApply.Name = "buttonApply";
 			buttonApply.Size = new Size(105, 29);
 			buttonApply.TabIndex = 1;
-			buttonApply.ToolTipValues.Description = "Applys the filter settings";
+			buttonApply.ToolTipValues.Description = "Applies the filter settings";
 			buttonApply.ToolTipValues.EnableToolTips = true;
 			buttonApply.ToolTipValues.Heading = "Apply";
 			buttonApply.Values.DropDownArrowColor = Color.Empty;
@@ -498,7 +498,7 @@ namespace Planetoid_DB
 			buttonResetSemiMajorAxis.TabIndex = 31;
 			buttonResetSemiMajorAxis.ToolTipValues.Description = "Resets the minimum and maximum of semi-major axis";
 			buttonResetSemiMajorAxis.ToolTipValues.EnableToolTips = true;
-			buttonResetSemiMajorAxis.ToolTipValues.Heading = "HeadingReset the minimum and maximum of semi-major axis";
+			buttonResetSemiMajorAxis.ToolTipValues.Heading = "Reset the minimum and maximum of semi-major axis";
 			buttonResetSemiMajorAxis.Values.DropDownArrowColor = Color.Empty;
 			buttonResetSemiMajorAxis.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonResetSemiMajorAxis.Values.Text = "";
@@ -570,7 +570,7 @@ namespace Planetoid_DB
 			buttonResetArgumentOfPerihelion.TabIndex = 11;
 			buttonResetArgumentOfPerihelion.ToolTipValues.Description = "Resets the minimum and maximum of argument of perihelion";
 			buttonResetArgumentOfPerihelion.ToolTipValues.EnableToolTips = true;
-			buttonResetArgumentOfPerihelion.ToolTipValues.Heading = "HeadingReset the minimum and maximum of argument of perihelion";
+			buttonResetArgumentOfPerihelion.ToolTipValues.Heading = "Reset the minimum and maximum of argument of perihelion";
 			buttonResetArgumentOfPerihelion.Values.DropDownArrowColor = Color.Empty;
 			buttonResetArgumentOfPerihelion.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonResetArgumentOfPerihelion.Values.Text = "";
@@ -893,7 +893,7 @@ namespace Planetoid_DB
 			numericUpDownMaximumArgumentOfThePerihelion.ThousandsSeparator = true;
 			numericUpDownMaximumArgumentOfThePerihelion.ToolTipValues.Description = "Shows the maximum of argument of the perihelion";
 			numericUpDownMaximumArgumentOfThePerihelion.ToolTipValues.EnableToolTips = true;
-			numericUpDownMaximumArgumentOfThePerihelion.ToolTipValues.Heading = "Maximum of argument of teh perihelion";
+			numericUpDownMaximumArgumentOfThePerihelion.ToolTipValues.Heading = "Maximum of argument of the perihelion";
 			numericUpDownMaximumArgumentOfThePerihelion.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumArgumentOfThePerihelion.ValueChanged += NumericUpDownMaximumArgumentOfPerihelion_ValueChanged;
 			numericUpDownMaximumArgumentOfThePerihelion.Enter += Control_Enter;
@@ -903,7 +903,7 @@ namespace Planetoid_DB
 			// 
 			// numericUpDownMaximumMeanAnomalyAtTheEpoch
 			// 
-			numericUpDownMaximumMeanAnomalyAtTheEpoch.AccessibleDescription = "Show the maximum of mean anomaly at the epoch";
+			numericUpDownMaximumMeanAnomalyAtTheEpoch.AccessibleDescription = "Shows the maximum of mean anomaly at the epoch";
 			numericUpDownMaximumMeanAnomalyAtTheEpoch.AccessibleName = "Maximum of mean anomaly at the epoch";
 			numericUpDownMaximumMeanAnomalyAtTheEpoch.AccessibleRole = AccessibleRole.SpinButton;
 			numericUpDownMaximumMeanAnomalyAtTheEpoch.AllowDecimals = true;
@@ -918,7 +918,7 @@ namespace Planetoid_DB
 			numericUpDownMaximumMeanAnomalyAtTheEpoch.Size = new Size(120, 22);
 			numericUpDownMaximumMeanAnomalyAtTheEpoch.TabIndex = 6;
 			numericUpDownMaximumMeanAnomalyAtTheEpoch.ThousandsSeparator = true;
-			numericUpDownMaximumMeanAnomalyAtTheEpoch.ToolTipValues.Description = "Show the maximum of mean anomaly at the epoch";
+			numericUpDownMaximumMeanAnomalyAtTheEpoch.ToolTipValues.Description = "Shows the maximum of mean anomaly at the epoch";
 			numericUpDownMaximumMeanAnomalyAtTheEpoch.ToolTipValues.EnableToolTips = true;
 			numericUpDownMaximumMeanAnomalyAtTheEpoch.ToolTipValues.Heading = "Maximum of mean anomaly at the epoch";
 			numericUpDownMaximumMeanAnomalyAtTheEpoch.Value = new decimal(new int[] { 0, 0, 0, 0 });
