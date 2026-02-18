@@ -37,7 +37,6 @@ namespace Planetoid_DB
 		{
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(SettingsForm));
-			toolTip = new KryptonToolTip(components);
 			tabControlSettings = new TabControl();
 			tabPageGeneral = new TabPage();
 			checkBox10 = new KryptonCheckBox();
@@ -132,6 +131,7 @@ namespace Planetoid_DB
 			checkBox10.Name = "checkBox10";
 			checkBox10.Size = new Size(215, 23);
 			checkBox10.TabIndex = 2;
+			checkBox10.ToolTipValues.EnableToolTips = true;
 			checkBox10.Values.Text = "Enable linking to terminology";
 			// 
 			// checkBox9
@@ -141,6 +141,7 @@ namespace Planetoid_DB
 			checkBox9.Name = "checkBox9";
 			checkBox9.Size = new Size(335, 23);
 			checkBox9.TabIndex = 1;
+			checkBox9.ToolTipValues.EnableToolTips = true;
 			checkBox9.Values.Text = "Enabled copying to clipboard by double-clicking";
 			// 
 			// checkBox8
@@ -150,6 +151,7 @@ namespace Planetoid_DB
 			checkBox8.Name = "checkBox8";
 			checkBox8.Size = new Size(146, 23);
 			checkBox8.TabIndex = 0;
+			checkBox8.ToolTipValues.EnableToolTips = true;
 			checkBox8.Values.Text = "Stay always on top";
 			// 
 			// tabPageNavigator
@@ -176,6 +178,7 @@ namespace Planetoid_DB
 			radioButton9.Name = "radioButton9";
 			radioButton9.Size = new Size(204, 23);
 			radioButton9.TabIndex = 5;
+			radioButton9.ToolTipValues.EnableToolTips = true;
 			radioButton9.Values.Text = "Start with the last used item";
 			// 
 			// numericUpDown1
@@ -193,6 +196,7 @@ namespace Planetoid_DB
 			radioButton4.Name = "radioButton4";
 			radioButton4.Size = new Size(182, 23);
 			radioButton4.TabIndex = 3;
+			radioButton4.ToolTipValues.EnableToolTips = true;
 			radioButton4.Values.Text = "Start with a specific item";
 			// 
 			// radioButton3
@@ -202,6 +206,7 @@ namespace Planetoid_DB
 			radioButton3.Name = "radioButton3";
 			radioButton3.Size = new Size(184, 23);
 			radioButton3.TabIndex = 2;
+			radioButton3.ToolTipValues.EnableToolTips = true;
 			radioButton3.Values.Text = "Start with a random item";
 			// 
 			// radioButton2
@@ -211,6 +216,7 @@ namespace Planetoid_DB
 			radioButton2.Name = "radioButton2";
 			radioButton2.Size = new Size(169, 23);
 			radioButton2.TabIndex = 1;
+			radioButton2.ToolTipValues.EnableToolTips = true;
 			radioButton2.Values.Text = "Start with the last item";
 			// 
 			// radioButton1
@@ -220,6 +226,7 @@ namespace Planetoid_DB
 			radioButton1.Name = "radioButton1";
 			radioButton1.Size = new Size(172, 23);
 			radioButton1.TabIndex = 0;
+			radioButton1.ToolTipValues.EnableToolTips = true;
 			radioButton1.Values.Text = "Start with the first item";
 			// 
 			// tabPageUpdate
@@ -374,7 +381,7 @@ namespace Planetoid_DB
 			// 
 			// toolStripButtonSave
 			// 
-			toolStripButtonSave.AccessibleDescription = "Save the settings";
+			toolStripButtonSave.AccessibleDescription = "Saves the settings";
 			toolStripButtonSave.AccessibleName = "Save";
 			toolStripButtonSave.AccessibleRole = AccessibleRole.PushButton;
 			toolStripButtonSave.DoubleClickEnabled = true;
@@ -387,7 +394,7 @@ namespace Planetoid_DB
 			// 
 			// toolStripButtonCancel
 			// 
-			toolStripButtonCancel.AccessibleDescription = "Cancel the settings";
+			toolStripButtonCancel.AccessibleDescription = "Cancels the settings";
 			toolStripButtonCancel.AccessibleName = "Cancel";
 			toolStripButtonCancel.AccessibleRole = AccessibleRole.PushButton;
 			toolStripButtonCancel.DoubleClickEnabled = true;
@@ -405,7 +412,7 @@ namespace Planetoid_DB
 			// 
 			// toolStripButtonLoadDefaultSettings
 			// 
-			toolStripButtonLoadDefaultSettings.AccessibleDescription = "Load the default settings";
+			toolStripButtonLoadDefaultSettings.AccessibleDescription = "Loads the default settings";
 			toolStripButtonLoadDefaultSettings.AccessibleName = "Default settings";
 			toolStripButtonLoadDefaultSettings.AccessibleRole = AccessibleRole.PushButton;
 			toolStripButtonLoadDefaultSettings.DoubleClickEnabled = true;
@@ -537,8 +544,7 @@ namespace Planetoid_DB
 		}
 
 		#endregion
-		private KryptonToolTip toolTip;
-        private TabControl tabControlSettings;
+		private TabControl tabControlSettings;
         private TabPage tabPageNavigator;
         private TabPage tabPageUpdate;
         private KryptonCheckBox checkBox1;
