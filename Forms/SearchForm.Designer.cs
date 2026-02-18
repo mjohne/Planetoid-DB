@@ -54,7 +54,7 @@ namespace Planetoid_DB
 			buttonUnmarkAll = new KryptonButton();
 			buttonMarkAll = new KryptonButton();
 			buttonSearch = new KryptonButton();
-			toolTip = new KryptonToolTip(components);
+			toolTip = new ToolTip(components);
 			backgroundWorker = new BackgroundWorker();
 			kryptonManager = new KryptonManager(components);
 			((ISupportInitialize)panel).BeginInit();
@@ -67,7 +67,7 @@ namespace Planetoid_DB
 			// 
 			// checkedListBox
 			// 
-			checkedListBox.AccessibleDescription = "Box with selectable orbital elements to search";
+			checkedListBox.AccessibleDescription = "Show the box with selectable orbital elements to search";
 			checkedListBox.AccessibleName = "Box with selectable orbital elements";
 			checkedListBox.AccessibleRole = AccessibleRole.CheckButton;
 			checkedListBox.BackStyle = PaletteBackStyle.ControlRibbon;
@@ -79,6 +79,9 @@ namespace Planetoid_DB
 			checkedListBox.Size = new Size(266, 194);
 			checkedListBox.TabIndex = 1;
 			toolTip.SetToolTip(checkedListBox, "Box with selectable orbital elements");
+			checkedListBox.ToolTipValues.Description = "Show the box with selectable orbital elements to search";
+			checkedListBox.ToolTipValues.EnableToolTips = true;
+			checkedListBox.ToolTipValues.Heading = "Box with selectable orbital elements";
 			checkedListBox.Enter += Control_Enter;
 			checkedListBox.Leave += Control_Leave;
 			checkedListBox.MouseEnter += Control_Enter;
@@ -159,6 +162,9 @@ namespace Planetoid_DB
 			buttonCancel.Size = new Size(105, 29);
 			buttonCancel.TabIndex = 5;
 			toolTip.SetToolTip(buttonCancel, "Cancel");
+			buttonCancel.ToolTipValues.Description = "Cancels the search";
+			buttonCancel.ToolTipValues.EnableToolTips = true;
+			buttonCancel.ToolTipValues.Heading = "Cancel";
 			buttonCancel.Values.DropDownArrowColor = Color.Empty;
 			buttonCancel.Values.Image = FatcowIcons16px.fatcow_cancel_16px;
 			buttonCancel.Values.Text = "&Cancel";
@@ -209,7 +215,10 @@ namespace Planetoid_DB
 			labelEntriesFound.RightToLeft = RightToLeft.No;
 			labelEntriesFound.Size = new Size(93, 20);
 			labelEntriesFound.TabIndex = 8;
-			toolTip.SetToolTip(labelEntriesFound, "Shows the found entries");
+			toolTip.SetToolTip(labelEntriesFound, "Found entries");
+			labelEntriesFound.ToolTipValues.Description = "Shows the found entries";
+			labelEntriesFound.ToolTipValues.EnableToolTips = true;
+			labelEntriesFound.ToolTipValues.Heading = "Found entries";
 			labelEntriesFound.Values.Text = "0 entries found";
 			labelEntriesFound.Enter += Control_Enter;
 			labelEntriesFound.Leave += Control_Leave;
@@ -262,7 +271,7 @@ namespace Planetoid_DB
 			// buttonClear
 			// 
 			buttonClear.AccessibleDescription = "Clears the search box";
-			buttonClear.AccessibleName = "Clear the search box";
+			buttonClear.AccessibleName = "Clear";
 			buttonClear.AccessibleRole = AccessibleRole.PushButton;
 			buttonClear.ButtonStyle = ButtonStyle.Form;
 			buttonClear.Location = new Point(300, 5);
@@ -271,6 +280,9 @@ namespace Planetoid_DB
 			buttonClear.Size = new Size(68, 25);
 			buttonClear.TabIndex = 1;
 			toolTip.SetToolTip(buttonClear, "Clear the search box");
+			buttonClear.ToolTipValues.Description = "Clears the search box";
+			buttonClear.ToolTipValues.EnableToolTips = true;
+			buttonClear.ToolTipValues.Heading = "Clear";
 			buttonClear.Values.DropDownArrowColor = Color.Empty;
 			buttonClear.Values.Image = FatcowIcons16px.fatcow_cross_16px;
 			buttonClear.Values.Text = "&Clear";
@@ -291,6 +303,9 @@ namespace Planetoid_DB
 			textBox.Size = new Size(288, 23);
 			textBox.TabIndex = 0;
 			toolTip.SetToolTip(textBox, "Search box");
+			textBox.ToolTipValues.Description = "Shows the search box to input some key words";
+			textBox.ToolTipValues.EnableToolTips = true;
+			textBox.ToolTipValues.Heading = "Search box";
 			textBox.TextChanged += TextBox_TextChanged;
 			textBox.Enter += Control_Enter;
 			textBox.Leave += Control_Leave;
@@ -299,7 +314,7 @@ namespace Planetoid_DB
 			// 
 			// buttonLoad
 			// 
-			buttonLoad.AccessibleDescription = "Load the selected result item";
+			buttonLoad.AccessibleDescription = "Loads the selected result item";
 			buttonLoad.AccessibleName = "Load the selected result item";
 			buttonLoad.AccessibleRole = AccessibleRole.PushButton;
 			buttonLoad.DialogResult = DialogResult.OK;
@@ -309,6 +324,9 @@ namespace Planetoid_DB
 			buttonLoad.Size = new Size(105, 29);
 			buttonLoad.TabIndex = 6;
 			toolTip.SetToolTip(buttonLoad, "Load the selected result item");
+			buttonLoad.ToolTipValues.Description = "Loads the selected result item";
+			buttonLoad.ToolTipValues.EnableToolTips = true;
+			buttonLoad.ToolTipValues.Heading = "Load";
 			buttonLoad.Values.DropDownArrowColor = Color.Empty;
 			buttonLoad.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
 			buttonLoad.Values.Text = "&Load";
@@ -329,7 +347,10 @@ namespace Planetoid_DB
 			buttonUnmarkAll.Name = "buttonUnmarkAll";
 			buttonUnmarkAll.Size = new Size(105, 29);
 			buttonUnmarkAll.TabIndex = 3;
-			toolTip.SetToolTip(buttonUnmarkAll, "Umark all orbital elements");
+			toolTip.SetToolTip(buttonUnmarkAll, "Heading");
+			buttonUnmarkAll.ToolTipValues.Description = "Umarks all orbital elements";
+			buttonUnmarkAll.ToolTipValues.EnableToolTips = true;
+			buttonUnmarkAll.ToolTipValues.Heading = "Umark all";
 			buttonUnmarkAll.Values.DropDownArrowColor = Color.Empty;
 			buttonUnmarkAll.Values.Text = "&Unmark all";
 			buttonUnmarkAll.Click += ButtonUnmarkAll_Click;
@@ -349,7 +370,10 @@ namespace Planetoid_DB
 			buttonMarkAll.Name = "buttonMarkAll";
 			buttonMarkAll.Size = new Size(105, 29);
 			buttonMarkAll.TabIndex = 2;
-			toolTip.SetToolTip(buttonMarkAll, "Mark all orbital elements");
+			toolTip.SetToolTip(buttonMarkAll, "Mark all");
+			buttonMarkAll.ToolTipValues.Description = "Marks all orbital elements to search";
+			buttonMarkAll.ToolTipValues.EnableToolTips = true;
+			buttonMarkAll.ToolTipValues.Heading = "Mark all";
 			buttonMarkAll.Values.DropDownArrowColor = Color.Empty;
 			buttonMarkAll.Values.Image = FatcowIcons16px.fatcow_asterisk_orange_16px;
 			buttonMarkAll.Values.Text = "&Mark all";
@@ -370,6 +394,9 @@ namespace Planetoid_DB
 			buttonSearch.Size = new Size(105, 29);
 			buttonSearch.TabIndex = 4;
 			toolTip.SetToolTip(buttonSearch, "Search");
+			buttonSearch.ToolTipValues.Description = "Searchs the keyword";
+			buttonSearch.ToolTipValues.EnableToolTips = true;
+			buttonSearch.ToolTipValues.Heading = "Search";
 			buttonSearch.Values.DropDownArrowColor = Color.Empty;
 			buttonSearch.Values.Image = FatcowIcons16px.fatcow_magnifier_16px;
 			buttonSearch.Values.Text = "&Search";
@@ -440,7 +467,7 @@ namespace Planetoid_DB
 		private KryptonProgressBar progressBar;
 		private KryptonStatusStrip statusStrip;
 		private ToolStripStatusLabel labelInformation;
-		private KryptonToolTip toolTip;
+		private ToolTip toolTip;
 		private BackgroundWorker backgroundWorker;
 		private KryptonButton buttonCancel;
 		private ListView listView;
