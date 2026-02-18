@@ -367,7 +367,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		labelSlopeParameterData.Text = entry?.ToString() is string entryStr2 ? entryStr2.Substring(startIndex: 14, length: 5).Trim() : string.Empty;
 		labelEpochData.Text = entry?.ToString() is string entryStr3 ? entryStr3.Substring(startIndex: 20, length: 5).Trim() : string.Empty;
 		labelMeanAnomalyAtTheEpochData.Text = entry?.ToString() is string entryStr4 ? entryStr4.Substring(startIndex: 26, length: 9).Trim() : string.Empty;
-		labelArgumentOfPerihelionData.Text = entry?.ToString() is string entryStr5 ? entryStr5.Substring(startIndex: 37, length: 9).Trim() : string.Empty;
+		labelArgumentOfThePerihelionData.Text = entry?.ToString() is string entryStr5 ? entryStr5.Substring(startIndex: 37, length: 9).Trim() : string.Empty;
 		labelLongitudeOfTheAscendingNodeData.Text = entry?.ToString() is string entryStr6 ? entryStr6.Substring(startIndex: 48, length: 9).Trim() : string.Empty;
 		labelInclinationToTheEclipticData.Text = entry?.ToString() is string entryStr7 ? entryStr7.Substring(startIndex: 59, length: 9).Trim() : string.Empty;
 		labelOrbitalEccentricityData.Text = entry?.ToString() is string entryStr8 ? entryStr8.Substring(startIndex: 70, length: 9).Trim() : string.Empty;
@@ -957,7 +957,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			labelReadableDesignationData.Text,
 			labelEpochData.Text,
 			labelMeanAnomalyAtTheEpochData.Text,
-			labelArgumentOfPerihelionData.Text,
+			labelArgumentOfThePerihelionData.Text,
 			labelLongitudeOfTheAscendingNodeData.Text,
 			labelInclinationToTheEclipticData.Text,
 			labelOrbitalEccentricityData.Text,
@@ -1105,12 +1105,12 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		double numericalEccentricity = double.Parse(s: labelOrbitalEccentricityData.Text, provider: provider);
 		double meanAnomaly = double.Parse(s: labelMeanAnomalyAtTheEpochData.Text, provider: provider);
 		double longitudeAscendingNode = double.Parse(s: labelLongitudeOfTheAscendingNodeData.Text, provider: provider);
-		double argumentAphelion = double.Parse(s: labelArgumentOfPerihelionData.Text, provider: provider);
+		double argumentAphelion = double.Parse(s: labelArgumentOfThePerihelionData.Text, provider: provider);
 		orbitalElements.Add(item: labelIndexData.Text);
 		orbitalElements.Add(item: labelReadableDesignationData.Text);
 		orbitalElements.Add(item: labelEpochData.Text);
 		orbitalElements.Add(item: labelMeanAnomalyAtTheEpochData.Text);
-		orbitalElements.Add(item: labelArgumentOfPerihelionData.Text);
+		orbitalElements.Add(item: labelArgumentOfThePerihelionData.Text);
 		orbitalElements.Add(item: labelLongitudeOfTheAscendingNodeData.Text);
 		orbitalElements.Add(item: labelInclinationToTheEclipticData.Text);
 		orbitalElements.Add(item: labelOrbitalEccentricityData.Text);
@@ -1187,7 +1187,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		double numericalEccentricity = double.Parse(s: labelOrbitalEccentricityData.Text, provider: provider);
 		double meanAnomaly = double.Parse(s: labelMeanAnomalyAtTheEpochData.Text, provider: provider);
 		double longitudeAscendingNode = double.Parse(s: labelLongitudeOfTheAscendingNodeData.Text, provider: provider);
-		double argumentAphelion = double.Parse(s: labelArgumentOfPerihelionData.Text, provider: provider);
+		double argumentAphelion = double.Parse(s: labelArgumentOfThePerihelionData.Text, provider: provider);
 		derivedOrbitElements.Add(item: DerivedElements.CalculateLinearEccentricity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 		derivedOrbitElements.Add(item: DerivedElements.CalculateSemiMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 		derivedOrbitElements.Add(item: DerivedElements.CalculateMajorAxis(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
@@ -2438,7 +2438,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>
 	/// This method is used to copy the argument of perihelion to the clipboard.
 	/// </remarks>
-	private void ToolStripMenuItemCopyToClipboardArgumentOfPerihelion_Click(object sender, EventArgs e) => CopyToClipboard(text: labelArgumentOfPerihelionData.Text);
+	private void ToolStripMenuItemCopyToClipboardArgumentOfPerihelion_Click(object sender, EventArgs e) => CopyToClipboard(text: labelArgumentOfThePerihelionData.Text);
 
 	/// <summary>
 	/// Handles the click event for the ToolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode.
