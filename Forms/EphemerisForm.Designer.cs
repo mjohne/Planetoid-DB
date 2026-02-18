@@ -49,7 +49,6 @@ namespace Planetoid_DB
 			dateTimePickerEphemeridesEnd = new KryptonDateTimePicker();
 			labelEphemeridesBegin = new KryptonLabel();
 			dateTimePickerEphemeridesBegin = new KryptonDateTimePicker();
-			toolTip = new KryptonToolTip(components);
 			backgroundWorker = new BackgroundWorker();
 			kryptonManager = new KryptonManager(components);
 			statusStrip.SuspendLayout();
@@ -146,7 +145,7 @@ namespace Planetoid_DB
 			buttonCalculate.Name = "buttonCalculate";
 			buttonCalculate.Size = new Size(105, 29);
 			buttonCalculate.TabIndex = 6;
-			toolTip.SetToolTip(buttonCalculate, "Calculate the ephemerides");
+			buttonCalculate.ToolTipValues.EnableToolTips = true;
 			buttonCalculate.Values.DropDownArrowColor = Color.Empty;
 			buttonCalculate.Values.Image = FatcowIcons16px.fatcow_calculator_16px;
 			buttonCalculate.Values.Text = "&Calculate";
@@ -169,7 +168,7 @@ namespace Planetoid_DB
 			listView.ShowItemToolTips = true;
 			listView.Size = new Size(378, 209);
 			listView.TabIndex = 9;
-			toolTip.SetToolTip(listView, "Search results");
+			listView.ToolTipValues.EnableToolTips = true;
 			listView.Enter += Control_Enter;
 			listView.Leave += Control_Leave;
 			listView.MouseEnter += Control_Enter;
@@ -185,7 +184,7 @@ namespace Planetoid_DB
 			labelPercent.Name = "labelPercent";
 			labelPercent.Size = new Size(44, 20);
 			labelPercent.TabIndex = 8;
-			toolTip.SetToolTip(labelPercent, "Shows the progress status of the search");
+			labelPercent.ToolTipValues.EnableToolTips = true;
 			labelPercent.Values.Text = "100 %";
 			labelPercent.Enter += Control_Enter;
 			labelPercent.Leave += Control_Leave;
@@ -204,7 +203,6 @@ namespace Planetoid_DB
 			progressBar.TabIndex = 7;
 			progressBar.TextBackdropColor = Color.Empty;
 			progressBar.TextShadowColor = Color.Empty;
-			toolTip.SetToolTip(progressBar, "Shows the progress status of the search");
 			progressBar.Values.Text = "";
 			progressBar.MouseEnter += Control_Enter;
 			progressBar.MouseLeave += Control_Leave;
@@ -217,6 +215,7 @@ namespace Planetoid_DB
 			labelEphemeridesStepsInDays.Name = "labelEphemeridesStepsInDays";
 			labelEphemeridesStepsInDays.Size = new Size(82, 20);
 			labelEphemeridesStepsInDays.TabIndex = 4;
+			labelEphemeridesStepsInDays.ToolTipValues.EnableToolTips = true;
 			labelEphemeridesStepsInDays.Values.Text = "&Steps in days";
 			labelEphemeridesStepsInDays.Enter += Control_Enter;
 			labelEphemeridesStepsInDays.Leave += Control_Leave;
@@ -236,7 +235,7 @@ namespace Planetoid_DB
 			numericUpDownStepsInDays.Name = "numericUpDownStepsInDays";
 			numericUpDownStepsInDays.Size = new Size(92, 22);
 			numericUpDownStepsInDays.TabIndex = 5;
-			toolTip.SetToolTip(numericUpDownStepsInDays, "Steps in days");
+			numericUpDownStepsInDays.ToolTipValues.EnableToolTips = true;
 			numericUpDownStepsInDays.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownStepsInDays.Enter += Control_Enter;
 			numericUpDownStepsInDays.Leave += Control_Leave;
@@ -253,7 +252,7 @@ namespace Planetoid_DB
 			labelEphemeridesEnd.Name = "labelEphemeridesEnd";
 			labelEphemeridesEnd.Size = new Size(108, 20);
 			labelEphemeridesEnd.TabIndex = 2;
-			toolTip.SetToolTip(labelEphemeridesEnd, "Ephemerides end");
+			labelEphemeridesEnd.ToolTipValues.EnableToolTips = true;
 			labelEphemeridesEnd.Values.Text = "Ephemerides &end:";
 			labelEphemeridesEnd.Enter += Control_Enter;
 			labelEphemeridesEnd.Leave += Control_Leave;
@@ -268,7 +267,7 @@ namespace Planetoid_DB
 			dateTimePickerEphemeridesEnd.Name = "dateTimePickerEphemeridesEnd";
 			dateTimePickerEphemeridesEnd.Size = new Size(173, 21);
 			dateTimePickerEphemeridesEnd.TabIndex = 3;
-			toolTip.SetToolTip(dateTimePickerEphemeridesEnd, "Date of the ephemerides end");
+			dateTimePickerEphemeridesEnd.ToolTipValues.EnableToolTips = true;
 			dateTimePickerEphemeridesEnd.Enter += Control_Enter;
 			dateTimePickerEphemeridesEnd.Leave += Control_Leave;
 			dateTimePickerEphemeridesEnd.MouseEnter += Control_Enter;
@@ -284,7 +283,7 @@ namespace Planetoid_DB
 			labelEphemeridesBegin.Name = "labelEphemeridesBegin";
 			labelEphemeridesBegin.Size = new Size(118, 20);
 			labelEphemeridesBegin.TabIndex = 0;
-			toolTip.SetToolTip(labelEphemeridesBegin, "Ephemerides begin");
+			labelEphemeridesBegin.ToolTipValues.EnableToolTips = true;
 			labelEphemeridesBegin.Values.Text = "Ephemerides &begin:";
 			labelEphemeridesBegin.Enter += Control_Enter;
 			labelEphemeridesBegin.Leave += Control_Leave;
@@ -299,7 +298,7 @@ namespace Planetoid_DB
 			dateTimePickerEphemeridesBegin.Name = "dateTimePickerEphemeridesBegin";
 			dateTimePickerEphemeridesBegin.Size = new Size(173, 21);
 			dateTimePickerEphemeridesBegin.TabIndex = 1;
-			toolTip.SetToolTip(dateTimePickerEphemeridesBegin, "Date of the ephemerides begin");
+			dateTimePickerEphemeridesBegin.ToolTipValues.EnableToolTips = true;
 			dateTimePickerEphemeridesBegin.Enter += Control_Enter;
 			dateTimePickerEphemeridesBegin.Leave += Control_Leave;
 			dateTimePickerEphemeridesBegin.MouseEnter += Control_Enter;
@@ -360,7 +359,6 @@ namespace Planetoid_DB
 		private ToolStripContainer toolStripContainer;
 		private KryptonPanel panel;
 		private KryptonDateTimePicker dateTimePickerEphemeridesBegin;
-		private KryptonToolTip toolTip;
 		private BackgroundWorker backgroundWorker;
 		private KryptonLabel labelEphemeridesEnd;
 		private KryptonDateTimePicker dateTimePickerEphemeridesEnd;
