@@ -54,7 +54,6 @@ namespace Planetoid_DB
 			buttonUnmarkAll = new KryptonButton();
 			buttonMarkAll = new KryptonButton();
 			buttonSearch = new KryptonButton();
-			toolTip = new ToolTip(components);
 			backgroundWorker = new BackgroundWorker();
 			kryptonManager = new KryptonManager(components);
 			((ISupportInitialize)panel).BeginInit();
@@ -78,7 +77,6 @@ namespace Planetoid_DB
 			checkedListBox.Name = "checkedListBox";
 			checkedListBox.Size = new Size(266, 194);
 			checkedListBox.TabIndex = 1;
-			toolTip.SetToolTip(checkedListBox, "Box with selectable orbital elements");
 			checkedListBox.ToolTipValues.Description = "Show the box with selectable orbital elements to search";
 			checkedListBox.ToolTipValues.EnableToolTips = true;
 			checkedListBox.ToolTipValues.Heading = "Box with selectable orbital elements";
@@ -123,7 +121,6 @@ namespace Planetoid_DB
 			listView.ShowItemToolTips = true;
 			listView.Size = new Size(377, 200);
 			listView.TabIndex = 9;
-			toolTip.SetToolTip(listView, "Shows the search results");
 			listView.UseCompatibleStateImageBehavior = false;
 			listView.View = View.Details;
 			listView.SelectedIndexChanged += ListView_SelectedIndexChanged;
@@ -161,7 +158,6 @@ namespace Planetoid_DB
 			buttonCancel.Name = "buttonCancel";
 			buttonCancel.Size = new Size(105, 29);
 			buttonCancel.TabIndex = 5;
-			toolTip.SetToolTip(buttonCancel, "Cancel");
 			buttonCancel.ToolTipValues.Description = "Cancels the search";
 			buttonCancel.ToolTipValues.EnableToolTips = true;
 			buttonCancel.ToolTipValues.Heading = "Cancel";
@@ -215,7 +211,6 @@ namespace Planetoid_DB
 			labelEntriesFound.RightToLeft = RightToLeft.No;
 			labelEntriesFound.Size = new Size(93, 20);
 			labelEntriesFound.TabIndex = 8;
-			toolTip.SetToolTip(labelEntriesFound, "Found entries");
 			labelEntriesFound.ToolTipValues.Description = "Shows the found entries";
 			labelEntriesFound.ToolTipValues.EnableToolTips = true;
 			labelEntriesFound.ToolTipValues.Heading = "Found entries";
@@ -237,7 +232,6 @@ namespace Planetoid_DB
 			progressBar.TabIndex = 7;
 			progressBar.TextBackdropColor = Color.Empty;
 			progressBar.TextShadowColor = Color.Empty;
-			toolTip.SetToolTip(progressBar, "Shows the progress status of the search");
 			progressBar.Values.Text = "";
 			progressBar.MouseEnter += Control_Enter;
 			progressBar.MouseLeave += Control_Leave;
@@ -260,7 +254,6 @@ namespace Planetoid_DB
 			groupBox.Panel.Controls.Add(textBox);
 			groupBox.Size = new Size(378, 63);
 			groupBox.TabIndex = 0;
-			toolTip.SetToolTip(groupBox, "Group the search element");
 			groupBox.Values.Heading = "Word, number, keyword, ...";
 			groupBox.Values.Image = FatcowIcons16px.fatcow_pencil_16px;
 			groupBox.Enter += Control_Enter;
@@ -279,7 +272,6 @@ namespace Planetoid_DB
 			buttonClear.Name = "buttonClear";
 			buttonClear.Size = new Size(68, 25);
 			buttonClear.TabIndex = 1;
-			toolTip.SetToolTip(buttonClear, "Clear the search box");
 			buttonClear.ToolTipValues.Description = "Clears the search box";
 			buttonClear.ToolTipValues.EnableToolTips = true;
 			buttonClear.ToolTipValues.Heading = "Clear";
@@ -302,7 +294,6 @@ namespace Planetoid_DB
 			textBox.Name = "textBox";
 			textBox.Size = new Size(288, 23);
 			textBox.TabIndex = 0;
-			toolTip.SetToolTip(textBox, "Search box");
 			textBox.ToolTipValues.Description = "Shows the search box to input some key words";
 			textBox.ToolTipValues.EnableToolTips = true;
 			textBox.ToolTipValues.Heading = "Search box";
@@ -323,7 +314,6 @@ namespace Planetoid_DB
 			buttonLoad.Name = "buttonLoad";
 			buttonLoad.Size = new Size(105, 29);
 			buttonLoad.TabIndex = 6;
-			toolTip.SetToolTip(buttonLoad, "Load the selected result item");
 			buttonLoad.ToolTipValues.Description = "Loads the selected result item";
 			buttonLoad.ToolTipValues.EnableToolTips = true;
 			buttonLoad.ToolTipValues.Heading = "Load";
@@ -347,7 +337,6 @@ namespace Planetoid_DB
 			buttonUnmarkAll.Name = "buttonUnmarkAll";
 			buttonUnmarkAll.Size = new Size(105, 29);
 			buttonUnmarkAll.TabIndex = 3;
-			toolTip.SetToolTip(buttonUnmarkAll, "Heading");
 			buttonUnmarkAll.ToolTipValues.Description = "Umarks all orbital elements";
 			buttonUnmarkAll.ToolTipValues.EnableToolTips = true;
 			buttonUnmarkAll.ToolTipValues.Heading = "Umark all";
@@ -370,7 +359,6 @@ namespace Planetoid_DB
 			buttonMarkAll.Name = "buttonMarkAll";
 			buttonMarkAll.Size = new Size(105, 29);
 			buttonMarkAll.TabIndex = 2;
-			toolTip.SetToolTip(buttonMarkAll, "Mark all");
 			buttonMarkAll.ToolTipValues.Description = "Marks all orbital elements to search";
 			buttonMarkAll.ToolTipValues.EnableToolTips = true;
 			buttonMarkAll.ToolTipValues.Heading = "Mark all";
@@ -385,7 +373,7 @@ namespace Planetoid_DB
 			// 
 			// buttonSearch
 			// 
-			buttonSearch.AccessibleDescription = "Searchs the keyword";
+			buttonSearch.AccessibleDescription = "Searches the keyword";
 			buttonSearch.AccessibleName = "Search";
 			buttonSearch.AccessibleRole = AccessibleRole.PushButton;
 			buttonSearch.Location = new Point(276, 145);
@@ -393,7 +381,6 @@ namespace Planetoid_DB
 			buttonSearch.Name = "buttonSearch";
 			buttonSearch.Size = new Size(105, 29);
 			buttonSearch.TabIndex = 4;
-			toolTip.SetToolTip(buttonSearch, "Search");
 			buttonSearch.ToolTipValues.Description = "Searchs the keyword";
 			buttonSearch.ToolTipValues.EnableToolTips = true;
 			buttonSearch.ToolTipValues.Heading = "Search";
@@ -439,7 +426,6 @@ namespace Planetoid_DB
 			ShowInTaskbar = false;
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Search";
-			toolTip.SetToolTip(this, "Search");
 			Load += SearchForm_Load;
 			((ISupportInitialize)panel).EndInit();
 			panel.ResumeLayout(false);
@@ -467,7 +453,6 @@ namespace Planetoid_DB
 		private KryptonProgressBar progressBar;
 		private KryptonStatusStrip statusStrip;
 		private ToolStripStatusLabel labelInformation;
-		private ToolTip toolTip;
 		private BackgroundWorker backgroundWorker;
 		private KryptonButton buttonCancel;
 		private ListView listView;
