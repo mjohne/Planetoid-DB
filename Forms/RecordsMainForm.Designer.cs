@@ -318,9 +318,9 @@ namespace Planetoid_DB
 			buttonGoto09.Name = "buttonGoto09";
 			buttonGoto09.Size = new Size(70, 23);
 			buttonGoto09.TabIndex = 37;
-			buttonGoto09.ToolTipValues.Description = "Goes to the element of the place no. 9 ";
+			buttonGoto09.ToolTipValues.Description = "Goes to the element of the place no. 9";
 			buttonGoto09.ToolTipValues.EnableToolTips = true;
-			buttonGoto09.ToolTipValues.Heading = "Go to the element of the place no. 9 ";
+			buttonGoto09.ToolTipValues.Heading = "Go to the element of the place no. 9";
 			buttonGoto09.Values.DropDownArrowColor = Color.Empty;
 			buttonGoto09.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
 			buttonGoto09.Values.Text = "Goto";
@@ -481,7 +481,7 @@ namespace Planetoid_DB
 			buttonGoto02.TabIndex = 9;
 			buttonGoto02.ToolTipValues.Description = "Goes to the element of the place no. 2";
 			buttonGoto02.ToolTipValues.EnableToolTips = true;
-			buttonGoto02.ToolTipValues.Heading = "HeadingGo to the element of the place no. 2";
+			buttonGoto02.ToolTipValues.Heading = "Go to the element of the place no. 2";
 			buttonGoto02.Values.DropDownArrowColor = Color.Empty;
 			buttonGoto02.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
 			buttonGoto02.Values.Text = "Goto";
@@ -1231,7 +1231,7 @@ namespace Planetoid_DB
 			// 
 			// labelPercent
 			// 
-			labelPercent.AccessibleDescription = "Show the percent status of the record detection";
+			labelPercent.AccessibleDescription = "Shows the percent status of the record detection";
 			labelPercent.AccessibleName = "Percent status of the record detection";
 			labelPercent.AccessibleRole = AccessibleRole.StaticText;
 			labelPercent.Location = new Point(458, 20);
@@ -1239,7 +1239,7 @@ namespace Planetoid_DB
 			labelPercent.Name = "labelPercent";
 			labelPercent.Size = new Size(44, 20);
 			labelPercent.TabIndex = 2;
-			labelPercent.ToolTipValues.Description = "Show the percent status of the record detection";
+			labelPercent.ToolTipValues.Description = "Shows the percent status of the record detection";
 			labelPercent.ToolTipValues.EnableToolTips = true;
 			labelPercent.ToolTipValues.Heading = "Percent status of the record detection";
 			labelPercent.Values.Text = "100 %";
