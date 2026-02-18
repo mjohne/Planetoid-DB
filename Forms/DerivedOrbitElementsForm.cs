@@ -306,7 +306,7 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	/// <remarks>
 	/// This method is used to store the control that triggered the event for future reference.
 	/// </remarks>
-	private void Control_MouseDown(object sender, MouseEventArgs e)
+	protected override void Control_MouseDown(object sender, MouseEventArgs e)
 	{
 		// Check if the sender is a Control
 		if (sender is Control control)

@@ -90,29 +90,6 @@ public partial class AppInfoForm : BaseKryptonForm
 
 	#endregion
 
-	#region MouseDown event handlers
-
-	/// <summary>
-	/// Handles the MouseDown event for controls.
-	/// Stores the control that triggered the event for future reference.
-	/// </summary>
-	/// <param name="sender">Event source (the control).</param>
-	/// <param name="e">The <see cref="MouseEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This event is used to store the control that triggered the event for future reference.
-	/// </remarks>
-	private void Control_MouseDown(object sender, MouseEventArgs e)
-	{
-		// Check if the sender is a Control
-		if (sender is Control control)
-		{
-			// Store the control that triggered the event
-			currentControl = control;
-		}
-	}
-
-	#endregion
-
 	#region Click event handlers
 
 	/// <summary>
