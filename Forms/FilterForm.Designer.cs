@@ -66,7 +66,7 @@ namespace Planetoid_DB
 			numericUpDownMaximumOrbitalEccentricity = new KryptonNumericUpDown();
 			numericUpDownMaximumInclination = new KryptonNumericUpDown();
 			numericUpDownMaximumLongitudeOfTheAscendingNode = new KryptonNumericUpDown();
-			numericUpDownMaximumArgumentOfPerihelion = new KryptonNumericUpDown();
+			numericUpDownMaximumArgumentOfThePerihelion = new KryptonNumericUpDown();
 			numericUpDownMaximumMeanAnomalyAtTheEpoch = new KryptonNumericUpDown();
 			numericUpDownMinimumRmsResidual = new KryptonNumericUpDown();
 			numericUpDownMinimumNumberOfObservations = new KryptonNumericUpDown();
@@ -78,8 +78,8 @@ namespace Planetoid_DB
 			numericUpDownMinimumOrbitalEccentricity = new KryptonNumericUpDown();
 			numericUpDownMinimumInclination = new KryptonNumericUpDown();
 			numericUpDownMinimumLongitudeOfTheAscendingNode = new KryptonNumericUpDown();
-			numericUpDownMinimumArgumentOfPerihelion = new KryptonNumericUpDown();
-			labelArgumentOfPerihelion = new KryptonLabel();
+			numericUpDownMinimumArgumentOfThePerihelion = new KryptonNumericUpDown();
+			labelArgumentOfThePerihelion = new KryptonLabel();
 			numericUpDownMinimumMeanAnomalyAtTheEpoch = new KryptonNumericUpDown();
 			labelRmsResidual = new KryptonLabel();
 			labelLongitudeOfTheAscendingNode = new KryptonLabel();
@@ -95,7 +95,6 @@ namespace Planetoid_DB
 			buttonResetInclination = new KryptonButton();
 			buttonResetOrbitalEccentricity = new KryptonButton();
 			labelHeaderElement = new KryptonLabel();
-			toolTip = new KryptonToolTip(components);
 			kryptonManager = new KryptonManager(components);
 			((ISupportInitialize)panel).BeginInit();
 			panel.SuspendLayout();
@@ -160,7 +159,9 @@ namespace Planetoid_DB
 			buttonReset.Name = "buttonReset";
 			buttonReset.Size = new Size(105, 29);
 			buttonReset.TabIndex = 3;
-			toolTip.SetToolTip(buttonReset, "Reset the filter settings");
+			buttonReset.ToolTipValues.Description = "Resets the filter settings";
+			buttonReset.ToolTipValues.EnableToolTips = true;
+			buttonReset.ToolTipValues.Heading = "Reset all";
 			buttonReset.Values.DropDownArrowColor = Color.Empty;
 			buttonReset.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonReset.Values.Text = "&Reset all";
@@ -181,7 +182,9 @@ namespace Planetoid_DB
 			buttonCancel.Name = "buttonCancel";
 			buttonCancel.Size = new Size(105, 29);
 			buttonCancel.TabIndex = 2;
-			toolTip.SetToolTip(buttonCancel, "Cancel the filter settings");
+			buttonCancel.ToolTipValues.Description = "Cancels the filter settings";
+			buttonCancel.ToolTipValues.EnableToolTips = true;
+			buttonCancel.ToolTipValues.Heading = "Cancel";
 			buttonCancel.Values.DropDownArrowColor = Color.Empty;
 			buttonCancel.Values.Image = FatcowIcons16px.fatcow_cancel_16px;
 			buttonCancel.Values.Text = "&Cancel";
@@ -202,7 +205,9 @@ namespace Planetoid_DB
 			buttonApply.Name = "buttonApply";
 			buttonApply.Size = new Size(105, 29);
 			buttonApply.TabIndex = 1;
-			toolTip.SetToolTip(buttonApply, "Apply the filter settings");
+			buttonApply.ToolTipValues.Description = "Applys the filter settings";
+			buttonApply.ToolTipValues.EnableToolTips = true;
+			buttonApply.ToolTipValues.Heading = "Apply";
 			buttonApply.Values.DropDownArrowColor = Color.Empty;
 			buttonApply.Values.Image = FatcowIcons16px.fatcow_accept_button_16px;
 			buttonApply.Values.Text = "&Apply";
@@ -245,7 +250,7 @@ namespace Planetoid_DB
 			tableLayoutPanel.Controls.Add(numericUpDownMaximumOrbitalEccentricity, 2, 6);
 			tableLayoutPanel.Controls.Add(numericUpDownMaximumInclination, 2, 5);
 			tableLayoutPanel.Controls.Add(numericUpDownMaximumLongitudeOfTheAscendingNode, 2, 4);
-			tableLayoutPanel.Controls.Add(numericUpDownMaximumArgumentOfPerihelion, 2, 3);
+			tableLayoutPanel.Controls.Add(numericUpDownMaximumArgumentOfThePerihelion, 2, 3);
 			tableLayoutPanel.Controls.Add(numericUpDownMaximumMeanAnomalyAtTheEpoch, 2, 2);
 			tableLayoutPanel.Controls.Add(numericUpDownMinimumRmsResidual, 1, 13);
 			tableLayoutPanel.Controls.Add(numericUpDownMinimumNumberOfObservations, 1, 12);
@@ -257,8 +262,8 @@ namespace Planetoid_DB
 			tableLayoutPanel.Controls.Add(numericUpDownMinimumOrbitalEccentricity, 1, 6);
 			tableLayoutPanel.Controls.Add(numericUpDownMinimumInclination, 1, 5);
 			tableLayoutPanel.Controls.Add(numericUpDownMinimumLongitudeOfTheAscendingNode, 1, 4);
-			tableLayoutPanel.Controls.Add(numericUpDownMinimumArgumentOfPerihelion, 1, 3);
-			tableLayoutPanel.Controls.Add(labelArgumentOfPerihelion, 0, 3);
+			tableLayoutPanel.Controls.Add(numericUpDownMinimumArgumentOfThePerihelion, 1, 3);
+			tableLayoutPanel.Controls.Add(labelArgumentOfThePerihelion, 0, 3);
 			tableLayoutPanel.Controls.Add(numericUpDownMinimumMeanAnomalyAtTheEpoch, 1, 2);
 			tableLayoutPanel.Controls.Add(labelRmsResidual, 0, 13);
 			tableLayoutPanel.Controls.Add(labelLongitudeOfTheAscendingNode, 0, 4);
@@ -308,7 +313,9 @@ namespace Planetoid_DB
 			labelHeaderReset.Name = "labelHeaderReset";
 			labelHeaderReset.Size = new Size(85, 17);
 			labelHeaderReset.TabIndex = 3;
-			toolTip.SetToolTip(labelHeaderReset, "Header of the reset buttons");
+			labelHeaderReset.ToolTipValues.Description = "Shows the header of the reset buttons";
+			labelHeaderReset.ToolTipValues.EnableToolTips = true;
+			labelHeaderReset.ToolTipValues.Heading = "Header of the reset buttons";
 			labelHeaderReset.Values.Text = "Reset";
 			labelHeaderReset.Enter += Control_Enter;
 			labelHeaderReset.Leave += Control_Leave;
@@ -327,7 +334,9 @@ namespace Planetoid_DB
 			labelHeaderMaximum.Name = "labelHeaderMaximum";
 			labelHeaderMaximum.Size = new Size(120, 17);
 			labelHeaderMaximum.TabIndex = 2;
-			toolTip.SetToolTip(labelHeaderMaximum, "Header of the maximum spin buttons");
+			labelHeaderMaximum.ToolTipValues.Description = "Shows the header of the maximum spin buttons";
+			labelHeaderMaximum.ToolTipValues.EnableToolTips = true;
+			labelHeaderMaximum.ToolTipValues.Heading = "Header of the maximum spin buttons";
 			labelHeaderMaximum.Values.Text = "Maximum";
 			labelHeaderMaximum.Enter += Control_Enter;
 			labelHeaderMaximum.Leave += Control_Leave;
@@ -346,7 +355,9 @@ namespace Planetoid_DB
 			labelHeaderMinimum.Name = "labelHeaderMinimum";
 			labelHeaderMinimum.Size = new Size(120, 17);
 			labelHeaderMinimum.TabIndex = 1;
-			toolTip.SetToolTip(labelHeaderMinimum, "Header of the minimum spin buttons");
+			labelHeaderMinimum.ToolTipValues.Description = "Shows the header of the minimum spin buttons";
+			labelHeaderMinimum.ToolTipValues.EnableToolTips = true;
+			labelHeaderMinimum.ToolTipValues.Heading = "Header of the minimum spin buttons";
 			labelHeaderMinimum.Values.Text = "Minimum";
 			labelHeaderMinimum.Enter += Control_Enter;
 			labelHeaderMinimum.Leave += Control_Leave;
@@ -365,8 +376,9 @@ namespace Planetoid_DB
 			buttonResetRmsResidual.Name = "buttonResetRmsResidual";
 			buttonResetRmsResidual.Size = new Size(85, 27);
 			buttonResetRmsResidual.TabIndex = 51;
-			toolTip.SetToolTip(buttonResetRmsResidual, "Reset the minimum and maximum of ");
+			buttonResetRmsResidual.ToolTipValues.Description = "Resets the minimum and maximum of ";
 			buttonResetRmsResidual.ToolTipValues.EnableToolTips = true;
+			buttonResetRmsResidual.ToolTipValues.Heading = "Reset the minimum and maximum of ";
 			buttonResetRmsResidual.Values.DropDownArrowColor = Color.Empty;
 			buttonResetRmsResidual.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonResetRmsResidual.Values.Text = "";
@@ -388,8 +400,9 @@ namespace Planetoid_DB
 			buttonResetNumberOfObservations.Name = "buttonResetNumberOfObservations";
 			buttonResetNumberOfObservations.Size = new Size(85, 25);
 			buttonResetNumberOfObservations.TabIndex = 47;
-			toolTip.SetToolTip(buttonResetNumberOfObservations, "Reset the minimum and maximum of number of observations");
+			buttonResetNumberOfObservations.ToolTipValues.Description = "Resets the minimum and maximum of number of observations";
 			buttonResetNumberOfObservations.ToolTipValues.EnableToolTips = true;
+			buttonResetNumberOfObservations.ToolTipValues.Heading = "Reset the minimum and maximum of number of observations";
 			buttonResetNumberOfObservations.Values.DropDownArrowColor = Color.Empty;
 			buttonResetNumberOfObservations.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonResetNumberOfObservations.Values.Text = "";
@@ -411,8 +424,9 @@ namespace Planetoid_DB
 			buttonNumberOfOppositions.Name = "buttonNumberOfOppositions";
 			buttonNumberOfOppositions.Size = new Size(85, 25);
 			buttonNumberOfOppositions.TabIndex = 43;
-			toolTip.SetToolTip(buttonNumberOfOppositions, "Reset the minimum and maximum of number of oppositions");
+			buttonNumberOfOppositions.ToolTipValues.Description = "Resets the minimum and maximum of number of oppositions";
 			buttonNumberOfOppositions.ToolTipValues.EnableToolTips = true;
+			buttonNumberOfOppositions.ToolTipValues.Heading = "Reset the minimum and maximum of number of oppositions";
 			buttonNumberOfOppositions.Values.DropDownArrowColor = Color.Empty;
 			buttonNumberOfOppositions.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonNumberOfOppositions.Values.Text = "";
@@ -434,8 +448,9 @@ namespace Planetoid_DB
 			buttonResetSlopeParameter.Name = "buttonResetSlopeParameter";
 			buttonResetSlopeParameter.Size = new Size(85, 25);
 			buttonResetSlopeParameter.TabIndex = 39;
-			toolTip.SetToolTip(buttonResetSlopeParameter, "Reset the minimum and maximum of slope parameter");
+			buttonResetSlopeParameter.ToolTipValues.Description = "Resets the minimum and maximum of slope parameter";
 			buttonResetSlopeParameter.ToolTipValues.EnableToolTips = true;
+			buttonResetSlopeParameter.ToolTipValues.Heading = "Reset the minimum and maximum of slope parameter";
 			buttonResetSlopeParameter.Values.DropDownArrowColor = Color.Empty;
 			buttonResetSlopeParameter.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonResetSlopeParameter.Values.Text = "";
@@ -457,8 +472,9 @@ namespace Planetoid_DB
 			buttonResetAbsoluteMagnitude.Name = "buttonResetAbsoluteMagnitude";
 			buttonResetAbsoluteMagnitude.Size = new Size(85, 25);
 			buttonResetAbsoluteMagnitude.TabIndex = 35;
-			toolTip.SetToolTip(buttonResetAbsoluteMagnitude, "Reset the minimum and maximum of absolute magnitude");
+			buttonResetAbsoluteMagnitude.ToolTipValues.Description = "Resets the minimum and maximum of absolute magnitude";
 			buttonResetAbsoluteMagnitude.ToolTipValues.EnableToolTips = true;
+			buttonResetAbsoluteMagnitude.ToolTipValues.Heading = "Reset the minimum and maximum of absolute magnitude";
 			buttonResetAbsoluteMagnitude.Values.DropDownArrowColor = Color.Empty;
 			buttonResetAbsoluteMagnitude.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonResetAbsoluteMagnitude.Values.Text = "";
@@ -480,8 +496,9 @@ namespace Planetoid_DB
 			buttonResetSemiMajorAxis.Name = "buttonResetSemiMajorAxis";
 			buttonResetSemiMajorAxis.Size = new Size(85, 25);
 			buttonResetSemiMajorAxis.TabIndex = 31;
-			toolTip.SetToolTip(buttonResetSemiMajorAxis, "Reset the minimum and maximum of semi-major axis");
+			buttonResetSemiMajorAxis.ToolTipValues.Description = "Resets the minimum and maximum of semi-major axis";
 			buttonResetSemiMajorAxis.ToolTipValues.EnableToolTips = true;
+			buttonResetSemiMajorAxis.ToolTipValues.Heading = "HeadingReset the minimum and maximum of semi-major axis";
 			buttonResetSemiMajorAxis.Values.DropDownArrowColor = Color.Empty;
 			buttonResetSemiMajorAxis.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonResetSemiMajorAxis.Values.Text = "";
@@ -503,8 +520,9 @@ namespace Planetoid_DB
 			buttonResetMeanDailyMotion.Name = "buttonResetMeanDailyMotion";
 			buttonResetMeanDailyMotion.Size = new Size(85, 25);
 			buttonResetMeanDailyMotion.TabIndex = 27;
-			toolTip.SetToolTip(buttonResetMeanDailyMotion, "Reset the minimum and maximum of mean daily motion");
+			buttonResetMeanDailyMotion.ToolTipValues.Description = "Resets the minimum and maximum of mean daily motion";
 			buttonResetMeanDailyMotion.ToolTipValues.EnableToolTips = true;
+			buttonResetMeanDailyMotion.ToolTipValues.Heading = "Reset the minimum and maximum of mean daily motion";
 			buttonResetMeanDailyMotion.Values.DropDownArrowColor = Color.Empty;
 			buttonResetMeanDailyMotion.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonResetMeanDailyMotion.Values.Text = "";
@@ -526,8 +544,9 @@ namespace Planetoid_DB
 			buttonResetLongitudeOfTheAscendingNode.Name = "buttonResetLongitudeOfTheAscendingNode";
 			buttonResetLongitudeOfTheAscendingNode.Size = new Size(85, 25);
 			buttonResetLongitudeOfTheAscendingNode.TabIndex = 15;
-			toolTip.SetToolTip(buttonResetLongitudeOfTheAscendingNode, "Reset the minimum and maximum of longitude of the ascending node");
+			buttonResetLongitudeOfTheAscendingNode.ToolTipValues.Description = "Resets the minimum and maximum of longitude of the ascending node";
 			buttonResetLongitudeOfTheAscendingNode.ToolTipValues.EnableToolTips = true;
+			buttonResetLongitudeOfTheAscendingNode.ToolTipValues.Heading = "Reset the minimum and maximum of longitude of the ascending node";
 			buttonResetLongitudeOfTheAscendingNode.Values.DropDownArrowColor = Color.Empty;
 			buttonResetLongitudeOfTheAscendingNode.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonResetLongitudeOfTheAscendingNode.Values.Text = "";
@@ -549,8 +568,9 @@ namespace Planetoid_DB
 			buttonResetArgumentOfPerihelion.Name = "buttonResetArgumentOfPerihelion";
 			buttonResetArgumentOfPerihelion.Size = new Size(85, 25);
 			buttonResetArgumentOfPerihelion.TabIndex = 11;
-			toolTip.SetToolTip(buttonResetArgumentOfPerihelion, "Reset the minimum and maximum of argument of perihelion");
+			buttonResetArgumentOfPerihelion.ToolTipValues.Description = "Resets the minimum and maximum of argument of perihelion";
 			buttonResetArgumentOfPerihelion.ToolTipValues.EnableToolTips = true;
+			buttonResetArgumentOfPerihelion.ToolTipValues.Heading = "HeadingReset the minimum and maximum of argument of perihelion";
 			buttonResetArgumentOfPerihelion.Values.DropDownArrowColor = Color.Empty;
 			buttonResetArgumentOfPerihelion.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonResetArgumentOfPerihelion.Values.Text = "";
@@ -572,8 +592,9 @@ namespace Planetoid_DB
 			buttonResetMeanAnomalyAtTheEpoch.Name = "buttonResetMeanAnomalyAtTheEpoch";
 			buttonResetMeanAnomalyAtTheEpoch.Size = new Size(85, 25);
 			buttonResetMeanAnomalyAtTheEpoch.TabIndex = 7;
-			toolTip.SetToolTip(buttonResetMeanAnomalyAtTheEpoch, "Reset the minimum and maximum of mean anomaly at the epoch");
+			buttonResetMeanAnomalyAtTheEpoch.ToolTipValues.Description = "Resets the minimum and maximum of mean anomaly at the epoch";
 			buttonResetMeanAnomalyAtTheEpoch.ToolTipValues.EnableToolTips = true;
+			buttonResetMeanAnomalyAtTheEpoch.ToolTipValues.Heading = "Reset the minimum and maximum of mean anomaly at the epoch";
 			buttonResetMeanAnomalyAtTheEpoch.Values.DropDownArrowColor = Color.Empty;
 			buttonResetMeanAnomalyAtTheEpoch.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonResetMeanAnomalyAtTheEpoch.Values.Text = "";
@@ -600,7 +621,9 @@ namespace Planetoid_DB
 			numericUpDownMaximumRmsResidual.Size = new Size(120, 22);
 			numericUpDownMaximumRmsResidual.TabIndex = 50;
 			numericUpDownMaximumRmsResidual.ThousandsSeparator = true;
-			toolTip.SetToolTip(numericUpDownMaximumRmsResidual, "Maximum of r.m.s. residual");
+			numericUpDownMaximumRmsResidual.ToolTipValues.Description = "Shows the maximum of r.m.s. residual";
+			numericUpDownMaximumRmsResidual.ToolTipValues.EnableToolTips = true;
+			numericUpDownMaximumRmsResidual.ToolTipValues.Heading = "Maximum of r.m.s. residual";
 			numericUpDownMaximumRmsResidual.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumRmsResidual.ValueChanged += NumericUpDownMaximumRmsResidual_ValueChanged;
 			numericUpDownMaximumRmsResidual.Enter += Control_Enter;
@@ -610,7 +633,7 @@ namespace Planetoid_DB
 			// 
 			// numericUpDownMaximumNumberOfObservations
 			// 
-			numericUpDownMaximumNumberOfObservations.AccessibleDescription = "Shows the maximum ofnumber of observations ";
+			numericUpDownMaximumNumberOfObservations.AccessibleDescription = "Shows the maximum of number of observations ";
 			numericUpDownMaximumNumberOfObservations.AccessibleName = "Maximum of number of observations";
 			numericUpDownMaximumNumberOfObservations.AccessibleRole = AccessibleRole.SpinButton;
 			numericUpDownMaximumNumberOfObservations.AllowDecimals = true;
@@ -625,7 +648,9 @@ namespace Planetoid_DB
 			numericUpDownMaximumNumberOfObservations.Size = new Size(120, 22);
 			numericUpDownMaximumNumberOfObservations.TabIndex = 46;
 			numericUpDownMaximumNumberOfObservations.ThousandsSeparator = true;
-			toolTip.SetToolTip(numericUpDownMaximumNumberOfObservations, "Maximum of number of observations");
+			numericUpDownMaximumNumberOfObservations.ToolTipValues.Description = "Shows the maximum of number of observations ";
+			numericUpDownMaximumNumberOfObservations.ToolTipValues.EnableToolTips = true;
+			numericUpDownMaximumNumberOfObservations.ToolTipValues.Heading = "Maximum of number of observations";
 			numericUpDownMaximumNumberOfObservations.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumNumberOfObservations.ValueChanged += NumericUpDownMaximumNumberOfObservations_ValueChanged;
 			numericUpDownMaximumNumberOfObservations.Enter += Control_Enter;
@@ -650,7 +675,9 @@ namespace Planetoid_DB
 			numericUpDownMaximumNumberOfOppositions.Size = new Size(120, 22);
 			numericUpDownMaximumNumberOfOppositions.TabIndex = 42;
 			numericUpDownMaximumNumberOfOppositions.ThousandsSeparator = true;
-			toolTip.SetToolTip(numericUpDownMaximumNumberOfOppositions, "Maximum of number of oppositions");
+			numericUpDownMaximumNumberOfOppositions.ToolTipValues.Description = "Shows the maximum of number of oppositions";
+			numericUpDownMaximumNumberOfOppositions.ToolTipValues.EnableToolTips = true;
+			numericUpDownMaximumNumberOfOppositions.ToolTipValues.Heading = "Maximum of number of oppositions";
 			numericUpDownMaximumNumberOfOppositions.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumNumberOfOppositions.ValueChanged += NumericUpDownMaximumNumberOfOppositions_ValueChanged;
 			numericUpDownMaximumNumberOfOppositions.Enter += Control_Enter;
@@ -675,7 +702,9 @@ namespace Planetoid_DB
 			numericUpDownMaximumSlopeParameter.Size = new Size(120, 22);
 			numericUpDownMaximumSlopeParameter.TabIndex = 38;
 			numericUpDownMaximumSlopeParameter.ThousandsSeparator = true;
-			toolTip.SetToolTip(numericUpDownMaximumSlopeParameter, "Maximum of slope parameter");
+			numericUpDownMaximumSlopeParameter.ToolTipValues.Description = "Shows the maximum of slope parameter";
+			numericUpDownMaximumSlopeParameter.ToolTipValues.EnableToolTips = true;
+			numericUpDownMaximumSlopeParameter.ToolTipValues.Heading = "Maximum of slope parameter";
 			numericUpDownMaximumSlopeParameter.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumSlopeParameter.ValueChanged += NumericUpDownMaximumSlopeParameter_ValueChanged;
 			numericUpDownMaximumSlopeParameter.Enter += Control_Enter;
@@ -700,7 +729,9 @@ namespace Planetoid_DB
 			numericUpDownMaximumAbsoluteMagnitude.Size = new Size(120, 22);
 			numericUpDownMaximumAbsoluteMagnitude.TabIndex = 34;
 			numericUpDownMaximumAbsoluteMagnitude.ThousandsSeparator = true;
-			toolTip.SetToolTip(numericUpDownMaximumAbsoluteMagnitude, "Maximum of absolute magnitude");
+			numericUpDownMaximumAbsoluteMagnitude.ToolTipValues.Description = "Shows the maximum of absolute magnitude";
+			numericUpDownMaximumAbsoluteMagnitude.ToolTipValues.EnableToolTips = true;
+			numericUpDownMaximumAbsoluteMagnitude.ToolTipValues.Heading = "Maximum of absolute magnitude";
 			numericUpDownMaximumAbsoluteMagnitude.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumAbsoluteMagnitude.ValueChanged += NumericUpDownMaximumAbsoluteMagnitude_ValueChanged;
 			numericUpDownMaximumAbsoluteMagnitude.Enter += Control_Enter;
@@ -725,7 +756,9 @@ namespace Planetoid_DB
 			numericUpDownMaximumSemiMajorAxis.Size = new Size(120, 22);
 			numericUpDownMaximumSemiMajorAxis.TabIndex = 30;
 			numericUpDownMaximumSemiMajorAxis.ThousandsSeparator = true;
-			toolTip.SetToolTip(numericUpDownMaximumSemiMajorAxis, "Maximum of semi-major axis");
+			numericUpDownMaximumSemiMajorAxis.ToolTipValues.Description = "Shows the maximum of semi-major axis";
+			numericUpDownMaximumSemiMajorAxis.ToolTipValues.EnableToolTips = true;
+			numericUpDownMaximumSemiMajorAxis.ToolTipValues.Heading = "Maximum of semi-major axis";
 			numericUpDownMaximumSemiMajorAxis.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumSemiMajorAxis.ValueChanged += NumericUpDownMaximumSemiMajorAxis_ValueChanged;
 			numericUpDownMaximumSemiMajorAxis.Enter += Control_Enter;
@@ -750,7 +783,9 @@ namespace Planetoid_DB
 			numericUpDownMaximumMeanDailyMotion.Size = new Size(120, 22);
 			numericUpDownMaximumMeanDailyMotion.TabIndex = 26;
 			numericUpDownMaximumMeanDailyMotion.ThousandsSeparator = true;
-			toolTip.SetToolTip(numericUpDownMaximumMeanDailyMotion, "Maximum of mean daily motion");
+			numericUpDownMaximumMeanDailyMotion.ToolTipValues.Description = "Shows the maximum of mean daily motion";
+			numericUpDownMaximumMeanDailyMotion.ToolTipValues.EnableToolTips = true;
+			numericUpDownMaximumMeanDailyMotion.ToolTipValues.Heading = "Maximum of mean daily motion";
 			numericUpDownMaximumMeanDailyMotion.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumMeanDailyMotion.ValueChanged += NumericUpDownMaximumMeanDailyMotion_ValueChanged;
 			numericUpDownMaximumMeanDailyMotion.Enter += Control_Enter;
@@ -775,7 +810,9 @@ namespace Planetoid_DB
 			numericUpDownMaximumOrbitalEccentricity.Size = new Size(120, 22);
 			numericUpDownMaximumOrbitalEccentricity.TabIndex = 22;
 			numericUpDownMaximumOrbitalEccentricity.ThousandsSeparator = true;
-			toolTip.SetToolTip(numericUpDownMaximumOrbitalEccentricity, "Maximum of orbital eccentricity");
+			numericUpDownMaximumOrbitalEccentricity.ToolTipValues.Description = "Shows the maximum of orbital eccentricity";
+			numericUpDownMaximumOrbitalEccentricity.ToolTipValues.EnableToolTips = true;
+			numericUpDownMaximumOrbitalEccentricity.ToolTipValues.Heading = "Maximum of orbital eccentricity";
 			numericUpDownMaximumOrbitalEccentricity.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumOrbitalEccentricity.ValueChanged += NumericUpDownMaximumOrbitalEccentricity_ValueChanged;
 			numericUpDownMaximumOrbitalEccentricity.Enter += Control_Enter;
@@ -800,7 +837,9 @@ namespace Planetoid_DB
 			numericUpDownMaximumInclination.Size = new Size(120, 22);
 			numericUpDownMaximumInclination.TabIndex = 18;
 			numericUpDownMaximumInclination.ThousandsSeparator = true;
-			toolTip.SetToolTip(numericUpDownMaximumInclination, "Maximum of inclination to the ecliptic");
+			numericUpDownMaximumInclination.ToolTipValues.Description = "Shows the maximum of inclination to the ecliptic";
+			numericUpDownMaximumInclination.ToolTipValues.EnableToolTips = true;
+			numericUpDownMaximumInclination.ToolTipValues.Heading = "Maximum of inclination to the ecliptic";
 			numericUpDownMaximumInclination.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumInclination.ValueChanged += NumericUpDownMaximumInclination_ValueChanged;
 			numericUpDownMaximumInclination.Enter += Control_Enter;
@@ -825,7 +864,9 @@ namespace Planetoid_DB
 			numericUpDownMaximumLongitudeOfTheAscendingNode.Size = new Size(120, 22);
 			numericUpDownMaximumLongitudeOfTheAscendingNode.TabIndex = 14;
 			numericUpDownMaximumLongitudeOfTheAscendingNode.ThousandsSeparator = true;
-			toolTip.SetToolTip(numericUpDownMaximumLongitudeOfTheAscendingNode, "Maximum of longitude of the ascending node");
+			numericUpDownMaximumLongitudeOfTheAscendingNode.ToolTipValues.Description = "Shows the maximum of longitude of the ascending node";
+			numericUpDownMaximumLongitudeOfTheAscendingNode.ToolTipValues.EnableToolTips = true;
+			numericUpDownMaximumLongitudeOfTheAscendingNode.ToolTipValues.Heading = "Maximum of longitude of the ascending node";
 			numericUpDownMaximumLongitudeOfTheAscendingNode.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumLongitudeOfTheAscendingNode.ValueChanged += NumericUpDownMaximumLongitudeOfTheAscendingNode_ValueChanged;
 			numericUpDownMaximumLongitudeOfTheAscendingNode.Enter += Control_Enter;
@@ -833,30 +874,32 @@ namespace Planetoid_DB
 			numericUpDownMaximumLongitudeOfTheAscendingNode.MouseEnter += Control_Enter;
 			numericUpDownMaximumLongitudeOfTheAscendingNode.MouseLeave += Control_Leave;
 			// 
-			// numericUpDownMaximumArgumentOfPerihelion
+			// numericUpDownMaximumArgumentOfThePerihelion
 			// 
-			numericUpDownMaximumArgumentOfPerihelion.AccessibleDescription = "Shows the maximum of argument of perihelion";
-			numericUpDownMaximumArgumentOfPerihelion.AccessibleName = "Maximum of argument of perihelion";
-			numericUpDownMaximumArgumentOfPerihelion.AccessibleRole = AccessibleRole.SpinButton;
-			numericUpDownMaximumArgumentOfPerihelion.AllowDecimals = true;
-			numericUpDownMaximumArgumentOfPerihelion.DecimalPlaces = 8;
-			numericUpDownMaximumArgumentOfPerihelion.Dock = DockStyle.Fill;
-			numericUpDownMaximumArgumentOfPerihelion.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMaximumArgumentOfPerihelion.Location = new Point(378, 57);
-			numericUpDownMaximumArgumentOfPerihelion.Margin = new Padding(4, 3, 4, 3);
-			numericUpDownMaximumArgumentOfPerihelion.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
-			numericUpDownMaximumArgumentOfPerihelion.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
-			numericUpDownMaximumArgumentOfPerihelion.Name = "numericUpDownMaximumArgumentOfPerihelion";
-			numericUpDownMaximumArgumentOfPerihelion.Size = new Size(120, 22);
-			numericUpDownMaximumArgumentOfPerihelion.TabIndex = 10;
-			numericUpDownMaximumArgumentOfPerihelion.ThousandsSeparator = true;
-			toolTip.SetToolTip(numericUpDownMaximumArgumentOfPerihelion, "Maximum of argument of perihelion");
-			numericUpDownMaximumArgumentOfPerihelion.Value = new decimal(new int[] { 0, 0, 0, 0 });
-			numericUpDownMaximumArgumentOfPerihelion.ValueChanged += NumericUpDownMaximumArgumentOfPerihelion_ValueChanged;
-			numericUpDownMaximumArgumentOfPerihelion.Enter += Control_Enter;
-			numericUpDownMaximumArgumentOfPerihelion.Leave += Control_Leave;
-			numericUpDownMaximumArgumentOfPerihelion.MouseEnter += Control_Enter;
-			numericUpDownMaximumArgumentOfPerihelion.MouseLeave += Control_Leave;
+			numericUpDownMaximumArgumentOfThePerihelion.AccessibleDescription = "Shows the maximum of argument of the perihelion";
+			numericUpDownMaximumArgumentOfThePerihelion.AccessibleName = "Maximum of argument of the perihelion";
+			numericUpDownMaximumArgumentOfThePerihelion.AccessibleRole = AccessibleRole.SpinButton;
+			numericUpDownMaximumArgumentOfThePerihelion.AllowDecimals = true;
+			numericUpDownMaximumArgumentOfThePerihelion.DecimalPlaces = 8;
+			numericUpDownMaximumArgumentOfThePerihelion.Dock = DockStyle.Fill;
+			numericUpDownMaximumArgumentOfThePerihelion.Increment = new decimal(new int[] { 1, 0, 0, 0 });
+			numericUpDownMaximumArgumentOfThePerihelion.Location = new Point(378, 57);
+			numericUpDownMaximumArgumentOfThePerihelion.Margin = new Padding(4, 3, 4, 3);
+			numericUpDownMaximumArgumentOfThePerihelion.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
+			numericUpDownMaximumArgumentOfThePerihelion.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
+			numericUpDownMaximumArgumentOfThePerihelion.Name = "numericUpDownMaximumArgumentOfThePerihelion";
+			numericUpDownMaximumArgumentOfThePerihelion.Size = new Size(120, 22);
+			numericUpDownMaximumArgumentOfThePerihelion.TabIndex = 10;
+			numericUpDownMaximumArgumentOfThePerihelion.ThousandsSeparator = true;
+			numericUpDownMaximumArgumentOfThePerihelion.ToolTipValues.Description = "Shows the maximum of argument of the perihelion";
+			numericUpDownMaximumArgumentOfThePerihelion.ToolTipValues.EnableToolTips = true;
+			numericUpDownMaximumArgumentOfThePerihelion.ToolTipValues.Heading = "Maximum of argument of teh perihelion";
+			numericUpDownMaximumArgumentOfThePerihelion.Value = new decimal(new int[] { 0, 0, 0, 0 });
+			numericUpDownMaximumArgumentOfThePerihelion.ValueChanged += NumericUpDownMaximumArgumentOfPerihelion_ValueChanged;
+			numericUpDownMaximumArgumentOfThePerihelion.Enter += Control_Enter;
+			numericUpDownMaximumArgumentOfThePerihelion.Leave += Control_Leave;
+			numericUpDownMaximumArgumentOfThePerihelion.MouseEnter += Control_Enter;
+			numericUpDownMaximumArgumentOfThePerihelion.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMaximumMeanAnomalyAtTheEpoch
 			// 
@@ -875,7 +918,9 @@ namespace Planetoid_DB
 			numericUpDownMaximumMeanAnomalyAtTheEpoch.Size = new Size(120, 22);
 			numericUpDownMaximumMeanAnomalyAtTheEpoch.TabIndex = 6;
 			numericUpDownMaximumMeanAnomalyAtTheEpoch.ThousandsSeparator = true;
-			toolTip.SetToolTip(numericUpDownMaximumMeanAnomalyAtTheEpoch, "Maximum of mean anomaly at the epoch");
+			numericUpDownMaximumMeanAnomalyAtTheEpoch.ToolTipValues.Description = "Show the maximum of mean anomaly at the epoch";
+			numericUpDownMaximumMeanAnomalyAtTheEpoch.ToolTipValues.EnableToolTips = true;
+			numericUpDownMaximumMeanAnomalyAtTheEpoch.ToolTipValues.Heading = "Maximum of mean anomaly at the epoch";
 			numericUpDownMaximumMeanAnomalyAtTheEpoch.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumMeanAnomalyAtTheEpoch.ValueChanged += NumericUpDownMaximumMeanAnomalyAtTheEpoch_ValueChanged;
 			numericUpDownMaximumMeanAnomalyAtTheEpoch.Enter += Control_Enter;
@@ -900,7 +945,9 @@ namespace Planetoid_DB
 			numericUpDownMinimumRmsResidual.Size = new Size(120, 22);
 			numericUpDownMinimumRmsResidual.TabIndex = 49;
 			numericUpDownMinimumRmsResidual.ThousandsSeparator = true;
-			toolTip.SetToolTip(numericUpDownMinimumRmsResidual, "Minimum of r.m.s. residual");
+			numericUpDownMinimumRmsResidual.ToolTipValues.Description = "Shows the minimum of r.m.s. residual";
+			numericUpDownMinimumRmsResidual.ToolTipValues.EnableToolTips = true;
+			numericUpDownMinimumRmsResidual.ToolTipValues.Heading = "Minimum of r.m.s. residual";
 			numericUpDownMinimumRmsResidual.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumRmsResidual.ValueChanged += NumericUpDownMinimumRmsResidual_ValueChanged;
 			numericUpDownMinimumRmsResidual.Enter += Control_Enter;
@@ -925,7 +972,9 @@ namespace Planetoid_DB
 			numericUpDownMinimumNumberOfObservations.Size = new Size(120, 22);
 			numericUpDownMinimumNumberOfObservations.TabIndex = 45;
 			numericUpDownMinimumNumberOfObservations.ThousandsSeparator = true;
-			toolTip.SetToolTip(numericUpDownMinimumNumberOfObservations, "Minimum of number of observations");
+			numericUpDownMinimumNumberOfObservations.ToolTipValues.Description = "Shows the minimum of number of observations";
+			numericUpDownMinimumNumberOfObservations.ToolTipValues.EnableToolTips = true;
+			numericUpDownMinimumNumberOfObservations.ToolTipValues.Heading = "Minimum of number of observations";
 			numericUpDownMinimumNumberOfObservations.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumNumberOfObservations.ValueChanged += NumericUpDownMinimumNumberOfObservations_ValueChanged;
 			numericUpDownMinimumNumberOfObservations.Enter += Control_Enter;
@@ -950,7 +999,9 @@ namespace Planetoid_DB
 			numericUpDownMinimumNumberOfOppositions.Size = new Size(120, 22);
 			numericUpDownMinimumNumberOfOppositions.TabIndex = 41;
 			numericUpDownMinimumNumberOfOppositions.ThousandsSeparator = true;
-			toolTip.SetToolTip(numericUpDownMinimumNumberOfOppositions, "Minimum of number of oppositions");
+			numericUpDownMinimumNumberOfOppositions.ToolTipValues.Description = "Shows the minimum of number of oppositions";
+			numericUpDownMinimumNumberOfOppositions.ToolTipValues.EnableToolTips = true;
+			numericUpDownMinimumNumberOfOppositions.ToolTipValues.Heading = "Minimum of number of oppositions";
 			numericUpDownMinimumNumberOfOppositions.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumNumberOfOppositions.ValueChanged += NumericUpDownMinimumNumberOfOppositions_ValueChanged;
 			numericUpDownMinimumNumberOfOppositions.Enter += Control_Enter;
@@ -975,7 +1026,9 @@ namespace Planetoid_DB
 			numericUpDownMinimumSlopeParameter.Size = new Size(120, 22);
 			numericUpDownMinimumSlopeParameter.TabIndex = 37;
 			numericUpDownMinimumSlopeParameter.ThousandsSeparator = true;
-			toolTip.SetToolTip(numericUpDownMinimumSlopeParameter, "Minimum of slope parameter");
+			numericUpDownMinimumSlopeParameter.ToolTipValues.Description = "Shows the minimum of slope parameter";
+			numericUpDownMinimumSlopeParameter.ToolTipValues.EnableToolTips = true;
+			numericUpDownMinimumSlopeParameter.ToolTipValues.Heading = "Minimum of slope parameter";
 			numericUpDownMinimumSlopeParameter.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumSlopeParameter.ValueChanged += NumericUpDownMinimumSlopeParameter_ValueChanged;
 			numericUpDownMinimumSlopeParameter.Enter += Control_Enter;
@@ -1000,7 +1053,9 @@ namespace Planetoid_DB
 			numericUpDownMinimumAbsoluteMagnitude.Size = new Size(120, 22);
 			numericUpDownMinimumAbsoluteMagnitude.TabIndex = 33;
 			numericUpDownMinimumAbsoluteMagnitude.ThousandsSeparator = true;
-			toolTip.SetToolTip(numericUpDownMinimumAbsoluteMagnitude, "Minimum of absolute magnitude");
+			numericUpDownMinimumAbsoluteMagnitude.ToolTipValues.Description = "Shows the minimum of absolute magnitude";
+			numericUpDownMinimumAbsoluteMagnitude.ToolTipValues.EnableToolTips = true;
+			numericUpDownMinimumAbsoluteMagnitude.ToolTipValues.Heading = "Minimum of absolute magnitude";
 			numericUpDownMinimumAbsoluteMagnitude.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumAbsoluteMagnitude.ValueChanged += NumericUpDownMinimumAbsoluteMagnitude_ValueChanged;
 			numericUpDownMinimumAbsoluteMagnitude.Enter += Control_Enter;
@@ -1025,7 +1080,9 @@ namespace Planetoid_DB
 			numericUpDownMinimumSemiMajorAxis.Size = new Size(120, 22);
 			numericUpDownMinimumSemiMajorAxis.TabIndex = 29;
 			numericUpDownMinimumSemiMajorAxis.ThousandsSeparator = true;
-			toolTip.SetToolTip(numericUpDownMinimumSemiMajorAxis, "Minimum of semi-major axis");
+			numericUpDownMinimumSemiMajorAxis.ToolTipValues.Description = "Shows the minimum of semi-major axis";
+			numericUpDownMinimumSemiMajorAxis.ToolTipValues.EnableToolTips = true;
+			numericUpDownMinimumSemiMajorAxis.ToolTipValues.Heading = "Minimum of semi-major axis";
 			numericUpDownMinimumSemiMajorAxis.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumSemiMajorAxis.ValueChanged += NumericUpDownMinimumSemiMajorAxis_ValueChanged;
 			numericUpDownMinimumSemiMajorAxis.Enter += Control_Enter;
@@ -1050,7 +1107,9 @@ namespace Planetoid_DB
 			numericUpDownMinimumMeanDailyMotion.Size = new Size(120, 22);
 			numericUpDownMinimumMeanDailyMotion.TabIndex = 25;
 			numericUpDownMinimumMeanDailyMotion.ThousandsSeparator = true;
-			toolTip.SetToolTip(numericUpDownMinimumMeanDailyMotion, "Minimum of mean daily motion");
+			numericUpDownMinimumMeanDailyMotion.ToolTipValues.Description = "Shows the minimum of mean daily motion";
+			numericUpDownMinimumMeanDailyMotion.ToolTipValues.EnableToolTips = true;
+			numericUpDownMinimumMeanDailyMotion.ToolTipValues.Heading = "Minimum of mean daily motion";
 			numericUpDownMinimumMeanDailyMotion.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumMeanDailyMotion.ValueChanged += NumericUpDownMinimumMeanDailyMotion_ValueChanged;
 			numericUpDownMinimumMeanDailyMotion.Enter += Control_Enter;
@@ -1075,7 +1134,9 @@ namespace Planetoid_DB
 			numericUpDownMinimumOrbitalEccentricity.Size = new Size(120, 22);
 			numericUpDownMinimumOrbitalEccentricity.TabIndex = 21;
 			numericUpDownMinimumOrbitalEccentricity.ThousandsSeparator = true;
-			toolTip.SetToolTip(numericUpDownMinimumOrbitalEccentricity, "Minimum of orbital eccentricity");
+			numericUpDownMinimumOrbitalEccentricity.ToolTipValues.Description = "Shows the minimum of orbital eccentricity";
+			numericUpDownMinimumOrbitalEccentricity.ToolTipValues.EnableToolTips = true;
+			numericUpDownMinimumOrbitalEccentricity.ToolTipValues.Heading = "Minimum of orbital eccentricity";
 			numericUpDownMinimumOrbitalEccentricity.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumOrbitalEccentricity.ValueChanged += NumericUpDownMinimumOrbitalEccentricity_ValueChanged;
 			numericUpDownMinimumOrbitalEccentricity.Enter += Control_Enter;
@@ -1100,7 +1161,9 @@ namespace Planetoid_DB
 			numericUpDownMinimumInclination.Size = new Size(120, 22);
 			numericUpDownMinimumInclination.TabIndex = 17;
 			numericUpDownMinimumInclination.ThousandsSeparator = true;
-			toolTip.SetToolTip(numericUpDownMinimumInclination, "Minimum of inclination to the ecliptic");
+			numericUpDownMinimumInclination.ToolTipValues.Description = "Shows the minimum of inclination to the ecliptic";
+			numericUpDownMinimumInclination.ToolTipValues.EnableToolTips = true;
+			numericUpDownMinimumInclination.ToolTipValues.Heading = "Minimum of inclination to the ecliptic";
 			numericUpDownMinimumInclination.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumInclination.ValueChanged += NumericUpDownMinimumInclination_ValueChanged;
 			numericUpDownMinimumInclination.Enter += Control_Enter;
@@ -1125,7 +1188,9 @@ namespace Planetoid_DB
 			numericUpDownMinimumLongitudeOfTheAscendingNode.Size = new Size(120, 22);
 			numericUpDownMinimumLongitudeOfTheAscendingNode.TabIndex = 13;
 			numericUpDownMinimumLongitudeOfTheAscendingNode.ThousandsSeparator = true;
-			toolTip.SetToolTip(numericUpDownMinimumLongitudeOfTheAscendingNode, "Minimum of longitude of the ascending node");
+			numericUpDownMinimumLongitudeOfTheAscendingNode.ToolTipValues.Description = "Shows the minimum of longitude of the ascending node";
+			numericUpDownMinimumLongitudeOfTheAscendingNode.ToolTipValues.EnableToolTips = true;
+			numericUpDownMinimumLongitudeOfTheAscendingNode.ToolTipValues.Heading = "Minimum of longitude of the ascending node";
 			numericUpDownMinimumLongitudeOfTheAscendingNode.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumLongitudeOfTheAscendingNode.ValueChanged += NumericUpDownMinimumLongitudeOfTheAscendingNode_ValueChanged;
 			numericUpDownMinimumLongitudeOfTheAscendingNode.Enter += Control_Enter;
@@ -1133,48 +1198,51 @@ namespace Planetoid_DB
 			numericUpDownMinimumLongitudeOfTheAscendingNode.MouseEnter += Control_Enter;
 			numericUpDownMinimumLongitudeOfTheAscendingNode.MouseLeave += Control_Leave;
 			// 
-			// numericUpDownMinimumArgumentOfPerihelion
+			// numericUpDownMinimumArgumentOfThePerihelion
 			// 
-			numericUpDownMinimumArgumentOfPerihelion.AccessibleDescription = "Shows the minimum of argument of perihelion";
-			numericUpDownMinimumArgumentOfPerihelion.AccessibleName = "Minimum of argument of perihelion";
-			numericUpDownMinimumArgumentOfPerihelion.AccessibleRole = AccessibleRole.SpinButton;
-			numericUpDownMinimumArgumentOfPerihelion.AllowDecimals = true;
-			numericUpDownMinimumArgumentOfPerihelion.DecimalPlaces = 8;
-			numericUpDownMinimumArgumentOfPerihelion.Dock = DockStyle.Fill;
-			numericUpDownMinimumArgumentOfPerihelion.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMinimumArgumentOfPerihelion.Location = new Point(250, 57);
-			numericUpDownMinimumArgumentOfPerihelion.Margin = new Padding(4, 3, 4, 3);
-			numericUpDownMinimumArgumentOfPerihelion.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
-			numericUpDownMinimumArgumentOfPerihelion.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
-			numericUpDownMinimumArgumentOfPerihelion.Name = "numericUpDownMinimumArgumentOfPerihelion";
-			numericUpDownMinimumArgumentOfPerihelion.Size = new Size(120, 22);
-			numericUpDownMinimumArgumentOfPerihelion.TabIndex = 9;
-			numericUpDownMinimumArgumentOfPerihelion.ThousandsSeparator = true;
-			toolTip.SetToolTip(numericUpDownMinimumArgumentOfPerihelion, "Minimum of argument of perihelion");
-			numericUpDownMinimumArgumentOfPerihelion.Value = new decimal(new int[] { 0, 0, 0, 0 });
-			numericUpDownMinimumArgumentOfPerihelion.ValueChanged += NumericUpDownMinimumArgumentOfPerihelion_ValueChanged;
-			numericUpDownMinimumArgumentOfPerihelion.Enter += Control_Enter;
-			numericUpDownMinimumArgumentOfPerihelion.Leave += Control_Leave;
-			numericUpDownMinimumArgumentOfPerihelion.MouseEnter += Control_Enter;
-			numericUpDownMinimumArgumentOfPerihelion.MouseLeave += Control_Leave;
+			numericUpDownMinimumArgumentOfThePerihelion.AccessibleDescription = "Shows the minimum of argument of the perihelion";
+			numericUpDownMinimumArgumentOfThePerihelion.AccessibleName = "Minimum of argument of the perihelion";
+			numericUpDownMinimumArgumentOfThePerihelion.AccessibleRole = AccessibleRole.SpinButton;
+			numericUpDownMinimumArgumentOfThePerihelion.AllowDecimals = true;
+			numericUpDownMinimumArgumentOfThePerihelion.DecimalPlaces = 8;
+			numericUpDownMinimumArgumentOfThePerihelion.Dock = DockStyle.Fill;
+			numericUpDownMinimumArgumentOfThePerihelion.Increment = new decimal(new int[] { 1, 0, 0, 0 });
+			numericUpDownMinimumArgumentOfThePerihelion.Location = new Point(250, 57);
+			numericUpDownMinimumArgumentOfThePerihelion.Margin = new Padding(4, 3, 4, 3);
+			numericUpDownMinimumArgumentOfThePerihelion.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
+			numericUpDownMinimumArgumentOfThePerihelion.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
+			numericUpDownMinimumArgumentOfThePerihelion.Name = "numericUpDownMinimumArgumentOfThePerihelion";
+			numericUpDownMinimumArgumentOfThePerihelion.Size = new Size(120, 22);
+			numericUpDownMinimumArgumentOfThePerihelion.TabIndex = 9;
+			numericUpDownMinimumArgumentOfThePerihelion.ThousandsSeparator = true;
+			numericUpDownMinimumArgumentOfThePerihelion.ToolTipValues.Description = "Shows the minimum of argument of the perihelion";
+			numericUpDownMinimumArgumentOfThePerihelion.ToolTipValues.Heading = "Minimum of argument of the perihelion";
+			numericUpDownMinimumArgumentOfThePerihelion.Value = new decimal(new int[] { 0, 0, 0, 0 });
+			numericUpDownMinimumArgumentOfThePerihelion.ValueChanged += NumericUpDownMinimumArgumentOfPerihelion_ValueChanged;
+			numericUpDownMinimumArgumentOfThePerihelion.Enter += Control_Enter;
+			numericUpDownMinimumArgumentOfThePerihelion.Leave += Control_Leave;
+			numericUpDownMinimumArgumentOfThePerihelion.MouseEnter += Control_Enter;
+			numericUpDownMinimumArgumentOfThePerihelion.MouseLeave += Control_Leave;
 			// 
-			// labelArgumentOfPerihelion
+			// labelArgumentOfThePerihelion
 			// 
-			labelArgumentOfPerihelion.AccessibleDescription = "Shows the minimum and maximum of argument of perihelion";
-			labelArgumentOfPerihelion.AccessibleName = "Argument of perihelion";
-			labelArgumentOfPerihelion.AccessibleRole = AccessibleRole.StaticText;
-			labelArgumentOfPerihelion.Dock = DockStyle.Fill;
-			labelArgumentOfPerihelion.Location = new Point(4, 57);
-			labelArgumentOfPerihelion.Margin = new Padding(4, 3, 4, 3);
-			labelArgumentOfPerihelion.Name = "labelArgumentOfPerihelion";
-			labelArgumentOfPerihelion.Size = new Size(238, 25);
-			labelArgumentOfPerihelion.TabIndex = 8;
-			toolTip.SetToolTip(labelArgumentOfPerihelion, "Argument of perihelion, J2000.0");
-			labelArgumentOfPerihelion.Values.Text = "Argument of perihelion, J2000.0";
-			labelArgumentOfPerihelion.Enter += Control_Enter;
-			labelArgumentOfPerihelion.Leave += Control_Leave;
-			labelArgumentOfPerihelion.MouseEnter += Control_Enter;
-			labelArgumentOfPerihelion.MouseLeave += Control_Leave;
+			labelArgumentOfThePerihelion.AccessibleDescription = "Shows the minimum and maximum of argument of the perihelion";
+			labelArgumentOfThePerihelion.AccessibleName = "Argument of the perihelion";
+			labelArgumentOfThePerihelion.AccessibleRole = AccessibleRole.StaticText;
+			labelArgumentOfThePerihelion.Dock = DockStyle.Fill;
+			labelArgumentOfThePerihelion.Location = new Point(4, 57);
+			labelArgumentOfThePerihelion.Margin = new Padding(4, 3, 4, 3);
+			labelArgumentOfThePerihelion.Name = "labelArgumentOfThePerihelion";
+			labelArgumentOfThePerihelion.Size = new Size(238, 25);
+			labelArgumentOfThePerihelion.TabIndex = 8;
+			labelArgumentOfThePerihelion.ToolTipValues.Description = "Shows the minimum and maximum of argument of the perihelion";
+			labelArgumentOfThePerihelion.ToolTipValues.EnableToolTips = true;
+			labelArgumentOfThePerihelion.ToolTipValues.Heading = "Argument of the perihelion, J2000.0";
+			labelArgumentOfThePerihelion.Values.Text = "Argument of the perihelion, J2000.0";
+			labelArgumentOfThePerihelion.Enter += Control_Enter;
+			labelArgumentOfThePerihelion.Leave += Control_Leave;
+			labelArgumentOfThePerihelion.MouseEnter += Control_Enter;
+			labelArgumentOfThePerihelion.MouseLeave += Control_Leave;
 			// 
 			// numericUpDownMinimumMeanAnomalyAtTheEpoch
 			// 
@@ -1193,7 +1261,9 @@ namespace Planetoid_DB
 			numericUpDownMinimumMeanAnomalyAtTheEpoch.Size = new Size(120, 22);
 			numericUpDownMinimumMeanAnomalyAtTheEpoch.TabIndex = 5;
 			numericUpDownMinimumMeanAnomalyAtTheEpoch.ThousandsSeparator = true;
-			toolTip.SetToolTip(numericUpDownMinimumMeanAnomalyAtTheEpoch, "Minimum of mean anomaly at the epoch");
+			numericUpDownMinimumMeanAnomalyAtTheEpoch.ToolTipValues.Description = "Shows the minimum of mean anomaly at the epoch";
+			numericUpDownMinimumMeanAnomalyAtTheEpoch.ToolTipValues.EnableToolTips = true;
+			numericUpDownMinimumMeanAnomalyAtTheEpoch.ToolTipValues.Heading = "Minimum of mean anomaly at the epoch";
 			numericUpDownMinimumMeanAnomalyAtTheEpoch.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumMeanAnomalyAtTheEpoch.ValueChanged += NumericUpDownMinimumMeanAnomalyAtTheEpoch_ValueChanged;
 			numericUpDownMinimumMeanAnomalyAtTheEpoch.Enter += Control_Enter;
@@ -1212,7 +1282,9 @@ namespace Planetoid_DB
 			labelRmsResidual.Name = "labelRmsResidual";
 			labelRmsResidual.Size = new Size(238, 27);
 			labelRmsResidual.TabIndex = 48;
-			toolTip.SetToolTip(labelRmsResidual, "r.m.s. residual");
+			labelRmsResidual.ToolTipValues.Description = "Shows the minimum and maximum of r.m.s. residual";
+			labelRmsResidual.ToolTipValues.EnableToolTips = true;
+			labelRmsResidual.ToolTipValues.Heading = "r.m.s. residual";
 			labelRmsResidual.Values.Text = "r.m.s. residual";
 			labelRmsResidual.Enter += Control_Enter;
 			labelRmsResidual.Leave += Control_Leave;
@@ -1230,7 +1302,9 @@ namespace Planetoid_DB
 			labelLongitudeOfTheAscendingNode.Name = "labelLongitudeOfTheAscendingNode";
 			labelLongitudeOfTheAscendingNode.Size = new Size(238, 25);
 			labelLongitudeOfTheAscendingNode.TabIndex = 12;
-			toolTip.SetToolTip(labelLongitudeOfTheAscendingNode, "Longitude of the ascending node, J2000.0");
+			labelLongitudeOfTheAscendingNode.ToolTipValues.Description = "Shows the minimum and maximum of longitude of the ascending node";
+			labelLongitudeOfTheAscendingNode.ToolTipValues.EnableToolTips = true;
+			labelLongitudeOfTheAscendingNode.ToolTipValues.Heading = "Longitude of the ascending node, J2000.0";
 			labelLongitudeOfTheAscendingNode.Values.Text = "Longitude of the ascending node, J2000.0";
 			labelLongitudeOfTheAscendingNode.Enter += Control_Enter;
 			labelLongitudeOfTheAscendingNode.Leave += Control_Leave;
@@ -1248,7 +1322,9 @@ namespace Planetoid_DB
 			labelNumberOfObservations.Name = "labelNumberOfObservations";
 			labelNumberOfObservations.Size = new Size(238, 25);
 			labelNumberOfObservations.TabIndex = 44;
-			toolTip.SetToolTip(labelNumberOfObservations, "Number of observations");
+			labelNumberOfObservations.ToolTipValues.Description = "Shows the minimum and maximum of number of observations";
+			labelNumberOfObservations.ToolTipValues.EnableToolTips = true;
+			labelNumberOfObservations.ToolTipValues.Heading = "Number of observations";
 			labelNumberOfObservations.Values.Text = "Number of observations";
 			labelNumberOfObservations.Enter += Control_Enter;
 			labelNumberOfObservations.Leave += Control_Leave;
@@ -1266,7 +1342,9 @@ namespace Planetoid_DB
 			labelInclination.Name = "labelInclination";
 			labelInclination.Size = new Size(238, 25);
 			labelInclination.TabIndex = 16;
-			toolTip.SetToolTip(labelInclination, "Inclination to the ecliptic, J2000.0");
+			labelInclination.ToolTipValues.Description = "Shows the minimum and maximum of inclination to the ecliptic";
+			labelInclination.ToolTipValues.EnableToolTips = true;
+			labelInclination.ToolTipValues.Heading = "Inclination to the ecliptic, J2000.0";
 			labelInclination.Values.Text = "Inclination to the ecliptic, J2000.0";
 			labelInclination.Enter += Control_Enter;
 			labelInclination.Leave += Control_Leave;
@@ -1284,7 +1362,9 @@ namespace Planetoid_DB
 			labelNumberOfOppositions.Name = "labelNumberOfOppositions";
 			labelNumberOfOppositions.Size = new Size(238, 25);
 			labelNumberOfOppositions.TabIndex = 40;
-			toolTip.SetToolTip(labelNumberOfOppositions, "Number of oppositions");
+			labelNumberOfOppositions.ToolTipValues.Description = "Shows the minimum and maximum of number of oppositions";
+			labelNumberOfOppositions.ToolTipValues.EnableToolTips = true;
+			labelNumberOfOppositions.ToolTipValues.Heading = "Number of oppositions";
 			labelNumberOfOppositions.Values.Text = "Number of oppositions";
 			labelNumberOfOppositions.Enter += Control_Enter;
 			labelNumberOfOppositions.Leave += Control_Leave;
@@ -1302,7 +1382,9 @@ namespace Planetoid_DB
 			labelOrbitalEccentricity.Name = "labelOrbitalEccentricity";
 			labelOrbitalEccentricity.Size = new Size(238, 25);
 			labelOrbitalEccentricity.TabIndex = 20;
-			toolTip.SetToolTip(labelOrbitalEccentricity, "Orbital eccentricity");
+			labelOrbitalEccentricity.ToolTipValues.Description = "Shows the minimum and maximum of orbital eccentricity";
+			labelOrbitalEccentricity.ToolTipValues.EnableToolTips = true;
+			labelOrbitalEccentricity.ToolTipValues.Heading = "Orbital eccentricity";
 			labelOrbitalEccentricity.Values.Text = "Orbital eccentricity";
 			labelOrbitalEccentricity.Enter += Control_Enter;
 			labelOrbitalEccentricity.Leave += Control_Leave;
@@ -1320,7 +1402,9 @@ namespace Planetoid_DB
 			labelSlopeParameter.Name = "labelSlopeParameter";
 			labelSlopeParameter.Size = new Size(238, 25);
 			labelSlopeParameter.TabIndex = 36;
-			toolTip.SetToolTip(labelSlopeParameter, "Slope parameter, G");
+			labelSlopeParameter.ToolTipValues.Description = "Shows the minimum and maximum of slope parameter";
+			labelSlopeParameter.ToolTipValues.EnableToolTips = true;
+			labelSlopeParameter.ToolTipValues.Heading = "Slope parameter, G";
 			labelSlopeParameter.Values.Text = "Slope parameter, G";
 			labelSlopeParameter.Enter += Control_Enter;
 			labelSlopeParameter.Leave += Control_Leave;
@@ -1338,7 +1422,9 @@ namespace Planetoid_DB
 			labelMeanDailyMotion.Name = "labelMeanDailyMotion";
 			labelMeanDailyMotion.Size = new Size(238, 25);
 			labelMeanDailyMotion.TabIndex = 24;
-			toolTip.SetToolTip(labelMeanDailyMotion, "Mean daily motion");
+			labelMeanDailyMotion.ToolTipValues.Description = "Shows the minimum and maximum of mean daily motion";
+			labelMeanDailyMotion.ToolTipValues.EnableToolTips = true;
+			labelMeanDailyMotion.ToolTipValues.Heading = "Mean daily motion";
 			labelMeanDailyMotion.Values.Text = "Mean daily motion";
 			labelMeanDailyMotion.Enter += Control_Enter;
 			labelMeanDailyMotion.Leave += Control_Leave;
@@ -1356,7 +1442,9 @@ namespace Planetoid_DB
 			labelAbsoluteMagnitude.Name = "labelAbsoluteMagnitude";
 			labelAbsoluteMagnitude.Size = new Size(238, 25);
 			labelAbsoluteMagnitude.TabIndex = 32;
-			toolTip.SetToolTip(labelAbsoluteMagnitude, "Absolute magnitude, H");
+			labelAbsoluteMagnitude.ToolTipValues.Description = "Shows the minimum and maximum of absolute magnitude";
+			labelAbsoluteMagnitude.ToolTipValues.EnableToolTips = true;
+			labelAbsoluteMagnitude.ToolTipValues.Heading = "Absolute magnitude, H";
 			labelAbsoluteMagnitude.Values.Text = "Absolute magnitude, H";
 			labelAbsoluteMagnitude.Enter += Control_Enter;
 			labelAbsoluteMagnitude.Leave += Control_Leave;
@@ -1374,7 +1462,9 @@ namespace Planetoid_DB
 			labelSemiMajorAxis.Name = "labelSemiMajorAxis";
 			labelSemiMajorAxis.Size = new Size(238, 25);
 			labelSemiMajorAxis.TabIndex = 28;
-			toolTip.SetToolTip(labelSemiMajorAxis, "Semi-major axis");
+			labelSemiMajorAxis.ToolTipValues.Description = "Shows the minimum and maximum of semi-major axis";
+			labelSemiMajorAxis.ToolTipValues.EnableToolTips = true;
+			labelSemiMajorAxis.ToolTipValues.Heading = "Semi-major axis";
 			labelSemiMajorAxis.Values.Text = "Semi-major axis";
 			labelSemiMajorAxis.Enter += Control_Enter;
 			labelSemiMajorAxis.Leave += Control_Leave;
@@ -1392,7 +1482,9 @@ namespace Planetoid_DB
 			labelMeanAnomalyAtTheEpoch.Name = "labelMeanAnomalyAtTheEpoch";
 			labelMeanAnomalyAtTheEpoch.Size = new Size(238, 25);
 			labelMeanAnomalyAtTheEpoch.TabIndex = 4;
-			toolTip.SetToolTip(labelMeanAnomalyAtTheEpoch, "Mean anomaly at the epoch");
+			labelMeanAnomalyAtTheEpoch.ToolTipValues.Description = "Shows the minimum and maximum of mean anomaly at the epoch";
+			labelMeanAnomalyAtTheEpoch.ToolTipValues.EnableToolTips = true;
+			labelMeanAnomalyAtTheEpoch.ToolTipValues.Heading = "Mean anomaly at the epoch";
 			labelMeanAnomalyAtTheEpoch.Values.Text = "Mean anomaly at the epoch";
 			labelMeanAnomalyAtTheEpoch.Enter += Control_Enter;
 			labelMeanAnomalyAtTheEpoch.Leave += Control_Leave;
@@ -1411,8 +1503,9 @@ namespace Planetoid_DB
 			buttonResetInclination.Name = "buttonResetInclination";
 			buttonResetInclination.Size = new Size(85, 25);
 			buttonResetInclination.TabIndex = 19;
-			toolTip.SetToolTip(buttonResetInclination, "Reset the minimum and maximum of inclination to the ecliptic");
+			buttonResetInclination.ToolTipValues.Description = "Resets the minimum and maximum of inclination to the ecliptic";
 			buttonResetInclination.ToolTipValues.EnableToolTips = true;
+			buttonResetInclination.ToolTipValues.Heading = "Reset the minimum and maximum of inclination to the ecliptic";
 			buttonResetInclination.Values.DropDownArrowColor = Color.Empty;
 			buttonResetInclination.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonResetInclination.Values.Text = "";
@@ -1434,8 +1527,9 @@ namespace Planetoid_DB
 			buttonResetOrbitalEccentricity.Name = "buttonResetOrbitalEccentricity";
 			buttonResetOrbitalEccentricity.Size = new Size(85, 25);
 			buttonResetOrbitalEccentricity.TabIndex = 23;
-			toolTip.SetToolTip(buttonResetOrbitalEccentricity, "Reset the minimum and maximum of orbital eccentricity");
+			buttonResetOrbitalEccentricity.ToolTipValues.Description = "Resets the minimum and maximum of orbital eccentricity";
 			buttonResetOrbitalEccentricity.ToolTipValues.EnableToolTips = true;
+			buttonResetOrbitalEccentricity.ToolTipValues.Heading = "Reset the minimum and maximum of orbital eccentricity";
 			buttonResetOrbitalEccentricity.Values.DropDownArrowColor = Color.Empty;
 			buttonResetOrbitalEccentricity.Values.Image = FatcowIcons16px.fatcow_update_16px;
 			buttonResetOrbitalEccentricity.Values.Text = "";
@@ -1457,7 +1551,9 @@ namespace Planetoid_DB
 			labelHeaderElement.Name = "labelHeaderElement";
 			labelHeaderElement.Size = new Size(238, 17);
 			labelHeaderElement.TabIndex = 0;
-			toolTip.SetToolTip(labelHeaderElement, "Header of the orbital elements");
+			labelHeaderElement.ToolTipValues.Description = "Shows the header of the orbital elements";
+			labelHeaderElement.ToolTipValues.EnableToolTips = true;
+			labelHeaderElement.ToolTipValues.Heading = "Header of the orbital elements";
 			labelHeaderElement.Values.Text = "Element";
 			labelHeaderElement.Enter += Control_Enter;
 			labelHeaderElement.Leave += Control_Leave;
@@ -1489,7 +1585,6 @@ namespace Planetoid_DB
 			ShowInTaskbar = false;
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Filter";
-			toolTip.SetToolTip(this, "Filter");
 			Load += FilterForm_Load;
 			((ISupportInitialize)panel).EndInit();
 			panel.ResumeLayout(false);
@@ -1505,7 +1600,7 @@ namespace Planetoid_DB
 		#endregion
 		private KryptonPanel panel;
 		private KryptonLabel labelMeanAnomalyAtTheEpoch;
-		private KryptonLabel labelArgumentOfPerihelion;
+		private KryptonLabel labelArgumentOfThePerihelion;
 		private KryptonLabel labelNumberOfOppositions;
 		private KryptonLabel labelSlopeParameter;
 		private KryptonLabel labelAbsoluteMagnitude;
@@ -1518,7 +1613,7 @@ namespace Planetoid_DB
 		private KryptonLabel labelNumberOfObservations;
 		private KryptonTableLayoutPanel tableLayoutPanel;
 		private KryptonNumericUpDown numericUpDownMinimumMeanAnomalyAtTheEpoch;
-		private KryptonNumericUpDown numericUpDownMinimumArgumentOfPerihelion;
+		private KryptonNumericUpDown numericUpDownMinimumArgumentOfThePerihelion;
 		private KryptonNumericUpDown numericUpDownMinimumInclination;
 		private KryptonNumericUpDown numericUpDownMinimumLongitudeOfTheAscendingNode;
 		private KryptonNumericUpDown numericUpDownMaximumAbsoluteMagnitude;
@@ -1527,7 +1622,7 @@ namespace Planetoid_DB
 		private KryptonNumericUpDown numericUpDownMaximumOrbitalEccentricity;
 		private KryptonNumericUpDown numericUpDownMaximumInclination;
 		private KryptonNumericUpDown numericUpDownMaximumLongitudeOfTheAscendingNode;
-		private KryptonNumericUpDown numericUpDownMaximumArgumentOfPerihelion;
+		private KryptonNumericUpDown numericUpDownMaximumArgumentOfThePerihelion;
 		private KryptonNumericUpDown numericUpDownMaximumMeanAnomalyAtTheEpoch;
 		private KryptonNumericUpDown numericUpDownMinimumRmsResidual;
 		private KryptonNumericUpDown numericUpDownMinimumNumberOfObservations;
@@ -1562,7 +1657,6 @@ namespace Planetoid_DB
 		private KryptonButton buttonCancel;
 		private KryptonStatusStrip statusStrip;
 		private ToolStripStatusLabel labelInformation;
-		private KryptonToolTip toolTip;
 		private KryptonManager kryptonManager;
 	}
 }
