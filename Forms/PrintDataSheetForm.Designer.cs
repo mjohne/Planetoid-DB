@@ -36,7 +36,6 @@ namespace Planetoid_DB
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(PrintDataSheetForm));
 			checkedListBoxOrbitalElements = new KryptonCheckedListBox();
-			toolTip = new KryptonToolTip(components);
 			buttonPrintDataSheet = new KryptonButton();
 			buttonCancelPrint = new KryptonButton();
 			panel = new KryptonPanel();
@@ -51,7 +50,7 @@ namespace Planetoid_DB
 			// checkedListBoxOrbitalElements
 			// 
 			checkedListBoxOrbitalElements.AccessibleDescription = "Checks some orbital elements to print on a data sheet";
-			checkedListBoxOrbitalElements.AccessibleName = "Checks orbital elements";
+			checkedListBoxOrbitalElements.AccessibleName = "Check orbital elements";
 			checkedListBoxOrbitalElements.AccessibleRole = AccessibleRole.List;
 			checkedListBoxOrbitalElements.BackStyle = PaletteBackStyle.InputControlRibbon;
 			checkedListBoxOrbitalElements.CheckOnClick = true;
@@ -63,7 +62,9 @@ namespace Planetoid_DB
 			checkedListBoxOrbitalElements.Name = "checkedListBoxOrbitalElements";
 			checkedListBoxOrbitalElements.Size = new Size(327, 254);
 			checkedListBoxOrbitalElements.TabIndex = 0;
-			toolTip.SetToolTip(checkedListBoxOrbitalElements, "Checks some orbital elements to print on a data sheet");
+			checkedListBoxOrbitalElements.ToolTipValues.Description = "Checks some orbital elements to print on a data sheet";
+			checkedListBoxOrbitalElements.ToolTipValues.EnableToolTips = true;
+			checkedListBoxOrbitalElements.ToolTipValues.Heading = "Check orbital elements";
 			checkedListBoxOrbitalElements.Enter += Control_Enter;
 			checkedListBoxOrbitalElements.Leave += Control_Leave;
 			checkedListBoxOrbitalElements.MouseEnter += Control_Enter;
@@ -79,7 +80,9 @@ namespace Planetoid_DB
 			buttonPrintDataSheet.Name = "buttonPrintDataSheet";
 			buttonPrintDataSheet.Size = new Size(154, 42);
 			buttonPrintDataSheet.TabIndex = 1;
-			toolTip.SetToolTip(buttonPrintDataSheet, "Print a data sheet with some orbit elements");
+			buttonPrintDataSheet.ToolTipValues.Description = "Prints a data sheet with some orbit elements";
+			buttonPrintDataSheet.ToolTipValues.EnableToolTips = true;
+			buttonPrintDataSheet.ToolTipValues.Heading = "Print data sheet";
 			buttonPrintDataSheet.Values.DropDownArrowColor = Color.Empty;
 			buttonPrintDataSheet.Values.Image = FatcowIcons16px.fatcow_printer_16px;
 			buttonPrintDataSheet.Values.Text = "&Print the sheet";
@@ -99,7 +102,9 @@ namespace Planetoid_DB
 			buttonCancelPrint.Name = "buttonCancelPrint";
 			buttonCancelPrint.Size = new Size(149, 42);
 			buttonCancelPrint.TabIndex = 2;
-			toolTip.SetToolTip(buttonCancelPrint, "Cancel the print");
+			buttonCancelPrint.ToolTipValues.Description = "Cancels the print";
+			buttonCancelPrint.ToolTipValues.EnableToolTips = true;
+			buttonCancelPrint.ToolTipValues.Heading = "Cancel print";
 			buttonCancelPrint.Values.DropDownArrowColor = Color.Empty;
 			buttonCancelPrint.Values.Image = FatcowIcons16px.fatcow_cancel_16px;
 			buttonCancelPrint.Values.Text = "&Cancel print";
@@ -182,7 +187,6 @@ namespace Planetoid_DB
 			ShowInTaskbar = false;
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Print data sheet";
-			toolTip.SetToolTip(this, "Print data sheet");
 			Load += PrintDataSheetForm_Load;
 			((ISupportInitialize)panel).EndInit();
 			panel.ResumeLayout(false);
@@ -196,7 +200,6 @@ namespace Planetoid_DB
 		#endregion
 
 		private KryptonCheckedListBox checkedListBoxOrbitalElements;
-        private KryptonToolTip toolTip;
         private KryptonButton buttonPrintDataSheet;
         private KryptonButton buttonCancelPrint;
         private KryptonPanel panel;
