@@ -448,6 +448,4 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 	private void ButtonCancel_Click(object sender, EventArgs e) => cancellationTokenSource?.Cancel();
 
 	#endregion
-
-	#endregion
 }

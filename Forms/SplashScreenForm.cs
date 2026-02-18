@@ -120,6 +120,4 @@ public partial class SplashScreenForm : BaseKryptonForm
 	}
 
 	#endregion
-
-	#endregion
 }

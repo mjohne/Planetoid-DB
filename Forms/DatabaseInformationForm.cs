@@ -128,6 +128,4 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 	}
 
 	#endregion
-
-	#endregion
 }

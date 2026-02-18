@@ -1168,16 +1168,4 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	}
 
 	#endregion
-
-	#region DoubleClick event handlers
-
-	/// <summary>
-	/// Called when a control is double-clicked. If the <paramref name="sender"/> is a <see cref="Control"/>
-	/// or a <see cref="ToolStripItem"/>, its <see cref="Control.Text"/> value is copied to the clipboard
-	/// using the shared helper.
-	/// </summary>
-	/// <param name="sender">Event source — expected to be a <see cref="Control"/> or a <see cref="ToolStripItem"/>.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	#endregion
 }
