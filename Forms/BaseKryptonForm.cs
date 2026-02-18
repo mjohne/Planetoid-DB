@@ -26,6 +26,14 @@ public class BaseKryptonForm : KryptonForm
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 	/// <summary>
+	/// Stores the currently selected control for clipboard operations.
+	/// </summary>
+	/// <remarks>
+	/// This control is used for clipboard operations such as copy and paste.
+	/// </remarks>
+	protected Control? currentControl;
+
+	/// <summary>
 	/// Initializes a new instance of the <see cref="BaseKryptonForm"/> class.
 	/// </summary>
 	/// <remarks>
@@ -197,6 +205,43 @@ public class BaseKryptonForm : KryptonForm
 		{
 			// Clear the status bar text
 			ClearStatusBar(label: StatusLabel);
+		}
+	}
+
+	/// <summary>
+	/// Handles double-click events on controls and copies their text to the clipboard.
+	/// </summary>
+	/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
+	/// <param name="e">Event arguments.</param>
+	/// <remarks>
+	/// This method extracts text from the sender control or uses the current control's text for ToolStripItems,
+	/// then copies it to the clipboard using the <see cref="CopyToClipboard"/> method.
+	/// </remarks>
+	protected void CopyToClipboard_DoubleClick(object sender, EventArgs e)
+	{
+		// Check if the sender is null
+		ArgumentNullException.ThrowIfNull(argument: sender);
+		// Get the text to copy based on the sender type
+		string? textToCopy = sender switch
+		{
+			Control c => c.Text,
+			ToolStripItem => currentControl?.Text,
+			_ => null
+		};
+		// Check if the text to copy is not null or empty
+		if (!string.IsNullOrEmpty(value: textToCopy))
+		{
+			// Copy the text to the clipboard using the base method
+			try
+			{
+				CopyToClipboard(text: textToCopy);
+			}
+			// Log any exception that occurs during the clipboard operation
+			catch (Exception ex)
+			{
+				logger.Error(exception: ex, message: "Failed to copy text to the clipboard.");
+				throw new InvalidOperationException(message: "Failed to copy text to the clipboard.", innerException: ex);
+			}
 		}
 	}
 

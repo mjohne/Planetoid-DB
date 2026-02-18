@@ -39,14 +39,6 @@ public partial class CheckAstorbDatForm : BaseKryptonForm
 	private static readonly HttpClient client = new();
 
 	/// <summary>
-	/// Stores the currently selected control for clipboard operations.
-	/// </summary>
-	/// <remarks>
-	/// This field is used to store the currently selected control for clipboard operations.
-	/// </remarks>
-	private Control? currentControl;
-
-	/// <summary>
 	/// Gets the status label to be used for displaying information.
 	/// </summary>
 	/// <remarks>
@@ -231,46 +223,6 @@ public partial class CheckAstorbDatForm : BaseKryptonForm
 	#endregion
 
 	#region DoubleClick event handlers
-
-	/// <summary>
-	/// Called when a control is double-clicked. If the <paramref name="sender"/> is a <see cref="Control"/>
-	/// or a <see cref="ToolStripItem"/>, its <see cref="Control.Text"/> value is copied to the clipboard
-	/// using the shared helper.
-	/// </summary>
-	/// <param name="sender">Event source — expected to be a <see cref="Control"/> or a <see cref="ToolStripItem"/>.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// If the <paramref name="sender"/> is a <see cref="Control"/>, its <see cref="Control.Text"/> value is copied to the clipboard.
-	/// If the <paramref name="sender"/> is a <see cref="ToolStripItem"/>, its <see cref="ToolStripItem.Text"/> value is copied to the clipboard.
-	/// </remarks>
-	private void CopyToClipboard_DoubleClick(object sender, EventArgs e)
-	{
-		// Check if the sender is null
-		ArgumentNullException.ThrowIfNull(argument: sender);
-		// Get the text to copy based on the sender type
-		string? textToCopy = sender switch
-		{
-			Control c => c.Text,
-			ToolStripItem => currentControl?.Text,
-			_ => null
-		};
-		// Check if the text to copy is not null or empty
-		if (!string.IsNullOrEmpty(value: textToCopy))
-		{
-			// Assuming CopyToClipboard is a helper method in BaseKryptonForm or similar
-			// If not, use Clipboard.SetText(textToCopy);
-			try
-			{
-				CopyToClipboard(text: textToCopy);
-			}
-			// Log any exception that occurs during the clipboard operation
-			catch (Exception ex)
-			{
-				logger.Error(exception: ex, message: "Failed to copy text to the clipboard.");
-				throw new InvalidOperationException(message: "Failed to copy text to the clipboard.", innerException: ex);
-			}
-		}
-	}
 
 	/// <summary>
 	/// Event handler for double-clicking the "Update Needed" label to check for updates.
