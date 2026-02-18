@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Windows.Forms;
 using Krypton.Toolkit;
 
 namespace Planetoid_DB
@@ -38,7 +39,7 @@ namespace Planetoid_DB
 			contextMenuStripCopyToClipboard = new ContextMenuStrip(components);
 			ToolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
 			labelVersion = new Label();
-			toolTip = new KryptonToolTip(components);
+			toolTip = new ToolTip(components);
 			kryptonManager = new KryptonManager(components);
 			contextMenuStripCopyToClipboard.SuspendLayout();
 			SuspendLayout();
@@ -172,7 +173,7 @@ namespace Planetoid_DB
 		private KryptonProgressBar progressBarSplash;
     private Label labelTitle;
     private Label labelVersion;
-		private KryptonToolTip toolTip;
+		private ToolTip toolTip;
 		private KryptonManager kryptonManager;
 		private ContextMenuStrip contextMenuStripCopyToClipboard;
 		private ToolStripMenuItem ToolStripMenuItemCopyToClipboard;

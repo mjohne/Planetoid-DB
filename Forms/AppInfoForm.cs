@@ -173,7 +173,4 @@ public partial class AppInfoForm : BaseKryptonForm
 	}
 
 	#endregion
-
-	#endregion
-
 }

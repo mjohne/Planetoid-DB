@@ -290,6 +290,4 @@ public partial class RecordsMainForm : BaseKryptonForm
 	}
 
 	#endregion
-
-	#endregion
 }
