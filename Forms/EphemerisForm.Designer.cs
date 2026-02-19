@@ -146,6 +146,7 @@ namespace Planetoid_DB
 			buttonCalculate.Size = new Size(105, 29);
 			buttonCalculate.TabIndex = 6;
 			buttonCalculate.ToolTipValues.EnableToolTips = true;
+			buttonCalculate.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonCalculate.Values.DropDownArrowColor = Color.Empty;
 			buttonCalculate.Values.Image = FatcowIcons16px.fatcow_calculator_16px;
 			buttonCalculate.Values.Text = "&Calculate";
@@ -169,6 +170,7 @@ namespace Planetoid_DB
 			listView.Size = new Size(378, 209);
 			listView.TabIndex = 9;
 			listView.ToolTipValues.EnableToolTips = true;
+			listView.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			listView.Enter += Control_Enter;
 			listView.Leave += Control_Leave;
 			listView.MouseEnter += Control_Enter;
@@ -185,6 +187,7 @@ namespace Planetoid_DB
 			labelPercent.Size = new Size(44, 20);
 			labelPercent.TabIndex = 8;
 			labelPercent.ToolTipValues.EnableToolTips = true;
+			labelPercent.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelPercent.Values.Text = "100 %";
 			labelPercent.Enter += Control_Enter;
 			labelPercent.Leave += Control_Leave;
@@ -216,6 +219,7 @@ namespace Planetoid_DB
 			labelEphemeridesStepsInDays.Size = new Size(82, 20);
 			labelEphemeridesStepsInDays.TabIndex = 4;
 			labelEphemeridesStepsInDays.ToolTipValues.EnableToolTips = true;
+			labelEphemeridesStepsInDays.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelEphemeridesStepsInDays.Values.Text = "&Steps in days";
 			labelEphemeridesStepsInDays.Enter += Control_Enter;
 			labelEphemeridesStepsInDays.Leave += Control_Leave;
@@ -236,6 +240,7 @@ namespace Planetoid_DB
 			numericUpDownStepsInDays.Size = new Size(92, 22);
 			numericUpDownStepsInDays.TabIndex = 5;
 			numericUpDownStepsInDays.ToolTipValues.EnableToolTips = true;
+			numericUpDownStepsInDays.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			numericUpDownStepsInDays.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownStepsInDays.Enter += Control_Enter;
 			numericUpDownStepsInDays.Leave += Control_Leave;
@@ -253,6 +258,7 @@ namespace Planetoid_DB
 			labelEphemeridesEnd.Size = new Size(108, 20);
 			labelEphemeridesEnd.TabIndex = 2;
 			labelEphemeridesEnd.ToolTipValues.EnableToolTips = true;
+			labelEphemeridesEnd.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelEphemeridesEnd.Values.Text = "Ephemerides &end:";
 			labelEphemeridesEnd.Enter += Control_Enter;
 			labelEphemeridesEnd.Leave += Control_Leave;
@@ -268,6 +274,7 @@ namespace Planetoid_DB
 			dateTimePickerEphemeridesEnd.Size = new Size(173, 21);
 			dateTimePickerEphemeridesEnd.TabIndex = 3;
 			dateTimePickerEphemeridesEnd.ToolTipValues.EnableToolTips = true;
+			dateTimePickerEphemeridesEnd.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			dateTimePickerEphemeridesEnd.Enter += Control_Enter;
 			dateTimePickerEphemeridesEnd.Leave += Control_Leave;
 			dateTimePickerEphemeridesEnd.MouseEnter += Control_Enter;
@@ -284,6 +291,7 @@ namespace Planetoid_DB
 			labelEphemeridesBegin.Size = new Size(118, 20);
 			labelEphemeridesBegin.TabIndex = 0;
 			labelEphemeridesBegin.ToolTipValues.EnableToolTips = true;
+			labelEphemeridesBegin.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelEphemeridesBegin.Values.Text = "Ephemerides &begin:";
 			labelEphemeridesBegin.Enter += Control_Enter;
 			labelEphemeridesBegin.Leave += Control_Leave;
@@ -299,6 +307,7 @@ namespace Planetoid_DB
 			dateTimePickerEphemeridesBegin.Size = new Size(173, 21);
 			dateTimePickerEphemeridesBegin.TabIndex = 1;
 			dateTimePickerEphemeridesBegin.ToolTipValues.EnableToolTips = true;
+			dateTimePickerEphemeridesBegin.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			dateTimePickerEphemeridesBegin.Enter += Control_Enter;
 			dateTimePickerEphemeridesBegin.Leave += Control_Leave;
 			dateTimePickerEphemeridesBegin.MouseEnter += Control_Enter;

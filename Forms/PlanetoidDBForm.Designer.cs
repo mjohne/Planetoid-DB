@@ -515,6 +515,7 @@ namespace Planetoid_DB
 			labelIndexData.TabIndex = 1;
 			labelIndexData.ToolTipValues.Description = "Shows the information of \"Index No.\"";
 			labelIndexData.ToolTipValues.EnableToolTips = true;
+			labelIndexData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelIndexData.ToolTipValues.Heading = "Index No.";
 			labelIndexData.Values.Text = "..................";
 			labelIndexData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -569,6 +570,7 @@ namespace Planetoid_DB
 			labelReadableDesignationData.TabIndex = 3;
 			labelReadableDesignationData.ToolTipValues.Description = "Shows the information of \"Readable designation\"";
 			labelReadableDesignationData.ToolTipValues.EnableToolTips = true;
+			labelReadableDesignationData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelReadableDesignationData.ToolTipValues.Heading = "Readable designation";
 			labelReadableDesignationData.Values.Text = "..................";
 			labelReadableDesignationData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -592,6 +594,7 @@ namespace Planetoid_DB
 			labelEpochData.TabIndex = 5;
 			labelEpochData.ToolTipValues.Description = "Shows the information of \"Epoch (in packed form, .0 TT)\"";
 			labelEpochData.ToolTipValues.EnableToolTips = true;
+			labelEpochData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelEpochData.ToolTipValues.Heading = "Epoch (in packed form, .0 TT)";
 			labelEpochData.Values.Text = "..................";
 			labelEpochData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -615,6 +618,7 @@ namespace Planetoid_DB
 			labelMeanAnomalyAtTheEpochData.TabIndex = 7;
 			labelMeanAnomalyAtTheEpochData.ToolTipValues.Description = "Shows the information of \"Mean anomaly at the epoch, in degrees\"";
 			labelMeanAnomalyAtTheEpochData.ToolTipValues.EnableToolTips = true;
+			labelMeanAnomalyAtTheEpochData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelMeanAnomalyAtTheEpochData.ToolTipValues.Heading = "Mean anomaly at the epoch (degrees)";
 			labelMeanAnomalyAtTheEpochData.Values.Text = "..................";
 			labelMeanAnomalyAtTheEpochData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -638,6 +642,7 @@ namespace Planetoid_DB
 			labelArgumentOfThePerihelionData.TabIndex = 9;
 			labelArgumentOfThePerihelionData.ToolTipValues.Description = "Shows the information of \"Argument of the perihelion, J2000.0 (degrees)\"";
 			labelArgumentOfThePerihelionData.ToolTipValues.EnableToolTips = true;
+			labelArgumentOfThePerihelionData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelArgumentOfThePerihelionData.ToolTipValues.Heading = "Argument of the perihelion, J2000.0 (degrees)";
 			labelArgumentOfThePerihelionData.Values.Text = "..................";
 			labelArgumentOfThePerihelionData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -661,6 +666,7 @@ namespace Planetoid_DB
 			labelLongitudeOfTheAscendingNodeData.TabIndex = 11;
 			labelLongitudeOfTheAscendingNodeData.ToolTipValues.Description = "Shows the information of \"Longitude of the ascending node, J2000.0 (degrees)\"";
 			labelLongitudeOfTheAscendingNodeData.ToolTipValues.EnableToolTips = true;
+			labelLongitudeOfTheAscendingNodeData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelLongitudeOfTheAscendingNodeData.ToolTipValues.Heading = "Longitude of the ascending node, J2000.0 (degrees)";
 			labelLongitudeOfTheAscendingNodeData.Values.Text = "..................";
 			labelLongitudeOfTheAscendingNodeData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -684,6 +690,7 @@ namespace Planetoid_DB
 			labelInclinationToTheEclipticData.TabIndex = 13;
 			labelInclinationToTheEclipticData.ToolTipValues.Description = "Shows the information of \"Inclination to the ecliptic, J2000.0 (degrees)\"";
 			labelInclinationToTheEclipticData.ToolTipValues.EnableToolTips = true;
+			labelInclinationToTheEclipticData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelInclinationToTheEclipticData.ToolTipValues.Heading = "Inclination to the ecliptic, J2000.0 (degrees)";
 			labelInclinationToTheEclipticData.Values.Text = "..................";
 			labelInclinationToTheEclipticData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -707,6 +714,7 @@ namespace Planetoid_DB
 			labelOrbitalEccentricityData.TabIndex = 15;
 			labelOrbitalEccentricityData.ToolTipValues.Description = "Shows the information of \"Orbital eccentricity\"";
 			labelOrbitalEccentricityData.ToolTipValues.EnableToolTips = true;
+			labelOrbitalEccentricityData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelOrbitalEccentricityData.ToolTipValues.Heading = "Orbital eccentricity";
 			labelOrbitalEccentricityData.Values.Text = "..................";
 			labelOrbitalEccentricityData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -730,6 +738,7 @@ namespace Planetoid_DB
 			labelMeanDailyMotionData.TabIndex = 17;
 			labelMeanDailyMotionData.ToolTipValues.Description = "Shows the information of \"Mean daily motion (degrees per day)\"";
 			labelMeanDailyMotionData.ToolTipValues.EnableToolTips = true;
+			labelMeanDailyMotionData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelMeanDailyMotionData.ToolTipValues.Heading = "Mean daily motion (degrees per day)";
 			labelMeanDailyMotionData.Values.Text = "..................";
 			labelMeanDailyMotionData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -753,6 +762,7 @@ namespace Planetoid_DB
 			labelSemiMajorAxisData.TabIndex = 19;
 			labelSemiMajorAxisData.ToolTipValues.Description = "Shows the information of \"Semi-major axis (AU)\"";
 			labelSemiMajorAxisData.ToolTipValues.EnableToolTips = true;
+			labelSemiMajorAxisData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSemiMajorAxisData.ToolTipValues.Heading = "Semi-major axis (AU)";
 			labelSemiMajorAxisData.Values.Text = "..................";
 			labelSemiMajorAxisData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -776,6 +786,7 @@ namespace Planetoid_DB
 			labelAbsoluteMagnitudeData.TabIndex = 21;
 			labelAbsoluteMagnitudeData.ToolTipValues.Description = "Shows the information of \"Absolute magnitude, H\"";
 			labelAbsoluteMagnitudeData.ToolTipValues.EnableToolTips = true;
+			labelAbsoluteMagnitudeData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelAbsoluteMagnitudeData.ToolTipValues.Heading = "Absolute magnitude, H";
 			labelAbsoluteMagnitudeData.Values.Text = "..................";
 			labelAbsoluteMagnitudeData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -799,6 +810,7 @@ namespace Planetoid_DB
 			labelSlopeParameterData.TabIndex = 23;
 			labelSlopeParameterData.ToolTipValues.Description = "Shows the information of \"Slope parameter, G\"";
 			labelSlopeParameterData.ToolTipValues.EnableToolTips = true;
+			labelSlopeParameterData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSlopeParameterData.ToolTipValues.Heading = "Slope parameter, G";
 			labelSlopeParameterData.Values.Text = "..................";
 			labelSlopeParameterData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -822,6 +834,7 @@ namespace Planetoid_DB
 			labelReferenceData.TabIndex = 25;
 			labelReferenceData.ToolTipValues.Description = "Shows the information of \"Reference\"";
 			labelReferenceData.ToolTipValues.EnableToolTips = true;
+			labelReferenceData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelReferenceData.ToolTipValues.Heading = "Reference";
 			labelReferenceData.Values.Text = "..................";
 			labelReferenceData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -845,6 +858,7 @@ namespace Planetoid_DB
 			labelNumberOfOppositionsData.TabIndex = 27;
 			labelNumberOfOppositionsData.ToolTipValues.Description = "Shows the information of \"Number of oppositions\"";
 			labelNumberOfOppositionsData.ToolTipValues.EnableToolTips = true;
+			labelNumberOfOppositionsData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelNumberOfOppositionsData.ToolTipValues.Heading = "Number of oppositions";
 			labelNumberOfOppositionsData.Values.Text = "..................";
 			labelNumberOfOppositionsData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -868,6 +882,7 @@ namespace Planetoid_DB
 			labelNumberOfObservationsData.TabIndex = 29;
 			labelNumberOfObservationsData.ToolTipValues.Description = "Shows the information of \"Number of observations\"";
 			labelNumberOfObservationsData.ToolTipValues.EnableToolTips = true;
+			labelNumberOfObservationsData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelNumberOfObservationsData.ToolTipValues.Heading = "Number of observations";
 			labelNumberOfObservationsData.Values.Text = "..................";
 			labelNumberOfObservationsData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -891,6 +906,7 @@ namespace Planetoid_DB
 			labelObservationSpanData.TabIndex = 31;
 			labelObservationSpanData.ToolTipValues.Description = "Shows the information of \"Observation span\"";
 			labelObservationSpanData.ToolTipValues.EnableToolTips = true;
+			labelObservationSpanData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelObservationSpanData.ToolTipValues.Heading = "Observation span";
 			labelObservationSpanData.Values.Text = "..................";
 			labelObservationSpanData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -914,6 +930,7 @@ namespace Planetoid_DB
 			labelRmsResidualData.TabIndex = 33;
 			labelRmsResidualData.ToolTipValues.Description = "Shows the information of \"r.m.s residual (\")\"";
 			labelRmsResidualData.ToolTipValues.EnableToolTips = true;
+			labelRmsResidualData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelRmsResidualData.ToolTipValues.Heading = "r.m.s. residual (arcseconds)";
 			labelRmsResidualData.Values.Text = "..................";
 			labelRmsResidualData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -937,6 +954,7 @@ namespace Planetoid_DB
 			labelComputerNameData.TabIndex = 35;
 			labelComputerNameData.ToolTipValues.Description = "Shows the information of \"Computer name\"";
 			labelComputerNameData.ToolTipValues.EnableToolTips = true;
+			labelComputerNameData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelComputerNameData.ToolTipValues.Heading = "Computer name";
 			labelComputerNameData.Values.Text = "..................";
 			labelComputerNameData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -960,6 +978,7 @@ namespace Planetoid_DB
 			labelFlagsData.TabIndex = 37;
 			labelFlagsData.ToolTipValues.Description = "Shows the information of \"4-hexdigit flags\"";
 			labelFlagsData.ToolTipValues.EnableToolTips = true;
+			labelFlagsData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelFlagsData.ToolTipValues.Heading = "4-hexdigit flags";
 			labelFlagsData.Values.Text = "..................";
 			labelFlagsData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -983,6 +1002,7 @@ namespace Planetoid_DB
 			labelDateLastObservationData.TabIndex = 39;
 			labelDateLastObservationData.ToolTipValues.Description = "Shows the information of \"Date of last observation\"";
 			labelDateLastObservationData.ToolTipValues.EnableToolTips = true;
+			labelDateLastObservationData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelDateLastObservationData.ToolTipValues.Heading = "Date of last observation (YYYYMMDD)";
 			labelDateLastObservationData.Values.Text = "..................";
 			labelDateLastObservationData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -1008,6 +1028,7 @@ namespace Planetoid_DB
 			labelIndexDesc.Tag = "0";
 			labelIndexDesc.ToolTipValues.Description = "Shows the information of \"Index No.\"";
 			labelIndexDesc.ToolTipValues.EnableToolTips = true;
+			labelIndexDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelIndexDesc.ToolTipValues.Heading = "Index No.";
 			labelIndexDesc.Values.Text = "Index No.";
 			labelIndexDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -1064,6 +1085,7 @@ namespace Planetoid_DB
 			labelReadableDesignationDesc.Tag = "1";
 			labelReadableDesignationDesc.ToolTipValues.Description = "Shows the information of \"Readable designation\"";
 			labelReadableDesignationDesc.ToolTipValues.EnableToolTips = true;
+			labelReadableDesignationDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelReadableDesignationDesc.ToolTipValues.Heading = "Readable designation";
 			labelReadableDesignationDesc.Values.Text = "Readable designation";
 			labelReadableDesignationDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -1089,6 +1111,7 @@ namespace Planetoid_DB
 			labelEpochDesc.Tag = "2";
 			labelEpochDesc.ToolTipValues.Description = "Shows the information of \"Epoch (in packed form, .0 TT)\"";
 			labelEpochDesc.ToolTipValues.EnableToolTips = true;
+			labelEpochDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelEpochDesc.ToolTipValues.Heading = "Epoch (in packed form, .0 TT)";
 			labelEpochDesc.Values.Text = "Epoch (in packed form, .0 TT)";
 			labelEpochDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -1114,6 +1137,7 @@ namespace Planetoid_DB
 			labelMeanAnomalyAtTheEpochDesc.Tag = "3";
 			labelMeanAnomalyAtTheEpochDesc.ToolTipValues.Description = "Shows the information of \"Mean anomaly at the epoch, in degrees\"";
 			labelMeanAnomalyAtTheEpochDesc.ToolTipValues.EnableToolTips = true;
+			labelMeanAnomalyAtTheEpochDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelMeanAnomalyAtTheEpochDesc.ToolTipValues.Heading = "Mean anomaly at the epoch (degrees)";
 			labelMeanAnomalyAtTheEpochDesc.Values.ExtraText = "°";
 			labelMeanAnomalyAtTheEpochDesc.Values.Text = "Mean anomaly at the epoch";
@@ -1140,6 +1164,7 @@ namespace Planetoid_DB
 			labelArgumentOfThePerihelionDesc.Tag = "4";
 			labelArgumentOfThePerihelionDesc.ToolTipValues.Description = "Shows the information of \"Argument of the perihelion, J2000.0 (degrees)\"";
 			labelArgumentOfThePerihelionDesc.ToolTipValues.EnableToolTips = true;
+			labelArgumentOfThePerihelionDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelArgumentOfThePerihelionDesc.ToolTipValues.Heading = "Argument of the perihelion, J2000.0 (degrees)";
 			labelArgumentOfThePerihelionDesc.Values.ExtraText = "°";
 			labelArgumentOfThePerihelionDesc.Values.Text = "Argument of the perihelion, J2000.0";
@@ -1166,6 +1191,7 @@ namespace Planetoid_DB
 			labelLongitudeOfTheAscendingNodeDesc.Tag = "5";
 			labelLongitudeOfTheAscendingNodeDesc.ToolTipValues.Description = "Shows the information of \"Longitude of the ascending node, J2000.0 (degrees)\"";
 			labelLongitudeOfTheAscendingNodeDesc.ToolTipValues.EnableToolTips = true;
+			labelLongitudeOfTheAscendingNodeDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelLongitudeOfTheAscendingNodeDesc.ToolTipValues.Heading = "Longitude of the ascending node, J2000.0 (degrees)";
 			labelLongitudeOfTheAscendingNodeDesc.Values.ExtraText = "°";
 			labelLongitudeOfTheAscendingNodeDesc.Values.Text = "Longitude of the ascending node, J2000.0";
@@ -1192,6 +1218,7 @@ namespace Planetoid_DB
 			labelInclinationToTheEclipticDesc.Tag = "6";
 			labelInclinationToTheEclipticDesc.ToolTipValues.Description = "Shows the information of \"Inclination to the ecliptic, J2000.0 (degrees)\"";
 			labelInclinationToTheEclipticDesc.ToolTipValues.EnableToolTips = true;
+			labelInclinationToTheEclipticDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelInclinationToTheEclipticDesc.ToolTipValues.Heading = "Inclination to the ecliptic, J2000.0 (degrees)";
 			labelInclinationToTheEclipticDesc.Values.ExtraText = "°";
 			labelInclinationToTheEclipticDesc.Values.Text = "Inclination to the ecliptic, J2000.0";
@@ -1218,6 +1245,7 @@ namespace Planetoid_DB
 			labelOrbitalEccentricityDesc.Tag = "7";
 			labelOrbitalEccentricityDesc.ToolTipValues.Description = "Shows the information of \"Orbital eccentricity\"";
 			labelOrbitalEccentricityDesc.ToolTipValues.EnableToolTips = true;
+			labelOrbitalEccentricityDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelOrbitalEccentricityDesc.ToolTipValues.Heading = "Orbital eccentricity";
 			labelOrbitalEccentricityDesc.Values.Text = "Orbital eccentricity";
 			labelOrbitalEccentricityDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -1243,6 +1271,7 @@ namespace Planetoid_DB
 			labelMeanDailyMotionDesc.Tag = "8";
 			labelMeanDailyMotionDesc.ToolTipValues.Description = "Shows the information of \"Mean daily motion (degrees per day)\"";
 			labelMeanDailyMotionDesc.ToolTipValues.EnableToolTips = true;
+			labelMeanDailyMotionDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelMeanDailyMotionDesc.ToolTipValues.Heading = "Mean daily motion (degrees per day)";
 			labelMeanDailyMotionDesc.Values.ExtraText = "°/day";
 			labelMeanDailyMotionDesc.Values.Text = "Mean daily motion";
@@ -1269,6 +1298,7 @@ namespace Planetoid_DB
 			labelSemiMajorAxisDesc.Tag = "9";
 			labelSemiMajorAxisDesc.ToolTipValues.Description = "Shows the information of \"Semi-major axis (AU)\"";
 			labelSemiMajorAxisDesc.ToolTipValues.EnableToolTips = true;
+			labelSemiMajorAxisDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSemiMajorAxisDesc.ToolTipValues.Heading = "Semi-major axis (AU)";
 			labelSemiMajorAxisDesc.Values.ExtraText = "AU";
 			labelSemiMajorAxisDesc.Values.Text = "Semi-major axis";
@@ -1295,6 +1325,7 @@ namespace Planetoid_DB
 			labelAbsoluteMagnitudeDesc.Tag = "10";
 			labelAbsoluteMagnitudeDesc.ToolTipValues.Description = "Shows the information of \"Absolute magnitude, H\"";
 			labelAbsoluteMagnitudeDesc.ToolTipValues.EnableToolTips = true;
+			labelAbsoluteMagnitudeDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelAbsoluteMagnitudeDesc.ToolTipValues.Heading = "Absolute magnitude, H";
 			labelAbsoluteMagnitudeDesc.Values.ExtraText = "mag";
 			labelAbsoluteMagnitudeDesc.Values.Text = "Absolute magnitude, H";
@@ -1321,6 +1352,7 @@ namespace Planetoid_DB
 			labelSlopeParameterDesc.Tag = "11";
 			labelSlopeParameterDesc.ToolTipValues.Description = "Shows the information of \"Slope parameter, G\"";
 			labelSlopeParameterDesc.ToolTipValues.EnableToolTips = true;
+			labelSlopeParameterDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSlopeParameterDesc.ToolTipValues.Heading = "Slope parameter, G";
 			labelSlopeParameterDesc.Values.Text = "Slope parameter, G";
 			labelSlopeParameterDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -1346,6 +1378,7 @@ namespace Planetoid_DB
 			labelReferenceDesc.Tag = "12";
 			labelReferenceDesc.ToolTipValues.Description = "Shows the information of \"Reference\"";
 			labelReferenceDesc.ToolTipValues.EnableToolTips = true;
+			labelReferenceDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelReferenceDesc.ToolTipValues.Heading = "Reference";
 			labelReferenceDesc.Values.Text = "Reference";
 			labelReferenceDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -1371,6 +1404,7 @@ namespace Planetoid_DB
 			labelNumberOfOppositionsDesc.Tag = "13";
 			labelNumberOfOppositionsDesc.ToolTipValues.Description = "Shows the information of \"Number of oppositions\"";
 			labelNumberOfOppositionsDesc.ToolTipValues.EnableToolTips = true;
+			labelNumberOfOppositionsDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelNumberOfOppositionsDesc.ToolTipValues.Heading = "Number of oppositions";
 			labelNumberOfOppositionsDesc.Values.Text = "Number of oppositions";
 			labelNumberOfOppositionsDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -1396,6 +1430,7 @@ namespace Planetoid_DB
 			labelNumberOfObservationsDesc.Tag = "14";
 			labelNumberOfObservationsDesc.ToolTipValues.Description = "Shows the information of \"Number of observations\"";
 			labelNumberOfObservationsDesc.ToolTipValues.EnableToolTips = true;
+			labelNumberOfObservationsDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelNumberOfObservationsDesc.ToolTipValues.Heading = "Number of observations";
 			labelNumberOfObservationsDesc.Values.Text = "Number of observations";
 			labelNumberOfObservationsDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -1421,6 +1456,7 @@ namespace Planetoid_DB
 			labelObservationSpanDesc.Tag = "15";
 			labelObservationSpanDesc.ToolTipValues.Description = "Shows the information of \"Observation span\"";
 			labelObservationSpanDesc.ToolTipValues.EnableToolTips = true;
+			labelObservationSpanDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelObservationSpanDesc.ToolTipValues.Heading = "Observation span";
 			labelObservationSpanDesc.Values.Text = "Observation span";
 			labelObservationSpanDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -1446,6 +1482,7 @@ namespace Planetoid_DB
 			labelRmsResidualDesc.Tag = "16";
 			labelRmsResidualDesc.ToolTipValues.Description = "Shows the information of \"r.m.s residual (\")\"";
 			labelRmsResidualDesc.ToolTipValues.EnableToolTips = true;
+			labelRmsResidualDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelRmsResidualDesc.ToolTipValues.Heading = "r.m.s. residual (arcseconds)";
 			labelRmsResidualDesc.Values.ExtraText = "\"";
 			labelRmsResidualDesc.Values.Text = "r.m.s. residual";
@@ -1472,6 +1509,7 @@ namespace Planetoid_DB
 			labelComputerNameDesc.Tag = "17";
 			labelComputerNameDesc.ToolTipValues.Description = "Shows the information of \"Computer name\"";
 			labelComputerNameDesc.ToolTipValues.EnableToolTips = true;
+			labelComputerNameDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelComputerNameDesc.ToolTipValues.Heading = "Computer name";
 			labelComputerNameDesc.Values.Text = "Computer name";
 			labelComputerNameDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -1497,6 +1535,7 @@ namespace Planetoid_DB
 			labelFlagsDesc.Tag = "18";
 			labelFlagsDesc.ToolTipValues.Description = "Shows the information of \"4-hexdigit flags\"";
 			labelFlagsDesc.ToolTipValues.EnableToolTips = true;
+			labelFlagsDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelFlagsDesc.ToolTipValues.Heading = "4-hexdigit flags";
 			labelFlagsDesc.Values.Text = "4-hexdigit flags";
 			labelFlagsDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -1522,6 +1561,7 @@ namespace Planetoid_DB
 			labelDateLastObservationDesc.Tag = "19";
 			labelDateLastObservationDesc.ToolTipValues.Description = "Shows the information of \"Date of last observation\"";
 			labelDateLastObservationDesc.ToolTipValues.EnableToolTips = true;
+			labelDateLastObservationDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelDateLastObservationDesc.ToolTipValues.Heading = "Date of last observation (YYYYMMDD)";
 			labelDateLastObservationDesc.Values.ExtraText = "YYYYMMDD";
 			labelDateLastObservationDesc.Values.Text = "Date of last observation";

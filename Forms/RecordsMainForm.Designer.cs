@@ -158,6 +158,7 @@ namespace Planetoid_DB
 			buttonExportAsJson.TabIndex = 3;
 			buttonExportAsJson.ToolTipValues.Description = "Exports the data sheet as JSON file";
 			buttonExportAsJson.ToolTipValues.EnableToolTips = true;
+			buttonExportAsJson.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonExportAsJson.ToolTipValues.Heading = "Export as JSON";
 			buttonExportAsJson.Values.DropDownArrowColor = Color.Empty;
 			buttonExportAsJson.Values.Image = FatcowIcons16px.fatcow_page_white_code_16px;
@@ -181,6 +182,7 @@ namespace Planetoid_DB
 			buttonExportAsXml.TabIndex = 2;
 			buttonExportAsXml.ToolTipValues.Description = "Exports the data sheet as XML file";
 			buttonExportAsXml.ToolTipValues.EnableToolTips = true;
+			buttonExportAsXml.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonExportAsXml.ToolTipValues.Heading = "Export as XML";
 			buttonExportAsXml.Values.DropDownArrowColor = Color.Empty;
 			buttonExportAsXml.Values.Image = FatcowIcons16px.fatcow_page_white_code_16px;
@@ -204,6 +206,7 @@ namespace Planetoid_DB
 			buttonExportAsTxt.TabIndex = 0;
 			buttonExportAsTxt.ToolTipValues.Description = "Exports the data sheet as text file";
 			buttonExportAsTxt.ToolTipValues.EnableToolTips = true;
+			buttonExportAsTxt.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonExportAsTxt.ToolTipValues.Heading = "Export as TXT";
 			buttonExportAsTxt.Values.DropDownArrowColor = Color.Empty;
 			buttonExportAsTxt.Values.Image = FatcowIcons16px.fatcow_page_white_text_16px;
@@ -227,6 +230,7 @@ namespace Planetoid_DB
 			buttonExportAsHtml.TabIndex = 1;
 			buttonExportAsHtml.ToolTipValues.Description = "Exports the data sheet as HTML file";
 			buttonExportAsHtml.ToolTipValues.EnableToolTips = true;
+			buttonExportAsHtml.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonExportAsHtml.ToolTipValues.Heading = "Export as HTML";
 			buttonExportAsHtml.Values.DropDownArrowColor = Color.Empty;
 			buttonExportAsHtml.Values.Image = FatcowIcons16px.fatcow_page_white_code_16px;
@@ -320,6 +324,7 @@ namespace Planetoid_DB
 			buttonGoto09.TabIndex = 37;
 			buttonGoto09.ToolTipValues.Description = "Goes to the element of the place no. 9";
 			buttonGoto09.ToolTipValues.EnableToolTips = true;
+			buttonGoto09.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonGoto09.ToolTipValues.Heading = "Go to the element of the place no. 9";
 			buttonGoto09.Values.DropDownArrowColor = Color.Empty;
 			buttonGoto09.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
@@ -343,6 +348,7 @@ namespace Planetoid_DB
 			buttonGoto08.TabIndex = 33;
 			buttonGoto08.ToolTipValues.Description = "Goes to the element of the place no. 8";
 			buttonGoto08.ToolTipValues.EnableToolTips = true;
+			buttonGoto08.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonGoto08.ToolTipValues.Heading = "Go to the element of the place no. 8";
 			buttonGoto08.Values.DropDownArrowColor = Color.Empty;
 			buttonGoto08.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
@@ -366,6 +372,7 @@ namespace Planetoid_DB
 			buttonGoto07.TabIndex = 29;
 			buttonGoto07.ToolTipValues.Description = "Goes to the element of the place no. 7";
 			buttonGoto07.ToolTipValues.EnableToolTips = true;
+			buttonGoto07.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonGoto07.ToolTipValues.Heading = "Go to the element of the place no. 7";
 			buttonGoto07.Values.DropDownArrowColor = Color.Empty;
 			buttonGoto07.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
@@ -389,6 +396,7 @@ namespace Planetoid_DB
 			buttonGoto06.TabIndex = 25;
 			buttonGoto06.ToolTipValues.Description = "Goes to the element of the place no. 6";
 			buttonGoto06.ToolTipValues.EnableToolTips = true;
+			buttonGoto06.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonGoto06.ToolTipValues.Heading = "Go to the element of the place no. 6";
 			buttonGoto06.Values.DropDownArrowColor = Color.Empty;
 			buttonGoto06.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
@@ -412,6 +420,7 @@ namespace Planetoid_DB
 			buttonGoto05.TabIndex = 21;
 			buttonGoto05.ToolTipValues.Description = "Goes to the element of the place no. 5";
 			buttonGoto05.ToolTipValues.EnableToolTips = true;
+			buttonGoto05.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonGoto05.ToolTipValues.Heading = "Go to the element of the place no. 5";
 			buttonGoto05.Values.DropDownArrowColor = Color.Empty;
 			buttonGoto05.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
@@ -435,6 +444,7 @@ namespace Planetoid_DB
 			buttonGoto04.TabIndex = 17;
 			buttonGoto04.ToolTipValues.Description = "Goes to the element of the place no. 4";
 			buttonGoto04.ToolTipValues.EnableToolTips = true;
+			buttonGoto04.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonGoto04.ToolTipValues.Heading = "Go to the element of the place no. 4";
 			buttonGoto04.Values.DropDownArrowColor = Color.Empty;
 			buttonGoto04.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
@@ -458,6 +468,7 @@ namespace Planetoid_DB
 			buttonGoto03.TabIndex = 13;
 			buttonGoto03.ToolTipValues.Description = "Goes to the element of the place no. 3";
 			buttonGoto03.ToolTipValues.EnableToolTips = true;
+			buttonGoto03.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonGoto03.ToolTipValues.Heading = "Go to the element of the place no. 3";
 			buttonGoto03.Values.DropDownArrowColor = Color.Empty;
 			buttonGoto03.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
@@ -481,6 +492,7 @@ namespace Planetoid_DB
 			buttonGoto02.TabIndex = 9;
 			buttonGoto02.ToolTipValues.Description = "Goes to the element of the place no. 2";
 			buttonGoto02.ToolTipValues.EnableToolTips = true;
+			buttonGoto02.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonGoto02.ToolTipValues.Heading = "Go to the element of the place no. 2";
 			buttonGoto02.Values.DropDownArrowColor = Color.Empty;
 			buttonGoto02.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
@@ -504,6 +516,7 @@ namespace Planetoid_DB
 			labelPlace10.Size = new Size(24, 42);
 			labelPlace10.TabIndex = 38;
 			labelPlace10.ToolTipValues.EnableToolTips = true;
+			labelPlace10.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelPlace10.Values.Text = "10";
 			labelPlace10.Enter += Control_Enter;
 			labelPlace10.Leave += Control_Leave;
@@ -524,6 +537,7 @@ namespace Planetoid_DB
 			labelPlace05.TabIndex = 18;
 			labelPlace05.ToolTipValues.Description = "Shows the record place no. 5";
 			labelPlace05.ToolTipValues.EnableToolTips = true;
+			labelPlace05.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelPlace05.ToolTipValues.Heading = "Record place no. 5";
 			labelPlace05.Values.Text = "5";
 			labelPlace05.Enter += Control_Enter;
@@ -545,6 +559,7 @@ namespace Planetoid_DB
 			labelPlace04.TabIndex = 14;
 			labelPlace04.ToolTipValues.Description = "Shows the record place no. 4";
 			labelPlace04.ToolTipValues.EnableToolTips = true;
+			labelPlace04.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelPlace04.ToolTipValues.Heading = "Record place no. 4";
 			labelPlace04.Values.Text = "4";
 			labelPlace04.Enter += Control_Enter;
@@ -566,6 +581,7 @@ namespace Planetoid_DB
 			labelPlace03.TabIndex = 10;
 			labelPlace03.ToolTipValues.Description = "Shows the record place no. 3";
 			labelPlace03.ToolTipValues.EnableToolTips = true;
+			labelPlace03.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelPlace03.ToolTipValues.Heading = "Record place no. 3";
 			labelPlace03.Values.Text = "3";
 			labelPlace03.Enter += Control_Enter;
@@ -587,6 +603,7 @@ namespace Planetoid_DB
 			labelPlace01.TabIndex = 2;
 			labelPlace01.ToolTipValues.Description = "Shows the record place no.";
 			labelPlace01.ToolTipValues.EnableToolTips = true;
+			labelPlace01.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelPlace01.ToolTipValues.Heading = "Record place no.";
 			labelPlace01.Values.Text = "1";
 			labelPlace01.Enter += Control_Enter;
@@ -608,6 +625,7 @@ namespace Planetoid_DB
 			labelPlace02.TabIndex = 6;
 			labelPlace02.ToolTipValues.Description = "Shows the record place no. 2";
 			labelPlace02.ToolTipValues.EnableToolTips = true;
+			labelPlace02.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelPlace02.ToolTipValues.Heading = "Record place no. 2";
 			labelPlace02.Values.Text = "2";
 			labelPlace02.Enter += Control_Enter;
@@ -629,6 +647,7 @@ namespace Planetoid_DB
 			labelPlace06.TabIndex = 22;
 			labelPlace06.ToolTipValues.Description = "Shows the record place no. 6";
 			labelPlace06.ToolTipValues.EnableToolTips = true;
+			labelPlace06.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelPlace06.ToolTipValues.Heading = "Record place no. 6";
 			labelPlace06.Values.Text = "6";
 			labelPlace06.Enter += Control_Enter;
@@ -650,6 +669,7 @@ namespace Planetoid_DB
 			labelPlace07.TabIndex = 26;
 			labelPlace07.ToolTipValues.Description = "Shows the record place no. 7";
 			labelPlace07.ToolTipValues.EnableToolTips = true;
+			labelPlace07.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelPlace07.ToolTipValues.Heading = "Record place no. 7";
 			labelPlace07.Values.Text = "7";
 			labelPlace07.Enter += Control_Enter;
@@ -671,6 +691,7 @@ namespace Planetoid_DB
 			labelPlace08.TabIndex = 30;
 			labelPlace08.ToolTipValues.Description = "Shows the record place no. 8";
 			labelPlace08.ToolTipValues.EnableToolTips = true;
+			labelPlace08.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelPlace08.ToolTipValues.Heading = "Record place no. 8";
 			labelPlace08.Values.Text = "8";
 			labelPlace08.Enter += Control_Enter;
@@ -692,6 +713,7 @@ namespace Planetoid_DB
 			labelPlace09.TabIndex = 34;
 			labelPlace09.ToolTipValues.Description = "Shows the record place no. 9";
 			labelPlace09.ToolTipValues.EnableToolTips = true;
+			labelPlace09.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelPlace09.ToolTipValues.Heading = "Record place no. 9";
 			labelPlace09.Values.Text = "9";
 			labelPlace09.Enter += Control_Enter;
@@ -712,6 +734,7 @@ namespace Planetoid_DB
 			buttonGoto01.TabIndex = 5;
 			buttonGoto01.ToolTipValues.Description = "Goes to the element of the place no. 1";
 			buttonGoto01.ToolTipValues.EnableToolTips = true;
+			buttonGoto01.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonGoto01.ToolTipValues.Heading = "Go to the element of the place no. 1";
 			buttonGoto01.Values.DropDownArrowColor = Color.Empty;
 			buttonGoto01.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
@@ -736,6 +759,7 @@ namespace Planetoid_DB
 			labelReadableDesignationHeader.TabIndex = 0;
 			labelReadableDesignationHeader.ToolTipValues.Description = "Shows the readable designation header";
 			labelReadableDesignationHeader.ToolTipValues.EnableToolTips = true;
+			labelReadableDesignationHeader.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelReadableDesignationHeader.ToolTipValues.Heading = "Readable designation header";
 			labelReadableDesignationHeader.Values.Text = "Readable \r\ndesignation";
 			labelReadableDesignationHeader.Enter += Control_Enter;
@@ -757,6 +781,7 @@ namespace Planetoid_DB
 			labelValueHeader.TabIndex = 1;
 			labelValueHeader.ToolTipValues.Description = "Shows the value header";
 			labelValueHeader.ToolTipValues.EnableToolTips = true;
+			labelValueHeader.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelValueHeader.ToolTipValues.Heading = "Value header";
 			labelValueHeader.Values.Text = "Value";
 			labelValueHeader.Enter += Control_Enter;
@@ -777,6 +802,7 @@ namespace Planetoid_DB
 			labelReadableDesignation01.TabIndex = 3;
 			labelReadableDesignation01.ToolTipValues.Description = "Shows the readable designation no. 1";
 			labelReadableDesignation01.ToolTipValues.EnableToolTips = true;
+			labelReadableDesignation01.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelReadableDesignation01.ToolTipValues.Heading = "Readable designation no. 1";
 			labelReadableDesignation01.Values.Text = "designation 01";
 			labelReadableDesignation01.DoubleClick += CopyToClipboard_DoubleClick;
@@ -798,6 +824,7 @@ namespace Planetoid_DB
 			labelReadableDesignation02.TabIndex = 7;
 			labelReadableDesignation02.ToolTipValues.Description = "Shows the readable designation no. 2";
 			labelReadableDesignation02.ToolTipValues.EnableToolTips = true;
+			labelReadableDesignation02.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelReadableDesignation02.ToolTipValues.Heading = "Readable designation no. 2";
 			labelReadableDesignation02.Values.Text = "designation 02";
 			labelReadableDesignation02.DoubleClick += CopyToClipboard_DoubleClick;
@@ -819,6 +846,7 @@ namespace Planetoid_DB
 			labelReadableDesignation03.TabIndex = 11;
 			labelReadableDesignation03.ToolTipValues.Description = "Shows the readable designation no. 3";
 			labelReadableDesignation03.ToolTipValues.EnableToolTips = true;
+			labelReadableDesignation03.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelReadableDesignation03.ToolTipValues.Heading = "Readable designation no. 3";
 			labelReadableDesignation03.Values.Text = "designation 03";
 			labelReadableDesignation03.DoubleClick += CopyToClipboard_DoubleClick;
@@ -840,6 +868,7 @@ namespace Planetoid_DB
 			labelReadableDesignation04.TabIndex = 15;
 			labelReadableDesignation04.ToolTipValues.Description = "Shows the readable designation no. 4";
 			labelReadableDesignation04.ToolTipValues.EnableToolTips = true;
+			labelReadableDesignation04.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelReadableDesignation04.ToolTipValues.Heading = "Readable designation no. 4";
 			labelReadableDesignation04.Values.Text = "designation 04";
 			labelReadableDesignation04.DoubleClick += CopyToClipboard_DoubleClick;
@@ -861,6 +890,7 @@ namespace Planetoid_DB
 			labelReadableDesignation05.TabIndex = 19;
 			labelReadableDesignation05.ToolTipValues.Description = "Shows the readable designation no. 5";
 			labelReadableDesignation05.ToolTipValues.EnableToolTips = true;
+			labelReadableDesignation05.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelReadableDesignation05.ToolTipValues.Heading = "Readable designation no. 5";
 			labelReadableDesignation05.Values.Text = "designation 05";
 			labelReadableDesignation05.DoubleClick += CopyToClipboard_DoubleClick;
@@ -882,6 +912,7 @@ namespace Planetoid_DB
 			labelReadableDesignation06.TabIndex = 23;
 			labelReadableDesignation06.ToolTipValues.Description = "Shows the readable designation no. 6";
 			labelReadableDesignation06.ToolTipValues.EnableToolTips = true;
+			labelReadableDesignation06.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelReadableDesignation06.ToolTipValues.Heading = "Readable designation no. 6";
 			labelReadableDesignation06.Values.Text = "designation 06";
 			labelReadableDesignation06.DoubleClick += CopyToClipboard_DoubleClick;
@@ -903,6 +934,7 @@ namespace Planetoid_DB
 			labelReadableDesignation07.TabIndex = 27;
 			labelReadableDesignation07.ToolTipValues.Description = "Shows the readable designation no. 7";
 			labelReadableDesignation07.ToolTipValues.EnableToolTips = true;
+			labelReadableDesignation07.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelReadableDesignation07.ToolTipValues.Heading = "Readable designation no. 7";
 			labelReadableDesignation07.Values.Text = "designation 07";
 			labelReadableDesignation07.DoubleClick += CopyToClipboard_DoubleClick;
@@ -924,6 +956,7 @@ namespace Planetoid_DB
 			labelReadableDesignation08.TabIndex = 31;
 			labelReadableDesignation08.ToolTipValues.Description = "Shows the readable designation no. 8";
 			labelReadableDesignation08.ToolTipValues.EnableToolTips = true;
+			labelReadableDesignation08.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelReadableDesignation08.ToolTipValues.Heading = "Readable designation no. 8";
 			labelReadableDesignation08.Values.Text = "designation 08";
 			labelReadableDesignation08.DoubleClick += CopyToClipboard_DoubleClick;
@@ -945,6 +978,7 @@ namespace Planetoid_DB
 			labelReadableDesignation09.TabIndex = 35;
 			labelReadableDesignation09.ToolTipValues.Description = "Shows the readable designation no. 9";
 			labelReadableDesignation09.ToolTipValues.EnableToolTips = true;
+			labelReadableDesignation09.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelReadableDesignation09.ToolTipValues.Heading = "Readable designation no. 9";
 			labelReadableDesignation09.Values.Text = "designation 09";
 			labelReadableDesignation09.DoubleClick += CopyToClipboard_DoubleClick;
@@ -966,6 +1000,7 @@ namespace Planetoid_DB
 			labelReadableDesignation10.TabIndex = 39;
 			labelReadableDesignation10.ToolTipValues.Description = "Shows the readable designation no. 10";
 			labelReadableDesignation10.ToolTipValues.EnableToolTips = true;
+			labelReadableDesignation10.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelReadableDesignation10.ToolTipValues.Heading = "Readable designation no. 10";
 			labelReadableDesignation10.Values.Text = "designation 10";
 			labelReadableDesignation10.DoubleClick += CopyToClipboard_DoubleClick;
@@ -987,6 +1022,7 @@ namespace Planetoid_DB
 			labelValue01.TabIndex = 4;
 			labelValue01.ToolTipValues.Description = "Shows the value no. 1";
 			labelValue01.ToolTipValues.EnableToolTips = true;
+			labelValue01.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelValue01.ToolTipValues.Heading = "Value no. 1";
 			labelValue01.Values.Text = "value 01";
 			labelValue01.DoubleClick += CopyToClipboard_DoubleClick;
@@ -1008,6 +1044,7 @@ namespace Planetoid_DB
 			labelValue02.TabIndex = 8;
 			labelValue02.ToolTipValues.Description = "Shows the value no. 2";
 			labelValue02.ToolTipValues.EnableToolTips = true;
+			labelValue02.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelValue02.ToolTipValues.Heading = "Value no. 2";
 			labelValue02.Values.Text = "value 02";
 			labelValue02.DoubleClick += CopyToClipboard_DoubleClick;
@@ -1029,6 +1066,7 @@ namespace Planetoid_DB
 			labelValue03.TabIndex = 12;
 			labelValue03.ToolTipValues.Description = "Shows the value no. 3";
 			labelValue03.ToolTipValues.EnableToolTips = true;
+			labelValue03.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelValue03.ToolTipValues.Heading = "Value no. 3";
 			labelValue03.Values.Text = "value 03";
 			labelValue03.DoubleClick += CopyToClipboard_DoubleClick;
@@ -1050,6 +1088,7 @@ namespace Planetoid_DB
 			labelValue04.TabIndex = 16;
 			labelValue04.ToolTipValues.Description = "Shows the value no. 4";
 			labelValue04.ToolTipValues.EnableToolTips = true;
+			labelValue04.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelValue04.ToolTipValues.Heading = "Value no. 4";
 			labelValue04.Values.Text = "value 04";
 			labelValue04.DoubleClick += CopyToClipboard_DoubleClick;
@@ -1071,6 +1110,7 @@ namespace Planetoid_DB
 			labelValue05.TabIndex = 20;
 			labelValue05.ToolTipValues.Description = "Shows the value no. 5";
 			labelValue05.ToolTipValues.EnableToolTips = true;
+			labelValue05.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelValue05.ToolTipValues.Heading = "Value no. 5";
 			labelValue05.Values.Text = "value 05";
 			labelValue05.DoubleClick += CopyToClipboard_DoubleClick;
@@ -1092,6 +1132,7 @@ namespace Planetoid_DB
 			labelValue06.TabIndex = 24;
 			labelValue06.ToolTipValues.Description = "Shows the value no. 6";
 			labelValue06.ToolTipValues.EnableToolTips = true;
+			labelValue06.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelValue06.ToolTipValues.Heading = "Value no. 6";
 			labelValue06.Values.Text = "value 06";
 			labelValue06.DoubleClick += CopyToClipboard_DoubleClick;
@@ -1113,6 +1154,7 @@ namespace Planetoid_DB
 			labelValue07.TabIndex = 28;
 			labelValue07.ToolTipValues.Description = "Shows the value no. 7";
 			labelValue07.ToolTipValues.EnableToolTips = true;
+			labelValue07.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelValue07.ToolTipValues.Heading = "Value no. 7";
 			labelValue07.Values.Text = "value 07";
 			labelValue07.DoubleClick += CopyToClipboard_DoubleClick;
@@ -1134,6 +1176,7 @@ namespace Planetoid_DB
 			labelValue08.TabIndex = 32;
 			labelValue08.ToolTipValues.Description = "Shows the value no. 8";
 			labelValue08.ToolTipValues.EnableToolTips = true;
+			labelValue08.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelValue08.ToolTipValues.Heading = "Value no. 8";
 			labelValue08.Values.Text = "value 08";
 			labelValue08.DoubleClick += CopyToClipboard_DoubleClick;
@@ -1155,6 +1198,7 @@ namespace Planetoid_DB
 			labelValue09.TabIndex = 36;
 			labelValue09.ToolTipValues.Description = "Shows the value no. 9";
 			labelValue09.ToolTipValues.EnableToolTips = true;
+			labelValue09.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelValue09.ToolTipValues.Heading = "Value no. 9";
 			labelValue09.Values.Text = "value 09";
 			labelValue09.DoubleClick += CopyToClipboard_DoubleClick;
@@ -1176,6 +1220,7 @@ namespace Planetoid_DB
 			labelValue10.TabIndex = 40;
 			labelValue10.ToolTipValues.Description = "Shows the value no. 10";
 			labelValue10.ToolTipValues.EnableToolTips = true;
+			labelValue10.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelValue10.ToolTipValues.Heading = "Value no. 10";
 			labelValue10.Values.Text = "value 10";
 			labelValue10.DoubleClick += CopyToClipboard_DoubleClick;
@@ -1197,6 +1242,7 @@ namespace Planetoid_DB
 			buttonGoto10.TabIndex = 41;
 			buttonGoto10.ToolTipValues.Description = "Goes to the element of the place no. 10";
 			buttonGoto10.ToolTipValues.EnableToolTips = true;
+			buttonGoto10.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonGoto10.ToolTipValues.Heading = "Go to the element of the place no. 10";
 			buttonGoto10.Values.DropDownArrowColor = Color.Empty;
 			buttonGoto10.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
@@ -1219,6 +1265,7 @@ namespace Planetoid_DB
 			buttonStart.TabIndex = 0;
 			buttonStart.ToolTipValues.Description = "Detects the records";
 			buttonStart.ToolTipValues.EnableToolTips = true;
+			buttonStart.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonStart.ToolTipValues.Heading = "Start";
 			buttonStart.Values.DropDownArrowColor = Color.Empty;
 			buttonStart.Values.Image = FatcowIcons16px.fatcow_resultset_next_16px;
@@ -1241,6 +1288,7 @@ namespace Planetoid_DB
 			labelPercent.TabIndex = 2;
 			labelPercent.ToolTipValues.Description = "Shows the percent status of the record detection";
 			labelPercent.ToolTipValues.EnableToolTips = true;
+			labelPercent.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelPercent.ToolTipValues.Heading = "Percent status of the record detection";
 			labelPercent.Values.Text = "100 %";
 			labelPercent.Enter += Control_Enter;

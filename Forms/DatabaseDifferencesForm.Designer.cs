@@ -205,6 +205,7 @@ namespace Planetoid_DB
 			groupBoxResults.TabIndex = 20;
 			groupBoxResults.ToolTipValues.Description = "Groups the results";
 			groupBoxResults.ToolTipValues.EnableToolTips = true;
+			groupBoxResults.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			groupBoxResults.ToolTipValues.Heading = "Results";
 			groupBoxResults.UseWaitCursor = true;
 			groupBoxResults.Values.Description = "300 items added, 200 items edited, 100 items removed";
@@ -225,6 +226,7 @@ namespace Planetoid_DB
 			listBoxResults.TabIndex = 0;
 			listBoxResults.ToolTipValues.Description = "Shows the result in a list with changes";
 			listBoxResults.ToolTipValues.EnableToolTips = true;
+			listBoxResults.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			listBoxResults.ToolTipValues.Heading = "Results";
 			listBoxResults.UseWaitCursor = true;
 			// 
@@ -240,6 +242,7 @@ namespace Planetoid_DB
 			buttonCancel.TabIndex = 19;
 			buttonCancel.ToolTipValues.Description = "Cancels the progress";
 			buttonCancel.ToolTipValues.EnableToolTips = true;
+			buttonCancel.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonCancel.ToolTipValues.Heading = "Cancel";
 			buttonCancel.UseWaitCursor = true;
 			buttonCancel.Values.DropDownArrowColor = Color.Empty;
@@ -263,6 +266,7 @@ namespace Planetoid_DB
 			buttonCompare.TabIndex = 18;
 			buttonCompare.ToolTipValues.Description = "Starts the progress and compare";
 			buttonCompare.ToolTipValues.EnableToolTips = true;
+			buttonCompare.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonCompare.ToolTipValues.Heading = "Compare";
 			buttonCompare.UseWaitCursor = true;
 			buttonCompare.Values.DropDownArrowColor = Color.Empty;
@@ -297,6 +301,7 @@ namespace Planetoid_DB
 			groupBoxProgress.TabIndex = 17;
 			groupBoxProgress.ToolTipValues.Description = "Shows the progress status of the comparison";
 			groupBoxProgress.ToolTipValues.EnableToolTips = true;
+			groupBoxProgress.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			groupBoxProgress.ToolTipValues.Heading = "Progress bar";
 			groupBoxProgress.UseWaitCursor = true;
 			groupBoxProgress.Values.Description = "100 %";
@@ -348,6 +353,7 @@ namespace Planetoid_DB
 			groupBox2ndMpcorbDatFileDatabase.TabIndex = 16;
 			groupBox2ndMpcorbDatFileDatabase.ToolTipValues.Description = "Open the 2nd MPCORB.DAT file";
 			groupBox2ndMpcorbDatFileDatabase.ToolTipValues.EnableToolTips = true;
+			groupBox2ndMpcorbDatFileDatabase.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			groupBox2ndMpcorbDatFileDatabase.ToolTipValues.Heading = "Group box for the second file";
 			groupBox2ndMpcorbDatFileDatabase.UseWaitCursor = true;
 			groupBox2ndMpcorbDatFileDatabase.Values.Heading = "The second MPCORB.DAT file";
@@ -395,6 +401,7 @@ namespace Planetoid_DB
 			labelSize2ndMpcorbDatFileDatabaseValue.TabIndex = 17;
 			labelSize2ndMpcorbDatFileDatabaseValue.ToolTipValues.Description = "File size of the second MPCORB.DAT file";
 			labelSize2ndMpcorbDatFileDatabaseValue.ToolTipValues.EnableToolTips = true;
+			labelSize2ndMpcorbDatFileDatabaseValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSize2ndMpcorbDatFileDatabaseValue.ToolTipValues.Heading = "File size of the second MPCORB.DAT file";
 			labelSize2ndMpcorbDatFileDatabaseValue.UseWaitCursor = true;
 			labelSize2ndMpcorbDatFileDatabaseValue.Values.Text = "1234567890 bytes";
@@ -418,6 +425,7 @@ namespace Planetoid_DB
 			labelPath2ndMpcorbDatFileDatabase.TabIndex = 10;
 			labelPath2ndMpcorbDatFileDatabase.ToolTipValues.Description = "Header of the path";
 			labelPath2ndMpcorbDatFileDatabase.ToolTipValues.EnableToolTips = true;
+			labelPath2ndMpcorbDatFileDatabase.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelPath2ndMpcorbDatFileDatabase.ToolTipValues.Heading = "Path";
 			labelPath2ndMpcorbDatFileDatabase.UseWaitCursor = true;
 			labelPath2ndMpcorbDatFileDatabase.Values.Text = "Path";
@@ -439,6 +447,7 @@ namespace Planetoid_DB
 			buttonOpen2ndMpcorbDatFileDatabase.TabIndex = 9;
 			buttonOpen2ndMpcorbDatFileDatabase.ToolTipValues.Description = "Opens the second MPRCORB.DAT file";
 			buttonOpen2ndMpcorbDatFileDatabase.ToolTipValues.EnableToolTips = true;
+			buttonOpen2ndMpcorbDatFileDatabase.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonOpen2ndMpcorbDatFileDatabase.ToolTipValues.Heading = "Open 2nd MPRCORB.DAT file";
 			buttonOpen2ndMpcorbDatFileDatabase.UseWaitCursor = true;
 			buttonOpen2ndMpcorbDatFileDatabase.Values.DropDownArrowColor = Color.Empty;
@@ -463,6 +472,7 @@ namespace Planetoid_DB
 			labelDate2ndMpcorbDatFileDatabaseValue.TabIndex = 16;
 			labelDate2ndMpcorbDatFileDatabaseValue.ToolTipValues.Description = "Date of the second MPCORB.DAT file";
 			labelDate2ndMpcorbDatFileDatabaseValue.ToolTipValues.EnableToolTips = true;
+			labelDate2ndMpcorbDatFileDatabaseValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelDate2ndMpcorbDatFileDatabaseValue.ToolTipValues.Heading = "Date of the second MPCORB.DAT file";
 			labelDate2ndMpcorbDatFileDatabaseValue.UseWaitCursor = true;
 			labelDate2ndMpcorbDatFileDatabaseValue.Values.Text = "00.00.0000 00:00:00";
@@ -486,6 +496,7 @@ namespace Planetoid_DB
 			labelDate2ndMpcorbDatFileDatabase.TabIndex = 11;
 			labelDate2ndMpcorbDatFileDatabase.ToolTipValues.Description = "Header of the date";
 			labelDate2ndMpcorbDatFileDatabase.ToolTipValues.EnableToolTips = true;
+			labelDate2ndMpcorbDatFileDatabase.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelDate2ndMpcorbDatFileDatabase.ToolTipValues.Heading = "Date";
 			labelDate2ndMpcorbDatFileDatabase.UseWaitCursor = true;
 			labelDate2ndMpcorbDatFileDatabase.Values.Text = "Date";
@@ -507,6 +518,7 @@ namespace Planetoid_DB
 			labelPath2ndMpcorbDatFileDatabaseValue.TabIndex = 15;
 			labelPath2ndMpcorbDatFileDatabaseValue.ToolTipValues.Description = "Shows the path of the second MPCORB.DAT file";
 			labelPath2ndMpcorbDatFileDatabaseValue.ToolTipValues.EnableToolTips = true;
+			labelPath2ndMpcorbDatFileDatabaseValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelPath2ndMpcorbDatFileDatabaseValue.ToolTipValues.Heading = "Path of the second MPCORB.DAT file";
 			labelPath2ndMpcorbDatFileDatabaseValue.UseWaitCursor = true;
 			labelPath2ndMpcorbDatFileDatabaseValue.Values.Text = "C:\\This-can-be-a\\very-very-long\\path\\to-the-file\\MPCORB.DAT";
@@ -530,6 +542,7 @@ namespace Planetoid_DB
 			labelSize2ndMpcorbDatFileDatabase.TabIndex = 12;
 			labelSize2ndMpcorbDatFileDatabase.ToolTipValues.Description = "Header of the size";
 			labelSize2ndMpcorbDatFileDatabase.ToolTipValues.EnableToolTips = true;
+			labelSize2ndMpcorbDatFileDatabase.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSize2ndMpcorbDatFileDatabase.ToolTipValues.Heading = "Size";
 			labelSize2ndMpcorbDatFileDatabase.UseWaitCursor = true;
 			labelSize2ndMpcorbDatFileDatabase.Values.Text = "Size";
@@ -561,6 +574,7 @@ namespace Planetoid_DB
 			groupBox1stMpcorbDatFileDatabase.TabIndex = 15;
 			groupBox1stMpcorbDatFileDatabase.ToolTipValues.Description = "Open the 1st MPCORB.DAT file";
 			groupBox1stMpcorbDatFileDatabase.ToolTipValues.EnableToolTips = true;
+			groupBox1stMpcorbDatFileDatabase.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			groupBox1stMpcorbDatFileDatabase.ToolTipValues.Heading = "Group box for the first file";
 			groupBox1stMpcorbDatFileDatabase.UseWaitCursor = true;
 			groupBox1stMpcorbDatFileDatabase.Values.Heading = "The first MPCORB.DAT file";
@@ -616,6 +630,7 @@ namespace Planetoid_DB
 			labelSize1stMpcorbDatFileDatabaseValue.TabIndex = 17;
 			labelSize1stMpcorbDatFileDatabaseValue.ToolTipValues.Description = "Shows the file size of the first MPCORB.DAT file";
 			labelSize1stMpcorbDatFileDatabaseValue.ToolTipValues.EnableToolTips = true;
+			labelSize1stMpcorbDatFileDatabaseValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSize1stMpcorbDatFileDatabaseValue.ToolTipValues.Heading = "File size of the first MPCORB.DAT file";
 			labelSize1stMpcorbDatFileDatabaseValue.UseWaitCursor = true;
 			labelSize1stMpcorbDatFileDatabaseValue.Values.Text = "1234567890 bytes";
@@ -639,6 +654,7 @@ namespace Planetoid_DB
 			labelPath1stMpcorbDatFileDatabase.TabIndex = 10;
 			labelPath1stMpcorbDatFileDatabase.ToolTipValues.Description = "Header of the path";
 			labelPath1stMpcorbDatFileDatabase.ToolTipValues.EnableToolTips = true;
+			labelPath1stMpcorbDatFileDatabase.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelPath1stMpcorbDatFileDatabase.ToolTipValues.Heading = "Path";
 			labelPath1stMpcorbDatFileDatabase.UseWaitCursor = true;
 			labelPath1stMpcorbDatFileDatabase.Values.Text = "Path";
@@ -660,6 +676,7 @@ namespace Planetoid_DB
 			buttonOpen1stMpcorbDatFileDatabase.TabIndex = 9;
 			buttonOpen1stMpcorbDatFileDatabase.ToolTipValues.Description = "Open the first MPRCORB.DAT file";
 			buttonOpen1stMpcorbDatFileDatabase.ToolTipValues.EnableToolTips = true;
+			buttonOpen1stMpcorbDatFileDatabase.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonOpen1stMpcorbDatFileDatabase.ToolTipValues.Heading = "Open 1st MPRCORB.DAT file";
 			buttonOpen1stMpcorbDatFileDatabase.UseWaitCursor = true;
 			buttonOpen1stMpcorbDatFileDatabase.Values.DropDownArrowColor = Color.Empty;
@@ -684,6 +701,7 @@ namespace Planetoid_DB
 			labelDate1stMpcorbDatFileDatabaseValue.TabIndex = 16;
 			labelDate1stMpcorbDatFileDatabaseValue.ToolTipValues.Description = "Shows the date of the first MPCORB.DAT file";
 			labelDate1stMpcorbDatFileDatabaseValue.ToolTipValues.EnableToolTips = true;
+			labelDate1stMpcorbDatFileDatabaseValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelDate1stMpcorbDatFileDatabaseValue.ToolTipValues.Heading = "Date of the first MPCORB.DAT file";
 			labelDate1stMpcorbDatFileDatabaseValue.UseWaitCursor = true;
 			labelDate1stMpcorbDatFileDatabaseValue.Values.Text = "00.00.0000 00:00:00";
@@ -707,6 +725,7 @@ namespace Planetoid_DB
 			labelDate1stMpcorbDatFileDatabase.TabIndex = 11;
 			labelDate1stMpcorbDatFileDatabase.ToolTipValues.Description = "Header of the date";
 			labelDate1stMpcorbDatFileDatabase.ToolTipValues.EnableToolTips = true;
+			labelDate1stMpcorbDatFileDatabase.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelDate1stMpcorbDatFileDatabase.ToolTipValues.Heading = "Date";
 			labelDate1stMpcorbDatFileDatabase.UseWaitCursor = true;
 			labelDate1stMpcorbDatFileDatabase.Values.Text = "Date";
@@ -728,6 +747,7 @@ namespace Planetoid_DB
 			labelPath1stMpcorbDatFileDatabaseValue.TabIndex = 15;
 			labelPath1stMpcorbDatFileDatabaseValue.ToolTipValues.Description = "Shows the path of the first MPCORB.DAT file";
 			labelPath1stMpcorbDatFileDatabaseValue.ToolTipValues.EnableToolTips = true;
+			labelPath1stMpcorbDatFileDatabaseValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelPath1stMpcorbDatFileDatabaseValue.ToolTipValues.Heading = "Path of the first MPCORB.DAT file";
 			labelPath1stMpcorbDatFileDatabaseValue.UseWaitCursor = true;
 			labelPath1stMpcorbDatFileDatabaseValue.Values.Text = "C:\\This-can-be-a\\very-very-long\\path\\to-the-file\\MPCORB.DAT";
@@ -751,6 +771,7 @@ namespace Planetoid_DB
 			labelSize1stMpcorbDatFileDatabase.TabIndex = 12;
 			labelSize1stMpcorbDatFileDatabase.ToolTipValues.Description = "Header of the size";
 			labelSize1stMpcorbDatFileDatabase.ToolTipValues.EnableToolTips = true;
+			labelSize1stMpcorbDatFileDatabase.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSize1stMpcorbDatFileDatabase.ToolTipValues.Heading = "Size";
 			labelSize1stMpcorbDatFileDatabase.UseWaitCursor = true;
 			labelSize1stMpcorbDatFileDatabase.Values.Text = "Size";

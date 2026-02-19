@@ -79,6 +79,7 @@ namespace Planetoid_DB
 			labelName.TabIndex = 0;
 			labelName.ToolTipValues.Description = "Shows the name of the database";
 			labelName.ToolTipValues.EnableToolTips = true;
+			labelName.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelName.ToolTipValues.Heading = "Name";
 			labelName.Values.Text = "Name";
 			labelName.DoubleClick += CopyToClipboard_DoubleClick;
@@ -101,6 +102,7 @@ namespace Planetoid_DB
 			labelDirectory.TabIndex = 2;
 			labelDirectory.ToolTipValues.Description = "Shows the directory of the database";
 			labelDirectory.ToolTipValues.EnableToolTips = true;
+			labelDirectory.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelDirectory.ToolTipValues.Heading = "Directory";
 			labelDirectory.Values.Text = "Directory";
 			labelDirectory.DoubleClick += CopyToClipboard_DoubleClick;
@@ -123,6 +125,7 @@ namespace Planetoid_DB
 			labelSize.TabIndex = 4;
 			labelSize.ToolTipValues.Description = "Shows the size of the database";
 			labelSize.ToolTipValues.EnableToolTips = true;
+			labelSize.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSize.ToolTipValues.Heading = "Size";
 			labelSize.Values.Text = "Size";
 			labelSize.DoubleClick += CopyToClipboard_DoubleClick;
@@ -145,6 +148,7 @@ namespace Planetoid_DB
 			labelDateCreated.TabIndex = 6;
 			labelDateCreated.ToolTipValues.Description = "Shows the creation date of the database";
 			labelDateCreated.ToolTipValues.EnableToolTips = true;
+			labelDateCreated.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelDateCreated.ToolTipValues.Heading = "Creation date";
 			labelDateCreated.Values.Text = "Creation date";
 			labelDateCreated.DoubleClick += CopyToClipboard_DoubleClick;
@@ -167,6 +171,7 @@ namespace Planetoid_DB
 			labelDateAccessed.TabIndex = 8;
 			labelDateAccessed.ToolTipValues.Description = "Shows the last access date of the database";
 			labelDateAccessed.ToolTipValues.EnableToolTips = true;
+			labelDateAccessed.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelDateAccessed.ToolTipValues.Heading = "Last access date";
 			labelDateAccessed.Values.Text = "Last access date";
 			labelDateAccessed.DoubleClick += CopyToClipboard_DoubleClick;
@@ -189,6 +194,7 @@ namespace Planetoid_DB
 			labelDateWrited.TabIndex = 10;
 			labelDateWrited.ToolTipValues.Description = "Shows the last write date of the database";
 			labelDateWrited.ToolTipValues.EnableToolTips = true;
+			labelDateWrited.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelDateWrited.ToolTipValues.Heading = "Last write date";
 			labelDateWrited.Values.Text = "Last write date";
 			labelDateWrited.DoubleClick += CopyToClipboard_DoubleClick;
@@ -211,6 +217,7 @@ namespace Planetoid_DB
 			labelAttributes.TabIndex = 12;
 			labelAttributes.ToolTipValues.Description = "Shows the attributes of the database";
 			labelAttributes.ToolTipValues.EnableToolTips = true;
+			labelAttributes.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelAttributes.ToolTipValues.Heading = "Attributes";
 			labelAttributes.Values.Text = "Attributes";
 			labelAttributes.DoubleClick += CopyToClipboard_DoubleClick;
@@ -233,6 +240,7 @@ namespace Planetoid_DB
 			labelNameValue.TabIndex = 1;
 			labelNameValue.ToolTipValues.Description = "Shows the name of the database";
 			labelNameValue.ToolTipValues.EnableToolTips = true;
+			labelNameValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelNameValue.ToolTipValues.Heading = "Name value";
 			labelNameValue.Values.Text = "..........";
 			labelNameValue.DoubleClick += CopyToClipboard_DoubleClick;
@@ -287,6 +295,7 @@ namespace Planetoid_DB
 			labelDirectoryValue.TabIndex = 3;
 			labelDirectoryValue.ToolTipValues.Description = "Shows the directory of the database";
 			labelDirectoryValue.ToolTipValues.EnableToolTips = true;
+			labelDirectoryValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelDirectoryValue.ToolTipValues.Heading = "Directory value";
 			labelDirectoryValue.Values.Text = "..........";
 			labelDirectoryValue.DoubleClick += CopyToClipboard_DoubleClick;
@@ -310,6 +319,7 @@ namespace Planetoid_DB
 			labelSizeValue.TabIndex = 5;
 			labelSizeValue.ToolTipValues.Description = "Shows the size of the database";
 			labelSizeValue.ToolTipValues.EnableToolTips = true;
+			labelSizeValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSizeValue.ToolTipValues.Heading = "Size value";
 			labelSizeValue.Values.Text = "..........";
 			labelSizeValue.DoubleClick += CopyToClipboard_DoubleClick;
@@ -333,6 +343,7 @@ namespace Planetoid_DB
 			labelDateCreatedValue.TabIndex = 7;
 			labelDateCreatedValue.ToolTipValues.Description = "Shows the creation date of the database";
 			labelDateCreatedValue.ToolTipValues.EnableToolTips = true;
+			labelDateCreatedValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelDateCreatedValue.ToolTipValues.Heading = "Creation date value";
 			labelDateCreatedValue.Values.Text = "..........";
 			labelDateCreatedValue.DoubleClick += CopyToClipboard_DoubleClick;
@@ -356,6 +367,7 @@ namespace Planetoid_DB
 			labelDateAccessedValue.TabIndex = 9;
 			labelDateAccessedValue.ToolTipValues.Description = "Shows the last access date of the database";
 			labelDateAccessedValue.ToolTipValues.EnableToolTips = true;
+			labelDateAccessedValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelDateAccessedValue.ToolTipValues.Heading = "Last access date value";
 			labelDateAccessedValue.Values.Text = "..........";
 			labelDateAccessedValue.DoubleClick += CopyToClipboard_DoubleClick;
@@ -379,6 +391,7 @@ namespace Planetoid_DB
 			labelDateWritedValue.TabIndex = 11;
 			labelDateWritedValue.ToolTipValues.Description = "Shows the last write date of the database";
 			labelDateWritedValue.ToolTipValues.EnableToolTips = true;
+			labelDateWritedValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelDateWritedValue.ToolTipValues.Heading = "Last write date value";
 			labelDateWritedValue.Values.Text = "..........";
 			labelDateWritedValue.DoubleClick += CopyToClipboard_DoubleClick;
@@ -442,6 +455,7 @@ namespace Planetoid_DB
 			labelAttributesValue.TabIndex = 13;
 			labelAttributesValue.ToolTipValues.Description = "Shows the attributes of the database";
 			labelAttributesValue.ToolTipValues.EnableToolTips = true;
+			labelAttributesValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelAttributesValue.ToolTipValues.Heading = "Attributes value";
 			labelAttributesValue.Values.Text = "..........";
 			labelAttributesValue.DoubleClick += CopyToClipboard_DoubleClick;

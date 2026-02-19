@@ -97,6 +97,7 @@ namespace Planetoid_DB
 			labelStatusText.TabIndex = 0;
 			labelStatusText.ToolTipValues.Description = "Status of the download";
 			labelStatusText.ToolTipValues.EnableToolTips = true;
+			labelStatusText.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelStatusText.ToolTipValues.Heading = "Status";
 			labelStatusText.Values.Text = "Status:";
 			labelStatusText.DoubleClick += CopyToClipboard_DoubleClick;
@@ -118,6 +119,7 @@ namespace Planetoid_DB
 			labelSizeValue.TabIndex = 7;
 			labelSizeValue.ToolTipValues.Description = "Shows the file size of the download";
 			labelSizeValue.ToolTipValues.EnableToolTips = true;
+			labelSizeValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSizeValue.ToolTipValues.Heading = "Size of the dowload file";
 			labelSizeValue.Values.Text = "...";
 			labelSizeValue.DoubleClick += CopyToClipboard_DoubleClick;
@@ -170,6 +172,7 @@ namespace Planetoid_DB
 			labelSizeText.TabIndex = 6;
 			labelSizeText.ToolTipValues.Description = "Shows the file size of the download";
 			labelSizeText.ToolTipValues.EnableToolTips = true;
+			labelSizeText.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSizeText.ToolTipValues.Heading = "Size";
 			labelSizeText.Values.Text = "Size:";
 			labelSizeText.DoubleClick += CopyToClipboard_DoubleClick;
@@ -191,6 +194,7 @@ namespace Planetoid_DB
 			labelDateValue.TabIndex = 3;
 			labelDateValue.ToolTipValues.Description = "Shows the last modified date of the download";
 			labelDateValue.ToolTipValues.EnableToolTips = true;
+			labelDateValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelDateValue.ToolTipValues.Heading = "Date of the download file";
 			labelDateValue.Values.Text = "...";
 			labelDateValue.DoubleClick += CopyToClipboard_DoubleClick;
@@ -213,6 +217,7 @@ namespace Planetoid_DB
 			labelSourceValue.TabIndex = 5;
 			labelSourceValue.ToolTipValues.Description = "Shows the download source";
 			labelSourceValue.ToolTipValues.EnableToolTips = true;
+			labelSourceValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSourceValue.ToolTipValues.Heading = "Source of the download";
 			labelSourceValue.Values.Text = "...";
 			labelSourceValue.DoubleClick += CopyToClipboard_DoubleClick;
@@ -234,6 +239,7 @@ namespace Planetoid_DB
 			labelDateText.TabIndex = 2;
 			labelDateText.ToolTipValues.Description = "Date of the download file";
 			labelDateText.ToolTipValues.EnableToolTips = true;
+			labelDateText.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelDateText.ToolTipValues.Heading = "Date";
 			labelDateText.Values.Text = "Date:";
 			labelDateText.DoubleClick += CopyToClipboard_DoubleClick;
@@ -254,6 +260,7 @@ namespace Planetoid_DB
 			labelSourceText.TabIndex = 4;
 			labelSourceText.ToolTipValues.Description = "Shows the download source";
 			labelSourceText.ToolTipValues.EnableToolTips = true;
+			labelSourceText.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSourceText.ToolTipValues.Heading = "Source";
 			labelSourceText.Values.Text = "Source:";
 			labelSourceText.DoubleClick += CopyToClipboard_DoubleClick;
@@ -275,6 +282,7 @@ namespace Planetoid_DB
 			labelStatusValue.TabIndex = 1;
 			labelStatusValue.ToolTipValues.Description = "Shows the status of the download";
 			labelStatusValue.ToolTipValues.EnableToolTips = true;
+			labelStatusValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelStatusValue.ToolTipValues.Heading = "Status of the download";
 			labelStatusValue.Values.Text = "...";
 			labelStatusValue.DoubleClick += CopyToClipboard_DoubleClick;
@@ -310,6 +318,7 @@ namespace Planetoid_DB
 			buttonCancel.TabIndex = 3;
 			buttonCancel.ToolTipValues.Description = "Cancels the download";
 			buttonCancel.ToolTipValues.EnableToolTips = true;
+			buttonCancel.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonCancel.ToolTipValues.Heading = "Cancel download";
 			buttonCancel.Values.DropDownArrowColor = Color.Empty;
 			buttonCancel.Values.Image = Resources.FatcowIcons16px.fatcow_cancel_16px;
@@ -331,6 +340,7 @@ namespace Planetoid_DB
 			buttonDownload.TabIndex = 2;
 			buttonDownload.ToolTipValues.Description = "Downloads the selected file";
 			buttonDownload.ToolTipValues.EnableToolTips = true;
+			buttonDownload.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonDownload.ToolTipValues.Heading = "Download";
 			buttonDownload.Values.DropDownArrowColor = Color.Empty;
 			buttonDownload.Values.Image = Resources.FatcowIcons16px.fatcow_package_go_16px;

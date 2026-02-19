@@ -70,6 +70,7 @@ namespace Planetoid_DB
 			kryptonCommandLinkButtonExit.TabIndex = 3;
 			kryptonCommandLinkButtonExit.ToolTipValues.Description = "Cancels and quits the application";
 			kryptonCommandLinkButtonExit.ToolTipValues.EnableToolTips = true;
+			kryptonCommandLinkButtonExit.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			kryptonCommandLinkButtonExit.ToolTipValues.Heading = "Quit the application";
 			kryptonCommandLinkButtonExit.Enter += Control_Enter;
 			kryptonCommandLinkButtonExit.Leave += Control_Leave;
@@ -96,6 +97,7 @@ namespace Planetoid_DB
 			kryptonCommandLinkButtonLoadInternalDemoData.TabIndex = 2;
 			kryptonCommandLinkButtonLoadInternalDemoData.ToolTipValues.Description = "Loads internal demo data";
 			kryptonCommandLinkButtonLoadInternalDemoData.ToolTipValues.EnableToolTips = true;
+			kryptonCommandLinkButtonLoadInternalDemoData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			kryptonCommandLinkButtonLoadInternalDemoData.ToolTipValues.Heading = "Load internal demo data";
 			kryptonCommandLinkButtonLoadInternalDemoData.Click += KryptonCommandLinkButtonLoadInternalDemoData_Click;
 			kryptonCommandLinkButtonLoadInternalDemoData.Enter += Control_Enter;
@@ -123,6 +125,7 @@ namespace Planetoid_DB
 			kryptonCommandLinkButtonDownloadMprcorbDat.TabIndex = 1;
 			kryptonCommandLinkButtonDownloadMprcorbDat.ToolTipValues.Description = "Downloads MPCORB.DAT from the IAU Minor Planet Center";
 			kryptonCommandLinkButtonDownloadMprcorbDat.ToolTipValues.EnableToolTips = true;
+			kryptonCommandLinkButtonDownloadMprcorbDat.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			kryptonCommandLinkButtonDownloadMprcorbDat.ToolTipValues.Heading = "Download MPCORB.DAT";
 			kryptonCommandLinkButtonDownloadMprcorbDat.Click += KryptonCommandLinkButtonDownloadMprcorbDat_Click;
 			kryptonCommandLinkButtonDownloadMprcorbDat.Enter += Control_Enter;
@@ -150,6 +153,7 @@ namespace Planetoid_DB
 			kryptonCommandLinkButtonOpenLocalFile.TabIndex = 0;
 			kryptonCommandLinkButtonOpenLocalFile.ToolTipValues.Description = "Opens a local MPCORB.DAT file from hard drive";
 			kryptonCommandLinkButtonOpenLocalFile.ToolTipValues.EnableToolTips = true;
+			kryptonCommandLinkButtonOpenLocalFile.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			kryptonCommandLinkButtonOpenLocalFile.ToolTipValues.Heading = "Open a local MPCORB.DAT file";
 			kryptonCommandLinkButtonOpenLocalFile.Click += KryptonCommandLinkButtonOpenLocalFile_Click;
 			kryptonCommandLinkButtonOpenLocalFile.Enter += Control_Enter;

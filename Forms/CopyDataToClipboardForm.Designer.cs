@@ -84,6 +84,7 @@ namespace Planetoid_DB
 			buttonIndexNumber.TabIndex = 0;
 			buttonIndexNumber.ToolTipValues.Description = "Copy to clipboard: Index No.";
 			buttonIndexNumber.ToolTipValues.EnableToolTips = true;
+			buttonIndexNumber.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonIndexNumber.ToolTipValues.Heading = "Index No.";
 			buttonIndexNumber.Values.DropDownArrowColor = Color.Empty;
 			buttonIndexNumber.Values.Text = "Index No.";
@@ -106,6 +107,7 @@ namespace Planetoid_DB
 			buttonReadableDesignation.TabIndex = 1;
 			buttonReadableDesignation.ToolTipValues.Description = "Copy to clipboard: Readable designation";
 			buttonReadableDesignation.ToolTipValues.EnableToolTips = true;
+			buttonReadableDesignation.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonReadableDesignation.ToolTipValues.Heading = "Readable designation";
 			buttonReadableDesignation.Values.DropDownArrowColor = Color.Empty;
 			buttonReadableDesignation.Values.Text = "Readable designation";
@@ -128,6 +130,7 @@ namespace Planetoid_DB
 			buttonEpoch.TabIndex = 2;
 			buttonEpoch.ToolTipValues.Description = "Copy to clipboard: Epoch (in packed form, .0 TT)";
 			buttonEpoch.ToolTipValues.EnableToolTips = true;
+			buttonEpoch.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonEpoch.ToolTipValues.Heading = "Epoch (in packed form, .0 TT)";
 			buttonEpoch.Values.DropDownArrowColor = Color.Empty;
 			buttonEpoch.Values.Text = "Epoch (in packed form, .0 TT)";
@@ -150,6 +153,7 @@ namespace Planetoid_DB
 			buttonMeanAnomaly.TabIndex = 3;
 			buttonMeanAnomaly.ToolTipValues.Description = "Copy to clipboard: Mean anomaly at the epoch (degrees)";
 			buttonMeanAnomaly.ToolTipValues.EnableToolTips = true;
+			buttonMeanAnomaly.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonMeanAnomaly.ToolTipValues.Heading = "Mean anomaly at the epoch (degrees)";
 			buttonMeanAnomaly.Values.DropDownArrowColor = Color.Empty;
 			buttonMeanAnomaly.Values.Text = "Mean anomaly at the epoch (°)";
@@ -172,6 +176,7 @@ namespace Planetoid_DB
 			buttonArgumentOfPerihelion.TabIndex = 4;
 			buttonArgumentOfPerihelion.ToolTipValues.Description = "Copy to clipboard: Argument of perihelion, J2000.0 (degrees)";
 			buttonArgumentOfPerihelion.ToolTipValues.EnableToolTips = true;
+			buttonArgumentOfPerihelion.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonArgumentOfPerihelion.ToolTipValues.Heading = "Argument of perihelion, J2000.0 (degrees)";
 			buttonArgumentOfPerihelion.Values.DropDownArrowColor = Color.Empty;
 			buttonArgumentOfPerihelion.Values.Text = "Argument of perihelion, J2000.0 (°)";
@@ -194,6 +199,7 @@ namespace Planetoid_DB
 			buttonLongitudeOfTheAscendingNode.TabIndex = 5;
 			buttonLongitudeOfTheAscendingNode.ToolTipValues.Description = "Copy to clipboard: Longitude of the ascending node, J2000.0 (degrees)";
 			buttonLongitudeOfTheAscendingNode.ToolTipValues.EnableToolTips = true;
+			buttonLongitudeOfTheAscendingNode.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonLongitudeOfTheAscendingNode.ToolTipValues.Heading = "Longitude of the ascending node, J2000.0 (degrees)";
 			buttonLongitudeOfTheAscendingNode.Values.DropDownArrowColor = Color.Empty;
 			buttonLongitudeOfTheAscendingNode.Values.Text = "Longitude of the ascending node, J2000.0 (°)";
@@ -216,6 +222,7 @@ namespace Planetoid_DB
 			buttonInclination.TabIndex = 6;
 			buttonInclination.ToolTipValues.Description = "Copy to clipboard: Inclination to the ecliptic, J2000.0 (degrees)";
 			buttonInclination.ToolTipValues.EnableToolTips = true;
+			buttonInclination.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonInclination.ToolTipValues.Heading = "Inclination to the ecliptic, J2000.0 (degrees)";
 			buttonInclination.Values.DropDownArrowColor = Color.Empty;
 			buttonInclination.Values.Text = "Inclination to the ecliptic, J2000.0 (°)";
@@ -238,6 +245,7 @@ namespace Planetoid_DB
 			buttonOrbitalEccentricity.TabIndex = 7;
 			buttonOrbitalEccentricity.ToolTipValues.Description = "Copy to clipboard: Orbital eccentricity";
 			buttonOrbitalEccentricity.ToolTipValues.EnableToolTips = true;
+			buttonOrbitalEccentricity.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonOrbitalEccentricity.ToolTipValues.Heading = "Orbital eccentricity";
 			buttonOrbitalEccentricity.Values.DropDownArrowColor = Color.Empty;
 			buttonOrbitalEccentricity.Values.Text = "Orbital eccentricity";
@@ -260,6 +268,7 @@ namespace Planetoid_DB
 			buttonMeanDailyMotion.TabIndex = 8;
 			buttonMeanDailyMotion.ToolTipValues.Description = "Copy to clipboard: Mean daily motion (degrees per day)";
 			buttonMeanDailyMotion.ToolTipValues.EnableToolTips = true;
+			buttonMeanDailyMotion.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonMeanDailyMotion.ToolTipValues.Heading = "Mean daily motion (degrees per day)";
 			buttonMeanDailyMotion.Values.DropDownArrowColor = Color.Empty;
 			buttonMeanDailyMotion.Values.Text = "Mean daily motion (°/day)";
@@ -282,6 +291,7 @@ namespace Planetoid_DB
 			buttonSemimajorAxis.TabIndex = 9;
 			buttonSemimajorAxis.ToolTipValues.Description = "Copy to clipboard: Semi-major axis (AU)";
 			buttonSemimajorAxis.ToolTipValues.EnableToolTips = true;
+			buttonSemimajorAxis.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonSemimajorAxis.ToolTipValues.Heading = "Semi-major axis (AU)";
 			buttonSemimajorAxis.Values.DropDownArrowColor = Color.Empty;
 			buttonSemimajorAxis.Values.Text = "Semi-major axis (AU)";
@@ -304,6 +314,7 @@ namespace Planetoid_DB
 			buttonAbsoluteMagnitude.TabIndex = 10;
 			buttonAbsoluteMagnitude.ToolTipValues.Description = "Copy to clipboard: Absolute magnitude, H";
 			buttonAbsoluteMagnitude.ToolTipValues.EnableToolTips = true;
+			buttonAbsoluteMagnitude.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonAbsoluteMagnitude.ToolTipValues.Heading = "Absolute magnitude, H";
 			buttonAbsoluteMagnitude.Values.DropDownArrowColor = Color.Empty;
 			buttonAbsoluteMagnitude.Values.Text = "Absolute magnitude, H";
@@ -326,6 +337,7 @@ namespace Planetoid_DB
 			buttonSlopeParameter.TabIndex = 11;
 			buttonSlopeParameter.ToolTipValues.Description = "Copy to clipboard: Slope parameter, G";
 			buttonSlopeParameter.ToolTipValues.EnableToolTips = true;
+			buttonSlopeParameter.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonSlopeParameter.ToolTipValues.Heading = "Slope parameter, G";
 			buttonSlopeParameter.Values.DropDownArrowColor = Color.Empty;
 			buttonSlopeParameter.Values.Text = "Slope parameter, G";
@@ -348,6 +360,7 @@ namespace Planetoid_DB
 			buttonReference.TabIndex = 12;
 			buttonReference.ToolTipValues.Description = "Copy to clipboard: Reference";
 			buttonReference.ToolTipValues.EnableToolTips = true;
+			buttonReference.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonReference.ToolTipValues.Heading = "Reference";
 			buttonReference.Values.DropDownArrowColor = Color.Empty;
 			buttonReference.Values.Text = "Reference";
@@ -370,6 +383,7 @@ namespace Planetoid_DB
 			buttonObservationSpan.TabIndex = 15;
 			buttonObservationSpan.ToolTipValues.Description = "Copy to clipboard: Observation span";
 			buttonObservationSpan.ToolTipValues.EnableToolTips = true;
+			buttonObservationSpan.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonObservationSpan.ToolTipValues.Heading = "Observation span";
 			buttonObservationSpan.Values.DropDownArrowColor = Color.Empty;
 			buttonObservationSpan.Values.Text = "Observation span";
@@ -392,6 +406,7 @@ namespace Planetoid_DB
 			buttonNumberOfObservations.TabIndex = 14;
 			buttonNumberOfObservations.ToolTipValues.Description = "Copy to clipboard: Number of observations";
 			buttonNumberOfObservations.ToolTipValues.EnableToolTips = true;
+			buttonNumberOfObservations.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonNumberOfObservations.ToolTipValues.Heading = "Number of observations";
 			buttonNumberOfObservations.Values.DropDownArrowColor = Color.Empty;
 			buttonNumberOfObservations.Values.Text = "Number of observations";
@@ -414,6 +429,7 @@ namespace Planetoid_DB
 			buttonNumberOfOppositions.TabIndex = 13;
 			buttonNumberOfOppositions.ToolTipValues.Description = "Copy to clipboard: Number of oppositions";
 			buttonNumberOfOppositions.ToolTipValues.EnableToolTips = true;
+			buttonNumberOfOppositions.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonNumberOfOppositions.ToolTipValues.Heading = "Number of oppositions";
 			buttonNumberOfOppositions.Values.DropDownArrowColor = Color.Empty;
 			buttonNumberOfOppositions.Values.Text = "Number of oppositions";
@@ -436,6 +452,7 @@ namespace Planetoid_DB
 			buttonFlags.TabIndex = 18;
 			buttonFlags.ToolTipValues.Description = "Copy to clipboard: 4-hexdigit flags";
 			buttonFlags.ToolTipValues.EnableToolTips = true;
+			buttonFlags.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonFlags.ToolTipValues.Heading = "4-hexdigit flags";
 			buttonFlags.Values.DropDownArrowColor = Color.Empty;
 			buttonFlags.Values.Text = "4-hexdigit flags";
@@ -458,6 +475,7 @@ namespace Planetoid_DB
 			buttonComputerName.TabIndex = 17;
 			buttonComputerName.ToolTipValues.Description = "Copy to clipboard: Computer name";
 			buttonComputerName.ToolTipValues.EnableToolTips = true;
+			buttonComputerName.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonComputerName.ToolTipValues.Heading = "Computer name";
 			buttonComputerName.Values.DropDownArrowColor = Color.Empty;
 			buttonComputerName.Values.Text = "Computer name";
@@ -480,6 +498,7 @@ namespace Planetoid_DB
 			buttonRmsResidual.TabIndex = 16;
 			buttonRmsResidual.ToolTipValues.Description = "Copy to clipboard: r.m.s. residual (\")";
 			buttonRmsResidual.ToolTipValues.EnableToolTips = true;
+			buttonRmsResidual.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonRmsResidual.ToolTipValues.Heading = "r.m.s. residual (\")";
 			buttonRmsResidual.Values.DropDownArrowColor = Color.Empty;
 			buttonRmsResidual.Values.Text = "r.m.s. residual (\")";
@@ -502,6 +521,7 @@ namespace Planetoid_DB
 			buttonDateOfLastObservation.TabIndex = 19;
 			buttonDateOfLastObservation.ToolTipValues.Description = "Copy to clipboard: Date of last observation (YYYMMDD)";
 			buttonDateOfLastObservation.ToolTipValues.EnableToolTips = true;
+			buttonDateOfLastObservation.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonDateOfLastObservation.ToolTipValues.Heading = "Date of last observation (YYYMMDD)";
 			buttonDateOfLastObservation.Values.DropDownArrowColor = Color.Empty;
 			buttonDateOfLastObservation.Values.Text = "Date of last observation (YYYMMDD)";

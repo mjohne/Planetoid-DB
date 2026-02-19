@@ -79,6 +79,7 @@ namespace Planetoid_DB
 			checkedListBox.TabIndex = 1;
 			checkedListBox.ToolTipValues.Description = "Show the box with selectable orbital elements to search";
 			checkedListBox.ToolTipValues.EnableToolTips = true;
+			checkedListBox.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			checkedListBox.ToolTipValues.Heading = "Box with selectable orbital elements";
 			checkedListBox.Enter += Control_Enter;
 			checkedListBox.Leave += Control_Leave;
@@ -160,6 +161,7 @@ namespace Planetoid_DB
 			buttonCancel.TabIndex = 5;
 			buttonCancel.ToolTipValues.Description = "Cancels the search";
 			buttonCancel.ToolTipValues.EnableToolTips = true;
+			buttonCancel.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonCancel.ToolTipValues.Heading = "Cancel";
 			buttonCancel.Values.DropDownArrowColor = Color.Empty;
 			buttonCancel.Values.Image = FatcowIcons16px.fatcow_cancel_16px;
@@ -213,6 +215,7 @@ namespace Planetoid_DB
 			labelEntriesFound.TabIndex = 8;
 			labelEntriesFound.ToolTipValues.Description = "Shows the found entries";
 			labelEntriesFound.ToolTipValues.EnableToolTips = true;
+			labelEntriesFound.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelEntriesFound.ToolTipValues.Heading = "Found entries";
 			labelEntriesFound.Values.Text = "0 entries found";
 			labelEntriesFound.Enter += Control_Enter;
@@ -274,6 +277,7 @@ namespace Planetoid_DB
 			buttonClear.TabIndex = 1;
 			buttonClear.ToolTipValues.Description = "Clears the search box";
 			buttonClear.ToolTipValues.EnableToolTips = true;
+			buttonClear.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonClear.ToolTipValues.Heading = "Clear";
 			buttonClear.Values.DropDownArrowColor = Color.Empty;
 			buttonClear.Values.Image = FatcowIcons16px.fatcow_cross_16px;
@@ -296,6 +300,7 @@ namespace Planetoid_DB
 			textBox.TabIndex = 0;
 			textBox.ToolTipValues.Description = "Shows the search box to input some key words";
 			textBox.ToolTipValues.EnableToolTips = true;
+			textBox.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			textBox.ToolTipValues.Heading = "Search box";
 			textBox.TextChanged += TextBox_TextChanged;
 			textBox.Enter += Control_Enter;
@@ -316,6 +321,7 @@ namespace Planetoid_DB
 			buttonLoad.TabIndex = 6;
 			buttonLoad.ToolTipValues.Description = "Loads the selected result item";
 			buttonLoad.ToolTipValues.EnableToolTips = true;
+			buttonLoad.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonLoad.ToolTipValues.Heading = "Load";
 			buttonLoad.Values.DropDownArrowColor = Color.Empty;
 			buttonLoad.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
@@ -339,6 +345,7 @@ namespace Planetoid_DB
 			buttonUnmarkAll.TabIndex = 3;
 			buttonUnmarkAll.ToolTipValues.Description = "Umarks all orbital elements";
 			buttonUnmarkAll.ToolTipValues.EnableToolTips = true;
+			buttonUnmarkAll.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonUnmarkAll.ToolTipValues.Heading = "Umark all";
 			buttonUnmarkAll.Values.DropDownArrowColor = Color.Empty;
 			buttonUnmarkAll.Values.Text = "&Unmark all";
@@ -361,6 +368,7 @@ namespace Planetoid_DB
 			buttonMarkAll.TabIndex = 2;
 			buttonMarkAll.ToolTipValues.Description = "Marks all orbital elements to search";
 			buttonMarkAll.ToolTipValues.EnableToolTips = true;
+			buttonMarkAll.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonMarkAll.ToolTipValues.Heading = "Mark all";
 			buttonMarkAll.Values.DropDownArrowColor = Color.Empty;
 			buttonMarkAll.Values.Image = FatcowIcons16px.fatcow_asterisk_orange_16px;
@@ -383,6 +391,7 @@ namespace Planetoid_DB
 			buttonSearch.TabIndex = 4;
 			buttonSearch.ToolTipValues.Description = "Searchs the keyword";
 			buttonSearch.ToolTipValues.EnableToolTips = true;
+			buttonSearch.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonSearch.ToolTipValues.Heading = "Search";
 			buttonSearch.Values.DropDownArrowColor = Color.Empty;
 			buttonSearch.Values.Image = FatcowIcons16px.fatcow_magnifier_16px;
