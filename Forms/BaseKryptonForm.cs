@@ -56,23 +56,6 @@ public class BaseKryptonForm : KryptonForm
 	private string GetDebuggerDisplay() => ToString();
 
 	/// <summary>
-	/// Default KeyDown handler that closes the form when Escape is pressed.
-	/// </summary>
-	/// <param name="sender">Event source.</param>
-	/// <param name="e">Key event args.</param>
-	/// <remarks>
-	/// This method is used to handle key down events for the form.
-	/// </remarks>
-	private void BaseKryptonForm_KeyDown(object? sender, KeyEventArgs e)
-	{
-		// Close the form when Escape is pressed
-		if (e.KeyCode == Keys.Escape && !this.InvokeRequired)
-		{
-			Close();
-		}
-	}
-
-	/// <summary>
 	/// Displays an error message.
 	/// </summary>
 	/// <param name="message">The error message.</param>
@@ -242,6 +225,23 @@ public class BaseKryptonForm : KryptonForm
 				logger.Error(exception: ex, message: "Failed to copy text to the clipboard.");
 				throw new InvalidOperationException(message: "Failed to copy text to the clipboard.", innerException: ex);
 			}
+		}
+	}
+
+	/// <summary>
+	/// Default KeyDown handler that closes the form when Escape is pressed.
+	/// </summary>
+	/// <param name="sender">Event source.</param>
+	/// <param name="e">Key event args.</param>
+	/// <remarks>
+	/// This method is used to handle key down events for the form.
+	/// </remarks>
+	private void BaseKryptonForm_KeyDown(object? sender, KeyEventArgs e)
+	{
+		// Close the form when Escape is pressed
+		if (e.KeyCode == Keys.Escape && !this.InvokeRequired)
+		{
+			Close();
 		}
 	}
 
