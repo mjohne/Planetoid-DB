@@ -54,7 +54,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 	/// <remarks>
 	/// This temporary file is used to store the downloaded gzip file before extraction.
 	/// </remarks>
-	private readonly string strFilenameTemp = Settings.Default.systemFilenameTemp;
+	private readonly string _filenameTemp = Settings.Default.systemFilenameTemp;
 
 	/// <summary>
 	/// Source URL to download the file from. Provided by the caller when the form is created.
@@ -113,7 +113,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		this.url = url;
 		// Derive the extraction file path from the URL and temporary filename
 		extractFilePath = Path.Combine(
-			Path.GetDirectoryName(path: strFilenameTemp) ?? string.Empty,
+			Path.GetDirectoryName(path: _filenameTemp) ?? string.Empty,
 			Path.GetFileNameWithoutExtension(path: url));
 		// Start download when form is shown
 		Shown += async (_, _) => await StartDownloadAsync();
@@ -253,7 +253,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		// before starting the download process.
 		// If the filename is invalid, we cannot proceed with the download.
 		// Show an error message to inform the user.
-		if (string.IsNullOrWhiteSpace(value: strFilenameTemp))
+		if (string.IsNullOrWhiteSpace(value: _filenameTemp))
 		{
 			// Show an error message if the temporary filename is invalid
 			_ = MessageBox.Show(text: "Please select a save location!", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
@@ -282,11 +282,11 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			cancellationTokenSource = new CancellationTokenSource();
 			CancellationToken token = cancellationTokenSource.Token;
 			// Start downloading the file asynchronously
-			await DownloadFileAsync(fileUrl: url, destinationPath: strFilenameTemp, token: token);
+			await DownloadFileAsync(fileUrl: url, destinationPath: _filenameTemp, token: token);
 			// Extract the downloaded GZIP file
 			labelStatusValue.Text = "Extracting...";
 			progressBarDownload.Style = ProgressBarStyle.Marquee;
-			await ExtractGzipFileAsync(gzipFilePath: strFilenameTemp, outputFilePath: extractFilePath, token: token);
+			await ExtractGzipFileAsync(gzipFilePath: _filenameTemp, outputFilePath: extractFilePath, token: token);
 			// Notify the user of successful completion
 			labelStatusValue.Text = "Download completed";
 			_ = MessageBox.Show(text: "Download completed successfully!", caption: "Finished", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
@@ -318,7 +318,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			labelStatusValue.Text = "Download error";
 			//TODO: Optionally disable the Cancel button here to prevent multiple clicks
 			_ = MessageBox.Show(text: $"Error during download: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
-			logger.Error(exception: ex, message: "Download failed. Url={Url}, TempFile={TempFile}", url, strFilenameTemp);
+			logger.Error(exception: ex, message: "Download failed. Url={Url}, TempFile={TempFile}", url, _filenameTemp);
 			DialogResult = DialogResult.Abort;
 		}
 		// Reset UI elements and clean up resources

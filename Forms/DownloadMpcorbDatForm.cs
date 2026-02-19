@@ -50,7 +50,7 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 	/// <remarks>
 	/// This is the full path to the local MPCORB data file.
 	/// </remarks>
-	private readonly string strFilenameMpcorb = Settings.Default.systemFilenameMpcorb;
+	private readonly string _filenameMpcorb = Settings.Default.systemFilenameMpcorb;
 
 	/// <summary>
 	/// Temporary filename (full path) used while downloading the MPCORB data file.
@@ -58,7 +58,7 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 	/// <remarks>
 	/// This is the full path to the temporary MPCORB data file.
 	/// </remarks>
-	private readonly string strFilenameMpcorbTemp = Settings.Default.systemFilenameMpcorbTemp;
+	private readonly string _filenameMpcorbTemp = Settings.Default.systemFilenameMpcorbTemp;
 
 	/// <summary>
 	/// Remote URI of the MPCORB.GZ resource to download.
@@ -66,7 +66,7 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 	/// <remarks>
 	/// This is the remote URI of the MPCORB.GZ resource to download.
 	/// </remarks>
-	private readonly Uri strUriMpcorb = new(uriString: Settings.Default.systemMpcorbDatGzUrl);
+	private readonly Uri _uriMpcorb = new(uriString: Settings.Default.systemMpcorbDatGzUrl);
 
 	/// <summary>
 	/// Instance of <see cref="WebClient"/> used for the legacy async download path.
@@ -270,14 +270,14 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 			// Set the status to "Refreshing database"
 			labelStatusValue.Text = I18nStrings.StatusRefreshingDatabaseText;
 			// Delete the existing file if it exists
-			File.Delete(path: strFilenameMpcorb);
+			File.Delete(path: _filenameMpcorb);
 			// Set the progress bar style to marquee
 			progressBarDownload.Style = ProgressBarStyle.Marquee;
 			// Create a new CancellationTokenSource for this download
 			cancellationTokenSource = new CancellationTokenSource();
 			// Extract the downloaded GZIP file
 			await Task.Run(action: () =>
-				ExtractGzipFile(gzipFilePath: strFilenameMpcorbTemp, outputFilePath: strFilenameMpcorb),
+				ExtractGzipFile(gzipFilePath: _filenameMpcorbTemp, outputFilePath: _filenameMpcorb),
 				cancellationToken: cancellationTokenSource.Token);
 			// Set the status to "Download complete"
 			labelStatusValue.Text = I18nStrings.StatusDownloadCompleteText;
@@ -389,17 +389,17 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 		// Disable the check for update button
 		buttonCheckForUpdate.Enabled = false;
 		// Set the source value to the URI
-		labelSourceValue.Text = strUriMpcorb.AbsoluteUri;
+		labelSourceValue.Text = _uriMpcorb.AbsoluteUri;
 		// Make the source value visible
 		labelSourceValue.Visible = true;
 		// Get the last modified date of the URI
-		//labelDateValue.Text = GetLastModified(uri: strUriMpcorb).ToUniversalTime().ToString(provider: CultureInfo.CurrentCulture);
-		string url = strUriMpcorb.AbsoluteUri;
+		//labelDateValue.Text = GetLastModified(uri: _uriMpcorb).ToUniversalTime().ToString(provider: CultureInfo.CurrentCulture);
+		string url = _uriMpcorb.AbsoluteUri;
 		labelDateValue.Text = (await GetLastModifiedAsync(uri: new Uri(uriString: url), client: httpClient)).ToString();
 		// Make the date value visible
 		labelDateValue.Visible = true;
 		// Set the size value to the content length of the URI
-		labelSizeValue.Text = $"{GetContentLength(uri: strUriMpcorb):N0} {I18nStrings.BytesText}";
+		labelSizeValue.Text = $"{GetContentLength(uri: _uriMpcorb):N0} {I18nStrings.BytesText}";
 		// Make the size value visible
 		labelSizeValue.Visible = true;
 		// Set the status value to "Try to connect"
@@ -410,7 +410,7 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 			// Set the status value to "Downloading"
 			labelStatusValue.Text = I18nStrings.StatusDownloading;
 			// Start the download asynchronously
-			webClient.DownloadFileAsync(address: strUriMpcorb, fileName: strFilenameMpcorbTemp);
+			webClient.DownloadFileAsync(address: _uriMpcorb, fileName: _filenameMpcorbTemp);
 		}
 		catch (Exception ex)
 		{
@@ -442,14 +442,14 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 		buttonCancelDownload.Enabled = true;
 		buttonCheckForUpdate.Enabled = false;
 
-		labelSourceValue.Text = strUriMpcorb.AbsoluteUri;
+		labelSourceValue.Text = _uriMpcorb.AbsoluteUri;
 		labelSourceValue.Visible = true;
 
 		// Get the last modified date of the URI
-		//labelDateValue.Text = GetLastModified(uri: strUriMpcorb).ToUniversalTime().ToString(provider: CultureInfo.CurrentCulture);
+		//labelDateValue.Text = GetLastModified(uri: _uriMpcorb).ToUniversalTime().ToString(provider: CultureInfo.CurrentCulture);
 		try
 		{
-			string url = strUriMpcorb.AbsoluteUri;
+			string url = _uriMpcorb.AbsoluteUri;
 			labelDateValue.Text = (await GetLastModifiedAsync(uri: new Uri(uriString: url), client: httpClient)).ToString();
 			labelDateValue.Visible = true;
 		}
@@ -463,7 +463,7 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 			ShowErrorMessage(message: $"{I18nStrings.StatusUnknownError} {ex.Message}");
 			return;
 		}
-		labelSizeValue.Text = $"{GetContentLength(uri: strUriMpcorb):N0} {I18nStrings.BytesText}";
+		labelSizeValue.Text = $"{GetContentLength(uri: _uriMpcorb):N0} {I18nStrings.BytesText}";
 		labelSizeValue.Visible = true;
 
 		labelStatusValue.Text = I18nStrings.StatusTryToConnect;
@@ -473,22 +473,22 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 			labelStatusValue.Text = I18nStrings.StatusDownloading;
 
 			// Ersetze in der Methode ButtonDownload2_Click die Zeile:
-			// using HttpResponseMessage response = await HttpClient.GetAsync(requestUri: strUriMpcorb, completionOption: HttpCompletionOption.ResponseHeadersRead);
+			// using HttpResponseMessage response = await HttpClient.GetAsync(requestUri: _uriMpcorb, completionOption: HttpCompletionOption.ResponseHeadersRead);
 			// durch:
-			using HttpResponseMessage response = await httpClient.GetAsync(requestUri: strUriMpcorb, completionOption: HttpCompletionOption.ResponseHeadersRead);
+			using HttpResponseMessage response = await httpClient.GetAsync(requestUri: _uriMpcorb, completionOption: HttpCompletionOption.ResponseHeadersRead);
 			_ = response.EnsureSuccessStatusCode();
 
 			using Stream contentStream = await response.Content.ReadAsStreamAsync();
-			using FileStream fileStream = new(path: strFilenameMpcorbTemp, mode: FileMode.Create, access: FileAccess.Write, share: FileShare.None);
+			using FileStream fileStream = new(path: _filenameMpcorbTemp, mode: FileMode.Create, access: FileAccess.Write, share: FileShare.None);
 			await contentStream.CopyToAsync(destination: fileStream);
 
 			labelStatusValue.Text = I18nStrings.StatusRefreshingDatabaseText;
 
-			File.Delete(path: strFilenameMpcorb);
+			File.Delete(path: _filenameMpcorb);
 			// Extract the downloaded GZIP file
 			progressBarDownload.Style = ProgressBarStyle.Marquee;
 			await Task.Run(action: () =>
-				ExtractGzipFile(gzipFilePath: strFilenameMpcorbTemp, outputFilePath: strFilenameMpcorb));
+				ExtractGzipFile(gzipFilePath: _filenameMpcorbTemp, outputFilePath: _filenameMpcorb));
 			labelStatusValue.Text = I18nStrings.StatusDownloadCompleteText;
 			buttonDownload.Enabled = buttonCheckForUpdate.Enabled = true;
 			DialogResult = DialogResult.OK;
@@ -530,10 +530,10 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 		// Cancel the download if it is in progress
 		webClient.CancelAsync();
 		// Dispose of the WebClient instance
-		if (File.Exists(path: strFilenameMpcorbTemp))
+		if (File.Exists(path: _filenameMpcorbTemp))
 		{
 			// Delete the temporary file if it exists
-			File.Delete(path: strFilenameMpcorbTemp);
+			File.Delete(path: _filenameMpcorbTemp);
 		}
 	}
 

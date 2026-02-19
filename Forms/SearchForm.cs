@@ -61,7 +61,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <remarks>
 	/// This variable is used to store the index of the planetoids.
 	/// </remarks>
-	private string strIndex = string.Empty;
+	private string _index = string.Empty;
 
 	/// <summary>
 	/// The absolute magnitude of the planetoids.
@@ -69,7 +69,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <remarks>
 	/// This variable is used to store the absolute magnitude of the planetoids.
 	/// </remarks>
-	private string strMagAbs = string.Empty;
+	private string _magAbs = string.Empty;
 
 	/// <summary>
 	/// The slope parameter of the planetoid.
@@ -77,7 +77,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <remarks>
 	/// This variable is used to store the slope parameter of the planetoid.
 	/// </remarks>
-	private string strSlopeParam = string.Empty;
+	private string _slopeParam = string.Empty;
 
 	/// <summary>
 	/// The epoch of the planetoids.
@@ -85,7 +85,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <remarks>
 	/// This variable is used to store the epoch of the planetoids.
 	/// </remarks>
-	private string strEpoch = string.Empty;
+	private string _epoch = string.Empty;
 
 	/// <summary>
 	/// The mean anomaly of the planetoids.
@@ -93,7 +93,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <remarks>
 	/// This variable is used to store the mean anomaly of the planetoids.
 	/// </remarks>
-	private string strMeanAnomaly = string.Empty;
+	private string _meanAnomaly = string.Empty;
 
 	/// <summary>
 	/// The argument of perihelion of the planetoids.
@@ -101,7 +101,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <remarks>
 	/// This variable is used to store the argument of perihelion of the planetoids.
 	/// </remarks>
-	private string strArgPeri = string.Empty;
+	private string _argPeri = string.Empty;
 
 	/// <summary>
 	/// The longitude of the ascending node of the planetoids.
@@ -109,7 +109,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <remarks>
 	/// This variable is used to store the longitude of the ascending node of the planetoids.
 	/// </remarks>
-	private string strLongAscNode = string.Empty;
+	private string _longAscNode = string.Empty;
 
 	/// <summary>
 	/// The inclination of the planetoids.
@@ -117,7 +117,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <remarks>
 	/// This variable is used to store the inclination of the planetoids.
 	/// </remarks>
-	private string strIncl = string.Empty;
+	private string _incl = string.Empty;
 
 	/// <summary>
 	/// The orbital eccentricity of the planetoids.
@@ -125,7 +125,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <remarks>
 	/// This variable is used to store the orbital eccentricity of the planetoids.
 	/// </remarks>
-	private string strOrbEcc = string.Empty;
+	private string _orbEcc = string.Empty;
 
 	/// <summary>
 	/// The mean daily motion of the planetoids.
@@ -133,7 +133,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <remarks>
 	/// This variable is used to store the mean daily motion of the planetoids.
 	/// </remarks>
-	private string strMotion = string.Empty;
+	private string _motion = string.Empty;
 
 	/// <summary>
 	/// The semi-major axis of the planetoids.
@@ -141,7 +141,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <remarks>
 	/// This variable is used to store the semi-major axis of the planetoids.
 	/// </remarks>
-	private string strSemiMajorAxis = string.Empty;
+	private string _semiMajorAxis = string.Empty;
 
 	/// <summary>
 	/// The reference for the planetoids data.
@@ -149,7 +149,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <remarks>
 	/// This variable is used to store the reference for the planetoids data.
 	/// </remarks>
-	private string strRef = string.Empty;
+	private string _ref = string.Empty;
 
 	/// <summary>
 	/// The number of observations of the planetoids.
@@ -157,7 +157,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <remarks>
 	/// This variable is used to store the number of observations of the planetoids.
 	/// </remarks>
-	private string strNumberObservations = string.Empty;
+	private string _numberObservations = string.Empty;
 
 	/// <summary>
 	/// The number of oppositions of the planetoids.
@@ -165,7 +165,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <remarks>
 	/// This variable is used to store the number of oppositions of the planetoids.
 	/// </remarks>
-	private string strNumberOppositions = string.Empty;
+	private string _numberOppositions = string.Empty;
 
 	/// <summary>
 	/// The observation span of the planetoids.
@@ -173,7 +173,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <remarks>
 	/// This variable is used to store the observation span of the planetoids.
 	/// </remarks>
-	private string strObsSpan = string.Empty;
+	private string _obsSpan = string.Empty;
 
 	/// <summary>
 	/// The RMS residual of the planetoids.
@@ -181,7 +181,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <remarks>
 	/// This variable is used to store the RMS residual of the planetoids.
 	/// </remarks>
-	private string strRmsResidual = string.Empty;
+	private string _rmsResidual = string.Empty;
 
 	/// <summary>
 	/// The name of the computer that processed the planetoids data.
@@ -189,7 +189,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <remarks>
 	/// This variable is used to store the name of the computer that processed the planetoids data.
 	/// </remarks>
-	private string strComputerName = string.Empty;
+	private string _computerName = string.Empty;
 
 	/// <summary>
 	/// The flags associated with the planetoids.
@@ -197,7 +197,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <remarks>
 	/// This variable is used to store the flags associated with the planetoids.
 	/// </remarks>
-	private string strFlags = string.Empty;
+	private string _flags = string.Empty;
 
 	/// <summary>
 	/// The designation name of the planetoids.
@@ -205,7 +205,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <remarks>
 	/// This variable is used to store the designation name of the planetoids.
 	/// </remarks>
-	private string strDesignationName = string.Empty;
+	private string _designationName = string.Empty;
 
 	/// <summary>
 	/// The date of the last observation of the planetoids.
@@ -213,7 +213,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <remarks>
 	/// This variable is used to store the date of the last observation of the planetoids.
 	/// </remarks>
-	private string strObsLastDate = string.Empty;
+	private string _obsLastDate = string.Empty;
 
 	#region constructor
 
@@ -279,44 +279,44 @@ public partial class SearchForm : BaseKryptonForm
 	private void FormatRow(int currentPosition)
 	{
 #pragma warning disable CS8602 // Dereferenzierung eines möglichen Nullverweises.
-		strIndex = planetoidsDatabase[index: currentPosition].ToString()[..7].Trim();
-		strMagAbs = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 8, length: 5).Trim();
-		strSlopeParam = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 14, length: 5).Trim();
-		strEpoch = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 20, length: 5).Trim();
-		strMeanAnomaly = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 26, length: 9).Trim();
-		strArgPeri = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 37, length: 9).Trim();
-		strLongAscNode = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 48, length: 9).Trim();
-		strIncl = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 59, length: 9).Trim();
-		strOrbEcc = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 70, length: 9).Trim();
-		strMotion = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 80, length: 11).Trim();
-		strSemiMajorAxis = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 92, length: 11).Trim();
-		strRef = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 107, length: 9).Trim();
-		strNumberObservations = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 117, length: 5).Trim();
-		strNumberOppositions = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 123, length: 3).Trim();
-		strObsSpan = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 127, length: 9).Trim();
-		strRmsResidual = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 137, length: 4).Trim();
-		strComputerName = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 150, length: 10).Trim();
-		strFlags = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 161, length: 4).Trim();
-		strDesignationName = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 166, length: 28).Trim();
-		strObsLastDate = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 194, length: 8).Trim();
+		_index = planetoidsDatabase[index: currentPosition].ToString()[..7].Trim();
+		_magAbs = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 8, length: 5).Trim();
+		_slopeParam = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 14, length: 5).Trim();
+		_epoch = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 20, length: 5).Trim();
+		_meanAnomaly = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 26, length: 9).Trim();
+		_argPeri = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 37, length: 9).Trim();
+		_longAscNode = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 48, length: 9).Trim();
+		_incl = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 59, length: 9).Trim();
+		_orbEcc = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 70, length: 9).Trim();
+		_motion = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 80, length: 11).Trim();
+		_semiMajorAxis = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 92, length: 11).Trim();
+		_ref = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 107, length: 9).Trim();
+		_numberObservations = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 117, length: 5).Trim();
+		_numberOppositions = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 123, length: 3).Trim();
+		_obsSpan = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 127, length: 9).Trim();
+		_rmsResidual = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 137, length: 4).Trim();
+		_computerName = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 150, length: 10).Trim();
+		_flags = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 161, length: 4).Trim();
+		_designationName = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 166, length: 28).Trim();
+		_obsLastDate = planetoidsDatabase[index: currentPosition].ToString().Substring(startIndex: 194, length: 8).Trim();
 #pragma warning restore CS8602 // Dereferenzierung eines möglichen Nullverweises.
 
 		//MessageBox.Show(textBox.Text.Contains(value: strDesgnName).ToString());
 
 		//if (String.Equals(textBox.Text, strDesgnName))
 
-		if (!strDesignationName.Contains(value: textBox.Text))
+		if (!_designationName.Contains(value: textBox.Text))
 		{
 			return;
 		}
 
 		entriesFound++;
-		ListViewItem listViewItem = new(text: strIndex)
+		ListViewItem listViewItem = new(text: _index)
 		{
-			ToolTipText = $"{strIndex}: {strDesignationName}"
+			ToolTipText = $"{_index}: {_designationName}"
 		};
 		_ = listViewItem.SubItems.Add(text: "readable designation");
-		_ = listViewItem.SubItems.Add(text: strDesignationName);
+		_ = listViewItem.SubItems.Add(text: _designationName);
 		_ = listView.Items.Add(value: listViewItem);
 		labelEntriesFound.Text = $"{entriesFound} entries found";
 
@@ -324,24 +324,24 @@ public partial class SearchForm : BaseKryptonForm
 
 		/*
 		listViewItem.SubItems.Add(text: strDesgnName);
-		listViewItem.SubItems.Add(text: strEpoch);
-		listViewItem.SubItems.Add(text: strMeanAnomaly);
-		listViewItem.SubItems.Add(text: strArgPeri);
-		listViewItem.SubItems.Add(text: strLongAscNode);
-		listViewItem.SubItems.Add(text: strIncl);
-		listViewItem.SubItems.Add(text: strOrbEcc);
-		listViewItem.SubItems.Add(text: strMotion);
-		listViewItem.SubItems.Add(text: strSemiMajorAxis);
-		listViewItem.SubItems.Add(text: strMagAbs);
-		listViewItem.SubItems.Add(text: strSlopeParam);
-		listViewItem.SubItems.Add(text: strRef);
+		listViewItem.SubItems.Add(text: _epoch);
+		listViewItem.SubItems.Add(text: _meanAnomaly);
+		listViewItem.SubItems.Add(text: _argPeri);
+		listViewItem.SubItems.Add(text: _longAscNode);
+		listViewItem.SubItems.Add(text: _incl);
+		listViewItem.SubItems.Add(text: _orbEcc);
+		listViewItem.SubItems.Add(text: _motion);
+		listViewItem.SubItems.Add(text: _semiMajorAxis);
+		listViewItem.SubItems.Add(text: _magAbs);
+		listViewItem.SubItems.Add(text: _slopeParam);
+		listViewItem.SubItems.Add(text: _ref);
 		listViewItem.SubItems.Add(text: strNumbOppos);
 		listViewItem.SubItems.Add(text: strNumbObs);
-		listViewItem.SubItems.Add(text: strObsSpan);
+		listViewItem.SubItems.Add(text: _obsSpan);
 		listViewItem.SubItems.Add(text: strRmsResdiual);
-		listViewItem.SubItems.Add(text: strComputerName);
-		listViewItem.SubItems.Add(text: strFlags);
-		listViewItem.SubItems.Add(text: strObsLastDate);
+		listViewItem.SubItems.Add(text: _computerName);
+		listViewItem.SubItems.Add(text: _flags);
+		listViewItem.SubItems.Add(text: _obsLastDate);
 
 		listView.Items.Add(value: listViewItem);
 		*/
