@@ -402,8 +402,6 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 
 	#endregion
 
-	#endregion
-
 	#region Click event handlers
 
 	/// <summary>

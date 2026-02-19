@@ -97,6 +97,4 @@ public partial class SplashScreenForm : BaseKryptonForm
 		labelVersion.Text = string.Format(format: I18nStrings.VersionTemplate, arg0: AssemblyInfo.AssemblyVersion);
 	}
 	#endregion
-
-	#endregion
 }

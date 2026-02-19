@@ -548,15 +548,4 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 	private void ButtonCheckForUpdate_Click(object? sender, EventArgs? e) => ShowMpcorbDatCheck();
 
 	#endregion
-
-	#endregion
-
-	#region DoubleClick event handlers
-
-	/// <summary>
-	/// Called when a control is double-clicked. If the <paramref name="sender"/> is a <see cref="Control"/>
-	/// or a <see cref="ToolStripItem"/>, its <see cref="Control.Text"/> value is copied to the clipboard
-	/// using the shared helper.
-	/// </summary>
-	#endregion
 }
