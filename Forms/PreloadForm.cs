@@ -105,7 +105,7 @@ public partial class PreloadForm : BaseKryptonForm
 
 	#endregion
 
-	#region form event handler
+	#region form event handlers
 
 	/// <summary>
 	/// Fired when the preload form has finished loading.
