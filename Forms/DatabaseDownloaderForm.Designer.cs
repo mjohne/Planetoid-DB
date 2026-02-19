@@ -1,3 +1,5 @@
+using Planetoid_DB.Resources;
+
 namespace Planetoid_DB
 {
     partial class DatabaseDownloaderForm
