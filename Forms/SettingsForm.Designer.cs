@@ -132,6 +132,7 @@ namespace Planetoid_DB
 			checkBox10.Size = new Size(215, 23);
 			checkBox10.TabIndex = 2;
 			checkBox10.ToolTipValues.EnableToolTips = true;
+			checkBox10.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			checkBox10.Values.Text = "Enable linking to terminology";
 			// 
 			// checkBox9
@@ -142,6 +143,7 @@ namespace Planetoid_DB
 			checkBox9.Size = new Size(335, 23);
 			checkBox9.TabIndex = 1;
 			checkBox9.ToolTipValues.EnableToolTips = true;
+			checkBox9.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			checkBox9.Values.Text = "Enabled copying to clipboard by double-clicking";
 			// 
 			// checkBox8
@@ -152,6 +154,7 @@ namespace Planetoid_DB
 			checkBox8.Size = new Size(146, 23);
 			checkBox8.TabIndex = 0;
 			checkBox8.ToolTipValues.EnableToolTips = true;
+			checkBox8.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			checkBox8.Values.Text = "Stay always on top";
 			// 
 			// tabPageNavigator
@@ -179,6 +182,7 @@ namespace Planetoid_DB
 			radioButton9.Size = new Size(204, 23);
 			radioButton9.TabIndex = 5;
 			radioButton9.ToolTipValues.EnableToolTips = true;
+			radioButton9.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			radioButton9.Values.Text = "Start with the last used item";
 			// 
 			// numericUpDown1
@@ -197,6 +201,7 @@ namespace Planetoid_DB
 			radioButton4.Size = new Size(182, 23);
 			radioButton4.TabIndex = 3;
 			radioButton4.ToolTipValues.EnableToolTips = true;
+			radioButton4.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			radioButton4.Values.Text = "Start with a specific item";
 			// 
 			// radioButton3
@@ -207,6 +212,7 @@ namespace Planetoid_DB
 			radioButton3.Size = new Size(184, 23);
 			radioButton3.TabIndex = 2;
 			radioButton3.ToolTipValues.EnableToolTips = true;
+			radioButton3.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			radioButton3.Values.Text = "Start with a random item";
 			// 
 			// radioButton2
@@ -217,6 +223,7 @@ namespace Planetoid_DB
 			radioButton2.Size = new Size(169, 23);
 			radioButton2.TabIndex = 1;
 			radioButton2.ToolTipValues.EnableToolTips = true;
+			radioButton2.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			radioButton2.Values.Text = "Start with the last item";
 			// 
 			// radioButton1
@@ -227,6 +234,7 @@ namespace Planetoid_DB
 			radioButton1.Size = new Size(172, 23);
 			radioButton1.TabIndex = 0;
 			radioButton1.ToolTipValues.EnableToolTips = true;
+			radioButton1.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			radioButton1.Values.Text = "Start with the first item";
 			// 
 			// tabPageUpdate

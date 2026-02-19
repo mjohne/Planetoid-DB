@@ -144,6 +144,7 @@ namespace Planetoid_DB
 			listBox.TabIndex = 7;
 			listBox.ToolTipValues.Description = "Lists the terms that can be looked up";
 			listBox.ToolTipValues.EnableToolTips = true;
+			listBox.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			listBox.ToolTipValues.Heading = "Terms list";
 			listBox.SelectedValueChanged += ListBox_SelectedValueChanged;
 			listBox.Enter += Control_Enter;

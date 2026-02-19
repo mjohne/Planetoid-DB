@@ -83,6 +83,7 @@ namespace Planetoid_DB
 			buttonLinearEccentricity.TabIndex = 0;
 			buttonLinearEccentricity.ToolTipValues.Description = "Copy to clipboard: Linear eccentricity (AU)";
 			buttonLinearEccentricity.ToolTipValues.EnableToolTips = true;
+			buttonLinearEccentricity.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonLinearEccentricity.ToolTipValues.Heading = "Linear eccentricity (AU)";
 			buttonLinearEccentricity.Values.DropDownArrowColor = Color.Empty;
 			buttonLinearEccentricity.Values.Text = "Linear eccentricity (AU)";
@@ -105,6 +106,7 @@ namespace Planetoid_DB
 			buttonSemiMinorAxis.TabIndex = 1;
 			buttonSemiMinorAxis.ToolTipValues.Description = "Copy to clipboard: Semi-minor axis (AU)";
 			buttonSemiMinorAxis.ToolTipValues.EnableToolTips = true;
+			buttonSemiMinorAxis.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonSemiMinorAxis.ToolTipValues.Heading = "Semi-minor axis (AU)";
 			buttonSemiMinorAxis.Values.DropDownArrowColor = Color.Empty;
 			buttonSemiMinorAxis.Values.Text = "Semi-minor axis (AU)";
@@ -127,6 +129,7 @@ namespace Planetoid_DB
 			buttonMajorAxis.TabIndex = 2;
 			buttonMajorAxis.ToolTipValues.Description = "Copy to clipboard: Major axis (AU)";
 			buttonMajorAxis.ToolTipValues.EnableToolTips = true;
+			buttonMajorAxis.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonMajorAxis.ToolTipValues.Heading = "Major axis (AU)";
 			buttonMajorAxis.Values.DropDownArrowColor = Color.Empty;
 			buttonMajorAxis.Values.Text = "Major axis (AU)";
@@ -149,6 +152,7 @@ namespace Planetoid_DB
 			buttonMinorAxis.TabIndex = 3;
 			buttonMinorAxis.ToolTipValues.Description = "Copy to clipboard: Minor axis (AU)";
 			buttonMinorAxis.ToolTipValues.EnableToolTips = true;
+			buttonMinorAxis.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonMinorAxis.ToolTipValues.Heading = "Minor axis (AU)";
 			buttonMinorAxis.Values.DropDownArrowColor = Color.Empty;
 			buttonMinorAxis.Values.Text = "Minor axis (AU)";
@@ -171,6 +175,7 @@ namespace Planetoid_DB
 			buttonEccentricAnomaly.TabIndex = 4;
 			buttonEccentricAnomaly.ToolTipValues.Description = "Copy to clipboard: Eccentric anomaly ((degrees)";
 			buttonEccentricAnomaly.ToolTipValues.EnableToolTips = true;
+			buttonEccentricAnomaly.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonEccentricAnomaly.ToolTipValues.Heading = "Eccentric anomaly ((degrees)";
 			buttonEccentricAnomaly.Values.DropDownArrowColor = Color.Empty;
 			buttonEccentricAnomaly.Values.Text = "Eccentric anomaly (°)";
@@ -193,6 +198,7 @@ namespace Planetoid_DB
 			buttonTrueAnomaly.TabIndex = 5;
 			buttonTrueAnomaly.ToolTipValues.Description = "Copy to clipboard: True anomaly ((degrees)";
 			buttonTrueAnomaly.ToolTipValues.EnableToolTips = true;
+			buttonTrueAnomaly.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonTrueAnomaly.ToolTipValues.Heading = "True anomaly (degrees)";
 			buttonTrueAnomaly.Values.DropDownArrowColor = Color.Empty;
 			buttonTrueAnomaly.Values.Text = "True anomaly (°)";
@@ -215,6 +221,7 @@ namespace Planetoid_DB
 			buttonPerihelionDistance.TabIndex = 6;
 			buttonPerihelionDistance.ToolTipValues.Description = "Copy to clipboard: Perihelion distance (AU)";
 			buttonPerihelionDistance.ToolTipValues.EnableToolTips = true;
+			buttonPerihelionDistance.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonPerihelionDistance.ToolTipValues.Heading = "Perihelion distance (AU)";
 			buttonPerihelionDistance.Values.DropDownArrowColor = Color.Empty;
 			buttonPerihelionDistance.Values.Text = "Perihelion distance (AU)";
@@ -237,6 +244,7 @@ namespace Planetoid_DB
 			buttonAphelionDistance.TabIndex = 7;
 			buttonAphelionDistance.ToolTipValues.Description = "Copy to clipboard: Aphelion distance (AU)";
 			buttonAphelionDistance.ToolTipValues.EnableToolTips = true;
+			buttonAphelionDistance.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonAphelionDistance.ToolTipValues.Heading = "Aphelion distance (AU)";
 			buttonAphelionDistance.Values.DropDownArrowColor = Color.Empty;
 			buttonAphelionDistance.Values.Text = "Aphelion distance (AU)";
@@ -259,6 +267,7 @@ namespace Planetoid_DB
 			buttonLongitudeDescendingNode.TabIndex = 8;
 			buttonLongitudeDescendingNode.ToolTipValues.Description = "Copy to clipboard: Longitude of the descending node (degrees)";
 			buttonLongitudeDescendingNode.ToolTipValues.EnableToolTips = true;
+			buttonLongitudeDescendingNode.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonLongitudeDescendingNode.ToolTipValues.Heading = "Longitude of the descending node (degrees)";
 			buttonLongitudeDescendingNode.Values.DropDownArrowColor = Color.Empty;
 			buttonLongitudeDescendingNode.Values.Text = "Longitude of the descending node (°)";
@@ -281,6 +290,7 @@ namespace Planetoid_DB
 			buttonArgumentAphelion.TabIndex = 9;
 			buttonArgumentAphelion.ToolTipValues.Description = "Copy to clipboard: Argument of aphelion (degrees)";
 			buttonArgumentAphelion.ToolTipValues.EnableToolTips = true;
+			buttonArgumentAphelion.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonArgumentAphelion.ToolTipValues.Heading = "Argument of aphelion (degrees)";
 			buttonArgumentAphelion.Values.DropDownArrowColor = Color.Empty;
 			buttonArgumentAphelion.Values.Text = "Argument of aphelion (°)";
@@ -303,6 +313,7 @@ namespace Planetoid_DB
 			buttonFocalParameter.TabIndex = 10;
 			buttonFocalParameter.ToolTipValues.Description = "Copy to clipboard: Focal parameter (AU)";
 			buttonFocalParameter.ToolTipValues.EnableToolTips = true;
+			buttonFocalParameter.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonFocalParameter.ToolTipValues.Heading = "Focal parameter (AU)";
 			buttonFocalParameter.Values.DropDownArrowColor = Color.Empty;
 			buttonFocalParameter.Values.Text = "Focal parameter (AU)";
@@ -325,6 +336,7 @@ namespace Planetoid_DB
 			buttonSemiLatusRectum.TabIndex = 11;
 			buttonSemiLatusRectum.ToolTipValues.Description = "Copy to clipboard: Semi-latus rectum (AU)";
 			buttonSemiLatusRectum.ToolTipValues.EnableToolTips = true;
+			buttonSemiLatusRectum.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonSemiLatusRectum.ToolTipValues.Heading = "Semi-latus rectum (AU)";
 			buttonSemiLatusRectum.Values.DropDownArrowColor = Color.Empty;
 			buttonSemiLatusRectum.Values.Text = "Semi-latus rectum (AU)";
@@ -347,6 +359,7 @@ namespace Planetoid_DB
 			buttonLatusRectum.TabIndex = 12;
 			buttonLatusRectum.ToolTipValues.Description = "Copy to clipboard: Latus rectum (AU)";
 			buttonLatusRectum.ToolTipValues.EnableToolTips = true;
+			buttonLatusRectum.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonLatusRectum.ToolTipValues.Heading = "Latus rectum (AU)";
 			buttonLatusRectum.Values.DropDownArrowColor = Color.Empty;
 			buttonLatusRectum.Values.Text = "Latus rectum (AU)";
@@ -369,6 +382,7 @@ namespace Planetoid_DB
 			buttonOrbitalPerimeter.TabIndex = 15;
 			buttonOrbitalPerimeter.ToolTipValues.Description = "Copy to clipboard: Orbital perimeter (AU)";
 			buttonOrbitalPerimeter.ToolTipValues.EnableToolTips = true;
+			buttonOrbitalPerimeter.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonOrbitalPerimeter.ToolTipValues.Heading = "Orbital perimeter (AU)";
 			buttonOrbitalPerimeter.Values.DropDownArrowColor = Color.Empty;
 			buttonOrbitalPerimeter.Values.Text = "Orbital perimeter (AU)";
@@ -391,6 +405,7 @@ namespace Planetoid_DB
 			buttonOrbitalArea.TabIndex = 14;
 			buttonOrbitalArea.ToolTipValues.Description = "Copy to clipboard: Orbital area (AU²)";
 			buttonOrbitalArea.ToolTipValues.EnableToolTips = true;
+			buttonOrbitalArea.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonOrbitalArea.ToolTipValues.Heading = "Orbital area (AU²)";
 			buttonOrbitalArea.Values.DropDownArrowColor = Color.Empty;
 			buttonOrbitalArea.Values.Text = "Orbital area (AU²)";
@@ -413,6 +428,7 @@ namespace Planetoid_DB
 			buttonOrbitalPeriod.TabIndex = 13;
 			buttonOrbitalPeriod.ToolTipValues.Description = "Copy to clipboard: Orbital period (years)";
 			buttonOrbitalPeriod.ToolTipValues.EnableToolTips = true;
+			buttonOrbitalPeriod.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonOrbitalPeriod.ToolTipValues.Heading = "Orbital period (years)";
 			buttonOrbitalPeriod.Values.DropDownArrowColor = Color.Empty;
 			buttonOrbitalPeriod.Values.Text = "Orbital period (years)";
@@ -435,6 +451,7 @@ namespace Planetoid_DB
 			buttonStandardGravitationalParameter.TabIndex = 18;
 			buttonStandardGravitationalParameter.ToolTipValues.Description = "Copy to clipboard: Standard gravitational parameter (AU³/a²)";
 			buttonStandardGravitationalParameter.ToolTipValues.EnableToolTips = true;
+			buttonStandardGravitationalParameter.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonStandardGravitationalParameter.ToolTipValues.Heading = "Standard gravitational parameter (AU³/a²)";
 			buttonStandardGravitationalParameter.Values.DropDownArrowColor = Color.Empty;
 			buttonStandardGravitationalParameter.Values.Text = "Standard gravitational parameter (AU³/a²)";
@@ -457,6 +474,7 @@ namespace Planetoid_DB
 			buttonMeanAxis.TabIndex = 17;
 			buttonMeanAxis.ToolTipValues.Description = "Copy to clipboard: Mean axis (AU)";
 			buttonMeanAxis.ToolTipValues.EnableToolTips = true;
+			buttonMeanAxis.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonMeanAxis.ToolTipValues.Heading = "Mean axis (AU)";
 			buttonMeanAxis.Values.DropDownArrowColor = Color.Empty;
 			buttonMeanAxis.Values.Text = "Mean axis (AU)";
@@ -479,6 +497,7 @@ namespace Planetoid_DB
 			buttonSemiMeanAxis.TabIndex = 16;
 			buttonSemiMeanAxis.ToolTipValues.Description = "Copy to clipboard: Semi-mean axis (AU)";
 			buttonSemiMeanAxis.ToolTipValues.EnableToolTips = true;
+			buttonSemiMeanAxis.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonSemiMeanAxis.ToolTipValues.Heading = "Semi-mean axis (AU)";
 			buttonSemiMeanAxis.Values.DropDownArrowColor = Color.Empty;
 			buttonSemiMeanAxis.Values.Text = "Semi-mean axis (AU)";

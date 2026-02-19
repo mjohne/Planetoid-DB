@@ -75,6 +75,7 @@ namespace Planetoid_DB
 			labelUpdateNeeded.TabIndex = 8;
 			labelUpdateNeeded.ToolTipValues.Description = "Informs if an update is recommended";
 			labelUpdateNeeded.ToolTipValues.EnableToolTips = true;
+			labelUpdateNeeded.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelUpdateNeeded.ToolTipValues.Heading = "Update text";
 			labelUpdateNeeded.Values.Image = FatcowIcons16px.fatcow_help_16px;
 			labelUpdateNeeded.Values.Text = "Update needed?";
@@ -98,6 +99,7 @@ namespace Planetoid_DB
 			labelAstorbDatLocal.TabIndex = 0;
 			labelAstorbDatLocal.ToolTipValues.Description = "Information about the local ASTORB.DAT file";
 			labelAstorbDatLocal.ToolTipValues.EnableToolTips = true;
+			labelAstorbDatLocal.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelAstorbDatLocal.ToolTipValues.Heading = "Local ASTORB.DAT file";
 			labelAstorbDatLocal.Values.Text = "ASTORB.DAT local";
 			labelAstorbDatLocal.Enter += Control_Enter;
@@ -119,6 +121,7 @@ namespace Planetoid_DB
 			labelAstorbDatOnline.TabIndex = 1;
 			labelAstorbDatOnline.ToolTipValues.Description = "Information about the online ASTORB.DAT file";
 			labelAstorbDatOnline.ToolTipValues.EnableToolTips = true;
+			labelAstorbDatOnline.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelAstorbDatOnline.ToolTipValues.Heading = "Online ASTORB.DAT file";
 			labelAstorbDatOnline.Values.Text = "ASTORB.DAT online";
 			labelAstorbDatOnline.Enter += Control_Enter;
@@ -139,6 +142,7 @@ namespace Planetoid_DB
 			labelContentLengthText.TabIndex = 2;
 			labelContentLengthText.ToolTipValues.Description = "Shows the content length";
 			labelContentLengthText.ToolTipValues.EnableToolTips = true;
+			labelContentLengthText.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelContentLengthText.ToolTipValues.Heading = "Content length";
 			labelContentLengthText.Values.Text = "Content length:";
 			labelContentLengthText.Enter += Control_Enter;
@@ -160,6 +164,7 @@ namespace Planetoid_DB
 			labelModifiedDateText.TabIndex = 5;
 			labelModifiedDateText.ToolTipValues.Description = "Shows the modified date";
 			labelModifiedDateText.ToolTipValues.EnableToolTips = true;
+			labelModifiedDateText.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelModifiedDateText.ToolTipValues.Heading = "Modified date";
 			labelModifiedDateText.Values.Text = "Modified date:";
 			labelModifiedDateText.Enter += Control_Enter;
@@ -181,6 +186,7 @@ namespace Planetoid_DB
 			labelContentLengthValueLocal.TabIndex = 3;
 			labelContentLengthValueLocal.ToolTipValues.Description = "Shows the local content length";
 			labelContentLengthValueLocal.ToolTipValues.EnableToolTips = true;
+			labelContentLengthValueLocal.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelContentLengthValueLocal.ToolTipValues.Heading = "Local content length";
 			labelContentLengthValueLocal.Values.Text = "123456789 bytes";
 			labelContentLengthValueLocal.DoubleClick += CopyToClipboard_DoubleClick;
@@ -235,6 +241,7 @@ namespace Planetoid_DB
 			labelModifiedDateValueLocal.TabIndex = 6;
 			labelModifiedDateValueLocal.ToolTipValues.Description = "Shows the local modified date";
 			labelModifiedDateValueLocal.ToolTipValues.EnableToolTips = true;
+			labelModifiedDateValueLocal.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelModifiedDateValueLocal.ToolTipValues.Heading = "Local modified date";
 			labelModifiedDateValueLocal.Values.Text = "00.00.0000 00:00";
 			labelModifiedDateValueLocal.DoubleClick += CopyToClipboard_DoubleClick;
@@ -258,6 +265,7 @@ namespace Planetoid_DB
 			labelContentLengthValueOnline.TabIndex = 4;
 			labelContentLengthValueOnline.ToolTipValues.Description = "Shows the online content length";
 			labelContentLengthValueOnline.ToolTipValues.EnableToolTips = true;
+			labelContentLengthValueOnline.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelContentLengthValueOnline.ToolTipValues.Heading = "Online content length";
 			labelContentLengthValueOnline.Values.Text = "123456789 bytes";
 			labelContentLengthValueOnline.DoubleClick += CopyToClipboard_DoubleClick;
@@ -281,6 +289,7 @@ namespace Planetoid_DB
 			labelModifiedDateValueOnline.TabIndex = 7;
 			labelModifiedDateValueOnline.ToolTipValues.Description = "Shows the online modified date";
 			labelModifiedDateValueOnline.ToolTipValues.EnableToolTips = true;
+			labelModifiedDateValueOnline.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelModifiedDateValueOnline.ToolTipValues.Heading = "Online modified date";
 			labelModifiedDateValueOnline.Values.Text = "00.00.0000 00:00";
 			labelModifiedDateValueOnline.DoubleClick += CopyToClipboard_DoubleClick;

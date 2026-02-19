@@ -64,6 +64,7 @@ namespace Planetoid_DB
 			checkedListBoxOrbitalElements.TabIndex = 0;
 			checkedListBoxOrbitalElements.ToolTipValues.Description = "Checks some orbital elements to print on a data sheet";
 			checkedListBoxOrbitalElements.ToolTipValues.EnableToolTips = true;
+			checkedListBoxOrbitalElements.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			checkedListBoxOrbitalElements.ToolTipValues.Heading = "Check orbital elements";
 			checkedListBoxOrbitalElements.Enter += Control_Enter;
 			checkedListBoxOrbitalElements.Leave += Control_Leave;
@@ -82,6 +83,7 @@ namespace Planetoid_DB
 			buttonPrintDataSheet.TabIndex = 1;
 			buttonPrintDataSheet.ToolTipValues.Description = "Prints a data sheet with some orbit elements";
 			buttonPrintDataSheet.ToolTipValues.EnableToolTips = true;
+			buttonPrintDataSheet.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonPrintDataSheet.ToolTipValues.Heading = "Print data sheet";
 			buttonPrintDataSheet.Values.DropDownArrowColor = Color.Empty;
 			buttonPrintDataSheet.Values.Image = FatcowIcons16px.fatcow_printer_16px;
@@ -104,6 +106,7 @@ namespace Planetoid_DB
 			buttonCancelPrint.TabIndex = 2;
 			buttonCancelPrint.ToolTipValues.Description = "Cancels the print";
 			buttonCancelPrint.ToolTipValues.EnableToolTips = true;
+			buttonCancelPrint.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonCancelPrint.ToolTipValues.Heading = "Cancel print";
 			buttonCancelPrint.Values.DropDownArrowColor = Color.Empty;
 			buttonCancelPrint.Values.Image = FatcowIcons16px.fatcow_cancel_16px;

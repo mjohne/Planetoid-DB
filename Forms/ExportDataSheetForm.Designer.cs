@@ -72,6 +72,7 @@ namespace Planetoid_DB
 			buttonExportAsJson.TabIndex = 6;
 			buttonExportAsJson.ToolTipValues.Description = "Exports the data sheet as JSON file";
 			buttonExportAsJson.ToolTipValues.EnableToolTips = true;
+			buttonExportAsJson.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonExportAsJson.ToolTipValues.Heading = "Export as JSON";
 			buttonExportAsJson.Values.DropDownArrowColor = Color.Empty;
 			buttonExportAsJson.Values.Image = FatcowIcons16px.fatcow_page_white_code_16px;
@@ -95,6 +96,7 @@ namespace Planetoid_DB
 			buttonExportAsTxt.TabIndex = 3;
 			buttonExportAsTxt.ToolTipValues.Description = "Exports the data sheet as text file";
 			buttonExportAsTxt.ToolTipValues.EnableToolTips = true;
+			buttonExportAsTxt.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonExportAsTxt.ToolTipValues.Heading = "Export as TXT";
 			buttonExportAsTxt.Values.DropDownArrowColor = Color.Empty;
 			buttonExportAsTxt.Values.Image = FatcowIcons16px.fatcow_page_white_text_16px;
@@ -118,6 +120,7 @@ namespace Planetoid_DB
 			buttonExportAsXml.TabIndex = 5;
 			buttonExportAsXml.ToolTipValues.Description = "Exports the data sheet as XML file";
 			buttonExportAsXml.ToolTipValues.EnableToolTips = true;
+			buttonExportAsXml.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonExportAsXml.ToolTipValues.Heading = "Export as XML";
 			buttonExportAsXml.Values.DropDownArrowColor = Color.Empty;
 			buttonExportAsXml.Values.Image = FatcowIcons16px.fatcow_page_white_code_16px;
@@ -141,6 +144,7 @@ namespace Planetoid_DB
 			buttonExportAsHtml.TabIndex = 4;
 			buttonExportAsHtml.ToolTipValues.Description = "Exports the data sheet as HTML file";
 			buttonExportAsHtml.ToolTipValues.EnableToolTips = true;
+			buttonExportAsHtml.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonExportAsHtml.ToolTipValues.Heading = "Export as HTML";
 			buttonExportAsHtml.Values.DropDownArrowColor = Color.Empty;
 			buttonExportAsHtml.Values.Image = FatcowIcons16px.fatcow_page_white_code_16px;
@@ -194,6 +198,7 @@ namespace Planetoid_DB
 			buttonUnmarkAll.TabIndex = 2;
 			buttonUnmarkAll.ToolTipValues.Description = "Unmarks all orbital elements";
 			buttonUnmarkAll.ToolTipValues.EnableToolTips = true;
+			buttonUnmarkAll.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonUnmarkAll.ToolTipValues.Heading = "Unmark all orbital elements";
 			buttonUnmarkAll.Values.DropDownArrowColor = Color.Empty;
 			buttonUnmarkAll.Values.Text = "&Unmark all";
@@ -216,6 +221,7 @@ namespace Planetoid_DB
 			buttonMarkAll.TabIndex = 1;
 			buttonMarkAll.ToolTipValues.Description = "Marks all orbital elements";
 			buttonMarkAll.ToolTipValues.EnableToolTips = true;
+			buttonMarkAll.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonMarkAll.ToolTipValues.Heading = "Mark all orbital elements";
 			buttonMarkAll.Values.DropDownArrowColor = Color.Empty;
 			buttonMarkAll.Values.Image = FatcowIcons16px.fatcow_asterisk_orange_16px;
@@ -287,6 +293,7 @@ namespace Planetoid_DB
 			checkedListBoxOrbitalElements.TabIndex = 0;
 			checkedListBoxOrbitalElements.ToolTipValues.Description = "Checks some orbital elements to print on a data sheet";
 			checkedListBoxOrbitalElements.ToolTipValues.EnableToolTips = true;
+			checkedListBoxOrbitalElements.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			checkedListBoxOrbitalElements.ToolTipValues.Heading = "Check orbital elements";
 			checkedListBoxOrbitalElements.SelectedIndexChanged += CheckedListBoxOrbitalElements_SelectedIndexChanged;
 			checkedListBoxOrbitalElements.Enter += Control_Enter;

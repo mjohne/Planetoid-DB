@@ -106,6 +106,7 @@ namespace Planetoid_DB
 			labelMinimum.TabIndex = 0;
 			labelMinimum.ToolTipValues.Description = "Shows the minimum";
 			labelMinimum.ToolTipValues.EnableToolTips = true;
+			labelMinimum.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelMinimum.ToolTipValues.Heading = "Minimum";
 			labelMinimum.Values.Text = "M&inimum:";
 			labelMinimum.DoubleClick += CopyToClipboard_DoubleClick;
@@ -130,6 +131,7 @@ namespace Planetoid_DB
 			numericUpDownMinimum.TabIndex = 1;
 			numericUpDownMinimum.ToolTipValues.Description = "Shows the minimum value for the list";
 			numericUpDownMinimum.ToolTipValues.EnableToolTips = true;
+			numericUpDownMinimum.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			numericUpDownMinimum.ToolTipValues.Heading = "Minimum value for the list";
 			numericUpDownMinimum.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimum.Enter += Control_Enter;
@@ -151,6 +153,7 @@ namespace Planetoid_DB
 			numericUpDownMaximum.TabIndex = 3;
 			numericUpDownMaximum.ToolTipValues.Description = "Shows the maximum value for the list";
 			numericUpDownMaximum.ToolTipValues.EnableToolTips = true;
+			numericUpDownMaximum.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			numericUpDownMaximum.ToolTipValues.Heading = "Maximum value for the list";
 			numericUpDownMaximum.Value = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximum.Enter += Control_Enter;
@@ -168,6 +171,7 @@ namespace Planetoid_DB
 			labelMaximum.TabIndex = 2;
 			labelMaximum.ToolTipValues.Description = "Shows the maximum";
 			labelMaximum.ToolTipValues.EnableToolTips = true;
+			labelMaximum.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelMaximum.ToolTipValues.Heading = "Maximum";
 			labelMaximum.Values.Text = "M&aximum:";
 			labelMaximum.DoubleClick += CopyToClipboard_DoubleClick;
@@ -188,6 +192,7 @@ namespace Planetoid_DB
 			buttonList.TabIndex = 4;
 			buttonList.ToolTipValues.Description = "Starts the progress and list";
 			buttonList.ToolTipValues.EnableToolTips = true;
+			buttonList.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonList.ToolTipValues.Heading = "List";
 			buttonList.Values.DropDownArrowColor = Color.Empty;
 			buttonList.Values.Image = FatcowIcons16px.fatcow_table_16px;
@@ -264,6 +269,7 @@ namespace Planetoid_DB
 			buttonCancel.TabIndex = 5;
 			buttonCancel.ToolTipValues.Description = "Cancels the progress";
 			buttonCancel.ToolTipValues.EnableToolTips = true;
+			buttonCancel.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			buttonCancel.ToolTipValues.Heading = "Cancel";
 			buttonCancel.Values.DropDownArrowColor = Color.Empty;
 			buttonCancel.Values.Image = FatcowIcons16px.fatcow_cancel_16px;

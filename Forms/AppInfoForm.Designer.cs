@@ -71,6 +71,7 @@ namespace Planetoid_DB
 			labelVersion.TabIndex = 1;
 			labelVersion.ToolTipValues.Description = "Shows the version number";
 			labelVersion.ToolTipValues.EnableToolTips = true;
+			labelVersion.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelVersion.ToolTipValues.Heading = "Version number";
 			labelVersion.Values.Text = "Version: X.X.X.X";
 			labelVersion.DoubleClick += CopyToClipboard_DoubleClick;
@@ -125,6 +126,7 @@ namespace Planetoid_DB
 			labelTitle.TabIndex = 0;
 			labelTitle.ToolTipValues.Description = "Shows the application name";
 			labelTitle.ToolTipValues.EnableToolTips = true;
+			labelTitle.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelTitle.ToolTipValues.Heading = "Application name";
 			labelTitle.Values.Text = "Planetoid-DB";
 			labelTitle.DoubleClick += CopyToClipboard_DoubleClick;
@@ -147,6 +149,7 @@ namespace Planetoid_DB
 			labelDescription.TabIndex = 2;
 			labelDescription.ToolTipValues.Description = "Shows the program description";
 			labelDescription.ToolTipValues.EnableToolTips = true;
+			labelDescription.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelDescription.ToolTipValues.Heading = "Description";
 			labelDescription.Values.Text = "[Description]";
 			labelDescription.DoubleClick += CopyToClipboard_DoubleClick;
@@ -170,6 +173,7 @@ namespace Planetoid_DB
 			pictureBoxBanner.TabStop = false;
 			pictureBoxBanner.ToolTipValues.Description = "On the graphic you see the minor planet \"(243) Ida \".";
 			pictureBoxBanner.ToolTipValues.EnableToolTips = true;
+			pictureBoxBanner.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			pictureBoxBanner.ToolTipValues.Heading = "Banner";
 			pictureBoxBanner.MouseEnter += Control_Enter;
 			pictureBoxBanner.MouseLeave += Control_Leave;
@@ -187,6 +191,7 @@ namespace Planetoid_DB
 			labelCopyright.TabIndex = 3;
 			labelCopyright.ToolTipValues.Description = "Shows the copyright";
 			labelCopyright.ToolTipValues.EnableToolTips = true;
+			labelCopyright.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelCopyright.ToolTipValues.Heading = "Copyright";
 			labelCopyright.Values.Text = "[Copyright]";
 			labelCopyright.DoubleClick += CopyToClipboard_DoubleClick;
@@ -209,6 +214,7 @@ namespace Planetoid_DB
 			linkLabelEmail.TabIndex = 5;
 			linkLabelEmail.ToolTipValues.Description = "Opens the mail client";
 			linkLabelEmail.ToolTipValues.EnableToolTips = true;
+			linkLabelEmail.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			linkLabelEmail.ToolTipValues.Heading = "E-Mail";
 			linkLabelEmail.Values.Image = FatcowIcons16px.fatcow_email_16px;
 			linkLabelEmail.Values.Text = "E-Mail";
@@ -232,6 +238,7 @@ namespace Planetoid_DB
 			linkLabelWebsite.TabIndex = 4;
 			linkLabelWebsite.ToolTipValues.Description = "Opens the website";
 			linkLabelWebsite.ToolTipValues.EnableToolTips = true;
+			linkLabelWebsite.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			linkLabelWebsite.ToolTipValues.Heading = "Website";
 			linkLabelWebsite.Values.Image = FatcowIcons16px.fatcow_world_16px;
 			linkLabelWebsite.Values.Text = "Website";

@@ -131,6 +131,7 @@ namespace Planetoid_DB
 			labelLinearEccentricityDesc.Tag = "20";
 			labelLinearEccentricityDesc.ToolTipValues.Description = "Linear eccentricity (AU)";
 			labelLinearEccentricityDesc.ToolTipValues.EnableToolTips = true;
+			labelLinearEccentricityDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelLinearEccentricityDesc.ToolTipValues.Heading = "Linear eccentricity (AU)";
 			labelLinearEccentricityDesc.Values.ExtraText = "AU";
 			labelLinearEccentricityDesc.Values.Text = "Linear eccentricity";
@@ -186,6 +187,7 @@ namespace Planetoid_DB
 			labelLinearEccentricityData.TabIndex = 1;
 			labelLinearEccentricityData.ToolTipValues.Description = "Shows the information of \"Linear eccentricity\"";
 			labelLinearEccentricityData.ToolTipValues.EnableToolTips = true;
+			labelLinearEccentricityData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelLinearEccentricityData.ToolTipValues.Heading = "Shows the information of \"Linear eccentricity\"";
 			labelLinearEccentricityData.Values.Text = "..................";
 			labelLinearEccentricityData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -242,6 +244,7 @@ namespace Planetoid_DB
 			labelSemiMinorAxisDesc.Tag = "21";
 			labelSemiMinorAxisDesc.ToolTipValues.Description = "Semi-minor axis (AU)";
 			labelSemiMinorAxisDesc.ToolTipValues.EnableToolTips = true;
+			labelSemiMinorAxisDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSemiMinorAxisDesc.ToolTipValues.Heading = "Semi-minor axis (AU)";
 			labelSemiMinorAxisDesc.Values.ExtraText = "AU";
 			labelSemiMinorAxisDesc.Values.Text = "Semi-minor axis";
@@ -268,6 +271,7 @@ namespace Planetoid_DB
 			labelMajorAxisDesc.Tag = "22";
 			labelMajorAxisDesc.ToolTipValues.Description = "Major axis (AU)";
 			labelMajorAxisDesc.ToolTipValues.EnableToolTips = true;
+			labelMajorAxisDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelMajorAxisDesc.ToolTipValues.Heading = "Major axis (AU)";
 			labelMajorAxisDesc.Values.ExtraText = "AU";
 			labelMajorAxisDesc.Values.Text = "Major axis";
@@ -294,6 +298,7 @@ namespace Planetoid_DB
 			labelMinorAxisDesc.Tag = "23";
 			labelMinorAxisDesc.ToolTipValues.Description = "Minor axis (AU)";
 			labelMinorAxisDesc.ToolTipValues.EnableToolTips = true;
+			labelMinorAxisDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelMinorAxisDesc.Values.ExtraText = "AU";
 			labelMinorAxisDesc.Values.Text = "Minor axis";
 			labelMinorAxisDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -319,6 +324,7 @@ namespace Planetoid_DB
 			labelEccenctricAnomalyDesc.Tag = "24";
 			labelEccenctricAnomalyDesc.ToolTipValues.Description = "Eccentric anomaly (degrees)";
 			labelEccenctricAnomalyDesc.ToolTipValues.EnableToolTips = true;
+			labelEccenctricAnomalyDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelEccenctricAnomalyDesc.ToolTipValues.Heading = "Eccentric anomaly (degrees)";
 			labelEccenctricAnomalyDesc.Values.ExtraText = "°";
 			labelEccenctricAnomalyDesc.Values.Text = "Eccentric anomaly";
@@ -345,6 +351,7 @@ namespace Planetoid_DB
 			labelTrueAnomalyDesc.Tag = "25";
 			labelTrueAnomalyDesc.ToolTipValues.Description = "True anomaly (degrees)";
 			labelTrueAnomalyDesc.ToolTipValues.EnableToolTips = true;
+			labelTrueAnomalyDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelTrueAnomalyDesc.ToolTipValues.Heading = "True anomaly (degrees)";
 			labelTrueAnomalyDesc.Values.ExtraText = "°";
 			labelTrueAnomalyDesc.Values.Text = "True anomaly";
@@ -371,6 +378,7 @@ namespace Planetoid_DB
 			labelPerihelionDistanceDesc.Tag = "26";
 			labelPerihelionDistanceDesc.ToolTipValues.Description = "Perihelion distance (AU)";
 			labelPerihelionDistanceDesc.ToolTipValues.EnableToolTips = true;
+			labelPerihelionDistanceDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelPerihelionDistanceDesc.ToolTipValues.Heading = "Perihelion distance (AU)";
 			labelPerihelionDistanceDesc.Values.ExtraText = "AU";
 			labelPerihelionDistanceDesc.Values.Text = "Perihelion distance";
@@ -397,6 +405,7 @@ namespace Planetoid_DB
 			LabelAphelionDistanceDesc.Tag = "27";
 			LabelAphelionDistanceDesc.ToolTipValues.Description = "Aphelion distance (AU)";
 			LabelAphelionDistanceDesc.ToolTipValues.EnableToolTips = true;
+			LabelAphelionDistanceDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			LabelAphelionDistanceDesc.ToolTipValues.Heading = "Aphelion distance (AU)";
 			LabelAphelionDistanceDesc.Values.ExtraText = "AU";
 			LabelAphelionDistanceDesc.Values.Text = "Aphelion distance";
@@ -423,6 +432,7 @@ namespace Planetoid_DB
 			labelLongitudeOfTheDescendingNodeDesc.Tag = "28";
 			labelLongitudeOfTheDescendingNodeDesc.ToolTipValues.Description = "Longitude of the descending node (degrees)";
 			labelLongitudeOfTheDescendingNodeDesc.ToolTipValues.EnableToolTips = true;
+			labelLongitudeOfTheDescendingNodeDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelLongitudeOfTheDescendingNodeDesc.ToolTipValues.Heading = "Longitude of the descending node (degrees)";
 			labelLongitudeOfTheDescendingNodeDesc.Values.ExtraText = "°";
 			labelLongitudeOfTheDescendingNodeDesc.Values.Text = "Longitude of the descending node";
@@ -449,6 +459,7 @@ namespace Planetoid_DB
 			labelArgumentOfTheAphelionDesc.Tag = "29";
 			labelArgumentOfTheAphelionDesc.ToolTipValues.Description = "Argument of the aphelion (degrees)";
 			labelArgumentOfTheAphelionDesc.ToolTipValues.EnableToolTips = true;
+			labelArgumentOfTheAphelionDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelArgumentOfTheAphelionDesc.ToolTipValues.Heading = "Argument of the aphelion (degrees)";
 			labelArgumentOfTheAphelionDesc.Values.ExtraText = "°";
 			labelArgumentOfTheAphelionDesc.Values.Text = "Argument of the aphelion";
@@ -475,6 +486,7 @@ namespace Planetoid_DB
 			labelFocalParameterDesc.Tag = "30";
 			labelFocalParameterDesc.ToolTipValues.Description = "Focal parameter (AU)";
 			labelFocalParameterDesc.ToolTipValues.EnableToolTips = true;
+			labelFocalParameterDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelFocalParameterDesc.ToolTipValues.Heading = "Focal parameter (AU)";
 			labelFocalParameterDesc.Values.ExtraText = "AU";
 			labelFocalParameterDesc.Values.Text = "Focal parameter";
@@ -501,6 +513,7 @@ namespace Planetoid_DB
 			labelSemiLatusRectumDesc.Tag = "31";
 			labelSemiLatusRectumDesc.ToolTipValues.Description = "Semi-latus rectum (AU)";
 			labelSemiLatusRectumDesc.ToolTipValues.EnableToolTips = true;
+			labelSemiLatusRectumDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSemiLatusRectumDesc.ToolTipValues.Heading = "Semi-latus rectum (AU)";
 			labelSemiLatusRectumDesc.Values.ExtraText = "AU";
 			labelSemiLatusRectumDesc.Values.Text = "Semi-latus rectum";
@@ -527,6 +540,7 @@ namespace Planetoid_DB
 			labelLatusRectumDesc.Tag = "32";
 			labelLatusRectumDesc.ToolTipValues.Description = "Semi-latus rectum (AU)";
 			labelLatusRectumDesc.ToolTipValues.EnableToolTips = true;
+			labelLatusRectumDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelLatusRectumDesc.ToolTipValues.Heading = "Semi-latus rectum (AU)";
 			labelLatusRectumDesc.Values.ExtraText = "AU";
 			labelLatusRectumDesc.Values.Text = "Latus rectum";
@@ -553,6 +567,7 @@ namespace Planetoid_DB
 			labelOrbitalPeriodDesc.Tag = "33";
 			labelOrbitalPeriodDesc.ToolTipValues.Description = "Orbital Period (years)";
 			labelOrbitalPeriodDesc.ToolTipValues.EnableToolTips = true;
+			labelOrbitalPeriodDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelOrbitalPeriodDesc.ToolTipValues.Heading = "Orbital Period (years)";
 			labelOrbitalPeriodDesc.Values.ExtraText = "years";
 			labelOrbitalPeriodDesc.Values.Text = "Orbital period";
@@ -577,6 +592,7 @@ namespace Planetoid_DB
 			labelSemiMinorAxisData.TabIndex = 3;
 			labelSemiMinorAxisData.ToolTipValues.Description = "Shows the information of \"Semi-minor axis\"";
 			labelSemiMinorAxisData.ToolTipValues.EnableToolTips = true;
+			labelSemiMinorAxisData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSemiMinorAxisData.ToolTipValues.Heading = "Shows the information of \"Semi-minor axis\"";
 			labelSemiMinorAxisData.Values.Text = "..................";
 			labelSemiMinorAxisData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -600,6 +616,7 @@ namespace Planetoid_DB
 			labelMajorAxisData.TabIndex = 5;
 			labelMajorAxisData.ToolTipValues.Description = "Shows the information of \"Major axis\"";
 			labelMajorAxisData.ToolTipValues.EnableToolTips = true;
+			labelMajorAxisData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelMajorAxisData.ToolTipValues.Heading = "Shows the information of \"Major axis\"";
 			labelMajorAxisData.Values.Text = "..................";
 			labelMajorAxisData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -623,6 +640,7 @@ namespace Planetoid_DB
 			labelMinorAxisData.TabIndex = 7;
 			labelMinorAxisData.ToolTipValues.Description = "Shows the information of \"Minor axis\"";
 			labelMinorAxisData.ToolTipValues.EnableToolTips = true;
+			labelMinorAxisData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelMinorAxisData.ToolTipValues.Heading = "Shows the information of \"Minor axis\"";
 			labelMinorAxisData.Values.Text = "..................";
 			labelMinorAxisData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -646,6 +664,7 @@ namespace Planetoid_DB
 			labelEccentricAnomalyData.TabIndex = 9;
 			labelEccentricAnomalyData.ToolTipValues.Description = "Shows the information of \"Eccentric anomaly\"";
 			labelEccentricAnomalyData.ToolTipValues.EnableToolTips = true;
+			labelEccentricAnomalyData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelEccentricAnomalyData.ToolTipValues.Heading = "Shows the information of \"Eccentric anomaly\"";
 			labelEccentricAnomalyData.Values.Text = "..................";
 			labelEccentricAnomalyData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -669,6 +688,7 @@ namespace Planetoid_DB
 			labelTrueAnomalyData.TabIndex = 11;
 			labelTrueAnomalyData.ToolTipValues.Description = "Shows the information of \"True anomaly\"";
 			labelTrueAnomalyData.ToolTipValues.EnableToolTips = true;
+			labelTrueAnomalyData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelTrueAnomalyData.ToolTipValues.Heading = "Shows the information of \"True anomaly\"";
 			labelTrueAnomalyData.Values.Text = "..................";
 			labelTrueAnomalyData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -692,6 +712,7 @@ namespace Planetoid_DB
 			labelPerihelionDistanceData.TabIndex = 13;
 			labelPerihelionDistanceData.ToolTipValues.Description = "Shows the information of \"Perihelion distance\"";
 			labelPerihelionDistanceData.ToolTipValues.EnableToolTips = true;
+			labelPerihelionDistanceData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelPerihelionDistanceData.ToolTipValues.Heading = "Shows the information of \"Perihelion distance\"";
 			labelPerihelionDistanceData.Values.Text = "..................";
 			labelPerihelionDistanceData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -715,6 +736,7 @@ namespace Planetoid_DB
 			labelAphelionDistanceData.TabIndex = 15;
 			labelAphelionDistanceData.ToolTipValues.Description = "Shows the information of \"Aphelion distance\"";
 			labelAphelionDistanceData.ToolTipValues.EnableToolTips = true;
+			labelAphelionDistanceData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelAphelionDistanceData.ToolTipValues.Heading = "Shows the information of \"Aphelion distance\"";
 			labelAphelionDistanceData.Values.Text = "..................";
 			labelAphelionDistanceData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -738,6 +760,7 @@ namespace Planetoid_DB
 			labelLongitudeDescendingNodeData.TabIndex = 17;
 			labelLongitudeDescendingNodeData.ToolTipValues.Description = "Shows the information of \"Longitude of the descending node\"";
 			labelLongitudeDescendingNodeData.ToolTipValues.EnableToolTips = true;
+			labelLongitudeDescendingNodeData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelLongitudeDescendingNodeData.ToolTipValues.Heading = "Shows the information of \"Longitude of the descending node\"";
 			labelLongitudeDescendingNodeData.Values.Text = "..................";
 			labelLongitudeDescendingNodeData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -761,6 +784,7 @@ namespace Planetoid_DB
 			labelArgumentAphelionData.TabIndex = 19;
 			labelArgumentAphelionData.ToolTipValues.Description = "Shows the information of \"Argument of the aphelion\"";
 			labelArgumentAphelionData.ToolTipValues.EnableToolTips = true;
+			labelArgumentAphelionData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelArgumentAphelionData.ToolTipValues.Heading = "Shows the information of \"Argument of the aphelion\"";
 			labelArgumentAphelionData.Values.Text = "..................";
 			labelArgumentAphelionData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -784,6 +808,7 @@ namespace Planetoid_DB
 			labelFocalParameterData.TabIndex = 21;
 			labelFocalParameterData.ToolTipValues.Description = "Shows the information of \"Semi-latus rectum\"";
 			labelFocalParameterData.ToolTipValues.EnableToolTips = true;
+			labelFocalParameterData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelFocalParameterData.ToolTipValues.Heading = "Shows the information of \"Semi-latus rectum\"";
 			labelFocalParameterData.Values.Text = "..................";
 			labelFocalParameterData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -807,6 +832,7 @@ namespace Planetoid_DB
 			labelSemiLatusRectumData.TabIndex = 23;
 			labelSemiLatusRectumData.ToolTipValues.Description = "Shows the information of \"Semi-latus rectum\"";
 			labelSemiLatusRectumData.ToolTipValues.EnableToolTips = true;
+			labelSemiLatusRectumData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSemiLatusRectumData.ToolTipValues.Heading = "Shows the information of \"Semi-latus rectum\"";
 			labelSemiLatusRectumData.Values.Text = "..................";
 			labelSemiLatusRectumData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -830,6 +856,7 @@ namespace Planetoid_DB
 			labelLatusRectumData.TabIndex = 25;
 			labelLatusRectumData.ToolTipValues.Description = "Shows the information of \"Latus rectum\"";
 			labelLatusRectumData.ToolTipValues.EnableToolTips = true;
+			labelLatusRectumData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelLatusRectumData.ToolTipValues.Heading = "Shows the information of \"Latus rectum\"";
 			labelLatusRectumData.Values.Text = "..................";
 			labelLatusRectumData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -853,6 +880,7 @@ namespace Planetoid_DB
 			labelOrbitalPeriodData.TabIndex = 27;
 			labelOrbitalPeriodData.ToolTipValues.Description = "Shows the information of \"Period\"";
 			labelOrbitalPeriodData.ToolTipValues.EnableToolTips = true;
+			labelOrbitalPeriodData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelOrbitalPeriodData.ToolTipValues.Heading = "Shows the information of \"Period\"";
 			labelOrbitalPeriodData.Values.Text = "..................";
 			labelOrbitalPeriodData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -878,6 +906,7 @@ namespace Planetoid_DB
 			labelOrbitalAreaDesc.Tag = "34";
 			labelOrbitalAreaDesc.ToolTipValues.Description = "Orbital area (AU²)";
 			labelOrbitalAreaDesc.ToolTipValues.EnableToolTips = true;
+			labelOrbitalAreaDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelOrbitalAreaDesc.ToolTipValues.Heading = "Orbital area (AU²)";
 			labelOrbitalAreaDesc.Values.ExtraText = "AU²";
 			labelOrbitalAreaDesc.Values.Text = "Orbital area";
@@ -904,6 +933,7 @@ namespace Planetoid_DB
 			labelOrbitalPerimeterDesc.Tag = "35";
 			labelOrbitalPerimeterDesc.ToolTipValues.Description = "Orbital perimeter (AU)";
 			labelOrbitalPerimeterDesc.ToolTipValues.EnableToolTips = true;
+			labelOrbitalPerimeterDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelOrbitalPerimeterDesc.ToolTipValues.Heading = "Orbital perimeter (AU)";
 			labelOrbitalPerimeterDesc.Values.ExtraText = "AU";
 			labelOrbitalPerimeterDesc.Values.Text = "Orbital perimeter";
@@ -930,6 +960,7 @@ namespace Planetoid_DB
 			labelSemiMeanAxisDesc.Tag = "36";
 			labelSemiMeanAxisDesc.ToolTipValues.Description = "Semi-mean axis (AU)";
 			labelSemiMeanAxisDesc.ToolTipValues.EnableToolTips = true;
+			labelSemiMeanAxisDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSemiMeanAxisDesc.ToolTipValues.Heading = "Semi-mean axis (AU)";
 			labelSemiMeanAxisDesc.Values.ExtraText = "AU";
 			labelSemiMeanAxisDesc.Values.Text = "Semi-mean axis";
@@ -956,6 +987,7 @@ namespace Planetoid_DB
 			labelMeanAxisDesc.Tag = "37";
 			labelMeanAxisDesc.ToolTipValues.Description = "Mean axis (AU)";
 			labelMeanAxisDesc.ToolTipValues.EnableToolTips = true;
+			labelMeanAxisDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelMeanAxisDesc.ToolTipValues.Heading = "Mean axis (AU)";
 			labelMeanAxisDesc.Values.ExtraText = "AU";
 			labelMeanAxisDesc.Values.Text = "Mean axis";
@@ -980,6 +1012,7 @@ namespace Planetoid_DB
 			labelOrbitalAreaData.TabIndex = 29;
 			labelOrbitalAreaData.ToolTipValues.Description = "Shows the information of \"Orbital area\"";
 			labelOrbitalAreaData.ToolTipValues.EnableToolTips = true;
+			labelOrbitalAreaData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelOrbitalAreaData.ToolTipValues.Heading = "Shows the information of \"Orbital area\"";
 			labelOrbitalAreaData.Values.Text = "..................";
 			labelOrbitalAreaData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -1003,6 +1036,7 @@ namespace Planetoid_DB
 			labelOrbitalPerimeterData.TabIndex = 31;
 			labelOrbitalPerimeterData.ToolTipValues.Description = "Shows the information of \"Orbital perimeter\"";
 			labelOrbitalPerimeterData.ToolTipValues.EnableToolTips = true;
+			labelOrbitalPerimeterData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelOrbitalPerimeterData.ToolTipValues.Heading = "Shows the information of \"Orbital perimeter\"";
 			labelOrbitalPerimeterData.Values.Text = "..................";
 			labelOrbitalPerimeterData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -1026,6 +1060,7 @@ namespace Planetoid_DB
 			labelSemiMeanAxisData.TabIndex = 33;
 			labelSemiMeanAxisData.ToolTipValues.Description = "Shows the information of \"Semi-mean axis\"";
 			labelSemiMeanAxisData.ToolTipValues.EnableToolTips = true;
+			labelSemiMeanAxisData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSemiMeanAxisData.ToolTipValues.Heading = "Shows the information of \"Semi-mean axis\"";
 			labelSemiMeanAxisData.Values.Text = "..................";
 			labelSemiMeanAxisData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -1051,6 +1086,7 @@ namespace Planetoid_DB
 			labelStandardGravitationalParameterDesc.Tag = "38";
 			labelStandardGravitationalParameterDesc.ToolTipValues.Description = "Standard gravitational parameter (AU³/a²)";
 			labelStandardGravitationalParameterDesc.ToolTipValues.EnableToolTips = true;
+			labelStandardGravitationalParameterDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelStandardGravitationalParameterDesc.ToolTipValues.Heading = "Standard gravitational parameter (AU³/a²)";
 			labelStandardGravitationalParameterDesc.Values.ExtraText = "AU³/a²";
 			labelStandardGravitationalParameterDesc.Values.Text = "Standard gravitational parameter";
@@ -1075,6 +1111,7 @@ namespace Planetoid_DB
 			labelMeanAxisData.TabIndex = 35;
 			labelMeanAxisData.ToolTipValues.Description = "Shows the information of \"Mean axis\"";
 			labelMeanAxisData.ToolTipValues.EnableToolTips = true;
+			labelMeanAxisData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelMeanAxisData.ToolTipValues.Heading = "Shows the information of \"Mean axis\"";
 			labelMeanAxisData.Values.Text = "..................";
 			labelMeanAxisData.DoubleClick += CopyToClipboard_DoubleClick;
@@ -1098,6 +1135,7 @@ namespace Planetoid_DB
 			labelStandardGravitationalParameterData.TabIndex = 37;
 			labelStandardGravitationalParameterData.ToolTipValues.Description = "Shows the information of \"Standard gravitational parameter\"";
 			labelStandardGravitationalParameterData.ToolTipValues.EnableToolTips = true;
+			labelStandardGravitationalParameterData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelStandardGravitationalParameterData.ToolTipValues.Heading = "Shows the information of \"Standard gravitational parameter\"";
 			labelStandardGravitationalParameterData.Values.Text = "..................";
 			labelStandardGravitationalParameterData.DoubleClick += CopyToClipboard_DoubleClick;
