@@ -525,8 +525,6 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 
 	#endregion
 
-	#endregion
-
 	#region Click event handlers
 
 	/// <summary>
