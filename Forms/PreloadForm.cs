@@ -9,7 +9,6 @@ using Planetoid_DB.Forms;
 using Planetoid_DB.Properties;
 
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Net.NetworkInformation;
 using System.Reflection;
 
@@ -21,7 +20,6 @@ namespace Planetoid_DB;
 /// <remarks>
 /// This form is responsible for preloading the necessary data files for the application.
 /// </remarks>
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class PreloadForm : BaseKryptonForm
 {
 	/// <summary>
@@ -55,15 +53,6 @@ public partial class PreloadForm : BaseKryptonForm
 	#endregion
 
 	#region helper methods
-
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
-	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a custom display string for the debugger.
-	/// </remarks>
-	private string GetDebuggerDisplay() => ToString();
 
 	/// <summary>
 	/// Extracts an embedded resource from the assembly and writes it to a specified output directory.

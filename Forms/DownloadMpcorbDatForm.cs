@@ -10,7 +10,6 @@ using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO.Compression;
 using System.Net;
 using System.Net.NetworkInformation;
@@ -24,7 +23,6 @@ namespace Planetoid_DB;
 /// <remarks>
 /// This form is used to download and install the MPCORB.DAT database file.
 /// </remarks>
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class DownloadMpcorbDatForm : BaseKryptonForm
 {
 	/// <summary>
@@ -114,15 +112,6 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 	#endregion
 
 	#region helper methods
-
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
-	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a visual representation of the object in the debugger.
-	/// </remarks>
-	private string GetDebuggerDisplay() => ToString();
 
 	/// <summary>
 	/// Extracts a GZIP-compressed file to a specified output file.

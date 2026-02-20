@@ -7,8 +7,6 @@ using NLog;
 
 using Planetoid_DB.Forms;
 
-using System.Diagnostics;
-
 using static Planetoid_DB.TerminologyForm;
 
 namespace Planetoid_DB;
@@ -19,7 +17,6 @@ namespace Planetoid_DB;
 /// <remarks>
 /// This form provides a user interface for displaying derived orbit elements.
 /// </remarks>
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class DerivedOrbitElementsForm : BaseKryptonForm
 {
 	/// <summary>
@@ -77,15 +74,6 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	#endregion
 
 	#region helper methods
-
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
-	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a visual representation of the object in the debugger.
-	/// </remarks>
-	private string GetDebuggerDisplay() => ToString();
 
 	/// <summary>
 	/// Tries to parse an integer from the input string.

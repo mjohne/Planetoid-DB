@@ -5,8 +5,6 @@
 
 using Planetoid_DB.Forms;
 
-using System.Diagnostics;
-
 namespace Planetoid_DB;
 
 /// <summary>
@@ -15,7 +13,6 @@ namespace Planetoid_DB;
 /// <remarks>
 /// This form provides a user interface for configuring application settings.
 /// </remarks>
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class SettingsForm : BaseKryptonForm
 {
 	/// <summary>
@@ -37,19 +34,6 @@ public partial class SettingsForm : BaseKryptonForm
 	public SettingsForm() =>
 		// Initialize the form components
 		InitializeComponent();
-
-	#endregion
-
-	#region helper methods
-
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
-	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is called to obtain a string representation of the current instance.
-	/// </remarks>
-	private string GetDebuggerDisplay() => ToString();
 
 	#endregion
 

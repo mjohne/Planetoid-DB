@@ -8,7 +8,6 @@ using NLog;
 using Planetoid_DB.Forms;
 using Planetoid_DB.Resources;
 
-using System.Diagnostics;
 using System.Globalization;
 
 namespace Planetoid_DB;
@@ -19,7 +18,6 @@ namespace Planetoid_DB;
 /// <remarks>
 /// This form is used to verify the integrity of database data files (e.g. ASTORB.DAT or MPCORB.DAT).
 /// </remarks>
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class CheckDatabaseForm : BaseKryptonForm
 {
 	/// <summary>
@@ -91,19 +89,6 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 		labelDatabaseFileOnline.ToolTipValues.Description = $"Information about the online {databaseName} file";
 		labelDatabaseFileOnline.ToolTipValues.Heading = $"Online {databaseName} file";
 	}
-
-	#endregion
-
-	#region helper methods
-
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
-	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a visual representation of the object in the debugger.
-	/// </remarks>
-	private string GetDebuggerDisplay() => ToString();
 
 	#endregion
 

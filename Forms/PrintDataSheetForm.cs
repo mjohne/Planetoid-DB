@@ -7,7 +7,6 @@ using NLog;
 
 using Planetoid_DB.Forms;
 
-using System.Diagnostics;
 using System.Drawing.Printing;
 
 namespace Planetoid_DB;
@@ -15,7 +14,6 @@ namespace Planetoid_DB;
 /// <summary>
 /// Represents a form for printing data sheets.
 /// </summary>
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class PrintDataSheetForm : BaseKryptonForm
 {
 	/// <summary>
@@ -57,19 +55,6 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		printDoc = new PrintDocument();
 		printDoc.PrintPage += PrintDoc_PrintPage;
 	}
-
-	#endregion
-
-	#region helper methods
-
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
-	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a custom debugger display string.
-	/// </remarks>
-	private string GetDebuggerDisplay() => ToString();
 
 	#endregion
 

@@ -8,8 +8,6 @@ using NLog;
 using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 
-using System.Diagnostics;
-
 namespace Planetoid_DB;
 
 /// <summary>
@@ -18,7 +16,6 @@ namespace Planetoid_DB;
 /// <remarks>
 /// This form is displayed while the application is loading.
 /// </remarks>
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class SplashScreenForm : BaseKryptonForm
 {
 	/// <summary>
@@ -42,15 +39,6 @@ public partial class SplashScreenForm : BaseKryptonForm
 	#endregion
 
 	#region helper methods
-
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
-	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is called to obtain a string representation of the current instance.
-	/// </remarks>
-	private string GetDebuggerDisplay() => ToString();
 
 	/// <summary>
 	/// Sets the splash screen progress bar value.

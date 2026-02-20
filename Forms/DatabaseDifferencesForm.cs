@@ -8,7 +8,6 @@ using NLog;
 using Planetoid_DB.Forms;
 
 using System.ComponentModel;
-using System.Diagnostics;
 
 namespace Planetoid_DB;
 
@@ -18,7 +17,6 @@ namespace Planetoid_DB;
 /// <remarks>
 /// This form provides a user interface for viewing and resolving differences between database records.
 /// </remarks>
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class DatabaseDifferencesForm : BaseKryptonForm
 {
 	/// <summary>
@@ -48,19 +46,6 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	public DatabaseDifferencesForm() =>
 		// Initialize the form components
 		InitializeComponent();
-
-	#endregion
-
-	#region helper methods
-
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
-	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a visual representation of the object in the debugger.
-	/// </remarks>
-	private string GetDebuggerDisplay() => ToString();
 
 	#endregion
 

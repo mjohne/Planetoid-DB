@@ -7,7 +7,6 @@ using NLog;
 
 using Planetoid_DB.Forms;
 
-using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
 using System.Xml;
@@ -20,7 +19,6 @@ namespace Planetoid_DB;
 /// <remarks>
 /// This form is used to display a list of all readable designations from the planetoids database.
 /// </remarks>
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class ListReadableDesignationsForm : BaseKryptonForm
 {
 	#region Constants
@@ -112,15 +110,6 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	#endregion
 
 	#region helper methods
-
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
-	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a short string representation of the current instance for debugging purposes.
-	/// </remarks>
-	private string GetDebuggerDisplay() => ToString();
 
 	/// <summary>
 	/// Creates a ListViewItem for the specified index.

@@ -8,7 +8,6 @@ using NLog;
 using Planetoid_DB.Forms;
 using Planetoid_DB.Properties;
 
-using System.Diagnostics;
 using System.Globalization;
 
 namespace Planetoid_DB;
@@ -19,7 +18,6 @@ namespace Planetoid_DB;
 /// <remarks>
 /// This form provides a user interface for displaying information about the database.
 /// </remarks>
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class DatabaseInformationForm : BaseKryptonForm
 {
 	/// <summary>
@@ -49,19 +47,6 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 	public DatabaseInformationForm() =>
 		// Initialize the form components
 		InitializeComponent();
-
-	#endregion
-
-	#region helper methods
-
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
-	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a visual representation of the object in the debugger.
-	/// </remarks>
-	private string GetDebuggerDisplay() => ToString();
 
 	#endregion
 

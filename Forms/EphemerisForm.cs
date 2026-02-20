@@ -6,7 +6,6 @@
 using Planetoid_DB.Forms;
 
 using System.ComponentModel;
-using System.Diagnostics;
 
 namespace Planetoid_DB;
 
@@ -16,7 +15,6 @@ namespace Planetoid_DB;
 /// <remarks>
 /// This form is used to display ephemeris data for celestial objects.
 /// </remarks>
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class EphemerisForm : BaseKryptonForm
 {
 	/// <summary>
@@ -38,19 +36,6 @@ public partial class EphemerisForm : BaseKryptonForm
 	public EphemerisForm() =>
 		// Initialize the form components
 		InitializeComponent();
-
-	#endregion
-
-	#region helper methods
-
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
-	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a visual representation of the object in the debugger.
-	/// </remarks>
-	private string GetDebuggerDisplay() => ToString();
 
 	#endregion
 

@@ -5,8 +5,6 @@
 
 using Planetoid_DB.Forms;
 
-using System.Diagnostics;
-
 namespace Planetoid_DB;
 
 /// <summary>
@@ -15,7 +13,6 @@ namespace Planetoid_DB;
 /// <remarks>
 /// This form allows users to specify filter criteria for querying the database.
 /// </remarks>
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class FilterForm : BaseKryptonForm
 {
 	/// <summary>
@@ -37,19 +34,6 @@ public partial class FilterForm : BaseKryptonForm
 	public FilterForm() =>
 		// Initialize the form components
 		InitializeComponent();
-
-	#endregion
-
-	#region helper methods
-
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
-	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a visual representation of the object in the debugger.
-	/// </remarks>
-	private string GetDebuggerDisplay() => ToString();
 
 	#endregion
 

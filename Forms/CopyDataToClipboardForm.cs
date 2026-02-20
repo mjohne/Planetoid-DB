@@ -7,8 +7,6 @@ using Krypton.Toolkit;
 
 using Planetoid_DB.Forms;
 
-using System.Diagnostics;
-
 namespace Planetoid_DB;
 
 /// <summary>
@@ -17,7 +15,6 @@ namespace Planetoid_DB;
 /// <remarks>
 /// This form provides a user interface for selecting and copying data to the clipboard.
 /// </remarks>
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class CopyDataToClipboardForm : BaseKryptonForm
 {
 	/// <summary>
@@ -48,15 +45,6 @@ public partial class CopyDataToClipboardForm : BaseKryptonForm
 	#endregion
 
 	#region helper methods
-
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
-	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a visual representation of the object in the debugger.
-	/// </remarks>
-	private string GetDebuggerDisplay() => ToString();
 
 	/// <summary>
 	/// Sets the data to be copied to the clipboard.

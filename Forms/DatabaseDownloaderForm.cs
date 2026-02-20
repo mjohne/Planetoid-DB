@@ -1,4 +1,4 @@
-// This file is used by Code Analysis to maintain SuppressMessage
+﻿// This file is used by Code Analysis to maintain SuppressMessage
 // attributes that are applied to this project.
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
@@ -8,7 +8,6 @@ using NLog;
 using Planetoid_DB.Forms;
 using Planetoid_DB.Properties;
 
-using System.Diagnostics;
 using System.IO.Compression;
 using System.Net;
 using System.Net.NetworkInformation;
@@ -21,7 +20,6 @@ namespace Planetoid_DB;
 /// <remarks>
 /// This form provides a user interface for downloading and installing updates.
 /// </remarks>
-[DebuggerDisplay(value: $"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
 public partial class DatabaseDownloaderForm : BaseKryptonForm
 {
 	/// <summary>
@@ -122,15 +120,6 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 	#endregion
 
 	#region helper methods
-
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
-	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a visual representation of the object in the debugger.
-	/// </remarks>
-	private string GetDebuggerDisplay() => ToString();
 
 	/// <summary>
 	/// Extracts a GZIP-compressed file to the specified output file.

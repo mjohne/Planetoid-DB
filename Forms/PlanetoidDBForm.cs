@@ -10,7 +10,6 @@ using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO.Compression;
 using System.Net;
@@ -27,8 +26,6 @@ namespace Planetoid_DB;
 /// <remarks>
 /// This form is responsible for displaying and managing terminology information within the application.
 /// </remarks>
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-
 public partial class PlanetoidDbForm : BaseKryptonForm
 {
 	/// <summary>
@@ -214,15 +211,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// This property is used to store the file path of the MPCORB.DAT file.
 	/// </remarks>
 	private string MpcOrbDatFilePath { get; set; } = string.Empty;
-
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
-	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a custom display string for the debugger.
-	/// </remarks>
-	private string GetDebuggerDisplay() => ToString();
 
 	/// <summary>
 	/// Tries to parse an integer from the input string.

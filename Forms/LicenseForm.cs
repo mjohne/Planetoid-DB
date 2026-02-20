@@ -5,7 +5,6 @@
 
 using Planetoid_DB.Forms;
 
-using System.Diagnostics;
 using System.Reflection;
 
 namespace Planetoid_DB;
@@ -16,7 +15,6 @@ namespace Planetoid_DB;
 /// <remarks>
 /// This form is used to display information about the application, including version and copyright details.
 /// </remarks>
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class LicenseForm : BaseKryptonForm
 {
 	/// <summary>
@@ -58,15 +56,6 @@ public partial class LicenseForm : BaseKryptonForm
 	#endregion
 
 	#region helper methods
-
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
-	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a visual representation of the object in the debugger.
-	/// </remarks>
-	private string GetDebuggerDisplay() => ToString();
 
 	/// <summary>
 	/// Asynchronously extracts an embedded resource to a file.
