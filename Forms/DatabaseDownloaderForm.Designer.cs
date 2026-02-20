@@ -315,39 +315,91 @@ namespace Planetoid_DB
 			// 
 			// labelDownloadSpeed
 			// 
+			labelDownloadSpeed.AccessibleDescription = "Shows the download speed";
+			labelDownloadSpeed.AccessibleName = "Download speed";
+			labelDownloadSpeed.AccessibleRole = AccessibleRole.Text;
 			labelDownloadSpeed.Dock = DockStyle.Fill;
 			labelDownloadSpeed.Location = new Point(3, 140);
 			labelDownloadSpeed.Name = "labelDownloadSpeed";
 			labelDownloadSpeed.Size = new Size(105, 24);
 			labelDownloadSpeed.TabIndex = 10;
+			labelDownloadSpeed.ToolTipValues.Description = "Shows the download speed.\r\nDouble-click or right-click to copy the information to the clipboard.";
+			labelDownloadSpeed.ToolTipValues.EnableToolTips = true;
+			labelDownloadSpeed.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+			labelDownloadSpeed.ToolTipValues.Heading = "Download speed";
 			labelDownloadSpeed.Values.Text = "Download speed:";
+			labelDownloadSpeed.DoubleClick += CopyToClipboard_DoubleClick;
+			labelDownloadSpeed.Enter += Control_Enter;
+			labelDownloadSpeed.Leave += Control_Leave;
+			labelDownloadSpeed.MouseEnter += Control_Enter;
+			labelDownloadSpeed.MouseLeave += Control_Leave;
 			// 
 			// labelDownloadSpeedValue
 			// 
+			labelDownloadSpeedValue.AccessibleDescription = "Shows the download speed";
+			labelDownloadSpeedValue.AccessibleName = "Download speed value";
+			labelDownloadSpeedValue.AccessibleRole = AccessibleRole.Text;
+			labelDownloadSpeedValue.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelDownloadSpeedValue.Dock = DockStyle.Fill;
 			labelDownloadSpeedValue.Location = new Point(114, 140);
 			labelDownloadSpeedValue.Name = "labelDownloadSpeedValue";
 			labelDownloadSpeedValue.Size = new Size(414, 24);
 			labelDownloadSpeedValue.TabIndex = 11;
+			labelDownloadSpeedValue.ToolTipValues.Description = "Shows the download speed.\r\nDouble-click or right-click to copy the information to the clipboard.";
+			labelDownloadSpeedValue.ToolTipValues.EnableToolTips = true;
+			labelDownloadSpeedValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+			labelDownloadSpeedValue.ToolTipValues.Heading = "Download speed value";
 			labelDownloadSpeedValue.Values.Text = "...";
+			labelDownloadSpeedValue.DoubleClick += CopyToClipboard_DoubleClick;
+			labelDownloadSpeedValue.Enter += Control_Enter;
+			labelDownloadSpeedValue.Leave += Control_Leave;
+			labelDownloadSpeedValue.MouseDown += Control_MouseDown;
+			labelDownloadSpeedValue.MouseEnter += Control_Enter;
+			labelDownloadSpeedValue.MouseLeave += Control_Leave;
 			// 
 			// labelTimeValue
 			// 
+			labelTimeValue.AccessibleDescription = "Shows the elapsed time and estimated time of the download";
+			labelTimeValue.AccessibleName = "Time value";
+			labelTimeValue.AccessibleRole = AccessibleRole.Text;
+			labelTimeValue.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelTimeValue.Dock = DockStyle.Fill;
 			labelTimeValue.Location = new Point(114, 109);
 			labelTimeValue.Name = "labelTimeValue";
 			labelTimeValue.Size = new Size(414, 25);
 			labelTimeValue.TabIndex = 9;
+			labelTimeValue.ToolTipValues.Description = "Shows the elapsed time and estimated time of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
+			labelTimeValue.ToolTipValues.EnableToolTips = true;
+			labelTimeValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+			labelTimeValue.ToolTipValues.Heading = "Time value";
 			labelTimeValue.Values.Text = "...";
+			labelTimeValue.DoubleClick += CopyToClipboard_DoubleClick;
+			labelTimeValue.Enter += Control_Enter;
+			labelTimeValue.Leave += Control_Leave;
+			labelTimeValue.MouseDown += Control_MouseDown;
+			labelTimeValue.MouseEnter += Control_Enter;
+			labelTimeValue.MouseLeave += Control_Leave;
 			// 
 			// labelTime
 			// 
+			labelTime.AccessibleDescription = "Shows the elapsed time and estimated time of the download";
+			labelTime.AccessibleName = "Time";
+			labelTime.AccessibleRole = AccessibleRole.Text;
 			labelTime.Dock = DockStyle.Fill;
 			labelTime.Location = new Point(3, 109);
 			labelTime.Name = "labelTime";
 			labelTime.Size = new Size(105, 25);
 			labelTime.TabIndex = 8;
+			labelTime.ToolTipValues.Description = "Shows the elapsed time and estimated time of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
+			labelTime.ToolTipValues.EnableToolTips = true;
+			labelTime.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+			labelTime.ToolTipValues.Heading = "Time";
 			labelTime.Values.Text = "Time (estimated):";
+			labelTime.DoubleClick += CopyToClipboard_DoubleClick;
+			labelTime.Enter += Control_Enter;
+			labelTime.Leave += Control_Leave;
+			labelTime.MouseEnter += Control_Enter;
+			labelTime.MouseLeave += Control_Leave;
 			// 
 			// statusStrip
 			// 
