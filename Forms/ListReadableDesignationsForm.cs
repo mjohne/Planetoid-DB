@@ -1181,7 +1181,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <remarks>
 	/// This method is invoked when the user selects the "Save As EPUB" menu item.
 	/// </remarks>
-	private void ToolStripItemSaveAsEpub_Click(object? sender, EventArgs? e)
+	private void ToolStripMenuItemSaveAsEpub_Click(object? sender, EventArgs? e)
 	{
 		// Create a SaveFileDialog manually since it's not in the designer
 		using SaveFileDialog saveFileDialogEpub = new()
@@ -1288,10 +1288,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: "    <tbody>");
 
 			// Use GetExportData() to retrieve items
-			foreach ((string? index, string? name) in GetExportData())
+			foreach ((string index, string name) in GetExportData())
 			{
-				string safeIndex = System.Net.WebUtility.HtmlEncode(value: index);
-				string safeName = System.Net.WebUtility.HtmlEncode(value: name);
+				string safeIndex = System.Net.WebUtility.HtmlEncode(value: index) ?? string.Empty;
+				string safeName = System.Net.WebUtility.HtmlEncode(value: name) ?? string.Empty;
 				writer.WriteLine(value: $"      <tr><td>{safeIndex}</td><td>{safeName}</td></tr>");
 			}
 
@@ -1299,6 +1299,210 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: "  </table>");
 			writer.WriteLine(value: "</body>");
 			writer.WriteLine(value: "</html>");
+		}
+
+		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>
+	/// Saves the current list as a Word document.
+	/// </summary>
+	/// <param name="sender">The event sender.</param>
+	/// <param name="e">The event arguments.</param>
+	/// <remarks>
+	/// This method is invoked when the user selects the "Save As Word" menu item.
+	/// </remarks>
+	private void ToolStripMenuItemSaveAsWord_Click(object? sender, EventArgs? e)
+	{
+		// Create a SaveFileDialog manually since it's not in the designer
+		using SaveFileDialog saveFileDialogWord = new()
+		{
+			Filter = "Word documents (*.docx)|*.docx|All files (*.*)|*.*",
+			DefaultExt = "docx",
+			Title = "Save list as Word"
+		};
+
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogWord, ext: "docx"))
+		{
+			return;
+		}
+
+		// Create the Word file
+		using FileStream fs = new(path: saveFileDialogWord.FileName, mode: FileMode.Create);
+		using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
+
+		// 1. [Content_Types].xml
+		ZipArchiveEntry contentTypesEntry = archive.CreateEntry(entryName: "[Content_Types].xml", compressionLevel: CompressionLevel.Optimal);
+		using (StreamWriter writer = new(stream: contentTypesEntry.Open(), encoding: Encoding.UTF8))
+		{
+			writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+			writer.WriteLine(value: "<Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\">");
+			writer.WriteLine(value: "  <Default Extension=\"rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\"/>");
+			writer.WriteLine(value: "  <Default Extension=\"xml\" ContentType=\"application/xml\"/>");
+			writer.WriteLine(value: "  <Override PartName=\"/word/document.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml\"/>");
+			writer.WriteLine(value: "</Types>");
+		}
+
+		// 2. _rels/.rels
+		ZipArchiveEntry relsEntry = archive.CreateEntry(entryName: "_rels/.rels", compressionLevel: CompressionLevel.Optimal);
+		using (StreamWriter writer = new(stream: relsEntry.Open(), encoding: Encoding.UTF8))
+		{
+			writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+			writer.WriteLine(value: "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">");
+			writer.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"word/document.xml\"/>");
+			writer.WriteLine(value: "</Relationships>");
+		}
+
+		// 3. word/document.xml
+		ZipArchiveEntry documentEntry = archive.CreateEntry(entryName: "word/document.xml", compressionLevel: CompressionLevel.Optimal);
+		using (StreamWriter writer = new(stream: documentEntry.Open(), encoding: Encoding.UTF8))
+		{
+			writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+			writer.WriteLine(value: "<w:document xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\">");
+			writer.WriteLine(value: "  <w:body>");
+			// Title
+			writer.WriteLine(value: "    <w:p><w:pPr><w:pStyle w:val=\"Title\"/></w:pPr><w:r><w:t>List of Readable Designations</w:t></w:r></w:p>");
+			// Table
+			writer.WriteLine(value: "    <w:tbl>");
+			writer.WriteLine(value: "      <w:tblPr>");
+			writer.WriteLine(value: "        <w:tblStyle w:val=\"TableGrid\"/>");
+			writer.WriteLine(value: "        <w:tblW w:w=\"0\" w:type=\"auto\"/>");
+			writer.WriteLine(value: "        <w:tblBorders>");
+			writer.WriteLine(value: "          <w:top w:val=\"single\" w:sz=\"4\" w:space=\"0\" w:color=\"auto\"/>");
+			writer.WriteLine(value: "          <w:left w:val=\"single\" w:sz=\"4\" w:space=\"0\" w:color=\"auto\"/>");
+			writer.WriteLine(value: "          <w:bottom w:val=\"single\" w:sz=\"4\" w:space=\"0\" w:color=\"auto\"/>");
+			writer.WriteLine(value: "          <w:right w:val=\"single\" w:sz=\"4\" w:space=\"0\" w:color=\"auto\"/>");
+			writer.WriteLine(value: "          <w:insideH w:val=\"single\" w:sz=\"4\" w:space=\"0\" w:color=\"auto\"/>");
+			writer.WriteLine(value: "          <w:insideV w:val=\"single\" w:sz=\"4\" w:space=\"0\" w:color=\"auto\"/>");
+			writer.WriteLine(value: "        </w:tblBorders>");
+			writer.WriteLine(value: "      </w:tblPr>");
+			// Header Row
+			writer.WriteLine(value: "      <w:tr>");
+			writer.WriteLine(value: "        <w:tc><w:p><w:r><w:t>Index</w:t></w:r></w:p></w:tc>");
+			writer.WriteLine(value: "        <w:tc><w:p><w:r><w:t>Designation</w:t></w:r></w:p></w:tc>");
+			writer.WriteLine(value: "      </w:tr>");
+
+			// Data Rows
+			foreach ((string? index, string? name) in GetExportData())
+			{
+				string safeIndex = System.Net.WebUtility.HtmlEncode(value: index);
+				string safeName = System.Net.WebUtility.HtmlEncode(value: name);
+				writer.Write(value: "      <w:tr>");
+				writer.Write(value: $"<w:tc><w:p><w:r><w:t>{safeIndex}</w:t></w:r></w:p></w:tc>");
+				writer.Write(value: $"<w:tc><w:p><w:r><w:t>{safeName}</w:t></w:r></w:p></w:tc>");
+				writer.WriteLine(value: "</w:tr>");
+			}
+
+			writer.WriteLine(value: "    </w:tbl>");
+			writer.WriteLine(value: "  </w:body>");
+			writer.WriteLine(value: "</w:document>");
+		}
+
+		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>
+	/// Saves the current list as an Excel file.
+	/// </summary>
+	/// <param name="sender">The event sender.</param>
+	/// <param name="e">The event arguments.</param>
+	/// <remarks>
+	/// This method is invoked when the user selects the "Save As Excel" menu item.
+	/// </remarks>
+	private void ToolStripMenuItemSaveAsExcel_Click(object? sender, EventArgs? e)
+	{
+		// Create a SaveFileDialog manually since it's not in the designer
+		using SaveFileDialog saveFileDialogExcel = new()
+		{
+			Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*",
+			DefaultExt = "xlsx",
+			Title = "Save list as Excel"
+		};
+
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogExcel, ext: "xlsx"))
+		{
+			return;
+		}
+
+		// Create the Excel file
+		using FileStream fs = new(path: saveFileDialogExcel.FileName, mode: FileMode.Create);
+		using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
+
+		// 1. [Content_Types].xml
+		ZipArchiveEntry contentTypesEntry = archive.CreateEntry(entryName: "[Content_Types].xml", compressionLevel: CompressionLevel.Optimal);
+		using (StreamWriter writer = new(stream: contentTypesEntry.Open(), encoding: Encoding.UTF8))
+		{
+			writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+			writer.WriteLine(value: "<Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\">");
+			writer.WriteLine(value: "  <Default Extension=\"rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\"/>");
+			writer.WriteLine(value: "  <Default Extension=\"xml\" ContentType=\"application/xml\"/>");
+			writer.WriteLine(value: "  <Override PartName=\"/xl/workbook.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml\"/>");
+			writer.WriteLine(value: "  <Override PartName=\"/xl/worksheets/sheet1.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml\"/>");
+			writer.WriteLine(value: "</Types>");
+		}
+
+		// 2. _rels/.rels
+		ZipArchiveEntry relsEntry = archive.CreateEntry(entryName: "_rels/.rels", compressionLevel: CompressionLevel.Optimal);
+		using (StreamWriter writer = new(stream: relsEntry.Open(), encoding: Encoding.UTF8))
+		{
+			writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+			writer.WriteLine(value: "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">");
+			writer.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"xl/workbook.xml\"/>");
+			writer.WriteLine(value: "</Relationships>");
+		}
+
+		// 3. xl/workbook.xml
+		ZipArchiveEntry workbookEntry = archive.CreateEntry(entryName: "xl/workbook.xml", compressionLevel: CompressionLevel.Optimal);
+		using (StreamWriter writer = new(stream: workbookEntry.Open(), encoding: Encoding.UTF8))
+		{
+			writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+			writer.WriteLine(value: "<workbook xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\">");
+			writer.WriteLine(value: "  <sheets>");
+			writer.WriteLine(value: "    <sheet name=\"Planetoids\" sheetId=\"1\" r:id=\"rId1\"/>");
+			writer.WriteLine(value: "  </sheets>");
+			writer.WriteLine(value: "</workbook>");
+		}
+
+		// 4. xl/_rels/workbook.xml.rels
+		ZipArchiveEntry workbookRelsEntry = archive.CreateEntry(entryName: "xl/_rels/workbook.xml.rels", compressionLevel: CompressionLevel.Optimal);
+		using (StreamWriter writer = new(stream: workbookRelsEntry.Open(), encoding: Encoding.UTF8))
+		{
+			writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+			writer.WriteLine(value: "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">");
+			writer.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet\" Target=\"worksheets/sheet1.xml\"/>");
+			writer.WriteLine(value: "</Relationships>");
+		}
+
+		// 5. xl/worksheets/sheet1.xml
+		ZipArchiveEntry sheetEntry = archive.CreateEntry(entryName: "xl/worksheets/sheet1.xml", compressionLevel: CompressionLevel.Optimal);
+		using (StreamWriter writer = new(stream: sheetEntry.Open(), encoding: Encoding.UTF8))
+		{
+			writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+			writer.WriteLine(value: "<worksheet xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\">");
+			writer.WriteLine(value: "  <sheetData>");
+
+			// Header
+			writer.WriteLine(value: "    <row>");
+			writer.WriteLine(value: "      <c t=\"inlineStr\"><is><t>Index</t></is></c>");
+			writer.WriteLine(value: "      <c t=\"inlineStr\"><is><t>Designation</t></is></c>");
+			writer.WriteLine(value: "    </row>");
+
+			// Data
+			foreach ((string? index, string? name) in GetExportData())
+			{
+				string safeIndex = System.Net.WebUtility.HtmlEncode(value: index);
+				string safeName = System.Net.WebUtility.HtmlEncode(value: name);
+
+				writer.WriteLine(value: "    <row>");
+				writer.WriteLine(value: $"      <c t=\"inlineStr\"><is><t>{safeIndex}</t></is></c>");
+				writer.WriteLine(value: $"      <c t=\"inlineStr\"><is><t>{safeName}</t></is></c>");
+				writer.WriteLine(value: "    </row>");
+			}
+
+			writer.WriteLine(value: "  </sheetData>");
+			writer.WriteLine(value: "</worksheet>");
 		}
 
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
