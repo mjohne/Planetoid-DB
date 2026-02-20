@@ -10,10 +10,7 @@
     <Compile Update="Forms\BaseKryptonForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\CheckAstorbDatForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\CheckMpcorbDatForm.cs">
+    <Compile Update="Forms\CheckDatabaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\CopyDataToClipboardForm.cs">
