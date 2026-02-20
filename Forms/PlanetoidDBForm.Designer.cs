@@ -214,7 +214,7 @@ namespace Planetoid_DB
 			toolStripProgressBarBackgroundDownload = new ToolStripProgressBar();
 			toolStripStatusLabelCancelBackgroundDownload = new ToolStripStatusLabel();
 			labelInformation = new ToolStripStatusLabel();
-			toolStripIcons = new ToolStrip();
+			kryptonToolStripIcons = new KryptonToolStrip();
 			toolStripButtonExport = new ToolStripButton();
 			toolStripButtonPrint = new ToolStripButton();
 			toolStripButtonSearch = new ToolStripButton();
@@ -230,7 +230,7 @@ namespace Planetoid_DB
 			toolStripButtonAbout = new ToolStripButton();
 			toolStripButtonLicense = new ToolStripButton();
 			toolStripButtonOpenWebsitePDB = new ToolStripButton();
-			toolStripNavigation = new ToolStrip();
+			kryptonToolStripNavigation = new KryptonToolStrip();
 			toolStripButtonLoadRandomMinorPlanet = new ToolStripButton();
 			toolStripSeparator8 = new ToolStripSeparator();
 			toolStripButtonStepToBegin = new ToolStripButton();
@@ -267,8 +267,8 @@ namespace Planetoid_DB
 			toolStripContainer.TopToolStripPanel.SuspendLayout();
 			toolStripContainer.SuspendLayout();
 			statusBar.SuspendLayout();
-			toolStripIcons.SuspendLayout();
-			toolStripNavigation.SuspendLayout();
+			kryptonToolStripIcons.SuspendLayout();
+			kryptonToolStripNavigation.SuspendLayout();
 			SuspendLayout();
 			// 
 			// contextMenuNavigationStep
@@ -3232,8 +3232,8 @@ namespace Planetoid_DB
 			toolStripContainer.TopToolStripPanel.AccessibleName = "Upper part of the container panel";
 			toolStripContainer.TopToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 			toolStripContainer.TopToolStripPanel.Controls.Add(menu);
-			toolStripContainer.TopToolStripPanel.Controls.Add(toolStripIcons);
-			toolStripContainer.TopToolStripPanel.Controls.Add(toolStripNavigation);
+			toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripIcons);
+			toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripNavigation);
 			// 
 			// statusBar
 			// 
@@ -3337,24 +3337,24 @@ namespace Planetoid_DB
 			// 
 			// toolStripIcons
 			// 
-			toolStripIcons.AccessibleDescription = "Toolbar of main functions";
-			toolStripIcons.AccessibleName = "Toolbar of main functions";
-			toolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
-			toolStripIcons.Dock = DockStyle.None;
-			toolStripIcons.Font = new Font("Segoe UI", 9F);
-			toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonExport, toolStripButtonPrint, splitbuttonCopyToClipboard, toolStripButtonSearch, toolStripSeparator4, toolStripButtonDatabaseInformation, toolStripButtonTableMode, toolStripButtonTerminology, toolStripSeparator3, splitbuttonTopTenRecords, splitbuttonDistribution, toolStripSeparator5, toolStripButtonCheckMpcorbDat, toolStripButtonDownloadMpcorbDat, toolStripSeparator1, toolStripButtonAbout, toolStripButtonLicense, toolStripButtonOpenWebsitePDB });
-			toolStripIcons.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
-			toolStripIcons.Location = new Point(0, 24);
-			toolStripIcons.Name = "toolStripIcons";
-			toolStripIcons.Size = new Size(852, 25);
-			toolStripIcons.Stretch = true;
-			toolStripIcons.TabIndex = 1;
-			toolStripIcons.TabStop = true;
-			toolStripIcons.Text = "Toolbar of main functions";
-			toolStripIcons.Enter += Control_Enter;
-			toolStripIcons.Leave += Control_Leave;
-			toolStripIcons.MouseEnter += Control_Enter;
-			toolStripIcons.MouseLeave += Control_Leave;
+			kryptonToolStripIcons.AccessibleDescription = "Toolbar of main functions";
+			kryptonToolStripIcons.AccessibleName = "Toolbar of main functions";
+			kryptonToolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
+			kryptonToolStripIcons.Dock = DockStyle.None;
+			kryptonToolStripIcons.Font = new Font("Segoe UI", 9F);
+			kryptonToolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonExport, toolStripButtonPrint, splitbuttonCopyToClipboard, toolStripButtonSearch, toolStripSeparator4, toolStripButtonDatabaseInformation, toolStripButtonTableMode, toolStripButtonTerminology, toolStripSeparator3, splitbuttonTopTenRecords, splitbuttonDistribution, toolStripSeparator5, toolStripButtonCheckMpcorbDat, toolStripButtonDownloadMpcorbDat, toolStripSeparator1, toolStripButtonAbout, toolStripButtonLicense, toolStripButtonOpenWebsitePDB });
+			kryptonToolStripIcons.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
+			kryptonToolStripIcons.Location = new Point(0, 24);
+			kryptonToolStripIcons.Name = "toolStripIcons";
+			kryptonToolStripIcons.Size = new Size(852, 25);
+			kryptonToolStripIcons.Stretch = true;
+			kryptonToolStripIcons.TabIndex = 1;
+			kryptonToolStripIcons.TabStop = true;
+			kryptonToolStripIcons.Text = "Toolbar of main functions";
+			kryptonToolStripIcons.Enter += Control_Enter;
+			kryptonToolStripIcons.Leave += Control_Leave;
+			kryptonToolStripIcons.MouseEnter += Control_Enter;
+			kryptonToolStripIcons.MouseLeave += Control_Leave;
 			// 
 			// toolStripButtonExport
 			// 
@@ -3564,22 +3564,22 @@ namespace Planetoid_DB
 			// 
 			// toolStripNavigation
 			// 
-			toolStripNavigation.AccessibleDescription = "Toolbar of the navigation";
-			toolStripNavigation.AccessibleName = "Toolbar of the navigation";
-			toolStripNavigation.AccessibleRole = AccessibleRole.ToolBar;
-			toolStripNavigation.Dock = DockStyle.None;
-			toolStripNavigation.Font = new Font("Segoe UI", 9F);
-			toolStripNavigation.Items.AddRange(new ToolStripItem[] { toolStripButtonLoadRandomMinorPlanet, toolStripSeparator8, toolStripButtonStepToBegin, toolStripSplitButtonStepBackward, toolStripButtonStepBackwardOne, toolStripButtonStepForwardOne, toolStripSplitButtonStepForward, toolStripButtonStepToEnd, toolStripSeparator6, toolStripLabelIndexPosition, toolStripSeparator7, toolStripLabelGoToIndex, toolStripTextBoxGotoIndex, toolStripButtonGoToIndex, toolStripButtonListReadableDesignations, toolStripSeparator9, toolStripButtonDerivedOrbitElements, toolStripButtonFilter });
-			toolStripNavigation.Location = new Point(0, 49);
-			toolStripNavigation.Name = "toolStripNavigation";
-			toolStripNavigation.Size = new Size(852, 25);
-			toolStripNavigation.Stretch = true;
-			toolStripNavigation.TabIndex = 2;
-			toolStripNavigation.Text = "Navigation";
-			toolStripNavigation.Enter += Control_Enter;
-			toolStripNavigation.Leave += Control_Leave;
-			toolStripNavigation.MouseEnter += Control_Enter;
-			toolStripNavigation.MouseLeave += Control_Leave;
+			kryptonToolStripNavigation.AccessibleDescription = "Toolbar of the navigation";
+			kryptonToolStripNavigation.AccessibleName = "Toolbar of the navigation";
+			kryptonToolStripNavigation.AccessibleRole = AccessibleRole.ToolBar;
+			kryptonToolStripNavigation.Dock = DockStyle.None;
+			kryptonToolStripNavigation.Font = new Font("Segoe UI", 9F);
+			kryptonToolStripNavigation.Items.AddRange(new ToolStripItem[] { toolStripButtonLoadRandomMinorPlanet, toolStripSeparator8, toolStripButtonStepToBegin, toolStripSplitButtonStepBackward, toolStripButtonStepBackwardOne, toolStripButtonStepForwardOne, toolStripSplitButtonStepForward, toolStripButtonStepToEnd, toolStripSeparator6, toolStripLabelIndexPosition, toolStripSeparator7, toolStripLabelGoToIndex, toolStripTextBoxGotoIndex, toolStripButtonGoToIndex, toolStripButtonListReadableDesignations, toolStripSeparator9, toolStripButtonDerivedOrbitElements, toolStripButtonFilter });
+			kryptonToolStripNavigation.Location = new Point(0, 49);
+			kryptonToolStripNavigation.Name = "toolStripNavigation";
+			kryptonToolStripNavigation.Size = new Size(852, 25);
+			kryptonToolStripNavigation.Stretch = true;
+			kryptonToolStripNavigation.TabIndex = 2;
+			kryptonToolStripNavigation.Text = "Navigation";
+			kryptonToolStripNavigation.Enter += Control_Enter;
+			kryptonToolStripNavigation.Leave += Control_Leave;
+			kryptonToolStripNavigation.MouseEnter += Control_Enter;
+			kryptonToolStripNavigation.MouseLeave += Control_Leave;
 			// 
 			// toolStripButtonLoadRandomMinorPlanet
 			// 
@@ -3888,10 +3888,10 @@ namespace Planetoid_DB
 			toolStripContainer.PerformLayout();
 			statusBar.ResumeLayout(false);
 			statusBar.PerformLayout();
-			toolStripIcons.ResumeLayout(false);
-			toolStripIcons.PerformLayout();
-			toolStripNavigation.ResumeLayout(false);
-			toolStripNavigation.PerformLayout();
+			kryptonToolStripIcons.ResumeLayout(false);
+			kryptonToolStripIcons.PerformLayout();
+			kryptonToolStripNavigation.ResumeLayout(false);
+			kryptonToolStripNavigation.PerformLayout();
 			ResumeLayout(false);
 		}
 
@@ -3919,7 +3919,7 @@ namespace Planetoid_DB
     private ToolStripStatusLabel labelInformation;
     private ToolStripStatusLabel toolStripStatusLabelUpdate;
     private Timer timerBlinkForUpdateAvailable;
-    private ToolStrip toolStripIcons;
+    private KryptonToolStrip kryptonToolStripIcons;
     private ToolStripButton toolStripButtonCheckMpcorbDat;
     private ToolStripButton toolStripButtonDownloadMpcorbDat;
     private ToolStripButton toolStripButtonAbout;
@@ -3931,7 +3931,7 @@ namespace Planetoid_DB
     private ToolStripButton toolStripButtonDatabaseInformation;
     private ToolStripSplitButton splitbuttonDistribution;
     private ToolStripSeparator toolStripSeparator5;
-    private ToolStrip toolStripNavigation;
+    private KryptonToolStrip kryptonToolStripNavigation;
     private ToolStripButton toolStripButtonStepToBegin;
     private ToolStripButton toolStripButtonStepBackwardOne;
     private ToolStripButton toolStripButtonStepForwardOne;
