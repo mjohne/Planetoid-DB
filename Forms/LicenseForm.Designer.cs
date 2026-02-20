@@ -78,10 +78,10 @@ namespace Planetoid_DB
 			kryptonButtonCopyLicenseToClipboard.Name = "kryptonButtonCopyLicenseToClipboard";
 			kryptonButtonCopyLicenseToClipboard.Size = new Size(127, 25);
 			kryptonButtonCopyLicenseToClipboard.TabIndex = 1;
-			kryptonButtonCopyLicenseToClipboard.ToolTipValues.Description = "Copies the license to the clipboard";
+			kryptonButtonCopyLicenseToClipboard.ToolTipValues.Description = "Copies the license to the clipboard.";
 			kryptonButtonCopyLicenseToClipboard.ToolTipValues.EnableToolTips = true;
-			kryptonButtonCopyLicenseToClipboard.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			kryptonButtonCopyLicenseToClipboard.ToolTipValues.Heading = "Copy the license to the clipboard";
+			kryptonButtonCopyLicenseToClipboard.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			kryptonButtonCopyLicenseToClipboard.Values.DropDownArrowColor = Color.Empty;
 			kryptonButtonCopyLicenseToClipboard.Values.Image = FatcowIcons16px.fatcow_clipboard_empty_16px;
 			kryptonButtonCopyLicenseToClipboard.Values.Text = "&Copy to clipboard";
@@ -100,10 +100,10 @@ namespace Planetoid_DB
 			kryptonButtonSaveLicense.Name = "kryptonButtonSaveLicense";
 			kryptonButtonSaveLicense.Size = new Size(127, 25);
 			kryptonButtonSaveLicense.TabIndex = 2;
-			kryptonButtonSaveLicense.ToolTipValues.Description = "Saves the license to the hard drive";
+			kryptonButtonSaveLicense.ToolTipValues.Description = "Saves the license to the hard drive.";
 			kryptonButtonSaveLicense.ToolTipValues.EnableToolTips = true;
-			kryptonButtonSaveLicense.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			kryptonButtonSaveLicense.ToolTipValues.Heading = "Save the license";
+			kryptonButtonSaveLicense.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			kryptonButtonSaveLicense.Values.DropDownArrowColor = Color.Empty;
 			kryptonButtonSaveLicense.Values.Image = FatcowIcons16px.fatcow_diskette_16px;
 			kryptonButtonSaveLicense.Values.Text = "&Save license";
@@ -123,10 +123,10 @@ namespace Planetoid_DB
 			kryptonButtonClose.Name = "kryptonButtonClose";
 			kryptonButtonClose.Size = new Size(127, 25);
 			kryptonButtonClose.TabIndex = 3;
-			kryptonButtonClose.ToolTipValues.Description = "Closes the form";
+			kryptonButtonClose.ToolTipValues.Description = "Closes the form.";
 			kryptonButtonClose.ToolTipValues.EnableToolTips = true;
-			kryptonButtonClose.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			kryptonButtonClose.ToolTipValues.Heading = "Close";
+			kryptonButtonClose.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			kryptonButtonClose.Values.DropDownArrowColor = Color.Empty;
 			kryptonButtonClose.Values.Image = FatcowIcons16px.fatcow_cancel_16px;
 			kryptonButtonClose.Values.Text = "C&lose";
@@ -147,10 +147,10 @@ namespace Planetoid_DB
 			kryptonPictureBoxLicenseLogo.SizeMode = PictureBoxSizeMode.Zoom;
 			kryptonPictureBoxLicenseLogo.TabIndex = 8;
 			kryptonPictureBoxLicenseLogo.TabStop = false;
-			kryptonPictureBoxLicenseLogo.ToolTipValues.Description = "Shows the logo of the license";
+			kryptonPictureBoxLicenseLogo.ToolTipValues.Description = "Shows the logo of the license.";
 			kryptonPictureBoxLicenseLogo.ToolTipValues.EnableToolTips = true;
-			kryptonPictureBoxLicenseLogo.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			kryptonPictureBoxLicenseLogo.ToolTipValues.Heading = "GPL v3 Logo";
+			kryptonPictureBoxLicenseLogo.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			kryptonPictureBoxLicenseLogo.MouseEnter += Control_Enter;
 			kryptonPictureBoxLicenseLogo.MouseLeave += Control_Leave;
 			// 
@@ -169,10 +169,10 @@ namespace Planetoid_DB
 			kryptonTextBoxLicense.TabIndex = 0;
 			kryptonTextBoxLicense.TabStop = false;
 			kryptonTextBoxLicense.Text = resources.GetString("kryptonTextBoxLicense.Text");
-			kryptonTextBoxLicense.ToolTipValues.Description = "Shows the license";
+			kryptonTextBoxLicense.ToolTipValues.Description = "Shows the license.";
 			kryptonTextBoxLicense.ToolTipValues.EnableToolTips = true;
-			kryptonTextBoxLicense.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			kryptonTextBoxLicense.ToolTipValues.Heading = "License";
+			kryptonTextBoxLicense.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			kryptonTextBoxLicense.Enter += Control_Enter;
 			kryptonTextBoxLicense.Leave += Control_Leave;
 			kryptonTextBoxLicense.MouseEnter += Control_Enter;

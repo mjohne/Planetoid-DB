@@ -142,10 +142,10 @@ namespace Planetoid_DB
 			listBox.Name = "listBox";
 			listBox.Size = new Size(279, 337);
 			listBox.TabIndex = 7;
-			listBox.ToolTipValues.Description = "Lists the terms that can be looked up";
+			listBox.ToolTipValues.Description = "Lists the terms that can be looked up.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			listBox.ToolTipValues.EnableToolTips = true;
-			listBox.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			listBox.ToolTipValues.Heading = "Terms list";
+			listBox.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			listBox.SelectedValueChanged += ListBox_SelectedValueChanged;
 			listBox.Enter += Control_Enter;
 			listBox.Leave += Control_Leave;

@@ -46,10 +46,10 @@ namespace Planetoid_DB
 			menuitemNavigateStep1000 = new ToolStripMenuItem();
 			menuitemNavigateStep10000 = new ToolStripMenuItem();
 			menuitemNavigateStep100000 = new ToolStripMenuItem();
+			menuitemNavigateSomeDataForward = new ToolStripMenuItem();
 			toolStripSplitButtonStepForward = new ToolStripSplitButton();
 			toolStripSplitButtonStepBackward = new ToolStripSplitButton();
 			menuitemNavigateSomeDataBackward = new ToolStripMenuItem();
-			menuitemNavigateSomeDataForward = new ToolStripMenuItem();
 			tableLayoutPanelData = new KryptonTableLayoutPanel();
 			labelIndexData = new KryptonLabel();
 			contextMenuCopyToClipboard = new ContextMenuStrip(components);
@@ -115,8 +115,8 @@ namespace Planetoid_DB
 			menuitemRecordsRmsResidual = new ToolStripMenuItem();
 			menuitemRecordsComputername = new ToolStripMenuItem();
 			menuitemRecordsDateOfTheLastObservation = new ToolStripMenuItem();
-			splitbuttonTopTenRecords = new ToolStripSplitButton();
 			menuitemRecords = new ToolStripMenuItem();
+			splitbuttonTopTenRecords = new ToolStripSplitButton();
 			contextMenuDistributions = new ContextMenuStrip(components);
 			menuitemDistributionMeanAnomalyAtTheEpoch = new ToolStripMenuItem();
 			menuitemDistributionArgumentOfPerihelion = new ToolStripMenuItem();
@@ -132,8 +132,8 @@ namespace Planetoid_DB
 			menuitemDistributionObservationSpan = new ToolStripMenuItem();
 			menuitemDistributionRmsResidual = new ToolStripMenuItem();
 			menuitemDistributionComputerName = new ToolStripMenuItem();
-			splitbuttonDistribution = new ToolStripSplitButton();
 			menuitemDistribution = new ToolStripMenuItem();
+			splitbuttonDistribution = new ToolStripSplitButton();
 			contextMenuFullCopyToClipboardOrbitalElements = new ContextMenuStrip(components);
 			menuitemCopyToClipboardIndexNumber = new ToolStripMenuItem();
 			menuitemCopyToClipboardReadableDesignation = new ToolStripMenuItem();
@@ -155,8 +155,8 @@ namespace Planetoid_DB
 			menuitemCopyToClipboardComputerName = new ToolStripMenuItem();
 			menuitemCopyToClipboardDateOfTheLastObservation = new ToolStripMenuItem();
 			menuitemCopyToClipboardFlags = new ToolStripMenuItem();
-			splitbuttonCopyToClipboard = new ToolStripSplitButton();
 			menuitemCopytoClipboard = new ToolStripMenuItem();
+			splitbuttonCopyToClipboard = new ToolStripSplitButton();
 			menu = new MenuStrip();
 			menuitemFile = new ToolStripMenuItem();
 			menuitemExportDataEntry = new ToolStripMenuItem();
@@ -279,7 +279,7 @@ namespace Planetoid_DB
 			contextMenuNavigationStep.Font = new Font("Segoe UI", 9F);
 			contextMenuNavigationStep.Items.AddRange(new ToolStripItem[] { menuitemNavigateStep10, menuitemNavigateStep100, menuitemNavigateStep1000, menuitemNavigateStep10000, menuitemNavigateStep100000 });
 			contextMenuNavigationStep.Name = "contextMenu";
-			contextMenuNavigationStep.OwnerItem = menuitemNavigateSomeDataForward;
+			contextMenuNavigationStep.OwnerItem = menuitemNavigateSomeDataBackward;
 			contextMenuNavigationStep.ShowCheckMargin = true;
 			contextMenuNavigationStep.ShowImageMargin = false;
 			contextMenuNavigationStep.Size = new Size(111, 114);
@@ -360,6 +360,23 @@ namespace Planetoid_DB
 			menuitemNavigateStep100000.MouseEnter += Control_Enter;
 			menuitemNavigateStep100000.MouseLeave += Control_Leave;
 			// 
+			// menuitemNavigateSomeDataForward
+			// 
+			menuitemNavigateSomeDataForward.AccessibleDescription = "Navigates some data forward";
+			menuitemNavigateSomeDataForward.AccessibleName = "Navigates some data forward";
+			menuitemNavigateSomeDataForward.AccessibleRole = AccessibleRole.MenuItem;
+			menuitemNavigateSomeDataForward.AutoToolTip = true;
+			menuitemNavigateSomeDataForward.DoubleClickEnabled = true;
+			menuitemNavigateSomeDataForward.DropDown = contextMenuNavigationStep;
+			menuitemNavigateSomeDataForward.Image = FatcowIcons16px.fatcow_control_fastforward_blue_16px;
+			menuitemNavigateSomeDataForward.Name = "menuitemNavigateSomeDataForward";
+			menuitemNavigateSomeDataForward.ShortcutKeys = Keys.Control | Keys.D5;
+			menuitemNavigateSomeDataForward.Size = new Size(275, 22);
+			menuitemNavigateSomeDataForward.Text = "Navigate some data &forward";
+			menuitemNavigateSomeDataForward.Click += ToolStripMenuItemNavigateSomeDataForward_Click;
+			menuitemNavigateSomeDataForward.MouseEnter += Control_Enter;
+			menuitemNavigateSomeDataForward.MouseLeave += Control_Leave;
+			// 
 			// toolStripSplitButtonStepForward
 			// 
 			toolStripSplitButtonStepForward.AccessibleDescription = "Navigates some data forward";
@@ -408,23 +425,6 @@ namespace Planetoid_DB
 			menuitemNavigateSomeDataBackward.Click += ToolStripMenuItemNavigateSomeDataBackward_Click;
 			menuitemNavigateSomeDataBackward.MouseEnter += Control_Enter;
 			menuitemNavigateSomeDataBackward.MouseLeave += Control_Leave;
-			// 
-			// menuitemNavigateSomeDataForward
-			// 
-			menuitemNavigateSomeDataForward.AccessibleDescription = "Navigates some data forward";
-			menuitemNavigateSomeDataForward.AccessibleName = "Navigates some data forward";
-			menuitemNavigateSomeDataForward.AccessibleRole = AccessibleRole.MenuItem;
-			menuitemNavigateSomeDataForward.AutoToolTip = true;
-			menuitemNavigateSomeDataForward.DoubleClickEnabled = true;
-			menuitemNavigateSomeDataForward.DropDown = contextMenuNavigationStep;
-			menuitemNavigateSomeDataForward.Image = FatcowIcons16px.fatcow_control_fastforward_blue_16px;
-			menuitemNavigateSomeDataForward.Name = "menuitemNavigateSomeDataForward";
-			menuitemNavigateSomeDataForward.ShortcutKeys = Keys.Control | Keys.D5;
-			menuitemNavigateSomeDataForward.Size = new Size(275, 22);
-			menuitemNavigateSomeDataForward.Text = "Navigate some data &forward";
-			menuitemNavigateSomeDataForward.Click += ToolStripMenuItemNavigateSomeDataForward_Click;
-			menuitemNavigateSomeDataForward.MouseEnter += Control_Enter;
-			menuitemNavigateSomeDataForward.MouseLeave += Control_Leave;
 			// 
 			// tableLayoutPanelData
 			// 
@@ -513,10 +513,10 @@ namespace Planetoid_DB
 			labelIndexData.Name = "labelIndexData";
 			labelIndexData.Size = new Size(166, 20);
 			labelIndexData.TabIndex = 1;
-			labelIndexData.ToolTipValues.Description = "Shows the information of \"Index No.\"";
+			labelIndexData.ToolTipValues.Description = "Shows the information of \"Index No.\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelIndexData.ToolTipValues.EnableToolTips = true;
-			labelIndexData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelIndexData.ToolTipValues.Heading = "Index No.";
+			labelIndexData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelIndexData.Values.Text = "..................";
 			labelIndexData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelIndexData.Enter += Control_Enter;
@@ -568,10 +568,10 @@ namespace Planetoid_DB
 			labelReadableDesignationData.Name = "labelReadableDesignationData";
 			labelReadableDesignationData.Size = new Size(166, 20);
 			labelReadableDesignationData.TabIndex = 3;
-			labelReadableDesignationData.ToolTipValues.Description = "Shows the information of \"Readable designation\"";
+			labelReadableDesignationData.ToolTipValues.Description = "Shows the information of \"Readable designation\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelReadableDesignationData.ToolTipValues.EnableToolTips = true;
-			labelReadableDesignationData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelReadableDesignationData.ToolTipValues.Heading = "Readable designation";
+			labelReadableDesignationData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelReadableDesignationData.Values.Text = "..................";
 			labelReadableDesignationData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelReadableDesignationData.Enter += Control_Enter;
@@ -592,10 +592,10 @@ namespace Planetoid_DB
 			labelEpochData.Name = "labelEpochData";
 			labelEpochData.Size = new Size(166, 20);
 			labelEpochData.TabIndex = 5;
-			labelEpochData.ToolTipValues.Description = "Shows the information of \"Epoch (in packed form, .0 TT)\"";
+			labelEpochData.ToolTipValues.Description = "Shows the information of \"Epoch (in packed form, .0 TT)\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelEpochData.ToolTipValues.EnableToolTips = true;
-			labelEpochData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelEpochData.ToolTipValues.Heading = "Epoch (in packed form, .0 TT)";
+			labelEpochData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelEpochData.Values.Text = "..................";
 			labelEpochData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelEpochData.Enter += Control_Enter;
@@ -616,10 +616,10 @@ namespace Planetoid_DB
 			labelMeanAnomalyAtTheEpochData.Name = "labelMeanAnomalyAtTheEpochData";
 			labelMeanAnomalyAtTheEpochData.Size = new Size(166, 20);
 			labelMeanAnomalyAtTheEpochData.TabIndex = 7;
-			labelMeanAnomalyAtTheEpochData.ToolTipValues.Description = "Shows the information of \"Mean anomaly at the epoch, in degrees\"";
+			labelMeanAnomalyAtTheEpochData.ToolTipValues.Description = "Shows the information of \"Mean anomaly at the epoch, in degrees\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelMeanAnomalyAtTheEpochData.ToolTipValues.EnableToolTips = true;
-			labelMeanAnomalyAtTheEpochData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelMeanAnomalyAtTheEpochData.ToolTipValues.Heading = "Mean anomaly at the epoch (degrees)";
+			labelMeanAnomalyAtTheEpochData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelMeanAnomalyAtTheEpochData.Values.Text = "..................";
 			labelMeanAnomalyAtTheEpochData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelMeanAnomalyAtTheEpochData.Enter += Control_Enter;
@@ -640,10 +640,10 @@ namespace Planetoid_DB
 			labelArgumentOfThePerihelionData.Name = "labelArgumentOfThePerihelionData";
 			labelArgumentOfThePerihelionData.Size = new Size(166, 20);
 			labelArgumentOfThePerihelionData.TabIndex = 9;
-			labelArgumentOfThePerihelionData.ToolTipValues.Description = "Shows the information of \"Argument of the perihelion, J2000.0 (degrees)\"";
+			labelArgumentOfThePerihelionData.ToolTipValues.Description = "Shows the information of \"Argument of the perihelion, J2000.0 (degrees)\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelArgumentOfThePerihelionData.ToolTipValues.EnableToolTips = true;
-			labelArgumentOfThePerihelionData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelArgumentOfThePerihelionData.ToolTipValues.Heading = "Argument of the perihelion, J2000.0 (degrees)";
+			labelArgumentOfThePerihelionData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelArgumentOfThePerihelionData.Values.Text = "..................";
 			labelArgumentOfThePerihelionData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelArgumentOfThePerihelionData.Enter += Control_Enter;
@@ -664,10 +664,10 @@ namespace Planetoid_DB
 			labelLongitudeOfTheAscendingNodeData.Name = "labelLongitudeOfTheAscendingNodeData";
 			labelLongitudeOfTheAscendingNodeData.Size = new Size(166, 20);
 			labelLongitudeOfTheAscendingNodeData.TabIndex = 11;
-			labelLongitudeOfTheAscendingNodeData.ToolTipValues.Description = "Shows the information of \"Longitude of the ascending node, J2000.0 (degrees)\"";
+			labelLongitudeOfTheAscendingNodeData.ToolTipValues.Description = "Shows the information of \"Longitude of the ascending node, J2000.0 (degrees)\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelLongitudeOfTheAscendingNodeData.ToolTipValues.EnableToolTips = true;
-			labelLongitudeOfTheAscendingNodeData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelLongitudeOfTheAscendingNodeData.ToolTipValues.Heading = "Longitude of the ascending node, J2000.0 (degrees)";
+			labelLongitudeOfTheAscendingNodeData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelLongitudeOfTheAscendingNodeData.Values.Text = "..................";
 			labelLongitudeOfTheAscendingNodeData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelLongitudeOfTheAscendingNodeData.Enter += Control_Enter;
@@ -688,10 +688,10 @@ namespace Planetoid_DB
 			labelInclinationToTheEclipticData.Name = "labelInclinationToTheEclipticData";
 			labelInclinationToTheEclipticData.Size = new Size(166, 20);
 			labelInclinationToTheEclipticData.TabIndex = 13;
-			labelInclinationToTheEclipticData.ToolTipValues.Description = "Shows the information of \"Inclination to the ecliptic, J2000.0 (degrees)\"";
+			labelInclinationToTheEclipticData.ToolTipValues.Description = "Shows the information of \"Inclination to the ecliptic, J2000.0 (degrees)\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelInclinationToTheEclipticData.ToolTipValues.EnableToolTips = true;
-			labelInclinationToTheEclipticData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelInclinationToTheEclipticData.ToolTipValues.Heading = "Inclination to the ecliptic, J2000.0 (degrees)";
+			labelInclinationToTheEclipticData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelInclinationToTheEclipticData.Values.Text = "..................";
 			labelInclinationToTheEclipticData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelInclinationToTheEclipticData.Enter += Control_Enter;
@@ -712,10 +712,10 @@ namespace Planetoid_DB
 			labelOrbitalEccentricityData.Name = "labelOrbitalEccentricityData";
 			labelOrbitalEccentricityData.Size = new Size(166, 20);
 			labelOrbitalEccentricityData.TabIndex = 15;
-			labelOrbitalEccentricityData.ToolTipValues.Description = "Shows the information of \"Orbital eccentricity\"";
+			labelOrbitalEccentricityData.ToolTipValues.Description = "Shows the information of \"Orbital eccentricity\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelOrbitalEccentricityData.ToolTipValues.EnableToolTips = true;
-			labelOrbitalEccentricityData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelOrbitalEccentricityData.ToolTipValues.Heading = "Orbital eccentricity";
+			labelOrbitalEccentricityData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelOrbitalEccentricityData.Values.Text = "..................";
 			labelOrbitalEccentricityData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelOrbitalEccentricityData.Enter += Control_Enter;
@@ -736,10 +736,10 @@ namespace Planetoid_DB
 			labelMeanDailyMotionData.Name = "labelMeanDailyMotionData";
 			labelMeanDailyMotionData.Size = new Size(166, 20);
 			labelMeanDailyMotionData.TabIndex = 17;
-			labelMeanDailyMotionData.ToolTipValues.Description = "Shows the information of \"Mean daily motion (degrees per day)\"";
+			labelMeanDailyMotionData.ToolTipValues.Description = "Shows the information of \"Mean daily motion (degrees per day)\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelMeanDailyMotionData.ToolTipValues.EnableToolTips = true;
-			labelMeanDailyMotionData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelMeanDailyMotionData.ToolTipValues.Heading = "Mean daily motion (degrees per day)";
+			labelMeanDailyMotionData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelMeanDailyMotionData.Values.Text = "..................";
 			labelMeanDailyMotionData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelMeanDailyMotionData.Enter += Control_Enter;
@@ -760,10 +760,10 @@ namespace Planetoid_DB
 			labelSemiMajorAxisData.Name = "labelSemiMajorAxisData";
 			labelSemiMajorAxisData.Size = new Size(166, 20);
 			labelSemiMajorAxisData.TabIndex = 19;
-			labelSemiMajorAxisData.ToolTipValues.Description = "Shows the information of \"Semi-major axis (AU)\"";
+			labelSemiMajorAxisData.ToolTipValues.Description = "Shows the information of \"Semi-major axis (AU)\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelSemiMajorAxisData.ToolTipValues.EnableToolTips = true;
-			labelSemiMajorAxisData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSemiMajorAxisData.ToolTipValues.Heading = "Semi-major axis (AU)";
+			labelSemiMajorAxisData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSemiMajorAxisData.Values.Text = "..................";
 			labelSemiMajorAxisData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelSemiMajorAxisData.Enter += Control_Enter;
@@ -784,10 +784,10 @@ namespace Planetoid_DB
 			labelAbsoluteMagnitudeData.Name = "labelAbsoluteMagnitudeData";
 			labelAbsoluteMagnitudeData.Size = new Size(166, 22);
 			labelAbsoluteMagnitudeData.TabIndex = 21;
-			labelAbsoluteMagnitudeData.ToolTipValues.Description = "Shows the information of \"Absolute magnitude, H\"";
+			labelAbsoluteMagnitudeData.ToolTipValues.Description = "Shows the information of \"Absolute magnitude, H\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelAbsoluteMagnitudeData.ToolTipValues.EnableToolTips = true;
-			labelAbsoluteMagnitudeData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelAbsoluteMagnitudeData.ToolTipValues.Heading = "Absolute magnitude, H";
+			labelAbsoluteMagnitudeData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelAbsoluteMagnitudeData.Values.Text = "..................";
 			labelAbsoluteMagnitudeData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelAbsoluteMagnitudeData.Enter += Control_Enter;
@@ -808,10 +808,10 @@ namespace Planetoid_DB
 			labelSlopeParameterData.Name = "labelSlopeParameterData";
 			labelSlopeParameterData.Size = new Size(168, 20);
 			labelSlopeParameterData.TabIndex = 23;
-			labelSlopeParameterData.ToolTipValues.Description = "Shows the information of \"Slope parameter, G\"";
+			labelSlopeParameterData.ToolTipValues.Description = "Shows the information of \"Slope parameter, G\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelSlopeParameterData.ToolTipValues.EnableToolTips = true;
-			labelSlopeParameterData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSlopeParameterData.ToolTipValues.Heading = "Slope parameter, G";
+			labelSlopeParameterData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSlopeParameterData.Values.Text = "..................";
 			labelSlopeParameterData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelSlopeParameterData.Enter += Control_Enter;
@@ -832,10 +832,10 @@ namespace Planetoid_DB
 			labelReferenceData.Name = "labelReferenceData";
 			labelReferenceData.Size = new Size(168, 20);
 			labelReferenceData.TabIndex = 25;
-			labelReferenceData.ToolTipValues.Description = "Shows the information of \"Reference\"";
+			labelReferenceData.ToolTipValues.Description = "Shows the information of \"Reference\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelReferenceData.ToolTipValues.EnableToolTips = true;
-			labelReferenceData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelReferenceData.ToolTipValues.Heading = "Reference";
+			labelReferenceData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelReferenceData.Values.Text = "..................";
 			labelReferenceData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelReferenceData.Enter += Control_Enter;
@@ -856,10 +856,10 @@ namespace Planetoid_DB
 			labelNumberOfOppositionsData.Name = "labelNumberOfOppositionsData";
 			labelNumberOfOppositionsData.Size = new Size(168, 20);
 			labelNumberOfOppositionsData.TabIndex = 27;
-			labelNumberOfOppositionsData.ToolTipValues.Description = "Shows the information of \"Number of oppositions\"";
+			labelNumberOfOppositionsData.ToolTipValues.Description = "Shows the information of \"Number of oppositions\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelNumberOfOppositionsData.ToolTipValues.EnableToolTips = true;
-			labelNumberOfOppositionsData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelNumberOfOppositionsData.ToolTipValues.Heading = "Number of oppositions";
+			labelNumberOfOppositionsData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelNumberOfOppositionsData.Values.Text = "..................";
 			labelNumberOfOppositionsData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelNumberOfOppositionsData.Enter += Control_Enter;
@@ -880,10 +880,10 @@ namespace Planetoid_DB
 			labelNumberOfObservationsData.Name = "labelNumberOfObservationsData";
 			labelNumberOfObservationsData.Size = new Size(168, 20);
 			labelNumberOfObservationsData.TabIndex = 29;
-			labelNumberOfObservationsData.ToolTipValues.Description = "Shows the information of \"Number of observations\"";
+			labelNumberOfObservationsData.ToolTipValues.Description = "Shows the information of \"Number of observations\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelNumberOfObservationsData.ToolTipValues.EnableToolTips = true;
-			labelNumberOfObservationsData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelNumberOfObservationsData.ToolTipValues.Heading = "Number of observations";
+			labelNumberOfObservationsData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelNumberOfObservationsData.Values.Text = "..................";
 			labelNumberOfObservationsData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelNumberOfObservationsData.Enter += Control_Enter;
@@ -904,10 +904,10 @@ namespace Planetoid_DB
 			labelObservationSpanData.Name = "labelObservationSpanData";
 			labelObservationSpanData.Size = new Size(168, 20);
 			labelObservationSpanData.TabIndex = 31;
-			labelObservationSpanData.ToolTipValues.Description = "Shows the information of \"Observation span\"";
+			labelObservationSpanData.ToolTipValues.Description = "Shows the information of \"Observation span\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelObservationSpanData.ToolTipValues.EnableToolTips = true;
-			labelObservationSpanData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelObservationSpanData.ToolTipValues.Heading = "Observation span";
+			labelObservationSpanData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelObservationSpanData.Values.Text = "..................";
 			labelObservationSpanData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelObservationSpanData.Enter += Control_Enter;
@@ -928,10 +928,10 @@ namespace Planetoid_DB
 			labelRmsResidualData.Name = "labelRmsResidualData";
 			labelRmsResidualData.Size = new Size(168, 20);
 			labelRmsResidualData.TabIndex = 33;
-			labelRmsResidualData.ToolTipValues.Description = "Shows the information of \"r.m.s residual (\")\"";
+			labelRmsResidualData.ToolTipValues.Description = "Shows the information of \"r.m.s residual (\")\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelRmsResidualData.ToolTipValues.EnableToolTips = true;
-			labelRmsResidualData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelRmsResidualData.ToolTipValues.Heading = "r.m.s. residual (arcseconds)";
+			labelRmsResidualData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelRmsResidualData.Values.Text = "..................";
 			labelRmsResidualData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelRmsResidualData.Enter += Control_Enter;
@@ -952,10 +952,10 @@ namespace Planetoid_DB
 			labelComputerNameData.Name = "labelComputerNameData";
 			labelComputerNameData.Size = new Size(168, 20);
 			labelComputerNameData.TabIndex = 35;
-			labelComputerNameData.ToolTipValues.Description = "Shows the information of \"Computer name\"";
+			labelComputerNameData.ToolTipValues.Description = "Shows the information of \"Computer name\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelComputerNameData.ToolTipValues.EnableToolTips = true;
-			labelComputerNameData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelComputerNameData.ToolTipValues.Heading = "Computer name";
+			labelComputerNameData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelComputerNameData.Values.Text = "..................";
 			labelComputerNameData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelComputerNameData.Enter += Control_Enter;
@@ -976,10 +976,10 @@ namespace Planetoid_DB
 			labelFlagsData.Name = "labelFlagsData";
 			labelFlagsData.Size = new Size(168, 20);
 			labelFlagsData.TabIndex = 37;
-			labelFlagsData.ToolTipValues.Description = "Shows the information of \"4-hexdigit flags\"";
+			labelFlagsData.ToolTipValues.Description = "Shows the information of \"4-hexdigit flags\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelFlagsData.ToolTipValues.EnableToolTips = true;
-			labelFlagsData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelFlagsData.ToolTipValues.Heading = "4-hexdigit flags";
+			labelFlagsData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelFlagsData.Values.Text = "..................";
 			labelFlagsData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelFlagsData.Enter += Control_Enter;
@@ -1000,10 +1000,10 @@ namespace Planetoid_DB
 			labelDateLastObservationData.Name = "labelDateLastObservationData";
 			labelDateLastObservationData.Size = new Size(168, 20);
 			labelDateLastObservationData.TabIndex = 39;
-			labelDateLastObservationData.ToolTipValues.Description = "Shows the information of \"Date of last observation\"";
+			labelDateLastObservationData.ToolTipValues.Description = "Shows the information of \"Date of last observation\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelDateLastObservationData.ToolTipValues.EnableToolTips = true;
-			labelDateLastObservationData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelDateLastObservationData.ToolTipValues.Heading = "Date of last observation (YYYYMMDD)";
+			labelDateLastObservationData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelDateLastObservationData.Values.Text = "..................";
 			labelDateLastObservationData.DoubleClick += CopyToClipboard_DoubleClick;
 			labelDateLastObservationData.Enter += Control_Enter;
@@ -1026,10 +1026,10 @@ namespace Planetoid_DB
 			labelIndexDesc.Size = new Size(264, 20);
 			labelIndexDesc.TabIndex = 0;
 			labelIndexDesc.Tag = "0";
-			labelIndexDesc.ToolTipValues.Description = "Shows the information of \"Index No.\"";
+			labelIndexDesc.ToolTipValues.Description = "Shows the information of \"Index No.\".\r\nDouble-click or right-click to open the terminology.";
 			labelIndexDesc.ToolTipValues.EnableToolTips = true;
-			labelIndexDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelIndexDesc.ToolTipValues.Heading = "Index No.";
+			labelIndexDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelIndexDesc.Values.Text = "Index No.";
 			labelIndexDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelIndexDesc.Enter += Control_Enter;
@@ -1083,10 +1083,10 @@ namespace Planetoid_DB
 			labelReadableDesignationDesc.Size = new Size(264, 20);
 			labelReadableDesignationDesc.TabIndex = 2;
 			labelReadableDesignationDesc.Tag = "1";
-			labelReadableDesignationDesc.ToolTipValues.Description = "Shows the information of \"Readable designation\"";
+			labelReadableDesignationDesc.ToolTipValues.Description = "Shows the information of \"Readable designation\".\r\nDouble-click or right-click to open the terminology.";
 			labelReadableDesignationDesc.ToolTipValues.EnableToolTips = true;
-			labelReadableDesignationDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelReadableDesignationDesc.ToolTipValues.Heading = "Readable designation";
+			labelReadableDesignationDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelReadableDesignationDesc.Values.Text = "Readable designation";
 			labelReadableDesignationDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelReadableDesignationDesc.Enter += Control_Enter;
@@ -1109,10 +1109,10 @@ namespace Planetoid_DB
 			labelEpochDesc.Size = new Size(264, 20);
 			labelEpochDesc.TabIndex = 4;
 			labelEpochDesc.Tag = "2";
-			labelEpochDesc.ToolTipValues.Description = "Shows the information of \"Epoch (in packed form, .0 TT)\"";
+			labelEpochDesc.ToolTipValues.Description = "Shows the information of \"Epoch (in packed form, .0 TT)\".\r\nDouble-click or right-click to open the terminology.";
 			labelEpochDesc.ToolTipValues.EnableToolTips = true;
-			labelEpochDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelEpochDesc.ToolTipValues.Heading = "Epoch (in packed form, .0 TT)";
+			labelEpochDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelEpochDesc.Values.Text = "Epoch (in packed form, .0 TT)";
 			labelEpochDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelEpochDesc.Enter += Control_Enter;
@@ -1135,10 +1135,10 @@ namespace Planetoid_DB
 			labelMeanAnomalyAtTheEpochDesc.Size = new Size(264, 20);
 			labelMeanAnomalyAtTheEpochDesc.TabIndex = 6;
 			labelMeanAnomalyAtTheEpochDesc.Tag = "3";
-			labelMeanAnomalyAtTheEpochDesc.ToolTipValues.Description = "Shows the information of \"Mean anomaly at the epoch, in degrees\"";
+			labelMeanAnomalyAtTheEpochDesc.ToolTipValues.Description = "Shows the information of \"Mean anomaly at the epoch, in degrees\".\r\nDouble-click or right-click to open the terminology.";
 			labelMeanAnomalyAtTheEpochDesc.ToolTipValues.EnableToolTips = true;
-			labelMeanAnomalyAtTheEpochDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelMeanAnomalyAtTheEpochDesc.ToolTipValues.Heading = "Mean anomaly at the epoch (degrees)";
+			labelMeanAnomalyAtTheEpochDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelMeanAnomalyAtTheEpochDesc.Values.ExtraText = "°";
 			labelMeanAnomalyAtTheEpochDesc.Values.Text = "Mean anomaly at the epoch";
 			labelMeanAnomalyAtTheEpochDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -1162,10 +1162,10 @@ namespace Planetoid_DB
 			labelArgumentOfThePerihelionDesc.Size = new Size(264, 20);
 			labelArgumentOfThePerihelionDesc.TabIndex = 8;
 			labelArgumentOfThePerihelionDesc.Tag = "4";
-			labelArgumentOfThePerihelionDesc.ToolTipValues.Description = "Shows the information of \"Argument of the perihelion, J2000.0 (degrees)\"";
+			labelArgumentOfThePerihelionDesc.ToolTipValues.Description = "Shows the information of \"Argument of the perihelion, J2000.0 (degrees)\".\r\nDouble-click or right-click to open the terminology.";
 			labelArgumentOfThePerihelionDesc.ToolTipValues.EnableToolTips = true;
-			labelArgumentOfThePerihelionDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelArgumentOfThePerihelionDesc.ToolTipValues.Heading = "Argument of the perihelion, J2000.0 (degrees)";
+			labelArgumentOfThePerihelionDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelArgumentOfThePerihelionDesc.Values.ExtraText = "°";
 			labelArgumentOfThePerihelionDesc.Values.Text = "Argument of the perihelion, J2000.0";
 			labelArgumentOfThePerihelionDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -1189,10 +1189,10 @@ namespace Planetoid_DB
 			labelLongitudeOfTheAscendingNodeDesc.Size = new Size(264, 20);
 			labelLongitudeOfTheAscendingNodeDesc.TabIndex = 10;
 			labelLongitudeOfTheAscendingNodeDesc.Tag = "5";
-			labelLongitudeOfTheAscendingNodeDesc.ToolTipValues.Description = "Shows the information of \"Longitude of the ascending node, J2000.0 (degrees)\"";
+			labelLongitudeOfTheAscendingNodeDesc.ToolTipValues.Description = "Shows the information of \"Longitude of the ascending node, J2000.0 (degrees)\".\r\nDouble-click or right-click to open the terminology.";
 			labelLongitudeOfTheAscendingNodeDesc.ToolTipValues.EnableToolTips = true;
-			labelLongitudeOfTheAscendingNodeDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelLongitudeOfTheAscendingNodeDesc.ToolTipValues.Heading = "Longitude of the ascending node, J2000.0 (degrees)";
+			labelLongitudeOfTheAscendingNodeDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelLongitudeOfTheAscendingNodeDesc.Values.ExtraText = "°";
 			labelLongitudeOfTheAscendingNodeDesc.Values.Text = "Longitude of the ascending node, J2000.0";
 			labelLongitudeOfTheAscendingNodeDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -1216,10 +1216,10 @@ namespace Planetoid_DB
 			labelInclinationToTheEclipticDesc.Size = new Size(264, 20);
 			labelInclinationToTheEclipticDesc.TabIndex = 12;
 			labelInclinationToTheEclipticDesc.Tag = "6";
-			labelInclinationToTheEclipticDesc.ToolTipValues.Description = "Shows the information of \"Inclination to the ecliptic, J2000.0 (degrees)\"";
+			labelInclinationToTheEclipticDesc.ToolTipValues.Description = "Shows the information of \"Inclination to the ecliptic, J2000.0 (degrees)\".\r\nDouble-click or right-click to open the terminology.";
 			labelInclinationToTheEclipticDesc.ToolTipValues.EnableToolTips = true;
-			labelInclinationToTheEclipticDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelInclinationToTheEclipticDesc.ToolTipValues.Heading = "Inclination to the ecliptic, J2000.0 (degrees)";
+			labelInclinationToTheEclipticDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelInclinationToTheEclipticDesc.Values.ExtraText = "°";
 			labelInclinationToTheEclipticDesc.Values.Text = "Inclination to the ecliptic, J2000.0";
 			labelInclinationToTheEclipticDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -1243,10 +1243,10 @@ namespace Planetoid_DB
 			labelOrbitalEccentricityDesc.Size = new Size(264, 20);
 			labelOrbitalEccentricityDesc.TabIndex = 14;
 			labelOrbitalEccentricityDesc.Tag = "7";
-			labelOrbitalEccentricityDesc.ToolTipValues.Description = "Shows the information of \"Orbital eccentricity\"";
+			labelOrbitalEccentricityDesc.ToolTipValues.Description = "Shows the information of \"Orbital eccentricity\".\r\nDouble-click or right-click to open the terminology.";
 			labelOrbitalEccentricityDesc.ToolTipValues.EnableToolTips = true;
-			labelOrbitalEccentricityDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelOrbitalEccentricityDesc.ToolTipValues.Heading = "Orbital eccentricity";
+			labelOrbitalEccentricityDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelOrbitalEccentricityDesc.Values.Text = "Orbital eccentricity";
 			labelOrbitalEccentricityDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelOrbitalEccentricityDesc.Enter += Control_Enter;
@@ -1269,10 +1269,10 @@ namespace Planetoid_DB
 			labelMeanDailyMotionDesc.Size = new Size(264, 20);
 			labelMeanDailyMotionDesc.TabIndex = 16;
 			labelMeanDailyMotionDesc.Tag = "8";
-			labelMeanDailyMotionDesc.ToolTipValues.Description = "Shows the information of \"Mean daily motion (degrees per day)\"";
+			labelMeanDailyMotionDesc.ToolTipValues.Description = "Shows the information of \"Mean daily motion (degrees per day)\".\r\nDouble-click or right-click to open the terminology.";
 			labelMeanDailyMotionDesc.ToolTipValues.EnableToolTips = true;
-			labelMeanDailyMotionDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelMeanDailyMotionDesc.ToolTipValues.Heading = "Mean daily motion (degrees per day)";
+			labelMeanDailyMotionDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelMeanDailyMotionDesc.Values.ExtraText = "°/day";
 			labelMeanDailyMotionDesc.Values.Text = "Mean daily motion";
 			labelMeanDailyMotionDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -1296,10 +1296,10 @@ namespace Planetoid_DB
 			labelSemiMajorAxisDesc.Size = new Size(264, 20);
 			labelSemiMajorAxisDesc.TabIndex = 18;
 			labelSemiMajorAxisDesc.Tag = "9";
-			labelSemiMajorAxisDesc.ToolTipValues.Description = "Shows the information of \"Semi-major axis (AU)\"";
+			labelSemiMajorAxisDesc.ToolTipValues.Description = "Shows the information of \"Semi-major axis (AU)\".\r\nDouble-click or right-click to open the terminology.";
 			labelSemiMajorAxisDesc.ToolTipValues.EnableToolTips = true;
-			labelSemiMajorAxisDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSemiMajorAxisDesc.ToolTipValues.Heading = "Semi-major axis (AU)";
+			labelSemiMajorAxisDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSemiMajorAxisDesc.Values.ExtraText = "AU";
 			labelSemiMajorAxisDesc.Values.Text = "Semi-major axis";
 			labelSemiMajorAxisDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -1323,10 +1323,10 @@ namespace Planetoid_DB
 			labelAbsoluteMagnitudeDesc.Size = new Size(264, 22);
 			labelAbsoluteMagnitudeDesc.TabIndex = 20;
 			labelAbsoluteMagnitudeDesc.Tag = "10";
-			labelAbsoluteMagnitudeDesc.ToolTipValues.Description = "Shows the information of \"Absolute magnitude, H\"";
+			labelAbsoluteMagnitudeDesc.ToolTipValues.Description = "Shows the information of \"Absolute magnitude, H\".\r\nDouble-click or right-click to open the terminology.";
 			labelAbsoluteMagnitudeDesc.ToolTipValues.EnableToolTips = true;
-			labelAbsoluteMagnitudeDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelAbsoluteMagnitudeDesc.ToolTipValues.Heading = "Absolute magnitude, H";
+			labelAbsoluteMagnitudeDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelAbsoluteMagnitudeDesc.Values.ExtraText = "mag";
 			labelAbsoluteMagnitudeDesc.Values.Text = "Absolute magnitude, H";
 			labelAbsoluteMagnitudeDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -1350,10 +1350,10 @@ namespace Planetoid_DB
 			labelSlopeParameterDesc.Size = new Size(222, 20);
 			labelSlopeParameterDesc.TabIndex = 22;
 			labelSlopeParameterDesc.Tag = "11";
-			labelSlopeParameterDesc.ToolTipValues.Description = "Shows the information of \"Slope parameter, G\"";
+			labelSlopeParameterDesc.ToolTipValues.Description = "Shows the information of \"Slope parameter, G\".\r\nDouble-click or right-click to open the terminology.";
 			labelSlopeParameterDesc.ToolTipValues.EnableToolTips = true;
-			labelSlopeParameterDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSlopeParameterDesc.ToolTipValues.Heading = "Slope parameter, G";
+			labelSlopeParameterDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelSlopeParameterDesc.Values.Text = "Slope parameter, G";
 			labelSlopeParameterDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelSlopeParameterDesc.Enter += Control_Enter;
@@ -1376,10 +1376,10 @@ namespace Planetoid_DB
 			labelReferenceDesc.Size = new Size(222, 20);
 			labelReferenceDesc.TabIndex = 24;
 			labelReferenceDesc.Tag = "12";
-			labelReferenceDesc.ToolTipValues.Description = "Shows the information of \"Reference\"";
+			labelReferenceDesc.ToolTipValues.Description = "Shows the information of \"Reference\".\r\nDouble-click or right-click to open the terminology.";
 			labelReferenceDesc.ToolTipValues.EnableToolTips = true;
-			labelReferenceDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelReferenceDesc.ToolTipValues.Heading = "Reference";
+			labelReferenceDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelReferenceDesc.Values.Text = "Reference";
 			labelReferenceDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelReferenceDesc.Enter += Control_Enter;
@@ -1402,10 +1402,10 @@ namespace Planetoid_DB
 			labelNumberOfOppositionsDesc.Size = new Size(222, 20);
 			labelNumberOfOppositionsDesc.TabIndex = 26;
 			labelNumberOfOppositionsDesc.Tag = "13";
-			labelNumberOfOppositionsDesc.ToolTipValues.Description = "Shows the information of \"Number of oppositions\"";
+			labelNumberOfOppositionsDesc.ToolTipValues.Description = "Shows the information of \"Number of oppositions\".\r\nDouble-click or right-click to open the terminology.";
 			labelNumberOfOppositionsDesc.ToolTipValues.EnableToolTips = true;
-			labelNumberOfOppositionsDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelNumberOfOppositionsDesc.ToolTipValues.Heading = "Number of oppositions";
+			labelNumberOfOppositionsDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelNumberOfOppositionsDesc.Values.Text = "Number of oppositions";
 			labelNumberOfOppositionsDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelNumberOfOppositionsDesc.Enter += Control_Enter;
@@ -1428,10 +1428,10 @@ namespace Planetoid_DB
 			labelNumberOfObservationsDesc.Size = new Size(222, 20);
 			labelNumberOfObservationsDesc.TabIndex = 28;
 			labelNumberOfObservationsDesc.Tag = "14";
-			labelNumberOfObservationsDesc.ToolTipValues.Description = "Shows the information of \"Number of observations\"";
+			labelNumberOfObservationsDesc.ToolTipValues.Description = "Shows the information of \"Number of observations\".\r\nDouble-click or right-click to open the terminology.";
 			labelNumberOfObservationsDesc.ToolTipValues.EnableToolTips = true;
-			labelNumberOfObservationsDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelNumberOfObservationsDesc.ToolTipValues.Heading = "Number of observations";
+			labelNumberOfObservationsDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelNumberOfObservationsDesc.Values.Text = "Number of observations";
 			labelNumberOfObservationsDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelNumberOfObservationsDesc.Enter += Control_Enter;
@@ -1454,10 +1454,10 @@ namespace Planetoid_DB
 			labelObservationSpanDesc.Size = new Size(222, 20);
 			labelObservationSpanDesc.TabIndex = 30;
 			labelObservationSpanDesc.Tag = "15";
-			labelObservationSpanDesc.ToolTipValues.Description = "Shows the information of \"Observation span\"";
+			labelObservationSpanDesc.ToolTipValues.Description = "Shows the information of \"Observation span\".\r\nDouble-click or right-click to open the terminology.";
 			labelObservationSpanDesc.ToolTipValues.EnableToolTips = true;
-			labelObservationSpanDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelObservationSpanDesc.ToolTipValues.Heading = "Observation span";
+			labelObservationSpanDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelObservationSpanDesc.Values.Text = "Observation span";
 			labelObservationSpanDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelObservationSpanDesc.Enter += Control_Enter;
@@ -1480,10 +1480,10 @@ namespace Planetoid_DB
 			labelRmsResidualDesc.Size = new Size(222, 20);
 			labelRmsResidualDesc.TabIndex = 32;
 			labelRmsResidualDesc.Tag = "16";
-			labelRmsResidualDesc.ToolTipValues.Description = "Shows the information of \"r.m.s residual (\")\"";
+			labelRmsResidualDesc.ToolTipValues.Description = "Shows the information of \"r.m.s residual (arcseconds)\".\r\nDouble-click or right-click to open the terminology.";
 			labelRmsResidualDesc.ToolTipValues.EnableToolTips = true;
-			labelRmsResidualDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelRmsResidualDesc.ToolTipValues.Heading = "r.m.s. residual (arcseconds)";
+			labelRmsResidualDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelRmsResidualDesc.Values.ExtraText = "\"";
 			labelRmsResidualDesc.Values.Text = "r.m.s. residual";
 			labelRmsResidualDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -1507,10 +1507,10 @@ namespace Planetoid_DB
 			labelComputerNameDesc.Size = new Size(222, 20);
 			labelComputerNameDesc.TabIndex = 34;
 			labelComputerNameDesc.Tag = "17";
-			labelComputerNameDesc.ToolTipValues.Description = "Shows the information of \"Computer name\"";
+			labelComputerNameDesc.ToolTipValues.Description = "Shows the information of \"Computer name\".\r\nDouble-click or right-click to open the terminology.";
 			labelComputerNameDesc.ToolTipValues.EnableToolTips = true;
-			labelComputerNameDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelComputerNameDesc.ToolTipValues.Heading = "Computer name";
+			labelComputerNameDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelComputerNameDesc.Values.Text = "Computer name";
 			labelComputerNameDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelComputerNameDesc.Enter += Control_Enter;
@@ -1533,10 +1533,10 @@ namespace Planetoid_DB
 			labelFlagsDesc.Size = new Size(222, 20);
 			labelFlagsDesc.TabIndex = 36;
 			labelFlagsDesc.Tag = "18";
-			labelFlagsDesc.ToolTipValues.Description = "Shows the information of \"4-hexdigit flags\"";
+			labelFlagsDesc.ToolTipValues.Description = "Shows the information of \"4-hexdigit flags\".\r\nDouble-click or right-click to open the terminology.";
 			labelFlagsDesc.ToolTipValues.EnableToolTips = true;
-			labelFlagsDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelFlagsDesc.ToolTipValues.Heading = "4-hexdigit flags";
+			labelFlagsDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelFlagsDesc.Values.Text = "4-hexdigit flags";
 			labelFlagsDesc.DoubleClick += OpenTerminology_DoubleClick;
 			labelFlagsDesc.Enter += Control_Enter;
@@ -1559,10 +1559,10 @@ namespace Planetoid_DB
 			labelDateLastObservationDesc.Size = new Size(222, 20);
 			labelDateLastObservationDesc.TabIndex = 38;
 			labelDateLastObservationDesc.Tag = "19";
-			labelDateLastObservationDesc.ToolTipValues.Description = "Shows the information of \"Date of last observation\"";
+			labelDateLastObservationDesc.ToolTipValues.Description = "Shows the information of \"Date of last observation\".\r\nDouble-click or right-click to open the terminology.";
 			labelDateLastObservationDesc.ToolTipValues.EnableToolTips = true;
-			labelDateLastObservationDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelDateLastObservationDesc.ToolTipValues.Heading = "Date of last observation (YYYYMMDD)";
+			labelDateLastObservationDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelDateLastObservationDesc.Values.ExtraText = "YYYYMMDD";
 			labelDateLastObservationDesc.Values.Text = "Date of last observation";
 			labelDateLastObservationDesc.DoubleClick += OpenTerminology_DoubleClick;
@@ -1580,7 +1580,7 @@ namespace Planetoid_DB
 			contextMenuTopTenRecords.Font = new Font("Segoe UI", 9F);
 			contextMenuTopTenRecords.Items.AddRange(new ToolStripItem[] { menuitemRecordsSortDirection, toolStripSeparator12, menuitemRecordsMeanAnomalyAtTheEpoch, menuitemRecordsArgumentOfPerihelion, menuitemRecordsLongitudeOfTheAscendingNode, menuitemRecordsInclination, menuitemRecordsOrbitalEccentricity, menuitemRecordsMeanDailyMotion, menuitemRecordsSemiMajorAxis, menuitemRecordsAbsoluteMagnitude, menuitemRecordsSlopeParameter, menuitemRecordsNumberOfOppositions, menuitemRecordsNumberOfObservations, menuitemRecordsObservationSpan, menuitemRecordsRmsResidual, menuitemRecordsComputername, menuitemRecordsDateOfTheLastObservation });
 			contextMenuTopTenRecords.Name = "contextMenuTopTenRecords";
-			contextMenuTopTenRecords.OwnerItem = menuitemRecords;
+			contextMenuTopTenRecords.OwnerItem = splitbuttonTopTenRecords;
 			contextMenuTopTenRecords.Size = new Size(250, 362);
 			contextMenuTopTenRecords.TabStop = true;
 			contextMenuTopTenRecords.Text = "Top ten records";
@@ -1852,23 +1852,6 @@ namespace Planetoid_DB
 			menuitemRecordsDateOfTheLastObservation.MouseEnter += Control_Enter;
 			menuitemRecordsDateOfTheLastObservation.MouseLeave += Control_Leave;
 			// 
-			// splitbuttonTopTenRecords
-			// 
-			splitbuttonTopTenRecords.AccessibleDescription = "Shows the top ten records";
-			splitbuttonTopTenRecords.AccessibleName = "Top ten records";
-			splitbuttonTopTenRecords.AccessibleRole = AccessibleRole.SplitButton;
-			splitbuttonTopTenRecords.DisplayStyle = ToolStripItemDisplayStyle.Image;
-			splitbuttonTopTenRecords.DropDown = contextMenuTopTenRecords;
-			splitbuttonTopTenRecords.Enabled = false;
-			splitbuttonTopTenRecords.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
-			splitbuttonTopTenRecords.ImageTransparentColor = Color.Magenta;
-			splitbuttonTopTenRecords.Name = "splitbuttonTopTenRecords";
-			splitbuttonTopTenRecords.Size = new Size(32, 22);
-			splitbuttonTopTenRecords.Text = "Top ten records";
-			splitbuttonTopTenRecords.ButtonClick += SplitButtonTopTenRecords_ButtonClick;
-			splitbuttonTopTenRecords.MouseEnter += Control_Enter;
-			splitbuttonTopTenRecords.MouseLeave += Control_Leave;
-			// 
 			// menuitemRecords
 			// 
 			menuitemRecords.AccessibleDescription = "Shows some topn ten records";
@@ -1886,6 +1869,23 @@ namespace Planetoid_DB
 			menuitemRecords.MouseEnter += Control_Enter;
 			menuitemRecords.MouseLeave += Control_Leave;
 			// 
+			// splitbuttonTopTenRecords
+			// 
+			splitbuttonTopTenRecords.AccessibleDescription = "Shows the top ten records";
+			splitbuttonTopTenRecords.AccessibleName = "Top ten records";
+			splitbuttonTopTenRecords.AccessibleRole = AccessibleRole.SplitButton;
+			splitbuttonTopTenRecords.DisplayStyle = ToolStripItemDisplayStyle.Image;
+			splitbuttonTopTenRecords.DropDown = contextMenuTopTenRecords;
+			splitbuttonTopTenRecords.Enabled = false;
+			splitbuttonTopTenRecords.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+			splitbuttonTopTenRecords.ImageTransparentColor = Color.Magenta;
+			splitbuttonTopTenRecords.Name = "splitbuttonTopTenRecords";
+			splitbuttonTopTenRecords.Size = new Size(32, 22);
+			splitbuttonTopTenRecords.Text = "Top ten records";
+			splitbuttonTopTenRecords.ButtonClick += SplitButtonTopTenRecords_ButtonClick;
+			splitbuttonTopTenRecords.MouseEnter += Control_Enter;
+			splitbuttonTopTenRecords.MouseLeave += Control_Leave;
+			// 
 			// contextMenuDistributions
 			// 
 			contextMenuDistributions.AccessibleDescription = "Shows the context menu of the distributions";
@@ -1894,7 +1894,7 @@ namespace Planetoid_DB
 			contextMenuDistributions.Font = new Font("Segoe UI", 9F);
 			contextMenuDistributions.Items.AddRange(new ToolStripItem[] { menuitemDistributionMeanAnomalyAtTheEpoch, menuitemDistributionArgumentOfPerihelion, menuitemDistributionLongitudeOfTheAscendingNode, menuitemDistributionInclination, menuitemDistributionOrbitalEccentricity, menuitemDistributionMeanDailyMotion, menuitemDistributionSemiMajorAxis, menuitemDistributionAbsoluteMagnitude, menuitemDistributionSlopeParameter, menuitemDistributionNumberOfOppositions, menuitemDistributionNumberOfObservations, menuitemDistributionObservationSpan, menuitemDistributionRmsResidual, menuitemDistributionComputerName });
 			contextMenuDistributions.Name = "contextMenuDistributions";
-			contextMenuDistributions.OwnerItem = menuitemDistribution;
+			contextMenuDistributions.OwnerItem = splitbuttonDistribution;
 			contextMenuDistributions.Size = new Size(250, 312);
 			contextMenuDistributions.Text = "Distributions";
 			contextMenuDistributions.MouseEnter += Control_Enter;
@@ -2110,23 +2110,6 @@ namespace Planetoid_DB
 			menuitemDistributionComputerName.MouseEnter += Control_Enter;
 			menuitemDistributionComputerName.MouseLeave += Control_Leave;
 			// 
-			// splitbuttonDistribution
-			// 
-			splitbuttonDistribution.AccessibleDescription = "Shows some distributions";
-			splitbuttonDistribution.AccessibleName = "Distributions";
-			splitbuttonDistribution.AccessibleRole = AccessibleRole.SplitButton;
-			splitbuttonDistribution.DisplayStyle = ToolStripItemDisplayStyle.Image;
-			splitbuttonDistribution.DropDown = contextMenuDistributions;
-			splitbuttonDistribution.Enabled = false;
-			splitbuttonDistribution.Image = FatcowIcons16px.fatcow_chart_bar_16px;
-			splitbuttonDistribution.ImageTransparentColor = Color.Magenta;
-			splitbuttonDistribution.Name = "splitbuttonDistribution";
-			splitbuttonDistribution.Size = new Size(32, 22);
-			splitbuttonDistribution.Text = "Distributions";
-			splitbuttonDistribution.ButtonClick += SplitButtonDistribution_ButtonClick;
-			splitbuttonDistribution.MouseEnter += Control_Enter;
-			splitbuttonDistribution.MouseLeave += Control_Leave;
-			// 
 			// menuitemDistribution
 			// 
 			menuitemDistribution.AccessibleDescription = "Shows some distributions";
@@ -2145,6 +2128,23 @@ namespace Planetoid_DB
 			menuitemDistribution.MouseEnter += Control_Enter;
 			menuitemDistribution.MouseLeave += Control_Leave;
 			// 
+			// splitbuttonDistribution
+			// 
+			splitbuttonDistribution.AccessibleDescription = "Shows some distributions";
+			splitbuttonDistribution.AccessibleName = "Distributions";
+			splitbuttonDistribution.AccessibleRole = AccessibleRole.SplitButton;
+			splitbuttonDistribution.DisplayStyle = ToolStripItemDisplayStyle.Image;
+			splitbuttonDistribution.DropDown = contextMenuDistributions;
+			splitbuttonDistribution.Enabled = false;
+			splitbuttonDistribution.Image = FatcowIcons16px.fatcow_chart_bar_16px;
+			splitbuttonDistribution.ImageTransparentColor = Color.Magenta;
+			splitbuttonDistribution.Name = "splitbuttonDistribution";
+			splitbuttonDistribution.Size = new Size(32, 22);
+			splitbuttonDistribution.Text = "Distributions";
+			splitbuttonDistribution.ButtonClick += SplitButtonDistribution_ButtonClick;
+			splitbuttonDistribution.MouseEnter += Control_Enter;
+			splitbuttonDistribution.MouseLeave += Control_Leave;
+			// 
 			// contextMenuFullCopyToClipboardOrbitalElements
 			// 
 			contextMenuFullCopyToClipboardOrbitalElements.AccessibleDescription = "Shows the context menu of the orbital elements to copy to clipboard";
@@ -2153,7 +2153,7 @@ namespace Planetoid_DB
 			contextMenuFullCopyToClipboardOrbitalElements.Font = new Font("Segoe UI", 9F);
 			contextMenuFullCopyToClipboardOrbitalElements.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardIndexNumber, menuitemCopyToClipboardReadableDesignation, menuitemCopyToClipboardEpoch, menuitemCopyToClipboardMeanAnomalyAtTheEpoch, menuitemCopyToClipboardArgumentOfPerihelion, menuitemCopyToClipboardLongitudeOfTheAscendingNode, menuitemCopyToClipboardInclinationToTheEcliptic, menuitemCopyToClipboardOrbitalEccentricity, menuitemCopyToClipboardMeanDailyMotion, menuitemCopyToClipboardSemiMajorAxis, menuitemCopyToClipboardAbsoluteMagnitude, menuitemCopyToClipboardSlopeParameter, menuitemCopyToClipboardReference, menuitemCopyToClipboardNumberOfOppositions, menuitemCopyToClipboardNumberOfObservations, menuitemCopyToClipboardObservationSpan, menuitemCopyToClipboardRmsResidual, menuitemCopyToClipboardComputerName, menuitemCopyToClipboardDateOfTheLastObservation, menuitemCopyToClipboardFlags });
 			contextMenuFullCopyToClipboardOrbitalElements.Name = "Context menu of copying to clipboard of orbital elements";
-			contextMenuFullCopyToClipboardOrbitalElements.OwnerItem = menuitemCopytoClipboard;
+			contextMenuFullCopyToClipboardOrbitalElements.OwnerItem = splitbuttonCopyToClipboard;
 			contextMenuFullCopyToClipboardOrbitalElements.Size = new Size(309, 444);
 			contextMenuFullCopyToClipboardOrbitalElements.Text = "Copy to clipboard";
 			contextMenuFullCopyToClipboardOrbitalElements.MouseEnter += Control_Enter;
@@ -2439,22 +2439,6 @@ namespace Planetoid_DB
 			menuitemCopyToClipboardFlags.MouseEnter += Control_Enter;
 			menuitemCopyToClipboardFlags.MouseLeave += Control_Leave;
 			// 
-			// splitbuttonCopyToClipboard
-			// 
-			splitbuttonCopyToClipboard.AccessibleDescription = "Copys to clipboard";
-			splitbuttonCopyToClipboard.AccessibleName = "Copy to clipboard";
-			splitbuttonCopyToClipboard.AccessibleRole = AccessibleRole.SplitButton;
-			splitbuttonCopyToClipboard.DisplayStyle = ToolStripItemDisplayStyle.Image;
-			splitbuttonCopyToClipboard.DropDown = contextMenuFullCopyToClipboardOrbitalElements;
-			splitbuttonCopyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
-			splitbuttonCopyToClipboard.ImageTransparentColor = Color.Magenta;
-			splitbuttonCopyToClipboard.Name = "splitbuttonCopyToClipboard";
-			splitbuttonCopyToClipboard.Size = new Size(32, 22);
-			splitbuttonCopyToClipboard.Text = "Copy to clipboard";
-			splitbuttonCopyToClipboard.ButtonClick += ToolStripButtonCopyToClipboard_Click;
-			splitbuttonCopyToClipboard.MouseEnter += Control_Enter;
-			splitbuttonCopyToClipboard.MouseLeave += Control_Leave;
-			// 
 			// menuitemCopytoClipboard
 			// 
 			menuitemCopytoClipboard.AccessibleDescription = "Copy to clipboard";
@@ -2471,6 +2455,22 @@ namespace Planetoid_DB
 			menuitemCopytoClipboard.Click += ToolStripButtonCopyToClipboard_Click;
 			menuitemCopytoClipboard.MouseEnter += Control_Enter;
 			menuitemCopytoClipboard.MouseLeave += Control_Leave;
+			// 
+			// splitbuttonCopyToClipboard
+			// 
+			splitbuttonCopyToClipboard.AccessibleDescription = "Copys to clipboard";
+			splitbuttonCopyToClipboard.AccessibleName = "Copy to clipboard";
+			splitbuttonCopyToClipboard.AccessibleRole = AccessibleRole.SplitButton;
+			splitbuttonCopyToClipboard.DisplayStyle = ToolStripItemDisplayStyle.Image;
+			splitbuttonCopyToClipboard.DropDown = contextMenuFullCopyToClipboardOrbitalElements;
+			splitbuttonCopyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
+			splitbuttonCopyToClipboard.ImageTransparentColor = Color.Magenta;
+			splitbuttonCopyToClipboard.Name = "splitbuttonCopyToClipboard";
+			splitbuttonCopyToClipboard.Size = new Size(32, 22);
+			splitbuttonCopyToClipboard.Text = "Copy to clipboard";
+			splitbuttonCopyToClipboard.ButtonClick += ToolStripButtonCopyToClipboard_Click;
+			splitbuttonCopyToClipboard.MouseEnter += Control_Enter;
+			splitbuttonCopyToClipboard.MouseLeave += Control_Leave;
 			// 
 			// menu
 			// 
