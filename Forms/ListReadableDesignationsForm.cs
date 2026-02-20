@@ -1384,10 +1384,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: "      </w:tr>");
 
 			// Data Rows
-			foreach ((string? index, string? name) in GetExportData())
+			foreach ((string index, string name) in GetExportData())
 			{
-				string safeIndex = System.Net.WebUtility.HtmlEncode(value: index);
-				string safeName = System.Net.WebUtility.HtmlEncode(value: name);
+				string safeIndex = System.Net.WebUtility.HtmlEncode(value: index) ?? string.Empty;
+				string safeName = System.Net.WebUtility.HtmlEncode(value: name) ?? string.Empty;
 				writer.Write(value: "      <w:tr>");
 				writer.Write(value: $"<w:tc><w:p><w:r><w:t>{safeIndex}</w:t></w:r></w:p></w:tc>");
 				writer.Write(value: $"<w:tc><w:p><w:r><w:t>{safeName}</w:t></w:r></w:p></w:tc>");
@@ -1490,10 +1490,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: "    </row>");
 
 			// Data
-			foreach ((string? index, string? name) in GetExportData())
+			foreach ((string index, string name) in GetExportData())
 			{
-				string safeIndex = System.Net.WebUtility.HtmlEncode(value: index);
-				string safeName = System.Net.WebUtility.HtmlEncode(value: name);
+				string safeIndex = System.Net.WebUtility.HtmlEncode(value: index) ?? string.Empty;
+				string safeName = System.Net.WebUtility.HtmlEncode(value: name) ?? string.Empty;
 
 				writer.WriteLine(value: "    <row>");
 				writer.WriteLine(value: $"      <c t=\"inlineStr\"><is><t>{safeIndex}</t></is></c>");
@@ -1504,6 +1504,354 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: "  </sheetData>");
 			writer.WriteLine(value: "</worksheet>");
 		}
+
+		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>
+	/// Saves the current list as an ODT file.
+	/// </summary>
+	/// <param name="sender">The event sender.</param>
+	/// <param name="e">The event arguments.</param>
+	/// <remarks>
+	/// This method is invoked when the user selects the "Save As ODT" menu item.
+	/// </remarks>
+	private void ToolStripMenuItemSaveAsOdt_Click(object? sender, EventArgs? e)
+	{
+		// Create a SaveFileDialog manually since it's not in the designer
+		using SaveFileDialog saveFileDialogOdt = new()
+		{
+			Filter = "OpenDocument Text (*.odt)|*.odt|All files (*.*)|*.*",
+			DefaultExt = "odt",
+			Title = "Save list as ODT"
+		};
+
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogOdt, ext: "odt"))
+		{
+			return;
+		}
+
+		// Create the ODT file
+		using FileStream fs = new(path: saveFileDialogOdt.FileName, mode: FileMode.Create);
+		using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
+
+		// 1. mimetype (must be first and uncompressed)
+		ZipArchiveEntry mimetypeEntry = archive.CreateEntry(entryName: "mimetype", compressionLevel: CompressionLevel.NoCompression);
+		using (StreamWriter writer = new(stream: mimetypeEntry.Open(), encoding: Encoding.ASCII))
+		{
+			writer.Write(value: "application/vnd.oasis.opendocument.text");
+		}
+
+		// 2. META-INF/manifest.xml
+		ZipArchiveEntry manifestEntry = archive.CreateEntry(entryName: "META-INF/manifest.xml", compressionLevel: CompressionLevel.Optimal);
+		using (StreamWriter writer = new(stream: manifestEntry.Open(), encoding: Encoding.UTF8))
+		{
+			writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+			writer.WriteLine(value: "<manifest:manifest xmlns:manifest=\"urn:oasis:names:tc:opendocument:xmlns:manifest:1.0\" manifest:version=\"1.2\">");
+			writer.WriteLine(value: " <manifest:file-entry manifest:full-path=\"/\" manifest:media-type=\"application/vnd.oasis.opendocument.text\"/>");
+			writer.WriteLine(value: " <manifest:file-entry manifest:full-path=\"content.xml\" manifest:media-type=\"text/xml\"/>");
+			writer.WriteLine(value: "</manifest:manifest>");
+		}
+
+		// 3. content.xml
+		ZipArchiveEntry contentEntry = archive.CreateEntry(entryName: "content.xml", compressionLevel: CompressionLevel.Optimal);
+		using (StreamWriter writer = new(stream: contentEntry.Open(), encoding: Encoding.UTF8))
+		{
+			writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+			writer.WriteLine(value: "<office:document-content xmlns:office=\"urn:oasis:names:tc:opendocument:xmlns:office:1.0\" xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" xmlns:table=\"urn:oasis:names:tc:opendocument:xmlns:table:1.0\" office:version=\"1.2\">");
+			writer.WriteLine(value: "  <office:body>");
+			writer.WriteLine(value: "    <office:text>");
+
+			// Title
+			writer.WriteLine(value: "      <text:h text:outline-level=\"1\">List of Readable Designations</text:h>");
+
+			// Table
+			writer.WriteLine(value: "      <table:table>");
+			writer.WriteLine(value: "        <table:table-column table:number-columns-repeated=\"2\"/>");
+
+			// Header Row
+			writer.WriteLine(value: "        <table:table-header-rows>");
+			writer.WriteLine(value: "          <table:table-row>");
+			writer.WriteLine(value: "            <table:table-cell><text:p>Index</text:p></table:table-cell>");
+			writer.WriteLine(value: "            <table:table-cell><text:p>Designation</text:p></table:table-cell>");
+			writer.WriteLine(value: "          </table:table-row>");
+			writer.WriteLine(value: "        </table:table-header-rows>");
+
+			// Data Rows
+			foreach ((string? index, string? name) in GetExportData())
+			{
+				string safeIndex = System.Net.WebUtility.HtmlEncode(value: index);
+				string safeName = System.Net.WebUtility.HtmlEncode(value: name);
+
+				writer.WriteLine(value: "        <table:table-row>");
+				writer.WriteLine(value: $"          <table:table-cell><text:p>{safeIndex}</text:p></table:table-cell>");
+				writer.WriteLine(value: $"          <table:table-cell><text:p>{safeName}</text:p></table:table-cell>");
+				writer.WriteLine(value: "        </table:table-row>");
+			}
+
+			writer.WriteLine(value: "      </table:table>");
+			writer.WriteLine(value: "    </office:text>");
+			writer.WriteLine(value: "  </office:body>");
+			writer.WriteLine(value: "</office:document-content>");
+		}
+
+		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>
+	/// Saves the current list as an ODS file.
+	/// </summary>
+	/// <param name="sender">The event sender.</param>
+	/// <param name="e">The event arguments.</param>
+	/// <remarks>
+	/// This method is invoked when the user selects the "Save As ODS" menu item.
+	/// </remarks>
+	private void ToolStripMenuItemSaveAsOds_Click(object? sender, EventArgs? e)
+	{
+		// Create a SaveFileDialog manually since it's not in the designer
+		using SaveFileDialog saveFileDialogOds = new()
+		{
+			Filter = "OpenDocument Spreadsheet (*.ods)|*.ods|All files (*.*)|*.*",
+			DefaultExt = "ods",
+			Title = "Save list as ODS"
+		};
+
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogOds, ext: "ods"))
+		{
+			return;
+		}
+
+		// Create the ODS file
+		using FileStream fs = new(path: saveFileDialogOds.FileName, mode: FileMode.Create);
+		using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
+
+		// 1. mimetype (must be first and uncompressed)
+		ZipArchiveEntry mimetypeEntry = archive.CreateEntry(entryName: "mimetype", compressionLevel: CompressionLevel.NoCompression);
+		using (StreamWriter writer = new(stream: mimetypeEntry.Open(), encoding: Encoding.ASCII))
+		{
+			writer.Write(value: "application/vnd.oasis.opendocument.spreadsheet");
+		}
+
+		// 2. META-INF/manifest.xml
+		ZipArchiveEntry manifestEntry = archive.CreateEntry(entryName: "META-INF/manifest.xml", compressionLevel: CompressionLevel.Optimal);
+		using (StreamWriter writer = new(stream: manifestEntry.Open(), encoding: Encoding.UTF8))
+		{
+			writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+			writer.WriteLine(value: "<manifest:manifest xmlns:manifest=\"urn:oasis:names:tc:opendocument:xmlns:manifest:1.0\" manifest:version=\"1.2\">");
+			writer.WriteLine(value: " <manifest:file-entry manifest:full-path=\"/\" manifest:media-type=\"application/vnd.oasis.opendocument.spreadsheet\"/>");
+			writer.WriteLine(value: " <manifest:file-entry manifest:full-path=\"content.xml\" manifest:media-type=\"text/xml\"/>");
+			writer.WriteLine(value: "</manifest:manifest>");
+		}
+
+		// 3. content.xml
+		ZipArchiveEntry contentEntry = archive.CreateEntry(entryName: "content.xml", compressionLevel: CompressionLevel.Optimal);
+		using (StreamWriter writer = new(stream: contentEntry.Open(), encoding: Encoding.UTF8))
+		{
+			writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+			writer.WriteLine(value: "<office:document-content xmlns:office=\"urn:oasis:names:tc:opendocument:xmlns:office:1.0\" xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" xmlns:table=\"urn:oasis:names:tc:opendocument:xmlns:table:1.0\" office:version=\"1.2\">");
+			writer.WriteLine(value: "  <office:body>");
+			writer.WriteLine(value: "    <office:spreadsheet>");
+			writer.WriteLine(value: "      <table:table table:name=\"Planetoids\">");
+			writer.WriteLine(value: "        <table:table-column table:number-columns-repeated=\"2\"/>");
+
+			// Header Row
+			writer.WriteLine(value: "        <table:table-row>");
+			writer.WriteLine(value: "          <table:table-cell office:value-type=\"string\"><text:p>Index</text:p></table:table-cell>");
+			writer.WriteLine(value: "          <table:table-cell office:value-type=\"string\"><text:p>Designation</text:p></table:table-cell>");
+			writer.WriteLine(value: "        </table:table-row>");
+
+			// Data Rows
+			foreach ((string? index, string? name) in GetExportData())
+			{
+				string safeIndex = System.Net.WebUtility.HtmlEncode(value: index);
+				string safeName = System.Net.WebUtility.HtmlEncode(value: name);
+
+				writer.WriteLine(value: "        <table:table-row>");
+				writer.WriteLine(value: $"          <table:table-cell office:value-type=\"string\"><text:p>{safeIndex}</text:p></table:table-cell>");
+				writer.WriteLine(value: $"          <table:table-cell office:value-type=\"string\"><text:p>{safeName}</text:p></table:table-cell>");
+				writer.WriteLine(value: "        </table:table-row>");
+			}
+
+			writer.WriteLine(value: "      </table:table>");
+			writer.WriteLine(value: "    </office:spreadsheet>");
+			writer.WriteLine(value: "  </office:body>");
+			writer.WriteLine(value: "</office:document-content>");
+		}
+
+		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>
+	/// Saves the current list as a simplified MOBI file.
+	/// </summary>
+	/// <param name="sender">The event sender.</param>
+	/// <param name="e">The event arguments.</param>
+	/// <remarks>
+	/// This method is invoked when the user selects the "Save As MOBI" menu item.
+	/// </remarks>
+	private void ToolStripMenuItemSaveAsMobi_Click(object? sender, EventArgs? e)
+	{
+		// Create a SaveFileDialog manually since it's not in the designer
+		using SaveFileDialog saveFileDialogMobi = new()
+		{
+			Filter = "Mobi files (*.mobi)|*.mobi|All files (*.*)|*.*",
+			DefaultExt = "mobi",
+			Title = "Save list as MOBI"
+		};
+
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogMobi, ext: "mobi"))
+		{
+			return;
+		}
+
+		// 1. Generate Content (HTML)
+		StringBuilder html = new();
+		html.Append(value: "<html><head><title>Planetoid List</title></head><body>");
+		html.Append(value: "<h1>List of Readable Designations</h1>");
+		// Mobi does not support all HTML tags, but basic tables often work in newer readers or are flattened.
+		html.Append(value: "<table>");
+		foreach ((string? index, string? name) in GetExportData())
+		{
+			html.Append(value: $"<tr><td>{System.Net.WebUtility.HtmlEncode(value: index)}</td><td>{System.Net.WebUtility.HtmlEncode(value: name)}</td></tr>");
+		}
+		html.Append(value: "</table></body></html>");
+
+		byte[] bodyData = Encoding.UTF8.GetBytes(s: html.ToString());
+
+		// 2. Chunk data (4096 bytes max per record is standard for PalmDoc)
+		List<byte[]> textRecords = [];
+		for (int i = 0; i < bodyData.Length; i += 4096)
+		{
+			int len = Math.Min(4096, bodyData.Length - i);
+			byte[] chunk = new byte[len];
+			Array.Copy(sourceArray: bodyData, sourceIndex: i, destinationArray: chunk, destinationIndex: 0, length: len);
+			textRecords.Add(item: chunk);
+		}
+
+		// 3. Construct Headers
+		// PDB Header: 78 bytes
+		// Record List: 8 * NumRecords + 2 padding
+		// Record 0: Header Record (PalmDOC + Mobi Header)
+		// Records 1..N: Text
+		// Record N+1: EOF (Optional/Standard)
+
+		// Define a minimal Header Record (Record 0)
+		// PalmDOC Header (16 bytes) + Mobi Header (min 232 bytes)
+		// Using array for simplicity in binary writing
+		byte[] headerRecord = new byte[256];
+		// We will write into this buffer using a BinaryWriter on MemoryStream
+		using (MemoryStream ms = new(buffer: headerRecord))
+		using (BinaryWriter hw = new(output: ms))
+		{
+			// -- PalmDOC Header --
+			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (short)1)); // Compression: 1 = No Compression
+			hw.Write(value: (short)0); // Unused
+			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: bodyData.Length)); // Text Length
+			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (short)textRecords.Count)); // Record Count
+			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (short)4096)); // Record Size
+			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (short)0)); // Encryption Type
+			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (short)0)); // Unknown
+
+			// -- Mobi Header --
+			// Identifier "MOBI"
+			hw.Write(buffer: Encoding.ASCII.GetBytes(s: "MOBI"));
+			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 232)); // Header Length
+			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 2)); // Mobi Type: 2 = Book
+			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 65001)); // Text Encoding: 65001 = UTF-8
+			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 0x12345678)); // UniqueID ID
+			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 6)); // File Version
+																			   // ... other fields are zeroed by default new byte[] ...
+
+			// First Non-Book Index (offset 80 in Mobi Header -> 16+80 = 96)
+			// Points to EOF record usually or FLIS
+			ms.Seek(offset: 96, loc: SeekOrigin.Begin);
+			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: textRecords.Count + 1)); // We have Header(0) + Text(1..N). So next is N+1.
+
+			// Full Name Offset (offset 84 in Mobi Header -> 100)
+			ms.Seek(offset: 100, loc: SeekOrigin.Begin);
+			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 0)); // No Full Name in this minimal version
+																			   // Min Version (offset 104 -> 120)
+			ms.Seek(offset: 120, loc: SeekOrigin.Begin);
+			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 6));
+
+			// ...
+		}
+
+		// EOF Record (minimal content)
+		byte[] eofRecord = [0xe9, 0x8e, 0x0d, 0x0a];
+
+		// Total Records: Header + TextRecords + EOF
+		int totalRecords = 1 + textRecords.Count + 1;
+
+		using FileStream fs = new(path: saveFileDialogMobi.FileName, mode: FileMode.Create);
+		using BinaryWriter w = new(output: fs);
+
+		// --- PDB Header (78 bytes) ---
+		string dbName = "Planetoids";
+		byte[] nameBytes = new byte[32];
+		Encoding.ASCII.GetBytes(s: dbName).CopyTo(array: nameBytes, index: 0);
+		w.Write(buffer: nameBytes);
+
+		w.Write(value: (short)0); // Attributes
+		w.Write(value: (short)0); // Version
+
+		// Dates (seconds since 1904-01-01)
+		uint secondsSince1904 = (uint)(DateTime.UtcNow - new DateTime(year: 1904, month: 1, day: 1)).TotalSeconds;
+		w.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (int)secondsSince1904)); // Creation
+		w.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (int)secondsSince1904)); // Modification
+		w.Write(value: 0); // Backup
+		w.Write(value: 0); // ModNum
+		w.Write(value: 0); // AppInfoId
+		w.Write(value: 0); // SortInfoId
+
+		w.Write(buffer: Encoding.ASCII.GetBytes(s: "BOOK")); // Type
+		w.Write(buffer: Encoding.ASCII.GetBytes(s: "MOBI")); // Creator
+
+		w.Write(value: 0); // UniqueIDSeed
+		w.Write(value: 0); // NextRecordListID
+
+		w.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (short)totalRecords)); // NumRecords
+
+		// --- Record List (8 bytes per record) ---
+		// Start of data is: 78 + (totalRecords * 8) + 2 (padding)
+		int currentOffset = 78 + (totalRecords * 8) + 2;
+
+		// 1. Header Record Info
+		w.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: currentOffset));
+		w.Write(value: 0); // Attributes/ID
+		currentOffset += headerRecord.Length;
+
+		// 2. Text Records Info
+		foreach (byte[] rec in textRecords)
+		{
+			w.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: currentOffset));
+			w.Write(value: 0);
+			currentOffset += rec.Length;
+		}
+
+		// 3. EOF Record Info
+		w.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: currentOffset));
+		w.Write(value: 0);
+		currentOffset += eofRecord.Length;
+
+		// Padding (2 bytes)
+		w.Write(value: (short)0);
+
+		// --- Record Data ---
+		// 1. Header
+		w.Write(buffer: headerRecord);
+
+		// 2. Text
+		foreach (byte[] rec in textRecords)
+		{
+			w.Write(buffer: rec); // 4096 chunks
+		}
+
+		// 3. EOF
+		w.Write(buffer: eofRecord);
 
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
