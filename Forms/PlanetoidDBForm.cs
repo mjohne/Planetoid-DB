@@ -828,7 +828,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		else
 		{
 			// Create and show the MPCORB data check form
-			using CheckMpcorbDatForm formCheckMpcorbDat = new();
+			using CheckDatabaseForm formCheckMpcorbDat = new(url: Settings.Default.systemMpcorbDatUrl, localFilePath: Settings.Default.systemFilenameMpcorb, databaseName: "MPCORB.DAT");
 			// Set the TopMost property to true to keep the form on top of other windows
 			formCheckMpcorbDat.TopMost = TopMost;
 			// Show the MPCORB data check form as a modal dialog
@@ -853,7 +853,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		else
 		{
 			// Create and show the ASTORB data check form
-			using CheckAstorbDatForm formCheckAstorbDat = new();
+			using CheckDatabaseForm formCheckAstorbDat = new(url: Settings.Default.systemAstorbDatUrl, localFilePath: Settings.Default.systemFilenameAstorb, databaseName: "ASTORB.DAT");
 			// Set the TopMost property to true to keep the form on top of other windows
 			formCheckAstorbDat.TopMost = TopMost;
 			// Show the ASTORB data check form as a modal dialog

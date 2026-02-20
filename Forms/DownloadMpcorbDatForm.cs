@@ -217,12 +217,12 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 	private static void ShowMpcorbDatCheck()
 	{
 		// Check if there is an internet connection available
-		// If there is, create and show the CheckMpcorbDatForm
+		// If there is, create and show the CheckDatabaseForm
 		// Otherwise, log the error and show an error message
 		if (NetworkInterface.GetIsNetworkAvailable())
 		{
-			// Create and show the CheckMpcorbDatForm
-			using CheckMpcorbDatForm formCheckMpcorbDat = new();
+			// Create and show the CheckDatabaseForm
+			using CheckDatabaseForm formCheckMpcorbDat = new(url: Settings.Default.systemMpcorbDatUrl, localFilePath: Settings.Default.systemFilenameMpcorb, databaseName: "MPCORB.DAT");
 			// Show the form as a dialog
 			_ = formCheckMpcorbDat.ShowDialog();
 		}
