@@ -8,9 +8,9 @@
 * Updated version number by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/317
 * Updated CHANGELOG with consolidated improvements by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/319
 * Updated terminology docs by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/320
-* [WIP] Update terminology documentation based on review comments by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/321
+* Update terminology documentation based on review comments by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/321
 * Fixed terminology docs by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/322
-* [WIP] Fix non-displayable characters with HTML entities by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/323
+* Fix non-displayable characters with HTML entities by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/323
 * Renamed terminology_EccenctricAnomaly.html to terminology_EccentricAnomaly.html by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/324
 * Fixed HTML entities in terminology_EccentricAnomaly.html by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/325
 * Renamed terminology_ArgumentOfPerihelion.html to terminology_ArgumentOfThePerihelion.html by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/326
@@ -25,20 +25,20 @@
 * Fix XML documentation issues from PR #335 review by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/336
 * Improved TerminologyForm() by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/335
 * Address PR #337 review comments: fix duplicates, exceptions, typos, and resource leaks by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/338
-* Removed SetStatusBar() and ClearStatusBar() to BaseKryptonForm() by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/337
+* Moved SetStatusBar() and ClearStatusBar() into BaseKryptonForm() by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/337
 * Fix SetStatusBar parameter order and spelling error by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/340
 * Fixed some issues by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/339
 * Updated and renamed I10nStrings.Designer.cs to I18nStrings.Designer.cs by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/341
 * Renamed I10nStrings.resx to I18nStrings.resx by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/342
 * Renamed I10nString to I18nString by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/343
 * Fix event binding and remove duplicate .resx metadata entries by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/345
-* Removed Control_Enter() and Control_Leave() to BaseKryptonForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/344
+* Moved Control_Enter() and Control_Leave() into BaseKryptonForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/344
 * Convert all ToolTips to KryptonToolTips across WinForms by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/347
 * Delete PrintDataSheetForm.cs by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/348
-* Converted ToolTip to KryptonTooltip in AppInfoForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/354
+* Converted ToolTip to KryptonToolTip in AppInfoForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/354
 * Converted ToolTip to KryptonToolTip in CheckAstorbDatForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/355
 * Converted ToolTip to KryptonToolTip in CheckMpcorbDatForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/356
-* Converted Tooltip to KryptonToolTip in LicenseForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/357
+* Converted ToolTip to KryptonToolTip in LicenseForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/357
 * Converted ToolTip to KryptonToolTip in PreloadForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/358
 * Converted ToolTip to KryptonToolTip in CopyDataToClipboardForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/359
 * Converted ToolTip to KryptonToolTip in DatabaseDownloaderForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/360
@@ -52,7 +52,7 @@
 * Converted ToolTip to KryptonToolTip in ExportDataSheetForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/370
 * Converted ToolTip to KryptonToolTip in FilterForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/371
 * Converted ToolTip to KryptonToolTip in SearchForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/372
-* Converted ToolTip to kryptonToolTip in PrintDataSheetForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/373
+** Converted ToolTip to kryptonToolTip in PrintDataSheetForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/373
 * Converted ToolTip To KryptonToolTip in RecordsSelectionForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/374
 * Converted ToolTip to KryptonToolTip in RecordsMainForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/375
 * Converted ToolTip to KryptonToolTip in PlanetoidDBForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/376
