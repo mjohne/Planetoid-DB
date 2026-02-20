@@ -111,7 +111,11 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		}
 		this.url = url;
 		// Derive the extraction file path from the URL and temporary filename
-		string localPath = new Uri(uriString: url).LocalPath;
+		if (!Uri.TryCreate(uriString: url, uriKind: UriKind.Absolute, result: out Uri? parsedUri))
+		{
+			throw new ArgumentException(message: "URL is not in a valid format.", paramName: nameof(url));
+		}
+		string localPath = parsedUri.LocalPath;
 		extractFilePath = Path.Combine(
 			Path.GetDirectoryName(path: _filenameTemp) ?? string.Empty,
 			Path.GetFileNameWithoutExtension(path: localPath));
@@ -155,14 +159,16 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 	}
 
 	/// <summary>
-	/// Checks if the device has an active internet connection.
+	/// Asynchronously determines whether an active internet connection is available by sending a HEAD request to the
+	/// specified URL.
 	/// </summary>
-	/// <param name="client">The <see cref="HttpClient"/> instance to use for the request.</param>
-	/// <param name="url">The URL to check for internet connectivity.</param>
-	/// <returns><c>true</c> if the device has an active internet connection; otherwise, <c>false</c>.</returns>
-	/// <remarks>
-	/// This method sends a GET request to the specified URL and checks the response status.
-	/// </remarks>
+	/// <remarks>This method uses a HEAD request to minimize bandwidth usage and applies a timeout of 5 seconds. If
+	/// an exception occurs during the request, the method returns <see langword="false"/>.</remarks>
+	/// <param name="client">The HttpClient instance used to send the request. This must be initialized before calling the method and should not
+	/// be null.</param>
+	/// <param name="url">The URL to which the connectivity check is sent. This must be a valid, non-null URI string.</param>
+	/// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if the response
+	/// indicates success; otherwise, <see langword="false"/>.</returns>
 	private static async Task<bool> HasInternetAsync(HttpClient client, string url)
 	{
 		// Send a GET request to the specified URL
@@ -171,9 +177,8 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		// Catch any exceptions and return false
 		try
 		{
-			// Use a HEAD request instead GET to save bandwidth
+			// Use a HEAD request instead of GET to save bandwidth
 			using HttpRequestMessage request = new(method: HttpMethod.Head, requestUri: url);
-
 			// Timeout 5 seconds
 			using CancellationTokenSource cts = new(delay: TimeSpan.FromSeconds(seconds: 5));
 
