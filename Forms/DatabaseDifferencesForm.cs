@@ -206,19 +206,4 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	}
 
 	#endregion
-
-	#region DoubleClick event handlers
-
-	/// <summary>
-	/// Called when a control is double-clicked. If the <paramref name="sender"/> is a <see cref="Control"/>
-	/// or a <see cref="ToolStripItem"/>, its text value (from <see cref="Control.Text"/> or <see cref="ToolStripItem.Text"/>,
-	/// respectively) is copied to the clipboard using the shared helper.
-	/// </summary>
-	/// <param name="sender">Event source — expected to be a <see cref="Control"/> or a <see cref="ToolStripItem"/>.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// If the <paramref name="sender"/> is a <see cref="Control"/>, its <see cref="Control.Text"/> value is copied to the clipboard.
-	/// If the <paramref name="sender"/> is a <see cref="ToolStripItem"/>, its <see cref="ToolStripItem.Text"/> value is copied to the clipboard.
-	/// </remarks>
-	#endregion
 }
