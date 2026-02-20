@@ -849,6 +849,34 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	}
 
 	/// <summary>
+	/// Saves the list as a PSV (Pipe-Separated Values) file.
+	/// Ideal for spreadsheet applications.
+	/// </summary>
+	/// <param name="sender">Event source (the menu item).</param>
+	/// <param name="e">Event arguments.</param>
+	/// <remarks>
+	/// This method is invoked when the user selects the "Save As PSV" menu item.
+	/// </remarks>
+	private void ToolStripMenuItemSaveAsPsv_Click(object? sender, EventArgs? e)
+	{
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogPsv, ext: "psv"))
+		{
+			return;
+		}
+		// Write the data to the PSV file
+		using StreamWriter streamWriter = new(path: saveFileDialogPsv.FileName, append: false, encoding: Encoding.UTF8);
+		// Write PSV header
+		streamWriter.WriteLine(value: "Index|Designation");
+		// Write each item
+		foreach ((string? index, string? name) in GetExportData())
+		{
+			streamWriter.WriteLine(value: $"{index}|{name}");
+		}
+		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>
 	/// Saves the list as a LaTeX document.
 	/// </summary>
 	/// <param name="sender">Event source (the menu item).</param>
