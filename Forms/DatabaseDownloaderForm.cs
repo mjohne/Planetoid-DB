@@ -201,10 +201,10 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		// Calculate the percentage of completion
 		int percentage = (int)(current * 100 / total);
 		// Avoid flickering by only updating if value changed
-		if (progressBarDownload.Value != percentage)
+		if (kryptonProgressBarDownload.Value != percentage)
 		{
-			progressBarDownload.Value = percentage;
-			progressBarDownload.Text = $"{percentage}%";
+			kryptonProgressBarDownload.Value = percentage;
+			kryptonProgressBarDownload.Text = $"{percentage}%";
 		}
 	}
 
@@ -271,11 +271,11 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		try
 		{
 			// Disable the Download button and enable the Cancel button
-			buttonDownload.Enabled = false;
-			buttonCancel.Enabled = true;
+			toolStripButtonDownload.Enabled = false;
+			toolStripButtonCancel.Enabled = true;
 			// Reset status labels and progress bar
-			progressBarDownload.Value = 0;
-			progressBarDownload.Text = "0%";
+			kryptonProgressBarDownload.Value = 0;
+			kryptonProgressBarDownload.Text = "0%";
 			// Initialize progress
 			UpdateProgress(current: 0, total: 100);
 			// Create a new CancellationTokenSource for this download
@@ -285,7 +285,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			await DownloadFileAsync(fileUrl: url, destinationPath: _filenameTemp, token: token);
 			// Extract the downloaded GZIP file
 			labelStatusValue.Text = "Extracting...";
-			progressBarDownload.Style = ProgressBarStyle.Marquee;
+			kryptonProgressBarDownload.Style = ProgressBarStyle.Marquee;
 			await ExtractGzipFileAsync(gzipFilePath: _filenameTemp, outputFilePath: extractFilePath, token: token);
 			// Notify the user of successful completion
 			labelStatusValue.Text = "Download completed";
@@ -318,21 +318,21 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			labelStatusValue.Text = "Download error";
 			//TODO: Optionally disable the Cancel button here to prevent multiple clicks
 			_ = MessageBox.Show(text: $"Error during download: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
-			logger.Error(exception: ex, message: "Download failed. Url={Url}, TempFile={TempFile}", url, _filenameTemp);
+			logger.Error(exception: ex, message: "Download failed. Url={Url}, TempFile={TempFile}", args: (url, _filenameTemp));
 			DialogResult = DialogResult.Abort;
 		}
 		// Reset UI elements and clean up resources
 		finally
 		{
 			// Reset UI elements
-			buttonDownload.Enabled = true;
-			buttonCancel.Enabled = false;
+			toolStripButtonDownload.Enabled = true;
+			toolStripButtonCancel.Enabled = false;
 			// Reset status labels and progress bar
 			labelDateValue.Text = "-";
 			labelSizeValue.Text = "-";
 			labelSourceValue.Text = "-";
-			progressBarDownload.Value = 0;
-			progressBarDownload.Text = "0%";
+			kryptonProgressBarDownload.Value = 0;
+			kryptonProgressBarDownload.Text = "0%";
 			// Dispose of the CancellationTokenSource
 			cancellationTokenSource?.Dispose();
 			cancellationTokenSource = null;
