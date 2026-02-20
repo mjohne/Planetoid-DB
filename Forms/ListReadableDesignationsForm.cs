@@ -8,6 +8,7 @@ using NLog;
 using Planetoid_DB.Forms;
 
 using System.Diagnostics;
+using System.IO.Compression;
 using System.Text;
 using System.Text.Json;
 using System.Xml;
@@ -1169,6 +1170,137 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		w.WriteLine(value: "startxref");
 		w.WriteLine(value: xrefOffset);
 		w.WriteLine(value: "%%EOF");
+		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>
+	/// Saves the current list as an EPUB file.
+	/// </summary>
+	/// <param name="sender">The event sender.</param>
+	/// <param name="e">The event arguments.</param>
+	/// <remarks>
+	/// This method is invoked when the user selects the "Save As EPUB" menu item.
+	/// </remarks>
+	private void ToolStripItemSaveAsEpub_Click(object? sender, EventArgs? e)
+	{
+		// Create a SaveFileDialog manually since it's not in the designer
+		using SaveFileDialog saveFileDialogEpub = new()
+		{
+			Filter = "EPUB files (*.epub)|*.epub|All files (*.*)|*.*",
+			DefaultExt = "epub",
+			Title = "Save list as EPUB"
+		};
+
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogEpub, ext: "epub"))
+		{
+			return;
+		}
+
+		// Create the EPUB file
+		using FileStream fs = new(path: saveFileDialogEpub.FileName, mode: FileMode.Create);
+		using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
+
+		// 1. mimetype (must be first and uncompressed)
+		ZipArchiveEntry mimetypeEntry = archive.CreateEntry(entryName: "mimetype", compressionLevel: CompressionLevel.NoCompression);
+		using (StreamWriter writer = new(stream: mimetypeEntry.Open(), encoding: Encoding.ASCII))
+		{
+			writer.Write(value: "application/epub+zip");
+		}
+
+		// 2. META-INF/container.xml
+		ZipArchiveEntry containerEntry = archive.CreateEntry(entryName: "META-INF/container.xml", compressionLevel: CompressionLevel.Optimal);
+		using (StreamWriter writer = new(stream: containerEntry.Open(), encoding: Encoding.UTF8))
+		{
+			writer.WriteLine(value: "<?xml version=\"1.0\"?>");
+			writer.WriteLine(value: "<container version=\"1.0\" xmlns=\"urn:oasis:names:tc:opendocument:xmlns:container\">");
+			writer.WriteLine(value: "  <rootfiles>");
+			writer.WriteLine(value: "    <rootfile full-path=\"OEBPS/content.opf\" media-type=\"application/oebps-package+xml\"/>");
+			writer.WriteLine(value: "  </rootfiles>");
+			writer.WriteLine(value: "</container>");
+		}
+
+		// 3. OEBPS/content.opf
+		ZipArchiveEntry opfEntry = archive.CreateEntry(entryName: "OEBPS/content.opf", compressionLevel: CompressionLevel.Optimal);
+		using (StreamWriter writer = new(stream: opfEntry.Open(), encoding: Encoding.UTF8))
+		{
+			writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+			writer.WriteLine(value: "<package xmlns=\"http://www.idpf.org/2007/opf\" unique-identifier=\"BookId\" version=\"2.0\">");
+			writer.WriteLine(value: "  <metadata xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:opf=\"http://www.idpf.org/2007/opf\">");
+			writer.WriteLine(value: "    <dc:title>Planetoid List</dc:title>");
+			writer.WriteLine(value: "    <dc:language>en</dc:language>");
+			writer.WriteLine(value: "    <dc:identifier id=\"BookId\" opf:scheme=\"UUID\">urn:uuid:12345678-1234-1234-1234-123456789012</dc:identifier>");
+			writer.WriteLine(value: "  </metadata>");
+			writer.WriteLine(value: "  <manifest>");
+			writer.WriteLine(value: "    <item id=\"ncx\" href=\"toc.ncx\" media-type=\"application/x-dtbncx+xml\"/>");
+			writer.WriteLine(value: "    <item id=\"content\" href=\"content.xhtml\" media-type=\"application/xhtml+xml\"/>");
+			writer.WriteLine(value: "  </manifest>");
+			writer.WriteLine(value: "  <spine toc=\"ncx\">");
+			writer.WriteLine(value: "    <itemref idref=\"content\"/>");
+			writer.WriteLine(value: "  </spine>");
+			writer.WriteLine(value: "</package>");
+		}
+
+		// 4. OEBPS/toc.ncx
+		ZipArchiveEntry ncxEntry = archive.CreateEntry(entryName: "OEBPS/toc.ncx", compressionLevel: CompressionLevel.Optimal);
+		using (StreamWriter writer = new(stream: ncxEntry.Open(), encoding: Encoding.UTF8))
+		{
+			writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+			writer.WriteLine(value: "<ncx xmlns=\"http://www.daisy.org/z3986/2005/ncx/\" version=\"2005-1\">");
+			writer.WriteLine(value: "  <head>");
+			writer.WriteLine(value: "    <meta name=\"dtb:uid\" content=\"urn:uuid:12345678-1234-1234-1234-123456789012\"/>");
+			writer.WriteLine(value: "    <meta name=\"dtb:depth\" content=\"1\"/>");
+			writer.WriteLine(value: "    <meta name=\"dtb:totalPageCount\" content=\"0\"/>");
+			writer.WriteLine(value: "    <meta name=\"dtb:maxPageNumber\" content=\"0\"/>");
+			writer.WriteLine(value: "  </head>");
+			writer.WriteLine(value: "  <docTitle><text>Planetoid List</text></docTitle>");
+			writer.WriteLine(value: "  <navMap>");
+			writer.WriteLine(value: "    <navPoint id=\"navPoint-1\" playOrder=\"1\">");
+			writer.WriteLine(value: "      <navLabel><text>List</text></navLabel>");
+			writer.WriteLine(value: "      <content src=\"content.xhtml\"/>");
+			writer.WriteLine(value: "    </navPoint>");
+			writer.WriteLine(value: "  </navMap>");
+			writer.WriteLine(value: "</ncx>");
+		}
+
+		// 5. OEBPS/content.xhtml
+		ZipArchiveEntry contentEntry = archive.CreateEntry(entryName: "OEBPS/content.xhtml", compressionLevel: CompressionLevel.Optimal);
+		using (StreamWriter writer = new(stream: contentEntry.Open(), encoding: Encoding.UTF8))
+		{
+			writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+			writer.WriteLine(value: "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">");
+			writer.WriteLine(value: "<html xmlns=\"http://www.w3.org/1999/xhtml\">");
+			writer.WriteLine(value: "<head>");
+			writer.WriteLine(value: "  <title>Planetoid List</title>");
+			writer.WriteLine(value: "  <style type=\"text/css\">");
+			writer.WriteLine(value: "    body { font-family: sans-serif; }");
+			writer.WriteLine(value: "    table { border-collapse: collapse; width: 100%; }");
+			writer.WriteLine(value: "    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }");
+			writer.WriteLine(value: "    th { background-color: #f2f2f2; }");
+			writer.WriteLine(value: "  </style>");
+			writer.WriteLine(value: "</head>");
+			writer.WriteLine(value: "<body>");
+			writer.WriteLine(value: "  <h1>List of Readable Designations</h1>");
+			writer.WriteLine(value: "  <table>");
+			writer.WriteLine(value: "    <thead>");
+			writer.WriteLine(value: "      <tr><th>Index</th><th>Designation</th></tr>");
+			writer.WriteLine(value: "    </thead>");
+			writer.WriteLine(value: "    <tbody>");
+
+			// Use GetExportData() to retrieve items
+			foreach ((string? index, string? name) in GetExportData())
+			{
+				string safeIndex = System.Net.WebUtility.HtmlEncode(value: index);
+				string safeName = System.Net.WebUtility.HtmlEncode(value: name);
+				writer.WriteLine(value: $"      <tr><td>{safeIndex}</td><td>{safeName}</td></tr>");
+			}
+
+			writer.WriteLine(value: "    </tbody>");
+			writer.WriteLine(value: "  </table>");
+			writer.WriteLine(value: "</body>");
+			writer.WriteLine(value: "</html>");
+		}
+
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
