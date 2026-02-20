@@ -85,15 +85,15 @@ public partial class FilterForm : BaseKryptonForm
 	}
 
 	/// <summary>
-	/// Handles the Click event of the ButtonResetArgumentOfPerihelion.
-	/// Resets the argument of perihelion filter.
+	/// Handles the Click event of the ButtonResetArgumentOfThePerihelion.
+	/// Resets the argument of the perihelion filter.
 	/// </summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>
-	/// This method is used to reset the argument of perihelion filter.
+	/// This method is used to reset the argument of the perihelion filter.
 	/// </remarks>
-	private void ButtonResetArgumentOfPerihelion_Click(object sender, EventArgs e)
+	private void ButtonResetArgumentOfThePerihelion_Click(object sender, EventArgs e)
 	{
 		//TODO: Implement method
 	}
@@ -313,29 +313,29 @@ public partial class FilterForm : BaseKryptonForm
 	}
 
 	/// <summary>
-	/// Handles the ValueChanged event of the NumericUpDownMinimumArgumentOfPerihelion.
-	/// Updates the minimum argument of perihelion filter.
+	/// Handles the ValueChanged event of the NumericUpDownMinimumArgumentOfThePerihelion.
+	/// Updates the minimum argument of the perihelion filter.
 	/// </summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>
-	/// This method is used to update the minimum argument of perihelion filter.
+	/// This method is used to update the minimum argument of the perihelion filter.
 	/// </remarks>
-	private void NumericUpDownMinimumArgumentOfPerihelion_ValueChanged(object sender, EventArgs e)
+	private void NumericUpDownMinimumArgumentOfThePerihelion_ValueChanged(object sender, EventArgs e)
 	{
 		//TODO: Implement method
 	}
 
 	/// <summary>
-	/// Handles the ValueChanged event of the NumericUpDownMaximumArgumentOfPerihelion.
-	/// Updates the maximum argument of perihelion filter.
+	/// Handles the ValueChanged event of the NumericUpDownMaximumArgumentOfThePerihelion.
+	/// Updates the maximum argument of the perihelion filter.
 	/// </summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>
-	/// This method is used to update the maximum argument of perihelion filter.
+	/// This method is used to update the maximum argument of the perihelion filter.
 	/// </remarks>
-	private void NumericUpDownMaximumArgumentOfPerihelion_ValueChanged(object sender, EventArgs e)
+	private void NumericUpDownMaximumArgumentOfThePerihelion_ValueChanged(object sender, EventArgs e)
 	{
 		//TODO: Implement method
 	}

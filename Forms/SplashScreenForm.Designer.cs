@@ -79,7 +79,7 @@ namespace Planetoid_DB
 			labelTitle.Size = new Size(221, 45);
 			labelTitle.TabIndex = 0;
 			labelTitle.Text = "Planetoid-DB";
-			toolTip.SetToolTip(labelTitle, "Application name");
+			toolTip.SetToolTip(labelTitle, "Shows the application name");
 			labelTitle.DoubleClick += CopyToClipboard_DoubleClick;
 			labelTitle.MouseDown += Control_MouseDown;
 			// 
@@ -128,7 +128,7 @@ namespace Planetoid_DB
 			labelVersion.TabIndex = 1;
 			labelVersion.Text = "Version: X.X.X.X";
 			labelVersion.TextAlign = ContentAlignment.MiddleCenter;
-			toolTip.SetToolTip(labelVersion, "Version number");
+			toolTip.SetToolTip(labelVersion, "Shows the version number");
 			labelVersion.DoubleClick += CopyToClipboard_DoubleClick;
 			labelVersion.MouseDown += Control_MouseDown;
 			// 
@@ -160,7 +160,7 @@ namespace Planetoid_DB
 			ShowInTaskbar = false;
 			StartPosition = FormStartPosition.CenterScreen;
 			Text = "Splash Screen";
-			toolTip.SetToolTip(this, "splash screen");
+			toolTip.SetToolTip(this, "Splash screen");
 			TopMost = true;
 			Load += SplashScreenForm_Load;
 			contextMenuStripCopyToClipboard.ResumeLayout(false);
