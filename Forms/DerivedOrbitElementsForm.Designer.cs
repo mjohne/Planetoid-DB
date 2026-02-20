@@ -1302,7 +1302,7 @@ namespace Planetoid_DB
 			// 
 			// splitbuttonCopyToClipboard
 			// 
-			splitbuttonCopyToClipboard.AccessibleDescription = "Copys to clipboard";
+			splitbuttonCopyToClipboard.AccessibleDescription = "Copies to clipboard";
 			splitbuttonCopyToClipboard.AccessibleName = "Copy to clipboard";
 			splitbuttonCopyToClipboard.AccessibleRole = AccessibleRole.SplitButton;
 			splitbuttonCopyToClipboard.BackColor = Color.Transparent;
@@ -1325,7 +1325,7 @@ namespace Planetoid_DB
 			contextMenuFullCopyToClipboardDerivedOrbitalElements.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardLinearEccentricity, menuitemCopyToClipboardSemiMinorAxis, menuitemCopyToClipboardMajorAxis, menuitemCopyToClipboardMinorAxis, menuitemCopyToClipboardEccentricAnomaly, menuitemCopyToClipboardTrueAnomaly, menuitemCopyToClipboardPerihelionDistance, menuitemCopyToClipboardAphelionDistance, menuitemCopyToClipboardLongitudeDescendingNode, menuitemCopyToClipboardArgumentAphelion, menuitemCopyToClipboardFocalParameter, menuitemCopyToClipboardSemiLatusRectum, menuitemCopyToClipboardLatusRectum, menuitemCopyToClipboardOrbitalPeriod, menuitemCopyToClipboardOrbitalArea, menuitemCopyToClipboardSemiMeanAxis, menuitemCopyToClipboardMeanAxis, menuitemCopyToClipboardStandardGravitationalParameter });
 			contextMenuFullCopyToClipboardDerivedOrbitalElements.Name = "Context menu of copying to clipboard of derived orbital elements";
 			contextMenuFullCopyToClipboardDerivedOrbitalElements.OwnerItem = splitbuttonCopyToClipboard;
-			contextMenuFullCopyToClipboardDerivedOrbitalElements.Size = new Size(257, 400);
+			contextMenuFullCopyToClipboardDerivedOrbitalElements.Size = new Size(257, 422);
 			contextMenuFullCopyToClipboardDerivedOrbitalElements.Text = "Copy to clipboard";
 			contextMenuFullCopyToClipboardDerivedOrbitalElements.MouseEnter += Control_Enter;
 			contextMenuFullCopyToClipboardDerivedOrbitalElements.MouseLeave += Control_Leave;
