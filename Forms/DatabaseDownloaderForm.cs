@@ -45,7 +45,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		CheckCertificateRevocationList = true
 	})
 	{
-		Timeout = TimeSpan.FromMinutes(10)
+		Timeout = TimeSpan.FromMinutes(value: 10)
 	};
 
 	/// <summary>
@@ -188,10 +188,11 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 	/// </summary>
 	/// <param name="current">The current number of bytes processed.</param>
 	/// <param name="total">The total number of bytes to process.</param>
+	/// <param name="downloadStopwatch">Optional stopwatch to calculate and display download speed and remaining time.</param>
 	/// <remarks>
 	/// This method updates the progress bar and text to reflect the current download progress.
 	/// </remarks>
-	private void UpdateProgress(long current, long total)
+	private void UpdateProgress(long current, long total, Stopwatch? downloadStopwatch = null)
 	{
 		// Avoid division by zero
 		if (total <= 0)
@@ -205,6 +206,26 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		{
 			kryptonProgressBarDownload.Value = percentage;
 			kryptonProgressBarDownload.Text = $"{percentage}%";
+		}
+
+		if (downloadStopwatch != null)
+		{
+			// Calculate download speed in bytes per second
+			double elapsedSeconds = downloadStopwatch.Elapsed.TotalSeconds;
+			double bytesPerSecond = elapsedSeconds > 0 ? current / elapsedSeconds : 0;
+			labelDownloadSpeedValue.Text = bytesPerSecond > 0 ? $"{bytesPerSecond:N0} {I18nStrings.BytesText}/s" : "...";
+
+			// Calculate elapsed time and estimated remaining time
+			TimeSpan elapsed = downloadStopwatch.Elapsed;
+			if (total > 0 && bytesPerSecond > 0)
+			{
+				TimeSpan estimated = TimeSpan.FromSeconds(value: (total - current) / bytesPerSecond);
+				labelTimeValue.Text = $"{elapsed:hh\\:mm\\:ss} / {estimated:hh\\:mm\\:ss}";
+			}
+			else
+			{
+				labelTimeValue.Text = $"{elapsed:hh\\:mm\\:ss}";
+			}
 		}
 	}
 
@@ -381,9 +402,6 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		long totalRead = 0;
 		// Number of bytes read in each iteration
 		int bytesRead;
-		double elapsedSeconds;
-		double bytesPerSecond;
-		TimeSpan elapsed;
 		// Determine if progress can be reported based on content length availability
 		// Progress Throttling (Don't update UI every 8KB, unnecessary overhead)
 		Stopwatch stopwatch = Stopwatch.StartNew();
@@ -401,22 +419,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			// Update UI only if totalBytes is known AND (every 100ms OR finished)
 			if (totalBytes.HasValue && (stopwatch.ElapsedMilliseconds > 100 || totalRead == totalBytes))
 			{
-				UpdateProgress(current: totalRead, total: totalBytes.Value);
-				// Calculate download speed in bytes per second
-				elapsedSeconds = downloadStopwatch.Elapsed.TotalSeconds;
-				bytesPerSecond = elapsedSeconds > 0 ? totalRead / elapsedSeconds : 0;
-				labelDownloadSpeedValue.Text = bytesPerSecond > 0 ? $"{bytesPerSecond:N0} {I18nStrings.BytesText}/s" : "...";
-				// Calculate elapsed time and estimated remaining time
-				elapsed = downloadStopwatch.Elapsed;
-				if (totalBytes.Value > 0 && bytesPerSecond > 0)
-				{
-					TimeSpan estimated = TimeSpan.FromSeconds(value: (totalBytes.Value - totalRead) / bytesPerSecond);
-					labelTimeValue.Text = $"{elapsed:hh\\:mm\\:ss} / {estimated:hh\\:mm\\:ss}";
-				}
-				else
-				{
-					labelTimeValue.Text = $"{elapsed:hh\\:mm\\:ss}";
-				}
+				UpdateProgress(current: totalRead, total: totalBytes.Value, downloadStopwatch: downloadStopwatch);
 				stopwatch.Restart();
 			}
 		}
