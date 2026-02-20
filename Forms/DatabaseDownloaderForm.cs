@@ -11,7 +11,6 @@ using Planetoid_DB.Properties;
 using System.Diagnostics;
 using System.IO.Compression;
 using System.Net;
-using System.Net.NetworkInformation;
 
 namespace Planetoid_DB;
 
@@ -112,9 +111,10 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		}
 		this.url = url;
 		// Derive the extraction file path from the URL and temporary filename
+		string localPath = new Uri(uriString: url).LocalPath;
 		extractFilePath = Path.Combine(
 			Path.GetDirectoryName(path: _filenameTemp) ?? string.Empty,
-			Path.GetFileNameWithoutExtension(path: url));
+			Path.GetFileNameWithoutExtension(path: localPath));
 		// Start download when form is shown
 		Shown += async (_, _) => await StartDownloadAsync();
 	}
@@ -171,10 +171,17 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		// Catch any exceptions and return false
 		try
 		{
-			using HttpResponseMessage response = await client.GetAsync(
-				requestUri: url, // The URL to check
-				completionOption: HttpCompletionOption.ResponseHeadersRead // Only read headers to minimize data usage
-			);
+			// Use a HEAD request instead GET to save bandwidth
+			using HttpRequestMessage request = new(method: HttpMethod.Head, requestUri: url);
+
+			// Timeout 5 seconds
+			using CancellationTokenSource cts = new(delay: TimeSpan.FromSeconds(seconds: 5));
+
+			using HttpResponseMessage response = await client.SendAsync(
+				request,
+				completionOption: HttpCompletionOption.ResponseHeadersRead,
+				cancellationToken: cts.Token);
+
 			return response.IsSuccessStatusCode;
 		}
 		catch
@@ -246,8 +253,9 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		// Then return without proceeding further
 		// This prevents attempting to download when offline.
 
-		if (!NetworkInterface.GetIsNetworkAvailable())
-		//if (!await HasInternetAsync(client: httpClient, url: url))
+		//if (!NetworkInterface.GetIsNetworkAvailable())
+		bool isServerReachable = await HasInternetAsync(client: httpClient, url: url);
+		if (!isServerReachable)
 		{
 			// Log the error if there is no internet connection
 			logger.Error(message: "No internet connection available.");
@@ -314,7 +322,6 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			logger.Info(message: "Download and extraction completed successfully.");
 			// Set the dialog result to OK and close the form
 			DialogResult = DialogResult.OK;
-			Close();
 		}
 		// Handle cancellation
 		// Notify the user that the download was canceled
@@ -327,7 +334,6 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			//TODO: Optionally disable the Cancel button here to prevent multiple clicks
 			_ = MessageBox.Show(text: "Download canceled!", caption: "Canceled", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			logger.Info(message: "Download canceled by user.");
-			DialogResult = DialogResult.Cancel;
 		}
 		// Handle other exceptions
 		// Notify the user of errors
@@ -340,7 +346,6 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			//TODO: Optionally disable the Cancel button here to prevent multiple clicks
 			_ = MessageBox.Show(text: $"Error during download: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			logger.Error(exception: ex, message: "Download failed. Url={Url}, TempFile={TempFile}", args: (url, _filenameTemp));
-			DialogResult = DialogResult.Abort;
 		}
 		// Reset UI elements and clean up resources
 		finally
@@ -385,7 +390,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		// Ensure the response indicates success
 		_ = response.EnsureSuccessStatusCode();
 		// Get the total content length from the response headers
-		long? totalBytes = response.Content.Headers.ContentLength ?? -1L;
+		long? totalBytes = response.Content.Headers.ContentLength;
 		// Update UI elements with download information
 		DateTime? lastMod = response.Content.Headers.LastModified?.UtcDateTime;
 		labelDateValue.Text = lastMod.HasValue ? lastMod.ToString() : "-";
