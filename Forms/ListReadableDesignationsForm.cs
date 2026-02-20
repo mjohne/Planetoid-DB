@@ -1551,6 +1551,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: "<manifest:manifest xmlns:manifest=\"urn:oasis:names:tc:opendocument:xmlns:manifest:1.0\" manifest:version=\"1.2\">");
 			writer.WriteLine(value: " <manifest:file-entry manifest:full-path=\"/\" manifest:media-type=\"application/vnd.oasis.opendocument.text\"/>");
 			writer.WriteLine(value: " <manifest:file-entry manifest:full-path=\"content.xml\" manifest:media-type=\"text/xml\"/>");
+			writer.WriteLine(value: " <manifest:file-entry manifest:full-path=\"META-INF/manifest.xml\" manifest:media-type=\"text/xml\"/>");
 			writer.WriteLine(value: "</manifest:manifest>");
 		}
 
@@ -1579,10 +1580,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: "        </table:table-header-rows>");
 
 			// Data Rows
-			foreach ((string? index, string? name) in GetExportData())
+			foreach ((string index, string name) in GetExportData())
 			{
-				string safeIndex = System.Net.WebUtility.HtmlEncode(value: index);
-				string safeName = System.Net.WebUtility.HtmlEncode(value: name);
+				string safeIndex = System.Net.WebUtility.HtmlEncode(value: index) ?? string.Empty;
+				string safeName = System.Net.WebUtility.HtmlEncode(value: name) ?? string.Empty;
 
 				writer.WriteLine(value: "        <table:table-row>");
 				writer.WriteLine(value: $"          <table:table-cell><text:p>{safeIndex}</text:p></table:table-cell>");
@@ -1642,6 +1643,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: "<manifest:manifest xmlns:manifest=\"urn:oasis:names:tc:opendocument:xmlns:manifest:1.0\" manifest:version=\"1.2\">");
 			writer.WriteLine(value: " <manifest:file-entry manifest:full-path=\"/\" manifest:media-type=\"application/vnd.oasis.opendocument.spreadsheet\"/>");
 			writer.WriteLine(value: " <manifest:file-entry manifest:full-path=\"content.xml\" manifest:media-type=\"text/xml\"/>");
+			writer.WriteLine(value: " <manifest:file-entry manifest:full-path=\"META-INF/manifest.xml\" manifest:media-type=\"text/xml\"/>");
 			writer.WriteLine(value: "</manifest:manifest>");
 		}
 
@@ -1663,10 +1665,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: "        </table:table-row>");
 
 			// Data Rows
-			foreach ((string? index, string? name) in GetExportData())
+			foreach ((string index, string name) in GetExportData())
 			{
-				string safeIndex = System.Net.WebUtility.HtmlEncode(value: index);
-				string safeName = System.Net.WebUtility.HtmlEncode(value: name);
+				string safeIndex = System.Net.WebUtility.HtmlEncode(value: index) ?? string.Empty;
+				string safeName = System.Net.WebUtility.HtmlEncode(value: name) ?? string.Empty;
 
 				writer.WriteLine(value: "        <table:table-row>");
 				writer.WriteLine(value: $"          <table:table-cell office:value-type=\"string\"><text:p>{safeIndex}</text:p></table:table-cell>");
@@ -1713,9 +1715,11 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		html.Append(value: "<h1>List of Readable Designations</h1>");
 		// Mobi does not support all HTML tags, but basic tables often work in newer readers or are flattened.
 		html.Append(value: "<table>");
-		foreach ((string? index, string? name) in GetExportData())
+		foreach ((string index, string name) in GetExportData())
 		{
-			html.Append(value: $"<tr><td>{System.Net.WebUtility.HtmlEncode(value: index)}</td><td>{System.Net.WebUtility.HtmlEncode(value: name)}</td></tr>");
+			string encodedIndex = System.Net.WebUtility.HtmlEncode(value: index) ?? string.Empty;
+			string encodedName = System.Net.WebUtility.HtmlEncode(value: name) ?? string.Empty;
+			html.Append(value: $"<tr><td>{encodedIndex}</td><td>{encodedName}</td></tr>");
 		}
 		html.Append(value: "</table></body></html>");
 
