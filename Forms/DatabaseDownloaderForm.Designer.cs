@@ -37,7 +37,7 @@ namespace Planetoid_DB
 			labelSourceText = new Krypton.Toolkit.KryptonLabel();
 			labelStatusValue = new Krypton.Toolkit.KryptonLabel();
 			labelDownloadSpeed = new Krypton.Toolkit.KryptonLabel();
-			labelDowloadSpeedValue = new Krypton.Toolkit.KryptonLabel();
+			labelDownloadSpeedValue = new Krypton.Toolkit.KryptonLabel();
 			labelTimeValue = new Krypton.Toolkit.KryptonLabel();
 			labelTime = new Krypton.Toolkit.KryptonLabel();
 			statusStrip = new Krypton.Toolkit.KryptonStatusStrip();
@@ -84,7 +84,7 @@ namespace Planetoid_DB
 			tableLayoutPanel.Controls.Add(labelSourceText, 0, 2);
 			tableLayoutPanel.Controls.Add(labelStatusValue, 1, 0);
 			tableLayoutPanel.Controls.Add(labelDownloadSpeed, 0, 6);
-			tableLayoutPanel.Controls.Add(labelDowloadSpeedValue, 1, 6);
+			tableLayoutPanel.Controls.Add(labelDownloadSpeedValue, 1, 6);
 			tableLayoutPanel.Controls.Add(labelTimeValue, 1, 5);
 			tableLayoutPanel.Controls.Add(labelTime, 0, 5);
 			tableLayoutPanel.Dock = DockStyle.Fill;
@@ -322,14 +322,14 @@ namespace Planetoid_DB
 			labelDownloadSpeed.TabIndex = 10;
 			labelDownloadSpeed.Values.Text = "Download speed:";
 			// 
-			// labelDowloadSpeedValue
+			// labelDownloadSpeedValue
 			// 
-			labelDowloadSpeedValue.Dock = DockStyle.Fill;
-			labelDowloadSpeedValue.Location = new Point(114, 140);
-			labelDowloadSpeedValue.Name = "labelDowloadSpeedValue";
-			labelDowloadSpeedValue.Size = new Size(414, 24);
-			labelDowloadSpeedValue.TabIndex = 11;
-			labelDowloadSpeedValue.Values.Text = "...";
+			labelDownloadSpeedValue.Dock = DockStyle.Fill;
+			labelDownloadSpeedValue.Location = new Point(114, 140);
+			labelDownloadSpeedValue.Name = "labelDownloadSpeedValue";
+			labelDownloadSpeedValue.Size = new Size(414, 24);
+			labelDownloadSpeedValue.TabIndex = 11;
+			labelDownloadSpeedValue.Values.Text = "...";
 			// 
 			// labelTimeValue
 			// 
@@ -351,7 +351,7 @@ namespace Planetoid_DB
 			// 
 			// statusStrip
 			// 
-			statusStrip.AccessibleDescription = "Showss some information";
+			statusStrip.AccessibleDescription = "Shows some information";
 			statusStrip.AccessibleName = "Status bar of some information";
 			statusStrip.AccessibleRole = AccessibleRole.StatusBar;
 			statusStrip.Dock = DockStyle.None;
@@ -533,7 +533,7 @@ namespace Planetoid_DB
 		private ToolStripSeparator toolStripSeparator;
 		private Krypton.Toolkit.KryptonProgressBarToolStripItem kryptonProgressBarDownload;
 		private Krypton.Toolkit.KryptonLabel labelDownloadSpeed;
-		private Krypton.Toolkit.KryptonLabel labelDowloadSpeedValue;
+		private Krypton.Toolkit.KryptonLabel labelDownloadSpeedValue;
 		private Krypton.Toolkit.KryptonLabel labelTimeValue;
 		private Krypton.Toolkit.KryptonLabel labelTime;
 	}
