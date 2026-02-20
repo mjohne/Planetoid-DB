@@ -58,6 +58,7 @@ namespace Planetoid_DB
 			toolStripMenuItemSaveAsSql = new ToolStripMenuItem();
 			toolStripMenuItemSaveAsPdf = new ToolStripMenuItem();
 			toolStripMenuItemSaveAsPostScript = new ToolStripMenuItem();
+			toolStripMenuItemSaveAsEpub = new ToolStripMenuItem();
 			dropButtonSaveList = new KryptonDropButton();
 			panel = new KryptonPanel();
 			listView = new ListView();
@@ -76,7 +77,8 @@ namespace Planetoid_DB
 			saveFileDialogPostScript = new SaveFileDialog();
 			saveFileDialogPdf = new SaveFileDialog();
 			saveFileDialogPsv = new SaveFileDialog();
-			toolStripMenuItemSaveAsEpub = new ToolStripMenuItem();
+			toolStripMenuItemSaveAsWord = new ToolStripMenuItem();
+			toolStripMenuItemSaveAsExcel = new ToolStripMenuItem();
 			statusStrip.SuspendLayout();
 			contextMenuCopyToClipboard.SuspendLayout();
 			contextMenuSaveList.SuspendLayout();
@@ -280,9 +282,9 @@ namespace Planetoid_DB
 			contextMenuSaveList.AccessibleName = "Save list";
 			contextMenuSaveList.AccessibleRole = AccessibleRole.MenuPopup;
 			contextMenuSaveList.Font = new Font("Segoe UI", 9F);
-			contextMenuSaveList.Items.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsCsv, toolStripMenuItemSaveAsTsv, toolStripMenuItemSaveAsPsv, toolStripMenuItemSaveAsHtml, toolStripMenuItemSaveAsXml, toolStripMenuItemSaveAsJson, toolStripMenuItemSaveAsYaml, toolStripMenuItemSaveAsSql, toolStripMenuItemSaveAsPdf, toolStripMenuItemSaveAsPostScript, toolStripMenuItemSaveAsEpub });
+			contextMenuSaveList.Items.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsWord, toolStripMenuItemSaveAsExcel, toolStripMenuItemSaveAsCsv, toolStripMenuItemSaveAsTsv, toolStripMenuItemSaveAsPsv, toolStripMenuItemSaveAsHtml, toolStripMenuItemSaveAsXml, toolStripMenuItemSaveAsJson, toolStripMenuItemSaveAsYaml, toolStripMenuItemSaveAsSql, toolStripMenuItemSaveAsPdf, toolStripMenuItemSaveAsPostScript, toolStripMenuItemSaveAsEpub });
 			contextMenuSaveList.Name = "contextMenuStrip1";
-			contextMenuSaveList.Size = new Size(193, 290);
+			contextMenuSaveList.Size = new Size(193, 356);
 			contextMenuSaveList.TabStop = true;
 			contextMenuSaveList.Text = "&Save List";
 			contextMenuSaveList.MouseEnter += Control_Enter;
@@ -480,6 +482,22 @@ namespace Planetoid_DB
 			toolStripMenuItemSaveAsPostScript.MouseEnter += Control_Enter;
 			toolStripMenuItemSaveAsPostScript.MouseLeave += Control_Leave;
 			// 
+			// toolStripMenuItemSaveAsEpub
+			// 
+			toolStripMenuItemSaveAsEpub.AccessibleDescription = "Save the list as EPUB";
+			toolStripMenuItemSaveAsEpub.AccessibleName = "Save as EPUB";
+			toolStripMenuItemSaveAsEpub.AccessibleRole = AccessibleRole.MenuItem;
+			toolStripMenuItemSaveAsEpub.AutoToolTip = true;
+			toolStripMenuItemSaveAsEpub.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
+			toolStripMenuItemSaveAsEpub.Name = "toolStripMenuItemSaveAsEpub";
+			toolStripMenuItemSaveAsEpub.ShortcutKeyDisplayString = "Strg+B";
+			toolStripMenuItemSaveAsEpub.ShortcutKeys = Keys.Control | Keys.B;
+			toolStripMenuItemSaveAsEpub.Size = new Size(192, 22);
+			toolStripMenuItemSaveAsEpub.Text = "Save as EPU&B";
+			toolStripMenuItemSaveAsEpub.Click += ToolStripMenuItemSaveAsEpub_Click;
+			toolStripMenuItemSaveAsEpub.MouseEnter += Control_Enter;
+			toolStripMenuItemSaveAsEpub.MouseLeave += Control_Leave;
+			// 
 			// dropButtonSaveList
 			// 
 			dropButtonSaveList.AccessibleDescription = "Saves the list as file";
@@ -633,22 +651,37 @@ namespace Planetoid_DB
 			saveFileDialogPsv.DefaultExt = "psv";
 			saveFileDialogPsv.Filter = "PSV files|*.psv|all files|*.*";
 			// 
-			// toolStripMenuItemSaveAsEpub
+			// toolStripMenuItemSaveAsWord
 			// 
-			toolStripMenuItemSaveAsEpub.AccessibleDescription = "Save the list as EPUB";
-			toolStripMenuItemSaveAsEpub.AccessibleName = "Save as EPUB";
-			toolStripMenuItemSaveAsEpub.AccessibleRole = AccessibleRole.MenuItem;
-			toolStripMenuItemSaveAsEpub.AutoToolTip = true;
-			toolStripMenuItemSaveAsEpub.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
-			toolStripMenuItemSaveAsEpub.Name = "toolStripMenuItemSaveAsEpub";
-			toolStripMenuItemSaveAsEpub.ShortcutKeyDisplayString = "Strg+B";
-			toolStripMenuItemSaveAsEpub.ShortcutKeys = Keys.Control | Keys.B;
-			toolStripMenuItemSaveAsEpub.Size = new Size(192, 22);
-			toolStripMenuItemSaveAsEpub.Text = "Save as EPU&B";
-			toolStripMenuItemSaveAsEpub.Click += ToolStripItemSaveAsEpub_Click;
-			toolStripMenuItemSaveAsEpub.MouseEnter += Control_Enter;
-			toolStripMenuItemSaveAsEpub.MouseLeave += Control_Leave;
-
+			toolStripMenuItemSaveAsWord.AccessibleDescription = "Save the list as Word";
+			toolStripMenuItemSaveAsWord.AccessibleName = "Save as Word";
+			toolStripMenuItemSaveAsWord.AccessibleRole = AccessibleRole.MenuItem;
+			toolStripMenuItemSaveAsWord.AutoToolTip = true;
+			toolStripMenuItemSaveAsWord.Image = FatcowIcons16px.fatcow_page_white_word_16px;
+			toolStripMenuItemSaveAsWord.Name = "toolStripMenuItemSaveAsWord";
+			toolStripMenuItemSaveAsWord.ShortcutKeyDisplayString = "Strg+W";
+			toolStripMenuItemSaveAsWord.ShortcutKeys = Keys.Control | Keys.W;
+			toolStripMenuItemSaveAsWord.Size = new Size(192, 22);
+			toolStripMenuItemSaveAsWord.Text = "Save as &Word";
+			toolStripMenuItemSaveAsWord.Click += ToolStripMenuItemSaveAsWord_Click;
+			toolStripMenuItemSaveAsWord.MouseEnter += Control_Enter;
+			toolStripMenuItemSaveAsWord.MouseLeave += Control_Leave;
+			// 
+			// toolStripMenuItemSaveAsExcel
+			// 
+			toolStripMenuItemSaveAsExcel.AccessibleDescription = "Save the list as Excel";
+			toolStripMenuItemSaveAsExcel.AccessibleName = "Save as Excel";
+			toolStripMenuItemSaveAsExcel.AccessibleRole = AccessibleRole.MenuItem;
+			toolStripMenuItemSaveAsExcel.AutoToolTip = true;
+			toolStripMenuItemSaveAsExcel.Image = FatcowIcons16px.fatcow_page_white_excel_16px;
+			toolStripMenuItemSaveAsExcel.Name = "toolStripMenuItemSaveAsExcel";
+			toolStripMenuItemSaveAsExcel.ShortcutKeyDisplayString = "Strg+L";
+			toolStripMenuItemSaveAsExcel.ShortcutKeys = Keys.Control | Keys.L;
+			toolStripMenuItemSaveAsExcel.Size = new Size(192, 22);
+			toolStripMenuItemSaveAsExcel.Text = "Save as Exce&l";
+			toolStripMenuItemSaveAsExcel.Click += ToolStripMenuItemSaveAsExcel_Click;
+			toolStripMenuItemSaveAsExcel.MouseEnter += Control_Enter;
+			toolStripMenuItemSaveAsExcel.MouseLeave += Control_Leave;
 			// 
 			// ListReadableDesignationsForm
 			// 
@@ -726,5 +759,7 @@ namespace Planetoid_DB
 		private SaveFileDialog saveFileDialogPsv;
 		private ToolStripMenuItem toolStripMenuItemSaveAsPsv;
 		private ToolStripMenuItem toolStripMenuItemSaveAsEpub;
+		private ToolStripMenuItem toolStripMenuItemSaveAsWord;
+		private ToolStripMenuItem toolStripMenuItemSaveAsExcel;
 	}
 }
