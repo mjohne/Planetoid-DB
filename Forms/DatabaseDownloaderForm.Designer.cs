@@ -29,24 +29,36 @@ namespace Planetoid_DB
 			labelStatusText = new Krypton.Toolkit.KryptonLabel();
 			labelSizeValue = new Krypton.Toolkit.KryptonLabel();
 			contextMenuCopyToClipboard = new ContextMenuStrip(components);
-			ToolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
+			toolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
 			labelSizeText = new Krypton.Toolkit.KryptonLabel();
 			labelDateValue = new Krypton.Toolkit.KryptonLabel();
 			labelSourceValue = new Krypton.Toolkit.KryptonLabel();
 			labelDateText = new Krypton.Toolkit.KryptonLabel();
 			labelSourceText = new Krypton.Toolkit.KryptonLabel();
 			labelStatusValue = new Krypton.Toolkit.KryptonLabel();
-			progressBarDownload = new Krypton.Toolkit.KryptonProgressBar();
-			buttonCancel = new Krypton.Toolkit.KryptonButton();
-			buttonDownload = new Krypton.Toolkit.KryptonButton();
+			labelDownloadSpeed = new Krypton.Toolkit.KryptonLabel();
+			labelDowloadSpeedValue = new Krypton.Toolkit.KryptonLabel();
+			labelTimeValue = new Krypton.Toolkit.KryptonLabel();
+			labelTime = new Krypton.Toolkit.KryptonLabel();
 			statusStrip = new Krypton.Toolkit.KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
 			panel = new Krypton.Toolkit.KryptonPanel();
+			toolStripContainer = new ToolStripContainer();
+			kryptonToolStripIcons = new Krypton.Toolkit.KryptonToolStrip();
+			toolStripButtonDownload = new ToolStripButton();
+			toolStripButtonCancel = new ToolStripButton();
+			toolStripSeparator = new ToolStripSeparator();
+			kryptonProgressBarDownload = new Krypton.Toolkit.KryptonProgressBarToolStripItem();
 			tableLayoutPanel.SuspendLayout();
 			contextMenuCopyToClipboard.SuspendLayout();
 			statusStrip.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)panel).BeginInit();
 			panel.SuspendLayout();
+			toolStripContainer.BottomToolStripPanel.SuspendLayout();
+			toolStripContainer.ContentPanel.SuspendLayout();
+			toolStripContainer.TopToolStripPanel.SuspendLayout();
+			toolStripContainer.SuspendLayout();
+			kryptonToolStripIcons.SuspendLayout();
 			SuspendLayout();
 			// 
 			// kryptonManager
@@ -71,16 +83,23 @@ namespace Planetoid_DB
 			tableLayoutPanel.Controls.Add(labelDateText, 0, 1);
 			tableLayoutPanel.Controls.Add(labelSourceText, 0, 2);
 			tableLayoutPanel.Controls.Add(labelStatusValue, 1, 0);
-			tableLayoutPanel.Dock = DockStyle.Top;
+			tableLayoutPanel.Controls.Add(labelDownloadSpeed, 0, 6);
+			tableLayoutPanel.Controls.Add(labelDowloadSpeedValue, 1, 6);
+			tableLayoutPanel.Controls.Add(labelTimeValue, 1, 5);
+			tableLayoutPanel.Controls.Add(labelTime, 0, 5);
+			tableLayoutPanel.Dock = DockStyle.Fill;
 			tableLayoutPanel.Location = new Point(0, 0);
 			tableLayoutPanel.Name = "tableLayoutPanel";
 			tableLayoutPanel.PanelBackStyle = Krypton.Toolkit.PaletteBackStyle.FormMain;
-			tableLayoutPanel.RowCount = 4;
+			tableLayoutPanel.RowCount = 7;
 			tableLayoutPanel.RowStyles.Add(new RowStyle());
 			tableLayoutPanel.RowStyles.Add(new RowStyle());
 			tableLayoutPanel.RowStyles.Add(new RowStyle());
 			tableLayoutPanel.RowStyles.Add(new RowStyle());
-			tableLayoutPanel.Size = new Size(476, 106);
+			tableLayoutPanel.RowStyles.Add(new RowStyle());
+			tableLayoutPanel.RowStyles.Add(new RowStyle());
+			tableLayoutPanel.RowStyles.Add(new RowStyle());
+			tableLayoutPanel.Size = new Size(530, 166);
 			tableLayoutPanel.TabIndex = 0;
 			tableLayoutPanel.Enter += Control_Enter;
 			tableLayoutPanel.Leave += Control_Leave;
@@ -95,7 +114,7 @@ namespace Planetoid_DB
 			labelStatusText.Dock = DockStyle.Fill;
 			labelStatusText.Location = new Point(3, 3);
 			labelStatusText.Name = "labelStatusText";
-			labelStatusText.Size = new Size(50, 20);
+			labelStatusText.Size = new Size(105, 20);
 			labelStatusText.TabIndex = 0;
 			labelStatusText.ToolTipValues.Description = "Status of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelStatusText.ToolTipValues.EnableToolTips = true;
@@ -115,7 +134,7 @@ namespace Planetoid_DB
 			labelSizeValue.AccessibleRole = AccessibleRole.Text;
 			labelSizeValue.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelSizeValue.Dock = DockStyle.Fill;
-			labelSizeValue.Location = new Point(59, 81);
+			labelSizeValue.Location = new Point(114, 81);
 			labelSizeValue.Name = "labelSizeValue";
 			labelSizeValue.Size = new Size(414, 22);
 			labelSizeValue.TabIndex = 7;
@@ -138,7 +157,7 @@ namespace Planetoid_DB
 			contextMenuCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
 			contextMenuCopyToClipboard.AllowClickThrough = true;
 			contextMenuCopyToClipboard.Font = new Font("Segoe UI", 9F);
-			contextMenuCopyToClipboard.Items.AddRange(new ToolStripItem[] { ToolStripMenuItemCopyToClipboard });
+			contextMenuCopyToClipboard.Items.AddRange(new ToolStripItem[] { toolStripMenuItemCopyToClipboard });
 			contextMenuCopyToClipboard.Name = "contextMenuStrip";
 			contextMenuCopyToClipboard.Size = new Size(214, 26);
 			contextMenuCopyToClipboard.TabStop = true;
@@ -146,21 +165,21 @@ namespace Planetoid_DB
 			contextMenuCopyToClipboard.MouseEnter += Control_Enter;
 			contextMenuCopyToClipboard.MouseLeave += Control_Leave;
 			// 
-			// ToolStripMenuItemCopyToClipboard
+			// toolStripMenuItemCopyToClipboard
 			// 
-			ToolStripMenuItemCopyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
-			ToolStripMenuItemCopyToClipboard.AccessibleName = "Copy to clipboard";
-			ToolStripMenuItemCopyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
-			ToolStripMenuItemCopyToClipboard.AutoToolTip = true;
-			ToolStripMenuItemCopyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
-			ToolStripMenuItemCopyToClipboard.Name = "ToolStripMenuItemCopyToClipboard";
-			ToolStripMenuItemCopyToClipboard.ShortcutKeyDisplayString = "Strg+C";
-			ToolStripMenuItemCopyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
-			ToolStripMenuItemCopyToClipboard.Size = new Size(213, 22);
-			ToolStripMenuItemCopyToClipboard.Text = "&Copy to clipboard";
-			ToolStripMenuItemCopyToClipboard.Click += CopyToClipboard_DoubleClick;
-			ToolStripMenuItemCopyToClipboard.MouseEnter += Control_Enter;
-			ToolStripMenuItemCopyToClipboard.MouseLeave += Control_Leave;
+			toolStripMenuItemCopyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
+			toolStripMenuItemCopyToClipboard.AccessibleName = "Copy to clipboard";
+			toolStripMenuItemCopyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
+			toolStripMenuItemCopyToClipboard.AutoToolTip = true;
+			toolStripMenuItemCopyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
+			toolStripMenuItemCopyToClipboard.Name = "toolStripMenuItemCopyToClipboard";
+			toolStripMenuItemCopyToClipboard.ShortcutKeyDisplayString = "Strg+C";
+			toolStripMenuItemCopyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
+			toolStripMenuItemCopyToClipboard.Size = new Size(213, 22);
+			toolStripMenuItemCopyToClipboard.Text = "&Copy to clipboard";
+			toolStripMenuItemCopyToClipboard.Click += CopyToClipboard_DoubleClick;
+			toolStripMenuItemCopyToClipboard.MouseEnter += Control_Enter;
+			toolStripMenuItemCopyToClipboard.MouseLeave += Control_Leave;
 			// 
 			// labelSizeText
 			// 
@@ -170,7 +189,7 @@ namespace Planetoid_DB
 			labelSizeText.Dock = DockStyle.Fill;
 			labelSizeText.Location = new Point(3, 81);
 			labelSizeText.Name = "labelSizeText";
-			labelSizeText.Size = new Size(50, 22);
+			labelSizeText.Size = new Size(105, 22);
 			labelSizeText.TabIndex = 6;
 			labelSizeText.ToolTipValues.Description = "Shows the file size of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelSizeText.ToolTipValues.EnableToolTips = true;
@@ -190,7 +209,7 @@ namespace Planetoid_DB
 			labelDateValue.AccessibleRole = AccessibleRole.Text;
 			labelDateValue.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelDateValue.Dock = DockStyle.Fill;
-			labelDateValue.Location = new Point(59, 29);
+			labelDateValue.Location = new Point(114, 29);
 			labelDateValue.Name = "labelDateValue";
 			labelDateValue.Size = new Size(414, 20);
 			labelDateValue.TabIndex = 3;
@@ -213,7 +232,7 @@ namespace Planetoid_DB
 			labelSourceValue.AccessibleRole = AccessibleRole.Text;
 			labelSourceValue.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelSourceValue.Dock = DockStyle.Fill;
-			labelSourceValue.Location = new Point(59, 55);
+			labelSourceValue.Location = new Point(114, 55);
 			labelSourceValue.Name = "labelSourceValue";
 			labelSourceValue.Size = new Size(414, 20);
 			labelSourceValue.TabIndex = 5;
@@ -237,7 +256,7 @@ namespace Planetoid_DB
 			labelDateText.Dock = DockStyle.Fill;
 			labelDateText.Location = new Point(3, 29);
 			labelDateText.Name = "labelDateText";
-			labelDateText.Size = new Size(50, 20);
+			labelDateText.Size = new Size(105, 20);
 			labelDateText.TabIndex = 2;
 			labelDateText.ToolTipValues.Description = "Date of the download file.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelDateText.ToolTipValues.EnableToolTips = true;
@@ -258,7 +277,7 @@ namespace Planetoid_DB
 			labelSourceText.Dock = DockStyle.Fill;
 			labelSourceText.Location = new Point(3, 55);
 			labelSourceText.Name = "labelSourceText";
-			labelSourceText.Size = new Size(50, 20);
+			labelSourceText.Size = new Size(105, 20);
 			labelSourceText.TabIndex = 4;
 			labelSourceText.ToolTipValues.Description = "Shows the download source.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelSourceText.ToolTipValues.EnableToolTips = true;
@@ -278,7 +297,7 @@ namespace Planetoid_DB
 			labelStatusValue.AccessibleRole = AccessibleRole.Text;
 			labelStatusValue.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelStatusValue.Dock = DockStyle.Fill;
-			labelStatusValue.Location = new Point(59, 3);
+			labelStatusValue.Location = new Point(114, 3);
 			labelStatusValue.Name = "labelStatusValue";
 			labelStatusValue.Size = new Size(414, 20);
 			labelStatusValue.TabIndex = 1;
@@ -294,77 +313,55 @@ namespace Planetoid_DB
 			labelStatusValue.MouseEnter += Control_Enter;
 			labelStatusValue.MouseLeave += Control_Leave;
 			// 
-			// progressBarDownload
+			// labelDownloadSpeed
 			// 
-			progressBarDownload.AccessibleDescription = "Shows the progress of the download";
-			progressBarDownload.AccessibleName = "Progress of the download";
-			progressBarDownload.AccessibleRole = AccessibleRole.ProgressBar;
-			progressBarDownload.Location = new Point(12, 112);
-			progressBarDownload.Name = "progressBarDownload";
-			progressBarDownload.Size = new Size(452, 14);
-			progressBarDownload.TabIndex = 1;
-			progressBarDownload.TextBackdropColor = Color.Empty;
-			progressBarDownload.TextShadowColor = Color.Empty;
-			progressBarDownload.Values.Text = "";
-			progressBarDownload.MouseEnter += Control_Enter;
-			progressBarDownload.MouseLeave += Control_Leave;
+			labelDownloadSpeed.Dock = DockStyle.Fill;
+			labelDownloadSpeed.Location = new Point(3, 140);
+			labelDownloadSpeed.Name = "labelDownloadSpeed";
+			labelDownloadSpeed.Size = new Size(105, 24);
+			labelDownloadSpeed.TabIndex = 10;
+			labelDownloadSpeed.Values.Text = "Download speed:";
 			// 
-			// buttonCancel
+			// labelDowloadSpeedValue
 			// 
-			buttonCancel.AccessibleDescription = "Cancels the download";
-			buttonCancel.AccessibleName = "Cancel download";
-			buttonCancel.AccessibleRole = AccessibleRole.PushButton;
-			buttonCancel.Location = new Point(241, 144);
-			buttonCancel.Name = "buttonCancel";
-			buttonCancel.Size = new Size(128, 36);
-			buttonCancel.TabIndex = 3;
-			buttonCancel.ToolTipValues.Description = "Cancels the download.";
-			buttonCancel.ToolTipValues.EnableToolTips = true;
-			buttonCancel.ToolTipValues.Heading = "Cancel download";
-			buttonCancel.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-			buttonCancel.Values.DropDownArrowColor = Color.Empty;
-			buttonCancel.Values.Image = FatcowIcons16px.fatcow_cancel_16px;
-			buttonCancel.Values.Text = "&Cancel download";
-			buttonCancel.Click += ButtonCancel_Click;
-			buttonCancel.Enter += Control_Enter;
-			buttonCancel.Leave += Control_Leave;
-			buttonCancel.MouseEnter += Control_Enter;
-			buttonCancel.MouseLeave += Control_Leave;
+			labelDowloadSpeedValue.Dock = DockStyle.Fill;
+			labelDowloadSpeedValue.Location = new Point(114, 140);
+			labelDowloadSpeedValue.Name = "labelDowloadSpeedValue";
+			labelDowloadSpeedValue.Size = new Size(414, 24);
+			labelDowloadSpeedValue.TabIndex = 11;
+			labelDowloadSpeedValue.Values.Text = "...";
 			// 
-			// buttonDownload
+			// labelTimeValue
 			// 
-			buttonDownload.AccessibleDescription = "Downloads the selected file";
-			buttonDownload.AccessibleName = "Download";
-			buttonDownload.AccessibleRole = AccessibleRole.PushButton;
-			buttonDownload.Location = new Point(107, 144);
-			buttonDownload.Name = "buttonDownload";
-			buttonDownload.Size = new Size(128, 36);
-			buttonDownload.TabIndex = 2;
-			buttonDownload.ToolTipValues.Description = "Downloads the selected file.";
-			buttonDownload.ToolTipValues.EnableToolTips = true;
-			buttonDownload.ToolTipValues.Heading = "Download";
-			buttonDownload.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-			buttonDownload.Values.DropDownArrowColor = Color.Empty;
-			buttonDownload.Values.Image = FatcowIcons16px.fatcow_package_go_16px;
-			buttonDownload.Values.Text = "&Download";
-			buttonDownload.Click += ButtonDownload_Click;
-			buttonDownload.Enter += Control_Enter;
-			buttonDownload.Leave += Control_Leave;
-			buttonDownload.MouseEnter += Control_Enter;
-			buttonDownload.MouseLeave += Control_Leave;
+			labelTimeValue.Dock = DockStyle.Fill;
+			labelTimeValue.Location = new Point(114, 109);
+			labelTimeValue.Name = "labelTimeValue";
+			labelTimeValue.Size = new Size(414, 25);
+			labelTimeValue.TabIndex = 9;
+			labelTimeValue.Values.Text = "...";
+			// 
+			// labelTime
+			// 
+			labelTime.Dock = DockStyle.Fill;
+			labelTime.Location = new Point(3, 109);
+			labelTime.Name = "labelTime";
+			labelTime.Size = new Size(105, 25);
+			labelTime.TabIndex = 8;
+			labelTime.Values.Text = "Time (estimated):";
 			// 
 			// statusStrip
 			// 
 			statusStrip.AccessibleDescription = "Showss some information";
 			statusStrip.AccessibleName = "Status bar of some information";
 			statusStrip.AccessibleRole = AccessibleRole.StatusBar;
+			statusStrip.Dock = DockStyle.None;
 			statusStrip.Font = new Font("Segoe UI", 9F);
 			statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-			statusStrip.Location = new Point(0, 196);
+			statusStrip.Location = new Point(0, 0);
 			statusStrip.Name = "statusStrip";
 			statusStrip.ProgressBars = null;
 			statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-			statusStrip.Size = new Size(476, 22);
+			statusStrip.Size = new Size(530, 22);
 			statusStrip.SizingGrip = false;
 			statusStrip.TabIndex = 0;
 			statusStrip.Text = "status bar";
@@ -388,16 +385,96 @@ namespace Planetoid_DB
 			panel.AccessibleName = "pane";
 			panel.AccessibleRole = AccessibleRole.Pane;
 			panel.Controls.Add(tableLayoutPanel);
-			panel.Controls.Add(progressBarDownload);
-			panel.Controls.Add(buttonCancel);
-			panel.Controls.Add(buttonDownload);
 			panel.Dock = DockStyle.Fill;
 			panel.Location = new Point(0, 0);
 			panel.Name = "panel";
 			panel.PanelBackStyle = Krypton.Toolkit.PaletteBackStyle.FormMain;
-			panel.Size = new Size(476, 218);
+			panel.Size = new Size(530, 166);
 			panel.TabIndex = 9;
 			panel.TabStop = true;
+			// 
+			// toolStripContainer
+			// 
+			toolStripContainer.AccessibleDescription = "Container";
+			toolStripContainer.AccessibleName = "Container";
+			toolStripContainer.AccessibleRole = AccessibleRole.Pane;
+			// 
+			// toolStripContainer.BottomToolStripPanel
+			// 
+			toolStripContainer.BottomToolStripPanel.Controls.Add(statusStrip);
+			// 
+			// toolStripContainer.ContentPanel
+			// 
+			toolStripContainer.ContentPanel.Controls.Add(panel);
+			toolStripContainer.ContentPanel.Size = new Size(530, 166);
+			toolStripContainer.Dock = DockStyle.Fill;
+			toolStripContainer.Location = new Point(0, 0);
+			toolStripContainer.Name = "toolStripContainer";
+			toolStripContainer.Size = new Size(530, 213);
+			toolStripContainer.TabIndex = 11;
+			toolStripContainer.Text = "toolStripContainer";
+			// 
+			// toolStripContainer.TopToolStripPanel
+			// 
+			toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripIcons);
+			// 
+			// kryptonToolStripIcons
+			// 
+			kryptonToolStripIcons.Dock = DockStyle.None;
+			kryptonToolStripIcons.Font = new Font("Segoe UI", 9F);
+			kryptonToolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonDownload, toolStripButtonCancel, toolStripSeparator, kryptonProgressBarDownload });
+			kryptonToolStripIcons.Location = new Point(0, 0);
+			kryptonToolStripIcons.Name = "kryptonToolStripIcons";
+			kryptonToolStripIcons.Size = new Size(530, 25);
+			kryptonToolStripIcons.Stretch = true;
+			kryptonToolStripIcons.TabIndex = 0;
+			// 
+			// toolStripButtonDownload
+			// 
+			toolStripButtonDownload.AccessibleDescription = "Downloads the selected file";
+			toolStripButtonDownload.AccessibleName = "Download";
+			toolStripButtonDownload.AccessibleRole = AccessibleRole.PushButton;
+			toolStripButtonDownload.Image = FatcowIcons16px.fatcow_package_go_16px;
+			toolStripButtonDownload.ImageTransparentColor = Color.Magenta;
+			toolStripButtonDownload.Name = "toolStripButtonDownload";
+			toolStripButtonDownload.Size = new Size(81, 22);
+			toolStripButtonDownload.Text = "&Download";
+			toolStripButtonDownload.Click += ButtonDownload_Click;
+			toolStripButtonDownload.MouseEnter += Control_Enter;
+			toolStripButtonDownload.MouseLeave += Control_Leave;
+			// 
+			// toolStripButtonCancel
+			// 
+			toolStripButtonCancel.AccessibleDescription = "Cancels the download";
+			toolStripButtonCancel.AccessibleName = "Cancel download";
+			toolStripButtonCancel.AccessibleRole = AccessibleRole.PushButton;
+			toolStripButtonCancel.Image = FatcowIcons16px.fatcow_cancel_16px;
+			toolStripButtonCancel.ImageTransparentColor = Color.Magenta;
+			toolStripButtonCancel.Name = "toolStripButtonCancel";
+			toolStripButtonCancel.Size = new Size(119, 22);
+			toolStripButtonCancel.Text = "&Cancel download";
+			toolStripButtonCancel.Click += ButtonCancel_Click;
+			toolStripButtonCancel.MouseEnter += Control_Enter;
+			toolStripButtonCancel.MouseLeave += Control_Leave;
+			// 
+			// toolStripSeparator
+			// 
+			toolStripSeparator.AccessibleDescription = "Just a separator";
+			toolStripSeparator.AccessibleName = "Just a separator";
+			toolStripSeparator.AccessibleRole = AccessibleRole.Separator;
+			toolStripSeparator.Name = "toolStripSeparator";
+			toolStripSeparator.Size = new Size(6, 25);
+			// 
+			// kryptonProgressBarDownload
+			// 
+			kryptonProgressBarDownload.AccessibleDescription = "Shows the progress of the download";
+			kryptonProgressBarDownload.AccessibleName = "ProgressBar";
+			kryptonProgressBarDownload.Name = "kryptonProgressBarDownload";
+			kryptonProgressBarDownload.Size = new Size(290, 22);
+			kryptonProgressBarDownload.StateCommon.Back.Color1 = Color.Green;
+			kryptonProgressBarDownload.StateDisabled.Back.ColorStyle = Krypton.Toolkit.PaletteColorStyle.OneNote;
+			kryptonProgressBarDownload.StateNormal.Back.ColorStyle = Krypton.Toolkit.PaletteColorStyle.OneNote;
+			kryptonProgressBarDownload.Values.Text = "";
 			// 
 			// DatabaseDownloaderForm
 			// 
@@ -406,9 +483,8 @@ namespace Planetoid_DB
 			AccessibleRole = AccessibleRole.Dialog;
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(476, 218);
-			Controls.Add(statusStrip);
-			Controls.Add(panel);
+			ClientSize = new Size(530, 213);
+			Controls.Add(toolStripContainer);
 			FormBorderStyle = FormBorderStyle.FixedSingle;
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			MaximizeBox = false;
@@ -424,8 +500,16 @@ namespace Planetoid_DB
 			statusStrip.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)panel).EndInit();
 			panel.ResumeLayout(false);
+			toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
+			toolStripContainer.BottomToolStripPanel.PerformLayout();
+			toolStripContainer.ContentPanel.ResumeLayout(false);
+			toolStripContainer.TopToolStripPanel.ResumeLayout(false);
+			toolStripContainer.TopToolStripPanel.PerformLayout();
+			toolStripContainer.ResumeLayout(false);
+			toolStripContainer.PerformLayout();
+			kryptonToolStripIcons.ResumeLayout(false);
+			kryptonToolStripIcons.PerformLayout();
 			ResumeLayout(false);
-			PerformLayout();
 		}
 		private Krypton.Toolkit.KryptonManager kryptonManager;
 		private Krypton.Toolkit.KryptonStatusStrip statusStrip;
@@ -440,10 +524,17 @@ namespace Planetoid_DB
 		private Krypton.Toolkit.KryptonLabel labelDateText;
 		private Krypton.Toolkit.KryptonLabel labelSourceText;
 		private Krypton.Toolkit.KryptonLabel labelStatusValue;
-		private Krypton.Toolkit.KryptonProgressBar progressBarDownload;
-		private Krypton.Toolkit.KryptonButton buttonCancel;
-		private Krypton.Toolkit.KryptonButton buttonDownload;
 		private ContextMenuStrip contextMenuCopyToClipboard;
-		private ToolStripMenuItem ToolStripMenuItemCopyToClipboard;
+		private ToolStripMenuItem toolStripMenuItemCopyToClipboard;
+		private ToolStripContainer toolStripContainer;
+		private Krypton.Toolkit.KryptonToolStrip kryptonToolStripIcons;
+		private ToolStripButton toolStripButtonDownload;
+		private ToolStripButton toolStripButtonCancel;
+		private ToolStripSeparator toolStripSeparator;
+		private Krypton.Toolkit.KryptonProgressBarToolStripItem kryptonProgressBarDownload;
+		private Krypton.Toolkit.KryptonLabel labelDownloadSpeed;
+		private Krypton.Toolkit.KryptonLabel labelDowloadSpeedValue;
+		private Krypton.Toolkit.KryptonLabel labelTimeValue;
+		private Krypton.Toolkit.KryptonLabel labelTime;
 	}
 }
