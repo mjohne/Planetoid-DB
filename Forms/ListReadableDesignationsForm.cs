@@ -659,8 +659,15 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// </remarks>
 	private void ToolStripMenuItemSaveAsCsv_Click(object? sender, EventArgs? e)
 	{
+		// Create a SaveFileDialog manually
+		using SaveFileDialog saveFileDialogCsv = new()
+		{
+			Filter = "Comma-separated values files (*.csv)|*.csv|All files (*.*)|*.*",
+			DefaultExt = "csv",
+			Title = "Save list as CSV"
+		};
 		// Prepare the save dialog
-		if (!PrepareSaveDialog(dialog: saveFileDialogCsv, ext: "csv"))
+		if (!PrepareSaveDialog(dialog: saveFileDialogCsv, ext: saveFileDialogCsv.DefaultExt))
 		{
 			return;
 		}
@@ -683,8 +690,15 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// </remarks>
 	private void ToolStripMenuItemSaveAsHtml_Click(object? sender, EventArgs? e)
 	{
+		// Create a SaveFileDialog manually
+		using SaveFileDialog saveFileDialogHtml = new()
+		{
+			Filter = "HTML files (*.html)|*.html|All files (*.*)|*.*",
+			DefaultExt = "html",
+			Title = "Save list as HTML"
+		};
 		// Prepare the save dialog
-		if (!PrepareSaveDialog(dialog: saveFileDialogHtml, ext: "html"))
+		if (!PrepareSaveDialog(dialog: saveFileDialogHtml, ext: saveFileDialogHtml.DefaultExt))
 		{
 			return;
 		}
@@ -713,8 +727,15 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// </remarks>
 	private void ToolStripMenuItemSaveAsXml_Click(object? sender, EventArgs? e)
 	{
+		// Create a SaveFileDialog manually
+		using SaveFileDialog saveFileDialogXml = new()
+		{
+			Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*",
+			DefaultExt = "xml",
+			Title = "Save list as XML"
+		};
 		// Prepare the save dialog
-		if (!PrepareSaveDialog(dialog: saveFileDialogXml, ext: "xml"))
+		if (!PrepareSaveDialog(dialog: saveFileDialogXml, ext: saveFileDialogXml.DefaultExt))
 		{
 			return;
 		}
@@ -748,8 +769,15 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// </remarks>
 	private void ToolStripMenuItemSaveAsJson_Click(object? sender, EventArgs? e)
 	{
+		// Create a SaveFileDialog manually
+		using SaveFileDialog saveFileDialogJson = new()
+		{
+			Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*",
+			DefaultExt = "json",
+			Title = "Save list as JSON"
+		};
 		// Prepare the save dialog
-		if (!PrepareSaveDialog(dialog: saveFileDialogJson, ext: "json"))
+		if (!PrepareSaveDialog(dialog: saveFileDialogJson, ext: saveFileDialogJson.DefaultExt))
 		{
 			return;
 		}
@@ -772,8 +800,16 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// </remarks>
 	private void ToolStripMenuItemSaveAsSql_Click(object? sender, EventArgs? e)
 	{
+		// Create a SaveFileDialog manually
+		using SaveFileDialog saveFileDialogSql = new()
+		{
+			Filter = "SQL files (*.sql)|*.sql|All files (*.*)|*.*",
+			DefaultExt = "sql",
+			Title = "Save list as SQL"
+		};
+
 		// Prepare the save dialog
-		if (!PrepareSaveDialog(dialog: saveFileDialogSql, ext: "sql"))
+		if (!PrepareSaveDialog(dialog: saveFileDialogSql, ext: saveFileDialogSql.DefaultExt))
 		{
 			return;
 		}
@@ -817,8 +853,15 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// </remarks>
 	private void ToolStripMenuItemSaveAsMarkdown_Click(object? sender, EventArgs? e)
 	{
+		// Create a SaveFileDialog manually
+		using SaveFileDialog saveFileDialogMarkdown = new()
+		{
+			Filter = "Markdown files (*.md)|*.md|All files (*.*)|*.*",
+			DefaultExt = "md",
+			Title = "Save list as Markdown"
+		};
 		// Prepare the save dialog
-		if (!PrepareSaveDialog(dialog: saveFileDialogMarkdown, ext: "md"))
+		if (!PrepareSaveDialog(dialog: saveFileDialogMarkdown, ext: saveFileDialogMarkdown.DefaultExt))
 		{
 			return;
 		}
@@ -847,8 +890,15 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// </remarks>
 	private void ToolStripMenuItemSaveAsYaml_Click(object? sender, EventArgs? e)
 	{
+		// Create a SaveFileDialog manually
+		using SaveFileDialog saveFileDialogYaml = new()
+		{
+			Filter = "YAML files (*.yaml)|*.yaml|All files (*.*)|*.*",
+			DefaultExt = "yaml",
+			Title = "Save list as YAML"
+		};
 		// Prepare the save dialog
-		if (!PrepareSaveDialog(dialog: saveFileDialogYaml, ext: "yaml"))
+		if (!PrepareSaveDialog(dialog: saveFileDialogYaml, ext: saveFileDialogYaml.DefaultExt))
 		{
 			return;
 		}
@@ -882,8 +932,16 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// </remarks>
 	private void ToolStripMenuItemSaveAsTsv_Click(object? sender, EventArgs? e)
 	{
+		// Create a SaveFileDialog manually
+		using SaveFileDialog saveFileDialogTsv = new()
+		{
+			Filter = "Tab-separated values files (*.tsv)|*.tsv|All files (*.*)|*.*",
+			DefaultExt = "tsv",
+			Title = "Save list as TSV"
+		};
+
 		// Prepare the save dialog
-		if (!PrepareSaveDialog(dialog: saveFileDialogTsv, ext: "tsv"))
+		if (!PrepareSaveDialog(dialog: saveFileDialogTsv, ext: saveFileDialogTsv.DefaultExt))
 		{
 			return;
 		}
@@ -910,8 +968,16 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// </remarks>
 	private void ToolStripMenuItemSaveAsPsv_Click(object? sender, EventArgs? e)
 	{
+		// Create a SaveFileDialog manually
+		using SaveFileDialog saveFileDialogPsv = new()
+		{
+			Filter = "Pipe-separated values files (*.psv)|*.psv|All files (*.*)|*.*",
+			DefaultExt = "psv",
+			Title = "Save list as PSV"
+		};
+
 		// Prepare the save dialog
-		if (!PrepareSaveDialog(dialog: saveFileDialogPsv, ext: "psv"))
+		if (!PrepareSaveDialog(dialog: saveFileDialogPsv, ext: saveFileDialogPsv.DefaultExt))
 		{
 			return;
 		}
@@ -937,7 +1003,14 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// </remarks>
 	private void ToolStripMenuItemSaveAsLatex_Click(object? sender, EventArgs? e)
 	{
-		if (!PrepareSaveDialog(dialog: saveFileDialogLatex, ext: "tex"))
+		// Create a SaveFileDialog manually
+		using SaveFileDialog saveFileDialogLatex = new()
+		{
+			Filter = "LaTeX files (*.tex)|*.tex|All files (*.*)|*.*",
+			DefaultExt = "tex",
+			Title = "Save list as LaTeX"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialogLatex, ext: saveFileDialogLatex.DefaultExt))
 		{
 			return;
 		}
@@ -981,8 +1054,15 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// </remarks>
 	private void ToolStripMenuItemSaveAsPostScript_Click(object? sender, EventArgs? e)
 	{
+		// Create a SaveFileDialog manually
+		using SaveFileDialog saveFileDialogPostScript = new()
+		{
+			Filter = "PostScript files (*.ps)|*.ps|All files (*.*)|*.*",
+			DefaultExt = "ps",
+			Title = "Save list as PostScript"
+		};
 		// Prepare the save dialog
-		if (!PrepareSaveDialog(dialog: saveFileDialogPostScript, ext: "ps"))
+		if (!PrepareSaveDialog(dialog: saveFileDialogPostScript, ext: saveFileDialogPostScript.DefaultExt))
 		{
 			return;
 		}
@@ -1062,8 +1142,16 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// </remarks>
 	private void ToolStripMenuItemSaveAsPdf_Click(object? sender, EventArgs? e)
 	{
+		// Create a SaveFileDialog manually
+		using SaveFileDialog saveFileDialogPdf = new()
+		{
+			Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*",
+			DefaultExt = "pdf",
+			Title = "Save list as PDF"
+		};
+
 		// Prepare the save dialog
-		if (!PrepareSaveDialog(dialog: saveFileDialogPdf, ext: "pdf"))
+		if (!PrepareSaveDialog(dialog: saveFileDialogPdf, ext: saveFileDialogPdf.DefaultExt))
 		{
 			return;
 		}
@@ -1233,7 +1321,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// </remarks>
 	private void ToolStripMenuItemSaveAsEpub_Click(object? sender, EventArgs? e)
 	{
-		// Create a SaveFileDialog manually since it's not in the designer
+		// Create a SaveFileDialog manually
 		using SaveFileDialog saveFileDialogEpub = new()
 		{
 			Filter = "EPUB files (*.epub)|*.epub|All files (*.*)|*.*",
@@ -1242,7 +1330,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		};
 
 		// Prepare the save dialog
-		if (!PrepareSaveDialog(dialog: saveFileDialogEpub, ext: "epub"))
+		if (!PrepareSaveDialog(dialog: saveFileDialogEpub, ext: saveFileDialogEpub.DefaultExt))
 		{
 			return;
 		}
@@ -1364,7 +1452,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// </remarks>
 	private void ToolStripMenuItemSaveAsWord_Click(object? sender, EventArgs? e)
 	{
-		// Create a SaveFileDialog manually since it's not in the designer
+		// Create a SaveFileDialog manually
 		using SaveFileDialog saveFileDialogWord = new()
 		{
 			Filter = "Word documents (*.docx)|*.docx|All files (*.*)|*.*",
@@ -1373,7 +1461,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		};
 
 		// Prepare the save dialog
-		if (!PrepareSaveDialog(dialog: saveFileDialogWord, ext: "docx"))
+		if (!PrepareSaveDialog(dialog: saveFileDialogWord, ext: saveFileDialogWord.DefaultExt))
 		{
 			return;
 		}
@@ -1462,7 +1550,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// </remarks>
 	private void ToolStripMenuItemSaveAsExcel_Click(object? sender, EventArgs? e)
 	{
-		// Create a SaveFileDialog manually since it's not in the designer
+		// Create a SaveFileDialog manually
 		using SaveFileDialog saveFileDialogExcel = new()
 		{
 			Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*",
@@ -1471,7 +1559,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		};
 
 		// Prepare the save dialog
-		if (!PrepareSaveDialog(dialog: saveFileDialogExcel, ext: "xlsx"))
+		if (!PrepareSaveDialog(dialog: saveFileDialogExcel, ext: saveFileDialogExcel.DefaultExt))
 		{
 			return;
 		}
@@ -1568,7 +1656,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// </remarks>
 	private void ToolStripMenuItemSaveAsOdt_Click(object? sender, EventArgs? e)
 	{
-		// Create a SaveFileDialog manually since it's not in the designer
+		// Create a SaveFileDialog manually
 		using SaveFileDialog saveFileDialogOdt = new()
 		{
 			Filter = "OpenDocument Text (*.odt)|*.odt|All files (*.*)|*.*",
@@ -1577,7 +1665,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		};
 
 		// Prepare the save dialog
-		if (!PrepareSaveDialog(dialog: saveFileDialogOdt, ext: "odt"))
+		if (!PrepareSaveDialog(dialog: saveFileDialogOdt, ext: saveFileDialogOdt.DefaultExt))
 		{
 			return;
 		}
@@ -1660,7 +1748,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// </remarks>
 	private void ToolStripMenuItemSaveAsOds_Click(object? sender, EventArgs? e)
 	{
-		// Create a SaveFileDialog manually since it's not in the designer
+		// Create a SaveFileDialog manually
 		using SaveFileDialog saveFileDialogOds = new()
 		{
 			Filter = "OpenDocument Spreadsheet (*.ods)|*.ods|All files (*.*)|*.*",
@@ -1669,7 +1757,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		};
 
 		// Prepare the save dialog
-		if (!PrepareSaveDialog(dialog: saveFileDialogOds, ext: "ods"))
+		if (!PrepareSaveDialog(dialog: saveFileDialogOds, ext: saveFileDialogOds.DefaultExt))
 		{
 			return;
 		}
@@ -1745,7 +1833,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// </remarks>
 	private void ToolStripMenuItemSaveAsMobi_Click(object? sender, EventArgs? e)
 	{
-		// Create a SaveFileDialog manually since it's not in the designer
+		// Create a SaveFileDialog manually
 		using SaveFileDialog saveFileDialogMobi = new()
 		{
 			Filter = "Mobi files (*.mobi)|*.mobi|All files (*.*)|*.*",
@@ -1754,7 +1842,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		};
 
 		// Prepare the save dialog
-		if (!PrepareSaveDialog(dialog: saveFileDialogMobi, ext: "mobi"))
+		if (!PrepareSaveDialog(dialog: saveFileDialogMobi, ext: saveFileDialogMobi.DefaultExt))
 		{
 			return;
 		}
@@ -1920,7 +2008,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// </remarks>
 	private void ToolStripMenuItemSaveAsRtf_Click(object? sender, EventArgs? e)
 	{
-		// Create a SaveFileDialog manually since it's not in the designer
+		// Create a SaveFileDialog manually
 		using SaveFileDialog saveFileDialogRtf = new()
 		{
 			Filter = "Rich Text Format (*.rtf)|*.rtf|All files (*.*)|*.*",
@@ -1929,7 +2017,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		};
 
 		// Prepare the save dialog
-		if (!PrepareSaveDialog(dialog: saveFileDialogRtf, ext: "rtf"))
+		if (!PrepareSaveDialog(dialog: saveFileDialogRtf, ext: saveFileDialogRtf.DefaultExt))
 		{
 			return;
 		}
@@ -1983,7 +2071,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// </remarks>
 	private void ToolStripMenuItemSaveAsText_Click(object? sender, EventArgs? e)
 	{
-		// Create a SaveFileDialog manually since it's not in the designer
+		// Create a SaveFileDialog manually
 		using SaveFileDialog saveFileDialogText = new()
 		{
 			Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*",
@@ -1992,7 +2080,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		};
 
 		// Prepare the save dialog
-		if (!PrepareSaveDialog(dialog: saveFileDialogText, ext: "txt"))
+		if (!PrepareSaveDialog(dialog: saveFileDialogText, ext: saveFileDialogText.DefaultExt))
 		{
 			return;
 		}
