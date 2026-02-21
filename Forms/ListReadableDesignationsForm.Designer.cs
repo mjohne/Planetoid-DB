@@ -277,7 +277,7 @@ namespace Planetoid_DB
 			contextMenuSaveList.Font = new Font("Segoe UI", 9F);
 			contextMenuSaveList.Items.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsWord, toolStripMenuItemSaveAsOdt, toolStripMenuItemSaveAsRtf, toolStripMenuItemSaveAsExcel, toolStripMenuItemSaveAsOds, toolStripMenuItemSaveAsCsv, toolStripMenuItemSaveAsTsv, toolStripMenuItemSaveAsPsv, toolStripMenuItemSaveAsHtml, toolStripMenuItemSaveAsXml, toolStripMenuItemSaveAsJson, toolStripMenuItemSaveAsYaml, toolStripMenuItemSaveAsSql, toolStripMenuItemSaveAsPdf, toolStripMenuItemSaveAsEpub, toolStripMenuItemSaveAsPostScript, toolStripMenuItemSaveAsMobi });
 			contextMenuSaveList.Name = "contextMenuStrip1";
-			contextMenuSaveList.Size = new Size(216, 444);
+			contextMenuSaveList.Size = new Size(216, 466);
 			contextMenuSaveList.TabStop = true;
 			contextMenuSaveList.Text = "&Save List";
 			contextMenuSaveList.MouseEnter += Control_Enter;
@@ -285,7 +285,7 @@ namespace Planetoid_DB
 			// 
 			// toolStripMenuItemSaveAsText
 			// 
-			toolStripMenuItemSaveAsText.AccessibleDescription = "Saves the list as text";
+			toolStripMenuItemSaveAsText.AccessibleDescription = "Saves the list as text file";
 			toolStripMenuItemSaveAsText.AccessibleName = "Save as text";
 			toolStripMenuItemSaveAsText.AccessibleRole = AccessibleRole.MenuItem;
 			toolStripMenuItemSaveAsText.AutoToolTip = true;
@@ -317,7 +317,7 @@ namespace Planetoid_DB
 			// 
 			// toolStripMenuItemSaveAsMarkdown
 			// 
-			toolStripMenuItemSaveAsMarkdown.AccessibleDescription = "Saves the list as Markdown document";
+			toolStripMenuItemSaveAsMarkdown.AccessibleDescription = "Saves the list as Markdown file";
 			toolStripMenuItemSaveAsMarkdown.AccessibleName = "Save as Markdown";
 			toolStripMenuItemSaveAsMarkdown.AccessibleRole = AccessibleRole.MenuItem;
 			toolStripMenuItemSaveAsMarkdown.AutoToolTip = true;
@@ -333,7 +333,7 @@ namespace Planetoid_DB
 			// 
 			// toolStripMenuItemSaveAsWord
 			// 
-			toolStripMenuItemSaveAsWord.AccessibleDescription = "Saves the list as Word";
+			toolStripMenuItemSaveAsWord.AccessibleDescription = "Saves the list as Word file";
 			toolStripMenuItemSaveAsWord.AccessibleName = "Save as Word";
 			toolStripMenuItemSaveAsWord.AccessibleRole = AccessibleRole.MenuItem;
 			toolStripMenuItemSaveAsWord.AutoToolTip = true;
@@ -349,7 +349,7 @@ namespace Planetoid_DB
 			// 
 			// toolStripMenuItemSaveAsOdt
 			// 
-			toolStripMenuItemSaveAsOdt.AccessibleDescription = "Saves the list as ODT";
+			toolStripMenuItemSaveAsOdt.AccessibleDescription = "Saves the list as ODT file";
 			toolStripMenuItemSaveAsOdt.AccessibleName = "Save as ODT";
 			toolStripMenuItemSaveAsOdt.AccessibleRole = AccessibleRole.MenuItem;
 			toolStripMenuItemSaveAsOdt.AutoToolTip = true;
@@ -365,7 +365,7 @@ namespace Planetoid_DB
 			// 
 			// toolStripMenuItemSaveAsRtf
 			// 
-			toolStripMenuItemSaveAsRtf.AccessibleDescription = "Saves the list as RTF";
+			toolStripMenuItemSaveAsRtf.AccessibleDescription = "Saves the list as RTF file";
 			toolStripMenuItemSaveAsRtf.AccessibleName = "Save as RTF";
 			toolStripMenuItemSaveAsRtf.AccessibleRole = AccessibleRole.MenuItem;
 			toolStripMenuItemSaveAsRtf.AutoToolTip = true;
@@ -381,7 +381,7 @@ namespace Planetoid_DB
 			// 
 			// toolStripMenuItemSaveAsExcel
 			// 
-			toolStripMenuItemSaveAsExcel.AccessibleDescription = "Saves the list as Excel";
+			toolStripMenuItemSaveAsExcel.AccessibleDescription = "Saves the list as Excel file";
 			toolStripMenuItemSaveAsExcel.AccessibleName = "Save as Excel";
 			toolStripMenuItemSaveAsExcel.AccessibleRole = AccessibleRole.MenuItem;
 			toolStripMenuItemSaveAsExcel.AutoToolTip = true;
@@ -397,7 +397,7 @@ namespace Planetoid_DB
 			// 
 			// toolStripMenuItemSaveAsOds
 			// 
-			toolStripMenuItemSaveAsOds.AccessibleDescription = "Saves the list as ODS";
+			toolStripMenuItemSaveAsOds.AccessibleDescription = "Saves the list as ODS file";
 			toolStripMenuItemSaveAsOds.AccessibleName = "Save as ODS";
 			toolStripMenuItemSaveAsOds.AccessibleRole = AccessibleRole.MenuItem;
 			toolStripMenuItemSaveAsOds.AutoToolTip = true;
@@ -541,7 +541,7 @@ namespace Planetoid_DB
 			// 
 			// toolStripMenuItemSaveAsPdf
 			// 
-			toolStripMenuItemSaveAsPdf.AccessibleDescription = "Saves the list as PDF";
+			toolStripMenuItemSaveAsPdf.AccessibleDescription = "Saves the list as PDF file";
 			toolStripMenuItemSaveAsPdf.AccessibleName = "Save as PDF";
 			toolStripMenuItemSaveAsPdf.AccessibleRole = AccessibleRole.MenuItem;
 			toolStripMenuItemSaveAsPdf.AutoToolTip = true;
@@ -557,7 +557,7 @@ namespace Planetoid_DB
 			// 
 			// toolStripMenuItemSaveAsEpub
 			// 
-			toolStripMenuItemSaveAsEpub.AccessibleDescription = "Saves the list as EPUB";
+			toolStripMenuItemSaveAsEpub.AccessibleDescription = "Saves the list as EPUB file";
 			toolStripMenuItemSaveAsEpub.AccessibleName = "Save as EPUB";
 			toolStripMenuItemSaveAsEpub.AccessibleRole = AccessibleRole.MenuItem;
 			toolStripMenuItemSaveAsEpub.AutoToolTip = true;
@@ -573,7 +573,7 @@ namespace Planetoid_DB
 			// 
 			// toolStripMenuItemSaveAsPostScript
 			// 
-			toolStripMenuItemSaveAsPostScript.AccessibleDescription = "Saves the list as PostScript";
+			toolStripMenuItemSaveAsPostScript.AccessibleDescription = "Saves the list as PostScript file";
 			toolStripMenuItemSaveAsPostScript.AccessibleName = "Save as PS";
 			toolStripMenuItemSaveAsPostScript.AccessibleRole = AccessibleRole.MenuItem;
 			toolStripMenuItemSaveAsPostScript.AutoToolTip = true;
@@ -589,7 +589,7 @@ namespace Planetoid_DB
 			// 
 			// toolStripMenuItemSaveAsMobi
 			// 
-			toolStripMenuItemSaveAsMobi.AccessibleDescription = "Saves the list as MOBI";
+			toolStripMenuItemSaveAsMobi.AccessibleDescription = "Saves the list as MOBI file";
 			toolStripMenuItemSaveAsMobi.AccessibleName = "Save as MOBI";
 			toolStripMenuItemSaveAsMobi.AccessibleRole = AccessibleRole.MenuItem;
 			toolStripMenuItemSaveAsMobi.AutoToolTip = true;
