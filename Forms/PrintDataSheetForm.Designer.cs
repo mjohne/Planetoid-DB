@@ -36,15 +36,22 @@ namespace Planetoid_DB
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(PrintDataSheetForm));
 			checkedListBoxOrbitalElements = new KryptonCheckedListBox();
-			buttonPrintDataSheet = new KryptonButton();
-			buttonCancelPrint = new KryptonButton();
 			panel = new KryptonPanel();
 			statusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
 			kryptonManager = new KryptonManager(components);
+			toolStripContainer = new ToolStripContainer();
+			kryptonToolStripIcons = new KryptonToolStrip();
+			toolStripButtonPrintDataSheet = new ToolStripButton();
+			toolStripButtonCancelPrint = new ToolStripButton();
 			((ISupportInitialize)panel).BeginInit();
 			panel.SuspendLayout();
 			statusStrip.SuspendLayout();
+			toolStripContainer.BottomToolStripPanel.SuspendLayout();
+			toolStripContainer.ContentPanel.SuspendLayout();
+			toolStripContainer.TopToolStripPanel.SuspendLayout();
+			toolStripContainer.SuspendLayout();
+			kryptonToolStripIcons.SuspendLayout();
 			SuspendLayout();
 			// 
 			// checkedListBoxOrbitalElements
@@ -54,13 +61,14 @@ namespace Planetoid_DB
 			checkedListBoxOrbitalElements.AccessibleRole = AccessibleRole.List;
 			checkedListBoxOrbitalElements.BackStyle = PaletteBackStyle.InputControlRibbon;
 			checkedListBoxOrbitalElements.CheckOnClick = true;
+			checkedListBoxOrbitalElements.Dock = DockStyle.Fill;
 			checkedListBoxOrbitalElements.FormattingEnabled = true;
 			checkedListBoxOrbitalElements.HorizontalScrollbar = true;
 			checkedListBoxOrbitalElements.Items.AddRange(new object[] { "Index No.", "Readable designation", "Epoch (in packed form, .0 TT)", "Mean anomaly at the epoch (degrees)", "Argument of perihelion, J2000.0 (degrees)", "Longitude of the ascending node, J2000.0", "Inclination to the ecliptic, J2000.0 (degrees)", "Orbital eccentricity", "Mean daily motion (degrees per day)", "Semimajor axis (AU)", "Absolute magnitude, H (mag)", "Slope parameter, G", "Reference", "Number of oppositions", "Number of observations", "Observation span", "r.m.s. residual (arcseconds)", "Computer name", "4-hexdigit flags", "Date of last observation (YYYMMDD)", "Linear eccentricity (AU)", "Semi-minor axis (AU)", "Major axis (AU)", "Minor axis (AU)", "Eccentric anomaly (degrees)", "True anomaly (degrees)", "Perihelion distance (AU)", "Aphelion distance (AU)", "Longitude of Descending node (degrees)", "Argument of aphelion (degrees)", "Focal parameter (AU)", "Semi-latus rectum (AU)", "Latus rectum (AU)", "Orbital period (years)", "Orbital area (AU²)", "Orbital perimeter (AU)", "Semi-mean axis (AU)", "Mean axis (AU)", "Standard gravitational parameter (AU³/a²)" });
-			checkedListBoxOrbitalElements.Location = new Point(14, 14);
+			checkedListBoxOrbitalElements.Location = new Point(0, 0);
 			checkedListBoxOrbitalElements.Margin = new Padding(4, 3, 4, 3);
 			checkedListBoxOrbitalElements.Name = "checkedListBoxOrbitalElements";
-			checkedListBoxOrbitalElements.Size = new Size(327, 254);
+			checkedListBoxOrbitalElements.Size = new Size(357, 308);
 			checkedListBoxOrbitalElements.TabIndex = 0;
 			checkedListBoxOrbitalElements.ToolTipValues.Description = "Checks some orbital elements to print on a data sheet.";
 			checkedListBoxOrbitalElements.ToolTipValues.EnableToolTips = true;
@@ -71,67 +79,18 @@ namespace Planetoid_DB
 			checkedListBoxOrbitalElements.MouseEnter += Control_Enter;
 			checkedListBoxOrbitalElements.MouseLeave += Control_Leave;
 			// 
-			// buttonPrintDataSheet
-			// 
-			buttonPrintDataSheet.AccessibleDescription = "Prints a data sheet with some orbit elements";
-			buttonPrintDataSheet.AccessibleName = "Print data sheet";
-			buttonPrintDataSheet.AccessibleRole = AccessibleRole.PushButton;
-			buttonPrintDataSheet.Location = new Point(14, 275);
-			buttonPrintDataSheet.Margin = new Padding(4, 3, 4, 3);
-			buttonPrintDataSheet.Name = "buttonPrintDataSheet";
-			buttonPrintDataSheet.Size = new Size(154, 42);
-			buttonPrintDataSheet.TabIndex = 1;
-			buttonPrintDataSheet.ToolTipValues.Description = "Prints a data sheet with some orbit elements.";
-			buttonPrintDataSheet.ToolTipValues.EnableToolTips = true;
-			buttonPrintDataSheet.ToolTipValues.Heading = "Print data sheet";
-			buttonPrintDataSheet.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-			buttonPrintDataSheet.Values.DropDownArrowColor = Color.Empty;
-			buttonPrintDataSheet.Values.Image = FatcowIcons16px.fatcow_printer_16px;
-			buttonPrintDataSheet.Values.Text = "&Print the sheet";
-			buttonPrintDataSheet.Click += ButtonPrintDataSheet_Click;
-			buttonPrintDataSheet.Enter += Control_Enter;
-			buttonPrintDataSheet.Leave += Control_Leave;
-			buttonPrintDataSheet.MouseEnter += Control_Enter;
-			buttonPrintDataSheet.MouseLeave += Control_Leave;
-			// 
-			// buttonCancelPrint
-			// 
-			buttonCancelPrint.AccessibleDescription = "Cancels the print";
-			buttonCancelPrint.AccessibleName = "Cancel print";
-			buttonCancelPrint.AccessibleRole = AccessibleRole.PushButton;
-			buttonCancelPrint.Location = new Point(191, 275);
-			buttonCancelPrint.Margin = new Padding(4, 3, 4, 3);
-			buttonCancelPrint.Name = "buttonCancelPrint";
-			buttonCancelPrint.Size = new Size(149, 42);
-			buttonCancelPrint.TabIndex = 2;
-			buttonCancelPrint.ToolTipValues.Description = "Cancels the print.";
-			buttonCancelPrint.ToolTipValues.EnableToolTips = true;
-			buttonCancelPrint.ToolTipValues.Heading = "Cancel print";
-			buttonCancelPrint.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-			buttonCancelPrint.Values.DropDownArrowColor = Color.Empty;
-			buttonCancelPrint.Values.Image = FatcowIcons16px.fatcow_cancel_16px;
-			buttonCancelPrint.Values.Text = "&Cancel print";
-			buttonCancelPrint.Click += ButtonCancelPrint_Click;
-			buttonCancelPrint.Enter += Control_Enter;
-			buttonCancelPrint.Leave += Control_Leave;
-			buttonCancelPrint.MouseEnter += Control_Enter;
-			buttonCancelPrint.MouseLeave += Control_Leave;
-			// 
 			// panel
 			// 
 			panel.AccessibleDescription = "Groups the data";
-			panel.AccessibleName = "pane";
+			panel.AccessibleName = "Pane";
 			panel.AccessibleRole = AccessibleRole.Pane;
-			panel.Controls.Add(statusStrip);
 			panel.Controls.Add(checkedListBoxOrbitalElements);
-			panel.Controls.Add(buttonPrintDataSheet);
-			panel.Controls.Add(buttonCancelPrint);
 			panel.Dock = DockStyle.Fill;
 			panel.Location = new Point(0, 0);
 			panel.Margin = new Padding(4, 3, 4, 3);
 			panel.Name = "panel";
 			panel.PanelBackStyle = PaletteBackStyle.FormMain;
-			panel.Size = new Size(357, 355);
+			panel.Size = new Size(357, 308);
 			panel.TabIndex = 0;
 			panel.TabStop = true;
 			// 
@@ -140,9 +99,10 @@ namespace Planetoid_DB
 			statusStrip.AccessibleDescription = "Shows some information";
 			statusStrip.AccessibleName = "Status bar of some information";
 			statusStrip.AccessibleRole = AccessibleRole.StatusBar;
+			statusStrip.Dock = DockStyle.None;
 			statusStrip.Font = new Font("Segoe UI", 9F);
 			statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-			statusStrip.Location = new Point(0, 333);
+			statusStrip.Location = new Point(0, 0);
 			statusStrip.Name = "statusStrip";
 			statusStrip.Padding = new Padding(1, 0, 16, 0);
 			statusStrip.ProgressBars = null;
@@ -171,6 +131,73 @@ namespace Planetoid_DB
 			kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 			kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 			// 
+			// toolStripContainer
+			// 
+			toolStripContainer.AccessibleDescription = "Container to arrange the toolbars";
+			toolStripContainer.AccessibleName = "Container to arrange the toolbars";
+			toolStripContainer.AccessibleRole = AccessibleRole.Grouping;
+			// 
+			// toolStripContainer.BottomToolStripPanel
+			// 
+			toolStripContainer.BottomToolStripPanel.Controls.Add(statusStrip);
+			// 
+			// toolStripContainer.ContentPanel
+			// 
+			toolStripContainer.ContentPanel.Controls.Add(panel);
+			toolStripContainer.ContentPanel.Size = new Size(357, 308);
+			toolStripContainer.Dock = DockStyle.Fill;
+			toolStripContainer.Location = new Point(0, 0);
+			toolStripContainer.Name = "toolStripContainer";
+			toolStripContainer.Size = new Size(357, 355);
+			toolStripContainer.TabIndex = 2;
+			toolStripContainer.Text = "toolStripContainer";
+			// 
+			// toolStripContainer.TopToolStripPanel
+			// 
+			toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripIcons);
+			// 
+			// kryptonToolStripIcons
+			// 
+			kryptonToolStripIcons.AccessibleDescription = "Toolbar of printing values of orbital elements";
+			kryptonToolStripIcons.AccessibleName = "Toolbar of printing values of orbital elements";
+			kryptonToolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
+			kryptonToolStripIcons.Dock = DockStyle.None;
+			kryptonToolStripIcons.Font = new Font("Segoe UI", 9F);
+			kryptonToolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonPrintDataSheet, toolStripButtonCancelPrint });
+			kryptonToolStripIcons.Location = new Point(0, 0);
+			kryptonToolStripIcons.Name = "kryptonToolStripIcons";
+			kryptonToolStripIcons.Size = new Size(357, 25);
+			kryptonToolStripIcons.Stretch = true;
+			kryptonToolStripIcons.TabIndex = 0;
+			kryptonToolStripIcons.TabStop = true;
+			kryptonToolStripIcons.Text = "Toolbar of printing values of orbital elements";
+			kryptonToolStripIcons.MouseEnter += Control_Enter;
+			kryptonToolStripIcons.MouseLeave += Control_Leave;
+			// 
+			// toolStripButtonPrintDataSheet
+			// 
+			toolStripButtonPrintDataSheet.AccessibleDescription = "Prints a data sheet with some orbit elements";
+			toolStripButtonPrintDataSheet.AccessibleName = "Print data sheet";
+			toolStripButtonPrintDataSheet.AccessibleRole = AccessibleRole.PushButton;
+			toolStripButtonPrintDataSheet.Image = FatcowIcons16px.fatcow_printer_16px;
+			toolStripButtonPrintDataSheet.ImageTransparentColor = Color.Magenta;
+			toolStripButtonPrintDataSheet.Name = "toolStripButtonPrintDataSheet";
+			toolStripButtonPrintDataSheet.Size = new Size(103, 22);
+			toolStripButtonPrintDataSheet.Text = "&Print the sheet";
+			toolStripButtonPrintDataSheet.Click += ButtonPrintDataSheet_Click;
+			// 
+			// toolStripButtonCancelPrint
+			// 
+			toolStripButtonCancelPrint.AccessibleDescription = "Cancels the print";
+			toolStripButtonCancelPrint.AccessibleName = "Cancel print";
+			toolStripButtonCancelPrint.AccessibleRole = AccessibleRole.PushButton;
+			toolStripButtonCancelPrint.Image = FatcowIcons16px.fatcow_cancel_16px;
+			toolStripButtonCancelPrint.ImageTransparentColor = Color.Magenta;
+			toolStripButtonCancelPrint.Name = "toolStripButtonCancelPrint";
+			toolStripButtonCancelPrint.Size = new Size(91, 22);
+			toolStripButtonCancelPrint.Text = "&Cancel print";
+			toolStripButtonCancelPrint.Click += ButtonCancelPrint_Click;
+			// 
 			// PrintDataSheetForm
 			// 
 			AccessibleDescription = "Prints a data sheet with some orbit elements";
@@ -180,7 +207,7 @@ namespace Planetoid_DB
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(357, 355);
 			ControlBox = false;
-			Controls.Add(panel);
+			Controls.Add(toolStripContainer);
 			FormBorderStyle = FormBorderStyle.FixedToolWindow;
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			Margin = new Padding(4, 3, 4, 3);
@@ -193,9 +220,17 @@ namespace Planetoid_DB
 			Load += PrintDataSheetForm_Load;
 			((ISupportInitialize)panel).EndInit();
 			panel.ResumeLayout(false);
-			panel.PerformLayout();
 			statusStrip.ResumeLayout(false);
 			statusStrip.PerformLayout();
+			toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
+			toolStripContainer.BottomToolStripPanel.PerformLayout();
+			toolStripContainer.ContentPanel.ResumeLayout(false);
+			toolStripContainer.TopToolStripPanel.ResumeLayout(false);
+			toolStripContainer.TopToolStripPanel.PerformLayout();
+			toolStripContainer.ResumeLayout(false);
+			toolStripContainer.PerformLayout();
+			kryptonToolStripIcons.ResumeLayout(false);
+			kryptonToolStripIcons.PerformLayout();
 			ResumeLayout(false);
 
 		}
@@ -203,11 +238,13 @@ namespace Planetoid_DB
 		#endregion
 
 		private KryptonCheckedListBox checkedListBoxOrbitalElements;
-        private KryptonButton buttonPrintDataSheet;
-        private KryptonButton buttonCancelPrint;
         private KryptonPanel panel;
 		private KryptonStatusStrip statusStrip;
 		private ToolStripStatusLabel labelInformation;
 		private KryptonManager kryptonManager;
+		private ToolStripContainer toolStripContainer;
+		private KryptonToolStrip kryptonToolStripIcons;
+		private ToolStripButton toolStripButtonPrintDataSheet;
+		private ToolStripButton toolStripButtonCancelPrint;
 	}
 }
