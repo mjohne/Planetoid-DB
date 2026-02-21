@@ -1,5 +1,31 @@
 # Changelog
 
+## Planetoid-DB 0.7.22.49
+
+* Changed screenshot reference in README.md by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/388
+* Updated CHANGELOG for version 0.7.21.48 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/389
+* Merge CheckAstorbDatForm and CheckMpcorbDatForm into CheckDatabaseForm by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/390
+* Replaced buttons in FilterForm with buttons in a KryptonToolStrip by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/394
+* Removed orphaned #region fragment by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/395
+* Moved download control buttons to the toolbar in DatabaseDownloaderForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/397
+* Add elapsed time, estimated time, and download speed to DatabaseDownloaderForm by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/398
+* Replaced the initialization of some variables by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/399
+* Improved network handling by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/400
+* Fixed some typos by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/401
+* Added list export as PSV file by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/402
+* Added list export as EPUB file by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/403
+* Added list export as Word and Excel file by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/404
+* Added list export as ODT, ODS and MOBI file by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/405
+* Fixed some errors by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/406
+* Added list export as text and RTF file by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/407
+* Moved save dialogs from designer file to code file by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/408
+* Added information export in DatabaseInformationForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/409
+* Fixed some errors and typos by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/410
+* Updated to version 0.7.22.49 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/411
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.7.20.47.312.1185...0.7.21.48.386.1420
+
+
 ## Planetoid-DB 0.7.21.48
 
 * Updated .gitignore by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/314
