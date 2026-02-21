@@ -71,19 +71,7 @@ namespace Planetoid_DB
 			listView = new ListView();
 			columnHeaderIndex = new ColumnHeader();
 			columnHeaderReadableDesignation = new ColumnHeader();
-			saveFileDialogCsv = new SaveFileDialog();
-			saveFileDialogJson = new SaveFileDialog();
-			saveFileDialogHtml = new SaveFileDialog();
-			saveFileDialogXml = new SaveFileDialog();
 			kryptonManager = new KryptonManager(components);
-			saveFileDialogMarkdown = new SaveFileDialog();
-			saveFileDialogYaml = new SaveFileDialog();
-			saveFileDialogSql = new SaveFileDialog();
-			saveFileDialogTsv = new SaveFileDialog();
-			saveFileDialogLatex = new SaveFileDialog();
-			saveFileDialogPostScript = new SaveFileDialog();
-			saveFileDialogPdf = new SaveFileDialog();
-			saveFileDialogPsv = new SaveFileDialog();
 			statusStrip.SuspendLayout();
 			contextMenuCopyToClipboard.SuspendLayout();
 			contextMenuSaveList.SuspendLayout();
@@ -289,7 +277,7 @@ namespace Planetoid_DB
 			contextMenuSaveList.Font = new Font("Segoe UI", 9F);
 			contextMenuSaveList.Items.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsWord, toolStripMenuItemSaveAsOdt, toolStripMenuItemSaveAsRtf, toolStripMenuItemSaveAsExcel, toolStripMenuItemSaveAsOds, toolStripMenuItemSaveAsCsv, toolStripMenuItemSaveAsTsv, toolStripMenuItemSaveAsPsv, toolStripMenuItemSaveAsHtml, toolStripMenuItemSaveAsXml, toolStripMenuItemSaveAsJson, toolStripMenuItemSaveAsYaml, toolStripMenuItemSaveAsSql, toolStripMenuItemSaveAsPdf, toolStripMenuItemSaveAsEpub, toolStripMenuItemSaveAsPostScript, toolStripMenuItemSaveAsMobi });
 			contextMenuSaveList.Name = "contextMenuStrip1";
-			contextMenuSaveList.Size = new Size(216, 466);
+			contextMenuSaveList.Size = new Size(216, 444);
 			contextMenuSaveList.TabStop = true;
 			contextMenuSaveList.Text = "&Save List";
 			contextMenuSaveList.MouseEnter += Control_Enter;
@@ -702,71 +690,11 @@ namespace Planetoid_DB
 			columnHeaderReadableDesignation.Text = "Readable designation";
 			columnHeaderReadableDesignation.Width = 180;
 			// 
-			// saveFileDialogCsv
-			// 
-			saveFileDialogCsv.DefaultExt = "csv";
-			saveFileDialogCsv.Filter = "CSV files|*.csv|all files|*.*";
-			// 
-			// saveFileDialogJson
-			// 
-			saveFileDialogJson.DefaultExt = "json";
-			saveFileDialogJson.Filter = "JSON files|*.json|all files|*.*";
-			// 
-			// saveFileDialogHtml
-			// 
-			saveFileDialogHtml.DefaultExt = "html";
-			saveFileDialogHtml.Filter = "HTML files|*.html|all files|*.*";
-			// 
-			// saveFileDialogXml
-			// 
-			saveFileDialogXml.DefaultExt = "xml";
-			saveFileDialogXml.Filter = "XML files|*.xml|all files|*.*";
-			// 
 			// kryptonManager
 			// 
 			kryptonManager.GlobalPaletteMode = PaletteMode.Global;
 			kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 			kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
-			// 
-			// saveFileDialogMarkdown
-			// 
-			saveFileDialogMarkdown.DefaultExt = "md";
-			saveFileDialogMarkdown.Filter = "Markdown files|*.md|all files|*.*";
-			// 
-			// saveFileDialogYaml
-			// 
-			saveFileDialogYaml.DefaultExt = "yaml";
-			saveFileDialogYaml.Filter = "YAML files|*.yaml|all files|*.*";
-			// 
-			// saveFileDialogSql
-			// 
-			saveFileDialogSql.DefaultExt = "sql";
-			saveFileDialogSql.Filter = "SQL script|*.sql|all files|*.*";
-			// 
-			// saveFileDialogTsv
-			// 
-			saveFileDialogTsv.DefaultExt = "tsv";
-			saveFileDialogTsv.Filter = "TSV files|*.tsv|all files|*.*";
-			// 
-			// saveFileDialogLatex
-			// 
-			saveFileDialogLatex.DefaultExt = "tex";
-			saveFileDialogLatex.Filter = "LaTex files|*.tex|all files|*.*";
-			// 
-			// saveFileDialogPostScript
-			// 
-			saveFileDialogPostScript.DefaultExt = "ps";
-			saveFileDialogPostScript.Filter = "PostScript files|*.ps|all files|*.*";
-			// 
-			// saveFileDialogPdf
-			// 
-			saveFileDialogPdf.DefaultExt = "pdf";
-			saveFileDialogPdf.Filter = "PDF files|*.pdf|all files|*.*";
-			// 
-			// saveFileDialogPsv
-			// 
-			saveFileDialogPsv.DefaultExt = "psv";
-			saveFileDialogPsv.Filter = "PSV files|*.psv|all files|*.*";
 			// 
 			// ListReadableDesignationsForm
 			// 
@@ -820,28 +748,16 @@ namespace Planetoid_DB
 		private ToolStripMenuItem toolStripMenuItemSaveAsHtml;
 		private ToolStripMenuItem toolStripMenuItemSaveAsXml;
 		private ToolStripMenuItem toolStripMenuItemSaveAsJson;
-		private SaveFileDialog saveFileDialogCsv;
-		private SaveFileDialog saveFileDialogJson;
-		private SaveFileDialog saveFileDialogHtml;
-		private SaveFileDialog saveFileDialogXml;
 		private KryptonManager kryptonManager;
 		private ContextMenuStrip contextMenuCopyToClipboard;
 		private ToolStripMenuItem ToolStripMenuItemCopyToClipboard;
-		private SaveFileDialog saveFileDialogMarkdown;
-		private SaveFileDialog saveFileDialogYaml;
-		private SaveFileDialog saveFileDialogSql;
-		private SaveFileDialog saveFileDialogTsv;
-		private SaveFileDialog saveFileDialogLatex;
 		private ToolStripMenuItem toolStripMenuItemSaveAsSql;
 		private ToolStripMenuItem toolStripMenuItemSaveAsMarkdown;
 		private ToolStripMenuItem toolStripMenuItemSaveAsYaml;
 		private ToolStripMenuItem toolStripMenuItemSaveAsTsv;
 		private ToolStripMenuItem toolStripMenuItemSaveAsLatex;
-		private SaveFileDialog saveFileDialogPostScript;
 		private ToolStripMenuItem toolStripMenuItemSaveAsPostScript;
-		private SaveFileDialog saveFileDialogPdf;
 		private ToolStripMenuItem toolStripMenuItemSaveAsPdf;
-		private SaveFileDialog saveFileDialogPsv;
 		private ToolStripMenuItem toolStripMenuItemSaveAsPsv;
 		private ToolStripMenuItem toolStripMenuItemSaveAsEpub;
 		private ToolStripMenuItem toolStripMenuItemSaveAsWord;
