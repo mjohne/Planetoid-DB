@@ -46,7 +46,7 @@ namespace Planetoid_DB
 			labelNameValue = new KryptonLabel();
 			contextMenuCopyToClipboard = new ContextMenuStrip(components);
 			toolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
-			labelPathValue = new KryptonLabel();
+			labelDirectoryValue = new KryptonLabel();
 			labelSizeValue = new KryptonLabel();
 			labelDateCreatedValue = new KryptonLabel();
 			labelDateAccessedValue = new KryptonLabel();
@@ -288,16 +288,16 @@ namespace Planetoid_DB
 			// 
 			// contextMenuCopyToClipboard
 			// 
-			contextMenuCopyToClipboard.AccessibleDescription = "Shows context menu for some options";
-			contextMenuCopyToClipboard.AccessibleName = "Some options";
+			contextMenuCopyToClipboard.AccessibleDescription = "Shows the context menu for copying database information to the clipboard";
+			contextMenuCopyToClipboard.AccessibleName = "Context menu for copying database information to the clipboard";
 			contextMenuCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
 			contextMenuCopyToClipboard.AllowClickThrough = true;
 			contextMenuCopyToClipboard.Font = new Font("Segoe UI", 9F);
 			contextMenuCopyToClipboard.Items.AddRange(new ToolStripItem[] { toolStripMenuItemCopyToClipboard });
 			contextMenuCopyToClipboard.Name = "contextMenuStrip";
-			contextMenuCopyToClipboard.Size = new Size(214, 26);
+			contextMenuCopyToClipboard.Size = new Size(214, 48);
 			contextMenuCopyToClipboard.TabStop = true;
-			contextMenuCopyToClipboard.Text = "ContextMenu";
+			contextMenuCopyToClipboard.Text = "Copy to clipboard";
 			contextMenuCopyToClipboard.MouseEnter += Control_Enter;
 			contextMenuCopyToClipboard.MouseLeave += Control_Leave;
 			// 
@@ -317,29 +317,29 @@ namespace Planetoid_DB
 			toolStripMenuItemCopyToClipboard.MouseEnter += Control_Enter;
 			toolStripMenuItemCopyToClipboard.MouseLeave += Control_Leave;
 			// 
-			// labelPathValue
+			// labelDirectoryValue
 			// 
-			labelPathValue.AccessibleDescription = "Shows the path of the database";
-			labelPathValue.AccessibleName = "Path value";
-			labelPathValue.AccessibleRole = AccessibleRole.Text;
-			labelPathValue.ContextMenuStrip = contextMenuCopyToClipboard;
-			labelPathValue.Dock = DockStyle.Fill;
-			labelPathValue.Location = new Point(114, 29);
-			labelPathValue.Margin = new Padding(4, 3, 4, 3);
-			labelPathValue.Name = "labelPathValue";
-			labelPathValue.Size = new Size(290, 20);
-			labelPathValue.TabIndex = 3;
-			labelPathValue.ToolTipValues.Description = "Shows the path of the database.\r\nDouble-click or right-click to copy the information to the clipboard.";
-			labelPathValue.ToolTipValues.EnableToolTips = true;
-			labelPathValue.ToolTipValues.Heading = "Path value";
-			labelPathValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-			labelPathValue.Values.Text = "..........";
-			labelPathValue.DoubleClick += CopyToClipboard_DoubleClick;
-			labelPathValue.Enter += Control_Enter;
-			labelPathValue.Leave += Control_Leave;
-			labelPathValue.MouseDown += Control_MouseDown;
-			labelPathValue.MouseEnter += Control_Enter;
-			labelPathValue.MouseLeave += Control_Leave;
+			labelDirectoryValue.AccessibleDescription = "Shows the path of the database";
+			labelDirectoryValue.AccessibleName = "Path value";
+			labelDirectoryValue.AccessibleRole = AccessibleRole.Text;
+			labelDirectoryValue.ContextMenuStrip = contextMenuCopyToClipboard;
+			labelDirectoryValue.Dock = DockStyle.Fill;
+			labelDirectoryValue.Location = new Point(114, 29);
+			labelDirectoryValue.Margin = new Padding(4, 3, 4, 3);
+			labelDirectoryValue.Name = "labelDirectoryValue";
+			labelDirectoryValue.Size = new Size(290, 20);
+			labelDirectoryValue.TabIndex = 3;
+			labelDirectoryValue.ToolTipValues.Description = "Shows the path of the database.\r\nDouble-click or right-click to copy the information to the clipboard.";
+			labelDirectoryValue.ToolTipValues.EnableToolTips = true;
+			labelDirectoryValue.ToolTipValues.Heading = "Path value";
+			labelDirectoryValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+			labelDirectoryValue.Values.Text = "..........";
+			labelDirectoryValue.DoubleClick += CopyToClipboard_DoubleClick;
+			labelDirectoryValue.Enter += Control_Enter;
+			labelDirectoryValue.Leave += Control_Leave;
+			labelDirectoryValue.MouseDown += Control_MouseDown;
+			labelDirectoryValue.MouseEnter += Control_Enter;
+			labelDirectoryValue.MouseLeave += Control_Leave;
 			// 
 			// labelSizeValue
 			// 
@@ -454,7 +454,7 @@ namespace Planetoid_DB
 			tableLayoutPanel.Controls.Add(labelDateWrited, 0, 5);
 			tableLayoutPanel.Controls.Add(labelAttributes, 0, 6);
 			tableLayoutPanel.Controls.Add(labelNameValue, 1, 0);
-			tableLayoutPanel.Controls.Add(labelPathValue, 1, 1);
+			tableLayoutPanel.Controls.Add(labelDirectoryValue, 1, 1);
 			tableLayoutPanel.Controls.Add(labelSizeValue, 1, 2);
 			tableLayoutPanel.Controls.Add(labelDateCreatedValue, 1, 3);
 			tableLayoutPanel.Controls.Add(labelDateAccessedValue, 1, 4);
@@ -559,8 +559,8 @@ namespace Planetoid_DB
 			// 
 			// toolStripIcons
 			// 
-			toolStripIcons.AccessibleDescription = "Toolbar of copying information";
-			toolStripIcons.AccessibleName = "Toolbar of copying information";
+			toolStripIcons.AccessibleDescription = "Toolbar of copying and saving information";
+			toolStripIcons.AccessibleName = "Toolbar of copying and saving information";
 			toolStripIcons.Dock = DockStyle.None;
 			toolStripIcons.Font = new Font("Segoe UI", 9F);
 			toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonSaveToFile, toolStripButtonCopyToClipboard });
@@ -570,13 +570,13 @@ namespace Planetoid_DB
 			toolStripIcons.Stretch = true;
 			toolStripIcons.TabIndex = 0;
 			toolStripIcons.TabStop = true;
-			toolStripIcons.Text = "Toolbar of copying information";
+			toolStripIcons.Text = "Toolbar of copying and saving information";
 			toolStripIcons.MouseEnter += Control_Enter;
 			toolStripIcons.MouseLeave += Control_Leave;
 			// 
 			// toolStripButtonSaveToFile
 			// 
-			toolStripButtonSaveToFile.AccessibleDescription = "Saves to file";
+			toolStripButtonSaveToFile.AccessibleDescription = "Saves information to file";
 			toolStripButtonSaveToFile.AccessibleName = "Save to file";
 			toolStripButtonSaveToFile.AccessibleRole = AccessibleRole.PushButton;
 			toolStripButtonSaveToFile.Image = FatcowIcons16px.fatcow_diskette_16px;
@@ -590,7 +590,7 @@ namespace Planetoid_DB
 			// 
 			// toolStripButtonCopyToClipboard
 			// 
-			toolStripButtonCopyToClipboard.AccessibleDescription = "Copies to clipboard";
+			toolStripButtonCopyToClipboard.AccessibleDescription = "Copies information to clipboard";
 			toolStripButtonCopyToClipboard.AccessibleName = "Copy to clipboard";
 			toolStripButtonCopyToClipboard.AccessibleRole = AccessibleRole.PushButton;
 			toolStripButtonCopyToClipboard.Image = FugueIcons16px.fugue_blue_document_copy_16px;
@@ -610,12 +610,12 @@ namespace Planetoid_DB
 			// 
 			// contextMenuFullCopyToClipboard
 			// 
-			contextMenuFullCopyToClipboard.AccessibleDescription = "Shows the context menu of the derived orbital elements to copy to clipboard";
-			contextMenuFullCopyToClipboard.AccessibleName = "context menu of the derived orbital elements to copy to clipboard";
+			contextMenuFullCopyToClipboard.AccessibleDescription = "Shows the context menu for copying database information to the clipboard";
+			contextMenuFullCopyToClipboard.AccessibleName = "Context menu for copying database information to the clipboard";
 			contextMenuFullCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
 			contextMenuFullCopyToClipboard.Font = new Font("Segoe UI", 9F);
 			contextMenuFullCopyToClipboard.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardName, menuitemCopyToClipboardPath, menuitemCopyToClipboardSize, menuitemCopyToClipboardCreationDate, menuitemCopyToClipboardLastAccessDate, menuitemCopyToClipboardLastWriteDate, menuitemCopyToClipboardAttributes });
-			contextMenuFullCopyToClipboard.Name = "Context menu of copying to clipboard of derived orbital elements";
+			contextMenuFullCopyToClipboard.Name = "Context menu for copying database information to the clipboard";
 			contextMenuFullCopyToClipboard.Size = new Size(159, 158);
 			contextMenuFullCopyToClipboard.Text = "Copy to clipboard";
 			contextMenuFullCopyToClipboard.MouseEnter += Control_Enter;
@@ -623,7 +623,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardName
 			// 
-			menuitemCopyToClipboardName.AccessibleDescription = "Copy to clipboard: Name";
+			menuitemCopyToClipboardName.AccessibleDescription = "Copies to clipboard: Name";
 			menuitemCopyToClipboardName.AccessibleName = "Copy to clipboard: Name";
 			menuitemCopyToClipboardName.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardName.AutoToolTip = true;
@@ -637,7 +637,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardPath
 			// 
-			menuitemCopyToClipboardPath.AccessibleDescription = "Copy to clipboard: Path";
+			menuitemCopyToClipboardPath.AccessibleDescription = "Copies to clipboard: Path";
 			menuitemCopyToClipboardPath.AccessibleName = "Copy to clipboard: Path";
 			menuitemCopyToClipboardPath.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardPath.AutoToolTip = true;
@@ -651,7 +651,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardSize
 			// 
-			menuitemCopyToClipboardSize.AccessibleDescription = "Copy to clipboard: Size";
+			menuitemCopyToClipboardSize.AccessibleDescription = "Copies to clipboard: Size";
 			menuitemCopyToClipboardSize.AccessibleName = "Copy to clipboard: Size";
 			menuitemCopyToClipboardSize.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardSize.AutoToolTip = true;
@@ -665,7 +665,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardCreationDate
 			// 
-			menuitemCopyToClipboardCreationDate.AccessibleDescription = "Copy to clipboard: Creation date";
+			menuitemCopyToClipboardCreationDate.AccessibleDescription = "Copies to clipboard: Creation date";
 			menuitemCopyToClipboardCreationDate.AccessibleName = "Copy to clipboard: Creation date";
 			menuitemCopyToClipboardCreationDate.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardCreationDate.AutoToolTip = true;
@@ -679,7 +679,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardLastAccessDate
 			// 
-			menuitemCopyToClipboardLastAccessDate.AccessibleDescription = "Copy to clipboard: Last access date";
+			menuitemCopyToClipboardLastAccessDate.AccessibleDescription = "Copies to clipboard: Last access date";
 			menuitemCopyToClipboardLastAccessDate.AccessibleName = "Copy to clipboard: Last access date";
 			menuitemCopyToClipboardLastAccessDate.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardLastAccessDate.AutoToolTip = true;
@@ -693,7 +693,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardLastWriteDate
 			// 
-			menuitemCopyToClipboardLastWriteDate.AccessibleDescription = "Copy to clipboard: Last write date";
+			menuitemCopyToClipboardLastWriteDate.AccessibleDescription = "Copies to clipboard: Last write date";
 			menuitemCopyToClipboardLastWriteDate.AccessibleName = "Copy to clipboard: Last write date";
 			menuitemCopyToClipboardLastWriteDate.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardLastWriteDate.AutoToolTip = true;
@@ -707,7 +707,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardAttributes
 			// 
-			menuitemCopyToClipboardAttributes.AccessibleDescription = "Copy to clipboard: Attributes";
+			menuitemCopyToClipboardAttributes.AccessibleDescription = "Copies to clipboard: Attributes";
 			menuitemCopyToClipboardAttributes.AccessibleName = "Copy to clipboard: Attributes";
 			menuitemCopyToClipboardAttributes.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardAttributes.AutoToolTip = true;
@@ -721,7 +721,7 @@ namespace Planetoid_DB
 			// 
 			// contextMenuSaveToFile
 			// 
-			contextMenuSaveToFile.AccessibleDescription = "Save the information to file";
+			contextMenuSaveToFile.AccessibleDescription = "Saves the information to file";
 			contextMenuSaveToFile.AccessibleName = "Save to file";
 			contextMenuSaveToFile.AccessibleRole = AccessibleRole.MenuPopup;
 			contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
@@ -1101,7 +1101,7 @@ namespace Planetoid_DB
     private KryptonLabel labelDateWrited;
     private KryptonLabel labelAttributes;
     private KryptonLabel labelNameValue;
-    private KryptonLabel labelPathValue;
+    private KryptonLabel labelDirectoryValue;
     private KryptonLabel labelSizeValue;
     private KryptonLabel labelDateCreatedValue;
     private KryptonLabel labelDateAccessedValue;

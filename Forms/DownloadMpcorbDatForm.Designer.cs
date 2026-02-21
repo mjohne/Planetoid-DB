@@ -108,8 +108,8 @@ namespace Planetoid_DB
 			// 
 			// contextMenuCopyToClipboard
 			// 
-			contextMenuCopyToClipboard.AccessibleDescription = "Shows context menu for some options";
-			contextMenuCopyToClipboard.AccessibleName = "Some options";
+			contextMenuCopyToClipboard.AccessibleDescription = "Shows the context menu for copying database information to the clipboard";
+			contextMenuCopyToClipboard.AccessibleName = "Context menu for copying database information to the clipboard";
 			contextMenuCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
 			contextMenuCopyToClipboard.AllowClickThrough = true;
 			contextMenuCopyToClipboard.Font = new Font("Segoe UI", 9F);
@@ -117,7 +117,7 @@ namespace Planetoid_DB
 			contextMenuCopyToClipboard.Name = "contextMenuStrip";
 			contextMenuCopyToClipboard.Size = new Size(214, 26);
 			contextMenuCopyToClipboard.TabStop = true;
-			contextMenuCopyToClipboard.Text = "ContextMenu";
+			contextMenuCopyToClipboard.Text = "Copy to clipboard";
 			contextMenuCopyToClipboard.MouseEnter += Control_Enter;
 			contextMenuCopyToClipboard.MouseLeave += Control_Leave;
 			// 

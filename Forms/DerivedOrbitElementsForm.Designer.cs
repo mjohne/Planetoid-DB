@@ -199,8 +199,8 @@ namespace Planetoid_DB
 			// 
 			// contextMenuCopyToClipboard
 			// 
-			contextMenuCopyToClipboard.AccessibleDescription = "Shows context menu for some options";
-			contextMenuCopyToClipboard.AccessibleName = "Some options";
+			contextMenuCopyToClipboard.AccessibleDescription = "Shows the context menu for copying database information to the clipboard";
+			contextMenuCopyToClipboard.AccessibleName = "Context menu for copying database information to the clipboard";
 			contextMenuCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
 			contextMenuCopyToClipboard.AllowClickThrough = true;
 			contextMenuCopyToClipboard.Font = new Font("Segoe UI", 9F);
@@ -208,7 +208,7 @@ namespace Planetoid_DB
 			contextMenuCopyToClipboard.Name = "contextMenuStrip";
 			contextMenuCopyToClipboard.Size = new Size(214, 26);
 			contextMenuCopyToClipboard.TabStop = true;
-			contextMenuCopyToClipboard.Text = "ContextMenu";
+			contextMenuCopyToClipboard.Text = "Copy to clipboard";
 			contextMenuCopyToClipboard.MouseEnter += Control_Enter;
 			contextMenuCopyToClipboard.MouseLeave += Control_Leave;
 			// 
@@ -1318,12 +1318,12 @@ namespace Planetoid_DB
 			// 
 			// contextMenuFullCopyToClipboardDerivedOrbitalElements
 			// 
-			contextMenuFullCopyToClipboardDerivedOrbitalElements.AccessibleDescription = "Shows the context menu of the derived orbital elements to copy to clipboard";
-			contextMenuFullCopyToClipboardDerivedOrbitalElements.AccessibleName = "context menu of the derived orbital elements to copy to clipboard";
+			contextMenuFullCopyToClipboardDerivedOrbitalElements.AccessibleDescription = "Shows the context menu for copying database information to the clipboard";
+			contextMenuFullCopyToClipboardDerivedOrbitalElements.AccessibleName = "Context menu for copying database information to the clipboard";
 			contextMenuFullCopyToClipboardDerivedOrbitalElements.AccessibleRole = AccessibleRole.MenuPopup;
 			contextMenuFullCopyToClipboardDerivedOrbitalElements.Font = new Font("Segoe UI", 9F);
 			contextMenuFullCopyToClipboardDerivedOrbitalElements.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardLinearEccentricity, menuitemCopyToClipboardSemiMinorAxis, menuitemCopyToClipboardMajorAxis, menuitemCopyToClipboardMinorAxis, menuitemCopyToClipboardEccentricAnomaly, menuitemCopyToClipboardTrueAnomaly, menuitemCopyToClipboardPerihelionDistance, menuitemCopyToClipboardAphelionDistance, menuitemCopyToClipboardLongitudeDescendingNode, menuitemCopyToClipboardArgumentAphelion, menuitemCopyToClipboardFocalParameter, menuitemCopyToClipboardSemiLatusRectum, menuitemCopyToClipboardLatusRectum, menuitemCopyToClipboardOrbitalPeriod, menuitemCopyToClipboardOrbitalArea, menuitemCopyToClipboardSemiMeanAxis, menuitemCopyToClipboardMeanAxis, menuitemCopyToClipboardStandardGravitationalParameter });
-			contextMenuFullCopyToClipboardDerivedOrbitalElements.Name = "Context menu of copying to clipboard of derived orbital elements";
+			contextMenuFullCopyToClipboardDerivedOrbitalElements.Name = "Context menu for copying database information to the clipboard";
 			contextMenuFullCopyToClipboardDerivedOrbitalElements.OwnerItem = splitbuttonCopyToClipboard;
 			contextMenuFullCopyToClipboardDerivedOrbitalElements.Size = new Size(257, 422);
 			contextMenuFullCopyToClipboardDerivedOrbitalElements.Text = "Copy to clipboard";
@@ -1332,7 +1332,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardLinearEccentricity
 			// 
-			menuitemCopyToClipboardLinearEccentricity.AccessibleDescription = "Copy to clipboard: Linear eccentricity";
+			menuitemCopyToClipboardLinearEccentricity.AccessibleDescription = "Copies to clipboard: Linear eccentricity";
 			menuitemCopyToClipboardLinearEccentricity.AccessibleName = "Copy to clipboard: Linear eccentricity";
 			menuitemCopyToClipboardLinearEccentricity.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardLinearEccentricity.AutoToolTip = true;
@@ -1346,7 +1346,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardSemiMinorAxis
 			// 
-			menuitemCopyToClipboardSemiMinorAxis.AccessibleDescription = "Copy to clipboard: Semi minor axis";
+			menuitemCopyToClipboardSemiMinorAxis.AccessibleDescription = "Copies to clipboard: Semi minor axis";
 			menuitemCopyToClipboardSemiMinorAxis.AccessibleName = "Copy to clipboard: Semi minor axis";
 			menuitemCopyToClipboardSemiMinorAxis.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardSemiMinorAxis.AutoToolTip = true;
@@ -1360,7 +1360,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardMajorAxis
 			// 
-			menuitemCopyToClipboardMajorAxis.AccessibleDescription = "Copy to clipboard: Major axis";
+			menuitemCopyToClipboardMajorAxis.AccessibleDescription = "Copies to clipboard: Major axis";
 			menuitemCopyToClipboardMajorAxis.AccessibleName = "Copy to clipboard: Major axis";
 			menuitemCopyToClipboardMajorAxis.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardMajorAxis.AutoToolTip = true;
@@ -1374,7 +1374,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardMinorAxis
 			// 
-			menuitemCopyToClipboardMinorAxis.AccessibleDescription = "Copy to clipboard: Minor axis";
+			menuitemCopyToClipboardMinorAxis.AccessibleDescription = "Copies to clipboard: Minor axis";
 			menuitemCopyToClipboardMinorAxis.AccessibleName = "Copy to clipboard: Minor axis";
 			menuitemCopyToClipboardMinorAxis.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardMinorAxis.AutoToolTip = true;
@@ -1388,7 +1388,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardEccentricAnomaly
 			// 
-			menuitemCopyToClipboardEccentricAnomaly.AccessibleDescription = "Copy to clipboard: Eccentric anomaly";
+			menuitemCopyToClipboardEccentricAnomaly.AccessibleDescription = "Copies to clipboard: Eccentric anomaly";
 			menuitemCopyToClipboardEccentricAnomaly.AccessibleName = "Copy to clipboard: Eccentric anomaly";
 			menuitemCopyToClipboardEccentricAnomaly.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardEccentricAnomaly.AutoToolTip = true;
@@ -1402,7 +1402,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardTrueAnomaly
 			// 
-			menuitemCopyToClipboardTrueAnomaly.AccessibleDescription = "Copy to clipboard: True anomaly";
+			menuitemCopyToClipboardTrueAnomaly.AccessibleDescription = "Copies to clipboard: True anomaly";
 			menuitemCopyToClipboardTrueAnomaly.AccessibleName = "Copy to clipboard: True anomaly";
 			menuitemCopyToClipboardTrueAnomaly.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardTrueAnomaly.AutoToolTip = true;
@@ -1416,7 +1416,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardPerihelionDistance
 			// 
-			menuitemCopyToClipboardPerihelionDistance.AccessibleDescription = "Copy to clipboard: Perihelion distance";
+			menuitemCopyToClipboardPerihelionDistance.AccessibleDescription = "Copies to clipboard: Perihelion distance";
 			menuitemCopyToClipboardPerihelionDistance.AccessibleName = "Copy to clipboard: Perihelion distance";
 			menuitemCopyToClipboardPerihelionDistance.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardPerihelionDistance.AutoToolTip = true;
@@ -1430,7 +1430,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardAphelionDistance
 			// 
-			menuitemCopyToClipboardAphelionDistance.AccessibleDescription = "Copy to clipboard: Aphelion distance";
+			menuitemCopyToClipboardAphelionDistance.AccessibleDescription = "Copies to clipboard: Aphelion distance";
 			menuitemCopyToClipboardAphelionDistance.AccessibleName = "Copy to clipboard: Aphelion distance";
 			menuitemCopyToClipboardAphelionDistance.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardAphelionDistance.AutoToolTip = true;
@@ -1444,7 +1444,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardLongitudeDescendingNode
 			// 
-			menuitemCopyToClipboardLongitudeDescendingNode.AccessibleDescription = "Copy to clipboard: Longitude of the descending node";
+			menuitemCopyToClipboardLongitudeDescendingNode.AccessibleDescription = "Copies to clipboard: Longitude of the descending node";
 			menuitemCopyToClipboardLongitudeDescendingNode.AccessibleName = "Copy to clipboard: Longitude of the descending node";
 			menuitemCopyToClipboardLongitudeDescendingNode.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardLongitudeDescendingNode.AutoToolTip = true;
@@ -1458,7 +1458,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardArgumentAphelion
 			// 
-			menuitemCopyToClipboardArgumentAphelion.AccessibleDescription = "Copy to clipboard: Argument of aphelion";
+			menuitemCopyToClipboardArgumentAphelion.AccessibleDescription = "Copies to clipboard: Argument of aphelion";
 			menuitemCopyToClipboardArgumentAphelion.AccessibleName = "Copy to clipboard: Argument of aphelion";
 			menuitemCopyToClipboardArgumentAphelion.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardArgumentAphelion.AutoToolTip = true;
@@ -1472,7 +1472,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardFocalParameter
 			// 
-			menuitemCopyToClipboardFocalParameter.AccessibleDescription = "Copy to clipboard: Focal parameter";
+			menuitemCopyToClipboardFocalParameter.AccessibleDescription = "Copies to clipboard: Focal parameter";
 			menuitemCopyToClipboardFocalParameter.AccessibleName = "Copy to clipboard: Focal parameter";
 			menuitemCopyToClipboardFocalParameter.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardFocalParameter.AutoToolTip = true;
@@ -1486,7 +1486,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardSemiLatusRectum
 			// 
-			menuitemCopyToClipboardSemiLatusRectum.AccessibleDescription = "Copy to clipboard: Semi-latus rectum";
+			menuitemCopyToClipboardSemiLatusRectum.AccessibleDescription = "Copies to clipboard: Semi-latus rectum";
 			menuitemCopyToClipboardSemiLatusRectum.AccessibleName = "Copy to clipboard: Semi-latus rectum";
 			menuitemCopyToClipboardSemiLatusRectum.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardSemiLatusRectum.AutoToolTip = true;
@@ -1500,7 +1500,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardLatusRectum
 			// 
-			menuitemCopyToClipboardLatusRectum.AccessibleDescription = "Copy to clipboard: Latus rectum";
+			menuitemCopyToClipboardLatusRectum.AccessibleDescription = "Copies to clipboard: Latus rectum";
 			menuitemCopyToClipboardLatusRectum.AccessibleName = "Copy to clipboard: Latus rectum";
 			menuitemCopyToClipboardLatusRectum.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardLatusRectum.AutoToolTip = true;
@@ -1514,7 +1514,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardOrbitalPeriod
 			// 
-			menuitemCopyToClipboardOrbitalPeriod.AccessibleDescription = "Copy to clipboard: Orbital period";
+			menuitemCopyToClipboardOrbitalPeriod.AccessibleDescription = "Copies to clipboard: Orbital period";
 			menuitemCopyToClipboardOrbitalPeriod.AccessibleName = "Copy to clipboard: Orbital period";
 			menuitemCopyToClipboardOrbitalPeriod.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardOrbitalPeriod.AutoToolTip = true;
@@ -1528,7 +1528,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardOrbitalArea
 			// 
-			menuitemCopyToClipboardOrbitalArea.AccessibleDescription = "Copy to clipboard: Orbital area";
+			menuitemCopyToClipboardOrbitalArea.AccessibleDescription = "Copies to clipboard: Orbital area";
 			menuitemCopyToClipboardOrbitalArea.AccessibleName = "Copy to clipboard: Orbital area";
 			menuitemCopyToClipboardOrbitalArea.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardOrbitalArea.AutoToolTip = true;
@@ -1542,7 +1542,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardSemiMeanAxis
 			// 
-			menuitemCopyToClipboardSemiMeanAxis.AccessibleDescription = "Copy to clipboard: Semi-mean axis";
+			menuitemCopyToClipboardSemiMeanAxis.AccessibleDescription = "Copies to clipboard: Semi-mean axis";
 			menuitemCopyToClipboardSemiMeanAxis.AccessibleName = "Copy to clipboard: Semi-mean axis";
 			menuitemCopyToClipboardSemiMeanAxis.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardSemiMeanAxis.AutoToolTip = true;
@@ -1556,7 +1556,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardMeanAxis
 			// 
-			menuitemCopyToClipboardMeanAxis.AccessibleDescription = "Copy to clipboard: Mean axis";
+			menuitemCopyToClipboardMeanAxis.AccessibleDescription = "Copies to clipboard: Mean axis";
 			menuitemCopyToClipboardMeanAxis.AccessibleName = "Copy to clipboard: Mean axis";
 			menuitemCopyToClipboardMeanAxis.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardMeanAxis.AutoToolTip = true;
@@ -1570,7 +1570,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardStandardGravitationalParameter
 			// 
-			menuitemCopyToClipboardStandardGravitationalParameter.AccessibleDescription = "Copy to clipboard: Standard gravitational parameter";
+			menuitemCopyToClipboardStandardGravitationalParameter.AccessibleDescription = "Copies to clipboard: Standard gravitational parameter";
 			menuitemCopyToClipboardStandardGravitationalParameter.AccessibleName = "Copy to clipboard: Standard gravitational parameter";
 			menuitemCopyToClipboardStandardGravitationalParameter.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardStandardGravitationalParameter.AutoToolTip = true;

@@ -161,7 +161,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		// Set the file information in the labels
 		labelNameValue.Text = fileInfo.Name;
 		// Set the file name in the label
-		labelPathValue.Text = fileInfo.DirectoryName;
+		labelDirectoryValue.Text = fileInfo.DirectoryName;
 		// Set the file size in the label
 		labelSizeValue.Text = $"{fileInfo.Length:N0} {I18nStrings.BytesText}";
 		// Set the file type in the label
@@ -214,7 +214,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 	/// <remarks>
 	/// This method is called when the copy to clipboard menu item for the database path is clicked.
 	/// </remarks>
-	private void MenuitemCopyToClipboardPath_Click(object sender, EventArgs e) => CopyToClipboard(text: labelPathValue.Text);
+	private void MenuitemCopyToClipboardPath_Click(object sender, EventArgs e) => CopyToClipboard(text: labelDirectoryValue.Text);
 
 	/// <summary>
 	/// Handles the click event of the copy to clipboard menu item for the database size.

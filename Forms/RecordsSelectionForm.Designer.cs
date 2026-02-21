@@ -173,7 +173,7 @@ namespace Planetoid_DB
 			// 
 			// buttonDateOfLastObservation
 			// 
-			buttonDateOfLastObservation.AccessibleDescription = "Copy to clipboard: Date of last observation (YYYMMDD)";
+			buttonDateOfLastObservation.AccessibleDescription = "Copies to clipboard: Date of last observation (YYYMMDD)";
 			buttonDateOfLastObservation.AccessibleName = "Copy to clipboard: Date of last observation (YYYMMDD)";
 			buttonDateOfLastObservation.AccessibleRole = AccessibleRole.PushButton;
 			buttonDateOfLastObservation.ButtonStyle = ButtonStyle.Form;
@@ -196,7 +196,7 @@ namespace Planetoid_DB
 			// 
 			// buttonComputerName
 			// 
-			buttonComputerName.AccessibleDescription = "Copy to clipboard: Computer name";
+			buttonComputerName.AccessibleDescription = "Copies to clipboard: Computer name";
 			buttonComputerName.AccessibleName = "Copy to clipboard: Computer name";
 			buttonComputerName.AccessibleRole = AccessibleRole.PushButton;
 			buttonComputerName.ButtonStyle = ButtonStyle.Form;
@@ -219,7 +219,7 @@ namespace Planetoid_DB
 			// 
 			// buttonRmsResidual
 			// 
-			buttonRmsResidual.AccessibleDescription = "Copy to clipboard: r.m.s. residual (\")";
+			buttonRmsResidual.AccessibleDescription = "Copies to clipboard: r.m.s. residual (\")";
 			buttonRmsResidual.AccessibleName = "Copy to clipboard: r.m.s. residual (\")";
 			buttonRmsResidual.AccessibleRole = AccessibleRole.PushButton;
 			buttonRmsResidual.ButtonStyle = ButtonStyle.Form;
@@ -242,7 +242,7 @@ namespace Planetoid_DB
 			// 
 			// buttonObservationSpan
 			// 
-			buttonObservationSpan.AccessibleDescription = "Copy to clipboard: Observation span";
+			buttonObservationSpan.AccessibleDescription = "Copies to clipboard: Observation span";
 			buttonObservationSpan.AccessibleName = "Copy to clipboard: Observation span";
 			buttonObservationSpan.AccessibleRole = AccessibleRole.PushButton;
 			buttonObservationSpan.ButtonStyle = ButtonStyle.Form;
@@ -265,7 +265,7 @@ namespace Planetoid_DB
 			// 
 			// buttonNumberOfObservations
 			// 
-			buttonNumberOfObservations.AccessibleDescription = "Copy to clipboard: Number of observations";
+			buttonNumberOfObservations.AccessibleDescription = "Copies to clipboard: Number of observations";
 			buttonNumberOfObservations.AccessibleName = "Copy to clipboard: Number of observations";
 			buttonNumberOfObservations.AccessibleRole = AccessibleRole.PushButton;
 			buttonNumberOfObservations.ButtonStyle = ButtonStyle.Form;
@@ -288,7 +288,7 @@ namespace Planetoid_DB
 			// 
 			// buttonNumberOfOppositions
 			// 
-			buttonNumberOfOppositions.AccessibleDescription = "Copy to clipboard: Number of oppositions";
+			buttonNumberOfOppositions.AccessibleDescription = "Copies to clipboard: Number of oppositions";
 			buttonNumberOfOppositions.AccessibleName = "Copy to clipboard: Number of oppositions";
 			buttonNumberOfOppositions.AccessibleRole = AccessibleRole.PushButton;
 			buttonNumberOfOppositions.ButtonStyle = ButtonStyle.Form;
@@ -311,7 +311,7 @@ namespace Planetoid_DB
 			// 
 			// buttonSlopeParameter
 			// 
-			buttonSlopeParameter.AccessibleDescription = "Copy to clipboard: Slope parameter, G";
+			buttonSlopeParameter.AccessibleDescription = "Copies to clipboard: Slope parameter, G";
 			buttonSlopeParameter.AccessibleName = "Copy to clipboard: Slope parameter, G";
 			buttonSlopeParameter.AccessibleRole = AccessibleRole.PushButton;
 			buttonSlopeParameter.ButtonStyle = ButtonStyle.Form;
@@ -334,7 +334,7 @@ namespace Planetoid_DB
 			// 
 			// buttonAbsoluteMagnitude
 			// 
-			buttonAbsoluteMagnitude.AccessibleDescription = "Copy to clipboard: Absolute magnitude, H";
+			buttonAbsoluteMagnitude.AccessibleDescription = "Copies to clipboard: Absolute magnitude, H";
 			buttonAbsoluteMagnitude.AccessibleName = "Copy to clipboard: Absolute magnitude, H";
 			buttonAbsoluteMagnitude.AccessibleRole = AccessibleRole.PushButton;
 			buttonAbsoluteMagnitude.ButtonStyle = ButtonStyle.Form;
@@ -357,7 +357,7 @@ namespace Planetoid_DB
 			// 
 			// buttonSemiMajorAxis
 			// 
-			buttonSemiMajorAxis.AccessibleDescription = "Copy to clipboard: Semi-major axis (AU)";
+			buttonSemiMajorAxis.AccessibleDescription = "Copies to clipboard: Semi-major axis (AU)";
 			buttonSemiMajorAxis.AccessibleName = "Copy to clipboard: Semi-major axis (AU)";
 			buttonSemiMajorAxis.AccessibleRole = AccessibleRole.PushButton;
 			buttonSemiMajorAxis.ButtonStyle = ButtonStyle.Form;
@@ -380,7 +380,7 @@ namespace Planetoid_DB
 			// 
 			// buttonMeanDailyMotion
 			// 
-			buttonMeanDailyMotion.AccessibleDescription = "Copy to clipboard: Mean daily motion (degrees per day)";
+			buttonMeanDailyMotion.AccessibleDescription = "Copies to clipboard: Mean daily motion (degrees per day)";
 			buttonMeanDailyMotion.AccessibleName = "Copy to clipboard: Mean daily motion (degrees per day)";
 			buttonMeanDailyMotion.AccessibleRole = AccessibleRole.PushButton;
 			buttonMeanDailyMotion.ButtonStyle = ButtonStyle.Form;
@@ -403,7 +403,7 @@ namespace Planetoid_DB
 			// 
 			// buttonOrbitalEccentricity
 			// 
-			buttonOrbitalEccentricity.AccessibleDescription = "Copy to clipboard: Orbital eccentricity";
+			buttonOrbitalEccentricity.AccessibleDescription = "Copies to clipboard: Orbital eccentricity";
 			buttonOrbitalEccentricity.AccessibleName = "Copy to clipboard: Orbital eccentricity";
 			buttonOrbitalEccentricity.AccessibleRole = AccessibleRole.PushButton;
 			buttonOrbitalEccentricity.ButtonStyle = ButtonStyle.Form;
@@ -426,7 +426,7 @@ namespace Planetoid_DB
 			// 
 			// buttonInclination
 			// 
-			buttonInclination.AccessibleDescription = "Copy to clipboard: Inclination to the ecliptic, J2000.0 (degrees)";
+			buttonInclination.AccessibleDescription = "Copies to clipboard: Inclination to the ecliptic, J2000.0 (degrees)";
 			buttonInclination.AccessibleName = "Copy to clipboard: Inclination to the ecliptic, J2000.0 (degrees)";
 			buttonInclination.AccessibleRole = AccessibleRole.PushButton;
 			buttonInclination.ButtonStyle = ButtonStyle.Form;
@@ -449,7 +449,7 @@ namespace Planetoid_DB
 			// 
 			// buttonArgumentOfThePerihelion
 			// 
-			buttonArgumentOfThePerihelion.AccessibleDescription = "Copy to clipboard: Argument of the perihelion, J2000.0 (degrees)";
+			buttonArgumentOfThePerihelion.AccessibleDescription = "Copies to clipboard: Argument of the perihelion, J2000.0 (degrees)";
 			buttonArgumentOfThePerihelion.AccessibleName = "Copy to clipboard: Argument of the perihelion, J2000.0 (degrees)";
 			buttonArgumentOfThePerihelion.AccessibleRole = AccessibleRole.PushButton;
 			buttonArgumentOfThePerihelion.ButtonStyle = ButtonStyle.Form;
@@ -472,7 +472,7 @@ namespace Planetoid_DB
 			// 
 			// buttonLongitudeOfTheAscendingNode
 			// 
-			buttonLongitudeOfTheAscendingNode.AccessibleDescription = "Copy to clipboard: Longitude of the ascending node, J2000.0 (degrees)";
+			buttonLongitudeOfTheAscendingNode.AccessibleDescription = "Copies to clipboard: Longitude of the ascending node, J2000.0 (degrees)";
 			buttonLongitudeOfTheAscendingNode.AccessibleName = "Copy to clipboard: Longitude of the ascending node, J2000.0 (degrees)";
 			buttonLongitudeOfTheAscendingNode.AccessibleRole = AccessibleRole.PushButton;
 			buttonLongitudeOfTheAscendingNode.ButtonStyle = ButtonStyle.Form;
@@ -495,7 +495,7 @@ namespace Planetoid_DB
 			// 
 			// buttonMeanAnomaly
 			// 
-			buttonMeanAnomaly.AccessibleDescription = "Copy to clipboard: Mean anomaly at the epoch (degrees)";
+			buttonMeanAnomaly.AccessibleDescription = "Copies to clipboard: Mean anomaly at the epoch (degrees)";
 			buttonMeanAnomaly.AccessibleName = "Copy to clipboard: Mean anomaly at the epoch (degrees)";
 			buttonMeanAnomaly.AccessibleRole = AccessibleRole.PushButton;
 			buttonMeanAnomaly.ButtonStyle = ButtonStyle.Form;

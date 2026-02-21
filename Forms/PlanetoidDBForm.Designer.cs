@@ -527,8 +527,8 @@ namespace Planetoid_DB
 			// 
 			// contextMenuCopyToClipboard
 			// 
-			contextMenuCopyToClipboard.AccessibleDescription = "Shows context menu for some options";
-			contextMenuCopyToClipboard.AccessibleName = "Some options";
+			contextMenuCopyToClipboard.AccessibleDescription = "Shows the context menu for copying database information to the clipboard";
+			contextMenuCopyToClipboard.AccessibleName = "Context menu for copying database information to the clipboard";
 			contextMenuCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
 			contextMenuCopyToClipboard.AllowClickThrough = true;
 			contextMenuCopyToClipboard.Font = new Font("Segoe UI", 9F);
@@ -536,7 +536,7 @@ namespace Planetoid_DB
 			contextMenuCopyToClipboard.Name = "contextMenuStrip";
 			contextMenuCopyToClipboard.Size = new Size(214, 26);
 			contextMenuCopyToClipboard.TabStop = true;
-			contextMenuCopyToClipboard.Text = "ContextMenu";
+			contextMenuCopyToClipboard.Text = "Copy to clipboard";
 			contextMenuCopyToClipboard.MouseEnter += Control_Enter;
 			contextMenuCopyToClipboard.MouseLeave += Control_Leave;
 			// 
@@ -2161,7 +2161,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardIndexNumber
 			// 
-			menuitemCopyToClipboardIndexNumber.AccessibleDescription = "Copy to clipboard: Index number";
+			menuitemCopyToClipboardIndexNumber.AccessibleDescription = "Copies to clipboard: Index number";
 			menuitemCopyToClipboardIndexNumber.AccessibleName = "Copy to clipboard: Index number";
 			menuitemCopyToClipboardIndexNumber.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardIndexNumber.AutoToolTip = true;
@@ -2175,7 +2175,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardReadableDesignation
 			// 
-			menuitemCopyToClipboardReadableDesignation.AccessibleDescription = "Copy to clipboard: Readable designation";
+			menuitemCopyToClipboardReadableDesignation.AccessibleDescription = "Copies to clipboard: Readable designation";
 			menuitemCopyToClipboardReadableDesignation.AccessibleName = "Copy to clipboard: Readable designation";
 			menuitemCopyToClipboardReadableDesignation.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardReadableDesignation.AutoToolTip = true;
@@ -2189,7 +2189,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardEpoch
 			// 
-			menuitemCopyToClipboardEpoch.AccessibleDescription = "Copy to clipboard: Epoch";
+			menuitemCopyToClipboardEpoch.AccessibleDescription = "Copies to clipboard: Epoch";
 			menuitemCopyToClipboardEpoch.AccessibleName = "Copy to clipboard: Epoch";
 			menuitemCopyToClipboardEpoch.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardEpoch.AutoToolTip = true;
@@ -2203,7 +2203,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardMeanAnomalyAtTheEpoch
 			// 
-			menuitemCopyToClipboardMeanAnomalyAtTheEpoch.AccessibleDescription = "Copy to clipboard: Mean anomaly at the epoch";
+			menuitemCopyToClipboardMeanAnomalyAtTheEpoch.AccessibleDescription = "Copies to clipboard: Mean anomaly at the epoch";
 			menuitemCopyToClipboardMeanAnomalyAtTheEpoch.AccessibleName = "Copy to clipboard: Mean anomaly at the epoch";
 			menuitemCopyToClipboardMeanAnomalyAtTheEpoch.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardMeanAnomalyAtTheEpoch.AutoToolTip = true;
@@ -2217,7 +2217,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardArgumentOfPerihelion
 			// 
-			menuitemCopyToClipboardArgumentOfPerihelion.AccessibleDescription = "Copy to clipboard: Argument of perihelion";
+			menuitemCopyToClipboardArgumentOfPerihelion.AccessibleDescription = "Copies to clipboard: Argument of perihelion";
 			menuitemCopyToClipboardArgumentOfPerihelion.AccessibleName = "Copy to clipboard: Argument of perihelion";
 			menuitemCopyToClipboardArgumentOfPerihelion.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardArgumentOfPerihelion.AutoToolTip = true;
@@ -2231,7 +2231,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardLongitudeOfTheAscendingNode
 			// 
-			menuitemCopyToClipboardLongitudeOfTheAscendingNode.AccessibleDescription = "Copy to clipboard: Longitude of the ascending node";
+			menuitemCopyToClipboardLongitudeOfTheAscendingNode.AccessibleDescription = "Copies to clipboard: Longitude of the ascending node";
 			menuitemCopyToClipboardLongitudeOfTheAscendingNode.AccessibleName = "Copy to clipboard: Longitude of the ascending node";
 			menuitemCopyToClipboardLongitudeOfTheAscendingNode.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardLongitudeOfTheAscendingNode.AutoToolTip = true;
@@ -2245,7 +2245,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardInclinationToTheEcliptic
 			// 
-			menuitemCopyToClipboardInclinationToTheEcliptic.AccessibleDescription = "Copy to clipboard: Inclination";
+			menuitemCopyToClipboardInclinationToTheEcliptic.AccessibleDescription = "Copies to clipboard: Inclination";
 			menuitemCopyToClipboardInclinationToTheEcliptic.AccessibleName = "Copy to clipboard: Inclination";
 			menuitemCopyToClipboardInclinationToTheEcliptic.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardInclinationToTheEcliptic.AutoToolTip = true;
@@ -2259,7 +2259,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardOrbitalEccentricity
 			// 
-			menuitemCopyToClipboardOrbitalEccentricity.AccessibleDescription = "Copy to clipboard: Orbital eccentricity";
+			menuitemCopyToClipboardOrbitalEccentricity.AccessibleDescription = "Copies to clipboard: Orbital eccentricity";
 			menuitemCopyToClipboardOrbitalEccentricity.AccessibleName = "Copy to clipboard: Orbital eccentricity";
 			menuitemCopyToClipboardOrbitalEccentricity.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardOrbitalEccentricity.AutoToolTip = true;
@@ -2273,7 +2273,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardMeanDailyMotion
 			// 
-			menuitemCopyToClipboardMeanDailyMotion.AccessibleDescription = "Copy to clipboard: Mean daily motion";
+			menuitemCopyToClipboardMeanDailyMotion.AccessibleDescription = "Copies to clipboard: Mean daily motion";
 			menuitemCopyToClipboardMeanDailyMotion.AccessibleName = "Copy to clipboard: Mean daily motion";
 			menuitemCopyToClipboardMeanDailyMotion.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardMeanDailyMotion.AutoToolTip = true;
@@ -2287,7 +2287,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardSemiMajorAxis
 			// 
-			menuitemCopyToClipboardSemiMajorAxis.AccessibleDescription = "Copy to clipboard: Semi-major axis";
+			menuitemCopyToClipboardSemiMajorAxis.AccessibleDescription = "Copies to clipboard: Semi-major axis";
 			menuitemCopyToClipboardSemiMajorAxis.AccessibleName = "Copy to clipboard: Semi-major axis";
 			menuitemCopyToClipboardSemiMajorAxis.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardSemiMajorAxis.AutoToolTip = true;
@@ -2301,7 +2301,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardAbsoluteMagnitude
 			// 
-			menuitemCopyToClipboardAbsoluteMagnitude.AccessibleDescription = "Copy to clipboard: Absolute magnitude";
+			menuitemCopyToClipboardAbsoluteMagnitude.AccessibleDescription = "Copies to clipboard: Absolute magnitude";
 			menuitemCopyToClipboardAbsoluteMagnitude.AccessibleName = "Copy to clipboard: Absolute magnitude";
 			menuitemCopyToClipboardAbsoluteMagnitude.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardAbsoluteMagnitude.AutoToolTip = true;
@@ -2315,7 +2315,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardSlopeParameter
 			// 
-			menuitemCopyToClipboardSlopeParameter.AccessibleDescription = "Copy to clipboard: Slope parameter";
+			menuitemCopyToClipboardSlopeParameter.AccessibleDescription = "Copies to clipboard: Slope parameter";
 			menuitemCopyToClipboardSlopeParameter.AccessibleName = "Copy to clipboard: Slope parameter";
 			menuitemCopyToClipboardSlopeParameter.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardSlopeParameter.AutoToolTip = true;
@@ -2329,7 +2329,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardReference
 			// 
-			menuitemCopyToClipboardReference.AccessibleDescription = "Copy to clipboard: Reference";
+			menuitemCopyToClipboardReference.AccessibleDescription = "Copies to clipboard: Reference";
 			menuitemCopyToClipboardReference.AccessibleName = "Copy to clipboard: Reference";
 			menuitemCopyToClipboardReference.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardReference.AutoToolTip = true;
@@ -2343,7 +2343,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardNumberOfOppositions
 			// 
-			menuitemCopyToClipboardNumberOfOppositions.AccessibleDescription = "Copy to clipboard: Number of oppositions";
+			menuitemCopyToClipboardNumberOfOppositions.AccessibleDescription = "Copies to clipboard: Number of oppositions";
 			menuitemCopyToClipboardNumberOfOppositions.AccessibleName = "Copy to clipboard: Number of oppositions ";
 			menuitemCopyToClipboardNumberOfOppositions.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardNumberOfOppositions.AutoToolTip = true;
@@ -2357,7 +2357,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardNumberOfObservations
 			// 
-			menuitemCopyToClipboardNumberOfObservations.AccessibleDescription = "Copy to clipboard: Number of observations";
+			menuitemCopyToClipboardNumberOfObservations.AccessibleDescription = "Copies to clipboard: Number of observations";
 			menuitemCopyToClipboardNumberOfObservations.AccessibleName = "Copy to clipboard: Number of observations";
 			menuitemCopyToClipboardNumberOfObservations.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardNumberOfObservations.AutoToolTip = true;
@@ -2371,7 +2371,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardObservationSpan
 			// 
-			menuitemCopyToClipboardObservationSpan.AccessibleDescription = "Copy to clipboard: Observation span";
+			menuitemCopyToClipboardObservationSpan.AccessibleDescription = "Copies to clipboard: Observation span";
 			menuitemCopyToClipboardObservationSpan.AccessibleName = "Copy to clipboard: Observation span";
 			menuitemCopyToClipboardObservationSpan.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardObservationSpan.AutoToolTip = true;
@@ -2385,7 +2385,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardRmsResidual
 			// 
-			menuitemCopyToClipboardRmsResidual.AccessibleDescription = "Copy to clipboard: r.m.s. residual";
+			menuitemCopyToClipboardRmsResidual.AccessibleDescription = "Copies to clipboard: r.m.s. residual";
 			menuitemCopyToClipboardRmsResidual.AccessibleName = "Copy to clipboard: r.m.s. residual";
 			menuitemCopyToClipboardRmsResidual.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardRmsResidual.AutoToolTip = true;
@@ -2399,7 +2399,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardComputerName
 			// 
-			menuitemCopyToClipboardComputerName.AccessibleDescription = "Copy to clipboard: Computer name";
+			menuitemCopyToClipboardComputerName.AccessibleDescription = "Copies to clipboard: Computer name";
 			menuitemCopyToClipboardComputerName.AccessibleName = "Copy to clipboard: Computer name";
 			menuitemCopyToClipboardComputerName.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardComputerName.AutoToolTip = true;
@@ -2413,7 +2413,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardDateOfTheLastObservation
 			// 
-			menuitemCopyToClipboardDateOfTheLastObservation.AccessibleDescription = "Copy to clipboard: Date of last observation";
+			menuitemCopyToClipboardDateOfTheLastObservation.AccessibleDescription = "Copies to clipboard: Date of last observation";
 			menuitemCopyToClipboardDateOfTheLastObservation.AccessibleName = "Copy to clipboard: Date of last observation";
 			menuitemCopyToClipboardDateOfTheLastObservation.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardDateOfTheLastObservation.AutoToolTip = true;
@@ -2427,7 +2427,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopyToClipboardFlags
 			// 
-			menuitemCopyToClipboardFlags.AccessibleDescription = "Copy to clipboard: 4-hexdigit flags";
+			menuitemCopyToClipboardFlags.AccessibleDescription = "Copies to clipboard: 4-hexdigit flags";
 			menuitemCopyToClipboardFlags.AccessibleName = "Copy to clipboard: 4-hexdigit flags";
 			menuitemCopyToClipboardFlags.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopyToClipboardFlags.AutoToolTip = true;
@@ -2441,7 +2441,7 @@ namespace Planetoid_DB
 			// 
 			// menuitemCopytoClipboard
 			// 
-			menuitemCopytoClipboard.AccessibleDescription = "Copy to clipboard";
+			menuitemCopytoClipboard.AccessibleDescription = "Copies to clipboard";
 			menuitemCopytoClipboard.AccessibleName = "Copy to clipboard";
 			menuitemCopytoClipboard.AccessibleRole = AccessibleRole.MenuItem;
 			menuitemCopytoClipboard.AutoToolTip = true;
@@ -2458,7 +2458,7 @@ namespace Planetoid_DB
 			// 
 			// splitbuttonCopyToClipboard
 			// 
-			splitbuttonCopyToClipboard.AccessibleDescription = "Copys to clipboard";
+			splitbuttonCopyToClipboard.AccessibleDescription = "Copies to clipboard";
 			splitbuttonCopyToClipboard.AccessibleName = "Copy to clipboard";
 			splitbuttonCopyToClipboard.AccessibleRole = AccessibleRole.SplitButton;
 			splitbuttonCopyToClipboard.DisplayStyle = ToolStripItemDisplayStyle.Image;
