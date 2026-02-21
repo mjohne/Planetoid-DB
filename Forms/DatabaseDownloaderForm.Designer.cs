@@ -89,6 +89,7 @@ namespace Planetoid_DB
 			tableLayoutPanel.Controls.Add(labelTime, 0, 5);
 			tableLayoutPanel.Dock = DockStyle.Fill;
 			tableLayoutPanel.Location = new Point(0, 0);
+			tableLayoutPanel.Margin = new Padding(0);
 			tableLayoutPanel.Name = "tableLayoutPanel";
 			tableLayoutPanel.PanelBackStyle = Krypton.Toolkit.PaletteBackStyle.FormMain;
 			tableLayoutPanel.RowCount = 7;
@@ -152,8 +153,8 @@ namespace Planetoid_DB
 			// 
 			// contextMenuCopyToClipboard
 			// 
-			contextMenuCopyToClipboard.AccessibleDescription = "Shows context menu for some options";
-			contextMenuCopyToClipboard.AccessibleName = "Some options";
+			contextMenuCopyToClipboard.AccessibleDescription = "Shows the context menu for copying information to the clipboard";
+			contextMenuCopyToClipboard.AccessibleName = "Context menu for copying database information to the clipboard";
 			contextMenuCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
 			contextMenuCopyToClipboard.AllowClickThrough = true;
 			contextMenuCopyToClipboard.Font = new Font("Segoe UI", 9F);
@@ -161,7 +162,7 @@ namespace Planetoid_DB
 			contextMenuCopyToClipboard.Name = "contextMenuStrip";
 			contextMenuCopyToClipboard.Size = new Size(214, 26);
 			contextMenuCopyToClipboard.TabStop = true;
-			contextMenuCopyToClipboard.Text = "ContextMenu";
+			contextMenuCopyToClipboard.Text = "Copy to clipboard";
 			contextMenuCopyToClipboard.MouseEnter += Control_Enter;
 			contextMenuCopyToClipboard.MouseLeave += Control_Leave;
 			// 
@@ -325,8 +326,8 @@ namespace Planetoid_DB
 			labelDownloadSpeed.TabIndex = 10;
 			labelDownloadSpeed.ToolTipValues.Description = "Shows the download speed.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelDownloadSpeed.ToolTipValues.EnableToolTips = true;
-			labelDownloadSpeed.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelDownloadSpeed.ToolTipValues.Heading = "Download speed";
+			labelDownloadSpeed.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelDownloadSpeed.Values.Text = "Download speed:";
 			labelDownloadSpeed.DoubleClick += CopyToClipboard_DoubleClick;
 			labelDownloadSpeed.Enter += Control_Enter;
@@ -347,8 +348,8 @@ namespace Planetoid_DB
 			labelDownloadSpeedValue.TabIndex = 11;
 			labelDownloadSpeedValue.ToolTipValues.Description = "Shows the download speed.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelDownloadSpeedValue.ToolTipValues.EnableToolTips = true;
-			labelDownloadSpeedValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelDownloadSpeedValue.ToolTipValues.Heading = "Download speed value";
+			labelDownloadSpeedValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelDownloadSpeedValue.Values.Text = "...";
 			labelDownloadSpeedValue.DoubleClick += CopyToClipboard_DoubleClick;
 			labelDownloadSpeedValue.Enter += Control_Enter;
@@ -370,8 +371,8 @@ namespace Planetoid_DB
 			labelTimeValue.TabIndex = 9;
 			labelTimeValue.ToolTipValues.Description = "Shows the elapsed time and estimated time of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelTimeValue.ToolTipValues.EnableToolTips = true;
-			labelTimeValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelTimeValue.ToolTipValues.Heading = "Time value";
+			labelTimeValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelTimeValue.Values.Text = "...";
 			labelTimeValue.DoubleClick += CopyToClipboard_DoubleClick;
 			labelTimeValue.Enter += Control_Enter;
@@ -392,8 +393,8 @@ namespace Planetoid_DB
 			labelTime.TabIndex = 8;
 			labelTime.ToolTipValues.Description = "Shows the elapsed time and estimated time of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelTime.ToolTipValues.EnableToolTips = true;
-			labelTime.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelTime.ToolTipValues.Heading = "Time";
+			labelTime.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			labelTime.Values.Text = "Time (estimated):";
 			labelTime.DoubleClick += CopyToClipboard_DoubleClick;
 			labelTime.Enter += Control_Enter;
