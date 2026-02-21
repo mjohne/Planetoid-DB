@@ -289,7 +289,7 @@ namespace Planetoid_DB
 			contextMenuSaveList.Font = new Font("Segoe UI", 9F);
 			contextMenuSaveList.Items.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsWord, toolStripMenuItemSaveAsOdt, toolStripMenuItemSaveAsRtf, toolStripMenuItemSaveAsExcel, toolStripMenuItemSaveAsOds, toolStripMenuItemSaveAsCsv, toolStripMenuItemSaveAsTsv, toolStripMenuItemSaveAsPsv, toolStripMenuItemSaveAsHtml, toolStripMenuItemSaveAsXml, toolStripMenuItemSaveAsJson, toolStripMenuItemSaveAsYaml, toolStripMenuItemSaveAsSql, toolStripMenuItemSaveAsPdf, toolStripMenuItemSaveAsEpub, toolStripMenuItemSaveAsPostScript, toolStripMenuItemSaveAsMobi });
 			contextMenuSaveList.Name = "contextMenuStrip1";
-			contextMenuSaveList.Size = new Size(216, 444);
+			contextMenuSaveList.Size = new Size(216, 466);
 			contextMenuSaveList.TabStop = true;
 			contextMenuSaveList.Text = "&Save List";
 			contextMenuSaveList.MouseEnter += Control_Enter;
@@ -297,8 +297,8 @@ namespace Planetoid_DB
 			// 
 			// toolStripMenuItemSaveAsText
 			// 
-			toolStripMenuItemSaveAsText.AccessibleDescription = "Saves the liste as ";
-			toolStripMenuItemSaveAsText.AccessibleName = "Save as ";
+			toolStripMenuItemSaveAsText.AccessibleDescription = "Saves the list as text";
+			toolStripMenuItemSaveAsText.AccessibleName = "Save as text";
 			toolStripMenuItemSaveAsText.AccessibleRole = AccessibleRole.MenuItem;
 			toolStripMenuItemSaveAsText.AutoToolTip = true;
 			toolStripMenuItemSaveAsText.Image = FatcowIcons16px.fatcow_page_white_text_16px;
@@ -306,7 +306,7 @@ namespace Planetoid_DB
 			toolStripMenuItemSaveAsText.ShortcutKeyDisplayString = "";
 			toolStripMenuItemSaveAsText.ShortcutKeys = Keys.Control | Keys.X;
 			toolStripMenuItemSaveAsText.Size = new Size(215, 22);
-			toolStripMenuItemSaveAsText.Text = "Save as Te&xt";
+			toolStripMenuItemSaveAsText.Text = "Save as te&xt";
 			toolStripMenuItemSaveAsText.Click += ToolStripMenuItemSaveAsText_Click;
 			toolStripMenuItemSaveAsText.MouseEnter += Control_Enter;
 			toolStripMenuItemSaveAsText.MouseLeave += Control_Leave;
@@ -377,8 +377,8 @@ namespace Planetoid_DB
 			// 
 			// toolStripMenuItemSaveAsRtf
 			// 
-			toolStripMenuItemSaveAsRtf.AccessibleDescription = "Saves the liste as ";
-			toolStripMenuItemSaveAsRtf.AccessibleName = "Save as ";
+			toolStripMenuItemSaveAsRtf.AccessibleDescription = "Saves the list as RTF";
+			toolStripMenuItemSaveAsRtf.AccessibleName = "Save as RTF";
 			toolStripMenuItemSaveAsRtf.AccessibleRole = AccessibleRole.MenuItem;
 			toolStripMenuItemSaveAsRtf.AutoToolTip = true;
 			toolStripMenuItemSaveAsRtf.Image = FatcowIcons16px.fatcow_page_white_word_16px;
