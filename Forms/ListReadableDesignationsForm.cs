@@ -445,6 +445,56 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		return builder.ToString();
 	}
 
+	/// <summary>
+	/// Escapes special characters for RTF output.
+	/// </summary>
+	/// <param name="input">The input string.</param>
+	/// <returns>The escaped string.</returns>
+	/// <remarks>
+	/// This method is used to escape special characters in the input string for RTF output.
+	/// </remarks>
+	private static string EscapeRtf(string? input)
+	{
+		// Handle null or empty input
+		if (string.IsNullOrEmpty(value: input))
+		{
+			return string.Empty;
+		}
+		// Escape special characters and control characters for RTF
+		StringBuilder builder = new(capacity: input.Length);
+		// Iterate over each character in the input string
+		foreach (char character in input)
+		{
+			switch (character)
+			{
+				case '\\':
+					builder.Append(value: "\\\\");
+					break;
+				case '{':
+					builder.Append(value: "\\{");
+					break;
+				case '}':
+					builder.Append(value: "\\}");
+					break;
+				case '\n':
+					builder.Append(value: "\\par ");
+					break;
+				default:
+					if (character > 127)
+					{
+						// Escape remaining control characters using unicode format
+						builder.Append(value: $"\\u{(int)character}?");
+					}
+					else
+					{
+						builder.Append(value: character); // Append the character directly
+					}
+					break;
+			}
+		}
+		return builder.ToString();
+	}
+
 	#endregion
 
 	#region form event handlers
@@ -1856,6 +1906,105 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 
 		// 3. EOF
 		w.Write(buffer: eofRecord);
+
+		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>
+	/// Saves the current list as an RTF file.
+	/// </summary>
+	/// <param name="sender">The event sender.</param>
+	/// <param name="e">The event arguments.</param>
+	/// <remarks>
+	/// This method is invoked when the user selects the "Save As RTF" menu item.
+	/// </remarks>
+	private void ToolStripMenuItemSaveAsRtf_Click(object? sender, EventArgs? e)
+	{
+		// Create a SaveFileDialog manually since it's not in the designer
+		using SaveFileDialog saveFileDialogRtf = new()
+		{
+			Filter = "Rich Text Format (*.rtf)|*.rtf|All files (*.*)|*.*",
+			DefaultExt = "rtf",
+			Title = "Save list as RTF"
+		};
+
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogRtf, ext: "rtf"))
+		{
+			return;
+		}
+
+		// Write the data to the RTF file using ASCII encoding
+		using StreamWriter writer = new(path: saveFileDialogRtf.FileName, append: false, encoding: Encoding.ASCII);
+
+		// Write RTF header
+		writer.WriteLine(value: "{\\rtf1\\ansi\\deff0");
+		writer.WriteLine(value: "{\\fonttbl{\\f0 Arial;}}");
+		writer.WriteLine(value: "\\f0\\fs20"); // Font Arial, Size 10pt
+
+		// Title
+		writer.WriteLine(value: "{\\pard\\b\\fs24 List of Readable Designations\\par\\par}");
+
+		// Iterate data
+		foreach ((string index, string name) in GetExportData())
+		{
+			// Start row definition
+			writer.Write(value: "\\trowd\\trgaph108\\trleft-108");
+			writer.Write(value: "\\cellx1440"); // Cell 1 width (approx 1 inch)
+			writer.Write(value: "\\cellx5760"); // Cell 2 width (approx 3 inches more -> 4 inches total)
+
+			// Cell 1 content
+			writer.Write(value: "\\pard\\intbl ");
+			writer.Write(value: EscapeRtf(input: index));
+			writer.Write(value: "\\cell");
+
+			// Cell 2 content
+			writer.Write(value: "\\pard\\intbl ");
+			writer.Write(value: EscapeRtf(input: name));
+			writer.Write(value: "\\cell");
+
+			// End row
+			writer.WriteLine(value: "\\row");
+		}
+
+		// Close RTF
+		writer.WriteLine(value: "}");
+
+		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>
+	/// Saves the current list as a text file.
+	/// </summary>
+	/// <param name="sender">The event sender.</param>
+	/// <param name="e">The event arguments.</param>
+	/// <remarks>
+	/// This method is invoked when the user selects the "Save As Text" menu item.
+	/// </remarks>
+	private void ToolStripMenuItemSaveAsText_Click(object? sender, EventArgs? e)
+	{
+		// Create a SaveFileDialog manually since it's not in the designer
+		using SaveFileDialog saveFileDialogText = new()
+		{
+			Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*",
+			DefaultExt = "txt",
+			Title = "Save list as Text"
+		};
+
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogText, ext: "txt"))
+		{
+			return;
+		}
+
+		// Write the data to the text file
+		using StreamWriter writer = new(path: saveFileDialogText.FileName, append: false, encoding: Encoding.UTF8);
+
+		// Iterate data
+		foreach ((string index, string name) in GetExportData())
+		{
+			writer.WriteLine(value: $"{index}: {name}");
+		}
 
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
