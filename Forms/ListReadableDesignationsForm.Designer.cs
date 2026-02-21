@@ -275,7 +275,7 @@ namespace Planetoid_DB
 			contextMenuSaveList.AccessibleName = "Save list";
 			contextMenuSaveList.AccessibleRole = AccessibleRole.MenuPopup;
 			contextMenuSaveList.Font = new Font("Segoe UI", 9F);
-			contextMenuSaveList.Items.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsWord, toolStripMenuItemSaveAsOdt, toolStripMenuItemSaveAsRtf, toolStripMenuItemSaveAsExcel, toolStripMenuItemSaveAsOds, toolStripMenuItemSaveAsCsv, toolStripMenuItemSaveAsTsv, toolStripMenuItemSaveAsPsv, toolStripMenuItemSaveAsHtml, toolStripMenuItemSaveAsXml, toolStripMenuItemSaveAsJson, toolStripMenuItemSaveAsYaml, toolStripMenuItemSaveAsSql, toolStripMenuItemSaveAsPdf, toolStripMenuItemSaveAsEpub, toolStripMenuItemSaveAsPostScript, toolStripMenuItemSaveAsMobi });
+			contextMenuSaveList.Items.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsWord, toolStripMenuItemSaveAsOdt, toolStripMenuItemSaveAsRtf, toolStripMenuItemSaveAsExcel, toolStripMenuItemSaveAsOds, toolStripMenuItemSaveAsCsv, toolStripMenuItemSaveAsTsv, toolStripMenuItemSaveAsPsv, toolStripMenuItemSaveAsHtml, toolStripMenuItemSaveAsXml, toolStripMenuItemSaveAsJson, toolStripMenuItemSaveAsYaml, toolStripMenuItemSaveAsSql, toolStripMenuItemSaveAsPdf, toolStripMenuItemSaveAsPostScript, toolStripMenuItemSaveAsEpub, toolStripMenuItemSaveAsMobi });
 			contextMenuSaveList.Name = "contextMenuStrip1";
 			contextMenuSaveList.Size = new Size(216, 466);
 			contextMenuSaveList.TabStop = true;
