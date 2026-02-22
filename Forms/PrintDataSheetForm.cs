@@ -42,6 +42,19 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	/// </remarks>
 	private readonly PrintDocument printDoc;
 
+	/// <summary>
+	/// List of orbit elements to be exported.
+	/// </summary>
+	/// <remarks>
+	/// This list contains the values of the orbital elements to be printed.
+	/// </remarks>
+	private List<string> orbitElements = [];
+
+	/// <summary>
+	/// The index of the last printed item.
+	/// </summary>
+	private int lastPrintedIndex = 0;
+
 	#region constructor
 
 	/// <summary>
@@ -56,11 +69,18 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		InitializeComponent();
 		printDoc = new PrintDocument();
 		printDoc.PrintPage += PrintDoc_PrintPage;
+		printDoc.BeginPrint += PrintDoc_BeginPrint;
 	}
 
 	#endregion
 
 	#region helper methods
+
+	/// <summary>
+	/// Sets the database of orbital elements.
+	/// </summary>
+	/// <param name="db">The list of orbital elements.</param>
+	public void SetDatabase(List<string> db) => orbitElements = db;
 
 	/// <summary>
 	/// Returns a short debugger display string for this instance.
@@ -76,8 +96,8 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	/// </summary>
 	/// <param name="check">If true, all items are checked; if false, all items are unchecked.</param>
 	/// <remarks>
-	/// This method is used to check or uncheck all items in the orbital elements checklist
-	/// and toggle the export buttons accordingly.
+	/// This method iterates through all items in the orbital elements checklist
+	/// and sets their checked state based on the provided <paramref name="check"/> value.
 	/// </remarks>
 	private void CheckIt(bool check)
 	{
@@ -183,7 +203,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	/// <remarks>
 	/// This method is called when the print preview button is clicked.
 	/// </remarks>
-	private void ButtonPrintPreview_Click(object sender, EventArgs e)
+	private void ToolStripButtonPrintPreview_Click(object sender, EventArgs e)
 	{
 		using PrintPreviewDialog previewDialog = new();
 		previewDialog.Document = printDoc;
@@ -199,12 +219,13 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	/// <remarks>
 	/// This method is called when the page setup button is clicked.
 	/// </remarks>
-	private void ButtonPageSetup_Click(object sender, EventArgs e)
+	private void ToolStripButtonPageSetup_Click(object sender, EventArgs e)
 	{
 		using PageSetupDialog pageSetupDialog = new();
 		pageSetupDialog.Document = printDoc;
 		pageSetupDialog.PageSettings = printDoc.DefaultPageSettings;
 		pageSetupDialog.PrinterSettings = printDoc.PrinterSettings;
+		pageSetupDialog.ShowNetwork = true;
 		if (pageSetupDialog.ShowDialog() == DialogResult.OK)
 		{
 			printDoc.DefaultPageSettings = pageSetupDialog.PageSettings;
@@ -214,24 +235,34 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	/// <summary>
 	/// Handles the click event for the 'Mark All' button, marking all items as checked.
 	/// </summary>
-	/// <param name="sender">The source of the event, typically the 'Mark All' button that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>Invokes the check operation for all items. Use this event handler to mark every item in the list as
-	/// selected when the button is clicked.</remarks>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>
+	/// This method is used to mark all items in the orbital elements checklist.
+	/// </remarks>
 	private void ToolStripButtonMarkAll_Click(object sender, EventArgs e) => CheckIt(check: true);
 
 	/// <summary>
 	/// Handles the click event for the 'Unmark All' button, resetting all items to an unchecked state.
 	/// </summary>
-	/// <param name="sender">The source of the event, typically the 'Unmark All' button that was clicked.</param>
+	/// <param name="sender">The event source.</param>
 	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>Invokes the CheckIt method with a parameter indicating that no items should be marked. Use this
-	/// event handler to clear all selections in the associated list or control.</remarks>
+	/// <remarks>
+	/// This method is used to unmark all items in the orbital elements checklist.
+	/// </remarks>
 	private void ToolStripButtonUnmarkAll_Click(object sender, EventArgs e) => CheckIt(check: false);
 
 	#endregion
 
 	#region PrintPage event handlers
+
+	/// <summary>
+	/// Handles the BeginPrint event of the PrintDocument.
+	/// Resets the index for pagination.
+	/// </summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="PrintEventArgs"/> instance that contains the event data.</param>
+	private void PrintDoc_BeginPrint(object sender, PrintEventArgs e) => lastPrintedIndex = 0;
 
 	/// <summary>
 	/// Handles the PrintPage event of the PrintDocument.
@@ -242,21 +273,61 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	/// <remarks>
 	/// This method is called when a page is printed.
 	/// </remarks>
-	private static void PrintDoc_PrintPage(object sender, PrintPageEventArgs e)
+	private void PrintDoc_PrintPage(object sender, PrintPageEventArgs e)
 	{
+		// space between every entry
+		int space = 2;
+
 		// Check if the sender is null
-		if (e.Graphics == null)
+		if (e.Graphics is null)
 		{
 			return;
 		}
-		// Set the text to be printed
-		const string textToPrint = "This is a sample data sheet.";
-		// Set the font for the text
-		using Font printFont = new(familyName: "Arial", emSize: 12);
-		// Set the text color to black
-		e.Graphics.DrawString(s: textToPrint, font: printFont, brush: Brushes.Black, point: new PointF(x: 100, y: 100));
-		// Indicate that no more pages are to be printed
-		e.HasMorePages = false;
+
+		// Set the fonts for the text
+		using Font fontLabel = new(familyName: "Segoe UI", emSize: 10, style: FontStyle.Bold);
+		using Font fontValue = new(familyName: "Segoe UI", emSize: 10, style: FontStyle.Regular);
+		using Pen penSeparator = new(color: Color.LightGray);
+
+		float lineHeight = fontLabel.GetHeight(graphics: e.Graphics) + space;
+		float linesPerPage = e.MarginBounds.Height / lineHeight;
+		float yPos;
+		int count = 0;
+		float leftMargin = e.MarginBounds.Left;
+		float topMargin = e.MarginBounds.Top;
+		float valueColumnX = leftMargin + 350;
+
+		// Iterate over the orbital elements
+		while (count < linesPerPage && lastPrintedIndex < checkedListBoxOrbitalElements.Items.Count)
+		{
+			// Check if the item is checked
+			if (checkedListBoxOrbitalElements.GetItemChecked(index: lastPrintedIndex))
+			{
+				string label = checkedListBoxOrbitalElements.Items[index: lastPrintedIndex].ToString() ?? string.Empty;
+				string value = lastPrintedIndex < orbitElements.Count ? orbitElements[index: lastPrintedIndex] : string.Empty;
+
+				yPos = topMargin + (count * lineHeight);
+
+				// Draw Label
+				e.Graphics.DrawString(s: label + ":", font: fontLabel, brush: Brushes.Black, x: leftMargin, y: yPos);
+
+				// Determine X position for value (align to column, or push if label is too long)
+				float labelWidth = e.Graphics.MeasureString(text: label + ":", font: fontLabel).Width;
+				float xPosValue = Math.Max(val1: valueColumnX, val2: leftMargin + labelWidth + 10);
+
+				// Draw Value
+				e.Graphics.DrawString(s: value, font: fontValue, brush: Brushes.DarkSlateGray, x: xPosValue, y: yPos);
+
+				// Draw separator line
+				e.Graphics.DrawLine(pen: penSeparator, x1: leftMargin, y1: yPos + lineHeight - 2, x2: e.MarginBounds.Right, y2: yPos + lineHeight - 2);
+
+				count++;
+			}
+			lastPrintedIndex++;
+		}
+
+		// If more lines exist, print another page
+		e.HasMorePages = lastPrintedIndex < checkedListBoxOrbitalElements.Items.Count;
 	}
 
 	#endregion
