@@ -1155,11 +1155,61 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// </remarks>
 	private void PrintDataSheet()
 	{
+		// Create a new list to store the orbital elements
+		List<string> orbitalElements = [];
+		// Create a specific culture for formatting
+		IFormatProvider provider = CultureInfo.CreateSpecificCulture(name: "en");
+		double semiMajorAxis = double.Parse(s: labelSemiMajorAxisData.Text, provider: provider);
+		double numericalEccentricity = double.Parse(s: labelOrbitalEccentricityData.Text, provider: provider);
+		double meanAnomaly = double.Parse(s: labelMeanAnomalyAtTheEpochData.Text, provider: provider);
+		double longitudeAscendingNode = double.Parse(s: labelLongitudeOfTheAscendingNodeData.Text, provider: provider);
+		double argumentAphelion = double.Parse(s: labelArgumentOfThePerihelionData.Text, provider: provider);
+		orbitalElements.Add(item: labelIndexData.Text);
+		orbitalElements.Add(item: labelReadableDesignationData.Text);
+		orbitalElements.Add(item: labelEpochData.Text);
+		orbitalElements.Add(item: labelMeanAnomalyAtTheEpochData.Text);
+		orbitalElements.Add(item: labelArgumentOfThePerihelionData.Text);
+		orbitalElements.Add(item: labelLongitudeOfTheAscendingNodeData.Text);
+		orbitalElements.Add(item: labelInclinationToTheEclipticData.Text);
+		orbitalElements.Add(item: labelOrbitalEccentricityData.Text);
+		orbitalElements.Add(item: labelMeanDailyMotionData.Text);
+		orbitalElements.Add(item: labelSemiMajorAxisData.Text);
+		orbitalElements.Add(item: labelAbsoluteMagnitudeData.Text);
+		orbitalElements.Add(item: labelSlopeParameterData.Text);
+		orbitalElements.Add(item: labelReferenceData.Text);
+		orbitalElements.Add(item: labelNumberOfOppositionsData.Text);
+		orbitalElements.Add(item: labelNumberOfObservationsData.Text);
+		orbitalElements.Add(item: labelObservationSpanData.Text);
+		orbitalElements.Add(item: labelRmsResidualData.Text);
+		orbitalElements.Add(item: labelComputerNameData.Text);
+		orbitalElements.Add(item: labelFlagsData.Text);
+		orbitalElements.Add(item: labelDateLastObservationData.Text);
+		orbitalElements.Add(item: DerivedElements.CalculateLinearEccentricity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		orbitalElements.Add(item: DerivedElements.CalculateSemiMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		orbitalElements.Add(item: DerivedElements.CalculateMajorAxis(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+		orbitalElements.Add(item: DerivedElements.CalculateMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		orbitalElements.Add(item: DerivedElements.CalculateEccentricAnomaly(meanAnomaly: meanAnomaly, numericalEccentricity: numericalEccentricity, numberDecimalPlaces: 8).ToString(provider: provider));
+		orbitalElements.Add(item: DerivedElements.CalculateTrueAnomaly(meanAnomaly: meanAnomaly, numericalEccentricity: numericalEccentricity, numberDecimalPlaces: 8).ToString(provider: provider));
+		orbitalElements.Add(item: DerivedElements.CalculatePerihelionDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		orbitalElements.Add(item: DerivedElements.CalculateAphelionDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		orbitalElements.Add(item: DerivedElements.CalculateLongitudeDescendingNode(longitudeAscendingNode: longitudeAscendingNode).ToString(provider: provider));
+		orbitalElements.Add(item: DerivedElements.CalculateArgumentOfAphelion(argumentAphelion: argumentAphelion).ToString(provider: provider));
+		orbitalElements.Add(item: DerivedElements.CalculateFocalParameter(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		orbitalElements.Add(item: DerivedElements.CalculateSemiLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		orbitalElements.Add(item: DerivedElements.CalculateLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		orbitalElements.Add(item: DerivedElements.CalculatePeriod(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+		orbitalElements.Add(item: DerivedElements.CalculateOrbitalArea(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		orbitalElements.Add(item: DerivedElements.CalculateOrbitalPerimeter(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		orbitalElements.Add(item: DerivedElements.CalculateSemiMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		orbitalElements.Add(item: DerivedElements.CalculateMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		orbitalElements.Add(item: DerivedElements.CalculateStandardGravitationalParameter(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+
 		// Create a new instance of the PrintDataSheetForm
 		using PrintDataSheetForm formPrintDataSheet = new();
 		// Set the TopMost property to true to keep the form on top of other windows
 		formPrintDataSheet.TopMost = TopMost;
 		// Fill the form with the planetoids database
+		formPrintDataSheet.SetDatabase(db: [.. orbitalElements.Cast<string>()]);
 		_ = formPrintDataSheet.ShowDialog();
 	}
 
