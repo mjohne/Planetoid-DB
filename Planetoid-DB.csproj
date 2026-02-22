@@ -10,7 +10,7 @@
     <StartupObject>Planetoid_DB.Program</StartupObject>
     <ApplicationIcon>Resources\Planetoid-DB-3.ico</ApplicationIcon>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <Version>0.7.23.50</Version>
+    <Version>0.7.24.51</Version>
     <Company>Mijo Software</Company>
     <Description>Viewer for the MPC Orbit (MPCORB) Database</Description>
     <Copyright>2010-2026 Michael Johne</Copyright>
