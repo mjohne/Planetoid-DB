@@ -43,10 +43,10 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	private readonly PrintDocument printDoc;
 
 	/// <summary>
-	/// List of orbit elements to be exported.
+	/// List of orbit elements to be printed.
 	/// </summary>
 	/// <remarks>
-	/// This list contains the values of the orbital elements to be printed.
+	/// This list contains the values of the orbital elements that will be printed on the data sheet.
 	/// </remarks>
 	private List<string> orbitElements = [];
 
@@ -109,6 +109,25 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 			// Check or uncheck the item at index i
 			checkedListBoxOrbitalElements.SetItemChecked(index: i, value: check);
 		}
+	}
+
+	/// <summary>
+	/// Determines whether there are any remaining checked items to print starting from the specified index.
+	/// </summary>
+	/// <param name="startIndex">The index from which to start searching for checked items.</param>
+	/// <returns>
+	/// <see langword="true"/> if there is at least one checked item at or after <paramref name="startIndex"/>; otherwise, <see langword="false"/>.
+	/// </returns>
+	private bool HasMoreCheckedItems(int startIndex)
+	{
+		for (int i = startIndex; i < checkedListBoxOrbitalElements.Items.Count; i++)
+		{
+			if (checkedListBoxOrbitalElements.GetItemChecked(index: i))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	#endregion
@@ -278,7 +297,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		// space between every entry
 		int space = 2;
 
-		// Check if the sender is null
+		// Check if the graphics object is null
 		if (e.Graphics is null)
 		{
 			return;
@@ -326,8 +345,8 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 			lastPrintedIndex++;
 		}
 
-		// If more lines exist, print another page
-		e.HasMorePages = lastPrintedIndex < checkedListBoxOrbitalElements.Items.Count;
+		// If more checked lines exist, print another page
+		e.HasMorePages = HasMoreCheckedItems(startIndex: lastPrintedIndex);
 	}
 
 	#endregion
