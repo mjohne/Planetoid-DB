@@ -71,6 +71,26 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	/// </remarks>
 	private string GetDebuggerDisplay() => ToString();
 
+	/// <summary>
+	/// Checks or unchecks all items in the orbital elements checklist.
+	/// </summary>
+	/// <param name="check">If true, all items are checked; if false, all items are unchecked.</param>
+	/// <remarks>
+	/// This method is used to check or uncheck all items in the orbital elements checklist
+	/// and toggle the export buttons accordingly.
+	/// </remarks>
+	private void CheckIt(bool check)
+	{
+		// Check or uncheck all items in the checked list box
+		// based on the provided boolean value
+		// and enable or disable the export buttons accordingly
+		for (int i = 0; i < checkedListBoxOrbitalElements.Items.Count; i++)
+		{
+			// Check or uncheck the item at index i
+			checkedListBoxOrbitalElements.SetItemChecked(index: i, value: check);
+		}
+	}
+
 	#endregion
 
 	#region form event handlers
@@ -190,6 +210,24 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 			printDoc.DefaultPageSettings = pageSetupDialog.PageSettings;
 		}
 	}
+
+	/// <summary>
+	/// Handles the click event for the 'Mark All' button, marking all items as checked.
+	/// </summary>
+	/// <param name="sender">The source of the event, typically the 'Mark All' button that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	/// <remarks>Invokes the check operation for all items. Use this event handler to mark every item in the list as
+	/// selected when the button is clicked.</remarks>
+	private void ToolStripButtonMarkAll_Click(object sender, EventArgs e) => CheckIt(check: true);
+
+	/// <summary>
+	/// Handles the click event for the 'Unmark All' button, resetting all items to an unchecked state.
+	/// </summary>
+	/// <param name="sender">The source of the event, typically the 'Unmark All' button that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	/// <remarks>Invokes the CheckIt method with a parameter indicating that no items should be marked. Use this
+	/// event handler to clear all selections in the associated list or control.</remarks>
+	private void ToolStripButtonUnmarkAll_Click(object sender, EventArgs e) => CheckIt(check: false);
 
 	#endregion
 
