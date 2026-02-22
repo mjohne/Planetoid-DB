@@ -1,5 +1,17 @@
 # Changelog
 
+## Planetoid-DB 0.7.23.50
+
+* Updated CHANGELOG for version 0.7.22.49 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/413
+* Moved print buttons to toolbar in DatabaseDownloaderForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/414
+* Moved print buttons to toolbar and added mark/unmark settings by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/415
+* Corrected printing errors by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/416
+* Updated PlanetoidDBForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/417
+* Updated to version 0.7.23.50 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/418
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.7.22.49.411.1475...0.7.23.50.418.1489
+
+
 ## Planetoid-DB 0.7.22.49
 
 * Changed screenshot reference in README.md by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/388
