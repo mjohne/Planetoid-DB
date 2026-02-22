@@ -44,6 +44,9 @@ namespace Planetoid_DB
 			kryptonToolStripIcons = new KryptonToolStrip();
 			toolStripButtonPrintDataSheet = new ToolStripButton();
 			toolStripButtonCancelPrint = new ToolStripButton();
+			toolStripSeparator = new ToolStripSeparator();
+			toolStripButtonMarkAll = new ToolStripButton();
+			toolStripButtonUnmarkAll = new ToolStripButton();
 			((ISupportInitialize)panel).BeginInit();
 			panel.SuspendLayout();
 			statusStrip.SuspendLayout();
@@ -68,7 +71,7 @@ namespace Planetoid_DB
 			checkedListBoxOrbitalElements.Location = new Point(0, 0);
 			checkedListBoxOrbitalElements.Margin = new Padding(4, 3, 4, 3);
 			checkedListBoxOrbitalElements.Name = "checkedListBoxOrbitalElements";
-			checkedListBoxOrbitalElements.Size = new Size(357, 308);
+			checkedListBoxOrbitalElements.Size = new Size(386, 308);
 			checkedListBoxOrbitalElements.TabIndex = 0;
 			checkedListBoxOrbitalElements.ToolTipValues.Description = "Checks some orbital elements to print on a data sheet.";
 			checkedListBoxOrbitalElements.ToolTipValues.EnableToolTips = true;
@@ -90,7 +93,7 @@ namespace Planetoid_DB
 			panel.Margin = new Padding(4, 3, 4, 3);
 			panel.Name = "panel";
 			panel.PanelBackStyle = PaletteBackStyle.FormMain;
-			panel.Size = new Size(357, 308);
+			panel.Size = new Size(386, 308);
 			panel.TabIndex = 0;
 			panel.TabStop = true;
 			// 
@@ -107,7 +110,7 @@ namespace Planetoid_DB
 			statusStrip.Padding = new Padding(1, 0, 16, 0);
 			statusStrip.ProgressBars = null;
 			statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-			statusStrip.Size = new Size(357, 22);
+			statusStrip.Size = new Size(386, 22);
 			statusStrip.SizingGrip = false;
 			statusStrip.TabIndex = 3;
 			statusStrip.Text = "status bar";
@@ -144,11 +147,11 @@ namespace Planetoid_DB
 			// toolStripContainer.ContentPanel
 			// 
 			toolStripContainer.ContentPanel.Controls.Add(panel);
-			toolStripContainer.ContentPanel.Size = new Size(357, 308);
+			toolStripContainer.ContentPanel.Size = new Size(386, 308);
 			toolStripContainer.Dock = DockStyle.Fill;
 			toolStripContainer.Location = new Point(0, 0);
 			toolStripContainer.Name = "toolStripContainer";
-			toolStripContainer.Size = new Size(357, 355);
+			toolStripContainer.Size = new Size(386, 355);
 			toolStripContainer.TabIndex = 2;
 			toolStripContainer.Text = "toolStripContainer";
 			// 
@@ -163,10 +166,10 @@ namespace Planetoid_DB
 			kryptonToolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
 			kryptonToolStripIcons.Dock = DockStyle.None;
 			kryptonToolStripIcons.Font = new Font("Segoe UI", 9F);
-			kryptonToolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonPrintDataSheet, toolStripButtonCancelPrint });
+			kryptonToolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonPrintDataSheet, toolStripButtonCancelPrint, toolStripSeparator, toolStripButtonMarkAll, toolStripButtonUnmarkAll });
 			kryptonToolStripIcons.Location = new Point(0, 0);
 			kryptonToolStripIcons.Name = "kryptonToolStripIcons";
-			kryptonToolStripIcons.Size = new Size(357, 25);
+			kryptonToolStripIcons.Size = new Size(386, 25);
 			kryptonToolStripIcons.Stretch = true;
 			kryptonToolStripIcons.TabIndex = 0;
 			kryptonToolStripIcons.TabStop = true;
@@ -185,6 +188,8 @@ namespace Planetoid_DB
 			toolStripButtonPrintDataSheet.Size = new Size(103, 22);
 			toolStripButtonPrintDataSheet.Text = "&Print the sheet";
 			toolStripButtonPrintDataSheet.Click += ButtonPrintDataSheet_Click;
+			toolStripButtonPrintDataSheet.MouseEnter += Control_Enter;
+			toolStripButtonPrintDataSheet.MouseLeave += Control_Leave;
 			// 
 			// toolStripButtonCancelPrint
 			// 
@@ -197,6 +202,44 @@ namespace Planetoid_DB
 			toolStripButtonCancelPrint.Size = new Size(91, 22);
 			toolStripButtonCancelPrint.Text = "&Cancel print";
 			toolStripButtonCancelPrint.Click += ButtonCancelPrint_Click;
+			toolStripButtonCancelPrint.MouseEnter += Control_Enter;
+			toolStripButtonCancelPrint.MouseLeave += Control_Leave;
+			// 
+			// toolStripSeparator
+			// 
+			toolStripSeparator.AccessibleDescription = "Just a separator";
+			toolStripSeparator.AccessibleName = "Just a separator";
+			toolStripSeparator.AccessibleRole = AccessibleRole.Separator;
+			toolStripSeparator.Name = "toolStripSeparator";
+			toolStripSeparator.Size = new Size(6, 25);
+			// 
+			// toolStripButtonMarkAll
+			// 
+			toolStripButtonMarkAll.AccessibleDescription = "Marks all orbital elements in the list";
+			toolStripButtonMarkAll.AccessibleName = "Mark all orbital elements";
+			toolStripButtonMarkAll.AccessibleRole = AccessibleRole.PushButton;
+			toolStripButtonMarkAll.Image = FatcowIcons16px.fatcow_check_box_16px;
+			toolStripButtonMarkAll.ImageTransparentColor = Color.Magenta;
+			toolStripButtonMarkAll.Name = "toolStripButtonMarkAll";
+			toolStripButtonMarkAll.Size = new Size(69, 22);
+			toolStripButtonMarkAll.Text = "&Mark all";
+			toolStripButtonMarkAll.Click += ToolStripButtonMarkAll_Click;
+			toolStripButtonMarkAll.MouseEnter += Control_Enter;
+			toolStripButtonMarkAll.MouseLeave += Control_Leave;
+			// 
+			// toolStripButtonUnmarkAll
+			// 
+			toolStripButtonUnmarkAll.AccessibleDescription = "Unmarks all orbital elements in the list";
+			toolStripButtonUnmarkAll.AccessibleName = "Unmark all orbital elements";
+			toolStripButtonUnmarkAll.AccessibleRole = AccessibleRole.PushButton;
+			toolStripButtonUnmarkAll.Image = FatcowIcons16px.fatcow_check_box_uncheck_16px;
+			toolStripButtonUnmarkAll.ImageTransparentColor = Color.Magenta;
+			toolStripButtonUnmarkAll.Name = "toolStripButtonUnmarkAll";
+			toolStripButtonUnmarkAll.Size = new Size(84, 22);
+			toolStripButtonUnmarkAll.Text = "&Unmark all";
+			toolStripButtonUnmarkAll.Click += ToolStripButtonUnmarkAll_Click;
+			toolStripButtonUnmarkAll.MouseEnter += Control_Enter;
+			toolStripButtonUnmarkAll.MouseLeave += Control_Leave;
 			// 
 			// PrintDataSheetForm
 			// 
@@ -205,7 +248,7 @@ namespace Planetoid_DB
 			AccessibleRole = AccessibleRole.Dialog;
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(357, 355);
+			ClientSize = new Size(386, 355);
 			ControlBox = false;
 			Controls.Add(toolStripContainer);
 			FormBorderStyle = FormBorderStyle.FixedToolWindow;
@@ -246,5 +289,8 @@ namespace Planetoid_DB
 		private KryptonToolStrip kryptonToolStripIcons;
 		private ToolStripButton toolStripButtonPrintDataSheet;
 		private ToolStripButton toolStripButtonCancelPrint;
+		private ToolStripSeparator toolStripSeparator;
+		private ToolStripButton toolStripButtonMarkAll;
+		private ToolStripButton toolStripButtonUnmarkAll;
 	}
 }
