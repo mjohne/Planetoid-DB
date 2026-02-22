@@ -56,7 +56,7 @@ namespace Planetoid_DB
 			toolStripContainer = new ToolStripContainer();
 			statusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
-			toolStripIcons = new KryptonToolStrip();
+			kryptonToolStripIcons = new KryptonToolStrip();
 			toolStripButtonSaveToFile = new ToolStripButton();
 			toolStripButtonCopyToClipboard = new ToolStripButton();
 			kryptonManager = new KryptonManager(components);
@@ -96,7 +96,7 @@ namespace Planetoid_DB
 			toolStripContainer.TopToolStripPanel.SuspendLayout();
 			toolStripContainer.SuspendLayout();
 			statusStrip.SuspendLayout();
-			toolStripIcons.SuspendLayout();
+			kryptonToolStripIcons.SuspendLayout();
 			contextMenuFullCopyToClipboard.SuspendLayout();
 			contextMenuSaveToFile.SuspendLayout();
 			SuspendLayout();
@@ -295,7 +295,7 @@ namespace Planetoid_DB
 			contextMenuCopyToClipboard.Font = new Font("Segoe UI", 9F);
 			contextMenuCopyToClipboard.Items.AddRange(new ToolStripItem[] { toolStripMenuItemCopyToClipboard });
 			contextMenuCopyToClipboard.Name = "contextMenuStrip";
-			contextMenuCopyToClipboard.Size = new Size(214, 48);
+			contextMenuCopyToClipboard.Size = new Size(214, 26);
 			contextMenuCopyToClipboard.TabStop = true;
 			contextMenuCopyToClipboard.Text = "Copy to clipboard";
 			contextMenuCopyToClipboard.MouseEnter += Control_Enter;
@@ -526,7 +526,7 @@ namespace Planetoid_DB
 			// 
 			// toolStripContainer.TopToolStripPanel
 			// 
-			toolStripContainer.TopToolStripPanel.Controls.Add(toolStripIcons);
+			toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripIcons);
 			// 
 			// statusStrip
 			// 
@@ -557,22 +557,23 @@ namespace Planetoid_DB
 			labelInformation.Text = "some information here";
 			labelInformation.ToolTipText = "Shows some information";
 			// 
-			// toolStripIcons
+			// kryptonToolStripIcons
 			// 
-			toolStripIcons.AccessibleDescription = "Toolbar of copying and saving information";
-			toolStripIcons.AccessibleName = "Toolbar of copying and saving information";
-			toolStripIcons.Dock = DockStyle.None;
-			toolStripIcons.Font = new Font("Segoe UI", 9F);
-			toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonSaveToFile, toolStripButtonCopyToClipboard });
-			toolStripIcons.Location = new Point(0, 0);
-			toolStripIcons.Name = "toolStripIcons";
-			toolStripIcons.Size = new Size(408, 25);
-			toolStripIcons.Stretch = true;
-			toolStripIcons.TabIndex = 0;
-			toolStripIcons.TabStop = true;
-			toolStripIcons.Text = "Toolbar of copying and saving information";
-			toolStripIcons.MouseEnter += Control_Enter;
-			toolStripIcons.MouseLeave += Control_Leave;
+			kryptonToolStripIcons.AccessibleDescription = "Toolbar of copying and saving information";
+			kryptonToolStripIcons.AccessibleName = "Toolbar of copying and saving information";
+			kryptonToolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
+			kryptonToolStripIcons.Dock = DockStyle.None;
+			kryptonToolStripIcons.Font = new Font("Segoe UI", 9F);
+			kryptonToolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonSaveToFile, toolStripButtonCopyToClipboard });
+			kryptonToolStripIcons.Location = new Point(0, 0);
+			kryptonToolStripIcons.Name = "kryptonToolStripIcons";
+			kryptonToolStripIcons.Size = new Size(408, 25);
+			kryptonToolStripIcons.Stretch = true;
+			kryptonToolStripIcons.TabIndex = 0;
+			kryptonToolStripIcons.TabStop = true;
+			kryptonToolStripIcons.Text = "Toolbar of copying and saving information";
+			kryptonToolStripIcons.MouseEnter += Control_Enter;
+			kryptonToolStripIcons.MouseLeave += Control_Leave;
 			// 
 			// toolStripButtonSaveToFile
 			// 
@@ -1083,8 +1084,8 @@ namespace Planetoid_DB
 			toolStripContainer.PerformLayout();
 			statusStrip.ResumeLayout(false);
 			statusStrip.PerformLayout();
-			toolStripIcons.ResumeLayout(false);
-			toolStripIcons.PerformLayout();
+			kryptonToolStripIcons.ResumeLayout(false);
+			kryptonToolStripIcons.PerformLayout();
 			contextMenuFullCopyToClipboard.ResumeLayout(false);
 			contextMenuSaveToFile.ResumeLayout(false);
 			ResumeLayout(false);
@@ -1113,7 +1114,7 @@ namespace Planetoid_DB
 		private KryptonManager kryptonManager;
 		private ContextMenuStrip contextMenuCopyToClipboard;
 		private ToolStripMenuItem toolStripMenuItemCopyToClipboard;
-		private KryptonToolStrip toolStripIcons;
+		private KryptonToolStrip kryptonToolStripIcons;
 		private ToolStripButton toolStripButtonCopyToClipboard;
 		private ContextMenuStrip contextMenuFullCopyToClipboard;
 		private ToolStripMenuItem menuitemCopyToClipboardName;

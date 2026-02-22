@@ -1209,7 +1209,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Set the TopMost property to true to keep the form on top of other windows
 		formPrintDataSheet.TopMost = TopMost;
 		// Fill the form with the planetoids database
-		formPrintDataSheet.SetDatabase(db: [.. orbitalElements.Cast<string>()]);
+		formPrintDataSheet.SetDatabase(db: [.. orbitalElements]);
 		_ = formPrintDataSheet.ShowDialog();
 	}
 
