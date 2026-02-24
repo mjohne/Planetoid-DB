@@ -39,6 +39,7 @@ namespace Planetoid_DB
 			panel = new KryptonPanel();
 			statusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
+			kryptonProgressBar = new ToolStripProgressBar();
 			kryptonManager = new KryptonManager(components);
 			toolStripContainer = new ToolStripContainer();
 			kryptonToolStripIcons = new KryptonToolStrip();
@@ -105,7 +106,7 @@ namespace Planetoid_DB
 			statusStrip.AccessibleRole = AccessibleRole.StatusBar;
 			statusStrip.Dock = DockStyle.None;
 			statusStrip.Font = new Font("Segoe UI", 9F);
-			statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
+			statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation, kryptonProgressBar });
 			statusStrip.Location = new Point(0, 0);
 			statusStrip.Name = "statusStrip";
 			statusStrip.Padding = new Padding(1, 0, 16, 0);
@@ -115,6 +116,8 @@ namespace Planetoid_DB
 			statusStrip.SizingGrip = false;
 			statusStrip.TabIndex = 3;
 			statusStrip.Text = "status bar";
+			statusStrip.MouseEnter += Control_Enter;
+			statusStrip.MouseLeave += Control_Leave;
 			// 
 			// labelInformation
 			// 
@@ -128,6 +131,21 @@ namespace Planetoid_DB
 			labelInformation.Size = new Size(144, 17);
 			labelInformation.Text = "some information here";
 			labelInformation.ToolTipText = "Shows some information";
+			labelInformation.MouseEnter += Control_Enter;
+			labelInformation.MouseLeave += Control_Leave;
+			// 
+			// kryptonProgressBar
+			// 
+			kryptonProgressBar.AccessibleDescription = "Shows the progress bar of the printing progress";
+			kryptonProgressBar.AccessibleName = "Printing progress";
+			kryptonProgressBar.AccessibleRole = AccessibleRole.ProgressBar;
+			kryptonProgressBar.AutoToolTip = true;
+			kryptonProgressBar.Name = "kryptonProgressBar";
+			kryptonProgressBar.Size = new Size(150, 16);
+			kryptonProgressBar.Style = ProgressBarStyle.Continuous;
+			kryptonProgressBar.ToolTipText = "Printing progress";
+			kryptonProgressBar.MouseEnter += Control_Enter;
+			kryptonProgressBar.MouseLeave += Control_Leave;
 			// 
 			// kryptonManager
 			// 
@@ -175,6 +193,8 @@ namespace Planetoid_DB
 			kryptonToolStripIcons.TabIndex = 0;
 			kryptonToolStripIcons.TabStop = true;
 			kryptonToolStripIcons.Text = "Toolbar of printing values of orbital elements";
+			kryptonToolStripIcons.Enter += Control_Enter;
+			kryptonToolStripIcons.Leave += Control_Leave;
 			kryptonToolStripIcons.MouseEnter += Control_Enter;
 			kryptonToolStripIcons.MouseLeave += Control_Leave;
 			// 
@@ -194,6 +214,8 @@ namespace Planetoid_DB
 			// 
 			// toolStripButtonPrintPreview
 			// 
+			toolStripButtonPrintPreview.AccessibleDescription = "Shows the print preview";
+			toolStripButtonPrintPreview.AccessibleName = "Print preview";
 			toolStripButtonPrintPreview.AccessibleRole = AccessibleRole.PushButton;
 			toolStripButtonPrintPreview.Image = FatcowIcons16px.fatcow_page_white_magnify_16px;
 			toolStripButtonPrintPreview.ImageTransparentColor = Color.Magenta;
@@ -206,6 +228,8 @@ namespace Planetoid_DB
 			// 
 			// toolStripButtonPrintSetup
 			// 
+			toolStripButtonPrintSetup.AccessibleDescription = "Shows the printer setup";
+			toolStripButtonPrintSetup.AccessibleName = "Printer setup";
 			toolStripButtonPrintSetup.AccessibleRole = AccessibleRole.PushButton;
 			toolStripButtonPrintSetup.Image = FatcowIcons16px.fatcow_wrench_orange_16px;
 			toolStripButtonPrintSetup.ImageTransparentColor = Color.Magenta;
@@ -295,6 +319,7 @@ namespace Planetoid_DB
         private KryptonPanel panel;
 		private KryptonStatusStrip statusStrip;
 		private ToolStripStatusLabel labelInformation;
+		private ToolStripProgressBar kryptonProgressBar;
 		private KryptonManager kryptonManager;
 		private ToolStripContainer toolStripContainer;
 		private KryptonToolStrip kryptonToolStripIcons;

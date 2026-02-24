@@ -120,8 +120,10 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	/// </returns>
 	private bool HasMoreCheckedItems(int startIndex)
 	{
+		// Iterate through the checked list box items starting from the specified index
 		for (int i = startIndex; i < checkedListBoxOrbitalElements.Items.Count; i++)
 		{
+			// Check if the item at index i is checked
 			if (checkedListBoxOrbitalElements.GetItemChecked(index: i))
 			{
 				return true;
@@ -147,6 +149,8 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	{
 		// Clear the status bar text
 		ClearStatusBar(label: labelInformation);
+		// Disable the progress bar
+		kryptonProgressBar.Visible = false;
 		// Check if the checked list box has items
 		if (checkedListBoxOrbitalElements.Items.Count == 0)
 		{
@@ -198,8 +202,12 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 			logger.Error(exception: ex, message: "Error while printing");
 			ShowErrorMessage(message: $"Error while printing: {ex.Message}");
 		}
-		// Close the form after printing
-		Close();
+		finally
+		{
+			// Hide the progress bar after printing is completed
+			kryptonProgressBar.Visible = false;
+		}
+		MessageBox.Show(text: "Printing completed.", caption: "Print Data Sheet", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>
@@ -224,8 +232,11 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	/// </remarks>
 	private void ToolStripButtonPrintPreview_Click(object sender, EventArgs e)
 	{
+		// Create a new PrintPreviewDialog instance
 		using PrintPreviewDialog previewDialog = new();
+		// Set the document for the print preview dialog
 		previewDialog.Document = printDoc;
+		// Show the print preview dialog
 		_ = previewDialog.ShowDialog();
 	}
 
@@ -240,13 +251,17 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	/// </remarks>
 	private void ToolStripButtonPageSetup_Click(object sender, EventArgs e)
 	{
+		// Create a new PageSetupDialog instance
 		using PageSetupDialog pageSetupDialog = new();
+		// Set the document, page settings, and printer settings for the page setup dialog
 		pageSetupDialog.Document = printDoc;
 		pageSetupDialog.PageSettings = printDoc.DefaultPageSettings;
 		pageSetupDialog.PrinterSettings = printDoc.PrinterSettings;
 		pageSetupDialog.ShowNetwork = true;
+		// Show the page setup dialog and update the print document's default page settings if the user confirms
 		if (pageSetupDialog.ShowDialog() == DialogResult.OK)
 		{
+			kryptonProgressBar.Visible = true;
 			printDoc.DefaultPageSettings = pageSetupDialog.PageSettings;
 		}
 	}
@@ -281,7 +296,13 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	/// </summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="PrintEventArgs"/> instance that contains the event data.</param>
-	private void PrintDoc_BeginPrint(object sender, PrintEventArgs e) => lastPrintedIndex = 0;
+	private void PrintDoc_BeginPrint(object sender, PrintEventArgs e)
+	{
+		// Reset the last printed index to 0 at the beginning of the print job
+		lastPrintedIndex = 0;
+		kryptonProgressBar.Value = 0;
+		kryptonProgressBar.Text = "0%";
+	}
 
 	/// <summary>
 	/// Handles the PrintPage event of the PrintDocument.
@@ -294,20 +315,17 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	/// </remarks>
 	private void PrintDoc_PrintPage(object sender, PrintPageEventArgs e)
 	{
-		// space between every entry
+		// Space between every entry
 		int space = 2;
-
 		// Check if the graphics object is null
 		if (e.Graphics is null)
 		{
 			return;
 		}
-
 		// Set the fonts for the text
 		using Font fontLabel = new(familyName: "Segoe UI", emSize: 10, style: FontStyle.Bold);
 		using Font fontValue = new(familyName: "Segoe UI", emSize: 10, style: FontStyle.Regular);
 		using Pen penSeparator = new(color: Color.LightGray);
-
 		float lineHeight = fontLabel.GetHeight(graphics: e.Graphics) + space;
 		float linesPerPage = e.MarginBounds.Height / lineHeight;
 		float yPos;
@@ -315,38 +333,49 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		float leftMargin = e.MarginBounds.Left;
 		float topMargin = e.MarginBounds.Top;
 		float valueColumnX = leftMargin + 350;
-
 		// Iterate over the orbital elements
 		while (count < linesPerPage && lastPrintedIndex < checkedListBoxOrbitalElements.Items.Count)
 		{
 			// Check if the item is checked
 			if (checkedListBoxOrbitalElements.GetItemChecked(index: lastPrintedIndex))
 			{
+				// Get the label and value for the current index
 				string label = checkedListBoxOrbitalElements.Items[index: lastPrintedIndex].ToString() ?? string.Empty;
 				string value = lastPrintedIndex < orbitElements.Count ? orbitElements[index: lastPrintedIndex] : string.Empty;
-
+				// Calculate the Y position for the current line
 				yPos = topMargin + (count * lineHeight);
-
 				// Draw Label
 				e.Graphics.DrawString(s: label + ":", font: fontLabel, brush: Brushes.Black, x: leftMargin, y: yPos);
-
 				// Determine X position for value (align to column, or push if label is too long)
 				float labelWidth = e.Graphics.MeasureString(text: label + ":", font: fontLabel).Width;
 				float xPosValue = Math.Max(val1: valueColumnX, val2: leftMargin + labelWidth + 10);
-
 				// Draw Value
 				e.Graphics.DrawString(s: value, font: fontValue, brush: Brushes.DarkSlateGray, x: xPosValue, y: yPos);
-
 				// Draw separator line
 				e.Graphics.DrawLine(pen: penSeparator, x1: leftMargin, y1: yPos + lineHeight - 2, x2: e.MarginBounds.Right, y2: yPos + lineHeight - 2);
-
+				// Increment the count of printed lines
 				count++;
 			}
+			// Move to the next index for printing
 			lastPrintedIndex++;
 		}
-
 		// If more checked lines exist, print another page
 		e.HasMorePages = HasMoreCheckedItems(startIndex: lastPrintedIndex);
+		if (checkedListBoxOrbitalElements.Items.Count > 0)
+		{
+			// Update the progress bar based on the last printed index and total items
+			int progress = (int)((double)lastPrintedIndex / checkedListBoxOrbitalElements.Items.Count * 100);
+			if (progress > 100)
+			{
+				progress = 100;
+			}
+			kryptonProgressBar.Value = progress;
+			kryptonProgressBar.Text = $"{progress}%";
+		}
+		else
+		{
+			kryptonProgressBar.Visible = false;
+		}
 	}
 
 	#endregion
