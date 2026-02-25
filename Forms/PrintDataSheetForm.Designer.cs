@@ -44,6 +44,8 @@ namespace Planetoid_DB
 			toolStripContainer = new ToolStripContainer();
 			kryptonToolStripIcons = new KryptonToolStrip();
 			toolStripButtonPrint = new ToolStripButton();
+			toolStripButtonCancelPrint = new ToolStripButton();
+			toolStripSeparator1 = new ToolStripSeparator();
 			toolStripButtonPrintPreview = new ToolStripButton();
 			toolStripButtonPrintSetup = new ToolStripButton();
 			toolStripSeparator = new ToolStripSeparator();
@@ -73,7 +75,7 @@ namespace Planetoid_DB
 			checkedListBoxOrbitalElements.Location = new Point(0, 0);
 			checkedListBoxOrbitalElements.Margin = new Padding(4, 3, 4, 3);
 			checkedListBoxOrbitalElements.Name = "checkedListBoxOrbitalElements";
-			checkedListBoxOrbitalElements.Size = new Size(366, 308);
+			checkedListBoxOrbitalElements.Size = new Size(313, 308);
 			checkedListBoxOrbitalElements.TabIndex = 0;
 			checkedListBoxOrbitalElements.ToolTipValues.Description = "Checks some orbital elements to print on a data sheet.";
 			checkedListBoxOrbitalElements.ToolTipValues.EnableToolTips = true;
@@ -95,7 +97,7 @@ namespace Planetoid_DB
 			panel.Margin = new Padding(4, 3, 4, 3);
 			panel.Name = "panel";
 			panel.PanelBackStyle = PaletteBackStyle.FormMain;
-			panel.Size = new Size(366, 308);
+			panel.Size = new Size(313, 308);
 			panel.TabIndex = 0;
 			panel.TabStop = true;
 			// 
@@ -112,7 +114,7 @@ namespace Planetoid_DB
 			statusStrip.Padding = new Padding(1, 0, 16, 0);
 			statusStrip.ProgressBars = null;
 			statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-			statusStrip.Size = new Size(366, 22);
+			statusStrip.Size = new Size(313, 22);
 			statusStrip.SizingGrip = false;
 			statusStrip.TabIndex = 3;
 			statusStrip.Text = "status bar";
@@ -166,11 +168,11 @@ namespace Planetoid_DB
 			// toolStripContainer.ContentPanel
 			// 
 			toolStripContainer.ContentPanel.Controls.Add(panel);
-			toolStripContainer.ContentPanel.Size = new Size(366, 308);
+			toolStripContainer.ContentPanel.Size = new Size(313, 308);
 			toolStripContainer.Dock = DockStyle.Fill;
 			toolStripContainer.Location = new Point(0, 0);
 			toolStripContainer.Name = "toolStripContainer";
-			toolStripContainer.Size = new Size(366, 355);
+			toolStripContainer.Size = new Size(313, 355);
 			toolStripContainer.TabIndex = 2;
 			toolStripContainer.Text = "toolStripContainer";
 			// 
@@ -185,10 +187,10 @@ namespace Planetoid_DB
 			kryptonToolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
 			kryptonToolStripIcons.Dock = DockStyle.None;
 			kryptonToolStripIcons.Font = new Font("Segoe UI", 9F);
-			kryptonToolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonPrint, toolStripButtonPrintPreview, toolStripButtonPrintSetup, toolStripSeparator, toolStripButtonMarkAll, toolStripButtonUnmarkAll });
+			kryptonToolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonPrint, toolStripButtonCancelPrint, toolStripSeparator1, toolStripButtonPrintPreview, toolStripButtonPrintSetup, toolStripSeparator, toolStripButtonMarkAll, toolStripButtonUnmarkAll });
 			kryptonToolStripIcons.Location = new Point(0, 0);
 			kryptonToolStripIcons.Name = "kryptonToolStripIcons";
-			kryptonToolStripIcons.Size = new Size(366, 25);
+			kryptonToolStripIcons.Size = new Size(313, 25);
 			kryptonToolStripIcons.Stretch = true;
 			kryptonToolStripIcons.TabIndex = 0;
 			kryptonToolStripIcons.TabStop = true;
@@ -211,6 +213,25 @@ namespace Planetoid_DB
 			toolStripButtonPrint.Click += ButtonPrintDataSheet_Click;
 			toolStripButtonPrint.MouseEnter += Control_Enter;
 			toolStripButtonPrint.MouseLeave += Control_Leave;
+			// 
+			// toolStripButtonCancelPrint
+			// 
+			toolStripButtonCancelPrint.AccessibleDescription = "Cancels the printing";
+			toolStripButtonCancelPrint.AccessibleName = "Cancel print";
+			toolStripButtonCancelPrint.AccessibleRole = AccessibleRole.Text;
+			toolStripButtonCancelPrint.Image = FatcowIcons16px.fatcow_cancel_16px;
+			toolStripButtonCancelPrint.ImageTransparentColor = Color.Magenta;
+			toolStripButtonCancelPrint.Name = "toolStripButtonCancelPrint";
+			toolStripButtonCancelPrint.Size = new Size(91, 22);
+			toolStripButtonCancelPrint.Text = "&Cancel print";
+			toolStripButtonCancelPrint.Click += ToolStripButtonCancelPrint_Click;
+			toolStripButtonCancelPrint.MouseEnter += Control_Enter;
+			toolStripButtonCancelPrint.MouseLeave += Control_Leave;
+			// 
+			// toolStripSeparator1
+			// 
+			toolStripSeparator1.Name = "toolStripSeparator1";
+			toolStripSeparator1.Size = new Size(6, 25);
 			// 
 			// toolStripButtonPrintPreview
 			// 
@@ -256,7 +277,7 @@ namespace Planetoid_DB
 			toolStripButtonMarkAll.Image = FatcowIcons16px.fatcow_check_box_16px;
 			toolStripButtonMarkAll.ImageTransparentColor = Color.Magenta;
 			toolStripButtonMarkAll.Name = "toolStripButtonMarkAll";
-			toolStripButtonMarkAll.Size = new Size(69, 22);
+			toolStripButtonMarkAll.Size = new Size(69, 20);
 			toolStripButtonMarkAll.Text = "&Mark all";
 			toolStripButtonMarkAll.Click += ToolStripButtonMarkAll_Click;
 			toolStripButtonMarkAll.MouseEnter += Control_Enter;
@@ -270,7 +291,7 @@ namespace Planetoid_DB
 			toolStripButtonUnmarkAll.Image = FatcowIcons16px.fatcow_check_box_uncheck_16px;
 			toolStripButtonUnmarkAll.ImageTransparentColor = Color.Magenta;
 			toolStripButtonUnmarkAll.Name = "toolStripButtonUnmarkAll";
-			toolStripButtonUnmarkAll.Size = new Size(84, 22);
+			toolStripButtonUnmarkAll.Size = new Size(84, 20);
 			toolStripButtonUnmarkAll.Text = "&Unmark all";
 			toolStripButtonUnmarkAll.Click += ToolStripButtonUnmarkAll_Click;
 			toolStripButtonUnmarkAll.MouseEnter += Control_Enter;
@@ -283,7 +304,7 @@ namespace Planetoid_DB
 			AccessibleRole = AccessibleRole.Dialog;
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(366, 355);
+			ClientSize = new Size(313, 355);
 			ControlBox = false;
 			Controls.Add(toolStripContainer);
 			FormBorderStyle = FormBorderStyle.FixedToolWindow;
@@ -329,5 +350,7 @@ namespace Planetoid_DB
 		private ToolStripButton toolStripButtonUnmarkAll;
 		private ToolStripButton toolStripButtonPrintPreview;
 		private ToolStripButton toolStripButtonPrintSetup;
+		private ToolStripButton toolStripButtonCancelPrint;
+		private ToolStripSeparator toolStripSeparator1;
 	}
 }
