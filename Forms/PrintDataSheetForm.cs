@@ -55,6 +55,11 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	/// </summary>
 	private int lastPrintedIndex = 0;
 
+	/// <summary>
+	/// Indicates whether the printing process has been canceled.
+	/// </summary>
+	private bool cancelPrinting = false;
+
 	#region constructor
 
 	/// <summary>
@@ -67,9 +72,12 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	{
 		// Initialize the form components
 		InitializeComponent();
+		// Initialize the print document and subscribe to its events
 		printDoc = new PrintDocument();
 		printDoc.PrintPage += PrintDoc_PrintPage;
 		printDoc.BeginPrint += PrintDoc_BeginPrint;
+		// Ensure the print document is disposed when the form is closed
+		FormClosed += (s, e) => printDoc?.Dispose();
 	}
 
 	#endregion
@@ -151,6 +159,8 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		ClearStatusBar(label: labelInformation);
 		// Disable the progress bar
 		kryptonProgressBar.Visible = false;
+		// Disable the cancel print button
+		toolStripButtonCancelPrint.Enabled = false;
 		// Check if the checked list box has items
 		if (checkedListBoxOrbitalElements.Items.Count == 0)
 		{
@@ -178,7 +188,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	/// <remarks>
 	/// This method is called when the print button is clicked.
 	/// </remarks>
-	private void ButtonPrintDataSheet_Click(object sender, EventArgs e)
+	private async void ButtonPrintDataSheet_Click(object sender, EventArgs e)
 	{
 		// Create a new PrintDialog instance
 		using PrintDialog dialogPrint = new();
@@ -190,11 +200,17 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		{
 			return;
 		}
+		kryptonProgressBar.Visible = true;
+		kryptonProgressBar.Value = 0;
+		toolStripButtonPrint.Enabled = false;
+		cancelPrinting = false;
+		toolStripButtonCancelPrint.Enabled = true;
 		// Try to print the document
 		try
 		{
-			// Print the document
-			printDoc.Print();
+			// Print the document asynchronously to avoid blocking the UI thread
+			await Task.Run(action: printDoc.Print);
+			MessageBox.Show(text: "Printing completed.", caption: "Print Data Sheet", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 		}
 		catch (Exception ex)
 		{
@@ -204,10 +220,11 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		}
 		finally
 		{
-			// Hide the progress bar after printing is completed
+			// Reset the progress bar and re-enable the print button
 			kryptonProgressBar.Visible = false;
+			toolStripButtonPrint.Enabled = true;
+			toolStripButtonCancelPrint.Enabled = false;
 		}
-		MessageBox.Show(text: "Printing completed.", caption: "Print Data Sheet", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>
@@ -267,6 +284,16 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	}
 
 	/// <summary>
+	/// Handles the click event of the cancel print button.
+	/// </summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>
+	/// This method sets the cancelPrinting flag to true, indicating that the printing process should be canceled.
+	/// </remarks>
+	private void ToolStripButtonCancelPrint_Click(object sender, EventArgs e) => cancelPrinting = true;
+
+	/// <summary>
 	/// Handles the click event for the 'Mark All' button, marking all items as checked.
 	/// </summary>
 	/// <param name="sender">The event source.</param>
@@ -315,6 +342,12 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	/// </remarks>
 	private void PrintDoc_PrintPage(object sender, PrintPageEventArgs e)
 	{
+		// Check if the printing process has been canceled
+		if (cancelPrinting)
+		{
+			e.Cancel = true;
+			return;
+		}
 		// Space between every entry
 		int space = 2;
 		// Check if the graphics object is null
@@ -333,12 +366,25 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		float leftMargin = e.MarginBounds.Left;
 		float topMargin = e.MarginBounds.Top;
 		float valueColumnX = leftMargin + 350;
+		float currentY = topMargin;
 		// Iterate over the orbital elements
 		while (count < linesPerPage && lastPrintedIndex < checkedListBoxOrbitalElements.Items.Count)
 		{
 			// Check if the item is checked
 			if (checkedListBoxOrbitalElements.GetItemChecked(index: lastPrintedIndex))
 			{
+				// Check if the printing process has been canceled
+				if (cancelPrinting)
+				{
+					e.Cancel = true;
+					return;
+				}
+				// Check if the current Y position exceeds the bottom margin of the page
+				if (currentY + lineHeight > e.MarginBounds.Bottom)
+				{
+					e.HasMorePages = true;
+					return;
+				}
 				// Get the label and value for the current index
 				string label = checkedListBoxOrbitalElements.Items[index: lastPrintedIndex].ToString() ?? string.Empty;
 				string value = lastPrintedIndex < orbitElements.Count ? orbitElements[index: lastPrintedIndex] : string.Empty;
@@ -355,22 +401,31 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 				e.Graphics.DrawLine(pen: penSeparator, x1: leftMargin, y1: yPos + lineHeight - 2, x2: e.MarginBounds.Right, y2: yPos + lineHeight - 2);
 				// Increment the count of printed lines
 				count++;
+				// Move to the next Y position for the next line
+				currentY += lineHeight;
 			}
 			// Move to the next index for printing
 			lastPrintedIndex++;
 		}
-		// If more checked lines exist, print another page
-		e.HasMorePages = HasMoreCheckedItems(startIndex: lastPrintedIndex);
+		// Determine if there are more pages to print based on the remaining checked items and cancellation status
+		e.HasMorePages = HasMoreCheckedItems(startIndex: lastPrintedIndex) && !cancelPrinting;
+		// If the printing process has been canceled, set the Cancel property to true
+		if (cancelPrinting)
+		{
+			e.Cancel = true;
+		}
+
 		if (checkedListBoxOrbitalElements.Items.Count > 0)
 		{
 			// Update the progress bar based on the last printed index and total items
 			int progress = (int)((double)lastPrintedIndex / checkedListBoxOrbitalElements.Items.Count * 100);
-			if (progress > 100)
+			progress = Math.Min(100, progress);
+			this.BeginInvoke(method: new Action(() =>
 			{
-				progress = 100;
-			}
-			kryptonProgressBar.Value = progress;
-			kryptonProgressBar.Text = $"{progress}%";
+				kryptonProgressBar.Value = progress;
+				kryptonProgressBar.Text = $"{progress}%";
+				//kryptonProgressBar.Refresh(); // Sofortiges Neuzeichnen erzwingen
+			}));
 		}
 		else
 		{
