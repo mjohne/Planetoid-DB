@@ -5,6 +5,7 @@
 
 using NLog;
 
+using Planetoid_DB.Forms;
 using Planetoid_DB.Properties;
 using Planetoid_DB.Resources;
 
@@ -20,7 +21,7 @@ namespace Planetoid_DB;
 /// This form provides functionality for archiving MPCORB files, including selecting the source and target directories,
 /// choosing the compression format and level, and managing the archiving process.
 /// </remarks>
-public partial class ArchiveMpcorbForm : Forms.BaseKryptonForm
+public partial class ArchiveMpcorbForm : BaseKryptonForm
 {
 	/// <summary>
 	/// NLog logger for logging messages and errors.
@@ -44,7 +45,7 @@ public partial class ArchiveMpcorbForm : Forms.BaseKryptonForm
 	/// <remarks>Reusing a single HttpClient instance helps prevent socket exhaustion and ensures efficient resource
 	/// management. It is recommended to use this instance for all HTTP operations within the application rather than
 	/// creating new instances for each request.</remarks>
-	private readonly HttpClient _httpClient = new();
+	private static readonly HttpClient _httpClient = new();
 
 	/// <summary>
 	/// Gets or sets the cancellation token source used to signal cancellation requests.
@@ -271,15 +272,29 @@ public partial class ArchiveMpcorbForm : Forms.BaseKryptonForm
 				// Calculate the estimated final size of the compressed file based on the current compression ratio
 				long estimatedSize = (long)(totalBytes * ratio);
 				// Update the progress bar and status label on the UI thread
-				Invoke(method: new Action(() =>
+				if (IsHandleCreated && !IsDisposed)
 				{
-					// Ensure the progress value does not exceed 100%
-					int currentProgress = Math.Min(progress, 100);
-					kryptonProgressBarToolStripItemCompression.Value = currentProgress;
-					kryptonProgressBarToolStripItemCompression.Text = $"{currentProgress} %";
-					kryptonProgressBarToolStripItemCompression.ToolTipText = kryptonProgressBarToolStripItemCompression.Text;
-					labelStatus.Text = $"Time: {elapsed:hh\\:mm\\:ss} / {remaining:hh\\:mm\\:ss} | Level: {compressionLevel} | Read: {FormatBytes(bytes: totalRead)} | Written: {FormatBytes(bytes: totalWritten)} | Est. Size: {FormatBytes(bytes: estimatedSize)}";
-				}));
+					try
+					{
+						BeginInvoke(method: new Action(() =>
+						{
+							// Ensure the progress value does not exceed 100%
+							int currentProgress = Math.Min(progress, 100);
+							kryptonProgressBarToolStripItemCompression.Value = currentProgress;
+							kryptonProgressBarToolStripItemCompression.Text = $"{currentProgress} %";
+							kryptonProgressBarToolStripItemCompression.ToolTipText = kryptonProgressBarToolStripItemCompression.Text;
+							labelStatus.Text = $"Time: {elapsed:hh\\:mm\\:ss} / {remaining:hh\\:mm\\:ss} | Level: {compressionLevel} | Read: {FormatBytes(bytes: totalRead)} | Written: {FormatBytes(bytes: totalWritten)} | Est. Size: {FormatBytes(bytes: estimatedSize)}";
+						}));
+					}
+					catch (ObjectDisposedException)
+					{
+						// The form or its handle has been disposed; ignore further UI updates.
+					}
+					catch (InvalidOperationException)
+					{
+						// The form is not in a valid state for UI updates; ignore this progress update.
+					}
+				}
 			}
 		}
 	}
@@ -325,10 +340,9 @@ public partial class ArchiveMpcorbForm : Forms.BaseKryptonForm
 		saveFileDialog.InitialDirectory = Path.GetDirectoryName(path: kryptonTextBoxTarget.Text);
 		saveFileDialog.FileName = Path.GetFileName(path: kryptonTextBoxTarget.Text);
 		saveFileDialog.Filter = $"{format} Archive (*{extension})|*{extension}";
-		// Show the save file dialog and if the user does not select a file and click OK, return
+		// Show the save file dialog and if the user does not select a file and click OK, leave the existing target path unchanged
 		if (saveFileDialog.ShowDialog() != DialogResult.OK)
 		{
-			kryptonTextBoxTarget.Text = $@"{saveFileDialog.InitialDirectory}\{saveFileDialog.FileName}";
 			return;
 		}
 		kryptonTextBoxTarget.Text = saveFileDialog.FileName;
