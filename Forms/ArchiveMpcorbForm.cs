@@ -15,12 +15,10 @@ using System.IO.Compression;
 namespace Planetoid_DB;
 
 /// <summary>
-/// Represents the form for archiving MPCORB files.
+/// Represents a form for archiving MPCORB files.
 /// </summary>
-/// <remarks>
-/// This form provides functionality for archiving MPCORB files, including selecting the source and target directories,
-/// choosing the compression format and level, and managing the archiving process.
-/// </remarks>
+[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
+
 public partial class ArchiveMpcorbForm : BaseKryptonForm
 {
 	/// <summary>
@@ -30,6 +28,14 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 	/// This logger is used to log messages and errors that occur within the form.
 	/// </remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+	/// <summary>
+	/// Gets the status label to be used for displaying information.
+	/// </summary>
+	/// <remarks>
+	/// Derived classes should override this property to provide the specific label.
+	/// </remarks>
+	protected override ToolStripStatusLabel? StatusLabel => labelStatus;
 
 	/// <summary>
 	/// The last modified date of the online MPCORB file.
@@ -89,6 +95,15 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 	private readonly string[] compressionLevels = ["Optimal", "Fastest", "NoCompression", "SmallestSize"];
 
 	#region Helper methods
+
+	/// <summary>
+	/// Returns a short debugger display string for this instance.
+	/// </summary>
+	/// <returns>A string representation of the current instance for use in the debugger.</returns>
+	/// <remarks>
+	/// This method is used to provide a custom debugger display string.
+	/// </remarks>
+	private string GetDebuggerDisplay() => ToString();
 
 	/// <summary>
 	/// Formats the given number of bytes into a human-readable string with appropriate units.
