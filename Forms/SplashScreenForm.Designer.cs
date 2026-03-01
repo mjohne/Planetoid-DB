@@ -35,7 +35,6 @@ namespace Planetoid_DB
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(SplashScreenForm));
 			progressBarSplash = new KryptonProgressBar();
-			labelTitle = new Label();
 			contextMenuStripCopyToClipboard = new ContextMenuStrip(components);
 			ToolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
 			labelVersion = new Label();
@@ -50,10 +49,10 @@ namespace Planetoid_DB
 			progressBarSplash.AccessibleName = "Progress Bar";
 			progressBarSplash.AccessibleRole = AccessibleRole.ProgressBar;
 			progressBarSplash.Dock = DockStyle.Bottom;
-			progressBarSplash.Location = new Point(0, 337);
+			progressBarSplash.Location = new Point(0, 331);
 			progressBarSplash.Margin = new Padding(4, 3, 4, 3);
 			progressBarSplash.Name = "progressBarSplash";
-			progressBarSplash.Size = new Size(481, 23);
+			progressBarSplash.Size = new Size(493, 23);
 			progressBarSplash.Step = 1;
 			progressBarSplash.TabIndex = 3;
 			progressBarSplash.Text = "Loading data...";
@@ -61,27 +60,6 @@ namespace Planetoid_DB
 			progressBarSplash.TextShadowColor = Color.Empty;
 			toolTip.SetToolTip(progressBarSplash, "Loads the data");
 			progressBarSplash.Values.Text = "Loading data...";
-			// 
-			// labelTitle
-			// 
-			labelTitle.AccessibleDescription = "Shows the application name";
-			labelTitle.AccessibleName = "Application name";
-			labelTitle.AccessibleRole = AccessibleRole.Text;
-			labelTitle.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			labelTitle.AutoSize = true;
-			labelTitle.BackColor = Color.Transparent;
-			labelTitle.ContextMenuStrip = contextMenuStripCopyToClipboard;
-			labelTitle.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
-			labelTitle.ForeColor = Color.LightCyan;
-			labelTitle.Location = new Point(223, 25);
-			labelTitle.Margin = new Padding(4, 0, 4, 0);
-			labelTitle.Name = "labelTitle";
-			labelTitle.Size = new Size(221, 45);
-			labelTitle.TabIndex = 0;
-			labelTitle.Text = "Planetoid-DB";
-			toolTip.SetToolTip(labelTitle, "Shows the application name");
-			labelTitle.DoubleClick += CopyToClipboard_DoubleClick;
-			labelTitle.MouseDown += Control_MouseDown;
 			// 
 			// contextMenuStripCopyToClipboard
 			// 
@@ -119,9 +97,9 @@ namespace Planetoid_DB
 			labelVersion.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 			labelVersion.BackColor = Color.Transparent;
 			labelVersion.ContextMenuStrip = contextMenuStripCopyToClipboard;
-			labelVersion.Font = new Font("Segoe UI", 8.5F);
+			labelVersion.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
 			labelVersion.ForeColor = Color.White;
-			labelVersion.Location = new Point(223, 77);
+			labelVersion.Location = new Point(136, 204);
 			labelVersion.Margin = new Padding(4, 0, 4, 0);
 			labelVersion.Name = "labelVersion";
 			labelVersion.Size = new Size(221, 25);
@@ -146,9 +124,8 @@ namespace Planetoid_DB
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-			ClientSize = new Size(481, 360);
+			ClientSize = new Size(493, 354);
 			Controls.Add(labelVersion);
-			Controls.Add(labelTitle);
 			Controls.Add(progressBarSplash);
 			Cursor = Cursors.AppStarting;
 			FormBorderStyle = FormBorderStyle.Fixed3D;
@@ -165,13 +142,11 @@ namespace Planetoid_DB
 			Load += SplashScreenForm_Load;
 			contextMenuStripCopyToClipboard.ResumeLayout(false);
 			ResumeLayout(false);
-			PerformLayout();
 		}
 
 		#endregion
 
 		private KryptonProgressBar progressBarSplash;
-    private Label labelTitle;
     private Label labelVersion;
 		private ToolTip toolTip;
 		private KryptonManager kryptonManager;
