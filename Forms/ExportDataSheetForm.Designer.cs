@@ -230,8 +230,8 @@ namespace Planetoid_DB
 			// 
 			// contextMenuExport
 			// 
-			contextMenuExport.AccessibleDescription = "Exports data sheet";
-			contextMenuExport.AccessibleName = "Export";
+			contextMenuExport.AccessibleDescription = "Shows the context menu for exporting the data sheet";
+			contextMenuExport.AccessibleName = "Context menu for exporting the data sheet";
 			contextMenuExport.AccessibleRole = AccessibleRole.MenuPopup;
 			contextMenuExport.Font = new Font("Segoe UI", 9F);
 			contextMenuExport.Items.AddRange(new ToolStripItem[] { toolStripMenuItemExportAsText, toolStripMenuItemExportAsLatex, toolStripMenuItemExportAsMarkdown, toolStripMenuItemExportAsWord, toolStripMenuItemExportAsOdt, toolStripMenuItemExportAsRtf, toolStripMenuItemExportAsExcel, toolStripMenuItemExportAsOds, toolStripMenuItemExportAsCsv, toolStripMenuItemExportAsTsv, toolStripMenuItemExportAsPsv, toolStripMenuItemExportAsHtml, toolStripMenuItemExportAsXml, toolStripMenuItemExportAsJson, toolStripMenuItemExportAsYaml, toolStripMenuItemExportAsSql, toolStripMenuItemExportAsPdf, toolStripMenuItemExportAsPostScript, toolStripMenuItemExportAsEpub, toolStripMenuItemExportAsMobi });
