@@ -602,6 +602,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 				<manifest:file-entry manifest:full-path="styles.xml" manifest:media-type="text/xml"/>
 				<manifest:file-entry manifest:full-path="meta.xml" manifest:media-type="text/xml"/>
 				<manifest:file-entry manifest:full-path="settings.xml" manifest:media-type="text/xml"/>
+				<manifest:file-entry manifest:full-path="META-INF/manifest.xml" manifest:media-type="text/xml"/>
 			</manifest:manifest>
 			""";
 		// Create a new FileStream to write the ODT document content to the specified file
@@ -925,6 +926,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 				<manifest:file-entry manifest:full-path="styles.xml" manifest:media-type="text/xml"/>
 				<manifest:file-entry manifest:full-path="meta.xml" manifest:media-type="text/xml"/>
 				<manifest:file-entry manifest:full-path="settings.xml" manifest:media-type="text/xml"/>
+				<manifest:file-entry manifest:full-path="META-INF/manifest.xml" manifest:media-type="text/xml"/>
 			</manifest:manifest>
 			""";
 		// Create a new FileStream to write the ODS file content to the specified file
@@ -1459,8 +1461,23 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 			// If it is checked, append the value to the SQL content
 			if (checkedListBoxOrbitalElements.GetItemChecked(index: i))
 			{
-				// Append the value to the SQL content
-				_ = sb.AppendLine(value: $"'{orbitElements[index: i]}',");
+				// Append the value to the SQL content, ensuring it is safely represented in SQL
+				string? value = orbitElements[index: i];
+				// If the value is null or empty, represent it as NULL in SQL
+				if (string.IsNullOrEmpty(value))
+				{
+					_ = sb.AppendLine(value: "NULL,");
+				}
+				// Otherwise, escape any single quotes in the value and represent it as a string in SQL
+				else
+				{
+					string escapedValue = value
+						.Replace(oldValue: "'", newValue: "''", comparisonType: StringComparison.Ordinal)
+						.Replace(oldValue: "\r\n", newValue: " ", comparisonType: StringComparison.Ordinal)
+						.Replace(oldValue: "\n", newValue: " ", comparisonType: StringComparison.Ordinal)
+						.Replace(oldValue: "\r", newValue: " ", comparisonType: StringComparison.Ordinal);
+					_ = sb.AppendLine(value: $"'{escapedValue}',");
+				}
 			}
 		}
 		// Append the closing parenthesis for the values
