@@ -811,6 +811,25 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	}
 
 	/// <summary>
+	/// Shows the records form that scans all orbital elements for maximum or minimum record values.
+	/// </summary>
+	/// <remarks>
+	/// This method creates the <see cref="RecordsForm"/>, passes a copy of the current planetoid
+	/// database, and displays the form as a modal dialog.
+	/// </remarks>
+	private void ShowRecordsForm()
+	{
+		// Create a new instance of the RecordsForm
+		using RecordsForm formRecords = new();
+		// Pass a copy of the current database to the form
+		formRecords.FillArray(arrTemp: planetoidsDatabase);
+		// Set the TopMost property to keep the form on top of other windows
+		formRecords.TopMost = TopMost;
+		// Show the records form as a modal dialog
+		_ = formRecords.ShowDialog();
+	}
+
+	/// <summary>
 	/// Shows the MPCORB data check form.
 	/// </summary>
 	/// <remarks>
@@ -2660,25 +2679,25 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 	/// <summary>
 	/// Handles the click event for the MenuitemTopTenRecords.
-	/// Shows the records selection form.
+	/// Shows the records form that scans all orbital elements for record values.
 	/// </summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>
-	/// This method is used to show the records selection form.
+	/// This method is used to show the records form.
 	/// </remarks>
-	private void MenuitemTopTenRecords_Click(object sender, EventArgs e) => ShowRecordsSelection();
+	private void MenuitemTopTenRecords_Click(object sender, EventArgs e) => ShowRecordsForm();
 
 	/// <summary>
 	/// Handles the button click event for the SplitButtonTopTenRecords.
-	/// Shows the records selection form.
+	/// Shows the records form that scans all orbital elements for record values.
 	/// </summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>
-	/// This method is used to show the records selection form.
+	/// This method is used to show the records form.
 	/// </remarks>
-	private void SplitButtonTopTenRecords_ButtonClick(object sender, EventArgs e) => ShowRecordsSelection();
+	private void SplitButtonTopTenRecords_ButtonClick(object sender, EventArgs e) => ShowRecordsForm();
 
 	/// <summary>
 	/// Handles the click event for the MenuitemRecordsMeanAnomalyAtTheEpoch.
