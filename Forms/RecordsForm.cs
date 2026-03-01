@@ -80,11 +80,19 @@ public partial class RecordsForm : BaseKryptonForm
 	/// Initializes a new instance of the <see cref="RecordsForm"/> class.
 	/// </summary>
 	/// <remarks>
-	/// This constructor initializes the form components.
+	/// This constructor initializes the form components and wires up BackgroundWorker events.
 	/// </remarks>
-	public RecordsForm() =>
+	public RecordsForm()
+	{
 		// Initialize the form components
 		InitializeComponent();
+		// Wire up BackgroundWorker events once at construction time
+#pragma warning disable CS8622
+		backgroundWorker.DoWork += BackgroundWorker_DoWork;
+		backgroundWorker.ProgressChanged += BackgroundWorker_ProgressChanged;
+		backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
+#pragma warning restore CS8622
+	}
 
 	#endregion
 
@@ -276,19 +284,19 @@ public partial class RecordsForm : BaseKryptonForm
 		}
 
 		// Number of Oppositions
-		if (double.TryParse(s: record.NumberOpposition, style: NumberStyles.Integer, provider: CultureInfo.InvariantCulture, result: out double numOpposition))
+		if (int.TryParse(s: record.NumberOpposition, style: NumberStyles.Integer, provider: CultureInfo.InvariantCulture, result: out int numOpposition))
 		{
 			CheckAndReportRecord(elementIndex: 9, value: numOpposition, designation: designation, isMax: isMax, percent: percent);
 		}
 
 		// Number of Observations
-		if (double.TryParse(s: record.NumberObservation, style: NumberStyles.Integer, provider: CultureInfo.InvariantCulture, result: out double numObservation))
+		if (int.TryParse(s: record.NumberObservation, style: NumberStyles.Integer, provider: CultureInfo.InvariantCulture, result: out int numObservation))
 		{
 			CheckAndReportRecord(elementIndex: 10, value: numObservation, designation: designation, isMax: isMax, percent: percent);
 		}
 
 		// Observation Span
-		if (double.TryParse(s: record.ObsSpan, style: NumberStyles.Integer, provider: CultureInfo.InvariantCulture, result: out double obsSpan))
+		if (int.TryParse(s: record.ObsSpan, style: NumberStyles.Integer, provider: CultureInfo.InvariantCulture, result: out int obsSpan))
 		{
 			CheckAndReportRecord(elementIndex: 11, value: obsSpan, designation: designation, isMax: isMax, percent: percent);
 		}
@@ -310,18 +318,9 @@ public partial class RecordsForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>
-	/// Initialises the form by clearing the status bar and wiring up BackgroundWorker events.
+	/// Initializes the form by clearing the status bar.
 	/// </remarks>
-	private void RecordsForm_Load(object sender, EventArgs e)
-	{
-		ClearStatusBar(label: labelInformation);
-		// Wire up BackgroundWorker events once at load time
-#pragma warning disable CS8622
-		backgroundWorker.DoWork += BackgroundWorker_DoWork;
-		backgroundWorker.ProgressChanged += BackgroundWorker_ProgressChanged;
-		backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
-#pragma warning restore CS8622
-	}
+	private void RecordsForm_Load(object sender, EventArgs e) => ClearStatusBar(label: labelInformation);
 
 	#endregion
 
