@@ -32,7 +32,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	/// <remarks>
 	/// Derived classes should override this property to provide the specific label.
 	/// </remarks>
-	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
+	protected override ToolStripStatusLabel? StatusLabel => labelStatus;
 
 	/// <summary>
 	/// Print document used for printing data sheets.
@@ -156,9 +156,9 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	private void PrintDataSheetForm_Load(object sender, EventArgs e)
 	{
 		// Clear the status bar text
-		ClearStatusBar(label: labelInformation);
+		ClearStatusBar(label: labelStatus);
 		// Disable the progress bar
-		kryptonProgressBar.Visible = false;
+		toolStripProgressBarPrinting.Visible = false;
 		// Disable the cancel print button
 		toolStripButtonCancelPrint.Enabled = false;
 		// Check if the checked list box has items
@@ -200,16 +200,16 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		{
 			return;
 		}
-		kryptonProgressBar.Visible = true;
-		kryptonProgressBar.Value = 0;
+		toolStripProgressBarPrinting.Visible = true;
+		toolStripProgressBarPrinting.Value = 0;
 		toolStripButtonPrint.Enabled = false;
 		cancelPrinting = false;
 		toolStripButtonCancelPrint.Enabled = true;
 		// Try to print the document
 		try
 		{
-			// Print the document asynchronously to avoid blocking the UI thread
-			await Task.Run(action: printDoc.Print);
+			// Print the document on the UI thread to ensure safe access to UI controls in event handlers
+			printDoc.Print();
 			MessageBox.Show(text: "Printing completed.", caption: "Print Data Sheet", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 		}
 		catch (Exception ex)
@@ -221,7 +221,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		finally
 		{
 			// Reset the progress bar and re-enable the print button
-			kryptonProgressBar.Visible = false;
+			toolStripProgressBarPrinting.Visible = false;
 			toolStripButtonPrint.Enabled = true;
 			toolStripButtonCancelPrint.Enabled = false;
 		}
@@ -278,7 +278,6 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		// Show the page setup dialog and update the print document's default page settings if the user confirms
 		if (pageSetupDialog.ShowDialog() == DialogResult.OK)
 		{
-			kryptonProgressBar.Visible = true;
 			printDoc.DefaultPageSettings = pageSetupDialog.PageSettings;
 		}
 	}
@@ -327,8 +326,8 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	{
 		// Reset the last printed index to 0 at the beginning of the print job
 		lastPrintedIndex = 0;
-		kryptonProgressBar.Value = 0;
-		kryptonProgressBar.Text = "0%";
+		toolStripProgressBarPrinting.Value = 0;
+		toolStripProgressBarPrinting.Text = "0%";
 	}
 
 	/// <summary>
@@ -422,14 +421,10 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 			progress = Math.Min(100, progress);
 			this.BeginInvoke(method: new Action(() =>
 			{
-				kryptonProgressBar.Value = progress;
-				kryptonProgressBar.Text = $"{progress}%";
+				toolStripProgressBarPrinting.Value = progress;
+				toolStripProgressBarPrinting.Text = $"{progress}%";
 				//kryptonProgressBar.Refresh(); // Sofortiges Neuzeichnen erzwingen
 			}));
-		}
-		else
-		{
-			kryptonProgressBar.Visible = false;
 		}
 	}
 
