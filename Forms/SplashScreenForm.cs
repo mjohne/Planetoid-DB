@@ -89,12 +89,8 @@ public partial class SplashScreenForm : BaseKryptonForm
 	/// <remarks>
 	/// This method is called when the splash screen form loads.
 	/// </remarks>
-	private void SplashScreenForm_Load(object sender, EventArgs e)
-	{
-		// Set the title label text to the product name
-		labelTitle.Text = AssemblyInfo.AssemblyProduct;
+	private void SplashScreenForm_Load(object sender, EventArgs e) =>
 		// Set the version label text to the assembly version
 		labelVersion.Text = string.Format(format: I18nStrings.VersionTemplate, arg0: AssemblyInfo.AssemblyVersion);
-	}
 	#endregion
 }
