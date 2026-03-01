@@ -82,7 +82,7 @@ public partial class SplashScreenForm : BaseKryptonForm
 
 	/// <summary>
 	/// Fired when the splash screen form loads.
-	/// Sets the product title and the formatted version text on the form's labels.
+	/// Sets the product version text on the form's labels.
 	/// </summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
