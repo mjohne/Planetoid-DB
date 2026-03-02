@@ -177,6 +177,7 @@ namespace Planetoid_DB
 			menuitemListReadableDesignations = new ToolStripMenuItem();
 			menuitemTools = new ToolStripMenuItem();
 			menuitemDerivedOrbitElements = new ToolStripMenuItem();
+			menuitemOrbitalResonances = new ToolStripMenuItem();
 			menuitemFilter = new ToolStripMenuItem();
 			toolStripSeparatorTools1 = new ToolStripSeparator();
 			toolStripSeparator10 = new ToolStripSeparator();
@@ -246,6 +247,7 @@ namespace Planetoid_DB
 			toolStripButtonListReadableDesignations = new ToolStripButton();
 			toolStripSeparator9 = new ToolStripSeparator();
 			toolStripButtonDerivedOrbitElements = new ToolStripButton();
+			toolStripButtonOrbitalResonances = new ToolStripButton();
 			toolStripButtonFilter = new ToolStripButton();
 			toolStripSeparatorOptions2 = new ToolStripSeparator();
 			toolStripSeparatorOptions1 = new ToolStripSeparator();
@@ -2742,7 +2744,7 @@ namespace Planetoid_DB
 			menuitemTools.AccessibleName = "Tools";
 			menuitemTools.AccessibleRole = AccessibleRole.MenuPopup;
 			menuitemTools.AutoToolTip = true;
-			menuitemTools.DropDownItems.AddRange(new ToolStripItem[] { menuitemDerivedOrbitElements, menuitemFilter, toolStripSeparatorTools1, menuitemRecords, toolStripSeparator10, menuitemDistribution, toolStripSeparatorTools2, menuitemDatabaseInformation, menuitemTableMode, menuitemTerminology });
+			menuitemTools.DropDownItems.AddRange(new ToolStripItem[] { menuitemDerivedOrbitElements, menuitemOrbitalResonances, menuitemFilter, toolStripSeparatorTools1, menuitemRecords, toolStripSeparator10, menuitemDistribution, toolStripSeparatorTools2, menuitemDatabaseInformation, menuitemTableMode, menuitemTerminology });
 			menuitemTools.Name = "menuitemTools";
 			menuitemTools.Size = new Size(46, 24);
 			menuitemTools.Text = "&Tools";
@@ -2762,6 +2764,20 @@ namespace Planetoid_DB
 			menuitemDerivedOrbitElements.Click += ToolStripMenuItemDerivedOrbitElements_Click;
 			menuitemDerivedOrbitElements.MouseEnter += Control_Enter;
 			menuitemDerivedOrbitElements.MouseLeave += Control_Leave;
+			// 
+			// menuitemOrbitalResonances
+			// 
+			menuitemOrbitalResonances.AccessibleDescription = "Finds orbital resonances relative to the 8 planets";
+			menuitemOrbitalResonances.AccessibleName = "Orbital resonances";
+			menuitemOrbitalResonances.AccessibleRole = AccessibleRole.MenuItem;
+			menuitemOrbitalResonances.AutoToolTip = true;
+			menuitemOrbitalResonances.Image = FatcowIcons16px.fatcow_arrow_rotate_clockwise_16px;
+			menuitemOrbitalResonances.Name = "menuitemOrbitalResonances";
+			menuitemOrbitalResonances.Size = new Size(227, 22);
+			menuitemOrbitalResonances.Text = "Orbital &resonances";
+			menuitemOrbitalResonances.Click += ToolStripMenuItemOrbitalResonances_Click;
+			menuitemOrbitalResonances.MouseEnter += Control_Enter;
+			menuitemOrbitalResonances.MouseLeave += Control_Leave;
 			// 
 			// menuitemFilter
 			// 
@@ -3569,7 +3585,7 @@ namespace Planetoid_DB
 			kryptonToolStripNavigation.AccessibleRole = AccessibleRole.ToolBar;
 			kryptonToolStripNavigation.Dock = DockStyle.None;
 			kryptonToolStripNavigation.Font = new Font("Segoe UI", 9F);
-			kryptonToolStripNavigation.Items.AddRange(new ToolStripItem[] { toolStripButtonLoadRandomMinorPlanet, toolStripSeparator8, toolStripButtonStepToBegin, toolStripSplitButtonStepBackward, toolStripButtonStepBackwardOne, toolStripButtonStepForwardOne, toolStripSplitButtonStepForward, toolStripButtonStepToEnd, toolStripSeparator6, toolStripLabelIndexPosition, toolStripSeparator7, toolStripLabelGoToIndex, toolStripTextBoxGotoIndex, toolStripButtonGoToIndex, toolStripButtonListReadableDesignations, toolStripSeparator9, toolStripButtonDerivedOrbitElements, toolStripButtonFilter });
+			kryptonToolStripNavigation.Items.AddRange(new ToolStripItem[] { toolStripButtonLoadRandomMinorPlanet, toolStripSeparator8, toolStripButtonStepToBegin, toolStripSplitButtonStepBackward, toolStripButtonStepBackwardOne, toolStripButtonStepForwardOne, toolStripSplitButtonStepForward, toolStripButtonStepToEnd, toolStripSeparator6, toolStripLabelIndexPosition, toolStripSeparator7, toolStripLabelGoToIndex, toolStripTextBoxGotoIndex, toolStripButtonGoToIndex, toolStripButtonListReadableDesignations, toolStripSeparator9, toolStripButtonDerivedOrbitElements, toolStripButtonOrbitalResonances, toolStripButtonFilter });
 			kryptonToolStripNavigation.Location = new Point(0, 49);
 			kryptonToolStripNavigation.Name = "toolStripNavigation";
 			kryptonToolStripNavigation.Size = new Size(852, 25);
@@ -3785,6 +3801,21 @@ namespace Planetoid_DB
 			toolStripButtonDerivedOrbitElements.MouseEnter += Control_Enter;
 			toolStripButtonDerivedOrbitElements.MouseLeave += Control_Leave;
 			// 
+			// toolStripButtonOrbitalResonances
+			// 
+			toolStripButtonOrbitalResonances.AccessibleDescription = "Finds orbital resonances relative to the 8 planets";
+			toolStripButtonOrbitalResonances.AccessibleName = "Orbital resonances";
+			toolStripButtonOrbitalResonances.AccessibleRole = AccessibleRole.PushButton;
+			toolStripButtonOrbitalResonances.DisplayStyle = ToolStripItemDisplayStyle.Image;
+			toolStripButtonOrbitalResonances.Image = FatcowIcons16px.fatcow_arrow_rotate_clockwise_16px;
+			toolStripButtonOrbitalResonances.ImageTransparentColor = Color.Magenta;
+			toolStripButtonOrbitalResonances.Name = "toolStripButtonOrbitalResonances";
+			toolStripButtonOrbitalResonances.Size = new Size(23, 22);
+			toolStripButtonOrbitalResonances.Text = "Orbital resonances";
+			toolStripButtonOrbitalResonances.Click += ToolStripButtonOrbitalResonances_Click;
+			toolStripButtonOrbitalResonances.MouseEnter += Control_Enter;
+			toolStripButtonOrbitalResonances.MouseLeave += Control_Leave;
+			// 
 			// toolStripButtonFilter
 			// 
 			toolStripButtonFilter.AccessibleDescription = "Filters the orbital elements in some ranges";
@@ -3978,9 +4009,11 @@ namespace Planetoid_DB
 		private ToolStripSeparator toolStripSeparatorFile1;
 		private ToolStripMenuItem menuitemRestart;
 		private ToolStripMenuItem menuitemDerivedOrbitElements;
+		private ToolStripMenuItem menuitemOrbitalResonances;
 		private ToolStripSeparator toolStripSeparatorTools2;
 		private ToolStripSeparator toolStripSeparator9;
 		private ToolStripButton toolStripButtonDerivedOrbitElements;
+		private ToolStripButton toolStripButtonOrbitalResonances;
         private ToolStripMenuItem menuitemExportDataEntry;
         private ToolStripSeparator toolStripSeparator10;
         private ToolStripMenuItem menuitemRecords;

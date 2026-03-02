@@ -336,7 +336,8 @@ internal class DerivedElements
 	/// <remarks>
 	/// Uses Kepler's third law (T = sqrt(a³)) to derive the planetoid period in years,
 	/// then searches for the nearest simple integer ratio p:q (p ≤ <paramref name="maxNumerator"/>,
-	/// q ≤ <paramref name="maxDenominator"/>) for each planet.
+	/// q ≤ <paramref name="maxDenominator"/>) for each planet. Only reduced fractions (GCD(p,q) = 1)
+	/// are considered so that each resonance ratio appears in its canonical form.
 	/// </remarks>
 	public static List<OrbitalResonance> CalculateOrbitalResonances(double semiMajorAxis, int maxNumerator = 10, int maxDenominator = 10)
 	{
@@ -351,6 +352,11 @@ internal class DerivedElements
 			{
 				for (int q = 1; q <= maxDenominator; q++)
 				{
+					// Only consider reduced fractions to avoid duplicates (e.g. skip 2:4 when 1:2 is already checked)
+					if (Gcd(a: p, b: q) > 1)
+					{
+						continue;
+					}
 					double fraction = (double)p / q;
 					double deviation = Math.Abs(value: ratio - fraction);
 					if (deviation < bestDeviation)
@@ -362,7 +368,7 @@ internal class DerivedElements
 				}
 			}
 			double exactFraction = (double)bestP / bestQ;
-			double deviationPercent = exactFraction > 0 ? (bestDeviation / exactFraction) * 100.0 : 0.0;
+			double deviationPercent = ratio > 0 ? (Math.Abs(value: ratio - exactFraction) / ratio) * 100.0 : 0.0;
 			results.Add(item: new OrbitalResonance(
 				PlanetName: name,
 				PlanetPeriod: planetPeriod,
@@ -374,5 +380,22 @@ internal class DerivedElements
 			));
 		}
 		return results;
+	}
+
+	/// <summary>
+	/// Computes the greatest common divisor of two non-negative integers using the Euclidean algorithm.
+	/// </summary>
+	/// <param name="a">First integer.</param>
+	/// <param name="b">Second integer.</param>
+	/// <returns>The greatest common divisor of <paramref name="a"/> and <paramref name="b"/>.</returns>
+	private static int Gcd(int a, int b)
+	{
+		while (b != 0)
+		{
+			int temp = b;
+			b = a % b;
+			a = temp;
+		}
+		return a;
 	}
 }

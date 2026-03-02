@@ -1267,6 +1267,27 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// </remarks>
 	private void CheckStayOnTop() => TopMost = menuitemOptionStayOnTop.Checked;
 
+	/// <summary>
+	/// Shows the orbital resonances form for the current planetoid.
+	/// </summary>
+	/// <remarks>
+	/// Parses the semi-major axis from the UI label and opens the <see cref="OrbitalResonanceForm"/>.
+	/// </remarks>
+	private void ShowOrbitalResonances()
+	{
+		IFormatProvider provider = CultureInfo.CreateSpecificCulture(name: "en");
+		if (!double.TryParse(s: labelSemiMajorAxisData.Text, style: System.Globalization.NumberStyles.Any, provider: provider, result: out double semiMajorAxis))
+		{
+			logger.Error(message: $"Failed to parse semi-major axis: '{labelSemiMajorAxisData.Text}'");
+			ShowErrorMessage(message: $"Could not parse semi-major axis value: '{labelSemiMajorAxisData.Text}'");
+			return;
+		}
+		using OrbitalResonanceForm formOrbitalResonances = new();
+		formOrbitalResonances.TopMost = TopMost;
+		formOrbitalResonances.SetSemiMajorAxis(semiMajorAxis: semiMajorAxis);
+		_ = formOrbitalResonances.ShowDialog();
+	}
+
 	#endregion
 
 	#region form event handlers
@@ -2331,6 +2352,17 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void ToolStripButtonDerivedOrbitElements_Click(object sender, EventArgs e) => ShowDerivedOrbitElements();
 
 	/// <summary>
+	/// Handles the click event for the ToolStripButtonOrbitalResonances.
+	/// Shows the orbital resonances form.
+	/// </summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>
+	/// This method is used to show the orbital resonances form.
+	/// </remarks>
+	private void ToolStripButtonOrbitalResonances_Click(object sender, EventArgs e) => ShowOrbitalResonances();
+
+	/// <summary>
 	/// Handles the click event for the ToolStripMenuItemRestart.
 	/// Restarts the application.
 	/// </summary>
@@ -2351,6 +2383,17 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// This method is used to show the derived orbit elements form.
 	/// </remarks>
 	private void ToolStripMenuItemDerivedOrbitElements_Click(object sender, EventArgs e) => ShowDerivedOrbitElements();
+
+	/// <summary>
+	/// Handles the click event for the ToolStripMenuItemOrbitalResonances.
+	/// Shows the orbital resonances form.
+	/// </summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>
+	/// This method is used to show the orbital resonances form.
+	/// </remarks>
+	private void ToolStripMenuItemOrbitalResonances_Click(object sender, EventArgs e) => ShowOrbitalResonances();
 
 	/// <summary>
 	/// Handles the click event for the ToolStripMenuItemStayOnTop.
