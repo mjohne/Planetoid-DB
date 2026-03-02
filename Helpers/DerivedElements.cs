@@ -284,4 +284,95 @@ internal class DerivedElements
 	/// This method is used to calculate the standard gravitational parameter of an ellipse.
 	/// </remarks>
 	public static double CalculateStandardGravitationalParameter(double semiMajorAxis) => 4 * (Math.PI * Math.PI) * (semiMajorAxis * semiMajorAxis * semiMajorAxis) / CalculatePeriod(semiMajorAxis: semiMajorAxis);
+
+	/// <summary>
+	/// Known orbital periods of the eight solar system planets in Julian years.
+	/// </summary>
+	/// <remarks>
+	/// Values are derived from the mean orbital elements of the planets referenced to the J2000.0 epoch.
+	/// </remarks>
+	public static readonly (string Name, double Period)[] PlanetOrbitalPeriods =
+	[
+		("Mercury",   0.2408467),
+		("Venus",     0.6151973),
+		("Earth",     1.0000174),
+		("Mars",      1.8808476),
+		("Jupiter",  11.862615),
+		("Saturn",   29.447498),
+		("Uranus",   84.016846),
+		("Neptune", 164.79132),
+	];
+
+	/// <summary>
+	/// Represents a single orbital resonance result between a planetoid and a planet.
+	/// </summary>
+	/// <param name="PlanetName">The name of the planet.</param>
+	/// <param name="PlanetPeriod">The orbital period of the planet in years.</param>
+	/// <param name="PlanetoidPeriod">The orbital period of the planetoid in years.</param>
+	/// <param name="Ratio">The ratio of the planetoid period to the planet period.</param>
+	/// <param name="ResonanceP">The numerator of the nearest resonance fraction.</param>
+	/// <param name="ResonanceQ">The denominator of the nearest resonance fraction.</param>
+	/// <param name="DeviationPercent">The deviation from exact resonance in percent.</param>
+	/// <remarks>
+	/// An orbital resonance occurs when the ratio of two orbital periods is close to a ratio of small integers.
+	/// </remarks>
+	public readonly record struct OrbitalResonance(
+		string PlanetName,
+		double PlanetPeriod,
+		double PlanetoidPeriod,
+		double Ratio,
+		int ResonanceP,
+		int ResonanceQ,
+		double DeviationPercent
+	);
+
+	/// <summary>
+	/// Calculates the orbital resonances of a planetoid relative to all eight solar system planets.
+	/// </summary>
+	/// <param name="semiMajorAxis">The semi-major axis of the planetoid in AU.</param>
+	/// <param name="maxNumerator">The maximum numerator value to consider when searching for resonance fractions. Default is 10.</param>
+	/// <param name="maxDenominator">The maximum denominator value to consider when searching for resonance fractions. Default is 10.</param>
+	/// <returns>A list of <see cref="OrbitalResonance"/> results, one per planet.</returns>
+	/// <remarks>
+	/// Uses Kepler's third law (T = sqrt(a³)) to derive the planetoid period in years,
+	/// then searches for the nearest simple integer ratio p:q (p ≤ <paramref name="maxNumerator"/>,
+	/// q ≤ <paramref name="maxDenominator"/>) for each planet.
+	/// </remarks>
+	public static List<OrbitalResonance> CalculateOrbitalResonances(double semiMajorAxis, int maxNumerator = 10, int maxDenominator = 10)
+	{
+		double planetoidPeriod = CalculatePeriod(semiMajorAxis: semiMajorAxis);
+		List<OrbitalResonance> results = new(capacity: PlanetOrbitalPeriods.Length);
+		foreach ((string name, double planetPeriod) in PlanetOrbitalPeriods)
+		{
+			double ratio = planetoidPeriod / planetPeriod;
+			int bestP = 1, bestQ = 1;
+			double bestDeviation = double.MaxValue;
+			for (int p = 1; p <= maxNumerator; p++)
+			{
+				for (int q = 1; q <= maxDenominator; q++)
+				{
+					double fraction = (double)p / q;
+					double deviation = Math.Abs(value: ratio - fraction);
+					if (deviation < bestDeviation)
+					{
+						bestDeviation = deviation;
+						bestP = p;
+						bestQ = q;
+					}
+				}
+			}
+			double exactFraction = (double)bestP / bestQ;
+			double deviationPercent = exactFraction > 0 ? (bestDeviation / exactFraction) * 100.0 : 0.0;
+			results.Add(item: new OrbitalResonance(
+				PlanetName: name,
+				PlanetPeriod: planetPeriod,
+				PlanetoidPeriod: planetoidPeriod,
+				Ratio: ratio,
+				ResonanceP: bestP,
+				ResonanceQ: bestQ,
+				DeviationPercent: deviationPercent
+			));
+		}
+		return results;
+	}
 }

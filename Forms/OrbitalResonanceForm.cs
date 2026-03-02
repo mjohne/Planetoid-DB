@@ -26,6 +26,11 @@ public partial class OrbitalResonanceForm : BaseKryptonForm
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 	/// <summary>
+	/// The deviation threshold in percent below which an orbital ratio is considered a near-resonance.
+	/// </summary>
+	private const double ResonanceThresholdPercent = 1.0;
+
+	/// <summary>
 	/// The semi-major axis of the planetoid in AU, used to calculate orbital resonances.
 	/// </summary>
 	/// <remarks>
@@ -88,7 +93,7 @@ public partial class OrbitalResonanceForm : BaseKryptonForm
 		listView.Items.Clear();
 		foreach (DerivedElements.OrbitalResonance resonance in resonances)
 		{
-			string isResonance = resonance.DeviationPercent < 1.0 ? "Yes" : "No";
+			string isResonance = resonance.DeviationPercent < ResonanceThresholdPercent ? "Yes" : "No";
 			ListViewItem item = new(text: resonance.PlanetName);
 			item.SubItems.AddRange(items: new[]
 			{
