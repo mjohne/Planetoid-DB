@@ -184,6 +184,8 @@ namespace Planetoid_DB
 			menuitemDatabaseInformation = new ToolStripMenuItem();
 			menuitemTableMode = new ToolStripMenuItem();
 			menuitemTerminology = new ToolStripMenuItem();
+			toolStripSeparatorTools3 = new ToolStripSeparator();
+			menuitemFindRelationships = new ToolStripMenuItem();
 			menuitemUpdate = new ToolStripMenuItem();
 			menuitemCheckMpcorbDat = new ToolStripMenuItem();
 			menuitemDownloadMpcorbDat = new ToolStripMenuItem();
@@ -2742,7 +2744,7 @@ namespace Planetoid_DB
 			menuitemTools.AccessibleName = "Tools";
 			menuitemTools.AccessibleRole = AccessibleRole.MenuPopup;
 			menuitemTools.AutoToolTip = true;
-			menuitemTools.DropDownItems.AddRange(new ToolStripItem[] { menuitemDerivedOrbitElements, menuitemFilter, toolStripSeparatorTools1, menuitemRecords, toolStripSeparator10, menuitemDistribution, toolStripSeparatorTools2, menuitemDatabaseInformation, menuitemTableMode, menuitemTerminology });
+			menuitemTools.DropDownItems.AddRange(new ToolStripItem[] { menuitemDerivedOrbitElements, menuitemFilter, toolStripSeparatorTools1, menuitemRecords, toolStripSeparator10, menuitemDistribution, toolStripSeparatorTools2, menuitemDatabaseInformation, menuitemTableMode, menuitemTerminology, toolStripSeparatorTools3, menuitemFindRelationships });
 			menuitemTools.Name = "menuitemTools";
 			menuitemTools.Size = new Size(46, 24);
 			menuitemTools.Text = "&Tools";
@@ -2853,6 +2855,32 @@ namespace Planetoid_DB
 			menuitemTerminology.Click += ToolStripMenuItemTerminology_Click;
 			menuitemTerminology.MouseEnter += Control_Enter;
 			menuitemTerminology.MouseLeave += Control_Leave;
+			// 
+			// toolStripSeparatorTools3
+			// 
+			toolStripSeparatorTools3.AccessibleDescription = "Just a separator";
+			toolStripSeparatorTools3.AccessibleName = "Just a separator";
+			toolStripSeparatorTools3.AccessibleRole = AccessibleRole.Separator;
+			toolStripSeparatorTools3.Name = "toolStripSeparatorTools3";
+			toolStripSeparatorTools3.Size = new Size(224, 6);
+			toolStripSeparatorTools3.MouseEnter += Control_Enter;
+			toolStripSeparatorTools3.MouseLeave += Control_Leave;
+			// 
+			// menuitemFindRelationships
+			// 
+			menuitemFindRelationships.AccessibleDescription = "Finds groups of planetoids whose orbital elements share common value ranges";
+			menuitemFindRelationships.AccessibleName = "Find relationships and groups";
+			menuitemFindRelationships.AccessibleRole = AccessibleRole.MenuItem;
+			menuitemFindRelationships.AutoToolTip = true;
+			menuitemFindRelationships.DoubleClickEnabled = true;
+			menuitemFindRelationships.Image = FatcowIcons16px.fatcow_chart_organisation_16px;
+			menuitemFindRelationships.Name = "menuitemFindRelationships";
+			menuitemFindRelationships.ShortcutKeys = Keys.Control | Keys.G;
+			menuitemFindRelationships.Size = new Size(227, 22);
+			menuitemFindRelationships.Text = "Find &relationships and groups";
+			menuitemFindRelationships.Click += MenuitemFindRelationships_Click;
+			menuitemFindRelationships.MouseEnter += Control_Enter;
+			menuitemFindRelationships.MouseLeave += Control_Leave;
 			// 
 			// menuitemUpdate
 			// 
@@ -3956,6 +3984,8 @@ namespace Planetoid_DB
     private Timer timerCheckForNewMpcorbDatFile;
 		private ToolStripStatusLabel toolStripStatusLabelCancelBackgroundDownload;
 		private ToolStripMenuItem menuitemTerminology;
+		private ToolStripSeparator toolStripSeparatorTools3;
+		private ToolStripMenuItem menuitemFindRelationships;
 		private ToolStripButton toolStripButtonTerminology;
 		private ToolStripSplitButton toolStripSplitButtonStepBackward;
 		private ToolStripSplitButton toolStripSplitButtonStepForward;

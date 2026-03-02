@@ -3157,5 +3157,34 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// </remarks>
 	private void EasterEgg_DoubleClick(object sender, EventArgs e) => MessageBox.Show(text: I18nStrings.EasterEgg, caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 
+	/// <summary>
+	/// Handles the click event for the menuitemFindRelationships menu item.
+	/// Opens the form for finding relationships and groups among planetoid orbital elements.
+	/// </summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>
+	/// This method opens the <see cref="FindRelationshipsForm"/> and passes the current database to it.
+	/// </remarks>
+	private void MenuitemFindRelationships_Click(object sender, EventArgs e) => ShowFindRelationships();
+
+	/// <summary>
+	/// Opens the form for finding relationships and groups among planetoid orbital elements.
+	/// </summary>
+	/// <remarks>
+	/// Passes a copy of the current planetoids database to the form before displaying it.
+	/// </remarks>
+	private void ShowFindRelationships()
+	{
+		// Create a new instance of the FindRelationshipsForm
+		using FindRelationshipsForm formFindRelationships = new();
+		// Set the TopMost property to true to keep the form on top of other windows
+		formFindRelationships.TopMost = TopMost;
+		// Pass a copy of the planetoids database to the form
+		formFindRelationships.FillArray(arrTemp: planetoidsDatabase);
+		// Show the form as a modal dialog
+		_ = formFindRelationships.ShowDialog();
+	}
+
 	#endregion
 }
