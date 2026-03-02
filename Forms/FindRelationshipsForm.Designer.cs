@@ -259,6 +259,7 @@ namespace Planetoid_DB
 			tableLayoutPanelSettings.Controls.Add(labelMinGroupMembers, 0, 3);
 			tableLayoutPanelSettings.Controls.Add(numericUpDownMinGroupMembers, 1, 3);
 			tableLayoutPanelSettings.Controls.Add(labelElements, 2, 0);
+			tableLayoutPanelSettings.SetRowSpan(labelElements, 2);
 			tableLayoutPanelSettings.Controls.Add(checkBoxSemiMajorAxis, 3, 0);
 			tableLayoutPanelSettings.Controls.Add(checkBoxOrbEcc, 3, 1);
 			tableLayoutPanelSettings.Controls.Add(checkBoxIncl, 3, 2);
@@ -457,7 +458,6 @@ namespace Planetoid_DB
 			labelElements.Name = "labelElements";
 			labelElements.Size = new Size(110, 20);
 			labelElements.TabIndex = 8;
-			tableLayoutPanelSettings.SetRowSpan(labelElements, 2);
 			labelElements.ToolTipValues.Description = "Select the orbital elements to include in the relationship search.";
 			labelElements.ToolTipValues.EnableToolTips = true;
 			labelElements.ToolTipValues.Heading = "Orbital elements";
