@@ -1260,6 +1260,23 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	}
 
 	/// <summary>
+	/// Shows the orbital resonances of all minor planets form.
+	/// Opens the form to find orbital resonances of all planetoids relative to the solar system planets.
+	/// </summary>
+	/// <remarks>
+	/// Passes the full planetoids database to the form so it can iterate over all records.
+	/// </remarks>
+	private void ShowOrbitalResonancesOfAllMinorPlanets()
+	{
+		// Create a new instance of the OrbitalResonancesOfAllMinorPlanetsForm
+		using OrbitalResonancesOfAllMinorPlanetsForm formOrbitalResonances = new(planetoids: planetoidsDatabase);
+
+		formOrbitalResonances.TopMost = TopMost;
+
+		_ = formOrbitalResonances.ShowDialog();
+	}
+
+	/// <summary>
 	/// Checks if the form should stay on top of other windows.
 	/// </summary>
 	/// <remarks>
@@ -2351,6 +2368,17 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// This method is used to show the derived orbit elements form.
 	/// </remarks>
 	private void ToolStripMenuItemDerivedOrbitElements_Click(object sender, EventArgs e) => ShowDerivedOrbitElements();
+
+	/// <summary>
+	/// Handles the click event for the MenuitemOrbitalResonancesOfAllMinorPlanets.
+	/// Shows the orbital resonances of all minor planets form.
+	/// </summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>
+	/// This method is used to show the orbital resonances of all minor planets form.
+	/// </remarks>
+	private void MenuitemOrbitalResonancesOfAllMinorPlanets_Click(object sender, EventArgs e) => ShowOrbitalResonancesOfAllMinorPlanets();
 
 	/// <summary>
 	/// Handles the click event for the ToolStripMenuItemStayOnTop.

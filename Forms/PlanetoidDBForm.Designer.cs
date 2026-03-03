@@ -177,6 +177,7 @@ namespace Planetoid_DB
 			menuitemListReadableDesignations = new ToolStripMenuItem();
 			menuitemTools = new ToolStripMenuItem();
 			menuitemDerivedOrbitElements = new ToolStripMenuItem();
+			menuitemOrbitalResonancesOfAllMinorPlanets = new ToolStripMenuItem();
 			menuitemFilter = new ToolStripMenuItem();
 			toolStripSeparatorTools1 = new ToolStripSeparator();
 			toolStripSeparator10 = new ToolStripSeparator();
@@ -2742,7 +2743,7 @@ namespace Planetoid_DB
 			menuitemTools.AccessibleName = "Tools";
 			menuitemTools.AccessibleRole = AccessibleRole.MenuPopup;
 			menuitemTools.AutoToolTip = true;
-			menuitemTools.DropDownItems.AddRange(new ToolStripItem[] { menuitemDerivedOrbitElements, menuitemFilter, toolStripSeparatorTools1, menuitemRecords, toolStripSeparator10, menuitemDistribution, toolStripSeparatorTools2, menuitemDatabaseInformation, menuitemTableMode, menuitemTerminology });
+			menuitemTools.DropDownItems.AddRange(new ToolStripItem[] { menuitemDerivedOrbitElements, menuitemOrbitalResonancesOfAllMinorPlanets, menuitemFilter, toolStripSeparatorTools1, menuitemRecords, toolStripSeparator10, menuitemDistribution, toolStripSeparatorTools2, menuitemDatabaseInformation, menuitemTableMode, menuitemTerminology });
 			menuitemTools.Name = "menuitemTools";
 			menuitemTools.Size = new Size(46, 24);
 			menuitemTools.Text = "&Tools";
@@ -2762,6 +2763,20 @@ namespace Planetoid_DB
 			menuitemDerivedOrbitElements.Click += ToolStripMenuItemDerivedOrbitElements_Click;
 			menuitemDerivedOrbitElements.MouseEnter += Control_Enter;
 			menuitemDerivedOrbitElements.MouseLeave += Control_Leave;
+			// 
+			// menuitemOrbitalResonancesOfAllMinorPlanets
+			// 
+			menuitemOrbitalResonancesOfAllMinorPlanets.AccessibleDescription = "Finds orbital resonances of all minor planets relative to the solar system planets";
+			menuitemOrbitalResonancesOfAllMinorPlanets.AccessibleName = "Orbital resonances of all minor planets";
+			menuitemOrbitalResonancesOfAllMinorPlanets.AccessibleRole = AccessibleRole.MenuItem;
+			menuitemOrbitalResonancesOfAllMinorPlanets.AutoToolTip = true;
+			menuitemOrbitalResonancesOfAllMinorPlanets.Image = FatcowIcons16px.fatcow_arrow_branch_16px;
+			menuitemOrbitalResonancesOfAllMinorPlanets.Name = "menuitemOrbitalResonancesOfAllMinorPlanets";
+			menuitemOrbitalResonancesOfAllMinorPlanets.Size = new Size(227, 22);
+			menuitemOrbitalResonancesOfAllMinorPlanets.Text = "Orbital &resonances of all minor planets";
+			menuitemOrbitalResonancesOfAllMinorPlanets.Click += MenuitemOrbitalResonancesOfAllMinorPlanets_Click;
+			menuitemOrbitalResonancesOfAllMinorPlanets.MouseEnter += Control_Enter;
+			menuitemOrbitalResonancesOfAllMinorPlanets.MouseLeave += Control_Leave;
 			// 
 			// menuitemFilter
 			// 
@@ -3978,6 +3993,7 @@ namespace Planetoid_DB
 		private ToolStripSeparator toolStripSeparatorFile1;
 		private ToolStripMenuItem menuitemRestart;
 		private ToolStripMenuItem menuitemDerivedOrbitElements;
+		private ToolStripMenuItem menuitemOrbitalResonancesOfAllMinorPlanets;
 		private ToolStripSeparator toolStripSeparatorTools2;
 		private ToolStripSeparator toolStripSeparator9;
 		private ToolStripButton toolStripButtonDerivedOrbitElements;
