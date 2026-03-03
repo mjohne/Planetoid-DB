@@ -1,0 +1,165 @@
+using System.ComponentModel;
+using Krypton.Toolkit;
+
+namespace Planetoid_DB.Forms;
+
+partial class OrbitElementsGroupingForm
+{
+    private IContainer components = null;
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing && (components != null))
+        {
+            components.Dispose();
+        }
+        base.Dispose(disposing);
+    }
+
+	private void InitializeComponent()
+	{
+		kryptonPanel1 = new KryptonPanel();
+		lblProgress = new KryptonLabel();
+		progressBar = new KryptonProgressBar();
+		lblElementsCount = new KryptonLabel();
+		numElementsToCompare = new KryptonNumericUpDown();
+		lblTolerance = new KryptonLabel();
+		numTolerance = new KryptonNumericUpDown();
+		btnCancel = new KryptonButton();
+		btnStart = new KryptonButton();
+		txtOutput = new KryptonRichTextBox();
+		((ISupportInitialize)kryptonPanel1).BeginInit();
+		kryptonPanel1.SuspendLayout();
+		SuspendLayout();
+		// 
+		// kryptonPanel1
+		// 
+		kryptonPanel1.Controls.Add(lblProgress);
+		kryptonPanel1.Controls.Add(progressBar);
+		kryptonPanel1.Controls.Add(lblElementsCount);
+		kryptonPanel1.Controls.Add(numElementsToCompare);
+		kryptonPanel1.Controls.Add(lblTolerance);
+		kryptonPanel1.Controls.Add(numTolerance);
+		kryptonPanel1.Controls.Add(btnCancel);
+		kryptonPanel1.Controls.Add(btnStart);
+		kryptonPanel1.Controls.Add(txtOutput);
+		kryptonPanel1.Dock = DockStyle.Fill;
+		kryptonPanel1.Location = new Point(0, 0);
+		kryptonPanel1.Name = "kryptonPanel1";
+		kryptonPanel1.Size = new Size(784, 561);
+		kryptonPanel1.TabIndex = 0;
+		// 
+		// lblProgress
+		// 
+		lblProgress.Location = new Point(718, 51);
+		lblProgress.Name = "lblProgress";
+		lblProgress.Size = new Size(40, 20);
+		lblProgress.TabIndex = 7;
+		lblProgress.Values.Text = "0%";
+		// 
+		// progressBar
+		// 
+		progressBar.Location = new Point(12, 50);
+		progressBar.Name = "progressBar";
+		progressBar.Size = new Size(700, 23);
+		progressBar.TabIndex = 6;
+		progressBar.Text = "Label";
+		progressBar.TextBackdropColor = Color.Empty;
+		progressBar.TextShadowColor = Color.Empty;
+		// 
+		// lblElementsCount
+		// 
+		lblElementsCount.Location = new Point(390, 15);
+		lblElementsCount.Name = "lblElementsCount";
+		lblElementsCount.Size = new Size(130, 20);
+		lblElementsCount.TabIndex = 4;
+		lblElementsCount.Values.Text = "Elements vs Elements:";
+		// 
+		// numElementsToCompare
+		// 
+		numElementsToCompare.Increment = new decimal(new int[] { 1, 0, 0, 0 });
+		numElementsToCompare.Location = new Point(520, 14);
+		numElementsToCompare.Maximum = new decimal(new int[] { 7, 0, 0, 0 });
+		numElementsToCompare.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
+		numElementsToCompare.Name = "numElementsToCompare";
+		numElementsToCompare.Size = new Size(60, 22);
+		numElementsToCompare.TabIndex = 5;
+		numElementsToCompare.Value = new decimal(new int[] { 3, 0, 0, 0 });
+		// 
+		// lblTolerance
+		// 
+		lblTolerance.Location = new Point(210, 15);
+		lblTolerance.Name = "lblTolerance";
+		lblTolerance.Size = new Size(94, 20);
+		lblTolerance.TabIndex = 2;
+		lblTolerance.Values.Text = "Tolerance (%):";
+		// 
+		// numTolerance
+		// 
+		numTolerance.Increment = new decimal(new int[] { 1, 0, 0, 0 });
+		numTolerance.Location = new Point(310, 14);
+		numTolerance.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
+		numTolerance.Minimum = new decimal(new int[] { 1, 0, 0, 65536 });
+		numTolerance.Name = "numTolerance";
+		numTolerance.Size = new Size(60, 22);
+		numTolerance.TabIndex = 3;
+		numTolerance.Value = new decimal(new int[] { 5, 0, 0, 0 });
+		// 
+		// btnCancel
+		// 
+		btnCancel.Enabled = false;
+		btnCancel.Location = new Point(108, 12);
+		btnCancel.Name = "btnCancel";
+		btnCancel.Size = new Size(90, 25);
+		btnCancel.TabIndex = 1;
+		btnCancel.Values.DropDownArrowColor = Color.Empty;
+		btnCancel.Values.Text = "&Cancel";
+		btnCancel.Click += BtnCancel_Click;
+		// 
+		// btnStart
+		// 
+		btnStart.Location = new Point(12, 12);
+		btnStart.Name = "btnStart";
+		btnStart.Size = new Size(90, 25);
+		btnStart.TabIndex = 0;
+		btnStart.Values.DropDownArrowColor = Color.Empty;
+		btnStart.Values.Text = "&Start Search";
+		btnStart.Click += BtnStart_Click;
+		// 
+		// txtOutput
+		// 
+		txtOutput.Location = new Point(12, 85);
+		txtOutput.Name = "txtOutput";
+		txtOutput.ReadOnly = true;
+		txtOutput.ShowSelectionMargin = true;
+		txtOutput.Size = new Size(760, 464);
+		txtOutput.TabIndex = 8;
+		txtOutput.Text = "";
+		txtOutput.WordWrap = false;
+		// 
+		// OrbitElementsGroupingForm
+		// 
+		AutoScaleDimensions = new SizeF(7F, 15F);
+		AutoScaleMode = AutoScaleMode.Font;
+		ClientSize = new Size(784, 561);
+		Controls.Add(kryptonPanel1);
+		Name = "OrbitElementsGroupingForm";
+		Text = "Planetoid Orbital Elements Grouping";
+		FormClosing += OrbitElementsGroupingForm_FormClosing;
+		((ISupportInitialize)kryptonPanel1).EndInit();
+		kryptonPanel1.ResumeLayout(false);
+		kryptonPanel1.PerformLayout();
+		ResumeLayout(false);
+	}
+
+	private KryptonPanel kryptonPanel1;
+    private KryptonButton btnStart;
+    private KryptonButton btnCancel;
+    private KryptonProgressBar progressBar;
+    private KryptonRichTextBox txtOutput;
+    private KryptonNumericUpDown numTolerance;
+    private KryptonLabel lblTolerance;
+    private KryptonNumericUpDown numElementsToCompare;
+    private KryptonLabel lblElementsCount;
+    private KryptonLabel lblProgress;
+}
