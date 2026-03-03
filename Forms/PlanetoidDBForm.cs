@@ -1024,6 +1024,22 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	}
 
 	/// <summary>
+	/// Shows the asteroid families detection form.
+	/// </summary>
+	/// <remarks>
+	/// This method is used to show the asteroid families detection form.
+	/// </remarks>
+	private void ShowAsteroidFamilies()
+	{
+		// Create a new instance of the AsteroidFamiliesForm
+		using AsteroidFamiliesForm formAsteroidFamilies = new(planetoids: planetoidsDatabase);
+		// Set the TopMost property to true to keep the form on top of other windows
+		formAsteroidFamilies.TopMost = TopMost;
+		// Show the asteroid families form as a modal dialog
+		_ = formAsteroidFamilies.ShowDialog();
+	}
+
+	/// <summary>
 	/// Shows the settings form.
 	/// </summary>
 	/// <remarks>
@@ -2307,6 +2323,17 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// This method is used to show the filter form.
 	/// </remarks>
 	private void ToolStripMenuItemFilter_Click(object sender, EventArgs e) => ShowFilter();
+
+	/// <summary>
+	/// Handles the click event for the menuitemAsteroidFamilies.
+	/// Shows the asteroid families detection form.
+	/// </summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>
+	/// This method is used to show the asteroid families detection form.
+	/// </remarks>
+	private void MenuitemAsteroidFamilies_Click(object sender, EventArgs e) => ShowAsteroidFamilies();
 
 	/// <summary>
 	/// Handles the click event for the ToolStripButtonFilter.

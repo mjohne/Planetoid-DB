@@ -178,6 +178,7 @@ namespace Planetoid_DB
 			menuitemTools = new ToolStripMenuItem();
 			menuitemDerivedOrbitElements = new ToolStripMenuItem();
 			menuitemFilter = new ToolStripMenuItem();
+			menuitemAsteroidFamilies = new ToolStripMenuItem();
 			toolStripSeparatorTools1 = new ToolStripSeparator();
 			toolStripSeparator10 = new ToolStripSeparator();
 			toolStripSeparatorTools2 = new ToolStripSeparator();
@@ -2742,7 +2743,7 @@ namespace Planetoid_DB
 			menuitemTools.AccessibleName = "Tools";
 			menuitemTools.AccessibleRole = AccessibleRole.MenuPopup;
 			menuitemTools.AutoToolTip = true;
-			menuitemTools.DropDownItems.AddRange(new ToolStripItem[] { menuitemDerivedOrbitElements, menuitemFilter, toolStripSeparatorTools1, menuitemRecords, toolStripSeparator10, menuitemDistribution, toolStripSeparatorTools2, menuitemDatabaseInformation, menuitemTableMode, menuitemTerminology });
+			menuitemTools.DropDownItems.AddRange(new ToolStripItem[] { menuitemDerivedOrbitElements, menuitemFilter, menuitemAsteroidFamilies, toolStripSeparatorTools1, menuitemRecords, toolStripSeparator10, menuitemDistribution, toolStripSeparatorTools2, menuitemDatabaseInformation, menuitemTableMode, menuitemTerminology });
 			menuitemTools.Name = "menuitemTools";
 			menuitemTools.Size = new Size(46, 24);
 			menuitemTools.Text = "&Tools";
@@ -2777,6 +2778,20 @@ namespace Planetoid_DB
 			menuitemFilter.Click += ToolStripMenuItemFilter_Click;
 			menuitemFilter.MouseEnter += Control_Enter;
 			menuitemFilter.MouseLeave += Control_Leave;
+			// 
+			// menuitemAsteroidFamilies
+			// 
+			menuitemAsteroidFamilies.AccessibleDescription = "Detects potential asteroid families based on orbital elements";
+			menuitemAsteroidFamilies.AccessibleName = "Asteroid families";
+			menuitemAsteroidFamilies.AccessibleRole = AccessibleRole.MenuItem;
+			menuitemAsteroidFamilies.AutoToolTip = true;
+			menuitemAsteroidFamilies.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+			menuitemAsteroidFamilies.Name = "menuitemAsteroidFamilies";
+			menuitemAsteroidFamilies.Size = new Size(227, 22);
+			menuitemAsteroidFamilies.Text = "&Asteroid families";
+			menuitemAsteroidFamilies.Click += MenuitemAsteroidFamilies_Click;
+			menuitemAsteroidFamilies.MouseEnter += Control_Enter;
+			menuitemAsteroidFamilies.MouseLeave += Control_Leave;
 			// 
 			// toolStripSeparatorTools1
 			// 
@@ -3995,6 +4010,7 @@ namespace Planetoid_DB
         private ToolStripMenuItem menuitemCheckMpcorbDat;
         private ToolStripMenuItem menuitemDownloadMpcorbDat;
         private ToolStripMenuItem menuitemFilter;
+        private ToolStripMenuItem menuitemAsteroidFamilies;
         private KryptonTableLayoutPanel tableLayoutPanelData;
         private ToolStripSplitButton splitbuttonCopyToClipboard;
 		private KryptonLabel labelIndexData;
