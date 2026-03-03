@@ -284,4 +284,85 @@ internal class DerivedElements
 	/// This method is used to calculate the standard gravitational parameter of an ellipse.
 	/// </remarks>
 	public static double CalculateStandardGravitationalParameter(double semiMajorAxis) => 4 * (Math.PI * Math.PI) * (semiMajorAxis * semiMajorAxis * semiMajorAxis) / CalculatePeriod(semiMajorAxis: semiMajorAxis);
+
+	/// <summary>
+	/// Represents an orbital resonance between a planetoid and a solar system planet.
+	/// </summary>
+	/// <param name="PlanetName">The name of the planet.</param>
+	/// <param name="PlanetPeriod">The orbital period of the planet in years.</param>
+	/// <param name="PlanetoidPeriod">The orbital period of the planetoid in years.</param>
+	/// <param name="Ratio">The actual ratio of the planet's period to the planetoid's period.</param>
+	/// <param name="ResonanceP">The p value in the integer resonance ratio p:q.</param>
+	/// <param name="ResonanceQ">The q value in the integer resonance ratio p:q.</param>
+	/// <param name="DeviationPercent">The percentage deviation of the actual ratio from the integer ratio.</param>
+	public record OrbitalResonance(string PlanetName, double PlanetPeriod, double PlanetoidPeriod, double Ratio, int ResonanceP, int ResonanceQ, double DeviationPercent);
+
+	/// <summary>
+	/// Calculates the orbital resonances of a planetoid with the 8 solar system planets.
+	/// </summary>
+	/// <param name="semiMajorAxis">The semi-major axis of the planetoid in AU.</param>
+	/// <returns>A list of computed orbital resonances.</returns>
+	/// <remarks>
+	/// This method calculates the resonance with each major planet by finding the closest small-integer ratio.
+	/// </remarks>
+	public static List<OrbitalResonance> CalculateOrbitalResonances(double semiMajorAxis)
+	{
+		// Calculate the orbital period of the planetoid using Kepler's third law.
+		double planetoidPeriod = CalculatePeriod(semiMajorAxis: semiMajorAxis);
+		// List to hold the results of the resonance calculations.
+		List<OrbitalResonance> results = [];
+		// Define the orbital periods of the 8 solar system planets in years.
+		(string Name, double Period)[] planets =
+		[
+			(Name: "Mercury", Period: 0.240846),
+			(Name: "Venus", Period: 0.615197),
+			(Name: "Earth", Period: 1.000000),
+			(Name: "Mars", Period: 1.880848),
+			(Name: "Jupiter", Period: 11.862615),
+			(Name: "Saturn", Period: 29.447498),
+			(Name: "Uranus", Period: 84.016846),
+			(Name: "Neptune", Period: 164.791320)
+		];
+		// Loop through each planet and calculate the resonance ratio and deviation.
+		for (int i = 0; i < planets.Length; i++)
+		{
+			// Calculate the actual ratio of the planet's period to the planetoid's period.
+			double ratio = planets[i].Period / planetoidPeriod;
+			// Find the best integer ratio p:q that approximates the actual ratio.
+			int bestP = 1;
+			int bestQ = 1;
+			// Initialize the smallest deviation to a large number.
+			double smallestDeviation = double.MaxValue;
+			// Loop through possible integer values for p and q to find the best resonance ratio.
+			for (int p = 1; p <= 15; p++)
+			{
+				// Loop through possible integer values for q.
+				for (int q = 1; q <= 15; q++)
+				{
+					// Calculate the test ratio for the current p and q.
+					double testRatio = (double)p / q;
+					// Calculate the percentage deviation of the test ratio from the actual ratio.
+					double deviation = Math.Abs(value: testRatio - ratio) / ratio * 100.0;
+					// If this deviation is smaller than the smallest deviation found so far, update the best p, q, and smallest deviation.
+					if (deviation < smallestDeviation)
+					{
+						smallestDeviation = deviation;
+						bestP = p;
+						bestQ = q;
+					}
+				}
+			}
+			// Add the calculated resonance information to the results list.
+			results.Add(item: new OrbitalResonance(
+				PlanetName: planets[i].Name,
+				PlanetPeriod: planets[i].Period,
+				PlanetoidPeriod: planetoidPeriod,
+				Ratio: ratio,
+				ResonanceP: bestP,
+				ResonanceQ: bestQ,
+				DeviationPercent: smallestDeviation));
+		}
+		// Return the list of calculated orbital resonances.
+		return results;
+	}
 }
