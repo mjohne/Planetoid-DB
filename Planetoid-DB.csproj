@@ -706,6 +706,7 @@ Public License instead of this License.  But first, please read
     <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
     <TargetFramework>net10.0-windows7.0</TargetFramework>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -914,5 +915,6 @@ Public License instead of this License.  But first, please read
       <LastGenOutput>FugueIcons16px.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+
 
 </Project>
