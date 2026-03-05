@@ -110,7 +110,7 @@ namespace Planetoid_DB
 
 			try
 			{
-				await Task.Run(() =>
+				await Task.Run(action: () =>
 				{
 					using var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
 					using var reader = new StreamReader(fs, Encoding.UTF8);
@@ -162,7 +162,7 @@ namespace Planetoid_DB
 
 							if (match)
 							{
-								var result = new SearchResult
+								SearchResult result = new()
 								{
 									Index = record.Index,
 									Designation = record.DesignationName,
@@ -172,7 +172,7 @@ namespace Planetoid_DB
 
 								lock (_searchResults)
 								{
-									_searchResults.Add(result);
+									_searchResults.Add(item: result);
 								}
 							}
 						}
@@ -185,22 +185,36 @@ namespace Planetoid_DB
 								pct = 100;
 							}
 
-							if (IsHandleCreated)
+							if (IsHandleCreated && !IsDisposed && !Disposing)
 							{
-								Invoke(new Action(() =>
+								try
 								{
-									kryptonProgressBar.Value = pct;
-									kryptonProgressBar.Values.Text = $"{pct} %";
-
-									lock (_searchResults)
+									BeginInvoke(method: new Action(() =>
 									{
-										listViewResults.VirtualListSize = _searchResults.Count;
-									}
-								}));
+										if (IsDisposed || Disposing)
+										{
+											return;
+										}
+										kryptonProgressBar.Value = pct;
+										kryptonProgressBar.Values.Text = $"{pct} %";
+										lock (_searchResults)
+										{
+											listViewResults.VirtualListSize = _searchResults.Count;
+										}
+									}));
+								}
+								catch (ObjectDisposedException)
+								{
+									// Form is disposed; ignore update.
+								}
+								catch (InvalidOperationException)
+								{
+									// Form handle is no longer valid; ignore update.
+								}
 							}
 						}
 					}
-				}, token);
+				}, cancellationToken: token);
 
 				kryptonLabelStatus.Text = token.IsCancellationRequested ? "Search cancelled." : $"Search completed. Found {_searchResults.Count} entries.";
 				kryptonProgressBar.Value = 100;

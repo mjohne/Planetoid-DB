@@ -110,7 +110,7 @@ namespace Planetoid_DB
 			// 
 			// columnHeaderDesignation
 			// 
-			columnHeaderDesignation.Text = "Resignable Name";
+			columnHeaderDesignation.Text = "Readable designation";
 			columnHeaderDesignation.Width = 150;
 			// 
 			// columnHeaderElement
