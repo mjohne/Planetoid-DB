@@ -446,7 +446,7 @@ public partial class RecordsForm : BaseKryptonForm
 
 		if (e.Cancelled)
 		{
-			labelPercent.Values.Text = I18nStrings.DownloadCancelledText;
+			labelPercent.Values.Text = "Scan cancelled";
 			ClearStatusBar(label: labelInformation);
 		}
 		else if (e.Error != null)
