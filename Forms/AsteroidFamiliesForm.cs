@@ -1,7 +1,10 @@
 using Krypton.Toolkit;
 
+using NLog;
+
 using Planetoid_DB.Forms;
 
+using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 
@@ -13,8 +16,25 @@ namespace Planetoid_DB;
 /// Uses a binning algorithm to group planetoids whose semi-major axis, eccentricity, and inclination
 /// fall within user-defined tolerance ranges.
 /// </summary>
+[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class AsteroidFamiliesForm : BaseKryptonForm
 {
+	/// <summary>
+	/// NLog logger instance.
+	/// </summary>
+	/// <remarks>
+	/// This logger is used throughout the form to log important events and errors.
+	/// </remarks>
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+	/// <summary>
+	/// Gets the status label used for displaying information in the status bar.
+	/// </summary>
+	/// <remarks>
+	/// Overrides the base class property to return the form-specific status label.
+	/// </remarks>
+	//protected override ToolStripStatusLabel? StatusLabel => labelInformation;
+
 	private readonly IReadOnlyList<string> _planetoids;
 	private CancellationTokenSource? _cancellationTokenSource;
 
@@ -30,6 +50,15 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		InitializeComponent();
 		_planetoids = planetoids;
 	}
+
+	/// <summary>
+	/// Returns a short debugger display string for this instance.
+	/// </summary>
+	/// <returns>A string representation of the current instance for use in the debugger.</returns>
+	/// <remarks>
+	/// This method is used to provide a visual representation of the object in the debugger.
+	/// </remarks>
+	private string GetDebuggerDisplay() => ToString();
 
 	/// <summary>
 	/// Represents parsed orbital parameters for a single planetoid.
@@ -204,7 +233,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 
 				if (i % 5000 == 0)
 				{
-					progress.Report(40 + (i * 50 / count));
+					progress.Report(40 + (int)((long)i * 50 / count));
 				}
 			}
 
@@ -384,11 +413,38 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 			sb.AppendLine();
 		}
 
-		File.WriteAllText(path: dlg.FileName, contents: sb.ToString(), encoding: Encoding.UTF8);
-		KryptonMessageBox.Show(
-			text: $"Successfully saved to:{Environment.NewLine}{dlg.FileName}",
-			caption: "Saved",
-			buttons: KryptonMessageBoxButtons.OK,
-			icon: KryptonMessageBoxIcon.Information);
+		try
+		{
+			File.WriteAllText(path: dlg.FileName, contents: sb.ToString(), encoding: Encoding.UTF8);
+			KryptonMessageBox.Show(
+				text: $"Successfully saved to:{Environment.NewLine}{dlg.FileName}",
+				caption: "Saved",
+				buttons: KryptonMessageBoxButtons.OK,
+				icon: KryptonMessageBoxIcon.Information);
+		}
+		catch (IOException ex)
+		{
+			KryptonMessageBox.Show(
+				text: $"Failed to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}",
+				caption: "Save Error",
+				buttons: KryptonMessageBoxButtons.OK,
+				icon: KryptonMessageBoxIcon.Error);
+		}
+		catch (UnauthorizedAccessException ex)
+		{
+			KryptonMessageBox.Show(
+				text: $"You do not have permission to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}",
+				caption: "Save Error",
+				buttons: KryptonMessageBoxButtons.OK,
+				icon: KryptonMessageBoxIcon.Error);
+		}
+		catch (Exception ex)
+		{
+			KryptonMessageBox.Show(
+				text: $"An unexpected error occurred while saving the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}",
+				caption: "Save Error",
+				buttons: KryptonMessageBoxButtons.OK,
+				icon: KryptonMessageBoxIcon.Error);
+		}
 	}
 }
