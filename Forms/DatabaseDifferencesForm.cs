@@ -50,7 +50,13 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
 	}
 
-	private void DatabaseDifferences2Form_Load(object sender, EventArgs e)
+	/// <summary>
+	/// Handles the <see cref="Form.Load"/> event for the <see cref="DatabaseDifferencesForm"/>.
+	/// Initializes default file paths and updates the initial UI state.
+	/// </summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+	private void DatabaseDifferencesForm_Load(object sender, EventArgs e)
 	{
 		// Default to the currently configured MPCORB file
 		pathFile1 = Settings.Default.systemFilenameMpcorb;
@@ -182,7 +188,14 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 				totalLinesFile2++;
 			}
 		}
-		catch { /* Ignore */ }
+		catch (IOException ex)
+		{
+			logger.Error(ex, "I/O error while estimating total lines for file 2 from path '{FilePath}'.", p2);
+		}
+		catch (UnauthorizedAccessException ex)
+		{
+			logger.Error(ex, "Access denied while estimating total lines for file 2 from path '{FilePath}'.", p2);
+		}
 
 		long currentLine = 0;
 		var batchResults = new List<DifferenceResult>();
@@ -220,8 +233,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 						}
 						else
 						{
-							batchResults.Add(new DifferenceResult(record2.Index, record2.DesignationName, "Deleted record"));
-							deletedRecords++;
+							batchResults.Add(item: new DifferenceResult(Index: record2.Index, Designation: record2.DesignationName, Difference: "Added record"));
+							addedRecords++;
 						}
 					}
 				}

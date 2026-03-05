@@ -254,7 +254,7 @@ partial class DatabaseDifferencesForm
 		Name = "DatabaseDifferencesForm";
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Database Differences";
-		Load += DatabaseDifferences2Form_Load;
+		Load += DatabaseDifferencesForm_Load;
 		((ISupportInitialize)panelMain).EndInit();
 		panelMain.ResumeLayout(false);
 		panelMain.PerformLayout();
