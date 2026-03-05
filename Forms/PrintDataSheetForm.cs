@@ -16,6 +16,7 @@ namespace Planetoid_DB;
 /// Represents a form for printing data sheets.
 /// </summary>
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
+
 public partial class PrintDataSheetForm : BaseKryptonForm
 {
 	/// <summary>

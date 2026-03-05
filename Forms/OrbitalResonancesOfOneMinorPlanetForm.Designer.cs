@@ -1,167 +1,256 @@
-using NLog;
+using System.ComponentModel;
 
-using Planetoid_DB.Forms;
-using Planetoid_DB.Helpers;
+using Krypton.Toolkit;
 
-using System.Diagnostics;
+using Planetoid_DB.Resources;
 
-namespace Planetoid_DB;
-
-/// <summary>
-/// Form for displaying orbital resonances of a planetoid relative to the 8 solar system planets.
-/// </summary>
-/// <remarks>
-/// This form computes and presents the orbital resonance of a planetoid with each planet,
-/// including the resonance ratio, deviation, and whether a near-resonance is detected.
-/// </remarks>
-[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
+namespace Planetoid_DB
 {
-	/// <summary>
-	/// NLog logger instance.
-	/// </summary>
-	/// <remarks>
-	/// This logger is used throughout the form to log important events and errors.
-	/// </remarks>
-	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-
-	/// <summary>
-	/// The deviation threshold in percent below which an orbital ratio is considered a near-resonance.
-	/// </summary>
-	private const double ResonanceThresholdPercent = 1.0;
-
-	/// <summary>
-	/// The semi-major axis of the planetoid in AU, used to calculate orbital resonances.
-	/// </summary>
-	/// <remarks>
-	/// Set this value via <see cref="SetSemiMajorAxis"/> before the form is shown.
-	/// </remarks>
-	private double semiMajorAxis;
-
-	/// <summary>
-	/// Gets the status label used for displaying information in the status bar.
-	/// </summary>
-	/// <remarks>
-	/// Overrides the base class property to return the form-specific status label.
-	/// </remarks>
-	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
-
-	#region constructor
-
-	/// <summary>
-	/// Initializes a new instance of the <see cref="OrbitalResonancesOfOneMinorPlanetForm"/> class.
-	/// </summary>
-	/// <remarks>
-	/// This constructor initializes the form components.
-	/// </remarks>
-	public OrbitalResonancesOfOneMinorPlanetForm() =>
-		InitializeComponent();
-
-	#endregion
-
-	#region helper methods
-
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
-	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a visual representation of the object in the debugger.
-	/// </remarks>
-	private string GetDebuggerDisplay() => ToString();
-
-	/// <summary>
-	/// Sets the semi-major axis of the planetoid used for computing orbital resonances.
-	/// </summary>
-	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
-	/// <remarks>
-	/// Call this method before showing the form so that the resonance data is available on load.
-	/// </remarks>
-	public void SetSemiMajorAxis(double semiMajorAxis) =>
-		this.semiMajorAxis = semiMajorAxis;
-
-	/// <summary>
-	/// Populates the <see cref="listView"/> with orbital resonance data for the given resonances.
-	/// </summary>
-	/// <param name="resonances">The list of orbital resonances to display.</param>
-	/// <remarks>
-	/// Each resonance is shown as one row. The "Is Resonance" column shows "Yes" when the deviation is below 1 %.
-	/// </remarks>
-	private void PopulateListView(List<DerivedElements.OrbitalResonance> resonances)
+	partial class OrbitalResonancesOfOneMinorPlanetForm
 	{
-		listView.BeginUpdate();
-		listView.Items.Clear();
-		foreach (DerivedElements.OrbitalResonance resonance in resonances)
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
+		private IContainer components = null;
+
+		/// <summary>
+		/// Clean up any resources being used.
+		/// </summary>
+		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+		protected override void Dispose(bool disposing)
 		{
-			string isResonance = resonance.DeviationPercent < ResonanceThresholdPercent ? "Yes" : "No";
-			ListViewItem item = new(text: resonance.PlanetName);
-			item.SubItems.AddRange(items:
-			[
-				resonance.PlanetPeriod.ToString(format: "F6"),
-				resonance.PlanetoidPeriod.ToString(format: "F6"),
-				resonance.Ratio.ToString(format: "F6"),
-				$"{resonance.ResonanceP}:{resonance.ResonanceQ}",
-				resonance.DeviationPercent.ToString(format: "F2"),
-				isResonance
-			]);
-			listView.Items.Add(value: item);
+			if (disposing && (components != null))
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
 		}
-		listView.EndUpdate();
+
+		#region Windows Form Designer generated code
+
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
+			components = new Container();
+			ComponentResourceManager resources = new ComponentResourceManager(typeof(OrbitalResonancesOfOneMinorPlanetForm));
+			panel = new KryptonPanel();
+			listView = new ListView();
+			columnHeaderPlanet = new ColumnHeader();
+			columnHeaderPlanetPeriod = new ColumnHeader();
+			columnHeaderPlanetoidPeriod = new ColumnHeader();
+			columnHeaderRatio = new ColumnHeader();
+			columnHeaderResonance = new ColumnHeader();
+			columnHeaderDeviation = new ColumnHeader();
+			columnHeaderIsResonance = new ColumnHeader();
+			contextMenuCopyToClipboard = new ContextMenuStrip(components);
+			ToolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
+			statusStrip = new KryptonStatusStrip();
+			labelInformation = new ToolStripStatusLabel();
+			kryptonManager = new KryptonManager(components);
+			((ISupportInitialize)panel).BeginInit();
+			panel.SuspendLayout();
+			contextMenuCopyToClipboard.SuspendLayout();
+			statusStrip.SuspendLayout();
+			SuspendLayout();
+			// 
+			// panel
+			// 
+			panel.AccessibleDescription = "Groups the data";
+			panel.AccessibleName = "Group pane";
+			panel.AccessibleRole = AccessibleRole.Pane;
+			panel.Controls.Add(listView);
+			panel.Controls.Add(statusStrip);
+			panel.Dock = DockStyle.Fill;
+			panel.Location = new Point(0, 0);
+			panel.Margin = new Padding(4, 3, 4, 3);
+			panel.Name = "panel";
+			panel.PanelBackStyle = PaletteBackStyle.FormMain;
+			panel.Size = new Size(729, 227);
+			panel.TabIndex = 0;
+			panel.TabStop = true;
+			// 
+			// listView
+			// 
+			listView.AccessibleDescription = "Shows the list of orbital resonances relative to the solar system planets";
+			listView.AccessibleName = "Orbital resonances list";
+			listView.AccessibleRole = AccessibleRole.List;
+			listView.AllowColumnReorder = true;
+			listView.Columns.AddRange(new ColumnHeader[] { columnHeaderPlanet, columnHeaderPlanetPeriod, columnHeaderPlanetoidPeriod, columnHeaderRatio, columnHeaderResonance, columnHeaderDeviation, columnHeaderIsResonance });
+			listView.ContextMenuStrip = contextMenuCopyToClipboard;
+			listView.Dock = DockStyle.Fill;
+			listView.Font = new Font("Segoe UI", 9F);
+			listView.FullRowSelect = true;
+			listView.GridLines = true;
+			listView.Location = new Point(0, 0);
+			listView.Margin = new Padding(4, 3, 4, 3);
+			listView.Name = "listView";
+			listView.ShowItemToolTips = true;
+			listView.Size = new Size(729, 205);
+			listView.TabIndex = 0;
+			listView.UseCompatibleStateImageBehavior = false;
+			listView.View = View.Details;
+			listView.Enter += Control_Enter;
+			listView.Leave += Control_Leave;
+			listView.MouseEnter += Control_Enter;
+			listView.MouseLeave += Control_Leave;
+			// 
+			// columnHeaderPlanet
+			// 
+			columnHeaderPlanet.Text = "Planet";
+			columnHeaderPlanet.Width = 120;
+			// 
+			// columnHeaderPlanetPeriod
+			// 
+			columnHeaderPlanetPeriod.Text = "Planet Period (yr)";
+			columnHeaderPlanetPeriod.TextAlign = HorizontalAlignment.Right;
+			columnHeaderPlanetPeriod.Width = 120;
+			// 
+			// columnHeaderPlanetoidPeriod
+			// 
+			columnHeaderPlanetoidPeriod.Text = "Planetoid Period (yr)";
+			columnHeaderPlanetoidPeriod.TextAlign = HorizontalAlignment.Right;
+			columnHeaderPlanetoidPeriod.Width = 130;
+			// 
+			// columnHeaderRatio
+			// 
+			columnHeaderRatio.Text = "Ratio";
+			columnHeaderRatio.TextAlign = HorizontalAlignment.Right;
+			columnHeaderRatio.Width = 80;
+			// 
+			// columnHeaderResonance
+			// 
+			columnHeaderResonance.Text = "Resonance";
+			columnHeaderResonance.TextAlign = HorizontalAlignment.Center;
+			columnHeaderResonance.Width = 90;
+			// 
+			// columnHeaderDeviation
+			// 
+			columnHeaderDeviation.Text = "Deviation (%)";
+			columnHeaderDeviation.TextAlign = HorizontalAlignment.Right;
+			columnHeaderDeviation.Width = 90;
+			// 
+			// columnHeaderIsResonance
+			// 
+			columnHeaderIsResonance.Text = "Is Resonance";
+			columnHeaderIsResonance.TextAlign = HorizontalAlignment.Center;
+			columnHeaderIsResonance.Width = 90;
+			// 
+			// contextMenuCopyToClipboard
+			// 
+			contextMenuCopyToClipboard.AccessibleDescription = "Shows the context menu for copying information to the clipboard";
+			contextMenuCopyToClipboard.AccessibleName = "Context menu for copying information to the clipboard";
+			contextMenuCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
+			contextMenuCopyToClipboard.AllowClickThrough = true;
+			contextMenuCopyToClipboard.Font = new Font("Segoe UI", 9F);
+			contextMenuCopyToClipboard.Items.AddRange(new ToolStripItem[] { ToolStripMenuItemCopyToClipboard });
+			contextMenuCopyToClipboard.Name = "contextMenuStrip";
+			contextMenuCopyToClipboard.Size = new Size(214, 26);
+			contextMenuCopyToClipboard.TabStop = true;
+			contextMenuCopyToClipboard.Text = "Copy to clipboard";
+			contextMenuCopyToClipboard.MouseEnter += Control_Enter;
+			contextMenuCopyToClipboard.MouseLeave += Control_Leave;
+			// 
+			// ToolStripMenuItemCopyToClipboard
+			// 
+			ToolStripMenuItemCopyToClipboard.AccessibleDescription = "Copies the selected row to the clipboard";
+			ToolStripMenuItemCopyToClipboard.AccessibleName = "Copy to clipboard";
+			ToolStripMenuItemCopyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
+			ToolStripMenuItemCopyToClipboard.AutoToolTip = true;
+			ToolStripMenuItemCopyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
+			ToolStripMenuItemCopyToClipboard.Name = "ToolStripMenuItemCopyToClipboard";
+			ToolStripMenuItemCopyToClipboard.ShortcutKeyDisplayString = "Strg+C";
+			ToolStripMenuItemCopyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
+			ToolStripMenuItemCopyToClipboard.Size = new Size(213, 22);
+			ToolStripMenuItemCopyToClipboard.Text = "&Copy to clipboard";
+			ToolStripMenuItemCopyToClipboard.Click += ToolStripMenuItemCopyToClipboard_Click;
+			ToolStripMenuItemCopyToClipboard.MouseEnter += Control_Enter;
+			ToolStripMenuItemCopyToClipboard.MouseLeave += Control_Leave;
+			// 
+			// statusStrip
+			// 
+			statusStrip.AccessibleDescription = "Shows some information";
+			statusStrip.AccessibleName = "Status bar of some information";
+			statusStrip.AccessibleRole = AccessibleRole.StatusBar;
+			statusStrip.Font = new Font("Segoe UI", 9F);
+			statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
+			statusStrip.Location = new Point(0, 205);
+			statusStrip.Name = "statusStrip";
+			statusStrip.Padding = new Padding(1, 0, 16, 0);
+			statusStrip.ProgressBars = null;
+			statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+			statusStrip.ShowItemToolTips = true;
+			statusStrip.Size = new Size(729, 22);
+			statusStrip.SizingGrip = false;
+			statusStrip.TabIndex = 1;
+			statusStrip.TabStop = true;
+			statusStrip.Text = "status bar";
+			// 
+			// labelInformation
+			// 
+			labelInformation.AccessibleDescription = "Shows some information";
+			labelInformation.AccessibleName = "Shows some information";
+			labelInformation.AccessibleRole = AccessibleRole.StaticText;
+			labelInformation.AutoToolTip = true;
+			labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
+			labelInformation.Margin = new Padding(5, 3, 0, 2);
+			labelInformation.Name = "labelInformation";
+			labelInformation.Size = new Size(144, 17);
+			labelInformation.Text = "some information here";
+			labelInformation.ToolTipText = "Shows some information";
+			// 
+			// kryptonManager
+			// 
+			kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+			kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+			kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
+			// 
+			// OrbitalResonanceForm
+			// 
+			AccessibleDescription = "Shows orbital resonances of the planetoid relative to the 8 planets";
+			AccessibleName = "Orbital resonances";
+			AccessibleRole = AccessibleRole.Dialog;
+			AutoScaleDimensions = new SizeF(7F, 15F);
+			AutoScaleMode = AutoScaleMode.Font;
+			ClientSize = new Size(729, 227);
+			ControlBox = false;
+			Controls.Add(panel);
+			FormBorderStyle = FormBorderStyle.FixedToolWindow;
+			Icon = (Icon)resources.GetObject("$this.Icon");
+			Margin = new Padding(4, 3, 4, 3);
+			MaximizeBox = false;
+			MinimizeBox = false;
+			Name = "OrbitalResonanceForm";
+			ShowInTaskbar = false;
+			StartPosition = FormStartPosition.CenterParent;
+			Text = "Orbital resonances";
+			Load += OrbitalResonanceForm_Load;
+			((ISupportInitialize)panel).EndInit();
+			panel.ResumeLayout(false);
+			panel.PerformLayout();
+			contextMenuCopyToClipboard.ResumeLayout(false);
+			statusStrip.ResumeLayout(false);
+			statusStrip.PerformLayout();
+			ResumeLayout(false);
+		}
+
+		#endregion
+
+		private KryptonPanel panel;
+		private ListView listView;
+		private ColumnHeader columnHeaderPlanet;
+		private ColumnHeader columnHeaderPlanetPeriod;
+		private ColumnHeader columnHeaderPlanetoidPeriod;
+		private ColumnHeader columnHeaderRatio;
+		private ColumnHeader columnHeaderResonance;
+		private ColumnHeader columnHeaderDeviation;
+		private ColumnHeader columnHeaderIsResonance;
+		private ContextMenuStrip contextMenuCopyToClipboard;
+		private ToolStripMenuItem ToolStripMenuItemCopyToClipboard;
+		private KryptonStatusStrip statusStrip;
+		private ToolStripStatusLabel labelInformation;
+		private KryptonManager kryptonManager;
 	}
-
-	#endregion
-
-	#region form event handlers
-
-	/// <summary>
-	/// Handles the form Load event.
-	/// Clears the status bar, computes orbital resonances for the stored semi-major axis and populates the list view.
-	/// </summary>
-	/// <param name="sender">Event source (the form).</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// If an error occurs during calculation, it is logged and an error message is shown to the user.
-	/// </remarks>
-	private void OrbitalResonanceForm_Load(object sender, EventArgs e)
-	{
-		ClearStatusBar(label: labelInformation);
-		try
-		{
-			List<DerivedElements.OrbitalResonance> resonances = DerivedElements.CalculateOrbitalResonances(semiMajorAxis: semiMajorAxis);
-			PopulateListView(resonances: resonances);
-		}
-		catch (Exception ex)
-		{
-			logger.Error(exception: ex, message: ex.Message);
-			ShowErrorMessage(message: $"Error calculating orbital resonances: {ex.Message}");
-		}
-	}
-
-	#endregion
-
-	#region Click event handlers
-
-	/// <summary>
-	/// Handles the Click event of the copy-to-clipboard menu item.
-	/// Copies the text of the currently selected list view row to the clipboard.
-	/// </summary>
-	/// <param name="sender">Event source (the menu item).</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// All sub-items of the selected row are joined with a tab character before being placed on the clipboard.
-	/// If no row is selected the method returns without action.
-	/// </remarks>
-	private void ToolStripMenuItemCopyToClipboard_Click(object sender, EventArgs e)
-	{
-		if (listView.SelectedItems.Count == 0)
-		{
-			return;
-		}
-		ListViewItem selectedItem = listView.SelectedItems[index: 0];
-		IEnumerable<string> subItemTexts = selectedItem.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(selector: static s => s.Text);
-		string text = string.Join(separator: "\t", values: subItemTexts);
-		CopyToClipboard(text: text);
-	}
-
-	#endregion
 }

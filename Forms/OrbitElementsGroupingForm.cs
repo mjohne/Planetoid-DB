@@ -1,5 +1,8 @@
 using Krypton.Toolkit;
 
+using NLog;
+
+using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 
@@ -8,8 +11,25 @@ namespace Planetoid_DB.Forms;
 /// <summary>
 /// Form to analyze and group planetoids based on common orbital element ranges.
 /// </summary>
-public partial class OrbitElementsGroupingForm : KryptonForm
+[DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
+public partial class OrbitElementsGroupingForm : BaseKryptonForm
 {
+	/// <summary>
+	/// NLog logger instance.
+	/// </summary>
+	/// <remarks>
+	/// This logger is used throughout the form to log important events and errors.
+	/// </remarks>
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+	/// <summary>
+	/// Gets the status label used for displaying information in the status bar.
+	/// </summary>
+	/// <remarks>
+	/// Overrides the base class property to return the form-specific status label.
+	/// </remarks>
+	//protected override ToolStripStatusLabel? StatusLabel => labelInformation;
+
 	private readonly IReadOnlyList<string> _planetoids;
 	private CancellationTokenSource? _cancellationTokenSource;
 
@@ -22,6 +42,15 @@ public partial class OrbitElementsGroupingForm : KryptonForm
 		InitializeComponent();
 		_planetoids = planetoids;
 	}
+
+	/// <summary>
+	/// Returns a short debugger display string for this instance.
+	/// </summary>
+	/// <returns>A string representation of the current instance for use in the debugger.</returns>
+	/// <remarks>
+	/// This method is used to provide a visual representation of the object in the debugger.
+	/// </remarks>
+	private string GetDebuggerDisplay() => ToString();
 
 	private void BtnStart_Click(object? sender, EventArgs e)
 	{
@@ -101,10 +130,10 @@ public partial class OrbitElementsGroupingForm : KryptonForm
 						double.TryParse(line.Substring(80, 11).Trim(), NumberStyles.Float, CultureInfo.InvariantCulture, out double motion) &&
 						double.TryParse(line.Substring(92, 11).Trim(), NumberStyles.Float, CultureInfo.InvariantCulture, out double semiMajorAxis))
 					{
-						double[] elements = new[] { meanAnomaly, argPeri, longAscNode, incl, orbEcc, motion, semiMajorAxis };
+						double[] elements = [meanAnomaly, argPeri, longAscNode, incl, orbEcc, motion, semiMajorAxis];
 						lock (parseLock)
 						{
-							parsedData.Add(new PlanetoidData(index, designation, elements));
+							parsedData.Add(item: new PlanetoidData(Index: index, Name: designation, Elements: elements));
 						}
 					}
 				}
@@ -123,13 +152,13 @@ public partial class OrbitElementsGroupingForm : KryptonForm
 			int combinationThreshold = elementsCount;
 
 			// Define combinations
-			int[] indices = new int[] { 0, 1, 2, 3, 4, 5, 6 };
-			var combinations = GetKCombinations(indices, combinationThreshold).ToList();
+			int[] indices = [0, 1, 2, 3, 4, 5, 6];
+			List<int[]> combinations = [.. GetKCombinations(elements: indices, k: combinationThreshold)];
 
 			int comboIndex = 0;
 			int totalCombos = combinations.Count;
 
-			foreach (var combo in combinations)
+			foreach (int[] combo in combinations)
 			{
 				cancellationToken.ThrowIfCancellationRequested();
 
@@ -165,23 +194,23 @@ public partial class OrbitElementsGroupingForm : KryptonForm
 
 						if (similar)
 						{
-							currentCluster.Add(current);
+							currentCluster.Add(item: current);
 						}
 						else
 						{
 							if (currentCluster.Count > 1)
 							{
-								clusters.Add(new List<PlanetoidData>(currentCluster));
+								clusters.Add(item: [.. currentCluster]);
 							}
 							currentCluster.Clear();
-							currentCluster.Add(current);
+							currentCluster.Add(item: current);
 						}
 					}
 
 					if (i % 5000 == 0)
 					{
 						int currentProgress = 10 + (int)(90.0 * (((double)comboIndex / totalCombos) + ((double)i / sortedData.Count / totalCombos)));
-						progress.Report(currentProgress);
+						progress.Report(value: currentProgress);
 					}
 				}
 
@@ -191,9 +220,9 @@ public partial class OrbitElementsGroupingForm : KryptonForm
 				}
 
 				// Output clusters
-				if (clusters.Any())
+				if (clusters.Count != 0)
 				{
-					var sb = new StringBuilder();
+					StringBuilder sb = new();
 					sb.AppendLine($"--- Clusters for elements {string.Join(", ", combo.Select(GetElementName))} ---");
 
 					var orderedClusters = clusters.OrderByDescending(c => c.Count).Take(999); // Show top 999 groups
@@ -228,11 +257,11 @@ public partial class OrbitElementsGroupingForm : KryptonForm
 		{
 			_cancellationTokenSource?.Dispose();
 			_cancellationTokenSource = null;
-			await InvokeAsync(() =>
+			await InvokeAsync(callback: () =>
 			{
 				btnStart.Enabled = true;
 				btnCancel.Enabled = false;
-			});
+			}, cancellationToken: cancellationToken);
 		}
 	}
 
@@ -248,34 +277,36 @@ public partial class OrbitElementsGroupingForm : KryptonForm
 		_ => "Unknown"
 	};
 
-	private static IEnumerable<int[]> GetKCombinations(int[] elements, int k)
+	private static List<int[]> GetKCombinations(int[] elements, int k)
 	{
 		if (k == 0)
 		{
-			return new[] { Array.Empty<int>() };
+			return [.. new[] { Array.Empty<int>() }];
 		}
 
 		if (elements.Length == 0)
 		{
-			return Array.Empty<int[]>();
+			return [.. Array.Empty<int[]>()];
 		}
 
 		if (elements.Length == k)
 		{
-			return new[] { elements };
+			return [.. new[] { elements }];
 		}
 
-		var result = new List<int[]>();
+		List<int[]> result = [];
+		foreach ((int[]? c, int[]? res) in
 		// combinations with first element
-		foreach (var c in GetKCombinations(elements.Skip(1).ToArray(), k - 1))
+		from c in GetKCombinations([.. elements.Skip(count: 1)], k: k - 1)
+		let res = new int[k]
+		select (c, res))
 		{
-			var res = new int[k];
 			res[0] = elements[0];
-			Array.Copy(c, 0, res, 1, k - 1);
-			result.Add(res);
+			Array.Copy(sourceArray: c, sourceIndex: 0, destinationArray: res, destinationIndex: 1, length: k - 1);
+			result.Add(item: res);
 		}
 		// combinations without first element
-		result.AddRange(GetKCombinations(elements.Skip(1).ToArray(), k));
+		result.AddRange(collection: GetKCombinations(elements: [.. elements.Skip(count: 1)], k: k));
 
 		return result;
 	}

@@ -392,7 +392,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// Lines that are too short or have an invalid semi-major axis are silently skipped.
 	/// Only resonances whose planet name is in <paramref name="selectedPlanets"/> are added.
 	/// </remarks>
-	private static void ProcessPlanetoidLine(string line, ICollection<string> selectedPlanets, List<ResonanceResult> results)
+	private static void ProcessPlanetoidLine(string line, List<string> selectedPlanets, List<ResonanceResult> results)
 	{
 		if (line.Length < 103)
 		{

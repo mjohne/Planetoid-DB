@@ -101,7 +101,7 @@ namespace Planetoid_DB
 			listViewResults.UseCompatibleStateImageBehavior = false;
 			listViewResults.View = View.Details;
 			listViewResults.VirtualMode = true;
-			listViewResults.RetrieveVirtualItem += listViewResults_RetrieveVirtualItem;
+			listViewResults.RetrieveVirtualItem += ListViewResults_RetrieveVirtualItem;
 			// 
 			// columnHeaderIndex
 			// 
@@ -133,7 +133,7 @@ namespace Planetoid_DB
 			kryptonButtonCancel.TabIndex = 5;
 			kryptonButtonCancel.Values.DropDownArrowColor = Color.Empty;
 			kryptonButtonCancel.Values.Text = "Cancel";
-			kryptonButtonCancel.Click += kryptonButtonCancel_Click;
+			kryptonButtonCancel.Click += KryptonButtonCancel_Click;
 			// 
 			// kryptonButtonSearch
 			// 
@@ -145,7 +145,7 @@ namespace Planetoid_DB
 			kryptonButtonSearch.TabIndex = 4;
 			kryptonButtonSearch.Values.DropDownArrowColor = Color.Empty;
 			kryptonButtonSearch.Values.Text = "Search";
-			kryptonButtonSearch.Click += kryptonButtonSearch_Click;
+			kryptonButtonSearch.Click += KryptonButtonSearch_Click;
 			// 
 			// kryptonCheckBoxFullText
 			// 

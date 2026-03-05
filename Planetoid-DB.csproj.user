@@ -7,6 +7,12 @@
     <Compile Update="Forms\AppInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\ArchiveMpcorbForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\AsteroidFamiliesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\BaseKryptonForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -49,6 +55,15 @@
     <Compile Update="Forms\ListReadableDesignationsForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\OrbitalResonancesOfOneMinorPlanetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\OrbitalResonancesOfAllMinorPlanetsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\OrbitElementsGroupingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\PlanetoidDBForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,10 +73,16 @@
     <Compile Update="Forms\PrintDataSheetForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\RecordsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\RecordsMainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\RecordsSelectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Search2Form.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\SearchForm.cs">
