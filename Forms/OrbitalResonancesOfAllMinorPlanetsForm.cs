@@ -410,14 +410,12 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		{
 			designation = line[..7].Trim();
 		}
-		// Limit results to near-resonances in order to avoid generating excessive
-		// ResonanceResult instances when processing large MPCORB datasets.
-		const double ResonanceThresholdPercent = 1.0;
+		// Collect all resonances for the selected planets. Any near-resonance
+		// classification (e.g. Yes/No indicators) is handled at a higher level.
 		List<DerivedElements.OrbitalResonance> resonances = DerivedElements.CalculateOrbitalResonances(semiMajorAxis: semiMajorAxis);
 		foreach (DerivedElements.OrbitalResonance resonance in resonances)
 		{
-			if (selectedPlanets.Contains(item: resonance.PlanetName)
-				&& resonance.DeviationPercent < ResonanceThresholdPercent)
+			if (selectedPlanets.Contains(item: resonance.PlanetName))
 			{
 				results.Add(item: new ResonanceResult(PlanetoidName: designation, Resonance: resonance));
 			}
