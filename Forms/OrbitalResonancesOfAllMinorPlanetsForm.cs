@@ -155,9 +155,10 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// </remarks>
 	private void UpdateProgress(int percent)
 	{
-		kryptonProgressBar.Value = Math.Clamp(value: percent, min: 0, max: 100);
-		kryptonProgressBar.Text = $"{percent}%";
-		labelProgress.Values.Text = $"{percent}%";
+		int clampedPercent = Math.Clamp(value: percent, min: 0, max: 100);
+		kryptonProgressBar.Value = clampedPercent;
+		kryptonProgressBar.Text = $"{clampedPercent}%";
+		labelProgress.Values.Text = $"{clampedPercent}%";
 	}
 
 	#endregion
@@ -298,13 +299,30 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		}
 		finally
 		{
-			_results = localResults;
-			listView.VirtualListSize = _results.Count;
-			listView.Refresh();
-			btnStart.Enabled = true;
-			btnCancel.Enabled = false;
-			_cancellationTokenSource?.Dispose();
-			_cancellationTokenSource = null;
+			try
+			{
+				if (IsHandleCreated && !IsDisposed && !Disposing)
+				{
+					_results = localResults;
+					listView.VirtualListSize = _results.Count;
+					listView.Refresh();
+					btnStart.Enabled = true;
+					btnCancel.Enabled = false;
+				}
+			}
+			catch (ObjectDisposedException)
+			{
+				// Ignore exceptions caused by controls being disposed during form shutdown.
+			}
+			catch (InvalidOperationException)
+			{
+				// Ignore exceptions related to invalid control state during form shutdown.
+			}
+			finally
+			{
+				_cancellationTokenSource?.Dispose();
+				_cancellationTokenSource = null;
+			}
 		}
 	}
 
@@ -392,10 +410,14 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		{
 			designation = line[..7].Trim();
 		}
+		// Limit results to near-resonances in order to avoid generating excessive
+		// ResonanceResult instances when processing large MPCORB datasets.
+		const double ResonanceThresholdPercent = 1.0;
 		List<DerivedElements.OrbitalResonance> resonances = DerivedElements.CalculateOrbitalResonances(semiMajorAxis: semiMajorAxis);
 		foreach (DerivedElements.OrbitalResonance resonance in resonances)
 		{
-			if (selectedPlanets.Contains(item: resonance.PlanetName))
+			if (selectedPlanets.Contains(item: resonance.PlanetName)
+				&& resonance.DeviationPercent < ResonanceThresholdPercent)
 			{
 				results.Add(item: new ResonanceResult(PlanetoidName: designation, Resonance: resonance));
 			}
