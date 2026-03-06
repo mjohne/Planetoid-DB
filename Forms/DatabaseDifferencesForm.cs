@@ -185,9 +185,6 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		// Initialize the second file path and label
 		pathFile2 = string.Empty;
 		kryptonLabelFile2.Text = "No file selected";
-		// Initialize the progress bar and disable the cancel button until a comparison is started
-		kryptonProgressBar.Visible = false;
-		toolStripButtonCancel.Enabled = false;
 	}
 
 	#endregion
@@ -273,7 +270,6 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		listViewResults.Items.Clear();
 		// Reset the counters for added, deleted, and changed records
 		kryptonProgressBar.Value = 0;
-		kryptonProgressBar.Visible = true;
 		toolStripButtonCompare.Enabled = false;
 		kryptonButtonSelectFile1.Enabled = false;
 		kryptonButtonSelectFile2.Enabled = false;
@@ -528,7 +524,6 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		kryptonButtonSelectFile1.Enabled = true;
 		kryptonButtonSelectFile2.Enabled = true;
 		toolStripButtonCancel.Enabled = true;
-		kryptonProgressBar.Visible = false;
 	}
 
 	#endregion

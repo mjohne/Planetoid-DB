@@ -179,6 +179,7 @@ partial class DatabaseDifferencesForm
 		kryptonLabelFile1.Leave += Control_Leave;
 		kryptonLabelFile1.MouseEnter += Control_Enter;
 		kryptonLabelFile1.MouseLeave += Control_Leave;
+		kryptonLabelFile1.MouseDown += Control_MouseDown;
 		// 
 		// contextMenuCopyToClipboard
 		// 
@@ -275,6 +276,7 @@ partial class DatabaseDifferencesForm
 		kryptonLabelFile2.Leave += Control_Leave;
 		kryptonLabelFile2.MouseEnter += Control_Enter;
 		kryptonLabelFile2.MouseLeave += Control_Leave;
+		kryptonLabelFile2.MouseDown += Control_MouseDown;
 		// 
 		// kryptonButtonSelectFile2
 		// 
@@ -303,7 +305,7 @@ partial class DatabaseDifferencesForm
 		// 
 		statusStrip.AccessibleDescription = "Shows some information";
 		statusStrip.AccessibleName = "Status bar with some information";
-		statusStrip.AccessibleRole = AccessibleRole.ScrollBar;
+		statusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		statusStrip.Dock = DockStyle.None;
 		statusStrip.Font = new Font("Segoe UI", 9F);
 		statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
@@ -432,7 +434,7 @@ partial class DatabaseDifferencesForm
 		// 
 		// kryptonProgressBar
 		// 
-		kryptonProgressBar.AccessibleDescription = "Shows the state of the compression as progress";
+		kryptonProgressBar.AccessibleDescription = "Shows the progress of the file comparison";
 		kryptonProgressBar.AccessibleName = "Comparison progress";
 		kryptonProgressBar.AccessibleRole = AccessibleRole.ProgressBar;
 		kryptonProgressBar.AutoToolTip = true;
