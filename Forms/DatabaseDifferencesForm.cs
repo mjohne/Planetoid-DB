@@ -789,10 +789,10 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 			try
 			{
 				using StreamWriter writer = new(path: saveFileDialog.FileName);
-				writer.WriteLine(value: "CREATE TABLE Differences (Index INT, Designation VARCHAR(255), Difference TEXT);");
+				writer.WriteLine(value: "CREATE TABLE Differences (DifferenceIndex TEXT, Designation VARCHAR(255), Difference TEXT);");
 				foreach (DifferenceResult result in differenceResults)
 				{
-					writer.WriteLine(value: $"INSERT INTO Differences (Index, Designation, Difference) VALUES ({result.Index}, '{result.Designation.Replace(oldValue: "'", newValue: "''")}', '{result.Difference.Replace(oldValue: "'", newValue: "''")}');");
+					writer.WriteLine(value: $"INSERT INTO Differences (DifferenceIndex, Designation, Difference) VALUES ('{result.Index.Replace(oldValue: "'", newValue: "''")}', '{result.Designation.Replace(oldValue: "'", newValue: "''")}', '{result.Difference.Replace(oldValue: "'", newValue: "''")}');");
 				}
 				MessageBox.Show(text: "Results successfully saved to SQL file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}

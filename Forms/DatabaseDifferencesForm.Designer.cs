@@ -897,11 +897,6 @@ partial class DatabaseDifferencesForm
 		ResumeLayout(false);
 	}
 
-	private void KryptonButtonNoteAbbreviations_MouseLeave(object sender, EventArgs e)
-	{
-		throw new NotImplementedException();
-	}
-
 	private KryptonPanel panelMain;
     private OpenFileDialog openFileDialog;
     private KryptonStatusStrip statusStrip;
