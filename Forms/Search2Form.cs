@@ -19,6 +19,12 @@ public partial class Search2Form : Forms.BaseKryptonForm
 		public string Value;
 	}
 
+	/// <summary>
+	/// Initializes a new instance of the <see cref="Search2Form"/> class.
+	/// </summary>
+	/// <remarks>
+	/// This constructor sets up the form and initializes the property map for searching.
+	/// </remarks>
 	public Search2Form()
 	{
 		InitializeComponent();
@@ -154,7 +160,7 @@ public partial class Search2Form : Forms.BaseKryptonForm
 						}
 						else
 						{
-							if (value.Contains(searchText, StringComparison.OrdinalIgnoreCase))
+							if (!string.IsNullOrEmpty(value) && value.Contains(searchText, StringComparison.OrdinalIgnoreCase))
 							{
 								match = true;
 							}
