@@ -306,7 +306,7 @@ namespace Planetoid_DB
 			// 
 			toolStripIcons.AccessibleDescription = "Toolbar of archiving and setting";
 			toolStripIcons.AccessibleName = "Toolbar of archiving and setting";
-			toolStripIcons.AccessibleRole = AccessibleRole.ToolTip;
+			toolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
 			toolStripIcons.AllowClickThrough = true;
 			toolStripIcons.AllowItemReorder = true;
 			toolStripIcons.Dock = DockStyle.None;
@@ -506,7 +506,7 @@ namespace Planetoid_DB
 			// 
 			toolStripLabelProgress.AccessibleDescription = "Shows the progress of archiving";
 			toolStripLabelProgress.AccessibleName = "Progress";
-			toolStripLabelProgress.AccessibleRole = AccessibleRole.StatusBar;
+			toolStripLabelProgress.AccessibleRole = AccessibleRole.StaticText;
 			toolStripLabelProgress.AutoToolTip = true;
 			toolStripLabelProgress.Name = "toolStripLabelProgress";
 			toolStripLabelProgress.Size = new Size(52, 22);
