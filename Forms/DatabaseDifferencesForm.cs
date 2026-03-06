@@ -7,10 +7,12 @@ using NLog;
 
 using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
-using Planetoid_DB.Properties;
 
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Xml.Linq;
+
+using Settings = Planetoid_DB.Properties.Settings;
 
 namespace Planetoid_DB;
 
@@ -21,6 +23,13 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// <summary>NLog logger for logging messages and errors.</summary>
 	/// <remarks>This logger is used to log messages and errors that occur within the form.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+	/// <summary>Reusable JSON serializer options for efficient serialization operations.</summary>
+	/// <remarks>This instance is reused across multiple serialization calls to avoid creating new instances repeatedly.</remarks>
+	private static readonly System.Text.Json.JsonSerializerOptions jsonSerializerOptions = new()
+	{
+		WriteIndented = true
+	};
 
 	/// <summary>Gets or sets the background worker used for asynchronous operations.</summary>
 	/// <remarks>This field is initialized to null and should be assigned a valid instance of BackgroundWorker
@@ -159,6 +168,1763 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		return diffs.Count > 0 ? string.Join(separator: "; ", values: diffs) : string.Empty;
 	}
 
+	/// <summary>Saves the results displayed in the list view to a text file, allowing the user to specify the file location and
+	/// format.</summary>
+	/// <remarks>This method prompts the user with a save file dialog to select the destination for the text file.
+	/// Each difference result is written to the file in a tab-separated format, including the index, designation, and
+	/// difference values. If an I/O error or access denial occurs during the save operation, an error message is displayed
+	/// to the user.</remarks>
+	private void SaveListViewResultsAsText()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				using StreamWriter writer = new(path: saveFileDialog.FileName);
+				foreach (DifferenceResult result in differenceResults)
+				{
+					writer.WriteLine(value: $"{result.Index}\t{result.Designation}\t{result.Difference}");
+				}
+				MessageBox.Show(text: "Results successfully saved to text file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to text file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to text file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Prompts the user to save the results displayed in the list view as a CSV file at a specified location.</summary>
+	/// <remarks>This method displays a save file dialog allowing the user to choose the destination and file name
+	/// for the CSV export. The CSV file includes columns for index, designation, and difference. If an I/O error or access
+	/// denial occurs during the save operation, an error message is shown to the user.</remarks>
+	private void SaveListViewResultsAsCsv()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				using StreamWriter writer = new(path: saveFileDialog.FileName);
+				writer.WriteLine(value: "Index,Designation,Difference");
+				foreach (DifferenceResult result in differenceResults)
+				{
+					writer.WriteLine(value: $"{result.Index},\"{result.Designation}\",\"{result.Difference}\"");
+				}
+				MessageBox.Show(text: "Results successfully saved to CSV file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to CSV file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to CSV file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Prompts the user to save the results displayed in the list view as a TSV file at a specified location.</summary>
+	/// <remarks>This method displays a save file dialog allowing the user to choose the destination and file name
+	/// for the TSV export. The TSV file includes columns for index, designation, and difference. If an I/O error or access
+	/// denial occurs during the save operation, an error message is shown to the user.</remarks>
+	private void SaveListViewResultsAsTsv()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "TSV Files (*.tsv)|*.tsv|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				using StreamWriter writer = new(path: saveFileDialog.FileName);
+				writer.WriteLine(value: "Index\tDesignation\tDifference");
+				foreach (DifferenceResult result in differenceResults)
+				{
+					writer.WriteLine(value: $"{result.Index}\t{result.Designation}\t{result.Difference}");
+				}
+				MessageBox.Show(text: "Results successfully saved to TSV file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to TSV file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to TSV file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Prompts the user to save the results displayed in the list view as a PSV file at a specified location.</summary>
+	/// <remarks>This method displays a save file dialog allowing the user to choose the destination and file name
+	/// for the PSV export. The PSV file includes columns for index, designation, and difference. If an I/O error or access
+	/// denial occurs during the save operation, an error message is shown to the user.</remarks>
+	private void SaveListViewResultsAsPsv()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "PSV Files (*.psv)|*.psv|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				using StreamWriter writer = new(path: saveFileDialog.FileName);
+				writer.WriteLine(value: "Index|Designation|Difference");
+				foreach (DifferenceResult result in differenceResults)
+				{
+					writer.WriteLine(value: $"{result.Index}|{result.Designation}|{result.Difference}");
+				}
+				MessageBox.Show(text: "Results successfully saved to PSV file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to PSV file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to PSV file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Prompts the user to save the results displayed in the list view as a Markdown file at a specified location.</summary>
+	/// <remarks>This method displays a save file dialog allowing the user to choose the destination and file name
+	/// for the Markdown export. The Markdown file includes columns for index, designation, and difference. If an I/O error or access
+	/// denial occurs during the save operation, an error message is shown to the user.</remarks>
+	private void SaveListViewResultsAsMarkdown()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "Markdown Files (*.md)|*.md|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				using StreamWriter writer = new(path: saveFileDialog.FileName);
+				writer.WriteLine(value: "| Index | Designation | Difference |");
+				writer.WriteLine(value: "|-------|-------------|------------|");
+				foreach (DifferenceResult result in differenceResults)
+				{
+					writer.WriteLine(value: $"| {result.Index} | {result.Designation} | {result.Difference} |");
+				}
+				MessageBox.Show(text: "Results successfully saved to Markdown file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to Markdown file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to Markdown file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Prompts the user to save the results displayed in the list view as an Excel file at a specified location.</summary>
+	/// <remarks>This method displays a save file dialog allowing the user to choose the destination and file name
+	/// for the Excel export. The Excel file includes columns for index, designation, and difference. If an I/O error or access
+	/// denial occurs during the save operation, an error message is shown to the user.</remarks>
+	private void SaveListViewResultsAsExcel()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "Excel Files (*.xlsx)|*.xlsx|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				using FileStream zipToOpen = new(path: saveFileDialog.FileName, mode: FileMode.Create);
+				using System.IO.Compression.ZipArchive archive = new(stream: zipToOpen, mode: System.IO.Compression.ZipArchiveMode.Create);
+
+				System.IO.Compression.ZipArchiveEntry contentTypesEntry = archive.CreateEntry(entryName: "[Content_Types].xml");
+				using (StreamWriter writer = new(stream: contentTypesEntry.Open()))
+				{
+					writer.Write(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?><Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\"><Default Extension=\"rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\" /><Default Extension=\"xml\" ContentType=\"application/xml\" /><Override PartName=\"/xl/workbook.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml\" /><Override PartName=\"/xl/worksheets/sheet1.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml\" /></Types>");
+				}
+
+				System.IO.Compression.ZipArchiveEntry relsEntry = archive.CreateEntry(entryName: "_rels/.rels");
+				using (StreamWriter writer = new(stream: relsEntry.Open()))
+				{
+					writer.Write(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?><Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"><Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"xl/workbook.xml\" /></Relationships>");
+				}
+
+				System.IO.Compression.ZipArchiveEntry workbookRelsEntry = archive.CreateEntry(entryName: "xl/_rels/workbook.xml.rels");
+				using (StreamWriter writer = new(stream: workbookRelsEntry.Open()))
+				{
+					writer.Write(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?><Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"><Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet\" Target=\"worksheets/sheet1.xml\" /></Relationships>");
+				}
+
+				System.IO.Compression.ZipArchiveEntry workbookEntry = archive.CreateEntry(entryName: "xl/workbook.xml");
+				using (StreamWriter writer = new(stream: workbookEntry.Open()))
+				{
+					writer.Write(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?><workbook xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\"><sheets><sheet name=\"Differences\" sheetId=\"1\" r:id=\"rId1\" /></sheets></workbook>");
+				}
+
+				System.IO.Compression.ZipArchiveEntry sheetEntry = archive.CreateEntry(entryName: "xl/worksheets/sheet1.xml");
+				using (StreamWriter writer = new(stream: sheetEntry.Open()))
+				{
+					writer.Write(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?><worksheet xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\"><sheetData><row><c t=\"inlineStr\"><is><t>Index</t></is></c><c t=\"inlineStr\"><is><t>Designation</t></is></c><c t=\"inlineStr\"><is><t>Difference</t></is></c></row>");
+					foreach (DifferenceResult result in differenceResults)
+					{
+						string safeIndex = System.Security.SecurityElement.Escape(result.Index) ?? string.Empty;
+						string safeDesig = System.Security.SecurityElement.Escape(result.Designation) ?? string.Empty;
+						string safeDiff = System.Security.SecurityElement.Escape(result.Difference) ?? string.Empty;
+						writer.Write(value: $"<row><c t=\"inlineStr\"><is><t>{safeIndex}</t></is></c><c t=\"inlineStr\"><is><t>{safeDesig}</t></is></c><c t=\"inlineStr\"><is><t>{safeDiff}</t></is></c></row>");
+					}
+					writer.Write(value: "</sheetData></worksheet>");
+				}
+				MessageBox.Show(text: "Results successfully saved to Excel file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to Excel file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to Excel file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Prompts the user to save the results displayed in the list view as an HTML file at a specified location.</summary>
+	/// <remarks>This method displays a save file dialog allowing the user to choose the destination and file name
+	/// for the HTML export. The HTML file includes columns for index, designation, and difference. If an I/O error or access
+	/// denial occurs during the save operation, an error message is shown to the user.</remarks>
+	private void SaveListViewResultsAsHtml()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "HTML Files (*.html)|*.html|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				using StreamWriter writer = new(path: saveFileDialog.FileName);
+				writer.WriteLine(value: "<!DOCTYPE html>");
+				writer.WriteLine(value: "<html lang=\"en\">");
+				writer.WriteLine(value: "<head>");
+				writer.WriteLine(value: "    <meta charset=\"UTF-8\">");
+				writer.WriteLine(value: "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
+				writer.WriteLine(value: "    <title>Database Differences</title>");
+				writer.WriteLine(value: "    <style>");
+				writer.WriteLine(value: "        table { border-collapse: collapse; width: 100%; }");
+				writer.WriteLine(value: "        th, td { border: 1px solid #ddd; padding: 8px; }");
+				writer.WriteLine(value: "        th { background-color: #f2f2f2; }");
+				writer.WriteLine(value: "    </style>");
+				writer.WriteLine(value: "</head>");
+				writer.WriteLine(value: "<body>");
+				writer.WriteLine(value: "    <h1>Database Differences</h1>");
+				writer.WriteLine(value: "    <table>");
+				writer.WriteLine(value: "        <tr><th>Index</th><th>Designation</th><th>Difference</th></tr>");
+				foreach (DifferenceResult result in differenceResults)
+				{
+					writer.WriteLine(value: $"        <tr><td>{result.Index}</td><td>{result.Designation}</td><td>{result.Difference}</td></tr>");
+				}
+				writer.WriteLine(value: "    </table>");
+				writer.WriteLine(value: "</body>");
+				writer.WriteLine(value: "</html>");
+				MessageBox.Show(text: "Results successfully saved to HTML file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to HTML file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to HTML file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Prompts the user to save the results displayed in the list view as an XML file at a specified location.</summary>
+	/// <remarks>This method displays a save file dialog allowing the user to choose the destination and file name
+	/// for the XML export. The XML file includes columns for index, designation, and difference. If an I/O error or access
+	/// denial occurs during the save operation, an error message is shown to the user.</remarks>
+	private void SaveListViewResultsAsXml()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "XML Files (*.xml)|*.xml|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				XDocument doc = new(
+					content: new XElement(name: "Differences",
+						content: differenceResults.Select(selector: static result =>
+							new XElement(name: "Difference",
+								content:
+								[
+									new XElement(name: "Index", content: result.Index),
+									new XElement(name: "Designation", content: result.Designation),
+									new XElement(name: "DifferenceText", content: result.Difference)
+								]
+							)
+						)
+					)
+				);
+				doc.Save(fileName: saveFileDialog.FileName);
+				MessageBox.Show(text: "Results successfully saved to XML file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to XML file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to XML file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Prompts the user to save the results displayed in the list view as a JSON file at a specified location.</summary>
+	/// <remarks>This method displays a save file dialog allowing the user to choose the destination and file name
+	/// for the JSON export. The JSON file includes columns for index, designation, and difference. If an I/O error or access
+	/// denial occurs during the save operation, an error message is shown to the user.</remarks>
+	private void SaveListViewResultsAsJson()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "JSON Files (*.json)|*.json|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				string json = System.Text.Json.JsonSerializer.Serialize(value: differenceResults, options: jsonSerializerOptions);
+				File.WriteAllText(path: saveFileDialog.FileName, contents: json);
+				MessageBox.Show(text: "Results successfully saved to JSON file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to JSON file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to JSON file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Prompts the user to save the results displayed in the list view as a YAML file at a specified location.</summary>
+	/// <remarks>This method displays a save file dialog allowing the user to choose the destination and file name
+	/// for the YAML export. The YAML file includes columns for index, designation, and difference. If an I/O error or access
+	/// denial occurs during the save operation, an error message is shown to the user.</remarks>
+	private void SaveListViewResultsAsYaml()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "YAML Files (*.yaml)|*.yaml|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				using StreamWriter writer = new(path: saveFileDialog.FileName);
+				foreach (DifferenceResult result in differenceResults)
+				{
+					writer.WriteLine(value: $"- Index: {result.Index}");
+					writer.WriteLine(value: $"  Designation: \"{result.Designation.Replace(oldValue: "\"", newValue: "\\\"")}\"");
+					writer.WriteLine(value: $"  Difference: \"{result.Difference.Replace(oldValue: "\"", newValue: "\\\"")}\"");
+				}
+				MessageBox.Show(text: "Results successfully saved to YAML file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to YAML file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to YAML file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Prompts the user to save the results displayed in the list view as a LaTeX file at a specified location.</summary>
+	/// <remarks>This method displays a save file dialog allowing the user to choose the destination and file name
+	/// for the LaTeX export. The LaTeX file includes columns for index, designation, and difference. If an I/O error or access
+	/// denial occurs during the save operation, an error message is shown to the user.</remarks>
+	private void SaveListViewResultsAsLatex()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "LaTeX Files (*.tex)|*.tex|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				using StreamWriter writer = new(path: saveFileDialog.FileName);
+				writer.WriteLine(value: "\\documentclass{article}");
+				writer.WriteLine(value: "\\usepackage[utf8]{inputenc}");
+				writer.WriteLine(value: "\\usepackage{booktabs}");
+				writer.WriteLine(value: "\\begin{document}");
+				writer.WriteLine(value: "\\section*{Database Differences}");
+				writer.WriteLine(value: "\\begin{tabular}{lll}");
+				writer.WriteLine(value: "\\toprule");
+				writer.WriteLine(value: "Index & Designation & Difference \\\\");
+				writer.WriteLine(value: "\\midrule");
+				foreach (DifferenceResult result in differenceResults)
+				{
+					writer.WriteLine(value: $"{result.Index} & {result.Designation} & {result.Difference} \\\\");
+				}
+				writer.WriteLine(value: "\\bottomrule");
+				writer.WriteLine(value: "\\end{tabular}");
+				writer.WriteLine(value: "\\end{document}");
+				MessageBox.Show(text: "Results successfully saved to LaTeX file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to LaTeX file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to LaTeX file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Prompts the user to save the results displayed in the list view as a PDF file at a specified location.</summary>
+	/// <remarks>This method displays a save file dialog allowing the user to choose the destination and file name
+	/// for the PDF export. The PDF file includes columns for index, designation, and difference. If an I/O error or access
+	/// denial occurs during the save operation, an error message is shown to the user.</remarks>
+	private void SaveListViewResultsAsPdf()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "PDF Files (*.pdf)|*.pdf|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				using FileStream fs = new(path: saveFileDialog.FileName, mode: FileMode.Create, access: FileAccess.Write);
+				using StreamWriter writer = new(stream: fs, encoding: System.Text.Encoding.ASCII);
+				writer.NewLine = "\n";
+
+				List<long> xrefs = [0]; // dummy object 0
+
+				void WriteObj(int id, string content)
+				{
+					writer.Flush();
+					xrefs.Add(item: fs.Position);
+					writer.Write(value: $"{id} 0 obj\n{content}\nendobj\n");
+				}
+
+				string EscapePdfString(string input)
+				{
+					if (string.IsNullOrEmpty(value: input))
+					{
+						return string.Empty;
+					}
+					System.Text.StringBuilder sb = new();
+					foreach (char c in input)
+					{
+						if (c > 127)
+						{
+							sb.Append(value: '?');
+						}
+						else if (c == '(')
+						{
+							sb.Append(value: "\\(");
+						}
+						else if (c == ')')
+						{
+							sb.Append(value: "\\)");
+						}
+						else if (c == '\\')
+						{
+							sb.Append(value: "\\\\");
+						}
+						else if (c == '\r')
+						{
+							sb.Append(value: "\\r");
+						}
+						else if (c == '\n')
+						{
+							sb.Append(value: "\\n");
+						}
+						else
+						{
+							sb.Append(value: c);
+						}
+					}
+					return sb.ToString();
+				}
+
+				writer.Write(value: "%PDF-1.4\n");
+
+				int objId = 1;
+				int catalogId = objId++;
+				int pagesId = objId++;
+
+				List<int> pageIds = [];
+				List<string> pageContents = [];
+
+				double y = 750;
+				System.Text.StringBuilder currentContent = new();
+				currentContent.Append(value: "BT\n/F1 16 Tf\n40 800 Td\n(Database Differences) Tj\n0 -30 Td\n/F1 12 Tf\n");
+
+				foreach (DifferenceResult result in differenceResults)
+				{
+					string safeIndex = EscapePdfString(input: result.Index);
+					string safeDesig = EscapePdfString(input: result.Designation);
+					string safeDiff = EscapePdfString(input: result.Difference);
+					string line = $"{safeIndex}    {safeDesig}    {safeDiff}";
+
+					currentContent.Append(value: $"0 -20 Td\n({line}) Tj\n");
+					y -= 20;
+					if (y < 50)
+					{
+						currentContent.Append(value: "ET\n");
+						pageContents.Add(item: currentContent.ToString());
+						currentContent.Clear();
+						currentContent.Append(value: "BT\n/F1 12 Tf\n40 800 Td\n");
+						y = 800;
+					}
+				}
+				if (currentContent.Length > 0)
+				{
+					currentContent.Append(value: "ET\n");
+					pageContents.Add(item: currentContent.ToString());
+				}
+
+				List<int> contentIds = [];
+				foreach (string _ in pageContents)
+				{
+					contentIds.Add(item: objId++);
+				}
+
+				foreach (string _ in pageContents)
+				{
+					pageIds.Add(item: objId++);
+				}
+
+				int fontId = objId++;
+
+				WriteObj(id: catalogId, content: $"<< /Type /Catalog /Pages {pagesId} 0 R >>");
+				WriteObj(id: pagesId, content: $"<< /Type /Pages /Kids [ {string.Join(separator: " ", values: pageIds.Select(selector: p => $"{p} 0 R"))} ] /Count {pageIds.Count} >>");
+
+				for (int i = 0; i < pageContents.Count; i++)
+				{
+					WriteObj(id: contentIds[index: i], content: $"<< /Length {pageContents[index: i].Length} >>\nstream\n{pageContents[index: i]}\nendstream");
+					WriteObj(id: pageIds[index: i], content: $"<< /Type /Page /Parent {pagesId} 0 R /Resources << /Font << /F1 {fontId} 0 R >> >> /MediaBox [0 0 595 842] /Contents {contentIds[index: i]} 0 R >>");
+				}
+
+				WriteObj(id: fontId, content: "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>");
+
+				writer.Flush();
+				long startXref = fs.Position;
+				writer.Write(value: $"xref\n0 {xrefs.Count}\n0000000000 65535 f \n");
+				for (int i = 1; i < xrefs.Count; i++)
+				{
+					writer.Write(value: $"{xrefs[index: i]:D10} 00000 n \n");
+				}
+
+				writer.Write(value: $"trailer\n<< /Size {xrefs.Count} /Root {catalogId} 0 R >>\nstartxref\n{startXref}\n%%EOF\n");
+				writer.Flush();
+				MessageBox.Show(text: "Results successfully saved to PDF file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to PDF file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to PDF file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	private void SaveListViewResultsAsSql()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "SQL Files (*.sql)|*.sql|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				using StreamWriter writer = new(path: saveFileDialog.FileName);
+				writer.WriteLine(value: "CREATE TABLE Differences (Index INT, Designation VARCHAR(255), Difference TEXT);");
+				foreach (DifferenceResult result in differenceResults)
+				{
+					writer.WriteLine(value: $"INSERT INTO Differences (Index, Designation, Difference) VALUES ({result.Index}, '{result.Designation.Replace(oldValue: "'", newValue: "''")}', '{result.Difference.Replace(oldValue: "'", newValue: "''")}');");
+				}
+				MessageBox.Show(text: "Results successfully saved to SQL file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to SQL file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to SQL file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	private void SaveListViewResultsAsWord()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "Word Documents (*.docx)|*.docx|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				using FileStream zipToOpen = new(path: saveFileDialog.FileName, mode: FileMode.Create);
+				using System.IO.Compression.ZipArchive archive = new(stream: zipToOpen, mode: System.IO.Compression.ZipArchiveMode.Create);
+
+				System.IO.Compression.ZipArchiveEntry contentTypesEntry = archive.CreateEntry(entryName: "[Content_Types].xml");
+				using (StreamWriter writer = new(stream: contentTypesEntry.Open()))
+				{
+					writer.Write(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?><Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\"><Default Extension=\"rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\" /><Default Extension=\"xml\" ContentType=\"application/xml\" /><Override PartName=\"/word/document.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml\" /></Types>");
+				}
+
+				System.IO.Compression.ZipArchiveEntry relsEntry = archive.CreateEntry(entryName: "_rels/.rels");
+				using (StreamWriter writer = new(stream: relsEntry.Open()))
+				{
+					writer.Write(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?><Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"><Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"word/document.xml\" /></Relationships>");
+				}
+
+				System.IO.Compression.ZipArchiveEntry docEntry = archive.CreateEntry(entryName: "word/document.xml");
+				using (StreamWriter writer = new(stream: docEntry.Open()))
+				{
+					writer.Write(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?><w:document xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\"><w:body><w:p><w:r><w:rPr><w:b/></w:rPr><w:t>Database Differences</w:t></w:r></w:p><w:tbl><w:tblPr><w:tblBorders><w:top w:val=\"single\" w:space=\"0\" w:color=\"auto\" w:sz=\"4\"/><w:left w:val=\"single\" w:space=\"0\" w:color=\"auto\" w:sz=\"4\"/><w:bottom w:val=\"single\" w:space=\"0\" w:color=\"auto\" w:sz=\"4\"/><w:right w:val=\"single\" w:space=\"0\" w:color=\"auto\" w:sz=\"4\"/><w:insideH w:val=\"single\" w:space=\"0\" w:color=\"auto\" w:sz=\"4\"/><w:insideV w:val=\"single\" w:space=\"0\" w:color=\"auto\" w:sz=\"4\"/></w:tblBorders></w:tblPr><w:tr><w:tc><w:p><w:r><w:rPr><w:b/></w:rPr><w:t>Index</w:t></w:r></w:p></w:tc><w:tc><w:p><w:r><w:rPr><w:b/></w:rPr><w:t>Designation</w:t></w:r></w:p></w:tc><w:tc><w:p><w:r><w:rPr><w:b/></w:rPr><w:t>Difference</w:t></w:r></w:p></w:tc></w:tr>");
+					foreach (DifferenceResult result in differenceResults)
+					{
+						string safeIndex = System.Security.SecurityElement.Escape(str: result.Index) ?? string.Empty;
+						string safeDesig = System.Security.SecurityElement.Escape(str: result.Designation) ?? string.Empty;
+						string safeDiff = System.Security.SecurityElement.Escape(str: result.Difference) ?? string.Empty;
+						writer.Write(value: $"<w:tr><w:tc><w:p><w:r><w:t>{safeIndex}</w:t></w:r></w:p></w:tc><w:tc><w:p><w:r><w:t>{safeDesig}</w:t></w:r></w:p></w:tc><w:tc><w:p><w:r><w:t>{safeDiff}</w:t></w:r></w:p></w:tc></w:tr>");
+					}
+					writer.Write(value: "</w:tbl></w:body></w:document>");
+				}
+				MessageBox.Show(text: "Results successfully saved to Word file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to Word file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to Word file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Exports the database difference results to a Rich Text Format (RTF) file selected by the user.</summary>
+	/// <remarks>Prompts the user to choose a file location and name using a save file dialog. The exported RTF file
+	/// includes formatted database difference entries, with special characters properly escaped to ensure valid RTF
+	/// output. If an I/O error or access denial occurs during the save process, an error message is displayed to the
+	/// user.</remarks>
+	private void SaveListViewResultsAsRtf()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "RTF Files (*.rtf)|*.rtf|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				using StreamWriter writer = new(path: saveFileDialog.FileName);
+				writer.WriteLine(value: @"{\rtf1\ansi\ansicpg1252\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset0 Arial;}}");
+				writer.WriteLine(value: @"{\*\generator PlanetoidDB;}\viewkind4\uc1 ");
+				writer.WriteLine(value: @"\pard\sa200\sl276\slmult1\b\f0\fs32 Database Differences\par");
+				writer.WriteLine(value: @"\pard\tx1500\tx4500\b\fs22 Index\tab Designation\tab Difference\par\b0");
+				foreach (DifferenceResult result in differenceResults)
+				{
+					string safeIndex = result.Index.Replace(oldValue: "\\", newValue: "\\\\").Replace(oldValue: "{", newValue: "\\{").Replace(oldValue: "}", newValue: "\\}");
+					string safeDesig = result.Designation.Replace(oldValue: "\\", newValue: "\\\\").Replace(oldValue: "{", newValue: "\\{").Replace(oldValue: "}", newValue: "\\}");
+					string safeDiff = result.Difference.Replace(oldValue: "\\", newValue: "\\\\").Replace(oldValue: "{", newValue: "\\{").Replace(oldValue: "}", newValue: "\\}");
+					writer.WriteLine(value: $@"\pard\tx1500\tx4500 {safeIndex}\tab {safeDesig}\tab {safeDiff}\par");
+				}
+				writer.WriteLine(value: "}");
+				MessageBox.Show(text: "Results successfully saved to RTF file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to RTF file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to RTF file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Exports the database difference results to an OpenDocument Text (ODT) file selected by the user.</summary>
+	/// <remarks>Prompts the user to choose a file location and name using a save file dialog. The exported ODT file
+	/// includes formatted database difference entries, with special characters properly escaped to ensure valid XML
+	/// output. If an I/O error or access denial occurs during the save process, an error message is displayed to the
+	/// user.</remarks>
+	private void SaveListViewResultsAsOdt()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "ODT Files (*.odt)|*.odt|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				using FileStream zipToOpen = new(path: saveFileDialog.FileName, mode: FileMode.Create);
+				using System.IO.Compression.ZipArchive archive = new(stream: zipToOpen, mode: System.IO.Compression.ZipArchiveMode.Create);
+
+				System.IO.Compression.ZipArchiveEntry mimetypeEntry = archive.CreateEntry(entryName: "mimetype");
+				using (StreamWriter writer = new(stream: mimetypeEntry.Open(), encoding: new System.Text.UTF8Encoding(encoderShouldEmitUTF8Identifier: false)))
+				{
+					writer.Write(value: "application/vnd.oasis.opendocument.text");
+				}
+
+				System.IO.Compression.ZipArchiveEntry manifestEntry = archive.CreateEntry(entryName: "META-INF/manifest.xml");
+				using (StreamWriter writer = new(stream: manifestEntry.Open(), encoding: new System.Text.UTF8Encoding(encoderShouldEmitUTF8Identifier: false)))
+				{
+					writer.Write(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?><manifest:manifest xmlns:manifest=\"urn:oasis:names:tc:opendocument:xmlns:manifest:1.0\" manifest:version=\"1.2\"><manifest:file-entry manifest:full-path=\"/\" manifest:media-type=\"application/vnd.oasis.opendocument.text\"/><manifest:file-entry manifest:full-path=\"content.xml\" manifest:media-type=\"text/xml\"/></manifest:manifest>");
+				}
+
+				System.IO.Compression.ZipArchiveEntry contentEntry = archive.CreateEntry(entryName: "content.xml");
+				using (StreamWriter writer = new(stream: contentEntry.Open(), encoding: new System.Text.UTF8Encoding(encoderShouldEmitUTF8Identifier: false)))
+				{
+					writer.Write(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?><office:document-content xmlns:office=\"urn:oasis:names:tc:opendocument:xmlns:office:1.0\" xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" xmlns:table=\"urn:oasis:names:tc:opendocument:xmlns:table:1.0\"><office:body><office:text><text:h text:outline-level=\"1\">Database Differences</text:h><table:table table:name=\"Differences\"><table:table-column table:number-columns-repeated=\"3\"/><table:table-row><table:table-cell><text:p>Index</text:p></table:table-cell><table:table-cell><text:p>Designation</text:p></table:table-cell><table:table-cell><text:p>Difference</text:p></table:table-cell></table:table-row>");
+					foreach (DifferenceResult result in differenceResults)
+					{
+						string safeIndex = System.Security.SecurityElement.Escape(str: result.Index) ?? string.Empty;
+						string safeDesig = System.Security.SecurityElement.Escape(str: result.Designation) ?? string.Empty;
+						string safeDiff = System.Security.SecurityElement.Escape(str: result.Difference) ?? string.Empty;
+						writer.Write(value: $"<table:table-row><table:table-cell><text:p>{safeIndex}</text:p></table:table-cell><table:table-cell><text:p>{safeDesig}</text:p></table:table-cell><table:table-cell><text:p>{safeDiff}</text:p></table:table-cell></table:table-row>");
+					}
+					writer.Write(value: "</table:table></office:text></office:body></office:document-content>");
+				}
+				MessageBox.Show(text: "Results successfully saved to ODT file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to ODT file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to ODT file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Exports the database difference results to an OpenDocument Spreadsheet (ODS) file selected by the user.</summary>
+	/// <remarks>Prompts the user to choose a file location and name using a save file dialog. The exported ODS file
+	/// includes formatted database difference entries, with special characters properly escaped to ensure valid XML
+	/// output. If an I/O error or access denial occurs during the save process, an error message is displayed to the
+	/// user.</remarks>
+	private void SaveListViewResultsAsOds()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "ODS Files (*.ods)|*.ods|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				using FileStream zipToOpen = new(path: saveFileDialog.FileName, mode: FileMode.Create);
+				using System.IO.Compression.ZipArchive archive = new(stream: zipToOpen, mode: System.IO.Compression.ZipArchiveMode.Create);
+
+				System.IO.Compression.ZipArchiveEntry mimetypeEntry = archive.CreateEntry(entryName: "mimetype");
+				using (StreamWriter writer = new(stream: mimetypeEntry.Open(), encoding: new System.Text.UTF8Encoding(encoderShouldEmitUTF8Identifier: false)))
+				{
+					writer.Write(value: "application/vnd.oasis.opendocument.spreadsheet");
+				}
+
+				System.IO.Compression.ZipArchiveEntry manifestEntry = archive.CreateEntry(entryName: "META-INF/manifest.xml");
+				using (StreamWriter writer = new(stream: manifestEntry.Open(), encoding: new System.Text.UTF8Encoding(encoderShouldEmitUTF8Identifier: false)))
+				{
+					writer.Write(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?><manifest:manifest xmlns:manifest=\"urn:oasis:names:tc:opendocument:xmlns:manifest:1.0\" manifest:version=\"1.2\"><manifest:file-entry manifest:full-path=\"/\" manifest:media-type=\"application/vnd.oasis.opendocument.spreadsheet\"/><manifest:file-entry manifest:full-path=\"content.xml\" manifest:media-type=\"text/xml\"/></manifest:manifest>");
+				}
+
+				System.IO.Compression.ZipArchiveEntry contentEntry = archive.CreateEntry(entryName: "content.xml");
+				using (StreamWriter writer = new(stream: contentEntry.Open(), encoding: new System.Text.UTF8Encoding(encoderShouldEmitUTF8Identifier: false)))
+				{
+					writer.Write(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?><office:document-content xmlns:office=\"urn:oasis:names:tc:opendocument:xmlns:office:1.0\" xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" xmlns:table=\"urn:oasis:names:tc:opendocument:xmlns:table:1.0\"><office:body><office:spreadsheet><table:table table:name=\"Differences\"><table:table-column table:number-columns-repeated=\"3\"/><table:table-row><table:table-cell office:value-type=\"string\"><text:p>Index</text:p></table:table-cell><table:table-cell office:value-type=\"string\"><text:p>Designation</text:p></table:table-cell><table:table-cell office:value-type=\"string\"><text:p>Difference</text:p></table:table-cell></table:table-row>");
+					foreach (DifferenceResult result in differenceResults)
+					{
+						string safeIndex = System.Security.SecurityElement.Escape(str: result.Index) ?? string.Empty;
+						string safeDesig = System.Security.SecurityElement.Escape(str: result.Designation) ?? string.Empty;
+						string safeDiff = System.Security.SecurityElement.Escape(str: result.Difference) ?? string.Empty;
+						writer.Write(value: $"<table:table-row><table:table-cell office:value-type=\"string\"><text:p>{safeIndex}</text:p></table:table-cell><table:table-cell office:value-type=\"string\"><text:p>{safeDesig}</text:p></table:table-cell><table:table-cell office:value-type=\"string\"><text:p>{safeDiff}</text:p></table:table-cell></table:table-row>");
+					}
+					writer.Write(value: "</table:table></office:spreadsheet></office:body></office:document-content>");
+				}
+				MessageBox.Show(text: "Results successfully saved to ODS file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to ODS file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to ODS file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Exports the database difference results to a PostScript (PS) file selected by the user.</summary>
+	/// <remarks>Prompts the user to choose a file location and name using a save file dialog. The exported PS file
+	/// includes formatted database difference entries, with special characters properly escaped to ensure valid PS
+	/// output. If an I/O error or access denial occurs during the save process, an error message is displayed to the
+	/// user.</remarks>
+	private void SaveListViewResultsAsPostScript()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "PostScript Files (*.ps)|*.ps|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				static string EscapePostScriptString(string input)
+				{
+					return string.IsNullOrEmpty(value: input)
+						? string.Empty
+						: input.Replace(oldValue: "\\", newValue: "\\\\").Replace(oldValue: "(", newValue: "\\(").Replace(oldValue: ")", newValue: "\\)");
+				}
+
+				using StreamWriter writer = new(path: saveFileDialog.FileName);
+				writer.WriteLine(value: "%!PS");
+				writer.WriteLine(value: "/Courier findfont");
+				writer.WriteLine(value: "10 scalefont");
+				writer.WriteLine(value: "setfont");
+
+				int y = 750;
+				writer.WriteLine(value: "72 770 moveto");
+				writer.WriteLine(value: "(Database Differences) show");
+
+				foreach (DifferenceResult result in differenceResults)
+				{
+					string safeIndex = EscapePostScriptString(input: result.Index);
+					string safeDesig = EscapePostScriptString(input: result.Designation);
+					string safeDiff = EscapePostScriptString(input: result.Difference);
+					string line = $"{safeIndex}    {safeDesig}    {safeDiff}";
+
+					writer.WriteLine(value: $"72 {y} moveto");
+					writer.WriteLine(value: $"({line}) show");
+					y -= 12;
+
+					if (y < 50)
+					{
+						writer.WriteLine(value: "showpage");
+						writer.WriteLine(value: "/Courier findfont");
+						writer.WriteLine(value: "10 scalefont");
+						writer.WriteLine(value: "setfont");
+						y = 750;
+					}
+				}
+				writer.WriteLine(value: "showpage");
+				MessageBox.Show(text: "Results successfully saved to PostScript file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to PostScript file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to PostScript file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Exports the database difference results to an EPUB (Electronic Publication) file selected by the user.</summary>
+	/// <remarks>Prompts the user to choose a file location and name using a save file dialog. The exported EPUB file
+	/// includes formatted database difference entries, with special characters properly escaped to ensure valid EPUB
+	/// output. If an I/O error or access denial occurs during the save process, an error message is displayed to the
+	/// user.</remarks>
+	private void SaveListViewResultsAsEpub()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "EPUB Files (*.epub)|*.epub|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				using FileStream zipToOpen = new(path: saveFileDialog.FileName, mode: FileMode.Create);
+				using System.IO.Compression.ZipArchive archive = new(stream: zipToOpen, mode: System.IO.Compression.ZipArchiveMode.Create);
+
+				System.IO.Compression.ZipArchiveEntry mimetypeEntry = archive.CreateEntry(entryName: "mimetype", compressionLevel: System.IO.Compression.CompressionLevel.NoCompression);
+				using (StreamWriter writer = new(stream: mimetypeEntry.Open(), encoding: new System.Text.UTF8Encoding(encoderShouldEmitUTF8Identifier: false)))
+				{
+					writer.Write(value: "application/epub+zip");
+				}
+
+				System.IO.Compression.ZipArchiveEntry containerEntry = archive.CreateEntry(entryName: "META-INF/container.xml");
+				using (StreamWriter writer = new(stream: containerEntry.Open(), encoding: new System.Text.UTF8Encoding(encoderShouldEmitUTF8Identifier: false)))
+				{
+					writer.Write(value: "<?xml version=\"1.0\"?><container version=\"1.0\" xmlns=\"urn:oasis:names:tc:opendocument:xmlns:container\"><rootfiles><rootfile full-path=\"OEBPS/content.opf\" media-type=\"application/oebps-package+xml\"/></rootfiles></container>");
+				}
+
+				System.IO.Compression.ZipArchiveEntry opfEntry = archive.CreateEntry(entryName: "OEBPS/content.opf");
+				using (StreamWriter writer = new(stream: opfEntry.Open(), encoding: new System.Text.UTF8Encoding(encoderShouldEmitUTF8Identifier: false)))
+				{
+					writer.Write(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?><package xmlns=\"http://www.idpf.org/2007/opf\" version=\"3.0\" unique-identifier=\"pub-id\"><metadata xmlns:dc=\"http://purl.org/dc/elements/1.1/\"><dc:title>Database Differences</dc:title><dc:language>en</dc:language><dc:identifier id=\"pub-id\">urn:uuid:12345</dc:identifier></metadata><manifest><item id=\"nav\" href=\"nav.html\" media-type=\"application/xhtml+xml\" properties=\"nav\"/><item id=\"content\" href=\"content.html\" media-type=\"application/xhtml+xml\"/></manifest><spine><itemref idref=\"content\"/></spine></package>");
+				}
+
+				System.IO.Compression.ZipArchiveEntry navEntry = archive.CreateEntry(entryName: "OEBPS/nav.html");
+				using (StreamWriter writer = new(stream: navEntry.Open(), encoding: new System.Text.UTF8Encoding(encoderShouldEmitUTF8Identifier: false)))
+				{
+					writer.Write(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?><html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\"><head><title>Navigation</title></head><body><nav epub:type=\"toc\" id=\"toc\"><h1>Table of Contents</h1><ol><li><a href=\"content.html\">Database Differences</a></li></ol></nav></body></html>");
+				}
+
+				System.IO.Compression.ZipArchiveEntry contentEntry = archive.CreateEntry(entryName: "OEBPS/content.html");
+				using (StreamWriter writer = new(stream: contentEntry.Open(), encoding: new System.Text.UTF8Encoding(encoderShouldEmitUTF8Identifier: false)))
+				{
+					writer.Write(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?><html xmlns=\"http://www.w3.org/1999/xhtml\"><head><title>Database Differences</title><style>table { border-collapse: collapse; width: 100%; } th, td { border: 1px solid #ddd; padding: 8px; } th { background-color: #f2f2f2; }</style></head><body><h1>Database Differences</h1><table><tr><th>Index</th><th>Designation</th><th>Difference</th></tr>");
+					foreach (DifferenceResult result in differenceResults)
+					{
+						string safeIndex = System.Security.SecurityElement.Escape(str: result.Index) ?? string.Empty;
+						string safeDesig = System.Security.SecurityElement.Escape(str: result.Designation) ?? string.Empty;
+						string safeDiff = System.Security.SecurityElement.Escape(str: result.Difference) ?? string.Empty;
+						writer.Write(value: $"<tr><td>{safeIndex}</td><td>{safeDesig}</td><td>{safeDiff}</td></tr>");
+					}
+					writer.Write(value: "</table></body></html>");
+				}
+				MessageBox.Show(text: "Results successfully saved to EPUB file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to EPUB file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to EPUB file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Exports the database difference results to a MOBI (Mobipocket) file selected by the user.</summary>
+	/// <remarks>Prompts the user to choose a file location and name using a save file dialog. The exported MOBI file
+	/// includes formatted database difference entries, with special characters properly escaped to ensure valid MOBI
+	/// output. If an I/O error or access denial occurs during the save process, an error message is displayed to the
+	/// user.</remarks>
+	private void SaveListViewResultsAsMobi()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "MOBI Files (*.mobi)|*.mobi|AZW3 Files (*.azw3)|*.azw3|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				using FileStream fs = new(path: saveFileDialog.FileName, mode: FileMode.Create, access: FileAccess.Write);
+				string title = "Database Differences";
+
+				System.Text.StringBuilder html = new();
+				html.Append(value: "<html><head><title>Database Differences</title></head><body><h1>Database Differences</h1>");
+				foreach (DifferenceResult result in differenceResults)
+				{
+					string safeIndex = System.Security.SecurityElement.Escape(str: result.Index) ?? string.Empty;
+					string safeDesig = System.Security.SecurityElement.Escape(str: result.Designation) ?? string.Empty;
+					string safeDiff = System.Security.SecurityElement.Escape(str: result.Difference) ?? string.Empty;
+					html.Append(value: $"<p><b>{safeIndex}</b> {safeDesig} : {safeDiff}</p>");
+				}
+				html.Append(value: "</body></html>");
+
+				byte[] contentBytes = System.Text.Encoding.UTF8.GetBytes(html.ToString());
+				byte[] titleBytes = System.Text.Encoding.UTF8.GetBytes(title);
+
+				void WriteBE16(ushort v)
+				{
+					fs.WriteByte(value: (byte)(v >> 8));
+					fs.WriteByte(value: (byte)v);
+				}
+				void WriteBE32(uint v)
+				{
+					fs.WriteByte(value: (byte)(v >> 24));
+					fs.WriteByte(value: (byte)(v >> 16));
+					fs.WriteByte(value: (byte)(v >> 8));
+					fs.WriteByte(value: (byte)v);
+				}
+				void WriteString(string s, int len)
+				{
+					byte[] b = System.Text.Encoding.ASCII.GetBytes(s);
+					for (int i = 0; i < len; i++)
+					{
+						fs.WriteByte(value: i < b.Length ? b[i] : (byte)0);
+					}
+				}
+
+				// Palm Database Header (78 bytes)
+				WriteString(s: title, len: 32);     // Database name
+				WriteBE16(v: 0);               // Attributes
+				WriteBE16(v: 0);               // Version
+				WriteBE32(v: 0);               // Creation Date
+				WriteBE32(v: 0);               // Modification Date
+				WriteBE32(v: 0);               // Last Backup Date
+				WriteBE32(v: 0);               // Modification Number
+				WriteBE32(v: 0);               // AppInfo ID
+				WriteBE32(v: 0);               // SortInfo ID
+				WriteString(s: "BOOK", len: 4);     // Type
+				WriteString(s: "MOBI", len: 4);     // Creator
+				WriteBE32(v: 3);               // Unique ID seed
+				WriteBE32(v: 0);               // Next record list ID
+				WriteBE16(v: 3);               // Record count: 0 (headers), 1 (content), 2 (EOF FLIS)
+
+				// Record Info List (8 bytes per record) 
+				uint rec0Offset = 78 + (3 * 8) + 2;
+				WriteBE32(v: rec0Offset);
+				fs.WriteByte(value: 0); // Attributes
+				fs.WriteByte(value: 0); fs.WriteByte(value: 0); fs.WriteByte(value: 0); // Unique ID 0
+
+				uint rec1Offset = rec0Offset + 16 + 232 + (uint)titleBytes.Length;
+				WriteBE32(v: rec1Offset);
+				fs.WriteByte(value: 0);
+				fs.WriteByte(value: 0); fs.WriteByte(value: 0); fs.WriteByte(value: 1); // Unique ID 1
+
+				uint rec2Offset = rec1Offset + (uint)contentBytes.Length;
+				WriteBE32(v: rec2Offset);
+				fs.WriteByte(value: 0);
+				fs.WriteByte(value: 0); fs.WriteByte(value: 0); fs.WriteByte(value: 2); // Unique ID 2
+
+				WriteBE16(v: 0); // Padding
+
+				// Record 0 (Headers)
+				// PalmDoc Header (16 bytes)
+				WriteBE16(v: 1);               // Compression (1 = none)
+				WriteBE16(v: 0);               // Unused
+				WriteBE32(v: (uint)contentBytes.Length); // Text length
+				WriteBE16(v: 1);               // Record count
+				WriteBE16(v: 4096);            // Record size
+				WriteBE16(v: 0);               // Encryption
+				WriteBE16(v: 0);               // Unknown
+
+				// MOBI Header (232 bytes)
+				WriteString(s: "MOBI", len: 4);     // Identifier
+				WriteBE32(v: 232);             // Header length
+				WriteBE32(v: 2);               // Mobi type (MobiBook)
+				WriteBE32(v: 65001);           // Text encoding (UTF-8)
+				WriteBE32(v: 0xFFFFFFFF);      // Unique ID
+				WriteBE32(v: 6);               // File version
+				WriteBE32(v: 0xFFFFFFFF);      // Orthographic index
+				WriteBE32(v: 0xFFFFFFFF);      // Inflection index
+				WriteBE32(v: 0xFFFFFFFF);      // Index names
+				WriteBE32(v: 0xFFFFFFFF);      // Index keys
+				WriteBE32(v: 0xFFFFFFFF);      // Extra index 0
+				WriteBE32(v: 0xFFFFFFFF);      // Extra index 1
+				WriteBE32(v: 0xFFFFFFFF);      // Extra index 2
+				WriteBE32(v: 0xFFFFFFFF);      // Extra index 3
+				WriteBE32(v: 0xFFFFFFFF);      // Extra index 4
+				WriteBE32(v: 0xFFFFFFFF);      // Extra index 5
+				WriteBE32(v: 0xFFFFFFFF);      // First non-book index
+				WriteBE32(v: 16 + 232);        // Full Name Offset from start of rec 0
+				WriteBE32(v: (uint)titleBytes.Length); // Full Name Length
+				WriteBE32(v: 9);               // Locale (English)
+				WriteBE32(v: 0);               // Input Language
+				WriteBE32(v: 0);               // Output Language
+				WriteBE32(v: 6);               // Min version
+				WriteBE32(v: 0xFFFFFFFF);      // First image index
+				WriteBE32(v: 0);               // Huffman record offset
+				WriteBE32(v: 0);               // Huffman record count
+				WriteBE32(v: 0);               // Huffman table offset
+				WriteBE32(v: 0);               // Huffman table length
+				WriteBE32(v: 0);               // EXTH flags
+				for (int i = 0; i < 32; i++)
+				{
+					WriteBE32(v: 0xFFFFFFFF); // filling unknown/unused to 232 bytes length
+				}
+
+				for (int i = 0; i < 4; i++)
+				{
+					WriteBE32(v: 0); // padding
+				}
+
+				fs.Write(buffer: titleBytes, offset: 0, count: titleBytes.Length); // Add the real title name
+
+				// Record 1 (The content)
+				fs.Write(buffer: contentBytes, offset: 0, count: contentBytes.Length);
+
+				// Record 2 (EOF)
+				WriteString(s: "FLIS", len: 4);
+				WriteBE32(v: 8);
+				WriteBE16(v: 65);
+				WriteBE16(v: 0);
+				WriteBE32(v: 0);
+				WriteBE32(v: 0xFFFFFFFF);
+				WriteBE16(v: 1);
+				WriteBE16(v: 3);
+				WriteBE32(v: 3);
+				WriteBE32(v: 1);
+				WriteBE32(v: 0xFFFFFFFF);
+				MessageBox.Show(text: "Results successfully saved to MOBI file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to MOBI file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to MOBI file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Exports the database difference results to a TOML (Tom's Obvious, Minimal Language) file selected by the user.</summary>
+	/// <remarks>Prompts the user to choose a file location and name using a save file dialog. The exported TOML file
+	/// includes formatted database difference entries, with special characters properly escaped to ensure valid TOML
+	/// output. If an I/O error or access denial occurs during the save process, an error message is displayed to the
+	/// user.</remarks>
+	private void SaveListViewResultsAsToml()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "TOML Files (*.toml)|*.toml|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				using StreamWriter writer = new(path: saveFileDialog.FileName);
+				foreach (DifferenceResult result in differenceResults)
+				{
+					writer.WriteLine(value: "[[differences]]");
+					writer.WriteLine(value: $"Index = \"{result.Index.Replace(oldValue: "\"", newValue: "\\\"")}\"");
+					writer.WriteLine(value: $"Designation = \"{result.Designation.Replace(oldValue: "\"", newValue: "\\\"")}\"");
+					writer.WriteLine(value: $"Difference = \"{result.Difference.Replace(oldValue: "\"", newValue: "\\\"")}\"");
+					writer.WriteLine();
+				}
+				MessageBox.Show(text: "Results successfully saved to TOML file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to TOML file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to TOML file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Exports the database difference results to an XPS (XML Paper Specification) file selected by the user.</summary>
+	/// <remarks>Prompts the user to choose a file location and name using a save file dialog. The exported XPS file
+	/// includes formatted database difference entries, with special characters properly escaped to ensure valid XPS
+	/// output. If an I/O error or access denial occurs during the save process, an error message is displayed to the
+	/// user.</remarks>
+	private void SaveListViewResultsAsXps()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "XPS Files (*.xps)|*.xps|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				using FileStream zipToOpen = new(path: saveFileDialog.FileName, mode: FileMode.Create);
+				using System.IO.Compression.ZipArchive archive = new(stream: zipToOpen, mode: System.IO.Compression.ZipArchiveMode.Create);
+
+				int itemsPerPage = 50;
+				int pages = Math.Max(val1: 1, val2: (int)Math.Ceiling(a: differenceResults.Count / (double)itemsPerPage));
+
+				System.IO.Compression.ZipArchiveEntry contentTypesEntry = archive.CreateEntry(entryName: "[Content_Types].xml");
+				using (StreamWriter writer = new(stream: contentTypesEntry.Open(), encoding: new System.Text.UTF8Encoding(encoderShouldEmitUTF8Identifier: false)))
+				{
+					writer.Write(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?><Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\"><Default Extension=\"rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\" /><Default Extension=\"fdseq\" ContentType=\"application/vnd.ms-package.xps-fixeddocumentsequence+xml\" /><Default Extension=\"fdoc\" ContentType=\"application/vnd.ms-package.xps-fixeddocument+xml\" /><Default Extension=\"fpage\" ContentType=\"application/vnd.ms-package.xps-fixedpage+xml\" /><Default Extension=\"ttf\" ContentType=\"application/vnd.ms-opentype\" /><Override PartName=\"/FixedDocumentSequence.fdseq\" ContentType=\"application/vnd.ms-package.xps-fixeddocumentsequence+xml\" /><Override PartName=\"/Documents/1/FixedDocument.fdoc\" ContentType=\"application/vnd.ms-package.xps-fixeddocument+xml\" />");
+					for (int i = 1; i <= pages; i++)
+					{
+						writer.Write(value: $"<Override PartName=\"/Documents/1/Pages/{i}.fpage\" ContentType=\"application/vnd.ms-package.xps-fixedpage+xml\" />");
+					}
+					writer.Write(value: "</Types>");
+				}
+
+				System.IO.Compression.ZipArchiveEntry relsEntry = archive.CreateEntry(entryName: "_rels/.rels");
+				using (StreamWriter writer = new(stream: relsEntry.Open(), encoding: new System.Text.UTF8Encoding(encoderShouldEmitUTF8Identifier: false)))
+				{
+					writer.Write(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?><Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"><Relationship Id=\"rId1\" Type=\"http://schemas.microsoft.com/xps/2005/06/fixedrepresentation\" Target=\"FixedDocumentSequence.fdseq\" /></Relationships>");
+				}
+
+				System.IO.Compression.ZipArchiveEntry fdseqEntry = archive.CreateEntry(entryName: "FixedDocumentSequence.fdseq");
+				using (StreamWriter writer = new(stream: fdseqEntry.Open(), encoding: new System.Text.UTF8Encoding(encoderShouldEmitUTF8Identifier: false)))
+				{
+					writer.Write(value: "<FixedDocumentSequence xmlns=\"http://schemas.microsoft.com/xps/2005/06\"><DocumentReference Source=\"Documents/1/FixedDocument.fdoc\" /></FixedDocumentSequence>");
+				}
+
+				System.IO.Compression.ZipArchiveEntry fdseqRelsEntry = archive.CreateEntry(entryName: "_rels/FixedDocumentSequence.fdseq.rels");
+				using (StreamWriter writer = new(stream: fdseqRelsEntry.Open(), encoding: new System.Text.UTF8Encoding(encoderShouldEmitUTF8Identifier: false)))
+				{
+					writer.Write(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?><Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"><Relationship Id=\"rId1\" Type=\"http://schemas.microsoft.com/xps/2005/06/required-resource\" Target=\"/Documents/1/FixedDocument.fdoc\" /></Relationships>");
+				}
+
+				System.IO.Compression.ZipArchiveEntry fdocEntry = archive.CreateEntry(entryName: "Documents/1/FixedDocument.fdoc");
+				using (StreamWriter writer = new(stream: fdocEntry.Open(), encoding: new System.Text.UTF8Encoding(encoderShouldEmitUTF8Identifier: false)))
+				{
+					writer.Write(value: "<FixedDocument xmlns=\"http://schemas.microsoft.com/xps/2005/06\">");
+					for (int i = 1; i <= pages; i++)
+					{
+						writer.Write(value: $"<PageContent Source=\"Pages/{i}.fpage\" />");
+					}
+					writer.Write(value: "</FixedDocument>");
+				}
+
+				System.IO.Compression.ZipArchiveEntry fdocRelsEntry = archive.CreateEntry(entryName: "Documents/1/_rels/FixedDocument.fdoc.rels");
+				using (StreamWriter writer = new(stream: fdocRelsEntry.Open(), encoding: new System.Text.UTF8Encoding(encoderShouldEmitUTF8Identifier: false)))
+				{
+					writer.Write(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?><Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">");
+					for (int i = 1; i <= pages; i++)
+					{
+						writer.Write(value: $"<Relationship Id=\"rId{i}\" Type=\"http://schemas.microsoft.com/xps/2005/06/required-resource\" Target=\"/Documents/1/Pages/{i}.fpage\" />");
+					}
+					writer.Write(value: "</Relationships>");
+				}
+
+				string fontPath = System.IO.Path.Combine(path1: Environment.GetFolderPath(folder: Environment.SpecialFolder.Fonts), path2: "arial.ttf");
+				if (File.Exists(path: fontPath))
+				{
+					System.IO.Compression.ZipArchiveEntry fontEntry = archive.CreateEntry(entryName: "Resources/Fonts/arial.ttf");
+					using Stream fontDest = fontEntry.Open();
+					using FileStream fontSrc = File.OpenRead(path: fontPath);
+					fontSrc.CopyTo(destination: fontDest);
+				}
+
+				for (int i = 1; i <= pages; i++)
+				{
+					System.IO.Compression.ZipArchiveEntry pageEntry = archive.CreateEntry(entryName: $"Documents/1/Pages/{i}.fpage");
+					using StreamWriter writer = new(stream: pageEntry.Open(), encoding: new System.Text.UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
+					writer.Write(value: "<FixedPage Width=\"816\" Height=\"1056\" xmlns=\"http://schemas.microsoft.com/xps/2005/06\" xml:lang=\"en-US\">");
+
+					int y = 50;
+					writer.Write(value: $"<Glyphs Fill=\"#FF000000\" FontUri=\"/Resources/Fonts/arial.ttf\" FontRenderingEmSize=\"16\" OriginX=\"50\" OriginY=\"{y}\" UnicodeString=\"Database Differences\" />");
+					y += 30;
+
+					int stopIndex = Math.Min(val1: i * itemsPerPage, val2: differenceResults.Count);
+					for (int j = (i - 1) * itemsPerPage; j < stopIndex; j++)
+					{
+						DifferenceResult result = differenceResults[index: j];
+						string safeIndex = System.Security.SecurityElement.Escape(str: result.Index) ?? string.Empty;
+						string safeDesig = System.Security.SecurityElement.Escape(str: result.Designation) ?? string.Empty;
+						string safeDiff = System.Security.SecurityElement.Escape(str: result.Difference) ?? string.Empty;
+						string line = $"{safeIndex}    {safeDesig}    {safeDiff}";
+
+						writer.Write(value: $"<Glyphs Fill=\"#FF000000\" FontUri=\"/Resources/Fonts/arial.ttf\" FontRenderingEmSize=\"12\" OriginX=\"50\" OriginY=\"{y}\" UnicodeString=\"{line}\" />");
+						y += 18;
+					}
+
+					writer.Write(value: "</FixedPage>");
+
+					System.IO.Compression.ZipArchiveEntry pageRelsEntry = archive.CreateEntry(entryName: $"Documents/1/Pages/_rels/{i}.fpage.rels");
+					using StreamWriter relsWriter = new(stream: pageRelsEntry.Open(), encoding: new System.Text.UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
+					relsWriter.Write(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?><Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"><Relationship Id=\"rId1\" Type=\"http://schemas.microsoft.com/xps/2005/06/required-resource\" Target=\"/Resources/Fonts/arial.ttf\" /></Relationships>");
+				}
+				MessageBox.Show(text: "Results successfully saved to XPS file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to XPS file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to XPS file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Exports the database difference results to a WPS (WPS Writer) file selected by the user.</summary>
+	/// <remarks>Prompts the user to choose a file location and name using a save file dialog. The exported WPS file
+	/// includes formatted database difference entries, with special characters properly escaped to ensure valid WPS
+	/// output. If an I/O error or access denial occurs during the save process, an error message is displayed to the
+	/// user.</remarks>
+	private void SaveListViewResultsAsWps()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "WPS Writer Files (*.wps)|*.wps|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				using StreamWriter writer = new(path: saveFileDialog.FileName);
+				writer.WriteLine(value: @"{\rtf1\ansi\ansicpg1252\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset0 Arial;}}");
+				writer.WriteLine(value: @"{\*\generator PlanetoidDB;}\viewkind4\uc1 ");
+				writer.WriteLine(value: @"\pard\sa200\sl276\slmult1\b\f0\fs32 Database Differences\par");
+				writer.WriteLine(value: @"\pard\tx1500\tx4500\b\fs22 Index\tab Designation\tab Difference\par\b0");
+				foreach (DifferenceResult result in differenceResults)
+				{
+					string safeIndex = result.Index.Replace(oldValue: "\\", newValue: "\\\\").Replace(oldValue: "{", newValue: "\\{").Replace(oldValue: "}", newValue: "\\}");
+					string safeDesig = result.Designation.Replace(oldValue: "\\", newValue: "\\\\").Replace(oldValue: "{", newValue: "\\{").Replace(oldValue: "}", newValue: "\\}");
+					string safeDiff = result.Difference.Replace(oldValue: "\\", newValue: "\\\\").Replace(oldValue: "{", newValue: "\\{").Replace(oldValue: "}", newValue: "\\}");
+					writer.WriteLine(value: $@"\pard\tx1500\tx4500 {safeIndex}\tab {safeDesig}\tab {safeDiff}\par");
+				}
+				writer.WriteLine(value: "}");
+				MessageBox.Show(text: "Results successfully saved to WPS file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to WPS file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to WPS file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Exports the database difference results to a WPS Spreadsheet (ET) file selected by the user.</summary>
+	/// <remarks>Prompts the user to choose a file location and name using a save file dialog. The exported ET file
+	/// includes formatted database difference entries, with special characters properly escaped to ensure valid ET
+	/// output. If an I/O error or access denial occurs during the save process, an error message is displayed to the
+	/// user.</remarks>
+	private void SaveListViewResultsAsEt()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "WPS Spreadsheet Files (*.et)|*.et|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				using FileStream zipToOpen = new(path: saveFileDialog.FileName, mode: FileMode.Create);
+				using System.IO.Compression.ZipArchive archive = new(stream: zipToOpen, mode: System.IO.Compression.ZipArchiveMode.Create);
+
+				System.IO.Compression.ZipArchiveEntry contentTypesEntry = archive.CreateEntry(entryName: "[Content_Types].xml");
+				using (StreamWriter writer = new(stream: contentTypesEntry.Open()))
+				{
+					writer.Write(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?><Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\"><Default Extension=\"rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\" /><Default Extension=\"xml\" ContentType=\"application/xml\" /><Override PartName=\"/xl/workbook.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml\" /><Override PartName=\"/xl/worksheets/sheet1.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml\" /></Types>");
+				}
+
+				System.IO.Compression.ZipArchiveEntry relsEntry = archive.CreateEntry(entryName: "_rels/.rels");
+				using (StreamWriter writer = new(stream: relsEntry.Open()))
+				{
+					writer.Write(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?><Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"><Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"xl/workbook.xml\" /></Relationships>");
+				}
+
+				System.IO.Compression.ZipArchiveEntry workbookRelsEntry = archive.CreateEntry(entryName: "xl/_rels/workbook.xml.rels");
+				using (StreamWriter writer = new(stream: workbookRelsEntry.Open()))
+				{
+					writer.Write(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?><Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"><Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet\" Target=\"worksheets/sheet1.xml\" /></Relationships>");
+				}
+
+				System.IO.Compression.ZipArchiveEntry workbookEntry = archive.CreateEntry(entryName: "xl/workbook.xml");
+				using (StreamWriter writer = new(stream: workbookEntry.Open()))
+				{
+					writer.Write(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?><workbook xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\"><sheets><sheet name=\"Differences\" sheetId=\"1\" r:id=\"rId1\" /></sheets></workbook>");
+				}
+
+				System.IO.Compression.ZipArchiveEntry sheetEntry = archive.CreateEntry(entryName: "xl/worksheets/sheet1.xml");
+				using (StreamWriter writer = new(stream: sheetEntry.Open()))
+				{
+					writer.Write(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?><worksheet xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\"><sheetData><row><c t=\"inlineStr\"><is><t>Index</t></is></c><c t=\"inlineStr\"><is><t>Designation</t></is></c><c t=\"inlineStr\"><is><t>Difference</t></is></c></row>");
+					foreach (DifferenceResult result in differenceResults)
+					{
+						string safeIndex = System.Security.SecurityElement.Escape(str: result.Index) ?? string.Empty;
+						string safeDesig = System.Security.SecurityElement.Escape(str: result.Designation) ?? string.Empty;
+						string safeDiff = System.Security.SecurityElement.Escape(str: result.Difference) ?? string.Empty;
+						writer.Write(value: $"<row><c t=\"inlineStr\"><is><t>{safeIndex}</t></is></c><c t=\"inlineStr\"><is><t>{safeDesig}</t></is></c><c t=\"inlineStr\"><is><t>{safeDiff}</t></is></c></row>");
+					}
+					writer.Write(value: "</sheetData></worksheet>");
+				}
+				MessageBox.Show(text: "Results successfully saved to ET file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to ET file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to ET file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Exports the database difference results to a FB2 (FictionBook 2.0) file selected by the user.</summary>
+	/// <remarks>Prompts the user to choose a file location and name using a save file dialog. The exported FB2 file
+	/// includes formatted database difference entries, with special characters properly escaped to ensure valid FB2
+	/// output. If an I/O error or access denial occurs during the save process, an error message is displayed to the
+	/// user.</remarks>
+	private void SaveListViewResultsAsFb2()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "FB2 Files (*.fb2)|*.fb2|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				XNamespace ns = "http://www.gribuser.ru/xml/fictionbook/2.0";
+				XDocument doc = new(
+					declaration: new XDeclaration(version: "1.0", encoding: "utf-8", standalone: null),
+					content: new XElement(name: ns + "FictionBook",
+						new XElement(name: ns + "description",
+							new XElement(name: ns + "title-info",
+								new XElement(name: ns + "genre", content: "reference"),
+								new XElement(name: ns + "author",
+									new XElement(name: ns + "first-name", content: "PlanetoidDB"),
+									new XElement(name: ns + "last-name", content: "")
+								),
+								new XElement(name: ns + "book-title", content: "Database Differences"),
+								new XElement(name: ns + "lang", content: "en")
+							),
+							new XElement(name: ns + "document-info",
+								new XElement(name: ns + "author",
+									new XElement(name: ns + "first-name", content: "PlanetoidDB"),
+									new XElement(name: ns + "last-name", content: "")
+								),
+								new XElement(name: ns + "program-used", content: "Planetoid_DB"),
+								new XElement(name: ns + "date", DateTime.Now.ToString(format: "yyyy-MM-dd"), new XAttribute(name: "value", value: DateTime.Now.ToString(format: "yyyy-MM-dd"))),
+								new XElement(name: ns + "id", content: Guid.NewGuid().ToString()),
+								new XElement(name: ns + "version", content: "1.0")
+							)
+						),
+						new XElement(name: ns + "body",
+							new XElement(name: ns + "title",
+								new XElement(name: ns + "p", content: "Database Differences")
+							),
+							new XElement(name: ns + "section",
+								new XElement(name: ns + "table",
+									new XElement(name: ns + "tr",
+										new XElement(name: ns + "th", content: "Index"),
+										new XElement(name: ns + "th", content: "Designation"),
+										new XElement(name: ns + "th", content: "Difference")
+									),
+									differenceResults.Select(selector: result =>
+										new XElement(name: ns + "tr",
+											new XElement(name: ns + "td", content: result.Index),
+											new XElement(name: ns + "td", content: result.Designation),
+											new XElement(name: ns + "td", content: result.Difference)
+										)
+									)
+								)
+							)
+						)
+					)
+				);
+				doc.Save(fileName: saveFileDialog.FileName);
+				MessageBox.Show(text: "Results successfully saved to FB2 file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to FB2 file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to FB2 file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Exports the database difference results to a CHM (Compiled HTML Help) file selected by the user.</summary>
+	/// <remarks>Prompts the user to choose a file location and name using a save file dialog. The exported CHM file
+	/// includes formatted database difference entries, with special characters properly escaped to ensure valid CHM
+	/// output. If an I/O error or access denial occurs during the save process, an error message is displayed to the
+	/// user.</remarks>
+	private void SaveListViewResultsAsChm()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "CHM Files (*.chm)|*.chm|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				string tempDir = Path.Combine(path1: Path.GetTempPath(), path2: Guid.NewGuid().ToString());
+				Directory.CreateDirectory(path: tempDir);
+
+				string htmlFile = Path.Combine(path1: tempDir, path2: "content.html");
+				string hhcFile = Path.Combine(path1: tempDir, path2: "toc.hhc");
+				string hhpFile = Path.Combine(path1: tempDir, path2: "project.hhp");
+				string chmFile = saveFileDialog.FileName;
+
+				using (StreamWriter writer = new(path: htmlFile))
+				{
+					writer.WriteLine(value: "<!DOCTYPE html><html><head><title>Database Differences</title>");
+					writer.WriteLine(value: "<style>table { border-collapse: collapse; width: 100%; } th, td { border: 1px solid #ddd; padding: 8px; } th { background-color: #f2f2f2; }</style>");
+					writer.WriteLine(value: "</head><body><h1>Database Differences</h1><table><tr><th>Index</th><th>Designation</th><th>Difference</th></tr>");
+					foreach (DifferenceResult result in differenceResults)
+					{
+						string safeIndex = System.Security.SecurityElement.Escape(str: result.Index) ?? string.Empty;
+						string safeDesig = System.Security.SecurityElement.Escape(str: result.Designation) ?? string.Empty;
+						string safeDiff = System.Security.SecurityElement.Escape(str: result.Difference) ?? string.Empty;
+						writer.WriteLine(value: $"<tr><td>{safeIndex}</td><td>{safeDesig}</td><td>{safeDiff}</td></tr>");
+					}
+					writer.WriteLine(value: "</table></body></html>");
+				}
+
+				using (StreamWriter writer = new(path: hhcFile))
+				{
+					writer.WriteLine(value: "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML//EN\">");
+					writer.WriteLine(value: "<html><body>");
+					writer.WriteLine(value: "<object type=\"text/site properties\">");
+					writer.WriteLine(value: "<param name=\"ImageType\" value=\"Folder\">");
+					writer.WriteLine(value: "</object>");
+					writer.WriteLine(value: "<ul><li><object type=\"text/sitemap\">");
+					writer.WriteLine(value: "<param name=\"Name\" value=\"Database Differences\">");
+					writer.WriteLine(value: "<param name=\"Local\" value=\"content.html\">");
+					writer.WriteLine(value: "</object></li></ul>");
+					writer.WriteLine(value: "</body></html>");
+				}
+
+				using (StreamWriter writer = new(path: hhpFile))
+				{
+					writer.WriteLine(value: "[OPTIONS]");
+					writer.WriteLine(value: "Compatibility=1.1 or later");
+					writer.WriteLine(value: $"Compiled file={chmFile}");
+					writer.WriteLine(value: "Contents file=toc.hhc");
+					writer.WriteLine(value: "Display compile progress=No");
+					writer.WriteLine(value: "Language=0x409 English (United States)");
+					writer.WriteLine(value: "Title=Database Differences");
+					writer.WriteLine(value: "");
+					writer.WriteLine(value: "[FILES]");
+					writer.WriteLine(value: "content.html");
+				}
+
+				string hhcPath = Path.Combine(path1: Environment.GetFolderPath(folder: Environment.SpecialFolder.ProgramFilesX86), path2: "HTML Help Workshop");
+				hhcPath = Path.Combine(path1: hhcPath, path2: "hhc.exe");
+				if (!File.Exists(path: hhcPath))
+				{
+					hhcPath = Path.Combine(path1: Environment.GetFolderPath(folder: Environment.SpecialFolder.ProgramFiles), path2: "HTML Help Workshop");
+					hhcPath = Path.Combine(path1: hhcPath, path2: "hhc.exe");
+				}
+
+				if (File.Exists(path: hhcPath))
+				{
+					if (File.Exists(path: chmFile))
+					{
+						File.Delete(path: chmFile);
+					}
+
+					ProcessStartInfo startInfo = new()
+					{
+						FileName = hhcPath,
+						Arguments = $"\"{hhpFile}\"",
+						CreateNoWindow = true,
+						UseShellExecute = false
+					};
+
+					using Process? process = Process.Start(startInfo: startInfo);
+					process?.WaitForExit();
+
+					if (!File.Exists(path: chmFile))
+					{
+						MessageBox.Show(text: "Failed to compile CHM file.", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+					}
+					else
+					{
+						MessageBox.Show(text: "Results successfully saved to CHM file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+					}
+				}
+				else
+				{
+					MessageBox.Show(text: "HTML Help Workshop (hhc.exe) is required to create CHM files but was not found. Please install it to use this feature.", caption: "Missing Dependency", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
+				}
+
+				if (Directory.Exists(path: tempDir))
+				{
+					Directory.Delete(path: tempDir, recursive: true);
+				}
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to CHM file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to CHM file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Exports the database difference results to a DocBook file selected by the user.</summary>
+	/// <remarks>Prompts the user to choose a file location and name using a save file dialog. The exported DocBook file
+	/// includes formatted database difference entries, with special characters properly escaped to ensure valid DocBook
+	/// output. If an I/O error or access denial occurs during the save process, an error message is displayed to the
+	/// user.</remarks>
+	private void SaveListViewResultsAsDocBook()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "DocBook Files (*.xml)|*.xml|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				XNamespace ns = "http://docbook.org/ns/docbook";
+				XDocument doc = new(
+					declaration: new XDeclaration(version: "1.0", encoding: "utf-8", standalone: null),
+					content: new XElement(name: ns + "article", new XAttribute(name: "version", value: "5.0"),
+						new XElement(name: ns + "info",
+							content: new XElement(name: ns + "title", content: "Database Differences")
+						),
+						new XElement(name: ns + "table",
+							new XElement(name: ns + "title", content: "Database Differences"),
+							new XElement(name: ns + "tgroup", new XAttribute(name: "cols", value: "3"),
+								new XElement(name: ns + "thead",
+									new XElement(name: ns + "row",
+										new XElement(name: ns + "entry", content: "Index"),
+										new XElement(name: ns + "entry", content: "Designation"),
+										new XElement(name: ns + "entry", content: "Difference")
+									)
+								),
+								new XElement(name: ns + "tbody",
+									differenceResults.Select(selector: result =>
+										new XElement(name: ns + "row",
+											new XElement(name: ns + "entry", content: result.Index),
+											new XElement(name: ns + "entry", content: result.Designation),
+											new XElement(name: ns + "entry", content: result.Difference)
+										)
+									)
+								)
+							)
+						)
+					)
+				);
+				doc.Save(fileName: saveFileDialog.FileName);
+				MessageBox.Show(text: "Results successfully saved to DocBook file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to DocBook file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to DocBook file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Exports the database difference results to an AbiWord (ABW) file selected by the user.</summary>
+	/// <remarks>Prompts the user to choose a file location and name using a save file dialog. The exported ABW file
+	/// includes formatted database difference entries, with special characters properly escaped to ensure valid ABW
+	/// output. If an I/O error or access denial occurs during the save process, an error message is displayed to the
+	/// user.</remarks>
+	private void SaveListViewResultsAsAbw()
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "AbiWord Files (*.abw)|*.abw|All Files (*.*)|*.*"
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				XDocument doc = new(
+					declaration: new XDeclaration(version: "1.0", encoding: "utf-8", standalone: null),
+					content: new XElement(name: "abiword",
+						new XAttribute(name: XNamespace.Xmlns + "awml", value: "http://www.abisource.com/awml.dtd"),
+						new XAttribute(name: "version", value: "1.9.2"),
+						new XAttribute(name: "fileformat", value: "1.2"),
+						new XElement(name: "section",
+							new XElement(name: "p",
+								new XElement(name: "c",
+									new XAttribute(name: "props", value: "font-weight:bold; font-size:14pt"),
+									"Database Differences"
+								)
+							),
+							new XElement(name: "p",
+								new XElement(name: "c",
+									new XAttribute(name: "props", value: "font-weight:bold"),
+									"Index\tDesignation\tDifference"
+								)
+							),
+							differenceResults.Select(result =>
+								new XElement(name: "p", content: $"{result.Index}\t{result.Designation}\t{result.Difference}")
+							)
+						)
+					)
+				);
+				doc.Save(fileName: saveFileDialog.FileName);
+				MessageBox.Show(text: "Results successfully saved to ABW file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to ABW file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to ABW file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
 	#endregion
 
 	#region Form event handlers
@@ -295,6 +2061,249 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 			Close();
 		}
 	}
+
+	/// <summary>Handles the click event for the button that displays a message box containing abbreviations used in the Designation
+	/// and Difference columns.</summary>
+	/// <remarks>The message box presents a predefined list of abbreviations and their meanings to assist users in
+	/// understanding column values.</remarks>
+	/// <param name="sender">The source of the event, typically the button control that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void KryptonButtonNoteAbbreviations_Click(object sender, EventArgs e)
+	{
+		string message = "Abbreviations used in the Designation and Difference columns:\n\n" +
+						 "MA - Mean Anomaly\n" +
+						 "ArgPeri - Argument of the perihel\n" +
+						 "LAN - Longitude of the Ascending Node\n" +
+						 "Inc - Inclination\n" +
+						 "Ecc - Eccentricity\n" +
+						 "a - Semi-Major Axis\n" +
+						 "H - Absolute Magnitude\n" +
+						 "G - Slope Parameter";
+		MessageBox.Show(text: message, caption: "Abbreviations", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>Handles the click event for the 'Save As Text' menu item and initiates saving the current list view results as a
+	/// text file.</summary>
+	/// <remarks>This method delegates the save operation to the SaveListViewResultsAsText method. Use this event
+	/// handler to enable users to export list view results in a text format.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsText_Click(object sender, EventArgs e) => SaveListViewResultsAsText();
+
+	/// <summary>Handles the click event for the 'Save As LaTeX' menu item and initiates exporting the current list view results to
+	/// a LaTeX-formatted file.</summary>
+	/// <remarks>Use this method in a user interface context where users can save displayed results in LaTeX format.
+	/// The export operation is triggered when the menu item is selected.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsLatex_Click(object sender, EventArgs e) => SaveListViewResultsAsLatex();
+
+	/// <summary>Handles the click event for the 'Save As Markdown' menu item, initiating the process to save the current list view
+	/// results in Markdown format.</summary>
+	/// <remarks>This method is invoked when the user selects the 'Save As Markdown' option from the menu. It calls
+	/// the method responsible for saving the list view results as a Markdown file.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsMarkdown_Click(object sender, EventArgs e) => SaveListViewResultsAsMarkdown();
+
+	/// <summary>Handles the Click event for the 'Save As Word' menu item, initiating the export of the current list view results to
+	/// a Word document.</summary>
+	/// <remarks>This method is intended to be used as an event handler for the ToolStripMenuItem's Click event. It
+	/// calls the SaveListViewResultsAsWord method to perform the export operation.</remarks>
+	/// <param name="sender">The source of the event, typically the ToolStripMenuItem that was clicked.</param>
+	/// <param name="e">The event data associated with the Click event.</param>
+	private void ToolStripMenuItemSaveAsWord_Click(object sender, EventArgs e) => SaveListViewResultsAsWord();
+
+	/// <summary>Handles the click event for the 'Save As ODT' menu item and initiates saving the current list view results in ODT
+	/// format.</summary>
+	/// <remarks>Invokes the SaveListViewResultsAsOdt method to perform the save operation. Use this event handler
+	/// to export list view data to an ODT file when the corresponding menu item is selected.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsOdt_Click(object sender, EventArgs e) => SaveListViewResultsAsOdt();
+
+	/// <summary>Handles the click event for the 'Save As RTF' menu item and initiates saving the current list view results to a
+	/// Rich Text Format (RTF) file.</summary>
+	/// <remarks>This method calls the SaveListViewResultsAsRtf method to perform the export operation. Ensure that
+	/// the list view contains data before invoking this action.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsRtf_Click(object sender, EventArgs e) => SaveListViewResultsAsRtf();
+
+	/// <summary>Handles the click event for the 'Save As Excel' menu item, exporting the current list view results to an Excel
+	/// file.</summary>
+	/// <remarks>This method invokes the export operation by calling the SaveListViewResultsAsExcel method. Use this
+	/// event handler to enable users to save displayed data in Excel format.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsExcel_Click(object sender, EventArgs e) => SaveListViewResultsAsExcel();
+
+	/// <summary>Handles the click event for the 'Save As ODS' menu item, initiating the process to export the current list view
+	/// results to an ODS file.</summary>
+	/// <remarks>This method is invoked when the user selects the 'Save As ODS' option from the menu. It calls the
+	/// SaveListViewResultsAsOds method to perform the export operation.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsOds_Click(object sender, EventArgs e) => SaveListViewResultsAsOds();
+
+	/// <summary>Handles the click event for the 'Save As CSV' menu item and initiates the export of the current list view results
+	/// to a CSV file.</summary>
+	/// <remarks>This method invokes the SaveListViewResultsAsCsv method to perform the export operation.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsCsv_Click(object sender, EventArgs e) => SaveListViewResultsAsCsv();
+
+	/// <summary>Handles the click event for the 'Save As TSV' menu item, initiating the export of the current list view results to
+	/// a TSV file.</summary>
+	/// <remarks>This method calls the SaveListViewResultsAsTsv method to perform the export operation. Ensure that
+	/// the list view contains data before invoking this action.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsTsv_Click(object sender, EventArgs e) => SaveListViewResultsAsTsv();
+
+	/// <summary>Handles the click event for the 'Save As PSV' menu item, initiating the process to save the current list view
+	/// results in pipe-separated values (PSV) format.</summary>
+	/// <remarks>This method is invoked when the user selects the 'Save As PSV' option from the menu. It calls the
+	/// SaveListViewResultsAsPsv method to perform the actual saving operation.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">Contains the event data associated with the click action.</param>
+	private void ToolStripMenuItemSaveAsPsv_Click(object sender, EventArgs e) => SaveListViewResultsAsPsv();
+
+	/// <summary>Handles the click event for the 'Save As HTML' menu item and initiates the export of the current list view results
+	/// to an HTML file.</summary>
+	/// <remarks>This method invokes the SaveListViewResultsAsHtml method to perform the actual saving
+	/// operation.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsHtml_Click(object sender, EventArgs e) => SaveListViewResultsAsHtml();
+
+	/// <summary>Handles the click event for the 'Save As XML' menu item, initiating the export of the current list view results to
+	/// an XML file.</summary>
+	/// <remarks>Ensure that the list view contains data before invoking this action. The method delegates the
+	/// saving operation to SaveListViewResultsAsXml, which performs the actual export.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsXml_Click(object sender, EventArgs e) => SaveListViewResultsAsXml();
+
+	/// <summary>Handles the click event for the 'Save As JSON' menu item, initiating the process to export the current list view
+	/// results in JSON format.</summary>
+	/// <remarks>This method is intended to be used as an event handler for menu item clicks and does not return any
+	/// value.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsJson_Click(object sender, EventArgs e) => SaveListViewResultsAsJson();
+
+	/// <summary>Handles the click event for the 'Save As YAML' menu item, initiating the process to save the current list view
+	/// results in YAML format.</summary>
+	/// <remarks>This method is invoked when the user selects the 'Save As YAML' option from the menu. It calls the
+	/// 'SaveListViewResultsAsYaml' method to perform the actual saving operation.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsYaml_Click(object sender, EventArgs e) => SaveListViewResultsAsYaml();
+
+	/// <summary>Handles the click event for the 'Save As SQL' menu item, initiating the process to save the current list view
+	/// results as a SQL script.</summary>
+	/// <remarks>This method delegates the save operation to the SaveListViewResultsAsSql method, which performs the
+	/// actual export. Use this event handler to enable users to export displayed data in SQL format.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsSql_Click(object sender, EventArgs e) => SaveListViewResultsAsSql();
+
+	/// <summary>Handles the click event for the 'Save As PDF' menu item, initiating the process to export the current list view
+	/// results to a PDF file.</summary>
+	/// <remarks>This method is intended for use in a user interface context where users can save displayed data as
+	/// a PDF. It should be connected to the appropriate menu item in the form's designer or code.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsPdf_Click(object sender, EventArgs e) => SaveListViewResultsAsPdf();
+
+	/// <summary>Handles the Click event for the 'Save As PostScript' menu item, initiating the process to save the current list
+	/// view results in PostScript format.</summary>
+	/// <remarks>This method is intended to be used as an event handler for the ToolStripMenuItem's Click event. It
+	/// calls the SaveListViewResultsAsPostScript method to perform the save operation.</remarks>
+	/// <param name="sender">The source of the event, typically the ToolStripMenuItem that was clicked.</param>
+	/// <param name="e">The event data associated with the Click event.</param>
+	private void ToolStripMenuItemSaveAsPostScript_Click(object sender, EventArgs e) => SaveListViewResultsAsPostScript();
+
+	/// <summary>Handles the click event for the 'Save As EPUB' menu item, initiating the export of the current list view results to
+	/// an EPUB file.</summary>
+	/// <remarks>This method is invoked when the user selects the 'Save As EPUB' option from the menu. It calls the
+	/// 'SaveListViewResultsAsEpub' method to perform the actual saving operation.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsEpub_Click(object sender, EventArgs e) => SaveListViewResultsAsEpub();
+
+	/// <summary>Handles the click event for the 'Save As Mobi' menu item, initiating the process to export the current list view
+	/// results in Mobi format.</summary>
+	/// <remarks>Use this method in a user interface context where users can export displayed data to Mobi format by
+	/// selecting the corresponding menu option.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsMobi_Click(object sender, EventArgs e) => SaveListViewResultsAsMobi();
+
+	/// <summary>Handles the click event for the 'Save As TOML' menu item, initiating the process to save the current list view
+	/// results in TOML format.</summary>
+	/// <remarks>This method is invoked when the user selects the 'Save As TOML' option from the menu. It calls the
+	/// method responsible for saving the list view results in TOML format.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsToml_Click(object sender, EventArgs e) => SaveListViewResultsAsToml();
+
+	/// <summary>Handles the click event for the 'Save As XPS' menu item and initiates the export of the current list view results
+	/// to an XPS file.</summary>
+	/// <remarks>This method calls the SaveListViewResultsAsXps method to perform the export operation. Ensure that
+	/// the list view contains data before invoking this action.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsXps_Click(object sender, EventArgs e) => SaveListViewResultsAsXps();
+
+	/// <summary>Handles the click event for the 'Save As WPS' menu item and initiates saving the current list view results in WPS
+	/// format.</summary>
+	/// <remarks>This method delegates the save operation to the SaveListViewResultsAsWps method. Use this event
+	/// handler to enable users to export list view results in WPS format from the UI.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">Contains the event data associated with the click action.</param>
+	private void ToolStripMenuItemSaveAsWps_Click(object sender, EventArgs e) => SaveListViewResultsAsWps();
+
+	/// <summary>Handles the click event for the 'Save As ET' menu item, initiating the process to save the current list view
+	/// results in ET format.</summary>
+	/// <remarks>This method invokes the SaveListViewResultsAsEt method to perform the save operation. Use this
+	/// event handler to allow users to export list view results in ET format from the database differences form.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsEt_Click(object sender, EventArgs e) => SaveListViewResultsAsEt();
+
+	/// <summary>Handles the click event for the 'Save As FB2' menu item and initiates saving the current list view results in FB2
+	/// format.</summary>
+	/// <remarks>This method invokes the SaveListViewResultsAsFb2 method to perform the save operation. Use this
+	/// event handler to enable exporting list view data to FB2 format from the user interface.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsFb2_Click(object sender, EventArgs e) => SaveListViewResultsAsFb2();
+
+	/// <summary>Handles the click event for the 'Save As CHM' menu item and initiates saving the current list view results in CHM
+	/// format.</summary>
+	/// <remarks>This method invokes the SaveListViewResultsAsChm method to perform the save operation. Use this
+	/// event handler to enable exporting list view results to a CHM file from the user interface.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsChm_Click(object sender, EventArgs e) => SaveListViewResultsAsChm();
+
+	/// <summary>Handles the click event for the 'Save As DocBook' menu item and initiates saving the current list view results in
+	/// DocBook format.</summary>
+	/// <remarks>This method invokes the SaveListViewResultsAsDocBook method to perform the save operation. Use this
+	/// event handler to export list view results when the user selects the 'Save As DocBook' option.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsDocBook_Click(object sender, EventArgs e) => SaveListViewResultsAsDocBook();
+
+	/// <summary>Handles the click event for the 'Save As ABW' menu item and initiates saving the current list view results in ABW
+	/// format.</summary>
+	/// <remarks>This method invokes the SaveListViewResultsAsAbw method to perform the save operation. Use this
+	/// event handler to enable users to export list view data in ABW format from the interface.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsAbw_Click(object sender, EventArgs e) => SaveListViewResultsAsAbw();
 
 	#endregion
 
