@@ -299,7 +299,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>
 	/// This method is used to navigate to the specified position in the planetoids database.
 	/// </remarks>
-	private void GotoCurrentPosition(int position)
+	internal void GotoCurrentPosition(int position)
 	{
 		// Handle the case where the database is empty
 		if (position < 0 || position >= planetoidsDatabase.Count)
@@ -380,7 +380,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		labelSlopeParameterData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 14, length: 5).Trim();
 		labelEpochData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 20, length: 5).Trim();
 		labelMeanAnomalyAtTheEpochData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 26, length: 9).Trim();
-		labelArgumentOfPerihelionData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 37, length: 9).Trim();
+		labelArgumentOfthePerihelionData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 37, length: 9).Trim();
 		labelLongitudeOfTheAscendingNodeData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 48, length: 9).Trim();
 		labelInclinationToTheEclipticData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 59, length: 9).Trim();
 		labelOrbitalEccentricityData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 70, length: 9).Trim();
@@ -397,6 +397,32 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		labelDateLastObservationData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 194, length: 8).Trim();
 		toolStripLabelIndexPosition.Text = $@"{I18nStrings.Index}: {position + 1:N0} / {planetoidsDatabase.Count:N0}";
 		*/
+	}
+
+	/// <summary>
+	/// Jumps to the record with the specified index or designation.
+	/// </summary>
+	/// <param name="index">The index of the record.</param>
+	/// <param name="designation">The designation of the record.</param>
+	internal void JumpToRecord(string index, string designation)
+	{
+		for (int i = 0; i < planetoidsDatabase.Count; i++)
+		{
+			string entry = planetoidsDatabase[index: i];
+			if (!string.IsNullOrWhiteSpace(value: index) && entry.Length >= 7 && entry[..7].Trim().Equals(value: index, comparisonType: StringComparison.OrdinalIgnoreCase))
+			{
+				currentPosition = i;
+				GotoCurrentPosition(position: currentPosition);
+				return;
+			}
+			if (!string.IsNullOrEmpty(value: designation) && entry.Length >= 194 && entry.Substring(startIndex: 166, length: 28).Trim().Equals(value: designation, comparisonType: StringComparison.OrdinalIgnoreCase))
+			{
+				currentPosition = i;
+				GotoCurrentPosition(position: currentPosition);
+				return;
+			}
+		}
+		MessageBox.Show(text: "Record not found in the current loaded database.", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 	}
 
 	/// <summary>
@@ -747,6 +773,68 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	}
 
 	/// <summary>
+	/// Shows the orbital resonances form for the current planetoid.
+	/// </summary>
+	/// <remarks>
+	/// Parses the semi-major axis from the UI label and opens the <see cref="OrbitalResonancesOfOneMinorPlanetForm"/>.
+	/// </remarks>
+	private void ShowOrbitalResonances()
+	{
+		IFormatProvider provider = CultureInfo.CreateSpecificCulture(name: "en");
+		if (!double.TryParse(s: labelSemiMajorAxisData.Text, style: NumberStyles.Any, provider: provider, result: out double semiMajorAxis))
+		{
+			logger.Error(message: $"Failed to parse semi-major axis: '{labelSemiMajorAxisData.Text}'");
+			ShowErrorMessage(message: $"Could not parse semi-major axis value: '{labelSemiMajorAxisData.Text}'");
+			return;
+		}
+		using OrbitalResonancesOfOneMinorPlanetForm formOrbitalResonances = new();
+		formOrbitalResonances.TopMost = TopMost;
+		formOrbitalResonances.SetSemiMajorAxis(semiMajorAxis: semiMajorAxis);
+		_ = formOrbitalResonances.ShowDialog();
+	}
+
+	/// <summary>
+	/// Shows the orbital resonances form for the current planetoid.
+	/// </summary>
+	/// <remarks>
+	/// Parses the semi-major axis from the UI label and opens the <see cref="OrbitalResonancesOfOneMinorPlanetForm"/>.
+	/// </remarks>
+	private void ShowOrbitElementsGrouping()
+	{
+		using OrbitElementsGroupingForm formOrbitElementsGrouping = new(planetoids: planetoidsDatabase);
+		formOrbitElementsGrouping.TopMost = TopMost;
+		_ = formOrbitElementsGrouping.ShowDialog();
+	}
+
+	/// <summary>
+	/// Shows the asteroid families form.
+	/// </summary>
+	/// <remarks>
+	/// Passes the full planetoids database to the form so it can display asteroid families.
+	/// </remarks>
+	private void ShowAsteroidFamilies()
+	{
+		using AsteroidFamiliesForm formAsteroidFamilies = new(planetoids: planetoidsDatabase);
+		formAsteroidFamilies.TopMost = TopMost;
+		_ = formAsteroidFamilies.ShowDialog();
+	}
+
+	/// <summary>
+	/// Shows the orbital resonances of all minor planets form.
+	/// Opens the form to find orbital resonances of all planetoids relative to the solar system planets.
+	/// </summary>
+	/// <remarks>
+	/// Passes the full planetoids database to the form so it can iterate over all records.
+	/// </remarks>
+	private void ShowOrbitalResonancesOfAllMinorPlanets()
+	{
+		// Create a new instance of the OrbitalResonancesOfAllMinorPlanetsForm
+		using OrbitalResonancesOfAllMinorPlanetsForm formOrbitalResonances = new(planetoids: planetoidsDatabase);
+		formOrbitalResonances.TopMost = TopMost;
+		_ = formOrbitalResonances.ShowDialog();
+	}
+
+	/// <summary>
 	/// Shows the application information form.
 	/// </summary>
 	/// <remarks>
@@ -760,6 +848,38 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		formAppInfo.TopMost = TopMost;
 		// Show the application information form as a modal dialog
 		_ = formAppInfo.ShowDialog();
+	}
+
+	/// <summary>
+	/// Displays the archive form as a modal dialog, ensuring it remains on top of other windows.
+	/// </summary>
+	/// <remarks>This method creates an instance of the ArchiveMpcorbForm and sets its TopMost property to true,
+	/// which keeps the form above other application windows. The form is shown modally, meaning the user must interact
+	/// with it before returning to the main application.</remarks>
+	private void ShowArchive()
+	{
+		// Create a new instance of the ArchiveMpcorbForm
+		using ArchiveMpcorbForm formArchive = new();
+		// Set the TopMost property to true to keep the form on top of other windows
+		formArchive.TopMost = TopMost;
+		// Show the archive form as a modal dialog
+		_ = formArchive.ShowDialog();
+	}
+
+	/// <summary>
+	/// Displays the archive comparison form as a modal dialog, allowing users to view differences between database
+	/// archives.
+	/// </summary>
+	/// <remarks>The form is set to remain on top of other windows while it is open, ensuring that users can easily
+	/// interact with it without losing focus.</remarks>
+	private void ShowCompareArchives()
+	{
+		// Create a new instance of the DatabaseDifferencesForm
+		using DatabaseDifferencesForm formDataDifferences = new();
+		// Set the TopMost property to true to keep the form on top of other windows
+		formDataDifferences.TopMost = TopMost;
+		// Show the archive form as a modal dialog
+		_ = formDataDifferences.ShowDialog();
 	}
 
 	/// <summary>
@@ -808,6 +928,25 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		formRecordsMain.TopMost = TopMost;
 		// Show the records form as a modal dialog
 		_ = formRecordsMain.ShowDialog();
+	}
+
+	/// <summary>
+	/// Shows the records form that scans all orbital elements for maximum or minimum record values.
+	/// </summary>
+	/// <remarks>
+	/// This method creates the <see cref="RecordsForm"/>, passes a copy of the current planetoid
+	/// database, and displays the form as a modal dialog.
+	/// </remarks>
+	private void ShowRecordsForm()
+	{
+		// Create a new instance of the RecordsForm
+		using RecordsForm formRecords = new();
+		// Pass a copy of the current database to the form
+		formRecords.FillArray(arrTemp: planetoidsDatabase);
+		// Set the TopMost property to keep the form on top of other windows
+		formRecords.TopMost = TopMost;
+		// Show the records form as a modal dialog
+		_ = formRecords.ShowDialog();
 	}
 
 	/// <summary>
@@ -988,9 +1127,13 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void ShowSearch()
 	{
 		// Create a new instance of the SearchForm
-		using SearchForm formSearch = new();
+		using Search2Form formSearch = new();
 		// Set the TopMost property to true to keep the form on top of other windows
 		formSearch.TopMost = TopMost;
+
+		_ = formSearch.ShowDialog();
+
+		/*
 		// Fill the form with the planetoids database
 		formSearch.FillArray(arrTemp: planetoidsDatabase);
 		// Set the maximum index for the search form
@@ -1005,6 +1148,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			// Navigate to the current position in the database
 			GotoCurrentPosition(position: formSearch.GetSelectedIndex());
 		}
+		*/
 	}
 
 	/// <summary>
@@ -1707,6 +1851,28 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	#endregion
 
 	#region Click & ButtonClick event Handlers
+
+	/// <summary>
+	/// Handles the click event for the ToolStripMenuItemArchive.
+	/// Opens the archive.
+	/// </summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>
+	/// This method is used to show the archive.
+	/// </remarks>
+	private void ToolStripMenuItemArchive_Click(object sender, EventArgs e) => ShowArchive();
+
+	/// <summary>
+	/// Handles the click event for the ToolStripButtonArchive.
+	/// Opens the archive.
+	/// </summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>
+	/// This method is used to show the archive.
+	/// </remarks>
+	private void ToolStripButtonArchive_Click(object sender, EventArgs e) => ShowArchive();
 
 	/// <summary>
 	/// Handles the click event for the ToolStripButtonStepToBegin.
@@ -2472,7 +2638,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void ToolStripMenuItemCopyToClipboardMeanAnomaly_Click(object sender, EventArgs e) => CopyToClipboard(text: labelMeanAnomalyAtTheEpochData.Text);
 
 	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemCopyToClipboardArgumentOfPerihelion.
+	/// Handles the click event for the ToolStripMenuItemCopyToClipboardArgumentOfThePerihelion.
 	/// Copies the argument of perihelion to the clipboard.
 	/// </summary>
 	/// <param name="sender">The event source.</param>
@@ -2480,7 +2646,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>
 	/// This method is used to copy the argument of perihelion to the clipboard.
 	/// </remarks>
-	private void ToolStripMenuItemCopyToClipboardArgumentOfPerihelion_Click(object sender, EventArgs e) => CopyToClipboard(text: labelArgumentOfThePerihelionData.Text);
+	private void ToolStripMenuItemCopyToClipboardArgumentOfThePerihelion_Click(object sender, EventArgs e) => CopyToClipboard(text: labelArgumentOfThePerihelionData.Text);
 
 	/// <summary>
 	/// Handles the click event for the ToolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode.
@@ -2692,7 +2858,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void MenuitemRecordsMeanAnomalyAtTheEpoch_Click(object sender, EventArgs e) => ShowRecordsMain();
 
 	/// <summary>
-	/// Handles the click event for the MenuitemRecordsArgumentOfPerihelion.
+	/// Handles the click event for the MenuitemRecordsArgumentOfThePerihelion.
 	/// Shows the main records form for argument of perihelion.
 	/// </summary>
 	/// <param name="sender">The event source.</param>
@@ -2700,7 +2866,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>
 	/// This method is used to show the records main form for argument of perihelion.
 	/// </remarks>
-	private void MenuitemRecordsArgumentOfPerihelion_Click(object sender, EventArgs e) => ShowRecordsMain();
+	private void MenuitemRecordsArgumentOfThePerihelion_Click(object sender, EventArgs e) => ShowRecordsMain();
 
 	/// <summary>
 	/// Handles the click event for the MenuitemRecordsLongitudeOfTheAscendingNode.
@@ -2861,7 +3027,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	}
 
 	/// <summary>
-	/// Handles the click event for the MenuitemDistributionArgumentOfPerihelion.
+	/// Handles the click event for the MenuitemDistributionArgumentOfThePerihelion.
 	/// Shows the distribution form for argument of perihelion.
 	/// </summary>
 	/// <param name="sender">The event source.</param>
@@ -2869,7 +3035,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>
 	/// This method is used to show the distribution form for argument of perihelion.
 	/// </remarks>
-	private static void MenuitemDistributionArgumentOfPerihelion_Click(object sender, EventArgs e)
+	private static void MenuitemDistributionArgumentOfThePerihelion_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
@@ -3118,6 +3284,24 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// </remarks>
 	private void ToolStripButtonLicense_Click(object sender, EventArgs e) => ShowLicense();
 
+	/// <summary>
+	/// Handles the click event for the Compare Databases menu item and initiates the process to compare database archives.
+	/// </summary>
+	/// <remarks>This method is intended to be used as an event handler for a menu item click event. It delegates
+	/// the comparison operation to the ShowCompareArchives method.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemCompareDatabases_Click(object sender, EventArgs e) => ShowCompareArchives();
+
+	/// <summary>
+	/// Handles the Click event of the Compare Databases button to initiate the comparison of database archives.	
+	/// </summary>
+	/// <remarks>This method displays the interface for comparing selected database archives. It is intended to be
+	/// used as an event handler for the Compare Databases button in the application's toolbar.</remarks>
+	/// <param name="sender">The source of the event, typically the Compare Databases button.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripButtonCompareDatabases_Click(object sender, EventArgs e) => ShowCompareArchives();
+
 	#endregion
 
 	#region DoubleClick event handlers
@@ -3134,8 +3318,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void OpenTerminology_DoubleClick(object sender, EventArgs e)
 	{
 		// Try to parse the index from the current tag text
-		// If successful, open the terminology dialog for that index
-		// If parsing fails, log an error and show an error message
 		if (TryParseInt(input: currentTagText, value: out int index, errorMessage: out string errorMessage))
 		{
 			// Open the terminology dialog for the parsed index
@@ -3158,4 +3340,48 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void EasterEgg_DoubleClick(object sender, EventArgs e) => MessageBox.Show(text: I18nStrings.EasterEgg, caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 
 	#endregion
+
+	/// <summary>
+	/// Handles the click event for the ToolStripMenuItemOrbitalResonances.
+	/// Shows the orbital resonances form.
+	/// </summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>
+	/// This method is used to show the orbital resonances form.
+	/// </remarks>
+	private void ToolStripMenuItemOrbitalResonances_Click(object sender, EventArgs e) => ShowOrbitalResonances();
+
+	/// <summary>
+	/// Handles the click event for the ToolStripMenuItemOrbitElementsGrouping.
+	/// Shows the orbit elements grouping form.
+	/// </summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>
+	/// This method is used to show the orbit elements grouping form.
+	/// </remarks>
+	private void ToolStripMenuItemOrbitElementsGrouping_Click(object sender, EventArgs e) => ShowOrbitElementsGrouping();
+
+	/// <summary>
+	/// Handles the click event for the ToolStripMenuItemAsteroidFamilies.
+	/// Shows the asteroid families form.
+	/// </summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>
+	/// This method is used to show the asteroid families form.
+	/// </remarks>
+	private void ToolStripMenuItemAsteroidFamilies_Click(object sender, EventArgs e) => ShowAsteroidFamilies();
+
+	/// <summary>
+	/// Handles the click event for the MenuitemOrbitalResonancesOfAllMinorPlanets.
+	/// Shows the orbital resonances of all minor planets form.
+	/// </summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>
+	/// This method is used to show the orbital resonances of all minor planets form.
+	/// </remarks>
+	private void ToolStripMenuitemOrbitalResonancesOfAllMinorPlanets_Click(object sender, EventArgs e) => ShowOrbitalResonancesOfAllMinorPlanets();
 }

@@ -16,7 +16,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	private BackgroundWorker worker;
 	private string pathFile1 = string.Empty;
 	private string pathFile2 = string.Empty;
-	private int addedRecords = 0, deletedRecords = 0, changedRecords = 0;
+	private int addedRecords, deletedRecords, changedRecords;
 
 	private record struct DifferenceResult(string Index, string Designation, string Difference);
 	private readonly List<DifferenceResult> differenceResults = [];

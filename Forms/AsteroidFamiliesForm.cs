@@ -256,15 +256,15 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 				.ToList();
 
 			cancellationToken.ThrowIfCancellationRequested();
-			progress.Report(100);
+			progress.Report(value: 100);
 
 			// Update UI on the UI thread
-			await InvokeAsync(() =>
+			await InvokeAsync(callback: () =>
 			{
 				_families = families;
 				PopulateTreeView();
 				btnSaveAll.Enabled = _families.Count > 0;
-			});
+			}, cancellationToken: cancellationToken);
 		}
 		catch (OperationCanceledException)
 		{
@@ -272,22 +272,22 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		}
 		catch (Exception ex)
 		{
-			await InvokeAsync(() =>
+			await InvokeAsync(callback: () =>
 				KryptonMessageBox.Show(
 					text: $"An error occurred during family detection: {ex.Message}",
 					caption: "Error",
 					buttons: KryptonMessageBoxButtons.OK,
-					icon: KryptonMessageBoxIcon.Error));
+					icon: KryptonMessageBoxIcon.Error), cancellationToken: cancellationToken);
 		}
 		finally
 		{
 			_cancellationTokenSource?.Dispose();
 			_cancellationTokenSource = null;
-			await InvokeAsync(() =>
+			await InvokeAsync(callback: () =>
 			{
 				btnStart.Enabled = true;
 				btnCancel.Enabled = false;
-			});
+			}, cancellationToken: cancellationToken);
 		}
 	}
 
@@ -374,7 +374,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// Opens a save dialog and writes the specified families to a text file.
 	/// </summary>
 	/// <param name="families">The families to export.</param>
-	private void SaveFamiliesToFile(IReadOnlyList<AsteroidFamily> families)
+	private static void SaveFamiliesToFile(IReadOnlyList<AsteroidFamily> families)
 	{
 		string defaultFileName = families.Count == 1
 			? (families[0].Name.Contains('(')
