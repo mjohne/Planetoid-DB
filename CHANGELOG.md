@@ -1,5 +1,17 @@
 # Changelog
 
+## Planetoid-DB 0.8.1.52
+
+* Updated image link in README.md by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/466
+* Updated changelog for version 0.8.0.51 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/467
+* Updated version number by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/468
+* Fixed typos in ArchiveMpcorbForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/469
+* Redesigned DatabaseDifferencesForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/470
+* Updated to version 0.8.1.52 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/471
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.8.0.51.464.1565...0.8.1.52.471.1581
+
+
 ## Planetoid-DB 0.8.0.51
 
 * Updated image source in README.md by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/420
