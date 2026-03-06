@@ -205,7 +205,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 	/// <remarks>This method sends a HEAD request to the specified URL to retrieve the last modified date of the MPCORB.DAT.gz file.
 	/// If the request is successful and the Last-Modified header is present, the method returns the date in UTC.
 	/// In case of any errors, the method logs the error and returns null.</remarks>
-	private async Task<DateTime?> GetOnlineLastModifiedAsync()
+	private static async Task<DateTime?> GetOnlineLastModifiedAsync()
 	{
 		// Attempt to retrieve the last modified date of the online MPCORB file
 		try
