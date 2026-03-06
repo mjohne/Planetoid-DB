@@ -616,7 +616,7 @@ namespace Planetoid_DB
 			dropButtonSaveList.TabIndex = 7;
 			dropButtonSaveList.ToolTipValues.Description = "Saves the list as file.";
 			dropButtonSaveList.ToolTipValues.EnableToolTips = true;
-			dropButtonSaveList.ToolTipValues.Heading = "Save List";
+			dropButtonSaveList.ToolTipValues.Heading = "Save list";
 			dropButtonSaveList.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 			dropButtonSaveList.Values.DropDownArrowColor = Color.Empty;
 			dropButtonSaveList.Values.ImageStates.ImageCheckedNormal = null;
