@@ -63,8 +63,8 @@ namespace Planetoid_DB
 			toolStripMenuItemSaveAsYaml = new ToolStripMenuItem();
 			toolStripMenuItemSaveAsSql = new ToolStripMenuItem();
 			toolStripMenuItemSaveAsPdf = new ToolStripMenuItem();
-			toolStripMenuItemSaveAsEpub = new ToolStripMenuItem();
 			toolStripMenuItemSaveAsPostScript = new ToolStripMenuItem();
+			toolStripMenuItemSaveAsEpub = new ToolStripMenuItem();
 			toolStripMenuItemSaveAsMobi = new ToolStripMenuItem();
 			dropButtonSaveList = new KryptonDropButton();
 			panel = new KryptonPanel();
@@ -277,9 +277,9 @@ namespace Planetoid_DB
 			contextMenuSaveList.Font = new Font("Segoe UI", 9F);
 			contextMenuSaveList.Items.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsWord, toolStripMenuItemSaveAsOdt, toolStripMenuItemSaveAsRtf, toolStripMenuItemSaveAsExcel, toolStripMenuItemSaveAsOds, toolStripMenuItemSaveAsCsv, toolStripMenuItemSaveAsTsv, toolStripMenuItemSaveAsPsv, toolStripMenuItemSaveAsHtml, toolStripMenuItemSaveAsXml, toolStripMenuItemSaveAsJson, toolStripMenuItemSaveAsYaml, toolStripMenuItemSaveAsSql, toolStripMenuItemSaveAsPdf, toolStripMenuItemSaveAsPostScript, toolStripMenuItemSaveAsEpub, toolStripMenuItemSaveAsMobi });
 			contextMenuSaveList.Name = "contextMenuStrip1";
-			contextMenuSaveList.Size = new Size(216, 466);
+			contextMenuSaveList.Size = new Size(216, 444);
 			contextMenuSaveList.TabStop = true;
-			contextMenuSaveList.Text = "&Save List";
+			contextMenuSaveList.Text = "&Save list";
 			contextMenuSaveList.MouseEnter += Control_Enter;
 			contextMenuSaveList.MouseLeave += Control_Leave;
 			// 
@@ -555,22 +555,6 @@ namespace Planetoid_DB
 			toolStripMenuItemSaveAsPdf.MouseEnter += Control_Enter;
 			toolStripMenuItemSaveAsPdf.MouseLeave += Control_Leave;
 			// 
-			// toolStripMenuItemSaveAsEpub
-			// 
-			toolStripMenuItemSaveAsEpub.AccessibleDescription = "Saves the list as EPUB file";
-			toolStripMenuItemSaveAsEpub.AccessibleName = "Save as EPUB";
-			toolStripMenuItemSaveAsEpub.AccessibleRole = AccessibleRole.MenuItem;
-			toolStripMenuItemSaveAsEpub.AutoToolTip = true;
-			toolStripMenuItemSaveAsEpub.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
-			toolStripMenuItemSaveAsEpub.Name = "toolStripMenuItemSaveAsEpub";
-			toolStripMenuItemSaveAsEpub.ShortcutKeyDisplayString = "Strg+B";
-			toolStripMenuItemSaveAsEpub.ShortcutKeys = Keys.Control | Keys.B;
-			toolStripMenuItemSaveAsEpub.Size = new Size(215, 22);
-			toolStripMenuItemSaveAsEpub.Text = "Save as EPU&B";
-			toolStripMenuItemSaveAsEpub.Click += ToolStripMenuItemSaveAsEpub_Click;
-			toolStripMenuItemSaveAsEpub.MouseEnter += Control_Enter;
-			toolStripMenuItemSaveAsEpub.MouseLeave += Control_Leave;
-			// 
 			// toolStripMenuItemSaveAsPostScript
 			// 
 			toolStripMenuItemSaveAsPostScript.AccessibleDescription = "Saves the list as PostScript file";
@@ -586,6 +570,22 @@ namespace Planetoid_DB
 			toolStripMenuItemSaveAsPostScript.Click += ToolStripMenuItemSaveAsPostScript_Click;
 			toolStripMenuItemSaveAsPostScript.MouseEnter += Control_Enter;
 			toolStripMenuItemSaveAsPostScript.MouseLeave += Control_Leave;
+			// 
+			// toolStripMenuItemSaveAsEpub
+			// 
+			toolStripMenuItemSaveAsEpub.AccessibleDescription = "Saves the list as EPUB file";
+			toolStripMenuItemSaveAsEpub.AccessibleName = "Save as EPUB";
+			toolStripMenuItemSaveAsEpub.AccessibleRole = AccessibleRole.MenuItem;
+			toolStripMenuItemSaveAsEpub.AutoToolTip = true;
+			toolStripMenuItemSaveAsEpub.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
+			toolStripMenuItemSaveAsEpub.Name = "toolStripMenuItemSaveAsEpub";
+			toolStripMenuItemSaveAsEpub.ShortcutKeyDisplayString = "Strg+B";
+			toolStripMenuItemSaveAsEpub.ShortcutKeys = Keys.Control | Keys.B;
+			toolStripMenuItemSaveAsEpub.Size = new Size(215, 22);
+			toolStripMenuItemSaveAsEpub.Text = "Save as EPU&B";
+			toolStripMenuItemSaveAsEpub.Click += ToolStripMenuItemSaveAsEpub_Click;
+			toolStripMenuItemSaveAsEpub.MouseEnter += Control_Enter;
+			toolStripMenuItemSaveAsEpub.MouseLeave += Control_Leave;
 			// 
 			// toolStripMenuItemSaveAsMobi
 			// 
@@ -626,7 +626,7 @@ namespace Planetoid_DB
 			dropButtonSaveList.Values.ImageStates.ImageNormal = FatcowIcons16px.fatcow_diskette_16px;
 			dropButtonSaveList.Values.ImageStates.ImagePressed = FatcowIcons16px.fatcow_diskette_16px;
 			dropButtonSaveList.Values.ImageStates.ImageTracking = FatcowIcons16px.fatcow_diskette_16px;
-			dropButtonSaveList.Values.Text = "&Save List";
+			dropButtonSaveList.Values.Text = "&Save list";
 			dropButtonSaveList.Enter += Control_Enter;
 			dropButtonSaveList.Leave += Control_Leave;
 			dropButtonSaveList.MouseEnter += Control_Enter;
