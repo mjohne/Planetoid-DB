@@ -1,5 +1,40 @@
 # Changelog
 
+## Planetoid-DB 0.8.0.51
+
+* Updated image source in README.md by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/420
+* Updated CHANGELOG for version 0.7.23.50 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/421
+* Converted the file type of the solution from SLN to SLNX by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/423
+* Added print progress by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/428
+* Added printer cancellation by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/429
+* Added ArchiveMpcorbForm to archive MPCORB.DAT by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/430
+* Fixed some errors in ArchiveMpcorbForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/431
+* Fixed some errors in ArchiveMpcorbForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/432
+* Enabled double buffering for the TableLayoutPanel to prevent flickering by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/434
+* Added some exports file formats and redesigned gui by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/435
+* Fixed some errors in ExportDataSheetForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/436
+* Replaced background image in SplashScreenForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/437
+* Added OrbitalResonanceForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/442
+* Added OrbitElementsGroupingForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/443
+* Added OrbitalResonanceForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/444
+* Enabled windows targeting by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/449
+* Added banner image to README by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/450
+* Updated badge links to MijoSoftware repository by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/451
+* Added AsteroidFamiliesForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/452
+* Fixed some errors in AsteroidFamiliesForm() by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/453
+* Added OrbitalResonancesOfAllMinorPlanetsForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/454
+* Fixed some errors in OrbitalResonancesOfAllMinorPlanetsForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/455
+* Added OrbitalResonancesFormOfOneMinorPlanet resources file by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/456
+* Renamed OrbitalResonanceForm to OrbitalResonancesFormOfOneMinorPlanet by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/457
+* Renamed form class to OrbitalResonancesOfOneMinorPlanet by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/458
+* Added RecordsForm, but not activated by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/459
+* Updated DatabaseDifferencesForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/460
+* Added Search2Form by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/461
+* Updated to version 0.8.0.51 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/464
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.7.22.49.411.1475...0.7.23.50.418.1489
+
+
 ## Planetoid-DB 0.7.23.50
 
 * Updated CHANGELOG for version 0.7.22.49 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/413
