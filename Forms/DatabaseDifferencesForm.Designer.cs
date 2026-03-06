@@ -97,7 +97,7 @@ partial class DatabaseDifferencesForm
 		groupBoxResults.Location = new Point(3, 135);
 		groupBoxResults.Name = "groupBoxResults";
 		groupBoxResults.Size = new Size(634, 302);
-		groupBoxResults.TabIndex = 8;
+		groupBoxResults.TabIndex = 2;
 		groupBoxResults.TabStop = false;
 		groupBoxResults.Text = "&Results";
 		groupBoxResults.MouseEnter += Control_Enter;
@@ -116,7 +116,7 @@ partial class DatabaseDifferencesForm
 		listViewResults.Location = new Point(3, 19);
 		listViewResults.Name = "listViewResults";
 		listViewResults.Size = new Size(628, 280);
-		listViewResults.TabIndex = 7;
+		listViewResults.TabIndex = 0;
 		listViewResults.UseCompatibleStateImageBehavior = false;
 		listViewResults.View = View.Details;
 		listViewResults.Enter += Control_Enter;
@@ -149,7 +149,7 @@ partial class DatabaseDifferencesForm
 		groupBoxFile1.Location = new Point(3, 3);
 		groupBoxFile1.Name = "groupBoxFile1";
 		groupBoxFile1.Size = new Size(634, 60);
-		groupBoxFile1.TabIndex = 4;
+		groupBoxFile1.TabIndex = 0;
 		groupBoxFile1.TabStop = false;
 		groupBoxFile1.Text = "Reference &MPCORB.DAT (Currently Opened)";
 		groupBoxFile1.MouseEnter += Control_Enter;
@@ -177,9 +177,9 @@ partial class DatabaseDifferencesForm
 		kryptonLabelFile1.DoubleClick += CopyToClipboard_DoubleClick;
 		kryptonLabelFile1.Enter += Control_Enter;
 		kryptonLabelFile1.Leave += Control_Leave;
+		kryptonLabelFile1.MouseDown += Control_MouseDown;
 		kryptonLabelFile1.MouseEnter += Control_Enter;
 		kryptonLabelFile1.MouseLeave += Control_Leave;
-		kryptonLabelFile1.MouseDown += Control_MouseDown;
 		// 
 		// contextMenuCopyToClipboard
 		// 
@@ -221,7 +221,7 @@ partial class DatabaseDifferencesForm
 		kryptonButtonSelectFile1.Margin = new Padding(4, 3, 4, 3);
 		kryptonButtonSelectFile1.Name = "kryptonButtonSelectFile1";
 		kryptonButtonSelectFile1.Size = new Size(89, 23);
-		kryptonButtonSelectFile1.TabIndex = 2;
+		kryptonButtonSelectFile1.TabIndex = 1;
 		kryptonButtonSelectFile1.ToolTipValues.Description = "Select the MPCORB.DAT file as reference";
 		kryptonButtonSelectFile1.ToolTipValues.EnableToolTips = true;
 		kryptonButtonSelectFile1.ToolTipValues.Heading = "Reference MPCORB.DAT";
@@ -246,7 +246,7 @@ partial class DatabaseDifferencesForm
 		groupBoxFile2.Location = new Point(3, 69);
 		groupBoxFile2.Name = "groupBoxFile2";
 		groupBoxFile2.Size = new Size(634, 60);
-		groupBoxFile2.TabIndex = 5;
+		groupBoxFile2.TabIndex = 1;
 		groupBoxFile2.TabStop = false;
 		groupBoxFile2.Text = "&Comparison MPCORB.DAT";
 		groupBoxFile2.MouseEnter += Control_Enter;
@@ -274,9 +274,9 @@ partial class DatabaseDifferencesForm
 		kryptonLabelFile2.DoubleClick += CopyToClipboard_DoubleClick;
 		kryptonLabelFile2.Enter += Control_Enter;
 		kryptonLabelFile2.Leave += Control_Leave;
+		kryptonLabelFile2.MouseDown += Control_MouseDown;
 		kryptonLabelFile2.MouseEnter += Control_Enter;
 		kryptonLabelFile2.MouseLeave += Control_Leave;
-		kryptonLabelFile2.MouseDown += Control_MouseDown;
 		// 
 		// kryptonButtonSelectFile2
 		// 
@@ -287,7 +287,7 @@ partial class DatabaseDifferencesForm
 		kryptonButtonSelectFile2.Margin = new Padding(4, 3, 4, 3);
 		kryptonButtonSelectFile2.Name = "kryptonButtonSelectFile2";
 		kryptonButtonSelectFile2.Size = new Size(89, 23);
-		kryptonButtonSelectFile2.TabIndex = 2;
+		kryptonButtonSelectFile2.TabIndex = 1;
 		kryptonButtonSelectFile2.ToolTipValues.Description = "Selects the MPCORB.DAT file for comparison";
 		kryptonButtonSelectFile2.ToolTipValues.EnableToolTips = true;
 		kryptonButtonSelectFile2.ToolTipValues.Heading = "Comparison MPCORB.DAT";
@@ -316,7 +316,7 @@ partial class DatabaseDifferencesForm
 		statusStrip.ShowItemToolTips = true;
 		statusStrip.Size = new Size(643, 22);
 		statusStrip.SizingGrip = false;
-		statusStrip.TabIndex = 6;
+		statusStrip.TabIndex = 0;
 		statusStrip.Enter += Control_Enter;
 		statusStrip.Leave += Control_Leave;
 		statusStrip.MouseEnter += Control_Enter;
