@@ -7,6 +7,13 @@ partial class OrbitElementsGroupingForm
 {
     private IContainer components = null;
 
+    /// <summary>
+    /// Releases all resources used by the <see cref="OrbitElementsGroupingForm"/>.
+    /// </summary>
+    /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+	/// <remarks>
+	/// This method is called by the runtime to release resources used by the form.
+	/// </remarks>
     protected override void Dispose(bool disposing)
     {
         if (disposing && (components != null))

@@ -6,7 +6,6 @@
 using NLog;
 
 using Planetoid_DB.Forms;
-using Planetoid_DB.Resources;
 
 using System.Diagnostics;
 using System.Globalization;

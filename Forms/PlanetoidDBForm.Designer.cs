@@ -2579,7 +2579,7 @@ namespace Planetoid_DB
 			toolStripMenuItemCompareDatabases.Text = "&Compare databases";
 			toolStripMenuItemCompareDatabases.Click += ToolStripMenuItemCompareDatabases_Click;
 			toolStripMenuItemCompareDatabases.MouseEnter += Control_Enter;
-			toolStripMenuItemCompareDatabases.MouseLeave += Control_Enter;
+			toolStripMenuItemCompareDatabases.MouseLeave += Control_Leave;
 			// 
 			// toolStripSeparator13
 			// 
@@ -3475,7 +3475,7 @@ namespace Planetoid_DB
 			toolStripSeparator14.Name = "toolStripSeparator14";
 			toolStripSeparator14.Size = new Size(6, 25);
 			toolStripSeparator14.MouseEnter += Control_Enter;
-			toolStripSeparator14.MouseLeave += Control_Enter;
+			toolStripSeparator14.MouseLeave += Control_Leave;
 			// 
 			// toolStripButtonArchive
 			// 
@@ -3505,7 +3505,7 @@ namespace Planetoid_DB
 			toolStripButtonCompareDatabases.Text = "&Compare databases";
 			toolStripButtonCompareDatabases.Click += ToolStripButtonCompareDatabases_Click;
 			toolStripButtonCompareDatabases.MouseEnter += Control_Enter;
-			toolStripButtonCompareDatabases.MouseLeave += Control_Enter;
+			toolStripButtonCompareDatabases.MouseLeave += Control_Leave;
 			// 
 			// toolStripSeparator15
 			// 
@@ -3515,7 +3515,7 @@ namespace Planetoid_DB
 			toolStripSeparator15.Name = "toolStripSeparator15";
 			toolStripSeparator15.Size = new Size(6, 25);
 			toolStripSeparator15.MouseEnter += Control_Enter;
-			toolStripSeparator15.MouseLeave += Control_Enter;
+			toolStripSeparator15.MouseLeave += Control_Leave;
 			// 
 			// toolStripButtonSearch
 			// 
