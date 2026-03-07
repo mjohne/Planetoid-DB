@@ -1,5 +1,16 @@
 # Changelog
 
+## Planetoid-DB 0.8.3.54
+
+* Replaced screenshot of Planetoid-DB in README by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/479
+* Updated CHANGELOG by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/480
+* Updated the version number by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/481
+* Added several file formats to save the result list by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/482
+* Updated to version 0.8.3.54 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/483
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.8.2.53.477.1594...0.8.3.54.483.1605
+
+
 ## Planetoid-DB 0.8.2.53
 
 * Updated image link in README.md by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/473
