@@ -266,14 +266,22 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 			// Attempt to write the difference results to the selected file in CSV format, handling any I/O exceptions or unauthorized access exceptions that may occur during the file writing process; if successful, display a confirmation message to the user
 			try
 			{
+				// Local helper function used to escape individual fields for CSV output by doubling internal quotes and wrapping the value in quotes.
+				static string EscapeCsvField(string? field)
+				{
+					string safeField = field ?? string.Empty;
+					safeField = safeField.Replace(oldValue: "\"", newValue: "\"\"");
+					return $"\"{safeField}\"";
+				}
 				// Open a StreamWriter to the specified file path and write each difference result in a comma-separated format; after writing all results, show a success message to the user
 				using StreamWriter writer = new(path: saveFileDialog.FileName);
 				// Write a header line to the CSV file for clarity
-				writer.WriteLine(value: "Index,Designation,Difference");
+				writer.WriteLine(value: $"{EscapeCsvField(field: "Index")},{EscapeCsvField(field: "Designation")},{EscapeCsvField(field: "Difference")}");
 				// Iterate through the list of difference results and write each one to the CSV file in a comma-separated format
 				foreach (DifferenceResult result in differenceResults)
 				{
-					writer.WriteLine(value: $"{result.Index},\"{result.Designation}\",\"{result.Difference}\"");
+					string indexValue = result.Index.ToString(provider: System.Globalization.CultureInfo.InvariantCulture);
+					writer.WriteLine(value: $"{EscapeCsvField(field: indexValue)},{EscapeCsvField(field: result.Designation)},{EscapeCsvField(field: result.Difference)}");
 				}
 				// After successfully writing the results to the file, display a success message to the user
 				MessageBox.Show(text: "Results successfully saved to CSV file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);

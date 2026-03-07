@@ -249,8 +249,8 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemTextFiles.ShortcutKeyDisplayString = "";
 		toolStripMenuItemTextFiles.Size = new Size(201, 22);
 		toolStripMenuItemTextFiles.Text = "&Text files";
-		toolStripMenuItemTextFiles.MouseDown += Control_MouseDown;
 		toolStripMenuItemTextFiles.MouseEnter += Control_Enter;
+		toolStripMenuItemTextFiles.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsText
 		// 
@@ -845,7 +845,7 @@ partial class DatabaseDifferencesForm
 		contextMenuCopyToClipboard.Font = new Font("Segoe UI", 9F);
 		contextMenuCopyToClipboard.Items.AddRange(new ToolStripItem[] { ToolStripMenuItemCopyToClipboard });
 		contextMenuCopyToClipboard.Name = "contextMenuStrip";
-		contextMenuCopyToClipboard.Size = new Size(208, 26);
+		contextMenuCopyToClipboard.Size = new Size(214, 26);
 		contextMenuCopyToClipboard.TabStop = true;
 		contextMenuCopyToClipboard.Text = "Copy to clipboard";
 		contextMenuCopyToClipboard.MouseEnter += Control_Enter;
@@ -859,9 +859,9 @@ partial class DatabaseDifferencesForm
 		ToolStripMenuItemCopyToClipboard.AutoToolTip = true;
 		ToolStripMenuItemCopyToClipboard.Image = Resources.FatcowIcons16px.fatcow_page_copy_16px;
 		ToolStripMenuItemCopyToClipboard.Name = "ToolStripMenuItemCopyToClipboard";
-		ToolStripMenuItemCopyToClipboard.ShortcutKeyDisplayString = "Alt+C";
+		ToolStripMenuItemCopyToClipboard.ShortcutKeyDisplayString = "Strg+C";
 		ToolStripMenuItemCopyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
-		ToolStripMenuItemCopyToClipboard.Size = new Size(207, 22);
+		ToolStripMenuItemCopyToClipboard.Size = new Size(213, 22);
 		ToolStripMenuItemCopyToClipboard.Text = "&Copy to clipboard";
 		ToolStripMenuItemCopyToClipboard.Click += CopyToClipboard_DoubleClick;
 		ToolStripMenuItemCopyToClipboard.MouseEnter += Control_Enter;
