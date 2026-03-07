@@ -5,7 +5,7 @@
 * Updated image link in README.md by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/473
 * Updated CHANGELOG for version 0.8.1.52 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/474
 * Updated to version 0.8.1.53 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/475
-* Added saving to file in DataDifferencesForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/476
+* Added saving to file in DatabaseDifferencesForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/476
 * Updated to version 0.8.2.53 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/477
 
 **Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.8.1.52.471.1581...0.8.2.53.477.1594
