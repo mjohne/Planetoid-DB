@@ -231,12 +231,6 @@ public class ToolStripNumericUpDown : ToolStripControlHost
 	[DesignerSerializationVisibility(visibility: DesignerSerializationVisibility.Content)]
 	public NumericUpDownAccelerationCollection Accelerations => NumericUpDownControl.Accelerations;
 
-	/// <summary>Gets or sets a value indicating whether the control is locked at design time.</summary>
-	/// <remarks>This property provides access to the locked setting of the underlying NumericUpDown control hosted within the ToolStripNumericUpDown item.</remarks>
-	[Category(category: "Design")]
-	[DefaultValue(value: false)]
-	public bool Locked { get; set; }
-
 	/// <summary>Subscribes to events from the hosted control.</summary>
 	/// <param name="control">The hosted control.</param>
 	/// <remarks>This method subscribes to events from the underlying NumericUpDown control hosted within the ToolStripNumericUpDown item.</remarks>
@@ -470,25 +464,28 @@ public class ToolStripNumericUpDown : ToolStripControlHost
 	private void OnValidated(object? sender, EventArgs e) => Validated?.Invoke(sender: this, e: e);
 
 	/// <summary>Raises the TextChanged event to notify subscribers when the text content has changed.</summary>
-	/// <remarks>This method is intended to be called when the text content changes, allowing external handlers to
-	/// respond to the update. It does not perform any additional processing beyond raising the event.</remarks>
-	/// <param name="sender">The source of the event, typically the control whose text was modified.</param>
-	/// <param name="e">An EventArgs instance containing the event data associated with the text change.</param>
-	private void OnTextChanged(object? sender, EventArgs e) => TextChanged?.Invoke(sender: this, e: e);
+	/// <remarks>This handler is attached to the hosted control's <see cref="System.Windows.Forms.Control.TextChanged"/> event.
+	/// It delegates to the base <see cref="ToolStripItem.OnTextChanged(EventArgs)"/> method so that the standard
+	/// ToolStripItem event pipeline is used.</remarks>
+	/// <param name="sender">The source of the event, typically the hosted control whose text was modified.</param>
+	/// <param name="e">An <see cref="EventArgs"/> instance containing the event data associated with the text change.</param>
+	private void OnTextChanged(object? sender, EventArgs e) => base.OnTextChanged(e: e);
 
 	/// <summary>Raises the Click event, passing the event data to any registered event handlers.</summary>
-	/// <remarks>This method invokes the Click event if there are any subscribers. It is typically used in response
-	/// to user interactions.</remarks>
-	/// <param name="sender">The source of the event, typically the control that raised the event.</param>
-	/// <param name="e">An instance of EventArgs that contains the event data.</param>
-	private void OnClick(object? sender, EventArgs e) => Click?.Invoke(sender: this, e: e);
+	/// <remarks>This handler is attached to the hosted control's <see cref="System.Windows.Forms.Control.Click"/> event.
+	/// It calls <see cref="ToolStripItem.OnClick(EventArgs)"/> to raise the standard ToolStripItem Click event
+	/// and to ensure that any overrides in derived classes are honored.</remarks>
+	/// <param name="sender">The source of the event, typically the hosted control that raised the event.</param>
+	/// <param name="e">An instance of <see cref="EventArgs"/> that contains the event data.</param>
+	private void OnClick(object? sender, EventArgs e) => base.OnClick(e: e);
 
 	/// <summary>Raises the DoubleClick event, allowing subscribers to respond to a double-click action on the control.</summary>
-	/// <remarks>This method invokes the DoubleClick event handler if any subscribers are registered. It is
-	/// typically used in UI controls to provide a response to user interactions.</remarks>
-	/// <param name="sender">The source of the event, typically the control that was double-clicked.</param>
-	/// <param name="e">An EventArgs instance containing the event data associated with the double-click event.</param>
-	private void OnDoubleClick(object? sender, EventArgs e) => DoubleClick?.Invoke(sender: this, e: e);
+	/// <remarks>This handler is attached to the hosted control's <see cref="System.Windows.Forms.Control.DoubleClick"/> event.
+	/// It delegates to <see cref="ToolStripItem.OnDoubleClick(EventArgs)"/> so that the built-in DoubleClick
+	/// event pipeline of <see cref="ToolStripItem"/> is used.</remarks>
+	/// <param name="sender">The source of the event, typically the hosted control that was double-clicked.</param>
+	/// <param name="e">An <see cref="EventArgs"/> instance containing the event data associated with the double-click event.</param>
+	private void OnDoubleClick(object? sender, EventArgs e) => base.OnDoubleClick(e: e);
 
 	/// <summary>Raises the MouseClick event, providing the event data to any subscribed event handlers.</summary>
 	/// <remarks>This method is typically called in response to mouse click actions on the control. Ensure that any
