@@ -35,8 +35,8 @@ namespace Planetoid_DB
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(ArchiveMpcorbForm));
 			kryptonTextBoxSource = new KryptonTextBox();
 			kryptonButtonBrowseSource = new KryptonButton();
-			statusStrip = new KryptonStatusStrip();
-			labelStatus = new ToolStripStatusLabel();
+			kryptonStatusStrip = new KryptonStatusStrip();
+			labelInformation = new ToolStripStatusLabel();
 			toolStripContainer = new ToolStripContainer();
 			kryptonPanel = new KryptonPanel();
 			groupBoxTarget = new GroupBox();
@@ -60,7 +60,7 @@ namespace Planetoid_DB
 			toolStripSeparator2 = new ToolStripSeparator();
 			toolStripLabelProgress = new ToolStripLabel();
 			kryptonProgressBarToolStripItemCompression = new KryptonProgressBarToolStripItem();
-			statusStrip.SuspendLayout();
+			kryptonStatusStrip.SuspendLayout();
 			toolStripContainer.BottomToolStripPanel.SuspendLayout();
 			toolStripContainer.ContentPanel.SuspendLayout();
 			toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -78,7 +78,6 @@ namespace Planetoid_DB
 			kryptonTextBoxSource.AccessibleName = "MPCORB full path";
 			kryptonTextBoxSource.AccessibleRole = AccessibleRole.Text;
 			kryptonTextBoxSource.Location = new Point(94, 22);
-			kryptonTextBoxSource.Margin = new Padding(4, 3, 4, 3);
 			kryptonTextBoxSource.Name = "kryptonTextBoxSource";
 			kryptonTextBoxSource.Size = new Size(432, 23);
 			kryptonTextBoxSource.TabIndex = 1;
@@ -97,7 +96,6 @@ namespace Planetoid_DB
 			kryptonButtonBrowseSource.AccessibleName = "Browse the MPCORB full path";
 			kryptonButtonBrowseSource.AccessibleRole = AccessibleRole.PushButton;
 			kryptonButtonBrowseSource.Location = new Point(534, 22);
-			kryptonButtonBrowseSource.Margin = new Padding(4, 3, 4, 3);
 			kryptonButtonBrowseSource.Name = "kryptonButtonBrowseSource";
 			kryptonButtonBrowseSource.Size = new Size(89, 23);
 			kryptonButtonBrowseSource.TabIndex = 2;
@@ -114,44 +112,44 @@ namespace Planetoid_DB
 			kryptonButtonBrowseSource.MouseEnter += Control_Enter;
 			kryptonButtonBrowseSource.MouseLeave += Control_Leave;
 			// 
-			// statusStrip
+			// kryptonStatusStrip
 			// 
-			statusStrip.AccessibleDescription = "Shows some information";
-			statusStrip.AccessibleName = "Status bar with some information";
-			statusStrip.AccessibleRole = AccessibleRole.StatusBar;
-			statusStrip.AllowClickThrough = true;
-			statusStrip.AllowItemReorder = true;
-			statusStrip.Dock = DockStyle.None;
-			statusStrip.Font = new Font("Segoe UI", 9F);
-			statusStrip.Items.AddRange(new ToolStripItem[] { labelStatus });
-			statusStrip.Location = new Point(0, 0);
-			statusStrip.Name = "statusStrip";
-			statusStrip.Padding = new Padding(1, 0, 16, 0);
-			statusStrip.ProgressBars = null;
-			statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-			statusStrip.ShowItemToolTips = true;
-			statusStrip.Size = new Size(657, 22);
-			statusStrip.SizingGrip = false;
-			statusStrip.TabIndex = 0;
-			statusStrip.TabStop = true;
-			statusStrip.Text = "statusStrip";
-			statusStrip.Enter += Control_Enter;
-			statusStrip.Leave += Control_Leave;
-			statusStrip.MouseEnter += Control_Enter;
-			statusStrip.MouseLeave += Control_Leave;
+			kryptonStatusStrip.AccessibleDescription = "Shows some information";
+			kryptonStatusStrip.AccessibleName = "Status bar with some information";
+			kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
+			kryptonStatusStrip.AllowClickThrough = true;
+			kryptonStatusStrip.AllowItemReorder = true;
+			kryptonStatusStrip.Dock = DockStyle.None;
+			kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
+			kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
+			kryptonStatusStrip.Location = new Point(0, 0);
+			kryptonStatusStrip.Name = "kryptonStatusStrip";
+			kryptonStatusStrip.Padding = new Padding(1, 0, 16, 0);
+			kryptonStatusStrip.ProgressBars = null;
+			kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+			kryptonStatusStrip.ShowItemToolTips = true;
+			kryptonStatusStrip.Size = new Size(657, 22);
+			kryptonStatusStrip.SizingGrip = false;
+			kryptonStatusStrip.TabIndex = 0;
+			kryptonStatusStrip.TabStop = true;
+			kryptonStatusStrip.Text = "Status bar";
+			kryptonStatusStrip.Enter += Control_Enter;
+			kryptonStatusStrip.Leave += Control_Leave;
+			kryptonStatusStrip.MouseEnter += Control_Enter;
+			kryptonStatusStrip.MouseLeave += Control_Leave;
 			// 
-			// labelStatus
+			// labelInformation
 			// 
-			labelStatus.AccessibleDescription = "Shows some information";
-			labelStatus.AccessibleName = "Show some information";
-			labelStatus.AccessibleRole = AccessibleRole.StaticText;
-			labelStatus.AutoToolTip = true;
-			labelStatus.Image = FatcowIcons16px.fatcow_lightbulb_16px;
-			labelStatus.Name = "labelStatus";
-			labelStatus.Size = new Size(144, 17);
-			labelStatus.Text = "some information here";
-			labelStatus.MouseEnter += Control_Enter;
-			labelStatus.MouseLeave += Control_Leave;
+			labelInformation.AccessibleDescription = "Shows some information";
+			labelInformation.AccessibleName = "Show some information";
+			labelInformation.AccessibleRole = AccessibleRole.StaticText;
+			labelInformation.AutoToolTip = true;
+			labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
+			labelInformation.Name = "labelInformation";
+			labelInformation.Size = new Size(144, 17);
+			labelInformation.Text = "some information here";
+			labelInformation.MouseEnter += Control_Enter;
+			labelInformation.MouseLeave += Control_Leave;
 			// 
 			// toolStripContainer
 			// 
@@ -161,7 +159,7 @@ namespace Planetoid_DB
 			// 
 			// toolStripContainer.BottomToolStripPanel
 			// 
-			toolStripContainer.BottomToolStripPanel.Controls.Add(statusStrip);
+			toolStripContainer.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
 			// 
 			// toolStripContainer.ContentPanel
 			// 
@@ -214,7 +212,6 @@ namespace Planetoid_DB
 			kryptonLabelTarget.AccessibleName = "MPCORB.DAT";
 			kryptonLabelTarget.AccessibleRole = AccessibleRole.StaticText;
 			kryptonLabelTarget.Location = new Point(7, 22);
-			kryptonLabelTarget.Margin = new Padding(4, 3, 4, 3);
 			kryptonLabelTarget.Name = "kryptonLabelTarget";
 			kryptonLabelTarget.Size = new Size(89, 23);
 			kryptonLabelTarget.TabIndex = 0;
@@ -230,7 +227,6 @@ namespace Planetoid_DB
 			kryptonButtonBrowseTarget.AccessibleName = "Browse the MPCORB full path";
 			kryptonButtonBrowseTarget.AccessibleRole = AccessibleRole.PushButton;
 			kryptonButtonBrowseTarget.Location = new Point(534, 22);
-			kryptonButtonBrowseTarget.Margin = new Padding(4, 3, 4, 3);
 			kryptonButtonBrowseTarget.Name = "kryptonButtonBrowseTarget";
 			kryptonButtonBrowseTarget.Size = new Size(89, 23);
 			kryptonButtonBrowseTarget.TabIndex = 2;
@@ -253,7 +249,6 @@ namespace Planetoid_DB
 			kryptonTextBoxTarget.AccessibleName = "MPCORB full path";
 			kryptonTextBoxTarget.AccessibleRole = AccessibleRole.Text;
 			kryptonTextBoxTarget.Location = new Point(94, 22);
-			kryptonTextBoxTarget.Margin = new Padding(4, 3, 4, 3);
 			kryptonTextBoxTarget.Name = "kryptonTextBoxTarget";
 			kryptonTextBoxTarget.Size = new Size(432, 23);
 			kryptonTextBoxTarget.TabIndex = 1;
@@ -288,7 +283,6 @@ namespace Planetoid_DB
 			kryptonLabelSource.AccessibleName = "MPCORB.DAT";
 			kryptonLabelSource.AccessibleRole = AccessibleRole.StaticText;
 			kryptonLabelSource.Location = new Point(7, 22);
-			kryptonLabelSource.Margin = new Padding(4, 3, 4, 3);
 			kryptonLabelSource.Name = "kryptonLabelSource";
 			kryptonLabelSource.Size = new Size(89, 23);
 			kryptonLabelSource.TabIndex = 0;
@@ -374,7 +368,7 @@ namespace Planetoid_DB
 			toolStripMenuItemFormatZip.Name = "toolStripMenuItemFormatZip";
 			toolStripMenuItemFormatZip.ShortcutKeyDisplayString = "Strg+Z";
 			toolStripMenuItemFormatZip.ShortcutKeys = Keys.Control | Keys.Z;
-			toolStripMenuItemFormatZip.Size = new Size(145, 22);
+			toolStripMenuItemFormatZip.Size = new Size(180, 22);
 			toolStripMenuItemFormatZip.Text = "&Zip";
 			toolStripMenuItemFormatZip.Click += ToolStripMenuItemFormatZip_Click;
 			toolStripMenuItemFormatZip.MouseEnter += Control_Enter;
@@ -390,7 +384,7 @@ namespace Planetoid_DB
 			toolStripMenuItemFormatGzip.Name = "toolStripMenuItemFormatGzip";
 			toolStripMenuItemFormatGzip.ShortcutKeyDisplayString = "Strg+G";
 			toolStripMenuItemFormatGzip.ShortcutKeys = Keys.Control | Keys.G;
-			toolStripMenuItemFormatGzip.Size = new Size(145, 22);
+			toolStripMenuItemFormatGzip.Size = new Size(180, 22);
 			toolStripMenuItemFormatGzip.Text = "&GZip";
 			toolStripMenuItemFormatGzip.Click += ToolStripMenuItemFormatGzip_Click;
 			toolStripMenuItemFormatGzip.MouseEnter += Control_Enter;
@@ -406,7 +400,7 @@ namespace Planetoid_DB
 			toolStripMenuItemFormatBrotli.Name = "toolStripMenuItemFormatBrotli";
 			toolStripMenuItemFormatBrotli.ShortcutKeyDisplayString = "Strg+B";
 			toolStripMenuItemFormatBrotli.ShortcutKeys = Keys.Control | Keys.B;
-			toolStripMenuItemFormatBrotli.Size = new Size(145, 22);
+			toolStripMenuItemFormatBrotli.Size = new Size(180, 22);
 			toolStripMenuItemFormatBrotli.Text = "&Brotli";
 			toolStripMenuItemFormatBrotli.Click += ToolStripMenuItemFormatBrotli_Click;
 			toolStripMenuItemFormatBrotli.MouseEnter += Control_Enter;
@@ -549,8 +543,8 @@ namespace Planetoid_DB
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Archive MPCORB.DAT";
 			Load += ArchiveMpcorbForm_Load;
-			statusStrip.ResumeLayout(false);
-			statusStrip.PerformLayout();
+			kryptonStatusStrip.ResumeLayout(false);
+			kryptonStatusStrip.PerformLayout();
 			toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
 			toolStripContainer.BottomToolStripPanel.PerformLayout();
 			toolStripContainer.ContentPanel.ResumeLayout(false);
@@ -573,8 +567,8 @@ namespace Planetoid_DB
 		private KryptonTextBox kryptonTextBoxSource;
         private KryptonButton kryptonButtonBrowseSource;
         
-        private KryptonStatusStrip statusStrip;
-        private ToolStripStatusLabel labelStatus;
+        private KryptonStatusStrip kryptonStatusStrip;
+        private ToolStripStatusLabel labelInformation;
 		private ToolStripContainer toolStripContainer;
 		private KryptonToolStrip toolStripIcons;
 		private KryptonPanel kryptonPanel;

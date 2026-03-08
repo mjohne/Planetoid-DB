@@ -36,9 +36,9 @@ namespace Planetoid_DB
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(PrintDataSheetForm));
 			checkedListBoxOrbitalElements = new KryptonCheckedListBox();
-			kryptonPanel = new KryptonPanel();
-			statusStrip = new KryptonStatusStrip();
-			labelStatus = new ToolStripStatusLabel();
+			kryptoPanelMain = new KryptonPanel();
+			kryptonStatusStrip = new KryptonStatusStrip();
+			labelInformation = new ToolStripStatusLabel();
 			toolStripProgressBarPrinting = new ToolStripProgressBar();
 			kryptonManager = new KryptonManager(components);
 			toolStripContainer = new ToolStripContainer();
@@ -48,12 +48,12 @@ namespace Planetoid_DB
 			toolStripSeparator1 = new ToolStripSeparator();
 			toolStripButtonPrintPreview = new ToolStripButton();
 			toolStripButtonPrintSetup = new ToolStripButton();
-			toolStripSeparator = new ToolStripSeparator();
+			toolStripSeparator2 = new ToolStripSeparator();
 			toolStripButtonMarkAll = new ToolStripButton();
 			toolStripButtonUnmarkAll = new ToolStripButton();
-			((ISupportInitialize)kryptonPanel).BeginInit();
-			kryptonPanel.SuspendLayout();
-			statusStrip.SuspendLayout();
+			((ISupportInitialize)kryptoPanelMain).BeginInit();
+			kryptoPanelMain.SuspendLayout();
+			kryptonStatusStrip.SuspendLayout();
 			toolStripContainer.BottomToolStripPanel.SuspendLayout();
 			toolStripContainer.ContentPanel.SuspendLayout();
 			toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -73,7 +73,6 @@ namespace Planetoid_DB
 			checkedListBoxOrbitalElements.HorizontalScrollbar = true;
 			checkedListBoxOrbitalElements.Items.AddRange(new object[] { "Index No.", "Readable designation", "Epoch (in packed form, .0 TT)", "Mean anomaly at the epoch (degrees)", "Argument of perihelion, J2000.0 (degrees)", "Longitude of the ascending node, J2000.0", "Inclination to the ecliptic, J2000.0 (degrees)", "Orbital eccentricity", "Mean daily motion (degrees per day)", "Semimajor axis (AU)", "Absolute magnitude, H (mag)", "Slope parameter, G", "Reference", "Number of oppositions", "Number of observations", "Observation span", "r.m.s. residual (arcseconds)", "Computer name", "4-hexdigit flags", "Date of last observation (YYYMMDD)", "Linear eccentricity (AU)", "Semi-minor axis (AU)", "Major axis (AU)", "Minor axis (AU)", "Eccentric anomaly (degrees)", "True anomaly (degrees)", "Perihelion distance (AU)", "Aphelion distance (AU)", "Longitude of Descending node (degrees)", "Argument of aphelion (degrees)", "Focal parameter (AU)", "Semi-latus rectum (AU)", "Latus rectum (AU)", "Orbital period (years)", "Orbital area (AU²)", "Orbital perimeter (AU)", "Semi-mean axis (AU)", "Mean axis (AU)", "Standard gravitational parameter (AU³/a²)" });
 			checkedListBoxOrbitalElements.Location = new Point(0, 0);
-			checkedListBoxOrbitalElements.Margin = new Padding(4, 3, 4, 3);
 			checkedListBoxOrbitalElements.Name = "checkedListBoxOrbitalElements";
 			checkedListBoxOrbitalElements.Size = new Size(313, 308);
 			checkedListBoxOrbitalElements.TabIndex = 0;
@@ -86,63 +85,65 @@ namespace Planetoid_DB
 			checkedListBoxOrbitalElements.MouseEnter += Control_Enter;
 			checkedListBoxOrbitalElements.MouseLeave += Control_Leave;
 			// 
-			// panel
+			// kryptoPanelMain
 			// 
-			kryptonPanel.AccessibleDescription = "Groups the data";
-			kryptonPanel.AccessibleName = "Pane";
-			kryptonPanel.AccessibleRole = AccessibleRole.Pane;
-			kryptonPanel.Controls.Add(checkedListBoxOrbitalElements);
-			kryptonPanel.Dock = DockStyle.Fill;
-			kryptonPanel.Location = new Point(0, 0);
-			kryptonPanel.Margin = new Padding(4, 3, 4, 3);
-			kryptonPanel.Name = "panel";
-			kryptonPanel.PanelBackStyle = PaletteBackStyle.FormMain;
-			kryptonPanel.Size = new Size(313, 308);
-			kryptonPanel.TabIndex = 0;
-			kryptonPanel.TabStop = true;
+			kryptoPanelMain.AccessibleDescription = "Groups the data";
+			kryptoPanelMain.AccessibleName = "Panel";
+			kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
+			kryptoPanelMain.Controls.Add(checkedListBoxOrbitalElements);
+			kryptoPanelMain.Dock = DockStyle.Fill;
+			kryptoPanelMain.Location = new Point(0, 0);
+			kryptoPanelMain.Name = "kryptoPanelMain";
+			kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
+			kryptoPanelMain.Size = new Size(313, 308);
+			kryptoPanelMain.TabIndex = 0;
+			kryptoPanelMain.TabStop = true;
 			// 
-			// statusStrip
+			// kryptonStatusStrip
 			// 
-			statusStrip.AccessibleDescription = "Shows some information";
-			statusStrip.AccessibleName = "Status bar of some information";
-			statusStrip.AccessibleRole = AccessibleRole.StatusBar;
-			statusStrip.Dock = DockStyle.None;
-			statusStrip.Font = new Font("Segoe UI", 9F);
-			statusStrip.Items.AddRange(new ToolStripItem[] { labelStatus, toolStripProgressBarPrinting });
-			statusStrip.Location = new Point(0, 0);
-			statusStrip.Name = "statusStrip";
-			statusStrip.Padding = new Padding(1, 0, 16, 0);
-			statusStrip.ProgressBars = null;
-			statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-			statusStrip.Size = new Size(313, 22);
-			statusStrip.SizingGrip = false;
-			statusStrip.TabIndex = 3;
-			statusStrip.Text = "status bar";
-			statusStrip.MouseEnter += Control_Enter;
-			statusStrip.MouseLeave += Control_Leave;
+			kryptonStatusStrip.AccessibleDescription = "Shows some information";
+			kryptonStatusStrip.AccessibleName = "Status bar with some information";
+			kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
+			kryptonStatusStrip.AllowClickThrough = true;
+			kryptonStatusStrip.AllowItemReorder = true;
+			kryptonStatusStrip.Dock = DockStyle.None;
+			kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
+			kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation, toolStripProgressBarPrinting });
+			kryptonStatusStrip.Location = new Point(0, 0);
+			kryptonStatusStrip.Name = "kryptonStatusStrip";
+			kryptonStatusStrip.Padding = new Padding(1, 0, 16, 0);
+			kryptonStatusStrip.ProgressBars = null;
+			kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+			kryptonStatusStrip.ShowItemToolTips = true;
+			kryptonStatusStrip.Size = new Size(313, 22);
+			kryptonStatusStrip.SizingGrip = false;
+			kryptonStatusStrip.TabIndex = 3;
+			kryptonStatusStrip.TabStop = true;
+			kryptonStatusStrip.Text = "Status bar";
+			kryptonStatusStrip.MouseEnter += Control_Enter;
+			kryptonStatusStrip.MouseLeave += Control_Leave;
 			// 
 			// labelInformation
 			// 
-			labelStatus.AccessibleDescription = "Shows some information";
-			labelStatus.AccessibleName = "Shows some information";
-			labelStatus.AccessibleRole = AccessibleRole.StaticText;
-			labelStatus.AutoToolTip = true;
-			labelStatus.Image = FatcowIcons16px.fatcow_lightbulb_16px;
-			labelStatus.Margin = new Padding(5, 3, 0, 2);
-			labelStatus.Name = "labelInformation";
-			labelStatus.Size = new Size(144, 17);
-			labelStatus.Text = "some information here";
-			labelStatus.ToolTipText = "Shows some information";
-			labelStatus.MouseEnter += Control_Enter;
-			labelStatus.MouseLeave += Control_Leave;
+			labelInformation.AccessibleDescription = "Shows some information";
+			labelInformation.AccessibleName = "Shows some information";
+			labelInformation.AccessibleRole = AccessibleRole.StaticText;
+			labelInformation.AutoToolTip = true;
+			labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
+			labelInformation.Name = "labelInformation";
+			labelInformation.Size = new Size(144, 17);
+			labelInformation.Text = "some information here";
+			labelInformation.ToolTipText = "Shows some information";
+			labelInformation.MouseEnter += Control_Enter;
+			labelInformation.MouseLeave += Control_Leave;
 			// 
-			// kryptonProgressBar
+			// toolStripProgressBarPrinting
 			// 
 			toolStripProgressBarPrinting.AccessibleDescription = "Shows the progress bar of the printing progress";
 			toolStripProgressBarPrinting.AccessibleName = "Printing progress";
 			toolStripProgressBarPrinting.AccessibleRole = AccessibleRole.ProgressBar;
 			toolStripProgressBarPrinting.AutoToolTip = true;
-			toolStripProgressBarPrinting.Name = "kryptonProgressBar";
+			toolStripProgressBarPrinting.Name = "toolStripProgressBarPrinting";
 			toolStripProgressBarPrinting.Size = new Size(150, 16);
 			toolStripProgressBarPrinting.Style = ProgressBarStyle.Continuous;
 			toolStripProgressBarPrinting.ToolTipText = "Printing progress";
@@ -163,11 +164,11 @@ namespace Planetoid_DB
 			// 
 			// toolStripContainer.BottomToolStripPanel
 			// 
-			toolStripContainer.BottomToolStripPanel.Controls.Add(statusStrip);
+			toolStripContainer.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
 			// 
 			// toolStripContainer.ContentPanel
 			// 
-			toolStripContainer.ContentPanel.Controls.Add(kryptonPanel);
+			toolStripContainer.ContentPanel.Controls.Add(kryptoPanelMain);
 			toolStripContainer.ContentPanel.Size = new Size(313, 308);
 			toolStripContainer.Dock = DockStyle.Fill;
 			toolStripContainer.Location = new Point(0, 0);
@@ -185,9 +186,11 @@ namespace Planetoid_DB
 			kryptonToolStripIcons.AccessibleDescription = "Toolbar of printing values of orbital elements";
 			kryptonToolStripIcons.AccessibleName = "Toolbar of printing values of orbital elements";
 			kryptonToolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
+			kryptonToolStripIcons.AllowClickThrough = true;
+			kryptonToolStripIcons.AllowItemReorder = true;
 			kryptonToolStripIcons.Dock = DockStyle.None;
 			kryptonToolStripIcons.Font = new Font("Segoe UI", 9F);
-			kryptonToolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonPrint, toolStripButtonCancelPrint, toolStripSeparator1, toolStripButtonPrintPreview, toolStripButtonPrintSetup, toolStripSeparator, toolStripButtonMarkAll, toolStripButtonUnmarkAll });
+			kryptonToolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonPrint, toolStripButtonCancelPrint, toolStripSeparator1, toolStripButtonPrintPreview, toolStripButtonPrintSetup, toolStripSeparator2, toolStripButtonMarkAll, toolStripButtonUnmarkAll });
 			kryptonToolStripIcons.Location = new Point(0, 0);
 			kryptonToolStripIcons.Name = "kryptonToolStripIcons";
 			kryptonToolStripIcons.Size = new Size(313, 25);
@@ -230,6 +233,9 @@ namespace Planetoid_DB
 			// 
 			// toolStripSeparator1
 			// 
+			toolStripSeparator1.AccessibleDescription = "Just a separator";
+			toolStripSeparator1.AccessibleName = "Just a separator";
+			toolStripSeparator1.AccessibleRole = AccessibleRole.Separator;
 			toolStripSeparator1.Name = "toolStripSeparator1";
 			toolStripSeparator1.Size = new Size(6, 25);
 			// 
@@ -261,13 +267,13 @@ namespace Planetoid_DB
 			toolStripButtonPrintSetup.MouseEnter += Control_Enter;
 			toolStripButtonPrintSetup.MouseLeave += Control_Leave;
 			// 
-			// toolStripSeparator
+			// toolStripSeparator2
 			// 
-			toolStripSeparator.AccessibleDescription = "Just a separator";
-			toolStripSeparator.AccessibleName = "Just a separator";
-			toolStripSeparator.AccessibleRole = AccessibleRole.Separator;
-			toolStripSeparator.Name = "toolStripSeparator";
-			toolStripSeparator.Size = new Size(6, 25);
+			toolStripSeparator2.AccessibleDescription = "Just a separator";
+			toolStripSeparator2.AccessibleName = "Just a separator";
+			toolStripSeparator2.AccessibleRole = AccessibleRole.Separator;
+			toolStripSeparator2.Name = "toolStripSeparator2";
+			toolStripSeparator2.Size = new Size(6, 25);
 			// 
 			// toolStripButtonMarkAll
 			// 
@@ -317,10 +323,10 @@ namespace Planetoid_DB
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Print data sheet";
 			Load += PrintDataSheetForm_Load;
-			((ISupportInitialize)kryptonPanel).EndInit();
-			kryptonPanel.ResumeLayout(false);
-			statusStrip.ResumeLayout(false);
-			statusStrip.PerformLayout();
+			((ISupportInitialize)kryptoPanelMain).EndInit();
+			kryptoPanelMain.ResumeLayout(false);
+			kryptonStatusStrip.ResumeLayout(false);
+			kryptonStatusStrip.PerformLayout();
 			toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
 			toolStripContainer.BottomToolStripPanel.PerformLayout();
 			toolStripContainer.ContentPanel.ResumeLayout(false);
@@ -337,15 +343,15 @@ namespace Planetoid_DB
 		#endregion
 
 		private KryptonCheckedListBox checkedListBoxOrbitalElements;
-        private KryptonPanel kryptonPanel;
-		private KryptonStatusStrip statusStrip;
-		private ToolStripStatusLabel labelStatus;
+        private KryptonPanel kryptoPanelMain;
+		private KryptonStatusStrip kryptonStatusStrip;
+		private ToolStripStatusLabel labelInformation;
 		private ToolStripProgressBar toolStripProgressBarPrinting;
 		private KryptonManager kryptonManager;
 		private ToolStripContainer toolStripContainer;
 		private KryptonToolStrip kryptonToolStripIcons;
 		private ToolStripButton toolStripButtonPrint;
-		private ToolStripSeparator toolStripSeparator;
+		private ToolStripSeparator toolStripSeparator2;
 		private ToolStripButton toolStripButtonMarkAll;
 		private ToolStripButton toolStripButtonUnmarkAll;
 		private ToolStripButton toolStripButtonPrintPreview;

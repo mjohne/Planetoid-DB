@@ -54,7 +54,7 @@ namespace Planetoid_DB
 			tableLayoutPanel = new KryptonTableLayoutPanel();
 			labelAttributesValue = new KryptonLabel();
 			toolStripContainer = new ToolStripContainer();
-			statusStrip = new KryptonStatusStrip();
+			kryptonStatusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
 			kryptonToolStripIcons = new KryptonToolStrip();
 			toolStripButtonSaveToFile = new ToolStripButton();
@@ -95,7 +95,7 @@ namespace Planetoid_DB
 			toolStripContainer.ContentPanel.SuspendLayout();
 			toolStripContainer.TopToolStripPanel.SuspendLayout();
 			toolStripContainer.SuspendLayout();
-			statusStrip.SuspendLayout();
+			kryptonStatusStrip.SuspendLayout();
 			kryptonToolStripIcons.SuspendLayout();
 			contextMenuFullCopyToClipboard.SuspendLayout();
 			contextMenuSaveToFile.SuspendLayout();
@@ -108,16 +108,15 @@ namespace Planetoid_DB
 			labelName.AccessibleRole = AccessibleRole.Text;
 			labelName.Dock = DockStyle.Fill;
 			labelName.LabelStyle = LabelStyle.BoldPanel;
-			labelName.Location = new Point(4, 3);
-			labelName.Margin = new Padding(4, 3, 4, 3);
+			labelName.Location = new Point(3, 3);
 			labelName.Name = "labelName";
-			labelName.Size = new Size(102, 20);
+			labelName.Size = new Size(104, 20);
 			labelName.TabIndex = 0;
 			labelName.ToolTipValues.Description = "Shows the name of the database.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelName.ToolTipValues.EnableToolTips = true;
 			labelName.ToolTipValues.Heading = "Name value";
 			labelName.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-			labelName.Values.Text = "Name";
+			labelName.Values.Text = "&Name";
 			labelName.DoubleClick += CopyToClipboard_DoubleClick;
 			labelName.Enter += Control_Enter;
 			labelName.Leave += Control_Leave;
@@ -131,16 +130,15 @@ namespace Planetoid_DB
 			labelPath.AccessibleRole = AccessibleRole.Text;
 			labelPath.Dock = DockStyle.Fill;
 			labelPath.LabelStyle = LabelStyle.BoldPanel;
-			labelPath.Location = new Point(4, 29);
-			labelPath.Margin = new Padding(4, 3, 4, 3);
+			labelPath.Location = new Point(3, 29);
 			labelPath.Name = "labelPath";
-			labelPath.Size = new Size(102, 20);
+			labelPath.Size = new Size(104, 20);
 			labelPath.TabIndex = 2;
 			labelPath.ToolTipValues.Description = "Shows the path of the database.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelPath.ToolTipValues.EnableToolTips = true;
 			labelPath.ToolTipValues.Heading = "Path";
 			labelPath.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-			labelPath.Values.Text = "Path";
+			labelPath.Values.Text = "&Path";
 			labelPath.DoubleClick += CopyToClipboard_DoubleClick;
 			labelPath.Enter += Control_Enter;
 			labelPath.Leave += Control_Leave;
@@ -154,16 +152,15 @@ namespace Planetoid_DB
 			labelSize.AccessibleRole = AccessibleRole.Text;
 			labelSize.Dock = DockStyle.Fill;
 			labelSize.LabelStyle = LabelStyle.BoldPanel;
-			labelSize.Location = new Point(4, 55);
-			labelSize.Margin = new Padding(4, 3, 4, 3);
+			labelSize.Location = new Point(3, 55);
 			labelSize.Name = "labelSize";
-			labelSize.Size = new Size(102, 20);
+			labelSize.Size = new Size(104, 20);
 			labelSize.TabIndex = 4;
 			labelSize.ToolTipValues.Description = "Shows the size of the database.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelSize.ToolTipValues.EnableToolTips = true;
 			labelSize.ToolTipValues.Heading = "Size";
 			labelSize.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-			labelSize.Values.Text = "Size";
+			labelSize.Values.Text = "&Size";
 			labelSize.DoubleClick += CopyToClipboard_DoubleClick;
 			labelSize.Enter += Control_Enter;
 			labelSize.Leave += Control_Leave;
@@ -177,16 +174,15 @@ namespace Planetoid_DB
 			labelDateCreated.AccessibleRole = AccessibleRole.Text;
 			labelDateCreated.Dock = DockStyle.Fill;
 			labelDateCreated.LabelStyle = LabelStyle.BoldPanel;
-			labelDateCreated.Location = new Point(4, 81);
-			labelDateCreated.Margin = new Padding(4, 3, 4, 3);
+			labelDateCreated.Location = new Point(3, 81);
 			labelDateCreated.Name = "labelDateCreated";
-			labelDateCreated.Size = new Size(102, 20);
+			labelDateCreated.Size = new Size(104, 20);
 			labelDateCreated.TabIndex = 6;
 			labelDateCreated.ToolTipValues.Description = "Shows the creation date of the database.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelDateCreated.ToolTipValues.EnableToolTips = true;
 			labelDateCreated.ToolTipValues.Heading = "Creation date";
 			labelDateCreated.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-			labelDateCreated.Values.Text = "Creation date";
+			labelDateCreated.Values.Text = "&Creation date";
 			labelDateCreated.DoubleClick += CopyToClipboard_DoubleClick;
 			labelDateCreated.Enter += Control_Enter;
 			labelDateCreated.Leave += Control_Leave;
@@ -209,7 +205,7 @@ namespace Planetoid_DB
 			labelDateAccessed.ToolTipValues.EnableToolTips = true;
 			labelDateAccessed.ToolTipValues.Heading = "Last access date";
 			labelDateAccessed.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-			labelDateAccessed.Values.Text = "Last access date";
+			labelDateAccessed.Values.Text = "Last &access date";
 			labelDateAccessed.DoubleClick += CopyToClipboard_DoubleClick;
 			labelDateAccessed.Enter += Control_Enter;
 			labelDateAccessed.Leave += Control_Leave;
@@ -223,16 +219,15 @@ namespace Planetoid_DB
 			labelDateWrited.AccessibleRole = AccessibleRole.Text;
 			labelDateWrited.Dock = DockStyle.Fill;
 			labelDateWrited.LabelStyle = LabelStyle.BoldPanel;
-			labelDateWrited.Location = new Point(4, 133);
-			labelDateWrited.Margin = new Padding(4, 3, 4, 3);
+			labelDateWrited.Location = new Point(3, 133);
 			labelDateWrited.Name = "labelDateWrited";
-			labelDateWrited.Size = new Size(102, 20);
+			labelDateWrited.Size = new Size(104, 20);
 			labelDateWrited.TabIndex = 10;
 			labelDateWrited.ToolTipValues.Description = "Shows the last write date of the database.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelDateWrited.ToolTipValues.EnableToolTips = true;
 			labelDateWrited.ToolTipValues.Heading = "Last write date";
 			labelDateWrited.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-			labelDateWrited.Values.Text = "Last write date";
+			labelDateWrited.Values.Text = "Last &write date";
 			labelDateWrited.DoubleClick += CopyToClipboard_DoubleClick;
 			labelDateWrited.Enter += Control_Enter;
 			labelDateWrited.Leave += Control_Leave;
@@ -255,7 +250,7 @@ namespace Planetoid_DB
 			labelAttributes.ToolTipValues.EnableToolTips = true;
 			labelAttributes.ToolTipValues.Heading = "Attributes";
 			labelAttributes.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-			labelAttributes.Values.Text = "Attributes";
+			labelAttributes.Values.Text = "A&ttributes";
 			labelAttributes.DoubleClick += CopyToClipboard_DoubleClick;
 			labelAttributes.Enter += Control_Enter;
 			labelAttributes.Leave += Control_Leave;
@@ -324,10 +319,9 @@ namespace Planetoid_DB
 			labelDirectoryValue.AccessibleRole = AccessibleRole.Text;
 			labelDirectoryValue.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelDirectoryValue.Dock = DockStyle.Fill;
-			labelDirectoryValue.Location = new Point(114, 29);
-			labelDirectoryValue.Margin = new Padding(4, 3, 4, 3);
+			labelDirectoryValue.Location = new Point(113, 29);
 			labelDirectoryValue.Name = "labelDirectoryValue";
-			labelDirectoryValue.Size = new Size(290, 20);
+			labelDirectoryValue.Size = new Size(292, 20);
 			labelDirectoryValue.TabIndex = 3;
 			labelDirectoryValue.ToolTipValues.Description = "Shows the path of the database.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelDirectoryValue.ToolTipValues.EnableToolTips = true;
@@ -348,10 +342,9 @@ namespace Planetoid_DB
 			labelSizeValue.AccessibleRole = AccessibleRole.Text;
 			labelSizeValue.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelSizeValue.Dock = DockStyle.Fill;
-			labelSizeValue.Location = new Point(114, 55);
-			labelSizeValue.Margin = new Padding(4, 3, 4, 3);
+			labelSizeValue.Location = new Point(113, 55);
 			labelSizeValue.Name = "labelSizeValue";
-			labelSizeValue.Size = new Size(290, 20);
+			labelSizeValue.Size = new Size(292, 20);
 			labelSizeValue.TabIndex = 5;
 			labelSizeValue.ToolTipValues.Description = "Shows the size of the database.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelSizeValue.ToolTipValues.EnableToolTips = true;
@@ -372,10 +365,9 @@ namespace Planetoid_DB
 			labelDateCreatedValue.AccessibleRole = AccessibleRole.Text;
 			labelDateCreatedValue.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelDateCreatedValue.Dock = DockStyle.Fill;
-			labelDateCreatedValue.Location = new Point(114, 81);
-			labelDateCreatedValue.Margin = new Padding(4, 3, 4, 3);
+			labelDateCreatedValue.Location = new Point(113, 81);
 			labelDateCreatedValue.Name = "labelDateCreatedValue";
-			labelDateCreatedValue.Size = new Size(290, 20);
+			labelDateCreatedValue.Size = new Size(292, 20);
 			labelDateCreatedValue.TabIndex = 7;
 			labelDateCreatedValue.ToolTipValues.Description = "Shows the creation date of the database.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelDateCreatedValue.ToolTipValues.EnableToolTips = true;
@@ -420,10 +412,9 @@ namespace Planetoid_DB
 			labelDateWritedValue.AccessibleRole = AccessibleRole.Text;
 			labelDateWritedValue.ContextMenuStrip = contextMenuCopyToClipboard;
 			labelDateWritedValue.Dock = DockStyle.Fill;
-			labelDateWritedValue.Location = new Point(114, 133);
-			labelDateWritedValue.Margin = new Padding(4, 3, 4, 3);
+			labelDateWritedValue.Location = new Point(113, 133);
 			labelDateWritedValue.Name = "labelDateWritedValue";
-			labelDateWritedValue.Size = new Size(290, 20);
+			labelDateWritedValue.Size = new Size(292, 20);
 			labelDateWritedValue.TabIndex = 11;
 			labelDateWritedValue.ToolTipValues.Description = "Shows the last write date of the database.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelDateWritedValue.ToolTipValues.EnableToolTips = true;
@@ -462,7 +453,6 @@ namespace Planetoid_DB
 			tableLayoutPanel.Controls.Add(labelAttributesValue, 1, 6);
 			tableLayoutPanel.Dock = DockStyle.Fill;
 			tableLayoutPanel.Location = new Point(0, 0);
-			tableLayoutPanel.Margin = new Padding(4, 3, 4, 3);
 			tableLayoutPanel.Name = "tableLayoutPanel";
 			tableLayoutPanel.PanelBackStyle = PaletteBackStyle.FormMain;
 			tableLayoutPanel.RowCount = 7;
@@ -509,7 +499,7 @@ namespace Planetoid_DB
 			// 
 			// toolStripContainer.BottomToolStripPanel
 			// 
-			toolStripContainer.BottomToolStripPanel.Controls.Add(statusStrip);
+			toolStripContainer.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
 			// 
 			// toolStripContainer.ContentPanel
 			// 
@@ -518,7 +508,6 @@ namespace Planetoid_DB
 			toolStripContainer.ContentPanel.Size = new Size(408, 187);
 			toolStripContainer.Dock = DockStyle.Fill;
 			toolStripContainer.Location = new Point(0, 0);
-			toolStripContainer.Margin = new Padding(4, 3, 4, 3);
 			toolStripContainer.Name = "toolStripContainer";
 			toolStripContainer.Size = new Size(408, 234);
 			toolStripContainer.TabIndex = 3;
@@ -528,21 +517,25 @@ namespace Planetoid_DB
 			// 
 			toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripIcons);
 			// 
-			// statusStrip
+			// kryptonStatusStrip
 			// 
-			statusStrip.AccessibleDescription = "Shows some information";
-			statusStrip.AccessibleName = "Status bar of some information";
-			statusStrip.AccessibleRole = AccessibleRole.StatusBar;
-			statusStrip.Dock = DockStyle.None;
-			statusStrip.Font = new Font("Segoe UI", 9F);
-			statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-			statusStrip.Location = new Point(0, 0);
-			statusStrip.Name = "statusStrip";
-			statusStrip.ProgressBars = null;
-			statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-			statusStrip.Size = new Size(408, 22);
-			statusStrip.TabIndex = 2;
-			statusStrip.Text = "status bar";
+			kryptonStatusStrip.AccessibleDescription = "Shows some information";
+			kryptonStatusStrip.AccessibleName = "Status bar with some information";
+			kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
+			kryptonStatusStrip.AllowClickThrough = true;
+			kryptonStatusStrip.AllowItemReorder = true;
+			kryptonStatusStrip.Dock = DockStyle.None;
+			kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
+			kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
+			kryptonStatusStrip.Location = new Point(0, 0);
+			kryptonStatusStrip.Name = "kryptonStatusStrip";
+			kryptonStatusStrip.ProgressBars = null;
+			kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+			kryptonStatusStrip.ShowItemToolTips = true;
+			kryptonStatusStrip.Size = new Size(408, 22);
+			kryptonStatusStrip.TabIndex = 2;
+			kryptonStatusStrip.TabStop = true;
+			kryptonStatusStrip.Text = "Status bar";
 			// 
 			// labelInformation
 			// 
@@ -551,9 +544,9 @@ namespace Planetoid_DB
 			labelInformation.AccessibleRole = AccessibleRole.StaticText;
 			labelInformation.AutoToolTip = true;
 			labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
-			labelInformation.Margin = new Padding(5, 3, 0, 2);
+			labelInformation.Margin = new Padding(3);
 			labelInformation.Name = "labelInformation";
-			labelInformation.Size = new Size(144, 17);
+			labelInformation.Size = new Size(144, 16);
 			labelInformation.Text = "some information here";
 			labelInformation.ToolTipText = "Shows some information";
 			// 
@@ -562,6 +555,8 @@ namespace Planetoid_DB
 			kryptonToolStripIcons.AccessibleDescription = "Toolbar of copying and saving information";
 			kryptonToolStripIcons.AccessibleName = "Toolbar of copying and saving information";
 			kryptonToolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
+			kryptonToolStripIcons.AllowClickThrough = true;
+			kryptonToolStripIcons.AllowItemReorder = true;
 			kryptonToolStripIcons.Dock = DockStyle.None;
 			kryptonToolStripIcons.Font = new Font("Segoe UI", 9F);
 			kryptonToolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonSaveToFile, toolStripButtonCopyToClipboard });
@@ -1082,8 +1077,8 @@ namespace Planetoid_DB
 			toolStripContainer.TopToolStripPanel.PerformLayout();
 			toolStripContainer.ResumeLayout(false);
 			toolStripContainer.PerformLayout();
-			statusStrip.ResumeLayout(false);
-			statusStrip.PerformLayout();
+			kryptonStatusStrip.ResumeLayout(false);
+			kryptonStatusStrip.PerformLayout();
 			kryptonToolStripIcons.ResumeLayout(false);
 			kryptonToolStripIcons.PerformLayout();
 			contextMenuFullCopyToClipboard.ResumeLayout(false);
@@ -1108,7 +1103,7 @@ namespace Planetoid_DB
     private KryptonLabel labelDateAccessedValue;
     private KryptonLabel labelDateWritedValue;
     private KryptonLabel labelAttributesValue;
-	private KryptonStatusStrip statusStrip;
+	private KryptonStatusStrip kryptonStatusStrip;
 	private ToolStripStatusLabel labelInformation;
 	private ToolStripContainer toolStripContainer;
 		private KryptonManager kryptonManager;

@@ -35,7 +35,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 	/// <remarks>
 	/// Derived classes should override this property to provide the specific label.
 	/// </remarks>
-	protected override ToolStripStatusLabel? StatusLabel => labelStatus;
+	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	/// <summary>
 	/// The last modified date of the online MPCORB file.
@@ -169,14 +169,14 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 			kryptonTextBoxSource.Text = Path.GetFullPath(path: defaultPath);
 		}
 		// Update status label to indicate that the online date is being checked
-		labelStatus.Text = "Checking online date...";
+		labelInformation.Text = "Checking online date...";
 		// Attempt to retrieve the last modified date from the online source and update the status label accordingly
 		try
 		{
 			// Retrieve the last modified date of the online MPCORB file
 			_onlineLastModified = await GetOnlineLastModifiedAsync();
 			// Update the status label with the retrieved online date or indicate that it could not be retrieved
-			labelStatus.Text = _onlineLastModified.HasValue
+			labelInformation.Text = _onlineLastModified.HasValue
 				? $"Online date: {_onlineLastModified.Value}"
 				: "Could not retrieve online date. Using current time.";
 		}
@@ -298,7 +298,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 							kryptonProgressBarToolStripItemCompression.Value = currentProgress;
 							kryptonProgressBarToolStripItemCompression.Text = $"{currentProgress} %";
 							kryptonProgressBarToolStripItemCompression.ToolTipText = kryptonProgressBarToolStripItemCompression.Text;
-							labelStatus.Text = $"Time: {elapsed:hh\\:mm\\:ss} / {remaining:hh\\:mm\\:ss} | Level: {compressionLevel} | Read: {FormatBytes(bytes: totalRead)} | Written: {FormatBytes(bytes: totalWritten)} | Est. Size: {FormatBytes(bytes: estimatedSize)}";
+							labelInformation.Text = $"Time: {elapsed:hh\\:mm\\:ss} / {remaining:hh\\:mm\\:ss} | Level: {compressionLevel} | Read: {FormatBytes(bytes: totalRead)} | Written: {FormatBytes(bytes: totalWritten)} | Est. Size: {FormatBytes(bytes: estimatedSize)}";
 						}));
 					}
 					catch (ObjectDisposedException)
@@ -404,7 +404,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		kryptonProgressBarToolStripItemCompression.Value = 0;
 		kryptonProgressBarToolStripItemCompression.Text = "0 %";
 		kryptonProgressBarToolStripItemCompression.ToolTipText = kryptonProgressBarToolStripItemCompression.Text;
-		labelStatus.Text = "Archiving...";
+		labelInformation.Text = "Archiving...";
 		toolStripDropDownButtonFormat.Enabled = false;
 		toolStripDropDownButtonCompression.Enabled = false;
 		groupBoxSource.Enabled = false;
@@ -447,13 +447,13 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 				}
 			}, cancellationToken: cancellationToken);
 			// If the archiving process completes successfully without cancellation, update the status label and show a success message box
-			labelStatus.Text = "Archiving completed successfully.";
+			labelInformation.Text = "Archiving completed successfully.";
 			MessageBox.Show(text: "Archiving completed successfully.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 		}
 		// Catch an OperationCanceledException to handle the case where the archiving process was cancelled by the user. Update the status label and attempt to delete the partially created target file if it exists
 		catch (OperationCanceledException)
 		{
-			labelStatus.Text = "Archiving cancelled.";
+			labelInformation.Text = "Archiving cancelled.";
 			if (File.Exists(path: targetFile))
 			{
 				try { File.Delete(path: targetFile); } catch { }
@@ -462,7 +462,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		// Catch any other exceptions that occur during the archiving process, update the status label, and show an error message box with the exception details
 		catch (Exception ex)
 		{
-			labelStatus.Text = "Archiving failed.";
+			labelInformation.Text = "Archiving failed.";
 			MessageBox.Show(text: $"Archiving failed: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 		// In the finally block, dispose of the cancellation token source if it exists, reset the UI controls to their default state, and reset the progress bar

@@ -35,7 +35,7 @@ namespace Planetoid_DB
 		{
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(RecordsMainForm));
-			panel = new KryptonPanel();
+			kryptoPanelMain = new KryptonPanel();
 			groupBoxExport = new KryptonGroupBox();
 			buttonExportAsJson = new KryptonButton();
 			buttonExportAsXml = new KryptonButton();
@@ -87,36 +87,35 @@ namespace Planetoid_DB
 			buttonStart = new KryptonButton();
 			labelPercent = new KryptonLabel();
 			progressBar = new KryptonProgressBar();
-			statusStrip = new KryptonStatusStrip();
+			kryptonStatusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
 			kryptonManager = new KryptonManager(components);
-			((ISupportInitialize)panel).BeginInit();
-			panel.SuspendLayout();
+			((ISupportInitialize)kryptoPanelMain).BeginInit();
+			kryptoPanelMain.SuspendLayout();
 			((ISupportInitialize)groupBoxExport).BeginInit();
 			((ISupportInitialize)groupBoxExport.Panel).BeginInit();
 			groupBoxExport.Panel.SuspendLayout();
 			tableLayoutPanel.SuspendLayout();
-			statusStrip.SuspendLayout();
+			kryptonStatusStrip.SuspendLayout();
 			SuspendLayout();
 			// 
-			// panel
+			// kryptoPanelMain
 			// 
-			panel.AccessibleDescription = "pane";
-			panel.AccessibleName = "pane";
-			panel.AccessibleRole = AccessibleRole.Pane;
-			panel.Controls.Add(groupBoxExport);
-			panel.Controls.Add(tableLayoutPanel);
-			panel.Controls.Add(buttonStart);
-			panel.Controls.Add(labelPercent);
-			panel.Controls.Add(progressBar);
-			panel.Dock = DockStyle.Fill;
-			panel.Location = new Point(0, 0);
-			panel.Margin = new Padding(4, 3, 4, 3);
-			panel.Name = "panel";
-			panel.PanelBackStyle = PaletteBackStyle.FormMain;
-			panel.Size = new Size(517, 532);
-			panel.TabIndex = 0;
-			panel.TabStop = true;
+			kryptoPanelMain.AccessibleDescription = "Groups the data";
+			kryptoPanelMain.AccessibleName = "Panel";
+			kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
+			kryptoPanelMain.Controls.Add(groupBoxExport);
+			kryptoPanelMain.Controls.Add(tableLayoutPanel);
+			kryptoPanelMain.Controls.Add(buttonStart);
+			kryptoPanelMain.Controls.Add(labelPercent);
+			kryptoPanelMain.Controls.Add(progressBar);
+			kryptoPanelMain.Dock = DockStyle.Fill;
+			kryptoPanelMain.Location = new Point(0, 0);
+			kryptoPanelMain.Name = "kryptoPanelMain";
+			kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
+			kryptoPanelMain.Size = new Size(517, 532);
+			kryptoPanelMain.TabIndex = 0;
+			kryptoPanelMain.TabStop = true;
 			// 
 			// groupBoxExport
 			// 
@@ -124,7 +123,6 @@ namespace Planetoid_DB
 			groupBoxExport.AccessibleName = "Groups the export buttons";
 			groupBoxExport.AccessibleRole = AccessibleRole.Grouping;
 			groupBoxExport.Location = new Point(14, 407);
-			groupBoxExport.Margin = new Padding(4, 3, 4, 3);
 			// 
 			// 
 			// 
@@ -151,7 +149,6 @@ namespace Planetoid_DB
 			buttonExportAsJson.AccessibleName = "Export as JSON";
 			buttonExportAsJson.AccessibleRole = AccessibleRole.PushButton;
 			buttonExportAsJson.Location = new Point(357, 7);
-			buttonExportAsJson.Margin = new Padding(4, 3, 4, 3);
 			buttonExportAsJson.Name = "buttonExportAsJson";
 			buttonExportAsJson.Size = new Size(113, 46);
 			buttonExportAsJson.StateCommon.Content.Image.ImageV = PaletteRelativeAlign.Near;
@@ -175,7 +172,6 @@ namespace Planetoid_DB
 			buttonExportAsXml.AccessibleName = "Export as XML";
 			buttonExportAsXml.AccessibleRole = AccessibleRole.PushButton;
 			buttonExportAsXml.Location = new Point(239, 7);
-			buttonExportAsXml.Margin = new Padding(4, 3, 4, 3);
 			buttonExportAsXml.Name = "buttonExportAsXml";
 			buttonExportAsXml.Size = new Size(111, 46);
 			buttonExportAsXml.StateCommon.Content.Image.ImageV = PaletteRelativeAlign.Near;
@@ -199,7 +195,6 @@ namespace Planetoid_DB
 			buttonExportAsTxt.AccessibleName = "Export as TXT";
 			buttonExportAsTxt.AccessibleRole = AccessibleRole.PushButton;
 			buttonExportAsTxt.Location = new Point(4, 7);
-			buttonExportAsTxt.Margin = new Padding(4, 3, 4, 3);
 			buttonExportAsTxt.Name = "buttonExportAsTxt";
 			buttonExportAsTxt.Size = new Size(111, 46);
 			buttonExportAsTxt.StateCommon.Content.Image.ImageV = PaletteRelativeAlign.Near;
@@ -223,7 +218,6 @@ namespace Planetoid_DB
 			buttonExportAsHtml.AccessibleName = "Export as HTML";
 			buttonExportAsHtml.AccessibleRole = AccessibleRole.PushButton;
 			buttonExportAsHtml.Location = new Point(121, 7);
-			buttonExportAsHtml.Margin = new Padding(4, 3, 4, 3);
 			buttonExportAsHtml.Name = "buttonExportAsHtml";
 			buttonExportAsHtml.Size = new Size(111, 46);
 			buttonExportAsHtml.StateCommon.Content.Image.ImageV = PaletteRelativeAlign.Near;
@@ -294,7 +288,6 @@ namespace Planetoid_DB
 			tableLayoutPanel.Controls.Add(labelValue10, 2, 10);
 			tableLayoutPanel.Controls.Add(buttonGoto10, 3, 10);
 			tableLayoutPanel.Location = new Point(14, 50);
-			tableLayoutPanel.Margin = new Padding(4, 3, 4, 3);
 			tableLayoutPanel.Name = "tableLayoutPanel";
 			tableLayoutPanel.RowCount = 11;
 			tableLayoutPanel.RowStyles.Add(new RowStyle());
@@ -317,8 +310,7 @@ namespace Planetoid_DB
 			buttonGoto09.AccessibleName = "Go to the element of the place no. 9";
 			buttonGoto09.AccessibleRole = AccessibleRole.PushButton;
 			buttonGoto09.ButtonStyle = ButtonStyle.Form;
-			buttonGoto09.Location = new Point(415, 277);
-			buttonGoto09.Margin = new Padding(4, 3, 4, 3);
+			buttonGoto09.Location = new Point(412, 277);
 			buttonGoto09.Name = "buttonGoto09";
 			buttonGoto09.Size = new Size(70, 23);
 			buttonGoto09.TabIndex = 37;
@@ -341,8 +333,7 @@ namespace Planetoid_DB
 			buttonGoto08.AccessibleName = "Go to the element of the place no. 8";
 			buttonGoto08.AccessibleRole = AccessibleRole.PushButton;
 			buttonGoto08.ButtonStyle = ButtonStyle.Form;
-			buttonGoto08.Location = new Point(415, 248);
-			buttonGoto08.Margin = new Padding(4, 3, 4, 3);
+			buttonGoto08.Location = new Point(412, 248);
 			buttonGoto08.Name = "buttonGoto08";
 			buttonGoto08.Size = new Size(70, 23);
 			buttonGoto08.TabIndex = 33;
@@ -365,8 +356,7 @@ namespace Planetoid_DB
 			buttonGoto07.AccessibleName = "Go to the element of the place no. 7";
 			buttonGoto07.AccessibleRole = AccessibleRole.PushButton;
 			buttonGoto07.ButtonStyle = ButtonStyle.Form;
-			buttonGoto07.Location = new Point(415, 219);
-			buttonGoto07.Margin = new Padding(4, 3, 4, 3);
+			buttonGoto07.Location = new Point(412, 219);
 			buttonGoto07.Name = "buttonGoto07";
 			buttonGoto07.Size = new Size(70, 23);
 			buttonGoto07.TabIndex = 29;
@@ -389,8 +379,7 @@ namespace Planetoid_DB
 			buttonGoto06.AccessibleName = "Go to the element of the place no. 6";
 			buttonGoto06.AccessibleRole = AccessibleRole.PushButton;
 			buttonGoto06.ButtonStyle = ButtonStyle.Form;
-			buttonGoto06.Location = new Point(415, 190);
-			buttonGoto06.Margin = new Padding(4, 3, 4, 3);
+			buttonGoto06.Location = new Point(412, 190);
 			buttonGoto06.Name = "buttonGoto06";
 			buttonGoto06.Size = new Size(70, 23);
 			buttonGoto06.TabIndex = 25;
@@ -413,8 +402,7 @@ namespace Planetoid_DB
 			buttonGoto05.AccessibleName = "Go to the element of the place no. 5";
 			buttonGoto05.AccessibleRole = AccessibleRole.PushButton;
 			buttonGoto05.ButtonStyle = ButtonStyle.Form;
-			buttonGoto05.Location = new Point(415, 161);
-			buttonGoto05.Margin = new Padding(4, 3, 4, 3);
+			buttonGoto05.Location = new Point(412, 161);
 			buttonGoto05.Name = "buttonGoto05";
 			buttonGoto05.Size = new Size(70, 23);
 			buttonGoto05.TabIndex = 21;
@@ -437,8 +425,7 @@ namespace Planetoid_DB
 			buttonGoto04.AccessibleName = "Go to the element of the place no. 4";
 			buttonGoto04.AccessibleRole = AccessibleRole.PushButton;
 			buttonGoto04.ButtonStyle = ButtonStyle.Form;
-			buttonGoto04.Location = new Point(415, 132);
-			buttonGoto04.Margin = new Padding(4, 3, 4, 3);
+			buttonGoto04.Location = new Point(412, 132);
 			buttonGoto04.Name = "buttonGoto04";
 			buttonGoto04.Size = new Size(70, 23);
 			buttonGoto04.TabIndex = 17;
@@ -461,8 +448,7 @@ namespace Planetoid_DB
 			buttonGoto03.AccessibleName = "Go to the element of the place no. 3";
 			buttonGoto03.AccessibleRole = AccessibleRole.PushButton;
 			buttonGoto03.ButtonStyle = ButtonStyle.Form;
-			buttonGoto03.Location = new Point(415, 103);
-			buttonGoto03.Margin = new Padding(4, 3, 4, 3);
+			buttonGoto03.Location = new Point(412, 103);
 			buttonGoto03.Name = "buttonGoto03";
 			buttonGoto03.Size = new Size(70, 23);
 			buttonGoto03.TabIndex = 13;
@@ -485,8 +471,7 @@ namespace Planetoid_DB
 			buttonGoto02.AccessibleName = "Go to the element of the place no. 2";
 			buttonGoto02.AccessibleRole = AccessibleRole.PushButton;
 			buttonGoto02.ButtonStyle = ButtonStyle.Form;
-			buttonGoto02.Location = new Point(415, 74);
-			buttonGoto02.Margin = new Padding(4, 3, 4, 3);
+			buttonGoto02.Location = new Point(412, 74);
 			buttonGoto02.Name = "buttonGoto02";
 			buttonGoto02.Size = new Size(70, 23);
 			buttonGoto02.TabIndex = 9;
@@ -510,8 +495,7 @@ namespace Planetoid_DB
 			labelPlace10.AccessibleRole = AccessibleRole.StaticText;
 			labelPlace10.Dock = DockStyle.Fill;
 			labelPlace10.LabelStyle = LabelStyle.ItalicPanel;
-			labelPlace10.Location = new Point(4, 306);
-			labelPlace10.Margin = new Padding(4, 3, 4, 3);
+			labelPlace10.Location = new Point(3, 306);
 			labelPlace10.Name = "labelPlace10";
 			labelPlace10.Size = new Size(24, 42);
 			labelPlace10.TabIndex = 38;
@@ -532,8 +516,7 @@ namespace Planetoid_DB
 			labelPlace05.AccessibleRole = AccessibleRole.StaticText;
 			labelPlace05.Dock = DockStyle.Fill;
 			labelPlace05.LabelStyle = LabelStyle.ItalicPanel;
-			labelPlace05.Location = new Point(4, 161);
-			labelPlace05.Margin = new Padding(4, 3, 4, 3);
+			labelPlace05.Location = new Point(3, 161);
 			labelPlace05.Name = "labelPlace05";
 			labelPlace05.Size = new Size(24, 23);
 			labelPlace05.TabIndex = 18;
@@ -554,8 +537,7 @@ namespace Planetoid_DB
 			labelPlace04.AccessibleRole = AccessibleRole.StaticText;
 			labelPlace04.Dock = DockStyle.Fill;
 			labelPlace04.LabelStyle = LabelStyle.ItalicPanel;
-			labelPlace04.Location = new Point(4, 132);
-			labelPlace04.Margin = new Padding(4, 3, 4, 3);
+			labelPlace04.Location = new Point(3, 132);
 			labelPlace04.Name = "labelPlace04";
 			labelPlace04.Size = new Size(24, 23);
 			labelPlace04.TabIndex = 14;
@@ -576,8 +558,7 @@ namespace Planetoid_DB
 			labelPlace03.AccessibleRole = AccessibleRole.StaticText;
 			labelPlace03.Dock = DockStyle.Fill;
 			labelPlace03.LabelStyle = LabelStyle.ItalicPanel;
-			labelPlace03.Location = new Point(4, 103);
-			labelPlace03.Margin = new Padding(4, 3, 4, 3);
+			labelPlace03.Location = new Point(3, 103);
 			labelPlace03.Name = "labelPlace03";
 			labelPlace03.Size = new Size(24, 23);
 			labelPlace03.TabIndex = 10;
@@ -598,8 +579,7 @@ namespace Planetoid_DB
 			labelPlace01.AccessibleRole = AccessibleRole.StaticText;
 			labelPlace01.Dock = DockStyle.Fill;
 			labelPlace01.LabelStyle = LabelStyle.ItalicPanel;
-			labelPlace01.Location = new Point(4, 45);
-			labelPlace01.Margin = new Padding(4, 3, 4, 3);
+			labelPlace01.Location = new Point(3, 45);
 			labelPlace01.Name = "labelPlace01";
 			labelPlace01.Size = new Size(24, 23);
 			labelPlace01.TabIndex = 2;
@@ -620,8 +600,7 @@ namespace Planetoid_DB
 			labelPlace02.AccessibleRole = AccessibleRole.StaticText;
 			labelPlace02.Dock = DockStyle.Fill;
 			labelPlace02.LabelStyle = LabelStyle.ItalicPanel;
-			labelPlace02.Location = new Point(4, 74);
-			labelPlace02.Margin = new Padding(4, 3, 4, 3);
+			labelPlace02.Location = new Point(3, 74);
 			labelPlace02.Name = "labelPlace02";
 			labelPlace02.Size = new Size(24, 23);
 			labelPlace02.TabIndex = 6;
@@ -642,8 +621,7 @@ namespace Planetoid_DB
 			labelPlace06.AccessibleRole = AccessibleRole.StaticText;
 			labelPlace06.Dock = DockStyle.Fill;
 			labelPlace06.LabelStyle = LabelStyle.ItalicPanel;
-			labelPlace06.Location = new Point(4, 190);
-			labelPlace06.Margin = new Padding(4, 3, 4, 3);
+			labelPlace06.Location = new Point(3, 190);
 			labelPlace06.Name = "labelPlace06";
 			labelPlace06.Size = new Size(24, 23);
 			labelPlace06.TabIndex = 22;
@@ -664,8 +642,7 @@ namespace Planetoid_DB
 			labelPlace07.AccessibleRole = AccessibleRole.StaticText;
 			labelPlace07.Dock = DockStyle.Fill;
 			labelPlace07.LabelStyle = LabelStyle.ItalicPanel;
-			labelPlace07.Location = new Point(4, 219);
-			labelPlace07.Margin = new Padding(4, 3, 4, 3);
+			labelPlace07.Location = new Point(3, 219);
 			labelPlace07.Name = "labelPlace07";
 			labelPlace07.Size = new Size(24, 23);
 			labelPlace07.TabIndex = 26;
@@ -686,8 +663,7 @@ namespace Planetoid_DB
 			labelPlace08.AccessibleRole = AccessibleRole.StaticText;
 			labelPlace08.Dock = DockStyle.Fill;
 			labelPlace08.LabelStyle = LabelStyle.ItalicPanel;
-			labelPlace08.Location = new Point(4, 248);
-			labelPlace08.Margin = new Padding(4, 3, 4, 3);
+			labelPlace08.Location = new Point(3, 248);
 			labelPlace08.Name = "labelPlace08";
 			labelPlace08.Size = new Size(24, 23);
 			labelPlace08.TabIndex = 30;
@@ -708,8 +684,7 @@ namespace Planetoid_DB
 			labelPlace09.AccessibleRole = AccessibleRole.StaticText;
 			labelPlace09.Dock = DockStyle.Fill;
 			labelPlace09.LabelStyle = LabelStyle.ItalicPanel;
-			labelPlace09.Location = new Point(4, 277);
-			labelPlace09.Margin = new Padding(4, 3, 4, 3);
+			labelPlace09.Location = new Point(3, 277);
 			labelPlace09.Name = "labelPlace09";
 			labelPlace09.Size = new Size(24, 23);
 			labelPlace09.TabIndex = 34;
@@ -729,8 +704,7 @@ namespace Planetoid_DB
 			buttonGoto01.AccessibleName = "Go to the element of the place no. 1";
 			buttonGoto01.AccessibleRole = AccessibleRole.PushButton;
 			buttonGoto01.ButtonStyle = ButtonStyle.Form;
-			buttonGoto01.Location = new Point(415, 45);
-			buttonGoto01.Margin = new Padding(4, 3, 4, 3);
+			buttonGoto01.Location = new Point(412, 45);
 			buttonGoto01.Name = "buttonGoto01";
 			buttonGoto01.Size = new Size(70, 23);
 			buttonGoto01.TabIndex = 5;
@@ -754,10 +728,9 @@ namespace Planetoid_DB
 			labelReadableDesignationHeader.AccessibleRole = AccessibleRole.StaticText;
 			labelReadableDesignationHeader.Dock = DockStyle.Fill;
 			labelReadableDesignationHeader.LabelStyle = LabelStyle.BoldPanel;
-			labelReadableDesignationHeader.Location = new Point(36, 3);
-			labelReadableDesignationHeader.Margin = new Padding(4, 3, 4, 3);
+			labelReadableDesignationHeader.Location = new Point(33, 3);
 			labelReadableDesignationHeader.Name = "labelReadableDesignationHeader";
-			labelReadableDesignationHeader.Size = new Size(138, 36);
+			labelReadableDesignationHeader.Size = new Size(140, 36);
 			labelReadableDesignationHeader.TabIndex = 0;
 			labelReadableDesignationHeader.ToolTipValues.Description = "Shows the readable designation header.";
 			labelReadableDesignationHeader.ToolTipValues.EnableToolTips = true;
@@ -776,10 +749,9 @@ namespace Planetoid_DB
 			labelValueHeader.AccessibleRole = AccessibleRole.StaticText;
 			labelValueHeader.Dock = DockStyle.Fill;
 			labelValueHeader.LabelStyle = LabelStyle.BoldPanel;
-			labelValueHeader.Location = new Point(182, 3);
-			labelValueHeader.Margin = new Padding(4, 3, 4, 3);
+			labelValueHeader.Location = new Point(179, 3);
 			labelValueHeader.Name = "labelValueHeader";
-			labelValueHeader.Size = new Size(225, 36);
+			labelValueHeader.Size = new Size(227, 36);
 			labelValueHeader.TabIndex = 1;
 			labelValueHeader.ToolTipValues.Description = "Shows the value header.";
 			labelValueHeader.ToolTipValues.EnableToolTips = true;
@@ -797,10 +769,9 @@ namespace Planetoid_DB
 			labelReadableDesignation01.AccessibleName = "Readable designation no. 1";
 			labelReadableDesignation01.AccessibleRole = AccessibleRole.StaticText;
 			labelReadableDesignation01.Dock = DockStyle.Fill;
-			labelReadableDesignation01.Location = new Point(36, 45);
-			labelReadableDesignation01.Margin = new Padding(4, 3, 4, 3);
+			labelReadableDesignation01.Location = new Point(33, 45);
 			labelReadableDesignation01.Name = "labelReadableDesignation01";
-			labelReadableDesignation01.Size = new Size(138, 23);
+			labelReadableDesignation01.Size = new Size(140, 23);
 			labelReadableDesignation01.TabIndex = 3;
 			labelReadableDesignation01.ToolTipValues.Description = "Shows the readable designation of place no. 1.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelReadableDesignation01.ToolTipValues.EnableToolTips = true;
@@ -819,10 +790,9 @@ namespace Planetoid_DB
 			labelReadableDesignation02.AccessibleName = "Readable designation no. 2";
 			labelReadableDesignation02.AccessibleRole = AccessibleRole.StaticText;
 			labelReadableDesignation02.Dock = DockStyle.Fill;
-			labelReadableDesignation02.Location = new Point(36, 74);
-			labelReadableDesignation02.Margin = new Padding(4, 3, 4, 3);
+			labelReadableDesignation02.Location = new Point(33, 74);
 			labelReadableDesignation02.Name = "labelReadableDesignation02";
-			labelReadableDesignation02.Size = new Size(138, 23);
+			labelReadableDesignation02.Size = new Size(140, 23);
 			labelReadableDesignation02.TabIndex = 7;
 			labelReadableDesignation02.ToolTipValues.Description = "Shows the readable designation of place no. 2.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelReadableDesignation02.ToolTipValues.EnableToolTips = true;
@@ -841,10 +811,9 @@ namespace Planetoid_DB
 			labelReadableDesignation03.AccessibleName = "Readable designation no. 3";
 			labelReadableDesignation03.AccessibleRole = AccessibleRole.StaticText;
 			labelReadableDesignation03.Dock = DockStyle.Fill;
-			labelReadableDesignation03.Location = new Point(36, 103);
-			labelReadableDesignation03.Margin = new Padding(4, 3, 4, 3);
+			labelReadableDesignation03.Location = new Point(33, 103);
 			labelReadableDesignation03.Name = "labelReadableDesignation03";
-			labelReadableDesignation03.Size = new Size(138, 23);
+			labelReadableDesignation03.Size = new Size(140, 23);
 			labelReadableDesignation03.TabIndex = 11;
 			labelReadableDesignation03.ToolTipValues.Description = "Shows the readable designation of place no. 3.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelReadableDesignation03.ToolTipValues.EnableToolTips = true;
@@ -863,10 +832,9 @@ namespace Planetoid_DB
 			labelReadableDesignation04.AccessibleName = "Readable designation no. 4";
 			labelReadableDesignation04.AccessibleRole = AccessibleRole.StaticText;
 			labelReadableDesignation04.Dock = DockStyle.Fill;
-			labelReadableDesignation04.Location = new Point(36, 132);
-			labelReadableDesignation04.Margin = new Padding(4, 3, 4, 3);
+			labelReadableDesignation04.Location = new Point(33, 132);
 			labelReadableDesignation04.Name = "labelReadableDesignation04";
-			labelReadableDesignation04.Size = new Size(138, 23);
+			labelReadableDesignation04.Size = new Size(140, 23);
 			labelReadableDesignation04.TabIndex = 15;
 			labelReadableDesignation04.ToolTipValues.Description = "Shows the readable designation of place no. 4.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelReadableDesignation04.ToolTipValues.EnableToolTips = true;
@@ -885,10 +853,9 @@ namespace Planetoid_DB
 			labelReadableDesignation05.AccessibleName = "Readable designation no. 5";
 			labelReadableDesignation05.AccessibleRole = AccessibleRole.StaticText;
 			labelReadableDesignation05.Dock = DockStyle.Fill;
-			labelReadableDesignation05.Location = new Point(36, 161);
-			labelReadableDesignation05.Margin = new Padding(4, 3, 4, 3);
+			labelReadableDesignation05.Location = new Point(33, 161);
 			labelReadableDesignation05.Name = "labelReadableDesignation05";
-			labelReadableDesignation05.Size = new Size(138, 23);
+			labelReadableDesignation05.Size = new Size(140, 23);
 			labelReadableDesignation05.TabIndex = 19;
 			labelReadableDesignation05.ToolTipValues.Description = "Shows the readable designation of place no. 5.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelReadableDesignation05.ToolTipValues.EnableToolTips = true;
@@ -907,10 +874,9 @@ namespace Planetoid_DB
 			labelReadableDesignation06.AccessibleName = "Readable designation no. 6";
 			labelReadableDesignation06.AccessibleRole = AccessibleRole.StaticText;
 			labelReadableDesignation06.Dock = DockStyle.Fill;
-			labelReadableDesignation06.Location = new Point(36, 190);
-			labelReadableDesignation06.Margin = new Padding(4, 3, 4, 3);
+			labelReadableDesignation06.Location = new Point(33, 190);
 			labelReadableDesignation06.Name = "labelReadableDesignation06";
-			labelReadableDesignation06.Size = new Size(138, 23);
+			labelReadableDesignation06.Size = new Size(140, 23);
 			labelReadableDesignation06.TabIndex = 23;
 			labelReadableDesignation06.ToolTipValues.Description = "Shows the readable designation of place no. 6.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelReadableDesignation06.ToolTipValues.EnableToolTips = true;
@@ -929,10 +895,9 @@ namespace Planetoid_DB
 			labelReadableDesignation07.AccessibleName = "Readable designation no. 7";
 			labelReadableDesignation07.AccessibleRole = AccessibleRole.StaticText;
 			labelReadableDesignation07.Dock = DockStyle.Fill;
-			labelReadableDesignation07.Location = new Point(36, 219);
-			labelReadableDesignation07.Margin = new Padding(4, 3, 4, 3);
+			labelReadableDesignation07.Location = new Point(33, 219);
 			labelReadableDesignation07.Name = "labelReadableDesignation07";
-			labelReadableDesignation07.Size = new Size(138, 23);
+			labelReadableDesignation07.Size = new Size(140, 23);
 			labelReadableDesignation07.TabIndex = 27;
 			labelReadableDesignation07.ToolTipValues.Description = "Shows the readable designation of place no. 7.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelReadableDesignation07.ToolTipValues.EnableToolTips = true;
@@ -951,10 +916,9 @@ namespace Planetoid_DB
 			labelReadableDesignation08.AccessibleName = "Readable designation no. 8";
 			labelReadableDesignation08.AccessibleRole = AccessibleRole.StaticText;
 			labelReadableDesignation08.Dock = DockStyle.Fill;
-			labelReadableDesignation08.Location = new Point(36, 248);
-			labelReadableDesignation08.Margin = new Padding(4, 3, 4, 3);
+			labelReadableDesignation08.Location = new Point(33, 248);
 			labelReadableDesignation08.Name = "labelReadableDesignation08";
-			labelReadableDesignation08.Size = new Size(138, 23);
+			labelReadableDesignation08.Size = new Size(140, 23);
 			labelReadableDesignation08.TabIndex = 31;
 			labelReadableDesignation08.ToolTipValues.Description = "Shows the readable designation of place no. 8.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelReadableDesignation08.ToolTipValues.EnableToolTips = true;
@@ -973,10 +937,9 @@ namespace Planetoid_DB
 			labelReadableDesignation09.AccessibleName = "Readable designation no. 9";
 			labelReadableDesignation09.AccessibleRole = AccessibleRole.StaticText;
 			labelReadableDesignation09.Dock = DockStyle.Fill;
-			labelReadableDesignation09.Location = new Point(36, 277);
-			labelReadableDesignation09.Margin = new Padding(4, 3, 4, 3);
+			labelReadableDesignation09.Location = new Point(33, 277);
 			labelReadableDesignation09.Name = "labelReadableDesignation09";
-			labelReadableDesignation09.Size = new Size(138, 23);
+			labelReadableDesignation09.Size = new Size(140, 23);
 			labelReadableDesignation09.TabIndex = 35;
 			labelReadableDesignation09.ToolTipValues.Description = "Shows the readable designation of place no. 9.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelReadableDesignation09.ToolTipValues.EnableToolTips = true;
@@ -995,10 +958,9 @@ namespace Planetoid_DB
 			labelReadableDesignation10.AccessibleName = "Readable designation no. 10";
 			labelReadableDesignation10.AccessibleRole = AccessibleRole.StaticText;
 			labelReadableDesignation10.Dock = DockStyle.Fill;
-			labelReadableDesignation10.Location = new Point(36, 306);
-			labelReadableDesignation10.Margin = new Padding(4, 3, 4, 3);
+			labelReadableDesignation10.Location = new Point(33, 306);
 			labelReadableDesignation10.Name = "labelReadableDesignation10";
-			labelReadableDesignation10.Size = new Size(138, 42);
+			labelReadableDesignation10.Size = new Size(140, 42);
 			labelReadableDesignation10.TabIndex = 39;
 			labelReadableDesignation10.ToolTipValues.Description = "Shows the readable designation of place no. 10.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelReadableDesignation10.ToolTipValues.EnableToolTips = true;
@@ -1017,10 +979,9 @@ namespace Planetoid_DB
 			labelValue01.AccessibleName = "Value no. 1";
 			labelValue01.AccessibleRole = AccessibleRole.StaticText;
 			labelValue01.Dock = DockStyle.Fill;
-			labelValue01.Location = new Point(182, 45);
-			labelValue01.Margin = new Padding(4, 3, 4, 3);
+			labelValue01.Location = new Point(179, 45);
 			labelValue01.Name = "labelValue01";
-			labelValue01.Size = new Size(225, 23);
+			labelValue01.Size = new Size(227, 23);
 			labelValue01.TabIndex = 4;
 			labelValue01.ToolTipValues.Description = "Shows the value of place  no. 1.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelValue01.ToolTipValues.EnableToolTips = true;
@@ -1039,10 +1000,9 @@ namespace Planetoid_DB
 			labelValue02.AccessibleName = "Value no. 2";
 			labelValue02.AccessibleRole = AccessibleRole.StaticText;
 			labelValue02.Dock = DockStyle.Fill;
-			labelValue02.Location = new Point(182, 74);
-			labelValue02.Margin = new Padding(4, 3, 4, 3);
+			labelValue02.Location = new Point(179, 74);
 			labelValue02.Name = "labelValue02";
-			labelValue02.Size = new Size(225, 23);
+			labelValue02.Size = new Size(227, 23);
 			labelValue02.TabIndex = 8;
 			labelValue02.ToolTipValues.Description = "Shows the value of place no. 2.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelValue02.ToolTipValues.EnableToolTips = true;
@@ -1061,10 +1021,9 @@ namespace Planetoid_DB
 			labelValue03.AccessibleName = "Value no. 3";
 			labelValue03.AccessibleRole = AccessibleRole.StaticText;
 			labelValue03.Dock = DockStyle.Fill;
-			labelValue03.Location = new Point(182, 103);
-			labelValue03.Margin = new Padding(4, 3, 4, 3);
+			labelValue03.Location = new Point(179, 103);
 			labelValue03.Name = "labelValue03";
-			labelValue03.Size = new Size(225, 23);
+			labelValue03.Size = new Size(227, 23);
 			labelValue03.TabIndex = 12;
 			labelValue03.ToolTipValues.Description = "Shows the value of place no. 3.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelValue03.ToolTipValues.EnableToolTips = true;
@@ -1083,10 +1042,9 @@ namespace Planetoid_DB
 			labelValue04.AccessibleName = "Value no. 4";
 			labelValue04.AccessibleRole = AccessibleRole.StaticText;
 			labelValue04.Dock = DockStyle.Fill;
-			labelValue04.Location = new Point(182, 132);
-			labelValue04.Margin = new Padding(4, 3, 4, 3);
+			labelValue04.Location = new Point(179, 132);
 			labelValue04.Name = "labelValue04";
-			labelValue04.Size = new Size(225, 23);
+			labelValue04.Size = new Size(227, 23);
 			labelValue04.TabIndex = 16;
 			labelValue04.ToolTipValues.Description = "Shows the value of place no. 4.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelValue04.ToolTipValues.EnableToolTips = true;
@@ -1105,10 +1063,9 @@ namespace Planetoid_DB
 			labelValue05.AccessibleName = "Value no. 5";
 			labelValue05.AccessibleRole = AccessibleRole.StaticText;
 			labelValue05.Dock = DockStyle.Fill;
-			labelValue05.Location = new Point(182, 161);
-			labelValue05.Margin = new Padding(4, 3, 4, 3);
+			labelValue05.Location = new Point(179, 161);
 			labelValue05.Name = "labelValue05";
-			labelValue05.Size = new Size(225, 23);
+			labelValue05.Size = new Size(227, 23);
 			labelValue05.TabIndex = 20;
 			labelValue05.ToolTipValues.Description = "Shows the value of place no. 5.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelValue05.ToolTipValues.EnableToolTips = true;
@@ -1127,10 +1084,9 @@ namespace Planetoid_DB
 			labelValue06.AccessibleName = "Value no. 6";
 			labelValue06.AccessibleRole = AccessibleRole.StaticText;
 			labelValue06.Dock = DockStyle.Fill;
-			labelValue06.Location = new Point(182, 190);
-			labelValue06.Margin = new Padding(4, 3, 4, 3);
+			labelValue06.Location = new Point(179, 190);
 			labelValue06.Name = "labelValue06";
-			labelValue06.Size = new Size(225, 23);
+			labelValue06.Size = new Size(227, 23);
 			labelValue06.TabIndex = 24;
 			labelValue06.ToolTipValues.Description = "Shows the value of place no. 6.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelValue06.ToolTipValues.EnableToolTips = true;
@@ -1149,10 +1105,9 @@ namespace Planetoid_DB
 			labelValue07.AccessibleName = "Value no. 7";
 			labelValue07.AccessibleRole = AccessibleRole.StaticText;
 			labelValue07.Dock = DockStyle.Fill;
-			labelValue07.Location = new Point(182, 219);
-			labelValue07.Margin = new Padding(4, 3, 4, 3);
+			labelValue07.Location = new Point(179, 219);
 			labelValue07.Name = "labelValue07";
-			labelValue07.Size = new Size(225, 23);
+			labelValue07.Size = new Size(227, 23);
 			labelValue07.TabIndex = 28;
 			labelValue07.ToolTipValues.Description = "Shows the value of place no. 7.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelValue07.ToolTipValues.EnableToolTips = true;
@@ -1171,10 +1126,9 @@ namespace Planetoid_DB
 			labelValue08.AccessibleName = "Value no. 8";
 			labelValue08.AccessibleRole = AccessibleRole.StaticText;
 			labelValue08.Dock = DockStyle.Fill;
-			labelValue08.Location = new Point(182, 248);
-			labelValue08.Margin = new Padding(4, 3, 4, 3);
+			labelValue08.Location = new Point(179, 248);
 			labelValue08.Name = "labelValue08";
-			labelValue08.Size = new Size(225, 23);
+			labelValue08.Size = new Size(227, 23);
 			labelValue08.TabIndex = 32;
 			labelValue08.ToolTipValues.Description = "Shows the value of place no. 8.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelValue08.ToolTipValues.EnableToolTips = true;
@@ -1193,10 +1147,9 @@ namespace Planetoid_DB
 			labelValue09.AccessibleName = "Value no. 9";
 			labelValue09.AccessibleRole = AccessibleRole.StaticText;
 			labelValue09.Dock = DockStyle.Fill;
-			labelValue09.Location = new Point(182, 277);
-			labelValue09.Margin = new Padding(4, 3, 4, 3);
+			labelValue09.Location = new Point(179, 277);
 			labelValue09.Name = "labelValue09";
-			labelValue09.Size = new Size(225, 23);
+			labelValue09.Size = new Size(227, 23);
 			labelValue09.TabIndex = 36;
 			labelValue09.ToolTipValues.Description = "Shows the value of place no. 9.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelValue09.ToolTipValues.EnableToolTips = true;
@@ -1215,10 +1168,9 @@ namespace Planetoid_DB
 			labelValue10.AccessibleName = "Value no. 10";
 			labelValue10.AccessibleRole = AccessibleRole.StaticText;
 			labelValue10.Dock = DockStyle.Fill;
-			labelValue10.Location = new Point(182, 306);
-			labelValue10.Margin = new Padding(4, 3, 4, 3);
+			labelValue10.Location = new Point(179, 306);
 			labelValue10.Name = "labelValue10";
-			labelValue10.Size = new Size(225, 42);
+			labelValue10.Size = new Size(227, 42);
 			labelValue10.TabIndex = 40;
 			labelValue10.ToolTipValues.Description = "Shows the value of place no. 10.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelValue10.ToolTipValues.EnableToolTips = true;
@@ -1237,8 +1189,7 @@ namespace Planetoid_DB
 			buttonGoto10.AccessibleName = "Go to the element of the place no. 10";
 			buttonGoto10.AccessibleRole = AccessibleRole.PushButton;
 			buttonGoto10.ButtonStyle = ButtonStyle.Form;
-			buttonGoto10.Location = new Point(415, 306);
-			buttonGoto10.Margin = new Padding(4, 3, 4, 3);
+			buttonGoto10.Location = new Point(412, 306);
 			buttonGoto10.Name = "buttonGoto10";
 			buttonGoto10.Size = new Size(70, 23);
 			buttonGoto10.TabIndex = 41;
@@ -1261,7 +1212,6 @@ namespace Planetoid_DB
 			buttonStart.AccessibleName = "Detect the records";
 			buttonStart.AccessibleRole = AccessibleRole.PushButton;
 			buttonStart.Location = new Point(14, 14);
-			buttonStart.Margin = new Padding(4, 3, 4, 3);
 			buttonStart.Name = "buttonStart";
 			buttonStart.Size = new Size(85, 29);
 			buttonStart.TabIndex = 0;
@@ -1284,7 +1234,6 @@ namespace Planetoid_DB
 			labelPercent.AccessibleName = "Percent status of the record detection";
 			labelPercent.AccessibleRole = AccessibleRole.StaticText;
 			labelPercent.Location = new Point(458, 20);
-			labelPercent.Margin = new Padding(4, 3, 4, 3);
 			labelPercent.Name = "labelPercent";
 			labelPercent.Size = new Size(44, 20);
 			labelPercent.TabIndex = 2;
@@ -1304,7 +1253,6 @@ namespace Planetoid_DB
 			progressBar.AccessibleName = "Progress bar";
 			progressBar.AccessibleRole = AccessibleRole.ProgressBar;
 			progressBar.Location = new Point(106, 14);
-			progressBar.Margin = new Padding(4, 3, 4, 3);
 			progressBar.Name = "progressBar";
 			progressBar.Size = new Size(345, 29);
 			progressBar.TabIndex = 1;
@@ -1314,22 +1262,26 @@ namespace Planetoid_DB
 			progressBar.MouseEnter += Control_Enter;
 			progressBar.MouseLeave += Control_Leave;
 			// 
-			// statusStrip
+			// kryptonStatusStrip
 			// 
-			statusStrip.AccessibleDescription = "Shows some information";
-			statusStrip.AccessibleName = "Status bar of some information";
-			statusStrip.AccessibleRole = AccessibleRole.StatusBar;
-			statusStrip.Font = new Font("Segoe UI", 9F);
-			statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-			statusStrip.Location = new Point(0, 510);
-			statusStrip.Name = "statusStrip";
-			statusStrip.Padding = new Padding(1, 0, 16, 0);
-			statusStrip.ProgressBars = null;
-			statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-			statusStrip.Size = new Size(517, 22);
-			statusStrip.SizingGrip = false;
-			statusStrip.TabIndex = 2;
-			statusStrip.Text = "status bar";
+			kryptonStatusStrip.AccessibleDescription = "Shows some information";
+			kryptonStatusStrip.AccessibleName = "Status bar with some information";
+			kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
+			kryptonStatusStrip.AllowClickThrough = true;
+			kryptonStatusStrip.AllowItemReorder = true;
+			kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
+			kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
+			kryptonStatusStrip.Location = new Point(0, 510);
+			kryptonStatusStrip.Name = "kryptonStatusStrip";
+			kryptonStatusStrip.Padding = new Padding(1, 0, 16, 0);
+			kryptonStatusStrip.ProgressBars = null;
+			kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+			kryptonStatusStrip.ShowItemToolTips = true;
+			kryptonStatusStrip.Size = new Size(517, 22);
+			kryptonStatusStrip.SizingGrip = false;
+			kryptonStatusStrip.TabIndex = 2;
+			kryptonStatusStrip.TabStop = true;
+			kryptonStatusStrip.Text = "Status bar";
 			// 
 			// labelInformation
 			// 
@@ -1338,7 +1290,6 @@ namespace Planetoid_DB
 			labelInformation.AccessibleRole = AccessibleRole.StaticText;
 			labelInformation.AutoToolTip = true;
 			labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
-			labelInformation.Margin = new Padding(5, 3, 0, 2);
 			labelInformation.Name = "labelInformation";
 			labelInformation.Size = new Size(144, 17);
 			labelInformation.Text = "some information here";
@@ -1359,8 +1310,8 @@ namespace Planetoid_DB
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(517, 532);
 			ControlBox = false;
-			Controls.Add(statusStrip);
-			Controls.Add(panel);
+			Controls.Add(kryptonStatusStrip);
+			Controls.Add(kryptoPanelMain);
 			FormBorderStyle = FormBorderStyle.FixedToolWindow;
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			Margin = new Padding(4, 3, 4, 3);
@@ -1371,23 +1322,23 @@ namespace Planetoid_DB
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Top ten records";
 			Load += RecordsMainForm_Load;
-			((ISupportInitialize)panel).EndInit();
-			panel.ResumeLayout(false);
-			panel.PerformLayout();
+			((ISupportInitialize)kryptoPanelMain).EndInit();
+			kryptoPanelMain.ResumeLayout(false);
+			kryptoPanelMain.PerformLayout();
 			((ISupportInitialize)groupBoxExport.Panel).EndInit();
 			groupBoxExport.Panel.ResumeLayout(false);
 			((ISupportInitialize)groupBoxExport).EndInit();
 			tableLayoutPanel.ResumeLayout(false);
 			tableLayoutPanel.PerformLayout();
-			statusStrip.ResumeLayout(false);
-			statusStrip.PerformLayout();
+			kryptonStatusStrip.ResumeLayout(false);
+			kryptonStatusStrip.PerformLayout();
 			ResumeLayout(false);
 			PerformLayout();
 
 		}
 
 		#endregion
-		private KryptonPanel panel;
+		private KryptonPanel kryptoPanelMain;
 		private KryptonLabel labelPercent;
 		private KryptonProgressBar progressBar;
 		private KryptonButton buttonStart;
@@ -1439,7 +1390,7 @@ namespace Planetoid_DB
 		private KryptonButton buttonExportAsTxt;
 		private KryptonButton buttonExportAsXml;
 		private KryptonButton buttonExportAsHtml;
-		private KryptonStatusStrip statusStrip;
+		private KryptonStatusStrip kryptonStatusStrip;
 		private ToolStripStatusLabel labelInformation;
 		private KryptonManager kryptonManager;
 	}

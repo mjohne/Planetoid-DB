@@ -39,14 +39,14 @@ namespace Planetoid_DB
 			kryptonCommandLinkButtonLoadInternalDemoData = new KryptonCommandLinkButton();
 			kryptonCommandLinkButtonDownloadMprcorbDat = new KryptonCommandLinkButton();
 			kryptonCommandLinkButtonOpenLocalFile = new KryptonCommandLinkButton();
-			statusStrip = new KryptonStatusStrip();
+			kryptonStatusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
-			panel = new KryptonPanel();
+			kryptoPanelMain = new KryptonPanel();
 			openFileDialog = new OpenFileDialog();
 			kryptonManager = new KryptonManager(components);
-			statusStrip.SuspendLayout();
-			((ISupportInitialize)panel).BeginInit();
-			panel.SuspendLayout();
+			kryptonStatusStrip.SuspendLayout();
+			((ISupportInitialize)kryptoPanelMain).BeginInit();
+			kryptoPanelMain.SuspendLayout();
 			SuspendLayout();
 			// 
 			// kryptonCommandLinkButtonExit
@@ -161,21 +161,25 @@ namespace Planetoid_DB
 			kryptonCommandLinkButtonOpenLocalFile.MouseEnter += Control_Enter;
 			kryptonCommandLinkButtonOpenLocalFile.MouseLeave += Control_Leave;
 			// 
-			// statusStrip
+			// kryptonStatusStrip
 			// 
-			statusStrip.AccessibleDescription = "Shows some information";
-			statusStrip.AccessibleName = "Status bar of some information";
-			statusStrip.AccessibleRole = AccessibleRole.StatusBar;
-			statusStrip.Font = new Font("Segoe UI", 9F);
-			statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-			statusStrip.Location = new Point(0, 278);
-			statusStrip.Name = "statusStrip";
-			statusStrip.ProgressBars = null;
-			statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-			statusStrip.Size = new Size(334, 22);
-			statusStrip.SizingGrip = false;
-			statusStrip.TabIndex = 1;
-			statusStrip.Text = "status bar";
+			kryptonStatusStrip.AccessibleDescription = "Shows some information";
+			kryptonStatusStrip.AccessibleName = "Status bar with some information";
+			kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
+			kryptonStatusStrip.AllowClickThrough = true;
+			kryptonStatusStrip.AllowItemReorder = true;
+			kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
+			kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
+			kryptonStatusStrip.Location = new Point(0, 278);
+			kryptonStatusStrip.Name = "kryptonStatusStrip";
+			kryptonStatusStrip.ProgressBars = null;
+			kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+			kryptonStatusStrip.ShowItemToolTips = true;
+			kryptonStatusStrip.Size = new Size(334, 22);
+			kryptonStatusStrip.SizingGrip = false;
+			kryptonStatusStrip.TabIndex = 1;
+			kryptonStatusStrip.TabStop = true;
+			kryptonStatusStrip.Text = "Status bar";
 			// 
 			// labelInformation
 			// 
@@ -184,28 +188,27 @@ namespace Planetoid_DB
 			labelInformation.AccessibleRole = AccessibleRole.StaticText;
 			labelInformation.AutoToolTip = true;
 			labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
-			labelInformation.Margin = new Padding(5, 3, 0, 2);
 			labelInformation.Name = "labelInformation";
 			labelInformation.Size = new Size(144, 17);
 			labelInformation.Text = "some information here";
 			labelInformation.ToolTipText = "Shows some information";
 			// 
-			// panel
+			// kryptoPanelMain
 			// 
-			panel.AccessibleDescription = "Groups the data";
-			panel.AccessibleName = "pane";
-			panel.AccessibleRole = AccessibleRole.Pane;
-			panel.Controls.Add(kryptonCommandLinkButtonExit);
-			panel.Controls.Add(kryptonCommandLinkButtonLoadInternalDemoData);
-			panel.Controls.Add(kryptonCommandLinkButtonDownloadMprcorbDat);
-			panel.Controls.Add(kryptonCommandLinkButtonOpenLocalFile);
-			panel.Dock = DockStyle.Fill;
-			panel.Location = new Point(0, 0);
-			panel.Name = "panel";
-			panel.PanelBackStyle = PaletteBackStyle.FormMain;
-			panel.Size = new Size(334, 278);
-			panel.TabIndex = 0;
-			panel.TabStop = true;
+			kryptoPanelMain.AccessibleDescription = "Groups the data";
+			kryptoPanelMain.AccessibleName = "Panel";
+			kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
+			kryptoPanelMain.Controls.Add(kryptonCommandLinkButtonExit);
+			kryptoPanelMain.Controls.Add(kryptonCommandLinkButtonLoadInternalDemoData);
+			kryptoPanelMain.Controls.Add(kryptonCommandLinkButtonDownloadMprcorbDat);
+			kryptoPanelMain.Controls.Add(kryptonCommandLinkButtonOpenLocalFile);
+			kryptoPanelMain.Dock = DockStyle.Fill;
+			kryptoPanelMain.Location = new Point(0, 0);
+			kryptoPanelMain.Name = "kryptoPanelMain";
+			kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
+			kryptoPanelMain.Size = new Size(334, 278);
+			kryptoPanelMain.TabIndex = 0;
+			kryptoPanelMain.TabStop = true;
 			// 
 			// openFileDialog
 			// 
@@ -230,8 +233,8 @@ namespace Planetoid_DB
 			CancelButton = kryptonCommandLinkButtonExit;
 			ClientSize = new Size(334, 300);
 			ControlBox = false;
-			Controls.Add(panel);
-			Controls.Add(statusStrip);
+			Controls.Add(kryptoPanelMain);
+			Controls.Add(kryptonStatusStrip);
 			FormBorderStyle = FormBorderStyle.FixedToolWindow;
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			MaximizeBox = false;
@@ -240,18 +243,18 @@ namespace Planetoid_DB
 			StartPosition = FormStartPosition.CenterScreen;
 			Text = "Planetoid-DB Preloader";
 			Load += PreloadForm_Load;
-			statusStrip.ResumeLayout(false);
-			statusStrip.PerformLayout();
-			((ISupportInitialize)panel).EndInit();
-			panel.ResumeLayout(false);
+			kryptonStatusStrip.ResumeLayout(false);
+			kryptonStatusStrip.PerformLayout();
+			((ISupportInitialize)kryptoPanelMain).EndInit();
+			kryptoPanelMain.ResumeLayout(false);
 			ResumeLayout(false);
 			PerformLayout();
 		}
 
 		#endregion
-		private KryptonStatusStrip statusStrip;
+		private KryptonStatusStrip kryptonStatusStrip;
 		private ToolStripStatusLabel labelInformation;
-		private KryptonPanel panel;
+		private KryptonPanel kryptoPanelMain;
 		private KryptonCommandLinkButton kryptonCommandLinkButtonOpenLocalFile;
 		private KryptonCommandLinkButton kryptonCommandLinkButtonExit;
 		private KryptonCommandLinkButton kryptonCommandLinkButtonLoadInternalDemoData;

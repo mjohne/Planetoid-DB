@@ -35,39 +35,40 @@ namespace Planetoid_DB
 		{
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(LicenseForm));
-			panel = new KryptonPanel();
+			kryptoPanelMain = new KryptonPanel();
 			kryptonButtonCopyLicenseToClipboard = new KryptonButton();
 			kryptonButtonSaveLicense = new KryptonButton();
 			kryptonButtonClose = new KryptonButton();
 			kryptonPictureBoxLicenseLogo = new KryptonPictureBox();
 			kryptonTextBoxLicense = new KryptonTextBox();
-			statusStrip = new KryptonStatusStrip();
+			kryptonStatusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
 			saveFileDialog = new SaveFileDialog();
 			kryptonManager = new KryptonManager(components);
-			((ISupportInitialize)panel).BeginInit();
-			panel.SuspendLayout();
+			((ISupportInitialize)kryptoPanelMain).BeginInit();
+			kryptoPanelMain.SuspendLayout();
 			((ISupportInitialize)kryptonPictureBoxLicenseLogo).BeginInit();
-			statusStrip.SuspendLayout();
+			kryptonStatusStrip.SuspendLayout();
 			SuspendLayout();
 			// 
-			// panel
+			// kryptoPanelMain
 			// 
-			panel.AccessibleDescription = "Groups the data";
-			panel.AccessibleName = "pane";
-			panel.AccessibleRole = AccessibleRole.Pane;
-			panel.Controls.Add(kryptonButtonCopyLicenseToClipboard);
-			panel.Controls.Add(kryptonButtonSaveLicense);
-			panel.Controls.Add(kryptonButtonClose);
-			panel.Controls.Add(kryptonPictureBoxLicenseLogo);
-			panel.Controls.Add(kryptonTextBoxLicense);
-			panel.Controls.Add(statusStrip);
-			panel.Dock = DockStyle.Fill;
-			panel.Location = new Point(0, 0);
-			panel.Name = "panel";
-			panel.PanelBackStyle = PaletteBackStyle.FormMain;
-			panel.Size = new Size(577, 225);
-			panel.TabIndex = 0;
+			kryptoPanelMain.AccessibleDescription = "Groups the data";
+			kryptoPanelMain.AccessibleName = "Panel";
+			kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
+			kryptoPanelMain.Controls.Add(kryptonButtonCopyLicenseToClipboard);
+			kryptoPanelMain.Controls.Add(kryptonButtonSaveLicense);
+			kryptoPanelMain.Controls.Add(kryptonButtonClose);
+			kryptoPanelMain.Controls.Add(kryptonPictureBoxLicenseLogo);
+			kryptoPanelMain.Controls.Add(kryptonTextBoxLicense);
+			kryptoPanelMain.Controls.Add(kryptonStatusStrip);
+			kryptoPanelMain.Dock = DockStyle.Fill;
+			kryptoPanelMain.Location = new Point(0, 0);
+			kryptoPanelMain.Name = "kryptoPanelMain";
+			kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
+			kryptoPanelMain.Size = new Size(577, 225);
+			kryptoPanelMain.TabIndex = 0;
+			kryptoPanelMain.TabStop = true;
 			// 
 			// kryptonButtonCopyLicenseToClipboard
 			// 
@@ -178,21 +179,25 @@ namespace Planetoid_DB
 			kryptonTextBoxLicense.MouseEnter += Control_Enter;
 			kryptonTextBoxLicense.MouseLeave += Control_Leave;
 			// 
-			// statusStrip
+			// kryptonStatusStrip
 			// 
-			statusStrip.AccessibleDescription = "Shows some information";
-			statusStrip.AccessibleName = "Status bar of some information";
-			statusStrip.AccessibleRole = AccessibleRole.StatusBar;
-			statusStrip.Font = new Font("Segoe UI", 9F);
-			statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-			statusStrip.Location = new Point(0, 203);
-			statusStrip.Name = "statusStrip";
-			statusStrip.ProgressBars = null;
-			statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-			statusStrip.Size = new Size(577, 22);
-			statusStrip.SizingGrip = false;
-			statusStrip.TabIndex = 4;
-			statusStrip.Text = "status bar";
+			kryptonStatusStrip.AccessibleDescription = "Shows some information";
+			kryptonStatusStrip.AccessibleName = "Status bar with some information";
+			kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
+			kryptonStatusStrip.AllowClickThrough = true;
+			kryptonStatusStrip.AllowItemReorder = true;
+			kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
+			kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
+			kryptonStatusStrip.Location = new Point(0, 203);
+			kryptonStatusStrip.Name = "kryptonStatusStrip";
+			kryptonStatusStrip.ProgressBars = null;
+			kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+			kryptonStatusStrip.ShowItemToolTips = true;
+			kryptonStatusStrip.Size = new Size(577, 22);
+			kryptonStatusStrip.SizingGrip = false;
+			kryptonStatusStrip.TabIndex = 4;
+			kryptonStatusStrip.TabStop = true;
+			kryptonStatusStrip.Text = "Status bar";
 			// 
 			// labelInformation
 			// 
@@ -201,7 +206,6 @@ namespace Planetoid_DB
 			labelInformation.AccessibleRole = AccessibleRole.StaticText;
 			labelInformation.AutoToolTip = true;
 			labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
-			labelInformation.Margin = new Padding(5, 3, 0, 2);
 			labelInformation.Name = "labelInformation";
 			labelInformation.Size = new Size(144, 17);
 			labelInformation.Text = "some information here";
@@ -226,7 +230,7 @@ namespace Planetoid_DB
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(577, 225);
 			ControlBox = false;
-			Controls.Add(panel);
+			Controls.Add(kryptoPanelMain);
 			FormBorderStyle = FormBorderStyle.FixedToolWindow;
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			MaximizeBox = false;
@@ -236,19 +240,19 @@ namespace Planetoid_DB
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "License: GPL-3.0";
 			Load += LicenseForm_Load;
-			((ISupportInitialize)panel).EndInit();
-			panel.ResumeLayout(false);
-			panel.PerformLayout();
+			((ISupportInitialize)kryptoPanelMain).EndInit();
+			kryptoPanelMain.ResumeLayout(false);
+			kryptoPanelMain.PerformLayout();
 			((ISupportInitialize)kryptonPictureBoxLicenseLogo).EndInit();
-			statusStrip.ResumeLayout(false);
-			statusStrip.PerformLayout();
+			kryptonStatusStrip.ResumeLayout(false);
+			kryptonStatusStrip.PerformLayout();
 			ResumeLayout(false);
 		}
 
 		#endregion
 
-		private KryptonPanel panel;
-		private KryptonStatusStrip statusStrip;
+		private KryptonPanel kryptoPanelMain;
+		private KryptonStatusStrip kryptonStatusStrip;
 		private ToolStripStatusLabel labelInformation;
 		private KryptonTextBox kryptonTextBoxLicense;
 		private KryptonPictureBox kryptonPictureBoxLicenseLogo;

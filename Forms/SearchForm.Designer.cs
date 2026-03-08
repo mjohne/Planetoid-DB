@@ -36,14 +36,14 @@ namespace Planetoid_DB
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(SearchForm));
 			checkedListBox = new KryptonCheckedListBox();
-			panel = new KryptonPanel();
+			kryptoPanelMain = new KryptonPanel();
 			listView = new ListView();
 			columnHeaderIndex = new ColumnHeader();
 			columnHeaderIndexNo = new ColumnHeader();
 			columnHeaderProperty = new ColumnHeader();
 			columnHeaderValue = new ColumnHeader();
 			buttonCancel = new KryptonButton();
-			statusStrip = new KryptonStatusStrip();
+			kryptonStatusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
 			labelEntriesFound = new KryptonLabel();
 			progressBar = new KryptonProgressBar();
@@ -56,9 +56,9 @@ namespace Planetoid_DB
 			buttonSearch = new KryptonButton();
 			backgroundWorker = new BackgroundWorker();
 			kryptonManager = new KryptonManager(components);
-			((ISupportInitialize)panel).BeginInit();
-			panel.SuspendLayout();
-			statusStrip.SuspendLayout();
+			((ISupportInitialize)kryptoPanelMain).BeginInit();
+			kryptoPanelMain.SuspendLayout();
+			kryptonStatusStrip.SuspendLayout();
 			((ISupportInitialize)groupBox).BeginInit();
 			((ISupportInitialize)groupBox.Panel).BeginInit();
 			groupBox.Panel.SuspendLayout();
@@ -73,7 +73,6 @@ namespace Planetoid_DB
 			checkedListBox.CheckOnClick = true;
 			checkedListBox.Items.AddRange(new object[] { "Index No.", "Readable designation", "Epoch (in packed form, .0 TT)", "Mean anomaly at the epoch (°)", "Argument of perihelion, J2000.0 (°)", "Longitude of the ascending node, J2000.0 (°)", "Inclination to the ecliptic, J2000.0 (°)", "Orbital eccentricity", "Mean daily motion (°/day)", "Semi-major axis (AU)", "Absolute magnitude, H", "Slope parameter, G", "Reference", "Number of oppositions", "Number of observations", "Observation span", "r.m.s. residual (\")", "Computer name", "4-hexdigit flags", "Date of last observation (YYYMMDD)" });
 			checkedListBox.Location = new Point(4, 74);
-			checkedListBox.Margin = new Padding(4, 3, 4, 3);
 			checkedListBox.Name = "checkedListBox";
 			checkedListBox.Size = new Size(266, 194);
 			checkedListBox.TabIndex = 1;
@@ -86,29 +85,29 @@ namespace Planetoid_DB
 			checkedListBox.MouseEnter += Control_Enter;
 			checkedListBox.MouseLeave += Control_Leave;
 			// 
-			// panel
+			// kryptoPanelMain
 			// 
-			panel.AccessibleDescription = "Panel of the search form";
-			panel.AccessibleName = "Panel of the search form";
-			panel.AccessibleRole = AccessibleRole.Pane;
-			panel.Controls.Add(listView);
-			panel.Controls.Add(buttonCancel);
-			panel.Controls.Add(statusStrip);
-			panel.Controls.Add(labelEntriesFound);
-			panel.Controls.Add(progressBar);
-			panel.Controls.Add(groupBox);
-			panel.Controls.Add(buttonLoad);
-			panel.Controls.Add(buttonUnmarkAll);
-			panel.Controls.Add(buttonMarkAll);
-			panel.Controls.Add(buttonSearch);
-			panel.Controls.Add(checkedListBox);
-			panel.Dock = DockStyle.Fill;
-			panel.Location = new Point(0, 0);
-			panel.Margin = new Padding(4, 3, 4, 3);
-			panel.Name = "panel";
-			panel.PanelBackStyle = PaletteBackStyle.FormMain;
-			panel.Size = new Size(387, 525);
-			panel.TabIndex = 0;
+			kryptoPanelMain.AccessibleDescription = "Groups the data";
+			kryptoPanelMain.AccessibleName = "Panel";
+			kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
+			kryptoPanelMain.Controls.Add(listView);
+			kryptoPanelMain.Controls.Add(buttonCancel);
+			kryptoPanelMain.Controls.Add(kryptonStatusStrip);
+			kryptoPanelMain.Controls.Add(labelEntriesFound);
+			kryptoPanelMain.Controls.Add(progressBar);
+			kryptoPanelMain.Controls.Add(groupBox);
+			kryptoPanelMain.Controls.Add(buttonLoad);
+			kryptoPanelMain.Controls.Add(buttonUnmarkAll);
+			kryptoPanelMain.Controls.Add(buttonMarkAll);
+			kryptoPanelMain.Controls.Add(buttonSearch);
+			kryptoPanelMain.Controls.Add(checkedListBox);
+			kryptoPanelMain.Dock = DockStyle.Fill;
+			kryptoPanelMain.Location = new Point(0, 0);
+			kryptoPanelMain.Name = "kryptoPanelMain";
+			kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
+			kryptoPanelMain.Size = new Size(387, 525);
+			kryptoPanelMain.TabIndex = 0;
+			kryptoPanelMain.TabStop = true;
 			// 
 			// listView
 			// 
@@ -155,7 +154,6 @@ namespace Planetoid_DB
 			buttonCancel.AccessibleName = "Cancel";
 			buttonCancel.AccessibleRole = AccessibleRole.PushButton;
 			buttonCancel.Location = new Point(276, 180);
-			buttonCancel.Margin = new Padding(4, 3, 4, 3);
 			buttonCancel.Name = "buttonCancel";
 			buttonCancel.Size = new Size(105, 29);
 			buttonCancel.TabIndex = 5;
@@ -172,22 +170,26 @@ namespace Planetoid_DB
 			buttonCancel.MouseEnter += Control_Enter;
 			buttonCancel.MouseLeave += Control_Leave;
 			// 
-			// statusStrip
+			// kryptonStatusStrip
 			// 
-			statusStrip.AccessibleDescription = "Shows some information";
-			statusStrip.AccessibleName = "Status bar of some information";
-			statusStrip.AccessibleRole = AccessibleRole.StatusBar;
-			statusStrip.Font = new Font("Segoe UI", 9F);
-			statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-			statusStrip.Location = new Point(0, 503);
-			statusStrip.Name = "statusStrip";
-			statusStrip.Padding = new Padding(1, 0, 16, 0);
-			statusStrip.ProgressBars = null;
-			statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-			statusStrip.Size = new Size(387, 22);
-			statusStrip.SizingGrip = false;
-			statusStrip.TabIndex = 10;
-			statusStrip.Text = "status bar";
+			kryptonStatusStrip.AccessibleDescription = "Shows some information";
+			kryptonStatusStrip.AccessibleName = "Status bar with some information";
+			kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
+			kryptonStatusStrip.AllowClickThrough = true;
+			kryptonStatusStrip.AllowItemReorder = true;
+			kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
+			kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
+			kryptonStatusStrip.Location = new Point(0, 503);
+			kryptonStatusStrip.Name = "kryptonStatusStrip";
+			kryptonStatusStrip.Padding = new Padding(1, 0, 16, 0);
+			kryptonStatusStrip.ProgressBars = null;
+			kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+			kryptonStatusStrip.ShowItemToolTips = true;
+			kryptonStatusStrip.Size = new Size(387, 22);
+			kryptonStatusStrip.SizingGrip = false;
+			kryptonStatusStrip.TabIndex = 10;
+			kryptonStatusStrip.TabStop = true;
+			kryptonStatusStrip.Text = "Status bar";
 			// 
 			// labelInformation
 			// 
@@ -196,7 +198,6 @@ namespace Planetoid_DB
 			labelInformation.AccessibleRole = AccessibleRole.StaticText;
 			labelInformation.AutoToolTip = true;
 			labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
-			labelInformation.Margin = new Padding(5, 3, 0, 2);
 			labelInformation.Name = "labelInformation";
 			labelInformation.Size = new Size(144, 17);
 			labelInformation.Text = "some information here";
@@ -208,7 +209,6 @@ namespace Planetoid_DB
 			labelEntriesFound.AccessibleName = "Found entries";
 			labelEntriesFound.AccessibleRole = AccessibleRole.StaticText;
 			labelEntriesFound.Location = new Point(255, 274);
-			labelEntriesFound.Margin = new Padding(4, 3, 4, 3);
 			labelEntriesFound.Name = "labelEntriesFound";
 			labelEntriesFound.RightToLeft = RightToLeft.No;
 			labelEntriesFound.Size = new Size(93, 20);
@@ -229,7 +229,6 @@ namespace Planetoid_DB
 			progressBar.AccessibleName = "Progress bar";
 			progressBar.AccessibleRole = AccessibleRole.ProgressBar;
 			progressBar.Location = new Point(4, 274);
-			progressBar.Margin = new Padding(4, 3, 4, 3);
 			progressBar.Name = "progressBar";
 			progressBar.Size = new Size(243, 20);
 			progressBar.TabIndex = 7;
@@ -245,7 +244,6 @@ namespace Planetoid_DB
 			groupBox.AccessibleName = "Group the search element";
 			groupBox.AccessibleRole = AccessibleRole.Grouping;
 			groupBox.Location = new Point(4, 3);
-			groupBox.Margin = new Padding(4, 3, 4, 3);
 			// 
 			// 
 			// 
@@ -271,7 +269,6 @@ namespace Planetoid_DB
 			buttonClear.AccessibleRole = AccessibleRole.PushButton;
 			buttonClear.ButtonStyle = ButtonStyle.Form;
 			buttonClear.Location = new Point(300, 5);
-			buttonClear.Margin = new Padding(4, 3, 4, 3);
 			buttonClear.Name = "buttonClear";
 			buttonClear.Size = new Size(68, 25);
 			buttonClear.TabIndex = 1;
@@ -294,7 +291,6 @@ namespace Planetoid_DB
 			textBox.AccessibleName = "Search box";
 			textBox.AccessibleRole = AccessibleRole.Text;
 			textBox.Location = new Point(5, 5);
-			textBox.Margin = new Padding(4, 3, 4, 3);
 			textBox.Name = "textBox";
 			textBox.Size = new Size(288, 23);
 			textBox.TabIndex = 0;
@@ -315,7 +311,6 @@ namespace Planetoid_DB
 			buttonLoad.AccessibleRole = AccessibleRole.PushButton;
 			buttonLoad.DialogResult = DialogResult.OK;
 			buttonLoad.Location = new Point(276, 239);
-			buttonLoad.Margin = new Padding(4, 3, 4, 3);
 			buttonLoad.Name = "buttonLoad";
 			buttonLoad.Size = new Size(105, 29);
 			buttonLoad.TabIndex = 6;
@@ -339,7 +334,6 @@ namespace Planetoid_DB
 			buttonUnmarkAll.AccessibleRole = AccessibleRole.PushButton;
 			buttonUnmarkAll.ButtonStyle = ButtonStyle.Form;
 			buttonUnmarkAll.Location = new Point(276, 110);
-			buttonUnmarkAll.Margin = new Padding(4, 3, 4, 3);
 			buttonUnmarkAll.Name = "buttonUnmarkAll";
 			buttonUnmarkAll.Size = new Size(105, 29);
 			buttonUnmarkAll.TabIndex = 3;
@@ -362,7 +356,6 @@ namespace Planetoid_DB
 			buttonMarkAll.AccessibleRole = AccessibleRole.PushButton;
 			buttonMarkAll.ButtonStyle = ButtonStyle.Form;
 			buttonMarkAll.Location = new Point(276, 74);
-			buttonMarkAll.Margin = new Padding(4, 3, 4, 3);
 			buttonMarkAll.Name = "buttonMarkAll";
 			buttonMarkAll.Size = new Size(105, 29);
 			buttonMarkAll.TabIndex = 2;
@@ -385,7 +378,6 @@ namespace Planetoid_DB
 			buttonSearch.AccessibleName = "Search";
 			buttonSearch.AccessibleRole = AccessibleRole.PushButton;
 			buttonSearch.Location = new Point(276, 145);
-			buttonSearch.Margin = new Padding(4, 3, 4, 3);
 			buttonSearch.Name = "buttonSearch";
 			buttonSearch.Size = new Size(105, 29);
 			buttonSearch.TabIndex = 4;
@@ -425,7 +417,7 @@ namespace Planetoid_DB
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(387, 525);
 			ControlBox = false;
-			Controls.Add(panel);
+			Controls.Add(kryptoPanelMain);
 			FormBorderStyle = FormBorderStyle.FixedToolWindow;
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			Margin = new Padding(4, 3, 4, 3);
@@ -436,11 +428,11 @@ namespace Planetoid_DB
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Search";
 			Load += SearchForm_Load;
-			((ISupportInitialize)panel).EndInit();
-			panel.ResumeLayout(false);
-			panel.PerformLayout();
-			statusStrip.ResumeLayout(false);
-			statusStrip.PerformLayout();
+			((ISupportInitialize)kryptoPanelMain).EndInit();
+			kryptoPanelMain.ResumeLayout(false);
+			kryptoPanelMain.PerformLayout();
+			kryptonStatusStrip.ResumeLayout(false);
+			kryptonStatusStrip.PerformLayout();
 			((ISupportInitialize)groupBox.Panel).EndInit();
 			groupBox.Panel.ResumeLayout(false);
 			groupBox.Panel.PerformLayout();
@@ -450,7 +442,7 @@ namespace Planetoid_DB
 
 		#endregion
 		private KryptonCheckedListBox checkedListBox;
-		private KryptonPanel panel;
+		private KryptonPanel kryptoPanelMain;
 		private KryptonButton buttonUnmarkAll;
 		private KryptonButton buttonMarkAll;
 		private KryptonButton buttonSearch;
@@ -460,7 +452,7 @@ namespace Planetoid_DB
 		private KryptonButton buttonClear;
 		private KryptonLabel labelEntriesFound;
 		private KryptonProgressBar progressBar;
-		private KryptonStatusStrip statusStrip;
+		private KryptonStatusStrip kryptonStatusStrip;
 		private ToolStripStatusLabel labelInformation;
 		private BackgroundWorker backgroundWorker;
 		private KryptonButton buttonCancel;

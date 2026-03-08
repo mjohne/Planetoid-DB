@@ -49,6 +49,9 @@ namespace Planetoid_DB
 			// 
 			// kryptonPanelMain
 			// 
+			kryptonPanelMain.AccessibleDescription = "Groups the data";
+			kryptonPanelMain.AccessibleName = "Panel";
+			kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
 			kryptonPanelMain.Controls.Add(kryptonLabelStatus);
 			kryptonPanelMain.Controls.Add(kryptonProgressBar);
 			kryptonPanelMain.Controls.Add(listViewResults);
@@ -60,15 +63,14 @@ namespace Planetoid_DB
 			kryptonPanelMain.Controls.Add(kryptonLabelSearch);
 			kryptonPanelMain.Dock = DockStyle.Fill;
 			kryptonPanelMain.Location = new Point(0, 0);
-			kryptonPanelMain.Margin = new Padding(4, 3, 4, 3);
 			kryptonPanelMain.Name = "kryptonPanelMain";
 			kryptonPanelMain.Size = new Size(933, 519);
 			kryptonPanelMain.TabIndex = 0;
+			kryptonPanelMain.TabStop = true;
 			// 
 			// kryptonLabelStatus
 			// 
 			kryptonLabelStatus.Location = new Point(14, 485);
-			kryptonLabelStatus.Margin = new Padding(4, 3, 4, 3);
 			kryptonLabelStatus.Name = "kryptonLabelStatus";
 			kryptonLabelStatus.Size = new Size(54, 23);
 			kryptonLabelStatus.TabIndex = 8;
@@ -78,7 +80,6 @@ namespace Planetoid_DB
 			// 
 			kryptonProgressBar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			kryptonProgressBar.Location = new Point(14, 448);
-			kryptonProgressBar.Margin = new Padding(4, 3, 4, 3);
 			kryptonProgressBar.Name = "kryptonProgressBar";
 			kryptonProgressBar.Size = new Size(905, 30);
 			kryptonProgressBar.TabIndex = 7;
@@ -94,7 +95,6 @@ namespace Planetoid_DB
 			listViewResults.FullRowSelect = true;
 			listViewResults.GridLines = true;
 			listViewResults.Location = new Point(378, 47);
-			listViewResults.Margin = new Padding(4, 3, 4, 3);
 			listViewResults.Name = "listViewResults";
 			listViewResults.Size = new Size(541, 393);
 			listViewResults.TabIndex = 6;
@@ -127,7 +127,6 @@ namespace Planetoid_DB
 			// 
 			kryptonButtonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 			kryptonButtonCancel.Location = new Point(154, 411);
-			kryptonButtonCancel.Margin = new Padding(4, 3, 4, 3);
 			kryptonButtonCancel.Name = "kryptonButtonCancel";
 			kryptonButtonCancel.Size = new Size(105, 29);
 			kryptonButtonCancel.TabIndex = 5;
@@ -139,7 +138,6 @@ namespace Planetoid_DB
 			// 
 			kryptonButtonSearch.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 			kryptonButtonSearch.Location = new Point(14, 412);
-			kryptonButtonSearch.Margin = new Padding(4, 3, 4, 3);
 			kryptonButtonSearch.Name = "kryptonButtonSearch";
 			kryptonButtonSearch.Size = new Size(105, 29);
 			kryptonButtonSearch.TabIndex = 4;
@@ -150,7 +148,6 @@ namespace Planetoid_DB
 			// kryptonCheckBoxFullText
 			// 
 			kryptonCheckBoxFullText.Location = new Point(14, 382);
-			kryptonCheckBoxFullText.Margin = new Padding(4, 3, 4, 3);
 			kryptonCheckBoxFullText.Name = "kryptonCheckBoxFullText";
 			kryptonCheckBoxFullText.Size = new Size(114, 23);
 			kryptonCheckBoxFullText.TabIndex = 3;
@@ -160,7 +157,6 @@ namespace Planetoid_DB
 			// 
 			kryptonCheckedListBoxElements.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
 			kryptonCheckedListBoxElements.Location = new Point(14, 47);
-			kryptonCheckedListBoxElements.Margin = new Padding(4, 3, 4, 3);
 			kryptonCheckedListBoxElements.Name = "kryptonCheckedListBoxElements";
 			kryptonCheckedListBoxElements.Size = new Size(357, 328);
 			kryptonCheckedListBoxElements.TabIndex = 2;
@@ -168,7 +164,6 @@ namespace Planetoid_DB
 			// kryptonTextBoxSearch
 			// 
 			kryptonTextBoxSearch.Location = new Point(130, 14);
-			kryptonTextBoxSearch.Margin = new Padding(4, 3, 4, 3);
 			kryptonTextBoxSearch.Name = "kryptonTextBoxSearch";
 			kryptonTextBoxSearch.Size = new Size(350, 23);
 			kryptonTextBoxSearch.TabIndex = 1;
@@ -176,7 +171,6 @@ namespace Planetoid_DB
 			// kryptonLabelSearch
 			// 
 			kryptonLabelSearch.Location = new Point(14, 14);
-			kryptonLabelSearch.Margin = new Padding(4, 3, 4, 3);
 			kryptonLabelSearch.Name = "kryptonLabelSearch";
 			kryptonLabelSearch.Size = new Size(57, 23);
 			kryptonLabelSearch.TabIndex = 0;
@@ -195,6 +189,7 @@ namespace Planetoid_DB
 			MaximizeBox = false;
 			MinimizeBox = false;
 			Name = "Search2Form";
+			ShowInTaskbar = false;
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Search in MPCORB.DAT";
 			Load += Search2Form_Load;

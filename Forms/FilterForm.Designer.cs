@@ -36,7 +36,7 @@ namespace Planetoid_DB
 		{
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(FilterForm));
-			panel = new KryptonPanel();
+			kryptoPanelMain = new KryptonPanel();
 			tableLayoutPanel = new KryptonTableLayoutPanel();
 			labelHeaderReset = new KryptonLabel();
 			labelHeaderMaximum = new KryptonLabel();
@@ -90,37 +90,37 @@ namespace Planetoid_DB
 			buttonResetInclination = new KryptonButton();
 			buttonResetOrbitalEccentricity = new KryptonButton();
 			labelHeaderElement = new KryptonLabel();
-			statusStrip = new KryptonStatusStrip();
+			kryptonStatusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
 			kryptonManager = new KryptonManager(components);
-			toolStripContainer1 = new ToolStripContainer();
+			toolStripContainer = new ToolStripContainer();
 			kryptonToolStripIcons = new KryptonToolStrip();
 			toolStripButtonApply = new ToolStripButton();
 			toolStripButtonCancel = new ToolStripButton();
 			toolStripButtonReset = new ToolStripButton();
-			((ISupportInitialize)panel).BeginInit();
-			panel.SuspendLayout();
+			((ISupportInitialize)kryptoPanelMain).BeginInit();
+			kryptoPanelMain.SuspendLayout();
 			tableLayoutPanel.SuspendLayout();
-			statusStrip.SuspendLayout();
-			toolStripContainer1.BottomToolStripPanel.SuspendLayout();
-			toolStripContainer1.ContentPanel.SuspendLayout();
-			toolStripContainer1.TopToolStripPanel.SuspendLayout();
-			toolStripContainer1.SuspendLayout();
+			kryptonStatusStrip.SuspendLayout();
+			toolStripContainer.BottomToolStripPanel.SuspendLayout();
+			toolStripContainer.ContentPanel.SuspendLayout();
+			toolStripContainer.TopToolStripPanel.SuspendLayout();
+			toolStripContainer.SuspendLayout();
 			kryptonToolStripIcons.SuspendLayout();
 			SuspendLayout();
 			// 
-			// panel
+			// kryptoPanelMain
 			// 
-			panel.AccessibleDescription = "Groups the data";
-			panel.AccessibleName = "pane";
-			panel.AccessibleRole = AccessibleRole.Pane;
-			panel.Controls.Add(tableLayoutPanel);
-			panel.Dock = DockStyle.Fill;
-			panel.Location = new Point(0, 0);
-			panel.Margin = new Padding(4, 3, 4, 3);
-			panel.Name = "panel";
-			panel.Size = new Size(593, 396);
-			panel.TabIndex = 0;
+			kryptoPanelMain.AccessibleDescription = "Groups the data";
+			kryptoPanelMain.AccessibleName = "Panel";
+			kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
+			kryptoPanelMain.Controls.Add(tableLayoutPanel);
+			kryptoPanelMain.Dock = DockStyle.Fill;
+			kryptoPanelMain.Location = new Point(0, 0);
+			kryptoPanelMain.Name = "kryptoPanelMain";
+			kryptoPanelMain.Size = new Size(593, 396);
+			kryptoPanelMain.TabIndex = 0;
+			kryptoPanelMain.TabStop = true;
 			// 
 			// tableLayoutPanel
 			// 
@@ -186,7 +186,6 @@ namespace Planetoid_DB
 			tableLayoutPanel.Controls.Add(labelHeaderElement, 0, 0);
 			tableLayoutPanel.Dock = DockStyle.Fill;
 			tableLayoutPanel.Location = new Point(0, 0);
-			tableLayoutPanel.Margin = new Padding(4, 3, 4, 3);
 			tableLayoutPanel.Name = "tableLayoutPanel";
 			tableLayoutPanel.PanelBackStyle = PaletteBackStyle.FormMain;
 			tableLayoutPanel.RowCount = 14;
@@ -214,10 +213,9 @@ namespace Planetoid_DB
 			labelHeaderReset.AccessibleRole = AccessibleRole.StaticText;
 			labelHeaderReset.Dock = DockStyle.Fill;
 			labelHeaderReset.LabelStyle = LabelStyle.BoldPanel;
-			labelHeaderReset.Location = new Point(506, 3);
-			labelHeaderReset.Margin = new Padding(4, 3, 4, 3);
+			labelHeaderReset.Location = new Point(501, 3);
 			labelHeaderReset.Name = "labelHeaderReset";
-			labelHeaderReset.Size = new Size(85, 17);
+			labelHeaderReset.Size = new Size(89, 17);
 			labelHeaderReset.TabIndex = 3;
 			labelHeaderReset.ToolTipValues.Description = "Shows the header of the reset buttons.";
 			labelHeaderReset.ToolTipValues.EnableToolTips = true;
@@ -236,8 +234,7 @@ namespace Planetoid_DB
 			labelHeaderMaximum.AccessibleRole = AccessibleRole.StaticText;
 			labelHeaderMaximum.Dock = DockStyle.Fill;
 			labelHeaderMaximum.LabelStyle = LabelStyle.BoldPanel;
-			labelHeaderMaximum.Location = new Point(378, 3);
-			labelHeaderMaximum.Margin = new Padding(4, 3, 4, 3);
+			labelHeaderMaximum.Location = new Point(375, 3);
 			labelHeaderMaximum.Name = "labelHeaderMaximum";
 			labelHeaderMaximum.Size = new Size(120, 17);
 			labelHeaderMaximum.TabIndex = 2;
@@ -258,10 +255,9 @@ namespace Planetoid_DB
 			labelHeaderMinimum.AccessibleRole = AccessibleRole.StaticText;
 			labelHeaderMinimum.Dock = DockStyle.Fill;
 			labelHeaderMinimum.LabelStyle = LabelStyle.BoldPanel;
-			labelHeaderMinimum.Location = new Point(250, 3);
-			labelHeaderMinimum.Margin = new Padding(4, 3, 4, 3);
+			labelHeaderMinimum.Location = new Point(247, 3);
 			labelHeaderMinimum.Name = "labelHeaderMinimum";
-			labelHeaderMinimum.Size = new Size(120, 17);
+			labelHeaderMinimum.Size = new Size(122, 17);
 			labelHeaderMinimum.TabIndex = 1;
 			labelHeaderMinimum.ToolTipValues.Description = "Shows the header of the minimum spin buttons.";
 			labelHeaderMinimum.ToolTipValues.EnableToolTips = true;
@@ -280,10 +276,9 @@ namespace Planetoid_DB
 			buttonResetRmsResidual.AccessibleRole = AccessibleRole.PushButton;
 			buttonResetRmsResidual.ButtonStyle = ButtonStyle.Form;
 			buttonResetRmsResidual.Dock = DockStyle.Fill;
-			buttonResetRmsResidual.Location = new Point(506, 367);
-			buttonResetRmsResidual.Margin = new Padding(4, 3, 4, 3);
+			buttonResetRmsResidual.Location = new Point(501, 367);
 			buttonResetRmsResidual.Name = "buttonResetRmsResidual";
-			buttonResetRmsResidual.Size = new Size(85, 27);
+			buttonResetRmsResidual.Size = new Size(89, 27);
 			buttonResetRmsResidual.TabIndex = 51;
 			buttonResetRmsResidual.ToolTipValues.Description = "Resets the minimum and maximum of ";
 			buttonResetRmsResidual.ToolTipValues.EnableToolTips = true;
@@ -305,10 +300,9 @@ namespace Planetoid_DB
 			buttonResetNumberOfObservations.AccessibleRole = AccessibleRole.PushButton;
 			buttonResetNumberOfObservations.ButtonStyle = ButtonStyle.Form;
 			buttonResetNumberOfObservations.Dock = DockStyle.Fill;
-			buttonResetNumberOfObservations.Location = new Point(506, 336);
-			buttonResetNumberOfObservations.Margin = new Padding(4, 3, 4, 3);
+			buttonResetNumberOfObservations.Location = new Point(501, 336);
 			buttonResetNumberOfObservations.Name = "buttonResetNumberOfObservations";
-			buttonResetNumberOfObservations.Size = new Size(85, 25);
+			buttonResetNumberOfObservations.Size = new Size(89, 25);
 			buttonResetNumberOfObservations.TabIndex = 47;
 			buttonResetNumberOfObservations.ToolTipValues.Description = "Resets the minimum and maximum of number of observations";
 			buttonResetNumberOfObservations.ToolTipValues.EnableToolTips = true;
@@ -330,10 +324,9 @@ namespace Planetoid_DB
 			buttonNumberOfOppositions.AccessibleRole = AccessibleRole.PushButton;
 			buttonNumberOfOppositions.ButtonStyle = ButtonStyle.Form;
 			buttonNumberOfOppositions.Dock = DockStyle.Fill;
-			buttonNumberOfOppositions.Location = new Point(506, 305);
-			buttonNumberOfOppositions.Margin = new Padding(4, 3, 4, 3);
+			buttonNumberOfOppositions.Location = new Point(501, 305);
 			buttonNumberOfOppositions.Name = "buttonNumberOfOppositions";
-			buttonNumberOfOppositions.Size = new Size(85, 25);
+			buttonNumberOfOppositions.Size = new Size(89, 25);
 			buttonNumberOfOppositions.TabIndex = 43;
 			buttonNumberOfOppositions.ToolTipValues.Description = "Resets the minimum and maximum of number of oppositions";
 			buttonNumberOfOppositions.ToolTipValues.EnableToolTips = true;
@@ -355,10 +348,9 @@ namespace Planetoid_DB
 			buttonResetSlopeParameter.AccessibleRole = AccessibleRole.PushButton;
 			buttonResetSlopeParameter.ButtonStyle = ButtonStyle.Form;
 			buttonResetSlopeParameter.Dock = DockStyle.Fill;
-			buttonResetSlopeParameter.Location = new Point(506, 274);
-			buttonResetSlopeParameter.Margin = new Padding(4, 3, 4, 3);
+			buttonResetSlopeParameter.Location = new Point(501, 274);
 			buttonResetSlopeParameter.Name = "buttonResetSlopeParameter";
-			buttonResetSlopeParameter.Size = new Size(85, 25);
+			buttonResetSlopeParameter.Size = new Size(89, 25);
 			buttonResetSlopeParameter.TabIndex = 39;
 			buttonResetSlopeParameter.ToolTipValues.Description = "Resets the minimum and maximum of slope parameter";
 			buttonResetSlopeParameter.ToolTipValues.EnableToolTips = true;
@@ -380,10 +372,9 @@ namespace Planetoid_DB
 			buttonResetAbsoluteMagnitude.AccessibleRole = AccessibleRole.PushButton;
 			buttonResetAbsoluteMagnitude.ButtonStyle = ButtonStyle.Form;
 			buttonResetAbsoluteMagnitude.Dock = DockStyle.Fill;
-			buttonResetAbsoluteMagnitude.Location = new Point(506, 243);
-			buttonResetAbsoluteMagnitude.Margin = new Padding(4, 3, 4, 3);
+			buttonResetAbsoluteMagnitude.Location = new Point(501, 243);
 			buttonResetAbsoluteMagnitude.Name = "buttonResetAbsoluteMagnitude";
-			buttonResetAbsoluteMagnitude.Size = new Size(85, 25);
+			buttonResetAbsoluteMagnitude.Size = new Size(89, 25);
 			buttonResetAbsoluteMagnitude.TabIndex = 35;
 			buttonResetAbsoluteMagnitude.ToolTipValues.Description = "Resets the minimum and maximum of absolute magnitude";
 			buttonResetAbsoluteMagnitude.ToolTipValues.EnableToolTips = true;
@@ -405,10 +396,9 @@ namespace Planetoid_DB
 			buttonResetSemiMajorAxis.AccessibleRole = AccessibleRole.PushButton;
 			buttonResetSemiMajorAxis.ButtonStyle = ButtonStyle.Form;
 			buttonResetSemiMajorAxis.Dock = DockStyle.Fill;
-			buttonResetSemiMajorAxis.Location = new Point(506, 212);
-			buttonResetSemiMajorAxis.Margin = new Padding(4, 3, 4, 3);
+			buttonResetSemiMajorAxis.Location = new Point(501, 212);
 			buttonResetSemiMajorAxis.Name = "buttonResetSemiMajorAxis";
-			buttonResetSemiMajorAxis.Size = new Size(85, 25);
+			buttonResetSemiMajorAxis.Size = new Size(89, 25);
 			buttonResetSemiMajorAxis.TabIndex = 31;
 			buttonResetSemiMajorAxis.ToolTipValues.Description = "Resets the minimum and maximum of semi-major axis";
 			buttonResetSemiMajorAxis.ToolTipValues.EnableToolTips = true;
@@ -430,10 +420,9 @@ namespace Planetoid_DB
 			buttonResetMeanDailyMotion.AccessibleRole = AccessibleRole.PushButton;
 			buttonResetMeanDailyMotion.ButtonStyle = ButtonStyle.Form;
 			buttonResetMeanDailyMotion.Dock = DockStyle.Fill;
-			buttonResetMeanDailyMotion.Location = new Point(506, 181);
-			buttonResetMeanDailyMotion.Margin = new Padding(4, 3, 4, 3);
+			buttonResetMeanDailyMotion.Location = new Point(501, 181);
 			buttonResetMeanDailyMotion.Name = "buttonResetMeanDailyMotion";
-			buttonResetMeanDailyMotion.Size = new Size(85, 25);
+			buttonResetMeanDailyMotion.Size = new Size(89, 25);
 			buttonResetMeanDailyMotion.TabIndex = 27;
 			buttonResetMeanDailyMotion.ToolTipValues.Description = "Resets the minimum and maximum of mean daily motion";
 			buttonResetMeanDailyMotion.ToolTipValues.EnableToolTips = true;
@@ -455,10 +444,9 @@ namespace Planetoid_DB
 			buttonResetLongitudeOfTheAscendingNode.AccessibleRole = AccessibleRole.PushButton;
 			buttonResetLongitudeOfTheAscendingNode.ButtonStyle = ButtonStyle.Form;
 			buttonResetLongitudeOfTheAscendingNode.Dock = DockStyle.Fill;
-			buttonResetLongitudeOfTheAscendingNode.Location = new Point(506, 88);
-			buttonResetLongitudeOfTheAscendingNode.Margin = new Padding(4, 3, 4, 3);
+			buttonResetLongitudeOfTheAscendingNode.Location = new Point(501, 88);
 			buttonResetLongitudeOfTheAscendingNode.Name = "buttonResetLongitudeOfTheAscendingNode";
-			buttonResetLongitudeOfTheAscendingNode.Size = new Size(85, 25);
+			buttonResetLongitudeOfTheAscendingNode.Size = new Size(89, 25);
 			buttonResetLongitudeOfTheAscendingNode.TabIndex = 15;
 			buttonResetLongitudeOfTheAscendingNode.ToolTipValues.Description = "Resets the minimum and maximum of longitude of the ascending node";
 			buttonResetLongitudeOfTheAscendingNode.ToolTipValues.EnableToolTips = true;
@@ -480,10 +468,9 @@ namespace Planetoid_DB
 			buttonResetArgumentOfThePerihelion.AccessibleRole = AccessibleRole.PushButton;
 			buttonResetArgumentOfThePerihelion.ButtonStyle = ButtonStyle.Form;
 			buttonResetArgumentOfThePerihelion.Dock = DockStyle.Fill;
-			buttonResetArgumentOfThePerihelion.Location = new Point(506, 57);
-			buttonResetArgumentOfThePerihelion.Margin = new Padding(4, 3, 4, 3);
+			buttonResetArgumentOfThePerihelion.Location = new Point(501, 57);
 			buttonResetArgumentOfThePerihelion.Name = "buttonResetArgumentOfThePerihelion";
-			buttonResetArgumentOfThePerihelion.Size = new Size(85, 25);
+			buttonResetArgumentOfThePerihelion.Size = new Size(89, 25);
 			buttonResetArgumentOfThePerihelion.TabIndex = 11;
 			buttonResetArgumentOfThePerihelion.ToolTipValues.Description = "Resets the minimum and maximum of argument of the perihelion";
 			buttonResetArgumentOfThePerihelion.ToolTipValues.EnableToolTips = true;
@@ -505,10 +492,9 @@ namespace Planetoid_DB
 			buttonResetMeanAnomalyAtTheEpoch.AccessibleRole = AccessibleRole.PushButton;
 			buttonResetMeanAnomalyAtTheEpoch.ButtonStyle = ButtonStyle.Form;
 			buttonResetMeanAnomalyAtTheEpoch.Dock = DockStyle.Fill;
-			buttonResetMeanAnomalyAtTheEpoch.Location = new Point(506, 26);
-			buttonResetMeanAnomalyAtTheEpoch.Margin = new Padding(4, 3, 4, 3);
+			buttonResetMeanAnomalyAtTheEpoch.Location = new Point(501, 26);
 			buttonResetMeanAnomalyAtTheEpoch.Name = "buttonResetMeanAnomalyAtTheEpoch";
-			buttonResetMeanAnomalyAtTheEpoch.Size = new Size(85, 25);
+			buttonResetMeanAnomalyAtTheEpoch.Size = new Size(89, 25);
 			buttonResetMeanAnomalyAtTheEpoch.TabIndex = 7;
 			buttonResetMeanAnomalyAtTheEpoch.ToolTipValues.Description = "Resets the minimum and maximum of mean anomaly at the epoch.";
 			buttonResetMeanAnomalyAtTheEpoch.ToolTipValues.EnableToolTips = true;
@@ -532,8 +518,7 @@ namespace Planetoid_DB
 			numericUpDownMaximumRmsResidual.DecimalPlaces = 8;
 			numericUpDownMaximumRmsResidual.Dock = DockStyle.Fill;
 			numericUpDownMaximumRmsResidual.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMaximumRmsResidual.Location = new Point(378, 367);
-			numericUpDownMaximumRmsResidual.Margin = new Padding(4, 3, 4, 3);
+			numericUpDownMaximumRmsResidual.Location = new Point(375, 367);
 			numericUpDownMaximumRmsResidual.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 			numericUpDownMaximumRmsResidual.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumRmsResidual.Name = "numericUpDownMaximumRmsResidual";
@@ -560,12 +545,11 @@ namespace Planetoid_DB
 			numericUpDownMaximumNumberOfObservations.DecimalPlaces = 8;
 			numericUpDownMaximumNumberOfObservations.Dock = DockStyle.Fill;
 			numericUpDownMaximumNumberOfObservations.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMaximumNumberOfObservations.Location = new Point(378, 336);
-			numericUpDownMaximumNumberOfObservations.Margin = new Padding(4, 3, 4, 3);
+			numericUpDownMaximumNumberOfObservations.Location = new Point(375, 336);
 			numericUpDownMaximumNumberOfObservations.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 			numericUpDownMaximumNumberOfObservations.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumNumberOfObservations.Name = "numericUpDownMaximumNumberOfObservations";
-			numericUpDownMaximumNumberOfObservations.Size = new Size(120, 25);
+			numericUpDownMaximumNumberOfObservations.Size = new Size(120, 22);
 			numericUpDownMaximumNumberOfObservations.TabIndex = 46;
 			numericUpDownMaximumNumberOfObservations.ThousandsSeparator = true;
 			numericUpDownMaximumNumberOfObservations.ToolTipValues.Description = "Shows the maximum of number of observations .";
@@ -588,12 +572,11 @@ namespace Planetoid_DB
 			numericUpDownMaximumNumberOfOppositions.DecimalPlaces = 8;
 			numericUpDownMaximumNumberOfOppositions.Dock = DockStyle.Fill;
 			numericUpDownMaximumNumberOfOppositions.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMaximumNumberOfOppositions.Location = new Point(378, 305);
-			numericUpDownMaximumNumberOfOppositions.Margin = new Padding(4, 3, 4, 3);
+			numericUpDownMaximumNumberOfOppositions.Location = new Point(375, 305);
 			numericUpDownMaximumNumberOfOppositions.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 			numericUpDownMaximumNumberOfOppositions.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumNumberOfOppositions.Name = "numericUpDownMaximumNumberOfOppositions";
-			numericUpDownMaximumNumberOfOppositions.Size = new Size(120, 25);
+			numericUpDownMaximumNumberOfOppositions.Size = new Size(120, 22);
 			numericUpDownMaximumNumberOfOppositions.TabIndex = 42;
 			numericUpDownMaximumNumberOfOppositions.ThousandsSeparator = true;
 			numericUpDownMaximumNumberOfOppositions.ToolTipValues.Description = "Shows the maximum of number of oppositions.";
@@ -616,12 +599,11 @@ namespace Planetoid_DB
 			numericUpDownMaximumSlopeParameter.DecimalPlaces = 8;
 			numericUpDownMaximumSlopeParameter.Dock = DockStyle.Fill;
 			numericUpDownMaximumSlopeParameter.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMaximumSlopeParameter.Location = new Point(378, 274);
-			numericUpDownMaximumSlopeParameter.Margin = new Padding(4, 3, 4, 3);
+			numericUpDownMaximumSlopeParameter.Location = new Point(375, 274);
 			numericUpDownMaximumSlopeParameter.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 			numericUpDownMaximumSlopeParameter.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumSlopeParameter.Name = "numericUpDownMaximumSlopeParameter";
-			numericUpDownMaximumSlopeParameter.Size = new Size(120, 25);
+			numericUpDownMaximumSlopeParameter.Size = new Size(120, 22);
 			numericUpDownMaximumSlopeParameter.TabIndex = 38;
 			numericUpDownMaximumSlopeParameter.ThousandsSeparator = true;
 			numericUpDownMaximumSlopeParameter.ToolTipValues.Description = "Shows the maximum of slope parameter.";
@@ -644,12 +626,11 @@ namespace Planetoid_DB
 			numericUpDownMaximumAbsoluteMagnitude.DecimalPlaces = 8;
 			numericUpDownMaximumAbsoluteMagnitude.Dock = DockStyle.Fill;
 			numericUpDownMaximumAbsoluteMagnitude.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMaximumAbsoluteMagnitude.Location = new Point(378, 243);
-			numericUpDownMaximumAbsoluteMagnitude.Margin = new Padding(4, 3, 4, 3);
+			numericUpDownMaximumAbsoluteMagnitude.Location = new Point(375, 243);
 			numericUpDownMaximumAbsoluteMagnitude.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 			numericUpDownMaximumAbsoluteMagnitude.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumAbsoluteMagnitude.Name = "numericUpDownMaximumAbsoluteMagnitude";
-			numericUpDownMaximumAbsoluteMagnitude.Size = new Size(120, 25);
+			numericUpDownMaximumAbsoluteMagnitude.Size = new Size(120, 22);
 			numericUpDownMaximumAbsoluteMagnitude.TabIndex = 34;
 			numericUpDownMaximumAbsoluteMagnitude.ThousandsSeparator = true;
 			numericUpDownMaximumAbsoluteMagnitude.ToolTipValues.Description = "Shows the maximum of absolute magnitude.";
@@ -672,12 +653,11 @@ namespace Planetoid_DB
 			numericUpDownMaximumSemiMajorAxis.DecimalPlaces = 8;
 			numericUpDownMaximumSemiMajorAxis.Dock = DockStyle.Fill;
 			numericUpDownMaximumSemiMajorAxis.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMaximumSemiMajorAxis.Location = new Point(378, 212);
-			numericUpDownMaximumSemiMajorAxis.Margin = new Padding(4, 3, 4, 3);
+			numericUpDownMaximumSemiMajorAxis.Location = new Point(375, 212);
 			numericUpDownMaximumSemiMajorAxis.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 			numericUpDownMaximumSemiMajorAxis.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumSemiMajorAxis.Name = "numericUpDownMaximumSemiMajorAxis";
-			numericUpDownMaximumSemiMajorAxis.Size = new Size(120, 25);
+			numericUpDownMaximumSemiMajorAxis.Size = new Size(120, 22);
 			numericUpDownMaximumSemiMajorAxis.TabIndex = 30;
 			numericUpDownMaximumSemiMajorAxis.ThousandsSeparator = true;
 			numericUpDownMaximumSemiMajorAxis.ToolTipValues.Description = "Shows the maximum of semi-major axis.";
@@ -700,12 +680,11 @@ namespace Planetoid_DB
 			numericUpDownMaximumMeanDailyMotion.DecimalPlaces = 8;
 			numericUpDownMaximumMeanDailyMotion.Dock = DockStyle.Fill;
 			numericUpDownMaximumMeanDailyMotion.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMaximumMeanDailyMotion.Location = new Point(378, 181);
-			numericUpDownMaximumMeanDailyMotion.Margin = new Padding(4, 3, 4, 3);
+			numericUpDownMaximumMeanDailyMotion.Location = new Point(375, 181);
 			numericUpDownMaximumMeanDailyMotion.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 			numericUpDownMaximumMeanDailyMotion.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumMeanDailyMotion.Name = "numericUpDownMaximumMeanDailyMotion";
-			numericUpDownMaximumMeanDailyMotion.Size = new Size(120, 25);
+			numericUpDownMaximumMeanDailyMotion.Size = new Size(120, 22);
 			numericUpDownMaximumMeanDailyMotion.TabIndex = 26;
 			numericUpDownMaximumMeanDailyMotion.ThousandsSeparator = true;
 			numericUpDownMaximumMeanDailyMotion.ToolTipValues.Description = "Shows the maximum of mean daily motion.";
@@ -728,12 +707,11 @@ namespace Planetoid_DB
 			numericUpDownMaximumOrbitalEccentricity.DecimalPlaces = 8;
 			numericUpDownMaximumOrbitalEccentricity.Dock = DockStyle.Fill;
 			numericUpDownMaximumOrbitalEccentricity.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMaximumOrbitalEccentricity.Location = new Point(378, 150);
-			numericUpDownMaximumOrbitalEccentricity.Margin = new Padding(4, 3, 4, 3);
+			numericUpDownMaximumOrbitalEccentricity.Location = new Point(375, 150);
 			numericUpDownMaximumOrbitalEccentricity.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 			numericUpDownMaximumOrbitalEccentricity.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumOrbitalEccentricity.Name = "numericUpDownMaximumOrbitalEccentricity";
-			numericUpDownMaximumOrbitalEccentricity.Size = new Size(120, 25);
+			numericUpDownMaximumOrbitalEccentricity.Size = new Size(120, 22);
 			numericUpDownMaximumOrbitalEccentricity.TabIndex = 22;
 			numericUpDownMaximumOrbitalEccentricity.ThousandsSeparator = true;
 			numericUpDownMaximumOrbitalEccentricity.ToolTipValues.Description = "Shows the maximum of orbital eccentricity.";
@@ -756,12 +734,11 @@ namespace Planetoid_DB
 			numericUpDownMaximumInclination.DecimalPlaces = 8;
 			numericUpDownMaximumInclination.Dock = DockStyle.Fill;
 			numericUpDownMaximumInclination.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMaximumInclination.Location = new Point(378, 119);
-			numericUpDownMaximumInclination.Margin = new Padding(4, 3, 4, 3);
+			numericUpDownMaximumInclination.Location = new Point(375, 119);
 			numericUpDownMaximumInclination.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 			numericUpDownMaximumInclination.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumInclination.Name = "numericUpDownMaximumInclination";
-			numericUpDownMaximumInclination.Size = new Size(120, 25);
+			numericUpDownMaximumInclination.Size = new Size(120, 22);
 			numericUpDownMaximumInclination.TabIndex = 18;
 			numericUpDownMaximumInclination.ThousandsSeparator = true;
 			numericUpDownMaximumInclination.ToolTipValues.Description = "Shows the maximum of inclination to the ecliptic.";
@@ -784,12 +761,11 @@ namespace Planetoid_DB
 			numericUpDownMaximumLongitudeOfTheAscendingNode.DecimalPlaces = 8;
 			numericUpDownMaximumLongitudeOfTheAscendingNode.Dock = DockStyle.Fill;
 			numericUpDownMaximumLongitudeOfTheAscendingNode.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMaximumLongitudeOfTheAscendingNode.Location = new Point(378, 88);
-			numericUpDownMaximumLongitudeOfTheAscendingNode.Margin = new Padding(4, 3, 4, 3);
+			numericUpDownMaximumLongitudeOfTheAscendingNode.Location = new Point(375, 88);
 			numericUpDownMaximumLongitudeOfTheAscendingNode.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 			numericUpDownMaximumLongitudeOfTheAscendingNode.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumLongitudeOfTheAscendingNode.Name = "numericUpDownMaximumLongitudeOfTheAscendingNode";
-			numericUpDownMaximumLongitudeOfTheAscendingNode.Size = new Size(120, 25);
+			numericUpDownMaximumLongitudeOfTheAscendingNode.Size = new Size(120, 22);
 			numericUpDownMaximumLongitudeOfTheAscendingNode.TabIndex = 14;
 			numericUpDownMaximumLongitudeOfTheAscendingNode.ThousandsSeparator = true;
 			numericUpDownMaximumLongitudeOfTheAscendingNode.ToolTipValues.Description = "Shows the maximum of longitude of the ascending node.";
@@ -812,12 +788,11 @@ namespace Planetoid_DB
 			numericUpDownMaximumArgumentOfThePerihelion.DecimalPlaces = 8;
 			numericUpDownMaximumArgumentOfThePerihelion.Dock = DockStyle.Fill;
 			numericUpDownMaximumArgumentOfThePerihelion.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMaximumArgumentOfThePerihelion.Location = new Point(378, 57);
-			numericUpDownMaximumArgumentOfThePerihelion.Margin = new Padding(4, 3, 4, 3);
+			numericUpDownMaximumArgumentOfThePerihelion.Location = new Point(375, 57);
 			numericUpDownMaximumArgumentOfThePerihelion.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 			numericUpDownMaximumArgumentOfThePerihelion.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumArgumentOfThePerihelion.Name = "numericUpDownMaximumArgumentOfThePerihelion";
-			numericUpDownMaximumArgumentOfThePerihelion.Size = new Size(120, 25);
+			numericUpDownMaximumArgumentOfThePerihelion.Size = new Size(120, 22);
 			numericUpDownMaximumArgumentOfThePerihelion.TabIndex = 10;
 			numericUpDownMaximumArgumentOfThePerihelion.ThousandsSeparator = true;
 			numericUpDownMaximumArgumentOfThePerihelion.ToolTipValues.Description = "Shows the maximum of argument of the perihelion";
@@ -840,12 +815,11 @@ namespace Planetoid_DB
 			numericUpDownMaximumMeanAnomalyAtTheEpoch.DecimalPlaces = 8;
 			numericUpDownMaximumMeanAnomalyAtTheEpoch.Dock = DockStyle.Fill;
 			numericUpDownMaximumMeanAnomalyAtTheEpoch.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMaximumMeanAnomalyAtTheEpoch.Location = new Point(378, 26);
-			numericUpDownMaximumMeanAnomalyAtTheEpoch.Margin = new Padding(4, 3, 4, 3);
+			numericUpDownMaximumMeanAnomalyAtTheEpoch.Location = new Point(375, 26);
 			numericUpDownMaximumMeanAnomalyAtTheEpoch.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 			numericUpDownMaximumMeanAnomalyAtTheEpoch.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMaximumMeanAnomalyAtTheEpoch.Name = "numericUpDownMaximumMeanAnomalyAtTheEpoch";
-			numericUpDownMaximumMeanAnomalyAtTheEpoch.Size = new Size(120, 25);
+			numericUpDownMaximumMeanAnomalyAtTheEpoch.Size = new Size(120, 22);
 			numericUpDownMaximumMeanAnomalyAtTheEpoch.TabIndex = 6;
 			numericUpDownMaximumMeanAnomalyAtTheEpoch.ThousandsSeparator = true;
 			numericUpDownMaximumMeanAnomalyAtTheEpoch.ToolTipValues.Description = "Shows the maximum of mean anomaly at the epoch";
@@ -868,12 +842,11 @@ namespace Planetoid_DB
 			numericUpDownMinimumRmsResidual.DecimalPlaces = 8;
 			numericUpDownMinimumRmsResidual.Dock = DockStyle.Fill;
 			numericUpDownMinimumRmsResidual.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMinimumRmsResidual.Location = new Point(250, 367);
-			numericUpDownMinimumRmsResidual.Margin = new Padding(4, 3, 4, 3);
+			numericUpDownMinimumRmsResidual.Location = new Point(247, 367);
 			numericUpDownMinimumRmsResidual.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 			numericUpDownMinimumRmsResidual.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumRmsResidual.Name = "numericUpDownMinimumRmsResidual";
-			numericUpDownMinimumRmsResidual.Size = new Size(120, 22);
+			numericUpDownMinimumRmsResidual.Size = new Size(122, 22);
 			numericUpDownMinimumRmsResidual.TabIndex = 49;
 			numericUpDownMinimumRmsResidual.ThousandsSeparator = true;
 			numericUpDownMinimumRmsResidual.ToolTipValues.Description = "Shows the minimum of r.m.s. residual.";
@@ -896,12 +869,11 @@ namespace Planetoid_DB
 			numericUpDownMinimumNumberOfObservations.DecimalPlaces = 8;
 			numericUpDownMinimumNumberOfObservations.Dock = DockStyle.Fill;
 			numericUpDownMinimumNumberOfObservations.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMinimumNumberOfObservations.Location = new Point(250, 336);
-			numericUpDownMinimumNumberOfObservations.Margin = new Padding(4, 3, 4, 3);
+			numericUpDownMinimumNumberOfObservations.Location = new Point(247, 336);
 			numericUpDownMinimumNumberOfObservations.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 			numericUpDownMinimumNumberOfObservations.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumNumberOfObservations.Name = "numericUpDownMinimumNumberOfObservations";
-			numericUpDownMinimumNumberOfObservations.Size = new Size(120, 25);
+			numericUpDownMinimumNumberOfObservations.Size = new Size(122, 22);
 			numericUpDownMinimumNumberOfObservations.TabIndex = 45;
 			numericUpDownMinimumNumberOfObservations.ThousandsSeparator = true;
 			numericUpDownMinimumNumberOfObservations.ToolTipValues.Description = "Shows the minimum of number of observations.";
@@ -924,12 +896,11 @@ namespace Planetoid_DB
 			numericUpDownMinimumNumberOfOppositions.DecimalPlaces = 8;
 			numericUpDownMinimumNumberOfOppositions.Dock = DockStyle.Fill;
 			numericUpDownMinimumNumberOfOppositions.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMinimumNumberOfOppositions.Location = new Point(250, 305);
-			numericUpDownMinimumNumberOfOppositions.Margin = new Padding(4, 3, 4, 3);
+			numericUpDownMinimumNumberOfOppositions.Location = new Point(247, 305);
 			numericUpDownMinimumNumberOfOppositions.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 			numericUpDownMinimumNumberOfOppositions.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumNumberOfOppositions.Name = "numericUpDownMinimumNumberOfOppositions";
-			numericUpDownMinimumNumberOfOppositions.Size = new Size(120, 25);
+			numericUpDownMinimumNumberOfOppositions.Size = new Size(122, 22);
 			numericUpDownMinimumNumberOfOppositions.TabIndex = 41;
 			numericUpDownMinimumNumberOfOppositions.ThousandsSeparator = true;
 			numericUpDownMinimumNumberOfOppositions.ToolTipValues.Description = "Shows the minimum of number of oppositions.";
@@ -952,12 +923,11 @@ namespace Planetoid_DB
 			numericUpDownMinimumSlopeParameter.DecimalPlaces = 8;
 			numericUpDownMinimumSlopeParameter.Dock = DockStyle.Fill;
 			numericUpDownMinimumSlopeParameter.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMinimumSlopeParameter.Location = new Point(250, 274);
-			numericUpDownMinimumSlopeParameter.Margin = new Padding(4, 3, 4, 3);
+			numericUpDownMinimumSlopeParameter.Location = new Point(247, 274);
 			numericUpDownMinimumSlopeParameter.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 			numericUpDownMinimumSlopeParameter.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumSlopeParameter.Name = "numericUpDownMinimumSlopeParameter";
-			numericUpDownMinimumSlopeParameter.Size = new Size(120, 25);
+			numericUpDownMinimumSlopeParameter.Size = new Size(122, 22);
 			numericUpDownMinimumSlopeParameter.TabIndex = 37;
 			numericUpDownMinimumSlopeParameter.ThousandsSeparator = true;
 			numericUpDownMinimumSlopeParameter.ToolTipValues.Description = "Shows the minimum of slope parameter.";
@@ -980,12 +950,11 @@ namespace Planetoid_DB
 			numericUpDownMinimumAbsoluteMagnitude.DecimalPlaces = 8;
 			numericUpDownMinimumAbsoluteMagnitude.Dock = DockStyle.Fill;
 			numericUpDownMinimumAbsoluteMagnitude.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMinimumAbsoluteMagnitude.Location = new Point(250, 243);
-			numericUpDownMinimumAbsoluteMagnitude.Margin = new Padding(4, 3, 4, 3);
+			numericUpDownMinimumAbsoluteMagnitude.Location = new Point(247, 243);
 			numericUpDownMinimumAbsoluteMagnitude.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 			numericUpDownMinimumAbsoluteMagnitude.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumAbsoluteMagnitude.Name = "numericUpDownMinimumAbsoluteMagnitude";
-			numericUpDownMinimumAbsoluteMagnitude.Size = new Size(120, 25);
+			numericUpDownMinimumAbsoluteMagnitude.Size = new Size(122, 22);
 			numericUpDownMinimumAbsoluteMagnitude.TabIndex = 33;
 			numericUpDownMinimumAbsoluteMagnitude.ThousandsSeparator = true;
 			numericUpDownMinimumAbsoluteMagnitude.ToolTipValues.Description = "Shows the minimum of absolute magnitude.";
@@ -1008,12 +977,11 @@ namespace Planetoid_DB
 			numericUpDownMinimumSemiMajorAxis.DecimalPlaces = 8;
 			numericUpDownMinimumSemiMajorAxis.Dock = DockStyle.Fill;
 			numericUpDownMinimumSemiMajorAxis.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMinimumSemiMajorAxis.Location = new Point(250, 212);
-			numericUpDownMinimumSemiMajorAxis.Margin = new Padding(4, 3, 4, 3);
+			numericUpDownMinimumSemiMajorAxis.Location = new Point(247, 212);
 			numericUpDownMinimumSemiMajorAxis.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 			numericUpDownMinimumSemiMajorAxis.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumSemiMajorAxis.Name = "numericUpDownMinimumSemiMajorAxis";
-			numericUpDownMinimumSemiMajorAxis.Size = new Size(120, 25);
+			numericUpDownMinimumSemiMajorAxis.Size = new Size(122, 22);
 			numericUpDownMinimumSemiMajorAxis.TabIndex = 29;
 			numericUpDownMinimumSemiMajorAxis.ThousandsSeparator = true;
 			numericUpDownMinimumSemiMajorAxis.ToolTipValues.Description = "Shows the minimum of semi-major axis.";
@@ -1036,12 +1004,11 @@ namespace Planetoid_DB
 			numericUpDownMinimumMeanDailyMotion.DecimalPlaces = 8;
 			numericUpDownMinimumMeanDailyMotion.Dock = DockStyle.Fill;
 			numericUpDownMinimumMeanDailyMotion.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMinimumMeanDailyMotion.Location = new Point(250, 181);
-			numericUpDownMinimumMeanDailyMotion.Margin = new Padding(4, 3, 4, 3);
+			numericUpDownMinimumMeanDailyMotion.Location = new Point(247, 181);
 			numericUpDownMinimumMeanDailyMotion.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 			numericUpDownMinimumMeanDailyMotion.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumMeanDailyMotion.Name = "numericUpDownMinimumMeanDailyMotion";
-			numericUpDownMinimumMeanDailyMotion.Size = new Size(120, 25);
+			numericUpDownMinimumMeanDailyMotion.Size = new Size(122, 22);
 			numericUpDownMinimumMeanDailyMotion.TabIndex = 25;
 			numericUpDownMinimumMeanDailyMotion.ThousandsSeparator = true;
 			numericUpDownMinimumMeanDailyMotion.ToolTipValues.Description = "Shows the minimum of mean daily motion.";
@@ -1064,12 +1031,11 @@ namespace Planetoid_DB
 			numericUpDownMinimumOrbitalEccentricity.DecimalPlaces = 8;
 			numericUpDownMinimumOrbitalEccentricity.Dock = DockStyle.Fill;
 			numericUpDownMinimumOrbitalEccentricity.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMinimumOrbitalEccentricity.Location = new Point(250, 150);
-			numericUpDownMinimumOrbitalEccentricity.Margin = new Padding(4, 3, 4, 3);
+			numericUpDownMinimumOrbitalEccentricity.Location = new Point(247, 150);
 			numericUpDownMinimumOrbitalEccentricity.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 			numericUpDownMinimumOrbitalEccentricity.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumOrbitalEccentricity.Name = "numericUpDownMinimumOrbitalEccentricity";
-			numericUpDownMinimumOrbitalEccentricity.Size = new Size(120, 25);
+			numericUpDownMinimumOrbitalEccentricity.Size = new Size(122, 22);
 			numericUpDownMinimumOrbitalEccentricity.TabIndex = 21;
 			numericUpDownMinimumOrbitalEccentricity.ThousandsSeparator = true;
 			numericUpDownMinimumOrbitalEccentricity.ToolTipValues.Description = "Shows the minimum of orbital eccentricity.";
@@ -1092,7 +1058,7 @@ namespace Planetoid_DB
 			numericUpDownMinimumInclination.DecimalPlaces = 8;
 			numericUpDownMinimumInclination.Dock = DockStyle.Fill;
 			numericUpDownMinimumInclination.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMinimumInclination.Location = new Point(250, 119);
+			numericUpDownMinimumInclination.Location = new Point(248, 119);
 			numericUpDownMinimumInclination.Margin = new Padding(4, 3, 4, 3);
 			numericUpDownMinimumInclination.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 			numericUpDownMinimumInclination.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
@@ -1120,12 +1086,11 @@ namespace Planetoid_DB
 			numericUpDownMinimumLongitudeOfTheAscendingNode.DecimalPlaces = 8;
 			numericUpDownMinimumLongitudeOfTheAscendingNode.Dock = DockStyle.Fill;
 			numericUpDownMinimumLongitudeOfTheAscendingNode.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMinimumLongitudeOfTheAscendingNode.Location = new Point(250, 88);
-			numericUpDownMinimumLongitudeOfTheAscendingNode.Margin = new Padding(4, 3, 4, 3);
+			numericUpDownMinimumLongitudeOfTheAscendingNode.Location = new Point(247, 88);
 			numericUpDownMinimumLongitudeOfTheAscendingNode.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 			numericUpDownMinimumLongitudeOfTheAscendingNode.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumLongitudeOfTheAscendingNode.Name = "numericUpDownMinimumLongitudeOfTheAscendingNode";
-			numericUpDownMinimumLongitudeOfTheAscendingNode.Size = new Size(120, 25);
+			numericUpDownMinimumLongitudeOfTheAscendingNode.Size = new Size(122, 22);
 			numericUpDownMinimumLongitudeOfTheAscendingNode.TabIndex = 13;
 			numericUpDownMinimumLongitudeOfTheAscendingNode.ThousandsSeparator = true;
 			numericUpDownMinimumLongitudeOfTheAscendingNode.ToolTipValues.Description = "Shows the minimum of longitude of the ascending node.";
@@ -1148,12 +1113,11 @@ namespace Planetoid_DB
 			numericUpDownMinimumArgumentOfThePerihelion.DecimalPlaces = 8;
 			numericUpDownMinimumArgumentOfThePerihelion.Dock = DockStyle.Fill;
 			numericUpDownMinimumArgumentOfThePerihelion.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMinimumArgumentOfThePerihelion.Location = new Point(250, 57);
-			numericUpDownMinimumArgumentOfThePerihelion.Margin = new Padding(4, 3, 4, 3);
+			numericUpDownMinimumArgumentOfThePerihelion.Location = new Point(247, 57);
 			numericUpDownMinimumArgumentOfThePerihelion.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 			numericUpDownMinimumArgumentOfThePerihelion.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumArgumentOfThePerihelion.Name = "numericUpDownMinimumArgumentOfThePerihelion";
-			numericUpDownMinimumArgumentOfThePerihelion.Size = new Size(120, 25);
+			numericUpDownMinimumArgumentOfThePerihelion.Size = new Size(122, 22);
 			numericUpDownMinimumArgumentOfThePerihelion.TabIndex = 9;
 			numericUpDownMinimumArgumentOfThePerihelion.ThousandsSeparator = true;
 			numericUpDownMinimumArgumentOfThePerihelion.ToolTipValues.Description = "Shows the minimum of argument of the perihelion.";
@@ -1171,8 +1135,7 @@ namespace Planetoid_DB
 			labelArgumentOfThePerihelion.AccessibleName = "Argument of the perihelion";
 			labelArgumentOfThePerihelion.AccessibleRole = AccessibleRole.StaticText;
 			labelArgumentOfThePerihelion.Dock = DockStyle.Fill;
-			labelArgumentOfThePerihelion.Location = new Point(4, 57);
-			labelArgumentOfThePerihelion.Margin = new Padding(4, 3, 4, 3);
+			labelArgumentOfThePerihelion.Location = new Point(3, 57);
 			labelArgumentOfThePerihelion.Name = "labelArgumentOfThePerihelion";
 			labelArgumentOfThePerihelion.Size = new Size(238, 25);
 			labelArgumentOfThePerihelion.TabIndex = 8;
@@ -1195,12 +1158,11 @@ namespace Planetoid_DB
 			numericUpDownMinimumMeanAnomalyAtTheEpoch.DecimalPlaces = 8;
 			numericUpDownMinimumMeanAnomalyAtTheEpoch.Dock = DockStyle.Fill;
 			numericUpDownMinimumMeanAnomalyAtTheEpoch.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownMinimumMeanAnomalyAtTheEpoch.Location = new Point(250, 26);
-			numericUpDownMinimumMeanAnomalyAtTheEpoch.Margin = new Padding(4, 3, 4, 3);
+			numericUpDownMinimumMeanAnomalyAtTheEpoch.Location = new Point(247, 26);
 			numericUpDownMinimumMeanAnomalyAtTheEpoch.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
 			numericUpDownMinimumMeanAnomalyAtTheEpoch.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
 			numericUpDownMinimumMeanAnomalyAtTheEpoch.Name = "numericUpDownMinimumMeanAnomalyAtTheEpoch";
-			numericUpDownMinimumMeanAnomalyAtTheEpoch.Size = new Size(120, 25);
+			numericUpDownMinimumMeanAnomalyAtTheEpoch.Size = new Size(122, 22);
 			numericUpDownMinimumMeanAnomalyAtTheEpoch.TabIndex = 5;
 			numericUpDownMinimumMeanAnomalyAtTheEpoch.ThousandsSeparator = true;
 			numericUpDownMinimumMeanAnomalyAtTheEpoch.ToolTipValues.Description = "Shows the minimum of mean anomaly at the epoch.";
@@ -1220,8 +1182,7 @@ namespace Planetoid_DB
 			labelRmsResidual.AccessibleName = "r.m.s. residual";
 			labelRmsResidual.AccessibleRole = AccessibleRole.StaticText;
 			labelRmsResidual.Dock = DockStyle.Fill;
-			labelRmsResidual.Location = new Point(4, 367);
-			labelRmsResidual.Margin = new Padding(4, 3, 4, 3);
+			labelRmsResidual.Location = new Point(3, 367);
 			labelRmsResidual.Name = "labelRmsResidual";
 			labelRmsResidual.Size = new Size(238, 27);
 			labelRmsResidual.TabIndex = 48;
@@ -1241,8 +1202,7 @@ namespace Planetoid_DB
 			labelLongitudeOfTheAscendingNode.AccessibleName = "Longitude of the ascending node";
 			labelLongitudeOfTheAscendingNode.AccessibleRole = AccessibleRole.StaticText;
 			labelLongitudeOfTheAscendingNode.Dock = DockStyle.Fill;
-			labelLongitudeOfTheAscendingNode.Location = new Point(4, 88);
-			labelLongitudeOfTheAscendingNode.Margin = new Padding(4, 3, 4, 3);
+			labelLongitudeOfTheAscendingNode.Location = new Point(3, 88);
 			labelLongitudeOfTheAscendingNode.Name = "labelLongitudeOfTheAscendingNode";
 			labelLongitudeOfTheAscendingNode.Size = new Size(238, 25);
 			labelLongitudeOfTheAscendingNode.TabIndex = 12;
@@ -1262,8 +1222,7 @@ namespace Planetoid_DB
 			labelNumberOfObservations.AccessibleName = "Number of observations";
 			labelNumberOfObservations.AccessibleRole = AccessibleRole.StaticText;
 			labelNumberOfObservations.Dock = DockStyle.Fill;
-			labelNumberOfObservations.Location = new Point(4, 336);
-			labelNumberOfObservations.Margin = new Padding(4, 3, 4, 3);
+			labelNumberOfObservations.Location = new Point(3, 336);
 			labelNumberOfObservations.Name = "labelNumberOfObservations";
 			labelNumberOfObservations.Size = new Size(238, 25);
 			labelNumberOfObservations.TabIndex = 44;
@@ -1283,8 +1242,7 @@ namespace Planetoid_DB
 			labelInclination.AccessibleName = "Inclination to the ecliptic";
 			labelInclination.AccessibleRole = AccessibleRole.StaticText;
 			labelInclination.Dock = DockStyle.Fill;
-			labelInclination.Location = new Point(4, 119);
-			labelInclination.Margin = new Padding(4, 3, 4, 3);
+			labelInclination.Location = new Point(3, 119);
 			labelInclination.Name = "labelInclination";
 			labelInclination.Size = new Size(238, 25);
 			labelInclination.TabIndex = 16;
@@ -1304,8 +1262,7 @@ namespace Planetoid_DB
 			labelNumberOfOppositions.AccessibleName = "Number of oppositions";
 			labelNumberOfOppositions.AccessibleRole = AccessibleRole.StaticText;
 			labelNumberOfOppositions.Dock = DockStyle.Fill;
-			labelNumberOfOppositions.Location = new Point(4, 305);
-			labelNumberOfOppositions.Margin = new Padding(4, 3, 4, 3);
+			labelNumberOfOppositions.Location = new Point(3, 305);
 			labelNumberOfOppositions.Name = "labelNumberOfOppositions";
 			labelNumberOfOppositions.Size = new Size(238, 25);
 			labelNumberOfOppositions.TabIndex = 40;
@@ -1325,8 +1282,7 @@ namespace Planetoid_DB
 			labelOrbitalEccentricity.AccessibleName = "Orbital eccentricity";
 			labelOrbitalEccentricity.AccessibleRole = AccessibleRole.StaticText;
 			labelOrbitalEccentricity.Dock = DockStyle.Fill;
-			labelOrbitalEccentricity.Location = new Point(4, 150);
-			labelOrbitalEccentricity.Margin = new Padding(4, 3, 4, 3);
+			labelOrbitalEccentricity.Location = new Point(3, 150);
 			labelOrbitalEccentricity.Name = "labelOrbitalEccentricity";
 			labelOrbitalEccentricity.Size = new Size(238, 25);
 			labelOrbitalEccentricity.TabIndex = 20;
@@ -1346,8 +1302,7 @@ namespace Planetoid_DB
 			labelSlopeParameter.AccessibleName = "Slope parameter";
 			labelSlopeParameter.AccessibleRole = AccessibleRole.StaticText;
 			labelSlopeParameter.Dock = DockStyle.Fill;
-			labelSlopeParameter.Location = new Point(4, 274);
-			labelSlopeParameter.Margin = new Padding(4, 3, 4, 3);
+			labelSlopeParameter.Location = new Point(3, 274);
 			labelSlopeParameter.Name = "labelSlopeParameter";
 			labelSlopeParameter.Size = new Size(238, 25);
 			labelSlopeParameter.TabIndex = 36;
@@ -1367,8 +1322,7 @@ namespace Planetoid_DB
 			labelMeanDailyMotion.AccessibleName = "Mean daily motion";
 			labelMeanDailyMotion.AccessibleRole = AccessibleRole.StaticText;
 			labelMeanDailyMotion.Dock = DockStyle.Fill;
-			labelMeanDailyMotion.Location = new Point(4, 181);
-			labelMeanDailyMotion.Margin = new Padding(4, 3, 4, 3);
+			labelMeanDailyMotion.Location = new Point(3, 181);
 			labelMeanDailyMotion.Name = "labelMeanDailyMotion";
 			labelMeanDailyMotion.Size = new Size(238, 25);
 			labelMeanDailyMotion.TabIndex = 24;
@@ -1388,8 +1342,7 @@ namespace Planetoid_DB
 			labelAbsoluteMagnitude.AccessibleName = "Absolute magnitude";
 			labelAbsoluteMagnitude.AccessibleRole = AccessibleRole.StaticText;
 			labelAbsoluteMagnitude.Dock = DockStyle.Fill;
-			labelAbsoluteMagnitude.Location = new Point(4, 243);
-			labelAbsoluteMagnitude.Margin = new Padding(4, 3, 4, 3);
+			labelAbsoluteMagnitude.Location = new Point(3, 243);
 			labelAbsoluteMagnitude.Name = "labelAbsoluteMagnitude";
 			labelAbsoluteMagnitude.Size = new Size(238, 25);
 			labelAbsoluteMagnitude.TabIndex = 32;
@@ -1409,8 +1362,7 @@ namespace Planetoid_DB
 			labelSemiMajorAxis.AccessibleName = "Semi-major axis";
 			labelSemiMajorAxis.AccessibleRole = AccessibleRole.StaticText;
 			labelSemiMajorAxis.Dock = DockStyle.Fill;
-			labelSemiMajorAxis.Location = new Point(4, 212);
-			labelSemiMajorAxis.Margin = new Padding(4, 3, 4, 3);
+			labelSemiMajorAxis.Location = new Point(3, 212);
 			labelSemiMajorAxis.Name = "labelSemiMajorAxis";
 			labelSemiMajorAxis.Size = new Size(238, 25);
 			labelSemiMajorAxis.TabIndex = 28;
@@ -1430,8 +1382,7 @@ namespace Planetoid_DB
 			labelMeanAnomalyAtTheEpoch.AccessibleName = "Mean anomaly at the epoch";
 			labelMeanAnomalyAtTheEpoch.AccessibleRole = AccessibleRole.StaticText;
 			labelMeanAnomalyAtTheEpoch.Dock = DockStyle.Fill;
-			labelMeanAnomalyAtTheEpoch.Location = new Point(4, 26);
-			labelMeanAnomalyAtTheEpoch.Margin = new Padding(4, 3, 4, 3);
+			labelMeanAnomalyAtTheEpoch.Location = new Point(3, 26);
 			labelMeanAnomalyAtTheEpoch.Name = "labelMeanAnomalyAtTheEpoch";
 			labelMeanAnomalyAtTheEpoch.Size = new Size(238, 25);
 			labelMeanAnomalyAtTheEpoch.TabIndex = 4;
@@ -1452,10 +1403,9 @@ namespace Planetoid_DB
 			buttonResetInclination.AccessibleRole = AccessibleRole.PushButton;
 			buttonResetInclination.ButtonStyle = ButtonStyle.Form;
 			buttonResetInclination.Dock = DockStyle.Fill;
-			buttonResetInclination.Location = new Point(506, 119);
-			buttonResetInclination.Margin = new Padding(4, 3, 4, 3);
+			buttonResetInclination.Location = new Point(501, 119);
 			buttonResetInclination.Name = "buttonResetInclination";
-			buttonResetInclination.Size = new Size(85, 25);
+			buttonResetInclination.Size = new Size(89, 25);
 			buttonResetInclination.TabIndex = 19;
 			buttonResetInclination.ToolTipValues.Description = "Resets the minimum and maximum of inclination to the ecliptic";
 			buttonResetInclination.ToolTipValues.EnableToolTips = true;
@@ -1477,10 +1427,9 @@ namespace Planetoid_DB
 			buttonResetOrbitalEccentricity.AccessibleRole = AccessibleRole.PushButton;
 			buttonResetOrbitalEccentricity.ButtonStyle = ButtonStyle.Form;
 			buttonResetOrbitalEccentricity.Dock = DockStyle.Fill;
-			buttonResetOrbitalEccentricity.Location = new Point(506, 150);
-			buttonResetOrbitalEccentricity.Margin = new Padding(4, 3, 4, 3);
+			buttonResetOrbitalEccentricity.Location = new Point(501, 150);
 			buttonResetOrbitalEccentricity.Name = "buttonResetOrbitalEccentricity";
-			buttonResetOrbitalEccentricity.Size = new Size(85, 25);
+			buttonResetOrbitalEccentricity.Size = new Size(89, 25);
 			buttonResetOrbitalEccentricity.TabIndex = 23;
 			buttonResetOrbitalEccentricity.ToolTipValues.Description = "Resets the minimum and maximum of orbital eccentricity";
 			buttonResetOrbitalEccentricity.ToolTipValues.EnableToolTips = true;
@@ -1502,8 +1451,7 @@ namespace Planetoid_DB
 			labelHeaderElement.AccessibleRole = AccessibleRole.StaticText;
 			labelHeaderElement.Dock = DockStyle.Fill;
 			labelHeaderElement.LabelStyle = LabelStyle.BoldPanel;
-			labelHeaderElement.Location = new Point(4, 3);
-			labelHeaderElement.Margin = new Padding(4, 3, 4, 3);
+			labelHeaderElement.Location = new Point(3, 3);
 			labelHeaderElement.Name = "labelHeaderElement";
 			labelHeaderElement.Size = new Size(238, 17);
 			labelHeaderElement.TabIndex = 0;
@@ -1517,23 +1465,27 @@ namespace Planetoid_DB
 			labelHeaderElement.MouseEnter += Control_Enter;
 			labelHeaderElement.MouseLeave += Control_Leave;
 			// 
-			// statusStrip
+			// kryptonStatusStrip
 			// 
-			statusStrip.AccessibleDescription = "Shows some information";
-			statusStrip.AccessibleName = "Status bar of some information";
-			statusStrip.AccessibleRole = AccessibleRole.StatusBar;
-			statusStrip.Dock = DockStyle.None;
-			statusStrip.Font = new Font("Segoe UI", 9F);
-			statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-			statusStrip.Location = new Point(0, 0);
-			statusStrip.Name = "statusStrip";
-			statusStrip.Padding = new Padding(1, 0, 16, 0);
-			statusStrip.ProgressBars = null;
-			statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-			statusStrip.Size = new Size(593, 22);
-			statusStrip.SizingGrip = false;
-			statusStrip.TabIndex = 4;
-			statusStrip.Text = "status bar";
+			kryptonStatusStrip.AccessibleDescription = "Shows some information";
+			kryptonStatusStrip.AccessibleName = "Status bar with some information";
+			kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
+			kryptonStatusStrip.AllowClickThrough = true;
+			kryptonStatusStrip.AllowItemReorder = true;
+			kryptonStatusStrip.Dock = DockStyle.None;
+			kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
+			kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
+			kryptonStatusStrip.Location = new Point(0, 0);
+			kryptonStatusStrip.Name = "kryptonStatusStrip";
+			kryptonStatusStrip.Padding = new Padding(1, 0, 16, 0);
+			kryptonStatusStrip.ProgressBars = null;
+			kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+			kryptonStatusStrip.ShowItemToolTips = true;
+			kryptonStatusStrip.Size = new Size(593, 22);
+			kryptonStatusStrip.SizingGrip = false;
+			kryptonStatusStrip.TabIndex = 4;
+			kryptonStatusStrip.TabStop = true;
+			kryptonStatusStrip.Text = "Status bar";
 			// 
 			// labelInformation
 			// 
@@ -1542,7 +1494,6 @@ namespace Planetoid_DB
 			labelInformation.AccessibleRole = AccessibleRole.StaticText;
 			labelInformation.AutoToolTip = true;
 			labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
-			labelInformation.Margin = new Padding(5, 3, 0, 2);
 			labelInformation.Name = "labelInformation";
 			labelInformation.Size = new Size(144, 17);
 			labelInformation.Text = "some information here";
@@ -1554,33 +1505,38 @@ namespace Planetoid_DB
 			kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 			kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 			// 
-			// toolStripContainer1
+			// toolStripContainer
 			// 
+			toolStripContainer.AccessibleDescription = "Container to arrange the toolbar";
+			toolStripContainer.AccessibleName = "Containter to arrange the toolbar";
+			toolStripContainer.AccessibleRole = AccessibleRole.Grouping;
 			// 
-			// toolStripContainer1.BottomToolStripPanel
+			// toolStripContainer.BottomToolStripPanel
 			// 
-			toolStripContainer1.BottomToolStripPanel.Controls.Add(statusStrip);
+			toolStripContainer.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
 			// 
-			// toolStripContainer1.ContentPanel
+			// toolStripContainer.ContentPanel
 			// 
-			toolStripContainer1.ContentPanel.Controls.Add(panel);
-			toolStripContainer1.ContentPanel.Size = new Size(593, 396);
-			toolStripContainer1.Dock = DockStyle.Fill;
-			toolStripContainer1.Location = new Point(0, 0);
-			toolStripContainer1.Name = "toolStripContainer1";
-			toolStripContainer1.Size = new Size(593, 443);
-			toolStripContainer1.TabIndex = 2;
-			toolStripContainer1.Text = "toolStripContainer1";
+			toolStripContainer.ContentPanel.Controls.Add(kryptoPanelMain);
+			toolStripContainer.ContentPanel.Size = new Size(593, 396);
+			toolStripContainer.Dock = DockStyle.Fill;
+			toolStripContainer.Location = new Point(0, 0);
+			toolStripContainer.Name = "toolStripContainer";
+			toolStripContainer.Size = new Size(593, 443);
+			toolStripContainer.TabIndex = 2;
+			toolStripContainer.Text = "toolStripContainer";
 			// 
-			// toolStripContainer1.TopToolStripPanel
+			// toolStripContainer.TopToolStripPanel
 			// 
-			toolStripContainer1.TopToolStripPanel.Controls.Add(kryptonToolStripIcons);
+			toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripIcons);
 			// 
 			// kryptonToolStripIcons
 			// 
 			kryptonToolStripIcons.AccessibleDescription = "Toolbar of main functions";
 			kryptonToolStripIcons.AccessibleName = "Toolbar of main functions";
 			kryptonToolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
+			kryptonToolStripIcons.AllowClickThrough = true;
+			kryptonToolStripIcons.AllowItemReorder = true;
 			kryptonToolStripIcons.Dock = DockStyle.None;
 			kryptonToolStripIcons.Font = new Font("Segoe UI", 9F);
 			kryptonToolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonApply, toolStripButtonCancel, toolStripButtonReset });
@@ -1643,7 +1599,7 @@ namespace Planetoid_DB
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(593, 443);
 			ControlBox = false;
-			Controls.Add(toolStripContainer1);
+			Controls.Add(toolStripContainer);
 			FormBorderStyle = FormBorderStyle.FixedToolWindow;
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			Margin = new Padding(4, 3, 4, 3);
@@ -1654,19 +1610,19 @@ namespace Planetoid_DB
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Filter";
 			Load += FilterForm_Load;
-			((ISupportInitialize)panel).EndInit();
-			panel.ResumeLayout(false);
+			((ISupportInitialize)kryptoPanelMain).EndInit();
+			kryptoPanelMain.ResumeLayout(false);
 			tableLayoutPanel.ResumeLayout(false);
 			tableLayoutPanel.PerformLayout();
-			statusStrip.ResumeLayout(false);
-			statusStrip.PerformLayout();
-			toolStripContainer1.BottomToolStripPanel.ResumeLayout(false);
-			toolStripContainer1.BottomToolStripPanel.PerformLayout();
-			toolStripContainer1.ContentPanel.ResumeLayout(false);
-			toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
-			toolStripContainer1.TopToolStripPanel.PerformLayout();
-			toolStripContainer1.ResumeLayout(false);
-			toolStripContainer1.PerformLayout();
+			kryptonStatusStrip.ResumeLayout(false);
+			kryptonStatusStrip.PerformLayout();
+			toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
+			toolStripContainer.BottomToolStripPanel.PerformLayout();
+			toolStripContainer.ContentPanel.ResumeLayout(false);
+			toolStripContainer.TopToolStripPanel.ResumeLayout(false);
+			toolStripContainer.TopToolStripPanel.PerformLayout();
+			toolStripContainer.ResumeLayout(false);
+			toolStripContainer.PerformLayout();
 			kryptonToolStripIcons.ResumeLayout(false);
 			kryptonToolStripIcons.PerformLayout();
 			ResumeLayout(false);
@@ -1674,7 +1630,7 @@ namespace Planetoid_DB
 		}
 
 		#endregion
-		private KryptonPanel panel;
+		private KryptonPanel kryptoPanelMain;
 		private KryptonLabel labelMeanAnomalyAtTheEpoch;
 		private KryptonLabel labelArgumentOfThePerihelion;
 		private KryptonLabel labelNumberOfOppositions;
@@ -1728,10 +1684,10 @@ namespace Planetoid_DB
 		private KryptonLabel labelHeaderMaximum;
 		private KryptonLabel labelHeaderMinimum;
 		private KryptonLabel labelHeaderElement;
-		private KryptonStatusStrip statusStrip;
+		private KryptonStatusStrip kryptonStatusStrip;
 		private ToolStripStatusLabel labelInformation;
 		private KryptonManager kryptonManager;
-		private ToolStripContainer toolStripContainer1;
+		private ToolStripContainer toolStripContainer;
 		private KryptonToolStrip kryptonToolStripIcons;
 		private ToolStripButton toolStripButtonApply;
 		private ToolStripButton toolStripButtonCancel;

@@ -34,7 +34,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 	/// <remarks>
 	/// Derived classes should override this property to provide the specific label.
 	/// </remarks>
-	protected override ToolStripStatusLabel? StatusLabel => labelStatus;
+	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	#region constructor
 
@@ -139,7 +139,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 	/// </remarks>
 	private void ExportDataSheetForm_Load(object sender, EventArgs e)
 	{
-		ClearStatusBar(label: labelStatus); // Clear the status bar text
+		ClearStatusBar(label: labelInformation); // Clear the status bar text
 		MarkAll(); // Mark all items in the list
 	}
 

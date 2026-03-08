@@ -33,7 +33,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	/// <remarks>
 	/// Derived classes should override this property to provide the specific label.
 	/// </remarks>
-	protected override ToolStripStatusLabel? StatusLabel => labelStatus;
+	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	/// <summary>
 	/// Print document used for printing data sheets.
@@ -157,7 +157,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	private void PrintDataSheetForm_Load(object sender, EventArgs e)
 	{
 		// Clear the status bar text
-		ClearStatusBar(label: labelStatus);
+		ClearStatusBar(label: labelInformation);
 		// Disable the progress bar
 		toolStripProgressBarPrinting.Visible = false;
 		// Disable the cancel print button

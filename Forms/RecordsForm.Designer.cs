@@ -36,7 +36,7 @@ namespace Planetoid_DB
 		{
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(RecordsForm));
-			panel = new KryptonPanel();
+			kryptoPanelMain = new KryptonPanel();
 			groupBoxRecordType = new KryptonGroupBox();
 			checkButtonMax = new KryptonCheckButton();
 			checkButtonMin = new KryptonCheckButton();
@@ -87,38 +87,37 @@ namespace Planetoid_DB
 			buttonCancel = new KryptonButton();
 			labelPercent = new KryptonLabel();
 			progressBar = new KryptonProgressBar();
-			statusStrip = new KryptonStatusStrip();
+			kryptonStatusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
 			kryptonManager = new KryptonManager(components);
 			backgroundWorker = new BackgroundWorker();
-			((ISupportInitialize)panel).BeginInit();
-			panel.SuspendLayout();
+			((ISupportInitialize)kryptoPanelMain).BeginInit();
+			kryptoPanelMain.SuspendLayout();
 			((ISupportInitialize)groupBoxRecordType).BeginInit();
 			((ISupportInitialize)groupBoxRecordType.Panel).BeginInit();
 			groupBoxRecordType.Panel.SuspendLayout();
 			tableLayoutPanel.SuspendLayout();
-			statusStrip.SuspendLayout();
+			kryptonStatusStrip.SuspendLayout();
 			SuspendLayout();
 			// 
-			// panel
+			// kryptoPanelMain
 			// 
-			panel.AccessibleDescription = "Main panel";
-			panel.AccessibleName = "Main panel";
-			panel.AccessibleRole = AccessibleRole.Pane;
-			panel.Controls.Add(groupBoxRecordType);
-			panel.Controls.Add(tableLayoutPanel);
-			panel.Controls.Add(buttonStart);
-			panel.Controls.Add(buttonCancel);
-			panel.Controls.Add(labelPercent);
-			panel.Controls.Add(progressBar);
-			panel.Dock = DockStyle.Fill;
-			panel.Location = new Point(0, 0);
-			panel.Margin = new Padding(4, 3, 4, 3);
-			panel.Name = "panel";
-			panel.PanelBackStyle = PaletteBackStyle.FormMain;
-			panel.Size = new Size(700, 560);
-			panel.TabIndex = 0;
-			panel.TabStop = true;
+			kryptoPanelMain.AccessibleDescription = "Groups the data";
+			kryptoPanelMain.AccessibleName = "Panel";
+			kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
+			kryptoPanelMain.Controls.Add(groupBoxRecordType);
+			kryptoPanelMain.Controls.Add(tableLayoutPanel);
+			kryptoPanelMain.Controls.Add(buttonStart);
+			kryptoPanelMain.Controls.Add(buttonCancel);
+			kryptoPanelMain.Controls.Add(labelPercent);
+			kryptoPanelMain.Controls.Add(progressBar);
+			kryptoPanelMain.Dock = DockStyle.Fill;
+			kryptoPanelMain.Location = new Point(0, 0);
+			kryptoPanelMain.Name = "kryptoPanelMain";
+			kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
+			kryptoPanelMain.Size = new Size(700, 560);
+			kryptoPanelMain.TabIndex = 0;
+			kryptoPanelMain.TabStop = true;
 			// 
 			// groupBoxRecordType
 			// 
@@ -126,7 +125,6 @@ namespace Planetoid_DB
 			groupBoxRecordType.AccessibleName = "Record type";
 			groupBoxRecordType.AccessibleRole = AccessibleRole.Grouping;
 			groupBoxRecordType.Location = new Point(14, 10);
-			groupBoxRecordType.Margin = new Padding(4, 3, 4, 3);
 			// 
 			// 
 			// 
@@ -152,7 +150,6 @@ namespace Planetoid_DB
 			checkButtonMax.ButtonStyle = ButtonStyle.Form;
 			checkButtonMax.Checked = true;
 			checkButtonMax.Location = new Point(4, 7);
-			checkButtonMax.Margin = new Padding(4, 3, 4, 3);
 			checkButtonMax.Name = "checkButtonMax";
 			checkButtonMax.Size = new Size(100, 29);
 			checkButtonMax.TabIndex = 0;
@@ -175,7 +172,6 @@ namespace Planetoid_DB
 			checkButtonMin.AccessibleRole = AccessibleRole.PushButton;
 			checkButtonMin.ButtonStyle = ButtonStyle.Form;
 			checkButtonMin.Location = new Point(112, 7);
-			checkButtonMin.Margin = new Padding(4, 3, 4, 3);
 			checkButtonMin.Name = "checkButtonMin";
 			checkButtonMin.Size = new Size(100, 29);
 			checkButtonMin.TabIndex = 1;
@@ -243,7 +239,6 @@ namespace Planetoid_DB
 			tableLayoutPanel.Controls.Add(labelDesignation13, 1, 13);
 			tableLayoutPanel.Controls.Add(labelValue13, 2, 13);
 			tableLayoutPanel.Location = new Point(14, 80);
-			tableLayoutPanel.Margin = new Padding(4, 3, 4, 3);
 			tableLayoutPanel.Name = "tableLayoutPanel";
 			tableLayoutPanel.RowCount = 14;
 			tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 29F));
@@ -270,10 +265,9 @@ namespace Planetoid_DB
 			labelElementHeader.AccessibleRole = AccessibleRole.StaticText;
 			labelElementHeader.Dock = DockStyle.Fill;
 			labelElementHeader.LabelStyle = LabelStyle.BoldPanel;
-			labelElementHeader.Location = new Point(4, 3);
-			labelElementHeader.Margin = new Padding(4, 3, 4, 3);
+			labelElementHeader.Location = new Point(3, 3);
 			labelElementHeader.Name = "labelElementHeader";
-			labelElementHeader.Size = new Size(212, 23);
+			labelElementHeader.Size = new Size(214, 23);
 			labelElementHeader.TabIndex = 0;
 			labelElementHeader.Values.Text = "Orbital element";
 			labelElementHeader.Enter += Control_Enter;
@@ -288,10 +282,9 @@ namespace Planetoid_DB
 			labelDesignationHeader.AccessibleRole = AccessibleRole.StaticText;
 			labelDesignationHeader.Dock = DockStyle.Fill;
 			labelDesignationHeader.LabelStyle = LabelStyle.BoldPanel;
-			labelDesignationHeader.Location = new Point(224, 3);
-			labelDesignationHeader.Margin = new Padding(4, 3, 4, 3);
+			labelDesignationHeader.Location = new Point(223, 3);
 			labelDesignationHeader.Name = "labelDesignationHeader";
-			labelDesignationHeader.Size = new Size(272, 23);
+			labelDesignationHeader.Size = new Size(274, 23);
 			labelDesignationHeader.TabIndex = 1;
 			labelDesignationHeader.Values.Text = "Readable designation";
 			labelDesignationHeader.Enter += Control_Enter;
@@ -306,10 +299,9 @@ namespace Planetoid_DB
 			labelValueHeader.AccessibleRole = AccessibleRole.StaticText;
 			labelValueHeader.Dock = DockStyle.Fill;
 			labelValueHeader.LabelStyle = LabelStyle.BoldPanel;
-			labelValueHeader.Location = new Point(504, 3);
-			labelValueHeader.Margin = new Padding(4, 3, 4, 3);
+			labelValueHeader.Location = new Point(503, 3);
 			labelValueHeader.Name = "labelValueHeader";
-			labelValueHeader.Size = new Size(162, 23);
+			labelValueHeader.Size = new Size(164, 23);
 			labelValueHeader.TabIndex = 2;
 			labelValueHeader.Values.Text = "Value";
 			labelValueHeader.Enter += Control_Enter;
@@ -323,10 +315,9 @@ namespace Planetoid_DB
 			labelElement01.AccessibleName = "Mean Anomaly at the Epoch";
 			labelElement01.AccessibleRole = AccessibleRole.StaticText;
 			labelElement01.Dock = DockStyle.Fill;
-			labelElement01.Location = new Point(4, 32);
-			labelElement01.Margin = new Padding(4, 3, 4, 3);
+			labelElement01.Location = new Point(3, 32);
 			labelElement01.Name = "labelElement01";
-			labelElement01.Size = new Size(212, 23);
+			labelElement01.Size = new Size(214, 23);
 			labelElement01.TabIndex = 3;
 			labelElement01.ToolTipValues.Description = "Mean Anomaly at the Epoch";
 			labelElement01.ToolTipValues.EnableToolTips = true;
@@ -344,10 +335,9 @@ namespace Planetoid_DB
 			labelDesignation01.AccessibleName = "Readable designation for Mean Anomaly";
 			labelDesignation01.AccessibleRole = AccessibleRole.StaticText;
 			labelDesignation01.Dock = DockStyle.Fill;
-			labelDesignation01.Location = new Point(224, 32);
-			labelDesignation01.Margin = new Padding(4, 3, 4, 3);
+			labelDesignation01.Location = new Point(223, 32);
 			labelDesignation01.Name = "labelDesignation01";
-			labelDesignation01.Size = new Size(272, 23);
+			labelDesignation01.Size = new Size(274, 23);
 			labelDesignation01.TabIndex = 4;
 			labelDesignation01.ToolTipValues.Description = "Shows the readable designation of the asteroid with the record value for Mean Anomaly at the Epoch.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelDesignation01.ToolTipValues.EnableToolTips = true;
@@ -366,10 +356,9 @@ namespace Planetoid_DB
 			labelValue01.AccessibleName = "Record value for Mean Anomaly at the Epoch";
 			labelValue01.AccessibleRole = AccessibleRole.StaticText;
 			labelValue01.Dock = DockStyle.Fill;
-			labelValue01.Location = new Point(504, 32);
-			labelValue01.Margin = new Padding(4, 3, 4, 3);
+			labelValue01.Location = new Point(503, 32);
 			labelValue01.Name = "labelValue01";
-			labelValue01.Size = new Size(162, 23);
+			labelValue01.Size = new Size(164, 23);
 			labelValue01.TabIndex = 5;
 			labelValue01.ToolTipValues.Description = "Shows the record value for Mean Anomaly at the Epoch.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelValue01.ToolTipValues.EnableToolTips = true;
@@ -388,10 +377,9 @@ namespace Planetoid_DB
 			labelElement02.AccessibleName = "Argument of Perihelion";
 			labelElement02.AccessibleRole = AccessibleRole.StaticText;
 			labelElement02.Dock = DockStyle.Fill;
-			labelElement02.Location = new Point(4, 61);
-			labelElement02.Margin = new Padding(4, 3, 4, 3);
+			labelElement02.Location = new Point(3, 61);
 			labelElement02.Name = "labelElement02";
-			labelElement02.Size = new Size(212, 23);
+			labelElement02.Size = new Size(214, 23);
 			labelElement02.TabIndex = 6;
 			labelElement02.ToolTipValues.Description = "Argument of Perihelion";
 			labelElement02.ToolTipValues.EnableToolTips = true;
@@ -409,10 +397,9 @@ namespace Planetoid_DB
 			labelDesignation02.AccessibleName = "Readable designation for Argument of Perihelion";
 			labelDesignation02.AccessibleRole = AccessibleRole.StaticText;
 			labelDesignation02.Dock = DockStyle.Fill;
-			labelDesignation02.Location = new Point(224, 61);
-			labelDesignation02.Margin = new Padding(4, 3, 4, 3);
+			labelDesignation02.Location = new Point(223, 61);
 			labelDesignation02.Name = "labelDesignation02";
-			labelDesignation02.Size = new Size(272, 23);
+			labelDesignation02.Size = new Size(274, 23);
 			labelDesignation02.TabIndex = 7;
 			labelDesignation02.ToolTipValues.Description = "Shows the readable designation of the asteroid with the record value for Argument of Perihelion.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelDesignation02.ToolTipValues.EnableToolTips = true;
@@ -431,10 +418,9 @@ namespace Planetoid_DB
 			labelValue02.AccessibleName = "Record value for Argument of Perihelion";
 			labelValue02.AccessibleRole = AccessibleRole.StaticText;
 			labelValue02.Dock = DockStyle.Fill;
-			labelValue02.Location = new Point(504, 61);
-			labelValue02.Margin = new Padding(4, 3, 4, 3);
+			labelValue02.Location = new Point(503, 61);
 			labelValue02.Name = "labelValue02";
-			labelValue02.Size = new Size(162, 23);
+			labelValue02.Size = new Size(164, 23);
 			labelValue02.TabIndex = 8;
 			labelValue02.ToolTipValues.Description = "Shows the record value for Argument of Perihelion.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelValue02.ToolTipValues.EnableToolTips = true;
@@ -453,10 +439,9 @@ namespace Planetoid_DB
 			labelElement03.AccessibleName = "Longitude of the Ascending Node";
 			labelElement03.AccessibleRole = AccessibleRole.StaticText;
 			labelElement03.Dock = DockStyle.Fill;
-			labelElement03.Location = new Point(4, 90);
-			labelElement03.Margin = new Padding(4, 3, 4, 3);
+			labelElement03.Location = new Point(3, 90);
 			labelElement03.Name = "labelElement03";
-			labelElement03.Size = new Size(212, 23);
+			labelElement03.Size = new Size(214, 23);
 			labelElement03.TabIndex = 9;
 			labelElement03.ToolTipValues.Description = "Longitude of the Ascending Node";
 			labelElement03.ToolTipValues.EnableToolTips = true;
@@ -474,10 +459,9 @@ namespace Planetoid_DB
 			labelDesignation03.AccessibleName = "Readable designation for Longitude of the Ascending Node";
 			labelDesignation03.AccessibleRole = AccessibleRole.StaticText;
 			labelDesignation03.Dock = DockStyle.Fill;
-			labelDesignation03.Location = new Point(224, 90);
-			labelDesignation03.Margin = new Padding(4, 3, 4, 3);
+			labelDesignation03.Location = new Point(223, 90);
 			labelDesignation03.Name = "labelDesignation03";
-			labelDesignation03.Size = new Size(272, 23);
+			labelDesignation03.Size = new Size(274, 23);
 			labelDesignation03.TabIndex = 10;
 			labelDesignation03.ToolTipValues.Description = "Shows the readable designation of the asteroid with the record value for Longitude of the Ascending Node.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelDesignation03.ToolTipValues.EnableToolTips = true;
@@ -496,10 +480,9 @@ namespace Planetoid_DB
 			labelValue03.AccessibleName = "Record value for Longitude of the Ascending Node";
 			labelValue03.AccessibleRole = AccessibleRole.StaticText;
 			labelValue03.Dock = DockStyle.Fill;
-			labelValue03.Location = new Point(504, 90);
-			labelValue03.Margin = new Padding(4, 3, 4, 3);
+			labelValue03.Location = new Point(503, 90);
 			labelValue03.Name = "labelValue03";
-			labelValue03.Size = new Size(162, 23);
+			labelValue03.Size = new Size(164, 23);
 			labelValue03.TabIndex = 11;
 			labelValue03.ToolTipValues.Description = "Shows the record value for Longitude of the Ascending Node.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelValue03.ToolTipValues.EnableToolTips = true;
@@ -518,10 +501,9 @@ namespace Planetoid_DB
 			labelElement04.AccessibleName = "Inclination to the Ecliptic";
 			labelElement04.AccessibleRole = AccessibleRole.StaticText;
 			labelElement04.Dock = DockStyle.Fill;
-			labelElement04.Location = new Point(4, 119);
-			labelElement04.Margin = new Padding(4, 3, 4, 3);
+			labelElement04.Location = new Point(3, 119);
 			labelElement04.Name = "labelElement04";
-			labelElement04.Size = new Size(212, 23);
+			labelElement04.Size = new Size(214, 23);
 			labelElement04.TabIndex = 12;
 			labelElement04.ToolTipValues.Description = "Inclination to the Ecliptic";
 			labelElement04.ToolTipValues.EnableToolTips = true;
@@ -539,10 +521,9 @@ namespace Planetoid_DB
 			labelDesignation04.AccessibleName = "Readable designation for Inclination to the Ecliptic";
 			labelDesignation04.AccessibleRole = AccessibleRole.StaticText;
 			labelDesignation04.Dock = DockStyle.Fill;
-			labelDesignation04.Location = new Point(224, 119);
-			labelDesignation04.Margin = new Padding(4, 3, 4, 3);
+			labelDesignation04.Location = new Point(223, 119);
 			labelDesignation04.Name = "labelDesignation04";
-			labelDesignation04.Size = new Size(272, 23);
+			labelDesignation04.Size = new Size(274, 23);
 			labelDesignation04.TabIndex = 13;
 			labelDesignation04.ToolTipValues.Description = "Shows the readable designation of the asteroid with the record value for Inclination to the Ecliptic.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelDesignation04.ToolTipValues.EnableToolTips = true;
@@ -561,10 +542,9 @@ namespace Planetoid_DB
 			labelValue04.AccessibleName = "Record value for Inclination to the Ecliptic";
 			labelValue04.AccessibleRole = AccessibleRole.StaticText;
 			labelValue04.Dock = DockStyle.Fill;
-			labelValue04.Location = new Point(504, 119);
-			labelValue04.Margin = new Padding(4, 3, 4, 3);
+			labelValue04.Location = new Point(503, 119);
 			labelValue04.Name = "labelValue04";
-			labelValue04.Size = new Size(162, 23);
+			labelValue04.Size = new Size(164, 23);
 			labelValue04.TabIndex = 14;
 			labelValue04.ToolTipValues.Description = "Shows the record value for Inclination to the Ecliptic.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelValue04.ToolTipValues.EnableToolTips = true;
@@ -583,10 +563,9 @@ namespace Planetoid_DB
 			labelElement05.AccessibleName = "Orbital Eccentricity";
 			labelElement05.AccessibleRole = AccessibleRole.StaticText;
 			labelElement05.Dock = DockStyle.Fill;
-			labelElement05.Location = new Point(4, 148);
-			labelElement05.Margin = new Padding(4, 3, 4, 3);
+			labelElement05.Location = new Point(3, 148);
 			labelElement05.Name = "labelElement05";
-			labelElement05.Size = new Size(212, 23);
+			labelElement05.Size = new Size(214, 23);
 			labelElement05.TabIndex = 15;
 			labelElement05.ToolTipValues.Description = "Orbital Eccentricity";
 			labelElement05.ToolTipValues.EnableToolTips = true;
@@ -604,10 +583,9 @@ namespace Planetoid_DB
 			labelDesignation05.AccessibleName = "Readable designation for Orbital Eccentricity";
 			labelDesignation05.AccessibleRole = AccessibleRole.StaticText;
 			labelDesignation05.Dock = DockStyle.Fill;
-			labelDesignation05.Location = new Point(224, 148);
-			labelDesignation05.Margin = new Padding(4, 3, 4, 3);
+			labelDesignation05.Location = new Point(223, 148);
 			labelDesignation05.Name = "labelDesignation05";
-			labelDesignation05.Size = new Size(272, 23);
+			labelDesignation05.Size = new Size(274, 23);
 			labelDesignation05.TabIndex = 16;
 			labelDesignation05.ToolTipValues.Description = "Shows the readable designation of the asteroid with the record value for Orbital Eccentricity.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelDesignation05.ToolTipValues.EnableToolTips = true;
@@ -626,10 +604,9 @@ namespace Planetoid_DB
 			labelValue05.AccessibleName = "Record value for Orbital Eccentricity";
 			labelValue05.AccessibleRole = AccessibleRole.StaticText;
 			labelValue05.Dock = DockStyle.Fill;
-			labelValue05.Location = new Point(504, 148);
-			labelValue05.Margin = new Padding(4, 3, 4, 3);
+			labelValue05.Location = new Point(503, 148);
 			labelValue05.Name = "labelValue05";
-			labelValue05.Size = new Size(162, 23);
+			labelValue05.Size = new Size(164, 23);
 			labelValue05.TabIndex = 17;
 			labelValue05.ToolTipValues.Description = "Shows the record value for Orbital Eccentricity.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelValue05.ToolTipValues.EnableToolTips = true;
@@ -648,10 +625,9 @@ namespace Planetoid_DB
 			labelElement06.AccessibleName = "Mean Daily Motion";
 			labelElement06.AccessibleRole = AccessibleRole.StaticText;
 			labelElement06.Dock = DockStyle.Fill;
-			labelElement06.Location = new Point(4, 177);
-			labelElement06.Margin = new Padding(4, 3, 4, 3);
+			labelElement06.Location = new Point(3, 177);
 			labelElement06.Name = "labelElement06";
-			labelElement06.Size = new Size(212, 23);
+			labelElement06.Size = new Size(214, 23);
 			labelElement06.TabIndex = 18;
 			labelElement06.ToolTipValues.Description = "Mean Daily Motion";
 			labelElement06.ToolTipValues.EnableToolTips = true;
@@ -669,10 +645,9 @@ namespace Planetoid_DB
 			labelDesignation06.AccessibleName = "Readable designation for Mean Daily Motion";
 			labelDesignation06.AccessibleRole = AccessibleRole.StaticText;
 			labelDesignation06.Dock = DockStyle.Fill;
-			labelDesignation06.Location = new Point(224, 177);
-			labelDesignation06.Margin = new Padding(4, 3, 4, 3);
+			labelDesignation06.Location = new Point(223, 177);
 			labelDesignation06.Name = "labelDesignation06";
-			labelDesignation06.Size = new Size(272, 23);
+			labelDesignation06.Size = new Size(274, 23);
 			labelDesignation06.TabIndex = 19;
 			labelDesignation06.ToolTipValues.Description = "Shows the readable designation of the asteroid with the record value for Mean Daily Motion.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelDesignation06.ToolTipValues.EnableToolTips = true;
@@ -691,10 +666,9 @@ namespace Planetoid_DB
 			labelValue06.AccessibleName = "Record value for Mean Daily Motion";
 			labelValue06.AccessibleRole = AccessibleRole.StaticText;
 			labelValue06.Dock = DockStyle.Fill;
-			labelValue06.Location = new Point(504, 177);
-			labelValue06.Margin = new Padding(4, 3, 4, 3);
+			labelValue06.Location = new Point(503, 177);
 			labelValue06.Name = "labelValue06";
-			labelValue06.Size = new Size(162, 23);
+			labelValue06.Size = new Size(164, 23);
 			labelValue06.TabIndex = 20;
 			labelValue06.ToolTipValues.Description = "Shows the record value for Mean Daily Motion.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelValue06.ToolTipValues.EnableToolTips = true;
@@ -713,10 +687,9 @@ namespace Planetoid_DB
 			labelElement07.AccessibleName = "Semi-Major Axis";
 			labelElement07.AccessibleRole = AccessibleRole.StaticText;
 			labelElement07.Dock = DockStyle.Fill;
-			labelElement07.Location = new Point(4, 206);
-			labelElement07.Margin = new Padding(4, 3, 4, 3);
+			labelElement07.Location = new Point(3, 206);
 			labelElement07.Name = "labelElement07";
-			labelElement07.Size = new Size(212, 23);
+			labelElement07.Size = new Size(214, 23);
 			labelElement07.TabIndex = 21;
 			labelElement07.ToolTipValues.Description = "Semi-Major Axis";
 			labelElement07.ToolTipValues.EnableToolTips = true;
@@ -734,10 +707,9 @@ namespace Planetoid_DB
 			labelDesignation07.AccessibleName = "Readable designation for Semi-Major Axis";
 			labelDesignation07.AccessibleRole = AccessibleRole.StaticText;
 			labelDesignation07.Dock = DockStyle.Fill;
-			labelDesignation07.Location = new Point(224, 206);
-			labelDesignation07.Margin = new Padding(4, 3, 4, 3);
+			labelDesignation07.Location = new Point(223, 206);
 			labelDesignation07.Name = "labelDesignation07";
-			labelDesignation07.Size = new Size(272, 23);
+			labelDesignation07.Size = new Size(274, 23);
 			labelDesignation07.TabIndex = 22;
 			labelDesignation07.ToolTipValues.Description = "Shows the readable designation of the asteroid with the record value for Semi-Major Axis.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelDesignation07.ToolTipValues.EnableToolTips = true;
@@ -756,10 +728,9 @@ namespace Planetoid_DB
 			labelValue07.AccessibleName = "Record value for Semi-Major Axis";
 			labelValue07.AccessibleRole = AccessibleRole.StaticText;
 			labelValue07.Dock = DockStyle.Fill;
-			labelValue07.Location = new Point(504, 206);
-			labelValue07.Margin = new Padding(4, 3, 4, 3);
+			labelValue07.Location = new Point(503, 206);
 			labelValue07.Name = "labelValue07";
-			labelValue07.Size = new Size(162, 23);
+			labelValue07.Size = new Size(164, 23);
 			labelValue07.TabIndex = 23;
 			labelValue07.ToolTipValues.Description = "Shows the record value for Semi-Major Axis.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelValue07.ToolTipValues.EnableToolTips = true;
@@ -778,10 +749,9 @@ namespace Planetoid_DB
 			labelElement08.AccessibleName = "Absolute Magnitude";
 			labelElement08.AccessibleRole = AccessibleRole.StaticText;
 			labelElement08.Dock = DockStyle.Fill;
-			labelElement08.Location = new Point(4, 235);
-			labelElement08.Margin = new Padding(4, 3, 4, 3);
+			labelElement08.Location = new Point(3, 235);
 			labelElement08.Name = "labelElement08";
-			labelElement08.Size = new Size(212, 23);
+			labelElement08.Size = new Size(214, 23);
 			labelElement08.TabIndex = 24;
 			labelElement08.ToolTipValues.Description = "Absolute Magnitude (H)";
 			labelElement08.ToolTipValues.EnableToolTips = true;
@@ -799,10 +769,9 @@ namespace Planetoid_DB
 			labelDesignation08.AccessibleName = "Readable designation for Absolute Magnitude";
 			labelDesignation08.AccessibleRole = AccessibleRole.StaticText;
 			labelDesignation08.Dock = DockStyle.Fill;
-			labelDesignation08.Location = new Point(224, 235);
-			labelDesignation08.Margin = new Padding(4, 3, 4, 3);
+			labelDesignation08.Location = new Point(223, 235);
 			labelDesignation08.Name = "labelDesignation08";
-			labelDesignation08.Size = new Size(272, 23);
+			labelDesignation08.Size = new Size(274, 23);
 			labelDesignation08.TabIndex = 25;
 			labelDesignation08.ToolTipValues.Description = "Shows the readable designation of the asteroid with the record value for Absolute Magnitude.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelDesignation08.ToolTipValues.EnableToolTips = true;
@@ -821,10 +790,9 @@ namespace Planetoid_DB
 			labelValue08.AccessibleName = "Record value for Absolute Magnitude";
 			labelValue08.AccessibleRole = AccessibleRole.StaticText;
 			labelValue08.Dock = DockStyle.Fill;
-			labelValue08.Location = new Point(504, 235);
-			labelValue08.Margin = new Padding(4, 3, 4, 3);
+			labelValue08.Location = new Point(503, 235);
 			labelValue08.Name = "labelValue08";
-			labelValue08.Size = new Size(162, 23);
+			labelValue08.Size = new Size(164, 23);
 			labelValue08.TabIndex = 26;
 			labelValue08.ToolTipValues.Description = "Shows the record value for Absolute Magnitude.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelValue08.ToolTipValues.EnableToolTips = true;
@@ -843,10 +811,9 @@ namespace Planetoid_DB
 			labelElement09.AccessibleName = "Slope Parameter";
 			labelElement09.AccessibleRole = AccessibleRole.StaticText;
 			labelElement09.Dock = DockStyle.Fill;
-			labelElement09.Location = new Point(4, 264);
-			labelElement09.Margin = new Padding(4, 3, 4, 3);
+			labelElement09.Location = new Point(3, 264);
 			labelElement09.Name = "labelElement09";
-			labelElement09.Size = new Size(212, 23);
+			labelElement09.Size = new Size(214, 23);
 			labelElement09.TabIndex = 27;
 			labelElement09.ToolTipValues.Description = "Slope Parameter (G)";
 			labelElement09.ToolTipValues.EnableToolTips = true;
@@ -864,10 +831,9 @@ namespace Planetoid_DB
 			labelDesignation09.AccessibleName = "Readable designation for Slope Parameter";
 			labelDesignation09.AccessibleRole = AccessibleRole.StaticText;
 			labelDesignation09.Dock = DockStyle.Fill;
-			labelDesignation09.Location = new Point(224, 264);
-			labelDesignation09.Margin = new Padding(4, 3, 4, 3);
+			labelDesignation09.Location = new Point(223, 264);
 			labelDesignation09.Name = "labelDesignation09";
-			labelDesignation09.Size = new Size(272, 23);
+			labelDesignation09.Size = new Size(274, 23);
 			labelDesignation09.TabIndex = 28;
 			labelDesignation09.ToolTipValues.Description = "Shows the readable designation of the asteroid with the record value for Slope Parameter.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelDesignation09.ToolTipValues.EnableToolTips = true;
@@ -886,10 +852,9 @@ namespace Planetoid_DB
 			labelValue09.AccessibleName = "Record value for Slope Parameter";
 			labelValue09.AccessibleRole = AccessibleRole.StaticText;
 			labelValue09.Dock = DockStyle.Fill;
-			labelValue09.Location = new Point(504, 264);
-			labelValue09.Margin = new Padding(4, 3, 4, 3);
+			labelValue09.Location = new Point(503, 264);
 			labelValue09.Name = "labelValue09";
-			labelValue09.Size = new Size(162, 23);
+			labelValue09.Size = new Size(164, 23);
 			labelValue09.TabIndex = 29;
 			labelValue09.ToolTipValues.Description = "Shows the record value for Slope Parameter.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelValue09.ToolTipValues.EnableToolTips = true;
@@ -908,10 +873,9 @@ namespace Planetoid_DB
 			labelElement10.AccessibleName = "Number of Oppositions";
 			labelElement10.AccessibleRole = AccessibleRole.StaticText;
 			labelElement10.Dock = DockStyle.Fill;
-			labelElement10.Location = new Point(4, 293);
-			labelElement10.Margin = new Padding(4, 3, 4, 3);
+			labelElement10.Location = new Point(3, 293);
 			labelElement10.Name = "labelElement10";
-			labelElement10.Size = new Size(212, 23);
+			labelElement10.Size = new Size(214, 23);
 			labelElement10.TabIndex = 30;
 			labelElement10.ToolTipValues.Description = "Number of Oppositions";
 			labelElement10.ToolTipValues.EnableToolTips = true;
@@ -929,10 +893,9 @@ namespace Planetoid_DB
 			labelDesignation10.AccessibleName = "Readable designation for Number of Oppositions";
 			labelDesignation10.AccessibleRole = AccessibleRole.StaticText;
 			labelDesignation10.Dock = DockStyle.Fill;
-			labelDesignation10.Location = new Point(224, 293);
-			labelDesignation10.Margin = new Padding(4, 3, 4, 3);
+			labelDesignation10.Location = new Point(223, 293);
 			labelDesignation10.Name = "labelDesignation10";
-			labelDesignation10.Size = new Size(272, 23);
+			labelDesignation10.Size = new Size(274, 23);
 			labelDesignation10.TabIndex = 31;
 			labelDesignation10.ToolTipValues.Description = "Shows the readable designation of the asteroid with the record value for Number of Oppositions.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelDesignation10.ToolTipValues.EnableToolTips = true;
@@ -951,10 +914,9 @@ namespace Planetoid_DB
 			labelValue10.AccessibleName = "Record value for Number of Oppositions";
 			labelValue10.AccessibleRole = AccessibleRole.StaticText;
 			labelValue10.Dock = DockStyle.Fill;
-			labelValue10.Location = new Point(504, 293);
-			labelValue10.Margin = new Padding(4, 3, 4, 3);
+			labelValue10.Location = new Point(503, 293);
 			labelValue10.Name = "labelValue10";
-			labelValue10.Size = new Size(162, 23);
+			labelValue10.Size = new Size(164, 23);
 			labelValue10.TabIndex = 32;
 			labelValue10.ToolTipValues.Description = "Shows the record value for Number of Oppositions.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelValue10.ToolTipValues.EnableToolTips = true;
@@ -973,10 +935,9 @@ namespace Planetoid_DB
 			labelElement11.AccessibleName = "Number of Observations";
 			labelElement11.AccessibleRole = AccessibleRole.StaticText;
 			labelElement11.Dock = DockStyle.Fill;
-			labelElement11.Location = new Point(4, 322);
-			labelElement11.Margin = new Padding(4, 3, 4, 3);
+			labelElement11.Location = new Point(3, 322);
 			labelElement11.Name = "labelElement11";
-			labelElement11.Size = new Size(212, 23);
+			labelElement11.Size = new Size(214, 23);
 			labelElement11.TabIndex = 33;
 			labelElement11.ToolTipValues.Description = "Number of Observations";
 			labelElement11.ToolTipValues.EnableToolTips = true;
@@ -994,10 +955,9 @@ namespace Planetoid_DB
 			labelDesignation11.AccessibleName = "Readable designation for Number of Observations";
 			labelDesignation11.AccessibleRole = AccessibleRole.StaticText;
 			labelDesignation11.Dock = DockStyle.Fill;
-			labelDesignation11.Location = new Point(224, 322);
-			labelDesignation11.Margin = new Padding(4, 3, 4, 3);
+			labelDesignation11.Location = new Point(223, 322);
 			labelDesignation11.Name = "labelDesignation11";
-			labelDesignation11.Size = new Size(272, 23);
+			labelDesignation11.Size = new Size(274, 23);
 			labelDesignation11.TabIndex = 34;
 			labelDesignation11.ToolTipValues.Description = "Shows the readable designation of the asteroid with the record value for Number of Observations.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelDesignation11.ToolTipValues.EnableToolTips = true;
@@ -1016,10 +976,9 @@ namespace Planetoid_DB
 			labelValue11.AccessibleName = "Record value for Number of Observations";
 			labelValue11.AccessibleRole = AccessibleRole.StaticText;
 			labelValue11.Dock = DockStyle.Fill;
-			labelValue11.Location = new Point(504, 322);
-			labelValue11.Margin = new Padding(4, 3, 4, 3);
+			labelValue11.Location = new Point(503, 322);
 			labelValue11.Name = "labelValue11";
-			labelValue11.Size = new Size(162, 23);
+			labelValue11.Size = new Size(164, 23);
 			labelValue11.TabIndex = 35;
 			labelValue11.ToolTipValues.Description = "Shows the record value for Number of Observations.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelValue11.ToolTipValues.EnableToolTips = true;
@@ -1038,10 +997,9 @@ namespace Planetoid_DB
 			labelElement12.AccessibleName = "Observation Span";
 			labelElement12.AccessibleRole = AccessibleRole.StaticText;
 			labelElement12.Dock = DockStyle.Fill;
-			labelElement12.Location = new Point(4, 351);
-			labelElement12.Margin = new Padding(4, 3, 4, 3);
+			labelElement12.Location = new Point(3, 351);
 			labelElement12.Name = "labelElement12";
-			labelElement12.Size = new Size(212, 23);
+			labelElement12.Size = new Size(214, 23);
 			labelElement12.TabIndex = 36;
 			labelElement12.ToolTipValues.Description = "Observation Span";
 			labelElement12.ToolTipValues.EnableToolTips = true;
@@ -1059,10 +1017,9 @@ namespace Planetoid_DB
 			labelDesignation12.AccessibleName = "Readable designation for Observation Span";
 			labelDesignation12.AccessibleRole = AccessibleRole.StaticText;
 			labelDesignation12.Dock = DockStyle.Fill;
-			labelDesignation12.Location = new Point(224, 351);
-			labelDesignation12.Margin = new Padding(4, 3, 4, 3);
+			labelDesignation12.Location = new Point(223, 351);
 			labelDesignation12.Name = "labelDesignation12";
-			labelDesignation12.Size = new Size(272, 23);
+			labelDesignation12.Size = new Size(274, 23);
 			labelDesignation12.TabIndex = 37;
 			labelDesignation12.ToolTipValues.Description = "Shows the readable designation of the asteroid with the record value for Observation Span.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelDesignation12.ToolTipValues.EnableToolTips = true;
@@ -1081,10 +1038,9 @@ namespace Planetoid_DB
 			labelValue12.AccessibleName = "Record value for Observation Span";
 			labelValue12.AccessibleRole = AccessibleRole.StaticText;
 			labelValue12.Dock = DockStyle.Fill;
-			labelValue12.Location = new Point(504, 351);
-			labelValue12.Margin = new Padding(4, 3, 4, 3);
+			labelValue12.Location = new Point(503, 351);
 			labelValue12.Name = "labelValue12";
-			labelValue12.Size = new Size(162, 23);
+			labelValue12.Size = new Size(164, 23);
 			labelValue12.TabIndex = 38;
 			labelValue12.ToolTipValues.Description = "Shows the record value for Observation Span.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelValue12.ToolTipValues.EnableToolTips = true;
@@ -1103,10 +1059,9 @@ namespace Planetoid_DB
 			labelElement13.AccessibleName = "RMS Residual";
 			labelElement13.AccessibleRole = AccessibleRole.StaticText;
 			labelElement13.Dock = DockStyle.Fill;
-			labelElement13.Location = new Point(4, 380);
-			labelElement13.Margin = new Padding(4, 3, 4, 3);
+			labelElement13.Location = new Point(3, 380);
 			labelElement13.Name = "labelElement13";
-			labelElement13.Size = new Size(212, 23);
+			labelElement13.Size = new Size(214, 23);
 			labelElement13.TabIndex = 39;
 			labelElement13.ToolTipValues.Description = "RMS Residual";
 			labelElement13.ToolTipValues.EnableToolTips = true;
@@ -1124,10 +1079,9 @@ namespace Planetoid_DB
 			labelDesignation13.AccessibleName = "Readable designation for RMS Residual";
 			labelDesignation13.AccessibleRole = AccessibleRole.StaticText;
 			labelDesignation13.Dock = DockStyle.Fill;
-			labelDesignation13.Location = new Point(224, 380);
-			labelDesignation13.Margin = new Padding(4, 3, 4, 3);
+			labelDesignation13.Location = new Point(223, 380);
 			labelDesignation13.Name = "labelDesignation13";
-			labelDesignation13.Size = new Size(272, 23);
+			labelDesignation13.Size = new Size(274, 23);
 			labelDesignation13.TabIndex = 40;
 			labelDesignation13.ToolTipValues.Description = "Shows the readable designation of the asteroid with the record value for RMS Residual.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelDesignation13.ToolTipValues.EnableToolTips = true;
@@ -1146,10 +1100,9 @@ namespace Planetoid_DB
 			labelValue13.AccessibleName = "Record value for RMS Residual";
 			labelValue13.AccessibleRole = AccessibleRole.StaticText;
 			labelValue13.Dock = DockStyle.Fill;
-			labelValue13.Location = new Point(504, 380);
-			labelValue13.Margin = new Padding(4, 3, 4, 3);
+			labelValue13.Location = new Point(503, 380);
 			labelValue13.Name = "labelValue13";
-			labelValue13.Size = new Size(162, 23);
+			labelValue13.Size = new Size(164, 23);
 			labelValue13.TabIndex = 41;
 			labelValue13.ToolTipValues.Description = "Shows the record value for RMS Residual.\r\nDouble-click or right-click to copy the information to the clipboard.";
 			labelValue13.ToolTipValues.EnableToolTips = true;
@@ -1168,7 +1121,6 @@ namespace Planetoid_DB
 			buttonStart.AccessibleName = "Start scan";
 			buttonStart.AccessibleRole = AccessibleRole.PushButton;
 			buttonStart.Location = new Point(14, 498);
-			buttonStart.Margin = new Padding(4, 3, 4, 3);
 			buttonStart.Name = "buttonStart";
 			buttonStart.Size = new Size(85, 29);
 			buttonStart.TabIndex = 2;
@@ -1192,7 +1144,6 @@ namespace Planetoid_DB
 			buttonCancel.AccessibleRole = AccessibleRole.PushButton;
 			buttonCancel.Enabled = false;
 			buttonCancel.Location = new Point(107, 498);
-			buttonCancel.Margin = new Padding(4, 3, 4, 3);
 			buttonCancel.Name = "buttonCancel";
 			buttonCancel.Size = new Size(85, 29);
 			buttonCancel.TabIndex = 3;
@@ -1215,7 +1166,6 @@ namespace Planetoid_DB
 			labelPercent.AccessibleName = "Percent status of the record detection";
 			labelPercent.AccessibleRole = AccessibleRole.StaticText;
 			labelPercent.Location = new Point(608, 504);
-			labelPercent.Margin = new Padding(4, 3, 4, 3);
 			labelPercent.Name = "labelPercent";
 			labelPercent.Size = new Size(56, 20);
 			labelPercent.TabIndex = 5;
@@ -1236,7 +1186,6 @@ namespace Planetoid_DB
 			progressBar.AccessibleRole = AccessibleRole.ProgressBar;
 			progressBar.Enabled = false;
 			progressBar.Location = new Point(200, 498);
-			progressBar.Margin = new Padding(4, 3, 4, 3);
 			progressBar.Name = "progressBar";
 			progressBar.Size = new Size(400, 29);
 			progressBar.TabIndex = 4;
@@ -1247,22 +1196,26 @@ namespace Planetoid_DB
 			progressBar.MouseEnter += Control_Enter;
 			progressBar.MouseLeave += Control_Leave;
 			// 
-			// statusStrip
+			// kryptonStatusStrip
 			// 
-			statusStrip.AccessibleDescription = "Shows some information";
-			statusStrip.AccessibleName = "Status bar of some information";
-			statusStrip.AccessibleRole = AccessibleRole.StatusBar;
-			statusStrip.Font = new Font("Segoe UI", 9F);
-			statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-			statusStrip.Location = new Point(0, 538);
-			statusStrip.Name = "statusStrip";
-			statusStrip.Padding = new Padding(1, 0, 16, 0);
-			statusStrip.ProgressBars = null;
-			statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-			statusStrip.Size = new Size(700, 22);
-			statusStrip.SizingGrip = false;
-			statusStrip.TabIndex = 6;
-			statusStrip.Text = "status bar";
+			kryptonStatusStrip.AccessibleDescription = "Shows some information";
+			kryptonStatusStrip.AccessibleName = "Status bar with some information";
+			kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
+			kryptonStatusStrip.AllowClickThrough = true;
+			kryptonStatusStrip.AllowItemReorder = true;
+			kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
+			kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
+			kryptonStatusStrip.Location = new Point(0, 538);
+			kryptonStatusStrip.Name = "kryptonStatusStrip";
+			kryptonStatusStrip.Padding = new Padding(1, 0, 16, 0);
+			kryptonStatusStrip.ProgressBars = null;
+			kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+			kryptonStatusStrip.ShowItemToolTips = true;
+			kryptonStatusStrip.Size = new Size(700, 22);
+			kryptonStatusStrip.SizingGrip = false;
+			kryptonStatusStrip.TabIndex = 6;
+			kryptonStatusStrip.TabStop = true;
+			kryptonStatusStrip.Text = "Status bar";
 			// 
 			// labelInformation
 			// 
@@ -1271,7 +1224,6 @@ namespace Planetoid_DB
 			labelInformation.AccessibleRole = AccessibleRole.StaticText;
 			labelInformation.AutoToolTip = true;
 			labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
-			labelInformation.Margin = new Padding(5, 3, 0, 2);
 			labelInformation.Name = "labelInformation";
 			labelInformation.Size = new Size(144, 17);
 			labelInformation.Text = "some information here";
@@ -1296,8 +1248,8 @@ namespace Planetoid_DB
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(700, 560);
-			Controls.Add(statusStrip);
-			Controls.Add(panel);
+			Controls.Add(kryptonStatusStrip);
+			Controls.Add(kryptoPanelMain);
 			FormBorderStyle = FormBorderStyle.FixedSingle;
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			Margin = new Padding(4, 3, 4, 3);
@@ -1308,23 +1260,23 @@ namespace Planetoid_DB
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Record list";
 			Load += RecordsForm_Load;
-			((ISupportInitialize)panel).EndInit();
-			panel.ResumeLayout(false);
-			panel.PerformLayout();
+			((ISupportInitialize)kryptoPanelMain).EndInit();
+			kryptoPanelMain.ResumeLayout(false);
+			kryptoPanelMain.PerformLayout();
 			((ISupportInitialize)groupBoxRecordType.Panel).EndInit();
 			groupBoxRecordType.Panel.ResumeLayout(false);
 			((ISupportInitialize)groupBoxRecordType).EndInit();
 			tableLayoutPanel.ResumeLayout(false);
 			tableLayoutPanel.PerformLayout();
-			statusStrip.ResumeLayout(false);
-			statusStrip.PerformLayout();
+			kryptonStatusStrip.ResumeLayout(false);
+			kryptonStatusStrip.PerformLayout();
 			ResumeLayout(false);
 			PerformLayout();
 		}
 
 		#endregion
 
-		private KryptonPanel panel;
+		private KryptonPanel kryptoPanelMain;
 		private KryptonGroupBox groupBoxRecordType;
 		private KryptonCheckButton checkButtonMax;
 		private KryptonCheckButton checkButtonMin;
@@ -1375,7 +1327,7 @@ namespace Planetoid_DB
 		private KryptonButton buttonCancel;
 		private KryptonLabel labelPercent;
 		private KryptonProgressBar progressBar;
-		private KryptonStatusStrip statusStrip;
+		private KryptonStatusStrip kryptonStatusStrip;
 		private ToolStripStatusLabel labelInformation;
 		private KryptonManager kryptonManager;
 		private BackgroundWorker backgroundWorker;

@@ -36,7 +36,7 @@ namespace Planetoid_DB
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(SplashScreenForm));
 			progressBarSplash = new KryptonProgressBar();
 			contextMenuStripCopyToClipboard = new ContextMenuStrip(components);
-			ToolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
+			toolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
 			labelVersion = new Label();
 			toolTip = new ToolTip(components);
 			kryptonManager = new KryptonManager(components);
@@ -50,7 +50,6 @@ namespace Planetoid_DB
 			progressBarSplash.AccessibleRole = AccessibleRole.ProgressBar;
 			progressBarSplash.Dock = DockStyle.Bottom;
 			progressBarSplash.Location = new Point(0, 331);
-			progressBarSplash.Margin = new Padding(4, 3, 4, 3);
 			progressBarSplash.Name = "progressBarSplash";
 			progressBarSplash.Size = new Size(493, 23);
 			progressBarSplash.Step = 1;
@@ -68,26 +67,26 @@ namespace Planetoid_DB
 			contextMenuStripCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
 			contextMenuStripCopyToClipboard.AllowClickThrough = true;
 			contextMenuStripCopyToClipboard.Font = new Font("Segoe UI", 9F);
-			contextMenuStripCopyToClipboard.Items.AddRange(new ToolStripItem[] { ToolStripMenuItemCopyToClipboard });
+			contextMenuStripCopyToClipboard.Items.AddRange(new ToolStripItem[] { toolStripMenuItemCopyToClipboard });
 			contextMenuStripCopyToClipboard.Name = "contextMenuStrip";
-			contextMenuStripCopyToClipboard.Size = new Size(214, 26);
+			contextMenuStripCopyToClipboard.Size = new Size(214, 48);
 			contextMenuStripCopyToClipboard.TabStop = true;
 			contextMenuStripCopyToClipboard.Text = "Copy to clipboard";
 			toolTip.SetToolTip(contextMenuStripCopyToClipboard, "Context Menu for copying to clipboard");
 			// 
-			// ToolStripMenuItemCopyToClipboard
+			// toolStripMenuItemCopyToClipboard
 			// 
-			ToolStripMenuItemCopyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
-			ToolStripMenuItemCopyToClipboard.AccessibleName = "Copy to clipboard";
-			ToolStripMenuItemCopyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
-			ToolStripMenuItemCopyToClipboard.AutoToolTip = true;
-			ToolStripMenuItemCopyToClipboard.Image = Resources.FatcowIcons16px.fatcow_page_copy_16px;
-			ToolStripMenuItemCopyToClipboard.Name = "ToolStripMenuItemCopyToClipboard";
-			ToolStripMenuItemCopyToClipboard.ShortcutKeyDisplayString = "Strg+C";
-			ToolStripMenuItemCopyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
-			ToolStripMenuItemCopyToClipboard.Size = new Size(213, 22);
-			ToolStripMenuItemCopyToClipboard.Text = "&Copy to clipboard";
-			ToolStripMenuItemCopyToClipboard.Click += CopyToClipboard_DoubleClick;
+			toolStripMenuItemCopyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
+			toolStripMenuItemCopyToClipboard.AccessibleName = "Copy to clipboard";
+			toolStripMenuItemCopyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
+			toolStripMenuItemCopyToClipboard.AutoToolTip = true;
+			toolStripMenuItemCopyToClipboard.Image = Resources.FatcowIcons16px.fatcow_page_copy_16px;
+			toolStripMenuItemCopyToClipboard.Name = "toolStripMenuItemCopyToClipboard";
+			toolStripMenuItemCopyToClipboard.ShortcutKeyDisplayString = "Strg+C";
+			toolStripMenuItemCopyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
+			toolStripMenuItemCopyToClipboard.Size = new Size(213, 22);
+			toolStripMenuItemCopyToClipboard.Text = "&Copy to clipboard";
+			toolStripMenuItemCopyToClipboard.Click += CopyToClipboard_DoubleClick;
 			// 
 			// labelVersion
 			// 
@@ -100,7 +99,7 @@ namespace Planetoid_DB
 			labelVersion.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
 			labelVersion.ForeColor = Color.White;
 			labelVersion.Location = new Point(136, 204);
-			labelVersion.Margin = new Padding(4, 0, 4, 0);
+			labelVersion.Margin = new Padding(0, 0, 0, 0);
 			labelVersion.Name = "labelVersion";
 			labelVersion.Size = new Size(221, 25);
 			labelVersion.TabIndex = 1;
@@ -151,6 +150,6 @@ namespace Planetoid_DB
 		private ToolTip toolTip;
 		private KryptonManager kryptonManager;
 		private ContextMenuStrip contextMenuStripCopyToClipboard;
-		private ToolStripMenuItem ToolStripMenuItemCopyToClipboard;
+		private ToolStripMenuItem toolStripMenuItemCopyToClipboard;
 	}
 }

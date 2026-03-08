@@ -36,7 +36,7 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 	{
 		components = new Container();
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(OrbitalResonancesOfAllMinorPlanetsForm));
-		kryptonPanel = new KryptonPanel();
+		kryptoPanelMain = new KryptonPanel();
 		btnStart = new KryptonButton();
 		btnCancel = new KryptonButton();
 		checkBoxMercury = new KryptonCheckBox();
@@ -60,42 +60,41 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		columnHeaderIsResonance = new ColumnHeader();
 		contextMenuCopyToClipboard = new ContextMenuStrip(components);
 		toolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
-		statusStrip = new KryptonStatusStrip();
+		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
 		kryptonManager = new KryptonManager(components);
-		((ISupportInitialize)kryptonPanel).BeginInit();
-		kryptonPanel.SuspendLayout();
+		((ISupportInitialize)kryptoPanelMain).BeginInit();
+		kryptoPanelMain.SuspendLayout();
 		contextMenuCopyToClipboard.SuspendLayout();
-		statusStrip.SuspendLayout();
+		kryptonStatusStrip.SuspendLayout();
 		SuspendLayout();
 		// 
-		// kryptonPanel
+		// kryptoPanelMain
 		// 
-		kryptonPanel.AccessibleDescription = "Groups the data";
-		kryptonPanel.AccessibleName = "Group pane";
-		kryptonPanel.AccessibleRole = AccessibleRole.Pane;
-		kryptonPanel.Controls.Add(btnStart);
-		kryptonPanel.Controls.Add(btnCancel);
-		kryptonPanel.Controls.Add(checkBoxMercury);
-		kryptonPanel.Controls.Add(checkBoxVenus);
-		kryptonPanel.Controls.Add(checkBoxEarth);
-		kryptonPanel.Controls.Add(checkBoxMars);
-		kryptonPanel.Controls.Add(checkBoxJupiter);
-		kryptonPanel.Controls.Add(checkBoxSaturn);
-		kryptonPanel.Controls.Add(checkBoxUranus);
-		kryptonPanel.Controls.Add(checkBoxNeptune);
-		kryptonPanel.Controls.Add(kryptonProgressBar);
-		kryptonPanel.Controls.Add(labelProgress);
-		kryptonPanel.Controls.Add(listView);
-		kryptonPanel.Controls.Add(statusStrip);
-		kryptonPanel.Dock = DockStyle.Fill;
-		kryptonPanel.Location = new Point(0, 0);
-		kryptonPanel.Margin = new Padding(4, 3, 4, 3);
-		kryptonPanel.Name = "kryptonPanel";
-		kryptonPanel.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptonPanel.Size = new Size(904, 620);
-		kryptonPanel.TabIndex = 0;
-		kryptonPanel.TabStop = true;
+		kryptoPanelMain.AccessibleDescription = "Groups the data";
+		kryptoPanelMain.AccessibleName = "Panel";
+		kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptoPanelMain.Controls.Add(btnStart);
+		kryptoPanelMain.Controls.Add(btnCancel);
+		kryptoPanelMain.Controls.Add(checkBoxMercury);
+		kryptoPanelMain.Controls.Add(checkBoxVenus);
+		kryptoPanelMain.Controls.Add(checkBoxEarth);
+		kryptoPanelMain.Controls.Add(checkBoxMars);
+		kryptoPanelMain.Controls.Add(checkBoxJupiter);
+		kryptoPanelMain.Controls.Add(checkBoxSaturn);
+		kryptoPanelMain.Controls.Add(checkBoxUranus);
+		kryptoPanelMain.Controls.Add(checkBoxNeptune);
+		kryptoPanelMain.Controls.Add(kryptonProgressBar);
+		kryptoPanelMain.Controls.Add(labelProgress);
+		kryptoPanelMain.Controls.Add(listView);
+		kryptoPanelMain.Controls.Add(kryptonStatusStrip);
+		kryptoPanelMain.Dock = DockStyle.Fill;
+		kryptoPanelMain.Location = new Point(0, 0);
+		kryptoPanelMain.Name = "kryptoPanelMain";
+		kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
+		kryptoPanelMain.Size = new Size(918, 620);
+		kryptoPanelMain.TabIndex = 0;
+		kryptoPanelMain.TabStop = true;
 		// 
 		// btnStart
 		// 
@@ -277,10 +276,9 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		listView.FullRowSelect = true;
 		listView.GridLines = true;
 		listView.Location = new Point(12, 103);
-		listView.Margin = new Padding(4, 3, 4, 3);
 		listView.Name = "listView";
 		listView.ShowItemToolTips = true;
-		listView.Size = new Size(880, 493);
+		listView.Size = new Size(894, 493);
 		listView.TabIndex = 12;
 		listView.UseCompatibleStateImageBehavior = false;
 		listView.View = View.Details;
@@ -368,24 +366,26 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		toolStripMenuItemCopyToClipboard.MouseEnter += Control_Enter;
 		toolStripMenuItemCopyToClipboard.MouseLeave += Control_Leave;
 		// 
-		// statusStrip
+		// kryptonStatusStrip
 		// 
-		statusStrip.AccessibleDescription = "Shows some information";
-		statusStrip.AccessibleName = "Status bar of some information";
-		statusStrip.AccessibleRole = AccessibleRole.StatusBar;
-		statusStrip.Font = new Font("Segoe UI", 9F);
-		statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-		statusStrip.Location = new Point(0, 598);
-		statusStrip.Name = "statusStrip";
-		statusStrip.Padding = new Padding(1, 0, 16, 0);
-		statusStrip.ProgressBars = null;
-		statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-		statusStrip.ShowItemToolTips = true;
-		statusStrip.Size = new Size(904, 22);
-		statusStrip.SizingGrip = false;
-		statusStrip.TabIndex = 13;
-		statusStrip.TabStop = true;
-		statusStrip.Text = "status bar";
+		kryptonStatusStrip.AccessibleDescription = "Shows some information";
+		kryptonStatusStrip.AccessibleName = "Status bar with some information";
+		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
+		kryptonStatusStrip.AllowClickThrough = true;
+		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
+		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
+		kryptonStatusStrip.Location = new Point(0, 598);
+		kryptonStatusStrip.Name = "kryptonStatusStrip";
+		kryptonStatusStrip.Padding = new Padding(1, 0, 16, 0);
+		kryptonStatusStrip.ProgressBars = null;
+		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+		kryptonStatusStrip.ShowItemToolTips = true;
+		kryptonStatusStrip.Size = new Size(918, 22);
+		kryptonStatusStrip.SizingGrip = false;
+		kryptonStatusStrip.TabIndex = 13;
+		kryptonStatusStrip.TabStop = true;
+		kryptonStatusStrip.Text = "Status bar";
 		// 
 		// labelInformation
 		// 
@@ -394,7 +394,6 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		labelInformation.AccessibleRole = AccessibleRole.StaticText;
 		labelInformation.AutoToolTip = true;
 		labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
-		labelInformation.Margin = new Padding(5, 3, 0, 2);
 		labelInformation.Name = "labelInformation";
 		labelInformation.Size = new Size(144, 17);
 		labelInformation.Text = "some information here";
@@ -413,9 +412,9 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(904, 620);
+		ClientSize = new Size(918, 620);
 		ControlBox = false;
-		Controls.Add(kryptonPanel);
+		Controls.Add(kryptoPanelMain);
 		FormBorderStyle = FormBorderStyle.FixedToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		Margin = new Padding(4, 3, 4, 3);
@@ -428,18 +427,18 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		Text = "Orbital resonances of all minor planets";
 		FormClosing += OrbitalResonancesOfAllMinorPlanetsForm_FormClosing;
 		Load += OrbitalResonancesOfAllMinorPlanetsForm_Load;
-		((ISupportInitialize)kryptonPanel).EndInit();
-		kryptonPanel.ResumeLayout(false);
-		kryptonPanel.PerformLayout();
+		((ISupportInitialize)kryptoPanelMain).EndInit();
+		kryptoPanelMain.ResumeLayout(false);
+		kryptoPanelMain.PerformLayout();
 		contextMenuCopyToClipboard.ResumeLayout(false);
-		statusStrip.ResumeLayout(false);
-		statusStrip.PerformLayout();
+		kryptonStatusStrip.ResumeLayout(false);
+		kryptonStatusStrip.PerformLayout();
 		ResumeLayout(false);
 	}
 
 	#endregion
 
-	private KryptonPanel kryptonPanel;
+	private KryptonPanel kryptoPanelMain;
 	private KryptonButton btnStart;
 	private KryptonButton btnCancel;
 	private KryptonCheckBox checkBoxMercury;
@@ -463,7 +462,7 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 	private ColumnHeader columnHeaderIsResonance;
 	private ContextMenuStrip contextMenuCopyToClipboard;
 	private ToolStripMenuItem toolStripMenuItemCopyToClipboard;
-	private KryptonStatusStrip statusStrip;
+	private KryptonStatusStrip kryptonStatusStrip;
 	private ToolStripStatusLabel labelInformation;
 	private KryptonManager kryptonManager;
 }

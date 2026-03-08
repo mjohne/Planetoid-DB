@@ -36,7 +36,7 @@ namespace Planetoid_DB
 			components = new Container();
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(TerminologyForm));
 			toolStripContainer = new ToolStripContainer();
-			statusStrip = new KryptonStatusStrip();
+			kryptonStatusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
 			splitContainer = new KryptonSplitContainer();
 			listBox = new KryptonListBox();
@@ -45,7 +45,7 @@ namespace Planetoid_DB
 			toolStripContainer.BottomToolStripPanel.SuspendLayout();
 			toolStripContainer.ContentPanel.SuspendLayout();
 			toolStripContainer.SuspendLayout();
-			statusStrip.SuspendLayout();
+			kryptonStatusStrip.SuspendLayout();
 			((ISupportInitialize)splitContainer).BeginInit();
 			(splitContainer.Panel1).BeginInit();
 			splitContainer.Panel1.SuspendLayout();
@@ -61,7 +61,7 @@ namespace Planetoid_DB
 			// 
 			// toolStripContainer.BottomToolStripPanel
 			// 
-			toolStripContainer.BottomToolStripPanel.Controls.Add(statusStrip);
+			toolStripContainer.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
 			// 
 			// toolStripContainer.ContentPanel
 			// 
@@ -70,29 +70,31 @@ namespace Planetoid_DB
 			toolStripContainer.ContentPanel.Size = new Size(820, 337);
 			toolStripContainer.Dock = DockStyle.Fill;
 			toolStripContainer.Location = new Point(0, 0);
-			toolStripContainer.Margin = new Padding(4, 3, 4, 3);
 			toolStripContainer.Name = "toolStripContainer";
 			toolStripContainer.Size = new Size(820, 359);
 			toolStripContainer.TabIndex = 5;
 			toolStripContainer.Text = "toolStripContainer";
 			toolStripContainer.TopToolStripPanelVisible = false;
 			// 
-			// statusStrip
+			// kryptonStatusStrip
 			// 
-			statusStrip.AccessibleDescription = "Shows some information";
-			statusStrip.AccessibleName = "Status bar with some information";
-			statusStrip.AccessibleRole = AccessibleRole.StatusBar;
-			statusStrip.Dock = DockStyle.None;
-			statusStrip.Font = new Font("Segoe UI", 9F);
-			statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-			statusStrip.Location = new Point(0, 0);
-			statusStrip.Name = "statusStrip";
-			statusStrip.ProgressBars = null;
-			statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-			statusStrip.ShowItemToolTips = true;
-			statusStrip.Size = new Size(820, 22);
-			statusStrip.TabIndex = 4;
-			statusStrip.Text = "status bar";
+			kryptonStatusStrip.AccessibleDescription = "Shows some information";
+			kryptonStatusStrip.AccessibleName = "Status bar with some information";
+			kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
+			kryptonStatusStrip.AllowClickThrough = true;
+			kryptonStatusStrip.AllowItemReorder = true;
+			kryptonStatusStrip.Dock = DockStyle.None;
+			kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
+			kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
+			kryptonStatusStrip.Location = new Point(0, 0);
+			kryptonStatusStrip.Name = "kryptonStatusStrip";
+			kryptonStatusStrip.ProgressBars = null;
+			kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+			kryptonStatusStrip.ShowItemToolTips = true;
+			kryptonStatusStrip.Size = new Size(820, 22);
+			kryptonStatusStrip.TabIndex = 4;
+			kryptonStatusStrip.TabStop = true;
+			kryptonStatusStrip.Text = "Status bar";
 			// 
 			// labelInformation
 			// 
@@ -101,7 +103,6 @@ namespace Planetoid_DB
 			labelInformation.AccessibleRole = AccessibleRole.StaticText;
 			labelInformation.AutoToolTip = true;
 			labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
-			labelInformation.Margin = new Padding(5, 3, 0, 2);
 			labelInformation.Name = "labelInformation";
 			labelInformation.Size = new Size(144, 17);
 			labelInformation.Text = "some information here";
@@ -115,7 +116,6 @@ namespace Planetoid_DB
 			splitContainer.ContainerBackStyle = PaletteBackStyle.FormMain;
 			splitContainer.Dock = DockStyle.Fill;
 			splitContainer.Location = new Point(0, 0);
-			splitContainer.Margin = new Padding(4, 3, 4, 3);
 			// 
 			// 
 			// 
@@ -138,7 +138,6 @@ namespace Planetoid_DB
 			listBox.Dock = DockStyle.Fill;
 			listBox.Items.AddRange(new object[] { "Index No.", "Readable designation", "Epoch (in packed form, .0 TT)", "Mean anomaly at the epoch", "Argument of the perihelion, J2000.0", "Longitude of the ascending node, J2000.0", "Inclination to the ecliptic, J2000.0", "Orbital eccentricity", "Mean daily motion", "Semi-major axis", "Absolute magnitude, H", "Slope parameter, G", "Reference", "Number of oppositions", "Number of observations", "Observation span", "r.m.s. residual", "Computer name", "4-hexdigit flags", "Date of last observation", "Linear eccentricity", "Semi-minor axis", "Major axis", "Minor axis", "Eccentric anomaly", "True anomaly", "Perihelion distance", "Aphelion distance", "Longitude of the descending node", "Argument of the aphelion", "Focal parameter", "Semi-latus rectum", "Latus rectum", "Orbital period", "Orbital area", "Orbital perimeter", "Semi-mean axis", "Mean axis", "Standard gravitational parameter" });
 			listBox.Location = new Point(0, 0);
-			listBox.Margin = new Padding(4, 3, 4, 3);
 			listBox.Name = "listBox";
 			listBox.Size = new Size(279, 337);
 			listBox.TabIndex = 7;
@@ -159,7 +158,6 @@ namespace Planetoid_DB
 			webBrowser.AccessibleRole = AccessibleRole.Document;
 			webBrowser.Dock = DockStyle.Fill;
 			webBrowser.Location = new Point(0, 0);
-			webBrowser.Margin = new Padding(4, 3, 4, 3);
 			webBrowser.Name = "webBrowser";
 			webBrowser.Size = new Size(536, 337);
 			webBrowser.TabIndex = 1;
@@ -195,8 +193,8 @@ namespace Planetoid_DB
 			toolStripContainer.ContentPanel.ResumeLayout(false);
 			toolStripContainer.ResumeLayout(false);
 			toolStripContainer.PerformLayout();
-			statusStrip.ResumeLayout(false);
-			statusStrip.PerformLayout();
+			kryptonStatusStrip.ResumeLayout(false);
+			kryptonStatusStrip.PerformLayout();
 			(splitContainer.Panel1).EndInit();
 			splitContainer.Panel1.ResumeLayout(false);
 			(splitContainer.Panel2).EndInit();
@@ -207,7 +205,7 @@ namespace Planetoid_DB
 		}
 
 		#endregion
-		private KryptonStatusStrip statusStrip;
+		private KryptonStatusStrip kryptonStatusStrip;
 		private ToolStripStatusLabel labelInformation;
 		private ToolStripContainer toolStripContainer;
 		private KryptonSplitContainer splitContainer;

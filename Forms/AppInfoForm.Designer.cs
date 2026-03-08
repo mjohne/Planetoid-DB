@@ -40,22 +40,22 @@ namespace Planetoid_DB
 			ComponentResourceManager resources = new ComponentResourceManager(typeof(AppInfoForm));
 			labelVersion = new KryptonLabel();
 			contextMenuStripCopyToClipboard = new ContextMenuStrip(components);
-			ToolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
+			toolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
 			labelTitle = new KryptonLabel();
 			labelDescription = new KryptonLabel();
 			pictureBoxBanner = new KryptonPictureBox();
 			labelCopyright = new KryptonLabel();
 			linkLabelEmail = new KryptonLinkLabel();
 			linkLabelWebsite = new KryptonLinkLabel();
-			panel = new KryptonPanel();
-			statusStrip = new KryptonStatusStrip();
+			kryptoPanelMain = new KryptonPanel();
+			kryptonStatusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
 			kryptonManager = new KryptonManager(components);
 			contextMenuStripCopyToClipboard.SuspendLayout();
 			((ISupportInitialize)pictureBoxBanner).BeginInit();
-			((ISupportInitialize)panel).BeginInit();
-			panel.SuspendLayout();
-			statusStrip.SuspendLayout();
+			((ISupportInitialize)kryptoPanelMain).BeginInit();
+			kryptoPanelMain.SuspendLayout();
+			kryptonStatusStrip.SuspendLayout();
 			SuspendLayout();
 			// 
 			// labelVersion
@@ -65,7 +65,6 @@ namespace Planetoid_DB
 			labelVersion.AccessibleRole = AccessibleRole.StaticText;
 			labelVersion.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelVersion.Location = new Point(13, 157);
-			labelVersion.Margin = new Padding(4, 3, 4, 3);
 			labelVersion.Name = "labelVersion";
 			labelVersion.Size = new Size(95, 20);
 			labelVersion.TabIndex = 1;
@@ -88,7 +87,7 @@ namespace Planetoid_DB
 			contextMenuStripCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
 			contextMenuStripCopyToClipboard.AllowClickThrough = true;
 			contextMenuStripCopyToClipboard.Font = new Font("Segoe UI", 9F);
-			contextMenuStripCopyToClipboard.Items.AddRange(new ToolStripItem[] { ToolStripMenuItemCopyToClipboard });
+			contextMenuStripCopyToClipboard.Items.AddRange(new ToolStripItem[] { toolStripMenuItemCopyToClipboard });
 			contextMenuStripCopyToClipboard.Name = "contextMenuStrip";
 			contextMenuStripCopyToClipboard.Size = new Size(214, 26);
 			contextMenuStripCopyToClipboard.TabStop = true;
@@ -96,21 +95,21 @@ namespace Planetoid_DB
 			contextMenuStripCopyToClipboard.MouseEnter += Control_Enter;
 			contextMenuStripCopyToClipboard.MouseLeave += Control_Leave;
 			// 
-			// ToolStripMenuItemCopyToClipboard
+			// toolStripMenuItemCopyToClipboard
 			// 
-			ToolStripMenuItemCopyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
-			ToolStripMenuItemCopyToClipboard.AccessibleName = "Copy to clipboard";
-			ToolStripMenuItemCopyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
-			ToolStripMenuItemCopyToClipboard.AutoToolTip = true;
-			ToolStripMenuItemCopyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
-			ToolStripMenuItemCopyToClipboard.Name = "ToolStripMenuItemCopyToClipboard";
-			ToolStripMenuItemCopyToClipboard.ShortcutKeyDisplayString = "Strg+C";
-			ToolStripMenuItemCopyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
-			ToolStripMenuItemCopyToClipboard.Size = new Size(213, 22);
-			ToolStripMenuItemCopyToClipboard.Text = "&Copy to clipboard";
-			ToolStripMenuItemCopyToClipboard.Click += CopyToClipboard_DoubleClick;
-			ToolStripMenuItemCopyToClipboard.MouseEnter += Control_Enter;
-			ToolStripMenuItemCopyToClipboard.MouseLeave += Control_Leave;
+			toolStripMenuItemCopyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
+			toolStripMenuItemCopyToClipboard.AccessibleName = "Copy to clipboard";
+			toolStripMenuItemCopyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
+			toolStripMenuItemCopyToClipboard.AutoToolTip = true;
+			toolStripMenuItemCopyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
+			toolStripMenuItemCopyToClipboard.Name = "toolStripMenuItemCopyToClipboard";
+			toolStripMenuItemCopyToClipboard.ShortcutKeyDisplayString = "Strg+C";
+			toolStripMenuItemCopyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
+			toolStripMenuItemCopyToClipboard.Size = new Size(213, 22);
+			toolStripMenuItemCopyToClipboard.Text = "&Copy to clipboard";
+			toolStripMenuItemCopyToClipboard.Click += CopyToClipboard_DoubleClick;
+			toolStripMenuItemCopyToClipboard.MouseEnter += Control_Enter;
+			toolStripMenuItemCopyToClipboard.MouseLeave += Control_Leave;
 			// 
 			// labelTitle
 			// 
@@ -120,7 +119,6 @@ namespace Planetoid_DB
 			labelTitle.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelTitle.LabelStyle = LabelStyle.TitlePanel;
 			labelTitle.Location = new Point(13, 128);
-			labelTitle.Margin = new Padding(4, 3, 4, 3);
 			labelTitle.Name = "labelTitle";
 			labelTitle.Size = new Size(129, 29);
 			labelTitle.TabIndex = 0;
@@ -143,7 +141,6 @@ namespace Planetoid_DB
 			labelDescription.AccessibleRole = AccessibleRole.StaticText;
 			labelDescription.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelDescription.Location = new Point(13, 187);
-			labelDescription.Margin = new Padding(4, 3, 4, 3);
 			labelDescription.Name = "labelDescription";
 			labelDescription.Size = new Size(80, 20);
 			labelDescription.TabIndex = 2;
@@ -166,7 +163,6 @@ namespace Planetoid_DB
 			pictureBoxBanner.AccessibleRole = AccessibleRole.Graphic;
 			pictureBoxBanner.Image = (Image)resources.GetObject("pictureBoxBanner.Image");
 			pictureBoxBanner.Location = new Point(4, 3);
-			pictureBoxBanner.Margin = new Padding(4, 3, 4, 3);
 			pictureBoxBanner.Name = "pictureBoxBanner";
 			pictureBoxBanner.Size = new Size(500, 119);
 			pictureBoxBanner.TabIndex = 0;
@@ -185,7 +181,6 @@ namespace Planetoid_DB
 			labelCopyright.AccessibleRole = AccessibleRole.StaticText;
 			labelCopyright.ContextMenuStrip = contextMenuStripCopyToClipboard;
 			labelCopyright.Location = new Point(13, 210);
-			labelCopyright.Margin = new Padding(4, 3, 4, 3);
 			labelCopyright.Name = "labelCopyright";
 			labelCopyright.Size = new Size(72, 20);
 			labelCopyright.TabIndex = 3;
@@ -208,7 +203,6 @@ namespace Planetoid_DB
 			linkLabelEmail.AccessibleRole = AccessibleRole.Link;
 			linkLabelEmail.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
 			linkLabelEmail.Location = new Point(431, 217);
-			linkLabelEmail.Margin = new Padding(4, 3, 4, 3);
 			linkLabelEmail.Name = "linkLabelEmail";
 			linkLabelEmail.Size = new Size(62, 20);
 			linkLabelEmail.TabIndex = 5;
@@ -232,7 +226,6 @@ namespace Planetoid_DB
 			linkLabelWebsite.AccessibleRole = AccessibleRole.Link;
 			linkLabelWebsite.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
 			linkLabelWebsite.Location = new Point(431, 187);
-			linkLabelWebsite.Margin = new Padding(4, 3, 4, 3);
 			linkLabelWebsite.Name = "linkLabelWebsite";
 			linkLabelWebsite.Size = new Size(72, 20);
 			linkLabelWebsite.TabIndex = 4;
@@ -249,43 +242,46 @@ namespace Planetoid_DB
 			linkLabelWebsite.MouseEnter += Control_Enter;
 			linkLabelWebsite.MouseLeave += Control_Leave;
 			// 
-			// panel
+			// kryptoPanelMain
 			// 
-			panel.AccessibleDescription = "Groups the data";
-			panel.AccessibleName = "pane";
-			panel.AccessibleRole = AccessibleRole.Pane;
-			panel.Controls.Add(linkLabelEmail);
-			panel.Controls.Add(linkLabelWebsite);
-			panel.Controls.Add(statusStrip);
-			panel.Controls.Add(labelCopyright);
-			panel.Controls.Add(labelTitle);
-			panel.Controls.Add(labelVersion);
-			panel.Controls.Add(labelDescription);
-			panel.Controls.Add(pictureBoxBanner);
-			panel.Dock = DockStyle.Fill;
-			panel.Location = new Point(0, 0);
-			panel.Margin = new Padding(4, 3, 4, 3);
-			panel.Name = "panel";
-			panel.PanelBackStyle = PaletteBackStyle.FormMain;
-			panel.Size = new Size(508, 262);
-			panel.TabIndex = 0;
+			kryptoPanelMain.AccessibleDescription = "Groups the data";
+			kryptoPanelMain.AccessibleName = "pane";
+			kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
+			kryptoPanelMain.Controls.Add(linkLabelEmail);
+			kryptoPanelMain.Controls.Add(linkLabelWebsite);
+			kryptoPanelMain.Controls.Add(kryptonStatusStrip);
+			kryptoPanelMain.Controls.Add(labelCopyright);
+			kryptoPanelMain.Controls.Add(labelTitle);
+			kryptoPanelMain.Controls.Add(labelVersion);
+			kryptoPanelMain.Controls.Add(labelDescription);
+			kryptoPanelMain.Controls.Add(pictureBoxBanner);
+			kryptoPanelMain.Dock = DockStyle.Fill;
+			kryptoPanelMain.Location = new Point(0, 0);
+			kryptoPanelMain.Name = "kryptoPanelMain";
+			kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
+			kryptoPanelMain.Size = new Size(508, 262);
+			kryptoPanelMain.TabIndex = 0;
 			// 
-			// statusStrip
+			// kryptonStatusStrip
 			// 
-			statusStrip.AccessibleDescription = "Shows some information";
-			statusStrip.AccessibleName = "Status bar of some information";
-			statusStrip.AccessibleRole = AccessibleRole.StatusBar;
-			statusStrip.Font = new Font("Segoe UI", 9F);
-			statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-			statusStrip.Location = new Point(0, 240);
-			statusStrip.Name = "statusStrip";
-			statusStrip.Padding = new Padding(1, 0, 16, 0);
-			statusStrip.ProgressBars = null;
-			statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-			statusStrip.Size = new Size(508, 22);
-			statusStrip.SizingGrip = false;
-			statusStrip.TabIndex = 6;
-			statusStrip.Text = "status bar";
+			kryptonStatusStrip.AccessibleDescription = "Shows some information";
+			kryptonStatusStrip.AccessibleName = "Status bar with some information";
+			kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
+			kryptonStatusStrip.AllowClickThrough = true;
+			kryptonStatusStrip.AllowItemReorder = true;
+			kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
+			kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
+			kryptonStatusStrip.Location = new Point(0, 240);
+			kryptonStatusStrip.Name = "kryptonStatusStrip";
+			kryptonStatusStrip.Padding = new Padding(1, 0, 16, 0);
+			kryptonStatusStrip.ProgressBars = null;
+			kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+			kryptonStatusStrip.ShowItemToolTips = true;
+			kryptonStatusStrip.Size = new Size(508, 22);
+			kryptonStatusStrip.SizingGrip = false;
+			kryptonStatusStrip.TabIndex = 6;
+			kryptonStatusStrip.TabStop = true;
+			kryptonStatusStrip.Text = "Status bar";
 			// 
 			// labelInformation
 			// 
@@ -294,9 +290,9 @@ namespace Planetoid_DB
 			labelInformation.AccessibleRole = AccessibleRole.StaticText;
 			labelInformation.AutoToolTip = true;
 			labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
-			labelInformation.Margin = new Padding(5, 3, 0, 2);
+			labelInformation.Margin = new Padding(0, 0, 0, 0);
 			labelInformation.Name = "labelInformation";
-			labelInformation.Size = new Size(144, 17);
+			labelInformation.Size = new Size(144, 22);
 			labelInformation.Text = "some information here";
 			labelInformation.ToolTipText = "Shows some information";
 			// 
@@ -315,7 +311,7 @@ namespace Planetoid_DB
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(508, 262);
 			ControlBox = false;
-			Controls.Add(panel);
+			Controls.Add(kryptoPanelMain);
 			FormBorderStyle = FormBorderStyle.FixedToolWindow;
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			Margin = new Padding(4, 3, 4, 3);
@@ -328,11 +324,11 @@ namespace Planetoid_DB
 			Load += AppInfoForm_Load;
 			contextMenuStripCopyToClipboard.ResumeLayout(false);
 			((ISupportInitialize)pictureBoxBanner).EndInit();
-			((ISupportInitialize)panel).EndInit();
-			panel.ResumeLayout(false);
-			panel.PerformLayout();
-			statusStrip.ResumeLayout(false);
-			statusStrip.PerformLayout();
+			((ISupportInitialize)kryptoPanelMain).EndInit();
+			kryptoPanelMain.ResumeLayout(false);
+			kryptoPanelMain.PerformLayout();
+			kryptonStatusStrip.ResumeLayout(false);
+			kryptonStatusStrip.PerformLayout();
 			ResumeLayout(false);
 
 		}
@@ -344,13 +340,13 @@ namespace Planetoid_DB
     private KryptonLabel labelTitle;
     private KryptonLabel labelDescription;
 		private KryptonLabel labelCopyright;
-        private KryptonPanel panel;
-		private KryptonStatusStrip statusStrip;
+        private KryptonPanel kryptoPanelMain;
+		private KryptonStatusStrip kryptonStatusStrip;
 		private ToolStripStatusLabel labelInformation;
 		private KryptonLinkLabel linkLabelWebsite;
 		private KryptonLinkLabel linkLabelEmail;
 		private KryptonManager kryptonManager;
 		private ContextMenuStrip contextMenuStripCopyToClipboard;
-		private ToolStripMenuItem ToolStripMenuItemCopyToClipboard;
+		private ToolStripMenuItem toolStripMenuItemCopyToClipboard;
 	}
 }

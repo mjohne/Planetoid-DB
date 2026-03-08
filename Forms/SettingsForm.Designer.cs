@@ -70,7 +70,7 @@ namespace Planetoid_DB
 			toolStripSeparator1 = new ToolStripSeparator();
 			toolStripButtonLoadDefaultSettings = new ToolStripButton();
 			toolStripContainerSettings = new ToolStripContainer();
-			panel = new KryptonPanel();
+			kryptoPanelMain = new KryptonPanel();
 			kryptonStatusStrip = new KryptonStatusStrip();
 			labelInformation = new ToolStripStatusLabel();
 			kryptonManager = new KryptonManager(components);
@@ -90,8 +90,8 @@ namespace Planetoid_DB
 			toolStripContainerSettings.ContentPanel.SuspendLayout();
 			toolStripContainerSettings.TopToolStripPanel.SuspendLayout();
 			toolStripContainerSettings.SuspendLayout();
-			((ISupportInitialize)panel).BeginInit();
-			panel.SuspendLayout();
+			((ISupportInitialize)kryptoPanelMain).BeginInit();
+			kryptoPanelMain.SuspendLayout();
 			kryptonStatusStrip.SuspendLayout();
 			SuspendLayout();
 			// 
@@ -103,7 +103,6 @@ namespace Planetoid_DB
 			tabControlSettings.Controls.Add(tabPageLookAndFeel);
 			tabControlSettings.Dock = DockStyle.Fill;
 			tabControlSettings.Location = new Point(0, 0);
-			tabControlSettings.Margin = new Padding(4, 3, 4, 3);
 			tabControlSettings.Name = "tabControlSettings";
 			tabControlSettings.SelectedIndex = 0;
 			tabControlSettings.ShowToolTips = true;
@@ -116,9 +115,7 @@ namespace Planetoid_DB
 			tabPageGeneral.Controls.Add(checkBox9);
 			tabPageGeneral.Controls.Add(checkBox8);
 			tabPageGeneral.Location = new Point(4, 24);
-			tabPageGeneral.Margin = new Padding(4, 3, 4, 3);
 			tabPageGeneral.Name = "tabPageGeneral";
-			tabPageGeneral.Padding = new Padding(4, 3, 4, 3);
 			tabPageGeneral.Size = new Size(495, 235);
 			tabPageGeneral.TabIndex = 3;
 			tabPageGeneral.Text = "General";
@@ -126,8 +123,7 @@ namespace Planetoid_DB
 			// 
 			// checkBox10
 			// 
-			checkBox10.Location = new Point(9, 65);
-			checkBox10.Margin = new Padding(4, 3, 4, 3);
+			checkBox10.Location = new Point(5, 62);
 			checkBox10.Name = "checkBox10";
 			checkBox10.Size = new Size(215, 23);
 			checkBox10.TabIndex = 2;
@@ -137,8 +133,7 @@ namespace Planetoid_DB
 			// 
 			// checkBox9
 			// 
-			checkBox9.Location = new Point(9, 36);
-			checkBox9.Margin = new Padding(4, 3, 4, 3);
+			checkBox9.Location = new Point(5, 33);
 			checkBox9.Name = "checkBox9";
 			checkBox9.Size = new Size(335, 23);
 			checkBox9.TabIndex = 1;
@@ -148,8 +143,7 @@ namespace Planetoid_DB
 			// 
 			// checkBox8
 			// 
-			checkBox8.Location = new Point(9, 7);
-			checkBox8.Margin = new Padding(4, 3, 4, 3);
+			checkBox8.Location = new Point(5, 4);
 			checkBox8.Name = "checkBox8";
 			checkBox8.Size = new Size(146, 23);
 			checkBox8.TabIndex = 0;
@@ -166,9 +160,7 @@ namespace Planetoid_DB
 			tabPageNavigator.Controls.Add(radioButton2);
 			tabPageNavigator.Controls.Add(radioButton1);
 			tabPageNavigator.Location = new Point(4, 24);
-			tabPageNavigator.Margin = new Padding(4, 3, 4, 3);
 			tabPageNavigator.Name = "tabPageNavigator";
-			tabPageNavigator.Padding = new Padding(4, 3, 4, 3);
 			tabPageNavigator.Size = new Size(495, 235);
 			tabPageNavigator.TabIndex = 0;
 			tabPageNavigator.Text = "Navigator";
@@ -176,8 +168,7 @@ namespace Planetoid_DB
 			// 
 			// radioButton9
 			// 
-			radioButton9.Location = new Point(9, 7);
-			radioButton9.Margin = new Padding(4, 3, 4, 3);
+			radioButton9.Location = new Point(5, 4);
 			radioButton9.Name = "radioButton9";
 			radioButton9.Size = new Size(204, 23);
 			radioButton9.TabIndex = 5;
@@ -188,15 +179,13 @@ namespace Planetoid_DB
 			// numericUpDown1
 			// 
 			numericUpDown1.Location = new Point(33, 151);
-			numericUpDown1.Margin = new Padding(4, 3, 4, 3);
 			numericUpDown1.Name = "numericUpDown1";
 			numericUpDown1.Size = new Size(118, 23);
 			numericUpDown1.TabIndex = 4;
 			// 
 			// radioButton4
 			// 
-			radioButton4.Location = new Point(9, 122);
-			radioButton4.Margin = new Padding(4, 3, 4, 3);
+			radioButton4.Location = new Point(5, 119);
 			radioButton4.Name = "radioButton4";
 			radioButton4.Size = new Size(182, 23);
 			radioButton4.TabIndex = 3;
@@ -206,8 +195,7 @@ namespace Planetoid_DB
 			// 
 			// radioButton3
 			// 
-			radioButton3.Location = new Point(9, 93);
-			radioButton3.Margin = new Padding(4, 3, 4, 3);
+			radioButton3.Location = new Point(5, 90);
 			radioButton3.Name = "radioButton3";
 			radioButton3.Size = new Size(184, 23);
 			radioButton3.TabIndex = 2;
@@ -217,8 +205,7 @@ namespace Planetoid_DB
 			// 
 			// radioButton2
 			// 
-			radioButton2.Location = new Point(9, 65);
-			radioButton2.Margin = new Padding(4, 3, 4, 3);
+			radioButton2.Location = new Point(5, 62);
 			radioButton2.Name = "radioButton2";
 			radioButton2.Size = new Size(169, 23);
 			radioButton2.TabIndex = 1;
@@ -228,8 +215,7 @@ namespace Planetoid_DB
 			// 
 			// radioButton1
 			// 
-			radioButton1.Location = new Point(9, 36);
-			radioButton1.Margin = new Padding(4, 3, 4, 3);
+			radioButton1.Location = new Point(5, 33);
 			radioButton1.Name = "radioButton1";
 			radioButton1.Size = new Size(172, 23);
 			radioButton1.TabIndex = 0;
@@ -242,9 +228,7 @@ namespace Planetoid_DB
 			tabPageUpdate.Controls.Add(groupBox1);
 			tabPageUpdate.Controls.Add(groupBox2);
 			tabPageUpdate.Location = new Point(4, 24);
-			tabPageUpdate.Margin = new Padding(4, 3, 4, 3);
 			tabPageUpdate.Name = "tabPageUpdate";
-			tabPageUpdate.Padding = new Padding(4, 3, 4, 3);
 			tabPageUpdate.Size = new Size(495, 235);
 			tabPageUpdate.TabIndex = 1;
 			tabPageUpdate.Text = "MPCORB.DAT Update";
@@ -253,18 +237,16 @@ namespace Planetoid_DB
 			// groupBox1
 			// 
 			groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			groupBox1.Location = new Point(9, 7);
-			groupBox1.Margin = new Padding(4, 3, 4, 3);
-			groupBox1.Size = new Size(475, 115);
+			groupBox1.Location = new Point(5, 4);
+			groupBox1.Size = new Size(483, 115);
 			groupBox1.TabIndex = 6;
 			groupBox1.Values.Heading = "Startup update";
 			// 
 			// groupBox2
 			// 
 			groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			groupBox2.Location = new Point(9, 129);
-			groupBox2.Margin = new Padding(4, 3, 4, 3);
-			groupBox2.Size = new Size(475, 117);
+			groupBox2.Location = new Point(5, 126);
+			groupBox2.Size = new Size(483, 117);
 			groupBox2.TabIndex = 7;
 			groupBox2.Values.Heading = "Background update";
 			// 
@@ -273,9 +255,7 @@ namespace Planetoid_DB
 			tabPageLookAndFeel.Controls.Add(kryptonRadioButton1);
 			tabPageLookAndFeel.Controls.Add(groupBox4);
 			tabPageLookAndFeel.Location = new Point(4, 24);
-			tabPageLookAndFeel.Margin = new Padding(4, 3, 4, 3);
 			tabPageLookAndFeel.Name = "tabPageLookAndFeel";
-			tabPageLookAndFeel.Padding = new Padding(4, 3, 4, 3);
 			tabPageLookAndFeel.Size = new Size(495, 235);
 			tabPageLookAndFeel.TabIndex = 2;
 			tabPageLookAndFeel.Text = "Look and feel";
@@ -283,8 +263,7 @@ namespace Planetoid_DB
 			// 
 			// kryptonRadioButton1
 			// 
-			kryptonRadioButton1.Location = new Point(324, 7);
-			kryptonRadioButton1.Margin = new Padding(4, 3, 4, 3);
+			kryptonRadioButton1.Location = new Point(320, 4);
 			kryptonRadioButton1.Name = "kryptonRadioButton1";
 			kryptonRadioButton1.Size = new Size(50, 23);
 			kryptonRadioButton1.TabIndex = 6;
@@ -293,7 +272,6 @@ namespace Planetoid_DB
 			// groupBox4
 			// 
 			groupBox4.Location = new Point(390, 179);
-			groupBox4.Margin = new Padding(4, 3, 4, 3);
 			groupBox4.Size = new Size(153, 158);
 			groupBox4.TabIndex = 3;
 			groupBox4.Values.Heading = "Icons";
@@ -375,6 +353,8 @@ namespace Planetoid_DB
 			kryptonToolStripIcons.AccessibleDescription = "Toolbar of main functions";
 			kryptonToolStripIcons.AccessibleName = "Toolbar of main functions";
 			kryptonToolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
+			kryptonToolStripIcons.AllowClickThrough = true;
+			kryptonToolStripIcons.AllowItemReorder = true;
 			kryptonToolStripIcons.Dock = DockStyle.None;
 			kryptonToolStripIcons.Font = new Font("Segoe UI", 9F);
 			kryptonToolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonSave, toolStripButtonCancel, toolStripSeparator1, toolStripButtonLoadDefaultSettings });
@@ -436,12 +416,11 @@ namespace Planetoid_DB
 			// 
 			// toolStripContainerSettings.ContentPanel
 			// 
-			toolStripContainerSettings.ContentPanel.Controls.Add(panel);
+			toolStripContainerSettings.ContentPanel.Controls.Add(kryptoPanelMain);
 			toolStripContainerSettings.ContentPanel.Margin = new Padding(4, 3, 4, 3);
 			toolStripContainerSettings.ContentPanel.Size = new Size(503, 263);
 			toolStripContainerSettings.Dock = DockStyle.Fill;
 			toolStripContainerSettings.Location = new Point(0, 0);
-			toolStripContainerSettings.Margin = new Padding(4, 3, 4, 3);
 			toolStripContainerSettings.Name = "toolStripContainerSettings";
 			toolStripContainerSettings.Size = new Size(503, 288);
 			toolStripContainerSettings.TabIndex = 7;
@@ -451,23 +430,27 @@ namespace Planetoid_DB
 			// 
 			toolStripContainerSettings.TopToolStripPanel.Controls.Add(kryptonToolStripIcons);
 			// 
-			// panel
+			// kryptoPanelMain
 			// 
-			panel.Controls.Add(tabControlSettings);
-			panel.Dock = DockStyle.Fill;
-			panel.Location = new Point(0, 0);
-			panel.Margin = new Padding(4, 3, 4, 3);
-			panel.Name = "panel";
-			panel.PanelBackStyle = PaletteBackStyle.FormMain;
-			panel.Size = new Size(503, 263);
-			panel.TabIndex = 0;
-			panel.TabStop = true;
+			kryptoPanelMain.AccessibleDescription = "Groups the data";
+			kryptoPanelMain.AccessibleName = "Panel";
+			kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
+			kryptoPanelMain.Controls.Add(tabControlSettings);
+			kryptoPanelMain.Dock = DockStyle.Fill;
+			kryptoPanelMain.Location = new Point(0, 0);
+			kryptoPanelMain.Name = "kryptoPanelMain";
+			kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
+			kryptoPanelMain.Size = new Size(503, 263);
+			kryptoPanelMain.TabIndex = 0;
+			kryptoPanelMain.TabStop = true;
 			// 
 			// kryptonStatusStrip
 			// 
 			kryptonStatusStrip.AccessibleDescription = "Shows some information";
 			kryptonStatusStrip.AccessibleName = "Status bar of some information";
 			kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
+			kryptonStatusStrip.AllowClickThrough = true;
+			kryptonStatusStrip.AllowItemReorder = true;
 			kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 			kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
 			kryptonStatusStrip.Location = new Point(0, 266);
@@ -475,10 +458,12 @@ namespace Planetoid_DB
 			kryptonStatusStrip.Padding = new Padding(1, 0, 16, 0);
 			kryptonStatusStrip.ProgressBars = null;
 			kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+			kryptonStatusStrip.ShowItemToolTips = true;
 			kryptonStatusStrip.Size = new Size(503, 22);
 			kryptonStatusStrip.SizingGrip = false;
 			kryptonStatusStrip.TabIndex = 8;
-			kryptonStatusStrip.Text = "status bar";
+			kryptonStatusStrip.TabStop = true;
+			kryptonStatusStrip.Text = "Status bar";
 			// 
 			// labelInformation
 			// 
@@ -487,7 +472,6 @@ namespace Planetoid_DB
 			labelInformation.AccessibleRole = AccessibleRole.StaticText;
 			labelInformation.AutoToolTip = true;
 			labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
-			labelInformation.Margin = new Padding(5, 3, 0, 2);
 			labelInformation.Name = "labelInformation";
 			labelInformation.Size = new Size(144, 17);
 			labelInformation.Text = "some information here";
@@ -542,8 +526,8 @@ namespace Planetoid_DB
 			toolStripContainerSettings.TopToolStripPanel.PerformLayout();
 			toolStripContainerSettings.ResumeLayout(false);
 			toolStripContainerSettings.PerformLayout();
-			((ISupportInitialize)panel).EndInit();
-			panel.ResumeLayout(false);
+			((ISupportInitialize)kryptoPanelMain).EndInit();
+			kryptoPanelMain.ResumeLayout(false);
 			kryptonStatusStrip.ResumeLayout(false);
 			kryptonStatusStrip.PerformLayout();
 			ResumeLayout(false);
@@ -584,7 +568,7 @@ namespace Planetoid_DB
         private KryptonCheckBox checkBox9;
         private KryptonCheckBox checkBox8;
         private KryptonRadioButton radioButton9;
-        private KryptonPanel panel;
+        private KryptonPanel kryptoPanelMain;
 		private KryptonStatusStrip kryptonStatusStrip;
 		private ToolStripStatusLabel labelInformation;
 		private KryptonManager kryptonManager;
