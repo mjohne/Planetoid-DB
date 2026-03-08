@@ -10,6 +10,7 @@ namespace Planetoid_DB.Helpers;
 
 /// <summary>Represents a numeric up-down control hosted in a ToolStrip.</summary>
 /// <remarks>This class provides a convenient way to include a NumericUpDown control within a ToolStrip or StatusStrip, allowing for easy integration of numeric input functionality in these UI components.</remarks>
+// You can use this class to add a numeric up-down control to a ToolStrip or StatusStrip, enabling users to input numeric values directly within these UI elements. The class exposes properties and events of the underlying NumericUpDown control, allowing for customization and interaction handling as needed.
 [DesignerCategory(category: "code")]
 [ToolStripItemDesignerAvailability(visibility: ToolStripItemDesignerAvailability.ToolStrip | ToolStripItemDesignerAvailability.StatusStrip)]
 public class ToolStripNumericUpDown : ToolStripControlHost

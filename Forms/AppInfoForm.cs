@@ -12,30 +12,19 @@ using System.Diagnostics;
 
 namespace Planetoid_DB;
 
-/// <summary>
-/// A form that displays application information.
-/// </summary>
-/// <remarks>
-/// This form is used to present information about the application, such as its version,
-/// description, and copyright details.
-/// </remarks>
+/// <summary>A form that displays application information.</summary>
+/// <remarks>This form is used to present information about the application, such as its version,
+/// description, and copyright details.</remarks>
+// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class AppInfoForm : BaseKryptonForm
 {
-	/// <summary>
-	/// NLog logger instance.
-	/// </summary>
-	/// <remarks>
-	/// This logger is used to log messages and errors for the class.
-	/// </remarks>
+	/// <summary>NLog logger instance.</summary>
+	/// <remarks>This logger is used to log messages and errors for the class.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>
-	/// Gets the status label to be used for displaying information.
-	/// </summary>
-	/// <remarks>
-	/// Derived classes should override this property to provide the specific label.
-	/// </remarks>
+	/// <summary>Gets the status label to be used for displaying information.</summary>
+	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	#region constructor
@@ -56,29 +45,21 @@ public partial class AppInfoForm : BaseKryptonForm
 
 	#region helper methods
 
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
+	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a visual representation of the object in the debugger.
-	/// </remarks>
+	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
 	#endregion
 
 	#region form event handlers
 
-	/// <summary>
-	/// Fired when the application info form loads.
+	/// <summary>Fired when the application info form loads.
 	/// Populates UI labels with product, version and description information from the assembly
-	/// and clears the status area.
-	/// </summary>
+	/// and clears the status area.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This event is used to initialize the form's UI elements with information from the assembly.
-	/// </remarks>
+	/// <remarks>This event is used to initialize the form's UI elements with information from the assembly.</remarks>
 	private void AppInfoForm_Load(object sender, EventArgs e)
 	{
 		labelTitle.Text = AssemblyInfo.AssemblyProduct;
@@ -92,15 +73,11 @@ public partial class AppInfoForm : BaseKryptonForm
 
 	#region Click event handlers
 
-	/// <summary>
-	/// Called when the website link is clicked.
-	/// Attempts to open the application's website in the user's default browser and logs any error.
-	/// </summary>
+	/// <summary>Called when the website link is clicked.
+	/// Attempts to open the application's website in the user's default browser and logs any error.</summary>
 	/// <param name="sender">Event source (the link label).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This event is used to open the application's website in the user's default browser.
-	/// </remarks>
+	/// <remarks>This event is used to open the application's website in the user's default browser.</remarks>
 	private async void LinkLabelWebsite_Clicked(object sender, EventArgs e)
 	{
 		try
@@ -120,16 +97,12 @@ public partial class AppInfoForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Called when the email link is clicked.
+	/// <summary>Called when the email link is clicked.
 	/// Attempts to open the user's default mail client with a new message addressed to the application's support email.
-	/// Any error during the operation is logged and shown to the user.
-	/// </summary>
+	/// Any error during the operation is logged and shown to the user.</summary>
 	/// <param name="sender">Event source (the link label).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This event is used to open the user's default mail client with a new message addressed to the application's support email.
-	/// </remarks>
+	/// <remarks>This event is used to open the user's default mail client with a new message addressed to the application's support email.</remarks>
 	private async void LinkLabelEmail_Clicked(object sender, EventArgs e)
 	{
 		try

@@ -12,63 +12,45 @@ using System.Drawing.Printing;
 
 namespace Planetoid_DB;
 
-/// <summary>
-/// Represents a form for printing data sheets.
-/// </summary>
+/// <summary>Represents a form that enables users to print data sheets for orbital elements, providing options to select
+/// elements, configure print settings, and manage printing operations.</summary>
+/// <remarks>This form allows users to preview, print, and customize the output of orbital element data sheets. It
+/// supports marking and unmarking elements for inclusion, handles print cancellation, and provides progress feedback
+/// during printing. Use this form to facilitate user-driven printing workflows for orbital element data in a Windows
+/// Forms application.</remarks>
+// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 
 public partial class PrintDataSheetForm : BaseKryptonForm
 {
-	/// <summary>
-	/// NLog logger for logging messages and errors.
-	/// </summary>
-	/// <remarks>
-	/// This logger is used to log messages and errors that occur within the form.
-	/// </remarks>
+	/// <summary>NLog logger for logging messages and errors.</summary>
+	/// <remarks>This logger is used to log messages and errors that occur within the form.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>
-	/// Gets the status label to be used for displaying information.
-	/// </summary>
-	/// <remarks>
-	/// Derived classes should override this property to provide the specific label.
-	/// </remarks>
-	protected override ToolStripStatusLabel? StatusLabel => labelStatus;
+	/// <summary>Gets the status label to be used for displaying information.</summary>
+	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
+	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
-	/// <summary>
-	/// Print document used for printing data sheets.
-	/// </summary>
-	/// <remarks>
-	/// This document is used to print the data sheets.
-	/// </remarks>
+	/// <summary>Print document used for printing data sheets.</summary>
+	/// <remarks>This document is used to print the data sheets.</remarks>
 	private readonly PrintDocument printDoc;
 
-	/// <summary>
-	/// List of orbit elements to be printed.
-	/// </summary>
-	/// <remarks>
-	/// This list contains the values of the orbital elements that will be printed on the data sheet.
-	/// </remarks>
+	/// <summary>List of orbit elements to be printed.</summary>
+	/// <remarks>This list contains the values of the orbital elements that will be printed on the data sheet.</remarks>
 	private List<string> orbitElements = [];
 
-	/// <summary>
-	/// The index of the last printed item.
-	/// </summary>
+	/// <summary>The index of the last printed item.</summary>
+	/// <remarks>This field keeps track of the last printed item's index to manage printing progress.</remarks>
 	private int lastPrintedIndex = 0;
 
-	/// <summary>
-	/// Indicates whether the printing process has been canceled.
-	/// </summary>
+	/// <summary>Indicates whether the printing process has been canceled.</summary>
+	/// <remarks>This field is used to track the cancellation state of the printing process.</remarks>
 	private bool cancelPrinting = false;
 
 	#region constructor
 
-	/// <summary>
-	/// Initializes a new instance of the <see cref="PrintDataSheetForm"/> class.
-	/// </summary>
-	/// <remarks>
-	/// This constructor initializes the form components and sets up the print document.
-	/// </remarks>
+	/// <summary>Initializes a new instance of the <see cref="PrintDataSheetForm"/> class.</summary>
+	/// <remarks>This constructor initializes the form components and sets up the print document.</remarks>
 	public PrintDataSheetForm()
 	{
 		// Initialize the form components
@@ -85,29 +67,20 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 
 	#region helper methods
 
-	/// <summary>
-	/// Sets the database of orbital elements.
-	/// </summary>
+	/// <summary>Sets the database of orbital elements.</summary>
 	/// <param name="db">The list of orbital elements.</param>
+	/// <remarks>This method sets the database of orbital elements to be used by the form.</remarks>
 	public void SetDatabase(List<string> db) => orbitElements = db;
 
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
+	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a custom debugger display string.
-	/// </remarks>
+	/// <remarks>This method is used to provide a custom debugger display string.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
-	/// <summary>
-	/// Checks or unchecks all items in the orbital elements checklist.
-	/// </summary>
+	/// <summary>Checks or unchecks all items in the orbital elements checklist.</summary>
 	/// <param name="check">If true, all items are checked; if false, all items are unchecked.</param>
-	/// <remarks>
-	/// This method iterates through all items in the orbital elements checklist
-	/// and sets their checked state based on the provided <paramref name="check"/> value.
-	/// </remarks>
+	/// <remarks>This method iterates through all items in the orbital elements checklist
+	/// and sets their checked state based on the provided <paramref name="check"/> value.</remarks>
 	private void CheckIt(bool check)
 	{
 		// Check or uncheck all items in the checked list box
@@ -120,13 +93,11 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Determines whether there are any remaining checked items to print starting from the specified index.
-	/// </summary>
+	/// <summary>Determines whether there are any remaining checked items to print starting from the specified index.</summary>
 	/// <param name="startIndex">The index from which to start searching for checked items.</param>
-	/// <returns>
-	/// <see langword="true"/> if there is at least one checked item at or after <paramref name="startIndex"/>; otherwise, <see langword="false"/>.
-	/// </returns>
+	/// <returns><see langword="true"/> if there is at least one checked item at or after <paramref name="startIndex"/>; otherwise, <see langword="false"/>.</returns>
+	/// <remarks>This method iterates through the checked list box items starting from the specified index
+	/// and checks if there are any remaining checked items.</remarks>
 	private bool HasMoreCheckedItems(int startIndex)
 	{
 		// Iterate through the checked list box items starting from the specified index
@@ -145,19 +116,15 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>
-	/// Handles the Load event of the form.
-	/// Checks all items in the checked list box when the form loads.
-	/// </summary>
+	/// <summary>Handles the Load event of the form.
+	/// Checks all items in the checked list box when the form loads.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the form loads.
-	/// </remarks>
+	/// <remarks> This method is called when the form loads.</remarks>
 	private void PrintDataSheetForm_Load(object sender, EventArgs e)
 	{
 		// Clear the status bar text
-		ClearStatusBar(label: labelStatus);
+		ClearStatusBar(label: labelInformation);
 		// Disable the progress bar
 		toolStripProgressBarPrinting.Visible = false;
 		// Disable the cancel print button
@@ -180,15 +147,11 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 
 	#region Click event handlers
 
-	/// <summary>
-	/// Handles the Click event of the print button.
-	/// Opens a print dialog and prints the document if the user confirms.
-	/// </summary>
+	/// <summary>Handles the Click event of the print button.
+	/// Opens a print dialog and prints the document if the user confirms.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the print button is clicked.
-	/// </remarks>
+	/// <remarks>This method is called when the print button is clicked.</remarks>
 	private async void ButtonPrintDataSheet_Click(object sender, EventArgs e)
 	{
 		// Create a new PrintDialog instance
@@ -228,26 +191,11 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Handles the Click event of the cancel button.
-	/// Closes the form without printing.
-	/// </summary>
+	/// <summary>Handles the Click event of the print preview button.
+	/// Opens a print preview dialog to preview the document before printing.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the cancel button is clicked.
-	/// </remarks>
-	private void ButtonCancelPrint_Click(object sender, EventArgs e) => Close();
-
-	/// <summary>
-	/// Handles the Click event of the print preview button.
-	/// Opens a print preview dialog to preview the document before printing.
-	/// </summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the print preview button is clicked.
-	/// </remarks>
+	/// <remarks>This method is called when the print preview button is clicked.</remarks>
 	private void ToolStripButtonPrintPreview_Click(object sender, EventArgs e)
 	{
 		// Create a new PrintPreviewDialog instance
@@ -258,15 +206,11 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		_ = previewDialog.ShowDialog();
 	}
 
-	/// <summary>
-	/// Handles the Click event of the page setup button.
-	/// Opens a page setup dialog to configure page settings.
-	/// </summary>
+	/// <summary>Handles the Click event of the page setup button.
+	/// Opens a page setup dialog to configure page settings.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the page setup button is clicked.
-	/// </remarks>
+	/// <remarks>This method is called when the page setup button is clicked.</remarks>
 	private void ToolStripButtonPageSetup_Click(object sender, EventArgs e)
 	{
 		// Create a new PageSetupDialog instance
@@ -283,46 +227,33 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Handles the click event of the cancel print button.
-	/// </summary>
+	/// <summary>Handles the click event of the cancel print button.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	/// <remarks>
-	/// This method sets the cancelPrinting flag to true, indicating that the printing process should be canceled.
-	/// </remarks>
+	/// <remarks>This method sets the cancelPrinting flag to true, indicating that the printing process should be canceled.</remarks>
 	private void ToolStripButtonCancelPrint_Click(object sender, EventArgs e) => cancelPrinting = true;
 
-	/// <summary>
-	/// Handles the click event for the 'Mark All' button, marking all items as checked.
-	/// </summary>
+	/// <summary>Handles the click event for the 'Mark All' button, marking all items as checked.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to mark all items in the orbital elements checklist.
-	/// </remarks>
+	/// <remarks>This method is used to mark all items in the orbital elements checklist.</remarks>
 	private void ToolStripButtonMarkAll_Click(object sender, EventArgs e) => CheckIt(check: true);
 
-	/// <summary>
-	/// Handles the click event for the 'Unmark All' button, resetting all items to an unchecked state.
-	/// </summary>
+	/// <summary>Handles the click event for the 'Unmark All' button, resetting all items to an unchecked state.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>
-	/// This method is used to unmark all items in the orbital elements checklist.
-	/// </remarks>
+	/// <remarks>This method is used to unmark all items in the orbital elements checklist.</remarks>
 	private void ToolStripButtonUnmarkAll_Click(object sender, EventArgs e) => CheckIt(check: false);
 
 	#endregion
 
 	#region PrintPage event handlers
 
-	/// <summary>
-	/// Handles the BeginPrint event of the PrintDocument.
-	/// Resets the index for pagination.
-	/// </summary>
+	/// <summary>Handles the BeginPrint event of the PrintDocument.
+	/// Resets the index for pagination.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="PrintEventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is called at the beginning of the print job to reset the pagination index and progress bar.</remarks>
 	private void PrintDoc_BeginPrint(object sender, PrintEventArgs e)
 	{
 		// Reset the last printed index to 0 at the beginning of the print job
@@ -331,15 +262,11 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		toolStripProgressBarPrinting.Text = "0%";
 	}
 
-	/// <summary>
-	/// Handles the PrintPage event of the PrintDocument.
-	/// Configures the print settings and content.
-	/// </summary>
+	/// <summary>Handles the PrintPage event of the PrintDocument.
+	/// Configures the print settings and content.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="PrintPageEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when a page is printed.
-	/// </remarks>
+	/// <remarks>This method is called when a page is printed.</remarks>
 	private void PrintDoc_PrintPage(object sender, PrintPageEventArgs e)
 	{
 		// Check if the printing process has been canceled

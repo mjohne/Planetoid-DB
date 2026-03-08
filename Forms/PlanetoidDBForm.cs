@@ -21,105 +21,58 @@ using static Planetoid_DB.TerminologyForm;
 
 namespace Planetoid_DB;
 
-/// <summary>
-/// Represents a form that displays terminology information.
-/// </summary>
-/// <remarks>
-/// This form is responsible for displaying and managing terminology information within the application.
-/// </remarks>
+/// <summary>Represents a form that displays terminology information.</summary>
+/// <remarks>This form is responsible for displaying and managing terminology information within the application.</remarks>
+// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 
 public partial class PlanetoidDbForm : BaseKryptonForm
 {
-	/// <summary>
-	/// NLog logger instance.
-	/// </summary>
-	/// <remarks>
-	/// This logger is used throughout the application to log important events and errors.
-	/// </remarks>
+	/// <summary>NLog logger instance.</summary>
+	/// <remarks>This logger is used throughout the application to log important events and errors.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>
-	/// Cancellation token source used to cancel an ongoing download operation.
-	/// May be null when no download is active.
-	/// </summary>
-	/// <remarks>
-	/// This token is used to cancel the download operation if needed.
-	/// </remarks>
+	/// <summary>Cancellation token source used to cancel an ongoing download operation.
+	/// May be null when no download is active.</summary>
+	/// <remarks>This token is used to cancel the download operation if needed.</remarks>
 	private CancellationTokenSource? cancellationTokenSource;
 
-	/// <summary>
-	/// Gets the status label to be used for displaying information.
-	/// </summary>
-	/// <remarks>
-	/// Derived classes should override this property to provide the specific label.
-	/// </remarks>
+	/// <summary>Gets the status label to be used for displaying information.</summary>
+	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
-	/// <summary>
-	/// Stores the current tag text of the control.
-	/// </summary>
-	/// <remarks>
-	/// This string is used to store the current tag text of the control for clipboard operations.
-	/// </remarks>
+	/// <summary>Stores the current tag text of the control.</summary>
+	/// <remarks>This string is used to store the current tag text of the control for clipboard operations.</remarks>
 	private string currentTagText = string.Empty;
 
-	/// <summary>
-	/// Stores the current position in the planetoids database and the step position for navigation.
-	/// </summary>
-	/// <remarks>
-	/// This integer is used to store the current position in the planetoids database and the step position for navigation.
-	/// </remarks>
+	/// <summary>Stores the current position in the planetoids database and the step position for navigation.</summary>
+	/// <remarks>This integer is used to store the current position in the planetoids database and the step position for navigation.</remarks>
 	private int currentPosition, stepPosition;
 
-	/// <summary>
-	/// Stores the planetoids database.
-	/// </summary>
-	/// <remarks>
-	/// This list is used to store the planetoids database entries.
-	/// </remarks>
+	/// <summary>Stores the planetoids database.</summary>
+	/// <remarks>This list is used to store the planetoids database entries.</remarks>
 	private readonly List<string> planetoidsDatabase = [];
 
-	/// <summary>
-	/// Splash screen form instance.
-	/// </summary>
-	/// <remarks>
-	/// This form is displayed while the application is loading.
-	/// </remarks>
+	/// <summary>Splash screen form instance.</summary>
+	/// <remarks>This form is displayed while the application is loading.</remarks>
 	private readonly SplashScreenForm formSplashScreen = new();
 
-	/// <summary>
-	/// Filenames for the MPCORB database.
-	/// </summary>
-	/// <remarks>
-	/// These strings are used to store the filenames for the MPCORB database.
-	/// </remarks>
+	/// <summary>Filenames for the MPCORB database.</summary>
+	/// <remarks>These strings are used to store the filenames for the MPCORB database.</remarks>
 	private readonly string filenameMpcorb = Settings.Default.systemFilenameMpcorb;
 	private readonly string filenameMpcorbTemp = Settings.Default.systemFilenameMpcorbTemp;
 
-	/// <summary>
-	/// URI for the MPCORB database.
-	/// </summary>
-	/// <remarks>
-	/// This URI is used to access the MPCORB database.
-	/// </remarks>
+	/// <summary>URI for the MPCORB database.</summary>
+	/// <remarks>This URI is used to access the MPCORB database.</remarks>
 	private readonly Uri uriMpcorb = new(uriString: Settings.Default.systemMpcorbDatGzUrl);
 
-	/// <summary>
-	/// Cancellation token source for download operations.
-	/// </summary>
-	/// <remarks>
-	/// This token source is used to cancel ongoing download operations.
-	/// </remarks>
+	/// <summary>Cancellation token source for download operations.</summary>
+	/// <remarks>This token source is used to cancel ongoing download operations.</remarks>
 	private CancellationTokenSource? downloadCancellationTokenSource;
 
-	/// <summary>
-	/// Shared <see cref="HttpClient"/> used for HTTP requests. Initialized in the constructor.
-	/// Reuse to avoid socket exhaustion.
-	/// </summary>
-	/// <remarks>
-	/// This HttpClient instance is reused for all HTTP requests to improve performance.
-	/// </remarks>
+	/// <summary>Shared <see cref="HttpClient"/> used for HTTP requests. Initialized in the constructor.
+	/// Reuse to avoid socket exhaustion.</summary>
+	/// <remarks>This HttpClient instance is reused for all HTTP requests to improve performance.</remarks>
 	private static readonly HttpClient httpClient = new(handler: new HttpClientHandler
 	{
 		AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
@@ -175,25 +128,17 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 	#region constructor
 
-	/// <summary>
-	/// Initializes a new instance of the <see cref="PlanetoidDbForm"/> class.
-	/// </summary>
-	/// <remarks>
-	/// This constructor initializes the form and sets the version text.
-	/// </remarks>
+	/// <summary>Initializes a new instance of the <see cref="PlanetoidDbForm"/> class.</summary>
+	/// <remarks>This constructor initializes the form and sets the version text.</remarks>
 	public PlanetoidDbForm()
 	{
 		InitializeComponent();
 		TextExtra = $"{Assembly.GetExecutingAssembly().GetName().Version}";
 	}
 
-	/// <summary>
-	/// Initializes a new instance of the <see cref="PlanetoidDbForm"/> class with a specified MPCORB.DAT file path.
-	/// </summary>
+	/// <summary>Initializes a new instance of the <see cref="PlanetoidDbForm"/> class with a specified MPCORB.DAT file path.</summary>
 	/// <param name="mpcorbDatFilePath">The file path to the MPCORB.DAT file.</param>
-	/// <remarks>
-	/// This constructor initializes the form and sets the version text.
-	/// </remarks>
+	/// <remarks>This constructor initializes the form and sets the version text.</remarks>
 	public PlanetoidDbForm(string mpcorbDatFilePath)
 	{
 		// Initialize the form components
@@ -207,33 +152,21 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 	#region helper methods
 
-	/// <summary>
-	/// Gets the file path of the MPCORB.DAT file.
-	/// </summary>
-	/// <remarks>
-	/// This property is used to store the file path of the MPCORB.DAT file.
-	/// </remarks>
+	/// <summary>Gets the file path of the MPCORB.DAT file.</summary>
+	/// <remarks>This property is used to store the file path of the MPCORB.DAT file.</remarks>
 	private string MpcOrbDatFilePath { get; set; } = string.Empty;
 
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
+	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a custom display string for the debugger.
-	/// </remarks>
+	/// <remarks>This method is used to provide a custom display string for the debugger.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
-	/// <summary>
-	/// Tries to parse an integer from the input string.
-	/// </summary>
+	/// <summary>Tries to parse an integer from the input string.</summary>
 	/// <param name="input">The input string to parse.</param>
 	/// <param name="value">The parsed integer value if successful.</param>
 	/// <param name="errorMessage">An error message if parsing fails.</param>
 	/// <returns>True if parsing was successful; otherwise, false.</returns>
-	/// <remarks>
-	/// This method is used to try parsing an integer from the input string.
-	/// </remarks>
+	/// <remarks>This method is used to try parsing an integer from the input string.</remarks>
 	public static bool TryParseInt(string input, out int value, out string errorMessage)
 	{
 		// Initialize output parameters
@@ -258,12 +191,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		return true;
 	}
 
-	/// <summary>
-	/// Restarts the application.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to restart the application.
-	/// </remarks>
+	/// <summary>Restarts the application.</summary>
+	/// <remarks>This method is used to restart the application.</remarks>
 	private void Restart()
 	{
 		// Close the current form and start a new instance of the application
@@ -271,12 +200,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		Close();
 	}
 
-	/// <summary>
-	/// Asks the user if they want to restart the application after downloading the database.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to ask the user if they want to restart the application after downloading the database.
-	/// </remarks>
+	/// <summary>Asks the user if they want to restart the application after downloading the database.</summary>
+	/// <remarks>This method is used to ask the user if they want to restart the application after downloading the database.</remarks>
 	private void AskForRestartAfterDownloadingDatabase()
 	{
 		// Ask the user if they want to restart the application after downloading the database
@@ -292,13 +217,9 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Navigates to the specified position in the planetoids database.
-	/// </summary>
+	/// <summary>Navigates to the specified position in the planetoids database.</summary>
 	/// <param name="position">The position to navigate to.</param>
-	/// <remarks>
-	/// This method is used to navigate to the specified position in the planetoids database.
-	/// </remarks>
+	/// <remarks>This method is used to navigate to the specified position in the planetoids database.</remarks>
 	internal void GotoCurrentPosition(int position)
 	{
 		// Handle the case where the database is empty
@@ -399,9 +320,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		*/
 	}
 
-	/// <summary>
-	/// Jumps to the record with the specified index or designation.
-	/// </summary>
+	/// <summary>Jumps to the record with the specified index or designation.</summary>
 	/// <param name="index">The index of the record.</param>
 	/// <param name="designation">The designation of the record.</param>
 	internal void JumpToRecord(string index, string designation)
@@ -425,17 +344,13 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		MessageBox.Show(text: "Record not found in the current loaded database.", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 	}
 
-	/// <summary>
-	/// Retrieves the last modified date and time (in UTC) of the resource at the specified URI.
-	/// </summary>
+	/// <summary>Retrieves the last modified date and time (in UTC) of the resource at the specified URI.</summary>
 	/// <param name="uri">The URI of the resource to check.</param>
 	/// <returns>
 	/// The <see cref="DateTime"/> representing the last modified date and time in UTC if available; 
 	/// otherwise, <see cref="DateTime.MinValue"/>.
 	/// </returns>
-	/// <remarks>
-	/// This method is used to retrieve the last modified date and time of a resource.
-	/// </remarks>
+	/// <remarks>This method is used to retrieve the last modified date and time of a resource.</remarks>
 	private static DateTime GetLastModified(Uri uri)
 	{
 		// Validate the input URI
@@ -460,9 +375,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		return DateTime.MinValue;
 	}
 
-	/// <summary>
-	/// Asynchronously retrieves the Last-Modified date of a resource.
-	/// </summary>
+	/// <summary>Asynchronously retrieves the Last-Modified date of a resource.</summary>
 	/// <param name="uri">The URI of the resource to query.</param>
 	/// <param name="client">An <see cref="HttpClient"/> used to send the request.</param>
 	/// <returns>
@@ -470,10 +383,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// otherwise <see cref="DateTime.MinValue"/>.
 	/// </returns>
 	/// <exception cref="ArgumentNullException">Thrown when <paramref name="uri"/> or <paramref name="client"/> is null.</exception>
-	/// <remarks>
-	/// The method logs and displays errors and returns <see cref="DateTime.MinValue"/> on failure.
-	/// A HEAD request is used to avoid downloading the response body.
-	/// </remarks>
+	/// <remarks>The method logs and displays errors and returns <see cref="DateTime.MinValue"/> on failure.
+	/// A HEAD request is used to avoid downloading the response body.</remarks>
 	private static async Task<DateTime?> GetLastModifiedAsync(Uri uri, HttpClient client)
 	{
 		// Validate input parameters
@@ -483,14 +394,10 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		return !response.IsSuccessStatusCode ? null : (response.Content.Headers.LastModified?.UtcDateTime);
 	}
 
-	/// <summary>
-	/// Gets the content length of the specified URI.
-	/// </summary>
+	/// <summary>Gets the content length of the specified URI.</summary>
 	/// <param name="uri">The URI to check.</param>
 	/// <returns>The content length of the URI.</returns>
-	/// <remarks>
-	/// This method is used to retrieve the content length of a resource.
-	/// </remarks>
+	/// <remarks>This method is used to retrieve the content length of a resource.</remarks>
 	private static long GetContentLength(Uri uri)
 	{
 		// Validate the input URI
@@ -515,15 +422,11 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		return 0;
 	}
 
-	/// <summary>
-	/// Checks if the device has an active internet connection.
-	/// </summary>
+	/// <summary>Checks if the device has an active internet connection.</summary>
 	/// <param name="client">The <see cref="HttpClient"/> instance to use for the request.</param>
 	/// <param name="url">The URL to check for internet connectivity.</param>
 	/// <returns><c>true</c> if the device has an active internet connection; otherwise, <c>false</c>.</returns>
-	/// <remarks>
-	/// This method sends a GET request to the specified URL and checks the response status.
-	/// </remarks>
+	/// <remarks>This method sends a GET request to the specified URL and checks the response status.</remarks>
 	private static async Task<bool> HasInternetAsync(HttpClient client, string url)
 	{
 		// Send a GET request to the specified URL
@@ -544,13 +447,9 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Checks if an update for the MPCORB database is available.
-	/// </summary>
+	/// <summary>Checks if an update for the MPCORB database is available.</summary>
 	/// <returns>true if an update is available, otherwise false.</returns>
-	/// <remarks>
-	/// This method is used to check if an update for the MPCORB database is available.
-	/// </remarks>
+	/// <remarks>This method is used to check if an update for the MPCORB database is available.</remarks>
 	private bool IsMpcorbDatUpdateAvailable()
 	{
 		// Check if the file exists before attempting to delete it
@@ -577,28 +476,16 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		return datetimeFileOnline > datetimeFileLocal;
 	}
 
-	/// <summary>
-	/// Loads a random minor planet from the database.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to load a random minor planet from the database.
-	/// </remarks>
+	/// <summary>Loads a random minor planet from the database.</summary>
+	/// <remarks>This method is used to load a random minor planet from the database.</remarks>
 	private void LoadRandomMinorPlanet() => GotoCurrentPosition(position: currentPosition = new Random().Next(maxValue: planetoidsDatabase.Count + 1));
 
-	/// <summary>
-	/// Navigates to the beginning of the data.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to navigate to the beginning of the data.
-	/// </remarks>
+	/// <summary>Navigates to the beginning of the data.</summary>
+	/// <remarks>This method is used to navigate to the beginning of the data.</remarks>
 	private void NavigateToTheBeginOfTheData() => GotoCurrentPosition(position: currentPosition = 0);
 
-	/// <summary>
-	/// Navigates backward by a specified step in the data.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to navigate backward by a specified step in the data.
-	/// </remarks>
+	/// <summary>Navigates backward by a specified step in the data.</summary>
+	/// <remarks>This method is used to navigate backward by a specified step in the data.</remarks>
 	private void NavigateSomeDataBackward()
 	{
 		// Decrease the current position by the step size
@@ -612,12 +499,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		GotoCurrentPosition(position: currentPosition);
 	}
 
-	/// <summary>
-	/// Navigates to the previous data entry.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to navigate to the previous data entry in the planetoids database.
-	/// </remarks>
+	/// <summary>Navigates to the previous data entry.</summary>
+	/// <remarks>This method is used to navigate to the previous data entry in the planetoids database.</remarks>
 	private void NavigateToThePreviousData()
 	{
 		// If the current position is 0, wrap around to the last entry in the database
@@ -637,12 +520,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		GotoCurrentPosition(position: currentPosition);
 	}
 
-	/// <summary>
-	/// Navigates to the next data entry.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to navigate to the next data entry in the planetoids database.
-	/// </remarks>
+	/// <summary>Navigates to the next data entry.</summary>
+	/// <remarks>This method is used to navigate to the next data entry in the planetoids database.</remarks>
 	private void NavigateToTheNextData()
 	{
 		// If the current position is the last entry in the database, wrap around to the first entry
@@ -662,12 +541,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		GotoCurrentPosition(position: currentPosition);
 	}
 
-	/// <summary>
-	/// Navigates forward by a specified step in the data.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to navigate forward by a specified step in the data.
-	/// </remarks>
+	/// <summary>Navigates forward by a specified step in the data.</summary>
+	/// <remarks>This method is used to navigate forward by a specified step in the data.</remarks>
 	private void NavigateSomeDataForward()
 	{
 		// Increase the current position by the step size
@@ -685,21 +560,13 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		GotoCurrentPosition(position: currentPosition);
 	}
 
-	/// <summary>
-	/// Navigates to the end of the data.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to navigate to the end of the data.
-	/// </remarks>
+	/// <summary>Navigates to the end of the data.</summary>
+	/// <remarks>This method is used to navigate to the end of the data.</remarks>
 	private void NavigateToTheEndOfTheData() => GotoCurrentPosition(position: currentPosition = planetoidsDatabase.Count - 1);
 
-	/// <summary>
-	/// Opens the terminology form with the specified index.
-	/// </summary>
+	/// <summary>Opens the terminology form with the specified index.</summary>
 	/// <param name="index">The index to set active in the terminology form.</param>
-	/// <remarks>
-	/// This method is used to open the terminology form with the specified index.
-	/// </remarks>
+	/// <remarks>This method is used to open the terminology form with the specified index.</remarks>
 	private void OpenTerminology(uint index)
 	{
 		// Create a new instance of the TerminologyForm
@@ -754,12 +621,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formTerminology.ShowDialog();
 	}
 
-	/// <summary>
-	/// Opens the table mode form.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to open the table mode form.
-	/// </remarks>
+	/// <summary>Opens the table mode form.</summary>
+	/// <remarks>This method is used to open the table mode form.</remarks>
 	private void OpenTableMode()
 	{
 		// Create a new instance of the TableModeForm
@@ -772,12 +635,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formTableMode.ShowDialog();
 	}
 
-	/// <summary>
-	/// Shows the orbital resonances form for the current planetoid.
-	/// </summary>
-	/// <remarks>
-	/// Parses the semi-major axis from the UI label and opens the <see cref="OrbitalResonancesOfOneMinorPlanetForm"/>.
-	/// </remarks>
+	/// <summary>Shows the orbital resonances form for the current planetoid.</summary>
+	/// <remarks>Parses the semi-major axis from the UI label and opens the <see cref="OrbitalResonancesOfOneMinorPlanetForm"/>.</remarks>
 	private void ShowOrbitalResonances()
 	{
 		IFormatProvider provider = CultureInfo.CreateSpecificCulture(name: "en");
@@ -793,12 +652,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formOrbitalResonances.ShowDialog();
 	}
 
-	/// <summary>
-	/// Shows the orbital resonances form for the current planetoid.
-	/// </summary>
-	/// <remarks>
-	/// Parses the semi-major axis from the UI label and opens the <see cref="OrbitalResonancesOfOneMinorPlanetForm"/>.
-	/// </remarks>
+	/// <summary>Shows the orbital resonances form for the current planetoid.</summary>
+	/// <remarks>Parses the semi-major axis from the UI label and opens the <see cref="OrbitalResonancesOfOneMinorPlanetForm"/>.</remarks>
 	private void ShowOrbitElementsGrouping()
 	{
 		using OrbitElementsGroupingForm formOrbitElementsGrouping = new(planetoids: planetoidsDatabase);
@@ -806,12 +661,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formOrbitElementsGrouping.ShowDialog();
 	}
 
-	/// <summary>
-	/// Shows the asteroid families form.
-	/// </summary>
-	/// <remarks>
-	/// Passes the full planetoids database to the form so it can display asteroid families.
-	/// </remarks>
+	/// <summary>Shows the asteroid families form.</summary>
+	/// <remarks>Passes the full planetoids database to the form so it can display asteroid families.</remarks>
 	private void ShowAsteroidFamilies()
 	{
 		using AsteroidFamiliesForm formAsteroidFamilies = new(planetoids: planetoidsDatabase);
@@ -819,13 +670,9 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formAsteroidFamilies.ShowDialog();
 	}
 
-	/// <summary>
-	/// Shows the orbital resonances of all minor planets form.
-	/// Opens the form to find orbital resonances of all planetoids relative to the solar system planets.
-	/// </summary>
-	/// <remarks>
-	/// Passes the full planetoids database to the form so it can iterate over all records.
-	/// </remarks>
+	/// <summary>Shows the orbital resonances of all minor planets form.
+	/// Opens the form to find orbital resonances of all planetoids relative to the solar system planets.</summary>
+	/// <remarks>Passes the full planetoids database to the form so it can iterate over all records.</remarks>
 	private void ShowOrbitalResonancesOfAllMinorPlanets()
 	{
 		// Create a new instance of the OrbitalResonancesOfAllMinorPlanetsForm
@@ -834,12 +681,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formOrbitalResonances.ShowDialog();
 	}
 
-	/// <summary>
-	/// Shows the application information form.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to show the application information form.
-	/// </remarks>
+	/// <summary>Shows the application information form.</summary>
+	/// <remarks>This method is used to show the application information form.</remarks>
 	private void ShowAppInfo()
 	{
 		// Create a new instance of the AppInfoForm
@@ -850,9 +693,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formAppInfo.ShowDialog();
 	}
 
-	/// <summary>
-	/// Displays the archive form as a modal dialog, ensuring it remains on top of other windows.
-	/// </summary>
+	/// <summary>Displays the archive form as a modal dialog, ensuring it remains on top of other windows.</summary>
 	/// <remarks>This method creates an instance of the ArchiveMpcorbForm and sets its TopMost property to true,
 	/// which keeps the form above other application windows. The form is shown modally, meaning the user must interact
 	/// with it before returning to the main application.</remarks>
@@ -866,10 +707,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formArchive.ShowDialog();
 	}
 
-	/// <summary>
-	/// Displays the archive comparison form as a modal dialog, allowing users to view differences between database
-	/// archives.
-	/// </summary>
+	/// <summary>Displays the archive comparison form as a modal dialog, allowing users to view differences between database
+	/// archives.</summary>
 	/// <remarks>The form is set to remain on top of other windows while it is open, ensuring that users can easily
 	/// interact with it without losing focus.</remarks>
 	private void ShowCompareArchives()
@@ -882,12 +721,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formDataDifferences.ShowDialog();
 	}
 
-	/// <summary>
-	/// Shows the license form.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to show the license form.
-	/// </remarks>
+	/// <summary>Shows the license form.</summary>
+	/// <remarks>This method is used to show the license form.</remarks>
 	private void ShowLicense()
 	{
 		// Create a new instance of the LicenseForm
@@ -898,12 +733,9 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formLicense.ShowDialog();
 	}
 
-	/// <summary>
-	/// Shows the records selection form.
-	/// </summary>
+	/// <summary>Shows the records selection form.</summary>
 	///	<remarks>
-	///	This method is used to show the records selection form.
-	/// </remarks>
+	///	This method is used to show the records selection form.</remarks>
 	private void ShowRecordsSelection()
 	{
 		// Create a new instance of the RecordsSelectionForm
@@ -914,12 +746,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formRecordsSelection.ShowDialog();
 	}
 
-	/// <summary>
-	/// Shows the main records form.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to show the main records form.
-	/// </remarks>
+	/// <summary>Shows the main records form.</summary>
+	/// <remarks>This method is used to show the main records form.</remarks>
 	private void ShowRecordsMain()
 	{
 		// Create a new instance of the RecordsMainForm
@@ -930,13 +758,9 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formRecordsMain.ShowDialog();
 	}
 
-	/// <summary>
-	/// Shows the records form that scans all orbital elements for maximum or minimum record values.
-	/// </summary>
-	/// <remarks>
-	/// This method creates the <see cref="RecordsForm"/>, passes a copy of the current planetoid
-	/// database, and displays the form as a modal dialog.
-	/// </remarks>
+	/// <summary>Shows the records form that scans all orbital elements for maximum or minimum record values.</summary>
+	/// <remarks>This method creates the <see cref="RecordsForm"/>, passes a copy of the current planetoid
+	/// database, and displays the form as a modal dialog.</remarks>
 	private void ShowRecordsForm()
 	{
 		// Create a new instance of the RecordsForm
@@ -949,12 +773,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formRecords.ShowDialog();
 	}
 
-	/// <summary>
-	/// Shows the MPCORB data check form.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to check the MPCORB data for updates.
-	/// </remarks>
+	/// <summary>Shows the MPCORB data check form.</summary>
+	/// <remarks>This method is used to check the MPCORB data for updates.</remarks>
 	private async void ShowMpcorbDatCheck()
 	{
 		// Check if the network is available before proceeding with the download
@@ -975,12 +795,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Shows the MPCORB data check form.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to check the ASTORB data for updates.
-	/// </remarks>
+	/// <summary>Shows the MPCORB data check form.</summary>
+	/// <remarks>This method is used to check the ASTORB data for updates.</remarks>
 	private void ShowAstorbDatCheck()
 	{
 		// Check if the network is available before proceeding with the download
@@ -1000,12 +816,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Shows the downloader form for the MPCORB database.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to show the downloader form for the MPCORB database.
-	/// </remarks>
+	/// <summary>Shows the downloader form for the MPCORB database.</summary>
+	/// <remarks>This method is used to show the downloader form for the MPCORB database.</remarks>
 	private void ShowMpcorbDatDownloader()
 	{
 		// Check if the network is available before proceeding with the download
@@ -1029,12 +841,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Shows the downloader form for the ASTORB database.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to show the downloader form for the ASTORB database.
-	/// </remarks>
+	/// <summary>Shows the downloader form for the ASTORB database.</summary>
+	/// <remarks>This method is used to show the downloader form for the ASTORB database.</remarks>
 	private void ShowAstorbDatDownloader()
 	{
 		// Check if the network is available before proceeding with the download
@@ -1058,12 +866,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Shows the database information form.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to show the database information form.
-	/// </remarks>
+	/// <summary>Shows the database information form.</summary>
+	/// <remarks>This method is used to show the database information form.</remarks>
 	private void ShowDatabaseInformation()
 	{
 		// Create a new instance of the DatabaseInformationForm
@@ -1074,12 +878,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formDatabaseInformation.ShowDialog();
 	}
 
-	/// <summary>
-	/// Shows the form to copy data to the clipboard.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to show the form for copying data to the clipboard.
-	/// </remarks>
+	/// <summary>Shows the form to copy data to the clipboard.</summary>
+	/// <remarks>This method is used to show the form for copying data to the clipboard.</remarks>
 	private void ShowCopyDataToClipboard()
 	{
 		// Create a new list to store the data to copy
@@ -1118,12 +918,9 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formCopyDataToClipboard.ShowDialog();
 	}
 
-	/// <summary>
-	/// Shows the search form.
-	/// </summary>
+	/// <summary>Shows the search form.</summary>
 	///	<remarks>
-	///	This method is used to show the search form.
-	/// </remarks>
+	///	This method is used to show the search form.</remarks>
 	private void ShowSearch()
 	{
 		// Create a new instance of the SearchForm
@@ -1151,12 +948,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		*/
 	}
 
-	/// <summary>
-	/// Shows the filter form.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to show the filter form.
-	/// </remarks>
+	/// <summary>Shows the filter form.</summary>
+	/// <remarks>This method is used to show the filter form.</remarks>
 	private void ShowFilter()
 	{
 		// Create a new instance of the FilterForm
@@ -1167,12 +960,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formFilter.ShowDialog();
 	}
 
-	/// <summary>
-	/// Shows the settings form.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to show the settings form.
-	/// </remarks>
+	/// <summary>Shows the settings form.</summary>
+	/// <remarks>This method is used to show the settings form.</remarks>
 	private void ShowSettings()
 	{
 		// Create a new instance of the SettingsForm
@@ -1183,12 +972,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formSettings.ShowDialog();
 	}
 
-	/// <summary>
-	/// Opens the database differences form.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to show the database differences form.
-	/// </remarks>
+	/// <summary>Opens the database differences form.</summary>
+	/// <remarks>This method is used to show the database differences form.</remarks>
 	private void OpenDatabaseDifferences()
 	{
 		// Create a new instance of the DatabaseDifferencesForm
@@ -1199,12 +984,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formDatabaseDifferences.ShowDialog();
 	}
 
-	/// <summary>
-	/// Lists readable designations.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to show the list of readable designations.
-	/// </remarks>
+	/// <summary>Lists readable designations.</summary>
+	/// <remarks>This method is used to show the list of readable designations.</remarks>
 	private void ListReadableDesignations()
 	{
 		// Create a new instance of the ListReadableDesignationsForm
@@ -1225,12 +1006,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Exports the data sheet.
-	/// </summary>
-	///	<remarks>
-	/// This method is used to export the data sheet.
-	/// </remarks>
+	/// <summary>Exports the data sheet.</summary>
+	///	<remarks>This method is used to export the data sheet.</remarks>
 	private void ExportDataSheet()
 	{
 		// Create a new list to store the orbital elements
@@ -1291,12 +1068,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formExportDataSheet.ShowDialog();
 	}
 
-	/// <summary>
-	/// Shows the print data sheet form.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to show the print data sheet form.
-	/// </remarks>
+	/// <summary>Shows the print data sheet form.</summary>
+	/// <remarks>This method is used to show the print data sheet form.</remarks>
 	private void PrintDataSheet()
 	{
 		// Create a new list to store the orbital elements
@@ -1357,12 +1130,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formPrintDataSheet.ShowDialog();
 	}
 
-	/// <summary>
-	/// Shows the derived orbit elements form.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to show the derived orbit elements form.
-	/// </remarks>
+	/// <summary>Shows the derived orbit elements form.</summary>
+	/// <remarks>This method is used to show the derived orbit elements form.</remarks>
 	private void ShowDerivedOrbitElements()
 	{
 		// Create a new list to store the derived orbit elements
@@ -1403,26 +1172,18 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formDerivedOrbitElements.ShowDialog();
 	}
 
-	/// <summary>
-	/// Checks if the form should stay on top of other windows.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to check if the form should stay on top of other windows.
-	/// </remarks>
+	/// <summary>Checks if the form should stay on top of other windows.</summary>
+	/// <remarks>This method is used to check if the form should stay on top of other windows.</remarks>
 	private void CheckStayOnTop() => TopMost = menuitemOptionStayOnTop.Checked;
 
 	#endregion
 
 	#region form event handlers
 
-	/// <summary>
-	/// Handles the Load event of the PlanetoidDBForm.
-	/// </summary>
+	/// <summary>Handles the Load event of the PlanetoidDBForm.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to initialize the form and its controls.
-	/// </remarks>
+	/// <remarks>This method is used to initialize the form and its controls.</remarks>
 	private void PlanetoidDBForm_Load(object sender, EventArgs e)
 	{
 		ClearStatusBar(label: labelInformation);
@@ -1434,14 +1195,10 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		formSplashScreen.Show();
 	}
 
-	/// <summary>
-	/// Handles the shown event of the PlanetoidDBForm.
-	/// </summary>
+	/// <summary>Handles the shown event of the PlanetoidDBForm.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to handle the shown event of the form.
-	/// </remarks>
+	/// <remarks>This method is used to handle the shown event of the form.</remarks>
 	private void PlanetoidDBForm_Shown(object sender, EventArgs e)
 	{
 		// Disable the background download label
@@ -1474,14 +1231,10 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		CheckStayOnTop();
 	}
 
-	/// <summary>
-	/// Handles the FormClosing event of the PlanetoidDBForm.
-	/// </summary>
+	/// <summary>Handles the FormClosing event of the PlanetoidDBForm.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="FormClosingEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to handle the form closing event.
-	/// </remarks>
+	/// <remarks>This method is used to handle the form closing event.</remarks>
 	private void PlanetoidDBForm_FormClosing(object sender, FormClosingEventArgs e)
 	{
 		// Check if the file exists before attempting to delete it
@@ -1496,14 +1249,10 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 	#region BackgroundWorker event handlers for database loading on start up
 
-	/// <summary>
-	/// Handles the DoWork event of the BackgroundWorker for loading the database.
-	/// </summary>
+	/// <summary>Handles the DoWork event of the BackgroundWorker for loading the database.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="DoWorkEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to load the database in a background thread.
-	/// </remarks>
+	/// <remarks>This method is used to load the database in a background thread.</remarks>
 	private void BackgroundWorkerLoadingDatabase_DoWork(object sender, DoWorkEventArgs e)
 	{
 		Enabled = false; // Disable the form while loading the database
@@ -1543,14 +1292,10 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		formSplashScreen.Close();
 	}
 
-	/// <summary>
-	/// Handles the ProgressChanged event of the BackgroundWorker for loading the database.
-	/// </summary>
+	/// <summary>Handles the ProgressChanged event of the BackgroundWorker for loading the database.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="ProgressChangedEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to handle the progress changed event during the database loading process.
-	/// </remarks>
+	/// <remarks>This method is used to handle the progress changed event during the database loading process.</remarks>
 	private static void BackgroundWorkerLoadingDatabase_ProgressChanged(object? sender, ProgressChangedEventArgs e)
 	{
 		//MessageBox.Show(text: e.ProgressPercentage.ToString());
@@ -1558,14 +1303,10 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 	}
 
-	/// <summary>
-	/// Handles the RunWorkerCompleted event of the BackgroundWorker for loading the database.
-	/// </summary>
+	/// <summary>Handles the RunWorkerCompleted event of the BackgroundWorker for loading the database.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="RunWorkerCompletedEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to handle the completion of the database loading process.
-	/// </remarks>
+	/// <remarks>This method is used to handle the completion of the database loading process.</remarks>
 	private void BackgroundWorkerLoadingDatabase_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
 	{
 		toolStripTextBoxGotoIndex.Text = 1.ToString(); // Set the initial value of the goto index text box
@@ -1579,15 +1320,11 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 	#region Download and update database
 
-	/// <summary>
-	/// Handles the progress changed event during the download process.
-	/// Updates the progress bar and taskbar progress.
-	/// </summary>
+	/// <summary>Handles the progress changed event during the download process.
+	/// Updates the progress bar and taskbar progress.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="DownloadProgressChangedEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to update the progress bar and taskbar progress during the download process.
-	/// </remarks>
+	/// <remarks>This method is used to update the progress bar and taskbar progress during the download process.</remarks>
 	private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
 	{
 		// Update the progress bar value
@@ -1596,15 +1333,11 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		TaskbarProgress.SetValue(windowHandle: Handle, progressValue: 0, progressMax: 100);
 	}
 
-	/// <summary>
-	/// Extracts a GZIP-compressed file to the specified output file.
-	/// </summary>
+	/// <summary>Extracts a GZIP-compressed file to the specified output file.</summary>
 	/// <param name="gzipFilePath">Full path to the source .gz file.</param>
 	/// <param name="outputFilePath">Full path where the decompressed file will be written.</param>
-	/// <remarks>
-	/// The method streams the compressed input to the output file using <see cref="GZipStream"/>.
-	/// It throws exceptions (e.g. <see cref="IOException"/>, <see cref="InvalidDataException"/>) to the caller.
-	/// </remarks>
+	/// <remarks>The method streams the compressed input to the output file using <see cref="GZipStream"/>.
+	/// It throws exceptions (e.g. <see cref="IOException"/>, <see cref="InvalidDataException"/>) to the caller.</remarks>
 	private static void ExtractGzipFile(string gzipFilePath, string outputFilePath)
 	{
 		// Create a new file stream for the gzip file
@@ -1617,15 +1350,11 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		decompressionStream.CopyTo(destination: decompressedFileStream);
 	}
 
-	/// <summary>
-	/// Handles the completion of the download process.
-	/// Manages file operations and updates the UI accordingly.
-	/// </summary>
+	/// <summary>Handles the completion of the download process.
+	/// Manages file operations and updates the UI accordingly.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="AsyncCompletedEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to handle the completion of the download process.
-	/// </remarks>
+	/// <remarks>This method is used to handle the completion of the download process.</remarks>
 	private async void ToolStripStatusLabelUpdate_Click(object sender, EventArgs e)
 	{
 		// Check if the user wants to download the latest MPCORB.DAT file
@@ -1752,38 +1481,26 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 	#region Timer event handlers
 
-	/// <summary>
-	/// Handles the tick event for checking new MPCORB data file.
-	/// Calls the PlanetoidDBForm_Shown method.
-	/// </summary>
+	/// <summary>Handles the tick event for checking new MPCORB data file.
+	/// Calls the PlanetoidDBForm_Shown method.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to check for a new MPCORB data file.
-	/// </remarks>
+	/// <remarks>This method is used to check for a new MPCORB data file.</remarks>
 	private void TimerCheckForNewMpcorbDatFile_Tick(object sender, EventArgs e) => PlanetoidDBForm_Shown(sender: sender, e: e);
 
-	/// <summary>
-	/// Handles the tick event for blinking the update available status label.
-	/// Toggles the ForeColor of the toolStripStatusLabelUpdate.
-	/// </summary>
+	/// <summary>Handles the tick event for blinking the update available status label.
+	/// Toggles the ForeColor of the toolStripStatusLabelUpdate.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to blink the update available status label.
-	/// </remarks>
+	/// <remarks>This method is used to blink the update available status label.</remarks>
 	private void TimerBlinkForUpdateAvailable_Tick(object sender, EventArgs e) => toolStripStatusLabelUpdate.ForeColor = toolStripStatusLabelUpdate.ForeColor == SystemColors.HotTrack ? SystemColors.ControlText : SystemColors.HotTrack;
 
 	#endregion
 
 	#region Clear event handlers
 
-	/// <summary>
-	/// Clears the checked state of all navigation step menu items.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to clear the checked state of all navigation step menu items.
-	/// </remarks>
+	/// <summary>Clears the checked state of all navigation step menu items.</summary>
+	/// <remarks>This method is used to clear the checked state of all navigation step menu items.</remarks>
 	private void ToolStripMenuItem_Clear()
 	{
 		// Clear the checked state of all navigation step menu items
@@ -1798,15 +1515,11 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 	#region KeyPress event handlers
 
-	/// <summary>
-	/// Handles the KeyPress event for the ToolStripTextBoxGotoIndex.
-	/// Ensures only numeric input and handles the Enter key to trigger navigation.
-	/// </summary>
+	/// <summary>Handles the KeyPress event for the ToolStripTextBoxGotoIndex.
+	/// Ensures only numeric input and handles the Enter key to trigger navigation.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="KeyPressEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to ensure only numeric input is allowed in the ToolStripTextBoxGotoIndex.
-	/// </remarks>
+	/// <remarks>This method is used to ensure only numeric input is allowed in the ToolStripTextBoxGotoIndex.</remarks>
 	private void ToolStripTextBoxGotoIndex_KeyPress(object sender, KeyPressEventArgs e)
 	{
 		// Check if the pressed key is a control character or a digit
@@ -1827,15 +1540,11 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 	#region MouseDown event handlers
 
-	/// <summary>
-	/// Handles the MouseDown event for controls.
-	/// Stores the control that triggered the event for future reference.
-	/// </summary>
+	/// <summary>Handles the MouseDown event for controls.
+	/// Stores the control that triggered the event for future reference.</summary>
 	/// <param name="sender">Event source (the control).</param>
 	/// <param name="e">The <see cref="MouseEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to store the control that triggered the event for future reference.
-	/// </remarks>
+	/// <remarks>This method is used to store the control that triggered the event for future reference.</remarks>
 	protected override void Control_MouseDown(object sender, MouseEventArgs e)
 	{
 		// Check if the sender is a Control
@@ -1852,103 +1561,69 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 	#region Click & ButtonClick event Handlers
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemArchive.
-	/// Opens the archive.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemArchive.
+	/// Opens the archive.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the archive.
-	/// </remarks>
+	/// <remarks>This method is used to show the archive.</remarks>
 	private void ToolStripMenuItemArchive_Click(object sender, EventArgs e) => ShowArchive();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripButtonArchive.
-	/// Opens the archive.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripButtonArchive.
+	/// Opens the archive.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the archive.
-	/// </remarks>
+	/// <remarks>This method is used to show the archive.</remarks>
 	private void ToolStripButtonArchive_Click(object sender, EventArgs e) => ShowArchive();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripButtonStepToBegin.
-	/// Navigates to the beginning of the data.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripButtonStepToBegin.
+	/// Navigates to the beginning of the data.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to navigate to the beginning of the data.
-	/// </remarks>
+	/// <remarks>This method is used to navigate to the beginning of the data.</remarks>
 	private void ToolStripButtonStepToBegin_Click(object sender, EventArgs e) => NavigateToTheBeginOfTheData();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripButtonStepBackward.
-	/// Navigates backward by a specified step in the data.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripButtonStepBackward.
+	/// Navigates backward by a specified step in the data.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to navigate backward by a specified step in the data.
-	/// </remarks>
+	/// <remarks>This method is used to navigate backward by a specified step in the data.</remarks>
 	private void ToolStripButtonStepBackward_Click(object sender, EventArgs e) => NavigateSomeDataBackward();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripButtonStepBackwardOne.
-	/// Navigates to the previous data entry.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripButtonStepBackwardOne.
+	/// Navigates to the previous data entry.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	///	<remarks>
-	/// This method is used to navigate to the previous data entry.
-	/// </remarks>
+	///	<remarks>This method is used to navigate to the previous data entry.</remarks>
 	private void ToolStripButtonStepBackwardOne_Click(object sender, EventArgs e) => NavigateToThePreviousData();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripButtonStepForwardOne.
-	/// Navigates to the next data entry.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripButtonStepForwardOne.
+	/// Navigates to the next data entry.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to navigate to the next data entry.
-	/// </remarks>
+	/// <remarks>This method is used to navigate to the next data entry.</remarks>
 	private void ToolStripButtonStepForwardOne_Click(object sender, EventArgs e) => NavigateToTheNextData();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripButtonStepForward.
-	/// Navigates forward by a specified step in the data.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripButtonStepForward.
+	/// Navigates forward by a specified step in the data.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to navigate forward by a specified step in the data.
-	/// </remarks>
+	/// <remarks>This method is used to navigate forward by a specified step in the data.</remarks>
 	private void ToolStripButtonStepForward_Click(object sender, EventArgs e) => NavigateSomeDataForward();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripButtonStepToEnd.
-	/// Navigates to the end of the data.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripButtonStepToEnd.
+	/// Navigates to the end of the data.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	///	<remarks>
-	///	This method is used to navigate to the end of the data.
-	/// </remarks>
+	///	This method is used to navigate to the end of the data.</remarks>
 	private void ToolStripButtonStepToEnd_Click(object sender, EventArgs e) => NavigateToTheEndOfTheData();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripButtonGoToIndex.
-	/// Navigates to the specified index in the data.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripButtonGoToIndex.
+	/// Navigates to the specified index in the data.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	///	<remarks>
-	///	This method is used to navigate to a specific index in the data.
-	/// </remarks>
+	///	This method is used to navigate to a specific index in the data.</remarks>
 	private void ToolStripButtonGoToIndex_Click(object? sender, EventArgs? e)
 	{
 		int pos = 0;
@@ -1984,37 +1659,25 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemTerminology.
-	/// Opens the terminology form with the specified index.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemTerminology.
+	/// Opens the terminology form with the specified index.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to open the terminology form with the specified index.
-	/// </remarks>
+	/// <remarks>This method is used to open the terminology form with the specified index.</remarks>
 	private void ToolStripMenuItemTerminology_Click(object sender, EventArgs e) => OpenTerminology(index: 0);
 
-	/// <summary>
-	/// Handles the click event for the ToolStripButtonTerminology.
-	/// Opens the terminology form with the specified index.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripButtonTerminology.
+	/// Opens the terminology form with the specified index.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to open the terminology form with the specified index.
-	/// </remarks>
+	/// <remarks>This method is used to open the terminology form with the specified index.</remarks>
 	private void ToolStripButtonTerminology_Click(object sender, EventArgs e) => OpenTerminology(index: 0);
 
-	/// <summary>
-	/// Handles the click event for the ToolStripStatusLabelCancelBackgroundDownload.
-	/// Cancels the background download.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripStatusLabelCancelBackgroundDownload.
+	/// Cancels the background download.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to cancel the background download.
-	/// </remarks>
+	/// <remarks>This method is used to cancel the background download.</remarks>
 	private void ToolStripStatusLabelCancelBackgroundDownload_Click(object sender, EventArgs e)
 	{
 		// Cancel download
@@ -2027,15 +1690,11 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		downloadCancellationTokenSource?.Cancel();
 	}
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItem10.
-	/// Sets the navigation step to 10 and updates the menu item checked state.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItem10.
+	/// Sets the navigation step to 10 and updates the menu item checked state.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to navigate to a specific index in the data.
-	/// </remarks>
+	/// <remarks>This method is used to navigate to a specific index in the data.</remarks>
 	private void ToolStripMenuItem10_Click(object sender, EventArgs e)
 	{
 		// Set the step position to 10
@@ -2046,15 +1705,11 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		menuitemNavigateStep10.Checked = true;
 	}
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItem100.
-	/// Sets the navigation step to 100 and updates the menu item checked state.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItem100.
+	/// Sets the navigation step to 100 and updates the menu item checked state.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to navigate to a specific index in the data.
-	/// </remarks>
+	/// <remarks>This method is used to navigate to a specific index in the data.</remarks>
 	private void ToolStripMenuItem100_Click(object sender, EventArgs e)
 	{
 		// Set the step position to 100
@@ -2065,15 +1720,11 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		menuitemNavigateStep100.Checked = true;
 	}
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItem1000.
-	/// Sets the navigation step to 1000 and updates the menu item checked state.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItem1000.
+	/// Sets the navigation step to 1000 and updates the menu item checked state.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to navigate to a specific index in the data.
-	/// </remarks>
+	/// <remarks>This method is used to navigate to a specific index in the data.</remarks>
 	private void ToolStripMenuItem1000_Click(object sender, EventArgs e)
 	{
 		// Set the step position to 1000
@@ -2084,15 +1735,11 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		menuitemNavigateStep1000.Checked = true;
 	}
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItem10000.
-	/// Sets the navigation step to 10000 and updates the menu item checked state.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItem10000.
+	/// Sets the navigation step to 10000 and updates the menu item checked state.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to navigate to a specific index in the data.
-	/// </remarks>
+	/// <remarks>This method is used to navigate to a specific index in the data.</remarks>
 	private void ToolStripMenuItem10000_Click(object sender, EventArgs e)
 	{
 		// Set the step position to 10000
@@ -2103,15 +1750,11 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		menuitemNavigateStep10000.Checked = true;
 	}
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItem100000.
-	/// Sets the navigation step to 100000 and updates the menu item checked state.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItem100000.
+	/// Sets the navigation step to 100000 and updates the menu item checked state.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to navigate to a specific index in the data.
-	/// </remarks>
+	/// <remarks>This method is used to navigate to a specific index in the data.</remarks>
 	private void ToolStripMenuItem100000_Click(object sender, EventArgs e)
 	{
 		// Set the step position to 100000
@@ -2122,1180 +1765,787 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		menuitemNavigateStep100000.Checked = true;
 	}
 
-	/// <summary>
-	/// Handles the click event for the MenuitemExit.
-	/// Closes the application.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemExit.
+	/// Closes the application.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to close the application.
-	/// </remarks>
+	/// <remarks>This method is used to close the application.</remarks>
 	private void MenuitemExit_Click(object sender, EventArgs e) => Close();
 
-	/// <summary>
-	/// Handles the click event for the MenuitemAbout.
-	/// Shows the application information form.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemAbout.
+	/// Shows the application information form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the application information form.
-	/// </remarks>
+	/// <remarks>This method is used to show the application information form.</remarks>
 	private void MenuitemAbout_Click(object sender, EventArgs e) => ShowAppInfo();
 
-	/// <summary>
-	/// Handles the click event for the MenuitemLicense.
-	/// Shows the license form.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemLicense.
+	/// Shows the license form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the license form.
-	/// </remarks>
+	/// <remarks>This method is used to show the license form.</remarks>
 	private void MenuitemLicense_Click(object sender, EventArgs e) => ShowLicense();
 
-	/// <summary>
-	/// Handles the click event for the MenuitemOpenWebsitePDB.
-	/// Opens the Planetoid Database website.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemOpenWebsitePDB.
+	/// Opens the Planetoid Database website.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to open the Planetoid Database website.
-	/// </remarks>
+	/// <remarks>This method is used to open the Planetoid Database website.</remarks>
 	private void MenuitemOpenWebsitePDB_Click(object sender, EventArgs e) => Process.Start(fileName: Settings.Default.systemHomepage);
 
-	/// <summary>
-	/// Handles the click event for the MenuitemOpenWebsiteMPC.
-	/// Opens the Minor Planet Center website.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemOpenWebsiteMPC.
+	/// Opens the Minor Planet Center website.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to open the Minor Planet Center website.
-	/// </remarks>
+	/// <remarks>This method is used to open the Minor Planet Center website.</remarks>
 	private void MenuitemOpenWebsiteMPC_Click(object sender, EventArgs e) => Process.Start(fileName: Settings.Default.systemWebsiteMpc);
 
-	/// <summary>
-	/// Handles the click event for the MenuitemOpenMPCORBWebsite.
-	/// Opens the MPCORB website.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemOpenMPCORBWebsite.
+	/// Opens the MPCORB website.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to open the MPCORB website.
-	/// </remarks>
+	/// <remarks>This method is used to open the MPCORB website.</remarks>
 	private void MenuitemOpenMPCORBWebsite_Click(object sender, EventArgs e) => Process.Start(fileName: Settings.Default.systemWebsiteMpcorb);
 
-	/// <summary>
-	/// Handles the click event for the MenuitemDownloadMpcorbDat.
-	/// Shows the downloader form for the MPCORB database.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemDownloadMpcorbDat.
+	/// Shows the downloader form for the MPCORB database.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the downloader form for the MPCORB database.
-	/// </remarks>
+	/// <remarks>This method is used to show the downloader form for the MPCORB database.</remarks>
 	private void MenuitemDownloadMpcorbDat_Click(object sender, EventArgs e) => ShowMpcorbDatDownloader();
 
-	/// <summary>
-	/// Handles the click event for the MenuitemDownloadAstorbDat.
-	/// Shows the downloader form for the ASTORB database.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemDownloadAstorbDat.
+	/// Shows the downloader form for the ASTORB database.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the downloader form for the ASTORB database.
-	/// </remarks>
+	/// <remarks>This method is used to show the downloader form for the ASTORB database.</remarks>
 	private void MenuitemDownloadAstorbDat_Click(object sender, EventArgs e) => ShowAstorbDatDownloader();
 
-	/// <summary>
-	/// Handles the click event for the MenuitemCheckMpcorbDat.
-	/// Shows the MPCORB data check form.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemCheckMpcorbDat.
+	/// Shows the MPCORB data check form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	///	<remarks>
-	/// This method is used to show the MPCORB data check form.
-	/// </remarks>
+	///	<remarks>This method is used to show the MPCORB data check form.</remarks>
 	private void MenuitemCheckMpcorbDat_Click(object sender, EventArgs e) => ShowMpcorbDatCheck();
 
-	/// <summary>
-	/// Handles the click event for the MenuitemCheckMpcorbDat.
-	/// Shows the ASTORB data check form.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemCheckMpcorbDat.
+	/// Shows the ASTORB data check form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the ASTORB data check form.
-	/// </remarks>
+	/// <remarks>This method is used to show the ASTORB data check form.</remarks>
 	private void MenuitemCheckAstorbDat_Click(object sender, EventArgs e) => ShowAstorbDatCheck();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripButtonCheckMpcorbDat.
-	/// Shows the MPCORB data check form.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripButtonCheckMpcorbDat.
+	/// Shows the MPCORB data check form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	///	<remarks>
-	///	This method is used to show the MPCORB data check form.
-	/// </remarks>
+	///	This method is used to show the MPCORB data check form.</remarks>
 	private void ToolStripButtonCheckMpcorbDat_Click(object sender, EventArgs e) => ShowMpcorbDatCheck();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripButtonDownloadMpcorbDat.
-	/// Shows the downloader form for the MPCORB database.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripButtonDownloadMpcorbDat.
+	/// Shows the downloader form for the MPCORB database.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the downloader form for the MPCORB database.
-	/// </remarks>
+	/// <remarks>This method is used to show the downloader form for the MPCORB database.</remarks>
 	private void ToolStripButtonDownloadMpcorbDat_Click(object sender, EventArgs e) => ShowMpcorbDatDownloader();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripButtonAbout.
-	/// Shows the application information form.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripButtonAbout.
+	/// Shows the application information form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the application information form.
-	/// </remarks>
+	/// <remarks>This method is used to show the application information form.</remarks>
 	private void ToolStripButtonAbout_Click(object sender, EventArgs e) => ShowAppInfo();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripButtonOpenWebsitePDB.
-	/// Opens the Planetoid Database website.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripButtonOpenWebsitePDB.
+	/// Opens the Planetoid Database website.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to open the Planetoid Database website.
-	/// </remarks>
+	/// <remarks>This method is used to open the Planetoid Database website.</remarks>
 	private void ToolStripButtonOpenWebsitePDB_Click(object sender, EventArgs e) => Process.Start(fileName: Settings.Default.systemHomepage);
 
-	/// <summary>
-	/// Handles the click event for the ToolStripButtonTableMode.
-	/// Opens the table mode form.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripButtonTableMode.
+	/// Opens the table mode form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to open the table mode form.
-	/// </remarks>
+	/// <remarks>This method is used to open the table mode form.</remarks>
 	private void ToolStripButtonTableMode_Click(object sender, EventArgs e) => OpenTableMode();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemTableMode.
-	/// Opens the table mode form.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemTableMode.
+	/// Opens the table mode form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to open the table mode form.
-	/// </remarks>
+	/// <remarks>This method is used to open the table mode form.</remarks>
 	private void ToolStripMenuItemTableMode_Click(object sender, EventArgs e) => OpenTableMode();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripButtonDatabaseInformation.
-	/// Shows the database information form.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripButtonDatabaseInformation.
+	/// Shows the database information form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	///	<remarks>
-	///	This method is used to show the database information form.
-	/// </remarks>
+	///	This method is used to show the database information form.</remarks>
 	private void ToolStripButtonDatabaseInformation_Click(object sender, EventArgs e) => ShowDatabaseInformation();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripButtonPrint.
-	/// Shows the print data sheet form.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripButtonPrint.
+	/// Shows the print data sheet form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the print data sheet form.
-	/// </remarks>
+	/// <remarks>This method is used to show the print data sheet form.</remarks>
 	private void ToolStripButtonPrint_Click(object sender, EventArgs e) => PrintDataSheet();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripButtonCopyToClipboard.
-	/// Shows the form to copy data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripButtonCopyToClipboard.
+	/// Shows the form to copy data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the form to copy data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to show the form to copy data to the clipboard.</remarks>
 	private void ToolStripButtonCopyToClipboard_Click(object sender, EventArgs e) => ShowCopyDataToClipboard();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemPrint.
-	/// Shows the print data sheet form.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemPrint.
+	/// Shows the print data sheet form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the print data sheet form.
-	/// </remarks>
+	/// <remarks>This method is used to show the print data sheet form.</remarks>
 	private void ToolStripMenuItemPrint_Click(object sender, EventArgs e) => PrintDataSheet();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemSearch.
-	/// Shows the search form.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemSearch.
+	/// Shows the search form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the search form.
-	/// </remarks>
+	/// <remarks>This method is used to show the search form.</remarks>
 	private void ToolStripMenuItemSearch_Click(object sender, EventArgs e) => ShowSearch();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemDatabaseInformation.
-	/// Shows the database information form.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemDatabaseInformation.
+	/// Shows the database information form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the database information form.
-	/// </remarks>
+	/// <remarks>This method is used to show the database information form.</remarks>
 	private void ToolStripMenuItemDatabaseInformation_Click(object sender, EventArgs e) => ShowDatabaseInformation();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripButtonLoadRandomMinorPlanet.
-	/// Loads a random minor planet from the database.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripButtonLoadRandomMinorPlanet.
+	/// Loads a random minor planet from the database.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to load a random minor planet from the database.
-	/// </remarks>
+	/// <remarks>This method is used to load a random minor planet from the database.</remarks>
 	private void ToolStripButtonLoadRandomMinorPlanet_Click(object sender, EventArgs e) => LoadRandomMinorPlanet();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemRandomMinorPlanet.
-	/// Loads a random minor planet from the database.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemRandomMinorPlanet.
+	/// Loads a random minor planet from the database.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to load a random minor planet from the database.
-	/// </remarks>
+	/// <remarks>This method is used to load a random minor planet from the database.</remarks>
 	private void ToolStripMenuItemRandomMinorPlanet_Click(object sender, EventArgs e) => LoadRandomMinorPlanet();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemNavigateToTheBegin.
-	/// Navigates to the beginning of the data.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemNavigateToTheBegin.
+	/// Navigates to the beginning of the data.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to navigate to the beginning of the data.
-	/// </remarks>
+	/// <remarks>This method is used to navigate to the beginning of the data.</remarks>
 	private void ToolStripMenuItemNavigateToTheBegin_Click(object sender, EventArgs e) => NavigateToTheBeginOfTheData();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemNavigateSomeDataBackward.
-	/// Navigates backward by a specified step in the data.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemNavigateSomeDataBackward.
+	/// Navigates backward by a specified step in the data.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to navigate backward by a specified step in the data.
-	/// </remarks>
+	/// <remarks>This method is used to navigate backward by a specified step in the data.</remarks>
 	private void ToolStripMenuItemNavigateSomeDataBackward_Click(object sender, EventArgs e) => NavigateSomeDataBackward();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemNavigateToThePreviousData.
-	/// Navigates to the previous data entry.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemNavigateToThePreviousData.
+	/// Navigates to the previous data entry.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to navigate to the previous data entry.
-	/// </remarks>
+	/// <remarks>This method is used to navigate to the previous data entry.</remarks>
 	private void ToolStripMenuItemNavigateToThePreviousData_Click(object sender, EventArgs e) => NavigateToThePreviousData();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemNavigateToTheNextData.
-	/// Navigates to the next data entry.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemNavigateToTheNextData.
+	/// Navigates to the next data entry.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to navigate to the next data entry.
-	/// </remarks>
+	/// <remarks>This method is used to navigate to the next data entry.</remarks>
 	private void ToolStripMenuItemNavigateToTheNextData_Click(object sender, EventArgs e) => NavigateToTheNextData();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemNavigateSomeDataForward.
-	/// Navigates forward by a specified step in the data.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemNavigateSomeDataForward.
+	/// Navigates forward by a specified step in the data.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to navigate forward by a specified step in the data.
-	/// </remarks>
+	/// <remarks>This method is used to navigate forward by a specified step in the data.</remarks>
 	private void ToolStripMenuItemNavigateSomeDataForward_Click(object sender, EventArgs e) => NavigateSomeDataForward();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemNavigateToTheEnd.
-	/// Navigates to the end of the data.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemNavigateToTheEnd.
+	/// Navigates to the end of the data.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to navigate to the end of the data.
-	/// </remarks>
+	/// <remarks>This method is used to navigate to the end of the data.</remarks>
 	private void ToolStripMenuItemNavigateToTheEnd_Click(object sender, EventArgs e) => NavigateToTheEndOfTheData();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemSettings.
-	/// Shows the settings form.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemSettings.
+	/// Shows the settings form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the settings form.
-	/// </remarks>
+	/// <remarks>This method is used to show the settings form.</remarks>
 	private void ToolStripMenuItemSettings_Click(object sender, EventArgs e) => ShowSettings();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemFilter.
-	/// Shows the filter form.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemFilter.
+	/// Shows the filter form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the filter form.
-	/// </remarks>
+	/// <remarks>This method is used to show the filter form.</remarks>
 	private void ToolStripMenuItemFilter_Click(object sender, EventArgs e) => ShowFilter();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripButtonFilter.
-	/// Shows the filter form.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripButtonFilter.
+	/// Shows the filter form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the filter form.
-	/// </remarks>
+	/// <remarks>This method is used to show the filter form.</remarks>
 	private void ToolStripButtonFilter_Click(object sender, EventArgs e) => ShowFilter();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripButtonDerivedOrbitElements.
-	/// Shows the derived orbit elements form.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripButtonDerivedOrbitElements.
+	/// Shows the derived orbit elements form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the derived orbit elements form.
-	/// </remarks>
+	/// <remarks>This method is used to show the derived orbit elements form.</remarks>
 	private void ToolStripButtonDerivedOrbitElements_Click(object sender, EventArgs e) => ShowDerivedOrbitElements();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemRestart.
-	/// Restarts the application.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemRestart.
+	/// Restarts the application.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to restart the application.
-	/// </remarks>
+	/// <remarks>This method is used to restart the application.</remarks>
 	private void ToolStripMenuItemRestart_Click(object sender, EventArgs e) => Restart();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemDerivedtiveOrbitElements.
-	/// Shows the derived orbit elements form.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemDerivedtiveOrbitElements.
+	/// Shows the derived orbit elements form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the derived orbit elements form.
-	/// </remarks>
+	/// <remarks>This method is used to show the derived orbit elements form.</remarks>
 	private void ToolStripMenuItemDerivedOrbitElements_Click(object sender, EventArgs e) => ShowDerivedOrbitElements();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemStayOnTop.
-	/// Checks if the form should stay on top of other windows.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemStayOnTop.
+	/// Checks if the form should stay on top of other windows.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to check if the form should stay on top of other windows.
-	/// </remarks>
+	/// <remarks>This method is used to check if the form should stay on top of other windows.</remarks>
 	private void ToolStripMenuItemStayOnTop_Click(object sender, EventArgs e) => CheckStayOnTop();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemEnableCopyingByDoubleClicking.
-	/// Enables copying by double-clicking.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemEnableCopyingByDoubleClicking.
+	/// Enables copying by double-clicking.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to enable copying by double-clicking.
-	/// </remarks>
+	/// <remarks>This method is used to enable copying by double-clicking.</remarks>
 	private static void ToolStripMenuItemEnableCopyingByDoubleClicking_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 	}
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemEnableLinkingToTerminology.
-	/// Enables linking to terminology.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemEnableLinkingToTerminology.
+	/// Enables linking to terminology.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to enable linking to terminology.
-	/// </remarks>
+	/// <remarks>This method is used to enable linking to terminology.</remarks>
 	private static void ToolStripMenuItemEnableLinkingToTerminology_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 	}
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemIconSetSilk.
-	/// Sets the icon set to Silk.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemIconSetSilk.
+	/// Sets the icon set to Silk.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to set the icon set to Silk.
-	/// </remarks>
+	/// <remarks>This method is used to set the icon set to Silk.</remarks>
 	private static void ToolStripMenuItemIconSetSilk_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 	}
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemIconSetFugue.
-	/// Sets the icon set to Fugue.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemIconSetFugue.
+	/// Sets the icon set to Fugue.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to set the icon set to Fugue.
-	/// </remarks>
+	/// <remarks>This method is used to set the icon set to Fugue.</remarks>
 	private static void ToolStripMenuItemIconSetFugue_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 	}
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemIconSetFatcow.
-	/// Sets the icon set to Fatcow.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemIconSetFatcow.
+	/// Sets the icon set to Fatcow.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to set the icon set to Fatcow.
-	/// </remarks>
+	/// <remarks>This method is used to set the icon set to Fatcow.</remarks>
 	private static void ToolStripMenuItemIconSetFatcow_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 	}
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemCopyToClipboardReadableDesignation.
-	/// Copies the readable designation to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardReadableDesignation.
+	/// Copies the readable designation to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the readable designation to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the readable designation to the clipboard.</remarks>
 	private void ToolStripMenuItemCopyToClipboardReadableDesignation_Click(object sender, EventArgs e) => CopyToClipboard(text: labelReadableDesignationData.Text);
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemCopyToClipboardEpoch.
-	/// Copies the epoch to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardEpoch.
+	/// Copies the epoch to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the epoch to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the epoch to the clipboard.</remarks>
 	private void ToolStripMenuItemCopyToClipboardEpoch_Click(object sender, EventArgs e) => CopyToClipboard(text: labelEpochData.Text);
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemCopyToClipboardMeanAnomaly.
-	/// Copies the mean anomaly to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardMeanAnomaly.
+	/// Copies the mean anomaly to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the mean anomaly to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the mean anomaly to the clipboard.</remarks>
 	private void ToolStripMenuItemCopyToClipboardMeanAnomaly_Click(object sender, EventArgs e) => CopyToClipboard(text: labelMeanAnomalyAtTheEpochData.Text);
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemCopyToClipboardArgumentOfThePerihelion.
-	/// Copies the argument of perihelion to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardArgumentOfThePerihelion.
+	/// Copies the argument of perihelion to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the argument of perihelion to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the argument of perihelion to the clipboard.</remarks>
 	private void ToolStripMenuItemCopyToClipboardArgumentOfThePerihelion_Click(object sender, EventArgs e) => CopyToClipboard(text: labelArgumentOfThePerihelionData.Text);
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode.
-	/// Copies the longitude of the ascending node to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode.
+	/// Copies the longitude of the ascending node to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the longitude of the ascending node to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the longitude of the ascending node to the clipboard.</remarks>
 	private void ToolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode_Click(object sender, EventArgs e) => CopyToClipboard(text: labelLongitudeOfTheAscendingNodeData.Text);
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemCopyToClipboardInclinationToTheEcliptic.
-	/// Copies the inclination to the ecliptic data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardInclinationToTheEcliptic.
+	/// Copies the inclination to the ecliptic data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the inclination to the ecliptic data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the inclination to the ecliptic data to the clipboard.</remarks>
 	private void ToolStripMenuItemCopyToClipboardInclinationToTheEcliptic_Click(object sender, EventArgs e) => CopyToClipboard(text: labelInclinationToTheEclipticData.Text);
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemCopyToClipboardOrbitalEccentricity.
-	/// Copies the orbital eccentricity data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardOrbitalEccentricity.
+	/// Copies the orbital eccentricity data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the orbital eccentricity data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the orbital eccentricity data to the clipboard.</remarks>
 	private void ToolStripMenuItemCopyToClipboardOrbitalEccentricity_Click(object sender, EventArgs e) => CopyToClipboard(text: labelOrbitalEccentricityData.Text);
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemCopyToClipboardMeanDailyMotion.
-	/// Copies the mean daily motion data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardMeanDailyMotion.
+	/// Copies the mean daily motion data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the mean daily motion data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the mean daily motion data to the clipboard.</remarks>
 	private void ToolStripMenuItemCopyToClipboardMeanDailyMotion_Click(object sender, EventArgs e) => CopyToClipboard(text: labelMeanDailyMotionData.Text);
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemCopyToClipboardSemiMajorAxis.
-	/// Copies the semi-major axis data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardSemiMajorAxis.
+	/// Copies the semi-major axis data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the semi-major axis data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the semi-major axis data to the clipboard.</remarks>
 	private void ToolStripMenuItemCopyToClipboardSemiMajorAxis_Click(object sender, EventArgs e) => CopyToClipboard(text: labelSemiMajorAxisData.Text);
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemCopyToClipboardAbsoluteMagnitude.
-	/// Copies the absolute magnitude data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardAbsoluteMagnitude.
+	/// Copies the absolute magnitude data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the absolute magnitude data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the absolute magnitude data to the clipboard.</remarks>
 	private void ToolStripMenuItemCopyToClipboardAbsoluteMagnitude_Click(object sender, EventArgs e) => CopyToClipboard(text: labelAbsoluteMagnitudeData.Text);
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemCopyToClipboardSlopeParameter.
-	/// Copies the slope parameter data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardSlopeParameter.
+	/// Copies the slope parameter data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the slope parameter data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the slope parameter data to the clipboard.</remarks>
 	private void ToolStripMenuItemCopyToClipboardSlopeParameter_Click(object sender, EventArgs e) => CopyToClipboard(text: labelSlopeParameterData.Text);
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemCopyToClipboardReference.
-	/// Copies the reference data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardReference.
+	/// Copies the reference data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the reference data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the reference data to the clipboard.</remarks>
 	private void ToolStripMenuItemCopyToClipboardReference_Click(object sender, EventArgs e) => CopyToClipboard(text: labelReferenceData.Text);
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemCopyToClipboardNumberOfOppositions.
-	/// Copies the number of oppositions data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardNumberOfOppositions.
+	/// Copies the number of oppositions data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the number of oppositions data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the number of oppositions data to the clipboard.</remarks>
 	private void ToolStripMenuItemCopyToClipboardNumberOfOppositions_Click(object sender, EventArgs e) => CopyToClipboard(text: labelNumberOfOppositionsData.Text);
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemCopyToClipboardNumberOfObservations.
-	/// Copies the number of observations data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardNumberOfObservations.
+	/// Copies the number of observations data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the number of observations data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the number of observations data to the clipboard.</remarks>
 	private void ToolStripMenuItemCopyToClipboardNumberOfObservations_Click(object sender, EventArgs e) => CopyToClipboard(text: labelNumberOfObservationsData.Text);
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemCopyToClipboardObservationSpan.
-	/// Copies the observation span data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardObservationSpan.
+	/// Copies the observation span data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the observation span data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the observation span data to the clipboard.</remarks>
 	private void ToolStripMenuItemCopyToClipboardObservationSpan_Click(object sender, EventArgs e) => CopyToClipboard(text: labelObservationSpanData.Text);
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemCopyToClipboardRmsResidual.
-	/// Copies the RMS residual data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardRmsResidual.
+	/// Copies the RMS residual data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the RMS residual data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the RMS residual data to the clipboard.</remarks>
 	private void ToolStripMenuItemCopyToClipboardRmsResidual_Click(object sender, EventArgs e) => CopyToClipboard(text: labelRmsResidualData.Text);
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemCopyToClipboardComputerName.
-	/// Copies the computer name data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardComputerName.
+	/// Copies the computer name data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the computer name data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the computer name data to the clipboard.</remarks>
 	private void ToolStripMenuItemCopyToClipboardComputerName_Click(object sender, EventArgs e) => CopyToClipboard(text: labelComputerNameData.Text);
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemCopyToClipboardDateOfLastObservation.
-	/// Copies the date of last observation data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardDateOfLastObservation.
+	/// Copies the date of last observation data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the date of last observation data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the date of last observation data to the clipboard.</remarks>
 	private void ToolStripMenuItemCopyToClipboardDateOfLastObservation_Click(object sender, EventArgs e) => CopyToClipboard(text: labelDateLastObservationData.Text);
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemCopyToClipboardFlags.
-	/// Copies the flags data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardFlags.
+	/// Copies the flags data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the flags data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the flags data to the clipboard.</remarks>
 	private void ToolStripMenuItemCopyToClipboardFlags_Click(object sender, EventArgs e) => CopyToClipboard(text: labelFlagsData.Text);
 
-	/// <summary>
-	/// Handles the click event for the ToolStripButtonExport.
-	/// Exports the data sheet.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripButtonExport.
+	/// Exports the data sheet.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to export the data sheet.
-	/// </remarks>
+	/// <remarks>This method is used to export the data sheet.</remarks>
 	private void ToolStripButtonExport_Click(object sender, EventArgs e) => ExportDataSheet();
 
-	/// <summary>
-	/// Handles the click event for the MenuitemTopTenRecords.
-	/// Shows the records selection form.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemTopTenRecords.
+	/// Shows the records selection form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the records selection form.
-	/// </remarks>
+	/// <remarks>This method is used to show the records selection form.</remarks>
 	private void MenuitemTopTenRecords_Click(object sender, EventArgs e) => ShowRecordsSelection();
 
-	/// <summary>
-	/// Handles the button click event for the SplitButtonTopTenRecords.
-	/// Shows the records selection form.
-	/// </summary>
+	/// <summary>Handles the button click event for the SplitButtonTopTenRecords.
+	/// Shows the records selection form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the records selection form.
-	/// </remarks>
+	/// <remarks>This method is used to show the records selection form.</remarks>
 	private void SplitButtonTopTenRecords_ButtonClick(object sender, EventArgs e) => ShowRecordsSelection();
 
-	/// <summary>
-	/// Handles the click event for the MenuitemRecordsMeanAnomalyAtTheEpoch.
-	/// Shows the main records form for mean anomaly at the epoch.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemRecordsMeanAnomalyAtTheEpoch.
+	/// Shows the main records form for mean anomaly at the epoch.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the records main form for mean anomaly at the epoch.
-	/// </remarks>
+	/// <remarks>This method is used to show the records main form for mean anomaly at the epoch.</remarks>
 	private void MenuitemRecordsMeanAnomalyAtTheEpoch_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>
-	/// Handles the click event for the MenuitemRecordsArgumentOfThePerihelion.
-	/// Shows the main records form for argument of perihelion.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemRecordsArgumentOfThePerihelion.
+	/// Shows the main records form for argument of perihelion.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the records main form for argument of perihelion.
-	/// </remarks>
+	/// <remarks>This method is used to show the records main form for argument of perihelion.</remarks>
 	private void MenuitemRecordsArgumentOfThePerihelion_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>
-	/// Handles the click event for the MenuitemRecordsLongitudeOfTheAscendingNode.
-	/// Shows the main records form for the longitude of the ascending node.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemRecordsLongitudeOfTheAscendingNode.
+	/// Shows the main records form for the longitude of the ascending node.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the records main form for the longitude of the ascending node.
-	/// </remarks>
+	/// <remarks>This method is used to show the records main form for the longitude of the ascending node.</remarks>
 	private void MenuitemRecordsLongitudeOfTheAscendingNode_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>
-	/// Handles the click event for the MenuitemRecordsInclination.
-	/// Shows the main records form for inclination.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemRecordsInclination.
+	/// Shows the main records form for inclination.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the records main form for inclination.
-	/// </remarks>
+	/// <remarks>This method is used to show the records main form for inclination.</remarks>
 	private void MenuitemRecordsInclination_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>
-	/// Handles the click event for the MenuitemRecordsOrbitalEccentricity.
-	/// Shows the main records form for orbital eccentricity.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemRecordsOrbitalEccentricity.
+	/// Shows the main records form for orbital eccentricity.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the records main form for orbital eccentricity.
-	/// </remarks>
+	/// <remarks>This method is used to show the records main form for orbital eccentricity.</remarks>
 	private void MenuitemRecordsOrbitalEccentricity_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>
-	/// Handles the click event for the MenuitemRecordsMeanDailyMotion.
-	/// Shows the main records form for mean daily motion.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemRecordsMeanDailyMotion.
+	/// Shows the main records form for mean daily motion.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the records main form for mean daily motion.
-	/// </remarks>
+	/// <remarks>This method is used to show the records main form for mean daily motion.</remarks>
 	private void MenuitemRecordsMeanDailyMotion_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>
-	/// Handles the click event for the MenuitemRecordsSemiMajorAxis.
-	/// Shows the main records form for semi-major axis.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemRecordsSemiMajorAxis.
+	/// Shows the main records form for semi-major axis.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the records main form for semi-major axis.
-	/// </remarks>
+	/// <remarks>This method is used to show the records main form for semi-major axis.</remarks>
 	private void MenuitemRecordsSemiMajorAxis_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>
-	/// Handles the click event for the MenuitemRecordsAbsoluteMagnitude.
-	/// Shows the main records form for absolute magnitude.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemRecordsAbsoluteMagnitude.
+	/// Shows the main records form for absolute magnitude.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the records main form for absolute magnitude.
-	/// </remarks>
+	/// <remarks>This method is used to show the records main form for absolute magnitude.</remarks>
 	private void MenuitemRecordsAbsoluteMagnitude_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>
-	/// Handles the click event for the MenuitemRecordsSlopeParameter.
-	/// Shows the main records form for slope parameter.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemRecordsSlopeParameter.
+	/// Shows the main records form for slope parameter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the records main form for slope parameter.
-	/// </remarks>
+	/// <remarks>This method is used to show the records main form for slope parameter.</remarks>
 	private void MenuitemRecordsSlopeParameter_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>
-	/// Handles the click event for the MenuitemRecordsNumberOfOppositions.
-	/// Shows the main records form for number of oppositions.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemRecordsNumberOfOppositions.
+	/// Shows the main records form for number of oppositions.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the records main form for number of oppositions.
-	/// </remarks>
+	/// <remarks>This method is used to show the records main form for number of oppositions.</remarks>
 	private void MenuitemRecordsNumberOfOppositions_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>
-	/// Handles the click event for the MenuitemRecordsNumberOfObservations.
-	/// Shows the main records form for number of observations.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemRecordsNumberOfObservations.
+	/// Shows the main records form for number of observations.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the records main form for number of observations.
-	/// </remarks>
+	/// <remarks>This method is used to show the records main form for number of observations.</remarks>
 	private void MenuitemRecordsNumberOfObservations_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>
-	/// Handles the click event for the MenuitemRecordsObservationSpan.
-	/// Shows the main records form for observation span.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemRecordsObservationSpan.
+	/// Shows the main records form for observation span.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the records main form for observation span.
-	/// </remarks>
+	/// <remarks>This method is used to show the records main form for observation span.</remarks>
 	private void MenuitemRecordsObservationSpan_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>
-	/// Handles the click event for the MenuitemRecordsRmsResidual.
-	/// Shows the main records form for RMS residual.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemRecordsRmsResidual.
+	/// Shows the main records form for RMS residual.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the records main form for RMS residual.
-	/// </remarks>
+	/// <remarks>This method is used to show the records main form for RMS residual.</remarks>
 	private void MenuitemRecordsRmsResidual_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>
-	/// Handles the click event for the MenuitemRecordsComputerName.
-	/// Shows the main records form for computer name.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemRecordsComputerName.
+	/// Shows the main records form for computer name.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the records main form for computer name.
-	/// </remarks>
+	/// <remarks>This method is used to show the records main form for computer name.</remarks>
 	private void MenuitemRecordsComputerName_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>
-	/// Handles the click event for the MenuitemRecordsDateOfTheLastObservation.
-	/// Shows the main records form for date of the last observation.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemRecordsDateOfTheLastObservation.
+	/// Shows the main records form for date of the last observation.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the records main form for date of the last observation.
-	/// </remarks>
+	/// <remarks>This method is used to show the records main form for date of the last observation.</remarks>
 	private void MenuitemRecordsDateOfTheLastObservation_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>
-	/// Handles the click event for the MenuitemDistributionMeanAnomalyAtTheEpoch.
-	/// Shows the distribution form for mean anomaly at the epoch.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemDistributionMeanAnomalyAtTheEpoch.
+	/// Shows the distribution form for mean anomaly at the epoch.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the distribution form for mean anomaly at the epoch.
-	/// </remarks>
+	/// <remarks>This method is used to show the distribution form for mean anomaly at the epoch.</remarks>
 	private static void MenuitemDistributionMeanAnomalyAtTheEpoch_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 	}
 
-	/// <summary>
-	/// Handles the click event for the MenuitemDistributionArgumentOfThePerihelion.
-	/// Shows the distribution form for argument of perihelion.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemDistributionArgumentOfThePerihelion.
+	/// Shows the distribution form for argument of perihelion.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the distribution form for argument of perihelion.
-	/// </remarks>
+	/// <remarks>This method is used to show the distribution form for argument of perihelion.</remarks>
 	private static void MenuitemDistributionArgumentOfThePerihelion_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 	}
 
-	/// <summary>
-	/// Handles the click event for the MenuitemDistributionLongitudeOfTheAscendingNode.
-	/// Shows the distribution form for longitude of the ascending node.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemDistributionLongitudeOfTheAscendingNode.
+	/// Shows the distribution form for longitude of the ascending node.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the distribution form for longitude of the ascending node.
-	/// </remarks>
+	/// <remarks>This method is used to show the distribution form for longitude of the ascending node.</remarks>
 	private static void MenuitemDistributionLongitudeOfTheAscendingNode_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 	}
 
-	/// <summary>
-	/// Handles the click event for the MenuitemDistributionInclination.
-	/// Shows the distribution form for inclination.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemDistributionInclination.
+	/// Shows the distribution form for inclination.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the distribution form for inclination.
-	/// </remarks>
+	/// <remarks>This method is used to show the distribution form for inclination.</remarks>
 	private static void MenuitemDistributionInclination_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 	}
 
-	/// <summary>
-	/// Handles the click event for the MenuitemDistributionOrbitalEccentricity.
-	/// Shows the distribution form for orbital eccentricity.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemDistributionOrbitalEccentricity.
+	/// Shows the distribution form for orbital eccentricity.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the distribution form for orbital eccentricity.
-	/// </remarks>
+	/// <remarks>This method is used to show the distribution form for orbital eccentricity.</remarks>
 	private static void MenuitemDistributionOrbitalEccentricity_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 	}
 
-	/// <summary>
-	/// Handles the click event for the MenuitemDistributionMeanDailyMotion.
-	/// Shows the distribution form for mean daily motion.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemDistributionMeanDailyMotion.
+	/// Shows the distribution form for mean daily motion.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the distribution form for mean daily motion.
-	/// </remarks>
+	/// <remarks>This method is used to show the distribution form for mean daily motion.</remarks>
 	private static void MenuitemDistributionMeanDailyMotion_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 	}
 
-	/// <summary>
-	/// Handles the click event for the MenuitemDistributionSemiMajorAxis.
-	/// Shows the distribution form for semi-major axis.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemDistributionSemiMajorAxis.
+	/// Shows the distribution form for semi-major axis.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the distribution form for semi-major axis.
-	/// </remarks>
+	/// <remarks>This method is used to show the distribution form for semi-major axis.</remarks>
 	private static void MenuitemDistributionSemiMajorAxis_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 	}
 
-	/// <summary>
-	/// Handles the click event for the MenuitemDistributionAbsoluteMagnitude.
-	/// Shows the distribution form for absolute magnitude.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemDistributionAbsoluteMagnitude.
+	/// Shows the distribution form for absolute magnitude.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the distribution form for absolute magnitude.
-	/// </remarks>
+	/// <remarks>This method is used to show the distribution form for absolute magnitude.</remarks>
 	private static void MenuitemDistributionAbsoluteMagnitude_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 	}
 
-	/// <summary>
-	/// Handles the click event for the MenuitemDistributionSlopeParameter.
-	/// Shows the distribution form for slope parameter.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemDistributionSlopeParameter.
+	/// Shows the distribution form for slope parameter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the distribution form for slope parameter.
-	/// </remarks>
+	/// <remarks>This method is used to show the distribution form for slope parameter.</remarks>
 	private static void MenuitemDistributionSlopeParameter_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 	}
 
-	/// <summary>
-	/// Handles the click event for the MenuitemDistributionNumberOfOppositions.
-	/// Shows the distribution form for number of oppositions.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemDistributionNumberOfOppositions.
+	/// Shows the distribution form for number of oppositions.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the distribution form for number of oppositions.
-	/// </remarks>
+	/// <remarks>This method is used to show the distribution form for number of oppositions.</remarks>
 	private static void MenuitemDistributionNumberOfOppositions_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 	}
 
-	/// <summary>
-	/// Handles the click event for the MenuitemDistributionNumberOfObservations.
-	/// Shows the distribution form for number of observations.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemDistributionNumberOfObservations.
+	/// Shows the distribution form for number of observations.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the distribution form for number of observations.
-	/// </remarks>
+	/// <remarks>This method is used to show the distribution form for number of observations.</remarks>
 	private static void MenuitemDistributionNumberOfObservations_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 	}
 
-	/// <summary>
-	/// Handles the click event for the MenuitemDistributionObservationSpan.
-	/// Shows the distribution form for observation span.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemDistributionObservationSpan.
+	/// Shows the distribution form for observation span.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the distribution form for observation span.
-	/// </remarks>
+	/// <remarks>This method is used to show the distribution form for observation span.</remarks>
 	private static void MenuitemDistributionObservationSpan_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 	}
 
-	/// <summary>
-	/// Handles the click event for the MenuitemDistributionRmsResidual.
-	/// Shows the distribution form for RMS residual.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemDistributionRmsResidual.
+	/// Shows the distribution form for RMS residual.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the distribution form for RMS residual.
-	/// </remarks>
+	/// <remarks>This method is used to show the distribution form for RMS residual.</remarks>
 	private static void MenuitemDistributionRmsResidual_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 	}
 
-	/// <summary>
-	/// Handles the click event for the MenuitemDistributionComputerName.
-	/// Shows the distribution form for computer name.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemDistributionComputerName.
+	/// Shows the distribution form for computer name.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the distribution form for computer name.
-	/// </remarks>
+	/// <remarks>This method is used to show the distribution form for computer name.</remarks>
 	private static void MenuitemDistributionComputerName_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 	}
 
-	/// <summary>
-	/// Handles the button click event for the SplitButtonDistribution.
-	/// Shows the distribution form.
-	/// </summary>
+	/// <summary>Handles the button click event for the SplitButtonDistribution.
+	/// Shows the distribution form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	///	<remarks>
-	///	This method is used to show the distribution form for the selected parameter.
-	/// </remarks>
+	///	This method is used to show the distribution form for the selected parameter.</remarks>
 	private static void SplitButtonDistribution_ButtonClick(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 	}
 
-	/// <summary>
-	/// Handles the click event for the MenuitemDistribution.
-	/// Shows the distribution form.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemDistribution.
+	/// Shows the distribution form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the distribution form for the selected parameter.
-	/// </remarks>
+	/// <remarks>This method is used to show the distribution form for the selected parameter.</remarks>
 	private static void MenuitemDistribution_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 	}
 
-	/// <summary>
-	/// Handles the click event for the ToolStripButtonListReadableDesignations.
-	/// Lists readable designations.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripButtonListReadableDesignations.
+	/// Lists readable designations.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the distribution form for the selected parameter.
-	/// </remarks>
+	/// <remarks>This method is used to show the distribution form for the selected parameter.</remarks>
 	private void ToolStripButtonListReadableDesignations_Click(object sender, EventArgs e) => ListReadableDesignations();
 
-	/// <summary>
-	/// Handles the click event for the MenuitemListReadableDesignations.
-	/// Lists readable designations.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemListReadableDesignations.
+	/// Lists readable designations.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the distribution form for the selected parameter.
-	/// </remarks>
+	/// <remarks>This method is used to show the distribution form for the selected parameter.</remarks>
 	private void MenuitemListReadableDesignations_Click(object sender, EventArgs e) => ListReadableDesignations();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripButtonLicense.
-	/// Opens th license.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripButtonLicense.
+	/// Opens th license.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the license.
-	/// </remarks>
+	/// <remarks>This method is used to show the license.</remarks>
 	private void ToolStripButtonLicense_Click(object sender, EventArgs e) => ShowLicense();
 
-	/// <summary>
-	/// Handles the click event for the Compare Databases menu item and initiates the process to compare database archives.
-	/// </summary>
+	/// <summary>Handles the click event for the Compare Databases menu item and initiates the process to compare database archives.</summary>
 	/// <remarks>This method is intended to be used as an event handler for a menu item click event. It delegates
 	/// the comparison operation to the ShowCompareArchives method.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void ToolStripMenuItemCompareDatabases_Click(object sender, EventArgs e) => ShowCompareArchives();
 
-	/// <summary>
-	/// Handles the Click event of the Compare Databases button to initiate the comparison of database archives.	
-	/// </summary>
+	/// <summary>Handles the Click event of the Compare Databases button to initiate the comparison of database archives.	</summary>
 	/// <remarks>This method displays the interface for comparing selected database archives. It is intended to be
 	/// used as an event handler for the Compare Databases button in the application's toolbar.</remarks>
 	/// <param name="sender">The source of the event, typically the Compare Databases button.</param>
@@ -3306,15 +2556,11 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 	#region DoubleClick event handlers
 
-	/// <summary>
-	/// Handles double-click events on the control to open the terminology dialog.
-	/// </summary>
+	/// <summary>Handles double-click events on the control to open the terminology dialog.</summary>
 	/// <param name="sender">Event source (the control).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method attempts to parse the current tag text as an integer and opens the terminology dialog
-	/// for the corresponding entry if successful.
-	/// </remarks>
+	/// <remarks>This method attempts to parse the current tag text as an integer and opens the terminology dialog
+	/// for the corresponding entry if successful.</remarks>
 	private void OpenTerminology_DoubleClick(object sender, EventArgs e)
 	{
 		// Try to parse the index from the current tag text
@@ -3329,59 +2575,39 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		ShowErrorMessage(message: $"Failed to parse index from tag text '{currentTagText}': {errorMessage}");
 	}
 
-	/// <summary>
-	/// Handles the double-click event to show an Easter egg message.
-	/// </summary>
+	/// <summary>Handles the double-click event to show an Easter egg message.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show an Easter egg message when the user double-clicks on a control.
-	/// </remarks>
+	/// <remarks>This method is used to show an Easter egg message when the user double-clicks on a control.</remarks>
 	private void EasterEgg_DoubleClick(object sender, EventArgs e) => MessageBox.Show(text: I18nStrings.EasterEgg, caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 
 	#endregion
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemOrbitalResonances.
-	/// Shows the orbital resonances form.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemOrbitalResonances.
+	/// Shows the orbital resonances form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the orbital resonances form.
-	/// </remarks>
+	/// <remarks>This method is used to show the orbital resonances form.</remarks>
 	private void ToolStripMenuItemOrbitalResonances_Click(object sender, EventArgs e) => ShowOrbitalResonances();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemOrbitElementsGrouping.
-	/// Shows the orbit elements grouping form.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemOrbitElementsGrouping.
+	/// Shows the orbit elements grouping form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the orbit elements grouping form.
-	/// </remarks>
+	/// <remarks>This method is used to show the orbit elements grouping form.</remarks>
 	private void ToolStripMenuItemOrbitElementsGrouping_Click(object sender, EventArgs e) => ShowOrbitElementsGrouping();
 
-	/// <summary>
-	/// Handles the click event for the ToolStripMenuItemAsteroidFamilies.
-	/// Shows the asteroid families form.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemAsteroidFamilies.
+	/// Shows the asteroid families form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the asteroid families form.
-	/// </remarks>
+	/// <remarks>This method is used to show the asteroid families form.</remarks>
 	private void ToolStripMenuItemAsteroidFamilies_Click(object sender, EventArgs e) => ShowAsteroidFamilies();
 
-	/// <summary>
-	/// Handles the click event for the MenuitemOrbitalResonancesOfAllMinorPlanets.
-	/// Shows the orbital resonances of all minor planets form.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemOrbitalResonancesOfAllMinorPlanets.
+	/// Shows the orbital resonances of all minor planets form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the orbital resonances of all minor planets form.
-	/// </remarks>
+	/// <remarks>This method is used to show the orbital resonances of all minor planets form.</remarks>
 	private void ToolStripMenuitemOrbitalResonancesOfAllMinorPlanets_Click(object sender, EventArgs e) => ShowOrbitalResonancesOfAllMinorPlanets();
 }

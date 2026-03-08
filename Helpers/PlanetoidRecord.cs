@@ -1,8 +1,11 @@
+// This file is used by Code Analysis to maintain SuppressMessage
+// attributes that are applied to this project.
+// Project-level suppressions either have no target or are given
+// a specific target and scoped to a namespace, type, member, etc.
+
 namespace Planetoid_DB.Helpers;
 
-/// <summary>
-/// Represents a single planetoid dataset.
-/// </summary>
+/// <summary>Represents a single planetoid dataset.</summary>
 /// <param name="Index"></param>
 /// <param name="MagAbs"></param>
 /// <param name="SlopeParam"></param>
@@ -23,9 +26,7 @@ namespace Planetoid_DB.Helpers;
 /// <param name="Flags"></param>
 /// <param name="DesignationName"></param>
 /// <param name="ObservationLastDate"></param>
-/// <remarks>
-/// This record struct is used to represent a single planetoid dataset.
-/// </remarks>
+/// <remarks>This record struct is used to represent a single planetoid dataset.</remarks>
 public readonly record struct PlanetoidRecord(
 	string Index, // Gets the index of the planetoid.
 	string MagAbs, // Gets the absolute magnitude of the planetoid.
@@ -49,15 +50,11 @@ public readonly record struct PlanetoidRecord(
 	string ObservationLastDate // Gets the observation last date of the planetoid.
 )
 {
-	/// <summary>
-	/// Parses a raw line (Fixed-Width) into a PlanetoidRecord object.
-	/// </summary>
+	/// <summary>Parses a raw line (Fixed-Width) into a PlanetoidRecord object.</summary>
 	/// <param name="rawLine">The raw line to parse.</param>
 	/// <returns>A PlanetoidRecord object.</returns>
 	/// <exception cref="ArgumentException">Thrown when the raw line is invalid.</exception>
-	/// <remarks>
-	/// This method expects the raw line to be in a fixed-width format.
-	/// </remarks>
+	/// <remarks>This method expects the raw line to be in a fixed-width format.</remarks>
 	public static PlanetoidRecord Parse(string rawLine)
 	{
 		// Validate input

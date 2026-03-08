@@ -15,30 +15,19 @@ using System.Reflection;
 
 namespace Planetoid_DB;
 
-/// <summary>
-/// Form to handle downloading updates for the application.
-/// </summary>
-/// <remarks>
-/// This form provides a user interface for downloading and installing updates.
-/// </remarks>
+/// <summary>Form to handle downloading updates for the application.</summary>
+/// <remarks>This form provides a user interface for downloading and installing updates.</remarks>
+// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: $"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
 public partial class DatabaseDownloaderForm : BaseKryptonForm
 {
-	/// <summary>
-	/// NLog logger instance for the class.
-	/// </summary>
-	/// <remarks>
-	/// This logger is used to log messages for the database downloader.
-	/// </remarks>
+	/// <summary>NLog logger instance for the class.</summary>
+	/// <remarks>This logger is used to log messages for the form.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>
-	/// Shared <see cref="HttpClient"/> used for HTTP requests. Initialized in the constructor.
-	/// Reuse to avoid socket exhaustion.
-	/// </summary>
-	/// <remarks>
-	/// This HttpClient instance is reused for all HTTP requests to improve performance.
-	/// </remarks>
+	/// <summary>Shared <see cref="HttpClient"/> used for HTTP requests. Initialized in the constructor.
+	/// Reuse to avoid socket exhaustion.</summary>
+	/// <remarks>This HttpClient instance is reused for all HTTP requests to improve performance.</remarks>
 	private static readonly HttpClient httpClient = new(handler: new HttpClientHandler
 	{
 		AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate,
@@ -48,59 +37,35 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		Timeout = TimeSpan.FromMinutes(value: 10)
 	};
 
-	/// <summary>
-	/// Temporary filename (including path) used to store the downloaded gzip file.
-	/// </summary>
-	/// <remarks>
-	/// This temporary file is used to store the downloaded gzip file before extraction.
-	/// </remarks>
+	/// <summary>Temporary filename (including path) used to store the downloaded gzip file.</summary>
+	/// <remarks>This temporary file is used to store the downloaded gzip file before extraction.</remarks>
 	private readonly string _filenameTemp = Settings.Default.systemFilenameTemp;
 
-	/// <summary>
-	/// Source URL to download the file from. Provided by the caller when the form is created.
-	/// </summary>
-	/// <remarks>
-	/// This URL is used to initiate the download process.
-	/// </remarks>
+	/// <summary>Source URL to download the file from. Provided by the caller when the form is created.</summary>
+	/// <remarks>This URL is used to initiate the download process.</remarks>
 	private readonly string url;
 
-	/// <summary>
-	/// Output path (filename without extension) where the downloaded archive will be extracted.
-	/// </summary>
-	/// <remarks>
-	/// This path is derived from the URL and is used to extract the contents of the downloaded archive.
-	/// </remarks>
+	/// <summary>Output path (filename without extension) where the downloaded archive will be extracted.</summary>
+	/// <remarks>This path is derived from the URL and is used to extract the contents of the downloaded archive.</remarks>
 	private readonly string extractFilePath;
 
-	/// <summary>
-	/// Cancellation token source used to cancel an ongoing download operation.
-	/// May be null when no download is active.
-	/// </summary>
-	/// <remarks>
-	/// This token is used to cancel the download operation if needed.
-	/// </remarks>
+	/// <summary>Cancellation token source used to cancel an ongoing download operation.
+	/// May be null when no download is active.</summary>
+	/// <remarks>This token is used to cancel the download operation if needed.</remarks>
 	private CancellationTokenSource? cancellationTokenSource;
 
-	/// <summary>
-	/// Gets the status label to be used for displaying information.
-	/// </summary>
-	/// <remarks>
-	/// Derived classes should override this property to provide the specific label.
-	/// </remarks>
+	/// <summary>Gets the status label to be used for displaying information.</summary>
+	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	#region constructor
 
-	/// <summary>
-	/// Initializes a new instance of the <see cref="DatabaseDownloaderForm"/> class.
+	/// <summary>Initializes a new instance of the <see cref="DatabaseDownloaderForm"/> class.
 	/// Prepares HTTP client and UI, stores the download <paramref name="url"/>, derives the extraction path
-	/// and starts the download workflow.
-	/// </summary>
+	/// and starts the download workflow.</summary>
 	/// <param name="url">The URL to download the file from. The filename part is used to derive the extraction path.</param>
-	/// <remarks>
-	/// This constructor performs UI initialization and immediately begins the download by calling <see cref="StartDownloadAsync"/>.
-	/// It must be called from the UI thread.
-	/// </remarks>
+	/// <remarks>This constructor performs UI initialization and immediately begins the download by calling <see cref="StartDownloadAsync"/>.
+	/// It must be called from the UI thread.</remarks>
 	public DatabaseDownloaderForm(string url)
 	{
 		InitializeComponent();
@@ -142,25 +107,17 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 
 	#region helper methods
 
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
+	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a visual representation of the object in the debugger.
-	/// </remarks>
+	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
-	/// <summary>
-	/// Extracts a GZIP-compressed file to the specified output file.
-	/// </summary>
+	/// <summary>Extracts a GZIP-compressed file to the specified output file.</summary>
 	/// <param name="gzipFilePath">Full path to the source .gz file.</param>
 	/// <param name="outputFilePath">Full path where the decompressed file will be written.</param>
 	/// <param name="token">A cancellation token to cancel the operation.</param>
-	/// <remarks>
-	/// The method streams the compressed input to the output file using <see cref="GZipStream"/>.
-	/// It throws exceptions (e.g. <see cref="IOException"/>, <see cref="InvalidDataException"/>) to the caller.
-	/// </remarks>
+	/// <remarks>The method streams the compressed input to the output file using <see cref="GZipStream"/>.
+	/// It throws exceptions (e.g. <see cref="IOException"/>, <see cref="InvalidDataException"/>) to the caller.</remarks>
 	protected static async Task ExtractGzipFileAsync(string gzipFilePath, string outputFilePath, CancellationToken token)
 	{
 		// Open the gzip file and create a new file stream for the output file
@@ -173,10 +130,8 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		await decompressionStream.CopyToAsync(destination: targetStream, cancellationToken: token);
 	}
 
-	/// <summary>
-	/// Asynchronously determines whether an active internet connection is available by sending a HEAD request to the
-	/// specified URL.
-	/// </summary>
+	/// <summary>Asynchronously determines whether an active internet connection is available by sending a HEAD request to the
+	/// specified URL.</summary>
 	/// <remarks>This method uses a HEAD request to minimize bandwidth usage and applies a timeout of 5 seconds. If
 	/// an exception occurs during the request, the method returns <see langword="false"/>.</remarks>
 	/// <param name="client">The HttpClient instance used to send the request. This must be initialized before calling the method and should not
@@ -210,15 +165,11 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Updates the progress bar and text based on the current and total bytes processed.
-	/// </summary>
+	/// <summary>Updates the progress bar and text based on the current and total bytes processed.</summary>
 	/// <param name="current">The current number of bytes processed.</param>
 	/// <param name="total">The total number of bytes to process.</param>
 	/// <param name="downloadStopwatch">Optional stopwatch to calculate and display download speed and remaining time.</param>
-	/// <remarks>
-	/// This method updates the progress bar and text to reflect the current download progress.
-	/// </remarks>
+	/// <remarks>This method updates the progress bar and text to reflect the current download progress.</remarks>
 	private void UpdateProgress(long current, long total, Stopwatch? downloadStopwatch = null)
 	{
 		// Avoid division by zero
@@ -256,16 +207,12 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Starts the download workflow: validates network and input, disables/enables UI controls,
-	/// downloads the file, extracts the GZIP archive and notifies the user.
-	/// </summary>
-	/// <remarks>
-	/// This method is an async void entry point intended for UI usage. It uses an internal
+	/// <summary>Starts the download workflow: validates network and input, disables/enables UI controls,
+	/// downloads the file, extracts the GZIP archive and notifies the user.</summary>
+	/// <remarks>This method is an async void entry point intended for UI usage. It uses an internal
 	/// <see cref="CancellationTokenSource"/> to support cancellation, updates form controls
 	/// (buttons, labels, progress bar) and handles exceptions internally (shows message boxes).
-	/// No exceptions are propagated to the caller.
-	/// </remarks>
+	/// No exceptions are propagated to the caller.</remarks>
 	private async Task StartDownloadAsync()
 	{
 		// Check if there is an internet connection available
@@ -387,20 +334,16 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Downloads a file asynchronously from the specified <paramref name="fileUrl"/> and writes it to <paramref name="destinationPath"/>.
-	/// Updates UI elements (status, progress, size, source, date) while downloading and supports cancellation via <paramref name="token"/>.
-	/// </summary>
+	/// <summary>Downloads a file asynchronously from the specified <paramref name="fileUrl"/> and writes it to <paramref name="destinationPath"/>.
+	/// Updates UI elements (status, progress, size, source, date) while downloading and supports cancellation via <paramref name="token"/>.</summary>
 	/// <param name="fileUrl">The URL to download from.</param>
 	/// <param name="destinationPath">Local file path where the downloaded data will be saved.</param>
 	/// <param name="token">Token used to cancel the download operation.</param>
 	/// <returns>A <see cref="Task"/> that represents the asynchronous download operation.</returns>
 	/// <exception cref="OperationCanceledException">Thrown when the operation is cancelled through <paramref name="token"/>.</exception>
 	/// <exception cref="HttpRequestException">Thrown when the HTTP request fails (non-success status code).</exception>
-	/// <remarks>
-	/// The method streams the response to disk to avoid buffering the entire response in memory.
-	/// Progress is reported by updating the form's progress bar when the content length is known.
-	/// </remarks>
+	/// <remarks>The method streams the response to disk to avoid buffering the entire response in memory.
+	/// Progress is reported by updating the form's progress bar when the content length is known.</remarks>
 	private async Task DownloadFileAsync(string fileUrl, string destinationPath, CancellationToken token)
 	{
 		// Update status label to indicate download is starting
@@ -454,24 +397,16 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 
 	#region Click event handlers
 
-	/// <summary>
-	/// Click handler for the Download button. Starts the download process.
-	/// </summary>
+	/// <summary>Click handler for the Download button. Starts the download process.</summary>
 	/// <param name="sender">The event source (the Download button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the Download button is clicked.
-	/// </remarks>
+	/// <remarks>This method is called when the Download button is clicked.</remarks>
 	private async void ButtonDownload_Click(object sender, EventArgs e) => await StartDownloadAsync();
 
-	/// <summary>
-	/// Click handler for the Cancel button. Cancels the active download operation if one is running.
-	/// </summary>
+	/// <summary>Click handler for the Cancel button. Cancels the active download operation if one is running.</summary>
 	/// <param name="sender">The event source (the Cancel button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the Cancel button is clicked.
-	/// </remarks>
+	/// <remarks>This method is called when the Cancel button is clicked.</remarks>
 	private void ButtonCancel_Click(object sender, EventArgs e) => cancellationTokenSource?.Cancel();
 
 	#endregion

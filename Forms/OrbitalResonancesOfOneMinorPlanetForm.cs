@@ -7,53 +7,32 @@ using System.Diagnostics;
 
 namespace Planetoid_DB;
 
-/// <summary>
-/// Form for displaying orbital resonances of a planetoid relative to the 8 solar system planets.
-/// </summary>
-/// <remarks>
-/// This form computes and presents the orbital resonance of a planetoid with each planet,
-/// including the resonance ratio, deviation, and whether a near-resonance is detected.
-/// </remarks>
+/// <summary>Form for displaying orbital resonances of a planetoid relative to the 8 solar system planets.</summary>
+/// <remarks>This form computes and presents the orbital resonance of a planetoid with each planet,
+/// including the resonance ratio, deviation, and whether a near-resonance is detected.</remarks>
+// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 {
-	/// <summary>
-	/// NLog logger instance.
-	/// </summary>
-	/// <remarks>
-	/// This logger is used throughout the form to log important events and errors.
-	/// </remarks>
+	/// <summary>NLog logger instance.</summary>
+	/// <remarks>This logger is used throughout the form to log important events and errors.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>
-	/// The deviation threshold in percent below which an orbital ratio is considered a near-resonance.
-	/// </summary>
+	/// <summary>The deviation threshold in percent below which an orbital ratio is considered a near-resonance.</summary>
 	private const double ResonanceThresholdPercent = 1.0;
 
-	/// <summary>
-	/// The semi-major axis of the planetoid in AU, used to calculate orbital resonances.
-	/// </summary>
-	/// <remarks>
-	/// Set this value via <see cref="SetSemiMajorAxis"/> before the form is shown.
-	/// </remarks>
+	/// <summary>The semi-major axis of the planetoid in AU, used to calculate orbital resonances.</summary>
+	/// <remarks>Set this value via <see cref="SetSemiMajorAxis"/> before the form is shown.</remarks>
 	private double semiMajorAxis;
 
-	/// <summary>
-	/// Gets the status label used for displaying information in the status bar.
-	/// </summary>
-	/// <remarks>
-	/// Overrides the base class property to return the form-specific status label.
-	/// </remarks>
+	/// <summary>Gets the status label used for displaying information in the status bar.</summary>
+	/// <remarks>Overrides the base class property to return the form-specific status label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	#region constructor
 
-	/// <summary>
-	/// Initializes a new instance of the <see cref="OrbitalResonancesOfOneMinorPlanetForm"/> class.
-	/// </summary>
-	/// <remarks>
-	/// This constructor initializes the form components.
-	/// </remarks>
+	/// <summary>Initializes a new instance of the <see cref="OrbitalResonancesOfOneMinorPlanetForm"/> class.</summary>
+	/// <remarks>This constructor initializes the form components.</remarks>
 	public OrbitalResonancesOfOneMinorPlanetForm() =>
 		InitializeComponent();
 
@@ -61,32 +40,20 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 
 	#region helper methods
 
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
+	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a visual representation of the object in the debugger.
-	/// </remarks>
+	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
-	/// <summary>
-	/// Sets the semi-major axis of the planetoid used for computing orbital resonances.
-	/// </summary>
+	/// <summary>Sets the semi-major axis of the planetoid used for computing orbital resonances.</summary>
 	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
-	/// <remarks>
-	/// Call this method before showing the form so that the resonance data is available on load.
-	/// </remarks>
+	/// <remarks>Call this method before showing the form so that the resonance data is available on load.</remarks>
 	public void SetSemiMajorAxis(double semiMajorAxis) =>
 		this.semiMajorAxis = semiMajorAxis;
 
-	/// <summary>
-	/// Populates the <see cref="listView"/> with orbital resonance data for the given resonances.
-	/// </summary>
+	/// <summary>Populates the <see cref="listView"/> with orbital resonance data for the given resonances.</summary>
 	/// <param name="resonances">The list of orbital resonances to display.</param>
-	/// <remarks>
-	/// Each resonance is shown as one row. The "Is Resonance" column shows "Yes" when the deviation is below 1 %.
-	/// </remarks>
+	/// <remarks>Each resonance is shown as one row. The "Is Resonance" column shows "Yes" when the deviation is below 1 %.</remarks>
 	private void PopulateListView(List<DerivedElements.OrbitalResonance> resonances)
 	{
 		listView.BeginUpdate();
@@ -113,15 +80,11 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>
-	/// Handles the form Load event.
-	/// Clears the status bar, computes orbital resonances for the stored semi-major axis and populates the list view.
-	/// </summary>
+	/// <summary>Handles the form Load event.
+	/// Clears the status bar, computes orbital resonances for the stored semi-major axis and populates the list view.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// If an error occurs during calculation, it is logged and an error message is shown to the user.
-	/// </remarks>
+	/// <remarks>If an error occurs during calculation, it is logged and an error message is shown to the user.</remarks>
 	private void OrbitalResonanceForm_Load(object sender, EventArgs e)
 	{
 		ClearStatusBar(label: labelInformation);
@@ -141,16 +104,12 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 
 	#region Click event handlers
 
-	/// <summary>
-	/// Handles the Click event of the copy-to-clipboard menu item.
-	/// Copies the text of the currently selected list view row to the clipboard.
-	/// </summary>
+	/// <summary>Handles the Click event of the copy-to-clipboard menu item.
+	/// Copies the text of the currently selected list view row to the clipboard.</summary>
 	/// <param name="sender">Event source (the menu item).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// All sub-items of the selected row are joined with a tab character before being placed on the clipboard.
-	/// If no row is selected the method returns without action.
-	/// </remarks>
+	/// <remarks>All sub-items of the selected row are joined with a tab character before being placed on the clipboard.
+	/// If no row is selected the method returns without action.</remarks>
 	private void ToolStripMenuItemCopyToClipboard_Click(object sender, EventArgs e)
 	{
 		if (listView.SelectedItems.Count == 0)

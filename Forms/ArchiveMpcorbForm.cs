@@ -14,100 +14,68 @@ using System.IO.Compression;
 
 namespace Planetoid_DB;
 
-/// <summary>
-/// Represents a form for archiving MPCORB files.
-/// </summary>
+/// <summary>Represents a form for archiving MPCORB files.</summary>
+/// <remarks>This form provides functionality for archiving MPCORB files using various compression formats and levels.</remarks>
+// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 
 public partial class ArchiveMpcorbForm : BaseKryptonForm
 {
-	/// <summary>
-	/// NLog logger for logging messages and errors.
-	/// </summary>
-	/// <remarks>
-	/// This logger is used to log messages and errors that occur within the form.
-	/// </remarks>
+	/// <summary>NLog logger for logging messages and errors.</summary>
+	/// <remarks>This logger is used to log messages and errors that occur within the form.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>
-	/// Gets the status label to be used for displaying information.
-	/// </summary>
-	/// <remarks>
-	/// Derived classes should override this property to provide the specific label.
-	/// </remarks>
-	protected override ToolStripStatusLabel? StatusLabel => labelStatus;
+	/// <summary>Gets the status label to be used for displaying information.</summary>
+	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
+	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
-	/// <summary>
-	/// The last modified date of the online MPCORB file.
-	/// </summary>
-	/// <remarks>
-	/// This value is retrieved from the online MPCORB file and is used to determine if the local file is up-to-date.
-	/// </remarks>
+	/// <summary>The last modified date of the online MPCORB file.</summary>
+	/// <remarks>This value is retrieved from the online MPCORB file and is used to determine if the local file is up-to-date.</remarks>
 	private DateTime? _onlineLastModified;
 
-	/// <summary>
-	/// Provides a reusable instance of HttpClient for making HTTP requests throughout the application's lifetime.
-	/// </summary>
+	/// <summary>Provides a reusable instance of HttpClient for making HTTP requests throughout the application's lifetime.</summary>
 	/// <remarks>Reusing a single HttpClient instance helps prevent socket exhaustion and ensures efficient resource
 	/// management. It is recommended to use this instance for all HTTP operations within the application rather than
 	/// creating new instances for each request.</remarks>
 	private static readonly HttpClient _httpClient = new();
 
-	/// <summary>
-	/// Gets or sets the cancellation token source used to signal cancellation requests.
-	/// </summary>
+	/// <summary>Gets or sets the cancellation token source used to signal cancellation requests.</summary>
 	/// <remarks>This property allows for the management of cancellation tokens, which can be used to cancel ongoing
 	/// operations. Ensure to dispose of the cancellation token source when it is no longer needed to free up
 	/// resources.</remarks>
 	private CancellationTokenSource? cancellationTokenSource;
 
-	/// <summary>
-	/// Gets or sets the compression level used for data processing.
-	/// </summary>
+	/// <summary>Gets or sets the compression level used for data processing.</summary>
 	/// <remarks>Adjust the compression level to optimize for either processing speed or reduced data size,
 	/// depending on application requirements.</remarks>
 	private string compressionString = "Optimal";
 
-	/// <summary>
-	/// Gets or sets the compression format used for data processing.
-	/// </summary>
+	/// <summary>Gets or sets the compression format used for data processing.</summary>
 	/// <remarks>Adjust the compression format to optimize for either processing speed or reduced data size,
 	/// depending on application requirements.</remarks>
 	private string format = "Zip";
 
-	/// <summary>
-	/// Gets or sets the file extension used for the compressed archive.
-	/// </summary>
+	/// <summary>Gets or sets the file extension used for the compressed archive.</summary>
 	/// <remarks>This property determines the file extension for the compressed archive based on the selected compression format.</remarks>
 	private string extension = ".zip";
 
-	/// <summary>
-	/// Gets the array of supported compression formats.
-	/// </summary>
+	/// <summary>Gets the array of supported compression formats.</summary>
 	/// <remarks>This array includes the formats 'Zip', 'GZip', and 'Brotli', which can be used for data compression
 	/// and decompression operations.</remarks>
 	private readonly string[] formats = ["Zip", "GZip", "Brotli"];
 
-	/// <summary>
-	/// Gets the array of supported compression levels.
-	/// </summary>
+	/// <summary>Gets the array of supported compression levels.</summary>
 	/// <remarks>This array includes the levels 'Optimal', 'Fastest', 'NoCompression', and 'SmallestSize', which can be used for data compression operations.</remarks>
 	private readonly string[] compressionLevels = ["Optimal", "Fastest", "NoCompression", "SmallestSize"];
 
 	#region Helper methods
 
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
+	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a custom debugger display string.
-	/// </remarks>
+	/// <remarks>This method is used to provide a custom debugger display string.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
-	/// <summary>
-	/// Formats the given number of bytes into a human-readable string with appropriate units.
-	/// </summary>
+	/// <summary>Formats the given number of bytes into a human-readable string with appropriate units.</summary>
 	/// <param name="bytes">The number of bytes to format.</param>
 	/// <returns>A formatted string representing the size in appropriate units.</returns>
 	/// <remarks>This method converts the given number of bytes into a human-readable string with appropriate units, such as KB, MB, GB, etc.</remarks>
@@ -135,23 +103,16 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 
 	#region Constructor
 
-	/// <summary>
-	/// Initializes a new instance of the ArchiveMpcorbForm class.
-	/// </summary>
+	/// <summary>Initializes a new instance of the ArchiveMpcorbForm class.</summary>
 	/// <remarks>This constructor sets up the form's components and prepares it for use.</remarks>
-	public ArchiveMpcorbForm()
-	{
-		InitializeComponent();
-	}
+	public ArchiveMpcorbForm() => InitializeComponent();
 
 	#endregion
 
 	#region Form event handlers
 
-	/// <summary>
-	/// Handles the initialization of the ArchiveMpcorbForm when it is loaded, including setting the default file path,
-	/// populating format and compression options, and updating the status with the online last modified date.
-	/// </summary>
+	/// <summary>Handles the initialization of the ArchiveMpcorbForm when it is loaded, including setting the default file path,
+	/// populating format and compression options, and updating the status with the online last modified date.</summary>
 	/// <remarks>This method is called automatically when the ArchiveMpcorbForm is loaded. It sets up the user
 	/// interface by selecting default values and attempts to retrieve the last modified date from an online source,
 	/// updating the status label accordingly. If the online date cannot be retrieved, the status label will indicate the
@@ -169,14 +130,14 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 			kryptonTextBoxSource.Text = Path.GetFullPath(path: defaultPath);
 		}
 		// Update status label to indicate that the online date is being checked
-		labelStatus.Text = "Checking online date...";
+		labelInformation.Text = "Checking online date...";
 		// Attempt to retrieve the last modified date from the online source and update the status label accordingly
 		try
 		{
 			// Retrieve the last modified date of the online MPCORB file
 			_onlineLastModified = await GetOnlineLastModifiedAsync();
 			// Update the status label with the retrieved online date or indicate that it could not be retrieved
-			labelStatus.Text = _onlineLastModified.HasValue
+			labelInformation.Text = _onlineLastModified.HasValue
 				? $"Online date: {_onlineLastModified.Value}"
 				: "Could not retrieve online date. Using current time.";
 		}
@@ -198,9 +159,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 
 	#region Task methods
 
-	/// <summary>
-	/// Retrieves the last modified date of the online MPCORB.DAT.gz file.
-	/// </summary>
+	/// <summary>Retrieves the last modified date of the online MPCORB.DAT.gz file.</summary>
 	/// <returns>A task that represents the asynchronous operation. The task result contains the last modified date if available; otherwise, null.</returns>
 	/// <remarks>This method sends a HEAD request to the specified URL to retrieve the last modified date of the MPCORB.DAT.gz file.
 	/// If the request is successful and the Last-Modified header is present, the method returns the date in UTC.
@@ -235,9 +194,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		return null;
 	}
 
-	/// <summary>
-	/// Copies data from the source stream to the destination stream while reporting progress.
-	/// </summary>
+	/// <summary>Copies data from the source stream to the destination stream while reporting progress.</summary>
 	/// <param name="source">The source stream to read from.</param>
 	/// <param name="destination">The destination stream to write to.</param>
 	/// <param name="totalBytes">The total number of bytes to copy.</param>
@@ -298,7 +255,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 							kryptonProgressBarToolStripItemCompression.Value = currentProgress;
 							kryptonProgressBarToolStripItemCompression.Text = $"{currentProgress} %";
 							kryptonProgressBarToolStripItemCompression.ToolTipText = kryptonProgressBarToolStripItemCompression.Text;
-							labelStatus.Text = $"Time: {elapsed:hh\\:mm\\:ss} / {remaining:hh\\:mm\\:ss} | Level: {compressionLevel} | Read: {FormatBytes(bytes: totalRead)} | Written: {FormatBytes(bytes: totalWritten)} | Est. Size: {FormatBytes(bytes: estimatedSize)}";
+							labelInformation.Text = $"Time: {elapsed:hh\\:mm\\:ss} / {remaining:hh\\:mm\\:ss} | Level: {compressionLevel} | Read: {FormatBytes(bytes: totalRead)} | Written: {FormatBytes(bytes: totalWritten)} | Est. Size: {FormatBytes(bytes: estimatedSize)}";
 						}));
 					}
 					catch (ObjectDisposedException)
@@ -318,9 +275,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 
 	#region Click event handlers
 
-	/// <summary>
-	/// Handles the click event of the KryptonButtonBrowse button, allowing the user to select a source file.
-	/// </summary>
+	/// <summary>Handles the click event of the KryptonButtonBrowse button, allowing the user to select a source file.</summary>
 	/// <param name="sender">The source of the event, typically the KryptonButtonBrowse instance.</param>
 	/// <param name="e">The event data associated with the button click event.</param>
 	/// <remarks>This method opens a file dialog for the user to select a source file. If the current text in the source textbox is a valid file path, it will be pre-selected in the dialog. Once the user selects a file and confirms, the selected file path is set in the source textbox.</remarks>
@@ -341,9 +296,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Handles the click event for the 'Browse Target' button, allowing the user to select a target file path for the archive.
-	/// </summary>
+	/// <summary>Handles the click event for the 'Browse Target' button, allowing the user to select a target file path for the archive.</summary>
 	/// <param name="sender">The source of the event, typically the button that was clicked.</param>
 	/// <param name="e">An EventArgs instance containing data related to the click event.</param>
 	/// <remarks>This event handler uses a SaveFileDialog to allow the user to select a target file path for the archive. The selected path is then displayed in the corresponding text box.</remarks>
@@ -363,10 +316,8 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		kryptonTextBoxTarget.Text = saveFileDialog.FileName;
 	}
 
-	/// <summary>
-	/// Handles the click event for the archive button, initiating the asynchronous archiving process for the selected
-	/// source file. If an archiving operation is already in progress, clicking the button cancels the current operation.
-	/// </summary>
+	/// <summary>Handles the click event for the archive button, initiating the asynchronous archiving process for the selected
+	/// source file. If an archiving operation is already in progress, clicking the button cancels the current operation.</summary>
 	/// <remarks>This method validates the existence of the source file, prompts the user to select a target archive
 	/// file, and starts the archiving process in the background. The operation supports cancellation and progress
 	/// reporting. If the process is cancelled or fails, the UI is updated accordingly and any partially created archive
@@ -404,7 +355,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		kryptonProgressBarToolStripItemCompression.Value = 0;
 		kryptonProgressBarToolStripItemCompression.Text = "0 %";
 		kryptonProgressBarToolStripItemCompression.ToolTipText = kryptonProgressBarToolStripItemCompression.Text;
-		labelStatus.Text = "Archiving...";
+		labelInformation.Text = "Archiving...";
 		toolStripDropDownButtonFormat.Enabled = false;
 		toolStripDropDownButtonCompression.Enabled = false;
 		groupBoxSource.Enabled = false;
@@ -447,13 +398,13 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 				}
 			}, cancellationToken: cancellationToken);
 			// If the archiving process completes successfully without cancellation, update the status label and show a success message box
-			labelStatus.Text = "Archiving completed successfully.";
+			labelInformation.Text = "Archiving completed successfully.";
 			MessageBox.Show(text: "Archiving completed successfully.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 		}
 		// Catch an OperationCanceledException to handle the case where the archiving process was cancelled by the user. Update the status label and attempt to delete the partially created target file if it exists
 		catch (OperationCanceledException)
 		{
-			labelStatus.Text = "Archiving cancelled.";
+			labelInformation.Text = "Archiving cancelled.";
 			if (File.Exists(path: targetFile))
 			{
 				try { File.Delete(path: targetFile); } catch { }
@@ -462,7 +413,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		// Catch any other exceptions that occur during the archiving process, update the status label, and show an error message box with the exception details
 		catch (Exception ex)
 		{
-			labelStatus.Text = "Archiving failed.";
+			labelInformation.Text = "Archiving failed.";
 			MessageBox.Show(text: $"Archiving failed: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 		// In the finally block, dispose of the cancellation token source if it exists, reset the UI controls to their default state, and reset the progress bar
@@ -483,10 +434,8 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Handles the click event for the 'Zip' format menu item, selecting the 'Zip' format and ensuring that other format
-	/// options are deselected.
-	/// </summary>
+	/// <summary>Handles the click event for the 'Zip' format menu item, selecting the 'Zip' format and ensuring that other format
+	/// options are deselected.</summary>
 	/// <remarks>Use this event handler to switch the archive format to 'Zip' when the corresponding menu item is
 	/// selected. This action will automatically deselect other available format options to maintain a single active
 	/// selection.</remarks>
@@ -509,10 +458,8 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		kryptonTextBoxTarget.Text = Path.Combine(path1: directory, path2: defaultFileName);
 	}
 
-	/// <summary>
-	/// Handles the click event for the 'GZip' format menu item, selecting the 'GZip' format and ensuring that other format
-	/// options are deselected.
-	/// </summary>
+	/// <summary>Handles the click event for the 'GZip' format menu item, selecting the 'GZip' format and ensuring that other format
+	/// options are deselected.</summary>
 	/// <remarks>Use this event handler to switch the archive format to 'GZip' when the corresponding menu item is
 	/// selected. This action will automatically deselect other available format options to maintain a single active
 	/// selection.</remarks>
@@ -535,10 +482,8 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		kryptonTextBoxTarget.Text = Path.Combine(path1: directory, path2: defaultFileName);
 	}
 
-	/// <summary>
-	/// Handles the click event for the 'Brotli' format menu item, selecting the 'Brotli' format and ensuring that other format
-	/// options are deselected.
-	/// </summary>
+	/// <summary>Handles the click event for the 'Brotli' format menu item, selecting the 'Brotli' format and ensuring that other format
+	/// options are deselected.</summary>
 	/// <remarks>Use this event handler to switch the archive format to 'Brotli' when the corresponding menu item is
 	/// selected. This action will automatically deselect other available format options to maintain a single active
 	/// selection.</remarks>
@@ -561,10 +506,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		kryptonTextBoxTarget.Text = Path.Combine(path1: directory, path2: defaultFileName);
 	}
 
-	/// <summary>
-	/// Handles the click event for the 'Optimal' compression level menu item, selecting the 'Optimal' compression level and ensuring that other compression level
-	/// options are deselected.
-	/// </summary>
+	/// <summary>Handles the click event for the 'Optimal' compression level menu item, selecting the 'Optimal' compression level and ensuring that other compression level options are deselected.</summary>
 	/// <remarks>Use this event handler to switch the compression level to 'Optimal' when the corresponding menu item is
 	/// selected. This action will automatically deselect other available compression level options to maintain a single active
 	/// selection.</remarks>
@@ -580,10 +522,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		compressionString = compressionLevels[0];
 	}
 
-	/// <summary>
-	/// Handles the click event for the 'Fastest' compression level menu item, selecting the 'Fastest' compression level and ensuring that other compression level
-	/// options are deselected.
-	/// </summary>
+	/// <summary>Handles the click event for the 'Fastest' compression level menu item, selecting the 'Fastest' compression level and ensuring that other compression level options are deselected.</summary>
 	/// <remarks>Use this event handler to switch the compression level to 'Fastest' when the corresponding menu item is
 	/// selected. This action will automatically deselect other available compression level options to maintain a single active
 	/// selection.</remarks>
@@ -599,10 +538,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		compressionString = compressionLevels[1];
 	}
 
-	/// <summary>
-	/// Handles the click event for the 'No' compression level menu item, selecting the 'No' compression level and ensuring that other compression level
-	/// options are deselected.
-	/// </summary>
+	/// <summary>Handles the click event for the 'No' compression level menu item, selecting the 'No' compression level and ensuring that other compression level options are deselected.</summary>
 	/// <remarks>Use this event handler to switch the compression level to 'No' when the corresponding menu item is
 	/// selected. This action will automatically deselect other available compression level options to maintain a single active
 	/// selection.</remarks>
@@ -618,10 +554,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		compressionString = compressionLevels[2];
 	}
 
-	/// <summary>
-	/// Handles the click event for the 'SmallestSize' compression level menu item, selecting the 'SmallestSize' compression level and ensuring that other compression level
-	/// options are deselected.
-	/// </summary>
+	/// <summary>Handles the click event for the 'SmallestSize' compression level menu item, selecting the 'SmallestSize' compression level and ensuring that other compression level options are deselected.</summary>
 	/// <remarks>Use this event handler to switch the compression level to 'SmallestSize' when the corresponding menu item is
 	/// selected. This action will automatically deselect other available compression level options to maintain a single active
 	/// selection.</remarks>

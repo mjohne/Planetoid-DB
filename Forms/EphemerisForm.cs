@@ -3,6 +3,8 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using NLog;
+
 using Planetoid_DB.Forms;
 
 using System.ComponentModel;
@@ -10,31 +12,28 @@ using System.Diagnostics;
 
 namespace Planetoid_DB;
 
-/// <summary>
-/// Represents a form for displaying ephemeris data.
-/// </summary>
-/// <remarks>
-/// This form is used to display ephemeris data for celestial objects.
-/// </remarks>
+/// <summary>Represents a form for displaying ephemeris data.</summary>
+/// <remarks>This form is used to display ephemeris data for celestial objects.</remarks>
+// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class EphemerisForm : BaseKryptonForm
 {
 	/// <summary>
-	/// Gets the status label to be used for displaying information.
+	/// NLog logger instance for the class.
 	/// </summary>
 	/// <remarks>
-	/// Derived classes should override this property to provide the specific label.
+	/// This logger is used to log messages for the form.
 	/// </remarks>
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+	/// <summary>Gets the status label to be used for displaying information.</summary>
+	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	#region constructor
 
-	/// <summary>
-	/// Initializes a new instance of the <see cref="EphemerisForm"/> class.
-	/// </summary>
-	/// <remarks>
-	/// This constructor initializes the form components.
-	/// </remarks>
+	/// <summary>Initializes a new instance of the <see cref="EphemerisForm"/> class.</summary>
+	/// <remarks>This constructor initializes the form components.</remarks>
 	public EphemerisForm() =>
 		// Initialize the form components
 		InitializeComponent();
@@ -43,88 +42,64 @@ public partial class EphemerisForm : BaseKryptonForm
 
 	#region helper methods
 
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
+	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a visual representation of the object in the debugger.
-	/// </remarks>
+	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
 	#endregion
 
 	#region form event handlers
 
-	/// <summary>
-	/// Handles the Load event of the form.
-	/// </summary>
+	/// <summary>Handles the Load event of the form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to handle the Load event of the form.
-	/// </remarks>
+	/// <remarks>This method is used to handle the Load event of the form.</remarks>
 	private void EphemerisForm_Load(object sender, EventArgs e) => ClearStatusBar(label: labelInformation);
 
 	#endregion
 
 	#region BackgroundWorker event handlers
 
-	/// <summary>
-	/// Handles the DoWork event of the BackgroundWorker.
-	/// </summary>
+	/// <summary>Handles the DoWork event of the BackgroundWorker.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="System.ComponentModel.DoWorkEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to implement background work.
-	/// </remarks>
+	/// <remarks>This method is used to implement background work.</remarks>
 	private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
 	{
-		// Implement background work here
+		//TODO: Implement background work here
 	}
 
-	/// <summary>
-	/// Handles the ProgressChanged event of the BackgroundWorker.
-	/// </summary>
+	/// <summary>Handles the ProgressChanged event of the BackgroundWorker.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="System.ComponentModel.ProgressChangedEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to update the progress bar during background work.
-	/// </remarks>
+	/// <remarks>This method is used to update the progress bar during background work.</remarks>
 	private void BackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
 	{
-		// Update the progress bar with the percentage
+		//TODO: Update the progress bar with the percentage
 		progressBar.Value = e.ProgressPercentage;
 	}
 
-	/// <summary>
-	/// Handles the RunWorkerCompleted event of the BackgroundWorker.
-	/// </summary>
+	/// <summary>Handles the RunWorkerCompleted event of the BackgroundWorker.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="System.ComponentModel.RunWorkerCompletedEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to implement completion logic after background work is done.
-	/// </remarks>
+	/// <remarks>This method is used to implement completion logic after background work is done.</remarks>
 	private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
 	{
-		// Implement completion logic here
+		//TODO: Implement completion logic here
 	}
 
 	#endregion
 
 	#region Click event handlers
 
-	/// <summary>
-	/// Handles the Click event of the Calculate button.
-	/// </summary>
+	/// <summary>Handles the Click event of the Calculate button.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to handle the Click event of the Calculate button.
-	/// </remarks>
+	/// <remarks>This method is used to handle the Click event of the Calculate button.</remarks>
 	private void ButtonCalculate_Click(object sender, EventArgs e)
 	{
-		// Implement calculation here
+		//TODO: Implement calculation here
 	}
 
 	#endregion

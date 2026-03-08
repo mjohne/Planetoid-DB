@@ -12,54 +12,35 @@ using System.Diagnostics;
 
 namespace Planetoid_DB;
 
-/// <summary>
-/// Represents the splash screen form of the application.
-/// </summary>
-/// <remarks>
-/// This form is displayed while the application is loading.
-/// </remarks>
+/// <summary>Represents the splash screen form of the application.</summary>
+/// <remarks>This form is displayed while the application is loading.</remarks>
+// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class SplashScreenForm : BaseKryptonForm
 {
-	/// <summary>
-	/// NLog logger instance.
-	/// </summary>
-	/// <remarks>
-	/// This logger is used throughout the application to log important events and errors.
-	/// </remarks>
+	/// <summary>NLog logger instance.</summary>
+	/// <remarks>This logger is used throughout the application to log important events and errors.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 	#region constructor
 
-	/// <summary>
-	/// Initializes a new instance of the <see cref="SplashScreenForm"/> class.
-	/// </summary>
-	/// <remarks>
-	/// This constructor initializes the form components.
-	/// </remarks>
+	/// <summary>Initializes a new instance of the <see cref="SplashScreenForm"/> class.</summary>
+	/// <remarks>This constructor initializes the form components.</remarks>
 	public SplashScreenForm() => InitializeComponent();
 
 	#endregion
 
 	#region helper methods
 
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
+	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is called to obtain a string representation of the current instance.
-	/// </remarks>
+	/// <remarks>This method is called to obtain a string representation of the current instance.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
-	/// <summary>
-	/// Sets the splash screen progress bar value.
-	/// </summary>
+	/// <summary>Sets the splash screen progress bar value.</summary>
 	/// <param name="value">The value to set on the progress bar. Must be between <c>progressBarSplash.Minimum</c> and <c>progressBarSplash.Maximum</c>.</param>
 	/// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is outside the valid range of the progress bar.</exception>
-	/// <remarks>
-	/// This method is called to set the value of the splash screen progress bar.
-	/// </remarks>
+	/// <remarks>This method is called to set the value of the splash screen progress bar.</remarks>
 	public void SetProgressbar(int value)
 	{
 		// Validate the value
@@ -80,15 +61,11 @@ public partial class SplashScreenForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>
-	/// Fired when the splash screen form loads.
-	/// Sets the product version text on the form's labels.
-	/// </summary>
+	/// <summary>Fired when the splash screen form loads.
+	/// Sets the product version text on the form's labels.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the splash screen form loads.
-	/// </remarks>
+	/// <remarks>This method is called when the splash screen form loads.</remarks>
 	private void SplashScreenForm_Load(object sender, EventArgs e) =>
 		// Set the version label text to the assembly version
 		labelVersion.Text = string.Format(format: I18nStrings.VersionTemplate, arg0: AssemblyInfo.AssemblyVersion);

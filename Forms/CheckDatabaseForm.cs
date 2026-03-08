@@ -12,60 +12,39 @@ using System.Globalization;
 
 namespace Planetoid_DB;
 
-/// <summary>
-/// Database Data Verification Form.
-/// </summary>
-/// <remarks>
-/// This form is used to verify the integrity of database data files (e.g. ASTORB.DAT or MPCORB.DAT).
-/// </remarks>
+/// <summary>Database Data Verification Form.</summary>
+/// <remarks>This form is used to verify the integrity of database data files (e.g. ASTORB.DAT or MPCORB.DAT).</remarks>
+// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class CheckDatabaseForm : BaseKryptonForm
 {
-	/// <summary>
-	/// NLog logger instance.
-	/// </summary>
-	/// <remarks>
-	/// This logger is used to log messages and errors for the class.
-	/// </remarks>
+	/// <summary>NLog logger instance.</summary>
+	/// <remarks>This logger is used to log messages and errors for the class.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>
-	/// The HttpClient instance used for making HTTP requests.
-	/// </summary>
-	/// <remarks>
-	/// This HttpClient is used to send requests and receive responses from web services.
-	/// </remarks>
+	/// <summary>The HttpClient instance used for making HTTP requests.</summary>
+	/// <remarks>This HttpClient is used to send requests and receive responses from web services.</remarks>
 	private static readonly HttpClient client = new();
 
-	/// <summary>
-	/// The URL used to retrieve information about the online database file.
-	/// </summary>
+	/// <summary>The URL used to retrieve information about the online database file.</summary>
+	/// <remarks>This URL is used to fetch the latest data for comparison with the local file.</remarks>
 	private readonly string databaseUrl;
 
-	/// <summary>
-	/// The path to the local database file used for comparison.
-	/// </summary>
+	/// <summary>The path to the local database file used for comparison.</summary>
+	/// <remarks>This path is used to locate the local database file for comparison with the online version.</remarks>
 	private readonly string localFilePath;
 
-	/// <summary>
-	/// Gets the status label to be used for displaying information.
-	/// </summary>
-	/// <remarks>
-	/// Derived classes should override this property to provide the specific label.
-	/// </remarks>
+	/// <summary>Gets the status label to be used for displaying information.</summary>
+	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	#region constructor
 
-	/// <summary>
-	/// Initializes a new instance of the <see cref="CheckDatabaseForm"/> class.
-	/// </summary>
+	/// <summary>Initializes a new instance of the <see cref="CheckDatabaseForm"/> class.</summary>
 	/// <param name="url">The URL of the online database file to check.</param>
 	/// <param name="localFilePath">The local file path of the database file to compare.</param>
 	/// <param name="databaseName">The display name of the database (e.g. "ASTORB.DAT" or "MPCORB.DAT").</param>
-	/// <remarks>
-	/// This constructor initializes the form components and configures the UI for the specified database.
-	/// </remarks>
+	/// <remarks>This constructor initializes the form components and configures the UI for the specified database.</remarks>
 	public CheckDatabaseForm(string url, string localFilePath, string databaseName)
 	{
 		// Initialize the form components
@@ -95,28 +74,20 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 
 	#region helper methods
 
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
+	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a visual representation of the object in the debugger.
-	/// </remarks>
+	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
 	#endregion
 
 	#region task methods
 
-	/// <summary>
-	/// Retrieves the last modified date of the specified URI.
-	/// </summary>
+	/// <summary>Retrieves the last modified date of the specified URI.</summary>
 	/// <param name="uri">The URI of the resource.</param>
 	/// <returns>The date of the last modification or <see cref="DateTime.MinValue"/> in case of an error.</returns>
-	/// <remarks>
-	/// This method sends a HEAD request to the specified URI and retrieves the last modified date
-	/// from the response headers.
-	/// </remarks>
+	/// <remarks>This method sends a HEAD request to the specified URI and retrieves the last modified date
+	/// from the response headers.</remarks>
 	private static async Task<DateTime> GetLastModifiedAsync(Uri uri)
 	{
 		try
@@ -138,15 +109,11 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// The content length of the specified URI.
-	/// </summary>
+	/// <summary>The content length of the specified URI.</summary>
 	/// <param name="uri">The URI of the resource.</param>
 	/// <returns>The content length or 0 in case of error.</returns>
-	/// <remarks>
-	/// This method sends a HEAD request to the specified URI and retrieves the content length
-	/// from the response headers.
-	/// </remarks>
+	/// <remarks>This method sends a HEAD request to the specified URI and retrieves the content length
+	/// from the response headers.</remarks>
 	private static async Task<long> GetContentLengthAsync(Uri uri)
 	{
 		try
@@ -172,14 +139,10 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>
-	/// Event handler for loading the form.
-	/// </summary>
+	/// <summary>Event handler for loading the form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This event is used to initialize the form's UI elements with information from the database files.
-	/// </remarks>
+	/// <remarks>This event is used to initialize the form's UI elements with information from the database files.</remarks>
 	private async void CheckDatabaseForm_Load(object sender, EventArgs e)
 	{
 		// Clear the status bar
@@ -234,15 +197,11 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 
 	#region DoubleClick event handlers
 
-	/// <summary>
-	/// Event handler for double-clicking the "Update Needed" label to check for updates.
-	/// Resets the displayed information and reloads the form data.
-	/// </summary>
+	/// <summary>Event handler for double-clicking the "Update Needed" label to check for updates.
+	/// Resets the displayed information and reloads the form data.</summary>
 	/// <param name="sender">The event source, typically the label being double-clicked.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-	/// <remarks>
-	/// This event is used to reset the displayed information and reload the form data.
-	/// </remarks>
+	/// <remarks>This event is used to reset the displayed information and reload the form data.</remarks>
 	/// <exception cref="ArgumentNullException">Thrown when the sender is null.</exception>
 	private void LabelUpdateNeeded_DoubleClick(object sender, EventArgs e)
 	{

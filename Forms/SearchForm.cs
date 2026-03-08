@@ -17,212 +17,113 @@ namespace Planetoid_DB;
 /// <remarks>
 /// This form provides a user interface for searching planetoids in the database.
 /// </remarks>
+// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class SearchForm : BaseKryptonForm
 {
-	/// <summary>
-	/// Gets the status label to be used for displaying information.
-	/// </summary>
-	/// <remarks>
-	/// Derived classes should override this property to provide the specific label.
-	/// </remarks>
+	/// <summary>Gets the status label to be used for displaying information.</summary>
+	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
-	/// <summary>
-	/// Planetoids database list.
-	/// </summary>
-	/// <remarks>
-	/// This list stores the data of all planetoids in the database.
-	/// </remarks>
+	/// <summary>Planetoids database list.</summary>
+	/// <remarks>This list stores the data of all planetoids in the database.</remarks>
 	private List<string> planetoidsDatabase = [];
 
-	/// <summary>
-	/// Variables for tracking the number of planetoids, entries found, and selected index.
-	/// </summary>
-	/// <remarks>
-	/// These variables are used to keep track of the search results and user selections.
-	/// </remarks>
+	/// <summary>Variables for tracking the number of planetoids, entries found, and selected index.</summary>
+	/// <remarks>These variables are used to keep track of the search results and user selections.</remarks>
 	private int
 		numberPlanetoids, // Total number of planetoids
 		entriesFound, // Number of entries found
 		selectedIndex; // Index of the selected planetoids
 
-	/// <summary>
-	/// Indicates whether the operation has been cancelled
-	/// </summary>
-	/// <remarks>
-	/// This variable is used to track the cancellation state of the operation.
-	/// </remarks>
+	/// <summary>Indicates whether the operation has been cancelled</summary>
+	/// <remarks>This variable is used to track the cancellation state of the operation.</remarks>
 	private bool isCancelled;
 
-	/// <summary>
-	/// The index of the planetoids.
-	/// </summary>
-	/// <remarks>
-	/// This variable is used to store the index of the planetoids.
-	/// </remarks>
+	/// <summary>The index of the planetoids.</summary>
+	/// <remarks>This variable is used to store the index of the planetoids.</remarks>
 	private string _index = string.Empty;
 
-	/// <summary>
-	/// The absolute magnitude of the planetoids.
-	/// </summary>
-	/// <remarks>
-	/// This variable is used to store the absolute magnitude of the planetoids.
-	/// </remarks>
+	/// <summary>The absolute magnitude of the planetoids.</summary>
+	/// <remarks>This variable is used to store the absolute magnitude of the planetoids.</remarks>
 	private string _magAbs = string.Empty;
 
-	/// <summary>
-	/// The slope parameter of the planetoid.
-	/// </summary>
-	/// <remarks>
-	/// This variable is used to store the slope parameter of the planetoid.
-	/// </remarks>
+	/// <summary>The slope parameter of the planetoid.</summary>
+	/// <remarks>This variable is used to store the slope parameter of the planetoid.</remarks>
 	private string _slopeParam = string.Empty;
 
-	/// <summary>
-	/// The epoch of the planetoids.
-	/// </summary>
-	/// <remarks>
-	/// This variable is used to store the epoch of the planetoids.
-	/// </remarks>
+	/// <summary>The epoch of the planetoids.</summary>
+	/// <remarks>This variable is used to store the epoch of the planetoids.</remarks>
 	private string _epoch = string.Empty;
 
-	/// <summary>
-	/// The mean anomaly of the planetoids.
-	/// </summary>
-	/// <remarks>
-	/// This variable is used to store the mean anomaly of the planetoids.
-	/// </remarks>
+	/// <summary>The mean anomaly of the planetoids.</summary>
+	/// <remarks>This variable is used to store the mean anomaly of the planetoids.</remarks>
 	private string _meanAnomaly = string.Empty;
 
-	/// <summary>
-	/// The argument of perihelion of the planetoids.
-	/// </summary>
-	/// <remarks>
-	/// This variable is used to store the argument of perihelion of the planetoids.
-	/// </remarks>
+	/// <summary>The argument of perihelion of the planetoids.</summary>
+	/// <remarks>This variable is used to store the argument of perihelion of the planetoids.</remarks>
 	private string _argPeri = string.Empty;
 
-	/// <summary>
-	/// The longitude of the ascending node of the planetoids.
-	/// </summary>
-	/// <remarks>
-	/// This variable is used to store the longitude of the ascending node of the planetoids.
-	/// </remarks>
+	/// <summary>The longitude of the ascending node of the planetoids.</summary>
+	/// <remarks>This variable is used to store the longitude of the ascending node of the planetoids.</remarks>
 	private string _longAscNode = string.Empty;
 
-	/// <summary>
-	/// The inclination of the planetoids.
-	/// </summary>
-	/// <remarks>
-	/// This variable is used to store the inclination of the planetoids.
-	/// </remarks>
+	/// <summary>The inclination of the planetoids.</summary>
+	/// <remarks>This variable is used to store the inclination of the planetoids.</remarks>
 	private string _incl = string.Empty;
 
-	/// <summary>
-	/// The orbital eccentricity of the planetoids.
-	/// </summary>
-	/// <remarks>
-	/// This variable is used to store the orbital eccentricity of the planetoids.
-	/// </remarks>
+	/// <summary>The orbital eccentricity of the planetoids.</summary>
+	/// <remarks>This variable is used to store the orbital eccentricity of the planetoids.</remarks>
 	private string _orbEcc = string.Empty;
 
-	/// <summary>
-	/// The mean daily motion of the planetoids.
-	/// </summary>
-	/// <remarks>
-	/// This variable is used to store the mean daily motion of the planetoids.
-	/// </remarks>
+	/// <summary>The mean daily motion of the planetoids.</summary>
+	/// <remarks>This variable is used to store the mean daily motion of the planetoids.</remarks>
 	private string _motion = string.Empty;
 
-	/// <summary>
-	/// The semi-major axis of the planetoids.
-	/// </summary>
-	/// <remarks>
-	/// This variable is used to store the semi-major axis of the planetoids.
-	/// </remarks>
+	/// <summary>The semi-major axis of the planetoids.</summary>
+	/// <remarks>This variable is used to store the semi-major axis of the planetoids.</remarks>
 	private string _semiMajorAxis = string.Empty;
 
-	/// <summary>
-	/// The reference for the planetoids data.
-	/// </summary>
-	/// <remarks>
-	/// This variable is used to store the reference for the planetoids data.
-	/// </remarks>
+	/// <summary>The reference for the planetoids data.</summary>
+	/// <remarks>This variable is used to store the reference for the planetoids data.</remarks>
 	private string _ref = string.Empty;
 
-	/// <summary>
-	/// The number of observations of the planetoids.
-	/// </summary>
-	/// <remarks>
-	/// This variable is used to store the number of observations of the planetoids.
-	/// </remarks>
+	/// <summary>The number of observations of the planetoids.</summary>
+	/// <remarks>This variable is used to store the number of observations of the planetoids.</remarks>
 	private string _numberObservations = string.Empty;
 
-	/// <summary>
-	/// The number of oppositions of the planetoids.
-	/// </summary>
-	/// <remarks>
-	/// This variable is used to store the number of oppositions of the planetoids.
-	/// </remarks>
+	/// <summary>The number of oppositions of the planetoids.</summary>
+	/// <remarks>This variable is used to store the number of oppositions of the planetoids.</remarks>
 	private string _numberOppositions = string.Empty;
 
-	/// <summary>
-	/// The observation span of the planetoids.
-	/// </summary>
-	/// <remarks>
-	/// This variable is used to store the observation span of the planetoids.
-	/// </remarks>
+	/// <summary>The observation span of the planetoids.</summary>
+	/// <remarks>This variable is used to store the observation span of the planetoids.</remarks>
 	private string _obsSpan = string.Empty;
 
-	/// <summary>
-	/// The RMS residual of the planetoids.
-	/// </summary>
-	/// <remarks>
-	/// This variable is used to store the RMS residual of the planetoids.
-	/// </remarks>
+	/// <summary>The RMS residual of the planetoids.</summary>
+	/// <remarks>This variable is used to store the RMS residual of the planetoids.</remarks>
 	private string _rmsResidual = string.Empty;
 
-	/// <summary>
-	/// The name of the computer that processed the planetoids data.
-	/// </summary>
-	/// <remarks>
-	/// This variable is used to store the name of the computer that processed the planetoids data.
-	/// </remarks>
+	/// <summary>The name of the computer that processed the planetoids data.</summary>
+	/// <remarks>This variable is used to store the name of the computer that processed the planetoids data.</remarks>
 	private string _computerName = string.Empty;
 
-	/// <summary>
-	/// The flags associated with the planetoids.
-	/// </summary>
-	/// <remarks>
-	/// This variable is used to store the flags associated with the planetoids.
-	/// </remarks>
+	/// <summary>The flags associated with the planetoids.</summary>
+	/// <remarks>This variable is used to store the flags associated with the planetoids.</remarks>
 	private string _flags = string.Empty;
 
-	/// <summary>
-	/// The designation name of the planetoids.
-	/// </summary>
-	/// <remarks>
-	/// This variable is used to store the designation name of the planetoids.
-	/// </remarks>
+	/// <summary>The designation name of the planetoids.</summary>
+	/// <remarks>This variable is used to store the designation name of the planetoids.</remarks>
 	private string _designationName = string.Empty;
 
-	/// <summary>
-	/// The date of the last observation of the planetoids.
-	/// </summary>
-	/// <remarks>
-	/// This variable is used to store the date of the last observation of the planetoids.
-	/// </remarks>
+	/// <summary>The date of the last observation of the planetoids.</summary>
+	/// <remarks>This variable is used to store the date of the last observation of the planetoids.</remarks>
 	private string _obsLastDate = string.Empty;
 
 	#region constructor
 
-	/// <summary>
-	/// Initializes a new instance of the <see cref="SearchForm"/> class.
-	/// </summary>
-	/// <remarks>
-	/// This constructor initializes the form components.
-	/// </remarks>
+	/// <summary>Initializes a new instance of the <see cref="SearchForm"/> class.</summary>
+	/// <remarks>This constructor initializes the form components.</remarks>
 	public SearchForm() =>
 		// Initialize the form components
 		InitializeComponent();
@@ -231,13 +132,9 @@ public partial class SearchForm : BaseKryptonForm
 
 	#region helper methods
 
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
+	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is called by the debugger to display the object in a readable format.
-	/// </remarks>
+	/// <remarks>This method is called by the debugger to display the object in a readable format.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
 	/// <summary>
@@ -262,9 +159,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// </summary>
 	private void UnmarkAll() => CheckItems(check: false);
 
-	/// <summary>
-	/// Fills the planetoids database with data.
-	/// </summary>
+	/// <summary>Fills the planetoids database with data.</summary>
 	/// <param name="arrTemp">The list containing planetoid data.</param>
 	public void FillArray(List<string> arrTemp)
 	{
@@ -489,6 +384,7 @@ public partial class SearchForm : BaseKryptonForm
 	#endregion
 
 	#region TextChanged event handlers
+
 	/// <summary>
 	/// 
 	/// </summary>

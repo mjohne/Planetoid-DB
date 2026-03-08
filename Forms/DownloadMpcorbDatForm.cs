@@ -17,72 +17,41 @@ using System.Net.NetworkInformation;
 
 namespace Planetoid_DB;
 
-/// <summary>
-/// Form responsible for downloading and installing the MPCORB.DAT database file.
-/// Provides UI helpers, progress reporting and both WebClient- and HttpClient-based download paths.
-/// </summary>
-/// <remarks>
-/// This form is used to download and install the MPCORB.DAT database file.
-/// </remarks>
+/// <summary>Form responsible for downloading and installing the MPCORB.DAT database file.
+/// Provides UI helpers, progress reporting and both WebClient- and HttpClient-based download paths.</summary>
+/// <remarks>This form is used to download and install the MPCORB.DAT database file.</remarks>
+// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class DownloadMpcorbDatForm : BaseKryptonForm
 {
-	/// <summary>
-	/// NLog logger instance for the class.
-	/// </summary>
-	/// <remarks>
-	/// This logger is used to log messages for the form.
-	/// </remarks>
+	/// <summary>NLog logger instance for the class.</summary>
+	/// <remarks>This logger is used to log messages for the form.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>
-	/// Cancellation token source used to cancel an ongoing download operation.
-	/// May be null when no download is active.
-	/// </summary>
-	/// <remarks>
-	/// This token is used to cancel the download operation if needed.
-	/// </remarks>
+	/// <summary>Cancellation token source used to cancel an ongoing download operation.
+	/// May be null when no download is active.</summary>
+	/// <remarks>This token is used to cancel the download operation if needed.</remarks>
 	private CancellationTokenSource? cancellationTokenSource;
 
-	/// <summary>
-	/// Filename (full path) for the local MPCORB data file.
-	/// </summary>
-	/// <remarks>
-	/// This is the full path to the local MPCORB data file.
-	/// </remarks>
+	/// <summary>Filename (full path) for the local MPCORB data file.</summary>
+	/// <remarks>This is the full path to the local MPCORB data file.</remarks>
 	private readonly string _filenameMpcorb = Settings.Default.systemFilenameMpcorb;
 
-	/// <summary>
-	/// Temporary filename (full path) used while downloading the MPCORB data file.
-	/// </summary>
-	/// <remarks>
-	/// This is the full path to the temporary MPCORB data file.
-	/// </remarks>
+	/// <summary>Temporary filename (full path) used while downloading the MPCORB data file.</summary>
+	/// <remarks>This is the full path to the temporary MPCORB data file.</remarks>
 	private readonly string _filenameMpcorbTemp = Settings.Default.systemFilenameMpcorbTemp;
 
-	/// <summary>
-	/// Remote URI of the MPCORB.GZ resource to download.
-	/// </summary>
-	/// <remarks>
-	/// This is the remote URI of the MPCORB.GZ resource to download.
-	/// </remarks>
+	/// <summary>Remote URI of the MPCORB.GZ resource to download.</summary>
+	/// <remarks>This is the remote URI of the MPCORB.GZ resource to download.</remarks>
 	private readonly Uri _uriMpcorb = new(uriString: Settings.Default.systemMpcorbDatGzUrl);
 
-	/// <summary>
-	/// Instance of <see cref="WebClient"/> used for the legacy async download path.
-	/// </summary>
-	/// <remarks>
-	/// This is the WebClient instance used for downloading the MPCORB.GZ file.
-	/// </remarks>
+	/// <summary>Instance of <see cref="WebClient"/> used for the legacy async download path.</summary>
+	/// <remarks>This is the WebClient instance used for downloading the MPCORB.GZ file.</remarks>
 	private readonly WebClient webClient = new();
 
-	/// <summary>
-	/// Shared <see cref="HttpClient"/> used for HTTP requests. Initialized in the constructor.
-	/// Reuse to avoid socket exhaustion.
-	/// </summary>
-	/// <remarks>
-	/// This HttpClient instance is reused for all HTTP requests to improve performance.
-	/// </remarks>
+	/// <summary>Shared <see cref="HttpClient"/> used for HTTP requests. Initialized in the constructor.
+	/// Reuse to avoid socket exhaustion.</summary>
+	/// <remarks>This HttpClient instance is reused for all HTTP requests to improve performance.</remarks>
 	private static readonly HttpClient httpClient = new(handler: new HttpClientHandler
 	{
 		AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
@@ -91,22 +60,14 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 		Timeout = TimeSpan.FromMinutes(10)
 	};
 
-	/// <summary>
-	/// Gets the status label to be used for displaying information.
-	/// </summary>
-	/// <remarks>
-	/// Derived classes should override this property to provide the specific label.
-	/// </remarks>
+	/// <summary>Gets the status label to be used for displaying information.</summary>
+	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	#region constructor
 
-	/// <summary>
-	/// Initializes a new instance of the <see cref="DownloadMpcorbDatForm"/> class.
-	/// </summary>
-	/// <remarks>
-	/// This constructor initializes the form components.
-	/// </remarks>
+	/// <summary>Initializes a new instance of the <see cref="DownloadMpcorbDatForm"/> class.</summary>
+	/// <remarks>This constructor initializes the form components.</remarks>
 	public DownloadMpcorbDatForm() =>
 		// Initialize the form components
 		InitializeComponent();
@@ -115,21 +76,13 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 
 	#region helper methods
 
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
+	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a visual representation of the object in the debugger.
-	/// </remarks>
+	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
-	/// <summary>
-	/// Extracts a GZIP-compressed file to a specified output file.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to extract a GZIP-compressed file to a specified output file.
-	/// </remarks>
+	/// <summary>Extracts a GZIP-compressed file to a specified output file.</summary>
+	/// <remarks>This method is used to extract a GZIP-compressed file to a specified output file.</remarks>
 	private static void ExtractGzipFile(string gzipFilePath, string outputFilePath)
 	{
 		// Open the gzip file and create a new file stream for the output file
@@ -142,9 +95,7 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 		decompressionStream.CopyTo(destination: decompressedFileStream);
 	}
 
-	/// <summary>
-	/// Asynchronously retrieves the Last-Modified date of a resource.
-	/// </summary>
+	/// <summary>Asynchronously retrieves the Last-Modified date of a resource.</summary>
 	/// <param name="uri">The URI of the resource to query.</param>
 	/// <param name="client">An <see cref="HttpClient"/> used to send the request.</param>
 	/// <returns>
@@ -152,10 +103,8 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 	/// otherwise <see cref="DateTime.MinValue"/>.
 	/// </returns>
 	/// <exception cref="ArgumentNullException">Thrown when <paramref name="uri"/> or <paramref name="client"/> is null.</exception>
-	/// <remarks>
-	/// The method logs and displays errors and returns <see cref="DateTime.MinValue"/> on failure.
-	/// A HEAD request is used to avoid downloading the response body.
-	/// </remarks>
+	/// <remarks>The method logs and displays errors and returns <see cref="DateTime.MinValue"/> on failure.
+	/// A HEAD request is used to avoid downloading the response body.</remarks>
 	private static async Task<DateTime?> GetLastModifiedAsync(Uri uri, HttpClient client)
 	{
 		// Validate input parameters
@@ -165,14 +114,10 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 		return !response.IsSuccessStatusCode ? null : (response.Content.Headers.LastModified?.UtcDateTime);
 	}
 
-	/// <summary>
-	/// Gets the content length of the specified URI.
-	/// </summary>
+	/// <summary>Gets the content length of the specified URI.</summary>
 	/// <param name="uri">The URI to check.</param>
 	/// <returns>The content length of the URI.</returns>
-	/// <remarks>
-	/// This method is used to retrieve the content length of a resource at the specified URI.
-	/// </remarks>
+	/// <remarks>This method is used to retrieve the content length of a resource at the specified URI.</remarks>
 	private static long GetContentLength(Uri uri)
 	{
 		try
@@ -208,12 +153,8 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Shows the MPCORB data check form.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to display the MPCORB data check form.
-	/// </remarks>
+	/// <summary>Shows the MPCORB data check form.</summary>
+	/// <remarks>This method is used to display the MPCORB data check form.</remarks>
 	private static void ShowMpcorbDatCheck()
 	{
 		// Check if there is an internet connection available
@@ -235,14 +176,10 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Handles the DownloadProgressChanged event of the WebClient control.
-	/// </summary>
+	/// <summary>Handles the DownloadProgressChanged event of the WebClient control.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The <see cref="DownloadProgressChangedEventArgs"/> instance containing the event data.</param>
-	/// <remarks>
-	/// This method is used to update the progress bar and label with the current download progress.
-	/// </remarks>
+	/// <remarks>This method is used to update the progress bar and label with the current download progress.</remarks>
 	private void ProgressChanged(object? sender, DownloadProgressChangedEventArgs e)
 	{
 		// Set the progress bar style to continuous
@@ -253,14 +190,10 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 		TaskbarProgress.SetValue(windowHandle: Handle, progressValue: e.ProgressPercentage, progressMax: 100);
 	}
 
-	/// <summary>
-	/// Handles the DownloadFileCompleted event of the WebClient control.
-	/// </summary>
+	/// <summary>Handles the DownloadFileCompleted event of the WebClient control.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The <see cref="AsyncCompletedEventArgs"/> instance containing the event data.</param>
-	/// <remarks>
-	/// This method is used to handle the completion of the download operation.
-	/// </remarks>
+	/// <remarks>This method is used to handle the completion of the download operation.</remarks>
 	private async void Completed(object? sender, AsyncCompletedEventArgs e)
 	{
 		// Reset the taskbar progress
@@ -309,14 +242,10 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>
-	/// Handles the Load event of the DownloadMpcorbDatForm control.
-	/// </summary>
+	/// <summary>Handles the Load event of the DownloadMpcorbDatForm control.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-	/// <remarks>
-	/// This method is used to initialize the form and its controls.
-	/// </remarks>
+	/// <remarks>This method is used to initialize the form and its controls.</remarks>
 
 	[Obsolete(message: "Obsolete")]
 	private void DownloadMpcorbDatForm_Load(object? sender, EventArgs? e)
@@ -339,14 +268,10 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 		webClient.DownloadProgressChanged += ProgressChanged;
 	}
 
-	/// <summary>
-	/// Handles the FormClosed event of the DownloadMpcorbDatForm control.
-	/// </summary>
+	/// <summary>Handles the FormClosed event of the DownloadMpcorbDatForm control.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The <see cref="FormClosedEventArgs"/> instance containing the event data.</param>
-	/// <remarks>
-	/// This method is used to clean up resources when the form is closed.
-	/// </remarks>
+	/// <remarks>This method is used to clean up resources when the form is closed.</remarks>
 	[Obsolete(message: "Obsolete")]
 	private void DownloadMpcorbDatForm_FormClosed(object? sender, FormClosedEventArgs? e)
 	{
@@ -360,14 +285,10 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 
 	#region Click event handlers
 
-	/// <summary>
-	/// Handles the Click event of the Download button to start the download process.
-	/// </summary>
+	/// <summary>Handles the Click event of the Download button to start the download process.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-	/// <remarks>
-	/// This method is used to start the download process when the Download button is clicked.
-	/// </remarks>
+	/// <remarks>This method is used to start the download process when the Download button is clicked.</remarks>
 	[Obsolete(message: "Obsolete")]
 	private async void ButtonDownload_Click(object? sender, EventArgs? e)
 	{
@@ -503,26 +424,18 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Handles the Click event of the Cancel Download button.
-	/// Cancels the ongoing download operation if one is in progress.
-	/// </summary>
+	/// <summary>Handles the Click event of the Cancel Download button.
+	/// Cancels the ongoing download operation if one is in progress.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-	/// <remarks>
-	/// This method is used to cancel the ongoing download operation if one is in progress.
-	/// </remarks>
+	/// <remarks>This method is used to cancel the ongoing download operation if one is in progress.</remarks>
 	[Obsolete(message: "Obsolete")]
 	private void ButtonCancelDownload_Click(object? sender, EventArgs? e) => webClient.CancelAsync();
 
-	/// <summary>
-	/// Handles the FormClosing event of the DownloadMpcorbDatForm control.
-	/// </summary>
+	/// <summary>Handles the FormClosing event of the DownloadMpcorbDatForm control.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The <see cref="FormClosingEventArgs"/> instance containing the event data.</param>
-	/// <remarks>
-	/// This method is used to cancel the ongoing download operation if one is in progress.
-	/// </remarks>
+	/// <remarks>This method is used to cancel the ongoing download operation if one is in progress.</remarks>
 	[Obsolete(message: "Obsolete")]
 	private void DownloadMpcorbDatForm_FormClosing(object? sender, FormClosingEventArgs? e)
 	{
@@ -537,14 +450,10 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Handles the Click event of the Check for Update button to show the MPCORB data check form.
-	/// </summary>
+	/// <summary>Handles the Click event of the Check for Update button to show the MPCORB data check form.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-	/// <remarks>
-	/// This method is used to show the MPCORB data check form.
-	/// </remarks>
+	/// <remarks>This method is used to show the MPCORB data check form.</remarks>
 	private void ButtonCheckForUpdate_Click(object? sender, EventArgs? e) => ShowMpcorbDatCheck();
 
 	#endregion
