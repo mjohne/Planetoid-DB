@@ -42,7 +42,7 @@ public static partial class TaskbarProgress
 	[GeneratedComInterface]
 	[Guid(guid: "ea1afb91-9e28-4b86-90e9-9e9f8a5eefaf")]
 	[InterfaceType(interfaceType: ComInterfaceType.InterfaceIsIUnknown)]
-	private partial interface ITaskbarList3
+	internal partial interface ITaskbarList3
 	{
 		// ITaskbarList
 		[PreserveSig]
@@ -70,7 +70,7 @@ public static partial class TaskbarProgress
 	[GeneratedComClass]
 	[Guid(guid: "56FDF344-FD6D-11d0-958A-006097C9A090")]
 	[ClassInterface(classInterfaceType: ClassInterfaceType.None)]
-	private partial class TaskbarInstance
+	internal partial class TaskbarInstance
 	{
 	}
 
