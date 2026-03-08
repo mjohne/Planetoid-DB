@@ -144,7 +144,7 @@ partial class AppInfoForm
 		// labelDescription
 		// 
 		labelDescription.AccessibleDescription = "Shows the program description";
-		labelDescription.AccessibleName = "Program descripton";
+		labelDescription.AccessibleName = "Program description";
 		labelDescription.AccessibleRole = AccessibleRole.StaticText;
 		labelDescription.ContextMenuStrip = contextMenuStripCopyToClipboard;
 		labelDescription.Location = new Point(12, 246);
@@ -174,7 +174,7 @@ partial class AppInfoForm
 		pictureBoxBanner.Size = new Size(500, 174);
 		pictureBoxBanner.TabIndex = 0;
 		pictureBoxBanner.TabStop = false;
-		pictureBoxBanner.ToolTipValues.Description = "On the graphic you see the minor planet \"(243) Ida \".";
+		pictureBoxBanner.ToolTipValues.Description = "Shows the banner.";
 		pictureBoxBanner.ToolTipValues.EnableToolTips = true;
 		pictureBoxBanner.ToolTipValues.Heading = "Banner";
 		pictureBoxBanner.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
