@@ -129,7 +129,6 @@ public partial class TableModeForm : BaseKryptonForm
 		if (!processing)
 		{
 			progressBar.Value = 0;
-			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: 0, progressMax: 100);
 		}
 	}
 
@@ -377,7 +376,6 @@ public partial class TableModeForm : BaseKryptonForm
 		{
 			progressBar.Value = percent;
 			int taskbarPercent = count > 0 ? percent * 100 / count : 0;
-			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: taskbarPercent, progressMax: 100);
 		});
 		// Configure the progress bar
 		progressBar.Maximum = count;
