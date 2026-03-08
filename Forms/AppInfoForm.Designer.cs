@@ -71,7 +71,7 @@ partial class AppInfoForm
 		labelVersion.AccessibleName = "Version";
 		labelVersion.AccessibleRole = AccessibleRole.StaticText;
 		labelVersion.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		labelVersion.Location = new Point(13, 157);
+		labelVersion.Location = new Point(12, 216);
 		labelVersion.Name = "labelVersion";
 		labelVersion.Size = new Size(95, 20);
 		labelVersion.TabIndex = 1;
@@ -125,7 +125,7 @@ partial class AppInfoForm
 		labelTitle.AccessibleRole = AccessibleRole.StaticText;
 		labelTitle.ContextMenuStrip = contextMenuStripCopyToClipboard;
 		labelTitle.LabelStyle = LabelStyle.TitlePanel;
-		labelTitle.Location = new Point(13, 128);
+		labelTitle.Location = new Point(12, 187);
 		labelTitle.Name = "labelTitle";
 		labelTitle.Size = new Size(129, 29);
 		labelTitle.TabIndex = 0;
@@ -147,7 +147,7 @@ partial class AppInfoForm
 		labelDescription.AccessibleName = "Program descripton";
 		labelDescription.AccessibleRole = AccessibleRole.StaticText;
 		labelDescription.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		labelDescription.Location = new Point(13, 187);
+		labelDescription.Location = new Point(12, 246);
 		labelDescription.Name = "labelDescription";
 		labelDescription.Size = new Size(80, 20);
 		labelDescription.TabIndex = 2;
@@ -171,7 +171,7 @@ partial class AppInfoForm
 		pictureBoxBanner.Image = (Image)resources.GetObject("pictureBoxBanner.Image");
 		pictureBoxBanner.Location = new Point(4, 3);
 		pictureBoxBanner.Name = "pictureBoxBanner";
-		pictureBoxBanner.Size = new Size(500, 119);
+		pictureBoxBanner.Size = new Size(500, 174);
 		pictureBoxBanner.TabIndex = 0;
 		pictureBoxBanner.TabStop = false;
 		pictureBoxBanner.ToolTipValues.Description = "On the graphic you see the minor planet \"(243) Ida \".";
@@ -187,7 +187,7 @@ partial class AppInfoForm
 		labelCopyright.AccessibleName = "Copyright";
 		labelCopyright.AccessibleRole = AccessibleRole.StaticText;
 		labelCopyright.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		labelCopyright.Location = new Point(13, 210);
+		labelCopyright.Location = new Point(12, 269);
 		labelCopyright.Name = "labelCopyright";
 		labelCopyright.Size = new Size(72, 20);
 		labelCopyright.TabIndex = 3;
@@ -209,7 +209,7 @@ partial class AppInfoForm
 		linkLabelEmail.AccessibleName = "E-Mail";
 		linkLabelEmail.AccessibleRole = AccessibleRole.Link;
 		linkLabelEmail.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
-		linkLabelEmail.Location = new Point(431, 217);
+		linkLabelEmail.Location = new Point(424, 266);
 		linkLabelEmail.Name = "linkLabelEmail";
 		linkLabelEmail.Size = new Size(62, 20);
 		linkLabelEmail.TabIndex = 5;
@@ -232,7 +232,7 @@ partial class AppInfoForm
 		linkLabelWebsite.AccessibleName = "Website";
 		linkLabelWebsite.AccessibleRole = AccessibleRole.Link;
 		linkLabelWebsite.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
-		linkLabelWebsite.Location = new Point(431, 187);
+		linkLabelWebsite.Location = new Point(424, 236);
 		linkLabelWebsite.Name = "linkLabelWebsite";
 		linkLabelWebsite.Size = new Size(72, 20);
 		linkLabelWebsite.TabIndex = 4;
@@ -266,7 +266,7 @@ partial class AppInfoForm
 		kryptoPanelMain.Location = new Point(0, 0);
 		kryptoPanelMain.Name = "kryptoPanelMain";
 		kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptoPanelMain.Size = new Size(508, 262);
+		kryptoPanelMain.Size = new Size(508, 321);
 		kryptoPanelMain.TabIndex = 0;
 		// 
 		// kryptonStatusStrip
@@ -278,7 +278,7 @@ partial class AppInfoForm
 		kryptonStatusStrip.AllowItemReorder = true;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-		kryptonStatusStrip.Location = new Point(0, 240);
+		kryptonStatusStrip.Location = new Point(0, 299);
 		kryptonStatusStrip.Name = "kryptonStatusStrip";
 		kryptonStatusStrip.Padding = new Padding(1, 0, 16, 0);
 		kryptonStatusStrip.ProgressBars = null;
@@ -297,7 +297,7 @@ partial class AppInfoForm
 		labelInformation.AccessibleRole = AccessibleRole.StaticText;
 		labelInformation.AutoToolTip = true;
 		labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
-		labelInformation.Margin = new Padding(0, 0, 0, 0);
+		labelInformation.Margin = new Padding(0);
 		labelInformation.Name = "labelInformation";
 		labelInformation.Size = new Size(144, 22);
 		labelInformation.Text = "some information here";
@@ -316,7 +316,7 @@ partial class AppInfoForm
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(508, 262);
+		ClientSize = new Size(508, 321);
 		ControlBox = false;
 		Controls.Add(kryptoPanelMain);
 		FormBorderStyle = FormBorderStyle.FixedToolWindow;
