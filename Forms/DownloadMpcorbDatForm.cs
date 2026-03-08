@@ -6,7 +6,6 @@
 using NLog;
 
 using Planetoid_DB.Forms;
-using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 
 using System.ComponentModel;
@@ -186,8 +185,6 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 		progressBarDownload.Value = e.ProgressPercentage;
 		// Update the label with the current progress percentage
 		labelDownload.Text = e.ProgressPercentage + I18nStrings.PercentSign;
-		// Update the status bar with the current progress
-		TaskbarProgress.SetValue(windowHandle: Handle, progressValue: e.ProgressPercentage, progressMax: 100);
 	}
 
 	/// <summary>Handles the DownloadFileCompleted event of the WebClient control.</summary>
@@ -196,8 +193,6 @@ public partial class DownloadMpcorbDatForm : BaseKryptonForm
 	/// <remarks>This method is used to handle the completion of the download operation.</remarks>
 	private async void Completed(object? sender, AsyncCompletedEventArgs e)
 	{
-		// Reset the taskbar progress
-		TaskbarProgress.SetValue(windowHandle: Handle, progressValue: 0, progressMax: 100);
 		if (e.Error == null)
 		{
 			// Set the status to "Refreshing database"

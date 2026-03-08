@@ -4,7 +4,6 @@
 // a specific target and scoped to a namespace, type, member, etc.
 
 using Planetoid_DB.Forms;
-using Planetoid_DB.Helpers;
 
 using System.ComponentModel;
 using System.Diagnostics;
@@ -287,7 +286,6 @@ public partial class SearchForm : BaseKryptonForm
 		{
 			FormatRow(currentPosition: i);
 			backgroundWorker.ReportProgress(percentProgress: i);
-			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: i, progressMax: numberPlanetoids);
 			if (isCancelled)
 			{
 				break;
@@ -312,7 +310,6 @@ public partial class SearchForm : BaseKryptonForm
 		listView.Visible = true;
 		buttonCancel.Enabled = false;
 		progressBar.Enabled = false;
-		TaskbarProgress.SetValue(windowHandle: Handle, progressValue: 0, progressMax: 100);
 	}
 
 	#endregion
