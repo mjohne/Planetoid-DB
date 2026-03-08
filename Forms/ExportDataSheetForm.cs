@@ -3,6 +3,8 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using NLog;
+
 using Planetoid_DB.Forms;
 
 using System.Diagnostics;
@@ -11,39 +13,28 @@ using System.Text;
 
 namespace Planetoid_DB;
 
-/// <summary>
-/// Form for exporting data sheets with various formats.
-/// </summary>
-/// <remarks>
-/// This form allows users to select orbital elements and export them in different formats.
-/// </remarks>
+/// <summary>Form for exporting data sheets with various formats.</summary>
+/// <remarks>This form allows users to select orbital elements and export them in different formats.</remarks>
+// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class ExportDataSheetForm : BaseKryptonForm
 {
-	/// <summary>
-	/// List of orbit elements to be exported
-	/// </summary>
-	/// <remarks>
-	/// This list contains the names of the orbital elements that the user has selected for export.
-	/// </remarks>
+	/// <summary>NLog logger instance for the class.</summary>
+	/// <remarks>This logger is used to log messages for the form.</remarks>
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+	/// <summary>List of orbit elements to be exported</summary>
+	/// <remarks>This list contains the names of the orbital elements that the user has selected for export.</remarks>
 	private List<string> orbitElements = [];
 
-	/// <summary>
-	/// Gets the status label to be used for displaying information.
-	/// </summary>
-	/// <remarks>
-	/// Derived classes should override this property to provide the specific label.
-	/// </remarks>
-	protected override ToolStripStatusLabel? StatusLabel => labelStatus;
+	/// <summary>Gets the status label to be used for displaying information.</summary>
+	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
+	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	#region constructor
 
-	/// <summary>
-	/// Initializes a new instance of the <see cref="ExportDataSheetForm"/> class.
-	/// </summary>
-	/// <remarks>
-	/// This constructor initializes the form components.
-	/// </remarks>
+	/// <summary>Initializes a new instance of the <see cref="ExportDataSheetForm"/> class.</summary>
+	/// <remarks>This constructor initializes the form components.</remarks>
 	public ExportDataSheetForm() =>
 		// Initialize the form components
 		InitializeComponent();
@@ -52,32 +43,20 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 
 	#region helper methods
 
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
+	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a visual representation of the object in the debugger.
-	/// </remarks>
+	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
-	/// <summary>
-	/// Sets the internal list of orbit elements that will be used for export operations.
-	/// </summary>
+	/// <summary>Sets the internal list of orbit elements that will be used for export operations.</summary>
 	/// <param name="list">A list of orbit element values (strings). The list is stored by reference.</param>
-	/// <remarks>
-	/// This method is used to set the internal list of orbit elements that will be used for export operations.
-	/// </remarks>
+	/// <remarks>This method is used to set the internal list of orbit elements that will be used for export operations.</remarks>
 	public void SetDatabase(List<string> list) => orbitElements = list;
 
-	/// <summary>
-	/// Checks or unchecks all items in the orbital elements checklist and toggles export buttons.
-	/// </summary>
+	/// <summary>Checks or unchecks all items in the orbital elements checklist and toggles export buttons.</summary>
 	/// <param name="check">If true, all items are checked; if false, all items are unchecked.</param>
-	/// <remarks>
-	/// This method is used to check or uncheck all items in the orbital elements checklist
-	/// and toggle the export buttons accordingly.
-	/// </remarks>
+	/// <remarks>This method is used to check or uncheck all items in the orbital elements checklist
+	/// and toggle the export buttons accordingly.</remarks>
 	private void CheckIt(bool check)
 	{
 		// Check or uncheck all items in the checked list box
@@ -91,29 +70,17 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		toolStripDropDownButtonExport.Enabled = !IsAllUnmarked();
 	}
 
-	/// <summary>
-	/// Checks all items in the orbital elements checklist.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to mark all items in the orbital elements checklist.
-	/// </remarks>
+	/// <summary>Checks all items in the orbital elements checklist.</summary>
+	/// <remarks>This method is used to mark all items in the orbital elements checklist.</remarks>
 	private void MarkAll() => CheckIt(check: true);
 
-	/// <summary>
-	/// Unchecks all items in the orbital elements checklist.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to unmark all items in the orbital elements checklist.
-	/// </remarks>
+	/// <summary>Unchecks all items in the orbital elements checklist.</summary>
+	/// <remarks>This method is used to unmark all items in the orbital elements checklist.</remarks>
 	private void UnmarkAll() => CheckIt(check: false);
 
-	/// <summary>
-	/// Determines whether all items in the orbital elements checklist are unmarked (unchecked).
-	/// </summary>
+	/// <summary>Determines whether all items in the orbital elements checklist are unmarked (unchecked).</summary>
 	/// <returns><c>true</c> if every item is unchecked; otherwise <c>false</c>.</returns>
-	/// <remarks>
-	/// This method is used to determine whether all items in the orbital elements checklist are unmarked (unchecked).
-	/// </remarks>
+	/// <remarks>This method is used to determine whether all items in the orbital elements checklist are unmarked (unchecked).</remarks>
 	private bool IsAllUnmarked()
 	{
 		// Check if all items in the checked list box are unmarked
@@ -128,18 +95,14 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>
-	/// Fired when the export form loads.
-	/// Clears the status area and selects all available orbital elements by default.
-	/// </summary>
+	/// <summary>Fired when the export form loads.
+	/// Clears the status area and selects all available orbital elements by default.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to initialize the form and set up any necessary data.
-	/// </remarks>
+	/// <remarks>This method is used to initialize the form and set up any necessary data.</remarks>
 	private void ExportDataSheetForm_Load(object sender, EventArgs e)
 	{
-		ClearStatusBar(label: labelStatus); // Clear the status bar text
+		ClearStatusBar(label: labelInformation); // Clear the status bar text
 		MarkAll(); // Mark all items in the list
 	}
 
@@ -158,50 +121,18 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 	/// </remarks>
 	private void ToolStripButtonMarkAll_Click(object sender, EventArgs e) => MarkAll();
 
-	/// <summary>
-	/// Handles the Click event of the Unmark All tool strip button.
-	/// Unmarks all items in the orbital elements checklist.
-	/// </summary>
+	/// <summary>Handles the Click event of the Unmark All tool strip button.
+	/// Unmarks all items in the orbital elements checklist.</summary>
 	/// <param name="sender">Event source (the Unmark All tool strip button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to unmark all items in the orbital elements checklist.
-	/// </remarks>
+	/// <remarks>This method is used to unmark all items in the orbital elements checklist.</remarks>
 	private void ToolStripButtonUnmarkAll_Click(object sender, EventArgs e) => UnmarkAll();
 
-	#endregion
-
-	#region SelectedIndexChanged event handlers
-
-	/// <summary>
-	/// Handles the SelectedIndexChanged event of the orbital elements checklist.
-	/// Enables or disables the export buttons depending on whether any items are checked.
-	/// If all items are unmarked (unchecked) the export buttons are disabled; otherwise they are enabled.
-	/// </summary>
-	/// <param name="sender">Event source (the checked list box).</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to enable or disable the export buttons based on the selection state of the orbital elements.
-	/// </remarks>
-	private void CheckedListBoxOrbitalElements_SelectedIndexChanged(object sender, EventArgs e)
-	{
-		// Enable or disable the export buttons based on whether all items are unmarked
-		// If all items are unmarked, disable the export buttons
-		// If not all items are unmarked, enable the export buttons
-		toolStripDropDownButtonExport.Enabled = !IsAllUnmarked();
-	}
-
-	#endregion
-
-	/// <summary>
-	/// Handles the Click event of the Export As Text menu item.
-	/// Exports the selected orbital elements to a text file.
-	/// </summary>
+	/// <summary>Handles the Click event of the Export As Text menu item.
+	/// Exports the selected orbital elements to a text file.</summary>
 	/// <param name="sender">Event source (the Export As Text menu item).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to export the selected orbital elements to a text file.
-	/// </remarks>
+	/// <remarks>This method is used to export the selected orbital elements to a text file.</remarks>
 	private void ToolStripMenuItemExportAsText_Click(object sender, EventArgs e)
 	{
 		// Create a new SaveFileDialog to allow the user to select the file path and name for the exported text file
@@ -246,15 +177,11 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the Click event of the Export As LaTeX menu item.
-	/// Exports the selected orbital elements to a LaTeX file.
-	/// </summary>
+	/// <summary>Handles the Click event of the Export As LaTeX menu item.
+	/// Exports the selected orbital elements to a LaTeX file.</summary>
 	/// <param name="sender">Event source (the Export As LaTeX menu item).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to export the selected orbital elements to a LaTeX file.
-	/// </remarks>
+	/// <remarks>This method is used to export the selected orbital elements to a LaTeX file.</remarks>
 	private void ToolStripMenuItemExportAsLatex_Click(object sender, EventArgs e)
 	{
 		// Create a new SaveFileDialog to allow the user to select the file path and name for the exported LaTeX file
@@ -309,15 +236,11 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the Click event of the Export As Markdown menu item.
-	/// Exports the selected orbital elements to a Markdown file.
-	/// </summary>
+	/// <summary>Handles the Click event of the Export As Markdown menu item.
+	/// Exports the selected orbital elements to a Markdown file.</summary>
 	/// <param name="sender">Event source (the Export As Markdown menu item).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to export the selected orbital elements to a Markdown file.
-	/// </remarks>
+	/// <remarks>This method is used to export the selected orbital elements to a Markdown file.</remarks>
 	private void ToolStripMenuItemExportAsMarkdown_Click(object sender, EventArgs e)
 	{
 		// Create a new SaveFileDialog to allow the user to select the file path and name for the exported Markdown file
@@ -360,15 +283,11 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the Click event of the Export As Word menu item.
-	/// Exports the selected orbital elements to a Word document.
-	/// </summary>
+	/// <summary>Handles the Click event of the Export As Word menu item.
+	/// Exports the selected orbital elements to a Word document.</summary>
 	/// <param name="sender">Event source (the Export As Word menu item).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to export the selected orbital elements to a Word document.
-	/// </remarks>
+	/// <remarks>This method is used to export the selected orbital elements to a Word document.</remarks>
 	private void ToolStripMenuItemExportAsWord_Click(object sender, EventArgs e)
 	{
 		// Create a new SaveFileDialog to allow the user to select the file path and name for the exported Word document
@@ -486,14 +405,10 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the click event for exporting data as an ODT document.
-	/// </summary>
+	/// <summary>Handles the click event for exporting data as an ODT document.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	/// <remarks>
-	/// This method handles the export of data as an ODT document.
-	/// </remarks>
+	/// <remarks>This method handles the export of data as an ODT document.</remarks>
 	private void ToolStripMenuItemExportAsOdt_Click(object sender, EventArgs e)
 	{
 		// Create a new SaveFileDialog to allow the user to select the file path and name for the exported ODT document
@@ -627,9 +542,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the click event to export selected orbital element data as a Rich Text Format (RTF) document.
-	/// </summary>
+	/// <summary>Handles the click event to export selected orbital element data as a Rich Text Format (RTF) document.</summary>
 	/// <remarks>This method displays a save file dialog allowing the user to specify the location and name of the
 	/// RTF file. It formats the selected orbital elements into RTF and writes the content to the chosen file. If no
 	/// elements are selected, the output will indicate this in the document.</remarks>
@@ -694,9 +607,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the click event to export selected orbital element data to an Excel file in .xlsx format.
-	/// </summary>
+	/// <summary>Handles the click event to export selected orbital element data to an Excel file in .xlsx format.</summary>
 	/// <remarks>This method displays a save file dialog allowing the user to specify the location and name of the
 	/// Excel file. It generates an Excel document containing the selected orbital elements from the list, formatted as
 	/// XML. If no elements are selected, the output will indicate this in the exported file.</remarks>
@@ -816,14 +727,10 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the click event for exporting data as an ODS file.
-	/// </summary>
+	/// <summary>Handles the click event for exporting data as an ODS file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	/// <remarks>
-	/// This method creates an ODS file containing the selected orbital elements from the database.
-	/// </remarks>
+	/// <remarks>This method creates an ODS file containing the selected orbital elements from the database.</remarks>
 	private void ToolStripMenuItemExportAsOds_Click(object sender, EventArgs e)
 	{
 		// Create a new SaveFileDialog to allow the user to select the file path and name for the exported ODS file
@@ -951,14 +858,10 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the Click event of the ToolStripMenuItemExportAsCsv control.
-	/// </summary>
+	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsCsv control.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-	/// <remarks>
-	/// This method allows the user to export the selected orbital elements as a CSV file.
-	/// </remarks>
+	/// <remarks>This method allows the user to export the selected orbital elements as a CSV file.</remarks>
 	private void ToolStripMenuItemExportAsCsv_Click(object sender, EventArgs e)
 	{
 		// Create a new SaveFileDialog to allow the user to select the file path and name for the exported CSV file
@@ -1002,14 +905,10 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the Click event of the ToolStripMenuItemExportAsTsv control.
-	/// </summary>
+	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsTsv control.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-	/// <remarks>
-	/// This method allows the user to export the selected orbital elements as a TSV file.
-	/// </remarks>
+	/// <remarks>This method allows the user to export the selected orbital elements as a TSV file.</remarks>
 	private void ToolStripMenuItemExportAsTsv_Click(object sender, EventArgs e)
 	{
 		// Create a new SaveFileDialog to allow the user to select the file path and name for the exported TSV file
@@ -1053,14 +952,10 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the Click event of the ToolStripMenuItemExportAsPsv control.
-	/// </summary>
+	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsPsv control.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-	/// <remarks>
-	/// This method allows the user to export the selected orbital elements as a PSV file.
-	/// </remarks>
+	/// <remarks>This method allows the user to export the selected orbital elements as a PSV file.</remarks>
 	private void ToolStripMenuItemExportAsPsv_Click(object sender, EventArgs e)
 	{
 		// Create a new SaveFileDialog to allow the user to select the file path and name for the exported PSV file
@@ -1104,14 +999,10 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the Click event of the ToolStripMenuItemExportAsHtml control.
-	/// </summary>
+	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsHtml control.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-	/// <remarks>
-	/// This method allows the user to export the selected orbital elements as an HTML file.
-	/// </remarks>
+	/// <remarks>This method allows the user to export the selected orbital elements as an HTML file.</remarks>
 	private void ToolStripMenuItemExportAsHtml_Click(object sender, EventArgs e)
 	{
 		// Create a new SaveFileDialog to allow the user to select the file path and name for the exported HTML file
@@ -1175,14 +1066,10 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the Click event of the ToolStripMenuItemExportAsXml control.
-	/// </summary>
+	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsXml control.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-	/// <remarks>
-	/// This method allows the user to export the selected orbital elements as an XML file.
-	/// </remarks>
+	/// <remarks>This method allows the user to export the selected orbital elements as an XML file.</remarks>
 	private void ToolStripMenuItemExportAsXml_Click(object sender, EventArgs e)
 	{
 		// Create a new SaveFileDialog to allow the user to select the file path and name for the exported XML file
@@ -1269,14 +1156,10 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the Click event of the ToolStripMenuItemExportAsJson control.
-	/// </summary>
+	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsJson control.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-	/// <remarks>
-	/// This method allows the user to export the selected orbital elements as a JSON file.
-	/// </remarks>
+	/// <remarks>This method allows the user to export the selected orbital elements as a JSON file.</remarks>
 	private void ToolStripMenuItemExportAsJson_Click(object sender, EventArgs e)
 	{
 		// Create a new SaveFileDialog to allow the user to select the file path and name for the exported JSON file
@@ -1362,14 +1245,10 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the Click event of the ToolStripMenuItemExportAsYaml control.
-	/// </summary>
+	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsYaml control.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-	/// <remarks>
-	/// This method allows the user to export the selected orbital elements as a YAML file.
-	/// </remarks>
+	/// <remarks>This method allows the user to export the selected orbital elements as a YAML file.</remarks>
 	private void ToolStripMenuItemExportAsYaml_Click(object sender, EventArgs e)
 	{
 		// Create a new SaveFileDialog to allow the user to select the file path and name for the exported YAML file
@@ -1410,14 +1289,11 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the Click event of the ToolStripMenuItemExportAsSql control.
-	/// </summary>
+	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsSql control.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 	/// <remarks>
-	/// This method allows the user to export the selected orbital elements as a SQL file.
-	/// </remarks>
+	/// This method allows the user to export the selected orbital elements as a SQL file.</remarks>
 	private void ToolStripMenuItemExportAsSql_Click(object sender, EventArgs e)
 	{
 		// Create a new SaveFileDialog to allow the user to select the file path and name for the exported SQL file
@@ -1488,14 +1364,10 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the Click event of the ToolStripMenuItemExportAsPdf control.
-	/// </summary>
+	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsPdf control.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-	/// <remarks>
-	/// This method allows the user to export the selected orbital elements as a PDF file.
-	/// </remarks>
+	/// <remarks>This method allows the user to export the selected orbital elements as a PDF file.</remarks>
 	private void ToolStripMenuItemExportAsPdf_Click(object sender, EventArgs e)
 	{
 		// Create a new SaveFileDialog to allow the user to select the file path and name for the exported PDF file
@@ -1624,14 +1496,10 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the click event for exporting data as a PostScript file.
-	/// </summary>
+	/// <summary>Handles the click event for exporting data as a PostScript file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	/// <remarks>
-	/// This method allows the user to export the current data as a PostScript file.
-	/// </remarks>
+	/// <remarks>This method allows the user to export the current data as a PostScript file.</remarks>
 	private void ToolStripMenuItemExportAsPostScript_Click(object sender, EventArgs e)
 	{
 		// Create a new SaveFileDialog to allow the user to select the file path and name for the exported PostScript file
@@ -1695,14 +1563,10 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the click event for the "Export as EPUB" menu item.
-	/// </summary>
+	/// <summary>Handles the click event for the "Export as EPUB" menu item.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	/// <remarks>
-	/// This method handles the export of database information as an EPUB file.
-	/// </remarks>
+	/// <remarks>This method handles the export of database information as an EPUB file.</remarks>
 	private void ToolStripMenuItemExportAsEpub_Click(object sender, EventArgs e)
 	{
 		// Create a new SaveFileDialog to allow the user to select the file path and name for the exported EPUB file
@@ -1837,14 +1701,10 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the click event for the "Export as MOBI" menu item.
-	/// </summary>
+	/// <summary>Handles the click event for the "Export as MOBI" menu item.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	/// <remarks>
-	/// This method handles the export of database information as a MOBI file.
-	/// </remarks>
+	/// <remarks>This method handles the export of database information as a MOBI file.</remarks>
 	private void ToolStripMenuItemExportAsMobi_Click(object sender, EventArgs e)
 	{
 		// Create a new SaveFileDialog to allow the user to select the file path and name for the exported MOBI file
@@ -1892,4 +1752,24 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Show a message box indicating that the data was exported successfully
 		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
+
+	#endregion
+
+	#region SelectedIndexChanged event handlers
+
+	/// <summary>Handles the SelectedIndexChanged event of the orbital elements checklist.
+	/// Enables or disables the export buttons depending on whether any items are checked.
+	/// If all items are unmarked (unchecked) the export buttons are disabled; otherwise they are enabled.</summary>
+	/// <param name="sender">Event source (the checked list box).</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to enable or disable the export buttons based on the selection state of the orbital elements.</remarks>
+	private void CheckedListBoxOrbitalElements_SelectedIndexChanged(object sender, EventArgs e)
+	{
+		// Enable or disable the export buttons based on whether all items are unmarked
+		// If all items are unmarked, disable the export buttons
+		// If not all items are unmarked, enable the export buttons
+		toolStripDropDownButtonExport.Enabled = !IsAllUnmarked();
+	}
+
+	#endregion
 }

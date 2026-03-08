@@ -14,39 +14,24 @@ using System.Text;
 
 namespace Planetoid_DB;
 
-/// <summary>
-/// Form to display database information.
-/// </summary>
-/// <remarks>
-/// This form provides a user interface for displaying information about the database.
-/// </remarks>
+/// <summary>Form to display database information.</summary>
+/// <remarks>This form provides a user interface for displaying information about the database.</remarks>
+// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class DatabaseInformationForm : BaseKryptonForm
 {
-	/// <summary>
-	/// NLog logger instance for the class.
-	/// </summary>
-	/// <remarks>
-	/// This logger is used to log messages for the database information form.
-	/// </remarks>
+	/// <summary>NLog logger instance for the class.</summary>
+	/// <remarks>This logger is used to log messages for the form.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>
-	/// Gets the status label to be used for displaying information.
-	/// </summary>
-	/// <remarks>
-	/// Derived classes should override this property to provide the specific label.
-	/// </remarks>
+	/// <summary>Gets the status label to be used for displaying information.</summary>
+	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	#region constructor
 
-	/// <summary>
-	/// Initializes a new instance of the <see cref="DatabaseInformationForm"/> class.
-	/// </summary>
-	/// <remarks>
-	/// This constructor initializes the form components.
-	/// </remarks>
+	/// <summary>Initializes a new instance of the <see cref="DatabaseInformationForm"/> class.</summary>
+	/// <remarks>This constructor initializes the form components.</remarks>
 	public DatabaseInformationForm() =>
 		// Initialize the form components
 		InitializeComponent();
@@ -55,24 +40,16 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 
 	#region helper methods
 
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
+	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a visual representation of the object in the debugger.
-	/// </remarks>
+	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
-	/// <summary>
-	/// Prepares the save dialog for exporting data.
-	/// </summary>
+	/// <summary>Prepares the save dialog for exporting data.</summary>
 	/// <param name="dialog">The file dialog to prepare.</param>
 	/// <param name="ext">The file extension.</param>
 	/// <returns>True if the dialog was shown successfully; otherwise, false.</returns>
-	/// <remarks>
-	/// This method is used to prepare the save dialog for exporting data.
-	/// </remarks>
+	/// <remarks>This method is used to prepare the save dialog for exporting data.</remarks>
 	private static bool PrepareSaveDialog(FileDialog dialog, string ext)
 	{
 		// Set up the save dialog properties
@@ -83,15 +60,11 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		return dialog.ShowDialog() == DialogResult.OK;
 	}
 
-	/// <summary>
-	/// Escapes a string for use in a CSV file.
-	/// </summary>
+	/// <summary>Escapes a string for use in a CSV file.</summary>
 	/// <param name="text">The text to escape.</param>
 	/// <param name="separator">The separator used in the CSV file.</param>
 	/// <returns>The escaped text.</returns>
-	/// <remarks>
-	/// This method escapes special characters in a string for use in a CSV file.
-	/// </remarks>
+	/// <remarks>This method escapes special characters in a string for use in a CSV file.</remarks>
 	private static string EscapeCsv(string text, string separator)
 	{
 		return text.Contains(value: separator) || text.Contains(value: '"') || text.Contains(value: '\n') || text.Contains(value: '\r')
@@ -99,14 +72,10 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 			: text;
 	}
 
-	/// <summary>
-	/// Saves the content of the table layout panel to a CSV file.
-	/// </summary>
+	/// <summary>Saves the content of the table layout panel to a CSV file.</summary>
 	/// <param name="path">The path to the file to save to.</param>
 	/// <param name="separator">The separator to use in the CSV file (default is semicolon).</param>
-	/// <remarks>
-	/// This method iterates through the table layout panel controls and writes the content to a CSV file.
-	/// </remarks>
+	/// <remarks>This method iterates through the table layout panel controls and writes the content to a CSV file.</remarks>
 	private void SaveTableToCsv(string path, string separator = ";")
 	{
 		// Create a string builder to build the CSV content
@@ -137,15 +106,11 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>
-	/// Fired when the database information form loads.
-	/// Populates UI labels with file information for the configured MPCORB.DAT file and displays detected file attributes.
-	/// </summary>
+	/// <summary>Fired when the database information form loads.
+	/// Populates UI labels with file information for the configured MPCORB.DAT file and displays detected file attributes.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the database information form loads.
-	/// </remarks>
+	/// <remarks>This method is called when the database information form loads.</remarks>
 	private void DatabaseInformationForm_Load(object sender, EventArgs e)
 	{
 		// Path to the database file
@@ -178,14 +143,10 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 
 	#region Click event handlers
 
-	/// <summary>
-	/// Handles the click event of the copy to clipboard button.
-	/// </summary>
+	/// <summary>Handles the click event of the copy to clipboard button.</summary>
 	/// <param name="sender">Event source (the button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the copy to clipboard button is clicked.
-	/// </remarks>
+	/// <remarks>This method is called when the copy to clipboard button is clicked.</remarks>
 	private void ToolStripButtonCopyToClipboard_Click(object sender, EventArgs e)
 	{
 		// Check if the sender is a tool strip button
@@ -196,84 +157,52 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Handles the click event of the copy to clipboard menu item for the database name.
-	/// </summary>
+	/// <summary>Handles the click event of the copy to clipboard menu item for the database name.</summary>
 	/// <param name="sender">Event source (the menu item).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the copy to clipboard menu item for the database name is clicked.
-	/// </remarks>
+	/// <remarks>This method is called when the copy to clipboard menu item for the database name is clicked.</remarks>
 	private void MenuitemCopyToClipboardName_Click(object sender, EventArgs e) => CopyToClipboard(text: labelNameValue.Text);
 
-	/// <summary>
-	/// Handles the click event of the copy to clipboard menu item for the database path.
-	/// </summary>
+	/// <summary>Handles the click event of the copy to clipboard menu item for the database path.</summary>
 	/// <param name="sender">Event source (the menu item).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the copy to clipboard menu item for the database path is clicked.
-	/// </remarks>
+	/// <remarks>This method is called when the copy to clipboard menu item for the database path is clicked.</remarks>
 	private void MenuitemCopyToClipboardPath_Click(object sender, EventArgs e) => CopyToClipboard(text: labelDirectoryValue.Text);
 
-	/// <summary>
-	/// Handles the click event of the copy to clipboard menu item for the database size.
-	/// </summary>
+	/// <summary>Handles the click event of the copy to clipboard menu item for the database size.</summary>
 	/// <param name="sender">Event source (the menu item).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the copy to clipboard menu item for the database size is clicked.
-	/// </remarks>
+	/// <remarks>This method is called when the copy to clipboard menu item for the database size is clicked.</remarks>
 	private void MenuitemCopyToClipboardSize_Click(object sender, EventArgs e) => CopyToClipboard(text: labelSizeValue.Text);
 
-	/// <summary>
-	/// Handles the click event of the copy to clipboard menu item for the database creation date.
-	/// </summary>
+	/// <summary>Handles the click event of the copy to clipboard menu item for the database creation date.</summary>
 	/// <param name="sender">Event source (the menu item).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the copy to clipboard menu item for the database creation date is clicked.
-	/// </remarks>
+	/// <remarks>This method is called when the copy to clipboard menu item for the database creation date is clicked.</remarks>
 	private void MenuitemCopyToClipboardCreationDate_Click(object sender, EventArgs e) => CopyToClipboard(text: labelDateCreatedValue.Text);
 
-	/// <summary>
-	/// Handles the click event of the copy to clipboard menu item for the database last access date.
-	/// </summary>
+	/// <summary>Handles the click event of the copy to clipboard menu item for the database last access date.</summary>
 	/// <param name="sender">Event source (the menu item).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the copy to clipboard menu item for the database last access date is clicked.
-	/// </remarks>
+	/// <remarks>This method is called when the copy to clipboard menu item for the database last access date is clicked.</remarks>
 	private void MenuitemCopyToClipboardLastAccessDate_Click(object sender, EventArgs e) => CopyToClipboard(text: labelDateAccessedValue.Text);
 
-	/// <summary>
-	/// Handles the click event of the copy to clipboard menu item for the database last write date.
-	/// </summary>
+	/// <summary>Handles the click event of the copy to clipboard menu item for the database last write date.</summary>
 	/// <param name="sender">Event source (the menu item).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the copy to clipboard menu item for the database last write date is clicked.
-	/// </remarks>
+	/// <remarks>This method is called when the copy to clipboard menu item for the database last write date is clicked.</remarks>
 	private void MenuitemCopyToClipboardLastWriteDate_Click(object sender, EventArgs e) => CopyToClipboard(text: labelDateWritedValue.Text);
 
-	/// <summary>
-	/// Handles the click event of the copy to clipboard menu item for the database attributes.
-	/// </summary>
+	/// <summary>Handles the click event of the copy to clipboard menu item for the database attributes.</summary>
 	/// <param name="sender">Event source (the menu item).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the copy to clipboard menu item for the database attributes is clicked.
-	/// </remarks>
+	/// <remarks>This method is called when the copy to clipboard menu item for the database attributes is clicked.</remarks>
 	private void MenuitemCopyToClipboardAttributes_Click(object sender, EventArgs e) => CopyToClipboard(text: labelAttributesValue.Text);
 
-	/// <summary>
-	/// Handles the click event of the save to file button.
-	/// </summary>
+	/// <summary>Handles the click event of the save to file button.</summary>
 	/// <param name="sender">Event source (the button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the save to file button is clicked.
-	/// </remarks>
+	/// <remarks>This method is called when the save to file button is clicked.</remarks>
 	private void ToolStripButtonSaveToFile_Click(object sender, EventArgs e)
 	{
 		// Check if the sender is a tool strip button
@@ -284,10 +213,8 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Handles the click event for the 'Save As Text' menu item, allowing users to export database information to a text
-	/// file.
-	/// </summary>
+	/// <summary>Handles the click event for the 'Save As Text' menu item, allowing users to export database information to a text
+	/// file.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This method displays a Save File dialog to prompt the user for a file location and name. It
@@ -331,10 +258,8 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the click event for the 'Save As LaTeX' menu item, allowing users to export database information to a LaTeX
-	/// file.
-	/// </summary>
+	/// <summary>Handles the click event for the 'Save As LaTeX' menu item, allowing users to export database information to a LaTeX
+	/// file.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This method displays a Save File dialog to prompt the user for a file location and name. It
@@ -385,10 +310,8 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the click event for the 'Save As Markdown' menu item, allowing users to export database information to a Markdown
-	/// file.
-	/// </summary>
+	/// <summary>Handles the click event for the 'Save As Markdown' menu item, allowing users to export database information to a Markdown
+	/// file.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This method displays a Save File dialog to prompt the user for a file location and name. It
@@ -434,10 +357,8 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the click event for the 'Save As Word' menu item, allowing users to export database information to a Word
-	/// file.
-	/// </summary>
+	/// <summary>Handles the click event for the 'Save As Word' menu item, allowing users to export database information to a Word
+	/// file.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This method displays a Save File dialog to prompt the user for a file location and name. It
@@ -488,9 +409,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the click event for the "Save as ODT" menu item.
-	/// </summary>
+	/// <summary>Handles the click event for the "Save as ODT" menu item.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This method displays a Save File dialog to prompt the user for a file location and name. It
@@ -547,9 +466,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the click event for the "Save as Excel" menu item.
-	/// </summary>
+	/// <summary>Handles the click event for the "Save as Excel" menu item.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This method displays a Save File dialog to prompt the user for a file location and name. It
@@ -601,9 +518,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the click event for the "Save as ODS" menu item.
-	/// </summary>
+	/// <summary>Handles the click event for the "Save as ODS" menu item.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This method displays a Save File dialog to prompt the user for a file location and name. It
@@ -660,9 +575,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the click event for the "Save as RTF" menu item.
-	/// </summary>
+	/// <summary>Handles the click event for the "Save as RTF" menu item.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This method displays a Save File dialog to prompt the user for a file location and name. It
@@ -710,9 +623,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the click event for the "Save as CSV" menu item.
-	/// </summary>
+	/// <summary>Handles the click event for the "Save as CSV" menu item.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This method displays a Save File dialog to prompt the user for a file location and name. It
@@ -735,9 +646,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		SaveTableToCsv(path: saveFileDialogCsv.FileName, separator: ";");
 	}
 
-	/// <summary>
-	/// Handles the click event for the "Save as TSV" menu item.
-	/// </summary>
+	/// <summary>Handles the click event for the "Save as TSV" menu item.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This method displays a Save File dialog to prompt the user for a file location and name. It
@@ -760,9 +669,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		SaveTableToCsv(path: saveFileDialogTsv.FileName, separator: "\t");
 	}
 
-	/// <summary>
-	/// Handles the click event for the "Save as PSV" menu item.
-	/// </summary>
+	/// <summary>Handles the click event for the "Save as PSV" menu item.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This method displays a Save File dialog to prompt the user for a file location and name. It
@@ -785,9 +692,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		SaveTableToCsv(path: saveFileDialogPsv.FileName, separator: "|");
 	}
 
-	/// <summary>
-	/// Handles the click event for the "Save as HTML" menu item.
-	/// </summary>
+	/// <summary>Handles the click event for the "Save as HTML" menu item.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This method displays a Save File dialog to prompt the user for a file location and name. It
@@ -838,9 +743,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the click event for the "Save as XML" menu item.
-	/// </summary>
+	/// <summary>Handles the click event for the "Save as XML" menu item.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This method displays a Save File dialog to prompt the user for a file location and name. It
@@ -886,9 +789,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the click event for the "Save as JSON" menu item.
-	/// </summary>
+	/// <summary>Handles the click event for the "Save as JSON" menu item.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This method displays a Save File dialog to prompt the user for a file location and name. It
@@ -933,9 +834,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the click event for the "Save as YAML" menu item.
-	/// </summary>
+	/// <summary>Handles the click event for the "Save as YAML" menu item.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This method displays a Save File dialog to prompt the user for a file location and name. It
@@ -979,9 +878,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the click event for the "Save as SQL" menu item.
-	/// </summary>
+	/// <summary>Handles the click event for the "Save as SQL" menu item.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This method displays a Save File dialog to prompt the user for a file location and name. It
@@ -1033,9 +930,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the click event for the "Save as PDF" menu item.
-	/// </summary>
+	/// <summary>Handles the click event for the "Save as PDF" menu item.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This method displays a Save File dialog to prompt the user for a file location and name. It
@@ -1124,9 +1019,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the click event for the "Save as PostScript" menu item.
-	/// </summary>
+	/// <summary>Handles the click event for the "Save as PostScript" menu item.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This method displays a Save File dialog to prompt the user for a file location and name. It
@@ -1177,9 +1070,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the click event for the "Save as EPUB" menu item.
-	/// </summary>
+	/// <summary>Handles the click event for the "Save as EPUB" menu item.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This method displays a Save File dialog to prompt the user for a file location and name. It
@@ -1265,9 +1156,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Handles the click event for the "Save as Mobi" menu item.
-	/// </summary>
+	/// <summary>Handles the click event for the "Save as Mobi" menu item.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This method displays a Save File dialog to prompt the user for a file location and name. It

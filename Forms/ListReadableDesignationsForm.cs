@@ -15,122 +15,71 @@ using System.Xml;
 
 namespace Planetoid_DB;
 
-/// <summary>
-/// Form to list readable designations from the planetoids database.
-/// </summary>
-/// <remarks>
-/// This form is used to display a list of all readable designations from the planetoids database.
-/// </remarks>
+/// <summary>Form to list readable designations from the planetoids database.</summary>
+/// <remarks>This form is used to display a list of all readable designations from the planetoids database.</remarks>
+// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class ListReadableDesignationsForm : BaseKryptonForm
 {
 	#region Constants
 
-	/// <summary>
-	/// Length of the index field in the planetoid record.
-	/// </summary>
-	/// <remarks>
-	/// This constant defines the length of the index field in the planetoid record.
-	/// </remarks>
+	/// <summary>Length of the index field in the planetoid record.</summary>
+	/// <remarks>This constant defines the length of the index field in the planetoid record.</remarks>
 	private const int indexLength = 7;
 
-	/// <summary>
-	/// Length of the name field in the planetoid record.
-	/// </summary>
-	/// <remarks>
-	/// This constant defines the starting index of the name field in the planetoid record.
-	/// </remarks>
+	/// <summary>Length of the name field in the planetoid record.</summary>
+	/// <remarks>This constant defines the starting index of the name field in the planetoid record.</remarks>
 	private const int nameStartIndex = 166;
 
-	/// <summary>
-	/// Length of the name field in the planetoid record.
-	/// </summary>
-	/// <remarks>
-	/// This constant defines the length of the name field in the planetoid record.
-	/// </remarks>
+	/// <summary>Length of the name field in the planetoid record.</summary>
+	/// <remarks>This constant defines the length of the name field in the planetoid record.</remarks>
 	private const int nameLength = 28;
 
 	#endregion
 
-	/// <summary>
-	/// Offset for virtual mode to calculate the starting index in the database
-	/// </summary>
-	/// <remarks>
-	/// This field is used to calculate the starting index in the database for virtual mode.
-	/// </remarks>
+	/// <summary>Offset for virtual mode to calculate the starting index in the database</summary>
+	/// <remarks>This field is used to calculate the starting index in the database for virtual mode.</remarks>
 	private int virtualListOffset = 0;
 
-	/// <summary>
-	/// List of planetoid records from the database
-	/// </summary>
-	/// <remarks>
-	/// This list contains all the planetoid records retrieved from the database.
-	/// </remarks>
+	/// <summary>List of planetoid records from the database</summary>
+	/// <remarks>This list contains all the planetoid records retrieved from the database.</remarks>
 	private List<string> planetoidsDatabase = [];
 
-	/// <summary>
-	/// Number of planetoids in the database.
-	/// </summary>
-	/// <remarks>
-	/// This field keeps track of the total number of planetoids in the database.
-	/// </remarks>
+	/// <summary>Number of planetoids in the database.</summary>
+	/// <remarks>This field keeps track of the total number of planetoids in the database.</remarks>
 	private int numberPlanetoids;
 
-	/// <summary>
-	/// Index of the currently selected planetoid.
-	/// </summary>
-	/// <remarks>
-	/// This index is used to keep track of the currently selected planetoid in the list.
-	/// </remarks>
+	/// <summary>Index of the currently selected planetoid.</summary>
+	/// <remarks>This index is used to keep track of the currently selected planetoid in the list.</remarks>
 	private int selectedIndex;
 
-	/// <summary>
-	/// NLog logger instance for the class.
-	/// </summary>
-	/// <remarks>
-	/// This logger is used to log messages for the <see cref="ListReadableDesignationsForm"/> class.
-	/// </remarks>
+	/// <summary>NLog logger instance for the class.</summary>
+	/// <remarks>This logger is used to log messages for the <see cref="ListReadableDesignationsForm"/> class.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>
-	/// Gets the status label to be used for displaying information.
-	/// </summary>
-	/// <remarks>
-	/// Derived classes should override this property to provide the specific label.
-	/// </remarks>
+	/// <summary>Gets the status label to be used for displaying information.</summary>
+	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	#region constructor
 
-	/// <summary>
-	/// Initializes a new instance of the <see cref="ListReadableDesignationsForm"/> class.
-	/// </summary>
-	/// <remarks>
-	/// This constructor initializes the form and its components.
-	/// </remarks>
+	/// <summary>Initializes a new instance of the <see cref="ListReadableDesignationsForm"/> class.</summary>
+	/// <remarks>This constructor initializes the form and its components.</remarks>
 	public ListReadableDesignationsForm() => InitializeComponent();
 
 	#endregion
 
 	#region helper methods
 
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
+	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a short string representation of the current instance for debugging purposes.
-	/// </remarks>
+	/// <remarks>This method is used to provide a short string representation of the current instance for debugging purposes.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
-	/// <summary>
-	/// Creates a ListViewItem for the specified index.
-	/// </summary>
+	/// <summary>Creates a ListViewItem for the specified index.</summary>
 	/// <param name="index">The index of the planetoid.</param>
 	/// <returns>A ListViewItem representing the planetoid, or null if the index is invalid.</returns>
-	/// <remarks>
-	/// This method is used to create a ListViewItem for the specified index.
-	/// </remarks>
+	/// <remarks>This method is used to create a ListViewItem for the specified index.</remarks>
 	private ListViewItem? CreateListViewItem(int index)
 	{
 		// Check if the index is valid
@@ -164,44 +113,28 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		return item;
 	}
 
-	/// <summary>
-	/// Fills the planetoids database with the provided list.
-	/// </summary>
+	/// <summary>Fills the planetoids database with the provided list.</summary>
 	/// <param name="arrTemp">The list to fill the database with.</param>
-	/// <remarks>
-	/// This method is used to fill the planetoids database with the provided list.
-	/// </remarks>
+	/// <remarks>This method is used to fill the planetoids database with the provided list.</remarks>
 	public void FillArray(List<string> arrTemp)
 	{
 		planetoidsDatabase = [.. arrTemp];
 		numberPlanetoids = planetoidsDatabase.Count;
 	}
 
-	/// <summary>
-	/// Sets the maximum index for the planetoids database.
-	/// </summary>
+	/// <summary>Sets the maximum index for the planetoids database.</summary>
 	/// <param name="maxIndex">The maximum index.</param>
-	/// <remarks>
-	/// This method is used to set the maximum index for the planetoids database.
-	/// </remarks>
+	/// <remarks>This method is used to set the maximum index for the planetoids database.</remarks>
 	public void SetMaxIndex(int maxIndex) => numberPlanetoids = maxIndex;
 
-	/// <summary>
-	/// Gets the selected index in the list view.
-	/// </summary>
+	/// <summary>Gets the selected index in the list view.</summary>
 	/// <returns>The selected index.</returns>
-	/// <remarks>
-	/// This method is used to get the selected index in the list view.
-	/// </remarks>
+	/// <remarks>This method is used to get the selected index in the list view.</remarks>
 	public int GetSelectedIndex() => selectedIndex;
 
-	/// <summary>
-	/// Gets the export data from the virtual list.
-	/// </summary>
+	/// <summary>Gets the export data from the virtual list.</summary>
 	/// <returns>An enumerable collection of tuples containing the index and name.</returns>
-	/// <remarks>
-	/// It iterates over the indices and creates the data on-the-fly, instead of accessing listView.Items.
-	/// </remarks>
+	/// <remarks>It iterates over the indices and creates the data on-the-fly, instead of accessing listView.Items.</remarks>
 	private IEnumerable<(string Index, string Name)> GetExportData()
 	{
 		// If not in Virtual Mode, simply iterate over the items
@@ -233,15 +166,11 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Prepares the save dialog for exporting data.
-	/// </summary>
+	/// <summary>Prepares the save dialog for exporting data.</summary>
 	/// <param name="dialog">The file dialog to prepare.</param>
 	/// <param name="ext">The file extension.</param>
 	/// <returns>True if the dialog was shown successfully; otherwise, false.</returns>
-	/// <remarks>
-	/// This method is used to prepare the save dialog for exporting data.
-	/// </remarks>
+	/// <remarks>This method is used to prepare the save dialog for exporting data.</remarks>
 	private bool PrepareSaveDialog(FileDialog dialog, string ext)
 	{
 		// Set up the save dialog properties
@@ -252,16 +181,12 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		return dialog.ShowDialog() == DialogResult.OK;
 	}
 
-	/// <summary>
-	/// Handles the ListView <c>SelectedIndexChanged</c> event.
+	/// <summary>Handles the ListView <c>SelectedIndexChanged</c> event.
 	/// Updates the status bar with the selected planetoid's index and readable designation,
-	/// enables the load button if necessary and stores the currently selected index.
-	/// </summary>
+	/// enables the load button if necessary and stores the currently selected index.</summary>
 	/// <param name="sender">Event source (expected to be the list view).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to handle the SelectedIndexChanged event of the ListView.
-	/// </remarks>
+	/// <remarks>This method is used to handle the SelectedIndexChanged event of the ListView.</remarks>
 	private void SelectedIndexChanged(object? sender, EventArgs? e)
 	{
 		// Check if there are any selected indices
@@ -279,14 +204,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		selectedIndex = index;
 	}
 
-	/// <summary>
-	/// Escapes LaTeX special characters in a string.
-	/// </summary>
+	/// <summary>Escapes LaTeX special characters in a string.</summary>
 	/// <param name="input">The input string, which may be <c>null</c>.</param>
 	/// <returns>The escaped string.</returns>
-	/// <remarks>
-	/// This method is used to escape LaTeX special characters in the input string.
-	/// </remarks>
+	/// <remarks>This method is used to escape LaTeX special characters in the input string.</remarks>
 	private static string EscapeLatex(string input)
 	{
 		// Handle null input
@@ -341,14 +262,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		return builder.ToString();
 	}
 
-	/// <summary>
-	/// Escapes Markdown-table-specific characters in a cell value.
-	/// </summary>
+	/// <summary>Escapes Markdown-table-specific characters in a cell value.</summary>
 	/// <param name="value">The raw cell value.</param>
 	/// <returns>The cell value escaped for use in a Markdown table.</returns>
-	/// <remarks>
-	/// This method is used to escape Markdown-table-specific characters in the cell value.
-	/// </remarks>
+	/// <remarks>This method is used to escape Markdown-table-specific characters in the cell value.</remarks>
 	private static string EscapeMarkdownCell(string? value)
 	{
 		// Handle null input
@@ -360,14 +277,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		return value.Replace(oldValue: "|", newValue: "\\|");
 	}
 
-	/// <summary>
-	/// Escapes PostScript special characters in a string.
-	/// </summary>
+	/// <summary>Escapes PostScript special characters in a string.</summary>
 	/// <param name="input">The input string.</param>
 	/// <returns>The escaped string suitable for PostScript output.</returns>
-	/// <remarks>
-	/// This method is used to escape PostScript special characters in the input string.
-	/// </remarks>
+	/// <remarks>This method is used to escape PostScript special characters in the input string.</remarks>
 	private static string EscapePostScript(string? input)
 	{
 		// Handle null input
@@ -381,14 +294,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 					.Replace(oldValue: ")", newValue: "\\)");
 	}
 
-	/// <summary>
-	/// Escapes characters for PDF string literals.
-	/// </summary>
+	/// <summary>Escapes characters for PDF string literals.</summary>
 	/// <param name="text">The input text to escape.</param>
 	/// <returns>The escaped string.</returns>
-	/// <remarks>
-	/// This method is used to escape special characters in the input text for PDF output.
-	/// </remarks>
+	/// <remarks>This method is used to escape special characters in the input text for PDF output.</remarks>
 	private static string EscapePdf(string? text)
 	{
 		// Handle null or empty input
@@ -445,14 +354,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		return builder.ToString();
 	}
 
-	/// <summary>
-	/// Escapes special characters for RTF output.
-	/// </summary>
+	/// <summary>Escapes special characters for RTF output.</summary>
 	/// <param name="input">The input string.</param>
 	/// <returns>The escaped string.</returns>
-	/// <remarks>
-	/// This method is used to escape special characters in the input string for RTF output.
-	/// </remarks>
+	/// <remarks>This method is used to escape special characters in the input string for RTF output.</remarks>
 	private static string EscapeRtf(string? input)
 	{
 		// Handle null or empty input
@@ -499,16 +404,12 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>
-	/// Fired when the ListReadableDesignationsForm loads.
+	/// <summary>Fired when the ListReadableDesignationsForm loads.
 	/// Initializes UI state: clears the status area, disables controls until data is available,
-	/// and sets numeric up/down ranges based on the loaded planetoids database.
-	/// </summary>
+	/// and sets numeric up/down ranges based on the loaded planetoids database.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to initialize the form's UI components and state.
-	/// </remarks>
+	/// <remarks>This method is used to initialize the form's UI components and state.</remarks>
 	private void ListReadableDesignationsForm_Load(object? sender, EventArgs? e)
 	{
 		// Clear the status bar on load
@@ -529,15 +430,11 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		numericUpDownMaximum.Value = planetoidsDatabase.Count;
 	}
 
-	/// <summary>
-	/// Handles the form Closed event.
-	/// Cleans up resources and cancels any ongoing operations.
-	/// </summary>
+	/// <summary>Handles the form Closed event.
+	/// Cleans up resources and cancels any ongoing operations.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the form is closed.
-	/// </remarks>
+	/// <remarks>This method is called when the form is closed.</remarks>
 	private void ListReadableDesignationsForm_FormClosed(object sender, FormClosedEventArgs e) =>
 		// Clearing the token if the window is closed during work
 		listView.Dispose();
@@ -546,15 +443,11 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 
 	#region ListView event handlers
 
-	/// <summary>
-	/// Handles the retrieval of virtual items for the ListView.
-	/// Dynamically creates ListViewItems when they are needed for display.
-	/// </summary>
+	/// <summary>Handles the retrieval of virtual items for the ListView.
+	/// Dynamically creates ListViewItems when they are needed for display.</summary>
 	/// <param name="sender">Event source (the ListView).</param>
 	/// <param name="e">The <see cref="RetrieveVirtualItemEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to retrieve virtual items for the ListView.
-	/// </remarks>
+	/// <remarks>This method is used to retrieve virtual items for the ListView.</remarks>
 	private void ListView_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
 	{
 		// Calculating the true index in the database based on the offset
@@ -578,14 +471,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 
 	#region Click event handlers
 
-	/// <summary>
-	/// Handles the click event for the List button.
-	/// </summary>
+	/// <summary>Handles the click event for the List button.</summary>
 	/// <param name="sender">Event source (the button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to handle the click event for the List button.
-	/// </remarks>
+	/// <remarks>This method is used to handle the click event for the List button.</remarks>
 	private void ButtonList_Click(object? sender, EventArgs? e)
 	{
 		// Reset UI status
@@ -649,14 +538,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Saves the current list as a CSV file.
-	/// </summary>
+	/// <summary>Saves the current list as a CSV file.</summary>
 	/// <param name="e">Event arguments.</param>
 	/// <param name="sender">Event source (the menu item).</param>
-	/// <remarks>
-	/// This method is invoked when the user selects the "Save As CSV" menu item.
-	/// </remarks>
+	/// <remarks>This method is invoked when the user selects the "Save As CSV" menu item.</remarks>
 	private void ToolStripMenuItemSaveAsCsv_Click(object? sender, EventArgs? e)
 	{
 		// Create a SaveFileDialog manually
@@ -680,14 +565,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Saves the current list as an HTML file.
-	/// </summary>
+	/// <summary>Saves the current list as an HTML file.</summary>
 	/// <param name="e">Event arguments.</param>
 	/// <param name="sender">Event source (the menu item).</param>
-	/// <remarks>
-	/// This method is invoked when the user selects the "Save As HTML" menu item.
-	/// </remarks>
+	/// <remarks>This method is invoked when the user selects the "Save As HTML" menu item.</remarks>
 	private void ToolStripMenuItemSaveAsHtml_Click(object? sender, EventArgs? e)
 	{
 		// Create a SaveFileDialog manually
@@ -717,14 +598,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Saves the current list as an XML file.
-	/// </summary>
+	/// <summary>Saves the current list as an XML file.</summary>
 	/// <param name="e">Event arguments.</param>
 	/// <param name="sender">Event source (the menu item).</param>
-	/// <remarks>
-	/// This method is invoked when the user selects the "Save As XML" menu item.
-	/// </remarks>
+	/// <remarks>This method is invoked when the user selects the "Save As XML" menu item.</remarks>
 	private void ToolStripMenuItemSaveAsXml_Click(object? sender, EventArgs? e)
 	{
 		// Create a SaveFileDialog manually
@@ -759,14 +636,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Saves the current list as a JSON file.
-	/// </summary>
+	/// <summary>Saves the current list as a JSON file.</summary>
 	/// <param name="e">Event arguments.</param>
 	/// <param name="sender">Event source (the menu item).</param>
-	/// <remarks>
-	/// This method is invoked when the user selects the "Save As JSON" menu item.
-	/// </remarks>
+	/// <remarks>This method is invoked when the user selects the "Save As JSON" menu item.</remarks>
 	private void ToolStripMenuItemSaveAsJson_Click(object? sender, EventArgs? e)
 	{
 		// Create a SaveFileDialog manually
@@ -789,15 +662,11 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Saves the current list as a SQL script.
-	/// Exports the list as a series of SQL INSERT statements.
-	/// </summary>
+	/// <summary>Saves the current list as a SQL script.
+	/// Exports the list as a series of SQL INSERT statements.</summary>
 	/// <param name="e">Event arguments.</param>
 	/// <param name="sender">Event source (the menu item).</param>
-	/// <remarks>
-	/// This method is invoked when the user selects the "Save As SQL" menu item.
-	/// </remarks>
+	/// <remarks>This method is invoked when the user selects the "Save As SQL" menu item.</remarks>
 	private void ToolStripMenuItemSaveAsSql_Click(object? sender, EventArgs? e)
 	{
 		// Create a SaveFileDialog manually
@@ -842,15 +711,11 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Saves the list as a Markdown table.
-	/// Ideal for documentation, GitHub Readmes, or Wikis.
-	/// </summary>
+	/// <summary>Saves the list as a Markdown table.
+	/// Ideal for documentation, GitHub Readmes, or Wikis.</summary>
 	/// <param name="e">Event arguments.</param>
 	/// <param name="sender">Event source (the menu item).</param>
-	/// <remarks>
-	/// This method is invoked when the user selects the "Save As Markdown" menu item.
-	/// </remarks>
+	/// <remarks>This method is invoked when the user selects the "Save As Markdown" menu item.</remarks>
 	private void ToolStripMenuItemSaveAsMarkdown_Click(object? sender, EventArgs? e)
 	{
 		// Create a SaveFileDialog manually
@@ -879,15 +744,11 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Saves the list in YAML format.
-	/// A human-readable data serialization standard.
-	/// </summary>
+	/// <summary>Saves the list in YAML format.
+	/// A human-readable data serialization standard.</summary>
 	/// <param name="sender">Event source (the menu item).</param>
 	/// <param name="e">Event arguments.</param>
-	/// <remarks>
-	/// This method is invoked when the user selects the "Save As YAML" menu item.
-	/// </remarks>
+	/// <remarks>This method is invoked when the user selects the "Save As YAML" menu item.</remarks>
 	private void ToolStripMenuItemSaveAsYaml_Click(object? sender, EventArgs? e)
 	{
 		// Create a SaveFileDialog manually
@@ -921,15 +782,11 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Saves the list as a TSV (Tab-Separated Values) file.
-	/// Ideal for spreadsheet applications.
-	/// </summary>
+	/// <summary>Saves the list as a TSV (Tab-Separated Values) file.
+	/// Ideal for spreadsheet applications.</summary>
 	/// <param name="sender">Event source (the menu item).</param>
 	/// <param name="e">Event arguments.</param>
-	/// <remarks>
-	/// This method is invoked when the user selects the "Save As TSV" menu item.
-	/// </remarks>
+	/// <remarks>This method is invoked when the user selects the "Save As TSV" menu item.</remarks>
 	private void ToolStripMenuItemSaveAsTsv_Click(object? sender, EventArgs? e)
 	{
 		// Create a SaveFileDialog manually
@@ -957,15 +814,11 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Saves the list as a PSV (Pipe-Separated Values) file.
-	/// Ideal for spreadsheet applications.
-	/// </summary>
+	/// <summary>Saves the list as a PSV (Pipe-Separated Values) file.
+	/// Ideal for spreadsheet applications.</summary>
 	/// <param name="sender">Event source (the menu item).</param>
 	/// <param name="e">Event arguments.</param>
-	/// <remarks>
-	/// This method is invoked when the user selects the "Save As PSV" menu item.
-	/// </remarks>
+	/// <remarks>This method is invoked when the user selects the "Save As PSV" menu item.</remarks>
 	private void ToolStripMenuItemSaveAsPsv_Click(object? sender, EventArgs? e)
 	{
 		// Create a SaveFileDialog manually
@@ -993,14 +846,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Saves the list as a LaTeX document.
-	/// </summary>
+	/// <summary>Saves the list as a LaTeX document.</summary>
 	/// <param name="sender">Event source (the menu item).</param>
 	/// <param name="e">Event arguments.</param>
-	/// <remarks>
-	/// This method is invoked when the user selects the "Save As LaTeX" menu item.
-	/// </remarks>
+	/// <remarks>This method is invoked when the user selects the "Save As LaTeX" menu item.</remarks>
 	private void ToolStripMenuItemSaveAsLatex_Click(object? sender, EventArgs? e)
 	{
 		// Create a SaveFileDialog manually
@@ -1044,14 +893,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Saves the current list as a PostScript (.ps) file.
-	/// </summary>
+	/// <summary>Saves the current list as a PostScript (.ps) file.</summary>
 	/// <param name="sender">Event source (the menu item).</param>
 	/// <param name="e">Event arguments.</param>
-	/// <remarks>
-	/// This method is invoked when the user selects the "Save As PostScript" menu item.
-	/// </remarks>
+	/// <remarks>This method is invoked when the user selects the "Save As PostScript" menu item.</remarks>
 	private void ToolStripMenuItemSaveAsPostScript_Click(object? sender, EventArgs? e)
 	{
 		// Create a SaveFileDialog manually
@@ -1132,14 +977,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Saves the current list as an uncompressed PDF file.
-	/// </summary>
+	/// <summary>Saves the current list as an uncompressed PDF file.</summary>
 	/// <param name="sender">Event source (the menu item).</param>
 	/// <param name="e">Event arguments.</param>
-	/// <remarks>
-	/// This method is invoked when the user selects the "Save As PDF" menu item.
-	/// </remarks>
+	/// <remarks>This method is invoked when the user selects the "Save As PDF" menu item.</remarks>
 	private void ToolStripMenuItemSaveAsPdf_Click(object? sender, EventArgs? e)
 	{
 		// Create a SaveFileDialog manually
@@ -1311,14 +1152,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Saves the current list as an EPUB file.
-	/// </summary>
+	/// <summary>Saves the current list as an EPUB file.</summary>
 	/// <param name="sender">The event sender.</param>
 	/// <param name="e">The event arguments.</param>
-	/// <remarks>
-	/// This method is invoked when the user selects the "Save As EPUB" menu item.
-	/// </remarks>
+	/// <remarks>This method is invoked when the user selects the "Save As EPUB" menu item.</remarks>
 	private void ToolStripMenuItemSaveAsEpub_Click(object? sender, EventArgs? e)
 	{
 		// Create a SaveFileDialog manually
@@ -1442,14 +1279,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Saves the current list as a Word document.
-	/// </summary>
+	/// <summary>Saves the current list as a Word document.</summary>
 	/// <param name="sender">The event sender.</param>
 	/// <param name="e">The event arguments.</param>
-	/// <remarks>
-	/// This method is invoked when the user selects the "Save As Word" menu item.
-	/// </remarks>
+	/// <remarks>This method is invoked when the user selects the "Save As Word" menu item.</remarks>
 	private void ToolStripMenuItemSaveAsWord_Click(object? sender, EventArgs? e)
 	{
 		// Create a SaveFileDialog manually
@@ -1540,14 +1373,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Saves the current list as an Excel file.
-	/// </summary>
+	/// <summary>Saves the current list as an Excel file.</summary>
 	/// <param name="sender">The event sender.</param>
 	/// <param name="e">The event arguments.</param>
-	/// <remarks>
-	/// This method is invoked when the user selects the "Save As Excel" menu item.
-	/// </remarks>
+	/// <remarks>This method is invoked when the user selects the "Save As Excel" menu item.</remarks>
 	private void ToolStripMenuItemSaveAsExcel_Click(object? sender, EventArgs? e)
 	{
 		// Create a SaveFileDialog manually
@@ -1646,14 +1475,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Saves the current list as an ODT file.
-	/// </summary>
+	/// <summary>Saves the current list as an ODT file.</summary>
 	/// <param name="sender">The event sender.</param>
 	/// <param name="e">The event arguments.</param>
-	/// <remarks>
-	/// This method is invoked when the user selects the "Save As ODT" menu item.
-	/// </remarks>
+	/// <remarks>This method is invoked when the user selects the "Save As ODT" menu item.</remarks>
 	private void ToolStripMenuItemSaveAsOdt_Click(object? sender, EventArgs? e)
 	{
 		// Create a SaveFileDialog manually
@@ -1738,14 +1563,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Saves the current list as an ODS file.
-	/// </summary>
+	/// <summary>Saves the current list as an ODS file.</summary>
 	/// <param name="sender">The event sender.</param>
 	/// <param name="e">The event arguments.</param>
-	/// <remarks>
-	/// This method is invoked when the user selects the "Save As ODS" menu item.
-	/// </remarks>
+	/// <remarks>This method is invoked when the user selects the "Save As ODS" menu item.</remarks>
 	private void ToolStripMenuItemSaveAsOds_Click(object? sender, EventArgs? e)
 	{
 		// Create a SaveFileDialog manually
@@ -1823,14 +1644,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Saves the current list as a simplified MOBI file.
-	/// </summary>
+	/// <summary>Saves the current list as a simplified MOBI file.</summary>
 	/// <param name="sender">The event sender.</param>
 	/// <param name="e">The event arguments.</param>
-	/// <remarks>
-	/// This method is invoked when the user selects the "Save As MOBI" menu item.
-	/// </remarks>
+	/// <remarks>This method is invoked when the user selects the "Save As MOBI" menu item.</remarks>
 	private void ToolStripMenuItemSaveAsMobi_Click(object? sender, EventArgs? e)
 	{
 		// Create a SaveFileDialog manually
@@ -1998,14 +1815,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Saves the current list as an RTF file.
-	/// </summary>
+	/// <summary>Saves the current list as an RTF file.</summary>
 	/// <param name="sender">The event sender.</param>
 	/// <param name="e">The event arguments.</param>
-	/// <remarks>
-	/// This method is invoked when the user selects the "Save As RTF" menu item.
-	/// </remarks>
+	/// <remarks>This method is invoked when the user selects the "Save As RTF" menu item.</remarks>
 	private void ToolStripMenuItemSaveAsRtf_Click(object? sender, EventArgs? e)
 	{
 		// Create a SaveFileDialog manually
@@ -2061,14 +1874,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>
-	/// Saves the current list as a text file.
-	/// </summary>
+	/// <summary>Saves the current list as a text file.</summary>
 	/// <param name="sender">The event sender.</param>
 	/// <param name="e">The event arguments.</param>
-	/// <remarks>
-	/// This method is invoked when the user selects the "Save As Text" menu item.
-	/// </remarks>
+	/// <remarks>This method is invoked when the user selects the "Save As Text" menu item.</remarks>
 	private void ToolStripMenuItemSaveAsText_Click(object? sender, EventArgs? e)
 	{
 		// Create a SaveFileDialog manually

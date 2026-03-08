@@ -3,6 +3,8 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using NLog;
+
 using Planetoid_DB.Forms;
 
 using System.Diagnostics;
@@ -10,47 +12,32 @@ using System.Reflection;
 
 namespace Planetoid_DB;
 
-/// <summary>
-/// A form that displays application information.
-/// </summary>
-/// <remarks>
-/// This form is used to display information about the application, including version and copyright details.
-/// </remarks>
+/// <summary>A form that displays application information.</summary>
+/// <remarks>This form is used to display information about the application, including version and copyright details.</remarks>
+// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class LicenseForm : BaseKryptonForm
 {
-	/// <summary>
-	/// The root namespace for embedded resources.
-	/// </summary>
-	/// <remarks>
-	/// This is used to locate embedded resources within the assembly.
-	/// </remarks>
+	/// <summary>NLog logger instance for the class.</summary>
+	/// <remarks>This logger is used to log messages for the form.</remarks>
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+	/// <summary>The root namespace for embedded resources.</summary>
+	/// <remarks>This is used to locate embedded resources within the assembly.</remarks>
 	private const string resourceRootNamespace = "Planetoid_DB";
 
-	/// <summary>
-	/// The name of the license resource.
-	/// </summary>
-	/// <remarks>
-	/// This is used to locate the license resource within the assembly.
-	/// </remarks>
+	/// <summary>The name of the license resource.</summary>
+	/// <remarks>This is used to locate the license resource within the assembly.</remarks>
 	private const string licenseResourceName = "LICENSE";
 
-	/// <summary>
-	/// Gets the status label to be used for displaying information.
-	/// </summary>
-	/// <remarks>
-	/// Derived classes should override this property to provide the specific label.
-	/// </remarks>
+	/// <summary>Gets the status label to be used for displaying information.</summary>
+	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	#region constructor
 
-	/// <summary>
-	/// Initializes a new instance of the <see cref="LicenseForm"/> class.
-	/// </summary>
-	/// <remarks>
-	/// This constructor initializes the form components.
-	/// </remarks>
+	/// <summary>Initializes a new instance of the <see cref="LicenseForm"/> class.</summary>
+	/// <remarks>This constructor initializes the form components.</remarks>
 	public LicenseForm() =>
 		// Initialize the form components
 		InitializeComponent();
@@ -59,26 +46,18 @@ public partial class LicenseForm : BaseKryptonForm
 
 	#region helper methods
 
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
+	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a visual representation of the object in the debugger.
-	/// </remarks>
+	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
-	/// <summary>
-	/// Asynchronously extracts an embedded resource to a file.
-	/// </summary>
+	/// <summary>Asynchronously extracts an embedded resource to a file.</summary>
 	/// <param name="nameSpace">The root namespace.</param>
 	/// <param name="destinationPath">The full output path.</param>
 	/// <param name="resourceName">The resource name.</param>
 	/// <param name="token">Cancellation token.</param>
 	/// <returns>A task representing the asynchronous operation.</returns>
-	/// <remarks>
-	/// This method is used to extract an embedded resource asynchronously.
-	/// </remarks>
+	/// <remarks>This method is used to extract an embedded resource asynchronously.</remarks>
 	private static async Task ExtractResourceAsync(string nameSpace, string destinationPath, string resourceName, CancellationToken token = default)
 	{
 		// Get the executing assembly
@@ -104,33 +83,25 @@ public partial class LicenseForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>
-	/// Fired when the preload form has finished loading.
-	/// Clears the status area so no message is shown on startup.
-	/// </summary>
+	/// <summary>Fired when the preload form has finished loading.
+	/// Clears the status area so no message is shown on startup.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to initialize the form and set up any necessary data.
-	/// </remarks>
+	/// <remarks>This method is used to initialize the form and set up any necessary data.</remarks>
 	private void LicenseForm_Load(object sender, EventArgs e) => ClearStatusBar(label: labelInformation);
 
 	#endregion
 
 	#region Click event handlers
 
-	/// <summary>
-	/// Handles the Save License button click.
+	/// <summary>Handles the Save License button click.
 	/// Prompts the user for a destination via <see cref="SaveFileDialog"/>, extracts the embedded LICENSE resource
-	/// to a temporary file and copies it to the selected destination.
-	/// </summary>
+	/// to a temporary file and copies it to the selected destination.</summary>
 	/// <param name="sender">Event source (the save button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <exception cref="FileNotFoundException">Thrown when the embedded LICENSE resource cannot be found.</exception>
 	/// <exception cref="IOException">Propagated when file copy or delete operations fail.</exception>
-	/// <remarks>
-	/// This method is used to save the LICENSE file to a user-specified location.
-	/// </remarks>
+	/// <remarks>This method is used to save the LICENSE file to a user-specified location.</remarks>
 	private async void KryptonButtonSaveLicense_ClickAsync(object sender, EventArgs e)
 	{
 		// Create a SaveFileDialog to prompt the user for a file location
@@ -150,15 +121,11 @@ public partial class LicenseForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Handles the Copy License to Clipboard button click.
-	/// Copies the contents of <c>kryptonTextBoxLicense.Text</c> to the clipboard.
-	/// </summary>
+	/// <summary>Handles the Copy License to Clipboard button click.
+	/// Copies the contents of <c>kryptonTextBoxLicense.Text</c> to the clipboard.</summary>
 	/// <param name="sender">Event source (the copy button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the license text to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the license text to the clipboard.</remarks>
 	private void KryptonButtonCopyLicenseToClipboard_Click(object sender, EventArgs e) =>
 		// Copy the text from the KryptonTextBox to the clipboard
 		CopyToClipboard(text: kryptonTextBoxLicense.Text);

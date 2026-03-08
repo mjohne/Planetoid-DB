@@ -12,109 +12,65 @@ using System.Runtime.InteropServices;
 
 namespace Planetoid_DB;
 
+/// <summary>Provides the main entry point and core initialization logic for the application.</summary>
+/// <remarks>This class is responsible for starting the application, configuring essential features, handling
+/// startup errors, and ensuring proper shutdown of resources. It cannot be instantiated and contains only static
+/// members.</remarks>
 internal static class Program
 {
-	/// <summary>
-	/// NLog logger instance for logging application events.
-	/// </summary>
-	/// <remarks>
-	/// This logger is used throughout the application to log important events and errors.
-	/// </remarks>
+	/// <summary>NLog logger instance for logging application events.</summary>
+	/// <remarks>This logger is used throughout the application to log important events and errors.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>
-	/// Feature ID for disabling navigation sounds.
-	/// </summary>
-	/// <remarks>
-	/// This feature ID is used to disable navigation sounds in the application.
-	/// </remarks>
+	/// <summary>Feature ID for disabling navigation sounds.</summary>
+	/// <remarks>This feature ID is used to disable navigation sounds in the application.</remarks>
 	private const int FeatureDisableNavigationSounds = 21;
 
-	/// <summary>
-	/// Feature ID for setting the feature on the current thread.
-	/// </summary>
-	/// <remarks>
-	/// This feature ID is used to set the feature on the current thread.
-	/// </remarks>
+	/// <summary>Feature ID for setting the feature on the current thread.</summary>
+	/// <remarks>This feature ID is used to set the feature on the current thread.</remarks>
 	private const int SetFeatureOnThread = 0x00000001;
 
-	/// <summary>
-	/// Feature ID for setting the feature on the current process.
-	/// </summary>
-	/// <remarks>
-	/// This feature ID is used to set the feature on the current process.
-	/// </remarks>
+	/// <summary>Feature ID for setting the feature on the current process.</summary>
+	/// <remarks>This feature ID is used to set the feature on the current process.</remarks>
 	private const int SetFeatureOnProcess = 0x00000002;
 
-	/// <summary>
-	/// Feature ID for setting the feature in the registry.
-	/// </summary>
-	/// <remarks>
-	/// This feature ID is used to set the feature in the registry.
-	/// </remarks>
+	/// <summary>Feature ID for setting the feature in the registry.</summary>
+	/// <remarks>This feature ID is used to set the feature in the registry.</remarks>
 	private const int SetFeatureInRegistry = 0x00000004;
 
-	/// <summary>
-	/// Feature ID for setting the feature on the current thread for local machine.
-	/// </summary>
-	/// <remarks>
-	/// This feature ID is used to set the feature on the current thread for local machine.
-	/// </remarks>
+	/// <summary>Feature ID for setting the feature on the current thread for local machine.</summary>
+	/// <remarks>This feature ID is used to set the feature on the current thread for local machine.</remarks>
 	private const int SetFeatureOnThreadLocalMachine = 0x00000008;
 
-	/// <summary>
-	/// Feature ID for setting the feature on the current thread for intranet.
-	/// </summary>
-	/// <remarks>
-	/// This feature ID is used to set the feature on the current thread for intranet.
-	/// </remarks>
+	/// <summary>Feature ID for setting the feature on the current thread for intranet.</summary>
+	/// <remarks>This feature ID is used to set the feature on the current thread for intranet.</remarks>
 	private const int SetFeatureOnThreadIntranet = 0x00000010;
 
-	/// <summary>
-	/// Feature ID for setting the feature on the current thread for trusted sites.
-	/// </summary>
-	/// <remarks>
-	/// This feature ID is used to set the feature on the current thread for trusted sites.
-	/// </remarks>
+	/// <summary>Feature ID for setting the feature on the current thread for trusted sites.</summary>
+	/// <remarks>This feature ID is used to set the feature on the current thread for trusted sites.</remarks>
 	private const int SetFeatureOnThreadTrusted = 0x00000020;
 
-	/// <summary>
-	/// Feature ID for setting the feature on the current thread for internet.
-	/// </summary>
-	/// <remarks>
-	/// This feature ID is used to set the feature on the current thread for internet.
-	/// </remarks>
+	/// <summary>Feature ID for setting the feature on the current thread for internet.</summary>
+	/// <remarks>This feature ID is used to set the feature on the current thread for internet.</remarks>
 	private const int SetFeatureOnThreadInternet = 0x00000040;
 
-	/// <summary>
-	/// Feature ID for setting the feature on the current thread for restricted sites.
-	/// </summary>
-	/// <remarks>
-	/// This feature ID is used to set the feature on the current thread for restricted sites.
-	/// </remarks>
+	/// <summary>Feature ID for setting the feature on the current thread for restricted sites.</summary>
+	/// <remarks>This feature ID is used to set the feature on the current thread for restricted sites.</remarks>
 	private const int SetFeatureOnThreadRestricted = 0x00000080;
 
-	/// <summary>
-	/// Disables navigation sounds.
-	/// </summary>
+	/// <summary>Disables navigation sounds.</summary>
 	/// <param name="featureEntry">The feature ID.</param>
 	/// <param name="dwFlags">The flags.</param>
 	/// <param name="fEnable">Specifies whether the feature should be enabled or disabled.</param>
 	/// <returns>An HRESULT value indicating success or failure.</returns>
-	/// <remarks>
-	/// This method sets the specified feature for the current process.
-	/// </remarks>
+	/// <remarks>This method sets the specified feature for the current process.</remarks>
 	[DllImport(dllName: "urlmon.dll")]
 	[PreserveSig]
 	[return: MarshalAs(unmanagedType: UnmanagedType.Error)]
 	private static extern int CoInternetSetFeatureEnabled(int featureEntry, [MarshalAs(unmanagedType: UnmanagedType.U4)] int dwFlags, bool fEnable);
 
-	/// <summary>
-	/// The main entry point for the application.
-	/// </summary>
-	/// <remarks>
-	/// This method is responsible for starting the application and initializing the main form.
-	/// </remarks>
+	/// <summary>The main entry point for the application.</summary>
+	/// <remarks>This method is responsible for starting the application and initializing the main form.</remarks>
 	[STAThread]
 	private static void Main()
 	{
@@ -185,12 +141,8 @@ internal static class Program
 		}
 	}
 
-	/// <summary>
-	/// Disables the navigation sounds.
-	/// </summary>
-	/// <remarks>
-	/// This method disables the navigation sounds for the current process.
-	/// </remarks>
+	/// <summary>Disables the navigation sounds.</summary>
+	/// <remarks>This method disables the navigation sounds for the current process.</remarks>
 	private static void DisableNavigationSounds() =>
 		// Disable navigation sounds for the current process
 		_ = CoInternetSetFeatureEnabled(featureEntry: FeatureDisableNavigationSounds, dwFlags: SetFeatureOnProcess, fEnable: true);
@@ -229,13 +181,9 @@ internal static class Program
 		}
 	}
 
-	/// <summary>
-	/// Displays an error message.
-	/// </summary>
+	/// <summary>Displays an error message.</summary>
 	/// <param name="message">The error message.</param>
-	/// <remarks>
-	/// This method displays an error message to the user.
-	/// </remarks>
+	/// <remarks>This method displays an error message to the user.</remarks>
 	private static void ShowErrorMessage(string message) =>
 		// Log the error message
 		_ = MessageBox.Show(text: message, caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);

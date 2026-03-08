@@ -13,63 +13,36 @@ using static Planetoid_DB.TerminologyForm;
 
 namespace Planetoid_DB;
 
-/// <summary>
-/// Form for displaying derived orbit elements.
-/// </summary>
-/// <remarks>
-/// This form provides a user interface for displaying derived orbit elements.
-/// </remarks>
+/// <summary>Form for displaying derived orbit elements.</summary>
+/// <remarks>This form provides a user interface for displaying derived orbit elements.</remarks>
+// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class DerivedOrbitElementsForm : BaseKryptonForm
 {
-	/// <summary>
-	/// NLog logger instance.
-	/// </summary>
-	/// <remarks>
-	/// This field is used to log messages for the form.
-	/// </remarks>
+	/// <summary>NLog logger instance for the class.</summary>
+	/// <remarks>This logger is used to log messages for the form.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>
-	/// Stores the planetoids database.
-	/// </summary>
-	/// <remarks>
-	/// This list is used to store the planetoids database entries.
-	/// </remarks>
+	/// <summary>Stores the planetoids database.</summary>
+	/// <remarks>This list is used to store the planetoids database entries.</remarks>
 	private readonly List<string> planetoidsDatabase = [];
 
-	/// <summary>
-	/// Stores the current tag text of the control.
-	/// </summary>
-	/// <remarks>
-	/// This field is used to keep track of the current tag text of the control.
-	/// </remarks>
+	/// <summary>Stores the current tag text of the control.</summary>
+	/// <remarks>This field is used to keep track of the current tag text of the control.</remarks>
 	private string currentTagText = string.Empty;
 
-	/// <summary>
-	/// Gets the status label to be used for displaying information.
-	/// </summary>
-	/// <remarks>
-	/// Derived classes should override this property to provide the specific label.
-	/// </remarks>
+	/// <summary>Gets the status label to be used for displaying information.</summary>
+	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
-	/// <summary>
-	/// List of derived orbit elements.
-	/// </summary>
-	/// <remarks>
-	/// This field is used to store the list of derived orbit elements.
-	/// </remarks>
+	/// <summary>List of derived orbit elements.</summary>
+	/// <remarks>This field is used to store the list of derived orbit elements.</remarks>
 	private List<object> derivedOrbitElements = [];
 
 	#region constructor
 
-	/// <summary>
-	/// Initializes a new instance of the <see cref="DerivedOrbitElementsForm"/> class.
-	/// </summary>
-	/// <remarks>
-	/// This constructor initializes the form components.
-	/// </remarks>
+	/// <summary>Initializes a new instance of the <see cref="DerivedOrbitElementsForm"/> class.</summary>
+	/// <remarks>This constructor initializes the form components.</remarks>
 	public DerivedOrbitElementsForm() =>
 		// Initialize the form components
 		InitializeComponent();
@@ -78,25 +51,17 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 
 	#region helper methods
 
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
+	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a visual representation of the object in the debugger.
-	/// </remarks>
+	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
-	/// <summary>
-	/// Tries to parse an integer from the input string.
-	/// </summary>
+	/// <summary>Tries to parse an integer from the input string.</summary>
 	/// <param name="input">The input string to parse.</param>
 	/// <param name="value">The parsed integer value if successful.</param>
 	/// <param name="errorMessage">An error message if parsing fails.</param>
 	/// <returns>True if parsing was successful; otherwise, false.</returns>
-	/// <remarks>
-	/// This method is used to parse an integer from the input string.
-	/// </remarks>
+	/// <remarks>This method is used to parse an integer from the input string.</remarks>
 	public static bool TryParseInt(string input, out int value, out string errorMessage)
 	{
 		// Initialize output parameters
@@ -121,15 +86,11 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		return true;
 	}
 
-	/// <summary>
-	/// Opens the terminology dialog for a specific derived orbit element.
+	/// <summary>Opens the terminology dialog for a specific derived orbit element.
 	/// The <paramref name="index"/> selects which terminology entry to show. Values outside the supported range
-	/// are normalized to the default (index 0).
-	/// </summary>
+	/// are normalized to the default (index 0).</summary>
 	/// <param name="index">Zero-based index selecting the terminology topic (valid range: 0..38).</param>
-	/// <remarks>
-	/// This method is used to open the terminology dialog for a specific derived orbit element.
-	/// </remarks>
+	/// <remarks>This method is used to open the terminology dialog for a specific derived orbit element.</remarks>
 	private void OpenTerminology(uint index)
 	{
 		// Check if the index is valid
@@ -190,21 +151,13 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		_ = formTerminology.ShowDialog();
 	}
 
-	/// <summary>
-	/// Sets the internal list of derived orbit elements used by the form.
-	/// </summary>
+	/// <summary>Sets the internal list of derived orbit elements used by the form.</summary>
 	/// <param name="list">A list of derived orbit element values. The list is stored by reference and will be used to populate the UI when the form loads.</param>
-	/// <remarks>
-	/// This method is used to set the internal list of derived orbit elements.
-	/// </remarks>
+	/// <remarks>This method is used to set the internal list of derived orbit elements.</remarks>
 	public void SetDatabase(List<object> list) => derivedOrbitElements = list;
 
-	/// <summary>
-	/// Shows the form to copy data to the clipboard.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to show the form for copying data to the clipboard.
-	/// </remarks>
+	/// <summary>Shows the form to copy data to the clipboard.</summary>
+	/// <remarks>This method is used to show the form for copying data to the clipboard.</remarks>
 	private void ShowCopyDataToClipboard()
 	{
 		// Create a new List to store the data to copy
@@ -250,16 +203,12 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>
-	/// Fired when the derived orbit elements form is loaded.
+	/// <summary>Fired when the derived orbit elements form is loaded.
 	/// Clears the status area, validates the provided derived-element data and populates the UI labels
-	/// with the corresponding values. If the provided data is invalid an error is logged and shown to the user.
-	/// </summary>
+	/// with the corresponding values. If the provided data is invalid an error is logged and shown to the user.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the form is loaded.
-	/// </remarks>
+	/// <remarks>This method is called when the form is loaded.</remarks>
 	private void DerivedOrbitElementsForm_Load(object sender, EventArgs e)
 	{
 		// Set the status bar text
@@ -297,15 +246,11 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 
 	#region MouseDown event handlers
 
-	/// <summary>
-	/// Handles the MouseDown event for controls.
-	/// Stores the control that triggered the event for future reference.
-	/// </summary>
+	/// <summary>Handles the MouseDown event for controls.
+	/// Stores the control that triggered the event for future reference.</summary>
 	/// <param name="sender">Event source (the control).</param>
 	/// <param name="e">The <see cref="MouseEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to store the control that triggered the event for future reference.
-	/// </remarks>
+	/// <remarks>This method is used to store the control that triggered the event for future reference.</remarks>
 	protected override void Control_MouseDown(object sender, MouseEventArgs e)
 	{
 		// Check if the sender is a Control
@@ -322,228 +267,148 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 
 	#region Click event handlers
 
-	/// <summary>
-	/// Handles the click event for the ToolStripButtonCopyToClipboard.
-	/// Shows the form to copy data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the ToolStripButtonCopyToClipboard.
+	/// Shows the form to copy data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to show the form to copy data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to show the form to copy data to the clipboard.</remarks>
 	private void ToolStripButtonCopyToClipboard_Click(object sender, EventArgs e) => ShowCopyDataToClipboard();
 
-	/// <summary>
-	/// Handles the click event for the MenuitemCopyToClipboardLinearEccentricity.
-	/// Copies the linear eccentricity data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemCopyToClipboardLinearEccentricity.
+	/// Copies the linear eccentricity data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the linear eccentricity data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the linear eccentricity data to the clipboard.</remarks>
 	private void MenuitemCopyToClipboardLinearEccentricity_Click(object sender, EventArgs e) => CopyToClipboard(text: labelLinearEccentricityData.Text);
 
-	/// <summary>
-	/// Handles the click event for the MenuitemCopyToClipboardSemiMinorAxis.
-	/// Copies the semi-minor axis data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemCopyToClipboardSemiMinorAxis.
+	/// Copies the semi-minor axis data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the semi-minor axis data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the semi-minor axis data to the clipboard.</remarks>
 	private void MenuitemCopyToClipboardSemiMinorAxis_Click(object sender, EventArgs e) => CopyToClipboard(text: labelSemiMinorAxisData.Text);
 
-	/// <summary>
-	/// Handles the click event for the MenuitemCopyToClipboardMajorAxis.
-	/// Copies the major axis data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemCopyToClipboardMajorAxis.
+	/// Copies the major axis data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the major axis data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the major axis data to the clipboard.</remarks>
 	private void MenuitemCopyToClipboardMajorAxis_Click(object sender, EventArgs e) => CopyToClipboard(text: labelMajorAxisData.Text);
 
-	/// <summary>
-	/// Handles the click event for the MenuitemCopyToClipboardMinorAxis.
-	/// Copies the minor axis data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemCopyToClipboardMinorAxis.
+	/// Copies the minor axis data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the minor axis data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the minor axis data to the clipboard.</remarks>
 	private void MenuitemCopyToClipboardMinorAxis_Click(object sender, EventArgs e) => CopyToClipboard(text: labelMinorAxisData.Text);
 
-	/// <summary>
-	/// Handles the click event for the MenuitemCopyToClipboardEccentricAnomaly.
-	/// Copies the eccentric anomaly data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemCopyToClipboardEccentricAnomaly.
+	/// Copies the eccentric anomaly data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the eccentric anomaly data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the eccentric anomaly data to the clipboard.</remarks>
 	private void MenuitemCopyToClipboardEccentricAnomaly_Click(object sender, EventArgs e) => CopyToClipboard(text: labelEccentricAnomalyData.Text);
 
-	/// <summary>
-	/// Handles the click event for the MenuitemCopyToClipboardTrueAnomaly.
-	/// Copies the true anomaly data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemCopyToClipboardTrueAnomaly.
+	/// Copies the true anomaly data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the true anomaly data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the true anomaly data to the clipboard.</remarks>
 	private void MenuitemCopyToClipboardTrueAnomaly_Click(object sender, EventArgs e) => CopyToClipboard(text: labelTrueAnomalyData.Text);
 
-	/// <summary>
-	/// Handles the click event for the MenuitemCopyToClipboardPerihelionDistance.
-	/// Copies the perihelion distance data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemCopyToClipboardPerihelionDistance.
+	/// Copies the perihelion distance data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the perihelion distance data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the perihelion distance data to the clipboard.</remarks>
 	private void MenuitemCopyToClipboardPerihelionDistance_Click(object sender, EventArgs e) => CopyToClipboard(text: labelPerihelionDistanceData.Text);
 
-	/// <summary>
-	/// Handles the click event for the MenuitemCopyToClipboardAphelionDistance.
-	/// Copies the aphelion distance data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemCopyToClipboardAphelionDistance.
+	/// Copies the aphelion distance data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the aphelion distance data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the aphelion distance data to the clipboard.</remarks>
 	private void MenuitemCopyToClipboardAphelionDistance_Click(object sender, EventArgs e) => CopyToClipboard(text: labelAphelionDistanceData.Text);
 
-	/// <summary>
-	/// Handles the click event for the MenuitemCopyToClipboardLongitudeDescendingNode.
-	/// Copies the longitude of the descending node data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemCopyToClipboardLongitudeDescendingNode.
+	/// Copies the longitude of the descending node data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the longitude of the descending node data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the longitude of the descending node data to the clipboard.</remarks>
 	private void MenuitemCopyToClipboardLongitudeDescendingNode_Click(object sender, EventArgs e) => CopyToClipboard(text: labelLongitudeDescendingNodeData.Text);
 
-	/// <summary>
-	/// Handles the click event for the MenuitemCopyToClipboardArgumentAphelion.
-	/// Copies the argument of aphelion data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemCopyToClipboardArgumentAphelion.
+	/// Copies the argument of aphelion data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the argument of aphelion data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the argument of aphelion data to the clipboard.</remarks>
 	private void MenuitemCopyToClipboardArgumentAphelion_Click(object sender, EventArgs e) => CopyToClipboard(text: labelArgumentAphelionData.Text);
 
-	/// <summary>
-	/// Handles the click event for the MenuitemCopyToClipboardFocalParameter.
-	/// Copies the focal parameter data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemCopyToClipboardFocalParameter.
+	/// Copies the focal parameter data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the focal parameter data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the focal parameter data to the clipboard.</remarks>
 	private void MenuitemCopyToClipboardFocalParameter_Click(object sender, EventArgs e) => CopyToClipboard(text: labelFocalParameterData.Text);
 
-	/// <summary>
-	/// Handles the click event for the MenuitemCopyToClipboardSemiLatusRectum.
-	/// Copies the semi-latus rectum data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemCopyToClipboardSemiLatusRectum.
+	/// Copies the semi-latus rectum data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the semi-latus rectum data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the semi-latus rectum data to the clipboard.</remarks>
 	private void MenuitemCopyToClipboardSemiLatusRectum_Click(object sender, EventArgs e) => CopyToClipboard(text: labelSemiLatusRectumData.Text);
 
-	/// <summary>
-	/// Handles the click event for the MenuitemCopyToClipboardLatusRectum.
-	/// Copies the latus rectum data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemCopyToClipboardLatusRectum.
+	/// Copies the latus rectum data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the latus rectum data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the latus rectum data to the clipboard.</remarks>
 	private void MenuitemCopyToClipboardLatusRectum_Click(object sender, EventArgs e) => CopyToClipboard(text: labelLatusRectumData.Text);
 
-	/// <summary>
-	/// Handles the click event for the MenuitemCopyToClipboardOrbitalPeriod.
-	/// Copies the orbital period data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemCopyToClipboardOrbitalPeriod.
+	/// Copies the orbital period data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the orbital period data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the orbital period data to the clipboard.</remarks>
 	private void MenuitemCopyToClipboardOrbitalPeriod_Click(object sender, EventArgs e) => CopyToClipboard(text: labelOrbitalPeriodData.Text);
 
-	/// <summary>
-	/// Handles the click event for the MenuitemCopyToClipboardOrbitalArea.
-	/// Copies the orbital area data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemCopyToClipboardOrbitalArea.
+	/// Copies the orbital area data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the orbital area data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the orbital area data to the clipboard.</remarks>
 	private void MenuitemCopyToClipboardOrbitalArea_Click(object sender, EventArgs e) => CopyToClipboard(text: labelOrbitalAreaData.Text);
 
-	/// <summary>
-	/// Handles the click event for the MenuitemCopyToClipboardSemiMeanAxis.
-	/// Copies the semi-mean axis data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemCopyToClipboardSemiMeanAxis.
+	/// Copies the semi-mean axis data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the semi-mean axis data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the semi-mean axis data to the clipboard.</remarks>
 	private void MenuitemCopyToClipboardSemiMeanAxis_Click(object sender, EventArgs e) => CopyToClipboard(text: labelSemiMeanAxisData.Text);
 
-	/// <summary>
-	/// Handles the click event for the MenuitemCopyToClipboardMeanAxis.
-	/// Copies the mean axis data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemCopyToClipboardMeanAxis.
+	/// Copies the mean axis data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the mean axis data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the mean axis data to the clipboard.</remarks>
 	private void MenuitemCopyToClipboardMeanAxis_Click(object sender, EventArgs e) => CopyToClipboard(text: labelMeanAxisData.Text);
 
-	/// <summary>
-	/// Handles the click event for the MenuitemCopyToClipboardStandardGravitationalParameter.
-	/// Copies the standard gravitational parameter data to the clipboard.
-	/// </summary>
+	/// <summary>Handles the click event for the MenuitemCopyToClipboardStandardGravitationalParameter.
+	/// Copies the standard gravitational parameter data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to copy the standard gravitational parameter data to the clipboard.
-	/// </remarks>
+	/// <remarks>This method is used to copy the standard gravitational parameter data to the clipboard.</remarks>
 	private void MenuitemCopyToClipboardStandardGravitationalParameter_Click(object sender, EventArgs e) => CopyToClipboard(text: labelStandardGravitationalParameterData.Text);
 
 	#endregion
 
 	#region DoubleClick event handlers
 
-	/// <summary>
-	/// Handles double-click events on the control to open the terminology dialog.
-	/// </summary>
+	/// <summary>Handles double-click events on the control to open the terminology dialog.</summary>
 	/// <param name="sender">Event source (the control).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method attempts to parse the current tag text as an integer and opens the terminology dialog
-	/// for the corresponding entry if successful.
-	/// </remarks>
+	/// <remarks>This method attempts to parse the current tag text as an integer and opens the terminology dialog
+	/// for the corresponding entry if successful.</remarks>
 	private void OpenTerminology_DoubleClick(object sender, EventArgs e)
 	{
 		// Try to parse the index from the current tag text

@@ -12,90 +12,54 @@ using System.Diagnostics;
 
 namespace Planetoid_DB;
 
-/// <summary>
-/// Represents the form for displaying planetoids data in table mode.
-/// </summary>
-/// <remarks>
-/// This form provides a user interface for viewing and managing planetoids data in a tabular format.
-/// </remarks>
+/// <summary>Represents the form for displaying planetoids data in table mode.</summary>
+/// <remarks>This form provides a user interface for viewing and managing planetoids data in a tabular format.</remarks>
+// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class TableModeForm : BaseKryptonForm
 {
-	/// <summary>
-	/// NLog logger instance.
-	/// </summary>
-	/// <remarks>
-	/// This logger is used throughout the application to log important events and errors.
-	/// </remarks>
+	/// <summary>NLog logger instance.</summary>
+	/// <remarks>This logger is used throughout the application to log important events and errors.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>
-	/// List of planetoid records from the database
-	/// </summary>
-	/// <remarks>
-	/// This field stores the list of planetoid records retrieved from the database.
-	/// </remarks>
+	/// <summary>List of planetoid records from the database</summary>
+	/// <remarks>This field stores the list of planetoid records retrieved from the database.</remarks>
 	private List<string> planetoidsDatabase = [];
 
-	/// <summary>
-	/// Cancellation token source for managing cancellation of asynchronous operations.
-	/// </summary>
-	/// <remarks>
-	/// This field is used to cancel ongoing asynchronous operations.
-	/// </remarks>
+	/// <summary>Cancellation token source for managing cancellation of asynchronous operations.</summary>
+	/// <remarks>This field is used to cancel ongoing asynchronous operations.</remarks>
 	private CancellationTokenSource? cancellationTokenSource;
 
-	/// <summary>
-	/// Cache for displaying planetoid records
-	/// </summary>
-	/// <remarks>
-	/// This field is used to cache planetoid records for display purposes.
-	/// </remarks>
+	/// <summary>Cache for displaying planetoid records</summary>
+	/// <remarks>This field is used to cache planetoid records for display purposes.</remarks>
 	private List<PlanetoidRecord> displayCache = [];
 
-	/// <summary>
-	/// Stopwatch for performance measurement
-	/// </summary>
-	/// <remarks>
-	/// This field stores the stopwatch for performance measurement.
-	/// </remarks>
+	/// <summary>Stopwatch for performance measurement</summary>
+	/// <remarks>This field stores the stopwatch for performance measurement.</remarks>
 	private readonly Stopwatch stopwatch = new();
 
-	/// <summary>
-	/// Gets the status label to be used for displaying information.
-	/// </summary>
-	/// <remarks>
-	/// Derived classes should override this property to provide the specific label.
-	/// </remarks>
+	/// <summary>Gets the status label to be used for displaying information.</summary>
+	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
-	/// <summary>
-	/// Stores the index of the currently sorted column.
-	/// </summary>
-	/// <remarks>
-	/// This field stores the index of the currently sorted column.
-	/// </remarks>
+	/// <summary>Stores the index of the currently sorted column.</summary>
+	/// <remarks>This field stores the index of the currently sorted column.</remarks>
 	private int sortColumn = -1;
 
-	/// <summary>
-	/// The value indicates how items in the currently sorted column are ordered:
+	/// <summary>The value indicates how items in the currently sorted column are ordered:
 	/// <list type="bullet">
 	/// <item><description><see cref="SortOrder.None"/>: No sorting is applied.</description></item>
 	/// <item><description><see cref="SortOrder.Ascending"/>: Items are sorted in ascending order.</description></item>
 	/// <item><description><see cref="SortOrder.Descending"/>: Items are sorted in descending order.</description></item>
 	/// </list>
-	/// This field is typically updated when the user clicks a column header in the list view to toggle the sort order.
-	/// </summary>
+	/// This field is typically updated when the user clicks a column header in the list view to toggle the sort order.</summary>
+	/// <remarks>This field stores the current sort order of the list view.</remarks>
 	private SortOrder sortOrder = SortOrder.None;
 
 	#region constructor
 
-	/// <summary>
-	/// Initializes a new instance of the <see cref="TableModeForm"/> class.
-	/// </summary>
-	/// <remarks>
-	/// This constructor initializes the form components.
-	/// </remarks>
+	/// <summary>Initializes a new instance of the <see cref="TableModeForm"/> class.</summary>
+	/// <remarks>This constructor initializes the form components.</remarks>
 	public TableModeForm()
 	{
 		// Initialize the form components
@@ -110,23 +74,15 @@ public partial class TableModeForm : BaseKryptonForm
 
 	#region helper methods
 
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
+	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is called to obtain a string representation of the current instance.
-	/// </remarks>
+	/// <remarks>This method is called to obtain a string representation of the current instance.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
-	/// <summary>
-	/// Fills the internal planetoids database from the provided list.
-	/// </summary>
+	/// <summary>Fills the internal planetoids database from the provided list.</summary>
 	/// <param name="arrTemp">A list containing planetoid records as strings. Each entry is appended to the internal database.</param>
-	/// <remarks>
-	/// The method stores the elements of <paramref name="arrTemp"/> in the internal <see cref="planetoidsDatabase"/> list.
-	/// The caller is responsible for providing data in the expected string format.
-	/// </remarks>
+	/// <remarks>The method stores the elements of <paramref name="arrTemp"/> in the internal <see cref="planetoidsDatabase"/> list.
+	/// The caller is responsible for providing data in the expected string format.</remarks>
 	public void FillArray(List<string> arrTemp)
 	{
 		// Fill the internal planetoids database
@@ -139,12 +95,8 @@ public partial class TableModeForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Updates the numeric controls based on the current state of the planetoids database.
-	/// </summary>
-	/// <remarks>
-	/// This method is called to update the numeric controls when the planetoids database changes.
-	/// </remarks>
+	/// <summary>Updates the numeric controls based on the current state of the planetoids database.</summary>
+	/// <remarks>This method is called to update the numeric controls when the planetoids database changes.</remarks>
 	private void UpdateNumericControls()
 	{
 		// Check if the planetoids database is empty
@@ -162,13 +114,9 @@ public partial class TableModeForm : BaseKryptonForm
 		numericUpDownMaximum.Value = planetoidsDatabase.Count;
 	}
 
-	/// <summary>
-	/// Sets the UI state based on the processing state.
-	/// </summary>
+	/// <summary>Sets the UI state based on the processing state.</summary>
 	/// <param name="processing">True if processing is ongoing, false otherwise.</param>
-	/// <remarks>
-	/// This method updates the enabled state of the UI controls based on the processing state.
-	/// </remarks>
+	/// <remarks>This method updates the enabled state of the UI controls based on the processing state.</remarks>
 	private void SetUiState(bool processing)
 	{
 		// Update the enabled state of the UI controls based on the processing state
@@ -185,16 +133,12 @@ public partial class TableModeForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Gets the value of a specific column from a PlanetoidRecord.
-	/// </summary>
+	/// <summary>Gets the value of a specific column from a PlanetoidRecord.</summary>
 	/// <param name="p">The PlanetoidRecord to retrieve the value from.</param>
 	/// <param name="columnIndex">The index of the column to retrieve.</param>
 	/// <returns>The value of the specified column as a string.</returns>
-	/// <remarks>
-	/// This method uses pattern matching to return the value of the specified column.
-	/// The order MUST exactly match your column order in the ListView!
-	/// </remarks>
+	/// <remarks>This method uses pattern matching to return the value of the specified column.
+	/// The order MUST exactly match your column order in the ListView!</remarks>
 	private static string GetValueByColumn(PlanetoidRecord p, int columnIndex) => columnIndex switch
 	{
 		0 => p.Index,
@@ -220,14 +164,10 @@ public partial class TableModeForm : BaseKryptonForm
 		_ => string.Empty
 	};
 
-	/// <summary>
-	/// Sorts the display cache based on the specified column and sort order.
-	/// </summary>
+	/// <summary>Sorts the display cache based on the specified column and sort order.</summary>
 	/// <param name="columnIndex">The index of the column to sort by.</param>
 	/// <param name="order">The sort order (ascending or descending).</param>
-	/// <remarks>
-	/// This method modifies the display cache in place to reflect the new sort order.
-	/// </remarks>
+	/// <remarks>This method modifies the display cache in place to reflect the new sort order.</remarks>
 	private void SortDisplayCache(int columnIndex, SortOrder order)
 	{
 		// If no sorting is requested, log a warning and return
@@ -264,13 +204,9 @@ public partial class TableModeForm : BaseKryptonForm
 		});
 	}
 
-	/// <summary>
-	/// Sets up the columns for the ListView control.
-	/// </summary>
-	/// <remarks>
-	/// This method configures the columns of the ListView control to display the relevant
-	/// information for each planetoid record.
-	/// </remarks>
+	/// <summary>Sets up the columns for the ListView control.</summary>
+	/// <remarks>This method configures the columns of the ListView control to display the relevant
+	/// information for each planetoid record.</remarks>
 	private void SetupColumns()
 	{
 		// Add columns to the ListView
@@ -285,14 +221,10 @@ public partial class TableModeForm : BaseKryptonForm
 		]);
 	}
 
-	/// <summary>
-	/// Creates a ListViewItem from a record.
-	/// </summary>
+	/// <summary>Creates a ListViewItem from a record.</summary>
 	/// <param name="p">The planetoid record to convert.</param>
 	/// <returns>A ListViewItem representing the planetoid record.</returns>
-	/// <remarks>
-	/// This method is used to create a ListViewItem from a PlanetoidRecord.
-	/// </remarks>
+	/// <remarks>This method is used to create a ListViewItem from a PlanetoidRecord.</remarks>
 	private static ListViewItem CreateListViewItem(PlanetoidRecord p)
 	{
 		// Create a new ListViewItem with the index as the main text
@@ -316,15 +248,11 @@ public partial class TableModeForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>
-	/// Handles the form Load event.
-	/// Initializes UI controls, clears the status area and sets up numeric ranges based on the loaded database.
-	/// </summary>
+	/// <summary>Handles the form Load event.
+	/// Initializes UI controls, clears the status area and sets up numeric ranges based on the loaded database.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the form is loaded.
-	/// </remarks>
+	/// <remarks>This method is called when the form is loaded.</remarks>
 	private void TableModeForm_Load(object sender, EventArgs e)
 	{
 		// Clear the status bar text
@@ -340,31 +268,21 @@ public partial class TableModeForm : BaseKryptonForm
 		UpdateNumericControls();
 	}
 
-	/// <summary>
-	/// Handles the form Closing event.
-	/// Requests cancellation of any ongoing operations while the form and its controls are still valid.
-	/// </summary>
+	/// <summary>Handles the form Closing event.
+	/// Requests cancellation of any ongoing operations while the form and its controls are still valid.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="FormClosingEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the form begins closing, allowing pending asynchronous work to be cancelled
-	/// before UI controls are disposed.
-	/// </remarks>
-	private void TableModeForm_FormClosing(object sender, FormClosingEventArgs e)
-	{
+	/// <remarks>This method is called when the form begins closing, allowing pending asynchronous work to be cancelled
+	/// before UI controls are disposed.</remarks>
+	private void TableModeForm_FormClosing(object sender, FormClosingEventArgs e) =>
 		// Request cancellation of any ongoing operations while the UI is still alive
 		cancellationTokenSource?.Cancel();
-	}
 
-	/// <summary>
-	/// Handles the form Closed event.
-	/// Cleans up resources and cancels any ongoing operations.
-	/// </summary>
+	/// <summary>Handles the form Closed event.
+	/// Cleans up resources and cancels any ongoing operations.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the form is closed.
-	/// </remarks>
+	/// <remarks>This method is called when the form is closed.</remarks>
 	private void TableModeForm_FormClosed(object sender, FormClosedEventArgs e)
 	{
 		// Clearing the token if the window is closed during work
@@ -376,16 +294,12 @@ public partial class TableModeForm : BaseKryptonForm
 
 	#region SelectedIndexChanged event handlers
 
-	/// <summary>
-	/// Handles the ListView <c>SelectedIndexChanged</c> event.
+	/// <summary>Handles the ListView <c>SelectedIndexChanged</c> event.
 	/// Updates the status bar with the selected planetoid's index and designation name.
-	/// If no item is selected the method returns without modifying the UI.
-	/// </summary>
+	/// If no item is selected the method returns without modifying the UI.</summary>
 	/// <param name="sender">Event source (the list view).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the selected index of the list view changes.
-	/// </remarks>
+	/// <remarks>This method is called when the selected index of the list view changes.</remarks>
 	private void ListViewTableMode_SelectedIndexChanged(object sender, EventArgs e)
 	{
 		// Cast the sender to a ListView
@@ -410,14 +324,10 @@ public partial class TableModeForm : BaseKryptonForm
 
 	#region RetrieveVirtualItem event handlers
 
-	/// <summary>
-	/// Handles the retrieval of virtual items for the ListView.
-	/// </summary>
+	/// <summary>Handles the retrieval of virtual items for the ListView.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	/// <remarks>
-	/// This method is called to retrieve virtual items for the ListView.
-	/// </remarks>
+	/// <remarks>This method is called to retrieve virtual items for the ListView.</remarks>
 	private void ListView_RetrieveVirtualItem(object? sender, RetrieveVirtualItemEventArgs e)
 	{
 		// Ensure that the index is within the valid range.
@@ -439,16 +349,12 @@ public partial class TableModeForm : BaseKryptonForm
 
 	#region Click event handlers
 
-	/// <summary>
-	/// Handles the Click event of the List button.
+	/// <summary>Handles the Click event of the List button.
 	/// Prepares the list view, disables/enables the appropriate UI controls, enables progress reporting
-	/// and starts the background worker to process planetoid records in the configured range.
-	/// </summary>
+	/// and starts the background worker to process planetoid records in the configured range.</summary>
 	/// <param name="sender">Event source (the List button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the List button is clicked.
-	/// </remarks>
+	/// <remarks>This method is called when the List button is clicked.</remarks>
 	private async void ButtonList_ClickAsync(object sender, EventArgs e)
 	{
 		// Start the stopwatch for performance measurement
@@ -554,14 +460,10 @@ public partial class TableModeForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Handles the ColumnClick event of the ListView.
-	/// </summary>
+	/// <summary>Handles the ColumnClick event of the ListView.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	/// <remarks>
-	/// This method is called when a column header is clicked.
-	/// </remarks>
+	/// <remarks>This method is called when a column header is clicked.</remarks>
 	private void ListView_ColumnClick(object? sender, ColumnClickEventArgs e)
 	{
 		// If empty list, do nothing
@@ -616,15 +518,11 @@ public partial class TableModeForm : BaseKryptonForm
 		sortedColumnHeader.Text = $"{arrow} {sortedColumnBaseText}";
 	}
 
-	/// <summary>
-	/// Handles the Click event of the Cancel button.
-	/// Requests cancellation of the background processing by setting the internal cancellation flag.
-	/// </summary>
+	/// <summary>Handles the Click event of the Cancel button.
+	/// Requests cancellation of the background processing by setting the internal cancellation flag.</summary>
 	/// <param name="sender">Event source (the Cancel button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is called when the Cancel button is clicked.
-	/// </remarks>
+	/// <remarks>This method is called when the Cancel button is clicked.</remarks>
 	private void ButtonCancel_Click(object? sender, EventArgs? e)
 	{
 		// Stop the stopwatch for performance measurement
@@ -632,10 +530,6 @@ public partial class TableModeForm : BaseKryptonForm
 		// Set the cancel flag to true to request cancellation
 		cancellationTokenSource?.Cancel();
 	}
-
-	#endregion
-
-	#region DoubleClick event handlers
 
 	#endregion
 }

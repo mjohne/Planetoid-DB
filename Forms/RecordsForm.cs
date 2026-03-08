@@ -1,3 +1,8 @@
+// This file is used by Code Analysis to maintain SuppressMessage
+// attributes that are applied to this project.
+// Project-level suppressions either have no target or are given
+// a specific target and scoped to a namespace, type, member, etc.
+
 using Krypton.Toolkit;
 
 using NLog;
@@ -12,77 +17,49 @@ using System.Reflection;
 
 namespace Planetoid_DB;
 
-/// <summary>
-/// Represents the form that scans all orbital elements for maximum or minimum record values.
-/// </summary>
-/// <remarks>
-/// This form displays the record holder (asteroid with the highest or lowest value) for each
+/// <summary>Represents the form that scans all orbital elements for maximum or minimum record values.</summary>
+/// <remarks>This form displays the record holder (asteroid with the highest or lowest value) for each
 /// orbital element in the database. The user can choose between maximum and minimum records,
-/// start and cancel the scan at any time.
-/// </remarks>
+/// start and cancel the scan at any time.</remarks>
+// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class RecordsForm : BaseKryptonForm
 {
-	/// <summary>
-	/// NLog logger instance for the class.
-	/// </summary>
-	/// <remarks>
-	/// This logger is used to log messages for the records form.
-	/// </remarks>
+	/// <summary>NLog logger instance for the class.</summary>
+	/// <remarks>This logger is used to log messages for the records form.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>
-	/// Gets the status label to be used for displaying information.
-	/// </summary>
-	/// <remarks>
-	/// Derived classes should override this property to provide the specific label.
-	/// </remarks>
+	/// <summary>Gets the status label to be used for displaying information.</summary>
+	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
-	/// <summary>
-	/// Stores the planetoids database.
-	/// </summary>
-	/// <remarks>
-	/// This list holds a copy of all planetoid database entries for scanning.
-	/// </remarks>
+	/// <summary>Stores the planetoids database.</summary>
+	/// <remarks>This list holds a copy of all planetoid database entries for scanning.</remarks>
 	private List<string> planetoidsDatabase = [];
 
-	/// <summary>
-	/// Indicates whether the scan operation has been cancelled by the user.
-	/// </summary>
-	/// <remarks>
-	/// Set to true when the user clicks the Cancel button to stop an ongoing scan.
-	/// </remarks>
+	/// <summary>Indicates whether the scan operation has been cancelled by the user.</summary>
+	/// <remarks>Set to true when the user clicks the Cancel button to stop an ongoing scan.</remarks>
 	private bool isCancelled;
 
-	/// <summary>
-	/// Stores the current record values for each orbital element (max or min).
-	/// </summary>
-	/// <remarks>
-	/// Index corresponds to element: 0=MeanAnomaly, 1=ArgPeri, 2=LongAscNode, 3=Incl,
+	/// <summary>Stores the current record values for each orbital element (max or min).</summary>
+	/// <remarks>Index corresponds to element: 0=MeanAnomaly, 1=ArgPeri, 2=LongAscNode, 3=Incl,
 	/// 4=OrbEcc, 5=Motion, 6=SemiMajorAxis, 7=MagAbs, 8=SlopeParam, 9=NumberOpposition,
-	/// 10=NumberObservation, 11=ObsSpan, 12=RmsResidual.
-	/// </remarks>
+	/// 10=NumberObservation, 11=ObsSpan, 12=RmsResidual.</remarks>
 	private readonly double[] recordValues = new double[13];
 
-	/// <summary>
-	/// Holds a progress update for a single orbital element record, used to marshal
+	/// <summary>Holds a progress update for a single orbital element record, used to marshal
 	/// label updates from the background thread to the UI thread via
-	/// <see cref="BackgroundWorker.ReportProgress(int, object)"/>.
-	/// </summary>
+	/// <see cref="BackgroundWorker.ReportProgress(int, object)"/>.</summary>
 	/// <param name="ElementIndex">Zero-based index of the orbital element.</param>
 	/// <param name="Value">The new record value.</param>
 	/// <param name="Designation">The readable designation of the record-holder asteroid.</param>
+	/// <remarks>This struct is used to pass progress updates from the background worker to the UI thread.</remarks>
 	private readonly record struct RecordProgressUpdate(int ElementIndex, double Value, string Designation);
 
 	#region constructor
 
-	/// <summary>
-	/// Initializes a new instance of the <see cref="RecordsForm"/> class.
-	/// </summary>
-	/// <remarks>
-	/// This constructor initializes the form components and wires up BackgroundWorker events.
-	/// </remarks>
+	/// <summary>Initializes a new instance of the <see cref="RecordsForm"/> class.</summary>
+	/// <remarks>This constructor initializes the form components and wires up BackgroundWorker events.</remarks>
 	public RecordsForm()
 	{
 		// Initialize the form components
@@ -115,31 +92,19 @@ public partial class RecordsForm : BaseKryptonForm
 
 	#region helper methods
 
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
+	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is called to obtain a string representation of the current instance.
-	/// </remarks>
+	/// <remarks>This method is called to obtain a string representation of the current instance.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
-	/// <summary>
-	/// Fills the internal database list with a copy of the provided planetoid data.
-	/// </summary>
+	/// <summary>Fills the internal database list with a copy of the provided planetoid data.</summary>
 	/// <param name="arrTemp">The list of raw planetoid data lines from the main form.</param>
-	/// <remarks>
-	/// This method must be called before starting the scan to provide the data source.
-	/// The data is stored as a copy so changes in the main form do not affect the scan.
-	/// </remarks>
+	/// <remarks>This method must be called before starting the scan to provide the data source.
+	/// The data is stored as a copy so changes in the main form do not affect the scan.</remarks>
 	public void FillArray(List<string> arrTemp) => planetoidsDatabase = [.. arrTemp];
 
-	/// <summary>
-	/// Resets all record labels to the initial state before starting a new scan.
-	/// </summary>
-	/// <remarks>
-	/// Clears designation and value labels, and resets internal tracking arrays.
-	/// </remarks>
+	/// <summary>Resets all record labels to the initial state before starting a new scan.</summary>
+	/// <remarks>Clears designation and value labels, and resets internal tracking arrays.</remarks>
 	private void ResetLabels()
 	{
 		// Reset all designation and value labels to placeholder text
@@ -158,13 +123,9 @@ public partial class RecordsForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Gets the array of designation labels in element order.
-	/// </summary>
+	/// <summary>Gets the array of designation labels in element order.</summary>
 	/// <returns>An array of <see cref="KryptonLabel"/> controls for designation display.</returns>
-	/// <remarks>
-	/// The array is ordered to match the orbital element order used in record tracking.
-	/// </remarks>
+	/// <remarks>The array is ordered to match the orbital element order used in record tracking.</remarks>
 	private KryptonLabel[] GetDesignationLabels() =>
 	[
 		labelDesignation01, labelDesignation02, labelDesignation03, labelDesignation04,
@@ -173,13 +134,9 @@ public partial class RecordsForm : BaseKryptonForm
 		labelDesignation13
 	];
 
-	/// <summary>
-	/// Gets the array of value labels in element order.
-	/// </summary>
+	/// <summary>Gets the array of value labels in element order.</summary>
 	/// <returns>An array of <see cref="KryptonLabel"/> controls for value display.</returns>
-	/// <remarks>
-	/// The array is ordered to match the orbital element order used in record tracking.
-	/// </remarks>
+	/// <remarks>The array is ordered to match the orbital element order used in record tracking.</remarks>
 	private KryptonLabel[] GetValueLabels() =>
 	[
 		labelValue01, labelValue02, labelValue03, labelValue04,
@@ -188,20 +145,16 @@ public partial class RecordsForm : BaseKryptonForm
 		labelValue13
 		];
 
-	/// <summary>
-	/// Checks whether a numeric value beats the current record for the given element index
+	/// <summary>Checks whether a numeric value beats the current record for the given element index
 	/// and, if so, fires a <see cref="BackgroundWorker.ReportProgress(int, object)"/> event so the UI
-	/// labels can be updated safely on the UI thread.
-	/// </summary>
+	/// labels can be updated safely on the UI thread.</summary>
 	/// <param name="elementIndex">Zero-based index of the orbital element.</param>
 	/// <param name="value">The numeric value to compare against the current record.</param>
 	/// <param name="designation">The readable designation of the asteroid.</param>
 	/// <param name="isMax">If <c>true</c>, checks for maximum; otherwise checks for minimum.</param>
 	/// <param name="percent">Current scan percentage, forwarded in the progress report.</param>
-	/// <remarks>
-	/// This method runs on the <see cref="BackgroundWorker"/> DoWork thread.
-	/// UI updates are performed through the <see cref="BackgroundWorker.ProgressChanged"/> event.
-	/// </remarks>
+	/// <remarks>This method runs on the <see cref="BackgroundWorker"/> DoWork thread.
+	/// UI updates are performed through the <see cref="BackgroundWorker.ProgressChanged"/> event.</remarks>
 	private void CheckAndReportRecord(int elementIndex, double value, string designation, bool isMax, int percent)
 	{
 		// Check if this value is a new record
@@ -223,16 +176,12 @@ public partial class RecordsForm : BaseKryptonForm
 			userState: new RecordProgressUpdate(ElementIndex: elementIndex, Value: value, Designation: designation));
 	}
 
-	/// <summary>
-	/// Processes a single database entry and checks all orbital element values for records.
-	/// </summary>
+	/// <summary>Processes a single database entry and checks all orbital element values for records.</summary>
 	/// <param name="rawLine">The raw fixed-width line from the MPCORB database.</param>
 	/// <param name="isMax">If <c>true</c>, looks for maximum values; otherwise looks for minimum values.</param>
 	/// <param name="percent">Current scan percentage, forwarded to record progress reports.</param>
-	/// <remarks>
-	/// Parses the planetoid record and compares each numeric orbital element value
-	/// against the current records. A progress report is fired immediately for each new record.
-	/// </remarks>
+	/// <remarks>Parses the planetoid record and compares each numeric orbital element value
+	/// against the current records. A progress report is fired immediately for each new record.</remarks>
 	private void ProcessEntry(string rawLine, bool isMax, int percent)
 	{
 		// Parse the raw line into a PlanetoidRecord
@@ -329,30 +278,22 @@ public partial class RecordsForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>
-	/// Handles the Load event of the form.
-	/// </summary>
+	/// <summary>Handles the Load event of the form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// Initializes the form by clearing the status bar.
-	/// </remarks>
+	/// <remarks>Initializes the form by clearing the status bar.</remarks>
 	private void RecordsForm_Load(object sender, EventArgs e) => ClearStatusBar(label: labelInformation);
 
 	#endregion
 
 	#region BackgroundWorker event handlers
 
-	/// <summary>
-	/// Performs the record scanning work on a background thread.
-	/// </summary>
+	/// <summary>Performs the record scanning work on a background thread.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="DoWorkEventArgs"/> instance containing the event data.</param>
-	/// <remarks>
-	/// Iterates through all database entries, processes each one for record detection,
+	/// <remarks>Iterates through all database entries, processes each one for record detection,
 	/// and reports progress as a percentage. The scan can be cancelled at any time.
-	/// Progress bar updates are throttled to at most one per percent change.
-	/// </remarks>
+	/// Progress bar updates are throttled to at most one per percent change.</remarks>
 	private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
 	{
 		// Determine scan mode (max or min) captured before the background thread starts
@@ -394,17 +335,13 @@ public partial class RecordsForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Updates the progress bar and percent label, and optionally updates a record label pair,
-	/// when the BackgroundWorker reports progress.
-	/// </summary>
+	/// <summary>Updates the progress bar and percent label, and optionally updates a record label pair,
+	/// when the BackgroundWorker reports progress.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="ProgressChangedEventArgs"/> instance containing the event data.</param>
-	/// <remarks>
-	/// Called on the UI thread by the BackgroundWorker.
+	/// <remarks>Called on the UI thread by the BackgroundWorker.
 	/// When <see cref="ProgressChangedEventArgs.UserState"/> is a <see cref="RecordProgressUpdate"/>,
-	/// the corresponding designation and value labels are updated.
-	/// </remarks>
+	/// the corresponding designation and value labels are updated.</remarks>
 	private void BackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
 	{
 		int percent = e.ProgressPercentage;
@@ -426,15 +363,11 @@ public partial class RecordsForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Handles scan completion, enabling the Start button and disabling the Cancel button.
-	/// </summary>
+	/// <summary>Handles scan completion, enabling the Start button and disabling the Cancel button.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="RunWorkerCompletedEventArgs"/> instance containing the event data.</param>
-	/// <remarks>
-	/// Called on the UI thread after the BackgroundWorker finishes or is cancelled.
-	/// Resets the UI state so the user can start a new scan.
-	/// </remarks>
+	/// <remarks>Called on the UI thread after the BackgroundWorker finishes or is cancelled.
+	/// Resets the UI state so the user can start a new scan.</remarks>
 	private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
 	{
 		buttonCancel.Enabled = false;
@@ -465,16 +398,12 @@ public partial class RecordsForm : BaseKryptonForm
 
 	#region Click event handlers
 
-	/// <summary>
-	/// Handles the Click event of the ButtonStart control.
-	/// Resets results and starts the record detection scan.
-	/// </summary>
+	/// <summary>Handles the Click event of the ButtonStart control.
+	/// Resets results and starts the record detection scan.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// Disables the Start button, enables the Cancel button, resets labels and record arrays,
-	/// then launches the BackgroundWorker with the selected max/min mode.
-	/// </remarks>
+	/// <remarks>Disables the Start button, enables the Cancel button, resets labels and record arrays,
+	/// then launches the BackgroundWorker with the selected max/min mode.</remarks>
 	private void ButtonStart_Click(object sender, EventArgs e)
 	{
 		if (planetoidsDatabase.Count == 0)
@@ -502,16 +431,12 @@ public partial class RecordsForm : BaseKryptonForm
 		backgroundWorker.RunWorkerAsync(argument: checkButtonMax.Checked);
 	}
 
-	/// <summary>
-	/// Handles the Click event of the ButtonCancel control.
-	/// Cancels the ongoing record detection scan.
-	/// </summary>
+	/// <summary>Handles the Click event of the ButtonCancel control.
+	/// Cancels the ongoing record detection scan.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// Sets the cancellation flag and requests the BackgroundWorker to stop.
-	/// The UI state will be reset in the <see cref="BackgroundWorker_RunWorkerCompleted"/> handler.
-	/// </remarks>
+	/// <remarks>Sets the cancellation flag and requests the BackgroundWorker to stop.
+	/// The UI state will be reset in the <see cref="BackgroundWorker_RunWorkerCompleted"/> handler.</remarks>
 	private void ButtonCancel_Click(object sender, EventArgs e)
 	{
 		isCancelled = true;
@@ -519,26 +444,18 @@ public partial class RecordsForm : BaseKryptonForm
 		buttonCancel.Enabled = false;
 	}
 
-	/// <summary>
-	/// Handles the Click event of the CheckButtonMax control.
-	/// Selects maximum record mode and deselects minimum mode.
-	/// </summary>
+	/// <summary>Handles the Click event of the CheckButtonMax control.
+	/// Selects maximum record mode and deselects minimum mode.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// Ensures that exactly one of Max/Min is selected at all times.
-	/// </remarks>
+	/// <remarks>Ensures that exactly one of Max/Min is selected at all times.</remarks>
 	private void CheckButtonMax_Click(object sender, EventArgs e) => checkButtonMin.Checked = !checkButtonMax.Checked;
 
-	/// <summary>
-	/// Handles the Click event of the CheckButtonMin control.
-	/// Selects minimum record mode and deselects maximum mode.
-	/// </summary>
+	/// <summary>Handles the Click event of the CheckButtonMin control.
+	/// Selects minimum record mode and deselects maximum mode.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// Ensures that exactly one of Max/Min is selected at all times.
-	/// </remarks>
+	/// <remarks>Ensures that exactly one of Max/Min is selected at all times.</remarks>
 	private void CheckButtonMin_Click(object sender, EventArgs e) => checkButtonMax.Checked = !checkButtonMin.Checked;
 
 	#endregion

@@ -9,12 +9,9 @@ using System.Diagnostics;
 
 namespace Planetoid_DB;
 
-/// <summary>
-/// Represents a form that displays terminology information.
-/// </summary>
-/// <remarks>
-/// This form provides a user interface for viewing and managing terminology information.
-/// </remarks>
+/// <summary>Represents a form that displays terminology information.</summary>
+/// <remarks>This form provides a user interface for viewing and managing terminology information.</remarks>
+// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class TerminologyForm : BaseKryptonForm
 {
@@ -34,29 +31,17 @@ public partial class TerminologyForm : BaseKryptonForm
 
 	#region helper methods
 
-	/// <summary>
-	/// Returns a short debugger display string for this instance.
-	/// </summary>
+	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>
-	/// This method is used to provide a visual representation of the object in the debugger.
-	/// </remarks>
+	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
-	/// <summary>
-	/// Gets the status label to be used for displaying information.
-	/// </summary>
-	/// <remarks>
-	/// Derived classes should override this property to provide the specific label.
-	/// </remarks>
+	/// <summary>Gets the status label to be used for displaying information.</summary>
+	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
-	/// <summary>
-	/// Updates the content displayed in the web browser control.
-	/// </summary>
-	/// <remarks>
-	/// This method is used to update the web browser content based on the selected terminology element.
-	/// </remarks>
+	/// <summary>Updates the content displayed in the web browser control.</summary>
+	/// <remarks>This method is used to update the web browser content based on the selected terminology element.</remarks>
 	private void UpdateBrowserContent()
 	{
 		// Construct the resource key based on the selected element
@@ -67,14 +52,10 @@ public partial class TerminologyForm : BaseKryptonForm
 		webBrowser.DocumentText = text ?? I18nStrings.terminology_IndexNumber;
 	}
 
-	/// <summary>
-	/// Retrieves or sets the currently selected terminology element.
-	/// Automatically updates the display when set.
-	/// </summary>
+	/// <summary>Retrieves or sets the currently selected terminology element.
+	/// Automatically updates the display when set.</summary>
 	/// <value>The currently selected terminology element.</value>
-	/// <remarks>
-	/// This property is configured for code serialization.
-	/// </remarks>
+	/// <remarks>This property is configured for code serialization.</remarks>
 	[System.ComponentModel.DesignerSerializationVisibility(visibility: System.ComponentModel.DesignerSerializationVisibility.Visible)]
 	public TerminologyElement SelectedElement
 	{
@@ -100,15 +81,11 @@ public partial class TerminologyForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>
-	/// Fired when the form has finished loading.
-	/// Initializes the displayed content (sets the active terminology element) and clears the status bar.
-	/// </summary>
+	/// <summary>Fired when the form has finished loading.
+	/// Initializes the displayed content (sets the active terminology element) and clears the status bar.</summary>
 	/// <param name="sender">The event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This event is triggered when the form has finished loading.
-	/// </remarks>
+	/// <remarks>This event is triggered when the form has finished loading.</remarks>
 	private void TerminologyForm_Load(object sender, EventArgs e)
 	{
 		// Initial update of the browser content
@@ -121,16 +98,12 @@ public partial class TerminologyForm : BaseKryptonForm
 
 	#region SelectedValueChanged event handler
 
-	/// <summary>
-	/// Handles the list box SelectedValueChanged event.
+	/// <summary>Handles the list box SelectedValueChanged event.
 	/// Updates the current <see cref="TerminologyElement"/> based on the selected index
-	/// and refreshes the displayed content in the embedded web browser.
-	/// </summary>
+	/// and refreshes the displayed content in the embedded web browser.</summary>
 	/// <param name="sender">The event source (expected to be the terminology list box).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This event is triggered when the selected value in the list box changes.
-	/// </remarks>
+	/// <remarks>This event is triggered when the selected value in the list box changes.</remarks>
 	private void ListBox_SelectedValueChanged(object sender, EventArgs e)
 	{
 		// Get the selected element from the list box

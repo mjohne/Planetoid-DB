@@ -1,556 +1,551 @@
-﻿using System.ComponentModel;
+﻿// This file is used by Code Analysis to maintain SuppressMessage
+// attributes that are applied to this project.
+// Project-level suppressions either have no target or are given
+// a specific target and scoped to a namespace, type, member, etc.
+
 using Krypton.Toolkit;
 
 using Planetoid_DB.Resources;
 
-namespace Planetoid_DB
+using System.ComponentModel;
+
+namespace Planetoid_DB;
+
+/// <summary>Provides a user interface for downloading the MPCORB.DAT database file, displaying download progress and status
+/// information.</summary>
+/// <remarks>This form allows users to initiate a download, check for updates, and cancel ongoing downloads. It
+/// includes visual feedback through a progress bar and status labels. The form is designed to be used as a modal dialog
+/// and does not appear in the taskbar.</remarks>
+partial class DownloadMpcorbDatForm
 {
-	partial class DownloadMpcorbDatForm
+	/// <summary>Required designer variable.</summary>
+	/// <remarks>This field stores the components used by the form.</remarks>
+	private IContainer components = null;
+
+	/// <summary>Clean up any resources being used.</summary>
+	/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+	/// <remarks>This method is called by the runtime to release resources used by the form.</remarks>
+	protected override void Dispose(bool disposing)
 	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private IContainer components = null;
-
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
+		if (disposing && (components != null))
 		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
+			components.Dispose();
 		}
-
-		#region Windows Form Designer generated code
-
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			components = new Container();
-			ComponentResourceManager resources = new ComponentResourceManager(typeof(DownloadMpcorbDatForm));
-			progressBarDownload = new KryptonProgressBar();
-			labelStatusValue = new KryptonLabel();
-			contextMenuCopyToClipboard = new ContextMenuStrip(components);
-			ToolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
-			labelDownload = new KryptonLabel();
-			buttonCancelDownload = new KryptonButton();
-			buttonDownload = new KryptonButton();
-			labelSourceValue = new KryptonLabel();
-			buttonCheckForUpdate = new KryptonButton();
-			labelDateValue = new KryptonLabel();
-			labelSizeValue = new KryptonLabel();
-			labelStatusText = new KryptonLabel();
-			labelDateText = new KryptonLabel();
-			labelSourceText = new KryptonLabel();
-			labelSizeText = new KryptonLabel();
-			tableLayoutPanel = new KryptonTableLayoutPanel();
-			panel = new KryptonPanel();
-			statusStrip = new KryptonStatusStrip();
-			labelInformation = new ToolStripStatusLabel();
-			toolStripContainer = new ToolStripContainer();
-			kryptonManager = new KryptonManager(components);
-			contextMenuCopyToClipboard.SuspendLayout();
-			tableLayoutPanel.SuspendLayout();
-			((ISupportInitialize)panel).BeginInit();
-			panel.SuspendLayout();
-			statusStrip.SuspendLayout();
-			toolStripContainer.BottomToolStripPanel.SuspendLayout();
-			toolStripContainer.ContentPanel.SuspendLayout();
-			toolStripContainer.SuspendLayout();
-			SuspendLayout();
-			// 
-			// progressBarDownload
-			// 
-			progressBarDownload.AccessibleDescription = "Shows the progress of the download";
-			progressBarDownload.AccessibleName = "Progress of the download";
-			progressBarDownload.AccessibleRole = AccessibleRole.ProgressBar;
-			progressBarDownload.Location = new Point(14, 140);
-			progressBarDownload.Margin = new Padding(4, 3, 4, 3);
-			progressBarDownload.Name = "progressBarDownload";
-			progressBarDownload.Size = new Size(476, 21);
-			progressBarDownload.TabIndex = 1;
-			progressBarDownload.TextBackdropColor = Color.Empty;
-			progressBarDownload.TextShadowColor = Color.Empty;
-			progressBarDownload.Values.Text = "";
-			progressBarDownload.MouseEnter += Control_Enter;
-			progressBarDownload.MouseLeave += Control_Leave;
-			// 
-			// labelStatusValue
-			// 
-			labelStatusValue.AccessibleDescription = "Shows the status of the download";
-			labelStatusValue.AccessibleName = "Status of the download";
-			labelStatusValue.AccessibleRole = AccessibleRole.Text;
-			labelStatusValue.ContextMenuStrip = contextMenuCopyToClipboard;
-			labelStatusValue.Dock = DockStyle.Fill;
-			labelStatusValue.Location = new Point(62, 3);
-			labelStatusValue.Margin = new Padding(4, 3, 4, 3);
-			labelStatusValue.Name = "labelStatusValue";
-			labelStatusValue.Size = new Size(509, 20);
-			labelStatusValue.TabIndex = 1;
-			labelStatusValue.ToolTipValues.Description = "Shows the status of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
-			labelStatusValue.ToolTipValues.EnableToolTips = true;
-			labelStatusValue.ToolTipValues.Heading = "Status of the download";
-			labelStatusValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-			labelStatusValue.Values.Text = "...";
-			labelStatusValue.DoubleClick += CopyToClipboard_DoubleClick;
-			labelStatusValue.Enter += Control_Enter;
-			labelStatusValue.Leave += Control_Leave;
-			labelStatusValue.MouseDown += Control_MouseDown;
-			labelStatusValue.MouseEnter += Control_Enter;
-			labelStatusValue.MouseLeave += Control_Leave;
-			// 
-			// contextMenuCopyToClipboard
-			// 
-			contextMenuCopyToClipboard.AccessibleDescription = "Shows the context menu for copying database information to the clipboard";
-			contextMenuCopyToClipboard.AccessibleName = "Context menu for copying database information to the clipboard";
-			contextMenuCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
-			contextMenuCopyToClipboard.AllowClickThrough = true;
-			contextMenuCopyToClipboard.Font = new Font("Segoe UI", 9F);
-			contextMenuCopyToClipboard.Items.AddRange(new ToolStripItem[] { ToolStripMenuItemCopyToClipboard });
-			contextMenuCopyToClipboard.Name = "contextMenuStrip";
-			contextMenuCopyToClipboard.Size = new Size(214, 26);
-			contextMenuCopyToClipboard.TabStop = true;
-			contextMenuCopyToClipboard.Text = "Copy to clipboard";
-			contextMenuCopyToClipboard.MouseEnter += Control_Enter;
-			contextMenuCopyToClipboard.MouseLeave += Control_Leave;
-			// 
-			// ToolStripMenuItemCopyToClipboard
-			// 
-			ToolStripMenuItemCopyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
-			ToolStripMenuItemCopyToClipboard.AccessibleName = "Copy to clipboard";
-			ToolStripMenuItemCopyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
-			ToolStripMenuItemCopyToClipboard.AutoToolTip = true;
-			ToolStripMenuItemCopyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
-			ToolStripMenuItemCopyToClipboard.Name = "ToolStripMenuItemCopyToClipboard";
-			ToolStripMenuItemCopyToClipboard.ShortcutKeyDisplayString = "Strg+C";
-			ToolStripMenuItemCopyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
-			ToolStripMenuItemCopyToClipboard.Size = new Size(213, 22);
-			ToolStripMenuItemCopyToClipboard.Text = "&Copy to clipboard";
-			ToolStripMenuItemCopyToClipboard.Click += CopyToClipboard_DoubleClick;
-			ToolStripMenuItemCopyToClipboard.MouseEnter += Control_Enter;
-			ToolStripMenuItemCopyToClipboard.MouseLeave += Control_Leave;
-			// 
-			// labelDownload
-			// 
-			labelDownload.AccessibleDescription = "Shows the percent of the downloaded bytes";
-			labelDownload.AccessibleName = "Download in percent";
-			labelDownload.AccessibleRole = AccessibleRole.Text;
-			labelDownload.Location = new Point(497, 143);
-			labelDownload.Margin = new Padding(4, 3, 4, 3);
-			labelDownload.Name = "labelDownload";
-			labelDownload.Size = new Size(41, 20);
-			labelDownload.TabIndex = 2;
-			labelDownload.ToolTipValues.Description = "Shows the percent of the downloaded bytes.\r\nDouble-click or right-click to copy the information to the clipboard.";
-			labelDownload.ToolTipValues.EnableToolTips = true;
-			labelDownload.ToolTipValues.Heading = "Download in percent";
-			labelDownload.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-			labelDownload.Values.Text = "xxx %";
-			labelDownload.DoubleClick += CopyToClipboard_DoubleClick;
-			labelDownload.Enter += Control_Enter;
-			labelDownload.Leave += Control_Leave;
-			labelDownload.MouseEnter += Control_Enter;
-			labelDownload.MouseLeave += Control_Leave;
-			// 
-			// buttonCancelDownload
-			// 
-			buttonCancelDownload.AccessibleDescription = "Cancels the download";
-			buttonCancelDownload.AccessibleName = "Cancel download";
-			buttonCancelDownload.AccessibleRole = AccessibleRole.PushButton;
-			buttonCancelDownload.Location = new Point(388, 179);
-			buttonCancelDownload.Margin = new Padding(4, 3, 4, 3);
-			buttonCancelDownload.Name = "buttonCancelDownload";
-			buttonCancelDownload.Size = new Size(149, 42);
-			buttonCancelDownload.TabIndex = 5;
-			buttonCancelDownload.ToolTipValues.Description = "Cancels the download.";
-			buttonCancelDownload.ToolTipValues.EnableToolTips = true;
-			buttonCancelDownload.ToolTipValues.Heading = "Cancel download";
-			buttonCancelDownload.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-			buttonCancelDownload.Values.DropDownArrowColor = Color.Empty;
-			buttonCancelDownload.Values.Image = FatcowIcons16px.fatcow_cancel_16px;
-			buttonCancelDownload.Values.Text = "&Cancel download";
-			buttonCancelDownload.Click += ButtonCancelDownload_Click;
-			buttonCancelDownload.Enter += Control_Enter;
-			buttonCancelDownload.Leave += Control_Leave;
-			buttonCancelDownload.MouseEnter += Control_Enter;
-			buttonCancelDownload.MouseLeave += Control_Leave;
-			// 
-			// buttonDownload
-			// 
-			buttonDownload.AccessibleDescription = "Downloads the database MPCORB.DAT";
-			buttonDownload.AccessibleName = "Download MPCORB.DAT";
-			buttonDownload.AccessibleRole = AccessibleRole.PushButton;
-			buttonDownload.Location = new Point(175, 179);
-			buttonDownload.Margin = new Padding(4, 3, 4, 3);
-			buttonDownload.Name = "buttonDownload";
-			buttonDownload.Size = new Size(206, 42);
-			buttonDownload.TabIndex = 4;
-			buttonDownload.ToolTipValues.Description = "Downloads the database MPCORB.DAT.";
-			buttonDownload.ToolTipValues.EnableToolTips = true;
-			buttonDownload.ToolTipValues.Heading = "Download MPCORB.DAT";
-			buttonDownload.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-			buttonDownload.Values.DropDownArrowColor = Color.Empty;
-			buttonDownload.Values.Image = FatcowIcons16px.fatcow_package_go_16px;
-			buttonDownload.Values.Text = "&Download MPCORB.DAT";
-			buttonDownload.Click += ButtonDownload_Click;
-			buttonDownload.Enter += Control_Enter;
-			buttonDownload.Leave += Control_Leave;
-			buttonDownload.MouseEnter += Control_Enter;
-			buttonDownload.MouseLeave += Control_Leave;
-			// 
-			// labelSourceValue
-			// 
-			labelSourceValue.AccessibleDescription = "Shows the download source";
-			labelSourceValue.AccessibleName = "Source of the download";
-			labelSourceValue.AccessibleRole = AccessibleRole.Text;
-			labelSourceValue.ContextMenuStrip = contextMenuCopyToClipboard;
-			labelSourceValue.Dock = DockStyle.Fill;
-			labelSourceValue.Location = new Point(62, 55);
-			labelSourceValue.Margin = new Padding(4, 3, 4, 3);
-			labelSourceValue.Name = "labelSourceValue";
-			labelSourceValue.Size = new Size(509, 20);
-			labelSourceValue.TabIndex = 5;
-			labelSourceValue.ToolTipValues.Description = "Shows the download source.\r\nDouble-click or right-click to copy the information to the clipboard.";
-			labelSourceValue.ToolTipValues.EnableToolTips = true;
-			labelSourceValue.ToolTipValues.Heading = "Source of the download";
-			labelSourceValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-			labelSourceValue.Values.Text = "...";
-			labelSourceValue.DoubleClick += CopyToClipboard_DoubleClick;
-			labelSourceValue.Enter += Control_Enter;
-			labelSourceValue.Leave += Control_Leave;
-			labelSourceValue.MouseDown += Control_MouseDown;
-			labelSourceValue.MouseEnter += Control_Enter;
-			labelSourceValue.MouseLeave += Control_Leave;
-			// 
-			// buttonCheckForUpdate
-			// 
-			buttonCheckForUpdate.AccessibleDescription = "Checks updates of the database MPCORB.DAT";
-			buttonCheckForUpdate.AccessibleName = "Check updates";
-			buttonCheckForUpdate.AccessibleRole = AccessibleRole.PushButton;
-			buttonCheckForUpdate.Location = new Point(14, 179);
-			buttonCheckForUpdate.Margin = new Padding(4, 3, 4, 3);
-			buttonCheckForUpdate.Name = "buttonCheckForUpdate";
-			buttonCheckForUpdate.Size = new Size(154, 42);
-			buttonCheckForUpdate.TabIndex = 3;
-			buttonCheckForUpdate.ToolTipValues.Description = "Checks updates of the database MPCORB.DAT.";
-			buttonCheckForUpdate.ToolTipValues.EnableToolTips = true;
-			buttonCheckForUpdate.ToolTipValues.Heading = "Check updates";
-			buttonCheckForUpdate.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-			buttonCheckForUpdate.Values.DropDownArrowColor = Color.Empty;
-			buttonCheckForUpdate.Values.Image = FatcowIcons16px.fatcow_lightning_16px;
-			buttonCheckForUpdate.Values.Text = "C&heck for update";
-			buttonCheckForUpdate.Click += ButtonCheckForUpdate_Click;
-			buttonCheckForUpdate.Enter += Control_Enter;
-			buttonCheckForUpdate.Leave += Control_Leave;
-			buttonCheckForUpdate.MouseEnter += Control_Enter;
-			buttonCheckForUpdate.MouseLeave += Control_Leave;
-			// 
-			// labelDateValue
-			// 
-			labelDateValue.AccessibleDescription = "Shows the last modified date of the download file";
-			labelDateValue.AccessibleName = "Date of the download file";
-			labelDateValue.AccessibleRole = AccessibleRole.Text;
-			labelDateValue.ContextMenuStrip = contextMenuCopyToClipboard;
-			labelDateValue.Dock = DockStyle.Fill;
-			labelDateValue.Location = new Point(62, 29);
-			labelDateValue.Margin = new Padding(4, 3, 4, 3);
-			labelDateValue.Name = "labelDateValue";
-			labelDateValue.Size = new Size(509, 20);
-			labelDateValue.TabIndex = 3;
-			labelDateValue.ToolTipValues.Description = "Shows the last modified date of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
-			labelDateValue.ToolTipValues.EnableToolTips = true;
-			labelDateValue.ToolTipValues.Heading = "Date of the download file";
-			labelDateValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-			labelDateValue.Values.Text = "...";
-			labelDateValue.DoubleClick += CopyToClipboard_DoubleClick;
-			labelDateValue.Enter += Control_Enter;
-			labelDateValue.Leave += Control_Leave;
-			labelDateValue.MouseDown += Control_MouseDown;
-			labelDateValue.MouseEnter += Control_Enter;
-			labelDateValue.MouseLeave += Control_Leave;
-			// 
-			// labelSizeValue
-			// 
-			labelSizeValue.AccessibleDescription = "Shows the file size of the download";
-			labelSizeValue.AccessibleName = "Size of the download file";
-			labelSizeValue.AccessibleRole = AccessibleRole.Text;
-			labelSizeValue.ContextMenuStrip = contextMenuCopyToClipboard;
-			labelSizeValue.Dock = DockStyle.Fill;
-			labelSizeValue.Location = new Point(62, 81);
-			labelSizeValue.Margin = new Padding(4, 3, 4, 3);
-			labelSizeValue.Name = "labelSizeValue";
-			labelSizeValue.Size = new Size(509, 20);
-			labelSizeValue.TabIndex = 7;
-			labelSizeValue.ToolTipValues.Description = "Shows the file size of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
-			labelSizeValue.ToolTipValues.EnableToolTips = true;
-			labelSizeValue.ToolTipValues.Heading = "Size of the download file";
-			labelSizeValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-			labelSizeValue.Values.Text = "...";
-			labelSizeValue.DoubleClick += CopyToClipboard_DoubleClick;
-			labelSizeValue.Enter += Control_Enter;
-			labelSizeValue.Leave += Control_Leave;
-			labelSizeValue.MouseDown += Control_MouseDown;
-			labelSizeValue.MouseEnter += Control_Enter;
-			labelSizeValue.MouseLeave += Control_Leave;
-			// 
-			// labelStatusText
-			// 
-			labelStatusText.AccessibleDescription = "Status of the download";
-			labelStatusText.AccessibleName = "Status";
-			labelStatusText.AccessibleRole = AccessibleRole.Text;
-			labelStatusText.Dock = DockStyle.Fill;
-			labelStatusText.Location = new Point(4, 3);
-			labelStatusText.Margin = new Padding(4, 3, 4, 3);
-			labelStatusText.Name = "labelStatusText";
-			labelStatusText.Size = new Size(50, 20);
-			labelStatusText.TabIndex = 0;
-			labelStatusText.ToolTipValues.Description = "Shows the status of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
-			labelStatusText.ToolTipValues.EnableToolTips = true;
-			labelStatusText.ToolTipValues.Heading = "Status";
-			labelStatusText.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-			labelStatusText.Values.Text = "Status:";
-			labelStatusText.DoubleClick += CopyToClipboard_DoubleClick;
-			labelStatusText.Enter += Control_Enter;
-			labelStatusText.Leave += Control_Leave;
-			labelStatusText.MouseEnter += Control_Enter;
-			labelStatusText.MouseLeave += Control_Leave;
-			// 
-			// labelDateText
-			// 
-			labelDateText.AccessibleDescription = "Date of the download file";
-			labelDateText.AccessibleName = "Date";
-			labelDateText.AccessibleRole = AccessibleRole.Text;
-			labelDateText.Dock = DockStyle.Fill;
-			labelDateText.Location = new Point(4, 29);
-			labelDateText.Margin = new Padding(4, 3, 4, 3);
-			labelDateText.Name = "labelDateText";
-			labelDateText.Size = new Size(50, 20);
-			labelDateText.TabIndex = 2;
-			labelDateText.ToolTipValues.Description = "Shows th last modified date of the download file.\r\nDouble-click or right-click to copy the information to the clipboard.";
-			labelDateText.ToolTipValues.EnableToolTips = true;
-			labelDateText.ToolTipValues.Heading = "Date";
-			labelDateText.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-			labelDateText.Values.Text = "Date:";
-			labelDateText.DoubleClick += CopyToClipboard_DoubleClick;
-			labelDateText.Enter += Control_Enter;
-			labelDateText.Leave += Control_Leave;
-			labelDateText.MouseEnter += Control_Enter;
-			labelDateText.MouseLeave += Control_Leave;
-			// 
-			// labelSourceText
-			// 
-			labelSourceText.AccessibleDescription = "Shows the download source";
-			labelSourceText.AccessibleName = "Source";
-			labelSourceText.AccessibleRole = AccessibleRole.Text;
-			labelSourceText.Dock = DockStyle.Fill;
-			labelSourceText.Location = new Point(4, 55);
-			labelSourceText.Margin = new Padding(4, 3, 4, 3);
-			labelSourceText.Name = "labelSourceText";
-			labelSourceText.Size = new Size(50, 20);
-			labelSourceText.TabIndex = 4;
-			labelSourceText.ToolTipValues.Description = "Shows the download source.\r\nDouble-click or right-click to copy the information to the clipboard.";
-			labelSourceText.ToolTipValues.EnableToolTips = true;
-			labelSourceText.ToolTipValues.Heading = "Source";
-			labelSourceText.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-			labelSourceText.Values.Text = "Source:";
-			labelSourceText.DoubleClick += CopyToClipboard_DoubleClick;
-			labelSourceText.Enter += Control_Enter;
-			labelSourceText.Leave += Control_Leave;
-			labelSourceText.MouseEnter += Control_Enter;
-			labelSourceText.MouseLeave += Control_Leave;
-			// 
-			// labelSizeText
-			// 
-			labelSizeText.AccessibleDescription = "Shows the file size of the download";
-			labelSizeText.AccessibleName = "Size";
-			labelSizeText.AccessibleRole = AccessibleRole.Text;
-			labelSizeText.Dock = DockStyle.Fill;
-			labelSizeText.Location = new Point(4, 81);
-			labelSizeText.Margin = new Padding(4, 3, 4, 3);
-			labelSizeText.Name = "labelSizeText";
-			labelSizeText.Size = new Size(50, 20);
-			labelSizeText.TabIndex = 6;
-			labelSizeText.ToolTipValues.Description = "Shows the file size of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
-			labelSizeText.ToolTipValues.EnableToolTips = true;
-			labelSizeText.ToolTipValues.Heading = "Size";
-			labelSizeText.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-			labelSizeText.Values.Text = "Size:";
-			labelSizeText.DoubleClick += CopyToClipboard_DoubleClick;
-			labelSizeText.Enter += Control_Enter;
-			labelSizeText.Leave += Control_Leave;
-			labelSizeText.MouseEnter += Control_Enter;
-			labelSizeText.MouseLeave += Control_Leave;
-			// 
-			// tableLayoutPanel
-			// 
-			tableLayoutPanel.AccessibleDescription = "Groups the data";
-			tableLayoutPanel.AccessibleName = "Information";
-			tableLayoutPanel.AccessibleRole = AccessibleRole.Pane;
-			tableLayoutPanel.ColumnCount = 2;
-			tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
-			tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
-			tableLayoutPanel.Controls.Add(labelStatusText, 0, 0);
-			tableLayoutPanel.Controls.Add(labelSizeValue, 1, 3);
-			tableLayoutPanel.Controls.Add(labelSizeText, 0, 3);
-			tableLayoutPanel.Controls.Add(labelDateValue, 1, 1);
-			tableLayoutPanel.Controls.Add(labelSourceValue, 1, 2);
-			tableLayoutPanel.Controls.Add(labelDateText, 0, 1);
-			tableLayoutPanel.Controls.Add(labelSourceText, 0, 2);
-			tableLayoutPanel.Controls.Add(labelStatusValue, 1, 0);
-			tableLayoutPanel.Dock = DockStyle.Top;
-			tableLayoutPanel.Location = new Point(0, 0);
-			tableLayoutPanel.Margin = new Padding(4, 3, 4, 3);
-			tableLayoutPanel.Name = "tableLayoutPanel";
-			tableLayoutPanel.RowCount = 4;
-			tableLayoutPanel.RowStyles.Add(new RowStyle());
-			tableLayoutPanel.RowStyles.Add(new RowStyle());
-			tableLayoutPanel.RowStyles.Add(new RowStyle());
-			tableLayoutPanel.RowStyles.Add(new RowStyle());
-			tableLayoutPanel.Size = new Size(575, 102);
-			tableLayoutPanel.TabIndex = 0;
-			// 
-			// panel
-			// 
-			panel.AccessibleDescription = "Groups the data";
-			panel.AccessibleName = "pane";
-			panel.AccessibleRole = AccessibleRole.Pane;
-			panel.Controls.Add(tableLayoutPanel);
-			panel.Controls.Add(progressBarDownload);
-			panel.Controls.Add(labelDownload);
-			panel.Controls.Add(buttonCheckForUpdate);
-			panel.Controls.Add(buttonCancelDownload);
-			panel.Controls.Add(buttonDownload);
-			panel.Dock = DockStyle.Fill;
-			panel.Location = new Point(0, 0);
-			panel.Margin = new Padding(4, 3, 4, 3);
-			panel.Name = "panel";
-			panel.PanelBackStyle = PaletteBackStyle.FormMain;
-			panel.Size = new Size(575, 238);
-			panel.TabIndex = 0;
-			panel.TabStop = true;
-			// 
-			// statusStrip
-			// 
-			statusStrip.AccessibleDescription = "Showss some information";
-			statusStrip.AccessibleName = "Status bar of some information";
-			statusStrip.AccessibleRole = AccessibleRole.StatusBar;
-			statusStrip.Dock = DockStyle.None;
-			statusStrip.Font = new Font("Segoe UI", 9F);
-			statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-			statusStrip.Location = new Point(0, 0);
-			statusStrip.Name = "statusStrip";
-			statusStrip.ProgressBars = null;
-			statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-			statusStrip.Size = new Size(575, 22);
-			statusStrip.SizingGrip = false;
-			statusStrip.TabIndex = 6;
-			statusStrip.Text = "status bar";
-			// 
-			// labelInformation
-			// 
-			labelInformation.AccessibleDescription = "Shows some information";
-			labelInformation.AccessibleName = "Shows some information";
-			labelInformation.AccessibleRole = AccessibleRole.StaticText;
-			labelInformation.AutoToolTip = true;
-			labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
-			labelInformation.Margin = new Padding(5, 3, 0, 2);
-			labelInformation.Name = "labelInformation";
-			labelInformation.Size = new Size(144, 17);
-			labelInformation.Text = "some information here";
-			labelInformation.ToolTipText = "Shows some information";
-			// 
-			// toolStripContainer
-			// 
-			// 
-			// toolStripContainer.BottomToolStripPanel
-			// 
-			toolStripContainer.BottomToolStripPanel.Controls.Add(statusStrip);
-			// 
-			// toolStripContainer.ContentPanel
-			// 
-			toolStripContainer.ContentPanel.Controls.Add(panel);
-			toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
-			toolStripContainer.ContentPanel.Size = new Size(575, 238);
-			toolStripContainer.Dock = DockStyle.Fill;
-			toolStripContainer.Location = new Point(0, 0);
-			toolStripContainer.Margin = new Padding(4, 3, 4, 3);
-			toolStripContainer.Name = "toolStripContainer";
-			toolStripContainer.Size = new Size(575, 260);
-			toolStripContainer.TabIndex = 1;
-			toolStripContainer.TopToolStripPanelVisible = false;
-			// 
-			// kryptonManager
-			// 
-			kryptonManager.GlobalPaletteMode = PaletteMode.Global;
-			kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
-			kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
-			// 
-			// DownloadMpcorbDatForm
-			// 
-			AccessibleDescription = "Downloads the MPCORB.DAT";
-			AccessibleName = "Download MPCORB.DAT";
-			AccessibleRole = AccessibleRole.Dialog;
-			AutoScaleDimensions = new SizeF(7F, 15F);
-			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(575, 260);
-			ControlBox = false;
-			Controls.Add(toolStripContainer);
-			FormBorderStyle = FormBorderStyle.FixedToolWindow;
-			Icon = (Icon)resources.GetObject("$this.Icon");
-			Margin = new Padding(4, 3, 4, 3);
-			MaximizeBox = false;
-			MinimizeBox = false;
-			Name = "DownloadMpcorbDatForm";
-			ShowInTaskbar = false;
-			StartPosition = FormStartPosition.CenterParent;
-			Text = "Download MPCORB.DAT";
-			FormClosing += DownloadMpcorbDatForm_FormClosing;
-			FormClosed += DownloadMpcorbDatForm_FormClosed;
-			Load += DownloadMpcorbDatForm_Load;
-			contextMenuCopyToClipboard.ResumeLayout(false);
-			tableLayoutPanel.ResumeLayout(false);
-			tableLayoutPanel.PerformLayout();
-			((ISupportInitialize)panel).EndInit();
-			panel.ResumeLayout(false);
-			panel.PerformLayout();
-			statusStrip.ResumeLayout(false);
-			statusStrip.PerformLayout();
-			toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
-			toolStripContainer.BottomToolStripPanel.PerformLayout();
-			toolStripContainer.ContentPanel.ResumeLayout(false);
-			toolStripContainer.ResumeLayout(false);
-			toolStripContainer.PerformLayout();
-			ResumeLayout(false);
-		}
-
-		#endregion
-
-		private KryptonButton buttonDownload;
-		private KryptonLabel labelStatusValue;
-		private KryptonLabel labelDownload;
-		private KryptonButton buttonCancelDownload;
-		private KryptonLabel labelSourceValue;
-		private KryptonButton buttonCheckForUpdate;
-		private KryptonLabel labelDateValue;
-		private KryptonLabel labelSizeValue;
-		private KryptonLabel labelStatusText;
-		private KryptonLabel labelDateText;
-		private KryptonLabel labelSourceText;
-		private KryptonLabel labelSizeText;
-		private KryptonTableLayoutPanel tableLayoutPanel;
-		private KryptonPanel panel;
-		private KryptonStatusStrip statusStrip;
-		private ToolStripStatusLabel labelInformation;
-		private KryptonProgressBar progressBarDownload;
-		private ToolStripContainer toolStripContainer;
-		private KryptonManager kryptonManager;
-		private ContextMenuStrip contextMenuCopyToClipboard;
-		private ToolStripMenuItem ToolStripMenuItemCopyToClipboard;
+		base.Dispose(disposing);
 	}
+
+	#region Windows Form Designer generated code
+
+	/// <summary>Required method for Designer support - do not modify
+	/// the contents of this method with the code editor.</summary>
+	/// <remarks>This method is automatically generated by the Windows Forms designer and should not be modified manually.
+	/// It sets up the controls and their properties for the form.</remarks>
+	private void InitializeComponent()
+	{
+		components = new Container();
+		ComponentResourceManager resources = new ComponentResourceManager(typeof(DownloadMpcorbDatForm));
+		progressBarDownload = new KryptonProgressBar();
+		labelStatusValue = new KryptonLabel();
+		contextMenuCopyToClipboard = new ContextMenuStrip(components);
+		toolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
+		labelDownload = new KryptonLabel();
+		buttonCancelDownload = new KryptonButton();
+		buttonDownload = new KryptonButton();
+		labelSourceValue = new KryptonLabel();
+		buttonCheckForUpdate = new KryptonButton();
+		labelDateValue = new KryptonLabel();
+		labelSizeValue = new KryptonLabel();
+		labelStatusText = new KryptonLabel();
+		labelDateText = new KryptonLabel();
+		labelSourceText = new KryptonLabel();
+		labelSizeText = new KryptonLabel();
+		tableLayoutPanel = new KryptonTableLayoutPanel();
+		kryptoPanelMain = new KryptonPanel();
+		kryptonStatusStrip = new KryptonStatusStrip();
+		labelInformation = new ToolStripStatusLabel();
+		toolStripContainer = new ToolStripContainer();
+		kryptonManager = new KryptonManager(components);
+		contextMenuCopyToClipboard.SuspendLayout();
+		tableLayoutPanel.SuspendLayout();
+		((ISupportInitialize)kryptoPanelMain).BeginInit();
+		kryptoPanelMain.SuspendLayout();
+		kryptonStatusStrip.SuspendLayout();
+		toolStripContainer.BottomToolStripPanel.SuspendLayout();
+		toolStripContainer.ContentPanel.SuspendLayout();
+		toolStripContainer.SuspendLayout();
+		SuspendLayout();
+		// 
+		// progressBarDownload
+		// 
+		progressBarDownload.AccessibleDescription = "Shows the progress of the download";
+		progressBarDownload.AccessibleName = "Progress of the download";
+		progressBarDownload.AccessibleRole = AccessibleRole.ProgressBar;
+		progressBarDownload.Location = new Point(14, 140);
+		progressBarDownload.Name = "progressBarDownload";
+		progressBarDownload.Size = new Size(476, 21);
+		progressBarDownload.TabIndex = 1;
+		progressBarDownload.TextBackdropColor = Color.Empty;
+		progressBarDownload.TextShadowColor = Color.Empty;
+		progressBarDownload.Values.Text = "";
+		progressBarDownload.MouseEnter += Control_Enter;
+		progressBarDownload.MouseLeave += Control_Leave;
+		// 
+		// labelStatusValue
+		// 
+		labelStatusValue.AccessibleDescription = "Shows the status of the download";
+		labelStatusValue.AccessibleName = "Status of the download";
+		labelStatusValue.AccessibleRole = AccessibleRole.Text;
+		labelStatusValue.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelStatusValue.Dock = DockStyle.Fill;
+		labelStatusValue.Location = new Point(59, 3);
+		labelStatusValue.Name = "labelStatusValue";
+		labelStatusValue.Size = new Size(513, 20);
+		labelStatusValue.TabIndex = 1;
+		labelStatusValue.ToolTipValues.Description = "Shows the status of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelStatusValue.ToolTipValues.EnableToolTips = true;
+		labelStatusValue.ToolTipValues.Heading = "Status of the download";
+		labelStatusValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelStatusValue.Values.Text = "...";
+		labelStatusValue.DoubleClick += CopyToClipboard_DoubleClick;
+		labelStatusValue.Enter += Control_Enter;
+		labelStatusValue.Leave += Control_Leave;
+		labelStatusValue.MouseDown += Control_MouseDown;
+		labelStatusValue.MouseEnter += Control_Enter;
+		labelStatusValue.MouseLeave += Control_Leave;
+		// 
+		// contextMenuCopyToClipboard
+		// 
+		contextMenuCopyToClipboard.AccessibleDescription = "Shows the context menu for copying database information to the clipboard";
+		contextMenuCopyToClipboard.AccessibleName = "Context menu for copying database information to the clipboard";
+		contextMenuCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuCopyToClipboard.AllowClickThrough = true;
+		contextMenuCopyToClipboard.Font = new Font("Segoe UI", 9F);
+		contextMenuCopyToClipboard.Items.AddRange(new ToolStripItem[] { toolStripMenuItemCopyToClipboard });
+		contextMenuCopyToClipboard.Name = "contextMenuStrip";
+		contextMenuCopyToClipboard.Size = new Size(214, 26);
+		contextMenuCopyToClipboard.TabStop = true;
+		contextMenuCopyToClipboard.Text = "Copy to clipboard";
+		contextMenuCopyToClipboard.MouseEnter += Control_Enter;
+		contextMenuCopyToClipboard.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemCopyToClipboard
+		// 
+		toolStripMenuItemCopyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
+		toolStripMenuItemCopyToClipboard.AccessibleName = "Copy to clipboard";
+		toolStripMenuItemCopyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboard.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripMenuItemCopyToClipboard.Name = "toolStripMenuItemCopyToClipboard";
+		toolStripMenuItemCopyToClipboard.ShortcutKeyDisplayString = "Strg+C";
+		toolStripMenuItemCopyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
+		toolStripMenuItemCopyToClipboard.Size = new Size(213, 22);
+		toolStripMenuItemCopyToClipboard.Text = "&Copy to clipboard";
+		toolStripMenuItemCopyToClipboard.Click += CopyToClipboard_DoubleClick;
+		toolStripMenuItemCopyToClipboard.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboard.MouseLeave += Control_Leave;
+		// 
+		// labelDownload
+		// 
+		labelDownload.AccessibleDescription = "Shows the percent of the downloaded bytes";
+		labelDownload.AccessibleName = "Download in percent";
+		labelDownload.AccessibleRole = AccessibleRole.Text;
+		labelDownload.Location = new Point(497, 143);
+		labelDownload.Name = "labelDownload";
+		labelDownload.Size = new Size(41, 20);
+		labelDownload.TabIndex = 2;
+		labelDownload.ToolTipValues.Description = "Shows the percent of the downloaded bytes.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelDownload.ToolTipValues.EnableToolTips = true;
+		labelDownload.ToolTipValues.Heading = "Download in percent";
+		labelDownload.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelDownload.Values.Text = "xxx %";
+		labelDownload.DoubleClick += CopyToClipboard_DoubleClick;
+		labelDownload.Enter += Control_Enter;
+		labelDownload.Leave += Control_Leave;
+		labelDownload.MouseEnter += Control_Enter;
+		labelDownload.MouseLeave += Control_Leave;
+		// 
+		// buttonCancelDownload
+		// 
+		buttonCancelDownload.AccessibleDescription = "Cancels the download";
+		buttonCancelDownload.AccessibleName = "Cancel download";
+		buttonCancelDownload.AccessibleRole = AccessibleRole.PushButton;
+		buttonCancelDownload.Location = new Point(388, 179);
+		buttonCancelDownload.Name = "buttonCancelDownload";
+		buttonCancelDownload.Size = new Size(149, 42);
+		buttonCancelDownload.TabIndex = 5;
+		buttonCancelDownload.ToolTipValues.Description = "Cancels the download.";
+		buttonCancelDownload.ToolTipValues.EnableToolTips = true;
+		buttonCancelDownload.ToolTipValues.Heading = "Cancel download";
+		buttonCancelDownload.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		buttonCancelDownload.Values.DropDownArrowColor = Color.Empty;
+		buttonCancelDownload.Values.Image = FatcowIcons16px.fatcow_cancel_16px;
+		buttonCancelDownload.Values.Text = "&Cancel download";
+		buttonCancelDownload.Click += ButtonCancelDownload_Click;
+		buttonCancelDownload.Enter += Control_Enter;
+		buttonCancelDownload.Leave += Control_Leave;
+		buttonCancelDownload.MouseEnter += Control_Enter;
+		buttonCancelDownload.MouseLeave += Control_Leave;
+		// 
+		// buttonDownload
+		// 
+		buttonDownload.AccessibleDescription = "Downloads the database MPCORB.DAT";
+		buttonDownload.AccessibleName = "Download MPCORB.DAT";
+		buttonDownload.AccessibleRole = AccessibleRole.PushButton;
+		buttonDownload.Location = new Point(175, 179);
+		buttonDownload.Name = "buttonDownload";
+		buttonDownload.Size = new Size(206, 42);
+		buttonDownload.TabIndex = 4;
+		buttonDownload.ToolTipValues.Description = "Downloads the database MPCORB.DAT.";
+		buttonDownload.ToolTipValues.EnableToolTips = true;
+		buttonDownload.ToolTipValues.Heading = "Download MPCORB.DAT";
+		buttonDownload.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		buttonDownload.Values.DropDownArrowColor = Color.Empty;
+		buttonDownload.Values.Image = FatcowIcons16px.fatcow_package_go_16px;
+		buttonDownload.Values.Text = "&Download MPCORB.DAT";
+		buttonDownload.Click += ButtonDownload_Click;
+		buttonDownload.Enter += Control_Enter;
+		buttonDownload.Leave += Control_Leave;
+		buttonDownload.MouseEnter += Control_Enter;
+		buttonDownload.MouseLeave += Control_Leave;
+		// 
+		// labelSourceValue
+		// 
+		labelSourceValue.AccessibleDescription = "Shows the download source";
+		labelSourceValue.AccessibleName = "Source of the download";
+		labelSourceValue.AccessibleRole = AccessibleRole.Text;
+		labelSourceValue.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelSourceValue.Dock = DockStyle.Fill;
+		labelSourceValue.Location = new Point(59, 55);
+		labelSourceValue.Name = "labelSourceValue";
+		labelSourceValue.Size = new Size(513, 20);
+		labelSourceValue.TabIndex = 5;
+		labelSourceValue.ToolTipValues.Description = "Shows the download source.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelSourceValue.ToolTipValues.EnableToolTips = true;
+		labelSourceValue.ToolTipValues.Heading = "Source of the download";
+		labelSourceValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelSourceValue.Values.Text = "...";
+		labelSourceValue.DoubleClick += CopyToClipboard_DoubleClick;
+		labelSourceValue.Enter += Control_Enter;
+		labelSourceValue.Leave += Control_Leave;
+		labelSourceValue.MouseDown += Control_MouseDown;
+		labelSourceValue.MouseEnter += Control_Enter;
+		labelSourceValue.MouseLeave += Control_Leave;
+		// 
+		// buttonCheckForUpdate
+		// 
+		buttonCheckForUpdate.AccessibleDescription = "Checks updates of the database MPCORB.DAT";
+		buttonCheckForUpdate.AccessibleName = "Check updates";
+		buttonCheckForUpdate.AccessibleRole = AccessibleRole.PushButton;
+		buttonCheckForUpdate.Location = new Point(14, 179);
+		buttonCheckForUpdate.Name = "buttonCheckForUpdate";
+		buttonCheckForUpdate.Size = new Size(154, 42);
+		buttonCheckForUpdate.TabIndex = 3;
+		buttonCheckForUpdate.ToolTipValues.Description = "Checks updates of the database MPCORB.DAT.";
+		buttonCheckForUpdate.ToolTipValues.EnableToolTips = true;
+		buttonCheckForUpdate.ToolTipValues.Heading = "Check updates";
+		buttonCheckForUpdate.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		buttonCheckForUpdate.Values.DropDownArrowColor = Color.Empty;
+		buttonCheckForUpdate.Values.Image = FatcowIcons16px.fatcow_lightning_16px;
+		buttonCheckForUpdate.Values.Text = "C&heck for update";
+		buttonCheckForUpdate.Click += ButtonCheckForUpdate_Click;
+		buttonCheckForUpdate.Enter += Control_Enter;
+		buttonCheckForUpdate.Leave += Control_Leave;
+		buttonCheckForUpdate.MouseEnter += Control_Enter;
+		buttonCheckForUpdate.MouseLeave += Control_Leave;
+		// 
+		// labelDateValue
+		// 
+		labelDateValue.AccessibleDescription = "Shows the last modified date of the download file";
+		labelDateValue.AccessibleName = "Date of the download file";
+		labelDateValue.AccessibleRole = AccessibleRole.Text;
+		labelDateValue.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelDateValue.Dock = DockStyle.Fill;
+		labelDateValue.Location = new Point(59, 29);
+		labelDateValue.Name = "labelDateValue";
+		labelDateValue.Size = new Size(513, 20);
+		labelDateValue.TabIndex = 3;
+		labelDateValue.ToolTipValues.Description = "Shows the last modified date of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelDateValue.ToolTipValues.EnableToolTips = true;
+		labelDateValue.ToolTipValues.Heading = "Date of the download file";
+		labelDateValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelDateValue.Values.Text = "...";
+		labelDateValue.DoubleClick += CopyToClipboard_DoubleClick;
+		labelDateValue.Enter += Control_Enter;
+		labelDateValue.Leave += Control_Leave;
+		labelDateValue.MouseDown += Control_MouseDown;
+		labelDateValue.MouseEnter += Control_Enter;
+		labelDateValue.MouseLeave += Control_Leave;
+		// 
+		// labelSizeValue
+		// 
+		labelSizeValue.AccessibleDescription = "Shows the file size of the download";
+		labelSizeValue.AccessibleName = "Size of the download file";
+		labelSizeValue.AccessibleRole = AccessibleRole.Text;
+		labelSizeValue.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelSizeValue.Dock = DockStyle.Fill;
+		labelSizeValue.Location = new Point(59, 81);
+		labelSizeValue.Name = "labelSizeValue";
+		labelSizeValue.Size = new Size(513, 20);
+		labelSizeValue.TabIndex = 7;
+		labelSizeValue.ToolTipValues.Description = "Shows the file size of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelSizeValue.ToolTipValues.EnableToolTips = true;
+		labelSizeValue.ToolTipValues.Heading = "Size of the download file";
+		labelSizeValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelSizeValue.Values.Text = "...";
+		labelSizeValue.DoubleClick += CopyToClipboard_DoubleClick;
+		labelSizeValue.Enter += Control_Enter;
+		labelSizeValue.Leave += Control_Leave;
+		labelSizeValue.MouseDown += Control_MouseDown;
+		labelSizeValue.MouseEnter += Control_Enter;
+		labelSizeValue.MouseLeave += Control_Leave;
+		// 
+		// labelStatusText
+		// 
+		labelStatusText.AccessibleDescription = "Status of the download";
+		labelStatusText.AccessibleName = "Status";
+		labelStatusText.AccessibleRole = AccessibleRole.Text;
+		labelStatusText.Dock = DockStyle.Fill;
+		labelStatusText.Location = new Point(3, 3);
+		labelStatusText.Name = "labelStatusText";
+		labelStatusText.Size = new Size(50, 20);
+		labelStatusText.TabIndex = 0;
+		labelStatusText.ToolTipValues.Description = "Shows the status of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelStatusText.ToolTipValues.EnableToolTips = true;
+		labelStatusText.ToolTipValues.Heading = "Status";
+		labelStatusText.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelStatusText.Values.Text = "&Status:";
+		labelStatusText.DoubleClick += CopyToClipboard_DoubleClick;
+		labelStatusText.Enter += Control_Enter;
+		labelStatusText.Leave += Control_Leave;
+		labelStatusText.MouseEnter += Control_Enter;
+		labelStatusText.MouseLeave += Control_Leave;
+		// 
+		// labelDateText
+		// 
+		labelDateText.AccessibleDescription = "Date of the download file";
+		labelDateText.AccessibleName = "Date";
+		labelDateText.AccessibleRole = AccessibleRole.Text;
+		labelDateText.Dock = DockStyle.Fill;
+		labelDateText.Location = new Point(3, 29);
+		labelDateText.Name = "labelDateText";
+		labelDateText.Size = new Size(50, 20);
+		labelDateText.TabIndex = 2;
+		labelDateText.ToolTipValues.Description = "Shows th last modified date of the download file.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelDateText.ToolTipValues.EnableToolTips = true;
+		labelDateText.ToolTipValues.Heading = "Date";
+		labelDateText.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelDateText.Values.Text = "&Date:";
+		labelDateText.DoubleClick += CopyToClipboard_DoubleClick;
+		labelDateText.Enter += Control_Enter;
+		labelDateText.Leave += Control_Leave;
+		labelDateText.MouseEnter += Control_Enter;
+		labelDateText.MouseLeave += Control_Leave;
+		// 
+		// labelSourceText
+		// 
+		labelSourceText.AccessibleDescription = "Shows the download source";
+		labelSourceText.AccessibleName = "Source";
+		labelSourceText.AccessibleRole = AccessibleRole.Text;
+		labelSourceText.Dock = DockStyle.Fill;
+		labelSourceText.Location = new Point(3, 55);
+		labelSourceText.Name = "labelSourceText";
+		labelSourceText.Size = new Size(50, 20);
+		labelSourceText.TabIndex = 4;
+		labelSourceText.ToolTipValues.Description = "Shows the download source.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelSourceText.ToolTipValues.EnableToolTips = true;
+		labelSourceText.ToolTipValues.Heading = "Source";
+		labelSourceText.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelSourceText.Values.Text = "Sour&ce:";
+		labelSourceText.DoubleClick += CopyToClipboard_DoubleClick;
+		labelSourceText.Enter += Control_Enter;
+		labelSourceText.Leave += Control_Leave;
+		labelSourceText.MouseEnter += Control_Enter;
+		labelSourceText.MouseLeave += Control_Leave;
+		// 
+		// labelSizeText
+		// 
+		labelSizeText.AccessibleDescription = "Shows the file size of the download";
+		labelSizeText.AccessibleName = "Size";
+		labelSizeText.AccessibleRole = AccessibleRole.Text;
+		labelSizeText.Dock = DockStyle.Fill;
+		labelSizeText.Location = new Point(3, 81);
+		labelSizeText.Name = "labelSizeText";
+		labelSizeText.Size = new Size(50, 20);
+		labelSizeText.TabIndex = 6;
+		labelSizeText.ToolTipValues.Description = "Shows the file size of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelSizeText.ToolTipValues.EnableToolTips = true;
+		labelSizeText.ToolTipValues.Heading = "Size";
+		labelSizeText.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelSizeText.Values.Text = "Si&ze:";
+		labelSizeText.DoubleClick += CopyToClipboard_DoubleClick;
+		labelSizeText.Enter += Control_Enter;
+		labelSizeText.Leave += Control_Leave;
+		labelSizeText.MouseEnter += Control_Enter;
+		labelSizeText.MouseLeave += Control_Leave;
+		// 
+		// tableLayoutPanel
+		// 
+		tableLayoutPanel.AccessibleDescription = "Groups the data";
+		tableLayoutPanel.AccessibleName = "Information";
+		tableLayoutPanel.AccessibleRole = AccessibleRole.Pane;
+		tableLayoutPanel.ColumnCount = 2;
+		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanel.Controls.Add(labelStatusText, 0, 0);
+		tableLayoutPanel.Controls.Add(labelSizeValue, 1, 3);
+		tableLayoutPanel.Controls.Add(labelSizeText, 0, 3);
+		tableLayoutPanel.Controls.Add(labelDateValue, 1, 1);
+		tableLayoutPanel.Controls.Add(labelSourceValue, 1, 2);
+		tableLayoutPanel.Controls.Add(labelDateText, 0, 1);
+		tableLayoutPanel.Controls.Add(labelSourceText, 0, 2);
+		tableLayoutPanel.Controls.Add(labelStatusValue, 1, 0);
+		tableLayoutPanel.Dock = DockStyle.Top;
+		tableLayoutPanel.Location = new Point(0, 0);
+		tableLayoutPanel.Name = "tableLayoutPanel";
+		tableLayoutPanel.RowCount = 4;
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.Size = new Size(575, 102);
+		tableLayoutPanel.TabIndex = 0;
+		// 
+		// kryptoPanelMain
+		// 
+		kryptoPanelMain.AccessibleDescription = "Groups the data";
+		kryptoPanelMain.AccessibleName = "Panel";
+		kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptoPanelMain.Controls.Add(tableLayoutPanel);
+		kryptoPanelMain.Controls.Add(progressBarDownload);
+		kryptoPanelMain.Controls.Add(labelDownload);
+		kryptoPanelMain.Controls.Add(buttonCheckForUpdate);
+		kryptoPanelMain.Controls.Add(buttonCancelDownload);
+		kryptoPanelMain.Controls.Add(buttonDownload);
+		kryptoPanelMain.Dock = DockStyle.Fill;
+		kryptoPanelMain.Location = new Point(0, 0);
+		kryptoPanelMain.Name = "kryptoPanelMain";
+		kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
+		kryptoPanelMain.Size = new Size(575, 238);
+		kryptoPanelMain.TabIndex = 0;
+		kryptoPanelMain.TabStop = true;
+		// 
+		// kryptonStatusStrip
+		// 
+		kryptonStatusStrip.AccessibleDescription = "Showss some information";
+		kryptonStatusStrip.AccessibleName = "Status bar with some information";
+		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
+		kryptonStatusStrip.AllowClickThrough = true;
+		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.Dock = DockStyle.None;
+		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
+		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
+		kryptonStatusStrip.Location = new Point(0, 0);
+		kryptonStatusStrip.Name = "kryptonStatusStrip";
+		kryptonStatusStrip.ProgressBars = null;
+		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+		kryptonStatusStrip.ShowItemToolTips = true;
+		kryptonStatusStrip.Size = new Size(575, 22);
+		kryptonStatusStrip.SizingGrip = false;
+		kryptonStatusStrip.TabIndex = 6;
+		kryptonStatusStrip.TabStop = true;
+		kryptonStatusStrip.Text = "Status bar";
+		// 
+		// labelInformation
+		// 
+		labelInformation.AccessibleDescription = "Shows some information";
+		labelInformation.AccessibleName = "Shows some information";
+		labelInformation.AccessibleRole = AccessibleRole.StaticText;
+		labelInformation.AutoToolTip = true;
+		labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
+		labelInformation.Name = "labelInformation";
+		labelInformation.Size = new Size(144, 17);
+		labelInformation.Text = "some information here";
+		labelInformation.ToolTipText = "Shows some information";
+		// 
+		// toolStripContainer
+		// 
+		// 
+		// toolStripContainer.BottomToolStripPanel
+		// 
+		toolStripContainer.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
+		// 
+		// toolStripContainer.ContentPanel
+		// 
+		toolStripContainer.ContentPanel.Controls.Add(kryptoPanelMain);
+		toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
+		toolStripContainer.ContentPanel.Size = new Size(575, 238);
+		toolStripContainer.Dock = DockStyle.Fill;
+		toolStripContainer.Location = new Point(0, 0);
+		toolStripContainer.Name = "toolStripContainer";
+		toolStripContainer.Size = new Size(575, 260);
+		toolStripContainer.TabIndex = 1;
+		toolStripContainer.TopToolStripPanelVisible = false;
+		// 
+		// kryptonManager
+		// 
+		kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
+		// 
+		// DownloadMpcorbDatForm
+		// 
+		AccessibleDescription = "Downloads the MPCORB.DAT";
+		AccessibleName = "Download MPCORB.DAT";
+		AccessibleRole = AccessibleRole.Dialog;
+		AutoScaleDimensions = new SizeF(7F, 15F);
+		AutoScaleMode = AutoScaleMode.Font;
+		ClientSize = new Size(575, 260);
+		ControlBox = false;
+		Controls.Add(toolStripContainer);
+		FormBorderStyle = FormBorderStyle.FixedToolWindow;
+		Icon = (Icon)resources.GetObject("$this.Icon");
+		Margin = new Padding(4, 3, 4, 3);
+		MaximizeBox = false;
+		MinimizeBox = false;
+		Name = "DownloadMpcorbDatForm";
+		ShowInTaskbar = false;
+		StartPosition = FormStartPosition.CenterParent;
+		Text = "Download MPCORB.DAT";
+		FormClosing += DownloadMpcorbDatForm_FormClosing;
+		FormClosed += DownloadMpcorbDatForm_FormClosed;
+		Load += DownloadMpcorbDatForm_Load;
+		contextMenuCopyToClipboard.ResumeLayout(false);
+		tableLayoutPanel.ResumeLayout(false);
+		tableLayoutPanel.PerformLayout();
+		((ISupportInitialize)kryptoPanelMain).EndInit();
+		kryptoPanelMain.ResumeLayout(false);
+		kryptoPanelMain.PerformLayout();
+		kryptonStatusStrip.ResumeLayout(false);
+		kryptonStatusStrip.PerformLayout();
+		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
+		toolStripContainer.BottomToolStripPanel.PerformLayout();
+		toolStripContainer.ContentPanel.ResumeLayout(false);
+		toolStripContainer.ResumeLayout(false);
+		toolStripContainer.PerformLayout();
+		ResumeLayout(false);
+	}
+
+	#endregion
+
+	private KryptonButton buttonDownload;
+	private KryptonLabel labelStatusValue;
+	private KryptonLabel labelDownload;
+	private KryptonButton buttonCancelDownload;
+	private KryptonLabel labelSourceValue;
+	private KryptonButton buttonCheckForUpdate;
+	private KryptonLabel labelDateValue;
+	private KryptonLabel labelSizeValue;
+	private KryptonLabel labelStatusText;
+	private KryptonLabel labelDateText;
+	private KryptonLabel labelSourceText;
+	private KryptonLabel labelSizeText;
+	private KryptonTableLayoutPanel tableLayoutPanel;
+	private KryptonPanel kryptoPanelMain;
+	private KryptonStatusStrip kryptonStatusStrip;
+	private ToolStripStatusLabel labelInformation;
+	private KryptonProgressBar progressBarDownload;
+	private ToolStripContainer toolStripContainer;
+	private KryptonManager kryptonManager;
+	private ContextMenuStrip contextMenuCopyToClipboard;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboard;
 }
