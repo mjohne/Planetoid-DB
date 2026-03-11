@@ -354,8 +354,8 @@ partial class AsteroidFamiliesForm
 		// 
 		// toolStripButtonSaveListSelectedFamily
 		// 
-		toolStripButtonSaveListSelectedFamily.AccessibleDescription = "Saves the members of a potential asteroid family into a text fil";
-		toolStripButtonSaveListSelectedFamily.AccessibleName = "Save te family members into a text file";
+		toolStripButtonSaveListSelectedFamily.AccessibleDescription = "Saves the members of a potential asteroid family into a text file";
+		toolStripButtonSaveListSelectedFamily.AccessibleName = "Save the family members into a text file";
 		toolStripButtonSaveListSelectedFamily.AccessibleRole = AccessibleRole.PushButton;
 		toolStripButtonSaveListSelectedFamily.Image = Resources.FatcowIcons16px.fatcow_diskette_16px;
 		toolStripButtonSaveListSelectedFamily.ImageTransparentColor = Color.Magenta;
