@@ -1,5 +1,12 @@
 # Changelog
 
+## Planetoid-DB 0.8.5.56
+
+* Redesigned AppInfoForm to include tabbed layout with additional program information by @copilot
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.8.4.55...0.8.5.56
+
+
 ## Planetoid-DB 0.8.3.54
 
 * Replaced screenshot of Planetoid-DB in README by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/479
