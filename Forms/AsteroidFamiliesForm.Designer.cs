@@ -132,7 +132,9 @@ partial class AsteroidFamiliesForm
 		splitContainer.Panel2.Controls.Add(listViewMembers);
 		splitContainer.Size = new Size(826, 425);
 		splitContainer.SplitterDistance = 206;
-		splitContainer.TabIndex = 14;
+		splitContainer.TabIndex = 0;
+		splitContainer.ToolTipValues.Description = "Splits the view between the asteroid families tree and the member list";
+		splitContainer.ToolTipValues.Heading = "Asteroid families split view";
 		splitContainer.Enter += Control_Enter;
 		splitContainer.Leave += Control_Leave;
 		splitContainer.MouseEnter += Control_Enter;
@@ -140,6 +142,9 @@ partial class AsteroidFamiliesForm
 		// 
 		// treeViewFamilies
 		// 
+		treeViewFamilies.AccessibleDescription = "Shows the potential asteroid families";
+		treeViewFamilies.AccessibleName = "Potential asteroid families";
+		treeViewFamilies.AccessibleRole = AccessibleRole.List;
 		treeViewFamilies.Dock = DockStyle.Fill;
 		treeViewFamilies.Location = new Point(0, 0);
 		treeViewFamilies.Name = "treeViewFamilies";
@@ -153,6 +158,9 @@ partial class AsteroidFamiliesForm
 		// 
 		// listViewMembers
 		// 
+		listViewMembers.AccessibleDescription = "Show the members of a potential asteroid family";
+		listViewMembers.AccessibleName = "Members of a potential asteroid family";
+		listViewMembers.AccessibleRole = AccessibleRole.List;
 		listViewMembers.AllowColumnReorder = true;
 		listViewMembers.Columns.AddRange(new ColumnHeader[] { columnHeaderIndex, columnHeaderReadableDesignation, columnHeaderSemiMajorAxis, columnHeaderOrbitalEccentricity, columnHeaderInclination, columnHeaderMeanAnomaly, columnHeaderArgumentOfThePerihel, columnheaderLongitudeOfTheAscendingNode });
 		listViewMembers.Dock = DockStyle.Fill;
@@ -261,7 +269,7 @@ partial class AsteroidFamiliesForm
 		kryptonStatusStrip.ShowItemToolTips = true;
 		kryptonStatusStrip.Size = new Size(826, 22);
 		kryptonStatusStrip.SizingGrip = false;
-		kryptonStatusStrip.TabIndex = 1;
+		kryptonStatusStrip.TabIndex = 0;
 		kryptonStatusStrip.TabStop = true;
 		kryptonStatusStrip.Text = "Status bar";
 		kryptonStatusStrip.Enter += Control_Enter;
@@ -308,18 +316,22 @@ partial class AsteroidFamiliesForm
 		// 
 		// toolStripButtonStartSearch
 		// 
+		toolStripButtonStartSearch.AccessibleDescription = "Starts the asteroid families detection";
+		toolStripButtonStartSearch.AccessibleName = "Start detection";
 		toolStripButtonStartSearch.AccessibleRole = AccessibleRole.PushButton;
 		toolStripButtonStartSearch.Image = Resources.FatcowIcons16px.fatcow_bullet_go_16px;
 		toolStripButtonStartSearch.ImageTransparentColor = Color.Magenta;
 		toolStripButtonStartSearch.Name = "toolStripButtonStartSearch";
-		toolStripButtonStartSearch.Size = new Size(88, 23);
-		toolStripButtonStartSearch.Text = "S&tart search";
+		toolStripButtonStartSearch.Size = new Size(104, 23);
+		toolStripButtonStartSearch.Text = "S&tart detection";
 		toolStripButtonStartSearch.Click += ToolStripButtonStartSearch_Click;
 		toolStripButtonStartSearch.MouseEnter += Control_Enter;
 		toolStripButtonStartSearch.MouseLeave += Control_Leave;
 		// 
 		// toolStripButtonCancel
 		// 
+		toolStripButtonCancel.AccessibleDescription = "Cancels the asteroid families detection";
+		toolStripButtonCancel.AccessibleName = "Cancel";
 		toolStripButtonCancel.AccessibleRole = AccessibleRole.PushButton;
 		toolStripButtonCancel.Image = Resources.FatcowIcons16px.fatcow_cancel_16px;
 		toolStripButtonCancel.ImageTransparentColor = Color.Magenta;
@@ -342,6 +354,8 @@ partial class AsteroidFamiliesForm
 		// 
 		// toolStripButtonSaveListSelectedFamily
 		// 
+		toolStripButtonSaveListSelectedFamily.AccessibleDescription = "Saves the members of a potential asteroid family into a text fil";
+		toolStripButtonSaveListSelectedFamily.AccessibleName = "Save te family members into a text file";
 		toolStripButtonSaveListSelectedFamily.AccessibleRole = AccessibleRole.PushButton;
 		toolStripButtonSaveListSelectedFamily.Image = Resources.FatcowIcons16px.fatcow_diskette_16px;
 		toolStripButtonSaveListSelectedFamily.ImageTransparentColor = Color.Magenta;
@@ -354,6 +368,8 @@ partial class AsteroidFamiliesForm
 		// 
 		// toolStripButtonSaveListAllFamilies
 		// 
+		toolStripButtonSaveListAllFamilies.AccessibleDescription = "Saves all potential asteroid families into a text fil";
+		toolStripButtonSaveListAllFamilies.AccessibleName = "Save all into a text file";
 		toolStripButtonSaveListAllFamilies.AccessibleRole = AccessibleRole.PushButton;
 		toolStripButtonSaveListAllFamilies.Image = Resources.FatcowIcons16px.fatcow_disk_multiple_16px;
 		toolStripButtonSaveListAllFamilies.ImageTransparentColor = Color.Magenta;
@@ -376,15 +392,22 @@ partial class AsteroidFamiliesForm
 		// 
 		// toolStripLabelProgress
 		// 
+		toolStripLabelProgress.AccessibleDescription = "Shows the description of the progress bar";
+		toolStripLabelProgress.AccessibleName = "Description of the progress bar";
+		toolStripLabelProgress.AccessibleRole = AccessibleRole.StaticText;
+		toolStripLabelProgress.AutoToolTip = true;
 		toolStripLabelProgress.Name = "toolStripLabelProgress";
 		toolStripLabelProgress.Size = new Size(52, 23);
-		toolStripLabelProgress.Text = "Progress";
+		toolStripLabelProgress.Text = "&Progress";
 		toolStripLabelProgress.MouseEnter += Control_Enter;
 		toolStripLabelProgress.MouseLeave += Control_Leave;
 		// 
 		// kryptonProgressBarToolStripItem
 		// 
+		kryptonProgressBarToolStripItem.AccessibleDescription = "Shows the progress bar of the detection";
+		kryptonProgressBarToolStripItem.AccessibleName = "Progress bar of the detection";
 		kryptonProgressBarToolStripItem.AccessibleRole = AccessibleRole.ProgressBar;
+		kryptonProgressBarToolStripItem.AutoToolTip = true;
 		kryptonProgressBarToolStripItem.Name = "kryptonProgressBarToolStripItem";
 		kryptonProgressBarToolStripItem.Size = new Size(400, 23);
 		kryptonProgressBarToolStripItem.StateCommon.Back.Color1 = Color.Green;
@@ -396,6 +419,9 @@ partial class AsteroidFamiliesForm
 		// 
 		// toolStripToleranceValues
 		// 
+		toolStripToleranceValues.AccessibleDescription = "Toolbar of controlling the tolerance values";
+		toolStripToleranceValues.AccessibleName = "Toolbar of controlling the tolerance values";
+		toolStripToleranceValues.AccessibleRole = AccessibleRole.ToolBar;
 		toolStripToleranceValues.AllowClickThrough = true;
 		toolStripToleranceValues.AllowItemReorder = true;
 		toolStripToleranceValues.Dock = DockStyle.None;
@@ -410,14 +436,20 @@ partial class AsteroidFamiliesForm
 		// 
 		// toolStripLabelToleranceValueSemiMajorAxis
 		// 
+		toolStripLabelToleranceValueSemiMajorAxis.AccessibleDescription = "Shows the tolerance value of the semi-major axis";
+		toolStripLabelToleranceValueSemiMajorAxis.AccessibleName = "Tolerance value of the semi-major axis";
+		toolStripLabelToleranceValueSemiMajorAxis.AccessibleRole = AccessibleRole.StaticText;
+		toolStripLabelToleranceValueSemiMajorAxis.AutoToolTip = true;
 		toolStripLabelToleranceValueSemiMajorAxis.Name = "toolStripLabelToleranceValueSemiMajorAxis";
 		toolStripLabelToleranceValueSemiMajorAxis.Size = new Size(106, 23);
-		toolStripLabelToleranceValueSemiMajorAxis.Text = "± Semi-major axis:";
+		toolStripLabelToleranceValueSemiMajorAxis.Text = "± Semi-ma&jor axis:";
 		toolStripLabelToleranceValueSemiMajorAxis.MouseEnter += Control_Enter;
 		toolStripLabelToleranceValueSemiMajorAxis.MouseLeave += Control_Leave;
 		// 
 		// toolStripNumericUpDownToleranceValueSemiMajorAxis
 		// 
+		toolStripNumericUpDownToleranceValueSemiMajorAxis.AccessibleDescription = "Shows the tolerance value of the semi-major axis";
+		toolStripNumericUpDownToleranceValueSemiMajorAxis.AccessibleName = "Tolerance value of the semi-major axis";
 		toolStripNumericUpDownToleranceValueSemiMajorAxis.AccessibleRole = AccessibleRole.SpinButton;
 		toolStripNumericUpDownToleranceValueSemiMajorAxis.AutoSize = true;
 		toolStripNumericUpDownToleranceValueSemiMajorAxis.AutoToolTip = true;
@@ -445,14 +477,20 @@ partial class AsteroidFamiliesForm
 		// 
 		// toolStripLabelToleranceValueNumericEccentricity
 		// 
+		toolStripLabelToleranceValueNumericEccentricity.AccessibleDescription = "Shows the tolerance value of the numeric eccentricity";
+		toolStripLabelToleranceValueNumericEccentricity.AccessibleName = "Tolerance value of the numeric eccentricity";
+		toolStripLabelToleranceValueNumericEccentricity.AccessibleRole = AccessibleRole.StaticText;
+		toolStripLabelToleranceValueNumericEccentricity.AutoToolTip = true;
 		toolStripLabelToleranceValueNumericEccentricity.Name = "toolStripLabelToleranceValueNumericEccentricity";
 		toolStripLabelToleranceValueNumericEccentricity.Size = new Size(131, 23);
-		toolStripLabelToleranceValueNumericEccentricity.Text = "± Numeric eccentricity:";
+		toolStripLabelToleranceValueNumericEccentricity.Text = "± Numeric &eccentricity:";
 		toolStripLabelToleranceValueNumericEccentricity.MouseEnter += Control_Enter;
 		toolStripLabelToleranceValueNumericEccentricity.MouseLeave += Control_Leave;
 		// 
 		// toolStripNumericUpDownToleranceValueNumericEccentricity
 		// 
+		toolStripNumericUpDownToleranceValueNumericEccentricity.AccessibleDescription = "Shows the tolerance value of the numeric eccentricity";
+		toolStripNumericUpDownToleranceValueNumericEccentricity.AccessibleName = "Tolerance value of the numeric eccentricity";
 		toolStripNumericUpDownToleranceValueNumericEccentricity.AccessibleRole = AccessibleRole.SpinButton;
 		toolStripNumericUpDownToleranceValueNumericEccentricity.AutoSize = true;
 		toolStripNumericUpDownToleranceValueNumericEccentricity.AutoToolTip = true;
@@ -480,14 +518,20 @@ partial class AsteroidFamiliesForm
 		// 
 		// toolStripLabelToleranceValueInclination
 		// 
+		toolStripLabelToleranceValueInclination.AccessibleDescription = "Shows the tolerance value of the orbital inclination";
+		toolStripLabelToleranceValueInclination.AccessibleName = "Tolerance value of the orbital inclination";
+		toolStripLabelToleranceValueInclination.AccessibleRole = AccessibleRole.StaticText;
+		toolStripLabelToleranceValueInclination.AutoToolTip = true;
 		toolStripLabelToleranceValueInclination.Name = "toolStripLabelToleranceValueInclination";
 		toolStripLabelToleranceValueInclination.Size = new Size(77, 23);
-		toolStripLabelToleranceValueInclination.Text = "± Inclination:";
+		toolStripLabelToleranceValueInclination.Text = "± &Inclination:";
 		toolStripLabelToleranceValueInclination.MouseEnter += Control_Enter;
 		toolStripLabelToleranceValueInclination.MouseLeave += Control_Leave;
 		// 
 		// toolStripNumericUpDownToleranceValueInclination
 		// 
+		toolStripNumericUpDownToleranceValueInclination.AccessibleDescription = "Shows the tolerance value of the orbital inclination";
+		toolStripNumericUpDownToleranceValueInclination.AccessibleName = "Tolerance value of the orbital inclination";
 		toolStripNumericUpDownToleranceValueInclination.AccessibleRole = AccessibleRole.SpinButton;
 		toolStripNumericUpDownToleranceValueInclination.AutoSize = true;
 		toolStripNumericUpDownToleranceValueInclination.AutoToolTip = true;
@@ -516,9 +560,13 @@ partial class AsteroidFamiliesForm
 		// 
 		// toolStripLabelMinimumMembers
 		// 
+		toolStripLabelMinimumMembers.AccessibleDescription = "Shows the minimum of family members to detecting";
+		toolStripLabelMinimumMembers.AccessibleName = "Minimum of members";
+		toolStripLabelMinimumMembers.AccessibleRole = AccessibleRole.StaticText;
+		toolStripLabelMinimumMembers.AutoToolTip = true;
 		toolStripLabelMinimumMembers.Name = "toolStripLabelMinimumMembers";
 		toolStripLabelMinimumMembers.Size = new Size(130, 23);
-		toolStripLabelMinimumMembers.Text = "Minimum of members:";
+		toolStripLabelMinimumMembers.Text = "Minimum of &members:";
 		toolStripLabelMinimumMembers.MouseEnter += Control_Enter;
 		toolStripLabelMinimumMembers.MouseLeave += Control_Leave;
 		// 
@@ -540,6 +588,9 @@ partial class AsteroidFamiliesForm
 		// 
 		// AsteroidFamiliesForm
 		// 
+		AccessibleDescription = "Shows the Asteroid families detection";
+		AccessibleName = "Asteroid Families Detection";
+		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(826, 499);
