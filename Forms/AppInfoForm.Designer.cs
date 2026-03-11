@@ -219,7 +219,6 @@ partial class AppInfoForm
 		linkLabelEmail.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		linkLabelEmail.Values.Image = FatcowIcons16px.fatcow_email_16px;
 		linkLabelEmail.Values.Text = "E-Mail";
-		linkLabelEmail.Visible = false;
 		linkLabelEmail.LinkClicked += LinkLabelEmail_Clicked;
 		linkLabelEmail.Enter += Control_Enter;
 		linkLabelEmail.Leave += Control_Leave;
@@ -232,7 +231,7 @@ partial class AppInfoForm
 		linkLabelWebsite.AccessibleName = "Website";
 		linkLabelWebsite.AccessibleRole = AccessibleRole.Link;
 		linkLabelWebsite.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
-		linkLabelWebsite.Location = new Point(424, 236);
+		linkLabelWebsite.Location = new Point(424, 246);
 		linkLabelWebsite.Name = "linkLabelWebsite";
 		linkLabelWebsite.Size = new Size(72, 20);
 		linkLabelWebsite.TabIndex = 4;
@@ -242,7 +241,6 @@ partial class AppInfoForm
 		linkLabelWebsite.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		linkLabelWebsite.Values.Image = FatcowIcons16px.fatcow_world_16px;
 		linkLabelWebsite.Values.Text = "Website";
-		linkLabelWebsite.Visible = false;
 		linkLabelWebsite.LinkClicked += LinkLabelWebsite_Clicked;
 		linkLabelWebsite.Enter += Control_Enter;
 		linkLabelWebsite.Leave += Control_Leave;
