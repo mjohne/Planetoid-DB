@@ -219,6 +219,10 @@ public class BaseKryptonForm : KryptonForm
 	/// <param name="fileName">The URL or file name to open in the default browser. Cannot be null or empty.</param>
 	internal static void OpenWebsite(string fileName)
 	{
+		if (string.IsNullOrWhiteSpace(value: fileName))
+		{
+			throw new System.ArgumentException(message: "The parameter 'fileName' cannot be null, empty, or consist only of white-space characters.", paramName: nameof(fileName));
+		}
 		try
 		{
 			// Open the website in the default browser
