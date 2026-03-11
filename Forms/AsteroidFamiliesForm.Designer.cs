@@ -560,7 +560,7 @@ partial class AsteroidFamiliesForm
 		// 
 		// toolStripLabelMinimumMembers
 		// 
-		toolStripLabelMinimumMembers.AccessibleDescription = "Shows the minimum of family members to detecting";
+		toolStripLabelMinimumMembers.AccessibleDescription = "Shows the minimum number of family members required for detection";
 		toolStripLabelMinimumMembers.AccessibleName = "Minimum of members";
 		toolStripLabelMinimumMembers.AccessibleRole = AccessibleRole.StaticText;
 		toolStripLabelMinimumMembers.AutoToolTip = true;
