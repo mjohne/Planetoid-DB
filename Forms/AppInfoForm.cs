@@ -7,6 +7,7 @@ using NLog;
 
 using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
+using Planetoid_DB.Properties;
 
 using System.Diagnostics;
 
@@ -35,11 +36,9 @@ public partial class AppInfoForm : BaseKryptonForm
 	/// <remarks>
 	/// This constructor initializes the form components.
 	/// </remarks>
-	public AppInfoForm()
-	{
+	public AppInfoForm() =>
 		// Initialize the form components
 		InitializeComponent();
-	}
 
 	#endregion
 
@@ -78,24 +77,7 @@ public partial class AppInfoForm : BaseKryptonForm
 	/// <param name="sender">Event source (the link label).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This event is used to open the application's website in the user's default browser.</remarks>
-	private async void LinkLabelWebsite_Clicked(object sender, EventArgs e)
-	{
-		try
-		{
-			// Open the website in the default browser
-			using Process process = new();
-			process.StartInfo = new ProcessStartInfo(fileName: "https://planetoid-db.de") { UseShellExecute = true };
-			// Start the process asynchronously
-			_ = await Task.Run(function: process.Start);
-		}
-		catch (Exception ex)
-		{
-			// Log the exception and show an error message
-			logger.Error(exception: ex, message: ex.Message);
-			// Show an error message if the website cannot be opened
-			ShowErrorMessage(message: $"Error opening the website: {ex.Message}");
-		}
-	}
+	private void LinkLabelWebsite_Clicked(object sender, EventArgs e) => OpenWebsite(fileName: Settings.Default.systemHomepage);
 
 	/// <summary>Called when the email link is clicked.
 	/// Attempts to open the user's default mail client with a new message addressed to the application's support email.
@@ -118,7 +100,7 @@ public partial class AppInfoForm : BaseKryptonForm
 			// Log the exception and show an error message
 			logger.Error(exception: ex, message: ex.Message);
 			// Show an error message if the email client cannot be opened
-			ShowErrorMessage(message: $"Error opening the website: {ex.Message}");
+			ShowErrorMessage(message: $"Error opening the email client: {ex.Message}");
 		}
 	}
 
