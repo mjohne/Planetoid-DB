@@ -345,7 +345,6 @@ partial class EphemerisForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "EphemerisForm";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Ephemerides";
 		Load += EphemerisForm_Load;

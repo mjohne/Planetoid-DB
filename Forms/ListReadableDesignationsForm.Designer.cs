@@ -725,7 +725,6 @@ partial class ListReadableDesignationsForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "ListReadableDesignationsForm";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "List of readable designations";
 		FormClosed += ListReadableDesignationsForm_FormClosed;

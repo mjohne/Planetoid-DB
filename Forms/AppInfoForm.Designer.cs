@@ -323,7 +323,6 @@ partial class AppInfoForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "AppInfoForm";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Program information";
 		Load += AppInfoForm_Load;

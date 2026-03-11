@@ -74,7 +74,7 @@ partial class SplashScreenForm
 		contextMenuStripCopyToClipboard.Font = new Font("Segoe UI", 9F);
 		contextMenuStripCopyToClipboard.Items.AddRange(new ToolStripItem[] { toolStripMenuItemCopyToClipboard });
 		contextMenuStripCopyToClipboard.Name = "contextMenuStrip";
-		contextMenuStripCopyToClipboard.Size = new Size(214, 48);
+		contextMenuStripCopyToClipboard.Size = new Size(214, 26);
 		contextMenuStripCopyToClipboard.TabStop = true;
 		contextMenuStripCopyToClipboard.Text = "Copy to clipboard";
 		toolTip.SetToolTip(contextMenuStripCopyToClipboard, "Context Menu for copying to clipboard");
@@ -104,7 +104,7 @@ partial class SplashScreenForm
 		labelVersion.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
 		labelVersion.ForeColor = Color.White;
 		labelVersion.Location = new Point(136, 204);
-		labelVersion.Margin = new Padding(0, 0, 0, 0);
+		labelVersion.Margin = new Padding(0);
 		labelVersion.Name = "labelVersion";
 		labelVersion.Size = new Size(221, 25);
 		labelVersion.TabIndex = 1;
@@ -138,7 +138,6 @@ partial class SplashScreenForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "SplashScreenForm";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Splash Screen";
 		toolTip.SetToolTip(this, "Splash screen");

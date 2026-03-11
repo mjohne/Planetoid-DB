@@ -37,7 +37,6 @@ partial class OrbitElementsGroupingForm
 	{
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(OrbitElementsGroupingForm));
 		kryptoPanelMain = new KryptonPanel();
-		lblProgress = new KryptonLabel();
 		progressBar = new KryptonProgressBar();
 		lblElementsCount = new KryptonLabel();
 		numElementsToCompare = new KryptonNumericUpDown();
@@ -55,7 +54,6 @@ partial class OrbitElementsGroupingForm
 		kryptoPanelMain.AccessibleDescription = "Groups the data";
 		kryptoPanelMain.AccessibleName = "Panel";
 		kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
-		kryptoPanelMain.Controls.Add(lblProgress);
 		kryptoPanelMain.Controls.Add(progressBar);
 		kryptoPanelMain.Controls.Add(lblElementsCount);
 		kryptoPanelMain.Controls.Add(numElementsToCompare);
@@ -70,14 +68,6 @@ partial class OrbitElementsGroupingForm
 		kryptoPanelMain.Size = new Size(784, 561);
 		kryptoPanelMain.TabIndex = 0;
 		kryptoPanelMain.TabStop = true;
-		// 
-		// lblProgress
-		// 
-		lblProgress.Location = new Point(718, 51);
-		lblProgress.Name = "lblProgress";
-		lblProgress.Size = new Size(40, 20);
-		lblProgress.TabIndex = 7;
-		lblProgress.Values.Text = "0%";
 		// 
 		// progressBar
 		// 
@@ -174,7 +164,6 @@ partial class OrbitElementsGroupingForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "OrbitElementsGroupingForm";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Planetoid Orbital Elements Grouping";
 		FormClosing += OrbitElementsGroupingForm_FormClosing;
@@ -193,5 +182,4 @@ partial class OrbitElementsGroupingForm
     private KryptonLabel lblTolerance;
     private KryptonNumericUpDown numElementsToCompare;
     private KryptonLabel lblElementsCount;
-    private KryptonLabel lblProgress;
 }

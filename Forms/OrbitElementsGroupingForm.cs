@@ -2,6 +2,8 @@ using Krypton.Toolkit;
 
 using NLog;
 
+using Planetoid_DB.Helpers;
+
 using System.Diagnostics;
 using System.Globalization;
 using System.Text;
@@ -65,25 +67,25 @@ public partial class OrbitElementsGroupingForm : BaseKryptonForm
 		btnCancel.Enabled = true;
 		txtOutput.Clear();
 		progressBar.Value = 0;
-		lblProgress.Text = "0%";
+		progressBar.Text = "0%";
 
 		int elementsCount = (int)numElementsToCompare.Value;
 		double tolerancePercent = (double)numTolerance.Value / 100.0;
 
 		_cancellationTokenSource = new CancellationTokenSource();
 
-		var progress = new Progress<int>(percent =>
+		var progress = new Progress<int>(handler: percent =>
 		{
 			progressBar.Value = percent;
-			lblProgress.Text = $"{percent}%";
+			progressBar.Text = $"{percent}%";
 		});
 
-		var messageProgress = new Progress<string>(message =>
+		var messageProgress = new Progress<string>(handler: message =>
 		{
 			txtOutput.AppendText(message + Environment.NewLine);
 		});
 
-		Task.Run(() => PerformGroupingAsync(elementsCount, tolerancePercent, progress, messageProgress, _cancellationTokenSource.Token), _cancellationTokenSource.Token);
+		using Task _ = Task.Run(function: () => PerformGroupingAsync(elementsCount: elementsCount, tolerancePercent: tolerancePercent, progress: progress, messageProgress: messageProgress, cancellationToken: _cancellationTokenSource.Token), cancellationToken: _cancellationTokenSource.Token);
 	}
 
 	private void BtnCancel_Click(object? sender, EventArgs e)
@@ -108,7 +110,7 @@ public partial class OrbitElementsGroupingForm : BaseKryptonForm
 	{
 		try
 		{
-			messageProgress.Report("Parsing data...");
+			messageProgress.Report(value: "Parsing data...");
 
 			// Parse valid orbital parameters
 			var parsedData = new List<PlanetoidData>();
@@ -139,16 +141,17 @@ public partial class OrbitElementsGroupingForm : BaseKryptonForm
 					}
 				}
 
-				int currentCount = Interlocked.Increment(ref parsedCount);
+				int currentCount = Interlocked.Increment(location: ref parsedCount);
 				if (currentCount % 1000 == 0)
 				{
-					progress.Report(currentCount * 10 / totalRecords); // 10% step for parsing
+					progress.Report(value: currentCount * 10 / totalRecords); // 10% step for parsing
+					TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)(currentCount * 10 / totalRecords), progressMax: 100);
 				}
 			});
 
 			cancellationToken.ThrowIfCancellationRequested();
 
-			messageProgress.Report("Extracting element combinations and grouping...");
+			messageProgress.Report(value: "Extracting element combinations and grouping...");
 
 			int combinationThreshold = elementsCount;
 

@@ -602,7 +602,6 @@ partial class AsteroidFamiliesForm
 		MinimizeBox = false;
 		MinimumSize = new Size(800, 500);
 		Name = "AsteroidFamiliesForm";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Asteroid Families Detection";
 		FormClosing += AsteroidFamiliesForm_FormClosing;

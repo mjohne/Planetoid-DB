@@ -1327,7 +1327,6 @@ partial class RecordsMainForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "RecordsMainForm";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Top ten records";
 		Load += RecordsMainForm_Load;

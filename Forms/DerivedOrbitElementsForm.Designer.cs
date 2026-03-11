@@ -1580,7 +1580,6 @@ partial class DerivedOrbitElementsForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "DerivedOrbitElementsForm";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Derived orbit elements";
 		Load += DerivedOrbitElementsForm_Load;

@@ -625,7 +625,6 @@ partial class CopyDataToClipboardForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "CopyDataToClipboardForm";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Copy data to clipboard";
 		Load += CopyDataToClipboardForm_Load;

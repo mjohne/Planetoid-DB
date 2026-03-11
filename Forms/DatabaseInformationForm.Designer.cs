@@ -1072,7 +1072,6 @@ namespace Planetoid_DB;
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "DatabaseInformationForm";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Database information";
 		Load += DatabaseInformationForm_Load;

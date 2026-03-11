@@ -57,7 +57,6 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		checkBoxUranus = new KryptonCheckBox();
 		checkBoxNeptune = new KryptonCheckBox();
 		kryptonProgressBar = new KryptonProgressBar();
-		labelProgress = new KryptonLabel();
 		listView = new ListView();
 		columnHeaderPlanetoid = new ColumnHeader();
 		columnHeaderPlanet = new ColumnHeader();
@@ -94,7 +93,6 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		kryptoPanelMain.Controls.Add(checkBoxUranus);
 		kryptoPanelMain.Controls.Add(checkBoxNeptune);
 		kryptoPanelMain.Controls.Add(kryptonProgressBar);
-		kryptoPanelMain.Controls.Add(labelProgress);
 		kryptoPanelMain.Controls.Add(listView);
 		kryptoPanelMain.Controls.Add(kryptonStatusStrip);
 		kryptoPanelMain.Dock = DockStyle.Fill;
@@ -262,16 +260,6 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		kryptonProgressBar.TextShadowColor = Color.Empty;
 		kryptonProgressBar.Values.Text = "0%";
 		// 
-		// labelProgress
-		// 
-		labelProgress.AccessibleDescription = "Shows the progress as a percentage";
-		labelProgress.AccessibleName = "Progress percentage";
-		labelProgress.Location = new Point(858, 73);
-		labelProgress.Name = "labelProgress";
-		labelProgress.Size = new Size(30, 20);
-		labelProgress.TabIndex = 11;
-		labelProgress.Values.Text = "0%";
-		// 
 		// listView
 		// 
 		listView.AccessibleDescription = "Shows the list of orbital resonances of all planetoids relative to the solar system planets";
@@ -431,7 +419,6 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		MinimizeBox = false;
 		MinimumSize = new Size(920, 620);
 		Name = "OrbitalResonancesOfAllMinorPlanetsForm";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Orbital resonances of all minor planets";
 		FormClosing += OrbitalResonancesOfAllMinorPlanetsForm_FormClosing;
@@ -459,7 +446,6 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 	private KryptonCheckBox checkBoxUranus;
 	private KryptonCheckBox checkBoxNeptune;
 	private KryptonProgressBar kryptonProgressBar;
-	private KryptonLabel labelProgress;
 	private ListView listView;
 	private ColumnHeader columnHeaderPlanetoid;
 	private ColumnHeader columnHeaderPlanet;

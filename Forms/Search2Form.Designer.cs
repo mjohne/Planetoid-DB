@@ -197,7 +197,6 @@ partial class Search2Form
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "Search2Form";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Search in MPCORB.DAT";
 		Load += Search2Form_Load;

@@ -101,8 +101,7 @@ public partial class Search2Form : Forms.BaseKryptonForm
 		kryptonButtonSearch.Enabled = false;
 		kryptonButtonCancel.Enabled = true;
 		kryptonProgressBar.Value = 0;
-		kryptonProgressBar.Values.Text = "0 %";
-
+		kryptonProgressBar.Values.Text = "0 %";				
 		lock (_searchResults)
 		{
 			_searchResults.Clear();
@@ -203,6 +202,7 @@ public partial class Search2Form : Forms.BaseKryptonForm
 									}
 									kryptonProgressBar.Value = pct;
 									kryptonProgressBar.Values.Text = $"{pct} %";
+									TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)pct, progressMax: 100);
 									lock (_searchResults)
 									{
 										listViewResults.VirtualListSize = _searchResults.Count;

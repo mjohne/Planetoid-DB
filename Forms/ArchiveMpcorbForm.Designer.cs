@@ -381,7 +381,7 @@ partial class ArchiveMpcorbForm
 		toolStripMenuItemFormatZip.Name = "toolStripMenuItemFormatZip";
 		toolStripMenuItemFormatZip.ShortcutKeyDisplayString = "Strg+Z";
 		toolStripMenuItemFormatZip.ShortcutKeys = Keys.Control | Keys.Z;
-		toolStripMenuItemFormatZip.Size = new Size(180, 22);
+		toolStripMenuItemFormatZip.Size = new Size(145, 22);
 		toolStripMenuItemFormatZip.Text = "&Zip";
 		toolStripMenuItemFormatZip.Click += ToolStripMenuItemFormatZip_Click;
 		toolStripMenuItemFormatZip.MouseEnter += Control_Enter;
@@ -397,7 +397,7 @@ partial class ArchiveMpcorbForm
 		toolStripMenuItemFormatGzip.Name = "toolStripMenuItemFormatGzip";
 		toolStripMenuItemFormatGzip.ShortcutKeyDisplayString = "Strg+G";
 		toolStripMenuItemFormatGzip.ShortcutKeys = Keys.Control | Keys.G;
-		toolStripMenuItemFormatGzip.Size = new Size(180, 22);
+		toolStripMenuItemFormatGzip.Size = new Size(145, 22);
 		toolStripMenuItemFormatGzip.Text = "&GZip";
 		toolStripMenuItemFormatGzip.Click += ToolStripMenuItemFormatGzip_Click;
 		toolStripMenuItemFormatGzip.MouseEnter += Control_Enter;
@@ -413,7 +413,7 @@ partial class ArchiveMpcorbForm
 		toolStripMenuItemFormatBrotli.Name = "toolStripMenuItemFormatBrotli";
 		toolStripMenuItemFormatBrotli.ShortcutKeyDisplayString = "Strg+B";
 		toolStripMenuItemFormatBrotli.ShortcutKeys = Keys.Control | Keys.B;
-		toolStripMenuItemFormatBrotli.Size = new Size(180, 22);
+		toolStripMenuItemFormatBrotli.Size = new Size(145, 22);
 		toolStripMenuItemFormatBrotli.Text = "&Brotli";
 		toolStripMenuItemFormatBrotli.Click += ToolStripMenuItemFormatBrotli_Click;
 		toolStripMenuItemFormatBrotli.MouseEnter += Control_Enter;
@@ -552,7 +552,6 @@ partial class ArchiveMpcorbForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "ArchiveMpcorbForm";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Archive MPCORB.DAT";
 		Load += ArchiveMpcorbForm_Load;

@@ -393,6 +393,8 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 				stopwatch.Restart();
 			}
 		}
+		// Ensure all data is flushed to disk
+		await fileStream.FlushAsync(cancellationToken: token);
 	}
 
 	#endregion

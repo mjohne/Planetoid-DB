@@ -2685,6 +2685,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		// Update the progress bar value based on the reported progress percentage, ensuring it stays within the valid range of 0 to 100
 		kryptonProgressBar.Value = Math.Max(0, Math.Min(val1: 100, val2: e.ProgressPercentage));
 		kryptonProgressBar.Text = $"{e.ProgressPercentage}%";
+		TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)e.ProgressPercentage, progressMax: 100);
 		// Check the type of the user state to determine whether to update the status label with a string message or to add a batch of difference results to the list view
 		if (e.UserState is string status)
 		{

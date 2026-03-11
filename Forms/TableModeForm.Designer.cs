@@ -496,7 +496,6 @@ partial class TableModeForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "TableModeForm";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Table Mode";
 		FormClosing += TableModeForm_FormClosing;

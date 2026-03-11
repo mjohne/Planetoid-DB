@@ -93,7 +93,6 @@ partial class RecordsForm
 		labelValue13 = new KryptonLabel();
 		buttonStart = new KryptonButton();
 		buttonCancel = new KryptonButton();
-		labelPercent = new KryptonLabel();
 		progressBar = new KryptonProgressBar();
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
@@ -117,7 +116,6 @@ partial class RecordsForm
 		kryptoPanelMain.Controls.Add(tableLayoutPanel);
 		kryptoPanelMain.Controls.Add(buttonStart);
 		kryptoPanelMain.Controls.Add(buttonCancel);
-		kryptoPanelMain.Controls.Add(labelPercent);
 		kryptoPanelMain.Controls.Add(progressBar);
 		kryptoPanelMain.Dock = DockStyle.Fill;
 		kryptoPanelMain.Location = new Point(0, 0);
@@ -1168,25 +1166,6 @@ partial class RecordsForm
 		buttonCancel.MouseEnter += Control_Enter;
 		buttonCancel.MouseLeave += Control_Leave;
 		// 
-		// labelPercent
-		// 
-		labelPercent.AccessibleDescription = "Shows the percent status of the record detection";
-		labelPercent.AccessibleName = "Percent status of the record detection";
-		labelPercent.AccessibleRole = AccessibleRole.StaticText;
-		labelPercent.Location = new Point(608, 504);
-		labelPercent.Name = "labelPercent";
-		labelPercent.Size = new Size(56, 20);
-		labelPercent.TabIndex = 5;
-		labelPercent.ToolTipValues.Description = "Shows the percent status of the record detection";
-		labelPercent.ToolTipValues.EnableToolTips = true;
-		labelPercent.ToolTipValues.Heading = "Percent status";
-		labelPercent.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelPercent.Values.Text = "0 %";
-		labelPercent.Enter += Control_Enter;
-		labelPercent.Leave += Control_Leave;
-		labelPercent.MouseEnter += Control_Enter;
-		labelPercent.MouseLeave += Control_Leave;
-		// 
 		// progressBar
 		// 
 		progressBar.AccessibleDescription = "Shows the progress of the record detection";
@@ -1264,13 +1243,11 @@ partial class RecordsForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "RecordsForm";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Record list";
 		Load += RecordsForm_Load;
 		((ISupportInitialize)kryptoPanelMain).EndInit();
 		kryptoPanelMain.ResumeLayout(false);
-		kryptoPanelMain.PerformLayout();
 		((ISupportInitialize)groupBoxRecordType.Panel).EndInit();
 		groupBoxRecordType.Panel.ResumeLayout(false);
 		((ISupportInitialize)groupBoxRecordType).EndInit();
@@ -1333,7 +1310,6 @@ partial class RecordsForm
 	private KryptonLabel labelValue13;
 	private KryptonButton buttonStart;
 	private KryptonButton buttonCancel;
-	private KryptonLabel labelPercent;
 	private KryptonProgressBar progressBar;
 	private KryptonStatusStrip kryptonStatusStrip;
 	private ToolStripStatusLabel labelInformation;

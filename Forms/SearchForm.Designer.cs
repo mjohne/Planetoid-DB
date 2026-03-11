@@ -431,7 +431,6 @@ partial class SearchForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "SearchForm";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Search";
 		Load += SearchForm_Load;

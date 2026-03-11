@@ -599,7 +599,6 @@ partial class CopyDerivedDataToClipboardForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "CopyDerivedDataToClipboardForm";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Copy derived data to clipboard";
 		Load += CopyDerivedDataToClipboardForm_Load;

@@ -533,7 +533,6 @@ partial class RecordsSelectionForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "RecordsSelectionForm";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Top ten records";
 		Load += RecordsSelectionForm_Load;

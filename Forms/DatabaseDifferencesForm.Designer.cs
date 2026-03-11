@@ -266,7 +266,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsText.Image = Resources.FatcowIcons16px.fatcow_page_white_text_16px;
 		toolStripMenuItemSaveAsText.Name = "toolStripMenuItemSaveAsText";
 		toolStripMenuItemSaveAsText.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsText.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsText.Size = new Size(172, 22);
 		toolStripMenuItemSaveAsText.Text = "Save as te&xt";
 		toolStripMenuItemSaveAsText.Click += ToolStripMenuItemSaveAsText_Click;
 		toolStripMenuItemSaveAsText.MouseEnter += Control_Enter;
@@ -281,7 +281,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsLatex.Image = Resources.FatcowIcons16px.fatcow_page_white_text_16px;
 		toolStripMenuItemSaveAsLatex.Name = "toolStripMenuItemSaveAsLatex";
 		toolStripMenuItemSaveAsLatex.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsLatex.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsLatex.Size = new Size(172, 22);
 		toolStripMenuItemSaveAsLatex.Text = "Save as Lat&ex";
 		toolStripMenuItemSaveAsLatex.Click += ToolStripMenuItemSaveAsLatex_Click;
 		toolStripMenuItemSaveAsLatex.MouseEnter += Control_Enter;
@@ -296,7 +296,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsMarkdown.Image = Resources.FatcowIcons16px.fatcow_page_white_text_16px;
 		toolStripMenuItemSaveAsMarkdown.Name = "toolStripMenuItemSaveAsMarkdown";
 		toolStripMenuItemSaveAsMarkdown.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsMarkdown.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsMarkdown.Size = new Size(172, 22);
 		toolStripMenuItemSaveAsMarkdown.Text = "Save as Mar&kdown";
 		toolStripMenuItemSaveAsMarkdown.Click += ToolStripMenuItemSaveAsMarkdown_Click;
 		toolStripMenuItemSaveAsMarkdown.MouseEnter += Control_Enter;
@@ -326,7 +326,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsWord.Image = Resources.FatcowIcons16px.fatcow_page_white_word_16px;
 		toolStripMenuItemSaveAsWord.Name = "toolStripMenuItemSaveAsWord";
 		toolStripMenuItemSaveAsWord.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsWord.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsWord.Size = new Size(179, 22);
 		toolStripMenuItemSaveAsWord.Text = "Save as &Word";
 		toolStripMenuItemSaveAsWord.Click += ToolStripMenuItemSaveAsWord_Click;
 		toolStripMenuItemSaveAsWord.MouseEnter += Control_Enter;
@@ -341,7 +341,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsOdt.Image = Resources.FatcowIcons16px.fatcow_page_white_word_16px;
 		toolStripMenuItemSaveAsOdt.Name = "toolStripMenuItemSaveAsOdt";
 		toolStripMenuItemSaveAsOdt.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsOdt.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsOdt.Size = new Size(179, 22);
 		toolStripMenuItemSaveAsOdt.Text = "Save as O&DT";
 		toolStripMenuItemSaveAsOdt.Click += ToolStripMenuItemSaveAsOdt_Click;
 		toolStripMenuItemSaveAsOdt.MouseEnter += Control_Enter;
@@ -356,7 +356,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsRtf.Image = Resources.FatcowIcons16px.fatcow_page_white_word_16px;
 		toolStripMenuItemSaveAsRtf.Name = "toolStripMenuItemSaveAsRtf";
 		toolStripMenuItemSaveAsRtf.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsRtf.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsRtf.Size = new Size(179, 22);
 		toolStripMenuItemSaveAsRtf.Text = "Save as &RTF";
 		toolStripMenuItemSaveAsRtf.Click += ToolStripMenuItemSaveAsRtf_Click;
 		toolStripMenuItemSaveAsRtf.MouseEnter += Control_Enter;
@@ -370,7 +370,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsAbiword.AutoToolTip = true;
 		toolStripMenuItemSaveAsAbiword.Image = Resources.FatcowIcons16px.fatcow_page_white_word_16px;
 		toolStripMenuItemSaveAsAbiword.Name = "toolStripMenuItemSaveAsAbiword";
-		toolStripMenuItemSaveAsAbiword.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsAbiword.Size = new Size(179, 22);
 		toolStripMenuItemSaveAsAbiword.Text = "Save as &Abiword file";
 		toolStripMenuItemSaveAsAbiword.Click += ToolStripMenuItemSaveAsAbiword_Click;
 		toolStripMenuItemSaveAsAbiword.MouseEnter += Control_Enter;
@@ -384,7 +384,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsWps.AutoToolTip = true;
 		toolStripMenuItemSaveAsWps.Image = Resources.FatcowIcons16px.fatcow_page_white_word_16px;
 		toolStripMenuItemSaveAsWps.Name = "toolStripMenuItemSaveAsWps";
-		toolStripMenuItemSaveAsWps.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsWps.Size = new Size(179, 22);
 		toolStripMenuItemSaveAsWps.Text = "Save as W&PS";
 		toolStripMenuItemSaveAsWps.Click += ToolStripMenuItemSaveAsWps_Click;
 		toolStripMenuItemSaveAsWps.MouseEnter += Control_Enter;
@@ -414,7 +414,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsExcel.Image = Resources.FatcowIcons16px.fatcow_page_white_excel_16px;
 		toolStripMenuItemSaveAsExcel.Name = "toolStripMenuItemSaveAsExcel";
 		toolStripMenuItemSaveAsExcel.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsExcel.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsExcel.Size = new Size(142, 22);
 		toolStripMenuItemSaveAsExcel.Text = "Save as Exce&l";
 		toolStripMenuItemSaveAsExcel.Click += ToolStripMenuItemSaveAsExcel_Click;
 		toolStripMenuItemSaveAsExcel.MouseEnter += Control_Enter;
@@ -429,7 +429,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsOds.Image = Resources.FatcowIcons16px.fatcow_page_white_excel_16px;
 		toolStripMenuItemSaveAsOds.Name = "toolStripMenuItemSaveAsOds";
 		toolStripMenuItemSaveAsOds.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsOds.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsOds.Size = new Size(142, 22);
 		toolStripMenuItemSaveAsOds.Text = "Save as OD&S";
 		toolStripMenuItemSaveAsOds.Click += ToolStripMenuItemSaveAsOds_Click;
 		toolStripMenuItemSaveAsOds.MouseEnter += Control_Enter;
@@ -444,7 +444,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsCsv.Image = Resources.FatcowIcons16px.fatcow_page_white_excel_16px;
 		toolStripMenuItemSaveAsCsv.Name = "toolStripMenuItemSaveAsCsv";
 		toolStripMenuItemSaveAsCsv.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsCsv.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsCsv.Size = new Size(142, 22);
 		toolStripMenuItemSaveAsCsv.Text = "Save as &CSV";
 		toolStripMenuItemSaveAsCsv.Click += ToolStripMenuItemSaveAsCsv_Click;
 		toolStripMenuItemSaveAsCsv.MouseEnter += Control_Enter;
@@ -459,7 +459,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsTsv.Image = Resources.FatcowIcons16px.fatcow_page_white_excel_16px;
 		toolStripMenuItemSaveAsTsv.Name = "toolStripMenuItemSaveAsTsv";
 		toolStripMenuItemSaveAsTsv.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsTsv.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsTsv.Size = new Size(142, 22);
 		toolStripMenuItemSaveAsTsv.Text = "Save as &TSV";
 		toolStripMenuItemSaveAsTsv.Click += ToolStripMenuItemSaveAsTsv_Click;
 		toolStripMenuItemSaveAsTsv.MouseEnter += Control_Enter;
@@ -474,7 +474,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsPsv.Image = Resources.FatcowIcons16px.fatcow_page_white_excel_16px;
 		toolStripMenuItemSaveAsPsv.Name = "toolStripMenuItemSaveAsPsv";
 		toolStripMenuItemSaveAsPsv.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsPsv.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsPsv.Size = new Size(142, 22);
 		toolStripMenuItemSaveAsPsv.Text = "Save as PS&V";
 		toolStripMenuItemSaveAsPsv.Click += ToolStripMenuItemSaveAsPsv_Click;
 		toolStripMenuItemSaveAsPsv.MouseEnter += Control_Enter;
@@ -488,7 +488,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsEt.AutoToolTip = true;
 		toolStripMenuItemSaveAsEt.Image = Resources.FatcowIcons16px.fatcow_page_white_excel_16px;
 		toolStripMenuItemSaveAsEt.Name = "toolStripMenuItemSaveAsEt";
-		toolStripMenuItemSaveAsEt.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsEt.Size = new Size(142, 22);
 		toolStripMenuItemSaveAsEt.Text = "Save as &ET";
 		toolStripMenuItemSaveAsEt.Click += ToolStripMenuItemSaveAsEt_Click;
 		toolStripMenuItemSaveAsEt.MouseEnter += Control_Enter;
@@ -518,7 +518,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsHtml.Image = Resources.FatcowIcons16px.fatcow_page_white_code_16px;
 		toolStripMenuItemSaveAsHtml.Name = "toolStripMenuItemSaveAsHtml";
 		toolStripMenuItemSaveAsHtml.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsHtml.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsHtml.Size = new Size(163, 22);
 		toolStripMenuItemSaveAsHtml.Text = "Save as &HTML";
 		toolStripMenuItemSaveAsHtml.Click += ToolStripMenuItemSaveAsHtml_Click;
 		toolStripMenuItemSaveAsHtml.MouseEnter += Control_Enter;
@@ -533,7 +533,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsXml.Image = Resources.FatcowIcons16px.fatcow_page_white_code_16px;
 		toolStripMenuItemSaveAsXml.Name = "toolStripMenuItemSaveAsXml";
 		toolStripMenuItemSaveAsXml.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsXml.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsXml.Size = new Size(163, 22);
 		toolStripMenuItemSaveAsXml.Text = "Save as X&ML";
 		toolStripMenuItemSaveAsXml.Click += ToolStripMenuItemSaveAsXml_Click;
 		toolStripMenuItemSaveAsXml.MouseEnter += Control_Enter;
@@ -547,7 +547,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsDocBook.AutoToolTip = true;
 		toolStripMenuItemSaveAsDocBook.Image = Resources.FatcowIcons16px.fatcow_page_white_code_16px;
 		toolStripMenuItemSaveAsDocBook.Name = "toolStripMenuItemSaveAsDocBook";
-		toolStripMenuItemSaveAsDocBook.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsDocBook.Size = new Size(163, 22);
 		toolStripMenuItemSaveAsDocBook.Text = "Save as &DocBook";
 		toolStripMenuItemSaveAsDocBook.Click += ToolStripMenuItemSaveAsDocBook_Click;
 		toolStripMenuItemSaveAsDocBook.MouseEnter += Control_Enter;
@@ -577,7 +577,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsJson.Image = Resources.FatcowIcons16px.fatcow_page_white_code_red_16px;
 		toolStripMenuItemSaveAsJson.Name = "toolStripMenuItemSaveAsJson";
 		toolStripMenuItemSaveAsJson.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsJson.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsJson.Size = new Size(146, 22);
 		toolStripMenuItemSaveAsJson.Text = "Save as &JSON";
 		toolStripMenuItemSaveAsJson.Click += ToolStripMenuItemSaveAsJson_Click;
 		toolStripMenuItemSaveAsJson.MouseEnter += Control_Enter;
@@ -592,7 +592,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsYaml.Image = Resources.FatcowIcons16px.fatcow_page_white_code_red_16px;
 		toolStripMenuItemSaveAsYaml.Name = "toolStripMenuItemSaveAsYaml";
 		toolStripMenuItemSaveAsYaml.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsYaml.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsYaml.Size = new Size(146, 22);
 		toolStripMenuItemSaveAsYaml.Text = "Save as &YAML";
 		toolStripMenuItemSaveAsYaml.Click += ToolStripMenuItemSaveAsYaml_Click;
 		toolStripMenuItemSaveAsYaml.MouseEnter += Control_Enter;
@@ -606,7 +606,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsToml.AutoToolTip = true;
 		toolStripMenuItemSaveAsToml.Image = Resources.FatcowIcons16px.fatcow_page_white_code_red_16px;
 		toolStripMenuItemSaveAsToml.Name = "toolStripMenuItemSaveAsToml";
-		toolStripMenuItemSaveAsToml.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsToml.Size = new Size(146, 22);
 		toolStripMenuItemSaveAsToml.Text = "Save as &TOML";
 		toolStripMenuItemSaveAsToml.Click += ToolStripMenuItemSaveAsToml_Click;
 		toolStripMenuItemSaveAsToml.MouseEnter += Control_Enter;
@@ -636,7 +636,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsSql.Image = Resources.FatcowIcons16px.fatcow_page_white_database_16px;
 		toolStripMenuItemSaveAsSql.Name = "toolStripMenuItemSaveAsSql";
 		toolStripMenuItemSaveAsSql.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsSql.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsSql.Size = new Size(136, 22);
 		toolStripMenuItemSaveAsSql.Text = "Save as S&QL";
 		toolStripMenuItemSaveAsSql.Click += ToolStripMenuItemSaveAsSql_Click;
 		toolStripMenuItemSaveAsSql.MouseEnter += Control_Enter;
@@ -666,7 +666,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsPdf.Image = Resources.FatcowIcons16px.fatcow_page_white_acrobat_16px;
 		toolStripMenuItemSaveAsPdf.Name = "toolStripMenuItemSaveAsPdf";
 		toolStripMenuItemSaveAsPdf.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsPdf.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsPdf.Size = new Size(145, 22);
 		toolStripMenuItemSaveAsPdf.Text = "Save as PD&F";
 		toolStripMenuItemSaveAsPdf.Click += ToolStripMenuItemSaveAsPdf_Click;
 		toolStripMenuItemSaveAsPdf.MouseEnter += Control_Enter;
@@ -681,7 +681,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsPostScript.Image = Resources.FatcowIcons16px.fatcow_page_white_acrobat_16px;
 		toolStripMenuItemSaveAsPostScript.Name = "toolStripMenuItemSaveAsPostScript";
 		toolStripMenuItemSaveAsPostScript.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsPostScript.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsPostScript.Size = new Size(145, 22);
 		toolStripMenuItemSaveAsPostScript.Text = "Save as &PS";
 		toolStripMenuItemSaveAsPostScript.Click += ToolStripMenuItemSaveAsPostScript_Click;
 		toolStripMenuItemSaveAsPostScript.MouseEnter += Control_Enter;
@@ -696,7 +696,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsEpub.Image = Resources.FatcowIcons16px.fatcow_page_white_acrobat_16px;
 		toolStripMenuItemSaveAsEpub.Name = "toolStripMenuItemSaveAsEpub";
 		toolStripMenuItemSaveAsEpub.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsEpub.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsEpub.Size = new Size(145, 22);
 		toolStripMenuItemSaveAsEpub.Text = "Save as EPU&B";
 		toolStripMenuItemSaveAsEpub.Click += ToolStripMenuItemSaveAsEpub_Click;
 		toolStripMenuItemSaveAsEpub.MouseEnter += Control_Enter;
@@ -711,7 +711,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsMobi.Image = Resources.FatcowIcons16px.fatcow_page_white_acrobat_16px;
 		toolStripMenuItemSaveAsMobi.Name = "toolStripMenuItemSaveAsMobi";
 		toolStripMenuItemSaveAsMobi.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsMobi.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsMobi.Size = new Size(145, 22);
 		toolStripMenuItemSaveAsMobi.Text = "Save as MOB&I";
 		toolStripMenuItemSaveAsMobi.Click += ToolStripMenuItemSaveAsMobi_Click;
 		toolStripMenuItemSaveAsMobi.MouseEnter += Control_Enter;
@@ -725,7 +725,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsXps.AutoToolTip = true;
 		toolStripMenuItemSaveAsXps.Image = Resources.FatcowIcons16px.fatcow_page_white_acrobat_16px;
 		toolStripMenuItemSaveAsXps.Name = "toolStripMenuItemSaveAsXps";
-		toolStripMenuItemSaveAsXps.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsXps.Size = new Size(145, 22);
 		toolStripMenuItemSaveAsXps.Text = "Save as &XPS";
 		toolStripMenuItemSaveAsXps.Click += ToolStripMenuItemSaveAsXps_Click;
 		toolStripMenuItemSaveAsXps.MouseEnter += Control_Enter;
@@ -739,7 +739,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsFictionBook2.AutoToolTip = true;
 		toolStripMenuItemSaveAsFictionBook2.Image = Resources.FatcowIcons16px.fatcow_page_white_acrobat_16px;
 		toolStripMenuItemSaveAsFictionBook2.Name = "toolStripMenuItemSaveAsFictionBook2";
-		toolStripMenuItemSaveAsFictionBook2.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsFictionBook2.Size = new Size(145, 22);
 		toolStripMenuItemSaveAsFictionBook2.Text = "Save as &FB2";
 		toolStripMenuItemSaveAsFictionBook2.Click += ToolStripMenuItemSaveAsFb2_Click;
 		toolStripMenuItemSaveAsFictionBook2.MouseEnter += Control_Enter;
@@ -753,7 +753,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsChm.AutoToolTip = true;
 		toolStripMenuItemSaveAsChm.Image = Resources.FatcowIcons16px.fatcow_page_white_acrobat_16px;
 		toolStripMenuItemSaveAsChm.Name = "toolStripMenuItemSaveAsChm";
-		toolStripMenuItemSaveAsChm.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsChm.Size = new Size(145, 22);
 		toolStripMenuItemSaveAsChm.Text = "Save as CHM";
 		toolStripMenuItemSaveAsChm.Click += ToolStripMenuItemSaveAsChm_Click;
 		toolStripMenuItemSaveAsChm.MouseEnter += Control_Enter;
@@ -1125,7 +1125,6 @@ partial class DatabaseDifferencesForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "DatabaseDifferencesForm";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Database Differences";
 		Load += DatabaseDifferencesForm_Load;

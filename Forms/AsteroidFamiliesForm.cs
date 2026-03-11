@@ -8,6 +8,7 @@ using Krypton.Toolkit;
 using NLog;
 
 using Planetoid_DB.Forms;
+using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
 using System.Globalization;
@@ -125,6 +126,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		{
 			kryptonProgressBarToolStripItem.Value = percent;
 			kryptonProgressBarToolStripItem.Text = $"{percent}%";
+			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)percent, progressMax: 100);
 		});
 		// Start the detection process on a background thread to keep the UI responsive.
 		Task.Run(

@@ -663,7 +663,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 	/// <summary>Shows the asteroid families form.</summary>
 	/// <remarks>Passes the full planetoids database to the form so it can display asteroid families.</remarks>
-	private void ShowAsteroidFamilies()
+	private void ShowAsteroidFamiliesDetection()
 	{
 		using AsteroidFamiliesForm formAsteroidFamilies = new(planetoids: planetoidsDatabase);
 		formAsteroidFamilies.TopMost = TopMost;
@@ -1414,7 +1414,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 						// Update the progress bar value
 						toolStripProgressBarBackgroundDownload.Value = Math.Min(percent, 100);
 						// Update the taskbar progress value
-						TaskbarProgress.SetValue(Handle, (ulong)Math.Min(percent, 100), 100);
+						TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)Math.Min(percent, 100), progressMax: 100);
 					}
 				}
 			}
@@ -2597,12 +2597,12 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method is used to show the orbit elements grouping form.</remarks>
 	private void ToolStripMenuItemOrbitElementsGrouping_Click(object sender, EventArgs e) => ShowOrbitElementsGrouping();
 
-	/// <summary>Handles the click event for the ToolStripMenuItemAsteroidFamilies.
+	/// <summary>Handles the click event for the ToolStripMenuItemAsteroidFamiliesDetection.
 	/// Shows the asteroid families form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the asteroid families form.</remarks>
-	private void ToolStripMenuItemAsteroidFamiliesDetection_Click(object sender, EventArgs e) => ShowAsteroidFamilies();
+	private void ToolStripMenuItemAsteroidFamiliesDetection_Click(object sender, EventArgs e) => ShowAsteroidFamiliesDetection();
 
 	/// <summary>Handles the click event for the MenuitemOrbitalResonancesOfAllMinorPlanets.
 	/// Shows the orbital resonances of all minor planets form.</summary>

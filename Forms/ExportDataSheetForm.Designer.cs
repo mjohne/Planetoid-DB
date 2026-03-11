@@ -249,6 +249,7 @@ partial class ExportDataSheetForm
 		contextMenuExport.Font = new Font("Segoe UI", 9F);
 		contextMenuExport.Items.AddRange(new ToolStripItem[] { toolStripMenuItemExportAsText, toolStripMenuItemExportAsLatex, toolStripMenuItemExportAsMarkdown, toolStripMenuItemExportAsWord, toolStripMenuItemExportAsOdt, toolStripMenuItemExportAsRtf, toolStripMenuItemExportAsExcel, toolStripMenuItemExportAsOds, toolStripMenuItemExportAsCsv, toolStripMenuItemExportAsTsv, toolStripMenuItemExportAsPsv, toolStripMenuItemExportAsHtml, toolStripMenuItemExportAsXml, toolStripMenuItemExportAsJson, toolStripMenuItemExportAsYaml, toolStripMenuItemExportAsSql, toolStripMenuItemExportAsPdf, toolStripMenuItemExportAsPostScript, toolStripMenuItemExportAsEpub, toolStripMenuItemExportAsMobi });
 		contextMenuExport.Name = "contextMenuSaveToFile";
+		contextMenuExport.OwnerItem = toolStripDropDownButtonExport;
 		contextMenuExport.Size = new Size(226, 444);
 		contextMenuExport.TabStop = true;
 		contextMenuExport.Text = "Export";
@@ -629,7 +630,6 @@ partial class ExportDataSheetForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "ExportDataSheetForm";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Export data sheet";
 		Load += ExportDataSheetForm_Load;

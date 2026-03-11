@@ -503,7 +503,6 @@ partial class DownloadMpcorbDatForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "DownloadMpcorbDatForm";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Download MPCORB.DAT";
 		FormClosing += DownloadMpcorbDatForm_FormClosing;

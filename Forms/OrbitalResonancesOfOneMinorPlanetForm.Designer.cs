@@ -232,7 +232,6 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "OrbitalResonancesOfOneMinorPlanetForm";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Orbital resonances";
 		Load += OrbitalResonanceForm_Load;

@@ -574,7 +574,6 @@ partial class DatabaseDownloaderForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "DatabaseDownloaderForm";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Downloader";
 		tableLayoutPanel.ResumeLayout(false);

@@ -192,7 +192,6 @@ partial class TerminologyForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "TerminologyForm";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Terminology";
 		Load += TerminologyForm_Load;

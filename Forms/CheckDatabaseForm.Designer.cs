@@ -403,7 +403,6 @@ partial class CheckDatabaseForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "CheckDatabaseForm";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Check database";
 		Load += CheckDatabaseForm_Load;

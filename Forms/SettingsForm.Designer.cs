@@ -510,7 +510,6 @@ namespace Planetoid_DB;
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "SettingsForm";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Settings";
 		Load += SettingsForm_Load;

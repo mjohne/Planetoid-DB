@@ -348,10 +348,9 @@ public partial class RecordsForm : BaseKryptonForm
 		if (progressBar.Value != percent)
 		{
 			progressBar.Value = percent;
+			progressBar.Text = $"{percent} %";
+			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)percent, progressMax: 100);
 		}
-
-		labelPercent.Values.Text = $"{percent} %";
-
 		// If this progress report carries a record update, apply it to the labels
 		if (e.UserState is RecordProgressUpdate update)
 		{
@@ -379,18 +378,18 @@ public partial class RecordsForm : BaseKryptonForm
 
 		if (e.Cancelled)
 		{
-			labelPercent.Values.Text = "Scan cancelled";
+			progressBar.Text = "Scan cancelled";
 			ClearStatusBar(label: labelInformation);
 		}
 		else if (e.Error != null)
 		{
 			logger.Error(exception: e.Error, message: e.Error.Message);
-			labelPercent.Values.Text = I18nStrings.ErrorCaption;
+			progressBar.Text = I18nStrings.ErrorCaption;
 			ClearStatusBar(label: labelInformation);
 		}
 		else
 		{
-			labelPercent.Values.Text = "100 %";
+			progressBar.Text = "100 %";
 		}
 	}
 
@@ -422,7 +421,6 @@ public partial class RecordsForm : BaseKryptonForm
 		progressBar.Enabled = true;
 		progressBar.Value = 0;
 		progressBar.Text = "0 %";
-		labelPercent.Values.Text = "0 %";
 		checkButtonMax.Enabled = false;
 		checkButtonMin.Enabled = false;
 		groupBoxRecordType.Enabled = false;

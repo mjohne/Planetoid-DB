@@ -6,6 +6,7 @@
 using NLog;
 
 using Planetoid_DB.Forms;
+using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 using Planetoid_DB.Resources;
 
@@ -256,6 +257,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 							kryptonProgressBarToolStripItemCompression.Text = $"{currentProgress} %";
 							kryptonProgressBarToolStripItemCompression.ToolTipText = kryptonProgressBarToolStripItemCompression.Text;
 							labelInformation.Text = $"Time: {elapsed:hh\\:mm\\:ss} / {remaining:hh\\:mm\\:ss} | Level: {compressionLevel} | Read: {FormatBytes(bytes: totalRead)} | Written: {FormatBytes(bytes: totalWritten)} | Est. Size: {FormatBytes(bytes: estimatedSize)}";
+							TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)currentProgress, progressMax: 100);
 						}));
 					}
 					catch (ObjectDisposedException)

@@ -244,7 +244,6 @@ partial class LicenseForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "LicenseForm";
-		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "License: GPL-3.0";
 		Load += LicenseForm_Load;

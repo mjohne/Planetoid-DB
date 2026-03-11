@@ -122,7 +122,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		int clampedPercent = Math.Clamp(value: percent, min: 0, max: 100);
 		kryptonProgressBar.Value = clampedPercent;
 		kryptonProgressBar.Text = $"{clampedPercent}%";
-		labelProgress.Values.Text = $"{clampedPercent}%";
+		TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)clampedPercent, progressMax: 100);
 	}
 
 	#endregion

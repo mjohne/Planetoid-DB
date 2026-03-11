@@ -55,6 +55,7 @@ public partial class SplashScreenForm : BaseKryptonForm
 		}
 		// Set the value of the progress bar
 		progressBarSplash.Value = value;
+		// Update the taskbar progress
 	}
 
 	#endregion
