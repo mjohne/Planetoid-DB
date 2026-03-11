@@ -29,7 +29,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 
 	/// <summary>Gets the status label used for displaying information in the status bar.</summary>
 	/// <remarks>Overrides the base class property to return the form-specific status label.</remarks>
-	//protected override ToolStripStatusLabel? StatusLabel => labelInformation;
+	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	/// <summary>Gets the list of raw planetoid data lines from the MPCORB database.</summary>
 	/// <remarks>This list is used as the source data for detecting asteroid families.</remarks>
