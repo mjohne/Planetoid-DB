@@ -6,6 +6,7 @@
 using NLog;
 
 using Planetoid_DB.Forms;
+using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 
 using System.Diagnostics;
@@ -184,6 +185,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		{
 			kryptonProgressBarDownload.Value = percentage;
 			kryptonProgressBarDownload.Text = $"{percentage}%";
+			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)Math.Min(percentage, 100), progressMax: 100);
 		}
 
 		if (downloadStopwatch != null)
