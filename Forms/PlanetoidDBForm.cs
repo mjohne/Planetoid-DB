@@ -1413,6 +1413,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 						int percent = (int)(totalRead * 100 / totalBytes);
 						// Update the progress bar value
 						toolStripProgressBarBackgroundDownload.Value = Math.Min(percent, 100);
+						// Update the taskbar progress value
+						TaskbarProgress.SetValue(Handle, (ulong)Math.Min(percent, 100), 100);
 					}
 				}
 			}
