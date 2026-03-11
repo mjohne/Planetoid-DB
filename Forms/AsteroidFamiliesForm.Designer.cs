@@ -158,7 +158,7 @@ partial class AsteroidFamiliesForm
 		// 
 		// listViewMembers
 		// 
-		listViewMembers.AccessibleDescription = "Show the members of a potential asteroid family";
+		listViewMembers.AccessibleDescription = "Shows the members of a potential asteroid family";
 		listViewMembers.AccessibleName = "Members of a potential asteroid family";
 		listViewMembers.AccessibleRole = AccessibleRole.List;
 		listViewMembers.AllowColumnReorder = true;
