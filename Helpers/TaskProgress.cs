@@ -11,16 +11,14 @@ namespace Planetoid_DB.Helpers;
 /// <remarks>This class provides methods to interact with the Windows taskbar to display progress.</remarks>
 public static class TaskbarProgress
 {
-	private static readonly Lock _syncLock = new();
+	private static readonly Lock _taskbarInstanceLock = new();
 
-	/// <summary>Indicates whether taskbar support has been initialized.</summary>
-	/// <remarks>This field is used to ensure that the taskbar support check is performed only once,
-	/// avoiding repeated locking and version checks on unsupported systems.</remarks>
-	private static bool _isTaskbarSupportInitialized;
-
-	/// <summary>Indicates whether the current OS supports the taskbar progress API.</summary>
-	/// <remarks>This field is used to cache the result of the OS support check, avoiding repeated evaluations on unsupported systems.</remarks>
-	private static bool _isTaskbarSupported;
+	/// <summary>Lazily evaluates and caches whether the current OS supports the taskbar progress API.</summary>
+	/// <remarks>Uses <see cref="Lazy{T}"/> with thread-safe initialization to perform the OS version check exactly once,
+	/// eliminating the need for manual double-checked locking and ensuring correct memory visibility across threads.</remarks>
+	private static readonly Lazy<bool> _isTaskbarSupported = new(
+		valueFactory: static () => Environment.OSVersion.Version >= new Version(major: 6, minor: 1),
+		isThreadSafe: true);
 
 	/// <summary>Gets the instance of the taskbar interface used to manage taskbar features such as progress indicators and
 	/// thumbnail previews.</summary>
@@ -32,29 +30,16 @@ public static class TaskbarProgress
 	{
 		get
 		{
-			// One-time OS support check, cached to avoid repeated locking on unsupported systems.
-			if (!_isTaskbarSupportInitialized)
-			{
-				lock (_syncLock)
-				{
-					if (!_isTaskbarSupportInitialized)
-					{
-						// OS-Check (from Windows 7)
-						_isTaskbarSupported = Environment.OSVersion.Version >= new Version(major: 6, minor: 1);
-						_isTaskbarSupportInitialized = true;
-					}
-				}
-			}
-			// If the OS is not supported, avoid further locking and initialization attempts.
-			if (!_isTaskbarSupported)
+			// On unsupported OS versions, short-circuit before acquiring the lock.
+			if (!_isTaskbarSupported.Value)
 			{
 				return null;
 			}
 			if (field == null)
 			{
-				lock (_syncLock)
+				lock (_taskbarInstanceLock)
 				{
-					if (field == null && _isTaskbarSupported)
+					if (field == null)
 					{
 						field = new TaskbarInstance() as ITaskbarList3;
 						field?.HrInit(); // IMPORTANT: Windows 10 often requires this explicit initialization
