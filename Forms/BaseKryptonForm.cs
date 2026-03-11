@@ -221,7 +221,7 @@ public class BaseKryptonForm : KryptonForm
 	{
 		if (string.IsNullOrWhiteSpace(value: fileName))
 		{
-			throw new System.ArgumentException(message: "The parameter 'fileName' cannot be null, empty, or consist only of white-space characters.", paramName: nameof(fileName));
+			throw new ArgumentException(message: "The parameter 'fileName' cannot be null, empty, or consist only of white-space characters.", paramName: nameof(fileName));
 		}
 		try
 		{
