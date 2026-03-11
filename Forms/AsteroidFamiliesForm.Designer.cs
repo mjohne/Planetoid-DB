@@ -368,7 +368,7 @@ partial class AsteroidFamiliesForm
 		// 
 		// toolStripButtonSaveListAllFamilies
 		// 
-		toolStripButtonSaveListAllFamilies.AccessibleDescription = "Saves all potential asteroid families into a text fil";
+		toolStripButtonSaveListAllFamilies.AccessibleDescription = "Saves all potential asteroid families into a text file";
 		toolStripButtonSaveListAllFamilies.AccessibleName = "Save all into a text file";
 		toolStripButtonSaveListAllFamilies.AccessibleRole = AccessibleRole.PushButton;
 		toolStripButtonSaveListAllFamilies.Image = Resources.FatcowIcons16px.fatcow_disk_multiple_16px;
