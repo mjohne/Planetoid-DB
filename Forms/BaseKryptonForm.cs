@@ -212,4 +212,25 @@ public class BaseKryptonForm : KryptonForm
 			currentControl = control;
 		}
 	}
+
+	/// <summary>Opens the specified website URL in the default web browser.</summary>
+	/// <remarks>If the operation fails, an error message is displayed and the exception is logged. The method uses
+	/// the system's default browser to open the URL.</remarks>
+	/// <param name="fileName">The URL or file name to open in the default browser. Cannot be null or empty.</param>
+	internal static void OpenWebsite(string fileName)
+	{
+		try
+		{
+			// Open the website in the default browser
+			using Process process = new();
+			process.StartInfo = new ProcessStartInfo(fileName: fileName) { UseShellExecute = true };
+			process.Start();
+		}
+		catch (Exception ex)
+		{
+			// Log the exception and show an error message
+			logger.Error(exception: ex, message: ex.Message);
+			ShowErrorMessage(message: $"Error opening the website: {ex.Message}");
+		}
+	}
 }
