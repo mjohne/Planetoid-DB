@@ -588,7 +588,7 @@ partial class AsteroidFamiliesForm
 		// 
 		// AsteroidFamiliesForm
 		// 
-		AccessibleDescription = "Shows the Asteroid families detection";
+		AccessibleDescription = "Shows asteroid family detection";
 		AccessibleName = "Asteroid Families Detection";
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
