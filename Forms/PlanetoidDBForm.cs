@@ -1413,8 +1413,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 						int percent = (int)(totalRead * 100 / totalBytes);
 						// Update the progress bar value
 						toolStripProgressBarBackgroundDownload.Value = Math.Min(percent, 100);
-						// Set the taskbar progress value
-						TaskbarProgress.SetValue(windowHandle: Handle, progressValue: percent, progressMax: 100);
 					}
 				}
 			}
@@ -1791,21 +1789,21 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to open the Planetoid Database website.</remarks>
-	private void MenuitemOpenWebsitePDB_Click(object sender, EventArgs e) => Process.Start(fileName: Settings.Default.systemHomepage);
+	private void MenuitemOpenWebsitePDB_Click(object sender, EventArgs e) => OpenWebsite(fileName: Settings.Default.systemHomepage);
 
 	/// <summary>Handles the click event for the MenuitemOpenWebsiteMPC.
 	/// Opens the Minor Planet Center website.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to open the Minor Planet Center website.</remarks>
-	private void MenuitemOpenWebsiteMPC_Click(object sender, EventArgs e) => Process.Start(fileName: Settings.Default.systemWebsiteMpc);
+	private void MenuitemOpenWebsiteMPC_Click(object sender, EventArgs e) => OpenWebsite(fileName: Settings.Default.systemWebsiteMpc);
 
 	/// <summary>Handles the click event for the MenuitemOpenMPCORBWebsite.
 	/// Opens the MPCORB website.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to open the MPCORB website.</remarks>
-	private void MenuitemOpenMPCORBWebsite_Click(object sender, EventArgs e) => Process.Start(fileName: Settings.Default.systemWebsiteMpcorb);
+	private void MenuitemOpenMPCORBWebsite_Click(object sender, EventArgs e) => OpenWebsite(fileName: Settings.Default.systemWebsiteMpcorb);
 
 	/// <summary>Handles the click event for the MenuitemDownloadMpcorbDat.
 	/// Shows the downloader form for the MPCORB database.</summary>
@@ -1862,7 +1860,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to open the Planetoid Database website.</remarks>
-	private void ToolStripButtonOpenWebsitePDB_Click(object sender, EventArgs e) => Process.Start(fileName: Settings.Default.systemHomepage);
+	private void ToolStripButtonOpenWebsitePDB_Click(object sender, EventArgs e) => OpenWebsite(fileName: Settings.Default.systemHomepage);
 
 	/// <summary>Handles the click event for the ToolStripButtonTableMode.
 	/// Opens the table mode form.</summary>
@@ -2602,7 +2600,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the asteroid families form.</remarks>
-	private void ToolStripMenuItemAsteroidFamilies_Click(object sender, EventArgs e) => ShowAsteroidFamilies();
+	private void ToolStripMenuItemAsteroidFamiliesDetection_Click(object sender, EventArgs e) => ShowAsteroidFamilies();
 
 	/// <summary>Handles the click event for the MenuitemOrbitalResonancesOfAllMinorPlanets.
 	/// Shows the orbital resonances of all minor planets form.</summary>
