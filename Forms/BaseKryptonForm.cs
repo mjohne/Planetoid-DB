@@ -217,7 +217,7 @@ public class BaseKryptonForm : KryptonForm
 	/// <remarks>If the operation fails, an error message is displayed and the exception is logged. The method uses
 	/// the system's default browser to open the URL.</remarks>
 	/// <param name="fileName">The URL or file name to open in the default browser. Cannot be null or empty.</param>
-	internal static void OpenWebsite(string fileName)
+	protected static void OpenWebsite(string fileName)
 	{
 		if (string.IsNullOrWhiteSpace(value: fileName))
 		{
