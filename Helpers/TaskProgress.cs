@@ -11,30 +11,38 @@ namespace Planetoid_DB.Helpers;
 /// <remarks>This class provides methods to interact with the Windows taskbar to display progress.</remarks>
 public static class TaskbarProgress
 {
-	private static readonly Lock _syncLock = new();
+	private static readonly Lock _taskbarInstanceLock = new();
+
+	/// <summary>Lazily evaluates and caches whether the current OS supports the taskbar progress API.</summary>
+	/// <remarks>Uses <see cref="Lazy{T}"/> with thread-safe initialization to perform the OS version check exactly once,
+	/// eliminating the need for manual double-checked locking and ensuring correct memory visibility across threads.</remarks>
+	private static readonly Lazy<bool> _isTaskbarSupported = new(
+		valueFactory: static () => Environment.OSVersion.Version >= new Version(major: 6, minor: 1),
+		isThreadSafe: true);
 
 	/// <summary>Gets the instance of the taskbar interface used to manage taskbar features such as progress indicators and
 	/// thumbnail previews.</summary>
-	/// <remarks>This property initializes the taskbar instance only if it has not been created yet, ensuring thread
-	/// safety. It requires Windows 7 or later for proper functionality, and explicit initialization is necessary for
-	/// Windows 10.</remarks>
+	/// <remarks>This property initializes the taskbar instance only if it has not been created yet, ensuring thread safety.
+	/// It requires Windows 7 or later for proper functionality, and explicit initialization is necessary for Windows 10.
+	/// On unsupported OS versions, the support state is cached to avoid repeated locking and version checks.</remarks>
 	// Lazy Initialization (Thread-safe), the instance is only created when it is actually needed.
 	private static ITaskbarList3? TaskbarInstance
 	{
 		get
 		{
+			// On unsupported OS versions, short-circuit before acquiring the lock.
+			if (!_isTaskbarSupported.Value)
+			{
+				return null;
+			}
 			if (field == null)
 			{
-				lock (_syncLock)
+				lock (_taskbarInstanceLock)
 				{
 					if (field == null)
 					{
-						// OS-Check (from Windows 7)
-						if (Environment.OSVersion.Version >= new Version(major: 6, minor: 1))
-						{
-							field = new TaskbarInstance() as ITaskbarList3;
-							field.HrInit(); // IMPORTANT: Windows 10 often requires this explicit initialization
-						}
+						field = new TaskbarInstance() as ITaskbarList3;
+						field?.HrInit(); // IMPORTANT: Windows 10 often requires this explicit initialization
 					}
 				}
 			}
@@ -77,7 +85,8 @@ public static class TaskbarProgress
 /// <remarks>This enumeration is used to specify the state of the taskbar progress bar.</remarks>
 public enum TaskbarProgressState
 {
-	/// <summary>Represents a state indicating that no progress has been made.</summary>	/// <remarks>This state is used when there is no progress to report.</remarks>
+	/// <summary>Represents a state indicating that no progress has been made.</summary>
+	/// <remarks>This state is used when there is no progress to report.</remarks>
 	NoProgress = 0,
 	/// <summary>Represents a state indicating that the progress is indeterminate.</summary>
 	/// <remarks>This state is used when the progress is unknown or cannot be determined.</remarks>
