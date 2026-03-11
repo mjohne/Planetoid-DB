@@ -214,14 +214,17 @@ public class BaseKryptonForm : KryptonForm
 	}
 
 	/// <summary>Opens the specified website URL in the default web browser.</summary>
-	/// <remarks>If the operation fails, an error message is displayed and the exception is logged. The method uses
-	/// the system's default browser to open the URL.</remarks>
-	/// <param name="fileName">The URL or file name to open in the default browser. Cannot be null or empty.</param>
+	/// <remarks>If the operation fails or the input is invalid, an error message is displayed and the exception or error is logged.
+	/// The method uses the system's default browser to open the URL.</remarks>
+	/// <param name="fileName">The URL or file name to open in the default browser. If null, empty, or whitespace, an error is logged and shown.</param>
 	protected static void OpenWebsite(string fileName)
 	{
 		if (string.IsNullOrWhiteSpace(value: fileName))
 		{
-			throw new ArgumentException(message: "The parameter 'fileName' cannot be null, empty, or consist only of white-space characters.", paramName: nameof(fileName));
+			const string message = "The parameter 'fileName' cannot be null, empty, or consist only of white-space characters.";
+			logger.Error(message);
+			ShowErrorMessage(message: $"Error opening the website: {message}");
+			return;
 		}
 		try
 		{
@@ -233,8 +236,8 @@ public class BaseKryptonForm : KryptonForm
 		catch (Exception ex)
 		{
 			// Log the exception and show an error message
-			logger.Error(exception: ex, message: ex.Message);
-			ShowErrorMessage(message: $"Error opening the website: {ex.Message}");
+			logger.Error(exception: ex, message: $"Error opening website '{fileName}'.");
+			ShowErrorMessage(message: $"Error opening the website '{fileName}'. Please see the log for more details.");
 		}
 	}
 }
