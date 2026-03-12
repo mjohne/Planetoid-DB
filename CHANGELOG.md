@@ -1,5 +1,28 @@
 # Changelog
 
+## Planetoid-DB 0.8.4.55
+
+ Updated image link in README.md by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/485
+* Added changelog entries for version 0.8.3.54 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/486
+* Updated version number to 0.8.4.55 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/487
+* Added ToolStripNumericUpDown by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/488
+* Updated documentation comments by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/490
+* Updated AppInfoForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/492
+* Fixed an TaskbarProgress by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/491
+* Deleted Helpers/TaskbarProgress.cs by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/493
+* Updated files after deleting Helpers/TaskbarProgress.cs by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/494
+* Redesigned GUI by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/495
+* Added TaskbarProgress class for managing taskbar progress by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/496
+* Fix thread-safety race condition in TaskbarProgress OS support check by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/498
+* Refactored taskbar support initialization and comments by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/497
+* Implemented OpenWebsite method for URL navigation by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/499
+* Refactored website calling by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/500
+* Updated GUI by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/501
+* Refactored DatabaseDownloaderForm for clarity and efficiency by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/502
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.8.3.54.483.1605...0.8.4.55.502.1660
+
+
 ## Planetoid-DB 0.8.3.54
 
 * Replaced screenshot of Planetoid-DB in README by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/479
