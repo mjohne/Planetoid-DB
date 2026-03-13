@@ -118,9 +118,1231 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <metadata name="contextMenuStripCopyToClipboard.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>268, 17</value>
+    <value>310, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="kryptonPictureBoxLogo.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+        AACIDHPm/F/B7MZ/hFqs+wAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="kryptonPictureBoxVisualStudio.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+</value>
+  </data>
+  <data name="kryptonPictureBoxDotNet.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vAAADrwBlbxySQAAA8dJREFUeF7tV1tPE0EU9vcooiIaH73hi4miCBY1EkHhAfFGJCYQE3lAQY2JlwcT
+        LzGGqI+amOgD8GQieHugrUBpochVIdgrTbs945zZznaX7tpCN9h15yRfpuecb8+0X86czq47tMFJytcP
+        AofdfCGA2QWt5jMB7AzRAWYXtJovBMCAnSE6wOyCVvOFABiwM0QHmF3Qar4QAAN2hugAswtazRcCYMDO
+        EB1gdkGr+UIADKwWFRudpHqbm8FR6tLlKChKcys3a7mOUjluhKNbZb6Drnp5XdCauKd6Hz3k1QFtNT6I
+        RpIkGpYgHJCgxeE15NfuHIJwUGL853dmNfn52ThgjRRYPbXv/hxGHkyNxXTzRn7driHD78ORlwBXa8eA
+        UIOUjQxG4Mgmly4fv4wkAeO/uD+nyaMw3NT10NAfdUUZF4XSy6c+MlP7p/essQBoTzpnsLUy+LkI8MMb
+        g1vNE4QCVw5y7cwY43Y0+jX5lw/mlP373iwqfJ6nRyfr78lrBlABcH9mCz/jbI2EJFJfNpzBpQIQKgDj
+        UAE0OSoAizsHwpp4NrSe9LHn0J52MeFXDNM6oPvuLMSWkszv7wnA4SK5Czg/lw6gAqxofyqAsj8VICtf
+        zzdNgJuXtC3ZeWFCw/8/BTiVFoCduRIX+D1LzP81HYcTO9wKPxcBXJ/CUFFM/16Lnbhy4N+Z7v6mCbBa
+        qGcADh+M4blMyieBvO2eV7i5zAApAST0WyJBFdDvOOvX8DkKagZgB/D8+1cLGIJEAuDKcS/j59IBaLwe
+        N/S7Lsq1OZ9/LrgjwPPY+gtzcQyD1x0lVVtcOQkw6YvBvbZJQoErB2koG9bw+ed/L4BBB+CKQxGSmCHk
+        2e0ZWQDaEcgvuCG4WujNAAX0Hv6xJ8ByEXrGW2t8JCFf5AxngKXvAcs7ANGwbxhCAYnl3V/CsBSVp2PB
+        dYA6YOTjub5MX3aqStJ3/WwCIB51TLM8N+RbToBj290w7Y+xL/ntQwhfg1kuFwHw1ff71wh7Fg35RgIE
+        FxMw0BskFLhykP7eANTvlQehuv6azYDz5R66CW5FCL3uyu/aNP7XGaBCc+Uoe46b0QwwMvr7yLmDHs0z
+        iDWbAXivp5camB6PweMb6be9pgMe6Hu9SCigpdpr+DyuD9unkMv415v8mvw7em9I5ZR6y/263UMZ9Rv3
+        jyj59obxjHwufl5D8H/whQAYsDNEB5hd0Gq+EAADdoboALMLWs0XAmDAzhAdYHZBq/lCAAzYGaIDzC5o
+        NV8IgAE7Q3SA2QWt5gsBMGBfOMkfXcetcN1MMYgAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="kryptonPictureBoxCSharp.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+        QmCC
+</value>
+  </data>
+  <metadata name="imageListTabAbout.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>551, 17</value>
+  </metadata>
+  <data name="imageListTabAbout.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
+        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAnAwAAAJNU0Z0AUkBTAIBAQIB
+        AAEIAQABCAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARAi
+        AAMWAR4DIQExAyIBMwMiATMDIgEzAyEBMQMWAR4gAAMIAQoDHQEqAyIBMwMdASoDCAEKqAADCwEOAyIB
+        MwFzAVMBNwKqAVsBGAH5Aa0BWQESAf8BrQFZARIB/wGtAVkBEgH/AaoBWwEYAfkBcwFTATcBqgMiATMD
+        CwEOEAADDgESAyEBMQE8ATkBNQFZAZ0BewFQAdkBwQGPAU8B/wGeAXsBUAHZATwBOQE1AVkDIQExAw4B
+        EpwAAwsBDgFHAT4BNgFrAa0BWgETAf8BygGJAUgB/wHgAa0BbgH/AeYBtwF7Af8B5gG3AXoB/wHmAbcB
+        ewH/AeABrQFuAf8BygGJAUgB/wGtAVoBEwH/AUcBPgE2AWsDCwEOCAADIgEzAVUBTQFCAXoBuAGJAU4B
+        +AHVAaIBYwH/AfcBwAGCAv8B3QGzAf8B5gG3AX8B/wHFAZMBVgH/AbgBiQFNAfgBVQFNAUIBegMiATOY
+        AAFHAT4BNgFrAbEBYAEZAf8B2gGkAWQB/wHhAbEBcgH/Ad8BrAFrAf8B3AGmAWMB/wHcAaUBYAH/AdwB
+        pgFjAf8B3wGsAWwB/wHhAbEBcgH/AdoBpAFkAf8BsQFgARkB/wFHAT4BNgFrCAABwAGPAVAB/wHVAaIB
+        ZAH/AfQBvgGBAf8B+AHBAYIB/wHzAboBeQH/AfsB4QHBAf8B+wHPAZsC/wHWAaUB/wHzAcYBkAH/AdoB
+        qgFuAf8BzgGLAUgB/wMcASgDCAEKjAADFgEeAa4BWwEUAf8B2AGfAV4B/wHfAawBawH/Ad0BqAFmAf8B
+        7AHQAbAN/wHaAaMBXgH/Ad0BqAFmAf8B3wGsAWsB/wHYAZ8BXgH/Aa4BWwEUAf8DFgEeBAABvwGOAU4B
+        /wHyAb0BfwH/AewBtgF2Af8B5gGwAW8B/wHsAb0BhAH/Af0B8AHeAv8ByAGQAf8B9gHIAZIB/wH3AcwB
+        mQL/AdQBogH/AeoBpgFsAf8BLQGHAXIB1QEyATsBOAFZAyEBMQMOARKEAAFzAVQBOAGpAcUBggE+Af8B
+        3AGnAWYB/wHaAaMBYgH/AdkBoQFeAf8B1gGcAVUB/wHsAdABsAX/AdQBlQFLAf8B1wGfAVoB/wHZAaIB
+        YAH/AdoBowFiAf8B3AGnAWYB/wHFAYIBPgH/AXMBVAE4AakEAAG+AYwBTAH/AeIBrQFtAf8B4QG4AYIB
+        /wHvAeABwwH/Ad0B0QG4Af8B4AHTAbYB/wHlAecB1gH/AfAB0wGqAf8B9wHHAZIB/wH2AcUBjwH/AekB
+        owFnAf8BLgHGAZ0B/wEoAakBhQH/ASkBnwF+AfgBOgFQAUsBegMiATOAAAGrAVwBGQH5AdUBnAFYAf8B
+        2QGgAVwB/wHXAZ4BWgH/AdcBnQFYAf8B1QGYAU8B/wHsAc8BrwX/AdMBlAFJAf8B1gGcAVcB/wHXAZ4B
+        WgH/AdcBngFaAf8B2QGgAVwB/wHVAZwBWAH/AasBXAEZAfkEAAHCAZYBWgH/AewB3wHCAf8B3wHQAbQB
+        /wHgAbMBgAH/AfIBzAGlAv8B3wG3Av8B1gGiAf8B/AHXAaYB/wH5AfIB1gL/AesByAH/Ae8BowFiAf8B
+        OwHUAacB/wFLAdkBqwH/AUUBzgGiAf8BNQG7AZIB/wEjAagBhAH/gAABrwFbARUB/wHXAZ8BWgH/AdQB
+        mgFVAf8B1AGZAVQB/wHUAZgBUgH/AdEBkwFJAf8B6wHNAawF/wHQAY8BQwH/AdMBlwFRAf8B1AGZAVQB
+        /wHUAZkBVAH/AdQBmgFVAf8B1wGfAVoB/wGvAVsBFQH/BAABvwGMAUwB/wHhAbYBgAL/Ae8B1AL/Ad0B
+        sAL/Ac0BjwH/AfYBugF0Af8B2QHQAcwB/wFTAYkBzQH/AQ0BcgHbAf8BSwGOAdUB/wHCAZoBfAH/ATQB
+        xAGSAf8BPwHHAZgB/wFFAcsBnwH/AUsB0wGmAf8BIgGnAYMB/4AAAa4BWwEUAf8B2gGnAWkB/wHSAZUB
+        TQH/AdIBlQFOAf8B0gGUAUwB/wHPAY4BQgH/AekBygGoBf8BzgGLAT0B/wHRAZMBSwH/AdIBlQFOAf8B
+        0gGVAU4B/wHSAZUBTQH/AdoBpwFpAf8BrgFbARQB/wgAAUYBQAE5AVgBxgGZAWEC8QG5AXoB/wG7AcEB
+        0QH/ATgBfAHVAf8BHwGDAeQB/wEoAZsB8wH/AXYB0AL/AUIBpQHyAf8BIwGBAeAB/wEfAX8B0QH/ATcB
+        pwGqAf8BQwHBAZEB/wE8AcEBlQH/ASABpwGCAf+AAAGuAVoBEwH/Ad4BrwF4Af8BzgGOAUYB/wHPAZAB
+        SAH/Ac8BjwFHAf8BzAGIAT0J/wHLAYcBOwH/Ac4BjgFHAf8BzwGQAUkB/wHPAZABSAH/Ac4BjgFGAf8B
+        3gGvAXgB/wGuAVoBEwH/EAABGQFvAeIB/wEkAYMB5QH/ASsBnAHyAf8BLAGeAfMB/wEkAZcB7QH/AZAB
+        1gL/AU4BvgL/AVwBxgL/AVMBtgH6Af8BOgGZAewB/wEnAYEB4QH/AZ4B5gHNAf8BNAGxAY8B/4AAAakB
+        WwEXAfgB5AG+AZYB/wHMAYkBPQH/Ac0BigFBAf8BzQGLAUEB/wHLAYcBOwH/AccBfwEtAf8BxwF9ASsB
+        /wHKAYYBOAH/Ac0BiwFBAf8BzQGMAUMB/wHNAYoBQQH/AcwBiQE9Af8B5AG+AZYB/wGpAVsBFwH4EAAB
+        LAF0AdkB/wEmAZsB8AH/ASMBlAHsAf8BHQGOAekB/wE7AaIB7gH/AcIB6wL/AS4BqQH9Af8BPQGxAf0B
+        /wFKAbkC/wFXAcMC/wEdAXsB3QH/AU8BzAGaAf8BKwGtAYkB/4AAAW8BUwE6AZUB1QGmAXsB/wHZAagB
+        bwH/AcgBhAE2Af8ByQGGATkB/wHHAYIBMwH/AegBygGpBf8BxgGAAS8B/wHJAYYBOgH/AckBhgE6Af8B
+        yAGEATYB/wHZAagBbwH/AdUBpgF7Af8BbwFTAToBlRAAATABdAHUAf8BFgGLAecB/wE8AZ8B6wH/AZoB
+        2wH8Af8BdwG4AeoB/wF4AbkB7AH/Aa0B3AH2Af8BawG7AfQB/wE1AasB/AH/ATcBrgL/AR4BfAHdAf8B
+        MQE+ATkBUIgAAbEBXgEZAf8B6AHLAa4B/wHXAaIBaQH/AcUBfQEtAf8BxQF7ASoB/wHnAcgBpwX/AcMB
+        eQEnAf8BxgF+AS8B/wHGAX4BLgH/AdcBogFpAf8B6AHLAa4B/wGxAV4BGQH/FAABPgF/AdcB/wGSAdYB
+        +gH/AW4BsgHpAf8BJgGIAeAB/wE/AaEB6wH/AUkBtAH9Af8BPAGjAfgB/wFoAbIB7wH/AbYB5QH5Af8B
+        lgHdAv8BNAGLAeAB/4wAATcBMQEsAUYBtwFsASwB/wHkAcMBoAH/AeEBuwGQAf8BzgGSAU4B/wHCAXgB
+        JQH/AcABcQEbAf8BwwF6ASoB/wHPAZMBUQH/AeEBuwGQAf8B5AHDAaAB/wG3AWwBLAH/ATcBMQEsAUYU
+        AAEtAXQB1AH/AV4BqwHuAf8BYQHKAv8BRQGvAf0B/wEoAZMB9gH/AS4BfgHMAf8BYgHIAv8BQwGtAfsB
+        /wElAZIB9wH/AWABtwHxAf8BKgGIAdwB/5AAATcBMQEsAUYBsQFeARoB/wHMAZMBYAH/AeIBwAGdAf8B
+        6gHPAbAB/wHqAc4BsAH/AeoBzwGxAf8B4gHAAZ0B/wHMAZMBYAH/AbEBXgEaAf8BNwExASwBRhwAATUB
+        PgFKAVkBLgFtAbYB9gE2AYoB1gH/AWUBzAL/AUgBsQH9Af8BKgGVAfgB/wEtAYEB0gH/ASYBdwHCAfYB
+        NAFAAUoBWZwAAW8BUwE6AZUBqgFaARYB9wGtAVgBEAH/Aa0BWAEPAf8BrQFYARAB/wGqAVoBFgH3AW8B
+        UwE6AZUsAAEhASQBJwEvATwBhQHLAfoBMwGJAdgB/wEmAX0BzwH6ASIBJgEoAS+UAAFCAU0BPgcAAT4D
+        AAEoAwABQAMAARADAAEBAQABAQUAAYAXAAP/AQAB8AEfAeAB/wQAAcABBwGAAT8EAAGAAQMBAAEfBAAB
+        gAEDAQABBwUAAQEBAAEBBQABAQcAAQEHAAEBBwABAQGABgABAQHgBgABAQHgBgABAQHgAQEEAAGAAQMB
+        4AEDBAABgAEDAeABAwQAAcABBwHwAQcEAAHwAR8B/AEfBAAL
+</value>
+  </data>
+  <data name="kryptonTextBoxLicenseFlaticon.Text" xml:space="preserve">
+    <value>Flaticon Terms of use
+May 2024
+This website is operated by Freepik Company, S.L., registered in the Commercial Registry of Málaga, volume 4994, sheet 217, page number MA-113059, with Tax Number B-93183366 and registered office at 13 Molina Lario St., 5th floor, 29015, Málaga, Spain ("Company").
+
+These terms of use ("Terms") govern the access, browsing and use by the users ("User" or "Users", as applicable) of https://www.flaticon.com/, including any of its subdomains and/or sections ("Website"); as well as the services rendered through the Website ("Service" or "Services", as applicable) which include the download and use of certain content.
+
+By accessing and using the Website, the User accepts in their entirety and agrees to be bound by the Company's Acceptable Use Policy, which is made an integral part of these Terms by this reference.
+
+Accessing and using the Website implies that the User has read and accepts to be bound by these Terms without exception. In case the User does not accept the Terms or have any objection to any part of the present Terms, the User must not use the Website.
+
+The Company may modify the Terms at any time and thus we recommend that the Terms are reviewed on a regular basis by the User. The date at the beginning of these Terms refers to the latest update of these Terms, which will be applicable from the date of publication.
+
+Some Services provided through the Website may be subject to specific conditions or instructions that must be accepted by the User prior to the provision of the relevant Service. These specific conditions may be imposed by the Company or by third parties. Such specific conditions shall apply in addition to the Terms and, in case of conflict, shall supersede the Terms. Accordingly, the User must read and accept such specific conditions before the provision of the relevant Service.
+
+The Company may provide translations of these Terms into various languages merely for informative purposes. However, the English version is the only legally binding version. In the event of any discrepancy between the English version and a translated version, the English version shall prevail.
+
+Likewise, in respect of collection and processing of personal data, the Privacy Policy will apply.
+
+1. Services Offered
+Through the Website, it is offered to the User visual content, like vector icons, interface icons, stickers, without limitation, in source code and other formats, as well as specific information related to such content, classification of styles among collections, and a tool to customize sizes and colours.
+
+The Services may offer contents owned by the Company ("Flaticon Own Content"), contents owned by third parties offered through the Website ("Collaborators Content") as well as third-party content not offered free of charge ("Sponsored Content"). Sponsored Content is duly differentiated and identified on the search results. Flaticon Own Content and Collaborators Content shall be hereinafter referred to collectively as the "Flaticon Content" and can be downloaded through the Website.
+
+The Services include access to tools to create, organize and edit icon collections uploaded by authors.
+
+The Services also include the use of the Company's AI Products. These services are governed by their respective terms and conditions, which form part of these Terms by reference. By using these products, the User accepts said terms and conditions.
+
+2. Authorized Use
+The User is only authorized to use the Website and the Services in good faith and in accordance with the Terms, which include the Acceptable Use Policy. In particular and without limitation, Users (irrespective of whether they have purchased a Subscription or not) undertake that any access or downloads of any content available in the Website or through the Services will always be the result of a genuine legitimate interest of the User and acknowledges that any method which artificially increases the number of downloads, accesses or clicks over such content is strictly prohibited under these Terms (including, without limitation, the generation of downloads, accesses or clicks over such content through any robots, spiders or any other mechanism, mobile application, program or tool) and will result in the cancellation of the User’s account by the Company and the obligation for the User to indemnify the Company for all damages suffered as a result of the User’s breach of this undertaking, without the right of reimbursement of any of the amounts paid.
+
+The User agrees not to use the Services negligently, for fraudulent purposes or in an unlawful manner. Likewise, the User agrees not to partake in any conduct or action that could damage the image, interests or rights of the Website or third parties.
+
+The User will not interfere with the functioning of the Website or in the Services, in particular, he/she/it will not impersonate another user or person. The User agrees not to carry out any action that may damage, make unavailable, overload, deteriorate or impede the normal use of the Website or the Services, which may impact the security of the Website or the Services, or which may in any way interfere with the Services offered by the Company. The use of robots, spiders or any other mechanism, mobile application, program or tool to access, copy or control any part of the Website or the Services in any way which is contrary to the ordinary use of the Website or which infringes the Company’s interests (without its express prior authorization) is strictly prohibited. Likewise, obtaining or attempting to obtain the contents of the Website using any method or system not expressly authorized by the Company or which is not the ordinary method of accessing the Website is also strictly prohibited.
+
+The User shall be responsible for any costs required for the Services’ use and for ensuring, prior to using the Services, that the Services’ features meet the User’s needs and that he/she/it meets all requirements and has all the equipment and software necessary for this purpose.
+
+The rights granted to the User under these Terms are personal and shall not be assigned to any third party (including affiliates or entities part of the same group of companies) totally or partially, by any mean, without the prior, express and written consent from the Company.
+
+When providing the Services, the Website can publish advertising either related or not to the contents displayed or the Services, which is expressly accepted by the User.
+
+3. Registration
+In order to use certain Services, the User must register, creating a username and password and activating an account. To this end, the User must provide a valid email address where the User will receive notifications related to the Services. If the User is a legal entity or business, its username must be its full name or corporate name and the person registering on behalf of the legal entity or business declares that he/she is duly authorized to bind such legal entity or business and that such legal entity or business shall be bound to these Terms.
+
+The User agrees to provide the mandatory information required for registration and also acknowledges that such information is true, complete and up to date. The User is solely responsible for keeping such information updated. Should the User provide false, outdated or incomplete information, or should the Company have reasons to suspect it, the Company reserves the right to suspend or cancel the User’s account.
+
+The User must protect and keep the account password confidential and must not disclose it to third parties. The User must neither allow other Users to access the Services through the User’s account nor use the account of another User to access the Services.
+
+The User is responsible for all operations carried out through the User’s account through any device. If the User suspects that another User is using his account, he/she/it should immediately inform the Company.
+
+The Company may suspend or cancel the User’s account if it considers that the User has breached these Terms.
+
+4. Content
+The Services allow Users to search for content that may result in Flaticon Content and Sponsored Content, according to his or her preferences, and download such Flaticon Content.
+
+If you have any question regarding any content or believe that it infringes any right, that it does not comply with these Terms, or that is inappropriate, you can do so by contacting the Company as indicated in these Terms or following the instructions provided on the Website for a copyright complaint.
+
+4.1. Sponsored Content
+Regarding Sponsored Content, the Website’s role is limited to displaying content offered by the sponsored website with which the Company has reached an affiliation agreement or similar. Therefore, the Company will display a link to the sponsored website which offers the Sponsored Content, together with specific related information. In some cases, in order to provide the User a better user experience and facilitate returning to the Services, the link can be presented within a frame corresponding to the Website, which can be removed by the User at any time.
+
+The Company is not the provider of the Sponsored Content and does not present itself as owner of such contents.
+
+The Company does not select, examine, control, guarantee, approve, sponsor or identify itself in any form with the Sponsored Content displayed to the Users according to their preferences. The Sponsored Content are the sole responsibility of the third parties that make them available to the public over their own websites or Internet.
+
+The User will be able to access the corresponding third-party websites and download the Sponsored Content under the terms and conditions established by such third parties. The Company shall not be a party or be involved in any way in the relationship between the User and the corresponding third party. The User undertakes to read and comply with the terms and conditions established by such third parties for the download and use of Sponsored Content.
+
+The Company is not a party and does not take part in the relationship between the User and the third party that offers the Sponsored Content, and it is not directly or indirectly responsible for the performance, omissions, errors, negligence or breaches of the Users or such third parties. Any claim from the Users regarding the Sponsored Content must be addressed to the relevant third parties through the linked website.
+
+4.2. Flaticon Own Content
+Flaticon Own Contents are offered under the conditions stated from time to time in the Website (including, without limitation, restrictions to the number of downloads per day) and its use is allowed in the terms set out or referred to in these Terms, as applicable.
+
+4.3. Collaborators Content
+Collaborators Contents are offered in the terms stated at the relevant time in the Website (including, without limitation, daily download limits), and its use is allowed in the terms set out or referred to in these Terms, as applicable.
+
+When offering Collaborators Content, the Company acts as a mere intermediary between the User that downloads such content and the collaborator, providing the User with the access and subscription to the Collaborators Content.
+
+The Company makes reasonable efforts in guaranteeing the lawfulness and quality of the Collaborators Content. However, the Company cannot monitor or control all Collaborators Content. Therefore, the User acknowledges and agrees that the Company shall not be responsible for evaluating the originality, the non-infringement of third-party rights or the lawfulness of Collaborator Content and that the Company does not guarantee nor is liable in respect of any such contents, except for those cases expressly provided in the applicable regulations.
+
+4.4. AI Generated Content
+The User may generate different types of content using the AI Products offered by the Company on the Website. The use of the AI Products, as well as the content generated using such tools, is governed by the AI Products Terms and Conditions.
+
+5. Storage and Offer of Collaborator Content
+The Company limits itself to solely hosting the Collaborator Content and, therefore, it has no obligation to edit, select, check, or control the Collaborator Content nor does it guarantee, approve or necessarily agree with the Collaborator Content.
+
+If you wish to make an enquiry related to the Collaborator Content or if you believe that the Collaborator Content violates any rights or does not meet these Terms, or is inappropriate, you can contact the Company as indicated below.
+
+The Collaborator is the sole and exclusive responsible for the Collaborator Content provided to the Company for storage, publishing and offering to Users through the Website.
+
+6. Liability
+The User acknowledges and agrees that he/she/it uses the Website and its Services at the User’s own risk and under the User’s responsibility and, therefore, the Company does not accept any responsibility for misuse or use in breach of these Terms.
+
+The User will be responsible for any damages to the Company resulting from the User’s use of the Website and the Services in breach of the Terms and accepts to indemnify the Company and its directors, employees, agents and representatives from any liability in which they may incur as a result of the User’s breach of these Terms.
+
+The Company does not warrant the availability or continuity of the Website or the Services, neither its reliability, quality, completeness, accuracy or whether they are fit for a specific purpose or activity.
+
+As way of example and without limitation, the Company shall not be liable for any damages that may result from:
+
+Interruptions, viruses, technical problems, interferences, omissions, unavailability, power cuts, failure of the telecommunication networks or the User’s equipment which are not the Company’s responsibility.
+Delays or unavailability of the Website and the Services due to deficiencies or traffic overload on the Internet, in the communication network or the electricity grid.
+Third-party actions.
+Unavailability of the Website and the Services due to maintenance or software updates.
+Any other event beyond the Company’s direct control.
+Save for the company’s wilful misconduct, and those cases in which due to the specific circumstances of the user involved or the nature of the matter, applicable law provides that liability cannot be limited by agreement, use of the website and the services is at sole risk of the user and the company shall not be liable for any damage of any kind caused to the user as a result of using the website and/or the services.
+
+In accordance with Section 4 above regarding Sponsored Content, the Company exclusively limites itself to the provision of links to the content provided by the company that owns the Sponsored Content, based on the User’s preferences, without assuming any responsibility for search results.
+
+The insertion of links in the Services does not imply any relationship, recommendation or supervision by the Company of the linked website and, accordingly, the Company does not accept any liability in relation to the content of any linked website except in the specific circumstances provided by the applicable law.
+
+In accordance with Section 4 above regarding the Collaborator Contents, the Company acts exclusively as the provider of the storing and intermediation service between the offer of Collaborator Content and the Users interested in downloading them, without any liability in relation to such contents, except for those cases expressly stated by the applicable law.
+
+The Company will make reasonable commercial efforts in order to ensure the accuracy of keywords and descriptions, as well as the identification of content as exclusively for editorial use or equivalent. However, the company neither warrants nor makes any representation regarding any keyword, title or description; or the identification or lack of identification of any visual content as exclusively for editorial use. For this reason and notwithstanding any other liability limitation that may be applicable in accordance with these Terms, the Company shall neither indemnify nor assume any liability in connection with any claim resulting from inaccurate keywords, titles or descriptions, or from the use of the visual content identified as exclusively for editorial use.
+
+7. Intellectual Property
+All intellectual property rights over the Website, the Services, and/or the Flaticon Content, its design, and source code, and all content included in any of them (including without limitation text, images, animations, databases, graphics, logos, trademarks, icons, buttons, pictures, videos, sound recordings, etc.) belong or are licensed to the Company.
+
+Except as expressly authorized under these Terms, the reproduction or distribution, as well as transformation, producing any derivative works of any kind, public communication, making available, extraction, reuse or any other use of the Website, the Services, the Flaticon Content or any of its parts, is strictly forbidden.
+
+The Sponsored Content and Collaborator Content are protected by intellectual property rights, as appropriate, and belong to their owners. Regarding the Sponsored Content, although the Services can locate and provide access to these contents, its download and use is subject to the conditions set by the relevant third party. The Company is not the owner and cannot grant any license or authorization in relation to Sponsored Content. The User must obtain authorizations that are, in each case, required to use any Sponsored Content, which are stated in the relevant website, from which the User will be able to download the Sponsored Content.
+
+If you believe that any content infringes third party rights or does not comply with these Terms, you can report it to the Company as set forth in these Terms.
+
+8. License Agreement for Flaticon Content
+The Company authorizes the User to download and use the Flaticon Content solely in accordance with this Section (see Section 7 in relation to the Sponsored Content) and in any event subject the terms and limitations set forth hereunder. The terms under which the User may download and use the Flaticon Content shall depend on the type of license the User holds from time to time. The Company or its licensors reserve all rights to the Flaticon Content which are not expressly granted to the User under this Section.
+
+8.1. Flaticon License
+By means of these Terms, the Company grants the User a Flaticon License under which the User is authorized to download, use and modify the Flaticon Content on a device owned or controlled by the User on a non-transferable, limited, exclusive, revocable and worldwide basis for the entire duration of the rights and solely for the purposes and uses authorized under these Terms.
+
+Without prejudice to the provisions set forth in paragraph 3 of this clause, the User of a Flaticon License may use the content in the Flaticon Content, provided that
+
+the Flaticon Content is not used in printed or electronic items (e.g. t-shirts, cups, postcards, birthday or greeting cards, invitations, calendars, web models or electronic devices, apps, NFTs, videogames, advertising spots, audiovisual animations) aimed to be resold, in which the Flaticon Content is the main element (because of size, relevance or any other cause, in case of doubt about whether the content is main element, it shall be deemed that the content is main element);
+Furthermore, the authorization to use the content in the Flaticon Content shall be free of charge under the Flaticon License where any use thereof by the User is done by duly crediting said content to the Website/Company and, in any event, to the Collaborator, as stated by the Company from time to time. In order to benefit from the Service of using the Flaticon Content without the aforementioned crediting, the User must purchase a subscription (hereinafter the "Premium Subscription") from the Website and download the relevant Flaticon Content during the term of said Premium Subscription. The terms set forth in Section 9 shall apply to the purchase of the Premium Subscription.
+
+Where any content of the Flaticon Content is marked or identified as being for editorial use, or where within the same there are distinctive signs, recognizable products, public buildings, public events or images taken in places where recognizable persons appear in the background, the User shall only be entitled to use it for such editorial use; in other words, for purposes related to exercising freedom of expression and the right to information or for academic or educational purposes. More specifically, this means that the User undertakes not to use said content in any way that could imply a link to any business activity, use in the course of trade or the advertising, promotion or marketing of any product or service. In addition, the User shall ensure that any use for educational purposes is allowed under any legislation which applies and shall fulfill any requirements set forth by such legislation, including, but not limited to, citation obligations or limitations on the extent or purpose of said use. The User shall be directly liable for, and the Company shall not assume any liability resulting from the use for commercial purposes by the User of any content in the Flaticon Content whose use must be limited to editorial use as set forth in this paragraph or as a consequence of any editorial use that is contrary to the legislation which applies.
+
+8.2. Merchandising License
+The User may purchase a Merchandising License according to the procedure set out on the Website from time to time for some of the Flaticon Content chosen by the Company to be subject to a Merchandising License. The Company shall freely decide which content in the Flaticon Content can be subject to a Merchandising License and may change such content without restriction from time to time (though said decision shall not affect any Merchandising Licenses that have been duly purchased previously). The price for each Merchandising License shall be displayed on the Website from time to time, be individual and solely affect the content thus chosen. The Merchandising License is personal and it is forbidden to transfer it to third parties and to allow the use of the Flaticon Content under said License by third parties other than User (which for this purpose includes within the concept entities related or belonging to the same group of companies as the User).
+
+The price of the Merchandising License is displayed on the Website in the appropriate currency and includes, where applicable, the Value Added Tax which applies. The Company reserves the right to change the price of any Merchandising License from time to time, though it shall apply the current price appearing on the Website at the time the order for the Merchandising License is placed by the User.
+
+The User shall pay for the Merchandising License in advance through PayPal, a credit/debit card or any other payment method offered by the Company from time to time in accordance with the terms and conditions set forth on the Website. The User must follow the instructions displayed on the Website to purchase and pay for a Merchandising License. The processing of the information and data of payments made through PayPal, credit/debit card or any other payment method offered by the Company from time to time is done through third-party sites. By placing the order for the Merchandising License, the User authorizes the Company to charge the relevant price through the payment method chosen. The Merchandising License shall not be granted until payment thereof has been received from or authorized by the relevant financial institution. As from that time, the User may download the Flaticon Content for which the User has purchased a Merchandising License from said User's personal profile page.
+
+Likewise, an acknowledgment of receipt of the Merchandising License purchase order shall be sent to the User by e-mail as soon as possible and no later than twenty-four (24) hours after the order is accepted. The acknowledgment of receipt may be stored and printed. The User may request and download an invoice as stated on the Website twenty-four (24) hours after making the relevant payment.
+
+As the content is digital content, no right of withdrawal applies, without detriment to any safeguards set forth in the consumer and user protection legislation which may apply, except where the Company states otherwise and instead it shall be subject to the terms and conditions set forth by the Company.
+
+The Company authorizes the User who purchases a Merchandising License to download, use and modify the content in the Flaticon Content subject to said Merchandising License on a non-transferrable, personal, limited, non-exclusive, revocable and worldwide basis for the entire duration of the rights in order to design and produce printed or digital items or products intended for resale (e.g. T-shirts, mugs, postcards, birthday and greeting cards, invitations, calendars, website templates or electronic devices, apps, videogames, spots, or audiovisual animations), regardless of whether or not the content in the Flaticon Content subject to the Merchandising License is the end product's main element.
+
+Furthermore, the User may use the Flaticon Content for which the User has purchased a Merchandising License without crediting it to the Website/Company.
+
+Without limiting the provisions set forth in paragraph 3 of this Section, the User of a Merchandising License may use content in the Flaticon Content subject to the Merchandising License for the aforementioned uses, provided all the terms set forth hereunder are fulfilled:
+
+The Flaticon Content is not used in such a way so that the end user of the end products can extract and use it separately from the end products.
+The User does not display, sell, license or publicly distribute the Flaticon Content (or the User's works derived therefrom) as a separate file from the end products.
+The User takes all reasonable measures to prevent third parties from accessing or duplicating the Flaticon Content.
+The Flaticon Content is not used in software applications which allow a third party to generate on-demand designs. This includes (but is not limited to) on-demand printing software applications which an end user can access to use the Flaticon Content in order to design or generate their own end product.
+The Flaticon Content is not used in NFTs in which the Flaticon Content is the main element (due to size, relevance or any other reason so that, in the event of any doubt about whether the content is the main element, it shall be deemed as such).
+The User does not reproduce the content in the Flaticon Content more than 100,000 times on physical printed or digital formats intended for sale.
+8.3. Common terms and conditions of the Flaticon License and the Merchandising License
+Without detriment to the uses that are not allowed under each type of license set forth in the preceding paragraphs of this Section or by any other term of these Terms and Conditions, the User who purchases a Flaticon License or a Merchandising License may use the Flaticon Content (including any work derived therefrom) either entirely or with only one or some of its elements, whether it be without modification, combining it with other content or after having modified it previously, solely where:
+
+it does not involve collective use;
+the content in the Flaticon Content is not used in a way that implies an association with or sponsorship by the Company or the Website;
+the content in the Flaticon Content or any work derived therefrom, whether entirely or in part, is not used or included in a database, file or any other product or service which offers icons or images, or in any collection, set of videos or repertoire that could be subject to distribution or resale or is used in any other way that might impede or limit future visits to or downloads from the Website;
+the User does not resell, assign, transfer or sublicense the Flaticon Content or works derived from the Flaticon Content;
+the Flaticon Content is not used (whether entirely or in part) on a trademark or as a part thereof, or in a way which otherwise warrants or implies a warranty of any product and/or service, except where the Flaticon Content is used in a modified way in said uses so that it constitutes new and different content that does not mislead the public as regards the original Flaticon Content or involves using the Flaticon Content in a mockup or test, but not as an end product or definitive material;
+the Flaticon Content is not used (including, but not limited to, any information contained in titles, captions, tags, keywords or other metadata related to the Flaticon Content) for the purposes of machine learning for algorithms, artificial intelligence or any other similar technology, artificial intelligence or for its use in connection with technologies designed or intended for the identification of natural persons.
+use is not made of the content in the Flaticon Content in a way that may be deemed defamatory, harmful, obscene, immoral or unlawful, including, but not limited to, its use in a way that places any person appearing on the Flaticon Content in a negative light or which shows said person in a way that may be deemed offensive, such as, for instance, that person's use in pornography, escort service advertisements, support for political parties or ideologies, birth control products; and
+use is not made of the content in the Flaticon Content in a way which negatively affects the reputation of or insults or defames a person, race, sex, culture, religion, country, region, city, town, village or any other place or community.
+The User acknowledges that some laws may impose limits on the use of Flaticon Content. For this reason, the User agrees that it is the User's responsibility, and not the Company's, to verify that the applicable regulations in the User's jurisdiction do not prohibit the User's use of the Flaticon Content.
+
+The User is forbidden from authorizing third parties to use the content in the Flaticon Content (or any modification thereof). As an exception to the foregoing, the User may authorize third parties to use the content in the Flaticon Content where each and every one of the following terms are met:
+
+The third party has professionally engaged the User to produce goods or provide the third party with services and the User uses a limited number of elements of the content in the Flaticon Content to produce such goods or provide said services to the third party.
+The authorization granted by the User to the third party is issued in writing and fulfills all the restrictions and terms that apply to the User for using the content in the Flaticon Content, including any restriction without any limitation whatsoever that impedes distributing, reselling or licensing the content in the Flaticon Content (e.g. the third party is the end user of the relevant element of the content in the Flaticon Content).
+Unless the User has purchased a Merchandising License for a specific Flaticon Content, none of the content in the Flaticon Content which is subject to the authorization is used as the main element (due to size, relevance or any other reason so that, in the event of any doubt about whether the content is the main element, it shall be deemed as such) in printed or electronic items (e.g. T-shirts, mugs, postcards, birthday or greeting cards, invitations, calendars, web mockups or electronic devices, apps, videogames, advertising spots, audiovisual animations) intended to be resold by the third party.
+The production of goods or the provision of services by the User for the third party is not performed in an automated way, but rather in a specific tailored way for the third party (and therefore authorization is not granted by the User to any other third party) requiring the User's specific and substantial human involvement in relation to each third party.
+The User — and not the third party — chooses and selects the specific content in the Flaticon Content that will be used in the production of the goods or in the provision of the services intended for the third party.
+Where each and every one of the aforementioned terms are met, the User may authorize a third-party to use the relevant content in the Flaticon Content. This exception solely refers to the prohibition on authorizing third parties to use the content in the Flaticon Content, without affecting or limiting in any way whatsoever the rest of the terms on the content in the Flaticon Content. In the event of any doubt about the fulfillment of foregoing terms on the exception to the prohibition on authorizing third parties to use the content in the Flaticon Content, it shall be deemed that they have not been met.
+
+The User does not acquire any right to use the content in the Flaticon Content other than as expressly envisaged in these Terms. In particular, the User is not authorized to distribute, resell or lease any content in the Flaticon Content (or any modification of any content in the Flaticon Content).
+
+The User's rights under this term shall automatically come to an end without any prior notice if the User breaches any of the Terms. Upon these rights' termination, the User shall cease using all the Flaticon Content and destroy all copies thereof, regardless of whether they are full or partial copies.
+
+9. Conditions for the Premium Subscription
+The terms in this Section ("Premium Subscription Terms") govern any purchase of the Premium Subscription in the Website. When concluding the purchase procedure for any Premium Subscription, it shall be deemed that the User has read and accepted, without exception, the Premium Subscription Terms. For the avoidance of doubt, the Premium Subscription Terms are additional to the Terms which will continue to apply to Users who have acquired a Premium Subscription unless it is expressly provided otherwise in relation to specific provisions in the Premium Subscription Terms.
+
+These Premium Subscription Terms are available to the User before the purchase of the Subscription and may be stored or reproduced on a durable medium.
+
+The Premium Subscription Terms are available in English and Spanish. In case the User is interested in purchasing any Premium Subscription, it has to follow the instructions available in the Website from time to time.
+
+The Subscriptions available are offered in the Website where the pertinent information, price and conditions are included (including, without limitation, restrictions to the number of downloads each day). The Company can modify the Subscriptions offered at any time, offering with new Services (to which, unless otherwise stated, these Subscription Terms shall apply) or ceasing to offer any of the Services. The Subscriptions are personal, shall not be assigned to third parties and no third parties other than the User shall be allowed to use the Flaticon Content (including as third parties, for these purposes, affiliates or entities part of the same group of companies).
+
+The price for the Subscription is stated in the relevant currency in the Website and includes, if applicable, the relevant Value Added Tax. The Company is entitled to modify the price for any Subscription at any time. The Company shall apply the price stated in the Website at the time of the submission of the Subscription order by the User.
+
+The User shall pay the Premium Subscription in advance through Paypal, credit/debit card or any other valid payment method offered by the Company, as stated in the Website. To purchase and pay the Premium Subscription, the User shall follow the instructions stated in the Website. The processing of the payment information and data through Paypal or credit/debit card is made within third-party sites. When ordering any Premium Subscription, the User authorizes the Company to collect the corresponding price through the chosen payment method. The Premium Subscription shall not be activated until the Company has received the payment or the payment has been authorized by the relevant financing entity. After that, the Premium Subscription shall be in force for the term purchased by the User.
+
+Unless otherwise stated in these Premium Subscription Terms, the Premium Subscriptions shall be automatically and successively renewed at the expiration of its term, unless the User cancels the renewal of the Premium Subscription before its expiration. The Company shall charge the corresponding price by the same initial payment method. The Company may modify the price for the renewal of the Premium Subscription, provided that the User is informed with, at least, one-month prior notice, via email sent to the email address used for the registration process.
+
+Once the User purchases the Premium Subscription, the screen shall confirm the purchase. In addition, within the shortest time reasonably possible and not after twenty-four (24) hours since the acceptance of the order, an email shall be sent to the User with the receipt of the purchase. The receipt may be stored and printed. The User may request and download an invoice as stated within the Website twenty-four (24) hours after making the relevant payment.
+
+After the purchase of the Premium Subscription, the User may benefit from the following:
+
+The Service consisting in using the Flaticon Content without crediting the Company/Website.
+The Service consisting in using the Storyset Content (as defined here) without crediting the Company/website.
+Access all contents available in the Website.
+Use the Website without advertisement displaying.
+Not to be subject to the restrictions as to number of content downloads applicable to the Flaticon Content from time to time, without prejudice to the application of certain restrictions to the number of downloads aimed at preventing a fraudulent or abusive use of the Website.
+Use the AI Products with the limits indicated on the Website.
+The rest of the Conditions, including the conditions established or referred to in Clauses 7 and 8, will continue to apply, such as, without limitation, the prohibited uses for Flaticon Content.
+
+As the content in the Website is digital content, no cancellation right shall apply, which is expressly acknowledge and accepted by the Users, without prejudice to the guarantees stated in the consumers’ regulations that may be applicable, unless the Company states otherwise, in which case, will be subject to the conditions set forth by the Company.
+
+10. Changes and Closure of the Website
+The Company may, at any moment, and without incurring in any responsibility towards the User, modify the content of the Website or the Services, limit or modify the conditions or cease to provide some or all the Services and features available or deactivate and delete all or some of the User accounts and their corresponding information. However, the Company will comply with its obligations regarding the keeping of records in relation to certain transactions for the relevant period as provided by applicable law or refund the Users of Subscriptions in force at that time with the proportional part of the price not accrued before the termination.
+
+11. General and Contact Information
+The use of the Website and the Services and the interpretation and application of these Terms shall be governed by Spanish Law. Except for those cases in which the applicable law impose a specific jurisdiction, any dispute in connection with these Terms shall be resolved by the Courts of Málaga (Spain), and the parties expressly waive any other applicable jurisdiction.
+
+In accordance with the provisions of article 14 of Regulation (EU) 524/2013, the Users are informed that, in the cases in which it is applicable due to the condition of the User as a consumer, the European Commission has an online dispute resolution platform, which is available at the following link: https://ec.europa.eu/consumers/odr/.
+
+If any provision in these Terms is declared to be invalid or unenforceable, it shall be substituted or deemed as not included. The remaining provisions in these Terms shall not be affected in any way.
+
+You may contact the Company for any query or claim in https://www.flaticon.com/contact/.</value>
+  </data>
+  <data name="kryptonTextBoxLicenseFatcow.Text" xml:space="preserve">
+    <value>Creative Commons Legal Code
+
+Attribution 3.0 Unported
+
+CREATIVE COMMONS CORPORATION IS NOT A LAW FIRM AND DOES NOT PROVIDE
+LEGAL SERVICES. DISTRIBUTION OF THIS LICENSE DOES NOT CREATE AN
+ATTORNEY-CLIENT RELATIONSHIP. CREATIVE COMMONS PROVIDES THIS
+INFORMATION ON AN "AS-IS" BASIS. CREATIVE COMMONS MAKES NO WARRANTIES
+REGARDING THE INFORMATION PROVIDED, AND DISCLAIMS LIABILITY FOR
+DAMAGES RESULTING FROM ITS USE.
+
+License
+
+THE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS OF THIS CREATIVE
+COMMONS PUBLIC LICENSE ("CCPL" OR "LICENSE"). THE WORK IS PROTECTED BY
+COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK OTHER THAN AS
+AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.
+
+BY EXERCISING ANY RIGHTS TO THE WORK PROVIDED HERE, YOU ACCEPT AND AGREE
+TO BE BOUND BY THE TERMS OF THIS LICENSE. TO THE EXTENT THIS LICENSE MAY
+BE CONSIDERED TO BE A CONTRACT, THE LICENSOR GRANTS YOU THE RIGHTS
+CONTAINED HERE IN CONSIDERATION OF YOUR ACCEPTANCE OF SUCH TERMS AND
+CONDITIONS.
+
+1. Definitions
+
+ a. "Adaptation" means a work based upon the Work, or upon the Work and
+other pre-existing works, such as a translation, adaptation,
+derivative work, arrangement of music or other alterations of a
+literary or artistic work, or phonogram or performance and includes
+cinematographic adaptations or any other form in which the Work may be
+recast, transformed, or adapted including in any form recognizably
+derived from the original, except that a work that constitutes a
+Collection will not be considered an Adaptation for the purpose of
+this License. For the avoidance of doubt, where the Work is a musical
+work, performance or phonogram, the synchronization of the Work in
+timed-relation with a moving image ("synching") will be considered an
+Adaptation for the purpose of this License.
+ b. "Collection" means a collection of literary or artistic works, such as
+encyclopedias and anthologies, or performances, phonograms or
+broadcasts, or other works or subject matter other than works listed
+in Section 1(f) below, which, by reason of the selection and
+arrangement of their contents, constitute intellectual creations, in
+which the Work is included in its entirety in unmodified form along
+with one or more other contributions, each constituting separate and
+independent works in themselves, which together are assembled into a
+collective whole. A work that constitutes a Collection will not be
+considered an Adaptation (as defined above) for the purposes of this
+License.
+ c. "Distribute" means to make available to the public the original and
+copies of the Work or Adaptation, as appropriate, through sale or
+other transfer of ownership.
+ d. "Licensor" means the individual, individuals, entity or entities that
+offer(s) the Work under the terms of this License.
+ e. "Original Author" means, in the case of a literary or artistic work,
+the individual, individuals, entity or entities who created the Work
+or if no individual or entity can be identified, the publisher; and in
+addition (i) in the case of a performance the actors, singers,
+musicians, dancers, and other persons who act, sing, deliver, declaim,
+play in, interpret or otherwise perform literary or artistic works or
+expressions of folklore; (ii) in the case of a phonogram the producer
+being the person or legal entity who first fixes the sounds of a
+performance or other sounds; and, (iii) in the case of broadcasts, the
+organization that transmits the broadcast.
+ f. "Work" means the literary and/or artistic work offered under the terms
+of this License including without limitation any production in the
+literary, scientific and artistic domain, whatever may be the mode or
+form of its expression including digital form, such as a book,
+pamphlet and other writing; a lecture, address, sermon or other work
+of the same nature; a dramatic or dramatico-musical work; a
+choreographic work or entertainment in dumb show; a musical
+composition with or without words; a cinematographic work to which are
+assimilated works expressed by a process analogous to cinematography;
+a work of drawing, painting, architecture, sculpture, engraving or
+lithography; a photographic work to which are assimilated works
+expressed by a process analogous to photography; a work of applied
+art; an illustration, map, plan, sketch or three-dimensional work
+relative to geography, topography, architecture or science; a
+performance; a broadcast; a phonogram; a compilation of data to the
+extent it is protected as a copyrightable work; or a work performed by
+a variety or circus performer to the extent it is not otherwise
+considered a literary or artistic work.
+ g. "You" means an individual or entity exercising rights under this
+License who has not previously violated the terms of this License with
+respect to the Work, or who has received express permission from the
+Licensor to exercise rights under this License despite a previous
+violation.
+ h. "Publicly Perform" means to perform public recitations of the Work and
+to communicate to the public those public recitations, by any means or
+process, including by wire or wireless means or public digital
+performances; to make available to the public Works in such a way that
+members of the public may access these Works from a place and at a
+place individually chosen by them; to perform the Work to the public
+by any means or process and the communication to the public of the
+performances of the Work, including by public digital performance; to
+broadcast and rebroadcast the Work by any means including signs,
+sounds or images.
+ i. "Reproduce" means to make copies of the Work by any means including
+without limitation by sound or visual recordings and the right of
+fixation and reproducing fixations of the Work, including storage of a
+protected performance or phonogram in digital form or other electronic
+medium.
+
+2. Fair Dealing Rights. Nothing in this License is intended to reduce,
+limit, or restrict any uses free from copyright or rights arising from
+limitations or exceptions that are provided for in connection with the
+copyright protection under copyright law or other applicable laws.
+
+3. License Grant. Subject to the terms and conditions of this License,
+Licensor hereby grants You a worldwide, royalty-free, non-exclusive,
+perpetual (for the duration of the applicable copyright) license to
+exercise the rights in the Work as stated below:
+
+ a. to Reproduce the Work, to incorporate the Work into one or more
+Collections, and to Reproduce the Work as incorporated in the
+Collections;
+ b. to create and Reproduce Adaptations provided that any such Adaptation,
+including any translation in any medium, takes reasonable steps to
+clearly label, demarcate or otherwise identify that changes were made
+to the original Work. For example, a translation could be marked "The
+original work was translated from English to Spanish," or a
+modification could indicate "The original work has been modified.";
+ c. to Distribute and Publicly Perform the Work including as incorporated
+in Collections; and,
+ d. to Distribute and Publicly Perform Adaptations.
+ e. For the avoidance of doubt:
+
+ i. Non-waivable Compulsory License Schemes. In those jurisdictions in
+which the right to collect royalties through any statutory or
+compulsory licensing scheme cannot be waived, the Licensor
+reserves the exclusive right to collect such royalties for any
+exercise by You of the rights granted under this License;
+ii. Waivable Compulsory License Schemes. In those jurisdictions in
+which the right to collect royalties through any statutory or
+compulsory licensing scheme can be waived, the Licensor waives the
+exclusive right to collect such royalties for any exercise by You
+of the rights granted under this License; and,
+   iii. Voluntary License Schemes. The Licensor waives the right to
+collect royalties, whether individually or, in the event that the
+Licensor is a member of a collecting society that administers
+voluntary licensing schemes, via that society, from any exercise
+by You of the rights granted under this License.
+
+The above rights may be exercised in all media and formats whether now
+known or hereafter devised. The above rights include the right to make
+such modifications as are technically necessary to exercise the rights in
+other media and formats. Subject to Section 8(f), all rights not expressly
+granted by Licensor are hereby reserved.
+
+4. Restrictions. The license granted in Section 3 above is expressly made
+subject to and limited by the following restrictions:
+
+ a. You may Distribute or Publicly Perform the Work only under the terms
+of this License. You must include a copy of, or the Uniform Resource
+Identifier (URI) for, this License with every copy of the Work You
+Distribute or Publicly Perform. You may not offer or impose any terms
+on the Work that restrict the terms of this License or the ability of
+the recipient of the Work to exercise the rights granted to that
+recipient under the terms of the License. You may not sublicense the
+Work. You must keep intact all notices that refer to this License and
+to the disclaimer of warranties with every copy of the Work You
+Distribute or Publicly Perform. When You Distribute or Publicly
+Perform the Work, You may not impose any effective technological
+measures on the Work that restrict the ability of a recipient of the
+Work from You to exercise the rights granted to that recipient under
+the terms of the License. This Section 4(a) applies to the Work as
+incorporated in a Collection, but this does not require the Collection
+apart from the Work itself to be made subject to the terms of this
+License. If You create a Collection, upon notice from any Licensor You
+must, to the extent practicable, remove from the Collection any credit
+as required by Section 4(b), as requested. If You create an
+Adaptation, upon notice from any Licensor You must, to the extent
+practicable, remove from the Adaptation any credit as required by
+Section 4(b), as requested.
+ b. If You Distribute, or Publicly Perform the Work or any Adaptations or
+Collections, You must, unless a request has been made pursuant to
+Section 4(a), keep intact all copyright notices for the Work and
+provide, reasonable to the medium or means You are utilizing: (i) the
+name of the Original Author (or pseudonym, if applicable) if supplied,
+and/or if the Original Author and/or Licensor designate another party
+or parties (e.g., a sponsor institute, publishing entity, journal) for
+attribution ("Attribution Parties") in Licensor's copyright notice,
+terms of service or by other reasonable means, the name of such party
+or parties; (ii) the title of the Work if supplied; (iii) to the
+extent reasonably practicable, the URI, if any, that Licensor
+specifies to be associated with the Work, unless such URI does not
+refer to the copyright notice or licensing information for the Work;
+and (iv) , consistent with Section 3(b), in the case of an Adaptation,
+a credit identifying the use of the Work in the Adaptation (e.g.,
+"French translation of the Work by Original Author," or "Screenplay
+based on original Work by Original Author"). The credit required by
+this Section 4 (b) may be implemented in any reasonable manner;
+provided, however, that in the case of a Adaptation or Collection, at
+a minimum such credit will appear, if a credit for all contributing
+authors of the Adaptation or Collection appears, then as part of these
+credits and in a manner at least as prominent as the credits for the
+other contributing authors. For the avoidance of doubt, You may only
+use the credit required by this Section for the purpose of attribution
+in the manner set out above and, by exercising Your rights under this
+License, You may not implicitly or explicitly assert or imply any
+connection with, sponsorship or endorsement by the Original Author,
+Licensor and/or Attribution Parties, as appropriate, of You or Your
+use of the Work, without the separate, express prior written
+permission of the Original Author, Licensor and/or Attribution
+Parties.
+ c. Except as otherwise agreed in writing by the Licensor or as may be
+otherwise permitted by applicable law, if You Reproduce, Distribute or
+Publicly Perform the Work either by itself or as part of any
+Adaptations or Collections, You must not distort, mutilate, modify or
+take other derogatory action in relation to the Work which would be
+prejudicial to the Original Author's honor or reputation. Licensor
+agrees that in those jurisdictions (e.g. Japan), in which any exercise
+of the right granted in Section 3(b) of this License (the right to
+make Adaptations) would be deemed to be a distortion, mutilation,
+modification or other derogatory action prejudicial to the Original
+Author's honor and reputation, the Licensor will waive or not assert,
+as appropriate, this Section, to the fullest extent permitted by the
+applicable national law, to enable You to reasonably exercise Your
+right under Section 3(b) of this License (right to make Adaptations)
+but not otherwise.
+
+5. Representations, Warranties and Disclaimer
+
+UNLESS OTHERWISE MUTUALLY AGREED TO BY THE PARTIES IN WRITING, LICENSOR
+OFFERS THE WORK AS-IS AND MAKES NO REPRESENTATIONS OR WARRANTIES OF ANY
+KIND CONCERNING THE WORK, EXPRESS, IMPLIED, STATUTORY OR OTHERWISE,
+INCLUDING, WITHOUT LIMITATION, WARRANTIES OF TITLE, MERCHANTIBILITY,
+FITNESS FOR A PARTICULAR PURPOSE, NONINFRINGEMENT, OR THE ABSENCE OF
+LATENT OR OTHER DEFECTS, ACCURACY, OR THE PRESENCE OF ABSENCE OF ERRORS,
+WHETHER OR NOT DISCOVERABLE. SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION
+OF IMPLIED WARRANTIES, SO SUCH EXCLUSION MAY NOT APPLY TO YOU.
+
+6. Limitation on Liability. EXCEPT TO THE EXTENT REQUIRED BY APPLICABLE
+LAW, IN NO EVENT WILL LICENSOR BE LIABLE TO YOU ON ANY LEGAL THEORY FOR
+ANY SPECIAL, INCIDENTAL, CONSEQUENTIAL, PUNITIVE OR EXEMPLARY DAMAGES
+ARISING OUT OF THIS LICENSE OR THE USE OF THE WORK, EVEN IF LICENSOR HAS
+BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+7. Termination
+
+ a. This License and the rights granted hereunder will terminate
+automatically upon any breach by You of the terms of this License.
+Individuals or entities who have received Adaptations or Collections
+from You under this License, however, will not have their licenses
+terminated provided such individuals or entities remain in full
+compliance with those licenses. Sections 1, 2, 5, 6, 7, and 8 will
+survive any termination of this License.
+ b. Subject to the above terms and conditions, the license granted here is
+perpetual (for the duration of the applicable copyright in the Work).
+Notwithstanding the above, Licensor reserves the right to release the
+Work under different license terms or to stop distributing the Work at
+any time; provided, however that any such election will not serve to
+withdraw this License (or any other license that has been, or is
+required to be, granted under the terms of this License), and this
+License will continue in full force and effect unless terminated as
+stated above.
+
+8. Miscellaneous
+
+ a. Each time You Distribute or Publicly Perform the Work or a Collection,
+the Licensor offers to the recipient a license to the Work on the same
+terms and conditions as the license granted to You under this License.
+ b. Each time You Distribute or Publicly Perform an Adaptation, Licensor
+offers to the recipient a license to the original Work on the same
+terms and conditions as the license granted to You under this License.
+ c. If any provision of this License is invalid or unenforceable under
+applicable law, it shall not affect the validity or enforceability of
+the remainder of the terms of this License, and without further action
+by the parties to this agreement, such provision shall be reformed to
+the minimum extent necessary to make such provision valid and
+enforceable.
+ d. No term or provision of this License shall be deemed waived and no
+breach consented to unless such waiver or consent shall be in writing
+and signed by the party to be charged with such waiver or consent.
+ e. This License constitutes the entire agreement between the parties with
+respect to the Work licensed here. There are no understandings,
+agreements or representations with respect to the Work not specified
+here. Licensor shall not be bound by any additional provisions that
+may appear in any communication from You. This License may not be
+modified without the mutual written agreement of the Licensor and You.
+ f. The rights granted under, and the subject matter referenced, in this
+License were drafted utilizing the terminology of the Berne Convention
+for the Protection of Literary and Artistic Works (as amended on
+September 28, 1979), the Rome Convention of 1961, the WIPO Copyright
+Treaty of 1996, the WIPO Performances and Phonograms Treaty of 1996
+and the Universal Copyright Convention (as revised on July 24, 1971).
+These rights and subject matter take effect in the relevant
+jurisdiction in which the License terms are sought to be enforced
+according to the corresponding provisions of the implementation of
+those treaty provisions in the applicable national law. If the
+standard suite of rights granted under applicable copyright law
+includes additional rights not granted under this License, such
+additional rights are deemed to be included in the License; this
+License is not intended to restrict the license of any rights under
+applicable law.
+
+
+Creative Commons Notice
+
+Creative Commons is not a party to this License, and makes no warranty
+whatsoever in connection with the Work. Creative Commons will not be
+liable to You or any party on any legal theory for any damages
+whatsoever, including without limitation any general, special,
+incidental or consequential damages arising in connection to this
+license. Notwithstanding the foregoing two (2) sentences, if Creative
+Commons has expressly identified itself as the Licensor hereunder, it
+shall have all rights and obligations of Licensor.
+
+Except for the limited purpose of indicating to the public that the
+Work is licensed under the CCPL, Creative Commons does not authorize
+the use by either party of the trademark "Creative Commons" or any
+related trademark or logo of Creative Commons without the prior
+written consent of Creative Commons. Any permitted use will be in
+compliance with Creative Commons' then-current trademark usage
+guidelines, as may be published on its website or otherwise made
+available upon request from time to time. For the avoidance of doubt,
+this trademark restriction does not form part of this License.
+
+Creative Commons may be contacted at https://creativecommons.org/.</value>
+  </data>
+  <data name="kryptonTextBoxLicenseKryptonSuite.Text" xml:space="preserve">
+    <value>BSD 3-Clause License
+
+Copyright (c) 2017 - 2025, Krypton Suite
+
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</value>
+  </data>
+  <data name="kryptonTextBoxLicenseNlog.Text" xml:space="preserve">
+    <value>BSD 3-Clause License
+
+Copyright (c) 2017 - 2025, Krypton Suite
+
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+</value>
+  </data>
   <data name="pictureBoxBanner.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAfQAAACtCAIAAADJQhpWAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAu
@@ -3563,7 +4785,7 @@
     <value>17, 17</value>
   </metadata>
   <metadata name="kryptonManager.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>126, 17</value>
+    <value>168, 17</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>54</value>
