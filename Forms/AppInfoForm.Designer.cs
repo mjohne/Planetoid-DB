@@ -158,7 +158,7 @@ partial class AppInfoForm
 		tabControlInfo.SelectedIndex = 0;
 		tabControlInfo.ShowToolTips = true;
 		tabControlInfo.Size = new Size(500, 283);
-		tabControlInfo.TabIndex = 7;
+		tabControlInfo.TabIndex = 0;
 		tabControlInfo.Enter += Control_Enter;
 		tabControlInfo.Leave += Control_Leave;
 		tabControlInfo.MouseEnter += Control_Enter;
@@ -484,7 +484,7 @@ partial class AppInfoForm
 		tabControlComponents.SelectedIndex = 0;
 		tabControlComponents.ShowToolTips = true;
 		tabControlComponents.Size = new Size(492, 255);
-		tabControlComponents.TabIndex = 18;
+		tabControlComponents.TabIndex = 0;
 		tabControlComponents.Enter += Control_Enter;
 		tabControlComponents.Leave += Control_Leave;
 		tabControlComponents.MouseEnter += Control_Enter;
@@ -522,7 +522,7 @@ partial class AppInfoForm
 		kryptonLabelLicenseFlaticon.Location = new Point(6, 32);
 		kryptonLabelLicenseFlaticon.Name = "kryptonLabelLicenseFlaticon";
 		kryptonLabelLicenseFlaticon.Size = new Size(139, 20);
-		kryptonLabelLicenseFlaticon.TabIndex = 11;
+		kryptonLabelLicenseFlaticon.TabIndex = 2;
 		kryptonLabelLicenseFlaticon.ToolTipValues.Description = "Shows the Flaticon license.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		kryptonLabelLicenseFlaticon.ToolTipValues.EnableToolTips = true;
 		kryptonLabelLicenseFlaticon.ToolTipValues.Heading = "Flaticon license";
@@ -545,7 +545,7 @@ partial class AppInfoForm
 		kryptonLinkLabelFlaticon.Location = new Point(163, 6);
 		kryptonLinkLabelFlaticon.Name = "kryptonLinkLabelFlaticon";
 		kryptonLinkLabelFlaticon.Size = new Size(318, 20);
-		kryptonLinkLabelFlaticon.TabIndex = 10;
+		kryptonLinkLabelFlaticon.TabIndex = 1;
 		kryptonLinkLabelFlaticon.ToolTipValues.Description = "Opens the Flaticon page.\r\nRight-click to copy the information to the clipboard.";
 		kryptonLinkLabelFlaticon.ToolTipValues.EnableToolTips = true;
 		kryptonLinkLabelFlaticon.ToolTipValues.Heading = "Flaticon website";
@@ -568,7 +568,7 @@ partial class AppInfoForm
 		kryptonLabelAuthorFlaticon.Location = new Point(378, 32);
 		kryptonLabelAuthorFlaticon.Name = "kryptonLabelAuthorFlaticon";
 		kryptonLabelAuthorFlaticon.Size = new Size(100, 20);
-		kryptonLabelAuthorFlaticon.TabIndex = 9;
+		kryptonLabelAuthorFlaticon.TabIndex = 3;
 		kryptonLabelAuthorFlaticon.ToolTipValues.Description = "Shows the Flaticon authors.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		kryptonLabelAuthorFlaticon.ToolTipValues.EnableToolTips = true;
 		kryptonLabelAuthorFlaticon.ToolTipValues.Heading = "Flaticon authors";
@@ -659,7 +659,7 @@ partial class AppInfoForm
 		kryptonTextBoxLicenseFatcow.Name = "kryptonTextBoxLicenseFatcow";
 		kryptonTextBoxLicenseFatcow.ScrollBars = ScrollBars.Vertical;
 		kryptonTextBoxLicenseFatcow.Size = new Size(472, 163);
-		kryptonTextBoxLicenseFatcow.TabIndex = 18;
+		kryptonTextBoxLicenseFatcow.TabIndex = 4;
 		kryptonTextBoxLicenseFatcow.Text = resources.GetString("kryptonTextBoxLicenseFatcow.Text");
 		kryptonTextBoxLicenseFatcow.ToolTipValues.Description = "Shows the CC BY 3.0 license";
 		kryptonTextBoxLicenseFatcow.ToolTipValues.EnableToolTips = true;
@@ -681,7 +681,7 @@ partial class AppInfoForm
 		kryptonLabelHeadingFatcowIcons.Location = new Point(6, 6);
 		kryptonLabelHeadingFatcowIcons.Name = "kryptonLabelHeadingFatcowIcons";
 		kryptonLabelHeadingFatcowIcons.Size = new Size(93, 20);
-		kryptonLabelHeadingFatcowIcons.TabIndex = 14;
+		kryptonLabelHeadingFatcowIcons.TabIndex = 0;
 		kryptonLabelHeadingFatcowIcons.ToolTipValues.Description = "Header for the FatCow Icons section\r\nDouble-click or right-click to copy the information to the clipboard.";
 		kryptonLabelHeadingFatcowIcons.ToolTipValues.EnableToolTips = true;
 		kryptonLabelHeadingFatcowIcons.ToolTipValues.Heading = "FatCow Icons";
@@ -703,7 +703,7 @@ partial class AppInfoForm
 		kryptonLabelLicenseFatcow.Location = new Point(6, 32);
 		kryptonLabelLicenseFatcow.Name = "kryptonLabelLicenseFatcow";
 		kryptonLabelLicenseFatcow.Size = new Size(108, 20);
-		kryptonLabelLicenseFatcow.TabIndex = 17;
+		kryptonLabelLicenseFatcow.TabIndex = 2;
 		kryptonLabelLicenseFatcow.ToolTipValues.Description = "Shows the FatCow Icons license.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		kryptonLabelLicenseFatcow.ToolTipValues.EnableToolTips = true;
 		kryptonLabelLicenseFatcow.ToolTipValues.Heading = "FatCow Icons license";
@@ -726,7 +726,7 @@ partial class AppInfoForm
 		kryptonLinkLabelWebsiteFatcow.Location = new Point(289, 6);
 		kryptonLinkLabelWebsiteFatcow.Name = "kryptonLinkLabelWebsiteFatcow";
 		kryptonLinkLabelWebsiteFatcow.Size = new Size(189, 20);
-		kryptonLinkLabelWebsiteFatcow.TabIndex = 16;
+		kryptonLinkLabelWebsiteFatcow.TabIndex = 1;
 		kryptonLinkLabelWebsiteFatcow.ToolTipValues.Description = "Opens the FatCow Icons website.";
 		kryptonLinkLabelWebsiteFatcow.ToolTipValues.EnableToolTips = true;
 		kryptonLinkLabelWebsiteFatcow.ToolTipValues.Heading = "FatCow Icons website";
@@ -749,7 +749,7 @@ partial class AppInfoForm
 		kryptonLabelAuthorsFatcow.Location = new Point(309, 32);
 		kryptonLabelAuthorsFatcow.Name = "kryptonLabelAuthorsFatcow";
 		kryptonLabelAuthorsFatcow.Size = new Size(169, 20);
-		kryptonLabelAuthorsFatcow.TabIndex = 15;
+		kryptonLabelAuthorsFatcow.TabIndex = 3;
 		kryptonLabelAuthorsFatcow.ToolTipValues.Description = "Shows the FatCow Icons author.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		kryptonLabelAuthorsFatcow.ToolTipValues.EnableToolTips = true;
 		kryptonLabelAuthorsFatcow.ToolTipValues.Heading = "FatCow Icons author";
@@ -796,7 +796,7 @@ partial class AppInfoForm
 		kryptonTextBoxLicenseKryptonSuite.Name = "kryptonTextBoxLicenseKryptonSuite";
 		kryptonTextBoxLicenseKryptonSuite.ScrollBars = ScrollBars.Vertical;
 		kryptonTextBoxLicenseKryptonSuite.Size = new Size(472, 137);
-		kryptonTextBoxLicenseKryptonSuite.TabIndex = 19;
+		kryptonTextBoxLicenseKryptonSuite.TabIndex = 5;
 		kryptonTextBoxLicenseKryptonSuite.Text = resources.GetString("kryptonTextBoxLicenseKryptonSuite.Text");
 		kryptonTextBoxLicenseKryptonSuite.ToolTipValues.Description = "Shows the BSD 3-Clause license";
 		kryptonTextBoxLicenseKryptonSuite.ToolTipValues.EnableToolTips = true;
@@ -817,7 +817,7 @@ partial class AppInfoForm
 		kryptonLabelHeadingKryptonSuite.Location = new Point(6, 6);
 		kryptonLabelHeadingKryptonSuite.Name = "kryptonLabelHeadingKryptonSuite";
 		kryptonLabelHeadingKryptonSuite.Size = new Size(191, 20);
-		kryptonLabelHeadingKryptonSuite.TabIndex = 4;
+		kryptonLabelHeadingKryptonSuite.TabIndex = 0;
 		kryptonLabelHeadingKryptonSuite.ToolTipValues.Description = "Heading for the Krypton Suite section.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		kryptonLabelHeadingKryptonSuite.ToolTipValues.EnableToolTips = true;
 		kryptonLabelHeadingKryptonSuite.ToolTipValues.Heading = "Krypton Suite Standard Toolkit";
@@ -839,7 +839,7 @@ partial class AppInfoForm
 		kryptonLabelLicenseKryptonSuite.Location = new Point(6, 58);
 		kryptonLabelLicenseKryptonSuite.Name = "kryptonLabelLicenseKryptonSuite";
 		kryptonLabelLicenseKryptonSuite.Size = new Size(129, 20);
-		kryptonLabelLicenseKryptonSuite.TabIndex = 8;
+		kryptonLabelLicenseKryptonSuite.TabIndex = 4;
 		kryptonLabelLicenseKryptonSuite.ToolTipValues.Description = "Shows the Krypton Suite license.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		kryptonLabelLicenseKryptonSuite.ToolTipValues.EnableToolTips = true;
 		kryptonLabelLicenseKryptonSuite.ToolTipValues.Heading = "Krypton Suite license";
@@ -861,7 +861,7 @@ partial class AppInfoForm
 		kryptonLabelVersionKryptonSuite.Location = new Point(6, 32);
 		kryptonLabelVersionKryptonSuite.Name = "kryptonLabelVersionKryptonSuite";
 		kryptonLabelVersionKryptonSuite.Size = new Size(119, 20);
-		kryptonLabelVersionKryptonSuite.TabIndex = 5;
+		kryptonLabelVersionKryptonSuite.TabIndex = 2;
 		kryptonLabelVersionKryptonSuite.ToolTipValues.Description = "Shows the Krypton Suite version.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		kryptonLabelVersionKryptonSuite.ToolTipValues.EnableToolTips = true;
 		kryptonLabelVersionKryptonSuite.ToolTipValues.Heading = "Krypton Suite version";
@@ -884,7 +884,7 @@ partial class AppInfoForm
 		kryptonLinkLabelWebsiteKryptonSuite.Location = new Point(268, 6);
 		kryptonLinkLabelWebsiteKryptonSuite.Name = "kryptonLinkLabelWebsiteKryptonSuite";
 		kryptonLinkLabelWebsiteKryptonSuite.Size = new Size(210, 20);
-		kryptonLinkLabelWebsiteKryptonSuite.TabIndex = 7;
+		kryptonLinkLabelWebsiteKryptonSuite.TabIndex = 1;
 		kryptonLinkLabelWebsiteKryptonSuite.ToolTipValues.Description = "Opens the Krypton Suite GitHub page.\r\nRight-click to copy the information to the clipboard.";
 		kryptonLinkLabelWebsiteKryptonSuite.ToolTipValues.EnableToolTips = true;
 		kryptonLinkLabelWebsiteKryptonSuite.ToolTipValues.Heading = "Krypton Suite website";
@@ -907,7 +907,7 @@ partial class AppInfoForm
 		kryptonLabelAuthorsKryptonSuite.Location = new Point(273, 32);
 		kryptonLabelAuthorsKryptonSuite.Name = "kryptonLabelAuthorsKryptonSuite";
 		kryptonLabelAuthorsKryptonSuite.Size = new Size(205, 20);
-		kryptonLabelAuthorsKryptonSuite.TabIndex = 6;
+		kryptonLabelAuthorsKryptonSuite.TabIndex = 3;
 		kryptonLabelAuthorsKryptonSuite.ToolTipValues.Description = "Shows the Krypton Suite authors.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		kryptonLabelAuthorsKryptonSuite.ToolTipValues.EnableToolTips = true;
 		kryptonLabelAuthorsKryptonSuite.ToolTipValues.Heading = "Krypton Suite authors";
@@ -954,7 +954,7 @@ partial class AppInfoForm
 		kryptonTextBoxLicenseNlog.Name = "kryptonTextBoxLicenseNlog";
 		kryptonTextBoxLicenseNlog.ScrollBars = ScrollBars.Vertical;
 		kryptonTextBoxLicenseNlog.Size = new Size(472, 137);
-		kryptonTextBoxLicenseNlog.TabIndex = 19;
+		kryptonTextBoxLicenseNlog.TabIndex = 5;
 		kryptonTextBoxLicenseNlog.Text = resources.GetString("kryptonTextBoxLicenseNlog.Text");
 		kryptonTextBoxLicenseNlog.ToolTipValues.Description = "Shows the BSD 3-Clause license";
 		kryptonTextBoxLicenseNlog.ToolTipValues.EnableToolTips = true;
@@ -975,7 +975,7 @@ partial class AppInfoForm
 		kryptonLabelHeadingNlog.Location = new Point(6, 6);
 		kryptonLabelHeadingNlog.Name = "kryptonLabelHeadingNlog";
 		kryptonLabelHeadingNlog.Size = new Size(42, 20);
-		kryptonLabelHeadingNlog.TabIndex = 9;
+		kryptonLabelHeadingNlog.TabIndex = 0;
 		kryptonLabelHeadingNlog.ToolTipValues.Description = "Heading for the NLog section.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		kryptonLabelHeadingNlog.ToolTipValues.EnableToolTips = true;
 		kryptonLabelHeadingNlog.ToolTipValues.Heading = "NLog";
@@ -997,7 +997,7 @@ partial class AppInfoForm
 		kryptonLabelLicenseNlog.Location = new Point(6, 58);
 		kryptonLabelLicenseNlog.Name = "kryptonLabelLicenseNlog";
 		kryptonLabelLicenseNlog.Size = new Size(129, 20);
-		kryptonLabelLicenseNlog.TabIndex = 13;
+		kryptonLabelLicenseNlog.TabIndex = 4;
 		kryptonLabelLicenseNlog.ToolTipValues.Description = "Shows the NLog license.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		kryptonLabelLicenseNlog.ToolTipValues.EnableToolTips = true;
 		kryptonLabelLicenseNlog.ToolTipValues.Heading = "NLog license";
@@ -1019,7 +1019,7 @@ partial class AppInfoForm
 		kryptonLabelVersionNlog.Location = new Point(6, 32);
 		kryptonLabelVersionNlog.Name = "kryptonLabelVersionNlog";
 		kryptonLabelVersionNlog.Size = new Size(83, 20);
-		kryptonLabelVersionNlog.TabIndex = 10;
+		kryptonLabelVersionNlog.TabIndex = 2;
 		kryptonLabelVersionNlog.ToolTipValues.Description = "Shows the NLog version.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		kryptonLabelVersionNlog.ToolTipValues.EnableToolTips = true;
 		kryptonLabelVersionNlog.ToolTipValues.Heading = "NLog version";
@@ -1042,7 +1042,7 @@ partial class AppInfoForm
 		kryptonLinkLabelWebsiteNlog.Location = new Point(321, 6);
 		kryptonLinkLabelWebsiteNlog.Name = "kryptonLinkLabelWebsiteNlog";
 		kryptonLinkLabelWebsiteNlog.Size = new Size(157, 20);
-		kryptonLinkLabelWebsiteNlog.TabIndex = 12;
+		kryptonLinkLabelWebsiteNlog.TabIndex = 1;
 		kryptonLinkLabelWebsiteNlog.ToolTipValues.Description = "Opens the NLog website.\r\nRight-click to copy the information to the clipboard.";
 		kryptonLinkLabelWebsiteNlog.ToolTipValues.EnableToolTips = true;
 		kryptonLinkLabelWebsiteNlog.ToolTipValues.Heading = "NLog website";
@@ -1065,7 +1065,7 @@ partial class AppInfoForm
 		kryptonLabelAuthorsNlog.Location = new Point(201, 32);
 		kryptonLabelAuthorsNlog.Name = "kryptonLabelAuthorsNlog";
 		kryptonLabelAuthorsNlog.Size = new Size(277, 20);
-		kryptonLabelAuthorsNlog.TabIndex = 11;
+		kryptonLabelAuthorsNlog.TabIndex = 3;
 		kryptonLabelAuthorsNlog.ToolTipValues.Description = "Shows the NLog authors.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		kryptonLabelAuthorsNlog.ToolTipValues.EnableToolTips = true;
 		kryptonLabelAuthorsNlog.ToolTipValues.Heading = "NLog authors";
@@ -1142,7 +1142,7 @@ partial class AppInfoForm
 		kryptonStatusStrip.ShowItemToolTips = true;
 		kryptonStatusStrip.Size = new Size(511, 22);
 		kryptonStatusStrip.SizingGrip = false;
-		kryptonStatusStrip.TabIndex = 8;
+		kryptonStatusStrip.TabIndex = 1;
 		kryptonStatusStrip.TabStop = true;
 		kryptonStatusStrip.Text = "Status bar";
 		kryptonStatusStrip.MouseEnter += Control_Enter;
