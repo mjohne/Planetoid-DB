@@ -463,6 +463,7 @@ partial class AppInfoForm
 		tabPageComponents.Size = new Size(492, 255);
 		tabPageComponents.TabIndex = 1;
 		tabPageComponents.Text = "Components";
+		tabPageComponents.ToolTipText = "Components";
 		tabPageComponents.UseVisualStyleBackColor = true;
 		tabPageComponents.Enter += Control_Enter;
 		tabPageComponents.Leave += Control_Leave;
