@@ -552,7 +552,7 @@ partial class AppInfoForm
 		kryptonLinkLabelFlaticon.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLinkLabelFlaticon.Values.Image = FatcowIcons16px.fatcow_world_16px;
 		kryptonLinkLabelFlaticon.Values.Text = "https://www.flaticon.com/free-icon/asteroid_1086068";
-		kryptonLinkLabelFlaticon.DoubleClick += KryptonLinkLabelFlaticon_LinkClick;
+		kryptonLinkLabelFlaticon.LinkClicked += KryptonLinkLabelFlaticon_LinkClick;
 		kryptonLinkLabelFlaticon.Enter += Control_Enter;
 		kryptonLinkLabelFlaticon.Leave += Control_Leave;
 		kryptonLinkLabelFlaticon.MouseDown += Control_MouseDown;
