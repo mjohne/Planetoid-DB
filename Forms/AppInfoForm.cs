@@ -96,7 +96,7 @@ public partial class AppInfoForm : BaseKryptonForm
 	/// <param name="sender">Event source (the link label).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This event is used to open the FatCow free icons page in the user's default browser.</remarks>
-	private void LinkLabelFatCowWebsite_Clicked(object sender, EventArgs e) => OpenWebsite(fileName: "https://www.fatcow.com/free-icons");
+	private void LinkLabelFatCowWebsite_Clicked(object sender, EventArgs e) => OpenWebsite(fileName: "https://fatcow.com/free-icons");
 
 	/// <summary>Called when the email link is clicked.
 	/// Attempts to open the user's default mail client with a new message addressed to the application's support email.
