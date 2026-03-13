@@ -473,7 +473,7 @@ partial class AppInfoForm
 		// 
 		tabControlComponents.AccessibleDescription = "Shows tabs with components information";
 		tabControlComponents.AccessibleName = "Components information tab";
-		tabControlComponents.AccessibleRole = AccessibleRole.Grouping;
+		tabControlComponents.AccessibleRole = AccessibleRole.PageTabList;
 		tabControlComponents.Controls.Add(tabPageComponentApplicationIcon);
 		tabControlComponents.Controls.Add(tabPageIconsetFatcow);
 		tabControlComponents.Controls.Add(tabPageComponentKryptonSuite);
