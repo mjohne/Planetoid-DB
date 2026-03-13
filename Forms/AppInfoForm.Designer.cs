@@ -53,14 +53,14 @@ partial class AppInfoForm
 		kryptonPictureBoxVisualStudio = new KryptonPictureBox();
 		kryptonPictureBoxDotNet = new KryptonPictureBox();
 		kryptonPictureBoxCSharp = new KryptonPictureBox();
-		labelTitle = new KryptonLabel();
-		labelVersion = new KryptonLabel();
-		labelCompany = new KryptonLabel();
-		labelAuthor = new KryptonLabel();
-		labelDescription = new KryptonLabel();
-		labelCopyright = new KryptonLabel();
-		linkLabelWebsite = new KryptonLinkLabel();
-		linkLabelEmail = new KryptonLinkLabel();
+		kryptonLabelTitle = new KryptonLabel();
+		kryptonLabelVersion = new KryptonLabel();
+		kryptonLabelCompany = new KryptonLabel();
+		kryptonLabelAuthor = new KryptonLabel();
+		kryptonLabelDescription = new KryptonLabel();
+		kryptonLabelCopyright = new KryptonLabel();
+		kryptonLinkLabelWebsite = new KryptonLinkLabel();
+		kryptonLinkLabelEmail = new KryptonLinkLabel();
 		tabPageComponents = new TabPage();
 		tabControlComponents = new TabControl();
 		tabPageComponentApplicationIcon = new TabPage();
@@ -68,33 +68,33 @@ partial class AppInfoForm
 		kryptonLinkLabelFlaticon = new KryptonLinkLabel();
 		kryptonLabelAuthorFlaticon = new KryptonLabel();
 		kryptonTextBoxLicenseFlaticon = new KryptonTextBox();
-		labelIconHeadingFlaticon = new KryptonLabel();
+		kryptonLabelIconHeadingFlaticon = new KryptonLabel();
 		tabPageIconsetFatcow = new TabPage();
 		kryptonTextBoxLicenseFatcow = new KryptonTextBox();
-		labelHeadingFatcowIcons = new KryptonLabel();
-		labelLicenseFatcow = new KryptonLabel();
-		linkLabelWebsiteFatcow = new KryptonLinkLabel();
-		labelAuthorsFatcow = new KryptonLabel();
+		kryptonLabelHeadingFatcowIcons = new KryptonLabel();
+		kryptonLabelLicenseFatcow = new KryptonLabel();
+		kryptonLinkLabelWebsiteFatcow = new KryptonLinkLabel();
+		kryptonLabelAuthorsFatcow = new KryptonLabel();
 		tabPageComponentKryptonSuite = new TabPage();
 		kryptonTextBoxLicenseKryptonSuite = new KryptonTextBox();
-		labelHeadingKryptonSuite = new KryptonLabel();
-		labelLicenseKryptonSuite = new KryptonLabel();
-		labelVersionKryptonSuite = new KryptonLabel();
-		linkLabelWebsiteKryptonSuite = new KryptonLinkLabel();
-		labelAuthorsKryptonSuite = new KryptonLabel();
+		kryptonLabelHeadingKryptonSuite = new KryptonLabel();
+		kryptonLabelLicenseKryptonSuite = new KryptonLabel();
+		kryptonLabelVersionKryptonSuite = new KryptonLabel();
+		kryptonLinkLabelWebsiteKryptonSuite = new KryptonLinkLabel();
+		kryptonLabelAuthorsKryptonSuite = new KryptonLabel();
 		tabPageComponentNLog = new TabPage();
 		kryptonTextBoxLicenseNlog = new KryptonTextBox();
-		labelHeadingNlog = new KryptonLabel();
-		labelLicenseNlog = new KryptonLabel();
-		labelVersionNlog = new KryptonLabel();
-		linkLabelWebsiteNlog = new KryptonLinkLabel();
-		labelAuthorsNlog = new KryptonLabel();
+		kryptonLabelHeadingNlog = new KryptonLabel();
+		kryptonLabelLicenseNlog = new KryptonLabel();
+		kryptonLabelVersionNlog = new KryptonLabel();
+		kryptonLinkLabelWebsiteNlog = new KryptonLinkLabel();
+		kryptonLabelAuthorsNlog = new KryptonLabel();
+		imageListTabAbout = new ImageList(components);
 		pictureBoxBanner = new KryptonPictureBox();
 		kryptoPanelMain = new KryptonPanel();
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
 		kryptonManager = new KryptonManager(components);
-		imageListTabAbout = new ImageList(components);
 		contextMenuStripCopyToClipboard.SuspendLayout();
 		tabControlInfo.SuspendLayout();
 		tabPageAbout.SuspendLayout();
@@ -173,14 +173,14 @@ partial class AppInfoForm
 		tabPageAbout.Controls.Add(kryptonPictureBoxVisualStudio);
 		tabPageAbout.Controls.Add(kryptonPictureBoxDotNet);
 		tabPageAbout.Controls.Add(kryptonPictureBoxCSharp);
-		tabPageAbout.Controls.Add(labelTitle);
-		tabPageAbout.Controls.Add(labelVersion);
-		tabPageAbout.Controls.Add(labelCompany);
-		tabPageAbout.Controls.Add(labelAuthor);
-		tabPageAbout.Controls.Add(labelDescription);
-		tabPageAbout.Controls.Add(labelCopyright);
-		tabPageAbout.Controls.Add(linkLabelWebsite);
-		tabPageAbout.Controls.Add(linkLabelEmail);
+		tabPageAbout.Controls.Add(kryptonLabelTitle);
+		tabPageAbout.Controls.Add(kryptonLabelVersion);
+		tabPageAbout.Controls.Add(kryptonLabelCompany);
+		tabPageAbout.Controls.Add(kryptonLabelAuthor);
+		tabPageAbout.Controls.Add(kryptonLabelDescription);
+		tabPageAbout.Controls.Add(kryptonLabelCopyright);
+		tabPageAbout.Controls.Add(kryptonLinkLabelWebsite);
+		tabPageAbout.Controls.Add(kryptonLinkLabelEmail);
 		tabPageAbout.ImageKey = "fatcow_information_16px.png";
 		tabPageAbout.Location = new Point(4, 24);
 		tabPageAbout.Name = "tabPageAbout";
@@ -219,9 +219,9 @@ partial class AppInfoForm
 		kryptonPictureBoxVisualStudio.AccessibleName = "Visual Studio 2026";
 		kryptonPictureBoxVisualStudio.AccessibleRole = AccessibleRole.Graphic;
 		kryptonPictureBoxVisualStudio.Image = (Image)resources.GetObject("kryptonPictureBoxVisualStudio.Image");
-		kryptonPictureBoxVisualStudio.Location = new Point(140, 191);
+		kryptonPictureBoxVisualStudio.Location = new Point(105, 207);
 		kryptonPictureBoxVisualStudio.Name = "kryptonPictureBoxVisualStudio";
-		kryptonPictureBoxVisualStudio.Size = new Size(64, 64);
+		kryptonPictureBoxVisualStudio.Size = new Size(48, 48);
 		kryptonPictureBoxVisualStudio.SizeMode = PictureBoxSizeMode.Zoom;
 		kryptonPictureBoxVisualStudio.TabIndex = 10;
 		kryptonPictureBoxVisualStudio.TabStop = false;
@@ -238,9 +238,9 @@ partial class AppInfoForm
 		kryptonPictureBoxDotNet.AccessibleName = "DotNet logo";
 		kryptonPictureBoxDotNet.AccessibleRole = AccessibleRole.Graphic;
 		kryptonPictureBoxDotNet.Image = (Image)resources.GetObject("kryptonPictureBoxDotNet.Image");
-		kryptonPictureBoxDotNet.Location = new Point(0, 191);
+		kryptonPictureBoxDotNet.Location = new Point(0, 207);
 		kryptonPictureBoxDotNet.Name = "kryptonPictureBoxDotNet";
-		kryptonPictureBoxDotNet.Size = new Size(64, 64);
+		kryptonPictureBoxDotNet.Size = new Size(48, 48);
 		kryptonPictureBoxDotNet.SizeMode = PictureBoxSizeMode.Zoom;
 		kryptonPictureBoxDotNet.TabIndex = 9;
 		kryptonPictureBoxDotNet.TabStop = false;
@@ -257,9 +257,9 @@ partial class AppInfoForm
 		kryptonPictureBoxCSharp.AccessibleName = "C# logo";
 		kryptonPictureBoxCSharp.AccessibleRole = AccessibleRole.Graphic;
 		kryptonPictureBoxCSharp.Image = (Image)resources.GetObject("kryptonPictureBoxCSharp.Image");
-		kryptonPictureBoxCSharp.Location = new Point(70, 191);
+		kryptonPictureBoxCSharp.Location = new Point(51, 207);
 		kryptonPictureBoxCSharp.Name = "kryptonPictureBoxCSharp";
-		kryptonPictureBoxCSharp.Size = new Size(64, 64);
+		kryptonPictureBoxCSharp.Size = new Size(48, 48);
 		kryptonPictureBoxCSharp.SizeMode = PictureBoxSizeMode.Zoom;
 		kryptonPictureBoxCSharp.TabIndex = 8;
 		kryptonPictureBoxCSharp.TabStop = false;
@@ -270,186 +270,186 @@ partial class AppInfoForm
 		kryptonPictureBoxCSharp.MouseEnter += Control_Enter;
 		kryptonPictureBoxCSharp.MouseLeave += Control_Leave;
 		// 
-		// labelTitle
+		// kryptonLabelTitle
 		// 
-		labelTitle.AccessibleDescription = "Shows the application name";
-		labelTitle.AccessibleName = "Application Name";
-		labelTitle.AccessibleRole = AccessibleRole.StaticText;
-		labelTitle.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		labelTitle.LabelStyle = LabelStyle.TitlePanel;
-		labelTitle.Location = new Point(4, 3);
-		labelTitle.Name = "labelTitle";
-		labelTitle.Size = new Size(129, 29);
-		labelTitle.TabIndex = 0;
-		labelTitle.ToolTipValues.Description = "Shows the application name.\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelTitle.ToolTipValues.EnableToolTips = true;
-		labelTitle.ToolTipValues.Heading = "Application name";
-		labelTitle.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelTitle.Values.Text = "Planetoid-DB";
-		labelTitle.DoubleClick += CopyToClipboard_DoubleClick;
-		labelTitle.Enter += Control_Enter;
-		labelTitle.Leave += Control_Leave;
-		labelTitle.MouseDown += Control_MouseDown;
-		labelTitle.MouseEnter += Control_Enter;
-		labelTitle.MouseLeave += Control_Leave;
+		kryptonLabelTitle.AccessibleDescription = "Shows the application name";
+		kryptonLabelTitle.AccessibleName = "Application Name";
+		kryptonLabelTitle.AccessibleRole = AccessibleRole.StaticText;
+		kryptonLabelTitle.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLabelTitle.LabelStyle = LabelStyle.TitlePanel;
+		kryptonLabelTitle.Location = new Point(4, 3);
+		kryptonLabelTitle.Name = "kryptonLabelTitle";
+		kryptonLabelTitle.Size = new Size(129, 29);
+		kryptonLabelTitle.TabIndex = 0;
+		kryptonLabelTitle.ToolTipValues.Description = "Shows the application name.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelTitle.ToolTipValues.EnableToolTips = true;
+		kryptonLabelTitle.ToolTipValues.Heading = "Application name";
+		kryptonLabelTitle.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelTitle.Values.Text = "Planetoid-DB";
+		kryptonLabelTitle.DoubleClick += CopyToClipboard_DoubleClick;
+		kryptonLabelTitle.Enter += Control_Enter;
+		kryptonLabelTitle.Leave += Control_Leave;
+		kryptonLabelTitle.MouseDown += Control_MouseDown;
+		kryptonLabelTitle.MouseEnter += Control_Enter;
+		kryptonLabelTitle.MouseLeave += Control_Leave;
 		// 
-		// labelVersion
+		// kryptonLabelVersion
 		// 
-		labelVersion.AccessibleDescription = "Shows the version number";
-		labelVersion.AccessibleName = "Version";
-		labelVersion.AccessibleRole = AccessibleRole.StaticText;
-		labelVersion.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		labelVersion.Location = new Point(4, 38);
-		labelVersion.Name = "labelVersion";
-		labelVersion.Size = new Size(95, 20);
-		labelVersion.TabIndex = 1;
-		labelVersion.ToolTipValues.Description = "Shows the version number.\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelVersion.ToolTipValues.EnableToolTips = true;
-		labelVersion.ToolTipValues.Heading = "Version number";
-		labelVersion.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelVersion.Values.Text = "Version: X.X.X.X";
-		labelVersion.DoubleClick += CopyToClipboard_DoubleClick;
-		labelVersion.Enter += Control_Enter;
-		labelVersion.Leave += Control_Leave;
-		labelVersion.MouseDown += Control_MouseDown;
-		labelVersion.MouseEnter += Control_Enter;
-		labelVersion.MouseLeave += Control_Leave;
+		kryptonLabelVersion.AccessibleDescription = "Shows the version number";
+		kryptonLabelVersion.AccessibleName = "Version";
+		kryptonLabelVersion.AccessibleRole = AccessibleRole.StaticText;
+		kryptonLabelVersion.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLabelVersion.Location = new Point(4, 38);
+		kryptonLabelVersion.Name = "kryptonLabelVersion";
+		kryptonLabelVersion.Size = new Size(95, 20);
+		kryptonLabelVersion.TabIndex = 1;
+		kryptonLabelVersion.ToolTipValues.Description = "Shows the version number.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelVersion.ToolTipValues.EnableToolTips = true;
+		kryptonLabelVersion.ToolTipValues.Heading = "Version number";
+		kryptonLabelVersion.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelVersion.Values.Text = "Version: X.X.X.X";
+		kryptonLabelVersion.DoubleClick += CopyToClipboard_DoubleClick;
+		kryptonLabelVersion.Enter += Control_Enter;
+		kryptonLabelVersion.Leave += Control_Leave;
+		kryptonLabelVersion.MouseDown += Control_MouseDown;
+		kryptonLabelVersion.MouseEnter += Control_Enter;
+		kryptonLabelVersion.MouseLeave += Control_Leave;
 		// 
-		// labelCompany
+		// kryptonLabelCompany
 		// 
-		labelCompany.AccessibleDescription = "Shows the company name";
-		labelCompany.AccessibleName = "Company";
-		labelCompany.AccessibleRole = AccessibleRole.StaticText;
-		labelCompany.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		labelCompany.Location = new Point(4, 64);
-		labelCompany.Name = "labelCompany";
-		labelCompany.Size = new Size(70, 20);
-		labelCompany.TabIndex = 2;
-		labelCompany.ToolTipValues.Description = "Shows the company name.\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelCompany.ToolTipValues.EnableToolTips = true;
-		labelCompany.ToolTipValues.Heading = "Company";
-		labelCompany.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelCompany.Values.Text = "[Company]";
-		labelCompany.DoubleClick += CopyToClipboard_DoubleClick;
-		labelCompany.Enter += Control_Enter;
-		labelCompany.Leave += Control_Leave;
-		labelCompany.MouseDown += Control_MouseDown;
-		labelCompany.MouseEnter += Control_Enter;
-		labelCompany.MouseLeave += Control_Leave;
+		kryptonLabelCompany.AccessibleDescription = "Shows the company name";
+		kryptonLabelCompany.AccessibleName = "Company";
+		kryptonLabelCompany.AccessibleRole = AccessibleRole.StaticText;
+		kryptonLabelCompany.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLabelCompany.Location = new Point(4, 64);
+		kryptonLabelCompany.Name = "kryptonLabelCompany";
+		kryptonLabelCompany.Size = new Size(70, 20);
+		kryptonLabelCompany.TabIndex = 2;
+		kryptonLabelCompany.ToolTipValues.Description = "Shows the company name.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelCompany.ToolTipValues.EnableToolTips = true;
+		kryptonLabelCompany.ToolTipValues.Heading = "Company";
+		kryptonLabelCompany.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelCompany.Values.Text = "[Company]";
+		kryptonLabelCompany.DoubleClick += CopyToClipboard_DoubleClick;
+		kryptonLabelCompany.Enter += Control_Enter;
+		kryptonLabelCompany.Leave += Control_Leave;
+		kryptonLabelCompany.MouseDown += Control_MouseDown;
+		kryptonLabelCompany.MouseEnter += Control_Enter;
+		kryptonLabelCompany.MouseLeave += Control_Leave;
 		// 
-		// labelAuthor
+		// kryptonLabelAuthor
 		// 
-		labelAuthor.AccessibleDescription = "Shows the author name";
-		labelAuthor.AccessibleName = "Author";
-		labelAuthor.AccessibleRole = AccessibleRole.StaticText;
-		labelAuthor.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		labelAuthor.Location = new Point(4, 90);
-		labelAuthor.Name = "labelAuthor";
-		labelAuthor.Size = new Size(56, 20);
-		labelAuthor.TabIndex = 3;
-		labelAuthor.ToolTipValues.Description = "Shows the author name.\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelAuthor.ToolTipValues.EnableToolTips = true;
-		labelAuthor.ToolTipValues.Heading = "Author";
-		labelAuthor.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelAuthor.Values.Text = "[Author]";
-		labelAuthor.DoubleClick += CopyToClipboard_DoubleClick;
-		labelAuthor.Enter += Control_Enter;
-		labelAuthor.Leave += Control_Leave;
-		labelAuthor.MouseDown += Control_MouseDown;
-		labelAuthor.MouseEnter += Control_Enter;
-		labelAuthor.MouseLeave += Control_Leave;
+		kryptonLabelAuthor.AccessibleDescription = "Shows the author name";
+		kryptonLabelAuthor.AccessibleName = "Author";
+		kryptonLabelAuthor.AccessibleRole = AccessibleRole.StaticText;
+		kryptonLabelAuthor.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLabelAuthor.Location = new Point(4, 90);
+		kryptonLabelAuthor.Name = "kryptonLabelAuthor";
+		kryptonLabelAuthor.Size = new Size(56, 20);
+		kryptonLabelAuthor.TabIndex = 3;
+		kryptonLabelAuthor.ToolTipValues.Description = "Shows the author name.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelAuthor.ToolTipValues.EnableToolTips = true;
+		kryptonLabelAuthor.ToolTipValues.Heading = "Author";
+		kryptonLabelAuthor.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelAuthor.Values.Text = "[Author]";
+		kryptonLabelAuthor.DoubleClick += CopyToClipboard_DoubleClick;
+		kryptonLabelAuthor.Enter += Control_Enter;
+		kryptonLabelAuthor.Leave += Control_Leave;
+		kryptonLabelAuthor.MouseDown += Control_MouseDown;
+		kryptonLabelAuthor.MouseEnter += Control_Enter;
+		kryptonLabelAuthor.MouseLeave += Control_Leave;
 		// 
-		// labelDescription
+		// kryptonLabelDescription
 		// 
-		labelDescription.AccessibleDescription = "Shows the program description";
-		labelDescription.AccessibleName = "Program description";
-		labelDescription.AccessibleRole = AccessibleRole.StaticText;
-		labelDescription.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		labelDescription.Location = new Point(4, 116);
-		labelDescription.Name = "labelDescription";
-		labelDescription.Size = new Size(80, 20);
-		labelDescription.TabIndex = 4;
-		labelDescription.ToolTipValues.Description = "Shows the program description.\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelDescription.ToolTipValues.EnableToolTips = true;
-		labelDescription.ToolTipValues.Heading = "Description";
-		labelDescription.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelDescription.Values.Text = "[Description]";
-		labelDescription.DoubleClick += CopyToClipboard_DoubleClick;
-		labelDescription.Enter += Control_Enter;
-		labelDescription.Leave += Control_Leave;
-		labelDescription.MouseDown += Control_MouseDown;
-		labelDescription.MouseEnter += Control_Enter;
-		labelDescription.MouseLeave += Control_Leave;
+		kryptonLabelDescription.AccessibleDescription = "Shows the program description";
+		kryptonLabelDescription.AccessibleName = "Program description";
+		kryptonLabelDescription.AccessibleRole = AccessibleRole.StaticText;
+		kryptonLabelDescription.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLabelDescription.Location = new Point(4, 116);
+		kryptonLabelDescription.Name = "kryptonLabelDescription";
+		kryptonLabelDescription.Size = new Size(80, 20);
+		kryptonLabelDescription.TabIndex = 4;
+		kryptonLabelDescription.ToolTipValues.Description = "Shows the program description.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelDescription.ToolTipValues.EnableToolTips = true;
+		kryptonLabelDescription.ToolTipValues.Heading = "Description";
+		kryptonLabelDescription.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelDescription.Values.Text = "[Description]";
+		kryptonLabelDescription.DoubleClick += CopyToClipboard_DoubleClick;
+		kryptonLabelDescription.Enter += Control_Enter;
+		kryptonLabelDescription.Leave += Control_Leave;
+		kryptonLabelDescription.MouseDown += Control_MouseDown;
+		kryptonLabelDescription.MouseEnter += Control_Enter;
+		kryptonLabelDescription.MouseLeave += Control_Leave;
 		// 
-		// labelCopyright
+		// kryptonLabelCopyright
 		// 
-		labelCopyright.AccessibleDescription = "Shows the copyright";
-		labelCopyright.AccessibleName = "Copyright";
-		labelCopyright.AccessibleRole = AccessibleRole.StaticText;
-		labelCopyright.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		labelCopyright.Location = new Point(4, 142);
-		labelCopyright.Name = "labelCopyright";
-		labelCopyright.Size = new Size(72, 20);
-		labelCopyright.TabIndex = 5;
-		labelCopyright.ToolTipValues.Description = "Shows the copyright.\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelCopyright.ToolTipValues.EnableToolTips = true;
-		labelCopyright.ToolTipValues.Heading = "Copyright";
-		labelCopyright.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelCopyright.Values.Text = "[Copyright]";
-		labelCopyright.DoubleClick += CopyToClipboard_DoubleClick;
-		labelCopyright.Enter += Control_Enter;
-		labelCopyright.Leave += Control_Leave;
-		labelCopyright.MouseDown += Control_MouseDown;
-		labelCopyright.MouseEnter += Control_Enter;
-		labelCopyright.MouseLeave += Control_Leave;
+		kryptonLabelCopyright.AccessibleDescription = "Shows the copyright";
+		kryptonLabelCopyright.AccessibleName = "Copyright";
+		kryptonLabelCopyright.AccessibleRole = AccessibleRole.StaticText;
+		kryptonLabelCopyright.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLabelCopyright.Location = new Point(4, 142);
+		kryptonLabelCopyright.Name = "kryptonLabelCopyright";
+		kryptonLabelCopyright.Size = new Size(72, 20);
+		kryptonLabelCopyright.TabIndex = 5;
+		kryptonLabelCopyright.ToolTipValues.Description = "Shows the copyright.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelCopyright.ToolTipValues.EnableToolTips = true;
+		kryptonLabelCopyright.ToolTipValues.Heading = "Copyright";
+		kryptonLabelCopyright.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelCopyright.Values.Text = "[Copyright]";
+		kryptonLabelCopyright.DoubleClick += CopyToClipboard_DoubleClick;
+		kryptonLabelCopyright.Enter += Control_Enter;
+		kryptonLabelCopyright.Leave += Control_Leave;
+		kryptonLabelCopyright.MouseDown += Control_MouseDown;
+		kryptonLabelCopyright.MouseEnter += Control_Enter;
+		kryptonLabelCopyright.MouseLeave += Control_Leave;
 		// 
-		// linkLabelWebsite
+		// kryptonLinkLabelWebsite
 		// 
-		linkLabelWebsite.AccessibleDescription = "Opens the website";
-		linkLabelWebsite.AccessibleName = "Website";
-		linkLabelWebsite.AccessibleRole = AccessibleRole.Link;
-		linkLabelWebsite.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		linkLabelWebsite.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
-		linkLabelWebsite.Location = new Point(408, 207);
-		linkLabelWebsite.Name = "linkLabelWebsite";
-		linkLabelWebsite.Size = new Size(72, 20);
-		linkLabelWebsite.TabIndex = 6;
-		linkLabelWebsite.ToolTipValues.Description = "Opens the website.";
-		linkLabelWebsite.ToolTipValues.EnableToolTips = true;
-		linkLabelWebsite.ToolTipValues.Heading = "Website";
-		linkLabelWebsite.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		linkLabelWebsite.Values.Image = FatcowIcons16px.fatcow_world_16px;
-		linkLabelWebsite.Values.Text = "Website";
-		linkLabelWebsite.LinkClicked += LinkLabelWebsite_Clicked;
-		linkLabelWebsite.Enter += Control_Enter;
-		linkLabelWebsite.Leave += Control_Leave;
-		linkLabelWebsite.MouseDown += Control_MouseDown;
-		linkLabelWebsite.MouseEnter += Control_Enter;
-		linkLabelWebsite.MouseLeave += Control_Leave;
+		kryptonLinkLabelWebsite.AccessibleDescription = "Opens the website";
+		kryptonLinkLabelWebsite.AccessibleName = "Website";
+		kryptonLinkLabelWebsite.AccessibleRole = AccessibleRole.Link;
+		kryptonLinkLabelWebsite.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLinkLabelWebsite.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
+		kryptonLinkLabelWebsite.Location = new Point(408, 207);
+		kryptonLinkLabelWebsite.Name = "kryptonLinkLabelWebsite";
+		kryptonLinkLabelWebsite.Size = new Size(72, 20);
+		kryptonLinkLabelWebsite.TabIndex = 6;
+		kryptonLinkLabelWebsite.ToolTipValues.Description = "Opens the website.";
+		kryptonLinkLabelWebsite.ToolTipValues.EnableToolTips = true;
+		kryptonLinkLabelWebsite.ToolTipValues.Heading = "Website";
+		kryptonLinkLabelWebsite.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLinkLabelWebsite.Values.Image = FatcowIcons16px.fatcow_world_16px;
+		kryptonLinkLabelWebsite.Values.Text = "Website";
+		kryptonLinkLabelWebsite.LinkClicked += LinkLabelWebsite_Clicked;
+		kryptonLinkLabelWebsite.Enter += Control_Enter;
+		kryptonLinkLabelWebsite.Leave += Control_Leave;
+		kryptonLinkLabelWebsite.MouseDown += Control_MouseDown;
+		kryptonLinkLabelWebsite.MouseEnter += Control_Enter;
+		kryptonLinkLabelWebsite.MouseLeave += Control_Leave;
 		// 
-		// linkLabelEmail
+		// kryptonLinkLabelEmail
 		// 
-		linkLabelEmail.AccessibleDescription = "Opens the mail client";
-		linkLabelEmail.AccessibleName = "E-Mail";
-		linkLabelEmail.AccessibleRole = AccessibleRole.Link;
-		linkLabelEmail.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		linkLabelEmail.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
-		linkLabelEmail.Location = new Point(408, 230);
-		linkLabelEmail.Name = "linkLabelEmail";
-		linkLabelEmail.Size = new Size(62, 20);
-		linkLabelEmail.TabIndex = 7;
-		linkLabelEmail.ToolTipValues.Description = "Opens the mail client.";
-		linkLabelEmail.ToolTipValues.EnableToolTips = true;
-		linkLabelEmail.ToolTipValues.Heading = "E-Mail";
-		linkLabelEmail.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		linkLabelEmail.Values.Image = FatcowIcons16px.fatcow_email_16px;
-		linkLabelEmail.Values.Text = "E-Mail";
-		linkLabelEmail.LinkClicked += LinkLabelEmail_Clicked;
-		linkLabelEmail.Enter += Control_Enter;
-		linkLabelEmail.Leave += Control_Leave;
-		linkLabelEmail.MouseDown += Control_MouseDown;
-		linkLabelEmail.MouseEnter += Control_Enter;
-		linkLabelEmail.MouseLeave += Control_Leave;
+		kryptonLinkLabelEmail.AccessibleDescription = "Opens the mail client";
+		kryptonLinkLabelEmail.AccessibleName = "E-Mail";
+		kryptonLinkLabelEmail.AccessibleRole = AccessibleRole.Link;
+		kryptonLinkLabelEmail.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLinkLabelEmail.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
+		kryptonLinkLabelEmail.Location = new Point(408, 230);
+		kryptonLinkLabelEmail.Name = "kryptonLinkLabelEmail";
+		kryptonLinkLabelEmail.Size = new Size(62, 20);
+		kryptonLinkLabelEmail.TabIndex = 7;
+		kryptonLinkLabelEmail.ToolTipValues.Description = "Opens the mail client.";
+		kryptonLinkLabelEmail.ToolTipValues.EnableToolTips = true;
+		kryptonLinkLabelEmail.ToolTipValues.Heading = "E-Mail";
+		kryptonLinkLabelEmail.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLinkLabelEmail.Values.Image = FatcowIcons16px.fatcow_email_16px;
+		kryptonLinkLabelEmail.Values.Text = "E-Mail";
+		kryptonLinkLabelEmail.LinkClicked += LinkLabelEmail_Clicked;
+		kryptonLinkLabelEmail.Enter += Control_Enter;
+		kryptonLinkLabelEmail.Leave += Control_Leave;
+		kryptonLinkLabelEmail.MouseDown += Control_MouseDown;
+		kryptonLinkLabelEmail.MouseEnter += Control_Enter;
+		kryptonLinkLabelEmail.MouseLeave += Control_Leave;
 		// 
 		// tabPageComponents
 		// 
@@ -499,7 +499,7 @@ partial class AppInfoForm
 		tabPageComponentApplicationIcon.Controls.Add(kryptonLinkLabelFlaticon);
 		tabPageComponentApplicationIcon.Controls.Add(kryptonLabelAuthorFlaticon);
 		tabPageComponentApplicationIcon.Controls.Add(kryptonTextBoxLicenseFlaticon);
-		tabPageComponentApplicationIcon.Controls.Add(labelIconHeadingFlaticon);
+		tabPageComponentApplicationIcon.Controls.Add(kryptonLabelIconHeadingFlaticon);
 		tabPageComponentApplicationIcon.Location = new Point(4, 24);
 		tabPageComponentApplicationIcon.Name = "tabPageComponentApplicationIcon";
 		tabPageComponentApplicationIcon.Padding = new Padding(3);
@@ -528,6 +528,7 @@ partial class AppInfoForm
 		kryptonLabelLicenseFlaticon.ToolTipValues.Heading = "Flaticon license";
 		kryptonLabelLicenseFlaticon.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLabelLicenseFlaticon.Values.Text = "License: Flaticon license";
+		kryptonLabelLicenseFlaticon.DoubleClick += CopyToClipboard_DoubleClick;
 		kryptonLabelLicenseFlaticon.Enter += Control_Enter;
 		kryptonLabelLicenseFlaticon.Leave += Control_Leave;
 		kryptonLabelLicenseFlaticon.MouseDown += Control_MouseDown;
@@ -551,6 +552,7 @@ partial class AppInfoForm
 		kryptonLinkLabelFlaticon.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLinkLabelFlaticon.Values.Image = FatcowIcons16px.fatcow_world_16px;
 		kryptonLinkLabelFlaticon.Values.Text = "https://www.flaticon.com/free-icon/asteroid_1086068";
+		kryptonLinkLabelFlaticon.Click += KryptonLinkLabelFlaticon_Click;
 		kryptonLinkLabelFlaticon.Enter += Control_Enter;
 		kryptonLinkLabelFlaticon.Leave += Control_Leave;
 		kryptonLinkLabelFlaticon.MouseDown += Control_MouseDown;
@@ -572,6 +574,7 @@ partial class AppInfoForm
 		kryptonLabelAuthorFlaticon.ToolTipValues.Heading = "Flaticon authors";
 		kryptonLabelAuthorFlaticon.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLabelAuthorFlaticon.Values.Text = "Authors: monkik";
+		kryptonLabelAuthorFlaticon.DoubleClick += CopyToClipboard_DoubleClick;
 		kryptonLabelAuthorFlaticon.Enter += Control_Enter;
 		kryptonLabelAuthorFlaticon.Leave += Control_Leave;
 		kryptonLabelAuthorFlaticon.MouseDown += Control_MouseDown;
@@ -600,27 +603,28 @@ partial class AppInfoForm
 		kryptonTextBoxLicenseFlaticon.MouseEnter += Control_Enter;
 		kryptonTextBoxLicenseFlaticon.MouseLeave += Control_Leave;
 		// 
-		// labelIconHeadingFlaticon
+		// kryptonLabelIconHeadingFlaticon
 		// 
-		labelIconHeadingFlaticon.AccessibleDescription = "Heading for the application icon section";
-		labelIconHeadingFlaticon.AccessibleName = "Application Icon heading";
-		labelIconHeadingFlaticon.AccessibleRole = AccessibleRole.StaticText;
-		labelIconHeadingFlaticon.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		labelIconHeadingFlaticon.LabelStyle = LabelStyle.BoldControl;
-		labelIconHeadingFlaticon.Location = new Point(6, 6);
-		labelIconHeadingFlaticon.Name = "labelIconHeadingFlaticon";
-		labelIconHeadingFlaticon.Size = new Size(106, 20);
-		labelIconHeadingFlaticon.TabIndex = 0;
-		labelIconHeadingFlaticon.ToolTipValues.Description = "Heading for the application icon section.\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelIconHeadingFlaticon.ToolTipValues.EnableToolTips = true;
-		labelIconHeadingFlaticon.ToolTipValues.Heading = "Application Icon";
-		labelIconHeadingFlaticon.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelIconHeadingFlaticon.Values.Text = "Application Icon";
-		labelIconHeadingFlaticon.Enter += Control_Enter;
-		labelIconHeadingFlaticon.Leave += Control_Leave;
-		labelIconHeadingFlaticon.MouseDown += Control_MouseDown;
-		labelIconHeadingFlaticon.MouseEnter += Control_Enter;
-		labelIconHeadingFlaticon.MouseLeave += Control_Leave;
+		kryptonLabelIconHeadingFlaticon.AccessibleDescription = "Heading for the application icon section";
+		kryptonLabelIconHeadingFlaticon.AccessibleName = "Application Icon heading";
+		kryptonLabelIconHeadingFlaticon.AccessibleRole = AccessibleRole.StaticText;
+		kryptonLabelIconHeadingFlaticon.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLabelIconHeadingFlaticon.LabelStyle = LabelStyle.BoldControl;
+		kryptonLabelIconHeadingFlaticon.Location = new Point(6, 6);
+		kryptonLabelIconHeadingFlaticon.Name = "kryptonLabelIconHeadingFlaticon";
+		kryptonLabelIconHeadingFlaticon.Size = new Size(106, 20);
+		kryptonLabelIconHeadingFlaticon.TabIndex = 0;
+		kryptonLabelIconHeadingFlaticon.ToolTipValues.Description = "Heading for the application icon section.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelIconHeadingFlaticon.ToolTipValues.EnableToolTips = true;
+		kryptonLabelIconHeadingFlaticon.ToolTipValues.Heading = "Application Icon";
+		kryptonLabelIconHeadingFlaticon.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelIconHeadingFlaticon.Values.Text = "Application Icon";
+		kryptonLabelIconHeadingFlaticon.DoubleClick += CopyToClipboard_DoubleClick;
+		kryptonLabelIconHeadingFlaticon.Enter += Control_Enter;
+		kryptonLabelIconHeadingFlaticon.Leave += Control_Leave;
+		kryptonLabelIconHeadingFlaticon.MouseDown += Control_MouseDown;
+		kryptonLabelIconHeadingFlaticon.MouseEnter += Control_Enter;
+		kryptonLabelIconHeadingFlaticon.MouseLeave += Control_Leave;
 		// 
 		// tabPageIconsetFatcow
 		// 
@@ -628,10 +632,10 @@ partial class AppInfoForm
 		tabPageIconsetFatcow.AccessibleName = "FatCow icons tab";
 		tabPageIconsetFatcow.AccessibleRole = AccessibleRole.PageTab;
 		tabPageIconsetFatcow.Controls.Add(kryptonTextBoxLicenseFatcow);
-		tabPageIconsetFatcow.Controls.Add(labelHeadingFatcowIcons);
-		tabPageIconsetFatcow.Controls.Add(labelLicenseFatcow);
-		tabPageIconsetFatcow.Controls.Add(linkLabelWebsiteFatcow);
-		tabPageIconsetFatcow.Controls.Add(labelAuthorsFatcow);
+		tabPageIconsetFatcow.Controls.Add(kryptonLabelHeadingFatcowIcons);
+		tabPageIconsetFatcow.Controls.Add(kryptonLabelLicenseFatcow);
+		tabPageIconsetFatcow.Controls.Add(kryptonLinkLabelWebsiteFatcow);
+		tabPageIconsetFatcow.Controls.Add(kryptonLabelAuthorsFatcow);
 		tabPageIconsetFatcow.Location = new Point(4, 24);
 		tabPageIconsetFatcow.Name = "tabPageIconsetFatcow";
 		tabPageIconsetFatcow.Padding = new Padding(3);
@@ -667,95 +671,96 @@ partial class AppInfoForm
 		kryptonTextBoxLicenseFatcow.MouseEnter += Control_Enter;
 		kryptonTextBoxLicenseFatcow.MouseLeave += Control_Leave;
 		// 
-		// labelHeadingFatcowIcons
+		// kryptonLabelHeadingFatcowIcons
 		// 
-		labelHeadingFatcowIcons.AccessibleDescription = "Heading for the FatCow Icons section";
-		labelHeadingFatcowIcons.AccessibleName = "FatCow Icons heading";
-		labelHeadingFatcowIcons.AccessibleRole = AccessibleRole.StaticText;
-		labelHeadingFatcowIcons.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		labelHeadingFatcowIcons.LabelStyle = LabelStyle.BoldControl;
-		labelHeadingFatcowIcons.Location = new Point(6, 6);
-		labelHeadingFatcowIcons.Name = "labelHeadingFatcowIcons";
-		labelHeadingFatcowIcons.Size = new Size(93, 20);
-		labelHeadingFatcowIcons.TabIndex = 14;
-		labelHeadingFatcowIcons.ToolTipValues.Description = "Header for the FatCow Icons section\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelHeadingFatcowIcons.ToolTipValues.EnableToolTips = true;
-		labelHeadingFatcowIcons.ToolTipValues.Heading = "FatCow Icons";
-		labelHeadingFatcowIcons.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelHeadingFatcowIcons.Values.Text = "FatCow Icons";
-		labelHeadingFatcowIcons.Enter += Control_Enter;
-		labelHeadingFatcowIcons.Leave += Control_Leave;
-		labelHeadingFatcowIcons.MouseDown += Control_MouseDown;
-		labelHeadingFatcowIcons.MouseEnter += Control_Enter;
-		labelHeadingFatcowIcons.MouseLeave += Control_Leave;
+		kryptonLabelHeadingFatcowIcons.AccessibleDescription = "Heading for the FatCow Icons section";
+		kryptonLabelHeadingFatcowIcons.AccessibleName = "FatCow Icons heading";
+		kryptonLabelHeadingFatcowIcons.AccessibleRole = AccessibleRole.StaticText;
+		kryptonLabelHeadingFatcowIcons.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLabelHeadingFatcowIcons.LabelStyle = LabelStyle.BoldControl;
+		kryptonLabelHeadingFatcowIcons.Location = new Point(6, 6);
+		kryptonLabelHeadingFatcowIcons.Name = "kryptonLabelHeadingFatcowIcons";
+		kryptonLabelHeadingFatcowIcons.Size = new Size(93, 20);
+		kryptonLabelHeadingFatcowIcons.TabIndex = 14;
+		kryptonLabelHeadingFatcowIcons.ToolTipValues.Description = "Header for the FatCow Icons section\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelHeadingFatcowIcons.ToolTipValues.EnableToolTips = true;
+		kryptonLabelHeadingFatcowIcons.ToolTipValues.Heading = "FatCow Icons";
+		kryptonLabelHeadingFatcowIcons.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelHeadingFatcowIcons.Values.Text = "FatCow Icons";
+		kryptonLabelHeadingFatcowIcons.DoubleClick += CopyToClipboard_DoubleClick;
+		kryptonLabelHeadingFatcowIcons.Enter += Control_Enter;
+		kryptonLabelHeadingFatcowIcons.Leave += Control_Leave;
+		kryptonLabelHeadingFatcowIcons.MouseDown += Control_MouseDown;
+		kryptonLabelHeadingFatcowIcons.MouseEnter += Control_Enter;
+		kryptonLabelHeadingFatcowIcons.MouseLeave += Control_Leave;
 		// 
-		// labelLicenseFatcow
+		// kryptonLabelLicenseFatcow
 		// 
-		labelLicenseFatcow.AccessibleDescription = "Shows the FatCow Icons license";
-		labelLicenseFatcow.AccessibleName = "FatCow Icons license";
-		labelLicenseFatcow.AccessibleRole = AccessibleRole.StaticText;
-		labelLicenseFatcow.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		labelLicenseFatcow.Location = new Point(6, 32);
-		labelLicenseFatcow.Name = "labelLicenseFatcow";
-		labelLicenseFatcow.Size = new Size(108, 20);
-		labelLicenseFatcow.TabIndex = 17;
-		labelLicenseFatcow.ToolTipValues.Description = "Shows the FatCow Icons license.\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelLicenseFatcow.ToolTipValues.EnableToolTips = true;
-		labelLicenseFatcow.ToolTipValues.Heading = "FatCow Icons license";
-		labelLicenseFatcow.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelLicenseFatcow.Values.Text = "License: CC BY 3.0";
-		labelLicenseFatcow.DoubleClick += CopyToClipboard_DoubleClick;
-		labelLicenseFatcow.Enter += Control_Enter;
-		labelLicenseFatcow.Leave += Control_Leave;
-		labelLicenseFatcow.MouseDown += Control_MouseDown;
-		labelLicenseFatcow.MouseEnter += Control_Enter;
-		labelLicenseFatcow.MouseLeave += Control_Leave;
+		kryptonLabelLicenseFatcow.AccessibleDescription = "Shows the FatCow Icons license";
+		kryptonLabelLicenseFatcow.AccessibleName = "FatCow Icons license";
+		kryptonLabelLicenseFatcow.AccessibleRole = AccessibleRole.StaticText;
+		kryptonLabelLicenseFatcow.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLabelLicenseFatcow.Location = new Point(6, 32);
+		kryptonLabelLicenseFatcow.Name = "kryptonLabelLicenseFatcow";
+		kryptonLabelLicenseFatcow.Size = new Size(108, 20);
+		kryptonLabelLicenseFatcow.TabIndex = 17;
+		kryptonLabelLicenseFatcow.ToolTipValues.Description = "Shows the FatCow Icons license.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelLicenseFatcow.ToolTipValues.EnableToolTips = true;
+		kryptonLabelLicenseFatcow.ToolTipValues.Heading = "FatCow Icons license";
+		kryptonLabelLicenseFatcow.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelLicenseFatcow.Values.Text = "License: CC BY 3.0";
+		kryptonLabelLicenseFatcow.DoubleClick += CopyToClipboard_DoubleClick;
+		kryptonLabelLicenseFatcow.Enter += Control_Enter;
+		kryptonLabelLicenseFatcow.Leave += Control_Leave;
+		kryptonLabelLicenseFatcow.MouseDown += Control_MouseDown;
+		kryptonLabelLicenseFatcow.MouseEnter += Control_Enter;
+		kryptonLabelLicenseFatcow.MouseLeave += Control_Leave;
 		// 
-		// linkLabelWebsiteFatcow
+		// kryptonLinkLabelWebsiteFatcow
 		// 
-		linkLabelWebsiteFatcow.AccessibleDescription = "Opens the FatCow Icons website";
-		linkLabelWebsiteFatcow.AccessibleName = "FatCow Icons website";
-		linkLabelWebsiteFatcow.AccessibleRole = AccessibleRole.Link;
-		linkLabelWebsiteFatcow.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		linkLabelWebsiteFatcow.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
-		linkLabelWebsiteFatcow.Location = new Point(289, 6);
-		linkLabelWebsiteFatcow.Name = "linkLabelWebsiteFatcow";
-		linkLabelWebsiteFatcow.Size = new Size(189, 20);
-		linkLabelWebsiteFatcow.TabIndex = 16;
-		linkLabelWebsiteFatcow.ToolTipValues.Description = "Opens the FatCow Icons website.";
-		linkLabelWebsiteFatcow.ToolTipValues.EnableToolTips = true;
-		linkLabelWebsiteFatcow.ToolTipValues.Heading = "FatCow Icons website";
-		linkLabelWebsiteFatcow.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		linkLabelWebsiteFatcow.Values.Image = FatcowIcons16px.fatcow_world_16px;
-		linkLabelWebsiteFatcow.Values.Text = "https://fatcow.com/free-icons";
-		linkLabelWebsiteFatcow.LinkClicked += LinkLabelFatCowWebsite_Clicked;
-		linkLabelWebsiteFatcow.Enter += Control_Enter;
-		linkLabelWebsiteFatcow.Leave += Control_Leave;
-		linkLabelWebsiteFatcow.MouseDown += Control_MouseDown;
-		linkLabelWebsiteFatcow.MouseEnter += Control_Enter;
-		linkLabelWebsiteFatcow.MouseLeave += Control_Leave;
+		kryptonLinkLabelWebsiteFatcow.AccessibleDescription = "Opens the FatCow Icons website";
+		kryptonLinkLabelWebsiteFatcow.AccessibleName = "FatCow Icons website";
+		kryptonLinkLabelWebsiteFatcow.AccessibleRole = AccessibleRole.Link;
+		kryptonLinkLabelWebsiteFatcow.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLinkLabelWebsiteFatcow.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
+		kryptonLinkLabelWebsiteFatcow.Location = new Point(289, 6);
+		kryptonLinkLabelWebsiteFatcow.Name = "kryptonLinkLabelWebsiteFatcow";
+		kryptonLinkLabelWebsiteFatcow.Size = new Size(189, 20);
+		kryptonLinkLabelWebsiteFatcow.TabIndex = 16;
+		kryptonLinkLabelWebsiteFatcow.ToolTipValues.Description = "Opens the FatCow Icons website.";
+		kryptonLinkLabelWebsiteFatcow.ToolTipValues.EnableToolTips = true;
+		kryptonLinkLabelWebsiteFatcow.ToolTipValues.Heading = "FatCow Icons website";
+		kryptonLinkLabelWebsiteFatcow.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLinkLabelWebsiteFatcow.Values.Image = FatcowIcons16px.fatcow_world_16px;
+		kryptonLinkLabelWebsiteFatcow.Values.Text = "https://fatcow.com/free-icons";
+		kryptonLinkLabelWebsiteFatcow.LinkClicked += LinkLabelFatCowWebsite_Clicked;
+		kryptonLinkLabelWebsiteFatcow.Enter += Control_Enter;
+		kryptonLinkLabelWebsiteFatcow.Leave += Control_Leave;
+		kryptonLinkLabelWebsiteFatcow.MouseDown += Control_MouseDown;
+		kryptonLinkLabelWebsiteFatcow.MouseEnter += Control_Enter;
+		kryptonLinkLabelWebsiteFatcow.MouseLeave += Control_Leave;
 		// 
-		// labelAuthorsFatcow
+		// kryptonLabelAuthorsFatcow
 		// 
-		labelAuthorsFatcow.AccessibleDescription = "Shows the FatCow Icons author";
-		labelAuthorsFatcow.AccessibleName = "FatCow Icons author";
-		labelAuthorsFatcow.AccessibleRole = AccessibleRole.StaticText;
-		labelAuthorsFatcow.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		labelAuthorsFatcow.Location = new Point(309, 32);
-		labelAuthorsFatcow.Name = "labelAuthorsFatcow";
-		labelAuthorsFatcow.Size = new Size(169, 20);
-		labelAuthorsFatcow.TabIndex = 15;
-		labelAuthorsFatcow.ToolTipValues.Description = "Shows the FatCow Icons author.\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelAuthorsFatcow.ToolTipValues.EnableToolTips = true;
-		labelAuthorsFatcow.ToolTipValues.Heading = "FatCow Icons author";
-		labelAuthorsFatcow.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelAuthorsFatcow.Values.Text = "Author: FatCow Web Hosting";
-		labelAuthorsFatcow.DoubleClick += CopyToClipboard_DoubleClick;
-		labelAuthorsFatcow.Enter += Control_Enter;
-		labelAuthorsFatcow.Leave += Control_Leave;
-		labelAuthorsFatcow.MouseDown += Control_MouseDown;
-		labelAuthorsFatcow.MouseEnter += Control_Enter;
-		labelAuthorsFatcow.MouseLeave += Control_Leave;
+		kryptonLabelAuthorsFatcow.AccessibleDescription = "Shows the FatCow Icons author";
+		kryptonLabelAuthorsFatcow.AccessibleName = "FatCow Icons author";
+		kryptonLabelAuthorsFatcow.AccessibleRole = AccessibleRole.StaticText;
+		kryptonLabelAuthorsFatcow.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLabelAuthorsFatcow.Location = new Point(309, 32);
+		kryptonLabelAuthorsFatcow.Name = "kryptonLabelAuthorsFatcow";
+		kryptonLabelAuthorsFatcow.Size = new Size(169, 20);
+		kryptonLabelAuthorsFatcow.TabIndex = 15;
+		kryptonLabelAuthorsFatcow.ToolTipValues.Description = "Shows the FatCow Icons author.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelAuthorsFatcow.ToolTipValues.EnableToolTips = true;
+		kryptonLabelAuthorsFatcow.ToolTipValues.Heading = "FatCow Icons author";
+		kryptonLabelAuthorsFatcow.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelAuthorsFatcow.Values.Text = "Author: FatCow Web Hosting";
+		kryptonLabelAuthorsFatcow.DoubleClick += CopyToClipboard_DoubleClick;
+		kryptonLabelAuthorsFatcow.Enter += Control_Enter;
+		kryptonLabelAuthorsFatcow.Leave += Control_Leave;
+		kryptonLabelAuthorsFatcow.MouseDown += Control_MouseDown;
+		kryptonLabelAuthorsFatcow.MouseEnter += Control_Enter;
+		kryptonLabelAuthorsFatcow.MouseLeave += Control_Leave;
 		// 
 		// tabPageComponentKryptonSuite
 		// 
@@ -763,11 +768,11 @@ partial class AppInfoForm
 		tabPageComponentKryptonSuite.AccessibleName = "Krypton Suite tab";
 		tabPageComponentKryptonSuite.AccessibleRole = AccessibleRole.PageTab;
 		tabPageComponentKryptonSuite.Controls.Add(kryptonTextBoxLicenseKryptonSuite);
-		tabPageComponentKryptonSuite.Controls.Add(labelHeadingKryptonSuite);
-		tabPageComponentKryptonSuite.Controls.Add(labelLicenseKryptonSuite);
-		tabPageComponentKryptonSuite.Controls.Add(labelVersionKryptonSuite);
-		tabPageComponentKryptonSuite.Controls.Add(linkLabelWebsiteKryptonSuite);
-		tabPageComponentKryptonSuite.Controls.Add(labelAuthorsKryptonSuite);
+		tabPageComponentKryptonSuite.Controls.Add(kryptonLabelHeadingKryptonSuite);
+		tabPageComponentKryptonSuite.Controls.Add(kryptonLabelLicenseKryptonSuite);
+		tabPageComponentKryptonSuite.Controls.Add(kryptonLabelVersionKryptonSuite);
+		tabPageComponentKryptonSuite.Controls.Add(kryptonLinkLabelWebsiteKryptonSuite);
+		tabPageComponentKryptonSuite.Controls.Add(kryptonLabelAuthorsKryptonSuite);
 		tabPageComponentKryptonSuite.Location = new Point(4, 24);
 		tabPageComponentKryptonSuite.Name = "tabPageComponentKryptonSuite";
 		tabPageComponentKryptonSuite.Padding = new Padding(3);
@@ -802,117 +807,118 @@ partial class AppInfoForm
 		kryptonTextBoxLicenseKryptonSuite.MouseEnter += Control_Enter;
 		kryptonTextBoxLicenseKryptonSuite.MouseLeave += Control_Leave;
 		// 
-		// labelHeadingKryptonSuite
+		// kryptonLabelHeadingKryptonSuite
 		// 
-		labelHeadingKryptonSuite.AccessibleDescription = "Heading for the Krypton Suite section";
-		labelHeadingKryptonSuite.AccessibleName = "Krypton Suite heading";
-		labelHeadingKryptonSuite.AccessibleRole = AccessibleRole.StaticText;
-		labelHeadingKryptonSuite.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		labelHeadingKryptonSuite.LabelStyle = LabelStyle.BoldControl;
-		labelHeadingKryptonSuite.Location = new Point(6, 6);
-		labelHeadingKryptonSuite.Name = "labelHeadingKryptonSuite";
-		labelHeadingKryptonSuite.Size = new Size(191, 20);
-		labelHeadingKryptonSuite.TabIndex = 4;
-		labelHeadingKryptonSuite.ToolTipValues.Description = "Heading for the Krypton Suite section.\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelHeadingKryptonSuite.ToolTipValues.EnableToolTips = true;
-		labelHeadingKryptonSuite.ToolTipValues.Heading = "Krypton Suite Standard Toolkit";
-		labelHeadingKryptonSuite.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelHeadingKryptonSuite.Values.Text = "Krypton Suite Standard Toolkit";
-		labelHeadingKryptonSuite.Enter += Control_Enter;
-		labelHeadingKryptonSuite.Leave += Control_Leave;
-		labelHeadingKryptonSuite.MouseDown += Control_MouseDown;
-		labelHeadingKryptonSuite.MouseEnter += Control_Enter;
-		labelHeadingKryptonSuite.MouseLeave += Control_Leave;
+		kryptonLabelHeadingKryptonSuite.AccessibleDescription = "Heading for the Krypton Suite section";
+		kryptonLabelHeadingKryptonSuite.AccessibleName = "Krypton Suite heading";
+		kryptonLabelHeadingKryptonSuite.AccessibleRole = AccessibleRole.StaticText;
+		kryptonLabelHeadingKryptonSuite.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLabelHeadingKryptonSuite.LabelStyle = LabelStyle.BoldControl;
+		kryptonLabelHeadingKryptonSuite.Location = new Point(6, 6);
+		kryptonLabelHeadingKryptonSuite.Name = "kryptonLabelHeadingKryptonSuite";
+		kryptonLabelHeadingKryptonSuite.Size = new Size(191, 20);
+		kryptonLabelHeadingKryptonSuite.TabIndex = 4;
+		kryptonLabelHeadingKryptonSuite.ToolTipValues.Description = "Heading for the Krypton Suite section.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelHeadingKryptonSuite.ToolTipValues.EnableToolTips = true;
+		kryptonLabelHeadingKryptonSuite.ToolTipValues.Heading = "Krypton Suite Standard Toolkit";
+		kryptonLabelHeadingKryptonSuite.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelHeadingKryptonSuite.Values.Text = "Krypton Suite Standard Toolkit";
+		kryptonLabelHeadingKryptonSuite.DoubleClick += CopyToClipboard_DoubleClick;
+		kryptonLabelHeadingKryptonSuite.Enter += Control_Enter;
+		kryptonLabelHeadingKryptonSuite.Leave += Control_Leave;
+		kryptonLabelHeadingKryptonSuite.MouseDown += Control_MouseDown;
+		kryptonLabelHeadingKryptonSuite.MouseEnter += Control_Enter;
+		kryptonLabelHeadingKryptonSuite.MouseLeave += Control_Leave;
 		// 
-		// labelLicenseKryptonSuite
+		// kryptonLabelLicenseKryptonSuite
 		// 
-		labelLicenseKryptonSuite.AccessibleDescription = "Shows the Krypton Suite license";
-		labelLicenseKryptonSuite.AccessibleName = "Krypton Suite license";
-		labelLicenseKryptonSuite.AccessibleRole = AccessibleRole.StaticText;
-		labelLicenseKryptonSuite.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		labelLicenseKryptonSuite.Location = new Point(6, 58);
-		labelLicenseKryptonSuite.Name = "labelLicenseKryptonSuite";
-		labelLicenseKryptonSuite.Size = new Size(129, 20);
-		labelLicenseKryptonSuite.TabIndex = 8;
-		labelLicenseKryptonSuite.ToolTipValues.Description = "Shows the Krypton Suite license.\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelLicenseKryptonSuite.ToolTipValues.EnableToolTips = true;
-		labelLicenseKryptonSuite.ToolTipValues.Heading = "Krypton Suite license";
-		labelLicenseKryptonSuite.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelLicenseKryptonSuite.Values.Text = "License: BSD 3-Clause";
-		labelLicenseKryptonSuite.DoubleClick += CopyToClipboard_DoubleClick;
-		labelLicenseKryptonSuite.Enter += Control_Enter;
-		labelLicenseKryptonSuite.Leave += Control_Leave;
-		labelLicenseKryptonSuite.MouseDown += Control_MouseDown;
-		labelLicenseKryptonSuite.MouseEnter += Control_Enter;
-		labelLicenseKryptonSuite.MouseLeave += Control_Leave;
+		kryptonLabelLicenseKryptonSuite.AccessibleDescription = "Shows the Krypton Suite license";
+		kryptonLabelLicenseKryptonSuite.AccessibleName = "Krypton Suite license";
+		kryptonLabelLicenseKryptonSuite.AccessibleRole = AccessibleRole.StaticText;
+		kryptonLabelLicenseKryptonSuite.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLabelLicenseKryptonSuite.Location = new Point(6, 58);
+		kryptonLabelLicenseKryptonSuite.Name = "kryptonLabelLicenseKryptonSuite";
+		kryptonLabelLicenseKryptonSuite.Size = new Size(129, 20);
+		kryptonLabelLicenseKryptonSuite.TabIndex = 8;
+		kryptonLabelLicenseKryptonSuite.ToolTipValues.Description = "Shows the Krypton Suite license.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelLicenseKryptonSuite.ToolTipValues.EnableToolTips = true;
+		kryptonLabelLicenseKryptonSuite.ToolTipValues.Heading = "Krypton Suite license";
+		kryptonLabelLicenseKryptonSuite.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelLicenseKryptonSuite.Values.Text = "License: BSD 3-Clause";
+		kryptonLabelLicenseKryptonSuite.DoubleClick += CopyToClipboard_DoubleClick;
+		kryptonLabelLicenseKryptonSuite.Enter += Control_Enter;
+		kryptonLabelLicenseKryptonSuite.Leave += Control_Leave;
+		kryptonLabelLicenseKryptonSuite.MouseDown += Control_MouseDown;
+		kryptonLabelLicenseKryptonSuite.MouseEnter += Control_Enter;
+		kryptonLabelLicenseKryptonSuite.MouseLeave += Control_Leave;
 		// 
-		// labelVersionKryptonSuite
+		// kryptonLabelVersionKryptonSuite
 		// 
-		labelVersionKryptonSuite.AccessibleDescription = "Shows the Krypton Suite version";
-		labelVersionKryptonSuite.AccessibleName = "Krypton Suite version";
-		labelVersionKryptonSuite.AccessibleRole = AccessibleRole.StaticText;
-		labelVersionKryptonSuite.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		labelVersionKryptonSuite.Location = new Point(6, 32);
-		labelVersionKryptonSuite.Name = "labelVersionKryptonSuite";
-		labelVersionKryptonSuite.Size = new Size(119, 20);
-		labelVersionKryptonSuite.TabIndex = 5;
-		labelVersionKryptonSuite.ToolTipValues.Description = "Shows the Krypton Suite version.\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelVersionKryptonSuite.ToolTipValues.EnableToolTips = true;
-		labelVersionKryptonSuite.ToolTipValues.Heading = "Krypton Suite version";
-		labelVersionKryptonSuite.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelVersionKryptonSuite.Values.Text = "Version: 100.26.1.19";
-		labelVersionKryptonSuite.DoubleClick += CopyToClipboard_DoubleClick;
-		labelVersionKryptonSuite.Enter += Control_Enter;
-		labelVersionKryptonSuite.Leave += Control_Leave;
-		labelVersionKryptonSuite.MouseDown += Control_MouseDown;
-		labelVersionKryptonSuite.MouseEnter += Control_Enter;
-		labelVersionKryptonSuite.MouseLeave += Control_Leave;
+		kryptonLabelVersionKryptonSuite.AccessibleDescription = "Shows the Krypton Suite version";
+		kryptonLabelVersionKryptonSuite.AccessibleName = "Krypton Suite version";
+		kryptonLabelVersionKryptonSuite.AccessibleRole = AccessibleRole.StaticText;
+		kryptonLabelVersionKryptonSuite.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLabelVersionKryptonSuite.Location = new Point(6, 32);
+		kryptonLabelVersionKryptonSuite.Name = "kryptonLabelVersionKryptonSuite";
+		kryptonLabelVersionKryptonSuite.Size = new Size(119, 20);
+		kryptonLabelVersionKryptonSuite.TabIndex = 5;
+		kryptonLabelVersionKryptonSuite.ToolTipValues.Description = "Shows the Krypton Suite version.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelVersionKryptonSuite.ToolTipValues.EnableToolTips = true;
+		kryptonLabelVersionKryptonSuite.ToolTipValues.Heading = "Krypton Suite version";
+		kryptonLabelVersionKryptonSuite.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelVersionKryptonSuite.Values.Text = "Version: 100.26.1.19";
+		kryptonLabelVersionKryptonSuite.DoubleClick += CopyToClipboard_DoubleClick;
+		kryptonLabelVersionKryptonSuite.Enter += Control_Enter;
+		kryptonLabelVersionKryptonSuite.Leave += Control_Leave;
+		kryptonLabelVersionKryptonSuite.MouseDown += Control_MouseDown;
+		kryptonLabelVersionKryptonSuite.MouseEnter += Control_Enter;
+		kryptonLabelVersionKryptonSuite.MouseLeave += Control_Leave;
 		// 
-		// linkLabelWebsiteKryptonSuite
+		// kryptonLinkLabelWebsiteKryptonSuite
 		// 
-		linkLabelWebsiteKryptonSuite.AccessibleDescription = "Opens the Krypton Suite website";
-		linkLabelWebsiteKryptonSuite.AccessibleName = "Krypton Suite website";
-		linkLabelWebsiteKryptonSuite.AccessibleRole = AccessibleRole.Link;
-		linkLabelWebsiteKryptonSuite.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		linkLabelWebsiteKryptonSuite.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
-		linkLabelWebsiteKryptonSuite.Location = new Point(268, 6);
-		linkLabelWebsiteKryptonSuite.Name = "linkLabelWebsiteKryptonSuite";
-		linkLabelWebsiteKryptonSuite.Size = new Size(210, 20);
-		linkLabelWebsiteKryptonSuite.TabIndex = 7;
-		linkLabelWebsiteKryptonSuite.ToolTipValues.Description = "Opens the Krypton Suite GitHub page.\r\nRight-click to copy the information to the clipboard.";
-		linkLabelWebsiteKryptonSuite.ToolTipValues.EnableToolTips = true;
-		linkLabelWebsiteKryptonSuite.ToolTipValues.Heading = "Krypton Suite website";
-		linkLabelWebsiteKryptonSuite.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		linkLabelWebsiteKryptonSuite.Values.Image = FatcowIcons16px.fatcow_world_16px;
-		linkLabelWebsiteKryptonSuite.Values.Text = "https://github.com/Krypton-Suite";
-		linkLabelWebsiteKryptonSuite.LinkClicked += LinkLabelKryptonWebsite_Clicked;
-		linkLabelWebsiteKryptonSuite.Enter += Control_Enter;
-		linkLabelWebsiteKryptonSuite.Leave += Control_Leave;
-		linkLabelWebsiteKryptonSuite.MouseDown += Control_MouseDown;
-		linkLabelWebsiteKryptonSuite.MouseEnter += Control_Enter;
-		linkLabelWebsiteKryptonSuite.MouseLeave += Control_Leave;
+		kryptonLinkLabelWebsiteKryptonSuite.AccessibleDescription = "Opens the Krypton Suite website";
+		kryptonLinkLabelWebsiteKryptonSuite.AccessibleName = "Krypton Suite website";
+		kryptonLinkLabelWebsiteKryptonSuite.AccessibleRole = AccessibleRole.Link;
+		kryptonLinkLabelWebsiteKryptonSuite.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLinkLabelWebsiteKryptonSuite.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
+		kryptonLinkLabelWebsiteKryptonSuite.Location = new Point(268, 6);
+		kryptonLinkLabelWebsiteKryptonSuite.Name = "kryptonLinkLabelWebsiteKryptonSuite";
+		kryptonLinkLabelWebsiteKryptonSuite.Size = new Size(210, 20);
+		kryptonLinkLabelWebsiteKryptonSuite.TabIndex = 7;
+		kryptonLinkLabelWebsiteKryptonSuite.ToolTipValues.Description = "Opens the Krypton Suite GitHub page.\r\nRight-click to copy the information to the clipboard.";
+		kryptonLinkLabelWebsiteKryptonSuite.ToolTipValues.EnableToolTips = true;
+		kryptonLinkLabelWebsiteKryptonSuite.ToolTipValues.Heading = "Krypton Suite website";
+		kryptonLinkLabelWebsiteKryptonSuite.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLinkLabelWebsiteKryptonSuite.Values.Image = FatcowIcons16px.fatcow_world_16px;
+		kryptonLinkLabelWebsiteKryptonSuite.Values.Text = "https://github.com/Krypton-Suite";
+		kryptonLinkLabelWebsiteKryptonSuite.LinkClicked += LinkLabelKryptonWebsite_Clicked;
+		kryptonLinkLabelWebsiteKryptonSuite.Enter += Control_Enter;
+		kryptonLinkLabelWebsiteKryptonSuite.Leave += Control_Leave;
+		kryptonLinkLabelWebsiteKryptonSuite.MouseDown += Control_MouseDown;
+		kryptonLinkLabelWebsiteKryptonSuite.MouseEnter += Control_Enter;
+		kryptonLinkLabelWebsiteKryptonSuite.MouseLeave += Control_Leave;
 		// 
-		// labelAuthorsKryptonSuite
+		// kryptonLabelAuthorsKryptonSuite
 		// 
-		labelAuthorsKryptonSuite.AccessibleDescription = "Shows the Krypton Suite authors";
-		labelAuthorsKryptonSuite.AccessibleName = "Krypton Suite authors";
-		labelAuthorsKryptonSuite.AccessibleRole = AccessibleRole.StaticText;
-		labelAuthorsKryptonSuite.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		labelAuthorsKryptonSuite.Location = new Point(273, 32);
-		labelAuthorsKryptonSuite.Name = "labelAuthorsKryptonSuite";
-		labelAuthorsKryptonSuite.Size = new Size(205, 20);
-		labelAuthorsKryptonSuite.TabIndex = 6;
-		labelAuthorsKryptonSuite.ToolTipValues.Description = "Shows the Krypton Suite authors.\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelAuthorsKryptonSuite.ToolTipValues.EnableToolTips = true;
-		labelAuthorsKryptonSuite.ToolTipValues.Heading = "Krypton Suite authors";
-		labelAuthorsKryptonSuite.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelAuthorsKryptonSuite.Values.Text = "Authors: Krypton-Suite contributors";
-		labelAuthorsKryptonSuite.DoubleClick += CopyToClipboard_DoubleClick;
-		labelAuthorsKryptonSuite.Enter += Control_Enter;
-		labelAuthorsKryptonSuite.Leave += Control_Leave;
-		labelAuthorsKryptonSuite.MouseDown += Control_MouseDown;
-		labelAuthorsKryptonSuite.MouseEnter += Control_Enter;
-		labelAuthorsKryptonSuite.MouseLeave += Control_Leave;
+		kryptonLabelAuthorsKryptonSuite.AccessibleDescription = "Shows the Krypton Suite authors";
+		kryptonLabelAuthorsKryptonSuite.AccessibleName = "Krypton Suite authors";
+		kryptonLabelAuthorsKryptonSuite.AccessibleRole = AccessibleRole.StaticText;
+		kryptonLabelAuthorsKryptonSuite.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLabelAuthorsKryptonSuite.Location = new Point(273, 32);
+		kryptonLabelAuthorsKryptonSuite.Name = "kryptonLabelAuthorsKryptonSuite";
+		kryptonLabelAuthorsKryptonSuite.Size = new Size(205, 20);
+		kryptonLabelAuthorsKryptonSuite.TabIndex = 6;
+		kryptonLabelAuthorsKryptonSuite.ToolTipValues.Description = "Shows the Krypton Suite authors.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelAuthorsKryptonSuite.ToolTipValues.EnableToolTips = true;
+		kryptonLabelAuthorsKryptonSuite.ToolTipValues.Heading = "Krypton Suite authors";
+		kryptonLabelAuthorsKryptonSuite.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelAuthorsKryptonSuite.Values.Text = "Authors: Krypton-Suite contributors";
+		kryptonLabelAuthorsKryptonSuite.DoubleClick += CopyToClipboard_DoubleClick;
+		kryptonLabelAuthorsKryptonSuite.Enter += Control_Enter;
+		kryptonLabelAuthorsKryptonSuite.Leave += Control_Leave;
+		kryptonLabelAuthorsKryptonSuite.MouseDown += Control_MouseDown;
+		kryptonLabelAuthorsKryptonSuite.MouseEnter += Control_Enter;
+		kryptonLabelAuthorsKryptonSuite.MouseLeave += Control_Leave;
 		// 
 		// tabPageComponentNLog
 		// 
@@ -920,11 +926,11 @@ partial class AppInfoForm
 		tabPageComponentNLog.AccessibleName = "NLog information tab";
 		tabPageComponentNLog.AccessibleRole = AccessibleRole.PageTab;
 		tabPageComponentNLog.Controls.Add(kryptonTextBoxLicenseNlog);
-		tabPageComponentNLog.Controls.Add(labelHeadingNlog);
-		tabPageComponentNLog.Controls.Add(labelLicenseNlog);
-		tabPageComponentNLog.Controls.Add(labelVersionNlog);
-		tabPageComponentNLog.Controls.Add(linkLabelWebsiteNlog);
-		tabPageComponentNLog.Controls.Add(labelAuthorsNlog);
+		tabPageComponentNLog.Controls.Add(kryptonLabelHeadingNlog);
+		tabPageComponentNLog.Controls.Add(kryptonLabelLicenseNlog);
+		tabPageComponentNLog.Controls.Add(kryptonLabelVersionNlog);
+		tabPageComponentNLog.Controls.Add(kryptonLinkLabelWebsiteNlog);
+		tabPageComponentNLog.Controls.Add(kryptonLabelAuthorsNlog);
 		tabPageComponentNLog.Location = new Point(4, 24);
 		tabPageComponentNLog.Name = "tabPageComponentNLog";
 		tabPageComponentNLog.Padding = new Padding(3);
@@ -959,117 +965,126 @@ partial class AppInfoForm
 		kryptonTextBoxLicenseNlog.MouseEnter += Control_Enter;
 		kryptonTextBoxLicenseNlog.MouseLeave += Control_Leave;
 		// 
-		// labelHeadingNlog
+		// kryptonLabelHeadingNlog
 		// 
-		labelHeadingNlog.AccessibleDescription = "Heading for the NLog section";
-		labelHeadingNlog.AccessibleName = "NLog heading";
-		labelHeadingNlog.AccessibleRole = AccessibleRole.StaticText;
-		labelHeadingNlog.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		labelHeadingNlog.LabelStyle = LabelStyle.BoldControl;
-		labelHeadingNlog.Location = new Point(6, 6);
-		labelHeadingNlog.Name = "labelHeadingNlog";
-		labelHeadingNlog.Size = new Size(42, 20);
-		labelHeadingNlog.TabIndex = 9;
-		labelHeadingNlog.ToolTipValues.Description = "Heading for the NLog section.\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelHeadingNlog.ToolTipValues.EnableToolTips = true;
-		labelHeadingNlog.ToolTipValues.Heading = "NLog";
-		labelHeadingNlog.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelHeadingNlog.Values.Text = "NLog";
-		labelHeadingNlog.Enter += Control_Enter;
-		labelHeadingNlog.Leave += Control_Leave;
-		labelHeadingNlog.MouseDown += Control_MouseDown;
-		labelHeadingNlog.MouseEnter += Control_Enter;
-		labelHeadingNlog.MouseLeave += Control_Leave;
+		kryptonLabelHeadingNlog.AccessibleDescription = "Heading for the NLog section";
+		kryptonLabelHeadingNlog.AccessibleName = "NLog heading";
+		kryptonLabelHeadingNlog.AccessibleRole = AccessibleRole.StaticText;
+		kryptonLabelHeadingNlog.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLabelHeadingNlog.LabelStyle = LabelStyle.BoldControl;
+		kryptonLabelHeadingNlog.Location = new Point(6, 6);
+		kryptonLabelHeadingNlog.Name = "kryptonLabelHeadingNlog";
+		kryptonLabelHeadingNlog.Size = new Size(42, 20);
+		kryptonLabelHeadingNlog.TabIndex = 9;
+		kryptonLabelHeadingNlog.ToolTipValues.Description = "Heading for the NLog section.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelHeadingNlog.ToolTipValues.EnableToolTips = true;
+		kryptonLabelHeadingNlog.ToolTipValues.Heading = "NLog";
+		kryptonLabelHeadingNlog.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelHeadingNlog.Values.Text = "NLog";
+		kryptonLabelHeadingNlog.DoubleClick += CopyToClipboard_DoubleClick;
+		kryptonLabelHeadingNlog.Enter += Control_Enter;
+		kryptonLabelHeadingNlog.Leave += Control_Leave;
+		kryptonLabelHeadingNlog.MouseDown += Control_MouseDown;
+		kryptonLabelHeadingNlog.MouseEnter += Control_Enter;
+		kryptonLabelHeadingNlog.MouseLeave += Control_Leave;
 		// 
-		// labelLicenseNlog
+		// kryptonLabelLicenseNlog
 		// 
-		labelLicenseNlog.AccessibleDescription = "Shows the NLog license";
-		labelLicenseNlog.AccessibleName = "NLog license";
-		labelLicenseNlog.AccessibleRole = AccessibleRole.StaticText;
-		labelLicenseNlog.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		labelLicenseNlog.Location = new Point(6, 58);
-		labelLicenseNlog.Name = "labelLicenseNlog";
-		labelLicenseNlog.Size = new Size(129, 20);
-		labelLicenseNlog.TabIndex = 13;
-		labelLicenseNlog.ToolTipValues.Description = "Shows the NLog license.\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelLicenseNlog.ToolTipValues.EnableToolTips = true;
-		labelLicenseNlog.ToolTipValues.Heading = "NLog license";
-		labelLicenseNlog.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelLicenseNlog.Values.Text = "License: BSD 3-Clause";
-		labelLicenseNlog.DoubleClick += CopyToClipboard_DoubleClick;
-		labelLicenseNlog.Enter += Control_Enter;
-		labelLicenseNlog.Leave += Control_Leave;
-		labelLicenseNlog.MouseDown += Control_MouseDown;
-		labelLicenseNlog.MouseEnter += Control_Enter;
-		labelLicenseNlog.MouseLeave += Control_Leave;
+		kryptonLabelLicenseNlog.AccessibleDescription = "Shows the NLog license";
+		kryptonLabelLicenseNlog.AccessibleName = "NLog license";
+		kryptonLabelLicenseNlog.AccessibleRole = AccessibleRole.StaticText;
+		kryptonLabelLicenseNlog.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLabelLicenseNlog.Location = new Point(6, 58);
+		kryptonLabelLicenseNlog.Name = "kryptonLabelLicenseNlog";
+		kryptonLabelLicenseNlog.Size = new Size(129, 20);
+		kryptonLabelLicenseNlog.TabIndex = 13;
+		kryptonLabelLicenseNlog.ToolTipValues.Description = "Shows the NLog license.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelLicenseNlog.ToolTipValues.EnableToolTips = true;
+		kryptonLabelLicenseNlog.ToolTipValues.Heading = "NLog license";
+		kryptonLabelLicenseNlog.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelLicenseNlog.Values.Text = "License: BSD 3-Clause";
+		kryptonLabelLicenseNlog.DoubleClick += CopyToClipboard_DoubleClick;
+		kryptonLabelLicenseNlog.Enter += Control_Enter;
+		kryptonLabelLicenseNlog.Leave += Control_Leave;
+		kryptonLabelLicenseNlog.MouseDown += Control_MouseDown;
+		kryptonLabelLicenseNlog.MouseEnter += Control_Enter;
+		kryptonLabelLicenseNlog.MouseLeave += Control_Leave;
 		// 
-		// labelVersionNlog
+		// kryptonLabelVersionNlog
 		// 
-		labelVersionNlog.AccessibleDescription = "Shows the NLog version";
-		labelVersionNlog.AccessibleName = "NLog version";
-		labelVersionNlog.AccessibleRole = AccessibleRole.StaticText;
-		labelVersionNlog.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		labelVersionNlog.Location = new Point(6, 32);
-		labelVersionNlog.Name = "labelVersionNlog";
-		labelVersionNlog.Size = new Size(83, 20);
-		labelVersionNlog.TabIndex = 10;
-		labelVersionNlog.ToolTipValues.Description = "Shows the NLog version.\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelVersionNlog.ToolTipValues.EnableToolTips = true;
-		labelVersionNlog.ToolTipValues.Heading = "NLog version";
-		labelVersionNlog.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelVersionNlog.Values.Text = "Version: 6.1.1";
-		labelVersionNlog.DoubleClick += CopyToClipboard_DoubleClick;
-		labelVersionNlog.Enter += Control_Enter;
-		labelVersionNlog.Leave += Control_Leave;
-		labelVersionNlog.MouseDown += Control_MouseDown;
-		labelVersionNlog.MouseEnter += Control_Enter;
-		labelVersionNlog.MouseLeave += Control_Leave;
+		kryptonLabelVersionNlog.AccessibleDescription = "Shows the NLog version";
+		kryptonLabelVersionNlog.AccessibleName = "NLog version";
+		kryptonLabelVersionNlog.AccessibleRole = AccessibleRole.StaticText;
+		kryptonLabelVersionNlog.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLabelVersionNlog.Location = new Point(6, 32);
+		kryptonLabelVersionNlog.Name = "kryptonLabelVersionNlog";
+		kryptonLabelVersionNlog.Size = new Size(83, 20);
+		kryptonLabelVersionNlog.TabIndex = 10;
+		kryptonLabelVersionNlog.ToolTipValues.Description = "Shows the NLog version.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelVersionNlog.ToolTipValues.EnableToolTips = true;
+		kryptonLabelVersionNlog.ToolTipValues.Heading = "NLog version";
+		kryptonLabelVersionNlog.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelVersionNlog.Values.Text = "Version: 6.1.1";
+		kryptonLabelVersionNlog.DoubleClick += CopyToClipboard_DoubleClick;
+		kryptonLabelVersionNlog.Enter += Control_Enter;
+		kryptonLabelVersionNlog.Leave += Control_Leave;
+		kryptonLabelVersionNlog.MouseDown += Control_MouseDown;
+		kryptonLabelVersionNlog.MouseEnter += Control_Enter;
+		kryptonLabelVersionNlog.MouseLeave += Control_Leave;
 		// 
-		// linkLabelWebsiteNlog
+		// kryptonLinkLabelWebsiteNlog
 		// 
-		linkLabelWebsiteNlog.AccessibleDescription = "Opens the NLog website";
-		linkLabelWebsiteNlog.AccessibleName = "NLog website";
-		linkLabelWebsiteNlog.AccessibleRole = AccessibleRole.Link;
-		linkLabelWebsiteNlog.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		linkLabelWebsiteNlog.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
-		linkLabelWebsiteNlog.Location = new Point(321, 6);
-		linkLabelWebsiteNlog.Name = "linkLabelWebsiteNlog";
-		linkLabelWebsiteNlog.Size = new Size(157, 20);
-		linkLabelWebsiteNlog.TabIndex = 12;
-		linkLabelWebsiteNlog.ToolTipValues.Description = "Opens the NLog website.\r\nRight-click to copy the information to the clipboard.";
-		linkLabelWebsiteNlog.ToolTipValues.EnableToolTips = true;
-		linkLabelWebsiteNlog.ToolTipValues.Heading = "NLog website";
-		linkLabelWebsiteNlog.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		linkLabelWebsiteNlog.Values.Image = FatcowIcons16px.fatcow_world_16px;
-		linkLabelWebsiteNlog.Values.Text = "https://nlog-project.org";
-		linkLabelWebsiteNlog.LinkClicked += LinkLabelNLogWebsite_Clicked;
-		linkLabelWebsiteNlog.Enter += Control_Enter;
-		linkLabelWebsiteNlog.Leave += Control_Leave;
-		linkLabelWebsiteNlog.MouseDown += Control_MouseDown;
-		linkLabelWebsiteNlog.MouseEnter += Control_Enter;
-		linkLabelWebsiteNlog.MouseLeave += Control_Leave;
+		kryptonLinkLabelWebsiteNlog.AccessibleDescription = "Opens the NLog website";
+		kryptonLinkLabelWebsiteNlog.AccessibleName = "NLog website";
+		kryptonLinkLabelWebsiteNlog.AccessibleRole = AccessibleRole.Link;
+		kryptonLinkLabelWebsiteNlog.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLinkLabelWebsiteNlog.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
+		kryptonLinkLabelWebsiteNlog.Location = new Point(321, 6);
+		kryptonLinkLabelWebsiteNlog.Name = "kryptonLinkLabelWebsiteNlog";
+		kryptonLinkLabelWebsiteNlog.Size = new Size(157, 20);
+		kryptonLinkLabelWebsiteNlog.TabIndex = 12;
+		kryptonLinkLabelWebsiteNlog.ToolTipValues.Description = "Opens the NLog website.\r\nRight-click to copy the information to the clipboard.";
+		kryptonLinkLabelWebsiteNlog.ToolTipValues.EnableToolTips = true;
+		kryptonLinkLabelWebsiteNlog.ToolTipValues.Heading = "NLog website";
+		kryptonLinkLabelWebsiteNlog.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLinkLabelWebsiteNlog.Values.Image = FatcowIcons16px.fatcow_world_16px;
+		kryptonLinkLabelWebsiteNlog.Values.Text = "https://nlog-project.org";
+		kryptonLinkLabelWebsiteNlog.LinkClicked += LinkLabelNLogWebsite_Clicked;
+		kryptonLinkLabelWebsiteNlog.Enter += Control_Enter;
+		kryptonLinkLabelWebsiteNlog.Leave += Control_Leave;
+		kryptonLinkLabelWebsiteNlog.MouseDown += Control_MouseDown;
+		kryptonLinkLabelWebsiteNlog.MouseEnter += Control_Enter;
+		kryptonLinkLabelWebsiteNlog.MouseLeave += Control_Leave;
 		// 
-		// labelAuthorsNlog
+		// kryptonLabelAuthorsNlog
 		// 
-		labelAuthorsNlog.AccessibleDescription = "Shows the NLog authors";
-		labelAuthorsNlog.AccessibleName = "NLog authors";
-		labelAuthorsNlog.AccessibleRole = AccessibleRole.StaticText;
-		labelAuthorsNlog.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		labelAuthorsNlog.Location = new Point(201, 32);
-		labelAuthorsNlog.Name = "labelAuthorsNlog";
-		labelAuthorsNlog.Size = new Size(277, 20);
-		labelAuthorsNlog.TabIndex = 11;
-		labelAuthorsNlog.ToolTipValues.Description = "Shows the NLog authors.\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelAuthorsNlog.ToolTipValues.EnableToolTips = true;
-		labelAuthorsNlog.ToolTipValues.Heading = "NLog authors";
-		labelAuthorsNlog.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelAuthorsNlog.Values.Text = "Authors: J. Kowalski, K. Christensen, J. Verdurmen";
-		labelAuthorsNlog.DoubleClick += CopyToClipboard_DoubleClick;
-		labelAuthorsNlog.Enter += Control_Enter;
-		labelAuthorsNlog.Leave += Control_Leave;
-		labelAuthorsNlog.MouseDown += Control_MouseDown;
-		labelAuthorsNlog.MouseEnter += Control_Enter;
-		labelAuthorsNlog.MouseLeave += Control_Leave;
+		kryptonLabelAuthorsNlog.AccessibleDescription = "Shows the NLog authors";
+		kryptonLabelAuthorsNlog.AccessibleName = "NLog authors";
+		kryptonLabelAuthorsNlog.AccessibleRole = AccessibleRole.StaticText;
+		kryptonLabelAuthorsNlog.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLabelAuthorsNlog.Location = new Point(201, 32);
+		kryptonLabelAuthorsNlog.Name = "kryptonLabelAuthorsNlog";
+		kryptonLabelAuthorsNlog.Size = new Size(277, 20);
+		kryptonLabelAuthorsNlog.TabIndex = 11;
+		kryptonLabelAuthorsNlog.ToolTipValues.Description = "Shows the NLog authors.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelAuthorsNlog.ToolTipValues.EnableToolTips = true;
+		kryptonLabelAuthorsNlog.ToolTipValues.Heading = "NLog authors";
+		kryptonLabelAuthorsNlog.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelAuthorsNlog.Values.Text = "Authors: J. Kowalski, K. Christensen, J. Verdurmen";
+		kryptonLabelAuthorsNlog.DoubleClick += CopyToClipboard_DoubleClick;
+		kryptonLabelAuthorsNlog.Enter += Control_Enter;
+		kryptonLabelAuthorsNlog.Leave += Control_Leave;
+		kryptonLabelAuthorsNlog.MouseDown += Control_MouseDown;
+		kryptonLabelAuthorsNlog.MouseEnter += Control_Enter;
+		kryptonLabelAuthorsNlog.MouseLeave += Control_Leave;
+		// 
+		// imageListTabAbout
+		// 
+		imageListTabAbout.ColorDepth = ColorDepth.Depth32Bit;
+		imageListTabAbout.ImageStream = (ImageListStreamer)resources.GetObject("imageListTabAbout.ImageStream");
+		imageListTabAbout.TransparentColor = Color.Transparent;
+		imageListTabAbout.Images.SetKeyName(0, "fatcow_information_16px.png");
+		imageListTabAbout.Images.SetKeyName(1, "fatcow_bricks_16px.png");
 		// 
 		// pictureBoxBanner
 		// 
@@ -1154,14 +1169,6 @@ partial class AppInfoForm
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 		// 
-		// imageListTabAbout
-		// 
-		imageListTabAbout.ColorDepth = ColorDepth.Depth32Bit;
-		imageListTabAbout.ImageStream = (ImageListStreamer)resources.GetObject("imageListTabAbout.ImageStream");
-		imageListTabAbout.TransparentColor = Color.Transparent;
-		imageListTabAbout.Images.SetKeyName(0, "fatcow_information_16px.png");
-		imageListTabAbout.Images.SetKeyName(1, "fatcow_bricks_16px.png");
-		// 
 		// AppInfoForm
 		// 
 		AccessibleDescription = "Shows the program information";
@@ -1211,32 +1218,32 @@ partial class AppInfoForm
 	#endregion
 
 	private KryptonPictureBox pictureBoxBanner;
-	private KryptonLabel labelTitle;
-	private KryptonLabel labelVersion;
-	private KryptonLabel labelCompany;
-	private KryptonLabel labelAuthor;
-	private KryptonLabel labelDescription;
-	private KryptonLabel labelCopyright;
-	private KryptonLinkLabel linkLabelWebsite;
-	private KryptonLinkLabel linkLabelEmail;
+	private KryptonLabel kryptonLabelTitle;
+	private KryptonLabel kryptonLabelVersion;
+	private KryptonLabel kryptonLabelCompany;
+	private KryptonLabel kryptonLabelAuthor;
+	private KryptonLabel kryptonLabelDescription;
+	private KryptonLabel kryptonLabelCopyright;
+	private KryptonLinkLabel kryptonLinkLabelWebsite;
+	private KryptonLinkLabel kryptonLinkLabelEmail;
 	private TabControl tabControlInfo;
 	private TabPage tabPageAbout;
 	private TabPage tabPageComponents;
-	private KryptonLabel labelIconHeadingFlaticon;
-	private KryptonLabel labelHeadingKryptonSuite;
-	private KryptonLabel labelVersionKryptonSuite;
-	private KryptonLabel labelAuthorsKryptonSuite;
-	private KryptonLinkLabel linkLabelWebsiteKryptonSuite;
-	private KryptonLabel labelLicenseKryptonSuite;
-	private KryptonLabel labelHeadingNlog;
-	private KryptonLabel labelVersionNlog;
-	private KryptonLabel labelAuthorsNlog;
-	private KryptonLinkLabel linkLabelWebsiteNlog;
-	private KryptonLabel labelLicenseNlog;
-	private KryptonLabel labelHeadingFatcowIcons;
-	private KryptonLabel labelAuthorsFatcow;
-	private KryptonLinkLabel linkLabelWebsiteFatcow;
-	private KryptonLabel labelLicenseFatcow;
+	private KryptonLabel kryptonLabelIconHeadingFlaticon;
+	private KryptonLabel kryptonLabelHeadingKryptonSuite;
+	private KryptonLabel kryptonLabelVersionKryptonSuite;
+	private KryptonLabel kryptonLabelAuthorsKryptonSuite;
+	private KryptonLinkLabel kryptonLinkLabelWebsiteKryptonSuite;
+	private KryptonLabel kryptonLabelLicenseKryptonSuite;
+	private KryptonLabel kryptonLabelHeadingNlog;
+	private KryptonLabel kryptonLabelVersionNlog;
+	private KryptonLabel kryptonLabelAuthorsNlog;
+	private KryptonLinkLabel kryptonLinkLabelWebsiteNlog;
+	private KryptonLabel kryptonLabelLicenseNlog;
+	private KryptonLabel kryptonLabelHeadingFatcowIcons;
+	private KryptonLabel kryptonLabelAuthorsFatcow;
+	private KryptonLinkLabel kryptonLinkLabelWebsiteFatcow;
+	private KryptonLabel kryptonLabelLicenseFatcow;
 	private KryptonPanel kryptoPanelMain;
 	private KryptonStatusStrip kryptonStatusStrip;
 	private ToolStripStatusLabel labelInformation;

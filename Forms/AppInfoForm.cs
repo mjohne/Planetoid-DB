@@ -54,18 +54,16 @@ public partial class AppInfoForm : BaseKryptonForm
 	/// sets a static author label, and clears the status area.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This event initializes the form's UI elements with information from the assembly where available and assigns
-	/// a predefined author value to the author label.
-	/// </remarks>
+	/// <remarks>This event initializes the form's UI elements with information from the assembly where available and assigns
+	/// a predefined author value to the author label.</remarks>
 	private void AppInfoForm_Load(object sender, EventArgs e)
 	{
-		labelTitle.Text = AssemblyInfo.AssemblyProduct;
-		labelVersion.Text = string.Format(format: I18nStrings.VersionTemplate, arg0: AssemblyInfo.AssemblyVersion);
-		labelCompany.Text = $"Company: {AssemblyInfo.AssemblyCompany}";
-		labelAuthor.Text = "Author: Michael Johne";
-		labelDescription.Text = AssemblyInfo.AssemblyDescription;
-		labelCopyright.Text = AssemblyInfo.AssemblyCopyright;
+		kryptonLabelTitle.Text = AssemblyInfo.AssemblyProduct;
+		kryptonLabelVersion.Text = string.Format(format: I18nStrings.VersionTemplate, arg0: AssemblyInfo.AssemblyVersion);
+		kryptonLabelCompany.Text = $"Company: {AssemblyInfo.AssemblyCompany}";
+		kryptonLabelAuthor.Text = "Author: Michael Johne";
+		kryptonLabelDescription.Text = AssemblyInfo.AssemblyDescription;
+		kryptonLabelCopyright.Text = AssemblyInfo.AssemblyCopyright;
 		ClearStatusBar(label: labelInformation);
 	}
 
@@ -80,26 +78,33 @@ public partial class AppInfoForm : BaseKryptonForm
 	/// <remarks>This event is used to open the application's website in the user's default browser.</remarks>
 	private void LinkLabelWebsite_Clicked(object sender, EventArgs e) => OpenWebsite(fileName: Settings.Default.systemHomepage);
 
+	/// <summary>Handles the Click event of the Flaticon link label and opens the associated website.</summary>
+	/// <remarks>Use this event handler to navigate to the website specified by the link label's text when the label
+	/// is clicked.</remarks>
+	/// <param name="sender">The source of the event, typically the link label control that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void KryptonLinkLabelFlaticon_Click(object sender, EventArgs e) => OpenWebsite(fileName: kryptonLinkLabelFlaticon.Text);
+
 	/// <summary>Called when the Krypton Suite website link is clicked.
 	/// Attempts to open the Krypton Suite GitHub page in the user's default browser.</summary>
 	/// <param name="sender">Event source (the link label).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This event is used to open the Krypton Suite GitHub page in the user's default browser.</remarks>
-	private void LinkLabelKryptonWebsite_Clicked(object sender, EventArgs e) => OpenWebsite(fileName: "https://github.com/Krypton-Suite/Standard-Toolkit");
+	private void LinkLabelKryptonWebsite_Clicked(object sender, EventArgs e) => OpenWebsite(fileName: kryptonLinkLabelWebsiteKryptonSuite.Text);
 
 	/// <summary>Called when the NLog website link is clicked.
 	/// Attempts to open the NLog project website in the user's default browser.</summary>
 	/// <param name="sender">Event source (the link label).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This event is used to open the NLog project website in the user's default browser.</remarks>
-	private void LinkLabelNLogWebsite_Clicked(object sender, EventArgs e) => OpenWebsite(fileName: "https://nlog-project.org/");
+	private void LinkLabelNLogWebsite_Clicked(object sender, EventArgs e) => OpenWebsite(fileName: kryptonLinkLabelWebsiteNlog.Text);
 
 	/// <summary>Called when the FatCow Icons website link is clicked.
 	/// Attempts to open the FatCow free icons page in the user's default browser.</summary>
 	/// <param name="sender">Event source (the link label).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This event is used to open the FatCow free icons page in the user's default browser.</remarks>
-	private void LinkLabelFatCowWebsite_Clicked(object sender, EventArgs e) => OpenWebsite(fileName: "https://fatcow.com/free-icons");
+	private void LinkLabelFatCowWebsite_Clicked(object sender, EventArgs e) => OpenWebsite(fileName: kryptonLinkLabelWebsiteFatcow.Text);
 
 	/// <summary>Called when the email link is clicked.
 	/// Attempts to open the user's default mail client with a new message addressed to the application's support email.
