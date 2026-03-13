@@ -783,8 +783,8 @@ partial class AppInfoForm
 		// 
 		// kryptonTextBoxLicenseKryptonSuite
 		// 
-		kryptonTextBoxLicenseKryptonSuite.AccessibleDescription = "Shows the Flaticon license";
-		kryptonTextBoxLicenseKryptonSuite.AccessibleName = "Flaticon license";
+		kryptonTextBoxLicenseKryptonSuite.AccessibleDescription = "Shows the Krypton Suite BSD 3-Clause license";
+		kryptonTextBoxLicenseKryptonSuite.AccessibleName = "Krypton Suite license";
 		kryptonTextBoxLicenseKryptonSuite.AccessibleRole = AccessibleRole.Text;
 		kryptonTextBoxLicenseKryptonSuite.Location = new Point(6, 84);
 		kryptonTextBoxLicenseKryptonSuite.Multiline = true;
