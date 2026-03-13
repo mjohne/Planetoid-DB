@@ -420,7 +420,7 @@ partial class AppInfoForm
 		kryptonLinkLabelWebsite.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLinkLabelWebsite.Values.Image = FatcowIcons16px.fatcow_world_16px;
 		kryptonLinkLabelWebsite.Values.Text = "Website";
-		kryptonLinkLabelWebsite.LinkClicked += LinkLabelWebsite_Clicked;
+		kryptonLinkLabelWebsite.LinkClicked += KryptonLinkLabelWebsite_LinkClick;
 		kryptonLinkLabelWebsite.Enter += Control_Enter;
 		kryptonLinkLabelWebsite.Leave += Control_Leave;
 		kryptonLinkLabelWebsite.MouseDown += Control_MouseDown;
@@ -444,7 +444,7 @@ partial class AppInfoForm
 		kryptonLinkLabelEmail.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLinkLabelEmail.Values.Image = FatcowIcons16px.fatcow_email_16px;
 		kryptonLinkLabelEmail.Values.Text = "E-Mail";
-		kryptonLinkLabelEmail.LinkClicked += LinkLabelEmail_Clicked;
+		kryptonLinkLabelEmail.LinkClicked += KryptonLinkLabelEmail_LinkClick;
 		kryptonLinkLabelEmail.Enter += Control_Enter;
 		kryptonLinkLabelEmail.Leave += Control_Leave;
 		kryptonLinkLabelEmail.MouseDown += Control_MouseDown;
@@ -552,7 +552,7 @@ partial class AppInfoForm
 		kryptonLinkLabelFlaticon.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLinkLabelFlaticon.Values.Image = FatcowIcons16px.fatcow_world_16px;
 		kryptonLinkLabelFlaticon.Values.Text = "https://www.flaticon.com/free-icon/asteroid_1086068";
-		kryptonLinkLabelFlaticon.Click += KryptonLinkLabelFlaticon_Click;
+		kryptonLinkLabelFlaticon.LinkClicked += KryptonLinkLabelFlaticon_LinkClick;
 		kryptonLinkLabelFlaticon.Enter += Control_Enter;
 		kryptonLinkLabelFlaticon.Leave += Control_Leave;
 		kryptonLinkLabelFlaticon.MouseDown += Control_MouseDown;
@@ -733,7 +733,7 @@ partial class AppInfoForm
 		kryptonLinkLabelWebsiteFatcow.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLinkLabelWebsiteFatcow.Values.Image = FatcowIcons16px.fatcow_world_16px;
 		kryptonLinkLabelWebsiteFatcow.Values.Text = "https://fatcow.com/free-icons";
-		kryptonLinkLabelWebsiteFatcow.LinkClicked += LinkLabelFatCowWebsite_Clicked;
+		kryptonLinkLabelWebsiteFatcow.LinkClicked += KryptonLinkLabelFatCow_LinkClick;
 		kryptonLinkLabelWebsiteFatcow.Enter += Control_Enter;
 		kryptonLinkLabelWebsiteFatcow.Leave += Control_Leave;
 		kryptonLinkLabelWebsiteFatcow.MouseDown += Control_MouseDown;
@@ -891,7 +891,7 @@ partial class AppInfoForm
 		kryptonLinkLabelWebsiteKryptonSuite.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLinkLabelWebsiteKryptonSuite.Values.Image = FatcowIcons16px.fatcow_world_16px;
 		kryptonLinkLabelWebsiteKryptonSuite.Values.Text = "https://github.com/Krypton-Suite";
-		kryptonLinkLabelWebsiteKryptonSuite.LinkClicked += LinkLabelKryptonWebsite_Clicked;
+		kryptonLinkLabelWebsiteKryptonSuite.LinkClicked += KryptonLinkLabelKryptonSuite_LinkClick;
 		kryptonLinkLabelWebsiteKryptonSuite.Enter += Control_Enter;
 		kryptonLinkLabelWebsiteKryptonSuite.Leave += Control_Leave;
 		kryptonLinkLabelWebsiteKryptonSuite.MouseDown += Control_MouseDown;
@@ -1049,7 +1049,7 @@ partial class AppInfoForm
 		kryptonLinkLabelWebsiteNlog.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLinkLabelWebsiteNlog.Values.Image = FatcowIcons16px.fatcow_world_16px;
 		kryptonLinkLabelWebsiteNlog.Values.Text = "https://nlog-project.org";
-		kryptonLinkLabelWebsiteNlog.LinkClicked += LinkLabelNLogWebsite_Clicked;
+		kryptonLinkLabelWebsiteNlog.LinkClicked += KryptonLinkLabelNLog_LinkClick;
 		kryptonLinkLabelWebsiteNlog.Enter += Control_Enter;
 		kryptonLinkLabelWebsiteNlog.Leave += Control_Leave;
 		kryptonLinkLabelWebsiteNlog.MouseDown += Control_MouseDown;
