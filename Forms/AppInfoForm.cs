@@ -1,4 +1,4 @@
-﻿// This file is used by Code Analysis to maintain SuppressMessage
+// This file is used by Code Analysis to maintain SuppressMessage
 // attributes that are applied to this project.
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
@@ -71,7 +71,7 @@ public partial class AppInfoForm : BaseKryptonForm
 
 	#region Click event handlers
 
-	/// <summary>Handles the click event for the website link label and opens the configured system homepage in the default web
+	/// <summary>Handles the LinkClicked event for the website link label and opens the configured system homepage in the default web
 	/// browser.</summary>
 	/// <param name="sender">The source of the event, typically the link label control that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
@@ -84,27 +84,28 @@ public partial class AppInfoForm : BaseKryptonForm
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void KryptonLinkLabelFlaticon_LinkClick(object sender, EventArgs e) => OpenWebsite(fileName: kryptonLinkLabelFlaticon.Text);
 
-	/// <summary>Handles the click event for the Krypton Suite link label and opens the associated website.</summary>
-	/// <remarks>Use this event handler to navigate to the website specified by the link label's text when the label is clicked.</remarks>
+	/// <summary>Handles the LinkClicked event for the Krypton Suite link label and opens the associated website.</summary>
+	/// <remarks>Use this event handler to navigate to the website specified by the link label's text when the label's
+	/// LinkClicked event is raised.</remarks>
 	/// <param name="sender">The source of the event, typically the link label control that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void KryptonLinkLabelKryptonSuite_LinkClick(object sender, EventArgs e) => OpenWebsite(fileName: kryptonLinkLabelWebsiteKryptonSuite.Text);
 
-	/// <summary>Handles the click event for the NLog website link label and opens the associated website in the default browser.</summary>
+	/// <summary>Handles the LinkClicked event for the NLog website link label and opens the associated website in the default browser.</summary>
 	/// <remarks>This event handler is typically attached to a link label representing the NLog website. When the
 	/// link is clicked, the corresponding website URL is opened using the default web browser.</remarks>
 	/// <param name="sender">The source of the event, typically the link label control that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void KryptonLinkLabelNLog_LinkClick(object sender, EventArgs e) => OpenWebsite(fileName: kryptonLinkLabelWebsiteNlog.Text);
 
-	/// <summary>Handles the click event for the FatCow Icons website link label and opens the associated website in the default browser.</summary>
+	/// <summary>Handles the LinkClicked event for the FatCow Icons website link label and opens the associated website in the default browser.</summary>
 	/// <remarks>This event handler is typically attached to a link label representing the FatCow Icons website. When the
 	/// link is clicked, the corresponding website URL is opened using the default web browser.</remarks>
 	/// <param name="sender">The source of the event, typically the link label control that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void KryptonLinkLabelFatCow_LinkClick(object sender, EventArgs e) => OpenWebsite(fileName: kryptonLinkLabelWebsiteFatcow.Text);
 
-	/// <summary>Handles the click event for the email link label and attempts to open the user's default mail client with a new message addressed to the application's support email.</summary>
+	/// <summary>Handles the LinkClicked event for the email link label and attempts to open the user's default mail client with a new message addressed to the application's support email.</summary>
 	/// <remarks>This event handler is typically attached to a link label representing the application's support email. When the
 	/// link is clicked, the default mail client is opened with a new message addressed to the specified email.</remarks>
 	/// <param name="sender">The source of the event, typically the link label control that was clicked.</param>
