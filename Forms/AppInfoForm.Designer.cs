@@ -1036,7 +1036,7 @@ partial class AppInfoForm
 		linkLabelWebsiteNlog.Name = "linkLabelWebsiteNlog";
 		linkLabelWebsiteNlog.Size = new Size(157, 20);
 		linkLabelWebsiteNlog.TabIndex = 12;
-		linkLabelWebsiteNlog.ToolTipValues.Description = "Opens the NLog website.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		linkLabelWebsiteNlog.ToolTipValues.Description = "Opens the NLog website.\r\nRight-click to copy the information to the clipboard.";
 		linkLabelWebsiteNlog.ToolTipValues.EnableToolTips = true;
 		linkLabelWebsiteNlog.ToolTipValues.Heading = "NLog website";
 		linkLabelWebsiteNlog.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
