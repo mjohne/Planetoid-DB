@@ -50,11 +50,14 @@ public partial class AppInfoForm : BaseKryptonForm
 	#region form event handlers
 
 	/// <summary>Fired when the application info form loads.
-	/// Populates UI labels with product, version, company, author, and description information from the assembly
-	/// and clears the status area.</summary>
+	/// Populates UI labels with product, version, company, description, and copyright information from the assembly,
+	/// sets a static author label, and clears the status area.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This event is used to initialize the form's UI elements with information from the assembly.</remarks>
+	/// <remarks>
+	/// This event initializes the form's UI elements with information from the assembly where available and assigns
+	/// a predefined author value to the author label.
+	/// </remarks>
 	private void AppInfoForm_Load(object sender, EventArgs e)
 	{
 		labelTitle.Text = AssemblyInfo.AssemblyProduct;
