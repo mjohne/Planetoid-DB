@@ -30,12 +30,8 @@ public partial class AppInfoForm : BaseKryptonForm
 
 	#region constructor
 
-	/// <summary>
-	/// Initializes a new instance of the <see cref="AppInfoForm"/> class.
-	/// </summary>
-	/// <remarks>
-	/// This constructor initializes the form components.
-	/// </remarks>
+	/// <summary>Initializes a new instance of the <see cref="AppInfoForm"/> class.</summary>
+	/// <remarks>This constructor initializes the form components.</remarks>
 	public AppInfoForm() =>
 		// Initialize the form components
 		InitializeComponent();
@@ -54,15 +50,20 @@ public partial class AppInfoForm : BaseKryptonForm
 	#region form event handlers
 
 	/// <summary>Fired when the application info form loads.
-	/// Populates UI labels with product, version and description information from the assembly
-	/// and clears the status area.</summary>
+	/// Populates UI labels with product, version, company, description, and copyright information from the assembly,
+	/// sets a static author label, and clears the status area.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This event is used to initialize the form's UI elements with information from the assembly.</remarks>
+	/// <remarks>
+	/// This event initializes the form's UI elements with information from the assembly where available and assigns
+	/// a predefined author value to the author label.
+	/// </remarks>
 	private void AppInfoForm_Load(object sender, EventArgs e)
 	{
 		labelTitle.Text = AssemblyInfo.AssemblyProduct;
 		labelVersion.Text = string.Format(format: I18nStrings.VersionTemplate, arg0: AssemblyInfo.AssemblyVersion);
+		labelCompany.Text = $"Company: {AssemblyInfo.AssemblyCompany}";
+		labelAuthor.Text = "Author: Michael Johne";
 		labelDescription.Text = AssemblyInfo.AssemblyDescription;
 		labelCopyright.Text = AssemblyInfo.AssemblyCopyright;
 		ClearStatusBar(label: labelInformation);
@@ -78,6 +79,27 @@ public partial class AppInfoForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This event is used to open the application's website in the user's default browser.</remarks>
 	private void LinkLabelWebsite_Clicked(object sender, EventArgs e) => OpenWebsite(fileName: Settings.Default.systemHomepage);
+
+	/// <summary>Called when the Krypton Suite website link is clicked.
+	/// Attempts to open the Krypton Suite GitHub page in the user's default browser.</summary>
+	/// <param name="sender">Event source (the link label).</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This event is used to open the Krypton Suite GitHub page in the user's default browser.</remarks>
+	private void LinkLabelKryptonWebsite_Clicked(object sender, EventArgs e) => OpenWebsite(fileName: "https://github.com/Krypton-Suite/Standard-Toolkit");
+
+	/// <summary>Called when the NLog website link is clicked.
+	/// Attempts to open the NLog project website in the user's default browser.</summary>
+	/// <param name="sender">Event source (the link label).</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This event is used to open the NLog project website in the user's default browser.</remarks>
+	private void LinkLabelNLogWebsite_Clicked(object sender, EventArgs e) => OpenWebsite(fileName: "https://nlog-project.org/");
+
+	/// <summary>Called when the FatCow Icons website link is clicked.
+	/// Attempts to open the FatCow free icons page in the user's default browser.</summary>
+	/// <param name="sender">Event source (the link label).</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This event is used to open the FatCow free icons page in the user's default browser.</remarks>
+	private void LinkLabelFatCowWebsite_Clicked(object sender, EventArgs e) => OpenWebsite(fileName: "https://fatcow.com/free-icons");
 
 	/// <summary>Called when the email link is clicked.
 	/// Attempts to open the user's default mail client with a new message addressed to the application's support email.
