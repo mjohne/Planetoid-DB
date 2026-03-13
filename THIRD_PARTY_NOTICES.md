@@ -50,7 +50,7 @@ The full license text can be found in: LICENSES/CC-BY-3.0.txt
 
 Author: Krypton-Suite contributors
 
-License: BSD-3-Clause
+License: BSD 3-Clause
 
 Source: https://github.com/Krypton-Suite
 
@@ -62,7 +62,7 @@ The full license text can be found in: LICENSES/BSD-3-Clause.txt
 
 Author: J. Kowalski, K. Christensen, J. Verdurmen
 
-License: BSD-3-Clause
+License: BSD 3-Clause
 
 Source: https://nlog-project.org
 
