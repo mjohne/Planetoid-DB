@@ -60,6 +60,8 @@ public partial class AppInfoForm : BaseKryptonForm
 		}
 		// Store the original image to restore it later
 		Image orig = pictureBox.Image;
+		// Track the previously assigned temporary pixelated bitmap to dispose it correctly.
+		Bitmap? previousPixelated = null;
 		// Loop to create a pixelation effect by resizing the image to smaller dimensions and then scaling it back up
 		for (int pixelSize = 1; pixelSize <= 16; pixelSize += 3)
 		{
@@ -83,12 +85,22 @@ public partial class AppInfoForm : BaseKryptonForm
 				// Draw the smaller bitmap onto the pixelated bitmap, scaling it back up to the original size
 				g2.DrawImage(image: small, x: 0, y: 0, width: pixelated.Width, height: pixelated.Height);
 			}
-			// Update the PictureBox image to the pixelated version
+			// Dispose the previously assigned temporary pixelated bitmap to avoid leaking GDI resources.
+			previousPixelated?.Dispose();
+			// Update the PictureBox image to the new pixelated version.
 			pictureBox.Image = pixelated;
+			// Remember the current temporary bitmap so it can be disposed on the next iteration.
+			previousPixelated = pixelated;
 			// Dispose of the smaller bitmap to free resources
 			small.Dispose();
 			// Wait briefly to create an animation effect before the next iteration
 			await Task.Delay(millisecondsDelay: 5);
+		}
+		// Dispose the last temporary pixelated bitmap created in the loop, if any.
+		if (previousPixelated != null)
+		{
+			previousPixelated.Dispose();
+			previousPixelated = null;
 		}
 		// Wait briefly before starting the zoom-out effect
 		await Task.Delay(millisecondsDelay: 20);
