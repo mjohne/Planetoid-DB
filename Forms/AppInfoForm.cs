@@ -120,11 +120,11 @@ public partial class AppInfoForm : BaseKryptonForm
 		// Wait briefly before starting the zoom-out effect
 		await Task.Delay(millisecondsDelay: 20);
 		// Track the previously assigned pixelated bitmap so it can be disposed after it is replaced.
-		Bitmap previousPixelated = null;
+		previousPixelated = null;
 		// Loop to create a zoom-out effect by resizing the image back to smaller dimensions and then scaling it back up
-		Bitmap? previousPixelated = null;
 		for (int pixelSize = 16; pixelSize >= 1; pixelSize -= 3)
 		{
+		
 			// Calculate the size of the smaller image based on the pixelation level
 			int s = Math.Max(1, pixelSize);
 			// Create a smaller bitmap based on the current pixelation level
