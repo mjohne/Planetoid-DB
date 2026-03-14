@@ -99,6 +99,8 @@ public partial class AppInfoForm : BaseKryptonForm
 		// Dispose the last temporary pixelated bitmap created in the loop, if any.
 		if (previousPixelated != null)
 		{
+			// Reassign the PictureBox image to the original bitmap before disposing the temporary one
+			pictureBox.Image = orig;
 			previousPixelated.Dispose();
 			previousPixelated = null;
 		}
