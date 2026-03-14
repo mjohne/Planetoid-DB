@@ -122,6 +122,7 @@ public partial class AppInfoForm : BaseKryptonForm
 		// Track the previously assigned pixelated bitmap so it can be disposed after it is replaced.
 		Bitmap previousPixelated = null;
 		// Loop to create a zoom-out effect by resizing the image back to smaller dimensions and then scaling it back up
+		Bitmap? previousPixelated = null;
 		for (int pixelSize = 16; pixelSize >= 1; pixelSize -= 3)
 		{
 			// Calculate the size of the smaller image based on the pixelation level
@@ -146,13 +147,13 @@ public partial class AppInfoForm : BaseKryptonForm
 				// Draw the smaller bitmap onto the pixelated bitmap, scaling it back up to the original size
 				g2.DrawImage(image: small, x: 0, y: 0, width: pixelated.Width, height: pixelated.Height);
 			}
-			// Update the PictureBox image to the pixelated version
-			pictureBox.Image = pixelated;
 			// Dispose the previously used pixelated bitmap, if any, now that it has been replaced.
 			if (previousPixelated != null)
 			{
 				previousPixelated.Dispose();
 			}
+			// Update the PictureBox image to the pixelated version
+			pictureBox.Image = pixelated;
 			previousPixelated = pixelated;
 			// Dispose of the smaller bitmap to free resources
 			small.Dispose();
