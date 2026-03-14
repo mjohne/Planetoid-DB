@@ -61,6 +61,24 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
+	/// <summary>Stores the index of the currently sorted column.</summary>
+	/// <remarks>This field stores the index of the currently sorted column.</remarks>
+	private int sortColumn = -1;
+
+	/// <summary>The value indicates how items in the currently sorted column are ordered:
+	/// <list type="bullet">
+	/// <item><description><see cref="SortOrder.None"/>: No sorting is applied.</description></item>
+	/// <item><description><see cref="SortOrder.Ascending"/>: Items are sorted in ascending order.</description></item>
+	/// <item><description><see cref="SortOrder.Descending"/>: Items are sorted in descending order.</description></item>
+	/// </list>
+	/// This field is typically updated when the user clicks a column header in the list view to toggle the sort order.</summary>
+	/// <remarks>This field stores the current sort order of the list view.</remarks>
+	private SortOrder sortOrder = SortOrder.None;
+
+	/// <summary>Stores the sorted indices for virtual mode to maintain sorting order.</summary>
+	/// <remarks>This list maps the virtual list view indices to the actual database indices based on the current sort criteria.</remarks>
+	private List<int>? sortedIndices;
+
 	#region constructor
 
 	/// <summary>Initializes a new instance of the <see cref="ListReadableDesignationsForm"/> class.</summary>
@@ -152,7 +170,9 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		for (int i = 0; i < listView.VirtualListSize; i++)
 		{
 			// Calculate the real database index
-			int dbIndex = virtualListOffset + i;
+			int dbIndex = sortedIndices != null && i < sortedIndices.Count
+				? sortedIndices[index: i]
+				: virtualListOffset + i;
 			// Generate item (we use the existing logic, but without GUI overhead)
 			// Since CreateListViewItem returns a ListViewItem, we extract the data again.
 			// Performance tip: For pure export, one could bypass CreateListViewItem and parse the string directly,
@@ -166,16 +186,12 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>
-	/// Tries to parse a fixed-width planetoid record into its index and designation components.
-	/// </summary>
+	/// <summary>Tries to parse a fixed-width planetoid record into its index and designation components.</summary>
 	/// <param name="record">The raw database record to parse.</param>
 	/// <param name="recordIndex">The zero-based index of the record in the database, used for logging purposes.</param>
 	/// <param name="parsedIndex">When this method returns <c>true</c>, contains the parsed index value.</param>
 	/// <param name="parsedDesignation">When this method returns <c>true</c>, contains the parsed designation value.</param>
-	/// <returns>
-	/// <c>true</c> if the record was successfully parsed; otherwise, <c>false</c>.
-	/// </returns>
+	/// <returns><c>true</c> if the record was successfully parsed; otherwise, <c>false</c>.</returns>
 	private static bool TryParsePlanetoidRecord(string record, int recordIndex, out string parsedIndex, out string parsedDesignation)
 	{
 		// Initialize output parameters
@@ -211,8 +227,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			return;
 		}
 		int selectedIndex = listView.SelectedIndices[index: 0];
-		// Calculate the real database index (considering virtual mode offset)
-		int dbIndex = listView.VirtualMode ? virtualListOffset + selectedIndex : selectedIndex;
+		// Calculate the real database index (considering virtual mode offset and sorting)
+		int dbIndex = listView.VirtualMode
+			? (sortedIndices != null && selectedIndex < sortedIndices.Count ? sortedIndices[index: selectedIndex] : virtualListOffset + selectedIndex)
+			: selectedIndex;
 		// Check if the index is valid
 		if (dbIndex < 0 || dbIndex >= planetoidsDatabase.Count)
 		{
@@ -512,6 +530,95 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 
 	#region ListView event handlers
 
+	/// <summary>Handles the ColumnClick event for the ListView to sort columns alphanumerically.</summary>
+	/// <param name="sender">Event source (the ListView).</param>
+	/// <param name="e">The <see cref="ColumnClickEventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method determines the sort order and initiates the sorting process for the selected column.</remarks>
+	private void ListView_ColumnClick(object? sender, ColumnClickEventArgs e)
+	{
+		// If there are no items, do not attempt to sort
+		if (listView.VirtualListSize == 0)
+		{
+			return;
+		}
+		// Determine the new sort order based on the clicked column
+		if (e.Column == sortColumn)
+		{
+			// Toggle sort order if the same column is clicked
+			sortOrder = sortOrder == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
+		}
+		else
+		{
+			// Set new sort column and default to ascending order
+			sortColumn = e.Column;
+			sortOrder = SortOrder.Ascending;
+		}
+		// Update column headers with sort indicators
+		for (int i = 0; i < listView.Columns.Count; i++)
+		{
+			// Remove existing sort indicators from the header text
+			string headerText = listView.Columns[index: i].Text;
+			// Check for existing indicators and remove them
+			if (headerText.StartsWith(value: "▲ ") || headerText.StartsWith(value: "▼ "))
+			{
+				headerText = headerText[2..];
+			}
+			// Add the new sort indicator to the currently sorted column
+			if (i == sortColumn)
+			{
+				string indicator = sortOrder == SortOrder.Ascending ? "▲" : "▼";
+				listView.Columns[index: i].Text = $"{indicator} {headerText}";
+			}
+			// For other columns, just update the text without indicators
+			else
+			{
+				listView.Columns[index: i].Text = headerText;
+			}
+		}
+		// Sort the indices based on the selected column and sort order
+		int count = listView.VirtualListSize;
+		// Initialize sortedIndices if it is null or if the count has changed (e.g., due to a new list being loaded)
+		if (sortedIndices == null || sortedIndices.Count != count)
+		{
+			// Create a list of indices corresponding to the current virtual list size
+			sortedIndices = new List<int>(capacity: count);
+			// Fill the list with the current indices based on the virtual list offset
+			for (int i = 0; i < count; i++)
+			{
+				sortedIndices.Add(item: virtualListOffset + i);
+			}
+		}
+		// Sort the indices using a custom comparison that compares the relevant fields based on the sort column
+		sortedIndices.Sort(comparison: (a, b) =>
+		{
+			// Retrieve the records for the given indices, ensuring we stay within bounds
+			string recA = a >= 0 && a < planetoidsDatabase.Count ? planetoidsDatabase[index: a] : string.Empty;
+			string recB = b >= 0 && b < planetoidsDatabase.Count ? planetoidsDatabase[index: b] : string.Empty;
+			// Extract the values to compare based on the sort column
+			string valA = string.Empty;
+			string valB = string.Empty;
+			// For column 0, we compare the index; for column 1, we compare the designation name
+			switch (sortColumn)
+			{
+				case 0:
+					valA = recA.Length >= indexLength ? recA[..indexLength].Trim() : string.Empty;
+					valB = recB.Length >= indexLength ? recB[..indexLength].Trim() : string.Empty;
+					break;
+				case 1:
+					valA = recA.Length >= nameStartIndex + nameLength ? recA.Substring(startIndex: nameStartIndex, length: nameLength).Trim() : string.Empty;
+					valB = recB.Length >= nameStartIndex + nameLength ? recB.Substring(startIndex: nameStartIndex, length: nameLength).Trim() : string.Empty;
+					break;
+			}
+			// Attempt to parse the values as integers for numeric comparison; if parsing fails, fall back to string comparison
+			int result = int.TryParse(s: valA, result: out int numA) && int.TryParse(s: valB, result: out int numB)
+				? numA.CompareTo(value: numB)
+				: string.Compare(strA: valA, strB: valB, comparisonType: StringComparison.OrdinalIgnoreCase);
+			return sortOrder == SortOrder.Descending ? -result : result;
+		});
+		// After sorting the indices, we need to refresh the ListView to reflect the new order. In virtual mode, this is done by invalidating the control, which will trigger it to request the items in the new order.
+		listView.Invalidate();
+	}
+
 	/// <summary>Handles the retrieval of virtual items for the ListView.
 	/// Dynamically creates ListViewItems when they are needed for display.</summary>
 	/// <param name="sender">Event source (the ListView).</param>
@@ -519,8 +626,10 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <remarks>This method is used to retrieve virtual items for the ListView.</remarks>
 	private void ListView_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
 	{
-		// Calculating the true index in the database based on the offset
-		int realIndex = virtualListOffset + e.ItemIndex;
+		// Calculating the true index in the database based on the offset and sorting
+		int realIndex = sortedIndices != null && e.ItemIndex < sortedIndices.Count
+			? sortedIndices[index: e.ItemIndex]
+			: virtualListOffset + e.ItemIndex;
 		// Creating the item (uses the existing logic)
 		ListViewItem? item = CreateListViewItem(index: realIndex);
 		// If the item was created successfully, assign it.
@@ -590,6 +699,9 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 				return;
 			}
 			// Virtual Mode configure
+			sortedIndices = null;
+			sortColumn = -1;
+			sortOrder = SortOrder.None;
 			virtualListOffset = min; // Start offset save
 			listView.VirtualMode = true; // Activate virtual mode
 			listView.VirtualListSize = count; // Set number of rows (triggers RetrieveVirtualItem when scrolling)

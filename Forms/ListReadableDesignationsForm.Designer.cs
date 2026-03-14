@@ -45,7 +45,7 @@ partial class ListReadableDesignationsForm
 	{
 		components = new Container();
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(ListReadableDesignationsForm));
-		kryptonStatusStrip = new Krypton.Toolkit.KryptonStatusStrip();
+		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
 		contextMenuCopyToClipboard = new ContextMenuStrip(components);
 		toolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
@@ -77,14 +77,14 @@ partial class ListReadableDesignationsForm
 		columnHeaderReadableDesignation = new ColumnHeader();
 		kryptonManager = new KryptonManager(components);
 		toolStripContainer = new ToolStripContainer();
-		kryptonToolStripList = new Krypton.Toolkit.KryptonToolStrip();
+		kryptonToolStripList = new KryptonToolStrip();
 		toolStripButtonCreateList = new ToolStripButton();
 		toolStripSeparator1 = new ToolStripSeparator();
 		toolStripLabelMinimum = new ToolStripLabel();
 		toolStripNumericUpDownMinimum = new Planetoid_DB.Helpers.ToolStripNumericUpDown();
 		toolStripLabelMaximum = new ToolStripLabel();
 		toolStripNumericUpDownMaximum = new Planetoid_DB.Helpers.ToolStripNumericUpDown();
-		kryptonToolStripSaveList = new Krypton.Toolkit.KryptonToolStrip();
+		kryptonToolStripSaveList = new KryptonToolStrip();
 		toolStripButtonLoad = new ToolStripButton();
 		toolStripSeparator2 = new ToolStripSeparator();
 		kryptonStatusStrip.SuspendLayout();
@@ -555,6 +555,7 @@ partial class ListReadableDesignationsForm
 		listView.UseCompatibleStateImageBehavior = false;
 		listView.View = View.Details;
 		listView.VirtualMode = true;
+		listView.ColumnClick += ListView_ColumnClick;
 		listView.RetrieveVirtualItem += ListView_RetrieveVirtualItem;
 		listView.SelectedIndexChanged += SelectedIndexChanged;
 		listView.DoubleClick += ListView_DoubleClick;
