@@ -321,14 +321,14 @@ partial class DatabaseDifferencesForm
 		// 
 		// toolStripMenuItemSaveAsReStructurizedText
 		// 
-		toolStripMenuItemSaveAsReStructurizedText.AccessibleDescription = "Save list as ReStructurizedText";
-		toolStripMenuItemSaveAsReStructurizedText.AccessibleName = "Save as ReStructurizedText";
+		toolStripMenuItemSaveAsReStructurizedText.AccessibleDescription = "Save list as reStructuredText";
+		toolStripMenuItemSaveAsReStructurizedText.AccessibleName = "Save as reStructuredText";
 		toolStripMenuItemSaveAsReStructurizedText.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemSaveAsReStructurizedText.AutoToolTip = true;
 		toolStripMenuItemSaveAsReStructurizedText.Image = Resources.FatcowIcons16px.fatcow_page_white_text_16px;
 		toolStripMenuItemSaveAsReStructurizedText.Name = "toolStripMenuItemSaveAsReStructurizedText";
 		toolStripMenuItemSaveAsReStructurizedText.Size = new Size(212, 22);
-		toolStripMenuItemSaveAsReStructurizedText.Text = "Save as &ReStructurizedText";
+		toolStripMenuItemSaveAsReStructurizedText.Text = "Save as &reStructuredText";
 		toolStripMenuItemSaveAsReStructurizedText.Click += ToolStripMenuItemSaveAsRst_Click;
 		toolStripMenuItemSaveAsReStructurizedText.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsReStructurizedText.MouseLeave += Control_Leave;
