@@ -61,14 +61,6 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
-	private struct SearchResult
-	{
-		public string Index;
-		public string Designation;
-		public string Element;
-		public string Value;
-	}
-
 	#region constructor
 
 	/// <summary>Initializes a new instance of the <see cref="ListReadableDesignationsForm"/> class.</summary>
@@ -174,6 +166,39 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>
+	/// Tries to parse a fixed-width planetoid record into its index and designation components.
+	/// </summary>
+	/// <param name="record">The raw database record to parse.</param>
+	/// <param name="recordIndex">The zero-based index of the record in the database, used for logging purposes.</param>
+	/// <param name="parsedIndex">When this method returns <c>true</c>, contains the parsed index value.</param>
+	/// <param name="parsedDesignation">When this method returns <c>true</c>, contains the parsed designation value.</param>
+	/// <returns>
+	/// <c>true</c> if the record was successfully parsed; otherwise, <c>false</c>.
+	/// </returns>
+	private static bool TryParsePlanetoidRecord(string record, int recordIndex, out string parsedIndex, out string parsedDesignation)
+	{
+		// Initialize output parameters
+		parsedIndex = string.Empty;
+		parsedDesignation = string.Empty;
+		// Validate the input record
+		if (string.IsNullOrWhiteSpace(value: record))
+		{
+			logger.Warn(message: $"The record at index {recordIndex} is null, empty, or consists only of white-space characters.");
+			return false;
+		}
+		// Check if the record is long enough to contain the expected fields
+		if (record.Length < nameStartIndex + nameLength)
+		{
+			logger.Warn(message: $"The record at index {recordIndex} is too short.");
+			return false;
+		}
+		// Extract the index and designation from the fixed-width record
+		parsedIndex = record[..indexLength].Trim();
+		parsedDesignation = record.Substring(startIndex: nameStartIndex, length: nameLength).Trim();
+		return true;
+	}
+
 	/// <summary>Selects the currently highlighted planetoid in the list view and navigates to its corresponding record in the main
 	/// form.</summary>
 	/// <remarks>If no item is selected or the selected record is invalid, the method does nothing. When a valid
@@ -195,16 +220,13 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		}
 		// Get the record string
 		string currentData = planetoidsDatabase[index: dbIndex];
-		// Check if the record is long enough to parse
-		if (currentData.Length < nameStartIndex + nameLength)
+		// Parse index and designation using shared parsing logic
+		if (!TryParsePlanetoidRecord(record: currentData, recordIndex: dbIndex, parsedIndex: out string strIndex, parsedDesignation: out string strDesignation))
 		{
-			logger.Warn(message: $"The record at index {dbIndex} is too short.");
+			// If parsing fails, show an error message and return
 			MessageBox.Show(text: "Invalid record format.", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			return;
 		}
-		// Extract index and designation
-		string strIndex = currentData[..indexLength].Trim();
-		string strDesignation = currentData.Substring(startIndex: nameStartIndex, length: nameLength).Trim();
 		// Jump to the record in the main form
 		if (Application.OpenForms.OfType<PlanetoidDbForm>().FirstOrDefault() is PlanetoidDbForm mainForm)
 		{
@@ -589,10 +611,18 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// the current form.</summary>
 	/// <param name="sender">The source of the event, typically the Load button on the tool strip.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	/// <remarks>When the Load button is clicked, this method calls the SelectPlanetoidInMainForm method to navigate to the selected planetoid record in the main form. After initiating the selection, it closes the current form to return control to the main form.</remarks>
+	/// /// <remarks>When the Load button is clicked, this method calls the SelectPlanetoidInMainForm method to navigate to the selected planetoid record in the main form. After initiating the selection, it closes the current form to return control to the main form, and sets the dialog result to <see cref="DialogResult.OK"/> to signal a successful selection.</remarks>
 	private void ToolStripButtonLoad_Click(object sender, EventArgs e)
 	{
+		// Check if any item is selected
+		if (listView.SelectedItems.Count == 0)
+		{
+			return;
+		}
+		// Select the planetoid in the main form
 		SelectPlanetoidInMainForm();
+		// Set the dialog result to OK and close the form
+		DialogResult = DialogResult.OK;
 		Close();
 	}
 

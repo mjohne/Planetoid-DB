@@ -4,7 +4,6 @@
 // a specific target and scoped to a namespace, type, member, etc.
 
 using Krypton.Toolkit;
-using Krypton.Toolkit.Suite.Extended.Tool.Strip.Items;
 
 using Planetoid_DB.Resources;
 
@@ -792,9 +791,9 @@ partial class ListReadableDesignationsForm
 
 	#endregion
 
-	private Krypton.Toolkit.KryptonStatusStrip kryptonStatusStrip;
+	private KryptonStatusStrip kryptonStatusStrip;
 	private ToolStripStatusLabel labelInformation;
-	private Krypton.Toolkit.KryptonPanel kryptoPanelMain;
+	private KryptonPanel kryptoPanelMain;
 	private ListView listView;
 	private ColumnHeader columnHeaderIndex;
 	private ColumnHeader columnHeaderReadableDesignation;
@@ -823,9 +822,9 @@ partial class ListReadableDesignationsForm
 	private ToolStripMenuItem toolStripMenuItemSaveAsText;
 	private ToolStripMenuItem toolStripMenuItemSaveAsRtf;
 	private ToolStripContainer toolStripContainer;
-	private Krypton.Toolkit.KryptonToolStrip kryptonToolStripList;
+	private KryptonToolStrip kryptonToolStripList;
 	private ToolStripButton toolStripButtonCreateList;
-	private Krypton.Toolkit.KryptonToolStrip kryptonToolStripSaveList;
+	private KryptonToolStrip kryptonToolStripSaveList;
 	private ToolStripButton toolStripButtonLoad;
 	private ToolStripSeparator toolStripSeparator1;
 	private Helpers.ToolStripNumericUpDown toolStripNumericUpDownMinimum;
