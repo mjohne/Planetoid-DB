@@ -10,6 +10,7 @@ using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 
 using System.Diagnostics;
+using ComponentFactory.Krypton.Toolkit;
 
 namespace Planetoid_DB;
 
@@ -45,16 +46,16 @@ public partial class AppInfoForm : BaseKryptonForm
 	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
-	/// <summary>Applies a pixelation animation effect to the image displayed in the specified <see cref="PictureBox"/> asynchronously.</summary>
+	/// <summary>Applies a pixelation animation effect to the image displayed in the specified <see cref="KryptonPictureBox"/> asynchronously.</summary>
 	/// <remarks>
-	/// The method temporarily replaces the PictureBox image with a series of progressively pixelated versions of
+	/// The method temporarily replaces the KryptonPictureBox image with a series of progressively pixelated versions of
 	/// the original image, created by downscaling and then upscaling the bitmap to produce a blocky effect. The
-	/// original image is restored after the animation completes. If the PictureBox does not contain an image, the
+	/// original image is restored after the animation completes. If the KryptonPictureBox does not contain an image, the
 	/// method returns immediately.
 	/// </remarks>
-	/// <param name="pictureBox">The <see cref="PictureBox"/> control whose image will be animated. The control must contain a non-null image.</param>
+	/// <param name="pictureBox">The <see cref="KryptonPictureBox"/> control whose image will be animated. The control must contain a non-null image.</param>
 	/// <returns>A task that represents the asynchronous operation.</returns>
-	private static async Task ApplyZoomAndPixelateAsync(PictureBox pictureBox)
+	private static async Task ApplyZoomAndPixelateAsync(KryptonPictureBox pictureBox)
 	{
 		// Check if the PictureBox contains an image; if not, exit the method
 		if (pictureBox.Image == null)
