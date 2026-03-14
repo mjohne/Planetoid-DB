@@ -232,7 +232,7 @@ public partial class AppInfoForm : BaseKryptonForm
 	/// <summary>Handles the Click event of the banner PictureBox and initiates an asynchronous operation to apply zoom and
 	/// pixelation effects.</summary>
 	/// <remarks>This event handler triggers an asynchronous image processing operation on the banner PictureBox
-	/// when it is clicked. The method does not block the UI thread.</remarks>
+	/// when it is clicked, applying zoom and pixelation effects to the displayed image.</remarks>
 	/// <param name="sender">The source of the event, typically the PictureBox control that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private async void PictureBoxBanner_Click(object sender, EventArgs e)
