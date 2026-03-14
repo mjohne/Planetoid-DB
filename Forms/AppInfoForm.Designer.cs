@@ -1089,16 +1089,16 @@ partial class AppInfoForm
 		// 
 		// pictureBoxBanner
 		// 
-		pictureBoxBanner.AccessibleDescription = "Shows the banner";
+		pictureBoxBanner.AccessibleDescription = "Activates the banner animation when selected.";
 		pictureBoxBanner.AccessibleName = "Banner";
-		pictureBoxBanner.AccessibleRole = AccessibleRole.Graphic;
+		pictureBoxBanner.AccessibleRole = AccessibleRole.PushButton;
 		pictureBoxBanner.Image = (Image)resources.GetObject("pictureBoxBanner.Image");
 		pictureBoxBanner.Location = new Point(4, 3);
 		pictureBoxBanner.Name = "pictureBoxBanner";
 		pictureBoxBanner.Size = new Size(500, 174);
 		pictureBoxBanner.TabIndex = 0;
-		pictureBoxBanner.TabStop = false;
-		pictureBoxBanner.ToolTipValues.Description = "Shows the banner.";
+		pictureBoxBanner.TabStop = true;
+		pictureBoxBanner.ToolTipValues.Description = "Click to activate the banner animation.";
 		pictureBoxBanner.ToolTipValues.EnableToolTips = true;
 		pictureBoxBanner.ToolTipValues.Heading = "Banner";
 		pictureBoxBanner.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
