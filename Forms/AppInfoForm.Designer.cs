@@ -1271,28 +1271,4 @@ partial class AppInfoForm
 	private KryptonPictureBox kryptonPictureBoxVisualStudio;
 	private KryptonPictureBox kryptonPictureBoxLogo;
 	private ImageList imageListTabAbout;
-	/// <summary>
-	/// Handles keyboard activation for the banner picture box, allowing users to trigger
-	/// the banner click action by pressing Enter or Space when the control has focus.
-	/// </summary>
-	/// <param name="sender">The source of the event, typically the banner control.</param>
-	/// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
-	private void PictureBoxBanner_KeyDown(object? sender, KeyEventArgs e)
-	{
-		if (e == null)
-		{
-			return;
-		}
-
-		if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Space)
-		{
-			if (sender is Control control)
-			{
-				control.PerformClick();
-			}
-
-			e.Handled = true;
-			e.SuppressKeyPress = true;
-		}
-	}
 }
