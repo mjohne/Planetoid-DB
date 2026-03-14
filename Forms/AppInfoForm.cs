@@ -45,6 +45,89 @@ public partial class AppInfoForm : BaseKryptonForm
 	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
+	/// <summary>Applies a zoom and pixelation animation effect to the image displayed in the specified PictureBox asynchronously.</summary>
+	/// <remarks>The method temporarily replaces the PictureBox image with a series of pixelated and zoomed versions
+	/// to create an animated effect. The original image is restored after the animation completes. If the PictureBox does
+	/// not contain an image, the method returns immediately.</remarks>
+	/// <param name="pictureBox">The PictureBox control whose image will be animated. The control must contain a non-null image.</param>
+	/// <returns>A task that represents the asynchronous operation.</returns>
+	private static async Task ApplyZoomAndPixelateAsync(PictureBox pictureBox)
+	{
+		// Check if the PictureBox contains an image; if not, exit the method
+		if (pictureBox.Image == null)
+		{
+			return;
+		}
+		// Store the original image to restore it later
+		Image orig = pictureBox.Image;
+		// Loop to create a pixelation effect by resizing the image to smaller dimensions and then scaling it back up
+		for (int pixelSize = 1; pixelSize <= 16; pixelSize += 3)
+		{
+			// Calculate the size of the smaller image based on the pixelation level
+			Bitmap small = new(width: Math.Max(1, orig.Width / pixelSize), height: Math.Max(val1: 1, val2: orig.Height / pixelSize));
+			// Draw the original image onto the smaller bitmap using high-quality bicubic interpolation
+			using (Graphics g1 = Graphics.FromImage(image: small))
+			{
+				// Set the interpolation mode to high-quality bicubic for better resizing quality
+				g1.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+				// Draw the original image onto the smaller bitmap, effectively reducing its resolution
+				g1.DrawImage(image: orig, x: 0, y: 0, width: small.Width, height: small.Height);
+			}
+			// Create a new bitmap to hold the pixelated version of the image
+			Bitmap pixelated = new(width: orig.Width, height: orig.Height);
+			// Draw the smaller bitmap onto the pixelated bitmap using nearest neighbor interpolation to create a pixelated effect
+			using (Graphics g2 = Graphics.FromImage(image: pixelated))
+			{
+				// Set the interpolation mode to nearest neighbor to maintain the pixelated look when scaling back up
+				g2.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+				// Draw the smaller bitmap onto the pixelated bitmap, scaling it back up to the original size
+				g2.DrawImage(image: small, x: 0, y: 0, width: pixelated.Width, height: pixelated.Height);
+			}
+			// Update the PictureBox image to the pixelated version
+			pictureBox.Image = pixelated;
+			// Dispose of the smaller bitmap to free resources
+			small.Dispose();
+			// Wait briefly to create an animation effect before the next iteration
+			await Task.Delay(millisecondsDelay: 5);
+		}
+		// Wait briefly before starting the zoom-out effect
+		await Task.Delay(millisecondsDelay: 20);
+		// Loop to create a zoom-out effect by resizing the image back to smaller dimensions and then scaling it back up
+		for (int pixelSize = 16; pixelSize >= 1; pixelSize -= 3)
+		{
+			// Calculate the size of the smaller image based on the pixelation level
+			int s = Math.Max(1, pixelSize);
+			// Create a smaller bitmap based on the current pixelation level
+			Bitmap small = new(width: Math.Max(val1: 1, val2: orig.Width / s), height: Math.Max(val1: 1, val2: orig.Height / s));
+			// Draw the original image onto the smaller bitmap using high-quality bicubic interpolation
+			using (Graphics g1 = Graphics.FromImage(image: small))
+			{
+				// Set the interpolation mode to high-quality bicubic for better resizing quality
+				g1.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+				// Draw the original image onto the smaller bitmap, effectively reducing its resolution
+				g1.DrawImage(image: orig, x: 0, y: 0, width: small.Width, height: small.Height);
+			}
+			// Create a new bitmap to hold the pixelated version of the image
+			Bitmap pixelated = new(width: orig.Width, height: orig.Height);
+			// Draw the smaller bitmap onto the pixelated bitmap using nearest neighbor interpolation to create a pixelated effect
+			using (Graphics g2 = Graphics.FromImage(image: pixelated))
+			{
+				// Set the interpolation mode to nearest neighbor to maintain the pixelated look when scaling back up
+				g2.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+				// Draw the smaller bitmap onto the pixelated bitmap, scaling it back up to the original size
+				g2.DrawImage(image: small, x: 0, y: 0, width: pixelated.Width, height: pixelated.Height);
+			}
+			// Update the PictureBox image to the pixelated version
+			pictureBox.Image = pixelated;
+			// Dispose of the smaller bitmap to free resources
+			small.Dispose();
+			// Wait briefly to create an animation effect before the next iteration
+			await Task.Delay(millisecondsDelay: 5);
+		}
+		// Restore the original image in the PictureBox after the animation completes
+		pictureBox.Image = orig;
+	}
+
 	#endregion
 
 	#region form event handlers
@@ -128,6 +211,14 @@ public partial class AppInfoForm : BaseKryptonForm
 			ShowErrorMessage(message: $"Error opening the email client: {ex.Message}");
 		}
 	}
+
+	/// <summary>Handles the Click event of the banner PictureBox and initiates an asynchronous operation to apply zoom and
+	/// pixelation effects.</summary>
+	/// <remarks>This event handler triggers an asynchronous image processing operation on the banner PictureBox
+	/// when it is clicked. The method does not block the UI thread.</remarks>
+	/// <param name="sender">The source of the event, typically the PictureBox control that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void PictureBoxBanner_Click(object sender, EventArgs e) => _ = ApplyZoomAndPixelateAsync(pictureBoxBanner);
 
 	#endregion
 }

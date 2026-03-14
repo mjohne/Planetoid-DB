@@ -1102,6 +1102,7 @@ partial class AppInfoForm
 		pictureBoxBanner.ToolTipValues.EnableToolTips = true;
 		pictureBoxBanner.ToolTipValues.Heading = "Banner";
 		pictureBoxBanner.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		pictureBoxBanner.Click += PictureBoxBanner_Click;
 		pictureBoxBanner.MouseEnter += Control_Enter;
 		pictureBoxBanner.MouseLeave += Control_Leave;
 		// 
