@@ -72,40 +72,38 @@ public partial class AppInfoForm : BaseKryptonForm
 			for (int pixelSize = 1; pixelSize <= 16; pixelSize += 3)
 			{
 				// Calculate the size of the smaller image based on the pixelation level
-				Bitmap small = new(width: Math.Max(1, orig.Width / pixelSize), height: Math.Max(val1: 1, val2: orig.Height / pixelSize));
-			// Draw the original image onto the smaller bitmap using high-quality bicubic interpolation
-			using (Graphics g1 = Graphics.FromImage(image: small))
-			{
-				// Set the interpolation mode to high-quality bicubic for better resizing quality
-				g1.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-				// Draw the original image onto the smaller bitmap, effectively reducing its resolution
-				g1.DrawImage(image: orig, x: 0, y: 0, width: small.Width, height: small.Height);
+				using Bitmap small = new(width: Math.Max(1, orig.Width / pixelSize), height: Math.Max(val1: 1, val2: orig.Height / pixelSize));
+				// Draw the original image onto the smaller bitmap using high-quality bicubic interpolation
+				using (Graphics g1 = Graphics.FromImage(image: small))
+				{
+					// Set the interpolation mode to high-quality bicubic for better resizing quality
+					g1.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+					// Draw the original image onto the smaller bitmap, effectively reducing its resolution
+					g1.DrawImage(image: orig, x: 0, y: 0, width: small.Width, height: small.Height);
+				}
+				// Create a new bitmap to hold the pixelated version of the image
+				Bitmap pixelated = new(width: orig.Width, height: orig.Height);
+				// Draw the smaller bitmap onto the pixelated bitmap using nearest neighbor interpolation to create a pixelated effect
+				using (Graphics g2 = Graphics.FromImage(image: pixelated))
+				{
+					// Set the interpolation mode to nearest neighbor to maintain the pixelated look when scaling back up
+					g2.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+					// Draw the smaller bitmap onto the pixelated bitmap, scaling it back up to the original size
+					g2.DrawImage(image: small, x: 0, y: 0, width: pixelated.Width, height: pixelated.Height);
+				}
+				// Store the previously assigned temporary pixelated bitmap so it can be safely disposed
+				// after the PictureBox has been updated to use the new image.
+				Bitmap? oldPixelated = previousPixelated;
+				// Update the PictureBox image to the new pixelated version.
+				pictureBox.Image = pixelated;
+				// Remember the current temporary bitmap so it can be disposed on the next iteration.
+				previousPixelated = pixelated;
+				// Dispose the previously assigned temporary pixelated bitmap to avoid leaking GDI resources,
+				// ensuring that the PictureBox no longer references it.
+				oldPixelated?.Dispose();
+				// Wait briefly to create an animation effect before the next iteration
+				await Task.Delay(millisecondsDelay: 5);
 			}
-			// Create a new bitmap to hold the pixelated version of the image
-			Bitmap pixelated = new(width: orig.Width, height: orig.Height);
-			// Draw the smaller bitmap onto the pixelated bitmap using nearest neighbor interpolation to create a pixelated effect
-			using (Graphics g2 = Graphics.FromImage(image: pixelated))
-			{
-				// Set the interpolation mode to nearest neighbor to maintain the pixelated look when scaling back up
-				g2.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-				// Draw the smaller bitmap onto the pixelated bitmap, scaling it back up to the original size
-				g2.DrawImage(image: small, x: 0, y: 0, width: pixelated.Width, height: pixelated.Height);
-			}
-			// Store the previously assigned temporary pixelated bitmap so it can be safely disposed
-			// after the PictureBox has been updated to use the new image.
-			Bitmap? oldPixelated = previousPixelated;
-			// Update the PictureBox image to the new pixelated version.
-			pictureBox.Image = pixelated;
-			// Remember the current temporary bitmap so it can be disposed on the next iteration.
-			previousPixelated = pixelated;
-			// Dispose the previously assigned temporary pixelated bitmap to avoid leaking GDI resources,
-			// ensuring that the PictureBox no longer references it.
-			oldPixelated?.Dispose();
-			// Dispose of the smaller bitmap to free resources
-			small.Dispose();
-			// Wait briefly to create an animation effect before the next iteration
-			await Task.Delay(millisecondsDelay: 5);
-		}
 
 		// Wait briefly before starting the zoom-out effect
 		await Task.Delay(millisecondsDelay: 20);
