@@ -145,14 +145,15 @@ public partial class AppInfoForm : BaseKryptonForm
 					g2.DrawImage(image: small, x: 0, y: 0, width: pixelated.Width, height: pixelated.Height);
 				}
 
-				// Dispose the previously used pixelated bitmap, if any, now that it has been replaced.
+				// Update the PictureBox image to the pixelated version.
+				pictureBox.Image = pixelated;
+
+				// Dispose the previously used pixelated bitmap, if any, now that it is no longer referenced by the PictureBox.
 				if (previousPixelated != null)
 				{
 					previousPixelated.Dispose();
 				}
 
-				// Update the PictureBox image to the pixelated version
-				pictureBox.Image = pixelated;
 				previousPixelated = pixelated;
 			}
 
