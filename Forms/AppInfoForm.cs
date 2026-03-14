@@ -200,6 +200,11 @@ public partial class AppInfoForm : BaseKryptonForm
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void KryptonLinkLabelFatCow_LinkClick(object sender, EventArgs e) => OpenWebsite(fileName: kryptonLinkLabelWebsiteFatcow.Text);
 
+	/// <summary>
+	/// Indicates whether the banner animation is currently running to prevent overlapping animations.
+	/// </summary>
+	private bool _isBannerAnimationRunning;
+
 	/// <summary>Handles the LinkClicked event for the email link label and attempts to open the user's default mail client with a new message addressed to the application's support email.</summary>
 	/// <remarks>This event handler is typically attached to a link label representing the application's support email. When the
 	/// link is clicked, the default mail client is opened with a new message addressed to the specified email.</remarks>
@@ -230,7 +235,29 @@ public partial class AppInfoForm : BaseKryptonForm
 	/// when it is clicked. The method does not block the UI thread.</remarks>
 	/// <param name="sender">The source of the event, typically the PictureBox control that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void PictureBoxBanner_Click(object sender, EventArgs e) => _ = ApplyZoomAndPixelateAsync(pictureBoxBanner);
+	private async void PictureBoxBanner_Click(object sender, EventArgs e)
+	{
+		if (_isBannerAnimationRunning)
+		{
+			return;
+		}
+
+		_isBannerAnimationRunning = true;
+
+		try
+		{
+			await ApplyZoomAndPixelateAsync(pictureBoxBanner);
+		}
+		catch (Exception ex)
+		{
+			// Log any exceptions that occur during the banner animation.
+			logger.Error(exception: ex, message: ex.Message);
+		}
+		finally
+		{
+			_isBannerAnimationRunning = false;
+		}
+	}
 
 	#endregion
 }
