@@ -65,11 +65,14 @@ public partial class AppInfoForm : BaseKryptonForm
 		Image orig = pictureBox.Image;
 		// Track the previously assigned temporary pixelated bitmap to dispose it correctly.
 		Bitmap? previousPixelated = null;
-		// Loop to create a pixelation effect by resizing the image to smaller dimensions and then scaling it back up
-		for (int pixelSize = 1; pixelSize <= 16; pixelSize += 3)
+
+		try
 		{
-			// Calculate the size of the smaller image based on the pixelation level
-			Bitmap small = new(width: Math.Max(1, orig.Width / pixelSize), height: Math.Max(val1: 1, val2: orig.Height / pixelSize));
+			// Loop to create a pixelation effect by resizing the image to smaller dimensions and then scaling it back up
+			for (int pixelSize = 1; pixelSize <= 16; pixelSize += 3)
+			{
+				// Calculate the size of the smaller image based on the pixelation level
+				Bitmap small = new(width: Math.Max(1, orig.Width / pixelSize), height: Math.Max(val1: 1, val2: orig.Height / pixelSize));
 			// Draw the original image onto the smaller bitmap using high-quality bicubic interpolation
 			using (Graphics g1 = Graphics.FromImage(image: small))
 			{
@@ -98,6 +101,13 @@ public partial class AppInfoForm : BaseKryptonForm
 			small.Dispose();
 			// Wait briefly to create an animation effect before the next iteration
 			await Task.Delay(millisecondsDelay: 5);
+		}
+		finally
+		{
+			// Always restore the original image, even if an exception occurs during the animation.
+			pictureBox.Image = orig;
+			// Ensure the last temporary pixelated bitmap is disposed to avoid leaking GDI resources.
+			previousPixelated?.Dispose();
 		}
 		// Dispose the last temporary pixelated bitmap created in the loop, if any.
 		if (previousPixelated != null)
