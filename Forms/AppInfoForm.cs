@@ -265,8 +265,8 @@ public partial class AppInfoForm : BaseKryptonForm
 		}
 		catch (Exception ex)
 		{
-			// Log the exception and show an error message
-			logger.Error(exception: ex, message: ex.Message);
+			// Log the exception with a descriptive message and show an error message.
+			logger.Error(exception: ex, message: "Failed to open the default email client.");
 			// Show an error message if the email client cannot be opened
 			ShowErrorMessage(message: $"Error opening the email client: {ex.Message}");
 		}
@@ -294,7 +294,7 @@ public partial class AppInfoForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			// Log any exceptions that occur during the banner animation.
-			logger.Error(exception: ex, message: ex.Message);
+			logger.Error(exception: ex, message: "An error occurred while running the banner animation.");
 		}
 		finally
 		{
