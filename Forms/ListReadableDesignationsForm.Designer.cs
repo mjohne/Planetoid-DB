@@ -4,6 +4,7 @@
 // a specific target and scoped to a namespace, type, member, etc.
 
 using Krypton.Toolkit;
+using Krypton.Toolkit.Suite.Extended.Tool.Strip.Items;
 
 using Planetoid_DB.Resources;
 
@@ -45,16 +46,10 @@ partial class ListReadableDesignationsForm
 	{
 		components = new Container();
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(ListReadableDesignationsForm));
-		kryptonStatusStrip = new KryptonStatusStrip();
+		kryptonStatusStrip = new Krypton.Toolkit.KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
-		buttonList = new KryptonButton();
 		contextMenuCopyToClipboard = new ContextMenuStrip(components);
 		toolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
-		buttonLoad = new KryptonButton();
-		labelMinimum = new KryptonLabel();
-		numericUpDownMinimum = new KryptonNumericUpDown();
-		numericUpDownMaximum = new KryptonNumericUpDown();
-		labelMaximum = new KryptonLabel();
 		contextMenuSaveList = new ContextMenuStrip(components);
 		toolStripMenuItemSaveAsText = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsLatex = new ToolStripMenuItem();
@@ -76,17 +71,34 @@ partial class ListReadableDesignationsForm
 		toolStripMenuItemSaveAsPostScript = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsEpub = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsMobi = new ToolStripMenuItem();
-		dropButtonSaveList = new KryptonDropButton();
+		toolStripDropDownButtonSaveList = new ToolStripDropDownButton();
 		kryptoPanelMain = new KryptonPanel();
 		listView = new ListView();
 		columnHeaderIndex = new ColumnHeader();
 		columnHeaderReadableDesignation = new ColumnHeader();
 		kryptonManager = new KryptonManager(components);
+		toolStripContainer = new ToolStripContainer();
+		kryptonToolStripList = new Krypton.Toolkit.KryptonToolStrip();
+		toolStripButtonCreateList = new ToolStripButton();
+		toolStripSeparator1 = new ToolStripSeparator();
+		toolStripLabelMinimum = new ToolStripLabel();
+		toolStripNumericUpDownMinimum = new Planetoid_DB.Helpers.ToolStripNumericUpDown();
+		toolStripLabelMaximum = new ToolStripLabel();
+		toolStripNumericUpDownMaximum = new Planetoid_DB.Helpers.ToolStripNumericUpDown();
+		kryptonToolStripSaveList = new Krypton.Toolkit.KryptonToolStrip();
+		toolStripButtonLoad = new ToolStripButton();
+		toolStripSeparator2 = new ToolStripSeparator();
 		kryptonStatusStrip.SuspendLayout();
 		contextMenuCopyToClipboard.SuspendLayout();
 		contextMenuSaveList.SuspendLayout();
 		((ISupportInitialize)kryptoPanelMain).BeginInit();
 		kryptoPanelMain.SuspendLayout();
+		toolStripContainer.BottomToolStripPanel.SuspendLayout();
+		toolStripContainer.ContentPanel.SuspendLayout();
+		toolStripContainer.TopToolStripPanel.SuspendLayout();
+		toolStripContainer.SuspendLayout();
+		kryptonToolStripList.SuspendLayout();
+		kryptonToolStripSaveList.SuspendLayout();
 		SuspendLayout();
 		// 
 		// kryptonStatusStrip
@@ -96,23 +108,25 @@ partial class ListReadableDesignationsForm
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-		kryptonStatusStrip.Location = new Point(0, 393);
+		kryptonStatusStrip.Location = new Point(0, 0);
 		kryptonStatusStrip.Name = "kryptonStatusStrip";
 		kryptonStatusStrip.ProgressBars = null;
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
 		kryptonStatusStrip.ShowItemToolTips = true;
-		kryptonStatusStrip.Size = new Size(312, 22);
-		kryptonStatusStrip.SizingGrip = false;
+		kryptonStatusStrip.Size = new Size(341, 22);
 		kryptonStatusStrip.TabIndex = 1;
 		kryptonStatusStrip.TabStop = true;
 		kryptonStatusStrip.Text = "Status bar";
+		kryptonStatusStrip.MouseEnter += Control_Enter;
+		kryptonStatusStrip.MouseLeave += Control_Leave;
 		// 
 		// labelInformation
 		// 
 		labelInformation.AccessibleDescription = "Shows some information";
-		labelInformation.AccessibleName = "Shows some information";
+		labelInformation.AccessibleName = "Some information";
 		labelInformation.AccessibleRole = AccessibleRole.StaticText;
 		labelInformation.AutoToolTip = true;
 		labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
@@ -120,28 +134,8 @@ partial class ListReadableDesignationsForm
 		labelInformation.Size = new Size(144, 17);
 		labelInformation.Text = "some information here";
 		labelInformation.ToolTipText = "Shows some information";
-		// 
-		// buttonList
-		// 
-		buttonList.AccessibleDescription = "Starts the progress and list";
-		buttonList.AccessibleName = "List";
-		buttonList.AccessibleRole = AccessibleRole.PushButton;
-		buttonList.Location = new Point(12, 38);
-		buttonList.Name = "buttonList";
-		buttonList.Size = new Size(52, 31);
-		buttonList.TabIndex = 4;
-		buttonList.ToolTipValues.Description = "Starts the progress and list.";
-		buttonList.ToolTipValues.EnableToolTips = true;
-		buttonList.ToolTipValues.Heading = "List";
-		buttonList.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		buttonList.Values.DropDownArrowColor = Color.Empty;
-		buttonList.Values.Image = FatcowIcons16px.fatcow_page_white_text_16px;
-		buttonList.Values.Text = "&List";
-		buttonList.Click += ButtonList_Click;
-		buttonList.Enter += Control_Enter;
-		buttonList.Leave += Control_Leave;
-		buttonList.MouseEnter += Control_Enter;
-		buttonList.MouseLeave += Control_Leave;
+		labelInformation.MouseEnter += Control_Enter;
+		labelInformation.MouseLeave += Control_Leave;
 		// 
 		// contextMenuCopyToClipboard
 		// 
@@ -174,122 +168,16 @@ partial class ListReadableDesignationsForm
 		toolStripMenuItemCopyToClipboard.MouseEnter += Control_Enter;
 		toolStripMenuItemCopyToClipboard.MouseLeave += Control_Leave;
 		// 
-		// buttonLoad
-		// 
-		buttonLoad.AccessibleDescription = "Loads the selected planetoid";
-		buttonLoad.AccessibleName = "Load";
-		buttonLoad.AccessibleRole = AccessibleRole.PushButton;
-		buttonLoad.DialogResult = DialogResult.OK;
-		buttonLoad.Location = new Point(70, 38);
-		buttonLoad.Name = "buttonLoad";
-		buttonLoad.Size = new Size(56, 31);
-		buttonLoad.TabIndex = 6;
-		buttonLoad.ToolTipValues.Description = "Loads the selected planetoid.";
-		buttonLoad.ToolTipValues.EnableToolTips = true;
-		buttonLoad.ToolTipValues.Heading = "Load";
-		buttonLoad.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		buttonLoad.Values.DropDownArrowColor = Color.Empty;
-		buttonLoad.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
-		buttonLoad.Values.Text = "L&oad";
-		buttonLoad.Enter += Control_Enter;
-		buttonLoad.Leave += Control_Leave;
-		buttonLoad.MouseEnter += Control_Enter;
-		buttonLoad.MouseLeave += Control_Leave;
-		// 
-		// labelMinimum
-		// 
-		labelMinimum.AccessibleDescription = "Shows the minimum";
-		labelMinimum.AccessibleName = "Minimum";
-		labelMinimum.AccessibleRole = AccessibleRole.Text;
-		labelMinimum.Location = new Point(12, 12);
-		labelMinimum.Name = "labelMinimum";
-		labelMinimum.Size = new Size(66, 20);
-		labelMinimum.TabIndex = 0;
-		labelMinimum.ToolTipValues.Description = "Shows the minimum.";
-		labelMinimum.ToolTipValues.EnableToolTips = true;
-		labelMinimum.ToolTipValues.Heading = "Minimum";
-		labelMinimum.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelMinimum.Values.Text = "M&inimum:";
-		labelMinimum.Click += CopyToClipboard_DoubleClick;
-		labelMinimum.Enter += Control_Enter;
-		labelMinimum.Leave += Control_Leave;
-		labelMinimum.MouseEnter += Control_Enter;
-		labelMinimum.MouseLeave += Control_Leave;
-		// 
-		// numericUpDownMinimum
-		// 
-		numericUpDownMinimum.AccessibleDescription = "Shows the minimum value for the list";
-		numericUpDownMinimum.AccessibleName = "Minimum value for the list";
-		numericUpDownMinimum.AccessibleRole = AccessibleRole.SpinButton;
-		numericUpDownMinimum.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMinimum.Location = new Point(84, 10);
-		numericUpDownMinimum.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
-		numericUpDownMinimum.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
-		numericUpDownMinimum.Name = "numericUpDownMinimum";
-		numericUpDownMinimum.Size = new Size(64, 22);
-		numericUpDownMinimum.StateCommon.Content.TextH = PaletteRelativeAlign.Center;
-		numericUpDownMinimum.TabIndex = 1;
-		numericUpDownMinimum.ToolTipValues.Description = "Shows the minimum value for the list.";
-		numericUpDownMinimum.ToolTipValues.EnableToolTips = true;
-		numericUpDownMinimum.ToolTipValues.Heading = "Minimum value for the list";
-		numericUpDownMinimum.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		numericUpDownMinimum.Value = new decimal(new int[] { 0, 0, 0, 0 });
-		numericUpDownMinimum.Enter += Control_Enter;
-		numericUpDownMinimum.Leave += Control_Leave;
-		numericUpDownMinimum.MouseEnter += Control_Enter;
-		numericUpDownMinimum.MouseLeave += Control_Leave;
-		// 
-		// numericUpDownMaximum
-		// 
-		numericUpDownMaximum.AccessibleDescription = "Shows the maximum value for the list";
-		numericUpDownMaximum.AccessibleName = "Maximum value for the list";
-		numericUpDownMaximum.AccessibleRole = AccessibleRole.SpinButton;
-		numericUpDownMaximum.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMaximum.Location = new Point(226, 10);
-		numericUpDownMaximum.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
-		numericUpDownMaximum.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
-		numericUpDownMaximum.Name = "numericUpDownMaximum";
-		numericUpDownMaximum.Size = new Size(64, 22);
-		numericUpDownMaximum.StateCommon.Content.TextH = PaletteRelativeAlign.Center;
-		numericUpDownMaximum.TabIndex = 3;
-		numericUpDownMaximum.ToolTipValues.Description = "Shows the maximum value for the list.";
-		numericUpDownMaximum.ToolTipValues.EnableToolTips = true;
-		numericUpDownMaximum.ToolTipValues.Heading = "Maximum value for the list";
-		numericUpDownMaximum.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		numericUpDownMaximum.Value = new decimal(new int[] { 0, 0, 0, 0 });
-		numericUpDownMaximum.Enter += Control_Enter;
-		numericUpDownMaximum.Leave += Control_Leave;
-		numericUpDownMaximum.MouseEnter += Control_Enter;
-		numericUpDownMaximum.MouseLeave += Control_Leave;
-		// 
-		// labelMaximum
-		// 
-		labelMaximum.AccessibleDescription = "Shows the maximum";
-		labelMaximum.AccessibleName = "Maximum";
-		labelMaximum.AccessibleRole = AccessibleRole.Text;
-		labelMaximum.Location = new Point(154, 12);
-		labelMaximum.Name = "labelMaximum";
-		labelMaximum.Size = new Size(68, 20);
-		labelMaximum.TabIndex = 2;
-		labelMaximum.ToolTipValues.Description = "Shows the maximum.";
-		labelMaximum.ToolTipValues.EnableToolTips = true;
-		labelMaximum.ToolTipValues.Heading = "Maximum";
-		labelMaximum.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelMaximum.Values.Text = "M&aximum:";
-		labelMaximum.Click += CopyToClipboard_DoubleClick;
-		labelMaximum.Enter += Control_Enter;
-		labelMaximum.Leave += Control_Leave;
-		labelMaximum.MouseEnter += Control_Enter;
-		labelMaximum.MouseLeave += Control_Leave;
-		// 
 		// contextMenuSaveList
 		// 
 		contextMenuSaveList.AccessibleDescription = "Save the list as file";
 		contextMenuSaveList.AccessibleName = "Save list";
 		contextMenuSaveList.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuSaveList.AllowClickThrough = true;
 		contextMenuSaveList.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveList.Items.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsWord, toolStripMenuItemSaveAsOdt, toolStripMenuItemSaveAsRtf, toolStripMenuItemSaveAsExcel, toolStripMenuItemSaveAsOds, toolStripMenuItemSaveAsCsv, toolStripMenuItemSaveAsTsv, toolStripMenuItemSaveAsPsv, toolStripMenuItemSaveAsHtml, toolStripMenuItemSaveAsXml, toolStripMenuItemSaveAsJson, toolStripMenuItemSaveAsYaml, toolStripMenuItemSaveAsSql, toolStripMenuItemSaveAsPdf, toolStripMenuItemSaveAsPostScript, toolStripMenuItemSaveAsEpub, toolStripMenuItemSaveAsMobi });
 		contextMenuSaveList.Name = "contextMenuStrip1";
+		contextMenuSaveList.OwnerItem = toolStripDropDownButtonSaveList;
 		contextMenuSaveList.Size = new Size(216, 444);
 		contextMenuSaveList.TabStop = true;
 		contextMenuSaveList.Text = "&Save list";
@@ -616,55 +504,36 @@ partial class ListReadableDesignationsForm
 		toolStripMenuItemSaveAsMobi.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsMobi.MouseLeave += Control_Leave;
 		// 
-		// dropButtonSaveList
+		// toolStripDropDownButtonSaveList
 		// 
-		dropButtonSaveList.AccessibleDescription = "Saves the list as file";
-		dropButtonSaveList.AccessibleName = "Save list";
-		dropButtonSaveList.AccessibleRole = AccessibleRole.ButtonDropDown;
-		dropButtonSaveList.ContextMenuStrip = contextMenuSaveList;
-		dropButtonSaveList.Location = new Point(207, 38);
-		dropButtonSaveList.Name = "dropButtonSaveList";
-		dropButtonSaveList.Size = new Size(93, 31);
-		dropButtonSaveList.Splitter = false;
-		dropButtonSaveList.TabIndex = 7;
-		dropButtonSaveList.ToolTipValues.Description = "Saves the list as file.";
-		dropButtonSaveList.ToolTipValues.EnableToolTips = true;
-		dropButtonSaveList.ToolTipValues.Heading = "Save list";
-		dropButtonSaveList.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		dropButtonSaveList.Values.DropDownArrowColor = Color.Empty;
-		dropButtonSaveList.Values.ImageStates.ImageCheckedNormal = null;
-		dropButtonSaveList.Values.ImageStates.ImageCheckedPressed = null;
-		dropButtonSaveList.Values.ImageStates.ImageCheckedTracking = null;
-		dropButtonSaveList.Values.ImageStates.ImageDisabled = FatcowIcons16px.fatcow_diskette_16px;
-		dropButtonSaveList.Values.ImageStates.ImageNormal = FatcowIcons16px.fatcow_diskette_16px;
-		dropButtonSaveList.Values.ImageStates.ImagePressed = FatcowIcons16px.fatcow_diskette_16px;
-		dropButtonSaveList.Values.ImageStates.ImageTracking = FatcowIcons16px.fatcow_diskette_16px;
-		dropButtonSaveList.Values.Text = "&Save list";
-		dropButtonSaveList.Enter += Control_Enter;
-		dropButtonSaveList.Leave += Control_Leave;
-		dropButtonSaveList.MouseEnter += Control_Enter;
-		dropButtonSaveList.MouseLeave += Control_Leave;
+		toolStripDropDownButtonSaveList.AccessibleDescription = "Saves the list as file";
+		toolStripDropDownButtonSaveList.AccessibleName = "Save list";
+		toolStripDropDownButtonSaveList.AccessibleRole = AccessibleRole.ButtonDropDown;
+		toolStripDropDownButtonSaveList.DropDown = contextMenuSaveList;
+		toolStripDropDownButtonSaveList.Image = FatcowIcons16px.fatcow_diskette_16px;
+		toolStripDropDownButtonSaveList.ImageTransparentColor = Color.Magenta;
+		toolStripDropDownButtonSaveList.Name = "toolStripDropDownButtonSaveList";
+		toolStripDropDownButtonSaveList.Size = new Size(78, 22);
+		toolStripDropDownButtonSaveList.Text = "&Save list";
 		// 
 		// kryptoPanelMain
 		// 
 		kryptoPanelMain.AccessibleDescription = "Groups the data";
 		kryptoPanelMain.AccessibleName = "Panel";
 		kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
-		kryptoPanelMain.Controls.Add(dropButtonSaveList);
-		kryptoPanelMain.Controls.Add(labelMinimum);
-		kryptoPanelMain.Controls.Add(numericUpDownMinimum);
-		kryptoPanelMain.Controls.Add(numericUpDownMaximum);
-		kryptoPanelMain.Controls.Add(labelMaximum);
-		kryptoPanelMain.Controls.Add(buttonLoad);
 		kryptoPanelMain.Controls.Add(listView);
-		kryptoPanelMain.Controls.Add(buttonList);
 		kryptoPanelMain.Dock = DockStyle.Fill;
 		kryptoPanelMain.Location = new Point(0, 0);
 		kryptoPanelMain.Name = "kryptoPanelMain";
 		kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptoPanelMain.Size = new Size(312, 393);
+		kryptoPanelMain.Size = new Size(341, 280);
 		kryptoPanelMain.TabIndex = 0;
 		kryptoPanelMain.TabStop = true;
+		kryptoPanelMain.Text = "Mainpanel";
+		kryptoPanelMain.Enter += Control_Enter;
+		kryptoPanelMain.Leave += Control_Leave;
+		kryptoPanelMain.MouseEnter += Control_Enter;
+		kryptoPanelMain.MouseLeave += Control_Leave;
 		// 
 		// listView
 		// 
@@ -674,20 +543,22 @@ partial class ListReadableDesignationsForm
 		listView.Activation = ItemActivation.OneClick;
 		listView.AllowColumnReorder = true;
 		listView.Columns.AddRange(new ColumnHeader[] { columnHeaderIndex, columnHeaderReadableDesignation });
+		listView.Dock = DockStyle.Fill;
 		listView.Font = new Font("Segoe UI", 8.5F);
 		listView.FullRowSelect = true;
 		listView.GridLines = true;
-		listView.Location = new Point(12, 75);
+		listView.Location = new Point(0, 0);
 		listView.MultiSelect = false;
 		listView.Name = "listView";
 		listView.ShowItemToolTips = true;
-		listView.Size = new Size(288, 315);
+		listView.Size = new Size(341, 280);
 		listView.TabIndex = 10;
 		listView.UseCompatibleStateImageBehavior = false;
 		listView.View = View.Details;
 		listView.VirtualMode = true;
 		listView.RetrieveVirtualItem += ListView_RetrieveVirtualItem;
 		listView.SelectedIndexChanged += SelectedIndexChanged;
+		listView.DoubleClick += ListView_DoubleClick;
 		listView.Enter += Control_Enter;
 		listView.Leave += Control_Leave;
 		listView.MouseEnter += Control_Enter;
@@ -709,6 +580,177 @@ partial class ListReadableDesignationsForm
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 		// 
+		// toolStripContainer
+		// 
+		toolStripContainer.AccessibleDescription = "Container to arrange the toolbars";
+		toolStripContainer.AccessibleName = "Container to arrange the toolbars";
+		toolStripContainer.AccessibleRole = AccessibleRole.Grouping;
+		// 
+		// toolStripContainer.BottomToolStripPanel
+		// 
+		toolStripContainer.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
+		// 
+		// toolStripContainer.ContentPanel
+		// 
+		toolStripContainer.ContentPanel.Controls.Add(kryptoPanelMain);
+		toolStripContainer.ContentPanel.Size = new Size(341, 280);
+		toolStripContainer.Dock = DockStyle.Fill;
+		toolStripContainer.Location = new Point(0, 0);
+		toolStripContainer.Name = "toolStripContainer";
+		toolStripContainer.Size = new Size(341, 353);
+		toolStripContainer.TabIndex = 3;
+		toolStripContainer.Text = "toolStripContainer";
+		// 
+		// toolStripContainer.TopToolStripPanel
+		// 
+		toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripList);
+		toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripSaveList);
+		toolStripContainer.Enter += Control_Enter;
+		toolStripContainer.Leave += Control_Leave;
+		toolStripContainer.MouseEnter += Control_Enter;
+		toolStripContainer.MouseLeave += Control_Leave;
+		// 
+		// kryptonToolStripList
+		// 
+		kryptonToolStripList.AccessibleDescription = "Toolbar of generating list";
+		kryptonToolStripList.AccessibleName = "Toolbar of generating list";
+		kryptonToolStripList.AccessibleRole = AccessibleRole.ToolBar;
+		kryptonToolStripList.AllowClickThrough = true;
+		kryptonToolStripList.AllowItemReorder = true;
+		kryptonToolStripList.Dock = DockStyle.None;
+		kryptonToolStripList.Font = new Font("Segoe UI", 9F);
+		kryptonToolStripList.Items.AddRange(new ToolStripItem[] { toolStripButtonCreateList, toolStripSeparator1, toolStripLabelMinimum, toolStripNumericUpDownMinimum, toolStripLabelMaximum, toolStripNumericUpDownMaximum });
+		kryptonToolStripList.Location = new Point(0, 0);
+		kryptonToolStripList.Name = "kryptonToolStripList";
+		kryptonToolStripList.Size = new Size(341, 26);
+		kryptonToolStripList.Stretch = true;
+		kryptonToolStripList.TabIndex = 0;
+		kryptonToolStripList.TabStop = true;
+		kryptonToolStripList.Text = "Toolbar of generating list";
+		kryptonToolStripList.Enter += Control_Enter;
+		kryptonToolStripList.Leave += Control_Leave;
+		kryptonToolStripList.MouseEnter += Control_Enter;
+		kryptonToolStripList.MouseLeave += Control_Leave;
+		// 
+		// toolStripButtonCreateList
+		// 
+		toolStripButtonCreateList.AccessibleDescription = "Starts the progress and create the list";
+		toolStripButtonCreateList.AccessibleName = "Create the List";
+		toolStripButtonCreateList.AccessibleRole = AccessibleRole.PushButton;
+		toolStripButtonCreateList.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripButtonCreateList.ImageTransparentColor = Color.Magenta;
+		toolStripButtonCreateList.Name = "toolStripButtonCreateList";
+		toolStripButtonCreateList.Size = new Size(45, 23);
+		toolStripButtonCreateList.Text = "&List";
+		toolStripButtonCreateList.Click += ButtonCreateList_Click;
+		toolStripButtonCreateList.MouseEnter += Control_Enter;
+		toolStripButtonCreateList.MouseLeave += Control_Leave;
+		// 
+		// toolStripSeparator1
+		// 
+		toolStripSeparator1.AccessibleDescription = "Just a separator";
+		toolStripSeparator1.AccessibleName = "Just a separator";
+		toolStripSeparator1.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparator1.Name = "toolStripSeparator1";
+		toolStripSeparator1.Size = new Size(6, 26);
+		toolStripSeparator1.MouseEnter += Control_Enter;
+		toolStripSeparator1.MouseLeave += Control_Leave;
+		// 
+		// toolStripLabelMinimum
+		// 
+		toolStripLabelMinimum.AccessibleDescription = "Shows the minimum";
+		toolStripLabelMinimum.AccessibleName = "Minimum";
+		toolStripLabelMinimum.AccessibleRole = AccessibleRole.StaticText;
+		toolStripLabelMinimum.AutoToolTip = true;
+		toolStripLabelMinimum.Name = "toolStripLabelMinimum";
+		toolStripLabelMinimum.Size = new Size(60, 23);
+		toolStripLabelMinimum.Text = "M&inimum";
+		toolStripLabelMinimum.MouseEnter += Control_Enter;
+		toolStripLabelMinimum.MouseLeave += Control_Leave;
+		// 
+		// toolStripNumericUpDownMinimum
+		// 
+		toolStripNumericUpDownMinimum.AccessibleDescription = "Shows the minimum value for the list";
+		toolStripNumericUpDownMinimum.AccessibleName = "Minimum value for the list";
+		toolStripNumericUpDownMinimum.AccessibleRole = AccessibleRole.SpinButton;
+		toolStripNumericUpDownMinimum.AutoSize = true;
+		toolStripNumericUpDownMinimum.AutoToolTip = true;
+		toolStripNumericUpDownMinimum.Name = "toolStripNumericUpDownMinimum";
+		toolStripNumericUpDownMinimum.Size = new Size(41, 23);
+		toolStripNumericUpDownMinimum.Text = "0";
+		toolStripNumericUpDownMinimum.TextAlign = HorizontalAlignment.Center;
+		toolStripNumericUpDownMinimum.MouseEnter += Control_Enter;
+		toolStripNumericUpDownMinimum.MouseLeave += Control_Leave;
+		// 
+		// toolStripLabelMaximum
+		// 
+		toolStripLabelMaximum.AccessibleDescription = "Shows the maximum";
+		toolStripLabelMaximum.AccessibleName = "Maximum";
+		toolStripLabelMaximum.AccessibleRole = AccessibleRole.StaticText;
+		toolStripLabelMaximum.AutoToolTip = true;
+		toolStripLabelMaximum.Name = "toolStripLabelMaximum";
+		toolStripLabelMaximum.Size = new Size(62, 23);
+		toolStripLabelMaximum.Text = "M&aximum";
+		toolStripLabelMaximum.MouseEnter += Control_Enter;
+		toolStripLabelMaximum.MouseLeave += Control_Leave;
+		// 
+		// toolStripNumericUpDownMaximum
+		// 
+		toolStripNumericUpDownMaximum.AccessibleDescription = "Shows the maximum value for the list";
+		toolStripNumericUpDownMaximum.AccessibleName = "Maximum value for the list";
+		toolStripNumericUpDownMaximum.AccessibleRole = AccessibleRole.SpinButton;
+		toolStripNumericUpDownMaximum.AutoSize = true;
+		toolStripNumericUpDownMaximum.AutoToolTip = true;
+		toolStripNumericUpDownMaximum.Name = "toolStripNumericUpDownMaximum";
+		toolStripNumericUpDownMaximum.Size = new Size(41, 23);
+		toolStripNumericUpDownMaximum.Text = "0";
+		toolStripNumericUpDownMaximum.TextAlign = HorizontalAlignment.Center;
+		toolStripNumericUpDownMaximum.MouseEnter += Control_Enter;
+		toolStripNumericUpDownMaximum.MouseLeave += Control_Leave;
+		// 
+		// kryptonToolStripSaveList
+		// 
+		kryptonToolStripSaveList.AccessibleDescription = "Toolbar of saving list";
+		kryptonToolStripSaveList.AccessibleName = "Toolbar of saving list";
+		kryptonToolStripSaveList.AccessibleRole = AccessibleRole.ToolBar;
+		kryptonToolStripSaveList.AllowClickThrough = true;
+		kryptonToolStripSaveList.AllowItemReorder = true;
+		kryptonToolStripSaveList.Dock = DockStyle.None;
+		kryptonToolStripSaveList.Font = new Font("Segoe UI", 9F);
+		kryptonToolStripSaveList.Items.AddRange(new ToolStripItem[] { toolStripButtonLoad, toolStripSeparator2, toolStripDropDownButtonSaveList });
+		kryptonToolStripSaveList.Location = new Point(0, 26);
+		kryptonToolStripSaveList.Name = "kryptonToolStripSaveList";
+		kryptonToolStripSaveList.Size = new Size(341, 25);
+		kryptonToolStripSaveList.Stretch = true;
+		kryptonToolStripSaveList.TabIndex = 1;
+		kryptonToolStripSaveList.TabStop = true;
+		kryptonToolStripSaveList.MouseEnter += Control_Enter;
+		kryptonToolStripSaveList.MouseLeave += Control_Leave;
+		// 
+		// toolStripButtonLoad
+		// 
+		toolStripButtonLoad.AccessibleDescription = "Loads the selected planetoid";
+		toolStripButtonLoad.AccessibleName = "Load";
+		toolStripButtonLoad.AccessibleRole = AccessibleRole.PushButton;
+		toolStripButtonLoad.Image = FatcowIcons16px.fatcow_bullet_go_16px;
+		toolStripButtonLoad.ImageTransparentColor = Color.Magenta;
+		toolStripButtonLoad.Name = "toolStripButtonLoad";
+		toolStripButtonLoad.Size = new Size(53, 22);
+		toolStripButtonLoad.Text = "L&oad";
+		toolStripButtonLoad.Click += ToolStripButtonLoad_Click;
+		toolStripButtonLoad.MouseEnter += Control_Enter;
+		toolStripButtonLoad.MouseLeave += Control_Leave;
+		// 
+		// toolStripSeparator2
+		// 
+		toolStripSeparator2.AccessibleDescription = "Just a separator";
+		toolStripSeparator2.AccessibleName = "Just a separator";
+		toolStripSeparator2.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparator2.Name = "toolStripSeparator2";
+		toolStripSeparator2.Size = new Size(6, 25);
+		toolStripSeparator2.MouseEnter += Control_Enter;
+		toolStripSeparator2.MouseLeave += Control_Leave;
+		// 
 		// ListReadableDesignationsForm
 		// 
 		AccessibleDescription = "Lists the readable designations";
@@ -716,11 +758,10 @@ partial class ListReadableDesignationsForm
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(312, 415);
+		ClientSize = new Size(341, 353);
 		ControlBox = false;
-		Controls.Add(kryptoPanelMain);
-		Controls.Add(kryptonStatusStrip);
-		FormBorderStyle = FormBorderStyle.FixedToolWindow;
+		Controls.Add(toolStripContainer);
+		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		MaximizeBox = false;
 		MinimizeBox = false;
@@ -735,26 +776,28 @@ partial class ListReadableDesignationsForm
 		contextMenuSaveList.ResumeLayout(false);
 		((ISupportInitialize)kryptoPanelMain).EndInit();
 		kryptoPanelMain.ResumeLayout(false);
-		kryptoPanelMain.PerformLayout();
+		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
+		toolStripContainer.BottomToolStripPanel.PerformLayout();
+		toolStripContainer.ContentPanel.ResumeLayout(false);
+		toolStripContainer.TopToolStripPanel.ResumeLayout(false);
+		toolStripContainer.TopToolStripPanel.PerformLayout();
+		toolStripContainer.ResumeLayout(false);
+		toolStripContainer.PerformLayout();
+		kryptonToolStripList.ResumeLayout(false);
+		kryptonToolStripList.PerformLayout();
+		kryptonToolStripSaveList.ResumeLayout(false);
+		kryptonToolStripSaveList.PerformLayout();
 		ResumeLayout(false);
-		PerformLayout();
 	}
 
 	#endregion
 
-	private KryptonStatusStrip kryptonStatusStrip;
+	private Krypton.Toolkit.KryptonStatusStrip kryptonStatusStrip;
 	private ToolStripStatusLabel labelInformation;
-	private KryptonPanel kryptoPanelMain;
+	private Krypton.Toolkit.KryptonPanel kryptoPanelMain;
 	private ListView listView;
 	private ColumnHeader columnHeaderIndex;
 	private ColumnHeader columnHeaderReadableDesignation;
-	private KryptonButton buttonList;
-	private KryptonButton buttonLoad;
-	private KryptonLabel labelMinimum;
-	private KryptonNumericUpDown numericUpDownMinimum;
-	private KryptonNumericUpDown numericUpDownMaximum;
-	private KryptonLabel labelMaximum;
-	private KryptonDropButton dropButtonSaveList;
 	private ContextMenuStrip contextMenuSaveList;
 	private ToolStripMenuItem toolStripMenuItemSaveAsCsv;
 	private ToolStripMenuItem toolStripMenuItemSaveAsHtml;
@@ -779,4 +822,16 @@ partial class ListReadableDesignationsForm
 	private ToolStripMenuItem toolStripMenuItemSaveAsMobi;
 	private ToolStripMenuItem toolStripMenuItemSaveAsText;
 	private ToolStripMenuItem toolStripMenuItemSaveAsRtf;
+	private ToolStripContainer toolStripContainer;
+	private Krypton.Toolkit.KryptonToolStrip kryptonToolStripList;
+	private ToolStripButton toolStripButtonCreateList;
+	private Krypton.Toolkit.KryptonToolStrip kryptonToolStripSaveList;
+	private ToolStripButton toolStripButtonLoad;
+	private ToolStripSeparator toolStripSeparator1;
+	private Helpers.ToolStripNumericUpDown toolStripNumericUpDownMinimum;
+	private ToolStripLabel toolStripLabelMinimum;
+	private ToolStripLabel toolStripLabelMaximum;
+	private Helpers.ToolStripNumericUpDown toolStripNumericUpDownMaximum;
+	private ToolStripSeparator toolStripSeparator2;
+	private ToolStripDropDownButton toolStripDropDownButtonSaveList;
 }

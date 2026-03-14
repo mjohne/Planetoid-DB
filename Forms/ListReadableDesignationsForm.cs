@@ -61,6 +61,14 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
+	private struct SearchResult
+	{
+		public string Index;
+		public string Designation;
+		public string Element;
+		public string Value;
+	}
+
 	#region constructor
 
 	/// <summary>Initializes a new instance of the <see cref="ListReadableDesignationsForm"/> class.</summary>
@@ -166,6 +174,45 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Selects the currently highlighted planetoid in the list view and navigates to its corresponding record in the main
+	/// form.</summary>
+	/// <remarks>If no item is selected or the selected record is invalid, the method does nothing. When a valid
+	/// planetoid is selected, the main form is brought to the foreground and displays the details of the selected
+	/// planetoid.</remarks>
+	private void SelectPlanetoidInMainForm()
+	{
+		if (listView.SelectedIndices.Count == 0)
+		{
+			return;
+		}
+		int selectedIndex = listView.SelectedIndices[index: 0];
+		// Calculate the real database index (considering virtual mode offset)
+		int dbIndex = listView.VirtualMode ? virtualListOffset + selectedIndex : selectedIndex;
+		// Check if the index is valid
+		if (dbIndex < 0 || dbIndex >= planetoidsDatabase.Count)
+		{
+			return;
+		}
+		// Get the record string
+		string currentData = planetoidsDatabase[index: dbIndex];
+		// Check if the record is long enough to parse
+		if (currentData.Length < nameStartIndex + nameLength)
+		{
+			logger.Warn(message: $"The record at index {dbIndex} is too short.");
+			MessageBox.Show(text: "Invalid record format.", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			return;
+		}
+		// Extract index and designation
+		string strIndex = currentData[..indexLength].Trim();
+		string strDesignation = currentData.Substring(startIndex: nameStartIndex, length: nameLength).Trim();
+		// Jump to the record in the main form
+		if (Application.OpenForms.OfType<PlanetoidDbForm>().FirstOrDefault() is PlanetoidDbForm mainForm)
+		{
+			mainForm.JumpToRecord(index: strIndex, designation: strDesignation);
+			mainForm.BringToFront();
+		}
+	}
+
 	/// <summary>Prepares the save dialog for exporting data.</summary>
 	/// <param name="dialog">The file dialog to prepare.</param>
 	/// <param name="ext">The file extension.</param>
@@ -176,7 +223,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// Set up the save dialog properties
 		dialog.InitialDirectory = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyDocuments);
 		// Set default file name
-		dialog.FileName = $"Readable-Designation-List_{numericUpDownMinimum.Value}-{numericUpDownMaximum.Value}.{ext}";
+		dialog.FileName = $"Readable-Designation-List_{toolStripNumericUpDownMinimum.Value}-{toolStripNumericUpDownMaximum.Value}.{ext}";
 		// Show the dialog and return the result
 		return dialog.ShowDialog() == DialogResult.OK;
 	}
@@ -200,7 +247,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// Update the status bar with the selected item's details
 		SetStatusBar(label: labelInformation, text: $"{I18nStrings.Index}: {item.Text} - {item.SubItems[index: 1].Text}");
 		// Enable the load button
-		buttonLoad.Enabled = true;
+		toolStripButtonLoad.Enabled = true;
 		selectedIndex = index;
 	}
 
@@ -415,19 +462,19 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// Clear the status bar on load
 		ClearStatusBar(label: labelInformation);
 		// Disable controls until data is available
-		labelInformation.Enabled = listView.Visible = buttonLoad.Enabled = dropButtonSaveList.Enabled = false;
+		labelInformation.Enabled = listView.Visible = toolStripButtonLoad.Enabled = toolStripDropDownButtonSaveList.Enabled = false;
 		// Check if the planetoids database is empty
 		if (planetoidsDatabase.Count <= 0)
 		{
 			return;
 		}
 		// Set numeric up/down ranges based on the planetoids database
-		numericUpDownMinimum.Minimum = 1;
-		numericUpDownMaximum.Minimum = 1;
-		numericUpDownMinimum.Maximum = planetoidsDatabase.Count;
-		numericUpDownMaximum.Maximum = planetoidsDatabase.Count;
-		numericUpDownMinimum.Value = 1;
-		numericUpDownMaximum.Value = planetoidsDatabase.Count;
+		toolStripNumericUpDownMinimum.Minimum = 1;
+		toolStripNumericUpDownMaximum.Minimum = 1;
+		toolStripNumericUpDownMinimum.Maximum = planetoidsDatabase.Count;
+		toolStripNumericUpDownMaximum.Maximum = planetoidsDatabase.Count;
+		toolStripNumericUpDownMinimum.Value = 1;
+		toolStripNumericUpDownMaximum.Value = planetoidsDatabase.Count;
 	}
 
 	/// <summary>Handles the form Closed event.
@@ -471,11 +518,11 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 
 	#region Click event handlers
 
-	/// <summary>Handles the click event for the List button.</summary>
+	/// <summary>Handles the click event for the Create List button.</summary>
 	/// <param name="sender">Event source (the button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to handle the click event for the List button.</remarks>
-	private void ButtonList_Click(object? sender, EventArgs? e)
+	/// <remarks>This method is used to handle the click event for the Create List button.</remarks>
+	private void ButtonCreateList_Click(object? sender, EventArgs? e)
 	{
 		// Reset UI status
 		ClearStatusBar(label: labelInformation);
@@ -511,8 +558,8 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			listView.Columns.Clear();
 			listView.Columns.AddRange(values: [columnHeaderIndex, columnHeaderReadableDesignation]);
 			// Calculate range
-			int min = (int)numericUpDownMinimum.Value - 1;
-			int max = (int)numericUpDownMaximum.Value;
+			int min = (int)toolStripNumericUpDownMinimum.Value - 1;
+			int max = (int)toolStripNumericUpDownMaximum.Value;
 			int count = max - min;
 			if (count <= 0)
 			{
@@ -534,8 +581,19 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		finally
 		{
 			listView.EndUpdate();
-			dropButtonSaveList.Enabled = true;
+			toolStripDropDownButtonSaveList.Enabled = true;
 		}
+	}
+
+	/// <summary>Handles the Click event of the Load button on the tool strip, initiating the selection of a planetoid and closing
+	/// the current form.</summary>
+	/// <param name="sender">The source of the event, typically the Load button on the tool strip.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>When the Load button is clicked, this method calls the SelectPlanetoidInMainForm method to navigate to the selected planetoid record in the main form. After initiating the selection, it closes the current form to return control to the main form.</remarks>
+	private void ToolStripButtonLoad_Click(object sender, EventArgs e)
+	{
+		SelectPlanetoidInMainForm();
+		Close();
 	}
 
 	/// <summary>Saves the current list as a CSV file.</summary>
@@ -1905,6 +1963,18 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
+
+	#endregion
+
+	#region Double-Click event handlers
+
+	/// <summary>Handles the double-click event on the list view to navigate to the selected planetoid record in the main form.</summary>
+	/// <remarks>If no item is selected or the selected record is invalid, the method does not perform any action.
+	/// When a valid record is selected, the corresponding entry is located and displayed in the main form. An error
+	/// message is shown if the record format is invalid.</remarks>
+	/// <param name="sender">The source of the event, typically the list view control.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ListView_DoubleClick(object sender, EventArgs e) => SelectPlanetoidInMainForm();
 
 	#endregion
 }
