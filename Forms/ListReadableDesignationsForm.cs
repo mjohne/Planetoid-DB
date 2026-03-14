@@ -581,40 +581,73 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		if (sortedIndices == null || sortedIndices.Count != count)
 		{
 			// Create a list of indices corresponding to the current virtual list size
-			sortedIndices = new List<int>(capacity: count);
-			// Fill the list with the current indices based on the virtual list offset
-			for (int i = 0; i < count; i++)
-			{
-				sortedIndices.Add(item: virtualListOffset + i);
-			}
+			sortedIndices = [.. Enumerable.Range(start: virtualListOffset, count: count)];
 		}
-		// Sort the indices using a custom comparison that compares the relevant fields based on the sort column
-		sortedIndices.Sort(comparison: (a, b) =>
+		// Before sorting, capture the currently selected database index (if any) so selection can be preserved.
+		int? selectedDatabaseIndex = null;
+		if (listView.SelectedIndices.Count > 0)
 		{
-			// Retrieve the records for the given indices, ensuring we stay within bounds
-			string recA = a >= 0 && a < planetoidsDatabase.Count ? planetoidsDatabase[index: a] : string.Empty;
-			string recB = b >= 0 && b < planetoidsDatabase.Count ? planetoidsDatabase[index: b] : string.Empty;
-			// Extract the values to compare based on the sort column
-			string valA = string.Empty;
-			string valB = string.Empty;
+			int selectedVirtualIndex = listView.SelectedIndices[index: 0];
+			int realIndexBeforeSort = sortedIndices != null && selectedVirtualIndex < sortedIndices.Count
+				? sortedIndices[index: selectedVirtualIndex]
+				: virtualListOffset + selectedVirtualIndex;
+			selectedDatabaseIndex = realIndexBeforeSort;
+		}
+		// Precompute sort keys once per index to avoid repeated substring/trim/parse work during comparison
+#pragma warning disable CS8602 // Dereferenzierung eines möglichen Nullverweises.
+		Dictionary<int, (bool HasNumeric, int NumericValue, string TextValue)> sortKeyCache = new(capacity: sortedIndices.Count);
+#pragma warning restore CS8602 // Dereferenzierung eines möglichen Nullverweises.
+		foreach (int index in sortedIndices)
+		{
+			string rec = index >= 0 && index < planetoidsDatabase.Count ? planetoidsDatabase[index: index] : string.Empty;
+			string value = string.Empty;
 			// For column 0, we compare the index; for column 1, we compare the designation name
 			switch (sortColumn)
 			{
 				case 0:
-					valA = recA.Length >= indexLength ? recA[..indexLength].Trim() : string.Empty;
-					valB = recB.Length >= indexLength ? recB[..indexLength].Trim() : string.Empty;
+					value = rec.Length >= indexLength ? rec[..indexLength].Trim() : string.Empty;
 					break;
 				case 1:
-					valA = recA.Length >= nameStartIndex + nameLength ? recA.Substring(startIndex: nameStartIndex, length: nameLength).Trim() : string.Empty;
-					valB = recB.Length >= nameStartIndex + nameLength ? recB.Substring(startIndex: nameStartIndex, length: nameLength).Trim() : string.Empty;
+					value = rec.Length >= nameStartIndex + nameLength
+						? rec.Substring(startIndex: nameStartIndex, length: nameLength).Trim()
+						: string.Empty;
 					break;
 			}
-			// Attempt to parse the values as integers for numeric comparison; if parsing fails, fall back to string comparison
-			int result = int.TryParse(s: valA, result: out int numA) && int.TryParse(s: valB, result: out int numB)
-				? numA.CompareTo(value: numB)
-				: string.Compare(strA: valA, strB: valB, comparisonType: StringComparison.OrdinalIgnoreCase);
+			bool hasNumeric = int.TryParse(s: value, result: out int numericValue);
+			sortKeyCache[key: index] = (hasNumeric, numericValue, value);
+		}
+		// Sort the indices using a custom comparison that uses the precomputed sort keys
+		sortedIndices.Sort(comparison: (a, b) =>
+		{
+			// Retrieve precomputed sort keys; if missing, fall back to empty defaults
+			(bool HasNumeric, int NumericValue, string TextValue) = sortKeyCache.TryGetValue(key: a, value: out (bool HasNumeric, int NumericValue, string TextValue) ka) ? ka : (HasNumeric: false, NumericValue: 0, TextValue: string.Empty);
+			(bool HasNumericB, int NumericValueB, string TextValueB) = sortKeyCache.TryGetValue(key: b, value: out (bool HasNumeric, int NumericValue, string TextValue) kb) ? kb : (HasNumeric: false, NumericValue: 0, TextValue: string.Empty);
+			int result = HasNumeric && HasNumericB
+				? NumericValue.CompareTo(value: NumericValueB)
+				: string.Compare(
+					strA: TextValue,
+					strB: TextValueB,
+					comparisonType: StringComparison.OrdinalIgnoreCase);
+			// If both values have numeric representations, compare numerically; otherwise, compare as strings (case-insensitive)
+			// If the values are equal, we can optionally fall back to comparing the original indices to ensure a stable sort, but in this case we will just return 0 for equal values.
 			return sortOrder == SortOrder.Descending ? -result : result;
 		});
+		// After sorting, restore the selection based on the remembered database index, if possible.
+		if (selectedDatabaseIndex.HasValue)
+		{
+			// Find the new virtual index of the previously selected database index after sorting
+			int newVirtualIndex = sortedIndices != null
+				? sortedIndices.IndexOf(item: selectedDatabaseIndex.Value)
+				: selectedDatabaseIndex.Value - virtualListOffset;
+			// If sortedIndices is not null, we can find the new virtual index directly; otherwise, we calculate it based on the offset.
+			// If the new virtual index is valid, select it and ensure it is visible
+			if (newVirtualIndex >= 0 && newVirtualIndex < listView.VirtualListSize)
+			{
+				listView.SelectedIndices.Clear();
+				listView.SelectedIndices.Add(itemIndex: newVirtualIndex);
+				listView.EnsureVisible(index: newVirtualIndex);
+			}
+		}
 		// After sorting the indices, we need to refresh the ListView to reflect the new order. In virtual mode, this is done by invalidating the control, which will trigger it to request the items in the new order.
 		listView.Invalidate();
 	}
@@ -911,7 +944,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
-	/// <summary>Saves the list as a Markdown table.
+	/// <summary>Saves the current list as a Markdown table.
 	/// Ideal for documentation, GitHub Readmes, or Wikis.</summary>
 	/// <param name="e">Event arguments.</param>
 	/// <param name="sender">Event source (the menu item).</param>
@@ -1308,7 +1341,6 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		}
 		// Close Kids array
 		w.WriteLine(value: "]");
-		w.WriteLine(value: $"/Count {pageObjIds.Count}");
 		w.WriteLine(value: ">>");
 		w.WriteLine(value: "endobj");
 		// --- 5. Font Object ---
@@ -1405,6 +1437,9 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: "    <dc:title>Planetoid List</dc:title>");
 			writer.WriteLine(value: "    <dc:language>en</dc:language>");
 			writer.WriteLine(value: "    <dc:identifier id=\"BookId\" opf:scheme=\"UUID\">urn:uuid:12345678-1234-1234-1234-123456789012</dc:identifier>");
+			writer.WriteLine(value: "    <dc:description>List of readable designations from the planetoids database.</dc:description>");
+			writer.WriteLine(value: "    <dc:creator>Planetoid-DB</dc:creator>");
+			writer.WriteLine(value: "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>");
 			writer.WriteLine(value: "  </metadata>");
 			writer.WriteLine(value: "  <manifest>");
 			writer.WriteLine(value: "    <item id=\"ncx\" href=\"toc.ncx\" media-type=\"application/x-dtbncx+xml\"/>");
@@ -1922,7 +1957,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 65001)); // Text Encoding: 65001 = UTF-8
 			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 0x12345678)); // UniqueID ID
 			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 6)); // File Version
-																			   // ... other fields are zeroed by default new byte[] ...
+																			   // ... other fields are zeroed by default new byte[] ...;
 
 			// First Non-Book Index (offset 80 in Mobi Header -> 16+80 = 96)
 			// Points to EOF record usually or FLIS
