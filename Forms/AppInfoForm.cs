@@ -10,6 +10,7 @@ using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 
 using System.Diagnostics;
+using Krypton.Toolkit;
 
 namespace Planetoid_DB;
 
@@ -44,6 +45,166 @@ public partial class AppInfoForm : BaseKryptonForm
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
 	private string GetDebuggerDisplay() => ToString();
+
+	/// <summary>Applies a pixelation animation effect to the image displayed in the specified <see cref="KryptonPictureBox"/> asynchronously.</summary>
+	/// <remarks>
+	/// The method temporarily replaces the KryptonPictureBox image with a series of progressively pixelated versions of
+	/// the original image, created by downscaling and then upscaling the bitmap to produce a blocky effect. The
+	/// original image is restored after the animation completes. If the KryptonPictureBox does not contain an image, the
+	/// method returns immediately.
+	/// </remarks>
+	/// <param name="pictureBox">The <see cref="KryptonPictureBox"/> control whose image will be animated. The control must contain a non-null image.</param>
+	/// <returns>A task that represents the asynchronous operation.</returns>
+	private static async Task ApplyZoomAndPixelateAsync(KryptonPictureBox pictureBox)
+	{
+		// Check if the PictureBox contains an image; if not, exit the method
+		if (pictureBox.Image == null)
+		{
+			return;
+		}
+		// Store the original image to restore it later
+		Image orig = pictureBox.Image;
+		// Track the previously assigned temporary pixelated bitmap to dispose it correctly.
+		Bitmap? previousPixelated = null;
+		// Clone the original image on the UI thread to safely use it on the background thread.
+		using Bitmap origClone = new Bitmap(orig);
+
+		try
+		{
+
+			// Loop to create a pixelation effect by resizing the image to smaller dimensions and then scaling it back up
+			for (int pixelSize = 1; pixelSize <= 16; pixelSize += 3)
+			{
+			{
+				// Generate the pixelated frame off the UI thread to keep the UI responsive.
+				Bitmap pixelated = await Task.Run(
+					() =>
+					{
+						// Use the cloned bitmap as the source image for background rendering.
+						Bitmap sourceImage = origClone ?? throw new InvalidOperationException("Source image clone is not initialized.");
+
+						// Calculate the size of the smaller image based on the pixelation level
+						using Bitmap small = new(width: Math.Max(1, sourceImage.Width / pixelSize), height: Math.Max(val1: 1, val2: sourceImage.Height / pixelSize));
+						// Draw the original image onto the smaller bitmap using high-quality bicubic interpolation
+						using (Graphics g1 = Graphics.FromImage(image: small))
+						{
+							// Set the interpolation mode to high-quality bicubic for better resizing quality
+							g1.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+							// Draw the original image onto the smaller bitmap, effectively reducing its resolution
+							g1.DrawImage(image: sourceImage, x: 0, y: 0, width: small.Width, height: small.Height);
+						}
+
+						// Create a new bitmap to hold the pixelated version of the image
+						Bitmap frame = new(width: sourceImage.Width, height: sourceImage.Height);
+						// Draw the smaller bitmap onto the pixelated bitmap using nearest neighbor interpolation to create a pixelated effect
+						using (Graphics g2 = Graphics.FromImage(image: frame))
+						{
+							// Set the interpolation mode to nearest neighbor to maintain the pixelated look when scaling back up
+							g2.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+							// Draw the smaller bitmap onto the pixelated bitmap, scaling it back up to the original size
+							g2.DrawImage(image: small, x: 0, y: 0, width: frame.Width, height: frame.Height);
+						}
+
+						// Return the generated pixelated frame; the caller will assign and manage its lifetime.
+						return frame;
+					});
+
+				// Store the previously assigned temporary pixelated bitmap so it can be safely disposed
+				// after the PictureBox has been updated to use the new image.
+				Bitmap? oldPixelated = previousPixelated;
+				// Update the PictureBox image to the new pixelated version.
+				pictureBox.Image = pixelated;
+				// Remember the current temporary bitmap so it can be disposed on the next iteration.
+				previousPixelated = pixelated;
+				// Dispose the previously assigned temporary pixelated bitmap to avoid leaking GDI resources,
+				// ensuring that the PictureBox no longer references it.
+				oldPixelated?.Dispose();
+				// Wait briefly to create an animation effect before the next iteration
+				await Task.Delay(millisecondsDelay: 5);
+			}
+
+		// Wait briefly before starting the zoom-out effect
+		await Task.Delay(millisecondsDelay: 20);
+
+		// Before starting the zoom-out effect, track any temporary bitmap currently assigned
+		// to the PictureBox image that is not the original image so it can be disposed safely
+		// after a new image has been assigned.
+		if (!ReferenceEquals(pictureBox.Image, orig) && pictureBox.Image is Bitmap currentPixelated)
+		{
+			previousPixelated = currentPixelated;
+		}
+
+		// Loop to create a zoom-out effect by resizing the image back to smaller dimensions and then scaling it back up
+		for (int pixelSize = 16; pixelSize >= 1; pixelSize -= 3)
+		{
+			// Generate the pixelated frame off the UI thread to avoid UI jank.
+			Bitmap pixelated = await Task.Run(
+				function: () =>
+				{
+					// Calculate the size of the smaller image based on the pixelation level
+					int s = Math.Max(1, pixelSize);
+
+					// Create a smaller bitmap based on the current pixelation level and ensure it is disposed even if an exception occurs.
+					Bitmap small = new(
+						width: Math.Max(val1: 1, val2: orig.Width / s),
+						height: Math.Max(val1: 1, val2: orig.Height / s));
+
+					try
+					{
+						// Draw the original image onto the smaller bitmap using high-quality bicubic interpolation
+						using (Graphics g1 = Graphics.FromImage(image: small))
+						{
+							// Set the interpolation mode to high-quality bicubic for better resizing quality
+							g1.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+							// Draw the original image onto the smaller bitmap, effectively reducing its resolution
+							g1.DrawImage(image: orig, x: 0, y: 0, width: small.Width, height: small.Height);
+						}
+
+						// Create a new bitmap to hold the pixelated version of the image
+						Bitmap result = new(width: orig.Width, height: orig.Height);
+
+						// Draw the smaller bitmap onto the pixelated bitmap using nearest neighbor interpolation to create a pixelated effect
+						using (Graphics g2 = Graphics.FromImage(image: result))
+						{
+							// Set the interpolation mode to nearest neighbor to maintain the pixelated look when scaling back up
+							g2.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+							// Draw the smaller bitmap onto the pixelated bitmap, scaling it back up to the original size
+							g2.DrawImage(image: small, x: 0, y: 0, width: result.Width, height: result.Height);
+						}
+
+						// Return the generated pixelated bitmap; the caller is responsible for disposing it.
+						return result;
+					}
+					finally
+					{
+						small.Dispose();
+					}
+				});
+
+			// Update the PictureBox image to the pixelated version on the UI thread.
+			pictureBox.Image = pixelated;
+
+			// Dispose the previously used pixelated bitmap, if any, now that it is no longer referenced by the PictureBox.
+			if (previousPixelated != null)
+			{
+				previousPixelated.Dispose();
+				previousPixelated = null;
+			}
+
+			previousPixelated = pixelated;
+
+			// Wait briefly to create an animation effect before the next iteration
+			await Task.Delay(millisecondsDelay: 5);
+		}
+	}
+	finally
+	{
+		// Always restore the original image, even if an exception occurs during the animation.
+		pictureBox.Image = orig;
+		// Ensure the last temporary pixelated bitmap is disposed to avoid leaking GDI resources.
+		previousPixelated?.Dispose();
+	}
+	}
 
 	#endregion
 
@@ -105,6 +266,11 @@ public partial class AppInfoForm : BaseKryptonForm
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void KryptonLinkLabelFatCow_LinkClick(object sender, EventArgs e) => OpenWebsite(fileName: kryptonLinkLabelWebsiteFatcow.Text);
 
+	/// <summary>
+	/// Indicates whether the banner animation is currently running to prevent overlapping animations.
+	/// </summary>
+	private bool _isBannerAnimationRunning;
+
 	/// <summary>Handles the LinkClicked event for the email link label and attempts to open the user's default mail client with a new message addressed to the application's support email.</summary>
 	/// <remarks>This event handler is typically attached to a link label representing the application's support email. When the
 	/// link is clicked, the default mail client is opened with a new message addressed to the specified email.</remarks>
@@ -122,10 +288,40 @@ public partial class AppInfoForm : BaseKryptonForm
 		}
 		catch (Exception ex)
 		{
-			// Log the exception and show an error message
-			logger.Error(exception: ex, message: ex.Message);
+			// Log the exception with a descriptive message and show an error message.
+			logger.Error(exception: ex, message: "Failed to open the default email client.");
 			// Show an error message if the email client cannot be opened
 			ShowErrorMessage(message: $"Error opening the email client: {ex.Message}");
+		}
+	}
+
+	/// <summary>Handles the Click event of the banner PictureBox and initiates an asynchronous operation to apply zoom and
+	/// pixelation effects.</summary>
+	/// <remarks>This event handler triggers an asynchronous image processing operation on the banner PictureBox
+	/// when it is clicked, applying zoom and pixelation effects to the displayed image.</remarks>
+	/// <param name="sender">The source of the event, typically the PictureBox control that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private async void PictureBoxBanner_Click(object sender, EventArgs e)
+	{
+		if (_isBannerAnimationRunning)
+		{
+			return;
+		}
+
+		_isBannerAnimationRunning = true;
+
+		try
+		{
+			await ApplyZoomAndPixelateAsync(pictureBoxBanner);
+		}
+		catch (Exception ex)
+		{
+			// Log any exceptions that occur during the banner animation.
+			logger.Error(exception: ex, message: "An error occurred while running the banner animation.");
+		}
+		finally
+		{
+			_isBannerAnimationRunning = false;
 		}
 	}
 
