@@ -607,11 +607,11 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Handles the Click event of the Load button on the tool strip, initiating the selection of a planetoid and closing
-	/// the current form.</summary>
+	/// <summary>Handles the Click event of the Load button on the tool strip, initiating the selection of a planetoid and,
+	/// when successful, closing the current form.</summary>
 	/// <param name="sender">The source of the event, typically the Load button on the tool strip.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	/// /// <remarks>When the Load button is clicked, this method calls the SelectPlanetoidInMainForm method to navigate to the selected planetoid record in the main form. After initiating the selection, it closes the current form to return control to the main form, and sets the dialog result to <see cref="DialogResult.OK"/> to signal a successful selection.</remarks>
+	/// <remarks>When the Load button is clicked, this method calls the SelectPlanetoidInMainForm method to navigate to the selected planetoid record in the main form. After initiating the selection, it closes the current form to return control to the main form, and sets the dialog result to <see cref="DialogResult.OK"/> to signal a successful selection.</remarks>
 	private void ToolStripButtonLoad_Click(object sender, EventArgs e)
 	{
 		// Check if any item is selected
