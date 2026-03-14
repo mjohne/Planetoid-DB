@@ -108,11 +108,12 @@ public partial class AppInfoForm : BaseKryptonForm
 		// Wait briefly before starting the zoom-out effect
 		await Task.Delay(millisecondsDelay: 20);
 
-		// Before starting the zoom-out effect, dispose any temporary bitmap currently assigned
-		// to the PictureBox image that is not the original image to avoid leaking GDI+ resources.
-		if (!ReferenceEquals(pictureBox.Image, orig) && pictureBox.Image != null)
+		// Before starting the zoom-out effect, track any temporary bitmap currently assigned
+		// to the PictureBox image that is not the original image so it can be disposed safely
+		// after a new image has been assigned.
+		if (!ReferenceEquals(pictureBox.Image, orig) && pictureBox.Image is Bitmap currentPixelated)
 		{
-			pictureBox.Image.Dispose();
+			previousPixelated = currentPixelated;
 		}
 
 		// Loop to create a zoom-out effect by resizing the image back to smaller dimensions and then scaling it back up
@@ -152,6 +153,7 @@ public partial class AppInfoForm : BaseKryptonForm
 				if (previousPixelated != null)
 				{
 					previousPixelated.Dispose();
+					previousPixelated = null;
 				}
 
 				previousPixelated = pixelated;
