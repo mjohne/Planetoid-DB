@@ -47,6 +47,9 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsText = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsLatex = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsMarkdown = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsAsciiDoc = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsReStructurizedText = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsTextile = new ToolStripMenuItem();
 		toolStripMenuItemWriterDocuments = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsWord = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsOdt = new ToolStripMenuItem();
@@ -248,7 +251,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemTextFiles.AccessibleName = "Save as text file";
 		toolStripMenuItemTextFiles.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemTextFiles.AutoToolTip = true;
-		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown });
+		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructurizedText, toolStripMenuItemSaveAsTextile });
 		toolStripMenuItemTextFiles.Image = Resources.FatcowIcons16px.fatcow_file_extension_txt_16px;
 		toolStripMenuItemTextFiles.Name = "toolStripMenuItemTextFiles";
 		toolStripMenuItemTextFiles.ShortcutKeyDisplayString = "";
@@ -266,8 +269,8 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsText.Image = Resources.FatcowIcons16px.fatcow_page_white_text_16px;
 		toolStripMenuItemSaveAsText.Name = "toolStripMenuItemSaveAsText";
 		toolStripMenuItemSaveAsText.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsText.Size = new Size(172, 22);
-		toolStripMenuItemSaveAsText.Text = "Save as te&xt";
+		toolStripMenuItemSaveAsText.Size = new Size(212, 22);
+		toolStripMenuItemSaveAsText.Text = "Save as &text";
 		toolStripMenuItemSaveAsText.Click += ToolStripMenuItemSaveAsText_Click;
 		toolStripMenuItemSaveAsText.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsText.MouseLeave += Control_Leave;
@@ -281,8 +284,8 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsLatex.Image = Resources.FatcowIcons16px.fatcow_page_white_text_16px;
 		toolStripMenuItemSaveAsLatex.Name = "toolStripMenuItemSaveAsLatex";
 		toolStripMenuItemSaveAsLatex.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsLatex.Size = new Size(172, 22);
-		toolStripMenuItemSaveAsLatex.Text = "Save as Lat&ex";
+		toolStripMenuItemSaveAsLatex.Size = new Size(212, 22);
+		toolStripMenuItemSaveAsLatex.Text = "Save as &Latex";
 		toolStripMenuItemSaveAsLatex.Click += ToolStripMenuItemSaveAsLatex_Click;
 		toolStripMenuItemSaveAsLatex.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsLatex.MouseLeave += Control_Leave;
@@ -296,11 +299,53 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsMarkdown.Image = Resources.FatcowIcons16px.fatcow_page_white_text_16px;
 		toolStripMenuItemSaveAsMarkdown.Name = "toolStripMenuItemSaveAsMarkdown";
 		toolStripMenuItemSaveAsMarkdown.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsMarkdown.Size = new Size(172, 22);
-		toolStripMenuItemSaveAsMarkdown.Text = "Save as Mar&kdown";
+		toolStripMenuItemSaveAsMarkdown.Size = new Size(212, 22);
+		toolStripMenuItemSaveAsMarkdown.Text = "Save as &Markdown";
 		toolStripMenuItemSaveAsMarkdown.Click += ToolStripMenuItemSaveAsMarkdown_Click;
 		toolStripMenuItemSaveAsMarkdown.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsMarkdown.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsAsciiDoc
+		// 
+		toolStripMenuItemSaveAsAsciiDoc.AccessibleDescription = "Save list as AsciiDoc";
+		toolStripMenuItemSaveAsAsciiDoc.AccessibleName = "Save as AsciiDoc";
+		toolStripMenuItemSaveAsAsciiDoc.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsAsciiDoc.AutoToolTip = true;
+		toolStripMenuItemSaveAsAsciiDoc.Image = Resources.FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsAsciiDoc.Name = "toolStripMenuItemSaveAsAsciiDoc";
+		toolStripMenuItemSaveAsAsciiDoc.Size = new Size(212, 22);
+		toolStripMenuItemSaveAsAsciiDoc.Text = "Save as &AsciiDoc";
+		toolStripMenuItemSaveAsAsciiDoc.Click += ToolStripMenuItemSaveAsAdoc_Click;
+		toolStripMenuItemSaveAsAsciiDoc.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsAsciiDoc.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsReStructurizedText
+		// 
+		toolStripMenuItemSaveAsReStructurizedText.AccessibleDescription = "Save list as ReStructurizedText";
+		toolStripMenuItemSaveAsReStructurizedText.AccessibleName = "Save as ReStructurizedText";
+		toolStripMenuItemSaveAsReStructurizedText.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsReStructurizedText.AutoToolTip = true;
+		toolStripMenuItemSaveAsReStructurizedText.Image = Resources.FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsReStructurizedText.Name = "toolStripMenuItemSaveAsReStructurizedText";
+		toolStripMenuItemSaveAsReStructurizedText.Size = new Size(212, 22);
+		toolStripMenuItemSaveAsReStructurizedText.Text = "Save as &ReStructurizedText";
+		toolStripMenuItemSaveAsReStructurizedText.Click += ToolStripMenuItemSaveAsRst_Click;
+		toolStripMenuItemSaveAsReStructurizedText.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsReStructurizedText.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsTextile
+		// 
+		toolStripMenuItemSaveAsTextile.AccessibleDescription = "Save list as Textile";
+		toolStripMenuItemSaveAsTextile.AccessibleName = "Save as Textile";
+		toolStripMenuItemSaveAsTextile.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsTextile.AutoToolTip = true;
+		toolStripMenuItemSaveAsTextile.Image = Resources.FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsTextile.Name = "toolStripMenuItemSaveAsTextile";
+		toolStripMenuItemSaveAsTextile.Size = new Size(212, 22);
+		toolStripMenuItemSaveAsTextile.Text = "Save as Te&xtile";
+		toolStripMenuItemSaveAsTextile.Click += ToolStripMenuItemSaveAsTextile_Click;
+		toolStripMenuItemSaveAsTextile.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTextile.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemWriterDocuments
 		// 
@@ -1212,4 +1257,7 @@ partial class DatabaseDifferencesForm
 	private ToolStripMenuItem toolStripMenuItemSaveAsChm;
 	private ToolStripMenuItem toolStripMenuItemSaveAsDocBook;
 	private KryptonButton kryptonButtonGoto;
+	private ToolStripMenuItem toolStripMenuItemSaveAsAsciiDoc;
+	private ToolStripMenuItem toolStripMenuItemSaveAsReStructurizedText;
+	private ToolStripMenuItem toolStripMenuItemSaveAsTextile;
 }

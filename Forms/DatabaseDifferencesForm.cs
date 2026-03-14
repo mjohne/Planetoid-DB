@@ -2114,6 +2114,141 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Exports the database difference results to an AsciiDoc (ADOC) file selected by the user.</summary>
+	/// <remarks>Prompts the user to choose a file location and name using a save file dialog. The exported ADOC file
+	/// includes formatted database difference entries. If an I/O error or access denial occurs during the save process, an error message is displayed to the user.</remarks>
+	private void SaveListViewResultsAsAdoc()
+	{
+		// Create and configure a SaveFileDialog to allow the user to choose where to save the ADOC file; if the user confirms the save operation, attempt to write the difference results to the specified file in ADOC format, handling any potential I/O errors or access issues that may arise during the process
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "AsciiDoc Files (*.adoc)|*.adoc|All Files (*.*)|*.*",
+			FileName = fileName
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			// Attempt to write the difference results to the selected file in ADOC format, handling any I/O exceptions or unauthorized access exceptions that may occur during the file writing process; if successful, display a confirmation message to the user
+			try
+			{
+				using StreamWriter writer = new(path: saveFileDialog.FileName);
+				writer.WriteLine(value: "= Database Differences");
+				writer.WriteLine();
+				writer.WriteLine(value: "[options=\"header\"]");
+				writer.WriteLine(value: "|===");
+				writer.WriteLine(value: "|Index|Designation|Difference");
+				foreach (DifferenceResult result in differenceResults)
+				{
+					writer.WriteLine(value: $"|{result.Index}|{result.Designation}|{result.Difference}");
+				}
+				writer.WriteLine(value: "|===");
+				MessageBox.Show(text: "Results successfully saved to AsciiDoc file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to ADOC file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to ADOC file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Exports the database difference results to a reStructuredText (RST) file selected by the user.</summary>
+	/// <remarks>Prompts the user to choose a file location and name using a save file dialog. The exported RST file
+	/// includes formatted database difference entries. If an I/O error or access denial occurs during the save process, an error message is displayed to the user.</remarks>
+	private void SaveListViewResultsAsRst()
+	{
+		// Create and configure a SaveFileDialog to allow the user to choose where to save the RST file; if the user confirms the save operation, attempt to write the difference results to the specified file in RST format, handling any potential I/O errors or access issues that may arise during the process
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "reStructuredText Files (*.rst)|*.rst|All Files (*.*)|*.*",
+			FileName = fileName
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			// Attempt to write the difference results to the selected file in RST format, handling any I/O exceptions or unauthorized access exceptions that may occur during the file writing process; if successful, display a confirmation message to the user
+			try
+			{
+				using StreamWriter writer = new(path: saveFileDialog.FileName);
+				writer.WriteLine(value: "====================");
+				writer.WriteLine(value: "Database Differences");
+				writer.WriteLine(value: "====================");
+				writer.WriteLine();
+				writer.WriteLine(value: ".. list-table::");
+				writer.WriteLine(value: "   :header-rows: 1");
+				writer.WriteLine();
+				writer.WriteLine(value: "   * - Index");
+				writer.WriteLine(value: "     - Designation");
+				writer.WriteLine(value: "     - Difference");
+				foreach (DifferenceResult result in differenceResults)
+				{
+					writer.WriteLine(value: $"   * - {result.Index}");
+					writer.WriteLine(value: $"     - {result.Designation}");
+					writer.WriteLine(value: $"     - {result.Difference}");
+				}
+				MessageBox.Show(text: "Results successfully saved to reStructuredText file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to RST file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to RST file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Exports the database difference results to a Textile file selected by the user.</summary>
+	/// <remarks>Prompts the user to choose a file location and name using a save file dialog. The exported Textile file
+	/// includes formatted database difference entries. If an I/O error or access denial occurs during the save process, an error message is displayed to the user.</remarks>
+	private void SaveListViewResultsAsTextile()
+	{
+		// Create and configure a SaveFileDialog to allow the user to choose where to save the Textile file; if the user confirms the save operation, attempt to write the difference results to the specified file in Textile format, handling any potential I/O errors or access issues that may arise during the process
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "Textile Files (*.textile)|*.textile|All Files (*.*)|*.*",
+			FileName = fileName
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			// Attempt to write the difference results to the selected file in Textile format, handling any I/O exceptions or unauthorized access exceptions that may occur during the file writing process; if successful, display a confirmation message to the user
+			try
+			{
+				using StreamWriter writer = new(path: saveFileDialog.FileName);
+				writer.WriteLine(value: "h1. Database Differences");
+				writer.WriteLine();
+				writer.WriteLine(value: "|_. Index |_. Designation |_. Difference |");
+				foreach (DifferenceResult result in differenceResults)
+				{
+					writer.WriteLine(value: $"| {result.Index} | {result.Designation} | {result.Difference} |");
+				}
+				MessageBox.Show(text: "Results successfully saved to Textile file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
+			catch (IOException ex)
+			{
+				logger.Error(exception: ex, message: "I/O error while saving results to Textile file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
+			catch (UnauthorizedAccessException ex)
+			{
+				logger.Error(exception: ex, message: "Access denied while saving results to Textile file '{FilePath}'.", args: saveFileDialog.FileName);
+				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
 	#endregion
 
 	#region Form event handlers
@@ -2500,6 +2635,30 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">The event data associated with the click event.</param>
 	private void ToolStripMenuItemSaveAsAbiword_Click(object sender, EventArgs e) => SaveListViewResultsAsAbiword();
+
+	/// <summary>Handles the click event for the 'Save As AsciiDoc' menu item and initiates saving the current list view results in AsciiDoc
+	/// format.</summary>
+	/// <remarks>This method invokes the SaveListViewResultsAsAdoc method to perform the save operation. Use this
+	/// event handler to enable users to export list view data in AsciiDoc format from the interface.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsAdoc_Click(object sender, EventArgs e) => SaveListViewResultsAsAdoc();
+
+	/// <summary>Handles the click event for the 'Save As reStructuredText' menu item and initiates saving the current list view results in reStructuredText
+	/// format.</summary>
+	/// <remarks>This method invokes the SaveListViewResultsAsRst method to perform the save operation. Use this
+	/// event handler to enable users to export list view data in reStructuredText format from the interface.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsRst_Click(object sender, EventArgs e) => SaveListViewResultsAsRst();
+
+	/// <summary>Handles the click event for the 'Save As Textile' menu item and initiates saving the current list view results in Textile
+	/// format.</summary>
+	/// <remarks>This method invokes the SaveListViewResultsAsTextile method to perform the save operation. Use this
+	/// event handler to enable users to export list view data in Textile format from the interface.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsTextile_Click(object sender, EventArgs e) => SaveListViewResultsAsTextile();
 	#endregion
 
 	#region BackgroundWorker event handlers
