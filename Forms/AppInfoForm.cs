@@ -67,14 +67,14 @@ public partial class AppInfoForm : BaseKryptonForm
 		// Track the previously assigned temporary pixelated bitmap to dispose it correctly.
 		Bitmap? previousPixelated = null;
 		// Clone the original image on the UI thread to safely use it on the background thread.
-		Bitmap? origClone = null;
+		using Bitmap origClone = new Bitmap(orig);
 
 		try
 		{
-			origClone = new Bitmap(orig);
 
 			// Loop to create a pixelation effect by resizing the image to smaller dimensions and then scaling it back up
 			for (int pixelSize = 1; pixelSize <= 16; pixelSize += 3)
+			{
 			{
 				// Generate the pixelated frame off the UI thread to keep the UI responsive.
 				Bitmap pixelated = await Task.Run(
