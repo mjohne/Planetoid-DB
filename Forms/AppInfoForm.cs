@@ -91,12 +91,16 @@ public partial class AppInfoForm : BaseKryptonForm
 				// Draw the smaller bitmap onto the pixelated bitmap, scaling it back up to the original size
 				g2.DrawImage(image: small, x: 0, y: 0, width: pixelated.Width, height: pixelated.Height);
 			}
-			// Dispose the previously assigned temporary pixelated bitmap to avoid leaking GDI resources.
-			previousPixelated?.Dispose();
+			// Store the previously assigned temporary pixelated bitmap so it can be safely disposed
+			// after the PictureBox has been updated to use the new image.
+			Bitmap? oldPixelated = previousPixelated;
 			// Update the PictureBox image to the new pixelated version.
 			pictureBox.Image = pixelated;
 			// Remember the current temporary bitmap so it can be disposed on the next iteration.
 			previousPixelated = pixelated;
+			// Dispose the previously assigned temporary pixelated bitmap to avoid leaking GDI resources,
+			// ensuring that the PictureBox no longer references it.
+			oldPixelated?.Dispose();
 			// Dispose of the smaller bitmap to free resources
 			small.Dispose();
 			// Wait briefly to create an animation effect before the next iteration
