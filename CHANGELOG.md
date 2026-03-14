@@ -1,5 +1,16 @@
 # Changelog
 
+## Planetoid-DB 0.8.6.57
+
+* Updated version number by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/516
+* Fixed error in AppInfoForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/517
+* Updated application icon by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/518
+* Added a graphic effect by mouse-clicking on banner in AppInfoForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/519
+* Added support for saving formats AsciiDoc, reStructuredText and Textile in DataDifferencesForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/520
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.8.5.56.514.1691...0.8.6.57.521.1734
+
+
 ## Planetoid-DB 0.8.5.56
 
 * Replaced screenshot of Planetoid-DB in README by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/507
