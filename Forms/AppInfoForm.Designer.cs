@@ -1106,7 +1106,6 @@ partial class AppInfoForm
 		pictureBoxBanner.Click += PictureBoxBanner_Click;
 		pictureBoxBanner.MouseEnter += Control_Enter;
 		pictureBoxBanner.MouseLeave += Control_Leave;
-		pictureBoxBanner.KeyDown += PictureBoxBanner_KeyDown;
 		// 
 		// kryptoPanelMain
 		// 
