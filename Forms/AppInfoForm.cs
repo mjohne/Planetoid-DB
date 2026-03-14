@@ -163,13 +163,6 @@ public partial class AppInfoForm : BaseKryptonForm
 		// Ensure the last temporary pixelated bitmap is disposed to avoid leaking GDI resources.
 		previousPixelated?.Dispose();
 	}
-		// Restore the original image in the PictureBox after the animation completes
-		pictureBox.Image = orig;
-		// Dispose the last pixelated bitmap now that it is no longer displayed.
-		if (previousPixelated != null)
-		{
-			previousPixelated.Dispose();
-		}
 	}
 
 	#endregion
