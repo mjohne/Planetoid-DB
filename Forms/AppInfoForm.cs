@@ -10,7 +10,7 @@ using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 
 using System.Diagnostics;
-using ComponentFactory.Krypton.Toolkit;
+using Krypton.Toolkit;
 
 namespace Planetoid_DB;
 
