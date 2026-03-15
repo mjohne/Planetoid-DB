@@ -141,7 +141,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		{
 			diffs.Add(item: $"LAN: {r1.LongAscNode} -> {r2.LongAscNode}");
 		}
-		// Compare the Inclination field of the two records ListViewResults_DoubleClickand add a description of any differences to the list
+		// Compare the Inclination field of the two records and add a description of any differences to the list
 		if (r1.Incl != r2.Incl)
 		{
 			diffs.Add(item: $"Incl: {r1.Incl} -> {r2.Incl}");
@@ -2442,9 +2442,9 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		string message = "Abbreviations used in the Designation and Difference columns:\n\n" +
 						 "Epoch - Epoch\n" +
 						 "MA - Mean Anomaly\n" +
-						 "ArgPeri - Argument of the perihel\n" +
+						 "ArgPeri - Argument of the perihelion\n" +
 						 "LAN - Longitude of the Ascending Node\n" +
-						 "Inc - Inclination\n" +
+						 "Incl - Inclination\n" +
 						 "Ecc - Eccentricity\n" +
 						 "a - Semi-Major Axis\n" +
 						 "H - Absolute Magnitude\n" +
@@ -2457,7 +2457,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 						 "ObsSpan - Observation Span\n" +
 						 "rms - R.M.S. Residual\n" +
 						 "Computer - Computer Name\n" +
-						 "Flags - 4-Hexdigit Flag\n" +
+						 "Flags - 4-hex-digit flag\n" +
 						 "LastObs - Date of the Last Observation";
 		_ = MessageBox.Show(text: message, caption: "Abbreviations", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
