@@ -854,7 +854,7 @@ partial class ListReadableDesignationsForm
 		kryptonToolStripGenerateList.Font = new Font("Segoe UI", 9F);
 		kryptonToolStripGenerateList.Items.AddRange(new ToolStripItem[] { toolStripButtonCreateList, toolStripSeparator1, toolStripLabelMinimum, toolStripNumericUpDownMinimum, toolStripLabelMaximum, toolStripNumericUpDownMaximum });
 		kryptonToolStripGenerateList.Location = new Point(0, 0);
-		kryptonToolStripGenerateList.Name = "kryptonToolStripList";
+		kryptonToolStripGenerateList.Name = "kryptonToolStripGenerateList";
 		kryptonToolStripGenerateList.Size = new Size(341, 26);
 		kryptonToolStripGenerateList.Stretch = true;
 		kryptonToolStripGenerateList.TabIndex = 0;
@@ -913,7 +913,7 @@ partial class ListReadableDesignationsForm
 		toolStripNumericUpDownMinimum.Text = "0";
 		toolStripNumericUpDownMinimum.TextAlign = HorizontalAlignment.Center;
 		toolStripNumericUpDownMinimum.Enter += Control_Enter;
-		toolStripNumericUpDownMinimum.MouseLeave += Control_Leave;
+		toolStripNumericUpDownMinimum.Leave += Control_Leave;
 		toolStripNumericUpDownMinimum.MouseEnter += Control_Enter;
 		toolStripNumericUpDownMinimum.MouseLeave += Control_Leave;
 		// 

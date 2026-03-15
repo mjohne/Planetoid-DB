@@ -2739,7 +2739,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// Abiword format.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	/// <remarks>When the user clicks the "Save As Abiword" menu item, this event handler is invoked. It calls the SaveListViewResultsAsAbiword method, which generates an HTML file with a .abw extension that can be opened in Abiword. If the process is successful, a confirmation message is displayed; otherwise, an error message is shown.</remarks>
+	/// <remarks>When the user clicks the "Save As Abiword" menu item, this event handler is invoked. It calls the SaveListViewResultsAsAbiword method, which generates an AWML (AbiWord XML) file with a .abw extension that can be opened in Abiword. If the process is successful, a confirmation message is displayed; otherwise, an error message is shown.</remarks>
 	private void ToolStripMenuItemSaveAsAbiword_Click(object sender, EventArgs e) => SaveListViewResultsAsAbiword();
 
 	/// <summary>Handles the Click event of the Save As WPS menu item and initiates saving the current ListView results in WPS
