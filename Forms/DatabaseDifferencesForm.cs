@@ -9,6 +9,7 @@ using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 
 using System.ComponentModel;
+using System.Data;
 using System.Diagnostics;
 using System.Xml.Linq;
 
@@ -2294,6 +2295,159 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Saves the results displayed in the list view to a user-specified SQLite database file, creating a table and inserting each difference as a row.</summary>
+	/// <remarks>The method prompts the user to select a file location and name for the SQLite file. It utilizes the built-in Windows sqlite3.exe to generate the database. It handles potential I/O and access errors, displaying appropriate messages to the user.</remarks>
+	private void SaveListViewResultsAsSqliteNative()
+	{
+		// Create and configure a SaveFileDialog to allow the user to choose where to save the SQLite file; if the user confirms the save operation, attempt to write the difference results to the specified file in SQLite format, handling any potential I/O errors or access issues that may arise during the process
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "SQLite Database Files (*.sqlite3;*.sqlite;*.db)|*.sqlite3;*.sqlite;*.db|All Files (*.*)|*.*",
+			FileName = fileName
+		};
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			// Attempt to write the difference results to the selected file in SQLite format, handling any I/O exceptions or unauthorized access exceptions that may occur during the file writing process; if successful, display a confirmation message to the user
+			try
+			{
+				// Locate the built-in sqlite3.exe tool on the system to generate the database without external packages; if the tool is found, start a process to execute SQL commands via standard input, which will create the database, table, and insert the difference results
+				string sqlitePath = Path.Combine(path1: Environment.GetFolderPath(folder: Environment.SpecialFolder.System), path2: "sqlite3.exe");
+				if (!File.Exists(path: sqlitePath))
+				{
+					_ = MessageBox.Show(text: "The built-in sqlite3.exe tool is not available on this system. Cannot generate SQLite file without external packages.", caption: "Missing Dependency", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
+					return;
+				}
+				if (File.Exists(path: saveFileDialog.FileName))
+				{
+					File.Delete(path: saveFileDialog.FileName);
+				}
+				ProcessStartInfo startInfo = new()
+				{
+					FileName = sqlitePath,
+					Arguments = $"\"{saveFileDialog.FileName}\"",
+					CreateNoWindow = true,
+					UseShellExecute = false,
+					RedirectStandardInput = true,
+					WindowStyle = ProcessWindowStyle.Hidden
+				};
+				using Process? process = Process.Start(startInfo: startInfo);
+				if (process != null)
+				{
+					// Open a StreamWriter to the standard input of the sqlite3 process and write the necessary SQL commands to create a table and insert each difference result as a row; ensure that any single quotes in the data are properly escaped to prevent SQL syntax errors
+					using (StreamWriter sw = process.StandardInput)
+					{
+						sw.WriteLine(value: "PRAGMA encoding=\"UTF-8\";");
+						sw.WriteLine(value: "CREATE TABLE Differences (DifferenceIndex TEXT, Designation VARCHAR(255), Difference TEXT);");
+						sw.WriteLine(value: "BEGIN TRANSACTION;");
+						foreach (DifferenceResult result in differenceResults)
+						{
+							string safeIndex = result.Index.Replace(oldValue: "'", newValue: "''");
+							string safeDesig = result.Designation.Replace(oldValue: "'", newValue: "''");
+							string safeDiff = result.Difference.Replace(oldValue: "'", newValue: "''");
+							sw.WriteLine(value: $"INSERT INTO Differences (DifferenceIndex, Designation, Difference) VALUES ('{safeIndex}', '{safeDesig}', '{safeDiff}');");
+						}
+						sw.WriteLine(value: "COMMIT;");
+					}
+					process.WaitForExit();
+				}
+				_ = File.Exists(path: saveFileDialog.FileName)
+					? MessageBox.Show(text: "Results successfully saved to SQLite file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information)
+					: MessageBox.Show(text: "Failed to generate the SQLite database.", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (IOException ex)
+			{
+				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
+				logger.Error(exception: ex, message: "I/O error while saving results to SQLite file '{FilePath}'.", args: saveFileDialog.FileName);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
+				logger.Error(exception: ex, message: "Access denied while saving results to SQLite file '{FilePath}'.", args: saveFileDialog.FileName);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (Exception ex)
+			{
+				// Catch any other exceptions that may occur during the process execution or generation, ensuring the application handles unexpected issues gracefully
+				logger.Error(exception: ex, message: "Unexpected error while saving results to SQLite file '{FilePath}'.", args: saveFileDialog.FileName);
+				_ = MessageBox.Show(text: $"An unexpected error occurred: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
+	/// <summary>Saves the results displayed in the list view to a user-specified SQLite database file using the System.Data.SQLite provider natively.</summary>
+	/// <remarks>The method prompts the user to select a file location and name for the SQLite file. It uses System.Data.SQLite to create the database, generate a table, and insert each difference as a row.</remarks>
+	private void SaveListViewResultsAsSqlite()
+	{
+		// Create and configure a SaveFileDialog to allow the user to choose where to save the SQLite file; if the user confirms the save operation, attempt to write the difference results to the specified file in SQLite format using the System.Data.SQLite provider, handling any potential I/O errors or access issues that may arise during the process
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "SQLite Database Files (*.sqlite3;*.sqlite;*.db)|*.sqlite3;*.sqlite;*.db|All Files (*.*)|*.*",
+			FileName = fileName
+		};
+		// If the user confirms the save operation, attempt to create a new SQLite database file, create a table for the differences, and insert each difference result as a row using the System.Data.SQLite provider; handle any I/O exceptions or unauthorized access exceptions that may occur during the process, and display appropriate messages to the user based on the outcome
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				if (File.Exists(path: saveFileDialog.FileName))
+				{
+					File.Delete(path: saveFileDialog.FileName);
+				}
+				// Create a new SQLite database file using System.Data.SQLite, then open a connection to the database, create a table named "Differences" with appropriate columns, and insert each difference result as a row in the table; after successfully inserting the data, display a success message to the user
+				System.Data.SQLite.SQLiteConnection.CreateFile(databaseFileName: saveFileDialog.FileName);
+				string connectionString = $"Data Source={saveFileDialog.FileName};Version=3;";
+				using (System.Data.SQLite.SQLiteConnection connection = new(connectionString: connectionString))
+				{
+					connection.Open();
+					using (System.Data.SQLite.SQLiteCommand command = new(commandText: "CREATE TABLE Differences (DifferenceIndex TEXT, Designation VARCHAR(255), Difference TEXT)", connection: connection))
+					{
+						command.ExecuteNonQuery();
+					}
+					// Use a transaction to ensure that all inserts are performed atomically, improving performance and ensuring data integrity; prepare an insert command with parameters for the difference index, designation, and difference, and execute the command for each difference result in the list
+					using (System.Data.SQLite.SQLiteTransaction transaction = connection.BeginTransaction())
+					{
+						using (System.Data.SQLite.SQLiteCommand insertCommand = new(commandText: "INSERT INTO Differences (DifferenceIndex, Designation, Difference) VALUES (@Index, @Designation, @Difference)", connection: connection, transaction: transaction))
+						{
+							System.Data.SQLite.SQLiteParameter paramIndex = insertCommand.Parameters.Add(parameterName: "@Index", parameterType: DbType.String);
+							System.Data.SQLite.SQLiteParameter paramDesig = insertCommand.Parameters.Add(parameterName: "@Designation", parameterType: DbType.String);
+							System.Data.SQLite.SQLiteParameter paramDiff = insertCommand.Parameters.Add(parameterName: "@Difference", parameterType: DbType.String);
+							foreach (DifferenceResult result in differenceResults)
+							{
+								paramIndex.Value = result.Index;
+								paramDesig.Value = result.Designation;
+								paramDiff.Value = result.Difference;
+								insertCommand.ExecuteNonQuery();
+							}
+						}
+						transaction.Commit();
+					}
+					connection.Close();
+				}
+				// After successfully saving the results to the SQLite file, display a confirmation message to the user indicating that the operation was successful
+				_ = MessageBox.Show(text: "Results successfully saved to SQLite file natively.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			catch (IOException ex)
+			{
+				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
+				logger.Error(exception: ex, message: "I/O error while saving results to SQLite file '{FilePath}'.", args: saveFileDialog.FileName);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
+				logger.Error(exception: ex, message: "Access denied while saving results to SQLite file '{FilePath}'.", args: saveFileDialog.FileName);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+			catch (Exception ex)
+			{
+				// Catch any other exceptions that may occur during the process, ensuring the application handles unexpected issues gracefully
+				logger.Error(exception: ex, message: "Unexpected error while saving results to SQLite file '{FilePath}'.", args: saveFileDialog.FileName);
+				_ = MessageBox.Show(text: $"An unexpected error occurred: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+	}
+
 	#endregion
 
 	#region Form event handlers
@@ -2715,6 +2869,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">The event data associated with the click event.</param>
 	private void ToolStripMenuItemSaveAsTextile_Click(object sender, EventArgs e) => SaveListViewResultsAsTextile();
+
+	/// <summary>Handles the click event for the 'Save As SQLite' menu item and initiates saving the current list view results in SQLite
+	/// format.</summary>
+	/// <remarks>This method invokes the SaveListViewResultsAsSqlite method to perform the save operation. Use this
+	/// event handler to enable users to export list view data as a SQLite database.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
+	private void ToolStripMenuItemSaveAsSqlite_Click(object sender, EventArgs e) => SaveListViewResultsAsSqlite();
+
 	#endregion
 
 	#region BackgroundWorker event handlers

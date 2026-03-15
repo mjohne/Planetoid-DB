@@ -73,6 +73,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsToml = new ToolStripMenuItem();
 		toolStripMenuItemDatabaseScripts = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsSql = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsSqlite = new ToolStripMenuItem();
 		toolStripMenuItemPortableDocuments = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsPdf = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsPostScript = new ToolStripMenuItem();
@@ -239,7 +240,7 @@ partial class DatabaseDifferencesForm
 		contextMenuSaveList.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveList.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveList.Name = "contextMenuSaveList";
-		contextMenuSaveList.Size = new Size(202, 158);
+		contextMenuSaveList.Size = new Size(202, 180);
 		contextMenuSaveList.TabStop = true;
 		contextMenuSaveList.Text = "&Save list";
 		contextMenuSaveList.MouseEnter += Control_Enter;
@@ -663,7 +664,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemDatabaseScripts.AccessibleName = "Save as database script";
 		toolStripMenuItemDatabaseScripts.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemDatabaseScripts.AutoToolTip = true;
-		toolStripMenuItemDatabaseScripts.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsSql });
+		toolStripMenuItemDatabaseScripts.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsSql, toolStripMenuItemSaveAsSqlite });
 		toolStripMenuItemDatabaseScripts.Image = Resources.FatcowIcons16px.fatcow_file_extension_ptb_16px;
 		toolStripMenuItemDatabaseScripts.Name = "toolStripMenuItemDatabaseScripts";
 		toolStripMenuItemDatabaseScripts.ShortcutKeyDisplayString = "";
@@ -681,11 +682,25 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsSql.Image = Resources.FatcowIcons16px.fatcow_page_white_database_16px;
 		toolStripMenuItemSaveAsSql.Name = "toolStripMenuItemSaveAsSql";
 		toolStripMenuItemSaveAsSql.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsSql.Size = new Size(136, 22);
-		toolStripMenuItemSaveAsSql.Text = "Save as &SQL";
+		toolStripMenuItemSaveAsSql.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsSql.Text = "Save as &SQL script";
 		toolStripMenuItemSaveAsSql.Click += ToolStripMenuItemSaveAsSql_Click;
 		toolStripMenuItemSaveAsSql.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsSql.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsSqlite
+		// 
+		toolStripMenuItemSaveAsSqlite.AccessibleDescription = "Saves the list as SQLite file";
+		toolStripMenuItemSaveAsSqlite.AccessibleName = "Save as SQLite";
+		toolStripMenuItemSaveAsSqlite.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsSqlite.AutoToolTip = true;
+		toolStripMenuItemSaveAsSqlite.Image = Resources.FatcowIcons16px.fatcow_page_white_database_16px;
+		toolStripMenuItemSaveAsSqlite.Name = "toolStripMenuItemSaveAsSqlite";
+		toolStripMenuItemSaveAsSqlite.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsSqlite.Text = "Save as SQ&Lite";
+		toolStripMenuItemSaveAsSqlite.Click += ToolStripMenuItemSaveAsSqlite_Click;
+		toolStripMenuItemSaveAsSqlite.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsSqlite.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemPortableDocuments
 		// 
@@ -1260,4 +1275,5 @@ partial class DatabaseDifferencesForm
 	private ToolStripMenuItem toolStripMenuItemSaveAsAsciiDoc;
 	private ToolStripMenuItem toolStripMenuItemSaveAsReStructuredText;
 	private ToolStripMenuItem toolStripMenuItemSaveAsTextile;
+	private ToolStripMenuItem toolStripMenuItemSaveAsSqlite;
 }

@@ -7,6 +7,7 @@ using NLog;
 
 using Planetoid_DB.Forms;
 
+using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO.Compression;
 using System.Text;
@@ -1149,6 +1150,73 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			{
 				Directory.Delete(path: tempDir, recursive: true);
 			}
+		}
+	}
+
+	/// <summary>Saves the list as a SQLite database natively.</summary>
+	/// <remarks>This method is invoked when the user selects the "Save As SQLite" menu item. It exports the data as a SQLite database.</remarks>
+	private void SaveListViewResultsAsSqlite()
+	{
+		// Create a SaveFileDialog manually
+		using SaveFileDialog saveFileDialogSqlite = new()
+		{
+			Filter = "SQLite Database Files (*.sqlite3;*.sqlite;*.db)|*.sqlite3;*.sqlite;*.db|All Files (*.*)|*.*",
+			DefaultExt = "sqlite3",
+			Title = "Save list as SQLite"
+		};
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogSqlite, ext: saveFileDialogSqlite.DefaultExt))
+		{
+			return;
+		}
+		// Create the SQLite database and insert data
+		try
+		{
+			// If the file already exists, delete it to create a new one
+			if (File.Exists(path: saveFileDialogSqlite.FileName))
+			{
+				File.Delete(path: saveFileDialogSqlite.FileName);
+			}
+			// Create the SQLite database file
+			SQLiteConnection.CreateFile(databaseFileName: saveFileDialogSqlite.FileName);
+			string connectionString = $"Data Source={saveFileDialogSqlite.FileName};Version=3;";
+			// Open the connection and create the table, then insert data
+			using (SQLiteConnection connection = new(connectionString: connectionString))
+			{
+				connection.Open();
+				// Create the Designations table
+				using (SQLiteCommand command = new(commandText: "CREATE TABLE Designations (IndexText TEXT, Designation VARCHAR(255))", connection: connection))
+				{
+					command.ExecuteNonQuery();
+				}
+				// Insert data using a transaction for better performance
+				using (SQLiteTransaction transaction = connection.BeginTransaction())
+				{
+					// Prepare the insert command with parameters
+					using (SQLiteCommand insertCommand = new(commandText: "INSERT INTO Designations (IndexText, Designation) VALUES (@Index, @Designation)", connection: connection, transaction: transaction))
+					{
+						SQLiteParameter paramIndex = insertCommand.Parameters.Add(parameterName: "@Index", parameterType: System.Data.DbType.String);
+						SQLiteParameter paramDesig = insertCommand.Parameters.Add(parameterName: "@Designation", parameterType: System.Data.DbType.String);
+						// Iterate through the data and insert into the database
+						foreach ((string index, string name) in GetExportData())
+						{
+							paramIndex.Value = index;
+							paramDesig.Value = name;
+							insertCommand.ExecuteNonQuery();
+						}
+					}
+					transaction.Commit();
+				}
+				connection.Close();
+			}
+			// Show success message
+			_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		}
+		catch (Exception ex)
+		{
+			// Log the error and show an error message
+			logger.Error(exception: ex, message: "Error saving as SQLite.");
+			_ = MessageBox.Show(text: $"Error saving as SQLite: {ex.Message}", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 	}
 
@@ -2790,6 +2858,12 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <remarks>When the user clicks the "Save As CHM" menu item, this event handler is invoked. It calls the SaveListViewResultsAsChm method, which generates the necessary HTML and project files, then uses Microsoft HTML Help Workshop to compile them into a CHM file. If the process is successful, a confirmation message is displayed; otherwise, an error message is shown.</remarks>
 	private void ToolStripMenuItemSaveAsChm_Click(object sender, EventArgs e) => SaveListViewResultsAsChm();
 
+	/// <summary>Handles the Click event of the Save As SQLite menu item and initiates saving the current ListView results as a SQLite
+	/// file.</summary>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>When the user clicks the "Save As SQLite" menu item, this event handler is invoked. It calls the SaveListViewResultsAsSqlite method.</remarks>
+	private void ToolStripMenuItemSaveAsSqlite_Click(object sender, EventArgs e) => SaveListViewResultsAsSqlite();
 
 	#endregion
 

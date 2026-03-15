@@ -80,6 +80,7 @@ partial class ListReadableDesignationsForm
 		toolStripMenuItemSaveAsToml = new ToolStripMenuItem();
 		toolStripMenuItemDatabaseScripts = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsSql = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsSqlite = new ToolStripMenuItem();
 		toolStripMenuItemPortableDocuments = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsPdf = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsPostScript = new ToolStripMenuItem();
@@ -196,7 +197,8 @@ partial class ListReadableDesignationsForm
 		contextMenuSaveList.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveList.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveList.Name = "contextMenuSaveList";
-		contextMenuSaveList.Size = new Size(202, 158);
+		contextMenuSaveList.OwnerItem = toolStripDropDownButtonSaveList;
+		contextMenuSaveList.Size = new Size(202, 180);
 		contextMenuSaveList.TabStop = true;
 		contextMenuSaveList.Text = "&Save list";
 		contextMenuSaveList.MouseEnter += Control_Enter;
@@ -504,7 +506,7 @@ partial class ListReadableDesignationsForm
 		toolStripMenuItemSaveAsHtml.AutoToolTip = true;
 		toolStripMenuItemSaveAsHtml.Image = FatcowIcons16px.fatcow_page_white_code_16px;
 		toolStripMenuItemSaveAsHtml.Name = "toolStripMenuItemSaveAsHtml";
-		toolStripMenuItemSaveAsHtml.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsHtml.Size = new Size(163, 22);
 		toolStripMenuItemSaveAsHtml.Text = "Save as &HTML";
 		toolStripMenuItemSaveAsHtml.Click += ToolStripMenuItemSaveAsHtml_Click;
 		toolStripMenuItemSaveAsHtml.MouseEnter += Control_Enter;
@@ -518,7 +520,7 @@ partial class ListReadableDesignationsForm
 		toolStripMenuItemSaveAsXml.AutoToolTip = true;
 		toolStripMenuItemSaveAsXml.Image = FatcowIcons16px.fatcow_page_white_code_16px;
 		toolStripMenuItemSaveAsXml.Name = "toolStripMenuItemSaveAsXml";
-		toolStripMenuItemSaveAsXml.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsXml.Size = new Size(163, 22);
 		toolStripMenuItemSaveAsXml.Text = "Save as &XML";
 		toolStripMenuItemSaveAsXml.Click += ToolStripMenuItemSaveAsXml_Click;
 		toolStripMenuItemSaveAsXml.MouseEnter += Control_Enter;
@@ -532,7 +534,7 @@ partial class ListReadableDesignationsForm
 		toolStripMenuItemSaveAsDocBook.AutoToolTip = true;
 		toolStripMenuItemSaveAsDocBook.Image = FatcowIcons16px.fatcow_page_white_code_16px;
 		toolStripMenuItemSaveAsDocBook.Name = "toolStripMenuItemSaveAsDocBook";
-		toolStripMenuItemSaveAsDocBook.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsDocBook.Size = new Size(163, 22);
 		toolStripMenuItemSaveAsDocBook.Text = "Save as &DocBook";
 		toolStripMenuItemSaveAsDocBook.Click += ToolStripMenuItemSaveAsDocBook_Click;
 		toolStripMenuItemSaveAsDocBook.MouseEnter += Control_Enter;
@@ -560,7 +562,7 @@ partial class ListReadableDesignationsForm
 		toolStripMenuItemSaveAsJson.AutoToolTip = true;
 		toolStripMenuItemSaveAsJson.Image = FatcowIcons16px.fatcow_page_white_code_red_16px;
 		toolStripMenuItemSaveAsJson.Name = "toolStripMenuItemSaveAsJson";
-		toolStripMenuItemSaveAsJson.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsJson.Size = new Size(146, 22);
 		toolStripMenuItemSaveAsJson.Text = "Save as &JSON";
 		toolStripMenuItemSaveAsJson.Click += ToolStripMenuItemSaveAsJson_Click;
 		toolStripMenuItemSaveAsJson.MouseEnter += Control_Enter;
@@ -574,7 +576,7 @@ partial class ListReadableDesignationsForm
 		toolStripMenuItemSaveAsYaml.AutoToolTip = true;
 		toolStripMenuItemSaveAsYaml.Image = FatcowIcons16px.fatcow_page_white_code_red_16px;
 		toolStripMenuItemSaveAsYaml.Name = "toolStripMenuItemSaveAsYaml";
-		toolStripMenuItemSaveAsYaml.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsYaml.Size = new Size(146, 22);
 		toolStripMenuItemSaveAsYaml.Text = "Save as &YAML";
 		toolStripMenuItemSaveAsYaml.Click += ToolStripMenuItemSaveAsYaml_Click;
 		toolStripMenuItemSaveAsYaml.MouseEnter += Control_Enter;
@@ -588,7 +590,7 @@ partial class ListReadableDesignationsForm
 		toolStripMenuItemSaveAsToml.AutoToolTip = true;
 		toolStripMenuItemSaveAsToml.Image = FatcowIcons16px.fatcow_page_white_code_red_16px;
 		toolStripMenuItemSaveAsToml.Name = "toolStripMenuItemSaveAsToml";
-		toolStripMenuItemSaveAsToml.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsToml.Size = new Size(146, 22);
 		toolStripMenuItemSaveAsToml.Text = "Save as &TOML";
 		toolStripMenuItemSaveAsToml.Click += ToolStripMenuItemSaveAsToml_Click;
 		toolStripMenuItemSaveAsToml.MouseEnter += Control_Enter;
@@ -600,7 +602,7 @@ partial class ListReadableDesignationsForm
 		toolStripMenuItemDatabaseScripts.AccessibleName = "Save as database script";
 		toolStripMenuItemDatabaseScripts.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemDatabaseScripts.AutoToolTip = true;
-		toolStripMenuItemDatabaseScripts.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsSql });
+		toolStripMenuItemDatabaseScripts.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsSql, toolStripMenuItemSaveAsSqlite });
 		toolStripMenuItemDatabaseScripts.Image = FatcowIcons16px.fatcow_file_extension_ptb_16px;
 		toolStripMenuItemDatabaseScripts.Name = "toolStripMenuItemDatabaseScripts";
 		toolStripMenuItemDatabaseScripts.Size = new Size(201, 22);
@@ -617,10 +619,24 @@ partial class ListReadableDesignationsForm
 		toolStripMenuItemSaveAsSql.Image = FatcowIcons16px.fatcow_page_white_database_16px;
 		toolStripMenuItemSaveAsSql.Name = "toolStripMenuItemSaveAsSql";
 		toolStripMenuItemSaveAsSql.Size = new Size(180, 22);
-		toolStripMenuItemSaveAsSql.Text = "Save as &SQL";
+		toolStripMenuItemSaveAsSql.Text = "Save as &SQL script";
 		toolStripMenuItemSaveAsSql.Click += ToolStripMenuItemSaveAsSql_Click;
 		toolStripMenuItemSaveAsSql.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsSql.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsSqlite
+		// 
+		toolStripMenuItemSaveAsSqlite.AccessibleDescription = "Saves the list as SQLite file";
+		toolStripMenuItemSaveAsSqlite.AccessibleName = "Save as SQLite";
+		toolStripMenuItemSaveAsSqlite.AccessibleRole = AccessibleRole.MenuPopup;
+		toolStripMenuItemSaveAsSqlite.AutoToolTip = true;
+		toolStripMenuItemSaveAsSqlite.Image = FatcowIcons16px.fatcow_page_white_database_16px;
+		toolStripMenuItemSaveAsSqlite.Name = "toolStripMenuItemSaveAsSqlite";
+		toolStripMenuItemSaveAsSqlite.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsSqlite.Text = "Save as SQLite";
+		toolStripMenuItemSaveAsSqlite.Click += ToolStripMenuItemSaveAsSqlite_Click;
+		toolStripMenuItemSaveAsSqlite.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsSqlite.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemPortableDocuments
 		// 
@@ -843,7 +859,7 @@ partial class ListReadableDesignationsForm
 		toolStripContainer.MouseEnter += Control_Enter;
 		toolStripContainer.MouseLeave += Control_Leave;
 		// 
-		// kryptonToolStripList
+		// kryptonToolStripGenerateList
 		// 
 		kryptonToolStripGenerateList.AccessibleDescription = "Toolbar of generating list";
 		kryptonToolStripGenerateList.AccessibleName = "Toolbar of generating list";
@@ -912,10 +928,10 @@ partial class ListReadableDesignationsForm
 		toolStripNumericUpDownMinimum.Size = new Size(41, 23);
 		toolStripNumericUpDownMinimum.Text = "0";
 		toolStripNumericUpDownMinimum.TextAlign = HorizontalAlignment.Center;
-		toolStripNumericUpDownMinimum.Enter += Control_Enter;
-		toolStripNumericUpDownMinimum.Leave += Control_Leave;
 		toolStripNumericUpDownMinimum.MouseEnter += Control_Enter;
 		toolStripNumericUpDownMinimum.MouseLeave += Control_Leave;
+		toolStripNumericUpDownMinimum.Enter += Control_Enter;
+		toolStripNumericUpDownMinimum.Leave += Control_Leave;
 		// 
 		// toolStripLabelMaximum
 		// 
@@ -940,10 +956,10 @@ partial class ListReadableDesignationsForm
 		toolStripNumericUpDownMaximum.Size = new Size(41, 23);
 		toolStripNumericUpDownMaximum.Text = "0";
 		toolStripNumericUpDownMaximum.TextAlign = HorizontalAlignment.Center;
-		toolStripNumericUpDownMaximum.Enter += Control_Enter;
-		toolStripNumericUpDownMaximum.Leave += Control_Leave;
 		toolStripNumericUpDownMaximum.MouseEnter += Control_Enter;
 		toolStripNumericUpDownMaximum.MouseLeave += Control_Leave;
+		toolStripNumericUpDownMaximum.Enter += Control_Enter;
+		toolStripNumericUpDownMaximum.Leave += Control_Leave;
 		// 
 		// kryptonToolStripSaveList
 		// 
@@ -1091,4 +1107,5 @@ partial class ListReadableDesignationsForm
 	private ToolStripMenuItem toolStripMenuItemSaveAsFictionBook2;
 	private ToolStripMenuItem toolStripMenuItemSaveAsChm;
 	private ToolStripMenuItem toolStripMenuItemSaveAsEt;
+	private ToolStripMenuItem toolStripMenuItemSaveAsSqlite;
 }
