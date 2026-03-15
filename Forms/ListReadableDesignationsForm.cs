@@ -242,7 +242,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		if (!TryParsePlanetoidRecord(record: currentData, recordIndex: dbIndex, parsedIndex: out string strIndex, parsedDesignation: out string strDesignation))
 		{
 			// If parsing fails, show an error message and return
-			MessageBox.Show(text: "Invalid record format.", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			_ = MessageBox.Show(text: "Invalid record format.", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			return;
 		}
 		// Jump to the record in the main form
@@ -485,6 +485,671 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			}
 		}
 		return builder.ToString();
+	}
+
+	/// <summary>Saves the list as an AsciiDoc document.</summary>
+	/// <remarks>This method is invoked when the user selects the "Save As AsciiDoc" menu item.</remarks>
+	private void SaveListViewResultsAsAsciiDoc()
+	{
+		// Create a SaveFileDialog manually
+		using SaveFileDialog saveFileDialogAsciiDoc = new()
+		{
+			Filter = "AsciiDoc files (*.adoc)|*.adoc|All files (*.*)|*.*",
+			DefaultExt = "adoc",
+			Title = "Save list as AsciiDoc"
+		};
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogAsciiDoc, ext: saveFileDialogAsciiDoc.DefaultExt))
+		{
+			return;
+		}
+		// Write the data to the AsciiDoc file
+		using StreamWriter writer = new(path: saveFileDialogAsciiDoc.FileName, append: false, encoding: Encoding.UTF8);
+		// Document title
+		writer.WriteLine(value: "= List of Readable Designations");
+		writer.WriteLine();
+		// Configure table
+		writer.WriteLine(value: "[options=\"header\"]");
+		writer.WriteLine(value: "|===");
+		writer.WriteLine(value: "|Index|Designation");
+		// Iterate data
+		foreach ((string index, string name) in GetExportData())
+		{
+			string safeName = name.Replace(oldValue: "|", newValue: "\\|"); // Escape pipes in AsciiDoc tables
+			writer.WriteLine(value: $"|{index}|{safeName}");
+		}
+		writer.WriteLine(value: "|===");
+		// Show success message
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>Saves the list as a reStructuredText document.</summary>
+	/// <remarks>This method is invoked when the user selects the "Save As reStructuredText" menu item.</remarks>
+	private void SaveListViewResultsAsReStructuredText()
+	{
+		// Create a SaveFileDialog manually
+		using SaveFileDialog saveFileDialogRst = new()
+		{
+			Filter = "reStructuredText files (*.rst)|*.rst|All files (*.*)|*.*",
+			DefaultExt = "rst",
+			Title = "Save list as reStructuredText"
+		};
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogRst, ext: saveFileDialogRst.DefaultExt))
+		{
+			return;
+		}
+		// Write the data to the reStructuredText file
+		using StreamWriter writer = new(path: saveFileDialogRst.FileName, append: false, encoding: Encoding.UTF8);
+		// Document title
+		string title = "List of Readable Designations";
+		writer.WriteLine(value: new string(c: '=', count: title.Length));
+		writer.WriteLine(value: title);
+		writer.WriteLine(value: new string(c: '=', count: title.Length));
+		writer.WriteLine();
+		// Iterate data to determine max column widths
+		int maxIndexLength = "Index".Length;
+		int maxNameLength = "Designation".Length;
+		List<(string Index, string Name)> exportData = GetExportData().ToList();
+		foreach ((string index, string name) in exportData)
+		{
+			if (index.Length > maxIndexLength)
+			{
+				maxIndexLength = index.Length;
+			}
+
+			if (name.Length > maxNameLength)
+			{
+				maxNameLength = name.Length;
+			}
+		}
+		// Add some padding
+		maxIndexLength += 2;
+		maxNameLength += 2;
+		// Helper to create separators
+		string separator = $"+{new string(c: '-', count: maxIndexLength)}+{new string(c: '-', count: maxNameLength)}+";
+		string headerSeparator = $"+{new string(c: '=', count: maxIndexLength)}+{new string(c: '=', count: maxNameLength)}+";
+		// Write table header
+		writer.WriteLine(value: separator);
+		writer.WriteLine(value: $"| {"Index".PadRight(totalWidth: maxIndexLength - 1)}| {"Designation".PadRight(totalWidth: maxNameLength - 1)}|");
+		writer.WriteLine(value: headerSeparator);
+		// Write table rows
+		foreach ((string index, string name) in exportData)
+		{
+			writer.WriteLine(value: $"| {index.PadRight(totalWidth: maxIndexLength - 1)}| {name.PadRight(totalWidth: maxNameLength - 1)}|");
+			writer.WriteLine(value: separator);
+		}
+		// Show success message
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>Saves the list as a Textile document.</summary>
+	/// <remarks>This method is invoked when the user selects the "Save As Textile" menu item.</remarks>
+	private void SaveListViewResultsAsTextile()
+	{
+		// Create a SaveFileDialog manually
+		using SaveFileDialog saveFileDialogTextile = new()
+		{
+			Filter = "Textile files (*.textile)|*.textile|All files (*.*)|*.*",
+			DefaultExt = "textile",
+			Title = "Save list as Textile"
+		};
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogTextile, ext: saveFileDialogTextile.DefaultExt))
+		{
+			return;
+		}
+		// Write the data to the Textile file
+		using StreamWriter writer = new(path: saveFileDialogTextile.FileName, append: false, encoding: Encoding.UTF8);
+		// Document title
+		writer.WriteLine(value: "h1. List of Readable Designations");
+		writer.WriteLine();
+		// Write table header
+		writer.WriteLine(value: "|_. Index |_. Designation |");
+		// Write table rows
+		foreach ((string index, string name) in GetExportData())
+		{
+			// Escape table cell dividers
+			string safeName = name.Replace(oldValue: "|", newValue: "&#124;");
+			string safeIndex = index.Replace(oldValue: "|", newValue: "&#124;");
+
+			writer.WriteLine(value: $"| {safeIndex} | {safeName} |");
+		}
+		// Show success message
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>Saves the list as an AbiWord document.</summary>
+	/// <remarks>This method is invoked when the user selects the "Save As AbiWord" menu item.</remarks>
+	private void SaveListViewResultsAsAbiword()
+	{
+		// Create a SaveFileDialog manually
+		using SaveFileDialog saveFileDialogAbiword = new()
+		{
+			Filter = "AbiWord documents (*.abw)|*.abw|All files (*.*)|*.*",
+			DefaultExt = "abw",
+			Title = "Save list as AbiWord"
+		};
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogAbiword, ext: saveFileDialogAbiword.DefaultExt))
+		{
+			return;
+		}
+		// Write the data to the AbiWord file
+		using StreamWriter writer = new(path: saveFileDialogAbiword.FileName, append: false, encoding: Encoding.UTF8);
+		writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+		writer.WriteLine(value: "<!DOCTYPE abiword PUBLIC \"-//ABISOURCE//DTD AWML 1.0 Strict//EN\" \"http://www.abisource.com/awml.dtd\">");
+		writer.WriteLine(value: "<abiword xmlns:awml=\"http://www.abisource.com/awml.dtd\" version=\"1.9.2\" fileformat=\"1.0\" xmlns=\"http://www.abisource.com/awml.dtd\">");
+		writer.WriteLine(value: "  <section>");
+		writer.WriteLine(value: "    <p style=\"Heading 1\">List of Readable Designations</p>");
+		writer.WriteLine(value: "    <table>");
+		int row = 0;
+		void WriteCell(string text, int col, int r)
+		{
+			string safeText = System.Net.WebUtility.HtmlEncode(value: text) ?? string.Empty;
+			writer.WriteLine(value: $"      <cell left-attach=\"{col}\" right-attach=\"{col + 1}\" top-attach=\"{r}\" bottom-attach=\"{r + 1}\">");
+			writer.WriteLine(value: $"        <p>{safeText}</p>");
+			writer.WriteLine(value: "      </cell>");
+		}
+		WriteCell(text: "Index", col: 0, r: row);
+		WriteCell(text: "Designation", col: 1, r: row);
+		row++;
+		foreach ((string index, string name) in GetExportData())
+		{
+			WriteCell(text: index, col: 0, r: row);
+			WriteCell(text: name, col: 1, r: row);
+			row++;
+		}
+		writer.WriteLine(value: "    </table>");
+		writer.WriteLine(value: "  </section>");
+		writer.WriteLine(value: "</abiword>");
+		// Show success message
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>Saves the list as a WPS document.</summary>
+	/// <remarks>This method is invoked when the user selects the "Save As WPS" menu item. It exports the data as HTML since WPS Office natively supports it.</remarks>
+	private void SaveListViewResultsAsWps()
+	{
+		// Create a SaveFileDialog manually
+		using SaveFileDialog saveFileDialogWps = new()
+		{
+			Filter = "WPS Writer documents (*.wps)|*.wps|All files (*.*)|*.*",
+			DefaultExt = "wps",
+			Title = "Save list as WPS"
+		};
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogWps, ext: saveFileDialogWps.DefaultExt))
+		{
+			return;
+		}
+		// Write the data to the WPS file (using HTML format internally for compatibility with WPS Office)
+		using StreamWriter writer = new(path: saveFileDialogWps.FileName, append: false, encoding: Encoding.UTF8);
+		writer.WriteLine(value: "<!DOCTYPE html>");
+		writer.WriteLine(value: "<html>");
+		writer.WriteLine(value: "<head>");
+		writer.WriteLine(value: "<meta charset=\"utf-8\">");
+		writer.WriteLine(value: "<title>List of Readable Designations</title>");
+		writer.WriteLine(value: "<style>table { border-collapse: collapse; width: 100%; } th, td { border: 1px solid black; padding: 5px; text-align: left; }</style>");
+		writer.WriteLine(value: "</head>");
+		writer.WriteLine(value: "<body>");
+		writer.WriteLine(value: "<h1>List of Readable Designations</h1>");
+		writer.WriteLine(value: "<table>");
+		writer.WriteLine(value: "<tr><th>Index</th><th>Designation</th></tr>");
+		foreach ((string index, string name) in GetExportData())
+		{
+			string safeIndex = System.Net.WebUtility.HtmlEncode(value: index) ?? string.Empty;
+			string safeName = System.Net.WebUtility.HtmlEncode(value: name) ?? string.Empty;
+			writer.WriteLine(value: $"<tr><td>{safeIndex}</td><td>{safeName}</td></tr>");
+		}
+		writer.WriteLine(value: "</table>");
+		writer.WriteLine(value: "</body>");
+		writer.WriteLine(value: "</html>");
+		// Show success message
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>Saves the list as an ET spreadsheet document (WPS Spreadsheets).</summary>
+	/// <remarks>This method is invoked when the user selects the "Save As ET" menu item. It exports the data as CSV since WPS Spreadsheets natively supports it.</remarks>
+	private void SaveListViewResultsAsEt()
+	{
+		// Create a SaveFileDialog manually
+		using SaveFileDialog saveFileDialogEt = new()
+		{
+			Filter = "WPS Spreadsheets (*.et)|*.et|All files (*.*)|*.*",
+			DefaultExt = "et",
+			Title = "Save list as ET"
+		};
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogEt, ext: saveFileDialogEt.DefaultExt))
+		{
+			return;
+		}
+		// Write the data to the ET file (using CSV format internally for compatibility with WPS Spreadsheets)
+		using StreamWriter writer = new(path: saveFileDialogEt.FileName, append: false, encoding: Encoding.UTF8);
+		writer.WriteLine(value: "Index,Designation");
+		foreach ((string index, string name) in GetExportData())
+		{
+			// Escape quotes in CSV
+			string safeIndex = index.Replace(oldValue: "\"", newValue: "\"\"");
+			string safeName = name.Replace(oldValue: "\"", newValue: "\"\"");
+			writer.WriteLine(value: $"\"{safeIndex}\",\"{safeName}\"");
+		}
+		// Show success message
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>Saves the list as a DocBook document.</summary>
+	/// <remarks>This method is invoked when the user selects the "Save As DocBook" menu item.</remarks>
+	private void SaveListViewResultsAsDocBook()
+	{
+		// Create a SaveFileDialog manually
+		using SaveFileDialog saveFileDialogDocBook = new()
+		{
+			Filter = "DocBook files (*.xml)|*.xml|All files (*.*)|*.*",
+			DefaultExt = "xml",
+			Title = "Save list as DocBook"
+		};
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogDocBook, ext: saveFileDialogDocBook.DefaultExt))
+		{
+			return;
+		}
+		// Write the data to the DocBook file
+		XmlWriterSettings settings = new() { Indent = true };
+		using XmlWriter writer = XmlWriter.Create(outputFileName: saveFileDialogDocBook.FileName, settings: settings);
+		// Write XML document
+		writer.WriteStartDocument();
+		// DocBook Article root
+		writer.WriteStartElement(localName: "article", ns: "http://docbook.org/ns/docbook");
+		writer.WriteAttributeString(localName: "version", value: "5.0");
+		// Title
+		writer.WriteStartElement(localName: "title");
+		writer.WriteString(text: "List of Readable Designations");
+		writer.WriteEndElement();
+		// Section
+		writer.WriteStartElement(localName: "section");
+		// Table
+		writer.WriteStartElement(localName: "table");
+		writer.WriteAttributeString(localName: "frame", value: "all");
+		writer.WriteStartElement(localName: "title");
+		writer.WriteString(text: "Planetoid Designations");
+		writer.WriteEndElement();
+		writer.WriteStartElement(localName: "tgroup");
+		writer.WriteAttributeString(localName: "cols", value: "2");
+		writer.WriteStartElement(localName: "colspec");
+		writer.WriteAttributeString(localName: "colname", value: "c1");
+		writer.WriteEndElement();
+		writer.WriteStartElement(localName: "colspec");
+		writer.WriteAttributeString(localName: "colname", value: "c2");
+		writer.WriteEndElement();
+		// Table Header
+		writer.WriteStartElement(localName: "thead");
+		writer.WriteStartElement(localName: "row");
+		writer.WriteStartElement(localName: "entry");
+		writer.WriteString(text: "Index");
+		writer.WriteEndElement();
+		writer.WriteStartElement(localName: "entry");
+		writer.WriteString(text: "Designation");
+		writer.WriteEndElement();
+		writer.WriteEndElement(); // row
+		writer.WriteEndElement(); // thead
+								  // Table Body
+		writer.WriteStartElement(localName: "tbody");
+		foreach ((string index, string name) in GetExportData())
+		{
+			writer.WriteStartElement(localName: "row");
+			writer.WriteStartElement(localName: "entry");
+			writer.WriteString(text: index);
+			writer.WriteEndElement();
+			writer.WriteStartElement(localName: "entry");
+			writer.WriteString(text: name);
+			writer.WriteEndElement();
+			writer.WriteEndElement(); // row
+		}
+		writer.WriteEndElement(); // tbody
+		writer.WriteEndElement(); // tgroup
+		writer.WriteEndElement(); // table
+		writer.WriteEndElement(); // section
+		writer.WriteEndElement(); // article
+		writer.WriteEndDocument();
+		// Show success message
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>Saves the list as a TOML document.</summary>
+	/// <remarks>This method is invoked when the user selects the "Save As TOML" menu item.</remarks>
+	private void SaveListViewResultsAsToml()
+	{
+		// Create a SaveFileDialog manually
+		using SaveFileDialog saveFileDialogToml = new()
+		{
+			Filter = "TOML files (*.toml)|*.toml|All files (*.*)|*.*",
+			DefaultExt = "toml",
+			Title = "Save list as TOML"
+		};
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogToml, ext: saveFileDialogToml.DefaultExt))
+		{
+			return;
+		}
+		// Write the data to the TOML file
+		using StreamWriter writer = new(path: saveFileDialogToml.FileName, append: false, encoding: Encoding.UTF8);
+		writer.WriteLine(value: "title = \"List of Readable Designations\"");
+		writer.WriteLine(value: $"created_at = {DateTime.UtcNow:yyyy-MM-ddTHH:mm:ssZ}");
+		writer.WriteLine();
+		foreach ((string index, string name) in GetExportData())
+		{
+			string safeIndex = index.Replace(oldValue: "\\", newValue: "\\\\").Replace(oldValue: "\"", newValue: "\\\"");
+			string safeName = name.Replace(oldValue: "\\", newValue: "\\\\").Replace(oldValue: "\"", newValue: "\\\"");
+			writer.WriteLine(value: "[[planetoids]]");
+			writer.WriteLine(value: $"index = \"{safeIndex}\"");
+			writer.WriteLine(value: $"designation = \"{safeName}\"");
+			writer.WriteLine();
+		}
+		// Show success message
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>Saves the list as an XPS document.</summary>
+	/// <remarks>This method is invoked when the user selects the "Save As XPS" menu item.</remarks>
+	private void SaveListViewResultsAsXps()
+	{
+		// Create a SaveFileDialog manually
+		using SaveFileDialog saveFileDialogXps = new()
+		{
+			Filter = "XML Paper Specification files (*.xps)|*.xps|All files (*.*)|*.*",
+			DefaultExt = "xps",
+			Title = "Save list as XPS"
+		};
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogXps, ext: saveFileDialogXps.DefaultExt))
+		{
+			return;
+		}
+		// Create the XPS file (which is a ZIP archive)
+		using FileStream fs = new(path: saveFileDialogXps.FileName, mode: FileMode.Create);
+		using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
+
+		// 1. [Content_Types].xml
+		ZipArchiveEntry contentTypesEntry = archive.CreateEntry(entryName: "[Content_Types].xml", compressionLevel: CompressionLevel.Optimal);
+		using (StreamWriter writer = new(stream: contentTypesEntry.Open(), encoding: Encoding.UTF8))
+		{
+			writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+			writer.WriteLine(value: "<Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\">");
+			writer.WriteLine(value: "  <Default Extension=\"rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\" />");
+			writer.WriteLine(value: "  <Default Extension=\"fdoc\" ContentType=\"application/vnd.ms-package.xps-fixeddocument+xml\" />");
+			writer.WriteLine(value: "  <Default Extension=\"fseq\" ContentType=\"application/vnd.ms-package.xps-fixeddocumentsequence+xml\" />");
+			writer.WriteLine(value: "  <Default Extension=\"fpage\" ContentType=\"application/vnd.ms-package.xps-fixedpage+xml\" />");
+			writer.WriteLine(value: "</Types>");
+		}
+		// 2. _rels/.rels
+		ZipArchiveEntry rootRelsEntry = archive.CreateEntry(entryName: "_rels/.rels", compressionLevel: CompressionLevel.Optimal);
+		using (StreamWriter writer = new(stream: rootRelsEntry.Open(), encoding: Encoding.UTF8))
+		{
+			writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+			writer.WriteLine(value: "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">");
+			writer.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.microsoft.com/xps/2005/06/fixedrepresentation\" Target=\"/FixedDocumentSequence.fseq\" />");
+			writer.WriteLine(value: "</Relationships>");
+		}
+		// 3. FixedDocumentSequence.fseq
+		ZipArchiveEntry fseqEntry = archive.CreateEntry(entryName: "FixedDocumentSequence.fseq", compressionLevel: CompressionLevel.Optimal);
+		using (StreamWriter writer = new(stream: fseqEntry.Open(), encoding: Encoding.UTF8))
+		{
+			writer.WriteLine(value: "<FixedDocumentSequence xmlns=\"http://schemas.microsoft.com/xps/2005/06\">");
+			writer.WriteLine(value: "  <DocumentReference Source=\"/Documents/1/FixedDocument.fdoc\" />");
+			writer.WriteLine(value: "</FixedDocumentSequence>");
+		}
+		// 4. FixedDocumentSequence.fseq.rels
+		ZipArchiveEntry fseqRelsEntry = archive.CreateEntry(entryName: "_rels/FixedDocumentSequence.fseq.rels", compressionLevel: CompressionLevel.Optimal);
+		using (StreamWriter writer = new(stream: fseqRelsEntry.Open(), encoding: Encoding.UTF8))
+		{
+			writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+			writer.WriteLine(value: "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">");
+			writer.WriteLine(value: "  <Relationship Id=\"rdoc1\" Type=\"http://schemas.microsoft.com/xps/2005/06/required-resource\" Target=\"/Documents/1/FixedDocument.fdoc\" />");
+			writer.WriteLine(value: "</Relationships>");
+		}
+		// 5. FixedDocument.fdoc
+		ZipArchiveEntry fdocEntry = archive.CreateEntry(entryName: "Documents/1/FixedDocument.fdoc", compressionLevel: CompressionLevel.Optimal);
+		using (StreamWriter writer = new(stream: fdocEntry.Open(), encoding: Encoding.UTF8))
+		{
+			writer.WriteLine(value: "<FixedDocument xmlns=\"http://schemas.microsoft.com/xps/2005/06\">");
+			writer.WriteLine(value: "  <PageContent Source=\"/Documents/1/Pages/1.fpage\" />");
+			writer.WriteLine(value: "</FixedDocument>");
+		}
+		// 6. FixedDocument.fdoc.rels
+		ZipArchiveEntry fdocRelsEntry = archive.CreateEntry(entryName: "Documents/1/_rels/FixedDocument.fdoc.rels", compressionLevel: CompressionLevel.Optimal);
+		using (StreamWriter writer = new(stream: fdocRelsEntry.Open(), encoding: Encoding.UTF8))
+		{
+			writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+			writer.WriteLine(value: "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">");
+			writer.WriteLine(value: "  <Relationship Id=\"rpage1\" Type=\"http://schemas.microsoft.com/xps/2005/06/required-resource\" Target=\"/Documents/1/Pages/1.fpage\" />");
+			writer.WriteLine(value: "</Relationships>");
+		}
+		// 7. Pages/1.fpage
+		ZipArchiveEntry fpageEntry = archive.CreateEntry(entryName: "Documents/1/Pages/1.fpage", compressionLevel: CompressionLevel.Optimal);
+		using (StreamWriter writer = new(stream: fpageEntry.Open(), encoding: Encoding.UTF8))
+		{
+			writer.WriteLine(value: "<FixedPage Width=\"816\" Height=\"1056\" xmlns=\"http://schemas.microsoft.com/xps/2005/06\" xml:lang=\"en-US\">");
+			writer.WriteLine(value: "  <Glyphs Fill=\"#ff000000\" FontUri=\"\" FontRenderingEmSize=\"16\" OriginX=\"96\" OriginY=\"96\" UnicodeString=\"List of Readable Designations\" />");
+			// We iterate through the data. Warning: Since this is a very simple XPS generator, we write everything on 1 page and just increase Y.
+			// A real XPS would need pagination, font embedding, etc. But for this requirement, a simple text dump without font file is a minimalistic approach 
+			// (some viewers might fail if FontUri is empty, but XPS supports standard core fonts by fallback in some viewers like Edge/IE).
+			int currentY = 120;
+			foreach ((string index, string name) in GetExportData())
+			{
+				string safeIndex = System.Net.WebUtility.HtmlEncode(value: index) ?? string.Empty;
+				string safeName = System.Net.WebUtility.HtmlEncode(value: name) ?? string.Empty;
+				writer.WriteLine(value: $"  <Glyphs Fill=\"#ff000000\" FontUri=\"\" FontRenderingEmSize=\"12\" OriginX=\"96\" OriginY=\"{currentY}\" UnicodeString=\"{safeIndex}\" />");
+				writer.WriteLine(value: $"  <Glyphs Fill=\"#ff000000\" FontUri=\"\" FontRenderingEmSize=\"12\" OriginX=\"192\" OriginY=\"{currentY}\" UnicodeString=\"{safeName}\" />");
+				currentY += 16;
+			}
+			writer.WriteLine(value: "</FixedPage>");
+		}
+		// Note on XPS minimal compliance: A truly compliant XPS demands an interleaved generic TTF/ODTTF font and its rels binding.
+		// However, without external packages, providing a full TTF stream manually is huge. The above is the minimum markup structure.
+		// Show success message
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>Saves the list as a FictionBook2 document.</summary>
+	/// <remarks>This method is invoked when the user selects the "Save As FictionBook2" menu item.</remarks>
+	private void SaveListViewResultsAsFictionBook2()
+	{
+		// Create a SaveFileDialog manually
+		using SaveFileDialog saveFileDialogFb2 = new()
+		{
+			Filter = "FictionBook2 files (*.fb2)|*.fb2|All files (*.*)|*.*",
+			DefaultExt = "fb2",
+			Title = "Save list as FictionBook2"
+		};
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogFb2, ext: saveFileDialogFb2.DefaultExt))
+		{
+			return;
+		}
+		// Write the data to the FictionBook2 file
+		XmlWriterSettings settings = new() { Indent = true, Encoding = Encoding.UTF8 };
+		using XmlWriter writer = XmlWriter.Create(outputFileName: saveFileDialogFb2.FileName, settings: settings);
+		string fb2Ns = "http://www.gribuser.ru/xml/fictionbook/2.0";
+		writer.WriteStartDocument();
+		writer.WriteStartElement(localName: "FictionBook", ns: fb2Ns);
+		writer.WriteAttributeString(prefix: "xmlns", localName: "l", ns: null, value: "http://www.w3.org/1999/xlink");
+		// description
+		writer.WriteStartElement(localName: "description", ns: fb2Ns);
+		// title-info
+		writer.WriteStartElement(localName: "title-info", ns: fb2Ns);
+		writer.WriteElementString(localName: "genre", ns: fb2Ns, value: "reference");
+		writer.WriteStartElement(localName: "author", ns: fb2Ns);
+		writer.WriteElementString(localName: "first-name", ns: fb2Ns, value: "Planetoid-DB");
+		writer.WriteElementString(localName: "last-name", ns: fb2Ns, value: "");
+		writer.WriteEndElement(); // author
+		writer.WriteElementString(localName: "book-title", ns: fb2Ns, value: "List of Readable Designations");
+		writer.WriteElementString(localName: "lang", ns: fb2Ns, value: "en");
+		writer.WriteEndElement(); // title-info
+								  // document-info
+		writer.WriteStartElement(localName: "document-info", ns: fb2Ns);
+		writer.WriteStartElement(localName: "author", ns: fb2Ns);
+		writer.WriteElementString(localName: "first-name", ns: fb2Ns, value: "Planetoid-DB");
+		writer.WriteElementString(localName: "last-name", ns: fb2Ns, value: "");
+		writer.WriteEndElement(); // author
+		writer.WriteElementString(localName: "program-used", ns: fb2Ns, value: "Planetoid-DB");
+		writer.WriteStartElement(localName: "date", ns: fb2Ns);
+		writer.WriteAttributeString(localName: "value", value: DateTime.Now.ToString(format: "yyyy-MM-dd"));
+		writer.WriteString(text: DateTime.Now.ToString(format: "yyyy-MM-dd"));
+		writer.WriteEndElement(); // date
+		writer.WriteElementString(localName: "id", ns: fb2Ns, value: Guid.NewGuid().ToString());
+		writer.WriteElementString(localName: "version", ns: fb2Ns, value: "1.0");
+		writer.WriteEndElement(); // document-info
+		writer.WriteEndElement(); // description
+								  // body
+		writer.WriteStartElement(localName: "body", ns: fb2Ns);
+		writer.WriteStartElement(localName: "title", ns: fb2Ns);
+		writer.WriteStartElement(localName: "p", ns: fb2Ns);
+		writer.WriteString(text: "List of Readable Designations");
+		writer.WriteEndElement(); // p
+		writer.WriteEndElement(); // title
+		writer.WriteStartElement(localName: "section", ns: fb2Ns);
+		writer.WriteStartElement(localName: "table", ns: fb2Ns);
+		writer.WriteStartElement(localName: "tr", ns: fb2Ns);
+		writer.WriteStartElement(localName: "th", ns: fb2Ns);
+		writer.WriteString(text: "Index");
+		writer.WriteEndElement(); // th
+		writer.WriteStartElement(localName: "th", ns: fb2Ns);
+		writer.WriteString(text: "Designation");
+		writer.WriteEndElement(); // th
+		writer.WriteEndElement(); // tr
+		foreach ((string index, string name) in GetExportData())
+		{
+			writer.WriteStartElement(localName: "tr", ns: fb2Ns);
+			writer.WriteStartElement(localName: "td", ns: fb2Ns);
+			writer.WriteString(text: index);
+			writer.WriteEndElement(); // td
+			writer.WriteStartElement(localName: "td", ns: fb2Ns);
+			writer.WriteString(text: name);
+			writer.WriteEndElement(); // td
+			writer.WriteEndElement(); // tr
+		}
+		writer.WriteEndElement(); // table
+		writer.WriteEndElement(); // section
+		writer.WriteEndElement(); // body
+		writer.WriteEndElement(); // FictionBook
+		writer.WriteEndDocument();
+		// Show success message
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>Saves the list as a Compiled HTML Help (CHM) document.</summary>
+	/// <remarks>This method generates the necessary HTML and project files, then uses Microsoft HTML Help Workshop to compile them.</remarks>
+	private void SaveListViewResultsAsChm()
+	{
+		// Create a SaveFileDialog manually
+		using SaveFileDialog saveFileDialogChm = new()
+		{
+			Filter = "Compiled HTML Help files (*.chm)|*.chm|All files (*.*)|*.*",
+			DefaultExt = "chm",
+			Title = "Save list as CHM"
+		};
+		// Prepare the save dialog
+		if (!PrepareSaveDialog(dialog: saveFileDialogChm, ext: saveFileDialogChm.DefaultExt))
+		{
+			return;
+		}
+		// Find hhc.exe
+		string hhcPath = Path.Combine(path1: Environment.GetFolderPath(folder: Environment.SpecialFolder.ProgramFilesX86), path2: @"HTML Help Workshop\hhc.exe");
+		if (!File.Exists(path: hhcPath))
+		{
+			_ = MessageBox.Show(text: "Microsoft HTML Help Workshop is not installed or not found at the default location. Cannot compile CHM file.", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			return;
+		}
+		// Create a temporary directory
+		string tempDir = Path.Combine(path1: Path.GetTempPath(), path2: Guid.NewGuid().ToString());
+		Directory.CreateDirectory(path: tempDir);
+		try
+		{
+			string htmlPath = Path.Combine(path1: tempDir, path2: "index.html");
+			string hhcFilePath = Path.Combine(path1: tempDir, path2: "toc.hhc");
+			string hhpPath = Path.Combine(path1: tempDir, path2: "project.hhp");
+			string chmTempPath = Path.Combine(path1: tempDir, path2: "project.chm");
+			// 1. Generate HTML
+			using (StreamWriter writer = new(path: htmlPath, append: false, encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><title>List of Readable Designations</title><style>table { border-collapse: collapse; width: 100%; } th, td { border: 1px solid #000; padding: 5px; text-align: left; }</style></head><body>");
+				writer.WriteLine(value: "<h1>List of Readable Designations</h1>");
+				writer.WriteLine(value: "<table><tr><th>Index</th><th>Designation</th></tr>");
+				foreach ((string index, string name) in GetExportData())
+				{
+					string safeIndex = System.Net.WebUtility.HtmlEncode(value: index) ?? string.Empty;
+					string safeName = System.Net.WebUtility.HtmlEncode(value: name) ?? string.Empty;
+					writer.WriteLine(value: $"<tr><td>{safeIndex}</td><td>{safeName}</td></tr>");
+				}
+				writer.WriteLine(value: "</table></body></html>");
+			}
+			// 2. Generate TOC (.hhc)
+			using (StreamWriter writer = new(path: hhcFilePath, append: false, encoding: Encoding.ASCII))
+			{
+				writer.WriteLine(value: "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML//EN\">");
+				writer.WriteLine(value: "<HTML><HEAD><meta name=\"GENERATOR\" content=\"Planetoid-DB\"></HEAD><BODY>");
+				writer.WriteLine(value: "<OBJECT type=\"text/site properties\"><param name=\"ImageType\" value=\"Folder\"></OBJECT>");
+				writer.WriteLine(value: "<UL>");
+				writer.WriteLine(value: "<LI><OBJECT type=\"text/sitemap\">");
+				writer.WriteLine(value: "<param name=\"Name\" value=\"List of Readable Designations\">");
+				writer.WriteLine(value: "<param name=\"Local\" value=\"index.html\">");
+				writer.WriteLine(value: "</OBJECT>");
+				writer.WriteLine(value: "</UL></BODY></HTML>");
+			}
+			// 3. Generate Project (.hhp)
+			using (StreamWriter writer = new(path: hhpPath, append: false, encoding: Encoding.ASCII))
+			{
+				writer.WriteLine(value: "[OPTIONS]");
+				writer.WriteLine(value: "Compatibility=1.1 or later");
+				writer.WriteLine(value: "Compiled file=project.chm");
+				writer.WriteLine(value: "Contents file=toc.hhc");
+				writer.WriteLine(value: "Default topic=index.html");
+				writer.WriteLine(value: "Display compile progress=No");
+				writer.WriteLine(value: "Language=0x409 English (United States)");
+				writer.WriteLine(value: "Title=List of Readable Designations");
+				writer.WriteLine(value: "");
+				writer.WriteLine(value: "[FILES]");
+				writer.WriteLine(value: "index.html");
+			}
+			// 4. Compile using hhc.exe
+			ProcessStartInfo startInfo = new()
+			{
+				FileName = hhcPath,
+				Arguments = $"\"{hhpPath}\"",
+				CreateNoWindow = true,
+				WindowStyle = ProcessWindowStyle.Hidden,
+				UseShellExecute = false
+			};
+			using (Process? process = Process.Start(startInfo: startInfo))
+			{
+				process?.WaitForExit();
+			}
+			// 5. Copy the CHM to the destination
+			if (File.Exists(path: chmTempPath))
+			{
+				File.Copy(sourceFileName: chmTempPath, destFileName: saveFileDialogChm.FileName, overwrite: true);
+				_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			}
+			else
+			{
+				_ = MessageBox.Show(text: "Failed to compile the CHM file.", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			}
+		}
+		catch (Exception ex)
+		{
+			logger.Error(exception: ex, message: "Error saving as CHM.");
+			_ = MessageBox.Show(text: $"Error saving as CHM: {ex.Message}", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+		}
+		finally
+		{
+			// Clean up temporary directory
+			if (Directory.Exists(path: tempDir))
+			{
+				Directory.Delete(path: tempDir, recursive: true);
+			}
+		}
 	}
 
 	#endregion
@@ -759,11 +1424,6 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <remarks>When the Load button is clicked, this method calls the SelectPlanetoidInMainForm method to navigate to the selected planetoid record in the main form. After initiating the selection, it closes the current form to return control to the main form, and sets the dialog result to <see cref="DialogResult.OK"/> to signal a successful selection.</remarks>
 	private void ToolStripButtonLoad_Click(object sender, EventArgs e)
 	{
-		// Check if any item is selected
-		if (listView.SelectedItems.Count == 0)
-		{
-			return;
-		}
 		// Select the planetoid in the main form
 		SelectPlanetoidInMainForm();
 		// Set the dialog result to OK and close the form
@@ -795,7 +1455,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		{
 			streamWriter.WriteLine(value: $"{index}; {name}");
 		}
-		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>Saves the current list as an HTML file.</summary>
@@ -828,7 +1488,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		}
 		// Write HTML footer
 		w.WriteLine(value: "</body></html>");
-		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>Saves the current list as an XML file.</summary>
@@ -866,7 +1526,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// End XML document
 		writer.WriteEndElement();
 		writer.WriteEndDocument();
-		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>Saves the current list as a JSON file.</summary>
@@ -892,7 +1552,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// Serialize to JSON and write to file
 		string jsonString = JsonSerializer.Serialize(value: exportList, options: new() { WriteIndented = true });
 		File.WriteAllText(path: saveFileDialogJson.FileName, contents: jsonString);
-		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>Saves the current list as a SQL script.
@@ -941,7 +1601,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		}
 		// Commit transaction
 		streamWriter.WriteLine(value: $"COMMIT;");
-		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>Saves the current list as a Markdown table.
@@ -974,7 +1634,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		{
 			streamWriter.WriteLine(value: $"| {index} | {EscapeMarkdownCell(value: name)} |");
 		}
-		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>Saves the list in YAML format.
@@ -1012,7 +1672,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			// Quotes are important if the name contains special characters
 			streamWriter.WriteLine(value: $"      name: \"{name}\"");
 		}
-		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>Saves the list as a TSV (Tab-Separated Values) file.
@@ -1044,7 +1704,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		{
 			streamWriter.WriteLine(value: $"{index}\t{name}");
 		}
-		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>Saves the list as a PSV (Pipe-Separated Values) file.
@@ -1076,7 +1736,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		{
 			streamWriter.WriteLine(value: $"{index}|{name}");
 		}
-		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>Saves the list as a LaTeX document.</summary>
@@ -1123,7 +1783,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		w.WriteLine(value: "\\caption{List of Readable Designations}");
 		w.WriteLine(value: "\\end{table}");
 		w.WriteLine(value: "\\end{document}");
-		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>Saves the current list as a PostScript (.ps) file.</summary>
@@ -1207,7 +1867,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		writer.WriteLine(value: "%%Trailer");
 		writer.WriteLine(value: $"%%Pages: {pageNumber}");
 		writer.WriteLine(value: "%%EOF");
-		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>Saves the current list as an uncompressed PDF file.</summary>
@@ -1381,7 +2041,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		w.WriteLine(value: "startxref");
 		w.WriteLine(value: xrefOffset);
 		w.WriteLine(value: "%%EOF");
-		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>Saves the current list as an EPUB file.</summary>
@@ -1397,24 +2057,20 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			DefaultExt = "epub",
 			Title = "Save list as EPUB"
 		};
-
 		// Prepare the save dialog
 		if (!PrepareSaveDialog(dialog: saveFileDialogEpub, ext: saveFileDialogEpub.DefaultExt))
 		{
 			return;
 		}
-
 		// Create the EPUB file
 		using FileStream fs = new(path: saveFileDialogEpub.FileName, mode: FileMode.Create);
 		using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
-
 		// 1. mimetype (must be first and uncompressed)
 		ZipArchiveEntry mimetypeEntry = archive.CreateEntry(entryName: "mimetype", compressionLevel: CompressionLevel.NoCompression);
 		using (StreamWriter writer = new(stream: mimetypeEntry.Open(), encoding: Encoding.ASCII))
 		{
 			writer.Write(value: "application/epub+zip");
 		}
-
 		// 2. META-INF/container.xml
 		ZipArchiveEntry containerEntry = archive.CreateEntry(entryName: "META-INF/container.xml", compressionLevel: CompressionLevel.Optimal);
 		using (StreamWriter writer = new(stream: containerEntry.Open(), encoding: Encoding.UTF8))
@@ -1426,7 +2082,6 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: "  </rootfiles>");
 			writer.WriteLine(value: "</container>");
 		}
-
 		// 3. OEBPS/content.opf
 		ZipArchiveEntry opfEntry = archive.CreateEntry(entryName: "OEBPS/content.opf", compressionLevel: CompressionLevel.Optimal);
 		using (StreamWriter writer = new(stream: opfEntry.Open(), encoding: Encoding.UTF8))
@@ -1450,7 +2105,6 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: "  </spine>");
 			writer.WriteLine(value: "</package>");
 		}
-
 		// 4. OEBPS/toc.ncx
 		ZipArchiveEntry ncxEntry = archive.CreateEntry(entryName: "OEBPS/toc.ncx", compressionLevel: CompressionLevel.Optimal);
 		using (StreamWriter writer = new(stream: ncxEntry.Open(), encoding: Encoding.UTF8))
@@ -1496,7 +2150,6 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: "      <tr><th>Index</th><th>Designation</th></tr>");
 			writer.WriteLine(value: "    </thead>");
 			writer.WriteLine(value: "    <tbody>");
-
 			// Use GetExportData() to retrieve items
 			foreach ((string index, string name) in GetExportData())
 			{
@@ -1504,14 +2157,12 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 				string safeName = System.Net.WebUtility.HtmlEncode(value: name) ?? string.Empty;
 				writer.WriteLine(value: $"      <tr><td>{safeIndex}</td><td>{safeName}</td></tr>");
 			}
-
 			writer.WriteLine(value: "    </tbody>");
 			writer.WriteLine(value: "  </table>");
 			writer.WriteLine(value: "</body>");
 			writer.WriteLine(value: "</html>");
 		}
-
-		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>Saves the current list as a Word document.</summary>
@@ -1527,17 +2178,14 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			DefaultExt = "docx",
 			Title = "Save list as Word"
 		};
-
 		// Prepare the save dialog
 		if (!PrepareSaveDialog(dialog: saveFileDialogWord, ext: saveFileDialogWord.DefaultExt))
 		{
 			return;
 		}
-
 		// Create the Word file
 		using FileStream fs = new(path: saveFileDialogWord.FileName, mode: FileMode.Create);
 		using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
-
 		// 1. [Content_Types].xml
 		ZipArchiveEntry contentTypesEntry = archive.CreateEntry(entryName: "[Content_Types].xml", compressionLevel: CompressionLevel.Optimal);
 		using (StreamWriter writer = new(stream: contentTypesEntry.Open(), encoding: Encoding.UTF8))
@@ -1549,7 +2197,6 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: "  <Override PartName=\"/word/document.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml\"/>");
 			writer.WriteLine(value: "</Types>");
 		}
-
 		// 2. _rels/.rels
 		ZipArchiveEntry relsEntry = archive.CreateEntry(entryName: "_rels/.rels", compressionLevel: CompressionLevel.Optimal);
 		using (StreamWriter writer = new(stream: relsEntry.Open(), encoding: Encoding.UTF8))
@@ -1559,7 +2206,6 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"word/document.xml\"/>");
 			writer.WriteLine(value: "</Relationships>");
 		}
-
 		// 3. word/document.xml
 		ZipArchiveEntry documentEntry = archive.CreateEntry(entryName: "word/document.xml", compressionLevel: CompressionLevel.Optimal);
 		using (StreamWriter writer = new(stream: documentEntry.Open(), encoding: Encoding.UTF8))
@@ -1588,7 +2234,6 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: "        <w:tc><w:p><w:r><w:t>Index</w:t></w:r></w:p></w:tc>");
 			writer.WriteLine(value: "        <w:tc><w:p><w:r><w:t>Designation</w:t></w:r></w:p></w:tc>");
 			writer.WriteLine(value: "      </w:tr>");
-
 			// Data Rows
 			foreach ((string index, string name) in GetExportData())
 			{
@@ -1604,8 +2249,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: "  </w:body>");
 			writer.WriteLine(value: "</w:document>");
 		}
-
-		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>Saves the current list as an Excel file.</summary>
@@ -1621,17 +2265,14 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			DefaultExt = "xlsx",
 			Title = "Save list as Excel"
 		};
-
 		// Prepare the save dialog
 		if (!PrepareSaveDialog(dialog: saveFileDialogExcel, ext: saveFileDialogExcel.DefaultExt))
 		{
 			return;
 		}
-
 		// Create the Excel file
 		using FileStream fs = new(path: saveFileDialogExcel.FileName, mode: FileMode.Create);
 		using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
-
 		// 1. [Content_Types].xml
 		ZipArchiveEntry contentTypesEntry = archive.CreateEntry(entryName: "[Content_Types].xml", compressionLevel: CompressionLevel.Optimal);
 		using (StreamWriter writer = new(stream: contentTypesEntry.Open(), encoding: Encoding.UTF8))
@@ -1644,7 +2285,6 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: "  <Override PartName=\"/xl/worksheets/sheet1.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml\"/>");
 			writer.WriteLine(value: "</Types>");
 		}
-
 		// 2. _rels/.rels
 		ZipArchiveEntry relsEntry = archive.CreateEntry(entryName: "_rels/.rels", compressionLevel: CompressionLevel.Optimal);
 		using (StreamWriter writer = new(stream: relsEntry.Open(), encoding: Encoding.UTF8))
@@ -1654,7 +2294,6 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"xl/workbook.xml\"/>");
 			writer.WriteLine(value: "</Relationships>");
 		}
-
 		// 3. xl/workbook.xml
 		ZipArchiveEntry workbookEntry = archive.CreateEntry(entryName: "xl/workbook.xml", compressionLevel: CompressionLevel.Optimal);
 		using (StreamWriter writer = new(stream: workbookEntry.Open(), encoding: Encoding.UTF8))
@@ -1666,7 +2305,6 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: "  </sheets>");
 			writer.WriteLine(value: "</workbook>");
 		}
-
 		// 4. xl/_rels/workbook.xml.rels
 		ZipArchiveEntry workbookRelsEntry = archive.CreateEntry(entryName: "xl/_rels/workbook.xml.rels", compressionLevel: CompressionLevel.Optimal);
 		using (StreamWriter writer = new(stream: workbookRelsEntry.Open(), encoding: Encoding.UTF8))
@@ -1676,7 +2314,6 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet\" Target=\"worksheets/sheet1.xml\"/>");
 			writer.WriteLine(value: "</Relationships>");
 		}
-
 		// 5. xl/worksheets/sheet1.xml
 		ZipArchiveEntry sheetEntry = archive.CreateEntry(entryName: "xl/worksheets/sheet1.xml", compressionLevel: CompressionLevel.Optimal);
 		using (StreamWriter writer = new(stream: sheetEntry.Open(), encoding: Encoding.UTF8))
@@ -1684,13 +2321,11 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
 			writer.WriteLine(value: "<worksheet xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\">");
 			writer.WriteLine(value: "  <sheetData>");
-
 			// Header
 			writer.WriteLine(value: "    <row>");
 			writer.WriteLine(value: "      <c t=\"inlineStr\"><is><t>Index</t></is></c>");
 			writer.WriteLine(value: "      <c t=\"inlineStr\"><is><t>Designation</t></is></c>");
 			writer.WriteLine(value: "    </row>");
-
 			// Data
 			foreach ((string index, string name) in GetExportData())
 			{
@@ -1706,8 +2341,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: "  </sheetData>");
 			writer.WriteLine(value: "</worksheet>");
 		}
-
-		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>Saves the current list as an ODT file.</summary>
@@ -1723,24 +2357,20 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			DefaultExt = "odt",
 			Title = "Save list as ODT"
 		};
-
 		// Prepare the save dialog
 		if (!PrepareSaveDialog(dialog: saveFileDialogOdt, ext: saveFileDialogOdt.DefaultExt))
 		{
 			return;
 		}
-
 		// Create the ODT file
 		using FileStream fs = new(path: saveFileDialogOdt.FileName, mode: FileMode.Create);
 		using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
-
 		// 1. mimetype (must be first and uncompressed)
 		ZipArchiveEntry mimetypeEntry = archive.CreateEntry(entryName: "mimetype", compressionLevel: CompressionLevel.NoCompression);
 		using (StreamWriter writer = new(stream: mimetypeEntry.Open(), encoding: Encoding.ASCII))
 		{
 			writer.Write(value: "application/vnd.oasis.opendocument.text");
 		}
-
 		// 2. META-INF/manifest.xml
 		ZipArchiveEntry manifestEntry = archive.CreateEntry(entryName: "META-INF/manifest.xml", compressionLevel: CompressionLevel.Optimal);
 		using (StreamWriter writer = new(stream: manifestEntry.Open(), encoding: Encoding.UTF8))
@@ -1752,7 +2382,6 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: " <manifest:file-entry manifest:full-path=\"META-INF/manifest.xml\" manifest:media-type=\"text/xml\"/>");
 			writer.WriteLine(value: "</manifest:manifest>");
 		}
-
 		// 3. content.xml
 		ZipArchiveEntry contentEntry = archive.CreateEntry(entryName: "content.xml", compressionLevel: CompressionLevel.Optimal);
 		using (StreamWriter writer = new(stream: contentEntry.Open(), encoding: Encoding.UTF8))
@@ -1761,14 +2390,11 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: "<office:document-content xmlns:office=\"urn:oasis:names:tc:opendocument:xmlns:office:1.0\" xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" xmlns:table=\"urn:oasis:names:tc:opendocument:xmlns:table:1.0\" office:version=\"1.2\">");
 			writer.WriteLine(value: "  <office:body>");
 			writer.WriteLine(value: "    <office:text>");
-
 			// Title
 			writer.WriteLine(value: "      <text:h text:outline-level=\"1\">List of Readable Designations</text:h>");
-
 			// Table
 			writer.WriteLine(value: "      <table:table>");
 			writer.WriteLine(value: "        <table:table-column table:number-columns-repeated=\"2\"/>");
-
 			// Header Row
 			writer.WriteLine(value: "        <table:table-header-rows>");
 			writer.WriteLine(value: "          <table:table-row>");
@@ -1776,7 +2402,6 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: "            <table:table-cell><text:p>Designation</text:p></table:table-cell>");
 			writer.WriteLine(value: "          </table:table-row>");
 			writer.WriteLine(value: "        </table:table-header-rows>");
-
 			// Data Rows
 			foreach ((string index, string name) in GetExportData())
 			{
@@ -1788,14 +2413,12 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 				writer.WriteLine(value: $"          <table:table-cell><text:p>{safeName}</text:p></table:table-cell>");
 				writer.WriteLine(value: "        </table:table-row>");
 			}
-
 			writer.WriteLine(value: "      </table:table>");
 			writer.WriteLine(value: "    </office:text>");
 			writer.WriteLine(value: "  </office:body>");
 			writer.WriteLine(value: "</office:document-content>");
 		}
-
-		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>Saves the current list as an ODS file.</summary>
@@ -1811,24 +2434,20 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			DefaultExt = "ods",
 			Title = "Save list as ODS"
 		};
-
 		// Prepare the save dialog
 		if (!PrepareSaveDialog(dialog: saveFileDialogOds, ext: saveFileDialogOds.DefaultExt))
 		{
 			return;
 		}
-
 		// Create the ODS file
 		using FileStream fs = new(path: saveFileDialogOds.FileName, mode: FileMode.Create);
 		using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
-
 		// 1. mimetype (must be first and uncompressed)
 		ZipArchiveEntry mimetypeEntry = archive.CreateEntry(entryName: "mimetype", compressionLevel: CompressionLevel.NoCompression);
 		using (StreamWriter writer = new(stream: mimetypeEntry.Open(), encoding: Encoding.ASCII))
 		{
 			writer.Write(value: "application/vnd.oasis.opendocument.spreadsheet");
 		}
-
 		// 2. META-INF/manifest.xml
 		ZipArchiveEntry manifestEntry = archive.CreateEntry(entryName: "META-INF/manifest.xml", compressionLevel: CompressionLevel.Optimal);
 		using (StreamWriter writer = new(stream: manifestEntry.Open(), encoding: Encoding.UTF8))
@@ -1840,7 +2459,6 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: " <manifest:file-entry manifest:full-path=\"META-INF/manifest.xml\" manifest:media-type=\"text/xml\"/>");
 			writer.WriteLine(value: "</manifest:manifest>");
 		}
-
 		// 3. content.xml
 		ZipArchiveEntry contentEntry = archive.CreateEntry(entryName: "content.xml", compressionLevel: CompressionLevel.Optimal);
 		using (StreamWriter writer = new(stream: contentEntry.Open(), encoding: Encoding.UTF8))
@@ -1851,13 +2469,11 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.WriteLine(value: "    <office:spreadsheet>");
 			writer.WriteLine(value: "      <table:table table:name=\"Planetoids\">");
 			writer.WriteLine(value: "        <table:table-column table:number-columns-repeated=\"2\"/>");
-
 			// Header Row
 			writer.WriteLine(value: "        <table:table-row>");
 			writer.WriteLine(value: "          <table:table-cell office:value-type=\"string\"><text:p>Index</text:p></table:table-cell>");
 			writer.WriteLine(value: "          <table:table-cell office:value-type=\"string\"><text:p>Designation</text:p></table:table-cell>");
 			writer.WriteLine(value: "        </table:table-row>");
-
 			// Data Rows
 			foreach ((string index, string name) in GetExportData())
 			{
@@ -1869,14 +2485,12 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 				writer.WriteLine(value: $"          <table:table-cell office:value-type=\"string\"><text:p>{safeName}</text:p></table:table-cell>");
 				writer.WriteLine(value: "        </table:table-row>");
 			}
-
 			writer.WriteLine(value: "      </table:table>");
 			writer.WriteLine(value: "    </office:spreadsheet>");
 			writer.WriteLine(value: "  </office:body>");
 			writer.WriteLine(value: "</office:document-content>");
 		}
-
-		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>Saves the current list as a simplified MOBI file.</summary>
@@ -1892,16 +2506,14 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			DefaultExt = "mobi",
 			Title = "Save list as MOBI"
 		};
-
 		// Prepare the save dialog
 		if (!PrepareSaveDialog(dialog: saveFileDialogMobi, ext: saveFileDialogMobi.DefaultExt))
 		{
 			return;
 		}
-
 		// 1. Generate Content (HTML)
 		StringBuilder html = new();
-		html.Append(value: "<html><head><title>Planetoid List</title></head><body>");
+		html.Append(value: "<html><head><meta charset=\"UTF-8\"><title>Planetoid List</title></head><body>");
 		html.Append(value: "<h1>List of Readable Designations</h1>");
 		// Mobi does not support all HTML tags, but basic tables often work in newer readers or are flattened.
 		html.Append(value: "<table>");
@@ -1912,9 +2524,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			html.Append(value: $"<tr><td>{encodedIndex}</td><td>{encodedName}</td></tr>");
 		}
 		html.Append(value: "</table></body></html>");
-
 		byte[] bodyData = Encoding.UTF8.GetBytes(s: html.ToString());
-
 		// 2. Chunk data (4096 bytes max per record is standard for PalmDoc)
 		List<byte[]> textRecords = [];
 		for (int i = 0; i < bodyData.Length; i += 4096)
@@ -1924,14 +2534,12 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			Array.Copy(sourceArray: bodyData, sourceIndex: i, destinationArray: chunk, destinationIndex: 0, length: len);
 			textRecords.Add(item: chunk);
 		}
-
 		// 3. Construct Headers
 		// PDB Header: 78 bytes
 		// Record List: 8 * NumRecords + 2 padding
 		// Record 0: Header Record (PalmDOC + Mobi Header)
 		// Records 1..N: Text
 		// Record N+1: EOF (Optional/Standard)
-
 		// Define a minimal Header Record (Record 0)
 		// PalmDOC Header (16 bytes) + Mobi Header (min 232 bytes)
 		// Using array for simplicity in binary writing
@@ -1948,9 +2556,8 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (short)4096)); // Record Size
 			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (short)0)); // Encryption Type
 			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (short)0)); // Unknown
-
-			// -- Mobi Header --
-			// Identifier "MOBI"
+																					  // -- Mobi Header --
+																					  // Identifier "MOBI"
 			hw.Write(buffer: Encoding.ASCII.GetBytes(s: "MOBI"));
 			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 232)); // Header Length
 			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 2)); // Mobi Type: 2 = Book
@@ -1958,41 +2565,32 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 0x12345678)); // UniqueID ID
 			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 6)); // File Version
 																			   // ... other fields are zeroed by default new byte[] ...;
-
-			// First Non-Book Index (offset 80 in Mobi Header -> 16+80 = 96)
-			// Points to EOF record usually or FLIS
+																			   // First Non-Book Index (offset 80 in Mobi Header -> 16+80 = 96)
+																			   // Points to EOF record usually or FLIS
 			ms.Seek(offset: 96, loc: SeekOrigin.Begin);
 			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: textRecords.Count + 1)); // We have Header(0) + Text(1..N). So next is N+1.
-
-			// Full Name Offset (offset 84 in Mobi Header -> 100)
+																								   // Full Name Offset (offset 84 in Mobi Header -> 100)
 			ms.Seek(offset: 100, loc: SeekOrigin.Begin);
 			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 0)); // No Full Name in this minimal version
 																			   // Min Version (offset 104 -> 120)
 			ms.Seek(offset: 120, loc: SeekOrigin.Begin);
 			hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 6));
-
 			// ...
 		}
-
 		// EOF Record (minimal content)
 		byte[] eofRecord = [0xe9, 0x8e, 0x0d, 0x0a];
-
 		// Total Records: Header + TextRecords + EOF
 		int totalRecords = 1 + textRecords.Count + 1;
-
 		using FileStream fs = new(path: saveFileDialogMobi.FileName, mode: FileMode.Create);
 		using BinaryWriter w = new(output: fs);
-
 		// --- PDB Header (78 bytes) ---
 		string dbName = "Planetoids";
 		byte[] nameBytes = new byte[32];
 		Encoding.ASCII.GetBytes(s: dbName).CopyTo(array: nameBytes, index: 0);
 		w.Write(buffer: nameBytes);
-
 		w.Write(value: (short)0); // Attributes
 		w.Write(value: (short)0); // Version
-
-		// Dates (seconds since 1904-01-01)
+								  // Dates (seconds since 1904-01-01)
 		uint secondsSince1904 = (uint)(DateTime.UtcNow - new DateTime(year: 1904, month: 1, day: 1)).TotalSeconds;
 		w.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (int)secondsSince1904)); // Creation
 		w.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (int)secondsSince1904)); // Modification
@@ -2000,24 +2598,18 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		w.Write(value: 0); // ModNum
 		w.Write(value: 0); // AppInfoId
 		w.Write(value: 0); // SortInfoId
-
 		w.Write(buffer: Encoding.ASCII.GetBytes(s: "BOOK")); // Type
 		w.Write(buffer: Encoding.ASCII.GetBytes(s: "MOBI")); // Creator
-
 		w.Write(value: 0); // UniqueIDSeed
 		w.Write(value: 0); // NextRecordListID
-
 		w.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (short)totalRecords)); // NumRecords
-
-		// --- Record List (8 bytes per record) ---
-		// Start of data is: 78 + (totalRecords * 8) + 2 (padding)
+																							// --- Record List (8 bytes per record) ---
+																							// Start of data is: 78 + (totalRecords * 8) + 2 (padding)
 		int currentOffset = 78 + (totalRecords * 8) + 2;
-
 		// 1. Header Record Info
 		w.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: currentOffset));
 		w.Write(value: 0); // Attributes/ID
 		currentOffset += headerRecord.Length;
-
 		// 2. Text Records Info
 		foreach (byte[] rec in textRecords)
 		{
@@ -2025,29 +2617,23 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			w.Write(value: 0);
 			currentOffset += rec.Length;
 		}
-
 		// 3. EOF Record Info
 		w.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: currentOffset));
 		w.Write(value: 0);
 		currentOffset += eofRecord.Length;
-
 		// Padding (2 bytes)
 		w.Write(value: (short)0);
-
 		// --- Record Data ---
 		// 1. Header
 		w.Write(buffer: headerRecord);
-
 		// 2. Text
 		foreach (byte[] rec in textRecords)
 		{
 			w.Write(buffer: rec); // 4096 chunks
 		}
-
 		// 3. EOF
 		w.Write(buffer: eofRecord);
-
-		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>Saves the current list as an RTF file.</summary>
@@ -2063,24 +2649,19 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			DefaultExt = "rtf",
 			Title = "Save list as RTF"
 		};
-
 		// Prepare the save dialog
 		if (!PrepareSaveDialog(dialog: saveFileDialogRtf, ext: saveFileDialogRtf.DefaultExt))
 		{
 			return;
 		}
-
 		// Write the data to the RTF file using ASCII encoding
 		using StreamWriter writer = new(path: saveFileDialogRtf.FileName, append: false, encoding: Encoding.ASCII);
-
 		// Write RTF header
 		writer.WriteLine(value: "{\\rtf1\\ansi\\deff0");
 		writer.WriteLine(value: "{\\fonttbl{\\f0 Arial;}}");
 		writer.WriteLine(value: "\\f0\\fs20"); // Font Arial, Size 10pt
-
-		// Title
+											   // Title
 		writer.WriteLine(value: "{\\pard\\b\\fs24 List of Readable Designations\\par\\par}");
-
 		// Iterate data
 		foreach ((string index, string name) in GetExportData())
 		{
@@ -2088,25 +2669,20 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			writer.Write(value: "\\trowd\\trgaph108\\trleft-108");
 			writer.Write(value: "\\cellx1440"); // Cell 1 width (approx 1 inch)
 			writer.Write(value: "\\cellx5760"); // Cell 2 width (approx 3 inches more -> 4 inches total)
-
-			// Cell 1 content
+												// Cell 1 content
 			writer.Write(value: "\\pard\\intbl ");
 			writer.Write(value: EscapeRtf(input: index));
 			writer.Write(value: "\\cell");
-
 			// Cell 2 content
 			writer.Write(value: "\\pard\\intbl ");
 			writer.Write(value: EscapeRtf(input: name));
 			writer.Write(value: "\\cell");
-
 			// End row
 			writer.WriteLine(value: "\\row");
 		}
-
 		// Close RTF
 		writer.WriteLine(value: "}");
-
-		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>Saves the current list as a text file.</summary>
@@ -2122,24 +2698,98 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			DefaultExt = "txt",
 			Title = "Save list as Text"
 		};
-
 		// Prepare the save dialog
 		if (!PrepareSaveDialog(dialog: saveFileDialogText, ext: saveFileDialogText.DefaultExt))
 		{
 			return;
 		}
-
 		// Write the data to the text file
 		using StreamWriter writer = new(path: saveFileDialogText.FileName, append: false, encoding: Encoding.UTF8);
-
 		// Iterate data
 		foreach ((string index, string name) in GetExportData())
 		{
 			writer.WriteLine(value: $"{index}: {name}");
 		}
-
-		MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
+
+	/// <summary>Handles the click event for the 'Save As AsciiDoc' menu item and initiates saving the ListView results in AsciiDoc
+	/// format.</summary>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>This event handler is typically connected to a ToolStripMenuItem in the user interface. It enables users to export the current ListView results as an AsciiDoc-formatted file.</remarks>
+	private void ToolStripMenuItemSaveAsAsciiDoc_Click(object sender, EventArgs e) => SaveListViewResultsAsAsciiDoc();
+
+	/// <summary>Handles the click event for the 'Save As reStructuredText' menu item and initiates saving the current ListView
+	/// results in reStructuredText format.</summary>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>This event handler is typically connected to a ToolStripMenuItem in the user interface. It enables users to export the current ListView results as a reStructuredText-formatted file.</remarks>
+	private void ToolStripMenuItemSaveAsReStructuredText_Click(object sender, EventArgs e) => SaveListViewResultsAsReStructuredText();
+
+	/// <summary>Handles the click event of the 'Save As Textile' menu item and initiates saving the ListView results in Textile
+	/// format.</summary>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>This event handler is typically connected to a ToolStripMenuItem in the user interface. It enables
+	/// users to export the current ListView results as a Textile-formatted file.</remarks>
+	private void ToolStripMenuItemSaveAsTextile_Click(object sender, EventArgs e) => SaveListViewResultsAsTextile();
+
+	/// <summary>Handles the click event for the 'Save As Abiword' menu item and initiates saving the current list view results in
+	/// Abiword format.</summary>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>When the user clicks the "Save As Abiword" menu item, this event handler is invoked. It calls the SaveListViewResultsAsAbiword method, which generates an HTML file with a .abw extension that can be opened in Abiword. If the process is successful, a confirmation message is displayed; otherwise, an error message is shown.</remarks>
+	private void ToolStripMenuItemSaveAsAbiword_Click(object sender, EventArgs e) => SaveListViewResultsAsAbiword();
+
+	/// <summary>Handles the Click event of the Save As WPS menu item and initiates saving the current ListView results in WPS
+	/// format.</summary>
+	/// <param name="sender">The source of the event, typically the Save As WPS menu item.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>When the user clicks the "Save As WPS" menu item, this event handler is invoked. It calls the SaveListViewResultsAsWps method, which generates an HTML file with a .wps extension that can be opened in WPS Writer. If the process is successful, a confirmation message is displayed; otherwise, an error message is shown.</remarks>
+	private void ToolStripMenuItemSaveAsWps_Click(object sender, EventArgs e) => SaveListViewResultsAsWps();
+
+	/// <summary>Handles the Click event of the 'Save As Et' menu item and initiates saving the current ListView results in the Et
+	/// format.</summary>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>When the user clicks the "Save As Et" menu item, this event handler is invoked. It calls the SaveListViewResultsAsEt method, which exports the data in a format compatible with WPS Spreadsheets (using CSV internally). If the process is successful, a confirmation message is displayed; otherwise, an error message is shown.</remarks>
+	private void ToolStripMenuItemSaveAsEt_Click(object sender, EventArgs e) => SaveListViewResultsAsEt();
+
+	/// <summary>Handles the click event for the 'Save As DocBook' menu item, initiating the process to save the current list view
+	/// results in DocBook format.</summary>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>When the user clicks the "Save As DocBook" menu item, this event handler is invoked. It calls the SaveListViewResultsAsDocBook method, which generates an XML document conforming to the DocBook schema, containing the list of readable designations. If the process is successful, a confirmation message is displayed; otherwise, an error message is shown.</remarks>
+	private void ToolStripMenuItemSaveAsDocBook_Click(object sender, EventArgs e) => SaveListViewResultsAsDocBook();
+
+	/// <summary>Handles the click event for the 'Save As TOML' menu item and initiates saving the current results in TOML format.</summary>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>When the user clicks the "Save As TOML" menu item, this event handler is invoked. It calls the SaveListViewResultsAsToml method, which generates the necessary TOML structure for the current results and saves it as a .toml file. If the process is successful, a confirmation message is displayed; otherwise, an error message is shown.</remarks>
+	private void ToolStripMenuItemSaveAsToml_Click(object sender, EventArgs e) => SaveListViewResultsAsToml();
+
+	/// <summary>Handles the Click event of the Save As XPS menu item and initiates saving the current ListView results as an XPS
+	/// document.</summary>
+	/// <param name="sender">The source of the event, typically the Save As XPS menu item.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>When the user clicks the "Save As XPS" menu item, this event handler is invoked. It calls the SaveListViewResultsAsXps method, which generates the necessary XML structure for an XPS document and saves it as a .xps file. If the process is successful, a confirmation message is displayed; otherwise, an error message is shown.</remarks>
+	private void ToolStripMenuItemSaveAsXps_Click(object sender, EventArgs e) => SaveListViewResultsAsXps();
+
+	/// <summary>Handles the Click event of the Save As FictionBook2 menu item and initiates saving the current results in
+	/// FictionBook2 format.</summary>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>When the user clicks the "Save As FictionBook2" menu item, this event handler is invoked. It calls the SaveListViewResultsAsFictionBook2 method, which generates an XML document conforming to the FictionBook2 schema, containing the list of readable designations. If the process is successful, a confirmation message is displayed; otherwise, an error message is shown.</remarks>
+	private void ToolStripMenuItemSaveAsFictionBook2_Click(object sender, EventArgs e) => SaveListViewResultsAsFictionBook2();
+
+	/// <summary>Handles the Click event of the Save As CHM menu item and initiates saving the current ListView results as a CHM
+	/// file.</summary>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>When the user clicks the "Save As CHM" menu item, this event handler is invoked. It calls the SaveListViewResultsAsChm method, which generates the necessary HTML and project files, then uses Microsoft HTML Help Workshop to compile them into a CHM file. If the process is successful, a confirmation message is displayed; otherwise, an error message is shown.</remarks>
+	private void ToolStripMenuItemSaveAsChm_Click(object sender, EventArgs e) => SaveListViewResultsAsChm();
+
 
 	#endregion
 

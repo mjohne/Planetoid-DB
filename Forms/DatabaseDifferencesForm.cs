@@ -180,7 +180,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		// Check if there are any selected indices in the ListView, and if not, return early to prevent errors; if there is a selected index, retrieve the corresponding DifferenceResult and either show a message if the record was deleted or jump to the record in the main form if it still exists
 		if (listViewResults.SelectedIndices.Count == 0)
 		{
-			MessageBox.Show(text: "Please select a record to jump to.", caption: "No Record Selected", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
+			_ = MessageBox.Show(text: "Please select a record to jump to.", caption: "No Record Selected", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
 			return;
 		}
 		// Get the first selected index from the ListView and check if it is within the bounds of the difference results list; if so, retrieve the corresponding DifferenceResult and determine whether to show a message about a deleted record or to jump to the record in the main form based on the type of difference
@@ -234,19 +234,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 					writer.WriteLine(value: $"{result.Index}\t{result.Designation}\t{result.Difference}");
 				}
 				// After successfully writing the results to the file, display a success message to the user
-				MessageBox.Show(text: "Results successfully saved to text file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to text file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to text file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to text file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -286,19 +286,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 					writer.WriteLine(value: $"{EscapeCsvField(field: indexValue)},{EscapeCsvField(field: result.Designation)},{EscapeCsvField(field: result.Difference)}");
 				}
 				// After successfully writing the results to the file, display a success message to the user
-				MessageBox.Show(text: "Results successfully saved to CSV file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to CSV file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to CSV file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to CSV file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -330,19 +330,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 					writer.WriteLine(value: $"{result.Index}\t{result.Designation}\t{result.Difference}");
 				}
 				// After successfully writing the results to the file, display a success message to the user
-				MessageBox.Show(text: "Results successfully saved to TSV file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to TSV file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to TSV file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to TSV file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -374,19 +374,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 					writer.WriteLine(value: $"{result.Index}|{result.Designation}|{result.Difference}");
 				}
 				// After successfully writing the results to the file, display a success message to the user
-				MessageBox.Show(text: "Results successfully saved to PSV file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to PSV file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to PSV file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to PSV file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -416,19 +416,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 				{
 					writer.WriteLine(value: $"| {result.Index} | {result.Designation} | {result.Difference} |");
 				}
-				MessageBox.Show(text: "Results successfully saved to Markdown file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to Markdown file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to Markdown file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to Markdown file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -491,19 +491,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 					}
 					writer.Write(value: "</sheetData></worksheet>");
 				}
-				MessageBox.Show(text: "Results successfully saved to Excel file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to Excel file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to Excel file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to Excel file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -550,19 +550,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 				writer.WriteLine(value: "    </table>");
 				writer.WriteLine(value: "</body>");
 				writer.WriteLine(value: "</html>");
-				MessageBox.Show(text: "Results successfully saved to HTML file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to HTML file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to HTML file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to HTML file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -599,19 +599,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 					)
 				);
 				doc.Save(fileName: saveFileDialog.FileName);
-				MessageBox.Show(text: "Results successfully saved to XML file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to XML file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to XML file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to XML file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -636,19 +636,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 				// Serialize the list of difference results to a JSON string using System.Text.Json, then write the JSON string to the specified file path; after successfully saving the file, show a success message to the user
 				string json = System.Text.Json.JsonSerializer.Serialize(value: differenceResults, options: jsonSerializerOptions);
 				File.WriteAllText(path: saveFileDialog.FileName, contents: json);
-				MessageBox.Show(text: "Results successfully saved to JSON file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to JSON file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to JSON file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to JSON file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -678,19 +678,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 					writer.WriteLine(value: $"  Designation: \"{result.Designation.Replace(oldValue: "\"", newValue: "\\\"")}\"");
 					writer.WriteLine(value: $"  Difference: \"{result.Difference.Replace(oldValue: "\"", newValue: "\\\"")}\"");
 				}
-				MessageBox.Show(text: "Results successfully saved to YAML file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to YAML file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to YAML file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to YAML file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -730,19 +730,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 				writer.WriteLine(value: "\\bottomrule");
 				writer.WriteLine(value: "\\end{tabular}");
 				writer.WriteLine(value: "\\end{document}");
-				MessageBox.Show(text: "Results successfully saved to LaTeX file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to LaTeX file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to LaTeX file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to LaTeX file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -885,19 +885,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 				}
 				writer.Write(value: $"trailer\n<< /Size {xrefs.Count} /Root {catalogId} 0 R >>\nstartxref\n{startXref}\n%%EOF\n");
 				writer.Flush();
-				MessageBox.Show(text: "Results successfully saved to PDF file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to PDF file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to PDF file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to PDF file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -927,19 +927,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 				{
 					writer.WriteLine(value: $"INSERT INTO Differences (DifferenceIndex, Designation, Difference) VALUES ('{result.Index.Replace(oldValue: "'", newValue: "''")}', '{result.Designation.Replace(oldValue: "'", newValue: "''")}', '{result.Difference.Replace(oldValue: "'", newValue: "''")}');");
 				}
-				MessageBox.Show(text: "Results successfully saved to SQL file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to SQL file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to SQL file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to SQL file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -987,19 +987,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 					}
 					writer.Write(value: "</w:tbl></w:body></w:document>");
 				}
-				MessageBox.Show(text: "Results successfully saved to Word file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to Word file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to Word file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to Word file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -1036,19 +1036,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 					writer.WriteLine(value: $@"\pard\tx1500\tx4500 {safeIndex}\tab {safeDesig}\tab {safeDiff}\par");
 				}
 				writer.WriteLine(value: "}");
-				MessageBox.Show(text: "Results successfully saved to RTF file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to RTF file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to RTF file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to RTF file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -1097,19 +1097,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 					}
 					writer.Write(value: "</table:table></office:text></office:body></office:document-content>");
 				}
-				MessageBox.Show(text: "Results successfully saved to ODT file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to ODT file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to ODT file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to ODT file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -1158,19 +1158,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 					}
 					writer.Write(value: "</table:table></office:spreadsheet></office:body></office:document-content>");
 				}
-				MessageBox.Show(text: "Results successfully saved to ODS file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to ODS file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to ODS file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to ODS file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -1227,19 +1227,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 					}
 				}
 				writer.WriteLine(value: "showpage");
-				MessageBox.Show(text: "Results successfully saved to PostScript file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to PostScript file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to PostScript file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to PostScript file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -1298,19 +1298,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 					}
 					writer.Write(value: "</table></body></html>");
 				}
-				MessageBox.Show(text: "Results successfully saved to EPUB file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to EPUB file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to EPUB file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to EPUB file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -1463,19 +1463,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 				WriteBE32(v: 3);
 				WriteBE32(v: 1);
 				WriteBE32(v: 0xFFFFFFFF);
-				MessageBox.Show(text: "Results successfully saved to MOBI file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to MOBI file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to MOBI file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to MOBI file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -1508,19 +1508,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 					writer.WriteLine(value: $"Difference = \"{result.Difference.Replace(oldValue: "\"", newValue: "\\\"")}\"");
 					writer.WriteLine();
 				}
-				MessageBox.Show(text: "Results successfully saved to TOML file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to TOML file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to TOML file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to TOML file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -1633,19 +1633,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 					using StreamWriter relsWriter = new(stream: pageRelsEntry.Open(), encoding: new System.Text.UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
 					relsWriter.Write(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?><Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"><Relationship Id=\"rId1\" Type=\"http://schemas.microsoft.com/xps/2005/06/required-resource\" Target=\"/Resources/Fonts/arial.ttf\" /></Relationships>");
 				}
-				MessageBox.Show(text: "Results successfully saved to XPS file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to XPS file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to XPS file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to XPS file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -1682,19 +1682,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 					writer.WriteLine(value: $@"\pard\tx1500\tx4500 {safeIndex}\tab {safeDesig}\tab {safeDiff}\par");
 				}
 				writer.WriteLine(value: "}");
-				MessageBox.Show(text: "Results successfully saved to WPS file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to WPS file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to WPS file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to WPS file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -1758,19 +1758,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 					}
 					writer.Write(value: "</sheetData></worksheet>");
 				}
-				MessageBox.Show(text: "Results successfully saved to ET file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to ET file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to ET file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to ET file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -1843,19 +1843,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 					)
 				);
 				doc.Save(fileName: saveFileDialog.FileName);
-				MessageBox.Show(text: "Results successfully saved to FB2 file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to FB2 file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to FB2 file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to FB2 file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -1951,18 +1951,13 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 					};
 					using Process? process = Process.Start(startInfo: startInfo);
 					process?.WaitForExit();
-					if (!File.Exists(path: chmFile))
-					{
-						MessageBox.Show(text: "Failed to compile CHM file.", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
-					}
-					else
-					{
-						MessageBox.Show(text: "Results successfully saved to CHM file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
-					}
+					_ = !File.Exists(path: chmFile)
+						? MessageBox.Show(text: "Failed to compile CHM file.", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error)
+						: MessageBox.Show(text: "Results successfully saved to CHM file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 				}
 				else
 				{
-					MessageBox.Show(text: "HTML Help Workshop (hhc.exe) is required to create CHM files but was not found. Please install it to use this feature.", caption: "Missing Dependency", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
+					_ = MessageBox.Show(text: "HTML Help Workshop (hhc.exe) is required to create CHM files but was not found. Please install it to use this feature.", caption: "Missing Dependency", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
 				}
 
 				if (Directory.Exists(path: tempDir))
@@ -1974,13 +1969,13 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to CHM file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to CHM file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -2035,19 +2030,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 					)
 				);
 				doc.Save(fileName: saveFileDialog.FileName);
-				MessageBox.Show(text: "Results successfully saved to DocBook file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to DocBook file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to DocBook file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to DocBook file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -2097,19 +2092,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 					)
 				);
 				doc.Save(fileName: saveFileDialog.FileName);
-				MessageBox.Show(text: "Results successfully saved to ABW file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to ABW file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			catch (IOException ex)
 			{
 				// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 				logger.Error(exception: ex, message: "I/O error while saving results to ABW file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
 				// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 				logger.Error(exception: ex, message: "Access denied while saving results to ABW file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -2117,7 +2112,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// <summary>Exports the database difference results to an AsciiDoc (ADOC) file selected by the user.</summary>
 	/// <remarks>Prompts the user to choose a file location and name using a save file dialog. The exported ADOC file
 	/// includes formatted database difference entries. If an I/O error or access denial occurs during the save process, an error message is displayed to the user.</remarks>
-	private void SaveListViewResultsAsAdoc()
+	private void SaveListViewResultsAsAsciiDoc()
 	{
 		// Create and configure a SaveFileDialog to allow the user to choose where to save the ADOC file; if the user confirms the save operation, attempt to write the difference results to the specified file in ADOC format, handling any potential I/O errors or access issues that may arise during the process
 		using SaveFileDialog saveFileDialog = new()
@@ -2141,19 +2136,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 					writer.WriteLine(value: $"|{result.Index}|{result.Designation}|{result.Difference}");
 				}
 				writer.WriteLine(value: "|===");
-				MessageBox.Show(text: "Results successfully saved to AsciiDoc file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to AsciiDoc file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 			catch (IOException ex)
 			{
 				logger.Error(exception: ex, message: "I/O error while saving results to ADOC file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 			catch (UnauthorizedAccessException ex)
 			{
 				logger.Error(exception: ex, message: "Access denied while saving results to ADOC file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -2161,7 +2156,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// <summary>Exports the database difference results to a reStructuredText (RST) file selected by the user.</summary>
 	/// <remarks>Prompts the user to choose a file location and name using a save file dialog. The exported RST file
 	/// includes formatted database difference entries. If an I/O error or access denial occurs during the save process, an error message is displayed to the user.</remarks>
-	private void SaveListViewResultsAsRst()
+	private void SaveListViewResultsAsReStructuredText()
 	{
 		// Create and configure a SaveFileDialog to allow the user to choose where to save the RST file; if the user confirms the save operation, attempt to write the difference results to the specified file in RST format, handling any potential I/O errors or access issues that may arise during the process
 		using SaveFileDialog saveFileDialog = new()
@@ -2191,19 +2186,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 					writer.WriteLine(value: $"     - {result.Designation}");
 					writer.WriteLine(value: $"     - {result.Difference}");
 				}
-				MessageBox.Show(text: "Results successfully saved to reStructuredText file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to reStructuredText file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 			catch (IOException ex)
 			{
 				logger.Error(exception: ex, message: "I/O error while saving results to RST file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 			catch (UnauthorizedAccessException ex)
 			{
 				logger.Error(exception: ex, message: "Access denied while saving results to RST file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -2232,19 +2227,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 				{
 					writer.WriteLine(value: $"| {result.Index} | {result.Designation} | {result.Difference} |");
 				}
-				MessageBox.Show(text: "Results successfully saved to Textile file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = MessageBox.Show(text: "Results successfully saved to Textile file.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 			}
 			// Catch any IOException that occurs during the file writing process, log the error, and display an error message to the user indicating that an I/O error occurred
 			catch (IOException ex)
 			{
 				logger.Error(exception: ex, message: "I/O error while saving results to Textile file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"An I/O error occurred while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 			// Catch any UnauthorizedAccessException that occurs during the file writing process, log the error, and display an error message to the user indicating that access was denied
 			catch (UnauthorizedAccessException ex)
 			{
 				logger.Error(exception: ex, message: "Access denied while saving results to Textile file '{FilePath}'.", args: saveFileDialog.FileName);
-				MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				_ = MessageBox.Show(text: $"Access denied while saving the file: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			}
 		}
 	}
@@ -2403,7 +2398,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 						 "a - Semi-Major Axis\n" +
 						 "H - Absolute Magnitude\n" +
 						 "G - Slope Parameter";
-		MessageBox.Show(text: message, caption: "Abbreviations", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = MessageBox.Show(text: message, caption: "Abbreviations", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event for the Krypton button and initiates navigation to a specific object.</summary>
@@ -2638,19 +2633,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 
 	/// <summary>Handles the click event for the 'Save As AsciiDoc' menu item and initiates saving the current list view results in AsciiDoc
 	/// format.</summary>
-	/// <remarks>This method invokes the SaveListViewResultsAsAdoc method to perform the save operation. Use this
+	/// <remarks>This method invokes the SaveListViewResultsAsAsciiDoc method to perform the save operation. Use this
 	/// event handler to enable users to export list view data in AsciiDoc format from the interface.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsAdoc_Click(object sender, EventArgs e) => SaveListViewResultsAsAdoc();
+	private void ToolStripMenuItemSaveAsAsciiDoc_Click(object sender, EventArgs e) => SaveListViewResultsAsAsciiDoc();
 
 	/// <summary>Handles the click event for the 'Save As reStructuredText' menu item and initiates saving the current list view results in reStructuredText
 	/// format.</summary>
-	/// <remarks>This method invokes the SaveListViewResultsAsRst method to perform the save operation. Use this
+	/// <remarks>This method invokes the SaveListViewResultsAsReStructuredText method to perform the save operation. Use this
 	/// event handler to enable users to export list view data in reStructuredText format from the interface.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsRst_Click(object sender, EventArgs e) => SaveListViewResultsAsRst();
+	private void ToolStripMenuItemSaveAsReStructuredText_Click(object sender, EventArgs e) => SaveListViewResultsAsReStructuredText();
 
 	/// <summary>Handles the click event for the 'Save As Textile' menu item and initiates saving the current list view results in Textile
 	/// format.</summary>
