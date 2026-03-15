@@ -54,10 +54,10 @@ partial class PlanetoidDbForm
 		menuitemNavigateStep1000 = new ToolStripMenuItem();
 		menuitemNavigateStep10000 = new ToolStripMenuItem();
 		menuitemNavigateStep100000 = new ToolStripMenuItem();
-		toolStripSplitButtonStepForward = new ToolStripSplitButton();
 		toolStripSplitButtonStepBackward = new ToolStripSplitButton();
 		menuitemNavigateSomeDataBackward = new ToolStripMenuItem();
 		menuitemNavigateSomeDataForward = new ToolStripMenuItem();
+		toolStripSplitButtonStepForward = new ToolStripSplitButton();
 		tableLayoutPanelData = new KryptonTableLayoutPanel();
 		labelIndexData = new KryptonLabel();
 		contextMenuCopyToClipboard = new ContextMenuStrip(components);
@@ -123,8 +123,8 @@ partial class PlanetoidDbForm
 		menuitemRecordsRmsResidual = new ToolStripMenuItem();
 		menuitemRecordsComputername = new ToolStripMenuItem();
 		menuitemRecordsDateOfTheLastObservation = new ToolStripMenuItem();
-		splitbuttonTopTenRecords = new ToolStripSplitButton();
 		menuitemRecords = new ToolStripMenuItem();
+		splitbuttonTopTenRecords = new ToolStripSplitButton();
 		contextMenuDistributions = new ContextMenuStrip(components);
 		menuitemDistributionMeanAnomalyAtTheEpoch = new ToolStripMenuItem();
 		menuitemDistributionArgumentOfThePerihelion = new ToolStripMenuItem();
@@ -140,8 +140,8 @@ partial class PlanetoidDbForm
 		menuitemDistributionObservationSpan = new ToolStripMenuItem();
 		menuitemDistributionRmsResidual = new ToolStripMenuItem();
 		menuitemDistributionComputerName = new ToolStripMenuItem();
-		splitbuttonDistribution = new ToolStripSplitButton();
 		menuitemDistribution = new ToolStripMenuItem();
+		splitbuttonDistribution = new ToolStripSplitButton();
 		contextMenuFullCopyToClipboardOrbitalElements = new ContextMenuStrip(components);
 		menuitemCopyToClipboardIndexNumber = new ToolStripMenuItem();
 		menuitemCopyToClipboardReadableDesignation = new ToolStripMenuItem();
@@ -299,7 +299,7 @@ partial class PlanetoidDbForm
 		contextMenuNavigationStep.Font = new Font("Segoe UI", 9F);
 		contextMenuNavigationStep.Items.AddRange(new ToolStripItem[] { menuitemNavigateStep10, menuitemNavigateStep100, menuitemNavigateStep1000, menuitemNavigateStep10000, menuitemNavigateStep100000 });
 		contextMenuNavigationStep.Name = "contextMenu";
-		contextMenuNavigationStep.OwnerItem = menuitemNavigateSomeDataForward;
+		contextMenuNavigationStep.OwnerItem = toolStripSplitButtonStepForward;
 		contextMenuNavigationStep.ShowCheckMargin = true;
 		contextMenuNavigationStep.ShowImageMargin = false;
 		contextMenuNavigationStep.Size = new Size(111, 114);
@@ -380,22 +380,6 @@ partial class PlanetoidDbForm
 		menuitemNavigateStep100000.MouseEnter += Control_Enter;
 		menuitemNavigateStep100000.MouseLeave += Control_Leave;
 		// 
-		// toolStripSplitButtonStepForward
-		// 
-		toolStripSplitButtonStepForward.AccessibleDescription = "Navigates some data forward";
-		toolStripSplitButtonStepForward.AccessibleName = "Navigate some data forward";
-		toolStripSplitButtonStepForward.AccessibleRole = AccessibleRole.SplitButton;
-		toolStripSplitButtonStepForward.DisplayStyle = ToolStripItemDisplayStyle.Image;
-		toolStripSplitButtonStepForward.DropDown = contextMenuNavigationStep;
-		toolStripSplitButtonStepForward.Image = FatcowIcons16px.fatcow_control_fastforward_blue_16px;
-		toolStripSplitButtonStepForward.ImageTransparentColor = Color.Magenta;
-		toolStripSplitButtonStepForward.Name = "toolStripSplitButtonStepForward";
-		toolStripSplitButtonStepForward.Size = new Size(32, 22);
-		toolStripSplitButtonStepForward.Text = "Navigate some data forward";
-		toolStripSplitButtonStepForward.ButtonClick += ToolStripButtonStepForward_Click;
-		toolStripSplitButtonStepForward.MouseEnter += Control_Enter;
-		toolStripSplitButtonStepForward.MouseLeave += Control_Leave;
-		// 
 		// toolStripSplitButtonStepBackward
 		// 
 		toolStripSplitButtonStepBackward.AccessibleDescription = "Navigates some data backward";
@@ -443,6 +427,22 @@ partial class PlanetoidDbForm
 		menuitemNavigateSomeDataForward.Click += ToolStripMenuItemNavigateSomeDataForward_Click;
 		menuitemNavigateSomeDataForward.MouseEnter += Control_Enter;
 		menuitemNavigateSomeDataForward.MouseLeave += Control_Leave;
+		// 
+		// toolStripSplitButtonStepForward
+		// 
+		toolStripSplitButtonStepForward.AccessibleDescription = "Navigates some data forward";
+		toolStripSplitButtonStepForward.AccessibleName = "Navigate some data forward";
+		toolStripSplitButtonStepForward.AccessibleRole = AccessibleRole.SplitButton;
+		toolStripSplitButtonStepForward.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		toolStripSplitButtonStepForward.DropDown = contextMenuNavigationStep;
+		toolStripSplitButtonStepForward.Image = FatcowIcons16px.fatcow_control_fastforward_blue_16px;
+		toolStripSplitButtonStepForward.ImageTransparentColor = Color.Magenta;
+		toolStripSplitButtonStepForward.Name = "toolStripSplitButtonStepForward";
+		toolStripSplitButtonStepForward.Size = new Size(32, 22);
+		toolStripSplitButtonStepForward.Text = "Navigate some data forward";
+		toolStripSplitButtonStepForward.ButtonClick += ToolStripButtonStepForward_Click;
+		toolStripSplitButtonStepForward.MouseEnter += Control_Enter;
+		toolStripSplitButtonStepForward.MouseLeave += Control_Leave;
 		// 
 		// tableLayoutPanelData
 		// 
@@ -1557,7 +1557,7 @@ partial class PlanetoidDbForm
 		contextMenuTopTenRecords.Font = new Font("Segoe UI", 9F);
 		contextMenuTopTenRecords.Items.AddRange(new ToolStripItem[] { menuitemRecordsSortDirection, toolStripSeparator12, menuitemRecordsMeanAnomalyAtTheEpoch, menuitemRecordsArgumentOfThePerihelion, menuitemRecordsLongitudeOfTheAscendingNode, menuitemRecordsInclination, menuitemRecordsOrbitalEccentricity, menuitemRecordsMeanDailyMotion, menuitemRecordsSemiMajorAxis, menuitemRecordsAbsoluteMagnitude, menuitemRecordsSlopeParameter, menuitemRecordsNumberOfOppositions, menuitemRecordsNumberOfObservations, menuitemRecordsObservationSpan, menuitemRecordsRmsResidual, menuitemRecordsComputername, menuitemRecordsDateOfTheLastObservation });
 		contextMenuTopTenRecords.Name = "contextMenuTopTenRecords";
-		contextMenuTopTenRecords.OwnerItem = menuitemRecords;
+		contextMenuTopTenRecords.OwnerItem = splitbuttonTopTenRecords;
 		contextMenuTopTenRecords.Size = new Size(250, 362);
 		contextMenuTopTenRecords.TabStop = true;
 		contextMenuTopTenRecords.Text = "Top ten records";
@@ -1828,23 +1828,6 @@ partial class PlanetoidDbForm
 		menuitemRecordsDateOfTheLastObservation.MouseEnter += Control_Enter;
 		menuitemRecordsDateOfTheLastObservation.MouseLeave += Control_Leave;
 		// 
-		// splitbuttonTopTenRecords
-		// 
-		splitbuttonTopTenRecords.AccessibleDescription = "Shows the top ten records";
-		splitbuttonTopTenRecords.AccessibleName = "Top ten records";
-		splitbuttonTopTenRecords.AccessibleRole = AccessibleRole.SplitButton;
-		splitbuttonTopTenRecords.DisplayStyle = ToolStripItemDisplayStyle.Image;
-		splitbuttonTopTenRecords.DropDown = contextMenuTopTenRecords;
-		splitbuttonTopTenRecords.Enabled = false;
-		splitbuttonTopTenRecords.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
-		splitbuttonTopTenRecords.ImageTransparentColor = Color.Magenta;
-		splitbuttonTopTenRecords.Name = "splitbuttonTopTenRecords";
-		splitbuttonTopTenRecords.Size = new Size(32, 22);
-		splitbuttonTopTenRecords.Text = "Top ten records";
-		splitbuttonTopTenRecords.ButtonClick += SplitButtonTopTenRecords_ButtonClick;
-		splitbuttonTopTenRecords.MouseEnter += Control_Enter;
-		splitbuttonTopTenRecords.MouseLeave += Control_Leave;
-		// 
 		// menuitemRecords
 		// 
 		menuitemRecords.AccessibleDescription = "Shows some topn ten records";
@@ -1863,6 +1846,23 @@ partial class PlanetoidDbForm
 		menuitemRecords.MouseEnter += Control_Enter;
 		menuitemRecords.MouseLeave += Control_Leave;
 		// 
+		// splitbuttonTopTenRecords
+		// 
+		splitbuttonTopTenRecords.AccessibleDescription = "Shows the top ten records";
+		splitbuttonTopTenRecords.AccessibleName = "Top ten records";
+		splitbuttonTopTenRecords.AccessibleRole = AccessibleRole.SplitButton;
+		splitbuttonTopTenRecords.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		splitbuttonTopTenRecords.DropDown = contextMenuTopTenRecords;
+		splitbuttonTopTenRecords.Enabled = false;
+		splitbuttonTopTenRecords.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		splitbuttonTopTenRecords.ImageTransparentColor = Color.Magenta;
+		splitbuttonTopTenRecords.Name = "splitbuttonTopTenRecords";
+		splitbuttonTopTenRecords.Size = new Size(32, 22);
+		splitbuttonTopTenRecords.Text = "Top ten records";
+		splitbuttonTopTenRecords.ButtonClick += SplitButtonTopTenRecords_ButtonClick;
+		splitbuttonTopTenRecords.MouseEnter += Control_Enter;
+		splitbuttonTopTenRecords.MouseLeave += Control_Leave;
+		// 
 		// contextMenuDistributions
 		// 
 		contextMenuDistributions.AccessibleDescription = "Shows the context menu of the distributions";
@@ -1871,7 +1871,7 @@ partial class PlanetoidDbForm
 		contextMenuDistributions.Font = new Font("Segoe UI", 9F);
 		contextMenuDistributions.Items.AddRange(new ToolStripItem[] { menuitemDistributionMeanAnomalyAtTheEpoch, menuitemDistributionArgumentOfThePerihelion, menuitemDistributionLongitudeOfTheAscendingNode, menuitemDistributionInclination, menuitemDistributionOrbitalEccentricity, menuitemDistributionMeanDailyMotion, menuitemDistributionSemiMajorAxis, menuitemDistributionAbsoluteMagnitude, menuitemDistributionSlopeParameter, menuitemDistributionNumberOfOppositions, menuitemDistributionNumberOfObservations, menuitemDistributionObservationSpan, menuitemDistributionRmsResidual, menuitemDistributionComputerName });
 		contextMenuDistributions.Name = "contextMenuDistributions";
-		contextMenuDistributions.OwnerItem = menuitemDistribution;
+		contextMenuDistributions.OwnerItem = splitbuttonDistribution;
 		contextMenuDistributions.Size = new Size(250, 312);
 		contextMenuDistributions.Text = "Distributions";
 		contextMenuDistributions.MouseEnter += Control_Enter;
@@ -2087,23 +2087,6 @@ partial class PlanetoidDbForm
 		menuitemDistributionComputerName.MouseEnter += Control_Enter;
 		menuitemDistributionComputerName.MouseLeave += Control_Leave;
 		// 
-		// splitbuttonDistribution
-		// 
-		splitbuttonDistribution.AccessibleDescription = "Shows some distributions";
-		splitbuttonDistribution.AccessibleName = "Distributions";
-		splitbuttonDistribution.AccessibleRole = AccessibleRole.SplitButton;
-		splitbuttonDistribution.DisplayStyle = ToolStripItemDisplayStyle.Image;
-		splitbuttonDistribution.DropDown = contextMenuDistributions;
-		splitbuttonDistribution.Enabled = false;
-		splitbuttonDistribution.Image = FatcowIcons16px.fatcow_chart_bar_16px;
-		splitbuttonDistribution.ImageTransparentColor = Color.Magenta;
-		splitbuttonDistribution.Name = "splitbuttonDistribution";
-		splitbuttonDistribution.Size = new Size(32, 22);
-		splitbuttonDistribution.Text = "Distributions";
-		splitbuttonDistribution.ButtonClick += SplitButtonDistribution_ButtonClick;
-		splitbuttonDistribution.MouseEnter += Control_Enter;
-		splitbuttonDistribution.MouseLeave += Control_Leave;
-		// 
 		// menuitemDistribution
 		// 
 		menuitemDistribution.AccessibleDescription = "Shows some distributions";
@@ -2121,6 +2104,23 @@ partial class PlanetoidDbForm
 		menuitemDistribution.MouseEnter += Control_Enter;
 		menuitemDistribution.MouseLeave += Control_Leave;
 		// 
+		// splitbuttonDistribution
+		// 
+		splitbuttonDistribution.AccessibleDescription = "Shows some distributions";
+		splitbuttonDistribution.AccessibleName = "Distributions";
+		splitbuttonDistribution.AccessibleRole = AccessibleRole.SplitButton;
+		splitbuttonDistribution.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		splitbuttonDistribution.DropDown = contextMenuDistributions;
+		splitbuttonDistribution.Enabled = false;
+		splitbuttonDistribution.Image = FatcowIcons16px.fatcow_chart_bar_16px;
+		splitbuttonDistribution.ImageTransparentColor = Color.Magenta;
+		splitbuttonDistribution.Name = "splitbuttonDistribution";
+		splitbuttonDistribution.Size = new Size(32, 22);
+		splitbuttonDistribution.Text = "Distributions";
+		splitbuttonDistribution.ButtonClick += SplitButtonDistribution_ButtonClick;
+		splitbuttonDistribution.MouseEnter += Control_Enter;
+		splitbuttonDistribution.MouseLeave += Control_Leave;
+		// 
 		// contextMenuFullCopyToClipboardOrbitalElements
 		// 
 		contextMenuFullCopyToClipboardOrbitalElements.AccessibleDescription = "Shows the context menu of the orbital elements to copy to clipboard";
@@ -2130,7 +2130,7 @@ partial class PlanetoidDbForm
 		contextMenuFullCopyToClipboardOrbitalElements.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardIndexNumber, menuitemCopyToClipboardReadableDesignation, menuitemCopyToClipboardEpoch, menuitemCopyToClipboardMeanAnomalyAtTheEpoch, menuitemCopyToClipboardArgumentOfThePerihelion, menuitemCopyToClipboardLongitudeOfTheAscendingNode, menuitemCopyToClipboardInclinationToTheEcliptic, menuitemCopyToClipboardOrbitalEccentricity, menuitemCopyToClipboardMeanDailyMotion, menuitemCopyToClipboardSemiMajorAxis, menuitemCopyToClipboardAbsoluteMagnitude, menuitemCopyToClipboardSlopeParameter, menuitemCopyToClipboardReference, menuitemCopyToClipboardNumberOfOppositions, menuitemCopyToClipboardNumberOfObservations, menuitemCopyToClipboardObservationSpan, menuitemCopyToClipboardRmsResidual, menuitemCopyToClipboardComputerName, menuitemCopyToClipboardDateOfTheLastObservation, menuitemCopyToClipboardFlags });
 		contextMenuFullCopyToClipboardOrbitalElements.Name = "Context menu of copying to clipboard of orbital elements";
 		contextMenuFullCopyToClipboardOrbitalElements.OwnerItem = splitbuttonCopyToClipboard;
-		contextMenuFullCopyToClipboardOrbitalElements.Size = new Size(309, 444);
+		contextMenuFullCopyToClipboardOrbitalElements.Size = new Size(309, 466);
 		contextMenuFullCopyToClipboardOrbitalElements.Text = "Copy to clipboard";
 		contextMenuFullCopyToClipboardOrbitalElements.MouseEnter += Control_Enter;
 		contextMenuFullCopyToClipboardOrbitalElements.MouseLeave += Control_Leave;
@@ -2141,7 +2141,7 @@ partial class PlanetoidDbForm
 		menuitemCopyToClipboardIndexNumber.AccessibleName = "Copy to clipboard: Index number";
 		menuitemCopyToClipboardIndexNumber.AccessibleRole = AccessibleRole.MenuItem;
 		menuitemCopyToClipboardIndexNumber.AutoToolTip = true;
-		menuitemCopyToClipboardIndexNumber.Image = (Image)resources.GetObject("menuitemCopyToClipboardIndexNumber.Image");
+		menuitemCopyToClipboardIndexNumber.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardIndexNumber.Name = "menuitemCopyToClipboardIndexNumber";
 		menuitemCopyToClipboardIndexNumber.Size = new Size(308, 22);
 		menuitemCopyToClipboardIndexNumber.Text = "Index No.";
@@ -2155,7 +2155,7 @@ partial class PlanetoidDbForm
 		menuitemCopyToClipboardReadableDesignation.AccessibleName = "Copy to clipboard: Readable designation";
 		menuitemCopyToClipboardReadableDesignation.AccessibleRole = AccessibleRole.MenuItem;
 		menuitemCopyToClipboardReadableDesignation.AutoToolTip = true;
-		menuitemCopyToClipboardReadableDesignation.Image = (Image)resources.GetObject("menuitemCopyToClipboardReadableDesignation.Image");
+		menuitemCopyToClipboardReadableDesignation.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardReadableDesignation.Name = "menuitemCopyToClipboardReadableDesignation";
 		menuitemCopyToClipboardReadableDesignation.Size = new Size(308, 22);
 		menuitemCopyToClipboardReadableDesignation.Text = "Readable designation";
@@ -2169,7 +2169,7 @@ partial class PlanetoidDbForm
 		menuitemCopyToClipboardEpoch.AccessibleName = "Copy to clipboard: Epoch";
 		menuitemCopyToClipboardEpoch.AccessibleRole = AccessibleRole.MenuItem;
 		menuitemCopyToClipboardEpoch.AutoToolTip = true;
-		menuitemCopyToClipboardEpoch.Image = (Image)resources.GetObject("menuitemCopyToClipboardEpoch.Image");
+		menuitemCopyToClipboardEpoch.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardEpoch.Name = "menuitemCopyToClipboardEpoch";
 		menuitemCopyToClipboardEpoch.Size = new Size(308, 22);
 		menuitemCopyToClipboardEpoch.Text = "Epoch (in packed form, .0 TT)";
@@ -2183,7 +2183,7 @@ partial class PlanetoidDbForm
 		menuitemCopyToClipboardMeanAnomalyAtTheEpoch.AccessibleName = "Copy to clipboard: Mean anomaly at the epoch";
 		menuitemCopyToClipboardMeanAnomalyAtTheEpoch.AccessibleRole = AccessibleRole.MenuItem;
 		menuitemCopyToClipboardMeanAnomalyAtTheEpoch.AutoToolTip = true;
-		menuitemCopyToClipboardMeanAnomalyAtTheEpoch.Image = (Image)resources.GetObject("menuitemCopyToClipboardMeanAnomalyAtTheEpoch.Image");
+		menuitemCopyToClipboardMeanAnomalyAtTheEpoch.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardMeanAnomalyAtTheEpoch.Name = "menuitemCopyToClipboardMeanAnomalyAtTheEpoch";
 		menuitemCopyToClipboardMeanAnomalyAtTheEpoch.Size = new Size(308, 22);
 		menuitemCopyToClipboardMeanAnomalyAtTheEpoch.Text = "Mean anomaly at the epoch (°)";
@@ -2197,6 +2197,7 @@ partial class PlanetoidDbForm
 		menuitemCopyToClipboardArgumentOfThePerihelion.AccessibleName = "Copy to clipboard: Argument of perihelion";
 		menuitemCopyToClipboardArgumentOfThePerihelion.AccessibleRole = AccessibleRole.MenuItem;
 		menuitemCopyToClipboardArgumentOfThePerihelion.AutoToolTip = true;
+		menuitemCopyToClipboardArgumentOfThePerihelion.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardArgumentOfThePerihelion.Name = "menuitemCopyToClipboardArgumentOfThePerihelion";
 		menuitemCopyToClipboardArgumentOfThePerihelion.Size = new Size(308, 22);
 		menuitemCopyToClipboardArgumentOfThePerihelion.Text = "Argument of perihelion, J2000.0 (°)";
@@ -2210,7 +2211,7 @@ partial class PlanetoidDbForm
 		menuitemCopyToClipboardLongitudeOfTheAscendingNode.AccessibleName = "Copy to clipboard: Longitude of the ascending node";
 		menuitemCopyToClipboardLongitudeOfTheAscendingNode.AccessibleRole = AccessibleRole.MenuItem;
 		menuitemCopyToClipboardLongitudeOfTheAscendingNode.AutoToolTip = true;
-		menuitemCopyToClipboardLongitudeOfTheAscendingNode.Image = (Image)resources.GetObject("menuitemCopyToClipboardLongitudeOfTheAscendingNode.Image");
+		menuitemCopyToClipboardLongitudeOfTheAscendingNode.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardLongitudeOfTheAscendingNode.Name = "menuitemCopyToClipboardLongitudeOfTheAscendingNode";
 		menuitemCopyToClipboardLongitudeOfTheAscendingNode.Size = new Size(308, 22);
 		menuitemCopyToClipboardLongitudeOfTheAscendingNode.Text = "Longitude of the ascending node, J2000.0 (°)";
@@ -2224,7 +2225,7 @@ partial class PlanetoidDbForm
 		menuitemCopyToClipboardInclinationToTheEcliptic.AccessibleName = "Copy to clipboard: Inclination";
 		menuitemCopyToClipboardInclinationToTheEcliptic.AccessibleRole = AccessibleRole.MenuItem;
 		menuitemCopyToClipboardInclinationToTheEcliptic.AutoToolTip = true;
-		menuitemCopyToClipboardInclinationToTheEcliptic.Image = (Image)resources.GetObject("menuitemCopyToClipboardInclinationToTheEcliptic.Image");
+		menuitemCopyToClipboardInclinationToTheEcliptic.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardInclinationToTheEcliptic.Name = "menuitemCopyToClipboardInclinationToTheEcliptic";
 		menuitemCopyToClipboardInclinationToTheEcliptic.Size = new Size(308, 22);
 		menuitemCopyToClipboardInclinationToTheEcliptic.Text = "Inclination to the ecliptic, J2000.0 (°)";
@@ -2238,7 +2239,7 @@ partial class PlanetoidDbForm
 		menuitemCopyToClipboardOrbitalEccentricity.AccessibleName = "Copy to clipboard: Orbital eccentricity";
 		menuitemCopyToClipboardOrbitalEccentricity.AccessibleRole = AccessibleRole.MenuItem;
 		menuitemCopyToClipboardOrbitalEccentricity.AutoToolTip = true;
-		menuitemCopyToClipboardOrbitalEccentricity.Image = (Image)resources.GetObject("menuitemCopyToClipboardOrbitalEccentricity.Image");
+		menuitemCopyToClipboardOrbitalEccentricity.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardOrbitalEccentricity.Name = "menuitemCopyToClipboardOrbitalEccentricity";
 		menuitemCopyToClipboardOrbitalEccentricity.Size = new Size(308, 22);
 		menuitemCopyToClipboardOrbitalEccentricity.Text = "Orbital eccentricity";
@@ -2252,7 +2253,7 @@ partial class PlanetoidDbForm
 		menuitemCopyToClipboardMeanDailyMotion.AccessibleName = "Copy to clipboard: Mean daily motion";
 		menuitemCopyToClipboardMeanDailyMotion.AccessibleRole = AccessibleRole.MenuItem;
 		menuitemCopyToClipboardMeanDailyMotion.AutoToolTip = true;
-		menuitemCopyToClipboardMeanDailyMotion.Image = (Image)resources.GetObject("menuitemCopyToClipboardMeanDailyMotion.Image");
+		menuitemCopyToClipboardMeanDailyMotion.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardMeanDailyMotion.Name = "menuitemCopyToClipboardMeanDailyMotion";
 		menuitemCopyToClipboardMeanDailyMotion.Size = new Size(308, 22);
 		menuitemCopyToClipboardMeanDailyMotion.Text = "Mean daily motion (°/day)";
@@ -2266,7 +2267,7 @@ partial class PlanetoidDbForm
 		menuitemCopyToClipboardSemiMajorAxis.AccessibleName = "Copy to clipboard: Semi-major axis";
 		menuitemCopyToClipboardSemiMajorAxis.AccessibleRole = AccessibleRole.MenuItem;
 		menuitemCopyToClipboardSemiMajorAxis.AutoToolTip = true;
-		menuitemCopyToClipboardSemiMajorAxis.Image = (Image)resources.GetObject("menuitemCopyToClipboardSemiMajorAxis.Image");
+		menuitemCopyToClipboardSemiMajorAxis.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardSemiMajorAxis.Name = "menuitemCopyToClipboardSemiMajorAxis";
 		menuitemCopyToClipboardSemiMajorAxis.Size = new Size(308, 22);
 		menuitemCopyToClipboardSemiMajorAxis.Text = "Semi-major axis (AU)";
@@ -2280,7 +2281,7 @@ partial class PlanetoidDbForm
 		menuitemCopyToClipboardAbsoluteMagnitude.AccessibleName = "Copy to clipboard: Absolute magnitude";
 		menuitemCopyToClipboardAbsoluteMagnitude.AccessibleRole = AccessibleRole.MenuItem;
 		menuitemCopyToClipboardAbsoluteMagnitude.AutoToolTip = true;
-		menuitemCopyToClipboardAbsoluteMagnitude.Image = (Image)resources.GetObject("menuitemCopyToClipboardAbsoluteMagnitude.Image");
+		menuitemCopyToClipboardAbsoluteMagnitude.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardAbsoluteMagnitude.Name = "menuitemCopyToClipboardAbsoluteMagnitude";
 		menuitemCopyToClipboardAbsoluteMagnitude.Size = new Size(308, 22);
 		menuitemCopyToClipboardAbsoluteMagnitude.Text = "Absolute magnitude, H";
@@ -2294,7 +2295,7 @@ partial class PlanetoidDbForm
 		menuitemCopyToClipboardSlopeParameter.AccessibleName = "Copy to clipboard: Slope parameter";
 		menuitemCopyToClipboardSlopeParameter.AccessibleRole = AccessibleRole.MenuItem;
 		menuitemCopyToClipboardSlopeParameter.AutoToolTip = true;
-		menuitemCopyToClipboardSlopeParameter.Image = (Image)resources.GetObject("menuitemCopyToClipboardSlopeParameter.Image");
+		menuitemCopyToClipboardSlopeParameter.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardSlopeParameter.Name = "menuitemCopyToClipboardSlopeParameter";
 		menuitemCopyToClipboardSlopeParameter.Size = new Size(308, 22);
 		menuitemCopyToClipboardSlopeParameter.Text = "Slope parameter, G";
@@ -2308,7 +2309,7 @@ partial class PlanetoidDbForm
 		menuitemCopyToClipboardReference.AccessibleName = "Copy to clipboard: Reference";
 		menuitemCopyToClipboardReference.AccessibleRole = AccessibleRole.MenuItem;
 		menuitemCopyToClipboardReference.AutoToolTip = true;
-		menuitemCopyToClipboardReference.Image = (Image)resources.GetObject("menuitemCopyToClipboardReference.Image");
+		menuitemCopyToClipboardReference.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardReference.Name = "menuitemCopyToClipboardReference";
 		menuitemCopyToClipboardReference.Size = new Size(308, 22);
 		menuitemCopyToClipboardReference.Text = "Reference";
@@ -2322,7 +2323,7 @@ partial class PlanetoidDbForm
 		menuitemCopyToClipboardNumberOfOppositions.AccessibleName = "Copy to clipboard: Number of oppositions ";
 		menuitemCopyToClipboardNumberOfOppositions.AccessibleRole = AccessibleRole.MenuItem;
 		menuitemCopyToClipboardNumberOfOppositions.AutoToolTip = true;
-		menuitemCopyToClipboardNumberOfOppositions.Image = (Image)resources.GetObject("menuitemCopyToClipboardNumberOfOppositions.Image");
+		menuitemCopyToClipboardNumberOfOppositions.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardNumberOfOppositions.Name = "menuitemCopyToClipboardNumberOfOppositions";
 		menuitemCopyToClipboardNumberOfOppositions.Size = new Size(308, 22);
 		menuitemCopyToClipboardNumberOfOppositions.Text = "Number of oppositions";
@@ -2336,7 +2337,7 @@ partial class PlanetoidDbForm
 		menuitemCopyToClipboardNumberOfObservations.AccessibleName = "Copy to clipboard: Number of observations";
 		menuitemCopyToClipboardNumberOfObservations.AccessibleRole = AccessibleRole.MenuItem;
 		menuitemCopyToClipboardNumberOfObservations.AutoToolTip = true;
-		menuitemCopyToClipboardNumberOfObservations.Image = (Image)resources.GetObject("menuitemCopyToClipboardNumberOfObservations.Image");
+		menuitemCopyToClipboardNumberOfObservations.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardNumberOfObservations.Name = "menuitemCopyToClipboardNumberOfObservations";
 		menuitemCopyToClipboardNumberOfObservations.Size = new Size(308, 22);
 		menuitemCopyToClipboardNumberOfObservations.Text = "Number of observations";
@@ -2350,7 +2351,7 @@ partial class PlanetoidDbForm
 		menuitemCopyToClipboardObservationSpan.AccessibleName = "Copy to clipboard: Observation span";
 		menuitemCopyToClipboardObservationSpan.AccessibleRole = AccessibleRole.MenuItem;
 		menuitemCopyToClipboardObservationSpan.AutoToolTip = true;
-		menuitemCopyToClipboardObservationSpan.Image = (Image)resources.GetObject("menuitemCopyToClipboardObservationSpan.Image");
+		menuitemCopyToClipboardObservationSpan.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardObservationSpan.Name = "menuitemCopyToClipboardObservationSpan";
 		menuitemCopyToClipboardObservationSpan.Size = new Size(308, 22);
 		menuitemCopyToClipboardObservationSpan.Text = "Observation span";
@@ -2364,7 +2365,7 @@ partial class PlanetoidDbForm
 		menuitemCopyToClipboardRmsResidual.AccessibleName = "Copy to clipboard: r.m.s. residual";
 		menuitemCopyToClipboardRmsResidual.AccessibleRole = AccessibleRole.MenuItem;
 		menuitemCopyToClipboardRmsResidual.AutoToolTip = true;
-		menuitemCopyToClipboardRmsResidual.Image = (Image)resources.GetObject("menuitemCopyToClipboardRmsResidual.Image");
+		menuitemCopyToClipboardRmsResidual.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardRmsResidual.Name = "menuitemCopyToClipboardRmsResidual";
 		menuitemCopyToClipboardRmsResidual.Size = new Size(308, 22);
 		menuitemCopyToClipboardRmsResidual.Text = "r.m.s. residual (\")";
@@ -2378,7 +2379,7 @@ partial class PlanetoidDbForm
 		menuitemCopyToClipboardComputerName.AccessibleName = "Copy to clipboard: Computer name";
 		menuitemCopyToClipboardComputerName.AccessibleRole = AccessibleRole.MenuItem;
 		menuitemCopyToClipboardComputerName.AutoToolTip = true;
-		menuitemCopyToClipboardComputerName.Image = (Image)resources.GetObject("menuitemCopyToClipboardComputerName.Image");
+		menuitemCopyToClipboardComputerName.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardComputerName.Name = "menuitemCopyToClipboardComputerName";
 		menuitemCopyToClipboardComputerName.Size = new Size(308, 22);
 		menuitemCopyToClipboardComputerName.Text = "Computer name";
@@ -2392,7 +2393,7 @@ partial class PlanetoidDbForm
 		menuitemCopyToClipboardDateOfTheLastObservation.AccessibleName = "Copy to clipboard: Date of last observation";
 		menuitemCopyToClipboardDateOfTheLastObservation.AccessibleRole = AccessibleRole.MenuItem;
 		menuitemCopyToClipboardDateOfTheLastObservation.AutoToolTip = true;
-		menuitemCopyToClipboardDateOfTheLastObservation.Image = (Image)resources.GetObject("menuitemCopyToClipboardDateOfTheLastObservation.Image");
+		menuitemCopyToClipboardDateOfTheLastObservation.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardDateOfTheLastObservation.Name = "menuitemCopyToClipboardDateOfTheLastObservation";
 		menuitemCopyToClipboardDateOfTheLastObservation.Size = new Size(308, 22);
 		menuitemCopyToClipboardDateOfTheLastObservation.Text = "Date of last observation";
@@ -2406,7 +2407,7 @@ partial class PlanetoidDbForm
 		menuitemCopyToClipboardFlags.AccessibleName = "Copy to clipboard: 4-hexdigit flags";
 		menuitemCopyToClipboardFlags.AccessibleRole = AccessibleRole.MenuItem;
 		menuitemCopyToClipboardFlags.AutoToolTip = true;
-		menuitemCopyToClipboardFlags.Image = (Image)resources.GetObject("menuitemCopyToClipboardFlags.Image");
+		menuitemCopyToClipboardFlags.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardFlags.Name = "menuitemCopyToClipboardFlags";
 		menuitemCopyToClipboardFlags.Size = new Size(308, 22);
 		menuitemCopyToClipboardFlags.Text = "4-hexdigit flags";
