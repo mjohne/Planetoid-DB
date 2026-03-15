@@ -1,5 +1,16 @@
 # Changelog
 
+## Planetoid-DB 0.8.7.58
+
+* Updated version number to 0.8.7.58 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/523
+* Redesigned GUI in ListReadableDesignationsForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/527
+* Fixed errors in ListReadableDesignationsForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/528
+* Made columns of the listview sortable in ListReadableDesignationsForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/529
+* Added several saving formats in ListReadableDesignationsForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/530
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.8.6.57.521.1734...0.8.7.58.530.1749
+
+
 ## Planetoid-DB 0.8.6.57
 
 * Updated version number by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/516
