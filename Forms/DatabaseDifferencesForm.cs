@@ -166,6 +166,56 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		{
 			diffs.Add(item: $"G: {r1.SlopeParam} -> {r2.SlopeParam}");
 		}
+		// Compare the Designation Name field of the two records and add a description of any differences to the list
+		if (r1.DesignationName != r2.DesignationName)
+		{
+			diffs.Add(item: $"Desig: {r1.DesignationName} -> {r2.DesignationName}");
+		}
+		// Compare the Mean Daily Motion field of the two records and add a description of any differences to the list
+		if (r1.Motion != r2.Motion)
+		{
+			diffs.Add(item: $"n: {r1.Motion} -> {r2.Motion}");
+		}
+		// Compare the Reference field of the two records and add a description of any differences to the list
+		if (r1.Ref != r2.Ref)
+		{
+			diffs.Add(item: $"Ref: {r1.Ref} -> {r2.Ref}");
+		}
+		// Compare the Number of Oppositions field of the two records and add a description of any differences to the list
+		if (r1.NumberOpposition != r2.NumberOpposition)
+		{
+			diffs.Add(item: $"Opps: {r1.NumberOpposition} -> {r2.NumberOpposition}");
+		}
+		// Compare the Number of Observations field of the two records and add a description of any differences to the list
+		if (r1.NumberObservation != r2.NumberObservation)
+		{
+			diffs.Add(item: $"Obs: {r1.NumberObservation} -> {r2.NumberObservation}");
+		}
+		// Compare the Observation Span field of the two records and add a description of any differences to the list
+		if (r1.ObsSpan != r2.ObsSpan)
+		{
+			diffs.Add(item: $"ObsSpan: {r1.ObsSpan} -> {r2.ObsSpan}");
+		}
+		// Compare the R.M.S. Residual field of the two records and add a description of any differences to the list
+		if (r1.RmsResidual != r2.RmsResidual)
+		{
+			diffs.Add(item: $"rms: {r1.RmsResidual} -> {r2.RmsResidual}");
+		}
+		// Compare the Computer Name field of the two records and add a description of any differences to the list
+		if (r1.ComputerName != r2.ComputerName)
+		{
+			diffs.Add(item: $"Computer: {r1.ComputerName} -> {r2.ComputerName}");
+		}
+		// Compare the Flags field of the two records and add a description of any differences to the list
+		if (r1.Flags != r2.Flags)
+		{
+			diffs.Add(item: $"Flags: {r1.Flags} -> {r2.Flags}");
+		}
+		// Compare the Observation Last Date field of the two records and add a description of any differences to the list
+		if (r1.ObservationLastDate != r2.ObservationLastDate)
+		{
+			diffs.Add(item: $"LastObs: {r1.ObservationLastDate} -> {r2.ObservationLastDate}");
+		}
 		// Join the list of differences into a single string separated by semicolons and return it; if there are no differences, return an empty string
 		return diffs.Count > 0 ? string.Join(separator: "; ", values: diffs) : string.Empty;
 	}
@@ -2390,14 +2440,25 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	private void KryptonButtonNoteAbbreviations_Click(object sender, EventArgs e)
 	{
 		string message = "Abbreviations used in the Designation and Difference columns:\n\n" +
+						 "Epoch - Epoch\n" +
 						 "MA - Mean Anomaly\n" +
-						 "ArgPeri - Argument of the perihel\n" +
+						 "ArgPeri - Argument of the perihelion\n" +
 						 "LAN - Longitude of the Ascending Node\n" +
-						 "Inc - Inclination\n" +
+						 "Incl - Inclination\n" +
 						 "Ecc - Eccentricity\n" +
 						 "a - Semi-Major Axis\n" +
 						 "H - Absolute Magnitude\n" +
-						 "G - Slope Parameter";
+						 "G - Slope Parameter\n" +
+						 "Desig - Readable Designation\n" +
+						 "n - Mean Daily Motion\n" +
+						 "Ref - Reference\n" +
+						 "Opps - Number of Oppositions\n" +
+						 "Obs - Number of Observations\n" +
+						 "ObsSpan - Observation Span\n" +
+						 "rms - R.M.S. Residual\n" +
+						 "Computer - Computer Name\n" +
+						 "Flags - 4-hex-digit flag\n" +
+						 "LastObs - Date of the Last Observation";
 		_ = MessageBox.Show(text: message, caption: "Abbreviations", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 	}
 
