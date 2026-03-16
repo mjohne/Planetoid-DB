@@ -1326,6 +1326,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// <remarks>Used as the <c>virtualRowProvider</c> delegate when exporting via <see cref="Helpers.ListViewExporter"/>.</remarks>
 	private ListViewItem GetVirtualListViewItem(int index)
 	{
+		// Check if the provided index is within the valid range of the difference results list, and if so, create and return a new ListViewItem based on the corresponding DifferenceResult; otherwise, return an empty ListViewItem
 		if (index >= 0 && index < differenceResults.Count)
 		{
 			DifferenceResult result = differenceResults[index: index];
