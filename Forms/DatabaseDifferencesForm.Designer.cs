@@ -801,7 +801,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsFictionBook2.Name = "toolStripMenuItemSaveAsFictionBook2";
 		toolStripMenuItemSaveAsFictionBook2.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsFictionBook2.Text = "Save as &FictionBook2 (FB2)";
-		toolStripMenuItemSaveAsFictionBook2.Click += ToolStripMenuItemSaveAsFb2_Click;
+		toolStripMenuItemSaveAsFictionBook2.Click += ToolStripMenuItemSaveAsFictionBook2_Click;
 		toolStripMenuItemSaveAsFictionBook2.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsFictionBook2.MouseLeave += Control_Leave;
 		// 

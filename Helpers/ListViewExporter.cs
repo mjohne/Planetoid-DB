@@ -43,15 +43,20 @@ public static class ListViewExporter
 
 	/// <summary>Enumerates each row of the <see cref="ListView"/> as an array of cell strings.</summary>
 	/// <param name="listView">The list view to read from.</param>
+	/// <param name="virtualRowProvider">An optional factory delegate invoked with the row index to supply
+	/// <see cref="ListViewItem"/> instances when the list view is in virtual mode.
+	/// When <see langword="null"/> in virtual mode, <see cref="ListView.Items"/> indexer is used instead,
+	/// which triggers the <see cref="ListView.RetrieveVirtualItem"/> event.</param>
 	/// <returns>An enumerable of string arrays, one per row.</returns>
-	/// <remarks>Works for both normal and virtual-mode list views. In virtual mode the
-	/// <see cref="ListView.RetrieveVirtualItem"/> event of the owning form is triggered for each item.</remarks>
-	private static IEnumerable<string[]> GetRows(ListView listView)
+	/// <remarks>Works for both normal and virtual-mode list views.</remarks>
+	private static IEnumerable<string[]> GetRows(ListView listView, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		int count = listView.VirtualMode ? listView.VirtualListSize : listView.Items.Count;
 		for (int i = 0; i < count; i++)
 		{
-			ListViewItem item = listView.Items[index: i];
+			ListViewItem item = listView.VirtualMode && virtualRowProvider != null
+				? virtualRowProvider(i)
+				: listView.Items[index: i];
 			string[] row = new string[item.SubItems.Count];
 			for (int j = 0; j < item.SubItems.Count; j++)
 			{
@@ -233,7 +238,8 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">The document title written as a heading at the top of the file.</param>
 	/// <param name="fileName">The full path of the output file.</param>
-	public static void SaveAsText(ListView listView, string title, string fileName)
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	public static void SaveAsText(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
@@ -242,7 +248,7 @@ public static class ListViewExporter
 			writer.WriteLine(value: title);
 			writer.WriteLine(value: new string(c: '-', count: title.Length));
 			writer.WriteLine(value: string.Join(separator: "\t", values: headers));
-			foreach (string[] row in GetRows(listView: listView))
+			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				writer.WriteLine(value: string.Join(separator: "\t", values: row));
 			}
@@ -258,7 +264,8 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">The document title used in the LaTeX caption.</param>
 	/// <param name="fileName">The full path of the output file.</param>
-	public static void SaveAsLatex(ListView listView, string title, string fileName)
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	public static void SaveAsLatex(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
@@ -274,7 +281,7 @@ public static class ListViewExporter
 			writer.WriteLine(value: "\\hline");
 			writer.WriteLine(value: string.Join(separator: " & ", values: headers.Select(selector: EscapeLatex)) + " \\\\");
 			writer.WriteLine(value: "\\hline");
-			foreach (string[] row in GetRows(listView: listView))
+			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				writer.WriteLine(value: string.Join(separator: " & ", values: row.Select(selector: EscapeLatex)) + " \\\\");
 			}
@@ -295,7 +302,8 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">The document title written as a level-1 heading.</param>
 	/// <param name="fileName">The full path of the output file.</param>
-	public static void SaveAsMarkdown(ListView listView, string title, string fileName)
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	public static void SaveAsMarkdown(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
@@ -305,7 +313,7 @@ public static class ListViewExporter
 			writer.WriteLine();
 			writer.WriteLine(value: "| " + string.Join(separator: " | ", values: headers) + " |");
 			writer.WriteLine(value: "| " + string.Join(separator: " | ", values: headers.Select(selector: static _ => ":---")) + " |");
-			foreach (string[] row in GetRows(listView: listView))
+			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				writer.WriteLine(value: "| " + string.Join(separator: " | ", values: row.Select(selector: EscapeMarkdownCell)) + " |");
 			}
@@ -321,7 +329,8 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">The document title written as the first-level heading.</param>
 	/// <param name="fileName">The full path of the output file.</param>
-	public static void SaveAsAsciiDoc(ListView listView, string title, string fileName)
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	public static void SaveAsAsciiDoc(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
@@ -332,7 +341,7 @@ public static class ListViewExporter
 			writer.WriteLine(value: "[options=\"header\"]");
 			writer.WriteLine(value: "|===");
 			writer.WriteLine(value: "|" + string.Join(separator: "|", values: headers));
-			foreach (string[] row in GetRows(listView: listView))
+			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				string[] escaped = row.Select(selector: static v => v.Replace(oldValue: "|", newValue: "\\|")).ToArray();
 				writer.WriteLine(value: "|" + string.Join(separator: "|", values: escaped));
@@ -350,12 +359,13 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">The document title written as the main heading.</param>
 	/// <param name="fileName">The full path of the output file.</param>
-	public static void SaveAsReStructuredText(ListView listView, string title, string fileName)
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	public static void SaveAsReStructuredText(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
 			string[] headers = GetHeaders(listView: listView);
-			List<string[]> rows = GetRows(listView: listView).ToList();
+			List<string[]> rows = GetRows(listView: listView, virtualRowProvider: virtualRowProvider).ToList();
 			int[] widths = new int[headers.Length];
 			for (int c = 0; c < headers.Length; c++)
 			{
@@ -405,7 +415,8 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">The document title written as a level-1 heading.</param>
 	/// <param name="fileName">The full path of the output file.</param>
-	public static void SaveAsTextile(ListView listView, string title, string fileName)
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	public static void SaveAsTextile(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
@@ -414,7 +425,7 @@ public static class ListViewExporter
 			writer.WriteLine(value: $"h1. {title}");
 			writer.WriteLine();
 			writer.WriteLine(value: "|_. " + string.Join(separator: " |_. ", values: headers) + " |");
-			foreach (string[] row in GetRows(listView: listView))
+			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				string[] escaped = row.Select(selector: static v => v.Replace(oldValue: "|", newValue: "&#124;")).ToArray();
 				writer.WriteLine(value: "| " + string.Join(separator: " | ", values: escaped) + " |");
@@ -431,8 +442,9 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">The document title written as a styled paragraph at the top.</param>
 	/// <param name="fileName">The full path of the output file.</param>
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
 	/// <remarks>The file is a proper compressed DOCX (ZIP/Open XML) archive, not a flat XML file.</remarks>
-	public static void SaveAsWord(ListView listView, string title, string fileName)
+	public static void SaveAsWord(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
@@ -474,7 +486,7 @@ public static class ListViewExporter
 					writer.Write(value: $"<w:tc><w:p><w:r><w:t>{safe}</w:t></w:r></w:p></w:tc>");
 				}
 				writer.WriteLine(value: "</w:tr>");
-				foreach (string[] row in GetRows(listView: listView))
+				foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 				{
 					writer.Write(value: "      <w:tr>");
 					for (int c = 0; c < headers.Length; c++)
@@ -501,8 +513,9 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">The document title written as a level-1 heading.</param>
 	/// <param name="fileName">The full path of the output file.</param>
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
 	/// <remarks>The file is a proper compressed ODT (ZIP) archive, not a flat XML file.</remarks>
-	public static void SaveAsOdt(ListView listView, string title, string fileName)
+	public static void SaveAsOdt(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
@@ -540,7 +553,7 @@ public static class ListViewExporter
 					writer.Write(value: $"<table:table-cell><text:p>{safe}</text:p></table:table-cell>");
 				}
 				writer.WriteLine(value: "</table:table-row></table:table-header-rows>");
-				foreach (string[] row in GetRows(listView: listView))
+				foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 				{
 					writer.Write(value: "    <table:table-row>");
 					for (int c = 0; c < headers.Length; c++)
@@ -567,7 +580,8 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">The document title written as a bold heading.</param>
 	/// <param name="fileName">The full path of the output file.</param>
-	public static void SaveAsRtf(ListView listView, string title, string fileName)
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	public static void SaveAsRtf(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
@@ -577,7 +591,7 @@ public static class ListViewExporter
 			writer.WriteLine(value: @"{\fonttbl{\f0 Arial;}}");
 			writer.WriteLine(value: @"\f0\fs20");
 			writer.WriteLine(value: $@"{{\pard\b\fs24 {EscapeRtf(input: title)}\par\par}}");
-			foreach (string[] row in GetRows(listView: listView))
+			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				int cumWidth = 0;
 				writer.Write(value: @"\trowd\trgaph108\trleft-108");
@@ -608,7 +622,8 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">The document title written as a level-1 paragraph.</param>
 	/// <param name="fileName">The full path of the output file.</param>
-	public static void SaveAsAbiword(ListView listView, string title, string fileName)
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	public static void SaveAsAbiword(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
@@ -630,7 +645,7 @@ public static class ListViewExporter
 				writer.WriteLine(value: "      </cell>");
 			}
 			rowIdx++;
-			foreach (string[] dataRow in GetRows(listView: listView))
+			foreach (string[] dataRow in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				for (int c = 0; c < headers.Length; c++)
 				{
@@ -657,8 +672,9 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">The document title written as a level-1 heading.</param>
 	/// <param name="fileName">The full path of the output file.</param>
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
 	/// <remarks>WPS Writer natively supports HTML-based content; the file is saved in HTML format internally.</remarks>
-	public static void SaveAsWps(ListView listView, string title, string fileName)
+	public static void SaveAsWps(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
@@ -676,7 +692,7 @@ public static class ListViewExporter
 				writer.Write(value: $"<th>{System.Net.WebUtility.HtmlEncode(value: h)}</th>");
 			}
 			writer.WriteLine(value: "</tr>");
-			foreach (string[] row in GetRows(listView: listView))
+			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				writer.Write(value: "<tr>");
 				for (int c = 0; c < headers.Length; c++)
@@ -699,8 +715,9 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">The document title (used as a comment; the sheet is named "Data").</param>
 	/// <param name="fileName">The full path of the output file.</param>
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
 	/// <remarks>The file is a proper compressed XLSX (ZIP/Open XML) archive.</remarks>
-	public static void SaveAsExcel(ListView listView, string title, string fileName)
+	public static void SaveAsExcel(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
@@ -755,7 +772,7 @@ public static class ListViewExporter
 					writer.Write(value: $"<c t=\"inlineStr\"><is><t>{safe}</t></is></c>");
 				}
 				writer.WriteLine(value: "</row>");
-				foreach (string[] row in GetRows(listView: listView))
+				foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 				{
 					writer.Write(value: "    <row>");
 					for (int c = 0; c < headers.Length; c++)
@@ -781,8 +798,9 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">The document title used as the spreadsheet table name.</param>
 	/// <param name="fileName">The full path of the output file.</param>
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
 	/// <remarks>The file is a proper compressed ODS (ZIP) archive, not a flat XML file.</remarks>
-	public static void SaveAsOds(ListView listView, string title, string fileName)
+	public static void SaveAsOds(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
@@ -819,7 +837,7 @@ public static class ListViewExporter
 					writer.Write(value: $"<table:table-cell office:value-type=\"string\"><text:p>{safe}</text:p></table:table-cell>");
 				}
 				writer.WriteLine(value: "</table:table-row>");
-				foreach (string[] row in GetRows(listView: listView))
+				foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 				{
 					writer.Write(value: "    <table:table-row>");
 					for (int c = 0; c < headers.Length; c++)
@@ -846,14 +864,15 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">Not written to the file body; reserved for future use.</param>
 	/// <param name="fileName">The full path of the output file.</param>
-	public static void SaveAsCsv(ListView listView, string title, string fileName)
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	public static void SaveAsCsv(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
 			string[] headers = GetHeaders(listView: listView);
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
 			writer.WriteLine(value: string.Join(separator: ",", values: headers.Select(selector: EscapeCsvField)));
-			foreach (string[] row in GetRows(listView: listView))
+			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				writer.WriteLine(value: string.Join(separator: ",", values: Enumerable.Range(start: 0, count: headers.Length).Select(selector: c =>
 				{
@@ -873,14 +892,15 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">Not written to the file body; reserved for future use.</param>
 	/// <param name="fileName">The full path of the output file.</param>
-	public static void SaveAsTsv(ListView listView, string title, string fileName)
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	public static void SaveAsTsv(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
 			string[] headers = GetHeaders(listView: listView);
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
 			writer.WriteLine(value: string.Join(separator: "\t", values: headers));
-			foreach (string[] row in GetRows(listView: listView))
+			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				writer.WriteLine(value: string.Join(separator: "\t", values: Enumerable.Range(start: 0, count: headers.Length).Select(selector: c => c < row.Length ? row[c] : string.Empty)));
 			}
@@ -896,14 +916,15 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">Not written to the file body; reserved for future use.</param>
 	/// <param name="fileName">The full path of the output file.</param>
-	public static void SaveAsPsv(ListView listView, string title, string fileName)
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	public static void SaveAsPsv(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
 			string[] headers = GetHeaders(listView: listView);
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
 			writer.WriteLine(value: string.Join(separator: "|", values: headers));
-			foreach (string[] row in GetRows(listView: listView))
+			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				writer.WriteLine(value: string.Join(separator: "|", values: Enumerable.Range(start: 0, count: headers.Length).Select(selector: c => c < row.Length ? row[c] : string.Empty)));
 			}
@@ -919,15 +940,16 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">Not written to the file body; reserved for future use.</param>
 	/// <param name="fileName">The full path of the output file.</param>
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
 	/// <remarks>ET files use CSV format for WPS Spreadsheet compatibility.</remarks>
-	public static void SaveAsEt(ListView listView, string title, string fileName)
+	public static void SaveAsEt(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
 			string[] headers = GetHeaders(listView: listView);
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
 			writer.WriteLine(value: string.Join(separator: ",", values: headers.Select(selector: EscapeCsvField)));
-			foreach (string[] row in GetRows(listView: listView))
+			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				writer.WriteLine(value: string.Join(separator: ",", values: Enumerable.Range(start: 0, count: headers.Length).Select(selector: c =>
 				{
@@ -947,7 +969,8 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">The document title written in the &lt;title&gt; element and as an &lt;h1&gt; heading.</param>
 	/// <param name="fileName">The full path of the output file.</param>
-	public static void SaveAsHtml(ListView listView, string title, string fileName)
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	public static void SaveAsHtml(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
@@ -965,7 +988,7 @@ public static class ListViewExporter
 				writer.Write(value: $"<th>{System.Net.WebUtility.HtmlEncode(value: h)}</th>");
 			}
 			writer.WriteLine(value: "</tr></thead><tbody>");
-			foreach (string[] row in GetRows(listView: listView))
+			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				writer.Write(value: "<tr>");
 				for (int c = 0; c < headers.Length; c++)
@@ -988,7 +1011,8 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">Written as a <c>title</c> attribute on the root element.</param>
 	/// <param name="fileName">The full path of the output file.</param>
-	public static void SaveAsXml(ListView listView, string title, string fileName)
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	public static void SaveAsXml(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
@@ -998,7 +1022,7 @@ public static class ListViewExporter
 			xmlWriter.WriteStartDocument();
 			xmlWriter.WriteStartElement(localName: "data");
 			xmlWriter.WriteAttributeString(localName: "title", value: title);
-			foreach (string[] row in GetRows(listView: listView))
+			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				xmlWriter.WriteStartElement(localName: "row");
 				for (int c = 0; c < headers.Length; c++)
@@ -1025,7 +1049,8 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">The document title written in the &lt;title&gt; element.</param>
 	/// <param name="fileName">The full path of the output file.</param>
-	public static void SaveAsDocBook(ListView listView, string title, string fileName)
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	public static void SaveAsDocBook(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
@@ -1057,7 +1082,7 @@ public static class ListViewExporter
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteStartElement(localName: "tbody");
-			foreach (string[] row in GetRows(listView: listView))
+			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				xmlWriter.WriteStartElement(localName: "row");
 				for (int c = 0; c < headers.Length; c++)
@@ -1084,13 +1109,14 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">Written as the value of a <c>title</c> property at the root of the JSON object.</param>
 	/// <param name="fileName">The full path of the output file.</param>
-	public static void SaveAsJson(ListView listView, string title, string fileName)
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	public static void SaveAsJson(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
 			string[] headers = GetHeaders(listView: listView);
 			List<Dictionary<string, string>> records = [];
-			foreach (string[] row in GetRows(listView: listView))
+			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				Dictionary<string, string> record = [];
 				for (int c = 0; c < headers.Length; c++)
@@ -1114,7 +1140,8 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">Written as the value of a <c>title</c> key at the root of the YAML document.</param>
 	/// <param name="fileName">The full path of the output file.</param>
-	public static void SaveAsYaml(ListView listView, string title, string fileName)
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	public static void SaveAsYaml(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
@@ -1124,7 +1151,7 @@ public static class ListViewExporter
 			writer.WriteLine(value: $"title: \"{title.Replace(oldValue: "\"", newValue: "\\\"")}\"");
 			writer.WriteLine(value: $"created_at: \"{DateTime.UtcNow:O}\"");
 			writer.WriteLine(value: "rows:");
-			foreach (string[] row in GetRows(listView: listView))
+			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				writer.WriteLine(value: "  - item:");
 				for (int c = 0; c < headers.Length; c++)
@@ -1147,7 +1174,8 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">Written as the value of a <c>title</c> key at the top of the file.</param>
 	/// <param name="fileName">The full path of the output file.</param>
-	public static void SaveAsToml(ListView listView, string title, string fileName)
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	public static void SaveAsToml(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
@@ -1156,7 +1184,7 @@ public static class ListViewExporter
 			writer.WriteLine(value: $"title = \"{EscapeToml(value: title)}\"");
 			writer.WriteLine(value: $"created_at = {DateTime.UtcNow:yyyy-MM-ddTHH:mm:ssZ}");
 			writer.WriteLine();
-			foreach (string[] row in GetRows(listView: listView))
+			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				writer.WriteLine(value: "[[rows]]");
 				for (int c = 0; c < headers.Length; c++)
@@ -1178,7 +1206,8 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">Used as the SQL table name in the CREATE TABLE and INSERT statements.</param>
 	/// <param name="fileName">The full path of the output file.</param>
-	public static void SaveAsSql(ListView listView, string title, string fileName)
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	public static void SaveAsSql(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
@@ -1199,7 +1228,7 @@ public static class ListViewExporter
 			writer.WriteLine();
 			writer.WriteLine(value: "BEGIN TRANSACTION;");
 			string colList = string.Join(separator: ", ", values: headers.Select(selector: h => $"[{h}]"));
-			foreach (string[] row in GetRows(listView: listView))
+			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				string values = string.Join(separator: ", ", values: Enumerable.Range(start: 0, count: headers.Length).Select(selector: c =>
 				{
@@ -1221,7 +1250,8 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">Used as the table name inside the SQLite database.</param>
 	/// <param name="fileName">The full path of the output file.</param>
-	public static void SaveAsSqlite(ListView listView, string title, string fileName)
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	public static void SaveAsSqlite(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
@@ -1254,7 +1284,7 @@ public static class ListViewExporter
 			{
 				parameters[c] = insertCmd.Parameters.Add(parameterName: $"@p{c}", parameterType: System.Data.DbType.String);
 			}
-			foreach (string[] row in GetRows(listView: listView))
+			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				for (int c = 0; c < headers.Length; c++)
 				{
@@ -1276,7 +1306,8 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">Written as the document heading on each page.</param>
 	/// <param name="fileName">The full path of the output file.</param>
-	public static void SaveAsPdf(ListView listView, string title, string fileName)
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	public static void SaveAsPdf(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
@@ -1317,7 +1348,7 @@ public static class ListViewExporter
 				w.WriteLine(value: $"1 0 0 1 {colX[c]} {pageHeight - 60} Tm ({EscapePdf(text: headers[c])}) Tj");
 			}
 			currentY = startY - 30;
-			foreach (string[] row in GetRows(listView: listView))
+			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				if (currentY < marginY)
 				{
@@ -1414,7 +1445,8 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">Written as the page heading on each PostScript page.</param>
 	/// <param name="fileName">The full path of the output file.</param>
-	public static void SaveAsPostScript(ListView listView, string title, string fileName)
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	public static void SaveAsPostScript(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
@@ -1452,7 +1484,7 @@ public static class ListViewExporter
 			writer.WriteLine(value: "%%EndComments");
 			WritePageHeader(pg: pageNumber);
 			currentY = startY - 30;
-			foreach (string[] row in GetRows(listView: listView))
+			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				if (currentY < marginBottom)
 				{
@@ -1484,8 +1516,9 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">The EPUB book title used in metadata and content pages.</param>
 	/// <param name="fileName">The full path of the output file.</param>
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
 	/// <remarks>The file is a proper compressed EPUB (ZIP) archive conforming to the EPUB 2 specification.</remarks>
-	public static void SaveAsEpub(ListView listView, string title, string fileName)
+	public static void SaveAsEpub(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
@@ -1550,7 +1583,7 @@ public static class ListViewExporter
 					writer.Write(value: $"<th>{System.Net.WebUtility.HtmlEncode(value: h)}</th>");
 				}
 				writer.WriteLine(value: "</tr></thead><tbody>");
-				foreach (string[] row in GetRows(listView: listView))
+				foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 				{
 					writer.Write(value: "<tr>");
 					for (int c = 0; c < headers.Length; c++)
@@ -1574,7 +1607,8 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">The book title embedded in the MOBI header and HTML content body.</param>
 	/// <param name="fileName">The full path of the output file.</param>
-	public static void SaveAsMobi(ListView listView, string title, string fileName)
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	public static void SaveAsMobi(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
@@ -1588,7 +1622,7 @@ public static class ListViewExporter
 				html.Append(value: $"<th>{System.Net.WebUtility.HtmlEncode(value: h)}</th>");
 			}
 			html.Append(value: "</tr>");
-			foreach (string[] row in GetRows(listView: listView))
+			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				html.Append(value: "<tr>");
 				for (int c = 0; c < headers.Length; c++)
@@ -1685,7 +1719,8 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">The book title written in the FB2 metadata and body sections.</param>
 	/// <param name="fileName">The full path of the output file.</param>
-	public static void SaveAsFictionBook2(ListView listView, string title, string fileName)
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	public static void SaveAsFictionBook2(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
@@ -1733,7 +1768,7 @@ public static class ListViewExporter
 				xmlWriter.WriteElementString(localName: "th", ns: fb2Ns, value: h);
 			}
 			xmlWriter.WriteEndElement();
-			foreach (string[] row in GetRows(listView: listView))
+			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				xmlWriter.WriteStartElement(localName: "tr", ns: fb2Ns);
 				for (int c = 0; c < headers.Length; c++)
@@ -1760,9 +1795,10 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">The CHM title used in HTML content and the HHP project file.</param>
 	/// <param name="fileName">The full path of the output file.</param>
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
 	/// <remarks>Requires Microsoft HTML Help Workshop (<c>hhc.exe</c>) to be installed. If it is not found,
 	/// an error message is shown and no file is written.</remarks>
-	public static void SaveAsChm(ListView listView, string title, string fileName)
+	public static void SaveAsChm(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		string[] headers = GetHeaders(listView: listView);
 		string hhcPath = Path.Combine(
@@ -1797,7 +1833,7 @@ public static class ListViewExporter
 					writer.Write(value: $"<th>{System.Net.WebUtility.HtmlEncode(value: h)}</th>");
 				}
 				writer.WriteLine(value: "</tr>");
-				foreach (string[] row in GetRows(listView: listView))
+				foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 				{
 					writer.Write(value: "<tr>");
 					for (int c = 0; c < headers.Length; c++)
@@ -1876,8 +1912,9 @@ public static class ListViewExporter
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">Written as the page heading on each XPS page.</param>
 	/// <param name="fileName">The full path of the output file.</param>
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
 	/// <remarks>The file is a proper compressed XPS (ZIP) archive adhering to the Open Packaging Convention.</remarks>
-	public static void SaveAsXps(ListView listView, string title, string fileName)
+	public static void SaveAsXps(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		try
 		{
@@ -1980,7 +2017,7 @@ public static class ListViewExporter
 
 			StartNewPage();
 
-			foreach (string[] row in GetRows(listView: listView))
+			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				if (currentY > marginB)
 				{
