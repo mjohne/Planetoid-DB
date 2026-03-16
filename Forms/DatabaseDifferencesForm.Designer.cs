@@ -42,7 +42,7 @@ partial class DatabaseDifferencesForm
 		kryptonButtonGoto = new KryptonButton();
 		kryptonButtonNoteAbbreviations = new KryptonButton();
 		dropButtonSaveList = new KryptonDropButton();
-		contextMenuSaveList = new ContextMenuStrip(components);
+		contextMenuSaveToFile = new ContextMenuStrip(components);
 		toolStripMenuItemTextFiles = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsText = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsLatex = new ToolStripMenuItem();
@@ -107,7 +107,7 @@ partial class DatabaseDifferencesForm
 		((ISupportInitialize)kryptoPanelMain).BeginInit();
 		kryptoPanelMain.SuspendLayout();
 		groupBoxResults.SuspendLayout();
-		contextMenuSaveList.SuspendLayout();
+		contextMenuSaveToFile.SuspendLayout();
 		groupBoxFile1.SuspendLayout();
 		contextMenuCopyToClipboard.SuspendLayout();
 		groupBoxFile2.SuspendLayout();
@@ -208,7 +208,7 @@ partial class DatabaseDifferencesForm
 		dropButtonSaveList.AccessibleDescription = "Saves the list as file";
 		dropButtonSaveList.AccessibleName = "Save list";
 		dropButtonSaveList.AccessibleRole = AccessibleRole.ButtonDropDown;
-		dropButtonSaveList.ContextMenuStrip = contextMenuSaveList;
+		dropButtonSaveList.ContextMenuStrip = contextMenuSaveToFile;
 		dropButtonSaveList.Location = new Point(534, 273);
 		dropButtonSaveList.Name = "dropButtonSaveList";
 		dropButtonSaveList.Size = new Size(93, 23);
@@ -232,19 +232,19 @@ partial class DatabaseDifferencesForm
 		dropButtonSaveList.MouseEnter += Control_Enter;
 		dropButtonSaveList.MouseLeave += Control_Leave;
 		// 
-		// contextMenuSaveList
+		// contextMenuSaveToFile
 		// 
-		contextMenuSaveList.AccessibleDescription = "Save the list as file";
-		contextMenuSaveList.AccessibleName = "Save list";
-		contextMenuSaveList.AccessibleRole = AccessibleRole.MenuPopup;
-		contextMenuSaveList.Font = new Font("Segoe UI", 9F);
-		contextMenuSaveList.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
-		contextMenuSaveList.Name = "contextMenuSaveList";
-		contextMenuSaveList.Size = new Size(202, 180);
-		contextMenuSaveList.TabStop = true;
-		contextMenuSaveList.Text = "&Save list";
-		contextMenuSaveList.MouseEnter += Control_Enter;
-		contextMenuSaveList.MouseLeave += Control_Leave;
+		contextMenuSaveToFile.AccessibleDescription = "Save the list as file";
+		contextMenuSaveToFile.AccessibleName = "Save list";
+		contextMenuSaveToFile.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
+		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
+		contextMenuSaveToFile.Name = "contextMenuSaveList";
+		contextMenuSaveToFile.Size = new Size(202, 180);
+		contextMenuSaveToFile.TabStop = true;
+		contextMenuSaveToFile.Text = "&Save list";
+		contextMenuSaveToFile.MouseEnter += Control_Enter;
+		contextMenuSaveToFile.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemTextFiles
 		// 
@@ -564,7 +564,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsHtml.Image = Resources.FatcowIcons16px.fatcow_page_white_code_16px;
 		toolStripMenuItemSaveAsHtml.Name = "toolStripMenuItemSaveAsHtml";
 		toolStripMenuItemSaveAsHtml.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsHtml.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsHtml.Size = new Size(163, 22);
 		toolStripMenuItemSaveAsHtml.Text = "Save as &HTML";
 		toolStripMenuItemSaveAsHtml.Click += ToolStripMenuItemSaveAsHtml_Click;
 		toolStripMenuItemSaveAsHtml.MouseEnter += Control_Enter;
@@ -579,7 +579,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsXml.Image = Resources.FatcowIcons16px.fatcow_page_white_code_16px;
 		toolStripMenuItemSaveAsXml.Name = "toolStripMenuItemSaveAsXml";
 		toolStripMenuItemSaveAsXml.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsXml.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsXml.Size = new Size(163, 22);
 		toolStripMenuItemSaveAsXml.Text = "Save as &XML";
 		toolStripMenuItemSaveAsXml.Click += ToolStripMenuItemSaveAsXml_Click;
 		toolStripMenuItemSaveAsXml.MouseEnter += Control_Enter;
@@ -593,7 +593,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsDocBook.AutoToolTip = true;
 		toolStripMenuItemSaveAsDocBook.Image = Resources.FatcowIcons16px.fatcow_page_white_code_16px;
 		toolStripMenuItemSaveAsDocBook.Name = "toolStripMenuItemSaveAsDocBook";
-		toolStripMenuItemSaveAsDocBook.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsDocBook.Size = new Size(163, 22);
 		toolStripMenuItemSaveAsDocBook.Text = "Save as &DocBook";
 		toolStripMenuItemSaveAsDocBook.Click += ToolStripMenuItemSaveAsDocBook_Click;
 		toolStripMenuItemSaveAsDocBook.MouseEnter += Control_Enter;
@@ -623,7 +623,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsJson.Image = Resources.FatcowIcons16px.fatcow_page_white_code_red_16px;
 		toolStripMenuItemSaveAsJson.Name = "toolStripMenuItemSaveAsJson";
 		toolStripMenuItemSaveAsJson.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsJson.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsJson.Size = new Size(146, 22);
 		toolStripMenuItemSaveAsJson.Text = "Save as &JSON";
 		toolStripMenuItemSaveAsJson.Click += ToolStripMenuItemSaveAsJson_Click;
 		toolStripMenuItemSaveAsJson.MouseEnter += Control_Enter;
@@ -638,7 +638,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsYaml.Image = Resources.FatcowIcons16px.fatcow_page_white_code_red_16px;
 		toolStripMenuItemSaveAsYaml.Name = "toolStripMenuItemSaveAsYaml";
 		toolStripMenuItemSaveAsYaml.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsYaml.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsYaml.Size = new Size(146, 22);
 		toolStripMenuItemSaveAsYaml.Text = "Save as &YAML";
 		toolStripMenuItemSaveAsYaml.Click += ToolStripMenuItemSaveAsYaml_Click;
 		toolStripMenuItemSaveAsYaml.MouseEnter += Control_Enter;
@@ -652,7 +652,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsToml.AutoToolTip = true;
 		toolStripMenuItemSaveAsToml.Image = Resources.FatcowIcons16px.fatcow_page_white_code_red_16px;
 		toolStripMenuItemSaveAsToml.Name = "toolStripMenuItemSaveAsToml";
-		toolStripMenuItemSaveAsToml.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsToml.Size = new Size(146, 22);
 		toolStripMenuItemSaveAsToml.Text = "Save as &TOML";
 		toolStripMenuItemSaveAsToml.Click += ToolStripMenuItemSaveAsToml_Click;
 		toolStripMenuItemSaveAsToml.MouseEnter += Control_Enter;
@@ -682,7 +682,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsSql.Image = Resources.FatcowIcons16px.fatcow_page_white_database_16px;
 		toolStripMenuItemSaveAsSql.Name = "toolStripMenuItemSaveAsSql";
 		toolStripMenuItemSaveAsSql.ShortcutKeyDisplayString = "";
-		toolStripMenuItemSaveAsSql.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsSql.Size = new Size(168, 22);
 		toolStripMenuItemSaveAsSql.Text = "Save as &SQL script";
 		toolStripMenuItemSaveAsSql.Click += ToolStripMenuItemSaveAsSql_Click;
 		toolStripMenuItemSaveAsSql.MouseEnter += Control_Enter;
@@ -696,7 +696,7 @@ partial class DatabaseDifferencesForm
 		toolStripMenuItemSaveAsSqlite.AutoToolTip = true;
 		toolStripMenuItemSaveAsSqlite.Image = Resources.FatcowIcons16px.fatcow_page_white_database_16px;
 		toolStripMenuItemSaveAsSqlite.Name = "toolStripMenuItemSaveAsSqlite";
-		toolStripMenuItemSaveAsSqlite.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsSqlite.Size = new Size(168, 22);
 		toolStripMenuItemSaveAsSqlite.Text = "Save as SQ&Lite";
 		toolStripMenuItemSaveAsSqlite.Click += ToolStripMenuItemSaveAsSqlite_Click;
 		toolStripMenuItemSaveAsSqlite.MouseEnter += Control_Enter;
@@ -1191,7 +1191,7 @@ partial class DatabaseDifferencesForm
 		((ISupportInitialize)kryptoPanelMain).EndInit();
 		kryptoPanelMain.ResumeLayout(false);
 		groupBoxResults.ResumeLayout(false);
-		contextMenuSaveList.ResumeLayout(false);
+		contextMenuSaveToFile.ResumeLayout(false);
 		groupBoxFile1.ResumeLayout(false);
 		contextMenuCopyToClipboard.ResumeLayout(false);
 		groupBoxFile2.ResumeLayout(false);
@@ -1235,7 +1235,7 @@ partial class DatabaseDifferencesForm
 	private ToolStripMenuItem toolStripMenuItemCopyToClipboard;
 	private KryptonButton kryptonButtonNoteAbbreviations;
 	private KryptonDropButton dropButtonSaveList;
-	private ContextMenuStrip contextMenuSaveList;
+	private ContextMenuStrip contextMenuSaveToFile;
 	private ToolStripMenuItem toolStripMenuItemSaveAsText;
 	private ToolStripMenuItem toolStripMenuItemSaveAsLatex;
 	private ToolStripMenuItem toolStripMenuItemSaveAsMarkdown;

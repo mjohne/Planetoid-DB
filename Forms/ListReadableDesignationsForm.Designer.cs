@@ -49,7 +49,7 @@ partial class ListReadableDesignationsForm
 		labelInformation = new ToolStripStatusLabel();
 		contextMenuCopyToClipboard = new ContextMenuStrip(components);
 		toolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
-		contextMenuSaveList = new ContextMenuStrip(components);
+		contextMenuSaveToFile = new ContextMenuStrip(components);
 		toolStripMenuItemTextFiles = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsText = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsLatex = new ToolStripMenuItem();
@@ -108,7 +108,7 @@ partial class ListReadableDesignationsForm
 		toolStripSeparator2 = new ToolStripSeparator();
 		kryptonStatusStrip.SuspendLayout();
 		contextMenuCopyToClipboard.SuspendLayout();
-		contextMenuSaveList.SuspendLayout();
+		contextMenuSaveToFile.SuspendLayout();
 		((ISupportInitialize)kryptoPanelMain).BeginInit();
 		kryptoPanelMain.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
@@ -188,21 +188,20 @@ partial class ListReadableDesignationsForm
 		toolStripMenuItemCopyToClipboard.MouseEnter += Control_Enter;
 		toolStripMenuItemCopyToClipboard.MouseLeave += Control_Leave;
 		// 
-		// contextMenuSaveList
+		// contextMenuSaveToFile
 		// 
-		contextMenuSaveList.AccessibleDescription = "Save the list as file";
-		contextMenuSaveList.AccessibleName = "Save list";
-		contextMenuSaveList.AccessibleRole = AccessibleRole.MenuPopup;
-		contextMenuSaveList.AllowClickThrough = true;
-		contextMenuSaveList.Font = new Font("Segoe UI", 9F);
-		contextMenuSaveList.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
-		contextMenuSaveList.Name = "contextMenuSaveList";
-		contextMenuSaveList.OwnerItem = toolStripDropDownButtonSaveList;
-		contextMenuSaveList.Size = new Size(202, 180);
-		contextMenuSaveList.TabStop = true;
-		contextMenuSaveList.Text = "&Save list";
-		contextMenuSaveList.MouseEnter += Control_Enter;
-		contextMenuSaveList.MouseLeave += Control_Leave;
+		contextMenuSaveToFile.AccessibleDescription = "Save the list as file";
+		contextMenuSaveToFile.AccessibleName = "Save list";
+		contextMenuSaveToFile.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuSaveToFile.AllowClickThrough = true;
+		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
+		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
+		contextMenuSaveToFile.Name = "contextMenuSaveList";
+		contextMenuSaveToFile.Size = new Size(202, 180);
+		contextMenuSaveToFile.TabStop = true;
+		contextMenuSaveToFile.Text = "&Save list";
+		contextMenuSaveToFile.MouseEnter += Control_Enter;
+		contextMenuSaveToFile.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemTextFiles
 		// 
@@ -618,7 +617,7 @@ partial class ListReadableDesignationsForm
 		toolStripMenuItemSaveAsSql.AutoToolTip = true;
 		toolStripMenuItemSaveAsSql.Image = FatcowIcons16px.fatcow_page_white_database_16px;
 		toolStripMenuItemSaveAsSql.Name = "toolStripMenuItemSaveAsSql";
-		toolStripMenuItemSaveAsSql.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsSql.Size = new Size(168, 22);
 		toolStripMenuItemSaveAsSql.Text = "Save as &SQL script";
 		toolStripMenuItemSaveAsSql.Click += ToolStripMenuItemSaveAsSql_Click;
 		toolStripMenuItemSaveAsSql.MouseEnter += Control_Enter;
@@ -628,12 +627,12 @@ partial class ListReadableDesignationsForm
 		// 
 		toolStripMenuItemSaveAsSqlite.AccessibleDescription = "Saves the list as SQLite file";
 		toolStripMenuItemSaveAsSqlite.AccessibleName = "Save as SQLite";
-		toolStripMenuItemSaveAsSqlite.AccessibleRole = AccessibleRole.MenuPopup;
+		toolStripMenuItemSaveAsSqlite.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemSaveAsSqlite.AutoToolTip = true;
 		toolStripMenuItemSaveAsSqlite.Image = FatcowIcons16px.fatcow_page_white_database_16px;
 		toolStripMenuItemSaveAsSqlite.Name = "toolStripMenuItemSaveAsSqlite";
-		toolStripMenuItemSaveAsSqlite.Size = new Size(180, 22);
-		toolStripMenuItemSaveAsSqlite.Text = "Save as SQLite";
+		toolStripMenuItemSaveAsSqlite.Size = new Size(168, 22);
+		toolStripMenuItemSaveAsSqlite.Text = "Save as SQ&Lite";
 		toolStripMenuItemSaveAsSqlite.Click += ToolStripMenuItemSaveAsSqlite_Click;
 		toolStripMenuItemSaveAsSqlite.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsSqlite.MouseLeave += Control_Leave;
@@ -755,7 +754,7 @@ partial class ListReadableDesignationsForm
 		toolStripDropDownButtonSaveList.AccessibleDescription = "Saves the list as file";
 		toolStripDropDownButtonSaveList.AccessibleName = "Save list";
 		toolStripDropDownButtonSaveList.AccessibleRole = AccessibleRole.ButtonDropDown;
-		toolStripDropDownButtonSaveList.DropDown = contextMenuSaveList;
+		toolStripDropDownButtonSaveList.DropDown = contextMenuSaveToFile;
 		toolStripDropDownButtonSaveList.Image = FatcowIcons16px.fatcow_diskette_16px;
 		toolStripDropDownButtonSaveList.ImageTransparentColor = Color.Magenta;
 		toolStripDropDownButtonSaveList.Name = "toolStripDropDownButtonSaveList";
@@ -1028,7 +1027,7 @@ partial class ListReadableDesignationsForm
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();
 		contextMenuCopyToClipboard.ResumeLayout(false);
-		contextMenuSaveList.ResumeLayout(false);
+		contextMenuSaveToFile.ResumeLayout(false);
 		((ISupportInitialize)kryptoPanelMain).EndInit();
 		kryptoPanelMain.ResumeLayout(false);
 		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
@@ -1053,7 +1052,7 @@ partial class ListReadableDesignationsForm
 	private ListView listView;
 	private ColumnHeader columnHeaderIndex;
 	private ColumnHeader columnHeaderReadableDesignation;
-	private ContextMenuStrip contextMenuSaveList;
+	private ContextMenuStrip contextMenuSaveToFile;
 	private ToolStripMenuItem toolStripMenuItemSaveAsCsv;
 	private ToolStripMenuItem toolStripMenuItemSaveAsHtml;
 	private KryptonManager kryptonManager;
