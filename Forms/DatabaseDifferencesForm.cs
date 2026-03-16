@@ -436,6 +436,16 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// <param name="e">The event data associated with the click event.</param>
 	private void ToolStripMenuItemSaveAsText_Click(object sender, EventArgs e)
 	{
+		if (listViewResults.VirtualMode)
+		{
+			System.Windows.Forms.MessageBox.Show(
+				"Exporting results is not available while the list is in virtual mode.",
+				"Export Not Supported",
+				System.Windows.Forms.MessageBoxButtons.OK,
+				System.Windows.Forms.MessageBoxIcon.Warning);
+			return;
+		}
+
 		// Open a SaveFileDialog to allow the user to specify the location and name of the text file to save the list view results; if the user confirms the save operation, call the SaveAsText method to perform the export
 		using SaveFileDialog saveFileDialog = new()
 		{
@@ -456,6 +466,16 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// <param name="e">The event data associated with the click event.</param>
 	private void ToolStripMenuItemSaveAsLatex_Click(object sender, EventArgs e)
 	{
+		if (listViewResults.VirtualMode)
+		{
+			System.Windows.Forms.MessageBox.Show(
+				"Exporting results is not available while the list is in virtual mode.",
+				"Export Not Supported",
+				System.Windows.Forms.MessageBoxButtons.OK,
+				System.Windows.Forms.MessageBoxIcon.Warning);
+			return;
+		}
+
 		// Open a SaveFileDialog to allow the user to specify the location and name of the LaTeX file to save the list view results; if the user confirms the save operation, call the SaveAsLatex method to perform the export
 		using SaveFileDialog saveFileDialog = new()
 		{
@@ -696,6 +716,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	private void ToolStripMenuItemSaveAsJson_Click(object sender, EventArgs e)
 	{
 		// Open a SaveFileDialog to allow the user to specify the location and name of the JSON file to save the list view results; if the user confirms the save operation, call the SaveAsJson method to perform the export
+		_ = jsonSerializerOptions;
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "JSON Files (*.json)|*.json|All Files (*.*)|*.*",
@@ -1058,7 +1079,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		// Open a SaveFileDialog to allow the user to specify the location and name of the SQLite file to save the list view results; if the user confirms the save operation, call the SaveAsSqlite method to perform the export
 		using SaveFileDialog saveFileDialog = new()
 		{
-			Filter = "SQLite Files (*.sqlite)|*.sqlite|All Files (*.*)|*.*",
+			Filter = "SQLite Files (*.sqlite3;*.sqlite;*.db)|*.sqlite3;*.sqlite;*.db|All Files (*.*)|*.*",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
