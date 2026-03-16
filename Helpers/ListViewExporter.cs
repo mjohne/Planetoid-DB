@@ -1872,5 +1872,174 @@ public static class ListViewExporter
 		}
 	}
 
+	/// <summary>Saves the contents of <paramref name="listView"/> as an XML Paper Specification (XPS) document.</summary>
+	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
+	/// <param name="title">Written as the page heading on each XPS page.</param>
+	/// <param name="fileName">The full path of the output file.</param>
+	/// <remarks>The file is a proper compressed XPS (ZIP) archive adhering to the Open Packaging Convention.</remarks>
+	public static void SaveAsXps(ListView listView, string title, string fileName)
+	{
+		try
+		{
+			string[] headers = GetHeaders(listView: listView);
+			using FileStream fs = new(path: fileName, mode: FileMode.Create);
+			using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
+
+			ZipArchiveEntry contentTypesEntry = archive.CreateEntry(entryName: "[Content_Types].xml", compressionLevel: CompressionLevel.Optimal);
+			using (StreamWriter writer = new(stream: contentTypesEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+				writer.WriteLine(value: "<Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\">");
+				writer.WriteLine(value: "  <Default Extension=\"rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\"/>");
+				writer.WriteLine(value: "  <Default Extension=\"fdseq\" ContentType=\"application/vnd.ms-package.xps-fixeddocumentsequence+xml\"/>");
+				writer.WriteLine(value: "  <Default Extension=\"fdoc\" ContentType=\"application/vnd.ms-package.xps-fixeddocument+xml\"/>");
+				writer.WriteLine(value: "  <Default Extension=\"fpage\" ContentType=\"application/vnd.ms-package.xps-fixedpage+xml\"/>");
+				writer.WriteLine(value: "  <Default Extension=\"ttf\" ContentType=\"application/vnd.ms-package.obfuscated-opentype\"/>");
+				writer.WriteLine(value: "</Types>");
+			}
+
+			ZipArchiveEntry relsEntry = archive.CreateEntry(entryName: "_rels/.rels", compressionLevel: CompressionLevel.Optimal);
+			using (StreamWriter writer = new(stream: relsEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+				writer.WriteLine(value: "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">");
+				writer.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.microsoft.com/xps/2005/06/fixedrepresentation\" Target=\"/FixedDocSeq.fdseq\"/>");
+				writer.WriteLine(value: "</Relationships>");
+			}
+
+			ZipArchiveEntry fdseqRelsEntry = archive.CreateEntry(entryName: "_rels/FixedDocSeq.fdseq.rels", compressionLevel: CompressionLevel.Optimal);
+			using (StreamWriter writer = new(stream: fdseqRelsEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+				writer.WriteLine(value: "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">");
+				writer.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.microsoft.com/xps/2005/06/required-resource\" Target=\"/Documents/1/FixedDoc.fdoc\"/>");
+				writer.WriteLine(value: "</Relationships>");
+			}
+
+			ZipArchiveEntry fdseqEntry = archive.CreateEntry(entryName: "FixedDocSeq.fdseq", compressionLevel: CompressionLevel.Optimal);
+			using (StreamWriter writer = new(stream: fdseqEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+				writer.WriteLine(value: "<FixedDocumentSequence xmlns=\"http://schemas.microsoft.com/xps/2005/06\">");
+				writer.WriteLine(value: "  <DocumentReference Source=\"/Documents/1/FixedDoc.fdoc\"/>");
+				writer.WriteLine(value: "</FixedDocumentSequence>");
+			}
+
+			const int pageHeight = 1056;
+			const int startY = 96;
+			const int marginB = 960;
+			const int lineHeight = 16;
+			int usableWidth = 624;
+			int colWidth = headers.Length > 0 ? usableWidth / headers.Length : usableWidth;
+			int[] colX = new int[headers.Length];
+			for (int c = 0; c < headers.Length; c++)
+			{
+				colX[c] = 96 + (c * colWidth);
+			}
+
+			List<string> pageEntries = [];
+			int pageNumber = 1;
+			int currentY = startY;
+			StringBuilder currentPageBuilder = new();
+
+			void StartNewPage()
+			{
+				currentPageBuilder.Clear();
+				currentPageBuilder.AppendLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+				currentPageBuilder.AppendLine(value: "<FixedPage Width=\"816\" Height=\"1056\" xmlns=\"http://schemas.microsoft.com/xps/2005/06\" xml:lang=\"en-US\">");
+				string safeTitle = System.Security.SecurityElement.Escape(str: title) ?? string.Empty;
+				int titleY = Math.Max(val1: 0, val2: currentY - 24);
+				currentPageBuilder.AppendLine(value: $"  <Glyphs Fill=\"#FF000000\" FontUri=\"/Resources/Dummy.ttf\" DeviceFontName=\"Arial\" FontRenderingEmSize=\"14\" OriginX=\"96\" OriginY=\"{titleY}\" UnicodeString=\"{safeTitle} - Page {pageNumber}\"/>");
+
+				for (int c = 0; c < headers.Length; c++)
+				{
+					string safeH = System.Security.SecurityElement.Escape(str: headers[c]) ?? string.Empty;
+					currentPageBuilder.AppendLine(value: $"  <Glyphs Fill=\"#FF000000\" FontUri=\"/Resources/Dummy.ttf\" DeviceFontName=\"Arial\" FontRenderingEmSize=\"12\" OriginX=\"{colX[c]}\" OriginY=\"{currentY}\" UnicodeString=\"{safeH}\"/>");
+				}
+				currentY += lineHeight * 2;
+			}
+
+			void FinishCurrentPage()
+			{
+				currentPageBuilder.AppendLine(value: "</FixedPage>");
+				string pageName = $"{pageNumber}.fpage";
+				string pagePath = $"Documents/1/Pages/{pageName}";
+				pageEntries.Add(item: pageName);
+
+				ZipArchiveEntry pageEntry = archive.CreateEntry(entryName: pagePath, compressionLevel: CompressionLevel.Optimal);
+				using StreamWriter writer = new(stream: pageEntry.Open(), encoding: Encoding.UTF8);
+				writer.Write(value: currentPageBuilder.ToString());
+
+				ZipArchiveEntry pageRelsEntry = archive.CreateEntry(entryName: $"Documents/1/Pages/_rels/{pageName}.rels", compressionLevel: CompressionLevel.Optimal);
+				using StreamWriter relsWriter = new(stream: pageRelsEntry.Open(), encoding: Encoding.UTF8);
+				relsWriter.WriteLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+				relsWriter.WriteLine(value: "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">");
+				relsWriter.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.microsoft.com/xps/2005/06/required-resource\" Target=\"../../../Resources/Dummy.ttf\"/>");
+				relsWriter.WriteLine(value: "</Relationships>");
+			}
+
+			StartNewPage();
+
+			foreach (string[] row in GetRows(listView: listView))
+			{
+				if (currentY > marginB)
+				{
+					FinishCurrentPage();
+					pageNumber++;
+					currentY = startY;
+					StartNewPage();
+				}
+
+				for (int c = 0; c < headers.Length; c++)
+				{
+					string cell = c < row.Length ? row[c] : string.Empty;
+					string safeCell = System.Security.SecurityElement.Escape(str: cell) ?? string.Empty;
+					if (!string.IsNullOrEmpty(value: safeCell))
+					{
+						currentPageBuilder.AppendLine(value: $"  <Glyphs Fill=\"#FF000000\" FontUri=\"/Resources/Dummy.ttf\" DeviceFontName=\"Arial\" FontRenderingEmSize=\"10\" OriginX=\"{colX[c]}\" OriginY=\"{currentY}\" UnicodeString=\"{safeCell}\"/>");
+					}
+				}
+				currentY += lineHeight;
+			}
+			FinishCurrentPage();
+
+			ZipArchiveEntry fdocRelsEntry = archive.CreateEntry(entryName: "Documents/1/_rels/FixedDoc.fdoc.rels", compressionLevel: CompressionLevel.Optimal);
+			using (StreamWriter writer = new(stream: fdocRelsEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+				writer.WriteLine(value: "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">");
+				for (int p = 1; p <= pageNumber; p++)
+				{
+					writer.WriteLine(value: $"  <Relationship Id=\"p{p}\" Type=\"http://schemas.microsoft.com/xps/2005/06/required-resource\" Target=\"/Documents/1/Pages/{p}.fpage\"/>");
+				}
+				writer.WriteLine(value: "</Relationships>");
+			}
+
+			ZipArchiveEntry fdocEntry = archive.CreateEntry(entryName: "Documents/1/FixedDoc.fdoc", compressionLevel: CompressionLevel.Optimal);
+			using (StreamWriter writer = new(stream: fdocEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+				writer.WriteLine(value: "<FixedDocument xmlns=\"http://schemas.microsoft.com/xps/2005/06\">");
+				for (int p = 1; p <= pageNumber; p++)
+				{
+					writer.WriteLine(value: $"  <PageContent Source=\"/Documents/1/Pages/{p}.fpage\"/>");
+				}
+				writer.WriteLine(value: "</FixedDocument>");
+			}
+
+			ZipArchiveEntry fontEntry = archive.CreateEntry(entryName: "Resources/Dummy.ttf", compressionLevel: CompressionLevel.NoCompression);
+			using (StreamWriter writer = new(stream: fontEntry.Open(), encoding: Encoding.ASCII))
+			{
+				writer.Write(value: "DUMMY");
+			}
+
+			ShowSuccess();
+		}
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "XPS", filePath: fileName);
+		}
+	}
+
 	#endregion
 }
