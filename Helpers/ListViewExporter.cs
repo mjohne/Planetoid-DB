@@ -1122,7 +1122,7 @@ public static class ListViewExporter
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
 			writer.WriteLine(value: "---");
 			writer.WriteLine(value: $"title: \"{title.Replace(oldValue: "\"", newValue: "\\\"")}\"");
-			writer.WriteLine(value: $"created_at: \"{DateTime.Now:O}\"");
+			writer.WriteLine(value: $"created_at: \"{DateTime.UtcNow:O}\"");
 			writer.WriteLine(value: "rows:");
 			foreach (string[] row in GetRows(listView: listView))
 			{
@@ -1642,7 +1642,7 @@ public static class ListViewExporter
 			w.Write(buffer: nameBytes);
 			w.Write(value: (short)0);
 			w.Write(value: (short)0);
-			uint secondsSince1904 = (uint)(DateTime.UtcNow - new DateTime(year: 1904, month: 1, day: 1)).TotalSeconds;
+			uint secondsSince1904 = (uint)(DateTime.UtcNow - new DateTime(year: 1904, month: 1, day: 1, hour: 0, minute: 0, second: 0, kind: DateTimeKind.Utc)).TotalSeconds;
 			w.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (int)secondsSince1904));
 			w.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (int)secondsSince1904));
 			w.Write(value: 0);
@@ -1712,9 +1712,10 @@ public static class ListViewExporter
 			xmlWriter.WriteElementString(localName: "last-name", ns: fb2Ns, value: string.Empty);
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteElementString(localName: "program-used", ns: fb2Ns, value: "Planetoid-DB");
+			string fb2DateString = DateTime.Now.ToString(format: "yyyy-MM-dd");
 			xmlWriter.WriteStartElement(localName: "date", ns: fb2Ns);
-			xmlWriter.WriteAttributeString(localName: "value", value: DateTime.Now.ToString(format: "yyyy-MM-dd"));
-			xmlWriter.WriteString(text: DateTime.Now.ToString(format: "yyyy-MM-dd"));
+			xmlWriter.WriteAttributeString(localName: "value", value: fb2DateString);
+			xmlWriter.WriteString(text: fb2DateString);
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteElementString(localName: "id", ns: fb2Ns, value: Guid.NewGuid().ToString());
 			xmlWriter.WriteElementString(localName: "version", ns: fb2Ns, value: "1.0");
