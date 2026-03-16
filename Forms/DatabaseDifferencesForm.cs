@@ -433,6 +433,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*",
+			DefaultExt = "txt",
+			Title = "Save as Text",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -452,7 +454,9 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		// Open a SaveFileDialog to allow the user to specify the location and name of the LaTeX file to save the list view results; if the user confirms the save operation, call the SaveAsLatex method to perform the export
 		using SaveFileDialog saveFileDialog = new()
 		{
-			Filter = "Latex Files (*.tex)|*.tex|All Files (*.*)|*.*",
+			Filter = "LaTeX Files (*.tex)|*.tex|All Files (*.*)|*.*",
+			DefaultExt = "tex",
+			Title = "Save as LaTeX",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -473,6 +477,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "Markdown Files (*.md)|*.md|All Files (*.*)|*.*",
+			DefaultExt = "md",
+			Title = "Save as Markdown",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -493,6 +499,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "Word Documents (*.docx)|*.docx|All Files (*.*)|*.*",
+			DefaultExt = "docx",
+			Title = "Save as Word Document",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -513,6 +521,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "OpenDocument Text (*.odt)|*.odt|All Files (*.*)|*.*",
+			DefaultExt = "odt",
+			Title = "Save as OpenDocument Text",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -533,6 +543,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "Rich Text Format (*.rtf)|*.rtf|All Files (*.*)|*.*",
+			DefaultExt = "rtf",
+			Title = "Save as Rich Text Format",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -553,6 +565,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "Excel Spreadsheets (*.xlsx)|*.xlsx|All Files (*.*)|*.*",
+			DefaultExt = "xlsx",
+			Title = "Save as Excel Spreadsheet",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -573,6 +587,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "OpenDocument Spreadsheets (*.ods)|*.ods|All Files (*.*)|*.*",
+			DefaultExt = "ods",
+			Title = "Save as OpenDocument Spreadsheet",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -592,6 +608,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "Comma-Separated Values (*.csv)|*.csv|All Files (*.*)|*.*",
+			DefaultExt = "csv",
+			Title = "Save as Comma-Separated Values",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -612,6 +630,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "Tab-Separated Values (*.tsv)|*.tsv|All Files (*.*)|*.*",
+			DefaultExt = "tsv",
+			Title = "Save as Tab-Separated Values",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -632,6 +652,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "Pipe-Separated Values (*.psv)|*.psv|All Files (*.*)|*.*",
+			DefaultExt = "psv",
+			Title = "Save as Pipe-Separated Values",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -652,6 +674,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "HTML Files (*.html)|*.html|All Files (*.*)|*.*",
+			DefaultExt = "html",
+			Title = "Save as HTML",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -672,6 +696,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "XML Files (*.xml)|*.xml|All Files (*.*)|*.*",
+			DefaultExt = "xml",
+			Title = "Save as XML",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -692,6 +718,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "JSON Files (*.json)|*.json|All Files (*.*)|*.*",
+			DefaultExt = "json",
+			Title = "Save as JSON",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -712,6 +740,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "YAML Files (*.yaml)|*.yaml|All Files (*.*)|*.*",
+			DefaultExt = "yaml",
+			Title = "Save as YAML",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -732,6 +762,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "SQL Scripts (*.sql)|*.sql|All Files (*.*)|*.*",
+			DefaultExt = "sql",
+			Title = "Save as SQL",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -752,6 +784,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "PDF Files (*.pdf)|*.pdf|All Files (*.*)|*.*",
+			DefaultExt = "pdf",
+			Title = "Save as PDF",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -772,6 +806,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "PostScript Files (*.ps)|*.ps|All Files (*.*)|*.*",
+			DefaultExt = "ps",
+			Title = "Save as PostScript",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -792,6 +828,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "EPUB Files (*.epub)|*.epub|All Files (*.*)|*.*",
+			DefaultExt = "epub",
+			Title = "Save as EPUB",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -812,6 +850,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "MOBI Files (*.mobi)|*.mobi|All Files (*.*)|*.*",
+			DefaultExt = "mobi",
+			Title = "Save as Mobi",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -832,6 +872,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "TOML Files (*.toml)|*.toml|All Files (*.*)|*.*",
+			DefaultExt = "toml",
+			Title = "Save as TOML",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -852,6 +894,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "XPS Files (*.xps)|*.xps|All Files (*.*)|*.*",
+			DefaultExt = "xps",
+			Title = "Save as XPS",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -872,6 +916,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "WPS Writer Documents (*.wps)|*.wps|All Files (*.*)|*.*",
+			DefaultExt = "wps",
+			Title = "Save as WPS",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -892,6 +938,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "WPS Spreadsheets (*.et)|*.et|All Files (*.*)|*.*",
+			DefaultExt = "et",
+			Title = "Save as WPS Spreadsheet",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -912,6 +960,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "FictionBook2 Files (*.fb2)|*.fb2|All Files (*.*)|*.*",
+			DefaultExt = "fb2",
+			Title = "Save as FictionBook2",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -932,6 +982,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "CHM Files (*.chm)|*.chm|All Files (*.*)|*.*",
+			DefaultExt = "chm",
+			Title = "Save as CHM",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -952,6 +1004,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "DocBook Files (*.xml)|*.xml|All Files (*.*)|*.*",
+			DefaultExt = "xml",
+			Title = "Save as DocBook",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -972,6 +1026,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "AbiWord Files (*.abw)|*.abw|All Files (*.*)|*.*",
+			DefaultExt = "abw",
+			Title = "Save as AbiWord",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -992,6 +1048,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "AsciiDoc Files (*.adoc)|*.adoc|All Files (*.*)|*.*",
+			DefaultExt = "adoc",
+			Title = "Save as AsciiDoc",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -1012,6 +1070,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "ReStructuredText Files (*.rst)|*.rst|All Files (*.*)|*.*",
+			DefaultExt = "rst",
+			Title = "Save as reStructuredText",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -1032,6 +1092,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "Textile Files (*.textile)|*.textile|All Files (*.*)|*.*",
+			DefaultExt = "textile",
+			Title = "Save as Textile",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -1052,6 +1114,8 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "SQLite Files (*.sqlite3;*.sqlite;*.db)|*.sqlite3;*.sqlite;*.db|All Files (*.*)|*.*",
+			DefaultExt = "sqlite",
+			Title = "Save as SQLite",
 			FileName = fileName
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
