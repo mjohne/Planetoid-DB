@@ -25,13 +25,6 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// <remarks>This logger is used to log messages and errors that occur within the form.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>Reusable JSON serializer options for efficient serialization operations.</summary>
-	/// <remarks>This instance is reused across multiple serialization calls to avoid creating new instances repeatedly.</remarks>
-	private static readonly System.Text.Json.JsonSerializerOptions jsonSerializerOptions = new()
-	{
-		WriteIndented = true
-	};
-
 	/// <summary>Gets the name of the file that stores the database differences.</summary>
 	/// <remarks>This field stores the name of the file where the database differences are saved. It is used to identify
 	/// the file when performing read or write operations related to database differences.</remarks>
@@ -436,16 +429,6 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// <param name="e">The event data associated with the click event.</param>
 	private void ToolStripMenuItemSaveAsText_Click(object sender, EventArgs e)
 	{
-		if (listViewResults.VirtualMode)
-		{
-			System.Windows.Forms.MessageBox.Show(
-				"Exporting results is not available while the list is in virtual mode.",
-				"Export Not Supported",
-				System.Windows.Forms.MessageBoxButtons.OK,
-				System.Windows.Forms.MessageBoxIcon.Warning);
-			return;
-		}
-
 		// Open a SaveFileDialog to allow the user to specify the location and name of the text file to save the list view results; if the user confirms the save operation, call the SaveAsText method to perform the export
 		using SaveFileDialog saveFileDialog = new()
 		{
@@ -454,7 +437,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsText(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsText(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -466,16 +449,6 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// <param name="e">The event data associated with the click event.</param>
 	private void ToolStripMenuItemSaveAsLatex_Click(object sender, EventArgs e)
 	{
-		if (listViewResults.VirtualMode)
-		{
-			System.Windows.Forms.MessageBox.Show(
-				"Exporting results is not available while the list is in virtual mode.",
-				"Export Not Supported",
-				System.Windows.Forms.MessageBoxButtons.OK,
-				System.Windows.Forms.MessageBoxIcon.Warning);
-			return;
-		}
-
 		// Open a SaveFileDialog to allow the user to specify the location and name of the LaTeX file to save the list view results; if the user confirms the save operation, call the SaveAsLatex method to perform the export
 		using SaveFileDialog saveFileDialog = new()
 		{
@@ -484,7 +457,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsLatex(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsLatex(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -504,7 +477,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsMarkdown(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsMarkdown(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -524,7 +497,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsWord(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsWord(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -544,7 +517,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsOdt(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsOdt(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -564,7 +537,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsRtf(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsRtf(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -584,7 +557,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsExcel(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsExcel(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -604,7 +577,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsOds(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsOds(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -623,7 +596,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsCsv(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsCsv(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -643,7 +616,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsTsv(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsTsv(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -663,7 +636,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsPsv(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsPsv(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -683,7 +656,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsHtml(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsHtml(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -703,7 +676,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsXml(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsXml(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -716,7 +689,6 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	private void ToolStripMenuItemSaveAsJson_Click(object sender, EventArgs e)
 	{
 		// Open a SaveFileDialog to allow the user to specify the location and name of the JSON file to save the list view results; if the user confirms the save operation, call the SaveAsJson method to perform the export
-		_ = jsonSerializerOptions;
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "JSON Files (*.json)|*.json|All Files (*.*)|*.*",
@@ -724,7 +696,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsJson(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsJson(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -744,7 +716,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsYaml(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsYaml(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -764,7 +736,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsSql(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsSql(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -784,7 +756,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsPdf(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsPdf(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -804,7 +776,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsPostScript(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsPostScript(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -824,7 +796,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsEpub(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsEpub(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -844,7 +816,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsMobi(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsMobi(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -864,7 +836,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsToml(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsToml(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -884,7 +856,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsXps(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsXps(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -904,7 +876,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsWps(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsWps(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -924,7 +896,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsEt(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsEt(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -944,7 +916,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsFictionBook2(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsFictionBook2(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -964,7 +936,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsChm(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsChm(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -984,7 +956,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsDocBook(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsDocBook(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -1004,7 +976,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsAbiword(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsAbiword(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -1024,7 +996,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsAsciiDoc(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsAsciiDoc(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -1044,7 +1016,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsReStructuredText(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsReStructuredText(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -1064,7 +1036,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsTextile(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsTextile(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 
@@ -1084,7 +1056,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsSqlite(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName);
+			ListViewExporter.SaveAsSqlite(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
 		}
 	}
 	#endregion
@@ -1345,6 +1317,21 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 			DifferenceResult result = differenceResults[index: e.ItemIndex];
 			e.Item = new ListViewItem(items: [result.Index.ToString(), result.Designation, result.Difference]);
 		}
+	}
+
+	/// <summary>Creates a <see cref="ListViewItem"/> for the specified index from <see cref="differenceResults"/>.</summary>
+	/// <param name="index">The zero-based index of the item to retrieve.</param>
+	/// <returns>A <see cref="ListViewItem"/> populated with the data from <see cref="differenceResults"/>,
+	/// or an empty <see cref="ListViewItem"/> when <paramref name="index"/> is out of range.</returns>
+	/// <remarks>Used as the <c>virtualRowProvider</c> delegate when exporting via <see cref="Helpers.ListViewExporter"/>.</remarks>
+	private ListViewItem GetVirtualListViewItem(int index)
+	{
+		if (index >= 0 && index < differenceResults.Count)
+		{
+			DifferenceResult result = differenceResults[index: index];
+			return new ListViewItem(items: [result.Index.ToString(), result.Designation, result.Difference]);
+		}
+		return new ListViewItem();
 	}
 
 	#endregion
