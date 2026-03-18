@@ -80,7 +80,7 @@ public static partial class ListViewExporter
 	/// <summary>Escapes LaTeX special characters.</summary>
 	/// <param name="input">The raw input string.</param>
 	/// <returns>The escaped string suitable for LaTeX output.</returns>
-	/// <remarks>LaTeX special characters that need escaping include: \ { } % $ & # _ ^ ~. This method iterates through each character in the input string and appends either the escaped version or the original character to a StringBuilder, which is then returned as the fully escaped string.</remarks>
+	/// <remarks>LaTeX special characters that need escaping include: \ { } % $ amp # _ ^ ~. This method iterates through each character in the input string and appends either the escaped version or the original character to a StringBuilder, which is then returned as the fully escaped string.</remarks>
 	private static string EscapeLatex(string? input)
 	{
 		// LaTeX special characters that need escaping: \ { } % $ & # _ ^ ~
