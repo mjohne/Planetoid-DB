@@ -21,16 +21,22 @@ namespace Planetoid_DB.Helpers;
 /// <see cref="ListView.RetrieveVirtualItem"/> event handler of the owning form. Compressed file formats
 /// (DOCX, ODT, ODS, XLSX, EPUB) are written as proper ZIP archives rather than flat XML files.
 /// SQLite export requires System.Data.SQLite; CHM export requires Microsoft HTML Help Workshop (hhc.exe).</remarks>
-public static class ListViewExporter
+public static partial class ListViewExporter
 {
 	/// <summary>NLog logger for logging messages and errors.</summary>
+	/// <remarks>Using NLog allows for flexible logging configuration and supports various log targets such as files, console, etc. The logger is initialized for the current class to capture context in log messages.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+	/// <summary>Reusable JSON serializer options for efficient serialization.</summary>
+	/// <remarks>Creating a static instance of JsonSerializerOptions with WriteIndented set to true allows for consistent formatting of JSON output across all methods that serialize to JSON, while avoiding the overhead of creating new options instances for each serialization operation.</remarks>
+	private static readonly JsonSerializerOptions jsonSerializerOptions = new() { WriteIndented = true };
 
 	#region Private helpers
 
 	/// <summary>Returns the column header texts of the given <see cref="ListView"/>.</summary>
 	/// <param name="listView">The list view whose columns to read.</param>
 	/// <returns>An array of header strings in column order.</returns>
+	/// <remarks>The method iterates through the Columns collection of the ListView and extracts the Text property of each column to create an array of header strings. This is used by the export methods to include column headers in the output files.</remarks>
 	private static string[] GetHeaders(ListView listView)
 	{
 		string[] headers = new string[listView.Columns.Count];
@@ -74,6 +80,7 @@ public static class ListViewExporter
 	/// <summary>Escapes LaTeX special characters.</summary>
 	/// <param name="input">The raw input string.</param>
 	/// <returns>The escaped string suitable for LaTeX output.</returns>
+	/// <remarks>LaTeX special characters that need escaping include: \ { } % $ & # _ ^ ~. This method iterates through each character in the input string and appends either the escaped version or the original character to a StringBuilder, which is then returned as the fully escaped string.</remarks>
 	private static string EscapeLatex(string? input)
 	{
 		// LaTeX special characters that need escaping: \ { } % $ & # _ ^ ~
@@ -108,6 +115,7 @@ public static class ListViewExporter
 	/// <summary>Escapes Markdown table cell characters.</summary>
 	/// <param name="value">The raw cell value.</param>
 	/// <returns>The escaped string.</returns>
+	/// <remarks>In Markdown tables, the pipe character '|' is used as a column separator, so it must be escaped if it appears in cell content. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it replaces all occurrences of '|' with '\|', which is the standard way to escape a pipe character in Markdown.</remarks>
 	private static string EscapeMarkdownCell(string? value)
 	{
 		// In Markdown tables, the pipe character '|' is used as a column separator, so it must be escaped if it appears in cell content.
@@ -117,6 +125,7 @@ public static class ListViewExporter
 	/// <summary>Escapes PostScript string literal characters.</summary>
 	/// <param name="input">The raw input string.</param>
 	/// <returns>The escaped string.</returns>
+	/// <remarks>In PostScript string literals, the backslash, parentheses, and control characters need to be escaped. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it replaces backslashes with double backslashes and parentheses with escaped versions to ensure that the resulting string can be safely included in a PostScript string literal.</remarks>
 	private static string EscapePostScript(string? input)
 	{
 		// In PostScript string literals, the backslash, parentheses, and control characters need to be escaped.
@@ -130,6 +139,7 @@ public static class ListViewExporter
 	/// <summary>Escapes PDF string literal characters.</summary>
 	/// <param name="text">The raw input string.</param>
 	/// <returns>The escaped string.</returns>
+	/// <remarks>In PDF string literals, the backslash, parentheses, and control characters need to be escaped. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it iterates through each character in the input string and appends either the escaped version or the original character to a StringBuilder, which is then returned as the fully escaped string. Control characters are escaped using backslash followed by a letter (e.g. \n for newline), while other non-printable characters are escaped using octal escape sequences.</remarks>
 	private static string EscapePdf(string? text)
 	{
 		// In PDF string literals, the backslash, parentheses, and control characters need to be escaped.
@@ -171,6 +181,7 @@ public static class ListViewExporter
 	/// <summary>Escapes RTF special characters.</summary>
 	/// <param name="input">The raw input string.</param>
 	/// <returns>The escaped string.</returns>
+	/// <remarks>In RTF, the backslash, braces, and control characters need to be escaped. Non-ASCII characters can be represented using Unicode escape sequences. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it iterates through each character in the input string and appends either the escaped version or the original character to a StringBuilder, which is then returned as the fully escaped string. Backslashes and braces are escaped with a preceding backslash, newlines are replaced with the \par control word, and non-ASCII characters are represented using \uN? where N is the Unicode code point of the character.</remarks>
 	private static string EscapeRtf(string? input)
 	{
 		// In RTF, the backslash, braces, and control characters need to be escaped. Non-ASCII characters can be represented using Unicode escape sequences.
@@ -208,6 +219,7 @@ public static class ListViewExporter
 	/// <summary>Escapes a CSV field by doubling internal quotes and wrapping in double quotes.</summary>
 	/// <param name="field">The raw field value.</param>
 	/// <returns>The escaped CSV field.</returns>
+	/// <remarks>In CSV, fields that contain commas, quotes, or newlines must be enclosed in double quotes, and internal double quotes are escaped by doubling them. This method first checks if the input field is null and treats it as an empty string; then it replaces any internal double quotes with two double quotes to escape them, and finally wraps the entire field in double quotes to ensure it is treated as a single field in the CSV output.</remarks>
 	private static string EscapeCsvField(string? field)
 	{
 		// In CSV, fields that contain commas, quotes, or newlines must be enclosed in double quotes, and internal double quotes are escaped by doubling them.
@@ -220,6 +232,7 @@ public static class ListViewExporter
 	/// <summary>Escapes a TOML string value.</summary>
 	/// <param name="value">The raw value.</param>
 	/// <returns>The escaped TOML string value.</returns>
+	/// <remarks>In TOML, basic string values are enclosed in double quotes, and backslashes and double quotes within the string must be escaped with a backslash. This method checks if the input value is null or empty and returns an empty string in that case; otherwise, it replaces backslashes with double backslashes and double quotes with escaped double quotes to ensure that the resulting string can be safely included as a basic string value in a TOML document.</remarks>
 	private static string EscapeToml(string? value)
 	{
 		// In TOML, basic string values are enclosed in double quotes, and backslashes and double quotes within the string must be escaped with a backslash.
@@ -245,6 +258,7 @@ public static class ListViewExporter
 	/// <param name="ex">The exception.</param>
 	/// <param name="format">A label identifying the file format (e.g. "Text").</param>
 	/// <param name="filePath">The target file path.</param>
+	/// <remarks>Logs the error with details about the format and file path, and displays an error message box to the user with the exception message.</remarks>
 	private static void ShowError(Exception ex, string format, string filePath)
 	{
 		// Log the error with details about the format and file path.
@@ -1324,8 +1338,8 @@ public static class ListViewExporter
 				records.Add(item: record);
 			}
 			// Create an anonymous object to represent the root of the JSON document, containing the title and the array of row objects. The JsonSerializer will handle the serialization of this object to a JSON string, including proper escaping of special characters.
-			var doc = new { title, rows = records };
-			string json = JsonSerializer.Serialize(value: doc, options: new JsonSerializerOptions { WriteIndented = true });
+			NewRecord doc = new(Title: title, Rows: records);
+			string json = JsonSerializer.Serialize(value: doc, options: jsonSerializerOptions);
 			File.WriteAllText(path: fileName, contents: json);
 			// Show a success message after the file has been saved.
 			ShowSuccess();
