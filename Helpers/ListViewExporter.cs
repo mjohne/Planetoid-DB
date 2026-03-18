@@ -114,7 +114,7 @@ public static partial class ListViewExporter
 
 	/// <summary>Escapes Markdown table cell characters.</summary>
 	/// <param name="value">The raw cell value.</param>
-	/// <returns>The escaped string.</returns>
+	/// <returns>The escaped string suitable for Markdown table output.</returns>
 	/// <remarks>In Markdown tables, the pipe character '|' is used as a column separator, so it must be escaped if it appears in cell content. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it replaces all occurrences of '|' with '\|', which is the standard way to escape a pipe character in Markdown.</remarks>
 	private static string EscapeMarkdownCell(string? value)
 	{
@@ -124,7 +124,7 @@ public static partial class ListViewExporter
 
 	/// <summary>Escapes PostScript string literal characters.</summary>
 	/// <param name="input">The raw input string.</param>
-	/// <returns>The escaped string.</returns>
+	/// <returns>The escaped string suitable for PostScript output.</returns>
 	/// <remarks>In PostScript string literals, the backslash, parentheses, and control characters need to be escaped. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it replaces backslashes with double backslashes and parentheses with escaped versions to ensure that the resulting string can be safely included in a PostScript string literal.</remarks>
 	private static string EscapePostScript(string? input)
 	{
@@ -138,7 +138,7 @@ public static partial class ListViewExporter
 
 	/// <summary>Escapes PDF string literal characters.</summary>
 	/// <param name="text">The raw input string.</param>
-	/// <returns>The escaped string.</returns>
+	/// <returns>The escaped string suitable for PDF output.</returns>
 	/// <remarks>In PDF string literals, the backslash, parentheses, and control characters need to be escaped. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it iterates through each character in the input string and appends either the escaped version or the original character to a StringBuilder, which is then returned as the fully escaped string. Control characters are escaped using backslash followed by a letter (e.g. \n for newline), while other non-printable characters are escaped using octal escape sequences.</remarks>
 	private static string EscapePdf(string? text)
 	{
@@ -180,7 +180,7 @@ public static partial class ListViewExporter
 
 	/// <summary>Escapes RTF special characters.</summary>
 	/// <param name="input">The raw input string.</param>
-	/// <returns>The escaped string.</returns>
+	/// <returns>The escaped string suitable for RTF output.</returns>
 	/// <remarks>In RTF, the backslash, braces, and control characters need to be escaped. Non-ASCII characters can be represented using Unicode escape sequences. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it iterates through each character in the input string and appends either the escaped version or the original character to a StringBuilder, which is then returned as the fully escaped string. Backslashes and braces are escaped with a preceding backslash, newlines are replaced with the \par control word, and non-ASCII characters are represented using \uN? where N is the Unicode code point of the character.</remarks>
 	private static string EscapeRtf(string? input)
 	{
@@ -218,7 +218,7 @@ public static partial class ListViewExporter
 
 	/// <summary>Escapes a CSV field by doubling internal quotes and wrapping in double quotes.</summary>
 	/// <param name="field">The raw field value.</param>
-	/// <returns>The escaped CSV field.</returns>
+	/// <returns>The escaped CSV field suitable for CSV output.</returns>
 	/// <remarks>In CSV, fields that contain commas, quotes, or newlines must be enclosed in double quotes, and internal double quotes are escaped by doubling them. This method first checks if the input field is null and treats it as an empty string; then it replaces any internal double quotes with two double quotes to escape them, and finally wraps the entire field in double quotes to ensure it is treated as a single field in the CSV output.</remarks>
 	private static string EscapeCsvField(string? field)
 	{
@@ -231,7 +231,7 @@ public static partial class ListViewExporter
 
 	/// <summary>Escapes a TOML string value.</summary>
 	/// <param name="value">The raw value.</param>
-	/// <returns>The escaped TOML string value.</returns>
+	/// <returns>The escaped TOML string value suitable for TOML output.</returns>
 	/// <remarks>In TOML, basic string values are enclosed in double quotes, and backslashes and double quotes within the string must be escaped with a backslash. This method checks if the input value is null or empty and returns an empty string in that case; otherwise, it replaces backslashes with double backslashes and double quotes with escaped double quotes to ensure that the resulting string can be safely included as a basic string value in a TOML document.</remarks>
 	private static string EscapeToml(string? value)
 	{
