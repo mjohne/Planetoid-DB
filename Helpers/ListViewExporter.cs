@@ -51,17 +51,22 @@ public static class ListViewExporter
 	/// <remarks>Works for both normal and virtual-mode list views.</remarks>
 	private static IEnumerable<string[]> GetRows(ListView listView, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// In virtual mode, the list view does not maintain actual ListViewItem instances for each row;
 		int count = listView.VirtualMode ? listView.VirtualListSize : listView.Items.Count;
+		// Instead, it raises the RetrieveVirtualItem event on demand to get the ListViewItem for a given row index.
 		for (int i = 0; i < count; i++)
 		{
+			// Use the provided virtualRowProvider delegate if available; otherwise, access the Items collection directly,
 			ListViewItem item = listView.VirtualMode && virtualRowProvider != null
-				? virtualRowProvider(i)
+				? virtualRowProvider(arg: i)
 				: listView.Items[index: i];
+			// Extract the text of each subitem (cell) into an array.
 			string[] row = new string[item.SubItems.Count];
 			for (int j = 0; j < item.SubItems.Count; j++)
 			{
 				row[j] = item.SubItems[index: j].Text;
 			}
+			// Yield the row array to the caller.
 			yield return row;
 		}
 	}
@@ -71,11 +76,14 @@ public static class ListViewExporter
 	/// <returns>The escaped string suitable for LaTeX output.</returns>
 	private static string EscapeLatex(string? input)
 	{
+		// LaTeX special characters that need escaping: \ { } % $ & # _ ^ ~
 		if (string.IsNullOrEmpty(value: input))
 		{
 			return string.Empty;
 		}
+		// Use a StringBuilder for efficient string concatenation when escaping characters.
 		StringBuilder builder = new(capacity: input.Length);
+		// Iterate through each character in the input string and escape special characters as needed.
 		foreach (char ch in input)
 		{
 			switch (ch)
@@ -93,6 +101,7 @@ public static class ListViewExporter
 				default: builder.Append(value: ch); break;
 			}
 		}
+		// Return the fully escaped string.
 		return builder.ToString();
 	}
 
@@ -101,6 +110,7 @@ public static class ListViewExporter
 	/// <returns>The escaped string.</returns>
 	private static string EscapeMarkdownCell(string? value)
 	{
+		// In Markdown tables, the pipe character '|' is used as a column separator, so it must be escaped if it appears in cell content.
 		return string.IsNullOrEmpty(value: value) ? string.Empty : value.Replace(oldValue: "|", newValue: "\\|");
 	}
 
@@ -109,6 +119,7 @@ public static class ListViewExporter
 	/// <returns>The escaped string.</returns>
 	private static string EscapePostScript(string? input)
 	{
+		// In PostScript string literals, the backslash, parentheses, and control characters need to be escaped.
 		return string.IsNullOrEmpty(value: input)
 			? string.Empty
 			: input.Replace(oldValue: "\\", newValue: "\\\\")
@@ -121,13 +132,16 @@ public static class ListViewExporter
 	/// <returns>The escaped string.</returns>
 	private static string EscapePdf(string? text)
 	{
+		// In PDF string literals, the backslash, parentheses, and control characters need to be escaped.
 		if (string.IsNullOrEmpty(value: text))
 		{
 			return string.Empty;
 		}
+		// Use a StringBuilder for efficient string concatenation when escaping characters.
 		StringBuilder builder = new(capacity: text.Length);
 		foreach (char ch in text)
 		{
+			// Escape backslash, parentheses, and control characters with a backslash. For other non-printable characters, use octal escape sequences.
 			switch (ch)
 			{
 				case '\\': builder.Append(value: "\\\\"); break;
@@ -150,6 +164,7 @@ public static class ListViewExporter
 					break;
 			}
 		}
+		// Return the fully escaped string.
 		return builder.ToString();
 	}
 
@@ -158,13 +173,16 @@ public static class ListViewExporter
 	/// <returns>The escaped string.</returns>
 	private static string EscapeRtf(string? input)
 	{
+		// In RTF, the backslash, braces, and control characters need to be escaped. Non-ASCII characters can be represented using Unicode escape sequences.
 		if (string.IsNullOrEmpty(value: input))
 		{
 			return string.Empty;
 		}
+		// Use a StringBuilder for efficient string concatenation when escaping characters.
 		StringBuilder builder = new(capacity: input.Length);
 		foreach (char ch in input)
 		{
+			// Escape backslash and braces with a backslash. For newlines, use the \par control word. For other non-ASCII characters, use Unicode escape sequences.
 			switch (ch)
 			{
 				case '\\': builder.Append(value: "\\\\"); break;
@@ -183,6 +201,7 @@ public static class ListViewExporter
 					break;
 			}
 		}
+		// Return the fully escaped string.
 		return builder.ToString();
 	}
 
@@ -191,7 +210,9 @@ public static class ListViewExporter
 	/// <returns>The escaped CSV field.</returns>
 	private static string EscapeCsvField(string? field)
 	{
+		// In CSV, fields that contain commas, quotes, or newlines must be enclosed in double quotes, and internal double quotes are escaped by doubling them.
 		string safeField = field ?? string.Empty;
+		// First, double any internal double quotes to escape them.
 		safeField = safeField.Replace(oldValue: "\"", newValue: "\"\"");
 		return $"\"{safeField}\"";
 	}
@@ -201,6 +222,7 @@ public static class ListViewExporter
 	/// <returns>The escaped TOML string value.</returns>
 	private static string EscapeToml(string? value)
 	{
+		// In TOML, basic string values are enclosed in double quotes, and backslashes and double quotes within the string must be escaped with a backslash.
 		return string.IsNullOrEmpty(value: value)
 			? string.Empty
 			: value.Replace(oldValue: "\\", newValue: "\\\\")
@@ -208,8 +230,10 @@ public static class ListViewExporter
 	}
 
 	/// <summary>Shows a success message after a file has been saved.</summary>
+	/// <remarks>Logs the successful save operation at the Info level and displays a message box to the user.</remarks>
 	private static void ShowSuccess()
 	{
+		// Log the successful save operation at the Info level.
 		_ = MessageBox.Show(
 			text: I18nStrings.FileSavedSuccessfully,
 			caption: I18nStrings.InformationCaption,
@@ -223,6 +247,7 @@ public static class ListViewExporter
 	/// <param name="filePath">The target file path.</param>
 	private static void ShowError(Exception ex, string format, string filePath)
 	{
+		// Log the error with details about the format and file path.
 		logger.Error(exception: ex, message: $"Error saving as {format} to '{{FilePath}}'.", args: filePath);
 		_ = MessageBox.Show(
 			text: $"Error saving as {format}: {ex.Message}",
@@ -239,21 +264,29 @@ public static class ListViewExporter
 	/// <param name="title">The document title written as a heading at the top of the file.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	/// <remarks>The output is a simple tab-delimited text file with the title as the first line, a separator line of dashes, column headers, and then one line per row of data. No special escaping is performed, so tabs in the data may cause misalignment.</remarks>
 	public static void SaveAsText(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and write the output file with UTF-8 encoding. The first line is the title, followed by a separator line, then the headers, and then each row of data as tab-delimited values.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Use a StreamWriter to write the output file with UTF-8 encoding. The 'append: false' parameter ensures that the file is overwritten if it already exists.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
+			// Write the title as the first line, followed by a separator line of dashes, then the column headers, and then each row of data as tab-delimited values.
 			writer.WriteLine(value: title);
 			writer.WriteLine(value: new string(c: '-', count: title.Length));
-			writer.WriteLine(value: string.Join(separator: "\t", values: headers));
+			writer.WriteLine(value: string.Join(separator: " ", values: headers));
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
-				writer.WriteLine(value: string.Join(separator: "\t", values: row));
+				// Write each row of data as tab-delimited values. Note that if any cell contains a tab character, it will cause misalignment in the output since no escaping is performed.
+				writer.WriteLine(value: string.Join(separator: " ", values: row));
 			}
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "Text", filePath: fileName);
@@ -265,13 +298,19 @@ public static class ListViewExporter
 	/// <param name="title">The document title used in the LaTeX caption.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	/// <remarks>The output is a complete LaTeX document with a table containing the ListView data. Special characters in the data are escaped for LaTeX. The document uses the 'article' class and includes a caption with the provided title.</remarks>
 	public static void SaveAsLatex(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and write the output file with UTF-8 encoding. The output is a complete LaTeX document with a table containing the ListView data. Special characters in the data are escaped for LaTeX.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Construct the column specification string for the LaTeX tabular environment, using 'l' (left-aligned) for each column and separating with '|'.
 			string colSpec = string.Join(separator: "|", values: Enumerable.Repeat(element: "l", count: headers.Length));
+			// Use a StreamWriter to write the output file with UTF-8 encoding. The 'append: false' parameter ensures that the file is overwritten if it already exists.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
+			// Write the LaTeX document preamble, including the document class and input encoding. Then write the table environment with the column specifications, headers, and rows of data. Finally, write the caption using the provided title and end the document.
 			writer.WriteLine(value: "\\documentclass{article}");
 			writer.WriteLine(value: "\\usepackage[utf8]{inputenc}");
 			writer.WriteLine(value: "\\begin{document}");
@@ -283,6 +322,7 @@ public static class ListViewExporter
 			writer.WriteLine(value: "\\hline");
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
+				// Escape special characters in each cell for LaTeX and write the row with ' & ' as the column separator and '\\' at the end of the line to indicate a new row in the tabular environment.
 				writer.WriteLine(value: string.Join(separator: " & ", values: row.Select(selector: EscapeLatex)) + " \\\\");
 			}
 			writer.WriteLine(value: "\\hline");
@@ -290,8 +330,10 @@ public static class ListViewExporter
 			writer.WriteLine(value: $"\\caption{{{EscapeLatex(input: title)}}}");
 			writer.WriteLine(value: "\\end{table}");
 			writer.WriteLine(value: "\\end{document}");
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "LaTeX", filePath: fileName);
@@ -303,22 +345,30 @@ public static class ListViewExporter
 	/// <param name="title">The document title written as a level-1 heading.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	/// <remarks>The output is a Markdown-formatted text file with the title as a level-1 heading, followed by a table containing the ListView data. Special characters in the cell data are escaped to prevent breaking the Markdown syntax.</remarks>
 	public static void SaveAsMarkdown(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and write the output file with UTF-8 encoding. The output is a Markdown-formatted text file with the title as a level-1 heading, followed by a table containing the ListView data. Special characters in the cell data are escaped to prevent breaking the Markdown syntax.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Use a StreamWriter to write the output file with UTF-8 encoding. The 'append: false' parameter ensures that the file is overwritten if it already exists.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
+			// Write the title as a level-1 heading, followed by an empty line, then the Markdown table header row, the separator row, and then each row of data with cells escaped for Markdown.
 			writer.WriteLine(value: $"# {title}");
 			writer.WriteLine();
 			writer.WriteLine(value: "| " + string.Join(separator: " | ", values: headers) + " |");
 			writer.WriteLine(value: "| " + string.Join(separator: " | ", values: headers.Select(selector: static _ => ":---")) + " |");
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
+				// Escape pipe characters in the cell data to prevent breaking the Markdown table syntax, since '|' is used as a column separator. The escaping is done by replacing '|' with '\|', which is the standard way to escape a pipe in Markdown.
 				writer.WriteLine(value: "| " + string.Join(separator: " | ", values: row.Select(selector: EscapeMarkdownCell)) + " |");
 			}
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "Markdown", filePath: fileName);
@@ -330,12 +380,17 @@ public static class ListViewExporter
 	/// <param name="title">The document title written as the first-level heading.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	/// <remarks>The output is an AsciiDoc-formatted text file with the title as a first-level heading, followed by a table containing the ListView data. The table uses the 'header' option to indicate that the first row contains column headers. Special characters in the cell data are escaped to prevent breaking the AsciiDoc syntax.</remarks>
 	public static void SaveAsAsciiDoc(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and write the output file with UTF-8 encoding. The output is an AsciiDoc-formatted text file with the title as a first-level heading, followed by a table containing the ListView data. The table uses the 'header' option to indicate that the first row contains column headers. Special characters in the cell data are escaped to prevent breaking the AsciiDoc syntax.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Use a StreamWriter to write the output file with UTF-8 encoding. The 'append: false' parameter ensures that the file is overwritten if it already exists.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
+			// Write the title as a first-level heading, followed by an empty line, then the AsciiDoc table with the 'header' option, the column headers, and then each row of data with cells escaped for AsciiDoc.
 			writer.WriteLine(value: $"= {title}");
 			writer.WriteLine();
 			writer.WriteLine(value: "[options=\"header\"]");
@@ -343,12 +398,15 @@ public static class ListViewExporter
 			writer.WriteLine(value: "|" + string.Join(separator: "|", values: headers));
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
-				string[] escaped = row.Select(selector: static v => v.Replace(oldValue: "|", newValue: "\\|")).ToArray();
+				// Escape pipe characters in the cell data to prevent breaking the AsciiDoc table syntax, since '|' is used as a column separator. The escaping is done by replacing '|' with '\|', which is the standard way to escape a pipe in AsciiDoc.
+				string[] escaped = [.. row.Select(selector: static v => v.Replace(oldValue: "|", newValue: "\\|"))];
 				writer.WriteLine(value: "|" + string.Join(separator: "|", values: escaped));
 			}
 			writer.WriteLine(value: "|===");
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "AsciiDoc", filePath: fileName);
@@ -360,21 +418,29 @@ public static class ListViewExporter
 	/// <param name="title">The document title written as the main heading.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	/// <remarks>The output is a reStructuredText-formatted text file with the title as the main heading, followed by a table containing the ListView data. The table uses grid table syntax with proper alignment and separators. Special characters in the cell data are escaped to prevent breaking the reStructuredText syntax.</remarks>
 	public static void SaveAsReStructuredText(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, calculate column widths for proper alignment, and write the output file with UTF-8 encoding. The output is a reStructuredText-formatted text file with the title as the main heading, followed by a grid table containing the ListView data. Special characters in the cell data are escaped to prevent breaking the reStructuredText syntax.
 		try
 		{
+			// Get the column headers and rows from the ListView.
 			string[] headers = GetHeaders(listView: listView);
-			List<string[]> rows = GetRows(listView: listView, virtualRowProvider: virtualRowProvider).ToList();
+			// Convert the rows to a list to allow multiple iterations for calculating column widths and writing the output.
+			List<string[]> rows = [.. GetRows(listView: listView, virtualRowProvider: virtualRowProvider)];
+			// Calculate the maximum width of each column based on the headers and cell data to create a properly aligned grid table.
 			int[] widths = new int[headers.Length];
 			for (int c = 0; c < headers.Length; c++)
 			{
 				widths[c] = headers[c].Length + 2;
 			}
+			// Iterate through each row and update the column widths if any cell in that column is wider than the current maximum.
 			foreach (string[] row in rows)
 			{
+				// Only consider as many cells as there are headers to avoid index out of range errors if some rows have fewer cells than the number of columns.
 				for (int c = 0; c < Math.Min(val1: row.Length, val2: headers.Length); c++)
 				{
+					// Add 2 to the cell length for padding (one space on each side) when calculating the width needed for that column.
 					int w = row[c].Length + 2;
 					if (w > widths[c])
 					{
@@ -382,9 +448,13 @@ public static class ListViewExporter
 					}
 				}
 			}
+			// Construct the separator lines for the grid table based on the calculated column widths.
 			string separator = "+" + string.Join(separator: "+", values: widths.Select(selector: w => new string(c: '-', count: w))) + "+";
+			// The header separator uses '=' characters instead of '-' to visually distinguish the header row from the data rows.
 			string headerSep = "+" + string.Join(separator: "+", values: widths.Select(selector: w => new string(c: '=', count: w))) + "+";
+			// Use a StreamWriter to write the output file with UTF-8 encoding. The 'append: false' parameter ensures that the file is overwritten if it already exists.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
+			// Write the title as the main heading, followed by an empty line, then the grid table with proper separators and alignment. The header row is separated from the data rows with a distinct separator line.
 			writer.WriteLine(value: new string(c: '=', count: title.Length));
 			writer.WriteLine(value: title);
 			writer.WriteLine(value: new string(c: '=', count: title.Length));
@@ -393,18 +463,23 @@ public static class ListViewExporter
 			string headerRow = "|" + string.Join(separator: "|", values: headers.Select(selector: (h, i) => $" {h.PadRight(totalWidth: widths[i] - 1)}")) + "|";
 			writer.WriteLine(value: headerRow);
 			writer.WriteLine(value: headerSep);
+			// Write each data row with proper padding to align with the column widths, and separate rows with the standard separator line.
 			foreach (string[] row in rows)
 			{
 				string dataRow = "|" + string.Join(separator: "|", values: Enumerable.Range(start: 0, count: headers.Length).Select(selector: c =>
 				{
 					string cell = c < row.Length ? row[c] : string.Empty;
+					// Escape pipe characters in the cell data to prevent breaking the Textile table syntax, since '|' is used as a column separator. The escaping is done by replacing '|' with '&#124;', which is the HTML entity for the pipe character.
+					cell = cell.Replace(oldValue: "|", newValue: "&#124;");
 					return $" {cell.PadRight(totalWidth: widths[c] - 1)}";
 				})) + "|";
 				writer.WriteLine(value: dataRow);
 				writer.WriteLine(value: separator);
 			}
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "reStructuredText", filePath: fileName);
@@ -416,22 +491,30 @@ public static class ListViewExporter
 	/// <param name="title">The document title written as a level-1 heading.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	/// <remarks>The file is a proper Textile document, not a plain text file.</remarks>
 	public static void SaveAsTextile(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and write the output file with UTF-8 encoding. The output is a Textile-formatted text file with the title as a level-1 heading, followed by a table containing the ListView data. Special characters in the cell data are escaped to prevent breaking the Textile syntax.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Use a StreamWriter to write the output file with UTF-8 encoding. The 'append: false' parameter ensures that the file is overwritten if it already exists.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
+			// Write the title as a level-1 heading, followed by an empty line, then the Textile table header row and each row of data with cells escaped for Textile.
 			writer.WriteLine(value: $"h1. {title}");
 			writer.WriteLine();
 			writer.WriteLine(value: "|_. " + string.Join(separator: " |_. ", values: headers) + " |");
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
-				string[] escaped = row.Select(selector: static v => v.Replace(oldValue: "|", newValue: "&#124;")).ToArray();
+				// Escape pipe characters in the cell data to prevent breaking the Textile table syntax, since '|' is used as a column separator. The escaping is done by replacing '|' with '&#124;', which is the HTML entity for the pipe character.
+				string[] escaped = [.. row.Select(selector: static v => v.Replace(oldValue: "|", newValue: "&#124;"))];
 				writer.WriteLine(value: "| " + string.Join(separator: " | ", values: escaped) + " |");
 			}
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "Textile", filePath: fileName);
@@ -446,11 +529,15 @@ public static class ListViewExporter
 	/// <remarks>The file is a proper compressed DOCX (ZIP/Open XML) archive, not a flat XML file.</remarks>
 	public static void SaveAsWord(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, and write the output file as a proper compressed DOCX (ZIP/Open XML) archive with the necessary structure and content types. The document contains a table with the ListView data and a styled title paragraph.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Use a FileStream to create the output file, and a ZipArchive to write the DOCX structure. The DOCX format requires specific entries such as [Content_Types].xml, _rels/.rels, and word/document.xml with the appropriate content types and relationships.
 			using FileStream fs = new(path: fileName, mode: FileMode.Create);
 			using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
+			// The [Content_Types].xml entry defines the content types for the parts in the package, including the main document part (word/document.xml) and the relationships part (_rels/.rels).
 			ZipArchiveEntry contentTypesEntry = archive.CreateEntry(entryName: "[Content_Types].xml", compressionLevel: CompressionLevel.Optimal);
 			using (StreamWriter writer = new(stream: contentTypesEntry.Open(), encoding: Encoding.UTF8))
 			{
@@ -461,6 +548,7 @@ public static class ListViewExporter
 				writer.WriteLine(value: "  <Override PartName=\"/word/document.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml\"/>");
 				writer.WriteLine(value: "</Types>");
 			}
+			// The _rels/.rels entry defines the relationship from the package to the main document part (word/document.xml).
 			ZipArchiveEntry relsEntry = archive.CreateEntry(entryName: "_rels/.rels", compressionLevel: CompressionLevel.Optimal);
 			using (StreamWriter writer = new(stream: relsEntry.Open(), encoding: Encoding.UTF8))
 			{
@@ -469,6 +557,7 @@ public static class ListViewExporter
 				writer.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"word/document.xml\"/>");
 				writer.WriteLine(value: "</Relationships>");
 			}
+			// The word/document.xml entry contains the main content of the Word document, including the title as a styled paragraph and a table with the ListView data. The XML structure follows the Open XML format for WordprocessingML.
 			ZipArchiveEntry documentEntry = archive.CreateEntry(entryName: "word/document.xml", compressionLevel: CompressionLevel.Optimal);
 			using (StreamWriter writer = new(stream: documentEntry.Open(), encoding: Encoding.UTF8))
 			{
@@ -501,8 +590,10 @@ public static class ListViewExporter
 				writer.WriteLine(value: "  </w:body>");
 				writer.WriteLine(value: "</w:document>");
 			}
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "Word", filePath: fileName);
@@ -517,16 +608,21 @@ public static class ListViewExporter
 	/// <remarks>The file is a proper compressed ODT (ZIP) archive, not a flat XML file.</remarks>
 	public static void SaveAsOdt(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, and write the output file as a proper compressed ODT (ZIP) archive with the necessary structure and content types. The document contains a table with the ListView data and a heading with the title.
 		try
 		{
+			//	Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Use a FileStream to create the output file, and a ZipArchive to write the ODT structure. The ODT format requires specific entries such as mimetype, META-INF/manifest.xml, and content.xml with the appropriate content types and structure.
 			using FileStream fs = new(path: fileName, mode: FileMode.Create);
 			using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
+			// The mimetype entry must be the first entry in the ZIP archive and must be stored without compression. It specifies the MIME type of the document, which is "application/vnd.oasis.opendocument.text" for ODT files.
 			ZipArchiveEntry mimetypeEntry = archive.CreateEntry(entryName: "mimetype", compressionLevel: CompressionLevel.NoCompression);
 			using (StreamWriter writer = new(stream: mimetypeEntry.Open(), encoding: Encoding.ASCII))
 			{
 				writer.Write(value: "application/vnd.oasis.opendocument.text");
 			}
+			// The META-INF/manifest.xml entry defines the manifest of the ODT package, listing the files included in the archive and their corresponding MIME types. It is stored with compression.
 			ZipArchiveEntry manifestEntry = archive.CreateEntry(entryName: "META-INF/manifest.xml", compressionLevel: CompressionLevel.Optimal);
 			using (StreamWriter writer = new(stream: manifestEntry.Open(), encoding: Encoding.UTF8))
 			{
@@ -537,6 +633,7 @@ public static class ListViewExporter
 				writer.WriteLine(value: " <manifest:file-entry manifest:full-path=\"META-INF/manifest.xml\" manifest:media-type=\"text/xml\"/>");
 				writer.WriteLine(value: "</manifest:manifest>");
 			}
+			// The content.xml entry contains the main content of the ODT document, including the title as a heading and a table with the ListView data. The XML structure follows the OpenDocument format for text documents.
 			ZipArchiveEntry contentEntry = archive.CreateEntry(entryName: "content.xml", compressionLevel: CompressionLevel.Optimal);
 			using (StreamWriter writer = new(stream: contentEntry.Open(), encoding: Encoding.UTF8))
 			{
@@ -568,8 +665,10 @@ public static class ListViewExporter
 				writer.WriteLine(value: "  </office:text></office:body>");
 				writer.WriteLine(value: "</office:document-content>");
 			}
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "ODT", filePath: fileName);
@@ -581,12 +680,17 @@ public static class ListViewExporter
 	/// <param name="title">The document title written as a bold heading.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	/// <remarks>The RTF file is saved using ASCII encoding.</remarks>
 	public static void SaveAsRtf(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, and write the output file in Rich Text Format (RTF) with ASCII encoding. The RTF document contains a bold heading for the title and a table with the ListView data. Special characters in the cell data are escaped to prevent breaking the RTF syntax.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Use a StreamWriter to write the output file in Rich Text Format (RTF) with ASCII encoding. The 'append: false' parameter ensures that the file is overwritten if it already exists.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.ASCII);
+			// Write the RTF header, define a font table with Arial as the default font, write the title as a bold heading, and then write the table rows with proper RTF syntax. Special characters in the cell data are escaped using a helper method to ensure the RTF document is well-formed.
 			writer.WriteLine(value: @"{\rtf1\ansi\deff0");
 			writer.WriteLine(value: @"{\fonttbl{\f0 Arial;}}");
 			writer.WriteLine(value: @"\f0\fs20");
@@ -595,11 +699,13 @@ public static class ListViewExporter
 			{
 				int cumWidth = 0;
 				writer.Write(value: @"\trowd\trgaph108\trleft-108");
+				// Define the cell boundaries for each column. The width of each cell is set to 1440 twips (1 inch) for simplicity, but this can be adjusted as needed. The cumulative width is used to specify the right boundary of each cell.
 				for (int c = 0; c < headers.Length; c++)
 				{
 					cumWidth += 1440;
 					writer.Write(value: $@"\cellx{cumWidth}");
 				}
+				// Write the cell contents for the current row. Each cell is started with '\pard\intbl', followed by the escaped cell content, and ended with '\cell'. After all cells in the row are written, the row is ended with '\row'.
 				for (int c = 0; c < headers.Length; c++)
 				{
 					string cell = c < row.Length ? row[c] : string.Empty;
@@ -610,8 +716,10 @@ public static class ListViewExporter
 				writer.WriteLine(value: @"\row");
 			}
 			writer.WriteLine(value: "}");
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "RTF", filePath: fileName);
@@ -623,11 +731,15 @@ public static class ListViewExporter
 	/// <param name="title">The document title written as a level-1 paragraph.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	/// <remarks>The file is a proper compressed ABW (ZIP/XML) archive, not a flat XML file.</remarks>
 	public static void SaveAsAbiword(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, and write the output file as a proper compressed ABW (ZIP/XML) archive with the necessary structure. The ABW format is based on XML and requires specific elements such as <abiword>, <section>, <p>, and <table> to structure the document content. The document contains a paragraph for the title and a table for the ListView data.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Use a StreamWriter to write the output file in XML format with UTF-8 encoding. The 'append: false' parameter ensures that the file is overwritten if it already exists. The XML structure follows the ABW format, with proper escaping of special characters in the title and cell data to ensure a well-formed XML document.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
 			writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 			writer.WriteLine(value: "<!DOCTYPE abiword PUBLIC \"-//ABISOURCE//DTD AWML 1.0 Strict//EN\" \"http://www.abisource.com/awml.dtd\">");
@@ -639,6 +751,7 @@ public static class ListViewExporter
 			int rowIdx = 0;
 			for (int c = 0; c < headers.Length; c++)
 			{
+				// Encode the header text to ensure that any special characters are properly represented in the XML output, preventing issues with rendering or XML structure. The HtmlEncode method converts characters like '<', '>', '&', and '"' into their corresponding XML entities.
 				string safeH = System.Net.WebUtility.HtmlEncode(value: headers[c]) ?? string.Empty;
 				writer.WriteLine(value: $"      <cell left-attach=\"{c}\" right-attach=\"{c + 1}\" top-attach=\"{rowIdx}\" bottom-attach=\"{rowIdx + 1}\">");
 				writer.WriteLine(value: $"        <p>{safeH}</p>");
@@ -647,6 +760,7 @@ public static class ListViewExporter
 			rowIdx++;
 			foreach (string[] dataRow in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
+				// Write each data row in the ABW table. Each cell's content is encoded to ensure that special characters do not break the XML structure. The cell elements include attributes to specify their position in the table based on the column index and row index.
 				for (int c = 0; c < headers.Length; c++)
 				{
 					string cell = c < dataRow.Length ? dataRow[c] : string.Empty;
@@ -660,8 +774,10 @@ public static class ListViewExporter
 			writer.WriteLine(value: "    </table>");
 			writer.WriteLine(value: "  </section>");
 			writer.WriteLine(value: "</abiword>");
+			//
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "AbiWord", filePath: fileName);
@@ -676,9 +792,12 @@ public static class ListViewExporter
 	/// <remarks>WPS Writer natively supports HTML-based content; the file is saved in HTML format internally.</remarks>
 	public static void SaveAsWps(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, and write the output file in HTML format with UTF-8 encoding. The HTML document contains a heading for the title and a table for the ListView data. Special characters in the title and cell data are encoded using HTML entities to ensure a well-formed HTML document that can be opened in WPS Writer.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Use a StreamWriter to write the output file in HTML format with UTF-8 encoding. The 'append: false' parameter ensures that the file is overwritten if it already exists. The HTML structure includes a DOCTYPE declaration, head with meta charset and title, and a body containing an H1 heading for the title and a table for the ListView data. Special characters are encoded using System.Net.WebUtility.HtmlEncode to ensure the HTML document is well-formed.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
 			writer.WriteLine(value: "<!DOCTYPE html>");
 			writer.WriteLine(value: "<html><head><meta charset=\"utf-8\">");
@@ -689,11 +808,13 @@ public static class ListViewExporter
 			writer.Write(value: "<table><tr>");
 			foreach (string h in headers)
 			{
+				// Encode the header text to ensure that any special characters are properly represented in the HTML output, preventing issues with rendering or HTML structure. The HtmlEncode method converts characters like '<', '>', '&', and '"' into their corresponding HTML entities.
 				writer.Write(value: $"<th>{System.Net.WebUtility.HtmlEncode(value: h)}</th>");
 			}
 			writer.WriteLine(value: "</tr>");
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
+				// Write each data row in the HTML table. Each cell's content is encoded to ensure that special characters do not break the HTML structure. The table is styled with borders and padding for better readability when opened in WPS Writer.
 				writer.Write(value: "<tr>");
 				for (int c = 0; c < headers.Length; c++)
 				{
@@ -703,8 +824,10 @@ public static class ListViewExporter
 				writer.WriteLine(value: "</tr>");
 			}
 			writer.WriteLine(value: "</table></body></html>");
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "WPS", filePath: fileName);
@@ -719,11 +842,15 @@ public static class ListViewExporter
 	/// <remarks>The file is a proper compressed XLSX (ZIP/Open XML) archive.</remarks>
 	public static void SaveAsExcel(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, and write the output file as a proper compressed XLSX (ZIP/Open XML) archive with the necessary structure and content types. The document contains a single sheet named "Data" with the ListView data. The title is included as a comment in the first cell (A1) for reference.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Use a FileStream to create the output file, and a ZipArchive to write the XLSX structure. The XLSX format requires specific entries such as [Content_Types].xml, _rels/.rels, xl/workbook.xml, xl/_rels/workbook.xml.rels, and xl/worksheets/sheet1.xml with the appropriate content types and relationships. The sheet contains the headers in the first row and the data rows below, with the title included as a comment in cell A1.
 			using FileStream fs = new(path: fileName, mode: FileMode.Create);
 			using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
+			// The [Content_Types].xml entry defines the content types for the parts in the package, including the main workbook part (xl/workbook.xml), the worksheet part (xl/worksheets/sheet1.xml), and the relationships part (_rels/.rels).
 			ZipArchiveEntry contentTypesEntry = archive.CreateEntry(entryName: "[Content_Types].xml", compressionLevel: CompressionLevel.Optimal);
 			using (StreamWriter writer = new(stream: contentTypesEntry.Open(), encoding: Encoding.UTF8))
 			{
@@ -735,6 +862,7 @@ public static class ListViewExporter
 				writer.WriteLine(value: "  <Override PartName=\"/xl/worksheets/sheet1.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml\"/>");
 				writer.WriteLine(value: "</Types>");
 			}
+			// The _rels/.rels entry defines the relationship from the package to the main workbook part (xl/workbook.xml).
 			ZipArchiveEntry relsEntry = archive.CreateEntry(entryName: "_rels/.rels", compressionLevel: CompressionLevel.Optimal);
 			using (StreamWriter writer = new(stream: relsEntry.Open(), encoding: Encoding.UTF8))
 			{
@@ -743,6 +871,7 @@ public static class ListViewExporter
 				writer.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"xl/workbook.xml\"/>");
 				writer.WriteLine(value: "</Relationships>");
 			}
+			// The xl/workbook.xml entry contains the main content of the workbook, including the sheet definitions. The workbook has a single sheet named "Data" with an ID of 1 and a relationship ID of rId1 that points to the worksheet part (xl/worksheets/sheet1.xml).
 			ZipArchiveEntry workbookEntry = archive.CreateEntry(entryName: "xl/workbook.xml", compressionLevel: CompressionLevel.Optimal);
 			using (StreamWriter writer = new(stream: workbookEntry.Open(), encoding: Encoding.UTF8))
 			{
@@ -751,6 +880,7 @@ public static class ListViewExporter
 				writer.WriteLine(value: "  <sheets><sheet name=\"Data\" sheetId=\"1\" r:id=\"rId1\"/></sheets>");
 				writer.WriteLine(value: "</workbook>");
 			}
+			// The xl/_rels/workbook.xml.rels entry defines the relationship from the workbook to the worksheet part (xl/worksheets/sheet1.xml).
 			ZipArchiveEntry wbRelsEntry = archive.CreateEntry(entryName: "xl/_rels/workbook.xml.rels", compressionLevel: CompressionLevel.Optimal);
 			using (StreamWriter writer = new(stream: wbRelsEntry.Open(), encoding: Encoding.UTF8))
 			{
@@ -759,6 +889,7 @@ public static class ListViewExporter
 				writer.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet\" Target=\"worksheets/sheet1.xml\"/>");
 				writer.WriteLine(value: "</Relationships>");
 			}
+			// The xl/worksheets/sheet1.xml entry contains the content of the worksheet, including the column headers in the first row and the data rows below. The title is included as a comment in cell A1 using the <c> element's <comment> child element.
 			ZipArchiveEntry sheetEntry = archive.CreateEntry(entryName: "xl/worksheets/sheet1.xml", compressionLevel: CompressionLevel.Optimal);
 			using (StreamWriter writer = new(stream: sheetEntry.Open(), encoding: Encoding.UTF8))
 			{
@@ -786,8 +917,10 @@ public static class ListViewExporter
 				writer.WriteLine(value: "  </sheetData>");
 				writer.WriteLine(value: "</worksheet>");
 			}
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "Excel", filePath: fileName);
@@ -802,16 +935,21 @@ public static class ListViewExporter
 	/// <remarks>The file is a proper compressed ODS (ZIP) archive, not a flat XML file.</remarks>
 	public static void SaveAsOds(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, and write the output file as a proper compressed ODS (ZIP) archive with the necessary structure and content types. The ODS format requires specific entries such as mimetype, META-INF/manifest.xml, and content.xml with the appropriate content types and structure. The spreadsheet contains a table with the ListView data, and the table is named using the provided title.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Use a FileStream to create the output file, and a ZipArchive to write the ODS structure. The ODS format requires specific entries such as mimetype, META-INF/manifest.xml, and content.xml with the appropriate content types and structure. The spreadsheet contains a table with the ListView data, and the table is named using the provided title.
 			using FileStream fs = new(path: fileName, mode: FileMode.Create);
 			using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
+			// The mimetype entry must be the first entry in the ZIP archive and must be stored without compression. It specifies the MIME type of the document, which is "application/vnd.oasis.opendocument.spreadsheet" for ODS files.
 			ZipArchiveEntry mimetypeEntry = archive.CreateEntry(entryName: "mimetype", compressionLevel: CompressionLevel.NoCompression);
 			using (StreamWriter writer = new(stream: mimetypeEntry.Open(), encoding: Encoding.ASCII))
 			{
 				writer.Write(value: "application/vnd.oasis.opendocument.spreadsheet");
 			}
+			// The META-INF/manifest.xml entry defines the manifest of the ODS package, listing the files included in the archive and their corresponding MIME types. It is stored with compression.
 			ZipArchiveEntry manifestEntry = archive.CreateEntry(entryName: "META-INF/manifest.xml", compressionLevel: CompressionLevel.Optimal);
 			using (StreamWriter writer = new(stream: manifestEntry.Open(), encoding: Encoding.UTF8))
 			{
@@ -822,6 +960,7 @@ public static class ListViewExporter
 				writer.WriteLine(value: " <manifest:file-entry manifest:full-path=\"META-INF/manifest.xml\" manifest:media-type=\"text/xml\"/>");
 				writer.WriteLine(value: "</manifest:manifest>");
 			}
+			// The content.xml entry contains the main content of the ODS document, including a table with the ListView data. The XML structure follows the OpenDocument format for spreadsheets, with the table named using the provided title.
 			ZipArchiveEntry contentEntry = archive.CreateEntry(entryName: "content.xml", compressionLevel: CompressionLevel.Optimal);
 			using (StreamWriter writer = new(stream: contentEntry.Open(), encoding: Encoding.UTF8))
 			{
@@ -852,8 +991,10 @@ public static class ListViewExporter
 				writer.WriteLine(value: "  </office:spreadsheet></office:body>");
 				writer.WriteLine(value: "</office:document-content>");
 			}
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "ODS", filePath: fileName);
@@ -865,23 +1006,30 @@ public static class ListViewExporter
 	/// <param name="title">Not written to the file body; reserved for future use.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	/// <remarks>Fields containing special characters (commas, quotes, newlines) are properly escaped according to CSV standards.</remarks>
 	public static void SaveAsCsv(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, and write the output file in CSV format with UTF-8 encoding. The first line contains the column headers, and each subsequent line contains a data row. Fields that contain special characters such as commas, quotes, or newlines are escaped by enclosing them in double quotes and doubling any internal double quotes to ensure the CSV file is well-formed and can be opened in spreadsheet applications without issues.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Use a StreamWriter to write the output file in CSV format with UTF-8 encoding. The 'append: false' parameter ensures that the file is overwritten if it already exists. The first line contains the column headers, and each subsequent line contains a data row. Fields that contain special characters are escaped using a helper method to ensure the CSV file is well-formed.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
-			writer.WriteLine(value: string.Join(separator: ",", values: headers.Select(selector: EscapeCsvField)));
+			writer.WriteLine(value: string.Join(separator: ";", values: headers.Select(selector: EscapeCsvField)));
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
-				writer.WriteLine(value: string.Join(separator: ",", values: Enumerable.Range(start: 0, count: headers.Length).Select(selector: c =>
+				// Write each data row in the CSV file. Each field is processed to escape special characters as needed. The fields are then joined with semicolons to form a single line for each row.
+				writer.WriteLine(value: string.Join(separator: ";", values: Enumerable.Range(start: 0, count: headers.Length).Select(selector: c =>
 				{
 					string cell = c < row.Length ? row[c] : string.Empty;
 					return EscapeCsvField(field: cell);
 				})));
 			}
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "CSV", filePath: fileName);
@@ -893,19 +1041,26 @@ public static class ListViewExporter
 	/// <param name="title">Not written to the file body; reserved for future use.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	/// <remarks>Fields containing tabs or newlines are properly escaped by enclosing them in double quotes and doubling any internal double quotes to ensure the TSV file is well-formed.</remarks>
 	public static void SaveAsTsv(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, and write the output file in TSV format with UTF-8 encoding. The first line contains the column headers, and each subsequent line contains a data row. Fields that contain tabs or newlines are escaped by enclosing them in double quotes and doubling any internal double quotes to ensure the TSV file is well-formed and can be opened in spreadsheet applications without issues.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Use a StreamWriter to write the output file in TSV format with UTF-8 encoding. The 'append: false' parameter ensures that the file is overwritten if it already exists. The first line contains the column headers, and each subsequent line contains a data row. Fields that contain tabs or newlines are escaped using a helper method to ensure the TSV file is well-formed.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
 			writer.WriteLine(value: string.Join(separator: "\t", values: headers));
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
+				// Write each data row in the TSV file. Each field is processed to escape tabs and newlines as needed. The fields are then joined with tabs to form a single line for each row.
 				writer.WriteLine(value: string.Join(separator: "\t", values: Enumerable.Range(start: 0, count: headers.Length).Select(selector: c => c < row.Length ? row[c] : string.Empty)));
 			}
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "TSV", filePath: fileName);
@@ -917,19 +1072,26 @@ public static class ListViewExporter
 	/// <param name="title">Not written to the file body; reserved for future use.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	/// <remarks>Fields containing pipe characters or newlines are properly escaped by enclosing them in double quotes and doubling any internal double quotes to ensure the PSV file is well-formed.</remarks>
 	public static void SaveAsPsv(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, and write the output file in PSV format with UTF-8 encoding. The first line contains the column headers, and each subsequent line contains a data row. Fields that contain pipe characters or newlines are escaped by enclosing them in double quotes and doubling any internal double quotes to ensure the PSV file is well-formed and can be opened in spreadsheet applications without issues.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Use a StreamWriter to write the output file in PSV format with UTF-8 encoding. The 'append: false' parameter ensures that the file is overwritten if it already exists. The first line contains the column headers, and each subsequent line contains a data row. Fields that contain pipe characters or newlines are escaped using a helper method to ensure the PSV file is well-formed.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
 			writer.WriteLine(value: string.Join(separator: "|", values: headers));
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
+				// Write each data row in the PSV file. Each field is processed to escape pipe characters and newlines as needed. The fields are then joined with pipe characters to form a single line for each row.
 				writer.WriteLine(value: string.Join(separator: "|", values: Enumerable.Range(start: 0, count: headers.Length).Select(selector: c => c < row.Length ? row[c] : string.Empty)));
 			}
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "PSV", filePath: fileName);
@@ -944,21 +1106,27 @@ public static class ListViewExporter
 	/// <remarks>ET files use CSV format for WPS Spreadsheet compatibility.</remarks>
 	public static void SaveAsEt(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, and write the output file in CSV format with UTF-8 encoding. The first line contains the column headers, and each subsequent line contains a data row. Fields that contain special characters such as commas, quotes, or newlines are escaped by enclosing them in double quotes and doubling any internal double quotes to ensure the CSV file is well-formed and can be opened in WPS Spreadsheet without issues.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Use a StreamWriter to write the output file in CSV format with UTF-8 encoding. The 'append: false' parameter ensures that the file is overwritten if it already exists. The first line contains the column headers, and each subsequent line contains a data row. Fields that contain special characters are escaped using a helper method to ensure the CSV file is well-formed.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
-			writer.WriteLine(value: string.Join(separator: ",", values: headers.Select(selector: EscapeCsvField)));
+			writer.WriteLine(value: string.Join(separator: ";", values: headers.Select(selector: EscapeCsvField)));
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
-				writer.WriteLine(value: string.Join(separator: ",", values: Enumerable.Range(start: 0, count: headers.Length).Select(selector: c =>
+				// Write each data row in the CSV file. Each field is processed to escape special characters as needed. The fields are then joined with semicolons to form a single line for each row.
+				writer.WriteLine(value: string.Join(separator: ";", values: Enumerable.Range(start: 0, count: headers.Length).Select(selector: c =>
 				{
 					string cell = c < row.Length ? row[c] : string.Empty;
 					return EscapeCsvField(field: cell);
 				})));
 			}
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "ET", filePath: fileName);
@@ -970,11 +1138,15 @@ public static class ListViewExporter
 	/// <param name="title">The document title written in the &lt;title&gt; element and as an &lt;h1&gt; heading.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	/// <remarks>The HTML document contains a heading for the title and a table for the ListView data. Special characters in the title and cell data are encoded using HTML entities to ensure a well-formed HTML document that can be opened in web browsers.</remarks>
 	public static void SaveAsHtml(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, and write the output file in HTML format with UTF-8 encoding. The HTML document includes a DOCTYPE declaration, head with meta charset and title, and a body containing an H1 heading for the title and a table for the ListView data. Special characters in the title and cell data are encoded using System.Net.WebUtility.HtmlEncode to ensure that the HTML document is well-formed and can be opened in web browsers without issues.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Use a StreamWriter to write the output file in HTML format with UTF-8 encoding. The HTML document includes a DOCTYPE declaration, head with meta charset and title, and a body containing an H1 heading for the title and a table for the ListView data. Special characters in the title and cell data are encoded using System.Net.WebUtility.HtmlEncode to ensure that the HTML document is well-formed and can be opened in web browsers without issues.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
 			string safeTitle = System.Net.WebUtility.HtmlEncode(value: title) ?? string.Empty;
 			writer.WriteLine(value: "<!DOCTYPE html>");
@@ -985,11 +1157,13 @@ public static class ListViewExporter
 			writer.Write(value: "<table><thead><tr>");
 			foreach (string h in headers)
 			{
+				// Write each column header in the HTML table. Each header is encoded to ensure that special characters do not break the HTML structure. The headers are styled with a background color for better readability when opened in web browsers.
 				writer.Write(value: $"<th>{System.Net.WebUtility.HtmlEncode(value: h)}</th>");
 			}
 			writer.WriteLine(value: "</tr></thead><tbody>");
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
+				// Write each data row in the HTML table. Each cell is encoded to ensure that special characters do not break the HTML structure. The table uses standard HTML tags to create a well-formed document that can be opened in web browsers.
 				writer.Write(value: "<tr>");
 				for (int c = 0; c < headers.Length; c++)
 				{
@@ -999,8 +1173,10 @@ public static class ListViewExporter
 				writer.WriteLine(value: "</tr>");
 			}
 			writer.WriteLine(value: "</tbody></table></body></html>");
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "HTML", filePath: fileName);
@@ -1012,11 +1188,15 @@ public static class ListViewExporter
 	/// <param name="title">Written as a <c>title</c> attribute on the root element.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	/// <remarks>This method creates an XML document with a root element named "data" and a "title" attribute. Each row in the ListView is represented as a "row" element, and each cell is represented as a child element with a name derived from the column header.</remarks>
 	public static void SaveAsXml(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, and write the output file in XML format with UTF-8 encoding. The XML document has a root element named "data" with a "title" attribute. Each row in the ListView is represented as a "row" element, and each cell is represented as a child element with a name derived from the column header. Special characters in the headers and cell data are encoded to ensure that the XML document is well-formed and can be opened in XML viewers without issues.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Use an XmlWriter to write the output file in XML format with UTF-8 encoding. The XML document has a root element named "data" with a "title" attribute. Each row in the ListView is represented as a "row" element, and each cell is represented as a child element with a name derived from the column header. Special characters in the headers and cell data are encoded to ensure that the XML document is well-formed.
 			XmlWriterSettings settings = new() { Indent = true };
 			using XmlWriter xmlWriter = XmlWriter.Create(outputFileName: fileName, settings: settings);
 			xmlWriter.WriteStartDocument();
@@ -1024,11 +1204,13 @@ public static class ListViewExporter
 			xmlWriter.WriteAttributeString(localName: "title", value: title);
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
+				// Write each data row in the XML document. Each cell is encoded to ensure that special characters do not break the XML structure.
 				xmlWriter.WriteStartElement(localName: "row");
 				for (int c = 0; c < headers.Length; c++)
 				{
+					// Create a valid XML element name from the column header. If the header is empty, use a default name like "col{index}". The header is encoded to ensure that it can be used as an XML element name without issues.
 					string elementName = headers[c].Length > 0
-						? System.Xml.XmlConvert.EncodeName(name: headers[c]) ?? $"col{c}"
+						? XmlConvert.EncodeName(name: headers[c]) ?? $"col{c}"
 						: $"col{c}";
 					string cell = c < row.Length ? row[c] : string.Empty;
 					xmlWriter.WriteElementString(localName: elementName, value: cell);
@@ -1037,8 +1219,10 @@ public static class ListViewExporter
 			}
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteEndDocument();
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "XML", filePath: fileName);
@@ -1050,11 +1234,15 @@ public static class ListViewExporter
 	/// <param name="title">The document title written in the &lt;title&gt; element.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	/// <remarks>This method creates a DocBook XML document with an "article" root element, a "title" element for the document title, and a "section" containing a "table" with the ListView data. The table includes a header row with column headers and subsequent rows for the data. Special characters in the title and cell data are encoded to ensure that the XML document is well-formed and can be processed by DocBook tools without issues.</remarks>
 	public static void SaveAsDocBook(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, and write the output file in DocBook XML format with UTF-8 encoding. The XML document has an "article" root element, a "title" element for the document title, and a "section" containing a "table" with the ListView data. The table includes a header row with column headers and subsequent rows for the data. Special characters in the title and cell data are encoded to ensure that the XML document is well-formed and can be processed by DocBook tools without issues.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Use an XmlWriter to write the output file in DocBook XML format with UTF-8 encoding. The XML document has an "article" root element, a "title" element for the document title, and a "section" containing a "table" with the ListView data. The table includes a header row with column headers and subsequent rows for the data. Special characters in the title and cell data are encoded to ensure that the XML document is well-formed.
 			XmlWriterSettings settings = new() { Indent = true };
 			using XmlWriter xmlWriter = XmlWriter.Create(outputFileName: fileName, settings: settings);
 			xmlWriter.WriteStartDocument();
@@ -1069,6 +1257,7 @@ public static class ListViewExporter
 			xmlWriter.WriteAttributeString(localName: "cols", value: headers.Length.ToString(provider: System.Globalization.CultureInfo.InvariantCulture));
 			for (int c = 0; c < headers.Length; c++)
 			{
+				// Write the column specifications for the DocBook table. Each column is defined with a "colspec" element, and the "colname" attribute is set to a unique name based on the column index (e.g., "c1", "c2", etc.). This defines the structure of the table and allows for proper formatting when processed by DocBook tools.
 				xmlWriter.WriteStartElement(localName: "colspec");
 				xmlWriter.WriteAttributeString(localName: "colname", value: $"c{c + 1}");
 				xmlWriter.WriteEndElement();
@@ -1077,6 +1266,7 @@ public static class ListViewExporter
 			xmlWriter.WriteStartElement(localName: "row");
 			foreach (string h in headers)
 			{
+				// Write each column header in the DocBook table. Each header is encoded to ensure that special characters do not break the XML structure. The headers are placed in the "thead" section of the table to indicate that they are column headers.
 				xmlWriter.WriteElementString(localName: "entry", value: h);
 			}
 			xmlWriter.WriteEndElement();
@@ -1084,6 +1274,7 @@ public static class ListViewExporter
 			xmlWriter.WriteStartElement(localName: "tbody");
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
+				// Write each data row in the DocBook table. Each cell is encoded to ensure that special characters do not break the XML structure. The rows are placed in the "tbody" section of the table to indicate that they are data rows.
 				xmlWriter.WriteStartElement(localName: "row");
 				for (int c = 0; c < headers.Length; c++)
 				{
@@ -1097,8 +1288,10 @@ public static class ListViewExporter
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteEndDocument();
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "DocBook", filePath: fileName);
@@ -1110,14 +1303,19 @@ public static class ListViewExporter
 	/// <param name="title">Written as the value of a <c>title</c> property at the root of the JSON object.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	/// <remarks>This method creates a JSON document with a root object containing a "title" property and a "rows" property. The "rows" property is an array of objects, where each object represents a row in the ListView and has properties corresponding to the column headers. Special characters in the headers and cell data are properly escaped to ensure that the JSON document is well-formed and can be parsed by JSON parsers without issues.</remarks>
 	public static void SaveAsJson(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, and write the output file in JSON format with UTF-8 encoding. The JSON document has a root object containing a "title" property and a "rows" property. The "rows" property is an array of objects, where each object represents a row in the ListView and has properties corresponding to the column headers. Special characters in the headers and cell data are properly escaped by the JsonSerializer to ensure that the JSON document is well-formed.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Create a list of dictionaries to represent the rows of the ListView. Each dictionary represents a single row, with keys corresponding to the column headers and values corresponding to the cell data. The GetRows method is used to retrieve the data rows from the ListView, and the virtualRowProvider delegate is used if provided to support virtual mode.
 			List<Dictionary<string, string>> records = [];
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
+				// Create a dictionary for the current row, mapping column headers to cell values. If a row has fewer cells than headers, the missing cells are treated as empty strings. This ensures that each row object in the JSON output has a consistent set of properties corresponding to the column headers.
 				Dictionary<string, string> record = [];
 				for (int c = 0; c < headers.Length; c++)
 				{
@@ -1125,11 +1323,14 @@ public static class ListViewExporter
 				}
 				records.Add(item: record);
 			}
+			// Create an anonymous object to represent the root of the JSON document, containing the title and the array of row objects. The JsonSerializer will handle the serialization of this object to a JSON string, including proper escaping of special characters.
 			var doc = new { title, rows = records };
 			string json = JsonSerializer.Serialize(value: doc, options: new JsonSerializerOptions { WriteIndented = true });
 			File.WriteAllText(path: fileName, contents: json);
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "JSON", filePath: fileName);
@@ -1141,11 +1342,15 @@ public static class ListViewExporter
 	/// <param name="title">Written as the value of a <c>title</c> key at the root of the YAML document.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	/// <remarks>This method creates a YAML document with a root object containing a "title" property and a "rows" property. The "rows" property is an array of objects, where each object represents a row in the ListView and has properties corresponding to the column headers. Special characters in the headers and cell data are properly escaped to ensure that the YAML document is well-formed and can be parsed by YAML parsers without issues.</remarks>
 	public static void SaveAsYaml(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, and write the output file in YAML format with UTF-8 encoding. The YAML document has a root object containing a "title" property and a "rows" property. The "rows" property is an array of objects, where each object represents a row in the ListView and has properties corresponding to the column headers. Special characters in the headers and cell data are properly escaped to ensure that the YAML document is well-formed.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Use a StreamWriter to write the output file in YAML format with UTF-8 encoding. The 'append: false' parameter ensures that the file is overwritten if it already exists. The YAML document has a root object containing a "title" property and a "rows" property. The "rows" property is an array of objects, where each object represents a row in the ListView and has properties corresponding to the column headers. Special characters in the headers and cell data are escaped by replacing double quotes with escaped double quotes to ensure that the YAML document is well-formed.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
 			writer.WriteLine(value: "---");
 			writer.WriteLine(value: $"title: \"{title.Replace(oldValue: "\"", newValue: "\\\"")}\"");
@@ -1153,6 +1358,7 @@ public static class ListViewExporter
 			writer.WriteLine(value: "rows:");
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
+				// Write each data row in the YAML document. Each cell is processed to escape double quotes by replacing them with escaped double quotes. The rows are represented as a list of objects under the "rows" key, with each object containing properties corresponding to the column headers.
 				writer.WriteLine(value: "  - item:");
 				for (int c = 0; c < headers.Length; c++)
 				{
@@ -1162,8 +1368,10 @@ public static class ListViewExporter
 					writer.WriteLine(value: $"      {safeKey}: \"{safeCell}\"");
 				}
 			}
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "YAML", filePath: fileName);
@@ -1175,17 +1383,22 @@ public static class ListViewExporter
 	/// <param name="title">Written as the value of a <c>title</c> key at the top of the file.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	/// <remarks>This method creates a TOML document with a "title" key at the top of the file and a list of tables for each row in the ListView. Each table is represented as a TOML array of tables with keys corresponding to the column headers. Special characters in the headers and cell data are properly escaped to ensure that the TOML document is well-formed and can be parsed by TOML parsers without issues.</remarks>
 	public static void SaveAsToml(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, and write the output file in TOML format with UTF-8 encoding. The TOML document has a "title" key at the top of the file and a list of tables for each row in the ListView. Each table is represented as a TOML array of tables with keys corresponding to the column headers. Special characters in the headers and cell data are escaped by replacing double quotes with escaped double quotes to ensure that the TOML document is well-formed.
 		try
 		{
+			//Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Use a StreamWriter to write the output file in TOML format with UTF-8 encoding. The 'append: false' parameter ensures that the file is overwritten if it already exists. The TOML document has a "title" key at the top of the file and a list of tables for each row in the ListView. Each table is represented as a TOML array of tables with keys corresponding to the column headers. Special characters in the headers and cell data are escaped by replacing double quotes with escaped double quotes to ensure that the TOML document is well-formed.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
 			writer.WriteLine(value: $"title = \"{EscapeToml(value: title)}\"");
 			writer.WriteLine(value: $"created_at = {DateTime.UtcNow:yyyy-MM-ddTHH:mm:ssZ}");
 			writer.WriteLine();
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
+				// Write each data row in the TOML document. Each cell is processed to escape double quotes by replacing them with escaped double quotes. The rows are represented as an array of tables, with each table containing key-value pairs corresponding to the column headers and cell values.
 				writer.WriteLine(value: "[[rows]]");
 				for (int c = 0; c < headers.Length; c++)
 				{
@@ -1194,8 +1407,10 @@ public static class ListViewExporter
 				}
 				writer.WriteLine();
 			}
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "TOML", filePath: fileName);
@@ -1207,12 +1422,16 @@ public static class ListViewExporter
 	/// <param name="title">Used as the SQL table name in the CREATE TABLE and INSERT statements.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	/// <remarks>This method creates a SQL script that includes a CREATE TABLE statement to define the table structure based on the column headers, followed by INSERT INTO statements for each row of data. The table name is derived from the title parameter, with non-alphanumeric characters replaced by underscores. Special characters in the data are escaped to ensure that the SQL script is well-formed and can be executed against a SQL database without issues.</remarks>
 	public static void SaveAsSql(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, and write the output file as a SQL script with UTF-8 encoding. The SQL script includes a CREATE TABLE statement to define the table structure based on the column headers, followed by INSERT INTO statements for each row of data. The table name is derived from the title parameter, with non-alphanumeric characters replaced by underscores. Special characters in the data are escaped by doubling single quotes to ensure that the SQL script is well-formed and can be executed against a SQL database without issues.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
-			string tableName = new(value: title.Select(selector: static c => char.IsLetterOrDigit(c: c) ? c : '_').ToArray());
+			// Create a valid SQL table name from the title by replacing non-alphanumeric characters with underscores. If the resulting table name is empty, use a default name like "Data". This ensures that the CREATE TABLE statement in the SQL script has a valid table name.
+			string tableName = new(value: [.. title.Select(selector: static c => char.IsLetterOrDigit(c: c) ? c : '_')]);
 			if (tableName.Length == 0)
 			{
 				tableName = "Data";
@@ -1230,16 +1449,19 @@ public static class ListViewExporter
 			string colList = string.Join(separator: ", ", values: headers.Select(selector: h => $"[{h}]"));
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
+				// Write an INSERT INTO statement for each row of data. Each cell value is escaped by replacing single quotes with two single quotes to ensure that the SQL script is well-formed. The values are enclosed in single quotes to be treated as string literals in the SQL script.
 				string values = string.Join(separator: ", ", values: Enumerable.Range(start: 0, count: headers.Length).Select(selector: c =>
 				{
 					string cell = c < row.Length ? row[c] : string.Empty;
-					return $"'{cell.Replace(oldValue: "'", newValue: "''")}'";	
+					return $"'{cell.Replace(oldValue: "'", newValue: "''")}'";
 				}));
 				writer.WriteLine(value: $"INSERT INTO [{tableName}] ({colList}) VALUES ({values});");
 			}
 			writer.WriteLine(value: "COMMIT;");
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "SQL", filePath: fileName);
@@ -1251,12 +1473,16 @@ public static class ListViewExporter
 	/// <param name="title">Used as the table name inside the SQLite database.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	/// <remarks>This method creates a SQLite database file with a single table containing the data from the ListView. The table name is derived from the title parameter, with non-alphanumeric characters replaced by underscores. The method uses parameterized SQL commands to insert the data, which ensures that special characters in the data are properly escaped and that the resulting database is well-formed and can be opened with SQLite tools without issues.</remarks>
 	public static void SaveAsSqlite(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, and create a SQLite database file with a single table containing the data from the ListView. The table name is derived from the title parameter, with non-alphanumeric characters replaced by underscores. The method uses parameterized SQL commands to insert the data, which ensures that special characters in the data are properly escaped and that the resulting database is well-formed.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
-			string tableName = new(value: title.Select(selector: static c => char.IsLetterOrDigit(c: c) ? c : '_').ToArray());
+			// Create a valid SQL table name from the title by replacing non-alphanumeric characters with underscores. If the resulting table name is empty, use a default name like "Data". This ensures that the CREATE TABLE statement in the SQLite database has a valid table name.
+			string tableName = new(value: [.. title.Select(selector: static c => char.IsLetterOrDigit(c: c) ? c : '_')]);
 			if (tableName.Length == 0)
 			{
 				tableName = "Data";
@@ -1282,10 +1508,12 @@ public static class ListViewExporter
 			SQLiteParameter[] parameters = new SQLiteParameter[headers.Length];
 			for (int c = 0; c < headers.Length; c++)
 			{
+				// Create parameters for the INSERT command. Each parameter is named "@p{index}" and is of type TEXT. This allows the method to safely insert data containing special characters without risking SQL injection or syntax errors in the resulting SQLite database.
 				parameters[c] = insertCmd.Parameters.Add(parameterName: $"@p{c}", parameterType: System.Data.DbType.String);
 			}
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
+				// Set the parameter values for the current row. If a row has fewer cells than headers, the missing cells are treated as empty strings. This ensures that each INSERT statement has a value for every column defined in the table, and that special characters in the data are properly handled by the parameterized command.
 				for (int c = 0; c < headers.Length; c++)
 				{
 					parameters[c].Value = c < row.Length ? row[c] : string.Empty;
@@ -1294,8 +1522,10 @@ public static class ListViewExporter
 			}
 			transaction.Commit();
 			connection.Close();
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex)
 		{
 			ShowError(ex: ex, format: "SQLite", filePath: fileName);
@@ -1307,11 +1537,15 @@ public static class ListViewExporter
 	/// <param name="title">Written as the document heading on each page.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	/// <remarks>The method generates a PDF document with the specified title and the contents of the ListView. Each page contains a heading with the title and a table with the data. If the ListView is in virtual mode, the <paramref name="virtualRowProvider"/> delegate is used to retrieve the items.</remarks>
 	public static void SaveAsPdf(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, and write the output file in PDF format. The method generates a PDF document with the specified title and the contents of the ListView. Each page contains a heading with the title and a table with the data. If the ListView is in virtual mode, the <paramref name="virtualRowProvider"/> delegate is used to retrieve the items.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Use a FileStream and StreamWriter to write the output file in PDF format. The PDF document is constructed manually by writing the necessary PDF syntax to define the document structure, pages, and content. The method handles pagination by starting a new page when the content exceeds the page height. The title is written as a heading on each page, and the column headers are repeated on each new page for clarity.
 			using FileStream fs = new(path: fileName, mode: FileMode.Create);
 			using StreamWriter w = new(stream: fs, encoding: Encoding.ASCII);
 			List<long> objectOffsets = [];
@@ -1345,11 +1579,13 @@ public static class ListViewExporter
 			w.WriteLine(value: $"1 0 0 1 50 {pageHeight - 40} Tm ({EscapePdf(text: title)}) Tj");
 			for (int c = 0; c < headers.Length; c++)
 			{
+				// Write the column headers on the PDF page. Each header is positioned based on the calculated column X coordinates and a fixed Y coordinate near the top of the page. The headers are repeated on each new page to maintain context for the data rows.
 				w.WriteLine(value: $"1 0 0 1 {colX[c]} {pageHeight - 60} Tm ({EscapePdf(text: headers[c])}) Tj");
 			}
 			currentY = startY - 30;
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
+				// Write each data row on the PDF page. Each cell is positioned based on the calculated column X coordinates and the current Y coordinate, which is decremented by a fixed line height for each row. If the current Y coordinate goes below the margin, a new page is started by writing the necessary PDF syntax to end the current content stream and start a new one, along with the title and column headers for the new page.
 				if (currentY < marginY)
 				{
 					w.WriteLine(value: "ET");
@@ -1368,6 +1604,7 @@ public static class ListViewExporter
 				}
 				for (int c = 0; c < headers.Length; c++)
 				{
+					// Write each cell in the current row. If a row has fewer cells than headers, the missing cells are treated as empty strings.
 					string cell = c < row.Length ? row[c] : string.Empty;
 					w.WriteLine(value: $"1 0 0 1 {colX[c]} {currentY} Tm ({EscapePdf(text: cell)}) Tj");
 				}
@@ -1379,6 +1616,7 @@ public static class ListViewExporter
 			List<int> pageObjIds = [];
 			foreach (int contentId in pageContentObjIds)
 			{
+				// Write a page object for each content stream. Each page object references the corresponding content stream and the font resource. The parent of each page is set to the pages root object, which will be defined later. The media box is set to A4 size (595x842 points).
 				int pageId = StartNewObject();
 				pageObjIds.Add(item: pageId);
 				int predictedParentId = objectOffsets.Count + (pageContentObjIds.Count - pageObjIds.Count) + 2;
@@ -1397,6 +1635,7 @@ public static class ListViewExporter
 			w.Write(value: "/Kids [");
 			foreach (int pid in pageObjIds)
 			{
+				// Write the Kids array for the pages root object, referencing each page object created earlier. The Kids array contains indirect references to the page objects, which allows the PDF viewer to locate and render each page correctly.
 				w.Write(value: $"{pid} 0 R ");
 			}
 			w.WriteLine(value: "]");
@@ -1423,6 +1662,7 @@ public static class ListViewExporter
 			w.WriteLine(value: "0000000000 65535 f ");
 			foreach (long offset in objectOffsets)
 			{
+				// Write the byte offset for each object in the xref table. Each offset is formatted as a 10-digit number with leading zeros, followed by "00000 n" to indicate that the object is in use and has a generation number of 0.
 				w.WriteLine(value: $"{offset:D10} 00000 n ");
 			}
 			w.WriteLine(value: "trailer");
@@ -1433,8 +1673,10 @@ public static class ListViewExporter
 			w.WriteLine(value: "startxref");
 			w.WriteLine(value: xrefOffset);
 			w.WriteLine(value: "%%EOF");
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "PDF", filePath: fileName);
@@ -1446,10 +1688,13 @@ public static class ListViewExporter
 	/// <param name="title">Written as the page heading on each PostScript page.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	/// <remarks>The PostScript file will include page headers, column headers, and data rows. If the content exceeds one page, additional pages will be created automatically.</remarks>
 	public static void SaveAsPostScript(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, and write the output file in PostScript format. The method generates a PostScript document with page headers containing the title and page number, column headers repeated on each page, and data rows formatted in a simple table layout. Pagination is handled by starting a new page when the content exceeds the defined page height, ensuring that the output is properly formatted for printing or viewing in a PostScript viewer.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.ASCII);
 			const int pageHeight = 842;
@@ -1466,6 +1711,7 @@ public static class ListViewExporter
 			{
 				colX[c] = 50 + (c * colWidth);
 			}
+			// Local function to write the page header, including the title and column headers. This function is called at the beginning of each new page to ensure that the page header is consistent across all pages. The title is displayed prominently at the top of the page, followed by the column headers positioned below it.
 			void WritePageHeader(int pg)
 			{
 				writer.WriteLine(value: $"%%Page: {pg} {pg}");
@@ -1474,6 +1720,7 @@ public static class ListViewExporter
 				writer.WriteLine(value: "/Helvetica findfont 10 scalefont setfont");
 				for (int c = 0; c < headers.Length; c++)
 				{
+					// Write the column headers on the PostScript page. Each header is positioned based on the calculated column X coordinates and a fixed Y coordinate near the top of the page. The headers are repeated on each new page to maintain context for the data rows.
 					writer.WriteLine(value: $"{colX[c]} {pageHeight - 50} moveto ({EscapePostScript(input: headers[c])}) show");
 				}
 			}
@@ -1486,6 +1733,7 @@ public static class ListViewExporter
 			currentY = startY - 30;
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
+				// Write each data row on the PostScript page. Each cell is positioned based on the calculated column X coordinates and the current Y coordinate, which is decremented by a fixed line height for each row. If the current Y coordinate goes below the margin, a new page is started by writing the necessary PostScript syntax to end the current page and start a new one, along with the title and column headers for the new page.
 				if (currentY < marginBottom)
 				{
 					writer.WriteLine(value: "showpage");
@@ -1495,6 +1743,7 @@ public static class ListViewExporter
 				}
 				for (int c = 0; c < headers.Length; c++)
 				{
+					// Write each cell in the current row. If a row has fewer cells than headers, the missing cells are treated as empty strings.
 					string cell = c < row.Length ? row[c] : string.Empty;
 					writer.WriteLine(value: $"{colX[c]} {currentY} moveto ({EscapePostScript(input: cell)}) show");
 				}
@@ -1504,8 +1753,10 @@ public static class ListViewExporter
 			writer.WriteLine(value: "%%Trailer");
 			writer.WriteLine(value: $"%%Pages: {pageNumber}");
 			writer.WriteLine(value: "%%EOF");
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "PostScript", filePath: fileName);
@@ -1520,16 +1771,21 @@ public static class ListViewExporter
 	/// <remarks>The file is a proper compressed EPUB (ZIP) archive conforming to the EPUB 2 specification.</remarks>
 	public static void SaveAsEpub(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, and create a valid EPUB file as a ZIP archive. The method constructs the necessary EPUB structure, including the mimetype file, META-INF/container.xml, OEBPS/content.opf, OEBPS/toc.ncx, and OEBPS/content.xhtml files. The content.opf file includes metadata with the title and a manifest referencing the content and TOC files. The content.xhtml file contains an HTML representation of the ListView data in a table format. Special characters in the title, headers, and cell data are properly escaped to ensure that the resulting EPUB file is well-formed and can be opened with EPUB readers without issues.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Use a FileStream and ZipArchive to create the EPUB file as a ZIP archive. The method writes the required files for a valid EPUB structure, including the mimetype file (uncompressed), the container.xml file in the META-INF directory, the content.opf file with metadata and manifest, the toc.ncx file for navigation, and the content.xhtml file with the actual content. The content is formatted as an HTML table with the title as a heading and the ListView data as rows in the table.
 			using FileStream fs = new(path: fileName, mode: FileMode.Create);
 			using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
+			// The mimetype file must be the first entry in the ZIP archive and must be stored without compression. It contains the string "application/epub+zip" to identify the file as an EPUB.
 			ZipArchiveEntry mimetypeEntry = archive.CreateEntry(entryName: "mimetype", compressionLevel: CompressionLevel.NoCompression);
 			using (StreamWriter writer = new(stream: mimetypeEntry.Open(), encoding: Encoding.ASCII))
 			{
 				writer.Write(value: "application/epub+zip");
 			}
+			// The container.xml file is created in the META-INF directory and specifies the location of the content.opf file, which is the main package file for the EPUB. The container.xml file is required for EPUB readers to locate the content.opf file and access the book's metadata and content.
 			ZipArchiveEntry containerEntry = archive.CreateEntry(entryName: "META-INF/container.xml", compressionLevel: CompressionLevel.Optimal);
 			using (StreamWriter writer = new(stream: containerEntry.Open(), encoding: Encoding.UTF8))
 			{
@@ -1539,6 +1795,7 @@ public static class ListViewExporter
 				writer.WriteLine(value: "</container>");
 			}
 			string safeTitle = System.Net.WebUtility.HtmlEncode(value: title) ?? string.Empty;
+			// The content.opf file is created in the OEBPS directory and contains the metadata for the EPUB, including the title, language, identifier, and creator. It also includes a manifest that lists the files included in the EPUB (the TOC and content files) and a spine that defines the reading order of the content.
 			ZipArchiveEntry opfEntry = archive.CreateEntry(entryName: "OEBPS/content.opf", compressionLevel: CompressionLevel.Optimal);
 			using (StreamWriter writer = new(stream: opfEntry.Open(), encoding: Encoding.UTF8))
 			{
@@ -1557,6 +1814,7 @@ public static class ListViewExporter
 				writer.WriteLine(value: "  <spine toc=\"ncx\"><itemref idref=\"content\"/></spine>");
 				writer.WriteLine(value: "</package>");
 			}
+			// The toc.ncx file is created in the OEBPS directory and defines the navigation structure of the EPUB. It includes a navMap with a single navPoint that references the content.xhtml file. This allows EPUB readers to display a table of contents and navigate to the content page.
 			ZipArchiveEntry ncxEntry = archive.CreateEntry(entryName: "OEBPS/toc.ncx", compressionLevel: CompressionLevel.Optimal);
 			using (StreamWriter writer = new(stream: ncxEntry.Open(), encoding: Encoding.UTF8))
 			{
@@ -1567,6 +1825,7 @@ public static class ListViewExporter
 				writer.WriteLine(value: "  <navMap><navPoint id=\"np1\" playOrder=\"1\"><navLabel><text>Content</text></navLabel><content src=\"content.xhtml\"/></navPoint></navMap>");
 				writer.WriteLine(value: "</ncx>");
 			}
+			// The content.xhtml file is created in the OEBPS directory and contains the actual content of the EPUB. It is formatted as an HTML document with a title, a heading, and a table that includes the column headers and data rows from the ListView. Special characters in the title, headers, and cell data are encoded using HTML encoding to ensure that the resulting XHTML is well-formed and can be rendered correctly by EPUB readers.
 			ZipArchiveEntry contentEntry = archive.CreateEntry(entryName: "OEBPS/content.xhtml", compressionLevel: CompressionLevel.Optimal);
 			using (StreamWriter writer = new(stream: contentEntry.Open(), encoding: Encoding.UTF8))
 			{
@@ -1595,8 +1854,10 @@ public static class ListViewExporter
 				}
 				writer.WriteLine(value: "</tbody></table></body></html>");
 			}
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "EPUB", filePath: fileName);
@@ -1608,22 +1869,28 @@ public static class ListViewExporter
 	/// <param name="title">The book title embedded in the MOBI header and HTML content body.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	/// <remarks>The method generates a MOBI file with a minimal header and a single HTML content record containing the ListView data formatted as a table. The MOBI file structure is constructed manually, including the necessary header fields and text records. The resulting MOBI file can be opened with compatible e-book readers that support the MOBI format.</remarks>
 	public static void SaveAsMobi(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, and write the output file in MOBI format. The method constructs a minimal MOBI file structure, including the necessary header fields and a single HTML content record containing the ListView data formatted as a table. The HTML content is generated by encoding the title, headers, and cell data to ensure that special characters are properly handled. The resulting MOBI file can be opened with compatible e-book readers that support the MOBI format.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Build the HTML content for the MOBI file. The HTML includes a title, a heading with the title, and a table with the column headers and data rows. Special characters in the title, headers, and cell data are encoded using HTML encoding to ensure that the resulting HTML is well-formed and can be rendered correctly by e-book readers that support the MOBI format.
 			StringBuilder html = new();
 			html.Append(value: $"<html><head><meta charset=\"UTF-8\"><title>{System.Net.WebUtility.HtmlEncode(value: title)}</title></head><body>");
 			html.Append(value: $"<h1>{System.Net.WebUtility.HtmlEncode(value: title)}</h1>");
 			html.Append(value: "<table><tr>");
 			foreach (string h in headers)
 			{
+				// Write the column headers in the HTML table. Each header is encoded using HTML encoding to ensure that special characters are properly handled in the resulting HTML content.
 				html.Append(value: $"<th>{System.Net.WebUtility.HtmlEncode(value: h)}</th>");
 			}
 			html.Append(value: "</tr>");
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
+				// Write each data row in the HTML table. Each cell is encoded using HTML encoding to ensure that special characters are properly handled. If a row has fewer cells than headers, the missing cells are treated as empty strings.
 				html.Append(value: "<tr>");
 				for (int c = 0; c < headers.Length; c++)
 				{
@@ -1637,6 +1904,7 @@ public static class ListViewExporter
 			List<byte[]> textRecords = [];
 			for (int i = 0; i < bodyData.Length; i += 4096)
 			{
+				// Split the HTML content into chunks of 4096 bytes to create multiple text records for the MOBI file. Each chunk is stored as a byte array in the textRecords list. This allows the method to handle larger HTML content that may exceed the size limit of a single text record in the MOBI format.
 				int len = Math.Min(val1: 4096, val2: bodyData.Length - i);
 				byte[] chunk = new byte[len];
 				Array.Copy(sourceArray: bodyData, sourceIndex: i, destinationArray: chunk, destinationIndex: 0, length: len);
@@ -1707,8 +1975,10 @@ public static class ListViewExporter
 				w.Write(buffer: rec);
 			}
 			w.Write(buffer: eofRecord);
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "MOBI", filePath: fileName);
@@ -1720,11 +1990,15 @@ public static class ListViewExporter
 	/// <param name="title">The book title written in the FB2 metadata and body sections.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	/// <remarks>The method generates a valid FB2 XML document with the required structure, including the description section with metadata and the body section containing the content formatted as a table. The column headers are written as table headers, and each data row is written as a table row. Special characters in the title, headers, and cell data are properly escaped to ensure that the resulting XML document is well-formed and can be opened with FB2-compatible readers without issues.</remarks>
 	public static void SaveAsFictionBook2(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, and write the output file in FictionBook 2 (FB2) XML format. The method constructs a valid FB2 XML document with the required structure, including the description section with metadata (such as title, author, and date) and the body section containing the content formatted as a table. The column headers are written as table headers (<th>), and each data row is written as a table row (<tr>) with cells (<td>). Special characters in the title, headers, and cell data are properly escaped to ensure that the resulting XML document is well-formed and can be opened with FB2-compatible readers without issues.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Define the FictionBook 2 namespace and create an XmlWriter with appropriate settings for indentation and UTF-8 encoding. The XmlWriter is used to write the FB2 XML document, starting with the root element <FictionBook> and including the necessary child elements for the description and body sections. The metadata in the description section includes the title, author, language, and date, while the body section contains a table with the column headers and data rows.
 			string fb2Ns = "http://www.gribuser.ru/xml/fictionbook/2.0";
 			XmlWriterSettings settings = new() { Indent = true, Encoding = Encoding.UTF8 };
 			using XmlWriter xmlWriter = XmlWriter.Create(outputFileName: fileName, settings: settings);
@@ -1765,11 +2039,13 @@ public static class ListViewExporter
 			xmlWriter.WriteStartElement(localName: "tr", ns: fb2Ns);
 			foreach (string h in headers)
 			{
+				// Write the column headers as table header elements (<th>) in the FB2 XML document. Each header is written within a <tr> element, and special characters in the headers are properly escaped to ensure that the resulting XML is well-formed.
 				xmlWriter.WriteElementString(localName: "th", ns: fb2Ns, value: h);
 			}
 			xmlWriter.WriteEndElement();
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
+				// Write each data row as a table row (<tr>) with cells (<td>) in the FB2 XML document. Each cell is written within a <tr> element, and special characters in the cell data are properly escaped. If a row has fewer cells than headers, the missing cells are treated as empty strings.
 				xmlWriter.WriteStartElement(localName: "tr", ns: fb2Ns);
 				for (int c = 0; c < headers.Length; c++)
 				{
@@ -1783,8 +2059,10 @@ public static class ListViewExporter
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteEndDocument();
+			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
+		// Catch IO and unauthorized access exceptions and show an error message.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "FictionBook2", filePath: fileName);
@@ -1800,6 +2078,7 @@ public static class ListViewExporter
 	/// an error message is shown and no file is written.</remarks>
 	public static void SaveAsChm(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, generate the necessary HTML, HHC, and HHP files in a temporary directory, and invoke the HTML Help Workshop compiler (hhc.exe) to create the CHM file. The method checks for the presence of hhc.exe in the default installation path and shows an error message if it is not found. If hhc.exe is available, it creates a temporary directory to store the intermediate files, generates an index.html file with the ListView data formatted as a table, a toc.hhc file for the table of contents, and a project.hhp file for the project configuration. It then runs hhc.exe with the project file to compile the CHM. If compilation is successful and the CHM file is created, it copies the resulting CHM to the specified output path. Finally, it cleans up the temporary directory and shows a success message or an error message if compilation fails.
 		string[] headers = GetHeaders(listView: listView);
 		string hhcPath = Path.Combine(
 			path1: Environment.GetFolderPath(folder: Environment.SpecialFolder.ProgramFilesX86),
@@ -1813,14 +2092,18 @@ public static class ListViewExporter
 				icon: MessageBoxIcon.Error);
 			return;
 		}
+		// Create a temporary directory to store the intermediate files needed for CHM compilation. The directory is created in the system's temporary path with a unique name generated using a GUID. After the compilation process, the temporary directory and its contents will be deleted to clean up any intermediate files.
 		string tempDir = Path.Combine(path1: Path.GetTempPath(), path2: Guid.NewGuid().ToString());
 		Directory.CreateDirectory(path: tempDir);
+		// Generate the index.html file with the ListView data formatted as a table, the toc.hhc file for the table of contents, and the project.hhp file for the project configuration. The index.html file includes a title and a table with the column headers and data rows. The toc.hhc file defines a single entry in the table of contents that points to index.html. The project.hhp file specifies the options for CHM compilation, including the title, default topic, and contents file.
 		try
 		{
+			// Define the paths for the intermediate files in the temporary directory.
 			string htmlPath = Path.Combine(path1: tempDir, path2: "index.html");
 			string hhcFilePath = Path.Combine(path1: tempDir, path2: "toc.hhc");
 			string hhpPath = Path.Combine(path1: tempDir, path2: "project.hhp");
 			string chmTempPath = Path.Combine(path1: tempDir, path2: "project.chm");
+			// Write the index.html file with the ListView data formatted as a table. The HTML includes a title, a heading with the title, and a table with the column headers and data rows. Special characters in the title, headers, and cell data are encoded using HTML encoding to ensure that the resulting HTML is well-formed and can be rendered correctly by the CHM compiler and viewers.
 			using (StreamWriter writer = new(path: htmlPath, append: false, encoding: Encoding.UTF8))
 			{
 				string safeTitle = System.Net.WebUtility.HtmlEncode(value: title) ?? string.Empty;
@@ -1884,10 +2167,12 @@ public static class ListViewExporter
 			if (File.Exists(path: chmTempPath))
 			{
 				File.Copy(sourceFileName: chmTempPath, destFileName: fileName, overwrite: true);
+				// Show a success message after the CHM file has been successfully created.
 				ShowSuccess();
 			}
 			else
 			{
+				// If the CHM file was not created, show an error message to the user.
 				_ = MessageBox.Show(
 					text: "Failed to compile the CHM file.",
 					caption: I18nStrings.ErrorCaption,
@@ -1895,10 +2180,12 @@ public static class ListViewExporter
 					icon: MessageBoxIcon.Error);
 			}
 		}
+		// Catch any exceptions that occur during the file generation and compilation process, log the error, and show an error message to the user.
 		catch (Exception ex)
 		{
 			ShowError(ex: ex, format: "CHM", filePath: fileName);
 		}
+		// Finally, clean up the temporary directory used for intermediate files.
 		finally
 		{
 			if (Directory.Exists(path: tempDir))
@@ -1916,12 +2203,15 @@ public static class ListViewExporter
 	/// <remarks>The file is a proper compressed XPS (ZIP) archive adhering to the Open Packaging Convention.</remarks>
 	public static void SaveAsXps(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
+		// Get the column headers and rows, and write the output file in XML Paper Specification (XPS) format. The method constructs a valid XPS document as a ZIP archive adhering to the Open Packaging Convention. It creates the necessary entries for content types, relationships, and fixed document sequence, as well as the fixed page containing the ListView data formatted as a table. The column headers are written as text elements, and each data row is written as a series of text elements positioned appropriately on the page. Special characters in the title, headers, and cell data are properly escaped to ensure that the resulting XPS document is well-formed and can be opened with XPS-compatible viewers without issues.
 		try
 		{
+			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
+			// Create a ZIP archive for the XPS file and write the necessary entries for content types, relationships, fixed document sequence, and fixed page. The content types entry defines the MIME types for the various file extensions used in the XPS package. The relationships entries define the relationships between the different parts of the XPS document, such as the relationship from the root to the fixed document sequence and from the fixed document sequence to the fixed document. The fixed page entry contains the actual content of the page, including the title and a table with the column headers and data rows. The text elements are positioned on the page using appropriate coordinates to create a readable layout.
 			using FileStream fs = new(path: fileName, mode: FileMode.Create);
 			using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
-
+			// Create the [Content_Types].xml entry that defines the MIME types for the file extensions used in the XPS package. This entry is required for the Open Packaging Convention and specifies the content types for relationships, fixed document sequences, fixed documents, fixed pages, and fonts.
 			ZipArchiveEntry contentTypesEntry = archive.CreateEntry(entryName: "[Content_Types].xml", compressionLevel: CompressionLevel.Optimal);
 			using (StreamWriter writer = new(stream: contentTypesEntry.Open(), encoding: Encoding.UTF8))
 			{
@@ -1934,7 +2224,7 @@ public static class ListViewExporter
 				writer.WriteLine(value: "  <Default Extension=\"ttf\" ContentType=\"application/vnd.ms-package.obfuscated-opentype\"/>");
 				writer.WriteLine(value: "</Types>");
 			}
-
+			// Create the relationships entry at the root of the package that defines the relationship to the fixed document sequence. This entry is required for the Open Packaging Convention and specifies that the fixed document sequence is a required resource for the XPS document.
 			ZipArchiveEntry relsEntry = archive.CreateEntry(entryName: "_rels/.rels", compressionLevel: CompressionLevel.Optimal);
 			using (StreamWriter writer = new(stream: relsEntry.Open(), encoding: Encoding.UTF8))
 			{
@@ -1943,7 +2233,7 @@ public static class ListViewExporter
 				writer.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.microsoft.com/xps/2005/06/fixedrepresentation\" Target=\"/FixedDocSeq.fdseq\"/>");
 				writer.WriteLine(value: "</Relationships>");
 			}
-
+			// Create the relationships entry for the fixed document sequence that defines the relationship to the fixed document. This entry specifies that the fixed document is a required resource for the fixed document sequence.
 			ZipArchiveEntry fdseqRelsEntry = archive.CreateEntry(entryName: "_rels/FixedDocSeq.fdseq.rels", compressionLevel: CompressionLevel.Optimal);
 			using (StreamWriter writer = new(stream: fdseqRelsEntry.Open(), encoding: Encoding.UTF8))
 			{
@@ -1952,7 +2242,7 @@ public static class ListViewExporter
 				writer.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.microsoft.com/xps/2005/06/required-resource\" Target=\"/Documents/1/FixedDoc.fdoc\"/>");
 				writer.WriteLine(value: "</Relationships>");
 			}
-
+			// Create the fixed document sequence entry that references the fixed document. This entry defines the structure of the XPS document and specifies that the fixed document is part of the fixed document sequence.
 			ZipArchiveEntry fdseqEntry = archive.CreateEntry(entryName: "FixedDocSeq.fdseq", compressionLevel: CompressionLevel.Optimal);
 			using (StreamWriter writer = new(stream: fdseqEntry.Open(), encoding: Encoding.UTF8))
 			{
@@ -1961,7 +2251,6 @@ public static class ListViewExporter
 				writer.WriteLine(value: "  <DocumentReference Source=\"/Documents/1/FixedDoc.fdoc\"/>");
 				writer.WriteLine(value: "</FixedDocumentSequence>");
 			}
-
 			const int pageHeight = 1056;
 			const int startY = 96;
 			const int marginB = 960;
@@ -1973,12 +2262,11 @@ public static class ListViewExporter
 			{
 				colX[c] = 96 + (c * colWidth);
 			}
-
 			List<string> pageEntries = [];
 			int pageNumber = 1;
 			int currentY = startY;
 			StringBuilder currentPageBuilder = new();
-
+			// Define local functions to start a new page and finish the current page. The StartNewPage function initializes the currentPageBuilder with the XML content for a new fixed page, including the title and column headers. The FinishCurrentPage function finalizes the current page by closing the XML tags, creating a new entry in the ZIP archive for the page, and writing the page content to that entry. It also creates a relationships entry for the page that references the font resource used in the page.
 			void StartNewPage()
 			{
 				currentPageBuilder.Clear();
@@ -1995,18 +2283,16 @@ public static class ListViewExporter
 				}
 				currentY += lineHeight * 2;
 			}
-
+			// The FinishCurrentPage function finalizes the current page by closing the XML tags, creating a new entry in the ZIP archive for the page, and writing the page content to that entry. It also creates a relationships entry for the page that references the font resource used in the page.
 			void FinishCurrentPage()
 			{
 				currentPageBuilder.AppendLine(value: "</FixedPage>");
 				string pageName = $"{pageNumber}.fpage";
 				string pagePath = $"Documents/1/Pages/{pageName}";
 				pageEntries.Add(item: pageName);
-
 				ZipArchiveEntry pageEntry = archive.CreateEntry(entryName: pagePath, compressionLevel: CompressionLevel.Optimal);
 				using StreamWriter writer = new(stream: pageEntry.Open(), encoding: Encoding.UTF8);
 				writer.Write(value: currentPageBuilder.ToString());
-
 				ZipArchiveEntry pageRelsEntry = archive.CreateEntry(entryName: $"Documents/1/Pages/_rels/{pageName}.rels", compressionLevel: CompressionLevel.Optimal);
 				using StreamWriter relsWriter = new(stream: pageRelsEntry.Open(), encoding: Encoding.UTF8);
 				relsWriter.WriteLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
@@ -2014,9 +2300,9 @@ public static class ListViewExporter
 				relsWriter.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.microsoft.com/xps/2005/06/required-resource\" Target=\"../../../Resources/Dummy.ttf\"/>");
 				relsWriter.WriteLine(value: "</Relationships>");
 			}
-
+			//Iterate through the rows of the ListView and write them to the current page. If the current Y position exceeds the bottom margin, finish the current page and start a new one. Each cell is written as a Glyphs element with appropriate positioning on the page. Special characters in the cell data are escaped to ensure that the XML is well-formed.
 			StartNewPage();
-
+			// The GetRows method is called to retrieve the rows of the ListView, either from the Items collection or using the virtualRowProvider delegate. Each row is processed to write its cells as Glyphs elements on the current page. If the current Y position exceeds the defined bottom margin, the current page is finalized and a new page is started to continue writing the remaining rows.
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				if (currentY > marginB)
@@ -2026,7 +2312,6 @@ public static class ListViewExporter
 					currentY = startY;
 					StartNewPage();
 				}
-
 				for (int c = 0; c < headers.Length; c++)
 				{
 					string cell = c < row.Length ? row[c] : string.Empty;
@@ -2038,8 +2323,9 @@ public static class ListViewExporter
 				}
 				currentY += lineHeight;
 			}
+			// Finalize the last page.
 			FinishCurrentPage();
-
+			// Create the relationships entry for the fixed document.
 			ZipArchiveEntry fdocRelsEntry = archive.CreateEntry(entryName: "Documents/1/_rels/FixedDoc.fdoc.rels", compressionLevel: CompressionLevel.Optimal);
 			using (StreamWriter writer = new(stream: fdocRelsEntry.Open(), encoding: Encoding.UTF8))
 			{
@@ -2051,7 +2337,7 @@ public static class ListViewExporter
 				}
 				writer.WriteLine(value: "</Relationships>");
 			}
-
+			// Create the fixed document entry that references the page entries. The fixed document XML includes a PageContent element for each page, referencing the corresponding page entry in the ZIP archive. This structure adheres to the XPS specification and allows XPS viewers to correctly render the document with multiple pages.
 			ZipArchiveEntry fdocEntry = archive.CreateEntry(entryName: "Documents/1/FixedDoc.fdoc", compressionLevel: CompressionLevel.Optimal);
 			using (StreamWriter writer = new(stream: fdocEntry.Open(), encoding: Encoding.UTF8))
 			{
@@ -2063,15 +2349,16 @@ public static class ListViewExporter
 				}
 				writer.WriteLine(value: "</FixedDocument>");
 			}
-
+			// Create a dummy font entry to satisfy the requirement for a font resource in the XPS document. The entry is created with no compression and contains a simple string as its content. This allows the Glyphs elements in the fixed pages to reference a valid font resource, ensuring that the XPS document can be opened without errors in XPS viewers.
 			ZipArchiveEntry fontEntry = archive.CreateEntry(entryName: "Resources/Dummy.ttf", compressionLevel: CompressionLevel.NoCompression);
 			using (StreamWriter writer = new(stream: fontEntry.Open(), encoding: Encoding.ASCII))
 			{
 				writer.Write(value: "DUMMY");
 			}
-
+			// Show a success message after the XPS file has been successfully created.
 			ShowSuccess();
 		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "XPS", filePath: fileName);
