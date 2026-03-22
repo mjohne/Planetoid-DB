@@ -1,4 +1,4 @@
-// This file is used by Code Analysis to maintain SuppressMessage
+﻿// This file is used by Code Analysis to maintain SuppressMessage
 // attributes that are applied to this project.
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
@@ -12,7 +12,6 @@ using Planetoid_DB.Properties;
 using System.Data.OleDb;
 using System.Diagnostics;
 using System.Globalization;
-using System.Text.Json;
 
 namespace Planetoid_DB;
 
@@ -174,7 +173,7 @@ VALUES (@Name, @Directory, @Size, @DateCreated, @DateAccessed, @DateModified, @A
 	/// <param name="sender">Event source (the button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the copy to clipboard button is clicked.</remarks>
-	private void ToolStripButtonCopyToClipboard_Click(object sender, EventArgs e)
+	private void ToolStripDropDownButtonCopyToClipboard_Click(object sender, EventArgs e)
 	{
 		// Check if the sender is a tool strip button
 		if (sender is ToolStripButton button && button.Owner is not null)
