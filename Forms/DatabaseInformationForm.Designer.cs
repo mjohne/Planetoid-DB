@@ -1386,7 +1386,6 @@ private ToolStripContainer toolStripContainer;
 	private ToolStripMenuItem menuitemCopyToClipboardLastAccessDate;
 	private ToolStripMenuItem menuitemCopyToClipboardLastWriteDate;
 	private ToolStripMenuItem menuitemCopyToClipboardAttributes;
-	private ToolStripButton toolStripButtonSaveToFile;
 	private ToolStripDropDownButton toolStripDropDownButtonSaveToFile;
 	private ContextMenuStrip contextMenuSaveToFile;
 	private ToolStripMenuItem toolStripMenuItemTextFiles;
