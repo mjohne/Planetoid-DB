@@ -1195,8 +1195,8 @@ namespace Planetoid_DB;
 		toolStripButtonCopyToClipboard.Click += ToolStripButtonCopyToClipboard_Click;
 		toolStripButtonCopyToClipboard.MouseEnter += Control_Enter;
 		toolStripButtonCopyToClipboard.MouseLeave += Control_Leave;
-		toolStripButtonCopyToClipboard.MouseEnter += Control_Enter;
-		toolStripButtonCopyToClipboard.MouseLeave += Control_Leave;
+		// 
+
 		// 
 		// kryptonManager
 		// 
