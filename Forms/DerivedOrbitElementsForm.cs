@@ -6,6 +6,7 @@
 using NLog;
 
 using Planetoid_DB.Forms;
+using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
 
@@ -22,10 +23,6 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	/// <summary>NLog logger instance for the class.</summary>
 	/// <remarks>This logger is used to log messages for the form.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-
-	/// <summary>Stores the planetoids database.</summary>
-	/// <remarks>This list is used to store the planetoids database entries.</remarks>
-	private readonly List<string> planetoidsDatabase = [];
 
 	/// <summary>Stores the current tag text of the control.</summary>
 	/// <remarks>This field is used to keep track of the current tag text of the control.</remarks>
@@ -55,6 +52,16 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
 	private string GetDebuggerDisplay() => ToString();
+
+	private static bool PrepareSaveDialog(FileDialog dialog, string ext)
+	{
+		// Set up the save dialog properties
+		dialog.InitialDirectory = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyDocuments);
+		// Set default file name
+		dialog.FileName = $"Derived-Orbit-Elements_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.{ext}";
+		// Show the dialog and return the result
+		return dialog.ShowDialog() == DialogResult.OK;
+	}
 
 	/// <summary>Tries to parse an integer from the input string.</summary>
 	/// <param name="input">The input string to parse.</param>
@@ -158,47 +165,6 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 
 	/// <summary>Shows the form to copy data to the clipboard.</summary>
 	/// <remarks>This method is used to show the form for copying data to the clipboard.</remarks>
-	private void ShowCopyDataToClipboard()
-	{
-		// Create a new List to store the data to copy
-		// The capacity is set to 0 because we will add items dynamically
-		// The items in the List are the labels that contain the data to be copied
-		// The labels are accessed using their respective properties
-
-		List<string> dataToCopy = [
-			labelLinearEccentricityData.Text,
-			labelSemiMinorAxisData.Text,
-			labelMajorAxisData.Text,
-			labelMinorAxisData.Text,
-			labelEccentricAnomalyData.Text,
-			labelTrueAnomalyData.Text,
-			labelPerihelionDistanceData.Text,
-			labelAphelionDistanceData.Text,
-			labelLongitudeDescendingNodeData.Text,
-			labelArgumentAphelionData.Text,
-			labelFocalParameterData.Text,
-			labelSemiLatusRectumData.Text,
-			labelLatusRectumData.Text,
-			labelOrbitalPeriodData.Text,
-			labelOrbitalAreaData.Text,
-			labelOrbitalPerimeterData.Text,
-			labelSemiMeanAxisData.Text,
-			labelMeanAxisData.Text,
-			labelStandardGravitationalParameterData.Text
-		];
-		// Create a new list to store the non-empty data items
-		List<string> dataToCopyList = [.. dataToCopy.Where(predicate: static item => !string.IsNullOrEmpty(value: item))];
-		// Iterate through each item in the dataToCopy array
-		// Create a new instance of the CopyDataToClipboardForm
-		using CopyDerivedDataToClipboardForm formCopyDerivedDataToClipboard = new();
-		// Set the TopMost property to true to keep the form on top of other windows
-		formCopyDerivedDataToClipboard.TopMost = TopMost;
-		// Fill the form with the data to copy
-		formCopyDerivedDataToClipboard.SetDatabase(list: dataToCopyList);
-		// Show the copy data to clipboard form as a modal dialog
-		_ = formCopyDerivedDataToClipboard.ShowDialog();
-	}
-
 	#endregion
 
 	#region form event handlers
@@ -266,13 +232,6 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	#endregion
 
 	#region Click event handlers
-
-	/// <summary>Handles the click event for the ToolStripButtonCopyToClipboard.
-	/// Shows the form to copy data to the clipboard.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the form to copy data to the clipboard.</remarks>
-	private void ToolStripButtonCopyToClipboard_Click(object sender, EventArgs e) => ShowCopyDataToClipboard();
 
 	/// <summary>Handles the click event for the MenuitemCopyToClipboardLinearEccentricity.
 	/// Copies the linear eccentricity data to the clipboard.</summary>
@@ -399,6 +358,727 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the standard gravitational parameter data to the clipboard.</remarks>
 	private void MenuitemCopyToClipboardStandardGravitationalParameter_Click(object sender, EventArgs e) => CopyToClipboard(text: labelStandardGravitationalParameterData.Text);
+
+	/// <summary>Handles the Click event of the Save As Text menu item, allowing the user to export the contents of the table layout
+	/// panel to a text file.</summary>
+	/// <remarks>Displays a Save File dialog for the user to specify the file location and name. If the user
+	/// confirms, the method exports the current list view results to the specified text file.</remarks>
+	/// <param name="sender">The source of the event, typically the Save As Text menu item.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsText_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the text file to save the list view results; if the user confirms the save operation, call the SaveAsText method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*",
+			DefaultExt = "txt",
+			Title = "Save as Text"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsText(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the click event for the 'Save as LaTeX' menu item, allowing the user to export the contents of the table
+	/// layout panel to a LaTeX file.</summary>
+	/// <remarks>Opens a Save File dialog for the user to specify the destination file. If the user confirms, the
+	/// method exports the current table layout panel data to a LaTeX file at the specified location.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsLatex_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the LaTeX file to save the list view results; if the user confirms the save operation, call the SaveAsLatex method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "LaTeX Files (*.tex)|*.tex|All Files (*.*)|*.*",
+			DefaultExt = "tex",
+			Title = "Save as LaTeX"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsLatex(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the Click event of the 'Save as Markdown' menu item, allowing the user to export the current table layout
+	/// panel content to a Markdown file.</summary>
+	/// <remarks>This method displays a Save File dialog for the user to specify the destination file. If the user
+	/// confirms, the current table layout panel data is exported as a Markdown file. The export operation will not proceed
+	/// if the dialog is canceled or invalid input is provided.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsMarkdown_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the Markdown file to save the list view results; if the user confirms the save operation, call the SaveAsMarkdown method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "Markdown Files (*.md)|*.md|All Files (*.*)|*.*",
+			DefaultExt = "md",
+			Title = "Save as Markdown"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsMarkdown(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the click event for the 'Save as AsciiDoc' menu item, allowing the user to export the current list view
+	/// results to an AsciiDoc file.</summary>
+	/// <remarks>Displays a Save File dialog for the user to specify the destination file. If the user confirms, the
+	/// current table layout is exported as an AsciiDoc document. The export operation is only performed if the dialog is
+	/// successfully prepared and the user completes the save action.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsAsciiDoc_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the AsciiDoc file to save the list view results; if the user confirms the save operation, call the SaveAsAsciiDoc method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "AsciiDoc Files (*.adoc)|*.adoc|All Files (*.*)|*.*",
+			DefaultExt = "adoc",
+			Title = "Save as AsciiDoc"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsAsciiDoc(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the click event for the 'Save as ReStructuredText' menu item, allowing the user to export the list view
+	/// results to a ReStructuredText (.rst) file.</summary>
+	/// <remarks>Displays a Save File dialog for the user to specify the file location and name. If the user
+	/// confirms, the current table layout is exported as a ReStructuredText file. The export includes the list of readable
+	/// designations.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsReStructuredText_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the ReStructuredText file to save the list view results; if the user confirms the save operation, call the SaveAsReStructuredText method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "ReStructuredText Files (*.rst)|*.rst|All Files (*.*)|*.*",
+			DefaultExt = "rst",
+			Title = "Save as ReStructuredText"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsReStructuredText(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the Click event of the 'Save As Textile' menu item to export the contents of the table layout panel to a
+	/// Textile file.</summary>
+	/// <remarks>Displays a Save File dialog to allow the user to specify the file name and location for the Textile
+	/// export. If the user confirms the operation, the contents of the table layout panel are saved in Textile
+	/// format.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsTextile_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the textile file to save the list view results; if the user confirms the save operation, call the SaveAsTextile method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "Textile Files (*.textile)|*.textile|All Files (*.*)|*.*",
+			DefaultExt = "textile",
+			Title = "Save as Textile"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsTextile(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the Click event of the 'Save as Word' menu item to export the contents of the table layout panel to a Word
+	/// document.</summary>
+	/// <remarks>This method displays a Save File dialog to allow the user to specify the destination for the
+	/// exported Word document. If the user confirms the operation, the contents of the table layout panel are saved to the
+	/// specified file in .docx format.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsWord_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the Word file to save the list view results; if the user confirms the save operation, call the SaveAsWord method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "Word Files (*.docx)|*.docx|All Files (*.*)|*.*",
+			DefaultExt = "docx",
+			Title = "Save as Word"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsWord(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the Click event of the 'Save as ODT' menu item to export the contents of the table layout panel to an
+	/// OpenDocument Text (.odt) file.</summary>
+	/// <remarks>Displays a Save File dialog allowing the user to specify the destination file. If the user
+	/// confirms, the method exports the current list view results to the specified ODT file.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsOdt_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the OpenDocument Text file to save the list view results; if the user confirms the save operation, call the SaveAsOdt method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "OpenDocument Text Files (*.odt)|*.odt|All Files (*.*)|*.*",
+			DefaultExt = "odt",
+			Title = "Save as OpenDocument Text"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsOdt(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the Click event of the Save As RTF menu item, allowing the user to export the contents of the table layout
+	/// panel to a Rich Text Format (RTF) file.</summary>
+	/// <remarks>Displays a Save File dialog for the user to specify the file location and name. If the user
+	/// confirms, the method exports the current list view results to an RTF file. The exported file includes the readable
+	/// designations displayed in the table layout panel.</remarks>
+	/// <param name="sender">The source of the event, typically the Save As RTF menu item.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsRtf_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the RTF file to save the list view results; if the user confirms the save operation, call the SaveAsRtf method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "Rich Text Format Files (*.rtf)|*.rtf|All Files (*.*)|*.*",
+			DefaultExt = "rtf",
+			Title = "Save as RTF"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsRtf(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the Click event of the 'Save As Abiword' menu item, allowing the user to export the list view results to an
+	/// Abiword (.abw) file.</summary>
+	/// <remarks>Displays a Save File dialog for the user to specify the Abiword file location and name. If the user
+	/// confirms, the current table layout is exported to the specified file in Abiword format.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsAbiword_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the Abiword file to save the list view results; if the user confirms the save operation, call the SaveAsAbiword method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "Abiword Files (*.abw)|*.abw|All Files (*.*)|*.*",
+			DefaultExt = "abw",
+			Title = "Save as Abiword"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsAbiword(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the Click event of the Save As WPS menu item, allowing the user to export the current list view results to
+	/// a WPS Writer file.</summary>
+	/// <remarks>Displays a Save File dialog for the user to specify the destination file. If the user confirms, the
+	/// method exports the data to the selected WPS file.</remarks>
+	/// <param name="sender">The source of the event, typically the Save As WPS menu item.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsWps_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the WPS Writer file to save the list view results; if the user confirms the save operation, call the SaveAsWps method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "WPS Files (*.wps)|*.wps|All Files (*.*)|*.*",
+			DefaultExt = "wps",
+			Title = "Save as WPS"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsWps(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the click event of the 'Save as Excel' menu item to export the contents of the table layout panel to an
+	/// Excel file.</summary>
+	/// <remarks>This method displays a Save File dialog to the user for specifying the Excel file location and
+	/// name. If the user confirms the operation, the contents of the table layout panel are exported to the specified
+	/// Excel file.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsExcel_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the Excel file to save the list view results; if the user confirms the save operation, call the SaveAsExcel method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "Excel Files (*.xlsx)|*.xlsx|All Files (*.*)|*.*",
+			DefaultExt = "xlsx",
+			Title = "Save as Excel"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsExcel(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the click event for the 'Save as ODS' menu item, allowing the user to export the contents of the table
+	/// layout panel to an OpenDocument Spreadsheet (ODS) file.</summary>
+	/// <remarks>Displays a Save File dialog for the user to specify the destination ODS file. If the user confirms,
+	/// the method exports the current table layout panel data to the selected file.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsOds_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the OpenDocument Spreadsheet file to save the list view results; if the user confirms the save operation, call the SaveAsOds method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "OpenDocument Spreadsheet Files (*.ods)|*.ods|All Files (*.*)|*.*",
+			DefaultExt = "ods",
+			Title = "Save as ODS"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsOds(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the Click event of the 'Save as CSV' menu item, allowing the user to export the contents of the table
+	/// layout panel to a CSV file.</summary>
+	/// <remarks>This method displays a Save File dialog for the user to specify the destination file. If the user
+	/// confirms, the contents of the table layout panel are exported to the selected CSV file.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsCsv_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the CSV file to save the list view results; if the user confirms the save operation, call the SaveAsCsv method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "Comma-Separated Values (*.csv)|*.csv|All Files (*.*)|*.*",
+			DefaultExt = "csv",
+			Title = "Save as CSV"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsCsv(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the Click event of the Save As TSV menu item, allowing the user to export the contents of the table layout
+	/// panel to a tab-separated values (TSV) file.</summary>
+	/// <remarks>Displays a Save File dialog for the user to specify the file location and name. If the user
+	/// confirms the operation, the method exports the current data to a TSV file. The exported file can be used for data
+	/// exchange or further processing in spreadsheet applications.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsTsv_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the TSV file to save the list view results; if the user confirms the save operation, call the SaveAsTsv method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "Tab-Separated Values (*.tsv)|*.tsv|All Files (*.*)|*.*",
+			DefaultExt = "tsv",
+			Title = "Save as TSV"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsTsv(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the Click event of the 'Save as PSV' menu item to export the contents of the table layout panel to a
+	/// pipe-separated values (PSV) file.</summary>
+	/// <remarks>This method displays a Save File dialog allowing the user to specify the destination file for the
+	/// PSV export. If the user confirms the operation, the current data is saved in PSV format. The export includes the
+	/// list of readable designations from the table layout panel.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsPsv_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the PSV file to save the list view results; if the user confirms the save operation, call the SaveAsPsv method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "Pipe-Separated Values (*.psv)|*.psv|All Files (*.*)|*.*",
+			DefaultExt = "psv",
+			Title = "Save as PSV"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsPsv(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the Click event for the 'Save As ET' menu item, allowing the user to export the current list view results
+	/// to an ET file.</summary>
+	/// <remarks>Displays a Save File dialog for the user to specify the file location and name. If the user
+	/// confirms, the current table layout is exported to the specified ET file.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsEt_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the ET file to save the list view results; if the user confirms the save operation, call the SaveAsEt method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "ET Files (*.et)|*.et|All Files (*.*)|*.*",
+			DefaultExt = "et",
+			Title = "Save as ET"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsEt(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the Click event of the 'Save as HTML' menu item to export the contents of the table layout panel to an HTML
+	/// file.</summary>
+	/// <remarks>Displays a Save File dialog to allow the user to specify the destination file. If the user
+	/// confirms, the method exports the current table layout panel data to the selected HTML file.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsHtml_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the HTML file to save the list view results; if the user confirms the save operation, call the SaveAsHtml method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "HTML Files (*.html)|*.html|All Files (*.*)|*.*",
+			DefaultExt = "html",
+			Title = "Save as HTML"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsHtml(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the Click event of the 'Save as XML' menu item to export the current list view results to an XML file.</summary>
+	/// <remarks>This method displays a Save File dialog to the user for specifying the XML file location and name.
+	/// If the user confirms the operation, the current table layout panel data is exported as an XML file. The export
+	/// includes the list of readable designations.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsXml_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the XML file to save the list view results; if the user confirms the save operation, call the SaveAsXml method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "XML Files (*.xml)|*.xml|All Files (*.*)|*.*",
+			DefaultExt = "xml",
+			Title = "Save as XML"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsXml(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the click event for the 'Save as DocBook' menu item, allowing the user to export the list view results to a
+	/// DocBook XML file.</summary>
+	/// <remarks>Opens a Save File dialog for the user to specify the destination file. If the user confirms, the
+	/// current table layout is exported as a DocBook XML file. The export operation may overwrite an existing file if the
+	/// user selects one.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsDocBook_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the DocBook file to save the list view results; if the user confirms the save operation, call the SaveAsDocBook method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "DocBook Files (*.xml)|*.xml|All Files (*.*)|*.*",
+			DefaultExt = "xml",
+			Title = "Save as DocBook"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsDocBook(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the click event for the 'Save as JSON' menu item, allowing the user to export the current list view results
+	/// to a JSON file.</summary>
+	/// <remarks>Displays a Save File dialog for the user to specify the destination file. If the user confirms, the
+	/// current data is exported to the selected JSON file.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsJson_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the JSON file to save the list view results; if the user confirms the save operation, call the SaveAsJson method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "JSON Files (*.json)|*.json|All Files (*.*)|*.*",
+			DefaultExt = "json",
+			Title = "Save as JSON"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsJson(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+
+	}
+
+	/// <summary>Handles the click event for the 'Save as YAML' menu item, allowing the user to export the current table layout
+	/// panel data to a YAML file.</summary>
+	/// <remarks>This method displays a Save File dialog for the user to specify the destination file. If the user
+	/// confirms the operation, the current data from the table layout panel is exported to the selected YAML
+	/// file.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsYaml_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the YAML file to save the list view results; if the user confirms the save operation, call the SaveAsYaml method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "YAML Files (*.yaml)|*.yaml|All Files (*.*)|*.*",
+			DefaultExt = "yaml",
+			Title = "Save as YAML"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsYaml(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the click event for the 'Save as TOML' menu item, allowing the user to export the current list view results
+	/// to a TOML file.</summary>
+	/// <remarks>Displays a Save File dialog for the user to specify the destination file. If the user confirms, the
+	/// current table layout panel data is exported to the specified TOML file.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsToml_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the TOML file to save the list view results; if the user confirms the save operation, call the SaveAsToml method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "TOML Files (*.toml)|*.toml|All Files (*.*)|*.*",
+			DefaultExt = "toml",
+			Title = "Save as TOML"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsToml(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the Click event of the Save As SQL menu item to export the current list view results to a SQL file.</summary>
+	/// <remarks>This method displays a Save File dialog to allow the user to specify the destination for the SQL
+	/// export. If the user confirms the operation, the current contents of the table layout panel are exported as a SQL
+	/// file.</remarks>
+	/// <param name="sender">The source of the event, typically the Save As SQL menu item.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsSql_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the SQL file to save the list view results; if the user confirms the save operation, call the SaveAsSql method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "SQL Files (*.sql)|*.sql|All Files (*.*)|*.*",
+			DefaultExt = "sql",
+			Title = "Save as SQL"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsSql(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the click event for the 'Save as SQLite' menu item, allowing the user to export the current list view
+	/// results to a SQLite database file.</summary>
+	/// <remarks>Opens a Save File dialog for the user to specify the destination file. If the user confirms, the
+	/// method exports the data to the selected SQLite file. The export includes the current contents of the associated
+	/// table layout panel.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsSqlite_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the SQLite file to save the list view results; if the user confirms the save operation, call the SaveAsSqlite method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "SQLite Files (*.sqlite)|*.sqlite|All Files (*.*)|*.*",
+			DefaultExt = "sqlite",
+			Title = "Save as SQLite"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsSqlite(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the click event of the 'Save as PDF' menu item to export the contents of the table layout panel to a PDF
+	/// file.</summary>
+	/// <remarks>Displays a Save File dialog to allow the user to specify the destination for the PDF file. If the
+	/// user confirms the operation, the contents of the table layout panel are exported to the specified PDF
+	/// file.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsPdf_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the PDF file to save the list view results; if the user confirms the save operation, call the SaveAsPdf method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "PDF Files (*.pdf)|*.pdf|All Files (*.*)|*.*",
+			DefaultExt = "pdf",
+			Title = "Save as PDF"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsPdf(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the Click event of the Save As PostScript menu item to allow the user to export the list view results as a
+	/// PostScript file.</summary>
+	/// <remarks>This handler displays a Save File dialog for the user to specify the destination file. If the user
+	/// confirms, the current table layout is exported to a PostScript file. The export operation is only performed if the
+	/// dialog is successfully prepared and the user completes the save action.</remarks>
+	/// <param name="sender">The source of the event, typically the Save As PostScript menu item.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsPostScript_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the PostScript file to save the list view results; if the user confirms the save operation, call the SaveAsPostScript method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "PostScript Files (*.ps)|*.ps|All Files (*.*)|*.*",
+			DefaultExt = "ps",
+			Title = "Save as PostScript"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsPostScript(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the click event for the 'Save as EPUB' menu item, allowing the user to export the current list view results
+	/// to an EPUB file.</summary>
+	/// <remarks>Displays a Save File dialog for the user to specify the EPUB file location and name. If the user
+	/// confirms the operation, the current table layout is exported as an EPUB file. The export is only performed if the
+	/// dialog is successfully prepared and the user completes the save action.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsEpub_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the EPUB file to save the list view results; if the user confirms the save operation, call the SaveAsEpub method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "EPUB Files (*.epub)|*.epub|All Files (*.*)|*.*",
+			DefaultExt = "epub",
+			Title = "Save as EPUB"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsEpub(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the Click event of the Save As MOBI menu item, allowing the user to export the current list view results to
+	/// a MOBI file.</summary>
+	/// <remarks>Displays a Save File dialog for the user to specify the destination file. If the user confirms, the
+	/// method exports the data to the specified MOBI file.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsMobi_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the MOBI file to save the list view results; if the user confirms the save operation, call the SaveAsMobi method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "MOBI Files (*.mobi)|*.mobi|All Files (*.*)|*.*",
+			DefaultExt = "mobi",
+			Title = "Save as MOBI"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsMobi(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the Click event of the Save As XPS menu item, allowing the user to export the current list view results to
+	/// an XPS file.</summary>
+	/// <remarks>Displays a Save File dialog for the user to specify the destination XPS file. If the user confirms,
+	/// the current table layout panel content is exported to the specified XPS file.</remarks>
+	/// <param name="sender">The source of the event, typically the Save As XPS menu item.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsXps_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the XPS file to save the list view results; if the user confirms the save operation, call the SaveAsXps method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "XPS Files (*.xps)|*.xps|All Files (*.*)|*.*",
+			DefaultExt = "xps",
+			Title = "Save as XPS"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsXps(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the Click event of the 'Save as FictionBook2' menu item, allowing the user to export the current list view
+	/// results to a FictionBook2 (.fb2) file.</summary>
+	/// <remarks>Displays a Save File dialog for the user to specify the destination file. If the user confirms the
+	/// operation, the method exports the data to the specified FictionBook2 file format.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsFictionBook2_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the FictionBook2 file to save the list view results; if the user confirms the save operation, call the SaveAsFictionBook2 method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "FictionBook2 Files (*.fb2)|*.fb2|All Files (*.*)|*.*",
+			DefaultExt = "fb2",
+			Title = "Save as FictionBook2"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsFictionBook2(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
+
+	/// <summary>Handles the click event for the 'Save as CHM' menu item, allowing the user to export the current list view results
+	/// to a Compiled HTML Help (CHM) file.</summary>
+	/// <remarks>This method displays a Save File dialog for the user to specify the destination and filename for
+	/// the CHM export. If the user confirms the operation, the current table layout is exported to a CHM file at the
+	/// specified location.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemSaveAsChm_Click(object sender, EventArgs e)
+	{
+		// Open a SaveFileDialog to allow the user to specify the location and name of the CHM file to save the list view results; if the user confirms the save operation, call the SaveAsChm method to perform the export
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = "Compiled HTML Help Files (*.chm)|*.chm|All Files (*.*)|*.*",
+			DefaultExt = "chm",
+			Title = "Save as CHM"
+		};
+		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: saveFileDialog.DefaultExt))
+		{
+			return;
+		}
+		TableLayoutPanelExporter.SaveAsChm(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+	}
 
 	#endregion
 
