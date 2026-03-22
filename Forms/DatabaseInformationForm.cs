@@ -94,9 +94,46 @@ public partial class DatabaseInformationForm : BaseKryptonForm
   DateModified TEXT,
   Attributes TEXT
 );";
-		using OleDbCommand command = new(cmdText: createTableQuery, connection: connection);
-		_ = command.ExecuteNonQuery();
-		_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		try
+		{
+			using OleDbCommand command = new(cmdText: createTableQuery, connection: connection);
+			_ = command.ExecuteNonQuery();
+
+			// Insert a row with the current database file information.
+			FileInfo fileInfo = new(fileName: Settings.Default.systemFilenameMpcorb);
+			const string insertQuery = @"
+INSERT INTO DatabaseInformation (Name, Directory, Size, DateCreated, DateAccessed, DateModified, Attributes)
+VALUES (@Name, @Directory, @Size, @DateCreated, @DateAccessed, @DateModified, @Attributes);";
+			using OleDbCommand insertCommand = new(cmdText: insertQuery, connection: connection);
+			_ = insertCommand.Parameters.AddWithValue(parameterName: "@Name", value: fileInfo.Name);
+			_ = insertCommand.Parameters.AddWithValue(parameterName: "@Directory", value: fileInfo.DirectoryName ?? string.Empty);
+			_ = insertCommand.Parameters.AddWithValue(parameterName: "@Size", value: fileInfo.Length.ToString(provider: CultureInfo.InvariantCulture));
+			_ = insertCommand.Parameters.AddWithValue(parameterName: "@DateCreated", value: fileInfo.CreationTime.ToString(format: "G", provider: CultureInfo.CurrentCulture));
+			_ = insertCommand.Parameters.AddWithValue(parameterName: "@DateAccessed", value: fileInfo.LastAccessTime.ToString(format: "G", provider: CultureInfo.CurrentCulture));
+			_ = insertCommand.Parameters.AddWithValue(parameterName: "@DateModified", value: fileInfo.LastWriteTime.ToString(format: "G", provider: CultureInfo.CurrentCulture));
+			_ = insertCommand.Parameters.AddWithValue(parameterName: "@Attributes", value: fileInfo.Attributes.ToString());
+			_ = insertCommand.ExecuteNonQuery();
+
+			_ = MessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		}
+		catch (OleDbException ex)
+		{
+			logger.Error(exception: ex, message: "Failed to save database information to MDB file. The OLE DB provider may be unavailable.");
+			_ = MessageBox.Show(
+				text: "Saving the database information failed. The required OLE DB provider may not be installed on this system.",
+				caption: I18nStrings.ErrorCaption,
+				buttons: MessageBoxButtons.OK,
+				icon: MessageBoxIcon.Error);
+		}
+		catch (InvalidOperationException ex)
+		{
+			logger.Error(exception: ex, message: "Failed to save database information to MDB file due to an invalid operation.");
+			_ = MessageBox.Show(
+				text: "Saving the database information failed due to an unexpected error while accessing the database file.",
+				caption: I18nStrings.ErrorCaption,
+				buttons: MessageBoxButtons.OK,
+				icon: MessageBoxIcon.Error);
+		}
 	}
 
 	#endregion
