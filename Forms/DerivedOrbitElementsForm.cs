@@ -163,8 +163,6 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	/// <remarks>This method is used to set the internal list of derived orbit elements.</remarks>
 	public void SetDatabase(List<object> list) => derivedOrbitElements = list;
 
-	/// <summary>Shows the form to copy data to the clipboard.</summary>
-	/// <remarks>This method is used to show the form for copying data to the clipboard.</remarks>
 	#endregion
 
 	#region form event handlers
@@ -362,12 +360,12 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	/// <summary>Handles the Click event of the Save As Text menu item, allowing the user to export the contents of the table layout
 	/// panel to a text file.</summary>
 	/// <remarks>Displays a Save File dialog for the user to specify the file location and name. If the user
-	/// confirms, the method exports the current list view results to the specified text file.</remarks>
+	/// confirms, the method exports the current contents of the table layout panel to the specified text file.</remarks>
 	/// <param name="sender">The source of the event, typically the Save As Text menu item.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void ToolStripMenuItemSaveAsText_Click(object sender, EventArgs e)
 	{
-		// Open a SaveFileDialog to allow the user to specify the location and name of the text file to save the list view results; if the user confirms the save operation, call the SaveAsText method to perform the export
+		// Open a SaveFileDialog to allow the user to specify the location and name of the text file to save the contents of the table layout panel; if the user confirms the save operation, call the SaveAsText method to perform the export
 		using SaveFileDialog saveFileDialog = new()
 		{
 			Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*",
