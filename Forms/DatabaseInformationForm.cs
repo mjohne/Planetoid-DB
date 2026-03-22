@@ -1,4 +1,4 @@
-﻿// This file is used by Code Analysis to maintain SuppressMessage
+// This file is used by Code Analysis to maintain SuppressMessage
 // attributes that are applied to this project.
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
@@ -46,13 +46,6 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
 	private string GetDebuggerDisplay() => ToString();
-
-	/// <summary>Shared JSON serializer options for consistent formatting.</summary>
-	/// <remarks>This instance is reused across all serialization operations to improve performance.</remarks>
-	private static readonly JsonSerializerOptions jsonSerializerOptions = new()
-	{
-		WriteIndented = true
-	};
 
 	/// <summary>Prepares the save dialog for exporting data.</summary>
 	/// <param name="dialog">The file dialog to prepare.</param>
