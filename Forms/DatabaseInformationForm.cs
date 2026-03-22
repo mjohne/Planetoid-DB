@@ -9,7 +9,6 @@ using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 
-using System.Data.OleDb;
 using System.Diagnostics;
 using System.Globalization;
 
@@ -171,9 +170,6 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 			contextMenuSaveToFile.Show(control: button.Owner, x: button.Bounds.Left, y: button.Bounds.Bottom);
 		}
 	}
-
-
-	#endregion
 
 	/// <summary>Handles the Click event of the Save As Text menu item, allowing the user to export the contents of the table layout
 	/// panel to a text file.</summary>
@@ -895,4 +891,6 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		}
 		TableLayoutPanelExporter.SaveAsChm(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
 	}
+
+	#endregion
 }
