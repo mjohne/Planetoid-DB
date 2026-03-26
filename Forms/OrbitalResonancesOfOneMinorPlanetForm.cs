@@ -1,3 +1,8 @@
+// This file is used by Code Analysis to maintain SuppressMessage
+// attributes that are applied to this project.
+// Project-level suppressions either have no target or are given
+// a specific target and scoped to a namespace, type, member, etc.
+
 using NLog;
 
 using Planetoid_DB.Forms;
@@ -84,23 +89,26 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 	public void SetSemiMajorAxis(double semiMajorAxis) =>
 		this.semiMajorAxis = semiMajorAxis;
 
-	/// <summary>Populates the <see cref="listView"/> with orbital resonance data for the given resonances.</summary>
+	/// <summary>Populates the <see cref="listView"/> with orbital resonance data from the <see cref="allResonances"/> field, optionally filtering to only true resonances.</summary>
 	/// <remarks>Each resonance is shown as one row. The "Is Resonance" column shows "Yes" when the deviation is below 1%.
 	/// Rows are colored green for resonances and red for non-resonances.</remarks>
 	private void PopulateListView()
 	{
+		// Begin updating the list view to improve performance while adding items; clear existing items before populating with new data
 		listView.BeginUpdate();
 		listView.Items.Clear();
+		// Determine whether to filter the list to show only resonances based on the state of the filter button; iterate through all computed resonances and add them to the list view, applying filtering and coloring based on resonance status
 		bool filterOnlyResonances = toolStripButtonFilterResonances.Checked;
 		foreach (DerivedElements.OrbitalResonance resonance in allResonances)
 		{
+			// Determine if the current resonance is considered a true resonance based on the deviation percentage and the defined threshold; this will be used for filtering and coloring the list view items
 			string isResonance = resonance.DeviationPercent < ResonanceThresholdPercent ? "Yes" : "No";
-
+			// If filtering is enabled and the current resonance is not a true resonance, skip adding this item to the list view
 			if (filterOnlyResonances && isResonance != "Yes")
 			{
 				continue;
 			}
-
+			// Create a new ListViewItem for the current resonance, populating the main text and sub-items with the relevant data; set the text color based on whether it is a resonance or not
 			ListViewItem item = new(text: resonance.PlanetName);
 			item.SubItems.AddRange(items:
 			[
@@ -111,10 +119,10 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 				resonance.DeviationPercent.ToString(format: "F2"),
 				isResonance
 			]);
-
+			// Set the UseItemStyleForSubItems property to true to allow coloring of sub-items; set the text color based on resonance status (green for resonances, red for non-resonances, black for unknown)
 			item.UseItemStyleForSubItems = true;
 			item.ForeColor = isResonance == "Yes" ? Color.Green : isResonance == "No" ? Color.Red : Color.Black;
-
+			// Add the item to the list view
 			listView.Items.Add(value: item);
 		}
 		listView.EndUpdate();
@@ -200,10 +208,8 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 
 	/// <summary>Implements the manual sorting of items by column.</summary>
 	/// <remarks>This class is used internally by the form to provide custom sorting logic for the ListView control.</remarks>
-	/// <remarks>Initializes a new instance of the <see cref="ListViewItemComparer"/> class.</remarks>
 	/// <param name="column">The column index to sort by.</param>
 	/// <param name="order">The sort order (Ascending or Descending).</param>
-	/// <remarks>This constructor sets the column index and sort order for the comparer, which will be used in the Compare method to perform the sorting logic based on the specified column and order.</remarks>
 	private class ListViewItemComparer(int column, SortOrder order) : System.Collections.IComparer
 	{
 		/// <summary>Column index to sort by.</summary>
@@ -212,7 +218,7 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 
 		/// <summary>Specifies the sort order used by the containing type.</summary>
 		/// <remarks>This field indicates whether the sorting should be performed in ascending or descending order. It is used in the Compare method to determine how to return the comparison result.</remarks>
-		private readonly SortOrder order = order;
+		private readonly SortOrder _order = order;
 
 		/// <summary>Compares two objects and returns a value indicating whether one is less than, equal to, or greater than the other.</summary>
 		/// <param name="x">The first object to compare.</param>
@@ -236,7 +242,7 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 				? numX.CompareTo(value: numY)
 				: string.Compare(strA: textX, strB: textY, comparisonType: StringComparison.OrdinalIgnoreCase);
 			// Return the comparison result, adjusting for the specified sort order (ascending or descending)
-			return order == SortOrder.Descending ? -result : result;
+			return _order == SortOrder.Descending ? -result : result;
 		}
 	}
 
