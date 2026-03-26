@@ -25,6 +25,10 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 	/// <remarks>Set this value via <see cref="SetSemiMajorAxis"/> before the form is shown.</remarks>
 	private double semiMajorAxis;
 
+	/// <summary>All computed orbital resonances.</summary>
+	/// <remarks>This field holds all resonances to allow filtering the list view.</remarks>
+	private List<DerivedElements.OrbitalResonance> allResonances = [];
+
 	/// <summary>Gets the status label used for displaying information in the status bar.</summary>
 	/// <remarks>Overrides the base class property to return the form-specific status label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
@@ -81,15 +85,22 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 		this.semiMajorAxis = semiMajorAxis;
 
 	/// <summary>Populates the <see cref="listView"/> with orbital resonance data for the given resonances.</summary>
-	/// <param name="resonances">The list of orbital resonances to display.</param>
-	/// <remarks>Each resonance is shown as one row. The "Is Resonance" column shows "Yes" when the deviation is below 1 %.</remarks>
-	private void PopulateListView(List<DerivedElements.OrbitalResonance> resonances)
+	/// <remarks>Each resonance is shown as one row. The "Is Resonance" column shows "Yes" when the deviation is below 1%.
+	/// Rows are colored green for resonances and red for non-resonances.</remarks>
+	private void PopulateListView()
 	{
 		listView.BeginUpdate();
 		listView.Items.Clear();
-		foreach (DerivedElements.OrbitalResonance resonance in resonances)
+		bool filterOnlyResonances = toolStripButtonFilterResonances.Checked;
+		foreach (DerivedElements.OrbitalResonance resonance in allResonances)
 		{
 			string isResonance = resonance.DeviationPercent < ResonanceThresholdPercent ? "Yes" : "No";
+
+			if (filterOnlyResonances && isResonance != "Yes")
+			{
+				continue;
+			}
+
 			ListViewItem item = new(text: resonance.PlanetName);
 			item.SubItems.AddRange(items:
 			[
@@ -100,6 +111,10 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 				resonance.DeviationPercent.ToString(format: "F2"),
 				isResonance
 			]);
+
+			item.UseItemStyleForSubItems = true;
+			item.ForeColor = isResonance == "Yes" ? Color.Green : isResonance == "No" ? Color.Red : Color.Black;
+
 			listView.Items.Add(value: item);
 		}
 		listView.EndUpdate();
@@ -119,8 +134,8 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 		ClearStatusBar(label: labelInformation);
 		try
 		{
-			List<DerivedElements.OrbitalResonance> resonances = DerivedElements.CalculateOrbitalResonances(semiMajorAxis: semiMajorAxis);
-			PopulateListView(resonances: resonances);
+			allResonances = DerivedElements.CalculateOrbitalResonances(semiMajorAxis: semiMajorAxis);
+			PopulateListView();
 		}
 		catch (Exception ex)
 		{
@@ -131,7 +146,112 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 
 	#endregion
 
+	#region ListView event handlers
+
+	/// <summary>Handles the ColumnClick event for the ListView to sort columns alphanumerically.</summary>
+	/// <param name="sender">Event source (the ListView).</param>
+	/// <param name="e">The <see cref="ColumnClickEventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method determines the sort order and initiates the sorting process for the selected column.</remarks>
+	private void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
+	{
+		// If there are no items, do not attempt to sort
+		if (listView.Items.Count == 0)
+		{
+			return;
+		}
+		// Determine the new sort order based on the clicked column
+		if (e.Column == sortColumn)
+		{
+			// Toggle sort order if the same column is clicked
+			sortOrder = sortOrder == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
+		}
+		else
+		{
+			// Set new sort column and default to ascending order
+			sortColumn = e.Column;
+			sortOrder = SortOrder.Ascending;
+		}
+		// Update column headers with sort indicators
+		for (int i = 0; i < listView.Columns.Count; i++)
+		{
+			// Remove existing sort indicators from the header text
+			string headerText = listView.Columns[index: i].Text;
+			// Check for existing indicators and remove them
+			if (headerText.StartsWith(value: "▲ ") || headerText.StartsWith(value: "▼ "))
+			{
+				headerText = headerText[2..];
+			}
+			// Add the new sort indicator to the currently sorted column
+			if (i == sortColumn)
+			{
+				string indicator = sortOrder == SortOrder.Ascending ? "▲" : "▼";
+				listView.Columns[index: i].Text = $"{indicator} {headerText}";
+			}
+			// For other columns, just update the text without indicators
+			else
+			{
+				listView.Columns[index: i].Text = headerText;
+			}
+		}
+		// Apply the sort using a standard IComparer
+		listView.ListViewItemSorter = new ListViewItemComparer(column: e.Column, order: sortOrder);
+		listView.Sort();
+	}
+
+	/// <summary>Implements the manual sorting of items by column.</summary>
+	/// <remarks>This class is used internally by the form to provide custom sorting logic for the ListView control.</remarks>
+	/// <remarks>Initializes a new instance of the <see cref="ListViewItemComparer"/> class.</remarks>
+	/// <param name="column">The column index to sort by.</param>
+	/// <param name="order">The sort order (Ascending or Descending).</param>
+	/// <remarks>This constructor sets the column index and sort order for the comparer, which will be used in the Compare method to perform the sorting logic based on the specified column and order.</remarks>
+	private class ListViewItemComparer(int column, SortOrder order) : System.Collections.IComparer
+	{
+		/// <summary>Column index to sort by.</summary>
+		/// <remarks>This field stores the index of the column that is currently being sorted. It is used in the Compare method to determine which subitem's text to compare for sorting.</remarks>
+		private readonly int col = column;
+
+		/// <summary>Specifies the sort order used by the containing type.</summary>
+		/// <remarks>This field indicates whether the sorting should be performed in ascending or descending order. It is used in the Compare method to determine how to return the comparison result.</remarks>
+		private readonly SortOrder order = order;
+
+		/// <summary>Compares two objects and returns a value indicating whether one is less than, equal to, or greater than the other.</summary>
+		/// <param name="x">The first object to compare.</param>
+		/// <param name="y">The second object to compare.</param>
+		/// <returns>A signed integer that indicates the relative values of <paramref name="x"/> and <paramref name="y"/>.</returns>
+		public int Compare(object? x, object? y)
+		{
+			// Ensure both objects are ListViewItems; if not, consider them equal for sorting purposes
+			if (x is not ListViewItem itemX || y is not ListViewItem itemY)
+			{
+				return 0;
+			}
+			// Retrieve the text for the specified column from both items; if the column index is out of range for an item, use an empty string for comparison
+			string textX = itemX.SubItems.Count > col ? itemX.SubItems[index: col].Text : string.Empty;
+			string textY = itemY.SubItems.Count > col ? itemY.SubItems[index: col].Text : string.Empty;
+			// Attempt to parse the text as numbers for a more natural sorting order; if both can be parsed as numbers, compare them numerically; otherwise, compare them as strings
+			bool hasNumericX = double.TryParse(s: textX, style: System.Globalization.NumberStyles.Any, provider: System.Globalization.CultureInfo.CurrentCulture, result: out double numX);
+			bool hasNumericY = double.TryParse(s: textY, style: System.Globalization.NumberStyles.Any, provider: System.Globalization.CultureInfo.CurrentCulture, result: out double numY);
+			// If both items have numeric values, compare them as numbers; otherwise, compare them as strings (case-insensitive)
+			int result = hasNumericX && hasNumericY
+				? numX.CompareTo(value: numY)
+				: string.Compare(strA: textX, strB: textY, comparisonType: StringComparison.OrdinalIgnoreCase);
+			// Return the comparison result, adjusting for the specified sort order (ascending or descending)
+			return order == SortOrder.Descending ? -result : result;
+		}
+	}
+
+	#endregion
+
 	#region Click event handlers
+
+	/// <summary>Handles the Click event of the filter resonances tool strip button.
+	/// Toggles the list view between showing all rows and showing only resonance rows.</summary>
+	/// <param name="sender">The source of the event, typically the tool strip button.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripButtonFilterResonances_Click(object sender, EventArgs e)
+	{
+		PopulateListView();
+	}
 
 	/// <summary>Handles the Click event of the copy-to-clipboard menu item.
 	/// Copies the text of the currently selected list view row to the clipboard.</summary>
@@ -809,94 +929,4 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 	}
 
 	#endregion
-
-	/// <summary>Handles the ColumnClick event for the ListView to sort columns alphanumerically.</summary>
-	/// <param name="sender">Event source (the ListView).</param>
-	/// <param name="e">The <see cref="ColumnClickEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method determines the sort order and initiates the sorting process for the selected column.</remarks>
-	private void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
-	{
-		// If there are no items, do not attempt to sort
-		if (listView.Items.Count == 0)
-		{
-			return;
-		}
-		// Determine the new sort order based on the clicked column
-		if (e.Column == sortColumn)
-		{
-			// Toggle sort order if the same column is clicked
-			sortOrder = sortOrder == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
-		}
-		else
-		{
-			// Set new sort column and default to ascending order
-			sortColumn = e.Column;
-			sortOrder = SortOrder.Ascending;
-		}
-		// Update column headers with sort indicators
-		for (int i = 0; i < listView.Columns.Count; i++)
-		{
-			// Remove existing sort indicators from the header text
-			string headerText = listView.Columns[index: i].Text;
-			// Check for existing indicators and remove them
-			if (headerText.StartsWith(value: "▲ ") || headerText.StartsWith(value: "▼ "))
-			{
-				headerText = headerText[2..];
-			}
-			// Add the new sort indicator to the currently sorted column
-			if (i == sortColumn)
-			{
-				string indicator = sortOrder == SortOrder.Ascending ? "▲" : "▼";
-				listView.Columns[index: i].Text = $"{indicator} {headerText}";
-			}
-			// For other columns, just update the text without indicators
-			else
-			{
-				listView.Columns[index: i].Text = headerText;
-			}
-		}
-		// Apply the sort using a standard IComparer
-		listView.ListViewItemSorter = new ListViewItemComparer(column: e.Column, order: sortOrder);
-		listView.Sort();
-	}
-
-	/// <summary>Implements the manual sorting of items by column.</summary>
-	private class ListViewItemComparer : System.Collections.IComparer
-	{
-		private readonly int col;
-		private readonly SortOrder order;
-
-		/// <summary>Initializes a new instance of the <see cref="ListViewItemComparer"/> class.</summary>
-		/// <param name="column">The column index to sort by.</param>
-		/// <param name="order">The sort order (Ascending or Descending).</param>
-		public ListViewItemComparer(int column, SortOrder order)
-		{
-			col = column;
-			this.order = order;
-		}
-
-		/// <summary>Compares two objects and returns a value indicating whether one is less than, equal to, or greater than the other.</summary>
-		/// <param name="x">The first object to compare.</param>
-		/// <param name="y">The second object to compare.</param>
-		/// <returns>A signed integer that indicates the relative values of <paramref name="x"/> and <paramref name="y"/>.</returns>
-		public int Compare(object? x, object? y)
-		{
-			if (x is not ListViewItem itemX || y is not ListViewItem itemY)
-			{
-				return 0;
-			}
-			string textX = itemX.SubItems.Count > col ? itemX.SubItems[index: col].Text : string.Empty;
-			string textY = itemY.SubItems.Count > col ? itemY.SubItems[index: col].Text : string.Empty;
-
-			bool hasNumericX = double.TryParse(s: textX, style: System.Globalization.NumberStyles.Any, provider: System.Globalization.CultureInfo.CurrentCulture, result: out double numX);
-			bool hasNumericY = double.TryParse(s: textY, style: System.Globalization.NumberStyles.Any, provider: System.Globalization.CultureInfo.CurrentCulture, result: out double numY);
-
-			int result = hasNumericX && hasNumericY
-				? numX.CompareTo(value: numY)
-				: string.Compare(strA: textX, strB: textY, comparisonType: StringComparison.OrdinalIgnoreCase);
-
-			return order == SortOrder.Descending ? -result : result;
-		}
-	}
-
 }

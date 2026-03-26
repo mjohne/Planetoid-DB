@@ -59,6 +59,7 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		kryptonManager = new KryptonManager(components);
 		toolStripContainer = new ToolStripContainer();
 		toolStripIcons = new ToolStrip();
+		toolStripButtonFilterResonances = new ToolStripButton();
 		toolStripDropDownButtonSaveToFile = new ToolStripDropDownButton();
 		contextMenuSaveToFile = new ContextMenuStrip(components);
 		toolStripMenuItemTextFiles = new ToolStripMenuItem();
@@ -148,6 +149,7 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		listView.TabIndex = 0;
 		listView.UseCompatibleStateImageBehavior = false;
 		listView.View = View.Details;
+		listView.ColumnClick += ListView_ColumnClick;
 		listView.Enter += Control_Enter;
 		listView.Leave += Control_Leave;
 		listView.MouseEnter += Control_Enter;
@@ -259,14 +261,14 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		toolStripContainer.Size = new Size(729, 251);
 		toolStripContainer.TabIndex = 2;
 		toolStripContainer.Text = "toolStripContainer";
-		toolStripContainer.Enter += Control_Enter;
-		toolStripContainer.Leave += Control_Leave;
-		toolStripContainer.MouseEnter += Control_Enter;
-		toolStripContainer.MouseLeave += Control_Leave;
 		// 
 		// toolStripContainer.TopToolStripPanel
 		// 
 		toolStripContainer.TopToolStripPanel.Controls.Add(toolStripIcons);
+		toolStripContainer.Enter += Control_Enter;
+		toolStripContainer.Leave += Control_Leave;
+		toolStripContainer.MouseEnter += Control_Enter;
+		toolStripContainer.MouseLeave += Control_Leave;
 		// 
 		// toolStripIcons
 		// 
@@ -278,7 +280,7 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		toolStripIcons.BackColor = Color.Transparent;
 		toolStripIcons.Dock = DockStyle.None;
 		toolStripIcons.Font = new Font("Segoe UI", 9F);
-		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripDropDownButtonSaveToFile });
+		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripDropDownButtonSaveToFile, toolStripButtonFilterResonances });
 		toolStripIcons.Location = new Point(0, 0);
 		toolStripIcons.Name = "toolStripIcons";
 		toolStripIcons.Size = new Size(729, 25);
@@ -290,6 +292,20 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		toolStripIcons.Leave += Control_Leave;
 		toolStripIcons.MouseEnter += Control_Enter;
 		toolStripIcons.MouseLeave += Control_Leave;
+		// 
+		// toolStripButtonFilterResonances
+		// 
+		toolStripButtonFilterResonances.AccessibleDescription = "Filter to show only resonances";
+		toolStripButtonFilterResonances.AccessibleName = "Filter resonances";
+		toolStripButtonFilterResonances.AccessibleRole = AccessibleRole.CheckButton;
+		toolStripButtonFilterResonances.CheckOnClick = true;
+		toolStripButtonFilterResonances.Image = FatcowIcons16px.fatcow_filter_reapply_16px;
+		toolStripButtonFilterResonances.Name = "toolStripButtonFilterResonances";
+		toolStripButtonFilterResonances.Size = new Size(115, 22);
+		toolStripButtonFilterResonances.Text = "Filter resonances";
+		toolStripButtonFilterResonances.Click += ToolStripButtonFilterResonances_Click;
+		toolStripButtonFilterResonances.MouseEnter += Control_Enter;
+		toolStripButtonFilterResonances.MouseLeave += Control_Leave;
 		// 
 		// toolStripDropDownButtonSaveToFile
 		// 
@@ -427,11 +443,11 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		toolStripMenuItemWriterDocuments.AutoToolTip = true;
 		toolStripMenuItemWriterDocuments.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsWord, toolStripMenuItemSaveAsOdt, toolStripMenuItemSaveAsRtf, toolStripMenuItemSaveAsAbiword, toolStripMenuItemSaveAsWps });
 		toolStripMenuItemWriterDocuments.Image = FatcowIcons16px.fatcow_file_extension_doc_16px;
-		toolStripMenuItemWriterDocuments.MouseEnter += Control_Enter;
-		toolStripMenuItemWriterDocuments.MouseLeave += Control_Leave;
 		toolStripMenuItemWriterDocuments.Name = "toolStripMenuItemWriterDocuments";
 		toolStripMenuItemWriterDocuments.Size = new Size(201, 22);
 		toolStripMenuItemWriterDocuments.Text = "&Writer documents";
+		toolStripMenuItemWriterDocuments.MouseEnter += Control_Enter;
+		toolStripMenuItemWriterDocuments.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsWord
 		// 
@@ -497,11 +513,11 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsWps.AutoToolTip = true;
 		toolStripMenuItemSaveAsWps.Image = FatcowIcons16px.fatcow_page_white_word_16px;
 		toolStripMenuItemSaveAsWps.Name = "toolStripMenuItemSaveAsWps";
-		toolStripMenuItemSaveAsWps.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAsWps.MouseLeave += Control_Leave;
 		toolStripMenuItemSaveAsWps.Size = new Size(257, 22);
 		toolStripMenuItemSaveAsWps.Text = "Save as W&PS Office Writer (WPS)";
 		toolStripMenuItemSaveAsWps.Click += ToolStripMenuItemSaveAsWps_Click;
+		toolStripMenuItemSaveAsWps.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsWps.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSpreadsheetDocuments
 		// 
@@ -539,11 +555,11 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsOds.AutoToolTip = true;
 		toolStripMenuItemSaveAsOds.Image = FatcowIcons16px.fatcow_page_white_excel_16px;
 		toolStripMenuItemSaveAsOds.Name = "toolStripMenuItemSaveAsOds";
-		toolStripMenuItemSaveAsOds.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAsOds.MouseLeave += Control_Leave;
 		toolStripMenuItemSaveAsOds.Size = new Size(301, 22);
 		toolStripMenuItemSaveAsOds.Text = "Save as &OpenDocument Spreadsheet (ODS)";
 		toolStripMenuItemSaveAsOds.Click += ToolStripMenuItemSaveAsOds_Click;
+		toolStripMenuItemSaveAsOds.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsOds.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsCsv
 		// 
@@ -591,13 +607,13 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsEt.AccessibleName = "Save as ET";
 		toolStripMenuItemSaveAsEt.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemSaveAsEt.AutoToolTip = true;
-		toolStripMenuItemSaveAsEt.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAsEt.MouseLeave += Control_Leave;
 		toolStripMenuItemSaveAsEt.Image = FatcowIcons16px.fatcow_page_white_excel_16px;
 		toolStripMenuItemSaveAsEt.Name = "toolStripMenuItemSaveAsEt";
 		toolStripMenuItemSaveAsEt.Size = new Size(301, 22);
 		toolStripMenuItemSaveAsEt.Text = "Save as &WPS Office Spreadsheet (ET)";
 		toolStripMenuItemSaveAsEt.Click += ToolStripMenuItemSaveAsEt_Click;
+		toolStripMenuItemSaveAsEt.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsEt.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemXmlDocuments
 		// 
@@ -663,9 +679,9 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		toolStripMenuItemConfigurationFiles.Image = FatcowIcons16px.fatcow_file_extension_bat_16px;
 		toolStripMenuItemConfigurationFiles.Name = "toolStripMenuItemConfigurationFiles";
 		toolStripMenuItemConfigurationFiles.Size = new Size(201, 22);
+		toolStripMenuItemConfigurationFiles.Text = "&Configuration files";
 		toolStripMenuItemConfigurationFiles.MouseEnter += Control_Enter;
 		toolStripMenuItemConfigurationFiles.MouseLeave += Control_Leave;
-		toolStripMenuItemConfigurationFiles.Text = "&Configuration files";
 		// 
 		// toolStripMenuItemSaveAsJson
 		// 
@@ -785,11 +801,11 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsPostScript.AutoToolTip = true;
 		toolStripMenuItemSaveAsPostScript.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
 		toolStripMenuItemSaveAsPostScript.Name = "toolStripMenuItemSaveAsPostScript";
-		toolStripMenuItemSaveAsPostScript.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAsPostScript.MouseLeave += Control_Leave;
 		toolStripMenuItemSaveAsPostScript.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsPostScript.Text = "Save as Post&Script (PS)";
 		toolStripMenuItemSaveAsPostScript.Click += ToolStripMenuItemSaveAsPostScript_Click;
+		toolStripMenuItemSaveAsPostScript.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsPostScript.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsEpub
 		// 
@@ -799,11 +815,11 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsEpub.AutoToolTip = true;
 		toolStripMenuItemSaveAsEpub.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
 		toolStripMenuItemSaveAsEpub.Name = "toolStripMenuItemSaveAsEpub";
-		toolStripMenuItemSaveAsEpub.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAsEpub.MouseLeave += Control_Leave;
 		toolStripMenuItemSaveAsEpub.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsEpub.Text = "Save as &EPUB";
 		toolStripMenuItemSaveAsEpub.Click += ToolStripMenuItemSaveAsEpub_Click;
+		toolStripMenuItemSaveAsEpub.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsEpub.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsMobi
 		// 
@@ -813,11 +829,11 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsMobi.AutoToolTip = true;
 		toolStripMenuItemSaveAsMobi.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
 		toolStripMenuItemSaveAsMobi.Name = "toolStripMenuItemSaveAsMobi";
-		toolStripMenuItemSaveAsMobi.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAsMobi.MouseLeave += Control_Leave;
 		toolStripMenuItemSaveAsMobi.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsMobi.Text = "Save as &MOBI";
 		toolStripMenuItemSaveAsMobi.Click += ToolStripMenuItemSaveAsMobi_Click;
+		toolStripMenuItemSaveAsMobi.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsMobi.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsXps
 		// 
@@ -827,11 +843,11 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsXps.AutoToolTip = true;
 		toolStripMenuItemSaveAsXps.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
 		toolStripMenuItemSaveAsXps.Name = "toolStripMenuItemSaveAsXps";
-		toolStripMenuItemSaveAsXps.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAsXps.MouseLeave += Control_Leave;
 		toolStripMenuItemSaveAsXps.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsXps.Text = "Save as &XPS";
 		toolStripMenuItemSaveAsXps.Click += ToolStripMenuItemSaveAsXps_Click;
+		toolStripMenuItemSaveAsXps.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsXps.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsFictionBook2
 		// 
@@ -855,11 +871,11 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsChm.AutoToolTip = true;
 		toolStripMenuItemSaveAsChm.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
 		toolStripMenuItemSaveAsChm.Name = "toolStripMenuItemSaveAsChm";
-		toolStripMenuItemSaveAsChm.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAsChm.MouseLeave += Control_Leave;
 		toolStripMenuItemSaveAsChm.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsChm.Text = "Save as &CHM";
 		toolStripMenuItemSaveAsChm.Click += ToolStripMenuItemSaveAsChm_Click;
+		toolStripMenuItemSaveAsChm.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsChm.MouseLeave += Control_Leave;
 		// 
 		// OrbitalResonancesOfOneMinorPlanetForm
 		// 
@@ -913,6 +929,7 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 	private KryptonManager kryptonManager;
 	private ToolStripContainer toolStripContainer;
 	private ToolStrip toolStripIcons;
+	private ToolStripButton toolStripButtonFilterResonances;
 	private ToolStripDropDownButton toolStripDropDownButtonSaveToFile;
 	private ContextMenuStrip contextMenuSaveToFile;
 	private ToolStripMenuItem toolStripMenuItemTextFiles;
