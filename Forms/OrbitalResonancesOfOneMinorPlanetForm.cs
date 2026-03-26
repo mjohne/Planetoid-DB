@@ -84,7 +84,7 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 	public void SetSemiMajorAxis(double semiMajorAxis) =>
 		this.semiMajorAxis = semiMajorAxis;
 
-	/// <summary>Populates the <see cref="listView"/> with orbital resonance data for the given resonances.</summary>
+	/// <summary>Populates the <see cref="listView"/> with orbital resonance data from the <see cref="allResonances"/> field, optionally filtering to only true resonances.</summary>
 	/// <remarks>Each resonance is shown as one row. The "Is Resonance" column shows "Yes" when the deviation is below 1%.
 	/// Rows are colored green for resonances and red for non-resonances.</remarks>
 	private void PopulateListView()
@@ -210,7 +210,7 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 
 		/// <summary>Specifies the sort order used by the containing type.</summary>
 		/// <remarks>This field indicates whether the sorting should be performed in ascending or descending order. It is used in the Compare method to determine how to return the comparison result.</remarks>
-		private readonly SortOrder order = order;
+		private readonly SortOrder _order = order;
 
 		/// <summary>Compares two objects and returns a value indicating whether one is less than, equal to, or greater than the other.</summary>
 		/// <param name="x">The first object to compare.</param>
@@ -234,7 +234,7 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 				? numX.CompareTo(value: numY)
 				: string.Compare(strA: textX, strB: textY, comparisonType: StringComparison.OrdinalIgnoreCase);
 			// Return the comparison result, adjusting for the specified sort order (ascending or descending)
-			return order == SortOrder.Descending ? -result : result;
+			return _order == SortOrder.Descending ? -result : result;
 		}
 	}
 
