@@ -84,7 +84,7 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 	public void SetSemiMajorAxis(double semiMajorAxis) =>
 		this.semiMajorAxis = semiMajorAxis;
 
-	/// <summary>Populates the <see cref="listView"/> with orbital resonance data from the <see cref="allResonances"/> field, optionally filtering to only true resonances.</summary>
+	/// <summary>Populates the <see cref="listView"/> with orbital resonance data for the given resonances.</summary>
 	/// <remarks>Each resonance is shown as one row. The "Is Resonance" column shows "Yes" when the deviation is below 1%.
 	/// Rows are colored green for resonances and red for non-resonances.</remarks>
 	private void PopulateListView()
@@ -200,8 +200,10 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 
 	/// <summary>Implements the manual sorting of items by column.</summary>
 	/// <remarks>This class is used internally by the form to provide custom sorting logic for the ListView control.</remarks>
+	/// <remarks>Initializes a new instance of the <see cref="ListViewItemComparer"/> class.</remarks>
 	/// <param name="column">The column index to sort by.</param>
 	/// <param name="order">The sort order (Ascending or Descending).</param>
+	/// <remarks>This constructor sets the column index and sort order for the comparer, which will be used in the Compare method to perform the sorting logic based on the specified column and order.</remarks>
 	private class ListViewItemComparer(int column, SortOrder order) : System.Collections.IComparer
 	{
 		/// <summary>Column index to sort by.</summary>
@@ -210,7 +212,7 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 
 		/// <summary>Specifies the sort order used by the containing type.</summary>
 		/// <remarks>This field indicates whether the sorting should be performed in ascending or descending order. It is used in the Compare method to determine how to return the comparison result.</remarks>
-		private readonly SortOrder _order = order;
+		private readonly SortOrder order = order;
 
 		/// <summary>Compares two objects and returns a value indicating whether one is less than, equal to, or greater than the other.</summary>
 		/// <param name="x">The first object to compare.</param>
@@ -234,7 +236,7 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 				? numX.CompareTo(value: numY)
 				: string.Compare(strA: textX, strB: textY, comparisonType: StringComparison.OrdinalIgnoreCase);
 			// Return the comparison result, adjusting for the specified sort order (ascending or descending)
-			return _order == SortOrder.Descending ? -result : result;
+			return order == SortOrder.Descending ? -result : result;
 		}
 	}
 
