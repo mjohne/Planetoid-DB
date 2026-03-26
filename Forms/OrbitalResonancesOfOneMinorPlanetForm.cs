@@ -200,10 +200,8 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 
 	/// <summary>Implements the manual sorting of items by column.</summary>
 	/// <remarks>This class is used internally by the form to provide custom sorting logic for the ListView control.</remarks>
-	/// <remarks>Initializes a new instance of the <see cref="ListViewItemComparer"/> class.</remarks>
 	/// <param name="column">The column index to sort by.</param>
 	/// <param name="order">The sort order (Ascending or Descending).</param>
-	/// <remarks>This constructor sets the column index and sort order for the comparer, which will be used in the Compare method to perform the sorting logic based on the specified column and order.</remarks>
 	private class ListViewItemComparer(int column, SortOrder order) : System.Collections.IComparer
 	{
 		/// <summary>Column index to sort by.</summary>
