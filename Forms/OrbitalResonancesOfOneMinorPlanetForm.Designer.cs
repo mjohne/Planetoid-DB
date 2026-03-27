@@ -59,7 +59,6 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		kryptonManager = new KryptonManager(components);
 		toolStripContainer = new ToolStripContainer();
 		toolStripIcons = new ToolStrip();
-		toolStripButtonFilterResonances = new ToolStripButton();
 		toolStripDropDownButtonSaveToFile = new ToolStripDropDownButton();
 		contextMenuSaveToFile = new ContextMenuStrip(components);
 		toolStripMenuItemTextFiles = new ToolStripMenuItem();
@@ -101,6 +100,7 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsXps = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsFictionBook2 = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsChm = new ToolStripMenuItem();
+		toolStripButtonFilterResonances = new ToolStripButton();
 		((ISupportInitialize)kryptoPanelMain).BeginInit();
 		kryptoPanelMain.SuspendLayout();
 		kryptonStatusStrip.SuspendLayout();
@@ -292,20 +292,6 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		toolStripIcons.Leave += Control_Leave;
 		toolStripIcons.MouseEnter += Control_Enter;
 		toolStripIcons.MouseLeave += Control_Leave;
-		// 
-		// toolStripButtonFilterResonances
-		// 
-		toolStripButtonFilterResonances.AccessibleDescription = "Filter to show only resonances";
-		toolStripButtonFilterResonances.AccessibleName = "Filter resonances";
-		toolStripButtonFilterResonances.AccessibleRole = AccessibleRole.CheckButton;
-		toolStripButtonFilterResonances.CheckOnClick = true;
-		toolStripButtonFilterResonances.Image = FatcowIcons16px.fatcow_filter_reapply_16px;
-		toolStripButtonFilterResonances.Name = "toolStripButtonFilterResonances";
-		toolStripButtonFilterResonances.Size = new Size(115, 22);
-		toolStripButtonFilterResonances.Text = "Filter resonances";
-		toolStripButtonFilterResonances.Click += ToolStripButtonFilterResonances_Click;
-		toolStripButtonFilterResonances.MouseEnter += Control_Enter;
-		toolStripButtonFilterResonances.MouseLeave += Control_Leave;
 		// 
 		// toolStripDropDownButtonSaveToFile
 		// 
@@ -876,6 +862,20 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsChm.Click += ToolStripMenuItemSaveAsChm_Click;
 		toolStripMenuItemSaveAsChm.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsChm.MouseLeave += Control_Leave;
+		// 
+		// toolStripButtonFilterResonances
+		// 
+		toolStripButtonFilterResonances.AccessibleDescription = "Filter to show only resonances";
+		toolStripButtonFilterResonances.AccessibleName = "Filter resonances";
+		toolStripButtonFilterResonances.AccessibleRole = AccessibleRole.CheckButton;
+		toolStripButtonFilterResonances.CheckOnClick = true;
+		toolStripButtonFilterResonances.Image = FatcowIcons16px.fatcow_filter_reapply_16px;
+		toolStripButtonFilterResonances.Name = "toolStripButtonFilterResonances";
+		toolStripButtonFilterResonances.Size = new Size(115, 22);
+		toolStripButtonFilterResonances.Text = "Filter resonances";
+		toolStripButtonFilterResonances.Click += ToolStripButtonFilterResonances_Click;
+		toolStripButtonFilterResonances.MouseEnter += Control_Enter;
+		toolStripButtonFilterResonances.MouseLeave += Control_Leave;
 		// 
 		// OrbitalResonancesOfOneMinorPlanetForm
 		// 
