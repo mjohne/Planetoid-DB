@@ -43,7 +43,7 @@ partial class LicenseForm
 	{
 		components = new Container();
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(LicenseForm));
-		kryptoPanelMain = new KryptonPanel();
+		kryptonPanelMain = new KryptonPanel();
 		kryptonButtonCopyLicenseToClipboard = new KryptonButton();
 		kryptonButtonSaveLicense = new KryptonButton();
 		kryptonButtonClose = new KryptonButton();
@@ -53,30 +53,30 @@ partial class LicenseForm
 		labelInformation = new ToolStripStatusLabel();
 		saveFileDialog = new SaveFileDialog();
 		kryptonManager = new KryptonManager(components);
-		((ISupportInitialize)kryptoPanelMain).BeginInit();
-		kryptoPanelMain.SuspendLayout();
+		((ISupportInitialize)kryptonPanelMain).BeginInit();
+		kryptonPanelMain.SuspendLayout();
 		((ISupportInitialize)kryptonPictureBoxLicenseLogo).BeginInit();
 		kryptonStatusStrip.SuspendLayout();
 		SuspendLayout();
 		// 
-		// kryptoPanelMain
+		// kryptonPanelMain
 		// 
-		kryptoPanelMain.AccessibleDescription = "Groups the data";
-		kryptoPanelMain.AccessibleName = "Panel";
-		kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
-		kryptoPanelMain.Controls.Add(kryptonButtonCopyLicenseToClipboard);
-		kryptoPanelMain.Controls.Add(kryptonButtonSaveLicense);
-		kryptoPanelMain.Controls.Add(kryptonButtonClose);
-		kryptoPanelMain.Controls.Add(kryptonPictureBoxLicenseLogo);
-		kryptoPanelMain.Controls.Add(kryptonTextBoxLicense);
-		kryptoPanelMain.Controls.Add(kryptonStatusStrip);
-		kryptoPanelMain.Dock = DockStyle.Fill;
-		kryptoPanelMain.Location = new Point(0, 0);
-		kryptoPanelMain.Name = "kryptoPanelMain";
-		kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptoPanelMain.Size = new Size(577, 225);
-		kryptoPanelMain.TabIndex = 0;
-		kryptoPanelMain.TabStop = true;
+		kryptonPanelMain.AccessibleDescription = "Groups the data";
+		kryptonPanelMain.AccessibleName = "Panel";
+		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.Controls.Add(kryptonButtonCopyLicenseToClipboard);
+		kryptonPanelMain.Controls.Add(kryptonButtonSaveLicense);
+		kryptonPanelMain.Controls.Add(kryptonButtonClose);
+		kryptonPanelMain.Controls.Add(kryptonPictureBoxLicenseLogo);
+		kryptonPanelMain.Controls.Add(kryptonTextBoxLicense);
+		kryptonPanelMain.Controls.Add(kryptonStatusStrip);
+		kryptonPanelMain.Dock = DockStyle.Fill;
+		kryptonPanelMain.Location = new Point(0, 0);
+		kryptonPanelMain.Name = "kryptonPanelMain";
+		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
+		kryptonPanelMain.Size = new Size(577, 225);
+		kryptonPanelMain.TabIndex = 0;
+		kryptonPanelMain.TabStop = true;
 		// 
 		// kryptonButtonCopyLicenseToClipboard
 		// 
@@ -238,7 +238,7 @@ partial class LicenseForm
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(577, 225);
 		ControlBox = false;
-		Controls.Add(kryptoPanelMain);
+		Controls.Add(kryptonPanelMain);
 		FormBorderStyle = FormBorderStyle.FixedToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		MaximizeBox = false;
@@ -247,9 +247,9 @@ partial class LicenseForm
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "License: GPL-3.0";
 		Load += LicenseForm_Load;
-		((ISupportInitialize)kryptoPanelMain).EndInit();
-		kryptoPanelMain.ResumeLayout(false);
-		kryptoPanelMain.PerformLayout();
+		((ISupportInitialize)kryptonPanelMain).EndInit();
+		kryptonPanelMain.ResumeLayout(false);
+		kryptonPanelMain.PerformLayout();
 		((ISupportInitialize)kryptonPictureBoxLicenseLogo).EndInit();
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();
@@ -258,7 +258,7 @@ partial class LicenseForm
 
 	#endregion
 
-	private KryptonPanel kryptoPanelMain;
+	private KryptonPanel kryptonPanelMain;
 	private KryptonStatusStrip kryptonStatusStrip;
 	private ToolStripStatusLabel labelInformation;
 	private KryptonTextBox kryptonTextBoxLicense;

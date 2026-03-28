@@ -52,12 +52,12 @@ partial class PreloadForm
 		kryptonCommandLinkButtonOpenLocalFile = new KryptonCommandLinkButton();
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
-		kryptoPanelMain = new KryptonPanel();
+		kryptonPanelMain = new KryptonPanel();
 		openFileDialog = new OpenFileDialog();
 		kryptonManager = new KryptonManager(components);
 		kryptonStatusStrip.SuspendLayout();
-		((ISupportInitialize)kryptoPanelMain).BeginInit();
-		kryptoPanelMain.SuspendLayout();
+		((ISupportInitialize)kryptonPanelMain).BeginInit();
+		kryptonPanelMain.SuspendLayout();
 		SuspendLayout();
 		// 
 		// kryptonCommandLinkButtonExit
@@ -204,22 +204,22 @@ partial class PreloadForm
 		labelInformation.Text = "some information here";
 		labelInformation.ToolTipText = "Shows some information";
 		// 
-		// kryptoPanelMain
+		// kryptonPanelMain
 		// 
-		kryptoPanelMain.AccessibleDescription = "Groups the data";
-		kryptoPanelMain.AccessibleName = "Panel";
-		kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
-		kryptoPanelMain.Controls.Add(kryptonCommandLinkButtonExit);
-		kryptoPanelMain.Controls.Add(kryptonCommandLinkButtonLoadInternalDemoData);
-		kryptoPanelMain.Controls.Add(kryptonCommandLinkButtonDownloadMprcorbDat);
-		kryptoPanelMain.Controls.Add(kryptonCommandLinkButtonOpenLocalFile);
-		kryptoPanelMain.Dock = DockStyle.Fill;
-		kryptoPanelMain.Location = new Point(0, 0);
-		kryptoPanelMain.Name = "kryptoPanelMain";
-		kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptoPanelMain.Size = new Size(334, 278);
-		kryptoPanelMain.TabIndex = 0;
-		kryptoPanelMain.TabStop = true;
+		kryptonPanelMain.AccessibleDescription = "Groups the data";
+		kryptonPanelMain.AccessibleName = "Panel";
+		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.Controls.Add(kryptonCommandLinkButtonExit);
+		kryptonPanelMain.Controls.Add(kryptonCommandLinkButtonLoadInternalDemoData);
+		kryptonPanelMain.Controls.Add(kryptonCommandLinkButtonDownloadMprcorbDat);
+		kryptonPanelMain.Controls.Add(kryptonCommandLinkButtonOpenLocalFile);
+		kryptonPanelMain.Dock = DockStyle.Fill;
+		kryptonPanelMain.Location = new Point(0, 0);
+		kryptonPanelMain.Name = "kryptonPanelMain";
+		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
+		kryptonPanelMain.Size = new Size(334, 278);
+		kryptonPanelMain.TabIndex = 0;
+		kryptonPanelMain.TabStop = true;
 		// 
 		// openFileDialog
 		// 
@@ -244,7 +244,7 @@ partial class PreloadForm
 		CancelButton = kryptonCommandLinkButtonExit;
 		ClientSize = new Size(334, 300);
 		ControlBox = false;
-		Controls.Add(kryptoPanelMain);
+		Controls.Add(kryptonPanelMain);
 		Controls.Add(kryptonStatusStrip);
 		FormBorderStyle = FormBorderStyle.FixedToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
@@ -256,8 +256,8 @@ partial class PreloadForm
 		Load += PreloadForm_Load;
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();
-		((ISupportInitialize)kryptoPanelMain).EndInit();
-		kryptoPanelMain.ResumeLayout(false);
+		((ISupportInitialize)kryptonPanelMain).EndInit();
+		kryptonPanelMain.ResumeLayout(false);
 		ResumeLayout(false);
 		PerformLayout();
 	}
@@ -265,7 +265,7 @@ partial class PreloadForm
 	#endregion
 	private KryptonStatusStrip kryptonStatusStrip;
 	private ToolStripStatusLabel labelInformation;
-	private KryptonPanel kryptoPanelMain;
+	private KryptonPanel kryptonPanelMain;
 	private KryptonCommandLinkButton kryptonCommandLinkButtonOpenLocalFile;
 	private KryptonCommandLinkButton kryptonCommandLinkButtonExit;
 	private KryptonCommandLinkButton kryptonCommandLinkButtonLoadInternalDemoData;

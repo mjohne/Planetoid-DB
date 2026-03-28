@@ -65,13 +65,13 @@ partial class CopyDataToClipboardForm
 		buttonComputerName = new KryptonButton();
 		buttonRmsResidual = new KryptonButton();
 		buttonDateOfLastObservation = new KryptonButton();
-		kryptoPanelMain = new KryptonPanel();
+		kryptonPanelMain = new KryptonPanel();
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
 		toolStripContainer = new ToolStripContainer();
 		kryptonManager = new KryptonManager(components);
-		((ISupportInitialize)kryptoPanelMain).BeginInit();
-		kryptoPanelMain.SuspendLayout();
+		((ISupportInitialize)kryptonPanelMain).BeginInit();
+		kryptonPanelMain.SuspendLayout();
 		kryptonStatusStrip.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
@@ -518,38 +518,38 @@ partial class CopyDataToClipboardForm
 		buttonDateOfLastObservation.MouseEnter += Control_Enter;
 		buttonDateOfLastObservation.MouseLeave += Control_Leave;
 		// 
-		// kryptoPanelMain
+		// kryptonPanelMain
 		// 
-		kryptoPanelMain.AccessibleDescription = "Groups the data";
-		kryptoPanelMain.AccessibleName = "Panel";
-		kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
-		kryptoPanelMain.Controls.Add(buttonDateOfLastObservation);
-		kryptoPanelMain.Controls.Add(buttonFlags);
-		kryptoPanelMain.Controls.Add(buttonComputerName);
-		kryptoPanelMain.Controls.Add(buttonRmsResidual);
-		kryptoPanelMain.Controls.Add(buttonObservationSpan);
-		kryptoPanelMain.Controls.Add(buttonNumberOfObservations);
-		kryptoPanelMain.Controls.Add(buttonNumberOfOppositions);
-		kryptoPanelMain.Controls.Add(buttonReference);
-		kryptoPanelMain.Controls.Add(buttonSlopeParameter);
-		kryptoPanelMain.Controls.Add(buttonAbsoluteMagnitude);
-		kryptoPanelMain.Controls.Add(buttonSemimajorAxis);
-		kryptoPanelMain.Controls.Add(buttonMeanDailyMotion);
-		kryptoPanelMain.Controls.Add(buttonOrbitalEccentricity);
-		kryptoPanelMain.Controls.Add(buttonInclination);
-		kryptoPanelMain.Controls.Add(buttonArgumentOfPerihelion);
-		kryptoPanelMain.Controls.Add(buttonLongitudeOfTheAscendingNode);
-		kryptoPanelMain.Controls.Add(buttonEpoch);
-		kryptoPanelMain.Controls.Add(buttonMeanAnomaly);
-		kryptoPanelMain.Controls.Add(buttonIndexNumber);
-		kryptoPanelMain.Controls.Add(buttonReadableDesignation);
-		kryptoPanelMain.Dock = DockStyle.Fill;
-		kryptoPanelMain.Location = new Point(0, 0);
-		kryptoPanelMain.Name = "kryptoPanelMain";
-		kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptoPanelMain.Size = new Size(644, 377);
-		kryptoPanelMain.TabIndex = 0;
-		kryptoPanelMain.TabStop = true;
+		kryptonPanelMain.AccessibleDescription = "Groups the data";
+		kryptonPanelMain.AccessibleName = "Panel";
+		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.Controls.Add(buttonDateOfLastObservation);
+		kryptonPanelMain.Controls.Add(buttonFlags);
+		kryptonPanelMain.Controls.Add(buttonComputerName);
+		kryptonPanelMain.Controls.Add(buttonRmsResidual);
+		kryptonPanelMain.Controls.Add(buttonObservationSpan);
+		kryptonPanelMain.Controls.Add(buttonNumberOfObservations);
+		kryptonPanelMain.Controls.Add(buttonNumberOfOppositions);
+		kryptonPanelMain.Controls.Add(buttonReference);
+		kryptonPanelMain.Controls.Add(buttonSlopeParameter);
+		kryptonPanelMain.Controls.Add(buttonAbsoluteMagnitude);
+		kryptonPanelMain.Controls.Add(buttonSemimajorAxis);
+		kryptonPanelMain.Controls.Add(buttonMeanDailyMotion);
+		kryptonPanelMain.Controls.Add(buttonOrbitalEccentricity);
+		kryptonPanelMain.Controls.Add(buttonInclination);
+		kryptonPanelMain.Controls.Add(buttonArgumentOfPerihelion);
+		kryptonPanelMain.Controls.Add(buttonLongitudeOfTheAscendingNode);
+		kryptonPanelMain.Controls.Add(buttonEpoch);
+		kryptonPanelMain.Controls.Add(buttonMeanAnomaly);
+		kryptonPanelMain.Controls.Add(buttonIndexNumber);
+		kryptonPanelMain.Controls.Add(buttonReadableDesignation);
+		kryptonPanelMain.Dock = DockStyle.Fill;
+		kryptonPanelMain.Location = new Point(0, 0);
+		kryptonPanelMain.Name = "kryptonPanelMain";
+		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
+		kryptonPanelMain.Size = new Size(644, 377);
+		kryptonPanelMain.TabIndex = 0;
+		kryptonPanelMain.TabStop = true;
 		// 
 		// kryptonStatusStrip
 		// 
@@ -594,7 +594,7 @@ partial class CopyDataToClipboardForm
 		// 
 		// toolStripContainer.ContentPanel
 		// 
-		toolStripContainer.ContentPanel.Controls.Add(kryptoPanelMain);
+		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
 		toolStripContainer.ContentPanel.Size = new Size(644, 377);
 		toolStripContainer.Dock = DockStyle.Fill;
 		toolStripContainer.Location = new Point(0, 0);
@@ -611,7 +611,7 @@ partial class CopyDataToClipboardForm
 		// 
 		// CopyDataToClipboardForm
 		// 
-		AccessibleDescription = "Copy data to clipboard";
+		AccessibleDescription = "Copies data to clipboard";
 		AccessibleName = "Copy data to clipboard";
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
@@ -628,8 +628,8 @@ partial class CopyDataToClipboardForm
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Copy data to clipboard";
 		Load += CopyDataToClipboardForm_Load;
-		((ISupportInitialize)kryptoPanelMain).EndInit();
-		kryptoPanelMain.ResumeLayout(false);
+		((ISupportInitialize)kryptonPanelMain).EndInit();
+		kryptonPanelMain.ResumeLayout(false);
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();
 		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
@@ -644,7 +644,7 @@ partial class CopyDataToClipboardForm
 
 	private KryptonButton buttonIndexNumber;
 	private KryptonButton buttonReadableDesignation;
-	private KryptonPanel kryptoPanelMain;
+	private KryptonPanel kryptonPanelMain;
 	private KryptonButton buttonArgumentOfPerihelion;
 	private KryptonButton buttonLongitudeOfTheAscendingNode;
 	private KryptonButton buttonEpoch;

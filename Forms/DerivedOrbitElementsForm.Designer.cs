@@ -134,7 +134,8 @@ partial class DerivedOrbitElementsForm
 		toolStripMenuItemSaveAsXps = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsFictionBook2 = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsChm = new ToolStripMenuItem();
-		contextMenuFullCopyToClipboardDerivedOrbitalElements = new ContextMenuStrip(components);
+		toolStripDropDownButtonCopyToClipboard = new ToolStripDropDownButton();
+		contextMenuFullCopyToClipboard = new ContextMenuStrip(components);
 		menuitemCopyToClipboardLinearEccentricity = new ToolStripMenuItem();
 		menuitemCopyToClipboardSemiMinorAxis = new ToolStripMenuItem();
 		menuitemCopyToClipboardMajorAxis = new ToolStripMenuItem();
@@ -154,7 +155,6 @@ partial class DerivedOrbitElementsForm
 		menuitemCopyToClipboardMeanAxis = new ToolStripMenuItem();
 		menuitemCopyToClipboardStandardGravitationalParameter = new ToolStripMenuItem();
 		kryptonManager = new KryptonManager(components);
-		toolStripDropDownButtonCopyToClipboard = new ToolStripDropDownButton();
 		contextMenuOpenTerminology.SuspendLayout();
 		contextMenuCopyToClipboard.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
@@ -165,7 +165,7 @@ partial class DerivedOrbitElementsForm
 		tableLayoutPanel.SuspendLayout();
 		toolStripIcons.SuspendLayout();
 		contextMenuSaveToFile.SuspendLayout();
-		contextMenuFullCopyToClipboardDerivedOrbitalElements.SuspendLayout();
+		contextMenuFullCopyToClipboard.SuspendLayout();
 		SuspendLayout();
 		// 
 		// labelLinearEccentricityDesc
@@ -1347,7 +1347,6 @@ partial class DerivedOrbitElementsForm
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveList";
-		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveToFile;
 		contextMenuSaveToFile.Size = new Size(202, 158);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
@@ -1900,19 +1899,32 @@ partial class DerivedOrbitElementsForm
 		toolStripMenuItemSaveAsChm.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsChm.MouseLeave += Control_Leave;
 		// 
-		// contextMenuFullCopyToClipboardDerivedOrbitalElements
+		// toolStripDropDownButtonCopyToClipboard
 		// 
-		contextMenuFullCopyToClipboardDerivedOrbitalElements.AccessibleDescription = "Shows the context menu for copying database information to the clipboard";
-		contextMenuFullCopyToClipboardDerivedOrbitalElements.AccessibleName = "Context menu for copying database information to the clipboard";
-		contextMenuFullCopyToClipboardDerivedOrbitalElements.AccessibleRole = AccessibleRole.MenuPopup;
-		contextMenuFullCopyToClipboardDerivedOrbitalElements.Font = new Font("Segoe UI", 9F);
-		contextMenuFullCopyToClipboardDerivedOrbitalElements.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardLinearEccentricity, menuitemCopyToClipboardSemiMinorAxis, menuitemCopyToClipboardMajorAxis, menuitemCopyToClipboardMinorAxis, menuitemCopyToClipboardEccentricAnomaly, menuitemCopyToClipboardTrueAnomaly, menuitemCopyToClipboardPerihelionDistance, menuitemCopyToClipboardAphelionDistance, menuitemCopyToClipboardLongitudeDescendingNode, menuitemCopyToClipboardArgumentAphelion, menuitemCopyToClipboardFocalParameter, menuitemCopyToClipboardSemiLatusRectum, menuitemCopyToClipboardLatusRectum, menuitemCopyToClipboardOrbitalPeriod, menuitemCopyToClipboardOrbitalArea, menuitemCopyToClipboardSemiMeanAxis, menuitemCopyToClipboardMeanAxis, menuitemCopyToClipboardStandardGravitationalParameter });
-		contextMenuFullCopyToClipboardDerivedOrbitalElements.Name = "Context menu for copying database information to the clipboard";
-		contextMenuFullCopyToClipboardDerivedOrbitalElements.OwnerItem = toolStripDropDownButtonCopyToClipboard;
-		contextMenuFullCopyToClipboardDerivedOrbitalElements.Size = new Size(257, 422);
-		contextMenuFullCopyToClipboardDerivedOrbitalElements.Text = "Copy to clipboard";
-		contextMenuFullCopyToClipboardDerivedOrbitalElements.MouseEnter += Control_Enter;
-		contextMenuFullCopyToClipboardDerivedOrbitalElements.MouseLeave += Control_Leave;
+		toolStripDropDownButtonCopyToClipboard.AccessibleDescription = "Copies information to clipboard";
+		toolStripDropDownButtonCopyToClipboard.AccessibleName = "Copy to clipboard";
+		toolStripDropDownButtonCopyToClipboard.AccessibleRole = AccessibleRole.ButtonDropDown;
+		toolStripDropDownButtonCopyToClipboard.DropDown = contextMenuFullCopyToClipboard;
+		toolStripDropDownButtonCopyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripDropDownButtonCopyToClipboard.ImageTransparentColor = Color.Magenta;
+		toolStripDropDownButtonCopyToClipboard.Name = "toolStripDropDownButtonCopyToClipboard";
+		toolStripDropDownButtonCopyToClipboard.Size = new Size(131, 22);
+		toolStripDropDownButtonCopyToClipboard.Text = "&Copy to clipboard";
+		toolStripDropDownButtonCopyToClipboard.MouseEnter += Control_Enter;
+		toolStripDropDownButtonCopyToClipboard.MouseLeave += Control_Leave;
+		// 
+		// contextMenuFullCopyToClipboard
+		// 
+		contextMenuFullCopyToClipboard.AccessibleDescription = "Shows the context menu for copying database information to the clipboard";
+		contextMenuFullCopyToClipboard.AccessibleName = "Context menu for copying database information to the clipboard";
+		contextMenuFullCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuFullCopyToClipboard.Font = new Font("Segoe UI", 9F);
+		contextMenuFullCopyToClipboard.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardLinearEccentricity, menuitemCopyToClipboardSemiMinorAxis, menuitemCopyToClipboardMajorAxis, menuitemCopyToClipboardMinorAxis, menuitemCopyToClipboardEccentricAnomaly, menuitemCopyToClipboardTrueAnomaly, menuitemCopyToClipboardPerihelionDistance, menuitemCopyToClipboardAphelionDistance, menuitemCopyToClipboardLongitudeDescendingNode, menuitemCopyToClipboardArgumentAphelion, menuitemCopyToClipboardFocalParameter, menuitemCopyToClipboardSemiLatusRectum, menuitemCopyToClipboardLatusRectum, menuitemCopyToClipboardOrbitalPeriod, menuitemCopyToClipboardOrbitalArea, menuitemCopyToClipboardSemiMeanAxis, menuitemCopyToClipboardMeanAxis, menuitemCopyToClipboardStandardGravitationalParameter });
+		contextMenuFullCopyToClipboard.Name = "Context menu for copying database information to the clipboard";
+		contextMenuFullCopyToClipboard.Size = new Size(257, 400);
+		contextMenuFullCopyToClipboard.Text = "Copy to clipboard";
+		contextMenuFullCopyToClipboard.MouseEnter += Control_Enter;
+		contextMenuFullCopyToClipboard.MouseLeave += Control_Leave;
 		// 
 		// menuitemCopyToClipboardLinearEccentricity
 		// 
@@ -2172,20 +2184,6 @@ partial class DerivedOrbitElementsForm
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 		// 
-		// toolStripDropDownButtonCopyToClipboard
-		// 
-		toolStripDropDownButtonCopyToClipboard.AccessibleDescription = "Copies information to clipboard";
-		toolStripDropDownButtonCopyToClipboard.AccessibleName = "Copy to clipboard";
-		toolStripDropDownButtonCopyToClipboard.AccessibleRole = AccessibleRole.ButtonDropDown;
-		toolStripDropDownButtonCopyToClipboard.DropDown = contextMenuFullCopyToClipboardDerivedOrbitalElements;
-		toolStripDropDownButtonCopyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		toolStripDropDownButtonCopyToClipboard.ImageTransparentColor = Color.Magenta;
-		toolStripDropDownButtonCopyToClipboard.Name = "toolStripDropDownButtonCopyToClipboard";
-		toolStripDropDownButtonCopyToClipboard.Size = new Size(131, 22);
-		toolStripDropDownButtonCopyToClipboard.Text = "&Copy to clipboard";
-		toolStripDropDownButtonCopyToClipboard.MouseEnter += Control_Enter;
-		toolStripDropDownButtonCopyToClipboard.MouseLeave += Control_Leave;
-		// 
 		// DerivedOrbitElementsForm
 		// 
 		AccessibleDescription = "Calculates some derivated orbit elements";
@@ -2221,7 +2219,7 @@ partial class DerivedOrbitElementsForm
 		toolStripIcons.ResumeLayout(false);
 		toolStripIcons.PerformLayout();
 		contextMenuSaveToFile.ResumeLayout(false);
-		contextMenuFullCopyToClipboardDerivedOrbitalElements.ResumeLayout(false);
+		contextMenuFullCopyToClipboard.ResumeLayout(false);
 		ResumeLayout(false);
 
 	}
@@ -2275,7 +2273,7 @@ partial class DerivedOrbitElementsForm
 	private ContextMenuStrip contextMenuOpenTerminology;
 	private ToolStripMenuItem toolStripMenuItemOpenTerminology;
 	private ToolStrip toolStripIcons;
-	private ContextMenuStrip contextMenuFullCopyToClipboardDerivedOrbitalElements;
+	private ContextMenuStrip contextMenuFullCopyToClipboard;
 	private ToolStripMenuItem menuitemCopyToClipboardLinearEccentricity;
 	private ToolStripMenuItem menuitemCopyToClipboardSemiMinorAxis;
 	private ToolStripMenuItem menuitemCopyToClipboardMajorAxis;

@@ -110,6 +110,7 @@ partial class Search2Form
 		listViewResults.View = View.Details;
 		listViewResults.VirtualMode = true;
 		listViewResults.RetrieveVirtualItem += ListViewResults_RetrieveVirtualItem;
+		listViewResults.DoubleClick += ListViewResults_DoubleClick;
 		// 
 		// columnHeaderIndex
 		// 

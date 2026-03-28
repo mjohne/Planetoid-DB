@@ -45,7 +45,7 @@ namespace Planetoid_DB;
 		components = new Container();
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(PrintDataSheetForm));
 		checkedListBoxOrbitalElements = new KryptonCheckedListBox();
-		kryptoPanelMain = new KryptonPanel();
+		kryptonPanelMain = new KryptonPanel();
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
 		toolStripProgressBarPrinting = new ToolStripProgressBar();
@@ -60,8 +60,8 @@ namespace Planetoid_DB;
 		toolStripSeparator2 = new ToolStripSeparator();
 		toolStripButtonMarkAll = new ToolStripButton();
 		toolStripButtonUnmarkAll = new ToolStripButton();
-		((ISupportInitialize)kryptoPanelMain).BeginInit();
-		kryptoPanelMain.SuspendLayout();
+		((ISupportInitialize)kryptonPanelMain).BeginInit();
+		kryptonPanelMain.SuspendLayout();
 		kryptonStatusStrip.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
@@ -94,19 +94,19 @@ namespace Planetoid_DB;
 		checkedListBoxOrbitalElements.MouseEnter += Control_Enter;
 		checkedListBoxOrbitalElements.MouseLeave += Control_Leave;
 		// 
-		// kryptoPanelMain
+		// kryptonPanelMain
 		// 
-		kryptoPanelMain.AccessibleDescription = "Groups the data";
-		kryptoPanelMain.AccessibleName = "Panel";
-		kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
-		kryptoPanelMain.Controls.Add(checkedListBoxOrbitalElements);
-		kryptoPanelMain.Dock = DockStyle.Fill;
-		kryptoPanelMain.Location = new Point(0, 0);
-		kryptoPanelMain.Name = "kryptoPanelMain";
-		kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptoPanelMain.Size = new Size(313, 308);
-		kryptoPanelMain.TabIndex = 0;
-		kryptoPanelMain.TabStop = true;
+		kryptonPanelMain.AccessibleDescription = "Groups the data";
+		kryptonPanelMain.AccessibleName = "Panel";
+		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.Controls.Add(checkedListBoxOrbitalElements);
+		kryptonPanelMain.Dock = DockStyle.Fill;
+		kryptonPanelMain.Location = new Point(0, 0);
+		kryptonPanelMain.Name = "kryptonPanelMain";
+		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
+		kryptonPanelMain.Size = new Size(313, 308);
+		kryptonPanelMain.TabIndex = 0;
+		kryptonPanelMain.TabStop = true;
 		// 
 		// kryptonStatusStrip
 		// 
@@ -177,7 +177,7 @@ namespace Planetoid_DB;
 		// 
 		// toolStripContainer.ContentPanel
 		// 
-		toolStripContainer.ContentPanel.Controls.Add(kryptoPanelMain);
+		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
 		toolStripContainer.ContentPanel.Size = new Size(313, 308);
 		toolStripContainer.Dock = DockStyle.Fill;
 		toolStripContainer.Location = new Point(0, 0);
@@ -331,8 +331,8 @@ namespace Planetoid_DB;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Print data sheet";
 		Load += PrintDataSheetForm_Load;
-		((ISupportInitialize)kryptoPanelMain).EndInit();
-		kryptoPanelMain.ResumeLayout(false);
+		((ISupportInitialize)kryptonPanelMain).EndInit();
+		kryptonPanelMain.ResumeLayout(false);
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();
 		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
@@ -351,7 +351,7 @@ namespace Planetoid_DB;
 	#endregion
 
 	private KryptonCheckedListBox checkedListBoxOrbitalElements;
-        private KryptonPanel kryptoPanelMain;
+        private KryptonPanel kryptonPanelMain;
 	private KryptonStatusStrip kryptonStatusStrip;
 	private ToolStripStatusLabel labelInformation;
 	private ToolStripProgressBar toolStripProgressBarPrinting;

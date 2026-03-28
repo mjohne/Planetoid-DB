@@ -4,7 +4,7 @@
 // a specific target and scoped to a namespace, type, member, etc.
 
 using Krypton.Toolkit;
-using Krypton.Toolkit.Suite.Extended.Navigator;
+//using Krypton.Toolkit.Suite.Extended.Navigator;
 
 using Planetoid_DB.Resources;
 
@@ -80,7 +80,7 @@ namespace Planetoid_DB;
 		toolStripSeparator1 = new ToolStripSeparator();
 		toolStripButtonLoadDefaultSettings = new ToolStripButton();
 		toolStripContainerSettings = new ToolStripContainer();
-		kryptoPanelMain = new KryptonPanel();
+		kryptonPanelMain = new KryptonPanel();
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
 		kryptonManager = new KryptonManager(components);
@@ -100,8 +100,8 @@ namespace Planetoid_DB;
 		toolStripContainerSettings.ContentPanel.SuspendLayout();
 		toolStripContainerSettings.TopToolStripPanel.SuspendLayout();
 		toolStripContainerSettings.SuspendLayout();
-		((ISupportInitialize)kryptoPanelMain).BeginInit();
-		kryptoPanelMain.SuspendLayout();
+		((ISupportInitialize)kryptonPanelMain).BeginInit();
+		kryptonPanelMain.SuspendLayout();
 		kryptonStatusStrip.SuspendLayout();
 		SuspendLayout();
 		// 
@@ -426,7 +426,7 @@ namespace Planetoid_DB;
 		// 
 		// toolStripContainerSettings.ContentPanel
 		// 
-		toolStripContainerSettings.ContentPanel.Controls.Add(kryptoPanelMain);
+		toolStripContainerSettings.ContentPanel.Controls.Add(kryptonPanelMain);
 		toolStripContainerSettings.ContentPanel.Margin = new Padding(4, 3, 4, 3);
 		toolStripContainerSettings.ContentPanel.Size = new Size(503, 263);
 		toolStripContainerSettings.Dock = DockStyle.Fill;
@@ -440,19 +440,19 @@ namespace Planetoid_DB;
 		// 
 		toolStripContainerSettings.TopToolStripPanel.Controls.Add(kryptonToolStripIcons);
 		// 
-		// kryptoPanelMain
+		// kryptonPanelMain
 		// 
-		kryptoPanelMain.AccessibleDescription = "Groups the data";
-		kryptoPanelMain.AccessibleName = "Panel";
-		kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
-		kryptoPanelMain.Controls.Add(tabControlSettings);
-		kryptoPanelMain.Dock = DockStyle.Fill;
-		kryptoPanelMain.Location = new Point(0, 0);
-		kryptoPanelMain.Name = "kryptoPanelMain";
-		kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptoPanelMain.Size = new Size(503, 263);
-		kryptoPanelMain.TabIndex = 0;
-		kryptoPanelMain.TabStop = true;
+		kryptonPanelMain.AccessibleDescription = "Groups the data";
+		kryptonPanelMain.AccessibleName = "Panel";
+		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.Controls.Add(tabControlSettings);
+		kryptonPanelMain.Dock = DockStyle.Fill;
+		kryptonPanelMain.Location = new Point(0, 0);
+		kryptonPanelMain.Name = "kryptonPanelMain";
+		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
+		kryptonPanelMain.Size = new Size(503, 263);
+		kryptonPanelMain.TabIndex = 0;
+		kryptonPanelMain.TabStop = true;
 		// 
 		// kryptonStatusStrip
 		// 
@@ -535,8 +535,8 @@ namespace Planetoid_DB;
 		toolStripContainerSettings.TopToolStripPanel.PerformLayout();
 		toolStripContainerSettings.ResumeLayout(false);
 		toolStripContainerSettings.PerformLayout();
-		((ISupportInitialize)kryptoPanelMain).EndInit();
-		kryptoPanelMain.ResumeLayout(false);
+		((ISupportInitialize)kryptonPanelMain).EndInit();
+		kryptonPanelMain.ResumeLayout(false);
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();
 		ResumeLayout(false);
@@ -577,7 +577,7 @@ namespace Planetoid_DB;
         private KryptonCheckBox checkBox9;
         private KryptonCheckBox checkBox8;
         private KryptonRadioButton radioButton9;
-        private KryptonPanel kryptoPanelMain;
+        private KryptonPanel kryptonPanelMain;
 	private KryptonStatusStrip kryptonStatusStrip;
 	private ToolStripStatusLabel labelInformation;
 	private KryptonManager kryptonManager;

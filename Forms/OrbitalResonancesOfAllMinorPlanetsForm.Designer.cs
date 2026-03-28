@@ -45,7 +45,7 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 	{
 		components = new Container();
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(OrbitalResonancesOfAllMinorPlanetsForm));
-		kryptoPanelMain = new KryptonPanel();
+		kryptonPanelMain = new KryptonPanel();
 		btnStart = new KryptonButton();
 		btnCancel = new KryptonButton();
 		checkBoxMercury = new KryptonCheckBox();
@@ -71,37 +71,37 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
 		kryptonManager = new KryptonManager(components);
-		((ISupportInitialize)kryptoPanelMain).BeginInit();
-		kryptoPanelMain.SuspendLayout();
+		((ISupportInitialize)kryptonPanelMain).BeginInit();
+		kryptonPanelMain.SuspendLayout();
 		contextMenuCopyToClipboard.SuspendLayout();
 		kryptonStatusStrip.SuspendLayout();
 		SuspendLayout();
 		// 
-		// kryptoPanelMain
+		// kryptonPanelMain
 		// 
-		kryptoPanelMain.AccessibleDescription = "Groups the data";
-		kryptoPanelMain.AccessibleName = "Panel";
-		kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
-		kryptoPanelMain.Controls.Add(btnStart);
-		kryptoPanelMain.Controls.Add(btnCancel);
-		kryptoPanelMain.Controls.Add(checkBoxMercury);
-		kryptoPanelMain.Controls.Add(checkBoxVenus);
-		kryptoPanelMain.Controls.Add(checkBoxEarth);
-		kryptoPanelMain.Controls.Add(checkBoxMars);
-		kryptoPanelMain.Controls.Add(checkBoxJupiter);
-		kryptoPanelMain.Controls.Add(checkBoxSaturn);
-		kryptoPanelMain.Controls.Add(checkBoxUranus);
-		kryptoPanelMain.Controls.Add(checkBoxNeptune);
-		kryptoPanelMain.Controls.Add(kryptonProgressBar);
-		kryptoPanelMain.Controls.Add(listView);
-		kryptoPanelMain.Controls.Add(kryptonStatusStrip);
-		kryptoPanelMain.Dock = DockStyle.Fill;
-		kryptoPanelMain.Location = new Point(0, 0);
-		kryptoPanelMain.Name = "kryptoPanelMain";
-		kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptoPanelMain.Size = new Size(918, 620);
-		kryptoPanelMain.TabIndex = 0;
-		kryptoPanelMain.TabStop = true;
+		kryptonPanelMain.AccessibleDescription = "Groups the data";
+		kryptonPanelMain.AccessibleName = "Panel";
+		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.Controls.Add(btnStart);
+		kryptonPanelMain.Controls.Add(btnCancel);
+		kryptonPanelMain.Controls.Add(checkBoxMercury);
+		kryptonPanelMain.Controls.Add(checkBoxVenus);
+		kryptonPanelMain.Controls.Add(checkBoxEarth);
+		kryptonPanelMain.Controls.Add(checkBoxMars);
+		kryptonPanelMain.Controls.Add(checkBoxJupiter);
+		kryptonPanelMain.Controls.Add(checkBoxSaturn);
+		kryptonPanelMain.Controls.Add(checkBoxUranus);
+		kryptonPanelMain.Controls.Add(checkBoxNeptune);
+		kryptonPanelMain.Controls.Add(kryptonProgressBar);
+		kryptonPanelMain.Controls.Add(listView);
+		kryptonPanelMain.Controls.Add(kryptonStatusStrip);
+		kryptonPanelMain.Dock = DockStyle.Fill;
+		kryptonPanelMain.Location = new Point(0, 0);
+		kryptonPanelMain.Name = "kryptonPanelMain";
+		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
+		kryptonPanelMain.Size = new Size(918, 620);
+		kryptonPanelMain.TabIndex = 0;
+		kryptonPanelMain.TabStop = true;
 		// 
 		// btnStart
 		// 
@@ -411,7 +411,7 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(918, 620);
 		ControlBox = false;
-		Controls.Add(kryptoPanelMain);
+		Controls.Add(kryptonPanelMain);
 		FormBorderStyle = FormBorderStyle.FixedToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		Margin = new Padding(4, 3, 4, 3);
@@ -423,9 +423,9 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		Text = "Orbital resonances of all minor planets";
 		FormClosing += OrbitalResonancesOfAllMinorPlanetsForm_FormClosing;
 		Load += OrbitalResonancesOfAllMinorPlanetsForm_Load;
-		((ISupportInitialize)kryptoPanelMain).EndInit();
-		kryptoPanelMain.ResumeLayout(false);
-		kryptoPanelMain.PerformLayout();
+		((ISupportInitialize)kryptonPanelMain).EndInit();
+		kryptonPanelMain.ResumeLayout(false);
+		kryptonPanelMain.PerformLayout();
 		contextMenuCopyToClipboard.ResumeLayout(false);
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();
@@ -434,7 +434,7 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 
 	#endregion
 
-	private KryptonPanel kryptoPanelMain;
+	private KryptonPanel kryptonPanelMain;
 	private KryptonButton btnStart;
 	private KryptonButton btnCancel;
 	private KryptonCheckBox checkBoxMercury;

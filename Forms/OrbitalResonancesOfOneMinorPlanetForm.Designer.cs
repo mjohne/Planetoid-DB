@@ -45,7 +45,7 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 	{
 		components = new Container();
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(OrbitalResonancesOfOneMinorPlanetForm));
-		kryptoPanelMain = new KryptonPanel();
+		kryptonPanelMain = new KryptonPanel();
 		listView = new ListView();
 		columnHeaderPlanet = new ColumnHeader();
 		columnHeaderPlanetPeriod = new ColumnHeader();
@@ -101,8 +101,8 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsFictionBook2 = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsChm = new ToolStripMenuItem();
 		toolStripButtonFilterResonances = new ToolStripButton();
-		((ISupportInitialize)kryptoPanelMain).BeginInit();
-		kryptoPanelMain.SuspendLayout();
+		((ISupportInitialize)kryptonPanelMain).BeginInit();
+		kryptonPanelMain.SuspendLayout();
 		kryptonStatusStrip.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
@@ -112,24 +112,24 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		contextMenuSaveToFile.SuspendLayout();
 		SuspendLayout();
 		// 
-		// kryptoPanelMain
+		// kryptonPanelMain
 		// 
-		kryptoPanelMain.AccessibleDescription = "Groups the data";
-		kryptoPanelMain.AccessibleName = "Panel";
-		kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
-		kryptoPanelMain.Controls.Add(listView);
-		kryptoPanelMain.Dock = DockStyle.Fill;
-		kryptoPanelMain.Location = new Point(0, 0);
-		kryptoPanelMain.Name = "kryptoPanelMain";
-		kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptoPanelMain.Size = new Size(729, 204);
-		kryptoPanelMain.TabIndex = 0;
-		kryptoPanelMain.TabStop = true;
-		kryptoPanelMain.Text = "Mainpanel";
-		kryptoPanelMain.Enter += Control_Enter;
-		kryptoPanelMain.Leave += Control_Leave;
-		kryptoPanelMain.MouseEnter += Control_Enter;
-		kryptoPanelMain.MouseLeave += Control_Leave;
+		kryptonPanelMain.AccessibleDescription = "Groups the data";
+		kryptonPanelMain.AccessibleName = "Panel";
+		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.Controls.Add(listView);
+		kryptonPanelMain.Dock = DockStyle.Fill;
+		kryptonPanelMain.Location = new Point(0, 0);
+		kryptonPanelMain.Name = "kryptonPanelMain";
+		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
+		kryptonPanelMain.Size = new Size(729, 204);
+		kryptonPanelMain.TabIndex = 0;
+		kryptonPanelMain.TabStop = true;
+		kryptonPanelMain.Text = "Mainpanel";
+		kryptonPanelMain.Enter += Control_Enter;
+		kryptonPanelMain.Leave += Control_Leave;
+		kryptonPanelMain.MouseEnter += Control_Enter;
+		kryptonPanelMain.MouseLeave += Control_Leave;
 		// 
 		// listView
 		// 
@@ -138,6 +138,7 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		listView.AccessibleRole = AccessibleRole.List;
 		listView.AllowColumnReorder = true;
 		listView.Columns.AddRange(new ColumnHeader[] { columnHeaderPlanet, columnHeaderPlanetPeriod, columnHeaderPlanetoidPeriod, columnHeaderRatio, columnHeaderResonance, columnHeaderDeviation, columnHeaderIsResonance });
+		listView.ContextMenuStrip = contextMenuSaveToFile;
 		listView.Dock = DockStyle.Fill;
 		listView.Font = new Font("Segoe UI", 9F);
 		listView.FullRowSelect = true;
@@ -253,7 +254,7 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		// 
 		// toolStripContainer.ContentPanel
 		// 
-		toolStripContainer.ContentPanel.Controls.Add(kryptoPanelMain);
+		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
 		toolStripContainer.ContentPanel.Size = new Size(729, 204);
 		toolStripContainer.Dock = DockStyle.Fill;
 		toolStripContainer.Location = new Point(0, 0);
@@ -896,8 +897,8 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Orbital resonances";
 		Load += OrbitalResonanceForm_Load;
-		((ISupportInitialize)kryptoPanelMain).EndInit();
-		kryptoPanelMain.ResumeLayout(false);
+		((ISupportInitialize)kryptonPanelMain).EndInit();
+		kryptonPanelMain.ResumeLayout(false);
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();
 		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
@@ -915,7 +916,7 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 
 	#endregion
 
-	private KryptonPanel kryptoPanelMain;
+	private KryptonPanel kryptonPanelMain;
 	private ListView listView;
 	private ColumnHeader columnHeaderPlanet;
 	private ColumnHeader columnHeaderPlanetPeriod;
