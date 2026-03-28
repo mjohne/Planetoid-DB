@@ -37,7 +37,7 @@ partial class DatabaseDifferencesForm
 	{
 		components = new Container();
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(DatabaseDifferencesForm));
-		kryptoPanelMain = new KryptonPanel();
+		kryptonPanelMain = new KryptonPanel();
 		groupBoxResults = new GroupBox();
 		kryptonButtonGoto = new KryptonButton();
 		kryptonButtonNoteAbbreviations = new KryptonButton();
@@ -104,8 +104,8 @@ partial class DatabaseDifferencesForm
 		toolStripSeparator1 = new ToolStripSeparator();
 		toolStripLabelProgress = new ToolStripLabel();
 		kryptonProgressBar = new KryptonProgressBarToolStripItem();
-		((ISupportInitialize)kryptoPanelMain).BeginInit();
-		kryptoPanelMain.SuspendLayout();
+		((ISupportInitialize)kryptonPanelMain).BeginInit();
+		kryptonPanelMain.SuspendLayout();
 		groupBoxResults.SuspendLayout();
 		contextMenuSaveToFile.SuspendLayout();
 		groupBoxFile1.SuspendLayout();
@@ -119,24 +119,24 @@ partial class DatabaseDifferencesForm
 		kryptonToolStripIcons.SuspendLayout();
 		SuspendLayout();
 		// 
-		// kryptoPanelMain
+		// kryptonPanelMain
 		// 
-		kryptoPanelMain.AccessibleDescription = "Groups the data";
-		kryptoPanelMain.AccessibleName = "Panel";
-		kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
-		kryptoPanelMain.Controls.Add(groupBoxResults);
-		kryptoPanelMain.Controls.Add(groupBoxFile1);
-		kryptoPanelMain.Controls.Add(groupBoxFile2);
-		kryptoPanelMain.Dock = DockStyle.Fill;
-		kryptoPanelMain.Location = new Point(0, 0);
-		kryptoPanelMain.Name = "kryptoPanelMain";
-		kryptoPanelMain.Size = new Size(643, 440);
-		kryptoPanelMain.TabIndex = 0;
-		kryptoPanelMain.TabStop = true;
-		kryptoPanelMain.Enter += Control_Enter;
-		kryptoPanelMain.Leave += Control_Leave;
-		kryptoPanelMain.MouseEnter += Control_Enter;
-		kryptoPanelMain.MouseLeave += Control_Leave;
+		kryptonPanelMain.AccessibleDescription = "Groups the data";
+		kryptonPanelMain.AccessibleName = "Panel";
+		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.Controls.Add(groupBoxResults);
+		kryptonPanelMain.Controls.Add(groupBoxFile1);
+		kryptonPanelMain.Controls.Add(groupBoxFile2);
+		kryptonPanelMain.Dock = DockStyle.Fill;
+		kryptonPanelMain.Location = new Point(0, 0);
+		kryptonPanelMain.Name = "kryptonPanelMain";
+		kryptonPanelMain.Size = new Size(643, 440);
+		kryptonPanelMain.TabIndex = 0;
+		kryptonPanelMain.TabStop = true;
+		kryptonPanelMain.Enter += Control_Enter;
+		kryptonPanelMain.Leave += Control_Leave;
+		kryptonPanelMain.MouseEnter += Control_Enter;
+		kryptonPanelMain.MouseLeave += Control_Leave;
 		// 
 		// groupBoxResults
 		// 
@@ -240,7 +240,7 @@ partial class DatabaseDifferencesForm
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveList";
-		contextMenuSaveToFile.Size = new Size(202, 180);
+		contextMenuSaveToFile.Size = new Size(202, 158);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
 		contextMenuSaveToFile.MouseEnter += Control_Enter;
@@ -1071,7 +1071,7 @@ partial class DatabaseDifferencesForm
 		// 
 		// toolStripContainer.ContentPanel
 		// 
-		toolStripContainer.ContentPanel.Controls.Add(kryptoPanelMain);
+		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
 		toolStripContainer.ContentPanel.Size = new Size(643, 440);
 		toolStripContainer.Dock = DockStyle.Fill;
 		toolStripContainer.Location = new Point(0, 0);
@@ -1178,6 +1178,7 @@ partial class DatabaseDifferencesForm
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(643, 487);
+		ContextMenuStrip = contextMenuSaveToFile;
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.FixedToolWindow;
@@ -1188,8 +1189,8 @@ partial class DatabaseDifferencesForm
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Database Differences";
 		Load += DatabaseDifferencesForm_Load;
-		((ISupportInitialize)kryptoPanelMain).EndInit();
-		kryptoPanelMain.ResumeLayout(false);
+		((ISupportInitialize)kryptonPanelMain).EndInit();
+		kryptonPanelMain.ResumeLayout(false);
 		groupBoxResults.ResumeLayout(false);
 		contextMenuSaveToFile.ResumeLayout(false);
 		groupBoxFile1.ResumeLayout(false);
@@ -1209,7 +1210,7 @@ partial class DatabaseDifferencesForm
 		ResumeLayout(false);
 	}
 
-	private KryptonPanel kryptoPanelMain;
+	private KryptonPanel kryptonPanelMain;
     private OpenFileDialog openFileDialog;
     private KryptonStatusStrip kryptonStatusStrip;
 	private ToolStripContainer toolStripContainer;

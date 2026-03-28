@@ -90,7 +90,7 @@ partial class ListReadableDesignationsForm
 		toolStripMenuItemSaveAsFictionBook2 = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsChm = new ToolStripMenuItem();
 		toolStripDropDownButtonSaveList = new ToolStripDropDownButton();
-		kryptoPanelMain = new KryptonPanel();
+		kryptonPanelMain = new KryptonPanel();
 		listView = new ListView();
 		columnHeaderIndex = new ColumnHeader();
 		columnHeaderReadableDesignation = new ColumnHeader();
@@ -109,8 +109,8 @@ partial class ListReadableDesignationsForm
 		kryptonStatusStrip.SuspendLayout();
 		contextMenuCopyToClipboard.SuspendLayout();
 		contextMenuSaveToFile.SuspendLayout();
-		((ISupportInitialize)kryptoPanelMain).BeginInit();
-		kryptoPanelMain.SuspendLayout();
+		((ISupportInitialize)kryptonPanelMain).BeginInit();
+		kryptonPanelMain.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
 		toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -197,7 +197,8 @@ partial class ListReadableDesignationsForm
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveList";
-		contextMenuSaveToFile.Size = new Size(202, 180);
+		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveList;
+		contextMenuSaveToFile.Size = new Size(202, 158);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
 		contextMenuSaveToFile.MouseEnter += Control_Enter;
@@ -763,24 +764,24 @@ partial class ListReadableDesignationsForm
 		toolStripDropDownButtonSaveList.MouseEnter += Control_Enter;
 		toolStripDropDownButtonSaveList.MouseLeave += Control_Leave;
 		// 
-		// kryptoPanelMain
+		// kryptonPanelMain
 		// 
-		kryptoPanelMain.AccessibleDescription = "Groups the data";
-		kryptoPanelMain.AccessibleName = "Panel";
-		kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
-		kryptoPanelMain.Controls.Add(listView);
-		kryptoPanelMain.Dock = DockStyle.Fill;
-		kryptoPanelMain.Location = new Point(0, 0);
-		kryptoPanelMain.Name = "kryptoPanelMain";
-		kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptoPanelMain.Size = new Size(341, 280);
-		kryptoPanelMain.TabIndex = 0;
-		kryptoPanelMain.TabStop = true;
-		kryptoPanelMain.Text = "Mainpanel";
-		kryptoPanelMain.Enter += Control_Enter;
-		kryptoPanelMain.Leave += Control_Leave;
-		kryptoPanelMain.MouseEnter += Control_Enter;
-		kryptoPanelMain.MouseLeave += Control_Leave;
+		kryptonPanelMain.AccessibleDescription = "Groups the data";
+		kryptonPanelMain.AccessibleName = "Panel";
+		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.Controls.Add(listView);
+		kryptonPanelMain.Dock = DockStyle.Fill;
+		kryptonPanelMain.Location = new Point(0, 0);
+		kryptonPanelMain.Name = "kryptonPanelMain";
+		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
+		kryptonPanelMain.Size = new Size(341, 280);
+		kryptonPanelMain.TabIndex = 0;
+		kryptonPanelMain.TabStop = true;
+		kryptonPanelMain.Text = "Mainpanel";
+		kryptonPanelMain.Enter += Control_Enter;
+		kryptonPanelMain.Leave += Control_Leave;
+		kryptonPanelMain.MouseEnter += Control_Enter;
+		kryptonPanelMain.MouseLeave += Control_Leave;
 		// 
 		// listView
 		// 
@@ -790,6 +791,7 @@ partial class ListReadableDesignationsForm
 		listView.Activation = ItemActivation.OneClick;
 		listView.AllowColumnReorder = true;
 		listView.Columns.AddRange(new ColumnHeader[] { columnHeaderIndex, columnHeaderReadableDesignation });
+		listView.ContextMenuStrip = contextMenuSaveToFile;
 		listView.Dock = DockStyle.Fill;
 		listView.Font = new Font("Segoe UI", 8.5F);
 		listView.FullRowSelect = true;
@@ -840,7 +842,7 @@ partial class ListReadableDesignationsForm
 		// 
 		// toolStripContainer.ContentPanel
 		// 
-		toolStripContainer.ContentPanel.Controls.Add(kryptoPanelMain);
+		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
 		toolStripContainer.ContentPanel.Size = new Size(341, 280);
 		toolStripContainer.Dock = DockStyle.Fill;
 		toolStripContainer.Location = new Point(0, 0);
@@ -1028,8 +1030,8 @@ partial class ListReadableDesignationsForm
 		kryptonStatusStrip.PerformLayout();
 		contextMenuCopyToClipboard.ResumeLayout(false);
 		contextMenuSaveToFile.ResumeLayout(false);
-		((ISupportInitialize)kryptoPanelMain).EndInit();
-		kryptoPanelMain.ResumeLayout(false);
+		((ISupportInitialize)kryptonPanelMain).EndInit();
+		kryptonPanelMain.ResumeLayout(false);
 		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
 		toolStripContainer.BottomToolStripPanel.PerformLayout();
 		toolStripContainer.ContentPanel.ResumeLayout(false);
@@ -1048,7 +1050,7 @@ partial class ListReadableDesignationsForm
 
 	private KryptonStatusStrip kryptonStatusStrip;
 	private ToolStripStatusLabel labelInformation;
-	private KryptonPanel kryptoPanelMain;
+	private KryptonPanel kryptonPanelMain;
 	private ListView listView;
 	private ColumnHeader columnHeaderIndex;
 	private ColumnHeader columnHeaderReadableDesignation;

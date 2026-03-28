@@ -45,7 +45,7 @@ partial class FilterForm
 	{
 		components = new Container();
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(FilterForm));
-		kryptoPanelMain = new KryptonPanel();
+		kryptonPanelMain = new KryptonPanel();
 		tableLayoutPanel = new KryptonTableLayoutPanel();
 		labelHeaderReset = new KryptonLabel();
 		labelHeaderMaximum = new KryptonLabel();
@@ -107,8 +107,8 @@ partial class FilterForm
 		toolStripButtonApply = new ToolStripButton();
 		toolStripButtonCancel = new ToolStripButton();
 		toolStripButtonReset = new ToolStripButton();
-		((ISupportInitialize)kryptoPanelMain).BeginInit();
-		kryptoPanelMain.SuspendLayout();
+		((ISupportInitialize)kryptonPanelMain).BeginInit();
+		kryptonPanelMain.SuspendLayout();
 		tableLayoutPanel.SuspendLayout();
 		kryptonStatusStrip.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
@@ -118,18 +118,18 @@ partial class FilterForm
 		kryptonToolStripIcons.SuspendLayout();
 		SuspendLayout();
 		// 
-		// kryptoPanelMain
+		// kryptonPanelMain
 		// 
-		kryptoPanelMain.AccessibleDescription = "Groups the data";
-		kryptoPanelMain.AccessibleName = "Panel";
-		kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
-		kryptoPanelMain.Controls.Add(tableLayoutPanel);
-		kryptoPanelMain.Dock = DockStyle.Fill;
-		kryptoPanelMain.Location = new Point(0, 0);
-		kryptoPanelMain.Name = "kryptoPanelMain";
-		kryptoPanelMain.Size = new Size(593, 396);
-		kryptoPanelMain.TabIndex = 0;
-		kryptoPanelMain.TabStop = true;
+		kryptonPanelMain.AccessibleDescription = "Groups the data";
+		kryptonPanelMain.AccessibleName = "Panel";
+		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.Controls.Add(tableLayoutPanel);
+		kryptonPanelMain.Dock = DockStyle.Fill;
+		kryptonPanelMain.Location = new Point(0, 0);
+		kryptonPanelMain.Name = "kryptonPanelMain";
+		kryptonPanelMain.Size = new Size(593, 396);
+		kryptonPanelMain.TabIndex = 0;
+		kryptonPanelMain.TabStop = true;
 		// 
 		// tableLayoutPanel
 		// 
@@ -1526,7 +1526,7 @@ partial class FilterForm
 		// 
 		// toolStripContainer.ContentPanel
 		// 
-		toolStripContainer.ContentPanel.Controls.Add(kryptoPanelMain);
+		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
 		toolStripContainer.ContentPanel.Size = new Size(593, 396);
 		toolStripContainer.Dock = DockStyle.Fill;
 		toolStripContainer.Location = new Point(0, 0);
@@ -1618,8 +1618,8 @@ partial class FilterForm
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Filter";
 		Load += FilterForm_Load;
-		((ISupportInitialize)kryptoPanelMain).EndInit();
-		kryptoPanelMain.ResumeLayout(false);
+		((ISupportInitialize)kryptonPanelMain).EndInit();
+		kryptonPanelMain.ResumeLayout(false);
 		tableLayoutPanel.ResumeLayout(false);
 		tableLayoutPanel.PerformLayout();
 		kryptonStatusStrip.ResumeLayout(false);
@@ -1638,7 +1638,7 @@ partial class FilterForm
 	}
 
 	#endregion
-	private KryptonPanel kryptoPanelMain;
+	private KryptonPanel kryptonPanelMain;
 	private KryptonLabel labelMeanAnomalyAtTheEpoch;
 	private KryptonLabel labelArgumentOfThePerihelion;
 	private KryptonLabel labelNumberOfOppositions;

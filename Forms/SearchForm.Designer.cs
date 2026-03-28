@@ -43,7 +43,7 @@ partial class SearchForm
 		components = new Container();
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(SearchForm));
 		checkedListBox = new KryptonCheckedListBox();
-		kryptoPanelMain = new KryptonPanel();
+		kryptonPanelMain = new KryptonPanel();
 		listView = new ListView();
 		columnHeaderIndex = new ColumnHeader();
 		columnHeaderIndexNo = new ColumnHeader();
@@ -63,8 +63,8 @@ partial class SearchForm
 		buttonSearch = new KryptonButton();
 		backgroundWorker = new BackgroundWorker();
 		kryptonManager = new KryptonManager(components);
-		((ISupportInitialize)kryptoPanelMain).BeginInit();
-		kryptoPanelMain.SuspendLayout();
+		((ISupportInitialize)kryptonPanelMain).BeginInit();
+		kryptonPanelMain.SuspendLayout();
 		kryptonStatusStrip.SuspendLayout();
 		((ISupportInitialize)groupBox).BeginInit();
 		((ISupportInitialize)groupBox.Panel).BeginInit();
@@ -92,29 +92,29 @@ partial class SearchForm
 		checkedListBox.MouseEnter += Control_Enter;
 		checkedListBox.MouseLeave += Control_Leave;
 		// 
-		// kryptoPanelMain
+		// kryptonPanelMain
 		// 
-		kryptoPanelMain.AccessibleDescription = "Groups the data";
-		kryptoPanelMain.AccessibleName = "Panel";
-		kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
-		kryptoPanelMain.Controls.Add(listView);
-		kryptoPanelMain.Controls.Add(buttonCancel);
-		kryptoPanelMain.Controls.Add(kryptonStatusStrip);
-		kryptoPanelMain.Controls.Add(labelEntriesFound);
-		kryptoPanelMain.Controls.Add(progressBar);
-		kryptoPanelMain.Controls.Add(groupBox);
-		kryptoPanelMain.Controls.Add(buttonLoad);
-		kryptoPanelMain.Controls.Add(buttonUnmarkAll);
-		kryptoPanelMain.Controls.Add(buttonMarkAll);
-		kryptoPanelMain.Controls.Add(buttonSearch);
-		kryptoPanelMain.Controls.Add(checkedListBox);
-		kryptoPanelMain.Dock = DockStyle.Fill;
-		kryptoPanelMain.Location = new Point(0, 0);
-		kryptoPanelMain.Name = "kryptoPanelMain";
-		kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptoPanelMain.Size = new Size(387, 525);
-		kryptoPanelMain.TabIndex = 0;
-		kryptoPanelMain.TabStop = true;
+		kryptonPanelMain.AccessibleDescription = "Groups the data";
+		kryptonPanelMain.AccessibleName = "Panel";
+		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.Controls.Add(listView);
+		kryptonPanelMain.Controls.Add(buttonCancel);
+		kryptonPanelMain.Controls.Add(kryptonStatusStrip);
+		kryptonPanelMain.Controls.Add(labelEntriesFound);
+		kryptonPanelMain.Controls.Add(progressBar);
+		kryptonPanelMain.Controls.Add(groupBox);
+		kryptonPanelMain.Controls.Add(buttonLoad);
+		kryptonPanelMain.Controls.Add(buttonUnmarkAll);
+		kryptonPanelMain.Controls.Add(buttonMarkAll);
+		kryptonPanelMain.Controls.Add(buttonSearch);
+		kryptonPanelMain.Controls.Add(checkedListBox);
+		kryptonPanelMain.Dock = DockStyle.Fill;
+		kryptonPanelMain.Location = new Point(0, 0);
+		kryptonPanelMain.Name = "kryptonPanelMain";
+		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
+		kryptonPanelMain.Size = new Size(387, 525);
+		kryptonPanelMain.TabIndex = 0;
+		kryptonPanelMain.TabStop = true;
 		// 
 		// listView
 		// 
@@ -424,7 +424,7 @@ partial class SearchForm
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(387, 525);
 		ControlBox = false;
-		Controls.Add(kryptoPanelMain);
+		Controls.Add(kryptonPanelMain);
 		FormBorderStyle = FormBorderStyle.FixedToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		Margin = new Padding(4, 3, 4, 3);
@@ -434,9 +434,9 @@ partial class SearchForm
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Search";
 		Load += SearchForm_Load;
-		((ISupportInitialize)kryptoPanelMain).EndInit();
-		kryptoPanelMain.ResumeLayout(false);
-		kryptoPanelMain.PerformLayout();
+		((ISupportInitialize)kryptonPanelMain).EndInit();
+		kryptonPanelMain.ResumeLayout(false);
+		kryptonPanelMain.PerformLayout();
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();
 		((ISupportInitialize)groupBox.Panel).EndInit();
@@ -448,7 +448,7 @@ partial class SearchForm
 
 	#endregion
 	private KryptonCheckedListBox checkedListBox;
-	private KryptonPanel kryptoPanelMain;
+	private KryptonPanel kryptonPanelMain;
 	private KryptonButton buttonUnmarkAll;
 	private KryptonButton buttonMarkAll;
 	private KryptonButton buttonSearch;

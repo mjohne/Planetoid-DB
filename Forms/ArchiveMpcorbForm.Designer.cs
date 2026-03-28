@@ -51,7 +51,7 @@ partial class ArchiveMpcorbForm
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
 		toolStripContainer = new ToolStripContainer();
-		kryptonPanel = new KryptonPanel();
+		kryptonPanelMain = new KryptonPanel();
 		groupBoxTarget = new GroupBox();
 		kryptonLabelTarget = new KryptonLabel();
 		kryptonButtonBrowseTarget = new KryptonButton();
@@ -78,8 +78,8 @@ partial class ArchiveMpcorbForm
 		toolStripContainer.ContentPanel.SuspendLayout();
 		toolStripContainer.TopToolStripPanel.SuspendLayout();
 		toolStripContainer.SuspendLayout();
-		((ISupportInitialize)kryptonPanel).BeginInit();
-		kryptonPanel.SuspendLayout();
+		((ISupportInitialize)kryptonPanelMain).BeginInit();
+		kryptonPanelMain.SuspendLayout();
 		groupBoxTarget.SuspendLayout();
 		groupBoxSource.SuspendLayout();
 		toolStripIcons.SuspendLayout();
@@ -176,7 +176,7 @@ partial class ArchiveMpcorbForm
 		// 
 		// toolStripContainer.ContentPanel
 		// 
-		toolStripContainer.ContentPanel.Controls.Add(kryptonPanel);
+		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
 		toolStripContainer.ContentPanel.Size = new Size(657, 141);
 		toolStripContainer.Dock = DockStyle.Fill;
 		toolStripContainer.Location = new Point(0, 0);
@@ -189,19 +189,19 @@ partial class ArchiveMpcorbForm
 		// 
 		toolStripContainer.TopToolStripPanel.Controls.Add(toolStripIcons);
 		// 
-		// kryptonPanel
+		// kryptonPanelMain
 		// 
-		kryptonPanel.AccessibleDescription = "Groups the data";
-		kryptonPanel.AccessibleName = "Panel";
-		kryptonPanel.AccessibleRole = AccessibleRole.Pane;
-		kryptonPanel.Controls.Add(groupBoxTarget);
-		kryptonPanel.Controls.Add(groupBoxSource);
-		kryptonPanel.Dock = DockStyle.Fill;
-		kryptonPanel.Location = new Point(0, 0);
-		kryptonPanel.Name = "kryptonPanel";
-		kryptonPanel.Size = new Size(657, 141);
-		kryptonPanel.TabIndex = 0;
-		kryptonPanel.TabStop = true;
+		kryptonPanelMain.AccessibleDescription = "Groups the data";
+		kryptonPanelMain.AccessibleName = "Panel";
+		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.Controls.Add(groupBoxTarget);
+		kryptonPanelMain.Controls.Add(groupBoxSource);
+		kryptonPanelMain.Dock = DockStyle.Fill;
+		kryptonPanelMain.Location = new Point(0, 0);
+		kryptonPanelMain.Name = "kryptonPanelMain";
+		kryptonPanelMain.Size = new Size(657, 141);
+		kryptonPanelMain.TabIndex = 0;
+		kryptonPanelMain.TabStop = true;
 		// 
 		// groupBoxTarget
 		// 
@@ -564,8 +564,8 @@ partial class ArchiveMpcorbForm
 		toolStripContainer.TopToolStripPanel.PerformLayout();
 		toolStripContainer.ResumeLayout(false);
 		toolStripContainer.PerformLayout();
-		((ISupportInitialize)kryptonPanel).EndInit();
-		kryptonPanel.ResumeLayout(false);
+		((ISupportInitialize)kryptonPanelMain).EndInit();
+		kryptonPanelMain.ResumeLayout(false);
 		groupBoxTarget.ResumeLayout(false);
 		groupBoxTarget.PerformLayout();
 		groupBoxSource.ResumeLayout(false);
@@ -583,7 +583,7 @@ partial class ArchiveMpcorbForm
         private ToolStripStatusLabel labelInformation;
 	private ToolStripContainer toolStripContainer;
 	private KryptonToolStrip toolStripIcons;
-	private KryptonPanel kryptonPanel;
+	private KryptonPanel kryptonPanelMain;
 	private ToolStripButton toolStripButtonArchive;
 	private ToolStripSeparator toolStripSeparator1;
 	private ToolStripDropDownButton toolStripDropDownButtonFormat;

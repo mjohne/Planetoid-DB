@@ -48,7 +48,7 @@ partial class EphemerisForm
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
 		toolStripContainer = new ToolStripContainer();
-		kryptoPanelMain = new KryptonPanel();
+		kryptonPanelMain = new KryptonPanel();
 		buttonCalculate = new KryptonButton();
 		listView = new KryptonListView();
 		labelPercent = new KryptonLabel();
@@ -65,8 +65,8 @@ partial class EphemerisForm
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
 		toolStripContainer.SuspendLayout();
-		((ISupportInitialize)kryptoPanelMain).BeginInit();
-		kryptoPanelMain.SuspendLayout();
+		((ISupportInitialize)kryptonPanelMain).BeginInit();
+		kryptonPanelMain.SuspendLayout();
 		SuspendLayout();
 		// 
 		// kryptonStatusStrip
@@ -114,7 +114,7 @@ partial class EphemerisForm
 		// 
 		// toolStripContainer.ContentPanel
 		// 
-		toolStripContainer.ContentPanel.Controls.Add(kryptoPanelMain);
+		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
 		toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
 		toolStripContainer.ContentPanel.Size = new Size(406, 431);
 		toolStripContainer.Dock = DockStyle.Fill;
@@ -125,27 +125,27 @@ partial class EphemerisForm
 		toolStripContainer.Text = "toolStripContainer";
 		toolStripContainer.TopToolStripPanelVisible = false;
 		// 
-		// kryptoPanelMain
+		// kryptonPanelMain
 		// 
-		kryptoPanelMain.AccessibleDescription = "Groups the data";
-		kryptoPanelMain.AccessibleName = "Panel";
-		kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
-		kryptoPanelMain.Controls.Add(buttonCalculate);
-		kryptoPanelMain.Controls.Add(listView);
-		kryptoPanelMain.Controls.Add(labelPercent);
-		kryptoPanelMain.Controls.Add(progressBar);
-		kryptoPanelMain.Controls.Add(labelEphemeridesStepsInDays);
-		kryptoPanelMain.Controls.Add(numericUpDownStepsInDays);
-		kryptoPanelMain.Controls.Add(labelEphemeridesEnd);
-		kryptoPanelMain.Controls.Add(dateTimePickerEphemeridesEnd);
-		kryptoPanelMain.Controls.Add(labelEphemeridesBegin);
-		kryptoPanelMain.Controls.Add(dateTimePickerEphemeridesBegin);
-		kryptoPanelMain.Dock = DockStyle.Fill;
-		kryptoPanelMain.Location = new Point(0, 0);
-		kryptoPanelMain.Name = "kryptoPanelMain";
-		kryptoPanelMain.Size = new Size(406, 431);
-		kryptoPanelMain.TabIndex = 0;
-		kryptoPanelMain.TabStop = true;
+		kryptonPanelMain.AccessibleDescription = "Groups the data";
+		kryptonPanelMain.AccessibleName = "Panel";
+		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.Controls.Add(buttonCalculate);
+		kryptonPanelMain.Controls.Add(listView);
+		kryptonPanelMain.Controls.Add(labelPercent);
+		kryptonPanelMain.Controls.Add(progressBar);
+		kryptonPanelMain.Controls.Add(labelEphemeridesStepsInDays);
+		kryptonPanelMain.Controls.Add(numericUpDownStepsInDays);
+		kryptonPanelMain.Controls.Add(labelEphemeridesEnd);
+		kryptonPanelMain.Controls.Add(dateTimePickerEphemeridesEnd);
+		kryptonPanelMain.Controls.Add(labelEphemeridesBegin);
+		kryptonPanelMain.Controls.Add(dateTimePickerEphemeridesBegin);
+		kryptonPanelMain.Dock = DockStyle.Fill;
+		kryptonPanelMain.Location = new Point(0, 0);
+		kryptonPanelMain.Name = "kryptonPanelMain";
+		kryptonPanelMain.Size = new Size(406, 431);
+		kryptonPanelMain.TabIndex = 0;
+		kryptonPanelMain.TabStop = true;
 		// 
 		// buttonCalculate
 		// 
@@ -355,9 +355,9 @@ partial class EphemerisForm
 		toolStripContainer.ContentPanel.ResumeLayout(false);
 		toolStripContainer.ResumeLayout(false);
 		toolStripContainer.PerformLayout();
-		((ISupportInitialize)kryptoPanelMain).EndInit();
-		kryptoPanelMain.ResumeLayout(false);
-		kryptoPanelMain.PerformLayout();
+		((ISupportInitialize)kryptonPanelMain).EndInit();
+		kryptonPanelMain.ResumeLayout(false);
+		kryptonPanelMain.PerformLayout();
 		ResumeLayout(false);
 
 	}
@@ -367,7 +367,7 @@ partial class EphemerisForm
 	private KryptonStatusStrip kryptonStatusStrip;
 	private ToolStripStatusLabel labelInformation;
 	private ToolStripContainer toolStripContainer;
-	private KryptonPanel kryptoPanelMain;
+	private KryptonPanel kryptonPanelMain;
 	private KryptonDateTimePicker dateTimePickerEphemeridesBegin;
 	private BackgroundWorker backgroundWorker;
 	private KryptonLabel labelEphemeridesEnd;

@@ -46,7 +46,7 @@ partial class AsteroidFamiliesForm
 	private void InitializeComponent()
 	{
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(AsteroidFamiliesForm));
-		kryptonPanel = new KryptonPanel();
+		kryptonPanelMain = new KryptonPanel();
 		splitContainer = new KryptonSplitContainer();
 		treeViewFamilies = new TreeView();
 		listViewMembers = new ListView();
@@ -82,8 +82,8 @@ partial class AsteroidFamiliesForm
 		toolStripSeparator5 = new ToolStripSeparator();
 		toolStripLabelMinimumMembers = new ToolStripLabel();
 		toolStripNumericUpDownToleranceValueMinimumMembers = new Planetoid_DB.Helpers.ToolStripNumericUpDown();
-		((ISupportInitialize)kryptonPanel).BeginInit();
-		kryptonPanel.SuspendLayout();
+		((ISupportInitialize)kryptonPanelMain).BeginInit();
+		kryptonPanelMain.SuspendLayout();
 		((ISupportInitialize)splitContainer).BeginInit();
 		(splitContainer.Panel1).BeginInit();
 		splitContainer.Panel1.SuspendLayout();
@@ -98,22 +98,22 @@ partial class AsteroidFamiliesForm
 		toolStripToleranceValues.SuspendLayout();
 		SuspendLayout();
 		// 
-		// kryptonPanel
+		// kryptonPanelMain
 		// 
-		kryptonPanel.AccessibleDescription = "Groups the data";
-		kryptonPanel.AccessibleName = "Panel";
-		kryptonPanel.AccessibleRole = AccessibleRole.Pane;
-		kryptonPanel.Controls.Add(splitContainer);
-		kryptonPanel.Dock = DockStyle.Fill;
-		kryptonPanel.Location = new Point(0, 0);
-		kryptonPanel.Name = "kryptonPanel";
-		kryptonPanel.Size = new Size(826, 425);
-		kryptonPanel.TabIndex = 0;
-		kryptonPanel.TabStop = true;
-		kryptonPanel.Enter += Control_Enter;
-		kryptonPanel.Leave += Control_Leave;
-		kryptonPanel.MouseEnter += Control_Enter;
-		kryptonPanel.MouseLeave += Control_Leave;
+		kryptonPanelMain.AccessibleDescription = "Groups the data";
+		kryptonPanelMain.AccessibleName = "Panel";
+		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.Controls.Add(splitContainer);
+		kryptonPanelMain.Dock = DockStyle.Fill;
+		kryptonPanelMain.Location = new Point(0, 0);
+		kryptonPanelMain.Name = "kryptonPanelMain";
+		kryptonPanelMain.Size = new Size(826, 425);
+		kryptonPanelMain.TabIndex = 0;
+		kryptonPanelMain.TabStop = true;
+		kryptonPanelMain.Enter += Control_Enter;
+		kryptonPanelMain.Leave += Control_Leave;
+		kryptonPanelMain.MouseEnter += Control_Enter;
+		kryptonPanelMain.MouseLeave += Control_Leave;
 		// 
 		// splitContainer
 		// 
@@ -233,7 +233,7 @@ partial class AsteroidFamiliesForm
 		// 
 		// toolStripContainer.ContentPanel
 		// 
-		toolStripContainer.ContentPanel.Controls.Add(kryptonPanel);
+		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
 		toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
 		toolStripContainer.ContentPanel.Size = new Size(826, 425);
 		toolStripContainer.Dock = DockStyle.Fill;
@@ -605,8 +605,8 @@ partial class AsteroidFamiliesForm
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Asteroid Families Detection";
 		FormClosing += AsteroidFamiliesForm_FormClosing;
-		((ISupportInitialize)kryptonPanel).EndInit();
-		kryptonPanel.ResumeLayout(false);
+		((ISupportInitialize)kryptonPanelMain).EndInit();
+		kryptonPanelMain.ResumeLayout(false);
 		(splitContainer.Panel1).EndInit();
 		splitContainer.Panel1.ResumeLayout(false);
 		(splitContainer.Panel2).EndInit();
@@ -628,7 +628,7 @@ partial class AsteroidFamiliesForm
 		ResumeLayout(false);
 	}
 
-	private KryptonPanel kryptonPanel;
+	private KryptonPanel kryptonPanelMain;
 	private KryptonSplitContainer splitContainer;
 	private TreeView treeViewFamilies;
 	private ListView listViewMembers;

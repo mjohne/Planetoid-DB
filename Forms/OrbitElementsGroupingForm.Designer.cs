@@ -36,7 +36,7 @@ partial class OrbitElementsGroupingForm
 	private void InitializeComponent()
 	{
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(OrbitElementsGroupingForm));
-		kryptoPanelMain = new KryptonPanel();
+		kryptonPanelMain = new KryptonPanel();
 		progressBar = new KryptonProgressBar();
 		lblElementsCount = new KryptonLabel();
 		numElementsToCompare = new KryptonNumericUpDown();
@@ -45,29 +45,29 @@ partial class OrbitElementsGroupingForm
 		btnCancel = new KryptonButton();
 		btnStart = new KryptonButton();
 		txtOutput = new KryptonRichTextBox();
-		((ISupportInitialize)kryptoPanelMain).BeginInit();
-		kryptoPanelMain.SuspendLayout();
+		((ISupportInitialize)kryptonPanelMain).BeginInit();
+		kryptonPanelMain.SuspendLayout();
 		SuspendLayout();
 		// 
-		// kryptoPanelMain
+		// kryptonPanelMain
 		// 
-		kryptoPanelMain.AccessibleDescription = "Groups the data";
-		kryptoPanelMain.AccessibleName = "Panel";
-		kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
-		kryptoPanelMain.Controls.Add(progressBar);
-		kryptoPanelMain.Controls.Add(lblElementsCount);
-		kryptoPanelMain.Controls.Add(numElementsToCompare);
-		kryptoPanelMain.Controls.Add(lblTolerance);
-		kryptoPanelMain.Controls.Add(numTolerance);
-		kryptoPanelMain.Controls.Add(btnCancel);
-		kryptoPanelMain.Controls.Add(btnStart);
-		kryptoPanelMain.Controls.Add(txtOutput);
-		kryptoPanelMain.Dock = DockStyle.Fill;
-		kryptoPanelMain.Location = new Point(0, 0);
-		kryptoPanelMain.Name = "kryptoPanelMain";
-		kryptoPanelMain.Size = new Size(784, 561);
-		kryptoPanelMain.TabIndex = 0;
-		kryptoPanelMain.TabStop = true;
+		kryptonPanelMain.AccessibleDescription = "Groups the data";
+		kryptonPanelMain.AccessibleName = "Panel";
+		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.Controls.Add(progressBar);
+		kryptonPanelMain.Controls.Add(lblElementsCount);
+		kryptonPanelMain.Controls.Add(numElementsToCompare);
+		kryptonPanelMain.Controls.Add(lblTolerance);
+		kryptonPanelMain.Controls.Add(numTolerance);
+		kryptonPanelMain.Controls.Add(btnCancel);
+		kryptonPanelMain.Controls.Add(btnStart);
+		kryptonPanelMain.Controls.Add(txtOutput);
+		kryptonPanelMain.Dock = DockStyle.Fill;
+		kryptonPanelMain.Location = new Point(0, 0);
+		kryptonPanelMain.Name = "kryptonPanelMain";
+		kryptonPanelMain.Size = new Size(784, 561);
+		kryptonPanelMain.TabIndex = 0;
+		kryptonPanelMain.TabStop = true;
 		// 
 		// progressBar
 		// 
@@ -158,7 +158,7 @@ partial class OrbitElementsGroupingForm
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(784, 561);
 		ControlBox = false;
-		Controls.Add(kryptoPanelMain);
+		Controls.Add(kryptonPanelMain);
 		FormBorderStyle = FormBorderStyle.FixedToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		MaximizeBox = false;
@@ -167,13 +167,13 @@ partial class OrbitElementsGroupingForm
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Planetoid Orbital Elements Grouping";
 		FormClosing += OrbitElementsGroupingForm_FormClosing;
-		((ISupportInitialize)kryptoPanelMain).EndInit();
-		kryptoPanelMain.ResumeLayout(false);
-		kryptoPanelMain.PerformLayout();
+		((ISupportInitialize)kryptonPanelMain).EndInit();
+		kryptonPanelMain.ResumeLayout(false);
+		kryptonPanelMain.PerformLayout();
 		ResumeLayout(false);
 	}
 
-	private KryptonPanel kryptoPanelMain;
+	private KryptonPanel kryptonPanelMain;
     private KryptonButton btnStart;
     private KryptonButton btnCancel;
     private KryptonProgressBar progressBar;

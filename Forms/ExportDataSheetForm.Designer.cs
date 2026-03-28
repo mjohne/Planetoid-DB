@@ -48,7 +48,7 @@ partial class ExportDataSheetForm
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(ExportDataSheetForm));
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
-		kryptoPanelMain = new KryptonPanel();
+		kryptonPanelMain = new KryptonPanel();
 		checkedListBoxOrbitalElements = new KryptonCheckedListBox();
 		kryptonManager = new KryptonManager(components);
 		toolStripContainer = new ToolStripContainer();
@@ -79,8 +79,8 @@ partial class ExportDataSheetForm
 		toolStripButtonMarkAll = new ToolStripButton();
 		toolStripButtonUnmarkAll = new ToolStripButton();
 		kryptonStatusStrip.SuspendLayout();
-		((ISupportInitialize)kryptoPanelMain).BeginInit();
-		kryptoPanelMain.SuspendLayout();
+		((ISupportInitialize)kryptonPanelMain).BeginInit();
+		kryptonPanelMain.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
 		toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -128,23 +128,23 @@ partial class ExportDataSheetForm
 		labelInformation.MouseEnter += Control_Enter;
 		labelInformation.MouseLeave += Control_Leave;
 		// 
-		// kryptoPanelMain
+		// kryptonPanelMain
 		// 
-		kryptoPanelMain.AccessibleDescription = "Groups the data";
-		kryptoPanelMain.AccessibleName = "Panel";
-		kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
-		kryptoPanelMain.Controls.Add(checkedListBoxOrbitalElements);
-		kryptoPanelMain.Dock = DockStyle.Fill;
-		kryptoPanelMain.Location = new Point(0, 0);
-		kryptoPanelMain.Name = "kryptoPanelMain";
-		kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptoPanelMain.Size = new Size(284, 299);
-		kryptoPanelMain.TabIndex = 0;
-		kryptoPanelMain.TabStop = true;
-		kryptoPanelMain.Enter += Control_Enter;
-		kryptoPanelMain.Leave += Control_Leave;
-		kryptoPanelMain.MouseEnter += Control_Enter;
-		kryptoPanelMain.MouseLeave += Control_Leave;
+		kryptonPanelMain.AccessibleDescription = "Groups the data";
+		kryptonPanelMain.AccessibleName = "Panel";
+		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.Controls.Add(checkedListBoxOrbitalElements);
+		kryptonPanelMain.Dock = DockStyle.Fill;
+		kryptonPanelMain.Location = new Point(0, 0);
+		kryptonPanelMain.Name = "kryptonPanelMain";
+		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
+		kryptonPanelMain.Size = new Size(284, 299);
+		kryptonPanelMain.TabIndex = 0;
+		kryptonPanelMain.TabStop = true;
+		kryptonPanelMain.Enter += Control_Enter;
+		kryptonPanelMain.Leave += Control_Leave;
+		kryptonPanelMain.MouseEnter += Control_Enter;
+		kryptonPanelMain.MouseLeave += Control_Leave;
 		// 
 		// checkedListBoxOrbitalElements
 		// 
@@ -189,7 +189,7 @@ partial class ExportDataSheetForm
 		// 
 		// toolStripContainer.ContentPanel
 		// 
-		toolStripContainer.ContentPanel.Controls.Add(kryptoPanelMain);
+		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
 		toolStripContainer.ContentPanel.Size = new Size(284, 299);
 		toolStripContainer.Dock = DockStyle.Fill;
 		toolStripContainer.Location = new Point(0, 0);
@@ -635,8 +635,8 @@ partial class ExportDataSheetForm
 		Load += ExportDataSheetForm_Load;
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();
-		((ISupportInitialize)kryptoPanelMain).EndInit();
-		kryptoPanelMain.ResumeLayout(false);
+		((ISupportInitialize)kryptonPanelMain).EndInit();
+		kryptonPanelMain.ResumeLayout(false);
 		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
 		toolStripContainer.BottomToolStripPanel.PerformLayout();
 		toolStripContainer.ContentPanel.ResumeLayout(false);
@@ -653,7 +653,7 @@ partial class ExportDataSheetForm
 	#endregion
 	private KryptonStatusStrip kryptonStatusStrip;
 	private ToolStripStatusLabel labelInformation;
-	private KryptonPanel kryptoPanelMain;
+	private KryptonPanel kryptonPanelMain;
 	private KryptonCheckedListBox checkedListBoxOrbitalElements;
 	private KryptonManager kryptonManager;
 	private ToolStripContainer toolStripContainer;

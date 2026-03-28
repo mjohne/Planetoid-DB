@@ -92,7 +92,7 @@ partial class AppInfoForm
 		kryptonLabelAuthorsNlog = new KryptonLabel();
 		imageListTabAbout = new ImageList(components);
 		pictureBoxBanner = new KryptonPictureBox();
-		kryptoPanelMain = new KryptonPanel();
+		kryptonPanelMain = new KryptonPanel();
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
 		kryptonManager = new KryptonManager(components);
@@ -110,8 +110,8 @@ partial class AppInfoForm
 		tabPageComponentKryptonSuite.SuspendLayout();
 		tabPageComponentNLog.SuspendLayout();
 		((ISupportInitialize)pictureBoxBanner).BeginInit();
-		((ISupportInitialize)kryptoPanelMain).BeginInit();
-		kryptoPanelMain.SuspendLayout();
+		((ISupportInitialize)kryptonPanelMain).BeginInit();
+		kryptonPanelMain.SuspendLayout();
 		kryptonStatusStrip.SuspendLayout();
 		SuspendLayout();
 		// 
@@ -1098,7 +1098,7 @@ partial class AppInfoForm
 		pictureBoxBanner.Name = "pictureBoxBanner";
 		pictureBoxBanner.Size = new Size(500, 174);
 		pictureBoxBanner.TabIndex = 0;
-		pictureBoxBanner.TabStop = true;
+		pictureBoxBanner.TabStop = false;
 		pictureBoxBanner.ToolTipValues.Description = "Click to activate the banner animation.";
 		pictureBoxBanner.ToolTipValues.EnableToolTips = true;
 		pictureBoxBanner.ToolTipValues.Heading = "Banner";
@@ -1107,26 +1107,26 @@ partial class AppInfoForm
 		pictureBoxBanner.MouseEnter += Control_Enter;
 		pictureBoxBanner.MouseLeave += Control_Leave;
 		// 
-		// kryptoPanelMain
+		// kryptonPanelMain
 		// 
-		kryptoPanelMain.AccessibleDescription = "Groups the data";
-		kryptoPanelMain.AccessibleName = "pane";
-		kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
-		kryptoPanelMain.Controls.Add(pictureBoxBanner);
-		kryptoPanelMain.Controls.Add(tabControlInfo);
-		kryptoPanelMain.Controls.Add(kryptonStatusStrip);
-		kryptoPanelMain.Dock = DockStyle.Fill;
-		kryptoPanelMain.Location = new Point(0, 0);
-		kryptoPanelMain.Name = "kryptoPanelMain";
-		kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptoPanelMain.Size = new Size(511, 490);
-		kryptoPanelMain.TabIndex = 0;
-		kryptoPanelMain.TabStop = true;
-		kryptoPanelMain.Text = "Main panel";
-		kryptoPanelMain.Enter += Control_Enter;
-		kryptoPanelMain.Leave += Control_Leave;
-		kryptoPanelMain.MouseEnter += Control_Enter;
-		kryptoPanelMain.MouseLeave += Control_Leave;
+		kryptonPanelMain.AccessibleDescription = "Groups the data";
+		kryptonPanelMain.AccessibleName = "pane";
+		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.Controls.Add(pictureBoxBanner);
+		kryptonPanelMain.Controls.Add(tabControlInfo);
+		kryptonPanelMain.Controls.Add(kryptonStatusStrip);
+		kryptonPanelMain.Dock = DockStyle.Fill;
+		kryptonPanelMain.Location = new Point(0, 0);
+		kryptonPanelMain.Name = "kryptonPanelMain";
+		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
+		kryptonPanelMain.Size = new Size(511, 490);
+		kryptonPanelMain.TabIndex = 0;
+		kryptonPanelMain.TabStop = true;
+		kryptonPanelMain.Text = "Main panel";
+		kryptonPanelMain.Enter += Control_Enter;
+		kryptonPanelMain.Leave += Control_Leave;
+		kryptonPanelMain.MouseEnter += Control_Enter;
+		kryptonPanelMain.MouseLeave += Control_Leave;
 		// 
 		// kryptonStatusStrip
 		// 
@@ -1181,7 +1181,7 @@ partial class AppInfoForm
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(511, 490);
 		ControlBox = false;
-		Controls.Add(kryptoPanelMain);
+		Controls.Add(kryptonPanelMain);
 		FormBorderStyle = FormBorderStyle.FixedToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		Margin = new Padding(4, 3, 4, 3);
@@ -1210,9 +1210,9 @@ partial class AppInfoForm
 		tabPageComponentNLog.ResumeLayout(false);
 		tabPageComponentNLog.PerformLayout();
 		((ISupportInitialize)pictureBoxBanner).EndInit();
-		((ISupportInitialize)kryptoPanelMain).EndInit();
-		kryptoPanelMain.ResumeLayout(false);
-		kryptoPanelMain.PerformLayout();
+		((ISupportInitialize)kryptonPanelMain).EndInit();
+		kryptonPanelMain.ResumeLayout(false);
+		kryptonPanelMain.PerformLayout();
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();
 		ResumeLayout(false);
@@ -1247,7 +1247,7 @@ partial class AppInfoForm
 	private KryptonLabel kryptonLabelAuthorsFatcow;
 	private KryptonLinkLabel kryptonLinkLabelWebsiteFatcow;
 	private KryptonLabel kryptonLabelLicenseFatcow;
-	private KryptonPanel kryptoPanelMain;
+	private KryptonPanel kryptonPanelMain;
 	private KryptonStatusStrip kryptonStatusStrip;
 	private ToolStripStatusLabel labelInformation;
 	private KryptonManager kryptonManager;

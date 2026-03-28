@@ -44,7 +44,7 @@ partial class RecordsMainForm
 	{
 		components = new Container();
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(RecordsMainForm));
-		kryptoPanelMain = new KryptonPanel();
+		kryptonPanelMain = new KryptonPanel();
 		groupBoxExport = new KryptonGroupBox();
 		buttonExportAsJson = new KryptonButton();
 		buttonExportAsXml = new KryptonButton();
@@ -99,8 +99,8 @@ partial class RecordsMainForm
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
 		kryptonManager = new KryptonManager(components);
-		((ISupportInitialize)kryptoPanelMain).BeginInit();
-		kryptoPanelMain.SuspendLayout();
+		((ISupportInitialize)kryptonPanelMain).BeginInit();
+		kryptonPanelMain.SuspendLayout();
 		((ISupportInitialize)groupBoxExport).BeginInit();
 		((ISupportInitialize)groupBoxExport.Panel).BeginInit();
 		groupBoxExport.Panel.SuspendLayout();
@@ -108,23 +108,23 @@ partial class RecordsMainForm
 		kryptonStatusStrip.SuspendLayout();
 		SuspendLayout();
 		// 
-		// kryptoPanelMain
+		// kryptonPanelMain
 		// 
-		kryptoPanelMain.AccessibleDescription = "Groups the data";
-		kryptoPanelMain.AccessibleName = "Panel";
-		kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
-		kryptoPanelMain.Controls.Add(groupBoxExport);
-		kryptoPanelMain.Controls.Add(tableLayoutPanel);
-		kryptoPanelMain.Controls.Add(buttonStart);
-		kryptoPanelMain.Controls.Add(labelPercent);
-		kryptoPanelMain.Controls.Add(progressBar);
-		kryptoPanelMain.Dock = DockStyle.Fill;
-		kryptoPanelMain.Location = new Point(0, 0);
-		kryptoPanelMain.Name = "kryptoPanelMain";
-		kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptoPanelMain.Size = new Size(517, 532);
-		kryptoPanelMain.TabIndex = 0;
-		kryptoPanelMain.TabStop = true;
+		kryptonPanelMain.AccessibleDescription = "Groups the data";
+		kryptonPanelMain.AccessibleName = "Panel";
+		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.Controls.Add(groupBoxExport);
+		kryptonPanelMain.Controls.Add(tableLayoutPanel);
+		kryptonPanelMain.Controls.Add(buttonStart);
+		kryptonPanelMain.Controls.Add(labelPercent);
+		kryptonPanelMain.Controls.Add(progressBar);
+		kryptonPanelMain.Dock = DockStyle.Fill;
+		kryptonPanelMain.Location = new Point(0, 0);
+		kryptonPanelMain.Name = "kryptonPanelMain";
+		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
+		kryptonPanelMain.Size = new Size(517, 532);
+		kryptonPanelMain.TabIndex = 0;
+		kryptonPanelMain.TabStop = true;
 		// 
 		// groupBoxExport
 		// 
@@ -1320,7 +1320,7 @@ partial class RecordsMainForm
 		ClientSize = new Size(517, 532);
 		ControlBox = false;
 		Controls.Add(kryptonStatusStrip);
-		Controls.Add(kryptoPanelMain);
+		Controls.Add(kryptonPanelMain);
 		FormBorderStyle = FormBorderStyle.FixedToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		Margin = new Padding(4, 3, 4, 3);
@@ -1330,9 +1330,9 @@ partial class RecordsMainForm
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Top ten records";
 		Load += RecordsMainForm_Load;
-		((ISupportInitialize)kryptoPanelMain).EndInit();
-		kryptoPanelMain.ResumeLayout(false);
-		kryptoPanelMain.PerformLayout();
+		((ISupportInitialize)kryptonPanelMain).EndInit();
+		kryptonPanelMain.ResumeLayout(false);
+		kryptonPanelMain.PerformLayout();
 		((ISupportInitialize)groupBoxExport.Panel).EndInit();
 		groupBoxExport.Panel.ResumeLayout(false);
 		((ISupportInitialize)groupBoxExport).EndInit();
@@ -1346,7 +1346,7 @@ partial class RecordsMainForm
 	}
 
 	#endregion
-	private KryptonPanel kryptoPanelMain;
+	private KryptonPanel kryptonPanelMain;
 	private KryptonLabel labelPercent;
 	private KryptonProgressBar progressBar;
 	private KryptonButton buttonStart;

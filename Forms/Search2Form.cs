@@ -29,7 +29,6 @@ public partial class Search2Form : Forms.BaseKryptonForm
 	{
 		InitializeComponent();
 		InitializePropertyMap();
-		listViewResults.DoubleClick += ListViewResults_DoubleClick;
 	}
 
 	private void InitializePropertyMap()
@@ -101,7 +100,7 @@ public partial class Search2Form : Forms.BaseKryptonForm
 		kryptonButtonSearch.Enabled = false;
 		kryptonButtonCancel.Enabled = true;
 		kryptonProgressBar.Value = 0;
-		kryptonProgressBar.Values.Text = "0 %";				
+		kryptonProgressBar.Values.Text = "0 %";
 		lock (_searchResults)
 		{
 			_searchResults.Clear();

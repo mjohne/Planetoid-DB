@@ -46,7 +46,7 @@ partial class RecordsSelectionForm
 	{
 		components = new Container();
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(RecordsSelectionForm));
-		kryptoPanelMain = new KryptonPanel();
+		kryptonPanelMain = new KryptonPanel();
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
 		checkButtonRecordSortDirectionDescending = new KryptonCheckButton();
@@ -67,41 +67,41 @@ partial class RecordsSelectionForm
 		buttonLongitudeOfTheAscendingNode = new KryptonButton();
 		buttonMeanAnomaly = new KryptonButton();
 		kryptonManager = new KryptonManager(components);
-		((ISupportInitialize)kryptoPanelMain).BeginInit();
-		kryptoPanelMain.SuspendLayout();
+		((ISupportInitialize)kryptonPanelMain).BeginInit();
+		kryptonPanelMain.SuspendLayout();
 		kryptonStatusStrip.SuspendLayout();
 		SuspendLayout();
 		// 
-		// kryptoPanelMain
+		// kryptonPanelMain
 		// 
-		kryptoPanelMain.AccessibleDescription = "Groups the data";
-		kryptoPanelMain.AccessibleName = "Panel";
-		kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
-		kryptoPanelMain.Controls.Add(kryptonStatusStrip);
-		kryptoPanelMain.Controls.Add(checkButtonRecordSortDirectionDescending);
-		kryptoPanelMain.Controls.Add(checkButtonRecordSortDirectionAscending);
-		kryptoPanelMain.Controls.Add(buttonDateOfLastObservation);
-		kryptoPanelMain.Controls.Add(buttonComputerName);
-		kryptoPanelMain.Controls.Add(buttonRmsResidual);
-		kryptoPanelMain.Controls.Add(buttonObservationSpan);
-		kryptoPanelMain.Controls.Add(buttonNumberOfObservations);
-		kryptoPanelMain.Controls.Add(buttonNumberOfOppositions);
-		kryptoPanelMain.Controls.Add(buttonSlopeParameter);
-		kryptoPanelMain.Controls.Add(buttonAbsoluteMagnitude);
-		kryptoPanelMain.Controls.Add(buttonSemiMajorAxis);
-		kryptoPanelMain.Controls.Add(buttonMeanDailyMotion);
-		kryptoPanelMain.Controls.Add(buttonOrbitalEccentricity);
-		kryptoPanelMain.Controls.Add(buttonInclination);
-		kryptoPanelMain.Controls.Add(buttonArgumentOfThePerihelion);
-		kryptoPanelMain.Controls.Add(buttonLongitudeOfTheAscendingNode);
-		kryptoPanelMain.Controls.Add(buttonMeanAnomaly);
-		kryptoPanelMain.Dock = DockStyle.Fill;
-		kryptoPanelMain.Location = new Point(0, 0);
-		kryptoPanelMain.Name = "kryptoPanelMain";
-		kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptoPanelMain.Size = new Size(649, 329);
-		kryptoPanelMain.TabIndex = 3;
-		kryptoPanelMain.TabStop = true;
+		kryptonPanelMain.AccessibleDescription = "Groups the data";
+		kryptonPanelMain.AccessibleName = "Panel";
+		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.Controls.Add(kryptonStatusStrip);
+		kryptonPanelMain.Controls.Add(checkButtonRecordSortDirectionDescending);
+		kryptonPanelMain.Controls.Add(checkButtonRecordSortDirectionAscending);
+		kryptonPanelMain.Controls.Add(buttonDateOfLastObservation);
+		kryptonPanelMain.Controls.Add(buttonComputerName);
+		kryptonPanelMain.Controls.Add(buttonRmsResidual);
+		kryptonPanelMain.Controls.Add(buttonObservationSpan);
+		kryptonPanelMain.Controls.Add(buttonNumberOfObservations);
+		kryptonPanelMain.Controls.Add(buttonNumberOfOppositions);
+		kryptonPanelMain.Controls.Add(buttonSlopeParameter);
+		kryptonPanelMain.Controls.Add(buttonAbsoluteMagnitude);
+		kryptonPanelMain.Controls.Add(buttonSemiMajorAxis);
+		kryptonPanelMain.Controls.Add(buttonMeanDailyMotion);
+		kryptonPanelMain.Controls.Add(buttonOrbitalEccentricity);
+		kryptonPanelMain.Controls.Add(buttonInclination);
+		kryptonPanelMain.Controls.Add(buttonArgumentOfThePerihelion);
+		kryptonPanelMain.Controls.Add(buttonLongitudeOfTheAscendingNode);
+		kryptonPanelMain.Controls.Add(buttonMeanAnomaly);
+		kryptonPanelMain.Dock = DockStyle.Fill;
+		kryptonPanelMain.Location = new Point(0, 0);
+		kryptonPanelMain.Name = "kryptonPanelMain";
+		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
+		kryptonPanelMain.Size = new Size(649, 329);
+		kryptonPanelMain.TabIndex = 3;
+		kryptonPanelMain.TabStop = true;
 		// 
 		// kryptonStatusStrip
 		// 
@@ -526,7 +526,7 @@ partial class RecordsSelectionForm
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(649, 329);
 		ControlBox = false;
-		Controls.Add(kryptoPanelMain);
+		Controls.Add(kryptonPanelMain);
 		FormBorderStyle = FormBorderStyle.FixedToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		Margin = new Padding(4, 3, 4, 3);
@@ -536,9 +536,9 @@ partial class RecordsSelectionForm
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Top ten records";
 		Load += RecordsSelectionForm_Load;
-		((ISupportInitialize)kryptoPanelMain).EndInit();
-		kryptoPanelMain.ResumeLayout(false);
-		kryptoPanelMain.PerformLayout();
+		((ISupportInitialize)kryptonPanelMain).EndInit();
+		kryptonPanelMain.ResumeLayout(false);
+		kryptonPanelMain.PerformLayout();
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();
 		ResumeLayout(false);
@@ -546,7 +546,7 @@ partial class RecordsSelectionForm
 	}
 
 	#endregion
-	private KryptonPanel kryptoPanelMain;
+	private KryptonPanel kryptonPanelMain;
 	private KryptonButton buttonDateOfLastObservation;
 	private KryptonButton buttonComputerName;
 	private KryptonButton buttonRmsResidual;

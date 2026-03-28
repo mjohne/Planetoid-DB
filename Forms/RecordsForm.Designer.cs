@@ -44,7 +44,7 @@ partial class RecordsForm
 	{
 		components = new Container();
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(RecordsForm));
-		kryptoPanelMain = new KryptonPanel();
+		kryptonPanelMain = new KryptonPanel();
 		groupBoxRecordType = new KryptonGroupBox();
 		checkButtonMax = new KryptonCheckButton();
 		checkButtonMin = new KryptonCheckButton();
@@ -98,8 +98,8 @@ partial class RecordsForm
 		labelInformation = new ToolStripStatusLabel();
 		kryptonManager = new KryptonManager(components);
 		backgroundWorker = new BackgroundWorker();
-		((ISupportInitialize)kryptoPanelMain).BeginInit();
-		kryptoPanelMain.SuspendLayout();
+		((ISupportInitialize)kryptonPanelMain).BeginInit();
+		kryptonPanelMain.SuspendLayout();
 		((ISupportInitialize)groupBoxRecordType).BeginInit();
 		((ISupportInitialize)groupBoxRecordType.Panel).BeginInit();
 		groupBoxRecordType.Panel.SuspendLayout();
@@ -107,23 +107,23 @@ partial class RecordsForm
 		kryptonStatusStrip.SuspendLayout();
 		SuspendLayout();
 		// 
-		// kryptoPanelMain
+		// kryptonPanelMain
 		// 
-		kryptoPanelMain.AccessibleDescription = "Groups the data";
-		kryptoPanelMain.AccessibleName = "Panel";
-		kryptoPanelMain.AccessibleRole = AccessibleRole.Pane;
-		kryptoPanelMain.Controls.Add(groupBoxRecordType);
-		kryptoPanelMain.Controls.Add(tableLayoutPanel);
-		kryptoPanelMain.Controls.Add(buttonStart);
-		kryptoPanelMain.Controls.Add(buttonCancel);
-		kryptoPanelMain.Controls.Add(progressBar);
-		kryptoPanelMain.Dock = DockStyle.Fill;
-		kryptoPanelMain.Location = new Point(0, 0);
-		kryptoPanelMain.Name = "kryptoPanelMain";
-		kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptoPanelMain.Size = new Size(700, 560);
-		kryptoPanelMain.TabIndex = 0;
-		kryptoPanelMain.TabStop = true;
+		kryptonPanelMain.AccessibleDescription = "Groups the data";
+		kryptonPanelMain.AccessibleName = "Panel";
+		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.Controls.Add(groupBoxRecordType);
+		kryptonPanelMain.Controls.Add(tableLayoutPanel);
+		kryptonPanelMain.Controls.Add(buttonStart);
+		kryptonPanelMain.Controls.Add(buttonCancel);
+		kryptonPanelMain.Controls.Add(progressBar);
+		kryptonPanelMain.Dock = DockStyle.Fill;
+		kryptonPanelMain.Location = new Point(0, 0);
+		kryptonPanelMain.Name = "kryptonPanelMain";
+		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
+		kryptonPanelMain.Size = new Size(700, 560);
+		kryptonPanelMain.TabIndex = 0;
+		kryptonPanelMain.TabStop = true;
 		// 
 		// groupBoxRecordType
 		// 
@@ -1236,7 +1236,7 @@ partial class RecordsForm
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(700, 560);
 		Controls.Add(kryptonStatusStrip);
-		Controls.Add(kryptoPanelMain);
+		Controls.Add(kryptonPanelMain);
 		FormBorderStyle = FormBorderStyle.FixedSingle;
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		Margin = new Padding(4, 3, 4, 3);
@@ -1246,8 +1246,8 @@ partial class RecordsForm
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Record list";
 		Load += RecordsForm_Load;
-		((ISupportInitialize)kryptoPanelMain).EndInit();
-		kryptoPanelMain.ResumeLayout(false);
+		((ISupportInitialize)kryptonPanelMain).EndInit();
+		kryptonPanelMain.ResumeLayout(false);
 		((ISupportInitialize)groupBoxRecordType.Panel).EndInit();
 		groupBoxRecordType.Panel.ResumeLayout(false);
 		((ISupportInitialize)groupBoxRecordType).EndInit();
@@ -1261,7 +1261,7 @@ partial class RecordsForm
 
 	#endregion
 
-	private KryptonPanel kryptoPanelMain;
+	private KryptonPanel kryptonPanelMain;
 	private KryptonGroupBox groupBoxRecordType;
 	private KryptonCheckButton checkButtonMax;
 	private KryptonCheckButton checkButtonMin;
