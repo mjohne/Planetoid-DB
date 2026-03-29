@@ -1220,6 +1220,9 @@ public partial class TableModeForm : BaseKryptonForm
 
 	private void ListView_DoubleClick(object? sender, EventArgs e)
 	{
+		//TODO: implement double-click action, e.g., open a detailed view of the selected item or copy its content to the clipboard
+		NotImplementedException ex = new(message: "Double-click action is not implemented yet.");
+		throw ex;
 	}
 
 	#endregion
