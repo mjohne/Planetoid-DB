@@ -1,5 +1,32 @@
 # Changelog
 
+## Planetoid-DB 0.8.8.59
+
+* Fix comment text and abbreviation label inconsistencies in DatabaseDifferencesForm by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/534
+* Added more comparison data in DatabaseDifferencesForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/533
+* Updated version number to 0.8.8.59 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/535
+* Added package System.Data.SQLite 2.0.2 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/536
+* Added saving format SQLite by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/537
+* Add generic ListViewExporter helper class with 31 file format save methods by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/539
+* Fix virtual-mode ListView export, remove dead jsonSerializerOptions field by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/541
+* Removed unnecessary methods in DatabaseDifferencesForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/540
+* Removed unnecessary methods in ListReadableDesignationsForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/542
+* Added comments by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/545
+* Add TableLayoutPanelExporter with 32 export format methods by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/544
+* Added several saving formats in DatabaseInformationForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/546
+* Changed toolStripButtonCopyToClipboard to toolStripDropDownButtonCopyToClipboard in DatabaseInformationForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/547
+* Added several saving formats in DerivedOrbitElementsForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/548
+* Added several saving formats in OrbitalResonancesOfOneMinorPlanetForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/550
+* Made columns sortable in OrbitalResonancesOfOneMinorPlanetForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/551
+* Added filter options in OrbitalResonancesOfOneMinorPlanetForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/552
+* Standardized main panel name by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/553
+* Added ListViewItemComparer.cs for custom columns sporting by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/554
+* Removed private class `ListViewItemComparer` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/555
+* Redesigned GUI in `TableModeForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/556
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.8.7.58.530.1749...0.8.8.59.556.1835
+
+
 ## Planetoid-DB 0.8.7.58
 
 * Updated version number to 0.8.7.58 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/523
