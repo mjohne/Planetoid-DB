@@ -10,7 +10,7 @@
     <StartupObject>Planetoid_DB.Program</StartupObject>
     <ApplicationIcon>Resources\Planetoid-DB-3.ico</ApplicationIcon>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <Version>0.8.8.59</Version>
+    <Version>0.8.9.60</Version>
     <Company>Mijo Software</Company>
     <Description>Viewer for the MPC Orbit (MPCORB) Database</Description>
     <Copyright>2010-2026 Michael Johne</Copyright>
@@ -859,7 +859,8 @@ Public License instead of this License.  But first, please read
     <PackageReference Include="Krypton.Toolkit.Suite.Extended.Ultimate" Version="95.25.5.145" />
     <PackageReference Include="Krypton.Workspace" Version="100.26.1.19" />
     <PackageReference Include="NLog" Version="6.1.1" />
-    <PackageReference Include="System.Data.SQLite" Version="2.0.2" />
+    <PackageReference Include="System.Data.OleDb" Version="11.0.0-preview.2.26159.112" />
+    <PackageReference Include="System.Data.SQLite" Version="2.0.3" />
   </ItemGroup>
 
   <ItemGroup>
