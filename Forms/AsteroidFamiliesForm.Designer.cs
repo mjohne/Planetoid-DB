@@ -45,6 +45,8 @@ partial class AsteroidFamiliesForm
 	/// appropriate event handlers rather than within this method.</remarks>
 	private void InitializeComponent()
 	{
+		toolStripButtonGoToObject = new ToolStripButton();
+		toolStripSeparator6 = new ToolStripSeparator();
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(AsteroidFamiliesForm));
 		kryptonPanelMain = new KryptonPanel();
 		splitContainer = new KryptonSplitContainer();
@@ -176,6 +178,7 @@ partial class AsteroidFamiliesForm
 		listViewMembers.View = View.Details;
 		listViewMembers.VirtualMode = true;
 		listViewMembers.RetrieveVirtualItem += ListView_RetrieveVirtualItem;
+		listViewMembers.DoubleClick += ListViewMembers_DoubleClick;
 		listViewMembers.Enter += Control_Enter;
 		listViewMembers.Leave += Control_Leave;
 		listViewMembers.MouseEnter += Control_Enter;
@@ -301,7 +304,7 @@ partial class AsteroidFamiliesForm
 		toolStripIcons.BackColor = Color.Transparent;
 		toolStripIcons.Dock = DockStyle.None;
 		toolStripIcons.Font = new Font("Segoe UI", 9F);
-		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonStartSearch, toolStripButtonCancel, toolStripSeparator1, toolStripButtonSaveListSelectedFamily, toolStripButtonSaveListAllFamilies, toolStripSeparator2, toolStripLabelProgress, kryptonProgressBarToolStripItem });
+		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonStartSearch, toolStripButtonCancel, toolStripSeparator1, toolStripButtonSaveListSelectedFamily, toolStripButtonSaveListAllFamilies, toolStripSeparator6, toolStripButtonGoToObject, toolStripSeparator2, toolStripLabelProgress, kryptonProgressBarToolStripItem });
 		toolStripIcons.Location = new Point(0, 0);
 		toolStripIcons.Name = "toolStripIcons";
 		toolStripIcons.Size = new Size(826, 26);
@@ -379,6 +382,30 @@ partial class AsteroidFamiliesForm
 		toolStripButtonSaveListAllFamilies.Click += ToolStripButtonSaveAll_Click;
 		toolStripButtonSaveListAllFamilies.MouseEnter += Control_Enter;
 		toolStripButtonSaveListAllFamilies.MouseLeave += Control_Leave;
+		// 
+		// toolStripSeparator6
+		// 
+		toolStripSeparator6.AccessibleDescription = "Just a separator";
+		toolStripSeparator6.AccessibleName = "Just a separator";
+		toolStripSeparator6.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparator6.Name = "toolStripSeparator6";
+		toolStripSeparator6.Size = new Size(6, 26);
+		toolStripSeparator6.MouseEnter += Control_Enter;
+		toolStripSeparator6.MouseLeave += Control_Leave;
+		// 
+		// toolStripButtonGoToObject
+		// 
+		toolStripButtonGoToObject.AccessibleDescription = "Navigates to the selected planetoid in the main form and closes this window";
+		toolStripButtonGoToObject.AccessibleName = "Go to object";
+		toolStripButtonGoToObject.AccessibleRole = AccessibleRole.PushButton;
+		toolStripButtonGoToObject.Image = Resources.FatcowIcons16px.fatcow_application_go_16px;
+		toolStripButtonGoToObject.ImageTransparentColor = Color.Magenta;
+		toolStripButtonGoToObject.Name = "toolStripButtonGoToObject";
+		toolStripButtonGoToObject.Size = new Size(87, 23);
+		toolStripButtonGoToObject.Text = "&Go to object";
+		toolStripButtonGoToObject.Click += ToolStripButtonGoToObject_Click;
+		toolStripButtonGoToObject.MouseEnter += Control_Enter;
+		toolStripButtonGoToObject.MouseLeave += Control_Leave;
 		// 
 		// toolStripSeparator2
 		// 
@@ -650,6 +677,8 @@ partial class AsteroidFamiliesForm
 	private ToolStripButton toolStripButtonSaveListSelectedFamily;
 	private ToolStripButton toolStripButtonSaveListAllFamilies;
 	private ToolStripSeparator toolStripSeparator2;
+	private ToolStripSeparator toolStripSeparator6;
+	private ToolStripButton toolStripButtonGoToObject;
 	private ToolStripLabel toolStripLabelProgress;
 	private KryptonProgressBarToolStripItem kryptonProgressBarToolStripItem;
 	private ToolStrip toolStripToleranceValues;

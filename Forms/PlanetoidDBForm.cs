@@ -667,7 +667,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		using AsteroidFamiliesForm formAsteroidFamilies = new(planetoids: planetoidsDatabase);
 		formAsteroidFamilies.TopMost = TopMost;
-		_ = formAsteroidFamilies.ShowDialog();
+		_ = formAsteroidFamilies.ShowDialog(owner: this);
 	}
 
 	/// <summary>Shows the orbital resonances of all minor planets form.
@@ -678,7 +678,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Create a new instance of the OrbitalResonancesOfAllMinorPlanetsForm
 		using OrbitalResonancesOfAllMinorPlanetsForm formOrbitalResonances = new(planetoids: planetoidsDatabase);
 		formOrbitalResonances.TopMost = TopMost;
-		_ = formOrbitalResonances.ShowDialog();
+		_ = formOrbitalResonances.ShowDialog(owner: this);
 	}
 
 	/// <summary>Shows the application information form.</summary>

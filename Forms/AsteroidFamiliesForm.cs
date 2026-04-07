@@ -477,4 +477,53 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 				icon: MessageBoxIcon.Error);
 		}
 	}
+
+	#region DoubleClick event handler
+
+	/// <summary>Handles the DoubleClick event of the member ListView.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>When an item in the member list is double-clicked, the corresponding planetoid is displayed
+	/// in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
+	private void ListViewMembers_DoubleClick(object? sender, EventArgs e) =>
+		NavigateToSelectedMember(closeAfterNavigation: false);
+
+	#endregion
+
+	#region Go to object event handler
+
+	/// <summary>Handles the Click event of the 'Go to object' toolbar button.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>When clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/>
+	/// and this form is closed.</remarks>
+	private void ToolStripButtonGoToObject_Click(object? sender, EventArgs e) =>
+		NavigateToSelectedMember(closeAfterNavigation: true);
+
+	/// <summary>Navigates to the currently selected member planetoid in the <see cref="PlanetoidDbForm"/>.</summary>
+	/// <param name="closeAfterNavigation">If <see langword="true"/>, this form is closed after navigation.</param>
+	/// <remarks>Does nothing when no item is selected or the family list is empty.</remarks>
+	private void NavigateToSelectedMember(bool closeAfterNavigation)
+	{
+		if (_selectedFamily == null || listViewMembers.SelectedIndices.Count == 0)
+		{
+			return;
+		}
+		int idx = listViewMembers.SelectedIndices[index: 0];
+		if (idx < 0 || idx >= _selectedFamily.Members.Count)
+		{
+			return;
+		}
+		PlanetoidEntry member = _selectedFamily.Members[index: idx];
+		if (Owner is PlanetoidDbForm planetoidDbForm)
+		{
+			planetoidDbForm.JumpToRecord(index: member.Index, designation: member.Name);
+		}
+		if (closeAfterNavigation)
+		{
+			Close();
+		}
+	}
+
+	#endregion
 }
