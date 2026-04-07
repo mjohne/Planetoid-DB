@@ -45,9 +45,9 @@ partial class AsteroidFamiliesForm
 	/// appropriate event handlers rather than within this method.</remarks>
 	private void InitializeComponent()
 	{
+		ComponentResourceManager resources = new ComponentResourceManager(typeof(AsteroidFamiliesForm));
 		toolStripButtonGoToObject = new ToolStripButton();
 		toolStripSeparator6 = new ToolStripSeparator();
-		ComponentResourceManager resources = new ComponentResourceManager(typeof(AsteroidFamiliesForm));
 		kryptonPanelMain = new KryptonPanel();
 		splitContainer = new KryptonSplitContainer();
 		treeViewFamilies = new TreeView();
@@ -100,6 +100,30 @@ partial class AsteroidFamiliesForm
 		toolStripToleranceValues.SuspendLayout();
 		SuspendLayout();
 		// 
+		// toolStripButtonGoToObject
+		// 
+		toolStripButtonGoToObject.AccessibleDescription = "Navigates to the selected planetoid in the main form and closes this window";
+		toolStripButtonGoToObject.AccessibleName = "Go to object";
+		toolStripButtonGoToObject.AccessibleRole = AccessibleRole.PushButton;
+		toolStripButtonGoToObject.Image = Resources.FatcowIcons16px.fatcow_application_go_16px;
+		toolStripButtonGoToObject.ImageTransparentColor = Color.Magenta;
+		toolStripButtonGoToObject.Name = "toolStripButtonGoToObject";
+		toolStripButtonGoToObject.Size = new Size(92, 23);
+		toolStripButtonGoToObject.Text = "&Go to object";
+		toolStripButtonGoToObject.Click += ToolStripButtonGoToObject_Click;
+		toolStripButtonGoToObject.MouseEnter += Control_Enter;
+		toolStripButtonGoToObject.MouseLeave += Control_Leave;
+		// 
+		// toolStripSeparator6
+		// 
+		toolStripSeparator6.AccessibleDescription = "Just a separator";
+		toolStripSeparator6.AccessibleName = "Just a separator";
+		toolStripSeparator6.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparator6.Name = "toolStripSeparator6";
+		toolStripSeparator6.Size = new Size(6, 26);
+		toolStripSeparator6.MouseEnter += Control_Enter;
+		toolStripSeparator6.MouseLeave += Control_Leave;
+		// 
 		// kryptonPanelMain
 		// 
 		kryptonPanelMain.AccessibleDescription = "Groups the data";
@@ -109,7 +133,7 @@ partial class AsteroidFamiliesForm
 		kryptonPanelMain.Dock = DockStyle.Fill;
 		kryptonPanelMain.Location = new Point(0, 0);
 		kryptonPanelMain.Name = "kryptonPanelMain";
-		kryptonPanelMain.Size = new Size(826, 425);
+		kryptonPanelMain.Size = new Size(933, 425);
 		kryptonPanelMain.TabIndex = 0;
 		kryptonPanelMain.TabStop = true;
 		kryptonPanelMain.Enter += Control_Enter;
@@ -132,8 +156,8 @@ partial class AsteroidFamiliesForm
 		// 
 		// 
 		splitContainer.Panel2.Controls.Add(listViewMembers);
-		splitContainer.Size = new Size(826, 425);
-		splitContainer.SplitterDistance = 206;
+		splitContainer.Size = new Size(933, 425);
+		splitContainer.SplitterDistance = 232;
 		splitContainer.TabIndex = 0;
 		splitContainer.ToolTipValues.Description = "Splits the view between the asteroid families tree and the member list";
 		splitContainer.ToolTipValues.Heading = "Asteroid families split view";
@@ -150,7 +174,7 @@ partial class AsteroidFamiliesForm
 		treeViewFamilies.Dock = DockStyle.Fill;
 		treeViewFamilies.Location = new Point(0, 0);
 		treeViewFamilies.Name = "treeViewFamilies";
-		treeViewFamilies.Size = new Size(206, 425);
+		treeViewFamilies.Size = new Size(232, 425);
 		treeViewFamilies.TabIndex = 0;
 		treeViewFamilies.AfterSelect += TreeViewFamilies_AfterSelect;
 		treeViewFamilies.Enter += Control_Enter;
@@ -172,7 +196,7 @@ partial class AsteroidFamiliesForm
 		listViewMembers.MultiSelect = false;
 		listViewMembers.Name = "listViewMembers";
 		listViewMembers.ShowItemToolTips = true;
-		listViewMembers.Size = new Size(615, 425);
+		listViewMembers.Size = new Size(696, 425);
 		listViewMembers.TabIndex = 0;
 		listViewMembers.UseCompatibleStateImageBehavior = false;
 		listViewMembers.View = View.Details;
@@ -238,11 +262,11 @@ partial class AsteroidFamiliesForm
 		// 
 		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
 		toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
-		toolStripContainer.ContentPanel.Size = new Size(826, 425);
+		toolStripContainer.ContentPanel.Size = new Size(933, 425);
 		toolStripContainer.Dock = DockStyle.Fill;
 		toolStripContainer.Location = new Point(0, 0);
 		toolStripContainer.Name = "toolStripContainer";
-		toolStripContainer.Size = new Size(826, 499);
+		toolStripContainer.Size = new Size(933, 499);
 		toolStripContainer.TabIndex = 4;
 		toolStripContainer.Text = "toolStripContainer";
 		// 
@@ -270,7 +294,7 @@ partial class AsteroidFamiliesForm
 		kryptonStatusStrip.ProgressBars = null;
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
 		kryptonStatusStrip.ShowItemToolTips = true;
-		kryptonStatusStrip.Size = new Size(826, 22);
+		kryptonStatusStrip.Size = new Size(933, 22);
 		kryptonStatusStrip.SizingGrip = false;
 		kryptonStatusStrip.TabIndex = 0;
 		kryptonStatusStrip.TabStop = true;
@@ -307,7 +331,7 @@ partial class AsteroidFamiliesForm
 		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonStartSearch, toolStripButtonCancel, toolStripSeparator1, toolStripButtonSaveListSelectedFamily, toolStripButtonSaveListAllFamilies, toolStripSeparator6, toolStripButtonGoToObject, toolStripSeparator2, toolStripLabelProgress, kryptonProgressBarToolStripItem });
 		toolStripIcons.Location = new Point(0, 0);
 		toolStripIcons.Name = "toolStripIcons";
-		toolStripIcons.Size = new Size(826, 26);
+		toolStripIcons.Size = new Size(933, 26);
 		toolStripIcons.Stretch = true;
 		toolStripIcons.TabIndex = 0;
 		toolStripIcons.TabStop = true;
@@ -383,30 +407,6 @@ partial class AsteroidFamiliesForm
 		toolStripButtonSaveListAllFamilies.MouseEnter += Control_Enter;
 		toolStripButtonSaveListAllFamilies.MouseLeave += Control_Leave;
 		// 
-		// toolStripSeparator6
-		// 
-		toolStripSeparator6.AccessibleDescription = "Just a separator";
-		toolStripSeparator6.AccessibleName = "Just a separator";
-		toolStripSeparator6.AccessibleRole = AccessibleRole.Separator;
-		toolStripSeparator6.Name = "toolStripSeparator6";
-		toolStripSeparator6.Size = new Size(6, 26);
-		toolStripSeparator6.MouseEnter += Control_Enter;
-		toolStripSeparator6.MouseLeave += Control_Leave;
-		// 
-		// toolStripButtonGoToObject
-		// 
-		toolStripButtonGoToObject.AccessibleDescription = "Navigates to the selected planetoid in the main form and closes this window";
-		toolStripButtonGoToObject.AccessibleName = "Go to object";
-		toolStripButtonGoToObject.AccessibleRole = AccessibleRole.PushButton;
-		toolStripButtonGoToObject.Image = Resources.FatcowIcons16px.fatcow_application_go_16px;
-		toolStripButtonGoToObject.ImageTransparentColor = Color.Magenta;
-		toolStripButtonGoToObject.Name = "toolStripButtonGoToObject";
-		toolStripButtonGoToObject.Size = new Size(87, 23);
-		toolStripButtonGoToObject.Text = "&Go to object";
-		toolStripButtonGoToObject.Click += ToolStripButtonGoToObject_Click;
-		toolStripButtonGoToObject.MouseEnter += Control_Enter;
-		toolStripButtonGoToObject.MouseLeave += Control_Leave;
-		// 
 		// toolStripSeparator2
 		// 
 		toolStripSeparator2.AccessibleDescription = "Just a separator";
@@ -456,7 +456,7 @@ partial class AsteroidFamiliesForm
 		toolStripToleranceValues.Items.AddRange(new ToolStripItem[] { toolStripLabelToleranceValueSemiMajorAxis, toolStripNumericUpDownToleranceValueSemiMajorAxis, toolStripSeparator3, toolStripLabelToleranceValueNumericEccentricity, toolStripNumericUpDownToleranceValueNumericEccentricity, toolStripSeparator4, toolStripLabelToleranceValueInclination, toolStripNumericUpDownToleranceValueInclination, toolStripSeparator5, toolStripLabelMinimumMembers, toolStripNumericUpDownToleranceValueMinimumMembers });
 		toolStripToleranceValues.Location = new Point(0, 26);
 		toolStripToleranceValues.Name = "toolStripToleranceValues";
-		toolStripToleranceValues.Size = new Size(826, 26);
+		toolStripToleranceValues.Size = new Size(933, 26);
 		toolStripToleranceValues.Stretch = true;
 		toolStripToleranceValues.TabIndex = 1;
 		toolStripToleranceValues.TabStop = true;
@@ -620,7 +620,7 @@ partial class AsteroidFamiliesForm
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(826, 499);
+		ClientSize = new Size(933, 499);
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.FixedToolWindow;
