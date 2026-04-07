@@ -202,6 +202,7 @@ partial class AsteroidFamiliesForm
 		listViewMembers.View = View.Details;
 		listViewMembers.VirtualMode = true;
 		listViewMembers.RetrieveVirtualItem += ListView_RetrieveVirtualItem;
+		listViewMembers.ColumnClick += ListViewMembers_ColumnClick;
 		listViewMembers.DoubleClick += ListViewMembers_DoubleClick;
 		listViewMembers.Enter += Control_Enter;
 		listViewMembers.Leave += Control_Leave;
