@@ -485,23 +485,8 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// <param name="e">The event data.</param>
 	/// <remarks>When an item in the member list is double-clicked, the corresponding planetoid is displayed
 	/// in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
-	private void ListViewMembers_DoubleClick(object? sender, EventArgs e)
-	{
-		if (listViewMembers.SelectedIndices.Count == 0 || _selectedFamily == null)
-		{
-			return;
-		}
-		int idx = listViewMembers.SelectedIndices[index: 0];
-		if (idx < 0 || idx >= _selectedFamily.Members.Count)
-		{
-			return;
-		}
-		PlanetoidEntry member = _selectedFamily.Members[index: idx];
-		if (Owner is PlanetoidDbForm planetoidDbForm)
-		{
-			planetoidDbForm.JumpToRecord(index: member.Index, designation: member.Name);
-		}
-	}
+	private void ListViewMembers_DoubleClick(object? sender, EventArgs e) =>
+		NavigateToSelectedMember(closeAfterNavigation: false);
 
 	#endregion
 
@@ -512,7 +497,13 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// <param name="e">The event data.</param>
 	/// <remarks>When clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/>
 	/// and this form is closed.</remarks>
-	private void ToolStripButtonGoToObject_Click(object? sender, EventArgs e)
+	private void ToolStripButtonGoToObject_Click(object? sender, EventArgs e) =>
+		NavigateToSelectedMember(closeAfterNavigation: true);
+
+	/// <summary>Navigates to the currently selected member planetoid in the <see cref="PlanetoidDbForm"/>.</summary>
+	/// <param name="closeAfterNavigation">If <see langword="true"/>, this form is closed after navigation.</param>
+	/// <remarks>Does nothing when no item is selected or the family list is empty.</remarks>
+	private void NavigateToSelectedMember(bool closeAfterNavigation)
 	{
 		if (listViewMembers.SelectedIndices.Count == 0 || _selectedFamily == null)
 		{
@@ -528,7 +519,10 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		{
 			planetoidDbForm.JumpToRecord(index: member.Index, designation: member.Name);
 		}
-		Close();
+		if (closeAfterNavigation)
+		{
+			Close();
+		}
 	}
 
 	#endregion

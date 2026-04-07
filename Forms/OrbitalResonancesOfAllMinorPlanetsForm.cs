@@ -42,6 +42,33 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>This value is used to determine if a computed orbital resonance is significant.</remarks>
 	private const double ResonanceThresholdPercent = 1.0;
 
+	/// <summary>Length of the sort-direction prefix (e.g. "▲ " or "▼ ") prepended to a column header text.</summary>
+	private const int SortIndicatorPrefixLength = 2;
+
+	/// <summary>Zero-based index of the Planetoid column in the results ListView.</summary>
+	private const int ColumnIndexPlanetoid = 0;
+
+	/// <summary>Zero-based index of the Planet column in the results ListView.</summary>
+	private const int ColumnIndexPlanet = 1;
+
+	/// <summary>Zero-based index of the Planet Period column in the results ListView.</summary>
+	private const int ColumnIndexPlanetPeriod = 2;
+
+	/// <summary>Zero-based index of the Planetoid Period column in the results ListView.</summary>
+	private const int ColumnIndexPlanetoidPeriod = 3;
+
+	/// <summary>Zero-based index of the Ratio column in the results ListView.</summary>
+	private const int ColumnIndexRatio = 4;
+
+	/// <summary>Zero-based index of the Resonance (P:Q) column in the results ListView.</summary>
+	private const int ColumnIndexResonance = 5;
+
+	/// <summary>Zero-based index of the Deviation column in the results ListView.</summary>
+	private const int ColumnIndexDeviation = 6;
+
+	/// <summary>Zero-based index of the Is Resonance column in the results ListView.</summary>
+	private const int ColumnIndexIsResonance = 7;
+
 	/// <summary>Holds the list of all planetoid database strings passed to this form.</summary>
 	/// <remarks>Each string is one raw MPCORB record from the database.</remarks>
 	private readonly IReadOnlyList<string> _planetoids;
@@ -1082,7 +1109,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 			string headerText = listView.Columns[index: i].Text;
 			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.Ordinal) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.Ordinal))
 			{
-				headerText = headerText[2..];
+				headerText = headerText[SortIndicatorPrefixLength..];
 			}
 			listView.Columns[index: i].Text = i == sortColumn
 				? $"{(sortOrder == SortOrder.Ascending ? "▲" : "▼")} {headerText}"
@@ -1101,14 +1128,14 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		bool ascending = sortOrder == SortOrder.Ascending;
 		_results = col switch
 		{
-			2 when ascending => [.. _results.OrderBy(keySelector: static r => r.Resonance.PlanetPeriod)],
-			2 => [.. _results.OrderByDescending(keySelector: static r => r.Resonance.PlanetPeriod)],
-			3 when ascending => [.. _results.OrderBy(keySelector: static r => r.Resonance.PlanetoidPeriod)],
-			3 => [.. _results.OrderByDescending(keySelector: static r => r.Resonance.PlanetoidPeriod)],
-			4 when ascending => [.. _results.OrderBy(keySelector: static r => r.Resonance.Ratio)],
-			4 => [.. _results.OrderByDescending(keySelector: static r => r.Resonance.Ratio)],
-			6 when ascending => [.. _results.OrderBy(keySelector: static r => r.Resonance.DeviationPercent)],
-			6 => [.. _results.OrderByDescending(keySelector: static r => r.Resonance.DeviationPercent)],
+			ColumnIndexPlanetPeriod when ascending => [.. _results.OrderBy(keySelector: static r => r.Resonance.PlanetPeriod)],
+			ColumnIndexPlanetPeriod => [.. _results.OrderByDescending(keySelector: static r => r.Resonance.PlanetPeriod)],
+			ColumnIndexPlanetoidPeriod when ascending => [.. _results.OrderBy(keySelector: static r => r.Resonance.PlanetoidPeriod)],
+			ColumnIndexPlanetoidPeriod => [.. _results.OrderByDescending(keySelector: static r => r.Resonance.PlanetoidPeriod)],
+			ColumnIndexRatio when ascending => [.. _results.OrderBy(keySelector: static r => r.Resonance.Ratio)],
+			ColumnIndexRatio => [.. _results.OrderByDescending(keySelector: static r => r.Resonance.Ratio)],
+			ColumnIndexDeviation when ascending => [.. _results.OrderBy(keySelector: static r => r.Resonance.DeviationPercent)],
+			ColumnIndexDeviation => [.. _results.OrderByDescending(keySelector: static r => r.Resonance.DeviationPercent)],
 			_ when ascending => [.. _results.OrderBy(keySelector: r => GetColumnText(result: r, column: col), comparer: StringComparer.OrdinalIgnoreCase)],
 			_ => [.. _results.OrderByDescending(keySelector: r => GetColumnText(result: r, column: col), comparer: StringComparer.OrdinalIgnoreCase)]
 		};
@@ -1120,10 +1147,10 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <returns>The text value used for sorting and display of the specified column.</returns>
 	private static string GetColumnText(ResonanceResult result, int column) => column switch
 	{
-		0 => result.PlanetoidName,
-		1 => result.Resonance.PlanetName,
-		5 => $"{result.Resonance.ResonanceP}:{result.Resonance.ResonanceQ}",
-		7 => result.Resonance.DeviationPercent < ResonanceThresholdPercent ? "Yes" : "No",
+		ColumnIndexPlanetoid => result.PlanetoidName,
+		ColumnIndexPlanet => result.Resonance.PlanetName,
+		ColumnIndexResonance => $"{result.Resonance.ResonanceP}:{result.Resonance.ResonanceQ}",
+		ColumnIndexIsResonance => result.Resonance.DeviationPercent < ResonanceThresholdPercent ? "Yes" : "No",
 		_ => string.Empty
 	};
 
