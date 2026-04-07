@@ -505,7 +505,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// <remarks>Does nothing when no item is selected or the family list is empty.</remarks>
 	private void NavigateToSelectedMember(bool closeAfterNavigation)
 	{
-		if (listViewMembers.SelectedIndices.Count == 0 || _selectedFamily == null)
+		if (_selectedFamily == null || listViewMembers.SelectedIndices.Count == 0)
 		{
 			return;
 		}
