@@ -26,7 +26,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 
 	/// <summary>Stores the index of the currently sorted column.</summary>
 	/// <remarks>This field stores the index of the currently sorted column.</remarks>
-	private readonly int sortColumn = -1;
+	private int sortColumn = -1;
 
 	/// <summary>The value indicates how items in the currently sorted column are ordered:
 	/// <list type="bullet">
@@ -36,7 +36,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// </list>
 	/// This field is typically updated when the user clicks a column header in the list view to toggle the sort order.</summary>
 	/// <remarks>This field stores the current sort order of the list view.</remarks>
-	private readonly SortOrder sortOrder = SortOrder.None;
+	private SortOrder sortOrder = SortOrder.None;
 
 	/// <summary>The deviation threshold in percent below which an orbital ratio is considered a near-resonance.</summary>
 	/// <remarks>This value is used to determine if a computed orbital resonance is significant.</remarks>
@@ -1055,28 +1055,103 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 
 	#endregion
 
-	#region DoubleClick event handler
+	#region ColumnClick event handler
 
 	/// <summary>Handles the ColumnClick event of the ListView.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	/// <remarks>This method is called when a column header is clicked.</remarks>
+	/// <remarks>Toggles the sort order for the clicked column (ascending/descending) and re-sorts the results list.
+	/// Column headers are updated with a ▲ or ▼ indicator to show the current sort direction.</remarks>
 	private void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
 	{
-		//TODO: Implement column sorting functionality when a column header is clicked; for now, throw a NotImplementedException to indicate that this feature is not yet available
-		NotImplementedException ex = new(message: "Column sorting is not implemented yet.");
-		throw ex;
+		if (_results.Count == 0)
+		{
+			return;
+		}
+		if (e.Column == sortColumn)
+		{
+			sortOrder = sortOrder == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
+		}
+		else
+		{
+			sortColumn = e.Column;
+			sortOrder = SortOrder.Ascending;
+		}
+		for (int i = 0; i < listView.Columns.Count; i++)
+		{
+			string headerText = listView.Columns[index: i].Text;
+			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.Ordinal) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.Ordinal))
+			{
+				headerText = headerText[2..];
+			}
+			listView.Columns[index: i].Text = i == sortColumn
+				? $"{(sortOrder == SortOrder.Ascending ? "▲" : "▼")} {headerText}"
+				: headerText;
+		}
+		SortResults();
+		listView.Refresh();
 	}
+
+	/// <summary>Sorts the <see cref="_results"/> list by the currently selected column and sort order.</summary>
+	/// <remarks>Numeric columns (Planet Period, Planetoid Period, Ratio, Deviation) are sorted numerically;
+	/// all other columns are sorted as strings (case-insensitive, ordinal).</remarks>
+	private void SortResults()
+	{
+		int col = sortColumn;
+		bool ascending = sortOrder == SortOrder.Ascending;
+		_results = col switch
+		{
+			2 when ascending => [.. _results.OrderBy(keySelector: static r => r.Resonance.PlanetPeriod)],
+			2 => [.. _results.OrderByDescending(keySelector: static r => r.Resonance.PlanetPeriod)],
+			3 when ascending => [.. _results.OrderBy(keySelector: static r => r.Resonance.PlanetoidPeriod)],
+			3 => [.. _results.OrderByDescending(keySelector: static r => r.Resonance.PlanetoidPeriod)],
+			4 when ascending => [.. _results.OrderBy(keySelector: static r => r.Resonance.Ratio)],
+			4 => [.. _results.OrderByDescending(keySelector: static r => r.Resonance.Ratio)],
+			6 when ascending => [.. _results.OrderBy(keySelector: static r => r.Resonance.DeviationPercent)],
+			6 => [.. _results.OrderByDescending(keySelector: static r => r.Resonance.DeviationPercent)],
+			_ when ascending => [.. _results.OrderBy(keySelector: r => GetColumnText(result: r, column: col), comparer: StringComparer.OrdinalIgnoreCase)],
+			_ => [.. _results.OrderByDescending(keySelector: r => GetColumnText(result: r, column: col), comparer: StringComparer.OrdinalIgnoreCase)]
+		};
+	}
+
+	/// <summary>Returns the display text for a given column of a <see cref="ResonanceResult"/>.</summary>
+	/// <param name="result">The resonance result.</param>
+	/// <param name="column">The zero-based column index.</param>
+	/// <returns>The text value used for sorting and display of the specified column.</returns>
+	private static string GetColumnText(ResonanceResult result, int column) => column switch
+	{
+		0 => result.PlanetoidName,
+		1 => result.Resonance.PlanetName,
+		5 => $"{result.Resonance.ResonanceP}:{result.Resonance.ResonanceQ}",
+		7 => result.Resonance.DeviationPercent < ResonanceThresholdPercent ? "Yes" : "No",
+		_ => string.Empty
+	};
 
 	#endregion
 
 	#region DoubleClick event handler
 
+	/// <summary>Handles the DoubleClick event of the ListView.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>When an item is double-clicked, the corresponding planetoid is displayed in the
+	/// <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
 	private void ListView_DoubleClick(object sender, EventArgs e)
 	{
-		//TODO: Implement double-click functionality for list view items; for now, throw a NotImplementedException to indicate that this feature is not yet available
-		NotImplementedException ex = new(message: "Double-click action is not implemented yet.");
-		throw ex;
+		if (listView.SelectedIndices.Count == 0)
+		{
+			return;
+		}
+		int index = listView.SelectedIndices[index: 0];
+		if (index < 0 || index >= _results.Count)
+		{
+			return;
+		}
+		ResonanceResult result = _results[index];
+		if (Owner is PlanetoidDbForm planetoidDbForm)
+		{
+			planetoidDbForm.JumpToRecord(index: result.PlanetoidName, designation: result.PlanetoidName);
+		}
 	}
 
 	#endregion
