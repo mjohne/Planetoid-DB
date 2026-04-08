@@ -48,6 +48,14 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// <remarks>This property is used to track the user's selection in the UI.</remarks>
 	private AsteroidFamily? _selectedFamily;
 
+	/// <summary>Stores the index of the currently sorted column in the member ListView.</summary>
+	/// <remarks>A value of <c>-1</c> means no column is currently sorted.</remarks>
+	private int _sortColumn = -1;
+
+	/// <summary>Stores the sort order for the currently sorted column in the member ListView.</summary>
+	/// <remarks>This field is updated when the user clicks a column header in the member list view to toggle the sort order.</remarks>
+	private SortOrder _sortOrder = SortOrder.None;
+
 	/// <summary>Initializes a new instance of the <see cref="AsteroidFamiliesForm"/> class.</summary>
 	/// <param name="planetoids">The list of raw planetoid data lines from the MPCORB database.</param>
 	public AsteroidFamiliesForm(IReadOnlyList<string> planetoids)
@@ -337,6 +345,18 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		if (e.Node?.Tag is int idx && idx >= 0 && idx < _families.Count)
 		{
 			_selectedFamily = _families[index: idx];
+			// Reset sort state when a different family is selected
+			_sortColumn = -1;
+			_sortOrder = SortOrder.None;
+			// Remove any existing sort indicators from all column headers
+			for (int i = 0; i < listViewMembers.Columns.Count; i++)
+			{
+				string headerText = listViewMembers.Columns[index: i].Text;
+				if (headerText.StartsWith(value: "▲ ") || headerText.StartsWith(value: "▼ "))
+				{
+					listViewMembers.Columns[index: i].Text = headerText[2..];
+				}
+			}
 			listViewMembers.VirtualListSize = _selectedFamily.Members.Count;
 			listViewMembers.Invalidate();
 			toolStripButtonSaveListSelectedFamily.Enabled = true;
@@ -477,6 +497,95 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 				icon: MessageBoxIcon.Error);
 		}
 	}
+
+	#region ColumnClick event handler
+
+	/// <summary>Handles the ColumnClick event for the member ListView to sort columns alphanumerically.</summary>
+	/// <param name="sender">Event source (the ListView).</param>
+	/// <param name="e">The <see cref="ColumnClickEventArgs"/> instance that contains the event data.</param>
+	/// <remarks>Clicking a column header sorts the member list by that column, alternating between ascending
+	/// and descending order. The sort indicator (▲/▼) is shown in the column header text. Because the
+	/// ListView operates in virtual mode, sorting is applied directly to the underlying
+	/// <see cref="AsteroidFamily.Members"/> list and the control is refreshed.</remarks>
+	private void ListViewMembers_ColumnClick(object? sender, ColumnClickEventArgs e)
+	{
+		// Nothing to sort if no family is selected or the list is empty
+		if (_selectedFamily == null || _selectedFamily.Members.Count == 0)
+		{
+			return;
+		}
+		// Determine the new sort order based on the clicked column
+		if (e.Column == _sortColumn)
+		{
+			// Toggle sort order if the same column is clicked again
+			_sortOrder = _sortOrder == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
+		}
+		else
+		{
+			// New column: start with ascending order
+			_sortColumn = e.Column;
+			_sortOrder = SortOrder.Ascending;
+		}
+		// Update column headers with sort indicators
+		for (int i = 0; i < listViewMembers.Columns.Count; i++)
+		{
+			// Remove any existing sort indicator from the header text
+			string headerText = listViewMembers.Columns[index: i].Text;
+			if (headerText.StartsWith(value: "▲ ") || headerText.StartsWith(value: "▼ "))
+			{
+				headerText = headerText[2..];
+			}
+			// Add the new sort indicator to the currently sorted column only
+			if (i == _sortColumn)
+			{
+				string indicator = _sortOrder == SortOrder.Ascending ? "▲" : "▼";
+				listViewMembers.Columns[index: i].Text = $"{indicator} {headerText}";
+			}
+			else
+			{
+				listViewMembers.Columns[index: i].Text = headerText;
+			}
+		}
+		// Sort the members list in-place based on the selected column and sort order.
+		// Column mapping:
+		//   0 = Index, 1 = Name, 2 = SemiMajorAxis, 3 = Eccentricity,
+		//   4 = Inclination, 5 = MeanAnomaly, 6 = ArgPeri, 7 = LongAscNode
+		_selectedFamily.Members.Sort(comparison: (x, y) =>
+		{
+			int result = _sortColumn switch
+			{
+				0 => CompareAlphanumeric(x.Index, y.Index),
+				1 => string.Compare(strA: x.Name, strB: y.Name, comparisonType: StringComparison.OrdinalIgnoreCase),
+				2 => x.SemiMajorAxis.CompareTo(value: y.SemiMajorAxis),
+				3 => x.Eccentricity.CompareTo(value: y.Eccentricity),
+				4 => x.Inclination.CompareTo(value: y.Inclination),
+				5 => x.MeanAnomaly.CompareTo(value: y.MeanAnomaly),
+				6 => x.ArgPeri.CompareTo(value: y.ArgPeri),
+				7 => x.LongAscNode.CompareTo(value: y.LongAscNode),
+				_ => 0
+			};
+			return _sortOrder == SortOrder.Descending ? -result : result;
+		});
+		// Refresh the virtual list view after sorting
+		listViewMembers.SelectedIndices.Clear();
+		listViewMembers.VirtualListSize = _selectedFamily.Members.Count;
+		listViewMembers.Invalidate();
+	}
+
+	/// <summary>Compares two strings alphanumerically: numerically when both parse as integers, otherwise as strings.</summary>
+	/// <param name="a">The first string to compare.</param>
+	/// <param name="b">The second string to compare.</param>
+	/// <returns>A signed integer that indicates the relative order of <paramref name="a"/> and <paramref name="b"/>.</returns>
+	private static int CompareAlphanumeric(string a, string b)
+	{
+		bool hasNumericA = int.TryParse(s: a, result: out int numA);
+		bool hasNumericB = int.TryParse(s: b, result: out int numB);
+		return hasNumericA && hasNumericB
+			? numA.CompareTo(value: numB)
+			: string.Compare(strA: a, strB: b, comparisonType: StringComparison.OrdinalIgnoreCase);
+	}
+
+	#endregion
 
 	#region DoubleClick event handler
 
