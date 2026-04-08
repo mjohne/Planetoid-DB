@@ -439,7 +439,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsText(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsText(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -461,7 +469,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsLatex(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsLatex(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -483,7 +499,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsMarkdown(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsMarkdown(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -505,7 +529,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsWord(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsWord(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -527,7 +559,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsOdt(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsOdt(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -549,7 +589,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsRtf(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsRtf(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -571,7 +619,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsExcel(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsExcel(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -593,7 +649,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsOds(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsOds(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -614,7 +678,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsCsv(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsCsv(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -636,7 +708,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsTsv(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsTsv(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -658,7 +738,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsPsv(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsPsv(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -680,7 +768,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsHtml(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsHtml(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -702,7 +798,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsXml(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsXml(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -724,7 +828,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsJson(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsJson(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -746,7 +858,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsYaml(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsYaml(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -768,7 +888,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsSql(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsSql(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -790,7 +918,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsPdf(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsPdf(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -812,7 +948,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsPostScript(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsPostScript(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -834,7 +978,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsEpub(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsEpub(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -856,7 +1008,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsMobi(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsMobi(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -878,7 +1038,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsToml(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsToml(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -900,7 +1068,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsXps(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsXps(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -922,7 +1098,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsWps(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsWps(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -944,7 +1128,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsEt(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsEt(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -966,7 +1158,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsFictionBook2(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsFictionBook2(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -988,7 +1188,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsChm(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsChm(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -1010,7 +1218,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsDocBook(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsDocBook(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -1032,7 +1248,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsAbiword(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsAbiword(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -1054,7 +1278,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsAsciiDoc(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsAsciiDoc(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -1076,7 +1308,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsReStructuredText(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsReStructuredText(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -1098,7 +1338,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsTextile(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsTextile(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 
@@ -1120,7 +1368,15 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		};
 		if (saveFileDialog.ShowDialog() == DialogResult.OK)
 		{
-			ListViewExporter.SaveAsSqlite(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			try
+			{
+				Cursor.Current = Cursors.WaitCursor;
+				ListViewExporter.SaveAsSqlite(listView: listViewResults, title: "Database Differences", fileName: saveFileDialog.FileName, virtualRowProvider: GetVirtualListViewItem);
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
+			}
 		}
 	}
 	#endregion
