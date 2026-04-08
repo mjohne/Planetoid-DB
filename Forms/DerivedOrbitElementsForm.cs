@@ -376,7 +376,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsText(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsText(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the click event for the 'Save as LaTeX' menu item, allowing the user to export the contents of the table
@@ -398,7 +406,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsLatex(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsLatex(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the Click event of the 'Save as Markdown' menu item, allowing the user to export the current table layout
@@ -421,7 +437,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsMarkdown(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsMarkdown(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the click event for the 'Save as AsciiDoc' menu item, allowing the user to export the current list view
@@ -444,7 +468,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsAsciiDoc(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsAsciiDoc(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the click event for the 'Save as ReStructuredText' menu item, allowing the user to export the list view
@@ -467,7 +499,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsReStructuredText(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsReStructuredText(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the Click event of the 'Save As Textile' menu item to export the contents of the table layout panel to a
@@ -490,7 +530,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsTextile(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsTextile(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the Click event of the 'Save as Word' menu item to export the contents of the table layout panel to a Word
@@ -513,7 +561,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsWord(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsWord(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the Click event of the 'Save as ODT' menu item to export the contents of the table layout panel to an
@@ -535,7 +591,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsOdt(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsOdt(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the Click event of the Save As RTF menu item, allowing the user to export the contents of the table layout
@@ -558,7 +622,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsRtf(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsRtf(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the Click event of the 'Save As Abiword' menu item, allowing the user to export the list view results to an
@@ -580,7 +652,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsAbiword(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsAbiword(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the Click event of the Save As WPS menu item, allowing the user to export the current list view results to
@@ -602,7 +682,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsWps(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsWps(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the click event of the 'Save as Excel' menu item to export the contents of the table layout panel to an
@@ -625,7 +713,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsExcel(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsExcel(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the click event for the 'Save as ODS' menu item, allowing the user to export the contents of the table
@@ -647,7 +743,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsOds(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsOds(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the Click event of the 'Save as CSV' menu item, allowing the user to export the contents of the table
@@ -669,7 +773,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsCsv(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsCsv(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the Click event of the Save As TSV menu item, allowing the user to export the contents of the table layout
@@ -692,7 +804,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsTsv(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsTsv(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the Click event of the 'Save as PSV' menu item to export the contents of the table layout panel to a
@@ -715,7 +835,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsPsv(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsPsv(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the Click event for the 'Save As ET' menu item, allowing the user to export the current list view results
@@ -737,7 +865,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsEt(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsEt(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the Click event of the 'Save as HTML' menu item to export the contents of the table layout panel to an HTML
@@ -759,7 +895,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsHtml(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsHtml(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the Click event of the 'Save as XML' menu item to export the current list view results to an XML file.</summary>
@@ -781,7 +925,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsXml(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsXml(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the click event for the 'Save as DocBook' menu item, allowing the user to export the list view results to a
@@ -804,7 +956,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsDocBook(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsDocBook(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the click event for the 'Save as JSON' menu item, allowing the user to export the current list view results
@@ -826,7 +986,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsJson(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsJson(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 
 	}
 
@@ -850,7 +1018,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsYaml(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsYaml(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the click event for the 'Save as TOML' menu item, allowing the user to export the current list view results
@@ -872,7 +1048,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsToml(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsToml(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the Click event of the Save As SQL menu item to export the current list view results to a SQL file.</summary>
@@ -894,7 +1078,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsSql(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsSql(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the click event for the 'Save as SQLite' menu item, allowing the user to export the current list view
@@ -917,7 +1109,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsSqlite(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsSqlite(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the click event of the 'Save as PDF' menu item to export the contents of the table layout panel to a PDF
@@ -940,7 +1140,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsPdf(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsPdf(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the Click event of the Save As PostScript menu item to allow the user to export the list view results as a
@@ -963,7 +1171,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsPostScript(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsPostScript(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the click event for the 'Save as EPUB' menu item, allowing the user to export the current list view results
@@ -986,7 +1202,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsEpub(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsEpub(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the Click event of the Save As MOBI menu item, allowing the user to export the current list view results to
@@ -1008,7 +1232,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsMobi(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsMobi(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the Click event of the Save As XPS menu item, allowing the user to export the current list view results to
@@ -1030,7 +1262,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsXps(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsXps(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the Click event of the 'Save as FictionBook2' menu item, allowing the user to export the current list view
@@ -1052,7 +1292,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsFictionBook2(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsFictionBook2(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	/// <summary>Handles the click event for the 'Save as CHM' menu item, allowing the user to export the current list view results
@@ -1075,7 +1323,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		{
 			return;
 		}
-		TableLayoutPanelExporter.SaveAsChm(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		try
+		{
+			Cursor.Current = Cursors.WaitCursor;
+			TableLayoutPanelExporter.SaveAsChm(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+		}
+		finally
+		{
+			Cursor.Current = Cursors.Default;
+		}
 	}
 
 	#endregion
