@@ -117,6 +117,8 @@ partial class TableModeForm
 		toolStripLabelMaximum = new ToolStripLabel();
 		toolStripNumericUpDownMaximum = new Planetoid_DB.Helpers.ToolStripNumericUpDown();
 		toolStripSeparator2 = new ToolStripSeparator();
+		toolStripButtonGoToObject = new ToolStripButton();
+		toolStripSeparator4 = new ToolStripSeparator();
 		toolStripSeparator3 = new ToolStripSeparator();
 		toolStripLabelProgress = new ToolStripLabel();
 		kryptonProgressBar = new KryptonProgressBarToolStripItem();
@@ -951,7 +953,7 @@ partial class TableModeForm
 		toolStripIcons.BackColor = Color.Transparent;
 		toolStripIcons.Dock = DockStyle.None;
 		toolStripIcons.Font = new Font("Segoe UI", 9F);
-		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonList, toolStripButtonCancel, toolStripSeparator1, toolStripLabelMinimum, toolStripNumericUpDownMinimum, toolStripLabelMaximum, toolStripNumericUpDownMaximum, toolStripSeparator2, toolStripDropDownButtonSaveToFile, toolStripSeparator3, toolStripLabelProgress, kryptonProgressBar });
+		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonList, toolStripButtonCancel, toolStripSeparator1, toolStripLabelMinimum, toolStripNumericUpDownMinimum, toolStripLabelMaximum, toolStripNumericUpDownMaximum, toolStripSeparator2, toolStripButtonGoToObject, toolStripSeparator4, toolStripDropDownButtonSaveToFile, toolStripSeparator3, toolStripLabelProgress, kryptonProgressBar });
 		toolStripIcons.Location = new Point(0, 0);
 		toolStripIcons.Name = "toolStripIcons";
 		toolStripIcons.Size = new Size(868, 26);
@@ -1057,6 +1059,30 @@ partial class TableModeForm
 		toolStripSeparator2.Size = new Size(6, 26);
 		toolStripSeparator2.MouseEnter += Control_Enter;
 		toolStripSeparator2.MouseLeave += Control_Leave;
+		// 
+		// toolStripButtonGoToObject
+		// 
+		toolStripButtonGoToObject.AccessibleDescription = "Navigates to the selected planetoid in the main form and closes this form";
+		toolStripButtonGoToObject.AccessibleName = "Go to object";
+		toolStripButtonGoToObject.AccessibleRole = AccessibleRole.PushButton;
+		toolStripButtonGoToObject.Image = FatcowIcons16px.fatcow_application_go_16px;
+		toolStripButtonGoToObject.ImageTransparentColor = Color.Magenta;
+		toolStripButtonGoToObject.Name = "toolStripButtonGoToObject";
+		toolStripButtonGoToObject.Size = new Size(92, 23);
+		toolStripButtonGoToObject.Text = "&Go to object";
+		toolStripButtonGoToObject.Click += ToolStripButtonGoToObject_Click;
+		toolStripButtonGoToObject.MouseEnter += Control_Enter;
+		toolStripButtonGoToObject.MouseLeave += Control_Leave;
+		// 
+		// toolStripSeparator4
+		// 
+		toolStripSeparator4.AccessibleDescription = "Just a separator";
+		toolStripSeparator4.AccessibleName = "Just a separator";
+		toolStripSeparator4.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparator4.Name = "toolStripSeparator4";
+		toolStripSeparator4.Size = new Size(6, 26);
+		toolStripSeparator4.MouseEnter += Control_Enter;
+		toolStripSeparator4.MouseLeave += Control_Leave;
 		// 
 		// toolStripSeparator3
 		// 
@@ -1172,6 +1198,8 @@ partial class TableModeForm
 	private ToolStripButton toolStripButtonCancel;
 	private ToolStripSeparator toolStripSeparator2;
 	private ToolStripSeparator toolStripSeparator3;
+	private ToolStripSeparator toolStripSeparator4;
+	private ToolStripButton toolStripButtonGoToObject;
 	private ToolStripLabel toolStripLabelProgress;
 	private KryptonProgressBarToolStripItem kryptonProgressBar;
 	private ContextMenuStrip contextMenuSaveToFile;
