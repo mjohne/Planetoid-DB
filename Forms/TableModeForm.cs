@@ -142,6 +142,7 @@ public partial class TableModeForm : BaseKryptonForm
 		toolStripButtonCancel.Enabled = processing;
 		kryptonProgressBar.Enabled = processing;
 		toolStripDropDownButtonSaveToFile.Enabled = !processing;
+		toolStripButtonGoToObject.Enabled = !processing;
 		// Update the taskbar progress state
 		if (!processing)
 		{
@@ -1218,11 +1219,49 @@ public partial class TableModeForm : BaseKryptonForm
 
 	#region DoubleClick event handler
 
-	private void ListView_DoubleClick(object? sender, EventArgs e)
+	/// <summary>Handles the DoubleClick event of the ListView.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>When an item in the list is double-clicked, the corresponding planetoid is displayed
+	/// in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
+	private void ListView_DoubleClick(object? sender, EventArgs e) =>
+		GoToObject(closeAfterNavigation: false);
+
+	#endregion
+
+	#region Go to object event handler
+
+	/// <summary>Handles the Click event of the 'Go to object' toolbar button.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>When clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/>
+	/// and this form is closed.</remarks>
+	private void ToolStripButtonGoToObject_Click(object? sender, EventArgs e) =>
+		GoToObject(closeAfterNavigation: true);
+
+	/// <summary>Navigates to the currently selected planetoid in the <see cref="PlanetoidDbForm"/>.</summary>
+	/// <param name="closeAfterNavigation">If <see langword="true"/>, this form is closed after navigation.</param>
+	/// <remarks>Does nothing when no item is selected or the display cache is empty.</remarks>
+	private void GoToObject(bool closeAfterNavigation)
 	{
-		//TODO: implement double-click action, e.g., open a detailed view of the selected item or copy its content to the clipboard
-		NotImplementedException ex = new(message: "Double-click action is not implemented yet.");
-		throw ex;
+		if (listView.SelectedIndices.Count == 0)
+		{
+			return;
+		}
+		int idx = listView.SelectedIndices[index: 0];
+		if (idx < 0 || idx >= displayCache.Count)
+		{
+			return;
+		}
+		PlanetoidRecord record = displayCache[index: idx];
+		if (Owner is PlanetoidDbForm planetoidDbForm)
+		{
+			planetoidDbForm.JumpToRecord(index: record.Index, designation: record.DesignationName);
+		}
+		if (closeAfterNavigation)
+		{
+			Close();
+		}
 	}
 
 	#endregion
