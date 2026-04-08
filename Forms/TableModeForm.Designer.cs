@@ -1062,7 +1062,7 @@ partial class TableModeForm
 		// 
 		// toolStripButtonGoToObject
 		// 
-		toolStripButtonGoToObject.AccessibleDescription = "Navigates to the selected planetoid in the main form and closes this window";
+		toolStripButtonGoToObject.AccessibleDescription = "Navigates to the selected planetoid in the main form and closes this form";
 		toolStripButtonGoToObject.AccessibleName = "Go to object";
 		toolStripButtonGoToObject.AccessibleRole = AccessibleRole.PushButton;
 		toolStripButtonGoToObject.Image = FatcowIcons16px.fatcow_application_go_16px;
