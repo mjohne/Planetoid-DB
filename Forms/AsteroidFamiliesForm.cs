@@ -148,11 +148,12 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// <remarks>This method is called when the Cancel button is clicked to stop the ongoing detection process.</remarks>
 	private void ToolStripButtonCancel_Click(object? sender, EventArgs e)
 	{
-		// If a cancellation token source exists, signal cancellation and disable the Cancel button to prevent multiple clicks.
+		// If a cancellation token source exists, signal cancellation to stop the detection process. Also disable the Cancel button and re-enable the Start button to allow the user to start a new detection if desired.
 		if (_cancellationTokenSource != null)
 		{
 			_cancellationTokenSource.Cancel();
 			toolStripButtonCancel.Enabled = false;
+			toolStripButtonStartSearch.Enabled = true;
 		}
 	}
 
@@ -278,12 +279,12 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 			// After filtering and building the family list, we check for cancellation one last time before updating the UI with the results and report that we have reached 100% progress.
 			cancellationToken.ThrowIfCancellationRequested();
 			progress.Report(value: 100);
-			// We use InvokeAsync to marshal the update back to the UI thread, where we set the _families field to the detected families, populate the tree view with the new data, and enable the Save All button if any families were found.
+			// We use InvokeAsync to marshal the update back to the UI thread, where we set the _families field to the detected families, populate the tree view with the new data, and enable the save buttons if any families were detected.
 			await InvokeAsync(callback: () =>
 			{
 				_families = families;
 				PopulateTreeView();
-				toolStripButtonSaveListAllFamilies.Enabled = _families.Count > 0;
+				toolStripButtonSaveListAllFamilies.Enabled = toolStripButtonSaveListSelectedFamily.Enabled = toolStripButtonGoToObject.Enabled = _families.Count > 0;
 			}, cancellationToken: cancellationToken);
 		}
 		// We catch OperationCanceledException to handle the case where the detection was cancelled by the user. In this case, we simply ignore the exception since cancellation is an expected outcome.
