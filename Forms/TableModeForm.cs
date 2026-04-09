@@ -386,6 +386,16 @@ public partial class TableModeForm : BaseKryptonForm
 	/// <remarks>This method is called when the List button is clicked.</remarks>
 	private async void ToolStripButtonList_ClickAsync(object sender, EventArgs e)
 	{
+		// Determine the range to process
+		int minIndex = (int)toolStripNumericUpDownMinimum.Value - 1;
+		int maxIndex = (int)toolStripNumericUpDownMaximum.Value;
+		int count = maxIndex - minIndex;
+		// Validate that Minimum is less than Maximum before proceeding
+		if (count <= 0)
+		{
+			MessageBox.Show(text: "Minimum value must be less than Maximum value.", caption: "Invalid range", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
+			return;
+		}
 		// Start the stopwatch for performance measurement
 		stopwatch.Restart();
 		// IMPORTANT: In Virtual Mode, set the size to 0 while loading.
@@ -397,15 +407,14 @@ public partial class TableModeForm : BaseKryptonForm
 		// Initialize the cancellation token source
 		cancellationTokenSource = new CancellationTokenSource();
 		CancellationToken token = cancellationTokenSource.Token;
-		// Determine the range to process
-		int minIndex = (int)toolStripNumericUpDownMinimum.Value - 1;
-		int maxIndex = (int)toolStripNumericUpDownMaximum.Value;
-		int count = maxIndex - minIndex;
-		// Progress reporting setup
-		Progress<int> progress = new(handler: percent =>
+		// Progress reporting setup - must be created on the UI thread so callbacks are marshaled back correctly
+		IProgress<int> uiProgress = new Progress<int>(handler: processed =>
 		{
-			kryptonProgressBar.Value = percent;
-			int taskbarPercent = count > 0 ? percent * 100 / count : 0;
+			if (processed >= 0 && processed <= count)
+			{
+				kryptonProgressBar.Value = processed;
+			}
+			int taskbarPercent = count > 0 ? Math.Min(100, processed * 100 / count) : 0;
 			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)taskbarPercent, progressMax: 100);
 		});
 		// Configure the progress bar
@@ -421,7 +430,6 @@ public partial class TableModeForm : BaseKryptonForm
 				List<PlanetoidRecord> tempResults = new(capacity: count);
 				IEnumerable<string> rangeToProcess = planetoidsDatabase.Skip(count: minIndex).Take(count: count);
 				int progressCounter = 0;
-				IProgress<int> progressReporter = new Progress<int>(handler: value => kryptonProgressBar.Value = value);
 				// Process each line in the specified range
 				foreach (string line in rangeToProcess)
 				{
@@ -436,7 +444,7 @@ public partial class TableModeForm : BaseKryptonForm
 					// Don't flood the UI
 					if (progressCounter % 500 == 0)
 					{
-						progressReporter.Report(value: progressCounter);
+						uiProgress.Report(value: progressCounter);
 					}
 				}
 				return tempResults;
@@ -1327,8 +1335,9 @@ public partial class TableModeForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Handles the click event for the 'Save As TOML' menu item
-	/// that contains the event data.</param>
+	/// <summary>Handles the click event for the 'Save As TOML' menu item and initiates saving the current ListView results in TOML format.</summary>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler is typically connected to a ToolStripMenuItem in the user interface. It enables users to export the current ListView results as a TOML-formatted file.</remarks>
 	private void ToolStripMenuItemSaveAsToml_Click(object sender, EventArgs e)
 	{
@@ -1480,7 +1489,6 @@ public partial class TableModeForm : BaseKryptonForm
 	/// <remarks>Updates the progress bar synchronously during export operations.</remarks>
 	private ListViewItem ExportVirtualRowProvider(int index)
 	{
-		// When the exporter requests a row for export, this method is called with the row index. It updates the progress bar to reflect the current progress of the export operation. If the index is 0, it initializes the progress bar's maximum value to the total number of items in the display cache and resets its value to 0. For each subsequent index, it increments the progress bar's value accordingly. Additionally, it updates the taskbar progress indicator to show the percentage of completion. To keep the UI responsive during long export operations, it calls Application.DoEvents() every 100 rows. Finally, when the last row is reached, it resets the progress bar and taskbar progress indicator. If the index is valid, it returns a ListViewItem created from the corresponding PlanetoidRecord; otherwise, it returns a ListViewItem with an error message.
 		if (index == 0)
 		{
 			kryptonProgressBar.Maximum = displayCache.Count;
@@ -1494,11 +1502,6 @@ public partial class TableModeForm : BaseKryptonForm
 		// Update the taskbar progress indicator to reflect the current progress percentage
 		int percent = displayCache.Count > 0 ? (index + 1) * 100 / displayCache.Count : 0;
 		TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)percent, progressMax: 100);
-		// To keep the UI responsive during long export operations, call Application.DoEvents() every 100 rows
-		if (index % 100 == 0)
-		{
-			Application.DoEvents();
-		}
 		// When the last row is reached, reset the progress bar and taskbar progress indicator
 		if (index >= displayCache.Count - 1)
 		{
