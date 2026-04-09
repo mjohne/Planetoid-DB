@@ -110,12 +110,11 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 				icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
-		// Disable the Start button and enable the Cancel button while detection is in progress. Also disable save and navigation buttons until results are available.
+		// Disable the Start button and enable the Cancel button while detection is in progress. Also disable save buttons until results are available.
 		toolStripButtonStartSearch.Enabled = false;
 		toolStripButtonCancel.Enabled = true;
 		toolStripButtonSaveListSelectedFamily.Enabled = false;
 		toolStripButtonSaveListAllFamilies.Enabled = false;
-		toolStripButtonGoToObject.Enabled = false;
 		// Clear previous results and reset progress indicators.
 		treeViewFamilies.Nodes.Clear();
 		listViewMembers.VirtualListSize = 0;
@@ -149,11 +148,12 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// <remarks>This method is called when the Cancel button is clicked to stop the ongoing detection process.</remarks>
 	private void ToolStripButtonCancel_Click(object? sender, EventArgs e)
 	{
-		// If a cancellation token source exists, signal cancellation to stop the detection process and disable the Cancel button. The Start button will be re-enabled by the finally block in PerformDetectionAsync once the background task has fully completed, preventing a new run from starting while the previous one is still unwinding.
+		// If a cancellation token source exists, signal cancellation to stop the detection process. Also disable the Cancel button and re-enable the Start button to allow the user to start a new detection if desired.
 		if (_cancellationTokenSource != null)
 		{
 			_cancellationTokenSource.Cancel();
 			toolStripButtonCancel.Enabled = false;
+			toolStripButtonStartSearch.Enabled = true;
 		}
 	}
 
@@ -169,6 +169,19 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 			_cancellationTokenSource.Cancel();
 			_cancellationTokenSource.Dispose();
 		}
+
+		// Verhindere Update-Stürme und Event-Kettenaufrufe beim Zerstören der Steuerelemente
+		treeViewFamilies.AfterSelect -= TreeViewFamilies_AfterSelect;
+
+		treeViewFamilies.BeginUpdate();
+		treeViewFamilies.Nodes.Clear();
+		treeViewFamilies.EndUpdate();
+
+		listViewMembers.VirtualListSize = 0;
+
+		// Referenzen leeren für schnellere Garbage Collection
+		_families.Clear();
+		_selectedFamily = null;
 	}
 
 	/// <summary>Performs the asteroid family detection asynchronously using an orbital element binning algorithm.</summary>
@@ -279,12 +292,12 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 			// After filtering and building the family list, we check for cancellation one last time before updating the UI with the results and report that we have reached 100% progress.
 			cancellationToken.ThrowIfCancellationRequested();
 			progress.Report(value: 100);
-			// We use InvokeAsync to marshal the update back to the UI thread, where we set the _families field to the detected families, populate the tree view with the new data, and enable the Save All button if any families were detected. Save Selected and Go to object remain disabled until the user selects a family or a member.
+			// We use InvokeAsync to marshal the update back to the UI thread, where we set the _families field to the detected families, populate the tree view with the new data, and enable the save buttons if any families were detected.
 			await InvokeAsync(callback: () =>
 			{
 				_families = families;
 				PopulateTreeView();
-				toolStripButtonSaveListAllFamilies.Enabled = _families.Count > 0;
+				toolStripButtonSaveListAllFamilies.Enabled = toolStripButtonSaveListSelectedFamily.Enabled = toolStripButtonGoToObject.Enabled = _families.Count > 0;
 			}, cancellationToken: cancellationToken);
 		}
 		// We catch OperationCanceledException to handle the case where the detection was cancelled by the user. In this case, we simply ignore the exception since cancellation is an expected outcome.
@@ -361,8 +374,6 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 			listViewMembers.VirtualListSize = _selectedFamily.Members.Count;
 			listViewMembers.Invalidate();
 			toolStripButtonSaveListSelectedFamily.Enabled = true;
-			// No member is selected yet in the new family — disable Go to object until a member is chosen.
-			toolStripButtonGoToObject.Enabled = false;
 		}
 	}
 
@@ -395,21 +406,21 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">An EventArgs that contains the event data.</param>
 	/// <remarks>This method saves the currently selected family to a text file.</remarks>
-	private void ToolStripButtonSaveSelected_Click(object? sender, EventArgs e)
+	private async void ToolStripButtonSaveSelected_Click(object? sender, EventArgs e)
 	{
 		// We check if a family is currently selected. If not, we simply return without doing anything. If a family is selected, we call the SaveFamiliesToFile method with a list containing just the selected family to save it to a text file.
 		if (_selectedFamily == null)
 		{
 			return;
 		}
-		SaveFamiliesToFile(families: [_selectedFamily]);
+		await SaveFamiliesToFileAsync(families: [_selectedFamily]);
 	}
 
 	/// <summary>Saves all detected families to a single text file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">An EventArgs that contains the event data.</param>
 	/// <remarks>This method saves all detected families to a single text file.</remarks>
-	private void ToolStripButtonSaveAll_Click(object? sender, EventArgs e)
+	private async void ToolStripButtonSaveAll_Click(object? sender, EventArgs e)
 	{
 		// We check if there are any detected families in the _families list. If the list is empty, we simply return without doing anything. If there are families detected, we call the SaveFamiliesToFile method with the entire list of families to save them all to a single text file.
 		if (_families.Count == 0)
@@ -417,13 +428,13 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 			return;
 		}
 		// We call the SaveFamiliesToFile method with the entire list of detected families to save them all to a single text file.
-		SaveFamiliesToFile(families: _families);
+		await SaveFamiliesToFileAsync(families: _families);
 	}
 
 	/// <summary>Opens a save dialog and writes the specified families to a text file.</summary>
 	/// <param name="families">The families to export.</param>
 	/// <remarks>This method opens a save dialog and writes the specified families to a text file.</remarks>
-	private static void SaveFamiliesToFile(IReadOnlyList<AsteroidFamily> families)
+	private async Task SaveFamiliesToFileAsync(IReadOnlyList<AsteroidFamily> families)
 	{
 		// We determine a default file name based on the number of families being saved. If there is only one family, we use its name (truncated at the first parenthesis if present) as the default file name, replacing spaces with underscores. If there are multiple families, we use a generic name "AsteroidFamilies" as the default file name.
 		string defaultFileName = families.Count == 1
@@ -444,28 +455,49 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		{
 			return;
 		}
-		// We use a StringBuilder to construct the contents of the text file. We define a header string that describes the columns of the data, and a separator string that consists of dashes to visually separate the header from the data. We then loop through each family and its members, appending formatted lines to the StringBuilder for each planetoid in the family.
-		StringBuilder sb = new();
-		string header = $"{"Index",-10} {"Name",-30} {"a (AU)",-12} {"e",-10} {"i (°)",-10} {"M (°)",-12} {"ArgPeri (°)",-14} {"LongAscNode (°)",-16}";
-		string separator = new(c: '-', count: header.Length);
-		// We loop through each family in the list of families to be saved. For each family, we append a header line with the family's name, followed by the column header and a separator line. We then loop through each member of the family and append a formatted line with the member's orbital parameters. After processing all members of a family, we append an empty line before moving on to the next family.
-		foreach (AsteroidFamily family in families)
+		// We create a Progress<int> instance to report progress updates to the UI. The progress handler updates the value and text of the progress bar in the tool strip, as well as the taskbar progress indicator for the application window.
+		Progress<int> progress = new(handler: percent =>
 		{
-			sb.AppendLine(handler: $"=== {family.Name} ===");
-			sb.AppendLine(value: header);
-			sb.AppendLine(value: separator);
-			foreach (PlanetoidEntry p in family.Members)
+			kryptonProgressBarToolStripItem.Value = percent;
+			kryptonProgressBarToolStripItem.Text = $"{percent}%";
+			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)percent, progressMax: 100);
+		});
+		// We calculate the total number of members across all families being saved to use for progress reporting. This allows us to report progress as we write each member to the file.
+		int totalMembers = families.Sum(selector: f => f.Members.Count);
+		IProgress<int> progressReporter = progress;
+		// We use a StringBuilder to construct the contents of the text file asynchronously.
+		string textContent = await Task.Run(function: () =>
+		{
+			StringBuilder sb = new();
+			string header = $"{"Index",-10} {"Name",-30} {"a (AU)",-12} {"e",-10} {"i (°)",-10} {"M (°)",-12} {"ArgPeri (°)",-14} {"LongAscNode (°)",-16}";
+			string separator = new(c: '-', count: header.Length);
+			int processed = 0;
+			// We loop through each family in the list of families to be saved.
+			foreach (AsteroidFamily family in families)
 			{
-				sb.AppendLine(
-					value: $"{p.Index,-10} {p.Name,-30} {p.SemiMajorAxis,-12:F4} {p.Eccentricity,-10:F4} {p.Inclination,-10:F4} {p.MeanAnomaly,-12:F4} {p.ArgPeri,-14:F4} {p.LongAscNode,-16:F4}");
+				sb.AppendLine(handler: $"=== {family.Name} ===");
+				sb.AppendLine(value: header);
+				sb.AppendLine(value: separator);
+				foreach (PlanetoidEntry p in family.Members)
+				{
+					sb.AppendLine(
+						value: $"{p.Index,-10} {p.Name,-30} {p.SemiMajorAxis,-12:F4} {p.Eccentricity,-10:F4} {p.Inclination,-10:F4} {p.MeanAnomaly,-12:F4} {p.ArgPeri,-14:F4} {p.LongAscNode,-16:F4}");
+
+					processed++;
+					if (processed % 1000 == 0)
+					{
+						progressReporter.Report(value: processed * 100 / totalMembers);
+					}
+				}
+				sb.AppendLine();
 			}
-			// After processing all members of the current family, we append an empty line to separate it from the next family in the output.
-			sb.AppendLine();
-		}
-		// We attempt to write the contents of the StringBuilder to the specified file using UTF-8 encoding. If the write operation is successful, we show a message box confirming that the file was saved successfully. If an IOException occurs (e.g., due to disk issues), we show an error message with details about the failure. If an UnauthorizedAccessException occurs (e.g., due to permission issues), we show an error message indicating that the user does not have permission to save the file. We also catch any other unexpected exceptions and show a generic error message with details about the exception.
+			progressReporter.Report(value: 100);
+			return sb.ToString();
+		});
+		// We attempt to write the contents constructed by the StringBuilder to the specified file using UTF-8 encoding.
 		try
 		{
-			File.WriteAllText(path: dlg.FileName, contents: sb.ToString(), encoding: Encoding.UTF8);
+			await File.WriteAllTextAsync(path: dlg.FileName, contents: textContent, encoding: Encoding.UTF8);
 			MessageBox.Show(
 				text: $"Successfully saved to:{Environment.NewLine}{dlg.FileName}",
 				caption: "Saved",
@@ -498,6 +530,12 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 				caption: "Save Error",
 				buttons: MessageBoxButtons.OK,
 				icon: MessageBoxIcon.Error);
+		}
+		finally
+		{
+			kryptonProgressBarToolStripItem.Value = 0;
+			kryptonProgressBarToolStripItem.Text = "0%";
+			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: 0, progressMax: 100);
 		}
 	}
 
@@ -599,17 +637,6 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
 	private void ListViewMembers_DoubleClick(object? sender, EventArgs e) =>
 		NavigateToSelectedMember(closeAfterNavigation: false);
-
-	#endregion
-
-	#region ItemSelectionChanged event handler
-
-	/// <summary>Handles the ItemSelectionChanged event of the member ListView.</summary>
-	/// <param name="sender">The source of the event.</param>
-	/// <param name="e">The event data.</param>
-	/// <remarks>Enables the 'Go to object' toolbar button when at least one member is selected, and disables it when the selection is cleared.</remarks>
-	private void ListViewMembers_ItemSelectionChanged(object? sender, ListViewItemSelectionChangedEventArgs e) =>
-		toolStripButtonGoToObject.Enabled = listViewMembers.SelectedIndices.Count > 0;
 
 	#endregion
 
