@@ -334,15 +334,12 @@ public partial class TableModeForm : BaseKryptonForm
 		{
 			return;
 		}
+		// Enable or disable the "Go To Object" button based on the current selection count
+		toolStripButtonGoToObject.Enabled = listView.SelectedIndices.Count > 0;
 		// Check if there are any selected indices
 		if (listView.SelectedIndices.Count <= 0)
 		{
 			return;
-		}
-		// Enable the "Go To Object" button if it is not already enabled
-		if (toolStripButtonGoToObject.Enabled == false)
-		{
-			toolStripButtonGoToObject.Enabled = true;
 		}
 		// Get the selected index from the list view
 		int selectedIndex = listView.SelectedIndices[index: 0];
