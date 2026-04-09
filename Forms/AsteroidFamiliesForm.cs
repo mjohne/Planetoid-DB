@@ -110,11 +110,12 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 				icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
-		// Disable the Start button and enable the Cancel button while detection is in progress. Also disable save buttons until results are available.
+		// Disable the Start button and enable the Cancel button while detection is in progress. Also disable save and navigation buttons until results are available.
 		toolStripButtonStartSearch.Enabled = false;
 		toolStripButtonCancel.Enabled = true;
 		toolStripButtonSaveListSelectedFamily.Enabled = false;
 		toolStripButtonSaveListAllFamilies.Enabled = false;
+		toolStripButtonGoToObject.Enabled = false;
 		// Clear previous results and reset progress indicators.
 		treeViewFamilies.Nodes.Clear();
 		listViewMembers.VirtualListSize = 0;
@@ -148,12 +149,11 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// <remarks>This method is called when the Cancel button is clicked to stop the ongoing detection process.</remarks>
 	private void ToolStripButtonCancel_Click(object? sender, EventArgs e)
 	{
-		// If a cancellation token source exists, signal cancellation to stop the detection process. Also disable the Cancel button and re-enable the Start button to allow the user to start a new detection if desired.
+		// If a cancellation token source exists, signal cancellation to stop the detection process and disable the Cancel button. The Start button will be re-enabled by the finally block in PerformDetectionAsync once the background task has fully completed, preventing a new run from starting while the previous one is still unwinding.
 		if (_cancellationTokenSource != null)
 		{
 			_cancellationTokenSource.Cancel();
 			toolStripButtonCancel.Enabled = false;
-			toolStripButtonStartSearch.Enabled = true;
 		}
 	}
 
@@ -279,12 +279,12 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 			// After filtering and building the family list, we check for cancellation one last time before updating the UI with the results and report that we have reached 100% progress.
 			cancellationToken.ThrowIfCancellationRequested();
 			progress.Report(value: 100);
-			// We use InvokeAsync to marshal the update back to the UI thread, where we set the _families field to the detected families, populate the tree view with the new data, and enable the save buttons if any families were detected.
+			// We use InvokeAsync to marshal the update back to the UI thread, where we set the _families field to the detected families, populate the tree view with the new data, and enable the Save All button if any families were detected. Save Selected and Go to object remain disabled until the user selects a family or a member.
 			await InvokeAsync(callback: () =>
 			{
 				_families = families;
 				PopulateTreeView();
-				toolStripButtonSaveListAllFamilies.Enabled = toolStripButtonSaveListSelectedFamily.Enabled = toolStripButtonGoToObject.Enabled = _families.Count > 0;
+				toolStripButtonSaveListAllFamilies.Enabled = _families.Count > 0;
 			}, cancellationToken: cancellationToken);
 		}
 		// We catch OperationCanceledException to handle the case where the detection was cancelled by the user. In this case, we simply ignore the exception since cancellation is an expected outcome.
@@ -361,6 +361,8 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 			listViewMembers.VirtualListSize = _selectedFamily.Members.Count;
 			listViewMembers.Invalidate();
 			toolStripButtonSaveListSelectedFamily.Enabled = true;
+			// No member is selected yet in the new family — disable Go to object until a member is chosen.
+			toolStripButtonGoToObject.Enabled = false;
 		}
 	}
 
@@ -597,6 +599,17 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
 	private void ListViewMembers_DoubleClick(object? sender, EventArgs e) =>
 		NavigateToSelectedMember(closeAfterNavigation: false);
+
+	#endregion
+
+	#region ItemSelectionChanged event handler
+
+	/// <summary>Handles the ItemSelectionChanged event of the member ListView.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>Enables the 'Go to object' toolbar button when at least one member is selected, and disables it when the selection is cleared.</remarks>
+	private void ListViewMembers_ItemSelectionChanged(object? sender, ListViewItemSelectionChangedEventArgs e) =>
+		toolStripButtonGoToObject.Enabled = listViewMembers.SelectedIndices.Count > 0;
 
 	#endregion
 

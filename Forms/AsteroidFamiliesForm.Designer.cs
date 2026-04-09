@@ -205,6 +205,7 @@ partial class AsteroidFamiliesForm
 		listViewMembers.ColumnClick += ListViewMembers_ColumnClick;
 		listViewMembers.RetrieveVirtualItem += ListView_RetrieveVirtualItem;
 		listViewMembers.DoubleClick += ListViewMembers_DoubleClick;
+		listViewMembers.ItemSelectionChanged += ListViewMembers_ItemSelectionChanged;
 		listViewMembers.Enter += Control_Enter;
 		listViewMembers.Leave += Control_Leave;
 		listViewMembers.MouseEnter += Control_Enter;
