@@ -150,7 +150,7 @@ partial class TableModeForm
 		listView.MultiSelect = false;
 		listView.Name = "listView";
 		listView.ShowItemToolTips = true;
-		listView.Size = new Size(868, 431);
+		listView.Size = new Size(945, 431);
 		listView.TabIndex = 8;
 		listView.UseCompatibleStateImageBehavior = false;
 		listView.View = View.Details;
@@ -861,7 +861,7 @@ partial class TableModeForm
 		kryptoPanelMain.Location = new Point(0, 0);
 		kryptoPanelMain.Name = "kryptoPanelMain";
 		kryptoPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptoPanelMain.Size = new Size(868, 431);
+		kryptoPanelMain.Size = new Size(945, 431);
 		kryptoPanelMain.TabIndex = 0;
 		kryptoPanelMain.TabStop = true;
 		kryptoPanelMain.Text = "Main Panel";
@@ -886,7 +886,7 @@ partial class TableModeForm
 		kryptonStatusStrip.ProgressBars = null;
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
 		kryptonStatusStrip.ShowItemToolTips = true;
-		kryptonStatusStrip.Size = new Size(868, 22);
+		kryptonStatusStrip.Size = new Size(945, 22);
 		kryptonStatusStrip.SizingGrip = false;
 		kryptonStatusStrip.TabIndex = 9;
 		kryptonStatusStrip.TabStop = true;
@@ -927,11 +927,11 @@ partial class TableModeForm
 		// toolStripContainer.ContentPanel
 		// 
 		toolStripContainer.ContentPanel.Controls.Add(kryptoPanelMain);
-		toolStripContainer.ContentPanel.Size = new Size(868, 431);
+		toolStripContainer.ContentPanel.Size = new Size(945, 431);
 		toolStripContainer.Dock = DockStyle.Fill;
 		toolStripContainer.Location = new Point(0, 0);
 		toolStripContainer.Name = "toolStripContainer";
-		toolStripContainer.Size = new Size(868, 479);
+		toolStripContainer.Size = new Size(945, 479);
 		toolStripContainer.TabIndex = 2;
 		toolStripContainer.Text = "toolStripContainer";
 		// 
@@ -956,7 +956,7 @@ partial class TableModeForm
 		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonList, toolStripButtonCancel, toolStripSeparator1, toolStripLabelMinimum, toolStripNumericUpDownMinimum, toolStripLabelMaximum, toolStripNumericUpDownMaximum, toolStripSeparator2, toolStripButtonGoToObject, toolStripSeparator4, toolStripDropDownButtonSaveToFile, toolStripSeparator3, toolStripLabelProgress, kryptonProgressBar });
 		toolStripIcons.Location = new Point(0, 0);
 		toolStripIcons.Name = "toolStripIcons";
-		toolStripIcons.Size = new Size(868, 26);
+		toolStripIcons.Size = new Size(945, 26);
 		toolStripIcons.Stretch = true;
 		toolStripIcons.TabIndex = 3;
 		toolStripIcons.TabStop = true;
@@ -1065,6 +1065,7 @@ partial class TableModeForm
 		toolStripButtonGoToObject.AccessibleDescription = "Navigates to the selected planetoid in the main form and closes this form";
 		toolStripButtonGoToObject.AccessibleName = "Go to object";
 		toolStripButtonGoToObject.AccessibleRole = AccessibleRole.PushButton;
+		toolStripButtonGoToObject.Enabled = false;
 		toolStripButtonGoToObject.Image = FatcowIcons16px.fatcow_application_go_16px;
 		toolStripButtonGoToObject.ImageTransparentColor = Color.Magenta;
 		toolStripButtonGoToObject.Name = "toolStripButtonGoToObject";
@@ -1128,10 +1129,10 @@ partial class TableModeForm
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(868, 479);
+		ClientSize = new Size(945, 479);
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
-		FormBorderStyle = FormBorderStyle.FixedToolWindow;
+		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		Margin = new Padding(4, 3, 4, 3);
 		MaximizeBox = false;
