@@ -105,6 +105,7 @@ partial class AsteroidFamiliesForm
 		toolStripButtonGoToObject.AccessibleDescription = "Navigates to the selected planetoid in the main form and closes this window";
 		toolStripButtonGoToObject.AccessibleName = "Go to object";
 		toolStripButtonGoToObject.AccessibleRole = AccessibleRole.PushButton;
+		toolStripButtonGoToObject.Enabled = false;
 		toolStripButtonGoToObject.Image = Resources.FatcowIcons16px.fatcow_application_go_16px;
 		toolStripButtonGoToObject.ImageTransparentColor = Color.Magenta;
 		toolStripButtonGoToObject.Name = "toolStripButtonGoToObject";
@@ -201,9 +202,10 @@ partial class AsteroidFamiliesForm
 		listViewMembers.UseCompatibleStateImageBehavior = false;
 		listViewMembers.View = View.Details;
 		listViewMembers.VirtualMode = true;
-		listViewMembers.RetrieveVirtualItem += ListView_RetrieveVirtualItem;
 		listViewMembers.ColumnClick += ListViewMembers_ColumnClick;
+		listViewMembers.RetrieveVirtualItem += ListView_RetrieveVirtualItem;
 		listViewMembers.DoubleClick += ListViewMembers_DoubleClick;
+		listViewMembers.ItemSelectionChanged += ListViewMembers_ItemSelectionChanged;
 		listViewMembers.Enter += Control_Enter;
 		listViewMembers.Leave += Control_Leave;
 		listViewMembers.MouseEnter += Control_Enter;
@@ -361,6 +363,7 @@ partial class AsteroidFamiliesForm
 		toolStripButtonCancel.AccessibleDescription = "Cancels the asteroid families detection";
 		toolStripButtonCancel.AccessibleName = "Cancel";
 		toolStripButtonCancel.AccessibleRole = AccessibleRole.PushButton;
+		toolStripButtonCancel.Enabled = false;
 		toolStripButtonCancel.Image = Resources.FatcowIcons16px.fatcow_cancel_16px;
 		toolStripButtonCancel.ImageTransparentColor = Color.Magenta;
 		toolStripButtonCancel.Name = "toolStripButtonCancel";
@@ -385,6 +388,7 @@ partial class AsteroidFamiliesForm
 		toolStripButtonSaveListSelectedFamily.AccessibleDescription = "Saves the members of a potential asteroid family into a text file";
 		toolStripButtonSaveListSelectedFamily.AccessibleName = "Save the family members into a text file";
 		toolStripButtonSaveListSelectedFamily.AccessibleRole = AccessibleRole.PushButton;
+		toolStripButtonSaveListSelectedFamily.Enabled = false;
 		toolStripButtonSaveListSelectedFamily.Image = Resources.FatcowIcons16px.fatcow_diskette_16px;
 		toolStripButtonSaveListSelectedFamily.ImageTransparentColor = Color.Magenta;
 		toolStripButtonSaveListSelectedFamily.Name = "toolStripButtonSaveListSelectedFamily";
@@ -399,6 +403,7 @@ partial class AsteroidFamiliesForm
 		toolStripButtonSaveListAllFamilies.AccessibleDescription = "Saves all potential asteroid families into a text file";
 		toolStripButtonSaveListAllFamilies.AccessibleName = "Save all into a text file";
 		toolStripButtonSaveListAllFamilies.AccessibleRole = AccessibleRole.PushButton;
+		toolStripButtonSaveListAllFamilies.Enabled = false;
 		toolStripButtonSaveListAllFamilies.Image = Resources.FatcowIcons16px.fatcow_disk_multiple_16px;
 		toolStripButtonSaveListAllFamilies.ImageTransparentColor = Color.Magenta;
 		toolStripButtonSaveListAllFamilies.Name = "toolStripButtonSaveListAllFamilies";
