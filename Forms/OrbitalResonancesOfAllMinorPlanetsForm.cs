@@ -77,6 +77,10 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Replaced atomically on the UI thread after each search completes.</remarks>
 	private List<ResonanceResult> _results = [];
 
+	/// <summary>Holds the full unfiltered set of resonance results computed by the most recent search.</summary>
+	/// <remarks>Filtering and sorting derive <see cref="_results"/> from this collection without modifying it,
+	/// so re-filtering (e.g. when the user changes the planet selection or the filter toggle) does not
+	/// require re-running the search.</remarks>
 	private List<ResonanceResult> _allResults = [];
 
 	/// <summary>Cancellation token source for the currently running search task.</summary>
@@ -144,8 +148,11 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		_results = [.. _allResults.Where(predicate: r =>
 			selectedPlanets.Contains(item: r.Resonance.PlanetName) &&
 			(!filterResonances || r.Resonance.DeviationPercent < ResonanceThresholdPercent))];
-		// Sort the filtered results before displaying them
-		SortResults();
+		// Sort the filtered results only when an actual sort column and direction have been selected
+		if (sortColumn >= 0 && sortOrder != SortOrder.None)
+		{
+			SortResults();
+		}
 		// Update the VirtualListSize of the ListView to match the count of the filtered results; this tells the ListView how many items it should expect to retrieve in virtual mode, and it will call the RetrieveVirtualItem event handler for each visible item index up to this count; after updating the list size, we call Refresh to force the ListView to redraw itself with the new data
 		listView.VirtualListSize = _results.Count;
 		listView.Refresh();
@@ -330,18 +337,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// The user can cancel at any time using the Cancel button.</remarks>
 	private async void ButtonStart_Click(object sender, EventArgs e)
 	{
-		// Disable the Start button and planet selection buttons to prevent changes during the search; also disable the save menu since there are no results yet; these controls will be re-enabled when the search completes or is cancelled
-		toolStripDropDownButtonSaveToFile.Enabled = false;
-		toolStripLabelPlanets.Enabled = false;
-		toolStripButtonMercury.Enabled = false;
-		toolStripButtonVenus.Enabled = false;
-		toolStripButtonEarth.Enabled = false;
-		toolStripButtonMars.Enabled = false;
-		toolStripButtonJupiter.Enabled = false;
-		toolStripButtonSaturn.Enabled = false;
-		toolStripButtonUranus.Enabled = false;
-		toolStripButtonNeptune.Enabled = false;
-		toolStripButtonFilterResonances.Enabled = false;
+		// Validate that at least one planet is selected before starting the search
 		List<string> selectedPlanets = GetSelectedPlanets();
 		if (selectedPlanets.Count == 0)
 		{
@@ -361,6 +357,18 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 				icon: MessageBoxIcon.Information);
 			return;
 		}
+		// Disable the Start button and planet selection buttons to prevent changes during the search; also disable the save menu since there are no results yet; these controls will be re-enabled when the search completes or is cancelled
+		toolStripDropDownButtonSaveToFile.Enabled = false;
+		toolStripLabelPlanets.Enabled = false;
+		toolStripButtonMercury.Enabled = false;
+		toolStripButtonVenus.Enabled = false;
+		toolStripButtonEarth.Enabled = false;
+		toolStripButtonMars.Enabled = false;
+		toolStripButtonJupiter.Enabled = false;
+		toolStripButtonSaturn.Enabled = false;
+		toolStripButtonUranus.Enabled = false;
+		toolStripButtonNeptune.Enabled = false;
+		toolStripButtonFilterResonances.Enabled = false;
 		// Disable the Start button and enable the Cancel button to reflect the search state; clear previous results and reset the progress bar and status label before starting the new search
 		toolStripButtonStart.Enabled = false;
 		toolStripButtonCancel.Enabled = true;
@@ -395,20 +403,8 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 						progress.Report(value: (i + 1) * 100 / total);
 					}
 				}
-				// Log the completion of the search with the total number of resonances found; this provides feedback in the logs about the outcome of the search						   
+				// Log the completion of the search with the total number of resonances found; this provides feedback in the logs about the outcome of the search
 				logger.Info(message: $"Orbital resonance search completed. Total resonances found: {localResults.Count}");
-				// After the search completes, re-enable the planet selection buttons and save menu to allow the user to start a new search or export results; this is done on the background thread, but since the UI will be updated in the finally block, it is safe to update these controls here without cross-thread issues
-				toolStripDropDownButtonSaveToFile.Enabled = true;
-				toolStripLabelPlanets.Enabled = true;
-				toolStripButtonMercury.Enabled = true;
-				toolStripButtonVenus.Enabled = true;
-				toolStripButtonEarth.Enabled = true;
-				toolStripButtonMars.Enabled = true;
-				toolStripButtonJupiter.Enabled = true;
-				toolStripButtonSaturn.Enabled = true;
-				toolStripButtonUranus.Enabled = true;
-				toolStripButtonNeptune.Enabled = true;
-				toolStripButtonFilterResonances.Enabled = true;
 			}, cancellationToken: token);
 		}
 		// Catch the OperationCanceledException to handle user cancellation gracefully; log the cancellation event and update the status label to inform the user that the search was cancelled
@@ -434,6 +430,18 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 					FilterResults();
 					toolStripButtonStart.Enabled = true;
 					toolStripButtonCancel.Enabled = false;
+					// Re-enable the planet selection buttons, filter toggle, and save menu on the UI thread after the background work has fully completed
+					toolStripDropDownButtonSaveToFile.Enabled = true;
+					toolStripLabelPlanets.Enabled = true;
+					toolStripButtonMercury.Enabled = true;
+					toolStripButtonVenus.Enabled = true;
+					toolStripButtonEarth.Enabled = true;
+					toolStripButtonMars.Enabled = true;
+					toolStripButtonJupiter.Enabled = true;
+					toolStripButtonSaturn.Enabled = true;
+					toolStripButtonUranus.Enabled = true;
+					toolStripButtonNeptune.Enabled = true;
+					toolStripButtonFilterResonances.Enabled = true;
 				}
 			}
 			// Catch ObjectDisposedException and InvalidOperationException that may occur if the form is closing while the search is still running; these exceptions can be safely ignored as they indicate that the form is being disposed and the search is being cancelled
@@ -461,22 +469,14 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>The search can be cancelled by the user at any time using the Cancel button.</remarks>
 	private void ButtonCancel_Click(object sender, EventArgs e)
 	{
-		// If a search is currently running (indicated by a non-null cancellation token source), signal cancellation by calling Cancel on the token source; this will cause the background search task to throw an OperationCanceledException, which is caught and handled in the search method; after signalling cancellation, disable the Cancel button and re-enable the planet selection buttons and save menu to allow the user to start a new search
+		// If a search is currently running, request cancellation and prevent repeated cancel clicks.
+		// Keep the save, planet-selection, and filter controls disabled here so they are only
+		// re-enabled after the background search has fully completed and final results have been
+		// applied on the UI thread by the normal completion logic.
 		if (_cancellationTokenSource != null)
 		{
 			_cancellationTokenSource.Cancel();
 			toolStripButtonCancel.Enabled = false;
-			toolStripDropDownButtonSaveToFile.Enabled = true;
-			toolStripLabelPlanets.Enabled = true;
-			toolStripButtonMercury.Enabled = true;
-			toolStripButtonVenus.Enabled = true;
-			toolStripButtonEarth.Enabled = true;
-			toolStripButtonMars.Enabled = true;
-			toolStripButtonJupiter.Enabled = true;
-			toolStripButtonSaturn.Enabled = true;
-			toolStripButtonUranus.Enabled = true;
-			toolStripButtonNeptune.Enabled = true;
-			toolStripButtonFilterResonances.Enabled = true;
 		}
 	}
 
