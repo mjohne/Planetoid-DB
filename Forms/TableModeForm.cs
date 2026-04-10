@@ -588,7 +588,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsCsv(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsCsv(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -616,7 +616,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsHtml(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsHtml(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -644,7 +644,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsXml(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsXml(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -672,7 +672,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsJson(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsJson(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -701,7 +701,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsSql(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsSql(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -730,7 +730,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsMarkdown(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsMarkdown(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -759,7 +759,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsYaml(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsYaml(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -788,7 +788,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsTsv(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsTsv(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -817,7 +817,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsPsv(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsPsv(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -845,7 +845,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsLatex(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsLatex(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -873,7 +873,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsPostScript(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsPostScript(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -901,7 +901,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsPdf(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsPdf(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -929,7 +929,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsEpub(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsEpub(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -957,7 +957,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsWord(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsWord(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -985,7 +985,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsExcel(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsExcel(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -1013,7 +1013,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsOdt(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsOdt(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -1041,7 +1041,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsOds(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsOds(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -1069,7 +1069,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsMobi(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsMobi(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -1097,7 +1097,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsRtf(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsRtf(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -1125,7 +1125,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsText(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsText(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -1154,7 +1154,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsAsciiDoc(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsAsciiDoc(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -1183,7 +1183,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsReStructuredText(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsReStructuredText(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -1213,7 +1213,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsTextile(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsTextile(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -1242,7 +1242,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsAbiword(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsAbiword(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -1271,7 +1271,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsWps(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsWps(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -1300,7 +1300,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsEt(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsEt(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -1308,8 +1308,9 @@ public partial class TableModeForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Handles the click event for the 'Save As DocBook' menu item
-	/// that contains the event data.</param>
+	/// <summary>Handles the click <see langword="event"/> for the 'Save As DocBook' menu item.</summary>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler is typically connected to a ToolStripMenuItem in the user interface. It enables users to export the current ListView results as a DocBook-formatted file.</remarks>
 	private void ToolStripMenuItemSaveAsDocBook_Click(object sender, EventArgs e)
 	{
@@ -1327,7 +1328,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsDocBook(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsDocBook(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -1355,7 +1356,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsToml(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsToml(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -1384,7 +1385,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsXps(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsXps(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -1413,7 +1414,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsFictionBook2(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsFictionBook2(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -1442,7 +1443,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsChm(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsChm(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -1471,7 +1472,7 @@ public partial class TableModeForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			ListViewExporter.SaveAsSqlite(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName, virtualRowProvider: ExportVirtualRowProvider);
+			ListViewExporter.SaveAsSqlite(listView: listView, title: "Orbital resonances", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -1482,35 +1483,6 @@ public partial class TableModeForm : BaseKryptonForm
 	#endregion
 
 	#region DoubleClick event handler
-
-	/// <summary>Provides ListViewItem for exporter and updates the progress bar.</summary>
-	/// <param name="index">The row index requested by the exporter.</param>
-	/// <returns>A ListViewItem representing the row data.</returns>
-	/// <remarks>Updates the progress bar synchronously during export operations.</remarks>
-	private ListViewItem ExportVirtualRowProvider(int index)
-	{
-		if (index == 0)
-		{
-			kryptonProgressBar.Maximum = displayCache.Count;
-			kryptonProgressBar.Value = 0;
-		}
-		// Increment the progress bar value if the index is within the valid range
-		if (index < kryptonProgressBar.Maximum)
-		{
-			kryptonProgressBar.Value = index + 1;
-		}
-		// Update the taskbar progress indicator to reflect the current progress percentage
-		int percent = displayCache.Count > 0 ? (index + 1) * 100 / displayCache.Count : 0;
-		TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)percent, progressMax: 100);
-		// When the last row is reached, reset the progress bar and taskbar progress indicator
-		if (index >= displayCache.Count - 1)
-		{
-			kryptonProgressBar.Value = 0;
-			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: 0, progressMax: 100);
-		}
-		// If the index is valid, return a ListViewItem created from the corresponding PlanetoidRecord; otherwise, return a ListViewItem with an error message
-		return index >= 0 && index < displayCache.Count ? CreateListViewItem(p: displayCache[index]) : new ListViewItem(text: "Error");
-	}
 
 	/// <summary>Handles the DoubleClick event of the ListView.</summary>
 	/// <param name="sender">The source of the event.</param>

@@ -1026,7 +1026,7 @@ partial class AppInfoForm
 		kryptonLabelVersionNlog.ToolTipValues.EnableToolTips = true;
 		kryptonLabelVersionNlog.ToolTipValues.Heading = "NLog version";
 		kryptonLabelVersionNlog.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		kryptonLabelVersionNlog.Values.Text = "Version: 6.1.1";
+		kryptonLabelVersionNlog.Values.Text = "Version: 6.1.2";
 		kryptonLabelVersionNlog.DoubleClick += CopyToClipboard_DoubleClick;
 		kryptonLabelVersionNlog.Enter += Control_Enter;
 		kryptonLabelVersionNlog.Leave += Control_Leave;

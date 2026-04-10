@@ -113,6 +113,8 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		toolStripButtonSaturn = new ToolStripButton();
 		toolStripButtonUranus = new ToolStripButton();
 		toolStripButtonNeptune = new ToolStripButton();
+		toolStripSeparator1 = new ToolStripSeparator();
+		toolStripButtonFilterResonances = new ToolStripButton();
 		toolStripSeparator5 = new ToolStripSeparator();
 		toolStripProgress = new ToolStrip();
 		toolStripLabelProgress = new ToolStripLabel();
@@ -790,6 +792,7 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		toolStripDropDownButtonSaveToFile.AccessibleName = "Save to file";
 		toolStripDropDownButtonSaveToFile.AccessibleRole = AccessibleRole.ButtonDropDown;
 		toolStripDropDownButtonSaveToFile.DropDown = contextMenuSaveToFile;
+		toolStripDropDownButtonSaveToFile.Enabled = false;
 		toolStripDropDownButtonSaveToFile.Image = FatcowIcons16px.fatcow_diskette_16px;
 		toolStripDropDownButtonSaveToFile.ImageTransparentColor = Color.Magenta;
 		toolStripDropDownButtonSaveToFile.Name = "toolStripDropDownButtonSaveToFile";
@@ -884,7 +887,7 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		toolStripIcons.BackColor = Color.Transparent;
 		toolStripIcons.Dock = DockStyle.None;
 		toolStripIcons.Font = new Font("Segoe UI", 9F);
-		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonStart, toolStripButtonCancel, toolStripSeparator4, toolStripLabelPlanets, toolStripButtonMercury, toolStripButtonVenus, toolStripButtonEarth, toolStripButtonMars, toolStripButtonJupiter, toolStripButtonSaturn, toolStripButtonUranus, toolStripButtonNeptune, toolStripSeparator5, toolStripDropDownButtonSaveToFile });
+		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonStart, toolStripButtonCancel, toolStripSeparator4, toolStripLabelPlanets, toolStripButtonMercury, toolStripButtonVenus, toolStripButtonEarth, toolStripButtonMars, toolStripButtonJupiter, toolStripButtonSaturn, toolStripButtonUranus, toolStripButtonNeptune, toolStripSeparator1, toolStripButtonFilterResonances, toolStripSeparator5, toolStripDropDownButtonSaveToFile });
 		toolStripIcons.Location = new Point(0, 0);
 		toolStripIcons.Name = "toolStripIcons";
 		toolStripIcons.Size = new Size(915, 25);
@@ -916,6 +919,7 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		toolStripButtonCancel.AccessibleDescription = "Cancels the search";
 		toolStripButtonCancel.AccessibleName = "Cancel";
 		toolStripButtonCancel.AccessibleRole = AccessibleRole.PushButton;
+		toolStripButtonCancel.Enabled = false;
 		toolStripButtonCancel.Image = FatcowIcons16px.fatcow_cancel_16px;
 		toolStripButtonCancel.ImageTransparentColor = Color.Magenta;
 		toolStripButtonCancel.Name = "toolStripButtonCancel";
@@ -961,6 +965,7 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		toolStripButtonMercury.Name = "toolStripButtonMercury";
 		toolStripButtonMercury.Size = new Size(55, 22);
 		toolStripButtonMercury.Text = "&Mercury";
+		toolStripButtonMercury.CheckedChanged += PlanetButton_CheckedChanged;
 		toolStripButtonMercury.MouseEnter += Control_Enter;
 		toolStripButtonMercury.MouseLeave += Control_Leave;
 		// 
@@ -978,6 +983,7 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		toolStripButtonVenus.Name = "toolStripButtonVenus";
 		toolStripButtonVenus.Size = new Size(42, 22);
 		toolStripButtonVenus.Text = "&Venus";
+		toolStripButtonVenus.CheckedChanged += PlanetButton_CheckedChanged;
 		// 
 		// toolStripButtonEarth
 		// 
@@ -993,6 +999,7 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		toolStripButtonEarth.Name = "toolStripButtonEarth";
 		toolStripButtonEarth.Size = new Size(38, 22);
 		toolStripButtonEarth.Text = "&Earth";
+		toolStripButtonEarth.CheckedChanged += PlanetButton_CheckedChanged;
 		toolStripButtonEarth.MouseEnter += Control_Enter;
 		toolStripButtonEarth.MouseLeave += Control_Leave;
 		// 
@@ -1010,6 +1017,7 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		toolStripButtonMars.Name = "toolStripButtonMars";
 		toolStripButtonMars.Size = new Size(37, 22);
 		toolStripButtonMars.Text = "M&ars";
+		toolStripButtonMars.CheckedChanged += PlanetButton_CheckedChanged;
 		toolStripButtonMars.MouseEnter += Control_Enter;
 		toolStripButtonMars.MouseLeave += Control_Leave;
 		// 
@@ -1027,6 +1035,7 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		toolStripButtonJupiter.Name = "toolStripButtonJupiter";
 		toolStripButtonJupiter.Size = new Size(46, 22);
 		toolStripButtonJupiter.Text = "&Jupiter";
+		toolStripButtonJupiter.CheckedChanged += PlanetButton_CheckedChanged;
 		toolStripButtonJupiter.MouseEnter += Control_Enter;
 		toolStripButtonJupiter.MouseLeave += Control_Leave;
 		// 
@@ -1044,6 +1053,7 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		toolStripButtonSaturn.Name = "toolStripButtonSaturn";
 		toolStripButtonSaturn.Size = new Size(45, 22);
 		toolStripButtonSaturn.Text = "Satur&n";
+		toolStripButtonSaturn.CheckedChanged += PlanetButton_CheckedChanged;
 		toolStripButtonSaturn.MouseEnter += Control_Enter;
 		toolStripButtonSaturn.MouseLeave += Control_Leave;
 		// 
@@ -1061,6 +1071,7 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		toolStripButtonUranus.Name = "toolStripButtonUranus";
 		toolStripButtonUranus.Size = new Size(48, 22);
 		toolStripButtonUranus.Text = "&Uranus";
+		toolStripButtonUranus.CheckedChanged += PlanetButton_CheckedChanged;
 		toolStripButtonUranus.MouseEnter += Control_Enter;
 		toolStripButtonUranus.MouseLeave += Control_Leave;
 		// 
@@ -1078,8 +1089,34 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		toolStripButtonNeptune.Name = "toolStripButtonNeptune";
 		toolStripButtonNeptune.Size = new Size(57, 22);
 		toolStripButtonNeptune.Text = "Nept&une";
+		toolStripButtonNeptune.CheckedChanged += PlanetButton_CheckedChanged;
 		toolStripButtonNeptune.MouseEnter += Control_Enter;
 		toolStripButtonNeptune.MouseLeave += Control_Leave;
+		// 
+		// toolStripSeparator1
+		// 
+		toolStripSeparator1.AccessibleDescription = "Just a separator";
+		toolStripSeparator1.AccessibleName = "Just a separator";
+		toolStripSeparator1.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparator1.Name = "toolStripSeparator1";
+		toolStripSeparator1.Size = new Size(6, 25);
+		toolStripSeparator1.MouseEnter += Control_Enter;
+		toolStripSeparator1.MouseLeave += Control_Leave;
+		// 
+		// toolStripButtonFilterResonances
+		// 
+		toolStripButtonFilterResonances.AccessibleDescription = "Filter to show only resonances";
+		toolStripButtonFilterResonances.AccessibleName = "Filter resonances";
+		toolStripButtonFilterResonances.AccessibleRole = AccessibleRole.CheckButton;
+		toolStripButtonFilterResonances.CheckOnClick = true;
+		toolStripButtonFilterResonances.Enabled = false;
+		toolStripButtonFilterResonances.Image = FatcowIcons16px.fatcow_filter_reapply_16px;
+		toolStripButtonFilterResonances.Name = "toolStripButtonFilterResonances";
+		toolStripButtonFilterResonances.Size = new Size(115, 22);
+		toolStripButtonFilterResonances.Text = "Filter resonances";
+		toolStripButtonFilterResonances.CheckedChanged += PlanetButton_CheckedChanged;
+		toolStripButtonFilterResonances.MouseEnter += Control_Enter;
+		toolStripButtonFilterResonances.MouseLeave += Control_Leave;
 		// 
 		// toolStripSeparator5
 		// 
@@ -1254,4 +1291,6 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 	private ToolStripMenuItem toolStripMenuItemSaveAsXps;
 	private ToolStripMenuItem toolStripMenuItemSaveAsFictionBook2;
 	private ToolStripMenuItem toolStripMenuItemSaveAsChm;
+	private ToolStripSeparator toolStripSeparator1;
+	private ToolStripButton toolStripButtonFilterResonances;
 }
