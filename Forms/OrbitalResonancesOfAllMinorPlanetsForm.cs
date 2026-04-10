@@ -77,6 +77,12 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Replaced atomically on the UI thread after each search completes.</remarks>
 	private List<ResonanceResult> _results = [];
 
+	/// <summary>Holds the full unfiltered set of resonance results computed by the most recent search.</summary>
+	/// <remarks>Filtering and sorting derive <see cref="_results"/> from this collection without modifying it,
+	/// so re-filtering (e.g. when the user changes the planet selection or the filter toggle) does not
+	/// require re-running the search.</remarks>
+	private List<ResonanceResult> _allResults = [];
+
 	/// <summary>Cancellation token source for the currently running search task.</summary>
 	private CancellationTokenSource? _cancellationTokenSource;
 
@@ -98,6 +104,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	public OrbitalResonancesOfAllMinorPlanetsForm(IReadOnlyList<string> planetoids)
 	{
 		InitializeComponent();
+		// Cache the planetoid records for use during the search; this allows the search method to access the raw data without needing to pass it around or access it from a shared resource, which can help improve performance and reduce complexity during the resonance calculations
 		_planetoids = planetoids;
 	}
 
@@ -125,52 +132,71 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		return dialog.ShowDialog() == DialogResult.OK;
 	}
 
+	/// <summary>Filters the result set based on the currently selected planets and resonance criteria, and updates the displayed
+	/// list accordingly.</summary>
+	/// <remarks>This method applies the active filter settings to the results and refreshes the list view to
+	/// reflect the filtered data. The filter includes only results for selected planets and, if enabled, further restricts
+	/// by resonance deviation. The method should be called whenever filter settings or selection change to ensure the
+	/// displayed data remains accurate.</remarks>
+	private void FilterResults()
+	{
+		// Get the list of selected planets from the UI; this list is used to filter the resonance results to include only those that match the user's selection of planets
+		List<string> selectedPlanets = GetSelectedPlanets();
+		// Check if the filter for resonances is enabled by checking the state of the corresponding tool strip button; if the filter is enabled, we will further restrict the results to include only those that have a deviation percent below the defined threshold, which indicates that they are near-resonances
+		bool filterResonances = toolStripButtonFilterResonances.Checked;
+		// Filter the complete results list to include only those results that match the selected planets and, if the filter is enabled, have a deviation percent below the defined threshold; this creates a new list of results that will be displayed in the ListView, while the original _allResults list remains unchanged to allow for re-filtering when the user changes their selection
+		_results = [.. _allResults.Where(predicate: r =>
+			selectedPlanets.Contains(item: r.Resonance.PlanetName) &&
+			(!filterResonances || r.Resonance.DeviationPercent < ResonanceThresholdPercent))];
+		// Sort the filtered results only when an actual sort column and direction have been selected
+		if (sortColumn >= 0 && sortOrder != SortOrder.None)
+		{
+			SortResults();
+		}
+		// Update the VirtualListSize of the ListView to match the count of the filtered results; this tells the ListView how many items it should expect to retrieve in virtual mode, and it will call the RetrieveVirtualItem event handler for each visible item index up to this count; after updating the list size, we call Refresh to force the ListView to redraw itself with the new data
+		listView.VirtualListSize = _results.Count;
+		listView.Refresh();
+	}
+
 	/// <summary>Returns the list of planet names currently selected via the planet checkbuttons.</summary>
 	/// <returns>A list of planet name strings that are checked.</returns>
 	/// <remarks>Planet names match those used in <see cref="DerivedElements.CalculateOrbitalResonances"/>.</remarks>
 	private List<string> GetSelectedPlanets()
 	{
+		// Check the state of each planet's checkbutton and build a list of selected planet names; this list is used to filter the resonance results based on the user's selection
 		List<string> selected = [];
 		if (toolStripButtonMercury.Checked)
 		{
 			selected.Add(item: "Mercury");
 		}
-
 		if (toolStripButtonVenus.Checked)
 		{
 			selected.Add(item: "Venus");
 		}
-
 		if (toolStripButtonEarth.Checked)
 		{
 			selected.Add(item: "Earth");
 		}
-
 		if (toolStripButtonMars.Checked)
 		{
 			selected.Add(item: "Mars");
 		}
-
 		if (toolStripButtonJupiter.Checked)
 		{
 			selected.Add(item: "Jupiter");
 		}
-
 		if (toolStripButtonSaturn.Checked)
 		{
 			selected.Add(item: "Saturn");
 		}
-
 		if (toolStripButtonUranus.Checked)
 		{
 			selected.Add(item: "Uranus");
 		}
-
 		if (toolStripButtonNeptune.Checked)
 		{
 			selected.Add(item: "Neptune");
 		}
-
 		return selected;
 	}
 
@@ -179,6 +205,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>The percentage is displayed both in the progress bar's <c>Text</c> property and in the adjacent label.</remarks>
 	private void UpdateProgress(int percent)
 	{
+		// Clamp the percentage value to ensure it stays within the valid range of 0 to 100; this prevents invalid values from being set on the progress bar and ensures that the displayed percentage is always meaningful
 		int clampedPercent = Math.Clamp(value: percent, min: 0, max: 100);
 		kryptonProgressBar.Value = clampedPercent;
 		kryptonProgressBar.Text = $"{clampedPercent}%";
@@ -187,16 +214,17 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 
 	/// <summary>Processes one raw MPCORB database record and appends matching resonance results to <paramref name="results"/>.</summary>
 	/// <param name="line">The raw MPCORB record string.</param>
-	/// <param name="selectedPlanets">The planet names to include in the resonance comparison.</param>
 	/// <param name="results">The list to which matching <see cref="ResonanceResult"/> items are appended.</param>
 	/// <remarks>Lines that are too short or have an invalid semi-major axis are silently skipped.
-	/// Only resonances whose planet name is in <paramref name="selectedPlanets"/> are added.</remarks>
-	private static void ProcessPlanetoidLine(string line, List<string> selectedPlanets, List<ResonanceResult> results)
+	/// All resonances are added to the results list; filtering by selected planets is handled at a higher level.</remarks>
+	private static void ProcessPlanetoidLine(string line, List<ResonanceResult> results)
 	{
+		// Validate the line length to ensure it contains the expected fields; if the line is too short, it cannot be processed and is skipped without logging an error, as this may be common for malformed records
 		if (line.Length < 103)
 		{
 			return;
 		}
+		// Extract the semi-major axis from the fixed-width field in the MPCORB record; the semi-major axis is located at characters 92-102 (11 characters total) and is parsed as a double; if parsing fails or if the value is non-positive, the line is skipped without logging an error, as this may be common for records with missing or invalid data
 		string semiMajorAxisText = line.Substring(startIndex: 92, length: 11).Trim();
 		if (!double.TryParse(s: semiMajorAxisText, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double semiMajorAxis) || semiMajorAxis <= 0)
 		{
@@ -209,15 +237,11 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		{
 			designation = line[..7].Trim();
 		}
-		// Collect all resonances for the selected planets. Any near-resonance
-		// classification (e.g. Yes/No indicators) is handled at a higher level.
+		// Collect all resonances. Any near-resonance classification (e.g. Yes/No indicators) is handled at a higher level.
 		List<DerivedElements.OrbitalResonance> resonances = DerivedElements.CalculateOrbitalResonances(semiMajorAxis: semiMajorAxis);
 		foreach (DerivedElements.OrbitalResonance resonance in resonances)
 		{
-			if (selectedPlanets.Contains(item: resonance.PlanetName))
-			{
-				results.Add(item: new ResonanceResult(PlanetoidName: designation, Resonance: resonance));
-			}
+			results.Add(item: new ResonanceResult(PlanetoidName: designation, Resonance: resonance));
 		}
 	}
 
@@ -240,6 +264,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Cancels any running search and disposes the cancellation token source when the form is closing.</remarks>
 	private void OrbitalResonancesOfAllMinorPlanetsForm_FormClosing(object sender, FormClosingEventArgs e)
 	{
+		// If a search is currently running (indicated by a non-null cancellation token source), signal cancellation and dispose of the token source to free resources; this ensures that any background tasks are properly cancelled when the form is closed, preventing potential issues with lingering tasks or resource leaks
 		if (_cancellationTokenSource != null)
 		{
 			_cancellationTokenSource.Cancel();
@@ -250,7 +275,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 
 	#endregion
 
-	#region ListView virtual mode
+	#region RetrieveVirtualItem event handler
 
 	/// <summary>Handles the RetrieveVirtualItem event for the VirtualMode ListView.
 	/// Provides the <see cref="ListViewItem"/> for the requested index from <see cref="_results"/>.</summary>
@@ -265,7 +290,8 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 			return;
 		}
 		ResonanceResult result = _results[index: e.ItemIndex];
-		string isResonance = result.Resonance.DeviationPercent < ResonanceThresholdPercent ? "Yes" : "No";
+		bool isResonanceValue = result.Resonance.DeviationPercent < ResonanceThresholdPercent;
+		string isResonance = isResonanceValue ? "Yes" : "No";
 		ListViewItem item = new(text: result.PlanetoidName);
 		item.SubItems.AddRange(items:
 		[
@@ -277,7 +303,26 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 			result.Resonance.DeviationPercent.ToString(format: "F2"),
 			isResonance
 		]);
+
+		item.ForeColor = isResonanceValue ? Color.Green : Color.Red;
 		e.Item = item;
+	}
+
+	#endregion
+
+	#region CheckedChanged event handlers
+
+	/// <summary>Handles the CheckedChanged event for all planet selection buttons and the filter resonances button.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>This method is called whenever a planet selection button or the filter resonances button is checked or unchecked.</remarks>
+	private void PlanetButton_CheckedChanged(object? sender, EventArgs e)
+	{
+		// If there are no results yet, there is nothing to filter, so we can skip the filtering step; this check prevents unnecessary processing when the user changes the planet selection before running the search for the first time
+		if (_allResults.Count > 0)
+		{
+			FilterResults();
+		}
 	}
 
 	#endregion
@@ -292,6 +337,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// The user can cancel at any time using the Cancel button.</remarks>
 	private async void ButtonStart_Click(object sender, EventArgs e)
 	{
+		// Validate that at least one planet is selected before starting the search
 		List<string> selectedPlanets = GetSelectedPlanets();
 		if (selectedPlanets.Count == 0)
 		{
@@ -311,55 +357,94 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 				icon: MessageBoxIcon.Information);
 			return;
 		}
+		// Disable the Start button and planet selection buttons to prevent changes during the search; also disable the save menu since there are no results yet; these controls will be re-enabled when the search completes or is cancelled
+		toolStripDropDownButtonSaveToFile.Enabled = false;
+		toolStripLabelPlanets.Enabled = false;
+		toolStripButtonMercury.Enabled = false;
+		toolStripButtonVenus.Enabled = false;
+		toolStripButtonEarth.Enabled = false;
+		toolStripButtonMars.Enabled = false;
+		toolStripButtonJupiter.Enabled = false;
+		toolStripButtonSaturn.Enabled = false;
+		toolStripButtonUranus.Enabled = false;
+		toolStripButtonNeptune.Enabled = false;
+		toolStripButtonFilterResonances.Enabled = false;
+		// Disable the Start button and enable the Cancel button to reflect the search state; clear previous results and reset the progress bar and status label before starting the new search
 		toolStripButtonStart.Enabled = false;
 		toolStripButtonCancel.Enabled = true;
+		_allResults.Clear();
 		_results = [];
 		listView.VirtualListSize = 0;
 		UpdateProgress(percent: 0);
 		ClearStatusBar(label: labelInformation);
+		// Create a new cancellation token source for the search task; the token is passed to the background task to allow cooperative cancellation; if the user clicks the Cancel button, the token will be signaled, and the background task can respond by throwing an OperationCanceledException
 		_cancellationTokenSource = new CancellationTokenSource();
 		CancellationToken token = _cancellationTokenSource.Token;
+		// Create a local list to store results from the background search; this avoids cross-thread access issues with the form's _results field, which is only updated once when the search completes on the UI thread
 		List<ResonanceResult> localResults = [];
+		// Create a progress reporter that updates the progress bar and status label on the UI thread; the UpdateProgress method is called with the current percentage of completion, which is calculated based on the number of planetoids processed relative to the total count
 		IProgress<int> progress = new Progress<int>(handler: UpdateProgress);
+		// Run the search on a background thread to keep the UI responsive; the search iterates over all planetoids, processes each one, and reports progress periodically; if the search is cancelled, an OperationCanceledException is caught and logged; any other exceptions are also caught and logged, and an error message is shown to the user; finally, when the search completes or is cancelled, the results are assigned to the form's field and the ListView is refreshed on the UI thread
 		try
 		{
+			// Calculate the total number of planetoids and determine the interval at which to report progress; the report interval is set to either 1 or 1% of the total count, whichever is greater, to ensure that progress updates are not too frequent for small datasets but still provide regular feedback for larger datasets
 			int total = _planetoids.Count;
 			int reportInterval = Math.Max(val1: 1, val2: total / 100);
+			// The action passed to Task.Run iterates over all planetoids, processes each one, and reports progress at regular intervals; the token is checked for cancellation on each iteration, allowing the search to be cancelled cooperatively; if cancellation is requested, a OperationCanceledException is thrown, which is caught in the outer try-catch block
 			await Task.Run(action: () =>
 			{
+				// Iterate over all planetoids and process each one; the ProcessPlanetoidLine method is called for each line, which computes the resonances and appends matching results to the localResults list; progress is reported every reportInterval iterations or on the last iteration to update the progress bar and status label
 				for (int i = 0; i < total; i++)
 				{
 					token.ThrowIfCancellationRequested();
-					ProcessPlanetoidLine(line: _planetoids[i], selectedPlanets: selectedPlanets, results: localResults);
+					ProcessPlanetoidLine(line: _planetoids[index: i], results: localResults);
 					if (i % reportInterval == 0 || i == total - 1)
 					{
 						progress.Report(value: (i + 1) * 100 / total);
 					}
 				}
+				// Log the completion of the search with the total number of resonances found; this provides feedback in the logs about the outcome of the search
+				logger.Info(message: $"Orbital resonance search completed. Total resonances found: {localResults.Count}");
 			}, cancellationToken: token);
 		}
+		// Catch the OperationCanceledException to handle user cancellation gracefully; log the cancellation event and update the status label to inform the user that the search was cancelled
 		catch (OperationCanceledException)
 		{
 			logger.Info(message: "Orbital resonance search cancelled by user.");
 		}
+		// Catch any other exceptions that may occur during the search; log the error and show an error message to the user with details about the exception
 		catch (Exception ex)
 		{
 			logger.Error(exception: ex, message: ex.Message);
 			ShowErrorMessage(message: $"Error during search: {ex.Message}");
 		}
+		// Finally block to clean up resources and reset UI elements after the search completes or is cancelled
 		finally
 		{
 			try
 			{
+				// Update the form's _results field with the local results from the search and refresh the ListView to display the new results; this is done on the UI thread, and we check if the form is still valid (not disposed) before updating the UI; if the form is closing while the search is still running, it may have been disposed, in which case we skip updating the UI to avoid exceptions
 				if (IsHandleCreated && !IsDisposed && !Disposing)
 				{
-					_results = localResults;
-					listView.VirtualListSize = _results.Count;
-					listView.Refresh();
+					_allResults = localResults;
+					FilterResults();
 					toolStripButtonStart.Enabled = true;
 					toolStripButtonCancel.Enabled = false;
+					// Re-enable the planet selection buttons, filter toggle, and save menu on the UI thread after the background work has fully completed
+					toolStripDropDownButtonSaveToFile.Enabled = true;
+					toolStripLabelPlanets.Enabled = true;
+					toolStripButtonMercury.Enabled = true;
+					toolStripButtonVenus.Enabled = true;
+					toolStripButtonEarth.Enabled = true;
+					toolStripButtonMars.Enabled = true;
+					toolStripButtonJupiter.Enabled = true;
+					toolStripButtonSaturn.Enabled = true;
+					toolStripButtonUranus.Enabled = true;
+					toolStripButtonNeptune.Enabled = true;
+					toolStripButtonFilterResonances.Enabled = true;
 				}
 			}
+			// Catch ObjectDisposedException and InvalidOperationException that may occur if the form is closing while the search is still running; these exceptions can be safely ignored as they indicate that the form is being disposed and the search is being cancelled
 			catch (ObjectDisposedException)
 			{
 				// Ignore exceptions caused by controls being disposed during form shutdown.
@@ -368,6 +453,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 			{
 				// Ignore exceptions related to invalid control state during form shutdown.
 			}
+			// Dispose of the cancellation token source to free resources; set it to null to indicate that there is no active search
 			finally
 			{
 				_cancellationTokenSource?.Dispose();
@@ -383,6 +469,10 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>The search can be cancelled by the user at any time using the Cancel button.</remarks>
 	private void ButtonCancel_Click(object sender, EventArgs e)
 	{
+		// If a search is currently running, request cancellation and prevent repeated cancel clicks.
+		// Keep the save, planet-selection, and filter controls disabled here so they are only
+		// re-enabled after the background search has fully completed and final results have been
+		// applied on the UI thread by the normal completion logic.
 		if (_cancellationTokenSource != null)
 		{
 			_cancellationTokenSource.Cancel();
@@ -398,6 +488,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// If no row is selected the method returns without action.</remarks>
 	private void ToolStripMenuItemCopyToClipboard_Click(object sender, EventArgs e)
 	{
+		// Check if any item is selected in the list view; if not, return without doing anything; if an item is selected, get the index of the first selected item and validate it against the _results list; if the index is valid, retrieve the corresponding ResonanceResult and format its data into a tab-separated string; finally, copy the formatted string to the clipboard
 		if (listView.SelectedIndices.Count == 0)
 		{
 			return;
@@ -1080,7 +1171,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// Abiword format.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	/// <remarks>When the user clicks the "Save As Abiword" menu item, this event handler is invoked. It calls the SaveListViewResultsAsAbiword method, which generates an AWML (AbiWord XML) file with a .abw extension that can be opened in Abiword. If the process is successful, a confirmation message is displayed; otherwise, an error message is shown.</remarks>
+	/// <remarks>When the user clicks the "Save As Abiword" menu item, this event handler is invoked. It calls the SaveAsAbiword method, which generates an AWML (AbiWord XML) file with a .abw extension that can be opened in Abiword. If the process is successful, a confirmation message is displayed; otherwise, an error message is shown.</remarks>
 	private void ToolStripMenuItemSaveAsAbiword_Click(object sender, EventArgs e)
 	{
 		// Open a SaveFileDialog to allow the user to specify the location and name of the Abiword file to save the list view results; if the user confirms the save operation, call the SaveAsAbiword method to perform the export
@@ -1163,11 +1254,10 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Handles the click event for the 'Save As DocBook' menu item, initiating the process to save the current list view
-	/// results in DocBook format.</summary>
+	/// <summary>Handles the click <see langword="event"/> for the 'Save As DocBook' menu item.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	/// <remarks>When the user clicks the "Save As DocBook" menu item, this event handler is invoked. It calls the SaveAsDocBook method, which generates an XML document conforming to the DocBook schema, containing the Orbital resonances. If the process is successful, a confirmation message is displayed; otherwise, an error message is shown.</remarks>
+	/// <remarks>This event handler is typically connected to a ToolStripMenuItem in the user interface. It enables users to export the current ListView results as a DocBook-formatted file.</remarks>
 	private void ToolStripMenuItemSaveAsDocBook_Click(object sender, EventArgs e)
 	{
 		// Open a SaveFileDialog to allow the user to specify the location and name of the DocBook file to save the list view results; if the user confirms the save operation, call the SaveAsDocBook method to perform the export
@@ -1192,10 +1282,10 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Handles the click event for the 'Save As TOML' menu item and initiates saving the current results in TOML format.</summary>
+	/// <summary>Handles the click event for the 'Save As TOML' menu item and initiates saving the current ListView results in TOML format.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	/// <remarks>When the user clicks the "Save As TOML" menu item, this event handler is invoked. It calls the SaveAsToml method, which generates the necessary TOML structure for the current results and saves it as a .toml file. If the process is successful, a confirmation message is displayed; otherwise, an error message is shown.</remarks>
+	/// <remarks>This event handler is typically connected to a ToolStripMenuItem in the user interface. It enables users to export the current ListView results as a TOML-formatted file.</remarks>
 	private void ToolStripMenuItemSaveAsToml_Click(object sender, EventArgs e)
 	{
 		// Open a SaveFileDialog to allow the user to specify the location and name of the TOML file to save the list view results; if the user confirms the save operation, call the SaveAsToml method to perform the export
@@ -1347,10 +1437,12 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// Column headers are updated with a ▲ or ▼ indicator to show the current sort direction.</remarks>
 	private void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
 	{
+		// If there are no results to sort, exit the method early to avoid unnecessary processing and potential errors when trying to access column headers or sort the empty list
 		if (_results.Count == 0)
 		{
 			return;
 		}
+		// Check if the clicked column is the same as the current sort column; if so, toggle the sort order between ascending and descending; if it's a different column, set it as the new sort column and default to ascending order
 		if (e.Column == sortColumn)
 		{
 			sortOrder = sortOrder == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
@@ -1360,17 +1452,22 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 			sortColumn = e.Column;
 			sortOrder = SortOrder.Ascending;
 		}
+		// Update the column headers to reflect the current sort column and direction by adding a ▲ or ▼ prefix to the header text of the sorted column, while ensuring that any existing sort indicators are removed from all headers before applying the new indicator
 		for (int i = 0; i < listView.Columns.Count; i++)
 		{
+			// Get the current header text for the column, removing any existing sort indicators (▲ or ▼) to ensure that only the currently sorted column displays the appropriate indicator; then update the header text for each column, adding the appropriate sort indicator (▲ for ascending, ▼ for descending) to the currently sorted column while leaving other columns without indicators
 			string headerText = listView.Columns[index: i].Text;
+			// Remove any existing sort indicators (▲ or ▼) from the header text to ensure that only the currently sorted column displays the appropriate indicator
 			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.Ordinal) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.Ordinal))
 			{
 				headerText = headerText[SortIndicatorPrefixLength..];
 			}
+			// Update the header text for each column, adding the appropriate sort indicator (▲ for ascending, ▼ for descending) to the currently sorted column while leaving other columns without indicators
 			listView.Columns[index: i].Text = i == sortColumn
 				? $"{(sortOrder == SortOrder.Ascending ? "▲" : "▼")} {headerText}"
 				: headerText;
 		}
+		// Re-sort the results based on the newly selected sort column and order, then refresh the ListView to display the sorted results
 		SortResults();
 		listView.Refresh();
 	}
@@ -1380,10 +1477,12 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// all other columns are sorted as strings (case-insensitive, ordinal).</remarks>
 	private void SortResults()
 	{
+		// Determine the column to sort by and the sort direction, then apply the appropriate sorting logic based on the column type (numeric or string) and update the _results list accordingly
 		int col = sortColumn;
 		bool ascending = sortOrder == SortOrder.Ascending;
 		_results = col switch
 		{
+			// For the Planet Period column, sort the results by the PlanetPeriod property of the Resonance object in ascending or descending order based on the current sort order
 			ColumnIndexPlanetPeriod when ascending => [.. _results.OrderBy(keySelector: static r => r.Resonance.PlanetPeriod)],
 			ColumnIndexPlanetPeriod => [.. _results.OrderByDescending(keySelector: static r => r.Resonance.PlanetPeriod)],
 			ColumnIndexPlanetoidPeriod when ascending => [.. _results.OrderBy(keySelector: static r => r.Resonance.PlanetoidPeriod)],
@@ -1403,9 +1502,13 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <returns>The text value used for sorting and display of the specified column.</returns>
 	private static string GetColumnText(ResonanceResult result, int column) => column switch
 	{
+		// Returns the display text for each column of a ResonanceResult
 		ColumnIndexPlanetoid => result.PlanetoidName,
+		// For the Planet column, return the name of the planet involved in the resonance
 		ColumnIndexPlanet => result.Resonance.PlanetName,
+		// For the Resonance column, return a string in the format "P:Q" representing the resonance ratio
 		ColumnIndexResonance => $"{result.Resonance.ResonanceP}:{result.Resonance.ResonanceQ}",
+		// For the IsResonance column, return "Yes" if the deviation is below the threshold, otherwise "No"
 		ColumnIndexIsResonance => result.Resonance.DeviationPercent < ResonanceThresholdPercent ? "Yes" : "No",
 		_ => string.Empty
 	};
@@ -1421,16 +1524,21 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
 	private void ListView_DoubleClick(object sender, EventArgs e)
 	{
+		// Ensure that an item is selected and that the index is within the bounds of the results list; if so, retrieve the corresponding ResonanceResult and use its PlanetoidName to jump to the record in the PlanetoidDbForm
 		if (listView.SelectedIndices.Count == 0)
 		{
 			return;
 		}
+		// Get the index of the first selected item in the ListView; since multi-select is disabled, there will only be one selected item, so we can safely use index 0 to retrieve it
 		int index = listView.SelectedIndices[index: 0];
+		// Check if the index is valid (non-negative and within the bounds of the _results list); if not, return without taking any action
 		if (index < 0 || index >= _results.Count)
 		{
 			return;
 		}
+		// Retrieve the ResonanceResult corresponding to the selected item in the ListView
 		ResonanceResult result = _results[index];
+		// If the Owner of this form is a PlanetoidDbForm, call its JumpToRecord method with the PlanetoidName from the selected ResonanceResult to display the corresponding record
 		if (Owner is PlanetoidDbForm planetoidDbForm)
 		{
 			planetoidDbForm.JumpToRecord(index: result.PlanetoidName, designation: result.PlanetoidName);
