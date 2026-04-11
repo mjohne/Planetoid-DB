@@ -988,7 +988,6 @@ partial class ListReadableDesignationsForm
 		toolStripButtonGoToObject.AccessibleDescription = "Goes to the selected planetoid";
 		toolStripButtonGoToObject.AccessibleName = "Go to object";
 		toolStripButtonGoToObject.AccessibleRole = AccessibleRole.PushButton;
-		toolStripButtonGoToObject.Enabled = false;
 		toolStripButtonGoToObject.Image = FatcowIcons16px.fatcow_application_go_16px;
 		toolStripButtonGoToObject.ImageTransparentColor = Color.Magenta;
 		toolStripButtonGoToObject.Name = "toolStripButtonGoToObject";
