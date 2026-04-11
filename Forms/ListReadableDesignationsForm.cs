@@ -178,14 +178,15 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 
 	/// <summary>Selects the currently highlighted planetoid in the list view and navigates to its corresponding record in the main
 	/// form.</summary>
-	/// <remarks>If no item is selected or the selected record is invalid, the method does nothing. When a valid
+	/// <remarks>If no item is selected or the selected record is invalid, the method returns <c>false</c> without performing any action. When a valid
 	/// planetoid is selected, the main form is brought to the foreground and displays the details of the selected
 	/// planetoid.</remarks>
-	private void SelectPlanetoidInMainForm()
+	/// <returns><c>true</c> if navigation to the selected planetoid succeeded; otherwise, <c>false</c>.</returns>
+	private bool SelectPlanetoidInMainForm()
 	{
 		if (listView.SelectedIndices.Count == 0)
 		{
-			return;
+			return false;
 		}
 		int selectedIndex = listView.SelectedIndices[index: 0];
 		// Calculate the real database index (considering virtual mode offset and sorting)
@@ -195,7 +196,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// Check if the index is valid
 		if (dbIndex < 0 || dbIndex >= planetoidsDatabase.Count)
 		{
-			return;
+			return false;
 		}
 		// Get the record string
 		string currentData = planetoidsDatabase[index: dbIndex];
@@ -204,7 +205,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		{
 			// If parsing fails, show an error message and return
 			_ = MessageBox.Show(text: "Invalid record format.", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
-			return;
+			return false;
 		}
 		// Jump to the record in the main form
 		if (Application.OpenForms.OfType<PlanetoidDbForm>().FirstOrDefault() is PlanetoidDbForm mainForm)
@@ -212,6 +213,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			mainForm.JumpToRecord(index: strIndex, designation: strDesignation);
 			mainForm.BringToFront();
 		}
+		return true;
 	}
 
 	/// <summary>Prepares the save dialog for exporting data.</summary>
@@ -231,7 +233,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 
 	/// <summary>Handles the ListView <c>SelectedIndexChanged</c> event.
 	/// Updates the status bar with the selected planetoid's index and readable designation,
-	/// enables the load button if necessary and stores the currently selected index.</summary>
+	/// enables the Go to object button if necessary and stores the currently selected index.</summary>
 	/// <param name="sender">Event source (expected to be the list view).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to handle the SelectedIndexChanged event of the ListView.</remarks>
@@ -240,15 +242,24 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// Check if there are any selected indices
 		if (listView.SelectedIndices.Count <= 0)
 		{
+			SetStatusBar(label: labelInformation, text: string.Empty);
+			toolStripButtonGoToObject.Enabled = false;
 			return;
 		}
-		// Get the selected index and item
+		// Get the selected virtual index
 		int index = listView.SelectedIndices[index: 0];
-		ListViewItem item = listView.Items[index: index];
-		// Update the status bar with the selected item's details
-		SetStatusBar(label: labelInformation, text: $"{I18nStrings.Index}: {item.Text} - {item.SubItems[index: 1].Text}");
-		// Enable the load button
-		toolStripButtonLoad.Enabled = true;
+		// Calculate the real database index (considering virtual mode offset and sorting)
+		int dbIndex = listView.VirtualMode
+			? (sortedIndices != null && index < sortedIndices.Count ? sortedIndices[index: index] : virtualListOffset + index)
+			: index;
+		// Derive display text from the backing data to avoid accessing Items in virtual mode
+		if (dbIndex >= 0 && dbIndex < planetoidsDatabase.Count &&
+			TryParsePlanetoidRecord(record: planetoidsDatabase[index: dbIndex], recordIndex: dbIndex, parsedIndex: out string strIndex, parsedDesignation: out string strDesignation))
+		{
+			SetStatusBar(label: labelInformation, text: $"{I18nStrings.Index}: {strIndex} - {strDesignation}");
+		}
+		// Enable the Go to object button
+		toolStripButtonGoToObject.Enabled = true;
 		selectedIndex = index;
 	}
 
@@ -267,7 +278,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// Clear the status bar on load
 		ClearStatusBar(label: labelInformation);
 		// Disable controls until data is available
-		labelInformation.Enabled = listView.Visible = toolStripButtonLoad.Enabled = toolStripDropDownButtonSaveList.Enabled = false;
+		labelInformation.Enabled = listView.Visible = toolStripButtonGoToObject.Enabled = toolStripDropDownButtonSaveList.Enabled = false;
 		// Check if the planetoids database is empty
 		if (planetoidsDatabase.Count <= 0)
 		{
@@ -517,18 +528,19 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Handles the Click event of the Load button on the tool strip, initiating the selection of a planetoid and,
+	/// <summary>Handles the Click event of the Go To Object button on the tool strip, initiating the selection of a planetoid and,
 	/// when successful, closing the current form.</summary>
-	/// <param name="sender">The source of the event, typically the Load button on the tool strip.</param>
+	/// <param name="sender">The source of the event, typically the Go To Object button on the tool strip.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	/// <remarks>When the Load button is clicked, this method calls the SelectPlanetoidInMainForm method to navigate to the selected planetoid record in the main form. After initiating the selection, it closes the current form to return control to the main form, and sets the dialog result to <see cref="DialogResult.OK"/> to signal a successful selection.</remarks>
-	private void ToolStripButtonLoad_Click(object sender, EventArgs e)
+	/// <remarks>When the Go To Object button is clicked, this method calls the SelectPlanetoidInMainForm method to navigate to the selected planetoid record in the main form. Only if navigation succeeds, it closes the current form and sets the dialog result to <see cref="DialogResult.OK"/> to signal a successful selection.</remarks>
+	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e)
 	{
-		// Select the planetoid in the main form
-		SelectPlanetoidInMainForm();
-		// Set the dialog result to OK and close the form
-		DialogResult = DialogResult.OK;
-		Close();
+		// Select the planetoid in the main form; only close if navigation succeeded
+		if (SelectPlanetoidInMainForm())
+		{
+			DialogResult = DialogResult.OK;
+			Close();
+		}
 	}
 
 	/// <summary>Saves the current list as a CSV file.</summary>

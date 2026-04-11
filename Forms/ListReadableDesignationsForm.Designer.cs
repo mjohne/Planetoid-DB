@@ -104,7 +104,7 @@ partial class ListReadableDesignationsForm
 		toolStripLabelMaximum = new ToolStripLabel();
 		toolStripNumericUpDownMaximum = new Planetoid_DB.Helpers.ToolStripNumericUpDown();
 		kryptonToolStripSaveList = new KryptonToolStrip();
-		toolStripButtonLoad = new ToolStripButton();
+		toolStripButtonGoToObject = new ToolStripButton();
 		toolStripSeparator2 = new ToolStripSeparator();
 		kryptonStatusStrip.SuspendLayout();
 		contextMenuCopyToClipboard.SuspendLayout();
@@ -971,7 +971,7 @@ partial class ListReadableDesignationsForm
 		kryptonToolStripSaveList.AllowItemReorder = true;
 		kryptonToolStripSaveList.Dock = DockStyle.None;
 		kryptonToolStripSaveList.Font = new Font("Segoe UI", 9F);
-		kryptonToolStripSaveList.Items.AddRange(new ToolStripItem[] { toolStripButtonLoad, toolStripSeparator2, toolStripDropDownButtonSaveList });
+		kryptonToolStripSaveList.Items.AddRange(new ToolStripItem[] { toolStripButtonGoToObject, toolStripSeparator2, toolStripDropDownButtonSaveList });
 		kryptonToolStripSaveList.Location = new Point(0, 26);
 		kryptonToolStripSaveList.Name = "kryptonToolStripSaveList";
 		kryptonToolStripSaveList.Size = new Size(341, 25);
@@ -983,19 +983,20 @@ partial class ListReadableDesignationsForm
 		kryptonToolStripSaveList.MouseEnter += Control_Enter;
 		kryptonToolStripSaveList.MouseLeave += Control_Leave;
 		// 
-		// toolStripButtonLoad
+		// toolStripButtonGoToObject
 		// 
-		toolStripButtonLoad.AccessibleDescription = "Loads the selected planetoid";
-		toolStripButtonLoad.AccessibleName = "Load";
-		toolStripButtonLoad.AccessibleRole = AccessibleRole.PushButton;
-		toolStripButtonLoad.Image = FatcowIcons16px.fatcow_bullet_go_16px;
-		toolStripButtonLoad.ImageTransparentColor = Color.Magenta;
-		toolStripButtonLoad.Name = "toolStripButtonLoad";
-		toolStripButtonLoad.Size = new Size(53, 22);
-		toolStripButtonLoad.Text = "L&oad";
-		toolStripButtonLoad.Click += ToolStripButtonLoad_Click;
-		toolStripButtonLoad.MouseEnter += Control_Enter;
-		toolStripButtonLoad.MouseLeave += Control_Leave;
+		toolStripButtonGoToObject.AccessibleDescription = "Goes to the selected planetoid";
+		toolStripButtonGoToObject.AccessibleName = "Go to object";
+		toolStripButtonGoToObject.AccessibleRole = AccessibleRole.PushButton;
+		toolStripButtonGoToObject.Enabled = false;
+		toolStripButtonGoToObject.Image = FatcowIcons16px.fatcow_application_go_16px;
+		toolStripButtonGoToObject.ImageTransparentColor = Color.Magenta;
+		toolStripButtonGoToObject.Name = "toolStripButtonGoToObject";
+		toolStripButtonGoToObject.Size = new Size(92, 22);
+		toolStripButtonGoToObject.Text = "&Go to object";
+		toolStripButtonGoToObject.Click += ToolStripButtonGoToObject_Click;
+		toolStripButtonGoToObject.MouseEnter += Control_Enter;
+		toolStripButtonGoToObject.MouseLeave += Control_Leave;
 		// 
 		// toolStripSeparator2
 		// 
@@ -1074,7 +1075,7 @@ partial class ListReadableDesignationsForm
 	private KryptonToolStrip kryptonToolStripGenerateList;
 	private ToolStripButton toolStripButtonCreateList;
 	private KryptonToolStrip kryptonToolStripSaveList;
-	private ToolStripButton toolStripButtonLoad;
+	private ToolStripButton toolStripButtonGoToObject;
 	private ToolStripSeparator toolStripSeparator1;
 	private Helpers.ToolStripNumericUpDown toolStripNumericUpDownMinimum;
 	private ToolStripLabel toolStripLabelMinimum;
