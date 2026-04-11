@@ -253,7 +253,7 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 			MessageBox.Show(text: messageNoLocalModifiedDateToCopyText, caption: "Warning", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
 			return;
 		}
-		Clipboard.SetText(text: labelModifiedDateValueLocal.Text);
+		CopyToClipboard(text: labelModifiedDateValueLocal.Text);
 	}
 
 	/// <summary>Handles the click event for copying the local content length value to the clipboard.</summary>
@@ -270,7 +270,7 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 			MessageBox.Show(text: messageNoLocalContentLengthToCopyText, caption: "Warning", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
 			return;
 		}
-		Clipboard.SetText(text: labelContentLengthValueLocal.Text);
+		CopyToClipboard(text: labelContentLengthValueLocal.Text);
 	}
 
 	/// <summary>Handles the click event for copying the online modified date value to the clipboard.</summary>
@@ -287,7 +287,7 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 			MessageBox.Show(text: messageNoOnlineModifiedDateToCopyText, caption: "Warning", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
 			return;
 		}
-		Clipboard.SetText(text: labelModifiedDateValueOnline.Text);
+		CopyToClipboard(text: labelModifiedDateValueOnline.Text);
 	}
 
 	/// <summary>Handles the click event for copying the online content length value to the clipboard.</summary>
@@ -304,7 +304,7 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 			MessageBox.Show(text: messageNoOnlineContentLengthToCopyText, caption: "Warning", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
 			return;
 		}
-		Clipboard.SetText(text: labelContentLengthValueOnline.Text);
+		CopyToClipboard(text: labelContentLengthValueOnline.Text);
 	}
 
 	#endregion

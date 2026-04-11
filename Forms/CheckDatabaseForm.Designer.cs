@@ -4,7 +4,6 @@
 // a specific target and scoped to a namespace, type, member, etc.
 
 using Krypton.Toolkit;
-using Krypton.Toolkit.Suite.Extended.Tool.Strip.Items;
 
 using Planetoid_DB.Resources;
 
