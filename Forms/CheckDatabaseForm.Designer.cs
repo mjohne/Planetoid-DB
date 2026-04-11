@@ -4,6 +4,7 @@
 // a specific target and scoped to a namespace, type, member, etc.
 
 using Krypton.Toolkit;
+using Krypton.Toolkit.Suite.Extended.Tool.Strip.Items;
 
 using Planetoid_DB.Resources;
 
@@ -54,12 +55,10 @@ partial class CheckDatabaseForm
 		labelModifiedDateValueOnline = new KryptonLabel();
 		tableLayoutPanel = new KryptonTableLayoutPanel();
 		toolStripContainer = new ToolStripContainer();
-		kryptonStatusStrip = new KryptonStatusStrip();
+		kryptonStatusStrip = new Krypton.Toolkit.KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
-		kryptonManager = new KryptonManager(components);
 		toolStripIcons = new ToolStrip();
 		toolStripDropDownButtonSaveToFile = new ToolStripDropDownButton();
-		toolStripDropDownButtonCopyToClipboard = new ToolStripDropDownButton();
 		contextMenuSaveToFile = new ContextMenuStrip(components);
 		toolStripMenuItemTextFiles = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsText = new ToolStripMenuItem();
@@ -100,11 +99,13 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsXps = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsFictionBook2 = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsChm = new ToolStripMenuItem();
+		toolStripDropDownButtonCopyToClipboard = new ToolStripDropDownButton();
 		contextMenuFullCopyToClipboard = new ContextMenuStrip(components);
-		menuitemCopyToClipboardLinearEccentricity = new ToolStripMenuItem();
-		menuitemCopyToClipboardSemiMinorAxis = new ToolStripMenuItem();
-		menuitemCopyToClipboardMajorAxis = new ToolStripMenuItem();
-		menuitemCopyToClipboardMinorAxis = new ToolStripMenuItem();
+		menuitemCopyToClipboardDatabaseLocalModifiedDate = new ToolStripMenuItem();
+		menuitemCopyToClipboardDatabaseLocalContentLength = new ToolStripMenuItem();
+		menuitemCopyToClipboardDatabaseOnlineModifiedDate = new ToolStripMenuItem();
+		menuitemCopyToClipboardDatabaseOnlineContentLength = new ToolStripMenuItem();
+		kryptonManager = new KryptonManager(components);
 		contextMenuCopyToClipboard.SuspendLayout();
 		tableLayoutPanel.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
@@ -423,6 +424,10 @@ partial class CheckDatabaseForm
 		kryptonStatusStrip.TabIndex = 0;
 		kryptonStatusStrip.TabStop = true;
 		kryptonStatusStrip.Text = "Status bar";
+		kryptonStatusStrip.Enter += Control_Enter;
+		kryptonStatusStrip.Leave += Control_Leave;
+		kryptonStatusStrip.MouseEnter += Control_Enter;
+		kryptonStatusStrip.MouseLeave += Control_Leave;
 		// 
 		// labelInformation
 		// 
@@ -435,12 +440,8 @@ partial class CheckDatabaseForm
 		labelInformation.Size = new Size(144, 17);
 		labelInformation.Text = "some information here";
 		labelInformation.ToolTipText = "Shows some information";
-		// 
-		// kryptonManager
-		// 
-		kryptonManager.GlobalPaletteMode = PaletteMode.Global;
-		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
-		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
+		labelInformation.MouseEnter += Control_Enter;
+		labelInformation.MouseLeave += Control_Leave;
 		// 
 		// toolStripIcons
 		// 
@@ -460,6 +461,8 @@ partial class CheckDatabaseForm
 		toolStripIcons.TabIndex = 1;
 		toolStripIcons.TabStop = true;
 		toolStripIcons.Text = "Toolbar of copying, printing and exporting";
+		toolStripIcons.MouseEnter += Control_Enter;
+		toolStripIcons.MouseLeave += Control_Leave;
 		// 
 		// toolStripDropDownButtonSaveToFile
 		// 
@@ -472,18 +475,8 @@ partial class CheckDatabaseForm
 		toolStripDropDownButtonSaveToFile.Name = "toolStripDropDownButtonSaveToFile";
 		toolStripDropDownButtonSaveToFile.Size = new Size(93, 22);
 		toolStripDropDownButtonSaveToFile.Text = "&Save to file";
-		// 
-		// toolStripDropDownButtonCopyToClipboard
-		// 
-		toolStripDropDownButtonCopyToClipboard.AccessibleDescription = "Copies information to clipboard";
-		toolStripDropDownButtonCopyToClipboard.AccessibleName = "Copy to clipboard";
-		toolStripDropDownButtonCopyToClipboard.AccessibleRole = AccessibleRole.ButtonDropDown;
-		toolStripDropDownButtonCopyToClipboard.DropDown = contextMenuFullCopyToClipboard;
-		toolStripDropDownButtonCopyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		toolStripDropDownButtonCopyToClipboard.ImageTransparentColor = Color.Magenta;
-		toolStripDropDownButtonCopyToClipboard.Name = "toolStripDropDownButtonCopyToClipboard";
-		toolStripDropDownButtonCopyToClipboard.Size = new Size(131, 22);
-		toolStripDropDownButtonCopyToClipboard.Text = "&Copy to clipboard";
+		toolStripDropDownButtonSaveToFile.MouseEnter += Control_Enter;
+		toolStripDropDownButtonSaveToFile.MouseLeave += Control_Leave;
 		// 
 		// contextMenuSaveToFile
 		// 
@@ -494,9 +487,12 @@ partial class CheckDatabaseForm
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveList";
-		contextMenuSaveToFile.Size = new Size(202, 158);
+		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveToFile;
+		contextMenuSaveToFile.Size = new Size(202, 180);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
+		contextMenuSaveToFile.MouseEnter += Control_Enter;
+		contextMenuSaveToFile.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemTextFiles
 		// 
@@ -509,6 +505,8 @@ partial class CheckDatabaseForm
 		toolStripMenuItemTextFiles.Name = "toolStripMenuItemTextFiles";
 		toolStripMenuItemTextFiles.Size = new Size(201, 22);
 		toolStripMenuItemTextFiles.Text = "&Text files";
+		toolStripMenuItemTextFiles.MouseEnter += Control_Enter;
+		toolStripMenuItemTextFiles.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsText
 		// 
@@ -520,6 +518,9 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsText.Name = "toolStripMenuItemSaveAsText";
 		toolStripMenuItemSaveAsText.Size = new Size(201, 22);
 		toolStripMenuItemSaveAsText.Text = "Save as &text";
+		toolStripMenuItemSaveAsText.Click += ToolStripMenuItemSaveAsText_Click;
+		toolStripMenuItemSaveAsText.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsText.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsLatex
 		// 
@@ -531,6 +532,9 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsLatex.Name = "toolStripMenuItemSaveAsLatex";
 		toolStripMenuItemSaveAsLatex.Size = new Size(201, 22);
 		toolStripMenuItemSaveAsLatex.Text = "Save as &Latex";
+		toolStripMenuItemSaveAsLatex.Click += ToolStripMenuItemSaveAsLatex_Click;
+		toolStripMenuItemSaveAsLatex.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsLatex.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsMarkdown
 		// 
@@ -542,6 +546,9 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsMarkdown.Name = "toolStripMenuItemSaveAsMarkdown";
 		toolStripMenuItemSaveAsMarkdown.Size = new Size(201, 22);
 		toolStripMenuItemSaveAsMarkdown.Text = "Save as &Markdown";
+		toolStripMenuItemSaveAsMarkdown.Click += ToolStripMenuItemSaveAsMarkdown_Click;
+		toolStripMenuItemSaveAsMarkdown.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsMarkdown.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsAsciiDoc
 		// 
@@ -553,6 +560,9 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsAsciiDoc.Name = "toolStripMenuItemSaveAsAsciiDoc";
 		toolStripMenuItemSaveAsAsciiDoc.Size = new Size(201, 22);
 		toolStripMenuItemSaveAsAsciiDoc.Text = "Save as &AsciiDoc";
+		toolStripMenuItemSaveAsAsciiDoc.Click += ToolStripMenuItemSaveAsAsciiDoc_Click;
+		toolStripMenuItemSaveAsAsciiDoc.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsAsciiDoc.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsReStructuredText
 		// 
@@ -564,6 +574,9 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsReStructuredText.Name = "toolStripMenuItemSaveAsReStructuredText";
 		toolStripMenuItemSaveAsReStructuredText.Size = new Size(201, 22);
 		toolStripMenuItemSaveAsReStructuredText.Text = "Save as &reStructuredText";
+		toolStripMenuItemSaveAsReStructuredText.Click += ToolStripMenuItemSaveAsReStructuredText_Click;
+		toolStripMenuItemSaveAsReStructuredText.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsReStructuredText.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsTextile
 		// 
@@ -575,6 +588,9 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsTextile.Name = "toolStripMenuItemSaveAsTextile";
 		toolStripMenuItemSaveAsTextile.Size = new Size(201, 22);
 		toolStripMenuItemSaveAsTextile.Text = "Save as Te&xtile";
+		toolStripMenuItemSaveAsTextile.Click += ToolStripMenuItemSaveAsTextile_Click;
+		toolStripMenuItemSaveAsTextile.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTextile.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemWriterDocuments
 		// 
@@ -587,6 +603,8 @@ partial class CheckDatabaseForm
 		toolStripMenuItemWriterDocuments.Name = "toolStripMenuItemWriterDocuments";
 		toolStripMenuItemWriterDocuments.Size = new Size(201, 22);
 		toolStripMenuItemWriterDocuments.Text = "&Writer documents";
+		toolStripMenuItemWriterDocuments.MouseEnter += Control_Enter;
+		toolStripMenuItemWriterDocuments.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsWord
 		// 
@@ -598,6 +616,9 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsWord.Name = "toolStripMenuItemSaveAsWord";
 		toolStripMenuItemSaveAsWord.Size = new Size(257, 22);
 		toolStripMenuItemSaveAsWord.Text = "Save as &Word Text (DOCX)";
+		toolStripMenuItemSaveAsWord.Click += ToolStripMenuItemSaveAsWord_Click;
+		toolStripMenuItemSaveAsWord.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsWord.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsOdt
 		// 
@@ -609,6 +630,9 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsOdt.Name = "toolStripMenuItemSaveAsOdt";
 		toolStripMenuItemSaveAsOdt.Size = new Size(257, 22);
 		toolStripMenuItemSaveAsOdt.Text = "Save as &OpenDocument Text (ODT)";
+		toolStripMenuItemSaveAsOdt.Click += ToolStripMenuItemSaveAsOdt_Click;
+		toolStripMenuItemSaveAsOdt.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsOdt.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsRtf
 		// 
@@ -620,6 +644,9 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsRtf.Name = "toolStripMenuItemSaveAsRtf";
 		toolStripMenuItemSaveAsRtf.Size = new Size(257, 22);
 		toolStripMenuItemSaveAsRtf.Text = "Save as &Rich Text Format (RTF)";
+		toolStripMenuItemSaveAsRtf.Click += ToolStripMenuItemSaveAsRtf_Click;
+		toolStripMenuItemSaveAsRtf.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsRtf.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsAbiword
 		// 
@@ -631,6 +658,9 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsAbiword.Name = "toolStripMenuItemSaveAsAbiword";
 		toolStripMenuItemSaveAsAbiword.Size = new Size(257, 22);
 		toolStripMenuItemSaveAsAbiword.Text = "Save as &Abiword file (ABW)";
+		toolStripMenuItemSaveAsAbiword.Click += ToolStripMenuItemSaveAsAbiword_Click;
+		toolStripMenuItemSaveAsAbiword.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsAbiword.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsWps
 		// 
@@ -642,6 +672,9 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsWps.Name = "toolStripMenuItemSaveAsWps";
 		toolStripMenuItemSaveAsWps.Size = new Size(257, 22);
 		toolStripMenuItemSaveAsWps.Text = "Save as W&PS Office Writer (WPS)";
+		toolStripMenuItemSaveAsWps.Click += ToolStripMenuItemSaveAsWps_Click;
+		toolStripMenuItemSaveAsWps.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsWps.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSpreadsheetDocuments
 		// 
@@ -654,6 +687,8 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSpreadsheetDocuments.Name = "toolStripMenuItemSpreadsheetDocuments";
 		toolStripMenuItemSpreadsheetDocuments.Size = new Size(201, 22);
 		toolStripMenuItemSpreadsheetDocuments.Text = "&Spreadsheet documents";
+		toolStripMenuItemSpreadsheetDocuments.MouseEnter += Control_Enter;
+		toolStripMenuItemSpreadsheetDocuments.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsExcel
 		// 
@@ -665,6 +700,9 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsExcel.Name = "toolStripMenuItemSaveAsExcel";
 		toolStripMenuItemSaveAsExcel.Size = new Size(301, 22);
 		toolStripMenuItemSaveAsExcel.Text = "Save as &Excel Spreadsheet (XLSX)";
+		toolStripMenuItemSaveAsExcel.Click += ToolStripMenuItemSaveAsExcel_Click;
+		toolStripMenuItemSaveAsExcel.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsExcel.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsOds
 		// 
@@ -676,6 +714,9 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsOds.Name = "toolStripMenuItemSaveAsOds";
 		toolStripMenuItemSaveAsOds.Size = new Size(301, 22);
 		toolStripMenuItemSaveAsOds.Text = "Save as &OpenDocument Spreadsheet (ODS)";
+		toolStripMenuItemSaveAsOds.Click += ToolStripMenuItemSaveAsOds_Click;
+		toolStripMenuItemSaveAsOds.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsOds.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsCsv
 		// 
@@ -687,6 +728,9 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsCsv.Name = "toolStripMenuItemSaveAsCsv";
 		toolStripMenuItemSaveAsCsv.Size = new Size(301, 22);
 		toolStripMenuItemSaveAsCsv.Text = "Save as &Comma separated value (CSV)";
+		toolStripMenuItemSaveAsCsv.Click += ToolStripMenuItemSaveAsCsv_Click;
+		toolStripMenuItemSaveAsCsv.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsCsv.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsTsv
 		// 
@@ -698,6 +742,9 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsTsv.Name = "toolStripMenuItemSaveAsTsv";
 		toolStripMenuItemSaveAsTsv.Size = new Size(301, 22);
 		toolStripMenuItemSaveAsTsv.Text = "Save as &Tabulator separated value (TSV)";
+		toolStripMenuItemSaveAsTsv.Click += ToolStripMenuItemSaveAsTsv_Click;
+		toolStripMenuItemSaveAsTsv.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTsv.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsPsv
 		// 
@@ -709,6 +756,9 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsPsv.Name = "toolStripMenuItemSaveAsPsv";
 		toolStripMenuItemSaveAsPsv.Size = new Size(301, 22);
 		toolStripMenuItemSaveAsPsv.Text = "Save as &Pipe separated value (PSV)";
+		toolStripMenuItemSaveAsPsv.Click += ToolStripMenuItemSaveAsPsv_Click;
+		toolStripMenuItemSaveAsPsv.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsPsv.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsEt
 		// 
@@ -720,6 +770,9 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsEt.Name = "toolStripMenuItemSaveAsEt";
 		toolStripMenuItemSaveAsEt.Size = new Size(301, 22);
 		toolStripMenuItemSaveAsEt.Text = "Save as &WPS Office Spreadsheet (ET)";
+		toolStripMenuItemSaveAsEt.Click += ToolStripMenuItemSaveAsEt_Click;
+		toolStripMenuItemSaveAsEt.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsEt.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemXmlDocuments
 		// 
@@ -732,6 +785,8 @@ partial class CheckDatabaseForm
 		toolStripMenuItemXmlDocuments.Name = "toolStripMenuItemXmlDocuments";
 		toolStripMenuItemXmlDocuments.Size = new Size(201, 22);
 		toolStripMenuItemXmlDocuments.Text = "&XML documents";
+		toolStripMenuItemXmlDocuments.MouseEnter += Control_Enter;
+		toolStripMenuItemXmlDocuments.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsHtml
 		// 
@@ -741,8 +796,11 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsHtml.AutoToolTip = true;
 		toolStripMenuItemSaveAsHtml.Image = FatcowIcons16px.fatcow_page_white_code_16px;
 		toolStripMenuItemSaveAsHtml.Name = "toolStripMenuItemSaveAsHtml";
-		toolStripMenuItemSaveAsHtml.Size = new Size(163, 22);
+		toolStripMenuItemSaveAsHtml.Size = new Size(180, 22);
 		toolStripMenuItemSaveAsHtml.Text = "Save as &HTML";
+		toolStripMenuItemSaveAsHtml.Click += ToolStripMenuItemSaveAsHtml_Click;
+		toolStripMenuItemSaveAsHtml.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsHtml.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsXml
 		// 
@@ -752,8 +810,11 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsXml.AutoToolTip = true;
 		toolStripMenuItemSaveAsXml.Image = FatcowIcons16px.fatcow_page_white_code_16px;
 		toolStripMenuItemSaveAsXml.Name = "toolStripMenuItemSaveAsXml";
-		toolStripMenuItemSaveAsXml.Size = new Size(163, 22);
+		toolStripMenuItemSaveAsXml.Size = new Size(180, 22);
 		toolStripMenuItemSaveAsXml.Text = "Save as &XML";
+		toolStripMenuItemSaveAsXml.Click += ToolStripMenuItemSaveAsXml_Click;
+		toolStripMenuItemSaveAsXml.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsXml.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsDocBook
 		// 
@@ -763,8 +824,11 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsDocBook.AutoToolTip = true;
 		toolStripMenuItemSaveAsDocBook.Image = FatcowIcons16px.fatcow_page_white_code_16px;
 		toolStripMenuItemSaveAsDocBook.Name = "toolStripMenuItemSaveAsDocBook";
-		toolStripMenuItemSaveAsDocBook.Size = new Size(163, 22);
+		toolStripMenuItemSaveAsDocBook.Size = new Size(180, 22);
 		toolStripMenuItemSaveAsDocBook.Text = "Save as &DocBook";
+		toolStripMenuItemSaveAsDocBook.Click += ToolStripMenuItemSaveAsDocBook_Click;
+		toolStripMenuItemSaveAsDocBook.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsDocBook.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemConfigurationFiles
 		// 
@@ -777,6 +841,8 @@ partial class CheckDatabaseForm
 		toolStripMenuItemConfigurationFiles.Name = "toolStripMenuItemConfigurationFiles";
 		toolStripMenuItemConfigurationFiles.Size = new Size(201, 22);
 		toolStripMenuItemConfigurationFiles.Text = "&Configuration files";
+		toolStripMenuItemConfigurationFiles.MouseEnter += Control_Enter;
+		toolStripMenuItemConfigurationFiles.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsJson
 		// 
@@ -786,8 +852,11 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsJson.AutoToolTip = true;
 		toolStripMenuItemSaveAsJson.Image = FatcowIcons16px.fatcow_page_white_code_red_16px;
 		toolStripMenuItemSaveAsJson.Name = "toolStripMenuItemSaveAsJson";
-		toolStripMenuItemSaveAsJson.Size = new Size(146, 22);
+		toolStripMenuItemSaveAsJson.Size = new Size(180, 22);
 		toolStripMenuItemSaveAsJson.Text = "Save as &JSON";
+		toolStripMenuItemSaveAsJson.Click += ToolStripMenuItemSaveAsJson_Click;
+		toolStripMenuItemSaveAsJson.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsJson.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsYaml
 		// 
@@ -797,8 +866,11 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsYaml.AutoToolTip = true;
 		toolStripMenuItemSaveAsYaml.Image = FatcowIcons16px.fatcow_page_white_code_red_16px;
 		toolStripMenuItemSaveAsYaml.Name = "toolStripMenuItemSaveAsYaml";
-		toolStripMenuItemSaveAsYaml.Size = new Size(146, 22);
+		toolStripMenuItemSaveAsYaml.Size = new Size(180, 22);
 		toolStripMenuItemSaveAsYaml.Text = "Save as &YAML";
+		toolStripMenuItemSaveAsYaml.Click += ToolStripMenuItemSaveAsYaml_Click;
+		toolStripMenuItemSaveAsYaml.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsYaml.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsToml
 		// 
@@ -808,8 +880,11 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsToml.AutoToolTip = true;
 		toolStripMenuItemSaveAsToml.Image = FatcowIcons16px.fatcow_page_white_code_red_16px;
 		toolStripMenuItemSaveAsToml.Name = "toolStripMenuItemSaveAsToml";
-		toolStripMenuItemSaveAsToml.Size = new Size(146, 22);
+		toolStripMenuItemSaveAsToml.Size = new Size(180, 22);
 		toolStripMenuItemSaveAsToml.Text = "Save as &TOML";
+		toolStripMenuItemSaveAsToml.Click += ToolStripMenuItemSaveAsToml_Click;
+		toolStripMenuItemSaveAsToml.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsToml.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemDatabaseScripts
 		// 
@@ -822,6 +897,8 @@ partial class CheckDatabaseForm
 		toolStripMenuItemDatabaseScripts.Name = "toolStripMenuItemDatabaseScripts";
 		toolStripMenuItemDatabaseScripts.Size = new Size(201, 22);
 		toolStripMenuItemDatabaseScripts.Text = "&Database scripts";
+		toolStripMenuItemDatabaseScripts.MouseEnter += Control_Enter;
+		toolStripMenuItemDatabaseScripts.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsSql
 		// 
@@ -831,8 +908,11 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsSql.AutoToolTip = true;
 		toolStripMenuItemSaveAsSql.Image = FatcowIcons16px.fatcow_page_white_database_16px;
 		toolStripMenuItemSaveAsSql.Name = "toolStripMenuItemSaveAsSql";
-		toolStripMenuItemSaveAsSql.Size = new Size(168, 22);
+		toolStripMenuItemSaveAsSql.Size = new Size(180, 22);
 		toolStripMenuItemSaveAsSql.Text = "Save as &SQL script";
+		toolStripMenuItemSaveAsSql.Click += ToolStripMenuItemSaveAsSql_Click;
+		toolStripMenuItemSaveAsSql.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsSql.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsSqlite
 		// 
@@ -842,8 +922,11 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsSqlite.AutoToolTip = true;
 		toolStripMenuItemSaveAsSqlite.Image = FatcowIcons16px.fatcow_page_white_database_16px;
 		toolStripMenuItemSaveAsSqlite.Name = "toolStripMenuItemSaveAsSqlite";
-		toolStripMenuItemSaveAsSqlite.Size = new Size(168, 22);
+		toolStripMenuItemSaveAsSqlite.Size = new Size(180, 22);
 		toolStripMenuItemSaveAsSqlite.Text = "Save as SQ&Lite";
+		toolStripMenuItemSaveAsSqlite.Click += ToolStripMenuItemSaveAsSqlite_Click;
+		toolStripMenuItemSaveAsSqlite.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsSqlite.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemPortableDocuments
 		// 
@@ -856,6 +939,8 @@ partial class CheckDatabaseForm
 		toolStripMenuItemPortableDocuments.Name = "toolStripMenuItemPortableDocuments";
 		toolStripMenuItemPortableDocuments.Size = new Size(201, 22);
 		toolStripMenuItemPortableDocuments.Text = "&Portable documents";
+		toolStripMenuItemPortableDocuments.MouseEnter += Control_Enter;
+		toolStripMenuItemPortableDocuments.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsPdf
 		// 
@@ -867,6 +952,9 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsPdf.Name = "toolStripMenuItemSaveAsPdf";
 		toolStripMenuItemSaveAsPdf.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsPdf.Text = "Save as &PDF";
+		toolStripMenuItemSaveAsPdf.Click += ToolStripMenuItemSaveAsPdf_Click;
+		toolStripMenuItemSaveAsPdf.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsPdf.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsPostScript
 		// 
@@ -878,6 +966,9 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsPostScript.Name = "toolStripMenuItemSaveAsPostScript";
 		toolStripMenuItemSaveAsPostScript.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsPostScript.Text = "Save as Post&Script (PS)";
+		toolStripMenuItemSaveAsPostScript.Click += ToolStripMenuItemSaveAsPostScript_Click;
+		toolStripMenuItemSaveAsPostScript.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsPostScript.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsEpub
 		// 
@@ -889,6 +980,9 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsEpub.Name = "toolStripMenuItemSaveAsEpub";
 		toolStripMenuItemSaveAsEpub.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsEpub.Text = "Save as &EPUB";
+		toolStripMenuItemSaveAsEpub.Click += ToolStripMenuItemSaveAsEpub_Click;
+		toolStripMenuItemSaveAsEpub.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsEpub.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsMobi
 		// 
@@ -900,6 +994,9 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsMobi.Name = "toolStripMenuItemSaveAsMobi";
 		toolStripMenuItemSaveAsMobi.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsMobi.Text = "Save as &MOBI";
+		toolStripMenuItemSaveAsMobi.Click += ToolStripMenuItemSaveAsMobi_Click;
+		toolStripMenuItemSaveAsMobi.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsMobi.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsXps
 		// 
@@ -911,6 +1008,9 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsXps.Name = "toolStripMenuItemSaveAsXps";
 		toolStripMenuItemSaveAsXps.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsXps.Text = "Save as &XPS";
+		toolStripMenuItemSaveAsXps.Click += ToolStripMenuItemSaveAsXps_Click;
+		toolStripMenuItemSaveAsXps.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsXps.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsFictionBook2
 		// 
@@ -922,6 +1022,9 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsFictionBook2.Name = "toolStripMenuItemSaveAsFictionBook2";
 		toolStripMenuItemSaveAsFictionBook2.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsFictionBook2.Text = "Save as &FictionBook2 (FB2)";
+		toolStripMenuItemSaveAsFictionBook2.Click += ToolStripMenuItemSaveAsFictionBook2_Click;
+		toolStripMenuItemSaveAsFictionBook2.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsFictionBook2.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsChm
 		// 
@@ -933,6 +1036,23 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsChm.Name = "toolStripMenuItemSaveAsChm";
 		toolStripMenuItemSaveAsChm.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsChm.Text = "Save as &CHM";
+		toolStripMenuItemSaveAsChm.Click += ToolStripMenuItemSaveAsChm_Click;
+		toolStripMenuItemSaveAsChm.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsChm.MouseLeave += Control_Leave;
+		// 
+		// toolStripDropDownButtonCopyToClipboard
+		// 
+		toolStripDropDownButtonCopyToClipboard.AccessibleDescription = "Copies information to clipboard";
+		toolStripDropDownButtonCopyToClipboard.AccessibleName = "Copy to clipboard";
+		toolStripDropDownButtonCopyToClipboard.AccessibleRole = AccessibleRole.ButtonDropDown;
+		toolStripDropDownButtonCopyToClipboard.DropDown = contextMenuFullCopyToClipboard;
+		toolStripDropDownButtonCopyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripDropDownButtonCopyToClipboard.ImageTransparentColor = Color.Magenta;
+		toolStripDropDownButtonCopyToClipboard.Name = "toolStripDropDownButtonCopyToClipboard";
+		toolStripDropDownButtonCopyToClipboard.Size = new Size(131, 22);
+		toolStripDropDownButtonCopyToClipboard.Text = "&Copy to clipboard";
+		toolStripDropDownButtonCopyToClipboard.MouseEnter += Control_Enter;
+		toolStripDropDownButtonCopyToClipboard.MouseLeave += Control_Leave;
 		// 
 		// contextMenuFullCopyToClipboard
 		// 
@@ -940,54 +1060,74 @@ partial class CheckDatabaseForm
 		contextMenuFullCopyToClipboard.AccessibleName = "Context menu for copying database information to the clipboard";
 		contextMenuFullCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
 		contextMenuFullCopyToClipboard.Font = new Font("Segoe UI", 9F);
-		contextMenuFullCopyToClipboard.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardLinearEccentricity, menuitemCopyToClipboardSemiMinorAxis, menuitemCopyToClipboardMajorAxis, menuitemCopyToClipboardMinorAxis });
+		contextMenuFullCopyToClipboard.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardDatabaseLocalModifiedDate, menuitemCopyToClipboardDatabaseLocalContentLength, menuitemCopyToClipboardDatabaseOnlineModifiedDate, menuitemCopyToClipboardDatabaseOnlineContentLength });
 		contextMenuFullCopyToClipboard.Name = "Context menu for copying database information to the clipboard";
-		contextMenuFullCopyToClipboard.Size = new Size(171, 92);
+		contextMenuFullCopyToClipboard.Size = new Size(240, 92);
 		contextMenuFullCopyToClipboard.Text = "Copy to clipboard";
+		contextMenuFullCopyToClipboard.MouseEnter += Control_Enter;
+		contextMenuFullCopyToClipboard.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardLinearEccentricity
+		// menuitemCopyToClipboardDatabaseLocalModifiedDate
 		// 
-		menuitemCopyToClipboardLinearEccentricity.AccessibleDescription = "Copies to clipboard: Linear eccentricity";
-		menuitemCopyToClipboardLinearEccentricity.AccessibleName = "Copy to clipboard: Linear eccentricity";
-		menuitemCopyToClipboardLinearEccentricity.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardLinearEccentricity.AutoToolTip = true;
-		menuitemCopyToClipboardLinearEccentricity.Image = (Image)resources.GetObject("menuitemCopyToClipboardLinearEccentricity.Image");
-		menuitemCopyToClipboardLinearEccentricity.Name = "menuitemCopyToClipboardLinearEccentricity";
-		menuitemCopyToClipboardLinearEccentricity.Size = new Size(170, 22);
-		menuitemCopyToClipboardLinearEccentricity.Text = "Linear eccentricity";
+		menuitemCopyToClipboardDatabaseLocalModifiedDate.AccessibleDescription = "Copies to clipboard: Database local modified date";
+		menuitemCopyToClipboardDatabaseLocalModifiedDate.AccessibleName = "Copy to clipboard: Database local modified date";
+		menuitemCopyToClipboardDatabaseLocalModifiedDate.AccessibleRole = AccessibleRole.MenuItem;
+		menuitemCopyToClipboardDatabaseLocalModifiedDate.AutoToolTip = true;
+		menuitemCopyToClipboardDatabaseLocalModifiedDate.Image = (Image)resources.GetObject("menuitemCopyToClipboardDatabaseLocalModifiedDate.Image");
+		menuitemCopyToClipboardDatabaseLocalModifiedDate.Name = "menuitemCopyToClipboardDatabaseLocalModifiedDate";
+		menuitemCopyToClipboardDatabaseLocalModifiedDate.Size = new Size(239, 22);
+		menuitemCopyToClipboardDatabaseLocalModifiedDate.Text = "Database local modified date";
+		menuitemCopyToClipboardDatabaseLocalModifiedDate.Click += MenuitemCopyToClipboardDatabaseLocalModifiedDate_Click;
+		menuitemCopyToClipboardDatabaseLocalModifiedDate.MouseEnter += Control_Enter;
+		menuitemCopyToClipboardDatabaseLocalModifiedDate.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardSemiMinorAxis
+		// menuitemCopyToClipboardDatabaseLocalContentLength
 		// 
-		menuitemCopyToClipboardSemiMinorAxis.AccessibleDescription = "Copies to clipboard: Semi minor axis";
-		menuitemCopyToClipboardSemiMinorAxis.AccessibleName = "Copy to clipboard: Semi minor axis";
-		menuitemCopyToClipboardSemiMinorAxis.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardSemiMinorAxis.AutoToolTip = true;
-		menuitemCopyToClipboardSemiMinorAxis.Image = (Image)resources.GetObject("menuitemCopyToClipboardSemiMinorAxis.Image");
-		menuitemCopyToClipboardSemiMinorAxis.Name = "menuitemCopyToClipboardSemiMinorAxis";
-		menuitemCopyToClipboardSemiMinorAxis.Size = new Size(256, 22);
-		menuitemCopyToClipboardSemiMinorAxis.Text = "Semi minor axis";
+		menuitemCopyToClipboardDatabaseLocalContentLength.AccessibleDescription = "Copies to clipboard: Database local content length";
+		menuitemCopyToClipboardDatabaseLocalContentLength.AccessibleName = "Copy to clipboard: Database local content length";
+		menuitemCopyToClipboardDatabaseLocalContentLength.AccessibleRole = AccessibleRole.MenuItem;
+		menuitemCopyToClipboardDatabaseLocalContentLength.AutoToolTip = true;
+		menuitemCopyToClipboardDatabaseLocalContentLength.Image = (Image)resources.GetObject("menuitemCopyToClipboardDatabaseLocalContentLength.Image");
+		menuitemCopyToClipboardDatabaseLocalContentLength.Name = "menuitemCopyToClipboardDatabaseLocalContentLength";
+		menuitemCopyToClipboardDatabaseLocalContentLength.Size = new Size(239, 22);
+		menuitemCopyToClipboardDatabaseLocalContentLength.Text = "Database local content length";
+		menuitemCopyToClipboardDatabaseLocalContentLength.Click += MenuitemCopyToClipboardDatabaseLocalContentLength_Click;
+		menuitemCopyToClipboardDatabaseLocalContentLength.MouseEnter += Control_Enter;
+		menuitemCopyToClipboardDatabaseLocalContentLength.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardMajorAxis
+		// menuitemCopyToClipboardDatabaseOnlineModifiedDate
 		// 
-		menuitemCopyToClipboardMajorAxis.AccessibleDescription = "Copies to clipboard: Major axis";
-		menuitemCopyToClipboardMajorAxis.AccessibleName = "Copy to clipboard: Major axis";
-		menuitemCopyToClipboardMajorAxis.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardMajorAxis.AutoToolTip = true;
-		menuitemCopyToClipboardMajorAxis.Image = (Image)resources.GetObject("menuitemCopyToClipboardMajorAxis.Image");
-		menuitemCopyToClipboardMajorAxis.Name = "menuitemCopyToClipboardMajorAxis";
-		menuitemCopyToClipboardMajorAxis.Size = new Size(256, 22);
-		menuitemCopyToClipboardMajorAxis.Text = "Major axis";
+		menuitemCopyToClipboardDatabaseOnlineModifiedDate.AccessibleDescription = "Copies to clipboard: Database online modified date";
+		menuitemCopyToClipboardDatabaseOnlineModifiedDate.AccessibleName = "Copy to clipboard: Database online modified date";
+		menuitemCopyToClipboardDatabaseOnlineModifiedDate.AccessibleRole = AccessibleRole.MenuItem;
+		menuitemCopyToClipboardDatabaseOnlineModifiedDate.AutoToolTip = true;
+		menuitemCopyToClipboardDatabaseOnlineModifiedDate.Image = (Image)resources.GetObject("menuitemCopyToClipboardDatabaseOnlineModifiedDate.Image");
+		menuitemCopyToClipboardDatabaseOnlineModifiedDate.Name = "menuitemCopyToClipboardDatabaseOnlineModifiedDate";
+		menuitemCopyToClipboardDatabaseOnlineModifiedDate.Size = new Size(239, 22);
+		menuitemCopyToClipboardDatabaseOnlineModifiedDate.Text = "Database online modified date";
+		menuitemCopyToClipboardDatabaseOnlineModifiedDate.Click += MenuitemCopyToClipboardDatabaseOnlineModifiedDate_Click;
+		menuitemCopyToClipboardDatabaseOnlineModifiedDate.MouseEnter += Control_Enter;
+		menuitemCopyToClipboardDatabaseOnlineModifiedDate.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardMinorAxis
+		// menuitemCopyToClipboardDatabaseOnlineContentLength
 		// 
-		menuitemCopyToClipboardMinorAxis.AccessibleDescription = "Copies to clipboard: Minor axis";
-		menuitemCopyToClipboardMinorAxis.AccessibleName = "Copy to clipboard: Minor axis";
-		menuitemCopyToClipboardMinorAxis.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardMinorAxis.AutoToolTip = true;
-		menuitemCopyToClipboardMinorAxis.Image = (Image)resources.GetObject("menuitemCopyToClipboardMinorAxis.Image");
-		menuitemCopyToClipboardMinorAxis.Name = "menuitemCopyToClipboardMinorAxis";
-		menuitemCopyToClipboardMinorAxis.Size = new Size(256, 22);
-		menuitemCopyToClipboardMinorAxis.Text = "Minor axis";
+		menuitemCopyToClipboardDatabaseOnlineContentLength.AccessibleDescription = "Copies to clipboard: Database online content length";
+		menuitemCopyToClipboardDatabaseOnlineContentLength.AccessibleName = "Copy to clipboard: Database online content length";
+		menuitemCopyToClipboardDatabaseOnlineContentLength.AccessibleRole = AccessibleRole.MenuItem;
+		menuitemCopyToClipboardDatabaseOnlineContentLength.AutoToolTip = true;
+		menuitemCopyToClipboardDatabaseOnlineContentLength.Image = (Image)resources.GetObject("menuitemCopyToClipboardDatabaseOnlineContentLength.Image");
+		menuitemCopyToClipboardDatabaseOnlineContentLength.Name = "menuitemCopyToClipboardDatabaseOnlineContentLength";
+		menuitemCopyToClipboardDatabaseOnlineContentLength.Size = new Size(239, 22);
+		menuitemCopyToClipboardDatabaseOnlineContentLength.Text = "Database online content length";
+		menuitemCopyToClipboardDatabaseOnlineContentLength.Click += MenuitemCopyToClipboardDatabaseOnlineContentLength_Click;
+		menuitemCopyToClipboardDatabaseOnlineContentLength.MouseEnter += Control_Enter;
+		menuitemCopyToClipboardDatabaseOnlineContentLength.MouseLeave += Control_Leave;
+		// 
+		// kryptonManager
+		// 
+		kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 		// 
 		// CheckDatabaseForm
 		// 
@@ -1039,7 +1179,7 @@ partial class CheckDatabaseForm
 	private KryptonLabel labelModifiedDateValueLocal;
 	private KryptonLabel labelContentLengthValueOnline;
 	private KryptonLabel labelModifiedDateValueOnline;
-	private KryptonStatusStrip kryptonStatusStrip;
+	private Krypton.Toolkit.KryptonStatusStrip kryptonStatusStrip;
 	private ToolStripStatusLabel labelInformation;
 	private ToolStripContainer toolStripContainer;
 	private KryptonManager kryptonManager;
@@ -1089,8 +1229,8 @@ partial class CheckDatabaseForm
 	private ToolStripMenuItem toolStripMenuItemSaveAsFictionBook2;
 	private ToolStripMenuItem toolStripMenuItemSaveAsChm;
 	private ContextMenuStrip contextMenuFullCopyToClipboard;
-	private ToolStripMenuItem menuitemCopyToClipboardLinearEccentricity;
-	private ToolStripMenuItem menuitemCopyToClipboardSemiMinorAxis;
-	private ToolStripMenuItem menuitemCopyToClipboardMajorAxis;
-	private ToolStripMenuItem menuitemCopyToClipboardMinorAxis;
+	private ToolStripMenuItem menuitemCopyToClipboardDatabaseLocalModifiedDate;
+	private ToolStripMenuItem menuitemCopyToClipboardDatabaseLocalContentLength;
+	private ToolStripMenuItem menuitemCopyToClipboardDatabaseOnlineModifiedDate;
+	private ToolStripMenuItem menuitemCopyToClipboardDatabaseOnlineContentLength;
 }
