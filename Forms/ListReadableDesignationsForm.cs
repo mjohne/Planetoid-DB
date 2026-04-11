@@ -248,7 +248,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// Update the status bar with the selected item's details
 		SetStatusBar(label: labelInformation, text: $"{I18nStrings.Index}: {item.Text} - {item.SubItems[index: 1].Text}");
 		// Enable the load button
-		toolStripButtonLoad.Enabled = true;
+		toolStripButtonGoToObject.Enabled = true;
 		selectedIndex = index;
 	}
 
@@ -267,7 +267,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// Clear the status bar on load
 		ClearStatusBar(label: labelInformation);
 		// Disable controls until data is available
-		labelInformation.Enabled = listView.Visible = toolStripButtonLoad.Enabled = toolStripDropDownButtonSaveList.Enabled = false;
+		labelInformation.Enabled = listView.Visible = toolStripButtonGoToObject.Enabled = toolStripDropDownButtonSaveList.Enabled = false;
 		// Check if the planetoids database is empty
 		if (planetoidsDatabase.Count <= 0)
 		{
@@ -517,12 +517,12 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Handles the Click event of the Load button on the tool strip, initiating the selection of a planetoid and,
+	/// <summary>Handles the Click event of the Go To Object button on the tool strip, initiating the selection of a planetoid and,
 	/// when successful, closing the current form.</summary>
-	/// <param name="sender">The source of the event, typically the Load button on the tool strip.</param>
+	/// <param name="sender">The source of the event, typically the Go To Object button on the tool strip.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	/// <remarks>When the Load button is clicked, this method calls the SelectPlanetoidInMainForm method to navigate to the selected planetoid record in the main form. After initiating the selection, it closes the current form to return control to the main form, and sets the dialog result to <see cref="DialogResult.OK"/> to signal a successful selection.</remarks>
-	private void ToolStripButtonLoad_Click(object sender, EventArgs e)
+	/// <remarks>When the Go To Object button is clicked, this method calls the SelectPlanetoidInMainForm method to navigate to the selected planetoid record in the main form. After initiating the selection, it closes the current form to return control to the main form, and sets the dialog result to <see cref="DialogResult.OK"/> to signal a successful selection.</remarks>
+	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e)
 	{
 		// Select the planetoid in the main form
 		SelectPlanetoidInMainForm();
