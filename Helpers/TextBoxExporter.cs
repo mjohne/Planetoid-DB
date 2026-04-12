@@ -1,0 +1,1931 @@
+// This file is used by Code Analysis to maintain SuppressMessage
+// attributes that are applied to this project.
+// Project-level suppressions either have no target or are given
+// a specific target and scoped to a namespace, type, member, etc.
+
+using NLog;
+
+using System.Data.SQLite;
+using System.Diagnostics;
+using System.IO.Compression;
+using System.Text;
+using System.Text.Json;
+using System.Xml;
+
+namespace Planetoid_DB.Helpers;
+
+/// <summary>Provides static methods for saving the contents of a <see cref="TextBox"/> to various file formats.</summary>
+/// <remarks>Each method accepts the source <see cref="TextBox"/>, a document title used in the file content, and the full file-system path of the output file. Compressed file formats (DOCX, ODT, ODS, XLSX, EPUB) are written as proper ZIP archives rather than flat XML files. SQLite export requires System.Data.SQLite; CHM export requires Microsoft HTML Help Workshop (hhc.exe).</remarks>
+public static partial class TextBoxExporter
+{
+	/// <summary>NLog logger for logging messages and errors.</summary>
+	/// <remarks>Using NLog allows for flexible logging configuration and supports various log targets such as files, console, etc. The logger is initialized for the current class to capture context in log messages.</remarks>
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+	/// <summary>Reusable JSON serializer options for efficient serialization.</summary>
+	/// <remarks>Creating a static instance of JsonSerializerOptions with WriteIndented set to true allows for consistent formatting of JSON output across all methods that serialize to JSON, while avoiding the overhead of creating new options instances for each serialization operation.</remarks>
+	private static readonly JsonSerializerOptions jsonSerializerOptions = new() { WriteIndented = true };
+
+	#region helpers
+
+	/// <summary>Escapes LaTeX special characters.</summary>
+	/// <param name="input">The raw input string.</param>
+	/// <returns>The escaped string suitable for LaTeX output.</returns>
+	/// <remarks>LaTeX special characters that need escaping include: \ { } % $ amp # _ ^ ~. This method iterates through each character in the input string and appends either the escaped version or the original character to a StringBuilder, which is then returned as the fully escaped string.</remarks>
+	private static string EscapeLatex(string? input)
+	{
+		// LaTeX special characters that need escaping: \ { } % $ amp # _ ^ ~
+		if (string.IsNullOrEmpty(value: input))
+		{
+			return string.Empty;
+		}
+		// Use a StringBuilder for efficient string concatenation when escaping characters.
+		StringBuilder builder = new(capacity: input.Length);
+		// Iterate through each character in the input string and escape special characters as needed.
+		foreach (char ch in input)
+		{
+			switch (ch)
+			{
+				case '\\': builder.Append(value: "\\textbackslash{}"); break;
+				case '{': builder.Append(value: "\\{"); break;
+				case '}': builder.Append(value: "\\}"); break;
+				case '%': builder.Append(value: "\\%"); break;
+				case '$': builder.Append(value: "\\$"); break;
+				case '&': builder.Append(value: "\\&"); break;
+				case '#': builder.Append(value: "\\#"); break;
+				case '_': builder.Append(value: "\\_"); break;
+				case '^': builder.Append(value: "\\^{}"); break;
+				case '~': builder.Append(value: "\\~{}"); break;
+				default: builder.Append(value: ch); break;
+			}
+		}
+		// Return the fully escaped string.
+		return builder.ToString();
+	}
+
+	/// <summary>Escapes PostScript string literal characters.</summary>
+	/// <param name="input">The raw input string.</param>
+	/// <returns>The escaped string suitable for PostScript output.</returns>
+	/// <remarks>In PostScript string literals, the backslash, parentheses, and control characters need to be escaped. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it replaces backslashes with double backslashes and parentheses with escaped versions to ensure that the resulting string can be safely included in a PostScript string literal.</remarks>
+	private static string EscapePostScript(string? input)
+	{
+		// In PostScript string literals, the backslash, parentheses, and control characters need to be escaped.
+		return string.IsNullOrEmpty(value: input)
+			? string.Empty
+			: input.Replace(oldValue: "\\", newValue: "\\\\")
+				   .Replace(oldValue: "(", newValue: "\\(")
+				   .Replace(oldValue: ")", newValue: "\\)");
+	}
+
+	/// <summary>Escapes PDF string literal characters.</summary>
+	/// <param name="text">The raw input string.</param>
+	/// <returns>The escaped string suitable for PDF output.</returns>
+	/// <remarks>In PDF string literals, the backslash, parentheses, and control characters need to be escaped. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it iterates through each character in the input string and appends either the escaped version or the original character to a StringBuilder, which is then returned as the fully escaped string. Control characters are escaped using backslash followed by a letter (e.g. \n for newline), while other non-printable characters are escaped using octal escape sequences.</remarks>
+	private static string EscapePdf(string? text)
+	{
+		// In PDF string literals, the backslash, parentheses, and control characters need to be escaped.
+		if (string.IsNullOrEmpty(value: text))
+		{
+			return string.Empty;
+		}
+		// Use a StringBuilder for efficient string concatenation when escaping characters.
+		StringBuilder builder = new(capacity: text.Length);
+		foreach (char ch in text)
+		{
+			// Escape backslash, parentheses, and control characters with a backslash. For other non-printable characters, use octal escape sequences.
+			switch (ch)
+			{
+				case '\\': builder.Append(value: "\\\\"); break;
+				case '(': builder.Append(value: "\\("); break;
+				case ')': builder.Append(value: "\\)"); break;
+				case '\n': builder.Append(value: "\\n"); break;
+				case '\r': builder.Append(value: "\\r"); break;
+				case '\t': builder.Append(value: "\\t"); break;
+				case '\b': builder.Append(value: "\\b"); break;
+				case '\f': builder.Append(value: "\\f"); break;
+				default:
+					if (ch < ' ')
+					{
+						builder.Append(value: $"\\{(int)ch:000}");
+					}
+					else
+					{
+						builder.Append(value: ch);
+					}
+					break;
+			}
+		}
+		// Return the fully escaped string.
+		return builder.ToString();
+	}
+
+	/// <summary>Escapes RTF special characters.</summary>
+	/// <param name="input">The raw input string.</param>
+	/// <returns>The escaped string suitable for RTF output.</returns>
+	/// <remarks>In RTF, the backslash, braces, and control characters need to be escaped. Non-ASCII characters can be represented using Unicode escape sequences. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it iterates through each character in the input string and appends either the escaped version or the original character to a StringBuilder, which is then returned as the fully escaped string. Backslashes and braces are escaped with a preceding backslash, newlines are replaced with the \par control word, and non-ASCII characters are represented using \uN? where N is the Unicode code point of the character.</remarks>
+	private static string EscapeRtf(string? input)
+	{
+		// In RTF, the backslash, braces, and control characters need to be escaped. Non-ASCII characters can be represented using Unicode escape sequences.
+		if (string.IsNullOrEmpty(value: input))
+		{
+			return string.Empty;
+		}
+		// Use a StringBuilder for efficient string concatenation when escaping characters.
+		StringBuilder builder = new(capacity: input.Length);
+		foreach (char ch in input)
+		{
+			// Escape backslash and braces with a backslash. For newlines, use the \par control word. For other non-ASCII characters, use Unicode escape sequences.
+			switch (ch)
+			{
+				case '\\': builder.Append(value: "\\\\"); break;
+				case '{': builder.Append(value: "\\{"); break;
+				case '}': builder.Append(value: "\\}"); break;
+				case '\n': builder.Append(value: "\\par "); break;
+				default:
+					if (ch > 127)
+					{
+						builder.Append(value: $"\\u{(int)ch}?");
+					}
+					else
+					{
+						builder.Append(value: ch);
+					}
+					break;
+			}
+		}
+		// Return the fully escaped string.
+		return builder.ToString();
+	}
+
+	/// <summary>Escapes a CSV field by doubling internal quotes and wrapping in double quotes.</summary>
+	/// <param name="field">The raw field value.</param>
+	/// <returns>The escaped CSV field suitable for CSV output.</returns>
+	/// <remarks>In CSV, fields that contain commas, quotes, or newlines must be enclosed in double quotes, and internal double quotes are escaped by doubling them. This method first checks if the input field is null and treats it as an empty string; then it replaces any internal double quotes with two double quotes to escape them, and finally wraps the entire field in double quotes to ensure it is treated as a single field in the CSV output.</remarks>
+	private static string EscapeCsvField(string? field)
+	{
+		// In CSV, fields that contain commas, quotes, or newlines must be enclosed in double quotes, and internal double quotes are escaped by doubling them.
+		string safeField = field ?? string.Empty;
+		// First, double any internal double quotes to escape them.
+		safeField = safeField.Replace(oldValue: "\"", newValue: "\"\"");
+		return $"\"{safeField}\"";
+	}
+
+	/// <summary>Escapes a TOML string value.</summary>
+	/// <param name="value">The raw value.</param>
+	/// <returns>The escaped TOML string value suitable for TOML output.</returns>
+	/// <remarks>In TOML, basic string values are enclosed in double quotes, and backslashes and double quotes within the string must be escaped with a backslash. This method checks if the input value is null or empty and returns an empty string in that case; otherwise, it replaces backslashes with double backslashes and double quotes with escaped double quotes to ensure that the resulting string can be safely included as a basic string value in a TOML document.</remarks>
+	private static string EscapeToml(string? value)
+	{
+		// In TOML, basic string values are enclosed in double quotes, and backslashes and double quotes within the string must be escaped with a backslash.
+		return string.IsNullOrEmpty(value: value)
+			? string.Empty
+			: value.Replace(oldValue: "\\", newValue: "\\\\")
+				   .Replace(oldValue: "\"", newValue: "\\\"");
+	}
+
+	/// <summary>Shows a success message after a file has been saved.</summary>
+	/// <remarks>Logs the successful save operation at the Info level and displays a message box to the user.</remarks>
+	private static void ShowSuccess()
+	{
+		// Log the successful save operation at the Info level.
+		_ = MessageBox.Show(
+			text: I18nStrings.FileSavedSuccessfully,
+			caption: I18nStrings.InformationCaption,
+			buttons: MessageBoxButtons.OK,
+			icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>Logs and shows an error that occurred while saving a file.</summary>
+	/// <param name="ex">The exception.</param>
+	/// <param name="format">A label identifying the file format (e.g. "Text").</param>
+	/// <param name="filePath">The target file path.</param>
+	/// <remarks>Logs the error with details about the format and file path, and displays an error message box to the user with the exception message.</remarks>
+	private static void ShowError(Exception ex, string format, string filePath)
+	{
+		// Log the error with details about the format and file path.
+		logger.Error(exception: ex, message: $"Error saving as {format} to '{{FilePath}}'.", args: filePath);
+		_ = MessageBox.Show(
+			text: $"Error saving as {format}: {ex.Message}",
+			caption: I18nStrings.ErrorCaption,
+			buttons: MessageBoxButtons.OK,
+			icon: MessageBoxIcon.Error);
+	}
+
+	#endregion
+
+	#region Save methods
+
+	/// <summary>Saves the content of the specified TextBox to a text file, including a title and a separator line.</summary>
+	/// <remarks>The method writes the title, a separator line, and the TextBox content to the file using UTF-8 encoding. If an I/O or access error occurs, an error message is displayed to the user.</remarks>
+	/// <param name="textBox">The TextBox whose text content will be saved to the file. Cannot be null.</param>
+	/// <param name="title">The title to write as the first line of the file. The length of this string determines the length of the separator
+	/// line.</param>
+	/// <param name="fileName">The full path and name of the file to which the content will be saved. If the file exists, it will be overwritten.</param>
+	public static void SaveAsText(TextBox textBox, string title, string fileName)
+	{
+		// Use a StreamWriter to write the title, a separator line, and the TextBox content to the file with UTF-8 encoding.
+		try
+		{
+			// The 'using' statement ensures that the StreamWriter is properly disposed after use, which will flush and close the underlying file stream.
+			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
+			// Write the title, a separator line of dashes matching the title length, and the TextBox content to the file.
+			writer.WriteLine(value: title);
+			writer.WriteLine(value: new string(c: '-', count: title.Length));
+			writer.WriteLine(value: textBox.Text);
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "Text", filePath: fileName);
+		}
+	}
+
+	/// <summary>Exports the contents of the specified text box to a LaTeX document and saves it to the specified file.</summary>
+	/// <remarks>The method creates a basic LaTeX document using the UTF-8 encoding. Each line from the text box is escaped for LaTeX and written as a new line in the document. If an I/O or access error occurs during saving, an error message is displayed.</remarks>
+	/// <param name="textBox">The text box whose lines will be written to the LaTeX document. Cannot be null.</param>
+	/// <param name="title">The title to use for the LaTeX document. This value will appear as the document's title.</param>
+	/// <param name="fileName">The full path and file name where the LaTeX document will be saved. If the file exists, it will be overwritten.</param>
+	public static void SaveAsLatex(TextBox textBox, string title, string fileName)
+	{
+		// Use a StreamWriter to create a LaTeX document with the specified title and content from the text box. Each line is escaped for LaTeX and written as a new line in the document.
+		try
+		{
+			// The 'using' statement ensures that the StreamWriter is properly disposed after use, which will flush and close the underlying file stream.
+			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
+			writer.WriteLine(value: "\\documentclass{article}");
+			writer.WriteLine(value: "\\usepackage[utf8]{inputenc}");
+			writer.WriteLine(value: "\\begin{document}");
+			writer.WriteLine(value: $"\\title{{{EscapeLatex(input: title)}}}");
+			writer.WriteLine(value: "\\maketitle");
+			// Write each line from the text box to the LaTeX document, escaping special characters and adding a line break after each line.
+			foreach (string line in textBox.Lines)
+			{
+				writer.WriteLine(value: EscapeLatex(input: line) + "\\\\");
+			}
+			writer.WriteLine(value: "\\end{document}");
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "LaTeX", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the content of the specified text box as a Markdown file with the given title.</summary>
+	/// <remarks>If the file cannot be written due to I/O errors or insufficient permissions, an error is displayed to the user. The method overwrites the file if it already exists.</remarks>
+	/// <param name="textBox">The text box whose content will be saved to the Markdown file. Cannot be null.</param>
+	/// <param name="title">The title to be used as the first-level heading in the Markdown file. If empty, the file will start with an empty heading.</param>
+	/// <param name="fileName">The full path and name of the file to which the Markdown content will be saved. Must be a valid file path.</param>
+	public static void SaveAsMarkdown(TextBox textBox, string title, string fileName)
+	{
+		// Use a StreamWriter to write the title as a Markdown heading and the content of the text box to the specified file. The file is saved with UTF-8 encoding. If an I/O or access error occurs, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statement ensures that the StreamWriter is properly disposed after use, which will flush and close the underlying file stream.
+			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
+			// Write the title as a Markdown heading, followed by the content of the text box.
+			writer.WriteLine(value: $"# {title}");
+			writer.WriteLine();
+			writer.WriteLine(value: textBox.Text);
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "Markdown", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the content of the specified text box to a file in AsciiDoc format using the provided title.</summary>
+	/// <remarks>The method writes the title as an AsciiDoc heading, followed by the text box content. The file is saved using UTF-8 encoding. If an I/O or access error occurs, an error message is displayed to the user.</remarks>
+	/// <param name="textBox">The text box whose content will be saved to the AsciiDoc file. Cannot be null.</param>
+	/// <param name="title">The title to be used as the AsciiDoc document heading. This appears as the first line in the output file.</param>
+	/// <param name="fileName">The full path and name of the file to which the AsciiDoc content will be written. If the file exists, it will be overwritten.</param>
+	public static void SaveAsAsciiDoc(TextBox textBox, string title, string fileName)
+	{
+		// Use a StreamWriter to write the title as an AsciiDoc heading and the content of the text box to the specified file. The file is saved with UTF-8 encoding. If an I/O or access error occurs, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statement ensures that the StreamWriter is properly disposed after use, which will flush and close the underlying file stream.
+			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
+			// Write the title as an AsciiDoc heading, followed by the content of the text box.
+			writer.WriteLine(value: $"= {title}");
+			writer.WriteLine();
+			writer.WriteLine(value: textBox.Text);
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "AsciiDoc", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the text content of the specified TextBox to a file in reStructuredText format, using the provided title as a heading.</summary>
+	/// <remarks>The method writes the title as a reStructuredText heading, followed by the content of the TextBox. If an I/O or access error occurs, an error message is displayed to the user.</remarks>
+	/// <param name="textBox">The TextBox control whose text content will be saved to the file. Cannot be null.</param>
+	/// <param name="title">The title to use as the heading in the reStructuredText file. The length of the title determines the underline formatting.</param>
+	/// <param name="fileName">The full path and name of the file to which the content will be saved. If the file exists, it will be overwritten.</param>
+	public static void SaveAsReStructuredText(TextBox textBox, string title, string fileName)
+	{
+		// Use a StreamWriter to write the title as a reStructuredText heading and the content of the text box to the specified file. The file is saved with UTF-8 encoding. If an I/O or access error occurs, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statement ensures that the StreamWriter is properly disposed after use, which will flush and close the underlying file stream.
+			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
+			// Write the title as a reStructuredText heading, followed by the content of the text box.
+			writer.WriteLine(value: new string(c: '=', count: title.Length));
+			writer.WriteLine(value: title);
+			writer.WriteLine(value: new string(c: '=', count: title.Length));
+			writer.WriteLine();
+			writer.WriteLine(value: textBox.Text);
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "reStructuredText", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the contents of the specified text box to a file in Textile markup format, using the provided title as a
+	/// heading.</summary>
+	/// <remarks>Each line from the text box is written as a separate paragraph in the output file. The method writes the title as a level-one heading at the top of the file. The file is saved using UTF-8 encoding.</remarks>
+	/// <param name="textBox">The text box whose lines are to be saved as Textile-formatted paragraphs. Cannot be null.</param>
+	/// <param name="title">The title to use as the main heading in the Textile file. This will be written as a level-one heading.</param>
+	/// <param name="fileName">The full path and name of the file to which the Textile content will be saved. If the file exists, it will be overwritten.</param>
+	public static void SaveAsTextile(TextBox textBox, string title, string fileName)
+	{
+		// Use a StreamWriter to write the title as a Textile heading and each line of the text box as a separate paragraph in the specified file. The file is saved with UTF-8 encoding. If an I/O or access error occurs, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statement ensures that the StreamWriter is properly disposed after use, which will flush and close the underlying file stream.
+			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
+			// Write the title as a Textile level-one heading, followed by each line of the text box as a separate paragraph.
+			writer.WriteLine(value: $"h1. {title}");
+			writer.WriteLine();
+			foreach (string line in textBox.Lines)
+			{
+				writer.WriteLine(value: $"p. {line}");
+			}
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "Textile", filePath: fileName);
+		}
+	}
+
+	/// <summary>
+	/// Saves the contents of the specified text box as a Microsoft Word document in the .docx format at the given file path, using the provided title as the document heading.</summary>
+	/// <remarks>If a file already exists at the specified path, it will be overwritten. The method creates a minimal .docx file containing the title and each line of the text box as a separate paragraph. If an I/O or access error occurs, an error message is displayed to the user.</remarks>
+	/// <param name="textBox">The text box whose lines will be exported to the Word document. Cannot be null.</param>
+	/// <param name="title">The title to use as the heading of the Word document. If null, an empty title is used.</param>
+	/// <param name="fileName">The full file path where the Word document will be created. Must be a valid path and the application must have write access.</param>
+	public static void SaveAsWord(TextBox textBox, string title, string fileName)
+	{
+		// Use a ZipArchive to create a .docx file, which is essentially a ZIP archive containing XML files. The method creates the necessary structure for a minimal Word document, including the content types, relationships, and main document XML. Each line from the text box is added as a separate paragraph in the document body. If an I/O or access error occurs during file creation, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statements ensure that the FileStream and ZipArchive are properly disposed after use, which will flush and close the underlying file stream and finalize the ZIP archive.
+			using FileStream fs = new(path: fileName, mode: FileMode.Create);
+			using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
+			// Create the necessary entries in the ZIP archive for a minimal .docx file structure.
+			ZipArchiveEntry contentTypesEntry = archive.CreateEntry(entryName: "[Content_Types].xml", compressionLevel: CompressionLevel.Optimal);
+			// Write the content types XML, which defines the MIME types for the parts of the .docx file. This is required for Word to recognize the structure of the document.
+			using (StreamWriter writer = new(stream: contentTypesEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+				writer.WriteLine(value: "<Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\">");
+				writer.WriteLine(value: "  <Default Extension=\"rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\"/>");
+				writer.WriteLine(value: "  <Default Extension=\"xml\" ContentType=\"application/xml\"/>");
+				writer.WriteLine(value: "  <Override PartName=\"/word/document.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml\"/>");
+				writer.WriteLine(value: "</Types>");
+			}
+			// Create the relationships entry, which defines the relationship between the main document part and the package. This is required for Word to locate the main document XML.
+			ZipArchiveEntry relsEntry = archive.CreateEntry(entryName: "_rels/.rels", compressionLevel: CompressionLevel.Optimal);
+			// Write the relationships XML, which specifies that the main document part (document.xml) is related to the package with a specific relationship ID. This allows Word to find and load the main document content when opening the .docx file.
+			using (StreamWriter writer = new(stream: relsEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+				writer.WriteLine(value: "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">");
+				writer.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"word/document.xml\"/>");
+				writer.WriteLine(value: "</Relationships>");
+			}
+			// Create the main document XML entry, which contains the actual content of the Word document. This includes the title as a heading and each line from the text box as a separate paragraph.
+			ZipArchiveEntry documentEntry = archive.CreateEntry(entryName: "word/document.xml", compressionLevel: CompressionLevel.Optimal);
+			// Write the main document XML, which defines the structure and content of the Word document. The title is added as a heading, and each line from the text box is added as a separate paragraph. The XML namespaces and structure follow the OpenXML standard for Word documents.
+			using (StreamWriter writer = new(stream: documentEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+				writer.WriteLine(value: "<w:document xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\">");
+				writer.WriteLine(value: "  <w:body>");
+				string safeTitle = System.Net.WebUtility.HtmlEncode(value: title) ?? string.Empty;
+				writer.WriteLine(value: $"    <w:p><w:pPr><w:pStyle w:val=\"Title\"/></w:pPr><w:r><w:t>{safeTitle}</w:t></w:r></w:p>");
+				foreach (string line in textBox.Lines)
+				{
+					string safe = System.Net.WebUtility.HtmlEncode(value: line) ?? string.Empty;
+					writer.WriteLine(value: $"    <w:p><w:r><w:t>{safe}</w:t></w:r></w:p>");
+				}
+				writer.WriteLine(value: "  </w:body>");
+				writer.WriteLine(value: "</w:document>");
+			}
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "Word", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the contents of the specified TextBox as an OpenDocument Text (ODT) file with the given title and file name.</summary>
+	/// <remarks>The method creates a minimal ODT file structure, including the required mimetype, manifest, and content files. The text from the TextBox is written as paragraphs, and the title is used as a heading. If the file cannot be created due to I/O or permission issues, an error is displayed to the user.</remarks>
+	/// <param name="textBox">The TextBox control whose text content will be exported to the ODT file.</param>
+	/// <param name="title">The title to be used as the main heading in the generated ODT document. This value is inserted as a heading in the document.</param>
+	/// <param name="fileName">The full path and file name where the ODT file will be created. If a file with the same name exists, it will be overwritten.</param>
+	public static void SaveAsOdt(TextBox textBox, string title, string fileName)
+	{
+		// Use a ZipArchive to create an ODT file, which is essentially a ZIP archive containing specific XML files. The method creates the necessary structure for a minimal ODT file, including the mimetype, manifest, and content XML. Each line from the TextBox is added as a separate paragraph in the content XML. If an I/O or access error occurs during file creation, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statements ensure that the FileStream and ZipArchive are properly disposed after use, which will flush and close the underlying file stream and finalize the ZIP archive.
+			using FileStream fs = new(path: fileName, mode: FileMode.Create);
+			using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
+			// Create the mimetype entry, which must be the first entry in the ODT file and must be stored without compression. This entry specifies the MIME type of the document, which is required for ODT files.
+			ZipArchiveEntry mimetypeEntry = archive.CreateEntry(entryName: "mimetype", compressionLevel: CompressionLevel.NoCompression);
+			// Write the MIME type for an ODT file to the mimetype entry. This is required for ODT files and must be exactly "application/vnd.oasis.opendocument.text".
+			using (StreamWriter writer = new(stream: mimetypeEntry.Open(), encoding: Encoding.ASCII))
+			{
+				writer.Write(value: "application/vnd.oasis.opendocument.text");
+			}
+			// Create the manifest entry, which defines the files included in the ODT package and their MIME types. This is required for ODT files to specify the structure of the document.
+			ZipArchiveEntry manifestEntry = archive.CreateEntry(entryName: "META-INF/manifest.xml", compressionLevel: CompressionLevel.Optimal);
+			// Write the manifest XML, which lists the files included in the ODT package and their corresponding MIME types. This is necessary for ODT files to define the structure and content of the document.
+			using (StreamWriter writer = new(stream: manifestEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+				writer.WriteLine(value: "<manifest:manifest xmlns:manifest=\"urn:oasis:names:tc:opendocument:xmlns:manifest:1.0\" manifest:version=\"1.2\">");
+				writer.WriteLine(value: " <manifest:file-entry manifest:full-path=\"/\" manifest:media-type=\"application/vnd.oasis.opendocument.text\"/>");
+				writer.WriteLine(value: " <manifest:file-entry manifest:full-path=\"content.xml\" manifest:media-type=\"text/xml\"/>");
+				writer.WriteLine(value: " <manifest:file-entry manifest:full-path=\"META-INF/manifest.xml\" manifest:media-type=\"text/xml\"/>");
+				writer.WriteLine(value: "</manifest:manifest>");
+			}
+			// Create the content entry, which contains the actual content of the ODT document. This includes the title as a heading and each line from the TextBox as a separate paragraph. The XML structure follows the OpenDocument standard for text documents.
+			ZipArchiveEntry contentEntry = archive.CreateEntry(entryName: "content.xml", compressionLevel: CompressionLevel.Optimal);
+			// Write the content XML, which defines the structure and content of the ODT document. The title is added as a heading, and each line from the TextBox is added as a separate paragraph. The XML namespaces and structure follow the OpenDocument standard for text documents.
+			using (StreamWriter writer = new(stream: contentEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+				writer.WriteLine(value: "<office:document-content xmlns:office=\"urn:oasis:names:tc:opendocument:xmlns:office:1.0\" xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" office:version=\"1.2\">");
+				writer.WriteLine(value: "  <office:body><office:text>");
+				string safeTitle = System.Security.SecurityElement.Escape(str: title) ?? string.Empty;
+				writer.WriteLine(value: $"    <text:h text:outline-level=\"1\">{safeTitle}</text:h>");
+				foreach (string line in textBox.Lines)
+				{
+					string safe = System.Security.SecurityElement.Escape(str: line) ?? string.Empty;
+					writer.WriteLine(value: $"    <text:p>{safe}</text:p>");
+				}
+				writer.WriteLine(value: "  </office:text></office:body>");
+				writer.WriteLine(value: "</office:document-content>");
+			}
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "ODT", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the contents of the specified TextBox as a Rich Text Format (RTF) file with the given title.</summary>
+	/// <remarks>The method writes the TextBox content as plain text in RTF format using ASCII encoding. If the file cannot be written due to I/O or permission issues, an error is displayed to the user.</remarks>
+	/// <param name="textBox">The TextBox control whose text content will be saved to the RTF file.</param>
+	/// <param name="title">The title to include at the beginning of the RTF document. This appears as a bold heading in the file.</param>
+	/// <param name="fileName">The full path and file name where the RTF file will be created or overwritten.</param>
+	public static void SaveAsRtf(TextBox textBox, string title, string fileName)
+	{
+		// Use a StreamWriter to write the content of the TextBox to an RTF file. The method constructs a basic RTF document structure, including the title as a bold heading and each line of the TextBox as a separate paragraph. The file is saved using ASCII encoding. If an I/O or access error occurs during saving, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statement ensures that the StreamWriter is properly disposed after use, which will flush and close the underlying file stream.
+			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.ASCII);
+			// Write the RTF header and define a font table with Arial as the default font. Then write the title as a bold heading and each line from the TextBox as a separate paragraph. Finally, close the RTF document structure.
+			writer.WriteLine(value: @"{\rtf1\ansi\deff0");
+			writer.WriteLine(value: @"{\fonttbl{\f0 Arial;}}");
+			writer.WriteLine(value: @"\f0\fs20");
+			writer.WriteLine(value: $@"{{\pard\b\fs24 {EscapeRtf(input: title)}\par\par}}");
+			foreach (string line in textBox.Lines)
+			{
+				writer.WriteLine(value: $@"{{\pard {EscapeRtf(input: line)}\par}}");
+			}
+			writer.WriteLine(value: "}");
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "RTF", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the contents of the specified text box to a file in AbiWord XML format, using the provided title as the
+	/// document heading.</summary>
+	/// <remarks>The method encodes all text to ensure valid XML output. Only IOException and UnauthorizedAccessException are handled explicitly; other exceptions will propagate. The output file uses UTF-8 encoding and the AbiWord 1.9.2 file format.</remarks>
+	/// <param name="textBox">The text box whose lines are to be saved as paragraphs in the AbiWord document.</param>
+	/// <param name="title">The title to use as the main heading in the generated AbiWord file. This value is HTML-encoded before being written.</param>
+	/// <param name="fileName">The full path and file name where the AbiWord XML file will be created. If the file exists, it will be overwritten.</param>
+	public static void SaveAsAbiword(TextBox textBox, string title, string fileName)
+	{
+		// Use a StreamWriter to write the content of the TextBox to an AbiWord XML file. The method constructs a basic AbiWord document structure, including the title as a heading and each line of the TextBox as a separate paragraph. All text is HTML-encoded to ensure valid XML output. The file is saved using UTF-8 encoding. If an I/O or access error occurs during saving, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statement ensures that the StreamWriter is properly disposed after use, which will flush and close the underlying file stream.
+			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
+			// Write the XML declaration, DOCTYPE, and root element for the AbiWord document. Then write the title as a heading and each line from the TextBox as a separate paragraph. Finally, close the root element.
+			writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+			writer.WriteLine(value: "<!DOCTYPE abiword PUBLIC \"-//ABISOURCE//DTD AWML 1.0 Strict//EN\" \"http://www.abisource.com/awml.dtd\">");
+			writer.WriteLine(value: "<abiword xmlns:awml=\"http://www.abisource.com/awml.dtd\" version=\"1.9.2\" fileformat=\"1.0\" xmlns=\"http://www.abisource.com/awml.dtd\">");
+			writer.WriteLine(value: "  <section>");
+			string safeTitle = System.Net.WebUtility.HtmlEncode(value: title) ?? string.Empty;
+			writer.WriteLine(value: $"    <p style=\"Heading 1\">{safeTitle}</p>");
+			foreach (string line in textBox.Lines)
+			{
+				string safe = System.Net.WebUtility.HtmlEncode(value: line) ?? string.Empty;
+				writer.WriteLine(value: $"    <p>{safe}</p>");
+			}
+			writer.WriteLine(value: "  </section>");
+			writer.WriteLine(value: "</abiword>");
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "AbiWord", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the contents of the specified TextBox as a WPS-compatible HTML file with the given title.</summary>
+	/// <remarks>The method encodes all text to ensure valid HTML output. If an I/O or access error occurs during
+	/// saving, an error message is displayed to the user.</remarks>
+	/// <param name="textBox">The TextBox whose lines will be exported to the WPS file. Cannot be null.</param>
+	/// <param name="title">The title to use for the HTML document. This value is used in the document's <c>title</c> element and as a heading.</param>
+	/// <param name="fileName">The full path and file name where the WPS file will be saved. If the file exists, it will be overwritten.</param>
+	public static void SaveAsWps(TextBox textBox, string title, string fileName)
+	{
+		// Use a StreamWriter to write the content of the TextBox to an HTML file compatible with WPS Office. The method constructs a basic HTML document structure, including the title in the <c>title</c> element and as a heading in the body. Each line from the TextBox is added as a separate paragraph. All text is HTML-encoded to ensure valid output. The file is saved using UTF-8 encoding. If an I/O or access error occurs during saving, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statement ensures that the StreamWriter is properly disposed after use, which will flush and close the underlying file stream.
+			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
+			// Write the HTML document structure, including the title and each line from the TextBox as a separate paragraph. All text is HTML-encoded to ensure valid output.
+			writer.WriteLine(value: "<!DOCTYPE html>");
+			writer.WriteLine(value: "<html><head><meta charset=\"utf-8\">");
+			writer.WriteLine(value: $"<title>{System.Net.WebUtility.HtmlEncode(value: title)}</title>");
+			writer.WriteLine(value: "</head><body>");
+			writer.WriteLine(value: $"<h1>{System.Net.WebUtility.HtmlEncode(value: title)}</h1>");
+			foreach (string line in textBox.Lines)
+			{
+				writer.WriteLine(value: $"<p>{System.Net.WebUtility.HtmlEncode(value: line)}</p>");
+			}
+			writer.WriteLine(value: "</body></html>");
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "WPS", filePath: fileName);
+		}
+	}
+
+	/// <summary>Exports the contents of the specified TextBox to a new Excel file in .xlsx format, using the provided title and file name.</summary>
+	/// <remarks>The method creates a minimal Excel .xlsx file by generating the required Open XML parts and writing the TextBox content as rows. If the file cannot be created due to I/O or permission issues, an error is displayed to the user. The method does not support advanced Excel features such as formatting or multiple sheets.</remarks>
+	/// <param name="textBox">The TextBox control whose lines will be written as rows in the generated Excel worksheet. Cannot be null.</param>
+	/// <param name="title">The title to be written as the first row in the Excel worksheet. This value appears as the header of the exported data.</param>
+	/// <param name="fileName">The full path and file name for the Excel file to create. If a file with the same name exists, it will be overwritten.</param>
+	public static void SaveAsExcel(TextBox textBox, string title, string fileName)
+	{
+		// Use a ZipArchive to create an Excel .xlsx file, which is essentially a ZIP archive containing specific XML files. The method creates the necessary structure for a minimal .xlsx file, including the content types, relationships, and worksheet XML. Each line from the TextBox is added as a separate row in the worksheet. If an I/O or access error occurs during file creation, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statements ensure that the FileStream and ZipArchive are properly disposed after use, which will flush and close the underlying file stream and finalize the ZIP archive.
+			using FileStream fs = new(path: fileName, mode: FileMode.Create);
+			using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
+			// Create the necessary entries in the ZIP archive for a minimal .xlsx file structure.
+			ZipArchiveEntry contentTypesEntry = archive.CreateEntry(entryName: "[Content_Types].xml", compressionLevel: CompressionLevel.Optimal);
+			// Write the content types XML, which defines the MIME types for the parts of the .xlsx file. This is required for Excel to recognize the structure of the document.
+			using (StreamWriter writer = new(stream: contentTypesEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+				writer.WriteLine(value: "<Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\">");
+				writer.WriteLine(value: "  <Default Extension=\"rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\"/>");
+				writer.WriteLine(value: "  <Default Extension=\"xml\" ContentType=\"application/xml\"/>");
+				writer.WriteLine(value: "  <Override PartName=\"/xl/workbook.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml\"/>");
+				writer.WriteLine(value: "  <Override PartName=\"/xl/worksheets/sheet1.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml\"/>");
+				writer.WriteLine(value: "</Types>");
+			}
+			// Create the relationships entry, which defines the relationship between the main workbook part and the package. This is required for Excel to locate the main workbook XML when opening the .xlsx file.
+			ZipArchiveEntry relsEntry = archive.CreateEntry(entryName: "_rels/.rels", compressionLevel: CompressionLevel.Optimal);
+			// Write the relationships XML, which specifies that the main workbook part (workbook.xml) is related to the package with a specific relationship ID. This allows Excel to find and load the main workbook content when opening the .xlsx file.
+			using (StreamWriter writer = new(stream: relsEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+				writer.WriteLine(value: "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">");
+				writer.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"xl/workbook.xml\"/>");
+				writer.WriteLine(value: "</Relationships>");
+			}
+			// Create the main workbook XML entry, which contains the structure of the Excel workbook. This includes a reference to the worksheet that will contain the data. The XML structure follows the OpenXML standard for Excel workbooks.
+			ZipArchiveEntry workbookEntry = archive.CreateEntry(entryName: "xl/workbook.xml", compressionLevel: CompressionLevel.Optimal);
+			using (StreamWriter writer = new(stream: workbookEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+				writer.WriteLine(value: "<workbook xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\">");
+				writer.WriteLine(value: "  <sheets><sheet name=\"Data\" sheetId=\"1\" r:id=\"rId1\"/></sheets>");
+				writer.WriteLine(value: "</workbook>");
+			}
+			// Create the workbook relationships entry, which defines the relationship between the workbook and the worksheet. This is required for Excel to locate the worksheet XML when opening the .xlsx file.
+			ZipArchiveEntry wbRelsEntry = archive.CreateEntry(entryName: "xl/_rels/workbook.xml.rels", compressionLevel: CompressionLevel.Optimal);
+			using (StreamWriter writer = new(stream: wbRelsEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+				writer.WriteLine(value: "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">");
+				writer.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet\" Target=\"worksheets/sheet1.xml\"/>");
+				writer.WriteLine(value: "</Relationships>");
+			}
+			// Create the worksheet XML entry, which contains the actual data for the Excel sheet. Each line from the TextBox is added as a separate row in the worksheet. The title is added as the first row. The XML structure follows the OpenXML standard for Excel worksheets.
+			ZipArchiveEntry sheetEntry = archive.CreateEntry(entryName: "xl/worksheets/sheet1.xml", compressionLevel: CompressionLevel.Optimal);
+			using (StreamWriter writer = new(stream: sheetEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+				writer.WriteLine(value: "<worksheet xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\">");
+				writer.WriteLine(value: "  <sheetData>");
+				writer.WriteLine(value: $"    <row><c t=\"inlineStr\"><is><t>{System.Security.SecurityElement.Escape(str: title)}</t></is></c></row>");
+				foreach (string line in textBox.Lines)
+				{
+					writer.WriteLine(value: $"    <row><c t=\"inlineStr\"><is><t>{System.Security.SecurityElement.Escape(str: line)}</t></is></c></row>");
+				}
+				writer.WriteLine(value: "  </sheetData>");
+				writer.WriteLine(value: "</worksheet>");
+			}
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "Excel", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the contents of the specified TextBox as an OpenDocument Spreadsheet (ODS) file at the given file path.</summary>
+	/// <remarks>The method creates a minimal ODS file containing a single table with one column, where each row corresponds to a line from the TextBox. The method displays a success or error message upon completion. The file is created using UTF-8 encoding for XML content and ASCII encoding for the mimetype entry.</remarks>
+	/// <param name="textBox">The TextBox control whose lines will be exported to the ODS file. Each line is written as a separate row in the spreadsheet.</param>
+	/// <param name="title">The title to use for the spreadsheet table within the ODS file. This value is used as the table name.</param>
+	/// <param name="fileName">The full file path where the ODS file will be created. If a file already exists at this path, it will be overwritten.</param>
+	public static void SaveAsOds(TextBox textBox, string title, string fileName)
+	{
+		// Use a ZipArchive to create an ODS file, which is essentially a ZIP archive containing specific XML files. The method creates the necessary structure for a minimal ODS file, including the mimetype, manifest, and content XML. Each line from the TextBox is added as a separate row in the spreadsheet. If an I/O or access error occurs during file creation, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statements ensure that the FileStream and ZipArchive are properly disposed after use, which will flush and close the underlying file stream and finalize the ZIP archive.
+			using FileStream fs = new(path: fileName, mode: FileMode.Create);
+			using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
+			// Create the mimetype entry, which must be the first entry in the ODS file and must be stored without compression. This entry specifies the MIME type of the document, which is required for ODS files.
+			ZipArchiveEntry mimetypeEntry = archive.CreateEntry(entryName: "mimetype", compressionLevel: CompressionLevel.NoCompression);
+			// Write the MIME type for an ODS file to the mimetype entry. This is required for ODS files and must be exactly "application/vnd.oasis.opendocument.spreadsheet".
+			using (StreamWriter writer = new(stream: mimetypeEntry.Open(), encoding: Encoding.ASCII))
+			{
+				writer.Write(value: "application/vnd.oasis.opendocument.spreadsheet");
+			}
+			// Create the manifest entry, which defines the files included in the ODS package and their MIME types. This is required for ODS files to specify the structure of the document.
+			ZipArchiveEntry manifestEntry = archive.CreateEntry(entryName: "META-INF/manifest.xml", compressionLevel: CompressionLevel.Optimal);
+			// Write the manifest XML, which lists the files included in the ODS package and their corresponding MIME types. This is necessary for ODS files to define the structure and content of the document.
+			using (StreamWriter writer = new(stream: manifestEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+				writer.WriteLine(value: "<manifest:manifest xmlns:manifest=\"urn:oasis:names:tc:opendocument:xmlns:manifest:1.0\" manifest:version=\"1.2\">");
+				writer.WriteLine(value: " <manifest:file-entry manifest:full-path=\"/\" manifest:media-type=\"application/vnd.oasis.opendocument.spreadsheet\"/>");
+				writer.WriteLine(value: " <manifest:file-entry manifest:full-path=\"content.xml\" manifest:media-type=\"text/xml\"/>");
+				writer.WriteLine(value: " <manifest:file-entry manifest:full-path=\"META-INF/manifest.xml\" manifest:media-type=\"text/xml\"/>");
+				writer.WriteLine(value: "</manifest:manifest>");
+			}
+			// Create the content entry, which contains the actual content of the ODS document. This includes the title as a heading and each line from the TextBox as a separate row in a table. The XML structure follows the OpenDocument standard for spreadsheets.
+			ZipArchiveEntry contentEntry = archive.CreateEntry(entryName: "content.xml", compressionLevel: CompressionLevel.Optimal);
+			using (StreamWriter writer = new(stream: contentEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+				writer.WriteLine(value: "<office:document-content xmlns:office=\"urn:oasis:names:tc:opendocument:xmlns:office:1.0\" xmlns:text=\"urn:oasis:names:tc:opendocument:xmlns:text:1.0\" xmlns:table=\"urn:oasis:names:tc:opendocument:xmlns:table:1.0\" office:version=\"1.2\">");
+				writer.WriteLine(value: "  <office:body><office:spreadsheet>");
+				string safeName = System.Security.SecurityElement.Escape(str: title) ?? "Data";
+				writer.WriteLine(value: $"    <table:table table:name=\"{safeName}\"><table:table-column table:number-columns-repeated=\"1\"/>");
+				foreach (string line in textBox.Lines)
+				{
+					writer.WriteLine(value: $"    <table:table-row><table:table-cell office:value-type=\"string\"><text:p>{System.Security.SecurityElement.Escape(str: line)}</text:p></table:table-cell></table:table-row>");
+				}
+				writer.WriteLine(value: "    </table:table>");
+				writer.WriteLine(value: "  </office:spreadsheet></office:body>");
+				writer.WriteLine(value: "</office:document-content>");
+			}
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "ODS", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the contents of the specified TextBox to a CSV file, using the provided title as the first row.</summary>
+	/// <remarks>Each line from the TextBox is written as a separate row in the CSV file, with fields properly escaped. If the file cannot be written due to I/O or access errors, an error message is displayed to the user.</remarks>
+	/// <param name="textBox">The TextBox whose lines are to be saved to the CSV file. Cannot be null.</param>
+	/// <param name="title">The title to write as the first row in the CSV file. This value is written as a single CSV field.</param>
+	/// <param name="fileName">The full path and name of the CSV file to create or overwrite. Must be a valid file path.</param>
+	public static void SaveAsCsv(TextBox textBox, string title, string fileName)
+	{
+		// Use a StreamWriter to write the content of the TextBox to a CSV file. The method writes the title as the first row and each line from the TextBox as subsequent rows. Each field is properly escaped to ensure valid CSV formatting. The file is saved using UTF-8 encoding. If an I/O or access error occurs during saving, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statement ensures that the StreamWriter is properly disposed after use, which will flush and close the underlying file stream.
+			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
+			// Write the title as the first row in the CSV file, ensuring it is properly escaped. Then write each line from the TextBox as a separate row, with proper escaping for each field.
+			writer.WriteLine(value: EscapeCsvField(field: title));
+			foreach (string line in textBox.Lines)
+			{
+				writer.WriteLine(value: EscapeCsvField(field: line));
+			}
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "CSV", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the contents of the specified TextBox to a file in tab-separated values (TSV) format, using the provided title as the first line.</summary>
+	/// <remarks>Tab characters within each line are replaced with spaces to preserve TSV formatting. If the file cannot be written due to I/O errors or insufficient permissions, an error is displayed to the user.</remarks>
+	/// <param name="textBox">The TextBox whose lines are to be saved to the TSV file. Each line will be written as a separate row.</param>
+	/// <param name="title">The title to write as the first line of the TSV file.</param>
+	/// <param name="fileName">The full path and name of the file to which the TSV data will be saved. Must be a valid file path.</param>
+	public static void SaveAsTsv(TextBox textBox, string title, string fileName)
+	{
+		// Use a StreamWriter to write the content of the TextBox to a TSV file. The method writes the title as the first line and each line from the TextBox as subsequent lines. Tab characters within each line are replaced with spaces to ensure proper TSV formatting. The file is saved using UTF-8 encoding. If an I/O or access error occurs during saving, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statement ensures that the StreamWriter is properly disposed after use, which will flush and close the underlying file stream.
+			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
+			// Write the title as the first line in the TSV file, then write each line from the TextBox as a separate line, replacing any tab characters with spaces to maintain TSV formatting.
+			writer.WriteLine(value: title);
+			foreach (string line in textBox.Lines)
+			{
+				writer.WriteLine(value: line.Replace(oldValue: "\t", newValue: " "));
+			}
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "TSV", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the contents of the specified TextBox to a file in pipe-separated values (PSV) format, using the provided title as the first line.</summary>
+	/// <remarks>Any pipe characters ('|') in the TextBox lines are replaced with spaces before writing to the file. The method overwrites the file if it already exists.</remarks>
+	/// <param name="textBox">The TextBox whose lines are to be saved to the PSV file. Each line will be written as a separate record.</param>
+	/// <param name="title">The title to write as the first line of the PSV file.</param>
+	/// <param name="fileName">The full path and name of the file to which the PSV data will be saved. Must be a valid file path.</param>
+	public static void SaveAsPsv(TextBox textBox, string title, string fileName)
+	{
+		// Use a StreamWriter to write the content of the TextBox to a PSV file. The method writes the title as the first line and each line from the TextBox as subsequent lines. Any pipe characters ('|') in the lines are replaced with spaces to maintain proper PSV formatting. The file is saved using UTF-8 encoding. If an I/O or access error occurs during saving, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statement ensures that the StreamWriter is properly disposed after use, which will flush and close the underlying file stream.
+			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
+			// Write the title as the first line in the PSV file, then write each line from the TextBox as a separate line, replacing any pipe characters with spaces to maintain PSV formatting.
+			writer.WriteLine(value: title);
+			foreach (string line in textBox.Lines)
+			{
+				writer.WriteLine(value: line.Replace(oldValue: "|", newValue: " "));
+			}
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "PSV", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the contents of the specified text box to a file in a format compatible with ET, using the provided title and file name.</summary>
+	/// <remarks>This method internally calls <see cref="SaveAsCsv"/> to save the contents in a format compatible with ET.</remarks>
+	/// <param name="textBox">The text box whose contents are to be saved. Cannot be null.</param>
+	/// <param name="title">The title to use for the save dialog or the saved file. Cannot be null or empty.</param>
+	/// <param name="fileName">The name of the file to which the contents will be saved. Cannot be null or empty.</param>
+	public static void SaveAsEt(TextBox textBox, string title, string fileName)
+	{
+		// Since ET supports CSV format, we can reuse the SaveAsCsv method to save the contents in a compatible format. This approach avoids code duplication and ensures that the CSV formatting is consistent for both ET and standard CSV exports.
+		SaveAsCsv(textBox: textBox, title: title, fileName: fileName);
+	}
+
+	/// <summary>Saves the contents of <paramref name="textBox"/> as an HTML file.</summary>
+	/// <remarks>The method encodes all text to ensure valid HTML output. If an I/O or access error occurs during saving, an error message is displayed to the user.</remarks>
+	/// <param name="textBox">The text box whose contents are to be saved. Cannot be null.</param>
+	/// <param name="title">The title to use for the HTML document. Cannot be null or empty.</param>
+	/// <param name="fileName">The name of the file to which the HTML content will be saved. Cannot be null or empty.</param>
+	public static void SaveAsHtml(TextBox textBox, string title, string fileName)
+	{
+		// Use a StreamWriter to write the content of the TextBox to an HTML file. The method constructs a basic HTML document structure, including the title in the <c>title</c> element and as a heading in the body. Each line from the TextBox is added as a separate paragraph. All text is HTML-encoded to ensure valid output. The file is saved using UTF-8 encoding. If an I/O or access error occurs during saving, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statement ensures that the StreamWriter is properly disposed after use, which will flush and close the underlying file stream.
+			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
+			// Write the HTML document structure, including the title and each line from the TextBox as a separate paragraph. All text is HTML-encoded to ensure valid output.
+			string safeTitle = System.Net.WebUtility.HtmlEncode(value: title) ?? string.Empty;
+			writer.WriteLine(value: "<!DOCTYPE html>");
+			writer.WriteLine(value: $"<html lang=\"en\"><head><meta charset=\"utf-8\"><title>{safeTitle}</title>");
+			writer.WriteLine(value: "<style>body{{font-family:sans-serif}}</style>");
+			writer.WriteLine(value: "</head><body>");
+			writer.WriteLine(value: $"<h1>{safeTitle}</h1>");
+			foreach (string line in textBox.Lines)
+			{
+				writer.WriteLine(value: $"<p>{System.Net.WebUtility.HtmlEncode(value: line)}</p>");
+			}
+			writer.WriteLine(value: "</body></html>");
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "HTML", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the contents of <paramref name="textBox"/> as an XML file.</summary>
+	/// <remarks>The method uses <see cref="XmlWriter"/> to create a well-formed XML document with the specified title and lines from the TextBox. If an I/O or access error occurs during saving, an error message is displayed to the user.</remarks>
+	/// <param name="textBox">The text box whose contents are to be saved. Cannot be null.</param>
+	/// <param name="title">The title to use for the XML document. Cannot be null or empty.</param>
+	/// <param name="fileName">The name of the file to which the XML content will be saved. Cannot be null or empty.</param>
+	public static void SaveAsXml(TextBox textBox, string title, string fileName)
+	{
+		// Use an XmlWriter to create a well-formed XML document. The method writes the title as an attribute of the root element and each line from the TextBox as a separate child element. The XML is indented for readability. If an I/O or access error occurs during saving, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statement ensures that the XmlWriter is properly disposed after use, which will flush and close the underlying file stream.
+			XmlWriterSettings settings = new() { Indent = true };
+			using XmlWriter xmlWriter = XmlWriter.Create(outputFileName: fileName, settings: settings);
+			// Write the XML document structure, including the title as an attribute of the root element and each line from the TextBox as a separate child element. The XML is indented for readability.
+			xmlWriter.WriteStartDocument();
+			xmlWriter.WriteStartElement(localName: "data");
+			xmlWriter.WriteAttributeString(localName: "title", value: title);
+			foreach (string line in textBox.Lines)
+			{
+				xmlWriter.WriteElementString(localName: "line", value: line);
+			}
+			xmlWriter.WriteEndElement();
+			xmlWriter.WriteEndDocument();
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "XML", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the contents of <paramref name="textBox"/> as a DocBook XML document.</summary>
+	/// <remarks>The method uses <see cref="XmlWriter"/> to create a well-formed DocBook XML document with the specified title and lines from the TextBox. If an I/O or access error occurs during saving, an error message is displayed to the user.</remarks>
+	/// <param name="textBox">The text box whose contents are to be saved. Cannot be null.</param>
+	/// <param name="title">The title to use for the DocBook document. Cannot be null or empty.</param>
+	/// <param name="fileName">The name of the file to which the DocBook content will be saved. Cannot be null or empty.</param>
+	public static void SaveAsDocBook(TextBox textBox, string title, string fileName)
+	{
+		// Use an XmlWriter to create a well-formed DocBook XML document. The method writes the title as a child element of the root <article> element and each line from the TextBox as a separate <para> element within a <section>. The XML is indented for readability. If an I/O or access error occurs during saving, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statement ensures that the XmlWriter is properly disposed after use, which will flush and close the underlying file stream.
+			XmlWriterSettings settings = new() { Indent = true };
+			using XmlWriter xmlWriter = XmlWriter.Create(outputFileName: fileName, settings: settings);
+			// Write the DocBook XML document structure, including the title as a child element of the root <article> element and each line from the TextBox as a separate <para> element within a <section>. The XML is indented for readability.
+			xmlWriter.WriteStartDocument();
+			xmlWriter.WriteStartElement(localName: "article", ns: "http://docbook.org/ns/docbook");
+			xmlWriter.WriteAttributeString(localName: "version", value: "5.0");
+			xmlWriter.WriteElementString(localName: "title", value: title);
+			xmlWriter.WriteStartElement(localName: "section");
+			foreach (string line in textBox.Lines)
+			{
+				xmlWriter.WriteElementString(localName: "para", value: line);
+			}
+			xmlWriter.WriteEndElement();
+			xmlWriter.WriteEndElement();
+			xmlWriter.WriteEndDocument();
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "DocBook", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the contents of <paramref name="textBox"/> as a JSON file.</summary>
+	/// <remarks>The method uses <see cref="JsonSerializer"/> to create a well-formed JSON document with the specified title and lines from the TextBox. If an I/O or access error occurs during saving, an error message is displayed to the user.</remarks>
+	/// <param name="textBox">The text box whose contents are to be saved. Cannot be null.</param>
+	/// <param name="title">The title to use for the JSON document. Cannot be null or empty.</param>
+	/// <param name="fileName">The name of the file to which the JSON content will be saved. Cannot be null or empty.</param>
+	public static void SaveAsJson(TextBox textBox, string title, string fileName)
+	{
+		// Use the JsonSerializer to create a well-formed JSON document. The method constructs an anonymous object containing the title and lines from the TextBox, and then serializes it to JSON format. The file is saved using UTF-8 encoding. If an I/O or access error occurs during saving, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statement ensures that the StreamWriter is properly disposed after use, which will flush and close the underlying file stream.
+			(string Title, string[] Lines) doc = (Title: title, textBox.Lines);
+			string json = JsonSerializer.Serialize(value: doc, options: jsonSerializerOptions);
+			File.WriteAllText(path: fileName, contents: json);
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "JSON", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the contents of <paramref name="textBox"/> as a YAML file.</summary>
+	/// <remarks>The method encodes all text to ensure valid YAML output. If an I/O or access error occurs during saving, an error message is displayed to the user.</remarks>
+	/// <param name="textBox">The text box whose contents are to be saved. Cannot be null.</param>
+	/// <param name="title">The title to use for the YAML document. Cannot be null or empty.</param>
+	/// <param name="fileName">The name of the file to which the YAML content will be saved. Cannot be null or empty.</param>
+	public static void SaveAsYaml(TextBox textBox, string title, string fileName)
+	{
+		// Use a StreamWriter to write the content of the TextBox to a YAML file. The method constructs a simple YAML structure with the title and lines from the TextBox. Each line is properly escaped to ensure valid YAML output. The file is saved using UTF-8 encoding. If an I/O or access error occurs during saving, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statement ensures that the StreamWriter is properly disposed after use, which will flush and close the underlying file stream.
+			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
+			// Write the YAML document structure, including the title and each line from the TextBox. Each line is properly escaped to ensure valid YAML output.
+			writer.WriteLine(value: "---");
+			writer.WriteLine(value: $"title: \"{title.Replace(oldValue: "\"", newValue: "\\\"")}\"");
+			writer.WriteLine(value: $"created_at: \"{DateTime.UtcNow:O}\"");
+			writer.WriteLine(value: "lines:");
+			foreach (string line in textBox.Lines)
+			{
+				writer.WriteLine(value: $"  - \"{line.Replace(oldValue: "\"", newValue: "\\\"")}\"");
+			}
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "YAML", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the contents of <paramref name="textBox"/> as a TOML file.</summary>
+	/// <remarks>The method encodes all text to ensure valid TOML output. If an I/O or access error occurs during saving, an error message is displayed to the user.</remarks>
+	/// <param name="textBox">The text box whose contents are to be saved. Cannot be null.</param>
+	/// <param name="title">The title to use for the TOML document. Cannot be null or empty.</param>
+	/// <param name="fileName">The name of the file to which the TOML content will be saved. Cannot be null or empty.</param>
+	public static void SaveAsToml(TextBox textBox, string title, string fileName)
+	{
+		// Use a StreamWriter to write the content of the TextBox to a TOML file. The method constructs a simple TOML structure with the title and lines from the TextBox. Each line is properly escaped to ensure valid TOML output. The file is saved using UTF-8 encoding. If an I/O or access error occurs during saving, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statement ensures that the StreamWriter is properly disposed after use, which will flush and close the underlying file stream.
+			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
+			// Write the TOML document structure, including the title and each line from the TextBox. Each line is properly escaped to ensure valid TOML output.
+			writer.WriteLine(value: $"title = \"{EscapeToml(value: title)}\"");
+			writer.WriteLine(value: $"created_at = {DateTime.UtcNow:yyyy-MM-ddTHH:mm:ssZ}");
+			writer.WriteLine();
+			writer.WriteLine(value: "lines = [");
+			foreach (string line in textBox.Lines)
+			{
+				writer.WriteLine(value: $"  \"{EscapeToml(value: line)}\",");
+			}
+			writer.WriteLine(value: "]");
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "TOML", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the contents of <paramref name="textBox"/> as a SQL INSERT script.</summary>
+	/// <remarks>The method creates a SQL script with INSERT statements for each line in the TextBox. If an I/O or access error occurs during saving, an error message is displayed to the user.</remarks>
+	/// <param name="textBox">The text box whose contents are to be saved. Cannot be null.</param>
+	/// <param name="title">The title to use for the SQL table. Cannot be null or empty.</param>
+	/// <param name="fileName">The name of the file to which the SQL script will be saved. Cannot be null or empty.</param>
+	public static void SaveAsSql(TextBox textBox, string title, string fileName)
+	{
+		// Use a StreamWriter to write the content of the TextBox to a SQL file. The method constructs a SQL script that creates a table with the specified title and inserts each line from the TextBox as a separate record. The table name is sanitized to contain only letters, digits, and underscores. The file is saved using UTF-8 encoding. If an I/O or access error occurs during saving, an error message is displayed to the user.
+		try
+		{
+			// Sanitize the table name by replacing any non-alphanumeric characters with underscores. If the resulting table name is empty, use a default name "TextData".
+			string tableName = new(value: [.. title.Select(selector: static c => char.IsLetterOrDigit(c: c) ? c : '_')]);
+			if (tableName.Length == 0)
+			{
+				tableName = "TextData";
+			}
+			// The 'using' statement ensures that the StreamWriter is properly disposed after use, which will flush and close the underlying file stream.
+			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
+			// Write the SQL script, including a comment with the generation date and a CREATE TABLE statement for the specified table name. Then write an INSERT statement for each line in the TextBox, properly escaping single quotes to ensure valid SQL syntax.
+			writer.WriteLine(value: $"-- Export generated by Planetoid-DB");
+			writer.WriteLine(value: $"-- Date: {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
+			writer.WriteLine();
+			writer.WriteLine(value: $"CREATE TABLE IF NOT EXISTS [{tableName}] ( [LineText] TEXT );");
+			writer.WriteLine();
+			writer.WriteLine(value: "BEGIN TRANSACTION;");
+			foreach (string line in textBox.Lines)
+			{
+				writer.WriteLine(value: $"INSERT INTO [{tableName}] ([LineText]) VALUES ('{line.Replace(oldValue: "'", newValue: "''")}');");
+			}
+			writer.WriteLine(value: "COMMIT;");
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "SQL", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the contents of <paramref name="textBox"/> as a SQLite database file.</summary>
+	/// <remarks>The method creates a SQLite database with a table containing each line from the TextBox. If an I/O or access error occurs during saving, an error message is displayed to the user.</remarks>
+	/// <param name="textBox">The text box whose contents are to be saved. Cannot be null.</param>
+	/// <param name="title">The title to use for the SQLite table. Cannot be null or empty.</param>
+	/// <param name="fileName">The name of the file to which the SQLite database will be saved. Cannot be null or empty.</param>
+	public static void SaveAsSqlite(TextBox textBox, string title, string fileName)
+	{
+		// Use the System.Data.SQLite library to create a SQLite database file. The method creates a table with the specified title and inserts each line from the TextBox as a separate record. The table name is sanitized to contain only letters, digits, and underscores. If an I/O or access error occurs during saving, an error message is displayed to the user.
+		try
+		{
+			// Sanitize the table name by replacing any non-alphanumeric characters with underscores. If the resulting table name is empty, use a default name "TextData".
+			string tableName = new(value: [.. title.Select(selector: static c => char.IsLetterOrDigit(c: c) ? c : '_')]);
+			if (tableName.Length == 0)
+			{
+				tableName = "TextData";
+			}
+			// If the file already exists, delete it to create a new database. This ensures that we start with a clean slate for the SQLite database.
+			if (File.Exists(path: fileName))
+			{
+				File.Delete(path: fileName);
+			}
+			// Create a new SQLite database file and open a connection to it. Then create a table with the sanitized title and insert each line from the TextBox as a separate record. The connection is properly closed after the operations are completed. If an I/O or access error occurs during saving, an error message is displayed to the user.
+			string connStr = $"Data Source={fileName};Version=3;";
+			// The 'using' statement ensures that the SQLiteConnection is properly disposed after use, which will close the connection to the database. The connection is opened before executing any commands and closed after all operations are completed.	  
+			using SQLiteConnection connection = new(connectionString: connStr);
+			// Open the connection to the SQLite database. This is necessary before executing any SQL commands against the database. If the file does not exist, it will be created when the connection is opened.
+			connection.Open();
+			// Create a table with the sanitized title as the name and a single column "LineText" of type TEXT. The IF NOT EXISTS clause ensures that the table is only created if it does not already exist, preventing errors if the method is called multiple times with the same file.
+			using (SQLiteCommand cmd = connection.CreateCommand())
+			{
+				cmd.CommandText = $"CREATE TABLE IF NOT EXISTS [{tableName}] ([LineText] TEXT);";
+				cmd.ExecuteNonQuery();
+			}
+			// Use a transaction to ensure that all inserts are executed atomically. This improves performance and ensures data integrity. The transaction is committed after all inserts are executed.
+			using SQLiteTransaction transaction = connection.BeginTransaction();
+			// Prepare a parameterized command for inserting lines into the SQLite table. This approach ensures proper escaping of values and prevents SQL injection. The same command is reused for each line, with the parameter value updated accordingly.
+			using SQLiteCommand insertCmd = connection.CreateCommand();
+			// The command text uses a parameter (@p0) for the line text, which will be set for each line in the TextBox. This allows us to reuse the same command object for multiple inserts, improving performance and ensuring proper handling of special characters in the line text.
+			insertCmd.CommandText = $"INSERT INTO [{tableName}] ([LineText]) VALUES (@p0);";
+			SQLiteParameter p0 = insertCmd.Parameters.Add(parameterName: "@p0", parameterType: System.Data.DbType.String);
+			// Insert each line from the TextBox as a separate record in the SQLite table, using a parameterized query to ensure proper escaping and prevent SQL injection. The transaction is committed after all inserts are executed.
+			foreach (string line in textBox.Lines)
+			{
+				p0.Value = line;
+				insertCmd.ExecuteNonQuery();
+			}
+			// After all inserts are executed, commit the transaction to save the changes to the database. This ensures that all inserts are applied atomically, improving performance and ensuring data integrity. The connection will be closed automatically when the using block is exited.
+			transaction.Commit();
+			connection.Close();
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex)
+		{
+			ShowError(ex: ex, format: "SQLite", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the contents of <paramref name="textBox"/> as a PDF document.</summary>
+	/// <remarks>The method creates a PDF document with each line from the TextBox. If an I/O or access error occurs during saving, an error message is displayed to the user.</remarks>
+	/// <param name="textBox">The text box whose contents are to be saved. Cannot be null.</param>
+	/// <param name="title">The title to use for the PDF document. Cannot be null or empty.</param>
+	/// <param name="fileName">The name of the file to which the PDF document will be saved. Cannot be null or empty.</param>
+	public static void SaveAsPdf(TextBox textBox, string title, string fileName)
+	{
+		// Use a FileStream and StreamWriter to write the content of the TextBox to a PDF file. The method constructs a simple PDF structure with the specified title and lines from the TextBox. Each line is added as text content in the PDF. The file is saved using ASCII encoding, which is sufficient for basic PDF content. If an I/O or access error occurs during saving, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statements ensure that the FileStream and StreamWriter are properly disposed after use, which will flush and close the underlying file stream. The FileStream is opened in Create mode, which will create a new file or overwrite an existing file with the same name.
+			using FileStream fs = new(path: fileName, mode: FileMode.Create);
+			using StreamWriter w = new(stream: fs, encoding: Encoding.ASCII);
+			List<long> objectOffsets = [];
+			int StartNewObject()
+			{
+				w.Flush();
+				objectOffsets.Add(item: fs.Position);
+				int id = objectOffsets.Count;
+				w.WriteLine(value: $"{id} 0 obj");
+				return id;
+			}
+			w.WriteLine(value: "%PDF-1.4");
+			w.WriteLine(value: "%\xb5\xb5\xb5\xb5");
+			// Define constants for page dimensions and layout. The page height is set to 842 points (A4 size), with a starting Y position of 750 points for the first line of text. A margin of 50 points is maintained at the bottom, and each line of text is spaced by 14 points.
+			const int pageHeight = 842;
+			const int startY = 750;
+			const int marginY = 50;
+			const int lineHeight = 14;
+			// Create a list to keep track of content object IDs for each page. The method writes the PDF content stream for the first page, adding the title and lines from the TextBox. If the content exceeds the page height, a new page is started with a continuation of the title. Each content stream is associated with a page object, and all pages are added to the Pages root object. Finally, a Catalog object is created to reference the Pages root, and the PDF file is finalized with a cross-reference table and trailer.
+			List<int> pageContentObjIds = [];
+			int currentY = startY;
+			int currentContentObjId = StartNewObject();
+			pageContentObjIds.Add(item: currentContentObjId);
+			w.WriteLine(value: "<< >> stream");
+			w.WriteLine(value: "BT /F1 10 Tf");
+			w.WriteLine(value: $"1 0 0 1 50 {pageHeight - 40} Tm ({EscapePdf(text: title)}) Tj");
+			// Write each line from the TextBox to the PDF content stream, checking if the current Y position exceeds the margin. If it does, close the current content stream and start a new one for the next page, including a continuation of the title. Each line is positioned using the Tm operator, and the Y position is decremented by the line height for each subsequent line.
+			currentY = startY - 30;
+			foreach (string line in textBox.Lines)
+			{
+				if (currentY < marginY)
+				{
+					w.WriteLine(value: "ET");
+					w.WriteLine(value: "endstream");
+					w.WriteLine(value: "endobj");
+					currentContentObjId = StartNewObject();
+					pageContentObjIds.Add(item: currentContentObjId);
+					w.WriteLine(value: "<< >> stream");
+					w.WriteLine(value: "BT /F1 10 Tf");
+					w.WriteLine(value: $"1 0 0 1 50 {pageHeight - 40} Tm ({EscapePdf(text: title)} - Cont.) Tj");
+					currentY = startY - 30;
+				}
+				w.WriteLine(value: $"1 0 0 1 50 {currentY} Tm ({EscapePdf(text: line)}) Tj");
+				currentY -= lineHeight;
+			}
+			w.WriteLine(value: "ET");
+			w.WriteLine(value: "endstream");
+			w.WriteLine(value: "endobj");
+			// Create page objects for each content stream and add them to the Pages root object. Each page references its content stream and the font resource. The Pages root object keeps track of all page objects and the total page count.
+			List<int> pageObjIds = [];
+			foreach (int contentId in pageContentObjIds)
+			{
+				int pageId = StartNewObject();
+				pageObjIds.Add(item: pageId);
+				int predictedParentId = objectOffsets.Count + (pageContentObjIds.Count - pageObjIds.Count) + 2;
+				w.WriteLine(value: "<<");
+				w.WriteLine(value: "/Type /Page");
+				w.WriteLine(value: $"/Parent {predictedParentId} 0 R");
+				w.WriteLine(value: "/MediaBox [0 0 595 842]");
+				w.WriteLine(value: $"/Contents {contentId} 0 R");
+				w.WriteLine(value: $"/Resources << /Font << /F1 {predictedParentId + 1} 0 R >> >>");
+				w.WriteLine(value: ">>");
+				w.WriteLine(value: "endobj");
+			}
+			// Create the Pages root object that references all page objects. The Count entry specifies the total number of pages, and the Kids array contains references to each page object. This structure allows PDF viewers to navigate through the pages of the document.
+			int pagesRootId = StartNewObject();
+			w.WriteLine(value: "<<");
+			w.WriteLine(value: "/Type /Pages");
+			w.Write(value: "/Kids [");
+			foreach (int pid in pageObjIds)
+			{
+				w.Write(value: $"{pid} 0 R ");
+			}
+			// After writing all page references, close the Kids array and specify the total page count. This completes the definition of the Pages root object, which serves as a container for all page objects in the PDF document.
+			w.WriteLine(value: "]");
+			w.WriteLine(value: $"/Count {pageObjIds.Count}");
+			w.WriteLine(value: ">>");
+			w.WriteLine(value: "endobj");
+			// Create a font object for the Helvetica font, which is used in the content streams. This object is referenced by each page's resource dictionary to specify the font used for text rendering. The font object is defined with its type, subtype, and base font name.
+			int fontId = StartNewObject();
+			w.WriteLine(value: "<<");
+			w.WriteLine(value: "/Type /Font");
+			w.WriteLine(value: "/Subtype /Type1");
+			w.WriteLine(value: "/BaseFont /Helvetica");
+			w.WriteLine(value: ">>");
+			w.WriteLine(value: "endobj");
+			// Create the Catalog object that references the Pages root. The Catalog is the top-level object in a PDF document and serves as the entry point for accessing the document's structure. By referencing the Pages root, it allows PDF viewers to access all pages in the document.
+			int catalogId = StartNewObject();
+			w.WriteLine(value: "<<");
+			w.WriteLine(value: "/Type /Catalog");
+			w.WriteLine(value: $"/Pages {pagesRootId} 0 R");
+			w.WriteLine(value: ">>");
+			w.WriteLine(value: "endobj");
+			// After writing all objects, flush the StreamWriter to ensure all data is written to the file. Then write the cross-reference table, which contains byte offsets for each object in the PDF file. Finally, write the trailer and EOF marker to complete the PDF document structure.
+			w.Flush();
+			long xrefOffset = fs.Position;
+			w.WriteLine(value: "xref");
+			w.WriteLine(value: $"0 {objectOffsets.Count + 1}");
+			w.WriteLine(value: "0000000000 65535 f ");
+			foreach (long offset in objectOffsets)
+			{
+				w.WriteLine(value: $"{offset:D10} 00000 n ");
+			}
+			w.WriteLine(value: "trailer");
+			w.WriteLine(value: "<<");
+			w.WriteLine(value: $"/Size {objectOffsets.Count + 1}");
+			w.WriteLine(value: $"/Root {catalogId} 0 R");
+			w.WriteLine(value: ">>");
+			w.WriteLine(value: "startxref");
+			w.WriteLine(value: xrefOffset);
+			w.WriteLine(value: "%%EOF");
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "PDF", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the contents of <paramref name="textBox"/> as a PostScript file.</summary>
+	/// <remarks>The method creates a PostScript document with each line from the TextBox. If an I/O or access error occurs during saving, an error message is displayed to the user.</remarks>
+	/// <param name="textBox">The text box whose contents are to be saved. Cannot be null.</param>
+	/// <param name="title">The title to use for the PostScript document. Cannot be null or empty.</param>
+	/// <param name="fileName">The name of the file to which the PostScript document will be saved. Cannot be null or empty.</param>
+	public static void SaveAsPostScript(TextBox textBox, string title, string fileName)
+	{
+		// Use a StreamWriter to write the content of the TextBox to a PostScript file. The method constructs a simple PostScript structure with the specified title and lines from the TextBox. Each line is added as text content in the PostScript document, with pagination support if the content exceeds the page height. The file is saved using ASCII encoding, which is sufficient for basic PostScript content. If an I/O or access error occurs during saving, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statement ensures that the StreamWriter is properly disposed after use, which will flush and close the underlying file stream. The StreamWriter is opened with append set to false, which will create a new file or overwrite an existing file with the same name.
+			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.ASCII);
+			// Define constants for page dimensions and layout. The page height is set to 842 points (A4 size), with a starting Y position of 792 points for the first line of text. A margin of 50 points is maintained at the top and bottom, and each line of text is spaced by 14 points. The method includes a local function to write the page header, which is called whenever a new page is started to ensure consistent formatting across all pages.
+			const int pageHeight = 842;
+			const int marginTop = 50;
+			const int marginBottom = 50;
+			const int startY = pageHeight - marginTop;
+			const int lineHeight = 14;
+			int currentY = startY;
+			int pageNumber = 1;
+			// Local function to write the page header, including the page number and title. This function is called whenever a new page is started, allowing for consistent formatting across all pages. The header includes the title and the current page number, positioned at the top of the page.
+			void WritePageHeader(int pg)
+			{
+				writer.WriteLine(value: $"%%Page: {pg} {pg}");
+				writer.WriteLine(value: "/Helvetica-Bold findfont 12 scalefont setfont");
+				writer.WriteLine(value: $"50 {pageHeight - 30} moveto ({EscapePostScript(input: title)} - Page {pg}) show");
+				writer.WriteLine(value: "/Helvetica findfont 10 scalefont setfont");
+			}
+			// Write the PostScript document header, including the title and creator information. The header also includes a placeholder for the total page count, which will be updated at the end of the document. After writing the header, the first page is initialized with a call to the WritePageHeader function, and the Y position is set for the first line of text.
+			writer.WriteLine(value: "%!PS-Adobe-3.0");
+			writer.WriteLine(value: $"%%Title: {EscapePostScript(input: title)}");
+			writer.WriteLine(value: "%%Creator: Planetoid-DB");
+			writer.WriteLine(value: "%%Pages: (atend)");
+			writer.WriteLine(value: "%%EndComments");
+			WritePageHeader(pg: pageNumber);
+			currentY = startY - 30;
+			// Write each line from the TextBox to the PostScript document, checking if the current Y position exceeds the bottom margin. If it does, a new page is started with a call to the WritePageHeader function, and the Y position is reset for the new page. Each line is positioned using the moveto operator, and the Y position is decremented by the line height for each subsequent line.
+			foreach (string line in textBox.Lines)
+			{
+				if (currentY < marginBottom)
+				{
+					writer.WriteLine(value: "showpage");
+					pageNumber++;
+					WritePageHeader(pg: pageNumber);
+					currentY = startY - 30;
+				}
+				writer.WriteLine(value: $"50 {currentY} moveto ({EscapePostScript(input: line)}) show");
+				currentY -= lineHeight;
+			}
+			// After writing all lines, finalize the PostScript document by writing the showpage operator to ensure the last page is rendered, and then write the trailer with the total page count. Finally, write the EOF marker to complete the PostScript document structure.
+			writer.WriteLine(value: "showpage");
+			writer.WriteLine(value: "%%Trailer");
+			writer.WriteLine(value: $"%%Pages: {pageNumber}");
+			writer.WriteLine(value: "%%EOF");
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "PostScript", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the contents of <paramref name="textBox"/> as an EPUB file.</summary>
+	/// <remarks>The method creates an EPUB document with each line from the TextBox. If an I/O or access error occurs during saving, an error message is displayed to the user.</remarks>
+	/// <param name="textBox">The text box whose contents are to be saved. Cannot be null.</param>
+	/// <param name="title">The title to use for the EPUB document. Cannot be null or empty.</param>
+	/// <param name="fileName">The name of the file to which the EPUB document will be saved. Cannot be null or empty.</param>
+	public static void SaveAsEpub(TextBox textBox, string title, string fileName)
+	{
+		// Use the System.IO.Compression library to create a ZIP archive in the EPUB format. The method constructs the necessary EPUB structure, including the mimetype file, container.xml, content.opf, toc.ncx, and content.xhtml files. Each line from the TextBox is added as a paragraph in the content.xhtml file. The mimetype file is stored without compression as required by the EPUB specification. If an I/O or access error occurs during saving, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statements ensure that the FileStream and ZipArchive are properly disposed after use, which will flush and close the underlying file stream. The FileStream is opened in Create mode, which will create a new file or overwrite an existing file with the same name. The ZipArchive is created in Create mode, allowing us to add entries for the EPUB structure.
+			using FileStream fs = new(path: fileName, mode: FileMode.Create);
+			using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
+			// Create the mimetype file, which must be the first entry in the ZIP archive and stored without compression. This file contains the MIME type for EPUB files and is required by the EPUB specification. The content of the mimetype file is "application/epub+zip".
+			ZipArchiveEntry mimetypeEntry = archive.CreateEntry(entryName: "mimetype", compressionLevel: CompressionLevel.NoCompression);
+			// Write the MIME type to the mimetype file using ASCII encoding, which is sufficient for this content. The mimetype file must be stored without compression and must be the first entry in the ZIP archive to ensure compatibility with EPUB readers.
+			using (StreamWriter writer = new(stream: mimetypeEntry.Open(), encoding: Encoding.ASCII))
+			{
+				writer.Write(value: "application/epub+zip");
+			}
+			// Create the container.xml file, which is required by the EPUB specification to define the location of the content.opf file. The container.xml file is stored in the META-INF directory and contains a reference to the content.opf file, which defines the structure and metadata of the EPUB document.
+			ZipArchiveEntry containerEntry = archive.CreateEntry(entryName: "META-INF/container.xml", compressionLevel: CompressionLevel.Optimal);
+			// Write the XML content for the container.xml file using UTF-8 encoding. The container.xml file defines the rootfiles element, which contains a reference to the content.opf file. This structure is required by the EPUB specification and allows EPUB readers to locate the main content of the document.
+			using (StreamWriter writer = new(stream: containerEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\"?>");
+				writer.WriteLine(value: "<container version=\"1.0\" xmlns=\"urn:oasis:names:tc:opendocument:xmlns:container\">");
+				writer.WriteLine(value: "  <rootfiles><rootfile full-path=\"OEBPS/content.opf\" media-type=\"application/oebps-package+xml\"/></rootfiles>");
+				writer.WriteLine(value: "</container>");
+			}
+			// Create the content.opf file, which defines the metadata, manifest, and spine of the EPUB document. The content.opf file includes the title, language, identifier, and creator metadata, as well as references to the content.xhtml and toc.ncx files. The file is stored in the OEBPS directory, which is a common convention for EPUB content.
+			string safeTitle = System.Net.WebUtility.HtmlEncode(value: title) ?? string.Empty;
+			// The content.opf file is created with UTF-8 encoding, which allows for a wide range of characters in the metadata and content. The file defines the package element with the unique identifier and version, as well as the metadata section with Dublin Core elements for title, language, identifier, and creator. The manifest section lists the items included in the EPUB, and the spine section defines the reading order of the content.
+			ZipArchiveEntry opfEntry = archive.CreateEntry(entryName: "OEBPS/content.opf", compressionLevel: CompressionLevel.Optimal);
+			// Write the XML content for the content.opf file, including the metadata, manifest, and spine sections. The metadata section includes the title, language, identifier, and creator information. The manifest section lists the items included in the EPUB, such as the toc.ncx and content.xhtml files. The spine section defines the reading order of the content, referencing the content.xhtml file.
+			using (StreamWriter writer = new(stream: opfEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+				writer.WriteLine(value: "<package xmlns=\"http://www.idpf.org/2007/opf\" unique-identifier=\"BookId\" version=\"2.0\">");
+				writer.WriteLine(value: "  <metadata xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:opf=\"http://www.idpf.org/2007/opf\">");
+				writer.WriteLine(value: $"    <dc:title>{safeTitle}</dc:title>");
+				writer.WriteLine(value: "    <dc:language>en</dc:language>");
+				writer.WriteLine(value: $"    <dc:identifier id=\"BookId\" opf:scheme=\"UUID\">urn:uuid:{Guid.NewGuid()}</dc:identifier>");
+				writer.WriteLine(value: "    <dc:creator>Planetoid-DB</dc:creator>");
+				writer.WriteLine(value: "  </metadata>");
+				writer.WriteLine(value: "  <manifest>");
+				writer.WriteLine(value: "    <item id=\"ncx\" href=\"toc.ncx\" media-type=\"application/x-dtbncx+xml\"/>");
+				writer.WriteLine(value: "    <item id=\"content\" href=\"content.xhtml\" media-type=\"application/xhtml+xml\"/>");
+				writer.WriteLine(value: "  </manifest>");
+				writer.WriteLine(value: "  <spine toc=\"ncx\"><itemref idref=\"content\"/></spine>");
+				writer.WriteLine(value: "</package>");
+			}
+			// Create the toc.ncx file, which defines the navigation structure of the EPUB document. The toc.ncx file includes the title and a single navPoint that references the content.xhtml file. The file is stored in the OEBPS directory, which is a common convention for EPUB content.
+			ZipArchiveEntry ncxEntry = archive.CreateEntry(entryName: "OEBPS/toc.ncx", compressionLevel: CompressionLevel.Optimal);
+			// Write the XML content for the toc.ncx file, including the head, docTitle, and navMap sections. The head section includes metadata for the navigation document, such as the unique identifier and depth. The docTitle section specifies the title of the navigation document, and the navMap section defines the navigation points, referencing the content.xhtml file.
+			using (StreamWriter writer = new(stream: ncxEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+				writer.WriteLine(value: "<ncx xmlns=\"http://www.daisy.org/z3986/2005/ncx/\" version=\"2005-1\">");
+				writer.WriteLine(value: "  <head><meta name=\"dtb:uid\" content=\"uid\"/><meta name=\"dtb:depth\" content=\"1\"/></head>");
+				writer.WriteLine(value: $"  <docTitle><text>{safeTitle}</text></docTitle>");
+				writer.WriteLine(value: "  <navMap><navPoint id=\"np1\" playOrder=\"1\"><navLabel><text>Content</text></navLabel><content src=\"content.xhtml\"/></navPoint></navMap>");
+				writer.WriteLine(value: "</ncx>");
+			}
+			// Create the content.xhtml file, which contains the main content of the EPUB document. Each line from the TextBox is added as a paragraph in the XHTML file. The file is stored in the OEBPS directory, which is a common convention for EPUB content.
+			ZipArchiveEntry contentEntry = archive.CreateEntry(entryName: "OEBPS/content.xhtml", compressionLevel: CompressionLevel.Optimal);
+			// Write the XML content for the content.xhtml file, including the head, body, and styling sections. The head section includes the title and a simple CSS style to set the font family. The body section includes an h1 element for the title and a paragraph for each line from the TextBox, with HTML encoding to ensure special characters are properly displayed.
+			using (StreamWriter writer = new(stream: contentEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+				writer.WriteLine(value: "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">");
+				writer.WriteLine(value: "<html xmlns=\"http://www.w3.org/1999/xhtml\">");
+				writer.WriteLine(value: $"<head><title>{safeTitle}</title>");
+				writer.WriteLine(value: "<style type=\"text/css\">body{{font-family:sans-serif}}</style>");
+				writer.WriteLine(value: "</head><body>");
+				writer.WriteLine(value: $"<h1>{safeTitle}</h1>");
+				foreach (string line in textBox.Lines)
+				{
+					writer.WriteLine(value: $"<p>{System.Net.WebUtility.HtmlEncode(value: line)}</p>");
+				}
+				writer.WriteLine(value: "</body></html>");
+			}
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "EPUB", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the contents of <paramref name="textBox"/> as a MOBI file.</summary>
+	/// <remarks>The method creates a MOBI document with each line from the TextBox. If an I/O or access error occurs during saving, an error message is displayed to the user.</remarks>
+	/// <param name="textBox">The text box whose contents are to be saved. Cannot be null.</param>
+	/// <param name="title">The title to use for the MOBI document. Cannot be null or empty.</param>
+	/// <param name="fileName">The name of the file to which the MOBI document will be saved. Cannot be null or empty.</param>
+	public static void SaveAsMobi(TextBox textBox, string title, string fileName)
+	{
+		// Use a FileStream and BinaryWriter to write the content of the TextBox to a MOBI file. The method constructs a simple MOBI structure with the specified title and lines from the TextBox. Each line is added as text content in the MOBI document, with pagination support if the content exceeds the page height. The file is saved using UTF-8 encoding for the text content, and the MOBI header is constructed according to the MOBI format specifications. If an I/O or access error occurs during saving, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statement ensures that the FileStream and BinaryWriter are properly disposed after use, which will flush and close the underlying file stream. The FileStream is opened in Create mode, which will create a new file or overwrite an existing file with the same name. The BinaryWriter is used to write binary data to the file, allowing for precise control over the MOBI file structure.
+			StringBuilder html = new();
+			// Start constructing the HTML content for the MOBI document. The HTML structure includes a head section with the title and a body section that contains the title as an h1 element and each line from the TextBox as a paragraph. The title and lines are HTML-encoded to ensure that special characters are properly displayed in the MOBI document when viewed on a MOBI reader.
+			html.Append(value: $"<html><head><meta charset=\"UTF-8\"><title>{System.Net.WebUtility.HtmlEncode(value: title)}</title></head><body>");
+			// Add the title as an h1 element in the HTML content. The title is HTML-encoded to ensure that any special characters are properly displayed in the MOBI document. This allows for a clear and formatted title when viewed on a MOBI reader.
+			html.Append(value: $"<h1>{System.Net.WebUtility.HtmlEncode(value: title)}</h1>");
+			// Write each line from the TextBox to the HTML content, encoding special characters to ensure they are properly displayed in the MOBI document. Each line is wrapped in a paragraph tag, and HTML encoding is applied to handle special characters such as <, >, &, etc. This ensures that the content is correctly rendered when viewed on a MOBI reader.
+			foreach (string line in textBox.Lines)
+			{
+				html.Append(value: $"<p>{System.Net.WebUtility.HtmlEncode(value: line)}</p>");
+			}
+			// After adding all lines from the TextBox to the HTML content, close the body and html tags. The resulting HTML string will be encoded as UTF-8 bytes and written to the MOBI file as part of the text records. The MOBI header will reference these text records, which contain the main content of the document.
+			html.Append(value: "</body></html>");
+			// Encode the HTML content as UTF-8 bytes, which will be written to the MOBI file as text records. The MOBI format requires that text content be stored in a specific way, and encoding the HTML as UTF-8 ensures that it can include a wide range of characters while maintaining compatibility with MOBI readers.
+			byte[] bodyData = Encoding.UTF8.GetBytes(s: html.ToString());
+			// Create a list to hold the text records for the MOBI file. The MOBI format allows for multiple text records, and the content will be split into chunks of 4096 bytes to fit within the MOBI specifications. Each chunk will be stored as an individual text record, and the MOBI header will reference these records to access the content.
+			List<byte[]> textRecords = [];
+			// Split the HTML content into chunks of 4096 bytes, which will be stored as individual text records in the MOBI file. The MOBI format allows for multiple text records, and splitting the content into manageable chunks ensures that it can be properly referenced in the MOBI header. Each chunk is created by copying a portion of the bodyData array into a new byte array, which is then added to the list of text records.
+			for (int i = 0; i < bodyData.Length; i += 4096)
+			{
+				int len = Math.Min(val1: 4096, val2: bodyData.Length - i);
+				byte[] chunk = new byte[len];
+				Array.Copy(sourceArray: bodyData, sourceIndex: i, destinationArray: chunk, destinationIndex: 0, length: len);
+				textRecords.Add(item: chunk);
+			}
+			// Construct the MOBI header, which includes various fields such as the number of text records, the length of the body data, and other metadata required by the MOBI format. The header is constructed using a BinaryWriter to write the necessary fields in the correct order and format. The header will reference the text records that contain the main content of the document.
+			byte[] headerRecord = new byte[256];
+			// The BinaryWriter is used to write the MOBI header fields, including the identifier, header length, record count, and other necessary metadata. The fields are written in big-endian format as required by the MOBI specifications. The header includes references to the text records, which will be used to access the content of the document when viewed on a MOBI reader.
+			using (MemoryStream ms = new(buffer: headerRecord))
+			// Write the MOBI header fields using the BinaryWriter. The fields include the identifier, header length, record count, and other necessary metadata for the MOBI format. The values are written in big-endian format, and the header references the text records that contain the main content of the document.
+			using (BinaryWriter hw = new(output: ms))
+			{
+				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (short)1));
+				hw.Write(value: (short)0);
+				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: bodyData.Length));
+				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (short)textRecords.Count));
+				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (short)4096));
+				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (short)0));
+				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (short)0));
+				hw.Write(buffer: Encoding.ASCII.GetBytes(s: "MOBI"));
+				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 232));
+				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 2));
+				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 65001));
+				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 0x12345678));
+				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 6));
+				ms.Seek(offset: 96, loc: SeekOrigin.Begin);
+				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: textRecords.Count + 1));
+				ms.Seek(offset: 100, loc: SeekOrigin.Begin);
+				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 0));
+				ms.Seek(offset: 120, loc: SeekOrigin.Begin);
+				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 6));
+			}
+			// Create the EOF record for the MOBI file, which indicates the end of the content. The EOF record is a specific byte sequence that is recognized by MOBI readers to signify the end of the document. This record will be written after all text records have been written to the file, ensuring that the MOBI reader can properly identify the end of the content.
+			byte[] eofRecord = [0xe9, 0x8e, 0x0d, 0x0a];
+			// Calculate the total number of records in the MOBI file, which includes the header record, the text records, and the EOF record. The total record count is used in the MOBI header to specify how many records are included in the file. This information is essential for MOBI readers to correctly parse and display the content of the document.
+			int totalRecords = 1 + textRecords.Count + 1;
+			// Use a FileStream and BinaryWriter to write the MOBI file, including the header, text records, and EOF record. The header is written first, followed by the text records, which contain the main content of the document. Finally, the EOF record is written to indicate the end of the content. If the save operation completes successfully, a success message is shown to the user.
+			using FileStream fs = new(path: fileName, mode: FileMode.Create);
+			// The BinaryWriter is used to write the MOBI header, text records, and EOF record to the file. The header is written first, followed by the text records, which contain the main content of the document. Finally, the EOF record is written to indicate the end of the content. The BinaryWriter allows for precise control over the binary data being written to the file, ensuring that it adheres to the MOBI format specifications.
+			using BinaryWriter w = new(output: fs);
+			// Write the MOBI header, which includes the title and other necessary metadata. The title is truncated to 31 characters if it exceeds that length, and is encoded in ASCII for the header. The header also includes timestamps for creation and modification, as well as references to the text records and the EOF record.
+			string dbName = title.Length > 31 ? title[..31] : title;
+			// The nameBytes array is used to store the title of the MOBI document in ASCII encoding, which is required for the MOBI header. The title is truncated to 31 characters if it exceeds that length, and the remaining bytes are filled with zeros. This ensures that the title is properly formatted in the MOBI header and can be displayed correctly by MOBI readers.
+			byte[] nameBytes = new byte[32];
+			// Copy the title into the nameBytes array, ensuring that it is properly encoded in ASCII and truncated if necessary. The remaining bytes in the array will be filled with zeros, which is required for the MOBI header format. This allows the title to be displayed correctly when viewed on a MOBI reader.
+			Encoding.ASCII.GetBytes(s: dbName).CopyTo(array: nameBytes, index: 0);
+			// Write the MOBI header fields, including the title, record count, and timestamps. The title is written as a byte array, and the timestamps are calculated based on the current UTC time relative to the MOBI epoch (January 1, 1904). The header also includes references to the text records and the EOF record, which are essential for MOBI readers to access and display the content of the document.
+			w.Write(buffer: nameBytes);
+			w.Write(value: (short)0);
+			w.Write(value: (short)0);
+			// Calculate the number of seconds since the MOBI epoch (January 1, 1904) for the creation and modification timestamps. The MOBI format uses a specific epoch for timestamps, and calculating the seconds since that epoch allows for accurate representation of the creation and modification times in the MOBI header. This information is important for MOBI readers to display the correct timestamps for the document.
+			uint secondsSince1904 = (uint)(DateTime.UtcNow - new DateTime(year: 1904, month: 1, day: 1, hour: 0, minute: 0, second: 0, kind: DateTimeKind.Utc)).TotalSeconds;
+			// Write the creation and modification timestamps to the MOBI header in big-endian format. The timestamps are calculated as the number of seconds since the MOBI epoch (January 1, 1904) and are essential for MOBI readers to display the correct creation and modification times for the document. The timestamps are written in big-endian format as required by the MOBI specifications.
+			w.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (int)secondsSince1904));
+			w.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (int)secondsSince1904));
+			w.Write(value: 0);
+			w.Write(value: 0);
+			w.Write(value: 0);
+			w.Write(value: 0);
+			w.Write(buffer: Encoding.ASCII.GetBytes(s: "BOOK"));
+			w.Write(buffer: Encoding.ASCII.GetBytes(s: "MOBI"));
+			w.Write(value: 0);
+			w.Write(value: 0);
+			w.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (short)totalRecords));
+			// Calculate the offset for the first text record, which is based on the size of the header and the number of records. The offset is used in the MOBI header to reference the location of the text records in the file. This allows MOBI readers to access and display the content of the document correctly.
+			int currentOffset = 78 + (totalRecords * 8) + 2;
+			// Write the record offsets for the header, text records, and EOF record in the MOBI header. Each record offset is written in big-endian format as required by the MOBI specifications. The offsets allow MOBI readers to locate and access the header, text records, and EOF record in the file, ensuring that the content is displayed correctly when viewed on a MOBI reader.
+			w.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: currentOffset));
+			w.Write(value: 0);
+			// Update the current offset to account for the header record, which will be written first in the file. The header record contains the MOBI header information, and its size is included in the offset calculation to ensure that the text records and EOF record are correctly referenced in the MOBI header.
+			currentOffset += headerRecord.Length;
+			// Write the offsets for each text record in the MOBI header, updating the current offset for each record. The offsets are written in big-endian format as required by the MOBI specifications. This allows MOBI readers to locate and access each text record in the file, ensuring that the content is displayed correctly when viewed on a MOBI reader.
+			foreach (byte[] rec in textRecords)
+			{
+				w.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: currentOffset));
+				w.Write(value: 0);
+				currentOffset += rec.Length;
+			}
+			w.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: currentOffset));
+			w.Write(value: 0);
+			w.Write(value: (short)0);
+			// After writing the MOBI header and record offsets, write the header record, text records, and EOF record to the file. The header record contains the MOBI header information, while the text records contain the main content of the document. Finally, the EOF record is written to indicate the end of the content. If the save operation completes successfully, a success message is shown to the user.
+			w.Write(buffer: headerRecord);
+			foreach (byte[] rec in textRecords)
+			{
+				w.Write(buffer: rec);
+			}
+			w.Write(buffer: eofRecord);
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "MOBI", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the contents of <paramref name="textBox"/> as a FictionBook 2 (FB2) XML document.</summary>
+	/// <remarks>The method creates a FictionBook 2 (FB2) XML document with each line from the TextBox. If an I/O or access error occurs during saving, an error message is displayed to the user.</remarks>
+	/// <param name="textBox">The text box whose contents are to be saved. Cannot be null.</param>
+	/// <param name="title">The title to use for the FB2 document. Cannot be null or empty.</param>
+	/// <param name="fileName">The name of the file to which the FB2 document will be saved. Cannot be null or empty.</param>
+	public static void SaveAsFictionBook2(TextBox textBox, string title, string fileName)
+	{
+		// Use the System.Xml library to create an XML document in the FictionBook 2 (FB2) format. The method constructs the necessary FB2 structure, including the description, title-info, document-info, and body sections. Each line from the TextBox is added as a paragraph in the body section of the FB2 document. The XML is written with UTF-8 encoding and proper indentation for readability. If an I/O or access error occurs during saving, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statement ensures that the XmlWriter is properly disposed after use, which will flush and close the underlying file stream. The XmlWriter is created with settings that specify UTF-8 encoding and indentation for readability. The XML document is constructed according to the FB2 format specifications, with the appropriate namespaces and structure.
+			string fb2Ns = "http://www.gribuser.ru/xml/fictionbook/2.0";
+			// The XmlWriter is used to write the XML content for the FB2 document, including the description, title-info, document-info, and body sections. Each line from the TextBox is added as a paragraph in the body section of the FB2 document. The XML is written with UTF-8 encoding and proper indentation for readability, ensuring that the resulting FB2 file is well-formed and adheres to the FB2 specifications.
+			XmlWriterSettings settings = new() { Indent = true, Encoding = Encoding.UTF8 };
+			// Write the XML content for the FB2 document, including the necessary elements and attributes. The description section includes the title-info and document-info elements, which contain metadata about the book. The body section includes a title and a section that contains paragraphs for each line from the TextBox. The XML is structured according to the FB2 format specifications, ensuring compatibility with FB2 readers.
+			using XmlWriter xmlWriter = XmlWriter.Create(outputFileName: fileName, settings: settings);
+			// Start the XML document and write the root element with the appropriate namespace. The FictionBook element is the root of the FB2 document, and it includes the namespace declaration for the FB2 format. This ensures that the XML document is recognized as a valid FB2 file by compatible readers.
+			xmlWriter.WriteStartDocument();
+			// Write the root element for the FB2 document, including the namespace declaration.
+			xmlWriter.WriteStartElement(localName: "FictionBook", ns: fb2Ns);
+			xmlWriter.WriteAttributeString(prefix: "xmlns", localName: "l", ns: null, value: "http://www.w3.org/1999/xlink");
+			// Write the description section of the FB2 document, which includes the title-info and document-info elements. The title-info element contains metadata about the book, such as the genre, author, book title, and language. The document-info element contains metadata about the document itself, such as the author, program used to create it, creation date, unique identifier, and version. This structure is required by the FB2 format and allows readers to access important information about the book.
+			xmlWriter.WriteStartElement(localName: "description", ns: fb2Ns);
+			// Write the title-info element, which contains metadata about the book. This includes the genre, author information, book title, and language. The genre is set to "reference", and the author is specified with a first name of "Planetoid-DB" and an empty last name. The book title is set to the provided title parameter, and the language is set to English ("en"). This information is essential for FB2 readers to display the correct metadata for the book.
+			xmlWriter.WriteStartElement(localName: "title-info", ns: fb2Ns);
+			// The genre element is set to "reference", which indicates the type of content in the FB2 document. This is a required element in the title-info section of the FB2 format, and it helps readers categorize and display the book appropriately based on its genre.
+			xmlWriter.WriteElementString(localName: "genre", ns: fb2Ns, value: "reference");
+			// Write the author element, which contains the first name and last name of the author. In this case, the first name is set to "Planetoid-DB" and the last name is left empty. This information is included in the title-info section of the FB2 document and is important for readers to identify the author of the book.
+			xmlWriter.WriteStartElement(localName: "author", ns: fb2Ns);
+			// The first-name element is set to "Planetoid-DB", which identifies the author of the book. The last-name element is left empty, as there is no last name provided. This information is included in the title-info section of the FB2 document and is important for readers to identify the author of the book.
+			xmlWriter.WriteElementString(localName: "first-name", ns: fb2Ns, value: "Planetoid-DB");
+			// The last-name element is left empty, as there is no last name provided for the author. This element is included in the title-info section of the FB2 document, and while it is required by the FB2 format, it can be left empty if there is no last name to provide.
+			xmlWriter.WriteElementString(localName: "last-name", ns: fb2Ns, value: string.Empty);
+			// End the author element after writing the first-name and last-name elements.
+			xmlWriter.WriteEndElement();
+			// The book-title element is set to the provided title parameter, which specifies the title of the book in the FB2 document. This element is included in the title-info section and is essential for readers to identify the title of the book when viewing the FB2 document.
+			xmlWriter.WriteElementString(localName: "book-title", ns: fb2Ns, value: title);
+			// The lang element is set to "en", which indicates that the language of the book is English. This element is included in the title-info section of the FB2 document and helps readers display the correct language information for the book.
+			xmlWriter.WriteElementString(localName: "lang", ns: fb2Ns, value: "en");
+			// End the title-info element after writing the genre, author, book-title, and lang elements.
+			xmlWriter.WriteEndElement();
+			// Write the document-info element, which contains metadata about the document itself. This includes the author of the document, the program used to create it, the creation date, a unique identifier, and the version of the document. This information is important for readers to understand the origin and details of the FB2 document.
+			xmlWriter.WriteStartElement(localName: "document-info", ns: fb2Ns);
+			// Write the author element within the document-info section, which contains the first name and last name of the author of the document. In this case, the first name is set to "Planetoid-DB" and the last name is left empty. This information is included in the document-info section of the FB2 document and provides details about the creator of the document.
+			xmlWriter.WriteStartElement(localName: "author", ns: fb2Ns);
+			// The first-name element is set to "Planetoid-DB", which identifies the author of the document. The last-name element is left empty, as there is no last name provided. This information is included in the document-info section of the FB2 document and provides details about the creator of the document.
+			xmlWriter.WriteElementString(localName: "first-name", ns: fb2Ns, value: "Planetoid-DB");
+			// The last-name element is left empty, as there is no last name provided for the author of the document. This element is included in the document-info section of the FB2 document, and while it is required by the FB2 format, it can be left empty if there is no last name to provide.
+			xmlWriter.WriteElementString(localName: "last-name", ns: fb2Ns, value: string.Empty);
+			// End the author element after writing the first-name and last-name elements.
+			xmlWriter.WriteEndElement();
+			// The program-used element is set to "Planetoid-DB", which indicates the program that was used to create the FB2 document. This element is included in the document-info section and provides information about the software used to generate the document.
+			xmlWriter.WriteElementString(localName: "program-used", ns: fb2Ns, value: "Planetoid-DB");
+			// The date element is set to the current date, which indicates when the FB2 document was created. This element is included in the document-info section and provides information about the creation date of the document.
+			string fb2DateString = DateTime.Now.ToString(format: "yyyy-MM-dd");
+			// The date element includes a value attribute that contains the date in the format "yyyy-MM-dd". The text content of the date element also contains the same date string. This provides both a machine-readable value and a human-readable representation of the creation date in the FB2 document.
+			xmlWriter.WriteStartElement(localName: "date", ns: fb2Ns);
+			// The value attribute of the date element is set to the current date in the format "yyyy-MM-dd". This provides a machine-readable representation of the creation date in the FB2 document, which can be used by readers to display or sort documents based on their creation dates.
+			xmlWriter.WriteAttributeString(localName: "value", value: fb2DateString);
+			// The text content of the date element is also set to the current date string, providing a human-readable representation of the creation date in the FB2 document. This allows readers to easily see the creation date when viewing the document.
+			xmlWriter.WriteString(text: fb2DateString);
+			// End the date element after writing the value attribute and text content.
+			xmlWriter.WriteEndElement();
+			// The id element is set to a new GUID, which provides a unique identifier for the FB2 document. This element is included in the document-info section and allows readers to uniquely identify the document, which can be useful for cataloging or referencing purposes.
+			xmlWriter.WriteElementString(localName: "id", ns: fb2Ns, value: Guid.NewGuid().ToString());
+			// The version element is set to "1.0", which indicates the version of the FB2 document. This element is included in the document-info section and provides information about the version of the document format being used.
+			xmlWriter.WriteElementString(localName: "version", ns: fb2Ns, value: "1.0");
+			// End the document-info element after writing the author, program-used, date, id, and version elements.
+			xmlWriter.WriteEndElement();
+			// End the description element after writing the title-info and document-info sections.
+			xmlWriter.WriteEndElement();
+			// Write the body section of the FB2 document, which contains the main content. The body includes a title and a section that contains paragraphs for each line from the TextBox. The title is added as a paragraph within the title element, and each line from the TextBox is added as a paragraph within the section element. This structure adheres to the FB2 format specifications and allows readers to display the content correctly.
+			xmlWriter.WriteStartElement(localName: "body", ns: fb2Ns);
+			// The title element contains a paragraph with the title of the book. This is included in the body section of the FB2 document and provides a clear title for the content when viewed on an FB2 reader.
+			xmlWriter.WriteStartElement(localName: "title", ns: fb2Ns);
+			// The paragraph element within the title contains the title of the book, which is set to the provided title parameter. This is included in the title element of the body section and provides a clear title for the content when viewed on an FB2 reader.
+			xmlWriter.WriteElementString(localName: "p", ns: fb2Ns, value: title);
+			// End the title element after writing the paragraph with the book title.
+			xmlWriter.WriteEndElement();
+			// The section element contains paragraphs for each line from the TextBox. Each line is added as a separate paragraph within the section, allowing for proper formatting and display of the content in the FB2 document. This structure adheres to the FB2 format specifications and ensures that the content is displayed correctly when viewed on an FB2 reader.
+			xmlWriter.WriteStartElement(localName: "section", ns: fb2Ns);
+			// Write each line from the TextBox as a paragraph in the section element of the FB2 document. Each line is added as a separate paragraph, allowing for proper formatting and display of the content in the FB2 document. This structure adheres to the FB2 format specifications and ensures that the content is displayed correctly when viewed on an FB2 reader.
+			foreach (string line in textBox.Lines)
+			{
+				xmlWriter.WriteElementString(localName: "p", ns: fb2Ns, value: line);
+			}
+			// End the section element after writing all paragraphs for the lines from the TextBox.
+			xmlWriter.WriteEndElement();
+			// End the body element after writing the title and section elements.
+			xmlWriter.WriteEndElement();
+			// End the root FictionBook element after writing the description and body sections.
+			xmlWriter.WriteEndElement();
+			// End the XML document after writing all content for the FB2 file.
+			xmlWriter.WriteEndDocument();
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "FictionBook2", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the contents of <paramref name="textBox"/> as a Compiled HTML Help (CHM) file.</summary>
+	/// <remarks>The method creates a CHM document with each line from the TextBox. If an I/O or access error occurs during saving, an error message is displayed to the user.</remarks>
+	/// <param name="textBox">The text box whose contents are to be saved. Cannot be null.</param>
+	/// <param name="title">The title to use for the CHM document. Cannot be null or empty.</param>
+	/// <param name="fileName">The name of the file to which the CHM document will be saved. Cannot be null or empty.</param>
+	public static void SaveAsChm(TextBox textBox, string title, string fileName)
+	{
+		// The method uses the Microsoft HTML Help Workshop (hhc.exe) to compile a CHM file. It creates temporary files for the HTML content, the table of contents (HHC), and the project file (HHP). The HTML content is generated from the lines in the TextBox, and the HHC and HHP files are created with the necessary structure for compiling a CHM file. The method then invokes hhc.exe with the project file to compile the CHM. If the compilation is successful, the resulting CHM file is copied to the specified location. If an I/O or access error occurs during this process, an error message is displayed to the user.
+		string hhcPath = Path.Combine(
+			path1: Environment.GetFolderPath(folder: Environment.SpecialFolder.ProgramFilesX86),
+			path2: @"HTML Help Workshop\hhc.exe");
+		// Check if the hhc.exe file exists at the expected location. If it does not exist, show an error message to the user indicating that Microsoft HTML Help Workshop is not installed or not found, and return from the method without attempting to compile the CHM file.
+		if (!File.Exists(path: hhcPath))
+		{
+			_ = MessageBox.Show(
+				text: "Microsoft HTML Help Workshop is not installed or not found at the default location. Cannot compile CHM file.",
+				caption: I18nStrings.ErrorCaption,
+				buttons: MessageBoxButtons.OK,
+				icon: MessageBoxIcon.Error);
+			return;
+		}
+		// Create a temporary directory to store the HTML, HHC, and HHP files needed for compiling the CHM. The directory is created in the system's temporary folder with a unique name generated using a GUID. This ensures that the temporary files do not conflict with any existing files and can be safely cleaned up after the compilation process.
+		string tempDir = Path.Combine(path1: Path.GetTempPath(), path2: Guid.NewGuid().ToString());
+		// Create the temporary directory.
+		Directory.CreateDirectory(path: tempDir);
+		// The method uses a try-finally block to ensure that the temporary directory is deleted after the compilation process, regardless of whether it succeeds or fails. The try block contains the code for generating the HTML, HHC, and HHP files, as well as invoking hhc.exe to compile the CHM. The finally block checks if the temporary directory exists and deletes it recursively to clean up any temporary files created during the process.
+		try
+		{
+			// Define the paths for the temporary HTML file, HHC file, HHP file, and the resulting CHM file within the temporary directory. These files are necessary for compiling the CHM using hhc.exe. The HTML file contains the content generated from the TextBox, while the HHC and HHP files define the structure and project settings for the CHM compilation.
+			string htmlPath = Path.Combine(path1: tempDir, path2: "index.html");
+			string hhcFilePath = Path.Combine(path1: tempDir, path2: "toc.hhc");
+			string hhpPath = Path.Combine(path1: tempDir, path2: "project.hhp");
+			string chmTempPath = Path.Combine(path1: tempDir, path2: "project.chm");
+			// Generate the HTML content for the CHM file based on the lines in the TextBox. The HTML is structured with a simple layout, including a title and paragraphs for each line from the TextBox. The content is encoded in UTF-8 to ensure proper character representation. This HTML file will be used as the main topic for the CHM file when compiled.
+			using (StreamWriter writer = new(path: htmlPath, append: false, encoding: Encoding.UTF8))
+			{
+				string safeTitle = System.Net.WebUtility.HtmlEncode(value: title) ?? string.Empty;
+				writer.WriteLine(value: $"<!DOCTYPE html><html><head><meta charset=\"utf-8\"><title>{safeTitle}</title></head><body>");
+				writer.WriteLine(value: $"<h1>{safeTitle}</h1>");
+				foreach (string line in textBox.Lines)
+				{
+					writer.WriteLine(value: $"<p>{System.Net.WebUtility.HtmlEncode(value: line)}</p>");
+				}
+				writer.WriteLine(value: "</body></html>");
+			}
+			// Generate the HHC (table of contents) file for the CHM compilation. The HHC file defines the structure of the table of contents for the CHM file, including the title and the link to the main topic (index.html). The content is encoded in ASCII, as required by the CHM format. This HHC file will be referenced in the HHP project file during compilation.
+			using (StreamWriter writer = new(path: hhcFilePath, append: false, encoding: Encoding.ASCII))
+			{
+				writer.WriteLine(value: "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML//EN\">");
+				writer.WriteLine(value: "<HTML><HEAD><meta name=\"GENERATOR\" content=\"Planetoid-DB\"></HEAD><BODY>");
+				writer.WriteLine(value: "<OBJECT type=\"text/site properties\"><param name=\"ImageType\" value=\"Folder\"></OBJECT>");
+				writer.WriteLine(value: "<UL><LI><OBJECT type=\"text/sitemap\">");
+				writer.WriteLine(value: $"<param name=\"Name\" value=\"{System.Net.WebUtility.HtmlEncode(value: title)}\">");
+				writer.WriteLine(value: "<param name=\"Local\" value=\"index.html\">");
+				writer.WriteLine(value: "</OBJECT></UL></BODY></HTML>");
+			}
+			// Generate the HHP (project) file for the CHM compilation. The HHP file defines the project settings for compiling the CHM file, including the title, language, default topic, and the list of files to include in the compilation. The content is encoded in ASCII, as required by the CHM format. This HHP file will be used as the input for hhc.exe to compile the CHM file.
+			using (StreamWriter writer = new(path: hhpPath, append: false, encoding: Encoding.ASCII))
+			{
+				writer.WriteLine(value: "[OPTIONS]");
+				writer.WriteLine(value: "Compatibility=1.1 or later");
+				writer.WriteLine(value: "Compiled file=project.chm");
+				writer.WriteLine(value: "Contents file=toc.hhc");
+				writer.WriteLine(value: "Default topic=index.html");
+				writer.WriteLine(value: "Display compile progress=No");
+				writer.WriteLine(value: "Language=0x409 English (United States)");
+				writer.WriteLine(value: $"Title={title}");
+				writer.WriteLine(value: string.Empty);
+				writer.WriteLine(value: "[FILES]");
+				writer.WriteLine(value: "index.html");
+			}
+			// Invoke hhc.exe with the project file to compile the CHM. The ProcessStartInfo is configured to run hhc.exe with the appropriate arguments, and the process is executed without creating a window. The method waits for the compilation process to complete before proceeding. If the compilation is successful, the resulting CHM file is copied to the specified location. If the compilation fails or if an I/O error occurs, an error message is displayed to the user.
+			ProcessStartInfo startInfo = new()
+			{
+				FileName = hhcPath,
+				Arguments = $"\"{hhpPath}\"",
+				CreateNoWindow = true,
+				WindowStyle = ProcessWindowStyle.Hidden,
+				UseShellExecute = false
+			};
+			// Start the compilation process and wait for it to complete.
+			using (Process? process = Process.Start(startInfo: startInfo))
+			{
+				process?.WaitForExit();
+			}
+			// After the compilation process completes, check if the resulting CHM file exists in the temporary directory. If it exists, copy it to the specified location. If it does not exist, show an error message to the user indicating that the compilation failed.
+			if (File.Exists(path: chmTempPath))
+			{
+				File.Copy(sourceFileName: chmTempPath, destFileName: fileName, overwrite: true);
+				ShowSuccess();
+			}
+			else
+			{
+				_ = MessageBox.Show(
+					text: "Failed to compile the CHM file.",
+					caption: I18nStrings.ErrorCaption,
+					buttons: MessageBoxButtons.OK,
+					icon: MessageBoxIcon.Error);
+			}
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex)
+		{
+			ShowError(ex: ex, format: "CHM", filePath: fileName);
+		}
+		// The finally block ensures that the temporary directory is deleted after the compilation process, regardless of whether it succeeds or fails. This is important for cleaning up any temporary files created during the process and preventing clutter in the system's temporary folder.
+		finally
+		{
+			if (Directory.Exists(path: tempDir))
+			{
+				Directory.Delete(path: tempDir, recursive: true);
+			}
+		}
+	}
+
+	/// <summary>Saves the contents of <paramref name="textBox"/> as an XML Paper Specification (XPS) document.</summary>
+	/// <remarks>The method creates an XPS document with each line from the TextBox. If an I/O or access error occurs during saving, an error message is displayed to the user.</remarks>
+	/// <param name="textBox">The text box whose contents are to be saved. Cannot be null.</param>
+	/// <param name="title">The title to use for the XPS document. Cannot be null or empty.</param>
+	/// <param name="fileName">The name of the file to which the XPS document will be saved. Cannot be null or empty.</param>
+	public static void SaveAsXps(TextBox textBox, string title, string fileName)
+	{
+		// The method uses the System.IO.Compression library to create a ZIP archive in the XPS format. It constructs the necessary structure for an XPS document, including the [Content_Types].xml file, the _rels/.rels file, the _rels/FixedDocSeq.fdseq.rels file, and the FixedDocSeq.fdseq file. Each line from the TextBox is added as a separate page in the XPS document, with a simple layout that includes the title and page number. The resulting ZIP archive is saved with a .xps extension. If an I/O or access error occurs during this process, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statements ensure that the FileStream and ZipArchive are properly disposed after use, which will flush and close the underlying file stream. The ZipArchive is created in Create mode, which allows for adding entries to the archive. The method constructs the necessary files and structure for an XPS document, including the content types, relationships, and fixed document sequence. Each line from the TextBox is added as a separate page in the XPS document, with a simple layout that includes the title and page number.
+			using FileStream fs = new(path: fileName, mode: FileMode.Create);
+			using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
+			// Create the [Content_Types].xml entry, which defines the content types for the XPS document. This file is required by the XPS format and specifies the content types for the relationships, fixed document sequence, fixed documents, fixed pages, and fonts used in the XPS document. The content types are defined according to the Open Packaging Conventions (OPC) specifications, which are used by XPS to structure the document.
+			ZipArchiveEntry contentTypesEntry = archive.CreateEntry(entryName: "[Content_Types].xml", compressionLevel: CompressionLevel.Optimal);
+			// Write the XML content for the [Content_Types].xml file, which defines the content types for the XPS document. The XML is structured according to the OPC specifications, with a root Types element that contains Default elements for each content type used in the XPS document. This file is essential for XPS readers to understand how to handle the different parts of the document based on their content types.
+			using (StreamWriter writer = new(stream: contentTypesEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+				writer.WriteLine(value: "<Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\">");
+				writer.WriteLine(value: "  <Default Extension=\"rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\"/>");
+				writer.WriteLine(value: "  <Default Extension=\"fdseq\" ContentType=\"application/vnd.ms-package.xps-fixeddocumentsequence+xml\"/>");
+				writer.WriteLine(value: "  <Default Extension=\"fdoc\" ContentType=\"application/vnd.ms-package.xps-fixeddocument+xml\"/>");
+				writer.WriteLine(value: "  <Default Extension=\"fpage\" ContentType=\"application/vnd.ms-package.xps-fixedpage+xml\"/>");
+				writer.WriteLine(value: "  <Default Extension=\"ttf\" ContentType=\"application/vnd.ms-package.obfuscated-opentype\"/>");
+				writer.WriteLine(value: "</Types>");
+			}
+			// Create the _rels/.rels entry, which defines the relationships for the XPS document. This file is required by the XPS format and specifies the relationship between the root of the package and the fixed document sequence. The relationship is defined according to the OPC specifications, which are used by XPS to structure the document.
+			ZipArchiveEntry relsEntry = archive.CreateEntry(entryName: "_rels/.rels", compressionLevel: CompressionLevel.Optimal);
+			// Write the XML content for the _rels/.rels file, which defines the relationships for the XPS document. The XML is structured according to the OPC specifications, with a root Relationships element that contains a Relationship element defining the relationship between the root of the package and the fixed document sequence. This file is essential for XPS readers to understand how to navigate the structure of the document based on its relationships.
+			using (StreamWriter writer = new(stream: relsEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+				writer.WriteLine(value: "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">");
+				writer.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.microsoft.com/xps/2005/06/fixedrepresentation\" Target=\"/FixedDocSeq.fdseq\"/>");
+				writer.WriteLine(value: "</Relationships>");
+			}
+			// Create the _rels/FixedDocSeq.fdseq.rels entry, which defines the relationships for the fixed document sequence. This file is required by the XPS format and specifies the relationship between the fixed document sequence and the fixed document. The relationship is defined according to the OPC specifications, which are used by XPS to structure the document.
+			ZipArchiveEntry fdseqRelsEntry = archive.CreateEntry(entryName: "_rels/FixedDocSeq.fdseq.rels", compressionLevel: CompressionLevel.Optimal);
+			// Write the XML content for the _rels/FixedDocSeq.fdseq.rels file, which defines the relationships for the fixed document sequence. The XML is structured according to the OPC specifications, with a root Relationships element that contains a Relationship element defining the relationship between the fixed document sequence and the fixed document. This file is essential for XPS readers to understand how to navigate from the fixed document sequence to the fixed document based on its relationships.
+			using (StreamWriter writer = new(stream: fdseqRelsEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+				writer.WriteLine(value: "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">");
+				writer.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.microsoft.com/xps/2005/06/required-resource\" Target=\"/Documents/1/FixedDoc.fdoc\"/>");
+				writer.WriteLine(value: "</Relationships>");
+			}
+			// Create the FixedDocSeq.fdseq entry, which defines the fixed document sequence for the XPS document. This file is required by the XPS format and specifies the sequence of fixed documents in the XPS document. The fixed document sequence is defined according to the XPS specifications, which are used to structure the document.
+			ZipArchiveEntry fdseqEntry = archive.CreateEntry(entryName: "FixedDocSeq.fdseq", compressionLevel: CompressionLevel.Optimal);
+			// Write the XML content for the FixedDocSeq.fdseq file, which defines the fixed document sequence for the XPS document. The XML is structured according to the XPS specifications, with a root FixedDocumentSequence element that contains a DocumentReference element referencing the fixed document. This file is essential for XPS readers to understand the sequence of fixed documents in the document and how to navigate to them based on the references.
+			using (StreamWriter writer = new(stream: fdseqEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+				writer.WriteLine(value: "<FixedDocumentSequence xmlns=\"http://schemas.microsoft.com/xps/2005/06\">");
+				writer.WriteLine(value: "  <DocumentReference Source=\"/Documents/1/FixedDoc.fdoc\"/>");
+				writer.WriteLine(value: "</FixedDocumentSequence>");
+			}
+			// Define constants for page dimensions, margins, and line height. These values are used to layout the content on each page of the XPS document. The page width is set to 816 units, the page height is set to 1056 units, the starting Y position for content is set to 96 units, the bottom margin is set to 960 units, and the line height is set to 16 units. These values can be adjusted as needed to fit the desired layout and formatting for the XPS document.
+			const int pageHeight = 1056;
+			const int startY = 96;
+			const int marginB = 960;
+			const int lineHeight = 16;
+			int currentY = startY;
+			// Create a list to keep track of the page entries that will be added to the XPS document. This list is used to generate the relationships for the fixed document sequence and to reference the pages in the fixed document. Each page entry corresponds to a page in the XPS document, and the list allows for easy management of these entries as they are created.
+			List<string> pageEntries = [];
+			int pageNumber = 1;
+			StringBuilder currentPageBuilder = new();
+			// Define a local function to start a new page in the XPS document. This function initializes the currentPageBuilder with the necessary XML structure for a fixed page, including the title and page number. The title is displayed at the top of the page, and the current Y position is updated to account for the space taken by the title. This function is called whenever a new page needs to be started, such as when the content exceeds the bottom margin.
+			void StartNewPage()
+			{
+				currentPageBuilder.Clear();
+				currentPageBuilder.AppendLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+				currentPageBuilder.AppendLine(value: "<FixedPage Width=\"816\" Height=\"1056\" xmlns=\"http://schemas.microsoft.com/xps/2005/06\" xml:lang=\"en-US\">");
+				string safeTitle = System.Security.SecurityElement.Escape(str: title) ?? string.Empty;
+				int titleY = Math.Max(val1: 0, val2: currentY - 24);
+				currentPageBuilder.AppendLine(value: $"  <Glyphs Fill=\"#FF000000\" FontUri=\"/Resources/Dummy.ttf\" DeviceFontName=\"Arial\" FontRenderingEmSize=\"14\" OriginX=\"96\" OriginY=\"{titleY}\" UnicodeString=\"{safeTitle} - Page {pageNumber}\"/>");
+				currentY += lineHeight * 2;
+			}
+			// Define a local function to finish the current page and add it to the XPS document. This function appends the closing tag for the fixed page, creates a new entry in the ZIP archive for the page, and writes the XML content for the page. It also creates a relationships entry for the page that references a dummy font resource. This function is called whenever a page is completed, such as when the content exceeds the bottom margin or when all lines have been processed.
+			void FinishCurrentPage()
+			{
+				currentPageBuilder.AppendLine(value: "</FixedPage>");
+				string pageName = $"{pageNumber}.fpage";
+				string pagePath = $"Documents/1/Pages/{pageName}";
+				pageEntries.Add(item: pageName);
+				ZipArchiveEntry pageEntry = archive.CreateEntry(entryName: pagePath, compressionLevel: CompressionLevel.Optimal);
+				using StreamWriter writer = new(stream: pageEntry.Open(), encoding: Encoding.UTF8);
+				writer.Write(value: currentPageBuilder.ToString());
+				ZipArchiveEntry pageRelsEntry = archive.CreateEntry(entryName: $"Documents/1/Pages/_rels/{pageName}.rels", compressionLevel: CompressionLevel.Optimal);
+				using StreamWriter relsWriter = new(stream: pageRelsEntry.Open(), encoding: Encoding.UTF8);
+				relsWriter.WriteLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+				relsWriter.WriteLine(value: "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">");
+				relsWriter.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.microsoft.com/xps/2005/06/required-resource\" Target=\"../../../Resources/Dummy.ttf\"/>");
+				relsWriter.WriteLine(value: "</Relationships>");
+			}
+			// Start a new page after finishing the current one.
+			StartNewPage();
+			// Write each line from the TextBox to the current page. If the current Y position exceeds the bottom margin, finish the current page and start a new one. Each line is added as a Glyphs element in the fixed page XML, with the appropriate font and positioning. The current Y position is updated after adding each line to ensure proper spacing between lines on the page.
+			foreach (string line in textBox.Lines)
+			{
+				if (currentY > marginB)
+				{
+					FinishCurrentPage();
+					pageNumber++;
+					currentY = startY;
+					StartNewPage();
+				}
+				string safeCell = System.Security.SecurityElement.Escape(str: line) ?? string.Empty;
+				if (!string.IsNullOrEmpty(value: safeCell))
+				{
+					currentPageBuilder.AppendLine(value: $"  <Glyphs Fill=\"#FF000000\" FontUri=\"/Resources/Dummy.ttf\" DeviceFontName=\"Arial\" FontRenderingEmSize=\"12\" OriginX=\"96\" OriginY=\"{currentY}\" UnicodeString=\"{safeCell}\"/>");
+				}
+				currentY += lineHeight;
+			}
+			// After processing all lines, finish the current page to ensure that any remaining content is added to the XPS document. This is important to include the last page of content, which may not have been finished if the loop ended without exceeding the bottom margin.
+			FinishCurrentPage();
+			// Create the relationships entry for the fixed document, which references all the pages in the document. This file is required by the XPS format and specifies the relationships between the fixed document and its pages. The relationships are defined according to the OPC specifications, which are used by XPS to structure the document.
+			ZipArchiveEntry fdocRelsEntry = archive.CreateEntry(entryName: "Documents/1/_rels/FixedDoc.fdoc.rels", compressionLevel: CompressionLevel.Optimal);
+			// Write the XML content for the relationships of the fixed document, which references all the pages in the document. The XML is structured according to the OPC specifications, with a root Relationships element that contains a Relationship element for each page in the document. This file is essential for XPS readers to understand how to navigate from the fixed document to its pages based on the defined relationships.
+			using (StreamWriter writer = new(stream: fdocRelsEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+				writer.WriteLine(value: "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">");
+				for (int p = 1; p <= pageNumber; p++)
+				{
+					writer.WriteLine(value: $"  <Relationship Id=\"p{p}\" Type=\"http://schemas.microsoft.com/xps/2005/06/required-resource\" Target=\"/Documents/1/Pages/{p}.fpage\"/>");
+				}
+				writer.WriteLine(value: "</Relationships>");
+			}
+			// Create the fixed document entry, which references all the pages in the document. This file is required by the XPS format and specifies the content of the fixed document, including references to its pages. The fixed document is defined according to the XPS specifications, which are used to structure the document.
+			ZipArchiveEntry fdocEntry = archive.CreateEntry(entryName: "Documents/1/FixedDoc.fdoc", compressionLevel: CompressionLevel.Optimal);
+			// Write the XML content for the fixed document, which references all the pages in the document. The XML is structured according to the XPS specifications, with a root FixedDocument element that contains PageContent elements for each page in the document. This file is essential for XPS readers to understand how to display the content of the document based on its pages.
+			using (StreamWriter writer = new(stream: fdocEntry.Open(), encoding: Encoding.UTF8))
+			{
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+				writer.WriteLine(value: "<FixedDocument xmlns=\"http://schemas.microsoft.com/xps/2005/06\">");
+				for (int p = 1; p <= pageNumber; p++)
+				{
+					writer.WriteLine(value: $"  <PageContent Source=\"/Documents/1/Pages/{p}.fpage\"/>");
+				}
+				writer.WriteLine(value: "</FixedDocument>");
+			}
+			// Create a dummy font entry, which is required by the XPS format for rendering text. This entry references a dummy TrueType font file, which is included in the Resources folder of the XPS document. The font file is obfuscated according to the XPS specifications, and it allows XPS readers to render the text content of the document using a standard font.
+			ZipArchiveEntry fontEntry = archive.CreateEntry(entryName: "Resources/Dummy.ttf", compressionLevel: CompressionLevel.NoCompression);
+			// Write the dummy font data to the font entry. In this example, we are writing a simple placeholder string "DUMMY" to the font file. In a real implementation, you would include an actual obfuscated TrueType font file that meets the requirements of the XPS format. The content is encoded in ASCII, as required by the XPS specifications for obfuscated fonts.
+			using (StreamWriter writer = new(stream: fontEntry.Open(), encoding: Encoding.ASCII))
+			{
+				writer.Write(value: "DUMMY");
+			}
+			// If the save operation completes successfully, show a success message to the user.
+			ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ShowError(ex: ex, format: "XPS", filePath: fileName);
+		}
+	}
+
+	#endregion
+}
