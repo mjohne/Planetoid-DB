@@ -54,12 +54,6 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		columnHeaderResonance = new ColumnHeader();
 		columnHeaderDeviation = new ColumnHeader();
 		columnHeaderIsResonance = new ColumnHeader();
-		kryptonStatusStrip = new KryptonStatusStrip();
-		labelInformation = new ToolStripStatusLabel();
-		kryptonManager = new KryptonManager(components);
-		toolStripContainer = new ToolStripContainer();
-		toolStripIcons = new ToolStrip();
-		toolStripDropDownButtonSaveToFile = new ToolStripDropDownButton();
 		contextMenuSaveToFile = new ContextMenuStrip(components);
 		toolStripMenuItemTextFiles = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsText = new ToolStripMenuItem();
@@ -100,16 +94,22 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsXps = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsFictionBook2 = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsChm = new ToolStripMenuItem();
+		toolStripDropDownButtonSaveToFile = new ToolStripDropDownButton();
+		kryptonStatusStrip = new KryptonStatusStrip();
+		labelInformation = new ToolStripStatusLabel();
+		kryptonManager = new KryptonManager(components);
+		toolStripContainer = new ToolStripContainer();
+		toolStripIcons = new ToolStrip();
 		toolStripButtonFilterResonances = new ToolStripButton();
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
+		contextMenuSaveToFile.SuspendLayout();
 		kryptonStatusStrip.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
 		toolStripContainer.TopToolStripPanel.SuspendLayout();
 		toolStripContainer.SuspendLayout();
 		toolStripIcons.SuspendLayout();
-		contextMenuSaveToFile.SuspendLayout();
 		SuspendLayout();
 		// 
 		// kryptonPanelMain
@@ -196,117 +196,6 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		columnHeaderIsResonance.Text = "Is Resonance";
 		columnHeaderIsResonance.TextAlign = HorizontalAlignment.Center;
 		columnHeaderIsResonance.Width = 90;
-		// 
-		// kryptonStatusStrip
-		// 
-		kryptonStatusStrip.AccessibleDescription = "Shows some information";
-		kryptonStatusStrip.AccessibleName = "Status bar with some information";
-		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
-		kryptonStatusStrip.AllowClickThrough = true;
-		kryptonStatusStrip.AllowItemReorder = true;
-		kryptonStatusStrip.Dock = DockStyle.None;
-		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
-		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-		kryptonStatusStrip.Location = new Point(0, 0);
-		kryptonStatusStrip.Name = "kryptonStatusStrip";
-		kryptonStatusStrip.Padding = new Padding(1, 0, 16, 0);
-		kryptonStatusStrip.ProgressBars = null;
-		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-		kryptonStatusStrip.ShowItemToolTips = true;
-		kryptonStatusStrip.Size = new Size(729, 22);
-		kryptonStatusStrip.SizingGrip = false;
-		kryptonStatusStrip.TabIndex = 1;
-		kryptonStatusStrip.TabStop = true;
-		kryptonStatusStrip.Text = "Status bar";
-		kryptonStatusStrip.MouseEnter += Control_Enter;
-		kryptonStatusStrip.MouseLeave += Control_Leave;
-		// 
-		// labelInformation
-		// 
-		labelInformation.AccessibleDescription = "Shows some information";
-		labelInformation.AccessibleName = "Shows some information";
-		labelInformation.AccessibleRole = AccessibleRole.StaticText;
-		labelInformation.AutoToolTip = true;
-		labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
-		labelInformation.Margin = new Padding(5, 3, 0, 2);
-		labelInformation.Name = "labelInformation";
-		labelInformation.Size = new Size(144, 17);
-		labelInformation.Text = "some information here";
-		labelInformation.ToolTipText = "Shows some information";
-		labelInformation.MouseEnter += Control_Enter;
-		labelInformation.MouseLeave += Control_Leave;
-		// 
-		// kryptonManager
-		// 
-		kryptonManager.GlobalPaletteMode = PaletteMode.Global;
-		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
-		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
-		// 
-		// toolStripContainer
-		// 
-		toolStripContainer.AccessibleDescription = "Container to arrange the toolbars";
-		toolStripContainer.AccessibleName = "Container to arrange the toolbars";
-		toolStripContainer.AccessibleRole = AccessibleRole.Grouping;
-		// 
-		// toolStripContainer.BottomToolStripPanel
-		// 
-		toolStripContainer.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
-		// 
-		// toolStripContainer.ContentPanel
-		// 
-		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
-		toolStripContainer.ContentPanel.Size = new Size(729, 204);
-		toolStripContainer.Dock = DockStyle.Fill;
-		toolStripContainer.Location = new Point(0, 0);
-		toolStripContainer.Name = "toolStripContainer";
-		toolStripContainer.Size = new Size(729, 251);
-		toolStripContainer.TabIndex = 2;
-		toolStripContainer.Text = "toolStripContainer";
-		// 
-		// toolStripContainer.TopToolStripPanel
-		// 
-		toolStripContainer.TopToolStripPanel.Controls.Add(toolStripIcons);
-		toolStripContainer.Enter += Control_Enter;
-		toolStripContainer.Leave += Control_Leave;
-		toolStripContainer.MouseEnter += Control_Enter;
-		toolStripContainer.MouseLeave += Control_Leave;
-		// 
-		// toolStripIcons
-		// 
-		toolStripIcons.AccessibleDescription = "Toolbar of saving";
-		toolStripIcons.AccessibleName = "Toolbar of saving";
-		toolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
-		toolStripIcons.AllowClickThrough = true;
-		toolStripIcons.AllowItemReorder = true;
-		toolStripIcons.BackColor = Color.Transparent;
-		toolStripIcons.Dock = DockStyle.None;
-		toolStripIcons.Font = new Font("Segoe UI", 9F);
-		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripDropDownButtonSaveToFile, toolStripButtonFilterResonances });
-		toolStripIcons.Location = new Point(0, 0);
-		toolStripIcons.Name = "toolStripIcons";
-		toolStripIcons.Size = new Size(729, 25);
-		toolStripIcons.Stretch = true;
-		toolStripIcons.TabIndex = 2;
-		toolStripIcons.TabStop = true;
-		toolStripIcons.Text = "Toolbar of saving";
-		toolStripIcons.Enter += Control_Enter;
-		toolStripIcons.Leave += Control_Leave;
-		toolStripIcons.MouseEnter += Control_Enter;
-		toolStripIcons.MouseLeave += Control_Leave;
-		// 
-		// toolStripDropDownButtonSaveToFile
-		// 
-		toolStripDropDownButtonSaveToFile.AccessibleDescription = "Saves information to file";
-		toolStripDropDownButtonSaveToFile.AccessibleName = "Save to file";
-		toolStripDropDownButtonSaveToFile.AccessibleRole = AccessibleRole.ButtonDropDown;
-		toolStripDropDownButtonSaveToFile.DropDown = contextMenuSaveToFile;
-		toolStripDropDownButtonSaveToFile.Image = FatcowIcons16px.fatcow_diskette_16px;
-		toolStripDropDownButtonSaveToFile.ImageTransparentColor = Color.Magenta;
-		toolStripDropDownButtonSaveToFile.Name = "toolStripDropDownButtonSaveToFile";
-		toolStripDropDownButtonSaveToFile.Size = new Size(93, 22);
-		toolStripDropDownButtonSaveToFile.Text = "&Save to file";
-		toolStripDropDownButtonSaveToFile.MouseEnter += Control_Enter;
-		toolStripDropDownButtonSaveToFile.MouseLeave += Control_Leave;
 		// 
 		// contextMenuSaveToFile
 		// 
@@ -864,6 +753,117 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsChm.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsChm.MouseLeave += Control_Leave;
 		// 
+		// toolStripDropDownButtonSaveToFile
+		// 
+		toolStripDropDownButtonSaveToFile.AccessibleDescription = "Saves information to file";
+		toolStripDropDownButtonSaveToFile.AccessibleName = "Save to file";
+		toolStripDropDownButtonSaveToFile.AccessibleRole = AccessibleRole.ButtonDropDown;
+		toolStripDropDownButtonSaveToFile.DropDown = contextMenuSaveToFile;
+		toolStripDropDownButtonSaveToFile.Image = FatcowIcons16px.fatcow_diskette_16px;
+		toolStripDropDownButtonSaveToFile.ImageTransparentColor = Color.Magenta;
+		toolStripDropDownButtonSaveToFile.Name = "toolStripDropDownButtonSaveToFile";
+		toolStripDropDownButtonSaveToFile.Size = new Size(93, 22);
+		toolStripDropDownButtonSaveToFile.Text = "&Save to file";
+		toolStripDropDownButtonSaveToFile.MouseEnter += Control_Enter;
+		toolStripDropDownButtonSaveToFile.MouseLeave += Control_Leave;
+		// 
+		// kryptonStatusStrip
+		// 
+		kryptonStatusStrip.AccessibleDescription = "Shows some information";
+		kryptonStatusStrip.AccessibleName = "Status bar with some information";
+		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
+		kryptonStatusStrip.AllowClickThrough = true;
+		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.Dock = DockStyle.None;
+		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
+		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
+		kryptonStatusStrip.Location = new Point(0, 0);
+		kryptonStatusStrip.Name = "kryptonStatusStrip";
+		kryptonStatusStrip.Padding = new Padding(1, 0, 16, 0);
+		kryptonStatusStrip.ProgressBars = null;
+		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+		kryptonStatusStrip.ShowItemToolTips = true;
+		kryptonStatusStrip.Size = new Size(729, 22);
+		kryptonStatusStrip.SizingGrip = false;
+		kryptonStatusStrip.TabIndex = 1;
+		kryptonStatusStrip.TabStop = true;
+		kryptonStatusStrip.Text = "Status bar";
+		kryptonStatusStrip.MouseEnter += Control_Enter;
+		kryptonStatusStrip.MouseLeave += Control_Leave;
+		// 
+		// labelInformation
+		// 
+		labelInformation.AccessibleDescription = "Shows some information";
+		labelInformation.AccessibleName = "Shows some information";
+		labelInformation.AccessibleRole = AccessibleRole.StaticText;
+		labelInformation.AutoToolTip = true;
+		labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
+		labelInformation.Margin = new Padding(5, 3, 0, 2);
+		labelInformation.Name = "labelInformation";
+		labelInformation.Size = new Size(144, 17);
+		labelInformation.Text = "some information here";
+		labelInformation.ToolTipText = "Shows some information";
+		labelInformation.MouseEnter += Control_Enter;
+		labelInformation.MouseLeave += Control_Leave;
+		// 
+		// kryptonManager
+		// 
+		kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
+		// 
+		// toolStripContainer
+		// 
+		toolStripContainer.AccessibleDescription = "Container to arrange the toolbars";
+		toolStripContainer.AccessibleName = "Container to arrange the toolbars";
+		toolStripContainer.AccessibleRole = AccessibleRole.Grouping;
+		// 
+		// toolStripContainer.BottomToolStripPanel
+		// 
+		toolStripContainer.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
+		// 
+		// toolStripContainer.ContentPanel
+		// 
+		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
+		toolStripContainer.ContentPanel.Size = new Size(729, 204);
+		toolStripContainer.Dock = DockStyle.Fill;
+		toolStripContainer.Location = new Point(0, 0);
+		toolStripContainer.Name = "toolStripContainer";
+		toolStripContainer.Size = new Size(729, 251);
+		toolStripContainer.TabIndex = 2;
+		toolStripContainer.Text = "toolStripContainer";
+		// 
+		// toolStripContainer.TopToolStripPanel
+		// 
+		toolStripContainer.TopToolStripPanel.Controls.Add(toolStripIcons);
+		toolStripContainer.Enter += Control_Enter;
+		toolStripContainer.Leave += Control_Leave;
+		toolStripContainer.MouseEnter += Control_Enter;
+		toolStripContainer.MouseLeave += Control_Leave;
+		// 
+		// toolStripIcons
+		// 
+		toolStripIcons.AccessibleDescription = "Toolbar of saving";
+		toolStripIcons.AccessibleName = "Toolbar of saving";
+		toolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
+		toolStripIcons.AllowClickThrough = true;
+		toolStripIcons.AllowItemReorder = true;
+		toolStripIcons.BackColor = Color.Transparent;
+		toolStripIcons.Dock = DockStyle.None;
+		toolStripIcons.Font = new Font("Segoe UI", 9F);
+		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripDropDownButtonSaveToFile, toolStripButtonFilterResonances });
+		toolStripIcons.Location = new Point(0, 0);
+		toolStripIcons.Name = "toolStripIcons";
+		toolStripIcons.Size = new Size(729, 25);
+		toolStripIcons.Stretch = true;
+		toolStripIcons.TabIndex = 2;
+		toolStripIcons.TabStop = true;
+		toolStripIcons.Text = "Toolbar of saving";
+		toolStripIcons.Enter += Control_Enter;
+		toolStripIcons.Leave += Control_Leave;
+		toolStripIcons.MouseEnter += Control_Enter;
+		toolStripIcons.MouseLeave += Control_Leave;
+		// 
 		// toolStripButtonFilterResonances
 		// 
 		toolStripButtonFilterResonances.AccessibleDescription = "Filter to show only resonances";
@@ -888,7 +888,7 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		ClientSize = new Size(729, 251);
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
-		FormBorderStyle = FormBorderStyle.FixedToolWindow;
+		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		Margin = new Padding(4, 3, 4, 3);
 		MaximizeBox = false;
@@ -899,6 +899,7 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		Load += OrbitalResonanceForm_Load;
 		((ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);
+		contextMenuSaveToFile.ResumeLayout(false);
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();
 		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
@@ -910,7 +911,6 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		toolStripContainer.PerformLayout();
 		toolStripIcons.ResumeLayout(false);
 		toolStripIcons.PerformLayout();
-		contextMenuSaveToFile.ResumeLayout(false);
 		ResumeLayout(false);
 	}
 
