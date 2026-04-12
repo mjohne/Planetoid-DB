@@ -31,7 +31,7 @@ public static partial class ListViewExporter
 	/// <remarks>Creating a static instance of JsonSerializerOptions with WriteIndented set to true allows for consistent formatting of JSON output across all methods that serialize to JSON, while avoiding the overhead of creating new options instances for each serialization operation.</remarks>
 	private static readonly JsonSerializerOptions jsonSerializerOptions = new() { WriteIndented = true };
 
-	#region Private helpers
+	#region helpers
 
 	/// <summary>Returns the column header texts of the given <see cref="ListView"/>.</summary>
 	/// <param name="listView">The list view whose columns to read.</param>
@@ -81,166 +81,43 @@ public static partial class ListViewExporter
 	/// <param name="input">The raw input string.</param>
 	/// <returns>The escaped string suitable for LaTeX output.</returns>
 	/// <remarks>LaTeX special characters that need escaping include: \ { } % $ amp # _ ^ ~. This method iterates through each character in the input string and appends either the escaped version or the original character to a StringBuilder, which is then returned as the fully escaped string.</remarks>
-	private static string EscapeLatex(string? input)
-	{
-		// LaTeX special characters that need escaping: \ { } % $ & # _ ^ ~
-		if (string.IsNullOrEmpty(value: input))
-		{
-			return string.Empty;
-		}
-		// Use a StringBuilder for efficient string concatenation when escaping characters.
-		StringBuilder builder = new(capacity: input.Length);
-		// Iterate through each character in the input string and escape special characters as needed.
-		foreach (char ch in input)
-		{
-			switch (ch)
-			{
-				case '\\': builder.Append(value: "\\textbackslash{}"); break;
-				case '{': builder.Append(value: "\\{"); break;
-				case '}': builder.Append(value: "\\}"); break;
-				case '%': builder.Append(value: "\\%"); break;
-				case '$': builder.Append(value: "\\$"); break;
-				case '&': builder.Append(value: "\\&"); break;
-				case '#': builder.Append(value: "\\#"); break;
-				case '_': builder.Append(value: "\\_"); break;
-				case '^': builder.Append(value: "\\^{}"); break;
-				case '~': builder.Append(value: "\\~{}"); break;
-				default: builder.Append(value: ch); break;
-			}
-		}
-		// Return the fully escaped string.
-		return builder.ToString();
-	}
+	private static string EscapeLatex(string? input) => ExportEscapeHelper.EscapeLatex(input);
 
 	/// <summary>Escapes Markdown table cell characters.</summary>
 	/// <param name="value">The raw cell value.</param>
 	/// <returns>The escaped string suitable for Markdown table output.</returns>
 	/// <remarks>In Markdown tables, the pipe character '|' is used as a column separator, so it must be escaped if it appears in cell content. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it replaces all occurrences of '|' with '\|', which is the standard way to escape a pipe character in Markdown.</remarks>
-	private static string EscapeMarkdownCell(string? value)
-	{
-		// In Markdown tables, the pipe character '|' is used as a column separator, so it must be escaped if it appears in cell content.
-		return string.IsNullOrEmpty(value: value) ? string.Empty : value.Replace(oldValue: "|", newValue: "\\|");
-	}
+	private static string EscapeMarkdownCell(string? value) => ExportEscapeHelper.EscapeMarkdownCell(value);
 
 	/// <summary>Escapes PostScript string literal characters.</summary>
 	/// <param name="input">The raw input string.</param>
 	/// <returns>The escaped string suitable for PostScript output.</returns>
 	/// <remarks>In PostScript string literals, the backslash, parentheses, and control characters need to be escaped. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it replaces backslashes with double backslashes and parentheses with escaped versions to ensure that the resulting string can be safely included in a PostScript string literal.</remarks>
-	private static string EscapePostScript(string? input)
-	{
-		// In PostScript string literals, the backslash, parentheses, and control characters need to be escaped.
-		return string.IsNullOrEmpty(value: input)
-			? string.Empty
-			: input.Replace(oldValue: "\\", newValue: "\\\\")
-				   .Replace(oldValue: "(", newValue: "\\(")
-				   .Replace(oldValue: ")", newValue: "\\)");
-	}
+	private static string EscapePostScript(string? input) => ExportEscapeHelper.EscapePostScript(input);
 
 	/// <summary>Escapes PDF string literal characters.</summary>
 	/// <param name="text">The raw input string.</param>
 	/// <returns>The escaped string suitable for PDF output.</returns>
 	/// <remarks>In PDF string literals, the backslash, parentheses, and control characters need to be escaped. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it iterates through each character in the input string and appends either the escaped version or the original character to a StringBuilder, which is then returned as the fully escaped string. Control characters are escaped using backslash followed by a letter (e.g. \n for newline), while other non-printable characters are escaped using octal escape sequences.</remarks>
-	private static string EscapePdf(string? text)
-	{
-		// In PDF string literals, the backslash, parentheses, and control characters need to be escaped.
-		if (string.IsNullOrEmpty(value: text))
-		{
-			return string.Empty;
-		}
-		// Use a StringBuilder for efficient string concatenation when escaping characters.
-		StringBuilder builder = new(capacity: text.Length);
-		foreach (char ch in text)
-		{
-			// Escape backslash, parentheses, and control characters with a backslash. For other non-printable characters, use octal escape sequences.
-			switch (ch)
-			{
-				case '\\': builder.Append(value: "\\\\"); break;
-				case '(': builder.Append(value: "\\("); break;
-				case ')': builder.Append(value: "\\)"); break;
-				case '\n': builder.Append(value: "\\n"); break;
-				case '\r': builder.Append(value: "\\r"); break;
-				case '\t': builder.Append(value: "\\t"); break;
-				case '\b': builder.Append(value: "\\b"); break;
-				case '\f': builder.Append(value: "\\f"); break;
-				default:
-					if (ch < ' ')
-					{
-						builder.Append(value: $"\\{(int)ch:000}");
-					}
-					else
-					{
-						builder.Append(value: ch);
-					}
-					break;
-			}
-		}
-		// Return the fully escaped string.
-		return builder.ToString();
-	}
+	private static string EscapePdf(string? text) => ExportEscapeHelper.EscapePdf(text);
 
 	/// <summary>Escapes RTF special characters.</summary>
 	/// <param name="input">The raw input string.</param>
 	/// <returns>The escaped string suitable for RTF output.</returns>
 	/// <remarks>In RTF, the backslash, braces, and control characters need to be escaped. Non-ASCII characters can be represented using Unicode escape sequences. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it iterates through each character in the input string and appends either the escaped version or the original character to a StringBuilder, which is then returned as the fully escaped string. Backslashes and braces are escaped with a preceding backslash, newlines are replaced with the \par control word, and non-ASCII characters are represented using \uN? where N is the Unicode code point of the character.</remarks>
-	private static string EscapeRtf(string? input)
-	{
-		// In RTF, the backslash, braces, and control characters need to be escaped. Non-ASCII characters can be represented using Unicode escape sequences.
-		if (string.IsNullOrEmpty(value: input))
-		{
-			return string.Empty;
-		}
-		// Use a StringBuilder for efficient string concatenation when escaping characters.
-		StringBuilder builder = new(capacity: input.Length);
-		foreach (char ch in input)
-		{
-			// Escape backslash and braces with a backslash. For newlines, use the \par control word. For other non-ASCII characters, use Unicode escape sequences.
-			switch (ch)
-			{
-				case '\\': builder.Append(value: "\\\\"); break;
-				case '{': builder.Append(value: "\\{"); break;
-				case '}': builder.Append(value: "\\}"); break;
-				case '\n': builder.Append(value: "\\par "); break;
-				default:
-					if (ch > 127)
-					{
-						builder.Append(value: $"\\u{(int)ch}?");
-					}
-					else
-					{
-						builder.Append(value: ch);
-					}
-					break;
-			}
-		}
-		// Return the fully escaped string.
-		return builder.ToString();
-	}
+	private static string EscapeRtf(string? input) => ExportEscapeHelper.EscapeRtf(input);
 
 	/// <summary>Escapes a CSV field by doubling internal quotes and wrapping in double quotes.</summary>
 	/// <param name="field">The raw field value.</param>
 	/// <returns>The escaped CSV field suitable for CSV output.</returns>
 	/// <remarks>In CSV, fields that contain commas, quotes, or newlines must be enclosed in double quotes, and internal double quotes are escaped by doubling them. This method first checks if the input field is null and treats it as an empty string; then it replaces any internal double quotes with two double quotes to escape them, and finally wraps the entire field in double quotes to ensure it is treated as a single field in the CSV output.</remarks>
-	private static string EscapeCsvField(string? field)
-	{
-		// In CSV, fields that contain commas, quotes, or newlines must be enclosed in double quotes, and internal double quotes are escaped by doubling them.
-		string safeField = field ?? string.Empty;
-		// First, double any internal double quotes to escape them.
-		safeField = safeField.Replace(oldValue: "\"", newValue: "\"\"");
-		return $"\"{safeField}\"";
-	}
+	private static string EscapeCsvField(string? field) => ExportEscapeHelper.EscapeCsvField(field);
 
 	/// <summary>Escapes a TOML string value.</summary>
 	/// <param name="value">The raw value.</param>
 	/// <returns>The escaped TOML string value suitable for TOML output.</returns>
 	/// <remarks>In TOML, basic string values are enclosed in double quotes, and backslashes and double quotes within the string must be escaped with a backslash. This method checks if the input value is null or empty and returns an empty string in that case; otherwise, it replaces backslashes with double backslashes and double quotes with escaped double quotes to ensure that the resulting string can be safely included as a basic string value in a TOML document.</remarks>
-	private static string EscapeToml(string? value)
-	{
-		// In TOML, basic string values are enclosed in double quotes, and backslashes and double quotes within the string must be escaped with a backslash.
-		return string.IsNullOrEmpty(value: value)
-			? string.Empty
-			: value.Replace(oldValue: "\\", newValue: "\\\\")
-				   .Replace(oldValue: "\"", newValue: "\\\"");
-	}
+	private static string EscapeToml(string? value) => ExportEscapeHelper.EscapeToml(value);
 
 	/// <summary>Shows a success message after a file has been saved.</summary>
 	/// <remarks>Logs the successful save operation at the Info level and displays a message box to the user.</remarks>
@@ -320,7 +197,7 @@ public static partial class ListViewExporter
 		{
 			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
-			// Construct the column specification string for the LaTeX tabular environment, using 'l' (left-aligned) for each column and separating with '|'.
+			// Construct the column specification string for the LaTeX tabular environment, using 'l' (left-aligned) for each column and separating with '|' .
 			string colSpec = string.Join(separator: "|", values: Enumerable.Repeat(element: "l", count: headers.Length));
 			// Use a StreamWriter to write the output file with UTF-8 encoding. The 'append: false' parameter ensures that the file is overwritten if it already exists.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
@@ -551,7 +428,7 @@ public static partial class ListViewExporter
 			// Use a FileStream to create the output file, and a ZipArchive to write the DOCX structure. The DOCX format requires specific entries such as [Content_Types].xml, _rels/.rels, and word/document.xml with the appropriate content types and relationships.
 			using FileStream fs = new(path: fileName, mode: FileMode.Create);
 			using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
-			// The [Content_Types].xml entry defines the content types for the parts in the package, including the main document part (word/document.xml) and the relationships part (_rels/.rels).
+			// The [Content_Types].xml entry defines the content types for the parts in the package, including the main document part (word/document.xml), the relationships part (_rels/.rels), and the template part if applicable.
 			ZipArchiveEntry contentTypesEntry = archive.CreateEntry(entryName: "[Content_Types].xml", compressionLevel: CompressionLevel.Optimal);
 			using (StreamWriter writer = new(stream: contentTypesEntry.Open(), encoding: Encoding.UTF8))
 			{
@@ -627,7 +504,7 @@ public static partial class ListViewExporter
 		{
 			//	Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
-			// Use a FileStream to create the output file, and a ZipArchive to write the ODT structure. The ODT format requires specific entries such as mimetype, META-INF/manifest.xml, and content.xml with the appropriate content types and structure.
+			// Use a FileStream to create the output file, and a ZipArchive to write the ODT structure. The ODT format requires specific entries such as mimetype, META-INF/manifest.xml, and content.xml with the appropriate content types and structure. The document contains a table with the ListView data, and the table is named using the provided title.
 			using FileStream fs = new(path: fileName, mode: FileMode.Create);
 			using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
 			// The mimetype entry must be the first entry in the ZIP archive and must be stored without compression. It specifies the MIME type of the document, which is "application/vnd.oasis.opendocument.text" for ODT files.
@@ -774,7 +651,7 @@ public static partial class ListViewExporter
 			rowIdx++;
 			foreach (string[] dataRow in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
-				// Write each data row in the ABW table. Each cell's content is encoded to ensure that special characters do not break the XML structure. The cell elements include attributes to specify their position in the table based on the column index and row index.
+				// Write each data row in the ABW table. Each cell's content is encoded to ensure that special characters are properly represented. The cell elements include attributes to specify their position in the table based on the column index and row index.
 				for (int c = 0; c < headers.Length; c++)
 				{
 					string cell = c < dataRow.Length ? dataRow[c] : string.Empty;
@@ -828,7 +705,7 @@ public static partial class ListViewExporter
 			writer.WriteLine(value: "</tr>");
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
-				// Write each data row in the HTML table. Each cell's content is encoded to ensure that special characters do not break the HTML structure. The table is styled with borders and padding for better readability when opened in WPS Writer.
+				// Write each data row in the HTML table. Each cell's content is encoded to ensure that special characters are properly handled. If a row has fewer cells than headers, the missing cells are treated as empty strings.
 				writer.Write(value: "<tr>");
 				for (int c = 0; c < headers.Length; c++)
 				{
@@ -949,12 +826,12 @@ public static partial class ListViewExporter
 	/// <remarks>The file is a proper compressed ODS (ZIP) archive, not a flat XML file.</remarks>
 	public static void SaveAsOds(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
-		// Get the column headers and rows, and write the output file as a proper compressed ODS (ZIP) archive with the necessary structure and content types. The ODS format requires specific entries such as mimetype, META-INF/manifest.xml, and content.xml with the appropriate content types and structure. The spreadsheet contains a table with the ListView data, and the table is named using the provided title.
+		// Get the column headers and rows, and write the output file as a proper compressed ODS (ZIP) archive with the necessary structure and content types. The ODS format requires specific entries such as mimetype, META-INF/manifest.xml, and content.xml with the appropriate content types and structure. The document contains a table with the ListView data, and the table is named using the provided title.
 		try
 		{
 			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
-			// Use a FileStream to create the output file, and a ZipArchive to write the ODS structure. The ODS format requires specific entries such as mimetype, META-INF/manifest.xml, and content.xml with the appropriate content types and structure. The spreadsheet contains a table with the ListView data, and the table is named using the provided title.
+			// Use a FileStream to create the output file, and a ZipArchive to write the ODS structure. The ODS format requires specific entries such as mimetype, META-INF/manifest.xml, and content.xml with the appropriate content types and structure. The document contains a table with the ListView data, and the table is named using the provided title.
 			using FileStream fs = new(path: fileName, mode: FileMode.Create);
 			using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
 			// The mimetype entry must be the first entry in the ZIP archive and must be stored without compression. It specifies the MIME type of the document, which is "application/vnd.oasis.opendocument.spreadsheet" for ODS files.
@@ -983,13 +860,13 @@ public static partial class ListViewExporter
 				writer.WriteLine(value: "  <office:body><office:spreadsheet>");
 				string safeName = System.Security.SecurityElement.Escape(str: title) ?? "Data";
 				writer.WriteLine(value: $"    <table:table table:name=\"{safeName}\"><table:table-column table:number-columns-repeated=\"{headers.Length}\"/>");
-				writer.Write(value: "    <table:table-row>");
+				writer.Write(value: "    <table:table-header-rows><table:table-row>");
 				foreach (string h in headers)
 				{
 					string safe = System.Security.SecurityElement.Escape(str: h) ?? string.Empty;
 					writer.Write(value: $"<table:table-cell office:value-type=\"string\"><text:p>{safe}</text:p></table:table-cell>");
 				}
-				writer.WriteLine(value: "</table:table-row>");
+				writer.WriteLine(value: "</table:table-row></table:table-header-rows>");
 				foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 				{
 					writer.Write(value: "    <table:table-row>");
@@ -1023,7 +900,7 @@ public static partial class ListViewExporter
 	/// <remarks>Fields containing special characters (commas, quotes, newlines) are properly escaped according to CSV standards.</remarks>
 	public static void SaveAsCsv(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
-		// Get the column headers and rows, and write the output file in CSV format with UTF-8 encoding. The first line contains the column headers, and each subsequent line contains a data row. Fields that contain special characters such as commas, quotes, or newlines are escaped by enclosing them in double quotes and doubling any internal double quotes to ensure the CSV file is well-formed and can be opened in spreadsheet applications without issues.
+		// Get the column headers and rows, and write the output file in CSV format with UTF-8 encoding. The first line contains the column headers, and each subsequent line contains a data row. Fields that contain special characters are escaped by enclosing them in double quotes and doubling any internal double quotes to ensure the CSV file is well-formed and can be opened in spreadsheet applications without issues.
 		try
 		{
 			// Get the column headers from the ListView.
@@ -1155,19 +1032,18 @@ public static partial class ListViewExporter
 	/// <remarks>The HTML document contains a heading for the title and a table for the ListView data. Special characters in the title and cell data are encoded using HTML entities to ensure a well-formed HTML document that can be opened in web browsers.</remarks>
 	public static void SaveAsHtml(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
-		// Get the column headers and rows, and write the output file in HTML format with UTF-8 encoding. The HTML document includes a DOCTYPE declaration, head with meta charset and title, and a body containing an H1 heading for the title and a table for the ListView data. Special characters in the title and cell data are encoded using System.Net.WebUtility.HtmlEncode to ensure that the HTML document is well-formed and can be opened in web browsers without issues.
+		// Get the column headers and rows, and write the output file in HTML format with UTF-8 encoding. The HTML document includes a DOCTYPE declaration, head with meta charset and title, and a body containing an H1 heading for the title and a table for the ListView data. Special characters are encoded using System.Net.WebUtility.HtmlEncode to ensure the HTML document is well-formed.
 		try
 		{
 			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
-			// Use a StreamWriter to write the output file in HTML format with UTF-8 encoding. The HTML document includes a DOCTYPE declaration, head with meta charset and title, and a body containing an H1 heading for the title and a table for the ListView data. Special characters in the title and cell data are encoded using System.Net.WebUtility.HtmlEncode to ensure that the HTML document is well-formed and can be opened in web browsers without issues.
+			// Use a StreamWriter to write the output file in HTML format with UTF-8 encoding. The 'append: false' parameter ensures that the file is overwritten if it already exists. The HTML structure includes a DOCTYPE declaration, head with meta charset and title, and a body containing an H1 heading for the title and a table for the ListView data. Special characters are encoded using System.Net.WebUtility.HtmlEncode to ensure the HTML document is well-formed.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
-			string safeTitle = System.Net.WebUtility.HtmlEncode(value: title) ?? string.Empty;
 			writer.WriteLine(value: "<!DOCTYPE html>");
-			writer.WriteLine(value: $"<html lang=\"en\"><head><meta charset=\"utf-8\"><title>{safeTitle}</title>");
-			writer.WriteLine(value: "<style>body{{font-family:sans-serif}}table{{border-collapse:collapse;width:100%}}th,td{{border:1px solid #ccc;padding:6px;text-align:left}}th{{background:#f2f2f2}}</style>");
+			writer.WriteLine(value: "<html><head><meta charset=\"utf-8\"><title>" + System.Net.WebUtility.HtmlEncode(value: title) + "</title>");
+			writer.WriteLine(value: "<style>table{{border-collapse:collapse;width:100%}}th,td{{border:1px solid #000;padding:5px;text-align:left}}th{{background-color:#f2f2f2}}</style>");
 			writer.WriteLine(value: "</head><body>");
-			writer.WriteLine(value: $"<h1>{safeTitle}</h1>");
+			writer.WriteLine(value: $"<h1>{System.Net.WebUtility.HtmlEncode(value: title)}</h1>");
 			writer.Write(value: "<table><thead><tr>");
 			foreach (string h in headers)
 			{
@@ -1177,7 +1053,7 @@ public static partial class ListViewExporter
 			writer.WriteLine(value: "</tr></thead><tbody>");
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
-				// Write each data row in the HTML table. Each cell is encoded to ensure that special characters do not break the HTML structure. The table uses standard HTML tags to create a well-formed document that can be opened in web browsers.
+				// Write each data row in the HTML table. Each cell's content is encoded to ensure that special characters are properly handled. If a row has fewer cells than headers, the missing cells are treated as empty strings.
 				writer.Write(value: "<tr>");
 				for (int c = 0; c < headers.Length; c++)
 				{
@@ -1205,12 +1081,12 @@ public static partial class ListViewExporter
 	/// <remarks>This method creates an XML document with a root element named "data" and a "title" attribute. Each row in the ListView is represented as a "row" element, and each cell is represented as a child element with a name derived from the column header.</remarks>
 	public static void SaveAsXml(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
-		// Get the column headers and rows, and write the output file in XML format with UTF-8 encoding. The XML document has a root element named "data" with a "title" attribute. Each row in the ListView is represented as a "row" element, and each cell is represented as a child element with a name derived from the column header. Special characters in the headers and cell data are encoded to ensure that the XML document is well-formed and can be opened in XML viewers without issues.
+		// Get the column headers and rows, and write the output file in XML format with UTF-8 encoding. The XML document has a root element named "data" with a "title" attribute. Each row in the ListView is represented as a "row" element, and each cell is represented as a child element with a name derived from the column header. Special characters in the headers and cell data are properly escaped to ensure that the XML document is well-formed and can be parsed by XML parsers without issues.
 		try
 		{
 			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
-			// Use an XmlWriter to write the output file in XML format with UTF-8 encoding. The XML document has a root element named "data" with a "title" attribute. Each row in the ListView is represented as a "row" element, and each cell is represented as a child element with a name derived from the column header. Special characters in the headers and cell data are encoded to ensure that the XML document is well-formed.
+			// Use an XmlWriter to write the output file in XML format with UTF-8 encoding. The XML document has a root element named "data" with a "title" attribute. Each row in the ListView is represented as a "row" element, and each cell is represented as a child element with a name derived from the column header. Special characters in the headers and cell data are properly escaped to ensure that the XML document is well-formed.
 			XmlWriterSettings settings = new() { Indent = true };
 			using XmlWriter xmlWriter = XmlWriter.Create(outputFileName: fileName, settings: settings);
 			xmlWriter.WriteStartDocument();
@@ -1263,21 +1139,21 @@ public static partial class ListViewExporter
 			xmlWriter.WriteStartElement(localName: "article", ns: "http://docbook.org/ns/docbook");
 			xmlWriter.WriteAttributeString(localName: "version", value: "5.0");
 			xmlWriter.WriteElementString(localName: "title", value: title);
-			xmlWriter.WriteStartElement(localName: "section");
-			xmlWriter.WriteStartElement(localName: "table");
+			xmlWriter.WriteStartElement(localName: "section", ns: "http://docbook.org/ns/docbook");
+			xmlWriter.WriteStartElement(localName: "table", ns: "http://docbook.org/ns/docbook");
 			xmlWriter.WriteAttributeString(localName: "frame", value: "all");
 			xmlWriter.WriteElementString(localName: "title", value: title);
-			xmlWriter.WriteStartElement(localName: "tgroup");
+			xmlWriter.WriteStartElement(localName: "tgroup", ns: "http://docbook.org/ns/docbook");
 			xmlWriter.WriteAttributeString(localName: "cols", value: headers.Length.ToString(provider: System.Globalization.CultureInfo.InvariantCulture));
 			for (int c = 0; c < headers.Length; c++)
 			{
 				// Write the column specifications for the DocBook table. Each column is defined with a "colspec" element, and the "colname" attribute is set to a unique name based on the column index (e.g., "c1", "c2", etc.). This defines the structure of the table and allows for proper formatting when processed by DocBook tools.
-				xmlWriter.WriteStartElement(localName: "colspec");
+				xmlWriter.WriteStartElement(localName: "colspec", ns: "http://docbook.org/ns/docbook");
 				xmlWriter.WriteAttributeString(localName: "colname", value: $"c{c + 1}");
 				xmlWriter.WriteEndElement();
 			}
-			xmlWriter.WriteStartElement(localName: "thead");
-			xmlWriter.WriteStartElement(localName: "row");
+			xmlWriter.WriteStartElement(localName: "thead", ns: "http://docbook.org/ns/docbook");
+			xmlWriter.WriteStartElement(localName: "row", ns: "http://docbook.org/ns/docbook");
 			foreach (string h in headers)
 			{
 				// Write each column header in the DocBook table. Each header is encoded to ensure that special characters do not break the XML structure. The headers are placed in the "thead" section of the table to indicate that they are column headers.
@@ -1285,11 +1161,11 @@ public static partial class ListViewExporter
 			}
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteEndElement();
-			xmlWriter.WriteStartElement(localName: "tbody");
+			xmlWriter.WriteStartElement(localName: "tbody", ns: "http://docbook.org/ns/docbook");
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				// Write each data row in the DocBook table. Each cell is encoded to ensure that special characters do not break the XML structure. The rows are placed in the "tbody" section of the table to indicate that they are data rows.
-				xmlWriter.WriteStartElement(localName: "row");
+				xmlWriter.WriteStartElement(localName: "row", ns: "http://docbook.org/ns/docbook");
 				for (int c = 0; c < headers.Length; c++)
 				{
 					string cell = c < row.Length ? row[c] : string.Empty;
@@ -1372,15 +1248,14 @@ public static partial class ListViewExporter
 			writer.WriteLine(value: "rows:");
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
-				// Write each data row in the YAML document. Each cell is processed to escape double quotes by replacing them with escaped double quotes. The rows are represented as a list of objects under the "rows" key, with each object containing properties corresponding to the column headers.
-				writer.WriteLine(value: "  - item:");
+				// Write each data row in the YAML document. Each cell is processed to escape double quotes by replacing them with escaped double quotes. The rows are represented as an array of tables, with each table containing key-value pairs corresponding to the column headers and cell values.
+				writer.WriteLine(value: "[[rows]]");
 				for (int c = 0; c < headers.Length; c++)
 				{
 					string cell = c < row.Length ? row[c] : string.Empty;
-					string safeCell = cell.Replace(oldValue: "\"", newValue: "\\\"");
-					string safeKey = headers[c].Replace(oldValue: "\"", newValue: "\\\"");
-					writer.WriteLine(value: $"      {safeKey}: \"{safeCell}\"");
+					writer.WriteLine(value: $"{EscapeToml(value: headers[c])} = \"{EscapeToml(value: cell)}\"");
 				}
+				writer.WriteLine();
 			}
 			// Show a success message after the file has been saved.
 			ShowSuccess();
@@ -1433,7 +1308,7 @@ public static partial class ListViewExporter
 
 	/// <summary>Saves the contents of <paramref name="listView"/> as a SQL INSERT script.</summary>
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
-	/// <param name="title">Used as the SQL table name in the CREATE TABLE and INSERT statements.</param>
+	/// <param name="title">Used as the table name inside the SQLite database.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
 	/// <remarks>This method creates a SQL script that includes a CREATE TABLE statement to define the table structure based on the column headers, followed by INSERT INTO statements for each row of data. The table name is derived from the title parameter, with non-alphanumeric characters replaced by underscores. Special characters in the data are escaped to ensure that the SQL script is well-formed and can be executed against a SQL database without issues.</remarks>
@@ -1463,7 +1338,7 @@ public static partial class ListViewExporter
 			string colList = string.Join(separator: ", ", values: headers.Select(selector: h => $"[{h}]"));
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
-				// Write an INSERT INTO statement for each row of data. Each cell value is escaped by replacing single quotes with two single quotes to ensure that the SQL script is well-formed. The values are enclosed in single quotes to be treated as string literals in the SQL script.
+				// Write an INSERT INTO statement for each row of data. Each parameter is named "@p{index}" and is of type TEXT. This allows the method to safely insert data containing special characters without risking SQL injection or syntax errors in the resulting SQL script.
 				string values = string.Join(separator: ", ", values: Enumerable.Range(start: 0, count: headers.Length).Select(selector: c =>
 				{
 					string cell = c < row.Length ? row[c] : string.Empty;
@@ -1522,7 +1397,7 @@ public static partial class ListViewExporter
 			SQLiteParameter[] parameters = new SQLiteParameter[headers.Length];
 			for (int c = 0; c < headers.Length; c++)
 			{
-				// Create parameters for the INSERT command. Each parameter is named "@p{index}" and is of type TEXT. This allows the method to safely insert data containing special characters without risking SQL injection or syntax errors in the resulting SQLite database.
+				// Create parameters for the INSERT command. Each parameter is named "@p{c}" and is of type TEXT. This allows the method to safely insert data containing special characters without risking SQL injection or syntax errors in the resulting SQLite database.
 				parameters[c] = insertCmd.Parameters.Add(parameterName: $"@p{c}", parameterType: System.Data.DbType.String);
 			}
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
@@ -1561,21 +1436,21 @@ public static partial class ListViewExporter
 			string[] headers = GetHeaders(listView: listView);
 			// Use a FileStream and StreamWriter to write the output file in PDF format. The PDF document is constructed manually by writing the necessary PDF syntax to define the document structure, pages, and content. The method handles pagination by starting a new page when the content exceeds the page height. The title is written as a heading on each page, and the column headers are repeated on each new page for clarity.
 			using FileStream fs = new(path: fileName, mode: FileMode.Create);
-			using StreamWriter w = new(stream: fs, encoding: Encoding.ASCII);
+			using StreamWriter writer = new(stream: fs, encoding: Encoding.ASCII);
 			List<long> objectOffsets = [];
 			int StartNewObject()
 			{
-				w.Flush();
+				writer.Flush();
 				objectOffsets.Add(item: fs.Position);
 				int id = objectOffsets.Count;
-				w.WriteLine(value: $"{id} 0 obj");
+				writer.WriteLine(value: $"{id} 0 obj");
 				return id;
 			}
-			w.WriteLine(value: "%PDF-1.4");
-			w.WriteLine(value: "%\xb5\xb5\xb5\xb5");
+
 			const int pageHeight = 842;
-			const int startY = 750;
-			const int marginY = 50;
+			const int marginTop = 50;
+			const int marginBottom = 50;
+			const int startY = pageHeight - marginTop;
 			const int lineHeight = 14;
 			int usableWidth = 495;
 			int colWidth = headers.Length > 0 ? usableWidth / headers.Length : usableWidth;
@@ -1588,31 +1463,31 @@ public static partial class ListViewExporter
 			int currentY = startY;
 			int currentContentObjId = StartNewObject();
 			pageContentObjIds.Add(item: currentContentObjId);
-			w.WriteLine(value: "<< >> stream");
-			w.WriteLine(value: "BT /F1 10 Tf");
-			w.WriteLine(value: $"1 0 0 1 50 {pageHeight - 40} Tm ({EscapePdf(text: title)}) Tj");
+			writer.WriteLine(value: "<< >> stream");
+			writer.WriteLine(value: "BT /F1 10 Tf");
+			writer.WriteLine(value: $"1 0 0 1 50 {pageHeight - 40} Tm ({EscapePdf(text: title)}) Tj");
 			for (int c = 0; c < headers.Length; c++)
 			{
 				// Write the column headers on the PDF page. Each header is positioned based on the calculated column X coordinates and a fixed Y coordinate near the top of the page. The headers are repeated on each new page to maintain context for the data rows.
-				w.WriteLine(value: $"1 0 0 1 {colX[c]} {pageHeight - 60} Tm ({EscapePdf(text: headers[c])}) Tj");
+				writer.WriteLine(value: $"1 0 0 1 {colX[c]} {pageHeight - 60} Tm ({EscapePdf(text: headers[c])}) Tj");
 			}
 			currentY = startY - 30;
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				// Write each data row on the PDF page. Each cell is positioned based on the calculated column X coordinates and the current Y coordinate, which is decremented by a fixed line height for each row. If the current Y coordinate goes below the margin, a new page is started by writing the necessary PDF syntax to end the current content stream and start a new one, along with the title and column headers for the new page.
-				if (currentY < marginY)
+				if (currentY < marginBottom)
 				{
-					w.WriteLine(value: "ET");
-					w.WriteLine(value: "endstream");
-					w.WriteLine(value: "endobj");
+					writer.WriteLine(value: "ET");
+					writer.WriteLine(value: "endstream");
+					writer.WriteLine(value: "endobj");
 					currentContentObjId = StartNewObject();
 					pageContentObjIds.Add(item: currentContentObjId);
-					w.WriteLine(value: "<< >> stream");
-					w.WriteLine(value: "BT /F1 10 Tf");
-					w.WriteLine(value: $"1 0 0 1 50 {pageHeight - 40} Tm ({EscapePdf(text: title)} - Cont.) Tj");
+					writer.WriteLine(value: "<< >> stream");
+					writer.WriteLine(value: "BT /F1 10 Tf");
+					writer.WriteLine(value: $"1 0 0 1 50 {pageHeight - 40} Tm ({EscapePdf(text: title)} - Cont.) Tj");
 					for (int c = 0; c < headers.Length; c++)
 					{
-						w.WriteLine(value: $"1 0 0 1 {colX[c]} {pageHeight - 60} Tm ({EscapePdf(text: headers[c])}) Tj");
+						writer.WriteLine(value: $"1 0 0 1 {colX[c]} {pageHeight - 60} Tm ({EscapePdf(text: headers[c])}) Tj");
 					}
 					currentY = startY - 30;
 				}
@@ -1620,13 +1495,13 @@ public static partial class ListViewExporter
 				{
 					// Write each cell in the current row. If a row has fewer cells than headers, the missing cells are treated as empty strings.
 					string cell = c < row.Length ? row[c] : string.Empty;
-					w.WriteLine(value: $"1 0 0 1 {colX[c]} {currentY} Tm ({EscapePdf(text: cell)}) Tj");
+					writer.WriteLine(value: $"1 0 0 1 {colX[c]} {currentY} Tm ({EscapePdf(text: cell)}) Tj");
 				}
 				currentY -= lineHeight;
 			}
-			w.WriteLine(value: "ET");
-			w.WriteLine(value: "endstream");
-			w.WriteLine(value: "endobj");
+			writer.WriteLine(value: "ET");
+			writer.WriteLine(value: "endstream");
+			writer.WriteLine(value: "endobj");
 			List<int> pageObjIds = [];
 			foreach (int contentId in pageContentObjIds)
 			{
@@ -1634,59 +1509,65 @@ public static partial class ListViewExporter
 				int pageId = StartNewObject();
 				pageObjIds.Add(item: pageId);
 				int predictedParentId = objectOffsets.Count + (pageContentObjIds.Count - pageObjIds.Count) + 2;
-				w.WriteLine(value: "<<");
-				w.WriteLine(value: "/Type /Page");
-				w.WriteLine(value: $"/Parent {predictedParentId} 0 R");
-				w.WriteLine(value: "/MediaBox [0 0 595 842]");
-				w.WriteLine(value: $"/Contents {contentId} 0 R");
-				w.WriteLine(value: $"/Resources << /Font << /F1 {predictedParentId + 1} 0 R >> >>");
-				w.WriteLine(value: ">>");
-				w.WriteLine(value: "endobj");
+				writer.WriteLine(value: "<<");
+				writer.WriteLine(value: "/Type /Page");
+				writer.WriteLine(value: $"/Parent {predictedParentId} 0 R");
+				writer.WriteLine(value: "/MediaBox [0 0 595 842]");
+				writer.WriteLine(value: $"/Contents {contentId} 0 R");
+				writer.WriteLine(value: $"/Resources << /Font << /F1 {predictedParentId + 1} 0 R >> >>");
+				writer.WriteLine(value: ">>");
+				writer.WriteLine(value: "endobj");
 			}
 			int pagesRootId = StartNewObject();
-			w.WriteLine(value: "<<");
-			w.WriteLine(value: "/Type /Pages");
-			w.Write(value: "/Kids [");
+			writer.WriteLine(value: "<<");
+			writer.WriteLine(value: "/Type /Pages");
+			writer.Write(value: "/Kids [");
 			foreach (int pid in pageObjIds)
 			{
-				// Write the Kids array for the pages root object, referencing each page object created earlier. The Kids array contains indirect references to the page objects, which allows the PDF viewer to locate and render each page correctly.
-				w.Write(value: $"{pid} 0 R ");
+				// Write the Kids array for the pages root obje				writer.Write(value: $"{pid} 0 R ");
 			}
-			w.WriteLine(value: "]");
-			w.WriteLine(value: $"/Count {pageObjIds.Count}");
-			w.WriteLine(value: ">>");
-			w.WriteLine(value: "endobj");
+			writer.WriteLine(value: "]");
+			writer.WriteLine(value: $"/Count {pageObjIds.Count}");
+			writer.WriteLine(value: ">>");
+			writer.WriteLine(value: "endobj");
 			int fontId = StartNewObject();
-			w.WriteLine(value: "<<");
-			w.WriteLine(value: "/Type /Font");
-			w.WriteLine(value: "/Subtype /Type1");
-			w.WriteLine(value: "/BaseFont /Helvetica");
-			w.WriteLine(value: ">>");
-			w.WriteLine(value: "endobj");
+			writer.WriteLine(value: "<<");
+			writer.WriteLine(value: "/Type /Font");
+			writer.WriteLine(value: "/Subtype /Type1");
+			writer.WriteLine(value: "/BaseFont /Helvetica");
+			writer.WriteLine(value: ">>");
+			writer.WriteLine(value: "endobj");
 			int catalogId = StartNewObject();
-			w.WriteLine(value: "<<");
-			w.WriteLine(value: "/Type /Catalog");
-			w.WriteLine(value: $"/Pages {pagesRootId} 0 R");
-			w.WriteLine(value: ">>");
-			w.WriteLine(value: "endobj");
-			w.Flush();
+			writer.WriteLine(value: "<<");
+			writer.WriteLine(value: "/Type /Catalog");
+			writer.WriteLine(value: $"/Pages {pagesRootId} 0 R");
+			writer.WriteLine(value: ">>");
+			writer.WriteLine(value: "endobj");
+			writer.Flush();
 			long xrefOffset = fs.Position;
-			w.WriteLine(value: "xref");
-			w.WriteLine(value: $"0 {objectOffsets.Count + 1}");
-			w.WriteLine(value: "0000000000 65535 f ");
+			writer.WriteLine(value: "xref");
+			writer.WriteLine(value: $"0 {objectOffsets.Count + 1}");
+			writer.WriteLine(value: "0000000000 65535 f ");
+			writer.WriteLine(value: ">>");
+			writer.WriteLine(value: "endobj");
+			writer.Flush();
+			xrefOffset = fs.Position;
+			writer.WriteLine(value: "xref");
+			writer.WriteLine(value: $"0 {objectOffsets.Count + 1}");
+			writer.WriteLine(value: "0000000000 65535 f ");
 			foreach (long offset in objectOffsets)
 			{
 				// Write the byte offset for each object in the xref table. Each offset is formatted as a 10-digit number with leading zeros, followed by "00000 n" to indicate that the object is in use and has a generation number of 0.
-				w.WriteLine(value: $"{offset:D10} 00000 n ");
+				writer.WriteLine(value: $"{offset:D10} 00000 n ");
 			}
-			w.WriteLine(value: "trailer");
-			w.WriteLine(value: "<<");
-			w.WriteLine(value: $"/Size {objectOffsets.Count + 1}");
-			w.WriteLine(value: $"/Root {catalogId} 0 R");
-			w.WriteLine(value: ">>");
-			w.WriteLine(value: "startxref");
-			w.WriteLine(value: xrefOffset);
-			w.WriteLine(value: "%%EOF");
+			writer.WriteLine(value: "trailer");
+			writer.WriteLine(value: "<<");
+			writer.WriteLine(value: $"/Size {objectOffsets.Count + 1}");
+			writer.WriteLine(value: $"/Root {catalogId} 0 R");
+			writer.WriteLine(value: ">>");
+			writer.WriteLine(value: "startxref");
+			writer.WriteLine(value: xrefOffset);
+			writer.WriteLine(value: "%%EOF");
 			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
@@ -1705,67 +1586,138 @@ public static partial class ListViewExporter
 	/// <remarks>The PostScript file will include page headers, column headers, and data rows. If the content exceeds one page, additional pages will be created automatically.</remarks>
 	public static void SaveAsPostScript(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
-		// Get the column headers and rows, and write the output file in PostScript format. The method generates a PostScript document with page headers containing the title and page number, column headers repeated on each page, and data rows formatted in a simple table layout. Pagination is handled by starting a new page when the content exceeds the defined page height, ensuring that the output is properly formatted for printing or viewing in a PostScript viewer.
+		// Get the column headers and rows, and write the output file in PostScript format. The method generates a PostScript document with page headers containing the title and page number, column headers repeated on each page, and data rows formatted in a simple table layout. Pagination is handled by starting a new page when the content exceeds the page height, ensuring that the output is properly formatted for printing or viewing in a PostScript viewer.
 		try
 		{
 			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
-			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.ASCII);
+			// Add missing declarations
+			List<long> objectOffsets = [];
+			using FileStream fs = new(path: fileName, mode: FileMode.Create);
+			using StreamWriter writer = new(stream: fs, encoding: Encoding.ASCII);
+			// Define the local function that was missing
+			int StartNewObject()
+			{
+				writer.Flush();
+				objectOffsets.Add(item: fs.Position);
+				int id = objectOffsets.Count;
+				writer.WriteLine(value: $"{id} 0 obj");
+				return id;
+			}
 			const int pageHeight = 842;
 			const int marginTop = 50;
 			const int marginBottom = 50;
 			const int startY = pageHeight - marginTop;
 			const int lineHeight = 14;
-			int currentY = startY;
-			int pageNumber = 1;
-			int usableWidth = 500;
+			int usableWidth = 495;
 			int colWidth = headers.Length > 0 ? usableWidth / headers.Length : usableWidth;
 			int[] colX = new int[headers.Length];
 			for (int c = 0; c < headers.Length; c++)
 			{
 				colX[c] = 50 + (c * colWidth);
 			}
-			// Local function to write the page header, including the title and column headers. This function is called at the beginning of each new page to ensure that the page header is consistent across all pages. The title is displayed prominently at the top of the page, followed by the column headers positioned below it.
-			void WritePageHeader(int pg)
+			List<int> pageContentObjIds = [];
+			int currentY = startY;
+			int currentContentObjId = StartNewObject();
+			pageContentObjIds.Add(item: currentContentObjId);
+			writer.WriteLine(value: "<< >> stream");
+			writer.WriteLine(value: "BT /F1 10 Tf");
+			writer.WriteLine(value: $"1 0 0 1 50 {pageHeight - 40} Tm ({EscapePostScript(input: title)}) Tj");
+			for (int c = 0; c < headers.Length; c++)
 			{
-				writer.WriteLine(value: $"%%Page: {pg} {pg}");
-				writer.WriteLine(value: "/Helvetica-Bold findfont 12 scalefont setfont");
-				writer.WriteLine(value: $"50 {pageHeight - 30} moveto ({EscapePostScript(input: title)} - Page {pg}) show");
-				writer.WriteLine(value: "/Helvetica findfont 10 scalefont setfont");
-				for (int c = 0; c < headers.Length; c++)
-				{
-					// Write the column headers on the PostScript page. Each header is positioned based on the calculated column X coordinates and a fixed Y coordinate near the top of the page. The headers are repeated on each new page to maintain context for the data rows.
-					writer.WriteLine(value: $"{colX[c]} {pageHeight - 50} moveto ({EscapePostScript(input: headers[c])}) show");
-				}
+				// Write the column headers on the PostScript page. Each header is positioned based on the calculated column X coordinates and a fixed Y coordinate near the top of the page. The headers are repeated on each new page to maintain context for the data rows.
+				writer.WriteLine(value: $"1 0 0 1 {colX[c]} {pageHeight - 60} Tm ({EscapePostScript(input: headers[c])}) Tj");
 			}
-			writer.WriteLine(value: "%!PS-Adobe-3.0");
-			writer.WriteLine(value: $"%%Title: {EscapePostScript(input: title)}");
-			writer.WriteLine(value: "%%Creator: Planetoid-DB");
-			writer.WriteLine(value: "%%Pages: (atend)");
-			writer.WriteLine(value: "%%EndComments");
-			WritePageHeader(pg: pageNumber);
 			currentY = startY - 30;
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
-				// Write each data row on the PostScript page. Each cell is positioned based on the calculated column X coordinates and the current Y coordinate, which is decremented by a fixed line height for each row. If the current Y coordinate goes below the margin, a new page is started by writing the necessary PostScript syntax to end the current page and start a new one, along with the title and column headers for the new page.
+				// Write each data row on the PostScript page. Each cell is positioned based on the calculated column X coordinates and the current Y coordinate, which is decremented by a fixed line height for each row. If the current Y coordinate goes below the margin, a new page is started by writing the necessary PostScript syntax to end the current content stream and start a new one, along with the title and column headers for the new page.
 				if (currentY < marginBottom)
 				{
-					writer.WriteLine(value: "showpage");
-					pageNumber++;
-					WritePageHeader(pg: pageNumber);
+					writer.WriteLine(value: "ET");
+					writer.WriteLine(value: "endstream");
+					writer.WriteLine(value: "endobj");
+					currentContentObjId = StartNewObject();
+					pageContentObjIds.Add(item: currentContentObjId);
+					writer.WriteLine(value: "<< >> stream");
+					writer.WriteLine(value: "BT /F1 10 Tf");
+					writer.WriteLine(value: $"1 0 0 1 50 {pageHeight - 40} Tm ({EscapePostScript(input: title)} - Cont.) Tj");
+					for (int c = 0; c < headers.Length; c++)
+					{
+						writer.WriteLine(value: $"1 0 0 1 {colX[c]} {pageHeight - 60} Tm ({EscapePostScript(input: headers[c])}) Tj");
+					}
 					currentY = startY - 30;
 				}
 				for (int c = 0; c < headers.Length; c++)
 				{
 					// Write each cell in the current row. If a row has fewer cells than headers, the missing cells are treated as empty strings.
 					string cell = c < row.Length ? row[c] : string.Empty;
-					writer.WriteLine(value: $"{colX[c]} {currentY} moveto ({EscapePostScript(input: cell)}) show");
+					writer.WriteLine(value: $"1 0 0 1 {colX[c]} {currentY} Tm ({EscapePostScript(input: cell)}) Tj");
 				}
 				currentY -= lineHeight;
 			}
-			writer.WriteLine(value: "showpage");
-			writer.WriteLine(value: "%%Trailer");
-			writer.WriteLine(value: $"%%Pages: {pageNumber}");
+			writer.WriteLine(value: "ET");
+			writer.WriteLine(value: "endstream");
+			writer.WriteLine(value: "endobj");
+			List<int> pageObjIds = [];
+			foreach (int contentId in pageContentObjIds)
+			{
+				// Write a page object for each content stream. Each page object references the corresponding content stream and the font resource. The parent of each page is set to the pages root object, which will be defined later. The media box is set to A4 size (595x842 points).
+				int pageId = StartNewObject();
+				pageObjIds.Add(item: pageId);
+				int predictedParentId = objectOffsets.Count + (pageContentObjIds.Count - pageObjIds.Count) + 2;
+				writer.WriteLine(value: "<<");
+				writer.WriteLine(value: "/Type /Page");
+				writer.WriteLine(value: $"/Parent {predictedParentId} 0 R");
+				writer.WriteLine(value: "/MediaBox [0 0 595 842]");
+				writer.WriteLine(value: $"/Contents {contentId} 0 R");
+				writer.WriteLine(value: $"/Resources << /Font << /F1 {predictedParentId + 1} 0 R >> >>");
+				writer.WriteLine(value: ">>");
+				writer.WriteLine(value: "endobj");
+			}
+			int pagesRootId = StartNewObject();
+			writer.WriteLine(value: "<<");
+			writer.WriteLine(value: "/Type /Pages");
+			writer.Write(value: "/Kids [");
+			foreach (int pid in pageObjIds)
+			{
+				// Write the Kids array for the pages root object, referencing each page object created earlier. The Kids array contains indirect references to the page objects, which allows the PDF viewer to locate and render each page correctly.
+				writer.Write(value: $"{pid} 0 R ");
+			}
+			writer.WriteLine(value: "]");
+			writer.WriteLine(value: $"/Count {pageObjIds.Count}");
+			writer.WriteLine(value: ">>");
+			writer.WriteLine(value: "endobj");
+			int fontId = StartNewObject();
+			writer.WriteLine(value: "<<");
+			writer.WriteLine(value: "/Type /Font");
+			writer.WriteLine(value: "/Subtype /Type1");
+			writer.WriteLine(value: "/BaseFont /Helvetica");
+			writer.WriteLine(value: ">>");
+			writer.WriteLine(value: "endobj");
+			int catalogId = StartNewObject();
+			writer.WriteLine(value: "<<");
+			writer.WriteLine(value: "/Type /Catalog");
+			writer.WriteLine(value: $"/Pages {pagesRootId} 0 R");
+			writer.WriteLine(value: ">>");
+			writer.WriteLine(value: "endobj");
+			writer.Flush();
+			long xrefOffset = fs.Position;
+			writer.WriteLine(value: "xref");
+			writer.WriteLine(value: $"0 {objectOffsets.Count + 1}");
+			writer.WriteLine(value: "0000000000 65535 f ");
+			foreach (long offset in objectOffsets)
+			{
+				// Write the byte offset for each object in the xref table. Each offset is formatted as a 10-digit number with leading zeros, followed by "00000 n" to indicate that the object is in use and has a generation number of 0.
+				writer.WriteLine(value: $"{offset:D10} 00000 n ");
+			}
+			writer.WriteLine(value: "trailer");
+			writer.WriteLine(value: "<<");
+			writer.WriteLine(value: $"/Size {objectOffsets.Count + 1}");
+			writer.WriteLine(value: $"/Root {catalogId} 0 R");
+			writer.WriteLine(value: ">>");
+			writer.WriteLine(value: "startxref");
+			writer.WriteLine(value: xrefOffset);
 			writer.WriteLine(value: "%%EOF");
 			// Show a success message after the file has been saved.
 			ShowSuccess();
@@ -1785,15 +1737,16 @@ public static partial class ListViewExporter
 	/// <remarks>The file is a proper compressed EPUB (ZIP) archive conforming to the EPUB 2 specification.</remarks>
 	public static void SaveAsEpub(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
-		// Get the column headers and rows, and create a valid EPUB file as a ZIP archive. The method constructs the necessary EPUB structure, including the mimetype file, META-INF/container.xml, OEBPS/content.opf, OEBPS/toc.ncx, and OEBPS/content.xhtml files. The content.opf file includes metadata with the title and a manifest referencing the content and TOC files. The content.xhtml file contains an HTML representation of the ListView data in a table format. Special characters in the title, headers, and cell data are properly escaped to ensure that the resulting EPUB file is well-formed and can be opened with EPUB readers without issues.
+		// Get the column headers and rows, generate the necessary HTML, HHC, and HHP files in a temporary directory, and invoke the HTML Help Workshop compiler (hhc.exe) to create the CHM file. The method checks for the presence of hhc.exe in the default installation path and shows an error message if it is not found. If hhc.exe is available, it creates a temporary directory to store the intermediate files, generates an index.html file with the ListView data formatted as a table, a toc.hhc file for the table of contents, and a project.hhp file for the project configuration. It then runs hhc.exe with the project file to compile the CHM. If compilation is successful and the CHM file is created, it copies the resulting CHM to the specified output path. Finally, it cleans up the temporary directory and shows a success message or an error message if compilation fails.
 		try
 		{
 			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
-			// Use a FileStream and ZipArchive to create the EPUB file as a ZIP archive. The method writes the required files for a valid EPUB structure, including the mimetype file (uncompressed), the container.xml file in the META-INF directory, the content.opf file with metadata and manifest, the toc.ncx file for navigation, and the content.xhtml file with the actual content. The content is formatted as an HTML table with the title as a heading and the ListView data as rows in the table.
+
+			// Use a FileStream and ZipArchive to create the EPUB file as a ZIP archive and write the required files for a valid EPUB structure, including the mimetype file (uncompressed), the container.xml file in the META-INF directory, the content.opf file with metadata and manifest, the toc.ncx file for navigation, and the content.xhtml file with the actual content. The content is formatted as an HTML table with the title as a heading and the ListView data as rows in the table. Special characters in the title, headers, and cell data are encoded using HTML encoding to ensure that the resulting EPUB file is well-formed and can be opened with EPUB readers without issues.
 			using FileStream fs = new(path: fileName, mode: FileMode.Create);
 			using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
-			// The mimetype file must be the first entry in the ZIP archive and must be stored without compression. It contains the string "application/epub+zip" to identify the file as an EPUB.
+			// The mimetype file must be the first entry in the ZIP archive and must be stored without compression. It specifies the MIME type of the document, which is "application/vnd.oasis.opendocument.text" for ODT files.
 			ZipArchiveEntry mimetypeEntry = archive.CreateEntry(entryName: "mimetype", compressionLevel: CompressionLevel.NoCompression);
 			using (StreamWriter writer = new(stream: mimetypeEntry.Open(), encoding: Encoding.ASCII))
 			{
@@ -1803,7 +1756,8 @@ public static partial class ListViewExporter
 			ZipArchiveEntry containerEntry = archive.CreateEntry(entryName: "META-INF/container.xml", compressionLevel: CompressionLevel.Optimal);
 			using (StreamWriter writer = new(stream: containerEntry.Open(), encoding: Encoding.UTF8))
 			{
-				writer.WriteLine(value: "<?xml version=\"1.0\"?>");
+				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+				writer.WriteLine(value: "<!DOCTYPE container PUBLIC \"-//OASIS//DTD Container V1.0//EN\" \"http://www.oasis-open.org/committees/docview.php?docid=68994\">");
 				writer.WriteLine(value: "<container version=\"1.0\" xmlns=\"urn:oasis:names:tc:opendocument:xmlns:container\">");
 				writer.WriteLine(value: "  <rootfiles><rootfile full-path=\"OEBPS/content.opf\" media-type=\"application/oebps-package+xml\"/></rootfiles>");
 				writer.WriteLine(value: "</container>");
@@ -2004,67 +1958,65 @@ public static partial class ListViewExporter
 	/// <param name="title">The book title written in the FB2 metadata and body sections.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
-	/// <remarks>The method generates a valid FB2 XML document with the required structure, including the description section with metadata and the body section containing the content formatted as a table. The column headers are written as table headers, and each data row is written as a table row. Special characters in the title, headers, and cell data are properly escaped to ensure that the resulting XML document is well-formed and can be opened with FB2-compatible readers without issues.</remarks>
+	/// <remarks>The method generates a valid FB2 XML document with the required structure, including the description section with metadata (such as title, author, and date) and the body section containing the content formatted as a table. The column headers are written as table headers, and each data row is written as a table row. Special characters in the title, headers, and cell data are properly escaped to ensure that the resulting XML document is well-formed and can be opened with FB2-compatible readers without issues.</remarks>
 	public static void SaveAsFictionBook2(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
-		// Get the column headers and rows, and write the output file in FictionBook 2 (FB2) XML format. The method constructs a valid FB2 XML document with the required structure, including the description section with metadata (such as title, author, and date) and the body section containing the content formatted as a table. The column headers are written as table headers (<th>), and each data row is written as a table row (<tr>) with cells (<td>). Special characters in the title, headers, and cell data are properly escaped to ensure that the resulting XML document is well-formed and can be opened with FB2-compatible readers without issues.
+		// Get the column headers and rows, and write the output file in FictionBook 2 (FB2) XML format with UTF-8 encoding. The XML document has a root element <FictionBook> and includes a description section with metadata (title, author, language, and date) and a body section containing the content formatted as a table. The table headers and data rows are written as elements within the body section. Special characters in the title, headers, and cell data are properly escaped to ensure that the resulting XML document is well-formed and can be opened with FB2-compatible readers without issues.
 		try
 		{
 			// Get the column headers from the ListView.
 			string[] headers = GetHeaders(listView: listView);
-			// Define the FictionBook 2 namespace and create an XmlWriter with appropriate settings for indentation and UTF-8 encoding. The XmlWriter is used to write the FB2 XML document, starting with the root element <FictionBook> and including the necessary child elements for the description and body sections. The metadata in the description section includes the title, author, language, and date, while the body section contains a table with the column headers and data rows.
-			string fb2Ns = "http://www.gribuser.ru/xml/fictionbook/2.0";
-			XmlWriterSettings settings = new() { Indent = true, Encoding = Encoding.UTF8 };
+			// Use an XmlWriter to write the output file in FictionBook 2 (FB2) XML format with UTF-8 encoding. The FB2 XML document has a root element <FictionBook> and includes a description section with metadata (title, author, language, and date) and a body section containing the content formatted as a table. The column headers and data rows are written as elements within the body section. Special characters in the title, headers, and cell data are properly escaped to ensure that the resulting XML document is well-formed.
+			XmlWriterSettings settings = new() { Indent = true };
 			using XmlWriter xmlWriter = XmlWriter.Create(outputFileName: fileName, settings: settings);
 			xmlWriter.WriteStartDocument();
-			xmlWriter.WriteStartElement(localName: "FictionBook", ns: fb2Ns);
-			xmlWriter.WriteAttributeString(prefix: "xmlns", localName: "l", ns: null, value: "http://www.w3.org/1999/xlink");
-			xmlWriter.WriteStartElement(localName: "description", ns: fb2Ns);
-			xmlWriter.WriteStartElement(localName: "title-info", ns: fb2Ns);
-			xmlWriter.WriteElementString(localName: "genre", ns: fb2Ns, value: "reference");
-			xmlWriter.WriteStartElement(localName: "author", ns: fb2Ns);
-			xmlWriter.WriteElementString(localName: "first-name", ns: fb2Ns, value: "Planetoid-DB");
-			xmlWriter.WriteElementString(localName: "last-name", ns: fb2Ns, value: string.Empty);
+			xmlWriter.WriteStartElement(localName: "FictionBook");
+			xmlWriter.WriteStartElement(localName: "description");
+			xmlWriter.WriteStartElement(localName: "title-info");
+			xmlWriter.WriteElementString(localName: "genre", value: "reference");
+			xmlWriter.WriteStartElement(localName: "author");
+			xmlWriter.WriteElementString(localName: "first-name", value: "Planetoid-DB");
+			xmlWriter.WriteElementString(localName: "last-name", value: string.Empty);
 			xmlWriter.WriteEndElement();
-			xmlWriter.WriteElementString(localName: "book-title", ns: fb2Ns, value: title);
-			xmlWriter.WriteElementString(localName: "lang", ns: fb2Ns, value: "en");
+			xmlWriter.WriteElementString(localName: "book-title", value: title);
+			xmlWriter.WriteElementString(localName: "lang", value: "en");
 			xmlWriter.WriteEndElement();
-			xmlWriter.WriteStartElement(localName: "document-info", ns: fb2Ns);
-			xmlWriter.WriteStartElement(localName: "author", ns: fb2Ns);
-			xmlWriter.WriteElementString(localName: "first-name", ns: fb2Ns, value: "Planetoid-DB");
-			xmlWriter.WriteElementString(localName: "last-name", ns: fb2Ns, value: string.Empty);
+			xmlWriter.WriteStartElement(localName: "document-info");
+			xmlWriter.WriteStartElement(localName: "author");
+			xmlWriter.WriteElementString(localName: "first-name", value: "Planetoid-DB");
+			xmlWriter.WriteElementString(localName: "last-name", value: string.Empty);
 			xmlWriter.WriteEndElement();
-			xmlWriter.WriteElementString(localName: "program-used", ns: fb2Ns, value: "Planetoid-DB");
+			xmlWriter.WriteElementString(localName: "program-used", value: "Planetoid-DB");
 			string fb2DateString = DateTime.Now.ToString(format: "yyyy-MM-dd");
-			xmlWriter.WriteStartElement(localName: "date", ns: fb2Ns);
+			xmlWriter.WriteStartElement(localName: "date");
 			xmlWriter.WriteAttributeString(localName: "value", value: fb2DateString);
 			xmlWriter.WriteString(text: fb2DateString);
 			xmlWriter.WriteEndElement();
-			xmlWriter.WriteElementString(localName: "id", ns: fb2Ns, value: Guid.NewGuid().ToString());
-			xmlWriter.WriteElementString(localName: "version", ns: fb2Ns, value: "1.0");
+			xmlWriter.WriteElementString(localName: "id", value: Guid.NewGuid().ToString());
+			xmlWriter.WriteElementString(localName: "version", value: "1.0");
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteEndElement();
-			xmlWriter.WriteStartElement(localName: "body", ns: fb2Ns);
-			xmlWriter.WriteStartElement(localName: "title", ns: fb2Ns);
-			xmlWriter.WriteElementString(localName: "p", ns: fb2Ns, value: title);
+			xmlWriter.WriteStartElement(localName: "body");
+			xmlWriter.WriteStartElement(localName: "title");
+			xmlWriter.WriteElementString(localName: "p", value: title);
 			xmlWriter.WriteEndElement();
-			xmlWriter.WriteStartElement(localName: "section", ns: fb2Ns);
-			xmlWriter.WriteStartElement(localName: "table", ns: fb2Ns);
-			xmlWriter.WriteStartElement(localName: "tr", ns: fb2Ns);
+			xmlWriter.WriteStartElement(localName: "section");
+			xmlWriter.WriteStartElement(localName: "table");
+			xmlWriter.WriteStartElement(localName: "tr");
 			foreach (string h in headers)
 			{
 				// Write the column headers as table header elements (<th>) in the FB2 XML document. Each header is written within a <tr> element, and special characters in the headers are properly escaped to ensure that the resulting XML is well-formed.
-				xmlWriter.WriteElementString(localName: "th", ns: fb2Ns, value: h);
+				xmlWriter.WriteElementString(localName: "th", value: h);
 			}
 			xmlWriter.WriteEndElement();
 			foreach (string[] row in GetRows(listView: listView, virtualRowProvider: virtualRowProvider))
 			{
 				// Write each data row as a table row (<tr>) with cells (<td>) in the FB2 XML document. Each cell is written within a <tr> element, and special characters in the cell data are properly escaped. If a row has fewer cells than headers, the missing cells are treated as empty strings.
-				xmlWriter.WriteStartElement(localName: "tr", ns: fb2Ns);
+				xmlWriter.WriteStartElement(localName: "tr");
 				for (int c = 0; c < headers.Length; c++)
 				{
 					string cell = c < row.Length ? row[c] : string.Empty;
-					xmlWriter.WriteElementString(localName: "td", ns: fb2Ns, value: cell);
+					xmlWriter.WriteElementString(localName: "td", value: cell);
 				}
 				xmlWriter.WriteEndElement();
 			}
@@ -2122,7 +2074,7 @@ public static partial class ListViewExporter
 			{
 				string safeTitle = System.Net.WebUtility.HtmlEncode(value: title) ?? string.Empty;
 				writer.WriteLine(value: $"<!DOCTYPE html><html><head><meta charset=\"utf-8\"><title>{safeTitle}</title>");
-				writer.WriteLine(value: "<style>table{{border-collapse:collapse;width:100%}}th,td{{border:1px solid #000;padding:5px;text-align:left}}</style></head><body>");
+				writer.WriteLine(value: "<style>table{{border-collapse:collapse;width:100%}}th,td{{border:1px solid #000;padding:5px;text-align:left}}th{{background-color:#f2f2f2}}</style></head><body>");
 				writer.WriteLine(value: $"<h1>{safeTitle}</h1>");
 				writer.Write(value: "<table><tr>");
 				foreach (string h in headers)
@@ -2217,7 +2169,7 @@ public static partial class ListViewExporter
 	/// <remarks>The file is a proper compressed XPS (ZIP) archive adhering to the Open Packaging Convention.</remarks>
 	public static void SaveAsXps(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
-		// Get the column headers and rows, and write the output file in XML Paper Specification (XPS) format. The method constructs a valid XPS document as a ZIP archive adhering to the Open Packaging Convention. It creates the necessary entries for content types, relationships, and fixed document sequence, as well as the fixed page containing the ListView data formatted as a table. The column headers are written as text elements, and each data row is written as a series of text elements positioned appropriately on the page. Special characters in the title, headers, and cell data are properly escaped to ensure that the resulting XPS document is well-formed and can be opened with XPS-compatible viewers without issues.
+		// Get the column headers and rows, and write the output file in XML Paper Specification (XPS) format. The method constructs a valid XPS document as a ZIP archive adhering to the Open Packaging Convention. It creates the necessary entries for content types, relationships, fixed document sequence, and fixed page containing the ListView data formatted as a table. The column headers are written as text elements, and each data row is written as a series of text elements positioned appropriately on the page. Special characters in the title, headers, and cell data are properly escaped to ensure that the resulting XPS document is well-formed and can be opened with XPS-compatible viewers without issues.
 		try
 		{
 			// Get the column headers from the ListView.
@@ -2241,15 +2193,6 @@ public static partial class ListViewExporter
 			// Create the relationships entry at the root of the package that defines the relationship to the fixed document sequence. This entry is required for the Open Packaging Convention and specifies that the fixed document sequence is a required resource for the XPS document.
 			ZipArchiveEntry relsEntry = archive.CreateEntry(entryName: "_rels/.rels", compressionLevel: CompressionLevel.Optimal);
 			using (StreamWriter writer = new(stream: relsEntry.Open(), encoding: Encoding.UTF8))
-			{
-				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-				writer.WriteLine(value: "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">");
-				writer.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.microsoft.com/xps/2005/06/fixedrepresentation\" Target=\"/FixedDocSeq.fdseq\"/>");
-				writer.WriteLine(value: "</Relationships>");
-			}
-			// Create the relationships entry for the fixed document sequence that defines the relationship to the fixed document. This entry specifies that the fixed document is a required resource for the fixed document sequence.
-			ZipArchiveEntry fdseqRelsEntry = archive.CreateEntry(entryName: "_rels/FixedDocSeq.fdseq.rels", compressionLevel: CompressionLevel.Optimal);
-			using (StreamWriter writer = new(stream: fdseqRelsEntry.Open(), encoding: Encoding.UTF8))
 			{
 				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
 				writer.WriteLine(value: "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">");
@@ -2289,13 +2232,14 @@ public static partial class ListViewExporter
 				string safeTitle = System.Security.SecurityElement.Escape(str: title) ?? string.Empty;
 				int titleY = Math.Max(val1: 0, val2: currentY - 24);
 				currentPageBuilder.AppendLine(value: $"  <Glyphs Fill=\"#FF000000\" FontUri=\"/Resources/Dummy.ttf\" DeviceFontName=\"Arial\" FontRenderingEmSize=\"14\" OriginX=\"96\" OriginY=\"{titleY}\" UnicodeString=\"{safeTitle} - Page {pageNumber}\"/>");
+				currentY += lineHeight;
 
 				for (int c = 0; c < headers.Length; c++)
 				{
 					string safeH = System.Security.SecurityElement.Escape(str: headers[c]) ?? string.Empty;
 					currentPageBuilder.AppendLine(value: $"  <Glyphs Fill=\"#FF000000\" FontUri=\"/Resources/Dummy.ttf\" DeviceFontName=\"Arial\" FontRenderingEmSize=\"12\" OriginX=\"{colX[c]}\" OriginY=\"{currentY}\" UnicodeString=\"{safeH}\"/>");
 				}
-				currentY += lineHeight * 2;
+				currentY += lineHeight;
 			}
 			// The FinishCurrentPage function finalizes the current page by closing the XML tags, creating a new entry in the ZIP archive for the page, and writing the page content to that entry. It also creates a relationships entry for the page that references the font resource used in the page.
 			void FinishCurrentPage()
