@@ -1417,13 +1417,13 @@ public static partial class TextBoxExporter
 			xmlWriter.WriteStartDocument();
 			xmlWriter.WriteStartElement(localName: "article", ns: docbookNs);
 			xmlWriter.WriteAttributeString(localName: "version", value: "5.0");
-			xmlWriter.WriteElementString(localName: "title", value: title);
+			xmlWriter.WriteElementString(localName: "title", ns: docbookNs, value: title);
 			// Write a section element containing each line from the TextBox as a "para" element.
 			xmlWriter.WriteStartElement(localName: "section", ns: docbookNs);
-			xmlWriter.WriteElementString(localName: "title", value: title);
+			xmlWriter.WriteElementString(localName: "title", ns: docbookNs, value: title);
 			foreach (string line in textBox.Lines)
 			{
-				xmlWriter.WriteElementString(localName: "para", value: line);
+				xmlWriter.WriteElementString(localName: "para", ns: docbookNs, value: line);
 			}
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteEndElement();
@@ -1462,6 +1462,14 @@ public static partial class TextBoxExporter
 		}
 	}
 
+	/// <summary>Escapes a value for use as a YAML single-quoted scalar.</summary>
+	/// <param name="value">The value to escape.</param>
+	/// <returns>A YAML single-quoted scalar that preserves backslashes and escapes embedded single quotes.</returns>
+	private static string EscapeYamlSingleQuotedScalar(string? value)
+	{
+		return $"'{(value ?? string.Empty).Replace(oldValue: "'", newValue: "''")}'";
+	}
+
 	/// <summary>Saves the contents of the specified TextBox as a YAML file with the given title.</summary>
 	/// <remarks>The method creates a YAML document with a "title" key and a "lines" sequence. Each element in the "lines" sequence corresponds to a line from the TextBox. Special characters in the title and line data are escaped by replacing double quotes with escaped double quotes to ensure the YAML document is well-formed. If an I/O or access error occurs, an error message is displayed to the user.</remarks>
 	/// <param name="textBox">The TextBox control whose lines will be exported as YAML sequence entries. Cannot be null.</param>
@@ -1469,19 +1477,19 @@ public static partial class TextBoxExporter
 	/// <param name="fileName">The full path and file name where the YAML file will be saved. If the file exists, it will be overwritten.</param>
 	public static void SaveAsYaml(TextBox textBox, string title, string fileName)
 	{
-		// Use a StreamWriter to write the output file in YAML format with UTF-8 encoding. The YAML document has a "title" key and a "lines" sequence containing each line from the TextBox as a separate entry. Special characters are escaped by replacing double quotes with escaped double quotes.
+		// Use a StreamWriter to write the output file in YAML format with UTF-8 encoding. The YAML document has a "title" key and a "lines" sequence containing each line from the TextBox as a separate entry. Text values are emitted as YAML single-quoted scalars so backslashes are preserved literally and embedded single quotes are escaped safely.
 		try
 		{
 			// The 'using' statement ensures that the StreamWriter is properly disposed after use, which will flush and close the underlying file stream.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
 			writer.WriteLine(value: "---");
-			writer.WriteLine(value: $"title: \"{title.Replace(oldValue: "\"", newValue: "\\\"")}\"");
-			writer.WriteLine(value: $"created_at: \"{DateTime.UtcNow:O}\"");
+			writer.WriteLine(value: $"title: {EscapeYamlSingleQuotedScalar(value: title)}");
+			writer.WriteLine(value: $"created_at: {EscapeYamlSingleQuotedScalar(value: $"{DateTime.UtcNow:O}")}");
 			writer.WriteLine(value: "lines:");
-			// Write each line from the TextBox as a YAML sequence entry, escaping double quotes to ensure the YAML document is well-formed.
+			// Write each line from the TextBox as a YAML sequence entry using YAML single-quoted scalars to preserve the original text content.
 			foreach (string line in textBox.Lines)
 			{
-				writer.WriteLine(value: $"  - \"{line.Replace(oldValue: "\"", newValue: "\\\"")}\"");
+				writer.WriteLine(value: $"  - {EscapeYamlSingleQuotedScalar(value: line)}");
 			}
 			// If the save operation completes successfully, show a success message to the user.
 			ShowSuccess();
