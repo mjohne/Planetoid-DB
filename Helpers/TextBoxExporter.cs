@@ -584,6 +584,7 @@ public static partial class TextBoxExporter
 			writer.WriteAttributeString(localName: "version", value: "1.0");
 
 			writer.WriteStartElement(localName: "metadata");
+			// The "m" element is the AbiWord metadata key-value element; here it stores the document title.
 			writer.WriteElementString(localName: "m", ns: null, value: title);
 			writer.WriteEndElement();
 
@@ -681,6 +682,7 @@ public static partial class TextBoxExporter
 			const int firstPageObjectId = 4;
 
 			// Pre-calculate how many lines fit on a page and the total page count.
+			// 30 is a top-of-page offset reserved below the title line so body text starts with consistent spacing.
 			int linesPerPage = Math.Max(val1: 1, val2: (startY - 30 - marginY) / lineHeight);
 			int pageCount = Math.Max(val1: 1, val2: (textBox.Lines.Length + linesPerPage - 1) / linesPerPage);
 			int totalObjects = 3 + (pageCount * 2);
@@ -766,6 +768,7 @@ public static partial class TextBoxExporter
 					sb.AppendLine(value: $"1 0 0 1 50 {pageHeight - 40} Tm ({EscapePdf(text: title)}) Tj");
 				}
 
+				// Start the body text 30 points below the top content margin to leave space after the title line.
 				int currentY = startY - 30;
 				int startLineIndex = pageIndex * linesPerPage;
 				int endLineIndex = Math.Min(val1: startLineIndex + linesPerPage, val2: textBox.Lines.Length);
