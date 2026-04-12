@@ -559,21 +559,53 @@ public static partial class TextBoxExporter
 	}
 
 	/// <summary>Saves the contents of the specified text box to a file in ABW (AbiWord) format using the provided title.</summary>
-	/// <remarks>The method writes the title as a first-level heading in ABW format, followed by the text box content. The file is saved using UTF-8 encoding. If an I/O or access error occurs, an error message is displayed to the user.</remarks>
+	/// <remarks>The method writes a minimal AbiWord XML document containing the title as a first-level heading and the text box content as paragraphs. The file is saved using UTF-8 encoding. If an I/O or access error occurs, an error message is displayed to the user.</remarks>
 	/// <param name="textBox">The text box whose content will be saved to the ABW file. Cannot be null.</param>
 	/// <param name="title">The title to be used as the first-level heading in the ABW file. If empty, the file will start with an empty heading.</param>
 	/// <param name="fileName">The full path and name of the file to which the ABW content will be saved. Must be a valid file path.</param>
 	public static void SaveAsAbiword(TextBox textBox, string title, string fileName)
 	{
-		// Use a StreamWriter to write the content of the TextBox to an ABW file. The method constructs a basic ABW document structure, including the title as a first-level heading and each line from the TextBox as a separate paragraph. The file is saved using UTF-8 encoding. If an I/O or access error occurs, an error message is displayed to the user.
+		// Write a minimal AbiWord XML document so the generated .abw file matches the method name and caller expectations.
 		try
 		{
-			// The 'using' statement ensures that the StreamWriter is properly disposed after use, which will flush and close the underlying file stream.
-			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
-			// Write the title as a first-level heading, followed by the content of the text box.
-			writer.WriteLine(value: $"= {title}");
-			writer.WriteLine();
-			writer.WriteLine(value: textBox.Text);
+			XmlWriterSettings settings = new()
+			{
+				Encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false),
+				Indent = true,
+				NewLineHandling = NewLineHandling.Entitize
+			};
+
+			using XmlWriter writer = XmlWriter.Create(outputFileName: fileName, settings: settings);
+			writer.WriteStartDocument();
+			writer.WriteStartElement(localName: "abiword");
+			writer.WriteAttributeString(localName: "template", value: "normal.awt");
+			writer.WriteAttributeString(localName: "xml:space", value: "preserve");
+			writer.WriteAttributeString(localName: "xmlns", value: "http://www.abisource.com/awml.dtd");
+			writer.WriteAttributeString(localName: "version", value: "1.0");
+
+			writer.WriteStartElement(localName: "metadata");
+			writer.WriteElementString(localName: "m", ns: null, value: title);
+			writer.WriteEndElement();
+
+			writer.WriteStartElement(localName: "section");
+
+			writer.WriteStartElement(localName: "p");
+			writer.WriteAttributeString(localName: "style", value: "Heading 1");
+			writer.WriteString(text: title);
+			writer.WriteEndElement();
+
+			string[] lines = textBox.Text.Replace(oldValue: "\r\n", newValue: "\n", comparisonType: StringComparison.Ordinal).Split('\n');
+			foreach (string line in lines)
+			{
+				writer.WriteStartElement(localName: "p");
+				writer.WriteString(text: line);
+				writer.WriteEndElement();
+			}
+
+			writer.WriteEndElement();
+			writer.WriteEndElement();
+			writer.WriteEndDocument();
+			writer.Flush();
 			// If the save operation completes successfully, show a success message to the user.
 			ShowSuccess();
 		}
@@ -619,177 +651,183 @@ public static partial class TextBoxExporter
 	}
 
 	/// <summary>Exports the contents of the specified TextBox to a new Excel file in .xlsx format, using the provided title and file name.</summary>
-	/// <remarks>The method creates a minimal Excel .xlsx file by generating the required Open XML parts and writing the TextBox content as rows. If the file cannot be created due to I/O or permission issues, an error is displayed to the user. The method does not support advanced Excel features such as formatting or multiple sheets.</remarks>
+	/// <remarks>This method delegates to <see cref="SaveAsXlsx"/> to avoid duplicating XLSX-generation logic.</remarks>
 	/// <param name="textBox">The TextBox control whose lines will be written as rows in the generated Excel worksheet. Cannot be null.</param>
 	/// <param name="title">The title to be written as the first row in the Excel worksheet. This value appears as the header of the exported data.</param>
 	/// <param name="fileName">The full path and file name for the Excel file to create. If a file with the same name exists, it will be overwritten.</param>
-	public static void SaveAsExcel(TextBox textBox, string title, string fileName)
-	{
-		// Use a ZipArchive to create an Excel .xlsx file, which is essentially a ZIP archive containing specific XML files. The method creates the necessary structure for a minimal .xlsx file, including the content types, relationships, and worksheet XML. Each line from the TextBox is added as a separate row in the worksheet. If an I/O or access error occurs during file creation, an error message is displayed to the user.
-		try
-		{
-			// The 'using' statements ensure that the FileStream and ZipArchive are properly disposed after use, which will flush and close the underlying file stream and finalize the ZIP archive.
-			using FileStream fs = new(path: fileName, mode: FileMode.Create);
-			using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
-			// Create the necessary entries in the ZIP archive for a minimal .xlsx file structure.
-			ZipArchiveEntry contentTypesEntry = archive.CreateEntry(entryName: "[Content_Types].xml", compressionLevel: CompressionLevel.Optimal);
-			// Write the content types XML, which defines the MIME types for the parts of the .xlsx file. This is required for Excel to recognize the structure of the document.
-			using (StreamWriter writer = new(stream: contentTypesEntry.Open(), encoding: Encoding.UTF8))
-			{
-				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
-				writer.WriteLine(value: "<Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\">");
-				writer.WriteLine(value: "  <Default Extension=\"rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\"/>");
-				writer.WriteLine(value: "  <Default Extension=\"xml\" ContentType=\"application/xml\"/>");
-				writer.WriteLine(value: "  <Override PartName=\"/xl/workbook.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml\"/>");
-				writer.WriteLine(value: "  <Override PartName=\"/xl/worksheets/sheet1.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml\"/>");
-				writer.WriteLine(value: "</Types>");
-			}
-			// Create the relationships entry, which defines the relationship between the main workbook part and the package. This is required for Excel to locate the main workbook XML when opening the .xlsx file.
-			ZipArchiveEntry relsEntry = archive.CreateEntry(entryName: "_rels/.rels", compressionLevel: CompressionLevel.Optimal);
-			// Write the relationships XML, which specifies that the main workbook part (workbook.xml) is related to the package with a specific relationship ID. This allows Excel to find and load the main workbook content when opening the .xlsx file.
-			using (StreamWriter writer = new(stream: relsEntry.Open(), encoding: Encoding.UTF8))
-			{
-				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
-				writer.WriteLine(value: "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">");
-				writer.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"xl/workbook.xml\"/>");
-				writer.WriteLine(value: "</Relationships>");
-			}
-			// Create the main workbook XML entry, which contains the structure of the Excel workbook. This includes a reference to the worksheet that will contain the data. The XML structure follows the OpenXML standard for Excel workbooks.
-			ZipArchiveEntry workbookEntry = archive.CreateEntry(entryName: "xl/workbook.xml", compressionLevel: CompressionLevel.Optimal);
-			using (StreamWriter writer = new(stream: workbookEntry.Open(), encoding: Encoding.UTF8))
-			{
-				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
-				writer.WriteLine(value: "<workbook xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\">");
-				writer.WriteLine(value: "  <sheets><sheet name=\"Data\" sheetId=\"1\" r:id=\"rId1\"/></sheets>");
-				writer.WriteLine(value: "</workbook>");
-			}
-			// Create the workbook relationships entry, which defines the relationship between the workbook and the worksheet. This is required for Excel to locate the worksheet XML when opening the .xlsx file.
-			ZipArchiveEntry wbRelsEntry = archive.CreateEntry(entryName: "xl/_rels/workbook.xml.rels", compressionLevel: CompressionLevel.Optimal);
-			using (StreamWriter writer = new(stream: wbRelsEntry.Open(), encoding: Encoding.UTF8))
-			{
-				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
-				writer.WriteLine(value: "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">");
-				writer.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet\" Target=\"worksheets/sheet1.xml\"/>");
-				writer.WriteLine(value: "</Relationships>");
-			}
-			// Create the worksheet XML entry, which contains the actual data for the Excel sheet. Each line from the TextBox is added as a separate row in the worksheet. The title is added as the first row. The XML structure follows the OpenXML standard for Excel worksheets.
-			ZipArchiveEntry sheetEntry = archive.CreateEntry(entryName: "xl/worksheets/sheet1.xml", compressionLevel: CompressionLevel.Optimal);
-			using (StreamWriter writer = new(stream: sheetEntry.Open(), encoding: Encoding.UTF8))
-			{
-				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
-				writer.WriteLine(value: "<worksheet xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\">");
-				writer.WriteLine(value: "  <sheetData>");
-				writer.WriteLine(value: $"    <row><c t=\"inlineStr\"><is><t>{System.Security.SecurityElement.Escape(str: title)}</t></is></c></row>");
-				foreach (string line in textBox.Lines)
-				{
-					writer.WriteLine(value: $"    <row><c t=\"inlineStr\"><is><t>{System.Security.SecurityElement.Escape(str: line)}</t></is></c></row>");
-				}
-				writer.WriteLine(value: "  </sheetData>");
-				writer.WriteLine(value: "</worksheet>");
-			}
-			// If the save operation completes successfully, show a success message to the user.
-			ShowSuccess();
-		}
-		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
-		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
-		{
-			ShowError(ex: ex, format: "Excel", filePath: fileName);
-		}
-	}
+	public static void SaveAsExcel(TextBox textBox, string title, string fileName) =>
+		SaveAsXlsx(textBox: textBox, title: title, fileName: fileName);
 
 	/// <summary>Saves the contents of the specified TextBox as a PDF document.</summary>
-	/// <remarks>The method creates a PDF document with each line from the TextBox. If an I/O or access error occurs during saving, an error message is displayed to the user.</remarks>
+	/// <remarks>The method creates a valid PDF document using a consistent object numbering scheme (Catalog, Pages, Font, then Page/Content pairs). A proper cross-reference table with computed byte offsets is appended before the trailer so that PDF readers can locate each object. If an I/O or access error occurs during saving, an error message is displayed to the user.</remarks>
 	/// <param name="textBox">The text box whose contents are to be saved. Cannot be null.</param>
 	/// <param name="title">The title to use for the PDF document. Cannot be null or empty.</param>
 	/// <param name="fileName">The name of the file to which the PDF document will be saved. Cannot be null or empty.</param>
 	public static void SaveAsPdf(TextBox textBox, string title, string fileName)
 	{
-		// Use a FileStream and StreamWriter to write the content of the TextBox to a PDF file. The method constructs a simple PDF structure with the specified title and lines from the TextBox. Each line is added as text content in the PDF document, with pagination support if the content exceeds the page height. The file is saved using ASCII encoding, which is sufficient for basic PDF content. If an I/O or access error occurs during saving, an error message is displayed to the user.
+		// Write a valid PDF using a consistent object numbering scheme and a proper cross-reference table with real byte offsets.
 		try
 		{
-			// The 'using' statements ensure that the FileStream and StreamWriter are properly disposed after use, which will flush and close the underlying file stream. The StreamWriter is opened with append set to false, which will create a new file or overwrite an existing file with the same name.
-			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.ASCII);
 			// Define constants for page dimensions and layout. The page height is set to 842 points (A4 size), with a starting Y position of 750 points for the first line of text. A margin of 50 points is maintained at the bottom, and each line of text is spaced by 14 points.
 			const int pageHeight = 842;
 			const int startY = 750;
 			const int marginY = 50;
 			const int lineHeight = 14;
-			// Write the PDF header, including the version and initial page dictionary. The PDF header is a byte sequence that indicates the beginning of a PDF file and specifies the version of the PDF specification to which the file conforms. The header also contains a root object reference, which points to the trailer dictionary that provides information about the document structure and resources.
+
+			// Object IDs: 1=Catalog, 2=Pages, 3=Font, then per-page pairs: 4+2*i=Page, 5+2*i=Content.
+			const int catalogObjectId = 1;
+			const int pagesObjectId = 2;
+			const int fontObjectId = 3;
+			const int firstPageObjectId = 4;
+
+			// Pre-calculate how many lines fit on a page and the total page count.
+			int linesPerPage = Math.Max(val1: 1, val2: (startY - 30 - marginY) / lineHeight);
+			int pageCount = Math.Max(val1: 1, val2: (textBox.Lines.Length + linesPerPage - 1) / linesPerPage);
+			int totalObjects = 3 + (pageCount * 2);
+
+			// Track the byte offset at which each object starts so the xref table is accurate.
+			System.Collections.Generic.Dictionary<int, long> objectOffsets = new();
+
+			// Use a FileStream so that BaseStream.Position accurately reflects bytes written to disk.
+			using FileStream fs = new(path: fileName, mode: FileMode.Create);
+			using StreamWriter writer = new(stream: fs, encoding: Encoding.ASCII, bufferSize: 4096, leaveOpen: false)
+			{
+				NewLine = "\n"
+			};
+
+			// Flush the StreamWriter buffer and record the current stream position as the start of objectId.
+			void BeginObject(int objectId)
+			{
+				writer.Flush();
+				objectOffsets[objectId] = fs.Position;
+				writer.WriteLine(value: $"{objectId} 0 obj");
+			}
+
+			// Write the PDF header.
 			writer.WriteLine(value: "%PDF-1.4");
 			writer.WriteLine(value: "%\xb5\xb5\xb5\xb5");
-			// Define a local function to start a new page in the PDF document. This function writes the PDF dictionary for the page, including the title and page number. The dictionary specifies the resources and content for the page. The function returns the object ID of the newly created page dictionary, which can be used to reference the page in the PDF structure.
-			int StartNewPage()
+
+			// Object 1: Catalog — references the Pages object.
+			BeginObject(catalogObjectId);
+			writer.WriteLine(value: "<<");
+			writer.WriteLine(value: $"/Type /Catalog /Pages {pagesObjectId} 0 R");
+			writer.WriteLine(value: ">>");
+			writer.WriteLine(value: "endobj");
+
+			// Object 2: Pages — lists all page objects and the total page count.
+			BeginObject(pagesObjectId);
+			writer.WriteLine(value: "<<");
+			writer.Write(value: $"/Type /Pages /Count {pageCount} /Kids [");
+			for (int pageIndex = 0; pageIndex < pageCount; pageIndex++)
 			{
-				writer.WriteLine(value: "4 0 obj");
+				if (pageIndex > 0)
+				{
+					writer.Write(value: " ");
+				}
+
+				writer.Write(value: $"{firstPageObjectId + (pageIndex * 2)} 0 R");
+			}
+
+			writer.WriteLine(value: "]");
+			writer.WriteLine(value: ">>");
+			writer.WriteLine(value: "endobj");
+
+			// Object 3: Font — a standard Type1 Helvetica font shared by all pages.
+			BeginObject(fontObjectId);
+			writer.WriteLine(value: "<<");
+			writer.WriteLine(value: "/Type /Font");
+			writer.WriteLine(value: "/Subtype /Type1");
+			writer.WriteLine(value: "/BaseFont /Helvetica");
+			writer.WriteLine(value: ">>");
+			writer.WriteLine(value: "endobj");
+
+			// Write one Page object and one Content stream object for each page.
+			for (int pageIndex = 0; pageIndex < pageCount; pageIndex++)
+			{
+				int pageObjectId = firstPageObjectId + (pageIndex * 2);
+				int contentObjectId = pageObjectId + 1;
+
+				// Page object references the shared font and its own content stream.
+				BeginObject(pageObjectId);
 				writer.WriteLine(value: "<<");
 				writer.WriteLine(value: "/Type /Page");
-				writer.WriteLine(value: "/Parent 3 0 R");
+				writer.WriteLine(value: $"/Parent {pagesObjectId} 0 R");
 				writer.WriteLine(value: "/MediaBox [0 0 595 842]");
-				writer.WriteLine(value: "/Contents 5 0 R");
-				writer.WriteLine(value: "/Resources << /Font << /F1 4 0 R >> >>");
+				writer.WriteLine(value: $"/Contents {contentObjectId} 0 R");
+				writer.WriteLine(value: $"/Resources << /Font << /F1 {fontObjectId} 0 R >> >>");
 				writer.WriteLine(value: ">>");
 				writer.WriteLine(value: "endobj");
-				return 4;
-			}
-			// Define a local function to write the content for the current page, including the title and lines from the TextBox. The content is wrapped in a PDF stream that specifies the font and position for each line of text. If the content exceeds the page height, a new page is started, and the content continues on the next page. This function ensures that the content is properly formatted and paginated in the PDF document.
-			void WriteContent(ref int pageId)
-			{
+
+				// Build the page content stream in a MemoryStream so the /Length value is known before writing.
 				StringBuilder sb = new();
 				sb.AppendLine(value: "BT /F1 10 Tf");
-				sb.AppendLine(value: $"1 0 0 1 50 {pageHeight - 40} Tm ({EscapePdf(text: title)}) Tj");
-				int currentY = startY - 30;
-				foreach (string line in textBox.Lines)
+				if (pageIndex == 0)
 				{
-					if (currentY < marginY)
-					{
-						writer.WriteLine(value: "ET");
-						writer.WriteLine(value: "endstream");
-						writer.WriteLine(value: "endobj");
-						pageId = StartNewPage();
-						currentY = startY - 30;
-						sb.Clear();
-						sb.AppendLine(value: "BT /F1 10 Tf");
-					}
-					sb.AppendLine(value: $"1 0 0 1 50 {currentY} Tm ({EscapePdf(text: line)}) Tj");
+					sb.AppendLine(value: $"1 0 0 1 50 {pageHeight - 40} Tm ({EscapePdf(text: title)}) Tj");
+				}
+
+				int currentY = startY - 30;
+				int startLineIndex = pageIndex * linesPerPage;
+				int endLineIndex = Math.Min(val1: startLineIndex + linesPerPage, val2: textBox.Lines.Length);
+				for (int lineIndex = startLineIndex; lineIndex < endLineIndex; lineIndex++)
+				{
+					sb.AppendLine(value: $"1 0 0 1 50 {currentY} Tm ({EscapePdf(text: textBox.Lines[lineIndex])}) Tj");
 					currentY -= lineHeight;
 				}
+
 				sb.AppendLine(value: "ET");
-				writer.WriteLine(value: $"/Contents {pageId} 0 R");
+
+				// Encode the content to ASCII bytes so the byte length is exact.
 				using MemoryStream ms = new();
-				using (StreamWriter sw = new(stream: ms, encoding: Encoding.ASCII))
+				using (StreamWriter sw = new(stream: ms, encoding: Encoding.ASCII, bufferSize: 1024, leaveOpen: true) { NewLine = "\n" })
 				{
-					sw.WriteLine(value: "stream");
-					sw.WriteLine(value: sb.ToString());
-					sw.WriteLine(value: "endstream");
+					sw.Write(value: sb.ToString());
+					sw.Flush();
 				}
-				writer.WriteLine(value: $"{pageId} 0 obj");
+
+				// Content stream object — /Length must match the exact byte count of the stream body.
+				BeginObject(contentObjectId);
 				writer.WriteLine(value: "<<");
-				writer.WriteLine(value: "/Length " + ms.Length);
+				writer.WriteLine(value: $"/Length {ms.Length}");
 				writer.WriteLine(value: ">>");
 				writer.WriteLine(value: "stream");
+				writer.Flush();
 				ms.Position = 0;
-				ms.CopyTo(destination: writer.BaseStream);
+				ms.CopyTo(destination: fs);
+				writer.WriteLine();
 				writer.WriteLine(value: "endstream");
 				writer.WriteLine(value: "endobj");
 			}
-			// The process of generating the PDF document starts with writing the initial header and page objects. The header includes metadata for the PDF document, and the first page object is created with a call to the StartNewPage function. The page object specifies the resources and content for the page, including the font and position for the title.
-			writer.WriteLine(value: "1 0 obj");
-			writer.WriteLine(value: "<<");
-			writer.WriteLine(value: "/Type /Catalog");
-			writer.WriteLine(value: "/Pages 3 0 R");
-			writer.WriteLine(value: ">>");
-			writer.WriteLine(value: "endobj");
-			int pageId = StartNewPage();
-			// Write the content for the current page, including the title and lines from the TextBox. The content is wrapped in a PDF stream that specifies the font and position for each line of text. If the content exceeds the page height, a new page is started, and the content continues on the next page.
-			WriteContent(ref pageId);
-			// After writing the content, close the current stream and write the cross-reference table, which contains the byte offsets of all objects in the PDF file. The trailer dictionary is also written, indicating the number of entries and the location of the root object. Finally, the EOF marker is written to indicate the end of the PDF file.
+
+			// Flush pending bytes and record the byte offset where the xref section begins.
+			writer.Flush();
+			long xrefOffset = fs.Position;
+
+			// Write the cross-reference table. Each entry must be exactly 20 bytes (10-digit offset, space, 5-digit generation, space, keyword, space, newline).
+			int xrefSize = totalObjects + 1;
+			writer.WriteLine(value: "xref");
+			writer.WriteLine(value: $"0 {xrefSize}");
+			writer.WriteLine(value: "0000000000 65535 f ");
+			for (int objectId = 1; objectId <= totalObjects; objectId++)
+			{
+				if (objectOffsets.TryGetValue(key: objectId, value: out long objectOffset))
+				{
+					writer.WriteLine(value: $"{objectOffset:0000000000} 00000 n ");
+				}
+				else
+				{
+					writer.WriteLine(value: "0000000000 00000 f ");
+				}
+			}
+
+			// Write the trailer with the Root reference and the numeric startxref offset.
 			writer.WriteLine(value: "trailer");
 			writer.WriteLine(value: "<<");
-			writer.WriteLine(value: $" /Size {pageId + 1}");
-			writer.WriteLine(value: $"/Root 1 0 R");
+			writer.WriteLine(value: $"/Size {xrefSize}");
+			writer.WriteLine(value: "/Root 1 0 R");
 			writer.WriteLine(value: ">>");
 			writer.WriteLine(value: "startxref");
-			writer.WriteLine(value: "xrefOffset");
+			writer.WriteLine(value: xrefOffset.ToString());
 			writer.WriteLine(value: "%%EOF");
 			// If the save operation completes successfully, show a success message to the user.
 			ShowSuccess();
@@ -821,7 +859,7 @@ public static partial class TextBoxExporter
 			xmlWriter.WriteStartDocument();
 			// Write the root element for the FB2 document, including the namespace declaration.
 			xmlWriter.WriteStartElement(localName: "FictionBook", ns: fb2Ns);
-			xmlWriter.WriteAttributeString(prefix: "xmlns", localName: "l", ns: null, value: "http://www.w3.org/TR/REC-html40");
+			xmlWriter.WriteAttributeString(prefix: "xmlns", localName: "l", ns: null, value: "http://www.w3.org/1999/xlink");
 			// Write the description section of the FB2 document, which includes the title-info and document-info elements. The title-info element contains metadata about the book, such as the genre, author, book title, and language. The document-info element contains metadata about the document itself, such as the author, program used to create it, creation date, unique identifier, and version. This information is important for readers to understand the origin and details of the FB2 document.
 			xmlWriter.WriteStartElement(localName: "description", ns: fb2Ns);
 			// Write the title-info element, which contains metadata about the book. This includes the genre, author information, book title, and language. The genre is set to "reference", and the author is specified with a first name of "Planetoid-DB" and an empty last name. The book title is set to the provided title parameter, and the language is set to English ("en"). This information is essential for FB2 readers to display the correct metadata for the book.
