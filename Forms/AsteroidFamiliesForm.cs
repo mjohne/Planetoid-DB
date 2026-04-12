@@ -169,19 +169,6 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 			_cancellationTokenSource.Cancel();
 			_cancellationTokenSource.Dispose();
 		}
-
-		// Verhindere Update-Stürme und Event-Kettenaufrufe beim Zerstören der Steuerelemente
-		treeViewFamilies.AfterSelect -= TreeViewFamilies_AfterSelect;
-
-		treeViewFamilies.BeginUpdate();
-		treeViewFamilies.Nodes.Clear();
-		treeViewFamilies.EndUpdate();
-
-		listViewMembers.VirtualListSize = 0;
-
-		// Referenzen leeren für schnellere Garbage Collection
-		_families.Clear();
-		_selectedFamily = null;
 	}
 
 	/// <summary>Performs the asteroid family detection asynchronously using an orbital element binning algorithm.</summary>
@@ -595,7 +582,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		{
 			int result = _sortColumn switch
 			{
-				0 => CompareAlphanumeric(x.Index, y.Index),
+				0 => CompareAlphanumeric(a: x.Index, b: y.Index),
 				1 => string.Compare(strA: x.Name, strB: y.Name, comparisonType: StringComparison.OrdinalIgnoreCase),
 				2 => x.SemiMajorAxis.CompareTo(value: y.SemiMajorAxis),
 				3 => x.Eccentricity.CompareTo(value: y.Eccentricity),

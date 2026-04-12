@@ -205,7 +205,6 @@ partial class AsteroidFamiliesForm
 		listViewMembers.ColumnClick += ListViewMembers_ColumnClick;
 		listViewMembers.RetrieveVirtualItem += ListView_RetrieveVirtualItem;
 		listViewMembers.DoubleClick += ListViewMembers_DoubleClick;
-		listViewMembers.ItemSelectionChanged += ListViewMembers_ItemSelectionChanged;
 		listViewMembers.Enter += Control_Enter;
 		listViewMembers.Leave += Control_Leave;
 		listViewMembers.MouseEnter += Control_Enter;
@@ -629,7 +628,7 @@ partial class AsteroidFamiliesForm
 		ClientSize = new Size(933, 499);
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
-		FormBorderStyle = FormBorderStyle.FixedToolWindow;
+		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		MaximizeBox = false;
 		MinimizeBox = false;
