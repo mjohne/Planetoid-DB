@@ -1188,7 +1188,7 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		ClientSize = new Size(915, 484);
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
-		FormBorderStyle = FormBorderStyle.FixedToolWindow;
+		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		Margin = new Padding(4, 3, 4, 3);
 		MaximizeBox = false;
