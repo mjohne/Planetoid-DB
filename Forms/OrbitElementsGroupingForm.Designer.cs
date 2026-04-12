@@ -35,18 +35,77 @@ partial class OrbitElementsGroupingForm
 	/// It sets up the controls and their properties for the form.</remarks>
 	private void InitializeComponent()
 	{
+		components = new Container();
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(OrbitElementsGroupingForm));
 		kryptonPanelMain = new KryptonPanel();
-		progressBar = new KryptonProgressBar();
-		lblElementsCount = new KryptonLabel();
-		numElementsToCompare = new KryptonNumericUpDown();
-		lblTolerance = new KryptonLabel();
-		numTolerance = new KryptonNumericUpDown();
-		btnCancel = new KryptonButton();
-		btnStart = new KryptonButton();
-		txtOutput = new KryptonRichTextBox();
+		kryptonTextBoxOutput = new KryptonTextBox();
+		kryptonStatusStrip = new KryptonStatusStrip();
+		labelInformation = new ToolStripStatusLabel();
+		toolStripContainer = new ToolStripContainer();
+		kryptonToolStripGenerateList = new KryptonToolStrip();
+		toolStripButtonStart = new ToolStripButton();
+		toolStripButtonCancel = new ToolStripButton();
+		toolStripSeparator1 = new ToolStripSeparator();
+		toolStripLabelTolerance = new ToolStripLabel();
+		toolStripNumericUpDownTolerance = new Planetoid_DB.Helpers.ToolStripNumericUpDown();
+		toolStripLabelElementsCount = new ToolStripLabel();
+		toolStripNumericUpDownElementsCount = new Planetoid_DB.Helpers.ToolStripNumericUpDown();
+		toolStripSeparator2 = new ToolStripSeparator();
+		toolStripDropDownButtonSaveList = new ToolStripDropDownButton();
+		contextMenuSaveToFile = new ContextMenuStrip(components);
+		toolStripMenuItemTextFiles = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsText = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsLatex = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsMarkdown = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsAsciiDoc = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsReStructuredText = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsTextile = new ToolStripMenuItem();
+		toolStripMenuItemWriterDocuments = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsWord = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsOdt = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsRtf = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsAbiword = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsWps = new ToolStripMenuItem();
+		toolStripMenuItemSpreadsheetDocuments = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsExcel = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsOds = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsCsv = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsTsv = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsPsv = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsEt = new ToolStripMenuItem();
+		toolStripMenuItemXmlDocuments = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsHtml = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsXml = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsDocBook = new ToolStripMenuItem();
+		toolStripMenuItemConfigurationFiles = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsJson = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsYaml = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsToml = new ToolStripMenuItem();
+		toolStripMenuItemDatabaseScripts = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsSql = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsSqlite = new ToolStripMenuItem();
+		toolStripMenuItemPortableDocuments = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsPdf = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsPostScript = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsEpub = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsMobi = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsXps = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsFictionBook2 = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsChm = new ToolStripMenuItem();
+		kryptonToolStripProgress = new KryptonToolStrip();
+		toolStripLabelProgress = new ToolStripLabel();
+		kryptonProgressBar = new KryptonProgressBarToolStripItem();
+		kryptonManager = new KryptonManager(components);
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
+		kryptonStatusStrip.SuspendLayout();
+		toolStripContainer.BottomToolStripPanel.SuspendLayout();
+		toolStripContainer.ContentPanel.SuspendLayout();
+		toolStripContainer.TopToolStripPanel.SuspendLayout();
+		toolStripContainer.SuspendLayout();
+		kryptonToolStripGenerateList.SuspendLayout();
+		contextMenuSaveToFile.SuspendLayout();
+		kryptonToolStripProgress.SuspendLayout();
 		SuspendLayout();
 		// 
 		// kryptonPanelMain
@@ -54,100 +113,868 @@ partial class OrbitElementsGroupingForm
 		kryptonPanelMain.AccessibleDescription = "Groups the data";
 		kryptonPanelMain.AccessibleName = "Panel";
 		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
-		kryptonPanelMain.Controls.Add(progressBar);
-		kryptonPanelMain.Controls.Add(lblElementsCount);
-		kryptonPanelMain.Controls.Add(numElementsToCompare);
-		kryptonPanelMain.Controls.Add(lblTolerance);
-		kryptonPanelMain.Controls.Add(numTolerance);
-		kryptonPanelMain.Controls.Add(btnCancel);
-		kryptonPanelMain.Controls.Add(btnStart);
-		kryptonPanelMain.Controls.Add(txtOutput);
+		kryptonPanelMain.Controls.Add(kryptonTextBoxOutput);
 		kryptonPanelMain.Dock = DockStyle.Fill;
 		kryptonPanelMain.Location = new Point(0, 0);
 		kryptonPanelMain.Name = "kryptonPanelMain";
-		kryptonPanelMain.Size = new Size(784, 561);
+		kryptonPanelMain.Size = new Size(617, 338);
 		kryptonPanelMain.TabIndex = 0;
 		kryptonPanelMain.TabStop = true;
+		kryptonPanelMain.Text = "kryptonPanelMain";
+		kryptonPanelMain.Enter += Control_Enter;
+		kryptonPanelMain.Leave += Control_Leave;
+		kryptonPanelMain.MouseEnter += Control_Enter;
+		kryptonPanelMain.MouseLeave += Control_Leave;
 		// 
-		// progressBar
+		// kryptonTextBoxOutput
 		// 
-		progressBar.Location = new Point(12, 50);
-		progressBar.Name = "progressBar";
-		progressBar.Size = new Size(700, 23);
-		progressBar.TabIndex = 6;
-		progressBar.Text = "Label";
-		progressBar.TextBackdropColor = Color.Empty;
-		progressBar.TextShadowColor = Color.Empty;
+		kryptonTextBoxOutput.AccessibleDescription = "Shows the results";
+		kryptonTextBoxOutput.AccessibleName = "Results";
+		kryptonTextBoxOutput.AccessibleRole = AccessibleRole.Text;
+		kryptonTextBoxOutput.Dock = DockStyle.Fill;
+		kryptonTextBoxOutput.Location = new Point(0, 0);
+		kryptonTextBoxOutput.MaxLength = int.MaxValue;
+		kryptonTextBoxOutput.Multiline = true;
+		kryptonTextBoxOutput.Name = "kryptonTextBoxOutput";
+		kryptonTextBoxOutput.ReadOnly = true;
+		kryptonTextBoxOutput.ScrollBars = ScrollBars.Both;
+		kryptonTextBoxOutput.Size = new Size(617, 338);
+		kryptonTextBoxOutput.TabIndex = 0;
+		kryptonTextBoxOutput.ToolTipValues.Description = "Shows the results";
+		kryptonTextBoxOutput.ToolTipValues.Heading = "Results";
+		kryptonTextBoxOutput.Enter += Control_Enter;
+		kryptonTextBoxOutput.Leave += Control_Leave;
+		kryptonTextBoxOutput.MouseEnter += Control_Enter;
+		kryptonTextBoxOutput.MouseLeave += Control_Leave;
 		// 
-		// lblElementsCount
+		// kryptonStatusStrip
 		// 
-		lblElementsCount.Location = new Point(390, 15);
-		lblElementsCount.Name = "lblElementsCount";
-		lblElementsCount.Size = new Size(130, 20);
-		lblElementsCount.TabIndex = 4;
-		lblElementsCount.Values.Text = "Elements vs Elements:";
+		kryptonStatusStrip.AccessibleDescription = "Shows some information";
+		kryptonStatusStrip.AccessibleName = "Status bar with some information";
+		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
+		kryptonStatusStrip.AllowClickThrough = true;
+		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.Dock = DockStyle.None;
+		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
+		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
+		kryptonStatusStrip.Location = new Point(0, 0);
+		kryptonStatusStrip.Name = "kryptonStatusStrip";
+		kryptonStatusStrip.ProgressBars = null;
+		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+		kryptonStatusStrip.ShowItemToolTips = true;
+		kryptonStatusStrip.Size = new Size(617, 22);
+		kryptonStatusStrip.TabIndex = 0;
+		kryptonStatusStrip.TabStop = true;
+		kryptonStatusStrip.Text = "Status bar";
+		kryptonStatusStrip.Enter += Control_Enter;
+		kryptonStatusStrip.Leave += Control_Leave;
+		kryptonStatusStrip.MouseEnter += Control_Enter;
+		kryptonStatusStrip.MouseLeave += Control_Leave;
 		// 
-		// numElementsToCompare
+		// labelInformation
 		// 
-		numElementsToCompare.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numElementsToCompare.Location = new Point(520, 14);
-		numElementsToCompare.Maximum = new decimal(new int[] { 7, 0, 0, 0 });
-		numElementsToCompare.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
-		numElementsToCompare.Name = "numElementsToCompare";
-		numElementsToCompare.Size = new Size(60, 22);
-		numElementsToCompare.TabIndex = 5;
-		numElementsToCompare.Value = new decimal(new int[] { 3, 0, 0, 0 });
+		labelInformation.AccessibleDescription = "Shows some information";
+		labelInformation.AccessibleName = "Some information";
+		labelInformation.AccessibleRole = AccessibleRole.StaticText;
+		labelInformation.AutoToolTip = true;
+		labelInformation.Image = Resources.FatcowIcons16px.fatcow_lightbulb_16px;
+		labelInformation.Name = "labelInformation";
+		labelInformation.Size = new Size(144, 17);
+		labelInformation.Text = "some information here";
+		labelInformation.ToolTipText = "Shows some information";
+		labelInformation.MouseEnter += Control_Enter;
+		labelInformation.MouseLeave += Control_Leave;
 		// 
-		// lblTolerance
+		// toolStripContainer
 		// 
-		lblTolerance.Location = new Point(210, 15);
-		lblTolerance.Name = "lblTolerance";
-		lblTolerance.Size = new Size(94, 20);
-		lblTolerance.TabIndex = 2;
-		lblTolerance.Values.Text = "Tolerance (%):";
+		toolStripContainer.AccessibleDescription = "Container to arrange the toolbars";
+		toolStripContainer.AccessibleName = "Container to arrange the toolbars";
+		toolStripContainer.AccessibleRole = AccessibleRole.Grouping;
 		// 
-		// numTolerance
+		// toolStripContainer.BottomToolStripPanel
 		// 
-		numTolerance.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-		numTolerance.Location = new Point(310, 14);
-		numTolerance.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
-		numTolerance.Minimum = new decimal(new int[] { 1, 0, 0, 65536 });
-		numTolerance.Name = "numTolerance";
-		numTolerance.Size = new Size(60, 22);
-		numTolerance.TabIndex = 3;
-		numTolerance.Value = new decimal(new int[] { 5, 0, 0, 0 });
+		toolStripContainer.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
 		// 
-		// btnCancel
+		// toolStripContainer.ContentPanel
 		// 
-		btnCancel.Enabled = false;
-		btnCancel.Location = new Point(108, 12);
-		btnCancel.Name = "btnCancel";
-		btnCancel.Size = new Size(90, 25);
-		btnCancel.TabIndex = 1;
-		btnCancel.Values.DropDownArrowColor = Color.Empty;
-		btnCancel.Values.Text = "&Cancel";
-		btnCancel.Click += BtnCancel_Click;
+		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
+		toolStripContainer.ContentPanel.Size = new Size(617, 338);
+		toolStripContainer.Dock = DockStyle.Fill;
+		toolStripContainer.Location = new Point(0, 0);
+		toolStripContainer.Name = "toolStripContainer";
+		toolStripContainer.Size = new Size(617, 412);
+		toolStripContainer.TabIndex = 10;
+		toolStripContainer.Text = "toolStripContainer";
 		// 
-		// btnStart
+		// toolStripContainer.TopToolStripPanel
 		// 
-		btnStart.Location = new Point(12, 12);
-		btnStart.Name = "btnStart";
-		btnStart.Size = new Size(90, 25);
-		btnStart.TabIndex = 0;
-		btnStart.Values.DropDownArrowColor = Color.Empty;
-		btnStart.Values.Text = "&Start Search";
-		btnStart.Click += BtnStart_Click;
+		toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripGenerateList);
+		toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripProgress);
+		toolStripContainer.Enter += Control_Enter;
+		toolStripContainer.Leave += Control_Leave;
+		toolStripContainer.MouseEnter += Control_Enter;
+		toolStripContainer.MouseLeave += Control_Leave;
 		// 
-		// txtOutput
+		// kryptonToolStripGenerateList
 		// 
-		txtOutput.Location = new Point(12, 85);
-		txtOutput.Name = "txtOutput";
-		txtOutput.ReadOnly = true;
-		txtOutput.ShowSelectionMargin = true;
-		txtOutput.Size = new Size(760, 464);
-		txtOutput.TabIndex = 8;
-		txtOutput.Text = "";
-		txtOutput.WordWrap = false;
+		kryptonToolStripGenerateList.AccessibleDescription = "Toolbar of generating list";
+		kryptonToolStripGenerateList.AccessibleName = "Toolbar of generating list";
+		kryptonToolStripGenerateList.AccessibleRole = AccessibleRole.ToolBar;
+		kryptonToolStripGenerateList.AllowClickThrough = true;
+		kryptonToolStripGenerateList.AllowItemReorder = true;
+		kryptonToolStripGenerateList.Dock = DockStyle.None;
+		kryptonToolStripGenerateList.Font = new Font("Segoe UI", 9F);
+		kryptonToolStripGenerateList.Items.AddRange(new ToolStripItem[] { toolStripButtonStart, toolStripButtonCancel, toolStripSeparator1, toolStripLabelTolerance, toolStripNumericUpDownTolerance, toolStripLabelElementsCount, toolStripNumericUpDownElementsCount, toolStripSeparator2, toolStripDropDownButtonSaveList });
+		kryptonToolStripGenerateList.Location = new Point(0, 0);
+		kryptonToolStripGenerateList.Name = "kryptonToolStripGenerateList";
+		kryptonToolStripGenerateList.Size = new Size(617, 26);
+		kryptonToolStripGenerateList.Stretch = true;
+		kryptonToolStripGenerateList.TabIndex = 0;
+		kryptonToolStripGenerateList.TabStop = true;
+		kryptonToolStripGenerateList.Text = "Toolbar of generating list";
+		kryptonToolStripGenerateList.Enter += Control_Enter;
+		kryptonToolStripGenerateList.Leave += Control_Leave;
+		kryptonToolStripGenerateList.MouseEnter += Control_Enter;
+		kryptonToolStripGenerateList.MouseLeave += Control_Leave;
+		// 
+		// toolStripButtonStart
+		// 
+		toolStripButtonStart.AccessibleDescription = "Starts the progress and create the list";
+		toolStripButtonStart.AccessibleName = "Create the List";
+		toolStripButtonStart.AccessibleRole = AccessibleRole.PushButton;
+		toolStripButtonStart.Image = Resources.FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripButtonStart.ImageTransparentColor = Color.Magenta;
+		toolStripButtonStart.Name = "toolStripButtonStart";
+		toolStripButtonStart.Size = new Size(45, 23);
+		toolStripButtonStart.Text = "&List";
+		toolStripButtonStart.Click += ButtonStart_Click;
+		toolStripButtonStart.MouseEnter += Control_Enter;
+		toolStripButtonStart.MouseLeave += Control_Leave;
+		// 
+		// toolStripButtonCancel
+		// 
+		toolStripButtonCancel.AccessibleDescription = "Cancels the search";
+		toolStripButtonCancel.AccessibleName = "Cancel";
+		toolStripButtonCancel.AccessibleRole = AccessibleRole.PushButton;
+		toolStripButtonCancel.Enabled = false;
+		toolStripButtonCancel.Image = Resources.FatcowIcons16px.fatcow_cancel_16px;
+		toolStripButtonCancel.ImageTransparentColor = Color.Magenta;
+		toolStripButtonCancel.Name = "toolStripButtonCancel";
+		toolStripButtonCancel.Size = new Size(63, 23);
+		toolStripButtonCancel.Text = "&Cancel";
+		toolStripButtonCancel.Click += ButtonCancel_Click;
+		toolStripButtonCancel.MouseEnter += Control_Enter;
+		toolStripButtonCancel.MouseLeave += Control_Leave;
+		// 
+		// toolStripSeparator1
+		// 
+		toolStripSeparator1.AccessibleDescription = "Just a separator";
+		toolStripSeparator1.AccessibleName = "Just a separator";
+		toolStripSeparator1.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparator1.Name = "toolStripSeparator1";
+		toolStripSeparator1.Size = new Size(6, 26);
+		toolStripSeparator1.MouseEnter += Control_Enter;
+		toolStripSeparator1.MouseLeave += Control_Leave;
+		// 
+		// toolStripLabelTolerance
+		// 
+		toolStripLabelTolerance.AccessibleDescription = "Shows the tolerance";
+		toolStripLabelTolerance.AccessibleName = "Tolerance";
+		toolStripLabelTolerance.AccessibleRole = AccessibleRole.StaticText;
+		toolStripLabelTolerance.AutoToolTip = true;
+		toolStripLabelTolerance.Name = "toolStripLabelTolerance";
+		toolStripLabelTolerance.Size = new Size(78, 23);
+		toolStripLabelTolerance.Text = "Tolerance (%)";
+		toolStripLabelTolerance.MouseEnter += Control_Enter;
+		toolStripLabelTolerance.MouseLeave += Control_Leave;
+		// 
+		// toolStripNumericUpDownTolerance
+		// 
+		toolStripNumericUpDownTolerance.AccessibleDescription = "Shows the tolerance value for the list";
+		toolStripNumericUpDownTolerance.AccessibleName = "Value of the tolerance";
+		toolStripNumericUpDownTolerance.AccessibleRole = AccessibleRole.SpinButton;
+		toolStripNumericUpDownTolerance.AutoSize = true;
+		toolStripNumericUpDownTolerance.AutoToolTip = true;
+		toolStripNumericUpDownTolerance.Minimum = new decimal(new int[] { 1, 0, 0, 65536 });
+		toolStripNumericUpDownTolerance.Name = "toolStripNumericUpDownTolerance";
+		toolStripNumericUpDownTolerance.Size = new Size(41, 23);
+		toolStripNumericUpDownTolerance.Text = "5";
+		toolStripNumericUpDownTolerance.TextAlign = HorizontalAlignment.Center;
+		toolStripNumericUpDownTolerance.Value = new decimal(new int[] { 5, 0, 0, 0 });
+		toolStripNumericUpDownTolerance.MouseEnter += Control_Enter;
+		toolStripNumericUpDownTolerance.MouseLeave += Control_Leave;
+		// 
+		// toolStripLabelElementsCount
+		// 
+		toolStripLabelElementsCount.AccessibleDescription = "Shows the element versus element";
+		toolStripLabelElementsCount.AccessibleName = "Element versus element";
+		toolStripLabelElementsCount.AccessibleRole = AccessibleRole.StaticText;
+		toolStripLabelElementsCount.AutoToolTip = true;
+		toolStripLabelElementsCount.Name = "toolStripLabelElementsCount";
+		toolStripLabelElementsCount.Size = new Size(110, 23);
+		toolStripLabelElementsCount.Text = "Element &vs element";
+		toolStripLabelElementsCount.MouseEnter += Control_Enter;
+		toolStripLabelElementsCount.MouseLeave += Control_Leave;
+		// 
+		// toolStripNumericUpDownElementsCount
+		// 
+		toolStripNumericUpDownElementsCount.AccessibleDescription = "Shows the maximum value for the list";
+		toolStripNumericUpDownElementsCount.AccessibleName = "Maximum value for the list";
+		toolStripNumericUpDownElementsCount.AccessibleRole = AccessibleRole.SpinButton;
+		toolStripNumericUpDownElementsCount.AutoSize = true;
+		toolStripNumericUpDownElementsCount.AutoToolTip = true;
+		toolStripNumericUpDownElementsCount.Maximum = new decimal(new int[] { 7, 0, 0, 0 });
+		toolStripNumericUpDownElementsCount.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
+		toolStripNumericUpDownElementsCount.Name = "toolStripNumericUpDownElementsCount";
+		toolStripNumericUpDownElementsCount.Size = new Size(29, 23);
+		toolStripNumericUpDownElementsCount.Text = "2";
+		toolStripNumericUpDownElementsCount.TextAlign = HorizontalAlignment.Center;
+		toolStripNumericUpDownElementsCount.Value = new decimal(new int[] { 2, 0, 0, 0 });
+		toolStripNumericUpDownElementsCount.MouseEnter += Control_Enter;
+		toolStripNumericUpDownElementsCount.MouseLeave += Control_Leave;
+		// 
+		// toolStripSeparator2
+		// 
+		toolStripSeparator2.AccessibleDescription = "Just a separator";
+		toolStripSeparator2.AccessibleName = "Just a separator";
+		toolStripSeparator2.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparator2.Name = "toolStripSeparator2";
+		toolStripSeparator2.Size = new Size(6, 26);
+		toolStripSeparator2.MouseEnter += Control_Enter;
+		toolStripSeparator2.MouseLeave += Control_Leave;
+		// 
+		// toolStripDropDownButtonSaveList
+		// 
+		toolStripDropDownButtonSaveList.AccessibleDescription = "Saves the list as file";
+		toolStripDropDownButtonSaveList.AccessibleName = "Save list";
+		toolStripDropDownButtonSaveList.AccessibleRole = AccessibleRole.ButtonDropDown;
+		toolStripDropDownButtonSaveList.DropDown = contextMenuSaveToFile;
+		toolStripDropDownButtonSaveList.Image = Resources.FatcowIcons16px.fatcow_diskette_16px;
+		toolStripDropDownButtonSaveList.ImageTransparentColor = Color.Magenta;
+		toolStripDropDownButtonSaveList.Name = "toolStripDropDownButtonSaveList";
+		toolStripDropDownButtonSaveList.Size = new Size(78, 23);
+		toolStripDropDownButtonSaveList.Text = "&Save list";
+		toolStripDropDownButtonSaveList.MouseEnter += Control_Enter;
+		toolStripDropDownButtonSaveList.MouseLeave += Control_Leave;
+		// 
+		// contextMenuSaveToFile
+		// 
+		contextMenuSaveToFile.AccessibleDescription = "Save the list as file";
+		contextMenuSaveToFile.AccessibleName = "Save list";
+		contextMenuSaveToFile.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuSaveToFile.AllowClickThrough = true;
+		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
+		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
+		contextMenuSaveToFile.Name = "contextMenuSaveList";
+		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveList;
+		contextMenuSaveToFile.Size = new Size(202, 158);
+		contextMenuSaveToFile.TabStop = true;
+		contextMenuSaveToFile.Text = "&Save list";
+		contextMenuSaveToFile.MouseEnter += Control_Enter;
+		contextMenuSaveToFile.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemTextFiles
+		// 
+		toolStripMenuItemTextFiles.AccessibleDescription = "Saves the list as text file";
+		toolStripMenuItemTextFiles.AccessibleName = "Save as text file";
+		toolStripMenuItemTextFiles.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemTextFiles.AutoToolTip = true;
+		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile });
+		toolStripMenuItemTextFiles.Image = Resources.FatcowIcons16px.fatcow_file_extension_txt_16px;
+		toolStripMenuItemTextFiles.Name = "toolStripMenuItemTextFiles";
+		toolStripMenuItemTextFiles.Size = new Size(201, 22);
+		toolStripMenuItemTextFiles.Text = "&Text files";
+		toolStripMenuItemTextFiles.MouseEnter += Control_Enter;
+		toolStripMenuItemTextFiles.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsText
+		// 
+		toolStripMenuItemSaveAsText.AccessibleDescription = "Saves the list as text file";
+		toolStripMenuItemSaveAsText.AccessibleName = "Save as text";
+		toolStripMenuItemSaveAsText.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsText.AutoToolTip = true;
+		toolStripMenuItemSaveAsText.Image = Resources.FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsText.Name = "toolStripMenuItemSaveAsText";
+		toolStripMenuItemSaveAsText.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsText.Text = "Save as &text";
+		toolStripMenuItemSaveAsText.Click += ToolStripMenuItemSaveAsText_Click;
+		toolStripMenuItemSaveAsText.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsText.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsLatex
+		// 
+		toolStripMenuItemSaveAsLatex.AccessibleDescription = "Saves the list as Latex file";
+		toolStripMenuItemSaveAsLatex.AccessibleName = "Save as Latex";
+		toolStripMenuItemSaveAsLatex.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsLatex.AutoToolTip = true;
+		toolStripMenuItemSaveAsLatex.Image = Resources.FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsLatex.Name = "toolStripMenuItemSaveAsLatex";
+		toolStripMenuItemSaveAsLatex.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsLatex.Text = "Save as &Latex";
+		toolStripMenuItemSaveAsLatex.Click += ToolStripMenuItemSaveAsLatex_Click;
+		toolStripMenuItemSaveAsLatex.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsLatex.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsMarkdown
+		// 
+		toolStripMenuItemSaveAsMarkdown.AccessibleDescription = "Saves the list as Markdown file";
+		toolStripMenuItemSaveAsMarkdown.AccessibleName = "Save as Markdown";
+		toolStripMenuItemSaveAsMarkdown.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsMarkdown.AutoToolTip = true;
+		toolStripMenuItemSaveAsMarkdown.Image = Resources.FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsMarkdown.Name = "toolStripMenuItemSaveAsMarkdown";
+		toolStripMenuItemSaveAsMarkdown.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsMarkdown.Text = "Save as &Markdown";
+		toolStripMenuItemSaveAsMarkdown.Click += ToolStripMenuItemSaveAsMarkdown_Click;
+		toolStripMenuItemSaveAsMarkdown.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsMarkdown.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsAsciiDoc
+		// 
+		toolStripMenuItemSaveAsAsciiDoc.AccessibleDescription = "Saves the list as AsciiDoc file";
+		toolStripMenuItemSaveAsAsciiDoc.AccessibleName = "Save as AsciiDoc";
+		toolStripMenuItemSaveAsAsciiDoc.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsAsciiDoc.AutoToolTip = true;
+		toolStripMenuItemSaveAsAsciiDoc.Image = Resources.FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsAsciiDoc.Name = "toolStripMenuItemSaveAsAsciiDoc";
+		toolStripMenuItemSaveAsAsciiDoc.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsAsciiDoc.Text = "Save as &AsciiDoc";
+		toolStripMenuItemSaveAsAsciiDoc.Click += ToolStripMenuItemSaveAsAsciiDoc_Click;
+		toolStripMenuItemSaveAsAsciiDoc.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsAsciiDoc.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsReStructuredText
+		// 
+		toolStripMenuItemSaveAsReStructuredText.AccessibleDescription = "Saves the list as reStructuredText file";
+		toolStripMenuItemSaveAsReStructuredText.AccessibleName = "Save as reStructuredText";
+		toolStripMenuItemSaveAsReStructuredText.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsReStructuredText.AutoToolTip = true;
+		toolStripMenuItemSaveAsReStructuredText.Image = Resources.FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsReStructuredText.Name = "toolStripMenuItemSaveAsReStructuredText";
+		toolStripMenuItemSaveAsReStructuredText.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsReStructuredText.Text = "Save as &reStructuredText";
+		toolStripMenuItemSaveAsReStructuredText.Click += ToolStripMenuItemSaveAsReStructuredText_Click;
+		toolStripMenuItemSaveAsReStructuredText.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsReStructuredText.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsTextile
+		// 
+		toolStripMenuItemSaveAsTextile.AccessibleDescription = "Saves the list as Textile file";
+		toolStripMenuItemSaveAsTextile.AccessibleName = "Save as Textile";
+		toolStripMenuItemSaveAsTextile.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsTextile.AutoToolTip = true;
+		toolStripMenuItemSaveAsTextile.Image = Resources.FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsTextile.Name = "toolStripMenuItemSaveAsTextile";
+		toolStripMenuItemSaveAsTextile.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsTextile.Text = "Save as Te&xtile";
+		toolStripMenuItemSaveAsTextile.Click += ToolStripMenuItemSaveAsTextile_Click;
+		toolStripMenuItemSaveAsTextile.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTextile.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemWriterDocuments
+		// 
+		toolStripMenuItemWriterDocuments.AccessibleDescription = "Saves the list as writer document";
+		toolStripMenuItemWriterDocuments.AccessibleName = "Save as writer document";
+		toolStripMenuItemWriterDocuments.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemWriterDocuments.AutoToolTip = true;
+		toolStripMenuItemWriterDocuments.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsWord, toolStripMenuItemSaveAsOdt, toolStripMenuItemSaveAsRtf, toolStripMenuItemSaveAsAbiword, toolStripMenuItemSaveAsWps });
+		toolStripMenuItemWriterDocuments.Image = Resources.FatcowIcons16px.fatcow_file_extension_doc_16px;
+		toolStripMenuItemWriterDocuments.Name = "toolStripMenuItemWriterDocuments";
+		toolStripMenuItemWriterDocuments.Size = new Size(201, 22);
+		toolStripMenuItemWriterDocuments.Text = "&Writer documents";
+		toolStripMenuItemWriterDocuments.MouseEnter += Control_Enter;
+		toolStripMenuItemWriterDocuments.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsWord
+		// 
+		toolStripMenuItemSaveAsWord.AccessibleDescription = "Saves the list as Word file";
+		toolStripMenuItemSaveAsWord.AccessibleName = "Save as Word";
+		toolStripMenuItemSaveAsWord.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsWord.AutoToolTip = true;
+		toolStripMenuItemSaveAsWord.Image = Resources.FatcowIcons16px.fatcow_page_white_word_16px;
+		toolStripMenuItemSaveAsWord.Name = "toolStripMenuItemSaveAsWord";
+		toolStripMenuItemSaveAsWord.Size = new Size(257, 22);
+		toolStripMenuItemSaveAsWord.Text = "Save as &Word Text (DOCX)";
+		toolStripMenuItemSaveAsWord.Click += ToolStripMenuItemSaveAsWord_Click;
+		toolStripMenuItemSaveAsWord.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsWord.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsOdt
+		// 
+		toolStripMenuItemSaveAsOdt.AccessibleDescription = "Saves the list as ODT file";
+		toolStripMenuItemSaveAsOdt.AccessibleName = "Save as ODT";
+		toolStripMenuItemSaveAsOdt.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsOdt.AutoToolTip = true;
+		toolStripMenuItemSaveAsOdt.Image = Resources.FatcowIcons16px.fatcow_page_white_word_16px;
+		toolStripMenuItemSaveAsOdt.Name = "toolStripMenuItemSaveAsOdt";
+		toolStripMenuItemSaveAsOdt.Size = new Size(257, 22);
+		toolStripMenuItemSaveAsOdt.Text = "Save as &OpenDocument Text (ODT)";
+		toolStripMenuItemSaveAsOdt.Click += ToolStripMenuItemSaveAsOdt_Click;
+		toolStripMenuItemSaveAsOdt.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsOdt.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsRtf
+		// 
+		toolStripMenuItemSaveAsRtf.AccessibleDescription = "Saves the list as RTF file";
+		toolStripMenuItemSaveAsRtf.AccessibleName = "Save as RTF";
+		toolStripMenuItemSaveAsRtf.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsRtf.AutoToolTip = true;
+		toolStripMenuItemSaveAsRtf.Image = Resources.FatcowIcons16px.fatcow_page_white_word_16px;
+		toolStripMenuItemSaveAsRtf.Name = "toolStripMenuItemSaveAsRtf";
+		toolStripMenuItemSaveAsRtf.Size = new Size(257, 22);
+		toolStripMenuItemSaveAsRtf.Text = "Save as &Rich Text Format (RTF)";
+		toolStripMenuItemSaveAsRtf.Click += ToolStripMenuItemSaveAsRtf_Click;
+		toolStripMenuItemSaveAsRtf.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsRtf.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsAbiword
+		// 
+		toolStripMenuItemSaveAsAbiword.AccessibleDescription = "Saves the list as Abiword file";
+		toolStripMenuItemSaveAsAbiword.AccessibleName = "Save as Abiword";
+		toolStripMenuItemSaveAsAbiword.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsAbiword.AutoToolTip = true;
+		toolStripMenuItemSaveAsAbiword.Image = Resources.FatcowIcons16px.fatcow_page_white_word_16px;
+		toolStripMenuItemSaveAsAbiword.Name = "toolStripMenuItemSaveAsAbiword";
+		toolStripMenuItemSaveAsAbiword.Size = new Size(257, 22);
+		toolStripMenuItemSaveAsAbiword.Text = "Save as &Abiword file (ABW)";
+		toolStripMenuItemSaveAsAbiword.Click += ToolStripMenuItemSaveAsAbiword_Click;
+		toolStripMenuItemSaveAsAbiword.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsAbiword.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsWps
+		// 
+		toolStripMenuItemSaveAsWps.AccessibleDescription = "Saves the list as WPS file";
+		toolStripMenuItemSaveAsWps.AccessibleName = "Save as WPS";
+		toolStripMenuItemSaveAsWps.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsWps.AutoToolTip = true;
+		toolStripMenuItemSaveAsWps.Image = Resources.FatcowIcons16px.fatcow_page_white_word_16px;
+		toolStripMenuItemSaveAsWps.Name = "toolStripMenuItemSaveAsWps";
+		toolStripMenuItemSaveAsWps.Size = new Size(257, 22);
+		toolStripMenuItemSaveAsWps.Text = "Save as W&PS Office Writer (WPS)";
+		toolStripMenuItemSaveAsWps.Click += ToolStripMenuItemSaveAsWps_Click;
+		toolStripMenuItemSaveAsWps.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsWps.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSpreadsheetDocuments
+		// 
+		toolStripMenuItemSpreadsheetDocuments.AccessibleDescription = "Saves the list as spreadsheet document";
+		toolStripMenuItemSpreadsheetDocuments.AccessibleName = "Save as spreadsheet document";
+		toolStripMenuItemSpreadsheetDocuments.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSpreadsheetDocuments.AutoToolTip = true;
+		toolStripMenuItemSpreadsheetDocuments.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsExcel, toolStripMenuItemSaveAsOds, toolStripMenuItemSaveAsCsv, toolStripMenuItemSaveAsTsv, toolStripMenuItemSaveAsPsv, toolStripMenuItemSaveAsEt });
+		toolStripMenuItemSpreadsheetDocuments.Image = Resources.FatcowIcons16px.fatcow_file_extension_xls_16px;
+		toolStripMenuItemSpreadsheetDocuments.Name = "toolStripMenuItemSpreadsheetDocuments";
+		toolStripMenuItemSpreadsheetDocuments.Size = new Size(201, 22);
+		toolStripMenuItemSpreadsheetDocuments.Text = "&Spreadsheet documents";
+		toolStripMenuItemSpreadsheetDocuments.MouseEnter += Control_Enter;
+		toolStripMenuItemSpreadsheetDocuments.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsExcel
+		// 
+		toolStripMenuItemSaveAsExcel.AccessibleDescription = "Saves the list as Excel file";
+		toolStripMenuItemSaveAsExcel.AccessibleName = "Save as Excel";
+		toolStripMenuItemSaveAsExcel.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsExcel.AutoToolTip = true;
+		toolStripMenuItemSaveAsExcel.Image = Resources.FatcowIcons16px.fatcow_page_white_excel_16px;
+		toolStripMenuItemSaveAsExcel.Name = "toolStripMenuItemSaveAsExcel";
+		toolStripMenuItemSaveAsExcel.Size = new Size(301, 22);
+		toolStripMenuItemSaveAsExcel.Text = "Save as &Excel Spreadsheet (XLSX)";
+		toolStripMenuItemSaveAsExcel.Click += ToolStripMenuItemSaveAsExcel_Click;
+		toolStripMenuItemSaveAsExcel.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsExcel.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsOds
+		// 
+		toolStripMenuItemSaveAsOds.AccessibleDescription = "Saves the list as ODS file";
+		toolStripMenuItemSaveAsOds.AccessibleName = "Save as ODS";
+		toolStripMenuItemSaveAsOds.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsOds.AutoToolTip = true;
+		toolStripMenuItemSaveAsOds.Image = Resources.FatcowIcons16px.fatcow_page_white_excel_16px;
+		toolStripMenuItemSaveAsOds.Name = "toolStripMenuItemSaveAsOds";
+		toolStripMenuItemSaveAsOds.Size = new Size(301, 22);
+		toolStripMenuItemSaveAsOds.Text = "Save as &OpenDocument Spreadsheet (ODS)";
+		toolStripMenuItemSaveAsOds.Click += ToolStripMenuItemSaveAsOds_Click;
+		toolStripMenuItemSaveAsOds.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsOds.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsCsv
+		// 
+		toolStripMenuItemSaveAsCsv.AccessibleDescription = "Saves the list as CSV file";
+		toolStripMenuItemSaveAsCsv.AccessibleName = "Save as CSV";
+		toolStripMenuItemSaveAsCsv.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsCsv.AutoToolTip = true;
+		toolStripMenuItemSaveAsCsv.Image = Resources.FatcowIcons16px.fatcow_page_white_excel_16px;
+		toolStripMenuItemSaveAsCsv.Name = "toolStripMenuItemSaveAsCsv";
+		toolStripMenuItemSaveAsCsv.Size = new Size(301, 22);
+		toolStripMenuItemSaveAsCsv.Text = "Save as &Comma separated value (CSV)";
+		toolStripMenuItemSaveAsCsv.Click += ToolStripMenuItemSaveAsCsv_Click;
+		toolStripMenuItemSaveAsCsv.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsCsv.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsTsv
+		// 
+		toolStripMenuItemSaveAsTsv.AccessibleDescription = "Saves the list as TSV file";
+		toolStripMenuItemSaveAsTsv.AccessibleName = "Save as TSV";
+		toolStripMenuItemSaveAsTsv.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsTsv.AutoToolTip = true;
+		toolStripMenuItemSaveAsTsv.Image = Resources.FatcowIcons16px.fatcow_page_white_excel_16px;
+		toolStripMenuItemSaveAsTsv.Name = "toolStripMenuItemSaveAsTsv";
+		toolStripMenuItemSaveAsTsv.Size = new Size(301, 22);
+		toolStripMenuItemSaveAsTsv.Text = "Save as &Tabulator separated value (TSV)";
+		toolStripMenuItemSaveAsTsv.Click += ToolStripMenuItemSaveAsTsv_Click;
+		toolStripMenuItemSaveAsTsv.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTsv.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsPsv
+		// 
+		toolStripMenuItemSaveAsPsv.AccessibleDescription = "Saves the list as PSV file";
+		toolStripMenuItemSaveAsPsv.AccessibleName = "Save as PSV";
+		toolStripMenuItemSaveAsPsv.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsPsv.AutoToolTip = true;
+		toolStripMenuItemSaveAsPsv.Image = Resources.FatcowIcons16px.fatcow_page_white_excel_16px;
+		toolStripMenuItemSaveAsPsv.Name = "toolStripMenuItemSaveAsPsv";
+		toolStripMenuItemSaveAsPsv.Size = new Size(301, 22);
+		toolStripMenuItemSaveAsPsv.Text = "Save as &Pipe separated value (PSV)";
+		toolStripMenuItemSaveAsPsv.Click += ToolStripMenuItemSaveAsPsv_Click;
+		toolStripMenuItemSaveAsPsv.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsPsv.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsEt
+		// 
+		toolStripMenuItemSaveAsEt.AccessibleDescription = "Saves the list as ET";
+		toolStripMenuItemSaveAsEt.AccessibleName = "Save as ET";
+		toolStripMenuItemSaveAsEt.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsEt.AutoToolTip = true;
+		toolStripMenuItemSaveAsEt.Image = Resources.FatcowIcons16px.fatcow_page_white_excel_16px;
+		toolStripMenuItemSaveAsEt.Name = "toolStripMenuItemSaveAsEt";
+		toolStripMenuItemSaveAsEt.Size = new Size(301, 22);
+		toolStripMenuItemSaveAsEt.Text = "Save as &WPS Office Spreadsheet (ET)";
+		toolStripMenuItemSaveAsEt.Click += ToolStripMenuItemSaveAsEt_Click;
+		toolStripMenuItemSaveAsEt.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsEt.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemXmlDocuments
+		// 
+		toolStripMenuItemXmlDocuments.AccessibleDescription = "Saves the list as XML documents";
+		toolStripMenuItemXmlDocuments.AccessibleName = "Save as XML documents";
+		toolStripMenuItemXmlDocuments.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemXmlDocuments.AutoToolTip = true;
+		toolStripMenuItemXmlDocuments.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsHtml, toolStripMenuItemSaveAsXml, toolStripMenuItemSaveAsDocBook });
+		toolStripMenuItemXmlDocuments.Image = Resources.FatcowIcons16px.fatcow_file_extension_bin_16px;
+		toolStripMenuItemXmlDocuments.Name = "toolStripMenuItemXmlDocuments";
+		toolStripMenuItemXmlDocuments.Size = new Size(201, 22);
+		toolStripMenuItemXmlDocuments.Text = "&XML documents";
+		toolStripMenuItemXmlDocuments.MouseEnter += Control_Enter;
+		toolStripMenuItemXmlDocuments.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsHtml
+		// 
+		toolStripMenuItemSaveAsHtml.AccessibleDescription = "Saves the list as HTML file";
+		toolStripMenuItemSaveAsHtml.AccessibleName = "Save as HTML";
+		toolStripMenuItemSaveAsHtml.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsHtml.AutoToolTip = true;
+		toolStripMenuItemSaveAsHtml.Image = Resources.FatcowIcons16px.fatcow_page_white_code_16px;
+		toolStripMenuItemSaveAsHtml.Name = "toolStripMenuItemSaveAsHtml";
+		toolStripMenuItemSaveAsHtml.Size = new Size(163, 22);
+		toolStripMenuItemSaveAsHtml.Text = "Save as &HTML";
+		toolStripMenuItemSaveAsHtml.Click += ToolStripMenuItemSaveAsHtml_Click;
+		toolStripMenuItemSaveAsHtml.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsHtml.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsXml
+		// 
+		toolStripMenuItemSaveAsXml.AccessibleDescription = "Saves the list as XML file";
+		toolStripMenuItemSaveAsXml.AccessibleName = "Save as XML";
+		toolStripMenuItemSaveAsXml.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsXml.AutoToolTip = true;
+		toolStripMenuItemSaveAsXml.Image = Resources.FatcowIcons16px.fatcow_page_white_code_16px;
+		toolStripMenuItemSaveAsXml.Name = "toolStripMenuItemSaveAsXml";
+		toolStripMenuItemSaveAsXml.Size = new Size(163, 22);
+		toolStripMenuItemSaveAsXml.Text = "Save as &XML";
+		toolStripMenuItemSaveAsXml.Click += ToolStripMenuItemSaveAsXml_Click;
+		toolStripMenuItemSaveAsXml.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsXml.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsDocBook
+		// 
+		toolStripMenuItemSaveAsDocBook.AccessibleDescription = "Saves the list as DocBook file";
+		toolStripMenuItemSaveAsDocBook.AccessibleName = "Save as DocBook";
+		toolStripMenuItemSaveAsDocBook.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsDocBook.AutoToolTip = true;
+		toolStripMenuItemSaveAsDocBook.Image = Resources.FatcowIcons16px.fatcow_page_white_code_16px;
+		toolStripMenuItemSaveAsDocBook.Name = "toolStripMenuItemSaveAsDocBook";
+		toolStripMenuItemSaveAsDocBook.Size = new Size(163, 22);
+		toolStripMenuItemSaveAsDocBook.Text = "Save as &DocBook";
+		toolStripMenuItemSaveAsDocBook.Click += ToolStripMenuItemSaveAsDocBook_Click;
+		toolStripMenuItemSaveAsDocBook.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsDocBook.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemConfigurationFiles
+		// 
+		toolStripMenuItemConfigurationFiles.AccessibleDescription = "Saves the list as configuration file";
+		toolStripMenuItemConfigurationFiles.AccessibleName = "Save as configuration file";
+		toolStripMenuItemConfigurationFiles.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemConfigurationFiles.AutoToolTip = true;
+		toolStripMenuItemConfigurationFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsJson, toolStripMenuItemSaveAsYaml, toolStripMenuItemSaveAsToml });
+		toolStripMenuItemConfigurationFiles.Image = Resources.FatcowIcons16px.fatcow_file_extension_bat_16px;
+		toolStripMenuItemConfigurationFiles.Name = "toolStripMenuItemConfigurationFiles";
+		toolStripMenuItemConfigurationFiles.Size = new Size(201, 22);
+		toolStripMenuItemConfigurationFiles.Text = "&Configuration files";
+		toolStripMenuItemConfigurationFiles.MouseEnter += Control_Enter;
+		toolStripMenuItemConfigurationFiles.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsJson
+		// 
+		toolStripMenuItemSaveAsJson.AccessibleDescription = "Saves the list as JSON file";
+		toolStripMenuItemSaveAsJson.AccessibleName = "Save as JSON";
+		toolStripMenuItemSaveAsJson.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsJson.AutoToolTip = true;
+		toolStripMenuItemSaveAsJson.Image = Resources.FatcowIcons16px.fatcow_page_white_code_red_16px;
+		toolStripMenuItemSaveAsJson.Name = "toolStripMenuItemSaveAsJson";
+		toolStripMenuItemSaveAsJson.Size = new Size(146, 22);
+		toolStripMenuItemSaveAsJson.Text = "Save as &JSON";
+		toolStripMenuItemSaveAsJson.Click += ToolStripMenuItemSaveAsJson_Click;
+		toolStripMenuItemSaveAsJson.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsJson.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsYaml
+		// 
+		toolStripMenuItemSaveAsYaml.AccessibleDescription = "Saves the list as YAML file";
+		toolStripMenuItemSaveAsYaml.AccessibleName = "Save as YAML";
+		toolStripMenuItemSaveAsYaml.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsYaml.AutoToolTip = true;
+		toolStripMenuItemSaveAsYaml.Image = Resources.FatcowIcons16px.fatcow_page_white_code_red_16px;
+		toolStripMenuItemSaveAsYaml.Name = "toolStripMenuItemSaveAsYaml";
+		toolStripMenuItemSaveAsYaml.Size = new Size(146, 22);
+		toolStripMenuItemSaveAsYaml.Text = "Save as &YAML";
+		toolStripMenuItemSaveAsYaml.Click += ToolStripMenuItemSaveAsYaml_Click;
+		toolStripMenuItemSaveAsYaml.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsYaml.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsToml
+		// 
+		toolStripMenuItemSaveAsToml.AccessibleDescription = "Saves the list as TOML file";
+		toolStripMenuItemSaveAsToml.AccessibleName = "Save as TOML";
+		toolStripMenuItemSaveAsToml.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsToml.AutoToolTip = true;
+		toolStripMenuItemSaveAsToml.Image = Resources.FatcowIcons16px.fatcow_page_white_code_red_16px;
+		toolStripMenuItemSaveAsToml.Name = "toolStripMenuItemSaveAsToml";
+		toolStripMenuItemSaveAsToml.Size = new Size(146, 22);
+		toolStripMenuItemSaveAsToml.Text = "Save as &TOML";
+		toolStripMenuItemSaveAsToml.Click += ToolStripMenuItemSaveAsToml_Click;
+		toolStripMenuItemSaveAsToml.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsToml.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemDatabaseScripts
+		// 
+		toolStripMenuItemDatabaseScripts.AccessibleDescription = "Saves the list as database script";
+		toolStripMenuItemDatabaseScripts.AccessibleName = "Save as database script";
+		toolStripMenuItemDatabaseScripts.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDatabaseScripts.AutoToolTip = true;
+		toolStripMenuItemDatabaseScripts.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsSql, toolStripMenuItemSaveAsSqlite });
+		toolStripMenuItemDatabaseScripts.Image = Resources.FatcowIcons16px.fatcow_file_extension_ptb_16px;
+		toolStripMenuItemDatabaseScripts.Name = "toolStripMenuItemDatabaseScripts";
+		toolStripMenuItemDatabaseScripts.Size = new Size(201, 22);
+		toolStripMenuItemDatabaseScripts.Text = "&Database scripts";
+		toolStripMenuItemDatabaseScripts.MouseEnter += Control_Enter;
+		toolStripMenuItemDatabaseScripts.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsSql
+		// 
+		toolStripMenuItemSaveAsSql.AccessibleDescription = "Saves the list as SQL script";
+		toolStripMenuItemSaveAsSql.AccessibleName = "Save as SQL";
+		toolStripMenuItemSaveAsSql.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsSql.AutoToolTip = true;
+		toolStripMenuItemSaveAsSql.Image = Resources.FatcowIcons16px.fatcow_page_white_database_16px;
+		toolStripMenuItemSaveAsSql.Name = "toolStripMenuItemSaveAsSql";
+		toolStripMenuItemSaveAsSql.Size = new Size(168, 22);
+		toolStripMenuItemSaveAsSql.Text = "Save as &SQL script";
+		toolStripMenuItemSaveAsSql.Click += ToolStripMenuItemSaveAsSql_Click;
+		toolStripMenuItemSaveAsSql.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsSql.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsSqlite
+		// 
+		toolStripMenuItemSaveAsSqlite.AccessibleDescription = "Saves the list as SQLite file";
+		toolStripMenuItemSaveAsSqlite.AccessibleName = "Save as SQLite";
+		toolStripMenuItemSaveAsSqlite.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsSqlite.AutoToolTip = true;
+		toolStripMenuItemSaveAsSqlite.Image = Resources.FatcowIcons16px.fatcow_page_white_database_16px;
+		toolStripMenuItemSaveAsSqlite.Name = "toolStripMenuItemSaveAsSqlite";
+		toolStripMenuItemSaveAsSqlite.Size = new Size(168, 22);
+		toolStripMenuItemSaveAsSqlite.Text = "Save as SQ&Lite";
+		toolStripMenuItemSaveAsSqlite.Click += ToolStripMenuItemSaveAsSqlite_Click;
+		toolStripMenuItemSaveAsSqlite.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsSqlite.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemPortableDocuments
+		// 
+		toolStripMenuItemPortableDocuments.AccessibleDescription = "Saves the list as portable document";
+		toolStripMenuItemPortableDocuments.AccessibleName = "Save as portable document";
+		toolStripMenuItemPortableDocuments.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemPortableDocuments.AutoToolTip = true;
+		toolStripMenuItemPortableDocuments.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsPdf, toolStripMenuItemSaveAsPostScript, toolStripMenuItemSaveAsEpub, toolStripMenuItemSaveAsMobi, toolStripMenuItemSaveAsXps, toolStripMenuItemSaveAsFictionBook2, toolStripMenuItemSaveAsChm });
+		toolStripMenuItemPortableDocuments.Image = Resources.FatcowIcons16px.fatcow_file_extension_pdf_16px;
+		toolStripMenuItemPortableDocuments.Name = "toolStripMenuItemPortableDocuments";
+		toolStripMenuItemPortableDocuments.Size = new Size(201, 22);
+		toolStripMenuItemPortableDocuments.Text = "&Portable documents";
+		toolStripMenuItemPortableDocuments.MouseEnter += Control_Enter;
+		toolStripMenuItemPortableDocuments.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsPdf
+		// 
+		toolStripMenuItemSaveAsPdf.AccessibleDescription = "Saves the list as PDF file";
+		toolStripMenuItemSaveAsPdf.AccessibleName = "Save as PDF";
+		toolStripMenuItemSaveAsPdf.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsPdf.AutoToolTip = true;
+		toolStripMenuItemSaveAsPdf.Image = Resources.FatcowIcons16px.fatcow_page_white_acrobat_16px;
+		toolStripMenuItemSaveAsPdf.Name = "toolStripMenuItemSaveAsPdf";
+		toolStripMenuItemSaveAsPdf.Size = new Size(214, 22);
+		toolStripMenuItemSaveAsPdf.Text = "Save as &PDF";
+		toolStripMenuItemSaveAsPdf.Click += ToolStripMenuItemSaveAsPdf_Click;
+		toolStripMenuItemSaveAsPdf.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsPdf.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsPostScript
+		// 
+		toolStripMenuItemSaveAsPostScript.AccessibleDescription = "Saves the list as PostScript file";
+		toolStripMenuItemSaveAsPostScript.AccessibleName = "Save as PostScript";
+		toolStripMenuItemSaveAsPostScript.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsPostScript.AutoToolTip = true;
+		toolStripMenuItemSaveAsPostScript.Image = Resources.FatcowIcons16px.fatcow_page_white_acrobat_16px;
+		toolStripMenuItemSaveAsPostScript.Name = "toolStripMenuItemSaveAsPostScript";
+		toolStripMenuItemSaveAsPostScript.Size = new Size(214, 22);
+		toolStripMenuItemSaveAsPostScript.Text = "Save as Post&Script (PS)";
+		toolStripMenuItemSaveAsPostScript.Click += ToolStripMenuItemSaveAsPostScript_Click;
+		toolStripMenuItemSaveAsPostScript.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsPostScript.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsEpub
+		// 
+		toolStripMenuItemSaveAsEpub.AccessibleDescription = "Saves the list as EPUB file";
+		toolStripMenuItemSaveAsEpub.AccessibleName = "Save as EPUB";
+		toolStripMenuItemSaveAsEpub.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsEpub.AutoToolTip = true;
+		toolStripMenuItemSaveAsEpub.Image = Resources.FatcowIcons16px.fatcow_page_white_acrobat_16px;
+		toolStripMenuItemSaveAsEpub.Name = "toolStripMenuItemSaveAsEpub";
+		toolStripMenuItemSaveAsEpub.Size = new Size(214, 22);
+		toolStripMenuItemSaveAsEpub.Text = "Save as &EPUB";
+		toolStripMenuItemSaveAsEpub.Click += ToolStripMenuItemSaveAsEpub_Click;
+		toolStripMenuItemSaveAsEpub.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsEpub.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsMobi
+		// 
+		toolStripMenuItemSaveAsMobi.AccessibleDescription = "Saves the list as MOBI file";
+		toolStripMenuItemSaveAsMobi.AccessibleName = "Save as MOBI";
+		toolStripMenuItemSaveAsMobi.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsMobi.AutoToolTip = true;
+		toolStripMenuItemSaveAsMobi.Image = Resources.FatcowIcons16px.fatcow_page_white_acrobat_16px;
+		toolStripMenuItemSaveAsMobi.Name = "toolStripMenuItemSaveAsMobi";
+		toolStripMenuItemSaveAsMobi.Size = new Size(214, 22);
+		toolStripMenuItemSaveAsMobi.Text = "Save as &MOBI";
+		toolStripMenuItemSaveAsMobi.Click += ToolStripMenuItemSaveAsMobi_Click;
+		toolStripMenuItemSaveAsMobi.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsMobi.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsXps
+		// 
+		toolStripMenuItemSaveAsXps.AccessibleDescription = "Saves the list as XPS file";
+		toolStripMenuItemSaveAsXps.AccessibleName = "Save as XPS";
+		toolStripMenuItemSaveAsXps.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsXps.AutoToolTip = true;
+		toolStripMenuItemSaveAsXps.Image = Resources.FatcowIcons16px.fatcow_page_white_acrobat_16px;
+		toolStripMenuItemSaveAsXps.Name = "toolStripMenuItemSaveAsXps";
+		toolStripMenuItemSaveAsXps.Size = new Size(214, 22);
+		toolStripMenuItemSaveAsXps.Text = "Save as &XPS";
+		toolStripMenuItemSaveAsXps.Click += ToolStripMenuItemSaveAsXps_Click;
+		toolStripMenuItemSaveAsXps.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsXps.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsFictionBook2
+		// 
+		toolStripMenuItemSaveAsFictionBook2.AccessibleDescription = "Saves the list as FictionBook2 file";
+		toolStripMenuItemSaveAsFictionBook2.AccessibleName = "Save as FB2";
+		toolStripMenuItemSaveAsFictionBook2.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsFictionBook2.AutoToolTip = true;
+		toolStripMenuItemSaveAsFictionBook2.Image = Resources.FatcowIcons16px.fatcow_page_white_acrobat_16px;
+		toolStripMenuItemSaveAsFictionBook2.Name = "toolStripMenuItemSaveAsFictionBook2";
+		toolStripMenuItemSaveAsFictionBook2.Size = new Size(214, 22);
+		toolStripMenuItemSaveAsFictionBook2.Text = "Save as &FictionBook2 (FB2)";
+		toolStripMenuItemSaveAsFictionBook2.Click += ToolStripMenuItemSaveAsFictionBook2_Click;
+		toolStripMenuItemSaveAsFictionBook2.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsFictionBook2.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsChm
+		// 
+		toolStripMenuItemSaveAsChm.AccessibleDescription = "Saves the list as CHM file";
+		toolStripMenuItemSaveAsChm.AccessibleName = "Save as CHM";
+		toolStripMenuItemSaveAsChm.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsChm.AutoToolTip = true;
+		toolStripMenuItemSaveAsChm.Image = Resources.FatcowIcons16px.fatcow_page_white_acrobat_16px;
+		toolStripMenuItemSaveAsChm.Name = "toolStripMenuItemSaveAsChm";
+		toolStripMenuItemSaveAsChm.Size = new Size(214, 22);
+		toolStripMenuItemSaveAsChm.Text = "Save as &CHM";
+		toolStripMenuItemSaveAsChm.Click += ToolStripMenuItemSaveAsChm_Click;
+		toolStripMenuItemSaveAsChm.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsChm.MouseLeave += Control_Leave;
+		// 
+		// kryptonToolStripProgress
+		// 
+		kryptonToolStripProgress.AccessibleDescription = "Toolbar of progress";
+		kryptonToolStripProgress.AccessibleName = "Toolbar of progress";
+		kryptonToolStripProgress.AccessibleRole = AccessibleRole.ToolBar;
+		kryptonToolStripProgress.AllowClickThrough = true;
+		kryptonToolStripProgress.AllowItemReorder = true;
+		kryptonToolStripProgress.Dock = DockStyle.None;
+		kryptonToolStripProgress.Font = new Font("Segoe UI", 9F);
+		kryptonToolStripProgress.Items.AddRange(new ToolStripItem[] { toolStripLabelProgress, kryptonProgressBar });
+		kryptonToolStripProgress.Location = new Point(0, 26);
+		kryptonToolStripProgress.Name = "kryptonToolStripProgress";
+		kryptonToolStripProgress.Size = new Size(617, 26);
+		kryptonToolStripProgress.Stretch = true;
+		kryptonToolStripProgress.TabIndex = 1;
+		kryptonToolStripProgress.TabStop = true;
+		kryptonToolStripProgress.Text = "Toolbar of progress";
+		kryptonToolStripProgress.Enter += Control_Enter;
+		kryptonToolStripProgress.Leave += Control_Leave;
+		kryptonToolStripProgress.MouseEnter += Control_Enter;
+		kryptonToolStripProgress.MouseLeave += Control_Leave;
+		// 
+		// toolStripLabelProgress
+		// 
+		toolStripLabelProgress.AccessibleDescription = "Shows the progress of comparing";
+		toolStripLabelProgress.AccessibleName = "Progress";
+		toolStripLabelProgress.AccessibleRole = AccessibleRole.StaticText;
+		toolStripLabelProgress.AutoToolTip = true;
+		toolStripLabelProgress.Name = "toolStripLabelProgress";
+		toolStripLabelProgress.Size = new Size(52, 23);
+		toolStripLabelProgress.Text = "Pro&gress";
+		toolStripLabelProgress.MouseEnter += Control_Enter;
+		toolStripLabelProgress.MouseLeave += Control_Leave;
+		// 
+		// kryptonProgressBar
+		// 
+		kryptonProgressBar.AccessibleDescription = "Shows the progress";
+		kryptonProgressBar.AccessibleName = "Progress";
+		kryptonProgressBar.AccessibleRole = AccessibleRole.ProgressBar;
+		kryptonProgressBar.AutoToolTip = true;
+		kryptonProgressBar.Name = "kryptonProgressBar";
+		kryptonProgressBar.Size = new Size(500, 23);
+		kryptonProgressBar.StateCommon.Back.Color1 = Color.Green;
+		kryptonProgressBar.StateDisabled.Back.ColorStyle = PaletteColorStyle.OneNote;
+		kryptonProgressBar.StateNormal.Back.ColorStyle = PaletteColorStyle.OneNote;
+		kryptonProgressBar.Values.Text = "";
+		kryptonProgressBar.Enter += Control_Enter;
+		kryptonProgressBar.Leave += Control_Leave;
+		kryptonProgressBar.MouseEnter += Control_Enter;
+		kryptonProgressBar.MouseLeave += Control_Leave;
+		// 
+		// kryptonManager
+		// 
+		kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 		// 
 		// OrbitElementsGroupingForm
 		// 
@@ -156,10 +983,10 @@ partial class OrbitElementsGroupingForm
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(784, 561);
+		ClientSize = new Size(617, 412);
 		ControlBox = false;
-		Controls.Add(kryptonPanelMain);
-		FormBorderStyle = FormBorderStyle.FixedToolWindow;
+		Controls.Add(toolStripContainer);
+		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		MaximizeBox = false;
 		MinimizeBox = false;
@@ -170,16 +997,82 @@ partial class OrbitElementsGroupingForm
 		((ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);
 		kryptonPanelMain.PerformLayout();
+		kryptonStatusStrip.ResumeLayout(false);
+		kryptonStatusStrip.PerformLayout();
+		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
+		toolStripContainer.BottomToolStripPanel.PerformLayout();
+		toolStripContainer.ContentPanel.ResumeLayout(false);
+		toolStripContainer.TopToolStripPanel.ResumeLayout(false);
+		toolStripContainer.TopToolStripPanel.PerformLayout();
+		toolStripContainer.ResumeLayout(false);
+		toolStripContainer.PerformLayout();
+		kryptonToolStripGenerateList.ResumeLayout(false);
+		kryptonToolStripGenerateList.PerformLayout();
+		contextMenuSaveToFile.ResumeLayout(false);
+		kryptonToolStripProgress.ResumeLayout(false);
+		kryptonToolStripProgress.PerformLayout();
 		ResumeLayout(false);
 	}
 
 	private KryptonPanel kryptonPanelMain;
-    private KryptonButton btnStart;
-    private KryptonButton btnCancel;
-    private KryptonProgressBar progressBar;
-    private KryptonRichTextBox txtOutput;
-    private KryptonNumericUpDown numTolerance;
-    private KryptonLabel lblTolerance;
     private KryptonNumericUpDown numElementsToCompare;
     private KryptonLabel lblElementsCount;
+	private KryptonStatusStrip kryptonStatusStrip;
+	private ToolStripStatusLabel labelInformation;
+	private ToolStripContainer toolStripContainer;
+	private KryptonToolStrip kryptonToolStripGenerateList;
+	private ToolStripButton toolStripButtonStart;
+	private ToolStripSeparator toolStripSeparator1;
+	private ToolStripLabel toolStripLabelTolerance;
+	private Helpers.ToolStripNumericUpDown toolStripNumericUpDownTolerance;
+	private ToolStripLabel toolStripLabelElementsCount;
+	private Helpers.ToolStripNumericUpDown toolStripNumericUpDownElementsCount;
+	private ToolStripSeparator toolStripSeparator2;
+	private ToolStripDropDownButton toolStripDropDownButtonSaveList;
+	private KryptonManager kryptonManager;
+	private ContextMenuStrip contextMenuSaveToFile;
+	private ToolStripMenuItem toolStripMenuItemTextFiles;
+	private ToolStripMenuItem toolStripMenuItemSaveAsText;
+	private ToolStripMenuItem toolStripMenuItemSaveAsLatex;
+	private ToolStripMenuItem toolStripMenuItemSaveAsMarkdown;
+	private ToolStripMenuItem toolStripMenuItemSaveAsAsciiDoc;
+	private ToolStripMenuItem toolStripMenuItemSaveAsReStructuredText;
+	private ToolStripMenuItem toolStripMenuItemSaveAsTextile;
+	private ToolStripMenuItem toolStripMenuItemWriterDocuments;
+	private ToolStripMenuItem toolStripMenuItemSaveAsWord;
+	private ToolStripMenuItem toolStripMenuItemSaveAsOdt;
+	private ToolStripMenuItem toolStripMenuItemSaveAsRtf;
+	private ToolStripMenuItem toolStripMenuItemSaveAsAbiword;
+	private ToolStripMenuItem toolStripMenuItemSaveAsWps;
+	private ToolStripMenuItem toolStripMenuItemSpreadsheetDocuments;
+	private ToolStripMenuItem toolStripMenuItemSaveAsExcel;
+	private ToolStripMenuItem toolStripMenuItemSaveAsOds;
+	private ToolStripMenuItem toolStripMenuItemSaveAsCsv;
+	private ToolStripMenuItem toolStripMenuItemSaveAsTsv;
+	private ToolStripMenuItem toolStripMenuItemSaveAsPsv;
+	private ToolStripMenuItem toolStripMenuItemSaveAsEt;
+	private ToolStripMenuItem toolStripMenuItemXmlDocuments;
+	private ToolStripMenuItem toolStripMenuItemSaveAsHtml;
+	private ToolStripMenuItem toolStripMenuItemSaveAsXml;
+	private ToolStripMenuItem toolStripMenuItemSaveAsDocBook;
+	private ToolStripMenuItem toolStripMenuItemConfigurationFiles;
+	private ToolStripMenuItem toolStripMenuItemSaveAsJson;
+	private ToolStripMenuItem toolStripMenuItemSaveAsYaml;
+	private ToolStripMenuItem toolStripMenuItemSaveAsToml;
+	private ToolStripMenuItem toolStripMenuItemDatabaseScripts;
+	private ToolStripMenuItem toolStripMenuItemSaveAsSql;
+	private ToolStripMenuItem toolStripMenuItemSaveAsSqlite;
+	private ToolStripMenuItem toolStripMenuItemPortableDocuments;
+	private ToolStripMenuItem toolStripMenuItemSaveAsPdf;
+	private ToolStripMenuItem toolStripMenuItemSaveAsPostScript;
+	private ToolStripMenuItem toolStripMenuItemSaveAsEpub;
+	private ToolStripMenuItem toolStripMenuItemSaveAsMobi;
+	private ToolStripMenuItem toolStripMenuItemSaveAsXps;
+	private ToolStripMenuItem toolStripMenuItemSaveAsFictionBook2;
+	private ToolStripMenuItem toolStripMenuItemSaveAsChm;
+	private KryptonTextBox kryptonTextBoxOutput;
+	private KryptonToolStrip kryptonToolStripProgress;
+	private ToolStripLabel toolStripLabelProgress;
+	private KryptonProgressBarToolStripItem kryptonProgressBar;
+	private ToolStripButton toolStripButtonCancel;
 }
