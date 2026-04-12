@@ -187,18 +187,34 @@ public partial class OrbitElementsGroupingForm : BaseKryptonForm
 	/// <param name="messageProgress">An object that receives status or informational messages about the current stage of processing.</param>
 	/// <param name="cancellationToken">A token that can be used to request cancellation of the operation. If cancellation is requested, the method will terminate early.</param>
 	/// <returns>A task that represents the asynchronous grouping operation.</returns>
+	/// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="elementsCount"/> is less than 1, greater than the number of available orbital elements, or when <paramref name="tolerancePercent"/> is negative.</exception>
+	/// <exception cref="ArgumentNullException">Thrown when <paramref name="progress"/> or <paramref name="messageProgress"/> is <see langword="null"/>.</exception>
 	private async Task PerformGroupingAsync(int elementsCount, double tolerancePercent, IProgress<int> progress, IProgress<string> messageProgress, CancellationToken cancellationToken)
 	{
-		// Validate input parameters to ensure they are within acceptable ranges. If the elementsCount is less than 1 or greater than the total number of available elements, or if the tolerancePercent is negative, an ArgumentException is thrown.
+		const int availableElementsCount = 7;
+
+		ArgumentNullException.ThrowIfNull(argument: progress);
+		ArgumentNullException.ThrowIfNull(argument: messageProgress);
+		ArgumentOutOfRangeException.ThrowIfNegative(value: tolerancePercent);
+
+		if (elementsCount < 1 || elementsCount > availableElementsCount)
+		{
+			throw new ArgumentOutOfRangeException(
+				paramName: nameof(elementsCount),
+				actualValue: elementsCount,
+				message: $"The value must be between 1 and {availableElementsCount}.");
+		}
+
 		try
 		{
-			// Validate input parameters
 			messageProgress.Report(value: "Parsing data...");
 			// Parse valid orbital parameters
 			List<PlanetoidData> parsedData = [];
 			object parseLock = new();
 			int parsedCount = 0;
 			int totalRecords = _planetoids.Count;
+			// Capture the window handle on the UI thread before entering parallel processing.
+			IntPtr windowHandle = Handle;
 			// Use parallel processing to parse the planetoid data efficiently. Each line is processed to extract the relevant orbital elements, and valid entries are added to the parsedData list. Progress is reported every 1000 records processed.
 			_planetoids.AsParallel().WithCancellation(cancellationToken: cancellationToken).ForAll(action: line =>
 			{
@@ -230,7 +246,7 @@ public partial class OrbitElementsGroupingForm : BaseKryptonForm
 				{
 					// Report progress every 1000 records processed. The progress is calculated as a percentage of the total records, with a step of 10% for parsing.
 					progress.Report(value: currentCount * 10 / totalRecords); // 10% step for parsing
-					TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)(currentCount * 10 / totalRecords), progressMax: 100);
+					TaskbarProgress.SetValue(windowHandle: windowHandle, progressValue: (ulong)(currentCount * 10 / totalRecords), progressMax: 100);
 				}
 			});
 			// After parsing is complete, check for cancellation before proceeding to the next steps. If cancellation has been requested, an OperationCanceledException will be thrown, which is caught in the outer try-catch block.
@@ -254,7 +270,7 @@ public partial class OrbitElementsGroupingForm : BaseKryptonForm
 				cancellationToken.ThrowIfCancellationRequested();
 				// Report the current combination being analyzed, including the index of the combination and the total number of combinations. This message is displayed in the output text box to inform the user about the current stage of processing.
 				messageProgress.Report(value: $"Analyzing combination {comboIndex + 1}/{totalCombos}...");
-				// A simplified algorithm to cluster them using a generic grouping mechanism (binning with tolerance)n processed to group planetoids that have similar values for the specified elements within the given tolerance.
+				// A simplified algorithm clusters planetoids using a generic grouping mechanism (binning with tolerance) to group planetoids that have similar values for the specified elements within the given tolerance.
 				List<PlanetoidData> sortedData = [.. parsedData.OrderBy(keySelector: d => d.Elements[combo[0]])];
 				// Initialize a list to hold the clusters of planetoids that are found to be similar based on the current combination of elements. Each cluster is a list of PlanetoidData objects that share similar values for the specified elements within the given tolerance.
 				List<List<PlanetoidData>> clusters = [];

@@ -138,6 +138,7 @@ partial class OrbitElementsGroupingForm
 		kryptonTextBoxOutput.Name = "kryptonTextBoxOutput";
 		kryptonTextBoxOutput.ReadOnly = true;
 		kryptonTextBoxOutput.ScrollBars = ScrollBars.Both;
+		kryptonTextBoxOutput.WordWrap = false;
 		kryptonTextBoxOutput.Size = new Size(617, 338);
 		kryptonTextBoxOutput.TabIndex = 0;
 		kryptonTextBoxOutput.ToolTipValues.Description = "Shows the results";
@@ -327,9 +328,9 @@ partial class OrbitElementsGroupingForm
 		toolStripNumericUpDownElementsCount.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
 		toolStripNumericUpDownElementsCount.Name = "toolStripNumericUpDownElementsCount";
 		toolStripNumericUpDownElementsCount.Size = new Size(29, 23);
-		toolStripNumericUpDownElementsCount.Text = "2";
+		toolStripNumericUpDownElementsCount.Text = "3";
 		toolStripNumericUpDownElementsCount.TextAlign = HorizontalAlignment.Center;
-		toolStripNumericUpDownElementsCount.Value = new decimal(new int[] { 2, 0, 0, 0 });
+		toolStripNumericUpDownElementsCount.Value = new decimal(new int[] { 3, 0, 0, 0 });
 		toolStripNumericUpDownElementsCount.MouseEnter += Control_Enter;
 		toolStripNumericUpDownElementsCount.MouseLeave += Control_Leave;
 		// 
@@ -1015,8 +1016,6 @@ partial class OrbitElementsGroupingForm
 	}
 
 	private KryptonPanel kryptonPanelMain;
-    private KryptonNumericUpDown numElementsToCompare;
-    private KryptonLabel lblElementsCount;
 	private KryptonStatusStrip kryptonStatusStrip;
 	private ToolStripStatusLabel labelInformation;
 	private ToolStripContainer toolStripContainer;
