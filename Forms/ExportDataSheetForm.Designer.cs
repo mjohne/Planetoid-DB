@@ -105,7 +105,6 @@ partial class ExportDataSheetForm
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
 		kryptonStatusStrip.ShowItemToolTips = true;
 		kryptonStatusStrip.Size = new Size(284, 22);
-		kryptonStatusStrip.SizingGrip = false;
 		kryptonStatusStrip.TabIndex = 0;
 		kryptonStatusStrip.TabStop = true;
 		kryptonStatusStrip.Text = "Status bar";
@@ -624,7 +623,7 @@ partial class ExportDataSheetForm
 		ClientSize = new Size(284, 346);
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
-		FormBorderStyle = FormBorderStyle.FixedToolWindow;
+		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		Margin = new Padding(4, 3, 4, 3);
 		MaximizeBox = false;
