@@ -55,7 +55,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		// Set up the save dialog properties
 		dialog.InitialDirectory = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyDocuments);
 		// Set default file name
-		dialog.FileName = $"Database-Information.{ext}";
+		dialog.FileName = $"Database-Information_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.{ext}";
 		// Show the dialog and return the result
 		return dialog.ShowDialog() == DialogResult.OK;
 	}
@@ -193,7 +193,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsText(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsText(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -223,7 +223,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsLatex(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsLatex(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -254,7 +254,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsMarkdown(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsMarkdown(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -285,7 +285,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsAsciiDoc(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsAsciiDoc(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -316,7 +316,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsReStructuredText(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsReStructuredText(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -347,7 +347,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsTextile(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsTextile(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -378,7 +378,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsWord(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsWord(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -408,7 +408,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsOdt(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsOdt(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -439,7 +439,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsRtf(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsRtf(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -469,7 +469,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsAbiword(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsAbiword(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -499,7 +499,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsWps(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsWps(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -530,7 +530,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsExcel(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsExcel(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -560,7 +560,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsOds(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsOds(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -590,7 +590,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsCsv(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsCsv(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -621,7 +621,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsTsv(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsTsv(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -652,7 +652,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsPsv(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsPsv(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -682,7 +682,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsEt(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsEt(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -712,7 +712,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsHtml(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsHtml(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -742,7 +742,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsXml(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsXml(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -773,7 +773,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsDocBook(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsDocBook(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -803,7 +803,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsJson(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsJson(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -835,7 +835,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsYaml(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsYaml(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -865,7 +865,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsToml(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsToml(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -895,7 +895,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsSql(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsSql(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -926,7 +926,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsSqlite(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsSqlite(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -957,7 +957,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsPdf(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsPdf(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -988,7 +988,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsPostScript(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsPostScript(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -1019,7 +1019,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsEpub(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsEpub(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -1049,7 +1049,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsMobi(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsMobi(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -1079,7 +1079,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsXps(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsXps(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -1109,7 +1109,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsFictionBook2(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsFictionBook2(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
@@ -1140,7 +1140,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			TableLayoutPanelExporter.SaveAsChm(tableLayoutPanel: tableLayoutPanel, title: "List of readable designations", fileName: saveFileDialog.FileName);
+			TableLayoutPanelExporter.SaveAsChm(tableLayoutPanel: tableLayoutPanel, title: "Database Information", fileName: saveFileDialog.FileName);
 		}
 		finally
 		{
