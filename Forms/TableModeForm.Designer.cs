@@ -879,6 +879,7 @@ partial class TableModeForm
 		kryptonStatusStrip.AllowItemReorder = true;
 		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
+		kryptonStatusStrip.GripStyle = ToolStripGripStyle.Visible;
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
 		kryptonStatusStrip.Location = new Point(0, 0);
 		kryptonStatusStrip.Name = "kryptonStatusStrip";
