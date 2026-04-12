@@ -30,7 +30,7 @@ public static class TableLayoutPanelExporter
 	/// <remarks>Creating a static instance of JsonSerializerOptions with WriteIndented set to true allows for consistent formatting of JSON output across all methods that serialize to JSON, while avoiding the overhead of creating new options instances for each serialization operation.</remarks>
 	private static readonly JsonSerializerOptions jsonSerializerOptions = new() { WriteIndented = true };
 
-	#region Private helpers
+	#region helpers
 
 	/// <summary>Returns the column header texts of the given <see cref="TableLayoutPanel"/> (read from row 0).</summary>
 	/// <param name="tableLayoutPanel">The table layout panel whose first row contains headers.</param>
@@ -71,166 +71,43 @@ public static class TableLayoutPanelExporter
 	/// <param name="input">The raw input string.</param>
 	/// <returns>The escaped string suitable for LaTeX output.</returns>
 	/// <remarks>LaTeX special characters that need escaping include: \ { } % $ amp # _ ^ ~. This method iterates through each character in the input string and appends either the escaped version or the original character to a StringBuilder, which is then returned as the fully escaped string.</remarks>
-	private static string EscapeLatex(string? input)
-	{
-		// LaTeX special characters that need escaping: \ { } % $ amp # _ ^ ~
-		if (string.IsNullOrEmpty(value: input))
-		{
-			return string.Empty;
-		}
-		// Use a StringBuilder for efficient string concatenation when escaping characters.
-		StringBuilder builder = new(capacity: input.Length);
-		// Iterate through each character in the input string and escape special characters as needed.
-		foreach (char ch in input)
-		{
-			switch (ch)
-			{
-				case '\\': builder.Append(value: "\\textbackslash{}"); break;
-				case '{': builder.Append(value: "\\{"); break;
-				case '}': builder.Append(value: "\\}"); break;
-				case '%': builder.Append(value: "\\%"); break;
-				case '$': builder.Append(value: "\\$"); break;
-				case '&': builder.Append(value: "\\&"); break;
-				case '#': builder.Append(value: "\\#"); break;
-				case '_': builder.Append(value: "\\_"); break;
-				case '^': builder.Append(value: "\\^{}"); break;
-				case '~': builder.Append(value: "\\~{}"); break;
-				default: builder.Append(value: ch); break;
-			}
-		}
-		// Return the fully escaped string.
-		return builder.ToString();
-	}
+	private static string EscapeLatex(string? input) => ExportEscapeHelper.EscapeLatex(input);
 
 	/// <summary>Escapes Markdown table cell characters.</summary>
 	/// <param name="value">The raw cell value.</param>
 	/// <returns>The escaped string suitable for Markdown table output.</returns>
 	/// <remarks>In Markdown tables, the pipe character '|' is used as a column separator, so it must be escaped if it appears in cell content. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it replaces all occurrences of '|' with '\|', which is the standard way to escape a pipe character in Markdown.</remarks>
-	private static string EscapeMarkdownCell(string? value)
-	{
-		// In Markdown tables, the pipe character '|' is used as a column separator, so it must be escaped if it appears in cell content.
-		return string.IsNullOrEmpty(value: value) ? string.Empty : value.Replace(oldValue: "|", newValue: "\\|");
-	}
+	private static string EscapeMarkdownCell(string? value) => ExportEscapeHelper.EscapeMarkdownCell(value);
 
 	/// <summary>Escapes PostScript string literal characters.</summary>
 	/// <param name="input">The raw input string.</param>
 	/// <returns>The escaped string suitable for PostScript output.</returns>
 	/// <remarks>In PostScript string literals, the backslash, parentheses, and control characters need to be escaped. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it replaces backslashes with double backslashes and parentheses with escaped versions to ensure that the resulting string can be safely included in a PostScript string literal.</remarks>
-	private static string EscapePostScript(string? input)
-	{
-		// In PostScript string literals, the backslash, parentheses, and control characters need to be escaped.
-		return string.IsNullOrEmpty(value: input)
-			? string.Empty
-			: input.Replace(oldValue: "\\", newValue: "\\\\")
-				   .Replace(oldValue: "(", newValue: "\\(")
-				   .Replace(oldValue: ")", newValue: "\\)");
-	}
+	private static string EscapePostScript(string? input) => ExportEscapeHelper.EscapePostScript(input);
 
 	/// <summary>Escapes PDF string literal characters.</summary>
 	/// <param name="text">The raw input string.</param>
 	/// <returns>The escaped string suitable for PDF output.</returns>
 	/// <remarks>In PDF string literals, the backslash, parentheses, and control characters need to be escaped. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it iterates through each character in the input string and appends either the escaped version or the original character to a StringBuilder, which is then returned as the fully escaped string. Control characters are escaped using backslash followed by a letter (e.g. \n for newline), while other non-printable characters are escaped using octal escape sequences.</remarks>
-	private static string EscapePdf(string? text)
-	{
-		// In PDF string literals, the backslash, parentheses, and control characters need to be escaped.
-		if (string.IsNullOrEmpty(value: text))
-		{
-			return string.Empty;
-		}
-		// Use a StringBuilder for efficient string concatenation when escaping characters.
-		StringBuilder builder = new(capacity: text.Length);
-		foreach (char ch in text)
-		{
-			// Escape backslash, parentheses, and control characters with a backslash. For other non-printable characters, use octal escape sequences.
-			switch (ch)
-			{
-				case '\\': builder.Append(value: "\\\\"); break;
-				case '(': builder.Append(value: "\\("); break;
-				case ')': builder.Append(value: "\\)"); break;
-				case '\n': builder.Append(value: "\\n"); break;
-				case '\r': builder.Append(value: "\\r"); break;
-				case '\t': builder.Append(value: "\\t"); break;
-				case '\b': builder.Append(value: "\\b"); break;
-				case '\f': builder.Append(value: "\\f"); break;
-				default:
-					if (ch < ' ')
-					{
-						builder.Append(value: $"\\{(int)ch:000}");
-					}
-					else
-					{
-						builder.Append(value: ch);
-					}
-					break;
-			}
-		}
-		// Return the fully escaped string.
-		return builder.ToString();
-	}
+	private static string EscapePdf(string? text) => ExportEscapeHelper.EscapePdf(text);
 
 	/// <summary>Escapes RTF special characters.</summary>
 	/// <param name="input">The raw input string.</param>
 	/// <returns>The escaped string suitable for RTF output.</returns>
 	/// <remarks>In RTF, the backslash, braces, and control characters need to be escaped. Non-ASCII characters can be represented using Unicode escape sequences. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it iterates through each character in the input string and appends either the escaped version or the original character to a StringBuilder, which is then returned as the fully escaped string. Backslashes and braces are escaped with a preceding backslash, newlines are replaced with the \par control word, and non-ASCII characters are represented using \uN? where N is the Unicode code point of the character.</remarks>
-	private static string EscapeRtf(string? input)
-	{
-		// In RTF, the backslash, braces, and control characters need to be escaped. Non-ASCII characters can be represented using Unicode escape sequences.
-		if (string.IsNullOrEmpty(value: input))
-		{
-			return string.Empty;
-		}
-		// Use a StringBuilder for efficient string concatenation when escaping characters.
-		StringBuilder builder = new(capacity: input.Length);
-		foreach (char ch in input)
-		{
-			// Escape backslash and braces with a backslash. For newlines, use the \par control word. For other non-ASCII characters, use Unicode escape sequences.
-			switch (ch)
-			{
-				case '\\': builder.Append(value: "\\\\"); break;
-				case '{': builder.Append(value: "\\{"); break;
-				case '}': builder.Append(value: "\\}"); break;
-				case '\n': builder.Append(value: "\\par "); break;
-				default:
-					if (ch > 127)
-					{
-						builder.Append(value: $"\\u{(int)ch}?");
-					}
-					else
-					{
-						builder.Append(value: ch);
-					}
-					break;
-			}
-		}
-		// Return the fully escaped string.
-		return builder.ToString();
-	}
+	private static string EscapeRtf(string? input) => ExportEscapeHelper.EscapeRtf(input);
 
 	/// <summary>Escapes a CSV field by doubling internal quotes and wrapping in double quotes.</summary>
 	/// <param name="field">The raw field value.</param>
 	/// <returns>The escaped CSV field suitable for CSV output.</returns>
 	/// <remarks>In CSV, fields that contain commas, quotes, or newlines must be enclosed in double quotes, and internal double quotes are escaped by doubling them. This method first checks if the input field is null and treats it as an empty string; then it replaces any internal double quotes with two double quotes to escape them, and finally wraps the entire field in double quotes to ensure it is treated as a single field in the CSV output.</remarks>
-	private static string EscapeCsvField(string? field)
-	{
-		// In CSV, fields that contain commas, quotes, or newlines must be enclosed in double quotes, and internal double quotes are escaped by doubling them.
-		string safeField = field ?? string.Empty;
-		// First, double any internal double quotes to escape them.
-		safeField = safeField.Replace(oldValue: "\"", newValue: "\"\"");
-		return $"\"{safeField}\"";
-	}
+	private static string EscapeCsvField(string? field) => ExportEscapeHelper.EscapeCsvField(field);
 
 	/// <summary>Escapes a TOML string value.</summary>
 	/// <param name="value">The raw value.</param>
 	/// <returns>The escaped TOML string value suitable for TOML output.</returns>
 	/// <remarks>In TOML, basic string values are enclosed in double quotes, and backslashes and double quotes within the string must be escaped with a backslash. This method checks if the input value is null or empty and returns an empty string in that case; otherwise, it replaces backslashes with double backslashes and double quotes with escaped double quotes to ensure that the resulting string can be safely included as a basic string value in a TOML document.</remarks>
-	private static string EscapeToml(string? value)
-	{
-		// In TOML, basic string values are enclosed in double quotes, and backslashes and double quotes within the string must be escaped with a backslash.
-		return string.IsNullOrEmpty(value: value)
-			? string.Empty
-			: value.Replace(oldValue: "\\", newValue: "\\\\")
-				   .Replace(oldValue: "\"", newValue: "\\\"");
-	}
+	private static string EscapeToml(string? value) => ExportEscapeHelper.EscapeToml(value);
 
 	/// <summary>Shows a success message after a file has been saved.</summary>
 	/// <remarks>Logs the successful save operation at the Info level and displays a message box to the user.</remarks>
@@ -459,7 +336,7 @@ public static class TableLayoutPanelExporter
 			writer.WriteLine(value: new string(c: '=', count: title.Length));
 			writer.WriteLine();
 			writer.WriteLine(value: separator);
-			string headerRow = "|" + string.Join(separator: "|", values: headers.Select(selector: (h, i) => $" {h.PadRight(totalWidth: widths[i] - 1)}")) + "|";
+			string headerRow = $"|{string.Join(separator: "|", values: headers.Select(selector: (h, i) => $" {h.PadRight(totalWidth: widths[i] - 1)}"))}|";
 			writer.WriteLine(value: headerRow);
 			writer.WriteLine(value: headerSep);
 			// Write each data row with proper padding to align with the column widths, and separate rows with the standard separator line.
@@ -609,7 +486,7 @@ public static class TableLayoutPanelExporter
 		{
 			//	Get the column headers from the TableLayoutPanel.
 			string[] headers = GetHeaders(tableLayoutPanel: tableLayoutPanel);
-			// Use a FileStream to create the output file, and a ZipArchive to write the ODT structure. The ODT format requires specific entries such as mimetype, META-INF/manifest.xml, and content.xml with the appropriate content types and structure.
+			// Use a FileStream to create the output file, and a ZipArchive to write the ODT structure. The ODT format requires specific entries such as mimetype, META-INF/manifest.xml, and content.xml with the appropriate content types and structure. The document contains a table with the TableLayoutPanel data and a heading with the title.
 			using FileStream fs = new(path: fileName, mode: FileMode.Create);
 			using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
 			// The mimetype entry must be the first entry in the ZIP archive and must be stored without compression. It specifies the MIME type of the document, which is "application/vnd.oasis.opendocument.text" for ODT files.
@@ -1134,12 +1011,12 @@ public static class TableLayoutPanelExporter
 			string[] headers = GetHeaders(tableLayoutPanel: tableLayoutPanel);
 			// Use a StreamWriter to write the output file in HTML format with UTF-8 encoding. The HTML document includes a DOCTYPE declaration, head with meta charset and title, and a body containing an H1 heading for the title and a table for the TableLayoutPanel data. Special characters in the title and cell data are encoded using System.Net.WebUtility.HtmlEncode to ensure that the HTML document is well-formed and can be opened in web browsers without issues.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
-			string safeTitle = System.Net.WebUtility.HtmlEncode(value: title) ?? string.Empty;
 			writer.WriteLine(value: "<!DOCTYPE html>");
-			writer.WriteLine(value: $"<html lang=\"en\"><head><meta charset=\"utf-8\"><title>{safeTitle}</title>");
-			writer.WriteLine(value: "<style>body{{font-family:sans-serif}}table{{border-collapse:collapse;width:100%}}th,td{{border:1px solid #ccc;padding:6px;text-align:left}}th{{background:#f2f2f2}}</style>");
+			writer.WriteLine(value: "<html><head><meta charset=\"utf-8\">");
+			writer.WriteLine(value: $"<title>{System.Net.WebUtility.HtmlEncode(value: title)}</title>");
+			writer.WriteLine(value: "<style>table{{border-collapse:collapse;width:100%}}th,td{{border:1px solid #000;padding:5px;text-align:left}}th{{background-color:#f2f2f2}}</style>");
 			writer.WriteLine(value: "</head><body>");
-			writer.WriteLine(value: $"<h1>{safeTitle}</h1>");
+			writer.WriteLine(value: $"<h1>{System.Net.WebUtility.HtmlEncode(value: title)}</h1>");
 			writer.Write(value: "<table><thead><tr>");
 			foreach (string h in headers)
 			{
@@ -1233,21 +1110,21 @@ public static class TableLayoutPanelExporter
 			xmlWriter.WriteStartElement(localName: "article", ns: "http://docbook.org/ns/docbook");
 			xmlWriter.WriteAttributeString(localName: "version", value: "5.0");
 			xmlWriter.WriteElementString(localName: "title", value: title);
-			xmlWriter.WriteStartElement(localName: "section");
-			xmlWriter.WriteStartElement(localName: "table");
+			xmlWriter.WriteStartElement(localName: "section", ns: "http://docbook.org/ns/docbook");
+			xmlWriter.WriteStartElement(localName: "table", ns: "http://docbook.org/ns/docbook");
 			xmlWriter.WriteAttributeString(localName: "frame", value: "all");
 			xmlWriter.WriteElementString(localName: "title", value: title);
-			xmlWriter.WriteStartElement(localName: "tgroup");
+			xmlWriter.WriteStartElement(localName: "tgroup", ns: "http://docbook.org/ns/docbook");
 			xmlWriter.WriteAttributeString(localName: "cols", value: headers.Length.ToString(provider: System.Globalization.CultureInfo.InvariantCulture));
 			for (int c = 0; c < headers.Length; c++)
 			{
 				// Write the column specifications for the DocBook table. Each column is defined with a "colspec" element, and the "colname" attribute is set to a unique name based on the column index (e.g., "c1", "c2", etc.). This defines the structure of the table and allows for proper formatting when processed by DocBook tools.
-				xmlWriter.WriteStartElement(localName: "colspec");
+				xmlWriter.WriteStartElement(localName: "colspec", ns: "http://docbook.org/ns/docbook");
 				xmlWriter.WriteAttributeString(localName: "colname", value: $"c{c + 1}");
 				xmlWriter.WriteEndElement();
 			}
-			xmlWriter.WriteStartElement(localName: "thead");
-			xmlWriter.WriteStartElement(localName: "row");
+			xmlWriter.WriteStartElement(localName: "thead", ns: "http://docbook.org/ns/docbook");
+			xmlWriter.WriteStartElement(localName: "row", ns: "http://docbook.org/ns/docbook");
 			foreach (string h in headers)
 			{
 				// Write each column header in the DocBook table. Each header is encoded to ensure that special characters do not break the XML structure. The headers are placed in the "thead" section of the table to indicate that they are column headers.
@@ -1255,11 +1132,11 @@ public static class TableLayoutPanelExporter
 			}
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteEndElement();
-			xmlWriter.WriteStartElement(localName: "tbody");
+			xmlWriter.WriteStartElement(localName: "tbody", ns: "http://docbook.org/ns/docbook");
 			foreach (string[] row in GetRows(tableLayoutPanel: tableLayoutPanel))
 			{
 				// Write each data row in the DocBook table. Each cell is encoded to ensure that special characters do not break the XML structure. The rows are placed in the "tbody" section of the table to indicate that they are data rows.
-				xmlWriter.WriteStartElement(localName: "row");
+				xmlWriter.WriteStartElement(localName: "row", ns: "http://docbook.org/ns/docbook");
 				for (int c = 0; c < headers.Length; c++)
 				{
 					string cell = c < row.Length ? row[c] : string.Empty;
@@ -1340,7 +1217,7 @@ public static class TableLayoutPanelExporter
 			writer.WriteLine(value: "rows:");
 			foreach (string[] row in GetRows(tableLayoutPanel: tableLayoutPanel))
 			{
-				// Write each data row in the YAML document. Each cell is processed to escape double quotes by replacing them with escaped double quotes. The rows are represented as a list of objects under the "rows" key, with each object containing properties corresponding to the column headers.
+				// Write each data row in the YAML document. Each cell is processed to escape double quotes by replacing them with escaped double quotes. The rows are represented as a list of objects under the "rows" key, with each object containing properties corresponding to the column headers and cell values.
 				writer.WriteLine(value: "  - item:");
 				for (int c = 0; c < headers.Length; c++)
 				{
@@ -1668,7 +1545,7 @@ public static class TableLayoutPanelExporter
 	/// <remarks>The PostScript file will include page headers, column headers, and data rows. If the content exceeds one page, additional pages will be created automatically.</remarks>
 	public static void SaveAsPostScript(TableLayoutPanel tableLayoutPanel, string title, string fileName)
 	{
-		// Get the column headers and rows, and write the output file in PostScript format. The method generates a PostScript document with page headers containing the title and page number, column headers repeated on each page, and data rows formatted in a simple table layout. Pagination is handled by starting a new page when the content exceeds the defined page height, ensuring that the output is properly formatted for printing or viewing in a PostScript viewer.
+		// Get the column headers and rows, and write the output file in PostScript format. The method generates a PostScript document with page headers containing the title and page number, column headers repeated on each page, and data rows formatted in a simple table layout. Pagination is handled by starting a new page when the content exceeds the page height, ensuring that the output is properly formatted for printing or viewing in a PostScript viewer.
 		try
 		{
 			// Get the column headers from the TableLayoutPanel.
@@ -1679,8 +1556,6 @@ public static class TableLayoutPanelExporter
 			const int marginBottom = 50;
 			const int startY = pageHeight - marginTop;
 			const int lineHeight = 14;
-			int currentY = startY;
-			int pageNumber = 1;
 			int usableWidth = 500;
 			int colWidth = headers.Length > 0 ? usableWidth / headers.Length : usableWidth;
 			int[] colX = new int[headers.Length];
@@ -1688,6 +1563,9 @@ public static class TableLayoutPanelExporter
 			{
 				colX[c] = 50 + (c * colWidth);
 			}
+			// Declare and initialize the page number and current Y position variables
+			int pageNumber = 1;
+			int currentY;
 			// Local function to write the page header, including the title and column headers. This function is called at the beginning of each new page to ensure that the page header is consistent across all pages. The title is displayed prominently at the top of the page, followed by the column headers positioned below it.
 			void WritePageHeader(int pg)
 			{
@@ -1755,7 +1633,7 @@ public static class TableLayoutPanelExporter
 			// Use a FileStream and ZipArchive to create the EPUB file as a ZIP archive. The method writes the required files for a valid EPUB structure, including the mimetype file (uncompressed), the container.xml file in the META-INF directory, the content.opf file with metadata and manifest, the toc.ncx file for navigation, and the content.xhtml file with the actual content. The content is formatted as an HTML table with the title as a heading and the TableLayoutPanel data as rows in the table.
 			using FileStream fs = new(path: fileName, mode: FileMode.Create);
 			using ZipArchive archive = new(stream: fs, mode: ZipArchiveMode.Create);
-			// The mimetype file must be the first entry in the ZIP archive and must be stored without compression. It contains the string "application/epub+zip" to identify the file as an EPUB.
+			// The mimetype file must be the first entry in the ZIP archive and must be stored without compression. It specifies the MIME type of the document, which is "application/vnd.oasis.opendocument.text" for ODT files.
 			ZipArchiveEntry mimetypeEntry = archive.CreateEntry(entryName: "mimetype", compressionLevel: CompressionLevel.NoCompression);
 			using (StreamWriter writer = new(stream: mimetypeEntry.Open(), encoding: Encoding.ASCII))
 			{
@@ -1852,7 +1730,7 @@ public static class TableLayoutPanelExporter
 		{
 			// Get the column headers from the TableLayoutPanel.
 			string[] headers = GetHeaders(tableLayoutPanel: tableLayoutPanel);
-			// Build the HTML content for the MOBI file. The HTML includes a title, a heading with the title, and a table with the column headers and data rows. Special characters in the title, headers, and cell data are encoded using HTML encoding to ensure that the resulting HTML is well-formed and can be rendered correctly by e-book readers that support the MOBI format.
+			// Build the HTML content for the MOBI file. The HTML includes a title, a heading with the title, and a table with the column headers and data rows. Special characters in the title, headers, and cell data are encoded using HTML encoding to ensure that the resulting HTML is well-formed and can be rendered correctly by the CHM compiler and viewers.
 			StringBuilder html = new();
 			html.Append(value: $"<html><head><meta charset=\"UTF-8\"><title>{System.Net.WebUtility.HtmlEncode(value: title)}</title></head><body>");
 			html.Append(value: $"<h1>{System.Net.WebUtility.HtmlEncode(value: title)}</h1>");
@@ -2036,7 +1914,7 @@ public static class TableLayoutPanelExporter
 			// Show a success message after the file has been saved.
 			ShowSuccess();
 		}
-		// Catch IO and unauthorized access exceptions and show an error message.
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ShowError(ex: ex, format: "FictionBook2", filePath: fileName);
@@ -2081,7 +1959,7 @@ public static class TableLayoutPanelExporter
 			{
 				string safeTitle = System.Net.WebUtility.HtmlEncode(value: title) ?? string.Empty;
 				writer.WriteLine(value: $"<!DOCTYPE html><html><head><meta charset=\"utf-8\"><title>{safeTitle}</title>");
-				writer.WriteLine(value: "<style>table{{border-collapse:collapse;width:100%}}th,td{{border:1px solid #000;padding:5px;text-align:left}}</style></head><body>");
+				writer.WriteLine(value: "<style>table{{border-collapse:collapse;width:100%}}th,td{{border:1px solid #000;padding:5px;text-align:left}}th{{background-color:#f2f2f2}}</style></head><body>");
 				writer.WriteLine(value: $"<h1>{safeTitle}</h1>");
 				writer.Write(value: "<table><tr>");
 				foreach (string h in headers)
@@ -2202,7 +2080,7 @@ public static class TableLayoutPanelExporter
 			{
 				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
 				writer.WriteLine(value: "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">");
-				writer.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.microsoft.com/xps/2005/06/fixedrepresentation\" Target=\"/FixedDocSeq.fdseq\"/>");
+				writer.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.microsoft.com/xps/2005/06/required-resource\" Target=\"/FixedDocSeq.fdseq\"/>");
 				writer.WriteLine(value: "</Relationships>");
 			}
 			// Create the relationships entry for the fixed document sequence that defines the relationship to the fixed document. This entry specifies that the fixed document is a required resource for the fixed document sequence.
@@ -2211,7 +2089,7 @@ public static class TableLayoutPanelExporter
 			{
 				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
 				writer.WriteLine(value: "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">");
-				writer.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.microsoft.com/xps/2005/06/required-resource\" Target=\"/Documents/1/FixedDoc.fdoc\"/>");
+				writer.WriteLine(value: "  <Relationship Id=\"rId1\" Type=\"http://schemas.microsoft.com/xps/2005/06/required-resource\" Target=\"../../../Resources/Dummy.ttf\"/>");
 				writer.WriteLine(value: "</Relationships>");
 			}
 			// Create the fixed document sequence entry that references the fixed document. This entry defines the structure of the XPS document and specifies that the fixed document is part of the fixed document sequence.
@@ -2247,7 +2125,6 @@ public static class TableLayoutPanelExporter
 				string safeTitle = System.Security.SecurityElement.Escape(str: title) ?? string.Empty;
 				int titleY = Math.Max(val1: 0, val2: currentY - 24);
 				currentPageBuilder.AppendLine(value: $"  <Glyphs Fill=\"#FF000000\" FontUri=\"/Resources/Dummy.ttf\" DeviceFontName=\"Arial\" FontRenderingEmSize=\"14\" OriginX=\"96\" OriginY=\"{titleY}\" UnicodeString=\"{safeTitle} - Page {pageNumber}\"/>");
-
 				for (int c = 0; c < headers.Length; c++)
 				{
 					string safeH = System.Security.SecurityElement.Escape(str: headers[c]) ?? string.Empty;
