@@ -853,7 +853,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		}
 		else
 		{
-			// Create and show the downloader form for the MPCORB database
+			// Create and show the downloader form for the ASTORB database
 			using DatabaseDownloaderForm downloaderForm = new(url: Settings.Default.systemAstorbDatGzUrl);
 			// Set the TopMost property to true to keep the form on top of other windows
 			downloaderForm.TopMost = TopMost;
