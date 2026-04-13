@@ -1,0 +1,1416 @@
+// This file is used by Code Analysis to maintain SuppressMessage
+// attributes that are applied to this project.
+// Project-level suppressions either have no target or are given
+// a specific target and scoped to a namespace, type, member, etc.
+
+using Krypton.Toolkit;
+
+using Planetoid_DB.Resources;
+
+using System.ComponentModel;
+
+namespace Planetoid_DB;
+
+/// <summary>Database Updater Form that combines database checking and downloading functionality.</summary>
+partial class DatabaseUpdaterForm
+{
+	/// <summary>Required designer variable.</summary>
+	private IContainer components = null;
+
+	/// <summary>Clean up any resources being used.</summary>
+	/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+	protected override void Dispose(bool disposing)
+	{
+		if (disposing && (components != null))
+		{
+			components.Dispose();
+		}
+		base.Dispose(disposing);
+	}
+
+	#region Windows Form Designer generated code
+
+	/// <summary>Required method for Designer support - do not modify
+	/// the contents of this method with the code editor.</summary>
+	private void InitializeComponent()
+	{
+		components = new Container();
+		ComponentResourceManager resources = new ComponentResourceManager(typeof(DatabaseUpdaterForm));
+		kryptonManager = new KryptonManager(components);
+		contextMenuCopyToClipboard = new ContextMenuStrip(components);
+		toolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
+		labelUpdateNeeded = new KryptonLabel();
+		labelDatabaseFileLocal = new KryptonLabel();
+		labelDatabaseFileOnline = new KryptonLabel();
+		labelContentLengthText = new KryptonLabel();
+		labelModifiedDateText = new KryptonLabel();
+		labelContentLengthValueLocal = new KryptonLabel();
+		labelModifiedDateValueLocal = new KryptonLabel();
+		labelContentLengthValueOnline = new KryptonLabel();
+		labelModifiedDateValueOnline = new KryptonLabel();
+		tableLayoutPanelCheck = new KryptonTableLayoutPanel();
+		labelStatusText = new KryptonLabel();
+		labelStatusValue = new KryptonLabel();
+		labelDateText = new KryptonLabel();
+		labelDateValue = new KryptonLabel();
+		labelSourceText = new KryptonLabel();
+		labelSourceValue = new KryptonLabel();
+		labelSizeText = new KryptonLabel();
+		labelSizeValue = new KryptonLabel();
+		labelTime = new KryptonLabel();
+		labelTimeValue = new KryptonLabel();
+		labelDownloadSpeed = new KryptonLabel();
+		labelDownloadSpeedValue = new KryptonLabel();
+		tableLayoutPanelDownload = new KryptonTableLayoutPanel();
+		kryptoPanelDownload = new KryptonPanel();
+		kryptonToolStripDownload = new KryptonToolStrip();
+		toolStripButtonDownload = new ToolStripButton();
+		toolStripButtonCancel = new ToolStripButton();
+		toolStripSeparator = new ToolStripSeparator();
+		toolStripLabelProgress = new ToolStripLabel();
+		kryptonProgressBarDownload = new KryptonProgressBarToolStripItem();
+		tabControlMain = new TabControl();
+		tabPageCheck = new TabPage();
+		tabPageDownload = new TabPage();
+		toolStripIcons = new ToolStrip();
+		toolStripDropDownButtonSaveToFile = new ToolStripDropDownButton();
+		contextMenuSaveToFile = new ContextMenuStrip(components);
+		toolStripMenuItemTextFiles = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsText = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsLatex = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsMarkdown = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsAsciiDoc = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsReStructuredText = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsTextile = new ToolStripMenuItem();
+		toolStripMenuItemWriterDocuments = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsWord = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsOdt = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsRtf = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsAbiword = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsWps = new ToolStripMenuItem();
+		toolStripMenuItemSpreadsheetDocuments = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsExcel = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsOds = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsCsv = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsTsv = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsPsv = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsEt = new ToolStripMenuItem();
+		toolStripMenuItemXmlDocuments = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsHtml = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsXml = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsDocBook = new ToolStripMenuItem();
+		toolStripMenuItemConfigurationFiles = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsJson = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsYaml = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsToml = new ToolStripMenuItem();
+		toolStripMenuItemDatabaseScripts = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsSql = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsSqlite = new ToolStripMenuItem();
+		toolStripMenuItemPortableDocuments = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsPdf = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsPostScript = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsEpub = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsMobi = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsXps = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsFictionBook2 = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsChm = new ToolStripMenuItem();
+		toolStripDropDownButtonCopyToClipboard = new ToolStripDropDownButton();
+		contextMenuFullCopyToClipboard = new ContextMenuStrip(components);
+		menuitemCopyToClipboardDatabaseLocalModifiedDate = new ToolStripMenuItem();
+		menuitemCopyToClipboardDatabaseLocalContentLength = new ToolStripMenuItem();
+		menuitemCopyToClipboardDatabaseOnlineModifiedDate = new ToolStripMenuItem();
+		menuitemCopyToClipboardDatabaseOnlineContentLength = new ToolStripMenuItem();
+		toolStripContainer = new ToolStripContainer();
+		kryptonStatusStrip = new KryptonStatusStrip();
+		labelInformation = new ToolStripStatusLabel();
+
+		contextMenuCopyToClipboard.SuspendLayout();
+		tableLayoutPanelCheck.SuspendLayout();
+		tableLayoutPanelDownload.SuspendLayout();
+		((ISupportInitialize)kryptoPanelDownload).BeginInit();
+		kryptoPanelDownload.SuspendLayout();
+		kryptonToolStripDownload.SuspendLayout();
+		tabControlMain.SuspendLayout();
+		tabPageCheck.SuspendLayout();
+		tabPageDownload.SuspendLayout();
+		toolStripContainer.BottomToolStripPanel.SuspendLayout();
+		toolStripContainer.ContentPanel.SuspendLayout();
+		toolStripContainer.TopToolStripPanel.SuspendLayout();
+		toolStripContainer.SuspendLayout();
+		kryptonStatusStrip.SuspendLayout();
+		toolStripIcons.SuspendLayout();
+		contextMenuSaveToFile.SuspendLayout();
+		contextMenuFullCopyToClipboard.SuspendLayout();
+		SuspendLayout();
+
+		// kryptonManager
+		kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
+
+		// contextMenuCopyToClipboard
+		contextMenuCopyToClipboard.AccessibleDescription = "Shows the context menu for copying information to the clipboard";
+		contextMenuCopyToClipboard.AccessibleName = "Context menu for copying information to the clipboard";
+		contextMenuCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuCopyToClipboard.AllowClickThrough = true;
+		contextMenuCopyToClipboard.Font = new Font("Segoe UI", 9F);
+		contextMenuCopyToClipboard.Items.AddRange(new ToolStripItem[] { toolStripMenuItemCopyToClipboard });
+		contextMenuCopyToClipboard.Name = "contextMenuStrip";
+		contextMenuCopyToClipboard.Size = new Size(214, 26);
+		contextMenuCopyToClipboard.TabStop = true;
+		contextMenuCopyToClipboard.Text = "Copy to clipboard";
+		contextMenuCopyToClipboard.MouseEnter += Control_Enter;
+		contextMenuCopyToClipboard.MouseLeave += Control_Leave;
+
+		// toolStripMenuItemCopyToClipboard
+		toolStripMenuItemCopyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
+		toolStripMenuItemCopyToClipboard.AccessibleName = "Copy to clipboard";
+		toolStripMenuItemCopyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboard.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripMenuItemCopyToClipboard.Name = "toolStripMenuItemCopyToClipboard";
+		toolStripMenuItemCopyToClipboard.ShortcutKeyDisplayString = "Strg+C";
+		toolStripMenuItemCopyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
+		toolStripMenuItemCopyToClipboard.Size = new Size(213, 22);
+		toolStripMenuItemCopyToClipboard.Text = "&Copy to clipboard";
+		toolStripMenuItemCopyToClipboard.Click += CopyToClipboard_DoubleClick;
+		toolStripMenuItemCopyToClipboard.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboard.MouseLeave += Control_Leave;
+
+		// labelDatabaseFileLocal
+		labelDatabaseFileLocal.AccessibleDescription = "Information about the local database file";
+		labelDatabaseFileLocal.AccessibleName = "Local database file";
+		labelDatabaseFileLocal.AccessibleRole = AccessibleRole.Text;
+		labelDatabaseFileLocal.Dock = DockStyle.Fill;
+		labelDatabaseFileLocal.LabelStyle = LabelStyle.BoldControl;
+		labelDatabaseFileLocal.Location = new Point(110, 3);
+		labelDatabaseFileLocal.Name = "labelDatabaseFileLocal";
+		labelDatabaseFileLocal.Size = new Size(118, 20);
+		labelDatabaseFileLocal.TabIndex = 0;
+		labelDatabaseFileLocal.ToolTipValues.Description = "Information about the local database file";
+		labelDatabaseFileLocal.ToolTipValues.EnableToolTips = true;
+		labelDatabaseFileLocal.ToolTipValues.Heading = "Local database file";
+		labelDatabaseFileLocal.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelDatabaseFileLocal.Values.Text = "Database local";
+		labelDatabaseFileLocal.Enter += Control_Enter;
+		labelDatabaseFileLocal.Leave += Control_Leave;
+		labelDatabaseFileLocal.MouseEnter += Control_Enter;
+		labelDatabaseFileLocal.MouseLeave += Control_Leave;
+
+		// labelDatabaseFileOnline
+		labelDatabaseFileOnline.AccessibleDescription = "Information about the online database file";
+		labelDatabaseFileOnline.AccessibleName = "Online database file";
+		labelDatabaseFileOnline.AccessibleRole = AccessibleRole.Text;
+		labelDatabaseFileOnline.Dock = DockStyle.Fill;
+		labelDatabaseFileOnline.LabelStyle = LabelStyle.BoldControl;
+		labelDatabaseFileOnline.Location = new Point(234, 3);
+		labelDatabaseFileOnline.Name = "labelDatabaseFileOnline";
+		labelDatabaseFileOnline.Size = new Size(134, 20);
+		labelDatabaseFileOnline.TabIndex = 1;
+		labelDatabaseFileOnline.ToolTipValues.Description = "Information about the online database file";
+		labelDatabaseFileOnline.ToolTipValues.EnableToolTips = true;
+		labelDatabaseFileOnline.ToolTipValues.Heading = "Online database file";
+		labelDatabaseFileOnline.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelDatabaseFileOnline.Values.Text = "Database online";
+		labelDatabaseFileOnline.Enter += Control_Enter;
+		labelDatabaseFileOnline.Leave += Control_Leave;
+		labelDatabaseFileOnline.MouseEnter += Control_Enter;
+		labelDatabaseFileOnline.MouseLeave += Control_Leave;
+
+		// labelContentLengthText
+		labelContentLengthText.AccessibleDescription = "Shows the content length";
+		labelContentLengthText.AccessibleName = "Content length";
+		labelContentLengthText.AccessibleRole = AccessibleRole.Text;
+		labelContentLengthText.LabelStyle = LabelStyle.BoldControl;
+		labelContentLengthText.Location = new Point(3, 29);
+		labelContentLengthText.Name = "labelContentLengthText";
+		labelContentLengthText.Size = new Size(101, 20);
+		labelContentLengthText.TabIndex = 2;
+		labelContentLengthText.ToolTipValues.Description = "Shows the content length.";
+		labelContentLengthText.ToolTipValues.EnableToolTips = true;
+		labelContentLengthText.ToolTipValues.Heading = "Content length";
+		labelContentLengthText.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelContentLengthText.Values.Text = "Content length:";
+		labelContentLengthText.Enter += Control_Enter;
+		labelContentLengthText.Leave += Control_Leave;
+		labelContentLengthText.MouseEnter += Control_Enter;
+		labelContentLengthText.MouseLeave += Control_Leave;
+
+		// labelModifiedDateText
+		labelModifiedDateText.AccessibleDescription = "Shows the modified date";
+		labelModifiedDateText.AccessibleName = "Modified date";
+		labelModifiedDateText.AccessibleRole = AccessibleRole.Text;
+		labelModifiedDateText.Dock = DockStyle.Left;
+		labelModifiedDateText.LabelStyle = LabelStyle.BoldControl;
+		labelModifiedDateText.Location = new Point(3, 55);
+		labelModifiedDateText.Name = "labelModifiedDateText";
+		labelModifiedDateText.Size = new Size(96, 20);
+		labelModifiedDateText.TabIndex = 5;
+		labelModifiedDateText.ToolTipValues.Description = "Shows the modified date.";
+		labelModifiedDateText.ToolTipValues.EnableToolTips = true;
+		labelModifiedDateText.ToolTipValues.Heading = "Modified date";
+		labelModifiedDateText.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelModifiedDateText.Values.Text = "Modified date:";
+		labelModifiedDateText.Enter += Control_Enter;
+		labelModifiedDateText.Leave += Control_Leave;
+		labelModifiedDateText.MouseEnter += Control_Enter;
+		labelModifiedDateText.MouseLeave += Control_Leave;
+
+		// labelContentLengthValueLocal
+		labelContentLengthValueLocal.AccessibleDescription = "Shows the local content length";
+		labelContentLengthValueLocal.AccessibleName = "Local content length";
+		labelContentLengthValueLocal.AccessibleRole = AccessibleRole.Text;
+		labelContentLengthValueLocal.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelContentLengthValueLocal.Dock = DockStyle.Fill;
+		labelContentLengthValueLocal.Location = new Point(110, 29);
+		labelContentLengthValueLocal.Name = "labelContentLengthValueLocal";
+		labelContentLengthValueLocal.Size = new Size(118, 20);
+		labelContentLengthValueLocal.TabIndex = 3;
+		labelContentLengthValueLocal.ToolTipValues.Description = "Shows the local content length.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelContentLengthValueLocal.ToolTipValues.EnableToolTips = true;
+		labelContentLengthValueLocal.ToolTipValues.Heading = "Local content length";
+		labelContentLengthValueLocal.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelContentLengthValueLocal.Values.Text = "123456789 bytes";
+		labelContentLengthValueLocal.DoubleClick += CopyToClipboard_DoubleClick;
+		labelContentLengthValueLocal.Enter += Control_Enter;
+		labelContentLengthValueLocal.Leave += Control_Leave;
+		labelContentLengthValueLocal.MouseDown += Control_MouseDown;
+		labelContentLengthValueLocal.MouseEnter += Control_Enter;
+		labelContentLengthValueLocal.MouseLeave += Control_Leave;
+
+		// labelModifiedDateValueLocal
+		labelModifiedDateValueLocal.AccessibleDescription = "Shows the local modified date";
+		labelModifiedDateValueLocal.AccessibleName = "Local modified date";
+		labelModifiedDateValueLocal.AccessibleRole = AccessibleRole.Text;
+		labelModifiedDateValueLocal.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelModifiedDateValueLocal.Dock = DockStyle.Fill;
+		labelModifiedDateValueLocal.Location = new Point(110, 55);
+		labelModifiedDateValueLocal.Name = "labelModifiedDateValueLocal";
+		labelModifiedDateValueLocal.Size = new Size(118, 20);
+		labelModifiedDateValueLocal.TabIndex = 6;
+		labelModifiedDateValueLocal.ToolTipValues.Description = "Shows the local modified date.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelModifiedDateValueLocal.ToolTipValues.EnableToolTips = true;
+		labelModifiedDateValueLocal.ToolTipValues.Heading = "Local modified date";
+		labelModifiedDateValueLocal.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelModifiedDateValueLocal.Values.Text = "00.00.0000 00:00";
+		labelModifiedDateValueLocal.DoubleClick += CopyToClipboard_DoubleClick;
+		labelModifiedDateValueLocal.Enter += Control_Enter;
+		labelModifiedDateValueLocal.Leave += Control_Leave;
+		labelModifiedDateValueLocal.MouseDown += Control_MouseDown;
+		labelModifiedDateValueLocal.MouseEnter += Control_Enter;
+		labelModifiedDateValueLocal.MouseLeave += Control_Leave;
+
+		// labelContentLengthValueOnline
+		labelContentLengthValueOnline.AccessibleDescription = "Shows the online content length";
+		labelContentLengthValueOnline.AccessibleName = "Online content length";
+		labelContentLengthValueOnline.AccessibleRole = AccessibleRole.Text;
+		labelContentLengthValueOnline.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelContentLengthValueOnline.Dock = DockStyle.Fill;
+		labelContentLengthValueOnline.Location = new Point(234, 29);
+		labelContentLengthValueOnline.Name = "labelContentLengthValueOnline";
+		labelContentLengthValueOnline.Size = new Size(134, 20);
+		labelContentLengthValueOnline.TabIndex = 4;
+		labelContentLengthValueOnline.ToolTipValues.Description = "Shows the online content length.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelContentLengthValueOnline.ToolTipValues.EnableToolTips = true;
+		labelContentLengthValueOnline.ToolTipValues.Heading = "Online content length";
+		labelContentLengthValueOnline.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelContentLengthValueOnline.Values.Text = "123456789 bytes";
+		labelContentLengthValueOnline.DoubleClick += CopyToClipboard_DoubleClick;
+		labelContentLengthValueOnline.Enter += Control_Enter;
+		labelContentLengthValueOnline.Leave += Control_Leave;
+		labelContentLengthValueOnline.MouseDown += Control_MouseDown;
+		labelContentLengthValueOnline.MouseEnter += Control_Enter;
+		labelContentLengthValueOnline.MouseLeave += Control_Leave;
+
+		// labelModifiedDateValueOnline
+		labelModifiedDateValueOnline.AccessibleDescription = "Shows the online modified date";
+		labelModifiedDateValueOnline.AccessibleName = "Online modified date";
+		labelModifiedDateValueOnline.AccessibleRole = AccessibleRole.Text;
+		labelModifiedDateValueOnline.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelModifiedDateValueOnline.Dock = DockStyle.Fill;
+		labelModifiedDateValueOnline.Location = new Point(234, 55);
+		labelModifiedDateValueOnline.Name = "labelModifiedDateValueOnline";
+		labelModifiedDateValueOnline.Size = new Size(134, 20);
+		labelModifiedDateValueOnline.TabIndex = 7;
+		labelModifiedDateValueOnline.ToolTipValues.Description = "Shows the online modified date.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelModifiedDateValueOnline.ToolTipValues.EnableToolTips = true;
+		labelModifiedDateValueOnline.ToolTipValues.Heading = "Online modified date";
+		labelModifiedDateValueOnline.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelModifiedDateValueOnline.Values.Text = "00.00.0000 00:00";
+		labelModifiedDateValueOnline.DoubleClick += CopyToClipboard_DoubleClick;
+		labelModifiedDateValueOnline.Enter += Control_Enter;
+		labelModifiedDateValueOnline.Leave += Control_Leave;
+		labelModifiedDateValueOnline.MouseDown += Control_MouseDown;
+		labelModifiedDateValueOnline.MouseEnter += Control_Enter;
+		labelModifiedDateValueOnline.MouseLeave += Control_Leave;
+
+		// labelUpdateNeeded
+		labelUpdateNeeded.AccessibleDescription = "Informs if an update is recommended";
+		labelUpdateNeeded.AccessibleName = "Update text";
+		labelUpdateNeeded.AccessibleRole = AccessibleRole.Text;
+		tableLayoutPanelCheck.SetColumnSpan(labelUpdateNeeded, 3);
+		labelUpdateNeeded.Dock = DockStyle.Fill;
+		labelUpdateNeeded.LabelStyle = LabelStyle.TitleControl;
+		labelUpdateNeeded.Location = new Point(3, 81);
+		labelUpdateNeeded.Name = "labelUpdateNeeded";
+		labelUpdateNeeded.Size = new Size(556, 29);
+		labelUpdateNeeded.TabIndex = 8;
+		labelUpdateNeeded.ToolTipValues.Description = "Informs if an update is recommended.\r\nDouble-click to refresh the information.";
+		labelUpdateNeeded.ToolTipValues.EnableToolTips = true;
+		labelUpdateNeeded.ToolTipValues.Heading = "Update text";
+		labelUpdateNeeded.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelUpdateNeeded.Values.Image = FatcowIcons16px.fatcow_help_16px;
+		labelUpdateNeeded.Values.Text = "Update needed?";
+		labelUpdateNeeded.DoubleClick += LabelUpdateNeeded_DoubleClick;
+		labelUpdateNeeded.Enter += Control_Enter;
+		labelUpdateNeeded.Leave += Control_Leave;
+		labelUpdateNeeded.MouseEnter += Control_Enter;
+		labelUpdateNeeded.MouseLeave += Control_Leave;
+
+		// tableLayoutPanelCheck
+		tableLayoutPanelCheck.AccessibleDescription = "Groups the check data";
+		tableLayoutPanelCheck.AccessibleName = "Check group pane";
+		tableLayoutPanelCheck.AccessibleRole = AccessibleRole.Pane;
+		tableLayoutPanelCheck.ColumnCount = 3;
+		tableLayoutPanelCheck.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanelCheck.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanelCheck.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanelCheck.Controls.Add(labelDatabaseFileLocal, 1, 0);
+		tableLayoutPanelCheck.Controls.Add(labelDatabaseFileOnline, 2, 0);
+		tableLayoutPanelCheck.Controls.Add(labelContentLengthText, 0, 1);
+		tableLayoutPanelCheck.Controls.Add(labelModifiedDateText, 0, 2);
+		tableLayoutPanelCheck.Controls.Add(labelContentLengthValueLocal, 1, 1);
+		tableLayoutPanelCheck.Controls.Add(labelModifiedDateValueLocal, 1, 2);
+		tableLayoutPanelCheck.Controls.Add(labelContentLengthValueOnline, 2, 1);
+		tableLayoutPanelCheck.Controls.Add(labelModifiedDateValueOnline, 2, 2);
+		tableLayoutPanelCheck.Controls.Add(labelUpdateNeeded, 0, 3);
+		tableLayoutPanelCheck.Dock = DockStyle.Fill;
+		tableLayoutPanelCheck.Location = new Point(0, 0);
+		tableLayoutPanelCheck.Name = "tableLayoutPanelCheck";
+		tableLayoutPanelCheck.PanelBackStyle = PaletteBackStyle.FormMain;
+		tableLayoutPanelCheck.RowCount = 4;
+		tableLayoutPanelCheck.RowStyles.Add(new RowStyle());
+		tableLayoutPanelCheck.RowStyles.Add(new RowStyle());
+		tableLayoutPanelCheck.RowStyles.Add(new RowStyle());
+		tableLayoutPanelCheck.RowStyles.Add(new RowStyle());
+		tableLayoutPanelCheck.Size = new Size(562, 222);
+		tableLayoutPanelCheck.TabIndex = 0;
+
+		// labelStatusText
+		labelStatusText.AccessibleDescription = "Status of the download";
+		labelStatusText.AccessibleName = "Status";
+		labelStatusText.AccessibleRole = AccessibleRole.Text;
+		labelStatusText.Dock = DockStyle.Fill;
+		labelStatusText.Location = new Point(3, 3);
+		labelStatusText.Name = "labelStatusText";
+		labelStatusText.Size = new Size(105, 20);
+		labelStatusText.TabIndex = 0;
+		labelStatusText.ToolTipValues.Description = "Status of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelStatusText.ToolTipValues.EnableToolTips = true;
+		labelStatusText.ToolTipValues.Heading = "Status";
+		labelStatusText.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelStatusText.Values.Text = "&Status:";
+		labelStatusText.DoubleClick += CopyToClipboard_DoubleClick;
+		labelStatusText.Enter += Control_Enter;
+		labelStatusText.Leave += Control_Leave;
+		labelStatusText.MouseEnter += Control_Enter;
+		labelStatusText.MouseLeave += Control_Leave;
+
+		// labelStatusValue
+		labelStatusValue.AccessibleDescription = "Shows the status of the download";
+		labelStatusValue.AccessibleName = "Status of the download";
+		labelStatusValue.AccessibleRole = AccessibleRole.Text;
+		labelStatusValue.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelStatusValue.Dock = DockStyle.Fill;
+		labelStatusValue.Location = new Point(114, 3);
+		labelStatusValue.Name = "labelStatusValue";
+		labelStatusValue.Size = new Size(440, 20);
+		labelStatusValue.TabIndex = 1;
+		labelStatusValue.ToolTipValues.Description = "Shows the status of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelStatusValue.ToolTipValues.EnableToolTips = true;
+		labelStatusValue.ToolTipValues.Heading = "Status of the download";
+		labelStatusValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelStatusValue.Values.Text = "...";
+		labelStatusValue.DoubleClick += CopyToClipboard_DoubleClick;
+		labelStatusValue.Enter += Control_Enter;
+		labelStatusValue.Leave += Control_Leave;
+		labelStatusValue.MouseDown += Control_MouseDown;
+		labelStatusValue.MouseEnter += Control_Enter;
+		labelStatusValue.MouseLeave += Control_Leave;
+
+		// labelDateText
+		labelDateText.AccessibleDescription = "Date of the download file";
+		labelDateText.AccessibleName = "Date";
+		labelDateText.AccessibleRole = AccessibleRole.Text;
+		labelDateText.Dock = DockStyle.Fill;
+		labelDateText.Location = new Point(3, 29);
+		labelDateText.Name = "labelDateText";
+		labelDateText.Size = new Size(105, 20);
+		labelDateText.TabIndex = 2;
+		labelDateText.ToolTipValues.Description = "Date of the download file.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelDateText.ToolTipValues.EnableToolTips = true;
+		labelDateText.ToolTipValues.Heading = "Date";
+		labelDateText.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelDateText.Values.Text = "&Date:";
+		labelDateText.DoubleClick += CopyToClipboard_DoubleClick;
+		labelDateText.Enter += Control_Enter;
+		labelDateText.Leave += Control_Leave;
+		labelDateText.MouseEnter += Control_Enter;
+		labelDateText.MouseLeave += Control_Leave;
+
+		// labelDateValue
+		labelDateValue.AccessibleDescription = "Shows the last modified date of the download file";
+		labelDateValue.AccessibleName = "Date of the download file";
+		labelDateValue.AccessibleRole = AccessibleRole.Text;
+		labelDateValue.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelDateValue.Dock = DockStyle.Fill;
+		labelDateValue.Location = new Point(114, 29);
+		labelDateValue.Name = "labelDateValue";
+		labelDateValue.Size = new Size(440, 20);
+		labelDateValue.TabIndex = 3;
+		labelDateValue.ToolTipValues.Description = "Shows the last modified date of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelDateValue.ToolTipValues.EnableToolTips = true;
+		labelDateValue.ToolTipValues.Heading = "Date of the download file";
+		labelDateValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelDateValue.Values.Text = "...";
+		labelDateValue.DoubleClick += CopyToClipboard_DoubleClick;
+		labelDateValue.Enter += Control_Enter;
+		labelDateValue.Leave += Control_Leave;
+		labelDateValue.MouseDown += Control_MouseDown;
+		labelDateValue.MouseEnter += Control_Enter;
+		labelDateValue.MouseLeave += Control_Leave;
+
+		// labelSourceText
+		labelSourceText.AccessibleDescription = "Shows the download source";
+		labelSourceText.AccessibleName = "Source";
+		labelSourceText.AccessibleRole = AccessibleRole.Text;
+		labelSourceText.Dock = DockStyle.Fill;
+		labelSourceText.Location = new Point(3, 55);
+		labelSourceText.Name = "labelSourceText";
+		labelSourceText.Size = new Size(105, 20);
+		labelSourceText.TabIndex = 4;
+		labelSourceText.ToolTipValues.Description = "Shows the download source.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelSourceText.ToolTipValues.EnableToolTips = true;
+		labelSourceText.ToolTipValues.Heading = "Source";
+		labelSourceText.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelSourceText.Values.Text = "Sour&ce:";
+		labelSourceText.DoubleClick += CopyToClipboard_DoubleClick;
+		labelSourceText.Enter += Control_Enter;
+		labelSourceText.Leave += Control_Leave;
+		labelSourceText.MouseEnter += Control_Enter;
+		labelSourceText.MouseLeave += Control_Leave;
+
+		// labelSourceValue
+		labelSourceValue.AccessibleDescription = "Shows the download source";
+		labelSourceValue.AccessibleName = "Source of the download";
+		labelSourceValue.AccessibleRole = AccessibleRole.Text;
+		labelSourceValue.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelSourceValue.Dock = DockStyle.Fill;
+		labelSourceValue.Location = new Point(114, 55);
+		labelSourceValue.Name = "labelSourceValue";
+		labelSourceValue.Size = new Size(440, 20);
+		labelSourceValue.TabIndex = 5;
+		labelSourceValue.ToolTipValues.Description = "Shows the download source.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelSourceValue.ToolTipValues.EnableToolTips = true;
+		labelSourceValue.ToolTipValues.Heading = "Source of the download";
+		labelSourceValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelSourceValue.Values.Text = "...";
+		labelSourceValue.DoubleClick += CopyToClipboard_DoubleClick;
+		labelSourceValue.Enter += Control_Enter;
+		labelSourceValue.Leave += Control_Leave;
+		labelSourceValue.MouseDown += Control_MouseDown;
+		labelSourceValue.MouseEnter += Control_Enter;
+		labelSourceValue.MouseLeave += Control_Leave;
+
+		// labelSizeText
+		labelSizeText.AccessibleDescription = "Shows the file size of the download";
+		labelSizeText.AccessibleName = "Size";
+		labelSizeText.AccessibleRole = AccessibleRole.Text;
+		labelSizeText.Dock = DockStyle.Fill;
+		labelSizeText.Location = new Point(3, 81);
+		labelSizeText.Name = "labelSizeText";
+		labelSizeText.Size = new Size(105, 22);
+		labelSizeText.TabIndex = 6;
+		labelSizeText.ToolTipValues.Description = "Shows the file size of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelSizeText.ToolTipValues.EnableToolTips = true;
+		labelSizeText.ToolTipValues.Heading = "Size";
+		labelSizeText.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelSizeText.Values.Text = "Si&ze:";
+		labelSizeText.DoubleClick += CopyToClipboard_DoubleClick;
+		labelSizeText.Enter += Control_Enter;
+		labelSizeText.Leave += Control_Leave;
+		labelSizeText.MouseEnter += Control_Enter;
+		labelSizeText.MouseLeave += Control_Leave;
+
+		// labelSizeValue
+		labelSizeValue.AccessibleDescription = "Shows the file size of the download";
+		labelSizeValue.AccessibleName = "Size of the download file";
+		labelSizeValue.AccessibleRole = AccessibleRole.Text;
+		labelSizeValue.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelSizeValue.Dock = DockStyle.Fill;
+		labelSizeValue.Location = new Point(114, 81);
+		labelSizeValue.Name = "labelSizeValue";
+		labelSizeValue.Size = new Size(440, 22);
+		labelSizeValue.TabIndex = 7;
+		labelSizeValue.ToolTipValues.Description = "Shows the file size of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelSizeValue.ToolTipValues.EnableToolTips = true;
+		labelSizeValue.ToolTipValues.Heading = "Size of the download file";
+		labelSizeValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelSizeValue.Values.Text = "...";
+		labelSizeValue.DoubleClick += CopyToClipboard_DoubleClick;
+		labelSizeValue.Enter += Control_Enter;
+		labelSizeValue.Leave += Control_Leave;
+		labelSizeValue.MouseDown += Control_MouseDown;
+		labelSizeValue.MouseEnter += Control_Enter;
+		labelSizeValue.MouseLeave += Control_Leave;
+
+		// labelTime
+		labelTime.AccessibleDescription = "Shows the elapsed time and estimated time of the download";
+		labelTime.AccessibleName = "Time";
+		labelTime.AccessibleRole = AccessibleRole.Text;
+		labelTime.Dock = DockStyle.Fill;
+		labelTime.Location = new Point(3, 109);
+		labelTime.Name = "labelTime";
+		labelTime.Size = new Size(105, 25);
+		labelTime.TabIndex = 8;
+		labelTime.ToolTipValues.Description = "Shows the elapsed time and estimated time of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelTime.ToolTipValues.EnableToolTips = true;
+		labelTime.ToolTipValues.Heading = "Time";
+		labelTime.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelTime.Values.Text = "&Time (estimated):";
+		labelTime.DoubleClick += CopyToClipboard_DoubleClick;
+		labelTime.Enter += Control_Enter;
+		labelTime.Leave += Control_Leave;
+		labelTime.MouseEnter += Control_Enter;
+		labelTime.MouseLeave += Control_Leave;
+
+		// labelTimeValue
+		labelTimeValue.AccessibleDescription = "Shows the elapsed time and estimated time of the download";
+		labelTimeValue.AccessibleName = "Time value";
+		labelTimeValue.AccessibleRole = AccessibleRole.Text;
+		labelTimeValue.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelTimeValue.Dock = DockStyle.Fill;
+		labelTimeValue.Location = new Point(114, 109);
+		labelTimeValue.Name = "labelTimeValue";
+		labelTimeValue.Size = new Size(440, 25);
+		labelTimeValue.TabIndex = 9;
+		labelTimeValue.ToolTipValues.Description = "Shows the elapsed time and estimated time of the download.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelTimeValue.ToolTipValues.EnableToolTips = true;
+		labelTimeValue.ToolTipValues.Heading = "Time value";
+		labelTimeValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelTimeValue.Values.Text = "...";
+		labelTimeValue.DoubleClick += CopyToClipboard_DoubleClick;
+		labelTimeValue.Enter += Control_Enter;
+		labelTimeValue.Leave += Control_Leave;
+		labelTimeValue.MouseDown += Control_MouseDown;
+		labelTimeValue.MouseEnter += Control_Enter;
+		labelTimeValue.MouseLeave += Control_Leave;
+
+		// labelDownloadSpeed
+		labelDownloadSpeed.AccessibleDescription = "Shows the download speed";
+		labelDownloadSpeed.AccessibleName = "Download speed";
+		labelDownloadSpeed.AccessibleRole = AccessibleRole.Text;
+		labelDownloadSpeed.Dock = DockStyle.Fill;
+		labelDownloadSpeed.Location = new Point(3, 140);
+		labelDownloadSpeed.Name = "labelDownloadSpeed";
+		labelDownloadSpeed.Size = new Size(105, 24);
+		labelDownloadSpeed.TabIndex = 10;
+		labelDownloadSpeed.ToolTipValues.Description = "Shows the download speed.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelDownloadSpeed.ToolTipValues.EnableToolTips = true;
+		labelDownloadSpeed.ToolTipValues.Heading = "Download speed";
+		labelDownloadSpeed.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelDownloadSpeed.Values.Text = "Download s&peed:";
+		labelDownloadSpeed.DoubleClick += CopyToClipboard_DoubleClick;
+		labelDownloadSpeed.Enter += Control_Enter;
+		labelDownloadSpeed.Leave += Control_Leave;
+		labelDownloadSpeed.MouseEnter += Control_Enter;
+		labelDownloadSpeed.MouseLeave += Control_Leave;
+
+		// labelDownloadSpeedValue
+		labelDownloadSpeedValue.AccessibleDescription = "Shows the download speed";
+		labelDownloadSpeedValue.AccessibleName = "Download speed value";
+		labelDownloadSpeedValue.AccessibleRole = AccessibleRole.Text;
+		labelDownloadSpeedValue.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelDownloadSpeedValue.Dock = DockStyle.Fill;
+		labelDownloadSpeedValue.Location = new Point(114, 140);
+		labelDownloadSpeedValue.Name = "labelDownloadSpeedValue";
+		labelDownloadSpeedValue.Size = new Size(440, 24);
+		labelDownloadSpeedValue.TabIndex = 11;
+		labelDownloadSpeedValue.ToolTipValues.Description = "Shows the download speed.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelDownloadSpeedValue.ToolTipValues.EnableToolTips = true;
+		labelDownloadSpeedValue.ToolTipValues.Heading = "Download speed value";
+		labelDownloadSpeedValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelDownloadSpeedValue.Values.Text = "...";
+		labelDownloadSpeedValue.DoubleClick += CopyToClipboard_DoubleClick;
+		labelDownloadSpeedValue.Enter += Control_Enter;
+		labelDownloadSpeedValue.Leave += Control_Leave;
+		labelDownloadSpeedValue.MouseDown += Control_MouseDown;
+		labelDownloadSpeedValue.MouseEnter += Control_Enter;
+		labelDownloadSpeedValue.MouseLeave += Control_Leave;
+
+		// tableLayoutPanelDownload
+		tableLayoutPanelDownload.AccessibleDescription = "Groups the download data";
+		tableLayoutPanelDownload.AccessibleName = "Download information";
+		tableLayoutPanelDownload.AccessibleRole = AccessibleRole.Pane;
+		tableLayoutPanelDownload.ColumnCount = 2;
+		tableLayoutPanelDownload.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanelDownload.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanelDownload.Controls.Add(labelStatusText, 0, 0);
+		tableLayoutPanelDownload.Controls.Add(labelStatusValue, 1, 0);
+		tableLayoutPanelDownload.Controls.Add(labelDateText, 0, 1);
+		tableLayoutPanelDownload.Controls.Add(labelDateValue, 1, 1);
+		tableLayoutPanelDownload.Controls.Add(labelSourceText, 0, 2);
+		tableLayoutPanelDownload.Controls.Add(labelSourceValue, 1, 2);
+		tableLayoutPanelDownload.Controls.Add(labelSizeText, 0, 3);
+		tableLayoutPanelDownload.Controls.Add(labelSizeValue, 1, 3);
+		tableLayoutPanelDownload.Controls.Add(labelTime, 0, 5);
+		tableLayoutPanelDownload.Controls.Add(labelTimeValue, 1, 5);
+		tableLayoutPanelDownload.Controls.Add(labelDownloadSpeed, 0, 6);
+		tableLayoutPanelDownload.Controls.Add(labelDownloadSpeedValue, 1, 6);
+		tableLayoutPanelDownload.Dock = DockStyle.Fill;
+		tableLayoutPanelDownload.Location = new Point(0, 0);
+		tableLayoutPanelDownload.Name = "tableLayoutPanelDownload";
+		tableLayoutPanelDownload.PanelBackStyle = PaletteBackStyle.FormMain;
+		tableLayoutPanelDownload.RowCount = 7;
+		tableLayoutPanelDownload.RowStyles.Add(new RowStyle());
+		tableLayoutPanelDownload.RowStyles.Add(new RowStyle());
+		tableLayoutPanelDownload.RowStyles.Add(new RowStyle());
+		tableLayoutPanelDownload.RowStyles.Add(new RowStyle());
+		tableLayoutPanelDownload.RowStyles.Add(new RowStyle());
+		tableLayoutPanelDownload.RowStyles.Add(new RowStyle());
+		tableLayoutPanelDownload.RowStyles.Add(new RowStyle());
+		tableLayoutPanelDownload.Size = new Size(554, 166);
+		tableLayoutPanelDownload.TabIndex = 0;
+		tableLayoutPanelDownload.Enter += Control_Enter;
+		tableLayoutPanelDownload.Leave += Control_Leave;
+		tableLayoutPanelDownload.MouseEnter += Control_Enter;
+		tableLayoutPanelDownload.MouseLeave += Control_Leave;
+
+		// kryptoPanelDownload
+		kryptoPanelDownload.AccessibleDescription = "Groups the download data";
+		kryptoPanelDownload.AccessibleName = "Download panel";
+		kryptoPanelDownload.AccessibleRole = AccessibleRole.Pane;
+		kryptoPanelDownload.Controls.Add(tableLayoutPanelDownload);
+		kryptoPanelDownload.Dock = DockStyle.Fill;
+		kryptoPanelDownload.Location = new Point(0, 25);
+		kryptoPanelDownload.Name = "kryptoPanelDownload";
+		kryptoPanelDownload.PanelBackStyle = PaletteBackStyle.FormMain;
+		kryptoPanelDownload.Size = new Size(554, 166);
+		kryptoPanelDownload.TabIndex = 1;
+		kryptoPanelDownload.TabStop = true;
+
+		// kryptonToolStripDownload
+		kryptonToolStripDownload.AllowClickThrough = true;
+		kryptonToolStripDownload.AllowItemReorder = true;
+		kryptonToolStripDownload.Dock = DockStyle.Top;
+		kryptonToolStripDownload.Font = new Font("Segoe UI", 9F);
+		kryptonToolStripDownload.Items.AddRange(new ToolStripItem[] { toolStripButtonDownload, toolStripButtonCancel, toolStripSeparator, toolStripLabelProgress, kryptonProgressBarDownload });
+		kryptonToolStripDownload.Location = new Point(0, 0);
+		kryptonToolStripDownload.Name = "kryptonToolStripDownload";
+		kryptonToolStripDownload.Size = new Size(554, 25);
+		kryptonToolStripDownload.Stretch = true;
+		kryptonToolStripDownload.TabIndex = 0;
+		kryptonToolStripDownload.TabStop = true;
+
+		// toolStripButtonDownload
+		toolStripButtonDownload.AccessibleDescription = "Downloads the selected file";
+		toolStripButtonDownload.AccessibleName = "Download";
+		toolStripButtonDownload.AccessibleRole = AccessibleRole.PushButton;
+		toolStripButtonDownload.Image = FatcowIcons16px.fatcow_package_go_16px;
+		toolStripButtonDownload.ImageTransparentColor = Color.Magenta;
+		toolStripButtonDownload.Name = "toolStripButtonDownload";
+		toolStripButtonDownload.Size = new Size(81, 22);
+		toolStripButtonDownload.Text = "&Download";
+		toolStripButtonDownload.Click += ButtonDownload_Click;
+		toolStripButtonDownload.MouseEnter += Control_Enter;
+		toolStripButtonDownload.MouseLeave += Control_Leave;
+
+		// toolStripButtonCancel
+		toolStripButtonCancel.AccessibleDescription = "Cancels the download";
+		toolStripButtonCancel.AccessibleName = "Cancel download";
+		toolStripButtonCancel.AccessibleRole = AccessibleRole.PushButton;
+		toolStripButtonCancel.Enabled = false;
+		toolStripButtonCancel.Image = FatcowIcons16px.fatcow_cancel_16px;
+		toolStripButtonCancel.ImageTransparentColor = Color.Magenta;
+		toolStripButtonCancel.Name = "toolStripButtonCancel";
+		toolStripButtonCancel.Size = new Size(119, 22);
+		toolStripButtonCancel.Text = "&Cancel download";
+		toolStripButtonCancel.Click += ButtonCancel_Click;
+		toolStripButtonCancel.MouseEnter += Control_Enter;
+		toolStripButtonCancel.MouseLeave += Control_Leave;
+
+		// toolStripSeparator
+		toolStripSeparator.AccessibleDescription = "Just a separator";
+		toolStripSeparator.AccessibleName = "Just a separator";
+		toolStripSeparator.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparator.Name = "toolStripSeparator";
+		toolStripSeparator.Size = new Size(6, 25);
+
+		// toolStripLabelProgress
+		toolStripLabelProgress.AccessibleDescription = "Shows the progress of the download";
+		toolStripLabelProgress.AccessibleName = "Progress";
+		toolStripLabelProgress.AccessibleRole = AccessibleRole.StaticText;
+		toolStripLabelProgress.AutoToolTip = true;
+		toolStripLabelProgress.Name = "toolStripLabelProgress";
+		toolStripLabelProgress.Size = new Size(52, 22);
+		toolStripLabelProgress.Text = "&Progress";
+		toolStripLabelProgress.MouseEnter += Control_Enter;
+		toolStripLabelProgress.MouseLeave += Control_Leave;
+
+		// kryptonProgressBarDownload
+		kryptonProgressBarDownload.AccessibleDescription = "Shows the progress of the download";
+		kryptonProgressBarDownload.AccessibleName = "ProgressBar";
+		kryptonProgressBarDownload.Name = "kryptonProgressBarDownload";
+		kryptonProgressBarDownload.Size = new Size(250, 22);
+		kryptonProgressBarDownload.StateCommon.Back.Color1 = Color.Green;
+		kryptonProgressBarDownload.StateDisabled.Back.ColorStyle = PaletteColorStyle.OneNote;
+		kryptonProgressBarDownload.StateNormal.Back.ColorStyle = PaletteColorStyle.OneNote;
+		kryptonProgressBarDownload.Values.Text = "";
+
+		// tabPageCheck
+		tabPageCheck.Controls.Add(tableLayoutPanelCheck);
+		tabPageCheck.Location = new Point(4, 24);
+		tabPageCheck.Name = "tabPageCheck";
+		tabPageCheck.Size = new Size(562, 222);
+		tabPageCheck.TabIndex = 0;
+		tabPageCheck.Text = "Check database";
+		tabPageCheck.UseVisualStyleBackColor = true;
+
+		// tabPageDownload
+		tabPageDownload.Controls.Add(kryptoPanelDownload);
+		tabPageDownload.Controls.Add(kryptonToolStripDownload);
+		tabPageDownload.Location = new Point(4, 24);
+		tabPageDownload.Name = "tabPageDownload";
+		tabPageDownload.Size = new Size(554, 222);
+		tabPageDownload.TabIndex = 1;
+		tabPageDownload.Text = "Download database";
+		tabPageDownload.UseVisualStyleBackColor = true;
+
+		// tabControlMain
+		tabControlMain.Controls.Add(tabPageCheck);
+		tabControlMain.Controls.Add(tabPageDownload);
+		tabControlMain.Dock = DockStyle.Fill;
+		tabControlMain.Location = new Point(0, 0);
+		tabControlMain.Name = "tabControlMain";
+		tabControlMain.SelectedIndex = 0;
+		tabControlMain.ShowToolTips = true;
+		tabControlMain.Size = new Size(570, 250);
+		tabControlMain.TabIndex = 0;
+
+		// toolStripIcons
+		toolStripIcons.AccessibleDescription = "Toolbar of copying, printing and exporting";
+		toolStripIcons.AccessibleName = "Toolbar of copying, printing and exporting";
+		toolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
+		toolStripIcons.AllowClickThrough = true;
+		toolStripIcons.AllowItemReorder = true;
+		toolStripIcons.BackColor = Color.Transparent;
+		toolStripIcons.Dock = DockStyle.None;
+		toolStripIcons.Font = new Font("Segoe UI", 9F);
+		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripDropDownButtonSaveToFile, toolStripDropDownButtonCopyToClipboard });
+		toolStripIcons.Location = new Point(0, 0);
+		toolStripIcons.Name = "toolStripIcons";
+		toolStripIcons.Size = new Size(570, 25);
+		toolStripIcons.Stretch = true;
+		toolStripIcons.TabIndex = 1;
+		toolStripIcons.TabStop = true;
+		toolStripIcons.Text = "Toolbar of copying, printing and exporting";
+		toolStripIcons.MouseEnter += Control_Enter;
+		toolStripIcons.MouseLeave += Control_Leave;
+
+		// toolStripDropDownButtonSaveToFile
+		toolStripDropDownButtonSaveToFile.AccessibleDescription = "Saves information to file";
+		toolStripDropDownButtonSaveToFile.AccessibleName = "Save to file";
+		toolStripDropDownButtonSaveToFile.AccessibleRole = AccessibleRole.ButtonDropDown;
+		toolStripDropDownButtonSaveToFile.DropDown = contextMenuSaveToFile;
+		toolStripDropDownButtonSaveToFile.Image = FatcowIcons16px.fatcow_diskette_16px;
+		toolStripDropDownButtonSaveToFile.ImageTransparentColor = Color.Magenta;
+		toolStripDropDownButtonSaveToFile.Name = "toolStripDropDownButtonSaveToFile";
+		toolStripDropDownButtonSaveToFile.Size = new Size(93, 22);
+		toolStripDropDownButtonSaveToFile.Text = "&Save to file";
+		toolStripDropDownButtonSaveToFile.MouseEnter += Control_Enter;
+		toolStripDropDownButtonSaveToFile.MouseLeave += Control_Leave;
+
+		// contextMenuSaveToFile
+		contextMenuSaveToFile.AccessibleDescription = "Save the list as file";
+		contextMenuSaveToFile.AccessibleName = "Save list";
+		contextMenuSaveToFile.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuSaveToFile.AllowClickThrough = true;
+		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
+		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
+		contextMenuSaveToFile.Name = "contextMenuSaveList";
+		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveToFile;
+		contextMenuSaveToFile.Size = new Size(202, 180);
+		contextMenuSaveToFile.TabStop = true;
+		contextMenuSaveToFile.Text = "&Save list";
+		contextMenuSaveToFile.MouseEnter += Control_Enter;
+		contextMenuSaveToFile.MouseLeave += Control_Leave;
+
+		// toolStripMenuItemTextFiles
+		toolStripMenuItemTextFiles.AccessibleDescription = "Saves the list as text file";
+		toolStripMenuItemTextFiles.AccessibleName = "Save as text file";
+		toolStripMenuItemTextFiles.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemTextFiles.AutoToolTip = true;
+		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile });
+		toolStripMenuItemTextFiles.Image = FatcowIcons16px.fatcow_file_extension_txt_16px;
+		toolStripMenuItemTextFiles.Name = "toolStripMenuItemTextFiles";
+		toolStripMenuItemTextFiles.Size = new Size(201, 22);
+		toolStripMenuItemTextFiles.Text = "&Text files";
+		toolStripMenuItemTextFiles.MouseEnter += Control_Enter;
+		toolStripMenuItemTextFiles.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsText.AccessibleDescription = "Saves the list as text file";
+		toolStripMenuItemSaveAsText.AccessibleName = "Save as text";
+		toolStripMenuItemSaveAsText.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsText.AutoToolTip = true;
+		toolStripMenuItemSaveAsText.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsText.Name = "toolStripMenuItemSaveAsText";
+		toolStripMenuItemSaveAsText.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsText.Text = "Save as &text";
+		toolStripMenuItemSaveAsText.Click += ToolStripMenuItemSaveAsText_Click;
+		toolStripMenuItemSaveAsText.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsText.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsLatex.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsLatex.Name = "toolStripMenuItemSaveAsLatex";
+		toolStripMenuItemSaveAsLatex.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsLatex.Text = "Save as &Latex";
+		toolStripMenuItemSaveAsLatex.Click += ToolStripMenuItemSaveAsLatex_Click;
+		toolStripMenuItemSaveAsLatex.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsLatex.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsMarkdown.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsMarkdown.Name = "toolStripMenuItemSaveAsMarkdown";
+		toolStripMenuItemSaveAsMarkdown.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsMarkdown.Text = "Save as &Markdown";
+		toolStripMenuItemSaveAsMarkdown.Click += ToolStripMenuItemSaveAsMarkdown_Click;
+		toolStripMenuItemSaveAsMarkdown.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsMarkdown.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsAsciiDoc.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsAsciiDoc.Name = "toolStripMenuItemSaveAsAsciiDoc";
+		toolStripMenuItemSaveAsAsciiDoc.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsAsciiDoc.Text = "Save as &AsciiDoc";
+		toolStripMenuItemSaveAsAsciiDoc.Click += ToolStripMenuItemSaveAsAsciiDoc_Click;
+		toolStripMenuItemSaveAsAsciiDoc.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsAsciiDoc.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsReStructuredText.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsReStructuredText.Name = "toolStripMenuItemSaveAsReStructuredText";
+		toolStripMenuItemSaveAsReStructuredText.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsReStructuredText.Text = "Save as &reStructuredText";
+		toolStripMenuItemSaveAsReStructuredText.Click += ToolStripMenuItemSaveAsReStructuredText_Click;
+		toolStripMenuItemSaveAsReStructuredText.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsReStructuredText.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsTextile.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsTextile.Name = "toolStripMenuItemSaveAsTextile";
+		toolStripMenuItemSaveAsTextile.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsTextile.Text = "Save as Te&xtile";
+		toolStripMenuItemSaveAsTextile.Click += ToolStripMenuItemSaveAsTextile_Click;
+		toolStripMenuItemSaveAsTextile.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTextile.MouseLeave += Control_Leave;
+
+		// toolStripMenuItemWriterDocuments
+		toolStripMenuItemWriterDocuments.AccessibleDescription = "Saves the list as writer document";
+		toolStripMenuItemWriterDocuments.AccessibleName = "Save as writer document";
+		toolStripMenuItemWriterDocuments.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemWriterDocuments.AutoToolTip = true;
+		toolStripMenuItemWriterDocuments.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsWord, toolStripMenuItemSaveAsOdt, toolStripMenuItemSaveAsRtf, toolStripMenuItemSaveAsAbiword, toolStripMenuItemSaveAsWps });
+		toolStripMenuItemWriterDocuments.Image = FatcowIcons16px.fatcow_file_extension_doc_16px;
+		toolStripMenuItemWriterDocuments.Name = "toolStripMenuItemWriterDocuments";
+		toolStripMenuItemWriterDocuments.Size = new Size(201, 22);
+		toolStripMenuItemWriterDocuments.Text = "&Writer documents";
+		toolStripMenuItemWriterDocuments.MouseEnter += Control_Enter;
+		toolStripMenuItemWriterDocuments.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsWord.Image = FatcowIcons16px.fatcow_page_white_word_16px;
+		toolStripMenuItemSaveAsWord.Name = "toolStripMenuItemSaveAsWord";
+		toolStripMenuItemSaveAsWord.Size = new Size(257, 22);
+		toolStripMenuItemSaveAsWord.Text = "Save as &Word Text (DOCX)";
+		toolStripMenuItemSaveAsWord.Click += ToolStripMenuItemSaveAsWord_Click;
+		toolStripMenuItemSaveAsWord.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsWord.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsOdt.Image = FatcowIcons16px.fatcow_page_white_word_16px;
+		toolStripMenuItemSaveAsOdt.Name = "toolStripMenuItemSaveAsOdt";
+		toolStripMenuItemSaveAsOdt.Size = new Size(257, 22);
+		toolStripMenuItemSaveAsOdt.Text = "Save as &OpenDocument Text (ODT)";
+		toolStripMenuItemSaveAsOdt.Click += ToolStripMenuItemSaveAsOdt_Click;
+		toolStripMenuItemSaveAsOdt.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsOdt.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsRtf.Image = FatcowIcons16px.fatcow_page_white_word_16px;
+		toolStripMenuItemSaveAsRtf.Name = "toolStripMenuItemSaveAsRtf";
+		toolStripMenuItemSaveAsRtf.Size = new Size(257, 22);
+		toolStripMenuItemSaveAsRtf.Text = "Save as &Rich Text Format (RTF)";
+		toolStripMenuItemSaveAsRtf.Click += ToolStripMenuItemSaveAsRtf_Click;
+		toolStripMenuItemSaveAsRtf.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsRtf.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsAbiword.Image = FatcowIcons16px.fatcow_page_white_word_16px;
+		toolStripMenuItemSaveAsAbiword.Name = "toolStripMenuItemSaveAsAbiword";
+		toolStripMenuItemSaveAsAbiword.Size = new Size(257, 22);
+		toolStripMenuItemSaveAsAbiword.Text = "Save as &Abiword file (ABW)";
+		toolStripMenuItemSaveAsAbiword.Click += ToolStripMenuItemSaveAsAbiword_Click;
+		toolStripMenuItemSaveAsAbiword.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsAbiword.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsWps.Image = FatcowIcons16px.fatcow_page_white_word_16px;
+		toolStripMenuItemSaveAsWps.Name = "toolStripMenuItemSaveAsWps";
+		toolStripMenuItemSaveAsWps.Size = new Size(257, 22);
+		toolStripMenuItemSaveAsWps.Text = "Save as W&PS Office Writer (WPS)";
+		toolStripMenuItemSaveAsWps.Click += ToolStripMenuItemSaveAsWps_Click;
+		toolStripMenuItemSaveAsWps.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsWps.MouseLeave += Control_Leave;
+
+		// toolStripMenuItemSpreadsheetDocuments
+		toolStripMenuItemSpreadsheetDocuments.AccessibleDescription = "Saves the list as spreadsheet document";
+		toolStripMenuItemSpreadsheetDocuments.AccessibleName = "Save as spreadsheet document";
+		toolStripMenuItemSpreadsheetDocuments.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSpreadsheetDocuments.AutoToolTip = true;
+		toolStripMenuItemSpreadsheetDocuments.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsExcel, toolStripMenuItemSaveAsOds, toolStripMenuItemSaveAsCsv, toolStripMenuItemSaveAsTsv, toolStripMenuItemSaveAsPsv, toolStripMenuItemSaveAsEt });
+		toolStripMenuItemSpreadsheetDocuments.Image = FatcowIcons16px.fatcow_file_extension_xls_16px;
+		toolStripMenuItemSpreadsheetDocuments.Name = "toolStripMenuItemSpreadsheetDocuments";
+		toolStripMenuItemSpreadsheetDocuments.Size = new Size(201, 22);
+		toolStripMenuItemSpreadsheetDocuments.Text = "&Spreadsheet documents";
+		toolStripMenuItemSpreadsheetDocuments.MouseEnter += Control_Enter;
+		toolStripMenuItemSpreadsheetDocuments.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsExcel.Image = FatcowIcons16px.fatcow_page_white_excel_16px;
+		toolStripMenuItemSaveAsExcel.Name = "toolStripMenuItemSaveAsExcel";
+		toolStripMenuItemSaveAsExcel.Size = new Size(301, 22);
+		toolStripMenuItemSaveAsExcel.Text = "Save as &Excel Spreadsheet (XLSX)";
+		toolStripMenuItemSaveAsExcel.Click += ToolStripMenuItemSaveAsExcel_Click;
+		toolStripMenuItemSaveAsExcel.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsExcel.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsOds.Image = FatcowIcons16px.fatcow_page_white_excel_16px;
+		toolStripMenuItemSaveAsOds.Name = "toolStripMenuItemSaveAsOds";
+		toolStripMenuItemSaveAsOds.Size = new Size(301, 22);
+		toolStripMenuItemSaveAsOds.Text = "Save as &OpenDocument Spreadsheet (ODS)";
+		toolStripMenuItemSaveAsOds.Click += ToolStripMenuItemSaveAsOds_Click;
+		toolStripMenuItemSaveAsOds.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsOds.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsCsv.Image = FatcowIcons16px.fatcow_page_white_excel_16px;
+		toolStripMenuItemSaveAsCsv.Name = "toolStripMenuItemSaveAsCsv";
+		toolStripMenuItemSaveAsCsv.Size = new Size(301, 22);
+		toolStripMenuItemSaveAsCsv.Text = "Save as &Comma separated value (CSV)";
+		toolStripMenuItemSaveAsCsv.Click += ToolStripMenuItemSaveAsCsv_Click;
+		toolStripMenuItemSaveAsCsv.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsCsv.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsTsv.Image = FatcowIcons16px.fatcow_page_white_excel_16px;
+		toolStripMenuItemSaveAsTsv.Name = "toolStripMenuItemSaveAsTsv";
+		toolStripMenuItemSaveAsTsv.Size = new Size(301, 22);
+		toolStripMenuItemSaveAsTsv.Text = "Save as &Tabulator separated value (TSV)";
+		toolStripMenuItemSaveAsTsv.Click += ToolStripMenuItemSaveAsTsv_Click;
+		toolStripMenuItemSaveAsTsv.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTsv.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsPsv.Image = FatcowIcons16px.fatcow_page_white_excel_16px;
+		toolStripMenuItemSaveAsPsv.Name = "toolStripMenuItemSaveAsPsv";
+		toolStripMenuItemSaveAsPsv.Size = new Size(301, 22);
+		toolStripMenuItemSaveAsPsv.Text = "Save as &Pipe separated value (PSV)";
+		toolStripMenuItemSaveAsPsv.Click += ToolStripMenuItemSaveAsPsv_Click;
+		toolStripMenuItemSaveAsPsv.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsPsv.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsEt.Image = FatcowIcons16px.fatcow_page_white_excel_16px;
+		toolStripMenuItemSaveAsEt.Name = "toolStripMenuItemSaveAsEt";
+		toolStripMenuItemSaveAsEt.Size = new Size(301, 22);
+		toolStripMenuItemSaveAsEt.Text = "Save as &WPS Office Spreadsheet (ET)";
+		toolStripMenuItemSaveAsEt.Click += ToolStripMenuItemSaveAsEt_Click;
+		toolStripMenuItemSaveAsEt.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsEt.MouseLeave += Control_Leave;
+
+		// toolStripMenuItemXmlDocuments
+		toolStripMenuItemXmlDocuments.AccessibleDescription = "Saves the list as XML documents";
+		toolStripMenuItemXmlDocuments.AccessibleName = "Save as XML documents";
+		toolStripMenuItemXmlDocuments.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemXmlDocuments.AutoToolTip = true;
+		toolStripMenuItemXmlDocuments.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsHtml, toolStripMenuItemSaveAsXml, toolStripMenuItemSaveAsDocBook });
+		toolStripMenuItemXmlDocuments.Image = FatcowIcons16px.fatcow_file_extension_bin_16px;
+		toolStripMenuItemXmlDocuments.Name = "toolStripMenuItemXmlDocuments";
+		toolStripMenuItemXmlDocuments.Size = new Size(201, 22);
+		toolStripMenuItemXmlDocuments.Text = "&XML documents";
+		toolStripMenuItemXmlDocuments.MouseEnter += Control_Enter;
+		toolStripMenuItemXmlDocuments.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsHtml.Image = FatcowIcons16px.fatcow_page_white_code_16px;
+		toolStripMenuItemSaveAsHtml.Name = "toolStripMenuItemSaveAsHtml";
+		toolStripMenuItemSaveAsHtml.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsHtml.Text = "Save as &HTML";
+		toolStripMenuItemSaveAsHtml.Click += ToolStripMenuItemSaveAsHtml_Click;
+		toolStripMenuItemSaveAsHtml.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsHtml.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsXml.Image = FatcowIcons16px.fatcow_page_white_code_16px;
+		toolStripMenuItemSaveAsXml.Name = "toolStripMenuItemSaveAsXml";
+		toolStripMenuItemSaveAsXml.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsXml.Text = "Save as &XML";
+		toolStripMenuItemSaveAsXml.Click += ToolStripMenuItemSaveAsXml_Click;
+		toolStripMenuItemSaveAsXml.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsXml.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsDocBook.Image = FatcowIcons16px.fatcow_page_white_code_16px;
+		toolStripMenuItemSaveAsDocBook.Name = "toolStripMenuItemSaveAsDocBook";
+		toolStripMenuItemSaveAsDocBook.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsDocBook.Text = "Save as &DocBook";
+		toolStripMenuItemSaveAsDocBook.Click += ToolStripMenuItemSaveAsDocBook_Click;
+		toolStripMenuItemSaveAsDocBook.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsDocBook.MouseLeave += Control_Leave;
+
+		// toolStripMenuItemConfigurationFiles
+		toolStripMenuItemConfigurationFiles.AccessibleDescription = "Saves the list as configuration file";
+		toolStripMenuItemConfigurationFiles.AccessibleName = "Save as configuration file";
+		toolStripMenuItemConfigurationFiles.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemConfigurationFiles.AutoToolTip = true;
+		toolStripMenuItemConfigurationFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsJson, toolStripMenuItemSaveAsYaml, toolStripMenuItemSaveAsToml });
+		toolStripMenuItemConfigurationFiles.Image = FatcowIcons16px.fatcow_file_extension_bat_16px;
+		toolStripMenuItemConfigurationFiles.Name = "toolStripMenuItemConfigurationFiles";
+		toolStripMenuItemConfigurationFiles.Size = new Size(201, 22);
+		toolStripMenuItemConfigurationFiles.Text = "&Configuration files";
+		toolStripMenuItemConfigurationFiles.MouseEnter += Control_Enter;
+		toolStripMenuItemConfigurationFiles.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsJson.Image = FatcowIcons16px.fatcow_page_white_code_red_16px;
+		toolStripMenuItemSaveAsJson.Name = "toolStripMenuItemSaveAsJson";
+		toolStripMenuItemSaveAsJson.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsJson.Text = "Save as &JSON";
+		toolStripMenuItemSaveAsJson.Click += ToolStripMenuItemSaveAsJson_Click;
+		toolStripMenuItemSaveAsJson.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsJson.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsYaml.Image = FatcowIcons16px.fatcow_page_white_code_red_16px;
+		toolStripMenuItemSaveAsYaml.Name = "toolStripMenuItemSaveAsYaml";
+		toolStripMenuItemSaveAsYaml.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsYaml.Text = "Save as &YAML";
+		toolStripMenuItemSaveAsYaml.Click += ToolStripMenuItemSaveAsYaml_Click;
+		toolStripMenuItemSaveAsYaml.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsYaml.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsToml.Image = FatcowIcons16px.fatcow_page_white_code_red_16px;
+		toolStripMenuItemSaveAsToml.Name = "toolStripMenuItemSaveAsToml";
+		toolStripMenuItemSaveAsToml.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsToml.Text = "Save as &TOML";
+		toolStripMenuItemSaveAsToml.Click += ToolStripMenuItemSaveAsToml_Click;
+		toolStripMenuItemSaveAsToml.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsToml.MouseLeave += Control_Leave;
+
+		// toolStripMenuItemDatabaseScripts
+		toolStripMenuItemDatabaseScripts.AccessibleDescription = "Saves the list as database script";
+		toolStripMenuItemDatabaseScripts.AccessibleName = "Save as database script";
+		toolStripMenuItemDatabaseScripts.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDatabaseScripts.AutoToolTip = true;
+		toolStripMenuItemDatabaseScripts.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsSql, toolStripMenuItemSaveAsSqlite });
+		toolStripMenuItemDatabaseScripts.Image = FatcowIcons16px.fatcow_file_extension_ptb_16px;
+		toolStripMenuItemDatabaseScripts.Name = "toolStripMenuItemDatabaseScripts";
+		toolStripMenuItemDatabaseScripts.Size = new Size(201, 22);
+		toolStripMenuItemDatabaseScripts.Text = "&Database scripts";
+		toolStripMenuItemDatabaseScripts.MouseEnter += Control_Enter;
+		toolStripMenuItemDatabaseScripts.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsSql.Image = FatcowIcons16px.fatcow_page_white_database_16px;
+		toolStripMenuItemSaveAsSql.Name = "toolStripMenuItemSaveAsSql";
+		toolStripMenuItemSaveAsSql.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsSql.Text = "Save as &SQL script";
+		toolStripMenuItemSaveAsSql.Click += ToolStripMenuItemSaveAsSql_Click;
+		toolStripMenuItemSaveAsSql.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsSql.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsSqlite.Image = FatcowIcons16px.fatcow_page_white_database_16px;
+		toolStripMenuItemSaveAsSqlite.Name = "toolStripMenuItemSaveAsSqlite";
+		toolStripMenuItemSaveAsSqlite.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsSqlite.Text = "Save as SQ&Lite";
+		toolStripMenuItemSaveAsSqlite.Click += ToolStripMenuItemSaveAsSqlite_Click;
+		toolStripMenuItemSaveAsSqlite.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsSqlite.MouseLeave += Control_Leave;
+
+		// toolStripMenuItemPortableDocuments
+		toolStripMenuItemPortableDocuments.AccessibleDescription = "Saves the list as portable document";
+		toolStripMenuItemPortableDocuments.AccessibleName = "Save as portable document";
+		toolStripMenuItemPortableDocuments.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemPortableDocuments.AutoToolTip = true;
+		toolStripMenuItemPortableDocuments.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsPdf, toolStripMenuItemSaveAsPostScript, toolStripMenuItemSaveAsEpub, toolStripMenuItemSaveAsMobi, toolStripMenuItemSaveAsXps, toolStripMenuItemSaveAsFictionBook2, toolStripMenuItemSaveAsChm });
+		toolStripMenuItemPortableDocuments.Image = FatcowIcons16px.fatcow_file_extension_pdf_16px;
+		toolStripMenuItemPortableDocuments.Name = "toolStripMenuItemPortableDocuments";
+		toolStripMenuItemPortableDocuments.Size = new Size(201, 22);
+		toolStripMenuItemPortableDocuments.Text = "&Portable documents";
+		toolStripMenuItemPortableDocuments.MouseEnter += Control_Enter;
+		toolStripMenuItemPortableDocuments.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsPdf.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
+		toolStripMenuItemSaveAsPdf.Name = "toolStripMenuItemSaveAsPdf";
+		toolStripMenuItemSaveAsPdf.Size = new Size(214, 22);
+		toolStripMenuItemSaveAsPdf.Text = "Save as &PDF";
+		toolStripMenuItemSaveAsPdf.Click += ToolStripMenuItemSaveAsPdf_Click;
+		toolStripMenuItemSaveAsPdf.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsPdf.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsPostScript.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
+		toolStripMenuItemSaveAsPostScript.Name = "toolStripMenuItemSaveAsPostScript";
+		toolStripMenuItemSaveAsPostScript.Size = new Size(214, 22);
+		toolStripMenuItemSaveAsPostScript.Text = "Save as Post&Script (PS)";
+		toolStripMenuItemSaveAsPostScript.Click += ToolStripMenuItemSaveAsPostScript_Click;
+		toolStripMenuItemSaveAsPostScript.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsPostScript.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsEpub.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
+		toolStripMenuItemSaveAsEpub.Name = "toolStripMenuItemSaveAsEpub";
+		toolStripMenuItemSaveAsEpub.Size = new Size(214, 22);
+		toolStripMenuItemSaveAsEpub.Text = "Save as &EPUB";
+		toolStripMenuItemSaveAsEpub.Click += ToolStripMenuItemSaveAsEpub_Click;
+		toolStripMenuItemSaveAsEpub.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsEpub.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsMobi.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
+		toolStripMenuItemSaveAsMobi.Name = "toolStripMenuItemSaveAsMobi";
+		toolStripMenuItemSaveAsMobi.Size = new Size(214, 22);
+		toolStripMenuItemSaveAsMobi.Text = "Save as &MOBI";
+		toolStripMenuItemSaveAsMobi.Click += ToolStripMenuItemSaveAsMobi_Click;
+		toolStripMenuItemSaveAsMobi.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsMobi.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsXps.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
+		toolStripMenuItemSaveAsXps.Name = "toolStripMenuItemSaveAsXps";
+		toolStripMenuItemSaveAsXps.Size = new Size(214, 22);
+		toolStripMenuItemSaveAsXps.Text = "Save as &XPS";
+		toolStripMenuItemSaveAsXps.Click += ToolStripMenuItemSaveAsXps_Click;
+		toolStripMenuItemSaveAsXps.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsXps.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsFictionBook2.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
+		toolStripMenuItemSaveAsFictionBook2.Name = "toolStripMenuItemSaveAsFictionBook2";
+		toolStripMenuItemSaveAsFictionBook2.Size = new Size(214, 22);
+		toolStripMenuItemSaveAsFictionBook2.Text = "Save as &FictionBook2 (FB2)";
+		toolStripMenuItemSaveAsFictionBook2.Click += ToolStripMenuItemSaveAsFictionBook2_Click;
+		toolStripMenuItemSaveAsFictionBook2.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsFictionBook2.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsChm.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
+		toolStripMenuItemSaveAsChm.Name = "toolStripMenuItemSaveAsChm";
+		toolStripMenuItemSaveAsChm.Size = new Size(214, 22);
+		toolStripMenuItemSaveAsChm.Text = "Save as &CHM";
+		toolStripMenuItemSaveAsChm.Click += ToolStripMenuItemSaveAsChm_Click;
+		toolStripMenuItemSaveAsChm.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsChm.MouseLeave += Control_Leave;
+
+		// toolStripDropDownButtonCopyToClipboard
+		toolStripDropDownButtonCopyToClipboard.AccessibleDescription = "Copies information to clipboard";
+		toolStripDropDownButtonCopyToClipboard.AccessibleName = "Copy to clipboard";
+		toolStripDropDownButtonCopyToClipboard.AccessibleRole = AccessibleRole.ButtonDropDown;
+		toolStripDropDownButtonCopyToClipboard.DropDown = contextMenuFullCopyToClipboard;
+		toolStripDropDownButtonCopyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripDropDownButtonCopyToClipboard.ImageTransparentColor = Color.Magenta;
+		toolStripDropDownButtonCopyToClipboard.Name = "toolStripDropDownButtonCopyToClipboard";
+		toolStripDropDownButtonCopyToClipboard.Size = new Size(131, 22);
+		toolStripDropDownButtonCopyToClipboard.Text = "&Copy to clipboard";
+		toolStripDropDownButtonCopyToClipboard.MouseEnter += Control_Enter;
+		toolStripDropDownButtonCopyToClipboard.MouseLeave += Control_Leave;
+
+		// contextMenuFullCopyToClipboard
+		contextMenuFullCopyToClipboard.AccessibleDescription = "Shows the context menu for copying database information to the clipboard";
+		contextMenuFullCopyToClipboard.AccessibleName = "Context menu for copying database information to the clipboard";
+		contextMenuFullCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuFullCopyToClipboard.Font = new Font("Segoe UI", 9F);
+		contextMenuFullCopyToClipboard.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardDatabaseLocalModifiedDate, menuitemCopyToClipboardDatabaseLocalContentLength, menuitemCopyToClipboardDatabaseOnlineModifiedDate, menuitemCopyToClipboardDatabaseOnlineContentLength });
+		contextMenuFullCopyToClipboard.Name = "Context menu for copying database information to the clipboard";
+		contextMenuFullCopyToClipboard.Size = new Size(240, 92);
+		contextMenuFullCopyToClipboard.Text = "Copy to clipboard";
+		contextMenuFullCopyToClipboard.MouseEnter += Control_Enter;
+		contextMenuFullCopyToClipboard.MouseLeave += Control_Leave;
+
+		menuitemCopyToClipboardDatabaseLocalModifiedDate.AutoToolTip = true;
+		menuitemCopyToClipboardDatabaseLocalModifiedDate.Image = (Image)resources.GetObject("menuitemCopyToClipboardDatabaseLocalModifiedDate.Image");
+		menuitemCopyToClipboardDatabaseLocalModifiedDate.Name = "menuitemCopyToClipboardDatabaseLocalModifiedDate";
+		menuitemCopyToClipboardDatabaseLocalModifiedDate.Size = new Size(239, 22);
+		menuitemCopyToClipboardDatabaseLocalModifiedDate.Text = "Database local modified date";
+		menuitemCopyToClipboardDatabaseLocalModifiedDate.Click += MenuitemCopyToClipboardDatabaseLocalModifiedDate_Click;
+		menuitemCopyToClipboardDatabaseLocalModifiedDate.MouseEnter += Control_Enter;
+		menuitemCopyToClipboardDatabaseLocalModifiedDate.MouseLeave += Control_Leave;
+
+		menuitemCopyToClipboardDatabaseLocalContentLength.AutoToolTip = true;
+		menuitemCopyToClipboardDatabaseLocalContentLength.Image = (Image)resources.GetObject("menuitemCopyToClipboardDatabaseLocalContentLength.Image");
+		menuitemCopyToClipboardDatabaseLocalContentLength.Name = "menuitemCopyToClipboardDatabaseLocalContentLength";
+		menuitemCopyToClipboardDatabaseLocalContentLength.Size = new Size(239, 22);
+		menuitemCopyToClipboardDatabaseLocalContentLength.Text = "Database local content length";
+		menuitemCopyToClipboardDatabaseLocalContentLength.Click += MenuitemCopyToClipboardDatabaseLocalContentLength_Click;
+		menuitemCopyToClipboardDatabaseLocalContentLength.MouseEnter += Control_Enter;
+		menuitemCopyToClipboardDatabaseLocalContentLength.MouseLeave += Control_Leave;
+
+		menuitemCopyToClipboardDatabaseOnlineModifiedDate.AutoToolTip = true;
+		menuitemCopyToClipboardDatabaseOnlineModifiedDate.Image = (Image)resources.GetObject("menuitemCopyToClipboardDatabaseOnlineModifiedDate.Image");
+		menuitemCopyToClipboardDatabaseOnlineModifiedDate.Name = "menuitemCopyToClipboardDatabaseOnlineModifiedDate";
+		menuitemCopyToClipboardDatabaseOnlineModifiedDate.Size = new Size(239, 22);
+		menuitemCopyToClipboardDatabaseOnlineModifiedDate.Text = "Database online modified date";
+		menuitemCopyToClipboardDatabaseOnlineModifiedDate.Click += MenuitemCopyToClipboardDatabaseOnlineModifiedDate_Click;
+		menuitemCopyToClipboardDatabaseOnlineModifiedDate.MouseEnter += Control_Enter;
+		menuitemCopyToClipboardDatabaseOnlineModifiedDate.MouseLeave += Control_Leave;
+
+		menuitemCopyToClipboardDatabaseOnlineContentLength.AutoToolTip = true;
+		menuitemCopyToClipboardDatabaseOnlineContentLength.Image = (Image)resources.GetObject("menuitemCopyToClipboardDatabaseOnlineContentLength.Image");
+		menuitemCopyToClipboardDatabaseOnlineContentLength.Name = "menuitemCopyToClipboardDatabaseOnlineContentLength";
+		menuitemCopyToClipboardDatabaseOnlineContentLength.Size = new Size(239, 22);
+		menuitemCopyToClipboardDatabaseOnlineContentLength.Text = "Database online content length";
+		menuitemCopyToClipboardDatabaseOnlineContentLength.Click += MenuitemCopyToClipboardDatabaseOnlineContentLength_Click;
+		menuitemCopyToClipboardDatabaseOnlineContentLength.MouseEnter += Control_Enter;
+		menuitemCopyToClipboardDatabaseOnlineContentLength.MouseLeave += Control_Leave;
+
+		// kryptonStatusStrip
+		kryptonStatusStrip.AccessibleDescription = "Shows some information";
+		kryptonStatusStrip.AccessibleName = "Status bar with some information";
+		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
+		kryptonStatusStrip.AllowClickThrough = true;
+		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.Dock = DockStyle.None;
+		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
+		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
+		kryptonStatusStrip.Location = new Point(0, 0);
+		kryptonStatusStrip.Name = "kryptonStatusStrip";
+		kryptonStatusStrip.ProgressBars = null;
+		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+		kryptonStatusStrip.ShowItemToolTips = true;
+		kryptonStatusStrip.Size = new Size(570, 22);
+		kryptonStatusStrip.SizingGrip = false;
+		kryptonStatusStrip.TabIndex = 0;
+		kryptonStatusStrip.TabStop = true;
+		kryptonStatusStrip.Text = "Status bar";
+		kryptonStatusStrip.Enter += Control_Enter;
+		kryptonStatusStrip.Leave += Control_Leave;
+		kryptonStatusStrip.MouseEnter += Control_Enter;
+		kryptonStatusStrip.MouseLeave += Control_Leave;
+
+		// labelInformation
+		labelInformation.AccessibleDescription = "Shows some information";
+		labelInformation.AccessibleName = "Shows some information";
+		labelInformation.AccessibleRole = AccessibleRole.StaticText;
+		labelInformation.AutoToolTip = true;
+		labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
+		labelInformation.Name = "labelInformation";
+		labelInformation.Size = new Size(144, 17);
+		labelInformation.Text = "some information here";
+		labelInformation.ToolTipText = "Shows some information";
+		labelInformation.MouseEnter += Control_Enter;
+		labelInformation.MouseLeave += Control_Leave;
+
+		// toolStripContainer
+		toolStripContainer.AccessibleDescription = "Container to arrange the toolbars";
+		toolStripContainer.AccessibleName = "Container to arrange the toolbars";
+		toolStripContainer.AccessibleRole = AccessibleRole.Grouping;
+		toolStripContainer.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
+		toolStripContainer.ContentPanel.Controls.Add(tabControlMain);
+		toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
+		toolStripContainer.ContentPanel.Size = new Size(570, 250);
+		toolStripContainer.Dock = DockStyle.Fill;
+		toolStripContainer.Location = new Point(0, 0);
+		toolStripContainer.Name = "toolStripContainer";
+		toolStripContainer.Size = new Size(570, 297);
+		toolStripContainer.TabIndex = 0;
+		toolStripContainer.Text = "toolStripContainer";
+		toolStripContainer.TopToolStripPanel.Controls.Add(toolStripIcons);
+
+		// Form properties
+		AccessibleDescription = "Allows checking and downloading a database file";
+		AccessibleName = "Database updater";
+		AccessibleRole = AccessibleRole.Dialog;
+		AutoScaleDimensions = new SizeF(7F, 15F);
+		AutoScaleMode = AutoScaleMode.Font;
+		ClientSize = new Size(570, 297);
+		Controls.Add(toolStripContainer);
+		FormBorderStyle = FormBorderStyle.FixedSingle;
+		Icon = (Icon)resources.GetObject("$this.Icon");
+		Margin = new Padding(4, 3, 4, 3);
+		MaximizeBox = false;
+		MinimizeBox = false;
+		Name = "DatabaseUpdaterForm";
+		StartPosition = FormStartPosition.CenterParent;
+		Text = "Database Updater";
+		Load += DatabaseUpdaterForm_Load;
+
+		contextMenuCopyToClipboard.ResumeLayout(false);
+		tableLayoutPanelCheck.ResumeLayout(false);
+		tableLayoutPanelCheck.PerformLayout();
+		tableLayoutPanelDownload.ResumeLayout(false);
+		tableLayoutPanelDownload.PerformLayout();
+		((ISupportInitialize)kryptoPanelDownload).EndInit();
+		kryptoPanelDownload.ResumeLayout(false);
+		kryptonToolStripDownload.ResumeLayout(false);
+		kryptonToolStripDownload.PerformLayout();
+		tabPageCheck.ResumeLayout(false);
+		tabPageDownload.ResumeLayout(false);
+		tabControlMain.ResumeLayout(false);
+		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
+		toolStripContainer.BottomToolStripPanel.PerformLayout();
+		toolStripContainer.ContentPanel.ResumeLayout(false);
+		toolStripContainer.TopToolStripPanel.ResumeLayout(false);
+		toolStripContainer.TopToolStripPanel.PerformLayout();
+		toolStripContainer.ResumeLayout(false);
+		toolStripContainer.PerformLayout();
+		kryptonStatusStrip.ResumeLayout(false);
+		kryptonStatusStrip.PerformLayout();
+		toolStripIcons.ResumeLayout(false);
+		toolStripIcons.PerformLayout();
+		contextMenuSaveToFile.ResumeLayout(false);
+		contextMenuFullCopyToClipboard.ResumeLayout(false);
+		ResumeLayout(false);
+	}
+
+	#endregion
+
+	private KryptonManager kryptonManager;
+	private ContextMenuStrip contextMenuCopyToClipboard;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboard;
+	private KryptonTableLayoutPanel tableLayoutPanelCheck;
+	private KryptonLabel labelUpdateNeeded;
+	private KryptonLabel labelDatabaseFileLocal;
+	private KryptonLabel labelDatabaseFileOnline;
+	private KryptonLabel labelContentLengthText;
+	private KryptonLabel labelModifiedDateText;
+	private KryptonLabel labelContentLengthValueLocal;
+	private KryptonLabel labelModifiedDateValueLocal;
+	private KryptonLabel labelContentLengthValueOnline;
+	private KryptonLabel labelModifiedDateValueOnline;
+	private KryptonTableLayoutPanel tableLayoutPanelDownload;
+	private KryptonPanel kryptoPanelDownload;
+	private KryptonToolStrip kryptonToolStripDownload;
+	private ToolStripButton toolStripButtonDownload;
+	private ToolStripButton toolStripButtonCancel;
+	private ToolStripSeparator toolStripSeparator;
+	private ToolStripLabel toolStripLabelProgress;
+	private KryptonProgressBarToolStripItem kryptonProgressBarDownload;
+	private KryptonLabel labelStatusText;
+	private KryptonLabel labelStatusValue;
+	private KryptonLabel labelDateText;
+	private KryptonLabel labelDateValue;
+	private KryptonLabel labelSourceText;
+	private KryptonLabel labelSourceValue;
+	private KryptonLabel labelSizeText;
+	private KryptonLabel labelSizeValue;
+	private KryptonLabel labelTime;
+	private KryptonLabel labelTimeValue;
+	private KryptonLabel labelDownloadSpeed;
+	private KryptonLabel labelDownloadSpeedValue;
+	private TabControl tabControlMain;
+	private TabPage tabPageCheck;
+	private TabPage tabPageDownload;
+	private ToolStrip toolStripIcons;
+	private ToolStripDropDownButton toolStripDropDownButtonSaveToFile;
+	private ContextMenuStrip contextMenuSaveToFile;
+	private ToolStripMenuItem toolStripMenuItemTextFiles;
+	private ToolStripMenuItem toolStripMenuItemSaveAsText;
+	private ToolStripMenuItem toolStripMenuItemSaveAsLatex;
+	private ToolStripMenuItem toolStripMenuItemSaveAsMarkdown;
+	private ToolStripMenuItem toolStripMenuItemSaveAsAsciiDoc;
+	private ToolStripMenuItem toolStripMenuItemSaveAsReStructuredText;
+	private ToolStripMenuItem toolStripMenuItemSaveAsTextile;
+	private ToolStripMenuItem toolStripMenuItemWriterDocuments;
+	private ToolStripMenuItem toolStripMenuItemSaveAsWord;
+	private ToolStripMenuItem toolStripMenuItemSaveAsOdt;
+	private ToolStripMenuItem toolStripMenuItemSaveAsRtf;
+	private ToolStripMenuItem toolStripMenuItemSaveAsAbiword;
+	private ToolStripMenuItem toolStripMenuItemSaveAsWps;
+	private ToolStripMenuItem toolStripMenuItemSpreadsheetDocuments;
+	private ToolStripMenuItem toolStripMenuItemSaveAsExcel;
+	private ToolStripMenuItem toolStripMenuItemSaveAsOds;
+	private ToolStripMenuItem toolStripMenuItemSaveAsCsv;
+	private ToolStripMenuItem toolStripMenuItemSaveAsTsv;
+	private ToolStripMenuItem toolStripMenuItemSaveAsPsv;
+	private ToolStripMenuItem toolStripMenuItemSaveAsEt;
+	private ToolStripMenuItem toolStripMenuItemXmlDocuments;
+	private ToolStripMenuItem toolStripMenuItemSaveAsHtml;
+	private ToolStripMenuItem toolStripMenuItemSaveAsXml;
+	private ToolStripMenuItem toolStripMenuItemSaveAsDocBook;
+	private ToolStripMenuItem toolStripMenuItemConfigurationFiles;
+	private ToolStripMenuItem toolStripMenuItemSaveAsJson;
+	private ToolStripMenuItem toolStripMenuItemSaveAsYaml;
+	private ToolStripMenuItem toolStripMenuItemSaveAsToml;
+	private ToolStripMenuItem toolStripMenuItemDatabaseScripts;
+	private ToolStripMenuItem toolStripMenuItemSaveAsSql;
+	private ToolStripMenuItem toolStripMenuItemSaveAsSqlite;
+	private ToolStripMenuItem toolStripMenuItemPortableDocuments;
+	private ToolStripMenuItem toolStripMenuItemSaveAsPdf;
+	private ToolStripMenuItem toolStripMenuItemSaveAsPostScript;
+	private ToolStripMenuItem toolStripMenuItemSaveAsEpub;
+	private ToolStripMenuItem toolStripMenuItemSaveAsMobi;
+	private ToolStripMenuItem toolStripMenuItemSaveAsXps;
+	private ToolStripMenuItem toolStripMenuItemSaveAsFictionBook2;
+	private ToolStripMenuItem toolStripMenuItemSaveAsChm;
+	private ToolStripDropDownButton toolStripDropDownButtonCopyToClipboard;
+	private ContextMenuStrip contextMenuFullCopyToClipboard;
+	private ToolStripMenuItem menuitemCopyToClipboardDatabaseLocalModifiedDate;
+	private ToolStripMenuItem menuitemCopyToClipboardDatabaseLocalContentLength;
+	private ToolStripMenuItem menuitemCopyToClipboardDatabaseOnlineModifiedDate;
+	private ToolStripMenuItem menuitemCopyToClipboardDatabaseOnlineContentLength;
+	private ToolStripContainer toolStripContainer;
+	private KryptonStatusStrip kryptonStatusStrip;
+	private ToolStripStatusLabel labelInformation;
+}
