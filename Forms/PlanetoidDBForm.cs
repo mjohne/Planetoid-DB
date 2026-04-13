@@ -773,8 +773,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formRecords.ShowDialog();
 	}
 
-	/// <summary>Shows the MPCORB data check form.</summary>
-	/// <remarks>This method is used to check the MPCORB data for updates.</remarks>
+	/// <summary>Shows the MPCORB database updater form.</summary>
+	/// <remarks>This method is used to check and update the MPCORB data.</remarks>
 	private async void ShowMpcorbDatCheck()
 	{
 		// Check if the network is available before proceeding with the download
@@ -786,17 +786,21 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		}
 		else
 		{
-			// Create and show the MPCORB data check form
-			using CheckDatabaseForm formCheckMpcorbDat = new(url: Settings.Default.systemMpcorbDatUrl, localFilePath: Settings.Default.systemFilenameMpcorb, databaseName: "MPCORB.DAT");
+			// Create and show the MPCORB database updater form
+			using DatabaseUpdaterForm formCheckMpcorbDat = new(checkUrl: Settings.Default.systemMpcorbDatUrl, downloadUrl: Settings.Default.systemMpcorbDatGzUrl, localFilePath: Settings.Default.systemFilenameMpcorb, databaseName: "MPCORB.DAT");
 			// Set the TopMost property to true to keep the form on top of other windows
 			formCheckMpcorbDat.TopMost = TopMost;
-			// Show the MPCORB data check form as a modal dialog
-			_ = formCheckMpcorbDat.ShowDialog();
+			// Show the MPCORB database updater form as a modal dialog
+			if (formCheckMpcorbDat.ShowDialog() == DialogResult.OK)
+			{
+				// Ask the user if they want to restart the application after downloading the database
+				AskForRestartAfterDownloadingDatabase();
+			}
 		}
 	}
 
-	/// <summary>Shows the MPCORB data check form.</summary>
-	/// <remarks>This method is used to check the ASTORB data for updates.</remarks>
+	/// <summary>Shows the ASTORB database updater form.</summary>
+	/// <remarks>This method is used to check and update the ASTORB data.</remarks>
 	private void ShowAstorbDatCheck()
 	{
 		// Check if the network is available before proceeding with the download
@@ -807,12 +811,16 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		}
 		else
 		{
-			// Create and show the ASTORB data check form
-			using CheckDatabaseForm formCheckAstorbDat = new(url: Settings.Default.systemAstorbDatUrl, localFilePath: Settings.Default.systemFilenameAstorb, databaseName: "ASTORB.DAT");
+			// Create and show the ASTORB database updater form
+			using DatabaseUpdaterForm formCheckAstorbDat = new(checkUrl: Settings.Default.systemAstorbDatUrl, downloadUrl: Settings.Default.systemAstorbDatGzUrl, localFilePath: Settings.Default.systemFilenameAstorb, databaseName: "ASTORB.DAT");
 			// Set the TopMost property to true to keep the form on top of other windows
 			formCheckAstorbDat.TopMost = TopMost;
-			// Show the ASTORB data check form as a modal dialog
-			_ = formCheckAstorbDat.ShowDialog();
+			// Show the ASTORB database updater form as a modal dialog
+			if (formCheckAstorbDat.ShowDialog() == DialogResult.OK)
+			{
+				// Ask the user if they want to restart the application after downloading the database
+				AskForRestartAfterDownloadingDatabase();
+			}
 		}
 	}
 
@@ -828,8 +836,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		}
 		else
 		{
-			// Create and show the downloader form for the MPCORB database
-			using DatabaseDownloaderForm downloaderForm = new(url: Settings.Default.systemMpcorbDatGzUrl);
+			// Create and show the MPCORB database updater form
+			using DatabaseUpdaterForm downloaderForm = new(checkUrl: Settings.Default.systemMpcorbDatUrl, downloadUrl: Settings.Default.systemMpcorbDatGzUrl, localFilePath: Settings.Default.systemFilenameMpcorb, databaseName: "MPCORB.DAT");
 			// Set the TopMost property to true to keep the form on top of other windows
 			downloaderForm.TopMost = TopMost;
 			// Show the downloader form as a modal dialog
@@ -853,8 +861,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		}
 		else
 		{
-			// Create and show the downloader form for the ASTORB database
-			using DatabaseDownloaderForm downloaderForm = new(url: Settings.Default.systemAstorbDatGzUrl);
+			// Create and show the ASTORB database updater form
+			using DatabaseUpdaterForm downloaderForm = new(checkUrl: Settings.Default.systemAstorbDatUrl, downloadUrl: Settings.Default.systemAstorbDatGzUrl, localFilePath: Settings.Default.systemFilenameAstorb, databaseName: "ASTORB.DAT");
 			// Set the TopMost property to true to keep the form on top of other windows
 			downloaderForm.TopMost = TopMost;
 			// Show the downloader form as a modal dialog
