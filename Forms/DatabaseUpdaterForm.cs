@@ -284,6 +284,7 @@ public partial class DatabaseUpdaterForm : BaseKryptonForm
 		}
 		finally
 		{
+			kryptonProgressBarDownload.Style = ProgressBarStyle.Blocks;
 			toolStripButtonDownload.Enabled = true;
 			toolStripButtonCancel.Enabled = false;
 			labelDateValue.Text = "-";
@@ -309,7 +310,7 @@ public partial class DatabaseUpdaterForm : BaseKryptonForm
 		_ = response.EnsureSuccessStatusCode();
 		long? totalBytes = response.Content.Headers.ContentLength;
 		DateTime? lastMod = response.Content.Headers.LastModified?.UtcDateTime;
-		labelDateValue.Text = lastMod.HasValue ? lastMod.ToString() : "-";
+		labelDateValue.Text = lastMod.HasValue ? lastMod.Value.ToString(provider: CultureInfo.CurrentCulture) : "-";
 		labelSourceValue.Text = fileUrl;
 		labelSizeValue.Text = totalBytes.HasValue ? $"{totalBytes:N0} {I18nStrings.BytesText}" : "Unknown";
 		await using Stream contentStream = await response.Content.ReadAsStreamAsync(cancellationToken: token);
