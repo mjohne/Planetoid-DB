@@ -2552,6 +2552,34 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void ToolStripButtonCompareDatabases_Click(object sender, EventArgs e) => ShowCompareArchives();
 
+	/// <summary>Handles the click event for the ToolStripMenuItemOrbitalResonances.
+	/// Shows the orbital resonances form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the orbital resonances form.</remarks>
+	private void ToolStripMenuItemOrbitalResonances_Click(object sender, EventArgs e) => ShowOrbitalResonances();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemOrbitElementsGrouping.
+	/// Shows the orbit elements grouping form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the orbit elements grouping form.</remarks>
+	private void ToolStripMenuItemOrbitElementsGrouping_Click(object sender, EventArgs e) => ShowOrbitElementsGrouping();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemAsteroidFamiliesDetection.
+	/// Shows the asteroid families form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the asteroid families form.</remarks>
+	private void ToolStripMenuItemAsteroidFamiliesDetection_Click(object sender, EventArgs e) => ShowAsteroidFamiliesDetection();
+
+	/// <summary>Handles the click event for the MenuitemOrbitalResonancesOfAllMinorPlanets.
+	/// Shows the orbital resonances of all minor planets form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the orbital resonances of all minor planets form.</remarks>
+	private void ToolStripMenuitemOrbitalResonancesOfAllMinorPlanets_Click(object sender, EventArgs e) => ShowOrbitalResonancesOfAllMinorPlanets();
+
 	#endregion
 
 	#region DoubleClick event handlers
@@ -2582,32 +2610,4 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void EasterEgg_DoubleClick(object sender, EventArgs e) => MessageBox.Show(text: I18nStrings.EasterEgg, caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 
 	#endregion
-
-	/// <summary>Handles the click event for the ToolStripMenuItemOrbitalResonances.
-	/// Shows the orbital resonances form.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the orbital resonances form.</remarks>
-	private void ToolStripMenuItemOrbitalResonances_Click(object sender, EventArgs e) => ShowOrbitalResonances();
-
-	/// <summary>Handles the click event for the ToolStripMenuItemOrbitElementsGrouping.
-	/// Shows the orbit elements grouping form.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the orbit elements grouping form.</remarks>
-	private void ToolStripMenuItemOrbitElementsGrouping_Click(object sender, EventArgs e) => ShowOrbitElementsGrouping();
-
-	/// <summary>Handles the click event for the ToolStripMenuItemAsteroidFamiliesDetection.
-	/// Shows the asteroid families form.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the asteroid families form.</remarks>
-	private void ToolStripMenuItemAsteroidFamiliesDetection_Click(object sender, EventArgs e) => ShowAsteroidFamiliesDetection();
-
-	/// <summary>Handles the click event for the MenuitemOrbitalResonancesOfAllMinorPlanets.
-	/// Shows the orbital resonances of all minor planets form.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the orbital resonances of all minor planets form.</remarks>
-	private void ToolStripMenuitemOrbitalResonancesOfAllMinorPlanets_Click(object sender, EventArgs e) => ShowOrbitalResonancesOfAllMinorPlanets();
 }
