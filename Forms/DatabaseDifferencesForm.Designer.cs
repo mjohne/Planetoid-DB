@@ -1178,7 +1178,6 @@ partial class DatabaseDifferencesForm
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(643, 487);
-		ContextMenuStrip = contextMenuSaveToFile;
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.FixedToolWindow;
