@@ -1,5 +1,29 @@
 # Changelog
 
+## Planetoid-DB 0.8.9.60
+
+* Updated version number to 0.8.9.60 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/558
+* Redesigned GUI in `OrbitalResonancesOfAllMinorPlanetsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/559
+* Updated `NLog` to version 6.1.2 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/564
+* Add column sorting, double-click navigation, and "Go to object" button to asteroid forms by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/565
+* Add column-click sorting to `AsteroidFamiliesForm` member `ListView` by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/566
+* `TableModeForm`: implement double-click navigation and "Go to object" toolbar button by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/567
+* Show wait cursor during `ListView/TableLayoutPanel` file save operations by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/568
+* Fixed errors by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/569
+* Improveed button disabling/enabling by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/570
+* Added improvements in OrbitalResonancesOfAllMinorPlanetsForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/571
+* Redesigned `GoToObject` button in `ListReadableDesignationsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/572
+* Added missing functions in `CheckDatabaseForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/573
+* Created `TextBoxExporter.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/574
+* Moved escape methods to `Helpers/ExportEscapeHelper.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/575
+* Fixed dialog title of saving file formats by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/576
+* Added missed export methods by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/577
+* Redesigned `OrbitElementsGroupingForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/578
+* Updated to version 0.8.9.60 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/581
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.8.8.59.556.1835...0.8.9.60.581.1914
+
+
 ## Planetoid-DB 0.8.8.59
 
 * Fix comment text and abbreviation label inconsistencies in DatabaseDifferencesForm by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/534
