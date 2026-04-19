@@ -28,9 +28,6 @@
     <Compile Update="Forms\DatabaseInformationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\DatabaseUpdaterForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Forms\DerivedOrbitElementsForm.cs">
       <SubType>Form</SubType>
     </Compile>

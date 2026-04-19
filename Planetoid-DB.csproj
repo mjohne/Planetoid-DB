@@ -839,16 +839,16 @@ Public License instead of this License.  But first, please read
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="LICENSE">
+    <EmbeddedResource Update="LICENSE">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="README.md">
+    <EmbeddedResource Update="README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\demoset-10000.txt" />
+    <EmbeddedResource Update="Resources\demoset-10000.txt" />
   </ItemGroup>
 
   <ItemGroup>
