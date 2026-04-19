@@ -10,7 +10,7 @@
 * `TableModeForm`: implement double-click navigation and "Go to object" toolbar button by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/567
 * Show wait cursor during `ListView/TableLayoutPanel` file save operations by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/568
 * Fixed errors by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/569
-* Improveed button disabling/enabling by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/570
+* Improved button disabling/enabling by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/570
 * Added improvements in OrbitalResonancesOfAllMinorPlanetsForm by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/571
 * Redesigned `GoToObject` button in `ListReadableDesignationsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/572
 * Added missing functions in `CheckDatabaseForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/573
