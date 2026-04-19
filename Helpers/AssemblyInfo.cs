@@ -16,7 +16,7 @@ public static class AssemblyInfo
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger is used to log messages and errors for the class.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-	
+
 	#region Assembly attribute accessors
 
 	/// <summary>Return the title of the assembly</summary>
@@ -35,7 +35,7 @@ public static class AssemblyInfo
 			}
 			catch (Exception ex)
 			{
-				Logger.Error(exception: ex, message: "An error occurred while retrieving the assembly title.");
+				logger.Error(exception: ex, message: "An error occurred while retrieving the assembly title.");
 				return string.Empty;
 			}
 		}
@@ -53,7 +53,7 @@ public static class AssemblyInfo
 			}
 			catch (Exception ex)
 			{
-				Logger.Error(exception: ex, message: "An error occurred while retrieving the assembly version.");
+				logger.Error(exception: ex, message: "An error occurred while retrieving the assembly version.");
 				return string.Empty;
 			}
 		}
@@ -72,7 +72,7 @@ public static class AssemblyInfo
 			}
 			catch (Exception ex)
 			{
-				Logger.Error(exception: ex, message: "An error occurred while retrieving the assembly description.");
+				logger.Error(exception: ex, message: "An error occurred while retrieving the assembly description.");
 				return string.Empty;
 			}
 		}
@@ -91,7 +91,7 @@ public static class AssemblyInfo
 			}
 			catch (Exception ex)
 			{
-				Logger.Error(exception: ex, message: "An error occurred while retrieving the assembly product.");
+				logger.Error(exception: ex, message: "An error occurred while retrieving the assembly product.");
 				return string.Empty;
 			}
 		}
@@ -110,7 +110,7 @@ public static class AssemblyInfo
 			}
 			catch (Exception ex)
 			{
-				Logger.Error(exception: ex, message: "An error occurred while retrieving the assembly copyright.");
+				logger.Error(exception: ex, message: "An error occurred while retrieving the assembly copyright.");
 				return string.Empty;
 			}
 		}
@@ -129,7 +129,7 @@ public static class AssemblyInfo
 			}
 			catch (Exception ex)
 			{
-				Logger.Error(exception: ex, message: "An error occurred while retrieving the assembly company.");
+				logger.Error(exception: ex, message: "An error occurred while retrieving the assembly company.");
 				return string.Empty;
 			}
 		}
