@@ -1,5 +1,15 @@
 # Changelog
 
+## Planetoid-DB 0.8.10.61
+
+## What's Changed
+* Updated image link in README.md by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/583
+* Updated CHANGELOG for version 0.8.9.60 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/584
+* Updated several `Krypton` packages by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/585
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.8.9.60.581.1914...0.8.10.61.585.1922
+
+
 ## Planetoid-DB 0.8.9.60
 
 * Updated version number to 0.8.9.60 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/558
