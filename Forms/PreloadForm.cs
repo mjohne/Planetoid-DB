@@ -127,7 +127,7 @@ public partial class PreloadForm : BaseKryptonForm
 		else
 		{
 			// Open the download form for MPCORB.DAT
-			using DownloadMpcorbDatForm formDownloaderForMpcorbDat = new();
+			using DatabaseDownloaderForm formDownloaderForMpcorbDat = new(url: Settings.Default.systemMpcorbDatGzUrl);
 			// Show the form as a dialog
 			if (formDownloaderForMpcorbDat.ShowDialog() == DialogResult.OK)
 			{
