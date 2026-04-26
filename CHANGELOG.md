@@ -1,5 +1,15 @@
 # Changelog
 
+## Planetoid-DB 0.8.11.62
+
+* Updated image source in README.md by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/587
+* Updated CHANGELOG for version 0.8.10.61 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/588
+* Updated version number by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/589
+* Redesigned `Search2Form` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/590
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.8.10.61.585.1922...0.8.11.62.591.1940
+
+
 ## Planetoid-DB 0.8.10.61
 
 ## What's Changed
