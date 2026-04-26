@@ -1176,6 +1176,67 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method is used to check if the form should stay on top of other windows.</remarks>
 	private void CheckStayOnTop() => TopMost = menuitemOptionStayOnTop.Checked;
 
+	/// <summary>Displays the form's <see cref="openFileDialog"/> to allow the user to choose a local MPCORB.DAT file and restarts the application to load the selected file if confirmed.</summary>
+	/// <remarks>Uses the pre-configured <see cref="openFileDialog"/> component. If the user selects a valid, non-empty file, the application prompts for confirmation and restarts with the selected file as a command-line argument. If the file is invalid or empty, an error message is shown and the operation is aborted. This method is intended for scenarios where the user needs to manually specify a new MPCORB.DAT data source.</remarks>
+	private void OpenLocalMpcorbDat()
+	{
+		// Show the dialog and check if the user selected a file
+		if (openFileDialog.ShowDialog() != DialogResult.OK)
+		{
+			return;
+		}
+		// Get the selected file path
+		string selectedFilePath = openFileDialog.FileName;
+		// Validate the selected file
+		if (string.IsNullOrWhiteSpace(value: selectedFilePath) || !File.Exists(path: selectedFilePath))
+		{
+			logger.Error(message: $"Selected file does not exist: {selectedFilePath}");
+			ShowErrorMessage(message: "The selected file does not exist.");
+			return;
+		}
+		// Check if the file has content
+		FileInfo fileInfo = new(fileName: selectedFilePath);
+		if (fileInfo.Length == 0)
+		{
+			logger.Error(message: $"Selected file is empty: {selectedFilePath}");
+			ShowErrorMessage(message: "The selected file is empty.");
+			return;
+		}
+		// If the file is valid, prompt the user to confirm restarting the application to load the new file
+		try
+		{
+			logger.Info(message: $"User selected local MPCORB.DAT file: {selectedFilePath}");
+			// Ask the user if they want to restart the application
+			DialogResult result = MessageBox.Show(
+				text: $"The application will restart to load the selected file:\n\n{selectedFilePath}\n\nDo you want to continue?",
+				caption: I18nStrings.InformationCaption,
+				buttons: MessageBoxButtons.YesNo,
+				icon: MessageBoxIcon.Question,
+				defaultButton: MessageBoxDefaultButton.Button1);
+			// If the user confirms, restart the application with the new file path as a command line argument
+			if (result == DialogResult.Yes)
+			{
+				logger.Info(message: "Restarting application to load new MPCORB.DAT file");
+				// Restart the application with the new file path as command line argument
+				ProcessStartInfo startInfo = new()
+				{
+					FileName = Application.ExecutablePath,
+					Arguments = $"\"{selectedFilePath}\"",
+					UseShellExecute = true
+				};
+				_ = Process.Start(startInfo: startInfo);
+				// Close the current application instance
+				Application.Exit();
+			}
+		}
+		// Handle any exceptions that may occur during the file selection and application restart process
+		catch (Exception ex)
+		{
+			logger.Error(exception: ex, message: $"Error while opening local MPCORB.DAT file: {ex.Message}");
+			ShowErrorMessage(message: $"Error while opening the file:\n\n{ex.Message}");
+		}
+	}
+
 	#endregion
 
 	#region form event handlers
@@ -1296,7 +1357,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="ProgressChangedEventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to handle the progress changed event during the database loading process.</remarks>
-	private static void BackgroundWorkerLoadingDatabase_ProgressChanged(object? sender, ProgressChangedEventArgs e)
+	private void BackgroundWorkerLoadingDatabase_ProgressChanged(object? sender, ProgressChangedEventArgs e)
 	{
 		//MessageBox.Show(text: e.ProgressPercentage.ToString());
 		// TODO: Not implemented yet
@@ -2026,61 +2087,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method is used to check if the form should stay on top of other windows.</remarks>
 	private void ToolStripMenuItemStayOnTop_Click(object sender, EventArgs e) => CheckStayOnTop();
 
-	/// <summary>Handles the click event for the ToolStripMenuItemEnableCopyingByDoubleClicking.
-	/// Enables copying by double-clicking.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to enable copying by double-clicking.</remarks>
-	private static void ToolStripMenuItemEnableCopyingByDoubleClicking_Click(object sender, EventArgs e)
-	{
-		// TODO: Not implemented yet
-		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
-	}
-
-	/// <summary>Handles the click event for the ToolStripMenuItemEnableLinkingToTerminology.
-	/// Enables linking to terminology.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to enable linking to terminology.</remarks>
-	private static void ToolStripMenuItemEnableLinkingToTerminology_Click(object sender, EventArgs e)
-	{
-		// TODO: Not implemented yet
-		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
-	}
-
-	/// <summary>Handles the click event for the ToolStripMenuItemIconSetSilk.
-	/// Sets the icon set to Silk.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to set the icon set to Silk.</remarks>
-	private static void ToolStripMenuItemIconSetSilk_Click(object sender, EventArgs e)
-	{
-		// TODO: Not implemented yet
-		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
-	}
-
-	/// <summary>Handles the click event for the ToolStripMenuItemIconSetFugue.
-	/// Sets the icon set to Fugue.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to set the icon set to Fugue.</remarks>
-	private static void ToolStripMenuItemIconSetFugue_Click(object sender, EventArgs e)
-	{
-		// TODO: Not implemented yet
-		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
-	}
-
-	/// <summary>Handles the click event for the ToolStripMenuItemIconSetFatcow.
-	/// Sets the icon set to Fatcow.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to set the icon set to Fatcow.</remarks>
-	private static void ToolStripMenuItemIconSetFatcow_Click(object sender, EventArgs e)
-	{
-		// TODO: Not implemented yet
-		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
-	}
-
 	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardReadableDesignation.
 	/// Copies the readable designation to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
@@ -2345,7 +2351,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the distribution form for mean anomaly at the epoch.</remarks>
-	private static void MenuitemDistributionMeanAnomalyAtTheEpoch_Click(object sender, EventArgs e)
+	private void MenuitemDistributionMeanAnomalyAtTheEpoch_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
@@ -2356,7 +2362,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the distribution form for argument of perihelion.</remarks>
-	private static void MenuitemDistributionArgumentOfThePerihelion_Click(object sender, EventArgs e)
+	private void MenuitemDistributionArgumentOfThePerihelion_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
@@ -2367,7 +2373,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the distribution form for longitude of the ascending node.</remarks>
-	private static void MenuitemDistributionLongitudeOfTheAscendingNode_Click(object sender, EventArgs e)
+	private void MenuitemDistributionLongitudeOfTheAscendingNode_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
@@ -2378,7 +2384,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the distribution form for inclination.</remarks>
-	private static void MenuitemDistributionInclination_Click(object sender, EventArgs e)
+	private void MenuitemDistributionInclination_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
@@ -2389,7 +2395,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the distribution form for orbital eccentricity.</remarks>
-	private static void MenuitemDistributionOrbitalEccentricity_Click(object sender, EventArgs e)
+	private void MenuitemDistributionOrbitalEccentricity_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
@@ -2400,7 +2406,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the distribution form for mean daily motion.</remarks>
-	private static void MenuitemDistributionMeanDailyMotion_Click(object sender, EventArgs e)
+	private void MenuitemDistributionMeanDailyMotion_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
@@ -2411,7 +2417,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the distribution form for semi-major axis.</remarks>
-	private static void MenuitemDistributionSemiMajorAxis_Click(object sender, EventArgs e)
+	private void MenuitemDistributionSemiMajorAxis_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
@@ -2422,7 +2428,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the distribution form for absolute magnitude.</remarks>
-	private static void MenuitemDistributionAbsoluteMagnitude_Click(object sender, EventArgs e)
+	private void MenuitemDistributionAbsoluteMagnitude_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
@@ -2433,7 +2439,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the distribution form for slope parameter.</remarks>
-	private static void MenuitemDistributionSlopeParameter_Click(object sender, EventArgs e)
+	private void MenuitemDistributionSlopeParameter_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
@@ -2444,7 +2450,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the distribution form for number of oppositions.</remarks>
-	private static void MenuitemDistributionNumberOfOppositions_Click(object sender, EventArgs e)
+	private void MenuitemDistributionNumberOfOppositions_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
@@ -2455,7 +2461,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the distribution form for number of observations.</remarks>
-	private static void MenuitemDistributionNumberOfObservations_Click(object sender, EventArgs e)
+	private void MenuitemDistributionNumberOfObservations_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
@@ -2466,7 +2472,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the distribution form for observation span.</remarks>
-	private static void MenuitemDistributionObservationSpan_Click(object sender, EventArgs e)
+	private void MenuitemDistributionObservationSpan_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
@@ -2477,7 +2483,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the distribution form for RMS residual.</remarks>
-	private static void MenuitemDistributionRmsResidual_Click(object sender, EventArgs e)
+	private void MenuitemDistributionRmsResidual_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
@@ -2488,7 +2494,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the distribution form for computer name.</remarks>
-	private static void MenuitemDistributionComputerName_Click(object sender, EventArgs e)
+	private void MenuitemDistributionComputerName_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
@@ -2500,7 +2506,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	///	<remarks>
 	///	This method is used to show the distribution form for the selected parameter.</remarks>
-	private static void SplitButtonDistribution_ButtonClick(object sender, EventArgs e)
+	private void SplitButtonDistribution_ButtonClick(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
@@ -2511,7 +2517,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the distribution form for the selected parameter.</remarks>
-	private static void MenuitemDistribution_Click(object sender, EventArgs e)
+	private void MenuitemDistribution_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
@@ -2580,6 +2586,17 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method is used to show the orbital resonances of all minor planets form.</remarks>
 	private void ToolStripMenuitemOrbitalResonancesOfAllMinorPlanets_Click(object sender, EventArgs e) => ShowOrbitalResonancesOfAllMinorPlanets();
 
+	/// <summary>Handles the click event for opening a local MPCORB.DAT file.
+	/// Opens a file dialog to select a local MPCORB.DAT file, and if a valid file is selected,
+	/// restarts the application with the selected file path as a command-line argument.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method allows the user to select a custom local MPCORB.DAT file instead of using the default one.</remarks>
+	private void ToolStripMenuItemOpenLocalMpcorbDat_Click(object sender, EventArgs e)
+	{
+		OpenLocalMpcorbDat();
+	}
+
 	#endregion
 
 	#region DoubleClick event handlers
@@ -2610,4 +2627,69 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void EasterEgg_DoubleClick(object sender, EventArgs e) => MessageBox.Show(text: I18nStrings.EasterEgg, caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
 
 	#endregion
+
+	#region Icon set and Options event handlers
+
+	/// <summary>Handles the click event for the Fatcow icon set menu item.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to set the icon set to Fatcow.</remarks>
+	private void ToolStripMenuItemIconSetFatcow_Click(object sender, EventArgs e)
+	{
+		// TODO: Implement icon set change to Fatcow
+		_ = MessageBox.Show(text: "Fatcow icon set not implemented yet", caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>Handles the click event for the Silk icon set menu item.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to set the icon set to Silk.</remarks>
+	private void ToolStripMenuItemIconSetSilk_Click(object sender, EventArgs e)
+	{
+		// TODO: Implement icon set change to Silk
+		_ = MessageBox.Show(text: "Silk icon set not implemented yet", caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>Handles the click event for the Fugue icon set menu item.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to set the icon set to Fugue.</remarks>
+	private void ToolStripMenuItemIconSetFugue_Click(object sender, EventArgs e)
+	{
+		// TODO: Implement icon set change to Fugue
+		_ = MessageBox.Show(text: "Fugue icon set not implemented yet", caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>Handles the click event for enabling copying by double-clicking option.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method toggles the option to enable copying data by double-clicking on controls.</remarks>
+	private void ToolStripMenuItemEnableCopyingByDoubleClicking_Click(object sender, EventArgs e)
+	{
+		// TODO: Implement enable/disable copying by double-clicking
+		_ = MessageBox.Show(text: "Enable copying by double-clicking not implemented yet", caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>Handles the click event for enabling linking to terminology option.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method toggles the option to enable linking to terminology.</remarks>
+	private void ToolStripMenuItemEnableLinkingToTerminology_Click(object sender, EventArgs e)
+	{
+		// TODO: Implement enable/disable linking to terminology
+		_ = MessageBox.Show(text: "Enable linking to terminology not implemented yet", caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	#endregion
+
+	/// <summary>Handles the click event for the toolbar button that opens a local MPCORB.DAT file.
+	/// Opens a file dialog to select a local MPCORB.DAT file, and if a valid file is selected,
+	/// restarts the application with the selected file path as a command-line argument.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method allows the user to select a custom local MPCORB.DAT file instead of using the default one.</remarks>
+	private void ToolStripButtonOpenLocalMpcorbDat_Click(object sender, EventArgs e)
+	{
+		OpenLocalMpcorbDat();
+	}
 }

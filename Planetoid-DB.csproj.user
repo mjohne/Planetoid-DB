@@ -31,9 +31,6 @@
     <Compile Update="Forms\DerivedOrbitElementsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\DownloadMpcorbDatForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Forms\EphemerisForm.cs">
       <SubType>Form</SubType>
     </Compile>
