@@ -253,6 +253,7 @@ partial class Search2Form
 		listViewResults.VirtualMode = true;
 		listViewResults.ColumnClick += ListView_ColumnClick;
 		listViewResults.RetrieveVirtualItem += ListViewResults_RetrieveVirtualItem;
+		listViewResults.SelectedIndexChanged += ListViewResults_SelectedIndexChanged;
 		listViewResults.DoubleClick += ListViewResults_DoubleClick;
 		listViewResults.Enter += Control_Enter;
 		listViewResults.Leave += Control_Leave;
@@ -1001,7 +1002,7 @@ partial class Search2Form
 		// 
 		// toolStripButtonFullText
 		// 
-		toolStripButtonFullText.AccessibleDescription = "Checks if only full text ist searchable";
+		toolStripButtonFullText.AccessibleDescription = "Checks if only full text is searchable";
 		toolStripButtonFullText.AccessibleName = "Full text only";
 		toolStripButtonFullText.AccessibleRole = AccessibleRole.PushButton;
 		toolStripButtonFullText.CheckOnClick = true;
@@ -1025,7 +1026,7 @@ partial class Search2Form
 		// 
 		// toolStripButtonSearch
 		// 
-		toolStripButtonSearch.AccessibleDescription = "Searchs the term";
+		toolStripButtonSearch.AccessibleDescription = "Searches the term";
 		toolStripButtonSearch.AccessibleName = "Search";
 		toolStripButtonSearch.AccessibleRole = AccessibleRole.PushButton;
 		toolStripButtonSearch.Image = Resources.FatcowIcons16px.fatcow_zoom_16px;
@@ -1105,6 +1106,7 @@ partial class Search2Form
 		toolStripButtonGoToObject.AccessibleDescription = "Goes to the selected planetoid";
 		toolStripButtonGoToObject.AccessibleName = "Go to object";
 		toolStripButtonGoToObject.AccessibleRole = AccessibleRole.PushButton;
+		toolStripButtonGoToObject.Enabled = false;
 		toolStripButtonGoToObject.Image = Resources.FatcowIcons16px.fatcow_application_go_16px;
 		toolStripButtonGoToObject.ImageTransparentColor = Color.Magenta;
 		toolStripButtonGoToObject.Name = "toolStripButtonGoToObject";
@@ -1133,7 +1135,6 @@ partial class Search2Form
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Search in MPCORB.DAT";
 		Load += Search2Form_Load;
-		Click += Search2Form_Load;
 		((System.ComponentModel.ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);
 		splitContainer.Panel1.ResumeLayout(false);

@@ -15,8 +15,18 @@ using System.Text;
 namespace Planetoid_DB;
 
 /// <summary>
-/// Represents a form that provides advanced search functionality for planetoid records, allowing users to search, /// filter, and export search results in various formats.</summary>
-/// <remarks>The Search2Form enables users to perform text-based searches across multiple orbital element fields within a planetoid database. Users can select which elements to search, view results in a virtualized list, and export results to a wide range of file formats, including text, spreadsheet, and markup formats. The form manages search progress, cancellation, and error handling, and integrates with the main application to allow navigation to specific records. Thread safety is maintained for search result access, and the form provides feedback on long-running operations.</remarks>
+/// Represents a form that provides advanced search functionality for planetoid records,
+/// allowing users to search, filter, and export search results in various formats.
+/// </summary>
+/// <remarks>
+/// The Search2Form enables users to perform text-based searches across multiple orbital
+/// element fields within a planetoid database. Users can select which elements to search,
+/// view results in a virtualized list, and export results to a wide range of file formats,
+/// including text, spreadsheet, and markup formats. The form manages search progress,
+/// cancellation, and error handling, and integrates with the main application to allow
+/// navigation to specific records. Thread safety is maintained for search result access,
+/// and the form provides feedback on long-running operations.
+/// </remarks>
 // You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class Search2Form : BaseKryptonForm
@@ -50,10 +60,6 @@ public partial class Search2Form : BaseKryptonForm
 	/// This field is typically updated when the user clicks a column header in the list view to toggle the sort order.</summary>
 	/// <remarks>This field stores the current sort order of the list view.</remarks>
 	private SortOrder sortOrder = SortOrder.None;
-
-	/// <summary>Gets the name of the file that stores the search results.</summary>
-	/// <remarks>This field stores the name of the file where the search results are saved. It is used to identify the file when performing read or write operations related to search results.</remarks>
-	private readonly string fileName = "Search-Results";
 
 	/// <summary>Gets the status label used for displaying information in the status bar.</summary>
 	/// <remarks>Overrides the base class property to return the form-specific status label.</remarks>
@@ -135,7 +141,7 @@ public partial class Search2Form : BaseKryptonForm
 			Filter = filter,
 			DefaultExt = defaultExt,
 			Title = dialogTitle,
-			FileName = fileName
+			FileName = $"Search-Results_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.{defaultExt.TrimStart('.')}"
 		};
 		// Show the save dialog. If the user cancels, return without performing any export action.
 		if (saveFileDialog.ShowDialog() != DialogResult.OK)
@@ -163,8 +169,9 @@ public partial class Search2Form : BaseKryptonForm
 
 	/// <summary>Navigates to the object currently selected in the search results list, displaying it in the main application form
 	/// if available.</summary>
+	/// <param name="closeAfterNavigation">When <see langword="true"/>, closes this form after successfully navigating to the object.</param>
 	/// <remarks>If no object is selected or the selected object is invalid, a message box is shown to inform the user. If the main form is not found, an error message is displayed. This method does not perform any action if a cancellation token source is active.</remarks>
-	private void GoToObject()
+	private void GoToObject(bool closeAfterNavigation = false)
 	{
 		// If a cancellation token source is active, it means a search operation is in progress, and we should not attempt to navigate to an object. In this case, simply return without doing anything.
 		if (_cts != null)
@@ -212,6 +219,11 @@ public partial class Search2Form : BaseKryptonForm
 			// Call the JumpToRecord method of the main form, passing the index and designation of the selected search result item. This will navigate the main form to the corresponding record in the database.
 			mainForm.JumpToRecord(index: item.Index, designation: item.Designation);
 			mainForm.BringToFront();
+			// Close the search form after jumping to the object in the main form if requested.
+			if (closeAfterNavigation)
+			{
+				Close();
+			}
 		}
 		// If the main form is not found, show an error message indicating that the main form is not available, which means that the application cannot navigate to the selected object. This could happen if the main form has not been opened yet or if it has been closed.
 		else
@@ -225,10 +237,10 @@ public partial class Search2Form : BaseKryptonForm
 
 	#region Form event handlers
 
-	/// <summary>Retrieves a ListViewItem for the specified index in the virtual list view.</summary>
-	/// <param name="e">The index of the item to retrieve.</param>
-	/// <param name="sender">The source of the event, typically the ListView requesting the item.</param>
-	/// <remarks>This event handler is called when the form is loaded. It populates the checked list box with the keys from the property map, allowing the user to select which properties to display or export.</remarks>
+	/// <summary>Handles the Load event of the form and initializes the search UI.</summary>
+	/// <param name="sender">The source of the event, typically the current form instance.</param>
+	/// <param name="e">The event data associated with the Load event.</param>
+	/// <remarks>Populates the checked list box with the available property names from the property map and disables actions that should remain unavailable until search results are present.</remarks>
 	private void Search2Form_Load(object sender, EventArgs e)
 	{
 		// Populate the checked list box with the keys from the property map, allowing the user to select which properties to include in the search or export operations.
@@ -447,6 +459,7 @@ public partial class Search2Form : BaseKryptonForm
 		catch (Exception ex)
 		{
 			// Log the error using NLog to provide information about what went wrong during the search operation. This can help with debugging and understanding the circumstances of the error.
+			logger.Error(ex, "An error occurred during the search operation.");
 			kryptonProgressBar.Text = "Error during search.";
 			// Show a message box to the user with the error message, allowing them to understand that an error occurred and what the error message is. This provides feedback to the user about the failure of the search operation.
 			_ = MessageBox.Show(text: $"Search failed: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
@@ -457,17 +470,19 @@ public partial class Search2Form : BaseKryptonForm
 			// Re-enable the Search button and disable the Cancel button to reflect that the search operation has ended, allowing the user to start a new search if desired.
 			toolStripButtonSearch.Enabled = true;
 			toolStripButtonCancel.Enabled = false;
-			toolStripButtonGoToObject.Enabled = true;
 			kryptonCheckedListBoxElements.Enabled = true;
 			contextMenuStripMark.Enabled = true;
-			contextMenuSaveToFile.Enabled = true;
 			toolStripTextBoxSearch.Enabled = true;
 			toolStripButtonFullText.Enabled = true;
+			int searchResultCount;
 			// Update the virtual list size of the list view to reflect the final number of search results found, and invalidate the list view to refresh its display with the new results.
 			lock (_searchResults)
 			{
-				listViewResults.VirtualListSize = _searchResults.Count;
+				searchResultCount = _searchResults.Count;
+				listViewResults.VirtualListSize = searchResultCount;
 			}
+			contextMenuSaveToFile.Enabled = searchResultCount > 0;
+			toolStripButtonGoToObject.Enabled = listViewResults.SelectedIndices.Count > 0;
 			// Invalidate the list view to force it to redraw and display the new search results. This is necessary because the virtual list view relies on the VirtualListSize property to determine how many items to display, and we have just updated that property.
 			listViewResults.Invalidate();
 			// Dispose of the cancellation token source to free resources, and set it to null to indicate that there is no active search operation. This is important for cleaning up resources and allowing a new search to be started in the future.
@@ -760,64 +775,13 @@ public partial class Search2Form : BaseKryptonForm
 	private void ToolStripMenuItemSaveAsSqlite_Click(object sender, EventArgs e)
 		=> PerformSaveExport(filter: "SQLite Files (*.sqlite3;*.sqlite;*.db)|*.sqlite3;*.sqlite;*.db|All Files (*.*)|*.*", defaultExt: "sqlite", dialogTitle: "Save as SQLite", exportAction: ListViewExporter.SaveAsSqlite);
 
+	/// <summary>
+	/// Handles the Go To Object toolbar button click by navigating to the selected object and closing the form afterwards.
+	/// </summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
 	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e)
-	{
-		// If a cancellation token source is active, it means a search operation is in progress, and we should not attempt to navigate to an object. In this case, simply return without doing anything.
-		if (_cts != null)
-		{
-			return;
-		}
-		// Check if any item is selected in the list view. If not, show a warning message to the user and return without performing any navigation.
-		if (listViewResults.SelectedIndices.Count == 0)
-		{
-			_ = MessageBox.Show(text: "Please select an object to go to.", caption: "Go To Object", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
-			return;
-		}
-		// Get the index of the selected item in the list view. This index will be used to retrieve the corresponding search result from the _searchResults list.
-		int selectedIndex = listViewResults.SelectedIndices[0];
-		// Declare a variable to hold the search result item that corresponds to the selected index. We will retrieve this item from the _searchResults list in a thread-safe manner.
-		SearchResult item;
-		// Lock the _searchResults list to ensure thread safety while accessing it. This is important because the search results may be updated by a background task while the user interacts with the UI.
-		lock (_searchResults)
-		{
-			// Check if the selected index is within the valid range of the _searchResults list. If it is, retrieve the corresponding search result item. If not, show an error message to the user and return without performing any navigation.
-			if (selectedIndex >= 0 && selectedIndex < _searchResults.Count)
-			{
-				// Retrieve the search result item that corresponds to the selected index from the _searchResults list.
-				item = _searchResults[index: selectedIndex];
-			}
-			// If the selected index is out of range, show an error message to the user and return without performing any navigation.
-			else
-			{
-				// Show an error message indicating that the selected index is out of range, which means that the user has selected an item that does not correspond to a valid search result. This could happen if the search results have been updated while the user is interacting with the list view.
-				_ = MessageBox.Show(text: "Selected index is out of range.", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
-				return;
-			}
-		}
-		// Get the designation of the selected item. If the designation is null, empty, or consists only of whitespace, show an error message to the user and return without performing any navigation.
-		string designation = item.Designation;
-		if (string.IsNullOrWhiteSpace(value: designation))
-		{
-			// Show an error message indicating that the selected object does not have a valid designation, which is necessary for navigating to the object in the main form. This could happen if the search result item is incomplete or if there was an issue during the search process.
-			_ = MessageBox.Show(text: "Selected object does not have a valid designation.", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
-			return;
-		}
-		// Attempt to find the main form of the application, which is expected to be of type PlanetoidDbForm. If the main form is found, call its JumpToRecord method to navigate to the record corresponding to the selected search result item. Then bring the main form to the front. If the main form is not found, show an error message to the user indicating that navigation cannot be performed.
-		if (Application.OpenForms.OfType<PlanetoidDbForm>().FirstOrDefault() is PlanetoidDbForm mainForm)
-		{
-			// Call the JumpToRecord method of the main form, passing the index and designation of the selected search result item. This will navigate the main form to the corresponding record in the database.
-			mainForm.JumpToRecord(index: item.Index, designation: item.Designation);
-			mainForm.BringToFront();
-			// Close the search form after jumping to the object in the main form
-			Close();
-		}
-		// If the main form is not found, show an error message indicating that the main form is not available, which means that the application cannot navigate to the selected object. This could happen if the main form has not been opened yet or if it has been closed.
-		else
-		{
-			// Show an error message indicating that the main form was not found, which means that the application cannot navigate to the selected object. This could happen if the main form has not been opened yet or if it has been closed. The user may need to open the main form and perform the search again to navigate to the desired object.
-			_ = MessageBox.Show(text: "Main form not found. Cannot go to object.", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
-		}
-	}
+		=> GoToObject(closeAfterNavigation: true);
 
 	#endregion
 
@@ -919,6 +883,13 @@ public partial class Search2Form : BaseKryptonForm
 		3 => result.Value,
 		_ => string.Empty
 	};
+
+	/// <summary>Handles the SelectedIndexChanged event of the results ListView.</summary>
+	/// <param name="sender">The source of the event, typically the ListView.</param>
+	/// <param name="e">The event data associated with the selection change.</param>
+	/// <remarks>Enables or disables the Go To Object toolbar button based on whether an item is currently selected in the list view.</remarks>
+	private void ListViewResults_SelectedIndexChanged(object? sender, EventArgs e)
+		=> toolStripButtonGoToObject.Enabled = listViewResults.SelectedIndices.Count > 0;
 
 	#endregion
 
