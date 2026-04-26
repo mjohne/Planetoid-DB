@@ -924,7 +924,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void ShowSearch()
 	{
 		// Create a new instance of the SearchForm
-		using Search2Form formSearch = new();
+		using SearchForm formSearch = new();
 		// Set the TopMost property to true to keep the form on top of other windows
 		formSearch.TopMost = TopMost;
 
