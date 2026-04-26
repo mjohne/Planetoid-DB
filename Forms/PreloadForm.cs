@@ -126,8 +126,16 @@ public partial class PreloadForm : BaseKryptonForm
 		}
 		else
 		{
+			// Resolve and validate the download URL, falling back to the default MPC URL if necessary
+			string mpcorbUrl = Settings.Default.systemMpcorbDatGzUrl;
+			if (string.IsNullOrWhiteSpace(value: mpcorbUrl) || !Uri.TryCreate(uriString: mpcorbUrl, uriKind: UriKind.Absolute, result: out _))
+			{
+				// Log a warning and use the default MPC URL as a fallback
+				logger.Warn(message: $"systemMpcorbDatGzUrl setting is invalid ('{mpcorbUrl}'). Falling back to default MPC URL.");
+				mpcorbUrl = "http://www.minorplanetcenter.org/iau/MPCORB/MPCORB.DAT.gz";
+			}
 			// Open the download form for MPCORB.DAT
-			using DatabaseDownloaderForm formDownloaderForMpcorbDat = new(url: Settings.Default.systemMpcorbDatGzUrl);
+			using DatabaseDownloaderForm formDownloaderForMpcorbDat = new(url: mpcorbUrl);
 			// Show the form as a dialog
 			if (formDownloaderForMpcorbDat.ShowDialog() == DialogResult.OK)
 			{
