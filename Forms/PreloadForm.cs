@@ -118,6 +118,7 @@ public partial class PreloadForm : BaseKryptonForm
 	/// <remarks>This method is called when the Download MPCORB.DAT command link is clicked.</remarks>
 	private void KryptonCommandLinkButtonDownloadMprcorbDat_Click(object sender, EventArgs e)
 	{
+		// Check if there is an internet connection available
 		if (!NetworkInterface.GetIsNetworkAvailable())
 		{
 			// Log the error and show an error message if there is no internet connection
