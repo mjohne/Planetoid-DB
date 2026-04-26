@@ -1178,18 +1178,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 	/// <summary>Displays a file selection dialog to allow the user to choose a local MPCORB.DAT file and restarts the application to load the selected file if confirmed.</summary>
 	/// <remarks>If the user selects a valid, non-empty file, the application prompts for confirmation and restarts with the selected file as a command-line argument. If the file is invalid or empty, an error message is shown and the operation is aborted. This method is intended for scenarios where the user needs to manually specify a new MPCORB.DAT data source.</remarks>
-	private static void OpenLocalMpcorbDat()
+	private void OpenLocalMpcorbDat()
 	{
-		// Create and configure an OpenFileDialog to allow the user to select a local MPCORB.DAT file
-		using OpenFileDialog openFileDialog = new()
-		{
-			Title = "Select local MPCORB.DAT file",
-			Filter = "MPCORB.DAT files (*.DAT)|*.DAT|Text files (*.txt)|*.txt|All files (*.*)|*.*",
-			DefaultExt = "DAT",
-			CheckFileExists = true,
-			CheckPathExists = true,
-			InitialDirectory = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyDocuments)
-		};
 		// Show the dialog and check if the user selected a file
 		if (openFileDialog.ShowDialog() != DialogResult.OK)
 		{
@@ -2598,7 +2588,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 	/// <summary>Handles the click event for opening a local MPCORB.DAT file.
 	/// Opens a file dialog to select a local MPCORB.DAT file, and if a valid file is selected,
-	/// updates the settings and restarts the application to load the new file.</summary>
+	/// restarts the application with the selected file path as a command-line argument.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method allows the user to select a custom local MPCORB.DAT file instead of using the default one.</remarks>
@@ -2692,6 +2682,12 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 	#endregion
 
+	/// <summary>Handles the click event for the toolbar button that opens a local MPCORB.DAT file.
+	/// Opens a file dialog to select a local MPCORB.DAT file, and if a valid file is selected,
+	/// restarts the application with the selected file path as a command-line argument.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method allows the user to select a custom local MPCORB.DAT file instead of using the default one.</remarks>
 	private void ToolStripButtonOpenLocalMpcorbDat_Click(object sender, EventArgs e)
 	{
 		OpenLocalMpcorbDat();
