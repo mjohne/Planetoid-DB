@@ -1176,8 +1176,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method is used to check if the form should stay on top of other windows.</remarks>
 	private void CheckStayOnTop() => TopMost = menuitemOptionStayOnTop.Checked;
 
-	/// <summary>Displays a file selection dialog to allow the user to choose a local MPCORB.DAT file and restarts the application to load the selected file if confirmed.</summary>
-	/// <remarks>If the user selects a valid, non-empty file, the application prompts for confirmation and restarts with the selected file as a command-line argument. If the file is invalid or empty, an error message is shown and the operation is aborted. This method is intended for scenarios where the user needs to manually specify a new MPCORB.DAT data source.</remarks>
+	/// <summary>Displays the form's <see cref="openFileDialog"/> to allow the user to choose a local MPCORB.DAT file and restarts the application to load the selected file if confirmed.</summary>
+	/// <remarks>Uses the pre-configured <see cref="openFileDialog"/> component. If the user selects a valid, non-empty file, the application prompts for confirmation and restarts with the selected file as a command-line argument. If the file is invalid or empty, an error message is shown and the operation is aborted. This method is intended for scenarios where the user needs to manually specify a new MPCORB.DAT data source.</remarks>
 	private void OpenLocalMpcorbDat()
 	{
 		// Show the dialog and check if the user selected a file
