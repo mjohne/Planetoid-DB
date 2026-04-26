@@ -70,9 +70,10 @@ internal static class Program
 	private static extern int CoInternetSetFeatureEnabled(int featureEntry, [MarshalAs(unmanagedType: UnmanagedType.U4)] int dwFlags, bool fEnable);
 
 	/// <summary>The main entry point for the application.</summary>
+	/// <param name="args">Command line arguments. If provided, the first argument is treated as the path to a custom MPCORB.DAT file.</param>
 	/// <remarks>This method is responsible for starting the application and initializing the main form.</remarks>
 	[STAThread]
-	private static void Main()
+	private static void Main(string[] args)
 	{
 		// Try to set the application to use the default font settings
 		try
@@ -81,16 +82,36 @@ internal static class Program
 			DisableNavigationSounds();
 			// Initialize the application configuration
 			ApplicationConfiguration.Initialize();
-
-			if (!File.Exists(path: Settings.Default.systemFilenameMpcorb))
+			// Check if a custom MPCORB.DAT file path was provided as a command line argument
+			string mpcorbFilePath = Settings.Default.systemFilenameMpcorb;
+			if (args.Length > 0 && !string.IsNullOrWhiteSpace(value: args[0]))
+			{
+				// Trim any surrounding quotes and whitespace from the provided path
+				string customPath = args[0].Trim(trimChars: ['"', ' ']);
+				// Check if the file exists at the provided path
+				if (File.Exists(path: customPath))
+				{
+					// If the file exists, use the custom path and log the information
+					mpcorbFilePath = customPath;
+					logger.Info(message: $"Using custom MPCORB.DAT file from command line: {mpcorbFilePath}");
+				}
+				// If the file does not exist, log a warning and continue using the default path
+				else
+				{
+					logger.Warn(message: $"Custom MPCORB.DAT file not found: {customPath}. Using default path.");
+				}
+			}
+			// Check if the MPCORB.DAT file exists at the determined path
+			if (!File.Exists(path: mpcorbFilePath))
 			{
 				// Show the PreLoadForm if the file is missing
 				HandleMissingFile();
 			}
+			// If the file exists, start the main form with the specified MPCORB.DAT file path
 			else
 			{
-				// Start the main form
-				Application.Run(mainForm: new PlanetoidDbForm());
+				// Start the main form with the specified MPCORB.DAT file path
+				Application.Run(mainForm: new PlanetoidDbForm(mpcorbDatFilePath: mpcorbFilePath));
 			}
 		}
 		// Catch specific exceptions and handle them accordingly
