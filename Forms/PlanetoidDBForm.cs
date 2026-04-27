@@ -878,46 +878,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formDatabaseInformation.ShowDialog();
 	}
 
-	/// <summary>Shows the form to copy data to the clipboard.</summary>
-	/// <remarks>This method is used to show the form for copying data to the clipboard.</remarks>
-	private void ShowCopyDataToClipboard()
-	{
-		// Create a new list to store the data to copy
-		List<string> dataToCopy = [
-			labelIndexData.Text,
-			labelReadableDesignationData.Text,
-			labelEpochData.Text,
-			labelMeanAnomalyAtTheEpochData.Text,
-			labelArgumentOfThePerihelionData.Text,
-			labelLongitudeOfTheAscendingNodeData.Text,
-			labelInclinationToTheEclipticData.Text,
-			labelOrbitalEccentricityData.Text,
-			labelMeanDailyMotionData.Text,
-			labelSemiMajorAxisData.Text,
-			labelAbsoluteMagnitudeData.Text,
-			labelSlopeParameterData.Text,
-			labelReferenceData.Text,
-			labelNumberOfOppositionsData.Text,
-			labelNumberOfObservationsData.Text,
-			labelObservationSpanData.Text,
-			labelRmsResidualData.Text,
-			labelComputerNameData.Text,
-			labelFlagsData.Text,
-			labelDateLastObservationData.Text
-		];
-		// Create a new list to store the non-empty data items
-		List<string> dataToCopyList = [.. dataToCopy.Where(predicate: static item => !string.IsNullOrEmpty(value: item))];
-		// Iterate through each item in the dataToCopy array
-		// Create a new instance of the CopyDataToClipboardForm
-		using CopyDataToClipboardForm formCopyDataToClipboard = new();
-		// Set the TopMost property to true to keep the form on top of other windows
-		formCopyDataToClipboard.TopMost = TopMost;
-		// Fill the form with the data to copy
-		formCopyDataToClipboard.SetDatabase(list: dataToCopyList);
-		// Show the copy data to clipboard form as a modal dialog
-		_ = formCopyDataToClipboard.ShowDialog();
-	}
-
 	/// <summary>Shows the search form.</summary>
 	///	<remarks>
 	///	This method is used to show the search form.</remarks>
@@ -1954,13 +1914,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method is used to show the print data sheet form.</remarks>
 	private void ToolStripButtonPrint_Click(object sender, EventArgs e) => PrintDataSheet();
 
-	/// <summary>Handles the click event for the ToolStripButtonCopyToClipboard.
-	/// Shows the form to copy data to the clipboard.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the form to copy data to the clipboard.</remarks>
-	private void ToolStripButtonCopyToClipboard_Click(object sender, EventArgs e) => ShowCopyDataToClipboard();
-
 	/// <summary>Handles the click event for the ToolStripMenuItemPrint.
 	/// Shows the print data sheet form.</summary>
 	/// <param name="sender">The event source.</param>
@@ -2586,16 +2539,18 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method is used to show the orbital resonances of all minor planets form.</remarks>
 	private void ToolStripMenuitemOrbitalResonancesOfAllMinorPlanets_Click(object sender, EventArgs e) => ShowOrbitalResonancesOfAllMinorPlanets();
 
-	/// <summary>Handles the click event for opening a local MPCORB.DAT file.
-	/// Opens a file dialog to select a local MPCORB.DAT file, and if a valid file is selected,
-	/// restarts the application with the selected file path as a command-line argument.</summary>
+	/// <summary>Handles the click event for opening a local MPCORB.DAT file. Opens a file dialog to select a local MPCORB.DAT file, and if a valid file is selected, restarts the application with the selected file path as a command-line argument.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method allows the user to select a custom local MPCORB.DAT file instead of using the default one.</remarks>
-	private void ToolStripMenuItemOpenLocalMpcorbDat_Click(object sender, EventArgs e)
-	{
-		OpenLocalMpcorbDat();
-	}
+	private void ToolStripMenuItemOpenLocalMpcorbDat_Click(object sender, EventArgs e) => OpenLocalMpcorbDat();
+
+	/// <summary>Handles the click event for the toolbar button that opens a local MPCORB.DAT file. Opens a file dialog to select a local MPCORB.DAT file, and if a valid file is selected, restarts the application with the selected file path as a command-line argument.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method allows the user to select a custom local MPCORB.DAT file instead of using the default one.</remarks>
+	private void ToolStripButtonOpenLocalMpcorbDat_Click(object sender, EventArgs e) => OpenLocalMpcorbDat();
+
 
 	#endregion
 
@@ -2681,15 +2636,4 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	}
 
 	#endregion
-
-	/// <summary>Handles the click event for the toolbar button that opens a local MPCORB.DAT file.
-	/// Opens a file dialog to select a local MPCORB.DAT file, and if a valid file is selected,
-	/// restarts the application with the selected file path as a command-line argument.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method allows the user to select a custom local MPCORB.DAT file instead of using the default one.</remarks>
-	private void ToolStripButtonOpenLocalMpcorbDat_Click(object sender, EventArgs e)
-	{
-		OpenLocalMpcorbDat();
-	}
 }
