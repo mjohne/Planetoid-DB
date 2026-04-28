@@ -40,6 +40,28 @@ public partial class ObservationsForm : BaseKryptonForm
 		Timeout = TimeSpan.FromSeconds(30)
 	};
 
+	/// <summary>Minimum number of characters an observation line must have to be parsed.</summary>
+	/// <remarks>MPC observation records are fixed-width 80-character lines. Lines shorter than this are skipped.</remarks>
+	private const int MinimumObservationLineLength = 80;
+
+	// MPC observation record column positions (0-based start index, following 1-based spec)
+	private const int PackedMinorPlanetNumberStart = 0;
+	private const int PackedMinorPlanetNumberLength = 5;
+	private const int PackedProvisionalDesignationStart = 5;
+	private const int PackedProvisionalDesignationLength = 7;
+	private const int DiscoveryAsteriskStart = 12;
+	private const int DiscoveryAsteriskLength = 1;
+	private const int DateOfObservationStart = 15;
+	private const int DateOfObservationLength = 17;
+	private const int ObservedRectascensionStart = 32;
+	private const int ObservedRectascensionLength = 12;
+	private const int ObservedDeclinationStart = 44;
+	private const int ObservedDeclinationLength = 12;
+	private const int ObservedMagnitudeAndBandStart = 65;
+	private const int ObservedMagnitudeAndBandLength = 6;
+	private const int ObservatoryCodeStart = 77;
+	private const int ObservatoryCodeLength = 3;
+
 	/// <summary>Stores the index of the currently sorted column.</summary>
 	private int sortColumn = -1;
 
@@ -131,7 +153,7 @@ public partial class ObservationsForm : BaseKryptonForm
 			foreach (string rawLine in lines)
 			{
 				// Observation lines must be at least 80 characters according to the MPC format
-				if (rawLine.Length < 15)
+				if (rawLine.Length < MinimumObservationLineLength)
 				{
 					continue;
 				}
@@ -139,14 +161,14 @@ public partial class ObservationsForm : BaseKryptonForm
 				string line = rawLine.TrimEnd(trimChars: ['\r']);
 
 				// Extract fields using 1-based column ranges specified in the issue
-				string packedMinorPlanetNumber = SafeSubstring(value: line, startIndex: 0, length: 5);
-				string packedProvisionalDesignation = SafeSubstring(value: line, startIndex: 5, length: 7);
-				string discoveryAsterisk = SafeSubstring(value: line, startIndex: 12, length: 1);
-				string dateOfObservation = SafeSubstring(value: line, startIndex: 15, length: 17);
-				string observedRectascension = SafeSubstring(value: line, startIndex: 32, length: 12);
-				string observedDeclination = SafeSubstring(value: line, startIndex: 44, length: 12);
-				string observedMagnitudeAndBand = SafeSubstring(value: line, startIndex: 65, length: 6);
-				string observatoryCode = SafeSubstring(value: line, startIndex: 77, length: 3);
+				string packedMinorPlanetNumber = SafeSubstring(value: line, startIndex: PackedMinorPlanetNumberStart, length: PackedMinorPlanetNumberLength);
+				string packedProvisionalDesignation = SafeSubstring(value: line, startIndex: PackedProvisionalDesignationStart, length: PackedProvisionalDesignationLength);
+				string discoveryAsterisk = SafeSubstring(value: line, startIndex: DiscoveryAsteriskStart, length: DiscoveryAsteriskLength);
+				string dateOfObservation = SafeSubstring(value: line, startIndex: DateOfObservationStart, length: DateOfObservationLength);
+				string observedRectascension = SafeSubstring(value: line, startIndex: ObservedRectascensionStart, length: ObservedRectascensionLength);
+				string observedDeclination = SafeSubstring(value: line, startIndex: ObservedDeclinationStart, length: ObservedDeclinationLength);
+				string observedMagnitudeAndBand = SafeSubstring(value: line, startIndex: ObservedMagnitudeAndBandStart, length: ObservedMagnitudeAndBandLength);
+				string observatoryCode = SafeSubstring(value: line, startIndex: ObservatoryCodeStart, length: ObservatoryCodeLength);
 
 				ListViewItem item = new(text: packedMinorPlanetNumber);
 				item.SubItems.AddRange(items:
