@@ -652,6 +652,21 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formOrbitalResonances.ShowDialog();
 	}
 
+	/// <summary>Shows the observations form for the current planetoid.</summary>
+	/// <remarks>Passes the index data label text to the <see cref="ObservationsForm"/> and shows it as a modal dialog.</remarks>
+	private void ShowObservations()
+	{
+		if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+		{
+			_ = MessageBox.Show(text: I18nStrings.NoInternetConnectionText, caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			return;
+		}
+		using ObservationsForm formObservations = new();
+		formObservations.TopMost = TopMost;
+		formObservations.SetIndexData(indexData: labelIndexData.Text);
+		_ = formObservations.ShowDialog();
+	}
+
 	/// <summary>Shows the orbital resonances form for the current planetoid.</summary>
 	/// <remarks>Parses the semi-major axis from the UI label and opens the <see cref="OrbitalResonancesOfOneMinorPlanetForm"/>.</remarks>
 	private void ShowOrbitElementsGrouping()
@@ -2517,6 +2532,20 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the orbital resonances form.</remarks>
 	private void ToolStripMenuItemOrbitalResonances_Click(object sender, EventArgs e) => ShowOrbitalResonances();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemObservations.
+	/// Shows the observations form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the observations form.</remarks>
+	private void ToolStripMenuItemObservations_Click(object sender, EventArgs e) => ShowObservations();
+
+	/// <summary>Handles the Click event of the ToolStripButtonObservations.
+	/// Shows the observations form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the observations form.</remarks>
+	private void ToolStripButtonObservations_Click(object sender, EventArgs e) => ShowObservations();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemOrbitElementsGrouping.
 	/// Shows the orbit elements grouping form.</summary>

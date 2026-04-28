@@ -201,6 +201,8 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets = new ToolStripMenuItem();
 		toolStripMenuItemOrbitElementsGrouping = new ToolStripMenuItem();
 		toolStripMenuItemAsteroidFamiliesDetection = new ToolStripMenuItem();
+		toolStripMenuItemObservations = new ToolStripMenuItem();
+		toolStripButtonObservations = new ToolStripButton();
 		menuitemUpdate = new ToolStripMenuItem();
 		menuitemCheckMpcorbDat = new ToolStripMenuItem();
 		menuitemDownloadMpcorbDat = new ToolStripMenuItem();
@@ -2774,7 +2776,7 @@ partial class PlanetoidDbForm
 		menuitemTools.AccessibleName = "Tools";
 		menuitemTools.AccessibleRole = AccessibleRole.MenuPopup;
 		menuitemTools.AutoToolTip = true;
-		menuitemTools.DropDownItems.AddRange(new ToolStripItem[] { menuitemDerivedOrbitElements, menuitemFilter, toolStripSeparatorTools1, menuitemRecords, toolStripSeparator10, menuitemDistribution, toolStripSeparatorTools2, menuitemDatabaseInformation, menuitemTableMode, menuitemTerminology, toolStripSeparator16, toolStripMenuItemOrbitalResonances, toolStripMenuItemOrbitalResonancesOfAllMinorPlanets, toolStripMenuItemOrbitElementsGrouping, toolStripMenuItemAsteroidFamiliesDetection });
+		menuitemTools.DropDownItems.AddRange(new ToolStripItem[] { menuitemDerivedOrbitElements, menuitemFilter, toolStripSeparatorTools1, menuitemRecords, toolStripSeparator10, menuitemDistribution, toolStripSeparatorTools2, menuitemDatabaseInformation, menuitemTableMode, menuitemTerminology, toolStripSeparator16, toolStripMenuItemOrbitalResonances, toolStripMenuItemOrbitalResonancesOfAllMinorPlanets, toolStripMenuItemOrbitElementsGrouping, toolStripMenuItemAsteroidFamiliesDetection, toolStripMenuItemObservations });
 		menuitemTools.Name = "menuitemTools";
 		menuitemTools.Size = new Size(46, 24);
 		menuitemTools.Text = "&Tools";
@@ -2951,6 +2953,21 @@ partial class PlanetoidDbForm
 		toolStripMenuItemAsteroidFamiliesDetection.Click += ToolStripMenuItemAsteroidFamiliesDetection_Click;
 		toolStripMenuItemAsteroidFamiliesDetection.MouseEnter += Control_Enter;
 		toolStripMenuItemAsteroidFamiliesDetection.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemObservations
+		// 
+		toolStripMenuItemObservations.AccessibleDescription = "Shows the observations of the minor planet from the MPC";
+		toolStripMenuItemObservations.AccessibleName = "Observations";
+		toolStripMenuItemObservations.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemObservations.AutoToolTip = true;
+		toolStripMenuItemObservations.Image = FatcowIcons16px.fatcow_eye_16px;
+		toolStripMenuItemObservations.Name = "toolStripMenuItemObservations";
+		toolStripMenuItemObservations.Size = new Size(277, 22);
+		toolStripMenuItemObservations.Text = "&Observations";
+		toolStripMenuItemObservations.ToolTipText = "Shows the observations of the minor planet";
+		toolStripMenuItemObservations.Click += ToolStripMenuItemObservations_Click;
+		toolStripMenuItemObservations.MouseEnter += Control_Enter;
+		toolStripMenuItemObservations.MouseLeave += Control_Leave;
 		// 
 		// menuitemUpdate
 		// 
@@ -3733,7 +3750,7 @@ partial class PlanetoidDbForm
 		kryptonToolStripNavigation.AllowItemReorder = true;
 		kryptonToolStripNavigation.Dock = DockStyle.None;
 		kryptonToolStripNavigation.Font = new Font("Segoe UI", 9F);
-		kryptonToolStripNavigation.Items.AddRange(new ToolStripItem[] { toolStripButtonLoadRandomMinorPlanet, toolStripSeparator8, toolStripButtonStepToBegin, toolStripSplitButtonStepBackward, toolStripButtonStepBackwardOne, toolStripButtonStepForwardOne, toolStripSplitButtonStepForward, toolStripButtonStepToEnd, toolStripSeparator6, toolStripLabelIndexPosition, toolStripSeparator7, toolStripLabelGoToIndex, toolStripTextBoxGotoIndex, toolStripButtonGoToIndex, toolStripButtonListReadableDesignations, toolStripSeparator9, toolStripButtonDerivedOrbitElements, toolStripButtonFilter });
+		kryptonToolStripNavigation.Items.AddRange(new ToolStripItem[] { toolStripButtonLoadRandomMinorPlanet, toolStripSeparator8, toolStripButtonStepToBegin, toolStripSplitButtonStepBackward, toolStripButtonStepBackwardOne, toolStripButtonStepForwardOne, toolStripSplitButtonStepForward, toolStripButtonStepToEnd, toolStripSeparator6, toolStripLabelIndexPosition, toolStripSeparator7, toolStripLabelGoToIndex, toolStripTextBoxGotoIndex, toolStripButtonGoToIndex, toolStripButtonListReadableDesignations, toolStripSeparator9, toolStripButtonDerivedOrbitElements, toolStripButtonFilter, toolStripButtonObservations });
 		kryptonToolStripNavigation.Location = new Point(0, 49);
 		kryptonToolStripNavigation.Name = "kryptonToolStripNavigation";
 		kryptonToolStripNavigation.Size = new Size(852, 25);
@@ -3964,6 +3981,21 @@ partial class PlanetoidDbForm
 		toolStripButtonFilter.Click += ToolStripButtonFilter_Click;
 		toolStripButtonFilter.MouseEnter += Control_Enter;
 		toolStripButtonFilter.MouseLeave += Control_Leave;
+		// 
+		// toolStripButtonObservations
+		// 
+		toolStripButtonObservations.AccessibleDescription = "Shows the observations of the minor planet from the MPC";
+		toolStripButtonObservations.AccessibleName = "Observations";
+		toolStripButtonObservations.AccessibleRole = AccessibleRole.PushButton;
+		toolStripButtonObservations.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		toolStripButtonObservations.Image = FatcowIcons16px.fatcow_eye_16px;
+		toolStripButtonObservations.ImageTransparentColor = Color.Magenta;
+		toolStripButtonObservations.Name = "toolStripButtonObservations";
+		toolStripButtonObservations.Size = new Size(23, 22);
+		toolStripButtonObservations.Text = "Observations";
+		toolStripButtonObservations.Click += ToolStripButtonObservations_Click;
+		toolStripButtonObservations.MouseEnter += Control_Enter;
+		toolStripButtonObservations.MouseLeave += Control_Leave;
 		// 
 		// toolStripSeparatorOptions2
 		// 
@@ -4289,6 +4321,8 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem toolStripMenuItemOrbitElementsGrouping;
 	private ToolStripMenuItem toolStripMenuItemAsteroidFamiliesDetection;
 	private ToolStripMenuItem toolStripMenuItemOrbitalResonancesOfAllMinorPlanets;
+	private ToolStripMenuItem toolStripMenuItemObservations;
+	private ToolStripButton toolStripButtonObservations;
 	private ToolStripMenuItem toolStripMenuItemOpenLocalMpcorbDat;
 	private ToolStripButton toolStripButtonOpenLocalMpcorbDat;
 	private ToolStripDropDownButton toolStripDropDownButtonCopyToClipboard;
