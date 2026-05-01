@@ -704,5 +704,16 @@ public partial class ObservationsForm : BaseKryptonForm
 		// Clear the status bar and load the observatory codes when the form loads
 		LoadObservatoryCodes();
 
+	/// <summary>Handles the Click event of the Observatory Codes button to open the <see cref="ObservatoryCodesForm"/>.</summary>
+	/// <param name="sender">The source of the event, typically the Observatory Codes button.</param>
+	/// <param name="e">An <see cref="EventArgs"/> object that contains the event data.</param>
+	/// <remarks>Opens the <see cref="ObservatoryCodesForm"/> as a modal dialog to display the list of observatory codes.</remarks>
+	private void ToolStripButtonObservatoryCodes_Click(object sender, EventArgs e)
+	{
+		using ObservatoryCodesForm formObservatoryCodes = new();
+		formObservatoryCodes.TopMost = TopMost;
+		_ = formObservatoryCodes.ShowDialog();
+	}
+
 	#endregion
 }
