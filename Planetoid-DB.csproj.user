@@ -46,6 +46,12 @@
     <Compile Update="Forms\ListReadableDesignationsForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\ObservationsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ObservatoryCodesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\OrbitalResonancesOfOneMinorPlanetForm.cs">
       <SubType>Form</SubType>
     </Compile>

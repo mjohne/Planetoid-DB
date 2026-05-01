@@ -101,7 +101,6 @@ partial class ObservationsForm
 		kryptonToolStripGenerateList = new KryptonToolStrip();
 		toolStripButtonReload = new ToolStripButton();
 		toolStripButtonObservatoryCodes = new ToolStripButton();
-		toolStripSeparator2 = new ToolStripSeparator();
 		toolStripSeparator1 = new ToolStripSeparator();
 		toolStripLabelProgress = new ToolStripLabel();
 		kryptonProgressBar = new KryptonProgressBarToolStripItem();
@@ -767,7 +766,7 @@ partial class ObservationsForm
 		kryptonToolStripGenerateList.AllowItemReorder = true;
 		kryptonToolStripGenerateList.Dock = DockStyle.None;
 		kryptonToolStripGenerateList.Font = new Font("Segoe UI", 9F);
-		kryptonToolStripGenerateList.Items.AddRange(new ToolStripItem[] { toolStripButtonReload, toolStripButtonObservatoryCodes, toolStripDropDownButtonSaveList, toolStripSeparator2, toolStripSeparator1, toolStripLabelProgress, kryptonProgressBar });
+		kryptonToolStripGenerateList.Items.AddRange(new ToolStripItem[] { toolStripButtonReload, toolStripDropDownButtonSaveList, toolStripButtonObservatoryCodes, toolStripSeparator1, toolStripLabelProgress, kryptonProgressBar });
 		kryptonToolStripGenerateList.Location = new Point(0, 0);
 		kryptonToolStripGenerateList.Name = "kryptonToolStripGenerateList";
 		kryptonToolStripGenerateList.Size = new Size(744, 25);
@@ -798,22 +797,14 @@ partial class ObservationsForm
 		toolStripButtonObservatoryCodes.Image = FatcowIcons16px.fatcow_find_16px;
 		toolStripButtonObservatoryCodes.ImageTransparentColor = Color.Magenta;
 		toolStripButtonObservatoryCodes.Name = "toolStripButtonObservatoryCodes";
-		toolStripButtonObservatoryCodes.Size = new Size(123, 22);
+		toolStripButtonObservatoryCodes.Size = new Size(127, 22);
 		toolStripButtonObservatoryCodes.Text = "Observatory &Codes";
 		toolStripButtonObservatoryCodes.Click += ToolStripButtonObservatoryCodes_Click;
 		toolStripButtonObservatoryCodes.MouseEnter += Control_Enter;
 		toolStripButtonObservatoryCodes.MouseLeave += Control_Leave;
 		// 
-		// toolStripSeparator2
-		// 
-		toolStripSeparator2.AccessibleDescription = "Just a separator";
-		toolStripSeparator2.AccessibleName = "Just a separator";
-		toolStripSeparator2.AccessibleRole = AccessibleRole.Separator;
-		toolStripSeparator2.Name = "toolStripSeparator2";
-		toolStripSeparator2.Size = new Size(6, 25);
-		// 
 		// toolStripSeparator1
-		//
+		// 
 		toolStripSeparator1.AccessibleDescription = "Just a separator";
 		toolStripSeparator1.AccessibleName = "Just a separator";
 		toolStripSeparator1.AccessibleRole = AccessibleRole.Separator;
@@ -837,7 +828,7 @@ partial class ObservationsForm
 		kryptonProgressBar.AccessibleRole = AccessibleRole.ProgressBar;
 		kryptonProgressBar.AutoToolTip = true;
 		kryptonProgressBar.Name = "kryptonProgressBar";
-		kryptonProgressBar.Size = new Size(470, 22);
+		kryptonProgressBar.Size = new Size(380, 22);
 		kryptonProgressBar.StateCommon.Back.Color1 = Color.Green;
 		kryptonProgressBar.StateDisabled.Back.ColorStyle = PaletteColorStyle.OneNote;
 		kryptonProgressBar.StateNormal.Back.ColorStyle = PaletteColorStyle.OneNote;
@@ -942,5 +933,4 @@ partial class ObservationsForm
 	private KryptonProgressBarToolStripItem kryptonProgressBar;
 	private ToolStripButton toolStripButtonReload;
 	private ToolStripButton toolStripButtonObservatoryCodes;
-	private ToolStripSeparator toolStripSeparator2;
 }
