@@ -710,6 +710,7 @@ public partial class ObservationsForm : BaseKryptonForm
 	/// <remarks>Opens the <see cref="ObservatoryCodesForm"/> as a modal dialog to display the list of observatory codes.</remarks>
 	private void ToolStripButtonObservatoryCodes_Click(object sender, EventArgs e)
 	{
+		// Open the ObservatoryCodesForm as a modal dialog to display the list of observatory codes. The form is set to be topmost based on the current state of the main form to ensure it appears above other windows.
 		using ObservatoryCodesForm formObservatoryCodes = new();
 		formObservatoryCodes.TopMost = TopMost;
 		_ = formObservatoryCodes.ShowDialog();
