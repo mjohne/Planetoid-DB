@@ -360,7 +360,7 @@ public partial class ObservationsForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			exportAction(listView, "List of readable designations", saveFileDialog.FileName, null);
+			exportAction(listView, "List of observations", saveFileDialog.FileName, null);
 		}
 		// Handle any exceptions that may occur during the export action
 		catch (Exception ex)
