@@ -1859,7 +1859,7 @@ partial class PlanetoidDbForm
 		// 
 		// menuitemRecords
 		// 
-		menuitemRecords.AccessibleDescription = "Shows some topn ten records";
+		menuitemRecords.AccessibleDescription = "Shows some top ten records";
 		menuitemRecords.AccessibleName = "Top ten records";
 		menuitemRecords.AccessibleRole = AccessibleRole.MenuItem;
 		menuitemRecords.AutoToolTip = true;

@@ -208,38 +208,53 @@ public partial class ObservationsForm : BaseKryptonForm
 			// Parse lines and populate ListView
 			string[] lines = obsText.Split(separator: '\n');
 			listView.BeginUpdate();
-			// Each line is a fixed-width record with fields at specific character positions. We use the SafeSubstring helper to extract each field based on the defined constants for start index and length.
-			foreach (string rawLine in lines)
+			try
 			{
-				// Observation lines must be at least 80 characters according to the MPC format
-				if (rawLine.Length < MinimumObservationLineLength)
+				// Each line is a fixed-width record with fields at specific character positions. We use the SafeSubstring helper to extract each field based on the defined constants for start index and length.
+				foreach (string rawLine in lines)
 				{
-					continue;
+					// Trim any trailing carriage return characters from the line
+					string line = rawLine.TrimEnd(trimChars: ['\r']);
+					// Observation lines must be at least 80 characters according to the MPC format
+					if (line.Length < MinimumObservationLineLength)
+					{
+						continue;
+					}
+					// Extract fields using 1-based column ranges specified in the issue
+					string packedMinorPlanetNumber = SafeSubstring(value: line, startIndex: PackedMinorPlanetNumberStart, length: PackedMinorPlanetNumberLength);
+					string packedProvisionalDesignation = SafeSubstring(value: line, startIndex: PackedProvisionalDesignationStart, length: PackedProvisionalDesignationLength);
+					string discoveryAsterisk = SafeSubstring(value: line, startIndex: DiscoveryAsteriskStart, length: DiscoveryAsteriskLength);
+					string dateOfObservation = SafeSubstring(value: line, startIndex: DateOfObservationStart, length: DateOfObservationLength);
+					string observedRectascension = SafeSubstring(value: line, startIndex: ObservedRectascensionStart, length: ObservedRectascensionLength);
+					string observedDeclination = SafeSubstring(value: line, startIndex: ObservedDeclinationStart, length: ObservedDeclinationLength);
+					string observedMagnitudeAndBand = SafeSubstring(value: line, startIndex: ObservedMagnitudeAndBandStart, length: ObservedMagnitudeAndBandLength);
+					string observatoryCode = SafeSubstring(value: line, startIndex: ObservatoryCodeStart, length: ObservatoryCodeLength);
+					// Create a ListViewItem with the packed minor planet number as the main text, and the other fields as subitems
+					ListViewItem item = new(text: packedMinorPlanetNumber);
+					item.SubItems.AddRange(items:
+					[
+						packedProvisionalDesignation,
+						discoveryAsterisk,
+						dateOfObservation,
+						observedRectascension,
+						observedDeclination,
+						observedMagnitudeAndBand,
+						observatoryCode
+					]);
+					listView.Items.Add(value: item);
 				}
-				// Trim any trailing carriage return characters from the line
-				string line = rawLine.TrimEnd(trimChars: ['\r']);
-				// Extract fields using 1-based column ranges specified in the issue
-				string packedMinorPlanetNumber = SafeSubstring(value: line, startIndex: PackedMinorPlanetNumberStart, length: PackedMinorPlanetNumberLength);
-				string packedProvisionalDesignation = SafeSubstring(value: line, startIndex: PackedProvisionalDesignationStart, length: PackedProvisionalDesignationLength);
-				string discoveryAsterisk = SafeSubstring(value: line, startIndex: DiscoveryAsteriskStart, length: DiscoveryAsteriskLength);
-				string dateOfObservation = SafeSubstring(value: line, startIndex: DateOfObservationStart, length: DateOfObservationLength);
-				string observedRectascension = SafeSubstring(value: line, startIndex: ObservedRectascensionStart, length: ObservedRectascensionLength);
-				string observedDeclination = SafeSubstring(value: line, startIndex: ObservedDeclinationStart, length: ObservedDeclinationLength);
-				string observedMagnitudeAndBand = SafeSubstring(value: line, startIndex: ObservedMagnitudeAndBandStart, length: ObservedMagnitudeAndBandLength);
-				string observatoryCode = SafeSubstring(value: line, startIndex: ObservatoryCodeStart, length: ObservatoryCodeLength);
-				// Create a ListViewItem with the packed minor planet number as the main text, and the other fields as subitems
-				ListViewItem item = new(text: packedMinorPlanetNumber);
-				item.SubItems.AddRange(items:
-				[
-					packedProvisionalDesignation,
-					discoveryAsterisk,
-					dateOfObservation,
-					observedRectascension,
-					observedDeclination,
-					observedMagnitudeAndBand,
-					observatoryCode
-				]);
-				listView.Items.Add(value: item);
+			}
+			// In the event of an exception during parsing, log the error and show an error message to the user
+			catch (Exception ex)
+			{
+				// Log the error with the exception details and the index data that was being loaded
+				logger.Error(exception: ex, message: $"Error parsing observation data for '{indexData}': {ex.Message}");
+				ShowErrorMessage(message: $"Error parsing observation data: {ex.Message}");
+			}
+			// In the finally block, ensure that EndUpdate is called on the ListView to refresh the display regardless of whether parsing succeeded or failed. This ensures that the user interface remains responsive and updates appropriately after the loading operation.
+			finally
+			{
+				listView.EndUpdate();
 			}
 			// After adding all items, call EndUpdate to refresh the ListView display
 			listView.EndUpdate();
@@ -330,8 +345,9 @@ public partial class ObservationsForm : BaseKryptonForm
 	{
 		// Set up the save dialog properties
 		dialog.InitialDirectory = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyDocuments);
-		// Set default file name
-		dialog.FileName = $"Observations.{ext}";
+		// Set a more specific default file name to reduce accidental overwrites
+		string timestamp = DateTime.Now.ToString(format: "yyyyMMdd_HHmmss");
+		dialog.FileName = $"Observations_{timestamp}.{ext}";
 		// Show the dialog and return the result
 		return dialog.ShowDialog() == DialogResult.OK;
 	}

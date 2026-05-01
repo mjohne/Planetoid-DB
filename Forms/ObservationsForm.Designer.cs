@@ -785,6 +785,8 @@ partial class ObservationsForm
 		toolStripButtonReload.Size = new Size(63, 22);
 		toolStripButtonReload.Text = "&Reload";
 		toolStripButtonReload.Click += ToolStripButtonReload_Click;
+		toolStripButtonReload.MouseEnter += Control_Enter;
+		toolStripButtonReload.MouseLeave += Control_Leave;
 		// 
 		// toolStripSeparator1
 		// 
