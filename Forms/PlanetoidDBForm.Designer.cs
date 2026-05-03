@@ -202,6 +202,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOrbitElementsGrouping = new ToolStripMenuItem();
 		toolStripMenuItemAsteroidFamiliesDetection = new ToolStripMenuItem();
 		toolStripMenuItemObservations = new ToolStripMenuItem();
+		toolStripMenuItemMoids = new ToolStripMenuItem();
 		menuitemUpdate = new ToolStripMenuItem();
 		menuitemCheckMpcorbDat = new ToolStripMenuItem();
 		menuitemDownloadMpcorbDat = new ToolStripMenuItem();
@@ -2776,7 +2777,7 @@ partial class PlanetoidDbForm
 		menuitemTools.AccessibleName = "Tools";
 		menuitemTools.AccessibleRole = AccessibleRole.MenuPopup;
 		menuitemTools.AutoToolTip = true;
-		menuitemTools.DropDownItems.AddRange(new ToolStripItem[] { menuitemDerivedOrbitElements, menuitemFilter, toolStripSeparatorTools1, menuitemRecords, toolStripSeparator10, menuitemDistribution, toolStripSeparatorTools2, menuitemDatabaseInformation, menuitemTableMode, menuitemTerminology, toolStripSeparator16, toolStripMenuItemOrbitalResonances, toolStripMenuItemOrbitalResonancesOfAllMinorPlanets, toolStripMenuItemOrbitElementsGrouping, toolStripMenuItemAsteroidFamiliesDetection, toolStripMenuItemObservations });
+		menuitemTools.DropDownItems.AddRange(new ToolStripItem[] { menuitemDerivedOrbitElements, menuitemFilter, toolStripSeparatorTools1, menuitemRecords, toolStripSeparator10, menuitemDistribution, toolStripSeparatorTools2, menuitemDatabaseInformation, menuitemTableMode, menuitemTerminology, toolStripSeparator16, toolStripMenuItemOrbitalResonances, toolStripMenuItemOrbitalResonancesOfAllMinorPlanets, toolStripMenuItemOrbitElementsGrouping, toolStripMenuItemAsteroidFamiliesDetection, toolStripMenuItemObservations, toolStripMenuItemMoids });
 		menuitemTools.Name = "menuitemTools";
 		menuitemTools.Size = new Size(46, 24);
 		menuitemTools.Text = "&Tools";
@@ -2968,6 +2969,21 @@ partial class PlanetoidDbForm
 		toolStripMenuItemObservations.Click += ToolStripMenuItemObservations_Click;
 		toolStripMenuItemObservations.MouseEnter += Control_Enter;
 		toolStripMenuItemObservations.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemMoids
+		// 
+		toolStripMenuItemMoids.AccessibleDescription = "Shows the Minimum Orbit Intersection Distances (MOIDs) of the minor planet relative to the eight solar system planets";
+		toolStripMenuItemMoids.AccessibleName = "MOIDs of a minor planet";
+		toolStripMenuItemMoids.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemMoids.AutoToolTip = true;
+		toolStripMenuItemMoids.Image = FatcowIcons16px.fatcow_linechart_16px;
+		toolStripMenuItemMoids.Name = "toolStripMenuItemMoids";
+		toolStripMenuItemMoids.Size = new Size(277, 22);
+		toolStripMenuItemMoids.Text = "&MOIDs of a minor planet";
+		toolStripMenuItemMoids.ToolTipText = "Shows the Minimum Orbit Intersection Distances (MOIDs) of a minor planet";
+		toolStripMenuItemMoids.Click += ToolStripMenuItemMoids_Click;
+		toolStripMenuItemMoids.MouseEnter += Control_Enter;
+		toolStripMenuItemMoids.MouseLeave += Control_Leave;
 		// 
 		// menuitemUpdate
 		// 
@@ -4322,6 +4338,7 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem toolStripMenuItemAsteroidFamiliesDetection;
 	private ToolStripMenuItem toolStripMenuItemOrbitalResonancesOfAllMinorPlanets;
 	private ToolStripMenuItem toolStripMenuItemObservations;
+	private ToolStripMenuItem toolStripMenuItemMoids;
 	private ToolStripButton toolStripButtonObservations;
 	private ToolStripMenuItem toolStripMenuItemOpenLocalMpcorbDat;
 	private ToolStripButton toolStripButtonOpenLocalMpcorbDat;

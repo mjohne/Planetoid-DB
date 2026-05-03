@@ -652,6 +652,52 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formOrbitalResonances.ShowDialog();
 	}
 
+	/// <summary>Shows the MOIDs form for the current planetoid.</summary>
+	/// <remarks>Parses the orbital elements from the UI labels and opens the <see cref="MoidsOfOneMinorPlanetForm"/>.</remarks>
+	private void ShowMoids()
+	{
+		IFormatProvider provider = CultureInfo.CreateSpecificCulture(name: "en");
+		if (!double.TryParse(s: labelSemiMajorAxisData.Text, style: NumberStyles.Any, provider: provider, result: out double semiMajorAxis))
+		{
+			logger.Error(message: $"Failed to parse semi-major axis: '{labelSemiMajorAxisData.Text}'");
+			ShowErrorMessage(message: $"Could not parse semi-major axis value: '{labelSemiMajorAxisData.Text}'");
+			return;
+		}
+		if (!double.TryParse(s: labelOrbitalEccentricityData.Text, style: NumberStyles.Any, provider: provider, result: out double eccentricity))
+		{
+			logger.Error(message: $"Failed to parse eccentricity: '{labelOrbitalEccentricityData.Text}'");
+			ShowErrorMessage(message: $"Could not parse eccentricity value: '{labelOrbitalEccentricityData.Text}'");
+			return;
+		}
+		if (!double.TryParse(s: labelInclinationToTheEclipticData.Text, style: NumberStyles.Any, provider: provider, result: out double inclinationDeg))
+		{
+			logger.Error(message: $"Failed to parse inclination: '{labelInclinationToTheEclipticData.Text}'");
+			ShowErrorMessage(message: $"Could not parse inclination value: '{labelInclinationToTheEclipticData.Text}'");
+			return;
+		}
+		if (!double.TryParse(s: labelLongitudeOfTheAscendingNodeData.Text, style: NumberStyles.Any, provider: provider, result: out double longitudeAscendingNodeDeg))
+		{
+			logger.Error(message: $"Failed to parse longitude of ascending node: '{labelLongitudeOfTheAscendingNodeData.Text}'");
+			ShowErrorMessage(message: $"Could not parse longitude of ascending node value: '{labelLongitudeOfTheAscendingNodeData.Text}'");
+			return;
+		}
+		if (!double.TryParse(s: labelArgumentOfThePerihelionData.Text, style: NumberStyles.Any, provider: provider, result: out double argumentPerihelionDeg))
+		{
+			logger.Error(message: $"Failed to parse argument of perihelion: '{labelArgumentOfThePerihelionData.Text}'");
+			ShowErrorMessage(message: $"Could not parse argument of perihelion value: '{labelArgumentOfThePerihelionData.Text}'");
+			return;
+		}
+		using MoidsOfOneMinorPlanetForm formMoids = new();
+		formMoids.TopMost = TopMost;
+		formMoids.SetOrbitalElements(
+			semiMajorAxis: semiMajorAxis,
+			eccentricity: eccentricity,
+			inclinationDeg: inclinationDeg,
+			longitudeAscendingNodeDeg: longitudeAscendingNodeDeg,
+			argumentPerihelionDeg: argumentPerihelionDeg);
+		_ = formMoids.ShowDialog();
+	}
+
 	/// <summary>Shows the observations form for the current planetoid.</summary>
 	/// <remarks>Passes the index data label text to the <see cref="ObservationsForm"/> and shows it as a modal dialog.</remarks>
 	private void ShowObservations()
@@ -2532,6 +2578,13 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the orbital resonances form.</remarks>
 	private void ToolStripMenuItemOrbitalResonances_Click(object sender, EventArgs e) => ShowOrbitalResonances();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemMoids.
+	/// Shows the MOIDs form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the MOIDs form for the currently selected minor planet.</remarks>
+	private void ToolStripMenuItemMoids_Click(object sender, EventArgs e) => ShowMoids();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemObservations.
 	/// Shows the observations form.</summary>
