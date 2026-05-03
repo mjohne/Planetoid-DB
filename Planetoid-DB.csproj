@@ -832,6 +832,7 @@ Public License instead of this License.  But first, please read
     <None Remove="LICENSE" />
     <None Remove="README.md" />
     <None Remove="Resources\demoset-10000.txt" />
+    <None Remove="Resources\ObservatoryCodes.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -849,6 +850,7 @@ Public License instead of this License.  But first, please read
       <PackagePath>\</PackagePath>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\demoset-10000.txt" />
+    <EmbeddedResource Update="Resources\ObservatoryCodes.txt" />
   </ItemGroup>
 
   <ItemGroup>

@@ -69,5 +69,14 @@ namespace Planetoid_DB.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.String.
+        /// </summary>
+        public static string ObservatoryCodes {
+            get {
+                return ResourceManager.GetString("ObservatoryCodes", resourceCulture);
+            }
+        }
     }
 }
