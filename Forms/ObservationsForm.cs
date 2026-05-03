@@ -14,8 +14,7 @@ using System.Text.RegularExpressions;
 namespace Planetoid_DB;
 
 /// <summary>Form for displaying observations of a minor planet fetched from the Minor Planet Center.</summary>
-/// <remarks>This form retrieves the observation data for a given minor planet from the MPC website,
-/// parses the observation records, and displays them in a ListView with 8 columns.</remarks>
+/// <remarks>This form retrieves the observation data for a given minor planet from the MPC website, parses the observation records, and displays them in a ListView with 8 columns.</remarks>
 // You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class ObservationsForm : BaseKryptonForm
@@ -122,21 +121,36 @@ public partial class ObservationsForm : BaseKryptonForm
 	/// <remarks>Each line of the resource has the format <c>CODE|Location</c>.</remarks>
 	private static Dictionary<string, string> BuildObservatoryCodeLookup()
 	{
+		// Initialize an empty dictionary to hold the observatory code mappings
 		Dictionary<string, string> lookup = [];
+		// Load the observatory codes from the embedded resource text, splitting it into lines and processing each line to populate the lookup dictionary. Each line is expected to be in the format "CODE|Location", where CODE is the observatory code and Location is the corresponding location description.
 		string resourceText = Properties.Resources.ObservatoryCodes ?? string.Empty;
+		// Split the resource text into lines using the newline character as a separator, and iterate through each line to extract the observatory code and location information. The loop processes each line, trimming any trailing carriage return characters and skipping empty lines, then splits the line into parts based on the '|' separator to populate the lookup dictionary with valid entries.
 		foreach (string resourceLine in resourceText.Split(separator: '\n'))
 		{
+			// Trim any trailing carriage return characters from the line and skip empty lines
 			string trimmedLine = resourceLine.TrimEnd(trimChars: ['\r']);
-			if (string.IsNullOrEmpty(trimmedLine))
+			// If the trimmed line is empty, skip it and continue to the next iteration of the loop
+			if (string.IsNullOrEmpty(value: trimmedLine))
 			{
 				continue;
 			}
+			// Split the line into parts using the '|' separator. We expect at least two parts: the observatory code and the location description. If the line does not contain at least two parts, it is considered malformed and is skipped.
 			string[] parts = trimmedLine.Split(separator: '|');
+			// If the line contains at least two parts, add the observatory code and location to the lookup dictionary. The first part (parts[0]) is used as the key (observatory code), and the second part (parts[1]) is used as the value (location description).
 			if (parts.Length >= 2)
 			{
-				lookup[parts[0]] = parts[1];
+				// Add the observatory code and location to the lookup dictionary
+				lookup[key: parts[0]] = parts[1];
+			}
+			// If the line is malformed (does not contain at least two parts), log a warning message indicating that the line is being skipped due to its format. This helps identify issues with the resource data while allowing the application to continue functioning.
+			else
+			{
+				// Log a warning about the malformed line, including the content of the line for debugging purposes
+				logger.Warn(message: $"Skipping malformed observatory code line: '{resourceLine}'");
 			}
 		}
+		// Return the populated lookup dictionary containing observatory code mappings
 		return lookup;
 	}
 

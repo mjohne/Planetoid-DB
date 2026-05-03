@@ -53,8 +53,7 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 	private string GetDebuggerDisplay() => ToString();
 
 	/// <summary>Populates the ListView with the observatory code data from the embedded resource.</summary>
-	/// <remarks>This method reads the <c>ObservatoryCodes</c> resource line by line, splits each entry by the pipe character,
-	/// and populates the ListView with the code and location. It uses BeginUpdate/EndUpdate for performance when adding many items.</remarks>
+	/// <remarks>This method reads the <c>ObservatoryCodes</c> resource line by line, splits each entry by the pipe character, and populates the ListView with the code and location. It uses BeginUpdate/EndUpdate for performance when adding many items.</remarks>
 	private void LoadObservatoryCodesList()
 	{
 		// Clear the status bar
@@ -62,19 +61,26 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 		// Populate the ListView
 		try
 		{
+			// Set the cursor to wait while loading data
 			Cursor.Current = Cursors.WaitCursor;
+			// Use BeginUpdate/EndUpdate to improve performance when adding multiple items to the ListView
 			listView.BeginUpdate();
 			listView.Items.Clear();
 			// Add each entry from the ObservatoryCodes resource to the ListView
 			string resourceText = Properties.Resources.ObservatoryCodes ?? string.Empty;
+			// Split the resource text into lines and process each line
 			foreach (string resourceLine in resourceText.Split(separator: '\n'))
 			{
+				// Trim any trailing carriage return characters and skip empty lines
 				string trimmedLine = resourceLine.TrimEnd(trimChars: ['\r']);
-				if (string.IsNullOrEmpty(trimmedLine))
+				// Skip empty lines
+				if (string.IsNullOrEmpty(value: trimmedLine))
 				{
 					continue;
 				}
+				// Split the line into parts using the pipe character as a separator
 				string[] parts = trimmedLine.Split(separator: '|');
+				// If there are at least two parts (code and location), create a ListViewItem and add it to the ListView
 				if (parts.Length >= 2)
 				{
 					ListViewItem item = new(text: parts[0]);
@@ -85,13 +91,17 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 			// Update status bar with count
 			SetStatusBar(label: labelInformation, text: $"{listView.Items.Count} observatory codes loaded");
 		}
+		// Log the successful loading of observatory codes
 		catch (Exception ex)
 		{
+			// Log the error and show a message box to the user
 			logger.Error(message: $"An error occurred while loading observatory codes: {ex}");
-			SetStatusBar(label: labelInformation, text: "Error loading observatory codes");
+			MessageBox.Show(text: $"An error has occurred while loading observatory codes: {ex.Message}", caption: "Load Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
+		// Ensure that the cursor is reset and the ListView is updated even if an error occurs
 		finally
 		{
+			// End the update of the ListView and reset the cursor
 			listView.EndUpdate();
 			Cursor.Current = Cursors.Default;
 		}
@@ -213,6 +223,18 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 	#endregion
 
 	#region Click event handlers
+
+	/// <summary>Handles the Click event of the ToolStripButton that displays information about observatory codes.</summary>
+	/// <remarks>Displays a message box with information about observatory codes and a link to the Minor Planet Center website.</remarks>
+	/// <param name="sender">The source of the event, typically the ToolStripButton that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripButtonInfoAboutObsCodes_Click(object sender, EventArgs e)
+	{
+		// Show a message box with information about observatory codes and a link to the Minor Planet Center website
+		MessageBox.Show(text: "This application displays a list of observatory codes and their corresponding locations.\n\nYou can find more information about Observatory Codes at the Minor Planet Center website: https://minorplanetcenter.net/iau/info/ObservatoryCodes.html.", caption: "About Observatory Codes", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+
 	/// <summary>Handles the Click event to export the output as a CSV file.</summary>
 	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a CSV file, including the file filter, default extension, dialog title, and export action.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item for saving as CSV.</param>

@@ -125,7 +125,7 @@ partial class ObservationsForm
 		kryptonPanelMain.Location = new Point(0, 0);
 		kryptonPanelMain.Name = "kryptonPanelMain";
 		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptonPanelMain.Size = new Size(744, 450);
+		kryptonPanelMain.Size = new Size(839, 318);
 		kryptonPanelMain.TabIndex = 0;
 		kryptonPanelMain.TabStop = true;
 		kryptonPanelMain.Text = "Mainpanel";
@@ -149,7 +149,7 @@ partial class ObservationsForm
 		listView.Location = new Point(0, 0);
 		listView.Name = "listView";
 		listView.ShowItemToolTips = true;
-		listView.Size = new Size(744, 450);
+		listView.Size = new Size(839, 318);
 		listView.TabIndex = 0;
 		listView.UseCompatibleStateImageBehavior = false;
 		listView.View = View.Details;
@@ -197,7 +197,7 @@ partial class ObservationsForm
 		// columnHeaderObservatoryCode
 		// 
 		columnHeaderObservatoryCode.Text = "Obs. Code";
-		columnHeaderObservatoryCode.Width = 70;
+		columnHeaderObservatoryCode.Width = 200;
 		// 
 		// contextMenuSaveToFile
 		// 
@@ -708,7 +708,7 @@ partial class ObservationsForm
 		kryptonStatusStrip.ProgressBars = null;
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
 		kryptonStatusStrip.ShowItemToolTips = true;
-		kryptonStatusStrip.Size = new Size(744, 22);
+		kryptonStatusStrip.Size = new Size(839, 22);
 		kryptonStatusStrip.TabIndex = 0;
 		kryptonStatusStrip.TabStop = true;
 		kryptonStatusStrip.Text = "Status bar";
@@ -745,11 +745,11 @@ partial class ObservationsForm
 		// 
 		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
 		toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
-		toolStripContainer.ContentPanel.Size = new Size(744, 450);
+		toolStripContainer.ContentPanel.Size = new Size(839, 318);
 		toolStripContainer.Dock = DockStyle.Fill;
 		toolStripContainer.Location = new Point(0, 0);
 		toolStripContainer.Name = "toolStripContainer";
-		toolStripContainer.Size = new Size(744, 497);
+		toolStripContainer.Size = new Size(839, 365);
 		toolStripContainer.TabIndex = 0;
 		toolStripContainer.Text = "toolStripContainer";
 		// 
@@ -769,7 +769,7 @@ partial class ObservationsForm
 		kryptonToolStripGenerateList.Items.AddRange(new ToolStripItem[] { toolStripButtonReload, toolStripDropDownButtonSaveList, toolStripButtonObservatoryCodes, toolStripSeparator1, toolStripLabelProgress, kryptonProgressBar });
 		kryptonToolStripGenerateList.Location = new Point(0, 0);
 		kryptonToolStripGenerateList.Name = "kryptonToolStripGenerateList";
-		kryptonToolStripGenerateList.Size = new Size(744, 25);
+		kryptonToolStripGenerateList.Size = new Size(839, 25);
 		kryptonToolStripGenerateList.Stretch = true;
 		kryptonToolStripGenerateList.TabIndex = 0;
 		kryptonToolStripGenerateList.TabStop = true;
@@ -828,7 +828,7 @@ partial class ObservationsForm
 		kryptonProgressBar.AccessibleRole = AccessibleRole.ProgressBar;
 		kryptonProgressBar.AutoToolTip = true;
 		kryptonProgressBar.Name = "kryptonProgressBar";
-		kryptonProgressBar.Size = new Size(380, 22);
+		kryptonProgressBar.Size = new Size(400, 22);
 		kryptonProgressBar.StateCommon.Back.Color1 = Color.Green;
 		kryptonProgressBar.StateDisabled.Back.ColorStyle = PaletteColorStyle.OneNote;
 		kryptonProgressBar.StateNormal.Back.ColorStyle = PaletteColorStyle.OneNote;
@@ -841,7 +841,7 @@ partial class ObservationsForm
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(744, 497);
+		ClientSize = new Size(839, 365);
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
