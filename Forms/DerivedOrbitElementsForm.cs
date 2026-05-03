@@ -132,9 +132,7 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		return true;
 	}
 
-	/// <summary>Opens the terminology dialog for a specific derived orbit element.
-	/// The <paramref name="index"/> selects which terminology entry to show. Values outside the supported range
-	/// are normalized to the default (index 0).</summary>
+	/// <summary>Opens the terminology dialog for a specific derived orbit element. The <paramref name="index"/> selects which terminology entry to show. Values outside the supported range are normalized to the default (index 0).</summary>
 	/// <param name="index">Zero-based index selecting the terminology topic (valid range: 0..38).</param>
 	/// <remarks>This method is used to open the terminology dialog for a specific derived orbit element.</remarks>
 	private void OpenTerminology(uint index)
@@ -206,9 +204,7 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>Fired when the derived orbit elements form is loaded.
-	/// Clears the status area, validates the provided derived-element data and populates the UI labels
-	/// with the corresponding values. If the provided data is invalid an error is logged and shown to the user.</summary>
+	/// <summary>Fired when the derived orbit elements form is loaded. Clears the status area, validates the provided derived-element data and populates the UI labels with the corresponding values. If the provided data is invalid an error is logged and shown to the user.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the form is loaded.</remarks>
@@ -627,8 +623,7 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	/// <summary>Handles double-click events on the control to open the terminology dialog.</summary>
 	/// <param name="sender">Event source (the control).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method attempts to parse the current tag text as an integer and opens the terminology dialog
-	/// for the corresponding entry if successful.</remarks>
+	/// <remarks>This method attempts to parse the current tag text as an integer and opens the terminology dialog for the corresponding entry if successful.</remarks>
 	private void OpenTerminology_DoubleClick(object sender, EventArgs e)
 	{
 		// Try to parse the index from the current tag text
