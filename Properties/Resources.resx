@@ -122,4 +122,8 @@
     <value>..\Resources\demoset-10000.txt;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     <comment>demo database</comment>
   </data>
+  <data name="ObservatoryCodes" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ObservatoryCodes.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <comment>Observatory codes with pipe-separated locations</comment>
+  </data>
 </root>

@@ -112,6 +112,34 @@ public partial class ObservationsForm : BaseKryptonForm
 	/// <remarks>This constant is used to validate or format observatory codes to ensure consistency across the application.</remarks>
 	private const int ObservatoryCodeLength = 3;
 
+	/// <summary>Lazy-initialized lookup dictionary that maps observatory codes to their location names.</summary>
+	/// <remarks>Built once from the <c>ObservatoryCodes</c> resource on first access.</remarks>
+	private static readonly Lazy<Dictionary<string, string>> _observatoryCodeLookup =
+		new(valueFactory: BuildObservatoryCodeLookup);
+
+	/// <summary>Builds the observatory code lookup dictionary from the embedded resource.</summary>
+	/// <returns>A dictionary mapping observatory code strings to their location descriptions.</returns>
+	/// <remarks>Each line of the resource has the format <c>CODE|Location</c>.</remarks>
+	private static Dictionary<string, string> BuildObservatoryCodeLookup()
+	{
+		Dictionary<string, string> lookup = [];
+		string resourceText = Properties.Resources.ObservatoryCodes ?? string.Empty;
+		foreach (string resourceLine in resourceText.Split(separator: '\n'))
+		{
+			string trimmedLine = resourceLine.TrimEnd(trimChars: ['\r']);
+			if (string.IsNullOrEmpty(trimmedLine))
+			{
+				continue;
+			}
+			string[] parts = trimmedLine.Split(separator: '|');
+			if (parts.Length >= 2)
+			{
+				lookup[parts[0]] = parts[1];
+			}
+		}
+		return lookup;
+	}
+
 	/// <summary>Stores the index of the currently sorted column.</summary>
 	/// <remarks>This field is used to keep track of which column is currently being used for sorting in the ListView.</remarks>
 	private int sortColumn = -1;
@@ -229,6 +257,10 @@ public partial class ObservationsForm : BaseKryptonForm
 					string observedDeclination = SafeSubstring(value: line, startIndex: ObservedDeclinationStart, length: ObservedDeclinationLength);
 					string observedMagnitudeAndBand = SafeSubstring(value: line, startIndex: ObservedMagnitudeAndBandStart, length: ObservedMagnitudeAndBandLength);
 					string observatoryCode = SafeSubstring(value: line, startIndex: ObservatoryCodeStart, length: ObservatoryCodeLength);
+					// Look up the location for the observatory code and append it to form the full observatory code entry
+					string observatoryCodeEntry = _observatoryCodeLookup.Value.TryGetValue(key: observatoryCode, value: out string? observatoryLocation)
+						? $"{observatoryCode} - {observatoryLocation}"
+						: observatoryCode;
 					// Create a ListViewItem with the packed minor planet number as the main text, and the other fields as subitems
 					ListViewItem item = new(text: packedMinorPlanetNumber);
 					item.SubItems.AddRange(items:
@@ -239,7 +271,7 @@ public partial class ObservationsForm : BaseKryptonForm
 						observedRectascension,
 						observedDeclination,
 						observedMagnitudeAndBand,
-						observatoryCode
+						observatoryCodeEntry
 					]);
 					listView.Items.Add(value: item);
 				}
