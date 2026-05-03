@@ -258,8 +258,7 @@ public partial class ObservationsForm : BaseKryptonForm
 					string observedMagnitudeAndBand = SafeSubstring(value: line, startIndex: ObservedMagnitudeAndBandStart, length: ObservedMagnitudeAndBandLength);
 					string observatoryCode = SafeSubstring(value: line, startIndex: ObservatoryCodeStart, length: ObservatoryCodeLength);
 					// Look up the location for the observatory code and append it to form the full observatory code entry
-					string observatoryCodeTrimmed = observatoryCode.Trim();
-					string observatoryCodeEntry = _observatoryCodeLookup.Value.TryGetValue(key: observatoryCodeTrimmed, value: out string? observatoryLocation)
+					string observatoryCodeEntry = _observatoryCodeLookup.Value.TryGetValue(key: observatoryCode, value: out string? observatoryLocation)
 						? $"{observatoryCode} - {observatoryLocation}"
 						: observatoryCode;
 					// Create a ListViewItem with the packed minor planet number as the main text, and the other fields as subitems
