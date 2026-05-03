@@ -759,6 +759,8 @@ partial class ObservatoryCodesForm
 		toolStripButtonInfoAboutObsCodes.Name = "toolStripButtonInfoAboutObsCodes";
 		toolStripButtonInfoAboutObsCodes.Size = new Size(183, 22);
 		toolStripButtonInfoAboutObsCodes.Text = "Info about Observatory codes";
+		toolStripButtonInfoAboutObsCodes.MouseEnter += Control_Enter;
+		toolStripButtonInfoAboutObsCodes.MouseLeave += Control_Leave;
 		toolStripButtonInfoAboutObsCodes.Click += ToolStripButtonInfoAboutObsCodes_Click;
 		// 
 		// ObservatoryCodesForm

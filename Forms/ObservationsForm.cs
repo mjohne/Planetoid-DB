@@ -262,7 +262,7 @@ public partial class ObservationsForm : BaseKryptonForm
 					{
 						continue;
 					}
-					// Extract fields using 1-based column ranges specified in the issue
+					// Extract fields using zero-based start indices and lengths defined as constants above
 					string packedMinorPlanetNumber = SafeSubstring(value: line, startIndex: PackedMinorPlanetNumberStart, length: PackedMinorPlanetNumberLength);
 					string packedProvisionalDesignation = SafeSubstring(value: line, startIndex: PackedProvisionalDesignationStart, length: PackedProvisionalDesignationLength);
 					string discoveryAsterisk = SafeSubstring(value: line, startIndex: DiscoveryAsteriskStart, length: DiscoveryAsteriskLength);
@@ -302,8 +302,6 @@ public partial class ObservationsForm : BaseKryptonForm
 			{
 				listView.EndUpdate();
 			}
-			// After adding all items, call EndUpdate to refresh the ListView display
-			listView.EndUpdate();
 			// Show summary information after loading
 			kryptonProgressBar.Style = ProgressBarStyle.Continuous;
 			kryptonProgressBar.Text = "Observation data loaded.";
@@ -392,7 +390,7 @@ public partial class ObservationsForm : BaseKryptonForm
 		// Set up the save dialog properties
 		dialog.InitialDirectory = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyDocuments);
 		// Set a more specific default file name to reduce accidental overwrites
-		string timestamp = DateTime.Now.ToString(format: "yyyyMMdd_HHmmss");
+		string timestamp = DateTime.Now.ToString(format: "yyyy-MM-dd_HH-mm-ss");
 		dialog.FileName = $"Observations_{timestamp}.{ext}";
 		// Show the dialog and return the result
 		return dialog.ShowDialog() == DialogResult.OK;

@@ -97,6 +97,8 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 			// Log the error and show a message box to the user
 			logger.Error(message: $"An error occurred while loading observatory codes: {ex}");
 			MessageBox.Show(text: $"An error has occurred while loading observatory codes: {ex.Message}", caption: "Load Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			// Update the status bar to show a persistent error message
+			SetStatusBar(label: labelInformation, text: "Error loading observatory codes");
 		}
 		// Ensure that the cursor is reset and the ListView is updated even if an error occurs
 		finally
@@ -117,7 +119,7 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 		// Set up the save dialog properties
 		dialog.InitialDirectory = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyDocuments);
 		// Set a default file name with timestamp to reduce accidental overwrites
-		string timestamp = DateTime.Now.ToString(format: "yyyyMMdd_HHmmss");
+		string timestamp = DateTime.Now.ToString(format: "yyyy-MM-dd_HH-mm-ss");
 		dialog.FileName = $"ObservatoryCodes_{timestamp}.{ext}";
 		// Show the dialog and return the result
 		return dialog.ShowDialog() == DialogResult.OK;
