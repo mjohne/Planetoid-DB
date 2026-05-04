@@ -58,6 +58,9 @@
     <Compile Update="Forms\OrbitalResonancesOfAllMinorPlanetsForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\MoidsOfAllMinorPlanetsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\OrbitElementsGroupingForm.cs">
       <SubType>Form</SubType>
     </Compile>

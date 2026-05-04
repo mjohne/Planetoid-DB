@@ -653,6 +653,16 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formOrbitalResonances.ShowDialog(owner: this);
 	}
 
+	/// <summary>Shows the MOIDs of all minor planets form. Opens the form to find MOIDs of all planetoids relative to the solar system planets.</summary>
+	/// <remarks>Passes the full planetoids database to the form so it can iterate over all records.</remarks>
+	private void ShowMoidsOfAllMinorPlanets()
+	{
+		// Create a new instance of the MoidsOfAllMinorPlanetsForm
+		using MoidsOfAllMinorPlanetsForm formMoidsOfAll = new(planetoids: planetoidsDatabase);
+		formMoidsOfAll.TopMost = TopMost;
+		_ = formMoidsOfAll.ShowDialog(owner: this);
+	}
+
 	/// <summary>Shows the MOIDs form for the current planetoid.</summary>
 	/// <remarks>Parses the orbital elements from the UI labels and opens the <see cref="MoidsOfOneMinorPlanetForm"/>.</remarks>
 	private void ShowMoids()
@@ -2479,6 +2489,12 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the MOIDs form for the currently selected minor planet.</remarks>
 	private void ToolStripMenuItemMoids_Click(object sender, EventArgs e) => ShowMoids();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemMoidsOfAllMinorPlanets. Shows the MOIDs of all minor planets form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the MOIDs of all minor planets form.</remarks>
+	private void ToolStripMenuItemMoidsOfAllMinorPlanets_Click(object sender, EventArgs e) => ShowMoidsOfAllMinorPlanets();
 
 	/// <summary>Handles the click event for opening a local MPCORB.DAT file. Opens a file dialog to select a local MPCORB.DAT file, and if a valid file is selected, restarts the application with the selected file path as a command-line argument.</summary>
 	/// <param name="sender">The event source.</param>
