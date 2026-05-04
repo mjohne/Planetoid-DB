@@ -724,6 +724,49 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formMoids.ShowDialog();
 	}
 
+	/// <summary>Shows the Tisserand parameter form for the current planetoid.</summary>
+	/// <remarks>Parses the semi-major axis, eccentricity, and inclination from the UI labels and opens the <see cref="TisserandParameterOfOneMinorPlanetForm"/>.</remarks>
+	private void ShowTisserandParameters()
+	{
+		// Create a culture-specific format provider for parsing the orbital elements
+		IFormatProvider provider = CultureInfo.CreateSpecificCulture(name: "en");
+		// Parse the semi-major axis from the corresponding label on the form
+		if (!double.TryParse(s: labelSemiMajorAxisData.Text, style: NumberStyles.Any, provider: provider, result: out double semiMajorAxis))
+		{
+			// If parsing fails, log the error and show an error message to the user
+			logger.Error(message: $"Failed to parse semi-major axis: '{labelSemiMajorAxisData.Text}'");
+			ShowErrorMessage(message: $"Could not parse semi-major axis value: '{labelSemiMajorAxisData.Text}'");
+			return;
+		}
+		// Parse the eccentricity from the corresponding label on the form
+		if (!double.TryParse(s: labelOrbitalEccentricityData.Text, style: NumberStyles.Any, provider: provider, result: out double eccentricity))
+		{
+			// If parsing fails, log the error and show an error message to the user
+			logger.Error(message: $"Failed to parse eccentricity: '{labelOrbitalEccentricityData.Text}'");
+			ShowErrorMessage(message: $"Could not parse eccentricity value: '{labelOrbitalEccentricityData.Text}'");
+			return;
+		}
+		// Parse the inclination to the ecliptic from the corresponding label on the form
+		if (!double.TryParse(s: labelInclinationToTheEclipticData.Text, style: NumberStyles.Any, provider: provider, result: out double inclinationDeg))
+		{
+			// If parsing fails, log the error and show an error message to the user
+			logger.Error(message: $"Failed to parse inclination: '{labelInclinationToTheEclipticData.Text}'");
+			ShowErrorMessage(message: $"Could not parse inclination value: '{labelInclinationToTheEclipticData.Text}'");
+			return;
+		}
+		// Create a new instance of the TisserandParameterOfOneMinorPlanetForm
+		using TisserandParameterOfOneMinorPlanetForm formTisserand = new();
+		// Set the TopMost property to true to keep the form on top of other windows
+		formTisserand.TopMost = TopMost;
+		// Pass the parsed orbital elements to the form
+		formTisserand.SetOrbitalElements(
+			semiMajorAxis: semiMajorAxis,
+			eccentricity: eccentricity,
+			inclinationDeg: inclinationDeg);
+		// Show the Tisserand parameters form as a modal dialog
+		_ = formTisserand.ShowDialog();
+	}
+
 	/// <summary>Shows the application information form.</summary>
 	/// <remarks>This method is used to show the application information form.</remarks>
 	private void ShowAppInfo()
@@ -2495,6 +2538,12 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the MOIDs of all minor planets form.</remarks>
 	private void ToolStripMenuItemMoidsOfAllMinorPlanets_Click(object sender, EventArgs e) => ShowMoidsOfAllMinorPlanets();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemTisserandParameters. Shows the Tisserand parameters form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the Tisserand parameters form for the currently selected minor planet.</remarks>
+	private void ToolStripMenuItemTisserandParameters_Click(object sender, EventArgs e) => ShowTisserandParameters();
 
 	/// <summary>Handles the click event for opening a local MPCORB.DAT file. Opens a file dialog to select a local MPCORB.DAT file, and if a valid file is selected, restarts the application with the selected file path as a command-line argument.</summary>
 	/// <param name="sender">The event source.</param>
