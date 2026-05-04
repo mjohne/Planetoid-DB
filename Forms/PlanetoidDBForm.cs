@@ -663,6 +663,16 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formMoidsOfAll.ShowDialog(owner: this);
 	}
 
+	/// <summary>Shows the Tisserand parameters of all minor planets form. Opens the form to compute Tisserand parameters for all planetoids relative to the solar system planets.</summary>
+	/// <remarks>Passes the full planetoids database to the form so it can iterate over all records.</remarks>
+	private void ShowTisserandParametersOfAllMinorPlanets()
+	{
+		// Create a new instance of the TisserandParameterOfAllMinorPlanetsForm
+		using TisserandParameterOfAllMinorPlanetsForm formTisserandOfAll = new(planetoids: planetoidsDatabase);
+		formTisserandOfAll.TopMost = TopMost;
+		_ = formTisserandOfAll.ShowDialog(owner: this);
+	}
+
 	/// <summary>Shows the MOIDs form for the current planetoid.</summary>
 	/// <remarks>Parses the orbital elements from the UI labels and opens the <see cref="MoidsOfOneMinorPlanetForm"/>.</remarks>
 	private void ShowMoids()
@@ -2544,6 +2554,12 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the Tisserand parameters form for the currently selected minor planet.</remarks>
 	private void ToolStripMenuItemTisserandParameters_Click(object sender, EventArgs e) => ShowTisserandParameters();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemTisserandParametersOfAllMinorPlanets. Shows the Tisserand parameters of all minor planets form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the Tisserand parameters of all minor planets form.</remarks>
+	private void ToolStripMenuItemTisserandParametersOfAllMinorPlanets_Click(object sender, EventArgs e) => ShowTisserandParametersOfAllMinorPlanets();
 
 	/// <summary>Handles the click event for opening a local MPCORB.DAT file. Opens a file dialog to select a local MPCORB.DAT file, and if a valid file is selected, restarts the application with the selected file path as a command-line argument.</summary>
 	/// <param name="sender">The event source.</param>
