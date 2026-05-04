@@ -2545,7 +2545,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method is used to show the Tisserand parameters form for the currently selected minor planet.</remarks>
 	private void ToolStripMenuItemTisserandParameters_Click(object sender, EventArgs e) => ShowTisserandParameters();
 
-	/// <summary>Handles the click event for opening a local MPCORB.DAT file.Opens a file dialog to select a local MPCORB.DAT file, and if a valid file is selected, restarts the application with the selected file path as a command-line argument.</summary>
+	/// <summary>Handles the click event for opening a local MPCORB.DAT file. Opens a file dialog to select a local MPCORB.DAT file, and if a valid file is selected, restarts the application with the selected file path as a command-line argument.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method allows the user to select a custom local MPCORB.DAT file instead of using the default one.</remarks>
