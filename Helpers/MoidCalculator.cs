@@ -32,7 +32,7 @@ internal class MoidCalculator
 	public record MoidResult(string PlanetName, double MoidAu);
 
 	/// <summary>Mean orbital elements of the eight solar system planets at J2000.0 (ecliptic reference frame).</summary>
-	/// <remarks>These values are sourced from standard astronomical references and represent the average orbital parameters of each planet, which are used for the MOID calculations.</remarks>
+	/// <remarks>These constants follow the commonly cited IAU-JPL mean planetary elements at J2000.0 as published by Standish (1992). The reference frame is the J2000.0 ecliptic and equinox. The stored <c>ArgumentPerihelionDeg</c> values are the argument of perihelion (<c>ω</c>), derived from the published longitude of perihelion (<c>ϖ</c>) and longitude of the ascending node (<c>Ω</c>) using <c>ω = ϖ - Ω</c>.</remarks>
 	private static readonly PlanetElements[] Planets =
 	[
 		new(Name: "Mercury", SemiMajorAxis: 0.38709893, Eccentricity: 0.20563069, InclinationDeg: 7.00487, LongitudeAscendingNodeDeg: 48.33167, ArgumentPerihelionDeg: 29.12478),
