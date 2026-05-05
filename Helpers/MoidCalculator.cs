@@ -3,6 +3,8 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using System.Runtime.CompilerServices;
+
 namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides methods for calculating the Minimum Orbit Intersection Distance (MOID) between a minor planet and the eight solar system planets.</summary>
@@ -103,39 +105,61 @@ internal class MoidCalculator
 		const int GridSteps = 720;
 		const double TwoPi = 2.0 * Math.PI;
 		double stepSize = TwoPi / GridSteps;
-		double minDist = double.MaxValue;
-		double bestF1 = 0.0;
-		double bestF2 = 0.0;
-		// Precompute the Cartesian positions of orbit 1 at all grid points
+
+		// Precompute both orbits' Cartesian positions at all grid points
 		(double X, double Y, double Z)[] pos1Cache = new (double X, double Y, double Z)[GridSteps];
+		(double X, double Y, double Z)[] pos2Cache = new (double X, double Y, double Z)[GridSteps];
+
 		for (int idx = 0; idx < GridSteps; idx++)
 		{
 			pos1Cache[idx] = OrbitPosition(a: a1, e: e1, i: i1, w: w1, bigO: bigO1, f: idx * stepSize);
+			pos2Cache[idx] = OrbitPosition(a: a2, e: e2, i: i2, w: w2, bigO: bigO2, f: idx * stepSize);
 		}
-		// Double-grid search: iterate over all (f1, f2) combinations
-		for (int i = 0; i < GridSteps; i++)
+
+		// Parallel double-grid search using squared distances to avoid sqrt
+		double minDistSquared = double.MaxValue;
+		double bestF1 = 0.0;
+		double bestF2 = 0.0;
+		object lockObj = new();
+
+		_ = Parallel.For(fromInclusive: 0, toExclusive: GridSteps, body: i =>
 		{
 			(double X, double Y, double Z) p1 = pos1Cache[i];
-			double f1 = i * stepSize;
+			double localMinDistSq = double.MaxValue;
+			double localBestF1 = 0.0;
+			double localBestF2 = 0.0;
+
 			for (int j = 0; j < GridSteps; j++)
 			{
-				double f2 = j * stepSize;
-				(double X, double Y, double Z) p2 = OrbitPosition(a: a2, e: e2, i: i2, w: w2, bigO: bigO2, f: f2);
-				double dist = Distance(p1: p1, p2: p2);
-				if (dist < minDist)
+				(double X, double Y, double Z) p2 = pos2Cache[j];
+				double distSq = DistanceSquared(p1: p1, p2: p2);
+
+				if (distSq < localMinDistSq)
 				{
-					minDist = dist;
-					bestF1 = f1;
-					bestF2 = f2;
+					localMinDistSq = distSq;
+					localBestF1 = i * stepSize;
+					localBestF2 = j * stepSize;
 				}
 			}
-		}
+
+			// Thread-safe update of global minimum
+			lock (lockObj)
+			{
+				if (localMinDistSq < minDistSquared)
+				{
+					minDistSquared = localMinDistSq;
+					bestF1 = localBestF1;
+					bestF2 = localBestF2;
+				}
+			}
+		});
+
 		// Local refinement via coordinate descent
 		return RefineMinimum(
 			a1: a1, e1: e1, i1: i1, w1: w1, bigO1: bigO1,
 			a2: a2, e2: e2, i2: i2, w2: w2, bigO2: bigO2,
 			f1Start: bestF1, f2Start: bestF2, initialStep: stepSize,
-			coarseMin: minDist);
+			coarseMin: Math.Sqrt(d: minDistSquared));
 	}
 
 	/// <summary>Refines the MOID estimate from a coarse grid minimum using coordinate descent.</summary>
@@ -162,13 +186,15 @@ internal class MoidCalculator
 	{
 		double f1 = f1Start;
 		double f2 = f2Start;
-		double minDist = coarseMin;
+		double minDistSquared = coarseMin * coarseMin;
 		double step = initialStep;
-		// Iteratively shrink the search bracket
+
+		// Iteratively shrink the search bracket using squared distances
 		for (int iter = 0; iter < 60 && step > 1e-9; iter++)
 		{
 			step *= 0.5;
 			bool improved = false;
+
 			// Try all 8 neighbouring directions in (f1, f2) space
 			for (int df1Sign = -1; df1Sign <= 1; df1Sign++)
 			{
@@ -178,27 +204,31 @@ internal class MoidCalculator
 					{
 						continue;
 					}
+
 					double nf1 = f1 + (df1Sign * step);
 					double nf2 = f2 + (df2Sign * step);
-					double d = Distance(
+					double dSq = DistanceSquared(
 						p1: OrbitPosition(a: a1, e: e1, i: i1, w: w1, bigO: bigO1, f: nf1),
 						p2: OrbitPosition(a: a2, e: e2, i: i2, w: w2, bigO: bigO2, f: nf2));
-					if (d < minDist)
+
+					if (dSq < minDistSquared)
 					{
-						minDist = d;
+						minDistSquared = dSq;
 						f1 = nf1;
 						f2 = nf2;
 						improved = true;
 					}
 				}
 			}
+
 			// If no improvement was made at this step size, try increasing step again
 			if (!improved)
 			{
 				step *= 0.5;
 			}
 		}
-		return minDist;
+
+		return Math.Sqrt(d: minDistSquared);
 	}
 
 	/// <summary>Computes the heliocentric Cartesian coordinates of a point on a Keplerian orbit.</summary>
@@ -210,6 +240,7 @@ internal class MoidCalculator
 	/// <param name="f">True anomaly in radians.</param>
 	/// <returns>The Cartesian position (X, Y, Z) in the ecliptic frame (AU).</returns>
 	/// <remarks>Uses the standard orbit-in-space transformation: <c>r = a(1−e²)/(1+e·cos f)</c>, then rotates by ω+f, Ω, and i.</remarks>
+	[MethodImpl(methodImplOptions: MethodImplOptions.AggressiveInlining)]
 	private static (double X, double Y, double Z) OrbitPosition(
 		double a, double e, double i, double w, double bigO, double f)
 	{
@@ -230,17 +261,19 @@ internal class MoidCalculator
 		return (X: x, Y: y, Z: z);
 	}
 
-	/// <summary>Computes the Euclidean distance between two points in 3-D space.</summary>
+	/// <summary>Computes the squared Euclidean distance between two points in 3-D space.</summary>
 	/// <param name="p1">The first point as (X, Y, Z).</param>
 	/// <param name="p2">The second point as (X, Y, Z).</param>
-	/// <returns>The distance between the two points.</returns>
-	private static double Distance(
+	/// <returns>The squared distance between the two points.</returns>
+	/// <remarks>Using squared distance avoids expensive sqrt operations during comparisons.</remarks>
+	[MethodImpl(methodImplOptions: MethodImplOptions.AggressiveInlining)]
+	private static double DistanceSquared(
 		(double X, double Y, double Z) p1,
 		(double X, double Y, double Z) p2)
 	{
 		double dx = p1.X - p2.X;
 		double dy = p1.Y - p2.Y;
 		double dz = p1.Z - p2.Z;
-		return Math.Sqrt(d: (dx * dx) + (dy * dy) + (dz * dz));
+		return (dx * dx) + (dy * dy) + (dz * dz);
 	}
 }
