@@ -9,6 +9,7 @@ using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace Planetoid_DB;
@@ -313,9 +314,33 @@ public partial class ObservationsForm : BaseKryptonForm
 				// The date of observation is in the 4th column (index 3) of the ListView. We trim it to remove any extra whitespace.
 				string firstDate = listView.Items[index: 0].SubItems[index: 3].Text.Trim();
 				string lastDate = listView.Items[index: count - 1].SubItems[index: 3].Text.Trim();
-				// Show a message box with the count of observations and the date range
+				// Collect unique observation dates (date part only, ignoring fractional day)
+				// MPC date format is "YYYY MM DD.ddddd"; the first 10 characters represent the date
+				HashSet<string> uniqueDates = [];
+				foreach (ListViewItem lvItem in listView.Items)
+				{
+					string dateText = lvItem.SubItems[index: 3].Text.Trim();
+					if (dateText.Length >= 10)
+					{
+						_ = uniqueDates.Add(item: dateText[..10]);
+					}
+				}
+				int usedDays = uniqueDates.Count;
+				// Parse the first and last dates to calculate the observation duration, and append the statistics if parsing succeeds
+				string durationStats = string.Empty;
+				if (firstDate.Length >= 10 &&
+					lastDate.Length >= 10 &&
+					DateTime.TryParseExact(s: firstDate[..10], format: "yyyy MM dd", provider: CultureInfo.InvariantCulture, style: DateTimeStyles.None, result: out DateTime firstDateTime) &&
+					DateTime.TryParseExact(s: lastDate[..10], format: "yyyy MM dd", provider: CultureInfo.InvariantCulture, style: DateTimeStyles.None, result: out DateTime lastDateTime))
+				{
+					// Duration counts all days from the first to the last observation date, inclusive
+					int observationDuration = (int)(lastDateTime - firstDateTime).TotalDays + 1;
+					int unusedDays = observationDuration - usedDays;
+					durationStats = $"\nObservation duration: {observationDuration} day(s)\nUsed observation days: {usedDays}\nUnused observation days: {unusedDays}";
+				}
+				// Show a message box with the count of observations, the date range, and the duration statistics
 				_ = MessageBox.Show(
-					text: $"Number of observations: {count}\nFirst observation: {firstDate}\nLast observation: {lastDate}",
+					text: $"Number of observations: {count}\nFirst observation: {firstDate}\nLast observation: {lastDate}{durationStats}",
 					caption: I18nStrings.InformationCaption,
 					buttons: MessageBoxButtons.OK,
 					icon: MessageBoxIcon.Information);
