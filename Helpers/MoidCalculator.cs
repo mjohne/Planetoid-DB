@@ -6,10 +6,7 @@
 namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides methods for calculating the Minimum Orbit Intersection Distance (MOID) between a minor planet and the eight solar system planets.</summary>
-/// <remarks>This class implements a fast, high-precision numerical double-grid search algorithm with local refinement,
-/// equivalent to the approach used by the Minor Planet Center (MPC) for computing MOID values.
-/// The method samples both orbits on a fine angular grid to locate the global minimum distance,
-/// then refines it using coordinate-descent optimization to achieve sub-milliarcsecond accuracy.</remarks>
+/// <remarks>This class implements a fast, high-precision numerical double-grid search algorithm with local refinement, equivalent to the approach used by the Minor Planet Center (MPC) for computing MOID values. The method samples both orbits on a fine angular grid to locate the global minimum distance, then refines it using coordinate-descent optimization to achieve sub-milliarcsecond accuracy.</remarks>
 internal class MoidCalculator
 {
 	/// <summary>Represents the Keplerian orbital elements of a solar system planet.</summary>
@@ -19,8 +16,7 @@ internal class MoidCalculator
 	/// <param name="InclinationDeg">The orbital inclination to the ecliptic in degrees.</param>
 	/// <param name="LongitudeAscendingNodeDeg">The longitude of the ascending node in degrees.</param>
 	/// <param name="ArgumentPerihelionDeg">The argument of perihelion in degrees.</param>
-	/// <remarks>These mean orbital elements are referenced to the J2000.0 ecliptic and equinox,
-	/// as listed in standard astronomical references (Standish 1992 / IAU).</remarks>
+	/// <remarks>These mean orbital elements are referenced to the J2000.0 ecliptic and equinox, as listed in standard astronomical references (Standish 1992 / IAU).</remarks>
 	public record PlanetElements(
 		string Name,
 		double SemiMajorAxis,
@@ -32,23 +28,21 @@ internal class MoidCalculator
 	/// <summary>Represents the MOID result for a minor planet relative to a specific solar system planet.</summary>
 	/// <param name="PlanetName">The name of the planet.</param>
 	/// <param name="MoidAu">The Minimum Orbit Intersection Distance in AU.</param>
-	/// <remarks>The MOID is the closest geometric approach distance between the two osculating orbits,
-	/// independent of the bodies' actual positions at any epoch.</remarks>
+	/// <remarks>The MOID is the closest geometric approach distance between the two osculating orbits, independent of the bodies' actual positions at any epoch.</remarks>
 	public record MoidResult(string PlanetName, double MoidAu);
 
 	/// <summary>Mean orbital elements of the eight solar system planets at J2000.0 (ecliptic reference frame).</summary>
-	/// <remarks>Elements are taken from the standard IAU/JPL mean orbital elements
-	/// (Standish, E.M. 1992, "Keplerian Elements for Approximate Planetary Positions").</remarks>
+	/// <remarks>These values are sourced from standard astronomical references and represent the average orbital parameters of each planet, which are used for the MOID calculations.</remarks>
 	private static readonly PlanetElements[] Planets =
 	[
-		new(Name: "Mercury", SemiMajorAxis: 0.387098, Eccentricity: 0.205630, InclinationDeg: 7.005, LongitudeAscendingNodeDeg: 48.331, ArgumentPerihelionDeg: 29.124),
-		new(Name: "Venus", SemiMajorAxis: 0.723332, Eccentricity: 0.006773, InclinationDeg: 3.395, LongitudeAscendingNodeDeg: 76.680, ArgumentPerihelionDeg: 54.884),
-		new(Name: "Earth", SemiMajorAxis: 1.000000, Eccentricity: 0.016709, InclinationDeg: 0.000, LongitudeAscendingNodeDeg: 0.000, ArgumentPerihelionDeg: 288.064),
-		new(Name: "Mars", SemiMajorAxis: 1.523679, Eccentricity: 0.093400, InclinationDeg: 1.850, LongitudeAscendingNodeDeg: 49.558, ArgumentPerihelionDeg: 286.502),
-		new(Name: "Jupiter", SemiMajorAxis: 5.202603, Eccentricity: 0.048498, InclinationDeg: 1.303, LongitudeAscendingNodeDeg: 100.464, ArgumentPerihelionDeg: 273.867),
-		new(Name: "Saturn", SemiMajorAxis: 9.537070, Eccentricity: 0.054151, InclinationDeg: 2.489, LongitudeAscendingNodeDeg: 113.665, ArgumentPerihelionDeg: 339.392),
-		new(Name: "Uranus", SemiMajorAxis: 19.19126, Eccentricity: 0.047168, InclinationDeg: 0.773, LongitudeAscendingNodeDeg: 74.006, ArgumentPerihelionDeg: 96.999),
-		new(Name: "Neptune", SemiMajorAxis: 30.06896, Eccentricity: 0.008586, InclinationDeg: 1.770, LongitudeAscendingNodeDeg: 131.784, ArgumentPerihelionDeg: 272.846),
+		new(Name: "Mercury", SemiMajorAxis: 0.38709893, Eccentricity: 0.20563069, InclinationDeg: 7.00487, LongitudeAscendingNodeDeg: 48.33167, ArgumentPerihelionDeg: 29.12478),
+		new(Name: "Venus", SemiMajorAxis: 0.72333199, Eccentricity: 0.00677323, InclinationDeg: 3.39471, LongitudeAscendingNodeDeg: 76.68069, ArgumentPerihelionDeg: 54.85229),
+		new(Name: "Earth", SemiMajorAxis: 1.00000011, Eccentricity: 0.01671022, InclinationDeg: 0.00005, LongitudeAscendingNodeDeg: -11.26064, ArgumentPerihelionDeg: 114.20783),
+		new(Name: "Mars", SemiMajorAxis: 1.52366231, Eccentricity: 0.09341233, InclinationDeg: 1.85061, LongitudeAscendingNodeDeg: 49.57854, ArgumentPerihelionDeg: 286.46230),
+		new(Name: "Jupiter", SemiMajorAxis: 5.20336301, Eccentricity: 0.04839266, InclinationDeg: 1.30530, LongitudeAscendingNodeDeg: 100.55615, ArgumentPerihelionDeg: 274.19770),
+		new(Name: "Saturn", SemiMajorAxis: 9.53707032, Eccentricity: 0.05415060, InclinationDeg: 2.48446, LongitudeAscendingNodeDeg: 113.71504, ArgumentPerihelionDeg: 338.71690),
+		new(Name: "Uranus", SemiMajorAxis: 19.19126393, Eccentricity: 0.04716771, InclinationDeg: 0.76986, LongitudeAscendingNodeDeg: 74.22988, ArgumentPerihelionDeg: 96.73436),
+		new(Name: "Neptune", SemiMajorAxis: 30.06896348, Eccentricity: 0.00858587, InclinationDeg: 1.76917, LongitudeAscendingNodeDeg: 131.72169, ArgumentPerihelionDeg: 273.24966),
 	];
 
 	/// <summary>Calculates the MOID between a minor planet and each of the eight solar system planets.</summary>
@@ -58,8 +52,7 @@ internal class MoidCalculator
 	/// <param name="longitudeAscendingNodeDeg">The longitude of the ascending node of the minor planet's orbit in degrees.</param>
 	/// <param name="argumentPerihelionDeg">The argument of perihelion of the minor planet's orbit in degrees.</param>
 	/// <returns>A list of <see cref="MoidResult"/> records, one per planet, in order from Mercury to Neptune.</returns>
-	/// <remarks>Uses a two-stage numerical algorithm: a coarse grid search (720 × 720 angular samples)
-	/// to locate the approximate minimum, followed by coordinate-descent refinement for high precision.</remarks>
+	/// <remarks>Uses a two-stage numerical algorithm: a coarse grid search (720 × 720 angular samples) to locate the approximate minimum, followed by coordinate-descent refinement for high precision.</remarks>
 	public static List<MoidResult> CalculateMoids(
 		double semiMajorAxis,
 		double eccentricity,
@@ -100,11 +93,7 @@ internal class MoidCalculator
 	/// <param name="w2">Argument of perihelion of orbit 2 (radians).</param>
 	/// <param name="bigO2">Longitude of ascending node of orbit 2 (radians).</param>
 	/// <returns>The MOID in AU.</returns>
-	/// <remarks>
-	/// Stage 1: coarse double-grid search with <c>GridSteps = 720</c> steps per orbit (0.5° resolution).
-	/// Stage 2: coordinate-descent refinement starting from the best grid point, iteratively
-	/// narrowing the search bracket until the step size falls below <c>1e-9</c> radians
-	/// (≈ 0.2 milli-arcseconds), giving sub-milliarcsecond accuracy.
+	/// <remarks> Stage 1: coarse double-grid search with <c>GridSteps = 720</c> steps per orbit (0.5° resolution). Stage 2: coordinate-descent refinement starting from the best grid point, iteratively narrowing the search bracket until the step size falls below <c>1e-9</c> radians (≈ 0.2 milli-arcseconds), giving sub-milliarcsecond accuracy.
 	/// </remarks>
 	private static double CalculateMoid(
 		double a1, double e1, double i1, double w1, double bigO1,
@@ -118,7 +107,7 @@ internal class MoidCalculator
 		double bestF1 = 0.0;
 		double bestF2 = 0.0;
 		// Precompute the Cartesian positions of orbit 1 at all grid points
-		var pos1Cache = new (double X, double Y, double Z)[GridSteps];
+		(double X, double Y, double Z)[] pos1Cache = new (double X, double Y, double Z)[GridSteps];
 		for (int idx = 0; idx < GridSteps; idx++)
 		{
 			pos1Cache[idx] = OrbitPosition(a: a1, e: e1, i: i1, w: w1, bigO: bigO1, f: idx * stepSize);
@@ -126,12 +115,12 @@ internal class MoidCalculator
 		// Double-grid search: iterate over all (f1, f2) combinations
 		for (int i = 0; i < GridSteps; i++)
 		{
-			var p1 = pos1Cache[i];
+			(double X, double Y, double Z) p1 = pos1Cache[i];
 			double f1 = i * stepSize;
 			for (int j = 0; j < GridSteps; j++)
 			{
 				double f2 = j * stepSize;
-				var p2 = OrbitPosition(a: a2, e: e2, i: i2, w: w2, bigO: bigO2, f: f2);
+				(double X, double Y, double Z) p2 = OrbitPosition(a: a2, e: e2, i: i2, w: w2, bigO: bigO2, f: f2);
 				double dist = Distance(p1: p1, p2: p2);
 				if (dist < minDist)
 				{
@@ -165,8 +154,7 @@ internal class MoidCalculator
 	/// <param name="initialStep">Half-width of the initial search bracket (radians).</param>
 	/// <param name="coarseMin">The coarse minimum distance used as the initial best.</param>
 	/// <returns>The refined MOID in AU.</returns>
-	/// <remarks>Each iteration halves the step size. The loop terminates when the step size
-	/// drops below <c>1e-9</c> radians or after a maximum of 60 iterations.</remarks>
+	/// <remarks>Each iteration halves the step size. The loop terminates when the step size drops below <c>1e-9</c> radians or after a maximum of 60 iterations.</remarks>
 	private static double RefineMinimum(
 		double a1, double e1, double i1, double w1, double bigO1,
 		double a2, double e2, double i2, double w2, double bigO2,
@@ -190,8 +178,8 @@ internal class MoidCalculator
 					{
 						continue;
 					}
-					double nf1 = f1 + df1Sign * step;
-					double nf2 = f2 + df2Sign * step;
+					double nf1 = f1 + (df1Sign * step);
+					double nf2 = f2 + (df2Sign * step);
 					double d = Distance(
 						p1: OrbitPosition(a: a1, e: e1, i: i1, w: w1, bigO: bigO1, f: nf1),
 						p2: OrbitPosition(a: a2, e: e2, i: i2, w: w2, bigO: bigO2, f: nf2));
@@ -221,24 +209,23 @@ internal class MoidCalculator
 	/// <param name="bigO">Longitude of the ascending node in radians.</param>
 	/// <param name="f">True anomaly in radians.</param>
 	/// <returns>The Cartesian position (X, Y, Z) in the ecliptic frame (AU).</returns>
-	/// <remarks>Uses the standard orbit-in-space transformation:
-	/// <c>r = a(1−e²)/(1+e·cos f)</c>, then rotates by ω+f, Ω, and i.</remarks>
+	/// <remarks>Uses the standard orbit-in-space transformation: <c>r = a(1−e²)/(1+e·cos f)</c>, then rotates by ω+f, Ω, and i.</remarks>
 	private static (double X, double Y, double Z) OrbitPosition(
 		double a, double e, double i, double w, double bigO, double f)
 	{
 		// Heliocentric distance from the focal formula
-		double r = a * (1.0 - e * e) / (1.0 + e * Math.Cos(f));
+		double r = a * (1.0 - (e * e)) / (1.0 + (e * Math.Cos(d: f)));
 		// Argument of latitude u = ω + f
 		double u = w + f;
-		double cosO = Math.Cos(bigO);
-		double sinO = Math.Sin(bigO);
-		double cosu = Math.Cos(u);
-		double sinu = Math.Sin(u);
-		double cosi = Math.Cos(i);
-		double sini = Math.Sin(i);
+		double cosO = Math.Cos(d: bigO);
+		double sinO = Math.Sin(a: bigO);
+		double cosu = Math.Cos(d: u);
+		double sinu = Math.Sin(a: u);
+		double cosi = Math.Cos(d: i);
+		double sini = Math.Sin(a: i);
 		// Standard perifocal-to-inertial rotation
-		double x = r * (cosO * cosu - sinO * sinu * cosi);
-		double y = r * (sinO * cosu + cosO * sinu * cosi);
+		double x = r * ((cosO * cosu) - (sinO * sinu * cosi));
+		double y = r * ((sinO * cosu) + (cosO * sinu * cosi));
 		double z = r * sinu * sini;
 		return (X: x, Y: y, Z: z);
 	}
@@ -254,6 +241,6 @@ internal class MoidCalculator
 		double dx = p1.X - p2.X;
 		double dy = p1.Y - p2.Y;
 		double dz = p1.Z - p2.Z;
-		return Math.Sqrt(dx * dx + dy * dy + dz * dz);
+		return Math.Sqrt(d: (dx * dx) + (dy * dy) + (dz * dz));
 	}
 }
