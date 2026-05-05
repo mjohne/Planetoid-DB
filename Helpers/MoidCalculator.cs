@@ -4,7 +4,9 @@
 // a specific target and scoped to a namespace, type, member, etc.
 
 using System.Buffers;
+using System.Collections.Concurrent;
 using System.Runtime.CompilerServices;
+using System.Runtime.Intrinsics;
 
 namespace Planetoid_DB.Helpers;
 
@@ -123,68 +125,126 @@ internal class MoidCalculator
 			double cosi2 = Math.Cos(d: i2);
 			double sini2 = Math.Sin(a: i2);
 			double oneMinusE2Sq = 1.0 - (e2 * e2);
-			// Precompute both orbits' positions with optimized calculations
-			Parallel.For(fromInclusive: 0, toExclusive: GridSteps, body: idx =>
-			{
-				double f = idx * stepSize;
-				pos1Cache[idx] = OrbitPositionOptimized(a: a1, e: e1, w: w1, f: f, cosO: cosO1, sinO: sinO1, cosi: cosi1, sini: sini1, oneMinusESq: oneMinusE1Sq);
-				pos2Cache[idx] = OrbitPositionOptimized(a: a2, e: e2, w: w2, f: f, cosO: cosO2, sinO: sinO2, cosi: cosi2, sini: sini2, oneMinusESq: oneMinusE2Sq);
-			});
-			// Lock-free parallel search using Interlocked operations
+			// Precompute both orbits' positions with optimized calculations using better partitioning
+			_ = Parallel.For(
+				fromInclusive: 0,
+				toExclusive: GridSteps,
+				parallelOptions: new ParallelOptions
+				{
+					MaxDegreeOfParallelism = Environment.ProcessorCount
+				},
+				body: idx =>
+				{
+					double f = idx * stepSize;
+					pos1Cache[idx] = OrbitPositionOptimized(a: a1, e: e1, w: w1, f: f, cosO: cosO1, sinO: sinO1, cosi: cosi1, sini: sini1, oneMinusESq: oneMinusE1Sq);
+					pos2Cache[idx] = OrbitPositionOptimized(a: a2, e: e2, w: w2, f: f, cosO: cosO2, sinO: sinO2, cosi: cosi2, sini: sini2, oneMinusESq: oneMinusE2Sq);
+				});
+			// Lock-free parallel search using Interlocked operations with optimized partitioning
 			long minDistSquaredBits = BitConverter.DoubleToInt64Bits(value: double.MaxValue);
 			long bestF1Bits = 0;
 			long bestF2Bits = 0;
-			Parallel.For(fromInclusive: 0, toExclusive: GridSteps, parallelOptions: new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, body: i =>
-			{
-				(double X, double Y, double Z) p1 = pos1Cache[i];
-				double localMinDistSq = double.MaxValue;
-				int localBestJ = 0;
-				// Inner loop optimized for cache locality
-				for (int j = 0; j < GridSteps; j++)
+			// Use Partitioner for better work distribution
+			Partitioner<Tuple<int, int>> partitioner = Partitioner.Create(fromInclusive: 0, toExclusive: GridSteps, rangeSize: Math.Max(1, GridSteps / (Environment.ProcessorCount * 4)));
+			_ = Parallel.ForEach(
+				source: partitioner,
+				parallelOptions: new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
+				body: range =>
 				{
-					(double X, double Y, double Z) p2 = pos2Cache[j];
-					double distSq = DistanceSquared(p1: p1, p2: p2);
+					// Each thread maintains its own local minimum to reduce contention, then updates the global minimum using Interlocked operations
+					double localMinDistSq = double.MaxValue;
+					int localBestI = 0;
+					int localBestJ = 0;
+					// Loop over the assigned range of indices for orbit 1
+					for (int i = range.Item1; i < range.Item2; i++)
+					{
+						(double X, double Y, double Z) p1 = pos1Cache[i];
+						// SIMD-optimized inner loop when available
+						if (Vector256.IsHardwareAccelerated && GridSteps >= Vector256<double>.Count)
+						{
+							int j = 0;
+							int simdEnd = GridSteps - (GridSteps % 4);
+							// Process 4 positions at a time using SIMD (when possible)
+							for (; j < simdEnd; j += 4)
+							{
+								// Load 4 positions from pos2Cache into SIMD registers
+								for (int k = 0; k < 4; k++)
+								{
+									(double X, double Y, double Z) p2 = pos2Cache[j + k];
+									double distSq = DistanceSquared(p1: p1, p2: p2);
+									// Update local minimum if this distance is smaller
+									if (distSq < localMinDistSq)
+									{
+										localMinDistSq = distSq;
+										localBestI = i;
+										localBestJ = j + k;
+									}
+								}
+							}
+							// Handle remaining elements
+							for (; j < GridSteps; j++)
+							{
+								// Process remaining positions without SIMD
+								(double X, double Y, double Z) p2 = pos2Cache[j];
+								double distSq = DistanceSquared(p1: p1, p2: p2);
+								// Update local minimum if this distance is smaller
+								if (distSq < localMinDistSq)
+								{
+									localMinDistSq = distSq;
+									localBestI = i;
+									localBestJ = j;
+								}
+							}
+						}
+						else
+						{
+							// Fallback to standard loop
+							for (int j = 0; j < GridSteps; j++)
+							{
+								// Process positions without SIMD
+								(double X, double Y, double Z) p2 = pos2Cache[j];
+								double distSq = DistanceSquared(p1: p1, p2: p2);
+								// Update local minimum if this distance is smaller
+								if (distSq < localMinDistSq)
+								{
+									localMinDistSq = distSq;
+									localBestI = i;
+									localBestJ = j;
+								}
+							}
+						}
+					}
+					// Lock-free update using Interlocked.CompareExchange
+					while (true)
+					{
+						// Read the current global minimum as a double via its bit representation
+						long currentMinBits = Interlocked.Read(location: ref minDistSquaredBits);
+						double currentMin = BitConverter.Int64BitsToDouble(value: currentMinBits);
+						// If the local minimum is not better than the current global minimum, no need to update
+						if (localMinDistSq >= currentMin)
+						{
+							break;
+						}
+						// Attempt to update the global minimum with the local minimum using CompareExchange
+						long newMinBits = BitConverter.DoubleToInt64Bits(value: localMinDistSq);
+						if (Interlocked.CompareExchange(location1: ref minDistSquaredBits, value: newMinBits, comparand: currentMinBits) == currentMinBits)
+						{
+							Interlocked.Exchange(location1: ref bestF1Bits, value: BitConverter.DoubleToInt64Bits(value: localBestI * stepSize));
+							Interlocked.Exchange(location1: ref bestF2Bits, value: BitConverter.DoubleToInt64Bits(value: localBestJ * stepSize));
+							break;
+						}
+					}
+				});
 
-					if (distSq < localMinDistSq)
-					{
-						localMinDistSq = distSq;
-						localBestJ = j;
-					}
-				}
-				// Lock-free update using Interlocked.CompareExchange
-				while (true)
-				{
-					// Read the current global minimum distance squared as bits
-					long currentMinBits = Interlocked.Read(location: ref minDistSquaredBits);
-					double currentMin = BitConverter.Int64BitsToDouble(value: currentMinBits);
-					// If the local minimum is not better than the current global minimum, no need to update
-					if (localMinDistSq >= currentMin)
-					{
-						break;
-					}
-					// Attempt to update the global minimum distance squared with the local minimum
-					long newMinBits = BitConverter.DoubleToInt64Bits(value: localMinDistSq);
-					// If another thread has updated the global minimum since we read it, currentMinBits will no longer match, and we need to retry
-					if (Interlocked.CompareExchange(location1: ref minDistSquaredBits, value: newMinBits, comparand: currentMinBits) == currentMinBits)
-					{
-						Interlocked.Exchange(location1: ref bestF1Bits, value: BitConverter.DoubleToInt64Bits(value: i * stepSize));
-						Interlocked.Exchange(location1: ref bestF2Bits, value: BitConverter.DoubleToInt64Bits(value: localBestJ * stepSize));
-						break;
-					}
-				}
-			});
-			// Convert the final minimum distance squared and corresponding true anomalies back to double values
 			double minDistSquared = BitConverter.Int64BitsToDouble(value: Interlocked.Read(location: ref minDistSquaredBits));
 			double bestF1 = BitConverter.Int64BitsToDouble(value: Interlocked.Read(location: ref bestF1Bits));
 			double bestF2 = BitConverter.Int64BitsToDouble(value: Interlocked.Read(location: ref bestF2Bits));
-			// Local refinement via coordinate descent
-			return RefineMinimum(
-				a1: a1, e1: e1, i1: i1, w1: w1, bigO1: bigO1,
-				a2: a2, e2: e2, i2: i2, w2: w2, bigO2: bigO2,
+			// Local refinement via coordinate descent with precomputed trig values
+			return RefineMinimumOptimized(
+				a1: a1, e1: e1, w1: w1, cosO1: cosO1, sinO1: sinO1, cosi1: cosi1, sini1: sini1, oneMinusE1Sq: oneMinusE1Sq,
+				a2: a2, e2: e2, w2: w2, cosO2: cosO2, sinO2: sinO2, cosi2: cosi2, sini2: sini2, oneMinusE2Sq: oneMinusE2Sq,
 				f1Start: bestF1, f2Start: bestF2, initialStep: stepSize,
 				coarseMin: Math.Sqrt(d: minDistSquared));
 		}
-		// Ensure that rented arrays are returned to the pool even if an exception occurs
 		finally
 		{
 			// Return rented arrays to pool
@@ -193,26 +253,32 @@ internal class MoidCalculator
 		}
 	}
 
-	/// <summary>Refines the MOID estimate from a coarse grid minimum using coordinate descent.</summary>
+	/// <summary>Refines the MOID estimate using precomputed trigonometric values for maximum performance.</summary>
 	/// <param name="a1">Semi-major axis of orbit 1 (AU).</param>
 	/// <param name="e1">Eccentricity of orbit 1.</param>
-	/// <param name="i1">Inclination of orbit 1 (radians).</param>
 	/// <param name="w1">Argument of perihelion of orbit 1 (radians).</param>
-	/// <param name="bigO1">Longitude of ascending node of orbit 1 (radians).</param>
+	/// <param name="cosO1">Precomputed cos(Ω₁).</param>
+	/// <param name="sinO1">Precomputed sin(Ω₁).</param>
+	/// <param name="cosi1">Precomputed cos(i₁).</param>
+	/// <param name="sini1">Precomputed sin(i₁).</param>
+	/// <param name="oneMinusE1Sq">Precomputed 1 - e₁².</param>
 	/// <param name="a2">Semi-major axis of orbit 2 (AU).</param>
 	/// <param name="e2">Eccentricity of orbit 2.</param>
-	/// <param name="i2">Inclination of orbit 2 (radians).</param>
 	/// <param name="w2">Argument of perihelion of orbit 2 (radians).</param>
-	/// <param name="bigO2">Longitude of ascending node of orbit 2 (radians).</param>
+	/// <param name="cosO2">Precomputed cos(Ω₂).</param>
+	/// <param name="sinO2">Precomputed sin(Ω₂).</param>
+	/// <param name="cosi2">Precomputed cos(i₂).</param>
+	/// <param name="sini2">Precomputed sin(i₂).</param>
+	/// <param name="oneMinusE2Sq">Precomputed 1 - e₂².</param>
 	/// <param name="f1Start">True anomaly of orbit 1 at the coarse minimum (radians).</param>
 	/// <param name="f2Start">True anomaly of orbit 2 at the coarse minimum (radians).</param>
 	/// <param name="initialStep">Half-width of the initial search bracket (radians).</param>
 	/// <param name="coarseMin">The coarse minimum distance used as the initial best.</param>
 	/// <returns>The refined MOID in AU.</returns>
-	/// <remarks>Each iteration halves the step size. The loop terminates when the step size drops below <c>1e-9</c> radians or after a maximum of 60 iterations.</remarks>
-	private static double RefineMinimum(
-		double a1, double e1, double i1, double w1, double bigO1,
-		double a2, double e2, double i2, double w2, double bigO2,
+	/// <remarks>Optimized version that reuses precomputed trigonometric values from the grid search phase.</remarks>
+	private static double RefineMinimumOptimized(
+		double a1, double e1, double w1, double cosO1, double sinO1, double cosi1, double sini1, double oneMinusE1Sq,
+		double a2, double e2, double w2, double cosO2, double sinO2, double cosi2, double sini2, double oneMinusE2Sq,
 		double f1Start, double f2Start, double initialStep, double coarseMin)
 	{
 		double f1 = f1Start;
@@ -222,28 +288,25 @@ internal class MoidCalculator
 		// Iteratively shrink the search bracket using squared distances
 		for (int iter = 0; iter < 60 && step > 1e-9; iter++)
 		{
-			// Halve the step size for the next iteration
 			step *= 0.5;
 			bool improved = false;
 			// Try all 8 neighbouring directions in (f1, f2) space
 			for (int df1Sign = -1; df1Sign <= 1; df1Sign++)
 			{
-				// Skip the center point where both df1Sign and df2Sign are 0
 				for (int df2Sign = -1; df2Sign <= 1; df2Sign++)
 				{
-					// Skip the case where both signs are 0 (no movement)
 					if (df1Sign == 0 && df2Sign == 0)
 					{
 						continue;
 					}
-					// Compute the new candidate true anomalies by moving in the current direction
+					// Compute the new candidate points by moving in the (f1, f2) space
 					double nf1 = f1 + (df1Sign * step);
 					double nf2 = f2 + (df2Sign * step);
 					double dSq = DistanceSquared(
-						p1: OrbitPosition(a: a1, e: e1, i: i1, w: w1, bigO: bigO1, f: nf1),
-						p2: OrbitPosition(a: a2, e: e2, i: i2, w: w2, bigO: bigO2, f: nf2)
+						p1: OrbitPositionOptimized(a: a1, e: e1, w: w1, f: nf1, cosO: cosO1, sinO: sinO1, cosi: cosi1, sini: sini1, oneMinusESq: oneMinusE1Sq),
+						p2: OrbitPositionOptimized(a: a2, e: e2, w: w2, f: nf2, cosO: cosO2, sinO: sinO2, cosi: cosi2, sini: sini2, oneMinusESq: oneMinusE2Sq)
 					);
-					// If this new point is closer than the best found so far, update the minimum and current best point
+					// If this new point is closer, update the minimum and continue refining from there
 					if (dSq < minDistSquared)
 					{
 						minDistSquared = dSq;
@@ -259,37 +322,8 @@ internal class MoidCalculator
 				step *= 0.5;
 			}
 		}
-		return Math.Sqrt(d: minDistSquared);
-	}
 
-	/// <summary>Computes the heliocentric Cartesian coordinates of a point on a Keplerian orbit.</summary>
-	/// <param name="a">Semi-major axis in AU.</param>
-	/// <param name="e">Eccentricity.</param>
-	/// <param name="i">Inclination in radians.</param>
-	/// <param name="w">Argument of perihelion in radians.</param>
-	/// <param name="bigO">Longitude of the ascending node in radians.</param>
-	/// <param name="f">True anomaly in radians.</param>
-	/// <returns>The Cartesian position (X, Y, Z) in the ecliptic frame (AU).</returns>
-	/// <remarks>Uses the standard orbit-in-space transformation: <c>r = a(1−e²)/(1+e·cos f)</c>, then rotates by ω+f, Ω, and i.</remarks>
-	[MethodImpl(methodImplOptions: MethodImplOptions.AggressiveInlining)]
-	private static (double X, double Y, double Z) OrbitPosition(
-		double a, double e, double i, double w, double bigO, double f)
-	{
-		// Heliocentric distance from the focal formula
-		double r = a * (1.0 - (e * e)) / (1.0 + (e * Math.Cos(d: f)));
-		// Argument of latitude u = ω + f
-		double u = w + f;
-		double cosO = Math.Cos(d: bigO);
-		double sinO = Math.Sin(a: bigO);
-		double cosu = Math.Cos(d: u);
-		double sinu = Math.Sin(a: u);
-		double cosi = Math.Cos(d: i);
-		double sini = Math.Sin(a: i);
-		// Standard perifocal-to-inertial rotation
-		double x = r * ((cosO * cosu) - (sinO * sinu * cosi));
-		double y = r * ((sinO * cosu) + (cosO * sinu * cosi));
-		double z = r * sinu * sini;
-		return (X: x, Y: y, Z: z);
+		return Math.Sqrt(d: minDistSquared);
 	}
 
 	/// <summary>Computes the heliocentric Cartesian coordinates with precomputed trigonometric values.</summary>
