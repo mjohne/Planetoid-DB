@@ -636,7 +636,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			_ = MessageBox.Show(text: I18nStrings.NoInternetConnectionText, caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 			return;
 		}
-		using BulkInformationsDataDownloaderForm formBulkDownloader = new(planetoids: planetoidsDatabase);
+		using BulkObservationsDataDownloaderForm formBulkDownloader = new(planetoids: planetoidsDatabase);
 		formBulkDownloader.TopMost = TopMost;
 		formBulkDownloader.SetMinimum(minimum: 1);
 		formBulkDownloader.SetMaximum(maximum: planetoidsDatabase.Count);
