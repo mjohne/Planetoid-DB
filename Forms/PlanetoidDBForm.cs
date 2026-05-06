@@ -682,6 +682,16 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formMoidsOfAll.ShowDialog(owner: this);
 	}
 
+	/// <summary>Shows the MOIDs relative to minor planets form. Opens the form to calculate the MOID between two user-selected minor planets.</summary>
+	/// <remarks>Passes the full planetoids database to the form so it can populate the combo boxes with all available planetoid designations.</remarks>
+	private void ShowMoidsRelativeToMinorPlanets()
+	{
+		// Create a new instance of the MoidsRelativeToMinorPlanetsForm
+		using MoidsRelativeToMinorPlanetsForm formMoidsRelative = new(planetoids: planetoidsDatabase);
+		formMoidsRelative.TopMost = TopMost;
+		_ = formMoidsRelative.ShowDialog(owner: this);
+	}
+
 	/// <summary>Shows the Tisserand parameters of all minor planets form. Opens the form to compute Tisserand parameters for all planetoids relative to the solar system planets.</summary>
 	/// <remarks>Passes the full planetoids database to the form so it can iterate over all records.</remarks>
 	private void ShowTisserandParametersOfAllMinorPlanets()
@@ -2573,6 +2583,12 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the MOIDs of all minor planets form.</remarks>
 	private void ToolStripMenuItemMoidsOfAllMinorPlanets_Click(object sender, EventArgs e) => ShowMoidsOfAllMinorPlanets();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemMoidsRelativeToMinorPlanets. Shows the MOIDs relative to minor planets form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method opens the form for calculating the MOID between two user-selected minor planets.</remarks>
+	private void ToolStripMenuItemMoidsRelativeToMinorPlanets_Click(object sender, EventArgs e) => ShowMoidsRelativeToMinorPlanets();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemTisserandParameters. Shows the Tisserand parameters form.</summary>
 	/// <param name="sender">The event source.</param>
