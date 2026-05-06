@@ -1,5 +1,5 @@
 // This file contains the Windows Forms designer-generated code
-// for the BulkInformationsDataDownloaderForm. Do not modify this file manually.
+// for the BulkObservationsDataDownloaderForm. Do not modify this file manually.
 
 using Krypton.Toolkit;
 
@@ -14,7 +14,7 @@ namespace Planetoid_DB;
 /// <remarks>The form provides controls for specifying the range (minimum/maximum planetoid index), starting,
 /// pausing and cancelling the download, and monitoring progress, file counts, file sizes, timing, and
 /// download errors.</remarks>
-partial class BulkInformationsDataDownloaderForm
+partial class BulkObservationsDataDownloaderForm
 {
 	/// <summary>Required designer variable.</summary>
 	/// <remarks>This field stores the components used by the form.</remarks>
@@ -546,7 +546,7 @@ partial class BulkInformationsDataDownloaderForm
 		kryptonProgressBar.StateNormal.Back.ColorStyle = PaletteColorStyle.OneNote;
 		kryptonProgressBar.Values.Text = "0%";
 		//
-		// BulkInformationsDataDownloaderForm
+		// BulkObservationsDataDownloaderForm
 		//
 		AccessibleDescription = "Downloads observation data files for a range of minor planets";
 		AccessibleName = "Bulk Informations Data Downloader";
@@ -558,11 +558,11 @@ partial class BulkInformationsDataDownloaderForm
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		MaximizeBox = false;
 		MinimizeBox = false;
-		Name = "BulkInformationsDataDownloaderForm";
+		Name = "BulkObservationsDataDownloaderForm";
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Bulk Informations Data Downloader";
-		FormClosing += BulkInformationsDataDownloaderForm_FormClosing;
-		Load += BulkInformationsDataDownloaderForm_Load;
+		FormClosing += BulkObservationsDataDownloaderForm_FormClosing;
+		Load += BulkObservationsDataDownloaderForm_Load;
 		((ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);
 		tableLayoutPanel.ResumeLayout(false);
