@@ -549,7 +549,7 @@ partial class BulkInformationsDataDownloaderForm
 		// BulkInformationsDataDownloaderForm
 		//
 		AccessibleDescription = "Downloads observation data files for a range of minor planets";
-		AccessibleName = "Bulk Information Data Downloader";
+		AccessibleName = "Bulk Informations Data Downloader";
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
@@ -560,7 +560,7 @@ partial class BulkInformationsDataDownloaderForm
 		MinimizeBox = false;
 		Name = "BulkInformationsDataDownloaderForm";
 		StartPosition = FormStartPosition.CenterParent;
-		Text = "Bulk Information Data Downloader";
+		Text = "Bulk Informations Data Downloader";
 		FormClosing += BulkInformationsDataDownloaderForm_FormClosing;
 		Load += BulkInformationsDataDownloaderForm_Load;
 		((ISupportInitialize)kryptonPanelMain).EndInit();
