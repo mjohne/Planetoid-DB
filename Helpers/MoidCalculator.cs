@@ -86,6 +86,45 @@ internal class MoidCalculator
 		return results;
 	}
 
+	/// <summary>Calculates the MOID between two minor planets using their Keplerian orbital elements.</summary>
+	/// <param name="semiMajorAxis1">The semi-major axis of the first minor planet in AU.</param>
+	/// <param name="eccentricity1">The eccentricity of the first minor planet's orbit.</param>
+	/// <param name="inclinationDeg1">The inclination of the first minor planet's orbit to the ecliptic in degrees.</param>
+	/// <param name="longitudeAscendingNodeDeg1">The longitude of the ascending node of the first minor planet's orbit in degrees.</param>
+	/// <param name="argumentPerihelionDeg1">The argument of perihelion of the first minor planet's orbit in degrees.</param>
+	/// <param name="semiMajorAxis2">The semi-major axis of the second minor planet in AU.</param>
+	/// <param name="eccentricity2">The eccentricity of the second minor planet's orbit.</param>
+	/// <param name="inclinationDeg2">The inclination of the second minor planet's orbit to the ecliptic in degrees.</param>
+	/// <param name="longitudeAscendingNodeDeg2">The longitude of the ascending node of the second minor planet's orbit in degrees.</param>
+	/// <param name="argumentPerihelionDeg2">The argument of perihelion of the second minor planet's orbit in degrees.</param>
+	/// <returns>The MOID in AU between the two minor planets.</returns>
+	/// <remarks>Uses the same two-stage numerical algorithm as <see cref="CalculateMoids"/>: a coarse grid search (720 × 720 angular samples) followed by coordinate-descent refinement.</remarks>
+	public static double CalculateMoidBetweenPlanetoids(
+		double semiMajorAxis1,
+		double eccentricity1,
+		double inclinationDeg1,
+		double longitudeAscendingNodeDeg1,
+		double argumentPerihelionDeg1,
+		double semiMajorAxis2,
+		double eccentricity2,
+		double inclinationDeg2,
+		double longitudeAscendingNodeDeg2,
+		double argumentPerihelionDeg2)
+	{
+		// Convert angular elements of the first minor planet from degrees to radians
+		double i1 = inclinationDeg1 * Math.PI / 180.0;
+		double o1 = argumentPerihelionDeg1 * Math.PI / 180.0;
+		double bigO1 = longitudeAscendingNodeDeg1 * Math.PI / 180.0;
+		// Convert angular elements of the second minor planet from degrees to radians
+		double i2 = inclinationDeg2 * Math.PI / 180.0;
+		double o2 = argumentPerihelionDeg2 * Math.PI / 180.0;
+		double bigO2 = longitudeAscendingNodeDeg2 * Math.PI / 180.0;
+		// Calculate the MOID between the two orbits using the double-grid search algorithm
+		return CalculateMoid(
+			a1: semiMajorAxis1, e1: eccentricity1, i1: i1, w1: o1, bigO1: bigO1,
+			a2: semiMajorAxis2, e2: eccentricity2, i2: i2, w2: o2, bigO2: bigO2);
+	}
+
 	/// <summary>Computes the MOID between two Keplerian orbits using a double-grid search with local refinement.</summary>
 	/// <param name="a1">Semi-major axis of orbit 1 (AU).</param>
 	/// <param name="e1">Eccentricity of orbit 1.</param>
