@@ -1,4 +1,4 @@
-// This file contains the implementation of BulkInformationsDataDownloaderForm,
+// This file contains the implementation of BulkObservationsDataDownloaderForm,
 // which provides bulk downloading of MPC observations data files for a configurable
 // range of minor planets with start, pause, resume and cancel support.
 
@@ -14,12 +14,9 @@ using System.Text.RegularExpressions;
 namespace Planetoid_DB;
 
 /// <summary>Form for bulk-downloading MPC observations data files for a range of minor planets.</summary>
-/// <remarks>The form iterates over all planetoid database records from the configured minimum to the maximum
-/// index, fetches the observations HTML page for each, extracts the download link, and saves the data file
-/// to <c>%USERPROFILE%\Planetoid-DB\Observations\Data</c>.  The download can be started, paused, resumed
-/// and cancelled at any time using the toolbar buttons.</remarks>
+/// <remarks>The form iterates over all planetoid database records from the configured minimum to the maximum index, fetches the observations HTML page for each, extracts the download link, and saves the data file to <c>%USERPROFILE%\Planetoid-DB\Observations\Data</c>.  The download can be started, paused, resumed and cancelled at any time using the toolbar buttons.</remarks>
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class BulkInformationsDataDownloaderForm : BaseKryptonForm
+public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 {
 	/// <summary>NLog logger instance for the class.</summary>
 	/// <remarks>This logger is used to log messages for the form.</remarks>
@@ -54,13 +51,11 @@ public partial class BulkInformationsDataDownloaderForm : BaseKryptonForm
 	private CancellationTokenSource? _cancellationTokenSource;
 
 	/// <summary>Indicates whether the download is currently paused.</summary>
-	/// <remarks>Checked before processing each planetoid. Set to <c>true</c> by the Start/Pause button
-	/// when the download is active, and back to <c>false</c> on resume.</remarks>
+	/// <remarks>Checked before processing each planetoid. Set to <c>true</c> by the Start/Pause button when the download is active, and back to <c>false</c> on resume.</remarks>
 	private volatile bool _isPaused;
 
 	/// <summary>Used to signal that a paused download should resume.</summary>
-	/// <remarks>Created when the download is paused and completed (set) when the user presses the
-	/// Start/Resume button.</remarks>
+	/// <remarks>Created when the download is paused and completed (set) when the user presses the Start/Resume button.</remarks>
 	private TaskCompletionSource<bool>? _resumeTcs;
 
 	/// <summary>Stopwatch used to measure total elapsed time since the download started.</summary>
@@ -80,8 +75,7 @@ public partial class BulkInformationsDataDownloaderForm : BaseKryptonForm
 	private long _currentFileSize;
 
 	/// <summary>Number of download errors that occurred during the current session.</summary>
-	/// <remarks>Incremented whenever fetching or saving a file fails. The failed file is skipped and
-	/// downloading continues with the next planetoid.</remarks>
+	/// <remarks>Incremented whenever fetching or saving a file fails. The failed file is skipped and downloading continues with the next planetoid.</remarks>
 	private int _errorCount;
 
 	/// <summary>Gets the status label used for displaying information in the status bar.</summary>
@@ -95,11 +89,10 @@ public partial class BulkInformationsDataDownloaderForm : BaseKryptonForm
 
 	#region constructor
 
-	/// <summary>Initializes a new instance of the <see cref="BulkInformationsDataDownloaderForm"/> class.</summary>
+	/// <summary>Initializes a new instance of the <see cref="BulkObservationsDataDownloaderForm"/> class.</summary>
 	/// <param name="planetoids">The list of all planetoid database records to process.</param>
-	/// <remarks>Each element in <paramref name="planetoids"/> must be a raw MPCORB-format string.
-	/// The form displays minimum/maximum spinners pre-populated with 1 and the count of records.</remarks>
-	public BulkInformationsDataDownloaderForm(IReadOnlyList<string> planetoids)
+	/// <remarks>Each element in <paramref name="planetoids"/> must be a raw MPCORB-format string. The form displays minimum/maximum spinners pre-populated with 1 and the count of records.</remarks>
+	public BulkObservationsDataDownloaderForm(IReadOnlyList<string> planetoids)
 	{
 		InitializeComponent();
 		_planetoids = planetoids;
@@ -154,8 +147,7 @@ public partial class BulkInformationsDataDownloaderForm : BaseKryptonForm
 
 	/// <summary>Derives a safe local filename from the given absolute URL.</summary>
 	/// <param name="absoluteUrl">The fully-qualified URL whose filename part is extracted.</param>
-	/// <returns>The last path segment of the URL, or a timestamped fallback name when the segment is empty
-	/// or contains only whitespace.</returns>
+	/// <returns>The last path segment of the URL, or a timestamped fallback name when the segment is empty or contains only whitespace.</returns>
 	private static string GetFileNameFromUrl(string absoluteUrl)
 	{
 		// Use Uri to parse the path and extract only the last segment
@@ -382,7 +374,7 @@ public partial class BulkInformationsDataDownloaderForm : BaseKryptonForm
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 	/// <remarks>The spinner bounds are clamped to the number of loaded planetoid records.</remarks>
-	private void BulkInformationsDataDownloaderForm_Load(object sender, EventArgs e)
+	private void BulkObservationsDataDownloaderForm_Load(object sender, EventArgs e)
 	{
 		ClearStatusBar(label: labelInformation);
 		// Initialise spinner maximum to the number of loaded records (if not already set by the caller)
@@ -402,7 +394,7 @@ public partial class BulkInformationsDataDownloaderForm : BaseKryptonForm
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="FormClosingEventArgs"/> instance containing the event data.</param>
 	/// <remarks>Ensures the background download and timer are stopped when the form is closed.</remarks>
-	private void BulkInformationsDataDownloaderForm_FormClosing(object sender, FormClosingEventArgs e)
+	private void BulkObservationsDataDownloaderForm_FormClosing(object sender, FormClosingEventArgs e)
 	{
 		// Signal cancellation to the running download
 		_cancellationTokenSource?.Cancel();
@@ -515,8 +507,7 @@ public partial class BulkInformationsDataDownloaderForm : BaseKryptonForm
 	/// <summary>Handles the Click event of the Cancel button. Cancels the active download.</summary>
 	/// <param name="sender">Event source (the button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-	/// <remarks>If the download is currently paused, the pause is released first so the task can
-	/// observe the cancellation token.</remarks>
+	/// <remarks>If the download is currently paused, the pause is released first so the task can observe the cancellation token.</remarks>
 	private void ButtonCancel_Click(object sender, EventArgs e)
 	{
 		// If currently paused, unblock the awaiting task before cancelling
