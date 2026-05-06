@@ -202,6 +202,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOrbitElementsGrouping = new ToolStripMenuItem();
 		toolStripMenuItemAsteroidFamiliesDetection = new ToolStripMenuItem();
 		toolStripMenuItemObservations = new ToolStripMenuItem();
+		toolStripMenuItemBulkInformationsDataDownloader = new ToolStripMenuItem();
 		toolStripMenuItemMoids = new ToolStripMenuItem();
 		toolStripMenuItemMoidsOfAllMinorPlanets = new ToolStripMenuItem();
 		toolStripMenuItemTisserandParametersOfAllMinorPlanets = new ToolStripMenuItem();
@@ -2782,7 +2783,7 @@ partial class PlanetoidDbForm
 		menuitemTools.AccessibleName = "Tools";
 		menuitemTools.AccessibleRole = AccessibleRole.MenuPopup;
 		menuitemTools.AutoToolTip = true;
-		menuitemTools.DropDownItems.AddRange(new ToolStripItem[] { menuitemDerivedOrbitElements, menuitemFilter, toolStripSeparatorTools1, menuitemRecords, toolStripSeparator10, menuitemDistribution, toolStripSeparatorTools2, menuitemDatabaseInformation, menuitemTableMode, menuitemTerminology, toolStripSeparator16, toolStripMenuItemOrbitalResonances, toolStripMenuItemOrbitalResonancesOfAllMinorPlanets, toolStripMenuItemOrbitElementsGrouping, toolStripMenuItemAsteroidFamiliesDetection, toolStripSeparator18, toolStripMenuItemObservations, toolStripSeparator17, toolStripMenuItemMoids, toolStripMenuItemMoidsOfAllMinorPlanets, toolStripMenuItemTisserandParameters, toolStripMenuItemTisserandParametersOfAllMinorPlanets });
+		menuitemTools.DropDownItems.AddRange(new ToolStripItem[] { menuitemDerivedOrbitElements, menuitemFilter, toolStripSeparatorTools1, menuitemRecords, toolStripSeparator10, menuitemDistribution, toolStripSeparatorTools2, menuitemDatabaseInformation, menuitemTableMode, menuitemTerminology, toolStripSeparator16, toolStripMenuItemOrbitalResonances, toolStripMenuItemOrbitalResonancesOfAllMinorPlanets, toolStripMenuItemOrbitElementsGrouping, toolStripMenuItemAsteroidFamiliesDetection, toolStripSeparator18, toolStripMenuItemObservations, toolStripMenuItemBulkInformationsDataDownloader, toolStripSeparator17, toolStripMenuItemMoids, toolStripMenuItemMoidsOfAllMinorPlanets, toolStripMenuItemTisserandParameters, toolStripMenuItemTisserandParametersOfAllMinorPlanets });
 		menuitemTools.Name = "menuitemTools";
 		menuitemTools.Size = new Size(46, 24);
 		menuitemTools.Text = "&Tools";
@@ -2974,6 +2975,21 @@ partial class PlanetoidDbForm
 		toolStripMenuItemObservations.Click += ToolStripMenuItemObservations_Click;
 		toolStripMenuItemObservations.MouseEnter += Control_Enter;
 		toolStripMenuItemObservations.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemBulkInformationsDataDownloader
+		// 
+		toolStripMenuItemBulkInformationsDataDownloader.AccessibleDescription = "Opens the bulk observations data downloader for a range of minor planets";
+		toolStripMenuItemBulkInformationsDataDownloader.AccessibleName = "Bulk observations data downloader";
+		toolStripMenuItemBulkInformationsDataDownloader.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemBulkInformationsDataDownloader.AutoToolTip = true;
+		toolStripMenuItemBulkInformationsDataDownloader.Image = FatcowIcons16px.fatcow_bullet_arrow_down_16px;
+		toolStripMenuItemBulkInformationsDataDownloader.Name = "toolStripMenuItemBulkInformationsDataDownloader";
+		toolStripMenuItemBulkInformationsDataDownloader.Size = new Size(277, 22);
+		toolStripMenuItemBulkInformationsDataDownloader.Text = "&Bulk observations data downloader";
+		toolStripMenuItemBulkInformationsDataDownloader.ToolTipText = "Downloads observation data files for a range of minor planets";
+		toolStripMenuItemBulkInformationsDataDownloader.Click += ToolStripMenuItemBulkInformationsDataDownloader_Click;
+		toolStripMenuItemBulkInformationsDataDownloader.MouseEnter += Control_Enter;
+		toolStripMenuItemBulkInformationsDataDownloader.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemMoids
 		// 
@@ -4404,6 +4420,7 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem toolStripMenuItemAsteroidFamiliesDetection;
 	private ToolStripMenuItem toolStripMenuItemOrbitalResonancesOfAllMinorPlanets;
 	private ToolStripMenuItem toolStripMenuItemObservations;
+	private ToolStripMenuItem toolStripMenuItemBulkInformationsDataDownloader;
 	private ToolStripMenuItem toolStripMenuItemMoids;
 	private ToolStripMenuItem toolStripMenuItemMoidsOfAllMinorPlanets;
 	private ToolStripMenuItem toolStripMenuItemTisserandParameters;

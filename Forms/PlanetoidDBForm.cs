@@ -625,6 +625,25 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formObservations.ShowDialog();
 	}
 
+	/// <summary>Shows the bulk observations data downloader form. Opens the form to download observation data files
+	/// for a range of minor planets from the MPC website and save them to disk.</summary>
+	/// <remarks>Passes the full planetoids database to the form and pre-populates the minimum (1) and maximum
+	/// (database record count) spinners.</remarks>
+	private void ShowBulkInformationsDataDownloader()
+	{
+		if (!NetworkInterface.GetIsNetworkAvailable())
+		{
+			_ = MessageBox.Show(text: I18nStrings.NoInternetConnectionText, caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			return;
+		}
+		using BulkInformationsDataDownloaderForm formBulkDownloader = new(planetoids: planetoidsDatabase);
+		formBulkDownloader.TopMost = TopMost;
+		formBulkDownloader.SetMinimum(minimum: 1);
+		formBulkDownloader.SetMaximum(maximum: planetoidsDatabase.Count);
+		_ = formBulkDownloader.ShowDialog(owner: this);
+	}
+
+
 	/// <summary>Shows the orbital resonances form for the current planetoid.</summary>
 	/// <remarks>Parses the semi-major axis from the UI label and opens the <see cref="OrbitalResonancesOfOneMinorPlanetForm"/>.</remarks>
 	private void ShowOrbitElementsGrouping()
@@ -2512,6 +2531,12 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the observations form.</remarks>
 	private void ToolStripMenuItemObservations_Click(object sender, EventArgs e) => ShowObservations();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemBulkInformationsDataDownloader. Shows the bulk observations data downloader form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the bulk informations data downloader form.</remarks>
+	private void ToolStripMenuItemBulkInformationsDataDownloader_Click(object sender, EventArgs e) => ShowBulkInformationsDataDownloader();
 
 	/// <summary>Handles the Click event of the ToolStripButtonObservations. Shows the observations form.</summary>
 	/// <param name="sender">The event source.</param>
