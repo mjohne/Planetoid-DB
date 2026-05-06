@@ -1,7 +1,6 @@
-// This file is used by Code Analysis to maintain SuppressMessage
-// attributes that are applied to this project.
-// Project-level suppressions either have no target or are given
-// a specific target and scoped to a namespace, type, member, etc.
+// This file contains the implementation of BulkInformationsDataDownloaderForm,
+// which provides bulk downloading of MPC observations data files for a configurable
+// range of minor planets with start, pause, resume and cancel support.
 
 using NLog;
 
@@ -19,7 +18,6 @@ namespace Planetoid_DB;
 /// index, fetches the observations HTML page for each, extracts the download link, and saves the data file
 /// to <c>%USERPROFILE%\Planetoid-DB\Observations\Data</c>.  The download can be started, paused, resumed
 /// and cancelled at any time using the toolbar buttons.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class BulkInformationsDataDownloaderForm : BaseKryptonForm
 {

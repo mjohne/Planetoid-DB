@@ -1,7 +1,5 @@
-// This file is used by Code Analysis to maintain SuppressMessage
-// attributes that are applied to this project.
-// Project-level suppressions either have no target or are given
-// a specific target and scoped to a namespace, type, member, etc.
+// This file contains the Windows Forms designer-generated code
+// for the BulkInformationsDataDownloaderForm. Do not modify this file manually.
 
 using Krypton.Toolkit;
 
@@ -551,7 +549,7 @@ partial class BulkInformationsDataDownloaderForm
 		// BulkInformationsDataDownloaderForm
 		//
 		AccessibleDescription = "Downloads observation data files for a range of minor planets";
-		AccessibleName = "Bulk Informations Data Downloader";
+		AccessibleName = "Bulk Information Data Downloader";
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
@@ -562,7 +560,7 @@ partial class BulkInformationsDataDownloaderForm
 		MinimizeBox = false;
 		Name = "BulkInformationsDataDownloaderForm";
 		StartPosition = FormStartPosition.CenterParent;
-		Text = "Bulk Informations Data Downloader";
+		Text = "Bulk Information Data Downloader";
 		FormClosing += BulkInformationsDataDownloaderForm_FormClosing;
 		Load += BulkInformationsDataDownloaderForm_Load;
 		((ISupportInitialize)kryptonPanelMain).EndInit();
