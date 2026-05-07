@@ -114,7 +114,7 @@ public class BaseKryptonForm : KryptonForm
 	/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>This method is called when the mouse pointer enters a control or the control receives focus.</remarks>
-	protected void Control_Enter(object sender, EventArgs e)
+	protected void Control_Enter(object? sender, EventArgs e)
 	{
 		// Check if the sender is null
 		ArgumentNullException.ThrowIfNull(argument: sender);
@@ -142,7 +142,7 @@ public class BaseKryptonForm : KryptonForm
 	/// <param name="sender">Event source.</param>
 	/// <param name="e">Event arguments.</param>
 	/// <remarks>This method is called when the mouse pointer leaves a control or the control loses focus.</remarks>
-	protected void Control_Leave(object sender, EventArgs e)
+	protected void Control_Leave(object? sender, EventArgs e)
 	{
 		// Check if the status label is not null
 		if (StatusLabel != null)

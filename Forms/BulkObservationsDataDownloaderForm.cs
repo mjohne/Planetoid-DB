@@ -34,13 +34,9 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	/// <remarks>Files are saved as <c>%USERPROFILE%\Planetoid-DB\Observations\Data\&lt;filename&gt;</c>.</remarks>
 	private const string ObservationsDataSubPath = "Planetoid-DB/Observations/Data";
 
-	/// <summary>Shared <see cref="HttpClient"/> for HTTP requests. Reused to avoid socket exhaustion.</summary>
-	/// <remarks>This <see cref="HttpClient"/> instance is shared across the application to improve performance and reduce resource usage.</remarks>
-	private static readonly HttpClient httpClient = new()
-	{
-		// Set a reasonable timeout for HTTP requests to prevent hanging indefinitely
-		Timeout = TimeSpan.FromSeconds(value: 60)
-	};
+	/// <summary><see cref="HttpClient"/> instance for HTTP requests.</summary>
+	/// <remarks>This <see cref="HttpClient"/> instance is initialized in the constructor and disposed when the form closes.</remarks>
+	private readonly HttpClient _httpClient;
 
 	/// <summary>The read-only list of raw MPCORB database records to process.</summary>
 	/// <remarks>Each element is one line from the MPCORB file. Passed in by the caller via the constructor.</remarks>
@@ -49,6 +45,14 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	/// <summary>Cancellation token source for the running download task.</summary>
 	/// <remarks>Set to <c>null</c> when no download is running.</remarks>
 	private CancellationTokenSource? _cancellationTokenSource;
+
+	/// <summary>The currently running download task.</summary>
+	/// <remarks>Used to ensure proper cleanup by waiting for the task to complete before disposing resources.</remarks>
+	private Task? _downloadTask;
+
+	/// <summary>Indicates whether the form is being disposed.</summary>
+	/// <remarks>Checked before HttpClient operations to prevent ObjectDisposedException.</remarks>
+	private volatile bool _isDisposing;
 
 	/// <summary>Indicates whether the download is currently paused.</summary>
 	/// <remarks>Checked before processing each planetoid. Set to <c>true</c> by the Start/Pause button when the download is active, and back to <c>false</c> on resume.</remarks>
@@ -100,6 +104,11 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	{
 		InitializeComponent();
 		_planetoids = planetoids;
+		// Initialize HttpClient with reasonable timeout
+		_httpClient = new HttpClient
+		{
+			Timeout = TimeSpan.FromSeconds(value: 60)
+		};
 		// Configure UI timer (fires every second to update elapsed/estimated time labels)
 		_uiTimer = new System.Windows.Forms.Timer { Interval = 1000 };
 		_uiTimer.Tick += UiTimer_Tick;
@@ -347,6 +356,11 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 				string currentUrl = string.Empty;
 				try
 				{
+					// Check if we're disposing before starting HTTP operations
+					if (_isDisposing)
+					{
+						token.ThrowIfCancellationRequested();
+					}
 					// Build the MPC query URL for this object
 					string pageUrl = MpcBaseUrl + Uri.EscapeDataString(stringToEscape: packedNumber);
 					currentUrl = pageUrl;
@@ -354,7 +368,7 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 					UpdateStatusLabels(status: statusMsg, downloaded: downloaded, total: total);
 					logger.Debug(message: statusMsg);
 					// Fetch the HTML page
-					string html = await httpClient.GetStringAsync(requestUri: pageUrl, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: true);
+					string html = await _httpClient.GetStringAsync(requestUri: pageUrl, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: true);
 					// Locate the Observations section heading
 					int observationsHeadingIndex = html.IndexOf(value: "<h2>Observations</h2>", comparisonType: StringComparison.Ordinal);
 					if (observationsHeadingIndex < 0)
@@ -384,8 +398,13 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 					string downloadStatus = $"Downloading: {absoluteUrl}";
 					UpdateStatusLabels(status: downloadStatus, downloaded: downloaded, total: total);
 					logger.Debug(message: downloadStatus);
+					// Check if we're disposing before starting download
+					if (_isDisposing)
+					{
+						token.ThrowIfCancellationRequested();
+					}
 					// Download the file and save it to disk
-					using HttpResponseMessage response = await httpClient.GetAsync(requestUri: absoluteUrl, completionOption: HttpCompletionOption.ResponseHeadersRead, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: true);
+					using HttpResponseMessage response = await _httpClient.GetAsync(requestUri: absoluteUrl, completionOption: HttpCompletionOption.ResponseHeadersRead, cancellationToken: token).ConfigureAwait(continueOnCapturedContext: true);
 					_ = response.EnsureSuccessStatusCode();
 					// Track file size for the status display
 					_currentFileSize = response.Content.Headers.ContentLength ?? 0;
@@ -407,6 +426,11 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 				{
 					// Propagate cancellation so the outer try/catch can handle it
 					throw;
+				}
+				catch (ObjectDisposedException) when (_isDisposing)
+				{
+					// HttpClient was disposed during shutdown - treat as cancellation
+					throw new OperationCanceledException();
 				}
 				catch (Exception ex)
 				{
@@ -474,20 +498,16 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	/// <summary>Handles the FormClosing event. Cancels any active download and disposes resources.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="FormClosingEventArgs"/> instance containing the event data.</param>
-	/// <remarks>Ensures the background download and timer are stopped when the form is closed.</remarks>
+	/// <remarks>Ensures the background download is stopped when the form is closed. Resources are disposed in the Dispose method.</remarks>
 	private void BulkObservationsDataDownloaderForm_FormClosing(object sender, FormClosingEventArgs e)
 	{
 		// Signal cancellation to the running download
 		_cancellationTokenSource?.Cancel();
-		_cancellationTokenSource?.Dispose();
-		_cancellationTokenSource = null;
 		// Resume any awaiting pause so the download task can observe the cancellation
 		_isPaused = false;
 		_resumeTcs?.TrySetResult(result: true);
-		_resumeTcs = null;
-		// Stop and dispose the UI timer
+		// Stop the UI timer
 		_uiTimer.Stop();
-		_uiTimer.Dispose();
 	}
 
 	#endregion
@@ -558,7 +578,8 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 		// Run the download in a background task to keep the UI responsive
 		try
 		{
-			await DownloadAllAsync(token: token).ConfigureAwait(continueOnCapturedContext: true);
+			_downloadTask = DownloadAllAsync(token: token);
+			await _downloadTask.ConfigureAwait(continueOnCapturedContext: true);
 		}
 		// Handle cancellation gracefully
 		catch (OperationCanceledException)
@@ -586,6 +607,7 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 			_cancellationTokenSource = null;
 			_isPaused = false;
 			_resumeTcs = null;
+			_downloadTask = null;
 		}
 	}
 
