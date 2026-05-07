@@ -78,6 +78,10 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	/// <remarks>Incremented whenever fetching or saving a file fails. The failed file is skipped and downloading continues with the next planetoid.</remarks>
 	private int _errorCount;
 
+	/// <summary>In-memory list of detailed download errors for the current session.</summary>
+	/// <remarks>Cleared automatically whenever a new bulk download is started.</remarks>
+	private readonly List<BulkObservationsDownloadErrorEntry> _downloadErrors = [];
+
 	/// <summary>Gets the status label used for displaying information in the status bar.</summary>
 	/// <remarks>Overrides the base class property to return the form-specific status label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
@@ -219,6 +223,20 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 		return $"observation_{DateTime.Now:yyyyMMdd_HHmmss}.txt";
 	}
 
+	/// <summary>Adds a detailed error log entry and updates the error counter.</summary>
+	/// <param name="url">The URL that was being processed when the error occurred.</param>
+	/// <param name="errorType">The high-level type/category of the error.</param>
+	/// <param name="errorDescription">A descriptive explanation of the error.</param>
+	private void AddDownloadError(string url, string errorType, string errorDescription)
+	{
+		_errorCount++;
+		_downloadErrors.Add(new BulkObservationsDownloadErrorEntry(
+			Timestamp: DateTime.Now,
+			Url: string.IsNullOrWhiteSpace(value: url) ? "-" : url,
+			ErrorType: errorType,
+			ErrorDescription: errorDescription));
+	}
+
 	/// <summary>Updates the progress bar percentage and taskbar progress for the given file counts.</summary>
 	/// <param name="downloaded">Number of successfully processed files so far.</param>
 	/// <param name="total">Total number of files to process.</param>
@@ -326,10 +344,12 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 					continue;
 				}
 				// Attempt to download and save the observations file for this planetoid
+				string currentUrl = string.Empty;
 				try
 				{
 					// Build the MPC query URL for this object
 					string pageUrl = MpcBaseUrl + Uri.EscapeDataString(stringToEscape: packedNumber);
+					currentUrl = pageUrl;
 					string statusMsg = $"Loading page: {pageUrl}";
 					UpdateStatusLabels(status: statusMsg, downloaded: downloaded, total: total);
 					logger.Debug(message: statusMsg);
@@ -340,7 +360,7 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 					if (observationsHeadingIndex < 0)
 					{
 						logger.Warn(message: $"No Observations section found for '{packedNumber}'.");
-						_errorCount++;
+						AddDownloadError(url: currentUrl, errorType: "Missing observations section", errorDescription: $"No observations section found for '{packedNumber}'.");
 						UpdateStatusLabels(status: $"No observations section for {packedNumber}", downloaded: downloaded, total: total);
 						continue;
 					}
@@ -350,13 +370,14 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 					if (!downloadMatch.Success)
 					{
 						logger.Warn(message: $"Download link not found for '{packedNumber}'.");
-						_errorCount++;
+						AddDownloadError(url: currentUrl, errorType: "Missing download link", errorDescription: $"Download link not found for '{packedNumber}'.");
 						UpdateStatusLabels(status: $"Download link not found for {packedNumber}", downloaded: downloaded, total: total);
 						continue;
 					}
 					// Resolve the relative URL to an absolute URL
 					string relativeUrl = downloadMatch.Groups[groupnum: 1].Value;
 					string absoluteUrl = ResolveUrl(baseUrl: MpcRootUrl, relativeUrl: relativeUrl);
+					currentUrl = absoluteUrl;
 					// Derive the local filename from the absolute URL
 					string fileName = GetFileNameFromUrl(absoluteUrl: absoluteUrl);
 					string localFilePath = Path.Combine(targetDirectory, fileName);
@@ -389,7 +410,7 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 				}
 				catch (Exception ex)
 				{
-					_errorCount++;
+					AddDownloadError(url: currentUrl, errorType: ex.GetType().Name, errorDescription: ex.Message);
 					logger.Error(exception: ex, message: $"Error downloading observations for '{packedNumber}': {ex.Message}");
 					UpdateStatusLabels(status: $"Error for {packedNumber}: {ex.Message}", downloaded: downloaded, total: total);
 				}
@@ -524,6 +545,7 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 			return;
 		}
 		// Start a new download session
+		_downloadErrors.Clear();
 		ResetStatusLabels();
 		_cancellationTokenSource = new CancellationTokenSource();
 		CancellationToken token = _cancellationTokenSource.Token;
@@ -584,6 +606,15 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 		_cancellationTokenSource?.Cancel();
 		buttonCancel.Enabled = false;
 		SetStatusBar(label: labelInformation, text: "Cancelling…");
+	}
+
+	/// <summary>Handles the Click event of the error log button and displays all captured download errors.</summary>
+	/// <param name="sender">Event source (the button).</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+	private void ButtonErrorLog_Click(object sender, EventArgs e)
+	{
+		using BulkObservationsDownloadErrorsForm form = new(entries: _downloadErrors);
+		_ = form.ShowDialog(owner: this);
 	}
 
 	/// <summary>Handles the Click event to export the output as a text file.</summary>
