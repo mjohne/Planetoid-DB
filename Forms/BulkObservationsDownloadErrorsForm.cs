@@ -1,7 +1,5 @@
-// This file is used by Code Analysis to maintain SuppressMessage
-// attributes that are applied to this project.
-// Project-level suppressions either have no target or are given
-// a specific target and scoped to a namespace, type, member, etc.
+// Defines the bulk observations download error entry record and
+// the dialog form used to display bulk download errors to the user.
 
 using Planetoid_DB.Resources;
 
