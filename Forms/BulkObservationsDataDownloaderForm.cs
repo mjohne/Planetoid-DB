@@ -78,10 +78,6 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	/// <remarks>Incremented whenever fetching or saving a file fails. The failed file is skipped and downloading continues with the next planetoid.</remarks>
 	private int _errorCount;
 
-	/// <summary>Lock object for thread-safe counter updates.</summary>
-	/// <remarks>Protects _totalBytesDownloaded, _errorCount, and progress updates from concurrent access.</remarks>
-	private readonly object _lockObject = new();
-
 	/// <summary>Gets the status label used for displaying information in the status bar.</summary>
 	/// <remarks>Overrides the base class property to return the form-specific status label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;

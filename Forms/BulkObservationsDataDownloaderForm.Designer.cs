@@ -219,6 +219,8 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsText.Size = new Size(201, 22);
 		toolStripMenuItemSaveAsText.Text = "Save as &text";
 		toolStripMenuItemSaveAsText.Click += ToolStripMenuItemSaveAsText_Click;
+		toolStripMenuItemSaveAsText.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsText.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsLatex
 		// 
@@ -231,6 +233,8 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsLatex.Size = new Size(201, 22);
 		toolStripMenuItemSaveAsLatex.Text = "Save as &Latex";
 		toolStripMenuItemSaveAsLatex.Click += ToolStripMenuItemSaveAsLatex_Click;
+		toolStripMenuItemSaveAsLatex.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsLatex.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsMarkdown
 		// 
@@ -243,6 +247,8 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsMarkdown.Size = new Size(201, 22);
 		toolStripMenuItemSaveAsMarkdown.Text = "Save as &Markdown";
 		toolStripMenuItemSaveAsMarkdown.Click += ToolStripMenuItemSaveAsMarkdown_Click;
+		toolStripMenuItemSaveAsMarkdown.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsMarkdown.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsAsciiDoc
 		// 
@@ -255,6 +261,8 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsAsciiDoc.Size = new Size(201, 22);
 		toolStripMenuItemSaveAsAsciiDoc.Text = "Save as &AsciiDoc";
 		toolStripMenuItemSaveAsAsciiDoc.Click += ToolStripMenuItemSaveAsAsciiDoc_Click;
+		toolStripMenuItemSaveAsAsciiDoc.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsAsciiDoc.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsReStructuredText
 		// 
@@ -267,6 +275,8 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsReStructuredText.Size = new Size(201, 22);
 		toolStripMenuItemSaveAsReStructuredText.Text = "Save as &reStructuredText";
 		toolStripMenuItemSaveAsReStructuredText.Click += ToolStripMenuItemSaveAsReStructuredText_Click;
+		toolStripMenuItemSaveAsReStructuredText.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsReStructuredText.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsTextile
 		// 
@@ -279,6 +289,8 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsTextile.Size = new Size(201, 22);
 		toolStripMenuItemSaveAsTextile.Text = "Save as Te&xtile";
 		toolStripMenuItemSaveAsTextile.Click += ToolStripMenuItemSaveAsTextile_Click;
+		toolStripMenuItemSaveAsTextile.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTextile.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemWriterDocuments
 		// 
@@ -305,6 +317,8 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsWord.Size = new Size(257, 22);
 		toolStripMenuItemSaveAsWord.Text = "Save as &Word Text (DOCX)";
 		toolStripMenuItemSaveAsWord.Click += ToolStripMenuItemSaveAsWord_Click;
+		toolStripMenuItemSaveAsWord.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsWord.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsOdt
 		// 
@@ -317,6 +331,8 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsOdt.Size = new Size(257, 22);
 		toolStripMenuItemSaveAsOdt.Text = "Save as &OpenDocument Text (ODT)";
 		toolStripMenuItemSaveAsOdt.Click += ToolStripMenuItemSaveAsOdt_Click;
+		toolStripMenuItemSaveAsOdt.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsOdt.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsRtf
 		// 
@@ -329,6 +345,8 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsRtf.Size = new Size(257, 22);
 		toolStripMenuItemSaveAsRtf.Text = "Save as &Rich Text Format (RTF)";
 		toolStripMenuItemSaveAsRtf.Click += ToolStripMenuItemSaveAsRtf_Click;
+		toolStripMenuItemSaveAsRtf.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsRtf.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsAbiword
 		// 
@@ -341,6 +359,8 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsAbiword.Size = new Size(257, 22);
 		toolStripMenuItemSaveAsAbiword.Text = "Save as &Abiword file (ABW)";
 		toolStripMenuItemSaveAsAbiword.Click += ToolStripMenuItemSaveAsAbiword_Click;
+		toolStripMenuItemSaveAsAbiword.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsAbiword.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsWps
 		// 
@@ -353,6 +373,8 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsWps.Size = new Size(257, 22);
 		toolStripMenuItemSaveAsWps.Text = "Save as W&PS Office Writer (WPS)";
 		toolStripMenuItemSaveAsWps.Click += ToolStripMenuItemSaveAsWps_Click;
+		toolStripMenuItemSaveAsWps.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsWps.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSpreadsheetDocuments
 		// 
@@ -379,6 +401,8 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsExcel.Size = new Size(301, 22);
 		toolStripMenuItemSaveAsExcel.Text = "Save as &Excel Spreadsheet (XLSX)";
 		toolStripMenuItemSaveAsExcel.Click += ToolStripMenuItemSaveAsExcel_Click;
+		toolStripMenuItemSaveAsExcel.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsExcel.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsOds
 		// 
@@ -391,6 +415,8 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsOds.Size = new Size(301, 22);
 		toolStripMenuItemSaveAsOds.Text = "Save as &OpenDocument Spreadsheet (ODS)";
 		toolStripMenuItemSaveAsOds.Click += ToolStripMenuItemSaveAsOds_Click;
+		toolStripMenuItemSaveAsOds.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsOds.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsCsv
 		// 
@@ -403,6 +429,8 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsCsv.Size = new Size(301, 22);
 		toolStripMenuItemSaveAsCsv.Text = "Save as &Comma separated value (CSV)";
 		toolStripMenuItemSaveAsCsv.Click += ToolStripMenuItemSaveAsCsv_Click;
+		toolStripMenuItemSaveAsCsv.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsCsv.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsTsv
 		// 
@@ -415,6 +443,8 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsTsv.Size = new Size(301, 22);
 		toolStripMenuItemSaveAsTsv.Text = "Save as &Tabulator separated value (TSV)";
 		toolStripMenuItemSaveAsTsv.Click += ToolStripMenuItemSaveAsTsv_Click;
+		toolStripMenuItemSaveAsTsv.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTsv.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsPsv
 		// 
@@ -427,6 +457,8 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsPsv.Size = new Size(301, 22);
 		toolStripMenuItemSaveAsPsv.Text = "Save as &Pipe separated value (PSV)";
 		toolStripMenuItemSaveAsPsv.Click += ToolStripMenuItemSaveAsPsv_Click;
+		toolStripMenuItemSaveAsPsv.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsPsv.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsEt
 		// 
@@ -439,6 +471,8 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsEt.Size = new Size(301, 22);
 		toolStripMenuItemSaveAsEt.Text = "Save as &WPS Office Spreadsheet (ET)";
 		toolStripMenuItemSaveAsEt.Click += ToolStripMenuItemSaveAsEt_Click;
+		toolStripMenuItemSaveAsEt.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsEt.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemXmlDocuments
 		// 
@@ -462,9 +496,11 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsHtml.AutoToolTip = true;
 		toolStripMenuItemSaveAsHtml.Image = FatcowIcons16px.fatcow_page_white_code_16px;
 		toolStripMenuItemSaveAsHtml.Name = "toolStripMenuItemSaveAsHtml";
-		toolStripMenuItemSaveAsHtml.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsHtml.Size = new Size(163, 22);
 		toolStripMenuItemSaveAsHtml.Text = "Save as &HTML";
 		toolStripMenuItemSaveAsHtml.Click += ToolStripMenuItemSaveAsHtml_Click;
+		toolStripMenuItemSaveAsHtml.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsHtml.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsXml
 		// 
@@ -474,9 +510,11 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsXml.AutoToolTip = true;
 		toolStripMenuItemSaveAsXml.Image = FatcowIcons16px.fatcow_page_white_code_16px;
 		toolStripMenuItemSaveAsXml.Name = "toolStripMenuItemSaveAsXml";
-		toolStripMenuItemSaveAsXml.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsXml.Size = new Size(163, 22);
 		toolStripMenuItemSaveAsXml.Text = "Save as &XML";
 		toolStripMenuItemSaveAsXml.Click += ToolStripMenuItemSaveAsXml_Click;
+		toolStripMenuItemSaveAsXml.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsXml.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsDocBook
 		// 
@@ -486,9 +524,11 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsDocBook.AutoToolTip = true;
 		toolStripMenuItemSaveAsDocBook.Image = FatcowIcons16px.fatcow_page_white_code_16px;
 		toolStripMenuItemSaveAsDocBook.Name = "toolStripMenuItemSaveAsDocBook";
-		toolStripMenuItemSaveAsDocBook.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsDocBook.Size = new Size(163, 22);
 		toolStripMenuItemSaveAsDocBook.Text = "Save as &DocBook";
 		toolStripMenuItemSaveAsDocBook.Click += ToolStripMenuItemSaveAsDocBook_Click;
+		toolStripMenuItemSaveAsDocBook.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsDocBook.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemConfigurationFiles
 		// 
@@ -512,9 +552,11 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsJson.AutoToolTip = true;
 		toolStripMenuItemSaveAsJson.Image = FatcowIcons16px.fatcow_page_white_code_red_16px;
 		toolStripMenuItemSaveAsJson.Name = "toolStripMenuItemSaveAsJson";
-		toolStripMenuItemSaveAsJson.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsJson.Size = new Size(146, 22);
 		toolStripMenuItemSaveAsJson.Text = "Save as &JSON";
 		toolStripMenuItemSaveAsJson.Click += ToolStripMenuItemSaveAsJson_Click;
+		toolStripMenuItemSaveAsJson.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsJson.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsYaml
 		// 
@@ -524,9 +566,11 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsYaml.AutoToolTip = true;
 		toolStripMenuItemSaveAsYaml.Image = FatcowIcons16px.fatcow_page_white_code_red_16px;
 		toolStripMenuItemSaveAsYaml.Name = "toolStripMenuItemSaveAsYaml";
-		toolStripMenuItemSaveAsYaml.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsYaml.Size = new Size(146, 22);
 		toolStripMenuItemSaveAsYaml.Text = "Save as &YAML";
 		toolStripMenuItemSaveAsYaml.Click += ToolStripMenuItemSaveAsYaml_Click;
+		toolStripMenuItemSaveAsYaml.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsYaml.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsToml
 		// 
@@ -536,9 +580,11 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsToml.AutoToolTip = true;
 		toolStripMenuItemSaveAsToml.Image = FatcowIcons16px.fatcow_page_white_code_red_16px;
 		toolStripMenuItemSaveAsToml.Name = "toolStripMenuItemSaveAsToml";
-		toolStripMenuItemSaveAsToml.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsToml.Size = new Size(146, 22);
 		toolStripMenuItemSaveAsToml.Text = "Save as &TOML";
 		toolStripMenuItemSaveAsToml.Click += ToolStripMenuItemSaveAsToml_Click;
+		toolStripMenuItemSaveAsToml.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsToml.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemDatabaseScripts
 		// 
@@ -562,9 +608,11 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsSql.AutoToolTip = true;
 		toolStripMenuItemSaveAsSql.Image = FatcowIcons16px.fatcow_page_white_database_16px;
 		toolStripMenuItemSaveAsSql.Name = "toolStripMenuItemSaveAsSql";
-		toolStripMenuItemSaveAsSql.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsSql.Size = new Size(168, 22);
 		toolStripMenuItemSaveAsSql.Text = "Save as &SQL script";
 		toolStripMenuItemSaveAsSql.Click += ToolStripMenuItemSaveAsSql_Click;
+		toolStripMenuItemSaveAsSql.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsSql.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsSqlite
 		// 
@@ -574,9 +622,11 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsSqlite.AutoToolTip = true;
 		toolStripMenuItemSaveAsSqlite.Image = FatcowIcons16px.fatcow_page_white_database_16px;
 		toolStripMenuItemSaveAsSqlite.Name = "toolStripMenuItemSaveAsSqlite";
-		toolStripMenuItemSaveAsSqlite.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsSqlite.Size = new Size(168, 22);
 		toolStripMenuItemSaveAsSqlite.Text = "Save as SQ&Lite";
 		toolStripMenuItemSaveAsSqlite.Click += ToolStripMenuItemSaveAsSqlite_Click;
+		toolStripMenuItemSaveAsSqlite.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsSqlite.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemPortableDocuments
 		// 
@@ -603,6 +653,8 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsPdf.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsPdf.Text = "Save as &PDF";
 		toolStripMenuItemSaveAsPdf.Click += ToolStripMenuItemSaveAsPdf_Click;
+		toolStripMenuItemSaveAsPdf.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsPdf.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsPostScript
 		// 
@@ -615,6 +667,8 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsPostScript.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsPostScript.Text = "Save as Post&Script (PS)";
 		toolStripMenuItemSaveAsPostScript.Click += ToolStripMenuItemSaveAsPostScript_Click;
+		toolStripMenuItemSaveAsPostScript.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsPostScript.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsEpub
 		// 
@@ -627,6 +681,8 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsEpub.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsEpub.Text = "Save as &EPUB";
 		toolStripMenuItemSaveAsEpub.Click += ToolStripMenuItemSaveAsEpub_Click;
+		toolStripMenuItemSaveAsEpub.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsEpub.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsMobi
 		// 
@@ -639,6 +695,8 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsMobi.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsMobi.Text = "Save as &MOBI";
 		toolStripMenuItemSaveAsMobi.Click += ToolStripMenuItemSaveAsMobi_Click;
+		toolStripMenuItemSaveAsMobi.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsMobi.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsXps
 		// 
@@ -651,6 +709,8 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsXps.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsXps.Text = "Save as &XPS";
 		toolStripMenuItemSaveAsXps.Click += ToolStripMenuItemSaveAsXps_Click;
+		toolStripMenuItemSaveAsXps.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsXps.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsFictionBook2
 		// 
@@ -663,6 +723,8 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsFictionBook2.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsFictionBook2.Text = "Save as &FictionBook2 (FB2)";
 		toolStripMenuItemSaveAsFictionBook2.Click += ToolStripMenuItemSaveAsFictionBook2_Click;
+		toolStripMenuItemSaveAsFictionBook2.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsFictionBook2.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsChm
 		// 
@@ -675,6 +737,8 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripMenuItemSaveAsChm.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsChm.Text = "Save as &CHM";
 		toolStripMenuItemSaveAsChm.Click += ToolStripMenuItemSaveAsChm_Click;
+		toolStripMenuItemSaveAsChm.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsChm.MouseLeave += Control_Leave;
 		// 
 		// labelStatusText
 		// 
@@ -933,7 +997,7 @@ partial class BulkObservationsDataDownloaderForm
 		// 
 		toolStripContainer.AccessibleDescription = "Container";
 		toolStripContainer.AccessibleName = "Container";
-		toolStripContainer.AccessibleRole = AccessibleRole.Chart;
+		toolStripContainer.AccessibleRole = AccessibleRole.Pane;
 		// 
 		// toolStripContainer.BottomToolStripPanel
 		// 
@@ -1022,10 +1086,10 @@ partial class BulkObservationsDataDownloaderForm
 		numericUpDownMinimum.Text = "1";
 		numericUpDownMinimum.TextAlign = HorizontalAlignment.Right;
 		numericUpDownMinimum.Value = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMinimum.Enter += Control_Enter;
-		numericUpDownMinimum.Leave += Control_Leave;
 		numericUpDownMinimum.MouseEnter += Control_Enter;
 		numericUpDownMinimum.MouseLeave += Control_Leave;
+		numericUpDownMinimum.Enter += Control_Enter;
+		numericUpDownMinimum.Leave += Control_Leave;
 		// 
 		// toolStripLabelMaximum
 		// 
@@ -1053,10 +1117,10 @@ partial class BulkObservationsDataDownloaderForm
 		numericUpDownMaximum.Text = "1";
 		numericUpDownMaximum.TextAlign = HorizontalAlignment.Right;
 		numericUpDownMaximum.Value = new decimal(new int[] { 1, 0, 0, 0 });
-		numericUpDownMaximum.Enter += Control_Enter;
-		numericUpDownMaximum.Leave += Control_Leave;
 		numericUpDownMaximum.MouseEnter += Control_Enter;
 		numericUpDownMaximum.MouseLeave += Control_Leave;
+		numericUpDownMaximum.Enter += Control_Enter;
+		numericUpDownMaximum.Leave += Control_Leave;
 		// 
 		// toolStripSeparator1
 		// 
@@ -1171,11 +1235,6 @@ partial class BulkObservationsDataDownloaderForm
 		kryptonToolStrip.ResumeLayout(false);
 		kryptonToolStrip.PerformLayout();
 		ResumeLayout(false);
-	}
-
-	private void ToolStripMenuItemXmlDocuments_MouseEnter(object sender, EventArgs e)
-	{
-		throw new NotImplementedException();
 	}
 
 	#endregion

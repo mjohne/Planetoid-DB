@@ -53,6 +53,11 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
+	/// <summary>Prepares and displays a save file dialog with a default file name and initial directory set to the user's Documents folder.</summary>
+	/// <remarks>The method sets the dialog's initial directory to the user's Documents folder and generates a default file name based on the current date and time. The dialog is shown modally, and the result indicates whether the user confirmed the selection.</remarks>
+	/// <param name="dialog">The file dialog to configure and display. Must not be null.</param>
+	/// <param name="ext">The file extension to use for the default file name, without the leading period.</param>
+	/// <returns>true if the user selects a file and confirms the dialog; otherwise, false.</returns>
 	private static bool PrepareSaveDialog(FileDialog dialog, string ext)
 	{
 		// Set up the save dialog properties
@@ -212,11 +217,11 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	{
 		// Set the status bar text
 		ClearStatusBar(label: labelInformation);
-		if (derivedOrbitElements.Count < 19)
+		if (derivedOrbitElements.Count < 41)
 		{
 			// Log the error and show an error message
-			logger.Error(message: "Invalid data");
-			ShowErrorMessage(message: "Invalid data");
+			logger.Error(message: $"Invalid data: Expected at least 41 elements, received {derivedOrbitElements.Count}");
+			ShowErrorMessage(message: $"Invalid data: Expected at least 41 elements, received {derivedOrbitElements.Count}");
 			return;
 		}
 		// Set the text of the labels with the orbit elements
@@ -239,6 +244,7 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		labelSemiMeanAxisData.Text = derivedOrbitElements[index: 16]?.ToString();
 		labelMeanAxisData.Text = derivedOrbitElements[index: 17]?.ToString();
 		labelStandardGravitationalParameterData.Text = derivedOrbitElements[index: 18]?.ToString();
+		// Note: New elements (indices 19-40) will be displayed once the UI is updated
 	}
 
 	#endregion
