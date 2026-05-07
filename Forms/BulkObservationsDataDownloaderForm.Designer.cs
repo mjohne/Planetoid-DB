@@ -107,6 +107,7 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripSeparator1 = new ToolStripSeparator();
 		buttonStart = new ToolStripButton();
 		buttonCancel = new ToolStripButton();
+		buttonErrorLog = new ToolStripButton();
 		toolStripSeparator2 = new ToolStripSeparator();
 		toolStripLabelProgress = new ToolStripLabel();
 		kryptonProgressBar = new KryptonProgressBarToolStripItem();
@@ -1048,7 +1049,7 @@ partial class BulkObservationsDataDownloaderForm
 		kryptonToolStrip.AllowItemReorder = true;
 		kryptonToolStrip.Dock = DockStyle.None;
 		kryptonToolStrip.Font = new Font("Segoe UI", 9F);
-		kryptonToolStrip.Items.AddRange(new ToolStripItem[] { toolStripLabelMinimum, numericUpDownMinimum, toolStripLabelMaximum, numericUpDownMaximum, toolStripSeparator1, buttonStart, buttonCancel, toolStripSeparator2, toolStripLabelProgress, kryptonProgressBar });
+		kryptonToolStrip.Items.AddRange(new ToolStripItem[] { toolStripLabelMinimum, numericUpDownMinimum, toolStripLabelMaximum, numericUpDownMaximum, toolStripSeparator1, buttonStart, buttonCancel, buttonErrorLog, toolStripSeparator2, toolStripLabelProgress, kryptonProgressBar });
 		kryptonToolStrip.Location = new Point(0, 0);
 		kryptonToolStrip.Name = "kryptonToolStrip";
 		kryptonToolStrip.Size = new Size(620, 26);
@@ -1161,6 +1162,20 @@ partial class BulkObservationsDataDownloaderForm
 		buttonCancel.MouseEnter += Control_Enter;
 		buttonCancel.MouseLeave += Control_Leave;
 		// 
+		// buttonErrorLog
+		// 
+		buttonErrorLog.AccessibleDescription = "Shows detailed download errors";
+		buttonErrorLog.AccessibleName = "Error log";
+		buttonErrorLog.AccessibleRole = AccessibleRole.PushButton;
+		buttonErrorLog.Image = FatcowIcons16px.fatcow_report_16px;
+		buttonErrorLog.ImageTransparentColor = Color.Magenta;
+		buttonErrorLog.Name = "buttonErrorLog";
+		buttonErrorLog.Size = new Size(77, 23);
+		buttonErrorLog.Text = "Error &log";
+		buttonErrorLog.Click += ButtonErrorLog_Click;
+		buttonErrorLog.MouseEnter += Control_Enter;
+		buttonErrorLog.MouseLeave += Control_Leave;
+		// 
 		// toolStripSeparator2
 		// 
 		toolStripSeparator2.AccessibleDescription = "Just a separator";
@@ -1263,6 +1278,7 @@ partial class BulkObservationsDataDownloaderForm
 	private ToolStripSeparator toolStripSeparator1;
 	private ToolStripButton buttonStart;
 	private ToolStripButton buttonCancel;
+	private ToolStripButton buttonErrorLog;
 	private ToolStripSeparator toolStripSeparator2;
 	private ToolStripLabel toolStripLabelProgress;
 	private KryptonProgressBarToolStripItem kryptonProgressBar;
