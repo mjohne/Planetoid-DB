@@ -176,11 +176,8 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		return true;
 	}
 
-	/// <summary>Selects the currently highlighted planetoid in the list view and navigates to its corresponding record in the main
-	/// form.</summary>
-	/// <remarks>If no item is selected or the selected record is invalid, the method returns <c>false</c> without performing any action. When a valid
-	/// planetoid is selected, the main form is brought to the foreground and displays the details of the selected
-	/// planetoid.</remarks>
+	/// <summary>Selects the currently highlighted planetoid in the list view and navigates to its corresponding record in the main form.</summary>
+	/// <remarks>If no item is selected or the selected record is invalid, the method returns <c>false</c> without performing any action. When a valid planetoid is selected, the main form is brought to the foreground and displays the details of the selected planetoid.</remarks>
 	/// <returns><c>true</c> if navigation to the selected planetoid succeeded; otherwise, <c>false</c>.</returns>
 	private bool SelectPlanetoidInMainForm()
 	{
@@ -305,9 +302,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>Fired when the ListReadableDesignationsForm loads.
-	/// Initializes UI state: clears the status area, disables controls until data is available,
-	/// and sets numeric up/down ranges based on the loaded planetoids database.</summary>
+	/// <summary>Fired when the ListReadableDesignationsForm loads. Initializes UI state: clears the status area, disables controls until data is available, and sets numeric up/down ranges based on the loaded planetoids database.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to initialize the form's UI components and state.</remarks>
@@ -331,8 +326,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		toolStripNumericUpDownMaximum.Value = planetoidsDatabase.Count;
 	}
 
-	/// <summary>Handles the form Closed event.
-	/// Cleans up resources and cancels any ongoing operations.</summary>
+	/// <summary>Handles the form Closed event. Cleans up resources and cancels any ongoing operations.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the form is closed.</remarks>
@@ -466,8 +460,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		listView.Invalidate();
 	}
 
-	/// <summary>Handles the retrieval of virtual items for the ListView.
-	/// Dynamically creates ListViewItems when they are needed for display.</summary>
+	/// <summary>Handles the retrieval of virtual items for the ListView. Dynamically creates ListViewItems when they are needed for display.</summary>
 	/// <param name="sender">Event source (the ListView).</param>
 	/// <param name="e">The <see cref="RetrieveVirtualItemEventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to retrieve virtual items for the ListView.</remarks>
@@ -809,9 +802,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	#region Double-Click event handlers
 
 	/// <summary>Handles the double-click event on the list view to navigate to the selected planetoid record in the main form.</summary>
-	/// <remarks>If no item is selected or the selected record is invalid, the method does not perform any action.
-	/// When a valid record is selected, the corresponding entry is located and displayed in the main form. An error
-	/// message is shown if the record format is invalid.</remarks>
+	/// <remarks>If no item is selected or the selected record is invalid, the method does not perform any action. When a valid record is selected, the corresponding entry is located and displayed in the main form. An error message is shown if the record format is invalid.</remarks>
 	/// <param name="sender">The source of the event, typically the list view control.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void ListView_DoubleClick(object sender, EventArgs e) => SelectPlanetoidInMainForm();
