@@ -12,12 +12,8 @@ using System.Globalization;
 
 namespace Planetoid_DB;
 
-/// <summary>Form for displaying the Tisserand parameter of all minor planets
-/// relative to each of the eight solar system planets.</summary>
-/// <remarks>This form iterates over all planetoids in the database and computes their Tisserand parameters with respect
-/// to all eight planets. Results are presented in a ListView where each row corresponds to one planetoid
-/// and the eight Tisserand parameter columns correspond to Mercury through Neptune. The user can start and cancel the
-/// calculation at any time and track progress via the integrated progress bar.</remarks>
+/// <summary>Form for displaying the Tisserand parameter of all minor planets relative to each of the eight solar system planets.</summary>
+/// <remarks>This form iterates over all planetoids in the database and computes their Tisserand parameters with respect to all eight planets. Results are presented in a ListView where each row corresponds to one planetoid and the eight Tisserand parameter columns correspond to Mercury through Neptune. The user can start and cancel the calculation at any time and track progress via the integrated progress bar.</remarks>
 // You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
@@ -33,9 +29,7 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <summary>Represents one row in the Tisserand parameter results list: the planetoid name and one Tisserand value per planet.</summary>
 	/// <param name="PlanetoidName">The designation of the minor planet.</param>
 	/// <param name="TisserandValues">Array of eight Tisserand parameter values (dimensionless), one per planet in order Mercury–Neptune.</param>
-	/// <remarks>The <paramref name="TisserandValues"/> array always has exactly eight elements corresponding to the
-	/// eight solar system planets: Mercury (0), Venus (1), Earth (2), Mars (3), Jupiter (4), Saturn (5),
-	/// Uranus (6), Neptune (7).</remarks>
+	/// <remarks>The <paramref name="TisserandValues"/> array always has exactly eight elements corresponding to the eight solar system planets: Mercury (0), Venus (1), Earth (2), Mars (3), Jupiter (4), Saturn (5), Uranus (6), Neptune (7).</remarks>
 	private record TisserandRowResult(string PlanetoidName, double[] TisserandValues);
 
 	/// <summary>Number of planets whose Tisserand parameters are computed (Mercury through Neptune).</summary>
@@ -220,7 +214,7 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 				? [.. _results.OrderBy(keySelector: static r => r.PlanetoidName, comparer: StringComparer.OrdinalIgnoreCase)]
 				: [.. _results.OrderByDescending(keySelector: static r => r.PlanetoidName, comparer: StringComparer.OrdinalIgnoreCase)];
 		}
-		else if (col >= 1 && col <= PlanetCount)
+		else if (col is >= 1 and <= PlanetCount)
 		{
 			int planetIndex = col - 1;
 			_results = ascending
@@ -229,20 +223,39 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Selects the currently highlighted planetoid in the main form and navigates to its record in the owner form, if applicable.</summary>
+	/// <remarks>If the owner form is a PlanetoidDbForm, this method calls its JumpToRecord method to display the selected planetoid. No action is taken if no item is selected or if the selection is invalid.</remarks>
+	private void SelectedPlanetoidInMainForm()
+	{
+		// Ensure that an item is selected
+		if (listView.SelectedIndices.Count == 0)
+		{
+			return;
+		}
+		int index = listView.SelectedIndices[index: 0];
+		if (index < 0 || index >= _results.Count)
+		{
+			return;
+		}
+		TisserandRowResult result = _results[index];
+		// If the Owner of this form is a PlanetoidDbForm, call its JumpToRecord method
+		if (Owner is PlanetoidDbForm planetoidDbForm)
+		{
+			planetoidDbForm.JumpToRecord(index: result.PlanetoidName, designation: result.PlanetoidName);
+		}
+	}
+
 	#endregion
 
 	#region form event handlers
 
-	/// <summary>Handles the form Load event.
-	/// Clears the status bar on startup.</summary>
+	/// <summary>Handles the form Load event. Clears the status bar on startup.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 	/// <remarks>Clears the status bar when the form is loaded.</remarks>
-	private void TisserandParameterOfAllMinorPlanetsForm_Load(object sender, EventArgs e) =>
-		ClearStatusBar(label: labelInformation);
+	private void TisserandParameterOfAllMinorPlanetsForm_Load(object sender, EventArgs e) => ClearStatusBar(label: labelInformation);
 
-	/// <summary>Handles the FormClosing event.
-	/// Cancels any running calculation and disposes the cancellation token source.</summary>
+	/// <summary>Handles the FormClosing event. Cancels any running calculation and disposes the cancellation token source.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="FormClosingEventArgs"/> instance containing the event data.</param>
 	/// <remarks>Cancels any running calculation and disposes the cancellation token source when the form is closing.</remarks>
@@ -261,8 +274,7 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 
 	#region RetrieveVirtualItem event handler
 
-	/// <summary>Handles the RetrieveVirtualItem event for the VirtualMode ListView.
-	/// Provides the <see cref="ListViewItem"/> for the requested index from <see cref="_results"/>.</summary>
+	/// <summary>Handles the RetrieveVirtualItem event for the VirtualMode ListView. Provides the <see cref="ListViewItem"/> for the requested index from <see cref="_results"/>.</summary>
 	/// <param name="sender">Event source (the list view).</param>
 	/// <param name="e">The <see cref="RetrieveVirtualItemEventArgs"/> containing the requested item index.</param>
 	/// <remarks>Called by the ListView for each visible row. Must be fast and must not modify <see cref="_results"/>.</remarks>
@@ -288,12 +300,10 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 
 	#region Click event handlers
 
-	/// <summary>Handles the Click event of the Start Calculation button.
-	/// Validates the input, then starts the Tisserand parameter calculation for all minor planets asynchronously.</summary>
+	/// <summary>Handles the Click event of the Start Calculation button. Validates the input, then starts the Tisserand parameter calculation for all minor planets asynchronously.</summary>
 	/// <param name="sender">Event source (the button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-	/// <remarks>The calculation runs on a background thread. Progress is reported via the progress bar.
-	/// The user can cancel at any time using the Cancel button.</remarks>
+	/// <remarks>The calculation runs on a background thread. Progress is reported via the progress bar. The user can cancel at any time using the Cancel button.</remarks>
 	private async void ButtonStart_Click(object sender, EventArgs e)
 	{
 		if (_planetoids.Count == 0)
@@ -309,6 +319,7 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 		toolStripDropDownButtonSaveToFile.Enabled = false;
 		toolStripButtonStart.Enabled = false;
 		toolStripButtonCancel.Enabled = true;
+		toolStripButtonGoToObject.Enabled = false;
 		_results = [];
 		listView.VirtualListSize = 0;
 		UpdateProgress(percent: 0);
@@ -363,6 +374,7 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 					listView.Refresh();
 					toolStripButtonStart.Enabled = true;
 					toolStripButtonCancel.Enabled = false;
+					toolStripButtonGoToObject.Enabled = _results.Count > 0;
 					toolStripDropDownButtonSaveToFile.Enabled = _results.Count > 0;
 				}
 			}
@@ -384,8 +396,7 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Handles the Click event of the Cancel button.
-	/// Cancels the currently running calculation.</summary>
+	/// <summary>Handles the Click event of the Cancel button. Cancels the currently running calculation.</summary>
 	/// <param name="sender">Event source (the button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 	/// <remarks>The calculation can be cancelled by the user at any time using the Cancel button.</remarks>
@@ -630,8 +641,7 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <summary>Handles the ColumnClick event of the ListView.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	/// <remarks>Toggles the sort order for the clicked column (ascending/descending) and re-sorts the results list.
-	/// Column headers are updated with a ▲ or ▼ indicator to show the current sort direction.</remarks>
+	/// <remarks>Toggles the sort order for the clicked column (ascending/descending) and re-sorts the results list. Column headers are updated with a ▲ or ▼ indicator to show the current sort direction.</remarks>
 	private void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
 	{
 		// If there are no results to sort, exit the method early
@@ -673,26 +683,17 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <summary>Handles the DoubleClick event of the ListView.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	/// <remarks>When an item is double-clicked, the corresponding planetoid is displayed in the
-	/// <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
-	private void ListView_DoubleClick(object sender, EventArgs e)
+	/// <remarks>When an item is double-clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
+	private void ListView_DoubleClick(object sender, EventArgs e) => SelectedPlanetoidInMainForm();
+
+	/// <summary>Handles the Click event of the "Go to Object" button.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>When the "Go to Object" button is clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
+	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e)
 	{
-		// Ensure that an item is selected
-		if (listView.SelectedIndices.Count == 0)
-		{
-			return;
-		}
-		int index = listView.SelectedIndices[index: 0];
-		if (index < 0 || index >= _results.Count)
-		{
-			return;
-		}
-		TisserandRowResult result = _results[index];
-		// If the Owner of this form is a PlanetoidDbForm, call its JumpToRecord method
-		if (Owner is PlanetoidDbForm planetoidDbForm)
-		{
-			planetoidDbForm.JumpToRecord(index: result.PlanetoidName, designation: result.PlanetoidName);
-		}
+		SelectedPlanetoidInMainForm();
+		Close();
 	}
 
 	#endregion
