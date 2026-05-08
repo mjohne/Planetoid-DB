@@ -531,6 +531,8 @@ partial class ObservationsForm
 		toolStripMenuItemSaveAsXml.Size = new Size(180, 22);
 		toolStripMenuItemSaveAsXml.Text = "Save as &XML";
 		toolStripMenuItemSaveAsXml.Click += ToolStripMenuItemSaveAsXml_Click;
+		toolStripMenuItemSaveAsXml.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsXml.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemSaveAsDocBook
 		// 
@@ -938,8 +940,8 @@ partial class ObservationsForm
 		// 
 		// kryptonProgressBar
 		// 
-		kryptonProgressBar.AccessibleDescription = "Shows the progress of the file comparison";
-		kryptonProgressBar.AccessibleName = "Comparison progress";
+		kryptonProgressBar.AccessibleDescription = "Shows the progress of loading observation data";
+		kryptonProgressBar.AccessibleName = "Loading progress";
 		kryptonProgressBar.AccessibleRole = AccessibleRole.ProgressBar;
 		kryptonProgressBar.AutoToolTip = true;
 		kryptonProgressBar.Name = "kryptonProgressBar";
