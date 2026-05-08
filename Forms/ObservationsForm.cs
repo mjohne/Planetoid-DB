@@ -176,8 +176,7 @@ public partial class ObservationsForm : BaseKryptonForm
 
 	/// <summary>Initializes a new instance of the <see cref="ObservationsForm"/> class.</summary>
 	/// <remarks>This constructor initializes the form components.</remarks>
-	public ObservationsForm() =>
-		InitializeComponent();
+	public ObservationsForm() => InitializeComponent();
 
 	#endregion
 
