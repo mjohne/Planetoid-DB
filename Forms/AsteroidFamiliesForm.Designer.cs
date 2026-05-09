@@ -258,22 +258,43 @@ partial class AsteroidFamiliesForm
 		// 
 		// toolStripContainer.BottomToolStripPanel
 		// 
+		toolStripContainer.BottomToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.BottomToolStripPanel.AccessibleName = "Bottom panel";
+		toolStripContainer.BottomToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
 		// 
 		// toolStripContainer.ContentPanel
 		// 
+		toolStripContainer.ContentPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.ContentPanel.AccessibleName = "Content panel";
+		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
 		toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
 		toolStripContainer.ContentPanel.Size = new Size(933, 425);
 		toolStripContainer.Dock = DockStyle.Fill;
+		// 
+		// toolStripContainer.LeftToolStripPanel
+		// 
+		toolStripContainer.LeftToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.LeftToolStripPanel.AccessibleName = "Left panel";
+		toolStripContainer.LeftToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.Location = new Point(0, 0);
 		toolStripContainer.Name = "toolStripContainer";
+		// 
+		// toolStripContainer.RightToolStripPanel
+		// 
+		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
+		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.Size = new Size(933, 499);
 		toolStripContainer.TabIndex = 4;
 		toolStripContainer.Text = "toolStripContainer";
 		// 
 		// toolStripContainer.TopToolStripPanel
 		// 
+		toolStripContainer.TopToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.TopToolStripPanel.AccessibleName = "Top panel";
+		toolStripContainer.TopToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.TopToolStripPanel.Controls.Add(toolStripIcons);
 		toolStripContainer.TopToolStripPanel.Controls.Add(toolStripToleranceValues);
 		toolStripContainer.Enter += Control_Enter;
