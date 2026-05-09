@@ -625,25 +625,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formObservations.ShowDialog();
 	}
 
-	/// <summary>Shows the bulk observations data downloader form. Opens the form to download observation data files
-	/// for a range of minor planets from the MPC website and save them to disk.</summary>
-	/// <remarks>Passes the full planetoids database to the form and pre-populates the minimum (1) and maximum
-	/// (database record count) spinners.</remarks>
-	private void ShowBulkInformationsDataDownloader()
-	{
-		if (!NetworkInterface.GetIsNetworkAvailable())
-		{
-			_ = MessageBox.Show(text: I18nStrings.NoInternetConnectionText, caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
-			return;
-		}
-		using BulkObservationsDataDownloaderForm formBulkDownloader = new(planetoids: planetoidsDatabase);
-		formBulkDownloader.TopMost = TopMost;
-		formBulkDownloader.SetMinimum(minimum: 1);
-		formBulkDownloader.SetMaximum(maximum: planetoidsDatabase.Count);
-		_ = formBulkDownloader.ShowDialog(owner: this);
-	}
-
-
 	/// <summary>Shows the orbital resonances form for the current planetoid.</summary>
 	/// <remarks>Parses the semi-major axis from the UI label and opens the <see cref="OrbitalResonancesOfOneMinorPlanetForm"/>.</remarks>
 	private void ShowOrbitElementsGrouping()
@@ -670,36 +651,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		using OrbitalResonancesOfAllMinorPlanetsForm formOrbitalResonances = new(planetoids: planetoidsDatabase);
 		formOrbitalResonances.TopMost = TopMost;
 		_ = formOrbitalResonances.ShowDialog(owner: this);
-	}
-
-	/// <summary>Shows the MOIDs of all minor planets form. Opens the form to find MOIDs of all planetoids relative to the solar system planets.</summary>
-	/// <remarks>Passes the full planetoids database to the form so it can iterate over all records.</remarks>
-	private void ShowMoidsOfAllMinorPlanets()
-	{
-		// Create a new instance of the MoidsOfAllMinorPlanetsForm
-		using MoidsOfAllMinorPlanetsForm formMoidsOfAll = new(planetoids: planetoidsDatabase);
-		formMoidsOfAll.TopMost = TopMost;
-		_ = formMoidsOfAll.ShowDialog(owner: this);
-	}
-
-	/// <summary>Shows the MOIDs relative to minor planets form. Opens the form to calculate the MOID between two user-selected minor planets.</summary>
-	/// <remarks>Passes the full planetoids database to the form so it can populate the combo boxes with all available planetoid designations.</remarks>
-	private void ShowMoidsRelativeToMinorPlanets()
-	{
-		// Create a new instance of the MoidsRelativeToMinorPlanetsForm
-		using MoidsRelativeToMinorPlanetsForm formMoidsRelative = new(planetoids: planetoidsDatabase);
-		formMoidsRelative.TopMost = TopMost;
-		_ = formMoidsRelative.ShowDialog(owner: this);
-	}
-
-	/// <summary>Shows the Tisserand parameters of all minor planets form. Opens the form to compute Tisserand parameters for all planetoids relative to the solar system planets.</summary>
-	/// <remarks>Passes the full planetoids database to the form so it can iterate over all records.</remarks>
-	private void ShowTisserandParametersOfAllMinorPlanets()
-	{
-		// Create a new instance of the TisserandParameterOfAllMinorPlanetsForm
-		using TisserandParameterOfAllMinorPlanetsForm formTisserandOfAll = new(planetoids: planetoidsDatabase);
-		formTisserandOfAll.TopMost = TopMost;
-		_ = formTisserandOfAll.ShowDialog(owner: this);
 	}
 
 	/// <summary>Shows the MOIDs form for the current planetoid.</summary>
@@ -763,6 +714,16 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formMoids.ShowDialog();
 	}
 
+	/// <summary>Shows the MOIDs of all minor planets form. Opens the form to find MOIDs of all planetoids relative to the solar system planets.</summary>
+	/// <remarks>Passes the full planetoids database to the form so it can iterate over all records.</remarks>
+	private void ShowMoidsOfAllMinorPlanets()
+	{
+		// Create a new instance of the MoidsOfAllMinorPlanetsForm
+		using MoidsOfAllMinorPlanetsForm formMoidsOfAll = new(planetoids: planetoidsDatabase);
+		formMoidsOfAll.TopMost = TopMost;
+		_ = formMoidsOfAll.ShowDialog(owner: this);
+	}
+
 	/// <summary>Shows the Tisserand parameter form for the current planetoid.</summary>
 	/// <remarks>Parses the semi-major axis, eccentricity, and inclination from the UI labels and opens the <see cref="TisserandParameterOfOneMinorPlanetForm"/>.</remarks>
 	private void ShowTisserandParameters()
@@ -804,6 +765,42 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			inclinationDeg: inclinationDeg);
 		// Show the Tisserand parameters form as a modal dialog
 		_ = formTisserand.ShowDialog();
+	}
+
+	/// <summary>Shows the Tisserand parameters of all minor planets form. Opens the form to compute Tisserand parameters for all planetoids relative to the solar system planets.</summary>
+	/// <remarks>Passes the full planetoids database to the form so it can iterate over all records.</remarks>
+	private void ShowTisserandParametersOfAllMinorPlanets()
+	{
+		// Create a new instance of the TisserandParameterOfAllMinorPlanetsForm
+		using TisserandParameterOfAllMinorPlanetsForm formTisserandOfAll = new(planetoids: planetoidsDatabase);
+		formTisserandOfAll.TopMost = TopMost;
+		_ = formTisserandOfAll.ShowDialog(owner: this);
+	}
+
+	/// <summary>Shows the bulk observations data downloader form. Opens the form to download observation data files for a range of minor planets from the MPC website and save them to disk.</summary>
+	/// <remarks>Passes the full planetoids database to the form and pre-populates the minimum (1) and maximum (database record count) spinners.</remarks>
+	private void ShowBulkInformationsDataDownloader()
+	{
+		if (!NetworkInterface.GetIsNetworkAvailable())
+		{
+			_ = MessageBox.Show(text: I18nStrings.NoInternetConnectionText, caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			return;
+		}
+		using BulkObservationsDataDownloaderForm formBulkDownloader = new(planetoids: planetoidsDatabase);
+		formBulkDownloader.TopMost = TopMost;
+		formBulkDownloader.SetMinimum(minimum: 1);
+		formBulkDownloader.SetMaximum(maximum: planetoidsDatabase.Count);
+		_ = formBulkDownloader.ShowDialog(owner: this);
+	}
+
+	/// <summary>Shows the MOIDs relative to minor planets form. Opens the form to calculate the MOID between two user-selected minor planets.</summary>
+	/// <remarks>Passes the full planetoids database to the form so it can populate the combo boxes with all available planetoid designations.</remarks>
+	private void ShowMoidsRelativeToMinorPlanets()
+	{
+		// Create a new instance of the MoidsRelativeToMinorPlanetsForm
+		using MoidsRelativeToMinorPlanetsForm formMoidsRelative = new(planetoids: planetoidsDatabase);
+		formMoidsRelative.TopMost = TopMost;
+		_ = formMoidsRelative.ShowDialog(owner: this);
 	}
 
 	/// <summary>Shows the application information form.</summary>
@@ -2542,12 +2539,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method is used to show the observations form.</remarks>
 	private void ToolStripMenuItemObservations_Click(object sender, EventArgs e) => ShowObservations();
 
-	/// <summary>Handles the click event for the ToolStripMenuItemBulkInformationsDataDownloader. Shows the bulk observations data downloader form.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the bulk informations data downloader form.</remarks>
-	private void ToolStripMenuItemBulkInformationsDataDownloader_Click(object sender, EventArgs e) => ShowBulkInformationsDataDownloader();
-
 	/// <summary>Handles the Click event of the ToolStripButtonObservations. Shows the observations form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
@@ -2584,12 +2575,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method is used to show the MOIDs of all minor planets form.</remarks>
 	private void ToolStripMenuItemMoidsOfAllMinorPlanets_Click(object sender, EventArgs e) => ShowMoidsOfAllMinorPlanets();
 
-	/// <summary>Handles the click event for the ToolStripMenuItemMoidsRelativeToMinorPlanets. Shows the MOIDs relative to minor planets form.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method opens the form for calculating the MOID between two user-selected minor planets.</remarks>
-	private void ToolStripMenuItemMoidsRelativeToMinorPlanets_Click(object sender, EventArgs e) => ShowMoidsRelativeToMinorPlanets();
-
 	/// <summary>Handles the click event for the ToolStripMenuItemTisserandParameters. Shows the Tisserand parameters form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
@@ -2601,6 +2586,18 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the Tisserand parameters of all minor planets form.</remarks>
 	private void ToolStripMenuItemTisserandParametersOfAllMinorPlanets_Click(object sender, EventArgs e) => ShowTisserandParametersOfAllMinorPlanets();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemBulkInformationsDataDownloader. Shows the bulk observations data downloader form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the bulk informations data downloader form.</remarks>
+	private void ToolStripMenuItemBulkInformationsDataDownloader_Click(object sender, EventArgs e) => ShowBulkInformationsDataDownloader();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemMoidsRelativeToMinorPlanets. Shows the MOIDs relative to minor planets form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method opens the form for calculating the MOID between two user-selected minor planets.</remarks>
+	private void ToolStripMenuItemMoidsRelativeToMinorPlanets_Click(object sender, EventArgs e) => ShowMoidsRelativeToMinorPlanets();
 
 	/// <summary>Handles the click event for opening a local MPCORB.DAT file. Opens a file dialog to select a local MPCORB.DAT file, and if a valid file is selected, restarts the application with the selected file path as a command-line argument.</summary>
 	/// <param name="sender">The event source.</param>
