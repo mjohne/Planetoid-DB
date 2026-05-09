@@ -11,13 +11,8 @@ using System.Globalization;
 
 namespace Planetoid_DB;
 
-/// <summary>Form for calculating the Minimum Orbit Intersection Distance (MOID) between two minor planets
-/// selected by the user from the loaded MPCORB database.</summary>
-/// <remarks>The form presents two combo boxes populated with all planetoid designations from the loaded
-/// database. A random-selection button next to each combo box picks a random entry. The MOID between the
-/// two selected planetoids is computed using the same double-grid search algorithm as
-/// <see cref="MoidCalculator"/> and displayed in a label below the combo boxes. The calculation is
-/// triggered automatically whenever the selection in either combo box changes.</remarks>
+/// <summary>Form for calculating the Minimum Orbit Intersection Distance (MOID) between two minor planets selected by the user from the loaded MPCORB database.</summary>
+/// <remarks>The form presents two combo boxes populated with all planetoid designations from the loaded database. A random-selection button next to each combo box picks a random entry. The MOID between the two selected planetoids is computed using the same double-grid search algorithm as <see cref="MoidCalculator"/> and displayed in a label below the combo boxes. The calculation is triggered automatically whenever the selection in either combo box changes.</remarks>
 // You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
@@ -39,13 +34,11 @@ public partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	private readonly IReadOnlyList<string> _planetoids;
 
 	/// <summary>All planetoid designation strings extracted from <see cref="_planetoids"/>.</summary>
-	/// <remarks>Populated once during <see cref="MoidsRelativeToMinorPlanetsForm_Load"/> and reused for
-	/// filtering and random selection.</remarks>
+	/// <remarks>Populated once during <see cref="MoidsRelativeToMinorPlanetsForm_Load"/> and reused for filtering and random selection.</remarks>
 	private string[] _allNames = [];
 
 	/// <summary>Guard flag to prevent re-entrant updates in the <c>TextChanged</c> handlers.</summary>
-	/// <remarks>Set to <see langword="true"/> while a programmatic combo-box update is in progress so that
-	/// the <c>TextChanged</c> event does not trigger another recursive update cycle.</remarks>
+	/// <remarks>Set to <see langword="true"/> while a programmatic combo-box update is in progress so that the <c>TextChanged</c> event does not trigger another recursive update cycle.</remarks>
 	private bool _updatingComboBox;
 
 	#region constructor
@@ -71,9 +64,8 @@ public partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 
 	/// <summary>Extracts the readable designation string from a single MPCORB record line.</summary>
 	/// <param name="line">The raw MPCORB record string.</param>
-	/// <returns>The readable designation (positions 166–193), or the packed index (positions 0–6) as
-	/// a fallback when the readable field is absent or empty. Returns <see langword="null"/> when
-	/// the line is too short to contain even the packed index.</returns>
+	/// <returns>The readable designation (positions 166–193), or the packed index (positions 0–6) as a fallback when the readable field is absent or empty. Returns <see langword="null"/> when the line is too short to contain even the packed index.</returns>
+	/// <remarks>The method first checks if the line is long enough to contain the packed index. It then tries to extract the full readable designation from positions 166–193. If that field is empty, it falls back to the packed index in positions 0–6. If both fields are empty or the line is too short, it returns <see langword="null"/>.</remarks>
 	private static string? ExtractDesignation(string line)
 	{
 		// Lines must be at least 7 characters to hold the packed index
@@ -93,8 +85,7 @@ public partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 		return string.IsNullOrEmpty(value: designation) ? null : designation;
 	}
 
-	/// <summary>Attempts to parse the five Keplerian orbital elements needed for a MOID computation
-	/// from a raw MPCORB record line.</summary>
+	/// <summary>Attempts to parse the five Keplerian orbital elements needed for a MOID computation from a raw MPCORB record line.</summary>
 	/// <param name="line">The raw MPCORB record string.</param>
 	/// <param name="semiMajorAxis">When successful, receives the semi-major axis in AU.</param>
 	/// <param name="eccentricity">When successful, receives the orbital eccentricity.</param>
@@ -102,8 +93,8 @@ public partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <param name="longitudeAscendingNodeDeg">When successful, receives the longitude of the ascending
 	/// node in degrees.</param>
 	/// <param name="argumentPerihelionDeg">When successful, receives the argument of perihelion in degrees.</param>
-	/// <returns><see langword="true"/> if all five elements were parsed successfully;
-	/// <see langword="false"/> otherwise.</returns>
+	/// <returns><see langword="true"/> if all five elements were parsed successfully; <see langword="false"/> otherwise.</returns>
+	/// <remarks>The method first checks if the line is long enough to contain all required fields. It then attempts to parse each field individually, returning <see langword="false"/> if any parsing operation fails.</remarks>
 	private static bool TryParseOrbitalElements(
 		string line,
 		out double semiMajorAxis,
@@ -143,16 +134,13 @@ public partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 			return false;
 		}
 		// Argument of perihelion: positions 37-45
-		if (!double.TryParse(s: line.Substring(startIndex: 37, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out argumentPerihelionDeg))
-		{
-			return false;
-		}
-		return true;
+		return double.TryParse(s: line.Substring(startIndex: 37, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out argumentPerihelionDeg);
 	}
 
 	/// <summary>Finds the raw MPCORB record line whose designation matches the given name.</summary>
 	/// <param name="name">The designation string to search for (case-insensitive).</param>
 	/// <returns>The first matching raw record line, or <see langword="null"/> when no match is found.</returns>
+	/// <remarks>The method iterates through all planetoid lines, extracting the designation from each line and comparing it to the given name. The comparison is case-insensitive. If a match is found, the corresponding line is returned immediately. If no match is found after checking all lines, the method returns <see langword="null"/>.</remarks>
 	private string? FindLineByDesignation(string name)
 	{
 		foreach (string line in _planetoids)
@@ -167,8 +155,7 @@ public partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	}
 
 	/// <summary>Computes the MOID between the two currently selected minor planets and updates the result label.</summary>
-	/// <remarks>If either combo box has no valid selection the label is reset to <c>"-"</c>.
-	/// Parsing errors or calculation failures are logged and the label is set to <c>"-"</c>.</remarks>
+	/// <remarks>If either combo box has no valid selection the label is reset to <c>"-"</c>. Parsing errors or calculation failures are logged and the label is set to <c>"-"</c>.</remarks>
 	private void CalculateAndDisplayMoid()
 	{
 		string name1 = comboBoxPlanetoid1.Text;
@@ -231,8 +218,7 @@ public partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 
 	/// <summary>Applies a contains-based filter to the specified combo box based on the current text.</summary>
 	/// <param name="comboBox">The combo box to filter.</param>
-	/// <remarks>The combo box items are replaced with all names that contain the current text
-	/// (case-insensitive). The cursor is repositioned at the end of the typed text after the update.</remarks>
+	/// <remarks>The combo box items are replaced with all names that contain the current text (case-insensitive). The cursor is repositioned at the end of the typed text after the update.</remarks>
 	private void ApplyContainsFilter(ComboBox comboBox)
 	{
 		if (_updatingComboBox)
@@ -264,10 +250,10 @@ public partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>Handles the Load event. Populates both combo boxes with all planetoid designations
-	/// from the database and configures autocomplete.</summary>
+	/// <summary>Handles the Load event. Populates both combo boxes with all planetoid designations from the database and configures autocomplete.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>The method first clears the status bar. It then extracts all planetoid designations from the raw database lines and populates both combo boxes with these names. An autocomplete source is also set up to provide standard "StartsWith" suggestions based on the full list of names. Any errors during this process are logged and displayed to the user.</remarks>
 	private void MoidsRelativeToMinorPlanetsForm_Load(object sender, EventArgs e)
 	{
 		// Clear the status bar
@@ -295,37 +281,28 @@ public partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Handles the SelectionChangeCommitted event for either combo box.
-	/// Recalculates and displays the MOID whenever the user commits a selection.</summary>
+	/// <summary>Handles the SelectionChangeCommitted event for either combo box. Recalculates and displays the MOID whenever the user commits a selection.</summary>
 	/// <param name="sender">Event source (one of the two combo boxes).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	private void ComboBoxPlanetoid_SelectionChangeCommitted(object sender, EventArgs e)
-	{
-		CalculateAndDisplayMoid();
-	}
+	/// <remarks>This method is triggered when the user changes the selection in either combo box. It calls the method to calculate and display the MOID based on the current selections.</remarks>
+	private void ComboBoxPlanetoid_SelectionChangeCommitted(object sender, EventArgs e) => CalculateAndDisplayMoid();
 
-	/// <summary>Handles the TextChanged event for the first combo box.
-	/// Applies a contains-based filter to the first combo box items.</summary>
+	/// <summary>Handles the TextChanged event for the first combo box. Applies a contains-based filter to the first combo box items.</summary>
 	/// <param name="sender">Event source (the first combo box).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	private void ComboBoxPlanetoid1_TextChanged(object sender, EventArgs e)
-	{
-		ApplyContainsFilter(comboBox: comboBoxPlanetoid1);
-	}
+	/// <remarks>This method is triggered whenever the text in the first combo box changes. It applies a filter to the items in the combo box so that only names containing the current text (case-insensitive) are shown. The cursor is repositioned at the end of the typed text after the update.</remarks>
+	private void ComboBoxPlanetoid1_TextChanged(object sender, EventArgs e) => ApplyContainsFilter(comboBox: comboBoxPlanetoid1);
 
-	/// <summary>Handles the TextChanged event for the second combo box.
-	/// Applies a contains-based filter to the second combo box items.</summary>
+	/// <summary>Handles the TextChanged event for the second combo box. Applies a contains-based filter to the second combo box items.</summary>
 	/// <param name="sender">Event source (the second combo box).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	private void ComboBoxPlanetoid2_TextChanged(object sender, EventArgs e)
-	{
-		ApplyContainsFilter(comboBox: comboBoxPlanetoid2);
-	}
+	/// <remarks>This method is triggered whenever the text in the second combo box changes. It applies a filter to the items in the combo box so that only names containing the current text (case-insensitive) are shown. The cursor is repositioned at the end of the typed text after the update.</remarks>
+	private void ComboBoxPlanetoid2_TextChanged(object sender, EventArgs e) => ApplyContainsFilter(comboBox: comboBoxPlanetoid2);
 
-	/// <summary>Handles the Click event of the random-selection button for the first combo box.
-	/// Picks a random entry from the first combo box and triggers a MOID recalculation.</summary>
+	/// <summary>Handles the Click event of the random-selection button for the first combo box. Picks a random entry from the first combo box and triggers a MOID recalculation.</summary>
 	/// <param name="sender">Event source (the first random button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is triggered when the user clicks the random-selection button next to the first combo box. It picks a random planetoid name from the full list of names (not the filtered list) and sets it as the text of the first combo box, which in turn triggers a MOID recalculation through the TextChanged event.</remarks>
 	private void KryptonButtonRandomPlanetoid1_Click(object sender, EventArgs e)
 	{
 		if (_allNames.Length > 0)
@@ -337,10 +314,10 @@ public partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Handles the Click event of the random-selection button for the second combo box.
-	/// Picks a random entry from the second combo box and triggers a MOID recalculation.</summary>
+	/// <summary>Handles the Click event of the random-selection button for the second combo box. Picks a random entry from the second combo box and triggers a MOID recalculation.</summary>
 	/// <param name="sender">Event source (the second random button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is triggered when the user clicks the random-selection button next to the second combo box. It picks a random planetoid name from the full list of names (not the filtered list) and sets it as the text of the second combo box, which in turn triggers a MOID recalculation through the TextChanged event.</remarks>
 	private void KryptonButtonRandomPlanetoid2_Click(object sender, EventArgs e)
 	{
 		if (_allNames.Length > 0)

@@ -45,9 +45,8 @@ partial class MoidsRelativeToMinorPlanetsForm
 	private void InitializeComponent()
 	{
 		components = new Container();
+		ComponentResourceManager resources = new ComponentResourceManager(typeof(MoidsRelativeToMinorPlanetsForm));
 		kryptonPanelMain = new KryptonPanel();
-		kryptonStatusStrip = new KryptonStatusStrip();
-		labelInformation = new ToolStripStatusLabel();
 		tableLayoutPanel = new TableLayoutPanel();
 		comboBoxPlanetoid1 = new ComboBox();
 		kryptonButtonRandomPlanetoid1 = new KryptonButton();
@@ -55,11 +54,13 @@ partial class MoidsRelativeToMinorPlanetsForm
 		kryptonButtonRandomPlanetoid2 = new KryptonButton();
 		kryptonLabelMoidDesc = new KryptonLabel();
 		kryptonLabelMoidValue = new KryptonLabel();
+		kryptonStatusStrip = new KryptonStatusStrip();
+		labelInformation = new ToolStripStatusLabel();
 		kryptonManager = new KryptonManager(components);
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
-		kryptonStatusStrip.SuspendLayout();
 		tableLayoutPanel.SuspendLayout();
+		kryptonStatusStrip.SuspendLayout();
 		SuspendLayout();
 		// 
 		// kryptonPanelMain
@@ -76,30 +77,6 @@ partial class MoidsRelativeToMinorPlanetsForm
 		kryptonPanelMain.Size = new Size(560, 160);
 		kryptonPanelMain.TabIndex = 0;
 		kryptonPanelMain.TabStop = true;
-		// 
-		// kryptonStatusStrip
-		// 
-		kryptonStatusStrip.AccessibleDescription = "Status bar";
-		kryptonStatusStrip.AccessibleName = "Status bar";
-		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
-		kryptonStatusStrip.Font = new Font(familyName: "Segoe UI", emSize: 9F);
-		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-		kryptonStatusStrip.Location = new Point(0, 134);
-		kryptonStatusStrip.Name = "kryptonStatusStrip";
-		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-		kryptonStatusStrip.Size = new Size(560, 26);
-		kryptonStatusStrip.TabIndex = 0;
-		// 
-		// labelInformation
-		// 
-		labelInformation.AccessibleDescription = "Shows information about the selected control";
-		labelInformation.AccessibleName = "Information";
-		labelInformation.AccessibleRole = AccessibleRole.StaticText;
-		labelInformation.Enabled = false;
-		labelInformation.Name = "labelInformation";
-		labelInformation.Size = new Size(545, 21);
-		labelInformation.Spring = true;
-		labelInformation.TextAlign = ContentAlignment.MiddleLeft;
 		// 
 		// tableLayoutPanel
 		// 
@@ -133,8 +110,7 @@ partial class MoidsRelativeToMinorPlanetsForm
 		comboBoxPlanetoid1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 		comboBoxPlanetoid1.AutoCompleteMode = AutoCompleteMode.Suggest;
 		comboBoxPlanetoid1.AutoCompleteSource = AutoCompleteSource.CustomSource;
-		comboBoxPlanetoid1.DropDownStyle = ComboBoxStyle.DropDown;
-		comboBoxPlanetoid1.Location = new Point(3, 7);
+		comboBoxPlanetoid1.Location = new Point(3, 6);
 		comboBoxPlanetoid1.Name = "comboBoxPlanetoid1";
 		comboBoxPlanetoid1.Size = new Size(428, 23);
 		comboBoxPlanetoid1.TabIndex = 0;
@@ -149,7 +125,7 @@ partial class MoidsRelativeToMinorPlanetsForm
 		kryptonButtonRandomPlanetoid1.AccessibleName = "Random first minor planet";
 		kryptonButtonRandomPlanetoid1.AccessibleRole = AccessibleRole.PushButton;
 		kryptonButtonRandomPlanetoid1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-		kryptonButtonRandomPlanetoid1.Location = new Point(437, 7);
+		kryptonButtonRandomPlanetoid1.Location = new Point(437, 5);
 		kryptonButtonRandomPlanetoid1.Name = "kryptonButtonRandomPlanetoid1";
 		kryptonButtonRandomPlanetoid1.Size = new Size(104, 25);
 		kryptonButtonRandomPlanetoid1.TabIndex = 1;
@@ -172,8 +148,7 @@ partial class MoidsRelativeToMinorPlanetsForm
 		comboBoxPlanetoid2.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 		comboBoxPlanetoid2.AutoCompleteMode = AutoCompleteMode.Suggest;
 		comboBoxPlanetoid2.AutoCompleteSource = AutoCompleteSource.CustomSource;
-		comboBoxPlanetoid2.DropDownStyle = ComboBoxStyle.DropDown;
-		comboBoxPlanetoid2.Location = new Point(3, 43);
+		comboBoxPlanetoid2.Location = new Point(3, 42);
 		comboBoxPlanetoid2.Name = "comboBoxPlanetoid2";
 		comboBoxPlanetoid2.Size = new Size(428, 23);
 		comboBoxPlanetoid2.TabIndex = 2;
@@ -188,7 +163,7 @@ partial class MoidsRelativeToMinorPlanetsForm
 		kryptonButtonRandomPlanetoid2.AccessibleName = "Random second minor planet";
 		kryptonButtonRandomPlanetoid2.AccessibleRole = AccessibleRole.PushButton;
 		kryptonButtonRandomPlanetoid2.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-		kryptonButtonRandomPlanetoid2.Location = new Point(437, 43);
+		kryptonButtonRandomPlanetoid2.Location = new Point(437, 41);
 		kryptonButtonRandomPlanetoid2.Name = "kryptonButtonRandomPlanetoid2";
 		kryptonButtonRandomPlanetoid2.Size = new Size(104, 25);
 		kryptonButtonRandomPlanetoid2.TabIndex = 3;
@@ -210,7 +185,7 @@ partial class MoidsRelativeToMinorPlanetsForm
 		kryptonLabelMoidDesc.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelMoidDesc.Anchor = AnchorStyles.Left;
 		kryptonLabelMoidDesc.LabelStyle = LabelStyle.BoldPanel;
-		kryptonLabelMoidDesc.Location = new Point(3, 79);
+		kryptonLabelMoidDesc.Location = new Point(3, 80);
 		kryptonLabelMoidDesc.Name = "kryptonLabelMoidDesc";
 		kryptonLabelMoidDesc.Size = new Size(200, 20);
 		kryptonLabelMoidDesc.TabIndex = 4;
@@ -227,7 +202,7 @@ partial class MoidsRelativeToMinorPlanetsForm
 		kryptonLabelMoidValue.AccessibleName = "MOID value";
 		kryptonLabelMoidValue.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelMoidValue.Anchor = AnchorStyles.Left;
-		kryptonLabelMoidValue.Location = new Point(437, 79);
+		kryptonLabelMoidValue.Location = new Point(437, 80);
 		kryptonLabelMoidValue.Name = "kryptonLabelMoidValue";
 		kryptonLabelMoidValue.Size = new Size(104, 20);
 		kryptonLabelMoidValue.TabIndex = 5;
@@ -237,6 +212,37 @@ partial class MoidsRelativeToMinorPlanetsForm
 		kryptonLabelMoidValue.MouseEnter += Control_Enter;
 		kryptonLabelMoidValue.MouseLeave += Control_Leave;
 		// 
+		// kryptonStatusStrip
+		// 
+		kryptonStatusStrip.AccessibleDescription = "Status bar";
+		kryptonStatusStrip.AccessibleName = "Status bar";
+		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
+		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
+		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
+		kryptonStatusStrip.Location = new Point(0, 138);
+		kryptonStatusStrip.Name = "kryptonStatusStrip";
+		kryptonStatusStrip.ProgressBars = null;
+		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+		kryptonStatusStrip.Size = new Size(560, 22);
+		kryptonStatusStrip.TabIndex = 0;
+		// 
+		// labelInformation
+		// 
+		labelInformation.AccessibleDescription = "Shows information about the selected control";
+		labelInformation.AccessibleName = "Information";
+		labelInformation.AccessibleRole = AccessibleRole.StaticText;
+		labelInformation.Enabled = false;
+		labelInformation.Name = "labelInformation";
+		labelInformation.Size = new Size(545, 17);
+		labelInformation.Spring = true;
+		labelInformation.TextAlign = ContentAlignment.MiddleLeft;
+		// 
+		// kryptonManager
+		// 
+		kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
+		// 
 		// MoidsRelativeToMinorPlanetsForm
 		// 
 		AccessibleDescription = "Form for calculating the MOID between two minor planets";
@@ -245,24 +251,25 @@ partial class MoidsRelativeToMinorPlanetsForm
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(560, 160);
+		ControlBox = false;
 		Controls.Add(kryptonPanelMain);
-		FormBorderStyle = FormBorderStyle.FixedSingle;
+		FormBorderStyle = FormBorderStyle.SizableToolWindow;
+		Icon = (Icon)resources.GetObject("$this.Icon");
 		MaximizeBox = false;
+		MinimizeBox = false;
 		Name = "MoidsRelativeToMinorPlanetsForm";
-		ShowIcon = true;
 		ShowInTaskbar = false;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "MOIDs relative to minor planets";
 		Load += MoidsRelativeToMinorPlanetsForm_Load;
+		((ISupportInitialize)kryptonPanelMain).EndInit();
+		kryptonPanelMain.ResumeLayout(false);
+		kryptonPanelMain.PerformLayout();
 		tableLayoutPanel.ResumeLayout(false);
 		tableLayoutPanel.PerformLayout();
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();
-		((ISupportInitialize)kryptonPanelMain).EndInit();
-		kryptonPanelMain.ResumeLayout(false);
-		kryptonPanelMain.PerformLayout();
 		ResumeLayout(false);
-		PerformLayout();
 	}
 
 	#endregion
