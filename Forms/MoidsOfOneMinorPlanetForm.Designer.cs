@@ -11,12 +11,8 @@ using System.ComponentModel;
 
 namespace Planetoid_DB;
 
-/// <summary>Represents a Windows Form that displays the Minimum Orbit Intersection Distance (MOID) of a minor planet
-/// relative to each of the eight solar system planets (Mercury through Neptune).</summary>
-/// <remarks>The form presents data in a two-column <see cref="KryptonTableLayoutPanel"/> with eight rows —
-/// one per planet. Column 1 shows the planet name; column 2 shows the corresponding MOID in AU.
-/// Export to many file formats is available through the toolbar dropdown button.
-/// The form does not appear in the taskbar and is intended to be used as a modal dialog.</remarks>
+/// <summary>Represents a Windows Form that displays the Minimum Orbit Intersection Distance (MOID) of a minor planet relative to each of the eight solar system planets (Mercury through Neptune).</summary>
+/// <remarks>The form presents data in a two-column <see cref="KryptonTableLayoutPanel"/> with eight rows — one per planet. Column 1 shows the planet name; column 2 shows the corresponding MOID in AU. Export to many file formats is available through the toolbar dropdown button. The form does not appear in the taskbar and is intended to be used as a modal dialog.</remarks>
 partial class MoidsOfOneMinorPlanetForm
 {
 	/// <summary>Required designer variable.</summary>
@@ -44,8 +40,10 @@ partial class MoidsOfOneMinorPlanetForm
 	private void InitializeComponent()
 	{
 		components = new Container();
-		// ── planet description labels (column 0) ──────────────────────────────
+		ComponentResourceManager resources = new ComponentResourceManager(typeof(MoidsOfOneMinorPlanetForm));
 		labelMercuryDesc = new KryptonLabel();
+		contextMenuCopyToClipboard = new ContextMenuStrip(components);
+		toolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
 		labelVenusDesc = new KryptonLabel();
 		labelEarthDesc = new KryptonLabel();
 		labelMarsDesc = new KryptonLabel();
@@ -53,7 +51,6 @@ partial class MoidsOfOneMinorPlanetForm
 		labelSaturnDesc = new KryptonLabel();
 		labelUranusDesc = new KryptonLabel();
 		labelNeptuneDesc = new KryptonLabel();
-		// ── MOID data labels (column 1) ───────────────────────────────────────
 		labelMercuryData = new KryptonLabel();
 		labelVenusData = new KryptonLabel();
 		labelEarthData = new KryptonLabel();
@@ -62,17 +59,12 @@ partial class MoidsOfOneMinorPlanetForm
 		labelSaturnData = new KryptonLabel();
 		labelUranusData = new KryptonLabel();
 		labelNeptuneData = new KryptonLabel();
-		// ── context menu for copying a single value ───────────────────────────
-		contextMenuCopyToClipboard = new ContextMenuStrip(components);
-		toolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
-		// ── layout / toolbar / status ─────────────────────────────────────────
 		toolStripContainer = new ToolStripContainer();
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
 		tableLayoutPanel = new KryptonTableLayoutPanel();
 		toolStripIcons = new ToolStrip();
 		toolStripDropDownButtonSaveToFile = new ToolStripDropDownButton();
-		// ── save-to-file context menu ─────────────────────────────────────────
 		contextMenuSaveToFile = new ContextMenuStrip(components);
 		toolStripMenuItemTextFiles = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsText = new ToolStripMenuItem();
@@ -113,8 +105,17 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsXps = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsFictionBook2 = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsChm = new ToolStripMenuItem();
+		toolStripDropDownButtonCopyToClipboard = new ToolStripDropDownButton();
+		contextMenuFullCopyToClipboard = new ContextMenuStrip(components);
+		menuitemCopyToClipboardMoidRelativeToMercury = new ToolStripMenuItem();
+		menuitemCopyToClipboardMoidRelativeToVenus = new ToolStripMenuItem();
+		menuitemCopyToClipboardMoidRelativeToEarth = new ToolStripMenuItem();
+		menuitemCopyToClipboardMoidRelativeToMars = new ToolStripMenuItem();
+		menuitemCopyToClipboardMoidRelativeToJupiter = new ToolStripMenuItem();
+		menuitemCopyToClipboardMoidRelativeToSaturn = new ToolStripMenuItem();
+		menuitemCopyToClipboardMoidRelativeToUranus = new ToolStripMenuItem();
+		menuitemCopyToClipboardMoidRelativeToNeptune = new ToolStripMenuItem();
 		kryptonManager = new KryptonManager(components);
-		// ── suspend layouts ───────────────────────────────────────────────────
 		contextMenuCopyToClipboard.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
@@ -124,9 +125,11 @@ partial class MoidsOfOneMinorPlanetForm
 		tableLayoutPanel.SuspendLayout();
 		toolStripIcons.SuspendLayout();
 		contextMenuSaveToFile.SuspendLayout();
+		contextMenuFullCopyToClipboard.SuspendLayout();
 		SuspendLayout();
-
-		// ── labelMercuryDesc ─────────────────────────────────────────────────
+		// 
+		// labelMercuryDesc
+		// 
 		labelMercuryDesc.AccessibleDescription = "Shows the name of the planet Mercury";
 		labelMercuryDesc.AccessibleName = "Mercury";
 		labelMercuryDesc.AccessibleRole = AccessibleRole.StaticText;
@@ -135,7 +138,7 @@ partial class MoidsOfOneMinorPlanetForm
 		labelMercuryDesc.LabelStyle = LabelStyle.BoldPanel;
 		labelMercuryDesc.Location = new Point(3, 3);
 		labelMercuryDesc.Name = "labelMercuryDesc";
-		labelMercuryDesc.Size = new Size(240, 24);
+		labelMercuryDesc.Size = new Size(136, 24);
 		labelMercuryDesc.TabIndex = 0;
 		labelMercuryDesc.ToolTipValues.Description = "MOID of the minor planet relative to Mercury (AU).\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelMercuryDesc.ToolTipValues.EnableToolTips = true;
@@ -143,342 +146,15 @@ partial class MoidsOfOneMinorPlanetForm
 		labelMercuryDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		labelMercuryDesc.Values.ExtraText = "AU";
 		labelMercuryDesc.Values.Text = "Mercury";
+		labelMercuryDesc.DoubleClick += CopyToClipboard_DoubleClick;
 		labelMercuryDesc.Enter += Control_Enter;
 		labelMercuryDesc.Leave += Control_Leave;
+		labelMercuryDesc.MouseDown += Control_MouseDown;
 		labelMercuryDesc.MouseEnter += Control_Enter;
 		labelMercuryDesc.MouseLeave += Control_Leave;
-
-		// ── labelVenusDesc ────────────────────────────────────────────────────
-		labelVenusDesc.AccessibleDescription = "Shows the name of the planet Venus";
-		labelVenusDesc.AccessibleName = "Venus";
-		labelVenusDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelVenusDesc.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelVenusDesc.Dock = DockStyle.Fill;
-		labelVenusDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelVenusDesc.Location = new Point(3, 33);
-		labelVenusDesc.Name = "labelVenusDesc";
-		labelVenusDesc.Size = new Size(240, 24);
-		labelVenusDesc.TabIndex = 2;
-		labelVenusDesc.ToolTipValues.Description = "MOID of the minor planet relative to Venus (AU).\r\nDouble-click or right-click to copy the value to the clipboard.";
-		labelVenusDesc.ToolTipValues.EnableToolTips = true;
-		labelVenusDesc.ToolTipValues.Heading = "MOID to Venus (AU)";
-		labelVenusDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelVenusDesc.Values.ExtraText = "AU";
-		labelVenusDesc.Values.Text = "Venus";
-		labelVenusDesc.Enter += Control_Enter;
-		labelVenusDesc.Leave += Control_Leave;
-		labelVenusDesc.MouseEnter += Control_Enter;
-		labelVenusDesc.MouseLeave += Control_Leave;
-
-		// ── labelEarthDesc ────────────────────────────────────────────────────
-		labelEarthDesc.AccessibleDescription = "Shows the name of the planet Earth";
-		labelEarthDesc.AccessibleName = "Earth";
-		labelEarthDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelEarthDesc.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelEarthDesc.Dock = DockStyle.Fill;
-		labelEarthDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelEarthDesc.Location = new Point(3, 63);
-		labelEarthDesc.Name = "labelEarthDesc";
-		labelEarthDesc.Size = new Size(240, 24);
-		labelEarthDesc.TabIndex = 4;
-		labelEarthDesc.ToolTipValues.Description = "MOID of the minor planet relative to Earth (AU).\r\nDouble-click or right-click to copy the value to the clipboard.";
-		labelEarthDesc.ToolTipValues.EnableToolTips = true;
-		labelEarthDesc.ToolTipValues.Heading = "MOID to Earth (AU)";
-		labelEarthDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelEarthDesc.Values.ExtraText = "AU";
-		labelEarthDesc.Values.Text = "Earth";
-		labelEarthDesc.Enter += Control_Enter;
-		labelEarthDesc.Leave += Control_Leave;
-		labelEarthDesc.MouseEnter += Control_Enter;
-		labelEarthDesc.MouseLeave += Control_Leave;
-
-		// ── labelMarsDesc ─────────────────────────────────────────────────────
-		labelMarsDesc.AccessibleDescription = "Shows the name of the planet Mars";
-		labelMarsDesc.AccessibleName = "Mars";
-		labelMarsDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelMarsDesc.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelMarsDesc.Dock = DockStyle.Fill;
-		labelMarsDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelMarsDesc.Location = new Point(3, 93);
-		labelMarsDesc.Name = "labelMarsDesc";
-		labelMarsDesc.Size = new Size(240, 24);
-		labelMarsDesc.TabIndex = 6;
-		labelMarsDesc.ToolTipValues.Description = "MOID of the minor planet relative to Mars (AU).\r\nDouble-click or right-click to copy the value to the clipboard.";
-		labelMarsDesc.ToolTipValues.EnableToolTips = true;
-		labelMarsDesc.ToolTipValues.Heading = "MOID to Mars (AU)";
-		labelMarsDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelMarsDesc.Values.ExtraText = "AU";
-		labelMarsDesc.Values.Text = "Mars";
-		labelMarsDesc.Enter += Control_Enter;
-		labelMarsDesc.Leave += Control_Leave;
-		labelMarsDesc.MouseEnter += Control_Enter;
-		labelMarsDesc.MouseLeave += Control_Leave;
-
-		// ── labelJupiterDesc ──────────────────────────────────────────────────
-		labelJupiterDesc.AccessibleDescription = "Shows the name of the planet Jupiter";
-		labelJupiterDesc.AccessibleName = "Jupiter";
-		labelJupiterDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelJupiterDesc.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelJupiterDesc.Dock = DockStyle.Fill;
-		labelJupiterDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelJupiterDesc.Location = new Point(3, 123);
-		labelJupiterDesc.Name = "labelJupiterDesc";
-		labelJupiterDesc.Size = new Size(240, 24);
-		labelJupiterDesc.TabIndex = 8;
-		labelJupiterDesc.ToolTipValues.Description = "MOID of the minor planet relative to Jupiter (AU).\r\nDouble-click or right-click to copy the value to the clipboard.";
-		labelJupiterDesc.ToolTipValues.EnableToolTips = true;
-		labelJupiterDesc.ToolTipValues.Heading = "MOID to Jupiter (AU)";
-		labelJupiterDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelJupiterDesc.Values.ExtraText = "AU";
-		labelJupiterDesc.Values.Text = "Jupiter";
-		labelJupiterDesc.Enter += Control_Enter;
-		labelJupiterDesc.Leave += Control_Leave;
-		labelJupiterDesc.MouseEnter += Control_Enter;
-		labelJupiterDesc.MouseLeave += Control_Leave;
-
-		// ── labelSaturnDesc ───────────────────────────────────────────────────
-		labelSaturnDesc.AccessibleDescription = "Shows the name of the planet Saturn";
-		labelSaturnDesc.AccessibleName = "Saturn";
-		labelSaturnDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelSaturnDesc.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelSaturnDesc.Dock = DockStyle.Fill;
-		labelSaturnDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelSaturnDesc.Location = new Point(3, 153);
-		labelSaturnDesc.Name = "labelSaturnDesc";
-		labelSaturnDesc.Size = new Size(240, 24);
-		labelSaturnDesc.TabIndex = 10;
-		labelSaturnDesc.ToolTipValues.Description = "MOID of the minor planet relative to Saturn (AU).\r\nDouble-click or right-click to copy the value to the clipboard.";
-		labelSaturnDesc.ToolTipValues.EnableToolTips = true;
-		labelSaturnDesc.ToolTipValues.Heading = "MOID to Saturn (AU)";
-		labelSaturnDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelSaturnDesc.Values.ExtraText = "AU";
-		labelSaturnDesc.Values.Text = "Saturn";
-		labelSaturnDesc.Enter += Control_Enter;
-		labelSaturnDesc.Leave += Control_Leave;
-		labelSaturnDesc.MouseEnter += Control_Enter;
-		labelSaturnDesc.MouseLeave += Control_Leave;
-
-		// ── labelUranusDesc ───────────────────────────────────────────────────
-		labelUranusDesc.AccessibleDescription = "Shows the name of the planet Uranus";
-		labelUranusDesc.AccessibleName = "Uranus";
-		labelUranusDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelUranusDesc.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelUranusDesc.Dock = DockStyle.Fill;
-		labelUranusDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelUranusDesc.Location = new Point(3, 183);
-		labelUranusDesc.Name = "labelUranusDesc";
-		labelUranusDesc.Size = new Size(240, 24);
-		labelUranusDesc.TabIndex = 12;
-		labelUranusDesc.ToolTipValues.Description = "MOID of the minor planet relative to Uranus (AU).\r\nDouble-click or right-click to copy the value to the clipboard.";
-		labelUranusDesc.ToolTipValues.EnableToolTips = true;
-		labelUranusDesc.ToolTipValues.Heading = "MOID to Uranus (AU)";
-		labelUranusDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelUranusDesc.Values.ExtraText = "AU";
-		labelUranusDesc.Values.Text = "Uranus";
-		labelUranusDesc.Enter += Control_Enter;
-		labelUranusDesc.Leave += Control_Leave;
-		labelUranusDesc.MouseEnter += Control_Enter;
-		labelUranusDesc.MouseLeave += Control_Leave;
-
-		// ── labelNeptuneDesc ──────────────────────────────────────────────────
-		labelNeptuneDesc.AccessibleDescription = "Shows the name of the planet Neptune";
-		labelNeptuneDesc.AccessibleName = "Neptune";
-		labelNeptuneDesc.AccessibleRole = AccessibleRole.StaticText;
-		labelNeptuneDesc.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelNeptuneDesc.Dock = DockStyle.Fill;
-		labelNeptuneDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelNeptuneDesc.Location = new Point(3, 213);
-		labelNeptuneDesc.Name = "labelNeptuneDesc";
-		labelNeptuneDesc.Size = new Size(240, 24);
-		labelNeptuneDesc.TabIndex = 14;
-		labelNeptuneDesc.ToolTipValues.Description = "MOID of the minor planet relative to Neptune (AU).\r\nDouble-click or right-click to copy the value to the clipboard.";
-		labelNeptuneDesc.ToolTipValues.EnableToolTips = true;
-		labelNeptuneDesc.ToolTipValues.Heading = "MOID to Neptune (AU)";
-		labelNeptuneDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelNeptuneDesc.Values.ExtraText = "AU";
-		labelNeptuneDesc.Values.Text = "Neptune";
-		labelNeptuneDesc.Enter += Control_Enter;
-		labelNeptuneDesc.Leave += Control_Leave;
-		labelNeptuneDesc.MouseEnter += Control_Enter;
-		labelNeptuneDesc.MouseLeave += Control_Leave;
-
-		// ── labelMercuryData ──────────────────────────────────────────────────
-		labelMercuryData.AccessibleDescription = "Shows the MOID relative to Mercury in AU";
-		labelMercuryData.AccessibleName = "MOID to Mercury (AU)";
-		labelMercuryData.AccessibleRole = AccessibleRole.StaticText;
-		labelMercuryData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelMercuryData.Dock = DockStyle.Fill;
-		labelMercuryData.Location = new Point(249, 3);
-		labelMercuryData.Name = "labelMercuryData";
-		labelMercuryData.Size = new Size(242, 24);
-		labelMercuryData.TabIndex = 1;
-		labelMercuryData.ToolTipValues.Description = "Shows the MOID relative to Mercury in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
-		labelMercuryData.ToolTipValues.EnableToolTips = true;
-		labelMercuryData.ToolTipValues.Heading = "MOID to Mercury (AU)";
-		labelMercuryData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelMercuryData.Values.Text = "..................";
-		labelMercuryData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelMercuryData.Enter += Control_Enter;
-		labelMercuryData.Leave += Control_Leave;
-		labelMercuryData.MouseDown += Control_MouseDown;
-		labelMercuryData.MouseEnter += Control_Enter;
-		labelMercuryData.MouseLeave += Control_Leave;
-
-		// ── labelVenusData ────────────────────────────────────────────────────
-		labelVenusData.AccessibleDescription = "Shows the MOID relative to Venus in AU";
-		labelVenusData.AccessibleName = "MOID to Venus (AU)";
-		labelVenusData.AccessibleRole = AccessibleRole.StaticText;
-		labelVenusData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelVenusData.Dock = DockStyle.Fill;
-		labelVenusData.Location = new Point(249, 33);
-		labelVenusData.Name = "labelVenusData";
-		labelVenusData.Size = new Size(242, 24);
-		labelVenusData.TabIndex = 3;
-		labelVenusData.ToolTipValues.Description = "Shows the MOID relative to Venus in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
-		labelVenusData.ToolTipValues.EnableToolTips = true;
-		labelVenusData.ToolTipValues.Heading = "MOID to Venus (AU)";
-		labelVenusData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelVenusData.Values.Text = "..................";
-		labelVenusData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelVenusData.Enter += Control_Enter;
-		labelVenusData.Leave += Control_Leave;
-		labelVenusData.MouseDown += Control_MouseDown;
-		labelVenusData.MouseEnter += Control_Enter;
-		labelVenusData.MouseLeave += Control_Leave;
-
-		// ── labelEarthData ────────────────────────────────────────────────────
-		labelEarthData.AccessibleDescription = "Shows the MOID relative to Earth in AU";
-		labelEarthData.AccessibleName = "MOID to Earth (AU)";
-		labelEarthData.AccessibleRole = AccessibleRole.StaticText;
-		labelEarthData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelEarthData.Dock = DockStyle.Fill;
-		labelEarthData.Location = new Point(249, 63);
-		labelEarthData.Name = "labelEarthData";
-		labelEarthData.Size = new Size(242, 24);
-		labelEarthData.TabIndex = 5;
-		labelEarthData.ToolTipValues.Description = "Shows the MOID relative to Earth in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
-		labelEarthData.ToolTipValues.EnableToolTips = true;
-		labelEarthData.ToolTipValues.Heading = "MOID to Earth (AU)";
-		labelEarthData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelEarthData.Values.Text = "..................";
-		labelEarthData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelEarthData.Enter += Control_Enter;
-		labelEarthData.Leave += Control_Leave;
-		labelEarthData.MouseDown += Control_MouseDown;
-		labelEarthData.MouseEnter += Control_Enter;
-		labelEarthData.MouseLeave += Control_Leave;
-
-		// ── labelMarsData ─────────────────────────────────────────────────────
-		labelMarsData.AccessibleDescription = "Shows the MOID relative to Mars in AU";
-		labelMarsData.AccessibleName = "MOID to Mars (AU)";
-		labelMarsData.AccessibleRole = AccessibleRole.StaticText;
-		labelMarsData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelMarsData.Dock = DockStyle.Fill;
-		labelMarsData.Location = new Point(249, 93);
-		labelMarsData.Name = "labelMarsData";
-		labelMarsData.Size = new Size(242, 24);
-		labelMarsData.TabIndex = 7;
-		labelMarsData.ToolTipValues.Description = "Shows the MOID relative to Mars in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
-		labelMarsData.ToolTipValues.EnableToolTips = true;
-		labelMarsData.ToolTipValues.Heading = "MOID to Mars (AU)";
-		labelMarsData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelMarsData.Values.Text = "..................";
-		labelMarsData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelMarsData.Enter += Control_Enter;
-		labelMarsData.Leave += Control_Leave;
-		labelMarsData.MouseDown += Control_MouseDown;
-		labelMarsData.MouseEnter += Control_Enter;
-		labelMarsData.MouseLeave += Control_Leave;
-
-		// ── labelJupiterData ──────────────────────────────────────────────────
-		labelJupiterData.AccessibleDescription = "Shows the MOID relative to Jupiter in AU";
-		labelJupiterData.AccessibleName = "MOID to Jupiter (AU)";
-		labelJupiterData.AccessibleRole = AccessibleRole.StaticText;
-		labelJupiterData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelJupiterData.Dock = DockStyle.Fill;
-		labelJupiterData.Location = new Point(249, 123);
-		labelJupiterData.Name = "labelJupiterData";
-		labelJupiterData.Size = new Size(242, 24);
-		labelJupiterData.TabIndex = 9;
-		labelJupiterData.ToolTipValues.Description = "Shows the MOID relative to Jupiter in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
-		labelJupiterData.ToolTipValues.EnableToolTips = true;
-		labelJupiterData.ToolTipValues.Heading = "MOID to Jupiter (AU)";
-		labelJupiterData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelJupiterData.Values.Text = "..................";
-		labelJupiterData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelJupiterData.Enter += Control_Enter;
-		labelJupiterData.Leave += Control_Leave;
-		labelJupiterData.MouseDown += Control_MouseDown;
-		labelJupiterData.MouseEnter += Control_Enter;
-		labelJupiterData.MouseLeave += Control_Leave;
-
-		// ── labelSaturnData ───────────────────────────────────────────────────
-		labelSaturnData.AccessibleDescription = "Shows the MOID relative to Saturn in AU";
-		labelSaturnData.AccessibleName = "MOID to Saturn (AU)";
-		labelSaturnData.AccessibleRole = AccessibleRole.StaticText;
-		labelSaturnData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelSaturnData.Dock = DockStyle.Fill;
-		labelSaturnData.Location = new Point(249, 153);
-		labelSaturnData.Name = "labelSaturnData";
-		labelSaturnData.Size = new Size(242, 24);
-		labelSaturnData.TabIndex = 11;
-		labelSaturnData.ToolTipValues.Description = "Shows the MOID relative to Saturn in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
-		labelSaturnData.ToolTipValues.EnableToolTips = true;
-		labelSaturnData.ToolTipValues.Heading = "MOID to Saturn (AU)";
-		labelSaturnData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelSaturnData.Values.Text = "..................";
-		labelSaturnData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelSaturnData.Enter += Control_Enter;
-		labelSaturnData.Leave += Control_Leave;
-		labelSaturnData.MouseDown += Control_MouseDown;
-		labelSaturnData.MouseEnter += Control_Enter;
-		labelSaturnData.MouseLeave += Control_Leave;
-
-		// ── labelUranusData ───────────────────────────────────────────────────
-		labelUranusData.AccessibleDescription = "Shows the MOID relative to Uranus in AU";
-		labelUranusData.AccessibleName = "MOID to Uranus (AU)";
-		labelUranusData.AccessibleRole = AccessibleRole.StaticText;
-		labelUranusData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelUranusData.Dock = DockStyle.Fill;
-		labelUranusData.Location = new Point(249, 183);
-		labelUranusData.Name = "labelUranusData";
-		labelUranusData.Size = new Size(242, 24);
-		labelUranusData.TabIndex = 13;
-		labelUranusData.ToolTipValues.Description = "Shows the MOID relative to Uranus in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
-		labelUranusData.ToolTipValues.EnableToolTips = true;
-		labelUranusData.ToolTipValues.Heading = "MOID to Uranus (AU)";
-		labelUranusData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelUranusData.Values.Text = "..................";
-		labelUranusData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelUranusData.Enter += Control_Enter;
-		labelUranusData.Leave += Control_Leave;
-		labelUranusData.MouseDown += Control_MouseDown;
-		labelUranusData.MouseEnter += Control_Enter;
-		labelUranusData.MouseLeave += Control_Leave;
-
-		// ── labelNeptuneData ──────────────────────────────────────────────────
-		labelNeptuneData.AccessibleDescription = "Shows the MOID relative to Neptune in AU";
-		labelNeptuneData.AccessibleName = "MOID to Neptune (AU)";
-		labelNeptuneData.AccessibleRole = AccessibleRole.StaticText;
-		labelNeptuneData.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelNeptuneData.Dock = DockStyle.Fill;
-		labelNeptuneData.Location = new Point(249, 213);
-		labelNeptuneData.Name = "labelNeptuneData";
-		labelNeptuneData.Size = new Size(242, 24);
-		labelNeptuneData.TabIndex = 15;
-		labelNeptuneData.ToolTipValues.Description = "Shows the MOID relative to Neptune in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
-		labelNeptuneData.ToolTipValues.EnableToolTips = true;
-		labelNeptuneData.ToolTipValues.Heading = "MOID to Neptune (AU)";
-		labelNeptuneData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelNeptuneData.Values.Text = "..................";
-		labelNeptuneData.DoubleClick += CopyToClipboard_DoubleClick;
-		labelNeptuneData.Enter += Control_Enter;
-		labelNeptuneData.Leave += Control_Leave;
-		labelNeptuneData.MouseDown += Control_MouseDown;
-		labelNeptuneData.MouseEnter += Control_Enter;
-		labelNeptuneData.MouseLeave += Control_Leave;
-
-		// ── contextMenuCopyToClipboard ────────────────────────────────────────
+		// 
+		// contextMenuCopyToClipboard
+		// 
 		contextMenuCopyToClipboard.AccessibleDescription = "Shows the context menu for copying the MOID value to the clipboard";
 		contextMenuCopyToClipboard.AccessibleName = "Context menu for copying to the clipboard";
 		contextMenuCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
@@ -489,10 +165,13 @@ partial class MoidsOfOneMinorPlanetForm
 		contextMenuCopyToClipboard.Size = new Size(214, 26);
 		contextMenuCopyToClipboard.TabStop = true;
 		contextMenuCopyToClipboard.Text = "Copy to clipboard";
+		contextMenuCopyToClipboard.Enter += Control_Enter;
+		contextMenuCopyToClipboard.Leave += Control_Leave;
 		contextMenuCopyToClipboard.MouseEnter += Control_Enter;
 		contextMenuCopyToClipboard.MouseLeave += Control_Leave;
-
-		// ── toolStripMenuItemCopyToClipboard ──────────────────────────────────
+		// 
+		// toolStripMenuItemCopyToClipboard
+		// 
 		toolStripMenuItemCopyToClipboard.AccessibleDescription = "Copies the MOID value to the clipboard";
 		toolStripMenuItemCopyToClipboard.AccessibleName = "Copy to clipboard";
 		toolStripMenuItemCopyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
@@ -506,29 +185,419 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripMenuItemCopyToClipboard.Click += CopyToClipboard_DoubleClick;
 		toolStripMenuItemCopyToClipboard.MouseEnter += Control_Enter;
 		toolStripMenuItemCopyToClipboard.MouseLeave += Control_Leave;
-
-		// ── toolStripContainer ────────────────────────────────────────────────
+		// 
+		// labelVenusDesc
+		// 
+		labelVenusDesc.AccessibleDescription = "Shows the name of the planet Venus";
+		labelVenusDesc.AccessibleName = "Venus";
+		labelVenusDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelVenusDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelVenusDesc.Dock = DockStyle.Fill;
+		labelVenusDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelVenusDesc.Location = new Point(3, 33);
+		labelVenusDesc.Name = "labelVenusDesc";
+		labelVenusDesc.Size = new Size(136, 24);
+		labelVenusDesc.TabIndex = 2;
+		labelVenusDesc.ToolTipValues.Description = "MOID of the minor planet relative to Venus (AU).\r\nDouble-click or right-click to copy the value to the clipboard.";
+		labelVenusDesc.ToolTipValues.EnableToolTips = true;
+		labelVenusDesc.ToolTipValues.Heading = "MOID to Venus (AU)";
+		labelVenusDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelVenusDesc.Values.ExtraText = "AU";
+		labelVenusDesc.Values.Text = "Venus";
+		labelVenusDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelVenusDesc.Enter += Control_Enter;
+		labelVenusDesc.Leave += Control_Leave;
+		labelVenusDesc.MouseDown += Control_MouseDown;
+		labelVenusDesc.MouseEnter += Control_Enter;
+		labelVenusDesc.MouseLeave += Control_Leave;
+		// 
+		// labelEarthDesc
+		// 
+		labelEarthDesc.AccessibleDescription = "Shows the name of the planet Earth";
+		labelEarthDesc.AccessibleName = "Earth";
+		labelEarthDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelEarthDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelEarthDesc.Dock = DockStyle.Fill;
+		labelEarthDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelEarthDesc.Location = new Point(3, 63);
+		labelEarthDesc.Name = "labelEarthDesc";
+		labelEarthDesc.Size = new Size(136, 24);
+		labelEarthDesc.TabIndex = 4;
+		labelEarthDesc.ToolTipValues.Description = "MOID of the minor planet relative to Earth (AU).\r\nDouble-click or right-click to copy the value to the clipboard.";
+		labelEarthDesc.ToolTipValues.EnableToolTips = true;
+		labelEarthDesc.ToolTipValues.Heading = "MOID to Earth (AU)";
+		labelEarthDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelEarthDesc.Values.ExtraText = "AU";
+		labelEarthDesc.Values.Text = "Earth";
+		labelEarthDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelEarthDesc.Enter += Control_Enter;
+		labelEarthDesc.Leave += Control_Leave;
+		labelEarthDesc.MouseDown += Control_MouseDown;
+		labelEarthDesc.MouseEnter += Control_Enter;
+		labelEarthDesc.MouseLeave += Control_Leave;
+		// 
+		// labelMarsDesc
+		// 
+		labelMarsDesc.AccessibleDescription = "Shows the name of the planet Mars";
+		labelMarsDesc.AccessibleName = "Mars";
+		labelMarsDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMarsDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMarsDesc.Dock = DockStyle.Fill;
+		labelMarsDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelMarsDesc.Location = new Point(3, 93);
+		labelMarsDesc.Name = "labelMarsDesc";
+		labelMarsDesc.Size = new Size(136, 24);
+		labelMarsDesc.TabIndex = 6;
+		labelMarsDesc.ToolTipValues.Description = "MOID of the minor planet relative to Mars (AU).\r\nDouble-click or right-click to copy the value to the clipboard.";
+		labelMarsDesc.ToolTipValues.EnableToolTips = true;
+		labelMarsDesc.ToolTipValues.Heading = "MOID to Mars (AU)";
+		labelMarsDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMarsDesc.Values.ExtraText = "AU";
+		labelMarsDesc.Values.Text = "Mars";
+		labelMarsDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMarsDesc.Enter += Control_Enter;
+		labelMarsDesc.Leave += Control_Leave;
+		labelMarsDesc.MouseDown += Control_MouseDown;
+		labelMarsDesc.MouseEnter += Control_Enter;
+		labelMarsDesc.MouseLeave += Control_Leave;
+		// 
+		// labelJupiterDesc
+		// 
+		labelJupiterDesc.AccessibleDescription = "Shows the name of the planet Jupiter";
+		labelJupiterDesc.AccessibleName = "Jupiter";
+		labelJupiterDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelJupiterDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelJupiterDesc.Dock = DockStyle.Fill;
+		labelJupiterDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelJupiterDesc.Location = new Point(3, 123);
+		labelJupiterDesc.Name = "labelJupiterDesc";
+		labelJupiterDesc.Size = new Size(136, 24);
+		labelJupiterDesc.TabIndex = 8;
+		labelJupiterDesc.ToolTipValues.Description = "MOID of the minor planet relative to Jupiter (AU).\r\nDouble-click or right-click to copy the value to the clipboard.";
+		labelJupiterDesc.ToolTipValues.EnableToolTips = true;
+		labelJupiterDesc.ToolTipValues.Heading = "MOID to Jupiter (AU)";
+		labelJupiterDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelJupiterDesc.Values.ExtraText = "AU";
+		labelJupiterDesc.Values.Text = "Jupiter";
+		labelJupiterDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelJupiterDesc.Enter += Control_Enter;
+		labelJupiterDesc.Leave += Control_Leave;
+		labelJupiterDesc.MouseDown += Control_MouseDown;
+		labelJupiterDesc.MouseEnter += Control_Enter;
+		labelJupiterDesc.MouseLeave += Control_Leave;
+		// 
+		// labelSaturnDesc
+		// 
+		labelSaturnDesc.AccessibleDescription = "Shows the name of the planet Saturn";
+		labelSaturnDesc.AccessibleName = "Saturn";
+		labelSaturnDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelSaturnDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelSaturnDesc.Dock = DockStyle.Fill;
+		labelSaturnDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelSaturnDesc.Location = new Point(3, 153);
+		labelSaturnDesc.Name = "labelSaturnDesc";
+		labelSaturnDesc.Size = new Size(136, 24);
+		labelSaturnDesc.TabIndex = 10;
+		labelSaturnDesc.ToolTipValues.Description = "MOID of the minor planet relative to Saturn (AU).\r\nDouble-click or right-click to copy the value to the clipboard.";
+		labelSaturnDesc.ToolTipValues.EnableToolTips = true;
+		labelSaturnDesc.ToolTipValues.Heading = "MOID to Saturn (AU)";
+		labelSaturnDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelSaturnDesc.Values.ExtraText = "AU";
+		labelSaturnDesc.Values.Text = "Saturn";
+		labelSaturnDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelSaturnDesc.Enter += Control_Enter;
+		labelSaturnDesc.Leave += Control_Leave;
+		labelSaturnDesc.MouseDown += Control_MouseDown;
+		labelSaturnDesc.MouseEnter += Control_Enter;
+		labelSaturnDesc.MouseLeave += Control_Leave;
+		// 
+		// labelUranusDesc
+		// 
+		labelUranusDesc.AccessibleDescription = "Shows the name of the planet Uranus";
+		labelUranusDesc.AccessibleName = "Uranus";
+		labelUranusDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelUranusDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelUranusDesc.Dock = DockStyle.Fill;
+		labelUranusDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelUranusDesc.Location = new Point(3, 183);
+		labelUranusDesc.Name = "labelUranusDesc";
+		labelUranusDesc.Size = new Size(136, 24);
+		labelUranusDesc.TabIndex = 12;
+		labelUranusDesc.ToolTipValues.Description = "MOID of the minor planet relative to Uranus (AU).\r\nDouble-click or right-click to copy the value to the clipboard.";
+		labelUranusDesc.ToolTipValues.EnableToolTips = true;
+		labelUranusDesc.ToolTipValues.Heading = "MOID to Uranus (AU)";
+		labelUranusDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelUranusDesc.Values.ExtraText = "AU";
+		labelUranusDesc.Values.Text = "Uranus";
+		labelUranusDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelUranusDesc.Enter += Control_Enter;
+		labelUranusDesc.Leave += Control_Leave;
+		labelUranusDesc.MouseDown += Control_MouseDown;
+		labelUranusDesc.MouseEnter += Control_Enter;
+		labelUranusDesc.MouseLeave += Control_Leave;
+		// 
+		// labelNeptuneDesc
+		// 
+		labelNeptuneDesc.AccessibleDescription = "Shows the name of the planet Neptune";
+		labelNeptuneDesc.AccessibleName = "Neptune";
+		labelNeptuneDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelNeptuneDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelNeptuneDesc.Dock = DockStyle.Fill;
+		labelNeptuneDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelNeptuneDesc.Location = new Point(3, 213);
+		labelNeptuneDesc.Name = "labelNeptuneDesc";
+		labelNeptuneDesc.Size = new Size(136, 27);
+		labelNeptuneDesc.TabIndex = 14;
+		labelNeptuneDesc.ToolTipValues.Description = "MOID of the minor planet relative to Neptune (AU).\r\nDouble-click or right-click to copy the value to the clipboard.";
+		labelNeptuneDesc.ToolTipValues.EnableToolTips = true;
+		labelNeptuneDesc.ToolTipValues.Heading = "MOID to Neptune (AU)";
+		labelNeptuneDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelNeptuneDesc.Values.ExtraText = "AU";
+		labelNeptuneDesc.Values.Text = "Neptune";
+		labelNeptuneDesc.DoubleClick += CopyToClipboard_DoubleClick;
+		labelNeptuneDesc.Enter += Control_Enter;
+		labelNeptuneDesc.Leave += Control_Leave;
+		labelNeptuneDesc.MouseDown += Control_MouseDown;
+		labelNeptuneDesc.MouseEnter += Control_Enter;
+		labelNeptuneDesc.MouseLeave += Control_Leave;
+		// 
+		// labelMercuryData
+		// 
+		labelMercuryData.AccessibleDescription = "Shows the MOID relative to Mercury in AU";
+		labelMercuryData.AccessibleName = "MOID to Mercury (AU)";
+		labelMercuryData.AccessibleRole = AccessibleRole.StaticText;
+		labelMercuryData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMercuryData.Dock = DockStyle.Fill;
+		labelMercuryData.Location = new Point(145, 3);
+		labelMercuryData.Name = "labelMercuryData";
+		labelMercuryData.Size = new Size(136, 24);
+		labelMercuryData.TabIndex = 1;
+		labelMercuryData.ToolTipValues.Description = "Shows the MOID relative to Mercury in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
+		labelMercuryData.ToolTipValues.EnableToolTips = true;
+		labelMercuryData.ToolTipValues.Heading = "MOID to Mercury (AU)";
+		labelMercuryData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMercuryData.Values.Text = "..................";
+		labelMercuryData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMercuryData.Enter += Control_Enter;
+		labelMercuryData.Leave += Control_Leave;
+		labelMercuryData.MouseDown += Control_MouseDown;
+		labelMercuryData.MouseEnter += Control_Enter;
+		labelMercuryData.MouseLeave += Control_Leave;
+		// 
+		// labelVenusData
+		// 
+		labelVenusData.AccessibleDescription = "Shows the MOID relative to Venus in AU";
+		labelVenusData.AccessibleName = "MOID to Venus (AU)";
+		labelVenusData.AccessibleRole = AccessibleRole.StaticText;
+		labelVenusData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelVenusData.Dock = DockStyle.Fill;
+		labelVenusData.Location = new Point(145, 33);
+		labelVenusData.Name = "labelVenusData";
+		labelVenusData.Size = new Size(136, 24);
+		labelVenusData.TabIndex = 3;
+		labelVenusData.ToolTipValues.Description = "Shows the MOID relative to Venus in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
+		labelVenusData.ToolTipValues.EnableToolTips = true;
+		labelVenusData.ToolTipValues.Heading = "MOID to Venus (AU)";
+		labelVenusData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelVenusData.Values.Text = "..................";
+		labelVenusData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelVenusData.Enter += Control_Enter;
+		labelVenusData.Leave += Control_Leave;
+		labelVenusData.MouseDown += Control_MouseDown;
+		labelVenusData.MouseEnter += Control_Enter;
+		labelVenusData.MouseLeave += Control_Leave;
+		// 
+		// labelEarthData
+		// 
+		labelEarthData.AccessibleDescription = "Shows the MOID relative to Earth in AU";
+		labelEarthData.AccessibleName = "MOID to Earth (AU)";
+		labelEarthData.AccessibleRole = AccessibleRole.StaticText;
+		labelEarthData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelEarthData.Dock = DockStyle.Fill;
+		labelEarthData.Location = new Point(145, 63);
+		labelEarthData.Name = "labelEarthData";
+		labelEarthData.Size = new Size(136, 24);
+		labelEarthData.TabIndex = 5;
+		labelEarthData.ToolTipValues.Description = "Shows the MOID relative to Earth in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
+		labelEarthData.ToolTipValues.EnableToolTips = true;
+		labelEarthData.ToolTipValues.Heading = "MOID to Earth (AU)";
+		labelEarthData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelEarthData.Values.Text = "..................";
+		labelEarthData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelEarthData.Enter += Control_Enter;
+		labelEarthData.Leave += Control_Leave;
+		labelEarthData.MouseDown += Control_MouseDown;
+		labelEarthData.MouseEnter += Control_Enter;
+		labelEarthData.MouseLeave += Control_Leave;
+		// 
+		// labelMarsData
+		// 
+		labelMarsData.AccessibleDescription = "Shows the MOID relative to Mars in AU";
+		labelMarsData.AccessibleName = "MOID to Mars (AU)";
+		labelMarsData.AccessibleRole = AccessibleRole.StaticText;
+		labelMarsData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMarsData.Dock = DockStyle.Fill;
+		labelMarsData.Location = new Point(145, 93);
+		labelMarsData.Name = "labelMarsData";
+		labelMarsData.Size = new Size(136, 24);
+		labelMarsData.TabIndex = 7;
+		labelMarsData.ToolTipValues.Description = "Shows the MOID relative to Mars in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
+		labelMarsData.ToolTipValues.EnableToolTips = true;
+		labelMarsData.ToolTipValues.Heading = "MOID to Mars (AU)";
+		labelMarsData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMarsData.Values.Text = "..................";
+		labelMarsData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMarsData.Enter += Control_Enter;
+		labelMarsData.Leave += Control_Leave;
+		labelMarsData.MouseDown += Control_MouseDown;
+		labelMarsData.MouseEnter += Control_Enter;
+		labelMarsData.MouseLeave += Control_Leave;
+		// 
+		// labelJupiterData
+		// 
+		labelJupiterData.AccessibleDescription = "Shows the MOID relative to Jupiter in AU";
+		labelJupiterData.AccessibleName = "MOID to Jupiter (AU)";
+		labelJupiterData.AccessibleRole = AccessibleRole.StaticText;
+		labelJupiterData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelJupiterData.Dock = DockStyle.Fill;
+		labelJupiterData.Location = new Point(145, 123);
+		labelJupiterData.Name = "labelJupiterData";
+		labelJupiterData.Size = new Size(136, 24);
+		labelJupiterData.TabIndex = 9;
+		labelJupiterData.ToolTipValues.Description = "Shows the MOID relative to Jupiter in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
+		labelJupiterData.ToolTipValues.EnableToolTips = true;
+		labelJupiterData.ToolTipValues.Heading = "MOID to Jupiter (AU)";
+		labelJupiterData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelJupiterData.Values.Text = "..................";
+		labelJupiterData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelJupiterData.Enter += Control_Enter;
+		labelJupiterData.Leave += Control_Leave;
+		labelJupiterData.MouseDown += Control_MouseDown;
+		labelJupiterData.MouseEnter += Control_Enter;
+		labelJupiterData.MouseLeave += Control_Leave;
+		// 
+		// labelSaturnData
+		// 
+		labelSaturnData.AccessibleDescription = "Shows the MOID relative to Saturn in AU";
+		labelSaturnData.AccessibleName = "MOID to Saturn (AU)";
+		labelSaturnData.AccessibleRole = AccessibleRole.StaticText;
+		labelSaturnData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelSaturnData.Dock = DockStyle.Fill;
+		labelSaturnData.Location = new Point(145, 153);
+		labelSaturnData.Name = "labelSaturnData";
+		labelSaturnData.Size = new Size(136, 24);
+		labelSaturnData.TabIndex = 11;
+		labelSaturnData.ToolTipValues.Description = "Shows the MOID relative to Saturn in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
+		labelSaturnData.ToolTipValues.EnableToolTips = true;
+		labelSaturnData.ToolTipValues.Heading = "MOID to Saturn (AU)";
+		labelSaturnData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelSaturnData.Values.Text = "..................";
+		labelSaturnData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelSaturnData.Enter += Control_Enter;
+		labelSaturnData.Leave += Control_Leave;
+		labelSaturnData.MouseDown += Control_MouseDown;
+		labelSaturnData.MouseEnter += Control_Enter;
+		labelSaturnData.MouseLeave += Control_Leave;
+		// 
+		// labelUranusData
+		// 
+		labelUranusData.AccessibleDescription = "Shows the MOID relative to Uranus in AU";
+		labelUranusData.AccessibleName = "MOID to Uranus (AU)";
+		labelUranusData.AccessibleRole = AccessibleRole.StaticText;
+		labelUranusData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelUranusData.Dock = DockStyle.Fill;
+		labelUranusData.Location = new Point(145, 183);
+		labelUranusData.Name = "labelUranusData";
+		labelUranusData.Size = new Size(136, 24);
+		labelUranusData.TabIndex = 13;
+		labelUranusData.ToolTipValues.Description = "Shows the MOID relative to Uranus in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
+		labelUranusData.ToolTipValues.EnableToolTips = true;
+		labelUranusData.ToolTipValues.Heading = "MOID to Uranus (AU)";
+		labelUranusData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelUranusData.Values.Text = "..................";
+		labelUranusData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelUranusData.Enter += Control_Enter;
+		labelUranusData.Leave += Control_Leave;
+		labelUranusData.MouseDown += Control_MouseDown;
+		labelUranusData.MouseEnter += Control_Enter;
+		labelUranusData.MouseLeave += Control_Leave;
+		// 
+		// labelNeptuneData
+		// 
+		labelNeptuneData.AccessibleDescription = "Shows the MOID relative to Neptune in AU";
+		labelNeptuneData.AccessibleName = "MOID to Neptune (AU)";
+		labelNeptuneData.AccessibleRole = AccessibleRole.StaticText;
+		labelNeptuneData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelNeptuneData.Dock = DockStyle.Fill;
+		labelNeptuneData.Location = new Point(145, 213);
+		labelNeptuneData.Name = "labelNeptuneData";
+		labelNeptuneData.Size = new Size(136, 27);
+		labelNeptuneData.TabIndex = 15;
+		labelNeptuneData.ToolTipValues.Description = "Shows the MOID relative to Neptune in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
+		labelNeptuneData.ToolTipValues.EnableToolTips = true;
+		labelNeptuneData.ToolTipValues.Heading = "MOID to Neptune (AU)";
+		labelNeptuneData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelNeptuneData.Values.Text = "..................";
+		labelNeptuneData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelNeptuneData.Enter += Control_Enter;
+		labelNeptuneData.Leave += Control_Leave;
+		labelNeptuneData.MouseDown += Control_MouseDown;
+		labelNeptuneData.MouseEnter += Control_Enter;
+		labelNeptuneData.MouseLeave += Control_Leave;
+		// 
+		// toolStripContainer
+		// 
 		toolStripContainer.AccessibleDescription = "Container to arrange the toolbars";
 		toolStripContainer.AccessibleName = "Container to arrange the toolbars";
 		toolStripContainer.AccessibleRole = AccessibleRole.Grouping;
-		// Bottom (status bar)
+		// 
+		// toolStripContainer.BottomToolStripPanel
+		// 
+		toolStripContainer.BottomToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.BottomToolStripPanel.AccessibleName = "Bottom panel";
+		toolStripContainer.BottomToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
-		// Content panel (table)
+		// 
+		// toolStripContainer.ContentPanel
+		// 
+		toolStripContainer.ContentPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.ContentPanel.AccessibleName = "Content panel";
+		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.ContentPanel.Controls.Add(tableLayoutPanel);
 		toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
-		toolStripContainer.ContentPanel.Size = new Size(494, 243);
+		toolStripContainer.ContentPanel.Size = new Size(284, 243);
 		toolStripContainer.Dock = DockStyle.Fill;
+		// 
+		// toolStripContainer.LeftToolStripPanel
+		// 
+		toolStripContainer.LeftToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.LeftToolStripPanel.AccessibleName = "Left panel";
+		toolStripContainer.LeftToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.Location = new Point(0, 0);
 		toolStripContainer.Name = "toolStripContainer";
-		toolStripContainer.Size = new Size(494, 290);
+		// 
+		// toolStripContainer.RightToolStripPanel
+		// 
+		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
+		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
+		toolStripContainer.Size = new Size(284, 290);
 		toolStripContainer.TabIndex = 0;
 		toolStripContainer.Text = "toolStripContainer";
-		// Top (toolbar)
+		// 
+		// toolStripContainer.TopToolStripPanel
+		// 
+		toolStripContainer.TopToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.TopToolStripPanel.AccessibleName = "Top panel";
+		toolStripContainer.TopToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.TopToolStripPanel.Controls.Add(toolStripIcons);
+		toolStripContainer.Enter += Control_Enter;
+		toolStripContainer.Leave += Control_Leave;
 		toolStripContainer.MouseEnter += Control_Enter;
 		toolStripContainer.MouseLeave += Control_Leave;
-
-		// ── kryptonStatusStrip ────────────────────────────────────────────────
+		// 
+		// kryptonStatusStrip
+		// 
 		kryptonStatusStrip.AccessibleDescription = "Shows some information";
 		kryptonStatusStrip.AccessibleName = "Status bar with some information";
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
@@ -536,21 +605,24 @@ partial class MoidsOfOneMinorPlanetForm
 		kryptonStatusStrip.AllowItemReorder = true;
 		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
+		kryptonStatusStrip.GripStyle = ToolStripGripStyle.Visible;
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
 		kryptonStatusStrip.Location = new Point(0, 0);
 		kryptonStatusStrip.Name = "kryptonStatusStrip";
 		kryptonStatusStrip.ProgressBars = null;
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
 		kryptonStatusStrip.ShowItemToolTips = true;
-		kryptonStatusStrip.Size = new Size(494, 22);
-		kryptonStatusStrip.SizingGrip = false;
+		kryptonStatusStrip.Size = new Size(284, 22);
 		kryptonStatusStrip.TabIndex = 1;
 		kryptonStatusStrip.TabStop = true;
 		kryptonStatusStrip.Text = "Status bar";
+		kryptonStatusStrip.Enter += Control_Enter;
+		kryptonStatusStrip.Leave += Control_Leave;
 		kryptonStatusStrip.MouseEnter += Control_Enter;
 		kryptonStatusStrip.MouseLeave += Control_Leave;
-
-		// ── labelInformation ──────────────────────────────────────────────────
+		// 
+		// labelInformation
+		// 
 		labelInformation.AccessibleDescription = "Shows some information";
 		labelInformation.AccessibleName = "Show some information";
 		labelInformation.AccessibleRole = AccessibleRole.StaticText;
@@ -562,36 +634,29 @@ partial class MoidsOfOneMinorPlanetForm
 		labelInformation.ToolTipText = "Shows some information";
 		labelInformation.MouseEnter += Control_Enter;
 		labelInformation.MouseLeave += Control_Leave;
-
-		// ── tableLayoutPanel ──────────────────────────────────────────────────
+		// 
+		// tableLayoutPanel
+		// 
 		tableLayoutPanel.AccessibleDescription = "Table showing MOID values per planet";
 		tableLayoutPanel.AccessibleName = "MOID table";
 		tableLayoutPanel.AccessibleRole = AccessibleRole.Grouping;
 		tableLayoutPanel.ColumnCount = 2;
 		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
 		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-		// Row 0: Mercury
 		tableLayoutPanel.Controls.Add(labelMercuryDesc, 0, 0);
 		tableLayoutPanel.Controls.Add(labelMercuryData, 1, 0);
-		// Row 1: Venus
 		tableLayoutPanel.Controls.Add(labelVenusDesc, 0, 1);
 		tableLayoutPanel.Controls.Add(labelVenusData, 1, 1);
-		// Row 2: Earth
 		tableLayoutPanel.Controls.Add(labelEarthDesc, 0, 2);
 		tableLayoutPanel.Controls.Add(labelEarthData, 1, 2);
-		// Row 3: Mars
 		tableLayoutPanel.Controls.Add(labelMarsDesc, 0, 3);
 		tableLayoutPanel.Controls.Add(labelMarsData, 1, 3);
-		// Row 4: Jupiter
 		tableLayoutPanel.Controls.Add(labelJupiterDesc, 0, 4);
 		tableLayoutPanel.Controls.Add(labelJupiterData, 1, 4);
-		// Row 5: Saturn
 		tableLayoutPanel.Controls.Add(labelSaturnDesc, 0, 5);
 		tableLayoutPanel.Controls.Add(labelSaturnData, 1, 5);
-		// Row 6: Uranus
 		tableLayoutPanel.Controls.Add(labelUranusDesc, 0, 6);
 		tableLayoutPanel.Controls.Add(labelUranusData, 1, 6);
-		// Row 7: Neptune
 		tableLayoutPanel.Controls.Add(labelNeptuneDesc, 0, 7);
 		tableLayoutPanel.Controls.Add(labelNeptuneData, 1, 7);
 		tableLayoutPanel.Dock = DockStyle.Fill;
@@ -607,11 +672,16 @@ partial class MoidsOfOneMinorPlanetForm
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
-		tableLayoutPanel.Size = new Size(494, 243);
+		tableLayoutPanel.Size = new Size(284, 243);
 		tableLayoutPanel.TabIndex = 0;
 		tableLayoutPanel.TabStop = true;
-
-		// ── toolStripIcons ────────────────────────────────────────────────────
+		tableLayoutPanel.Enter += Control_Enter;
+		tableLayoutPanel.Leave += Control_Leave;
+		tableLayoutPanel.MouseEnter += Control_Enter;
+		tableLayoutPanel.MouseLeave += Control_Leave;
+		// 
+		// toolStripIcons
+		// 
 		toolStripIcons.AccessibleDescription = "Toolbar for exporting data";
 		toolStripIcons.AccessibleName = "Toolbar for exporting data";
 		toolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
@@ -620,10 +690,10 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripIcons.BackColor = Color.Transparent;
 		toolStripIcons.Dock = DockStyle.None;
 		toolStripIcons.Font = new Font("Segoe UI", 9F);
-		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripDropDownButtonSaveToFile });
+		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripDropDownButtonSaveToFile, toolStripDropDownButtonCopyToClipboard });
 		toolStripIcons.Location = new Point(0, 0);
 		toolStripIcons.Name = "toolStripIcons";
-		toolStripIcons.Size = new Size(494, 25);
+		toolStripIcons.Size = new Size(284, 25);
 		toolStripIcons.Stretch = true;
 		toolStripIcons.TabIndex = 0;
 		toolStripIcons.TabStop = true;
@@ -632,8 +702,9 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripIcons.Leave += Control_Leave;
 		toolStripIcons.MouseEnter += Control_Enter;
 		toolStripIcons.MouseLeave += Control_Leave;
-
-		// ── toolStripDropDownButtonSaveToFile ─────────────────────────────────
+		// 
+		// toolStripDropDownButtonSaveToFile
+		// 
 		toolStripDropDownButtonSaveToFile.AccessibleDescription = "Saves information to file";
 		toolStripDropDownButtonSaveToFile.AccessibleName = "Save to file";
 		toolStripDropDownButtonSaveToFile.AccessibleRole = AccessibleRole.ButtonDropDown;
@@ -645,48 +716,41 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripDropDownButtonSaveToFile.Text = "&Save to file";
 		toolStripDropDownButtonSaveToFile.MouseEnter += Control_Enter;
 		toolStripDropDownButtonSaveToFile.MouseLeave += Control_Leave;
-
-		// ── contextMenuSaveToFile ─────────────────────────────────────────────
+		// 
+		// contextMenuSaveToFile
+		// 
 		contextMenuSaveToFile.AccessibleDescription = "Save the MOID data as file";
 		contextMenuSaveToFile.AccessibleName = "Save MOID data";
 		contextMenuSaveToFile.AccessibleRole = AccessibleRole.MenuPopup;
 		contextMenuSaveToFile.AllowClickThrough = true;
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
-		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[]
-		{
-			toolStripMenuItemTextFiles,
-			toolStripMenuItemWriterDocuments,
-			toolStripMenuItemSpreadsheetDocuments,
-			toolStripMenuItemXmlDocuments,
-			toolStripMenuItemConfigurationFiles,
-			toolStripMenuItemDatabaseScripts,
-			toolStripMenuItemPortableDocuments
-		});
+		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveToFile";
+		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveToFile;
 		contextMenuSaveToFile.Size = new Size(202, 158);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save MOID data";
+		contextMenuSaveToFile.Enter += Control_Enter;
+		contextMenuSaveToFile.Leave += Control_Leave;
 		contextMenuSaveToFile.MouseEnter += Control_Enter;
 		contextMenuSaveToFile.MouseLeave += Control_Leave;
-
-		// ── Text files sub-menu ───────────────────────────────────────────────
+		// 
+		// toolStripMenuItemTextFiles
+		// 
 		toolStripMenuItemTextFiles.AccessibleDescription = "Saves the data as text file";
 		toolStripMenuItemTextFiles.AccessibleName = "Save as text file";
 		toolStripMenuItemTextFiles.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemTextFiles.AutoToolTip = true;
-		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[]
-		{
-			toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex,
-			toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc,
-			toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile
-		});
+		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile });
 		toolStripMenuItemTextFiles.Image = FatcowIcons16px.fatcow_file_extension_txt_16px;
 		toolStripMenuItemTextFiles.Name = "toolStripMenuItemTextFiles";
 		toolStripMenuItemTextFiles.Size = new Size(201, 22);
 		toolStripMenuItemTextFiles.Text = "&Text files";
 		toolStripMenuItemTextFiles.MouseEnter += Control_Enter;
 		toolStripMenuItemTextFiles.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsText
+		// 
 		toolStripMenuItemSaveAsText.AccessibleDescription = "Saves the data as text file";
 		toolStripMenuItemSaveAsText.AccessibleName = "Save as text";
 		toolStripMenuItemSaveAsText.AccessibleRole = AccessibleRole.MenuItem;
@@ -698,7 +762,9 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsText.Click += ToolStripMenuItemSaveAsText_Click;
 		toolStripMenuItemSaveAsText.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsText.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsLatex
+		// 
 		toolStripMenuItemSaveAsLatex.AccessibleDescription = "Saves the data as LaTeX file";
 		toolStripMenuItemSaveAsLatex.AccessibleName = "Save as LaTeX";
 		toolStripMenuItemSaveAsLatex.AccessibleRole = AccessibleRole.MenuItem;
@@ -710,7 +776,9 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsLatex.Click += ToolStripMenuItemSaveAsLatex_Click;
 		toolStripMenuItemSaveAsLatex.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsLatex.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsMarkdown
+		// 
 		toolStripMenuItemSaveAsMarkdown.AccessibleDescription = "Saves the data as Markdown file";
 		toolStripMenuItemSaveAsMarkdown.AccessibleName = "Save as Markdown";
 		toolStripMenuItemSaveAsMarkdown.AccessibleRole = AccessibleRole.MenuItem;
@@ -722,7 +790,9 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsMarkdown.Click += ToolStripMenuItemSaveAsMarkdown_Click;
 		toolStripMenuItemSaveAsMarkdown.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsMarkdown.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsAsciiDoc
+		// 
 		toolStripMenuItemSaveAsAsciiDoc.AccessibleDescription = "Saves the data as AsciiDoc file";
 		toolStripMenuItemSaveAsAsciiDoc.AccessibleName = "Save as AsciiDoc";
 		toolStripMenuItemSaveAsAsciiDoc.AccessibleRole = AccessibleRole.MenuItem;
@@ -734,7 +804,9 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsAsciiDoc.Click += ToolStripMenuItemSaveAsAsciiDoc_Click;
 		toolStripMenuItemSaveAsAsciiDoc.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsAsciiDoc.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsReStructuredText
+		// 
 		toolStripMenuItemSaveAsReStructuredText.AccessibleDescription = "Saves the data as reStructuredText file";
 		toolStripMenuItemSaveAsReStructuredText.AccessibleName = "Save as reStructuredText";
 		toolStripMenuItemSaveAsReStructuredText.AccessibleRole = AccessibleRole.MenuItem;
@@ -746,7 +818,9 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsReStructuredText.Click += ToolStripMenuItemSaveAsReStructuredText_Click;
 		toolStripMenuItemSaveAsReStructuredText.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsReStructuredText.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsTextile
+		// 
 		toolStripMenuItemSaveAsTextile.AccessibleDescription = "Saves the data as Textile file";
 		toolStripMenuItemSaveAsTextile.AccessibleName = "Save as Textile";
 		toolStripMenuItemSaveAsTextile.AccessibleRole = AccessibleRole.MenuItem;
@@ -758,24 +832,23 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsTextile.Click += ToolStripMenuItemSaveAsTextile_Click;
 		toolStripMenuItemSaveAsTextile.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsTextile.MouseLeave += Control_Leave;
-
-		// ── Writer documents sub-menu ─────────────────────────────────────────
+		// 
+		// toolStripMenuItemWriterDocuments
+		// 
 		toolStripMenuItemWriterDocuments.AccessibleDescription = "Saves the data as writer document";
 		toolStripMenuItemWriterDocuments.AccessibleName = "Save as writer document";
 		toolStripMenuItemWriterDocuments.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemWriterDocuments.AutoToolTip = true;
-		toolStripMenuItemWriterDocuments.DropDownItems.AddRange(new ToolStripItem[]
-		{
-			toolStripMenuItemSaveAsWord, toolStripMenuItemSaveAsOdt,
-			toolStripMenuItemSaveAsRtf, toolStripMenuItemSaveAsAbiword, toolStripMenuItemSaveAsWps
-		});
+		toolStripMenuItemWriterDocuments.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsWord, toolStripMenuItemSaveAsOdt, toolStripMenuItemSaveAsRtf, toolStripMenuItemSaveAsAbiword, toolStripMenuItemSaveAsWps });
 		toolStripMenuItemWriterDocuments.Image = FatcowIcons16px.fatcow_file_extension_doc_16px;
 		toolStripMenuItemWriterDocuments.Name = "toolStripMenuItemWriterDocuments";
 		toolStripMenuItemWriterDocuments.Size = new Size(201, 22);
 		toolStripMenuItemWriterDocuments.Text = "&Writer documents";
 		toolStripMenuItemWriterDocuments.MouseEnter += Control_Enter;
 		toolStripMenuItemWriterDocuments.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsWord
+		// 
 		toolStripMenuItemSaveAsWord.AccessibleDescription = "Saves the data as Word file";
 		toolStripMenuItemSaveAsWord.AccessibleName = "Save as Word";
 		toolStripMenuItemSaveAsWord.AccessibleRole = AccessibleRole.MenuItem;
@@ -787,7 +860,9 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsWord.Click += ToolStripMenuItemSaveAsWord_Click;
 		toolStripMenuItemSaveAsWord.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsWord.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsOdt
+		// 
 		toolStripMenuItemSaveAsOdt.AccessibleDescription = "Saves the data as ODT file";
 		toolStripMenuItemSaveAsOdt.AccessibleName = "Save as ODT";
 		toolStripMenuItemSaveAsOdt.AccessibleRole = AccessibleRole.MenuItem;
@@ -799,7 +874,9 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsOdt.Click += ToolStripMenuItemSaveAsOdt_Click;
 		toolStripMenuItemSaveAsOdt.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsOdt.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsRtf
+		// 
 		toolStripMenuItemSaveAsRtf.AccessibleDescription = "Saves the data as RTF file";
 		toolStripMenuItemSaveAsRtf.AccessibleName = "Save as RTF";
 		toolStripMenuItemSaveAsRtf.AccessibleRole = AccessibleRole.MenuItem;
@@ -811,7 +888,9 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsRtf.Click += ToolStripMenuItemSaveAsRtf_Click;
 		toolStripMenuItemSaveAsRtf.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsRtf.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsAbiword
+		// 
 		toolStripMenuItemSaveAsAbiword.AccessibleDescription = "Saves the data as Abiword file";
 		toolStripMenuItemSaveAsAbiword.AccessibleName = "Save as Abiword";
 		toolStripMenuItemSaveAsAbiword.AccessibleRole = AccessibleRole.MenuItem;
@@ -823,7 +902,9 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsAbiword.Click += ToolStripMenuItemSaveAsAbiword_Click;
 		toolStripMenuItemSaveAsAbiword.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsAbiword.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsWps
+		// 
 		toolStripMenuItemSaveAsWps.AccessibleDescription = "Saves the data as WPS file";
 		toolStripMenuItemSaveAsWps.AccessibleName = "Save as WPS";
 		toolStripMenuItemSaveAsWps.AccessibleRole = AccessibleRole.MenuItem;
@@ -835,25 +916,23 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsWps.Click += ToolStripMenuItemSaveAsWps_Click;
 		toolStripMenuItemSaveAsWps.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsWps.MouseLeave += Control_Leave;
-
-		// ── Spreadsheet documents sub-menu ────────────────────────────────────
+		// 
+		// toolStripMenuItemSpreadsheetDocuments
+		// 
 		toolStripMenuItemSpreadsheetDocuments.AccessibleDescription = "Saves the data as spreadsheet document";
 		toolStripMenuItemSpreadsheetDocuments.AccessibleName = "Save as spreadsheet document";
 		toolStripMenuItemSpreadsheetDocuments.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemSpreadsheetDocuments.AutoToolTip = true;
-		toolStripMenuItemSpreadsheetDocuments.DropDownItems.AddRange(new ToolStripItem[]
-		{
-			toolStripMenuItemSaveAsExcel, toolStripMenuItemSaveAsOds,
-			toolStripMenuItemSaveAsCsv, toolStripMenuItemSaveAsTsv,
-			toolStripMenuItemSaveAsPsv, toolStripMenuItemSaveAsEt
-		});
+		toolStripMenuItemSpreadsheetDocuments.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsExcel, toolStripMenuItemSaveAsOds, toolStripMenuItemSaveAsCsv, toolStripMenuItemSaveAsTsv, toolStripMenuItemSaveAsPsv, toolStripMenuItemSaveAsEt });
 		toolStripMenuItemSpreadsheetDocuments.Image = FatcowIcons16px.fatcow_file_extension_xls_16px;
 		toolStripMenuItemSpreadsheetDocuments.Name = "toolStripMenuItemSpreadsheetDocuments";
 		toolStripMenuItemSpreadsheetDocuments.Size = new Size(201, 22);
 		toolStripMenuItemSpreadsheetDocuments.Text = "&Spreadsheet documents";
 		toolStripMenuItemSpreadsheetDocuments.MouseEnter += Control_Enter;
 		toolStripMenuItemSpreadsheetDocuments.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsExcel
+		// 
 		toolStripMenuItemSaveAsExcel.AccessibleDescription = "Saves the data as Excel file";
 		toolStripMenuItemSaveAsExcel.AccessibleName = "Save as Excel";
 		toolStripMenuItemSaveAsExcel.AccessibleRole = AccessibleRole.MenuItem;
@@ -865,7 +944,9 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsExcel.Click += ToolStripMenuItemSaveAsExcel_Click;
 		toolStripMenuItemSaveAsExcel.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsExcel.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsOds
+		// 
 		toolStripMenuItemSaveAsOds.AccessibleDescription = "Saves the data as ODS file";
 		toolStripMenuItemSaveAsOds.AccessibleName = "Save as ODS";
 		toolStripMenuItemSaveAsOds.AccessibleRole = AccessibleRole.MenuItem;
@@ -877,7 +958,9 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsOds.Click += ToolStripMenuItemSaveAsOds_Click;
 		toolStripMenuItemSaveAsOds.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsOds.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsCsv
+		// 
 		toolStripMenuItemSaveAsCsv.AccessibleDescription = "Saves the data as CSV file";
 		toolStripMenuItemSaveAsCsv.AccessibleName = "Save as CSV";
 		toolStripMenuItemSaveAsCsv.AccessibleRole = AccessibleRole.MenuItem;
@@ -889,7 +972,9 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsCsv.Click += ToolStripMenuItemSaveAsCsv_Click;
 		toolStripMenuItemSaveAsCsv.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsCsv.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsTsv
+		// 
 		toolStripMenuItemSaveAsTsv.AccessibleDescription = "Saves the data as TSV file";
 		toolStripMenuItemSaveAsTsv.AccessibleName = "Save as TSV";
 		toolStripMenuItemSaveAsTsv.AccessibleRole = AccessibleRole.MenuItem;
@@ -901,7 +986,9 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsTsv.Click += ToolStripMenuItemSaveAsTsv_Click;
 		toolStripMenuItemSaveAsTsv.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsTsv.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsPsv
+		// 
 		toolStripMenuItemSaveAsPsv.AccessibleDescription = "Saves the data as PSV file";
 		toolStripMenuItemSaveAsPsv.AccessibleName = "Save as PSV";
 		toolStripMenuItemSaveAsPsv.AccessibleRole = AccessibleRole.MenuItem;
@@ -913,7 +1000,9 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsPsv.Click += ToolStripMenuItemSaveAsPsv_Click;
 		toolStripMenuItemSaveAsPsv.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsPsv.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsEt
+		// 
 		toolStripMenuItemSaveAsEt.AccessibleDescription = "Saves the data as ET file";
 		toolStripMenuItemSaveAsEt.AccessibleName = "Save as ET";
 		toolStripMenuItemSaveAsEt.AccessibleRole = AccessibleRole.MenuItem;
@@ -925,274 +1014,444 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsEt.Click += ToolStripMenuItemSaveAsEt_Click;
 		toolStripMenuItemSaveAsEt.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsEt.MouseLeave += Control_Leave;
-
-		// ── XML documents sub-menu ────────────────────────────────────────────
+		// 
+		// toolStripMenuItemXmlDocuments
+		// 
 		toolStripMenuItemXmlDocuments.AccessibleDescription = "Saves the data as XML document";
 		toolStripMenuItemXmlDocuments.AccessibleName = "Save as XML document";
 		toolStripMenuItemXmlDocuments.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemXmlDocuments.AutoToolTip = true;
-		toolStripMenuItemXmlDocuments.DropDownItems.AddRange(new ToolStripItem[]
-		{
-			toolStripMenuItemSaveAsHtml, toolStripMenuItemSaveAsXml, toolStripMenuItemSaveAsDocBook
-		});
-		toolStripMenuItemXmlDocuments.Image = FatcowIcons16px.fatcow_file_extension_xml_16px;
+		toolStripMenuItemXmlDocuments.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsHtml, toolStripMenuItemSaveAsXml, toolStripMenuItemSaveAsDocBook });
+		toolStripMenuItemXmlDocuments.Image = FatcowIcons16px.fatcow_file_extension_bin_16px;
 		toolStripMenuItemXmlDocuments.Name = "toolStripMenuItemXmlDocuments";
 		toolStripMenuItemXmlDocuments.Size = new Size(201, 22);
 		toolStripMenuItemXmlDocuments.Text = "&XML documents";
 		toolStripMenuItemXmlDocuments.MouseEnter += Control_Enter;
 		toolStripMenuItemXmlDocuments.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsHtml
+		// 
 		toolStripMenuItemSaveAsHtml.AccessibleDescription = "Saves the data as HTML file";
 		toolStripMenuItemSaveAsHtml.AccessibleName = "Save as HTML";
 		toolStripMenuItemSaveAsHtml.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemSaveAsHtml.AutoToolTip = true;
-		toolStripMenuItemSaveAsHtml.Image = FatcowIcons16px.fatcow_page_white_world_16px;
+		toolStripMenuItemSaveAsHtml.Image = FatcowIcons16px.fatcow_page_white_code_16px;
 		toolStripMenuItemSaveAsHtml.Name = "toolStripMenuItemSaveAsHtml";
-		toolStripMenuItemSaveAsHtml.Size = new Size(257, 22);
+		toolStripMenuItemSaveAsHtml.Size = new Size(163, 22);
 		toolStripMenuItemSaveAsHtml.Text = "Save as &HTML";
 		toolStripMenuItemSaveAsHtml.Click += ToolStripMenuItemSaveAsHtml_Click;
 		toolStripMenuItemSaveAsHtml.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsHtml.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsXml
+		// 
 		toolStripMenuItemSaveAsXml.AccessibleDescription = "Saves the data as XML file";
 		toolStripMenuItemSaveAsXml.AccessibleName = "Save as XML";
 		toolStripMenuItemSaveAsXml.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemSaveAsXml.AutoToolTip = true;
 		toolStripMenuItemSaveAsXml.Image = FatcowIcons16px.fatcow_page_white_code_16px;
 		toolStripMenuItemSaveAsXml.Name = "toolStripMenuItemSaveAsXml";
-		toolStripMenuItemSaveAsXml.Size = new Size(257, 22);
+		toolStripMenuItemSaveAsXml.Size = new Size(163, 22);
 		toolStripMenuItemSaveAsXml.Text = "Save as &XML";
 		toolStripMenuItemSaveAsXml.Click += ToolStripMenuItemSaveAsXml_Click;
 		toolStripMenuItemSaveAsXml.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsXml.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsDocBook
+		// 
 		toolStripMenuItemSaveAsDocBook.AccessibleDescription = "Saves the data as DocBook file";
 		toolStripMenuItemSaveAsDocBook.AccessibleName = "Save as DocBook";
 		toolStripMenuItemSaveAsDocBook.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemSaveAsDocBook.AutoToolTip = true;
 		toolStripMenuItemSaveAsDocBook.Image = FatcowIcons16px.fatcow_page_white_code_16px;
 		toolStripMenuItemSaveAsDocBook.Name = "toolStripMenuItemSaveAsDocBook";
-		toolStripMenuItemSaveAsDocBook.Size = new Size(257, 22);
+		toolStripMenuItemSaveAsDocBook.Size = new Size(163, 22);
 		toolStripMenuItemSaveAsDocBook.Text = "Save as &DocBook";
 		toolStripMenuItemSaveAsDocBook.Click += ToolStripMenuItemSaveAsDocBook_Click;
 		toolStripMenuItemSaveAsDocBook.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsDocBook.MouseLeave += Control_Leave;
-
-		// ── Configuration files sub-menu ──────────────────────────────────────
+		// 
+		// toolStripMenuItemConfigurationFiles
+		// 
 		toolStripMenuItemConfigurationFiles.AccessibleDescription = "Saves the data as configuration file";
 		toolStripMenuItemConfigurationFiles.AccessibleName = "Save as configuration file";
 		toolStripMenuItemConfigurationFiles.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemConfigurationFiles.AutoToolTip = true;
-		toolStripMenuItemConfigurationFiles.DropDownItems.AddRange(new ToolStripItem[]
-		{
-			toolStripMenuItemSaveAsJson, toolStripMenuItemSaveAsYaml, toolStripMenuItemSaveAsToml
-		});
-		toolStripMenuItemConfigurationFiles.Image = FatcowIcons16px.fatcow_page_white_gear_16px;
+		toolStripMenuItemConfigurationFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsJson, toolStripMenuItemSaveAsYaml, toolStripMenuItemSaveAsToml });
+		toolStripMenuItemConfigurationFiles.Image = FatcowIcons16px.fatcow_file_extension_dll_16px;
 		toolStripMenuItemConfigurationFiles.Name = "toolStripMenuItemConfigurationFiles";
 		toolStripMenuItemConfigurationFiles.Size = new Size(201, 22);
 		toolStripMenuItemConfigurationFiles.Text = "&Configuration files";
 		toolStripMenuItemConfigurationFiles.MouseEnter += Control_Enter;
 		toolStripMenuItemConfigurationFiles.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsJson
+		// 
 		toolStripMenuItemSaveAsJson.AccessibleDescription = "Saves the data as JSON file";
 		toolStripMenuItemSaveAsJson.AccessibleName = "Save as JSON";
 		toolStripMenuItemSaveAsJson.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemSaveAsJson.AutoToolTip = true;
-		toolStripMenuItemSaveAsJson.Image = FatcowIcons16px.fatcow_page_white_gear_16px;
+		toolStripMenuItemSaveAsJson.Image = FatcowIcons16px.fatcow_page_white_code_red_16px;
 		toolStripMenuItemSaveAsJson.Name = "toolStripMenuItemSaveAsJson";
-		toolStripMenuItemSaveAsJson.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsJson.Size = new Size(146, 22);
 		toolStripMenuItemSaveAsJson.Text = "Save as &JSON";
 		toolStripMenuItemSaveAsJson.Click += ToolStripMenuItemSaveAsJson_Click;
 		toolStripMenuItemSaveAsJson.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsJson.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsYaml
+		// 
 		toolStripMenuItemSaveAsYaml.AccessibleDescription = "Saves the data as YAML file";
 		toolStripMenuItemSaveAsYaml.AccessibleName = "Save as YAML";
 		toolStripMenuItemSaveAsYaml.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemSaveAsYaml.AutoToolTip = true;
-		toolStripMenuItemSaveAsYaml.Image = FatcowIcons16px.fatcow_page_white_gear_16px;
+		toolStripMenuItemSaveAsYaml.Image = FatcowIcons16px.fatcow_page_white_code_red_16px;
 		toolStripMenuItemSaveAsYaml.Name = "toolStripMenuItemSaveAsYaml";
-		toolStripMenuItemSaveAsYaml.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsYaml.Size = new Size(146, 22);
 		toolStripMenuItemSaveAsYaml.Text = "Save as &YAML";
 		toolStripMenuItemSaveAsYaml.Click += ToolStripMenuItemSaveAsYaml_Click;
 		toolStripMenuItemSaveAsYaml.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsYaml.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsToml
+		// 
 		toolStripMenuItemSaveAsToml.AccessibleDescription = "Saves the data as TOML file";
 		toolStripMenuItemSaveAsToml.AccessibleName = "Save as TOML";
 		toolStripMenuItemSaveAsToml.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemSaveAsToml.AutoToolTip = true;
-		toolStripMenuItemSaveAsToml.Image = FatcowIcons16px.fatcow_page_white_gear_16px;
+		toolStripMenuItemSaveAsToml.Image = FatcowIcons16px.fatcow_page_white_code_red_16px;
 		toolStripMenuItemSaveAsToml.Name = "toolStripMenuItemSaveAsToml";
-		toolStripMenuItemSaveAsToml.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsToml.Size = new Size(146, 22);
 		toolStripMenuItemSaveAsToml.Text = "Save as &TOML";
 		toolStripMenuItemSaveAsToml.Click += ToolStripMenuItemSaveAsToml_Click;
 		toolStripMenuItemSaveAsToml.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsToml.MouseLeave += Control_Leave;
-
-		// ── Database scripts sub-menu ─────────────────────────────────────────
+		// 
+		// toolStripMenuItemDatabaseScripts
+		// 
 		toolStripMenuItemDatabaseScripts.AccessibleDescription = "Saves the data as database script";
 		toolStripMenuItemDatabaseScripts.AccessibleName = "Save as database script";
 		toolStripMenuItemDatabaseScripts.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemDatabaseScripts.AutoToolTip = true;
-		toolStripMenuItemDatabaseScripts.DropDownItems.AddRange(new ToolStripItem[]
-		{
-			toolStripMenuItemSaveAsSql, toolStripMenuItemSaveAsSqlite
-		});
-		toolStripMenuItemDatabaseScripts.Image = FatcowIcons16px.fatcow_database_16px;
+		toolStripMenuItemDatabaseScripts.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsSql, toolStripMenuItemSaveAsSqlite });
+		toolStripMenuItemDatabaseScripts.Image = FatcowIcons16px.fatcow_file_extension_ptb_16px;
 		toolStripMenuItemDatabaseScripts.Name = "toolStripMenuItemDatabaseScripts";
 		toolStripMenuItemDatabaseScripts.Size = new Size(201, 22);
 		toolStripMenuItemDatabaseScripts.Text = "&Database scripts";
 		toolStripMenuItemDatabaseScripts.MouseEnter += Control_Enter;
 		toolStripMenuItemDatabaseScripts.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsSql
+		// 
 		toolStripMenuItemSaveAsSql.AccessibleDescription = "Saves the data as SQL file";
 		toolStripMenuItemSaveAsSql.AccessibleName = "Save as SQL";
 		toolStripMenuItemSaveAsSql.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemSaveAsSql.AutoToolTip = true;
-		toolStripMenuItemSaveAsSql.Image = FatcowIcons16px.fatcow_database_16px;
+		toolStripMenuItemSaveAsSql.Image = FatcowIcons16px.fatcow_page_white_database_16px;
 		toolStripMenuItemSaveAsSql.Name = "toolStripMenuItemSaveAsSql";
-		toolStripMenuItemSaveAsSql.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsSql.Size = new Size(149, 22);
 		toolStripMenuItemSaveAsSql.Text = "Save as &SQL";
 		toolStripMenuItemSaveAsSql.Click += ToolStripMenuItemSaveAsSql_Click;
 		toolStripMenuItemSaveAsSql.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsSql.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsSqlite
+		// 
 		toolStripMenuItemSaveAsSqlite.AccessibleDescription = "Saves the data as SQLite file";
 		toolStripMenuItemSaveAsSqlite.AccessibleName = "Save as SQLite";
 		toolStripMenuItemSaveAsSqlite.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemSaveAsSqlite.AutoToolTip = true;
-		toolStripMenuItemSaveAsSqlite.Image = FatcowIcons16px.fatcow_database_16px;
+		toolStripMenuItemSaveAsSqlite.Image = FatcowIcons16px.fatcow_page_white_database_16px;
 		toolStripMenuItemSaveAsSqlite.Name = "toolStripMenuItemSaveAsSqlite";
-		toolStripMenuItemSaveAsSqlite.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsSqlite.Size = new Size(149, 22);
 		toolStripMenuItemSaveAsSqlite.Text = "Save as S&QLite";
 		toolStripMenuItemSaveAsSqlite.Click += ToolStripMenuItemSaveAsSqlite_Click;
 		toolStripMenuItemSaveAsSqlite.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsSqlite.MouseLeave += Control_Leave;
-
-		// ── Portable documents sub-menu ───────────────────────────────────────
+		// 
+		// toolStripMenuItemPortableDocuments
+		// 
 		toolStripMenuItemPortableDocuments.AccessibleDescription = "Saves the data as portable document";
 		toolStripMenuItemPortableDocuments.AccessibleName = "Save as portable document";
 		toolStripMenuItemPortableDocuments.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemPortableDocuments.AutoToolTip = true;
-		toolStripMenuItemPortableDocuments.DropDownItems.AddRange(new ToolStripItem[]
-		{
-			toolStripMenuItemSaveAsPdf, toolStripMenuItemSaveAsPostScript,
-			toolStripMenuItemSaveAsEpub, toolStripMenuItemSaveAsMobi,
-			toolStripMenuItemSaveAsXps, toolStripMenuItemSaveAsFictionBook2,
-			toolStripMenuItemSaveAsChm
-		});
+		toolStripMenuItemPortableDocuments.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsPdf, toolStripMenuItemSaveAsPostScript, toolStripMenuItemSaveAsEpub, toolStripMenuItemSaveAsMobi, toolStripMenuItemSaveAsXps, toolStripMenuItemSaveAsFictionBook2, toolStripMenuItemSaveAsChm });
 		toolStripMenuItemPortableDocuments.Image = FatcowIcons16px.fatcow_file_extension_pdf_16px;
 		toolStripMenuItemPortableDocuments.Name = "toolStripMenuItemPortableDocuments";
 		toolStripMenuItemPortableDocuments.Size = new Size(201, 22);
 		toolStripMenuItemPortableDocuments.Text = "&Portable documents";
 		toolStripMenuItemPortableDocuments.MouseEnter += Control_Enter;
 		toolStripMenuItemPortableDocuments.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsPdf
+		// 
 		toolStripMenuItemSaveAsPdf.AccessibleDescription = "Saves the data as PDF file";
 		toolStripMenuItemSaveAsPdf.AccessibleName = "Save as PDF";
 		toolStripMenuItemSaveAsPdf.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemSaveAsPdf.AutoToolTip = true;
-		toolStripMenuItemSaveAsPdf.Image = FatcowIcons16px.fatcow_file_extension_pdf_16px;
+		toolStripMenuItemSaveAsPdf.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
 		toolStripMenuItemSaveAsPdf.Name = "toolStripMenuItemSaveAsPdf";
-		toolStripMenuItemSaveAsPdf.Size = new Size(257, 22);
+		toolStripMenuItemSaveAsPdf.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsPdf.Text = "Save as &PDF";
 		toolStripMenuItemSaveAsPdf.Click += ToolStripMenuItemSaveAsPdf_Click;
 		toolStripMenuItemSaveAsPdf.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsPdf.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsPostScript
+		// 
 		toolStripMenuItemSaveAsPostScript.AccessibleDescription = "Saves the data as PostScript file";
 		toolStripMenuItemSaveAsPostScript.AccessibleName = "Save as PostScript";
 		toolStripMenuItemSaveAsPostScript.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemSaveAsPostScript.AutoToolTip = true;
-		toolStripMenuItemSaveAsPostScript.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsPostScript.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
 		toolStripMenuItemSaveAsPostScript.Name = "toolStripMenuItemSaveAsPostScript";
-		toolStripMenuItemSaveAsPostScript.Size = new Size(257, 22);
+		toolStripMenuItemSaveAsPostScript.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsPostScript.Text = "Save as &PostScript (PS)";
 		toolStripMenuItemSaveAsPostScript.Click += ToolStripMenuItemSaveAsPostScript_Click;
 		toolStripMenuItemSaveAsPostScript.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsPostScript.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsEpub
+		// 
 		toolStripMenuItemSaveAsEpub.AccessibleDescription = "Saves the data as EPUB file";
 		toolStripMenuItemSaveAsEpub.AccessibleName = "Save as EPUB";
 		toolStripMenuItemSaveAsEpub.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemSaveAsEpub.AutoToolTip = true;
-		toolStripMenuItemSaveAsEpub.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsEpub.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
 		toolStripMenuItemSaveAsEpub.Name = "toolStripMenuItemSaveAsEpub";
-		toolStripMenuItemSaveAsEpub.Size = new Size(257, 22);
+		toolStripMenuItemSaveAsEpub.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsEpub.Text = "Save as &EPUB";
 		toolStripMenuItemSaveAsEpub.Click += ToolStripMenuItemSaveAsEpub_Click;
 		toolStripMenuItemSaveAsEpub.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsEpub.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsMobi
+		// 
 		toolStripMenuItemSaveAsMobi.AccessibleDescription = "Saves the data as MOBI file";
 		toolStripMenuItemSaveAsMobi.AccessibleName = "Save as MOBI";
 		toolStripMenuItemSaveAsMobi.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemSaveAsMobi.AutoToolTip = true;
-		toolStripMenuItemSaveAsMobi.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsMobi.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
 		toolStripMenuItemSaveAsMobi.Name = "toolStripMenuItemSaveAsMobi";
-		toolStripMenuItemSaveAsMobi.Size = new Size(257, 22);
+		toolStripMenuItemSaveAsMobi.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsMobi.Text = "Save as &MOBI";
 		toolStripMenuItemSaveAsMobi.Click += ToolStripMenuItemSaveAsMobi_Click;
 		toolStripMenuItemSaveAsMobi.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsMobi.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsXps
+		// 
 		toolStripMenuItemSaveAsXps.AccessibleDescription = "Saves the data as XPS file";
 		toolStripMenuItemSaveAsXps.AccessibleName = "Save as XPS";
 		toolStripMenuItemSaveAsXps.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemSaveAsXps.AutoToolTip = true;
-		toolStripMenuItemSaveAsXps.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsXps.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
 		toolStripMenuItemSaveAsXps.Name = "toolStripMenuItemSaveAsXps";
-		toolStripMenuItemSaveAsXps.Size = new Size(257, 22);
+		toolStripMenuItemSaveAsXps.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsXps.Text = "Save as &XPS";
 		toolStripMenuItemSaveAsXps.Click += ToolStripMenuItemSaveAsXps_Click;
 		toolStripMenuItemSaveAsXps.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsXps.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsFictionBook2
+		// 
 		toolStripMenuItemSaveAsFictionBook2.AccessibleDescription = "Saves the data as FictionBook2 file";
 		toolStripMenuItemSaveAsFictionBook2.AccessibleName = "Save as FictionBook2";
 		toolStripMenuItemSaveAsFictionBook2.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemSaveAsFictionBook2.AutoToolTip = true;
-		toolStripMenuItemSaveAsFictionBook2.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsFictionBook2.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
 		toolStripMenuItemSaveAsFictionBook2.Name = "toolStripMenuItemSaveAsFictionBook2";
-		toolStripMenuItemSaveAsFictionBook2.Size = new Size(257, 22);
+		toolStripMenuItemSaveAsFictionBook2.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsFictionBook2.Text = "Save as &FictionBook2 (FB2)";
 		toolStripMenuItemSaveAsFictionBook2.Click += ToolStripMenuItemSaveAsFictionBook2_Click;
 		toolStripMenuItemSaveAsFictionBook2.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsFictionBook2.MouseLeave += Control_Leave;
-
+		// 
+		// toolStripMenuItemSaveAsChm
+		// 
 		toolStripMenuItemSaveAsChm.AccessibleDescription = "Saves the data as CHM file";
 		toolStripMenuItemSaveAsChm.AccessibleName = "Save as CHM";
 		toolStripMenuItemSaveAsChm.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemSaveAsChm.AutoToolTip = true;
-		toolStripMenuItemSaveAsChm.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsChm.Image = FatcowIcons16px.fatcow_page_white_acrobat_16px;
 		toolStripMenuItemSaveAsChm.Name = "toolStripMenuItemSaveAsChm";
-		toolStripMenuItemSaveAsChm.Size = new Size(257, 22);
+		toolStripMenuItemSaveAsChm.Size = new Size(214, 22);
 		toolStripMenuItemSaveAsChm.Text = "Save as &CHM";
 		toolStripMenuItemSaveAsChm.Click += ToolStripMenuItemSaveAsChm_Click;
 		toolStripMenuItemSaveAsChm.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsChm.MouseLeave += Control_Leave;
-
-		// ── Form properties ───────────────────────────────────────────────────
+		// 
+		// toolStripDropDownButtonCopyToClipboard
+		// 
+		toolStripDropDownButtonCopyToClipboard.AccessibleDescription = "Copies information to clipboard";
+		toolStripDropDownButtonCopyToClipboard.AccessibleName = "Copy to clipboard";
+		toolStripDropDownButtonCopyToClipboard.AccessibleRole = AccessibleRole.ButtonDropDown;
+		toolStripDropDownButtonCopyToClipboard.DropDown = contextMenuFullCopyToClipboard;
+		toolStripDropDownButtonCopyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripDropDownButtonCopyToClipboard.ImageTransparentColor = Color.Magenta;
+		toolStripDropDownButtonCopyToClipboard.Name = "toolStripDropDownButtonCopyToClipboard";
+		toolStripDropDownButtonCopyToClipboard.Size = new Size(131, 22);
+		toolStripDropDownButtonCopyToClipboard.Text = "&Copy to clipboard";
+		toolStripDropDownButtonCopyToClipboard.MouseEnter += Control_Enter;
+		toolStripDropDownButtonCopyToClipboard.MouseLeave += Control_Leave;
+		// 
+		// contextMenuFullCopyToClipboard
+		// 
+		contextMenuFullCopyToClipboard.AccessibleDescription = "Shows the context menu for copying database information to the clipboard";
+		contextMenuFullCopyToClipboard.AccessibleName = "Context menu for copying database information to the clipboard";
+		contextMenuFullCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuFullCopyToClipboard.Font = new Font("Segoe UI", 9F);
+		contextMenuFullCopyToClipboard.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardMoidRelativeToMercury, menuitemCopyToClipboardMoidRelativeToVenus, menuitemCopyToClipboardMoidRelativeToEarth, menuitemCopyToClipboardMoidRelativeToMars, menuitemCopyToClipboardMoidRelativeToJupiter, menuitemCopyToClipboardMoidRelativeToSaturn, menuitemCopyToClipboardMoidRelativeToUranus, menuitemCopyToClipboardMoidRelativeToNeptune });
+		contextMenuFullCopyToClipboard.Name = "Context menu for copying database information to the clipboard";
+		contextMenuFullCopyToClipboard.Size = new Size(121, 180);
+		contextMenuFullCopyToClipboard.Text = "Copy to clipboard";
+		contextMenuFullCopyToClipboard.Enter += Control_Enter;
+		contextMenuFullCopyToClipboard.Leave += Control_Leave;
+		contextMenuFullCopyToClipboard.MouseEnter += Control_Enter;
+		contextMenuFullCopyToClipboard.MouseLeave += Control_Leave;
+		// 
+		// menuitemCopyToClipboardMoidRelativeToMercury
+		// 
+		menuitemCopyToClipboardMoidRelativeToMercury.AccessibleDescription = "Copies to clipboard: MOID relative to Mercury";
+		menuitemCopyToClipboardMoidRelativeToMercury.AccessibleName = "Copy to clipboard: MOID relative to Mercury";
+		menuitemCopyToClipboardMoidRelativeToMercury.AccessibleRole = AccessibleRole.MenuItem;
+		menuitemCopyToClipboardMoidRelativeToMercury.AutoToolTip = true;
+		menuitemCopyToClipboardMoidRelativeToMercury.Image = (Image)resources.GetObject("menuitemCopyToClipboardMoidRelativeToMercury.Image");
+		menuitemCopyToClipboardMoidRelativeToMercury.Name = "menuitemCopyToClipboardMoidRelativeToMercury";
+		menuitemCopyToClipboardMoidRelativeToMercury.Size = new Size(120, 22);
+		menuitemCopyToClipboardMoidRelativeToMercury.Text = "&Mercury";
+		menuitemCopyToClipboardMoidRelativeToMercury.Click += MenuitemCopyToClipboardMoidRelativeToMercury_Click;
+		menuitemCopyToClipboardMoidRelativeToMercury.MouseEnter += Control_Enter;
+		menuitemCopyToClipboardMoidRelativeToMercury.MouseLeave += Control_Leave;
+		// 
+		// menuitemCopyToClipboardMoidRelativeToVenus
+		// 
+		menuitemCopyToClipboardMoidRelativeToVenus.AccessibleDescription = "Copies to clipboard: MOID relative to Venus";
+		menuitemCopyToClipboardMoidRelativeToVenus.AccessibleName = "Copy to clipboard: MOID relative to Venus";
+		menuitemCopyToClipboardMoidRelativeToVenus.AccessibleRole = AccessibleRole.MenuItem;
+		menuitemCopyToClipboardMoidRelativeToVenus.AutoToolTip = true;
+		menuitemCopyToClipboardMoidRelativeToVenus.Image = (Image)resources.GetObject("menuitemCopyToClipboardMoidRelativeToVenus.Image");
+		menuitemCopyToClipboardMoidRelativeToVenus.Name = "menuitemCopyToClipboardMoidRelativeToVenus";
+		menuitemCopyToClipboardMoidRelativeToVenus.Size = new Size(120, 22);
+		menuitemCopyToClipboardMoidRelativeToVenus.Text = "&Venus";
+		menuitemCopyToClipboardMoidRelativeToVenus.Click += MenuitemCopyToClipboardMoidRelativeToVenus_Click;
+		menuitemCopyToClipboardMoidRelativeToVenus.MouseEnter += Control_Enter;
+		menuitemCopyToClipboardMoidRelativeToVenus.MouseLeave += Control_Leave;
+		// 
+		// menuitemCopyToClipboardMoidRelativeToEarth
+		// 
+		menuitemCopyToClipboardMoidRelativeToEarth.AccessibleDescription = "Copies to clipboard: MOID relative to Earth";
+		menuitemCopyToClipboardMoidRelativeToEarth.AccessibleName = "Copy to clipboard: MOID relative to Earth";
+		menuitemCopyToClipboardMoidRelativeToEarth.AccessibleRole = AccessibleRole.MenuItem;
+		menuitemCopyToClipboardMoidRelativeToEarth.AutoToolTip = true;
+		menuitemCopyToClipboardMoidRelativeToEarth.Image = (Image)resources.GetObject("menuitemCopyToClipboardMoidRelativeToEarth.Image");
+		menuitemCopyToClipboardMoidRelativeToEarth.Name = "menuitemCopyToClipboardMoidRelativeToEarth";
+		menuitemCopyToClipboardMoidRelativeToEarth.Size = new Size(120, 22);
+		menuitemCopyToClipboardMoidRelativeToEarth.Text = "&Earth";
+		menuitemCopyToClipboardMoidRelativeToEarth.Click += MenuitemCopyToClipboardMoidRelativeToEarth_Click;
+		menuitemCopyToClipboardMoidRelativeToEarth.MouseEnter += Control_Enter;
+		menuitemCopyToClipboardMoidRelativeToEarth.MouseLeave += Control_Leave;
+		// 
+		// menuitemCopyToClipboardMoidRelativeToMars
+		// 
+		menuitemCopyToClipboardMoidRelativeToMars.AccessibleDescription = "Copies to clipboard: MOID relative to Mars";
+		menuitemCopyToClipboardMoidRelativeToMars.AccessibleName = "Copy to clipboard: MOID relative to Mars";
+		menuitemCopyToClipboardMoidRelativeToMars.AccessibleRole = AccessibleRole.MenuItem;
+		menuitemCopyToClipboardMoidRelativeToMars.AutoToolTip = true;
+		menuitemCopyToClipboardMoidRelativeToMars.Image = (Image)resources.GetObject("menuitemCopyToClipboardMoidRelativeToMars.Image");
+		menuitemCopyToClipboardMoidRelativeToMars.Name = "menuitemCopyToClipboardMoidRelativeToMars";
+		menuitemCopyToClipboardMoidRelativeToMars.Size = new Size(120, 22);
+		menuitemCopyToClipboardMoidRelativeToMars.Text = "M&ars";
+		menuitemCopyToClipboardMoidRelativeToMars.Click += MenuitemCopyToClipboardMoidRelativeToMars_Click;
+		menuitemCopyToClipboardMoidRelativeToMars.MouseEnter += Control_Enter;
+		menuitemCopyToClipboardMoidRelativeToMars.MouseLeave += Control_Leave;
+		// 
+		// menuitemCopyToClipboardMoidRelativeToJupiter
+		// 
+		menuitemCopyToClipboardMoidRelativeToJupiter.AccessibleDescription = "Copies to clipboard: MOID relative to Jupiter";
+		menuitemCopyToClipboardMoidRelativeToJupiter.AccessibleName = "Copy to clipboard: MOID relative to Jupiter";
+		menuitemCopyToClipboardMoidRelativeToJupiter.AccessibleRole = AccessibleRole.MenuItem;
+		menuitemCopyToClipboardMoidRelativeToJupiter.AutoToolTip = true;
+		menuitemCopyToClipboardMoidRelativeToJupiter.Image = (Image)resources.GetObject("menuitemCopyToClipboardMoidRelativeToJupiter.Image");
+		menuitemCopyToClipboardMoidRelativeToJupiter.Name = "menuitemCopyToClipboardMoidRelativeToJupiter";
+		menuitemCopyToClipboardMoidRelativeToJupiter.Size = new Size(120, 22);
+		menuitemCopyToClipboardMoidRelativeToJupiter.Text = "&Jupiter";
+		menuitemCopyToClipboardMoidRelativeToJupiter.Click += MenuitemCopyToClipboardMoidRelativeToJupiter_Click;
+		menuitemCopyToClipboardMoidRelativeToJupiter.MouseEnter += Control_Enter;
+		menuitemCopyToClipboardMoidRelativeToJupiter.MouseLeave += Control_Leave;
+		// 
+		// menuitemCopyToClipboardMoidRelativeToSaturn
+		// 
+		menuitemCopyToClipboardMoidRelativeToSaturn.AccessibleDescription = "Copies to clipboard: MOID relative to Saturn";
+		menuitemCopyToClipboardMoidRelativeToSaturn.AccessibleName = "Copy to clipboard: MOID relative to Saturn";
+		menuitemCopyToClipboardMoidRelativeToSaturn.AccessibleRole = AccessibleRole.MenuItem;
+		menuitemCopyToClipboardMoidRelativeToSaturn.AutoToolTip = true;
+		menuitemCopyToClipboardMoidRelativeToSaturn.Image = (Image)resources.GetObject("menuitemCopyToClipboardMoidRelativeToSaturn.Image");
+		menuitemCopyToClipboardMoidRelativeToSaturn.Name = "menuitemCopyToClipboardMoidRelativeToSaturn";
+		menuitemCopyToClipboardMoidRelativeToSaturn.Size = new Size(120, 22);
+		menuitemCopyToClipboardMoidRelativeToSaturn.Text = "&Saturn";
+		menuitemCopyToClipboardMoidRelativeToSaturn.Click += MenuitemCopyToClipboardMoidRelativeToSaturn_Click;
+		menuitemCopyToClipboardMoidRelativeToSaturn.MouseEnter += Control_Enter;
+		menuitemCopyToClipboardMoidRelativeToSaturn.MouseLeave += Control_Leave;
+		// 
+		// menuitemCopyToClipboardMoidRelativeToUranus
+		// 
+		menuitemCopyToClipboardMoidRelativeToUranus.AccessibleDescription = "Copies to clipboard: MOID relative to Uranus";
+		menuitemCopyToClipboardMoidRelativeToUranus.AccessibleName = "Copy to clipboard: MOID relative to Uranus";
+		menuitemCopyToClipboardMoidRelativeToUranus.AccessibleRole = AccessibleRole.MenuItem;
+		menuitemCopyToClipboardMoidRelativeToUranus.AutoToolTip = true;
+		menuitemCopyToClipboardMoidRelativeToUranus.Image = (Image)resources.GetObject("menuitemCopyToClipboardMoidRelativeToUranus.Image");
+		menuitemCopyToClipboardMoidRelativeToUranus.Name = "menuitemCopyToClipboardMoidRelativeToUranus";
+		menuitemCopyToClipboardMoidRelativeToUranus.Size = new Size(120, 22);
+		menuitemCopyToClipboardMoidRelativeToUranus.Text = "&Uranus";
+		menuitemCopyToClipboardMoidRelativeToUranus.Click += MenuitemCopyToClipboardMoidRelativeToUranus_Click;
+		menuitemCopyToClipboardMoidRelativeToUranus.MouseEnter += Control_Enter;
+		menuitemCopyToClipboardMoidRelativeToUranus.MouseLeave += Control_Leave;
+		// 
+		// menuitemCopyToClipboardMoidRelativeToNeptune
+		// 
+		menuitemCopyToClipboardMoidRelativeToNeptune.AccessibleDescription = "Copies to clipboard: MOID relative to Neptune";
+		menuitemCopyToClipboardMoidRelativeToNeptune.AccessibleName = "Copy to clipboard: MOID relative to Neptune";
+		menuitemCopyToClipboardMoidRelativeToNeptune.AccessibleRole = AccessibleRole.MenuItem;
+		menuitemCopyToClipboardMoidRelativeToNeptune.AutoToolTip = true;
+		menuitemCopyToClipboardMoidRelativeToNeptune.Image = (Image)resources.GetObject("menuitemCopyToClipboardMoidRelativeToNeptune.Image");
+		menuitemCopyToClipboardMoidRelativeToNeptune.Name = "menuitemCopyToClipboardMoidRelativeToNeptune";
+		menuitemCopyToClipboardMoidRelativeToNeptune.Size = new Size(120, 22);
+		menuitemCopyToClipboardMoidRelativeToNeptune.Text = "&Neptune";
+		menuitemCopyToClipboardMoidRelativeToNeptune.Click += MenuitemCopyToClipboardMoidRelativeToNeptune_Click;
+		menuitemCopyToClipboardMoidRelativeToNeptune.MouseEnter += Control_Enter;
+		menuitemCopyToClipboardMoidRelativeToNeptune.MouseLeave += Control_Leave;
+		// 
+		// kryptonManager
+		// 
+		kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
+		// 
+		// MoidsOfOneMinorPlanetForm
+		// 
 		AccessibleDescription = "Shows the MOID values of a minor planet relative to the eight solar system planets";
 		AccessibleName = "MOIDs of a minor planet";
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(494, 290);
+		ClientSize = new Size(284, 290);
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
-		FormBorderStyle = FormBorderStyle.FixedToolWindow;
+		FormBorderStyle = FormBorderStyle.SizableToolWindow;
+		Icon = (Icon)resources.GetObject("$this.Icon");
 		Margin = new Padding(4, 3, 4, 3);
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "MoidsOfOneMinorPlanetForm";
-		ShowInTaskbar = false;
+		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "MOIDs of a minor planet";
 		Load += MoidsOfOneMinorPlanetForm_Load;
-
-		// ── resume layouts ────────────────────────────────────────────────────
+		Enter += Control_Enter;
+		Leave += Control_Leave;
+		MouseEnter += Control_Enter;
+		MouseLeave += Control_Leave;
 		contextMenuCopyToClipboard.ResumeLayout(false);
 		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
 		toolStripContainer.BottomToolStripPanel.PerformLayout();
@@ -1208,6 +1467,7 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripIcons.ResumeLayout(false);
 		toolStripIcons.PerformLayout();
 		contextMenuSaveToFile.ResumeLayout(false);
+		contextMenuFullCopyToClipboard.ResumeLayout(false);
 		ResumeLayout(false);
 	}
 
@@ -1287,4 +1547,17 @@ partial class MoidsOfOneMinorPlanetForm
 	private ToolStripMenuItem toolStripMenuItemSaveAsXps;
 	private ToolStripMenuItem toolStripMenuItemSaveAsFictionBook2;
 	private ToolStripMenuItem toolStripMenuItemSaveAsChm;
+
+	// ── copy-to-clipboard toolbar button ────────────────────────────────────────
+
+	private ToolStripDropDownButton toolStripDropDownButtonCopyToClipboard;
+	private ContextMenuStrip contextMenuFullCopyToClipboard;
+	private ToolStripMenuItem menuitemCopyToClipboardMoidRelativeToMercury;
+	private ToolStripMenuItem menuitemCopyToClipboardMoidRelativeToVenus;
+	private ToolStripMenuItem menuitemCopyToClipboardMoidRelativeToEarth;
+	private ToolStripMenuItem menuitemCopyToClipboardMoidRelativeToMars;
+	private ToolStripMenuItem menuitemCopyToClipboardMoidRelativeToJupiter;
+	private ToolStripMenuItem menuitemCopyToClipboardMoidRelativeToSaturn;
+	private ToolStripMenuItem menuitemCopyToClipboardMoidRelativeToUranus;
+	private ToolStripMenuItem menuitemCopyToClipboardMoidRelativeToNeptune;
 }
