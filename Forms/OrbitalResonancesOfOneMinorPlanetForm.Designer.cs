@@ -820,21 +820,42 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		// 
 		// toolStripContainer.BottomToolStripPanel
 		// 
+		toolStripContainer.BottomToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.BottomToolStripPanel.AccessibleName = "Bottom panel";
+		toolStripContainer.BottomToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
 		// 
 		// toolStripContainer.ContentPanel
 		// 
+		toolStripContainer.ContentPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.ContentPanel.AccessibleName = "Content panel";
+		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
 		toolStripContainer.ContentPanel.Size = new Size(729, 204);
 		toolStripContainer.Dock = DockStyle.Fill;
+		// 
+		// toolStripContainer.LeftToolStripPanel
+		// 
+		toolStripContainer.LeftToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.LeftToolStripPanel.AccessibleName = "Left panel";
+		toolStripContainer.LeftToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.Location = new Point(0, 0);
 		toolStripContainer.Name = "toolStripContainer";
+		// 
+		// toolStripContainer.RightToolStripPanel
+		// 
+		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
+		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.Size = new Size(729, 251);
 		toolStripContainer.TabIndex = 2;
 		toolStripContainer.Text = "toolStripContainer";
 		// 
 		// toolStripContainer.TopToolStripPanel
 		// 
+		toolStripContainer.TopToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.TopToolStripPanel.AccessibleName = "Top panel";
+		toolStripContainer.TopToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.TopToolStripPanel.Controls.Add(toolStripIcons);
 		toolStripContainer.Enter += Control_Enter;
 		toolStripContainer.Leave += Control_Leave;
@@ -881,7 +902,7 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		// OrbitalResonancesOfOneMinorPlanetForm
 		// 
 		AccessibleDescription = "Shows orbital resonances of the planetoid relative to the 8 planets";
-		AccessibleName = "Orbital resonances";
+		AccessibleName = "Orbital resonances of one minor planet";
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
@@ -895,7 +916,7 @@ partial class OrbitalResonancesOfOneMinorPlanetForm
 		MinimizeBox = false;
 		Name = "OrbitalResonancesOfOneMinorPlanetForm";
 		StartPosition = FormStartPosition.CenterParent;
-		Text = "Orbital resonances";
+		Text = "Orbital resonances of one minor planet";
 		Load += OrbitalResonanceForm_Load;
 		((ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);
