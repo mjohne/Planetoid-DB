@@ -779,7 +779,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 	/// <summary>Shows the bulk observations data downloader form. Opens the form to download observation data files for a range of minor planets from the MPC website and save them to disk.</summary>
 	/// <remarks>Passes the full planetoids database to the form and pre-populates the minimum (1) and maximum (database record count) spinners.</remarks>
-	private void ShowBulkInformationsDataDownloader()
+	private void ShowBulkObservationDataDownloader()
 	{
 		if (!NetworkInterface.GetIsNetworkAvailable())
 		{
@@ -2587,11 +2587,11 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method is used to show the Tisserand parameters of all minor planets form.</remarks>
 	private void ToolStripMenuItemTisserandParametersOfAllMinorPlanets_Click(object sender, EventArgs e) => ShowTisserandParametersOfAllMinorPlanets();
 
-	/// <summary>Handles the click event for the ToolStripMenuItemBulkInformationsDataDownloader. Shows the bulk observations data downloader form.</summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemBulkObservationDataDownloader_Click. Shows the bulk observations data downloader form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the bulk informations data downloader form.</remarks>
-	private void ToolStripMenuItemBulkInformationsDataDownloader_Click(object sender, EventArgs e) => ShowBulkInformationsDataDownloader();
+	/// <remarks>This method is used to show the bulk observations data downloader form.</remarks>
+	private void ToolStripMenuItemBulkObservationDataDownloader_Click(object sender, EventArgs e) => ShowBulkObservationDataDownloader();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemMoidsRelativeToMinorPlanets. Shows the MOIDs relative to minor planets form.</summary>
 	/// <param name="sender">The event source.</param>
