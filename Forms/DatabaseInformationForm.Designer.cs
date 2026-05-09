@@ -108,7 +108,6 @@ namespace Planetoid_DB;
 		toolStripMenuItemSaveAsFictionBook2 = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsChm = new ToolStripMenuItem();
 		toolStripDropDownButtonCopyToClipboard = new ToolStripDropDownButton();
-		kryptonManager = new KryptonManager(components);
 		contextMenuFullCopyToClipboard = new ContextMenuStrip(components);
 		menuitemCopyToClipboardName = new ToolStripMenuItem();
 		menuitemCopyToClipboardPath = new ToolStripMenuItem();
@@ -117,6 +116,7 @@ namespace Planetoid_DB;
 		menuitemCopyToClipboardLastAccessDate = new ToolStripMenuItem();
 		menuitemCopyToClipboardLastWriteDate = new ToolStripMenuItem();
 		menuitemCopyToClipboardAttributes = new ToolStripMenuItem();
+		kryptonManager = new KryptonManager(components);
 		contextMenuCopyToClipboard.SuspendLayout();
 		tableLayoutPanel.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
@@ -531,22 +531,43 @@ namespace Planetoid_DB;
 		// 
 		// toolStripContainer.BottomToolStripPanel
 		// 
+		toolStripContainer.BottomToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.BottomToolStripPanel.AccessibleName = "Bottom panel";
+		toolStripContainer.BottomToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
 		// 
 		// toolStripContainer.ContentPanel
 		// 
+		toolStripContainer.ContentPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.ContentPanel.AccessibleName = "Content panel";
+		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.ContentPanel.Controls.Add(tableLayoutPanel);
 		toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
 		toolStripContainer.ContentPanel.Size = new Size(408, 187);
 		toolStripContainer.Dock = DockStyle.Fill;
+		// 
+		// toolStripContainer.LeftToolStripPanel
+		// 
+		toolStripContainer.LeftToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.LeftToolStripPanel.AccessibleName = "Left panel";
+		toolStripContainer.LeftToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.Location = new Point(0, 0);
 		toolStripContainer.Name = "toolStripContainer";
+		// 
+		// toolStripContainer.RightToolStripPanel
+		// 
+		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
+		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.Size = new Size(408, 234);
 		toolStripContainer.TabIndex = 3;
 		toolStripContainer.Text = "toolStripContainer";
 		// 
 		// toolStripContainer.TopToolStripPanel
 		// 
+		toolStripContainer.TopToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.TopToolStripPanel.AccessibleName = "Top panel";
+		toolStripContainer.TopToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripIcons);
 		// 
 		// kryptonStatusStrip
@@ -629,6 +650,7 @@ namespace Planetoid_DB;
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveList";
+		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveToFile;
 		contextMenuSaveToFile.Size = new Size(202, 158);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
@@ -1196,12 +1218,6 @@ namespace Planetoid_DB;
 		toolStripDropDownButtonCopyToClipboard.MouseEnter += Control_Enter;
 		toolStripDropDownButtonCopyToClipboard.MouseLeave += Control_Leave;
 		// 
-		// kryptonManager
-		// 
-		kryptonManager.GlobalPaletteMode = PaletteMode.Global;
-		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
-		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
-		// 
 		// contextMenuFullCopyToClipboard
 		// 
 		contextMenuFullCopyToClipboard.AccessibleDescription = "Shows the context menu for copying database information to the clipboard";
@@ -1211,7 +1227,7 @@ namespace Planetoid_DB;
 		contextMenuFullCopyToClipboard.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardName, menuitemCopyToClipboardPath, menuitemCopyToClipboardSize, menuitemCopyToClipboardCreationDate, menuitemCopyToClipboardLastAccessDate, menuitemCopyToClipboardLastWriteDate, menuitemCopyToClipboardAttributes });
 		contextMenuFullCopyToClipboard.Name = "Context menu for copying database information to the clipboard";
 		contextMenuFullCopyToClipboard.OwnerItem = toolStripDropDownButtonCopyToClipboard;
-		contextMenuFullCopyToClipboard.Size = new Size(181, 180);
+		contextMenuFullCopyToClipboard.Size = new Size(159, 158);
 		contextMenuFullCopyToClipboard.Text = "Copy to clipboard";
 		contextMenuFullCopyToClipboard.MouseEnter += Control_Enter;
 		contextMenuFullCopyToClipboard.MouseLeave += Control_Leave;
@@ -1224,7 +1240,7 @@ namespace Planetoid_DB;
 		menuitemCopyToClipboardName.AutoToolTip = true;
 		menuitemCopyToClipboardName.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardName.Name = "menuitemCopyToClipboardName";
-		menuitemCopyToClipboardName.Size = new Size(180, 22);
+		menuitemCopyToClipboardName.Size = new Size(158, 22);
 		menuitemCopyToClipboardName.Text = "Name";
 		menuitemCopyToClipboardName.Click += MenuitemCopyToClipboardName_Click;
 		menuitemCopyToClipboardName.MouseEnter += Control_Enter;
@@ -1238,7 +1254,7 @@ namespace Planetoid_DB;
 		menuitemCopyToClipboardPath.AutoToolTip = true;
 		menuitemCopyToClipboardPath.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardPath.Name = "menuitemCopyToClipboardPath";
-		menuitemCopyToClipboardPath.Size = new Size(180, 22);
+		menuitemCopyToClipboardPath.Size = new Size(158, 22);
 		menuitemCopyToClipboardPath.Text = "Path";
 		menuitemCopyToClipboardPath.Click += MenuitemCopyToClipboardPath_Click;
 		menuitemCopyToClipboardPath.MouseEnter += Control_Enter;
@@ -1252,7 +1268,7 @@ namespace Planetoid_DB;
 		menuitemCopyToClipboardSize.AutoToolTip = true;
 		menuitemCopyToClipboardSize.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardSize.Name = "menuitemCopyToClipboardSize";
-		menuitemCopyToClipboardSize.Size = new Size(180, 22);
+		menuitemCopyToClipboardSize.Size = new Size(158, 22);
 		menuitemCopyToClipboardSize.Text = "Size";
 		menuitemCopyToClipboardSize.Click += MenuitemCopyToClipboardSize_Click;
 		menuitemCopyToClipboardSize.MouseEnter += Control_Enter;
@@ -1266,7 +1282,7 @@ namespace Planetoid_DB;
 		menuitemCopyToClipboardCreationDate.AutoToolTip = true;
 		menuitemCopyToClipboardCreationDate.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardCreationDate.Name = "menuitemCopyToClipboardCreationDate";
-		menuitemCopyToClipboardCreationDate.Size = new Size(180, 22);
+		menuitemCopyToClipboardCreationDate.Size = new Size(158, 22);
 		menuitemCopyToClipboardCreationDate.Text = "Creation date";
 		menuitemCopyToClipboardCreationDate.Click += MenuitemCopyToClipboardCreationDate_Click;
 		menuitemCopyToClipboardCreationDate.MouseEnter += Control_Enter;
@@ -1280,7 +1296,7 @@ namespace Planetoid_DB;
 		menuitemCopyToClipboardLastAccessDate.AutoToolTip = true;
 		menuitemCopyToClipboardLastAccessDate.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardLastAccessDate.Name = "menuitemCopyToClipboardLastAccessDate";
-		menuitemCopyToClipboardLastAccessDate.Size = new Size(180, 22);
+		menuitemCopyToClipboardLastAccessDate.Size = new Size(158, 22);
 		menuitemCopyToClipboardLastAccessDate.Text = "Last access date";
 		menuitemCopyToClipboardLastAccessDate.Click += MenuitemCopyToClipboardLastAccessDate_Click;
 		menuitemCopyToClipboardLastAccessDate.MouseEnter += Control_Enter;
@@ -1294,7 +1310,7 @@ namespace Planetoid_DB;
 		menuitemCopyToClipboardLastWriteDate.AutoToolTip = true;
 		menuitemCopyToClipboardLastWriteDate.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardLastWriteDate.Name = "menuitemCopyToClipboardLastWriteDate";
-		menuitemCopyToClipboardLastWriteDate.Size = new Size(180, 22);
+		menuitemCopyToClipboardLastWriteDate.Size = new Size(158, 22);
 		menuitemCopyToClipboardLastWriteDate.Text = "Last write date";
 		menuitemCopyToClipboardLastWriteDate.Click += MenuitemCopyToClipboardLastWriteDate_Click;
 		menuitemCopyToClipboardLastWriteDate.MouseEnter += Control_Enter;
@@ -1308,11 +1324,17 @@ namespace Planetoid_DB;
 		menuitemCopyToClipboardAttributes.AutoToolTip = true;
 		menuitemCopyToClipboardAttributes.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		menuitemCopyToClipboardAttributes.Name = "menuitemCopyToClipboardAttributes";
-		menuitemCopyToClipboardAttributes.Size = new Size(180, 22);
+		menuitemCopyToClipboardAttributes.Size = new Size(158, 22);
 		menuitemCopyToClipboardAttributes.Text = "Attributes";
 		menuitemCopyToClipboardAttributes.Click += MenuitemCopyToClipboardAttributes_Click;
 		menuitemCopyToClipboardAttributes.MouseEnter += Control_Enter;
 		menuitemCopyToClipboardAttributes.MouseLeave += Control_Leave;
+		// 
+		// kryptonManager
+		// 
+		kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 		// 
 		// DatabaseInformationForm
 		// 
