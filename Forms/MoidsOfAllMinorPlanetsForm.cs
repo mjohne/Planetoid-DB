@@ -230,19 +230,13 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		{
 			designation = line[..7].Trim();
 		}
-		// Calculate the MOIDs for all eight planets
-		List<MoidCalculator.MoidResult> moidResults = MoidCalculator.CalculateMoids(
+		// Calculate the MOIDs for all eight planets (Mercury ... Neptune) in fixed order
+		double[] moids = MoidCalculator.CalculateMoidsInPlanetOrder(
 			semiMajorAxis: semiMajorAxis,
 			eccentricity: eccentricity,
 			inclinationDeg: inclinationDeg,
 			longitudeAscendingNodeDeg: longitudeAscendingNodeDeg,
 			argumentPerihelionDeg: argumentPerihelionDeg);
-		// Build the MOID array in planet order (Mercury … Neptune)
-		double[] moids = new double[PlanetCount];
-		for (int i = 0; i < Math.Min(val1: moidResults.Count, val2: PlanetCount); i++)
-		{
-			moids[i] = moidResults[index: i].MoidAu;
-		}
 		results.Add(item: new MoidRowResult(PlanetoidName: designation, Moids: moids));
 	}
 

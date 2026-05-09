@@ -14,6 +14,18 @@ namespace Planetoid_DB.Helpers;
 /// <remarks>This class implements a fast, high-precision numerical double-grid search algorithm with local refinement, equivalent to the approach used by the Minor Planet Center (MPC) for computing MOID values. The method samples both orbits on a fine angular grid to locate the global minimum distance, then refines it using coordinate-descent optimization to achieve sub-milliarcsecond accuracy.</remarks>
 internal class MoidCalculator
 {
+	/// <summary>Number of angular samples per orbit used in the coarse search phase.</summary>
+	/// <remarks>720 samples correspond to a 0.5° sampling interval over the full 0..2π range.</remarks>
+	private const int GridSteps = 720;
+
+	/// <summary>2π in radians.</summary>
+	/// <remarks>Used for converting sampled angle indices to true anomaly values.</remarks>
+	private static readonly double TwoPi = 2.0 * Math.PI;
+
+	/// <summary>Angular step size in radians for the coarse grid.</summary>
+	/// <remarks>This value is computed once and reused across all MOID evaluations.</remarks>
+	private static readonly double GridStepSize = TwoPi / GridSteps;
+
 	/// <summary>Represents the Keplerian orbital elements of a solar system planet.</summary>
 	/// <param name="Name">The common name of the planet.</param>
 	/// <param name="SemiMajorAxis">The semi-major axis in AU.</param>
@@ -36,6 +48,33 @@ internal class MoidCalculator
 	/// <remarks>The MOID is the closest geometric approach distance between the two osculating orbits, independent of the bodies' actual positions at any epoch.</remarks>
 	public record MoidResult(string PlanetName, double MoidAu);
 
+	/// <summary>Precomputed values for one planet used during repeated MOID computations.</summary>
+	/// <param name="Name">Planet name.</param>
+	/// <param name="SemiMajorAxis">Semi-major axis in AU.</param>
+	/// <param name="Eccentricity">Orbital eccentricity.</param>
+	/// <param name="ArgumentPerihelionRad">Argument of perihelion in radians.</param>
+	/// <param name="CosLongitudeAscendingNode">Precomputed cos(Ω).</param>
+	/// <param name="SinLongitudeAscendingNode">Precomputed sin(Ω).</param>
+	/// <param name="CosInclination">Precomputed cos(i).</param>
+	/// <param name="SinInclination">Precomputed sin(i).</param>
+	/// <param name="OneMinusEccentricitySquared">Precomputed 1 - e².</param>
+	private record PlanetComputationData(
+		string Name,
+		double SemiMajorAxis,
+		double Eccentricity,
+		double ArgumentPerihelionRad,
+		double CosLongitudeAscendingNode,
+		double SinLongitudeAscendingNode,
+		double CosInclination,
+		double SinInclination,
+		double OneMinusEccentricitySquared);
+
+	/// <summary>Represents the coarse-search minimum used as the starting point for local refinement.</summary>
+	/// <param name="MinDistanceSquared">Squared distance at the best coarse grid sample.</param>
+	/// <param name="BestF1">Best true anomaly on orbit 1 from the coarse grid.</param>
+	/// <param name="BestF2">Best true anomaly on orbit 2 from the coarse grid.</param>
+	private record struct CoarseMinimumResult(double MinDistanceSquared, double BestF1, double BestF2);
+
 	/// <summary>Mean orbital elements of the eight solar system planets at J2000.0 (ecliptic reference frame).</summary>
 	/// <remarks>These constants follow the commonly cited IAU-JPL mean planetary elements at J2000.0 as published by Standish (1992). The reference frame is the J2000.0 ecliptic and equinox. The stored <c>ArgumentPerihelionDeg</c> values are the argument of perihelion (<c>ω</c>), derived from the published longitude of perihelion (<c>ϖ</c>) and longitude of the ascending node (<c>Ω</c>) using <c>ω = ϖ - Ω</c>.</remarks>
 	private static readonly PlanetElements[] Planets =
@@ -49,6 +88,10 @@ internal class MoidCalculator
 		new(Name: "Uranus", SemiMajorAxis: 19.19126393, Eccentricity: 0.04716771, InclinationDeg: 0.76986, LongitudeAscendingNodeDeg: 74.22988, ArgumentPerihelionDeg: 96.73436),
 		new(Name: "Neptune", SemiMajorAxis: 30.06896348, Eccentricity: 0.00858587, InclinationDeg: 1.76917, LongitudeAscendingNodeDeg: 131.72169, ArgumentPerihelionDeg: 273.24966),
 	];
+
+	/// <summary>Precomputed trigonometric/orbital constants for all planets.</summary>
+	/// <remarks>Built once to avoid repeated degree-to-radian and trig conversions during bulk MOID runs.</remarks>
+	private static readonly PlanetComputationData[] PrecomputedPlanets = BuildPrecomputedPlanets();
 
 	/// <summary>Calculates the MOID between a minor planet and each of the eight solar system planets.</summary>
 	/// <param name="semiMajorAxis">The semi-major axis of the minor planet in AU.</param>
@@ -65,25 +108,70 @@ internal class MoidCalculator
 		double longitudeAscendingNodeDeg,
 		double argumentPerihelionDeg)
 	{
-		// Convert minor planet angles from degrees to radians
-		double i1 = inclinationDeg * Math.PI / 180.0;
-		double o1 = argumentPerihelionDeg * Math.PI / 180.0;
-		double bigO1 = longitudeAscendingNodeDeg * Math.PI / 180.0;
-		List<MoidResult> results = [];
-		// Compute MOID for each planet
-		foreach (PlanetElements planet in Planets)
+		double[] moidValues = CalculateMoidsInPlanetOrder(
+			semiMajorAxis: semiMajorAxis,
+			eccentricity: eccentricity,
+			inclinationDeg: inclinationDeg,
+			longitudeAscendingNodeDeg: longitudeAscendingNodeDeg,
+			argumentPerihelionDeg: argumentPerihelionDeg);
+		List<MoidResult> results = new(capacity: Planets.Length);
+		for (int i = 0; i < Planets.Length; i++)
 		{
-			// Convert planet angles from degrees to radians
-			double i2 = planet.InclinationDeg * Math.PI / 180.0;
-			double o2 = planet.ArgumentPerihelionDeg * Math.PI / 180.0;
-			double bigO2 = planet.LongitudeAscendingNodeDeg * Math.PI / 180.0;
-			// Calculate MOID using the double-grid search algorithm
-			double moid = CalculateMoid(
-				a1: semiMajorAxis, e1: eccentricity, i1: i1, w1: o1, bigO1: bigO1,
-				a2: planet.SemiMajorAxis, e2: planet.Eccentricity, i2: i2, w2: o2, bigO2: bigO2);
-			results.Add(item: new MoidResult(PlanetName: planet.Name, MoidAu: moid));
+			results.Add(item: new MoidResult(PlanetName: Planets[i].Name, MoidAu: moidValues[i]));
 		}
 		return results;
+	}
+
+	/// <summary>Calculates MOIDs in planet order (Mercury…Neptune) as a fixed-size array.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis of the minor planet in AU.</param>
+	/// <param name="eccentricity">The eccentricity of the minor planet's orbit.</param>
+	/// <param name="inclinationDeg">The inclination of the minor planet's orbit to the ecliptic in degrees.</param>
+	/// <param name="longitudeAscendingNodeDeg">The longitude of the ascending node of the minor planet's orbit in degrees.</param>
+	/// <param name="argumentPerihelionDeg">The argument of perihelion of the minor planet's orbit in degrees.</param>
+	/// <returns>An array of eight MOID values in AU ordered from Mercury to Neptune.</returns>
+	/// <remarks>Optimized for bulk processing by computing the first-orbit coarse cache once and reusing it for all eight planet comparisons.</remarks>
+	public static double[] CalculateMoidsInPlanetOrder(
+		double semiMajorAxis,
+		double eccentricity,
+		double inclinationDeg,
+		double longitudeAscendingNodeDeg,
+		double argumentPerihelionDeg)
+	{
+		// Convert minor planet angles from degrees to radians
+		double i1 = inclinationDeg * Math.PI / 180.0;
+		double w1 = argumentPerihelionDeg * Math.PI / 180.0;
+		double bigO1 = longitudeAscendingNodeDeg * Math.PI / 180.0;
+		// Precompute trigonometric values for orbit 1 once per minor planet
+		double cosO1 = Math.Cos(d: bigO1);
+		double sinO1 = Math.Sin(a: bigO1);
+		double cosi1 = Math.Cos(d: i1);
+		double sini1 = Math.Sin(a: i1);
+		double oneMinusE1Sq = 1.0 - (eccentricity * eccentricity);
+		(double X, double Y, double Z)[] pos1Cache = ArrayPool<(double X, double Y, double Z)>.Shared.Rent(minimumLength: GridSteps);
+		try
+		{
+			for (int idx = 0; idx < GridSteps; idx++)
+			{
+				double f = idx * GridStepSize;
+				pos1Cache[idx] = OrbitPositionOptimized(
+					a: semiMajorAxis, e: eccentricity, w: w1, f: f,
+					cosO: cosO1, sinO: sinO1, cosi: cosi1, sini: sini1, oneMinusESq: oneMinusE1Sq);
+			}
+			double[] moidValues = new double[PrecomputedPlanets.Length];
+			for (int i = 0; i < PrecomputedPlanets.Length; i++)
+			{
+				moidValues[i] = CalculateMoidUsingFirstOrbitCache(
+					a1: semiMajorAxis, e1: eccentricity, w1: w1,
+					cosO1: cosO1, sinO1: sinO1, cosi1: cosi1, sini1: sini1, oneMinusE1Sq: oneMinusE1Sq,
+					pos1Cache: pos1Cache,
+					planet: PrecomputedPlanets[i]);
+			}
+			return moidValues;
+		}
+		finally
+		{
+			ArrayPool<(double X, double Y, double Z)>.Shared.Return(array: pos1Cache);
+		}
 	}
 
 	/// <summary>Calculates the MOID between two minor planets using their Keplerian orbital elements.</summary>
@@ -143,10 +231,6 @@ internal class MoidCalculator
 		double a1, double e1, double i1, double w1, double bigO1,
 		double a2, double e2, double i2, double w2, double bigO2)
 	{
-		// Number of angular samples per orbit for the coarse grid (0.5° resolution)
-		const int GridSteps = 720;
-		const double TwoPi = 2.0 * Math.PI;
-		double stepSize = TwoPi / GridSteps;
 		// Rent arrays from pool for better memory management
 		(double X, double Y, double Z)[] pos1Cache = ArrayPool<(double X, double Y, double Z)>.Shared.Rent(minimumLength: GridSteps);
 		(double X, double Y, double Z)[] pos2Cache = ArrayPool<(double X, double Y, double Z)>.Shared.Rent(minimumLength: GridSteps);
@@ -174,115 +258,17 @@ internal class MoidCalculator
 				},
 				body: idx =>
 				{
-					double f = idx * stepSize;
+					double f = idx * GridStepSize;
 					pos1Cache[idx] = OrbitPositionOptimized(a: a1, e: e1, w: w1, f: f, cosO: cosO1, sinO: sinO1, cosi: cosi1, sini: sini1, oneMinusESq: oneMinusE1Sq);
 					pos2Cache[idx] = OrbitPositionOptimized(a: a2, e: e2, w: w2, f: f, cosO: cosO2, sinO: sinO2, cosi: cosi2, sini: sini2, oneMinusESq: oneMinusE2Sq);
 				});
-			// Lock-free parallel search using Interlocked operations with optimized partitioning
-			long minDistSquaredBits = BitConverter.DoubleToInt64Bits(value: double.MaxValue);
-			long bestF1Bits = 0;
-			long bestF2Bits = 0;
-			// Use Partitioner for better work distribution
-			Partitioner<Tuple<int, int>> partitioner = Partitioner.Create(fromInclusive: 0, toExclusive: GridSteps, rangeSize: Math.Max(1, GridSteps / (Environment.ProcessorCount * 4)));
-			_ = Parallel.ForEach(
-				source: partitioner,
-				parallelOptions: new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
-				body: range =>
-				{
-					// Each thread maintains its own local minimum to reduce contention, then updates the global minimum using Interlocked operations
-					double localMinDistSq = double.MaxValue;
-					int localBestI = 0;
-					int localBestJ = 0;
-					// Loop over the assigned range of indices for orbit 1
-					for (int i = range.Item1; i < range.Item2; i++)
-					{
-						(double X, double Y, double Z) p1 = pos1Cache[i];
-						// SIMD-optimized inner loop when available
-						if (Vector256.IsHardwareAccelerated && GridSteps >= Vector256<double>.Count)
-						{
-							int j = 0;
-							int simdEnd = GridSteps - (GridSteps % 4);
-							// Process 4 positions at a time using SIMD (when possible)
-							for (; j < simdEnd; j += 4)
-							{
-								// Load 4 positions from pos2Cache into SIMD registers
-								for (int k = 0; k < 4; k++)
-								{
-									(double X, double Y, double Z) p2 = pos2Cache[j + k];
-									double distSq = DistanceSquared(p1: p1, p2: p2);
-									// Update local minimum if this distance is smaller
-									if (distSq < localMinDistSq)
-									{
-										localMinDistSq = distSq;
-										localBestI = i;
-										localBestJ = j + k;
-									}
-								}
-							}
-							// Handle remaining elements
-							for (; j < GridSteps; j++)
-							{
-								// Process remaining positions without SIMD
-								(double X, double Y, double Z) p2 = pos2Cache[j];
-								double distSq = DistanceSquared(p1: p1, p2: p2);
-								// Update local minimum if this distance is smaller
-								if (distSq < localMinDistSq)
-								{
-									localMinDistSq = distSq;
-									localBestI = i;
-									localBestJ = j;
-								}
-							}
-						}
-						else
-						{
-							// Fallback to standard loop
-							for (int j = 0; j < GridSteps; j++)
-							{
-								// Process positions without SIMD
-								(double X, double Y, double Z) p2 = pos2Cache[j];
-								double distSq = DistanceSquared(p1: p1, p2: p2);
-								// Update local minimum if this distance is smaller
-								if (distSq < localMinDistSq)
-								{
-									localMinDistSq = distSq;
-									localBestI = i;
-									localBestJ = j;
-								}
-							}
-						}
-					}
-					// Lock-free update using Interlocked.CompareExchange
-					while (true)
-					{
-						// Read the current global minimum as a double via its bit representation
-						long currentMinBits = Interlocked.Read(location: ref minDistSquaredBits);
-						double currentMin = BitConverter.Int64BitsToDouble(value: currentMinBits);
-						// If the local minimum is not better than the current global minimum, no need to update
-						if (localMinDistSq >= currentMin)
-						{
-							break;
-						}
-						// Attempt to update the global minimum with the local minimum using CompareExchange
-						long newMinBits = BitConverter.DoubleToInt64Bits(value: localMinDistSq);
-						if (Interlocked.CompareExchange(location1: ref minDistSquaredBits, value: newMinBits, comparand: currentMinBits) == currentMinBits)
-						{
-							Interlocked.Exchange(location1: ref bestF1Bits, value: BitConverter.DoubleToInt64Bits(value: localBestI * stepSize));
-							Interlocked.Exchange(location1: ref bestF2Bits, value: BitConverter.DoubleToInt64Bits(value: localBestJ * stepSize));
-							break;
-						}
-					}
-				});
-
-			double minDistSquared = BitConverter.Int64BitsToDouble(value: Interlocked.Read(location: ref minDistSquaredBits));
-			double bestF1 = BitConverter.Int64BitsToDouble(value: Interlocked.Read(location: ref bestF1Bits));
-			double bestF2 = BitConverter.Int64BitsToDouble(value: Interlocked.Read(location: ref bestF2Bits));
+			CoarseMinimumResult coarseMinimum = FindCoarseMinimum(pos1Cache: pos1Cache, pos2Cache: pos2Cache);
 			// Local refinement via coordinate descent with precomputed trig values
 			return RefineMinimumOptimized(
 				a1: a1, e1: e1, w1: w1, cosO1: cosO1, sinO1: sinO1, cosi1: cosi1, sini1: sini1, oneMinusE1Sq: oneMinusE1Sq,
 				a2: a2, e2: e2, w2: w2, cosO2: cosO2, sinO2: sinO2, cosi2: cosi2, sini2: sini2, oneMinusE2Sq: oneMinusE2Sq,
-				f1Start: bestF1, f2Start: bestF2, initialStep: stepSize,
-				coarseMin: Math.Sqrt(d: minDistSquared));
+				f1Start: coarseMinimum.BestF1, f2Start: coarseMinimum.BestF2, initialStep: GridStepSize,
+				coarseMin: Math.Sqrt(d: coarseMinimum.MinDistanceSquared));
 		}
 		finally
 		{
@@ -290,6 +276,175 @@ internal class MoidCalculator
 			ArrayPool<(double X, double Y, double Z)>.Shared.Return(array: pos1Cache);
 			ArrayPool<(double X, double Y, double Z)>.Shared.Return(array: pos2Cache);
 		}
+	}
+
+	/// <summary>Calculates the MOID to a planet while reusing a precomputed coarse cache for the first orbit.</summary>
+	/// <param name="a1">Semi-major axis of orbit 1 (AU).</param>
+	/// <param name="e1">Eccentricity of orbit 1.</param>
+	/// <param name="w1">Argument of perihelion of orbit 1 (radians).</param>
+	/// <param name="cosO1">Precomputed cos(Ω₁).</param>
+	/// <param name="sinO1">Precomputed sin(Ω₁).</param>
+	/// <param name="cosi1">Precomputed cos(i₁).</param>
+	/// <param name="sini1">Precomputed sin(i₁).</param>
+	/// <param name="oneMinusE1Sq">Precomputed 1 - e₁².</param>
+	/// <param name="pos1Cache">Precomputed coarse position cache for orbit 1.</param>
+	/// <param name="planet">Precomputed constants for the planetary orbit.</param>
+	/// <returns>The refined MOID in AU.</returns>
+	/// <remarks>Used by bulk planet calculations to avoid recomputing the first-orbit coarse samples eight times.</remarks>
+	private static double CalculateMoidUsingFirstOrbitCache(
+		double a1, double e1, double w1,
+		double cosO1, double sinO1, double cosi1, double sini1, double oneMinusE1Sq,
+		(double X, double Y, double Z)[] pos1Cache,
+		PlanetComputationData planet)
+	{
+		(double X, double Y, double Z)[] pos2Cache = ArrayPool<(double X, double Y, double Z)>.Shared.Rent(minimumLength: GridSteps);
+		try
+		{
+			_ = Parallel.For(
+				fromInclusive: 0,
+				toExclusive: GridSteps,
+				parallelOptions: new ParallelOptions
+				{
+					MaxDegreeOfParallelism = Environment.ProcessorCount
+				},
+				body: idx =>
+				{
+					double f = idx * GridStepSize;
+					pos2Cache[idx] = OrbitPositionOptimized(
+						a: planet.SemiMajorAxis, e: planet.Eccentricity, w: planet.ArgumentPerihelionRad, f: f,
+						cosO: planet.CosLongitudeAscendingNode, sinO: planet.SinLongitudeAscendingNode,
+						cosi: planet.CosInclination, sini: planet.SinInclination, oneMinusESq: planet.OneMinusEccentricitySquared);
+				});
+
+			CoarseMinimumResult coarseMinimum = FindCoarseMinimum(pos1Cache: pos1Cache, pos2Cache: pos2Cache);
+			return RefineMinimumOptimized(
+				a1: a1, e1: e1, w1: w1, cosO1: cosO1, sinO1: sinO1, cosi1: cosi1, sini1: sini1, oneMinusE1Sq: oneMinusE1Sq,
+				a2: planet.SemiMajorAxis, e2: planet.Eccentricity, w2: planet.ArgumentPerihelionRad,
+				cosO2: planet.CosLongitudeAscendingNode, sinO2: planet.SinLongitudeAscendingNode, cosi2: planet.CosInclination, sini2: planet.SinInclination, oneMinusE2Sq: planet.OneMinusEccentricitySquared,
+				f1Start: coarseMinimum.BestF1, f2Start: coarseMinimum.BestF2, initialStep: GridStepSize,
+				coarseMin: Math.Sqrt(d: coarseMinimum.MinDistanceSquared));
+		}
+		finally
+		{
+			ArrayPool<(double X, double Y, double Z)>.Shared.Return(array: pos2Cache);
+		}
+	}
+
+	/// <summary>Finds the best coarse-grid candidate across two sampled orbits.</summary>
+	/// <param name="pos1Cache">Sampled positions for orbit 1.</param>
+	/// <param name="pos2Cache">Sampled positions for orbit 2.</param>
+	/// <returns>The best coarse-grid squared distance and associated anomaly pair.</returns>
+	/// <remarks>Performs a lock-free parallel search and returns the best coarse starting point for local refinement.</remarks>
+	private static CoarseMinimumResult FindCoarseMinimum(
+		(double X, double Y, double Z)[] pos1Cache,
+		(double X, double Y, double Z)[] pos2Cache)
+	{
+		long minDistSquaredBits = BitConverter.DoubleToInt64Bits(value: double.MaxValue);
+		long bestF1Bits = 0;
+		long bestF2Bits = 0;
+		Partitioner<Tuple<int, int>> partitioner = Partitioner.Create(fromInclusive: 0, toExclusive: GridSteps, rangeSize: Math.Max(1, GridSteps / (Environment.ProcessorCount * 4)));
+		_ = Parallel.ForEach(
+			source: partitioner,
+			parallelOptions: new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
+			body: range =>
+			{
+				double localMinDistSq = double.MaxValue;
+				int localBestI = 0;
+				int localBestJ = 0;
+				for (int i = range.Item1; i < range.Item2; i++)
+				{
+					(double X, double Y, double Z) p1 = pos1Cache[i];
+					if (Vector256.IsHardwareAccelerated && GridSteps >= Vector256<double>.Count)
+					{
+						int j = 0;
+						int simdEnd = GridSteps - (GridSteps % 4);
+						for (; j < simdEnd; j += 4)
+						{
+							for (int k = 0; k < 4; k++)
+							{
+								(double X, double Y, double Z) p2 = pos2Cache[j + k];
+								double distSq = DistanceSquared(p1: p1, p2: p2);
+								if (distSq < localMinDistSq)
+								{
+									localMinDistSq = distSq;
+									localBestI = i;
+									localBestJ = j + k;
+								}
+							}
+						}
+						for (; j < GridSteps; j++)
+						{
+							(double X, double Y, double Z) p2 = pos2Cache[j];
+							double distSq = DistanceSquared(p1: p1, p2: p2);
+							if (distSq < localMinDistSq)
+							{
+								localMinDistSq = distSq;
+								localBestI = i;
+								localBestJ = j;
+							}
+						}
+					}
+					else
+					{
+						for (int j = 0; j < GridSteps; j++)
+						{
+							(double X, double Y, double Z) p2 = pos2Cache[j];
+							double distSq = DistanceSquared(p1: p1, p2: p2);
+							if (distSq < localMinDistSq)
+							{
+								localMinDistSq = distSq;
+								localBestI = i;
+								localBestJ = j;
+							}
+						}
+					}
+				}
+				while (true)
+				{
+					long currentMinBits = Interlocked.Read(location: ref minDistSquaredBits);
+					double currentMin = BitConverter.Int64BitsToDouble(value: currentMinBits);
+					if (localMinDistSq >= currentMin)
+					{
+						break;
+					}
+					long newMinBits = BitConverter.DoubleToInt64Bits(value: localMinDistSq);
+					if (Interlocked.CompareExchange(location1: ref minDistSquaredBits, value: newMinBits, comparand: currentMinBits) == currentMinBits)
+					{
+						Interlocked.Exchange(location1: ref bestF1Bits, value: BitConverter.DoubleToInt64Bits(value: localBestI * GridStepSize));
+						Interlocked.Exchange(location1: ref bestF2Bits, value: BitConverter.DoubleToInt64Bits(value: localBestJ * GridStepSize));
+						break;
+					}
+				}
+			});
+
+		return new CoarseMinimumResult(
+			MinDistanceSquared: BitConverter.Int64BitsToDouble(value: Interlocked.Read(location: ref minDistSquaredBits)),
+			BestF1: BitConverter.Int64BitsToDouble(value: Interlocked.Read(location: ref bestF1Bits)),
+			BestF2: BitConverter.Int64BitsToDouble(value: Interlocked.Read(location: ref bestF2Bits)));
+	}
+
+	/// <summary>Builds precomputed constants for all planetary comparison orbits.</summary>
+	/// <returns>An array of precomputed per-planet constants in Mercury-to-Neptune order.</returns>
+	private static PlanetComputationData[] BuildPrecomputedPlanets()
+	{
+		PlanetComputationData[] data = new PlanetComputationData[Planets.Length];
+		for (int i = 0; i < Planets.Length; i++)
+		{
+			PlanetElements planet = Planets[i];
+			double inclinationRad = planet.InclinationDeg * Math.PI / 180.0;
+			double longitudeAscendingNodeRad = planet.LongitudeAscendingNodeDeg * Math.PI / 180.0;
+			data[i] = new PlanetComputationData(
+				Name: planet.Name,
+				SemiMajorAxis: planet.SemiMajorAxis,
+				Eccentricity: planet.Eccentricity,
+				ArgumentPerihelionRad: planet.ArgumentPerihelionDeg * Math.PI / 180.0,
+				CosLongitudeAscendingNode: Math.Cos(d: longitudeAscendingNodeRad),
+				SinLongitudeAscendingNode: Math.Sin(a: longitudeAscendingNodeRad),
+				CosInclination: Math.Cos(d: inclinationRad),
+				SinInclination: Math.Sin(a: inclinationRad),
+				OneMinusEccentricitySquared: 1.0 - (planet.Eccentricity * planet.Eccentricity));
+		}
+		return data;
 	}
 
 	/// <summary>Refines the MOID estimate using precomputed trigonometric values for maximum performance.</summary>
