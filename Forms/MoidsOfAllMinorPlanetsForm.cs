@@ -125,6 +125,11 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		return dialog.ShowDialog() == DialogResult.OK;
 	}
 
+	/// <summary>Updates the enabled state of the "Go to object" button.</summary>
+	/// <remarks>The button is enabled only when a result row is selected.</remarks>
+	private void UpdateGoToObjectButtonState() =>
+		toolStripButtonGoToObject.Enabled = listView.SelectedIndices.Count > 0;
+
 	/// <summary>Performs the save export operation by displaying a save dialog and invoking the specified export action.</summary>
 	/// <param name="filter">The file type filter for the save dialog.</param>
 	/// <param name="defaultExt">The default file extension.</param>
@@ -398,7 +403,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 					listView.Enabled = true;
 					toolStripButtonStart.Enabled = true;
 					toolStripButtonCancel.Enabled = false;
-					toolStripButtonGoToObject.Enabled = listView.SelectedIndices.Count > 0;
+					UpdateGoToObjectButtonState();
 					toolStripDropDownButtonSaveToFile.Enabled = _results.Count > 0;
 				}
 			}
@@ -723,7 +728,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <param name="e">The event data.</param>
 	/// <remarks>Enables the "Go to object" button when a row is selected.</remarks>
 	private void ListView_SelectedIndexChanged(object sender, EventArgs e) =>
-		toolStripButtonGoToObject.Enabled = listView.SelectedIndices.Count > 0;
+		UpdateGoToObjectButtonState();
 
 	#endregion
 
