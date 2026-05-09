@@ -1028,15 +1028,15 @@ partial class BulkObservationsDataDownloaderForm
 		// 
 		// toolStripContainer.BottomToolStripPanel
 		// 
-		toolStripContainer.BottomToolStripPanel.AccessibleDescription = "BottomToolStripPanel";
-		toolStripContainer.BottomToolStripPanel.AccessibleName = "BottomToolStripPanel";
+		toolStripContainer.BottomToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.BottomToolStripPanel.AccessibleName = "Bottom panel";
 		toolStripContainer.BottomToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
 		// 
 		// toolStripContainer.ContentPanel
 		// 
-		toolStripContainer.ContentPanel.AccessibleDescription = "ContentPanel";
-		toolStripContainer.ContentPanel.AccessibleName = "ContentPanel";
+		toolStripContainer.ContentPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.ContentPanel.AccessibleName = "Content panel";
 		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
 		toolStripContainer.ContentPanel.Size = new Size(675, 137);
@@ -1044,16 +1044,16 @@ partial class BulkObservationsDataDownloaderForm
 		// 
 		// toolStripContainer.LeftToolStripPanel
 		// 
-		toolStripContainer.LeftToolStripPanel.AccessibleDescription = "LeftToolStripPanel";
-		toolStripContainer.LeftToolStripPanel.AccessibleName = "LeftToolStripPanel";
+		toolStripContainer.LeftToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.LeftToolStripPanel.AccessibleName = "Left panel";
 		toolStripContainer.LeftToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.Location = new Point(0, 0);
 		toolStripContainer.Name = "toolStripContainer";
 		// 
 		// toolStripContainer.RightToolStripPanel
 		// 
-		toolStripContainer.RightToolStripPanel.AccessibleDescription = "RightToolStripPanel";
-		toolStripContainer.RightToolStripPanel.AccessibleName = "RightToolStripPanel";
+		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
 		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.Size = new Size(675, 185);
 		toolStripContainer.TabIndex = 0;
@@ -1061,8 +1061,8 @@ partial class BulkObservationsDataDownloaderForm
 		// 
 		// toolStripContainer.TopToolStripPanel
 		// 
-		toolStripContainer.TopToolStripPanel.AccessibleDescription = "TopToolStripPanel";
-		toolStripContainer.TopToolStripPanel.AccessibleName = "TopToolStripPanel";
+		toolStripContainer.TopToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.TopToolStripPanel.AccessibleName = "Top panel";
 		toolStripContainer.TopToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStrip);
 		// 
