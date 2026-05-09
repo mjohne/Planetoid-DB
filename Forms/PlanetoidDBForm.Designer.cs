@@ -54,10 +54,10 @@ partial class PlanetoidDbForm
 		menuitemNavigateStep1000 = new ToolStripMenuItem();
 		menuitemNavigateStep10000 = new ToolStripMenuItem();
 		menuitemNavigateStep100000 = new ToolStripMenuItem();
-		menuitemNavigateSomeDataBackward = new ToolStripMenuItem();
-		menuitemNavigateSomeDataForward = new ToolStripMenuItem();
 		toolStripSplitButtonStepForward = new ToolStripSplitButton();
 		toolStripSplitButtonStepBackward = new ToolStripSplitButton();
+		menuitemNavigateSomeDataBackward = new ToolStripMenuItem();
+		menuitemNavigateSomeDataForward = new ToolStripMenuItem();
 		tableLayoutPanelData = new KryptonTableLayoutPanel();
 		labelIndexData = new KryptonLabel();
 		contextMenuCopyToClipboard = new ContextMenuStrip(components);
@@ -197,17 +197,22 @@ partial class PlanetoidDbForm
 		menuitemTableMode = new ToolStripMenuItem();
 		menuitemTerminology = new ToolStripMenuItem();
 		toolStripSeparator16 = new ToolStripSeparator();
-		toolStripMenuItemOrbitalResonances = new ToolStripMenuItem();
-		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets = new ToolStripMenuItem();
 		toolStripMenuItemOrbitElementsGrouping = new ToolStripMenuItem();
 		toolStripMenuItemAsteroidFamiliesDetection = new ToolStripMenuItem();
-		toolStripMenuItemObservations = new ToolStripMenuItem();
-		toolStripMenuItemBulkInformationsDataDownloader = new ToolStripMenuItem();
+		toolStripSeparator18 = new ToolStripSeparator();
 		toolStripMenuItemMoids = new ToolStripMenuItem();
+		toolStripMenuItemMoidsOfOneMinorPlanet = new ToolStripMenuItem();
 		toolStripMenuItemMoidsOfAllMinorPlanets = new ToolStripMenuItem();
 		toolStripMenuItemMoidsRelativeToMinorPlanets = new ToolStripMenuItem();
-		toolStripMenuItemTisserandParametersOfAllMinorPlanets = new ToolStripMenuItem();
 		toolStripMenuItemTisserandParameters = new ToolStripMenuItem();
+		toolStripMenuItemTisserandParameterOfOneMinorPlanet = new ToolStripMenuItem();
+		toolStripMenuItemTisserandParameterOfAllMinorPlanet = new ToolStripMenuItem();
+		toolStripMenuItemOrbitalResonances = new ToolStripMenuItem();
+		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet = new ToolStripMenuItem();
+		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets = new ToolStripMenuItem();
+		toolStripMenuItemObservations = new ToolStripMenuItem();
+		toolStripMenuItemObservationLogs = new ToolStripMenuItem();
+		toolStripMenuItemBulkObservationsDataDownloader = new ToolStripMenuItem();
 		menuitemUpdate = new ToolStripMenuItem();
 		menuitemCheckMpcorbDat = new ToolStripMenuItem();
 		menuitemDownloadMpcorbDat = new ToolStripMenuItem();
@@ -284,8 +289,6 @@ partial class PlanetoidDbForm
 		timerCheckForNewMpcorbDatFile = new Timer(components);
 		openFileDialog = new OpenFileDialog();
 		kryptonManager = new KryptonManager(components);
-		toolStripSeparator17 = new ToolStripSeparator();
-		toolStripSeparator18 = new ToolStripSeparator();
 		contextMenuNavigationStep.SuspendLayout();
 		tableLayoutPanelData.SuspendLayout();
 		contextMenuCopyToClipboard.SuspendLayout();
@@ -311,7 +314,7 @@ partial class PlanetoidDbForm
 		contextMenuNavigationStep.Font = new Font("Segoe UI", 9F);
 		contextMenuNavigationStep.Items.AddRange(new ToolStripItem[] { menuitemNavigateStep10, menuitemNavigateStep100, menuitemNavigateStep1000, menuitemNavigateStep10000, menuitemNavigateStep100000 });
 		contextMenuNavigationStep.Name = "contextMenu";
-		contextMenuNavigationStep.OwnerItem = toolStripSplitButtonStepBackward;
+		contextMenuNavigationStep.OwnerItem = menuitemNavigateSomeDataForward;
 		contextMenuNavigationStep.ShowCheckMargin = true;
 		contextMenuNavigationStep.ShowImageMargin = false;
 		contextMenuNavigationStep.Size = new Size(111, 114);
@@ -394,38 +397,6 @@ partial class PlanetoidDbForm
 		menuitemNavigateStep100000.MouseEnter += Control_Enter;
 		menuitemNavigateStep100000.MouseLeave += Control_Leave;
 		// 
-		// menuitemNavigateSomeDataBackward
-		// 
-		menuitemNavigateSomeDataBackward.AccessibleDescription = "Navigates some data backward";
-		menuitemNavigateSomeDataBackward.AccessibleName = "Navigates some data backward";
-		menuitemNavigateSomeDataBackward.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemNavigateSomeDataBackward.AutoToolTip = true;
-		menuitemNavigateSomeDataBackward.DropDown = contextMenuNavigationStep;
-		menuitemNavigateSomeDataBackward.Image = FatcowIcons16px.fatcow_control_rewind_blue_16px;
-		menuitemNavigateSomeDataBackward.Name = "menuitemNavigateSomeDataBackward";
-		menuitemNavigateSomeDataBackward.ShortcutKeys = Keys.Control | Keys.D2;
-		menuitemNavigateSomeDataBackward.Size = new Size(275, 22);
-		menuitemNavigateSomeDataBackward.Text = "Navigate some data back&ward";
-		menuitemNavigateSomeDataBackward.Click += ToolStripMenuItemNavigateSomeDataBackward_Click;
-		menuitemNavigateSomeDataBackward.MouseEnter += Control_Enter;
-		menuitemNavigateSomeDataBackward.MouseLeave += Control_Leave;
-		// 
-		// menuitemNavigateSomeDataForward
-		// 
-		menuitemNavigateSomeDataForward.AccessibleDescription = "Navigates some data forward";
-		menuitemNavigateSomeDataForward.AccessibleName = "Navigates some data forward";
-		menuitemNavigateSomeDataForward.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemNavigateSomeDataForward.AutoToolTip = true;
-		menuitemNavigateSomeDataForward.DropDown = contextMenuNavigationStep;
-		menuitemNavigateSomeDataForward.Image = FatcowIcons16px.fatcow_control_fastforward_blue_16px;
-		menuitemNavigateSomeDataForward.Name = "menuitemNavigateSomeDataForward";
-		menuitemNavigateSomeDataForward.ShortcutKeys = Keys.Control | Keys.D5;
-		menuitemNavigateSomeDataForward.Size = new Size(275, 22);
-		menuitemNavigateSomeDataForward.Text = "Navigate some data &forward";
-		menuitemNavigateSomeDataForward.Click += ToolStripMenuItemNavigateSomeDataForward_Click;
-		menuitemNavigateSomeDataForward.MouseEnter += Control_Enter;
-		menuitemNavigateSomeDataForward.MouseLeave += Control_Leave;
-		// 
 		// toolStripSplitButtonStepForward
 		// 
 		toolStripSplitButtonStepForward.AccessibleDescription = "Navigates some data forward";
@@ -457,6 +428,38 @@ partial class PlanetoidDbForm
 		toolStripSplitButtonStepBackward.ButtonClick += ToolStripButtonStepBackward_Click;
 		toolStripSplitButtonStepBackward.MouseEnter += Control_Enter;
 		toolStripSplitButtonStepBackward.MouseLeave += Control_Leave;
+		// 
+		// menuitemNavigateSomeDataBackward
+		// 
+		menuitemNavigateSomeDataBackward.AccessibleDescription = "Navigates some data backward";
+		menuitemNavigateSomeDataBackward.AccessibleName = "Navigates some data backward";
+		menuitemNavigateSomeDataBackward.AccessibleRole = AccessibleRole.MenuItem;
+		menuitemNavigateSomeDataBackward.AutoToolTip = true;
+		menuitemNavigateSomeDataBackward.DropDown = contextMenuNavigationStep;
+		menuitemNavigateSomeDataBackward.Image = FatcowIcons16px.fatcow_control_rewind_blue_16px;
+		menuitemNavigateSomeDataBackward.Name = "menuitemNavigateSomeDataBackward";
+		menuitemNavigateSomeDataBackward.ShortcutKeys = Keys.Control | Keys.D2;
+		menuitemNavigateSomeDataBackward.Size = new Size(275, 22);
+		menuitemNavigateSomeDataBackward.Text = "Navigate some data back&ward";
+		menuitemNavigateSomeDataBackward.Click += ToolStripMenuItemNavigateSomeDataBackward_Click;
+		menuitemNavigateSomeDataBackward.MouseEnter += Control_Enter;
+		menuitemNavigateSomeDataBackward.MouseLeave += Control_Leave;
+		// 
+		// menuitemNavigateSomeDataForward
+		// 
+		menuitemNavigateSomeDataForward.AccessibleDescription = "Navigates some data forward";
+		menuitemNavigateSomeDataForward.AccessibleName = "Navigates some data forward";
+		menuitemNavigateSomeDataForward.AccessibleRole = AccessibleRole.MenuItem;
+		menuitemNavigateSomeDataForward.AutoToolTip = true;
+		menuitemNavigateSomeDataForward.DropDown = contextMenuNavigationStep;
+		menuitemNavigateSomeDataForward.Image = FatcowIcons16px.fatcow_control_fastforward_blue_16px;
+		menuitemNavigateSomeDataForward.Name = "menuitemNavigateSomeDataForward";
+		menuitemNavigateSomeDataForward.ShortcutKeys = Keys.Control | Keys.D5;
+		menuitemNavigateSomeDataForward.Size = new Size(275, 22);
+		menuitemNavigateSomeDataForward.Text = "Navigate some data &forward";
+		menuitemNavigateSomeDataForward.Click += ToolStripMenuItemNavigateSomeDataForward_Click;
+		menuitemNavigateSomeDataForward.MouseEnter += Control_Enter;
+		menuitemNavigateSomeDataForward.MouseLeave += Control_Leave;
 		// 
 		// tableLayoutPanelData
 		// 
@@ -1860,7 +1863,7 @@ partial class PlanetoidDbForm
 		menuitemRecords.Name = "menuitemRecords";
 		menuitemRecords.ShortcutKeyDisplayString = "Strg+R";
 		menuitemRecords.ShortcutKeys = Keys.Control | Keys.R;
-		menuitemRecords.Size = new Size(277, 22);
+		menuitemRecords.Size = new Size(227, 22);
 		menuitemRecords.Text = "Top ten &records";
 		menuitemRecords.Click += MenuitemTopTenRecords_Click;
 		menuitemRecords.MouseEnter += Control_Enter;
@@ -2120,7 +2123,7 @@ partial class PlanetoidDbForm
 		menuitemDistribution.Image = FatcowIcons16px.fatcow_chart_bar_16px;
 		menuitemDistribution.Name = "menuitemDistribution";
 		menuitemDistribution.ShortcutKeys = Keys.Control | Keys.D;
-		menuitemDistribution.Size = new Size(277, 22);
+		menuitemDistribution.Size = new Size(227, 22);
 		menuitemDistribution.Text = "&Distributions";
 		menuitemDistribution.Click += MenuitemDistribution_Click;
 		menuitemDistribution.MouseEnter += Control_Enter;
@@ -2784,7 +2787,7 @@ partial class PlanetoidDbForm
 		menuitemTools.AccessibleName = "Tools";
 		menuitemTools.AccessibleRole = AccessibleRole.MenuPopup;
 		menuitemTools.AutoToolTip = true;
-		menuitemTools.DropDownItems.AddRange(new ToolStripItem[] { menuitemDerivedOrbitElements, menuitemFilter, toolStripSeparatorTools1, menuitemRecords, toolStripSeparator10, menuitemDistribution, toolStripSeparatorTools2, menuitemDatabaseInformation, menuitemTableMode, menuitemTerminology, toolStripSeparator16, toolStripMenuItemOrbitalResonances, toolStripMenuItemOrbitalResonancesOfAllMinorPlanets, toolStripMenuItemOrbitElementsGrouping, toolStripMenuItemAsteroidFamiliesDetection, toolStripSeparator18, toolStripMenuItemObservations, toolStripMenuItemBulkInformationsDataDownloader, toolStripSeparator17, toolStripMenuItemMoids, toolStripMenuItemMoidsOfAllMinorPlanets, toolStripMenuItemMoidsRelativeToMinorPlanets, toolStripMenuItemTisserandParameters, toolStripMenuItemTisserandParametersOfAllMinorPlanets });
+		menuitemTools.DropDownItems.AddRange(new ToolStripItem[] { menuitemDerivedOrbitElements, menuitemFilter, toolStripSeparatorTools1, menuitemRecords, toolStripSeparator10, menuitemDistribution, toolStripSeparatorTools2, menuitemDatabaseInformation, menuitemTableMode, menuitemTerminology, toolStripSeparator16, toolStripMenuItemOrbitElementsGrouping, toolStripMenuItemAsteroidFamiliesDetection, toolStripSeparator18, toolStripMenuItemMoids, toolStripMenuItemTisserandParameters, toolStripMenuItemOrbitalResonances, toolStripMenuItemObservations });
 		menuitemTools.Name = "menuitemTools";
 		menuitemTools.Size = new Size(46, 24);
 		menuitemTools.Text = "&Tools";
@@ -2799,7 +2802,7 @@ partial class PlanetoidDbForm
 		menuitemDerivedOrbitElements.AutoToolTip = true;
 		menuitemDerivedOrbitElements.Image = FatcowIcons16px.fatcow_arrow_branch_16px;
 		menuitemDerivedOrbitElements.Name = "menuitemDerivedOrbitElements";
-		menuitemDerivedOrbitElements.Size = new Size(277, 22);
+		menuitemDerivedOrbitElements.Size = new Size(227, 22);
 		menuitemDerivedOrbitElements.Text = "Derived &orbital elements";
 		menuitemDerivedOrbitElements.Click += ToolStripMenuItemDerivedOrbitElements_Click;
 		menuitemDerivedOrbitElements.MouseEnter += Control_Enter;
@@ -2814,7 +2817,7 @@ partial class PlanetoidDbForm
 		menuitemFilter.Enabled = false;
 		menuitemFilter.Image = FatcowIcons16px.fatcow_filter_16px;
 		menuitemFilter.Name = "menuitemFilter";
-		menuitemFilter.Size = new Size(277, 22);
+		menuitemFilter.Size = new Size(227, 22);
 		menuitemFilter.Text = "&Filter";
 		menuitemFilter.Click += ToolStripMenuItemFilter_Click;
 		menuitemFilter.MouseEnter += Control_Enter;
@@ -2826,7 +2829,7 @@ partial class PlanetoidDbForm
 		toolStripSeparatorTools1.AccessibleName = "Just a separator";
 		toolStripSeparatorTools1.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparatorTools1.Name = "toolStripSeparatorTools1";
-		toolStripSeparatorTools1.Size = new Size(274, 6);
+		toolStripSeparatorTools1.Size = new Size(224, 6);
 		toolStripSeparatorTools1.MouseEnter += Control_Enter;
 		toolStripSeparatorTools1.MouseLeave += Control_Leave;
 		// 
@@ -2836,7 +2839,7 @@ partial class PlanetoidDbForm
 		toolStripSeparator10.AccessibleName = "Just a separator";
 		toolStripSeparator10.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator10.Name = "toolStripSeparator10";
-		toolStripSeparator10.Size = new Size(274, 6);
+		toolStripSeparator10.Size = new Size(224, 6);
 		toolStripSeparator10.MouseEnter += Control_Enter;
 		toolStripSeparator10.MouseLeave += Control_Leave;
 		// 
@@ -2846,7 +2849,7 @@ partial class PlanetoidDbForm
 		toolStripSeparatorTools2.AccessibleName = "Just a separator";
 		toolStripSeparatorTools2.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparatorTools2.Name = "toolStripSeparatorTools2";
-		toolStripSeparatorTools2.Size = new Size(274, 6);
+		toolStripSeparatorTools2.Size = new Size(224, 6);
 		toolStripSeparatorTools2.MouseEnter += Control_Enter;
 		toolStripSeparatorTools2.MouseLeave += Control_Leave;
 		// 
@@ -2859,7 +2862,7 @@ partial class PlanetoidDbForm
 		menuitemDatabaseInformation.Image = FatcowIcons16px.fatcow_database_16px;
 		menuitemDatabaseInformation.Name = "menuitemDatabaseInformation";
 		menuitemDatabaseInformation.ShortcutKeys = Keys.Control | Keys.I;
-		menuitemDatabaseInformation.Size = new Size(277, 22);
+		menuitemDatabaseInformation.Size = new Size(227, 22);
 		menuitemDatabaseInformation.Text = "Database &information";
 		menuitemDatabaseInformation.Click += ToolStripMenuItemDatabaseInformation_Click;
 		menuitemDatabaseInformation.MouseEnter += Control_Enter;
@@ -2874,7 +2877,7 @@ partial class PlanetoidDbForm
 		menuitemTableMode.Image = FatcowIcons16px.fatcow_table_16px;
 		menuitemTableMode.Name = "menuitemTableMode";
 		menuitemTableMode.ShortcutKeys = Keys.Control | Keys.M;
-		menuitemTableMode.Size = new Size(277, 22);
+		menuitemTableMode.Size = new Size(227, 22);
 		menuitemTableMode.Text = "&Table mode";
 		menuitemTableMode.Click += ToolStripMenuItemTableMode_Click;
 		menuitemTableMode.MouseEnter += Control_Enter;
@@ -2889,7 +2892,7 @@ partial class PlanetoidDbForm
 		menuitemTerminology.Image = FatcowIcons16px.fatcow_text_list_bullets_16px;
 		menuitemTerminology.Name = "menuitemTerminology";
 		menuitemTerminology.ShortcutKeys = Keys.Control | Keys.L;
-		menuitemTerminology.Size = new Size(277, 22);
+		menuitemTerminology.Size = new Size(227, 22);
 		menuitemTerminology.Text = "Terminolog&y";
 		menuitemTerminology.Click += ToolStripMenuItemTerminology_Click;
 		menuitemTerminology.MouseEnter += Control_Enter;
@@ -2901,37 +2904,9 @@ partial class PlanetoidDbForm
 		toolStripSeparator16.AccessibleName = "Just a separator";
 		toolStripSeparator16.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator16.Name = "toolStripSeparator16";
-		toolStripSeparator16.Size = new Size(274, 6);
+		toolStripSeparator16.Size = new Size(224, 6);
 		toolStripSeparator16.MouseEnter += Control_Enter;
 		toolStripSeparator16.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemOrbitalResonances
-		// 
-		toolStripMenuItemOrbitalResonances.AccessibleDescription = "Shows the orbital resonances";
-		toolStripMenuItemOrbitalResonances.AccessibleName = "Orbital resonances";
-		toolStripMenuItemOrbitalResonances.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemOrbitalResonances.AutoToolTip = true;
-		toolStripMenuItemOrbitalResonances.Image = FatcowIcons16px.fatcow_linechart_16px;
-		toolStripMenuItemOrbitalResonances.Name = "toolStripMenuItemOrbitalResonances";
-		toolStripMenuItemOrbitalResonances.Size = new Size(277, 22);
-		toolStripMenuItemOrbitalResonances.Text = "Orbital resonan&ces";
-		toolStripMenuItemOrbitalResonances.Click += ToolStripMenuItemOrbitalResonances_Click;
-		toolStripMenuItemOrbitalResonances.MouseEnter += Control_Enter;
-		toolStripMenuItemOrbitalResonances.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemOrbitalResonancesOfAllMinorPlanets
-		// 
-		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.AccessibleDescription = "Shows the orbital resonances of all minor planets";
-		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.AccessibleName = "Orbital resonances of all minor planets";
-		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.AutoToolTip = true;
-		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.Image = FatcowIcons16px.fatcow_areachart_16px;
-		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.Name = "toolStripMenuItemOrbitalResonancesOfAllMinorPlanets";
-		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.Size = new Size(277, 22);
-		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.Text = "Orbital resonances of &all minor planets";
-		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.Click += ToolStripMenuitemOrbitalResonancesOfAllMinorPlanets_Click;
-		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.MouseEnter += Control_Enter;
-		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemOrbitElementsGrouping
 		// 
@@ -2941,7 +2916,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOrbitElementsGrouping.AutoToolTip = true;
 		toolStripMenuItemOrbitElementsGrouping.Image = FatcowIcons16px.fatcow_node_16px;
 		toolStripMenuItemOrbitElementsGrouping.Name = "toolStripMenuItemOrbitElementsGrouping";
-		toolStripMenuItemOrbitElementsGrouping.Size = new Size(277, 22);
+		toolStripMenuItemOrbitElementsGrouping.Size = new Size(227, 22);
 		toolStripMenuItemOrbitElementsGrouping.Text = "Orbit &elements grouping";
 		toolStripMenuItemOrbitElementsGrouping.Click += ToolStripMenuItemOrbitElementsGrouping_Click;
 		toolStripMenuItemOrbitElementsGrouping.MouseEnter += Control_Enter;
@@ -2955,57 +2930,50 @@ partial class PlanetoidDbForm
 		toolStripMenuItemAsteroidFamiliesDetection.AutoToolTip = true;
 		toolStripMenuItemAsteroidFamiliesDetection.Image = FatcowIcons16px.fatcow_node_magnifier_16px;
 		toolStripMenuItemAsteroidFamiliesDetection.Name = "toolStripMenuItemAsteroidFamiliesDetection";
-		toolStripMenuItemAsteroidFamiliesDetection.Size = new Size(277, 22);
+		toolStripMenuItemAsteroidFamiliesDetection.Size = new Size(227, 22);
 		toolStripMenuItemAsteroidFamiliesDetection.Text = "Asteroid &families detection";
 		toolStripMenuItemAsteroidFamiliesDetection.ToolTipText = "Asteroid families detection";
 		toolStripMenuItemAsteroidFamiliesDetection.Click += ToolStripMenuItemAsteroidFamiliesDetection_Click;
 		toolStripMenuItemAsteroidFamiliesDetection.MouseEnter += Control_Enter;
 		toolStripMenuItemAsteroidFamiliesDetection.MouseLeave += Control_Leave;
 		// 
-		// toolStripMenuItemObservations
+		// toolStripSeparator18
 		// 
-		toolStripMenuItemObservations.AccessibleDescription = "Shows the observations of the minor planet from the MPC";
-		toolStripMenuItemObservations.AccessibleName = "Observations";
-		toolStripMenuItemObservations.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemObservations.AutoToolTip = true;
-		toolStripMenuItemObservations.Image = FatcowIcons16px.fatcow_find_16px;
-		toolStripMenuItemObservations.Name = "toolStripMenuItemObservations";
-		toolStripMenuItemObservations.Size = new Size(277, 22);
-		toolStripMenuItemObservations.Text = "&Observations";
-		toolStripMenuItemObservations.ToolTipText = "Shows the observations of the minor planet";
-		toolStripMenuItemObservations.Click += ToolStripMenuItemObservations_Click;
-		toolStripMenuItemObservations.MouseEnter += Control_Enter;
-		toolStripMenuItemObservations.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemBulkInformationsDataDownloader
-		// 
-		toolStripMenuItemBulkInformationsDataDownloader.AccessibleDescription = "Opens the bulk observations data downloader for a range of minor planets";
-		toolStripMenuItemBulkInformationsDataDownloader.AccessibleName = "Bulk observations data downloader";
-		toolStripMenuItemBulkInformationsDataDownloader.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemBulkInformationsDataDownloader.AutoToolTip = true;
-		toolStripMenuItemBulkInformationsDataDownloader.Image = FatcowIcons16px.fatcow_bullet_arrow_down_16px;
-		toolStripMenuItemBulkInformationsDataDownloader.Name = "toolStripMenuItemBulkInformationsDataDownloader";
-		toolStripMenuItemBulkInformationsDataDownloader.Size = new Size(277, 22);
-		toolStripMenuItemBulkInformationsDataDownloader.Text = "&Bulk observations data downloader";
-		toolStripMenuItemBulkInformationsDataDownloader.ToolTipText = "Downloads observation data files for a range of minor planets";
-		toolStripMenuItemBulkInformationsDataDownloader.Click += ToolStripMenuItemBulkInformationsDataDownloader_Click;
-		toolStripMenuItemBulkInformationsDataDownloader.MouseEnter += Control_Enter;
-		toolStripMenuItemBulkInformationsDataDownloader.MouseLeave += Control_Leave;
+		toolStripSeparator18.AccessibleDescription = "Just a separator";
+		toolStripSeparator18.AccessibleName = "Just a separator";
+		toolStripSeparator18.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparator18.Name = "toolStripSeparator18";
+		toolStripSeparator18.Size = new Size(224, 6);
+		toolStripSeparator18.MouseEnter += Control_Enter;
+		toolStripSeparator18.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemMoids
 		// 
-		toolStripMenuItemMoids.AccessibleDescription = "Shows the Minimum Orbit Intersection Distances (MOIDs) of the minor planet relative to the eight solar system planets";
-		toolStripMenuItemMoids.AccessibleName = "MOIDs of a minor planet";
+		toolStripMenuItemMoids.AccessibleDescription = "Shows the MOIDs";
+		toolStripMenuItemMoids.AccessibleName = "MOIDs";
 		toolStripMenuItemMoids.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemMoids.AutoToolTip = true;
-		toolStripMenuItemMoids.Image = FatcowIcons16px.fatcow_layer_shape_round_16px;
+		toolStripMenuItemMoids.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemMoidsOfOneMinorPlanet, toolStripMenuItemMoidsOfAllMinorPlanets, toolStripMenuItemMoidsRelativeToMinorPlanets });
 		toolStripMenuItemMoids.Name = "toolStripMenuItemMoids";
-		toolStripMenuItemMoids.Size = new Size(277, 22);
-		toolStripMenuItemMoids.Text = "&MOIDs of a minor planet";
-		toolStripMenuItemMoids.ToolTipText = "Shows the Minimum Orbit Intersection Distances (MOIDs) of a minor planet";
-		toolStripMenuItemMoids.Click += ToolStripMenuItemMoids_Click;
+		toolStripMenuItemMoids.Size = new Size(227, 22);
+		toolStripMenuItemMoids.Text = "MOIDs";
 		toolStripMenuItemMoids.MouseEnter += Control_Enter;
 		toolStripMenuItemMoids.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemMoidsOfOneMinorPlanet
+		// 
+		toolStripMenuItemMoidsOfOneMinorPlanet.AccessibleDescription = "Shows the Minimum Orbit Intersection Distances (MOIDs) of one minor planet relative to the eight solar system planets";
+		toolStripMenuItemMoidsOfOneMinorPlanet.AccessibleName = "MOIDs of one minor planet";
+		toolStripMenuItemMoidsOfOneMinorPlanet.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemMoidsOfOneMinorPlanet.AutoToolTip = true;
+		toolStripMenuItemMoidsOfOneMinorPlanet.Image = FatcowIcons16px.fatcow_layer_shape_round_16px;
+		toolStripMenuItemMoidsOfOneMinorPlanet.Name = "toolStripMenuItemMoidsOfOneMinorPlanet";
+		toolStripMenuItemMoidsOfOneMinorPlanet.Size = new Size(241, 22);
+		toolStripMenuItemMoidsOfOneMinorPlanet.Text = "&MOIDs of one minor planet";
+		toolStripMenuItemMoidsOfOneMinorPlanet.ToolTipText = "Shows the Minimum Orbit Intersection Distances (MOIDs) of a minor planet";
+		toolStripMenuItemMoidsOfOneMinorPlanet.Click += ToolStripMenuItemMoids_Click;
+		toolStripMenuItemMoidsOfOneMinorPlanet.MouseEnter += Control_Enter;
+		toolStripMenuItemMoidsOfOneMinorPlanet.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemMoidsOfAllMinorPlanets
 		// 
@@ -3013,11 +2981,10 @@ partial class PlanetoidDbForm
 		toolStripMenuItemMoidsOfAllMinorPlanets.AccessibleName = "MOIDs of all minor planets";
 		toolStripMenuItemMoidsOfAllMinorPlanets.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemMoidsOfAllMinorPlanets.AutoToolTip = true;
-		toolStripMenuItemMoidsOfAllMinorPlanets.Image = FatcowIcons16px.fatcow_layer_shape_round_16px;
+		toolStripMenuItemMoidsOfAllMinorPlanets.Image = FatcowIcons16px.fatcow_layer_shape_ellipse_16px;
 		toolStripMenuItemMoidsOfAllMinorPlanets.Name = "toolStripMenuItemMoidsOfAllMinorPlanets";
-		toolStripMenuItemMoidsOfAllMinorPlanets.Size = new Size(277, 22);
-		toolStripMenuItemMoidsOfAllMinorPlanets.Text = "MOIDs of &all minor planets";
-		toolStripMenuItemMoidsOfAllMinorPlanets.ToolTipText = "Shows the Minimum Orbit Intersection Distances (MOIDs) of all minor planets";
+		toolStripMenuItemMoidsOfAllMinorPlanets.Size = new Size(241, 22);
+		toolStripMenuItemMoidsOfAllMinorPlanets.Text = "MOIDs of all minor planets";
 		toolStripMenuItemMoidsOfAllMinorPlanets.Click += ToolStripMenuItemMoidsOfAllMinorPlanets_Click;
 		toolStripMenuItemMoidsOfAllMinorPlanets.MouseEnter += Control_Enter;
 		toolStripMenuItemMoidsOfAllMinorPlanets.MouseLeave += Control_Leave;
@@ -3028,44 +2995,135 @@ partial class PlanetoidDbForm
 		toolStripMenuItemMoidsRelativeToMinorPlanets.AccessibleName = "MOIDs relative to minor planets";
 		toolStripMenuItemMoidsRelativeToMinorPlanets.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemMoidsRelativeToMinorPlanets.AutoToolTip = true;
-		toolStripMenuItemMoidsRelativeToMinorPlanets.Image = FatcowIcons16px.fatcow_layer_shape_round_16px;
+		toolStripMenuItemMoidsRelativeToMinorPlanets.Image = FatcowIcons16px.fatcow_layer_shape_polyline_16px;
 		toolStripMenuItemMoidsRelativeToMinorPlanets.Name = "toolStripMenuItemMoidsRelativeToMinorPlanets";
-		toolStripMenuItemMoidsRelativeToMinorPlanets.Size = new Size(277, 22);
-		toolStripMenuItemMoidsRelativeToMinorPlanets.Text = "MOIDs &relative to minor planets";
-		toolStripMenuItemMoidsRelativeToMinorPlanets.ToolTipText = "Shows the Minimum Orbit Intersection Distance (MOID) between two selected minor planets";
+		toolStripMenuItemMoidsRelativeToMinorPlanets.Size = new Size(241, 22);
+		toolStripMenuItemMoidsRelativeToMinorPlanets.Text = "MOIDs relative to minor planets";
 		toolStripMenuItemMoidsRelativeToMinorPlanets.Click += ToolStripMenuItemMoidsRelativeToMinorPlanets_Click;
 		toolStripMenuItemMoidsRelativeToMinorPlanets.MouseEnter += Control_Enter;
 		toolStripMenuItemMoidsRelativeToMinorPlanets.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemTisserandParameters
 		// 
-		toolStripMenuItemTisserandParameters.AccessibleDescription = "Shows the Tisserand parameter values of the minor planet relative to the eight solar system planets";
-		toolStripMenuItemTisserandParameters.AccessibleName = "Tisserand parameters of a minor planet";
+		toolStripMenuItemTisserandParameters.AccessibleDescription = "Shows the tisserand parameters";
+		toolStripMenuItemTisserandParameters.AccessibleName = "Tisserand parameters";
 		toolStripMenuItemTisserandParameters.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemTisserandParameters.AutoToolTip = true;
-		toolStripMenuItemTisserandParameters.Image = FatcowIcons16px.fatcow_layer_shape_round_16px;
+		toolStripMenuItemTisserandParameters.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemTisserandParameterOfOneMinorPlanet, toolStripMenuItemTisserandParameterOfAllMinorPlanet });
 		toolStripMenuItemTisserandParameters.Name = "toolStripMenuItemTisserandParameters";
-		toolStripMenuItemTisserandParameters.Size = new Size(277, 22);
-		toolStripMenuItemTisserandParameters.Text = "&Tisserand parameters of a minor planet";
-		toolStripMenuItemTisserandParameters.ToolTipText = "Shows the Tisserand parameter values of a minor planet relative to the eight solar system planets";
-		toolStripMenuItemTisserandParameters.Click += ToolStripMenuItemTisserandParameters_Click;
+		toolStripMenuItemTisserandParameters.Size = new Size(227, 22);
+		toolStripMenuItemTisserandParameters.Text = "Tisserand parameters";
 		toolStripMenuItemTisserandParameters.MouseEnter += Control_Enter;
 		toolStripMenuItemTisserandParameters.MouseLeave += Control_Leave;
 		// 
-		// toolStripMenuItemTisserandParametersOfAllMinorPlanets
+		// toolStripMenuItemTisserandParameterOfOneMinorPlanet
 		// 
-		toolStripMenuItemTisserandParametersOfAllMinorPlanets.AccessibleDescription = "Shows the Tisserand parameter values of all minor planets relative to the eight solar system planets";
-		toolStripMenuItemTisserandParametersOfAllMinorPlanets.AccessibleName = "Tisserand parameters of all minor planets";
-		toolStripMenuItemTisserandParametersOfAllMinorPlanets.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemTisserandParametersOfAllMinorPlanets.AutoToolTip = true;
-		toolStripMenuItemTisserandParametersOfAllMinorPlanets.Image = FatcowIcons16px.fatcow_layer_shape_round_16px;
-		toolStripMenuItemTisserandParametersOfAllMinorPlanets.Name = "toolStripMenuItemTisserandParametersOfAllMinorPlanets";
-		toolStripMenuItemTisserandParametersOfAllMinorPlanets.Size = new Size(277, 22);
-		toolStripMenuItemTisserandParametersOfAllMinorPlanets.Text = "Tisserand parameters of a&ll minor planets";
-		toolStripMenuItemTisserandParametersOfAllMinorPlanets.ToolTipText = "Shows the Tisserand parameter values of all minor planets relative to the eight solar system planets";
-		toolStripMenuItemTisserandParametersOfAllMinorPlanets.Click += ToolStripMenuItemTisserandParametersOfAllMinorPlanets_Click;
-		toolStripMenuItemTisserandParametersOfAllMinorPlanets.MouseEnter += Control_Enter;
-		toolStripMenuItemTisserandParametersOfAllMinorPlanets.MouseLeave += Control_Leave;
+		toolStripMenuItemTisserandParameterOfOneMinorPlanet.AccessibleDescription = "Shows the tisserand parameter of one minor planet";
+		toolStripMenuItemTisserandParameterOfOneMinorPlanet.AccessibleName = "Tisserand parameter of one minor planet";
+		toolStripMenuItemTisserandParameterOfOneMinorPlanet.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemTisserandParameterOfOneMinorPlanet.AutoToolTip = true;
+		toolStripMenuItemTisserandParameterOfOneMinorPlanet.Name = "toolStripMenuItemTisserandParameterOfOneMinorPlanet";
+		toolStripMenuItemTisserandParameterOfOneMinorPlanet.Size = new Size(288, 22);
+		toolStripMenuItemTisserandParameterOfOneMinorPlanet.Text = "Tisserand parameter of one minor planet";
+		toolStripMenuItemTisserandParameterOfOneMinorPlanet.Click += ToolStripMenuItemTisserandParameters_Click;
+		toolStripMenuItemTisserandParameterOfOneMinorPlanet.MouseEnter += Control_Enter;
+		toolStripMenuItemTisserandParameterOfOneMinorPlanet.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemTisserandParameterOfAllMinorPlanet
+		// 
+		toolStripMenuItemTisserandParameterOfAllMinorPlanet.AccessibleDescription = "Shows the tisserand parameter of all minor planet";
+		toolStripMenuItemTisserandParameterOfAllMinorPlanet.AccessibleName = "Tisserand parameter of all minor planet";
+		toolStripMenuItemTisserandParameterOfAllMinorPlanet.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemTisserandParameterOfAllMinorPlanet.AutoToolTip = true;
+		toolStripMenuItemTisserandParameterOfAllMinorPlanet.Name = "toolStripMenuItemTisserandParameterOfAllMinorPlanet";
+		toolStripMenuItemTisserandParameterOfAllMinorPlanet.Size = new Size(288, 22);
+		toolStripMenuItemTisserandParameterOfAllMinorPlanet.Text = "Tisserand parameter of all minor planet";
+		toolStripMenuItemTisserandParameterOfAllMinorPlanet.Click += ToolStripMenuItemTisserandParametersOfAllMinorPlanets_Click;
+		toolStripMenuItemTisserandParameterOfAllMinorPlanet.MouseEnter += Control_Enter;
+		toolStripMenuItemTisserandParameterOfAllMinorPlanet.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemOrbitalResonances
+		// 
+		toolStripMenuItemOrbitalResonances.AccessibleDescription = "Shows the orbital resonances";
+		toolStripMenuItemOrbitalResonances.AccessibleName = "Orbital resonances";
+		toolStripMenuItemOrbitalResonances.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemOrbitalResonances.AutoToolTip = true;
+		toolStripMenuItemOrbitalResonances.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemOrbitalResonancesOfOneMinorPlanet, toolStripMenuItemOrbitalResonancesOfAllMinorPlanets });
+		toolStripMenuItemOrbitalResonances.Name = "toolStripMenuItemOrbitalResonances";
+		toolStripMenuItemOrbitalResonances.Size = new Size(227, 22);
+		toolStripMenuItemOrbitalResonances.Text = "Orbital resonances";
+		toolStripMenuItemOrbitalResonances.MouseEnter += Control_Enter;
+		toolStripMenuItemOrbitalResonances.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemOrbitalResonancesOfOneMinorPlanet
+		// 
+		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.AccessibleDescription = "Shows the orbital resonances of one minor planet";
+		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.AccessibleName = "Orbital resonances of one minor planet";
+		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.AutoToolTip = true;
+		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.Image = FatcowIcons16px.fatcow_linechart_16px;
+		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.Name = "toolStripMenuItemOrbitalResonancesOfOneMinorPlanet";
+		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.Size = new Size(280, 22);
+		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.Text = "Orbital resonan&ces of one minor planet";
+		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.Click += ToolStripMenuItemOrbitalResonances_Click;
+		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.MouseEnter += Control_Enter;
+		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemOrbitalResonancesOfAllMinorPlanets
+		// 
+		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.AccessibleDescription = "Shows the orbital resonances of all minor planets";
+		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.AccessibleName = "Orbital resonances of all minor planets";
+		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.AutoToolTip = true;
+		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.Image = FatcowIcons16px.fatcow_areachart_16px;
+		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.Name = "toolStripMenuItemOrbitalResonancesOfAllMinorPlanets";
+		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.Size = new Size(280, 22);
+		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.Text = "Orbital resonances of &all minor planets";
+		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.Click += ToolStripMenuitemOrbitalResonancesOfAllMinorPlanets_Click;
+		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.MouseEnter += Control_Enter;
+		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemObservations
+		// 
+		toolStripMenuItemObservations.AccessibleDescription = "Show the observations";
+		toolStripMenuItemObservations.AccessibleName = "Observations";
+		toolStripMenuItemObservations.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemObservations.AutoToolTip = true;
+		toolStripMenuItemObservations.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemObservationLogs, toolStripMenuItemBulkObservationsDataDownloader });
+		toolStripMenuItemObservations.Name = "toolStripMenuItemObservations";
+		toolStripMenuItemObservations.Size = new Size(227, 22);
+		toolStripMenuItemObservations.Text = "Observations";
+		toolStripMenuItemObservations.MouseEnter += Control_Enter;
+		toolStripMenuItemObservations.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemObservationLogs
+		// 
+		toolStripMenuItemObservationLogs.AccessibleDescription = "Shows the observation logs of the minor planet from the MPC";
+		toolStripMenuItemObservationLogs.AccessibleName = "Observation logs";
+		toolStripMenuItemObservationLogs.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemObservationLogs.AutoToolTip = true;
+		toolStripMenuItemObservationLogs.Image = FatcowIcons16px.fatcow_find_16px;
+		toolStripMenuItemObservationLogs.Name = "toolStripMenuItemObservationLogs";
+		toolStripMenuItemObservationLogs.Size = new Size(259, 22);
+		toolStripMenuItemObservationLogs.Text = "&Observation logs";
+		toolStripMenuItemObservationLogs.ToolTipText = "Shows the observations of the minor planet";
+		toolStripMenuItemObservationLogs.Click += ToolStripMenuItemObservations_Click;
+		toolStripMenuItemObservationLogs.MouseEnter += Control_Enter;
+		toolStripMenuItemObservationLogs.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemBulkObservationsDataDownloader
+		// 
+		toolStripMenuItemBulkObservationsDataDownloader.AccessibleDescription = "Opens the bulk observations data downloader for a range of minor planets";
+		toolStripMenuItemBulkObservationsDataDownloader.AccessibleName = "Bulk observations data downloader";
+		toolStripMenuItemBulkObservationsDataDownloader.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemBulkObservationsDataDownloader.AutoToolTip = true;
+		toolStripMenuItemBulkObservationsDataDownloader.Image = FatcowIcons16px.fatcow_application_put_16px;
+		toolStripMenuItemBulkObservationsDataDownloader.Name = "toolStripMenuItemBulkObservationsDataDownloader";
+		toolStripMenuItemBulkObservationsDataDownloader.Size = new Size(259, 22);
+		toolStripMenuItemBulkObservationsDataDownloader.Text = "&Bulk observations data downloader";
+		toolStripMenuItemBulkObservationsDataDownloader.Click += ToolStripMenuItemBulkInformationsDataDownloader_Click;
+		toolStripMenuItemBulkObservationsDataDownloader.MouseEnter += Control_Enter;
+		toolStripMenuItemBulkObservationsDataDownloader.MouseLeave += Control_Leave;
 		// 
 		// menuitemUpdate
 		// 
@@ -3100,7 +3158,7 @@ partial class PlanetoidDbForm
 		menuitemDownloadMpcorbDat.AccessibleName = "Download MPCORB.DAT";
 		menuitemDownloadMpcorbDat.AccessibleRole = AccessibleRole.MenuItem;
 		menuitemDownloadMpcorbDat.AutoToolTip = true;
-		menuitemDownloadMpcorbDat.Image = FatcowIcons16px.fatcow_package_16px;
+		menuitemDownloadMpcorbDat.Image = FatcowIcons16px.fatcow_package_go_16px;
 		menuitemDownloadMpcorbDat.Name = "menuitemDownloadMpcorbDat";
 		menuitemDownloadMpcorbDat.Size = new Size(204, 22);
 		menuitemDownloadMpcorbDat.Text = "&Download MPCORB.DAT";
@@ -3138,7 +3196,7 @@ partial class PlanetoidDbForm
 		menuitemDownloadAstorbDat.AccessibleName = "Download ASTORB.DAT";
 		menuitemDownloadAstorbDat.AccessibleRole = AccessibleRole.MenuItem;
 		menuitemDownloadAstorbDat.AutoToolTip = true;
-		menuitemDownloadAstorbDat.Image = FatcowIcons16px.fatcow_package_16px;
+		menuitemDownloadAstorbDat.Image = FatcowIcons16px.fatcow_package_go_16px;
 		menuitemDownloadAstorbDat.Name = "menuitemDownloadAstorbDat";
 		menuitemDownloadAstorbDat.Size = new Size(204, 22);
 		menuitemDownloadAstorbDat.Text = "Download ASTORB.DAT";
@@ -3457,6 +3515,10 @@ partial class PlanetoidDbForm
 		toolStripContainer.TopToolStripPanel.Controls.Add(menu);
 		toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripIcons);
 		toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripNavigation);
+		toolStripContainer.Enter += Control_Enter;
+		toolStripContainer.Leave += Control_Leave;
+		toolStripContainer.MouseEnter += Control_Enter;
+		toolStripContainer.MouseLeave += Control_Leave;
 		// 
 		// kryptonStatusStrip
 		// 
@@ -3560,6 +3622,8 @@ partial class PlanetoidDbForm
 		labelInformation.Spring = true;
 		labelInformation.Text = "some information here";
 		labelInformation.ToolTipText = "Shows some information";
+		labelInformation.MouseEnter += Control_Enter;
+		labelInformation.MouseLeave += Control_Leave;
 		// 
 		// kryptonToolStripIcons
 		// 
@@ -4146,22 +4210,6 @@ partial class PlanetoidDbForm
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 		// 
-		// toolStripSeparator17
-		// 
-		toolStripSeparator17.AccessibleDescription = "Just a separator";
-		toolStripSeparator17.AccessibleName = "Just a separator";
-		toolStripSeparator17.AccessibleRole = AccessibleRole.Separator;
-		toolStripSeparator17.Name = "toolStripSeparator17";
-		toolStripSeparator17.Size = new Size(274, 6);
-		// 
-		// toolStripSeparator18
-		// 
-		toolStripSeparator18.AccessibleDescription = "Just a separator";
-		toolStripSeparator18.AccessibleName = "Just a separator";
-		toolStripSeparator18.AccessibleRole = AccessibleRole.Separator;
-		toolStripSeparator18.Name = "toolStripSeparator18";
-		toolStripSeparator18.Size = new Size(274, 6);
-		// 
 		// PlanetoidDbForm
 		// 
 		AccessibleDescription = "Viewer for the MPC Orbit (MPCORB) Database";
@@ -4183,6 +4231,10 @@ partial class PlanetoidDbForm
 		FormClosing += PlanetoidDBForm_FormClosing;
 		Load += PlanetoidDBForm_Load;
 		Shown += PlanetoidDBForm_Shown;
+		Enter += Control_Enter;
+		Leave += Control_Leave;
+		MouseEnter += Control_Enter;
+		MouseLeave += Control_Leave;
 		contextMenuNavigationStep.ResumeLayout(false);
 		tableLayoutPanelData.ResumeLayout(false);
 		tableLayoutPanelData.PerformLayout();
@@ -4431,22 +4483,25 @@ partial class PlanetoidDbForm
 	private ToolStripButton toolStripButtonCompareDatabases;
 	private ToolStripSeparator toolStripSeparator15;
 	private ToolStripSeparator toolStripSeparator16;
-	private ToolStripMenuItem toolStripMenuItemOrbitalResonances;
 	private ToolStripMenuItem toolStripMenuItemOrbitElementsGrouping;
 	private ToolStripMenuItem toolStripMenuItemAsteroidFamiliesDetection;
-	private ToolStripMenuItem toolStripMenuItemOrbitalResonancesOfAllMinorPlanets;
-	private ToolStripMenuItem toolStripMenuItemObservations;
-	private ToolStripMenuItem toolStripMenuItemBulkInformationsDataDownloader;
-	private ToolStripMenuItem toolStripMenuItemMoids;
-	private ToolStripMenuItem toolStripMenuItemMoidsOfAllMinorPlanets;
-	private ToolStripMenuItem toolStripMenuItemMoidsRelativeToMinorPlanets;
-	private ToolStripMenuItem toolStripMenuItemTisserandParameters;
-	private ToolStripMenuItem toolStripMenuItemTisserandParametersOfAllMinorPlanets;
+	private ToolStripMenuItem toolStripMenuItemMoidsOfOneMinorPlanet;
 	private ToolStripButton toolStripButtonObservations;
 	private ToolStripMenuItem toolStripMenuItemOpenLocalMpcorbDat;
 	private ToolStripButton toolStripButtonOpenLocalMpcorbDat;
 	private ToolStripDropDownButton toolStripDropDownButtonCopyToClipboard;
 	private ToolStripSeparator toolStripSeparator18;
-	private ToolStripSeparator toolStripSeparator17;
+	private ToolStripMenuItem toolStripMenuItemMoidsOfAllMinorPlanets;
+	private ToolStripSeparator toolStripSeparator19;
+	private ToolStripMenuItem toolStripMenuItemTisserandParameterOfOneMinorPlanet;
+	private ToolStripMenuItem toolStripMenuItemTisserandParameterOfAllMinorPlanet;
+	private ToolStripMenuItem toolStripMenuItemMoids;
+	private ToolStripMenuItem toolStripMenuItemMoidsRelativeToMinorPlanets;
+	private ToolStripMenuItem toolStripMenuItemOrbitalResonances;
+	private ToolStripMenuItem toolStripMenuItemOrbitalResonancesOfOneMinorPlanet;
+	private ToolStripMenuItem toolStripMenuItemOrbitalResonancesOfAllMinorPlanets;
+	private ToolStripMenuItem toolStripMenuItemObservations;
+	private ToolStripMenuItem toolStripMenuItemObservationLogs;
+	private ToolStripMenuItem toolStripMenuItemBulkObservationsDataDownloader;
+	private ToolStripMenuItem toolStripMenuItemTisserandParameters;
 }
-
