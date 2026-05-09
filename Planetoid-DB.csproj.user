@@ -16,6 +16,12 @@
     <Compile Update="Forms\BaseKryptonForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\BulkObservationsDataDownloaderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\BulkObservationsDownloadErrorsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\CheckDatabaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -46,6 +52,15 @@
     <Compile Update="Forms\ListReadableDesignationsForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\MoidsOfAllMinorPlanetsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\MoidsOfOneMinorPlanetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\MoidsRelativeToMinorPlanetsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\ObservationsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -56,9 +71,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\OrbitalResonancesOfAllMinorPlanetsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\MoidsOfAllMinorPlanetsForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\OrbitElementsGroupingForm.cs">
@@ -98,6 +110,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\TerminologyForm.TerminologyElement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\TisserandParameterOfAllMinorPlanetsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\TisserandParameterOfOneMinorPlanetForm.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
