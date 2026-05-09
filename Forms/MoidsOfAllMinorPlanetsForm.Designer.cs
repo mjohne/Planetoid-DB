@@ -156,6 +156,7 @@ partial class MoidsOfAllMinorPlanetsForm
 		listView.VirtualMode = true;
 		listView.ColumnClick += ListView_ColumnClick;
 		listView.RetrieveVirtualItem += ListView_RetrieveVirtualItem;
+		listView.SelectedIndexChanged += ListView_SelectedIndexChanged;
 		listView.DoubleClick += ListView_DoubleClick;
 		listView.Enter += Control_Enter;
 		listView.Leave += Control_Leave;
@@ -956,7 +957,7 @@ partial class MoidsOfAllMinorPlanetsForm
 		// 
 		// toolStripButtonGoToObject
 		// 
-		toolStripButtonGoToObject.AccessibleDescription = "Goes to the selected planetoid";
+		toolStripButtonGoToObject.AccessibleDescription = "Navigates to the selected planetoid in the main form and closes this form";
 		toolStripButtonGoToObject.AccessibleName = "Go to object";
 		toolStripButtonGoToObject.AccessibleRole = AccessibleRole.PushButton;
 		toolStripButtonGoToObject.Enabled = false;

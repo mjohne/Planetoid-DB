@@ -86,25 +86,28 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	private string GetDebuggerDisplay() => ToString();
 
 	/// <summary>Selects the currently highlighted planetoid in the main form and navigates to its record in the owner form, if applicable.</summary>
+	/// <returns><see langword="true"/> if navigation was performed; otherwise, <see langword="false"/>.</returns>
 	/// <remarks>If the owner form is a PlanetoidDbForm, this method calls its JumpToRecord method to display the selected planetoid. No action is taken if no item is selected or if the selection is invalid.</remarks>
-	private void SelectedPlanetoidInMainForm()
+	private bool SelectedPlanetoidInMainForm()
 	{
 		// Ensure that an item is selected
 		if (listView.SelectedIndices.Count == 0)
 		{
-			return;
+			return false;
 		}
 		int index = listView.SelectedIndices[index: 0];
 		if (index < 0 || index >= _results.Count)
 		{
-			return;
+			return false;
 		}
 		MoidRowResult result = _results[index];
 		// If the Owner of this form is a PlanetoidDbForm, call its JumpToRecord method
 		if (Owner is PlanetoidDbForm planetoidDbForm)
 		{
 			planetoidDbForm.JumpToRecord(index: result.PlanetoidName, designation: result.PlanetoidName);
+			return true;
 		}
+		return false;
 	}
 
 	/// <summary>Prepares the save dialog for exporting data.</summary>
@@ -338,6 +341,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		toolStripDropDownButtonSaveToFile.Enabled = false;
 		toolStripButtonStart.Enabled = false;
 		toolStripButtonCancel.Enabled = true;
+		toolStripButtonGoToObject.Enabled = false;
 		listView.Enabled = false;
 		_results = [];
 		listView.VirtualListSize = 0;
@@ -394,7 +398,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 					listView.Enabled = true;
 					toolStripButtonStart.Enabled = true;
 					toolStripButtonCancel.Enabled = false;
-					toolStripButtonGoToObject.Enabled = _results.Count > 0;
+					toolStripButtonGoToObject.Enabled = listView.SelectedIndices.Count > 0;
 					toolStripDropDownButtonSaveToFile.Enabled = _results.Count > 0;
 				}
 			}
@@ -434,11 +438,13 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <summary>Handles the Click event of the "Go to Object" button.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	/// <remarks>When the "Go to Object" button is clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
+	/// <remarks>When the "Go to Object" button is clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> and this form is closed.</remarks>
 	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e)
 	{
-		SelectedPlanetoidInMainForm();
-		Close();
+		if (SelectedPlanetoidInMainForm())
+		{
+			Close();
+		}
 	}
 
 	/// <summary>Handles the Click event to export the output as a CSV file.</summary>
@@ -707,6 +713,17 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		SortResults();
 		listView.Refresh();
 	}
+
+	#endregion
+
+	#region SelectedIndexChanged event handlers
+
+	/// <summary>Handles the ListView <c>SelectedIndexChanged</c> event.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>Enables the "Go to object" button when a row is selected.</remarks>
+	private void ListView_SelectedIndexChanged(object sender, EventArgs e) =>
+		toolStripButtonGoToObject.Enabled = listView.SelectedIndices.Count > 0;
 
 	#endregion
 
