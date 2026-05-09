@@ -1537,6 +1537,8 @@ partial class TisserandParameterOfOneMinorPlanetForm
 	private ToolStripMenuItem toolStripMenuItemSaveAsXps;
 	private ToolStripMenuItem toolStripMenuItemSaveAsFictionBook2;
 	private ToolStripMenuItem toolStripMenuItemSaveAsChm;
+	
+	// ── copy-to-clipboard toolbar button ────────────────────────────────────────
 	private ContextMenuStrip contextMenuFullCopyToClipboard;
 	private ToolStripMenuItem menuitemCopyToClipboardTisserandParameterRelativeToMercury;
 	private ToolStripMenuItem menuitemCopyToClipboardTisserandParameterRelativeToVenus;
