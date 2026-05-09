@@ -138,11 +138,11 @@ partial class OrbitElementsGroupingForm
 		kryptonTextBoxOutput.Name = "kryptonTextBoxOutput";
 		kryptonTextBoxOutput.ReadOnly = true;
 		kryptonTextBoxOutput.ScrollBars = ScrollBars.Both;
-		kryptonTextBoxOutput.WordWrap = false;
 		kryptonTextBoxOutput.Size = new Size(617, 338);
 		kryptonTextBoxOutput.TabIndex = 0;
 		kryptonTextBoxOutput.ToolTipValues.Description = "Shows the results";
 		kryptonTextBoxOutput.ToolTipValues.Heading = "Results";
+		kryptonTextBoxOutput.WordWrap = false;
 		kryptonTextBoxOutput.Enter += Control_Enter;
 		kryptonTextBoxOutput.Leave += Control_Leave;
 		kryptonTextBoxOutput.MouseEnter += Control_Enter;
@@ -194,21 +194,42 @@ partial class OrbitElementsGroupingForm
 		// 
 		// toolStripContainer.BottomToolStripPanel
 		// 
+		toolStripContainer.BottomToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.BottomToolStripPanel.AccessibleName = "Bottom panel";
+		toolStripContainer.BottomToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
 		// 
 		// toolStripContainer.ContentPanel
 		// 
+		toolStripContainer.ContentPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.ContentPanel.AccessibleName = "Content panel";
+		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
 		toolStripContainer.ContentPanel.Size = new Size(617, 338);
 		toolStripContainer.Dock = DockStyle.Fill;
+		// 
+		// toolStripContainer.LeftToolStripPanel
+		// 
+		toolStripContainer.LeftToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.LeftToolStripPanel.AccessibleName = "Left panel";
+		toolStripContainer.LeftToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.Location = new Point(0, 0);
 		toolStripContainer.Name = "toolStripContainer";
+		// 
+		// toolStripContainer.RightToolStripPanel
+		// 
+		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
+		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.Size = new Size(617, 412);
 		toolStripContainer.TabIndex = 10;
 		toolStripContainer.Text = "toolStripContainer";
 		// 
 		// toolStripContainer.TopToolStripPanel
 		// 
+		toolStripContainer.TopToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.TopToolStripPanel.AccessibleName = "Top panel";
+		toolStripContainer.TopToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripGenerateList);
 		toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripProgress);
 		toolStripContainer.Enter += Control_Enter;
@@ -367,7 +388,6 @@ partial class OrbitElementsGroupingForm
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveList";
-		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveList;
 		contextMenuSaveToFile.Size = new Size(202, 158);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
@@ -732,7 +752,7 @@ partial class OrbitElementsGroupingForm
 		toolStripMenuItemSaveAsJson.AutoToolTip = true;
 		toolStripMenuItemSaveAsJson.Image = Resources.FatcowIcons16px.fatcow_page_white_code_red_16px;
 		toolStripMenuItemSaveAsJson.Name = "toolStripMenuItemSaveAsJson";
-		toolStripMenuItemSaveAsJson.Size = new Size(146, 22);
+		toolStripMenuItemSaveAsJson.Size = new Size(180, 22);
 		toolStripMenuItemSaveAsJson.Text = "Save as &JSON";
 		toolStripMenuItemSaveAsJson.Click += ToolStripMenuItemSaveAsJson_Click;
 		toolStripMenuItemSaveAsJson.MouseEnter += Control_Enter;
@@ -746,7 +766,7 @@ partial class OrbitElementsGroupingForm
 		toolStripMenuItemSaveAsYaml.AutoToolTip = true;
 		toolStripMenuItemSaveAsYaml.Image = Resources.FatcowIcons16px.fatcow_page_white_code_red_16px;
 		toolStripMenuItemSaveAsYaml.Name = "toolStripMenuItemSaveAsYaml";
-		toolStripMenuItemSaveAsYaml.Size = new Size(146, 22);
+		toolStripMenuItemSaveAsYaml.Size = new Size(180, 22);
 		toolStripMenuItemSaveAsYaml.Text = "Save as &YAML";
 		toolStripMenuItemSaveAsYaml.Click += ToolStripMenuItemSaveAsYaml_Click;
 		toolStripMenuItemSaveAsYaml.MouseEnter += Control_Enter;
@@ -760,7 +780,7 @@ partial class OrbitElementsGroupingForm
 		toolStripMenuItemSaveAsToml.AutoToolTip = true;
 		toolStripMenuItemSaveAsToml.Image = Resources.FatcowIcons16px.fatcow_page_white_code_red_16px;
 		toolStripMenuItemSaveAsToml.Name = "toolStripMenuItemSaveAsToml";
-		toolStripMenuItemSaveAsToml.Size = new Size(146, 22);
+		toolStripMenuItemSaveAsToml.Size = new Size(180, 22);
 		toolStripMenuItemSaveAsToml.Text = "Save as &TOML";
 		toolStripMenuItemSaveAsToml.Click += ToolStripMenuItemSaveAsToml_Click;
 		toolStripMenuItemSaveAsToml.MouseEnter += Control_Enter;
@@ -788,7 +808,7 @@ partial class OrbitElementsGroupingForm
 		toolStripMenuItemSaveAsSql.AutoToolTip = true;
 		toolStripMenuItemSaveAsSql.Image = Resources.FatcowIcons16px.fatcow_page_white_database_16px;
 		toolStripMenuItemSaveAsSql.Name = "toolStripMenuItemSaveAsSql";
-		toolStripMenuItemSaveAsSql.Size = new Size(168, 22);
+		toolStripMenuItemSaveAsSql.Size = new Size(180, 22);
 		toolStripMenuItemSaveAsSql.Text = "Save as &SQL script";
 		toolStripMenuItemSaveAsSql.Click += ToolStripMenuItemSaveAsSql_Click;
 		toolStripMenuItemSaveAsSql.MouseEnter += Control_Enter;
@@ -802,7 +822,7 @@ partial class OrbitElementsGroupingForm
 		toolStripMenuItemSaveAsSqlite.AutoToolTip = true;
 		toolStripMenuItemSaveAsSqlite.Image = Resources.FatcowIcons16px.fatcow_page_white_database_16px;
 		toolStripMenuItemSaveAsSqlite.Name = "toolStripMenuItemSaveAsSqlite";
-		toolStripMenuItemSaveAsSqlite.Size = new Size(168, 22);
+		toolStripMenuItemSaveAsSqlite.Size = new Size(180, 22);
 		toolStripMenuItemSaveAsSqlite.Text = "Save as SQ&Lite";
 		toolStripMenuItemSaveAsSqlite.Click += ToolStripMenuItemSaveAsSqlite_Click;
 		toolStripMenuItemSaveAsSqlite.MouseEnter += Control_Enter;
