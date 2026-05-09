@@ -410,6 +410,16 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Handles the Click event of the "Go to Object" button.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>When the "Go to Object" button is clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
+	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e)
+	{
+		SelectedPlanetoidInMainForm();
+		Close();
+	}
+
 	/// <summary>Handles the Click event to export the output as a CSV file.</summary>
 	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a CSV file.</remarks>
 	/// <param name="sender">The source of the event.</param>
@@ -685,16 +695,6 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <param name="e">The event data.</param>
 	/// <remarks>When an item is double-clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
 	private void ListView_DoubleClick(object sender, EventArgs e) => SelectedPlanetoidInMainForm();
-
-	/// <summary>Handles the Click event of the "Go to Object" button.</summary>
-	/// <param name="sender">The source of the event.</param>
-	/// <param name="e">The event data.</param>
-	/// <remarks>When the "Go to Object" button is clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
-	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e)
-	{
-		SelectedPlanetoidInMainForm();
-		Close();
-	}
 
 	#endregion
 }
