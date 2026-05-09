@@ -12,12 +12,8 @@ using System.Globalization;
 
 namespace Planetoid_DB;
 
-/// <summary>Form for displaying the Minimum Orbit Intersection Distance (MOID) of all minor planets
-/// relative to each of the eight solar system planets.</summary>
-/// <remarks>This form iterates over all planetoids in the database and computes their MOIDs with respect
-/// to all eight planets. Results are presented in a ListView where each row corresponds to one planetoid
-/// and the eight MOID columns correspond to Mercury through Neptune. The user can start and cancel the
-/// calculation at any time and track progress via the integrated progress bar.</remarks>
+/// <summary>Form for displaying the Minimum Orbit Intersection Distance (MOID) of all minor planets relative to each of the eight solar system planets.</summary>
+/// <remarks>This form iterates over all planetoids in the database and computes their MOIDs with respect to all eight planets. Results are presented in a ListView where each row corresponds to one planetoid and the eight MOID columns correspond to Mercury through Neptune. The user can start and cancel the calculation at any time and track progress via the integrated progress bar.</remarks>
 // You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
@@ -33,9 +29,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <summary>Represents one row in the MOID results list: the planetoid name and one MOID value per planet.</summary>
 	/// <param name="PlanetoidName">The designation of the minor planet.</param>
 	/// <param name="Moids">Array of eight MOID values in AU, one per planet in order Mercury–Neptune.</param>
-	/// <remarks>The <paramref name="Moids"/> array always has exactly eight elements corresponding to the
-	/// eight solar system planets: Mercury (0), Venus (1), Earth (2), Mars (3), Jupiter (4), Saturn (5),
-	/// Uranus (6), Neptune (7).</remarks>
+	/// <remarks>The <paramref name="Moids"/> array always has exactly eight elements corresponding to the eight solar system planets: Mercury (0), Venus (1), Earth (2), Mars (3), Jupiter (4), Saturn (5), Uranus (6), Neptune (7).</remarks>
 	private record MoidRowResult(string PlanetoidName, double[] Moids);
 
 	/// <summary>Number of planets whose MOIDs are computed (Mercury through Neptune).</summary>
@@ -91,6 +85,31 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>This method is primarily intended for debugging purposes.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
+	/// <summary>Selects the currently highlighted planetoid in the main form and navigates to its record in the owner form, if applicable.</summary>
+	/// <returns><see langword="true"/> if navigation was performed; otherwise, <see langword="false"/>.</returns>
+	/// <remarks>If the owner form is a PlanetoidDbForm, this method calls its JumpToRecord method to display the selected planetoid. No action is taken if no item is selected or if the selection is invalid.</remarks>
+	private bool SelectedPlanetoidInMainForm()
+	{
+		// Ensure that an item is selected
+		if (listView.SelectedIndices.Count == 0)
+		{
+			return false;
+		}
+		int index = listView.SelectedIndices[index: 0];
+		if (index < 0 || index >= _results.Count)
+		{
+			return false;
+		}
+		MoidRowResult result = _results[index];
+		// If the Owner of this form is a PlanetoidDbForm, call its JumpToRecord method
+		if (Owner is PlanetoidDbForm planetoidDbForm)
+		{
+			planetoidDbForm.JumpToRecord(index: result.PlanetoidName, designation: result.PlanetoidName);
+			return true;
+		}
+		return false;
+	}
+
 	/// <summary>Prepares the save dialog for exporting data.</summary>
 	/// <param name="dialog">The file dialog to prepare.</param>
 	/// <param name="ext">The file extension.</param>
@@ -105,6 +124,11 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		// Show the dialog and return the result
 		return dialog.ShowDialog() == DialogResult.OK;
 	}
+
+	/// <summary>Updates the enabled state of the "Go to object" button.</summary>
+	/// <remarks>The button is enabled only when a result row is selected.</remarks>
+	private void UpdateGoToObjectButtonState() =>
+		toolStripButtonGoToObject.Enabled = listView.SelectedIndices.Count > 0;
 
 	/// <summary>Performs the save export operation by displaying a save dialog and invoking the specified export action.</summary>
 	/// <param name="filter">The file type filter for the save dialog.</param>
@@ -234,7 +258,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 				? [.. _results.OrderBy(keySelector: static r => r.PlanetoidName, comparer: StringComparer.OrdinalIgnoreCase)]
 				: [.. _results.OrderByDescending(keySelector: static r => r.PlanetoidName, comparer: StringComparer.OrdinalIgnoreCase)];
 		}
-		else if (col >= 1 && col <= PlanetCount)
+		else if (col is >= 1 and <= PlanetCount)
 		{
 			int planetIndex = col - 1;
 			_results = ascending
@@ -247,16 +271,14 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>Handles the form Load event.
-	/// Clears the status bar on startup.</summary>
+	/// <summary>Handles the form Load event. Clears the status bar on startup.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 	/// <remarks>Clears the status bar when the form is loaded.</remarks>
 	private void MoidsOfAllMinorPlanetsForm_Load(object sender, EventArgs e) =>
 		ClearStatusBar(label: labelInformation);
 
-	/// <summary>Handles the FormClosing event.
-	/// Cancels any running calculation and disposes the cancellation token source.</summary>
+	/// <summary>Handles the FormClosing event. Cancels any running calculation and disposes the cancellation token source.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="FormClosingEventArgs"/> instance containing the event data.</param>
 	/// <remarks>Cancels any running calculation and disposes the cancellation token source when the form is closing.</remarks>
@@ -282,13 +304,16 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Called by the ListView for each visible row. Must be fast and must not modify <see cref="_results"/>.</remarks>
 	private void ListView_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
 	{
+		// Validate the requested index and return an empty item if it's out of range
 		if (e.ItemIndex < 0 || e.ItemIndex >= _results.Count)
 		{
 			e.Item = new ListViewItem();
 			return;
 		}
+		// Retrieve the MOID result for the requested index and create a ListViewItem with the planetoid name and MOID values as subitems
 		MoidRowResult result = _results[index: e.ItemIndex];
 		ListViewItem item = new(text: result.PlanetoidName);
+		// Format the MOID values to six decimal places and add them as subitems
 		string[] subItems = new string[PlanetCount];
 		for (int i = 0; i < PlanetCount; i++)
 		{
@@ -302,12 +327,10 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 
 	#region Click event handlers
 
-	/// <summary>Handles the Click event of the Start Calculation button.
-	/// Validates the input, then starts the MOID calculation for all minor planets asynchronously.</summary>
+	/// <summary>Handles the Click event of the Start Calculation button. Validates the input, then starts the MOID calculation for all minor planets asynchronously.</summary>
 	/// <param name="sender">Event source (the button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-	/// <remarks>The calculation runs on a background thread. Progress is reported via the progress bar.
-	/// The user can cancel at any time using the Cancel button.</remarks>
+	/// <remarks>The calculation runs on a background thread. Progress is reported via the progress bar. The user can cancel at any time using the Cancel button.</remarks>
 	private async void ButtonStart_Click(object sender, EventArgs e)
 	{
 		if (_planetoids.Count == 0)
@@ -323,6 +346,8 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		toolStripDropDownButtonSaveToFile.Enabled = false;
 		toolStripButtonStart.Enabled = false;
 		toolStripButtonCancel.Enabled = true;
+		toolStripButtonGoToObject.Enabled = false;
+		listView.Enabled = false;
 		_results = [];
 		listView.VirtualListSize = 0;
 		UpdateProgress(percent: 0);
@@ -375,8 +400,10 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 					_results = localResults;
 					listView.VirtualListSize = _results.Count;
 					listView.Refresh();
+					listView.Enabled = true;
 					toolStripButtonStart.Enabled = true;
 					toolStripButtonCancel.Enabled = false;
+					UpdateGoToObjectButtonState();
 					toolStripDropDownButtonSaveToFile.Enabled = _results.Count > 0;
 				}
 			}
@@ -410,6 +437,18 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		{
 			_cancellationTokenSource.Cancel();
 			toolStripButtonCancel.Enabled = false;
+		}
+	}
+
+	/// <summary>Handles the Click event of the "Go to Object" button.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>When the "Go to Object" button is clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> and this form is closed.</remarks>
+	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e)
+	{
+		if (SelectedPlanetoidInMainForm())
+		{
+			Close();
 		}
 	}
 
@@ -682,6 +721,17 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 
 	#endregion
 
+	#region SelectedIndexChanged event handlers
+
+	/// <summary>Handles the ListView <c>SelectedIndexChanged</c> event.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>Enables the "Go to object" button when a row is selected.</remarks>
+	private void ListView_SelectedIndexChanged(object sender, EventArgs e) =>
+		UpdateGoToObjectButtonState();
+
+	#endregion
+
 	#region DoubleClick event handler
 
 	/// <summary>Handles the DoubleClick event of the ListView.</summary>
@@ -689,25 +739,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <param name="e">The event data.</param>
 	/// <remarks>When an item is double-clicked, the corresponding planetoid is displayed in the
 	/// <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
-	private void ListView_DoubleClick(object sender, EventArgs e)
-	{
-		// Ensure that an item is selected
-		if (listView.SelectedIndices.Count == 0)
-		{
-			return;
-		}
-		int index = listView.SelectedIndices[index: 0];
-		if (index < 0 || index >= _results.Count)
-		{
-			return;
-		}
-		MoidRowResult result = _results[index];
-		// If the Owner of this form is a PlanetoidDbForm, call its JumpToRecord method
-		if (Owner is PlanetoidDbForm planetoidDbForm)
-		{
-			planetoidDbForm.JumpToRecord(index: result.PlanetoidName, designation: result.PlanetoidName);
-		}
-	}
+	private void ListView_DoubleClick(object sender, EventArgs e) => SelectedPlanetoidInMainForm();
 
 	#endregion
 }

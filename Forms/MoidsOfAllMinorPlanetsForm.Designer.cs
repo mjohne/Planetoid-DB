@@ -9,12 +9,8 @@ using System.ComponentModel;
 
 namespace Planetoid_DB;
 
-/// <summary>Represents a dialog form that displays the Minimum Orbit Intersection Distance (MOID) of all minor planets
-/// relative to each of the eight solar system planets.</summary>
-/// <remarks>This form iterates over all planetoids in the database and computes their MOIDs with respect
-/// to all eight planets. Results are presented in a ListView where each row corresponds to one planetoid
-/// and the eight MOID columns correspond to Mercury through Neptune. The user can start and cancel the
-/// calculation at any time and track progress via the integrated progress bar.</remarks>
+/// <summary>Represents a dialog form that displays the Minimum Orbit Intersection Distance (MOID) of all minor planets relative to each of the eight solar system planets.</summary>
+/// <remarks>This form iterates over all planetoids in the database and computes their MOIDs with respect to all eight planets. Results are presented in a ListView where each row corresponds to one planetoid and the eight MOID columns correspond to Mercury through Neptune. The user can start and cancel the calculation at any time and track progress via the integrated progress bar.</remarks>
 partial class MoidsOfAllMinorPlanetsForm
 {
 	/// <summary>Required designer variable.</summary>
@@ -42,6 +38,7 @@ partial class MoidsOfAllMinorPlanetsForm
 	private void InitializeComponent()
 	{
 		components = new Container();
+		ComponentResourceManager resources = new ComponentResourceManager(typeof(MoidsOfAllMinorPlanetsForm));
 		kryptonPanelMain = new KryptonPanel();
 		listView = new ListView();
 		columnHeaderPlanetoid = new ColumnHeader();
@@ -102,6 +99,7 @@ partial class MoidsOfAllMinorPlanetsForm
 		toolStripButtonStart = new ToolStripButton();
 		toolStripButtonCancel = new ToolStripButton();
 		toolStripSeparator1 = new ToolStripSeparator();
+		toolStripButtonGoToObject = new ToolStripButton();
 		toolStripProgress = new ToolStrip();
 		toolStripLabelProgress = new ToolStripLabel();
 		kryptonProgressBar = new KryptonProgressBarToolStripItem();
@@ -127,7 +125,7 @@ partial class MoidsOfAllMinorPlanetsForm
 		kryptonPanelMain.Location = new Point(0, 0);
 		kryptonPanelMain.Name = "kryptonPanelMain";
 		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptonPanelMain.Size = new Size(1100, 411);
+		kryptonPanelMain.Size = new Size(1013, 411);
 		kryptonPanelMain.TabIndex = 0;
 		kryptonPanelMain.TabStop = true;
 		kryptonPanelMain.Text = "Main Panel";
@@ -151,13 +149,14 @@ partial class MoidsOfAllMinorPlanetsForm
 		listView.Location = new Point(0, 0);
 		listView.Name = "listView";
 		listView.ShowItemToolTips = true;
-		listView.Size = new Size(1100, 411);
+		listView.Size = new Size(1013, 411);
 		listView.TabIndex = 0;
 		listView.UseCompatibleStateImageBehavior = false;
 		listView.View = View.Details;
 		listView.VirtualMode = true;
 		listView.ColumnClick += ListView_ColumnClick;
 		listView.RetrieveVirtualItem += ListView_RetrieveVirtualItem;
+		listView.SelectedIndexChanged += ListView_SelectedIndexChanged;
 		listView.DoubleClick += ListView_DoubleClick;
 		listView.Enter += Control_Enter;
 		listView.Leave += Control_Leave;
@@ -230,6 +229,8 @@ partial class MoidsOfAllMinorPlanetsForm
 		contextMenuSaveToFile.Size = new Size(202, 158);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
+		contextMenuSaveToFile.Enter += Control_Enter;
+		contextMenuSaveToFile.Leave += Control_Leave;
 		contextMenuSaveToFile.MouseEnter += Control_Enter;
 		contextMenuSaveToFile.MouseLeave += Control_Leave;
 		// 
@@ -810,7 +811,7 @@ partial class MoidsOfAllMinorPlanetsForm
 		kryptonStatusStrip.ProgressBars = null;
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
 		kryptonStatusStrip.ShowItemToolTips = true;
-		kryptonStatusStrip.Size = new Size(1100, 22);
+		kryptonStatusStrip.Size = new Size(1013, 22);
 		kryptonStatusStrip.SizingGrip = false;
 		kryptonStatusStrip.TabIndex = 0;
 		kryptonStatusStrip.TabStop = true;
@@ -848,21 +849,42 @@ partial class MoidsOfAllMinorPlanetsForm
 		// 
 		// toolStripContainer.BottomToolStripPanel
 		// 
+		toolStripContainer.BottomToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.BottomToolStripPanel.AccessibleName = "Bottom panel";
+		toolStripContainer.BottomToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
 		// 
 		// toolStripContainer.ContentPanel
 		// 
+		toolStripContainer.ContentPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.ContentPanel.AccessibleName = "Content panel";
+		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
-		toolStripContainer.ContentPanel.Size = new Size(1100, 411);
+		toolStripContainer.ContentPanel.Size = new Size(1013, 411);
 		toolStripContainer.Dock = DockStyle.Fill;
+		// 
+		// toolStripContainer.LeftToolStripPanel
+		// 
+		toolStripContainer.LeftToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.LeftToolStripPanel.AccessibleName = "Left panel";
+		toolStripContainer.LeftToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.Location = new Point(0, 0);
 		toolStripContainer.Name = "toolStripContainer";
-		toolStripContainer.Size = new Size(1100, 484);
+		// 
+		// toolStripContainer.RightToolStripPanel
+		// 
+		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
+		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
+		toolStripContainer.Size = new Size(1013, 484);
 		toolStripContainer.TabIndex = 2;
 		toolStripContainer.Text = "toolStripContainer";
 		// 
 		// toolStripContainer.TopToolStripPanel
 		// 
+		toolStripContainer.TopToolStripPanel.AccessibleDescription = "Top panel";
+		toolStripContainer.TopToolStripPanel.AccessibleName = "Just a panel";
+		toolStripContainer.TopToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.TopToolStripPanel.Controls.Add(toolStripIcons);
 		toolStripContainer.TopToolStripPanel.Controls.Add(toolStripProgress);
 		toolStripContainer.Enter += Control_Enter;
@@ -880,10 +902,10 @@ partial class MoidsOfAllMinorPlanetsForm
 		toolStripIcons.BackColor = Color.Transparent;
 		toolStripIcons.Dock = DockStyle.None;
 		toolStripIcons.Font = new Font("Segoe UI", 9F);
-		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonStart, toolStripButtonCancel, toolStripSeparator1, toolStripDropDownButtonSaveToFile });
+		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonStart, toolStripButtonCancel, toolStripSeparator1, toolStripDropDownButtonSaveToFile, toolStripButtonGoToObject });
 		toolStripIcons.Location = new Point(0, 0);
 		toolStripIcons.Name = "toolStripIcons";
-		toolStripIcons.Size = new Size(1100, 25);
+		toolStripIcons.Size = new Size(1013, 25);
 		toolStripIcons.Stretch = true;
 		toolStripIcons.TabIndex = 0;
 		toolStripIcons.TabStop = true;
@@ -901,7 +923,7 @@ partial class MoidsOfAllMinorPlanetsForm
 		toolStripButtonStart.Image = FatcowIcons16px.fatcow_table_16px;
 		toolStripButtonStart.ImageTransparentColor = Color.Magenta;
 		toolStripButtonStart.Name = "toolStripButtonStart";
-		toolStripButtonStart.Size = new Size(109, 22);
+		toolStripButtonStart.Size = new Size(112, 22);
 		toolStripButtonStart.Text = "S&tart calculation";
 		toolStripButtonStart.Click += ButtonStart_Click;
 		toolStripButtonStart.MouseEnter += Control_Enter;
@@ -928,9 +950,25 @@ partial class MoidsOfAllMinorPlanetsForm
 		toolStripSeparator1.AccessibleName = "Just a separator";
 		toolStripSeparator1.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator1.Name = "toolStripSeparator1";
+		toolStripSeparator1.Text = "Just a separator";
 		toolStripSeparator1.Size = new Size(6, 25);
 		toolStripSeparator1.MouseEnter += Control_Enter;
 		toolStripSeparator1.MouseLeave += Control_Leave;
+		// 
+		// toolStripButtonGoToObject
+		// 
+		toolStripButtonGoToObject.AccessibleDescription = "Navigates to the selected planetoid in the main form and closes this form";
+		toolStripButtonGoToObject.AccessibleName = "Go to object";
+		toolStripButtonGoToObject.AccessibleRole = AccessibleRole.PushButton;
+		toolStripButtonGoToObject.Enabled = false;
+		toolStripButtonGoToObject.Image = FatcowIcons16px.fatcow_application_go_16px;
+		toolStripButtonGoToObject.ImageTransparentColor = Color.Magenta;
+		toolStripButtonGoToObject.Name = "toolStripButtonGoToObject";
+		toolStripButtonGoToObject.Size = new Size(92, 22);
+		toolStripButtonGoToObject.Text = "&Go to object";
+		toolStripButtonGoToObject.Click += ToolStripButtonGoToObject_Click;
+		toolStripButtonGoToObject.MouseEnter += Control_Enter;
+		toolStripButtonGoToObject.MouseLeave += Control_Leave;
 		// 
 		// toolStripProgress
 		// 
@@ -945,7 +983,7 @@ partial class MoidsOfAllMinorPlanetsForm
 		toolStripProgress.Items.AddRange(new ToolStripItem[] { toolStripLabelProgress, kryptonProgressBar });
 		toolStripProgress.Location = new Point(0, 25);
 		toolStripProgress.Name = "toolStripProgress";
-		toolStripProgress.Size = new Size(1100, 26);
+		toolStripProgress.Size = new Size(1013, 26);
 		toolStripProgress.Stretch = true;
 		toolStripProgress.TabIndex = 1;
 		toolStripProgress.TabStop = true;
@@ -981,6 +1019,8 @@ partial class MoidsOfAllMinorPlanetsForm
 		kryptonProgressBar.Values.Text = "";
 		kryptonProgressBar.Enter += Control_Enter;
 		kryptonProgressBar.Leave += Control_Leave;
+		kryptonProgressBar.MouseEnter += Control_Enter;
+		kryptonProgressBar.MouseLeave += Control_Leave;
 		// 
 		// MoidsOfAllMinorPlanetsForm
 		// 
@@ -989,10 +1029,11 @@ partial class MoidsOfAllMinorPlanetsForm
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(1100, 484);
+		ClientSize = new Size(1013, 484);
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
+		Icon = (Icon)resources.GetObject("$this.Icon");
 		Margin = new Padding(4, 3, 4, 3);
 		MaximizeBox = false;
 		MinimizeBox = false;
@@ -1001,6 +1042,10 @@ partial class MoidsOfAllMinorPlanetsForm
 		Text = "MOIDs of all minor planets";
 		FormClosing += MoidsOfAllMinorPlanetsForm_FormClosing;
 		Load += MoidsOfAllMinorPlanetsForm_Load;
+		Enter += Control_Enter;
+		Leave += Control_Leave;
+		MouseEnter += Control_Enter;
+		MouseLeave += Control_Leave;
 		((ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);
 		contextMenuSaveToFile.ResumeLayout(false);
@@ -1085,4 +1130,5 @@ partial class MoidsOfAllMinorPlanetsForm
 	private ToolStripMenuItem toolStripMenuItemSaveAsXps;
 	private ToolStripMenuItem toolStripMenuItemSaveAsFictionBook2;
 	private ToolStripMenuItem toolStripMenuItemSaveAsChm;
+	private ToolStripButton toolStripButtonGoToObject;
 }
