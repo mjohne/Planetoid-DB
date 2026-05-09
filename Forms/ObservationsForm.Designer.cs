@@ -204,6 +204,7 @@ partial class ObservationsForm
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveList";
+		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveList;
 		contextMenuSaveToFile.Size = new Size(202, 158);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
@@ -514,7 +515,7 @@ partial class ObservationsForm
 		toolStripMenuItemSaveAsHtml.AutoToolTip = true;
 		toolStripMenuItemSaveAsHtml.Image = FatcowIcons16px.fatcow_page_white_code_16px;
 		toolStripMenuItemSaveAsHtml.Name = "toolStripMenuItemSaveAsHtml";
-		toolStripMenuItemSaveAsHtml.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsHtml.Size = new Size(163, 22);
 		toolStripMenuItemSaveAsHtml.Text = "Save as &HTML";
 		toolStripMenuItemSaveAsHtml.Click += ToolStripMenuItemSaveAsHtml_Click;
 		toolStripMenuItemSaveAsHtml.MouseEnter += Control_Enter;
@@ -528,7 +529,7 @@ partial class ObservationsForm
 		toolStripMenuItemSaveAsXml.AutoToolTip = true;
 		toolStripMenuItemSaveAsXml.Image = FatcowIcons16px.fatcow_page_white_code_16px;
 		toolStripMenuItemSaveAsXml.Name = "toolStripMenuItemSaveAsXml";
-		toolStripMenuItemSaveAsXml.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsXml.Size = new Size(163, 22);
 		toolStripMenuItemSaveAsXml.Text = "Save as &XML";
 		toolStripMenuItemSaveAsXml.Click += ToolStripMenuItemSaveAsXml_Click;
 		toolStripMenuItemSaveAsXml.MouseEnter += Control_Enter;
@@ -542,7 +543,7 @@ partial class ObservationsForm
 		toolStripMenuItemSaveAsDocBook.AutoToolTip = true;
 		toolStripMenuItemSaveAsDocBook.Image = FatcowIcons16px.fatcow_page_white_code_16px;
 		toolStripMenuItemSaveAsDocBook.Name = "toolStripMenuItemSaveAsDocBook";
-		toolStripMenuItemSaveAsDocBook.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsDocBook.Size = new Size(163, 22);
 		toolStripMenuItemSaveAsDocBook.Text = "Save as &DocBook";
 		toolStripMenuItemSaveAsDocBook.Click += ToolStripMenuItemSaveAsDocBook_Click;
 		toolStripMenuItemSaveAsDocBook.MouseEnter += Control_Enter;
@@ -570,7 +571,7 @@ partial class ObservationsForm
 		toolStripMenuItemSaveAsJson.AutoToolTip = true;
 		toolStripMenuItemSaveAsJson.Image = FatcowIcons16px.fatcow_page_white_code_red_16px;
 		toolStripMenuItemSaveAsJson.Name = "toolStripMenuItemSaveAsJson";
-		toolStripMenuItemSaveAsJson.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsJson.Size = new Size(146, 22);
 		toolStripMenuItemSaveAsJson.Text = "Save as &JSON";
 		toolStripMenuItemSaveAsJson.Click += ToolStripMenuItemSaveAsJson_Click;
 		toolStripMenuItemSaveAsJson.MouseEnter += Control_Enter;
@@ -584,7 +585,7 @@ partial class ObservationsForm
 		toolStripMenuItemSaveAsToml.AutoToolTip = true;
 		toolStripMenuItemSaveAsToml.Image = FatcowIcons16px.fatcow_page_white_code_red_16px;
 		toolStripMenuItemSaveAsToml.Name = "toolStripMenuItemSaveAsToml";
-		toolStripMenuItemSaveAsToml.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsToml.Size = new Size(146, 22);
 		toolStripMenuItemSaveAsToml.Text = "Save as &TOML";
 		toolStripMenuItemSaveAsToml.Click += ToolStripMenuItemSaveAsToml_Click;
 		toolStripMenuItemSaveAsToml.MouseEnter += Control_Enter;
@@ -598,7 +599,7 @@ partial class ObservationsForm
 		toolStripMenuItemSaveAsYaml.AutoToolTip = true;
 		toolStripMenuItemSaveAsYaml.Image = FatcowIcons16px.fatcow_page_white_code_red_16px;
 		toolStripMenuItemSaveAsYaml.Name = "toolStripMenuItemSaveAsYaml";
-		toolStripMenuItemSaveAsYaml.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsYaml.Size = new Size(146, 22);
 		toolStripMenuItemSaveAsYaml.Text = "Save as &YAML";
 		toolStripMenuItemSaveAsYaml.Click += ToolStripMenuItemSaveAsYaml_Click;
 		toolStripMenuItemSaveAsYaml.MouseEnter += Control_Enter;
@@ -626,7 +627,7 @@ partial class ObservationsForm
 		toolStripMenuItemSaveAsSql.AutoToolTip = true;
 		toolStripMenuItemSaveAsSql.Image = FatcowIcons16px.fatcow_page_white_database_16px;
 		toolStripMenuItemSaveAsSql.Name = "toolStripMenuItemSaveAsSql";
-		toolStripMenuItemSaveAsSql.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsSql.Size = new Size(168, 22);
 		toolStripMenuItemSaveAsSql.Text = "Save as &SQL script";
 		toolStripMenuItemSaveAsSql.Click += ToolStripMenuItemSaveAsSql_Click;
 		toolStripMenuItemSaveAsSql.MouseEnter += Control_Enter;
@@ -640,7 +641,7 @@ partial class ObservationsForm
 		toolStripMenuItemSaveAsSqlite.AutoToolTip = true;
 		toolStripMenuItemSaveAsSqlite.Image = FatcowIcons16px.fatcow_page_white_database_16px;
 		toolStripMenuItemSaveAsSqlite.Name = "toolStripMenuItemSaveAsSqlite";
-		toolStripMenuItemSaveAsSqlite.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsSqlite.Size = new Size(168, 22);
 		toolStripMenuItemSaveAsSqlite.Text = "Save as SQ&Lite";
 		toolStripMenuItemSaveAsSqlite.Click += ToolStripMenuItemSaveAsSqlite_Click;
 		toolStripMenuItemSaveAsSqlite.MouseEnter += Control_Enter;
@@ -824,14 +825,14 @@ partial class ObservationsForm
 		// 
 		// toolStripContainer.BottomToolStripPanel
 		// 
-		toolStripContainer.BottomToolStripPanel.AccessibleDescription = "Groups the data";
+		toolStripContainer.BottomToolStripPanel.AccessibleDescription = "Just a panel";
 		toolStripContainer.BottomToolStripPanel.AccessibleName = "Bottom panel";
 		toolStripContainer.BottomToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
 		// 
 		// toolStripContainer.ContentPanel
 		// 
-		toolStripContainer.ContentPanel.AccessibleDescription = "Groups the data";
+		toolStripContainer.ContentPanel.AccessibleDescription = "Just a panel";
 		toolStripContainer.ContentPanel.AccessibleName = "Content panel";
 		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
@@ -840,7 +841,7 @@ partial class ObservationsForm
 		// 
 		// toolStripContainer.LeftToolStripPanel
 		// 
-		toolStripContainer.LeftToolStripPanel.AccessibleDescription = "Groups the data";
+		toolStripContainer.LeftToolStripPanel.AccessibleDescription = "Just a panel";
 		toolStripContainer.LeftToolStripPanel.AccessibleName = "left panel";
 		toolStripContainer.LeftToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.Location = new Point(0, 0);
@@ -848,7 +849,7 @@ partial class ObservationsForm
 		// 
 		// toolStripContainer.RightToolStripPanel
 		// 
-		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Groups the data";
+		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
 		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
 		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.Size = new Size(839, 365);
@@ -857,7 +858,7 @@ partial class ObservationsForm
 		// 
 		// toolStripContainer.TopToolStripPanel
 		// 
-		toolStripContainer.TopToolStripPanel.AccessibleDescription = "Groups the data";
+		toolStripContainer.TopToolStripPanel.AccessibleDescription = "Just a panel";
 		toolStripContainer.TopToolStripPanel.AccessibleName = "Top panel";
 		toolStripContainer.TopToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripGenerateList);
