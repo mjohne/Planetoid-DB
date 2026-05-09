@@ -227,7 +227,7 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		labelEarthDesc.Values.Text = "Earth";
 		labelEarthDesc.Enter += Control_Enter;
 		labelEarthDesc.Leave += Control_Leave;
-		labelEarthData.MouseDown += Control_MouseDown;
+		labelEarthDesc.MouseDown += Control_MouseDown;
 		labelEarthDesc.MouseEnter += Control_Enter;
 		labelEarthDesc.MouseLeave += Control_Leave;
 		labelEarthDesc.DoubleClick += CopyToClipboard_DoubleClick;
@@ -251,7 +251,7 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		labelMarsDesc.Values.Text = "Mars";
 		labelMarsDesc.Enter += Control_Enter;
 		labelMarsDesc.Leave += Control_Leave;
-		labelMarsData.MouseDown += Control_MouseDown;
+		labelMarsDesc.MouseDown += Control_MouseDown;
 		labelMarsDesc.MouseEnter += Control_Enter;
 		labelMarsDesc.MouseLeave += Control_Leave;
 		labelMarsDesc.DoubleClick += CopyToClipboard_DoubleClick;
@@ -275,7 +275,7 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		labelJupiterDesc.Values.Text = "Jupiter";
 		labelJupiterDesc.Enter += Control_Enter;
 		labelJupiterDesc.Leave += Control_Leave;
-		labelJupiterData.MouseDown += Control_MouseDown;
+		labelJupiterDesc.MouseDown += Control_MouseDown;
 		labelJupiterDesc.MouseEnter += Control_Enter;
 		labelJupiterDesc.MouseLeave += Control_Leave;
 		labelJupiterDesc.DoubleClick += CopyToClipboard_DoubleClick;
@@ -299,7 +299,7 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		labelSaturnDesc.Values.Text = "Saturn";
 		labelSaturnDesc.Enter += Control_Enter;
 		labelSaturnDesc.Leave += Control_Leave;
-		labelSaturnData.MouseDown += Control_MouseDown;
+		labelSaturnDesc.MouseDown += Control_MouseDown;
 		labelSaturnDesc.MouseEnter += Control_Enter;
 		labelSaturnDesc.MouseLeave += Control_Leave;
 		labelSaturnDesc.DoubleClick += CopyToClipboard_DoubleClick;
@@ -323,7 +323,7 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		labelUranusDesc.Values.Text = "Uranus";
 		labelUranusDesc.Enter += Control_Enter;
 		labelUranusDesc.Leave += Control_Leave;
-		labelUranusData.MouseDown += Control_MouseDown;
+		labelUranusDesc.MouseDown += Control_MouseDown;
 		labelUranusDesc.MouseEnter += Control_Enter;
 		labelUranusDesc.MouseLeave += Control_Leave;
 		labelUranusDesc.DoubleClick += CopyToClipboard_DoubleClick;
@@ -347,7 +347,7 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		labelNeptuneDesc.Values.Text = "Neptune";
 		labelNeptuneDesc.Enter += Control_Enter;
 		labelNeptuneDesc.Leave += Control_Leave;
-		labelNeptuneData.MouseDown += Control_MouseDown;
+		labelNeptuneDesc.MouseDown += Control_MouseDown;
 		labelNeptuneDesc.MouseEnter += Control_Enter;
 		labelNeptuneDesc.MouseLeave += Control_Leave;
 		labelNeptuneDesc.DoubleClick += CopyToClipboard_DoubleClick;
@@ -1282,15 +1282,17 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		toolStripDropDownButtonCopyToClipboard.Name = "toolStripDropDownButtonCopyToClipboard";
 		toolStripDropDownButtonCopyToClipboard.Size = new Size(131, 22);
 		toolStripDropDownButtonCopyToClipboard.Text = "&Copy to clipboard";
+		toolStripDropDownButtonCopyToClipboard.MouseEnter += Control_Enter;
+		toolStripDropDownButtonCopyToClipboard.MouseLeave += Control_Leave;
 		// 
 		// contextMenuFullCopyToClipboard
 		// 
-		contextMenuFullCopyToClipboard.AccessibleDescription = "Shows the context menu for copying database information to the clipboard";
-		contextMenuFullCopyToClipboard.AccessibleName = "Context menu for copying database information to the clipboard";
+		contextMenuFullCopyToClipboard.AccessibleDescription = "Shows the context menu for copying Tisserand parameters to the clipboard";
+		contextMenuFullCopyToClipboard.AccessibleName = "Context menu for copying Tisserand parameters to the clipboard";
 		contextMenuFullCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
 		contextMenuFullCopyToClipboard.Font = new Font("Segoe UI", 9F);
 		contextMenuFullCopyToClipboard.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardTisserandParameterRelativeToMercury, menuitemCopyToClipboardTisserandParameterRelativeToVenus, menuitemCopyToClipboardTisserandParameterRelativeToEarth, menuitemCopyToClipboardTisserandParameterRelativeToMars, menuitemCopyToClipboardTisserandParameterRelativeToJupiter, menuitemCopyToClipboardTisserandParameterRelativeToSaturn, menuitemCopyToClipboardTisserandParameterRelativeToUranus, menuitemCopyToClipboardTisserandParameterRelativeToNeptune });
-		contextMenuFullCopyToClipboard.Name = "Context menu for copying database information to the clipboard";
+		contextMenuFullCopyToClipboard.Name = "Context menu for copying Tisserand parameters to the clipboard";
 		contextMenuFullCopyToClipboard.Size = new Size(121, 180);
 		contextMenuFullCopyToClipboard.Text = "Copy to clipboard";
 		contextMenuFullCopyToClipboard.Enter += Control_Enter;

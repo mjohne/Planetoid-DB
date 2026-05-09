@@ -420,7 +420,7 @@ public partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 	/// <remarks>This event handler retrieves the Tisserand parameter value relative to Jupiter from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
 	private void MenuitemCopyToClipboardTisserandParameterRelativeToJupiter_Click(object sender, EventArgs e) => CopyToClipboard(text: labelJupiterData.Text);
 
-	/// <summary>Handles the click event for copying the Tisserand parameter relative to Saturn	to the clipboard.</summary>
+	/// <summary>Handles the click event for copying the Tisserand parameter relative to Saturn to the clipboard.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler retrieves the Tisserand parameter value relative to Saturn from the corresponding label and copies it to the clipboard using the <see cref="BaseKryptonForm.CopyToClipboard(string)"/> helper method.</remarks>
