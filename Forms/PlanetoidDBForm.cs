@@ -1460,7 +1460,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 				icon: MessageBoxIcon.Error);
 		}
 		// Handle overflow exceptions when the hex value is too large to fit in an integer
-		catch (Exception ex)
+		catch (OverflowException ex)
 		{
 			logger.Error(exception: ex, message: $"Error decoding MPCORB flag: {ex.Message}");
 			_ = MessageBox.Show(
