@@ -3030,6 +3030,19 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		OpenWebsite(fileName: dataPageUrl);
 	}
 
+	private void ToolStripMenuItemNearEarthObjectsDynamicSite_Click(object sender, EventArgs e)
+	{
+		string dataPageUrl = "https://newton.spacedys.com/neodys/index.php?pc=1.1.0&n=" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text);
+		OpenWebsite(fileName: dataPageUrl);
+	}
+
+	private void ToolStripMenuItemNearEarthObjectCoordinationCentre_Click(object sender, EventArgs e)
+	{
+		string dataPageUrl = "https://neo.ssa.esa.int/search-for-asteroids?tab=summary&des=" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text);
+		OpenWebsite(fileName: dataPageUrl);
+	}
+
+
 	/// <summary>Handles the Click event for the menu item that opens all relevant data pages for the selected object in the default web browser.</summary>
 	/// <remarks>This method constructs URLs for multiple astronomical data sources using the current object's identifiers and opens each page in the default web browser. The method is intended to provide quick access to external resources for further information about the selected object.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
@@ -3040,6 +3053,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		ToolStripMenuItemJplSmallBodyDatabase_Click(sender: sender, e: e);
 		ToolStripMenuItemLowellMinorPlanetServices_Click(sender: sender, e: e);
 		ToolStripMenuItemAsteroidsDynamicSite_Click(sender: sender, e: e);
+		ToolStripMenuItemNearEarthObjectsDynamicSite_Click(sender: sender, e: e);
+		ToolStripMenuItemNearEarthObjectCoordinationCentre_Click(sender: sender, e: e);
 	}
 
 	/// <summary>Handles the Click event for the label that displays MPCORB flag data and initiates decoding of the flags.</summary>
