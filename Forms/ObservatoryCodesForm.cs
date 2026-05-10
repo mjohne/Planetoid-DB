@@ -3,6 +3,8 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using Krypton.Toolkit;
+
 using NLog;
 
 using Planetoid_DB.Forms;
@@ -13,8 +15,7 @@ using System.Diagnostics;
 namespace Planetoid_DB;
 
 /// <summary>Represents a form that displays the list of MPC observatory codes and their corresponding locations.</summary>
-/// <remarks>This form provides a two-column ListView with observatory codes and location names.
-/// All data is built-in and does not require an internet connection.</remarks>
+/// <remarks>This form provides a two-column ListView with observatory codes and location names. All data is built-in and does not require an internet connection.</remarks>
 // You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class ObservatoryCodesForm : BaseKryptonForm
@@ -84,8 +85,8 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 				if (parts.Length >= 2)
 				{
 					ListViewItem item = new(text: parts[0]);
-					item.SubItems.Add(text: parts[1]);
-					listView.Items.Add(value: item);
+					_ = item.SubItems.Add(text: parts[1]);
+					_ = listView.Items.Add(value: item);
 				}
 			}
 			// Update status bar with count
@@ -96,7 +97,7 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 		{
 			// Log the error and show a message box to the user
 			logger.Error(message: $"An error occurred while loading observatory codes: {ex}");
-			MessageBox.Show(text: $"An error has occurred while loading observatory codes: {ex.Message}", caption: "Load Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			KryptonMessageBox.Show(text: $"An error has occurred while loading observatory codes: {ex.Message}", caption: "Load Error", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
 			// Update the status bar to show a persistent error message
 			SetStatusBar(label: labelInformation, text: "Error loading observatory codes");
 		}
@@ -149,12 +150,12 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			exportAction(listView, "List of observatory codes", saveFileDialog.FileName, null);
+			exportAction(arg1: listView, arg2: "List of observatory codes", arg3: saveFileDialog.FileName, arg4: null);
 		}
 		catch (Exception ex)
 		{
 			logger.Error(message: $"An error occurred during export: {ex}");
-			MessageBox.Show(text: $"An error has occurred during export: {ex.Message}", caption: "Export Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			KryptonMessageBox.Show(text: $"An error has occurred during export: {ex.Message}", caption: "Export Error", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
 		}
 		finally
 		{
@@ -233,7 +234,7 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 	private void ToolStripButtonInfoAboutObsCodes_Click(object sender, EventArgs e)
 	{
 		// Show a message box with information about observatory codes and a link to the Minor Planet Center website
-		MessageBox.Show(text: "This application displays a list of observatory codes and their corresponding locations.\n\nYou can find more information about Observatory Codes at the Minor Planet Center website: https://minorplanetcenter.net/iau/info/ObservatoryCodes.html.", caption: "About Observatory Codes", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		KryptonMessageBox.Show(text: "This application displays a list of observatory codes and their corresponding locations.\n\nYou can find more information about Observatory Codes at the Minor Planet Center website: https://minorplanetcenter.net/iau/info/ObservatoryCodes.html.", caption: "About Observatory Codes", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 
