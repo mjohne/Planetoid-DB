@@ -16,6 +16,7 @@ using System.IO.Compression;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 using static Planetoid_DB.TerminologyForm;
 
@@ -522,6 +523,26 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method is used to navigate to the end of the data.</remarks>
 	private void NavigateToTheEndOfTheData() => GotoCurrentPosition(position: currentPosition = planetoidsDatabase.Count - 1);
 
+	/// <summary>Processes a designation string by removing parenthetical content, trimming whitespace, and replacing spaces with plus signs.</summary>
+	/// <param name="input">The input designation string to process.</param>
+	/// <returns>The processed string with parenthetical content removed, trimmed, and spaces replaced by plus signs.</returns>
+	/// <remarks>This method is useful for preparing designation strings for URL queries. For example, "(449127) 2013 AS15" becomes "2013+AS15".</remarks>
+	private static string ProcessDesignationForUrl(string input)
+	{
+		// Validate input
+		if (string.IsNullOrWhiteSpace(value: input))
+		{
+			return string.Empty;
+		}
+		// Remove all content within parentheses (including the parentheses)
+		string result = Regex.Replace(input: input, pattern: @"\([^)]*\)", replacement: string.Empty);
+		// Trim leading and trailing whitespace
+		result = result.Trim();
+		// Replace all remaining spaces with nothing (remove spaces)
+		result = result.Replace(oldValue: " ", newValue: "");
+		return result;
+	}
+
 	/// <summary>Opens the terminology form with the specified index.</summary>
 	/// <param name="index">The index to set active in the terminology form.</param>
 	/// <remarks>This method is used to open the terminology form with the specified index.</remarks>
@@ -724,7 +745,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formMoidsOfAll.ShowDialog(owner: this);
 	}
 
-	/// <summary>Shows the Tisserand parameter form for the current planetoid.</summary>
+	/// <summary>Shows the Tisserand parameters form for the current planetoid.</summary>
 	/// <remarks>Parses the semi-major axis, eccentricity, and inclination from the UI labels and opens the <see cref="TisserandParameterOfOneMinorPlanetForm"/>.</remarks>
 	private void ShowTisserandParameters()
 	{
@@ -2693,6 +2714,62 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		// TODO: Implement enable/disable linking to terminology
 		_ = MessageBox.Show(text: "Enable linking to terminology not implemented yet", caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	}
+
+	/// <summary>Handles the Click event for the MPC Database menu item and opens the Minor Planet Center database page for the selected object.</summary>
+	/// <remarks>This method constructs a URL to the Minor Planet Center database using the current object's identifier and opens it in the default web browser.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemMpcDatabase_Click(object sender, EventArgs e)
+	{
+		string dataPageUrl = "https://www.minorplanetcenter.net/db_search/show_object?utf8=%E2%9C%93&object_id=" + labelIndexData.Text;
+		OpenWebsite(fileName: dataPageUrl);
+	}
+
+	/// <summary>Handles the Click event for the JPL Small-Body Database menu item and opens the corresponding web page in the default browser.</summary>
+	/// <remarks>This event handler constructs a URL to the JPL Small-Body Database using the current value of the index label and opens it in the user's default web browser.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemJplSmallBodyDatabase_Click(object sender, EventArgs e)
+	{
+		string dataPageUrl = "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=" + labelIndexData.Text + "&view=OPDA";
+		OpenWebsite(fileName: dataPageUrl);
+	}
+
+	/// <summary>Handles the Click event for the Lowell Minor Planet Services menu item, opening the corresponding asteroid data page in a web browser.</summary>
+	/// <remarks>This event handler constructs a URL for the Lowell Observatory's asteroid search page based on the current designation and opens it in the default web browser.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemLowellMinorPlanetServices_Click(object sender, EventArgs e)
+	{
+		string dataPageUrl = "https://asteroid.lowell.edu/gui/search/" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text);
+		OpenWebsite(fileName: dataPageUrl);
+	}
+
+	/// <summary>Handles the Click event for the Asteroids Dynamic Site menu item, opening the corresponding asteroid data page in a web browser.</summary>
+	/// <remarks>This event handler constructs a URL for the selected asteroid using its readable designation and opens the associated data page in the default web browser.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemAsteroidsDynamicSite_Click(object sender, EventArgs e)
+	{
+		string dataPageUrl = "https://newton.spacedys.com/astdys/index.php?pc=1.1.0&n=" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text);
+		OpenWebsite(fileName: dataPageUrl);
+	}
+
+	/// <summary>Handles the Click event for the menu item that opens all relevant data pages for the selected object in the default web browser.</summary>
+	/// <remarks>This method constructs URLs for multiple astronomical data sources using the current object's identifiers and opens each page in the default web browser. The method is intended to provide quick access to external resources for further information about the selected object.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemOpenAllDataPages_Click(object sender, EventArgs e)
+	{
+		string dataPageUrl = "https://www.minorplanetcenter.net/db_search/show_object?utf8=%E2%9C%93&object_id=" + labelIndexData.Text;
+		OpenWebsite(fileName: dataPageUrl);
+		dataPageUrl = "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=" + labelIndexData.Text + "&view=OPDA";
+		OpenWebsite(fileName: dataPageUrl);
+		dataPageUrl = "https://asteroid.lowell.edu/gui/search/" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text);
+		OpenWebsite(fileName: dataPageUrl);
+		dataPageUrl = "https://newton.spacedys.com/astdys/index.php?pc=1.1.0&n=" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text);
+		OpenWebsite(fileName: dataPageUrl);
 	}
 
 	#endregion
