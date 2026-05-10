@@ -3146,6 +3146,8 @@ partial class PlanetoidDbForm
 		toolStripMenuItemMpcDatabase.Size = new Size(254, 22);
 		toolStripMenuItemMpcDatabase.Text = "MPC database";
 		toolStripMenuItemMpcDatabase.Click += ToolStripMenuItemMpcDatabase_Click;
+		toolStripMenuItemMpcDatabase.MouseEnter += Control_Enter;
+		toolStripMenuItemMpcDatabase.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemJplSmallBodyDatabase
 		// 
@@ -3158,6 +3160,8 @@ partial class PlanetoidDbForm
 		toolStripMenuItemJplSmallBodyDatabase.Size = new Size(254, 22);
 		toolStripMenuItemJplSmallBodyDatabase.Text = "JPL Small-Body Database";
 		toolStripMenuItemJplSmallBodyDatabase.Click += ToolStripMenuItemJplSmallBodyDatabase_Click;
+		toolStripMenuItemJplSmallBodyDatabase.MouseEnter += Control_Enter;
+		toolStripMenuItemJplSmallBodyDatabase.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemLowellMinorPlanetServices
 		// 
@@ -3170,6 +3174,8 @@ partial class PlanetoidDbForm
 		toolStripMenuItemLowellMinorPlanetServices.Size = new Size(254, 22);
 		toolStripMenuItemLowellMinorPlanetServices.Text = "Lowell Minor Planet Services";
 		toolStripMenuItemLowellMinorPlanetServices.Click += ToolStripMenuItemLowellMinorPlanetServices_Click;
+		toolStripMenuItemLowellMinorPlanetServices.MouseEnter += Control_Enter;
+		toolStripMenuItemLowellMinorPlanetServices.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemAsteroidsDynamicSite
 		// 
@@ -3182,6 +3188,8 @@ partial class PlanetoidDbForm
 		toolStripMenuItemAsteroidsDynamicSite.Size = new Size(254, 22);
 		toolStripMenuItemAsteroidsDynamicSite.Text = "Asteroids Dynamic Site (AstDyS-2)";
 		toolStripMenuItemAsteroidsDynamicSite.Click += ToolStripMenuItemAsteroidsDynamicSite_Click;
+		toolStripMenuItemAsteroidsDynamicSite.MouseEnter += Control_Enter;
+		toolStripMenuItemAsteroidsDynamicSite.MouseLeave += Control_Leave;
 		// 
 		// menuitemUpdate
 		// 
@@ -4284,6 +4292,8 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOpenAllDataPages.Size = new Size(254, 22);
 		toolStripMenuItemOpenAllDataPages.Text = "Open all data pages";
 		toolStripMenuItemOpenAllDataPages.Click += ToolStripMenuItemOpenAllDataPages_Click;
+		toolStripMenuItemOpenAllDataPages.MouseEnter += Control_Enter;
+		toolStripMenuItemOpenAllDataPages.MouseLeave += Control_Leave;
 		// 
 		// PlanetoidDbForm
 		// 

@@ -2762,14 +2762,10 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void ToolStripMenuItemOpenAllDataPages_Click(object sender, EventArgs e)
 	{
-		string dataPageUrl = "https://www.minorplanetcenter.net/db_search/show_object?utf8=%E2%9C%93&object_id=" + labelIndexData.Text;
-		OpenWebsite(fileName: dataPageUrl);
-		dataPageUrl = "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=" + labelIndexData.Text + "&view=OPDA";
-		OpenWebsite(fileName: dataPageUrl);
-		dataPageUrl = "https://asteroid.lowell.edu/gui/search/" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text);
-		OpenWebsite(fileName: dataPageUrl);
-		dataPageUrl = "https://newton.spacedys.com/astdys/index.php?pc=1.1.0&n=" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text);
-		OpenWebsite(fileName: dataPageUrl);
+		ToolStripMenuItemMpcDatabase_Click(sender, e);
+		ToolStripMenuItemJplSmallBodyDatabase_Click(sender, e);
+		ToolStripMenuItemLowellMinorPlanetServices_Click(sender, e);
+		ToolStripMenuItemAsteroidsDynamicSite_Click(sender, e);
 	}
 
 	#endregion
