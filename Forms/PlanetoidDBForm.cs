@@ -3,6 +3,8 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using Krypton.Toolkit;
+
 using NLog;
 
 using Planetoid_DB.Forms;
@@ -1356,6 +1358,119 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Decodes the 4-hexdigit flag from MPCORB.DAT and displays the result in a MessageBox.</summary>
+	/// <remarks>The flag encodes orbit type in the lower 6 bits and additional information in bits 6-15 according to MPC specifications.</remarks>
+	private void DecodeMpcorbFlags()
+	{
+		// Get the flag text from the label
+		string flagText = labelFlagsData.Text;
+		// Validate that the flag text is not empty
+		if (string.IsNullOrWhiteSpace(value: flagText))
+		{
+			logger.Warn(message: "Flag text is empty or whitespace");
+			_ = MessageBox.Show(
+				text: "No flag data available.",
+				caption: "Flag Decoder",
+				buttons: MessageBoxButtons.OK,
+				icon: MessageBoxIcon.Warning);
+			return;
+		}
+		// Validate that the flag text is a valid 4-hexdigit string
+		try
+		{
+			// Parse the hex string to an integer
+			int flagValue = Convert.ToInt32(value: flagText, fromBase: 16);
+			// Extract orbit type (lower 6 bits)
+			int orbitType = flagValue & 0x3F; // 0x3F = 0011 1111 (bits 0-5)
+											  // Extract individual flag bits
+			bool isNeo = (flagValue & 2048) != 0;          // Bit 11
+			bool isLargeNeo = (flagValue & 4096) != 0;     // Bit 12
+			bool isOneOppObject = (flagValue & 8192) != 0; // Bit 13
+			bool isCriticalList = (flagValue & 16384) != 0;// Bit 14
+			bool isPha = (flagValue & 32768) != 0;         // Bit 15
+														   // Build the result message
+			System.Text.StringBuilder result = new();
+			_ = result.AppendLine(value: $"MPCORB Flag Decoder");
+			_ = result.AppendLine(value: $"==================");
+			_ = result.AppendLine(value: $"Hex Value: {flagText}");
+			_ = result.AppendLine(value: $"Decimal Value: {flagValue}");
+			_ = result.AppendLine();
+			// Orbit type classification
+			_ = result.AppendLine(value: "Orbit Classification:");
+			string orbitTypeName = orbitType switch
+			{
+				1 => "Atira",
+				2 => "Aten",
+				3 => "Apollo",
+				4 => "Amor",
+				5 => "Object with q < 1.665 AU",
+				6 => "Hungaria",
+				7 => "Unused or internal MPC use only",
+				8 => "Hilda",
+				9 => "Jupiter Trojan",
+				10 => "Distant object",
+				_ => $"Undefined (value: {orbitType})"
+			};
+			_ = result.AppendLine(value: $"  {orbitTypeName}");
+			_ = result.AppendLine();
+			// Additional flags
+			_ = result.AppendLine(value: "Additional Flags:");
+			if (isNeo)
+			{
+				_ = result.AppendLine(value: "  ✓ Near-Earth Object (NEO)");
+			}
+			if (isLargeNeo)
+			{
+				_ = result.AppendLine(value: "  ✓ 1-km (or larger) NEO");
+			}
+			if (isOneOppObject)
+			{
+				_ = result.AppendLine(value: "  ✓ 1-opposition object seen at earlier opposition");
+			}
+			if (isCriticalList)
+			{
+				_ = result.AppendLine(value: "  ✓ Critical list numbered object");
+			}
+			if (isPha)
+			{
+				_ = result.AppendLine(value: "  ✓ Potentially Hazardous Asteroid (PHA)");
+			}
+			// If no additional flags are set
+			if (!isNeo && !isLargeNeo && !isOneOppObject && !isCriticalList && !isPha)
+			{
+				_ = result.AppendLine(value: "  (none)");
+			}
+			// Display the result in a MessageBox
+			_ = KryptonMessageBox.Show(
+				text: result.ToString(),
+				caption: "MPCORB Flag Decoder",
+				buttons: KryptonMessageBoxButtons.OK,
+				icon: KryptonMessageBoxIcon.Information);
+
+			logger.Info(message: $"Decoded MPCORB flag: {flagText} = {flagValue} ({orbitTypeName})");
+		}
+		// Handle format exceptions when parsing the hex string
+		catch (FormatException ex)
+		{
+			logger.Error(exception: ex, message: $"Failed to parse flag value '{flagText}': {ex.Message}");
+			_ = MessageBox.Show(
+				text: $"Failed to parse flag value '{flagText}'.\n\nThe flag must be a valid hexadecimal number.\n\nError: {ex.Message}",
+				caption: I18nStrings.ErrorCaption,
+				buttons: MessageBoxButtons.OK,
+				icon: MessageBoxIcon.Error);
+		}
+		// Handle overflow exceptions when the hex value is too large to fit in an integer
+		catch (Exception ex)
+		{
+			logger.Error(exception: ex, message: $"Error decoding MPCORB flag: {ex.Message}");
+			_ = MessageBox.Show(
+				text: $"An error occurred while decoding the flag.\n\nError: {ex.Message}",
+				caption: I18nStrings.ErrorCaption,
+				buttons: MessageBoxButtons.OK,
+				icon: MessageBoxIcon.Error);
+		}
+	}
+
 	#endregion
 
 	#region form event handlers
@@ -2632,6 +2747,63 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method allows the user to select a custom local MPCORB.DAT file instead of using the default one.</remarks>
 	private void ToolStripButtonOpenLocalMpcorbDat_Click(object sender, EventArgs e) => OpenLocalMpcorbDat();
 
+	/// <summary>Handles the Click event for the MPC Database menu item and opens the Minor Planet Center database page for the selected object.</summary>
+	/// <remarks>This method constructs a URL to the Minor Planet Center database using the current object's identifier and opens it in the default web browser.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemMpcDatabase_Click(object sender, EventArgs e)
+	{
+		string dataPageUrl = "https://www.minorplanetcenter.net/db_search/show_object?utf8=%E2%9C%93&object_id=" + labelIndexData.Text;
+		OpenWebsite(fileName: dataPageUrl);
+	}
+
+	/// <summary>Handles the Click event for the JPL Small-Body Database menu item and opens the corresponding web page in the default browser.</summary>
+	/// <remarks>This event handler constructs a URL to the JPL Small-Body Database using the current value of the index label and opens it in the user's default web browser.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemJplSmallBodyDatabase_Click(object sender, EventArgs e)
+	{
+		string dataPageUrl = "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=" + labelIndexData.Text + "&view=OPDA";
+		OpenWebsite(fileName: dataPageUrl);
+	}
+
+	/// <summary>Handles the Click event for the Lowell Minor Planet Services menu item, opening the corresponding asteroid data page in a web browser.</summary>
+	/// <remarks>This event handler constructs a URL for the Lowell Observatory's asteroid search page based on the current designation and opens it in the default web browser.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemLowellMinorPlanetServices_Click(object sender, EventArgs e)
+	{
+		string dataPageUrl = "https://asteroid.lowell.edu/gui/search/" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text);
+		OpenWebsite(fileName: dataPageUrl);
+	}
+
+	/// <summary>Handles the Click event for the Asteroids Dynamic Site menu item, opening the corresponding asteroid data page in a web browser.</summary>
+	/// <remarks>This event handler constructs a URL for the selected asteroid using its readable designation and opens the associated data page in the default web browser.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemAsteroidsDynamicSite_Click(object sender, EventArgs e)
+	{
+		string dataPageUrl = "https://newton.spacedys.com/astdys/index.php?pc=1.1.0&n=" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text);
+		OpenWebsite(fileName: dataPageUrl);
+	}
+
+	/// <summary>Handles the Click event for the menu item that opens all relevant data pages for the selected object in the default web browser.</summary>
+	/// <remarks>This method constructs URLs for multiple astronomical data sources using the current object's identifiers and opens each page in the default web browser. The method is intended to provide quick access to external resources for further information about the selected object.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void ToolStripMenuItemOpenAllDataPages_Click(object sender, EventArgs e)
+	{
+		ToolStripMenuItemMpcDatabase_Click(sender: sender, e: e);
+		ToolStripMenuItemJplSmallBodyDatabase_Click(sender: sender, e: e);
+		ToolStripMenuItemLowellMinorPlanetServices_Click(sender: sender, e: e);
+		ToolStripMenuItemAsteroidsDynamicSite_Click(sender: sender, e: e);
+	}
+
+	/// <summary>Handles the Click event for the label that displays MPCORB flag data and initiates decoding of the flags.</summary>
+	/// <param name="sender">The source of the event, typically the label control that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>This method decodes the MPCORB flags when the label is clicked.</remarks>
+	private void LabelFlagsData_Click(object sender, EventArgs e) => DecodeMpcorbFlags();
 
 	#endregion
 
@@ -2714,58 +2886,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		// TODO: Implement enable/disable linking to terminology
 		_ = MessageBox.Show(text: "Enable linking to terminology not implemented yet", caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
-	}
-
-	/// <summary>Handles the Click event for the MPC Database menu item and opens the Minor Planet Center database page for the selected object.</summary>
-	/// <remarks>This method constructs a URL to the Minor Planet Center database using the current object's identifier and opens it in the default web browser.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void ToolStripMenuItemMpcDatabase_Click(object sender, EventArgs e)
-	{
-		string dataPageUrl = "https://www.minorplanetcenter.net/db_search/show_object?utf8=%E2%9C%93&object_id=" + labelIndexData.Text;
-		OpenWebsite(fileName: dataPageUrl);
-	}
-
-	/// <summary>Handles the Click event for the JPL Small-Body Database menu item and opens the corresponding web page in the default browser.</summary>
-	/// <remarks>This event handler constructs a URL to the JPL Small-Body Database using the current value of the index label and opens it in the user's default web browser.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void ToolStripMenuItemJplSmallBodyDatabase_Click(object sender, EventArgs e)
-	{
-		string dataPageUrl = "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=" + labelIndexData.Text + "&view=OPDA";
-		OpenWebsite(fileName: dataPageUrl);
-	}
-
-	/// <summary>Handles the Click event for the Lowell Minor Planet Services menu item, opening the corresponding asteroid data page in a web browser.</summary>
-	/// <remarks>This event handler constructs a URL for the Lowell Observatory's asteroid search page based on the current designation and opens it in the default web browser.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void ToolStripMenuItemLowellMinorPlanetServices_Click(object sender, EventArgs e)
-	{
-		string dataPageUrl = "https://asteroid.lowell.edu/gui/search/" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text);
-		OpenWebsite(fileName: dataPageUrl);
-	}
-
-	/// <summary>Handles the Click event for the Asteroids Dynamic Site menu item, opening the corresponding asteroid data page in a web browser.</summary>
-	/// <remarks>This event handler constructs a URL for the selected asteroid using its readable designation and opens the associated data page in the default web browser.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void ToolStripMenuItemAsteroidsDynamicSite_Click(object sender, EventArgs e)
-	{
-		string dataPageUrl = "https://newton.spacedys.com/astdys/index.php?pc=1.1.0&n=" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text);
-		OpenWebsite(fileName: dataPageUrl);
-	}
-
-	/// <summary>Handles the Click event for the menu item that opens all relevant data pages for the selected object in the default web browser.</summary>
-	/// <remarks>This method constructs URLs for multiple astronomical data sources using the current object's identifiers and opens each page in the default web browser. The method is intended to provide quick access to external resources for further information about the selected object.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void ToolStripMenuItemOpenAllDataPages_Click(object sender, EventArgs e)
-	{
-		ToolStripMenuItemMpcDatabase_Click(sender, e);
-		ToolStripMenuItemJplSmallBodyDatabase_Click(sender, e);
-		ToolStripMenuItemLowellMinorPlanetServices_Click(sender, e);
-		ToolStripMenuItemAsteroidsDynamicSite_Click(sender, e);
 	}
 
 	#endregion
