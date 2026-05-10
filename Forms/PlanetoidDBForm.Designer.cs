@@ -50,10 +50,10 @@ partial class PlanetoidDbForm
 		menuitemNavigateStep1000 = new ToolStripMenuItem();
 		menuitemNavigateStep10000 = new ToolStripMenuItem();
 		menuitemNavigateStep100000 = new ToolStripMenuItem();
-		menuitemNavigateSomeDataBackward = new ToolStripMenuItem();
-		menuitemNavigateSomeDataForward = new ToolStripMenuItem();
 		toolStripSplitButtonStepForward = new ToolStripSplitButton();
 		toolStripSplitButtonStepBackward = new ToolStripSplitButton();
+		menuitemNavigateSomeDataBackward = new ToolStripMenuItem();
+		menuitemNavigateSomeDataForward = new ToolStripMenuItem();
 		tableLayoutPanelData = new KryptonTableLayoutPanel();
 		labelIndexData = new KryptonLabel();
 		contextMenuCopyToClipboard = new ContextMenuStrip(components);
@@ -214,6 +214,8 @@ partial class PlanetoidDbForm
 		toolStripMenuItemJplSmallBodyDatabase = new ToolStripMenuItem();
 		toolStripMenuItemLowellMinorPlanetServices = new ToolStripMenuItem();
 		toolStripMenuItemAsteroidsDynamicSite = new ToolStripMenuItem();
+		toolStripMenuItemNearEarthObjectsDynamicSite = new ToolStripMenuItem();
+		toolStripMenuItemNearEarthObjectCoordinationCentre = new ToolStripMenuItem();
 		toolStripSeparator17 = new ToolStripSeparator();
 		toolStripMenuItemOpenAllDataPages = new ToolStripMenuItem();
 		menuitemUpdate = new ToolStripMenuItem();
@@ -317,7 +319,7 @@ partial class PlanetoidDbForm
 		contextMenuNavigationStep.Font = new Font("Segoe UI", 9F);
 		contextMenuNavigationStep.Items.AddRange(new ToolStripItem[] { menuitemNavigateStep10, menuitemNavigateStep100, menuitemNavigateStep1000, menuitemNavigateStep10000, menuitemNavigateStep100000 });
 		contextMenuNavigationStep.Name = "contextMenu";
-		contextMenuNavigationStep.OwnerItem = toolStripSplitButtonStepBackward;
+		contextMenuNavigationStep.OwnerItem = menuitemNavigateSomeDataForward;
 		contextMenuNavigationStep.ShowCheckMargin = true;
 		contextMenuNavigationStep.ShowImageMargin = false;
 		contextMenuNavigationStep.Size = new Size(111, 114);
@@ -400,38 +402,6 @@ partial class PlanetoidDbForm
 		menuitemNavigateStep100000.MouseEnter += Control_Enter;
 		menuitemNavigateStep100000.MouseLeave += Control_Leave;
 		// 
-		// menuitemNavigateSomeDataBackward
-		// 
-		menuitemNavigateSomeDataBackward.AccessibleDescription = "Navigates some data backward";
-		menuitemNavigateSomeDataBackward.AccessibleName = "Navigates some data backward";
-		menuitemNavigateSomeDataBackward.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemNavigateSomeDataBackward.AutoToolTip = true;
-		menuitemNavigateSomeDataBackward.DropDown = contextMenuNavigationStep;
-		menuitemNavigateSomeDataBackward.Image = FatcowIcons16px.fatcow_control_rewind_blue_16px;
-		menuitemNavigateSomeDataBackward.Name = "menuitemNavigateSomeDataBackward";
-		menuitemNavigateSomeDataBackward.ShortcutKeys = Keys.Control | Keys.D2;
-		menuitemNavigateSomeDataBackward.Size = new Size(275, 22);
-		menuitemNavigateSomeDataBackward.Text = "Navigate some data back&ward";
-		menuitemNavigateSomeDataBackward.Click += ToolStripMenuItemNavigateSomeDataBackward_Click;
-		menuitemNavigateSomeDataBackward.MouseEnter += Control_Enter;
-		menuitemNavigateSomeDataBackward.MouseLeave += Control_Leave;
-		// 
-		// menuitemNavigateSomeDataForward
-		// 
-		menuitemNavigateSomeDataForward.AccessibleDescription = "Navigates some data forward";
-		menuitemNavigateSomeDataForward.AccessibleName = "Navigates some data forward";
-		menuitemNavigateSomeDataForward.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemNavigateSomeDataForward.AutoToolTip = true;
-		menuitemNavigateSomeDataForward.DropDown = contextMenuNavigationStep;
-		menuitemNavigateSomeDataForward.Image = FatcowIcons16px.fatcow_control_fastforward_blue_16px;
-		menuitemNavigateSomeDataForward.Name = "menuitemNavigateSomeDataForward";
-		menuitemNavigateSomeDataForward.ShortcutKeys = Keys.Control | Keys.D5;
-		menuitemNavigateSomeDataForward.Size = new Size(275, 22);
-		menuitemNavigateSomeDataForward.Text = "Navigate some data &forward";
-		menuitemNavigateSomeDataForward.Click += ToolStripMenuItemNavigateSomeDataForward_Click;
-		menuitemNavigateSomeDataForward.MouseEnter += Control_Enter;
-		menuitemNavigateSomeDataForward.MouseLeave += Control_Leave;
-		// 
 		// toolStripSplitButtonStepForward
 		// 
 		toolStripSplitButtonStepForward.AccessibleDescription = "Navigates some data forward";
@@ -463,6 +433,38 @@ partial class PlanetoidDbForm
 		toolStripSplitButtonStepBackward.ButtonClick += ToolStripButtonStepBackward_Click;
 		toolStripSplitButtonStepBackward.MouseEnter += Control_Enter;
 		toolStripSplitButtonStepBackward.MouseLeave += Control_Leave;
+		// 
+		// menuitemNavigateSomeDataBackward
+		// 
+		menuitemNavigateSomeDataBackward.AccessibleDescription = "Navigates some data backward";
+		menuitemNavigateSomeDataBackward.AccessibleName = "Navigates some data backward";
+		menuitemNavigateSomeDataBackward.AccessibleRole = AccessibleRole.MenuItem;
+		menuitemNavigateSomeDataBackward.AutoToolTip = true;
+		menuitemNavigateSomeDataBackward.DropDown = contextMenuNavigationStep;
+		menuitemNavigateSomeDataBackward.Image = FatcowIcons16px.fatcow_control_rewind_blue_16px;
+		menuitemNavigateSomeDataBackward.Name = "menuitemNavigateSomeDataBackward";
+		menuitemNavigateSomeDataBackward.ShortcutKeys = Keys.Control | Keys.D2;
+		menuitemNavigateSomeDataBackward.Size = new Size(275, 22);
+		menuitemNavigateSomeDataBackward.Text = "Navigate some data back&ward";
+		menuitemNavigateSomeDataBackward.Click += ToolStripMenuItemNavigateSomeDataBackward_Click;
+		menuitemNavigateSomeDataBackward.MouseEnter += Control_Enter;
+		menuitemNavigateSomeDataBackward.MouseLeave += Control_Leave;
+		// 
+		// menuitemNavigateSomeDataForward
+		// 
+		menuitemNavigateSomeDataForward.AccessibleDescription = "Navigates some data forward";
+		menuitemNavigateSomeDataForward.AccessibleName = "Navigates some data forward";
+		menuitemNavigateSomeDataForward.AccessibleRole = AccessibleRole.MenuItem;
+		menuitemNavigateSomeDataForward.AutoToolTip = true;
+		menuitemNavigateSomeDataForward.DropDown = contextMenuNavigationStep;
+		menuitemNavigateSomeDataForward.Image = FatcowIcons16px.fatcow_control_fastforward_blue_16px;
+		menuitemNavigateSomeDataForward.Name = "menuitemNavigateSomeDataForward";
+		menuitemNavigateSomeDataForward.ShortcutKeys = Keys.Control | Keys.D5;
+		menuitemNavigateSomeDataForward.Size = new Size(275, 22);
+		menuitemNavigateSomeDataForward.Text = "Navigate some data &forward";
+		menuitemNavigateSomeDataForward.Click += ToolStripMenuItemNavigateSomeDataForward_Click;
+		menuitemNavigateSomeDataForward.MouseEnter += Control_Enter;
+		menuitemNavigateSomeDataForward.MouseLeave += Control_Leave;
 		// 
 		// tableLayoutPanelData
 		// 
@@ -3134,7 +3136,7 @@ partial class PlanetoidDbForm
 		// 
 		// toolStripMenuItemExternalDataPages
 		// 
-		toolStripMenuItemExternalDataPages.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemMpcDatabase, toolStripMenuItemJplSmallBodyDatabase, toolStripMenuItemLowellMinorPlanetServices, toolStripMenuItemAsteroidsDynamicSite, toolStripSeparator17, toolStripMenuItemOpenAllDataPages });
+		toolStripMenuItemExternalDataPages.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemMpcDatabase, toolStripMenuItemJplSmallBodyDatabase, toolStripMenuItemLowellMinorPlanetServices, toolStripMenuItemAsteroidsDynamicSite, toolStripMenuItemNearEarthObjectsDynamicSite, toolStripMenuItemNearEarthObjectCoordinationCentre, toolStripSeparator17, toolStripMenuItemOpenAllDataPages });
 		toolStripMenuItemExternalDataPages.Name = "toolStripMenuItemExternalDataPages";
 		toolStripMenuItemExternalDataPages.Size = new Size(121, 24);
 		toolStripMenuItemExternalDataPages.Text = "External data pages";
@@ -3147,7 +3149,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemMpcDatabase.AutoToolTip = true;
 		toolStripMenuItemMpcDatabase.Image = FatcowIcons16px.fatcow_external_16px;
 		toolStripMenuItemMpcDatabase.Name = "toolStripMenuItemMpcDatabase";
-		toolStripMenuItemMpcDatabase.Size = new Size(254, 22);
+		toolStripMenuItemMpcDatabase.Size = new Size(331, 22);
 		toolStripMenuItemMpcDatabase.Text = "MPC database";
 		toolStripMenuItemMpcDatabase.Click += ToolStripMenuItemMpcDatabase_Click;
 		toolStripMenuItemMpcDatabase.MouseEnter += Control_Enter;
@@ -3161,7 +3163,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemJplSmallBodyDatabase.AutoToolTip = true;
 		toolStripMenuItemJplSmallBodyDatabase.Image = FatcowIcons16px.fatcow_external_16px;
 		toolStripMenuItemJplSmallBodyDatabase.Name = "toolStripMenuItemJplSmallBodyDatabase";
-		toolStripMenuItemJplSmallBodyDatabase.Size = new Size(254, 22);
+		toolStripMenuItemJplSmallBodyDatabase.Size = new Size(331, 22);
 		toolStripMenuItemJplSmallBodyDatabase.Text = "JPL Small-Body Database";
 		toolStripMenuItemJplSmallBodyDatabase.Click += ToolStripMenuItemJplSmallBodyDatabase_Click;
 		toolStripMenuItemJplSmallBodyDatabase.MouseEnter += Control_Enter;
@@ -3175,7 +3177,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemLowellMinorPlanetServices.AutoToolTip = true;
 		toolStripMenuItemLowellMinorPlanetServices.Image = FatcowIcons16px.fatcow_external_16px;
 		toolStripMenuItemLowellMinorPlanetServices.Name = "toolStripMenuItemLowellMinorPlanetServices";
-		toolStripMenuItemLowellMinorPlanetServices.Size = new Size(254, 22);
+		toolStripMenuItemLowellMinorPlanetServices.Size = new Size(331, 22);
 		toolStripMenuItemLowellMinorPlanetServices.Text = "Lowell Minor Planet Services";
 		toolStripMenuItemLowellMinorPlanetServices.Click += ToolStripMenuItemLowellMinorPlanetServices_Click;
 		toolStripMenuItemLowellMinorPlanetServices.MouseEnter += Control_Enter;
@@ -3189,11 +3191,39 @@ partial class PlanetoidDbForm
 		toolStripMenuItemAsteroidsDynamicSite.AutoToolTip = true;
 		toolStripMenuItemAsteroidsDynamicSite.Image = FatcowIcons16px.fatcow_external_16px;
 		toolStripMenuItemAsteroidsDynamicSite.Name = "toolStripMenuItemAsteroidsDynamicSite";
-		toolStripMenuItemAsteroidsDynamicSite.Size = new Size(254, 22);
+		toolStripMenuItemAsteroidsDynamicSite.Size = new Size(331, 22);
 		toolStripMenuItemAsteroidsDynamicSite.Text = "Asteroids Dynamic Site (AstDyS-2)";
 		toolStripMenuItemAsteroidsDynamicSite.Click += ToolStripMenuItemAsteroidsDynamicSite_Click;
 		toolStripMenuItemAsteroidsDynamicSite.MouseEnter += Control_Enter;
 		toolStripMenuItemAsteroidsDynamicSite.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemNearEarthObjectsDynamicSite
+		// 
+		toolStripMenuItemNearEarthObjectsDynamicSite.AccessibleDescription = "Opens the data page of the Near Earth Objects Dynamic Site (NEODyS-2)";
+		toolStripMenuItemNearEarthObjectsDynamicSite.AccessibleName = "Near Earth Objects Dynamic Site (NEODyS-2)";
+		toolStripMenuItemNearEarthObjectsDynamicSite.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemNearEarthObjectsDynamicSite.AutoToolTip = true;
+		toolStripMenuItemNearEarthObjectsDynamicSite.Image = FatcowIcons16px.fatcow_external_16px;
+		toolStripMenuItemNearEarthObjectsDynamicSite.Name = "toolStripMenuItemNearEarthObjectsDynamicSite";
+		toolStripMenuItemNearEarthObjectsDynamicSite.Size = new Size(331, 22);
+		toolStripMenuItemNearEarthObjectsDynamicSite.Text = "Near Earth Objects Dynamic Site (NEODyS-2)";
+		toolStripMenuItemNearEarthObjectsDynamicSite.Click += ToolStripMenuItemNearEarthObjectsDynamicSite_Click;
+		toolStripMenuItemNearEarthObjectsDynamicSite.MouseEnter += Control_Enter;
+		toolStripMenuItemNearEarthObjectsDynamicSite.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemNearEarthObjectCoordinationCentre
+		// 
+		toolStripMenuItemNearEarthObjectCoordinationCentre.AccessibleDescription = "Opens the data page of the Near-Earth Object Coordination Centre (NEOCC)";
+		toolStripMenuItemNearEarthObjectCoordinationCentre.AccessibleName = "Near-Earth Object Coordination Centre (NEOCC)";
+		toolStripMenuItemNearEarthObjectCoordinationCentre.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemNearEarthObjectCoordinationCentre.AutoToolTip = true;
+		toolStripMenuItemNearEarthObjectCoordinationCentre.Image = FatcowIcons16px.fatcow_external_16px;
+		toolStripMenuItemNearEarthObjectCoordinationCentre.Name = "toolStripMenuItemNearEarthObjectCoordinationCentre";
+		toolStripMenuItemNearEarthObjectCoordinationCentre.Size = new Size(331, 22);
+		toolStripMenuItemNearEarthObjectCoordinationCentre.Text = "Near-Earth Object Coordination Centre (NEOCC)";
+		toolStripMenuItemNearEarthObjectCoordinationCentre.Click += ToolStripMenuItemNearEarthObjectCoordinationCentre_Click;
+		toolStripMenuItemNearEarthObjectCoordinationCentre.MouseEnter += Control_Enter;
+		toolStripMenuItemNearEarthObjectCoordinationCentre.MouseLeave += Control_Leave;
 		// 
 		// toolStripSeparator17
 		// 
@@ -3201,7 +3231,7 @@ partial class PlanetoidDbForm
 		toolStripSeparator17.AccessibleName = "Separator";
 		toolStripSeparator17.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator17.Name = "toolStripSeparator17";
-		toolStripSeparator17.Size = new Size(251, 6);
+		toolStripSeparator17.Size = new Size(328, 6);
 		toolStripSeparator17.MouseEnter += Control_Enter;
 		toolStripSeparator17.MouseLeave += Control_Leave;
 		// 
@@ -3213,7 +3243,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOpenAllDataPages.AutoToolTip = true;
 		toolStripMenuItemOpenAllDataPages.Image = FatcowIcons16px.fatcow_external_16px;
 		toolStripMenuItemOpenAllDataPages.Name = "toolStripMenuItemOpenAllDataPages";
-		toolStripMenuItemOpenAllDataPages.Size = new Size(254, 22);
+		toolStripMenuItemOpenAllDataPages.Size = new Size(331, 22);
 		toolStripMenuItemOpenAllDataPages.Text = "Open all data pages";
 		toolStripMenuItemOpenAllDataPages.Click += ToolStripMenuItemOpenAllDataPages_Click;
 		toolStripMenuItemOpenAllDataPages.MouseEnter += Control_Enter;
@@ -4264,13 +4294,8 @@ partial class PlanetoidDbForm
 		// 
 		// toolStripSeparatorOptions1
 		// 
-		toolStripSeparatorOptions1.AccessibleDescription = "Just a separator";
-		toolStripSeparatorOptions1.AccessibleName = "Just a separator";
-		toolStripSeparatorOptions1.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparatorOptions1.Name = "toolStripSeparatorOptions1";
 		toolStripSeparatorOptions1.Size = new Size(6, 6);
-		toolStripSeparatorOptions1.MouseEnter += Control_Enter;
-		toolStripSeparatorOptions1.MouseLeave += Control_Leave;
 		// 
 		// backgroundWorkerLoadingDatabase
 		// 
@@ -4604,4 +4629,6 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem toolStripMenuItemAsteroidsDynamicSite;
 	private ToolStripSeparator toolStripSeparator17;
 	private ToolStripMenuItem toolStripMenuItemOpenAllDataPages;
+	private ToolStripMenuItem toolStripMenuItemNearEarthObjectsDynamicSite;
+	private ToolStripMenuItem toolStripMenuItemNearEarthObjectCoordinationCentre;
 }
