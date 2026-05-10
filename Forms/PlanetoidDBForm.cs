@@ -3077,6 +3077,18 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method decodes the MPCORB reference when the label is clicked.</remarks>
 	private void LabelReferenceData_Click(object sender, EventArgs e) => DecodeMpcorbReference();
 
+	/// <summary>Handles the Click event of the Observatory Codes button to open the <see cref="ObservatoryCodesForm"/>.</summary>
+	/// <param name="sender">The source of the event, typically the Observatory Codes button.</param>
+	/// <param name="e">An <see cref="EventArgs"/> object that contains the event data.</param>
+	/// <remarks>Opens the <see cref="ObservatoryCodesForm"/> as a modal dialog to display the list of observatory codes.</remarks>
+	private void ToolStripMenuItemObservatoryCodes_Click(object sender, EventArgs e)
+	{
+		// Open the ObservatoryCodesForm as a modal dialog to display the list of observatory codes. The form is set to be topmost based on the current state of the main form to ensure it appears above other windows.
+		using ObservatoryCodesForm formObservatoryCodes = new();
+		formObservatoryCodes.TopMost = TopMost;
+		_ = formObservatoryCodes.ShowDialog();
+	}
+
 	#endregion
 
 	#region DoubleClick event handlers
