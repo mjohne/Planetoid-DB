@@ -4294,8 +4294,12 @@ partial class PlanetoidDbForm
 		// 
 		// toolStripSeparatorOptions1
 		// 
+		toolStripSeparatorOptions1.AccessibleDescription = "Just a separator";
+		toolStripSeparatorOptions1.AccessibleName = "Just a separator";
 		toolStripSeparatorOptions1.Name = "toolStripSeparatorOptions1";
 		toolStripSeparatorOptions1.Size = new Size(6, 6);
+		toolStripSeparatorOptions1.MouseEnter += Control_Enter;
+		toolStripSeparatorOptions1.MouseLeave += Control_Leave;
 		// 
 		// backgroundWorkerLoadingDatabase
 		// 

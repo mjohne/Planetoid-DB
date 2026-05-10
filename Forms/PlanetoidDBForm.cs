@@ -3030,12 +3030,20 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		OpenWebsite(fileName: dataPageUrl);
 	}
 
+	/// <summary>Handles the Click event for the menu item that opens the Near-Earth Objects dynamic site in a web browser.</summary>
+	/// <remarks>This method constructs a URL for the Near-Earth Objects dynamic site using the current designation and opens it in the default web browser.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void ToolStripMenuItemNearEarthObjectsDynamicSite_Click(object sender, EventArgs e)
 	{
 		string dataPageUrl = "https://newton.spacedys.com/neodys/index.php?pc=1.1.0&n=" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text);
 		OpenWebsite(fileName: dataPageUrl);
 	}
 
+	/// <summary>Handles the Click event for the Near-Earth Object Coordination Centre menu item, opening the corresponding ESA NEO data page in a web browser.</summary>
+	/// <remarks>This event handler constructs a URL to the ESA Near-Earth Object Coordination Centre based on the current designation and opens it in the default web browser. Use this handler to provide quick access to detailed asteroid information from the application.</remarks>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void ToolStripMenuItemNearEarthObjectCoordinationCentre_Click(object sender, EventArgs e)
 	{
 		string dataPageUrl = "https://neo.ssa.esa.int/search-for-asteroids?tab=summary&des=" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text);
