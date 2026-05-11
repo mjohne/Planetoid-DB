@@ -3,6 +3,8 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using Krypton.Toolkit;
+
 using NLog;
 
 using Planetoid_DB.Forms;
@@ -12,12 +14,8 @@ using System.Drawing.Printing;
 
 namespace Planetoid_DB;
 
-/// <summary>Represents a form that enables users to print data sheets for orbital elements, providing options to select
-/// elements, configure print settings, and manage printing operations.</summary>
-/// <remarks>This form allows users to preview, print, and customize the output of orbital element data sheets. It
-/// supports marking and unmarking elements for inclusion, handles print cancellation, and provides progress feedback
-/// during printing. Use this form to facilitate user-driven printing workflows for orbital element data in a Windows
-/// Forms application.</remarks>
+/// <summary>Represents a form that enables users to print data sheets for orbital elements, providing options to select elements, configure print settings, and manage printing operations.</summary>
+/// <remarks>This form allows users to preview, print, and customize the output of orbital element data sheets. It supports marking and unmarking elements for inclusion, handles print cancellation, and provides progress feedback during printing. Use this form to facilitate user-driven printing workflows for orbital element data in a Windows Forms application.</remarks>
 // You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 
@@ -79,8 +77,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 
 	/// <summary>Checks or unchecks all items in the orbital elements checklist.</summary>
 	/// <param name="check">If true, all items are checked; if false, all items are unchecked.</param>
-	/// <remarks>This method iterates through all items in the orbital elements checklist
-	/// and sets their checked state based on the provided <paramref name="check"/> value.</remarks>
+	/// <remarks>This method iterates through all items in the orbital elements checklist and sets their checked state based on the provided <paramref name="check"/> value.</remarks>
 	private void CheckIt(bool check)
 	{
 		// Check or uncheck all items in the checked list box
@@ -96,8 +93,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	/// <summary>Determines whether there are any remaining checked items to print starting from the specified index.</summary>
 	/// <param name="startIndex">The index from which to start searching for checked items.</param>
 	/// <returns><see langword="true"/> if there is at least one checked item at or after <paramref name="startIndex"/>; otherwise, <see langword="false"/>.</returns>
-	/// <remarks>This method iterates through the checked list box items starting from the specified index
-	/// and checks if there are any remaining checked items.</remarks>
+	/// <remarks>This method iterates through the checked list box items starting from the specified index and checks if there are any remaining checked items.</remarks>
 	private bool HasMoreCheckedItems(int startIndex)
 	{
 		// Iterate through the checked list box items starting from the specified index
@@ -116,8 +112,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>Handles the Load event of the form.
-	/// Checks all items in the checked list box when the form loads.</summary>
+	/// <summary>Handles the Load event of the form. Checks all items in the checked list box when the form loads.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks> This method is called when the form loads.</remarks>
@@ -147,8 +142,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 
 	#region Click event handlers
 
-	/// <summary>Handles the Click event of the print button.
-	/// Opens a print dialog and prints the document if the user confirms.</summary>
+	/// <summary>Handles the Click event of the print button. Opens a print dialog and prints the document if the user confirms.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the print button is clicked.</remarks>
@@ -174,7 +168,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		{
 			// Print the document on the UI thread to ensure safe access to UI controls in event handlers
 			printDoc.Print();
-			MessageBox.Show(text: "Printing completed.", caption: "Print Data Sheet", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(text: "Printing completed.", caption: "Print Data Sheet", Kryptonbuttons: MessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 		}
 		catch (Exception ex)
 		{
@@ -191,8 +185,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Handles the Click event of the print preview button.
-	/// Opens a print preview dialog to preview the document before printing.</summary>
+	/// <summary>Handles the Click event of the print preview button. Opens a print preview dialog to preview the document before printing.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the print preview button is clicked.</remarks>
@@ -206,8 +199,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		_ = previewDialog.ShowDialog();
 	}
 
-	/// <summary>Handles the Click event of the page setup button.
-	/// Opens a page setup dialog to configure page settings.</summary>
+	/// <summary>Handles the Click event of the page setup button. Opens a page setup dialog to configure page settings.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the page setup button is clicked.</remarks>
@@ -249,8 +241,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 
 	#region PrintPage event handlers
 
-	/// <summary>Handles the BeginPrint event of the PrintDocument.
-	/// Resets the index for pagination.</summary>
+	/// <summary>Handles the BeginPrint event of the PrintDocument. Resets the index for pagination.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="PrintEventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called at the beginning of the print job to reset the pagination index and progress bar.</remarks>
@@ -262,8 +253,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		toolStripProgressBarPrinting.Text = "0%";
 	}
 
-	/// <summary>Handles the PrintPage event of the PrintDocument.
-	/// Configures the print settings and content.</summary>
+	/// <summary>Handles the PrintPage event of the PrintDocument. Configures the print settings and content.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="PrintPageEventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when a page is printed.</remarks>
