@@ -3,6 +3,8 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using Krypton.Toolkit;
+
 using NLog;
 
 using Planetoid_DB.Forms;
@@ -55,8 +57,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 
 	/// <summary>Checks or unchecks all items in the orbital elements checklist and toggles export buttons.</summary>
 	/// <param name="check">If true, all items are checked; if false, all items are unchecked.</param>
-	/// <remarks>This method is used to check or uncheck all items in the orbital elements checklist
-	/// and toggle the export buttons accordingly.</remarks>
+	/// <remarks>This method is used to check or uncheck all items in the orbital elements checklist and toggle the export buttons accordingly.</remarks>
 	private void CheckIt(bool check)
 	{
 		// Check or uncheck all items in the checked list box
@@ -95,8 +96,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>Fired when the export form loads.
-	/// Clears the status area and selects all available orbital elements by default.</summary>
+	/// <summary>Fired when the export form loads. Clears the status area and selects all available orbital elements by default.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to initialize the form and set up any necessary data.</remarks>
@@ -110,26 +110,19 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 
 	#region Click & ButtonClick event handlers
 
-	/// <summary>
-	/// Handles the Click event of the Mark All tool strip button.
-	/// Marks all items in the orbital elements checklist.
-	/// </summary>
+	/// <summary>Handles the Click event of the Mark All tool strip button. Marks all items in the orbital elements checklist.</summary>
 	/// <param name="sender">Event source (the Mark All tool strip button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>
-	/// This method is used to mark all items in the orbital elements checklist.
-	/// </remarks>
+	/// <remarks>This method is used to mark all items in the orbital elements checklist.</remarks>
 	private void ToolStripButtonMarkAll_Click(object sender, EventArgs e) => MarkAll();
 
-	/// <summary>Handles the Click event of the Unmark All tool strip button.
-	/// Unmarks all items in the orbital elements checklist.</summary>
+	/// <summary>Handles the Click event of the Unmark All tool strip button. Unmarks all items in the orbital elements checklist.</summary>
 	/// <param name="sender">Event source (the Unmark All tool strip button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to unmark all items in the orbital elements checklist.</remarks>
 	private void ToolStripButtonUnmarkAll_Click(object sender, EventArgs e) => UnmarkAll();
 
-	/// <summary>Handles the Click event of the Export As Text menu item.
-	/// Exports the selected orbital elements to a text file.</summary>
+	/// <summary>Handles the Click event of the Export As Text menu item. Exports the selected orbital elements to a text file.</summary>
 	/// <param name="sender">Event source (the Export As Text menu item).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to export the selected orbital elements to a text file.</remarks>
@@ -174,11 +167,10 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 			}
 		}
 		// Show a message box indicating that the data was exported successfully
-		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
-	/// <summary>Handles the Click event of the Export As LaTeX menu item.
-	/// Exports the selected orbital elements to a LaTeX file.</summary>
+	/// <summary>Handles the Click event of the Export As LaTeX menu item. Exports the selected orbital elements to a LaTeX file.</summary>
 	/// <param name="sender">Event source (the Export As LaTeX menu item).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to export the selected orbital elements to a LaTeX file.</remarks>
@@ -233,11 +225,10 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Write the LaTeX content to the file
 		streamWriter.Write(value: sb.ToString());
 		// Show a message box indicating that the data was exported successfully
-		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
-	/// <summary>Handles the Click event of the Export As Markdown menu item.
-	/// Exports the selected orbital elements to a Markdown file.</summary>
+	/// <summary>Handles the Click event of the Export As Markdown menu item. Exports the selected orbital elements to a Markdown file.</summary>
 	/// <param name="sender">Event source (the Export As Markdown menu item).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to export the selected orbital elements to a Markdown file.</remarks>
@@ -280,11 +271,10 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Write the Markdown content to the file
 		streamWriter.Write(value: sb.ToString());
 		// Show a message box indicating that the data was exported successfully
-		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
-	/// <summary>Handles the Click event of the Export As Word menu item.
-	/// Exports the selected orbital elements to a Word document.</summary>
+	/// <summary>Handles the Click event of the Export As Word menu item. Exports the selected orbital elements to a Word document.</summary>
 	/// <param name="sender">Event source (the Export As Word menu item).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to export the selected orbital elements to a Word document.</remarks>
@@ -402,7 +392,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		AddEntry(entryName: "_rels/.rels", content: rootRelsXml);
 		AddEntry(entryName: "word/document.xml", content: documentXml);
 		// Show a message box indicating that the data was exported successfully
-		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event for exporting data as an ODT document.</summary>
@@ -539,13 +529,11 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		AddEntry(entryName: "settings.xml", content: settingsXml);
 		AddEntry(entryName: "META-INF/manifest.xml", content: manifestXml);
 		// Show a message box indicating that the data was exported successfully
-		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event to export selected orbital element data as a Rich Text Format (RTF) document.</summary>
-	/// <remarks>This method displays a save file dialog allowing the user to specify the location and name of the
-	/// RTF file. It formats the selected orbital elements into RTF and writes the content to the chosen file. If no
-	/// elements are selected, the output will indicate this in the document.</remarks>
+	/// <remarks>This method displays a save file dialog allowing the user to specify the location and name of the RTF file. It formats the selected orbital elements into RTF and writes the content to the chosen file. If no elements are selected, the output will indicate this in the document.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs instance containing the event data.</param>
 	private void ToolStripMenuItemExportAsRtf_Click(object sender, EventArgs e)
@@ -604,13 +592,11 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Write the RTF content to the file
 		streamWriter.Write(value: sb.ToString());
 		// Show a message box indicating that the data was exported successfully
-		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event to export selected orbital element data to an Excel file in .xlsx format.</summary>
-	/// <remarks>This method displays a save file dialog allowing the user to specify the location and name of the
-	/// Excel file. It generates an Excel document containing the selected orbital elements from the list, formatted as
-	/// XML. If no elements are selected, the output will indicate this in the exported file.</remarks>
+	/// <remarks>This method displays a save file dialog allowing the user to specify the location and name of the Excel file. It generates an Excel document containing the selected orbital elements from the list, formatted as XML. If no elements are selected, the output will indicate this in the exported file.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs instance containing the event data.</param>
 	private void ToolStripMenuItemExportAsExcel_Click(object sender, EventArgs e)
@@ -724,7 +710,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		AddEntry(entryName: "xl/_rels/workbook.xml.rels", content: workbookRelsXml);
 		AddEntry(entryName: "xl/worksheets/sheet1.xml", content: worksheetXml);
 		// Show a message box indicating that the data was exported successfully
-		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event for exporting data as an ODS file.</summary>
@@ -855,7 +841,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		AddEntry(entryName: "settings.xml", content: settingsXml);
 		AddEntry(entryName: "META-INF/manifest.xml", content: manifestXml);
 		// Show a message box indicating that the data was exported successfully
-		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsCsv control.</summary>
@@ -902,7 +888,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 			}
 		}
 		// Show a message box indicating that the data was exported successfully
-		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsTsv control.</summary>
@@ -949,7 +935,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 			}
 		}
 		// Show a message box indicating that the data was exported successfully
-		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsPsv control.</summary>
@@ -996,7 +982,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 			}
 		}
 		// Show a message box indicating that the data was exported successfully
-		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsHtml control.</summary>
@@ -1063,7 +1049,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Write the HTML content to the file
 		streamWriter.Write(value: sb.ToString());
 		// Show a message box indicating that the data was exported successfully
-		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsXml control.</summary>
@@ -1153,7 +1139,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Write the XML content to the file
 		streamWriter.Write(value: sb.ToString());
 		// Show a message box indicating that the data was exported successfully
-		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsJson control.</summary>
@@ -1242,7 +1228,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Write the JSON content to the file
 		streamWriter.Write(value: sb.ToString());
 		// Show a message box indicating that the data was exported successfully
-		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsYaml control.</summary>
@@ -1286,14 +1272,13 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Write the YAML content to the file
 		streamWriter.Write(value: sb.ToString());
 		// Show a message box indicating that the data was exported successfully
-		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsSql control.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-	/// <remarks>
-	/// This method allows the user to export the selected orbital elements as a SQL file.</remarks>
+	/// <remarks>This method allows the user to export the selected orbital elements as a SQL file.</remarks>
 	private void ToolStripMenuItemExportAsSql_Click(object sender, EventArgs e)
 	{
 		// Create a new SaveFileDialog to allow the user to select the file path and name for the exported SQL file
@@ -1361,7 +1346,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Write the SQL content to the file
 		streamWriter.Write(value: sb.ToString());
 		// Show a message box indicating that the data was exported successfully
-		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsPdf control.</summary>
@@ -1493,7 +1478,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Write the content of the MemoryStream to the specified file path as a PDF file
 		File.WriteAllBytes(path: saveFileDialogPdf.FileName, bytes: memoryStream.ToArray());
 		// Show a message box indicating that the data was exported successfully
-		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event for exporting data as a PostScript file.</summary>
@@ -1560,7 +1545,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		_ = sb.AppendLine(value: "showpage");
 		streamWriter.Write(value: sb.ToString());
 		// Show a message box indicating that the data was exported successfully
-		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event for the "Export as EPUB" menu item.</summary>
@@ -1698,7 +1683,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		AddEntry(entryName: "OEBPS/nav.xhtml", content: navXhtml);
 		AddEntry(entryName: "OEBPS/content.xhtml", content: contentXhtml);
 		// Show a message box indicating that the data was exported successfully
-		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event for the "Export as MOBI" menu item.</summary>
@@ -1750,16 +1735,14 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Write the content of the StringBuilder to the specified file path as a MOBI file
 		File.WriteAllBytes(path: saveFileDialogMobi.FileName, bytes: Encoding.UTF8.GetBytes(s: sb.ToString()));
 		// Show a message box indicating that the data was exported successfully
-		MessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	#endregion
 
 	#region SelectedIndexChanged event handlers
 
-	/// <summary>Handles the SelectedIndexChanged event of the orbital elements checklist.
-	/// Enables or disables the export buttons depending on whether any items are checked.
-	/// If all items are unmarked (unchecked) the export buttons are disabled; otherwise they are enabled.</summary>
+	/// <summary>Handles the SelectedIndexChanged event of the orbital elements checklist. Enables or disables the export buttons depending on whether any items are checked. If all items are unmarked (unchecked) the export buttons are disabled; otherwise they are enabled.</summary>
 	/// <param name="sender">Event source (the checked list box).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to enable or disable the export buttons based on the selection state of the orbital elements.</remarks>
