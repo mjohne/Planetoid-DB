@@ -3,6 +3,8 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using Krypton.Toolkit;
+
 using NLog;
 
 using System.Data.SQLite;
@@ -69,11 +71,7 @@ public static partial class TextBoxExporter
 	private static void ShowSuccess()
 	{
 		// Log the successful save operation at the Info level.
-		_ = MessageBox.Show(
-			text: I18nStrings.FileSavedSuccessfully,
-			caption: I18nStrings.InformationCaption,
-			buttons: MessageBoxButtons.OK,
-			icon: MessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Logs and shows an error that occurred while saving a file.</summary>
@@ -85,11 +83,7 @@ public static partial class TextBoxExporter
 	{
 		// Log the error with details about the format and file path.
 		logger.Error(exception: ex, message: $"Error saving as {format} to '{{FilePath}}'.", args: filePath);
-		_ = MessageBox.Show(
-			text: $"Error saving as {format}: {ex.Message}",
-			caption: I18nStrings.ErrorCaption,
-			buttons: MessageBoxButtons.OK,
-			icon: MessageBoxIcon.Error);
+		_ = ShowErrorMessage(message: $"Error saving as {format}: {ex.Message}");
 	}
 
 	#endregion
@@ -99,8 +93,7 @@ public static partial class TextBoxExporter
 	/// <summary>Saves the content of the specified TextBox to a text file, including a title and a separator line.</summary>
 	/// <remarks>The method writes the title, a separator line, and the TextBox content to the file using UTF-8 encoding. If an I/O or access error occurs, an error message is displayed to the user.</remarks>
 	/// <param name="textBox">The TextBox whose text content will be saved to the file. Cannot be null.</param>
-	/// <param name="title">The title to write as the first line of the file. The length of this string determines the length of the separator
-	/// line.</param>
+	/// <param name="title">The title to write as the first line of the file. The length of this string determines the length of the separator line.</param>
 	/// <param name="fileName">The full path and name of the file to which the content will be saved. If the file exists, it will be overwritten.</param>
 	public static void SaveAsText(TextBox textBox, string title, string fileName)
 	{
@@ -235,8 +228,7 @@ public static partial class TextBoxExporter
 		}
 	}
 
-	/// <summary>Saves the contents of the specified text box to a file in Textile markup format, using the provided title as a
-	/// heading.</summary>
+	/// <summary>Saves the contents of the specified text box to a file in Textile markup format, using the provided title as a heading.</summary>
 	/// <remarks>Each line from the text box is written as a separate paragraph in the output file. The method writes the title as a level-one heading at the top of the file. The file is saved using UTF-8 encoding. If an I/O or access error occurs, an error message is displayed to the user.</remarks>
 	/// <param name="textBox">The text box whose lines are to be saved as Textile-formatted paragraphs. Cannot be null.</param>
 	/// <param name="title">The title to use as the main heading in the Textile file. This will be written as a level-one heading.</param>
@@ -265,8 +257,7 @@ public static partial class TextBoxExporter
 		}
 	}
 
-	/// <summary>
-	/// Saves the contents of the specified text box as a Microsoft Word document in the .docx format at the given file path, using the provided title as the document heading.</summary>
+	/// <summary>Saves the contents of the specified text box as a Microsoft Word document in the .docx format at the given file path, using the provided title as the document heading.</summary>
 	/// <remarks>If a file already exists at the specified path, it will be overwritten. The method creates a minimal .docx file containing the title and each line of the text box as a separate paragraph. If an I/O or access error occurs, an error message is displayed to the user.</remarks>
 	/// <param name="textBox">The text box whose lines will be exported to the Word document. Cannot be null.</param>
 	/// <param name="title">The title to use as the heading of the Word document. If null, an empty title is used.</param>
@@ -619,8 +610,7 @@ public static partial class TextBoxExporter
 	}
 
 	/// <summary>Saves the contents of the specified TextBox as a WPS-compatible HTML file with the given title.</summary>
-	/// <remarks>The method encodes all text to ensure valid HTML output. If an I/O or access error occurs during
-	/// saving, an error message is displayed to the user.</remarks>
+	/// <remarks>The method encodes all text to ensure valid HTML output. If an I/O or access error occurs during saving, an error message is displayed to the user.</remarks>
 	/// <param name="textBox">The TextBox whose lines will be exported to the WPS file. Cannot be null.</param>
 	/// <param name="title">The title to use for the HTML document. This value is used in the document's <c>title</c> element and as a heading.</param>
 	/// <param name="fileName">The full path and file name where the WPS file will be saved. If the file exists, it will be overwritten.</param>
@@ -657,8 +647,7 @@ public static partial class TextBoxExporter
 	/// <param name="textBox">The TextBox control whose lines will be written as rows in the generated Excel worksheet. Cannot be null.</param>
 	/// <param name="title">The title to be written as the first row in the Excel worksheet. This value appears as the header of the exported data.</param>
 	/// <param name="fileName">The full path and file name for the Excel file to create. If a file with the same name exists, it will be overwritten.</param>
-	public static void SaveAsExcel(TextBox textBox, string title, string fileName) =>
-		SaveAsXlsx(textBox: textBox, title: title, fileName: fileName);
+	public static void SaveAsExcel(TextBox textBox, string title, string fileName) => SaveAsXlsx(textBox: textBox, title: title, fileName: fileName);
 
 	/// <summary>Saves the contents of the specified TextBox as a PDF document.</summary>
 	/// <remarks>The method creates a valid PDF document using a consistent object numbering scheme (Catalog, Pages, Font, then Page/Content pairs). A proper cross-reference table with computed byte offsets is appended before the trailer so that PDF readers can locate each object. If an I/O or access error occurs during saving, an error message is displayed to the user.</remarks>
@@ -955,17 +944,11 @@ public static partial class TextBoxExporter
 	public static void SaveAsChm(TextBox textBox, string title, string fileName)
 	{
 		// The method uses the Microsoft HTML Help Workshop (hhc.exe) to compile a CHM file. It creates temporary files for the HTML content, the table of contents (HHC), and the project file (HHP). The HTML content is generated from the lines in the TextBox, and the HHC and HHP files are created with the necessary structure for compiling a CHM file. The method then invokes hhc.exe with the project file to compile the CHM. If the compilation is successful, the resulting CHM file is copied to the specified location. If the compilation fails or if an I/O error occurs, an error message is displayed to the user.
-		string hhcPath = Path.Combine(
-			path1: Environment.GetFolderPath(folder: Environment.SpecialFolder.ProgramFilesX86),
-			path2: @"HTML Help Workshop\hhc.exe");
+		string hhcPath = Path.Combine(path1: Environment.GetFolderPath(folder: Environment.SpecialFolder.ProgramFilesX86), path2: @"HTML Help Workshop\hhc.exe");
 		// Check if the hhc.exe file exists at the expected location. If it does not exist, show an error message to the user indicating that Microsoft HTML Help Workshop is not installed or not found, and return from the method without attempting to compile the CHM file.
 		if (!File.Exists(path: hhcPath))
 		{
-			_ = MessageBox.Show(
-				text: "Microsoft HTML Help Workshop is not installed or not found at the default location. Cannot compile CHM file.",
-				caption: I18nStrings.ErrorCaption,
-				buttons: MessageBoxButtons.OK,
-				icon: MessageBoxIcon.Error);
+			_ = ShowErrorMessage(message: "Microsoft HTML Help Workshop is not installed or not found at the default location. Cannot compile CHM file.");
 			return;
 		}
 		// Create a temporary directory to store the HTML, HHC, and HHP files needed for compiling the CHM. The directory is created in the system's temporary folder with a unique name generated using a GUID. This ensures that the temporary files do not conflict with any existing files and can be safely cleaned up after the compilation process.
@@ -1040,11 +1023,7 @@ public static partial class TextBoxExporter
 			}
 			else
 			{
-				_ = MessageBox.Show(
-					text: "Failed to compile the CHM file.",
-					caption: I18nStrings.ErrorCaption,
-					buttons: MessageBoxButtons.OK,
-					icon: MessageBoxIcon.Error);
+				ShowErrorMessage(message: "Failed to compile the CHM file.");
 			}
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
