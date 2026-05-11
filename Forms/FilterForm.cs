@@ -3,6 +3,8 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using Krypton.Toolkit;
+
 using NLog;
 
 using Planetoid_DB.Forms;
@@ -46,8 +48,7 @@ public partial class FilterForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>Fired when the filter form has finished loading.
-	/// Clears the status area so no message is shown on startup.</summary>
+	/// <summary>Fired when the filter form has finished loading. Clears the status area so no message is shown on startup.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to initialize the form and set up any necessary data.</remarks>
@@ -57,8 +58,7 @@ public partial class FilterForm : BaseKryptonForm
 
 	#region Click & ButtonClick event handlers
 
-	/// <summary>Handles the Click event of the ButtonResetMeanAnomalyAtTheEpoch.
-	/// Resets the mean anomaly at the epoch filter.</summary>
+	/// <summary>Handles the Click event of the ButtonResetMeanAnomalyAtTheEpoch. Resets the mean anomaly at the epoch filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset the mean anomaly at the epoch filter.</remarks>
@@ -67,8 +67,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the Click event of the ButtonResetArgumentOfThePerihelion.
-	/// Resets the argument of the perihelion filter.</summary>
+	/// <summary>Handles the Click event of the ButtonResetArgumentOfThePerihelion. Resets the argument of the perihelion filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset the argument of the perihelion filter.</remarks>
@@ -77,8 +76,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the Click event of the ButtonResetLongitudeOfTheAscendingNode.
-	/// Resets the longitude of the ascending node filter.</summary>
+	/// <summary>Handles the Click event of the ButtonResetLongitudeOfTheAscendingNode. Resets the longitude of the ascending node filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset the longitude of the ascending node filter.</remarks>
@@ -87,8 +85,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the Click event of the ButtonResetInclination.
-	/// Resets the inclination filter.</summary>
+	/// <summary>Handles the Click event of the ButtonResetInclination. Resets the inclination filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset the inclination filter.</remarks>
@@ -97,8 +94,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the Click event of the ButtonResetOrbitalEccentricity.
-	/// Resets the orbital eccentricity filter.</summary>
+	/// <summary>Handles the Click event of the ButtonResetOrbitalEccentricity. Resets the orbital eccentricity filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset the orbital eccentricity filter.</remarks>
@@ -107,8 +103,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the Click event of the ButtonResetMeanDailyMotion.
-	/// Resets the mean daily motion filter.</summary>
+	/// <summary>Handles the Click event of the ButtonResetMeanDailyMotion. Resets the mean daily motion filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset the mean daily motion filter.</remarks>
@@ -117,8 +112,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the Click event of the ButtonResetSemiMajorAxis.
-	/// Resets the semi-major axis filter.</summary>
+	/// <summary>Handles the Click event of the ButtonResetSemiMajorAxis. Resets the semi-major axis filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset the semi-major axis filter.</remarks>
@@ -127,8 +121,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the Click event of the ButtonResetAbsoluteMagnitude.
-	/// Resets the absolute magnitude filter.</summary>
+	/// <summary>Handles the Click event of the ButtonResetAbsoluteMagnitude. Resets the absolute magnitude filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset the absolute magnitude filter.</remarks>
@@ -137,8 +130,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the Click event of the ButtonResetSlopeParameter.
-	/// Resets the slope parameter filter.</summary>
+	/// <summary>Handles the Click event of the ButtonResetSlopeParameter. Resets the slope parameter filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset the slope parameter filter.</remarks>
@@ -147,8 +139,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the Click event of the ButtonNumberOfOppositions.
-	/// Resets the number of oppositions filter.</summary>
+	/// <summary>Handles the Click event of the ButtonNumberOfOppositions. Resets the number of oppositions filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset the number of oppositions filter.</remarks>
@@ -158,8 +149,7 @@ public partial class FilterForm : BaseKryptonForm
 	}
 
 	/// <summary>
-	/// Handles the Click event of the ButtonResetNumberOfObservations.
-	/// Resets the number of observations filter.</summary>
+	/// Handles the Click event of the ButtonResetNumberOfObservations. Resets the number of observations filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset the number of observations filter.</remarks>
@@ -168,8 +158,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the Click event of the ButtonResetRmsResidual.
-	/// Resets the RMS residual filter.</summary>
+	/// <summary>Handles the Click event of the ButtonResetRmsResidual. Resets the RMS residual filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset the RMS residual filter.</remarks>
@@ -178,8 +167,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the Click event of the ButtonApply.
-	/// Applies the filter settings.</summary>
+	/// <summary>Handles the Click event of the ButtonApply. Applies the filter settings.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to apply the filter settings.</remarks>
@@ -188,8 +176,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the Click event of the ButtonCancel.
-	/// Cancels the filter settings and closes the form.</summary>
+	/// <summary>Handles the Click event of the ButtonCancel. Cancels the filter settings and closes the form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to cancel the filter settings and close the form.</remarks>
@@ -198,8 +185,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the Click event of the ButtonReset.
-	/// Resets all filter settings to their default values.</summary>
+	/// <summary>Handles the Click event of the ButtonReset. Resets all filter settings to their default values.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset all filter settings to their default values.</remarks>
@@ -212,8 +198,7 @@ public partial class FilterForm : BaseKryptonForm
 
 	#region ValueChanged event handlers
 
-	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumMeanAnomalyAtTheEpoch.
-	/// Updates the minimum mean anomaly at the epoch filter.</summary>
+	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumMeanAnomalyAtTheEpoch. Updates the minimum mean anomaly at the epoch filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the minimum mean anomaly at the epoch filter.</remarks>
@@ -222,8 +207,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumMeanAnomalyAtTheEpoch.
-	/// Updates the maximum mean anomaly at the epoch filter.</summary>
+	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumMeanAnomalyAtTheEpoch. Updates the maximum mean anomaly at the epoch filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the maximum mean anomaly at the epoch filter.</remarks>
@@ -232,8 +216,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumArgumentOfThePerihelion.
-	/// Updates the minimum argument of the perihelion filter.</summary>
+	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumArgumentOfThePerihelion. Updates the minimum argument of the perihelion filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the minimum argument of the perihelion filter.</remarks>
@@ -242,8 +225,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumArgumentOfThePerihelion.
-	/// Updates the maximum argument of the perihelion filter.</summary>
+	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumArgumentOfThePerihelion. Updates the maximum argument of the perihelion filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the maximum argument of the perihelion filter.</remarks>
@@ -252,8 +234,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumLongitudeOfTheAscendingNode.
-	/// Updates the minimum longitude of the ascending node filter.</summary>
+	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumLongitudeOfTheAscendingNode. Updates the minimum longitude of the ascending node filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the minimum longitude of the ascending node filter.</remarks>
@@ -262,8 +243,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumLongitudeOfTheAscendingNode.
-	/// Updates the maximum longitude of the ascending node filter.</summary>
+	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumLongitudeOfTheAscendingNode. Updates the maximum longitude of the ascending node filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the maximum longitude of the ascending node filter.</remarks>
@@ -272,8 +252,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumInclination.
-	/// Updates the minimum inclination filter.</summary>
+	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumInclination. Updates the minimum inclination filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the minimum inclination filter.</remarks>
@@ -282,8 +261,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumInclination.
-	/// Updates the maximum inclination filter.</summary>
+	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumInclination. Updates the maximum inclination filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the maximum inclination filter.</remarks>
@@ -292,8 +270,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumOrbitalEccentricity.
-	/// Updates the minimum orbital eccentricity filter.</summary>
+	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumOrbitalEccentricity. Updates the minimum orbital eccentricity filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the minimum orbital eccentricity filter.</remarks>
@@ -302,8 +279,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumOrbitalEccentricity.
-	/// Updates the maximum orbital eccentricity filter.</summary>
+	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumOrbitalEccentricity. Updates the maximum orbital eccentricity filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the maximum orbital eccentricity filter.</remarks>
@@ -312,8 +288,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumMeanDailyMotion.
-	/// Updates the minimum mean daily motion filter.</summary>
+	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumMeanDailyMotion. Updates the minimum mean daily motion filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the minimum mean daily motion filter.</remarks>
@@ -322,8 +297,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumMeanDailyMotion.
-	/// Updates the maximum mean daily motion filter.</summary>
+	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumMeanDailyMotion. Updates the maximum mean daily motion filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the maximum mean daily motion filter.</remarks>
@@ -332,8 +306,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumSemiMajorAxis.
-	/// Updates the minimum semi-major axis filter.</summary>
+	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumSemiMajorAxis. Updates the minimum semi-major axis filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the minimum semi-major axis filter.</remarks>
@@ -342,8 +315,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumSemiMajorAxis.
-	/// Updates the maximum semi-major axis filter.</summary>
+	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumSemiMajorAxis. Updates the maximum semi-major axis filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the maximum semi-major axis filter.</remarks>
@@ -352,8 +324,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumAbsoluteMagnitude.
-	/// Updates the minimum absolute magnitude filter.</summary>
+	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumAbsoluteMagnitude. Updates the minimum absolute magnitude filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the minimum absolute magnitude filter.</remarks>
@@ -362,8 +333,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumAbsoluteMagnitude.
-	/// Updates the maximum absolute magnitude filter.</summary>
+	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumAbsoluteMagnitude. Updates the maximum absolute magnitude filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the maximum absolute magnitude filter.</remarks>
@@ -372,8 +342,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumSlopeParameter.
-	/// Updates the minimum slope parameter filter.</summary>
+	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumSlopeParameter. Updates the minimum slope parameter filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the minimum slope parameter filter.</remarks>
@@ -382,8 +351,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumSlopeParameter.
-	/// Updates the maximum slope parameter filter.</summary>
+	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumSlopeParameter. Updates the maximum slope parameter filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the maximum slope parameter filter.</remarks>
@@ -392,8 +360,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumNumberOfOppositions.
-	/// Updates the minimum number of oppositions filter.</summary>
+	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumNumberOfOppositions. Updates the minimum number of oppositions filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the minimum number of oppositions filter.</remarks>
@@ -402,8 +369,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumNumberOfOppositions.
-	/// Updates the maximum number of oppositions filter.</summary>
+	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumNumberOfOppositions. Updates the maximum number of oppositions filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the maximum number of oppositions filter.</remarks>
@@ -412,8 +378,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumNumberOfObservations.
-	/// Updates the minimum number of observations filter.</summary>
+	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumNumberOfObservations. Updates the minimum number of observations filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the minimum number of observations filter.</remarks>
@@ -422,8 +387,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumNumberOfObservations.
-	/// Updates the maximum number of observations filter.</summary>
+	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumNumberOfObservations. Updates the maximum number of observations filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the maximum number of observations filter.</remarks>
@@ -432,8 +396,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumRmsResidual.
-	/// Updates the minimum RMS residual filter.</summary>
+	/// <summary>Handles the ValueChanged event of the NumericUpDownMinimumRmsResidual. Updates the minimum RMS residual filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the minimum RMS residual filter.</remarks>
@@ -442,8 +405,7 @@ public partial class FilterForm : BaseKryptonForm
 		//TODO: Implement method
 	}
 
-	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumRmsResidual.
-	/// Updates the maximum RMS residual filter.</summary>
+	/// <summary>Handles the ValueChanged event of the NumericUpDownMaximumRmsResidual. Updates the maximum RMS residual filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to update the maximum RMS residual filter.</remarks>
