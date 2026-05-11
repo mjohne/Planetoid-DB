@@ -3,6 +3,8 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using Krypton.Toolkit;
+
 using NLog;
 
 using System.Data.SQLite;
@@ -15,12 +17,7 @@ using System.Xml;
 namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides static methods for saving the contents of a <see cref="ListView"/> to various file formats.</summary>
-/// <remarks>Each method accepts the source <see cref="ListView"/>, a document title used in the file content,
-/// and the full file-system path of the output file. Column headers are read from the ListView column collection;
-/// row data is read from either the normal items collection or (in virtual mode) by requesting items via the
-/// <see cref="ListView.RetrieveVirtualItem"/> event handler of the owning form. Compressed file formats
-/// (DOCX, ODT, ODS, XLSX, EPUB) are written as proper ZIP archives rather than flat XML files.
-/// SQLite export requires System.Data.SQLite; CHM export requires Microsoft HTML Help Workshop (hhc.exe).</remarks>
+/// <remarks>Each method accepts the source <see cref="ListView"/>, a document title used in the file content, and the full file-system path of the output file. Column headers are read from the ListView column collection; row data is read from either the normal items collection or (in virtual mode) by requesting items via the <see cref="ListView.RetrieveVirtualItem"/> event handler of the owning form. Compressed file formats (DOCX, ODT, ODS, XLSX, EPUB) are written as proper ZIP archives rather than flat XML files. SQLite export requires System.Data.SQLite; CHM export requires Microsoft HTML Help Workshop (hhc.exe).</remarks>
 public static partial class ListViewExporter
 {
 	/// <summary>NLog logger for logging messages and errors.</summary>
@@ -49,10 +46,7 @@ public static partial class ListViewExporter
 
 	/// <summary>Enumerates each row of the <see cref="ListView"/> as an array of cell strings.</summary>
 	/// <param name="listView">The list view to read from.</param>
-	/// <param name="virtualRowProvider">An optional factory delegate invoked with the row index to supply
-	/// <see cref="ListViewItem"/> instances when the list view is in virtual mode.
-	/// When <see langword="null"/> in virtual mode, <see cref="ListView.Items"/> indexer is used instead,
-	/// which triggers the <see cref="ListView.RetrieveVirtualItem"/> event.</param>
+	/// <param name="virtualRowProvider">An optional factory delegate invoked with the row index to supply <see cref="ListViewItem"/> instances when the list view is in virtual mode. When <see langword="null"/> in virtual mode, <see cref="ListView.Items"/> indexer is used instead, which triggers the <see cref="ListView.RetrieveVirtualItem"/> event.</param>
 	/// <returns>An enumerable of string arrays, one per row.</returns>
 	/// <remarks>Works for both normal and virtual-mode list views.</remarks>
 	private static IEnumerable<string[]> GetRows(ListView listView, Func<int, ListViewItem>? virtualRowProvider = null)
@@ -124,11 +118,7 @@ public static partial class ListViewExporter
 	private static void ShowSuccess()
 	{
 		// Log the successful save operation at the Info level.
-		_ = MessageBox.Show(
-			text: I18nStrings.FileSavedSuccessfully,
-			caption: I18nStrings.InformationCaption,
-			buttons: MessageBoxButtons.OK,
-			icon: MessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Logs and shows an error that occurred while saving a file.</summary>
@@ -140,11 +130,7 @@ public static partial class ListViewExporter
 	{
 		// Log the error with details about the format and file path.
 		logger.Error(exception: ex, message: $"Error saving as {format} to '{{FilePath}}'.", args: filePath);
-		_ = MessageBox.Show(
-			text: $"Error saving as {format}: {ex.Message}",
-			caption: I18nStrings.ErrorCaption,
-			buttons: MessageBoxButtons.OK,
-			icon: MessageBoxIcon.Error);
+		ShowErrorMessage(message: $"Error saving as {format}: {ex.Message}");
 	}
 
 	#endregion
@@ -2040,8 +2026,7 @@ public static partial class ListViewExporter
 	/// <param name="title">The CHM title used in HTML content and the HHP project file.</param>
 	/// <param name="fileName">The full path of the output file.</param>
 	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
-	/// <remarks>Requires Microsoft HTML Help Workshop (<c>hhc.exe</c>) to be installed. If it is not found,
-	/// an error message is shown and no file is written.</remarks>
+	/// <remarks>Requires Microsoft HTML Help Workshop (<c>hhc.exe</c>) to be installed. If it is not found, an error message is shown and no file is written.</remarks>
 	public static void SaveAsChm(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
 	{
 		// Get the column headers and rows, generate the necessary HTML, HHC, and HHP files in a temporary directory, and invoke the HTML Help Workshop compiler (hhc.exe) to create the CHM file. The method checks for the presence of hhc.exe in the default installation path and shows an error message if it is not found. If hhc.exe is available, it creates a temporary directory to store the intermediate files, generates an index.html file with the ListView data formatted as a table, a toc.hhc file for the table of contents, and a project.hhp file for the project configuration. It then runs hhc.exe with the project file to compile the CHM. If compilation is successful and the CHM file is created, it copies the resulting CHM to the specified output path. Finally, it cleans up the temporary directory and shows a success message or an error message if compilation fails.
@@ -2051,11 +2036,7 @@ public static partial class ListViewExporter
 			path2: @"HTML Help Workshop\hhc.exe");
 		if (!File.Exists(path: hhcPath))
 		{
-			_ = MessageBox.Show(
-				text: "Microsoft HTML Help Workshop is not installed or not found at the default location. Cannot compile CHM file.",
-				caption: I18nStrings.ErrorCaption,
-				buttons: MessageBoxButtons.OK,
-				icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: "Microsoft HTML Help Workshop is not installed or not found at the default location. Cannot compile CHM file.");
 			return;
 		}
 		// Create a temporary directory to store the intermediate files needed for CHM compilation. The directory is created in the system's temporary path with a unique name generated using a GUID. After the compilation process, the temporary directory and its contents will be deleted to clean up any intermediate files.
@@ -2139,11 +2120,7 @@ public static partial class ListViewExporter
 			else
 			{
 				// If the CHM file was not created, show an error message to the user.
-				_ = MessageBox.Show(
-					text: "Failed to compile the CHM file.",
-					caption: I18nStrings.ErrorCaption,
-					buttons: MessageBoxButtons.OK,
-					icon: MessageBoxIcon.Error);
+				ShowErrorMessage(message: "Failed to compile the CHM file.");
 			}
 		}
 		// Catch any exceptions that occur during the file generation and compilation process, log the error, and show an error message to the user.
