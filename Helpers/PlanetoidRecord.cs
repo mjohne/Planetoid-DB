@@ -6,26 +6,26 @@
 namespace Planetoid_DB.Helpers;
 
 /// <summary>Represents a single planetoid dataset.</summary>
-/// <param name="Index"></param>
-/// <param name="MagAbs"></param>
-/// <param name="SlopeParam"></param>
-/// <param name="Epoch"></param>
-/// <param name="MeanAnomaly"></param>
-/// <param name="ArgPeri"></param>
-/// <param name="LongAscNode"></param>
-/// <param name="Incl"></param>
-/// <param name="OrbEcc"></param>
-/// <param name="Motion"></param>
-/// <param name="SemiMajorAxis"></param>
-/// <param name="Ref"></param>
-/// <param name="NumberObservation"></param>
-/// <param name="NumberOpposition"></param>
-/// <param name="ObsSpan"></param>
-/// <param name="RmsResidual"></param>
-/// <param name="ComputerName"></param>
-/// <param name="Flags"></param>
-/// <param name="DesignationName"></param>
-/// <param name="ObservationLastDate"></param>
+/// <param name="Index">index of the planetoid</param>
+/// <param name="MagAbs">absolute magnitude of the planetoid</param>
+/// <param name="SlopeParam">slope parameter of the planetoid</param>
+/// <param name="Epoch">epoch of the planetoid</param>
+/// <param name="MeanAnomaly">mean anomaly of the planetoid</param>
+/// <param name="ArgPeri">argument of perihelion of the planetoid</param>
+/// <param name="LongAscNode">longitude of the ascending node of the planetoid</param>
+/// <param name="Incl">inclination of the planetoid</param>
+/// <param name="OrbEcc">orbital eccentricity of the planetoid</param>
+/// <param name="Motion">mean daily motion of the planetoid</param>
+/// <param name="SemiMajorAxis">semi-major axis of the planetoid</param>
+/// <param name="Ref">reference of the planetoid</param>
+/// <param name="NumberObservation">number of observations of the planetoid</param>
+/// <param name="NumberOpposition">number of oppositions of the planetoid</param>
+/// <param name="ObsSpan">observation span of the planetoid</param>
+/// <param name="RmsResidual">root mean square residual of the planetoid</param>
+/// <param name="ComputerName">computer name of the planetoid</param>
+/// <param name="Flags">flags of the planetoid</param>
+/// <param name="DesignationName">designation name of the planetoid</param>
+/// <param name="ObservationLastDate">observation last date of the planetoid</param>
 /// <remarks>This record struct is used to represent a single planetoid dataset.</remarks>
 public readonly record struct PlanetoidRecord(
 	string Index, // Gets the index of the planetoid.
