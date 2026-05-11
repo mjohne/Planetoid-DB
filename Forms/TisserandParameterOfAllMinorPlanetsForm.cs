@@ -130,7 +130,7 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			logger.Error(message: $"An error occurred during export: {ex}");
-			MessageBox.Show(text: $"An error has occurred during export: {ex.Message}", caption: "Export Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: $"An error has occurred during export: {ex.Message}");
 		}
 		// In the finally block, ensure that the cursor is reset to the default state regardless of whether the export action succeeds or fails.
 		finally
@@ -308,11 +308,7 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	{
 		if (_planetoids.Count == 0)
 		{
-			_ = MessageBox.Show(
-				text: "No planetoid data available.",
-				caption: I18nStrings.InformationCaption,
-				buttons: MessageBoxButtons.OK,
-				icon: MessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(text: "No planetoid data available.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
 		// Disable the Start button and save menu during the calculation
