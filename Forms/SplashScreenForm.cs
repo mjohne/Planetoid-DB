@@ -48,8 +48,9 @@ public partial class SplashScreenForm : BaseKryptonForm
 		// If the value is less than the minimum or greater than the maximum, throw an exception
 		if (value < progressBarSplash.Minimum || value > progressBarSplash.Maximum)
 		{
-			// Log the error and throw an exception
+			// Log the error and show a error message
 			logger.Error(message: $"Value {value} is out of range for the progress bar. Minimum: {progressBarSplash.Minimum}, Maximum: {progressBarSplash.Maximum}");
+			ShowErrorMessage(message: message: $"Value {value} is out of range for the progress bar. Minimum: {progressBarSplash.Minimum}, Maximum: {progressBarSplash.Maximum}");
 			// Throw an exception indicating that the value is out of range
 			throw new ArgumentOutOfRangeException(paramName: nameof(value), message: I18nStrings.IndexOutOfRange);
 		}
@@ -62,8 +63,7 @@ public partial class SplashScreenForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>Fired when the splash screen form loads.
-	/// Sets the product version text on the form's labels.</summary>
+	/// <summary>Fired when the splash screen form loads. Sets the product version text on the form's labels.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the splash screen form loads.</remarks>
