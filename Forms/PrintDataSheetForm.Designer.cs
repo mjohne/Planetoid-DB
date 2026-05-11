@@ -11,12 +11,8 @@ using System.ComponentModel;
 
 namespace Planetoid_DB;
 
-/// <summary>
-/// Represents a dialog form that enables users to print a data sheet containing selected orbital elements.
-/// </summary>
-/// <remarks>This form provides options for users to choose which orbital elements to include in the printed data
-/// sheet. It includes controls for printing, print preview, print setup, and marking or unmarking all elements. The
-/// form is intended to be used as a modal dialog and does not appear in the taskbar.</remarks>
+/// <summary>Represents a dialog form that enables users to print a data sheet containing selected orbital elements.</summary>
+/// <remarks>This form provides options for users to choose which orbital elements to include in the printed data sheet. It includes controls for printing, print preview, print setup, and marking or unmarking all elements. The form is intended to be used as a modal dialog and does not appear in the taskbar.</remarks>
     partial class PrintDataSheetForm
     {
         /// <summary>Required designer variable.</summary>
@@ -37,8 +33,7 @@ namespace Planetoid_DB;
 
 	#region Windows Form Designer generated code
 
-	/// <summary>Required method for Designer support - do not modify
-	/// the contents of this method with the code editor.</summary>
+	/// <summary>Required method for Designer support - do not modify the contents of this method with the code editor.</summary>
 	/// <remarks>This method initializes the components of the form.</remarks>
 	private void InitializeComponent()
 	{

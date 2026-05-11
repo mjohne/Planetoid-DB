@@ -11,12 +11,8 @@ using System.ComponentModel;
 
 namespace Planetoid_DB;
 
-/// <summary>
-/// Represents the main form for displaying and managing the top ten records.
-/// </summary>
-/// <remarks>This form provides functionality to detect records and export them in various formats such as JSON,
-/// XML, TXT, and HTML. It includes a progress bar to indicate the status of record detection and a status strip for
-/// displaying additional information.</remarks>
+/// <summary>Represents the main form for displaying and managing the top ten records.</summary>
+/// <remarks>This form provides functionality to detect records and export them in various formats such as JSON, XML, TXT, and HTML. It includes a progress bar to indicate the status of record detection and a status strip for displaying additional information.</remarks>
 partial class RecordsMainForm
 {
 	/// <summary>Required designer variable.</summary>
@@ -37,8 +33,7 @@ partial class RecordsMainForm
 
 	#region Windows Form Designer generated code
 
-	/// <summary>Required method for Designer support - do not modify
-	/// the contents of this method with the code editor.</summary>
+	/// <summary>Required method for Designer support - do not modify the contents of this method with the code editor.</summary>
 	/// <remarks>This method initializes the components of the form.</remarks>
 	private void InitializeComponent()
 	{

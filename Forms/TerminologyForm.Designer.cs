@@ -12,10 +12,7 @@ using System.ComponentModel;
 namespace Planetoid_DB;
 
 /// <summary>Represents a form that provides a user interface for browsing terminology and viewing definitions.</summary>
-/// <remarks>TerminologyForm integrates a list of selectable terms and a web browser panel for displaying detailed
-/// information about each term. The form is designed for easy lookup and exploration of terminology definitions, and
-/// includes accessibility features for improved usability. It is typically used as a modal dialog within the
-/// application to assist users in understanding domain-specific terms.</remarks>
+/// <remarks>TerminologyForm integrates a list of selectable terms and a web browser panel for displaying detailed information about each term. The form is designed for easy lookup and exploration of terminology definitions, and includes accessibility features for improved usability. It is typically used as a modal dialog within the application to assist users in understanding domain-specific terms.</remarks>
 partial class TerminologyForm
 {
 	/// <summary>Required designer variable.</summary>
@@ -36,8 +33,7 @@ partial class TerminologyForm
 
 	#region Windows Form Designer generated code
 
-	/// <summary>Required method for Designer support - do not modify
-	/// the contents of this method with the code editor.</summary>
+	/// <summary>Required method for Designer support - do not modify the contents of this method with the code editor.</summary>
 	/// <remarks>This method initializes the components of the form.</remarks>
 	private void InitializeComponent()
 	{

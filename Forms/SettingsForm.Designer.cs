@@ -12,14 +12,8 @@ using System.ComponentModel;
 
 namespace Planetoid_DB;
 
-	/// <summary>
-	/// Represents a dialog form that enables users to configure application settings across multiple categories, including
-	/// general options, navigator preferences, update behaviors, and look and feel customization.
-	/// </summary>
-	/// <remarks>The SettingsForm provides a tabbed interface for organizing settings, allowing users to review and
-	/// modify preferences before saving or canceling changes. It is typically accessed from within the application to
-	/// adjust user-specific or global configuration. The form disables maximize and minimize functionality and is centered
-	/// on the screen when opened.</remarks>
+	/// <summary>Represents a dialog form that enables users to configure application settings across multiple categories, including general options, navigator preferences, update behaviors, and look and feel customization.</summary>
+	/// <remarks>The SettingsForm provides a tabbed interface for organizing settings, allowing users to review and modify preferences before saving or canceling changes. It is typically accessed from within the application to adjust user-specific or global configuration. The form disables maximize and minimize functionality and is centered on the screen when opened.</remarks>
     partial class SettingsForm
     {
         /// <summary>Required designer variable.</summary>
@@ -40,8 +34,7 @@ namespace Planetoid_DB;
 
 	#region Windows Form Designer generated code
 
-	/// <summary>Required method for Designer support - do not modify
-	/// the contents of this method with the code editor.</summary>
+	/// <summary>Required method for Designer support - do not modify the contents of this method with the code editor.</summary>
 	/// <remarks>This method initializes the components of the form.</remarks>
 	private void InitializeComponent()
 	{

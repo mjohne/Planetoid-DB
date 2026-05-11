@@ -11,14 +11,8 @@ using System.ComponentModel;
 
 namespace Planetoid_DB;
 
-/// <summary>
-/// Represents a dialog form that allows users to select, view, and copy information from the top ten records in a
-/// database or dataset.
-/// </summary>
-/// <remarks>The form provides buttons for copying specific record fields to the clipboard and options to sort
-/// records in ascending or descending order. It is intended for use as a modal dialog and does not appear in the
-/// taskbar. The form is centered on its parent when opened and disables maximize/minimize controls to maintain a fixed
-/// layout.</remarks>
+/// <summary>Represents a dialog form that allows users to select, view, and copy information from the top ten records in a database or dataset.</summary>
+/// <remarks>The form provides buttons for copying specific record fields to the clipboard and options to sort records in ascending or descending order. It is intended for use as a modal dialog and does not appear in the taskbar. The form is centered on its parent when opened and disables maximize/minimize controls to maintain a fixed layout.</remarks>
 partial class RecordsSelectionForm
 {
 	/// <summary>Required designer variable.</summary>
@@ -39,8 +33,7 @@ partial class RecordsSelectionForm
 
 	#region Windows Form Designer generated code
 
-	/// <summary>Required method for Designer support - do not modify
-	/// the contents of this method with the code editor.</summary>
+	/// <summary>Required method for Designer support - do not modify the contents of this method with the code editor.</summary>
 	/// <remarks>This method initializes the components of the form.</remarks>
 	private void InitializeComponent()
 	{

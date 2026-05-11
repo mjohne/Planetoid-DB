@@ -11,14 +11,8 @@ using System.ComponentModel;
 
 namespace Planetoid_DB;
 
-/// <summary>
-/// Represents a form that enables users to preload the MPCORB.DAT file by providing options to load internal demo data,
-/// download the file, or open a local file.
-/// </summary>
-/// <remarks>The PreloadForm facilitates the initial setup required for working with minor planet data in
-/// Planetoid-DB. It includes a status bar for user feedback and organizes available actions in a user-friendly
-/// interface. Use this form to ensure the necessary data is available before proceeding with further
-/// operations.</remarks>
+/// <summary>Represents a form that enables users to preload the MPCORB.DAT file by providing options to load internal demo data, download the file, or open a local file.</summary>
+/// <remarks>The PreloadForm facilitates the initial setup required for working with minor planet data in Planetoid-DB. It includes a status bar for user feedback and organizes available actions in a user-friendly interface. Use this form to ensure the necessary data is available before proceeding with further operations.</remarks>
 partial class PreloadForm
 {
 	/// <summary>Required designer variable.</summary>
@@ -39,8 +33,7 @@ partial class PreloadForm
 
 	#region Windows Form Designer generated code
 
-	/// <summary>Required method for Designer support - do not modify
-	/// the contents of this method with the code editor.</summary>
+	/// <summary>Required method for Designer support - do not modify the contents of this method with the code editor.</summary>
 	/// <remarks>This method initializes the components of the form.</remarks>
 	private void InitializeComponent()
 	{

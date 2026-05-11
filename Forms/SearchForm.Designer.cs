@@ -7,12 +7,8 @@ using Krypton.Toolkit;
 
 namespace Planetoid_DB;
 
-/// <summary>
-/// Represents a form that provides a user interface for searching within the MPCORB.DAT file.
-/// </summary>
-/// <remarks>The form enables users to input search criteria, select orbital elements, and view search results. It
-/// includes options for full-text search and displays results in a list format. Use this form to facilitate advanced
-/// and customizable searches of the MPCORB.DAT dataset.</remarks>
+/// <summary>Represents a form that provides a user interface for searching within the MPCORB.DAT file.</summary>
+/// <remarks>The form enables users to input search criteria, select orbital elements, and view search results. It includes options for full-text search and displays results in a list format. Use this form to facilitate advanced and customizable searches of the MPCORB.DAT dataset.</remarks>
 partial class SearchForm
     {
         /// <summary>Required designer variable.</summary>
@@ -33,8 +29,7 @@ partial class SearchForm
 
 	#region Windows Form Designer generated code
 
-	/// <summary>Required method for Designer support - do not modify
-	/// the contents of this method with the code editor.</summary>
+	/// <summary>Required method for Designer support - do not modify the contents of this method with the code editor.</summary>
 	/// <remarks>This method initializes the components of the form.</remarks>
 	private void InitializeComponent()
 	{
