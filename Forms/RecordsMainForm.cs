@@ -56,8 +56,7 @@ public partial class RecordsMainForm : BaseKryptonForm
 
 	#region Click event handlers
 
-	/// <summary>Handles the Click event of the ButtonStart control.
-	/// Starts the main process.</summary>
+	/// <summary>Handles the Click event of the ButtonStart control. Starts the main process.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonStart control is clicked.</remarks>
@@ -66,8 +65,7 @@ public partial class RecordsMainForm : BaseKryptonForm
 		//TODO: Implement start logic here
 	}
 
-	/// <summary>Handles the Click event of the ButtonExportAsTxt control.
-	/// Exports data as a TXT file.</summary>
+	/// <summary>Handles the Click event of the ButtonExportAsTxt control. Exports data as a TXT file.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonExportAsTxt control is clicked.</remarks>
@@ -76,8 +74,7 @@ public partial class RecordsMainForm : BaseKryptonForm
 		//TODO: Implement start logic here
 	}
 
-	/// <summary>Handles the Click event of the ButtonExportAsHtml control.
-	/// Exports data as an HTML file.</summary>
+	/// <summary>Handles the Click event of the ButtonExportAsHtml control. Exports data as an HTML file.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonExportAsHtml control is clicked.</remarks>
@@ -86,8 +83,7 @@ public partial class RecordsMainForm : BaseKryptonForm
 		//TODO: Implement start logic here
 	}
 
-	/// <summary>Handles the Click event of the ButtonExportAsXml control.
-	/// Exports data as an XML file.</summary>
+	/// <summary>Handles the Click event of the ButtonExportAsXml control. Exports data as an XML file.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonExportAsXml control is clicked.</remarks>
@@ -96,8 +92,7 @@ public partial class RecordsMainForm : BaseKryptonForm
 		//TODO: Implement start logic here
 	}
 
-	/// <summary>Handles the Click event of the ButtonExportAsJson control.
-	/// Exports data as a JSON file.</summary>
+	/// <summary>Handles the Click event of the ButtonExportAsJson control. Exports data as a JSON file.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonExportAsJson control is clicked.</remarks>
@@ -106,8 +101,7 @@ public partial class RecordsMainForm : BaseKryptonForm
 		//TODO: Implement start logic here
 	}
 
-	/// <summary>Handles the Click event of the ButtonGoto01 control.
-	/// Navigates to the first record.</summary>
+	/// <summary>Handles the Click event of the ButtonGoto01 control. Navigates to the first record.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonGoto01 control is clicked.</remarks>
@@ -116,8 +110,7 @@ public partial class RecordsMainForm : BaseKryptonForm
 		//TODO: Implement start logic here
 	}
 
-	/// <summary>Handles the Click event of the ButtonGoto02 control.
-	/// Navigates to the second record.</summary>
+	/// <summary>Handles the Click event of the ButtonGoto02 control. Navigates to the second record.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonGoto02 control is clicked.</remarks>
@@ -126,8 +119,7 @@ public partial class RecordsMainForm : BaseKryptonForm
 		//TODO: Implement start logic here
 	}
 
-	/// <summary>Handles the Click event of the ButtonGoto03 control.
-	/// Navigates to the third record.</summary>
+	/// <summary>Handles the Click event of the ButtonGoto03 control. Navigates to the third record.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonGoto03 control is clicked.</remarks>
@@ -136,8 +128,7 @@ public partial class RecordsMainForm : BaseKryptonForm
 		//TODO: Implement start logic here
 	}
 
-	/// <summary>Handles the Click event of the ButtonGoto04 control.
-	/// Navigates to the fourth record.</summary>
+	/// <summary>Handles the Click event of the ButtonGoto04 control. Navigates to the fourth record.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonGoto04 control is clicked.</remarks>
@@ -146,8 +137,7 @@ public partial class RecordsMainForm : BaseKryptonForm
 		//TODO: Implement start logic here
 	}
 
-	/// <summary>Handles the Click event of the ButtonGoto05 control.
-	/// Navigates to the fifth record.</summary>
+	/// <summary>Handles the Click event of the ButtonGoto05 control. Navigates to the fifth record.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonGoto05 control is clicked.</remarks>
@@ -156,8 +146,7 @@ public partial class RecordsMainForm : BaseKryptonForm
 		//TODO: Implement start logic here
 	}
 
-	/// <summary>Handles the Click event of the ButtonGoto06 control.
-	/// Navigates to the sixth record.</summary>
+	/// <summary>Handles the Click event of the ButtonGoto06 control. Navigates to the sixth record.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonGoto06 control is clicked.</remarks>
@@ -166,8 +155,7 @@ public partial class RecordsMainForm : BaseKryptonForm
 		//TODO: Implement start logic here
 	}
 
-	/// <summary>Handles the Click event of the ButtonGoto07 control.
-	/// Navigates to the seventh record.</summary>
+	/// <summary>Handles the Click event of the ButtonGoto07 control. Navigates to the seventh record.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonGoto07 control is clicked.</remarks>
@@ -176,8 +164,7 @@ public partial class RecordsMainForm : BaseKryptonForm
 		//TODO: Implement start logic here
 	}
 
-	/// <summary>Handles the Click event of the ButtonGoto08 control.
-	/// Navigates to the eighth record.</summary>
+	/// <summary>Handles the Click event of the ButtonGoto08 control. Navigates to the eighth record.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonGoto08 control is clicked.</remarks>
@@ -186,8 +173,7 @@ public partial class RecordsMainForm : BaseKryptonForm
 		//TODO: Implement start logic here
 	}
 
-	/// <summary>Handles the Click event of the ButtonGoto09 control.
-	/// Navigates to the ninth record.</summary>
+	/// <summary>Handles the Click event of the ButtonGoto09 control. Navigates to the ninth record.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonGoto09 control is clicked.</remarks>
@@ -196,8 +182,7 @@ public partial class RecordsMainForm : BaseKryptonForm
 		//TODO: Implement start logic here
 	}
 
-	/// <summary>Handles the Click event of the ButtonGoto10 control.
-	/// Navigates to the tenth record.</summary>
+	/// <summary>Handles the Click event of the ButtonGoto10 control. Navigates to the tenth record.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonGoto10 control is clicked.</remarks>
