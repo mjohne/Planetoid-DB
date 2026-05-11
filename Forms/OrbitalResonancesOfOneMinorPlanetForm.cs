@@ -119,7 +119,7 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			logger.Error(message: $"An error occurred during export: {ex}");
-			MessageBox.Show(text: $"An error has occurred during export: {ex.Message}", caption: "Export Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: $"An error has occurred during export: {ex.Message}");
 		}
 		// In the finally block, ensure that the cursor is reset to the default state regardless of whether the export action succeeds or fails. This ensures that the user interface remains responsive and provides appropriate feedback to the user.
 		finally
@@ -129,8 +129,7 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 	}
 
 	/// <summary>Populates the <see cref="listView"/> with orbital resonance data from the <see cref="allResonances"/> field, optionally filtering to only true resonances.</summary>
-	/// <remarks>Each resonance is shown as one row. The "Is Resonance" column shows "Yes" when the deviation is below 1%.
-	/// Rows are colored green for resonances and red for non-resonances.</remarks>
+	/// <remarks>Each resonance is shown as one row. The "Is Resonance" column shows "Yes" when the deviation is below 1%. Rows are colored green for resonances and red for non-resonances.</remarks>
 	private void PopulateListView()
 	{
 		// Begin updating the list view to improve performance while adding items; clear existing items before populating with new data
@@ -171,8 +170,7 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>Handles the form Load event.
-	/// Clears the status bar, computes orbital resonances for the stored semi-major axis and populates the list view.</summary>
+	/// <summary>Handles the form Load event. Clears the status bar, computes orbital resonances for the stored semi-major axis and populates the list view.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>If an error occurs during calculation, it is logged and an error message is shown to the user.</remarks>
@@ -249,8 +247,7 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 
 	#region Click event handlers
 
-	/// <summary>Handles the Click event of the filter resonances tool strip button.
-	/// Toggles the list view between showing all rows and showing only resonance rows.</summary>
+	/// <summary>Handles the Click event of the filter resonances tool strip button. Toggles the list view between showing all rows and showing only resonance rows.</summary>
 	/// <param name="sender">The source of the event, typically the tool strip button.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void ToolStripButtonFilterResonances_Click(object sender, EventArgs e)
@@ -258,12 +255,10 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 		PopulateListView();
 	}
 
-	/// <summary>Handles the Click event of the copy-to-clipboard menu item.
-	/// Copies the text of the currently selected list view row to the clipboard.</summary>
+	/// <summary>Handles the Click event of the copy-to-clipboard menu item. Copies the text of the currently selected list view row to the clipboard.</summary>
 	/// <param name="sender">Event source (the menu item).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>All sub-items of the selected row are joined with a tab character before being placed on the clipboard.
-	/// If no row is selected the method returns without action.</remarks>
+	/// <remarks>All sub-items of the selected row are joined with a tab character before being placed on the clipboard. If no row is selected the method returns without action.</remarks>
 	private void ToolStripMenuItemCopyToClipboard_Click(object sender, EventArgs e)
 	{
 		if (listView.SelectedItems.Count == 0)
