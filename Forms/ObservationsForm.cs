@@ -338,21 +338,13 @@ public partial class ObservationsForm : BaseKryptonForm
 					durationStats = $"\nObservation duration: {observationDuration} day(s)\nUsed observation days: {usedDays}\nUnused observation days: {unusedDays}";
 				}
 				// Show a message box with the count of observations, the date range, and the duration statistics
-				_ = MessageBox.Show(
-					text: $"Number of observations: {count}\nFirst observation: {firstDate}\nLast observation: {lastDate}{durationStats}",
-					caption: I18nStrings.InformationCaption,
-					buttons: MessageBoxButtons.OK,
-					icon: MessageBoxIcon.Information);
+				_ = KryptonMessageBox.Show(text: $"Number of observations: {count}\nFirst observation: {firstDate}\nLast observation: {lastDate}{durationStats}", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			}
 			// If no observations were found, show an information message box indicating that
 			else
 			{
 				// Show a message box indicating that no observations were found
-				_ = MessageBox.Show(
-					text: "No observations found.",
-					caption: I18nStrings.InformationCaption,
-					buttons: MessageBoxButtons.OK,
-					icon: MessageBoxIcon.Information);
+				_ = KryptonMessageBox.Show(text: "No observations found.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			}
 			// Update the status bar with the count of loaded observations
 			SetStatusBar(label: labelInformation, text: $"{count} observation(s) loaded.");
@@ -450,7 +442,7 @@ public partial class ObservationsForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			logger.Error(message: $"An error occurred during export: {ex}");
-			MessageBox.Show(text: $"An error has occurred during export: {ex.Message}", caption: "Export Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: $"An error has occurred during export: {ex.Message}");
 		}
 		// In the finally block, ensure that the cursor is reset to the default state regardless of whether the export action succeeds or fails. This ensures that the user interface remains responsive and provides appropriate feedback to the user.
 		finally
