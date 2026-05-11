@@ -290,8 +290,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			// An unexpected error occurred during detection. We show an error message to the user with details about the exception.
-			await InvokeAsync(callback: () =>
-				ShowErrorMessage(message: $"An error occurred during family detection: {ex.Message}";
+			await InvokeAsync(callback: () => ShowErrorMessage(message: $"An error occurred during family detection: {ex.Message}"), cancellationToken: cancellationToken);
 		}
 		// In the finally block, we ensure that we clean up resources and reset the UI state regardless of whether the detection completed successfully, was cancelled, or encountered an error. We dispose of the cancellation token source to release resources and set it to null. We also re-enable the Start button and disable the Cancel button to allow the user to start a new detection if desired.
 		finally
@@ -480,19 +479,19 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		catch (IOException ex)
 		{
 			logger.Error(exception: ex, message: "Failed to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
-			ShowErrorMessage(messagee: $"Failed to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
+			ShowErrorMessage(message: $"Failed to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
 		}
 		// We catch UnauthorizedAccessException to handle cases where the user does not have permission to write to the specified location. We show an error message indicating that the user does not have permission to save the file, along with details about the exception.
 		catch (UnauthorizedAccessException ex)
 		{
 			logger.Error(exception: ex, message: "You do not have permission to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
-			ShowErrorMessage(messagee: $"You do not have permission to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
+			ShowErrorMessage(message: $"You do not have permission to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
 		}
 		// We catch any other unexpected exceptions that may occur during the file save operation and show a generic error message with details about the exception. This ensures that any unforeseen issues are communicated clearly to the user without crashing the application.
 		catch (Exception ex)
 		{
 			logger.Error(exception: ex, message: "An unexpected error occurred while saving the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
-			ShowErrorMessage(messagee: $"An unexpected error occurred while saving the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
+			ShowErrorMessage(message: $"An unexpected error occurred while saving the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
 		}
 		finally
 		{
