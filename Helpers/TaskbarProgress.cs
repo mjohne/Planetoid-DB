@@ -14,17 +14,11 @@ public static class TaskbarProgress
 	private static readonly Lock _taskbarInstanceLock = new();
 
 	/// <summary>Lazily evaluates and caches whether the current OS supports the taskbar progress API.</summary>
-	/// <remarks>Uses <see cref="Lazy{T}"/> with thread-safe initialization to perform the OS version check exactly once,
-	/// eliminating the need for manual double-checked locking and ensuring correct memory visibility across threads.</remarks>
-	private static readonly Lazy<bool> _isTaskbarSupported = new(
-		valueFactory: static () => Environment.OSVersion.Version >= new Version(major: 6, minor: 1),
-		isThreadSafe: true);
+	/// <remarks>Uses <see cref="Lazy{T}"/> with thread-safe initialization to perform the OS version check exactly once, eliminating the need for manual double-checked locking and ensuring correct memory visibility across threads.</remarks>
+	private static readonly Lazy<bool> _isTaskbarSupported = new(valueFactory: static () => Environment.OSVersion.Version >= new Version(major: 6, minor: 1), isThreadSafe: true);
 
-	/// <summary>Gets the instance of the taskbar interface used to manage taskbar features such as progress indicators and
-	/// thumbnail previews.</summary>
-	/// <remarks>This property initializes the taskbar instance only if it has not been created yet, ensuring thread safety.
-	/// It requires Windows 7 or later for proper functionality, and explicit initialization is necessary for Windows 10.
-	/// On unsupported OS versions, the support state is cached to avoid repeated locking and version checks.</remarks>
+	/// <summary>Gets the instance of the taskbar interface used to manage taskbar features such as progress indicators and thumbnail previews.</summary>
+	/// <remarks>This property initializes the taskbar instance only if it has not been created yet, ensuring thread safety. It requires Windows 7 or later for proper functionality, and explicit initialization is necessary for Windows 10. On unsupported OS versions, the support state is cached to avoid repeated locking and version checks.</remarks>
 	// Lazy Initialization (Thread-safe), the instance is only created when it is actually needed.
 	private static ITaskbarList3? TaskbarInstance
 	{
