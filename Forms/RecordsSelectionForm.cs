@@ -60,120 +60,103 @@ public partial class RecordsSelectionForm : BaseKryptonForm
 
 	#region Click & ButtonClick event handlers
 
-	/// <summary>Handles the Click event of the ButtonMeanAnomaly control.
-	/// Shows the main records form.</summary>
+	/// <summary>Handles the Click event of the ButtonMeanAnomaly control. Shows the main records form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonMeanAnomaly control is clicked.</remarks>
 	private void ButtonMeanAnomaly_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>Handles the Click event of the ButtonArgumentOfPerihelion control.
-	/// Shows the main records form.</summary>
+	/// <summary>Handles the Click event of the ButtonArgumentOfPerihelion control. Shows the main records form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonArgumentOfPerihelion control is clicked.</remarks>
 	private void ButtonArgumentOfPerihelion_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>Handles the Click event of the ButtonLongitudeOfTheAscendingNode control.
-	/// Shows the main records form.</summary>
+	/// <summary>Handles the Click event of the ButtonLongitudeOfTheAscendingNode control. Shows the main records form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonLongitudeOfTheAscendingNode control is clicked.</remarks>
 	private void ButtonLongitudeOfTheAscendingNode_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>Handles the Click event of the ButtonInclination control.
-	/// Shows the main records form.</summary>
+	/// <summary>Handles the Click event of the ButtonInclination control. Shows the main records form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonInclination control is clicked.</remarks>
 	private void ButtonInclination_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>Handles the Click event of the ButtonOrbitalEccentricity control.
-	/// Shows the main records form.</summary>
+	/// <summary>Handles the Click event of the ButtonOrbitalEccentricity control. Shows the main records form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonOrbitalEccentricity control is clicked.</remarks>
 	private void ButtonOrbitalEccentricity_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>Handles the Click event of the ButtonMeanDailyMotion control.
-	/// Shows the main records form.</summary>
+	/// <summary>Handles the Click event of the ButtonMeanDailyMotion control. Shows the main records form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonMeanDailyMotion control is clicked.</remarks>
 	private void ButtonMeanDailyMotion_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>Handles the Click event of the ButtonSemiMajorAxis control.
-	/// Shows the main records form.</summary>
+	/// <summary>Handles the Click event of the ButtonSemiMajorAxis control. Shows the main records form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonSemiMajorAxis control is clicked.</remarks>
 	private void ButtonSemiMajorAxis_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>Handles the Click event of the ButtonAbsoluteMagnitude control.
-	/// Shows the main records form.</summary>
+	/// <summary>Handles the Click event of the ButtonAbsoluteMagnitude control. Shows the main records form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonAbsoluteMagnitude control is clicked.</remarks>
 	private void ButtonAbsoluteMagnitude_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>Handles the Click event of the ButtonSlopeParameter control.
-	/// Shows the main records form.</summary>
+	/// <summary>Handles the Click event of the ButtonSlopeParameter control. Shows the main records form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonSlopeParameter control is clicked.</remarks>
 	private void ButtonSlopeParameter_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>Handles the Click event of the ButtonNumberOfOppositions control.
-	/// Shows the main records form.</summary>
+	/// <summary>Handles the Click event of the ButtonNumberOfOppositions control. Shows the main records form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonNumberOfOppositions control is clicked.</remarks>
 	private void ButtonNumberOfOppositions_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>Handles the Click event of the ButtonNumberOfObservations control.
-	/// Shows the main records form.</summary>
+	/// <summary>Handles the Click event of the ButtonNumberOfObservations control. Shows the main records form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonNumberOfObservations control is clicked.</remarks>
 	private void ButtonNumberOfObservations_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>Handles the Click event of the ButtonObservationSpan control.
-	/// Shows the main records form.</summary>
+	/// <summary>Handles the Click event of the ButtonObservationSpan control. Shows the main records form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonObservationSpan control is clicked.</remarks>
 	private void ButtonObservationSpan_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>Handles the Click event of the ButtonRmsResidual control.
-	/// Shows the main records form.</summary>
+	/// <summary>Handles the Click event of the ButtonRmsResidual control. Shows the main records form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonRmsResidual control is clicked.</remarks>
 	private void ButtonRmsResidual_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>Handles the Click event of the ButtonComputerName control.
-	/// Shows the main records form.</summary>
+	/// <summary>Handles the Click event of the ButtonComputerName control. Shows the main records form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonComputerName control is clicked.</remarks>
 	private void ButtonComputerName_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>Handles the Click event of the ButtonDateOfLastObservation control.
-	/// Shows the main records form.</summary>
+	/// <summary>Handles the Click event of the ButtonDateOfLastObservation control. Shows the main records form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the ButtonDateOfLastObservation control is clicked.</remarks>
 	private void ButtonDateOfLastObservation_Click(object sender, EventArgs e) => ShowRecordsMain();
 
-	/// <summary>Handles the Click event of the CheckButtonRecordSortDirectionAscending control.
-	/// Toggles the checked state of the descending sort direction button.</summary>
+	/// <summary>Handles the Click event of the CheckButtonRecordSortDirectionAscending control. Toggles the checked state of the descending sort direction button.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the CheckButtonRecordSortDirectionAscending control is clicked.</remarks>
 	private void CheckButtonRecordSortDirectionAscending_Click(object sender, EventArgs e) => checkButtonRecordSortDirectionDescending.Checked = !checkButtonRecordSortDirectionAscending.Checked;
 
-	/// <summary>Handles the Click event of the CheckButtonRecordSortDirectionDescending control.
-	/// Toggles the checked state of the ascending sort direction button.</summary>
+	/// <summary>Handles the Click event of the CheckButtonRecordSortDirectionDescending control. Toggles the checked state of the ascending sort direction button.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the CheckButtonRecordSortDirectionDescending control is clicked.</remarks>
