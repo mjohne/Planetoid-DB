@@ -13,10 +13,7 @@ namespace Planetoid_DB;
 
 /// <summary>Represents a dialog form that lists readable designations, allowing users to specify minimum and maximum values,
 /// view the list, and save it in various file formats.</summary>
-/// <remarks>The form provides controls for filtering the list by minimum and maximum values, displaying the
-/// results in a list view, and saving the list in formats such as text, CSV, JSON, and more. It includes a status bar
-/// for displaying information and supports accessibility features. The form is intended to be used as a modal dialog
-/// within a parent application.</remarks>
+/// <remarks>The form provides controls for filtering the list by minimum and maximum values, displaying the results in a list view, and saving the list in formats such as text, CSV, JSON, and more. It includes a status bar for displaying information and supports accessibility features. The form is intended to be used as a modal dialog within a parent application.</remarks>
 partial class ListReadableDesignationsForm
 {
 	/// <summary>Required designer variable.</summary>
@@ -94,6 +91,7 @@ partial class ListReadableDesignationsForm
 		listView = new ListView();
 		columnHeaderIndex = new ColumnHeader();
 		columnHeaderReadableDesignation = new ColumnHeader();
+		planetoidRecordBindingSource = new BindingSource(components);
 		kryptonManager = new KryptonManager(components);
 		toolStripContainer = new ToolStripContainer();
 		kryptonToolStripGenerateList = new KryptonToolStrip();
@@ -111,6 +109,7 @@ partial class ListReadableDesignationsForm
 		contextMenuSaveToFile.SuspendLayout();
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
+		((ISupportInitialize)planetoidRecordBindingSource).BeginInit();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
 		toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -824,6 +823,10 @@ partial class ListReadableDesignationsForm
 		columnHeaderReadableDesignation.Text = "Readable designation";
 		columnHeaderReadableDesignation.Width = 180;
 		// 
+		// planetoidRecordBindingSource
+		// 
+		planetoidRecordBindingSource.DataSource = typeof(Helpers.PlanetoidRecord);
+		// 
 		// kryptonManager
 		// 
 		kryptonManager.GlobalPaletteMode = PaletteMode.Global;
@@ -1053,6 +1056,7 @@ partial class ListReadableDesignationsForm
 		contextMenuSaveToFile.ResumeLayout(false);
 		((ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);
+		((ISupportInitialize)planetoidRecordBindingSource).EndInit();
 		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
 		toolStripContainer.BottomToolStripPanel.PerformLayout();
 		toolStripContainer.ContentPanel.ResumeLayout(false);
@@ -1072,9 +1076,6 @@ partial class ListReadableDesignationsForm
 	private KryptonStatusStrip kryptonStatusStrip;
 	private ToolStripStatusLabel labelInformation;
 	private KryptonPanel kryptonPanelMain;
-	private ListView listView;
-	private ColumnHeader columnHeaderIndex;
-	private ColumnHeader columnHeaderReadableDesignation;
 	private ContextMenuStrip contextMenuSaveToFile;
 	private ToolStripMenuItem toolStripMenuItemSaveAsCsv;
 	private ToolStripMenuItem toolStripMenuItemSaveAsHtml;
@@ -1130,4 +1131,8 @@ partial class ListReadableDesignationsForm
 	private ToolStripMenuItem toolStripMenuItemSaveAsChm;
 	private ToolStripMenuItem toolStripMenuItemSaveAsEt;
 	private ToolStripMenuItem toolStripMenuItemSaveAsSqlite;
+	private ListView listView;
+	private ColumnHeader columnHeaderIndex;
+	private ColumnHeader columnHeaderReadableDesignation;
+	private BindingSource planetoidRecordBindingSource;
 }
