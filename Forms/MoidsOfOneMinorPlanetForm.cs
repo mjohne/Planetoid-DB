@@ -121,7 +121,7 @@ public partial class MoidsOfOneMinorPlanetForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			exportAction(tableLayoutPanel, "MOIDs of a minor planet", saveFileDialog.FileName);
+			exportAction(arg1: tableLayoutPanel, arg2: "MOIDs of a minor planet", arg3: saveFileDialog.FileName);
 		}
 		// Handle any exceptions that may occur during the export action
 		catch (Exception ex)
