@@ -43,30 +43,39 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	private const double ResonanceThresholdPercent = 1.0;
 
 	/// <summary>Length of the sort-direction prefix (e.g. "▲ " or "▼ ") prepended to a column header text.</summary>
+	/// <remarks>This constant is used to calculate the original column header text by removing the prefix when sorting columns.</remarks>
 	private const int SortIndicatorPrefixLength = 2;
 
 	/// <summary>Zero-based index of the Planetoid column in the results ListView.</summary>
+	/// <remarks>This column displays the name or designation of the planetoid for which the resonance is calculated. It is used as the primary identifier for each row in the results and is displayed in the first column of the ListView.</remarks>
 	private const int ColumnIndexPlanetoid = 0;
 
 	/// <summary>Zero-based index of the Planet column in the results ListView.</summary>
+	/// <remarks>This column displays the name of the planet with which the resonance is calculated. It is used for filtering results based on user selection of planets.</remarks>
 	private const int ColumnIndexPlanet = 1;
 
 	/// <summary>Zero-based index of the Planet Period column in the results ListView.</summary>
+	/// <remarks>This column displays the orbital period of the planet in Earth years, which is a fixed value for each planet and is used in the resonance calculations. It is calculated from the planet's semi-major axis using Kepler's third law and is stored in the <see cref="DerivedElements.OrbitalResonance"/> data structure for each resonance result.</remarks>
 	private const int ColumnIndexPlanetPeriod = 2;
 
 	/// <summary>Zero-based index of the Planetoid Period column in the results ListView.</summary>
+	/// <remarks>This column displays the orbital period of the planetoid in Earth years, calculated from its semi-major axis using Kepler's third law. It is used in conjunction with the Planet Period column to compute the Ratio and Resonance columns.</remarks>
 	private const int ColumnIndexPlanetoidPeriod = 3;
 
 	/// <summary>Zero-based index of the Ratio column in the results ListView.</summary>
+	/// <remarks>This column displays the ratio of the planetoid's orbital period to the planet's orbital period, calculated as Planetoid Period / Planet Period. Values close to a simple fraction (e.g. 0.5 for 1:2, 1.5 for 3:2) indicate potential resonances.</remarks>
 	private const int ColumnIndexRatio = 4;
 
 	/// <summary>Zero-based index of the Resonance (P:Q) column in the results ListView.</summary>
+	/// <remarks>This column displays the resonance ratio in the form of "P:Q", where P and Q are integers representing the resonance relationship between the planetoid's orbital period and the planet's orbital period. For example, a value of "3:2" indicates that the planetoid completes 3 orbits for every 2 orbits of the planet.</remarks>
 	private const int ColumnIndexResonance = 5;
 
 	/// <summary>Zero-based index of the Deviation column in the results ListView.</summary>
+	/// <remarks>This column displays the percentage deviation of the actual orbital ratio from the exact resonance ratio. Values below the defined threshold indicate a near-resonance and are highlighted in green, while values above the threshold are highlighted in red.</remarks>
 	private const int ColumnIndexDeviation = 6;
 
 	/// <summary>Zero-based index of the Is Resonance column in the results ListView.</summary>
+	/// <remarks>This column displays "Yes" if the deviation percent is below the defined threshold, indicating a near-resonance, and "No" otherwise.</remarks>
 	private const int ColumnIndexIsResonance = 7;
 
 	/// <summary>Holds the list of all planetoid database strings passed to this form.</summary>
@@ -82,6 +91,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	private List<ResonanceResult> _allResults = [];
 
 	/// <summary>Cancellation token source for the currently running search task.</summary>
+	/// <remarks>This field is used to signal cancellation to the background search task when the user clicks the Cancel button or when the form is closing. It is created when a search starts and disposed when the search completes or is cancelled.</remarks>
 	private CancellationTokenSource? _cancellationTokenSource;
 
 	/// <summary>Gets the status label used for displaying information in the status bar.</summary>
