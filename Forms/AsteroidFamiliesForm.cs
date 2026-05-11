@@ -16,9 +16,7 @@ using System.Text;
 
 namespace Planetoid_DB;
 
-/// <summary>Form to detect and display potential asteroid families based on orbital elements (a, e, i).
-/// Uses a binning algorithm to group planetoids whose semi-major axis, eccentricity, and inclination
-/// fall within user-defined tolerance ranges.</summary>
+/// <summary>Form to detect and display potential asteroid families based on orbital elements (a, e, i). Uses a binning algorithm to group planetoids whose semi-major axis, eccentricity, and inclination fall within user-defined tolerance ranges.</summary>
 /// <remarks>This form allows users to detect potential asteroid families by analyzing the orbital elements of planetoids from the MPCORB database. The detection is performed using a binning algorithm that groups planetoids based on their semi-major axis, eccentricity, and inclination, with user-defined tolerances. The results are displayed in a tree view, and users can view the members of each family in a list view. The form also provides options to save the detected families to text files.</remarks>
 // You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
@@ -103,11 +101,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		// If there are no planetoid data lines available, show an informational message and return.
 		if (_planetoids.Count == 0)
 		{
-			KryptonMessageBox.Show(
-				text: "No planetoid data available.",
-				caption: "Information",
-				buttons: KryptonMessageBoxButtons.OK,
-				icon: KryptonMessageBoxIcon.Information);
+			KryptonMessageBox.Show(text: "No planetoid data available.", caption: "Information", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
 		// Disable the Start button and enable the Cancel button while detection is in progress. Also disable save buttons until results are available.
@@ -297,11 +291,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		{
 			// An unexpected error occurred during detection. We show an error message to the user with details about the exception.
 			await InvokeAsync(callback: () =>
-				MessageBox.Show(
-					text: $"An error occurred during family detection: {ex.Message}",
-					caption: "Error",
-					buttons: MessageBoxButtons.OK,
-					icon: MessageBoxIcon.Error), cancellationToken: cancellationToken);
+				ShowErrorMessage(message: $"An error occurred during family detection: {ex.Message}";
 		}
 		// In the finally block, we ensure that we clean up resources and reset the UI state regardless of whether the detection completed successfully, was cancelled, or encountered an error. We dispose of the cancellation token source to release resources and set it to null. We also re-enable the Start button and disable the Cancel button to allow the user to start a new detection if desired.
 		finally
@@ -319,8 +309,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 	}
 
 	/// <summary>Populates the tree view with the detected asteroid families.</summary>
-	/// <remarks>This method clears the existing nodes in the tree view and adds new nodes for each detected family.
-	/// Each node's Tag property is set to the index of the corresponding family in the _families list.</remarks>
+	/// <remarks>This method clears the existing nodes in the tree view and adds new nodes for each detected family. Each node's Tag property is set to the index of the corresponding family in the _families list.</remarks>
 	private void PopulateTreeView()
 	{
 		// We call BeginUpdate to prevent the tree view from repainting until we have finished adding all nodes, which improves performance and prevents flickering.
@@ -485,38 +474,25 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		try
 		{
 			await File.WriteAllTextAsync(path: dlg.FileName, contents: textContent, encoding: Encoding.UTF8);
-			MessageBox.Show(
-				text: $"Successfully saved to:{Environment.NewLine}{dlg.FileName}",
-				caption: "Saved",
-				buttons: MessageBoxButtons.OK,
-				icon: MessageBoxIcon.Information);
+			KryptonMessageBox.Show(text: $"Successfully saved to:{Environment.NewLine}{dlg.FileName}", caption: "Saved", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 		}
 		// We catch IOException to handle cases where the file cannot be written due to issues such as disk errors or file locks. We show an error message with details about the failure.
 		catch (IOException ex)
 		{
-			MessageBox.Show(
-				text: $"Failed to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}",
-				caption: "Save Error",
-				buttons: MessageBoxButtons.OK,
-				icon: MessageBoxIcon.Error);
+			logger.Error(exception: ex, message: "Failed to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
+			ShowErrorMessage(messagee: $"Failed to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
 		}
 		// We catch UnauthorizedAccessException to handle cases where the user does not have permission to write to the specified location. We show an error message indicating that the user does not have permission to save the file, along with details about the exception.
 		catch (UnauthorizedAccessException ex)
 		{
-			MessageBox.Show(
-				text: $"You do not have permission to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}",
-				caption: "Save Error",
-				buttons: MessageBoxButtons.OK,
-				icon: MessageBoxIcon.Error);
+			logger.Error(exception: ex, message: "You do not have permission to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
+			ShowErrorMessage(messagee: $"You do not have permission to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
 		}
 		// We catch any other unexpected exceptions that may occur during the file save operation and show a generic error message with details about the exception. This ensures that any unforeseen issues are communicated clearly to the user without crashing the application.
 		catch (Exception ex)
 		{
-			MessageBox.Show(
-				text: $"An unexpected error occurred while saving the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}",
-				caption: "Save Error",
-				buttons: MessageBoxButtons.OK,
-				icon: MessageBoxIcon.Error);
+			logger.Error(exception: ex, message: "An unexpected error occurred while saving the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
+			ShowErrorMessage(messagee: $"An unexpected error occurred while saving the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
 		}
 		finally
 		{
@@ -531,10 +507,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// <summary>Handles the ColumnClick event for the member ListView to sort columns alphanumerically.</summary>
 	/// <param name="sender">Event source (the ListView).</param>
 	/// <param name="e">The <see cref="ColumnClickEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>Clicking a column header sorts the member list by that column, alternating between ascending
-	/// and descending order. The sort indicator (▲/▼) is shown in the column header text. Because the
-	/// ListView operates in virtual mode, sorting is applied directly to the underlying
-	/// <see cref="AsteroidFamily.Members"/> list and the control is refreshed.</remarks>
+	/// <remarks>Clicking a column header sorts the member list by that column, alternating between ascending and descending order. The sort indicator (▲/▼) is shown in the column header text. Because the ListView operates in virtual mode, sorting is applied directly to the underlying <see cref="AsteroidFamily.Members"/> list and the control is refreshed.</remarks>
 	private void ListViewMembers_ColumnClick(object? sender, ColumnClickEventArgs e)
 	{
 		// Nothing to sort if no family is selected or the list is empty
@@ -620,8 +593,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// <summary>Handles the DoubleClick event of the member ListView.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	/// <remarks>When an item in the member list is double-clicked, the corresponding planetoid is displayed
-	/// in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
+	/// <remarks>When an item in the member list is double-clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
 	private void ListViewMembers_DoubleClick(object? sender, EventArgs e) =>
 		NavigateToSelectedMember(closeAfterNavigation: false);
 
@@ -632,8 +604,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// <summary>Handles the Click event of the 'Go to object' toolbar button.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	/// <remarks>When clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/>
-	/// and this form is closed.</remarks>
+	/// <remarks>When clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> and this form is closed.</remarks>
 	private void ToolStripButtonGoToObject_Click(object? sender, EventArgs e) =>
 		NavigateToSelectedMember(closeAfterNavigation: true);
 
