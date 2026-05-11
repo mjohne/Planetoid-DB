@@ -225,8 +225,7 @@ internal class MoidCalculator
 	/// <param name="w2">Argument of perihelion of orbit 2 (radians).</param>
 	/// <param name="bigO2">Longitude of ascending node of orbit 2 (radians).</param>
 	/// <returns>The MOID in AU.</returns>
-	/// <remarks> Stage 1: coarse double-grid search with <c>GridSteps = 720</c> steps per orbit (0.5° resolution). Stage 2: coordinate-descent refinement starting from the best grid point, iteratively narrowing the search bracket until the step size falls below <c>1e-9</c> radians (≈ 0.2 milli-arcseconds), giving sub-milliarcsecond accuracy.
-	/// </remarks>
+	/// <remarks> Stage 1: coarse double-grid search with <c>GridSteps = 720</c> steps per orbit (0.5° resolution). Stage 2: coordinate-descent refinement starting from the best grid point, iteratively narrowing the search bracket until the step size falls below <c>1e-9</c> radians (≈ 0.2 milli-arcseconds), giving sub-milliarcsecond accuracy.</remarks>
 	private static double CalculateMoid(
 		double a1, double e1, double i1, double w1, double bigO1,
 		double a2, double e2, double i2, double w2, double bigO2)
