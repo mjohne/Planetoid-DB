@@ -173,6 +173,8 @@ partial class AppInfoForm
 		kryptonNavigatorInfo.Owner = null;
 		kryptonNavigatorInfo.PageBackStyle = PaletteBackStyle.PanelClient;
 		kryptonNavigatorInfo.Pages.AddRange(new KryptonPage[] { kryptonPageAbout, kryptonPageComponents });
+		kryptonPageAbout.ImageSmall = imageListTabAbout.Images["fatcow_information_16px.png"];
+		kryptonPageComponents.ImageSmall = imageListTabAbout.Images["fatcow_bricks_16px.png"];
 		kryptonNavigatorInfo.SelectedIndex = 0;
 		kryptonNavigatorInfo.Size = new Size(500, 283);
 		kryptonNavigatorInfo.TabIndex = 0;
