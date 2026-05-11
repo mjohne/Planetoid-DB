@@ -30,6 +30,13 @@ public static class TableLayoutPanelExporter
 
 	#region helpers
 
+	/// <summary>Displays an error message.</summary>
+	/// <param name="message">The error message.</param>
+	/// <remarks>This method is used to display an error message to the user.</remarks>
+	private static void ShowErrorMessage(string message) =>
+		// Show an error message box with the specified message
+		_ = KryptonMessageBox.Show(text: message, caption: I18nStrings.ErrorCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
+
 	/// <summary>Returns the column header texts of the given <see cref="TableLayoutPanel"/> (read from row 0).</summary>
 	/// <param name="tableLayoutPanel">The table layout panel whose first row contains headers.</param>
 	/// <returns>An array of header strings in column order.</returns>
