@@ -80,8 +80,7 @@ public partial class PreloadForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>Fired when the preload form has finished loading.
-	/// Clears the status area so no message is shown on startup.</summary>
+	/// <summary>Fired when the preload form has finished loading. Clears the status area so no message is shown on startup.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the preload form has finished loading.</remarks>
@@ -91,9 +90,7 @@ public partial class PreloadForm : BaseKryptonForm
 
 	#region Click event handlers
 
-	/// <summary>Handles the Click event of the Open Local File command link.
-	/// Shows an <see cref="OpenFileDialog"/> to let the user select a local MPCORB.DAT file and,
-	/// if a file is selected, stores its path in <see cref="MpcOrbDatFilePath"/> and closes the dialog with <see cref="DialogResult.OK"/>.</summary>
+	/// <summary>Handles the Click event of the Open Local File command link. Shows an <see cref="OpenFileDialog"/> to let the user select a local MPCORB.DAT file and, if a file is selected, stores its path in <see cref="MpcOrbDatFilePath"/> and closes the dialog with <see cref="DialogResult.OK"/>.</summary>
 	/// <param name="sender">Event source (the command link button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the Open Local File command link is clicked.</remarks>
@@ -110,9 +107,7 @@ public partial class PreloadForm : BaseKryptonForm
 		DialogResult = DialogResult.OK;
 	}
 
-	/// <summary>Handles the click event for downloading the MPCORB.DAT file.
-	/// Checks network availability and opens the download dialog; if the download completes successfully,
-	/// sets <see cref="MpcOrbDatFilePath"/> to the downloaded file and closes the form with <see cref="DialogResult.OK"/>.</summary>
+	/// <summary>Handles the click event for downloading the MPCORB.DAT file. Checks network availability and opens the download dialog; if the download completes successfully, sets <see cref="MpcOrbDatFilePath"/> to the downloaded file and closes the form with <see cref="DialogResult.OK"/>.</summary>
 	/// <param name="sender">Event source (the command link button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the Download MPCORB.DAT command link is clicked.</remarks>
@@ -148,9 +143,7 @@ public partial class PreloadForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Handles the click event for loading internal demo data.
-	/// Extracts an embedded demo data file to the application's working directory,
-	/// sets <see cref="MpcOrbDatFilePath"/> to the extracted filename and closes the dialog with <see cref="DialogResult.OK"/>.</summary>
+	/// <summary>Handles the click event for loading internal demo data. Extracts an embedded demo data file to the application's working directory, sets <see cref="MpcOrbDatFilePath"/> to the extracted filename and closes the dialog with <see cref="DialogResult.OK"/>.</summary>
 	/// <param name="sender">Event source (the command link button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the Load Internal Demo Data command link is clicked.</remarks>
