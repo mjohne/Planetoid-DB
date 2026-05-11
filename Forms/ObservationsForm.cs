@@ -3,6 +3,8 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using Krypton.Toolkit;
+
 using NLog;
 
 using Planetoid_DB.Forms;
