@@ -3,6 +3,7 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using Krypton.Navigator;
 using Krypton.Toolkit;
 
 using Planetoid_DB.Resources;
@@ -42,8 +43,10 @@ partial class AppInfoForm
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(AppInfoForm));
 		contextMenuStripCopyToClipboard = new ContextMenuStrip(components);
 		toolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
-		tabControlInfo = new TabControl();
-		tabPageAbout = new TabPage();
+		kryptonNavigatorInfo = new KryptonNavigator();
+		kryptonPageAbout = new KryptonPage();
+		kryptonPictureBoxGithub = new KryptonPictureBox();
+		kryptonPictureBoxGithubCopilot = new KryptonPictureBox();
 		kryptonPictureBoxLogo = new KryptonPictureBox();
 		kryptonPictureBoxVisualStudio = new KryptonPictureBox();
 		kryptonPictureBoxDotNet = new KryptonPictureBox();
@@ -56,28 +59,28 @@ partial class AppInfoForm
 		kryptonLabelCopyright = new KryptonLabel();
 		kryptonLinkLabelWebsite = new KryptonLinkLabel();
 		kryptonLinkLabelEmail = new KryptonLinkLabel();
-		tabPageComponents = new TabPage();
-		tabControlComponents = new TabControl();
-		tabPageComponentApplicationIcon = new TabPage();
+		kryptonPageComponents = new KryptonPage();
+		kryptonNavigatorComponents = new KryptonNavigator();
+		kryptonPageComponentApplicationIcon = new KryptonPage();
 		kryptonLabelLicenseFlaticon = new KryptonLabel();
 		kryptonLinkLabelFlaticon = new KryptonLinkLabel();
 		kryptonLabelAuthorFlaticon = new KryptonLabel();
 		kryptonTextBoxLicenseFlaticon = new KryptonTextBox();
 		kryptonLabelIconHeadingFlaticon = new KryptonLabel();
-		tabPageIconsetFatcow = new TabPage();
+		kryptonPageIconsetFatcow = new KryptonPage();
 		kryptonTextBoxLicenseFatcow = new KryptonTextBox();
 		kryptonLabelHeadingFatcowIcons = new KryptonLabel();
 		kryptonLabelLicenseFatcow = new KryptonLabel();
 		kryptonLinkLabelWebsiteFatcow = new KryptonLinkLabel();
 		kryptonLabelAuthorsFatcow = new KryptonLabel();
-		tabPageComponentKryptonSuite = new TabPage();
+		kryptonPageComponentKryptonSuite = new KryptonPage();
 		kryptonTextBoxLicenseKryptonSuite = new KryptonTextBox();
 		kryptonLabelHeadingKryptonSuite = new KryptonLabel();
 		kryptonLabelLicenseKryptonSuite = new KryptonLabel();
 		kryptonLabelVersionKryptonSuite = new KryptonLabel();
 		kryptonLinkLabelWebsiteKryptonSuite = new KryptonLinkLabel();
 		kryptonLabelAuthorsKryptonSuite = new KryptonLabel();
-		tabPageComponentNLog = new TabPage();
+		kryptonPageComponentNLog = new KryptonPage();
 		kryptonTextBoxLicenseNlog = new KryptonTextBox();
 		kryptonLabelHeadingNlog = new KryptonLabel();
 		kryptonLabelLicenseNlog = new KryptonLabel();
@@ -90,27 +93,31 @@ partial class AppInfoForm
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
 		kryptonManager = new KryptonManager(components);
-		kryptonPictureBoxGithubCopilot = new KryptonPictureBox();
-		kryptonPictureBoxGithub = new KryptonPictureBox();
 		contextMenuStripCopyToClipboard.SuspendLayout();
-		tabControlInfo.SuspendLayout();
-		tabPageAbout.SuspendLayout();
+		((ISupportInitialize)kryptonNavigatorInfo).BeginInit();
+		((ISupportInitialize)kryptonPageAbout).BeginInit();
+		kryptonPageAbout.SuspendLayout();
+		((ISupportInitialize)kryptonPictureBoxGithub).BeginInit();
+		((ISupportInitialize)kryptonPictureBoxGithubCopilot).BeginInit();
 		((ISupportInitialize)kryptonPictureBoxLogo).BeginInit();
 		((ISupportInitialize)kryptonPictureBoxVisualStudio).BeginInit();
 		((ISupportInitialize)kryptonPictureBoxDotNet).BeginInit();
 		((ISupportInitialize)kryptonPictureBoxCSharp).BeginInit();
-		tabPageComponents.SuspendLayout();
-		tabControlComponents.SuspendLayout();
-		tabPageComponentApplicationIcon.SuspendLayout();
-		tabPageIconsetFatcow.SuspendLayout();
-		tabPageComponentKryptonSuite.SuspendLayout();
-		tabPageComponentNLog.SuspendLayout();
+		((ISupportInitialize)kryptonPageComponents).BeginInit();
+		kryptonPageComponents.SuspendLayout();
+		((ISupportInitialize)kryptonNavigatorComponents).BeginInit();
+		((ISupportInitialize)kryptonPageComponentApplicationIcon).BeginInit();
+		kryptonPageComponentApplicationIcon.SuspendLayout();
+		((ISupportInitialize)kryptonPageIconsetFatcow).BeginInit();
+		kryptonPageIconsetFatcow.SuspendLayout();
+		((ISupportInitialize)kryptonPageComponentKryptonSuite).BeginInit();
+		kryptonPageComponentKryptonSuite.SuspendLayout();
+		((ISupportInitialize)kryptonPageComponentNLog).BeginInit();
+		kryptonPageComponentNLog.SuspendLayout();
 		((ISupportInitialize)pictureBoxBanner).BeginInit();
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
 		kryptonStatusStrip.SuspendLayout();
-		((ISupportInitialize)kryptonPictureBoxGithubCopilot).BeginInit();
-		((ISupportInitialize)kryptonPictureBoxGithub).BeginInit();
 		SuspendLayout();
 		// 
 		// contextMenuStripCopyToClipboard
@@ -144,56 +151,107 @@ partial class AppInfoForm
 		toolStripMenuItemCopyToClipboard.MouseEnter += Control_Enter;
 		toolStripMenuItemCopyToClipboard.MouseLeave += Control_Leave;
 		// 
-		// tabControlInfo
+		// kryptonNavigatorInfo
 		// 
-		tabControlInfo.AccessibleDescription = "Tabs with program information";
-		tabControlInfo.AccessibleName = "Program information tabs";
-		tabControlInfo.AccessibleRole = AccessibleRole.PageTabList;
-		tabControlInfo.Controls.Add(tabPageAbout);
-		tabControlInfo.Controls.Add(tabPageComponents);
-		tabControlInfo.ImageList = imageListTabAbout;
-		tabControlInfo.Location = new Point(4, 181);
-		tabControlInfo.Name = "tabControlInfo";
-		tabControlInfo.SelectedIndex = 0;
-		tabControlInfo.ShowToolTips = true;
-		tabControlInfo.Size = new Size(500, 283);
-		tabControlInfo.TabIndex = 0;
-		tabControlInfo.Enter += Control_Enter;
-		tabControlInfo.Leave += Control_Leave;
-		tabControlInfo.MouseEnter += Control_Enter;
-		tabControlInfo.MouseLeave += Control_Leave;
+		kryptonNavigatorInfo.AccessibleDescription = "Navigator with program information";
+		kryptonNavigatorInfo.AccessibleName = "Program information navigator";
+		kryptonNavigatorInfo.AccessibleRole = AccessibleRole.PageTabList;
+		kryptonNavigatorInfo.Button.ButtonDisplayLogic = ButtonDisplayLogic.Context;
+		kryptonNavigatorInfo.Button.CloseButtonAction = CloseButtonAction.RemovePageAndDispose;
+		kryptonNavigatorInfo.Button.CloseButtonDisplay = ButtonDisplay.Hide;
+		kryptonNavigatorInfo.Button.ContextButtonAction = ContextButtonAction.SelectPage;
+		kryptonNavigatorInfo.Button.ContextButtonDisplay = ButtonDisplay.Logic;
+		kryptonNavigatorInfo.Button.ContextMenuMapImage = MapKryptonPageImage.Small;
+		kryptonNavigatorInfo.Button.ContextMenuMapText = MapKryptonPageText.TextTitle;
+		kryptonNavigatorInfo.Button.NextButtonAction = DirectionButtonAction.ModeAppropriateAction;
+		kryptonNavigatorInfo.Button.NextButtonDisplay = ButtonDisplay.Logic;
+		kryptonNavigatorInfo.Button.PreviousButtonAction = DirectionButtonAction.ModeAppropriateAction;
+		kryptonNavigatorInfo.Button.PreviousButtonDisplay = ButtonDisplay.Logic;
+		kryptonNavigatorInfo.ControlKryptonFormFeatures = false;
+		kryptonNavigatorInfo.Location = new Point(4, 181);
+		kryptonNavigatorInfo.NavigatorMode = NavigatorMode.BarTabGroup;
+		kryptonNavigatorInfo.Owner = null;
+		kryptonNavigatorInfo.PageBackStyle = PaletteBackStyle.PanelClient;
+		kryptonNavigatorInfo.Pages.AddRange(new KryptonPage[] { kryptonPageAbout, kryptonPageComponents });
+		kryptonNavigatorInfo.SelectedIndex = 0;
+		kryptonNavigatorInfo.Size = new Size(500, 283);
+		kryptonNavigatorInfo.TabIndex = 0;
+		kryptonNavigatorInfo.Text = "About";
+		kryptonNavigatorInfo.Enter += Control_Enter;
+		kryptonNavigatorInfo.Leave += Control_Leave;
+		kryptonNavigatorInfo.MouseEnter += Control_Enter;
+		kryptonNavigatorInfo.MouseLeave += Control_Leave;
 		// 
-		// tabPageAbout
+		// kryptonPageAbout
 		// 
-		tabPageAbout.AccessibleDescription = "Shows information about the application";
-		tabPageAbout.AccessibleName = "About";
-		tabPageAbout.AccessibleRole = AccessibleRole.PageTab;
-		tabPageAbout.Controls.Add(kryptonPictureBoxGithub);
-		tabPageAbout.Controls.Add(kryptonPictureBoxGithubCopilot);
-		tabPageAbout.Controls.Add(kryptonPictureBoxLogo);
-		tabPageAbout.Controls.Add(kryptonPictureBoxVisualStudio);
-		tabPageAbout.Controls.Add(kryptonPictureBoxDotNet);
-		tabPageAbout.Controls.Add(kryptonPictureBoxCSharp);
-		tabPageAbout.Controls.Add(kryptonLabelTitle);
-		tabPageAbout.Controls.Add(kryptonLabelVersion);
-		tabPageAbout.Controls.Add(kryptonLabelCompany);
-		tabPageAbout.Controls.Add(kryptonLabelAuthor);
-		tabPageAbout.Controls.Add(kryptonLabelDescription);
-		tabPageAbout.Controls.Add(kryptonLabelCopyright);
-		tabPageAbout.Controls.Add(kryptonLinkLabelWebsite);
-		tabPageAbout.Controls.Add(kryptonLinkLabelEmail);
-		tabPageAbout.ImageKey = "fatcow_information_16px.png";
-		tabPageAbout.Location = new Point(4, 24);
-		tabPageAbout.Name = "tabPageAbout";
-		tabPageAbout.Size = new Size(492, 255);
-		tabPageAbout.TabIndex = 0;
-		tabPageAbout.Text = "About";
-		tabPageAbout.ToolTipText = "Application information";
-		tabPageAbout.UseVisualStyleBackColor = true;
-		tabPageAbout.Enter += Control_Enter;
-		tabPageAbout.Leave += Control_Leave;
-		tabPageAbout.MouseEnter += Control_Enter;
-		tabPageAbout.MouseLeave += Control_Leave;
+		kryptonPageAbout.AccessibleDescription = "Shows information about the application";
+		kryptonPageAbout.AccessibleName = "About";
+		kryptonPageAbout.AccessibleRole = AccessibleRole.PageTab;
+		kryptonPageAbout.AutoHiddenSlideSize = new Size(200, 200);
+		kryptonPageAbout.Controls.Add(kryptonPictureBoxGithub);
+		kryptonPageAbout.Controls.Add(kryptonPictureBoxGithubCopilot);
+		kryptonPageAbout.Controls.Add(kryptonPictureBoxLogo);
+		kryptonPageAbout.Controls.Add(kryptonPictureBoxVisualStudio);
+		kryptonPageAbout.Controls.Add(kryptonPictureBoxDotNet);
+		kryptonPageAbout.Controls.Add(kryptonPictureBoxCSharp);
+		kryptonPageAbout.Controls.Add(kryptonLabelTitle);
+		kryptonPageAbout.Controls.Add(kryptonLabelVersion);
+		kryptonPageAbout.Controls.Add(kryptonLabelCompany);
+		kryptonPageAbout.Controls.Add(kryptonLabelAuthor);
+		kryptonPageAbout.Controls.Add(kryptonLabelDescription);
+		kryptonPageAbout.Controls.Add(kryptonLabelCopyright);
+		kryptonPageAbout.Controls.Add(kryptonLinkLabelWebsite);
+		kryptonPageAbout.Controls.Add(kryptonLinkLabelEmail);
+		kryptonPageAbout.Flags = 65534;
+		kryptonPageAbout.LastVisibleSet = true;
+		kryptonPageAbout.MinimumSize = new Size(50, 50);
+		kryptonPageAbout.Name = "kryptonPageAbout";
+		kryptonPageAbout.Size = new Size(498, 256);
+		kryptonPageAbout.Text = "About";
+		kryptonPageAbout.ToolTipTitle = "Application information";
+		kryptonPageAbout.UniqueName = "kryptonPageAbout";
+		kryptonPageAbout.Enter += Control_Enter;
+		kryptonPageAbout.Leave += Control_Leave;
+		kryptonPageAbout.MouseEnter += Control_Enter;
+		kryptonPageAbout.MouseLeave += Control_Leave;
+		// 
+		// kryptonPictureBoxGithub
+		// 
+		kryptonPictureBoxGithub.AccessibleDescription = "Shows the Github";
+		kryptonPictureBoxGithub.AccessibleName = "Github";
+		kryptonPictureBoxGithub.AccessibleRole = AccessibleRole.Graphic;
+		kryptonPictureBoxGithub.Image = (Image)resources.GetObject("kryptonPictureBoxGithub.Image");
+		kryptonPictureBoxGithub.Location = new Point(213, 207);
+		kryptonPictureBoxGithub.Name = "kryptonPictureBoxGithub";
+		kryptonPictureBoxGithub.Size = new Size(48, 48);
+		kryptonPictureBoxGithub.SizeMode = PictureBoxSizeMode.Zoom;
+		kryptonPictureBoxGithub.TabIndex = 13;
+		kryptonPictureBoxGithub.TabStop = false;
+		kryptonPictureBoxGithub.ToolTipValues.Description = "Hosted on Github";
+		kryptonPictureBoxGithub.ToolTipValues.EnableToolTips = true;
+		kryptonPictureBoxGithub.ToolTipValues.Heading = "Github";
+		kryptonPictureBoxGithub.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonPictureBoxGithub.MouseEnter += Control_Enter;
+		kryptonPictureBoxGithub.MouseLeave += Control_Leave;
+		// 
+		// kryptonPictureBoxGithubCopilot
+		// 
+		kryptonPictureBoxGithubCopilot.AccessibleDescription = "Shows the Github Copilot";
+		kryptonPictureBoxGithubCopilot.AccessibleName = "Github Copilot";
+		kryptonPictureBoxGithubCopilot.AccessibleRole = AccessibleRole.Graphic;
+		kryptonPictureBoxGithubCopilot.Image = (Image)resources.GetObject("kryptonPictureBoxGithubCopilot.Image");
+		kryptonPictureBoxGithubCopilot.Location = new Point(159, 207);
+		kryptonPictureBoxGithubCopilot.Name = "kryptonPictureBoxGithubCopilot";
+		kryptonPictureBoxGithubCopilot.Size = new Size(48, 48);
+		kryptonPictureBoxGithubCopilot.SizeMode = PictureBoxSizeMode.Zoom;
+		kryptonPictureBoxGithubCopilot.TabIndex = 12;
+		kryptonPictureBoxGithubCopilot.TabStop = false;
+		kryptonPictureBoxGithubCopilot.ToolTipValues.Description = "Supported by Github Copilot";
+		kryptonPictureBoxGithubCopilot.ToolTipValues.EnableToolTips = true;
+		kryptonPictureBoxGithubCopilot.ToolTipValues.Heading = "Github Copilot";
+		kryptonPictureBoxGithubCopilot.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonPictureBoxGithubCopilot.MouseEnter += Control_Enter;
+		kryptonPictureBoxGithubCopilot.MouseLeave += Control_Leave;
 		// 
 		// kryptonPictureBoxLogo
 		// 
@@ -452,68 +510,82 @@ partial class AppInfoForm
 		kryptonLinkLabelEmail.MouseEnter += Control_Enter;
 		kryptonLinkLabelEmail.MouseLeave += Control_Leave;
 		// 
-		// tabPageComponents
+		// kryptonPageComponents
 		// 
-		tabPageComponents.AccessibleDescription = "Shows information about third-party components";
-		tabPageComponents.AccessibleName = "Components";
-		tabPageComponents.AccessibleRole = AccessibleRole.PageTab;
-		tabPageComponents.Controls.Add(tabControlComponents);
-		tabPageComponents.ImageKey = "fatcow_bricks_16px.png";
-		tabPageComponents.Location = new Point(4, 24);
-		tabPageComponents.Name = "tabPageComponents";
-		tabPageComponents.Size = new Size(492, 255);
-		tabPageComponents.TabIndex = 1;
-		tabPageComponents.Text = "Components";
-		tabPageComponents.ToolTipText = "Components";
-		tabPageComponents.UseVisualStyleBackColor = true;
-		tabPageComponents.Enter += Control_Enter;
-		tabPageComponents.Leave += Control_Leave;
-		tabPageComponents.MouseEnter += Control_Enter;
-		tabPageComponents.MouseLeave += Control_Leave;
+		kryptonPageComponents.AccessibleDescription = "Shows information about third-party components";
+		kryptonPageComponents.AccessibleName = "Components";
+		kryptonPageComponents.AccessibleRole = AccessibleRole.PageTab;
+		kryptonPageComponents.AutoHiddenSlideSize = new Size(200, 200);
+		kryptonPageComponents.Controls.Add(kryptonNavigatorComponents);
+		kryptonPageComponents.Flags = 65534;
+		kryptonPageComponents.LastVisibleSet = true;
+		kryptonPageComponents.MinimumSize = new Size(50, 50);
+		kryptonPageComponents.Name = "kryptonPageComponents";
+		kryptonPageComponents.Size = new Size(498, 256);
+		kryptonPageComponents.Text = "Components";
+		kryptonPageComponents.ToolTipTitle = "Components";
+		kryptonPageComponents.UniqueName = "kryptonPageComponents";
+		kryptonPageComponents.Enter += Control_Enter;
+		kryptonPageComponents.Leave += Control_Leave;
+		kryptonPageComponents.MouseEnter += Control_Enter;
+		kryptonPageComponents.MouseLeave += Control_Leave;
 		// 
-		// tabControlComponents
+		// kryptonNavigatorComponents
 		// 
-		tabControlComponents.AccessibleDescription = "Shows tabs with components information";
-		tabControlComponents.AccessibleName = "Components information tab";
-		tabControlComponents.AccessibleRole = AccessibleRole.PageTabList;
-		tabControlComponents.Controls.Add(tabPageComponentApplicationIcon);
-		tabControlComponents.Controls.Add(tabPageIconsetFatcow);
-		tabControlComponents.Controls.Add(tabPageComponentKryptonSuite);
-		tabControlComponents.Controls.Add(tabPageComponentNLog);
-		tabControlComponents.Dock = DockStyle.Fill;
-		tabControlComponents.Location = new Point(0, 0);
-		tabControlComponents.Name = "tabControlComponents";
-		tabControlComponents.SelectedIndex = 0;
-		tabControlComponents.ShowToolTips = true;
-		tabControlComponents.Size = new Size(492, 255);
-		tabControlComponents.TabIndex = 0;
-		tabControlComponents.Enter += Control_Enter;
-		tabControlComponents.Leave += Control_Leave;
-		tabControlComponents.MouseEnter += Control_Enter;
-		tabControlComponents.MouseLeave += Control_Leave;
+		kryptonNavigatorComponents.AccessibleDescription = "Navigator with components information";
+		kryptonNavigatorComponents.AccessibleName = "Components information navigator";
+		kryptonNavigatorComponents.AccessibleRole = AccessibleRole.PageTabList;
+		kryptonNavigatorComponents.Button.ButtonDisplayLogic = ButtonDisplayLogic.Context;
+		kryptonNavigatorComponents.Button.CloseButtonAction = CloseButtonAction.RemovePageAndDispose;
+		kryptonNavigatorComponents.Button.CloseButtonDisplay = ButtonDisplay.Hide;
+		kryptonNavigatorComponents.Button.ContextButtonAction = ContextButtonAction.SelectPage;
+		kryptonNavigatorComponents.Button.ContextButtonDisplay = ButtonDisplay.Logic;
+		kryptonNavigatorComponents.Button.ContextMenuMapImage = MapKryptonPageImage.Small;
+		kryptonNavigatorComponents.Button.ContextMenuMapText = MapKryptonPageText.TextTitle;
+		kryptonNavigatorComponents.Button.NextButtonAction = DirectionButtonAction.ModeAppropriateAction;
+		kryptonNavigatorComponents.Button.NextButtonDisplay = ButtonDisplay.Logic;
+		kryptonNavigatorComponents.Button.PreviousButtonAction = DirectionButtonAction.ModeAppropriateAction;
+		kryptonNavigatorComponents.Button.PreviousButtonDisplay = ButtonDisplay.Logic;
+		kryptonNavigatorComponents.ControlKryptonFormFeatures = false;
+		kryptonNavigatorComponents.Dock = DockStyle.Fill;
+		kryptonNavigatorComponents.Location = new Point(0, 0);
+		kryptonNavigatorComponents.NavigatorMode = NavigatorMode.BarTabGroup;
+		kryptonNavigatorComponents.Owner = null;
+		kryptonNavigatorComponents.PageBackStyle = PaletteBackStyle.PanelClient;
+		kryptonNavigatorComponents.Pages.AddRange(new KryptonPage[] { kryptonPageComponentApplicationIcon, kryptonPageIconsetFatcow, kryptonPageComponentKryptonSuite, kryptonPageComponentNLog });
+		kryptonNavigatorComponents.SelectedIndex = 0;
+		kryptonNavigatorComponents.Size = new Size(498, 256);
+		kryptonNavigatorComponents.TabIndex = 0;
+		kryptonNavigatorComponents.Text = "Components";
+		kryptonNavigatorComponents.Enter += Control_Enter;
+		kryptonNavigatorComponents.Leave += Control_Leave;
+		kryptonNavigatorComponents.MouseEnter += Control_Enter;
+		kryptonNavigatorComponents.MouseLeave += Control_Leave;
 		// 
-		// tabPageComponentApplicationIcon
+		// kryptonPageComponentApplicationIcon
 		// 
-		tabPageComponentApplicationIcon.AccessibleDescription = "Shows tab with application icon information";
-		tabPageComponentApplicationIcon.AccessibleName = "Application icon tab";
-		tabPageComponentApplicationIcon.AccessibleRole = AccessibleRole.PageTab;
-		tabPageComponentApplicationIcon.Controls.Add(kryptonLabelLicenseFlaticon);
-		tabPageComponentApplicationIcon.Controls.Add(kryptonLinkLabelFlaticon);
-		tabPageComponentApplicationIcon.Controls.Add(kryptonLabelAuthorFlaticon);
-		tabPageComponentApplicationIcon.Controls.Add(kryptonTextBoxLicenseFlaticon);
-		tabPageComponentApplicationIcon.Controls.Add(kryptonLabelIconHeadingFlaticon);
-		tabPageComponentApplicationIcon.Location = new Point(4, 24);
-		tabPageComponentApplicationIcon.Name = "tabPageComponentApplicationIcon";
-		tabPageComponentApplicationIcon.Padding = new Padding(3);
-		tabPageComponentApplicationIcon.Size = new Size(484, 227);
-		tabPageComponentApplicationIcon.TabIndex = 0;
-		tabPageComponentApplicationIcon.Text = "Application icon";
-		tabPageComponentApplicationIcon.ToolTipText = "Application icon";
-		tabPageComponentApplicationIcon.UseVisualStyleBackColor = true;
-		tabPageComponentApplicationIcon.Enter += Control_Enter;
-		tabPageComponentApplicationIcon.Leave += Control_Leave;
-		tabPageComponentApplicationIcon.MouseEnter += Control_Enter;
-		tabPageComponentApplicationIcon.MouseLeave += Control_Leave;
+		kryptonPageComponentApplicationIcon.AccessibleDescription = "Shows page with application icon information";
+		kryptonPageComponentApplicationIcon.AccessibleName = "Application icon page";
+		kryptonPageComponentApplicationIcon.AccessibleRole = AccessibleRole.PageTab;
+		kryptonPageComponentApplicationIcon.AutoHiddenSlideSize = new Size(200, 200);
+		kryptonPageComponentApplicationIcon.Controls.Add(kryptonLabelLicenseFlaticon);
+		kryptonPageComponentApplicationIcon.Controls.Add(kryptonLinkLabelFlaticon);
+		kryptonPageComponentApplicationIcon.Controls.Add(kryptonLabelAuthorFlaticon);
+		kryptonPageComponentApplicationIcon.Controls.Add(kryptonTextBoxLicenseFlaticon);
+		kryptonPageComponentApplicationIcon.Controls.Add(kryptonLabelIconHeadingFlaticon);
+		kryptonPageComponentApplicationIcon.Flags = 65534;
+		kryptonPageComponentApplicationIcon.LastVisibleSet = true;
+		kryptonPageComponentApplicationIcon.MinimumSize = new Size(50, 50);
+		kryptonPageComponentApplicationIcon.Name = "kryptonPageComponentApplicationIcon";
+		kryptonPageComponentApplicationIcon.Padding = new Padding(3);
+		kryptonPageComponentApplicationIcon.Size = new Size(496, 229);
+		kryptonPageComponentApplicationIcon.Text = "Application icon";
+		kryptonPageComponentApplicationIcon.ToolTipTitle = "Application icon";
+		kryptonPageComponentApplicationIcon.UniqueName = "kryptonPageComponentApplicationIcon";
+		kryptonPageComponentApplicationIcon.Enter += Control_Enter;
+		kryptonPageComponentApplicationIcon.Leave += Control_Leave;
+		kryptonPageComponentApplicationIcon.MouseEnter += Control_Enter;
+		kryptonPageComponentApplicationIcon.MouseLeave += Control_Leave;
 		// 
 		// kryptonLabelLicenseFlaticon
 		// 
@@ -628,28 +700,30 @@ partial class AppInfoForm
 		kryptonLabelIconHeadingFlaticon.MouseEnter += Control_Enter;
 		kryptonLabelIconHeadingFlaticon.MouseLeave += Control_Leave;
 		// 
-		// tabPageIconsetFatcow
+		// kryptonPageIconsetFatcow
 		// 
-		tabPageIconsetFatcow.AccessibleDescription = "Shows tab with FatCow icons information";
-		tabPageIconsetFatcow.AccessibleName = "FatCow icons tab";
-		tabPageIconsetFatcow.AccessibleRole = AccessibleRole.PageTab;
-		tabPageIconsetFatcow.Controls.Add(kryptonTextBoxLicenseFatcow);
-		tabPageIconsetFatcow.Controls.Add(kryptonLabelHeadingFatcowIcons);
-		tabPageIconsetFatcow.Controls.Add(kryptonLabelLicenseFatcow);
-		tabPageIconsetFatcow.Controls.Add(kryptonLinkLabelWebsiteFatcow);
-		tabPageIconsetFatcow.Controls.Add(kryptonLabelAuthorsFatcow);
-		tabPageIconsetFatcow.Location = new Point(4, 24);
-		tabPageIconsetFatcow.Name = "tabPageIconsetFatcow";
-		tabPageIconsetFatcow.Padding = new Padding(3);
-		tabPageIconsetFatcow.Size = new Size(484, 227);
-		tabPageIconsetFatcow.TabIndex = 1;
-		tabPageIconsetFatcow.Text = "FatCow Icons";
-		tabPageIconsetFatcow.ToolTipText = "FatCow Icons";
-		tabPageIconsetFatcow.UseVisualStyleBackColor = true;
-		tabPageIconsetFatcow.Enter += Control_Enter;
-		tabPageIconsetFatcow.Leave += Control_Leave;
-		tabPageIconsetFatcow.MouseEnter += Control_Enter;
-		tabPageIconsetFatcow.MouseLeave += Control_Leave;
+		kryptonPageIconsetFatcow.AccessibleDescription = "Shows page with FatCow icons information";
+		kryptonPageIconsetFatcow.AccessibleName = "FatCow icons page";
+		kryptonPageIconsetFatcow.AccessibleRole = AccessibleRole.PageTab;
+		kryptonPageIconsetFatcow.AutoHiddenSlideSize = new Size(200, 200);
+		kryptonPageIconsetFatcow.Controls.Add(kryptonTextBoxLicenseFatcow);
+		kryptonPageIconsetFatcow.Controls.Add(kryptonLabelHeadingFatcowIcons);
+		kryptonPageIconsetFatcow.Controls.Add(kryptonLabelLicenseFatcow);
+		kryptonPageIconsetFatcow.Controls.Add(kryptonLinkLabelWebsiteFatcow);
+		kryptonPageIconsetFatcow.Controls.Add(kryptonLabelAuthorsFatcow);
+		kryptonPageIconsetFatcow.Flags = 65534;
+		kryptonPageIconsetFatcow.LastVisibleSet = true;
+		kryptonPageIconsetFatcow.MinimumSize = new Size(50, 50);
+		kryptonPageIconsetFatcow.Name = "kryptonPageIconsetFatcow";
+		kryptonPageIconsetFatcow.Padding = new Padding(3);
+		kryptonPageIconsetFatcow.Size = new Size(496, 229);
+		kryptonPageIconsetFatcow.Text = "FatCow Icons";
+		kryptonPageIconsetFatcow.ToolTipTitle = "FatCow Icons";
+		kryptonPageIconsetFatcow.UniqueName = "kryptonPageIconsetFatcow";
+		kryptonPageIconsetFatcow.Enter += Control_Enter;
+		kryptonPageIconsetFatcow.Leave += Control_Leave;
+		kryptonPageIconsetFatcow.MouseEnter += Control_Enter;
+		kryptonPageIconsetFatcow.MouseLeave += Control_Leave;
 		// 
 		// kryptonTextBoxLicenseFatcow
 		// 
@@ -764,29 +838,31 @@ partial class AppInfoForm
 		kryptonLabelAuthorsFatcow.MouseEnter += Control_Enter;
 		kryptonLabelAuthorsFatcow.MouseLeave += Control_Leave;
 		// 
-		// tabPageComponentKryptonSuite
+		// kryptonPageComponentKryptonSuite
 		// 
-		tabPageComponentKryptonSuite.AccessibleDescription = "Shows tab with Krypton Suite information";
-		tabPageComponentKryptonSuite.AccessibleName = "Krypton Suite tab";
-		tabPageComponentKryptonSuite.AccessibleRole = AccessibleRole.PageTab;
-		tabPageComponentKryptonSuite.Controls.Add(kryptonTextBoxLicenseKryptonSuite);
-		tabPageComponentKryptonSuite.Controls.Add(kryptonLabelHeadingKryptonSuite);
-		tabPageComponentKryptonSuite.Controls.Add(kryptonLabelLicenseKryptonSuite);
-		tabPageComponentKryptonSuite.Controls.Add(kryptonLabelVersionKryptonSuite);
-		tabPageComponentKryptonSuite.Controls.Add(kryptonLinkLabelWebsiteKryptonSuite);
-		tabPageComponentKryptonSuite.Controls.Add(kryptonLabelAuthorsKryptonSuite);
-		tabPageComponentKryptonSuite.Location = new Point(4, 24);
-		tabPageComponentKryptonSuite.Name = "tabPageComponentKryptonSuite";
-		tabPageComponentKryptonSuite.Padding = new Padding(3);
-		tabPageComponentKryptonSuite.Size = new Size(484, 227);
-		tabPageComponentKryptonSuite.TabIndex = 2;
-		tabPageComponentKryptonSuite.Text = "Krypton Suite";
-		tabPageComponentKryptonSuite.ToolTipText = "Krypton Suite";
-		tabPageComponentKryptonSuite.UseVisualStyleBackColor = true;
-		tabPageComponentKryptonSuite.Enter += Control_Enter;
-		tabPageComponentKryptonSuite.Leave += Control_Leave;
-		tabPageComponentKryptonSuite.MouseEnter += Control_Enter;
-		tabPageComponentKryptonSuite.MouseLeave += Control_Leave;
+		kryptonPageComponentKryptonSuite.AccessibleDescription = "Shows page with Krypton Suite information";
+		kryptonPageComponentKryptonSuite.AccessibleName = "Krypton Suite page";
+		kryptonPageComponentKryptonSuite.AccessibleRole = AccessibleRole.PageTab;
+		kryptonPageComponentKryptonSuite.AutoHiddenSlideSize = new Size(200, 200);
+		kryptonPageComponentKryptonSuite.Controls.Add(kryptonTextBoxLicenseKryptonSuite);
+		kryptonPageComponentKryptonSuite.Controls.Add(kryptonLabelHeadingKryptonSuite);
+		kryptonPageComponentKryptonSuite.Controls.Add(kryptonLabelLicenseKryptonSuite);
+		kryptonPageComponentKryptonSuite.Controls.Add(kryptonLabelVersionKryptonSuite);
+		kryptonPageComponentKryptonSuite.Controls.Add(kryptonLinkLabelWebsiteKryptonSuite);
+		kryptonPageComponentKryptonSuite.Controls.Add(kryptonLabelAuthorsKryptonSuite);
+		kryptonPageComponentKryptonSuite.Flags = 65534;
+		kryptonPageComponentKryptonSuite.LastVisibleSet = true;
+		kryptonPageComponentKryptonSuite.MinimumSize = new Size(50, 50);
+		kryptonPageComponentKryptonSuite.Name = "kryptonPageComponentKryptonSuite";
+		kryptonPageComponentKryptonSuite.Padding = new Padding(3);
+		kryptonPageComponentKryptonSuite.Size = new Size(496, 229);
+		kryptonPageComponentKryptonSuite.Text = "Krypton Suite";
+		kryptonPageComponentKryptonSuite.ToolTipTitle = "Krypton Suite";
+		kryptonPageComponentKryptonSuite.UniqueName = "kryptonPageComponentKryptonSuite";
+		kryptonPageComponentKryptonSuite.Enter += Control_Enter;
+		kryptonPageComponentKryptonSuite.Leave += Control_Leave;
+		kryptonPageComponentKryptonSuite.MouseEnter += Control_Enter;
+		kryptonPageComponentKryptonSuite.MouseLeave += Control_Leave;
 		// 
 		// kryptonTextBoxLicenseKryptonSuite
 		// 
@@ -922,29 +998,31 @@ partial class AppInfoForm
 		kryptonLabelAuthorsKryptonSuite.MouseEnter += Control_Enter;
 		kryptonLabelAuthorsKryptonSuite.MouseLeave += Control_Leave;
 		// 
-		// tabPageComponentNLog
+		// kryptonPageComponentNLog
 		// 
-		tabPageComponentNLog.AccessibleDescription = "Shows tab with NLog information";
-		tabPageComponentNLog.AccessibleName = "NLog information tab";
-		tabPageComponentNLog.AccessibleRole = AccessibleRole.PageTab;
-		tabPageComponentNLog.Controls.Add(kryptonTextBoxLicenseNlog);
-		tabPageComponentNLog.Controls.Add(kryptonLabelHeadingNlog);
-		tabPageComponentNLog.Controls.Add(kryptonLabelLicenseNlog);
-		tabPageComponentNLog.Controls.Add(kryptonLabelVersionNlog);
-		tabPageComponentNLog.Controls.Add(kryptonLinkLabelWebsiteNlog);
-		tabPageComponentNLog.Controls.Add(kryptonLabelAuthorsNlog);
-		tabPageComponentNLog.Location = new Point(4, 24);
-		tabPageComponentNLog.Name = "tabPageComponentNLog";
-		tabPageComponentNLog.Padding = new Padding(3);
-		tabPageComponentNLog.Size = new Size(484, 227);
-		tabPageComponentNLog.TabIndex = 3;
-		tabPageComponentNLog.Text = "NLog";
-		tabPageComponentNLog.ToolTipText = "NLog";
-		tabPageComponentNLog.UseVisualStyleBackColor = true;
-		tabPageComponentNLog.Enter += Control_Enter;
-		tabPageComponentNLog.Leave += Control_Leave;
-		tabPageComponentNLog.MouseEnter += Control_Enter;
-		tabPageComponentNLog.MouseLeave += Control_Leave;
+		kryptonPageComponentNLog.AccessibleDescription = "Shows page with NLog information";
+		kryptonPageComponentNLog.AccessibleName = "NLog information page";
+		kryptonPageComponentNLog.AccessibleRole = AccessibleRole.PageTab;
+		kryptonPageComponentNLog.AutoHiddenSlideSize = new Size(200, 200);
+		kryptonPageComponentNLog.Controls.Add(kryptonTextBoxLicenseNlog);
+		kryptonPageComponentNLog.Controls.Add(kryptonLabelHeadingNlog);
+		kryptonPageComponentNLog.Controls.Add(kryptonLabelLicenseNlog);
+		kryptonPageComponentNLog.Controls.Add(kryptonLabelVersionNlog);
+		kryptonPageComponentNLog.Controls.Add(kryptonLinkLabelWebsiteNlog);
+		kryptonPageComponentNLog.Controls.Add(kryptonLabelAuthorsNlog);
+		kryptonPageComponentNLog.Flags = 65534;
+		kryptonPageComponentNLog.LastVisibleSet = true;
+		kryptonPageComponentNLog.MinimumSize = new Size(50, 50);
+		kryptonPageComponentNLog.Name = "kryptonPageComponentNLog";
+		kryptonPageComponentNLog.Padding = new Padding(3);
+		kryptonPageComponentNLog.Size = new Size(496, 229);
+		kryptonPageComponentNLog.Text = "NLog";
+		kryptonPageComponentNLog.ToolTipTitle = "NLog";
+		kryptonPageComponentNLog.UniqueName = "kryptonPageComponentNLog";
+		kryptonPageComponentNLog.Enter += Control_Enter;
+		kryptonPageComponentNLog.Leave += Control_Leave;
+		kryptonPageComponentNLog.MouseEnter += Control_Enter;
+		kryptonPageComponentNLog.MouseLeave += Control_Leave;
 		// 
 		// kryptonTextBoxLicenseNlog
 		// 
@@ -1113,7 +1191,7 @@ partial class AppInfoForm
 		kryptonPanelMain.AccessibleName = "pane";
 		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
 		kryptonPanelMain.Controls.Add(pictureBoxBanner);
-		kryptonPanelMain.Controls.Add(tabControlInfo);
+		kryptonPanelMain.Controls.Add(kryptonNavigatorInfo);
 		kryptonPanelMain.Controls.Add(kryptonStatusStrip);
 		kryptonPanelMain.Dock = DockStyle.Fill;
 		kryptonPanelMain.Location = new Point(0, 0);
@@ -1172,44 +1250,6 @@ partial class AppInfoForm
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 		// 
-		// kryptonPictureBoxGithubCopilot
-		// 
-		kryptonPictureBoxGithubCopilot.AccessibleDescription = "Shows the Github Copilot";
-		kryptonPictureBoxGithubCopilot.AccessibleName = "Github Copilot";
-		kryptonPictureBoxGithubCopilot.AccessibleRole = AccessibleRole.Graphic;
-		kryptonPictureBoxGithubCopilot.Image = (Image)resources.GetObject("kryptonPictureBoxGithubCopilot.Image");
-		kryptonPictureBoxGithubCopilot.Location = new Point(159, 207);
-		kryptonPictureBoxGithubCopilot.Name = "kryptonPictureBoxGithubCopilot";
-		kryptonPictureBoxGithubCopilot.Size = new Size(48, 48);
-		kryptonPictureBoxGithubCopilot.SizeMode = PictureBoxSizeMode.Zoom;
-		kryptonPictureBoxGithubCopilot.TabIndex = 12;
-		kryptonPictureBoxGithubCopilot.TabStop = false;
-		kryptonPictureBoxGithubCopilot.ToolTipValues.Description = "Supported by Github Copilot";
-		kryptonPictureBoxGithubCopilot.ToolTipValues.EnableToolTips = true;
-		kryptonPictureBoxGithubCopilot.ToolTipValues.Heading = "Github Copilot";
-		kryptonPictureBoxGithubCopilot.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		kryptonPictureBoxGithubCopilot.MouseEnter += Control_Enter;
-		kryptonPictureBoxGithubCopilot.MouseLeave += Control_Leave;
-		// 
-		// kryptonPictureBoxGithub
-		// 
-		kryptonPictureBoxGithub.AccessibleDescription = "Shows the Github";
-		kryptonPictureBoxGithub.AccessibleName = "Github";
-		kryptonPictureBoxGithub.AccessibleRole = AccessibleRole.Graphic;
-		kryptonPictureBoxGithub.Image = (Image)resources.GetObject("kryptonPictureBoxGithub.Image");
-		kryptonPictureBoxGithub.Location = new Point(213, 207);
-		kryptonPictureBoxGithub.Name = "kryptonPictureBoxGithub";
-		kryptonPictureBoxGithub.Size = new Size(48, 48);
-		kryptonPictureBoxGithub.SizeMode = PictureBoxSizeMode.Zoom;
-		kryptonPictureBoxGithub.TabIndex = 13;
-		kryptonPictureBoxGithub.TabStop = false;
-		kryptonPictureBoxGithub.ToolTipValues.Description = "Hosted on Github";
-		kryptonPictureBoxGithub.ToolTipValues.EnableToolTips = true;
-		kryptonPictureBoxGithub.ToolTipValues.Heading = "Github";
-		kryptonPictureBoxGithub.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		kryptonPictureBoxGithub.MouseEnter += Control_Enter;
-		kryptonPictureBoxGithub.MouseLeave += Control_Leave;
-		// 
 		// AppInfoForm
 		// 
 		AccessibleDescription = "Shows the program information";
@@ -1234,31 +1274,37 @@ partial class AppInfoForm
 		MouseEnter += Control_Enter;
 		MouseLeave += Control_Leave;
 		contextMenuStripCopyToClipboard.ResumeLayout(false);
-		tabControlInfo.ResumeLayout(false);
-		tabPageAbout.ResumeLayout(false);
-		tabPageAbout.PerformLayout();
+		((ISupportInitialize)kryptonNavigatorInfo).EndInit();
+		((ISupportInitialize)kryptonPageAbout).EndInit();
+		kryptonPageAbout.ResumeLayout(false);
+		kryptonPageAbout.PerformLayout();
+		((ISupportInitialize)kryptonPictureBoxGithub).EndInit();
+		((ISupportInitialize)kryptonPictureBoxGithubCopilot).EndInit();
 		((ISupportInitialize)kryptonPictureBoxLogo).EndInit();
 		((ISupportInitialize)kryptonPictureBoxVisualStudio).EndInit();
 		((ISupportInitialize)kryptonPictureBoxDotNet).EndInit();
 		((ISupportInitialize)kryptonPictureBoxCSharp).EndInit();
-		tabPageComponents.ResumeLayout(false);
-		tabControlComponents.ResumeLayout(false);
-		tabPageComponentApplicationIcon.ResumeLayout(false);
-		tabPageComponentApplicationIcon.PerformLayout();
-		tabPageIconsetFatcow.ResumeLayout(false);
-		tabPageIconsetFatcow.PerformLayout();
-		tabPageComponentKryptonSuite.ResumeLayout(false);
-		tabPageComponentKryptonSuite.PerformLayout();
-		tabPageComponentNLog.ResumeLayout(false);
-		tabPageComponentNLog.PerformLayout();
+		((ISupportInitialize)kryptonPageComponents).EndInit();
+		kryptonPageComponents.ResumeLayout(false);
+		((ISupportInitialize)kryptonNavigatorComponents).EndInit();
+		((ISupportInitialize)kryptonPageComponentApplicationIcon).EndInit();
+		kryptonPageComponentApplicationIcon.ResumeLayout(false);
+		kryptonPageComponentApplicationIcon.PerformLayout();
+		((ISupportInitialize)kryptonPageIconsetFatcow).EndInit();
+		kryptonPageIconsetFatcow.ResumeLayout(false);
+		kryptonPageIconsetFatcow.PerformLayout();
+		((ISupportInitialize)kryptonPageComponentKryptonSuite).EndInit();
+		kryptonPageComponentKryptonSuite.ResumeLayout(false);
+		kryptonPageComponentKryptonSuite.PerformLayout();
+		((ISupportInitialize)kryptonPageComponentNLog).EndInit();
+		kryptonPageComponentNLog.ResumeLayout(false);
+		kryptonPageComponentNLog.PerformLayout();
 		((ISupportInitialize)pictureBoxBanner).EndInit();
 		((ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);
 		kryptonPanelMain.PerformLayout();
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();
-		((ISupportInitialize)kryptonPictureBoxGithubCopilot).EndInit();
-		((ISupportInitialize)kryptonPictureBoxGithub).EndInit();
 		ResumeLayout(false);
 	}
 
@@ -1273,9 +1319,9 @@ partial class AppInfoForm
 	private KryptonLabel kryptonLabelCopyright;
 	private KryptonLinkLabel kryptonLinkLabelWebsite;
 	private KryptonLinkLabel kryptonLinkLabelEmail;
-	private TabControl tabControlInfo;
-	private TabPage tabPageAbout;
-	private TabPage tabPageComponents;
+	private KryptonNavigator kryptonNavigatorInfo;
+	private KryptonPage kryptonPageAbout;
+	private KryptonPage kryptonPageComponents;
 	private KryptonLabel kryptonLabelIconHeadingFlaticon;
 	private KryptonLabel kryptonLabelHeadingKryptonSuite;
 	private KryptonLabel kryptonLabelVersionKryptonSuite;
@@ -1297,11 +1343,11 @@ partial class AppInfoForm
 	private KryptonManager kryptonManager;
 	private ContextMenuStrip contextMenuStripCopyToClipboard;
 	private ToolStripMenuItem toolStripMenuItemCopyToClipboard;
-	private TabControl tabControlComponents;
-	private TabPage tabPageComponentApplicationIcon;
-	private TabPage tabPageIconsetFatcow;
-	private TabPage tabPageComponentKryptonSuite;
-	private TabPage tabPageComponentNLog;
+	private KryptonNavigator kryptonNavigatorComponents;
+	private KryptonPage kryptonPageComponentApplicationIcon;
+	private KryptonPage kryptonPageIconsetFatcow;
+	private KryptonPage kryptonPageComponentKryptonSuite;
+	private KryptonPage kryptonPageComponentNLog;
 	private KryptonTextBox kryptonTextBoxLicenseFlaticon;
 	private KryptonLabel kryptonLabelLicenseFlaticon;
 	private KryptonLinkLabel kryptonLinkLabelFlaticon;
