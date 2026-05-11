@@ -46,7 +46,7 @@ public class BaseKryptonForm : KryptonForm
 	/// <remarks>This method is used to display an error message to the user.</remarks>
 	protected static void ShowErrorMessage(string message) =>
 		// Show an error message box with the specified message
-		_ = MessageBox.Show(text: message, caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+		_ = KryptonMessageBox.Show(text: message, caption: I18nStrings.ErrorCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
 
 	/// <summary>Copies the specified text to the clipboard and shows a confirmation dialog.</summary>
 	/// <param name="text">The text to copy to the clipboard.</param>
@@ -59,7 +59,7 @@ public class BaseKryptonForm : KryptonForm
 		{
 			// Copy the text to the clipboard
 			Clipboard.SetText(text: text);
-			_ = MessageBox.Show(text: I18nStrings.CopiedToClipboard, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(text: I18nStrings.CopiedToClipboard, caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 		}
 		// Handle any exceptions that occur during the clipboard operation
 		catch (Exception ex)
