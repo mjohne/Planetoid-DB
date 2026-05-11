@@ -42,14 +42,10 @@ public partial class RecordsForm : BaseKryptonForm
 	private bool isCancelled;
 
 	/// <summary>Stores the current record values for each orbital element (max or min).</summary>
-	/// <remarks>Index corresponds to element: 0=MeanAnomaly, 1=ArgPeri, 2=LongAscNode, 3=Incl,
-	/// 4=OrbEcc, 5=Motion, 6=SemiMajorAxis, 7=MagAbs, 8=SlopeParam, 9=NumberOpposition,
-	/// 10=NumberObservation, 11=ObsSpan, 12=RmsResidual.</remarks>
+	/// <remarks>Index corresponds to element: 0=MeanAnomaly, 1=ArgPeri, 2=LongAscNode, 3=Incl, 4=OrbEcc, 5=Motion, 6=SemiMajorAxis, 7=MagAbs, 8=SlopeParam, 9=NumberOpposition, 10=NumberObservation, 11=ObsSpan, 12=RmsResidual.</remarks>
 	private readonly double[] recordValues = new double[13];
 
-	/// <summary>Holds a progress update for a single orbital element record, used to marshal
-	/// label updates from the background thread to the UI thread via
-	/// <see cref="BackgroundWorker.ReportProgress(int, object)"/>.</summary>
+	/// <summary>Holds a progress update for a single orbital element record, used to marshal label updates from the background thread to the UI thread via <see cref="BackgroundWorker.ReportProgress(int, object)"/>.</summary>
 	/// <param name="ElementIndex">Zero-based index of the orbital element.</param>
 	/// <param name="Value">The new record value.</param>
 	/// <param name="Designation">The readable designation of the record-holder asteroid.</param>
@@ -99,8 +95,7 @@ public partial class RecordsForm : BaseKryptonForm
 
 	/// <summary>Fills the internal database list with a copy of the provided planetoid data.</summary>
 	/// <param name="arrTemp">The list of raw planetoid data lines from the main form.</param>
-	/// <remarks>This method must be called before starting the scan to provide the data source.
-	/// The data is stored as a copy so changes in the main form do not affect the scan.</remarks>
+	/// <remarks>This method must be called before starting the scan to provide the data source. The data is stored as a copy so changes in the main form do not affect the scan.</remarks>
 	public void FillArray(List<string> arrTemp) => planetoidsDatabase = [.. arrTemp];
 
 	/// <summary>Resets all record labels to the initial state before starting a new scan.</summary>
@@ -145,16 +140,13 @@ public partial class RecordsForm : BaseKryptonForm
 		labelValue13
 		];
 
-	/// <summary>Checks whether a numeric value beats the current record for the given element index
-	/// and, if so, fires a <see cref="BackgroundWorker.ReportProgress(int, object)"/> event so the UI
-	/// labels can be updated safely on the UI thread.</summary>
+	/// <summary>Checks whether a numeric value beats the current record for the given element index and, if so, fires a <see cref="BackgroundWorker.ReportProgress(int, object)"/> event so the UI labels can be updated safely on the UI thread.</summary>
 	/// <param name="elementIndex">Zero-based index of the orbital element.</param>
 	/// <param name="value">The numeric value to compare against the current record.</param>
 	/// <param name="designation">The readable designation of the asteroid.</param>
 	/// <param name="isMax">If <c>true</c>, checks for maximum; otherwise checks for minimum.</param>
 	/// <param name="percent">Current scan percentage, forwarded in the progress report.</param>
-	/// <remarks>This method runs on the <see cref="BackgroundWorker"/> DoWork thread.
-	/// UI updates are performed through the <see cref="BackgroundWorker.ProgressChanged"/> event.</remarks>
+	/// <remarks>This method runs on the <see cref="BackgroundWorker"/> DoWork thread. UI updates are performed through the <see cref="BackgroundWorker.ProgressChanged"/> event.</remarks>
 	private void CheckAndReportRecord(int elementIndex, double value, string designation, bool isMax, int percent)
 	{
 		// Check if this value is a new record
@@ -180,8 +172,7 @@ public partial class RecordsForm : BaseKryptonForm
 	/// <param name="rawLine">The raw fixed-width line from the MPCORB database.</param>
 	/// <param name="isMax">If <c>true</c>, looks for maximum values; otherwise looks for minimum values.</param>
 	/// <param name="percent">Current scan percentage, forwarded to record progress reports.</param>
-	/// <remarks>Parses the planetoid record and compares each numeric orbital element value
-	/// against the current records. A progress report is fired immediately for each new record.</remarks>
+	/// <remarks>Parses the planetoid record and compares each numeric orbital element value against the current records. A progress report is fired immediately for each new record.</remarks>
 	private void ProcessEntry(string rawLine, bool isMax, int percent)
 	{
 		// Parse the raw line into a PlanetoidRecord
@@ -291,9 +282,7 @@ public partial class RecordsForm : BaseKryptonForm
 	/// <summary>Performs the record scanning work on a background thread.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="DoWorkEventArgs"/> instance containing the event data.</param>
-	/// <remarks>Iterates through all database entries, processes each one for record detection,
-	/// and reports progress as a percentage. The scan can be cancelled at any time.
-	/// Progress bar updates are throttled to at most one per percent change.</remarks>
+	/// <remarks>Iterates through all database entries, processes each one for record detection, and reports progress as a percentage. The scan can be cancelled at any time. Progress bar updates are throttled to at most one per percent change.</remarks>
 	private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
 	{
 		// Determine scan mode (max or min) captured before the background thread starts
@@ -335,13 +324,10 @@ public partial class RecordsForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Updates the progress bar and percent label, and optionally updates a record label pair,
-	/// when the BackgroundWorker reports progress.</summary>
+	/// <summary>Updates the progress bar and percent label, and optionally updates a record label pair, when the BackgroundWorker reports progress.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="ProgressChangedEventArgs"/> instance containing the event data.</param>
-	/// <remarks>Called on the UI thread by the BackgroundWorker.
-	/// When <see cref="ProgressChangedEventArgs.UserState"/> is a <see cref="RecordProgressUpdate"/>,
-	/// the corresponding designation and value labels are updated.</remarks>
+	/// <remarks>Called on the UI thread by the BackgroundWorker. When <see cref="ProgressChangedEventArgs.UserState"/> is a <see cref="RecordProgressUpdate"/>, the corresponding designation and value labels are updated.</remarks>
 	private void BackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
 	{
 		int percent = e.ProgressPercentage;
@@ -365,8 +351,7 @@ public partial class RecordsForm : BaseKryptonForm
 	/// <summary>Handles scan completion, enabling the Start button and disabling the Cancel button.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="RunWorkerCompletedEventArgs"/> instance containing the event data.</param>
-	/// <remarks>Called on the UI thread after the BackgroundWorker finishes or is cancelled.
-	/// Resets the UI state so the user can start a new scan.</remarks>
+	/// <remarks>Called on the UI thread after the BackgroundWorker finishes or is cancelled. Resets the UI state so the user can start a new scan.</remarks>
 	private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
 	{
 		buttonCancel.Enabled = false;
@@ -397,12 +382,10 @@ public partial class RecordsForm : BaseKryptonForm
 
 	#region Click event handlers
 
-	/// <summary>Handles the Click event of the ButtonStart control.
-	/// Resets results and starts the record detection scan.</summary>
+	/// <summary>Handles the Click event of the ButtonStart control. Resets results and starts the record detection scan.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>Disables the Start button, enables the Cancel button, resets labels and record arrays,
-	/// then launches the BackgroundWorker with the selected max/min mode.</remarks>
+	/// <remarks>Disables the Start button, enables the Cancel button, resets labels and record arrays, then launches the BackgroundWorker with the selected max/min mode.</remarks>
 	private void ButtonStart_Click(object sender, EventArgs e)
 	{
 		if (planetoidsDatabase.Count == 0)
@@ -429,12 +412,10 @@ public partial class RecordsForm : BaseKryptonForm
 		backgroundWorker.RunWorkerAsync(argument: checkButtonMax.Checked);
 	}
 
-	/// <summary>Handles the Click event of the ButtonCancel control.
-	/// Cancels the ongoing record detection scan.</summary>
+	/// <summary>Handles the Click event of the ButtonCancel control. Cancels the ongoing record detection scan.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>Sets the cancellation flag and requests the BackgroundWorker to stop.
-	/// The UI state will be reset in the <see cref="BackgroundWorker_RunWorkerCompleted"/> handler.</remarks>
+	/// <remarks>Sets the cancellation flag and requests the BackgroundWorker to stop. The UI state will be reset in the <see cref="BackgroundWorker_RunWorkerCompleted"/> handler.</remarks>
 	private void ButtonCancel_Click(object sender, EventArgs e)
 	{
 		isCancelled = true;
@@ -442,15 +423,13 @@ public partial class RecordsForm : BaseKryptonForm
 		buttonCancel.Enabled = false;
 	}
 
-	/// <summary>Handles the Click event of the CheckButtonMax control.
-	/// Selects maximum record mode and deselects minimum mode.</summary>
+	/// <summary>Handles the Click event of the CheckButtonMax control. Selects maximum record mode and deselects minimum mode.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>Ensures that exactly one of Max/Min is selected at all times.</remarks>
 	private void CheckButtonMax_Click(object sender, EventArgs e) => checkButtonMin.Checked = !checkButtonMax.Checked;
 
-	/// <summary>Handles the Click event of the CheckButtonMin control.
-	/// Selects minimum record mode and deselects maximum mode.</summary>
+	/// <summary>Handles the Click event of the CheckButtonMin control. Selects minimum record mode and deselects maximum mode.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>Ensures that exactly one of Max/Min is selected at all times.</remarks>
