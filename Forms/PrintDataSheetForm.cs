@@ -168,7 +168,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		{
 			// Print the document on the UI thread to ensure safe access to UI controls in event handlers
 			printDoc.Print();
-			_ = KryptonMessageBox.Show(text: "Printing completed.", caption: "Print Data Sheet", Kryptonbuttons: MessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(text: "Printing completed.", caption: "Print Data Sheet", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 		}
 		catch (Exception ex)
 		{
