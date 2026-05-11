@@ -9,9 +9,7 @@ using System.Globalization;
 namespace Planetoid_DB;
 
 /// <summary>Form for finding orbital resonances of all minor planets relative to the 8 known solar system planets.</summary>
-/// <remarks>This form iterates over all planetoids in the database and computes their orbital resonances
-/// with each selected planet. Results are displayed in a VirtualMode ListView.
-/// The user can select which planets to include, start and cancel the search at any time.</remarks>
+/// <remarks>This form iterates over all planetoids in the database and computes their orbital resonances with each selected planet. Results are displayed in a VirtualMode ListView. The user can select which planets to include, start and cancel the search at any time.</remarks>
 // You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
@@ -78,9 +76,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	private List<ResonanceResult> _results = [];
 
 	/// <summary>Holds the full unfiltered set of resonance results computed by the most recent search.</summary>
-	/// <remarks>Filtering and sorting derive <see cref="_results"/> from this collection without modifying it,
-	/// so re-filtering (e.g. when the user changes the planet selection or the filter toggle) does not
-	/// require re-running the search.</remarks>
+	/// <remarks>Filtering and sorting derive <see cref="_results"/> from this collection without modifying it, so re-filtering (e.g. when the user changes the planet selection or the filter toggle) does not require re-running the search.</remarks>
 	private List<ResonanceResult> _allResults = [];
 
 	/// <summary>Cancellation token source for the currently running search task.</summary>
@@ -162,7 +158,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			logger.Error(message: $"An error occurred during export: {ex}");
-			MessageBox.Show(text: $"An error has occurred during export: {ex.Message}", caption: "Export Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: $"An error has occurred during export: {ex.Message}");
 		}
 		// In the finally block, ensure that the cursor is reset to the default state regardless of whether the export action succeeds or fails. This ensures that the user interface remains responsive and provides appropriate feedback to the user.
 		finally
@@ -171,12 +167,8 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Filters the result set
-	/// list accordingly.</summary>
-	/// <remarks>This method applies the active filter settings to the results and refreshes the list view to
-	/// reflect the filtered data. The filter includes only results for selected planets and, if enabled, further restricts
-	/// by resonance deviation. The method should be called whenever filter settings or selection change to ensure the
-	/// displayed data remains accurate.</remarks>
+	/// <summary>Filters the result set list accordingly.</summary>
+	/// <remarks>This method applies the active filter settings to the results and refreshes the list view to reflect the filtered data. The filter includes only results for selected planets and, if enabled, further restricts by resonance deviation. The method should be called whenever filter settings or selection change to ensure the displayed data remains accurate.</remarks>
 	private void FilterResults()
 	{
 		// Get the list of selected planets from the UI; this list is used to filter the resonance results to include only those that match the user's selection of planets
@@ -254,8 +246,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <summary>Processes one raw MPCORB database record and appends matching resonance results to <paramref name="results"/>.</summary>
 	/// <param name="line">The raw MPCORB record string.</param>
 	/// <param name="results">The list to which matching <see cref="ResonanceResult"/> items are appended.</param>
-	/// <remarks>Lines that are too short or have an invalid semi-major axis are silently skipped.
-	/// All resonances are added to the results list; filtering by selected planets is handled at a higher level.</remarks>
+	/// <remarks>Lines that are too short or have an invalid semi-major axis are silently skipped. All resonances are added to the results list; filtering by selected planets is handled at a higher level.</remarks>
 	private static void ProcessPlanetoidLine(string line, List<ResonanceResult> results)
 	{
 		// Validate the line length to ensure it contains the expected fields; if the line is too short, it cannot be processed and is skipped without logging an error, as this may be common for malformed records
@@ -288,16 +279,14 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>Handles the form Load event.
-	/// Clears the status bar on startup.</summary>
+	/// <summary>Handles the form Load event. Clears the status bar on startup.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 	/// <remarks>Clears the status bar when the form is loaded.</remarks>
 	private void OrbitalResonancesOfAllMinorPlanetsForm_Load(object sender, EventArgs e) =>
 		ClearStatusBar(label: labelInformation);
 
-	/// <summary>Handles the FormClosing event.
-	/// Cancels any running search and disposes the cancellation token source.</summary>
+	/// <summary>Handles the FormClosing event. Cancels any running search and disposes the cancellation token source.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="FormClosingEventArgs"/> instance containing the event data.</param>
 	/// <remarks>Cancels any running search and disposes the cancellation token source when the form is closing.</remarks>
@@ -316,8 +305,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 
 	#region RetrieveVirtualItem event handler
 
-	/// <summary>Handles the RetrieveVirtualItem event for the VirtualMode ListView.
-	/// Provides the <see cref="ListViewItem"/> for the requested index from <see cref="_results"/>.</summary>
+	/// <summary>Handles the RetrieveVirtualItem event for the VirtualMode ListView. Provides the <see cref="ListViewItem"/> for the requested index from <see cref="_results"/>.</summary>
 	/// <param name="sender">Event source (the list view).</param>
 	/// <param name="e">The <see cref="RetrieveVirtualItemEventArgs"/> containing the requested item index.</param>
 	/// <remarks>Called by the ListView for each visible row. Must be fast and must not modify <see cref="_results"/>.</remarks>
@@ -368,32 +356,22 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 
 	#region Click event handlers
 
-	/// <summary>Handles the Click event of the Start Search button.
-	/// Validates the selection, then starts the orbital resonance search asynchronously.</summary>
+	/// <summary>Handles the Click event of the Start Search button. Validates the selection, then starts the orbital resonance search asynchronously.</summary>
 	/// <param name="sender">Event source (the button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-	/// <remarks>The search runs on a background thread. Progress is reported via the progress bar.
-	/// The user can cancel at any time using the Cancel button.</remarks>
+	/// <remarks>The search runs on a background thread. Progress is reported via the progress bar. The user can cancel at any time using the Cancel button.</remarks>
 	private async void ButtonStart_Click(object sender, EventArgs e)
 	{
 		// Validate that at least one planet is selected before starting the search
 		List<string> selectedPlanets = GetSelectedPlanets();
 		if (selectedPlanets.Count == 0)
 		{
-			_ = MessageBox.Show(
-				text: "Please select at least one planet.",
-				caption: I18nStrings.InformationCaption,
-				buttons: MessageBoxButtons.OK,
-				icon: MessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(text: "Please select at least one planet.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
 		if (_planetoids.Count == 0)
 		{
-			_ = MessageBox.Show(
-				text: "No planetoid data available.",
-				caption: I18nStrings.InformationCaption,
-				buttons: MessageBoxButtons.OK,
-				icon: MessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(text: "No planetoid data available.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
 		// Disable the Start button and planet selection buttons to prevent changes during the search; also disable the save menu since there are no results yet; these controls will be re-enabled when the search completes or is cancelled
@@ -501,8 +479,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Handles the Click event of the Cancel button.
-	/// Cancels the currently running search.</summary>
+	/// <summary>Handles the Click event of the Cancel button. Cancels the currently running search.</summary>
 	/// <param name="sender">Event source (the button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 	/// <remarks>The search can be cancelled by the user at any time using the Cancel button.</remarks>
@@ -519,12 +496,10 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Handles the Click event of the copy-to-clipboard menu item.
-	/// Copies the text of the currently selected list view row to the clipboard.</summary>
+	/// <summary>Handles the Click event of the copy-to-clipboard menu item. Copies the text of the currently selected list view row to the clipboard.</summary>
 	/// <param name="sender">Event source (the menu item).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-	/// <remarks>All sub-items of the selected row are joined with a tab character before being placed on the clipboard.
-	/// If no row is selected the method returns without action.</remarks>
+	/// <remarks>All sub-items of the selected row are joined with a tab character before being placed on the clipboard. If no row is selected the method returns without action.</remarks>
 	private void ToolStripMenuItemCopyToClipboard_Click(object sender, EventArgs e)
 	{
 		// Check if any item is selected in the list view; if not, return without doing anything; if an item is selected, get the index of the first selected item and validate it against the _results list; if the index is valid, retrieve the corresponding ResonanceResult and format its data into a tab-separated string; finally, copy the formatted string to the clipboard
@@ -784,8 +759,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <summary>Handles the ColumnClick event of the ListView.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	/// <remarks>Toggles the sort order for the clicked column (ascending/descending) and re-sorts the results list.
-	/// Column headers are updated with a ▲ or ▼ indicator to show the current sort direction.</remarks>
+	/// <remarks>Toggles the sort order for the clicked column (ascending/descending) and re-sorts the results list. Column headers are updated with a ▲ or ▼ indicator to show the current sort direction.</remarks>
 	private void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
 	{
 		// If there are no results to sort, exit the method early to avoid unnecessary processing and potential errors when trying to access column headers or sort the empty list
@@ -824,8 +798,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	}
 
 	/// <summary>Sorts the <see cref="_results"/> list by the currently selected column and sort order.</summary>
-	/// <remarks>Numeric columns (Planet Period, Planetoid Period, Ratio, Deviation) are sorted numerically;
-	/// all other columns are sorted as strings (case-insensitive, ordinal).</remarks>
+	/// <remarks>Numeric columns (Planet Period, Planetoid Period, Ratio, Deviation) are sorted numerically; all other columns are sorted as strings (case-insensitive, ordinal).</remarks>
 	private void SortResults()
 	{
 		// Determine the column to sort by and the sort direction, then apply the appropriate sorting logic based on the column type (numeric or string) and update the _results list accordingly
@@ -871,8 +844,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <summary>Handles the DoubleClick event of the ListView.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	/// <remarks>When an item is double-clicked, the corresponding planetoid is displayed in the
-	/// <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
+	/// <remarks>When an item is double-clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
 	private void ListView_DoubleClick(object sender, EventArgs e)
 	{
 		// Ensure that an item is selected and that the index is within the bounds of the results list; if so, retrieve the corresponding ResonanceResult and use its PlanetoidName to jump to the record in the PlanetoidDbForm
