@@ -3,6 +3,8 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using Krypton.Toolkit;
+
 using NLog;
 
 using Planetoid_DB.Forms;
@@ -135,8 +137,7 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 	/// <summary>Retrieves the last modified date of the specified URI.</summary>
 	/// <param name="uri">The URI of the resource.</param>
 	/// <returns>The date of the last modification or <see cref="DateTime.MinValue"/> in case of an error.</returns>
-	/// <remarks>This method sends a HEAD request to the specified URI and retrieves the last modified date
-	/// from the response headers.</remarks>
+	/// <remarks>This method sends a HEAD request to the specified URI and retrieves the last modified date from the response headers.</remarks>
 	private static async Task<DateTime> GetLastModifiedAsync(Uri uri)
 	{
 		try
@@ -161,8 +162,7 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 	/// <summary>The content length of the specified URI.</summary>
 	/// <param name="uri">The URI of the resource.</param>
 	/// <returns>The content length or 0 in case of error.</returns>
-	/// <remarks>This method sends a HEAD request to the specified URI and retrieves the content length
-	/// from the response headers.</remarks>
+	/// <remarks>This method sends a HEAD request to the specified URI and retrieves the content length from the response headers.</remarks>
 	private static async Task<long> GetContentLengthAsync(Uri uri)
 	{
 		try
@@ -246,8 +246,7 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 
 	#region DoubleClick event handlers
 
-	/// <summary>Event handler for double-clicking the "Update Needed" label to check for updates.
-	/// Resets the displayed information and reloads the form data.</summary>
+	/// <summary>Event handler for double-clicking the "Update Needed" label to check for updates. Resets the displayed information and reloads the form data.</summary>
 	/// <param name="sender">The event source, typically the label being double-clicked.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 	/// <remarks>This event is used to reset the displayed information and reload the form data.</remarks>
@@ -272,8 +271,7 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 	#region Click event handlers
 
 	/// <summary>Handles the click event for copying the local database modified date to the clipboard.</summary>
-	/// <remarks>If the local modified date is not available, a warning message is displayed and nothing is copied
-	/// to the clipboard.</remarks>
+	/// <remarks>If the local modified date is not available, a warning message is displayed and nothing is copied to the clipboard.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void MenuitemCopyToClipboardDatabaseLocalModifiedDate_Click(object sender, EventArgs e)
@@ -282,15 +280,14 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 		{
 			string messageNoLocalModifiedDateToCopyText = "No local modified date available to copy to clipboard.";
 			logger.Warn(message: messageNoLocalModifiedDateToCopyText);
-			MessageBox.Show(text: messageNoLocalModifiedDateToCopyText, caption: "Warning", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(text: messageNoLocalModifiedDateToCopyText, caption: "Warning", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
 		CopyToClipboard(text: labelModifiedDateValueLocal.Text);
 	}
 
 	/// <summary>Handles the click event for copying the local content length value to the clipboard.</summary>
-	/// <remarks>If the local content length value is not available, a warning message is displayed and nothing is
-	/// copied to the clipboard.</remarks>
+	/// <remarks>If the local content length value is not available, a warning message is displayed and nothing is copied to the clipboard.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void MenuitemCopyToClipboardDatabaseLocalContentLength_Click(object sender, EventArgs e)
@@ -299,15 +296,14 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 		{
 			string messageNoLocalContentLengthToCopyText = "No local content length available to copy to clipboard.";
 			logger.Warn(message: messageNoLocalContentLengthToCopyText);
-			MessageBox.Show(text: messageNoLocalContentLengthToCopyText, caption: "Warning", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(text: messageNoLocalContentLengthToCopyText, caption: "Warning", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
 		CopyToClipboard(text: labelContentLengthValueLocal.Text);
 	}
 
 	/// <summary>Handles the click event for copying the online modified date value to the clipboard.</summary>
-	/// <remarks>If the online modified date value is not available, a warning message is displayed and nothing is
-	/// copied to the clipboard.</remarks>
+	/// <remarks>If the online modified date value is not available, a warning message is displayed and nothing is copied to the clipboard.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void MenuitemCopyToClipboardDatabaseOnlineModifiedDate_Click(object sender, EventArgs e)
@@ -316,15 +312,14 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 		{
 			string messageNoOnlineModifiedDateToCopyText = "No online modified date available to copy to clipboard.";
 			logger.Warn(message: messageNoOnlineModifiedDateToCopyText);
-			MessageBox.Show(text: messageNoOnlineModifiedDateToCopyText, caption: "Warning", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(text: messageNoOnlineModifiedDateToCopyText, caption: "Warning", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
 		CopyToClipboard(text: labelModifiedDateValueOnline.Text);
 	}
 
 	/// <summary>Handles the click event for copying the online content length value to the clipboard.</summary>
-	/// <remarks>If the online content length value is not available, a warning message is displayed and nothing is
-	/// copied to the clipboard.</remarks>
+	/// <remarks>If the online content length value is not available, a warning message is displayed and nothing is copied to the clipboard.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void MenuitemCopyToClipboardDatabaseOnlineContentLength_Click(object sender, EventArgs e)
@@ -333,7 +328,7 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 		{
 			string messageNoOnlineContentLengthToCopyText = "No online content length available to copy to clipboard.";
 			logger.Warn(message: messageNoOnlineContentLengthToCopyText);
-			MessageBox.Show(text: messageNoOnlineContentLengthToCopyText, caption: "Warning", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(text: messageNoOnlineContentLengthToCopyText, caption: "Warning", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
 		CopyToClipboard(text: labelContentLengthValueOnline.Text);
