@@ -98,7 +98,7 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			logger.Error(message: $"An error occurred during export: {ex}");
-			MessageBox.Show(text: $"An error has occurred during export: {ex.Message}", caption: "Export Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: $"An error has occurred during export: {ex.Message}");
 		}
 		// In the finally block, ensure that the cursor is reset to the default state regardless of whether the export action succeeds or fails. This ensures that the user interface remains responsive and provides appropriate feedback to the user.
 		finally
@@ -251,8 +251,7 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 
 	#region MouseDown event handlers
 
-	/// <summary>Handles the MouseDown event for controls.
-	/// Stores the control that triggered the event for future reference.</summary>
+	/// <summary>Handles the MouseDown event for controls. Stores the control that triggered the event for future reference.</summary>
 	/// <param name="sender">Event source (the control).</param>
 	/// <param name="e">The <see cref="MouseEventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to store the control that triggered the event for future reference.</remarks>
