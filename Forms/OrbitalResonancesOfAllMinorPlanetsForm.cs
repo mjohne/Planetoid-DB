@@ -1,5 +1,7 @@
 using NLog;
 
+using Krypton.Toolkit;
+
 using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 
