@@ -11,6 +11,8 @@ namespace Planetoid_DB.Helpers;
 /// <remarks>This class provides methods to interact with the Windows taskbar to display progress.</remarks>
 public static class TaskbarProgress
 {
+	/// <summary>Provides a synchronization lock for operations related to the taskbar instance.</summary>
+	/// <remarks>Use this lock to ensure thread safety when accessing or modifying shared taskbar-related resources.</remarks>
 	private static readonly Lock _taskbarInstanceLock = new();
 
 	/// <summary>Lazily evaluates and caches whether the current OS supports the taskbar progress API.</summary>
