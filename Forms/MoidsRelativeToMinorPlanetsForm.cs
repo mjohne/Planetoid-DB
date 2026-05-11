@@ -90,8 +90,7 @@ public partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <param name="semiMajorAxis">When successful, receives the semi-major axis in AU.</param>
 	/// <param name="eccentricity">When successful, receives the orbital eccentricity.</param>
 	/// <param name="inclinationDeg">When successful, receives the inclination in degrees.</param>
-	/// <param name="longitudeAscendingNodeDeg">When successful, receives the longitude of the ascending
-	/// node in degrees.</param>
+	/// <param name="longitudeAscendingNodeDeg">When successful, receives the longitude of the ascending node in degrees.</param>
 	/// <param name="argumentPerihelionDeg">When successful, receives the argument of perihelion in degrees.</param>
 	/// <returns><see langword="true"/> if all five elements were parsed successfully; <see langword="false"/> otherwise.</returns>
 	/// <remarks>The method first checks if the line is long enough to contain all required fields. It then attempts to parse each field individually, returning <see langword="false"/> if any parsing operation fails.</remarks>
