@@ -113,7 +113,7 @@ public partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			logger.Error(message: $"An error occurred during export: {ex}");
-			MessageBox.Show(text: $"An error has occurred during export: {ex.Message}", caption: "Export Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: $"An error has occurred during export: {ex.Message}");
 		}
 		// Reset the cursor in the finally block
 		finally
