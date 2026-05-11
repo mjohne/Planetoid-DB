@@ -107,7 +107,7 @@ public partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 		try
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			exportAction(tableLayoutPanel, "Tisserand parameters of a minor planet", saveFileDialog.FileName);
+			exportAction(arg1: tableLayoutPanel, arg2: "Tisserand parameters of a minor planet", arg3: saveFileDialog.FileName);
 		}
 		// Handle any exceptions that may occur during the export action
 		catch (Exception ex)
