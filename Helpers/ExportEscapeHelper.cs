@@ -2,9 +2,7 @@ using System.Text;
 
 namespace Planetoid_DB.Helpers;
 
-/// <summary>
-/// Provides static helper methods for escaping strings in various document formats.
-/// </summary>
+/// <summary>Provides static helper methods for escaping strings in various document formats.</summary>
 public static class ExportEscapeHelper
 {
 	/// <summary>Escapes LaTeX special characters.</summary>
