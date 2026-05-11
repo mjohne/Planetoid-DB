@@ -3,6 +3,8 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using Krypton.Toolkit;
+
 using NLog;
 
 using Planetoid_DB.Forms;
@@ -35,25 +37,19 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 	private DateTime? _onlineLastModified;
 
 	/// <summary>Provides a reusable instance of HttpClient for making HTTP requests throughout the application's lifetime.</summary>
-	/// <remarks>Reusing a single HttpClient instance helps prevent socket exhaustion and ensures efficient resource
-	/// management. It is recommended to use this instance for all HTTP operations within the application rather than
-	/// creating new instances for each request.</remarks>
+	/// <remarks>Reusing a single HttpClient instance helps prevent socket exhaustion and ensures efficient resource management. It is recommended to use this instance for all HTTP operations within the application rather than creating new instances for each request.</remarks>
 	private static readonly HttpClient _httpClient = new();
 
 	/// <summary>Gets or sets the cancellation token source used to signal cancellation requests.</summary>
-	/// <remarks>This property allows for the management of cancellation tokens, which can be used to cancel ongoing
-	/// operations. Ensure to dispose of the cancellation token source when it is no longer needed to free up
-	/// resources.</remarks>
+	/// <remarks>This property allows for the management of cancellation tokens, which can be used to cancel ongoing operations. Ensure to dispose of the cancellation token source when it is no longer needed to free up resources.</remarks>
 	private CancellationTokenSource? cancellationTokenSource;
 
 	/// <summary>Gets or sets the compression level used for data processing.</summary>
-	/// <remarks>Adjust the compression level to optimize for either processing speed or reduced data size,
-	/// depending on application requirements.</remarks>
+	/// <remarks>Adjust the compression level to optimize for either processing speed or reduced data size, depending on application requirements.</remarks>
 	private string compressionString = "Optimal";
 
 	/// <summary>Gets or sets the compression format used for data processing.</summary>
-	/// <remarks>Adjust the compression format to optimize for either processing speed or reduced data size,
-	/// depending on application requirements.</remarks>
+	/// <remarks>Adjust the compression format to optimize for either processing speed or reduced data size, depending on application requirements.</remarks>
 	private string format = "Zip";
 
 	/// <summary>Gets or sets the file extension used for the compressed archive.</summary>
@@ -61,8 +57,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 	private string extension = ".zip";
 
 	/// <summary>Gets the array of supported compression formats.</summary>
-	/// <remarks>This array includes the formats 'Zip', 'GZip', and 'Brotli', which can be used for data compression
-	/// and decompression operations.</remarks>
+	/// <remarks>This array includes the formats 'Zip', 'GZip', and 'Brotli', which can be used for data compression and decompression operations.</remarks>
 	private readonly string[] formats = ["Zip", "GZip", "Brotli"];
 
 	/// <summary>Gets the array of supported compression levels.</summary>
@@ -112,12 +107,8 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 
 	#region Form event handlers
 
-	/// <summary>Handles the initialization of the ArchiveMpcorbForm when it is loaded, including setting the default file path,
-	/// populating format and compression options, and updating the status with the online last modified date.</summary>
-	/// <remarks>This method is called automatically when the ArchiveMpcorbForm is loaded. It sets up the user
-	/// interface by selecting default values and attempts to retrieve the last modified date from an online source,
-	/// updating the status label accordingly. If the online date cannot be retrieved, the status label will indicate the
-	/// error or fallback to the current time.</remarks>
+	/// <summary>Handles the initialization of the ArchiveMpcorbForm when it is loaded, including setting the default file path, populating format and compression options, and updating the status with the online last modified date.</summary>
+	/// <remarks>This method is called automatically when the ArchiveMpcorbForm is loaded. It sets up the user interface by selecting default values and attempts to retrieve the last modified date from an online source, updating the status label accordingly. If the online date cannot be retrieved, the status label will indicate the error or fallback to the current time.</remarks>
 	/// <param name="sender">The source of the event, typically the ArchiveMpcorbForm instance.</param>
 	/// <param name="e">The event data associated with the form load event.</param>
 	private async void ArchiveMpcorbForm_Load(object sender, EventArgs e)
@@ -162,9 +153,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 
 	/// <summary>Retrieves the last modified date of the online MPCORB.DAT.gz file.</summary>
 	/// <returns>A task that represents the asynchronous operation. The task result contains the last modified date if available; otherwise, null.</returns>
-	/// <remarks>This method sends a HEAD request to the specified URL to retrieve the last modified date of the MPCORB.DAT.gz file.
-	/// If the request is successful and the Last-Modified header is present, the method returns the date in UTC.
-	/// In case of any errors, the method logs the error and returns null.</remarks>
+	/// <remarks>This method sends a HEAD request to the specified URL to retrieve the last modified date of the MPCORB.DAT.gz file. If the request is successful and the Last-Modified header is present, the method returns the date in UTC. In case of any errors, the method logs the error and returns null.</remarks>
 	private static async Task<DateTime?> GetOnlineLastModifiedAsync()
 	{
 		// Attempt to retrieve the last modified date of the online MPCORB file
@@ -318,12 +307,8 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		kryptonTextBoxTarget.Text = saveFileDialog.FileName;
 	}
 
-	/// <summary>Handles the click event for the archive button, initiating the asynchronous archiving process for the selected
-	/// source file. If an archiving operation is already in progress, clicking the button cancels the current operation.</summary>
-	/// <remarks>This method validates the existence of the source file, prompts the user to select a target archive
-	/// file, and starts the archiving process in the background. The operation supports cancellation and progress
-	/// reporting. If the process is cancelled or fails, the UI is updated accordingly and any partially created archive
-	/// file is deleted.</remarks>
+	/// <summary>Handles the click event for the archive button, initiating the asynchronous archiving process for the selected source file. If an archiving operation is already in progress, clicking the button cancels the current operation.</summary>
+	/// <remarks>This method validates the existence of the source file, prompts the user to select a target archive file, and starts the archiving process in the background. The operation supports cancellation and progress reporting. If the process is cancelled or fails, the UI is updated accordingly and any partially created archive file is deleted.</remarks>
 	/// <param name="sender">The source of the event, typically the archive button control that was clicked.</param>
 	/// <param name="e">An EventArgs instance containing data related to the click event.</param>
 	private async void ToolStripButtonArchive_Click(object sender, EventArgs e)
@@ -338,7 +323,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		string sourceFile = kryptonTextBoxSource.Text;
 		if (!File.Exists(path: sourceFile))
 		{
-			MessageBox.Show(text: "Source file not found.", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: "Source file not found.");
 			return;
 		}
 		// Try to parse the selected compression level string into a CompressionLevel enum value. If parsing fails, default to CompressionLevel.Optimal
@@ -401,7 +386,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 			}, cancellationToken: cancellationToken);
 			// If the archiving process completes successfully without cancellation, update the status label and show a success message box
 			labelInformation.Text = "Archiving completed successfully.";
-			MessageBox.Show(text: "Archiving completed successfully.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			KryptonMessageBox.Show(text: "Archiving completed successfully.", caption: "Success", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 		}
 		// Catch an OperationCanceledException to handle the case where the archiving process was cancelled by the user. Update the status label and attempt to delete the partially created target file if it exists
 		catch (OperationCanceledException)
@@ -416,7 +401,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			labelInformation.Text = "Archiving failed.";
-			MessageBox.Show(text: $"Archiving failed: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: $"Archiving failed: {ex.Message}");
 		}
 		// In the finally block, dispose of the cancellation token source if it exists, reset the UI controls to their default state, and reset the progress bar
 		finally
@@ -436,11 +421,8 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Handles the click event for the 'Zip' format menu item, selecting the 'Zip' format and ensuring that other format
-	/// options are deselected.</summary>
-	/// <remarks>Use this event handler to switch the archive format to 'Zip' when the corresponding menu item is
-	/// selected. This action will automatically deselect other available format options to maintain a single active
-	/// selection.</remarks>
+	/// <summary>Handles the click event for the 'Zip' format menu item, selecting the 'Zip' format and ensuring that other format options are deselected.</summary>
+	/// <remarks>Use this event handler to switch the archive format to 'Zip' when the corresponding menu item is selected. This action will automatically deselect other available format options to maintain a single active selection.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs instance containing data related to the click event.</param>
 	private void ToolStripMenuItemFormatZip_Click(object sender, EventArgs e)
@@ -450,7 +432,6 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		toolStripMenuItemFormatBrotli.Checked = false;
 		// Set the format to "Zip" when the corresponding menu item is clicked, and uncheck the other format options
 		format = formats[0];
-
 		// Determine the timestamp for the default file name based on the online last modified date or the current time if the online date is not available
 		DateTime date = _onlineLastModified ?? DateTime.UtcNow;
 		string timestamp = date.ToString(format: "yyyyMMddHHmmss");
@@ -460,11 +441,8 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		kryptonTextBoxTarget.Text = Path.Combine(path1: directory, path2: defaultFileName);
 	}
 
-	/// <summary>Handles the click event for the 'GZip' format menu item, selecting the 'GZip' format and ensuring that other format
-	/// options are deselected.</summary>
-	/// <remarks>Use this event handler to switch the archive format to 'GZip' when the corresponding menu item is
-	/// selected. This action will automatically deselect other available format options to maintain a single active
-	/// selection.</remarks>
+	/// <summary>Handles the click event for the 'GZip' format menu item, selecting the 'GZip' format and ensuring that other format options are deselected.</summary>
+	/// <remarks>Use this event handler to switch the archive format to 'GZip' when the corresponding menu item is selected. This action will automatically deselect other available format options to maintain a single active selection.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs instance containing data related to the click event.</param>
 	private void ToolStripMenuItemFormatGzip_Click(object sender, EventArgs e)
@@ -484,11 +462,8 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		kryptonTextBoxTarget.Text = Path.Combine(path1: directory, path2: defaultFileName);
 	}
 
-	/// <summary>Handles the click event for the 'Brotli' format menu item, selecting the 'Brotli' format and ensuring that other format
-	/// options are deselected.</summary>
-	/// <remarks>Use this event handler to switch the archive format to 'Brotli' when the corresponding menu item is
-	/// selected. This action will automatically deselect other available format options to maintain a single active
-	/// selection.</remarks>
+	/// <summary>Handles the click event for the 'Brotli' format menu item, selecting the 'Brotli' format and ensuring that other format options are deselected.</summary>
+	/// <remarks>Use this event handler to switch the archive format to 'Brotli' when the corresponding menu item is selected. This action will automatically deselect other available format options to maintain a single active selection.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs instance containing data related to the click event.</param>
 	private void ToolStripMenuItemFormatBrotli_Click(object sender, EventArgs e)
@@ -509,9 +484,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 	}
 
 	/// <summary>Handles the click event for the 'Optimal' compression level menu item, selecting the 'Optimal' compression level and ensuring that other compression level options are deselected.</summary>
-	/// <remarks>Use this event handler to switch the compression level to 'Optimal' when the corresponding menu item is
-	/// selected. This action will automatically deselect other available compression level options to maintain a single active
-	/// selection.</remarks>
+	/// <remarks>Use this event handler to switch the compression level to 'Optimal' when the corresponding menu item is selected. This action will automatically deselect other available compression level options to maintain a single active selection.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs instance containing data related to the click event.</param>
 	private void ToolStripMenuItemCompressionOptimal_Click(object sender, EventArgs e)
@@ -525,9 +498,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 	}
 
 	/// <summary>Handles the click event for the 'Fastest' compression level menu item, selecting the 'Fastest' compression level and ensuring that other compression level options are deselected.</summary>
-	/// <remarks>Use this event handler to switch the compression level to 'Fastest' when the corresponding menu item is
-	/// selected. This action will automatically deselect other available compression level options to maintain a single active
-	/// selection.</remarks>
+	/// <remarks>Use this event handler to switch the compression level to 'Fastest' when the corresponding menu item is selected. This action will automatically deselect other available compression level options to maintain a single active selection.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs instance containing data related to the click event.</param>
 	private void ToolStripMenuItemCompressionFastest_Click(object sender, EventArgs e)
@@ -541,9 +512,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 	}
 
 	/// <summary>Handles the click event for the 'No' compression level menu item, selecting the 'No' compression level and ensuring that other compression level options are deselected.</summary>
-	/// <remarks>Use this event handler to switch the compression level to 'No' when the corresponding menu item is
-	/// selected. This action will automatically deselect other available compression level options to maintain a single active
-	/// selection.</remarks>
+	/// <remarks>Use this event handler to switch the compression level to 'No' when the corresponding menu item is selected. This action will automatically deselect other available compression level options to maintain a single active selection.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs instance containing data related to the click event.</param>
 	private void ToolStripMenuItemCompressionNo_Click(object sender, EventArgs e)
@@ -557,9 +526,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 	}
 
 	/// <summary>Handles the click event for the 'SmallestSize' compression level menu item, selecting the 'SmallestSize' compression level and ensuring that other compression level options are deselected.</summary>
-	/// <remarks>Use this event handler to switch the compression level to 'SmallestSize' when the corresponding menu item is
-	/// selected. This action will automatically deselect other available compression level options to maintain a single active
-	/// selection.</remarks>
+	/// <remarks>Use this event handler to switch the compression level to 'SmallestSize' when the corresponding menu item is selected. This action will automatically deselect other available compression level options to maintain a single active selection.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs instance containing data related to the click event.</param>
 	private void ToolStripMenuItemCompressionSmallestSize_Click(object sender, EventArgs e)
