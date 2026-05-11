@@ -17,12 +17,8 @@ public partial class TerminologyForm : BaseKryptonForm
 {
 	#region constructor
 
-	/// <summary>
-	/// Initializes a new instance of the <see cref="TerminologyForm"/> class.
-	/// </summary>
-	/// <remarks>
-	/// This constructor initializes the form components.
-	/// </remarks>
+	/// <summary>Initializes a new instance of the <see cref="TerminologyForm"/> class.</summary>
+	/// <remarks>This constructor initializes the form components. </remarks>
 	public TerminologyForm() =>
 		// Initialize the form components
 		InitializeComponent();
@@ -52,8 +48,7 @@ public partial class TerminologyForm : BaseKryptonForm
 		webBrowser.DocumentText = text ?? I18nStrings.terminology_IndexNumber;
 	}
 
-	/// <summary>Retrieves or sets the currently selected terminology element.
-	/// Automatically updates the display when set.</summary>
+	/// <summary>Retrieves or sets the currently selected terminology element. Automatically updates the display when set.</summary>
 	/// <value>The currently selected terminology element.</value>
 	/// <remarks>This property is configured for code serialization.</remarks>
 	[System.ComponentModel.DesignerSerializationVisibility(visibility: System.ComponentModel.DesignerSerializationVisibility.Visible)]
@@ -81,8 +76,7 @@ public partial class TerminologyForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>Fired when the form has finished loading.
-	/// Initializes the displayed content (sets the active terminology element) and clears the status bar.</summary>
+	/// <summary>Fired when the form has finished loading. Initializes the displayed content (sets the active terminology element) and clears the status bar.</summary>
 	/// <param name="sender">The event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This event is triggered when the form has finished loading.</remarks>
@@ -98,9 +92,7 @@ public partial class TerminologyForm : BaseKryptonForm
 
 	#region SelectedValueChanged event handler
 
-	/// <summary>Handles the list box SelectedValueChanged event.
-	/// Updates the current <see cref="TerminologyElement"/> based on the selected index
-	/// and refreshes the displayed content in the embedded web browser.</summary>
+	/// <summary>Handles the list box SelectedValueChanged event. Updates the current <see cref="TerminologyElement"/> based on the selected index and refreshes the displayed content in the embedded web browser.</summary>
 	/// <param name="sender">The event source (expected to be the terminology list box).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This event is triggered when the selected value in the list box changes.</remarks>
