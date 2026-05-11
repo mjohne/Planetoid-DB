@@ -13,8 +13,7 @@ using System.Diagnostics;
 namespace Planetoid_DB;
 
 /// <summary>Form for displaying orbital resonances of a planetoid relative to the 8 solar system planets.</summary>
-/// <remarks>This form computes and presents the orbital resonance of a planetoid with each planet,
-/// including the resonance ratio, deviation, and whether a near-resonance is detected.</remarks>
+/// <remarks>This form computes and presents the orbital resonance of a planetoid with each planet, including the resonance ratio, deviation, and whether a near-resonance is detected.</remarks>
 // You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
@@ -24,6 +23,7 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 	/// <summary>The deviation threshold in percent below which an orbital ratio is considered a near-resonance.</summary>
+	/// <remarks>This constant defines the percentage deviation threshold for determining whether an orbital ratio is considered a near-resonance. If the deviation of the actual orbital ratio from the ideal resonance ratio is less than this threshold, it will be classified as a resonance in the list view.</remarks>
 	private const double ResonanceThresholdPercent = 1.0;
 
 	/// <summary>The semi-major axis of the planetoid in AU, used to calculate orbital resonances.</summary>
@@ -250,6 +250,7 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 	/// <summary>Handles the Click event of the filter resonances tool strip button. Toggles the list view between showing all rows and showing only resonance rows.</summary>
 	/// <param name="sender">The source of the event, typically the tool strip button.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>When the button is clicked, it checks the state of the button (checked or unchecked) and calls the PopulateListView method to refresh the list view based on the current filter setting. If the button is checked, only rows representing true resonances will be shown; if unchecked, all rows will be displayed.</remarks>
 	private void ToolStripButtonFilterResonances_Click(object sender, EventArgs e)
 	{
 		PopulateListView();
