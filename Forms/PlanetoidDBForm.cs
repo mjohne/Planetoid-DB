@@ -211,7 +211,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// and the caption "Information"
 		// If the user clicks "Yes", restart the application
 		// If the user clicks "No", do nothing
-		if (MessageBox.Show(text: I18nStrings.DownloadCompleteAndRestartQuestionText, caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.YesNo, icon: MessageBoxIcon.Information, defaultButton: MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+		if (KryptonMessageBox.Show(text: I18nStrings.DownloadCompleteAndRestartQuestionText, caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.YesNo, icon: KryptonMessageBoxIcon.Information, defaultButton: KryptonMessageBoxDefaultButton.Button1) == DialogResult.Yes)
 		{
 			// Restart the application
 			Restart();
@@ -349,7 +349,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			}
 		}
 		// If no matching record is found, show an error message box to the user
-		MessageBox.Show(text: "Record not found in the current loaded database.", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+		ShowErrorMessage(message: "Record not found in the current loaded database.");
 	}
 
 	/// <summary>Retrieves the last modified date and time (in UTC) of the resource at the specified URI.</summary>
@@ -639,7 +639,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		if (!NetworkInterface.GetIsNetworkAvailable())
 		{
-			_ = MessageBox.Show(text: I18nStrings.NoInternetConnectionText, caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
 			return;
 		}
 		using ObservationsForm formObservations = new();
@@ -782,10 +782,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Set the TopMost property to true to keep the form on top of other windows
 		formTisserand.TopMost = TopMost;
 		// Pass the parsed orbital elements to the form
-		formTisserand.SetOrbitalElements(
-			semiMajorAxis: semiMajorAxis,
-			eccentricity: eccentricity,
-			inclinationDeg: inclinationDeg);
+		formTisserand.SetOrbitalElements(semiMajorAxis: semiMajorAxis, eccentricity: eccentricity, inclinationDeg: inclinationDeg);
 		// Show the Tisserand parameters form as a modal dialog
 		_ = formTisserand.ShowDialog();
 	}
@@ -806,7 +803,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		if (!NetworkInterface.GetIsNetworkAvailable())
 		{
-			_ = MessageBox.Show(text: I18nStrings.NoInternetConnectionText, caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
 			return;
 		}
 		using BulkObservationsDataDownloaderForm formBulkDownloader = new(planetoids: planetoidsDatabase);
@@ -899,8 +896,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	}
 
 	/// <summary>Shows the records form that scans all orbital elements for maximum or minimum record values.</summary>
-	/// <remarks>This method creates the <see cref="RecordsForm"/>, passes a copy of the current planetoid
-	/// database, and displays the form as a modal dialog.</remarks>
+	/// <remarks>This method creates the <see cref="RecordsForm"/>, passes a copy of the current planetoid database, and displays the form as a modal dialog.</remarks>
 	private void ShowRecordsForm()
 	{
 		// Create a new instance of the RecordsForm
@@ -922,7 +918,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		//if (!await HasInternetAsync(client: httpClient, url: uriMpcorb.OriginalString))
 		{
 			// Display an error message if the network is not available
-			_ = MessageBox.Show(text: I18nStrings.NoInternetConnectionText, caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
 		}
 		else
 		{
@@ -943,7 +939,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		if (!NetworkInterface.GetIsNetworkAvailable())
 		{
 			// Display an error message if the network is not available
-			_ = MessageBox.Show(text: I18nStrings.NoInternetConnectionText, caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
 		}
 		else
 		{
@@ -964,7 +960,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		if (!NetworkInterface.GetIsNetworkAvailable())
 		{
 			// Display an error message if the network is not available
-			_ = MessageBox.Show(text: I18nStrings.NoInternetConnectionText, caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
 		}
 		else
 		{
@@ -989,7 +985,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		if (!NetworkInterface.GetIsNetworkAvailable())
 		{
 			// Display an error message if the network is not available
-			_ = MessageBox.Show(text: I18nStrings.NoInternetConnectionText, caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
 		}
 		else
 		{
@@ -1019,8 +1015,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	}
 
 	/// <summary>Shows the search form.</summary>
-	///	<remarks>
-	///	This method is used to show the search form.</remarks>
+	///	<remarks>This method is used to show the search form.</remarks>
 	private void ShowSearch()
 	{
 		// Create a new instance of the SearchForm
@@ -1038,7 +1033,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Show the search form as a modal dialog
 		_ = formSearch.ShowDialog();
 		// Check if the dialog result is OK and the selected index is greater than 0
-		_ = MessageBox.Show(text: formSearch.GetSelectedIndex().ToString());
+		_ = KryptonMessageBox.Show(text: formSearch.GetSelectedIndex().ToString());
 		// If so, navigate to the current position in the database
 		if (formSearch.DialogResult == DialogResult.OK && formSearch.GetSelectedIndex() > 0)
 		{
@@ -1328,12 +1323,12 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		{
 			logger.Info(message: $"User selected local MPCORB.DAT file: {selectedFilePath}");
 			// Ask the user if they want to restart the application
-			DialogResult result = MessageBox.Show(
+			DialogResult result = KryptonMessageBox.Show(
 				text: $"The application will restart to load the selected file:\n\n{selectedFilePath}\n\nDo you want to continue?",
 				caption: I18nStrings.InformationCaption,
-				buttons: MessageBoxButtons.YesNo,
-				icon: MessageBoxIcon.Question,
-				defaultButton: MessageBoxDefaultButton.Button1);
+				buttons: KryptonMessageBoxButtons.YesNo,
+				icon: KryptonMessageBoxIcon.Question,
+				defaultButton: KryptonMessageBoxDefaultButton.Button1);
 			// If the user confirms, restart the application with the new file path as a command line argument
 			if (result == DialogResult.Yes)
 			{
@@ -1358,7 +1353,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Decodes the 4-hexdigit flag from MPCORB.DAT and displays the result in a MessageBox.</summary>
+	/// <summary>Decodes the 4-hexdigit flag from MPCORB.DAT and displays the result in a KryptonMessageBox.</summary>
 	/// <remarks>The flag encodes orbit type in the lower 6 bits and additional information in bits 6-15 according to MPC specifications.</remarks>
 	private void DecodeMpcorbFlags()
 	{
@@ -1368,11 +1363,11 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		if (string.IsNullOrWhiteSpace(value: flagText))
 		{
 			logger.Warn(message: "Flag text is empty or whitespace");
-			_ = MessageBox.Show(
+			_ = KryptonMessageBox.Show(
 				text: "No flag data available.",
 				caption: "Flag Decoder",
-				buttons: MessageBoxButtons.OK,
-				icon: MessageBoxIcon.Warning);
+				buttons: KryptonMessageBoxButtons.OK,
+				icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
 		// Validate that the flag text is a valid 4-hexdigit string
@@ -1440,12 +1435,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			{
 				_ = result.AppendLine(value: "  (none)");
 			}
-			// Display the result in a MessageBox
-			_ = KryptonMessageBox.Show(
-				text: result.ToString(),
-				caption: "MPCORB Flag Decoder",
-				buttons: KryptonMessageBoxButtons.OK,
-				icon: KryptonMessageBoxIcon.Information);
+			// Display the result in a KryptonMessageBox
+			_ = KryptonMessageBox.Show(text: result.ToString(), caption: "MPCORB Flag Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 
 			logger.Info(message: $"Decoded MPCORB flag: {flagText} = {flagValue} ({orbitTypeName})");
 		}
@@ -1453,25 +1444,17 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		catch (FormatException ex)
 		{
 			logger.Error(exception: ex, message: $"Failed to parse flag value '{flagText}': {ex.Message}");
-			_ = MessageBox.Show(
-				text: $"Failed to parse flag value '{flagText}'.\n\nThe flag must be a valid hexadecimal number.\n\nError: {ex.Message}",
-				caption: I18nStrings.ErrorCaption,
-				buttons: MessageBoxButtons.OK,
-				icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: $"Failed to parse flag value '{flagText}'.\n\nThe flag must be a valid hexadecimal number.\n\nError: {ex.Message}");
 		}
 		// Handle overflow exceptions when the hex value is too large to fit in an integer
 		catch (OverflowException ex)
 		{
 			logger.Error(exception: ex, message: $"Error decoding MPCORB flag: {ex.Message}");
-			_ = KryptonMessageBox.Show(
-				text: $"An error occurred while decoding the flag.\n\nError: {ex.Message}",
-				caption: I18nStrings.ErrorCaption,
-				buttons: KryptonMessageBoxButtons.OK,
-				icon: KryptonMessageBoxIcon.Error);
+			ShowErrorMessage(message: $"An error occurred while decoding the flag.\n\nError: {ex.Message}");
 		}
 	}
 
-	/// <summary>Decodes the compressed reference code from MPCORB.DAT and displays the full reference in a MessageBox.</summary>
+	/// <summary>Decodes the compressed reference code from MPCORB.DAT and displays the full reference in a KryptonMessageBox.</summary>
 	/// <remarks>Decodes various reference formats according to MPC specifications at http://www.minorplanetcenter.org/iau/info/References.html</remarks>
 	private void DecodeMpcorbReference()
 	{
@@ -1481,11 +1464,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		if (string.IsNullOrWhiteSpace(value: referenceText))
 		{
 			logger.Warn(message: "Reference text is empty or whitespace");
-			_ = KryptonMessageBox.Show(
-				text: "No reference data available.",
-				caption: "Reference Decoder",
-				buttons: KryptonMessageBoxButtons.OK,
-				icon: KryptonMessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(text: "No reference data available.", caption: "Reference Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
 		// Attempt to decode the reference and handle any exceptions that may occur during decoding
@@ -1500,22 +1479,14 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			_ = result.AppendLine();
 			_ = result.AppendLine(value: "Full Reference:");
 			_ = result.AppendLine(value: $"  {decodedReference}");
-			// Display the result in a MessageBox
-			_ = KryptonMessageBox.Show(
-				text: result.ToString(),
-				caption: "MPCORB Reference Decoder",
-				buttons: KryptonMessageBoxButtons.OK,
-				icon: KryptonMessageBoxIcon.Information);
+			// Display the result in a KryptonMessageBox
+			_ = KryptonMessageBox.Show(text: result.ToString(), caption: "MPCORB Reference Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			logger.Info(message: $"Decoded MPCORB reference: '{referenceText}' → '{decodedReference}'");
 		}
 		catch (Exception ex)
 		{
 			logger.Error(exception: ex, message: $"Error decoding MPCORB reference '{referenceText}': {ex.Message}");
-			_ = KryptonMessageBox.Show(
-				text: $"An error occurred while decoding the reference:\n\n{ex.Message}",
-				caption: I18nStrings.ErrorCaption,
-				buttons: KryptonMessageBoxButtons.OK,
-				icon: KryptonMessageBoxIcon.Error);
+			ShowErrorMessage(message: $"An error occurred while decoding the reference:\n\n{ex.Message}");
 		}
 	}
 
@@ -1836,9 +1807,9 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method is used to handle the progress changed event during the database loading process.</remarks>
 	private void BackgroundWorkerLoadingDatabase_ProgressChanged(object? sender, ProgressChangedEventArgs e)
 	{
-		//MessageBox.Show(text: e.ProgressPercentage.ToString());
+		//KryptonMessageBox.Show(text: e.ProgressPercentage.ToString());
 		// TODO: Not implemented yet
-		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+		_ = KryptonMessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
 	}
 
 	/// <summary>Handles the RunWorkerCompleted event of the BackgroundWorker for loading the database.</summary>
@@ -1893,9 +1864,9 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private async void ToolStripStatusLabelUpdate_Click(object sender, EventArgs e)
 	{
 		// Check if the user wants to download the latest MPCORB.DAT file
-		if (MessageBox.Show(text: I18nStrings.AskForDownloadingLatestMpcorbDatFile,
-				caption: I18nStrings.AskForDownloadingLatestMpcorbDatFileCaption, buttons: MessageBoxButtons.YesNo,
-				icon: MessageBoxIcon.Question) != DialogResult.Yes)
+		if (KryptonMessageBox.Show(text: I18nStrings.AskForDownloadingLatestMpcorbDatFile,
+				caption: I18nStrings.AskForDownloadingLatestMpcorbDatFileCaption, buttons: KryptonMessageBoxButtons.YesNo,
+				icon: KryptonMessageBoxIcon.Question) != DialogResult.Yes)
 		{
 			// User chose not to download the file, so we exit the method
 			return;
@@ -1976,12 +1947,12 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			toolStripProgressBarBackgroundDownload.Visible = false;
 			toolStripStatusLabelCancelBackgroundDownload.Visible = false;
 			File.Delete(path: filenameMpcorbTemp);
-			_ = MessageBox.Show(text: "Download cancelled", caption: "Cancel", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(text: "Download cancelled", caption: "Cancel", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 		}
 		catch (Exception ex)
 		{
 			// Handle any errors that occur during the download process
-			_ = MessageBox.Show(text: ex.Message, caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error, defaultButton: MessageBoxDefaultButton.Button1);
+			ShowErrorMessage(message: ex.Message);
 			toolStripStatusLabelUpdate.IsLink = true;
 			toolStripStatusLabelUpdate.Enabled = true;
 			toolStripStatusLabelUpdate.Visible = true;
@@ -2158,7 +2129,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			logger.Error(message: ex.Message);
 			// Show an error message box with the exception message
 			ShowErrorMessage(message: $"{nameof(ToolStripButtonGoToIndex_Click)}  {ex.Message}");
-			_ = MessageBox.Show(text: ex.Message, caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
 		}
 		// If the parsed index is out of range, show an error message
 		// Otherwise, navigate to the specified index
@@ -2722,7 +2692,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void MenuitemDistributionMeanAnomalyAtTheEpoch_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
-		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+		ShowErrorMessage(message: "Not implemented yet");
 	}
 
 	/// <summary>Handles the click event for the MenuitemDistributionArgumentOfThePerihelion. Shows the distribution form for argument of perihelion.</summary>
@@ -2732,7 +2702,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void MenuitemDistributionArgumentOfThePerihelion_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
-		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+		ShowErrorMessage(message: "Not implemented yet");
 	}
 
 	/// <summary>Handles the click event for the MenuitemDistributionLongitudeOfTheAscendingNode. Shows the distribution form for longitude of the ascending node.</summary>
@@ -2742,7 +2712,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void MenuitemDistributionLongitudeOfTheAscendingNode_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
-		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+		ShowErrorMessage(message: "Not implemented yet");
 	}
 
 	/// <summary>Handles the click event for the MenuitemDistributionInclination. Shows the distribution form for inclination.</summary>
@@ -2752,7 +2722,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void MenuitemDistributionInclination_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
-		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+		ShowErrorMessage(message: "Not implemented yet");
 	}
 
 	/// <summary>Handles the click event for the MenuitemDistributionOrbitalEccentricity. Shows the distribution form for orbital eccentricity.</summary>
@@ -2762,7 +2732,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void MenuitemDistributionOrbitalEccentricity_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
-		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+		ShowErrorMessage(message: "Not implemented yet");
 	}
 
 	/// <summary>Handles the click event for the MenuitemDistributionMeanDailyMotion. Shows the distribution form for mean daily motion.</summary>
@@ -2772,7 +2742,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void MenuitemDistributionMeanDailyMotion_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
-		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+		ShowErrorMessage(message: "Not implemented yet");
 	}
 
 	/// <summary>Handles the click event for the MenuitemDistributionSemiMajorAxis. Shows the distribution form for semi-major axis.</summary>
@@ -2782,7 +2752,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void MenuitemDistributionSemiMajorAxis_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
-		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+		ShowErrorMessage(message: "Not implemented yet");
 	}
 
 	/// <summary>Handles the click event for the MenuitemDistributionAbsoluteMagnitude. Shows the distribution form for absolute magnitude.</summary>
@@ -2792,7 +2762,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void MenuitemDistributionAbsoluteMagnitude_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
-		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+		ShowErrorMessage(message: "Not implemented yet");
 	}
 
 	/// <summary>Handles the click event for the MenuitemDistributionSlopeParameter. Shows the distribution form for slope parameter.</summary>
@@ -2802,7 +2772,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void MenuitemDistributionSlopeParameter_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
-		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+		ShowErrorMessage(message: "Not implemented yet");
 	}
 
 	/// <summary>Handles the click event for the MenuitemDistributionNumberOfOppositions. Shows the distribution form for number of oppositions.</summary>
@@ -2812,7 +2782,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void MenuitemDistributionNumberOfOppositions_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
-		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+		ShowErrorMessage(message: "Not implemented yet");
 	}
 
 	/// <summary>Handles the click event for the MenuitemDistributionNumberOfObservations. Shows the distribution form for number of observations.</summary>
@@ -2822,7 +2792,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void MenuitemDistributionNumberOfObservations_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
-		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+		ShowErrorMessage(message: "Not implemented yet");
 	}
 
 	/// <summary>Handles the click event for the MenuitemDistributionObservationSpan. Shows the distribution form for observation span.</summary>
@@ -2832,7 +2802,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void MenuitemDistributionObservationSpan_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
-		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+		ShowErrorMessage(message: "Not implemented yet");
 	}
 
 	/// <summary>Handles the click event for the MenuitemDistributionRmsResidual. Shows the distribution form for RMS residual.</summary>
@@ -2842,7 +2812,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void MenuitemDistributionRmsResidual_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
-		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+		ShowErrorMessage(message: "Not implemented yet");
 	}
 
 	/// <summary>Handles the click event for the MenuitemDistributionComputerName. Shows the distribution form for computer name.</summary>
@@ -2852,18 +2822,17 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void MenuitemDistributionComputerName_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
-		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+		ShowErrorMessage(message: "Not implemented yet");
 	}
 
 	/// <summary>Handles the button click event for the SplitButtonDistribution. Shows the distribution form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	///	<remarks>
-	///	This method is used to show the distribution form for the selected parameter.</remarks>
+	///	<remarks>This method is used to show the distribution form for the selected parameter.</remarks>
 	private void SplitButtonDistribution_ButtonClick(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
-		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+		ShowErrorMessage(message: "Not implemented yet");
 	}
 
 	/// <summary>Handles the click event for the MenuitemDistribution. Shows the distribution form.</summary>
@@ -2873,7 +2842,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void MenuitemDistribution_Click(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
-		_ = MessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+		ShowErrorMessage(message: "Not implemented yet");
 	}
 
 	/// <summary>Handles the click event for the ToolStripButtonListReadableDesignations. Lists readable designations.</summary>
@@ -3096,8 +3065,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <summary>Handles double-click events on the control to open the terminology dialog.</summary>
 	/// <param name="sender">Event source (the control).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method attempts to parse the current tag text as an integer and opens the terminology dialog
-	/// for the corresponding entry if successful.</remarks>
+	/// <remarks>This method attempts to parse the current tag text as an integer and opens the terminology dialog for the corresponding entry if successful.</remarks>
 	private void OpenTerminology_DoubleClick(object sender, EventArgs e)
 	{
 		// Try to parse the index from the current tag text
@@ -3116,7 +3084,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show an Easter egg message when the user double-clicks on a control.</remarks>
-	private void EasterEgg_DoubleClick(object sender, EventArgs e) => MessageBox.Show(text: I18nStrings.EasterEgg, caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+	private void EasterEgg_DoubleClick(object sender, EventArgs e) => KryptonMessageBox.Show(text: I18nStrings.EasterEgg, caption: I18nStrings.ErrorCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 
 	#endregion
 
@@ -3129,7 +3097,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void ToolStripMenuItemIconSetFatcow_Click(object sender, EventArgs e)
 	{
 		// TODO: Implement icon set change to Fatcow
-		_ = MessageBox.Show(text: "Fatcow icon set not implemented yet", caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: "Fatcow icon set not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event for the Silk icon set menu item.</summary>
@@ -3139,7 +3107,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void ToolStripMenuItemIconSetSilk_Click(object sender, EventArgs e)
 	{
 		// TODO: Implement icon set change to Silk
-		_ = MessageBox.Show(text: "Silk icon set not implemented yet", caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: "Silk icon set not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event for the Fugue icon set menu item.</summary>
@@ -3149,7 +3117,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void ToolStripMenuItemIconSetFugue_Click(object sender, EventArgs e)
 	{
 		// TODO: Implement icon set change to Fugue
-		_ = MessageBox.Show(text: "Fugue icon set not implemented yet", caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = KryptonessageBox.Show(text: "Fugue icon set not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event for enabling copying by double-clicking option.</summary>
@@ -3159,7 +3127,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void ToolStripMenuItemEnableCopyingByDoubleClicking_Click(object sender, EventArgs e)
 	{
 		// TODO: Implement enable/disable copying by double-clicking
-		_ = MessageBox.Show(text: "Enable copying by double-clicking not implemented yet", caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = KryptonessageBox.Show(text: "Enable copying by double-clicking not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event for enabling linking to terminology option.</summary>
@@ -3169,7 +3137,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void ToolStripMenuItemEnableLinkingToTerminology_Click(object sender, EventArgs e)
 	{
 		// TODO: Implement enable/disable linking to terminology
-		_ = MessageBox.Show(text: "Enable linking to terminology not implemented yet", caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: "Enable linking to terminology not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonessageBoxIcon.Information);
 	}
 
 	#endregion
