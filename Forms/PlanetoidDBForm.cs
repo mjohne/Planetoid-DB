@@ -3117,7 +3117,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void ToolStripMenuItemIconSetFugue_Click(object sender, EventArgs e)
 	{
 		// TODO: Implement icon set change to Fugue
-		_ = KryptonessageBox.Show(text: "Fugue icon set not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: "Fugue icon set not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event for enabling copying by double-clicking option.</summary>
@@ -3127,7 +3127,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void ToolStripMenuItemEnableCopyingByDoubleClicking_Click(object sender, EventArgs e)
 	{
 		// TODO: Implement enable/disable copying by double-clicking
-		_ = KryptonessageBox.Show(text: "Enable copying by double-clicking not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: "Enable copying by double-clicking not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event for enabling linking to terminology option.</summary>
@@ -3137,7 +3137,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void ToolStripMenuItemEnableLinkingToTerminology_Click(object sender, EventArgs e)
 	{
 		// TODO: Implement enable/disable linking to terminology
-		_ = KryptonMessageBox.Show(text: "Enable linking to terminology not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(text: "Enable linking to terminology not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	#endregion
