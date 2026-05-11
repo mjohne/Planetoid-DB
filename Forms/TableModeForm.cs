@@ -3,6 +3,8 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using Krypton.Toolkit;
+
 using NLog;
 
 using Planetoid_DB.Forms;
@@ -100,8 +102,7 @@ public partial class TableModeForm : BaseKryptonForm
 	/// <param name="defaultExt">The default file extension.</param>
 	/// <param name="dialogTitle">The title of the save dialog.</param>
 	/// <param name="exportAction">The export action to invoke with the ListView, title, and file name.</param>
-	/// <remarks>This method encapsulates the common logic for displaying a save dialog and performing the export action,
-	/// managing the cursor state during the operation.</remarks>
+	/// <remarks>This method encapsulates the common logic for displaying a save dialog and performing the export action, managing the cursor state during the operation.</remarks>
 	private void PerformSaveExport(string filter, string defaultExt, string dialogTitle, Action<ListView, string, string> exportAction)
 	{
 		// Create and configure the save file dialog with the specified filter, default extension, and title. The dialog allows the user to choose where to save the exported file and what name to give it.
@@ -126,7 +127,7 @@ public partial class TableModeForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			logger.Error(message: $"An error occurred during export: {ex}");
-			MessageBox.Show(text: $"An error has occurred during export: {ex.Message}", caption: "Export Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: $"An error has occurred during export: {ex.Message}");
 		}
 		// In the finally block, ensure that the cursor is reset to the default state regardless of whether the export action succeeds or fails. This ensures that the user interface remains responsive and provides appropriate feedback to the user.
 		finally
@@ -137,8 +138,7 @@ public partial class TableModeForm : BaseKryptonForm
 
 	/// <summary>Fills the internal planetoids database from the provided list.</summary>
 	/// <param name="arrTemp">A list containing planetoid records as strings. Each entry is appended to the internal database.</param>
-	/// <remarks>The method stores the elements of <paramref name="arrTemp"/> in the internal <see cref="planetoidsDatabase"/> list.
-	/// The caller is responsible for providing data in the expected string format.</remarks>
+	/// <remarks>The method stores the elements of <paramref name="arrTemp"/> in the internal <see cref="planetoidsDatabase"/> list. The caller is responsible for providing data in the expected string format.</remarks>
 	public void FillArray(List<string> arrTemp)
 	{
 		// Fill the internal planetoids database
@@ -194,8 +194,7 @@ public partial class TableModeForm : BaseKryptonForm
 	/// <param name="p">The PlanetoidRecord to retrieve the value from.</param>
 	/// <param name="columnIndex">The index of the column to retrieve.</param>
 	/// <returns>The value of the specified column as a string.</returns>
-	/// <remarks>This method uses pattern matching to return the value of the specified column.
-	/// The order MUST exactly match your column order in the ListView!</remarks>
+	/// <remarks>This method uses pattern matching to return the value of the specified column. The order MUST exactly match your column order in the ListView!</remarks>
 	private static string GetValueByColumn(PlanetoidRecord p, int columnIndex) => columnIndex switch
 	{
 		0 => p.Index,
@@ -272,8 +271,7 @@ public partial class TableModeForm : BaseKryptonForm
 	}
 
 	/// <summary>Sets up the columns for the ListView control.</summary>
-	/// <remarks>This method configures the columns of the ListView control to display the relevant
-	/// information for each planetoid record.</remarks>
+	/// <remarks>This method configures the columns of the ListView control to display the relevant information for each planetoid record.</remarks>
 	private void SetupColumns()
 	{
 		// Add columns to the ListView
@@ -315,8 +313,7 @@ public partial class TableModeForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>Handles the form Load event.
-	/// Initializes UI controls, clears the status area and sets up numeric ranges based on the loaded database.</summary>
+	/// <summary>Handles the form Load event. Initializes UI controls, clears the status area and sets up numeric ranges based on the loaded database.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the form is loaded.</remarks>
@@ -339,14 +336,12 @@ public partial class TableModeForm : BaseKryptonForm
 	/// Requests cancellation of any ongoing operations while the form and its controls are still valid.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="FormClosingEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is called when the form begins closing, allowing pending asynchronous work to be cancelled
-	/// before UI controls are disposed.</remarks>
+	/// <remarks>This method is called when the form begins closing, allowing pending asynchronous work to be cancelled before UI controls are disposed.</remarks>
 	private void TableModeForm_FormClosing(object sender, FormClosingEventArgs e) =>
 		// Request cancellation of any ongoing operations while the UI is still alive
 		cancellationTokenSource?.Cancel();
 
-	/// <summary>Handles the form Closed event.
-	/// Cleans up resources and cancels any ongoing operations.</summary>
+	/// <summary>Handles the form Closed event. Cleans up resources and cancels any ongoing operations.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="FormClosedEventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the form is closed.</remarks>
@@ -361,9 +356,7 @@ public partial class TableModeForm : BaseKryptonForm
 
 	#region SelectedIndexChanged event handlers
 
-	/// <summary>Handles the ListView <c>SelectedIndexChanged</c> event.
-	/// Updates the status bar with the selected planetoid's index and designation name.
-	/// If no item is selected the method returns without modifying the UI.</summary>
+	/// <summary>Handles the ListView <c>SelectedIndexChanged</c> event. Updates the status bar with the selected planetoid's index and designation name. If no item is selected the method returns without modifying the UI.</summary>
 	/// <param name="sender">Event source (the list view).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the selected index of the list view changes.</remarks>
@@ -418,9 +411,7 @@ public partial class TableModeForm : BaseKryptonForm
 
 	#region Click event handlers
 
-	/// <summary>Handles the Click event of the List button.
-	/// Prepares the list view, disables/enables the appropriate UI controls, enables progress reporting
-	/// and starts the background worker to process planetoid records in the configured range.</summary>
+	/// <summary>Handles the Click event of the List button. Prepares the list view, disables/enables the appropriate UI controls, enables progress reporting and starts the background worker to process planetoid records in the configured range.</summary>
 	/// <param name="sender">Event source (the List button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the List button is clicked.</remarks>
@@ -433,7 +424,7 @@ public partial class TableModeForm : BaseKryptonForm
 		// Validate that Minimum is less than Maximum before proceeding
 		if (count <= 0)
 		{
-			MessageBox.Show(text: "Minimum value must be less than Maximum value.", caption: "Invalid range", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(text: "Minimum value must be less than Maximum value.", caption: "Invalid range", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
 		// Start the stopwatch for performance measurement
@@ -511,7 +502,7 @@ public partial class TableModeForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			logger.Error(message: $"An error occurred during background processing: {ex}");
-			MessageBox.Show(text: $"An error has occurred: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: $"An error has occurred: {ex.Message}");
 		}
 		// Final UI updates
 		finally
@@ -522,14 +513,12 @@ public partial class TableModeForm : BaseKryptonForm
 			// Show completion or cancellation message
 			if (cancellationTokenSource?.IsCancellationRequested == true)
 			{
-				MessageBox.Show(text: $"{listView.VirtualListSize} objects processed (cancellation).",
-					caption: "cancellation", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
+				_ = KryptonMessageBox.Show(text: $"{listView.VirtualListSize} objects processed (cancellation).", caption: "cancellation", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			}
 			// Show completion message
 			else
 			{
-				MessageBox.Show(text: $"{listView.VirtualListSize} objects processed in {stopwatch.Elapsed:hh\\:mm\\:ss\\.fff} hh:mm:ss.fff",
-					caption: I18nStrings.InformationCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+				_ = KryptonMessageBox.Show(text: $"{listView.VirtualListSize} objects processed in {stopwatch.Elapsed:hh\\:mm\\:ss\\.fff} hh:mm:ss.fff", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			}
 			// Dispose the cancellation token source
 			cancellationTokenSource?.Dispose();
@@ -595,8 +584,7 @@ public partial class TableModeForm : BaseKryptonForm
 		sortedColumnHeader.Text = $"{arrow} {sortedColumnBaseText}";
 	}
 
-	/// <summary>Handles the Click event of the Cancel button.
-	/// Requests cancellation of the background processing by setting the internal cancellation flag.</summary>
+	/// <summary>Handles the Click event of the Cancel button. Requests cancellation of the background processing by setting the internal cancellation flag.</summary>
 	/// <param name="sender">Event source (the Cancel button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the Cancel button is clicked.</remarks>
@@ -839,10 +827,8 @@ public partial class TableModeForm : BaseKryptonForm
 	/// <summary>Handles the DoubleClick event of the ListView.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	/// <remarks>When an item in the list is double-clicked, the corresponding planetoid is displayed
-	/// in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
-	private void ListView_DoubleClick(object? sender, EventArgs e) =>
-		GoToObject(closeAfterNavigation: false);
+	/// <remarks>When an item in the list is double-clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
+	private void ListView_DoubleClick(object? sender, EventArgs e) => GoToObject(closeAfterNavigation: false);
 
 	#endregion
 
@@ -851,10 +837,8 @@ public partial class TableModeForm : BaseKryptonForm
 	/// <summary>Handles the Click event of the 'Go to object' toolbar button.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	/// <remarks>When clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/>
-	/// and this form is closed.</remarks>
-	private void ToolStripButtonGoToObject_Click(object? sender, EventArgs e) =>
-		GoToObject(closeAfterNavigation: true);
+	/// <remarks>When clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> and this form is closed.</remarks>
+	private void ToolStripButtonGoToObject_Click(object? sender, EventArgs e) => GoToObject(closeAfterNavigation: true);
 
 	/// <summary>Navigates to the currently selected planetoid in the <see cref="PlanetoidDbForm"/>.</summary>
 	/// <param name="closeAfterNavigation">If <see langword="true"/>, this form is closed after navigation.</param>
