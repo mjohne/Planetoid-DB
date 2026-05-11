@@ -50,7 +50,7 @@ public partial class SplashScreenForm : BaseKryptonForm
 		{
 			// Log the error and show a error message
 			logger.Error(message: $"Value {value} is out of range for the progress bar. Minimum: {progressBarSplash.Minimum}, Maximum: {progressBarSplash.Maximum}");
-			ShowErrorMessage(message: message: $"Value {value} is out of range for the progress bar. Minimum: {progressBarSplash.Minimum}, Maximum: {progressBarSplash.Maximum}");
+			ShowErrorMessage(message: $"Value {value} is out of range for the progress bar. Minimum: {progressBarSplash.Minimum}, Maximum: {progressBarSplash.Maximum}");
 			// Throw an exception indicating that the value is out of range
 			throw new ArgumentOutOfRangeException(paramName: nameof(value), message: I18nStrings.IndexOutOfRange);
 		}
