@@ -3,6 +3,8 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using Krypton.Toolkit;
+
 using NLog;
 
 using Planetoid_DB.Forms;
@@ -61,12 +63,9 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 
 	#region constructor
 
-	/// <summary>Initializes a new instance of the <see cref="DatabaseDownloaderForm"/> class.
-	/// Prepares HTTP client and UI, stores the download <paramref name="url"/>, derives the extraction path
-	/// and starts the download workflow.</summary>
+	/// <summary>Initializes a new instance of the <see cref="DatabaseDownloaderForm"/> class. Prepares HTTP client and UI, stores the download <paramref name="url"/>, derives the extraction path and starts the download workflow.</summary>
 	/// <param name="url">The URL to download the file from. The filename part is used to derive the extraction path.</param>
-	/// <remarks>This constructor performs UI initialization and immediately begins the download by calling <see cref="StartDownloadAsync"/>.
-	/// It must be called from the UI thread.</remarks>
+	/// <remarks>This constructor performs UI initialization and immediately begins the download by calling <see cref="StartDownloadAsync"/>. It must be called from the UI thread.</remarks>
 	public DatabaseDownloaderForm(string url)
 	{
 		InitializeComponent();
@@ -117,8 +116,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 	/// <param name="gzipFilePath">Full path to the source .gz file.</param>
 	/// <param name="outputFilePath">Full path where the decompressed file will be written.</param>
 	/// <param name="token">A cancellation token to cancel the operation.</param>
-	/// <remarks>The method streams the compressed input to the output file using <see cref="GZipStream"/>.
-	/// It throws exceptions (e.g. <see cref="IOException"/>, <see cref="InvalidDataException"/>) to the caller.</remarks>
+	/// <remarks>The method streams the compressed input to the output file using <see cref="GZipStream"/>. It throws exceptions (e.g. <see cref="IOException"/>, <see cref="InvalidDataException"/>) to the caller.</remarks>
 	protected static async Task ExtractGzipFileAsync(string gzipFilePath, string outputFilePath, CancellationToken token)
 	{
 		// Open the gzip file and create a new file stream for the output file
@@ -131,15 +129,11 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		await decompressionStream.CopyToAsync(destination: targetStream, cancellationToken: token);
 	}
 
-	/// <summary>Asynchronously determines whether an active internet connection is available by sending a HEAD request to the
-	/// specified URL.</summary>
-	/// <remarks>This method uses a HEAD request to minimize bandwidth usage and applies a timeout of 5 seconds. If
-	/// an exception occurs during the request, the method returns <see langword="false"/>.</remarks>
-	/// <param name="client">The HttpClient instance used to send the request. This must be initialized before calling the method and should not
-	/// be null.</param>
+	/// <summary>Asynchronously determines whether an active internet connection is available by sending a HEAD request to the specified URL.</summary>
+	/// <remarks>This method uses a HEAD request to minimize bandwidth usage and applies a timeout of 5 seconds. If an exception occurs during the request, the method returns <see langword="false"/>.</remarks>
+	/// <param name="client">The HttpClient instance used to send the request. This must be initialized before calling the method and should not be null.</param>
 	/// <param name="url">The URL to which the connectivity check is sent. This must be a valid, non-null URI string.</param>
-	/// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if the response
-	/// indicates success; otherwise, <see langword="false"/>.</returns>
+	/// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if the response indicates success; otherwise, <see langword="false"/>.</returns>
 	private static async Task<bool> HasInternetAsync(HttpClient client, string url)
 	{
 		// Send a GET request to the specified URL
@@ -209,12 +203,8 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Starts the download workflow: validates network and input, disables/enables UI controls,
-	/// downloads the file, extracts the GZIP archive and notifies the user.</summary>
-	/// <remarks>This method is an async void entry point intended for UI usage. It uses an internal
-	/// <see cref="CancellationTokenSource"/> to support cancellation, updates form controls
-	/// (buttons, labels, progress bar) and handles exceptions internally (shows message boxes).
-	/// No exceptions are propagated to the caller.</remarks>
+	/// <summary>Starts the download workflow: validates network and input, disables/enables UI controls, downloads the file, extracts the GZIP archive and notifies the user.</summary>
+	/// <remarks>This method is an async void entry point intended for UI usage. It uses an internal <see cref="CancellationTokenSource"/> to support cancellation, updates form controls (buttons, labels, progress bar) and handles exceptions internally (shows message boxes). No exceptions are propagated to the caller.</remarks>
 	private async Task StartDownloadAsync()
 	{
 		// Check if there is an internet connection available
@@ -241,10 +231,9 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		if (string.IsNullOrWhiteSpace(value: url))
 		{
 			// Show an error message if the URL is invalid
-			_ = MessageBox.Show(text: "Please enter a valid URL!", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(text: "Please enter a valid URL!", caption: "Error", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
-
 		// Check if the temporary filename is valid
 		// If invalid, show an error message and return
 		// This ensures we have a valid location to save the downloaded file
@@ -254,10 +243,9 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		if (string.IsNullOrWhiteSpace(value: _filenameTemp))
 		{
 			// Show an error message if the temporary filename is invalid
-			_ = MessageBox.Show(text: "Please select a save location!", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
+			ShowErrorMessage(message: "Please select a save location!");
 			return;
 		}
-
 		// Start the download process
 		// Disable the Download button and enable the Cancel button
 		// Reset progress bar and status labels
@@ -287,7 +275,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			await ExtractGzipFileAsync(gzipFilePath: _filenameTemp, outputFilePath: extractFilePath, token: token);
 			// Notify the user of successful completion
 			labelStatusValue.Text = "Download completed";
-			_ = MessageBox.Show(text: "Download completed successfully!", caption: "Finished", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(text: "Download completed successfully!", caption: "Finished", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			logger.Info(message: "Download and extraction completed successfully.");
 			// Set the dialog result to OK and close the form
 			DialogResult = DialogResult.OK;
@@ -301,7 +289,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			// Notify the user that the download was canceled
 			labelStatusValue.Text = "Download canceled";
 			//TODO: Optionally disable the Cancel button here to prevent multiple clicks
-			_ = MessageBox.Show(text: "Download canceled!", caption: "Canceled", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(text: "Download canceled!", caption: "Canceled", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			logger.Info(message: "Download canceled by user.");
 		}
 		// Handle other exceptions
@@ -313,7 +301,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			// Log the exception and show an error message
 			labelStatusValue.Text = "Download error";
 			//TODO: Optionally disable the Cancel button here to prevent multiple clicks
-			_ = MessageBox.Show(text: $"Error during download: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: $"Error during download: {ex.Message}");
 			logger.Error(exception: ex, message: "Download failed. Url={Url}, TempFile={TempFile}", args: (url, _filenameTemp));
 		}
 		// Reset UI elements and clean up resources
@@ -336,8 +324,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Downloads a file asynchronously from the specified <paramref name="fileUrl"/> and writes it to <paramref name="destinationPath"/>.
-	/// Updates UI elements (status, progress, size, source, date) while downloading and supports cancellation via <paramref name="token"/>.</summary>
+	/// <summary>Downloads a file asynchronously from the specified <paramref name="fileUrl"/> and writes it to <paramref name="destinationPath"/>. Updates UI elements (status, progress, size, source, date) while downloading and supports cancellation via <paramref name="token"/>.</summary>
 	/// <param name="fileUrl">The URL to download from.</param>
 	/// <param name="destinationPath">Local file path where the downloaded data will be saved.</param>
 	/// <param name="token">Token used to cancel the download operation.</param>
