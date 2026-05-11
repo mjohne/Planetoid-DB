@@ -201,7 +201,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		if (!TryParsePlanetoidRecord(record: currentData, recordIndex: dbIndex, parsedIndex: out string strIndex, parsedDesignation: out string strDesignation))
 		{
 			// If parsing fails, show an error message and return
-			_ = MessageBox.Show(text: "Invalid record format.", caption: I18nStrings.ErrorCaption, buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: "Invalid record format.");
 			return false;
 		}
 		// Jump to the record in the main form
@@ -258,7 +258,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			logger.Error(message: $"An error occurred during export: {ex}");
-			MessageBox.Show(text: $"An error has occurred during export: {ex.Message}", caption: "Export Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: $"An error has occurred during export: {ex.Message}");
 		}
 		// In the finally block, ensure that the cursor is reset to the default state regardless of whether the export action succeeds or fails. This ensures that the user interface remains responsive and provides appropriate feedback to the user.
 		finally
@@ -267,8 +267,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Handles the ListView <c>SelectedIndexChanged</c> event.
-	/// Updates the status bar with the selected planetoid's index and readable designation, enables the Go to object button if necessary and stores the currently selected index.</summary>
+	/// <summary>Handles the ListView <c>SelectedIndexChanged</c> event. Updates the status bar with the selected planetoid's index and readable designation, enables the Go to object button if necessary and stores the currently selected index.</summary>
 	/// <param name="sender">Event source (expected to be the list view).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to handle the SelectedIndexChanged event of the ListView.</remarks>
