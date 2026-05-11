@@ -3,6 +3,8 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using Krypton.Toolkit;
+
 using NLog;
 
 using Planetoid_DB.Forms;
@@ -14,19 +16,8 @@ using System.Text;
 
 namespace Planetoid_DB;
 
-/// <summary>
-/// Represents a form that provides advanced search functionality for planetoid records,
-/// allowing users to search, filter, and export search results in various formats.
-/// </summary>
-/// <remarks>
-/// The Search2Form enables users to perform text-based searches across multiple orbital
-/// element fields within a planetoid database. Users can select which elements to search,
-/// view results in a virtualized list, and export results to a wide range of file formats,
-/// including text, spreadsheet, and markup formats. The form manages search progress,
-/// cancellation, and error handling, and integrates with the main application to allow
-/// navigation to specific records. Thread safety is maintained for search result access,
-/// and the form provides feedback on long-running operations.
-/// </remarks>
+/// <summary>Represents a form that provides advanced search functionality for planetoid records, allowing users to search, filter, and export search results in various formats.</summary>
+/// <remarks>The SearchForm enables users to perform text-based searches across multiple orbital element fields within a planetoid database. Users can select which elements to search, view results in a virtualized list, and export results to a wide range of file formats, including text, spreadsheet, and markup formats. The form manages search progress, cancellation, and error handling, and integrates with the main application to allow navigation to specific records. Thread safety is maintained for search result access, and the form provides feedback on long-running operations.</remarks>
 // You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class SearchForm : BaseKryptonForm
@@ -158,7 +149,7 @@ public partial class SearchForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			logger.Error(message: $"An error occurred during export: {ex}");
-			_ = MessageBox.Show(text: $"An error has occurred during export: {ex.Message}", caption: "Export Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: $"An error has occurred during export: {ex.Message}");
 		}
 		// In the finally block, ensure that the cursor is reset to the default state regardless of whether the export action succeeds or fails. This ensures that the user interface remains responsive and provides appropriate feedback to the user.
 		finally
@@ -167,8 +158,7 @@ public partial class SearchForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Navigates to the object currently selected in the search results list, displaying it in the main application form
-	/// if available.</summary>
+	/// <summary>Navigates to the object currently selected in the search results list, displaying it in the main application form if available.</summary>
 	/// <param name="closeAfterNavigation">When <see langword="true"/>, closes this form after successfully navigating to the object.</param>
 	/// <remarks>If no object is selected or the selected object is invalid, a message box is shown to inform the user. If the main form is not found, an error message is displayed. This method does not perform any action if a cancellation token source is active.</remarks>
 	private void GoToObject(bool closeAfterNavigation = false)
@@ -181,7 +171,7 @@ public partial class SearchForm : BaseKryptonForm
 		// Check if any item is selected in the list view. If not, show a warning message to the user and return without performing any navigation.
 		if (listViewResults.SelectedIndices.Count == 0)
 		{
-			_ = MessageBox.Show(text: "Please select an object to go to.", caption: "Go To Object", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(text: "Please select an object to go to.", caption: "Go To Object", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
 		// Get the index of the selected item in the list view. This index will be used to retrieve the corresponding search result from the _searchResults list.
@@ -201,7 +191,7 @@ public partial class SearchForm : BaseKryptonForm
 			else
 			{
 				// Show an error message indicating that the selected index is out of range, which means that the user has selected an item that does not correspond to a valid search result. This could happen if the search results have been updated while the user is interacting with the list view.
-				_ = MessageBox.Show(text: "Selected index is out of range.", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+				ShowErrorMessage(message: "Selected index is out of range.");
 				return;
 			}
 		}
@@ -210,7 +200,7 @@ public partial class SearchForm : BaseKryptonForm
 		if (string.IsNullOrWhiteSpace(value: designation))
 		{
 			// Show an error message indicating that the selected object does not have a valid designation, which is necessary for navigating to the object in the main form. This could happen if the search result item is incomplete or if there was an issue during the search process.
-			_ = MessageBox.Show(text: "Selected object does not have a valid designation.", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: "Selected object does not have a valid designation.");
 			return;
 		}
 		// Attempt to find the main form of the application, which is expected to be of type PlanetoidDbForm. If the main form is found, call its JumpToRecord method to navigate to the record corresponding to the selected search result item. Then bring the main form to the front. If the main form is not found, show an error message to the user indicating that navigation cannot be performed.
@@ -229,7 +219,7 @@ public partial class SearchForm : BaseKryptonForm
 		else
 		{
 			// Show an error message indicating that the main form was not found, which means that the application cannot navigate to the selected object. This could happen if the main form has not been opened yet or if it has been closed. The user may need to open the main form and perform the search again to navigate to the desired object.
-			_ = MessageBox.Show(text: "Main form not found. Cannot go to object.", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: "Main form not found. Cannot go to object.");
 		}
 	}
 
@@ -269,14 +259,14 @@ public partial class SearchForm : BaseKryptonForm
 		if (string.IsNullOrWhiteSpace(value: searchText))
 		{
 			// Show a warning message indicating that the user needs to enter a search term in order to perform a search. This is a validation step to ensure that the search operation has the necessary input to proceed.
-			_ = MessageBox.Show(text: "Please enter a search term.", caption: "Search", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(text: "Please enter a search term.", caption: "Search", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
 		// Check if the user has selected at least one orbital element to search in from the checked list box. If no elements are selected, show a warning message to the user and return without performing any search.
 		if (kryptonCheckedListBoxElements.CheckedItems.Count == 0)
 		{
 			// Show a warning message indicating that the user needs to select at least one orbital element to search in. This is a validation step to ensure that the search operation has the necessary criteria to proceed.
-			_ = MessageBox.Show(text: "Please select at least one orbital element to search in.", caption: "Search", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(text: "Please select at least one orbital element to search in.", caption: "Search", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
 		// Get the file path of the planetoid database from the application settings. If the file does not exist at the specified path, show an error message to the user and return without performing any search.
@@ -284,7 +274,7 @@ public partial class SearchForm : BaseKryptonForm
 		if (!File.Exists(path: filePath))
 		{
 			// Show an error message indicating that the database file could not be found at the specified path. This is a critical error that prevents the search operation from proceeding, as the search relies on reading data from the database file.
-			_ = MessageBox.Show(text: $"Database file not found at: {filePath}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: $"Database file not found at: {filePath}");
 			return;
 		}
 		// If a cancellation token source is already active, it means that a search operation is currently in progress. In this case, we should not start a new search until the current one is completed or cancelled. Show a warning message to the user and return without performing any search.
@@ -462,7 +452,7 @@ public partial class SearchForm : BaseKryptonForm
 			logger.Error(ex, "An error occurred during the search operation.");
 			kryptonProgressBar.Text = "Error during search.";
 			// Show a message box to the user with the error message, allowing them to understand that an error occurred and what the error message is. This provides feedback to the user about the failure of the search operation.
-			_ = MessageBox.Show(text: $"Search failed: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: $"Search failed: {ex.Message}");
 		}
 		// In the finally block, ensure that the Search button is re-enabled and the Cancel button is disabled to reflect that the search operation has ended. Update the virtual list size of the list view to reflect the final number of search results found, and invalidate the list view to refresh its display. Dispose of the cancellation token source to free resources, and set it to null to indicate that there is no active search operation.
 		finally
@@ -775,9 +765,7 @@ public partial class SearchForm : BaseKryptonForm
 	private void ToolStripMenuItemSaveAsSqlite_Click(object sender, EventArgs e)
 		=> PerformSaveExport(filter: "SQLite Files (*.sqlite3;*.sqlite;*.db)|*.sqlite3;*.sqlite;*.db|All Files (*.*)|*.*", defaultExt: "sqlite", dialogTitle: "Save as SQLite", exportAction: ListViewExporter.SaveAsSqlite);
 
-	/// <summary>
-	/// Handles the Go To Object toolbar button click by navigating to the selected object and closing the form afterwards.
-	/// </summary>
+	/// <summary>Handles the Go To Object toolbar button click by navigating to the selected object and closing the form afterwards.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e)
@@ -895,8 +883,7 @@ public partial class SearchForm : BaseKryptonForm
 
 	#region RetrieveVirtualItem event handler
 
-	/// <summary>Handles the RetrieveVirtualItem event for the results ListView.
-	/// Provides virtual items on demand for display in the list view.</summary>
+	/// <summary>Handles the RetrieveVirtualItem event for the results ListView. Provides virtual items on demand for display in the list view.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The <see cref="RetrieveVirtualItemEventArgs"/> instance containing the event data.</param>
 	/// <remarks>This event is triggered when the ListView requires a virtual item to be displayed.</remarks>
@@ -928,8 +915,7 @@ public partial class SearchForm : BaseKryptonForm
 
 	/// <summary>Creates a <see cref="ListViewItem"/> for the specified index from <see cref="_searchResults"/>.</summary>
 	/// <param name="index">The zero-based index of the item to retrieve.</param>
-	/// <returns>A <see cref="ListViewItem"/> populated with the data from <see cref="_searchResults"/>,
-	/// or an empty <see cref="ListViewItem"/> when <paramref name="index"/> is out of range.</returns>
+	/// <returns>A <see cref="ListViewItem"/> populated with the data from <see cref="_searchResults"/>, or an empty <see cref="ListViewItem"/> when <paramref name="index"/> is out of range.</returns>
 	/// <remarks>Used as the <c>virtualRowProvider</c> delegate when exporting via <see cref="Helpers.ListViewExporter"/>.</remarks>
 	private ListViewItem GetVirtualListViewItem(int index)
 	{
