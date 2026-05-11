@@ -3,6 +3,8 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using Krypton.Toolkit;
+
 using NLog;
 
 using Planetoid_DB.Forms;
@@ -83,8 +85,7 @@ public partial class LicenseForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>Fired when the preload form has finished loading.
-	/// Clears the status area so no message is shown on startup.</summary>
+	/// <summary>Fired when the preload form has finished loading. Clears the status area so no message is shown on startup.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to initialize the form and set up any necessary data.</remarks>
@@ -94,9 +95,7 @@ public partial class LicenseForm : BaseKryptonForm
 
 	#region Click event handlers
 
-	/// <summary>Handles the Save License button click.
-	/// Prompts the user for a destination via <see cref="SaveFileDialog"/>, extracts the embedded LICENSE resource
-	/// to a temporary file and copies it to the selected destination.</summary>
+	/// <summary>Handles the Save License button click. Prompts the user for a destination via <see cref="SaveFileDialog"/>, extracts the embedded LICENSE resource to a temporary file and copies it to the selected destination.</summary>
 	/// <param name="sender">Event source (the save button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <exception cref="FileNotFoundException">Thrown when the embedded LICENSE resource cannot be found.</exception>
@@ -113,16 +112,15 @@ public partial class LicenseForm : BaseKryptonForm
 		try
 		{
 			await ExtractResourceAsync(nameSpace: resourceRootNamespace, destinationPath: saveFileDialog.FileName, resourceName: licenseResourceName);
-			MessageBox.Show(text: "License saved successfully.", caption: "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(text: "License saved successfully.", caption: "Success", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 		}
 		catch (Exception ex)
 		{
-			MessageBox.Show(text: $"Error saving license: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: $"Error saving license: {ex.Message}");
 		}
 	}
 
-	/// <summary>Handles the Copy License to Clipboard button click.
-	/// Copies the contents of <c>kryptonTextBoxLicense.Text</c> to the clipboard.</summary>
+	/// <summary>Handles the Copy License to Clipboard button click. Copies the contents of <c>kryptonTextBoxLicense.Text</c> to the clipboard.</summary>
 	/// <param name="sender">Event source (the copy button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the license text to the clipboard.</remarks>
