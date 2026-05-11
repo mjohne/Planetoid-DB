@@ -2,6 +2,8 @@
 // which computes and displays MOID values for all minor planets
 // relative to each of the eight solar system planets.
 
+using Krypton.Toolkit;
+
 using NLog;
 
 using Planetoid_DB.Forms;
@@ -160,7 +162,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			logger.Error(message: $"An error occurred during export: {ex}");
-			MessageBox.Show(text: $"An error has occurred during export: {ex.Message}", caption: "Export Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: $"An error has occurred during export: {ex.Message}");
 		}
 		// In the finally block, ensure that the cursor is reset to the default state regardless of whether the export action succeeds or fails.
 		finally
@@ -291,8 +293,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 
 	#region RetrieveVirtualItem event handler
 
-	/// <summary>Handles the RetrieveVirtualItem event for the VirtualMode ListView.
-	/// Provides the <see cref="ListViewItem"/> for the requested index from <see cref="_results"/>.</summary>
+	/// <summary>Handles the RetrieveVirtualItem event for the VirtualMode ListView. Provides the <see cref="ListViewItem"/> for the requested index from <see cref="_results"/>.</summary>
 	/// <param name="sender">Event source (the list view).</param>
 	/// <param name="e">The <see cref="RetrieveVirtualItemEventArgs"/> containing the requested item index.</param>
 	/// <remarks>Called by the ListView for each visible row. Must be fast and must not modify <see cref="_results"/>.</remarks>
@@ -329,11 +330,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	{
 		if (_planetoids.Count == 0)
 		{
-			_ = MessageBox.Show(
-				text: "No planetoid data available.",
-				caption: I18nStrings.InformationCaption,
-				buttons: MessageBoxButtons.OK,
-				icon: MessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(text: "No planetoid data available.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
 		// Disable the Start button and save menu during the calculation
@@ -419,8 +416,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Handles the Click event of the Cancel button.
-	/// Cancels the currently running calculation.</summary>
+	/// <summary>Handles the Click event of the Cancel button. Cancels the currently running calculation.</summary>
 	/// <param name="sender">Event source (the button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 	/// <remarks>The calculation can be cancelled by the user at any time using the Cancel button.</remarks>
@@ -677,8 +673,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <summary>Handles the ColumnClick event of the ListView.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	/// <remarks>Toggles the sort order for the clicked column (ascending/descending) and re-sorts the results list.
-	/// Column headers are updated with a ▲ or ▼ indicator to show the current sort direction.</remarks>
+	/// <remarks>Toggles the sort order for the clicked column (ascending/descending) and re-sorts the results list. Column headers are updated with a ▲ or ▼ indicator to show the current sort direction.</remarks>
 	private void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
 	{
 		// If there are no results to sort, exit the method early
@@ -731,8 +726,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <summary>Handles the DoubleClick event of the ListView.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
-	/// <remarks>When an item is double-clicked, the corresponding planetoid is displayed in the
-	/// <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
+	/// <remarks>When an item is double-clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
 	private void ListView_DoubleClick(object sender, EventArgs e) => SelectedPlanetoidInMainForm();
 
 	#endregion
