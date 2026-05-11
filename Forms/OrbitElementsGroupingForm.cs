@@ -2,6 +2,8 @@
 // attributes that are applied to this project.
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
+using Krypton.Toolkit;
+
 using NLog;
 
 using Planetoid_DB.Helpers;
@@ -125,7 +127,7 @@ public partial class OrbitElementsGroupingForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			logger.Error(message: $"An error occurred during export: {ex}");
-			MessageBox.Show(text: $"An error has occurred during export: {ex.Message}", caption: "Export Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: $"An error has occurred during export: {ex.Message}");
 		}
 		// In the finally block, ensure that the cursor is reset to the default state regardless of whether the export action succeeds or fails. This ensures that the user interface remains responsive and provides appropriate feedback to the user.
 		finally
@@ -417,7 +419,7 @@ public partial class OrbitElementsGroupingForm : BaseKryptonForm
 		if (_planetoids.Count == 0)
 		{
 			logger.Error(message: "No planetoid data available to process.");
-			MessageBox.Show(text: "No planetoid data available.", caption: "Information", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(text: "No planetoid data available.", caption: "Information", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
 		// Disable the Start button to prevent multiple concurrent operations and enable the Cancel button to allow cancellation of the ongoing operation.
@@ -456,7 +458,7 @@ public partial class OrbitElementsGroupingForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			logger.Error(message: $"An error occurred during grouping: {ex}");
-			MessageBox.Show(text: $"An error has occurred during grouping: {ex.Message}", caption: "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: $"An error has occurred during grouping: {ex.Message}");
 		}
 		// In the finally block, ensure that the cancellation token source is disposed of to free resources, and reset the UI elements (Start and Cancel buttons) to their default states. This ensures that the form is ready for another operation if needed, and that resources are properly cleaned up regardless of how the operation completed.
 		finally
