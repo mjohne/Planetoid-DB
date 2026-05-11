@@ -2,6 +2,8 @@
 // which provides bulk downloading of MPC observations data files for a configurable
 // range of minor planets with start, pause, resume and cancel support.
 
+using Krypton.Toolkit;
+
 using NLog;
 
 using Planetoid_DB.Forms;
@@ -168,7 +170,7 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			logger.Error(message: $"An error occurred during export: {ex}");
-			MessageBox.Show(text: $"An error has occurred during export: {ex.Message}", caption: "Export Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: $"An error has occurred during export: {ex.Message}");
 		}
 		// In the finally block, ensure that the cursor is reset to the default state regardless of whether the export action succeeds or fails. This ensures that the user interface remains responsive and provides appropriate feedback to the user.
 		finally
@@ -517,13 +519,11 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	/// <summary>Handles the Click event of the Start/Pause button.</summary>
 	/// <param name="sender">Event source (the button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-	/// <remarks>
-	/// <list type="bullet">
+	/// <remarks><list type="bullet">
 	///   <item><description>Idle → starts a new download session.</description></item>
 	///   <item><description>Running → pauses the download; the button text changes to "Resume".</description></item>
 	///   <item><description>Paused → resumes the download; the button text reverts to "Pause".</description></item>
-	/// </list>
-	/// </remarks>
+	/// </list></remarks>
 	private async void ButtonStart_Click(object sender, EventArgs e)
 	{
 		// If a download is active and not paused, pause it
@@ -551,11 +551,7 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 		// Validate that there is data to process
 		if (_planetoids.Count == 0)
 		{
-			_ = MessageBox.Show(
-				text: "No planetoid data available.",
-				caption: I18nStrings.InformationCaption,
-				buttons: MessageBoxButtons.OK,
-				icon: MessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(text: "No planetoid data available.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
 		// Validate the range
