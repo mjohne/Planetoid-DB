@@ -87,7 +87,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			logger.Error(message: $"An error occurred during export: {ex}");
-			MessageBox.Show(text: $"An error has occurred during export: {ex.Message}", caption: "Export Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			ShowErrorMessage(message: $"An error has occurred during export: {ex.Message}");
 		}
 		// In the finally block, ensure that the cursor is reset to the default state regardless of whether the export action succeeds or fails. This ensures that the user interface remains responsive and provides appropriate feedback to the user.
 		finally
@@ -100,8 +100,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>Fired when the database information form loads.
-	/// Populates UI labels with file information for the configured MPCORB.DAT file and displays detected file attributes.</summary>
+	/// <summary>Fired when the database information form loads. Populates UI labels with file information for the configured MPCORB.DAT file and displays detected file attributes.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the database information form loads.</remarks>
