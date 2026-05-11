@@ -66,6 +66,13 @@ public static partial class TextBoxExporter
 	/// <remarks>In TOML, basic string values are enclosed in double quotes, and backslashes and double quotes within the string must be escaped with a backslash. This method checks if the input value is null or empty and returns an empty string in that case; otherwise, it replaces backslashes with double backslashes and double quotes with escaped double quotes to ensure that the resulting string can be safely included as a basic string value in a TOML document.</remarks>
 	private static string EscapeToml(string? value) => ExportEscapeHelper.EscapeToml(value);
 
+	/// <summary>Displays an error message.</summary>
+	/// <param name="message">The error message.</param>
+	/// <remarks>This method is used to display an error message to the user.</remarks>
+	private static void ShowErrorMessage(string message) =>
+		// Show an error message box with the specified message
+		_ = KryptonMessageBox.Show(text: message, caption: I18nStrings.ErrorCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
+
 	/// <summary>Shows a success message after a file has been saved.</summary>
 	/// <remarks>Logs the successful save operation at the Info level and displays a message box to the user.</remarks>
 	private static void ShowSuccess()
@@ -83,7 +90,7 @@ public static partial class TextBoxExporter
 	{
 		// Log the error with details about the format and file path.
 		logger.Error(exception: ex, message: $"Error saving as {format} to '{{FilePath}}'.", args: filePath);
-		_ = ShowErrorMessage(message: $"Error saving as {format}: {ex.Message}");
+		ShowErrorMessage(message: $"Error saving as {format}: {ex.Message}");
 	}
 
 	#endregion
