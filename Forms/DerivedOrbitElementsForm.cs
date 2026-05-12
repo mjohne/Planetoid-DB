@@ -49,15 +49,15 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		try
 		{
 			// Set the DoubleBuffered property (protected)
-			PropertyInfo? dbProp = typeof(Control).GetProperty(name: "DoubleBuffered", bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance);
-			dbProp?.SetValue(obj: tableLayoutPanel, value: true, index: null);
+			PropertyInfo? doubleBufferedProperty = typeof(Control).GetProperty(name: "DoubleBuffered", bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance);
+			doubleBufferedProperty?.SetValue(obj: tableLayoutPanel, value: true, index: null);
 			// Also set specific control styles via reflection just in case
 			MethodInfo? setStyleMethod = typeof(Control).GetMethod(name: "SetStyle", bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance);
 			setStyleMethod?.Invoke(obj: tableLayoutPanel, parameters: [ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true]);
 		}
 		catch (Exception ex)
 		{
-			logger.Warn(exception: ex, message: "Could not set DoubleBuffered on tableLayoutPanel");
+			logger.Warn(exception: ex, message: "Failed to enable double buffering on tableLayoutPanel. UI may experience flickering.");
 		}
 	}
 
