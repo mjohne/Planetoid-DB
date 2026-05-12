@@ -9,6 +9,7 @@ using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
+using System.Reflection;
 
 using static Planetoid_DB.TerminologyForm;
 
@@ -40,9 +41,25 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 
 	/// <summary>Initializes a new instance of the <see cref="DerivedOrbitElementsForm"/> class.</summary>
 	/// <remarks>This constructor initializes the form components.</remarks>
-	public DerivedOrbitElementsForm() =>
+	public DerivedOrbitElementsForm()
+	{
 		// Initialize the form components
 		InitializeComponent();
+		// Enable double buffering for the TableLayoutPanel to prevent flickering
+		try
+		{
+			// Set the DoubleBuffered property (protected)
+			PropertyInfo? doubleBufferedProperty = typeof(Control).GetProperty(name: "DoubleBuffered", bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance);
+			doubleBufferedProperty?.SetValue(obj: tableLayoutPanel, value: true, index: null);
+			// Also set specific control styles via reflection just in case
+			MethodInfo? setStyleMethod = typeof(Control).GetMethod(name: "SetStyle", bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance);
+			setStyleMethod?.Invoke(obj: tableLayoutPanel, parameters: [ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true]);
+		}
+		catch (Exception ex)
+		{
+			logger.Warn(exception: ex, message: "Failed to enable double buffering on tableLayoutPanel. UI may experience flickering.");
+		}
+	}
 
 	#endregion
 
