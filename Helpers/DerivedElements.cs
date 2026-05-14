@@ -280,4 +280,274 @@ internal class DerivedElements
 		// Return the list of calculated orbital resonances.
 		return results;
 	}
+
+	/// <summary>Calculates the directrix distance of an ellipse.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis of the ellipse in AU.</param>
+	/// <param name="numericalEccentricity">The numerical eccentricity of the ellipse.</param>
+	/// <returns>The directrix distance in AU.</returns>
+	/// <remarks>The directrix is a line perpendicular to the major axis. For an ellipse, directrix = a/e.</remarks>
+	public static double CalculateDirectrix(double semiMajorAxis, double numericalEccentricity)
+	{
+		if (numericalEccentricity == 0)
+		{
+			return double.PositiveInfinity;
+		}
+		return semiMajorAxis / numericalEccentricity;
+	}
+
+	/// <summary>Calculates the orbital velocity at perihelion.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <param name="numericalEccentricity">The numerical eccentricity.</param>
+	/// <returns>The perihelion velocity in AU/year.</returns>
+	/// <remarks>Uses the vis-viva equation: v_p = sqrt(GM(1+e)/a(1-e)).</remarks>
+	public static double CalculatePerihelionVelocity(double semiMajorAxis, double numericalEccentricity)
+	{
+		const double standardGravitationalParameter = 4.0 * Math.PI * Math.PI;
+		return Math.Sqrt(d: standardGravitationalParameter * (1.0 + numericalEccentricity) / (semiMajorAxis * (1.0 - numericalEccentricity)));
+	}
+
+	/// <summary>Calculates the orbital velocity at aphelion.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <param name="numericalEccentricity">The numerical eccentricity.</param>
+	/// <returns>The aphelion velocity in AU/year.</returns>
+	/// <remarks>Uses the vis-viva equation: v_a = sqrt(GM(1-e)/a(1+e)).</remarks>
+	public static double CalculateAphelionVelocity(double semiMajorAxis, double numericalEccentricity)
+	{
+		const double standardGravitationalParameter = 4.0 * Math.PI * Math.PI;
+		return Math.Sqrt(d: standardGravitationalParameter * (1.0 - numericalEccentricity) / (semiMajorAxis * (1.0 + numericalEccentricity)));
+	}
+
+	/// <summary>Calculates the mean orbital velocity.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <returns>The mean orbital velocity in AU/year.</returns>
+	/// <remarks>Calculated as v_mean = 2πa/T.</remarks>
+	public static double CalculateMeanOrbitalVelocity(double semiMajorAxis)
+	{
+		double period = CalculatePeriod(semiMajorAxis: semiMajorAxis);
+		return (2.0 * Math.PI * semiMajorAxis) / period;
+	}
+
+	/// <summary>Calculates the current orbital velocity at a given true anomaly.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <param name="numericalEccentricity">The numerical eccentricity.</param>
+	/// <param name="trueAnomaly">The true anomaly in degrees.</param>
+	/// <returns>The current orbital velocity in AU/year.</returns>
+	/// <remarks>Uses the vis-viva equation: v = sqrt(GM(2/r - 1/a)).</remarks>
+	public static double CalculateCurrentOrbitalVelocity(double semiMajorAxis, double numericalEccentricity, double trueAnomaly)
+	{
+		const double standardGravitationalParameter = 4.0 * Math.PI * Math.PI;
+		double trueAnomalyRadians = trueAnomaly * Math.PI / 180.0;
+		double currentRadius = semiMajorAxis * (1.0 - (numericalEccentricity * numericalEccentricity)) / (1.0 + (numericalEccentricity * Math.Cos(d: trueAnomalyRadians)));
+		return Math.Sqrt(d: standardGravitationalParameter * ((2.0 / currentRadius) - (1.0 / semiMajorAxis)));
+	}
+
+	/// <summary>Calculates the radial velocity component.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <param name="numericalEccentricity">The numerical eccentricity.</param>
+	/// <param name="trueAnomaly">The true anomaly in degrees.</param>
+	/// <returns>The radial velocity component in AU/year.</returns>
+	/// <remarks>The radial component is perpendicular to the orbit.</remarks>
+	public static double CalculateRadialVelocityComponent(double semiMajorAxis, double numericalEccentricity, double trueAnomaly)
+	{
+		const double standardGravitationalParameter = 4.0 * Math.PI * Math.PI;
+		double trueAnomalyRadians = trueAnomaly * Math.PI / 180.0;
+		double semiLatusRectum = CalculateSemiLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity);
+		return Math.Sqrt(d: standardGravitationalParameter / semiLatusRectum) * numericalEccentricity * Math.Sin(a: trueAnomalyRadians);
+	}
+
+	/// <summary>Calculates the tangential velocity component.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <param name="numericalEccentricity">The numerical eccentricity.</param>
+	/// <param name="trueAnomaly">The true anomaly in degrees.</param>
+	/// <returns>The tangential velocity component in AU/year.</returns>
+	/// <remarks>The tangential component is along the orbit direction.</remarks>
+	public static double CalculateTangentialVelocityComponent(double semiMajorAxis, double numericalEccentricity, double trueAnomaly)
+	{
+		const double standardGravitationalParameter = 4.0 * Math.PI * Math.PI;
+		double trueAnomalyRadians = trueAnomaly * Math.PI / 180.0;
+		double semiLatusRectum = CalculateSemiLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity);
+		return Math.Sqrt(d: standardGravitationalParameter / semiLatusRectum) * (1.0 + (numericalEccentricity * Math.Cos(d: trueAnomalyRadians)));
+	}
+
+	/// <summary>Calculates the specific orbital energy.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <returns>The specific orbital energy in AU²/year².</returns>
+	/// <remarks>Calculated as ε = -GM/(2a).</remarks>
+	public static double CalculateSpecificOrbitalEnergy(double semiMajorAxis)
+	{
+		const double standardGravitationalParameter = 4.0 * Math.PI * Math.PI;
+		return -standardGravitationalParameter / (2.0 * semiMajorAxis);
+	}
+
+	/// <summary>Calculates the specific angular momentum.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <param name="numericalEccentricity">The numerical eccentricity.</param>
+	/// <returns>The specific angular momentum in AU²/year.</returns>
+	/// <remarks>Calculated as h = sqrt(GMa(1-e²)).</remarks>
+	public static double CalculateSpecificAngularMomentum(double semiMajorAxis, double numericalEccentricity)
+	{
+		const double standardGravitationalParameter = 4.0 * Math.PI * Math.PI;
+		return Math.Sqrt(d: standardGravitationalParameter * semiMajorAxis * (1.0 - (numericalEccentricity * numericalEccentricity)));
+	}
+
+	/// <summary>Calculates the vis-viva energy at a given position.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <param name="numericalEccentricity">The numerical eccentricity.</param>
+	/// <param name="trueAnomaly">The true anomaly in degrees.</param>
+	/// <returns>The vis-viva energy in AU²/year².</returns>
+	/// <remarks>Calculated as E = v²/2 - GM/r.</remarks>
+	public static double CalculateVisVivaEnergy(double semiMajorAxis, double numericalEccentricity, double trueAnomaly)
+	{
+		const double standardGravitationalParameter = 4.0 * Math.PI * Math.PI;
+		double velocity = CalculateCurrentOrbitalVelocity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity, trueAnomaly: trueAnomaly);
+		double trueAnomalyRadians = trueAnomaly * Math.PI / 180.0;
+		double currentRadius = semiMajorAxis * (1.0 - (numericalEccentricity * numericalEccentricity)) / (1.0 + (numericalEccentricity * Math.Cos(d: trueAnomalyRadians)));
+		return (velocity * velocity / 2.0) - (standardGravitationalParameter / currentRadius);
+	}
+
+	/// <summary>Calculates the longitude of perihelion.</summary>
+	/// <param name="longitudeAscendingNode">The longitude of the ascending node in degrees.</param>
+	/// <param name="argumentPerihelion">The argument of perihelion in degrees.</param>
+	/// <returns>The longitude of perihelion in degrees.</returns>
+	/// <remarks>Calculated as ϖ = Ω + ω.</remarks>
+	public static double CalculateLongitudeOfPerihelion(double longitudeAscendingNode, double argumentPerihelion)
+	{
+		double result = longitudeAscendingNode + argumentPerihelion;
+		return result >= 360.0 ? result - 360.0 : result;
+	}
+
+	/// <summary>Calculates the mean longitude.</summary>
+	/// <param name="longitudeAscendingNode">The longitude of the ascending node in degrees.</param>
+	/// <param name="argumentPerihelion">The argument of perihelion in degrees.</param>
+	/// <param name="meanAnomaly">The mean anomaly in degrees.</param>
+	/// <returns>The mean longitude in degrees.</returns>
+	/// <remarks>Calculated as λ = M + ϖ = M + Ω + ω.</remarks>
+	public static double CalculateMeanLongitude(double longitudeAscendingNode, double argumentPerihelion, double meanAnomaly)
+	{
+		double longitudePerihelion = CalculateLongitudeOfPerihelion(longitudeAscendingNode: longitudeAscendingNode, argumentPerihelion: argumentPerihelion);
+		double result = meanAnomaly + longitudePerihelion;
+		return result >= 360.0 ? result - 360.0 : result;
+	}
+
+	/// <summary>Calculates the argument of latitude.</summary>
+	/// <param name="argumentPerihelion">The argument of perihelion in degrees.</param>
+	/// <param name="trueAnomaly">The true anomaly in degrees.</param>
+	/// <returns>The argument of latitude in degrees.</returns>
+	/// <remarks>Calculated as u = ω + ν.</remarks>
+	public static double CalculateArgumentOfLatitude(double argumentPerihelion, double trueAnomaly)
+	{
+		double result = argumentPerihelion + trueAnomaly;
+		return result >= 360.0 ? result - 360.0 : result;
+	}
+
+	/// <summary>Calculates the flight path angle.</summary>
+	/// <param name="numericalEccentricity">The numerical eccentricity.</param>
+	/// <param name="trueAnomaly">The true anomaly in degrees.</param>
+	/// <returns>The flight path angle in degrees.</returns>
+	/// <remarks>Calculated as φ = arctan(e·sin(ν)/(1+e·cos(ν))).</remarks>
+	public static double CalculateFlightPathAngle(double numericalEccentricity, double trueAnomaly)
+	{
+		double trueAnomalyRadians = trueAnomaly * Math.PI / 180.0;
+		double angle = Math.Atan(d: (numericalEccentricity * Math.Sin(a: trueAnomalyRadians)) / (1.0 + (numericalEccentricity * Math.Cos(d: trueAnomalyRadians))));
+		return angle * 180.0 / Math.PI;
+	}
+
+	/// <summary>Calculates the time since perihelion passage.</summary>
+	/// <param name="meanAnomaly">The current mean anomaly in degrees.</param>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <returns>The time since perihelion in years.</returns>
+	/// <remarks>Uses Kepler's equation and the mean motion.</remarks>
+	public static double CalculateTimeSincePerihelion(double meanAnomaly, double semiMajorAxis)
+	{
+		double period = CalculatePeriod(semiMajorAxis: semiMajorAxis);
+		double meanAnomalyNormalized = meanAnomaly / 360.0;
+		return meanAnomalyNormalized * period;
+	}
+
+	/// <summary>Calculates the time to next perihelion passage.</summary>
+	/// <param name="meanAnomaly">The current mean anomaly in degrees.</param>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <returns>The time to next perihelion in years.</returns>
+	/// <remarks>Subtracts time since perihelion from the orbital period.</remarks>
+	public static double CalculateTimeToNextPerihelion(double meanAnomaly, double semiMajorAxis)
+	{
+		double period = CalculatePeriod(semiMajorAxis: semiMajorAxis);
+		double timeSincePerihelion = CalculateTimeSincePerihelion(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis);
+		return period - timeSincePerihelion;
+	}
+
+	/// <summary>Calculates the time since aphelion passage.</summary>
+	/// <param name="meanAnomaly">The current mean anomaly in degrees.</param>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <returns>The time since aphelion in years.</returns>
+	/// <remarks>Aphelion occurs at mean anomaly 180°.</remarks>
+	public static double CalculateTimeSinceAphelion(double meanAnomaly, double semiMajorAxis)
+	{
+		double period = CalculatePeriod(semiMajorAxis: semiMajorAxis);
+		double anomalyFromAphelion = meanAnomaly - 180.0;
+		if (anomalyFromAphelion < 0)
+		{
+			anomalyFromAphelion += 360.0;
+		}
+		return (anomalyFromAphelion / 360.0) * period;
+	}
+
+	/// <summary>Calculates the time to next aphelion passage.</summary>
+	/// <param name="meanAnomaly">The current mean anomaly in degrees.</param>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <returns>The time to next aphelion in years.</returns>
+	/// <remarks>Subtracts time since aphelion from the orbital period.</remarks>
+	public static double CalculateTimeToNextAphelion(double meanAnomaly, double semiMajorAxis)
+	{
+		double period = CalculatePeriod(semiMajorAxis: semiMajorAxis);
+		double timeSinceAphelion = CalculateTimeSinceAphelion(meanAnomaly: meanAnomaly, semiMajorAxis: semiMajorAxis);
+		return period - timeSinceAphelion;
+	}
+
+	/// <summary>Calculates the synodic period with Earth.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <returns>The synodic period in years.</returns>
+	/// <remarks>Calculated as T_syn = 1/(|1/T₁ - 1/T₂|) where T₂ is Earth's period (1 year).</remarks>
+	public static double CalculateSynodicPeriod(double semiMajorAxis)
+	{
+		const double earthPeriod = 1.0;
+		double period = CalculatePeriod(semiMajorAxis: semiMajorAxis);
+		return 1.0 / Math.Abs(value: (1.0 / period) - (1.0 / earthPeriod));
+	}
+
+	/// <summary>Calculates the Tisserand parameter with respect to Jupiter.</summary>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <param name="numericalEccentricity">The numerical eccentricity.</param>
+	/// <param name="inclination">The inclination in degrees.</param>
+	/// <returns>The Tisserand parameter (dimensionless).</returns>
+	/// <remarks>T_J = a_J/a + 2·cos(i)·sqrt(a(1-e²)/a_J) where a_J = 5.2 AU.</remarks>
+	public static double CalculateTisserandParameter(double semiMajorAxis, double numericalEccentricity, double inclination)
+	{
+		const double jupiterSemiMajorAxis = 5.2;
+		double inclinationRadians = inclination * Math.PI / 180.0;
+		double term1 = jupiterSemiMajorAxis / semiMajorAxis;
+		double term2 = 2.0 * Math.Cos(d: inclinationRadians) * Math.Sqrt(d: (semiMajorAxis * (1.0 - (numericalEccentricity * numericalEccentricity))) / jupiterSemiMajorAxis);
+		return term1 + term2;
+	}
+
+	/// <summary>Calculates the mean distance from the focus (Sun).</summary>
+	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
+	/// <param name="numericalEccentricity">The numerical eccentricity.</param>
+	/// <returns>The mean distance from focus in AU.</returns>
+	/// <remarks>Calculated as r_mean = a(1 + e²/2).</remarks>
+	public static double CalculateMeanDistanceFromFocus(double semiMajorAxis, double numericalEccentricity) => semiMajorAxis * (1.0 + ((numericalEccentricity * numericalEccentricity) / 2.0));
+
+	/// <summary>Calculates the geometric albedo-adjusted diameter.</summary>
+	/// <param name="absoluteMagnitude">The absolute magnitude H.</param>
+	/// <param name="geometricAlbedo">The geometric albedo (0.0 to 1.0).</param>
+	/// <returns>The diameter in kilometers.</returns>
+	/// <remarks>Calculated using D = 1329 / sqrt(albedo) * 10^(-0.2*H).</remarks>
+	public static double CalculateGeometricAlbedoAdjustedDiameter(double absoluteMagnitude, double geometricAlbedo)
+	{
+		if (geometricAlbedo <= 0)
+		{
+			return 0;
+		}
+		return 1329.0 / Math.Sqrt(d: geometricAlbedo) * Math.Pow(x: 10.0, y: -0.2 * absoluteMagnitude);
+	}
 }

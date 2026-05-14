@@ -671,22 +671,18 @@ public static partial class TextBoxExporter
 			const int startY = 750;
 			const int marginY = 50;
 			const int lineHeight = 14;
-
 			// Object IDs: 1=Catalog, 2=Pages, 3=Font, then per-page pairs: 4+2*i=Page, 5+2*i=Content.
 			const int catalogObjectId = 1;
 			const int pagesObjectId = 2;
 			const int fontObjectId = 3;
 			const int firstPageObjectId = 4;
-
 			// Pre-calculate how many lines fit on a page and the total page count.
 			// 30 is a top-of-page offset reserved below the title line so body text starts with consistent spacing.
 			int linesPerPage = Math.Max(val1: 1, val2: (startY - 30 - marginY) / lineHeight);
 			int pageCount = Math.Max(val1: 1, val2: (textBox.Lines.Length + linesPerPage - 1) / linesPerPage);
 			int totalObjects = 3 + (pageCount * 2);
-
 			// Track the byte offset at which each object starts so the xref table is accurate.
-			System.Collections.Generic.Dictionary<int, long> objectOffsets = new();
-
+			Dictionary<int, long> objectOffsets = [];
 			// Use a FileStream so that BaseStream.Position accurately reflects bytes written to disk.
 			using FileStream fs = new(path: fileName, mode: FileMode.Create);
 			using StreamWriter writer = new(stream: fs, encoding: Encoding.ASCII, bufferSize: 4096, leaveOpen: false)
@@ -698,23 +694,20 @@ public static partial class TextBoxExporter
 			void BeginObject(int objectId)
 			{
 				writer.Flush();
-				objectOffsets[objectId] = fs.Position;
+				objectOffsets[key: objectId] = fs.Position;
 				writer.WriteLine(value: $"{objectId} 0 obj");
 			}
-
 			// Write the PDF header.
 			writer.WriteLine(value: "%PDF-1.4");
 			writer.WriteLine(value: "%\xb5\xb5\xb5\xb5");
-
 			// Object 1: Catalog — references the Pages object.
-			BeginObject(catalogObjectId);
+			BeginObject(objectId: catalogObjectId);
 			writer.WriteLine(value: "<<");
 			writer.WriteLine(value: $"/Type /Catalog /Pages {pagesObjectId} 0 R");
 			writer.WriteLine(value: ">>");
 			writer.WriteLine(value: "endobj");
-
 			// Object 2: Pages — lists all page objects and the total page count.
-			BeginObject(pagesObjectId);
+			BeginObject(objectId: pagesObjectId);
 			writer.WriteLine(value: "<<");
 			writer.Write(value: $"/Type /Pages /Count {pageCount} /Kids [");
 			for (int pageIndex = 0; pageIndex < pageCount; pageIndex++)
@@ -726,28 +719,24 @@ public static partial class TextBoxExporter
 
 				writer.Write(value: $"{firstPageObjectId + (pageIndex * 2)} 0 R");
 			}
-
 			writer.WriteLine(value: "]");
 			writer.WriteLine(value: ">>");
 			writer.WriteLine(value: "endobj");
-
 			// Object 3: Font — a standard Type1 Helvetica font shared by all pages.
-			BeginObject(fontObjectId);
+			BeginObject(objectId: fontObjectId);
 			writer.WriteLine(value: "<<");
 			writer.WriteLine(value: "/Type /Font");
 			writer.WriteLine(value: "/Subtype /Type1");
 			writer.WriteLine(value: "/BaseFont /Helvetica");
 			writer.WriteLine(value: ">>");
 			writer.WriteLine(value: "endobj");
-
 			// Write one Page object and one Content stream object for each page.
 			for (int pageIndex = 0; pageIndex < pageCount; pageIndex++)
 			{
 				int pageObjectId = firstPageObjectId + (pageIndex * 2);
 				int contentObjectId = pageObjectId + 1;
-
 				// Page object references the shared font and its own content stream.
-				BeginObject(pageObjectId);
+				BeginObject(objectId: pageObjectId);
 				writer.WriteLine(value: "<<");
 				writer.WriteLine(value: "/Type /Page");
 				writer.WriteLine(value: $"/Parent {pagesObjectId} 0 R");
@@ -756,7 +745,6 @@ public static partial class TextBoxExporter
 				writer.WriteLine(value: $"/Resources << /Font << /F1 {fontObjectId} 0 R >> >>");
 				writer.WriteLine(value: ">>");
 				writer.WriteLine(value: "endobj");
-
 				// Build the page content stream in a MemoryStream so the /Length value is known before writing.
 				StringBuilder sb = new();
 				sb.AppendLine(value: "BT /F1 10 Tf");
@@ -764,7 +752,6 @@ public static partial class TextBoxExporter
 				{
 					sb.AppendLine(value: $"1 0 0 1 50 {pageHeight - 40} Tm ({EscapePdf(text: title)}) Tj");
 				}
-
 				// Start the body text 30 points below the top content margin to leave space after the title line.
 				int currentY = startY - 30;
 				int startLineIndex = pageIndex * linesPerPage;
@@ -774,9 +761,7 @@ public static partial class TextBoxExporter
 					sb.AppendLine(value: $"1 0 0 1 50 {currentY} Tm ({EscapePdf(text: textBox.Lines[lineIndex])}) Tj");
 					currentY -= lineHeight;
 				}
-
 				sb.AppendLine(value: "ET");
-
 				// Encode the content to ASCII bytes so the byte length is exact.
 				using MemoryStream ms = new();
 				using (StreamWriter sw = new(stream: ms, encoding: Encoding.ASCII, bufferSize: 1024, leaveOpen: true) { NewLine = "\n" })
@@ -784,9 +769,8 @@ public static partial class TextBoxExporter
 					sw.Write(value: sb.ToString());
 					sw.Flush();
 				}
-
 				// Content stream object — /Length must match the exact byte count of the stream body.
-				BeginObject(contentObjectId);
+				BeginObject(objectId: contentObjectId);
 				writer.WriteLine(value: "<<");
 				writer.WriteLine(value: $"/Length {ms.Length}");
 				writer.WriteLine(value: ">>");
@@ -798,11 +782,9 @@ public static partial class TextBoxExporter
 				writer.WriteLine(value: "endstream");
 				writer.WriteLine(value: "endobj");
 			}
-
 			// Flush pending bytes and record the byte offset where the xref section begins.
 			writer.Flush();
 			long xrefOffset = fs.Position;
-
 			// Write the cross-reference table. Each entry must be exactly 20 bytes (10-digit offset, space, 5-digit generation, space, keyword, space, newline).
 			int xrefSize = totalObjects + 1;
 			writer.WriteLine(value: "xref");
@@ -819,7 +801,6 @@ public static partial class TextBoxExporter
 					writer.WriteLine(value: "0000000000 00000 f ");
 				}
 			}
-
 			// Write the trailer with the Root reference and the numeric startxref offset.
 			writer.WriteLine(value: "trailer");
 			writer.WriteLine(value: "<<");
@@ -955,7 +936,7 @@ public static partial class TextBoxExporter
 		// Check if the hhc.exe file exists at the expected location. If it does not exist, show an error message to the user indicating that Microsoft HTML Help Workshop is not installed or not found, and return from the method without attempting to compile the CHM file.
 		if (!File.Exists(path: hhcPath))
 		{
-			_ = ShowErrorMessage(message: "Microsoft HTML Help Workshop is not installed or not found at the default location. Cannot compile CHM file.");
+			ShowErrorMessage(message: "Microsoft HTML Help Workshop is not installed or not found at the default location. Cannot compile CHM file.");
 			return;
 		}
 		// Create a temporary directory to store the HTML, HHC, and HHP files needed for compiling the CHM. The directory is created in the system's temporary folder with a unique name generated using a GUID. This ensures that the temporary files do not conflict with any existing files and can be safely cleaned up after the compilation process.
