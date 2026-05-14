@@ -3,6 +3,8 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using Krypton.Toolkit;
+
 using NLog;
 
 using Planetoid_DB.Forms;
@@ -45,21 +47,50 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	{
 		// Initialize the form components
 		InitializeComponent();
-		// Enable double buffering for the TableLayoutPanel to prevent flickering
+		// Apply comprehensive flicker reduction for the TableLayoutPanel
+		OptimizeTableLayoutPanelForFlickerReduction();
+	}
+
+	/// <summary>Optimizes the TableLayoutPanel to eliminate flickering during label updates.</summary>
+	/// <remarks>This method enables double buffering and optimized painting styles on the panel and all child labels.</remarks>
+	private void OptimizeTableLayoutPanelForFlickerReduction()
+	{
+		// Use reflection to access the protected DoubleBuffered property and SetStyle method of the Control class, and apply them to the TableLayoutPanel and all child label controls to enable comprehensive double buffering and optimized painting styles. This approach helps to reduce flickering when updating the labels in the panel.
 		try
 		{
-			// Set the DoubleBuffered property (protected)
+			// Enable double buffering for the TableLayoutPanel itself
 			PropertyInfo? doubleBufferedProperty = typeof(Control).GetProperty(name: "DoubleBuffered", bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance);
-			doubleBufferedProperty?.SetValue(obj: tableLayoutPanel, value: true, index: null);
-			// Also set specific control styles via reflection just in case
 			MethodInfo? setStyleMethod = typeof(Control).GetMethod(name: "SetStyle", bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance);
-			setStyleMethod?.Invoke(obj: tableLayoutPanel, parameters: [ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true]);
+			// Apply to the main panel
+			doubleBufferedProperty?.SetValue(obj: tableLayoutPanel, value: true, index: null);
+			setStyleMethod?.Invoke(obj: tableLayoutPanel, parameters: [
+				ControlStyles.OptimizedDoubleBuffer |
+				ControlStyles.AllPaintingInWmPaint |
+				ControlStyles.UserPaint |
+				ControlStyles.ResizeRedraw,
+				true
+			]);
+			// Apply double buffering to all label controls within the panel to prevent individual label flickering
+			foreach (Control control in tableLayoutPanel.Controls)
+			{
+				if (control is Label or KryptonLabel)
+				{
+					doubleBufferedProperty?.SetValue(obj: control, value: true, index: null);
+					setStyleMethod?.Invoke(obj: control, parameters: [
+						ControlStyles.OptimizedDoubleBuffer |
+						ControlStyles.AllPaintingInWmPaint,
+						true
+					]);
+				}
+			}
 		}
+		// Log a warning if enabling double buffering fails, but allow the application to continue running
 		catch (Exception ex)
 		{
-			logger.Warn(exception: ex, message: "Failed to enable double buffering on tableLayoutPanel. UI may experience flickering.");
+			logger.Warn(exception: ex, message: "Failed to enable comprehensive double buffering on tableLayoutPanel. UI may experience flickering.");
 		}
 	}
+
 
 	#endregion
 
