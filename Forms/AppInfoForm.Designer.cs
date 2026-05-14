@@ -45,7 +45,6 @@ partial class AppInfoForm
 		toolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
 		kryptonNavigatorInfo = new KryptonNavigator();
 		kryptonPageAbout = new KryptonPage();
-		imageListTabAbout = new ImageList(components);
 		kryptonPictureBoxGithub = new KryptonPictureBox();
 		kryptonPictureBoxGithubCopilot = new KryptonPictureBox();
 		kryptonPictureBoxLogo = new KryptonPictureBox();
@@ -88,6 +87,7 @@ partial class AppInfoForm
 		kryptonLabelVersionNlog = new KryptonLabel();
 		kryptonLinkLabelWebsiteNlog = new KryptonLinkLabel();
 		kryptonLabelAuthorsNlog = new KryptonLabel();
+		imageListTabAbout = new ImageList(components);
 		pictureBoxBanner = new KryptonPictureBox();
 		kryptonPanelMain = new KryptonPanel();
 		kryptonStatusStrip = new KryptonStatusStrip();
@@ -157,16 +157,48 @@ partial class AppInfoForm
 		kryptonNavigatorInfo.AccessibleName = "Program information navigator";
 		kryptonNavigatorInfo.AccessibleRole = AccessibleRole.PageTabList;
 		kryptonNavigatorInfo.Button.ButtonDisplayLogic = ButtonDisplayLogic.Context;
+		// 
+		// 
+		// 
+		kryptonNavigatorInfo.Button.CloseButton.HeaderLocation = HeaderLocation.PrimaryHeader;
+		kryptonNavigatorInfo.Button.CloseButton.ToolTipBody = "Closes the pages";
+		kryptonNavigatorInfo.Button.CloseButton.ToolTipImage = FatcowIcons16px.fatcow_information_16px;
+		kryptonNavigatorInfo.Button.CloseButton.ToolTipTitle = "Close";
+		kryptonNavigatorInfo.Button.CloseButton.UniqueName = "ec501bd5d08c4ef39217d5d57d3b38ca";
 		kryptonNavigatorInfo.Button.CloseButtonAction = CloseButtonAction.RemovePageAndDispose;
 		kryptonNavigatorInfo.Button.CloseButtonDisplay = ButtonDisplay.Hide;
+		// 
+		// 
+		// 
+		kryptonNavigatorInfo.Button.ContextButton.HeaderLocation = HeaderLocation.PrimaryHeader;
+		kryptonNavigatorInfo.Button.ContextButton.ToolTipBody = "Shows the page list";
+		kryptonNavigatorInfo.Button.ContextButton.ToolTipImage = FatcowIcons16px.fatcow_information_16px;
+		kryptonNavigatorInfo.Button.ContextButton.ToolTipTitle = "Page list";
+		kryptonNavigatorInfo.Button.ContextButton.UniqueName = "9466d212c2d145f48390b32504f50a7d";
 		kryptonNavigatorInfo.Button.ContextButtonAction = ContextButtonAction.SelectPage;
 		kryptonNavigatorInfo.Button.ContextButtonDisplay = ButtonDisplay.Logic;
 		kryptonNavigatorInfo.Button.ContextMenuMapImage = MapKryptonPageImage.Small;
 		kryptonNavigatorInfo.Button.ContextMenuMapText = MapKryptonPageText.TextTitle;
-		kryptonNavigatorInfo.Button.NextButtonAction = DirectionButtonAction.ModeAppropriateAction;
-		kryptonNavigatorInfo.Button.NextButtonDisplay = ButtonDisplay.Logic;
-		kryptonNavigatorInfo.Button.PreviousButtonAction = DirectionButtonAction.ModeAppropriateAction;
-		kryptonNavigatorInfo.Button.PreviousButtonDisplay = ButtonDisplay.Logic;
+		// 
+		// 
+		// 
+		kryptonNavigatorInfo.Button.NextButton.HeaderLocation = HeaderLocation.PrimaryHeader;
+		kryptonNavigatorInfo.Button.NextButton.ToolTipBody = "Selects the next page";
+		kryptonNavigatorInfo.Button.NextButton.ToolTipImage = FatcowIcons16px.fatcow_information_16px;
+		kryptonNavigatorInfo.Button.NextButton.ToolTipTitle = "Next page";
+		kryptonNavigatorInfo.Button.NextButton.UniqueName = "b71e41b0f5b1425cbed67701a2ea8ced";
+		kryptonNavigatorInfo.Button.NextButtonAction = DirectionButtonAction.SelectPage;
+		kryptonNavigatorInfo.Button.NextButtonDisplay = ButtonDisplay.ShowEnabled;
+		// 
+		// 
+		// 
+		kryptonNavigatorInfo.Button.PreviousButton.HeaderLocation = HeaderLocation.PrimaryHeader;
+		kryptonNavigatorInfo.Button.PreviousButton.ToolTipBody = "Selects the previous page";
+		kryptonNavigatorInfo.Button.PreviousButton.ToolTipImage = FatcowIcons16px.fatcow_information_16px;
+		kryptonNavigatorInfo.Button.PreviousButton.ToolTipTitle = "Previous page";
+		kryptonNavigatorInfo.Button.PreviousButton.UniqueName = "fd82cb55d3b843acb66caea47946cf42";
+		kryptonNavigatorInfo.Button.PreviousButtonAction = DirectionButtonAction.SelectPage;
+		kryptonNavigatorInfo.Button.PreviousButtonDisplay = ButtonDisplay.ShowEnabled;
 		kryptonNavigatorInfo.ControlKryptonFormFeatures = false;
 		kryptonNavigatorInfo.Location = new Point(4, 181);
 		kryptonNavigatorInfo.NavigatorMode = NavigatorMode.BarTabGroup;
@@ -207,21 +239,16 @@ partial class AppInfoForm
 		kryptonPageAbout.MinimumSize = new Size(50, 50);
 		kryptonPageAbout.Name = "kryptonPageAbout";
 		kryptonPageAbout.Size = new Size(498, 256);
-		kryptonPageAbout.Text = "About";
+		kryptonPageAbout.Text = "&About";
+		kryptonPageAbout.TextDescription = "Shows information about the application";
+		kryptonPageAbout.TextTitle = "Application information";
+		kryptonPageAbout.ToolTipBody = "Shows information about the application";
 		kryptonPageAbout.ToolTipTitle = "Application information";
 		kryptonPageAbout.UniqueName = "kryptonPageAbout";
 		kryptonPageAbout.Enter += Control_Enter;
 		kryptonPageAbout.Leave += Control_Leave;
 		kryptonPageAbout.MouseEnter += Control_Enter;
 		kryptonPageAbout.MouseLeave += Control_Leave;
-		// 
-		// imageListTabAbout
-		// 
-		imageListTabAbout.ColorDepth = ColorDepth.Depth32Bit;
-		imageListTabAbout.ImageStream = (ImageListStreamer)resources.GetObject("imageListTabAbout.ImageStream");
-		imageListTabAbout.TransparentColor = Color.Transparent;
-		imageListTabAbout.Images.SetKeyName(0, "fatcow_information_16px.png");
-		imageListTabAbout.Images.SetKeyName(1, "fatcow_bricks_16px.png");
 		// 
 		// kryptonPictureBoxGithub
 		// 
@@ -530,7 +557,10 @@ partial class AppInfoForm
 		kryptonPageComponents.MinimumSize = new Size(50, 50);
 		kryptonPageComponents.Name = "kryptonPageComponents";
 		kryptonPageComponents.Size = new Size(498, 256);
-		kryptonPageComponents.Text = "Components";
+		kryptonPageComponents.Text = "&Components";
+		kryptonPageComponents.TextDescription = "Shows information about third-party components";
+		kryptonPageComponents.TextTitle = "Components";
+		kryptonPageComponents.ToolTipBody = "Shows information about third-party components";
 		kryptonPageComponents.ToolTipTitle = "Components";
 		kryptonPageComponents.UniqueName = "kryptonPageComponents";
 		kryptonPageComponents.Enter += Control_Enter;
@@ -544,16 +574,48 @@ partial class AppInfoForm
 		kryptonNavigatorComponents.AccessibleName = "Components information navigator";
 		kryptonNavigatorComponents.AccessibleRole = AccessibleRole.PageTabList;
 		kryptonNavigatorComponents.Button.ButtonDisplayLogic = ButtonDisplayLogic.Context;
+		// 
+		// 
+		// 
+		kryptonNavigatorComponents.Button.CloseButton.HeaderLocation = HeaderLocation.PrimaryHeader;
+		kryptonNavigatorComponents.Button.CloseButton.ToolTipBody = "Closes the page";
+		kryptonNavigatorComponents.Button.CloseButton.ToolTipImage = FatcowIcons16px.fatcow_information_16px;
+		kryptonNavigatorComponents.Button.CloseButton.ToolTipTitle = "Close";
+		kryptonNavigatorComponents.Button.CloseButton.UniqueName = "27f78aafad23410ba9b2b883f0bb0243";
 		kryptonNavigatorComponents.Button.CloseButtonAction = CloseButtonAction.RemovePageAndDispose;
 		kryptonNavigatorComponents.Button.CloseButtonDisplay = ButtonDisplay.Hide;
+		// 
+		// 
+		// 
+		kryptonNavigatorComponents.Button.ContextButton.HeaderLocation = HeaderLocation.PrimaryHeader;
+		kryptonNavigatorComponents.Button.ContextButton.ToolTipBody = "Shows the page list";
+		kryptonNavigatorComponents.Button.ContextButton.ToolTipImage = FatcowIcons16px.fatcow_information_16px;
+		kryptonNavigatorComponents.Button.ContextButton.ToolTipTitle = "Page list";
+		kryptonNavigatorComponents.Button.ContextButton.UniqueName = "247f49f004fe48e08db0c6f373b31bdb";
 		kryptonNavigatorComponents.Button.ContextButtonAction = ContextButtonAction.SelectPage;
 		kryptonNavigatorComponents.Button.ContextButtonDisplay = ButtonDisplay.Logic;
 		kryptonNavigatorComponents.Button.ContextMenuMapImage = MapKryptonPageImage.Small;
 		kryptonNavigatorComponents.Button.ContextMenuMapText = MapKryptonPageText.TextTitle;
-		kryptonNavigatorComponents.Button.NextButtonAction = DirectionButtonAction.ModeAppropriateAction;
-		kryptonNavigatorComponents.Button.NextButtonDisplay = ButtonDisplay.Logic;
-		kryptonNavigatorComponents.Button.PreviousButtonAction = DirectionButtonAction.ModeAppropriateAction;
-		kryptonNavigatorComponents.Button.PreviousButtonDisplay = ButtonDisplay.Logic;
+		// 
+		// 
+		// 
+		kryptonNavigatorComponents.Button.NextButton.HeaderLocation = HeaderLocation.PrimaryHeader;
+		kryptonNavigatorComponents.Button.NextButton.ToolTipBody = "Shows the next page";
+		kryptonNavigatorComponents.Button.NextButton.ToolTipImage = FatcowIcons16px.fatcow_information_16px;
+		kryptonNavigatorComponents.Button.NextButton.ToolTipTitle = "Next page";
+		kryptonNavigatorComponents.Button.NextButton.UniqueName = "9db8b930e5fc4063835059b9c4ce6af8";
+		kryptonNavigatorComponents.Button.NextButtonAction = DirectionButtonAction.SelectPage;
+		kryptonNavigatorComponents.Button.NextButtonDisplay = ButtonDisplay.ShowEnabled;
+		// 
+		// 
+		// 
+		kryptonNavigatorComponents.Button.PreviousButton.HeaderLocation = HeaderLocation.PrimaryHeader;
+		kryptonNavigatorComponents.Button.PreviousButton.ToolTipBody = "Selects the previous page";
+		kryptonNavigatorComponents.Button.PreviousButton.ToolTipImage = FatcowIcons16px.fatcow_information_16px;
+		kryptonNavigatorComponents.Button.PreviousButton.ToolTipTitle = "Previous page";
+		kryptonNavigatorComponents.Button.PreviousButton.UniqueName = "c208cd47320945af9de152303ddc206c";
+		kryptonNavigatorComponents.Button.PreviousButtonAction = DirectionButtonAction.SelectPage;
+		kryptonNavigatorComponents.Button.PreviousButtonDisplay = ButtonDisplay.ShowEnabled;
 		kryptonNavigatorComponents.ControlKryptonFormFeatures = false;
 		kryptonNavigatorComponents.Dock = DockStyle.Fill;
 		kryptonNavigatorComponents.Location = new Point(0, 0);
@@ -587,7 +649,7 @@ partial class AppInfoForm
 		kryptonPageComponentApplicationIcon.Name = "kryptonPageComponentApplicationIcon";
 		kryptonPageComponentApplicationIcon.Padding = new Padding(3);
 		kryptonPageComponentApplicationIcon.Size = new Size(496, 229);
-		kryptonPageComponentApplicationIcon.Text = "Application icon";
+		kryptonPageComponentApplicationIcon.Text = "Application &icon";
 		kryptonPageComponentApplicationIcon.ToolTipTitle = "Application icon";
 		kryptonPageComponentApplicationIcon.UniqueName = "kryptonPageComponentApplicationIcon";
 		kryptonPageComponentApplicationIcon.Enter += Control_Enter;
@@ -725,7 +787,7 @@ partial class AppInfoForm
 		kryptonPageIconsetFatcow.Name = "kryptonPageIconsetFatcow";
 		kryptonPageIconsetFatcow.Padding = new Padding(3);
 		kryptonPageIconsetFatcow.Size = new Size(496, 229);
-		kryptonPageIconsetFatcow.Text = "FatCow Icons";
+		kryptonPageIconsetFatcow.Text = "&FatCow Icons";
 		kryptonPageIconsetFatcow.ToolTipTitle = "FatCow Icons";
 		kryptonPageIconsetFatcow.UniqueName = "kryptonPageIconsetFatcow";
 		kryptonPageIconsetFatcow.Enter += Control_Enter;
@@ -864,7 +926,7 @@ partial class AppInfoForm
 		kryptonPageComponentKryptonSuite.Name = "kryptonPageComponentKryptonSuite";
 		kryptonPageComponentKryptonSuite.Padding = new Padding(3);
 		kryptonPageComponentKryptonSuite.Size = new Size(496, 229);
-		kryptonPageComponentKryptonSuite.Text = "Krypton Suite";
+		kryptonPageComponentKryptonSuite.Text = "&Krypton Suite";
 		kryptonPageComponentKryptonSuite.ToolTipTitle = "Krypton Suite";
 		kryptonPageComponentKryptonSuite.UniqueName = "kryptonPageComponentKryptonSuite";
 		kryptonPageComponentKryptonSuite.Enter += Control_Enter;
@@ -1024,7 +1086,7 @@ partial class AppInfoForm
 		kryptonPageComponentNLog.Name = "kryptonPageComponentNLog";
 		kryptonPageComponentNLog.Padding = new Padding(3);
 		kryptonPageComponentNLog.Size = new Size(496, 229);
-		kryptonPageComponentNLog.Text = "NLog";
+		kryptonPageComponentNLog.Text = "&NLog";
 		kryptonPageComponentNLog.ToolTipTitle = "NLog";
 		kryptonPageComponentNLog.UniqueName = "kryptonPageComponentNLog";
 		kryptonPageComponentNLog.Enter += Control_Enter;
@@ -1165,6 +1227,14 @@ partial class AppInfoForm
 		kryptonLabelAuthorsNlog.MouseDown += Control_MouseDown;
 		kryptonLabelAuthorsNlog.MouseEnter += Control_Enter;
 		kryptonLabelAuthorsNlog.MouseLeave += Control_Leave;
+		// 
+		// imageListTabAbout
+		// 
+		imageListTabAbout.ColorDepth = ColorDepth.Depth32Bit;
+		imageListTabAbout.ImageStream = (ImageListStreamer)resources.GetObject("imageListTabAbout.ImageStream");
+		imageListTabAbout.TransparentColor = Color.Transparent;
+		imageListTabAbout.Images.SetKeyName(0, "fatcow_information_16px.png");
+		imageListTabAbout.Images.SetKeyName(1, "fatcow_bricks_16px.png");
 		// 
 		// pictureBoxBanner
 		// 
