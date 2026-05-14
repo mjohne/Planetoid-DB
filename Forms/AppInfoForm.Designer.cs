@@ -156,7 +156,7 @@ partial class AppInfoForm
 		kryptonNavigatorInfo.AccessibleDescription = "Navigator with program information";
 		kryptonNavigatorInfo.AccessibleName = "Program information navigator";
 		kryptonNavigatorInfo.AccessibleRole = AccessibleRole.PageTabList;
-		kryptonNavigatorInfo.Button.ButtonDisplayLogic = ButtonDisplayLogic.Context;
+		kryptonNavigatorInfo.Button.ButtonDisplayLogic = ButtonDisplayLogic.ContextNextPrevious;
 		// 
 		// 
 		// 
