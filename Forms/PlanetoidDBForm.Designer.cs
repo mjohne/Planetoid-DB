@@ -118,8 +118,8 @@ partial class PlanetoidDbForm
 		menuitemRecordsRmsResidual = new ToolStripMenuItem();
 		menuitemRecordsComputername = new ToolStripMenuItem();
 		menuitemRecordsDateOfTheLastObservation = new ToolStripMenuItem();
-		splitbuttonTopTenRecords = new ToolStripSplitButton();
 		menuitemRecords = new ToolStripMenuItem();
+		splitbuttonTopTenRecords = new ToolStripSplitButton();
 		contextMenuDistributions = new ContextMenuStrip(components);
 		menuitemDistributionMeanAnomalyAtTheEpoch = new ToolStripMenuItem();
 		menuitemDistributionArgumentOfThePerihelion = new ToolStripMenuItem();
@@ -135,8 +135,8 @@ partial class PlanetoidDbForm
 		menuitemDistributionObservationSpan = new ToolStripMenuItem();
 		menuitemDistributionRmsResidual = new ToolStripMenuItem();
 		menuitemDistributionComputerName = new ToolStripMenuItem();
-		splitbuttonDistribution = new ToolStripSplitButton();
 		menuitemDistribution = new ToolStripMenuItem();
+		splitbuttonDistribution = new ToolStripSplitButton();
 		contextMenuFullCopyToClipboardOrbitalElements = new ContextMenuStrip(components);
 		menuitemCopyToClipboardIndexNumber = new ToolStripMenuItem();
 		menuitemCopyToClipboardReadableDesignation = new ToolStripMenuItem();
@@ -158,8 +158,8 @@ partial class PlanetoidDbForm
 		menuitemCopyToClipboardComputerName = new ToolStripMenuItem();
 		menuitemCopyToClipboardDateOfTheLastObservation = new ToolStripMenuItem();
 		menuitemCopyToClipboardFlags = new ToolStripMenuItem();
-		menuitemCopytoClipboard = new ToolStripMenuItem();
 		toolStripDropDownButtonCopyToClipboard = new ToolStripDropDownButton();
+		menuitemCopytoClipboard = new ToolStripMenuItem();
 		menu = new MenuStrip();
 		menuitemFile = new ToolStripMenuItem();
 		toolStripMenuItemOpenLocalMpcorbDat = new ToolStripMenuItem();
@@ -247,11 +247,9 @@ partial class PlanetoidDbForm
 		toolStripButtonObservations = new ToolStripButton();
 		toolStripContainer = new ToolStripContainer();
 		kryptonStatusStrip = new KryptonStatusStrip();
-		toolStripStatusLabelUpdate = new ToolStripStatusLabel();
-		toolStripStatusLabelBackgroundDownload = new ToolStripStatusLabel();
-		toolStripProgressBarBackgroundDownload = new ToolStripProgressBar();
-		toolStripStatusLabelCancelBackgroundDownload = new ToolStripStatusLabel();
 		labelInformation = new ToolStripStatusLabel();
+		toolStripStatusLabelAstorbDatUpdate = new ToolStripStatusLabel();
+		toolStripStatusLabelMpcorbDatUpdate = new ToolStripStatusLabel();
 		kryptonNavigatorMain = new Krypton.Navigator.KryptonNavigator();
 		kryptonPageMpcorbDat = new Krypton.Navigator.KryptonPage();
 		kryptonToolStripIcons = new KryptonToolStrip();
@@ -295,10 +293,10 @@ partial class PlanetoidDbForm
 		toolStripSeparatorOptions2 = new ToolStripSeparator();
 		toolStripSeparatorOptions1 = new ToolStripSeparator();
 		backgroundWorkerLoadingDatabase = new BackgroundWorker();
-		timerBlinkForUpdateAvailable = new Timer(components);
 		timerCheckForNewMpcorbDatFile = new Timer(components);
 		openFileDialog = new OpenFileDialog();
 		kryptonManager = new KryptonManager(components);
+		timerCheckForNewAstorbDatFile = new Timer(components);
 		contextMenuNavigationStep.SuspendLayout();
 		tableLayoutPanelData.SuspendLayout();
 		contextMenuCopyToClipboard.SuspendLayout();
@@ -1595,7 +1593,7 @@ partial class PlanetoidDbForm
 		contextMenuTopTenRecords.Font = new Font("Segoe UI", 9F);
 		contextMenuTopTenRecords.Items.AddRange(new ToolStripItem[] { menuitemRecordsSortDirection, toolStripSeparator12, menuitemRecordsMeanAnomalyAtTheEpoch, menuitemRecordsArgumentOfThePerihelion, menuitemRecordsLongitudeOfTheAscendingNode, menuitemRecordsInclination, menuitemRecordsOrbitalEccentricity, menuitemRecordsMeanDailyMotion, menuitemRecordsSemiMajorAxis, menuitemRecordsAbsoluteMagnitude, menuitemRecordsSlopeParameter, menuitemRecordsNumberOfOppositions, menuitemRecordsNumberOfObservations, menuitemRecordsObservationSpan, menuitemRecordsRmsResidual, menuitemRecordsComputername, menuitemRecordsDateOfTheLastObservation });
 		contextMenuTopTenRecords.Name = "contextMenuTopTenRecords";
-		contextMenuTopTenRecords.OwnerItem = menuitemRecords;
+		contextMenuTopTenRecords.OwnerItem = splitbuttonTopTenRecords;
 		contextMenuTopTenRecords.Size = new Size(250, 362);
 		contextMenuTopTenRecords.TabStop = true;
 		contextMenuTopTenRecords.Text = "Top ten records";
@@ -1868,23 +1866,6 @@ partial class PlanetoidDbForm
 		menuitemRecordsDateOfTheLastObservation.MouseEnter += Control_Enter;
 		menuitemRecordsDateOfTheLastObservation.MouseLeave += Control_Leave;
 		// 
-		// splitbuttonTopTenRecords
-		// 
-		splitbuttonTopTenRecords.AccessibleDescription = "Shows the top ten records";
-		splitbuttonTopTenRecords.AccessibleName = "Top ten records";
-		splitbuttonTopTenRecords.AccessibleRole = AccessibleRole.SplitButton;
-		splitbuttonTopTenRecords.DisplayStyle = ToolStripItemDisplayStyle.Image;
-		splitbuttonTopTenRecords.DropDown = contextMenuTopTenRecords;
-		splitbuttonTopTenRecords.Enabled = false;
-		splitbuttonTopTenRecords.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
-		splitbuttonTopTenRecords.ImageTransparentColor = Color.Magenta;
-		splitbuttonTopTenRecords.Name = "splitbuttonTopTenRecords";
-		splitbuttonTopTenRecords.Size = new Size(32, 22);
-		splitbuttonTopTenRecords.Text = "Top ten records";
-		splitbuttonTopTenRecords.ButtonClick += SplitButtonTopTenRecords_ButtonClick;
-		splitbuttonTopTenRecords.MouseEnter += Control_Enter;
-		splitbuttonTopTenRecords.MouseLeave += Control_Leave;
-		// 
 		// menuitemRecords
 		// 
 		menuitemRecords.AccessibleDescription = "Shows some top ten records";
@@ -1903,6 +1884,23 @@ partial class PlanetoidDbForm
 		menuitemRecords.MouseEnter += Control_Enter;
 		menuitemRecords.MouseLeave += Control_Leave;
 		// 
+		// splitbuttonTopTenRecords
+		// 
+		splitbuttonTopTenRecords.AccessibleDescription = "Shows the top ten records";
+		splitbuttonTopTenRecords.AccessibleName = "Top ten records";
+		splitbuttonTopTenRecords.AccessibleRole = AccessibleRole.SplitButton;
+		splitbuttonTopTenRecords.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		splitbuttonTopTenRecords.DropDown = contextMenuTopTenRecords;
+		splitbuttonTopTenRecords.Enabled = false;
+		splitbuttonTopTenRecords.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		splitbuttonTopTenRecords.ImageTransparentColor = Color.Magenta;
+		splitbuttonTopTenRecords.Name = "splitbuttonTopTenRecords";
+		splitbuttonTopTenRecords.Size = new Size(32, 22);
+		splitbuttonTopTenRecords.Text = "Top ten records";
+		splitbuttonTopTenRecords.ButtonClick += SplitButtonTopTenRecords_ButtonClick;
+		splitbuttonTopTenRecords.MouseEnter += Control_Enter;
+		splitbuttonTopTenRecords.MouseLeave += Control_Leave;
+		// 
 		// contextMenuDistributions
 		// 
 		contextMenuDistributions.AccessibleDescription = "Shows the context menu of the distributions";
@@ -1911,7 +1909,7 @@ partial class PlanetoidDbForm
 		contextMenuDistributions.Font = new Font("Segoe UI", 9F);
 		contextMenuDistributions.Items.AddRange(new ToolStripItem[] { menuitemDistributionMeanAnomalyAtTheEpoch, menuitemDistributionArgumentOfThePerihelion, menuitemDistributionLongitudeOfTheAscendingNode, menuitemDistributionInclination, menuitemDistributionOrbitalEccentricity, menuitemDistributionMeanDailyMotion, menuitemDistributionSemiMajorAxis, menuitemDistributionAbsoluteMagnitude, menuitemDistributionSlopeParameter, menuitemDistributionNumberOfOppositions, menuitemDistributionNumberOfObservations, menuitemDistributionObservationSpan, menuitemDistributionRmsResidual, menuitemDistributionComputerName });
 		contextMenuDistributions.Name = "contextMenuDistributions";
-		contextMenuDistributions.OwnerItem = menuitemDistribution;
+		contextMenuDistributions.OwnerItem = splitbuttonDistribution;
 		contextMenuDistributions.Size = new Size(250, 312);
 		contextMenuDistributions.Text = "Distributions";
 		contextMenuDistributions.Enter += Control_Enter;
@@ -2129,23 +2127,6 @@ partial class PlanetoidDbForm
 		menuitemDistributionComputerName.MouseEnter += Control_Enter;
 		menuitemDistributionComputerName.MouseLeave += Control_Leave;
 		// 
-		// splitbuttonDistribution
-		// 
-		splitbuttonDistribution.AccessibleDescription = "Shows some distributions";
-		splitbuttonDistribution.AccessibleName = "Distributions";
-		splitbuttonDistribution.AccessibleRole = AccessibleRole.SplitButton;
-		splitbuttonDistribution.DisplayStyle = ToolStripItemDisplayStyle.Image;
-		splitbuttonDistribution.DropDown = contextMenuDistributions;
-		splitbuttonDistribution.Enabled = false;
-		splitbuttonDistribution.Image = FatcowIcons16px.fatcow_chart_bar_16px;
-		splitbuttonDistribution.ImageTransparentColor = Color.Magenta;
-		splitbuttonDistribution.Name = "splitbuttonDistribution";
-		splitbuttonDistribution.Size = new Size(32, 22);
-		splitbuttonDistribution.Text = "Distributions";
-		splitbuttonDistribution.ButtonClick += SplitButtonDistribution_ButtonClick;
-		splitbuttonDistribution.MouseEnter += Control_Enter;
-		splitbuttonDistribution.MouseLeave += Control_Leave;
-		// 
 		// menuitemDistribution
 		// 
 		menuitemDistribution.AccessibleDescription = "Shows some distributions";
@@ -2163,6 +2144,23 @@ partial class PlanetoidDbForm
 		menuitemDistribution.MouseEnter += Control_Enter;
 		menuitemDistribution.MouseLeave += Control_Leave;
 		// 
+		// splitbuttonDistribution
+		// 
+		splitbuttonDistribution.AccessibleDescription = "Shows some distributions";
+		splitbuttonDistribution.AccessibleName = "Distributions";
+		splitbuttonDistribution.AccessibleRole = AccessibleRole.SplitButton;
+		splitbuttonDistribution.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		splitbuttonDistribution.DropDown = contextMenuDistributions;
+		splitbuttonDistribution.Enabled = false;
+		splitbuttonDistribution.Image = FatcowIcons16px.fatcow_chart_bar_16px;
+		splitbuttonDistribution.ImageTransparentColor = Color.Magenta;
+		splitbuttonDistribution.Name = "splitbuttonDistribution";
+		splitbuttonDistribution.Size = new Size(32, 22);
+		splitbuttonDistribution.Text = "Distributions";
+		splitbuttonDistribution.ButtonClick += SplitButtonDistribution_ButtonClick;
+		splitbuttonDistribution.MouseEnter += Control_Enter;
+		splitbuttonDistribution.MouseLeave += Control_Leave;
+		// 
 		// contextMenuFullCopyToClipboardOrbitalElements
 		// 
 		contextMenuFullCopyToClipboardOrbitalElements.AccessibleDescription = "Shows the context menu of the orbital elements to copy to clipboard";
@@ -2171,7 +2169,7 @@ partial class PlanetoidDbForm
 		contextMenuFullCopyToClipboardOrbitalElements.Font = new Font("Segoe UI", 9F);
 		contextMenuFullCopyToClipboardOrbitalElements.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardIndexNumber, menuitemCopyToClipboardReadableDesignation, menuitemCopyToClipboardEpoch, menuitemCopyToClipboardMeanAnomalyAtTheEpoch, menuitemCopyToClipboardArgumentOfThePerihelion, menuitemCopyToClipboardLongitudeOfTheAscendingNode, menuitemCopyToClipboardInclinationToTheEcliptic, menuitemCopyToClipboardOrbitalEccentricity, menuitemCopyToClipboardMeanDailyMotion, menuitemCopyToClipboardSemiMajorAxis, menuitemCopyToClipboardAbsoluteMagnitude, menuitemCopyToClipboardSlopeParameter, menuitemCopyToClipboardReference, menuitemCopyToClipboardNumberOfOppositions, menuitemCopyToClipboardNumberOfObservations, menuitemCopyToClipboardObservationSpan, menuitemCopyToClipboardRmsResidual, menuitemCopyToClipboardComputerName, menuitemCopyToClipboardDateOfTheLastObservation, menuitemCopyToClipboardFlags });
 		contextMenuFullCopyToClipboardOrbitalElements.Name = "Context menu of copying to clipboard of orbital elements";
-		contextMenuFullCopyToClipboardOrbitalElements.OwnerItem = toolStripDropDownButtonCopyToClipboard;
+		contextMenuFullCopyToClipboardOrbitalElements.OwnerItem = menuitemCopytoClipboard;
 		contextMenuFullCopyToClipboardOrbitalElements.Size = new Size(309, 444);
 		contextMenuFullCopyToClipboardOrbitalElements.Text = "Copy to clipboard";
 		contextMenuFullCopyToClipboardOrbitalElements.Enter += Control_Enter;
@@ -2459,21 +2457,6 @@ partial class PlanetoidDbForm
 		menuitemCopyToClipboardFlags.MouseEnter += Control_Enter;
 		menuitemCopyToClipboardFlags.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopytoClipboard
-		// 
-		menuitemCopytoClipboard.AccessibleDescription = "Copies to clipboard";
-		menuitemCopytoClipboard.AccessibleName = "Copy to clipboard";
-		menuitemCopytoClipboard.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopytoClipboard.AutoToolTip = true;
-		menuitemCopytoClipboard.DropDown = contextMenuFullCopyToClipboardOrbitalElements;
-		menuitemCopytoClipboard.Image = FatcowIcons16px.fatcow_page_white_copy_16px;
-		menuitemCopytoClipboard.Name = "menuitemCopytoClipboard";
-		menuitemCopytoClipboard.ShortcutKeys = Keys.Control | Keys.C;
-		menuitemCopytoClipboard.Size = new Size(151, 22);
-		menuitemCopytoClipboard.Text = "&Copy";
-		menuitemCopytoClipboard.MouseEnter += Control_Enter;
-		menuitemCopytoClipboard.MouseLeave += Control_Leave;
-		// 
 		// toolStripDropDownButtonCopyToClipboard
 		// 
 		toolStripDropDownButtonCopyToClipboard.AccessibleDescription = "Copies to clipboard";
@@ -2488,6 +2471,21 @@ partial class PlanetoidDbForm
 		toolStripDropDownButtonCopyToClipboard.Text = "Copy to clipboard";
 		toolStripDropDownButtonCopyToClipboard.MouseEnter += Control_Enter;
 		toolStripDropDownButtonCopyToClipboard.MouseLeave += Control_Leave;
+		// 
+		// menuitemCopytoClipboard
+		// 
+		menuitemCopytoClipboard.AccessibleDescription = "Copies to clipboard";
+		menuitemCopytoClipboard.AccessibleName = "Copy to clipboard";
+		menuitemCopytoClipboard.AccessibleRole = AccessibleRole.MenuItem;
+		menuitemCopytoClipboard.AutoToolTip = true;
+		menuitemCopytoClipboard.DropDown = contextMenuFullCopyToClipboardOrbitalElements;
+		menuitemCopytoClipboard.Image = FatcowIcons16px.fatcow_page_white_copy_16px;
+		menuitemCopytoClipboard.Name = "menuitemCopytoClipboard";
+		menuitemCopytoClipboard.ShortcutKeys = Keys.Control | Keys.C;
+		menuitemCopytoClipboard.Size = new Size(151, 22);
+		menuitemCopytoClipboard.Text = "&Copy";
+		menuitemCopytoClipboard.MouseEnter += Control_Enter;
+		menuitemCopytoClipboard.MouseLeave += Control_Leave;
 		// 
 		// menu
 		// 
@@ -3715,9 +3713,8 @@ partial class PlanetoidDbForm
 		kryptonStatusStrip.AllowItemReorder = true;
 		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
-		kryptonStatusStrip.GripStyle = ToolStripGripStyle.Visible;
-		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { toolStripStatusLabelUpdate, toolStripStatusLabelBackgroundDownload, toolStripProgressBarBackgroundDownload, toolStripStatusLabelCancelBackgroundDownload, labelInformation });
-		kryptonStatusStrip.LayoutStyle = ToolStripLayoutStyle.Flow;
+		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation, toolStripStatusLabelAstorbDatUpdate, toolStripStatusLabelMpcorbDatUpdate });
+		kryptonStatusStrip.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
 		kryptonStatusStrip.Location = new Point(0, 0);
 		kryptonStatusStrip.Name = "kryptonStatusStrip";
 		kryptonStatusStrip.ProgressBars = null;
@@ -3733,69 +3730,6 @@ partial class PlanetoidDbForm
 		kryptonStatusStrip.MouseEnter += Control_Enter;
 		kryptonStatusStrip.MouseLeave += Control_Leave;
 		// 
-		// toolStripStatusLabelUpdate
-		// 
-		toolStripStatusLabelUpdate.AccessibleDescription = "Shows that an MPCORB.DAT update is aviable";
-		toolStripStatusLabelUpdate.AccessibleName = "Update information";
-		toolStripStatusLabelUpdate.AccessibleRole = AccessibleRole.StaticText;
-		toolStripStatusLabelUpdate.AutoToolTip = true;
-		toolStripStatusLabelUpdate.Image = FatcowIcons16px.fatcow_database_lightning_16px;
-		toolStripStatusLabelUpdate.IsLink = true;
-		toolStripStatusLabelUpdate.LinkBehavior = LinkBehavior.HoverUnderline;
-		toolStripStatusLabelUpdate.LinkColor = SystemColors.ControlText;
-		toolStripStatusLabelUpdate.Name = "toolStripStatusLabelUpdate";
-		toolStripStatusLabelUpdate.Size = new Size(185, 16);
-		toolStripStatusLabelUpdate.Text = "MPCORB.DAT update available";
-		toolStripStatusLabelUpdate.ToolTipText = "MPCORB.DAT update aviable";
-		toolStripStatusLabelUpdate.Click += ToolStripStatusLabelUpdate_Click;
-		toolStripStatusLabelUpdate.MouseEnter += Control_Enter;
-		toolStripStatusLabelUpdate.MouseLeave += Control_Leave;
-		// 
-		// toolStripStatusLabelBackgroundDownload
-		// 
-		toolStripStatusLabelBackgroundDownload.AccessibleDescription = "Shows the download progress";
-		toolStripStatusLabelBackgroundDownload.AccessibleName = "Download progress";
-		toolStripStatusLabelBackgroundDownload.AccessibleRole = AccessibleRole.StatusBar;
-		toolStripStatusLabelBackgroundDownload.AutoToolTip = true;
-		toolStripStatusLabelBackgroundDownload.Image = FatcowIcons16px.fatcow_package_go_16px;
-		toolStripStatusLabelBackgroundDownload.Name = "toolStripStatusLabelBackgroundDownload";
-		toolStripStatusLabelBackgroundDownload.Size = new Size(80, 16);
-		toolStripStatusLabelBackgroundDownload.Text = "Download:";
-		toolStripStatusLabelBackgroundDownload.ToolTipText = "Show the download progress";
-		toolStripStatusLabelBackgroundDownload.DoubleClick += EasterEgg_DoubleClick;
-		toolStripStatusLabelBackgroundDownload.MouseEnter += Control_Enter;
-		toolStripStatusLabelBackgroundDownload.MouseLeave += Control_Leave;
-		// 
-		// toolStripProgressBarBackgroundDownload
-		// 
-		toolStripProgressBarBackgroundDownload.AccessibleDescription = "Shows the download progress";
-		toolStripProgressBarBackgroundDownload.AccessibleName = "Download progress";
-		toolStripProgressBarBackgroundDownload.AccessibleRole = AccessibleRole.ProgressBar;
-		toolStripProgressBarBackgroundDownload.AutoToolTip = true;
-		toolStripProgressBarBackgroundDownload.Enabled = false;
-		toolStripProgressBarBackgroundDownload.Name = "toolStripProgressBarBackgroundDownload";
-		toolStripProgressBarBackgroundDownload.Size = new Size(100, 16);
-		toolStripProgressBarBackgroundDownload.Style = ProgressBarStyle.Continuous;
-		toolStripProgressBarBackgroundDownload.ToolTipText = "Show the download progress";
-		toolStripProgressBarBackgroundDownload.DoubleClick += EasterEgg_DoubleClick;
-		toolStripProgressBarBackgroundDownload.MouseEnter += Control_Enter;
-		toolStripProgressBarBackgroundDownload.MouseLeave += Control_Leave;
-		// 
-		// toolStripStatusLabelCancelBackgroundDownload
-		// 
-		toolStripStatusLabelCancelBackgroundDownload.AccessibleDescription = "Cancels the background download";
-		toolStripStatusLabelCancelBackgroundDownload.AccessibleName = "Cancel download";
-		toolStripStatusLabelCancelBackgroundDownload.AccessibleRole = AccessibleRole.Graphic;
-		toolStripStatusLabelCancelBackgroundDownload.AutoToolTip = true;
-		toolStripStatusLabelCancelBackgroundDownload.DisplayStyle = ToolStripItemDisplayStyle.Image;
-		toolStripStatusLabelCancelBackgroundDownload.Image = FatcowIcons16px.fatcow_cancel_16px;
-		toolStripStatusLabelCancelBackgroundDownload.Name = "toolStripStatusLabelCancelBackgroundDownload";
-		toolStripStatusLabelCancelBackgroundDownload.Size = new Size(16, 16);
-		toolStripStatusLabelCancelBackgroundDownload.Text = "Cancel background download";
-		toolStripStatusLabelCancelBackgroundDownload.Click += ToolStripStatusLabelCancelBackgroundDownload_Click;
-		toolStripStatusLabelCancelBackgroundDownload.MouseEnter += Control_Enter;
-		toolStripStatusLabelCancelBackgroundDownload.MouseLeave += Control_Leave;
-		// 
 		// labelInformation
 		// 
 		labelInformation.AccessibleDescription = "Shows some information";
@@ -3804,12 +3738,50 @@ partial class PlanetoidDbForm
 		labelInformation.AutoToolTip = true;
 		labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
 		labelInformation.Name = "labelInformation";
-		labelInformation.Size = new Size(144, 16);
+		labelInformation.Size = new Size(144, 17);
 		labelInformation.Spring = true;
 		labelInformation.Text = "some information here";
 		labelInformation.ToolTipText = "Shows some information";
 		labelInformation.MouseEnter += Control_Enter;
 		labelInformation.MouseLeave += Control_Leave;
+		// 
+		// toolStripStatusLabelAstorbDatUpdate
+		// 
+		toolStripStatusLabelAstorbDatUpdate.AccessibleDescription = "Shows whether an ASTORB.DAT update is available";
+		toolStripStatusLabelAstorbDatUpdate.AccessibleName = "ASTORB.DAT update available";
+		toolStripStatusLabelAstorbDatUpdate.AccessibleRole = AccessibleRole.StaticText;
+		toolStripStatusLabelAstorbDatUpdate.Alignment = ToolStripItemAlignment.Right;
+		toolStripStatusLabelAstorbDatUpdate.AutoToolTip = true;
+		toolStripStatusLabelAstorbDatUpdate.Image = FatcowIcons16px.fatcow_new_16px;
+		toolStripStatusLabelAstorbDatUpdate.IsLink = true;
+		toolStripStatusLabelAstorbDatUpdate.LinkBehavior = LinkBehavior.HoverUnderline;
+		toolStripStatusLabelAstorbDatUpdate.LinkColor = SystemColors.ControlText;
+		toolStripStatusLabelAstorbDatUpdate.Name = "toolStripStatusLabelAstorbDatUpdate";
+		toolStripStatusLabelAstorbDatUpdate.Size = new Size(178, 17);
+		toolStripStatusLabelAstorbDatUpdate.Text = "ASTORB.DAT update available";
+		toolStripStatusLabelAstorbDatUpdate.ToolTipText = "ASTORB.DAT update available";
+		toolStripStatusLabelAstorbDatUpdate.Click += MenuitemDownloadAstorbDat_Click;
+		toolStripStatusLabelAstorbDatUpdate.MouseEnter += Control_Enter;
+		toolStripStatusLabelAstorbDatUpdate.MouseLeave += Control_Leave;
+		// 
+		// toolStripStatusLabelMpcorbDatUpdate
+		// 
+		toolStripStatusLabelMpcorbDatUpdate.AccessibleDescription = "Shows whether an MPCORB.DAT update is available";
+		toolStripStatusLabelMpcorbDatUpdate.AccessibleName = "MPCORB.DAT update available";
+		toolStripStatusLabelMpcorbDatUpdate.AccessibleRole = AccessibleRole.StaticText;
+		toolStripStatusLabelMpcorbDatUpdate.Alignment = ToolStripItemAlignment.Right;
+		toolStripStatusLabelMpcorbDatUpdate.AutoToolTip = true;
+		toolStripStatusLabelMpcorbDatUpdate.Image = FatcowIcons16px.fatcow_new_16px;
+		toolStripStatusLabelMpcorbDatUpdate.IsLink = true;
+		toolStripStatusLabelMpcorbDatUpdate.LinkBehavior = LinkBehavior.HoverUnderline;
+		toolStripStatusLabelMpcorbDatUpdate.LinkColor = SystemColors.ControlText;
+		toolStripStatusLabelMpcorbDatUpdate.Name = "toolStripStatusLabelMpcorbDatUpdate";
+		toolStripStatusLabelMpcorbDatUpdate.Size = new Size(185, 17);
+		toolStripStatusLabelMpcorbDatUpdate.Text = "MPCORB.DAT update available";
+		toolStripStatusLabelMpcorbDatUpdate.ToolTipText = "MPCORB.DAT update available";
+		toolStripStatusLabelMpcorbDatUpdate.Click += MenuitemDownloadMpcorbDat_Click;
+		toolStripStatusLabelMpcorbDatUpdate.MouseEnter += Control_Enter;
+		toolStripStatusLabelMpcorbDatUpdate.MouseLeave += Control_Leave;
 		// 
 		// kryptonNavigatorMain
 		// 
@@ -3843,7 +3815,7 @@ partial class PlanetoidDbForm
 		kryptonNavigatorMain.Pages.AddRange(new Krypton.Navigator.KryptonPage[] { kryptonPageMpcorbDat });
 		kryptonNavigatorMain.SelectedIndex = 0;
 		kryptonNavigatorMain.Size = new Size(852, 314);
-		kryptonNavigatorMain.TabIndex = 2;
+		kryptonNavigatorMain.TabIndex = 0;
 		kryptonNavigatorMain.Text = "kryptonNavigatorMain";
 		kryptonNavigatorMain.ToolTipValues.Description = "Shows the database navigator";
 		kryptonNavigatorMain.ToolTipValues.Heading = "Database navigator";
@@ -4428,11 +4400,6 @@ partial class PlanetoidDbForm
 		backgroundWorkerLoadingDatabase.ProgressChanged += BackgroundWorkerLoadingDatabase_ProgressChanged;
 		backgroundWorkerLoadingDatabase.RunWorkerCompleted += BackgroundWorkerLoadingDatabase_RunWorkerCompleted;
 		// 
-		// timerBlinkForUpdateAvailable
-		// 
-		timerBlinkForUpdateAvailable.Interval = 500;
-		timerBlinkForUpdateAvailable.Tick += TimerBlinkForUpdateAvailable_Tick;
-		// 
 		// timerCheckForNewMpcorbDatFile
 		// 
 		timerCheckForNewMpcorbDatFile.Enabled = true;
@@ -4451,6 +4418,12 @@ partial class PlanetoidDbForm
 		kryptonManager.GlobalPaletteMode = PaletteMode.Global;
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
+		// 
+		// timerCheckForNewAstorbDatFile
+		// 
+		timerCheckForNewAstorbDatFile.Enabled = true;
+		timerCheckForNewAstorbDatFile.Interval = 1440000;
+		timerCheckForNewAstorbDatFile.Tick += TimerCheckForNewAstorbDatFile_Tick;
 		// 
 		// PlanetoidDbForm
 		// 
@@ -4524,12 +4497,9 @@ partial class PlanetoidDbForm
     private ToolStripMenuItem menuitemOpenWebsiteMPC;
     private ToolStripMenuItem menuitemOpenMPCORBWebsite;
     private ToolStripMenuItem menuitemOptions;
-    private ToolStripProgressBar toolStripProgressBarBackgroundDownload;
-    private ToolStripStatusLabel toolStripStatusLabelBackgroundDownload;
     private BackgroundWorker backgroundWorkerLoadingDatabase;
     private ToolStripStatusLabel labelInformation;
-    private ToolStripStatusLabel toolStripStatusLabelUpdate;
-    private Timer timerBlinkForUpdateAvailable;
+    private ToolStripStatusLabel toolStripStatusLabelMpcorbDatUpdate;
     private KryptonToolStrip kryptonToolStripIcons;
     private ToolStripButton toolStripButtonCheckMpcorbDat;
     private ToolStripButton toolStripButtonDownloadMpcorbDat;
@@ -4565,7 +4535,6 @@ partial class PlanetoidDbForm
     private ToolStripContainer toolStripContainer;
     private ToolStripMenuItem menuitemStyle;
     private Timer timerCheckForNewMpcorbDatFile;
-	private ToolStripStatusLabel toolStripStatusLabelCancelBackgroundDownload;
 	private ToolStripMenuItem menuitemTerminology;
 	private ToolStripButton toolStripButtonTerminology;
 	private ToolStripSplitButton toolStripSplitButtonStepBackward;
@@ -4763,4 +4732,6 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem toolStripMenuItemShowMpcorbDatUpdateIsAvailable;
 	private ToolStripMenuItem toolStripMenuItemShowAstorbDatUpdateIsAvailable;
 	private ToolStripSeparator toolStripSeparator19;
+	private Timer timerCheckForNewAstorbDatFile;
+	private ToolStripStatusLabel toolStripStatusLabelAstorbDatUpdate;
 }
