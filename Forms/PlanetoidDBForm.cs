@@ -14,7 +14,6 @@ using Planetoid_DB.Properties;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO.Compression;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Reflection;
@@ -34,10 +33,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger is used throughout the application to log important events and errors.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-
-	/// <summary>Cancellation token source used to cancel an ongoing download operation. May be null when no download is active.</summary>
-	/// <remarks>This token is used to cancel the download operation if needed.</remarks>
-	private CancellationTokenSource? cancellationTokenSource;
 
 	/// <summary>Gets the status label to be used for displaying information.</summary>
 	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
@@ -76,20 +71,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <summary>URI for the ASTORB database.</summary>
 	/// <remarks>This URI is used to access the ASTORB database.</remarks>
 	private readonly Uri uriAstorb = new(uriString: Settings.Default.systemAstorbDatGzUrl);
-
-	/// <summary>Cancellation token source for download operations.</summary>
-	/// <remarks>This token source is used to cancel ongoing download operations.</remarks>
-	private CancellationTokenSource? downloadCancellationTokenSource;
-
-	/// <summary>Shared <see cref="HttpClient"/> used for HTTP requests. Initialized in the constructor. Reuse to avoid socket exhaustion.</summary>
-	/// <remarks>This HttpClient instance is reused for all HTTP requests to improve performance.</remarks>
-	private static readonly HttpClient httpClient = new(handler: new HttpClientHandler
-	{
-		AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
-	})
-	{
-		Timeout = TimeSpan.FromMinutes(10)
-	};
 
 	/*
 	private readonly IProgress<int>? downloadProgress;
@@ -1038,8 +1019,9 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			// Show the downloader form as a modal dialog
 			if (downloaderForm.ShowDialog() == DialogResult.OK)
 			{
-				// Disable the menu item for showing updates is available
+				// Disable the menu item and the status label for showing updates is available
 				toolStripMenuItemShowMpcorbDatUpdateIsAvailable.Enabled = false;
+				toolStripStatusLabelMpcorbDatUpdate.Enabled = false;
 				// Ask the user if they want to restart the application after downloading the database
 				AskForRestartAfterDownloadingDatabase();
 			}
@@ -1067,8 +1049,9 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			// Show the downloader form as a modal dialog
 			if (downloaderForm.ShowDialog() == DialogResult.OK)
 			{
-				// Disable the menu item for showing updates is available
+				// Disable the menu item and the status label for showing updates is available
 				toolStripMenuItemShowAstorbDatUpdateIsAvailable.Enabled = false;
+				toolStripStatusLabelAstorbDatUpdate.Enabled = false;
 				// Ask the user if they want to restart the application after downloading the database
 				AskForRestartAfterDownloadingDatabase();
 			}
@@ -1821,36 +1804,29 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method is used to handle the shown event of the form.</remarks>
 	private void PlanetoidDBForm_Shown(object sender, EventArgs e)
 	{
-		// Disable the background download label
-		toolStripStatusLabelBackgroundDownload.Enabled = false;
-		// Disable the background download progress bar
-		toolStripProgressBarBackgroundDownload.Enabled = false;
-		// Disable the cancel background download label
-		toolStripStatusLabelCancelBackgroundDownload.Enabled = false;
-		// Hide the background download label
-		toolStripStatusLabelBackgroundDownload.Visible = false;
-		// Hide the background download progress bar
-		toolStripProgressBarBackgroundDownload.Visible = false;
-		// Hide the cancel background download label
-		toolStripStatusLabelCancelBackgroundDownload.Visible = false;
 		// Check if an update is available for the MPCORB database and enable the timer for blinking the update label
 		if (IsMpcorbDatUpdateAvailable())
 		{
 			toolStripMenuItemShowMpcorbDatUpdateIsAvailable.Enabled = true;
-			timerBlinkForUpdateAvailable.Enabled = true;
-			toolStripStatusLabelUpdate.Enabled = true;
+			toolStripStatusLabelMpcorbDatUpdate.Enabled = true;
 		}
-		// Otherwise, disable the timer and hide the update label
+		// Otherwise, disable and hide the update label
 		else
 		{
-			timerBlinkForUpdateAvailable.Enabled = false;
-			toolStripStatusLabelUpdate.Enabled = false;
-			toolStripStatusLabelUpdate.Visible = false;
+			toolStripStatusLabelMpcorbDatUpdate.Enabled = false;
+			toolStripStatusLabelMpcorbDatUpdate.Visible = false;
 		}
 		// Check if an update is available for the ASTORB database and enable the timer for blinking the update label
 		if (IsAstorbDatUpdateAvailable())
 		{
 			toolStripMenuItemShowAstorbDatUpdateIsAvailable.Enabled = true;
+			toolStripStatusLabelAstorbDatUpdate.Enabled = true;
+		}
+		// Otherwise, disable and hide the update label
+		else
+		{
+			toolStripStatusLabelAstorbDatUpdate.Enabled = false;
+			toolStripStatusLabelAstorbDatUpdate.Visible = false;
 		}
 		// Check if the form should stay on top of other windows
 		CheckStayOnTop();
@@ -1943,162 +1919,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 	#endregion
 
-	#region Download and update database
-
-	/// <summary>Handles the progress changed event during the download process. Updates the progress bar and taskbar progress.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="DownloadProgressChangedEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to update the progress bar and taskbar progress during the download process.</remarks>
-	private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
-	{
-		// Update the progress bar value
-		toolStripProgressBarBackgroundDownload.Value = e.ProgressPercentage;
-		// Set the taskbar progress value
-		TaskbarProgress.SetValue(windowHandle: Handle, progressValue: 0, progressMax: 100);
-	}
-
-	/// <summary>Extracts a GZIP-compressed file to the specified output file.</summary>
-	/// <param name="gzipFilePath">Full path to the source .gz file.</param>
-	/// <param name="outputFilePath">Full path where the decompressed file will be written.</param>
-	/// <remarks>The method streams the compressed input to the output file using <see cref="GZipStream"/>. It throws exceptions (e.g. <see cref="IOException"/>, <see cref="InvalidDataException"/>) to the caller.</remarks>
-	private static void ExtractGzipFile(string gzipFilePath, string outputFilePath)
-	{
-		// Create a new file stream for the gzip file
-		using FileStream originalFileStream = new(path: gzipFilePath, mode: FileMode.Open, access: FileAccess.Read);
-		// Create a new file stream for the output file
-		using FileStream decompressedFileStream = new(path: outputFilePath, mode: FileMode.Create, access: FileAccess.Write);
-		// Create a GZipStream for decompression
-		using GZipStream decompressionStream = new(stream: originalFileStream, mode: CompressionMode.Decompress);
-		// Copy the decompressed data to the output file stream
-		decompressionStream.CopyTo(destination: decompressedFileStream);
-	}
-
-	/// <summary>Handles the completion of the download process. Manages file operations and updates the UI accordingly.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="AsyncCompletedEventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to handle the completion of the download process.</remarks>
-	private async void ToolStripStatusLabelUpdate_Click(object sender, EventArgs e)
-	{
-		// Check if the user wants to download the latest MPCORB.DAT file
-		if (KryptonMessageBox.Show(text: I18nStrings.AskForDownloadingLatestMpcorbDatFile,
-				caption: I18nStrings.AskForDownloadingLatestMpcorbDatFileCaption, buttons: KryptonMessageBoxButtons.YesNo,
-				icon: KryptonMessageBoxIcon.Question) != DialogResult.Yes)
-		{
-			// User chose not to download the file, so we exit the method
-			return;
-		}
-		// Start the download process
-		toolStripStatusLabelUpdate.IsLink = false;
-		toolStripStatusLabelUpdate.Enabled = false;
-		toolStripStatusLabelUpdate.Visible = false;
-		timerBlinkForUpdateAvailable.Enabled = false;
-		toolStripStatusLabelBackgroundDownload.Visible = true;
-		toolStripProgressBarBackgroundDownload.Visible = true;
-		toolStripStatusLabelCancelBackgroundDownload.Visible = true;
-		toolStripStatusLabelBackgroundDownload.Enabled = true;
-		toolStripProgressBarBackgroundDownload.Enabled = true;
-		toolStripStatusLabelCancelBackgroundDownload.Enabled = true;
-		downloadCancellationTokenSource = new CancellationTokenSource();
-		// Create a new HttpClient instance for downloading the file
-		try
-		{
-			// Define the URI for the MPCORB.DAT.gz file
-			// Use HttpClient to download the file asynchronously
-			using (HttpResponseMessage response = await httpClient.GetAsync(requestUri: uriMpcorb, completionOption: HttpCompletionOption.ResponseHeadersRead))
-			{
-				// Ensure the response indicates success
-				_ = response.EnsureSuccessStatusCode();
-				// Get the total number of bytes to download
-				long totalBytes = response.Content.Headers.ContentLength ?? -1L;
-				// Open the content stream for reading
-				using Stream contentStream = await response.Content.ReadAsStreamAsync();
-				// Create a file stream for writing the downloaded file
-				using FileStream fileStream = new(path: Settings.Default.systemFilenameMpcorbTemp, mode: FileMode.Create, access: FileAccess.Write, share: FileShare.None, bufferSize: 8192, useAsync: true);
-				// Buffer for reading data
-				byte[] buffer = new byte[8192];
-				// Variables to track progress
-				long totalRead = 0;
-				int read;
-				// Set the progress bar style based on whether totalBytes is known
-				toolStripProgressBarBackgroundDownload.Style = totalBytes > 0 ? ProgressBarStyle.Continuous : ProgressBarStyle.Marquee;
-				// Read the content stream in chunks and write to the file stream
-				while ((read = await contentStream.ReadAsync(buffer)) > 0)
-				{
-					// Check if the download has been cancelled
-					await fileStream.WriteAsync(buffer: buffer.AsMemory(start: 0, length: read));
-					totalRead += read;
-					// Update progress if totalBytes is known
-					if (totalBytes > 0)
-					{
-						int percent = (int)(totalRead * 100 / totalBytes);
-						// Update the progress bar value
-						toolStripProgressBarBackgroundDownload.Value = Math.Min(percent, 100);
-						// Update the taskbar progress value
-						TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)Math.Min(percent, 100), progressMax: 100);
-					}
-				}
-			}
-			// Replace the old MPCORB.DAT file with the newly downloaded one
-			File.Delete(path: filenameMpcorb);
-			// Set the progress bar style to Marquee to indicate processing
-			toolStripProgressBarBackgroundDownload.Style = ProgressBarStyle.Marquee;
-			// Create a new CancellationTokenSource for this download
-			cancellationTokenSource = new CancellationTokenSource();
-			// Extract the downloaded GZIP file
-			await Task.Run(action: () =>
-				ExtractGzipFile(gzipFilePath: filenameMpcorbTemp, outputFilePath: Settings.Default.systemFilenameMpcorb),
-				cancellationToken: cancellationTokenSource.Token);
-			// Delete the temporary GZIP file
-			File.Delete(path: filenameMpcorbTemp);
-			// Notify the user that the update was successful
-			AskForRestartAfterDownloadingDatabase();
-		}
-		catch (OperationCanceledException)
-		{
-			// Handle the cancellation of the download process
-			toolStripStatusLabelBackgroundDownload.Enabled = false;
-			toolStripProgressBarBackgroundDownload.Enabled = false;
-			toolStripStatusLabelCancelBackgroundDownload.Enabled = false;
-			toolStripStatusLabelBackgroundDownload.Visible = false;
-			toolStripProgressBarBackgroundDownload.Visible = false;
-			toolStripStatusLabelCancelBackgroundDownload.Visible = false;
-			File.Delete(path: filenameMpcorbTemp);
-			_ = KryptonMessageBox.Show(text: "Download cancelled", caption: "Cancel", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
-		}
-		catch (Exception ex)
-		{
-			// Handle any errors that occur during the download process
-			ShowErrorMessage(message: ex.Message);
-			toolStripStatusLabelUpdate.IsLink = true;
-			toolStripStatusLabelUpdate.Enabled = true;
-			toolStripStatusLabelUpdate.Visible = true;
-			timerBlinkForUpdateAvailable.Enabled = true;
-			toolStripStatusLabelBackgroundDownload.Visible = false;
-			toolStripProgressBarBackgroundDownload.Visible = false;
-			toolStripStatusLabelCancelBackgroundDownload.Visible = false;
-			toolStripStatusLabelBackgroundDownload.Enabled = false;
-			toolStripProgressBarBackgroundDownload.Enabled = false;
-			toolStripStatusLabelCancelBackgroundDownload.Enabled = false;
-			File.Delete(path: filenameMpcorbTemp);
-		}
-		// Reset the UI elements after the download process
-		toolStripStatusLabelBackgroundDownload.Enabled = false;
-		toolStripProgressBarBackgroundDownload.Enabled = false;
-		toolStripStatusLabelCancelBackgroundDownload.Enabled = false;
-		toolStripStatusLabelBackgroundDownload.Visible = false;
-		toolStripProgressBarBackgroundDownload.Visible = false;
-		toolStripStatusLabelCancelBackgroundDownload.Visible = false;
-		toolStripStatusLabelUpdate.IsLink = false;
-		toolStripStatusLabelUpdate.Enabled = false;
-		toolStripStatusLabelUpdate.Visible = false;
-		timerBlinkForUpdateAvailable.Enabled = false;
-		toolStripProgressBarBackgroundDownload.Value = toolStripProgressBarBackgroundDownload.Minimum;
-		// Reset the taskbar progress
-		TaskbarProgress.SetValue(windowHandle: Handle, progressValue: 0, progressMax: 100);
-	}
-
-	#endregion
-
 	#region Timer event handlers
 
 	/// <summary>Handles the tick event for checking new MPCORB data file. Calls the PlanetoidDBForm_Shown method.</summary>
@@ -2107,11 +1927,11 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method is used to check for a new MPCORB data file.</remarks>
 	private void TimerCheckForNewMpcorbDatFile_Tick(object sender, EventArgs e) => PlanetoidDBForm_Shown(sender: sender, e: e);
 
-	/// <summary>Handles the tick event for blinking the update available status label. Toggles the ForeColor of the toolStripStatusLabelUpdate.</summary>
+	/// <summary>Handles the tick event for checking new ASTORB data file. Calls the PlanetoidDBForm_Shown method.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to blink the update available status label.</remarks>
-	private void TimerBlinkForUpdateAvailable_Tick(object sender, EventArgs e) => toolStripStatusLabelUpdate.ForeColor = toolStripStatusLabelUpdate.ForeColor == SystemColors.HotTrack ? SystemColors.ControlText : SystemColors.HotTrack;
+	/// <remarks>This method is used to check for a new ASTORB data file.</remarks>
+	private void TimerCheckForNewAstorbDatFile_Tick(object sender, EventArgs e) => PlanetoidDBForm_Shown(sender: sender, e: e);
 
 	#endregion
 
@@ -2274,22 +2094,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to open the terminology form with the specified index.</remarks>
 	private void ToolStripButtonTerminology_Click(object sender, EventArgs e) => OpenTerminology(index: 0);
-
-	/// <summary>Handles the click event for the ToolStripStatusLabelCancelBackgroundDownload. Cancels the background download.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to cancel the background download.</remarks>
-	private void ToolStripStatusLabelCancelBackgroundDownload_Click(object sender, EventArgs e)
-	{
-		// Cancel download
-		toolStripStatusLabelBackgroundDownload.Enabled = false;
-		toolStripProgressBarBackgroundDownload.Enabled = false;
-		toolStripStatusLabelCancelBackgroundDownload.Enabled = false;
-		toolStripStatusLabelBackgroundDownload.Visible = false;
-		toolStripProgressBarBackgroundDownload.Visible = false;
-		toolStripStatusLabelCancelBackgroundDownload.Visible = false;
-		downloadCancellationTokenSource?.Cancel();
-	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItem10. Sets the navigation step to 10 and updates the menu item checked state.</summary>
 	/// <param name="sender">The event source.</param>
