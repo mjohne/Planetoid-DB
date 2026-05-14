@@ -1,5 +1,68 @@
 # Changelog
 
+## Planetoid-DB 0.9.0.63
+
+* Updated `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/593
+* Updated `CHANGELOG` for version 0.8.11.62 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/594
+* Updated `.gitignore` to include x64 and x86 directories by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/595
+* Updated version number by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/596
+* Replaced downloader in `PreloadForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/597
+* Added opening of a local `MPCORB.DAT` file by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/599
+* Updated event handlers in `PlanetoidDBForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/600
+* Updated `Planetoid-DB.csproj.user` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/601
+* Add `ObservationsForm` to display MPC observation records for a minor planet by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/603
+* Redesigned `ObservationsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/604
+* Add `ObservatoryCodesForm` with MPC observatory codes list by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/606
+* Redesigned `ObservatoryCodesForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/607
+* Added `Resources/ObservatoryCodes.list` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/608
+* Replace hardcoded observatory codes array with embedded resource by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/610
+* Updated `ObservationsForm` and `ObservatoryCodesForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/611
+* Add `MoidsOfOneMinorPlanetForm` and `MoidCalculator` for MOID computation by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/613
+* Add `MoidsOfAllMinorPlanetsForm` – batch MOID calculation for all minor planets by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/615
+* Add Tisserand parameter GUI (`TisserandParameterOfOneMinorPlanetForm`) and calculator by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/617
+* Add `TisserandParameterOfAllMinorPlanetsForm` by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/619
+* Extend `ObservationsForm` info message box with duration statistics by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/621
+* Updated to `NLog` 6.1.3 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/622
+* Refactored `MoidCalculator` documentation and precision values by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/623
+* Refactored remarks and update planet semi-major axes by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/624
+* Optimized MOID calculation using squared distances by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/625
+* Optimized memory management and parallel processing by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/626
+* Optimized MOID calculation with parallel processing by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/627
+* Add `BulkInformationsDataDownloaderForm` for bulk MPC observations download by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/629
+* Renamed `BulkInformationsDataDownloaderForm` to `BulkObservationsDataDownloaderForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/630
+* Renamed form from `BulkInformations` to `BulkObservations` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/631
+* Renamed `BulkInformationsDataDownloaderForm` to `BulkObservationsDataDownloaderForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/632
+* Add `MoidsRelativeToMinorPlanetsForm`: MOID calculation between two minor planets by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/634
+* Updated `BulkObservationsDataDownloaderForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/635
+* Updated `BulkObservationsDataDownloaderForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/636
+* Add structured bulk-download error log UI in `BulkObservationsDataDownloaderForm` by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/638
+* Updated `BulkObservationsDataDownloaderForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/639
+* Updated `ObservationsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/640
+* Updated `TisserandParameterOfAllMinorPlanetsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/641
+* Updated `TisserandParameterOfOneMinorPlanetForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/642
+* Updated `MoidsOfAllMinorPlanetsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/644
+* Speed up MOID computation for all minor planets by reusing orbit precomputations by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/646
+* Updated `MoidsOfOneMinorPlanetForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/643
+* Updated `PlanetoidDBForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/649
+* Revised Code of Conduct to Contributor Covenant by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/650
+* Updated `AppInfoForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/651
+* Fixed HTML entity for true anomaly symbol by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/652
+* Updated suppress message attributes in `GlobalSuppressions.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/653
+* Add opening of external data pages by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/654
+* Added decoding of the 4-hexdigit flags by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/655
+* Added decoding of the MPCORB reference by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/656
+* Added more opening of external data pages by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/657
+* Added calling `ObservatoryCodesForm` in `PlanetoidDBForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/658
+* Replaced `TabControl` with `Krypton.Navigator` in `AppInfoForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/659
+* Accelerated `KryptonLabel` rendering in `DerivedOrbitElementsForm` by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/661
+* Optimized DoubleBuffering and added `Krypton.Navigator` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/662
+* Optimized `TableLayoutPanel` for flicker reduction by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/663
+* Added update menu entries by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/665
+* Redesigned update entries in the status bar by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/667
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.8.11.62.591.1940...0.9.0.63.667.2213
+
+
 ## Planetoid-DB 0.8.11.62
 
 * Updated image source in README.md by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/587
