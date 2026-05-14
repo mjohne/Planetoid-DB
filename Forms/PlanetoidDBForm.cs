@@ -64,9 +64,18 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private readonly string filenameMpcorb = Settings.Default.systemFilenameMpcorb;
 	private readonly string filenameMpcorbTemp = Settings.Default.systemFilenameMpcorbTemp;
 
+	/// <summary>Filenames for the ASTORB database.</summary>
+	/// <remarks>These strings are used to store the filenames for the ASTORB database.</remarks>
+	private readonly string filenameAstorb = Settings.Default.systemFilenameAstorb;
+	private readonly string filenameAstorbTemp = Settings.Default.systemFilenameAstorbTemp;
+
 	/// <summary>URI for the MPCORB database.</summary>
 	/// <remarks>This URI is used to access the MPCORB database.</remarks>
 	private readonly Uri uriMpcorb = new(uriString: Settings.Default.systemMpcorbDatGzUrl);
+
+	/// <summary>URI for the ASTORB database.</summary>
+	/// <remarks>This URI is used to access the ASTORB database.</remarks>
+	private readonly Uri uriAstorb = new(uriString: Settings.Default.systemAstorbDatGzUrl);
 
 	/// <summary>Cancellation token source for download operations.</summary>
 	/// <remarks>This token source is used to cancel ongoing download operations.</remarks>
@@ -436,12 +445,35 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Get the last modified date of the local file
 		DateTime datetimeFileLocal = fileInfo.LastWriteTime;
 		// Get the last modified date of the online file
-
-		//string url = uriMpcorb.ToString();
-		//DateTime datetimeFileOnline = (await GetLastModifiedAsync(uri: new Uri(uriString: url), client: httpClient)).ToString();
 		DateTime datetimeFileOnline = GetLastModified(uri: uriMpcorb);
 		// Get the content length of the online file
 		_ = GetContentLength(uri: uriMpcorb);
+		// Get the content length of the local file
+		_ = fileInfo.Length;
+		// Check if the online file is larger than the local file
+		// If it greater, return true (update available)
+		// Otherwise, return false (no update available)
+		return datetimeFileOnline > datetimeFileLocal;
+	}
+
+	/// <summary>Checks if an update for the ASTORB database is available.</summary>
+	/// <returns>true if an update is available, otherwise false.</returns>
+	/// <remarks>This method is used to check if an update for the ASTORB database is available.</remarks>
+	private bool IsAstorbDatUpdateAvailable()
+	{
+		// Check if the file exists before attempting to delete it
+		if (!File.Exists(path: filenameAstorb))
+		{
+			return true; // If the file does not exist, return true (update available)
+		}
+		// Get the file information for the local file
+		FileInfo fileInfo = new(fileName: filenameAstorb);
+		// Get the last modified date of the local file
+		DateTime datetimeFileLocal = fileInfo.LastWriteTime;
+		// Get the last modified date of the online file
+		DateTime datetimeFileOnline = GetLastModified(uri: uriAstorb);
+		// Get the content length of the online file
+		_ = GetContentLength(uri: uriAstorb);
 		// Get the content length of the local file
 		_ = fileInfo.Length;
 		// Check if the online file is larger than the local file
@@ -944,7 +976,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Shows the MPCORB data check form.</summary>
+	/// <summary>Shows the ASTORB data check form.</summary>
 	/// <remarks>This method is used to check the ASTORB data for updates.</remarks>
 	private void ShowAstorbDatCheck()
 	{
@@ -972,6 +1004,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Check if the network is available before proceeding with the download
 		if (!NetworkInterface.GetIsNetworkAvailable())
 		{
+			// Disable the menu item for showing updates is available
+			toolStripMenuItemShowMpcorbDatUpdateIsAvailable.Enabled = false;
 			// Display an error message if the network is not available
 			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
 		}
@@ -984,6 +1018,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			// Show the downloader form as a modal dialog
 			if (downloaderForm.ShowDialog() == DialogResult.OK)
 			{
+				// Disable the menu item for showing updates is available
+				toolStripMenuItemShowMpcorbDatUpdateIsAvailable.Enabled = false;
 				// Ask the user if they want to restart the application after downloading the database
 				AskForRestartAfterDownloadingDatabase();
 			}
@@ -997,6 +1033,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Check if the network is available before proceeding with the download
 		if (!NetworkInterface.GetIsNetworkAvailable())
 		{
+			// Disable the menu item for showing updates is available
+			toolStripMenuItemShowAstorbDatUpdateIsAvailable.Enabled = false;
 			// Display an error message if the network is not available
 			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
 		}
@@ -1009,6 +1047,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			// Show the downloader form as a modal dialog
 			if (downloaderForm.ShowDialog() == DialogResult.OK)
 			{
+				// Disable the menu item for showing updates is available
+				toolStripMenuItemShowAstorbDatUpdateIsAvailable.Enabled = false;
 				// Ask the user if they want to restart the application after downloading the database
 				AskForRestartAfterDownloadingDatabase();
 			}
@@ -1773,10 +1813,10 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		toolStripProgressBarBackgroundDownload.Visible = false;
 		// Hide the cancel background download label
 		toolStripStatusLabelCancelBackgroundDownload.Visible = false;
-		// Check if an update is available for the MPCORB database
-		// and enable the timer for blinking the update label
+		// Check if an update is available for the MPCORB database and enable the timer for blinking the update label
 		if (IsMpcorbDatUpdateAvailable())
 		{
+			toolStripMenuItemShowMpcorbDatUpdateIsAvailable.Enabled = true;
 			timerBlinkForUpdateAvailable.Enabled = true;
 			toolStripStatusLabelUpdate.Enabled = true;
 		}
@@ -1786,6 +1826,11 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			timerBlinkForUpdateAvailable.Enabled = false;
 			toolStripStatusLabelUpdate.Enabled = false;
 			toolStripStatusLabelUpdate.Visible = false;
+		}
+		// Check if an update is available for the ASTORB database and enable the timer for blinking the update label
+		if (IsAstorbDatUpdateAvailable())
+		{
+			toolStripMenuItemShowAstorbDatUpdateIsAvailable.Enabled = true;
 		}
 		// Check if the form should stay on top of other windows
 		CheckStayOnTop();
