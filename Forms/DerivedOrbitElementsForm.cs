@@ -261,7 +261,28 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		labelSemiMeanAxisData.Text = derivedOrbitElements[index: 16]?.ToString();
 		labelMeanAxisData.Text = derivedOrbitElements[index: 17]?.ToString();
 		labelStandardGravitationalParameterData.Text = derivedOrbitElements[index: 18]?.ToString();
-		// Note: New elements (indices 19-40) will be displayed once the UI is updated
+		labelDirectrixData.Text = derivedOrbitElements[index: 19]?.ToString();
+		labelPerihelionVelocityData.Text = derivedOrbitElements[index: 20]?.ToString();
+		labelAphelionVelocityData.Text = derivedOrbitElements[index: 21]?.ToString();
+		labelMeanOrbitalVelocityData.Text = derivedOrbitElements[index: 22]?.ToString();
+		labelCurrentOrbitalVelocityData.Text = derivedOrbitElements[index: 23]?.ToString();
+		labelRadialVelocityComponentData.Text = derivedOrbitElements[index: 24]?.ToString();
+		labelTangentialVelocityComponentData.Text = derivedOrbitElements[index: 25]?.ToString();
+		labelSpecificOrbitalEnergyData.Text = derivedOrbitElements[index: 26]?.ToString();
+		labelSpecificAngularMomentumData.Text = derivedOrbitElements[index: 27]?.ToString();
+		labelVisVivaEnergyData.Text = derivedOrbitElements[index: 28]?.ToString();
+		labelLongitudeOfPerihelionData.Text = derivedOrbitElements[index: 29]?.ToString();
+		labelMeanLongitudeData.Text = derivedOrbitElements[index: 30]?.ToString();
+		labelArgumentOfLatitudeData.Text = derivedOrbitElements[index: 31]?.ToString();
+		labelFlightPathAngleData.Text = derivedOrbitElements[index: 32]?.ToString();
+		labelTimeSincePerihelionData.Text = derivedOrbitElements[index: 33]?.ToString();
+		labelTimeToNextPerihelionData.Text = derivedOrbitElements[index: 34]?.ToString();
+		labelTimeSinceAphelionData.Text = derivedOrbitElements[index: 35]?.ToString();
+		labelTimeToNextAphelionData.Text = derivedOrbitElements[index: 36]?.ToString();
+		labelSynodicPeriodData.Text = derivedOrbitElements[index: 37]?.ToString();
+		labelTisserandParameterData.Text = derivedOrbitElements[index: 38]?.ToString();
+		labelMeanDistanceFromFocusData.Text = derivedOrbitElements[index: 39]?.ToString();
+		labelGeometricAlbedoAdjustedDiameterData.Text = derivedOrbitElements[index: 40]?.ToString();
 	}
 
 	#endregion
