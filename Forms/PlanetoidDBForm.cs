@@ -444,16 +444,27 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		FileInfo fileInfo = new(fileName: filenameMpcorb);
 		// Get the last modified date of the local file
 		DateTime datetimeFileLocal = fileInfo.LastWriteTime;
-		// Get the last modified date of the online file
-		DateTime datetimeFileOnline = GetLastModified(uri: uriMpcorb);
-		// Get the content length of the online file
-		_ = GetContentLength(uri: uriMpcorb);
-		// Get the content length of the local file
-		_ = fileInfo.Length;
-		// Check if the online file is larger than the local file
-		// If it greater, return true (update available)
-		// Otherwise, return false (no update available)
-		return datetimeFileOnline > datetimeFileLocal;
+		try
+		{
+			// Get the last modified date of the online file
+			DateTime datetimeFileOnline = GetLastModified(uri: uriMpcorb);
+			// Get the content length of the online file
+			_ = GetContentLength(uri: uriMpcorb);
+			// Get the content length of the local file
+			_ = fileInfo.Length;
+			// Check if the online file is larger than the local file
+			// If it greater, return true (update available)
+			// Otherwise, return false (no update available)
+			return datetimeFileOnline > datetimeFileLocal;
+		}
+		catch (WebException)
+		{
+			return false;
+		}
+		catch (IOException)
+		{
+			return false;
+		}
 	}
 
 	/// <summary>Checks if an update for the ASTORB database is available.</summary>
@@ -470,16 +481,25 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		FileInfo fileInfo = new(fileName: filenameAstorb);
 		// Get the last modified date of the local file
 		DateTime datetimeFileLocal = fileInfo.LastWriteTime;
-		// Get the last modified date of the online file
-		DateTime datetimeFileOnline = GetLastModified(uri: uriAstorb);
-		// Get the content length of the online file
-		_ = GetContentLength(uri: uriAstorb);
-		// Get the content length of the local file
-		_ = fileInfo.Length;
-		// Check if the online file is larger than the local file
-		// If it greater, return true (update available)
-		// Otherwise, return false (no update available)
-		return datetimeFileOnline > datetimeFileLocal;
+		try
+		{
+			// Get the last modified date of the online file
+			DateTime datetimeFileOnline = GetLastModified(uri: uriAstorb);
+			// Get the content length of the local file
+			_ = fileInfo.Length;
+			// Check if the online file is larger than the local file
+			// If it greater, return true (update available)
+			// Otherwise, return false (no update available)
+			return datetimeFileOnline > datetimeFileLocal;
+		}
+		catch (WebException)
+		{
+			return false;
+		}
+		catch (IOException)
+		{
+			return false;
+		}
 	}
 
 	/// <summary>Loads a random minor planet from the database.</summary>
