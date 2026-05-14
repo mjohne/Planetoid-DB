@@ -54,7 +54,7 @@
 * Added more opening of external data pages by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/657
 * Added calling `ObservatoryCodesForm` in `PlanetoidDBForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/658
 * Replaced `TabControl` with `Krypton.Navigator` in `AppInfoForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/659
-* Beschleunigung der `KryptonLabel`-Darstellung in `DerivedOrbitElementsForm` by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/661
+* Accelerated `KryptonLabel` rendering in `DerivedOrbitElementsForm` by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/661
 * Optimized DoubleBuffering and added `Krypton.Navigator` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/662
 * Optimized `TableLayoutPanel` for flicker reduction by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/663
 * Added update menu entries by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/665
