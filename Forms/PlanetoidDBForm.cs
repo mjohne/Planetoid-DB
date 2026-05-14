@@ -273,59 +273,31 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			toolStripLabelIndexPosition.ToolTipText = "Index: 0";
 			return;
 		}
-
-		// Extract and display the data for the specified position
-		// Each field is extracted using substring operations based on fixed positions
-		// The extracted strings are trimmed to remove leading and trailing whitespace
-		// Example for extracting a field:
-		// string teilstring = planetoidsDatabase[position].ToString().Substring(startIndex: 0, length: 7).Trim();
-		// int zahl = int.Parse(s: teilstring, style: NumberStyles.Integer, provider: CultureInfo.InvariantCulture);
-		// The above example extracts a substring from the database entry at the specified position,
-		// trims it, and converts it to an integer using invariant culture
-		// The same approach is used for all other fields, adjusting the start index and length as needed
-		// Note: The field lengths and positions are based on the MPCORB.DAT file format specification
-		// The following fields are extracted:
-		// Index number (positions 0-6)
-		// Absolute magnitude (positions 8-12)
-		// Slope parameter (positions 14-18)
-		// Epoch (positions 20-24)
-		// Mean anomaly at the epoch (positions 26-34)
-		// Argument of perihelion (positions 37-45)
-		// Longitude of the ascending node (positions 48-56)
-		// Inclination to the ecliptic (positions 59-67)
-		// Orbital eccentricity (positions 70-78)
-		// Mean daily motion (positions 80-90)
-		// Semi-major axis (positions 92-102)
-		// Reference (positions 107-115)
-		// Number of observations (positions 117-121)
-		// Number of oppositions (positions 123-125)
-		// Observation span (positions 127-135)
-		// r.m.s. residual (positions 137-140)
-		// Computer name (positions 150-159)
-		// Flags (positions 161-164)
-		// Readable designation (positions 166-193)
-		// Date of last observation (positions 194-201)
-		// Note: The substring method uses zero-based indexing
-		// The lengths are inclusive of the start index
-		// Example: Substring(startIndex: 0, length: 7) extracts characters from index 0 to 6
-		// The extracted strings are trimmed to remove any leading or trailing whitespace
-		// The extracted values are then displayed in the corresponding labels on the form
-		// Example: labelIndexData.Text = extractedIndexString;
-		// The above example sets the text of the label to the extracted index string
-		// This process is repeated for all other fields
-		// Note: Error handling is not included in this method
-		// It is assumed that the data in the database is well-formed and follows the expected format
-		//Achtung: Wenn später die Teilstrings in Zahlen konvertiert werden, dann muss darauf geachtet werden, dass die eingelesenen Zeichenketten keine Leerstrings sind.
-		// if (teilstring == "0") zahl = 0; ...
-
 		// Get entry string once to avoid repeated ToString() calls
 		string? entryStr = planetoidsDatabase[index: position]?.ToString();
-		if (string.IsNullOrEmpty(entryStr))
+		// If the entry string is null or empty, clear all labels and return early
+		if (string.IsNullOrEmpty(value: entryStr))
 		{
-			toolStripLabelIndexPosition.ToolTipText = "Index: 0";
+			// Clear all labels to indicate no data is available
+			toolStripLabelIndexPosition.Text = string.Empty;
+			tableLayoutPanelData.SuspendLayout();
+			try
+			{
+				foreach (Control control in tableLayoutPanelData.Controls)
+				{
+					if (control is KryptonLabel or Label)
+					{
+						control.Text = string.Empty;
+					}
+				}
+			}
+			// Resume layout without performing layout to avoid unnecessary redraws
+			finally
+			{
+				tableLayoutPanelData.ResumeLayout(performLayout: false);
+			}
 			return;
 		}
-
 		// Suspend both the panel layout and painting to eliminate all flicker
 		tableLayoutPanelData.SuspendLayout();
 		try
@@ -357,33 +329,9 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		}
 		finally
 		{
-			// Resume layout with immediate repaint to avoid intermediate states
+			// Resume layout and perform any pending layout logic.
 			tableLayoutPanelData.ResumeLayout(performLayout: true);
-			// Force immediate refresh to prevent any pending paint messages
-			tableLayoutPanelData.Refresh();
 		}
-		/* Original code:
-		labelAbsoluteMagnitudeData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 8, length: 5).Trim();
-		labelSlopeParameterData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 14, length: 5).Trim();
-		labelEpochData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 20, length: 5).Trim();
-		labelMeanAnomalyAtTheEpochData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 26, length: 9).Trim();
-		labelArgumentOfThePerihelionData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 37, length: 9).Trim();
-		labelLongitudeOfTheAscendingNodeData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 48, length: 9).Trim();
-		labelInclinationToTheEclipticData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 59, length: 9).Trim();
-		labelOrbitalEccentricityData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 70, length: 9).Trim();
-		labelMeanDailyMotionData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 80, length: 11).Trim();
-		labelSemiMajorAxisData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 92, length: 11).Trim();
-		labelReferenceData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 107, length: 9).Trim();
-		labelNumberOfObservationsData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 117, length: 5).Trim();
-		labelNumberOfOppositionsData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 123, length: 3).Trim();
-		labelObservationSpanData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 127, length: 9).Trim();
-		labelRmsResidualData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 137, length: 4).Trim();
-		labelComputerNameData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 150, length: 10).Trim();
-		labelFlagsData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 161, length: 4).Trim();
-		labelReadableDesignationData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 166, length: 28).Trim();
-		labelDateLastObservationData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 194, length: 8).Trim();
-		toolStripLabelIndexPosition.Text = $@"{I18nStrings.Index}: {position + 1:N0} / {planetoidsDatabase.Count:N0}";
-		*/
 	}
 
 	/// <summary>Jumps to the record with the specified index or designation.</summary>
@@ -1761,18 +1709,50 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void PlanetoidDBForm_Load(object sender, EventArgs e)
 	{
 		ClearStatusBar(label: labelInformation);
+		// Set the initial text of the MPCORB.DAT tab to indicate that the database is loading
 		kryptonPageMpcorbDat.Text = $"MPCORB.DAT ({I18nStrings.DataLoading})";
+		// Configure the BackgroundWorker for loading the database
 		backgroundWorkerLoadingDatabase.WorkerReportsProgress = true;
 		backgroundWorkerLoadingDatabase.WorkerSupportsCancellation = true;
 		backgroundWorkerLoadingDatabase.ProgressChanged += BackgroundWorkerLoadingDatabase_ProgressChanged;
 		backgroundWorkerLoadingDatabase.RunWorkerCompleted += BackgroundWorkerLoadingDatabase_RunWorkerCompleted;
 		backgroundWorkerLoadingDatabase.RunWorkerAsync();
+		// Show the splash screen while loading the database
 		formSplashScreen.Show();
-		// Get the last modified date of the local file
-		FileInfo fileInfo = new(fileName: MpcOrbDatFilePath);
-		// Get the last modified date of the local file
-		DateTime datetimeFileLocal = fileInfo.LastWriteTime;
-		kryptonPageMpcorbDat.Text = $"MPCORB.DAT ({datetimeFileLocal.ToString(provider: CultureInfo.CurrentCulture)})";
+		// Attempt to get the last modified date of the MPCORB.DAT file and display it in the tab text
+		string resolvedMpcOrbDatFilePath = string.IsNullOrWhiteSpace(value: MpcOrbDatFilePath) ? filenameMpcorb : MpcOrbDatFilePath;
+		if (!string.IsNullOrWhiteSpace(value: resolvedMpcOrbDatFilePath))
+		{
+			// Use a try-catch block to handle potential exceptions when accessing the file information
+			try
+			{
+				// Get the file information for the MPCORB.DAT file
+				FileInfo fileInfo = new(fileName: resolvedMpcOrbDatFilePath);
+				// Check if the file exists before attempting to access its properties
+				if (fileInfo.Exists)
+				{
+					// Get the last modified date of the file in local time
+					DateTime datetimeFileLocal = fileInfo.LastWriteTime;
+					kryptonPageMpcorbDat.Text = $"MPCORB.DAT ({datetimeFileLocal.ToString(provider: CultureInfo.CurrentCulture)})";
+				}
+			}
+			catch (ArgumentException)
+			{
+				// Ignore invalid file path and keep the default loading text.
+			}
+			catch (NotSupportedException)
+			{
+				// Ignore invalid file path format and keep the default loading text.
+			}
+			catch (PathTooLongException)
+			{
+				// Ignore invalid file path length and keep the default loading text.
+			}
+			catch (UnauthorizedAccessException)
+			{
+				// Ignore inaccessible file path and keep the default loading text.
+			}
+		}
 	}
 
 	/// <summary>Handles the shown event of the PlanetoidDBForm.</summary>
