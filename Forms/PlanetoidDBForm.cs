@@ -157,12 +157,12 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method enables double buffering and optimized painting styles on the panel and all child labels.</remarks>
 	private void OptimizeTableLayoutPanelForFlickerReduction()
 	{
+		// Use reflection to access the protected DoubleBuffered property and SetStyle method of the Control class, and apply them to the TableLayoutPanel and all child label controls to enable comprehensive double buffering and optimized painting styles. This approach helps to reduce flickering when updating the labels in the panel.
 		try
 		{
 			// Enable double buffering for the TableLayoutPanel itself
 			PropertyInfo? doubleBufferedProperty = typeof(Control).GetProperty(name: "DoubleBuffered", bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance);
 			MethodInfo? setStyleMethod = typeof(Control).GetMethod(name: "SetStyle", bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance);
-
 			// Apply to the main panel
 			doubleBufferedProperty?.SetValue(obj: tableLayoutPanelData, value: true, index: null);
 			setStyleMethod?.Invoke(obj: tableLayoutPanelData, parameters: [
@@ -172,7 +172,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 				ControlStyles.ResizeRedraw,
 				true
 			]);
-
 			// Apply double buffering to all label controls within the panel to prevent individual label flickering
 			foreach (Control control in tableLayoutPanelData.Controls)
 			{
@@ -187,6 +186,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 				}
 			}
 		}
+		// Log a warning if enabling double buffering fails, but allow the application to continue running
 		catch (Exception ex)
 		{
 			logger.Warn(exception: ex, message: "Failed to enable comprehensive double buffering on tableLayoutPanel. UI may experience flickering.");
