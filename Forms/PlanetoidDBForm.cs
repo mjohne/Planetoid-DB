@@ -135,6 +135,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		InitializeComponent();
 		TextExtra = $"{Assembly.GetExecutingAssembly().GetName().Version}";
+		// Apply comprehensive flicker reduction for the TableLayoutPanel
+		OptimizeTableLayoutPanelForFlickerReduction();
 	}
 
 	/// <summary>Initializes a new instance of the <see cref="PlanetoidDbForm"/> class with a specified MPCORB.DAT file path.</summary>
@@ -147,6 +149,48 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		TextExtra = $"{Assembly.GetExecutingAssembly().GetName().Version}";
 		ClearStatusBar(label: labelInformation);
 		MpcOrbDatFilePath = mpcorbDatFilePath;
+		// Apply comprehensive flicker reduction for the TableLayoutPanel
+		OptimizeTableLayoutPanelForFlickerReduction();
+	}
+
+	/// <summary>Optimizes the TableLayoutPanel to eliminate flickering during label updates.</summary>
+	/// <remarks>This method enables double buffering and optimized painting styles on the panel and all child labels.</remarks>
+	private void OptimizeTableLayoutPanelForFlickerReduction()
+	{
+		try
+		{
+			// Enable double buffering for the TableLayoutPanel itself
+			PropertyInfo? doubleBufferedProperty = typeof(Control).GetProperty(name: "DoubleBuffered", bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance);
+			MethodInfo? setStyleMethod = typeof(Control).GetMethod(name: "SetStyle", bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance);
+
+			// Apply to the main panel
+			doubleBufferedProperty?.SetValue(obj: tableLayoutPanelData, value: true, index: null);
+			setStyleMethod?.Invoke(obj: tableLayoutPanelData, parameters: [
+				ControlStyles.OptimizedDoubleBuffer |
+				ControlStyles.AllPaintingInWmPaint |
+				ControlStyles.UserPaint |
+				ControlStyles.ResizeRedraw,
+				true
+			]);
+
+			// Apply double buffering to all label controls within the panel to prevent individual label flickering
+			foreach (Control control in tableLayoutPanelData.Controls)
+			{
+				if (control is Label or KryptonLabel)
+				{
+					doubleBufferedProperty?.SetValue(obj: control, value: true, index: null);
+					setStyleMethod?.Invoke(obj: control, parameters: [
+						ControlStyles.OptimizedDoubleBuffer |
+						ControlStyles.AllPaintingInWmPaint,
+						true
+					]);
+				}
+			}
+		}
+		catch (Exception ex)
+		{
+			logger.Warn(exception: ex, message: "Failed to enable comprehensive double buffering on tableLayoutPanel. UI may experience flickering.");
+		}
 	}
 
 	#endregion
@@ -274,29 +318,50 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		//Achtung: Wenn später die Teilstrings in Zahlen konvertiert werden, dann muss darauf geachtet werden, dass die eingelesenen Zeichenketten keine Leerstrings sind.
 		// if (teilstring == "0") zahl = 0; ...
 
-		toolStripLabelIndexPosition.ToolTipText = $"Index: {currentPosition + 1}/{planetoidsDatabase.Count}";
-		object? entry = planetoidsDatabase[index: position];
-		labelIndexData.Text = entry?.ToString() is string entryStr ? entryStr[..7].Trim() : string.Empty;
-		labelAbsoluteMagnitudeData.Text = entry?.ToString() is string entryStr1 ? entryStr1.Substring(startIndex: 8, length: 5).Trim() : string.Empty;
-		labelSlopeParameterData.Text = entry?.ToString() is string entryStr2 ? entryStr2.Substring(startIndex: 14, length: 5).Trim() : string.Empty;
-		labelEpochData.Text = entry?.ToString() is string entryStr3 ? entryStr3.Substring(startIndex: 20, length: 5).Trim() : string.Empty;
-		labelMeanAnomalyAtTheEpochData.Text = entry?.ToString() is string entryStr4 ? entryStr4.Substring(startIndex: 26, length: 9).Trim() : string.Empty;
-		labelArgumentOfThePerihelionData.Text = entry?.ToString() is string entryStr5 ? entryStr5.Substring(startIndex: 37, length: 9).Trim() : string.Empty;
-		labelLongitudeOfTheAscendingNodeData.Text = entry?.ToString() is string entryStr6 ? entryStr6.Substring(startIndex: 48, length: 9).Trim() : string.Empty;
-		labelInclinationToTheEclipticData.Text = entry?.ToString() is string entryStr7 ? entryStr7.Substring(startIndex: 59, length: 9).Trim() : string.Empty;
-		labelOrbitalEccentricityData.Text = entry?.ToString() is string entryStr8 ? entryStr8.Substring(startIndex: 70, length: 9).Trim() : string.Empty;
-		labelMeanDailyMotionData.Text = entry?.ToString() is string entryStr9 ? entryStr9.Substring(startIndex: 80, length: 11).Trim() : string.Empty;
-		labelSemiMajorAxisData.Text = entry?.ToString() is string entryStr10 ? entryStr10.Substring(startIndex: 92, length: 11).Trim() : string.Empty;
-		labelReferenceData.Text = entry?.ToString() is string entryStr11 ? entryStr11.Substring(startIndex: 107, length: 9).Trim() : string.Empty;
-		labelNumberOfObservationsData.Text = entry?.ToString() is string entryStr12 ? entryStr12.Substring(startIndex: 117, length: 5).Trim() : string.Empty;
-		labelNumberOfOppositionsData.Text = entry?.ToString() is string entryStr13 ? entryStr13.Substring(startIndex: 123, length: 3).Trim() : string.Empty;
-		labelObservationSpanData.Text = entry?.ToString() is string entryStr14 ? entryStr14.Substring(startIndex: 127, length: 9).Trim() : string.Empty;
-		labelRmsResidualData.Text = entry?.ToString() is string entryStr15 ? entryStr15.Substring(startIndex: 137, length: 4).Trim() : string.Empty;
-		labelComputerNameData.Text = entry?.ToString() is string entryStr16 ? entryStr16.Substring(startIndex: 150, length: 10).Trim() : string.Empty;
-		labelFlagsData.Text = entry?.ToString() is string entryStr17 ? entryStr17.Substring(startIndex: 161, length: 4).Trim() : string.Empty;
-		labelReadableDesignationData.Text = entry?.ToString() is string entryStr18 ? entryStr18.Substring(startIndex: 166, length: 28).Trim() : string.Empty;
-		labelDateLastObservationData.Text = entry?.ToString() is string entryStr19 ? entryStr19.Substring(startIndex: 194, length: 8).Trim() : string.Empty;
-		toolStripLabelIndexPosition.Text = $@"{I18nStrings.Index}: {position + 1:N0} / {planetoidsDatabase.Count:N0}";
+		// Get entry string once to avoid repeated ToString() calls
+		string? entryStr = planetoidsDatabase[index: position]?.ToString();
+		if (string.IsNullOrEmpty(entryStr))
+		{
+			toolStripLabelIndexPosition.ToolTipText = "Index: 0";
+			return;
+		}
+
+		// Suspend both the panel layout and painting to eliminate all flicker
+		tableLayoutPanelData.SuspendLayout();
+		try
+		{
+			// Batch all text updates with minimal overhead
+			toolStripLabelIndexPosition.ToolTipText = $"Index: {currentPosition + 1}/{planetoidsDatabase.Count}";
+			// Update all labels in one go - use cached string reference
+			labelIndexData.Text = entryStr[..7].Trim();
+			labelAbsoluteMagnitudeData.Text = entryStr.Substring(startIndex: 8, length: 5).Trim();
+			labelSlopeParameterData.Text = entryStr.Substring(startIndex: 14, length: 5).Trim();
+			labelEpochData.Text = entryStr.Substring(startIndex: 20, length: 5).Trim();
+			labelMeanAnomalyAtTheEpochData.Text = entryStr.Substring(startIndex: 26, length: 9).Trim();
+			labelArgumentOfThePerihelionData.Text = entryStr.Substring(startIndex: 37, length: 9).Trim();
+			labelLongitudeOfTheAscendingNodeData.Text = entryStr.Substring(startIndex: 48, length: 9).Trim();
+			labelInclinationToTheEclipticData.Text = entryStr.Substring(startIndex: 59, length: 9).Trim();
+			labelOrbitalEccentricityData.Text = entryStr.Substring(startIndex: 70, length: 9).Trim();
+			labelMeanDailyMotionData.Text = entryStr.Substring(startIndex: 80, length: 11).Trim();
+			labelSemiMajorAxisData.Text = entryStr.Substring(startIndex: 92, length: 11).Trim();
+			labelReferenceData.Text = entryStr.Substring(startIndex: 107, length: 9).Trim();
+			labelNumberOfObservationsData.Text = entryStr.Substring(startIndex: 117, length: 5).Trim();
+			labelNumberOfOppositionsData.Text = entryStr.Substring(startIndex: 123, length: 3).Trim();
+			labelObservationSpanData.Text = entryStr.Substring(startIndex: 127, length: 9).Trim();
+			labelRmsResidualData.Text = entryStr.Substring(startIndex: 137, length: 4).Trim();
+			labelComputerNameData.Text = entryStr.Substring(startIndex: 150, length: 10).Trim();
+			labelFlagsData.Text = entryStr.Substring(startIndex: 161, length: 4).Trim();
+			labelReadableDesignationData.Text = entryStr.Substring(startIndex: 166, length: 28).Trim();
+			labelDateLastObservationData.Text = entryStr.Substring(startIndex: 194, length: 8).Trim();
+			toolStripLabelIndexPosition.Text = $@"{I18nStrings.Index}: {position + 1:N0} / {planetoidsDatabase.Count:N0}";
+		}
+		finally
+		{
+			// Resume layout with immediate repaint to avoid intermediate states
+			tableLayoutPanelData.ResumeLayout(performLayout: true);
+			// Force immediate refresh to prevent any pending paint messages
+			tableLayoutPanelData.Refresh();
+		}
 		/* Original code:
 		labelAbsoluteMagnitudeData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 8, length: 5).Trim();
 		labelSlopeParameterData.Text = planetoidsDatabase[index: position].ToString().Substring(startIndex: 14, length: 5).Trim();
@@ -1696,12 +1761,18 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void PlanetoidDBForm_Load(object sender, EventArgs e)
 	{
 		ClearStatusBar(label: labelInformation);
+		kryptonPageMpcorbDat.Text = $"MPCORB.DAT ({I18nStrings.DataLoading})";
 		backgroundWorkerLoadingDatabase.WorkerReportsProgress = true;
 		backgroundWorkerLoadingDatabase.WorkerSupportsCancellation = true;
 		backgroundWorkerLoadingDatabase.ProgressChanged += BackgroundWorkerLoadingDatabase_ProgressChanged;
 		backgroundWorkerLoadingDatabase.RunWorkerCompleted += BackgroundWorkerLoadingDatabase_RunWorkerCompleted;
 		backgroundWorkerLoadingDatabase.RunWorkerAsync();
 		formSplashScreen.Show();
+		// Get the last modified date of the local file
+		FileInfo fileInfo = new(fileName: MpcOrbDatFilePath);
+		// Get the last modified date of the local file
+		DateTime datetimeFileLocal = fileInfo.LastWriteTime;
+		kryptonPageMpcorbDat.Text = $"MPCORB.DAT ({datetimeFileLocal.ToString(provider: CultureInfo.CurrentCulture)})";
 	}
 
 	/// <summary>Handles the shown event of the PlanetoidDBForm.</summary>
