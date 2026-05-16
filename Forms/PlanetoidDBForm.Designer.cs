@@ -44,19 +44,19 @@ partial class PlanetoidDbForm
 		components = new Container();
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(PlanetoidDbForm));
 		contextMenuNavigationStep = new ContextMenuStrip(components);
-		menuitemNavigateStep10 = new ToolStripMenuItem();
-		menuitemNavigateStep100 = new ToolStripMenuItem();
-		menuitemNavigateStep1000 = new ToolStripMenuItem();
-		menuitemNavigateStep10000 = new ToolStripMenuItem();
-		menuitemNavigateStep100000 = new ToolStripMenuItem();
+		toolStripMenuItemNavigateStep10 = new ToolStripMenuItem();
+		toolStripMenuItemNavigateStep100 = new ToolStripMenuItem();
+		toolStripMenuItemNavigateStep1000 = new ToolStripMenuItem();
+		toolStripMenuItemNavigateStep10000 = new ToolStripMenuItem();
+		toolStripMenuItemNavigateStep100000 = new ToolStripMenuItem();
+		toolStripMenuItemNavigateSomeDataForward = new ToolStripMenuItem();
 		toolStripSplitButtonStepForward = new ToolStripSplitButton();
 		toolStripSplitButtonStepBackward = new ToolStripSplitButton();
-		menuitemNavigateSomeDataBackward = new ToolStripMenuItem();
-		menuitemNavigateSomeDataForward = new ToolStripMenuItem();
+		toolStripMenuItemNavigateSomeDataBackward = new ToolStripMenuItem();
 		tableLayoutPanelData = new KryptonTableLayoutPanel();
 		labelIndexData = new KryptonLabel();
 		contextMenuCopyToClipboard = new ContextMenuStrip(components);
-		toolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardInContextMenu = new ToolStripMenuItem();
 		labelReadableDesignationData = new KryptonLabel();
 		labelEpochData = new KryptonLabel();
 		labelMeanAnomalyAtTheEpochData = new KryptonLabel();
@@ -99,96 +99,96 @@ partial class PlanetoidDbForm
 		labelFlagsDesc = new KryptonLabel();
 		labelDateLastObservationDesc = new KryptonLabel();
 		contextMenuTopTenRecords = new ContextMenuStrip(components);
-		menuitemRecordsSortDirection = new ToolStripMenuItem();
-		menuitemRecordsSortDirectionAscending = new ToolStripMenuItem();
-		menuitemRecordsSortDirectionDescending = new ToolStripMenuItem();
+		toolStripMenuItemRecordsSortDirection = new ToolStripMenuItem();
+		toolStripMenuItemRecordsSortDirectionAscending = new ToolStripMenuItem();
+		toolStripMenuItemRecordsSortDirectionDescending = new ToolStripMenuItem();
 		toolStripSeparator12 = new ToolStripSeparator();
-		menuitemRecordsMeanAnomalyAtTheEpoch = new ToolStripMenuItem();
-		menuitemRecordsArgumentOfThePerihelion = new ToolStripMenuItem();
-		menuitemRecordsLongitudeOfTheAscendingNode = new ToolStripMenuItem();
-		menuitemRecordsInclination = new ToolStripMenuItem();
-		menuitemRecordsOrbitalEccentricity = new ToolStripMenuItem();
-		menuitemRecordsMeanDailyMotion = new ToolStripMenuItem();
-		menuitemRecordsSemiMajorAxis = new ToolStripMenuItem();
-		menuitemRecordsAbsoluteMagnitude = new ToolStripMenuItem();
-		menuitemRecordsSlopeParameter = new ToolStripMenuItem();
-		menuitemRecordsNumberOfOppositions = new ToolStripMenuItem();
-		menuitemRecordsNumberOfObservations = new ToolStripMenuItem();
-		menuitemRecordsObservationSpan = new ToolStripMenuItem();
-		menuitemRecordsRmsResidual = new ToolStripMenuItem();
-		menuitemRecordsComputername = new ToolStripMenuItem();
-		menuitemRecordsDateOfTheLastObservation = new ToolStripMenuItem();
+		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch = new ToolStripMenuItem();
+		toolStripMenuItemRecordsArgumentOfThePerihelion = new ToolStripMenuItem();
+		toolStripMenuItemRecordsLongitudeOfTheAscendingNode = new ToolStripMenuItem();
+		toolStripMenuItemRecordsInclination = new ToolStripMenuItem();
+		toolStripMenuItemRecordsOrbitalEccentricity = new ToolStripMenuItem();
+		toolStripMenuItemRecordsMeanDailyMotion = new ToolStripMenuItem();
+		toolStripMenuItemRecordsSemiMajorAxis = new ToolStripMenuItem();
+		toolStripMenuItemRecordsAbsoluteMagnitude = new ToolStripMenuItem();
+		toolStripMenuItemRecordsSlopeParameter = new ToolStripMenuItem();
+		toolStripMenuItemRecordsNumberOfOppositions = new ToolStripMenuItem();
+		toolStripMenuItemRecordsNumberOfObservations = new ToolStripMenuItem();
+		toolStripMenuItemRecordsObservationSpan = new ToolStripMenuItem();
+		toolStripMenuItemRecordsRmsResidual = new ToolStripMenuItem();
+		toolStripMenuItemRecordsComputername = new ToolStripMenuItem();
+		toolStripMenuItemRecordsDateOfTheLastObservation = new ToolStripMenuItem();
+		toolStripMenuItemRecords = new ToolStripMenuItem();
 		splitbuttonTopTenRecords = new ToolStripSplitButton();
-		menuitemRecords = new ToolStripMenuItem();
 		contextMenuDistributions = new ContextMenuStrip(components);
-		menuitemDistributionMeanAnomalyAtTheEpoch = new ToolStripMenuItem();
-		menuitemDistributionArgumentOfThePerihelion = new ToolStripMenuItem();
-		menuitemDistributionLongitudeOfTheAscendingNode = new ToolStripMenuItem();
-		menuitemDistributionInclination = new ToolStripMenuItem();
-		menuitemDistributionOrbitalEccentricity = new ToolStripMenuItem();
-		menuitemDistributionMeanDailyMotion = new ToolStripMenuItem();
-		menuitemDistributionSemiMajorAxis = new ToolStripMenuItem();
-		menuitemDistributionAbsoluteMagnitude = new ToolStripMenuItem();
-		menuitemDistributionSlopeParameter = new ToolStripMenuItem();
-		menuitemDistributionNumberOfOppositions = new ToolStripMenuItem();
-		menuitemDistributionNumberOfObservations = new ToolStripMenuItem();
-		menuitemDistributionObservationSpan = new ToolStripMenuItem();
-		menuitemDistributionRmsResidual = new ToolStripMenuItem();
-		menuitemDistributionComputerName = new ToolStripMenuItem();
+		toolStripMenuItemDistributionMeanAnomalyAtTheEpoch = new ToolStripMenuItem();
+		toolStripMenuItemDistributionArgumentOfThePerihelion = new ToolStripMenuItem();
+		toolStripMenuItemDistributionLongitudeOfTheAscendingNode = new ToolStripMenuItem();
+		toolStripMenuItemDistributionInclination = new ToolStripMenuItem();
+		toolStripMenuItemDistributionOrbitalEccentricity = new ToolStripMenuItem();
+		toolStripMenuItemDistributionMeanDailyMotion = new ToolStripMenuItem();
+		toolStripMenuItemDistributionSemiMajorAxis = new ToolStripMenuItem();
+		toolStripMenuItemDistributionAbsoluteMagnitude = new ToolStripMenuItem();
+		toolStripMenuItemDistributionSlopeParameter = new ToolStripMenuItem();
+		toolStripMenuItemDistributionNumberOfOppositions = new ToolStripMenuItem();
+		toolStripMenuItemDistributionNumberOfObservations = new ToolStripMenuItem();
+		toolStripMenuItemDistributionObservationSpan = new ToolStripMenuItem();
+		toolStripMenuItemDistributionRmsResidual = new ToolStripMenuItem();
+		toolStripMenuItemDistributionComputerName = new ToolStripMenuItem();
 		splitbuttonDistribution = new ToolStripSplitButton();
-		menuitemDistribution = new ToolStripMenuItem();
+		toolStripMenuItemDistribution = new ToolStripMenuItem();
 		contextMenuFullCopyToClipboardOrbitalElements = new ContextMenuStrip(components);
-		menuitemCopyToClipboardIndexNumber = new ToolStripMenuItem();
-		menuitemCopyToClipboardReadableDesignation = new ToolStripMenuItem();
-		menuitemCopyToClipboardEpoch = new ToolStripMenuItem();
-		menuitemCopyToClipboardMeanAnomalyAtTheEpoch = new ToolStripMenuItem();
-		menuitemCopyToClipboardArgumentOfThePerihelion = new ToolStripMenuItem();
-		menuitemCopyToClipboardLongitudeOfTheAscendingNode = new ToolStripMenuItem();
-		menuitemCopyToClipboardInclinationToTheEcliptic = new ToolStripMenuItem();
-		menuitemCopyToClipboardOrbitalEccentricity = new ToolStripMenuItem();
-		menuitemCopyToClipboardMeanDailyMotion = new ToolStripMenuItem();
-		menuitemCopyToClipboardSemiMajorAxis = new ToolStripMenuItem();
-		menuitemCopyToClipboardAbsoluteMagnitude = new ToolStripMenuItem();
-		menuitemCopyToClipboardSlopeParameter = new ToolStripMenuItem();
-		menuitemCopyToClipboardReference = new ToolStripMenuItem();
-		menuitemCopyToClipboardNumberOfOppositions = new ToolStripMenuItem();
-		menuitemCopyToClipboardNumberOfObservations = new ToolStripMenuItem();
-		menuitemCopyToClipboardObservationSpan = new ToolStripMenuItem();
-		menuitemCopyToClipboardRmsResidual = new ToolStripMenuItem();
-		menuitemCopyToClipboardComputerName = new ToolStripMenuItem();
-		menuitemCopyToClipboardDateOfTheLastObservation = new ToolStripMenuItem();
-		menuitemCopyToClipboardFlags = new ToolStripMenuItem();
-		menuitemCopytoClipboard = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardIndexNumber = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardReadableDesignation = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardEpoch = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardMeanAnomalyAtTheEpoch = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardArgumentOfThePerihelion = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardInclinationToTheEcliptic = new ToolStripMenuItem();
+		toolStripMenuItemToClipboardOrbitalEccentricity = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardMeanDailyMotion = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardSemiMajorAxis = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardAbsoluteMagnitude = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardSlopeParameter = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardReference = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardNumberOfOppositions = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardNumberOfObservations = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardObservationSpan = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardRmsResidual = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardComputerName = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardDateOfTheLastObservation = new ToolStripMenuItem();
+		toolStripMenuItemCopyToClipboardFlags = new ToolStripMenuItem();
 		toolStripDropDownButtonCopyToClipboard = new ToolStripDropDownButton();
-		menu = new MenuStrip();
-		menuitemFile = new ToolStripMenuItem();
+		toolStripMenuItemCopytoClipboard = new ToolStripMenuItem();
+		menuStrip = new MenuStrip();
+		toolStripMenuItemFile = new ToolStripMenuItem();
 		toolStripMenuItemOpenLocalMpcorbDat = new ToolStripMenuItem();
-		menuitemExportDataEntry = new ToolStripMenuItem();
-		menuitemPrint = new ToolStripMenuItem();
+		toolStripMenuItemExportDataEntry = new ToolStripMenuItem();
+		toolStripMenuItemPrint = new ToolStripMenuItem();
 		toolStripSeparatorFile1 = new ToolStripSeparator();
 		toolStripMenuItemArchive = new ToolStripMenuItem();
 		toolStripMenuItemCompareDatabases = new ToolStripMenuItem();
 		toolStripSeparator13 = new ToolStripSeparator();
-		menuitemRestart = new ToolStripMenuItem();
-		menuitemExit = new ToolStripMenuItem();
-		menuitemEdit = new ToolStripMenuItem();
-		menuitemSearch = new ToolStripMenuItem();
-		menuitemNavigation = new ToolStripMenuItem();
-		menuitemRandomMinorPlanet = new ToolStripMenuItem();
+		toolStripMenuItemRestart = new ToolStripMenuItem();
+		toolStripMenuItemExit = new ToolStripMenuItem();
+		toolStripMenuItemEdit = new ToolStripMenuItem();
+		toolStripMenuItemSearch = new ToolStripMenuItem();
+		toolStripMenuItemNavigation = new ToolStripMenuItem();
+		toolStripMenuItemRandomMinorPlanet = new ToolStripMenuItem();
 		toolStripSeparatorNavigation1 = new ToolStripSeparator();
-		menuitemNavigateToTheBeginning = new ToolStripMenuItem();
-		menuitemNavigateToThePreviousData = new ToolStripMenuItem();
-		menuitemNavigateToTheNextData = new ToolStripMenuItem();
-		menuitemNavigateToTheEnd = new ToolStripMenuItem();
+		toolStripMenuItemNavigateToTheBeginning = new ToolStripMenuItem();
+		toolStripMenuItemNavigateToThePreviousData = new ToolStripMenuItem();
+		toolStripMenuItemNavigateToTheNextData = new ToolStripMenuItem();
+		toolStripMenuItemNavigateToTheEnd = new ToolStripMenuItem();
 		toolStripSeparator11 = new ToolStripSeparator();
-		menuitemListReadableDesignations = new ToolStripMenuItem();
-		menuitemTools = new ToolStripMenuItem();
-		menuitemDerivedOrbitElements = new ToolStripMenuItem();
-		menuitemFilter = new ToolStripMenuItem();
+		toolStripMenuItemListReadableDesignations = new ToolStripMenuItem();
+		toolStripMenuItemTools = new ToolStripMenuItem();
+		toolStripMenuItemDerivedOrbitElements = new ToolStripMenuItem();
+		toolStripMenuItemFilter = new ToolStripMenuItem();
 		toolStripSeparatorTools1 = new ToolStripSeparator();
 		toolStripSeparator10 = new ToolStripSeparator();
 		toolStripSeparatorTools2 = new ToolStripSeparator();
-		menuitemDatabaseInformation = new ToolStripMenuItem();
+		toolStripMenuItemDatabaseInformation = new ToolStripMenuItem();
 		menuitemTableMode = new ToolStripMenuItem();
 		menuitemTerminology = new ToolStripMenuItem();
 		toolStripSeparator16 = new ToolStripSeparator();
@@ -218,7 +218,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemNearEarthObjectCoordinationCentre = new ToolStripMenuItem();
 		toolStripSeparator17 = new ToolStripSeparator();
 		toolStripMenuItemOpenAllDataPages = new ToolStripMenuItem();
-		menuitemUpdate = new ToolStripMenuItem();
+		toolStripMenuItemUpdate = new ToolStripMenuItem();
 		toolStripMenuItemShowMpcorbDatUpdateIsAvailable = new ToolStripMenuItem();
 		toolStripMenuItemShowAstorbDatUpdateIsAvailable = new ToolStripMenuItem();
 		toolStripSeparator19 = new ToolStripSeparator();
@@ -227,23 +227,23 @@ partial class PlanetoidDbForm
 		toolStripSeparator2 = new ToolStripSeparator();
 		toolStripMenuItemCheckAstorbDatUpdate = new ToolStripMenuItem();
 		toolStripMenuItemDownloadAstorbDat = new ToolStripMenuItem();
-		menuitemOptions = new ToolStripMenuItem();
-		menuitemSettings = new ToolStripMenuItem();
-		menuitemStyle = new ToolStripMenuItem();
-		menuitemIconsetFatcow = new ToolStripMenuItem();
-		menuitemIconsetSilk = new ToolStripMenuItem();
-		menuitemIconsetFugue = new ToolStripMenuItem();
+		toolStripMenuItemOptions = new ToolStripMenuItem();
+		toolStripMenuItemSettings = new ToolStripMenuItem();
+		toolStripMenuItemStyle = new ToolStripMenuItem();
+		toolStripMenuItemIconsetFatcow = new ToolStripMenuItem();
+		toolStripMenuItemIconsetSilk = new ToolStripMenuItem();
+		toolStripMenuItemIconsetFugue = new ToolStripMenuItem();
 		toolStripSeparatorOptions = new ToolStripSeparator();
-		menuitemOptionStayOnTop = new ToolStripMenuItem();
-		menuitemOptionEnabledCopyingByDoubleClicking = new ToolStripMenuItem();
-		menuitemOptionEnableLinkingToTerminology = new ToolStripMenuItem();
-		menuitemHelp = new ToolStripMenuItem();
-		menuitemAbout = new ToolStripMenuItem();
-		menuitemLicense = new ToolStripMenuItem();
+		toolStripMenuItemOptionStayOnTop = new ToolStripMenuItem();
+		toolStripMenuItemOptionEnabledCopyingByDoubleClicking = new ToolStripMenuItem();
+		toolStripMenuItemOptionEnableLinkingToTerminology = new ToolStripMenuItem();
+		toolStripMenuItemHelp = new ToolStripMenuItem();
+		toolStripMenuItemAbout = new ToolStripMenuItem();
+		toolStripMenuItemLicense = new ToolStripMenuItem();
 		toolStripSeparatorMisc1 = new ToolStripSeparator();
-		menuitemOpenWebsitePDB = new ToolStripMenuItem();
-		menuitemOpenWebsiteMPC = new ToolStripMenuItem();
-		menuitemOpenMPCORBWebsite = new ToolStripMenuItem();
+		toolStripMenuItemOpenWebsitePDB = new ToolStripMenuItem();
+		toolStripMenuItemOpenWebsiteMPC = new ToolStripMenuItem();
+		toolStripMenuItemOpenMPCORBWebsite = new ToolStripMenuItem();
 		toolStripButtonObservations = new ToolStripButton();
 		toolStripContainer = new ToolStripContainer();
 		kryptonStatusStrip = new KryptonStatusStrip();
@@ -304,7 +304,7 @@ partial class PlanetoidDbForm
 		contextMenuTopTenRecords.SuspendLayout();
 		contextMenuDistributions.SuspendLayout();
 		contextMenuFullCopyToClipboardOrbitalElements.SuspendLayout();
-		menu.SuspendLayout();
+		menuStrip.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
 		toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -322,10 +322,10 @@ partial class PlanetoidDbForm
 		contextMenuNavigationStep.AccessibleDescription = "Shows the context menu of data items";
 		contextMenuNavigationStep.AccessibleName = "Context menu of items";
 		contextMenuNavigationStep.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuNavigationStep.AllowClickThrough = true;
 		contextMenuNavigationStep.Font = new Font("Segoe UI", 9F);
-		contextMenuNavigationStep.Items.AddRange(new ToolStripItem[] { menuitemNavigateStep10, menuitemNavigateStep100, menuitemNavigateStep1000, menuitemNavigateStep10000, menuitemNavigateStep100000 });
+		contextMenuNavigationStep.Items.AddRange(new ToolStripItem[] { toolStripMenuItemNavigateStep10, toolStripMenuItemNavigateStep100, toolStripMenuItemNavigateStep1000, toolStripMenuItemNavigateStep10000, toolStripMenuItemNavigateStep100000 });
 		contextMenuNavigationStep.Name = "contextMenu";
-		contextMenuNavigationStep.OwnerItem = menuitemNavigateSomeDataForward;
 		contextMenuNavigationStep.ShowCheckMargin = true;
 		contextMenuNavigationStep.ShowImageMargin = false;
 		contextMenuNavigationStep.Size = new Size(111, 114);
@@ -336,77 +336,93 @@ partial class PlanetoidDbForm
 		contextMenuNavigationStep.MouseEnter += Control_Enter;
 		contextMenuNavigationStep.MouseLeave += Control_Leave;
 		// 
-		// menuitemNavigateStep10
+		// toolStripMenuItemNavigateStep10
 		// 
-		menuitemNavigateStep10.AccessibleDescription = "Jumps 10 items backward/forward";
-		menuitemNavigateStep10.AccessibleName = "Jumps 10 items backward/forward";
-		menuitemNavigateStep10.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemNavigateStep10.CheckOnClick = true;
-		menuitemNavigateStep10.Name = "menuitemNavigateStep10";
-		menuitemNavigateStep10.Size = new Size(110, 22);
-		menuitemNavigateStep10.Text = "10";
-		menuitemNavigateStep10.ToolTipText = "Jump 10 items backward/forward";
-		menuitemNavigateStep10.Click += ToolStripMenuItem10_Click;
-		menuitemNavigateStep10.MouseEnter += Control_Enter;
-		menuitemNavigateStep10.MouseLeave += Control_Leave;
+		toolStripMenuItemNavigateStep10.AccessibleDescription = "Jumps 10 items backward/forward";
+		toolStripMenuItemNavigateStep10.AccessibleName = "Jump 10 items backward/forward";
+		toolStripMenuItemNavigateStep10.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemNavigateStep10.CheckOnClick = true;
+		toolStripMenuItemNavigateStep10.Name = "toolStripMenuItemNavigateStep10";
+		toolStripMenuItemNavigateStep10.Size = new Size(110, 22);
+		toolStripMenuItemNavigateStep10.Text = "10";
+		toolStripMenuItemNavigateStep10.ToolTipText = "Jump 10 items backward/forward";
+		toolStripMenuItemNavigateStep10.Click += ToolStripMenuItem10_Click;
+		toolStripMenuItemNavigateStep10.MouseEnter += Control_Enter;
+		toolStripMenuItemNavigateStep10.MouseLeave += Control_Leave;
 		// 
-		// menuitemNavigateStep100
+		// toolStripMenuItemNavigateStep100
 		// 
-		menuitemNavigateStep100.AccessibleDescription = "Jumps 100 items backward/forward";
-		menuitemNavigateStep100.AccessibleName = "Jumps 100 items backward/forward";
-		menuitemNavigateStep100.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemNavigateStep100.Checked = true;
-		menuitemNavigateStep100.CheckOnClick = true;
-		menuitemNavigateStep100.CheckState = CheckState.Checked;
-		menuitemNavigateStep100.Name = "menuitemNavigateStep100";
-		menuitemNavigateStep100.Size = new Size(110, 22);
-		menuitemNavigateStep100.Text = "100";
-		menuitemNavigateStep100.ToolTipText = "Jump 100 items backward/forward";
-		menuitemNavigateStep100.Click += ToolStripMenuItem100_Click;
-		menuitemNavigateStep100.MouseEnter += Control_Enter;
-		menuitemNavigateStep100.MouseLeave += Control_Leave;
+		toolStripMenuItemNavigateStep100.AccessibleDescription = "Jumps 100 items backward/forward";
+		toolStripMenuItemNavigateStep100.AccessibleName = "Jump 100 items backward/forward";
+		toolStripMenuItemNavigateStep100.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemNavigateStep100.Checked = true;
+		toolStripMenuItemNavigateStep100.CheckOnClick = true;
+		toolStripMenuItemNavigateStep100.CheckState = CheckState.Checked;
+		toolStripMenuItemNavigateStep100.Name = "toolStripMenuItemNavigateStep100";
+		toolStripMenuItemNavigateStep100.Size = new Size(110, 22);
+		toolStripMenuItemNavigateStep100.Text = "100";
+		toolStripMenuItemNavigateStep100.ToolTipText = "Jump 100 items backward/forward";
+		toolStripMenuItemNavigateStep100.Click += ToolStripMenuItem100_Click;
+		toolStripMenuItemNavigateStep100.MouseEnter += Control_Enter;
+		toolStripMenuItemNavigateStep100.MouseLeave += Control_Leave;
 		// 
-		// menuitemNavigateStep1000
+		// toolStripMenuItemNavigateStep1000
 		// 
-		menuitemNavigateStep1000.AccessibleDescription = "Jumps 1000 items backward/forward";
-		menuitemNavigateStep1000.AccessibleName = "Jumps 1000 items backward/forward";
-		menuitemNavigateStep1000.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemNavigateStep1000.CheckOnClick = true;
-		menuitemNavigateStep1000.Name = "menuitemNavigateStep1000";
-		menuitemNavigateStep1000.Size = new Size(110, 22);
-		menuitemNavigateStep1000.Text = "1000";
-		menuitemNavigateStep1000.ToolTipText = "Jump 1000 items backward/forward";
-		menuitemNavigateStep1000.Click += ToolStripMenuItem1000_Click;
-		menuitemNavigateStep1000.MouseEnter += Control_Enter;
-		menuitemNavigateStep1000.MouseLeave += Control_Leave;
+		toolStripMenuItemNavigateStep1000.AccessibleDescription = "Jumps 1000 items backward/forward";
+		toolStripMenuItemNavigateStep1000.AccessibleName = "Jump 1000 items backward/forward";
+		toolStripMenuItemNavigateStep1000.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemNavigateStep1000.CheckOnClick = true;
+		toolStripMenuItemNavigateStep1000.Name = "toolStripMenuItemNavigateStep1000";
+		toolStripMenuItemNavigateStep1000.Size = new Size(110, 22);
+		toolStripMenuItemNavigateStep1000.Text = "1000";
+		toolStripMenuItemNavigateStep1000.ToolTipText = "Jump 1000 items backward/forward";
+		toolStripMenuItemNavigateStep1000.Click += ToolStripMenuItem1000_Click;
+		toolStripMenuItemNavigateStep1000.MouseEnter += Control_Enter;
+		toolStripMenuItemNavigateStep1000.MouseLeave += Control_Leave;
 		// 
-		// menuitemNavigateStep10000
+		// toolStripMenuItemNavigateStep10000
 		// 
-		menuitemNavigateStep10000.AccessibleDescription = "Jumps 10000 items backward/forward";
-		menuitemNavigateStep10000.AccessibleName = "Jumps 10000 items backward/forward";
-		menuitemNavigateStep10000.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemNavigateStep10000.CheckOnClick = true;
-		menuitemNavigateStep10000.Name = "menuitemNavigateStep10000";
-		menuitemNavigateStep10000.Size = new Size(110, 22);
-		menuitemNavigateStep10000.Text = "10000";
-		menuitemNavigateStep10000.ToolTipText = "Jump 10000 items backward/forward";
-		menuitemNavigateStep10000.Click += ToolStripMenuItem10000_Click;
-		menuitemNavigateStep10000.MouseEnter += Control_Enter;
-		menuitemNavigateStep10000.MouseLeave += Control_Leave;
+		toolStripMenuItemNavigateStep10000.AccessibleDescription = "Jumps 10000 items backward/forward";
+		toolStripMenuItemNavigateStep10000.AccessibleName = "Jump 10000 items backward/forward";
+		toolStripMenuItemNavigateStep10000.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemNavigateStep10000.CheckOnClick = true;
+		toolStripMenuItemNavigateStep10000.Name = "toolStripMenuItemNavigateStep10000";
+		toolStripMenuItemNavigateStep10000.Size = new Size(110, 22);
+		toolStripMenuItemNavigateStep10000.Text = "10000";
+		toolStripMenuItemNavigateStep10000.ToolTipText = "Jump 10000 items backward/forward";
+		toolStripMenuItemNavigateStep10000.Click += ToolStripMenuItem10000_Click;
+		toolStripMenuItemNavigateStep10000.MouseEnter += Control_Enter;
+		toolStripMenuItemNavigateStep10000.MouseLeave += Control_Leave;
 		// 
-		// menuitemNavigateStep100000
+		// toolStripMenuItemNavigateStep100000
 		// 
-		menuitemNavigateStep100000.AccessibleDescription = "Jumps 100000 items backward/forward";
-		menuitemNavigateStep100000.AccessibleName = "Jumps 100000 items backward/forward";
-		menuitemNavigateStep100000.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemNavigateStep100000.CheckOnClick = true;
-		menuitemNavigateStep100000.Name = "menuitemNavigateStep100000";
-		menuitemNavigateStep100000.Size = new Size(110, 22);
-		menuitemNavigateStep100000.Text = "100000";
-		menuitemNavigateStep100000.ToolTipText = "Jump 100000 items backward/forward";
-		menuitemNavigateStep100000.Click += ToolStripMenuItem100000_Click;
-		menuitemNavigateStep100000.MouseEnter += Control_Enter;
-		menuitemNavigateStep100000.MouseLeave += Control_Leave;
+		toolStripMenuItemNavigateStep100000.AccessibleDescription = "Jumps 100000 items backward/forward";
+		toolStripMenuItemNavigateStep100000.AccessibleName = "Jump 100000 items backward/forward";
+		toolStripMenuItemNavigateStep100000.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemNavigateStep100000.CheckOnClick = true;
+		toolStripMenuItemNavigateStep100000.Name = "toolStripMenuItemNavigateStep100000";
+		toolStripMenuItemNavigateStep100000.Size = new Size(110, 22);
+		toolStripMenuItemNavigateStep100000.Text = "100000";
+		toolStripMenuItemNavigateStep100000.ToolTipText = "Jump 100000 items backward/forward";
+		toolStripMenuItemNavigateStep100000.Click += ToolStripMenuItem100000_Click;
+		toolStripMenuItemNavigateStep100000.MouseEnter += Control_Enter;
+		toolStripMenuItemNavigateStep100000.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemNavigateSomeDataForward
+		// 
+		toolStripMenuItemNavigateSomeDataForward.AccessibleDescription = "Navigates some data forward";
+		toolStripMenuItemNavigateSomeDataForward.AccessibleName = "Navigates some data forward";
+		toolStripMenuItemNavigateSomeDataForward.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemNavigateSomeDataForward.AutoToolTip = true;
+		toolStripMenuItemNavigateSomeDataForward.DropDown = contextMenuNavigationStep;
+		toolStripMenuItemNavigateSomeDataForward.Image = FatcowIcons16px.fatcow_control_fastforward_blue_16px;
+		toolStripMenuItemNavigateSomeDataForward.Name = "toolStripMenuItemNavigateSomeDataForward";
+		toolStripMenuItemNavigateSomeDataForward.ShortcutKeys = Keys.Control | Keys.D5;
+		toolStripMenuItemNavigateSomeDataForward.Size = new Size(275, 22);
+		toolStripMenuItemNavigateSomeDataForward.Text = "Navigate some data &forward";
+		toolStripMenuItemNavigateSomeDataForward.Click += ToolStripMenuItemNavigateSomeDataForward_Click;
+		toolStripMenuItemNavigateSomeDataForward.MouseEnter += Control_Enter;
+		toolStripMenuItemNavigateSomeDataForward.MouseLeave += Control_Leave;
 		// 
 		// toolStripSplitButtonStepForward
 		// 
@@ -440,37 +456,21 @@ partial class PlanetoidDbForm
 		toolStripSplitButtonStepBackward.MouseEnter += Control_Enter;
 		toolStripSplitButtonStepBackward.MouseLeave += Control_Leave;
 		// 
-		// menuitemNavigateSomeDataBackward
+		// toolStripMenuItemNavigateSomeDataBackward
 		// 
-		menuitemNavigateSomeDataBackward.AccessibleDescription = "Navigates some data backward";
-		menuitemNavigateSomeDataBackward.AccessibleName = "Navigates some data backward";
-		menuitemNavigateSomeDataBackward.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemNavigateSomeDataBackward.AutoToolTip = true;
-		menuitemNavigateSomeDataBackward.DropDown = contextMenuNavigationStep;
-		menuitemNavigateSomeDataBackward.Image = FatcowIcons16px.fatcow_control_rewind_blue_16px;
-		menuitemNavigateSomeDataBackward.Name = "menuitemNavigateSomeDataBackward";
-		menuitemNavigateSomeDataBackward.ShortcutKeys = Keys.Control | Keys.D2;
-		menuitemNavigateSomeDataBackward.Size = new Size(275, 22);
-		menuitemNavigateSomeDataBackward.Text = "Navigate some data back&ward";
-		menuitemNavigateSomeDataBackward.Click += ToolStripMenuItemNavigateSomeDataBackward_Click;
-		menuitemNavigateSomeDataBackward.MouseEnter += Control_Enter;
-		menuitemNavigateSomeDataBackward.MouseLeave += Control_Leave;
-		// 
-		// menuitemNavigateSomeDataForward
-		// 
-		menuitemNavigateSomeDataForward.AccessibleDescription = "Navigates some data forward";
-		menuitemNavigateSomeDataForward.AccessibleName = "Navigates some data forward";
-		menuitemNavigateSomeDataForward.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemNavigateSomeDataForward.AutoToolTip = true;
-		menuitemNavigateSomeDataForward.DropDown = contextMenuNavigationStep;
-		menuitemNavigateSomeDataForward.Image = FatcowIcons16px.fatcow_control_fastforward_blue_16px;
-		menuitemNavigateSomeDataForward.Name = "menuitemNavigateSomeDataForward";
-		menuitemNavigateSomeDataForward.ShortcutKeys = Keys.Control | Keys.D5;
-		menuitemNavigateSomeDataForward.Size = new Size(275, 22);
-		menuitemNavigateSomeDataForward.Text = "Navigate some data &forward";
-		menuitemNavigateSomeDataForward.Click += ToolStripMenuItemNavigateSomeDataForward_Click;
-		menuitemNavigateSomeDataForward.MouseEnter += Control_Enter;
-		menuitemNavigateSomeDataForward.MouseLeave += Control_Leave;
+		toolStripMenuItemNavigateSomeDataBackward.AccessibleDescription = "Navigates some data backward";
+		toolStripMenuItemNavigateSomeDataBackward.AccessibleName = "Navigates some data backward";
+		toolStripMenuItemNavigateSomeDataBackward.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemNavigateSomeDataBackward.AutoToolTip = true;
+		toolStripMenuItemNavigateSomeDataBackward.DropDown = contextMenuNavigationStep;
+		toolStripMenuItemNavigateSomeDataBackward.Image = FatcowIcons16px.fatcow_control_rewind_blue_16px;
+		toolStripMenuItemNavigateSomeDataBackward.Name = "toolStripMenuItemNavigateSomeDataBackward";
+		toolStripMenuItemNavigateSomeDataBackward.ShortcutKeys = Keys.Control | Keys.D2;
+		toolStripMenuItemNavigateSomeDataBackward.Size = new Size(275, 22);
+		toolStripMenuItemNavigateSomeDataBackward.Text = "Navigate some data back&ward";
+		toolStripMenuItemNavigateSomeDataBackward.Click += ToolStripMenuItemNavigateSomeDataBackward_Click;
+		toolStripMenuItemNavigateSomeDataBackward.MouseEnter += Control_Enter;
+		toolStripMenuItemNavigateSomeDataBackward.MouseLeave += Control_Leave;
 		// 
 		// tableLayoutPanelData
 		// 
@@ -576,7 +576,7 @@ partial class PlanetoidDbForm
 		contextMenuCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
 		contextMenuCopyToClipboard.AllowClickThrough = true;
 		contextMenuCopyToClipboard.Font = new Font("Segoe UI", 9F);
-		contextMenuCopyToClipboard.Items.AddRange(new ToolStripItem[] { toolStripMenuItemCopyToClipboard });
+		contextMenuCopyToClipboard.Items.AddRange(new ToolStripItem[] { toolStripMenuItemCopyToClipboardInContextMenu });
 		contextMenuCopyToClipboard.Name = "contextMenuStrip";
 		contextMenuCopyToClipboard.Size = new Size(214, 26);
 		contextMenuCopyToClipboard.TabStop = true;
@@ -586,21 +586,21 @@ partial class PlanetoidDbForm
 		contextMenuCopyToClipboard.MouseEnter += Control_Enter;
 		contextMenuCopyToClipboard.MouseLeave += Control_Leave;
 		// 
-		// toolStripMenuItemCopyToClipboard
+		// toolStripMenuItemCopyToClipboardInContextMenu
 		// 
-		toolStripMenuItemCopyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
-		toolStripMenuItemCopyToClipboard.AccessibleName = "Copy to clipboard";
-		toolStripMenuItemCopyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemCopyToClipboard.AutoToolTip = true;
-		toolStripMenuItemCopyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		toolStripMenuItemCopyToClipboard.Name = "toolStripMenuItemCopyToClipboard";
-		toolStripMenuItemCopyToClipboard.ShortcutKeyDisplayString = "Strg+C";
-		toolStripMenuItemCopyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
-		toolStripMenuItemCopyToClipboard.Size = new Size(213, 22);
-		toolStripMenuItemCopyToClipboard.Text = "&Copy to clipboard";
-		toolStripMenuItemCopyToClipboard.Click += CopyToClipboard_DoubleClick;
-		toolStripMenuItemCopyToClipboard.MouseEnter += Control_Enter;
-		toolStripMenuItemCopyToClipboard.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardInContextMenu.AccessibleDescription = "Copies the text/value to the clipboard";
+		toolStripMenuItemCopyToClipboardInContextMenu.AccessibleName = "Copy to clipboard";
+		toolStripMenuItemCopyToClipboardInContextMenu.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardInContextMenu.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardInContextMenu.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripMenuItemCopyToClipboardInContextMenu.Name = "toolStripMenuItemCopyToClipboardInContextMenu";
+		toolStripMenuItemCopyToClipboardInContextMenu.ShortcutKeyDisplayString = "Strg+C";
+		toolStripMenuItemCopyToClipboardInContextMenu.ShortcutKeys = Keys.Control | Keys.C;
+		toolStripMenuItemCopyToClipboardInContextMenu.Size = new Size(213, 22);
+		toolStripMenuItemCopyToClipboardInContextMenu.Text = "&Copy to clipboard";
+		toolStripMenuItemCopyToClipboardInContextMenu.Click += CopyToClipboard_DoubleClick;
+		toolStripMenuItemCopyToClipboardInContextMenu.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardInContextMenu.MouseLeave += Control_Leave;
 		// 
 		// labelReadableDesignationData
 		// 
@@ -1590,10 +1590,10 @@ partial class PlanetoidDbForm
 		contextMenuTopTenRecords.AccessibleDescription = "Shows the context menu of the top ten records";
 		contextMenuTopTenRecords.AccessibleName = "context menu of the top ten records";
 		contextMenuTopTenRecords.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuTopTenRecords.AllowClickThrough = true;
 		contextMenuTopTenRecords.Font = new Font("Segoe UI", 9F);
-		contextMenuTopTenRecords.Items.AddRange(new ToolStripItem[] { menuitemRecordsSortDirection, toolStripSeparator12, menuitemRecordsMeanAnomalyAtTheEpoch, menuitemRecordsArgumentOfThePerihelion, menuitemRecordsLongitudeOfTheAscendingNode, menuitemRecordsInclination, menuitemRecordsOrbitalEccentricity, menuitemRecordsMeanDailyMotion, menuitemRecordsSemiMajorAxis, menuitemRecordsAbsoluteMagnitude, menuitemRecordsSlopeParameter, menuitemRecordsNumberOfOppositions, menuitemRecordsNumberOfObservations, menuitemRecordsObservationSpan, menuitemRecordsRmsResidual, menuitemRecordsComputername, menuitemRecordsDateOfTheLastObservation });
+		contextMenuTopTenRecords.Items.AddRange(new ToolStripItem[] { toolStripMenuItemRecordsSortDirection, toolStripSeparator12, toolStripMenuItemRecordsMeanAnomalyAtTheEpoch, toolStripMenuItemRecordsArgumentOfThePerihelion, toolStripMenuItemRecordsLongitudeOfTheAscendingNode, toolStripMenuItemRecordsInclination, toolStripMenuItemRecordsOrbitalEccentricity, toolStripMenuItemRecordsMeanDailyMotion, toolStripMenuItemRecordsSemiMajorAxis, toolStripMenuItemRecordsAbsoluteMagnitude, toolStripMenuItemRecordsSlopeParameter, toolStripMenuItemRecordsNumberOfOppositions, toolStripMenuItemRecordsNumberOfObservations, toolStripMenuItemRecordsObservationSpan, toolStripMenuItemRecordsRmsResidual, toolStripMenuItemRecordsComputername, toolStripMenuItemRecordsDateOfTheLastObservation });
 		contextMenuTopTenRecords.Name = "contextMenuTopTenRecords";
-		contextMenuTopTenRecords.OwnerItem = menuitemRecords;
 		contextMenuTopTenRecords.Size = new Size(250, 362);
 		contextMenuTopTenRecords.TabStop = true;
 		contextMenuTopTenRecords.Text = "Top ten records";
@@ -1602,50 +1602,47 @@ partial class PlanetoidDbForm
 		contextMenuTopTenRecords.MouseEnter += Control_Enter;
 		contextMenuTopTenRecords.MouseLeave += Control_Leave;
 		// 
-		// menuitemRecordsSortDirection
+		// toolStripMenuItemRecordsSortDirection
 		// 
-		menuitemRecordsSortDirection.AccessibleDescription = "Shows the sort direction of the top ten records";
-		menuitemRecordsSortDirection.AccessibleName = "Sort direction";
-		menuitemRecordsSortDirection.AccessibleRole = AccessibleRole.MenuPopup;
-		menuitemRecordsSortDirection.AutoToolTip = true;
-		menuitemRecordsSortDirection.DropDownItems.AddRange(new ToolStripItem[] { menuitemRecordsSortDirectionAscending, menuitemRecordsSortDirectionDescending });
-		menuitemRecordsSortDirection.Enabled = false;
-		menuitemRecordsSortDirection.Image = FatcowIcons16px.fatcow_cog_16px;
-		menuitemRecordsSortDirection.Name = "menuitemRecordsSortDirection";
-		menuitemRecordsSortDirection.Size = new Size(249, 22);
-		menuitemRecordsSortDirection.Text = "Sort direction";
-		menuitemRecordsSortDirection.MouseEnter += Control_Enter;
-		menuitemRecordsSortDirection.MouseLeave += Control_Leave;
+		toolStripMenuItemRecordsSortDirection.AccessibleDescription = "Shows the sort direction of the top ten records";
+		toolStripMenuItemRecordsSortDirection.AccessibleName = "Sort direction";
+		toolStripMenuItemRecordsSortDirection.AccessibleRole = AccessibleRole.MenuPopup;
+		toolStripMenuItemRecordsSortDirection.AutoToolTip = true;
+		toolStripMenuItemRecordsSortDirection.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemRecordsSortDirectionAscending, toolStripMenuItemRecordsSortDirectionDescending });
+		toolStripMenuItemRecordsSortDirection.Image = FatcowIcons16px.fatcow_cog_16px;
+		toolStripMenuItemRecordsSortDirection.Name = "toolStripMenuItemRecordsSortDirection";
+		toolStripMenuItemRecordsSortDirection.Size = new Size(249, 22);
+		toolStripMenuItemRecordsSortDirection.Text = "Sort direction";
+		toolStripMenuItemRecordsSortDirection.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsSortDirection.MouseLeave += Control_Leave;
 		// 
-		// menuitemRecordsSortDirectionAscending
+		// toolStripMenuItemRecordsSortDirectionAscending
 		// 
-		menuitemRecordsSortDirectionAscending.AccessibleDescription = "Chooses the ascending sort direction of the top ten records";
-		menuitemRecordsSortDirectionAscending.AccessibleName = "Sorted ascending";
-		menuitemRecordsSortDirectionAscending.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemRecordsSortDirectionAscending.Checked = true;
-		menuitemRecordsSortDirectionAscending.CheckOnClick = true;
-		menuitemRecordsSortDirectionAscending.CheckState = CheckState.Checked;
-		menuitemRecordsSortDirectionAscending.Enabled = false;
-		menuitemRecordsSortDirectionAscending.Name = "menuitemRecordsSortDirectionAscending";
-		menuitemRecordsSortDirectionAscending.Size = new Size(136, 22);
-		menuitemRecordsSortDirectionAscending.Text = "Ascending";
-		menuitemRecordsSortDirectionAscending.ToolTipText = "Ascending sort direction";
-		menuitemRecordsSortDirectionAscending.MouseEnter += Control_Enter;
-		menuitemRecordsSortDirectionAscending.MouseLeave += Control_Leave;
+		toolStripMenuItemRecordsSortDirectionAscending.AccessibleDescription = "Chooses the ascending sort direction of the top ten records";
+		toolStripMenuItemRecordsSortDirectionAscending.AccessibleName = "Sorted ascending";
+		toolStripMenuItemRecordsSortDirectionAscending.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsSortDirectionAscending.Checked = true;
+		toolStripMenuItemRecordsSortDirectionAscending.CheckOnClick = true;
+		toolStripMenuItemRecordsSortDirectionAscending.CheckState = CheckState.Checked;
+		toolStripMenuItemRecordsSortDirectionAscending.Name = "toolStripMenuItemRecordsSortDirectionAscending";
+		toolStripMenuItemRecordsSortDirectionAscending.Size = new Size(180, 22);
+		toolStripMenuItemRecordsSortDirectionAscending.Text = "Ascending";
+		toolStripMenuItemRecordsSortDirectionAscending.ToolTipText = "Ascending sort direction";
+		toolStripMenuItemRecordsSortDirectionAscending.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsSortDirectionAscending.MouseLeave += Control_Leave;
 		// 
-		// menuitemRecordsSortDirectionDescending
+		// toolStripMenuItemRecordsSortDirectionDescending
 		// 
-		menuitemRecordsSortDirectionDescending.AccessibleDescription = "Chooses the descending sort direction of the top ten records";
-		menuitemRecordsSortDirectionDescending.AccessibleName = "Sorted descending";
-		menuitemRecordsSortDirectionDescending.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemRecordsSortDirectionDescending.CheckOnClick = true;
-		menuitemRecordsSortDirectionDescending.Enabled = false;
-		menuitemRecordsSortDirectionDescending.Name = "menuitemRecordsSortDirectionDescending";
-		menuitemRecordsSortDirectionDescending.Size = new Size(136, 22);
-		menuitemRecordsSortDirectionDescending.Text = "Descending";
-		menuitemRecordsSortDirectionDescending.ToolTipText = "Descending sort direction";
-		menuitemRecordsSortDirectionDescending.MouseEnter += Control_Enter;
-		menuitemRecordsSortDirectionDescending.MouseLeave += Control_Leave;
+		toolStripMenuItemRecordsSortDirectionDescending.AccessibleDescription = "Chooses the descending sort direction of the top ten records";
+		toolStripMenuItemRecordsSortDirectionDescending.AccessibleName = "Sorted descending";
+		toolStripMenuItemRecordsSortDirectionDescending.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsSortDirectionDescending.CheckOnClick = true;
+		toolStripMenuItemRecordsSortDirectionDescending.Name = "toolStripMenuItemRecordsSortDirectionDescending";
+		toolStripMenuItemRecordsSortDirectionDescending.Size = new Size(180, 22);
+		toolStripMenuItemRecordsSortDirectionDescending.Text = "Descending";
+		toolStripMenuItemRecordsSortDirectionDescending.ToolTipText = "Descending sort direction";
+		toolStripMenuItemRecordsSortDirectionDescending.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsSortDirectionDescending.MouseLeave += Control_Leave;
 		// 
 		// toolStripSeparator12
 		// 
@@ -1657,214 +1654,233 @@ partial class PlanetoidDbForm
 		toolStripSeparator12.MouseEnter += Control_Enter;
 		toolStripSeparator12.MouseLeave += Control_Leave;
 		// 
-		// menuitemRecordsMeanAnomalyAtTheEpoch
+		// toolStripMenuItemRecordsMeanAnomalyAtTheEpoch
 		// 
-		menuitemRecordsMeanAnomalyAtTheEpoch.AccessibleDescription = "Shows the record of the mean anomaly at the epoch";
-		menuitemRecordsMeanAnomalyAtTheEpoch.AccessibleName = "Record of the mean anomaly at the epoch";
-		menuitemRecordsMeanAnomalyAtTheEpoch.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemRecordsMeanAnomalyAtTheEpoch.Enabled = false;
-		menuitemRecordsMeanAnomalyAtTheEpoch.Image = (Image)resources.GetObject("menuitemRecordsMeanAnomalyAtTheEpoch.Image");
-		menuitemRecordsMeanAnomalyAtTheEpoch.Name = "menuitemRecordsMeanAnomalyAtTheEpoch";
-		menuitemRecordsMeanAnomalyAtTheEpoch.Size = new Size(249, 22);
-		menuitemRecordsMeanAnomalyAtTheEpoch.Text = "Mean anomaly at the epoch";
-		menuitemRecordsMeanAnomalyAtTheEpoch.Click += MenuitemRecordsMeanAnomalyAtTheEpoch_Click;
-		menuitemRecordsMeanAnomalyAtTheEpoch.MouseEnter += Control_Enter;
-		menuitemRecordsMeanAnomalyAtTheEpoch.MouseLeave += Control_Leave;
+		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.AccessibleDescription = "Shows the record of the mean anomaly at the epoch";
+		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.AccessibleName = "Record of the mean anomaly at the epoch";
+		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.AutoToolTip = true;
+		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.Name = "toolStripMenuItemRecordsMeanAnomalyAtTheEpoch";
+		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.Size = new Size(249, 22);
+		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.Text = "Mean anomaly at the epoch";
+		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.Click += MenuitemRecordsMeanAnomalyAtTheEpoch_Click;
+		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.MouseLeave += Control_Leave;
 		// 
-		// menuitemRecordsArgumentOfThePerihelion
+		// toolStripMenuItemRecordsArgumentOfThePerihelion
 		// 
-		menuitemRecordsArgumentOfThePerihelion.AccessibleDescription = "Shows the record of the argument of the perihelion";
-		menuitemRecordsArgumentOfThePerihelion.AccessibleName = "Record of the argument of the perihelion";
-		menuitemRecordsArgumentOfThePerihelion.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemRecordsArgumentOfThePerihelion.Enabled = false;
-		menuitemRecordsArgumentOfThePerihelion.Name = "menuitemRecordsArgumentOfThePerihelion";
-		menuitemRecordsArgumentOfThePerihelion.Size = new Size(249, 22);
-		menuitemRecordsArgumentOfThePerihelion.Text = "Argument of perihelion";
-		menuitemRecordsArgumentOfThePerihelion.Click += MenuitemRecordsArgumentOfThePerihelion_Click;
-		menuitemRecordsArgumentOfThePerihelion.MouseEnter += Control_Enter;
-		menuitemRecordsArgumentOfThePerihelion.MouseLeave += Control_Leave;
+		toolStripMenuItemRecordsArgumentOfThePerihelion.AccessibleDescription = "Shows the record of the argument of the perihelion";
+		toolStripMenuItemRecordsArgumentOfThePerihelion.AccessibleName = "Record of the argument of the perihelion";
+		toolStripMenuItemRecordsArgumentOfThePerihelion.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsArgumentOfThePerihelion.AutoToolTip = true;
+		toolStripMenuItemRecordsArgumentOfThePerihelion.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsArgumentOfThePerihelion.Name = "toolStripMenuItemRecordsArgumentOfThePerihelion";
+		toolStripMenuItemRecordsArgumentOfThePerihelion.Size = new Size(249, 22);
+		toolStripMenuItemRecordsArgumentOfThePerihelion.Text = "Argument of perihelion";
+		toolStripMenuItemRecordsArgumentOfThePerihelion.Click += MenuitemRecordsArgumentOfThePerihelion_Click;
+		toolStripMenuItemRecordsArgumentOfThePerihelion.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsArgumentOfThePerihelion.MouseLeave += Control_Leave;
 		// 
-		// menuitemRecordsLongitudeOfTheAscendingNode
+		// toolStripMenuItemRecordsLongitudeOfTheAscendingNode
 		// 
-		menuitemRecordsLongitudeOfTheAscendingNode.AccessibleDescription = "Shows the record of the longitude of the ascending node";
-		menuitemRecordsLongitudeOfTheAscendingNode.AccessibleName = "Record of the longitude of the ascending node";
-		menuitemRecordsLongitudeOfTheAscendingNode.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemRecordsLongitudeOfTheAscendingNode.Enabled = false;
-		menuitemRecordsLongitudeOfTheAscendingNode.Image = (Image)resources.GetObject("menuitemRecordsLongitudeOfTheAscendingNode.Image");
-		menuitemRecordsLongitudeOfTheAscendingNode.Name = "menuitemRecordsLongitudeOfTheAscendingNode";
-		menuitemRecordsLongitudeOfTheAscendingNode.Size = new Size(249, 22);
-		menuitemRecordsLongitudeOfTheAscendingNode.Text = "Longitude of the ascending node";
-		menuitemRecordsLongitudeOfTheAscendingNode.Click += MenuitemRecordsLongitudeOfTheAscendingNode_Click;
-		menuitemRecordsLongitudeOfTheAscendingNode.MouseEnter += Control_Enter;
-		menuitemRecordsLongitudeOfTheAscendingNode.MouseLeave += Control_Leave;
+		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.AccessibleDescription = "Shows the record of the longitude of the ascending node";
+		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.AccessibleName = "Record of the longitude of the ascending node";
+		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.AutoToolTip = true;
+		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.Name = "toolStripMenuItemRecordsLongitudeOfTheAscendingNode";
+		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.Size = new Size(249, 22);
+		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.Text = "Longitude of the ascending node";
+		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.Click += MenuitemRecordsLongitudeOfTheAscendingNode_Click;
+		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.MouseLeave += Control_Leave;
 		// 
-		// menuitemRecordsInclination
+		// toolStripMenuItemRecordsInclination
 		// 
-		menuitemRecordsInclination.AccessibleDescription = "Shows the record of the inclination to the ecliptic";
-		menuitemRecordsInclination.AccessibleName = "Record of the inclination to the ecliptic";
-		menuitemRecordsInclination.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemRecordsInclination.Enabled = false;
-		menuitemRecordsInclination.Image = (Image)resources.GetObject("menuitemRecordsInclination.Image");
-		menuitemRecordsInclination.Name = "menuitemRecordsInclination";
-		menuitemRecordsInclination.Size = new Size(249, 22);
-		menuitemRecordsInclination.Text = "Inclination to the ecliptic";
-		menuitemRecordsInclination.Click += MenuitemRecordsInclination_Click;
-		menuitemRecordsInclination.MouseEnter += Control_Enter;
-		menuitemRecordsInclination.MouseLeave += Control_Leave;
+		toolStripMenuItemRecordsInclination.AccessibleDescription = "Shows the record of the inclination to the ecliptic";
+		toolStripMenuItemRecordsInclination.AccessibleName = "Record of the inclination to the ecliptic";
+		toolStripMenuItemRecordsInclination.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsInclination.AutoToolTip = true;
+		toolStripMenuItemRecordsInclination.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsInclination.Name = "toolStripMenuItemRecordsInclination";
+		toolStripMenuItemRecordsInclination.Size = new Size(249, 22);
+		toolStripMenuItemRecordsInclination.Text = "Inclination to the ecliptic";
+		toolStripMenuItemRecordsInclination.Click += MenuitemRecordsInclination_Click;
+		toolStripMenuItemRecordsInclination.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsInclination.MouseLeave += Control_Leave;
 		// 
-		// menuitemRecordsOrbitalEccentricity
+		// toolStripMenuItemRecordsOrbitalEccentricity
 		// 
-		menuitemRecordsOrbitalEccentricity.AccessibleDescription = "Shows the record of the orbital eccentricity";
-		menuitemRecordsOrbitalEccentricity.AccessibleName = "Record of the orbital eccentricity";
-		menuitemRecordsOrbitalEccentricity.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemRecordsOrbitalEccentricity.Enabled = false;
-		menuitemRecordsOrbitalEccentricity.Image = (Image)resources.GetObject("menuitemRecordsOrbitalEccentricity.Image");
-		menuitemRecordsOrbitalEccentricity.Name = "menuitemRecordsOrbitalEccentricity";
-		menuitemRecordsOrbitalEccentricity.Size = new Size(249, 22);
-		menuitemRecordsOrbitalEccentricity.Text = "Orbital eccentricity";
-		menuitemRecordsOrbitalEccentricity.Click += MenuitemRecordsOrbitalEccentricity_Click;
-		menuitemRecordsOrbitalEccentricity.MouseEnter += Control_Enter;
-		menuitemRecordsOrbitalEccentricity.MouseLeave += Control_Leave;
+		toolStripMenuItemRecordsOrbitalEccentricity.AccessibleDescription = "Shows the record of the orbital eccentricity";
+		toolStripMenuItemRecordsOrbitalEccentricity.AccessibleName = "Record of the orbital eccentricity";
+		toolStripMenuItemRecordsOrbitalEccentricity.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsOrbitalEccentricity.AutoToolTip = true;
+		toolStripMenuItemRecordsOrbitalEccentricity.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsOrbitalEccentricity.Name = "toolStripMenuItemRecordsOrbitalEccentricity";
+		toolStripMenuItemRecordsOrbitalEccentricity.Size = new Size(249, 22);
+		toolStripMenuItemRecordsOrbitalEccentricity.Text = "Orbital eccentricity";
+		toolStripMenuItemRecordsOrbitalEccentricity.Click += MenuitemRecordsOrbitalEccentricity_Click;
+		toolStripMenuItemRecordsOrbitalEccentricity.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsOrbitalEccentricity.MouseLeave += Control_Leave;
 		// 
-		// menuitemRecordsMeanDailyMotion
+		// toolStripMenuItemRecordsMeanDailyMotion
 		// 
-		menuitemRecordsMeanDailyMotion.AccessibleDescription = "Shows the record of the mean daily motion";
-		menuitemRecordsMeanDailyMotion.AccessibleName = "Record of the mean daily motion";
-		menuitemRecordsMeanDailyMotion.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemRecordsMeanDailyMotion.Enabled = false;
-		menuitemRecordsMeanDailyMotion.Image = (Image)resources.GetObject("menuitemRecordsMeanDailyMotion.Image");
-		menuitemRecordsMeanDailyMotion.Name = "menuitemRecordsMeanDailyMotion";
-		menuitemRecordsMeanDailyMotion.Size = new Size(249, 22);
-		menuitemRecordsMeanDailyMotion.Text = "Mean daily motion";
-		menuitemRecordsMeanDailyMotion.Click += MenuitemRecordsMeanDailyMotion_Click;
-		menuitemRecordsMeanDailyMotion.MouseEnter += Control_Enter;
-		menuitemRecordsMeanDailyMotion.MouseLeave += Control_Leave;
+		toolStripMenuItemRecordsMeanDailyMotion.AccessibleDescription = "Shows the record of the mean daily motion";
+		toolStripMenuItemRecordsMeanDailyMotion.AccessibleName = "Record of the mean daily motion";
+		toolStripMenuItemRecordsMeanDailyMotion.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsMeanDailyMotion.AutoToolTip = true;
+		toolStripMenuItemRecordsMeanDailyMotion.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsMeanDailyMotion.Name = "toolStripMenuItemRecordsMeanDailyMotion";
+		toolStripMenuItemRecordsMeanDailyMotion.Size = new Size(249, 22);
+		toolStripMenuItemRecordsMeanDailyMotion.Text = "Mean daily motion";
+		toolStripMenuItemRecordsMeanDailyMotion.Click += MenuitemRecordsMeanDailyMotion_Click;
+		toolStripMenuItemRecordsMeanDailyMotion.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsMeanDailyMotion.MouseLeave += Control_Leave;
 		// 
-		// menuitemRecordsSemiMajorAxis
+		// toolStripMenuItemRecordsSemiMajorAxis
 		// 
-		menuitemRecordsSemiMajorAxis.AccessibleDescription = "Shows the record of the semi-major axis";
-		menuitemRecordsSemiMajorAxis.AccessibleName = "Record of the semi-major axis";
-		menuitemRecordsSemiMajorAxis.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemRecordsSemiMajorAxis.Enabled = false;
-		menuitemRecordsSemiMajorAxis.Image = (Image)resources.GetObject("menuitemRecordsSemiMajorAxis.Image");
-		menuitemRecordsSemiMajorAxis.Name = "menuitemRecordsSemiMajorAxis";
-		menuitemRecordsSemiMajorAxis.Size = new Size(249, 22);
-		menuitemRecordsSemiMajorAxis.Text = "Semi-major axis";
-		menuitemRecordsSemiMajorAxis.Click += MenuitemRecordsSemiMajorAxis_Click;
-		menuitemRecordsSemiMajorAxis.MouseEnter += Control_Enter;
-		menuitemRecordsSemiMajorAxis.MouseLeave += Control_Leave;
+		toolStripMenuItemRecordsSemiMajorAxis.AccessibleDescription = "Shows the record of the semi-major axis";
+		toolStripMenuItemRecordsSemiMajorAxis.AccessibleName = "Record of the semi-major axis";
+		toolStripMenuItemRecordsSemiMajorAxis.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsSemiMajorAxis.AutoToolTip = true;
+		toolStripMenuItemRecordsSemiMajorAxis.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsSemiMajorAxis.Name = "toolStripMenuItemRecordsSemiMajorAxis";
+		toolStripMenuItemRecordsSemiMajorAxis.Size = new Size(249, 22);
+		toolStripMenuItemRecordsSemiMajorAxis.Text = "Semi-major axis";
+		toolStripMenuItemRecordsSemiMajorAxis.Click += MenuitemRecordsSemiMajorAxis_Click;
+		toolStripMenuItemRecordsSemiMajorAxis.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsSemiMajorAxis.MouseLeave += Control_Leave;
 		// 
-		// menuitemRecordsAbsoluteMagnitude
+		// toolStripMenuItemRecordsAbsoluteMagnitude
 		// 
-		menuitemRecordsAbsoluteMagnitude.AccessibleDescription = "Shows the record of the absolute magnitude";
-		menuitemRecordsAbsoluteMagnitude.AccessibleName = "Record of the absolute magnitude";
-		menuitemRecordsAbsoluteMagnitude.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemRecordsAbsoluteMagnitude.Enabled = false;
-		menuitemRecordsAbsoluteMagnitude.Image = (Image)resources.GetObject("menuitemRecordsAbsoluteMagnitude.Image");
-		menuitemRecordsAbsoluteMagnitude.Name = "menuitemRecordsAbsoluteMagnitude";
-		menuitemRecordsAbsoluteMagnitude.Size = new Size(249, 22);
-		menuitemRecordsAbsoluteMagnitude.Text = "Absolute magnitude";
-		menuitemRecordsAbsoluteMagnitude.Click += MenuitemRecordsAbsoluteMagnitude_Click;
-		menuitemRecordsAbsoluteMagnitude.MouseEnter += Control_Enter;
-		menuitemRecordsAbsoluteMagnitude.MouseLeave += Control_Leave;
+		toolStripMenuItemRecordsAbsoluteMagnitude.AccessibleDescription = "Shows the record of the absolute magnitude";
+		toolStripMenuItemRecordsAbsoluteMagnitude.AccessibleName = "Record of the absolute magnitude";
+		toolStripMenuItemRecordsAbsoluteMagnitude.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsAbsoluteMagnitude.AutoToolTip = true;
+		toolStripMenuItemRecordsAbsoluteMagnitude.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsAbsoluteMagnitude.Name = "toolStripMenuItemRecordsAbsoluteMagnitude";
+		toolStripMenuItemRecordsAbsoluteMagnitude.Size = new Size(249, 22);
+		toolStripMenuItemRecordsAbsoluteMagnitude.Text = "Absolute magnitude";
+		toolStripMenuItemRecordsAbsoluteMagnitude.Click += MenuitemRecordsAbsoluteMagnitude_Click;
+		toolStripMenuItemRecordsAbsoluteMagnitude.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsAbsoluteMagnitude.MouseLeave += Control_Leave;
 		// 
-		// menuitemRecordsSlopeParameter
+		// toolStripMenuItemRecordsSlopeParameter
 		// 
-		menuitemRecordsSlopeParameter.AccessibleDescription = "Shows the record of the slope parameter";
-		menuitemRecordsSlopeParameter.AccessibleName = "Record of the slope parameter";
-		menuitemRecordsSlopeParameter.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemRecordsSlopeParameter.Enabled = false;
-		menuitemRecordsSlopeParameter.Image = (Image)resources.GetObject("menuitemRecordsSlopeParameter.Image");
-		menuitemRecordsSlopeParameter.Name = "menuitemRecordsSlopeParameter";
-		menuitemRecordsSlopeParameter.Size = new Size(249, 22);
-		menuitemRecordsSlopeParameter.Text = "Slope parameter";
-		menuitemRecordsSlopeParameter.Click += MenuitemRecordsSlopeParameter_Click;
-		menuitemRecordsSlopeParameter.MouseEnter += Control_Enter;
-		menuitemRecordsSlopeParameter.MouseLeave += Control_Leave;
+		toolStripMenuItemRecordsSlopeParameter.AccessibleDescription = "Shows the record of the slope parameter";
+		toolStripMenuItemRecordsSlopeParameter.AccessibleName = "Record of the slope parameter";
+		toolStripMenuItemRecordsSlopeParameter.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsSlopeParameter.AutoToolTip = true;
+		toolStripMenuItemRecordsSlopeParameter.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsSlopeParameter.Name = "toolStripMenuItemRecordsSlopeParameter";
+		toolStripMenuItemRecordsSlopeParameter.Size = new Size(249, 22);
+		toolStripMenuItemRecordsSlopeParameter.Text = "Slope parameter";
+		toolStripMenuItemRecordsSlopeParameter.Click += MenuitemRecordsSlopeParameter_Click;
+		toolStripMenuItemRecordsSlopeParameter.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsSlopeParameter.MouseLeave += Control_Leave;
 		// 
-		// menuitemRecordsNumberOfOppositions
+		// toolStripMenuItemRecordsNumberOfOppositions
 		// 
-		menuitemRecordsNumberOfOppositions.AccessibleDescription = "Shows the record of the number of oppositions";
-		menuitemRecordsNumberOfOppositions.AccessibleName = "Record of the number of oppositions";
-		menuitemRecordsNumberOfOppositions.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemRecordsNumberOfOppositions.Enabled = false;
-		menuitemRecordsNumberOfOppositions.Image = (Image)resources.GetObject("menuitemRecordsNumberOfOppositions.Image");
-		menuitemRecordsNumberOfOppositions.Name = "menuitemRecordsNumberOfOppositions";
-		menuitemRecordsNumberOfOppositions.Size = new Size(249, 22);
-		menuitemRecordsNumberOfOppositions.Text = "Number of oppositions";
-		menuitemRecordsNumberOfOppositions.Click += MenuitemRecordsNumberOfOppositions_Click;
-		menuitemRecordsNumberOfOppositions.MouseEnter += Control_Enter;
-		menuitemRecordsNumberOfOppositions.MouseLeave += Control_Leave;
+		toolStripMenuItemRecordsNumberOfOppositions.AccessibleDescription = "Shows the record of the number of oppositions";
+		toolStripMenuItemRecordsNumberOfOppositions.AccessibleName = "Record of the number of oppositions";
+		toolStripMenuItemRecordsNumberOfOppositions.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsNumberOfOppositions.AutoToolTip = true;
+		toolStripMenuItemRecordsNumberOfOppositions.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsNumberOfOppositions.Name = "toolStripMenuItemRecordsNumberOfOppositions";
+		toolStripMenuItemRecordsNumberOfOppositions.Size = new Size(249, 22);
+		toolStripMenuItemRecordsNumberOfOppositions.Text = "Number of oppositions";
+		toolStripMenuItemRecordsNumberOfOppositions.Click += MenuitemRecordsNumberOfOppositions_Click;
+		toolStripMenuItemRecordsNumberOfOppositions.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsNumberOfOppositions.MouseLeave += Control_Leave;
 		// 
-		// menuitemRecordsNumberOfObservations
+		// toolStripMenuItemRecordsNumberOfObservations
 		// 
-		menuitemRecordsNumberOfObservations.AccessibleDescription = "Shows the record of the number of observations";
-		menuitemRecordsNumberOfObservations.AccessibleName = "Record of the number of observations";
-		menuitemRecordsNumberOfObservations.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemRecordsNumberOfObservations.Enabled = false;
-		menuitemRecordsNumberOfObservations.Image = (Image)resources.GetObject("menuitemRecordsNumberOfObservations.Image");
-		menuitemRecordsNumberOfObservations.Name = "menuitemRecordsNumberOfObservations";
-		menuitemRecordsNumberOfObservations.Size = new Size(249, 22);
-		menuitemRecordsNumberOfObservations.Text = "Number of observations";
-		menuitemRecordsNumberOfObservations.Click += MenuitemRecordsNumberOfObservations_Click;
-		menuitemRecordsNumberOfObservations.MouseEnter += Control_Enter;
-		menuitemRecordsNumberOfObservations.MouseLeave += Control_Leave;
+		toolStripMenuItemRecordsNumberOfObservations.AccessibleDescription = "Shows the record of the number of observations";
+		toolStripMenuItemRecordsNumberOfObservations.AccessibleName = "Record of the number of observations";
+		toolStripMenuItemRecordsNumberOfObservations.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsNumberOfObservations.AutoToolTip = true;
+		toolStripMenuItemRecordsNumberOfObservations.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsNumberOfObservations.Name = "toolStripMenuItemRecordsNumberOfObservations";
+		toolStripMenuItemRecordsNumberOfObservations.Size = new Size(249, 22);
+		toolStripMenuItemRecordsNumberOfObservations.Text = "Number of observations";
+		toolStripMenuItemRecordsNumberOfObservations.Click += MenuitemRecordsNumberOfObservations_Click;
+		toolStripMenuItemRecordsNumberOfObservations.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsNumberOfObservations.MouseLeave += Control_Leave;
 		// 
-		// menuitemRecordsObservationSpan
+		// toolStripMenuItemRecordsObservationSpan
 		// 
-		menuitemRecordsObservationSpan.AccessibleDescription = "Shows the record of the observation span";
-		menuitemRecordsObservationSpan.AccessibleName = "Record of the observation span";
-		menuitemRecordsObservationSpan.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemRecordsObservationSpan.Enabled = false;
-		menuitemRecordsObservationSpan.Image = (Image)resources.GetObject("menuitemRecordsObservationSpan.Image");
-		menuitemRecordsObservationSpan.Name = "menuitemRecordsObservationSpan";
-		menuitemRecordsObservationSpan.Size = new Size(249, 22);
-		menuitemRecordsObservationSpan.Text = "Observation span";
-		menuitemRecordsObservationSpan.Click += MenuitemRecordsObservationSpan_Click;
-		menuitemRecordsObservationSpan.MouseEnter += Control_Enter;
-		menuitemRecordsObservationSpan.MouseLeave += Control_Leave;
+		toolStripMenuItemRecordsObservationSpan.AccessibleDescription = "Shows the record of the observation span";
+		toolStripMenuItemRecordsObservationSpan.AccessibleName = "Record of the observation span";
+		toolStripMenuItemRecordsObservationSpan.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsObservationSpan.AutoToolTip = true;
+		toolStripMenuItemRecordsObservationSpan.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsObservationSpan.Name = "toolStripMenuItemRecordsObservationSpan";
+		toolStripMenuItemRecordsObservationSpan.Size = new Size(249, 22);
+		toolStripMenuItemRecordsObservationSpan.Text = "Observation span";
+		toolStripMenuItemRecordsObservationSpan.Click += MenuitemRecordsObservationSpan_Click;
+		toolStripMenuItemRecordsObservationSpan.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsObservationSpan.MouseLeave += Control_Leave;
 		// 
-		// menuitemRecordsRmsResidual
+		// toolStripMenuItemRecordsRmsResidual
 		// 
-		menuitemRecordsRmsResidual.AccessibleDescription = "Shows the record of the r.m.s. residual";
-		menuitemRecordsRmsResidual.AccessibleName = "Record of the r.m.s. residual";
-		menuitemRecordsRmsResidual.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemRecordsRmsResidual.Enabled = false;
-		menuitemRecordsRmsResidual.Image = (Image)resources.GetObject("menuitemRecordsRmsResidual.Image");
-		menuitemRecordsRmsResidual.Name = "menuitemRecordsRmsResidual";
-		menuitemRecordsRmsResidual.Size = new Size(249, 22);
-		menuitemRecordsRmsResidual.Text = "r.m.s. residual";
-		menuitemRecordsRmsResidual.Click += MenuitemRecordsRmsResidual_Click;
-		menuitemRecordsRmsResidual.MouseEnter += Control_Enter;
-		menuitemRecordsRmsResidual.MouseLeave += Control_Leave;
+		toolStripMenuItemRecordsRmsResidual.AccessibleDescription = "Shows the record of the r.m.s. residual";
+		toolStripMenuItemRecordsRmsResidual.AccessibleName = "Record of the r.m.s. residual";
+		toolStripMenuItemRecordsRmsResidual.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsRmsResidual.AutoToolTip = true;
+		toolStripMenuItemRecordsRmsResidual.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsRmsResidual.Name = "toolStripMenuItemRecordsRmsResidual";
+		toolStripMenuItemRecordsRmsResidual.Size = new Size(249, 22);
+		toolStripMenuItemRecordsRmsResidual.Text = "r.m.s. residual";
+		toolStripMenuItemRecordsRmsResidual.Click += MenuitemRecordsRmsResidual_Click;
+		toolStripMenuItemRecordsRmsResidual.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsRmsResidual.MouseLeave += Control_Leave;
 		// 
-		// menuitemRecordsComputername
+		// toolStripMenuItemRecordsComputername
 		// 
-		menuitemRecordsComputername.AccessibleDescription = "Shows the record of the computer name";
-		menuitemRecordsComputername.AccessibleName = "Record of the computer name";
-		menuitemRecordsComputername.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemRecordsComputername.Enabled = false;
-		menuitemRecordsComputername.Image = (Image)resources.GetObject("menuitemRecordsComputername.Image");
-		menuitemRecordsComputername.Name = "menuitemRecordsComputername";
-		menuitemRecordsComputername.Size = new Size(249, 22);
-		menuitemRecordsComputername.Text = "Computer name";
-		menuitemRecordsComputername.Click += MenuitemRecordsComputerName_Click;
-		menuitemRecordsComputername.MouseEnter += Control_Enter;
-		menuitemRecordsComputername.MouseLeave += Control_Leave;
+		toolStripMenuItemRecordsComputername.AccessibleDescription = "Shows the record of the computer name";
+		toolStripMenuItemRecordsComputername.AccessibleName = "Record of the computer name";
+		toolStripMenuItemRecordsComputername.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsComputername.AutoToolTip = true;
+		toolStripMenuItemRecordsComputername.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsComputername.Name = "toolStripMenuItemRecordsComputername";
+		toolStripMenuItemRecordsComputername.Size = new Size(249, 22);
+		toolStripMenuItemRecordsComputername.Text = "Computer name";
+		toolStripMenuItemRecordsComputername.Click += MenuitemRecordsComputerName_Click;
+		toolStripMenuItemRecordsComputername.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsComputername.MouseLeave += Control_Leave;
 		// 
-		// menuitemRecordsDateOfTheLastObservation
+		// toolStripMenuItemRecordsDateOfTheLastObservation
 		// 
-		menuitemRecordsDateOfTheLastObservation.AccessibleDescription = "Shows the record of the date of the last observation";
-		menuitemRecordsDateOfTheLastObservation.AccessibleName = "Record of the date of the last observation";
-		menuitemRecordsDateOfTheLastObservation.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemRecordsDateOfTheLastObservation.Enabled = false;
-		menuitemRecordsDateOfTheLastObservation.Image = (Image)resources.GetObject("menuitemRecordsDateOfTheLastObservation.Image");
-		menuitemRecordsDateOfTheLastObservation.Name = "menuitemRecordsDateOfTheLastObservation";
-		menuitemRecordsDateOfTheLastObservation.Size = new Size(249, 22);
-		menuitemRecordsDateOfTheLastObservation.Text = "Date of the last observation";
-		menuitemRecordsDateOfTheLastObservation.Click += MenuitemRecordsDateOfTheLastObservation_Click;
-		menuitemRecordsDateOfTheLastObservation.MouseEnter += Control_Enter;
-		menuitemRecordsDateOfTheLastObservation.MouseLeave += Control_Leave;
+		toolStripMenuItemRecordsDateOfTheLastObservation.AccessibleDescription = "Shows the record of the date of the last observation";
+		toolStripMenuItemRecordsDateOfTheLastObservation.AccessibleName = "Record of the date of the last observation";
+		toolStripMenuItemRecordsDateOfTheLastObservation.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsDateOfTheLastObservation.AutoToolTip = true;
+		toolStripMenuItemRecordsDateOfTheLastObservation.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsDateOfTheLastObservation.Name = "toolStripMenuItemRecordsDateOfTheLastObservation";
+		toolStripMenuItemRecordsDateOfTheLastObservation.Size = new Size(249, 22);
+		toolStripMenuItemRecordsDateOfTheLastObservation.Text = "Date of the last observation";
+		toolStripMenuItemRecordsDateOfTheLastObservation.Click += MenuitemRecordsDateOfTheLastObservation_Click;
+		toolStripMenuItemRecordsDateOfTheLastObservation.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsDateOfTheLastObservation.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemRecords
+		// 
+		toolStripMenuItemRecords.AccessibleDescription = "Shows some top ten records";
+		toolStripMenuItemRecords.AccessibleName = "Top ten records";
+		toolStripMenuItemRecords.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecords.AutoToolTip = true;
+		toolStripMenuItemRecords.DropDown = contextMenuTopTenRecords;
+		toolStripMenuItemRecords.Enabled = false;
+		toolStripMenuItemRecords.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemRecords.Name = "toolStripMenuItemRecords";
+		toolStripMenuItemRecords.ShortcutKeyDisplayString = "Strg+R";
+		toolStripMenuItemRecords.ShortcutKeys = Keys.Control | Keys.R;
+		toolStripMenuItemRecords.Size = new Size(227, 22);
+		toolStripMenuItemRecords.Text = "Top ten &records";
+		toolStripMenuItemRecords.Click += MenuitemTopTenRecords_Click;
+		toolStripMenuItemRecords.MouseEnter += Control_Enter;
+		toolStripMenuItemRecords.MouseLeave += Control_Leave;
 		// 
 		// splitbuttonTopTenRecords
 		// 
@@ -1883,249 +1899,218 @@ partial class PlanetoidDbForm
 		splitbuttonTopTenRecords.MouseEnter += Control_Enter;
 		splitbuttonTopTenRecords.MouseLeave += Control_Leave;
 		// 
-		// menuitemRecords
-		// 
-		menuitemRecords.AccessibleDescription = "Shows some top ten records";
-		menuitemRecords.AccessibleName = "Top ten records";
-		menuitemRecords.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemRecords.AutoToolTip = true;
-		menuitemRecords.DropDown = contextMenuTopTenRecords;
-		menuitemRecords.Enabled = false;
-		menuitemRecords.Image = FatcowIcons16px.fatcow_page_white_text_16px;
-		menuitemRecords.Name = "menuitemRecords";
-		menuitemRecords.ShortcutKeyDisplayString = "Strg+R";
-		menuitemRecords.ShortcutKeys = Keys.Control | Keys.R;
-		menuitemRecords.Size = new Size(227, 22);
-		menuitemRecords.Text = "Top ten &records";
-		menuitemRecords.Click += MenuitemTopTenRecords_Click;
-		menuitemRecords.MouseEnter += Control_Enter;
-		menuitemRecords.MouseLeave += Control_Leave;
-		// 
 		// contextMenuDistributions
 		// 
 		contextMenuDistributions.AccessibleDescription = "Shows the context menu of the distributions";
 		contextMenuDistributions.AccessibleName = "context menu of the distributions";
 		contextMenuDistributions.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuDistributions.AllowClickThrough = true;
 		contextMenuDistributions.Font = new Font("Segoe UI", 9F);
-		contextMenuDistributions.Items.AddRange(new ToolStripItem[] { menuitemDistributionMeanAnomalyAtTheEpoch, menuitemDistributionArgumentOfThePerihelion, menuitemDistributionLongitudeOfTheAscendingNode, menuitemDistributionInclination, menuitemDistributionOrbitalEccentricity, menuitemDistributionMeanDailyMotion, menuitemDistributionSemiMajorAxis, menuitemDistributionAbsoluteMagnitude, menuitemDistributionSlopeParameter, menuitemDistributionNumberOfOppositions, menuitemDistributionNumberOfObservations, menuitemDistributionObservationSpan, menuitemDistributionRmsResidual, menuitemDistributionComputerName });
+		contextMenuDistributions.Items.AddRange(new ToolStripItem[] { toolStripMenuItemDistributionMeanAnomalyAtTheEpoch, toolStripMenuItemDistributionArgumentOfThePerihelion, toolStripMenuItemDistributionLongitudeOfTheAscendingNode, toolStripMenuItemDistributionInclination, toolStripMenuItemDistributionOrbitalEccentricity, toolStripMenuItemDistributionMeanDailyMotion, toolStripMenuItemDistributionSemiMajorAxis, toolStripMenuItemDistributionAbsoluteMagnitude, toolStripMenuItemDistributionSlopeParameter, toolStripMenuItemDistributionNumberOfOppositions, toolStripMenuItemDistributionNumberOfObservations, toolStripMenuItemDistributionObservationSpan, toolStripMenuItemDistributionRmsResidual, toolStripMenuItemDistributionComputerName });
 		contextMenuDistributions.Name = "contextMenuDistributions";
-		contextMenuDistributions.OwnerItem = menuitemDistribution;
 		contextMenuDistributions.Size = new Size(250, 312);
+		contextMenuDistributions.TabStop = true;
 		contextMenuDistributions.Text = "Distributions";
 		contextMenuDistributions.Enter += Control_Enter;
 		contextMenuDistributions.Leave += Control_Leave;
 		contextMenuDistributions.MouseEnter += Control_Enter;
 		contextMenuDistributions.MouseLeave += Control_Leave;
 		// 
-		// menuitemDistributionMeanAnomalyAtTheEpoch
+		// toolStripMenuItemDistributionMeanAnomalyAtTheEpoch
 		// 
-		menuitemDistributionMeanAnomalyAtTheEpoch.AccessibleDescription = "Shows the distribution of mean anomaly at the epoch";
-		menuitemDistributionMeanAnomalyAtTheEpoch.AccessibleName = "Distribution of mean anomaly at the epoch";
-		menuitemDistributionMeanAnomalyAtTheEpoch.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemDistributionMeanAnomalyAtTheEpoch.AutoToolTip = true;
-		menuitemDistributionMeanAnomalyAtTheEpoch.Enabled = false;
-		menuitemDistributionMeanAnomalyAtTheEpoch.Image = (Image)resources.GetObject("menuitemDistributionMeanAnomalyAtTheEpoch.Image");
-		menuitemDistributionMeanAnomalyAtTheEpoch.Name = "menuitemDistributionMeanAnomalyAtTheEpoch";
-		menuitemDistributionMeanAnomalyAtTheEpoch.Size = new Size(249, 22);
-		menuitemDistributionMeanAnomalyAtTheEpoch.Text = "Mean anomaly at the epoch";
-		menuitemDistributionMeanAnomalyAtTheEpoch.Click += MenuitemDistributionMeanAnomalyAtTheEpoch_Click;
-		menuitemDistributionMeanAnomalyAtTheEpoch.MouseEnter += Control_Enter;
-		menuitemDistributionMeanAnomalyAtTheEpoch.MouseLeave += Control_Leave;
+		toolStripMenuItemDistributionMeanAnomalyAtTheEpoch.AccessibleDescription = "Shows the distribution of mean anomaly at the epoch";
+		toolStripMenuItemDistributionMeanAnomalyAtTheEpoch.AccessibleName = "Distribution of mean anomaly at the epoch";
+		toolStripMenuItemDistributionMeanAnomalyAtTheEpoch.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDistributionMeanAnomalyAtTheEpoch.AutoToolTip = true;
+		toolStripMenuItemDistributionMeanAnomalyAtTheEpoch.Image = (Image)resources.GetObject("toolStripMenuItemDistributionMeanAnomalyAtTheEpoch.Image");
+		toolStripMenuItemDistributionMeanAnomalyAtTheEpoch.Name = "toolStripMenuItemDistributionMeanAnomalyAtTheEpoch";
+		toolStripMenuItemDistributionMeanAnomalyAtTheEpoch.Size = new Size(249, 22);
+		toolStripMenuItemDistributionMeanAnomalyAtTheEpoch.Text = "Mean anomaly at the epoch";
+		toolStripMenuItemDistributionMeanAnomalyAtTheEpoch.Click += MenuitemDistributionMeanAnomalyAtTheEpoch_Click;
+		toolStripMenuItemDistributionMeanAnomalyAtTheEpoch.MouseEnter += Control_Enter;
+		toolStripMenuItemDistributionMeanAnomalyAtTheEpoch.MouseLeave += Control_Leave;
 		// 
-		// menuitemDistributionArgumentOfThePerihelion
+		// toolStripMenuItemDistributionArgumentOfThePerihelion
 		// 
-		menuitemDistributionArgumentOfThePerihelion.AccessibleDescription = "Shows the distribution of the argument of the perihelion";
-		menuitemDistributionArgumentOfThePerihelion.AccessibleName = "Distribution of the argument of the perihelion";
-		menuitemDistributionArgumentOfThePerihelion.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemDistributionArgumentOfThePerihelion.AutoToolTip = true;
-		menuitemDistributionArgumentOfThePerihelion.Enabled = false;
-		menuitemDistributionArgumentOfThePerihelion.Image = (Image)resources.GetObject("menuitemDistributionArgumentOfThePerihelion.Image");
-		menuitemDistributionArgumentOfThePerihelion.Name = "menuitemDistributionArgumentOfThePerihelion";
-		menuitemDistributionArgumentOfThePerihelion.Size = new Size(249, 22);
-		menuitemDistributionArgumentOfThePerihelion.Text = "Argument of the perihelion";
-		menuitemDistributionArgumentOfThePerihelion.Click += MenuitemDistributionArgumentOfThePerihelion_Click;
-		menuitemDistributionArgumentOfThePerihelion.MouseEnter += Control_Enter;
-		menuitemDistributionArgumentOfThePerihelion.MouseLeave += Control_Leave;
+		toolStripMenuItemDistributionArgumentOfThePerihelion.AccessibleDescription = "Shows the distribution of the argument of the perihelion";
+		toolStripMenuItemDistributionArgumentOfThePerihelion.AccessibleName = "Distribution of the argument of the perihelion";
+		toolStripMenuItemDistributionArgumentOfThePerihelion.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDistributionArgumentOfThePerihelion.AutoToolTip = true;
+		toolStripMenuItemDistributionArgumentOfThePerihelion.Image = (Image)resources.GetObject("toolStripMenuItemDistributionArgumentOfThePerihelion.Image");
+		toolStripMenuItemDistributionArgumentOfThePerihelion.Name = "toolStripMenuItemDistributionArgumentOfThePerihelion";
+		toolStripMenuItemDistributionArgumentOfThePerihelion.Size = new Size(249, 22);
+		toolStripMenuItemDistributionArgumentOfThePerihelion.Text = "Argument of the perihelion";
+		toolStripMenuItemDistributionArgumentOfThePerihelion.Click += MenuitemDistributionArgumentOfThePerihelion_Click;
+		toolStripMenuItemDistributionArgumentOfThePerihelion.MouseEnter += Control_Enter;
+		toolStripMenuItemDistributionArgumentOfThePerihelion.MouseLeave += Control_Leave;
 		// 
-		// menuitemDistributionLongitudeOfTheAscendingNode
+		// toolStripMenuItemDistributionLongitudeOfTheAscendingNode
 		// 
-		menuitemDistributionLongitudeOfTheAscendingNode.AccessibleDescription = "Shows the distribution of the longitude of the ascending node";
-		menuitemDistributionLongitudeOfTheAscendingNode.AccessibleName = "Distribution of the longitude of the ascending node";
-		menuitemDistributionLongitudeOfTheAscendingNode.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemDistributionLongitudeOfTheAscendingNode.AutoToolTip = true;
-		menuitemDistributionLongitudeOfTheAscendingNode.Enabled = false;
-		menuitemDistributionLongitudeOfTheAscendingNode.Image = (Image)resources.GetObject("menuitemDistributionLongitudeOfTheAscendingNode.Image");
-		menuitemDistributionLongitudeOfTheAscendingNode.Name = "menuitemDistributionLongitudeOfTheAscendingNode";
-		menuitemDistributionLongitudeOfTheAscendingNode.Size = new Size(249, 22);
-		menuitemDistributionLongitudeOfTheAscendingNode.Text = "Longitude of the ascending node";
-		menuitemDistributionLongitudeOfTheAscendingNode.Click += MenuitemDistributionLongitudeOfTheAscendingNode_Click;
-		menuitemDistributionLongitudeOfTheAscendingNode.MouseEnter += Control_Enter;
-		menuitemDistributionLongitudeOfTheAscendingNode.MouseLeave += Control_Leave;
+		toolStripMenuItemDistributionLongitudeOfTheAscendingNode.AccessibleDescription = "Shows the distribution of the longitude of the ascending node";
+		toolStripMenuItemDistributionLongitudeOfTheAscendingNode.AccessibleName = "Distribution of the longitude of the ascending node";
+		toolStripMenuItemDistributionLongitudeOfTheAscendingNode.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDistributionLongitudeOfTheAscendingNode.AutoToolTip = true;
+		toolStripMenuItemDistributionLongitudeOfTheAscendingNode.Image = (Image)resources.GetObject("toolStripMenuItemDistributionLongitudeOfTheAscendingNode.Image");
+		toolStripMenuItemDistributionLongitudeOfTheAscendingNode.Name = "toolStripMenuItemDistributionLongitudeOfTheAscendingNode";
+		toolStripMenuItemDistributionLongitudeOfTheAscendingNode.Size = new Size(249, 22);
+		toolStripMenuItemDistributionLongitudeOfTheAscendingNode.Text = "Longitude of the ascending node";
+		toolStripMenuItemDistributionLongitudeOfTheAscendingNode.Click += MenuitemDistributionLongitudeOfTheAscendingNode_Click;
+		toolStripMenuItemDistributionLongitudeOfTheAscendingNode.MouseEnter += Control_Enter;
+		toolStripMenuItemDistributionLongitudeOfTheAscendingNode.MouseLeave += Control_Leave;
 		// 
-		// menuitemDistributionInclination
+		// toolStripMenuItemDistributionInclination
 		// 
-		menuitemDistributionInclination.AccessibleDescription = "Shows the distribution of the inclination to the ecliptic";
-		menuitemDistributionInclination.AccessibleName = "Distribution of the inclination to the ecliptic";
-		menuitemDistributionInclination.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemDistributionInclination.AutoToolTip = true;
-		menuitemDistributionInclination.Enabled = false;
-		menuitemDistributionInclination.Image = (Image)resources.GetObject("menuitemDistributionInclination.Image");
-		menuitemDistributionInclination.Name = "menuitemDistributionInclination";
-		menuitemDistributionInclination.Size = new Size(249, 22);
-		menuitemDistributionInclination.Text = "Inclination to the ecliptic";
-		menuitemDistributionInclination.Click += MenuitemDistributionInclination_Click;
-		menuitemDistributionInclination.MouseEnter += Control_Enter;
-		menuitemDistributionInclination.MouseLeave += Control_Leave;
+		toolStripMenuItemDistributionInclination.AccessibleDescription = "Shows the distribution of the inclination to the ecliptic";
+		toolStripMenuItemDistributionInclination.AccessibleName = "Distribution of the inclination to the ecliptic";
+		toolStripMenuItemDistributionInclination.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDistributionInclination.AutoToolTip = true;
+		toolStripMenuItemDistributionInclination.Image = (Image)resources.GetObject("toolStripMenuItemDistributionInclination.Image");
+		toolStripMenuItemDistributionInclination.Name = "toolStripMenuItemDistributionInclination";
+		toolStripMenuItemDistributionInclination.Size = new Size(249, 22);
+		toolStripMenuItemDistributionInclination.Text = "Inclination to the ecliptic";
+		toolStripMenuItemDistributionInclination.Click += MenuitemDistributionInclination_Click;
+		toolStripMenuItemDistributionInclination.MouseEnter += Control_Enter;
+		toolStripMenuItemDistributionInclination.MouseLeave += Control_Leave;
 		// 
-		// menuitemDistributionOrbitalEccentricity
+		// toolStripMenuItemDistributionOrbitalEccentricity
 		// 
-		menuitemDistributionOrbitalEccentricity.AccessibleDescription = "Shows the distribution of the orbital eccentricity";
-		menuitemDistributionOrbitalEccentricity.AccessibleName = "Distribution of the orbital eccentricity";
-		menuitemDistributionOrbitalEccentricity.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemDistributionOrbitalEccentricity.AutoToolTip = true;
-		menuitemDistributionOrbitalEccentricity.Enabled = false;
-		menuitemDistributionOrbitalEccentricity.Image = (Image)resources.GetObject("menuitemDistributionOrbitalEccentricity.Image");
-		menuitemDistributionOrbitalEccentricity.Name = "menuitemDistributionOrbitalEccentricity";
-		menuitemDistributionOrbitalEccentricity.Size = new Size(249, 22);
-		menuitemDistributionOrbitalEccentricity.Text = "Orbital eccentricity";
-		menuitemDistributionOrbitalEccentricity.Click += MenuitemDistributionOrbitalEccentricity_Click;
-		menuitemDistributionOrbitalEccentricity.MouseEnter += Control_Enter;
-		menuitemDistributionOrbitalEccentricity.MouseLeave += Control_Leave;
+		toolStripMenuItemDistributionOrbitalEccentricity.AccessibleDescription = "Shows the distribution of the orbital eccentricity";
+		toolStripMenuItemDistributionOrbitalEccentricity.AccessibleName = "Distribution of the orbital eccentricity";
+		toolStripMenuItemDistributionOrbitalEccentricity.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDistributionOrbitalEccentricity.AutoToolTip = true;
+		toolStripMenuItemDistributionOrbitalEccentricity.Image = (Image)resources.GetObject("toolStripMenuItemDistributionOrbitalEccentricity.Image");
+		toolStripMenuItemDistributionOrbitalEccentricity.Name = "toolStripMenuItemDistributionOrbitalEccentricity";
+		toolStripMenuItemDistributionOrbitalEccentricity.Size = new Size(249, 22);
+		toolStripMenuItemDistributionOrbitalEccentricity.Text = "Orbital eccentricity";
+		toolStripMenuItemDistributionOrbitalEccentricity.Click += MenuitemDistributionOrbitalEccentricity_Click;
+		toolStripMenuItemDistributionOrbitalEccentricity.MouseEnter += Control_Enter;
+		toolStripMenuItemDistributionOrbitalEccentricity.MouseLeave += Control_Leave;
 		// 
-		// menuitemDistributionMeanDailyMotion
+		// toolStripMenuItemDistributionMeanDailyMotion
 		// 
-		menuitemDistributionMeanDailyMotion.AccessibleDescription = "Shows the distribution of the mean daily motion";
-		menuitemDistributionMeanDailyMotion.AccessibleName = "Distribution of the mean daily motion";
-		menuitemDistributionMeanDailyMotion.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemDistributionMeanDailyMotion.AutoToolTip = true;
-		menuitemDistributionMeanDailyMotion.Enabled = false;
-		menuitemDistributionMeanDailyMotion.Image = (Image)resources.GetObject("menuitemDistributionMeanDailyMotion.Image");
-		menuitemDistributionMeanDailyMotion.Name = "menuitemDistributionMeanDailyMotion";
-		menuitemDistributionMeanDailyMotion.Size = new Size(249, 22);
-		menuitemDistributionMeanDailyMotion.Text = "Mean daily motion";
-		menuitemDistributionMeanDailyMotion.Click += MenuitemDistributionMeanDailyMotion_Click;
-		menuitemDistributionMeanDailyMotion.MouseEnter += Control_Enter;
-		menuitemDistributionMeanDailyMotion.MouseLeave += Control_Leave;
+		toolStripMenuItemDistributionMeanDailyMotion.AccessibleDescription = "Shows the distribution of the mean daily motion";
+		toolStripMenuItemDistributionMeanDailyMotion.AccessibleName = "Distribution of the mean daily motion";
+		toolStripMenuItemDistributionMeanDailyMotion.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDistributionMeanDailyMotion.AutoToolTip = true;
+		toolStripMenuItemDistributionMeanDailyMotion.Image = (Image)resources.GetObject("toolStripMenuItemDistributionMeanDailyMotion.Image");
+		toolStripMenuItemDistributionMeanDailyMotion.Name = "toolStripMenuItemDistributionMeanDailyMotion";
+		toolStripMenuItemDistributionMeanDailyMotion.Size = new Size(249, 22);
+		toolStripMenuItemDistributionMeanDailyMotion.Text = "Mean daily motion";
+		toolStripMenuItemDistributionMeanDailyMotion.Click += MenuitemDistributionMeanDailyMotion_Click;
+		toolStripMenuItemDistributionMeanDailyMotion.MouseEnter += Control_Enter;
+		toolStripMenuItemDistributionMeanDailyMotion.MouseLeave += Control_Leave;
 		// 
-		// menuitemDistributionSemiMajorAxis
+		// toolStripMenuItemDistributionSemiMajorAxis
 		// 
-		menuitemDistributionSemiMajorAxis.AccessibleDescription = "Shows the distribution of the semi-major axis";
-		menuitemDistributionSemiMajorAxis.AccessibleName = "Distribution of the semi-major axis";
-		menuitemDistributionSemiMajorAxis.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemDistributionSemiMajorAxis.AutoToolTip = true;
-		menuitemDistributionSemiMajorAxis.Enabled = false;
-		menuitemDistributionSemiMajorAxis.Image = (Image)resources.GetObject("menuitemDistributionSemiMajorAxis.Image");
-		menuitemDistributionSemiMajorAxis.Name = "menuitemDistributionSemiMajorAxis";
-		menuitemDistributionSemiMajorAxis.Size = new Size(249, 22);
-		menuitemDistributionSemiMajorAxis.Text = "Semi-major axis";
-		menuitemDistributionSemiMajorAxis.Click += MenuitemDistributionSemiMajorAxis_Click;
-		menuitemDistributionSemiMajorAxis.MouseEnter += Control_Enter;
-		menuitemDistributionSemiMajorAxis.MouseLeave += Control_Leave;
+		toolStripMenuItemDistributionSemiMajorAxis.AccessibleDescription = "Shows the distribution of the semi-major axis";
+		toolStripMenuItemDistributionSemiMajorAxis.AccessibleName = "Distribution of the semi-major axis";
+		toolStripMenuItemDistributionSemiMajorAxis.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDistributionSemiMajorAxis.AutoToolTip = true;
+		toolStripMenuItemDistributionSemiMajorAxis.Image = (Image)resources.GetObject("toolStripMenuItemDistributionSemiMajorAxis.Image");
+		toolStripMenuItemDistributionSemiMajorAxis.Name = "toolStripMenuItemDistributionSemiMajorAxis";
+		toolStripMenuItemDistributionSemiMajorAxis.Size = new Size(249, 22);
+		toolStripMenuItemDistributionSemiMajorAxis.Text = "Semi-major axis";
+		toolStripMenuItemDistributionSemiMajorAxis.Click += MenuitemDistributionSemiMajorAxis_Click;
+		toolStripMenuItemDistributionSemiMajorAxis.MouseEnter += Control_Enter;
+		toolStripMenuItemDistributionSemiMajorAxis.MouseLeave += Control_Leave;
 		// 
-		// menuitemDistributionAbsoluteMagnitude
+		// toolStripMenuItemDistributionAbsoluteMagnitude
 		// 
-		menuitemDistributionAbsoluteMagnitude.AccessibleDescription = "Shows the distribution of the absolute magnitude";
-		menuitemDistributionAbsoluteMagnitude.AccessibleName = "Distribution of the absolute magnitude";
-		menuitemDistributionAbsoluteMagnitude.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemDistributionAbsoluteMagnitude.AutoToolTip = true;
-		menuitemDistributionAbsoluteMagnitude.Enabled = false;
-		menuitemDistributionAbsoluteMagnitude.Image = (Image)resources.GetObject("menuitemDistributionAbsoluteMagnitude.Image");
-		menuitemDistributionAbsoluteMagnitude.Name = "menuitemDistributionAbsoluteMagnitude";
-		menuitemDistributionAbsoluteMagnitude.Size = new Size(249, 22);
-		menuitemDistributionAbsoluteMagnitude.Text = "Absolute magnitude";
-		menuitemDistributionAbsoluteMagnitude.Click += MenuitemDistributionAbsoluteMagnitude_Click;
-		menuitemDistributionAbsoluteMagnitude.MouseEnter += Control_Enter;
-		menuitemDistributionAbsoluteMagnitude.MouseLeave += Control_Leave;
+		toolStripMenuItemDistributionAbsoluteMagnitude.AccessibleDescription = "Shows the distribution of the absolute magnitude";
+		toolStripMenuItemDistributionAbsoluteMagnitude.AccessibleName = "Distribution of the absolute magnitude";
+		toolStripMenuItemDistributionAbsoluteMagnitude.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDistributionAbsoluteMagnitude.AutoToolTip = true;
+		toolStripMenuItemDistributionAbsoluteMagnitude.Image = (Image)resources.GetObject("toolStripMenuItemDistributionAbsoluteMagnitude.Image");
+		toolStripMenuItemDistributionAbsoluteMagnitude.Name = "toolStripMenuItemDistributionAbsoluteMagnitude";
+		toolStripMenuItemDistributionAbsoluteMagnitude.Size = new Size(249, 22);
+		toolStripMenuItemDistributionAbsoluteMagnitude.Text = "Absolute magnitude";
+		toolStripMenuItemDistributionAbsoluteMagnitude.Click += MenuitemDistributionAbsoluteMagnitude_Click;
+		toolStripMenuItemDistributionAbsoluteMagnitude.MouseEnter += Control_Enter;
+		toolStripMenuItemDistributionAbsoluteMagnitude.MouseLeave += Control_Leave;
 		// 
-		// menuitemDistributionSlopeParameter
+		// toolStripMenuItemDistributionSlopeParameter
 		// 
-		menuitemDistributionSlopeParameter.AccessibleDescription = "Shows the distribution of the slope parameter";
-		menuitemDistributionSlopeParameter.AccessibleName = "Distribution of the slope parameter";
-		menuitemDistributionSlopeParameter.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemDistributionSlopeParameter.AutoToolTip = true;
-		menuitemDistributionSlopeParameter.Enabled = false;
-		menuitemDistributionSlopeParameter.Image = (Image)resources.GetObject("menuitemDistributionSlopeParameter.Image");
-		menuitemDistributionSlopeParameter.Name = "menuitemDistributionSlopeParameter";
-		menuitemDistributionSlopeParameter.Size = new Size(249, 22);
-		menuitemDistributionSlopeParameter.Text = "Slope parameter";
-		menuitemDistributionSlopeParameter.Click += MenuitemDistributionSlopeParameter_Click;
-		menuitemDistributionSlopeParameter.MouseEnter += Control_Enter;
-		menuitemDistributionSlopeParameter.MouseLeave += Control_Leave;
+		toolStripMenuItemDistributionSlopeParameter.AccessibleDescription = "Shows the distribution of the slope parameter";
+		toolStripMenuItemDistributionSlopeParameter.AccessibleName = "Distribution of the slope parameter";
+		toolStripMenuItemDistributionSlopeParameter.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDistributionSlopeParameter.AutoToolTip = true;
+		toolStripMenuItemDistributionSlopeParameter.Image = (Image)resources.GetObject("toolStripMenuItemDistributionSlopeParameter.Image");
+		toolStripMenuItemDistributionSlopeParameter.Name = "toolStripMenuItemDistributionSlopeParameter";
+		toolStripMenuItemDistributionSlopeParameter.Size = new Size(249, 22);
+		toolStripMenuItemDistributionSlopeParameter.Text = "Slope parameter";
+		toolStripMenuItemDistributionSlopeParameter.Click += MenuitemDistributionSlopeParameter_Click;
+		toolStripMenuItemDistributionSlopeParameter.MouseEnter += Control_Enter;
+		toolStripMenuItemDistributionSlopeParameter.MouseLeave += Control_Leave;
 		// 
-		// menuitemDistributionNumberOfOppositions
+		// toolStripMenuItemDistributionNumberOfOppositions
 		// 
-		menuitemDistributionNumberOfOppositions.AccessibleDescription = "Shows the distribution of the number of oppositions";
-		menuitemDistributionNumberOfOppositions.AccessibleName = "Distribution of the number of oppositions";
-		menuitemDistributionNumberOfOppositions.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemDistributionNumberOfOppositions.AutoToolTip = true;
-		menuitemDistributionNumberOfOppositions.Enabled = false;
-		menuitemDistributionNumberOfOppositions.Image = (Image)resources.GetObject("menuitemDistributionNumberOfOppositions.Image");
-		menuitemDistributionNumberOfOppositions.Name = "menuitemDistributionNumberOfOppositions";
-		menuitemDistributionNumberOfOppositions.Size = new Size(249, 22);
-		menuitemDistributionNumberOfOppositions.Text = "Number of oppositions";
-		menuitemDistributionNumberOfOppositions.Click += MenuitemDistributionNumberOfOppositions_Click;
-		menuitemDistributionNumberOfOppositions.MouseEnter += Control_Enter;
-		menuitemDistributionNumberOfOppositions.MouseLeave += Control_Leave;
+		toolStripMenuItemDistributionNumberOfOppositions.AccessibleDescription = "Shows the distribution of the number of oppositions";
+		toolStripMenuItemDistributionNumberOfOppositions.AccessibleName = "Distribution of the number of oppositions";
+		toolStripMenuItemDistributionNumberOfOppositions.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDistributionNumberOfOppositions.AutoToolTip = true;
+		toolStripMenuItemDistributionNumberOfOppositions.Image = (Image)resources.GetObject("toolStripMenuItemDistributionNumberOfOppositions.Image");
+		toolStripMenuItemDistributionNumberOfOppositions.Name = "toolStripMenuItemDistributionNumberOfOppositions";
+		toolStripMenuItemDistributionNumberOfOppositions.Size = new Size(249, 22);
+		toolStripMenuItemDistributionNumberOfOppositions.Text = "Number of oppositions";
+		toolStripMenuItemDistributionNumberOfOppositions.Click += MenuitemDistributionNumberOfOppositions_Click;
+		toolStripMenuItemDistributionNumberOfOppositions.MouseEnter += Control_Enter;
+		toolStripMenuItemDistributionNumberOfOppositions.MouseLeave += Control_Leave;
 		// 
-		// menuitemDistributionNumberOfObservations
+		// toolStripMenuItemDistributionNumberOfObservations
 		// 
-		menuitemDistributionNumberOfObservations.AccessibleDescription = "Show the distribution of the number of observations";
-		menuitemDistributionNumberOfObservations.AccessibleName = "Distribution of the number of observations";
-		menuitemDistributionNumberOfObservations.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemDistributionNumberOfObservations.AutoToolTip = true;
-		menuitemDistributionNumberOfObservations.Enabled = false;
-		menuitemDistributionNumberOfObservations.Image = (Image)resources.GetObject("menuitemDistributionNumberOfObservations.Image");
-		menuitemDistributionNumberOfObservations.Name = "menuitemDistributionNumberOfObservations";
-		menuitemDistributionNumberOfObservations.Size = new Size(249, 22);
-		menuitemDistributionNumberOfObservations.Text = "Number of observations";
-		menuitemDistributionNumberOfObservations.Click += MenuitemDistributionNumberOfObservations_Click;
-		menuitemDistributionNumberOfObservations.MouseEnter += Control_Enter;
-		menuitemDistributionNumberOfObservations.MouseLeave += Control_Leave;
+		toolStripMenuItemDistributionNumberOfObservations.AccessibleDescription = "Show the distribution of the number of observations";
+		toolStripMenuItemDistributionNumberOfObservations.AccessibleName = "Distribution of the number of observations";
+		toolStripMenuItemDistributionNumberOfObservations.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDistributionNumberOfObservations.AutoToolTip = true;
+		toolStripMenuItemDistributionNumberOfObservations.Image = (Image)resources.GetObject("toolStripMenuItemDistributionNumberOfObservations.Image");
+		toolStripMenuItemDistributionNumberOfObservations.Name = "toolStripMenuItemDistributionNumberOfObservations";
+		toolStripMenuItemDistributionNumberOfObservations.Size = new Size(249, 22);
+		toolStripMenuItemDistributionNumberOfObservations.Text = "Number of observations";
+		toolStripMenuItemDistributionNumberOfObservations.Click += MenuitemDistributionNumberOfObservations_Click;
+		toolStripMenuItemDistributionNumberOfObservations.MouseEnter += Control_Enter;
+		toolStripMenuItemDistributionNumberOfObservations.MouseLeave += Control_Leave;
 		// 
-		// menuitemDistributionObservationSpan
+		// toolStripMenuItemDistributionObservationSpan
 		// 
-		menuitemDistributionObservationSpan.AccessibleDescription = "Shows the distribution of the observation span";
-		menuitemDistributionObservationSpan.AccessibleName = "Distribution of the observation span";
-		menuitemDistributionObservationSpan.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemDistributionObservationSpan.AutoToolTip = true;
-		menuitemDistributionObservationSpan.Enabled = false;
-		menuitemDistributionObservationSpan.Image = (Image)resources.GetObject("menuitemDistributionObservationSpan.Image");
-		menuitemDistributionObservationSpan.Name = "menuitemDistributionObservationSpan";
-		menuitemDistributionObservationSpan.Size = new Size(249, 22);
-		menuitemDistributionObservationSpan.Text = "Observation span";
-		menuitemDistributionObservationSpan.Click += MenuitemDistributionObservationSpan_Click;
-		menuitemDistributionObservationSpan.MouseEnter += Control_Enter;
-		menuitemDistributionObservationSpan.MouseLeave += Control_Leave;
+		toolStripMenuItemDistributionObservationSpan.AccessibleDescription = "Shows the distribution of the observation span";
+		toolStripMenuItemDistributionObservationSpan.AccessibleName = "Distribution of the observation span";
+		toolStripMenuItemDistributionObservationSpan.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDistributionObservationSpan.AutoToolTip = true;
+		toolStripMenuItemDistributionObservationSpan.Image = (Image)resources.GetObject("toolStripMenuItemDistributionObservationSpan.Image");
+		toolStripMenuItemDistributionObservationSpan.Name = "toolStripMenuItemDistributionObservationSpan";
+		toolStripMenuItemDistributionObservationSpan.Size = new Size(249, 22);
+		toolStripMenuItemDistributionObservationSpan.Text = "Observation span";
+		toolStripMenuItemDistributionObservationSpan.Click += MenuitemDistributionObservationSpan_Click;
+		toolStripMenuItemDistributionObservationSpan.MouseEnter += Control_Enter;
+		toolStripMenuItemDistributionObservationSpan.MouseLeave += Control_Leave;
 		// 
-		// menuitemDistributionRmsResidual
+		// toolStripMenuItemDistributionRmsResidual
 		// 
-		menuitemDistributionRmsResidual.AccessibleDescription = "Shows the distribution of the r.m.s. residual";
-		menuitemDistributionRmsResidual.AccessibleName = "Distribution of the r.m.s. residual";
-		menuitemDistributionRmsResidual.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemDistributionRmsResidual.AutoToolTip = true;
-		menuitemDistributionRmsResidual.Enabled = false;
-		menuitemDistributionRmsResidual.Image = (Image)resources.GetObject("menuitemDistributionRmsResidual.Image");
-		menuitemDistributionRmsResidual.Name = "menuitemDistributionRmsResidual";
-		menuitemDistributionRmsResidual.Size = new Size(249, 22);
-		menuitemDistributionRmsResidual.Text = "r.m.s. residual";
-		menuitemDistributionRmsResidual.Click += MenuitemDistributionRmsResidual_Click;
-		menuitemDistributionRmsResidual.MouseEnter += Control_Enter;
-		menuitemDistributionRmsResidual.MouseLeave += Control_Leave;
+		toolStripMenuItemDistributionRmsResidual.AccessibleDescription = "Shows the distribution of the r.m.s. residual";
+		toolStripMenuItemDistributionRmsResidual.AccessibleName = "Distribution of the r.m.s. residual";
+		toolStripMenuItemDistributionRmsResidual.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDistributionRmsResidual.AutoToolTip = true;
+		toolStripMenuItemDistributionRmsResidual.Image = (Image)resources.GetObject("toolStripMenuItemDistributionRmsResidual.Image");
+		toolStripMenuItemDistributionRmsResidual.Name = "toolStripMenuItemDistributionRmsResidual";
+		toolStripMenuItemDistributionRmsResidual.Size = new Size(249, 22);
+		toolStripMenuItemDistributionRmsResidual.Text = "r.m.s. residual";
+		toolStripMenuItemDistributionRmsResidual.Click += MenuitemDistributionRmsResidual_Click;
+		toolStripMenuItemDistributionRmsResidual.MouseEnter += Control_Enter;
+		toolStripMenuItemDistributionRmsResidual.MouseLeave += Control_Leave;
 		// 
-		// menuitemDistributionComputerName
+		// toolStripMenuItemDistributionComputerName
 		// 
-		menuitemDistributionComputerName.AccessibleDescription = "Shows the distribution of the computer name";
-		menuitemDistributionComputerName.AccessibleName = "Distribution of the computer name";
-		menuitemDistributionComputerName.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemDistributionComputerName.AutoToolTip = true;
-		menuitemDistributionComputerName.Enabled = false;
-		menuitemDistributionComputerName.Image = (Image)resources.GetObject("menuitemDistributionComputerName.Image");
-		menuitemDistributionComputerName.Name = "menuitemDistributionComputerName";
-		menuitemDistributionComputerName.Size = new Size(249, 22);
-		menuitemDistributionComputerName.Text = "Computer name";
-		menuitemDistributionComputerName.Click += MenuitemDistributionComputerName_Click;
-		menuitemDistributionComputerName.MouseEnter += Control_Enter;
-		menuitemDistributionComputerName.MouseLeave += Control_Leave;
+		toolStripMenuItemDistributionComputerName.AccessibleDescription = "Shows the distribution of the computer name";
+		toolStripMenuItemDistributionComputerName.AccessibleName = "Distribution of the computer name";
+		toolStripMenuItemDistributionComputerName.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDistributionComputerName.AutoToolTip = true;
+		toolStripMenuItemDistributionComputerName.Image = (Image)resources.GetObject("toolStripMenuItemDistributionComputerName.Image");
+		toolStripMenuItemDistributionComputerName.Name = "toolStripMenuItemDistributionComputerName";
+		toolStripMenuItemDistributionComputerName.Size = new Size(249, 22);
+		toolStripMenuItemDistributionComputerName.Text = "Computer name";
+		toolStripMenuItemDistributionComputerName.Click += MenuitemDistributionComputerName_Click;
+		toolStripMenuItemDistributionComputerName.MouseEnter += Control_Enter;
+		toolStripMenuItemDistributionComputerName.MouseLeave += Control_Leave;
 		// 
 		// splitbuttonDistribution
 		// 
@@ -2144,333 +2129,319 @@ partial class PlanetoidDbForm
 		splitbuttonDistribution.MouseEnter += Control_Enter;
 		splitbuttonDistribution.MouseLeave += Control_Leave;
 		// 
-		// menuitemDistribution
+		// toolStripMenuItemDistribution
 		// 
-		menuitemDistribution.AccessibleDescription = "Shows some distributions";
-		menuitemDistribution.AccessibleName = "Distributions";
-		menuitemDistribution.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemDistribution.AutoToolTip = true;
-		menuitemDistribution.DropDown = contextMenuDistributions;
-		menuitemDistribution.Enabled = false;
-		menuitemDistribution.Image = FatcowIcons16px.fatcow_chart_bar_16px;
-		menuitemDistribution.Name = "menuitemDistribution";
-		menuitemDistribution.ShortcutKeys = Keys.Control | Keys.D;
-		menuitemDistribution.Size = new Size(227, 22);
-		menuitemDistribution.Text = "&Distributions";
-		menuitemDistribution.Click += MenuitemDistribution_Click;
-		menuitemDistribution.MouseEnter += Control_Enter;
-		menuitemDistribution.MouseLeave += Control_Leave;
+		toolStripMenuItemDistribution.AccessibleDescription = "Shows some distributions";
+		toolStripMenuItemDistribution.AccessibleName = "Distributions";
+		toolStripMenuItemDistribution.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDistribution.AutoToolTip = true;
+		toolStripMenuItemDistribution.DropDown = contextMenuDistributions;
+		toolStripMenuItemDistribution.Enabled = false;
+		toolStripMenuItemDistribution.Image = FatcowIcons16px.fatcow_chart_bar_16px;
+		toolStripMenuItemDistribution.Name = "toolStripMenuItemDistribution";
+		toolStripMenuItemDistribution.ShortcutKeys = Keys.Control | Keys.D;
+		toolStripMenuItemDistribution.Size = new Size(227, 22);
+		toolStripMenuItemDistribution.Text = "&Distributions";
+		toolStripMenuItemDistribution.Click += MenuitemDistribution_Click;
+		toolStripMenuItemDistribution.MouseEnter += Control_Enter;
+		toolStripMenuItemDistribution.MouseLeave += Control_Leave;
 		// 
 		// contextMenuFullCopyToClipboardOrbitalElements
 		// 
 		contextMenuFullCopyToClipboardOrbitalElements.AccessibleDescription = "Shows the context menu of the orbital elements to copy to clipboard";
 		contextMenuFullCopyToClipboardOrbitalElements.AccessibleName = "context menu of the orbital elements to copy to clipboard";
 		contextMenuFullCopyToClipboardOrbitalElements.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuFullCopyToClipboardOrbitalElements.AllowClickThrough = true;
 		contextMenuFullCopyToClipboardOrbitalElements.Font = new Font("Segoe UI", 9F);
-		contextMenuFullCopyToClipboardOrbitalElements.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardIndexNumber, menuitemCopyToClipboardReadableDesignation, menuitemCopyToClipboardEpoch, menuitemCopyToClipboardMeanAnomalyAtTheEpoch, menuitemCopyToClipboardArgumentOfThePerihelion, menuitemCopyToClipboardLongitudeOfTheAscendingNode, menuitemCopyToClipboardInclinationToTheEcliptic, menuitemCopyToClipboardOrbitalEccentricity, menuitemCopyToClipboardMeanDailyMotion, menuitemCopyToClipboardSemiMajorAxis, menuitemCopyToClipboardAbsoluteMagnitude, menuitemCopyToClipboardSlopeParameter, menuitemCopyToClipboardReference, menuitemCopyToClipboardNumberOfOppositions, menuitemCopyToClipboardNumberOfObservations, menuitemCopyToClipboardObservationSpan, menuitemCopyToClipboardRmsResidual, menuitemCopyToClipboardComputerName, menuitemCopyToClipboardDateOfTheLastObservation, menuitemCopyToClipboardFlags });
+		contextMenuFullCopyToClipboardOrbitalElements.Items.AddRange(new ToolStripItem[] { toolStripMenuItemCopyToClipboardIndexNumber, toolStripMenuItemCopyToClipboardReadableDesignation, toolStripMenuItemCopyToClipboardEpoch, toolStripMenuItemCopyToClipboardMeanAnomalyAtTheEpoch, toolStripMenuItemCopyToClipboardArgumentOfThePerihelion, toolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode, toolStripMenuItemCopyToClipboardInclinationToTheEcliptic, toolStripMenuItemToClipboardOrbitalEccentricity, toolStripMenuItemCopyToClipboardMeanDailyMotion, toolStripMenuItemCopyToClipboardSemiMajorAxis, toolStripMenuItemCopyToClipboardAbsoluteMagnitude, toolStripMenuItemCopyToClipboardSlopeParameter, toolStripMenuItemCopyToClipboardReference, toolStripMenuItemCopyToClipboardNumberOfOppositions, toolStripMenuItemCopyToClipboardNumberOfObservations, toolStripMenuItemCopyToClipboardObservationSpan, toolStripMenuItemCopyToClipboardRmsResidual, toolStripMenuItemCopyToClipboardComputerName, toolStripMenuItemCopyToClipboardFlags, toolStripMenuItemCopyToClipboardDateOfTheLastObservation });
 		contextMenuFullCopyToClipboardOrbitalElements.Name = "Context menu of copying to clipboard of orbital elements";
-		contextMenuFullCopyToClipboardOrbitalElements.OwnerItem = toolStripDropDownButtonCopyToClipboard;
 		contextMenuFullCopyToClipboardOrbitalElements.Size = new Size(309, 444);
+		contextMenuFullCopyToClipboardOrbitalElements.TabStop = true;
 		contextMenuFullCopyToClipboardOrbitalElements.Text = "Copy to clipboard";
 		contextMenuFullCopyToClipboardOrbitalElements.Enter += Control_Enter;
 		contextMenuFullCopyToClipboardOrbitalElements.Leave += Control_Leave;
 		contextMenuFullCopyToClipboardOrbitalElements.MouseEnter += Control_Enter;
 		contextMenuFullCopyToClipboardOrbitalElements.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardIndexNumber
+		// toolStripMenuItemCopyToClipboardIndexNumber
 		// 
-		menuitemCopyToClipboardIndexNumber.AccessibleDescription = "Copies to clipboard: Index number";
-		menuitemCopyToClipboardIndexNumber.AccessibleName = "Copy to clipboard: Index number";
-		menuitemCopyToClipboardIndexNumber.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardIndexNumber.AutoToolTip = true;
-		menuitemCopyToClipboardIndexNumber.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		menuitemCopyToClipboardIndexNumber.Name = "menuitemCopyToClipboardIndexNumber";
-		menuitemCopyToClipboardIndexNumber.Size = new Size(308, 22);
-		menuitemCopyToClipboardIndexNumber.Text = "Index No.";
-		menuitemCopyToClipboardIndexNumber.Click += ToolStripMenuItemCopyToClipboardEpoch_Click;
-		menuitemCopyToClipboardIndexNumber.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardIndexNumber.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardIndexNumber.AccessibleDescription = "Copies to clipboard: Index number";
+		toolStripMenuItemCopyToClipboardIndexNumber.AccessibleName = "Copy to clipboard: Index number";
+		toolStripMenuItemCopyToClipboardIndexNumber.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardIndexNumber.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardIndexNumber.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripMenuItemCopyToClipboardIndexNumber.Name = "toolStripMenuItemCopyToClipboardIndexNumber";
+		toolStripMenuItemCopyToClipboardIndexNumber.Size = new Size(308, 22);
+		toolStripMenuItemCopyToClipboardIndexNumber.Text = "Index No.";
+		toolStripMenuItemCopyToClipboardIndexNumber.Click += ToolStripMenuItemCopyToClipboardEpoch_Click;
+		toolStripMenuItemCopyToClipboardIndexNumber.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardIndexNumber.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardReadableDesignation
+		// toolStripMenuItemCopyToClipboardReadableDesignation
 		// 
-		menuitemCopyToClipboardReadableDesignation.AccessibleDescription = "Copies to clipboard: Readable designation";
-		menuitemCopyToClipboardReadableDesignation.AccessibleName = "Copy to clipboard: Readable designation";
-		menuitemCopyToClipboardReadableDesignation.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardReadableDesignation.AutoToolTip = true;
-		menuitemCopyToClipboardReadableDesignation.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		menuitemCopyToClipboardReadableDesignation.Name = "menuitemCopyToClipboardReadableDesignation";
-		menuitemCopyToClipboardReadableDesignation.Size = new Size(308, 22);
-		menuitemCopyToClipboardReadableDesignation.Text = "Readable designation";
-		menuitemCopyToClipboardReadableDesignation.Click += ToolStripMenuItemCopyToClipboardReadableDesignation_Click;
-		menuitemCopyToClipboardReadableDesignation.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardReadableDesignation.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardReadableDesignation.AccessibleDescription = "Copies to clipboard: Readable designation";
+		toolStripMenuItemCopyToClipboardReadableDesignation.AccessibleName = "Copy to clipboard: Readable designation";
+		toolStripMenuItemCopyToClipboardReadableDesignation.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardReadableDesignation.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardReadableDesignation.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripMenuItemCopyToClipboardReadableDesignation.Name = "toolStripMenuItemCopyToClipboardReadableDesignation";
+		toolStripMenuItemCopyToClipboardReadableDesignation.Size = new Size(308, 22);
+		toolStripMenuItemCopyToClipboardReadableDesignation.Text = "Readable designation";
+		toolStripMenuItemCopyToClipboardReadableDesignation.Click += ToolStripMenuItemCopyToClipboardReadableDesignation_Click;
+		toolStripMenuItemCopyToClipboardReadableDesignation.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardReadableDesignation.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardEpoch
+		// toolStripMenuItemCopyToClipboardEpoch
 		// 
-		menuitemCopyToClipboardEpoch.AccessibleDescription = "Copies to clipboard: Epoch";
-		menuitemCopyToClipboardEpoch.AccessibleName = "Copy to clipboard: Epoch";
-		menuitemCopyToClipboardEpoch.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardEpoch.AutoToolTip = true;
-		menuitemCopyToClipboardEpoch.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		menuitemCopyToClipboardEpoch.Name = "menuitemCopyToClipboardEpoch";
-		menuitemCopyToClipboardEpoch.Size = new Size(308, 22);
-		menuitemCopyToClipboardEpoch.Text = "Epoch (in packed form, .0 TT)";
-		menuitemCopyToClipboardEpoch.Click += ToolStripMenuItemCopyToClipboardEpoch_Click;
-		menuitemCopyToClipboardEpoch.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardEpoch.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardEpoch.AccessibleDescription = "Copies to clipboard: Epoch";
+		toolStripMenuItemCopyToClipboardEpoch.AccessibleName = "Copy to clipboard: Epoch";
+		toolStripMenuItemCopyToClipboardEpoch.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardEpoch.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardEpoch.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripMenuItemCopyToClipboardEpoch.Name = "toolStripMenuItemCopyToClipboardEpoch";
+		toolStripMenuItemCopyToClipboardEpoch.Size = new Size(308, 22);
+		toolStripMenuItemCopyToClipboardEpoch.Text = "Epoch (in packed form, .0 TT)";
+		toolStripMenuItemCopyToClipboardEpoch.Click += ToolStripMenuItemCopyToClipboardEpoch_Click;
+		toolStripMenuItemCopyToClipboardEpoch.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardEpoch.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardMeanAnomalyAtTheEpoch
+		// toolStripMenuItemCopyToClipboardMeanAnomalyAtTheEpoch
 		// 
-		menuitemCopyToClipboardMeanAnomalyAtTheEpoch.AccessibleDescription = "Copies to clipboard: Mean anomaly at the epoch";
-		menuitemCopyToClipboardMeanAnomalyAtTheEpoch.AccessibleName = "Copy to clipboard: Mean anomaly at the epoch";
-		menuitemCopyToClipboardMeanAnomalyAtTheEpoch.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardMeanAnomalyAtTheEpoch.AutoToolTip = true;
-		menuitemCopyToClipboardMeanAnomalyAtTheEpoch.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		menuitemCopyToClipboardMeanAnomalyAtTheEpoch.Name = "menuitemCopyToClipboardMeanAnomalyAtTheEpoch";
-		menuitemCopyToClipboardMeanAnomalyAtTheEpoch.Size = new Size(308, 22);
-		menuitemCopyToClipboardMeanAnomalyAtTheEpoch.Text = "Mean anomaly at the epoch (°)";
-		menuitemCopyToClipboardMeanAnomalyAtTheEpoch.Click += ToolStripMenuItemCopyToClipboardMeanAnomaly_Click;
-		menuitemCopyToClipboardMeanAnomalyAtTheEpoch.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardMeanAnomalyAtTheEpoch.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardMeanAnomalyAtTheEpoch.AccessibleDescription = "Copies to clipboard: Mean anomaly at the epoch";
+		toolStripMenuItemCopyToClipboardMeanAnomalyAtTheEpoch.AccessibleName = "Copy to clipboard: Mean anomaly at the epoch";
+		toolStripMenuItemCopyToClipboardMeanAnomalyAtTheEpoch.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardMeanAnomalyAtTheEpoch.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardMeanAnomalyAtTheEpoch.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripMenuItemCopyToClipboardMeanAnomalyAtTheEpoch.Name = "toolStripMenuItemCopyToClipboardMeanAnomalyAtTheEpoch";
+		toolStripMenuItemCopyToClipboardMeanAnomalyAtTheEpoch.Size = new Size(308, 22);
+		toolStripMenuItemCopyToClipboardMeanAnomalyAtTheEpoch.Text = "Mean anomaly at the epoch (°)";
+		toolStripMenuItemCopyToClipboardMeanAnomalyAtTheEpoch.Click += ToolStripMenuItemCopyToClipboardMeanAnomaly_Click;
+		toolStripMenuItemCopyToClipboardMeanAnomalyAtTheEpoch.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardMeanAnomalyAtTheEpoch.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardArgumentOfThePerihelion
+		// toolStripMenuItemCopyToClipboardArgumentOfThePerihelion
 		// 
-		menuitemCopyToClipboardArgumentOfThePerihelion.AccessibleDescription = "Copies to clipboard: Argument of perihelion";
-		menuitemCopyToClipboardArgumentOfThePerihelion.AccessibleName = "Copy to clipboard: Argument of perihelion";
-		menuitemCopyToClipboardArgumentOfThePerihelion.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardArgumentOfThePerihelion.AutoToolTip = true;
-		menuitemCopyToClipboardArgumentOfThePerihelion.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		menuitemCopyToClipboardArgumentOfThePerihelion.Name = "menuitemCopyToClipboardArgumentOfThePerihelion";
-		menuitemCopyToClipboardArgumentOfThePerihelion.Size = new Size(308, 22);
-		menuitemCopyToClipboardArgumentOfThePerihelion.Text = "Argument of perihelion, J2000.0 (°)";
-		menuitemCopyToClipboardArgumentOfThePerihelion.Click += ToolStripMenuItemCopyToClipboardArgumentOfThePerihelion_Click;
-		menuitemCopyToClipboardArgumentOfThePerihelion.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardArgumentOfThePerihelion.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardArgumentOfThePerihelion.AccessibleDescription = "Copies to clipboard: Argument of perihelion";
+		toolStripMenuItemCopyToClipboardArgumentOfThePerihelion.AccessibleName = "Copy to clipboard: Argument of perihelion";
+		toolStripMenuItemCopyToClipboardArgumentOfThePerihelion.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardArgumentOfThePerihelion.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardArgumentOfThePerihelion.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripMenuItemCopyToClipboardArgumentOfThePerihelion.Name = "toolStripMenuItemCopyToClipboardArgumentOfThePerihelion";
+		toolStripMenuItemCopyToClipboardArgumentOfThePerihelion.Size = new Size(308, 22);
+		toolStripMenuItemCopyToClipboardArgumentOfThePerihelion.Text = "Argument of perihelion, J2000.0 (°)";
+		toolStripMenuItemCopyToClipboardArgumentOfThePerihelion.Click += ToolStripMenuItemCopyToClipboardArgumentOfThePerihelion_Click;
+		toolStripMenuItemCopyToClipboardArgumentOfThePerihelion.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardArgumentOfThePerihelion.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardLongitudeOfTheAscendingNode
+		// toolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode
 		// 
-		menuitemCopyToClipboardLongitudeOfTheAscendingNode.AccessibleDescription = "Copies to clipboard: Longitude of the ascending node";
-		menuitemCopyToClipboardLongitudeOfTheAscendingNode.AccessibleName = "Copy to clipboard: Longitude of the ascending node";
-		menuitemCopyToClipboardLongitudeOfTheAscendingNode.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardLongitudeOfTheAscendingNode.AutoToolTip = true;
-		menuitemCopyToClipboardLongitudeOfTheAscendingNode.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		menuitemCopyToClipboardLongitudeOfTheAscendingNode.Name = "menuitemCopyToClipboardLongitudeOfTheAscendingNode";
-		menuitemCopyToClipboardLongitudeOfTheAscendingNode.Size = new Size(308, 22);
-		menuitemCopyToClipboardLongitudeOfTheAscendingNode.Text = "Longitude of the ascending node, J2000.0 (°)";
-		menuitemCopyToClipboardLongitudeOfTheAscendingNode.Click += ToolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode_Click;
-		menuitemCopyToClipboardLongitudeOfTheAscendingNode.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardLongitudeOfTheAscendingNode.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode.AccessibleDescription = "Copies to clipboard: Longitude of the ascending node";
+		toolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode.AccessibleName = "Copy to clipboard: Longitude of the ascending node";
+		toolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode.Name = "toolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode";
+		toolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode.Size = new Size(308, 22);
+		toolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode.Text = "Longitude of the ascending node, J2000.0 (°)";
+		toolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode.Click += ToolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode_Click;
+		toolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardInclinationToTheEcliptic
+		// toolStripMenuItemCopyToClipboardInclinationToTheEcliptic
 		// 
-		menuitemCopyToClipboardInclinationToTheEcliptic.AccessibleDescription = "Copies to clipboard: Inclination";
-		menuitemCopyToClipboardInclinationToTheEcliptic.AccessibleName = "Copy to clipboard: Inclination";
-		menuitemCopyToClipboardInclinationToTheEcliptic.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardInclinationToTheEcliptic.AutoToolTip = true;
-		menuitemCopyToClipboardInclinationToTheEcliptic.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		menuitemCopyToClipboardInclinationToTheEcliptic.Name = "menuitemCopyToClipboardInclinationToTheEcliptic";
-		menuitemCopyToClipboardInclinationToTheEcliptic.Size = new Size(308, 22);
-		menuitemCopyToClipboardInclinationToTheEcliptic.Text = "Inclination to the ecliptic, J2000.0 (°)";
-		menuitemCopyToClipboardInclinationToTheEcliptic.Click += ToolStripMenuItemCopyToClipboardInclinationToTheEcliptic_Click;
-		menuitemCopyToClipboardInclinationToTheEcliptic.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardInclinationToTheEcliptic.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardInclinationToTheEcliptic.AccessibleDescription = "Copies to clipboard: Inclination";
+		toolStripMenuItemCopyToClipboardInclinationToTheEcliptic.AccessibleName = "Copy to clipboard: Inclination";
+		toolStripMenuItemCopyToClipboardInclinationToTheEcliptic.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardInclinationToTheEcliptic.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardInclinationToTheEcliptic.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripMenuItemCopyToClipboardInclinationToTheEcliptic.Name = "toolStripMenuItemCopyToClipboardInclinationToTheEcliptic";
+		toolStripMenuItemCopyToClipboardInclinationToTheEcliptic.Size = new Size(308, 22);
+		toolStripMenuItemCopyToClipboardInclinationToTheEcliptic.Text = "Inclination to the ecliptic, J2000.0 (°)";
+		toolStripMenuItemCopyToClipboardInclinationToTheEcliptic.Click += ToolStripMenuItemCopyToClipboardInclinationToTheEcliptic_Click;
+		toolStripMenuItemCopyToClipboardInclinationToTheEcliptic.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardInclinationToTheEcliptic.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardOrbitalEccentricity
+		// toolStripMenuItemToClipboardOrbitalEccentricity
 		// 
-		menuitemCopyToClipboardOrbitalEccentricity.AccessibleDescription = "Copies to clipboard: Orbital eccentricity";
-		menuitemCopyToClipboardOrbitalEccentricity.AccessibleName = "Copy to clipboard: Orbital eccentricity";
-		menuitemCopyToClipboardOrbitalEccentricity.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardOrbitalEccentricity.AutoToolTip = true;
-		menuitemCopyToClipboardOrbitalEccentricity.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		menuitemCopyToClipboardOrbitalEccentricity.Name = "menuitemCopyToClipboardOrbitalEccentricity";
-		menuitemCopyToClipboardOrbitalEccentricity.Size = new Size(308, 22);
-		menuitemCopyToClipboardOrbitalEccentricity.Text = "Orbital eccentricity";
-		menuitemCopyToClipboardOrbitalEccentricity.Click += ToolStripMenuItemCopyToClipboardOrbitalEccentricity_Click;
-		menuitemCopyToClipboardOrbitalEccentricity.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardOrbitalEccentricity.MouseLeave += Control_Leave;
+		toolStripMenuItemToClipboardOrbitalEccentricity.AccessibleDescription = "Copies to clipboard: Orbital eccentricity";
+		toolStripMenuItemToClipboardOrbitalEccentricity.AccessibleName = "Copy to clipboard: Orbital eccentricity";
+		toolStripMenuItemToClipboardOrbitalEccentricity.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemToClipboardOrbitalEccentricity.AutoToolTip = true;
+		toolStripMenuItemToClipboardOrbitalEccentricity.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripMenuItemToClipboardOrbitalEccentricity.Name = "toolStripMenuItemToClipboardOrbitalEccentricity";
+		toolStripMenuItemToClipboardOrbitalEccentricity.Size = new Size(308, 22);
+		toolStripMenuItemToClipboardOrbitalEccentricity.Text = "Orbital eccentricity";
+		toolStripMenuItemToClipboardOrbitalEccentricity.Click += ToolStripMenuItemCopyToClipboardOrbitalEccentricity_Click;
+		toolStripMenuItemToClipboardOrbitalEccentricity.MouseEnter += Control_Enter;
+		toolStripMenuItemToClipboardOrbitalEccentricity.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardMeanDailyMotion
+		// toolStripMenuItemCopyToClipboardMeanDailyMotion
 		// 
-		menuitemCopyToClipboardMeanDailyMotion.AccessibleDescription = "Copies to clipboard: Mean daily motion";
-		menuitemCopyToClipboardMeanDailyMotion.AccessibleName = "Copy to clipboard: Mean daily motion";
-		menuitemCopyToClipboardMeanDailyMotion.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardMeanDailyMotion.AutoToolTip = true;
-		menuitemCopyToClipboardMeanDailyMotion.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		menuitemCopyToClipboardMeanDailyMotion.Name = "menuitemCopyToClipboardMeanDailyMotion";
-		menuitemCopyToClipboardMeanDailyMotion.Size = new Size(308, 22);
-		menuitemCopyToClipboardMeanDailyMotion.Text = "Mean daily motion (°/day)";
-		menuitemCopyToClipboardMeanDailyMotion.Click += ToolStripMenuItemCopyToClipboardMeanDailyMotion_Click;
-		menuitemCopyToClipboardMeanDailyMotion.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardMeanDailyMotion.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardMeanDailyMotion.AccessibleDescription = "Copies to clipboard: Mean daily motion";
+		toolStripMenuItemCopyToClipboardMeanDailyMotion.AccessibleName = "Copy to clipboard: Mean daily motion";
+		toolStripMenuItemCopyToClipboardMeanDailyMotion.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardMeanDailyMotion.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardMeanDailyMotion.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripMenuItemCopyToClipboardMeanDailyMotion.Name = "toolStripMenuItemCopyToClipboardMeanDailyMotion";
+		toolStripMenuItemCopyToClipboardMeanDailyMotion.Size = new Size(308, 22);
+		toolStripMenuItemCopyToClipboardMeanDailyMotion.Text = "Mean daily motion (°/day)";
+		toolStripMenuItemCopyToClipboardMeanDailyMotion.Click += ToolStripMenuItemCopyToClipboardMeanDailyMotion_Click;
+		toolStripMenuItemCopyToClipboardMeanDailyMotion.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardMeanDailyMotion.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardSemiMajorAxis
+		// toolStripMenuItemCopyToClipboardSemiMajorAxis
 		// 
-		menuitemCopyToClipboardSemiMajorAxis.AccessibleDescription = "Copies to clipboard: Semi-major axis";
-		menuitemCopyToClipboardSemiMajorAxis.AccessibleName = "Copy to clipboard: Semi-major axis";
-		menuitemCopyToClipboardSemiMajorAxis.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardSemiMajorAxis.AutoToolTip = true;
-		menuitemCopyToClipboardSemiMajorAxis.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		menuitemCopyToClipboardSemiMajorAxis.Name = "menuitemCopyToClipboardSemiMajorAxis";
-		menuitemCopyToClipboardSemiMajorAxis.Size = new Size(308, 22);
-		menuitemCopyToClipboardSemiMajorAxis.Text = "Semi-major axis (AU)";
-		menuitemCopyToClipboardSemiMajorAxis.Click += ToolStripMenuItemCopyToClipboardSemiMajorAxis_Click;
-		menuitemCopyToClipboardSemiMajorAxis.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardSemiMajorAxis.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardSemiMajorAxis.AccessibleDescription = "Copies to clipboard: Semi-major axis";
+		toolStripMenuItemCopyToClipboardSemiMajorAxis.AccessibleName = "Copy to clipboard: Semi-major axis";
+		toolStripMenuItemCopyToClipboardSemiMajorAxis.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardSemiMajorAxis.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardSemiMajorAxis.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripMenuItemCopyToClipboardSemiMajorAxis.Name = "toolStripMenuItemCopyToClipboardSemiMajorAxis";
+		toolStripMenuItemCopyToClipboardSemiMajorAxis.Size = new Size(308, 22);
+		toolStripMenuItemCopyToClipboardSemiMajorAxis.Text = "Semi-major axis (AU)";
+		toolStripMenuItemCopyToClipboardSemiMajorAxis.Click += ToolStripMenuItemCopyToClipboardSemiMajorAxis_Click;
+		toolStripMenuItemCopyToClipboardSemiMajorAxis.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardSemiMajorAxis.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardAbsoluteMagnitude
+		// toolStripMenuItemCopyToClipboardAbsoluteMagnitude
 		// 
-		menuitemCopyToClipboardAbsoluteMagnitude.AccessibleDescription = "Copies to clipboard: Absolute magnitude";
-		menuitemCopyToClipboardAbsoluteMagnitude.AccessibleName = "Copy to clipboard: Absolute magnitude";
-		menuitemCopyToClipboardAbsoluteMagnitude.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardAbsoluteMagnitude.AutoToolTip = true;
-		menuitemCopyToClipboardAbsoluteMagnitude.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		menuitemCopyToClipboardAbsoluteMagnitude.Name = "menuitemCopyToClipboardAbsoluteMagnitude";
-		menuitemCopyToClipboardAbsoluteMagnitude.Size = new Size(308, 22);
-		menuitemCopyToClipboardAbsoluteMagnitude.Text = "Absolute magnitude, H";
-		menuitemCopyToClipboardAbsoluteMagnitude.Click += ToolStripMenuItemCopyToClipboardAbsoluteMagnitude_Click;
-		menuitemCopyToClipboardAbsoluteMagnitude.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardAbsoluteMagnitude.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardAbsoluteMagnitude.AccessibleDescription = "Copies to clipboard: Absolute magnitude";
+		toolStripMenuItemCopyToClipboardAbsoluteMagnitude.AccessibleName = "Copy to clipboard: Absolute magnitude";
+		toolStripMenuItemCopyToClipboardAbsoluteMagnitude.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardAbsoluteMagnitude.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardAbsoluteMagnitude.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripMenuItemCopyToClipboardAbsoluteMagnitude.Name = "toolStripMenuItemCopyToClipboardAbsoluteMagnitude";
+		toolStripMenuItemCopyToClipboardAbsoluteMagnitude.Size = new Size(308, 22);
+		toolStripMenuItemCopyToClipboardAbsoluteMagnitude.Text = "Absolute magnitude, H";
+		toolStripMenuItemCopyToClipboardAbsoluteMagnitude.Click += ToolStripMenuItemCopyToClipboardAbsoluteMagnitude_Click;
+		toolStripMenuItemCopyToClipboardAbsoluteMagnitude.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardAbsoluteMagnitude.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardSlopeParameter
+		// toolStripMenuItemCopyToClipboardSlopeParameter
 		// 
-		menuitemCopyToClipboardSlopeParameter.AccessibleDescription = "Copies to clipboard: Slope parameter";
-		menuitemCopyToClipboardSlopeParameter.AccessibleName = "Copy to clipboard: Slope parameter";
-		menuitemCopyToClipboardSlopeParameter.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardSlopeParameter.AutoToolTip = true;
-		menuitemCopyToClipboardSlopeParameter.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		menuitemCopyToClipboardSlopeParameter.Name = "menuitemCopyToClipboardSlopeParameter";
-		menuitemCopyToClipboardSlopeParameter.Size = new Size(308, 22);
-		menuitemCopyToClipboardSlopeParameter.Text = "Slope parameter, G";
-		menuitemCopyToClipboardSlopeParameter.Click += ToolStripMenuItemCopyToClipboardSlopeParameter_Click;
-		menuitemCopyToClipboardSlopeParameter.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardSlopeParameter.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardSlopeParameter.AccessibleDescription = "Copies to clipboard: Slope parameter";
+		toolStripMenuItemCopyToClipboardSlopeParameter.AccessibleName = "Copy to clipboard: Slope parameter";
+		toolStripMenuItemCopyToClipboardSlopeParameter.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardSlopeParameter.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardSlopeParameter.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripMenuItemCopyToClipboardSlopeParameter.Name = "toolStripMenuItemCopyToClipboardSlopeParameter";
+		toolStripMenuItemCopyToClipboardSlopeParameter.Size = new Size(308, 22);
+		toolStripMenuItemCopyToClipboardSlopeParameter.Text = "Slope parameter, G";
+		toolStripMenuItemCopyToClipboardSlopeParameter.Click += ToolStripMenuItemCopyToClipboardSlopeParameter_Click;
+		toolStripMenuItemCopyToClipboardSlopeParameter.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardSlopeParameter.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardReference
+		// toolStripMenuItemCopyToClipboardReference
 		// 
-		menuitemCopyToClipboardReference.AccessibleDescription = "Copies to clipboard: Reference";
-		menuitemCopyToClipboardReference.AccessibleName = "Copy to clipboard: Reference";
-		menuitemCopyToClipboardReference.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardReference.AutoToolTip = true;
-		menuitemCopyToClipboardReference.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		menuitemCopyToClipboardReference.Name = "menuitemCopyToClipboardReference";
-		menuitemCopyToClipboardReference.Size = new Size(308, 22);
-		menuitemCopyToClipboardReference.Text = "Reference";
-		menuitemCopyToClipboardReference.Click += ToolStripMenuItemCopyToClipboardReference_Click;
-		menuitemCopyToClipboardReference.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardReference.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardReference.AccessibleDescription = "Copies to clipboard: Reference";
+		toolStripMenuItemCopyToClipboardReference.AccessibleName = "Copy to clipboard: Reference";
+		toolStripMenuItemCopyToClipboardReference.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardReference.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardReference.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripMenuItemCopyToClipboardReference.Name = "toolStripMenuItemCopyToClipboardReference";
+		toolStripMenuItemCopyToClipboardReference.Size = new Size(308, 22);
+		toolStripMenuItemCopyToClipboardReference.Text = "Reference";
+		toolStripMenuItemCopyToClipboardReference.Click += ToolStripMenuItemCopyToClipboardReference_Click;
+		toolStripMenuItemCopyToClipboardReference.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardReference.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardNumberOfOppositions
+		// toolStripMenuItemCopyToClipboardNumberOfOppositions
 		// 
-		menuitemCopyToClipboardNumberOfOppositions.AccessibleDescription = "Copies to clipboard: Number of oppositions";
-		menuitemCopyToClipboardNumberOfOppositions.AccessibleName = "Copy to clipboard: Number of oppositions ";
-		menuitemCopyToClipboardNumberOfOppositions.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardNumberOfOppositions.AutoToolTip = true;
-		menuitemCopyToClipboardNumberOfOppositions.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		menuitemCopyToClipboardNumberOfOppositions.Name = "menuitemCopyToClipboardNumberOfOppositions";
-		menuitemCopyToClipboardNumberOfOppositions.Size = new Size(308, 22);
-		menuitemCopyToClipboardNumberOfOppositions.Text = "Number of oppositions";
-		menuitemCopyToClipboardNumberOfOppositions.Click += ToolStripMenuItemCopyToClipboardNumberOfOppositions_Click;
-		menuitemCopyToClipboardNumberOfOppositions.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardNumberOfOppositions.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardNumberOfOppositions.AccessibleDescription = "Copies to clipboard: Number of oppositions";
+		toolStripMenuItemCopyToClipboardNumberOfOppositions.AccessibleName = "Copy to clipboard: Number of oppositions ";
+		toolStripMenuItemCopyToClipboardNumberOfOppositions.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardNumberOfOppositions.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardNumberOfOppositions.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripMenuItemCopyToClipboardNumberOfOppositions.Name = "toolStripMenuItemCopyToClipboardNumberOfOppositions";
+		toolStripMenuItemCopyToClipboardNumberOfOppositions.Size = new Size(308, 22);
+		toolStripMenuItemCopyToClipboardNumberOfOppositions.Text = "Number of oppositions";
+		toolStripMenuItemCopyToClipboardNumberOfOppositions.Click += ToolStripMenuItemCopyToClipboardNumberOfOppositions_Click;
+		toolStripMenuItemCopyToClipboardNumberOfOppositions.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardNumberOfOppositions.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardNumberOfObservations
+		// toolStripMenuItemCopyToClipboardNumberOfObservations
 		// 
-		menuitemCopyToClipboardNumberOfObservations.AccessibleDescription = "Copies to clipboard: Number of observations";
-		menuitemCopyToClipboardNumberOfObservations.AccessibleName = "Copy to clipboard: Number of observations";
-		menuitemCopyToClipboardNumberOfObservations.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardNumberOfObservations.AutoToolTip = true;
-		menuitemCopyToClipboardNumberOfObservations.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		menuitemCopyToClipboardNumberOfObservations.Name = "menuitemCopyToClipboardNumberOfObservations";
-		menuitemCopyToClipboardNumberOfObservations.Size = new Size(308, 22);
-		menuitemCopyToClipboardNumberOfObservations.Text = "Number of observations";
-		menuitemCopyToClipboardNumberOfObservations.Click += ToolStripMenuItemCopyToClipboardNumberOfObservations_Click;
-		menuitemCopyToClipboardNumberOfObservations.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardNumberOfObservations.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardNumberOfObservations.AccessibleDescription = "Copies to clipboard: Number of observations";
+		toolStripMenuItemCopyToClipboardNumberOfObservations.AccessibleName = "Copy to clipboard: Number of observations";
+		toolStripMenuItemCopyToClipboardNumberOfObservations.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardNumberOfObservations.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardNumberOfObservations.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripMenuItemCopyToClipboardNumberOfObservations.Name = "toolStripMenuItemCopyToClipboardNumberOfObservations";
+		toolStripMenuItemCopyToClipboardNumberOfObservations.Size = new Size(308, 22);
+		toolStripMenuItemCopyToClipboardNumberOfObservations.Text = "Number of observations";
+		toolStripMenuItemCopyToClipboardNumberOfObservations.Click += ToolStripMenuItemCopyToClipboardNumberOfObservations_Click;
+		toolStripMenuItemCopyToClipboardNumberOfObservations.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardNumberOfObservations.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardObservationSpan
+		// toolStripMenuItemCopyToClipboardObservationSpan
 		// 
-		menuitemCopyToClipboardObservationSpan.AccessibleDescription = "Copies to clipboard: Observation span";
-		menuitemCopyToClipboardObservationSpan.AccessibleName = "Copy to clipboard: Observation span";
-		menuitemCopyToClipboardObservationSpan.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardObservationSpan.AutoToolTip = true;
-		menuitemCopyToClipboardObservationSpan.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		menuitemCopyToClipboardObservationSpan.Name = "menuitemCopyToClipboardObservationSpan";
-		menuitemCopyToClipboardObservationSpan.Size = new Size(308, 22);
-		menuitemCopyToClipboardObservationSpan.Text = "Observation span";
-		menuitemCopyToClipboardObservationSpan.Click += ToolStripMenuItemCopyToClipboardObservationSpan_Click;
-		menuitemCopyToClipboardObservationSpan.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardObservationSpan.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardObservationSpan.AccessibleDescription = "Copies to clipboard: Observation span";
+		toolStripMenuItemCopyToClipboardObservationSpan.AccessibleName = "Copy to clipboard: Observation span";
+		toolStripMenuItemCopyToClipboardObservationSpan.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardObservationSpan.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardObservationSpan.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripMenuItemCopyToClipboardObservationSpan.Name = "toolStripMenuItemCopyToClipboardObservationSpan";
+		toolStripMenuItemCopyToClipboardObservationSpan.Size = new Size(308, 22);
+		toolStripMenuItemCopyToClipboardObservationSpan.Text = "Observation span";
+		toolStripMenuItemCopyToClipboardObservationSpan.Click += ToolStripMenuItemCopyToClipboardObservationSpan_Click;
+		toolStripMenuItemCopyToClipboardObservationSpan.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardObservationSpan.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardRmsResidual
+		// toolStripMenuItemCopyToClipboardRmsResidual
 		// 
-		menuitemCopyToClipboardRmsResidual.AccessibleDescription = "Copies to clipboard: r.m.s. residual";
-		menuitemCopyToClipboardRmsResidual.AccessibleName = "Copy to clipboard: r.m.s. residual";
-		menuitemCopyToClipboardRmsResidual.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardRmsResidual.AutoToolTip = true;
-		menuitemCopyToClipboardRmsResidual.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		menuitemCopyToClipboardRmsResidual.Name = "menuitemCopyToClipboardRmsResidual";
-		menuitemCopyToClipboardRmsResidual.Size = new Size(308, 22);
-		menuitemCopyToClipboardRmsResidual.Text = "r.m.s. residual (\")";
-		menuitemCopyToClipboardRmsResidual.Click += ToolStripMenuItemCopyToClipboardRmsResidual_Click;
-		menuitemCopyToClipboardRmsResidual.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardRmsResidual.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardRmsResidual.AccessibleDescription = "Copies to clipboard: r.m.s. residual";
+		toolStripMenuItemCopyToClipboardRmsResidual.AccessibleName = "Copy to clipboard: r.m.s. residual";
+		toolStripMenuItemCopyToClipboardRmsResidual.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardRmsResidual.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardRmsResidual.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripMenuItemCopyToClipboardRmsResidual.Name = "toolStripMenuItemCopyToClipboardRmsResidual";
+		toolStripMenuItemCopyToClipboardRmsResidual.Size = new Size(308, 22);
+		toolStripMenuItemCopyToClipboardRmsResidual.Text = "r.m.s. residual (\")";
+		toolStripMenuItemCopyToClipboardRmsResidual.Click += ToolStripMenuItemCopyToClipboardRmsResidual_Click;
+		toolStripMenuItemCopyToClipboardRmsResidual.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardRmsResidual.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardComputerName
+		// toolStripMenuItemCopyToClipboardComputerName
 		// 
-		menuitemCopyToClipboardComputerName.AccessibleDescription = "Copies to clipboard: Computer name";
-		menuitemCopyToClipboardComputerName.AccessibleName = "Copy to clipboard: Computer name";
-		menuitemCopyToClipboardComputerName.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardComputerName.AutoToolTip = true;
-		menuitemCopyToClipboardComputerName.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		menuitemCopyToClipboardComputerName.Name = "menuitemCopyToClipboardComputerName";
-		menuitemCopyToClipboardComputerName.Size = new Size(308, 22);
-		menuitemCopyToClipboardComputerName.Text = "Computer name";
-		menuitemCopyToClipboardComputerName.Click += ToolStripMenuItemCopyToClipboardComputerName_Click;
-		menuitemCopyToClipboardComputerName.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardComputerName.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardComputerName.AccessibleDescription = "Copies to clipboard: Computer name";
+		toolStripMenuItemCopyToClipboardComputerName.AccessibleName = "Copy to clipboard: Computer name";
+		toolStripMenuItemCopyToClipboardComputerName.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardComputerName.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardComputerName.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripMenuItemCopyToClipboardComputerName.Name = "toolStripMenuItemCopyToClipboardComputerName";
+		toolStripMenuItemCopyToClipboardComputerName.Size = new Size(308, 22);
+		toolStripMenuItemCopyToClipboardComputerName.Text = "Computer name";
+		toolStripMenuItemCopyToClipboardComputerName.Click += ToolStripMenuItemCopyToClipboardComputerName_Click;
+		toolStripMenuItemCopyToClipboardComputerName.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardComputerName.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardDateOfTheLastObservation
+		// toolStripMenuItemCopyToClipboardDateOfTheLastObservation
 		// 
-		menuitemCopyToClipboardDateOfTheLastObservation.AccessibleDescription = "Copies to clipboard: Date of last observation";
-		menuitemCopyToClipboardDateOfTheLastObservation.AccessibleName = "Copy to clipboard: Date of last observation";
-		menuitemCopyToClipboardDateOfTheLastObservation.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardDateOfTheLastObservation.AutoToolTip = true;
-		menuitemCopyToClipboardDateOfTheLastObservation.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		menuitemCopyToClipboardDateOfTheLastObservation.Name = "menuitemCopyToClipboardDateOfTheLastObservation";
-		menuitemCopyToClipboardDateOfTheLastObservation.Size = new Size(308, 22);
-		menuitemCopyToClipboardDateOfTheLastObservation.Text = "Date of last observation";
-		menuitemCopyToClipboardDateOfTheLastObservation.Click += ToolStripMenuItemCopyToClipboardDateOfLastObservation_Click;
-		menuitemCopyToClipboardDateOfTheLastObservation.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardDateOfTheLastObservation.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardDateOfTheLastObservation.AccessibleDescription = "Copies to clipboard: Date of last observation";
+		toolStripMenuItemCopyToClipboardDateOfTheLastObservation.AccessibleName = "Copy to clipboard: Date of last observation";
+		toolStripMenuItemCopyToClipboardDateOfTheLastObservation.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardDateOfTheLastObservation.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardDateOfTheLastObservation.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripMenuItemCopyToClipboardDateOfTheLastObservation.Name = "toolStripMenuItemCopyToClipboardDateOfTheLastObservation";
+		toolStripMenuItemCopyToClipboardDateOfTheLastObservation.Size = new Size(308, 22);
+		toolStripMenuItemCopyToClipboardDateOfTheLastObservation.Text = "Date of last observation";
+		toolStripMenuItemCopyToClipboardDateOfTheLastObservation.Click += ToolStripMenuItemCopyToClipboardDateOfLastObservation_Click;
+		toolStripMenuItemCopyToClipboardDateOfTheLastObservation.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardDateOfTheLastObservation.MouseLeave += Control_Leave;
 		// 
-		// menuitemCopyToClipboardFlags
+		// toolStripMenuItemCopyToClipboardFlags
 		// 
-		menuitemCopyToClipboardFlags.AccessibleDescription = "Copies to clipboard: 4-hexdigit flags";
-		menuitemCopyToClipboardFlags.AccessibleName = "Copy to clipboard: 4-hexdigit flags";
-		menuitemCopyToClipboardFlags.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopyToClipboardFlags.AutoToolTip = true;
-		menuitemCopyToClipboardFlags.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		menuitemCopyToClipboardFlags.Name = "menuitemCopyToClipboardFlags";
-		menuitemCopyToClipboardFlags.Size = new Size(308, 22);
-		menuitemCopyToClipboardFlags.Text = "4-hexdigit flags";
-		menuitemCopyToClipboardFlags.Click += MenuitemRecordsDateOfTheLastObservation_Click;
-		menuitemCopyToClipboardFlags.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardFlags.MouseLeave += Control_Leave;
-		// 
-		// menuitemCopytoClipboard
-		// 
-		menuitemCopytoClipboard.AccessibleDescription = "Copies to clipboard";
-		menuitemCopytoClipboard.AccessibleName = "Copy to clipboard";
-		menuitemCopytoClipboard.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemCopytoClipboard.AutoToolTip = true;
-		menuitemCopytoClipboard.DropDown = contextMenuFullCopyToClipboardOrbitalElements;
-		menuitemCopytoClipboard.Image = FatcowIcons16px.fatcow_page_white_copy_16px;
-		menuitemCopytoClipboard.Name = "menuitemCopytoClipboard";
-		menuitemCopytoClipboard.ShortcutKeys = Keys.Control | Keys.C;
-		menuitemCopytoClipboard.Size = new Size(151, 22);
-		menuitemCopytoClipboard.Text = "&Copy";
-		menuitemCopytoClipboard.MouseEnter += Control_Enter;
-		menuitemCopytoClipboard.MouseLeave += Control_Leave;
+		toolStripMenuItemCopyToClipboardFlags.AccessibleDescription = "Copies to clipboard: 4-hexdigit flags";
+		toolStripMenuItemCopyToClipboardFlags.AccessibleName = "Copy to clipboard: 4-hexdigit flags";
+		toolStripMenuItemCopyToClipboardFlags.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboardFlags.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboardFlags.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripMenuItemCopyToClipboardFlags.Name = "toolStripMenuItemCopyToClipboardFlags";
+		toolStripMenuItemCopyToClipboardFlags.Size = new Size(308, 22);
+		toolStripMenuItemCopyToClipboardFlags.Text = "4-hexdigit flags";
+		toolStripMenuItemCopyToClipboardFlags.Click += MenuitemRecordsDateOfTheLastObservation_Click;
+		toolStripMenuItemCopyToClipboardFlags.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboardFlags.MouseLeave += Control_Leave;
 		// 
 		// toolStripDropDownButtonCopyToClipboard
 		// 
@@ -2487,42 +2458,59 @@ partial class PlanetoidDbForm
 		toolStripDropDownButtonCopyToClipboard.MouseEnter += Control_Enter;
 		toolStripDropDownButtonCopyToClipboard.MouseLeave += Control_Leave;
 		// 
-		// menu
+		// toolStripMenuItemCopytoClipboard
 		// 
-		menu.AccessibleDescription = "Shows the menubar";
-		menu.AccessibleName = "menu";
-		menu.AccessibleRole = AccessibleRole.MenuBar;
-		menu.AllowItemReorder = true;
-		menu.Dock = DockStyle.None;
-		menu.Font = new Font("Segoe UI", 9F);
-		menu.GripMargin = new Padding(3);
-		menu.GripStyle = ToolStripGripStyle.Visible;
-		menu.Items.AddRange(new ToolStripItem[] { menuitemFile, menuitemEdit, menuitemNavigation, menuitemTools, toolStripMenuItemExternalDataPages, menuitemUpdate, menuitemOptions, menuitemHelp });
-		menu.Location = new Point(0, 0);
-		menu.Name = "menu";
-		menu.Padding = new Padding(0);
-		menu.ShowItemToolTips = true;
-		menu.Size = new Size(852, 24);
-		menu.TabIndex = 0;
-		menu.Text = "menu";
-		menu.Enter += Control_Enter;
-		menu.Leave += Control_Leave;
-		menu.MouseEnter += Control_Enter;
-		menu.MouseLeave += Control_Leave;
+		toolStripMenuItemCopytoClipboard.AccessibleDescription = "Copies to clipboard";
+		toolStripMenuItemCopytoClipboard.AccessibleName = "Copy to clipboard";
+		toolStripMenuItemCopytoClipboard.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopytoClipboard.AutoToolTip = true;
+		toolStripMenuItemCopytoClipboard.DropDown = contextMenuFullCopyToClipboardOrbitalElements;
+		toolStripMenuItemCopytoClipboard.Image = FatcowIcons16px.fatcow_page_white_copy_16px;
+		toolStripMenuItemCopytoClipboard.Name = "toolStripMenuItemCopytoClipboard";
+		toolStripMenuItemCopytoClipboard.ShortcutKeys = Keys.Control | Keys.C;
+		toolStripMenuItemCopytoClipboard.Size = new Size(180, 22);
+		toolStripMenuItemCopytoClipboard.Text = "&Copy";
+		toolStripMenuItemCopytoClipboard.MouseEnter += Control_Enter;
+		toolStripMenuItemCopytoClipboard.MouseLeave += Control_Leave;
 		// 
-		// menuitemFile
+		// menuStrip
 		// 
-		menuitemFile.AccessibleDescription = "Opens the menu \"file\"";
-		menuitemFile.AccessibleName = "File";
-		menuitemFile.AccessibleRole = AccessibleRole.MenuPopup;
-		menuitemFile.AutoToolTip = true;
-		menuitemFile.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemOpenLocalMpcorbDat, menuitemExportDataEntry, menuitemPrint, toolStripSeparatorFile1, toolStripMenuItemArchive, toolStripMenuItemCompareDatabases, toolStripSeparator13, menuitemRestart, menuitemExit });
-		menuitemFile.Name = "menuitemFile";
-		menuitemFile.ShortcutKeys = Keys.Alt | Keys.F;
-		menuitemFile.Size = new Size(37, 24);
-		menuitemFile.Text = "&File";
-		menuitemFile.MouseEnter += Control_Enter;
-		menuitemFile.MouseLeave += Control_Leave;
+		menuStrip.AccessibleDescription = "Shows the menubar";
+		menuStrip.AccessibleName = "Menu";
+		menuStrip.AccessibleRole = AccessibleRole.MenuBar;
+		menuStrip.AllowClickThrough = true;
+		menuStrip.AllowItemReorder = true;
+		menuStrip.Dock = DockStyle.None;
+		menuStrip.Font = new Font("Segoe UI", 9F);
+		menuStrip.GripMargin = new Padding(3);
+		menuStrip.GripStyle = ToolStripGripStyle.Visible;
+		menuStrip.Items.AddRange(new ToolStripItem[] { toolStripMenuItemFile, toolStripMenuItemEdit, toolStripMenuItemNavigation, toolStripMenuItemTools, toolStripMenuItemExternalDataPages, toolStripMenuItemUpdate, toolStripMenuItemOptions, toolStripMenuItemHelp });
+		menuStrip.Location = new Point(0, 0);
+		menuStrip.Name = "menuStrip";
+		menuStrip.Padding = new Padding(0);
+		menuStrip.ShowItemToolTips = true;
+		menuStrip.Size = new Size(852, 24);
+		menuStrip.TabIndex = 0;
+		menuStrip.TabStop = true;
+		menuStrip.Text = "Menu";
+		menuStrip.Enter += Control_Enter;
+		menuStrip.Leave += Control_Leave;
+		menuStrip.MouseEnter += Control_Enter;
+		menuStrip.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemFile
+		// 
+		toolStripMenuItemFile.AccessibleDescription = "Opens the menu \"file\"";
+		toolStripMenuItemFile.AccessibleName = "File";
+		toolStripMenuItemFile.AccessibleRole = AccessibleRole.MenuPopup;
+		toolStripMenuItemFile.AutoToolTip = true;
+		toolStripMenuItemFile.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemOpenLocalMpcorbDat, toolStripMenuItemExportDataEntry, toolStripMenuItemPrint, toolStripSeparatorFile1, toolStripMenuItemArchive, toolStripMenuItemCompareDatabases, toolStripSeparator13, toolStripMenuItemRestart, toolStripMenuItemExit });
+		toolStripMenuItemFile.Name = "toolStripMenuItemFile";
+		toolStripMenuItemFile.ShortcutKeys = Keys.Alt | Keys.F;
+		toolStripMenuItemFile.Size = new Size(37, 24);
+		toolStripMenuItemFile.Text = "&File";
+		toolStripMenuItemFile.MouseEnter += Control_Enter;
+		toolStripMenuItemFile.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemOpenLocalMpcorbDat
 		// 
@@ -2538,33 +2526,33 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOpenLocalMpcorbDat.MouseEnter += Control_Enter;
 		toolStripMenuItemOpenLocalMpcorbDat.MouseLeave += Control_Leave;
 		// 
-		// menuitemExportDataEntry
+		// toolStripMenuItemExportDataEntry
 		// 
-		menuitemExportDataEntry.AccessibleDescription = "Exports data entry";
-		menuitemExportDataEntry.AccessibleName = "Export";
-		menuitemExportDataEntry.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemExportDataEntry.AutoToolTip = true;
-		menuitemExportDataEntry.Image = FatcowIcons16px.fatcow_page_save_16px;
-		menuitemExportDataEntry.Name = "menuitemExportDataEntry";
-		menuitemExportDataEntry.Size = new Size(207, 22);
-		menuitemExportDataEntry.Text = "&Export data entry";
-		menuitemExportDataEntry.Click += ToolStripButtonExport_Click;
-		menuitemExportDataEntry.MouseEnter += Control_Enter;
-		menuitemExportDataEntry.MouseLeave += Control_Leave;
+		toolStripMenuItemExportDataEntry.AccessibleDescription = "Exports data entry";
+		toolStripMenuItemExportDataEntry.AccessibleName = "Export";
+		toolStripMenuItemExportDataEntry.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemExportDataEntry.AutoToolTip = true;
+		toolStripMenuItemExportDataEntry.Image = FatcowIcons16px.fatcow_page_save_16px;
+		toolStripMenuItemExportDataEntry.Name = "toolStripMenuItemExportDataEntry";
+		toolStripMenuItemExportDataEntry.Size = new Size(207, 22);
+		toolStripMenuItemExportDataEntry.Text = "&Export data entry";
+		toolStripMenuItemExportDataEntry.Click += ToolStripButtonExport_Click;
+		toolStripMenuItemExportDataEntry.MouseEnter += Control_Enter;
+		toolStripMenuItemExportDataEntry.MouseLeave += Control_Leave;
 		// 
-		// menuitemPrint
+		// toolStripMenuItemPrint
 		// 
-		menuitemPrint.AccessibleDescription = "Prints the information";
-		menuitemPrint.AccessibleName = "Print";
-		menuitemPrint.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemPrint.AutoToolTip = true;
-		menuitemPrint.Image = FatcowIcons16px.fatcow_printer_16px;
-		menuitemPrint.Name = "menuitemPrint";
-		menuitemPrint.Size = new Size(207, 22);
-		menuitemPrint.Text = "&Print data sheet";
-		menuitemPrint.Click += ToolStripMenuItemPrint_Click;
-		menuitemPrint.MouseEnter += Control_Enter;
-		menuitemPrint.MouseLeave += Control_Leave;
+		toolStripMenuItemPrint.AccessibleDescription = "Prints the information";
+		toolStripMenuItemPrint.AccessibleName = "Print";
+		toolStripMenuItemPrint.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemPrint.AutoToolTip = true;
+		toolStripMenuItemPrint.Image = FatcowIcons16px.fatcow_printer_16px;
+		toolStripMenuItemPrint.Name = "toolStripMenuItemPrint";
+		toolStripMenuItemPrint.Size = new Size(207, 22);
+		toolStripMenuItemPrint.Text = "&Print data sheet";
+		toolStripMenuItemPrint.Click += ToolStripMenuItemPrint_Click;
+		toolStripMenuItemPrint.MouseEnter += Control_Enter;
+		toolStripMenuItemPrint.MouseLeave += Control_Leave;
 		// 
 		// toolStripSeparatorFile1
 		// 
@@ -2614,93 +2602,93 @@ partial class PlanetoidDbForm
 		toolStripSeparator13.MouseEnter += Control_Enter;
 		toolStripSeparator13.MouseLeave += Control_Leave;
 		// 
-		// menuitemRestart
+		// toolStripMenuItemRestart
 		// 
-		menuitemRestart.AccessibleDescription = "Restarts the application";
-		menuitemRestart.AccessibleName = "Restart";
-		menuitemRestart.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemRestart.AutoToolTip = true;
-		menuitemRestart.Image = FatcowIcons16px.fatcow_update_16px;
-		menuitemRestart.Name = "menuitemRestart";
-		menuitemRestart.ShortcutKeys = Keys.Alt | Keys.F3;
-		menuitemRestart.Size = new Size(207, 22);
-		menuitemRestart.Text = "&Restart";
-		menuitemRestart.Click += ToolStripMenuItemRestart_Click;
-		menuitemRestart.MouseEnter += Control_Enter;
-		menuitemRestart.MouseLeave += Control_Leave;
+		toolStripMenuItemRestart.AccessibleDescription = "Restarts the application";
+		toolStripMenuItemRestart.AccessibleName = "Restart";
+		toolStripMenuItemRestart.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRestart.AutoToolTip = true;
+		toolStripMenuItemRestart.Image = FatcowIcons16px.fatcow_update_16px;
+		toolStripMenuItemRestart.Name = "toolStripMenuItemRestart";
+		toolStripMenuItemRestart.ShortcutKeys = Keys.Alt | Keys.F3;
+		toolStripMenuItemRestart.Size = new Size(207, 22);
+		toolStripMenuItemRestart.Text = "&Restart";
+		toolStripMenuItemRestart.Click += ToolStripMenuItemRestart_Click;
+		toolStripMenuItemRestart.MouseEnter += Control_Enter;
+		toolStripMenuItemRestart.MouseLeave += Control_Leave;
 		// 
-		// menuitemExit
+		// toolStripMenuItemExit
 		// 
-		menuitemExit.AccessibleDescription = "Exits the application";
-		menuitemExit.AccessibleName = "Exit";
-		menuitemExit.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemExit.AutoToolTip = true;
-		menuitemExit.DoubleClickEnabled = true;
-		menuitemExit.Image = FatcowIcons16px.fatcow_door_in_16px;
-		menuitemExit.Name = "menuitemExit";
-		menuitemExit.ShortcutKeys = Keys.Alt | Keys.F4;
-		menuitemExit.Size = new Size(207, 22);
-		menuitemExit.Text = "E&xit";
-		menuitemExit.Click += MenuitemExit_Click;
-		menuitemExit.MouseEnter += Control_Enter;
-		menuitemExit.MouseLeave += Control_Leave;
+		toolStripMenuItemExit.AccessibleDescription = "Exits the application";
+		toolStripMenuItemExit.AccessibleName = "Exit";
+		toolStripMenuItemExit.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemExit.AutoToolTip = true;
+		toolStripMenuItemExit.DoubleClickEnabled = true;
+		toolStripMenuItemExit.Image = FatcowIcons16px.fatcow_door_in_16px;
+		toolStripMenuItemExit.Name = "toolStripMenuItemExit";
+		toolStripMenuItemExit.ShortcutKeys = Keys.Alt | Keys.F4;
+		toolStripMenuItemExit.Size = new Size(207, 22);
+		toolStripMenuItemExit.Text = "E&xit";
+		toolStripMenuItemExit.Click += MenuitemExit_Click;
+		toolStripMenuItemExit.MouseEnter += Control_Enter;
+		toolStripMenuItemExit.MouseLeave += Control_Leave;
 		// 
-		// menuitemEdit
+		// toolStripMenuItemEdit
 		// 
-		menuitemEdit.AccessibleDescription = "Opens the menu \"edit\"";
-		menuitemEdit.AccessibleName = "Edit";
-		menuitemEdit.AccessibleRole = AccessibleRole.MenuPopup;
-		menuitemEdit.AutoToolTip = true;
-		menuitemEdit.DropDownItems.AddRange(new ToolStripItem[] { menuitemCopytoClipboard, menuitemSearch });
-		menuitemEdit.Name = "menuitemEdit";
-		menuitemEdit.ShortcutKeys = Keys.Alt | Keys.E;
-		menuitemEdit.Size = new Size(39, 24);
-		menuitemEdit.Text = "&Edit";
-		menuitemEdit.MouseEnter += Control_Enter;
-		menuitemEdit.MouseLeave += Control_Leave;
+		toolStripMenuItemEdit.AccessibleDescription = "Opens the menu \"edit\"";
+		toolStripMenuItemEdit.AccessibleName = "Edit";
+		toolStripMenuItemEdit.AccessibleRole = AccessibleRole.MenuPopup;
+		toolStripMenuItemEdit.AutoToolTip = true;
+		toolStripMenuItemEdit.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemCopytoClipboard, toolStripMenuItemSearch });
+		toolStripMenuItemEdit.Name = "toolStripMenuItemEdit";
+		toolStripMenuItemEdit.ShortcutKeys = Keys.Alt | Keys.E;
+		toolStripMenuItemEdit.Size = new Size(39, 24);
+		toolStripMenuItemEdit.Text = "&Edit";
+		toolStripMenuItemEdit.MouseEnter += Control_Enter;
+		toolStripMenuItemEdit.MouseLeave += Control_Leave;
 		// 
-		// menuitemSearch
+		// toolStripMenuItemSearch
 		// 
-		menuitemSearch.AccessibleDescription = "Search";
-		menuitemSearch.AccessibleName = "Search";
-		menuitemSearch.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemSearch.AutoToolTip = true;
-		menuitemSearch.Image = FatcowIcons16px.fatcow_zoom_16px;
-		menuitemSearch.Name = "menuitemSearch";
-		menuitemSearch.ShortcutKeys = Keys.Control | Keys.S;
-		menuitemSearch.Size = new Size(151, 22);
-		menuitemSearch.Text = "&Search";
-		menuitemSearch.Click += ToolStripMenuItemSearch_Click;
-		menuitemSearch.MouseEnter += Control_Enter;
-		menuitemSearch.MouseLeave += Control_Leave;
+		toolStripMenuItemSearch.AccessibleDescription = "Search";
+		toolStripMenuItemSearch.AccessibleName = "Search";
+		toolStripMenuItemSearch.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSearch.AutoToolTip = true;
+		toolStripMenuItemSearch.Image = FatcowIcons16px.fatcow_zoom_16px;
+		toolStripMenuItemSearch.Name = "toolStripMenuItemSearch";
+		toolStripMenuItemSearch.ShortcutKeys = Keys.Control | Keys.S;
+		toolStripMenuItemSearch.Size = new Size(180, 22);
+		toolStripMenuItemSearch.Text = "&Search";
+		toolStripMenuItemSearch.Click += ToolStripMenuItemSearch_Click;
+		toolStripMenuItemSearch.MouseEnter += Control_Enter;
+		toolStripMenuItemSearch.MouseLeave += Control_Leave;
 		// 
-		// menuitemNavigation
+		// toolStripMenuItemNavigation
 		// 
-		menuitemNavigation.AccessibleDescription = "Opens the menu \"navigation\"";
-		menuitemNavigation.AccessibleName = "Navigation";
-		menuitemNavigation.AccessibleRole = AccessibleRole.MenuPopup;
-		menuitemNavigation.AutoToolTip = true;
-		menuitemNavigation.DropDownItems.AddRange(new ToolStripItem[] { menuitemRandomMinorPlanet, toolStripSeparatorNavigation1, menuitemNavigateToTheBeginning, menuitemNavigateSomeDataBackward, menuitemNavigateToThePreviousData, menuitemNavigateToTheNextData, menuitemNavigateSomeDataForward, menuitemNavigateToTheEnd, toolStripSeparator11, menuitemListReadableDesignations });
-		menuitemNavigation.Name = "menuitemNavigation";
-		menuitemNavigation.Size = new Size(77, 24);
-		menuitemNavigation.Text = "&Navigation";
-		menuitemNavigation.MouseEnter += Control_Enter;
-		menuitemNavigation.MouseLeave += Control_Leave;
+		toolStripMenuItemNavigation.AccessibleDescription = "Opens the menu \"navigation\"";
+		toolStripMenuItemNavigation.AccessibleName = "Navigation";
+		toolStripMenuItemNavigation.AccessibleRole = AccessibleRole.MenuPopup;
+		toolStripMenuItemNavigation.AutoToolTip = true;
+		toolStripMenuItemNavigation.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemRandomMinorPlanet, toolStripSeparatorNavigation1, toolStripMenuItemNavigateToTheBeginning, toolStripMenuItemNavigateSomeDataBackward, toolStripMenuItemNavigateToThePreviousData, toolStripMenuItemNavigateToTheNextData, toolStripMenuItemNavigateSomeDataForward, toolStripMenuItemNavigateToTheEnd, toolStripSeparator11, toolStripMenuItemListReadableDesignations });
+		toolStripMenuItemNavigation.Name = "toolStripMenuItemNavigation";
+		toolStripMenuItemNavigation.Size = new Size(77, 24);
+		toolStripMenuItemNavigation.Text = "&Navigation";
+		toolStripMenuItemNavigation.MouseEnter += Control_Enter;
+		toolStripMenuItemNavigation.MouseLeave += Control_Leave;
 		// 
-		// menuitemRandomMinorPlanet
+		// toolStripMenuItemRandomMinorPlanet
 		// 
-		menuitemRandomMinorPlanet.AccessibleDescription = "Loads a random minor planet";
-		menuitemRandomMinorPlanet.AccessibleName = "Random minor planet";
-		menuitemRandomMinorPlanet.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemRandomMinorPlanet.AutoToolTip = true;
-		menuitemRandomMinorPlanet.Image = FatcowIcons16px.fatcow_dice_16px;
-		menuitemRandomMinorPlanet.Name = "menuitemRandomMinorPlanet";
-		menuitemRandomMinorPlanet.ShortcutKeys = Keys.Control | Keys.R;
-		menuitemRandomMinorPlanet.Size = new Size(275, 22);
-		menuitemRandomMinorPlanet.Text = "&Random minor planet";
-		menuitemRandomMinorPlanet.Click += ToolStripMenuItemRandomMinorPlanet_Click;
-		menuitemRandomMinorPlanet.MouseEnter += Control_Enter;
-		menuitemRandomMinorPlanet.MouseLeave += Control_Leave;
+		toolStripMenuItemRandomMinorPlanet.AccessibleDescription = "Loads a random minor planet";
+		toolStripMenuItemRandomMinorPlanet.AccessibleName = "Random minor planet";
+		toolStripMenuItemRandomMinorPlanet.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRandomMinorPlanet.AutoToolTip = true;
+		toolStripMenuItemRandomMinorPlanet.Image = FatcowIcons16px.fatcow_dice_16px;
+		toolStripMenuItemRandomMinorPlanet.Name = "toolStripMenuItemRandomMinorPlanet";
+		toolStripMenuItemRandomMinorPlanet.ShortcutKeys = Keys.Control | Keys.R;
+		toolStripMenuItemRandomMinorPlanet.Size = new Size(275, 22);
+		toolStripMenuItemRandomMinorPlanet.Text = "&Random minor planet";
+		toolStripMenuItemRandomMinorPlanet.Click += ToolStripMenuItemRandomMinorPlanet_Click;
+		toolStripMenuItemRandomMinorPlanet.MouseEnter += Control_Enter;
+		toolStripMenuItemRandomMinorPlanet.MouseLeave += Control_Leave;
 		// 
 		// toolStripSeparatorNavigation1
 		// 
@@ -2712,65 +2700,65 @@ partial class PlanetoidDbForm
 		toolStripSeparatorNavigation1.MouseEnter += Control_Enter;
 		toolStripSeparatorNavigation1.MouseLeave += Control_Leave;
 		// 
-		// menuitemNavigateToTheBeginning
+		// toolStripMenuItemNavigateToTheBeginning
 		// 
-		menuitemNavigateToTheBeginning.AccessibleDescription = "Navigates to the beginning of the data";
-		menuitemNavigateToTheBeginning.AccessibleName = "Navigates to the beginning";
-		menuitemNavigateToTheBeginning.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemNavigateToTheBeginning.AutoToolTip = true;
-		menuitemNavigateToTheBeginning.Image = FatcowIcons16px.fatcow_control_start_blue_16px;
-		menuitemNavigateToTheBeginning.Name = "menuitemNavigateToTheBeginning";
-		menuitemNavigateToTheBeginning.ShortcutKeys = Keys.Control | Keys.D1;
-		menuitemNavigateToTheBeginning.Size = new Size(275, 22);
-		menuitemNavigateToTheBeginning.Text = "Navigate to the &beginning";
-		menuitemNavigateToTheBeginning.Click += ToolStripMenuItemNavigateToTheBegin_Click;
-		menuitemNavigateToTheBeginning.MouseEnter += Control_Enter;
-		menuitemNavigateToTheBeginning.MouseLeave += Control_Leave;
+		toolStripMenuItemNavigateToTheBeginning.AccessibleDescription = "Navigates to the beginning of the data";
+		toolStripMenuItemNavigateToTheBeginning.AccessibleName = "Navigates to the beginning";
+		toolStripMenuItemNavigateToTheBeginning.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemNavigateToTheBeginning.AutoToolTip = true;
+		toolStripMenuItemNavigateToTheBeginning.Image = FatcowIcons16px.fatcow_control_start_blue_16px;
+		toolStripMenuItemNavigateToTheBeginning.Name = "toolStripMenuItemNavigateToTheBeginning";
+		toolStripMenuItemNavigateToTheBeginning.ShortcutKeys = Keys.Control | Keys.D1;
+		toolStripMenuItemNavigateToTheBeginning.Size = new Size(275, 22);
+		toolStripMenuItemNavigateToTheBeginning.Text = "Navigate to the &beginning";
+		toolStripMenuItemNavigateToTheBeginning.Click += ToolStripMenuItemNavigateToTheBegin_Click;
+		toolStripMenuItemNavigateToTheBeginning.MouseEnter += Control_Enter;
+		toolStripMenuItemNavigateToTheBeginning.MouseLeave += Control_Leave;
 		// 
-		// menuitemNavigateToThePreviousData
+		// toolStripMenuItemNavigateToThePreviousData
 		// 
-		menuitemNavigateToThePreviousData.AccessibleDescription = "Navigates to the previous data";
-		menuitemNavigateToThePreviousData.AccessibleName = "Navigates to the previous";
-		menuitemNavigateToThePreviousData.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemNavigateToThePreviousData.AutoToolTip = true;
-		menuitemNavigateToThePreviousData.Image = FatcowIcons16px.fatcow_control_play_backward_blue_16px;
-		menuitemNavigateToThePreviousData.Name = "menuitemNavigateToThePreviousData";
-		menuitemNavigateToThePreviousData.ShortcutKeys = Keys.Control | Keys.D3;
-		menuitemNavigateToThePreviousData.Size = new Size(275, 22);
-		menuitemNavigateToThePreviousData.Text = "Navigate to the &previous";
-		menuitemNavigateToThePreviousData.Click += ToolStripMenuItemNavigateToThePreviousData_Click;
-		menuitemNavigateToThePreviousData.MouseEnter += Control_Enter;
-		menuitemNavigateToThePreviousData.MouseLeave += Control_Leave;
+		toolStripMenuItemNavigateToThePreviousData.AccessibleDescription = "Navigates to the previous data";
+		toolStripMenuItemNavigateToThePreviousData.AccessibleName = "Navigates to the previous";
+		toolStripMenuItemNavigateToThePreviousData.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemNavigateToThePreviousData.AutoToolTip = true;
+		toolStripMenuItemNavigateToThePreviousData.Image = FatcowIcons16px.fatcow_control_play_backward_blue_16px;
+		toolStripMenuItemNavigateToThePreviousData.Name = "toolStripMenuItemNavigateToThePreviousData";
+		toolStripMenuItemNavigateToThePreviousData.ShortcutKeys = Keys.Control | Keys.D3;
+		toolStripMenuItemNavigateToThePreviousData.Size = new Size(275, 22);
+		toolStripMenuItemNavigateToThePreviousData.Text = "Navigate to the &previous";
+		toolStripMenuItemNavigateToThePreviousData.Click += ToolStripMenuItemNavigateToThePreviousData_Click;
+		toolStripMenuItemNavigateToThePreviousData.MouseEnter += Control_Enter;
+		toolStripMenuItemNavigateToThePreviousData.MouseLeave += Control_Leave;
 		// 
-		// menuitemNavigateToTheNextData
+		// toolStripMenuItemNavigateToTheNextData
 		// 
-		menuitemNavigateToTheNextData.AccessibleDescription = "Navigates to the next data";
-		menuitemNavigateToTheNextData.AccessibleName = "Navigates to the next";
-		menuitemNavigateToTheNextData.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemNavigateToTheNextData.AutoToolTip = true;
-		menuitemNavigateToTheNextData.Image = FatcowIcons16px.fatcow_control_play_blue_16px;
-		menuitemNavigateToTheNextData.Name = "menuitemNavigateToTheNextData";
-		menuitemNavigateToTheNextData.ShortcutKeys = Keys.Control | Keys.D4;
-		menuitemNavigateToTheNextData.Size = new Size(275, 22);
-		menuitemNavigateToTheNextData.Text = "Navigate to the &next";
-		menuitemNavigateToTheNextData.Click += ToolStripMenuItemNavigateToTheNextData_Click;
-		menuitemNavigateToTheNextData.MouseEnter += Control_Enter;
-		menuitemNavigateToTheNextData.MouseLeave += Control_Leave;
+		toolStripMenuItemNavigateToTheNextData.AccessibleDescription = "Navigates to the next data";
+		toolStripMenuItemNavigateToTheNextData.AccessibleName = "Navigates to the next";
+		toolStripMenuItemNavigateToTheNextData.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemNavigateToTheNextData.AutoToolTip = true;
+		toolStripMenuItemNavigateToTheNextData.Image = FatcowIcons16px.fatcow_control_play_blue_16px;
+		toolStripMenuItemNavigateToTheNextData.Name = "toolStripMenuItemNavigateToTheNextData";
+		toolStripMenuItemNavigateToTheNextData.ShortcutKeys = Keys.Control | Keys.D4;
+		toolStripMenuItemNavigateToTheNextData.Size = new Size(275, 22);
+		toolStripMenuItemNavigateToTheNextData.Text = "Navigate to the &next";
+		toolStripMenuItemNavigateToTheNextData.Click += ToolStripMenuItemNavigateToTheNextData_Click;
+		toolStripMenuItemNavigateToTheNextData.MouseEnter += Control_Enter;
+		toolStripMenuItemNavigateToTheNextData.MouseLeave += Control_Leave;
 		// 
-		// menuitemNavigateToTheEnd
+		// toolStripMenuItemNavigateToTheEnd
 		// 
-		menuitemNavigateToTheEnd.AccessibleDescription = "Navigates to the end of the data";
-		menuitemNavigateToTheEnd.AccessibleName = "Navigates to the end";
-		menuitemNavigateToTheEnd.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemNavigateToTheEnd.AutoToolTip = true;
-		menuitemNavigateToTheEnd.Image = FatcowIcons16px.fatcow_control_end_blue_16px;
-		menuitemNavigateToTheEnd.Name = "menuitemNavigateToTheEnd";
-		menuitemNavigateToTheEnd.ShortcutKeys = Keys.Control | Keys.D6;
-		menuitemNavigateToTheEnd.Size = new Size(275, 22);
-		menuitemNavigateToTheEnd.Text = "Navigate to the &end";
-		menuitemNavigateToTheEnd.Click += ToolStripMenuItemNavigateToTheEnd_Click;
-		menuitemNavigateToTheEnd.MouseEnter += Control_Enter;
-		menuitemNavigateToTheEnd.MouseLeave += Control_Leave;
+		toolStripMenuItemNavigateToTheEnd.AccessibleDescription = "Navigates to the end of the data";
+		toolStripMenuItemNavigateToTheEnd.AccessibleName = "Navigates to the end";
+		toolStripMenuItemNavigateToTheEnd.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemNavigateToTheEnd.AutoToolTip = true;
+		toolStripMenuItemNavigateToTheEnd.Image = FatcowIcons16px.fatcow_control_end_blue_16px;
+		toolStripMenuItemNavigateToTheEnd.Name = "toolStripMenuItemNavigateToTheEnd";
+		toolStripMenuItemNavigateToTheEnd.ShortcutKeys = Keys.Control | Keys.D6;
+		toolStripMenuItemNavigateToTheEnd.Size = new Size(275, 22);
+		toolStripMenuItemNavigateToTheEnd.Text = "Navigate to the &end";
+		toolStripMenuItemNavigateToTheEnd.Click += ToolStripMenuItemNavigateToTheEnd_Click;
+		toolStripMenuItemNavigateToTheEnd.MouseEnter += Control_Enter;
+		toolStripMenuItemNavigateToTheEnd.MouseLeave += Control_Leave;
 		// 
 		// toolStripSeparator11
 		// 
@@ -2782,61 +2770,61 @@ partial class PlanetoidDbForm
 		toolStripSeparator11.MouseEnter += Control_Enter;
 		toolStripSeparator11.MouseLeave += Control_Leave;
 		// 
-		// menuitemListReadableDesignations
+		// toolStripMenuItemListReadableDesignations
 		// 
-		menuitemListReadableDesignations.AccessibleDescription = "Click to show the list pf the readable designations";
-		menuitemListReadableDesignations.AccessibleName = "List readable designations";
-		menuitemListReadableDesignations.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemListReadableDesignations.AutoToolTip = true;
-		menuitemListReadableDesignations.Image = FatcowIcons16px.fatcow_page_white_text_16px;
-		menuitemListReadableDesignations.Name = "menuitemListReadableDesignations";
-		menuitemListReadableDesignations.Size = new Size(275, 22);
-		menuitemListReadableDesignations.Text = "&List readable designations";
-		menuitemListReadableDesignations.Click += MenuitemListReadableDesignations_Click;
-		menuitemListReadableDesignations.MouseEnter += Control_Enter;
-		menuitemListReadableDesignations.MouseLeave += Control_Leave;
+		toolStripMenuItemListReadableDesignations.AccessibleDescription = "Click to show the list pf the readable designations";
+		toolStripMenuItemListReadableDesignations.AccessibleName = "List readable designations";
+		toolStripMenuItemListReadableDesignations.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemListReadableDesignations.AutoToolTip = true;
+		toolStripMenuItemListReadableDesignations.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemListReadableDesignations.Name = "toolStripMenuItemListReadableDesignations";
+		toolStripMenuItemListReadableDesignations.Size = new Size(275, 22);
+		toolStripMenuItemListReadableDesignations.Text = "&List readable designations";
+		toolStripMenuItemListReadableDesignations.Click += MenuitemListReadableDesignations_Click;
+		toolStripMenuItemListReadableDesignations.MouseEnter += Control_Enter;
+		toolStripMenuItemListReadableDesignations.MouseLeave += Control_Leave;
 		// 
-		// menuitemTools
+		// toolStripMenuItemTools
 		// 
-		menuitemTools.AccessibleDescription = "Opens the menu \"tools\"";
-		menuitemTools.AccessibleName = "Tools";
-		menuitemTools.AccessibleRole = AccessibleRole.MenuPopup;
-		menuitemTools.AutoToolTip = true;
-		menuitemTools.DropDownItems.AddRange(new ToolStripItem[] { menuitemDerivedOrbitElements, menuitemFilter, toolStripSeparatorTools1, menuitemRecords, toolStripSeparator10, menuitemDistribution, toolStripSeparatorTools2, menuitemDatabaseInformation, menuitemTableMode, menuitemTerminology, toolStripSeparator16, toolStripMenuItemOrbitElementsGrouping, toolStripMenuItemAsteroidFamiliesDetection, toolStripSeparator18, toolStripMenuItemMoids, toolStripMenuItemTisserandParameters, toolStripMenuItemOrbitalResonances, toolStripMenuItemObservations });
-		menuitemTools.Name = "menuitemTools";
-		menuitemTools.Size = new Size(46, 24);
-		menuitemTools.Text = "&Tools";
-		menuitemTools.MouseEnter += Control_Enter;
-		menuitemTools.MouseLeave += Control_Leave;
+		toolStripMenuItemTools.AccessibleDescription = "Opens the menu \"tools\"";
+		toolStripMenuItemTools.AccessibleName = "Tools";
+		toolStripMenuItemTools.AccessibleRole = AccessibleRole.MenuPopup;
+		toolStripMenuItemTools.AutoToolTip = true;
+		toolStripMenuItemTools.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemDerivedOrbitElements, toolStripMenuItemFilter, toolStripSeparatorTools1, toolStripMenuItemRecords, toolStripSeparator10, toolStripMenuItemDistribution, toolStripSeparatorTools2, toolStripMenuItemDatabaseInformation, menuitemTableMode, menuitemTerminology, toolStripSeparator16, toolStripMenuItemOrbitElementsGrouping, toolStripMenuItemAsteroidFamiliesDetection, toolStripSeparator18, toolStripMenuItemMoids, toolStripMenuItemTisserandParameters, toolStripMenuItemOrbitalResonances, toolStripMenuItemObservations });
+		toolStripMenuItemTools.Name = "toolStripMenuItemTools";
+		toolStripMenuItemTools.Size = new Size(46, 24);
+		toolStripMenuItemTools.Text = "&Tools";
+		toolStripMenuItemTools.MouseEnter += Control_Enter;
+		toolStripMenuItemTools.MouseLeave += Control_Leave;
 		// 
-		// menuitemDerivedOrbitElements
+		// toolStripMenuItemDerivedOrbitElements
 		// 
-		menuitemDerivedOrbitElements.AccessibleDescription = "Calculates derived orbital elements";
-		menuitemDerivedOrbitElements.AccessibleName = "Derived orbital elements";
-		menuitemDerivedOrbitElements.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemDerivedOrbitElements.AutoToolTip = true;
-		menuitemDerivedOrbitElements.Image = FatcowIcons16px.fatcow_arrow_branch_16px;
-		menuitemDerivedOrbitElements.Name = "menuitemDerivedOrbitElements";
-		menuitemDerivedOrbitElements.Size = new Size(227, 22);
-		menuitemDerivedOrbitElements.Text = "Derived &orbital elements";
-		menuitemDerivedOrbitElements.Click += ToolStripMenuItemDerivedOrbitElements_Click;
-		menuitemDerivedOrbitElements.MouseEnter += Control_Enter;
-		menuitemDerivedOrbitElements.MouseLeave += Control_Leave;
+		toolStripMenuItemDerivedOrbitElements.AccessibleDescription = "Calculates derived orbital elements";
+		toolStripMenuItemDerivedOrbitElements.AccessibleName = "Derived orbital elements";
+		toolStripMenuItemDerivedOrbitElements.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDerivedOrbitElements.AutoToolTip = true;
+		toolStripMenuItemDerivedOrbitElements.Image = FatcowIcons16px.fatcow_arrow_branch_16px;
+		toolStripMenuItemDerivedOrbitElements.Name = "toolStripMenuItemDerivedOrbitElements";
+		toolStripMenuItemDerivedOrbitElements.Size = new Size(227, 22);
+		toolStripMenuItemDerivedOrbitElements.Text = "Derived &orbital elements";
+		toolStripMenuItemDerivedOrbitElements.Click += ToolStripMenuItemDerivedOrbitElements_Click;
+		toolStripMenuItemDerivedOrbitElements.MouseEnter += Control_Enter;
+		toolStripMenuItemDerivedOrbitElements.MouseLeave += Control_Leave;
 		// 
-		// menuitemFilter
+		// toolStripMenuItemFilter
 		// 
-		menuitemFilter.AccessibleDescription = "Filters the orbital elements in some ranges";
-		menuitemFilter.AccessibleName = "Filter";
-		menuitemFilter.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemFilter.AutoToolTip = true;
-		menuitemFilter.Enabled = false;
-		menuitemFilter.Image = FatcowIcons16px.fatcow_filter_16px;
-		menuitemFilter.Name = "menuitemFilter";
-		menuitemFilter.Size = new Size(227, 22);
-		menuitemFilter.Text = "&Filter";
-		menuitemFilter.Click += ToolStripMenuItemFilter_Click;
-		menuitemFilter.MouseEnter += Control_Enter;
-		menuitemFilter.MouseLeave += Control_Leave;
+		toolStripMenuItemFilter.AccessibleDescription = "Filters the orbital elements in some ranges";
+		toolStripMenuItemFilter.AccessibleName = "Filter";
+		toolStripMenuItemFilter.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemFilter.AutoToolTip = true;
+		toolStripMenuItemFilter.Enabled = false;
+		toolStripMenuItemFilter.Image = FatcowIcons16px.fatcow_filter_16px;
+		toolStripMenuItemFilter.Name = "toolStripMenuItemFilter";
+		toolStripMenuItemFilter.Size = new Size(227, 22);
+		toolStripMenuItemFilter.Text = "&Filter";
+		toolStripMenuItemFilter.Click += ToolStripMenuItemFilter_Click;
+		toolStripMenuItemFilter.MouseEnter += Control_Enter;
+		toolStripMenuItemFilter.MouseLeave += Control_Leave;
 		// 
 		// toolStripSeparatorTools1
 		// 
@@ -2868,20 +2856,20 @@ partial class PlanetoidDbForm
 		toolStripSeparatorTools2.MouseEnter += Control_Enter;
 		toolStripSeparatorTools2.MouseLeave += Control_Leave;
 		// 
-		// menuitemDatabaseInformation
+		// toolStripMenuItemDatabaseInformation
 		// 
-		menuitemDatabaseInformation.AccessibleDescription = "Shows the information of the MPCORB.DAT databbase";
-		menuitemDatabaseInformation.AccessibleName = "Database information";
-		menuitemDatabaseInformation.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemDatabaseInformation.AutoToolTip = true;
-		menuitemDatabaseInformation.Image = FatcowIcons16px.fatcow_database_16px;
-		menuitemDatabaseInformation.Name = "menuitemDatabaseInformation";
-		menuitemDatabaseInformation.ShortcutKeys = Keys.Control | Keys.I;
-		menuitemDatabaseInformation.Size = new Size(227, 22);
-		menuitemDatabaseInformation.Text = "Database &information";
-		menuitemDatabaseInformation.Click += ToolStripMenuItemDatabaseInformation_Click;
-		menuitemDatabaseInformation.MouseEnter += Control_Enter;
-		menuitemDatabaseInformation.MouseLeave += Control_Leave;
+		toolStripMenuItemDatabaseInformation.AccessibleDescription = "Shows the information of the MPCORB.DAT databbase";
+		toolStripMenuItemDatabaseInformation.AccessibleName = "Database information";
+		toolStripMenuItemDatabaseInformation.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDatabaseInformation.AutoToolTip = true;
+		toolStripMenuItemDatabaseInformation.Image = FatcowIcons16px.fatcow_database_16px;
+		toolStripMenuItemDatabaseInformation.Name = "toolStripMenuItemDatabaseInformation";
+		toolStripMenuItemDatabaseInformation.ShortcutKeys = Keys.Control | Keys.I;
+		toolStripMenuItemDatabaseInformation.Size = new Size(227, 22);
+		toolStripMenuItemDatabaseInformation.Text = "Database &information";
+		toolStripMenuItemDatabaseInformation.Click += ToolStripMenuItemDatabaseInformation_Click;
+		toolStripMenuItemDatabaseInformation.MouseEnter += Control_Enter;
+		toolStripMenuItemDatabaseInformation.MouseLeave += Control_Leave;
 		// 
 		// menuitemTableMode
 		// 
@@ -3268,18 +3256,18 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOpenAllDataPages.MouseEnter += Control_Enter;
 		toolStripMenuItemOpenAllDataPages.MouseLeave += Control_Leave;
 		// 
-		// menuitemUpdate
+		// toolStripMenuItemUpdate
 		// 
-		menuitemUpdate.AccessibleDescription = "Opens the menu \"updates\"";
-		menuitemUpdate.AccessibleName = "Update";
-		menuitemUpdate.AccessibleRole = AccessibleRole.MenuPopup;
-		menuitemUpdate.AutoToolTip = true;
-		menuitemUpdate.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemShowMpcorbDatUpdateIsAvailable, toolStripMenuItemShowAstorbDatUpdateIsAvailable, toolStripSeparator19, toolStripMenuItemCheckMpcorbDatUpdate, toolStripMenuItemDownloadMpcorbDat, toolStripSeparator2, toolStripMenuItemCheckAstorbDatUpdate, toolStripMenuItemDownloadAstorbDat });
-		menuitemUpdate.Name = "menuitemUpdate";
-		menuitemUpdate.Size = new Size(57, 24);
-		menuitemUpdate.Text = "&Update";
-		menuitemUpdate.MouseEnter += Control_Enter;
-		menuitemUpdate.MouseLeave += Control_Leave;
+		toolStripMenuItemUpdate.AccessibleDescription = "Opens the menu \"updates\"";
+		toolStripMenuItemUpdate.AccessibleName = "Update";
+		toolStripMenuItemUpdate.AccessibleRole = AccessibleRole.MenuPopup;
+		toolStripMenuItemUpdate.AutoToolTip = true;
+		toolStripMenuItemUpdate.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemShowMpcorbDatUpdateIsAvailable, toolStripMenuItemShowAstorbDatUpdateIsAvailable, toolStripSeparator19, toolStripMenuItemCheckMpcorbDatUpdate, toolStripMenuItemDownloadMpcorbDat, toolStripSeparator2, toolStripMenuItemCheckAstorbDatUpdate, toolStripMenuItemDownloadAstorbDat });
+		toolStripMenuItemUpdate.Name = "toolStripMenuItemUpdate";
+		toolStripMenuItemUpdate.Size = new Size(57, 24);
+		toolStripMenuItemUpdate.Text = "&Update";
+		toolStripMenuItemUpdate.MouseEnter += Control_Enter;
+		toolStripMenuItemUpdate.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemShowMpcorbDatUpdateIsAvailable
 		// 
@@ -3387,96 +3375,96 @@ partial class PlanetoidDbForm
 		toolStripMenuItemDownloadAstorbDat.MouseEnter += Control_Enter;
 		toolStripMenuItemDownloadAstorbDat.MouseLeave += Control_Leave;
 		// 
-		// menuitemOptions
+		// toolStripMenuItemOptions
 		// 
-		menuitemOptions.AccessibleDescription = "Opens the menu \"options\"";
-		menuitemOptions.AccessibleName = "Options";
-		menuitemOptions.AccessibleRole = AccessibleRole.MenuPopup;
-		menuitemOptions.AutoToolTip = true;
-		menuitemOptions.DropDownItems.AddRange(new ToolStripItem[] { menuitemSettings, menuitemStyle, toolStripSeparatorOptions, menuitemOptionStayOnTop, menuitemOptionEnabledCopyingByDoubleClicking, menuitemOptionEnableLinkingToTerminology });
-		menuitemOptions.Enabled = false;
-		menuitemOptions.Name = "menuitemOptions";
-		menuitemOptions.ShortcutKeys = Keys.Alt | Keys.O;
-		menuitemOptions.Size = new Size(61, 24);
-		menuitemOptions.Text = "&Options";
-		menuitemOptions.MouseEnter += Control_Enter;
-		menuitemOptions.MouseLeave += Control_Leave;
+		toolStripMenuItemOptions.AccessibleDescription = "Opens the menu \"options\"";
+		toolStripMenuItemOptions.AccessibleName = "Options";
+		toolStripMenuItemOptions.AccessibleRole = AccessibleRole.MenuPopup;
+		toolStripMenuItemOptions.AutoToolTip = true;
+		toolStripMenuItemOptions.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSettings, toolStripMenuItemStyle, toolStripSeparatorOptions, toolStripMenuItemOptionStayOnTop, toolStripMenuItemOptionEnabledCopyingByDoubleClicking, toolStripMenuItemOptionEnableLinkingToTerminology });
+		toolStripMenuItemOptions.Enabled = false;
+		toolStripMenuItemOptions.Name = "toolStripMenuItemOptions";
+		toolStripMenuItemOptions.ShortcutKeys = Keys.Alt | Keys.O;
+		toolStripMenuItemOptions.Size = new Size(61, 24);
+		toolStripMenuItemOptions.Text = "&Options";
+		toolStripMenuItemOptions.MouseEnter += Control_Enter;
+		toolStripMenuItemOptions.MouseLeave += Control_Leave;
 		// 
-		// menuitemSettings
+		// toolStripMenuItemSettings
 		// 
-		menuitemSettings.AccessibleDescription = "Changes the settings";
-		menuitemSettings.AccessibleName = "settings";
-		menuitemSettings.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemSettings.AutoToolTip = true;
-		menuitemSettings.Image = FatcowIcons16px.fatcow_wrench_16px;
-		menuitemSettings.Name = "menuitemSettings";
-		menuitemSettings.Size = new Size(264, 22);
-		menuitemSettings.Text = "&Settings";
-		menuitemSettings.Click += ToolStripMenuItemSettings_Click;
-		menuitemSettings.MouseEnter += Control_Enter;
-		menuitemSettings.MouseLeave += Control_Leave;
+		toolStripMenuItemSettings.AccessibleDescription = "Changes the settings";
+		toolStripMenuItemSettings.AccessibleName = "settings";
+		toolStripMenuItemSettings.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSettings.AutoToolTip = true;
+		toolStripMenuItemSettings.Image = FatcowIcons16px.fatcow_wrench_16px;
+		toolStripMenuItemSettings.Name = "toolStripMenuItemSettings";
+		toolStripMenuItemSettings.Size = new Size(264, 22);
+		toolStripMenuItemSettings.Text = "&Settings";
+		toolStripMenuItemSettings.Click += ToolStripMenuItemSettings_Click;
+		toolStripMenuItemSettings.MouseEnter += Control_Enter;
+		toolStripMenuItemSettings.MouseLeave += Control_Leave;
 		// 
-		// menuitemStyle
+		// toolStripMenuItemStyle
 		// 
-		menuitemStyle.AccessibleDescription = "Changes the style";
-		menuitemStyle.AccessibleName = "Look and Feel";
-		menuitemStyle.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemStyle.AutoToolTip = true;
-		menuitemStyle.DropDownItems.AddRange(new ToolStripItem[] { menuitemIconsetFatcow, menuitemIconsetSilk, menuitemIconsetFugue });
-		menuitemStyle.Image = FatcowIcons16px.fatcow_style_16px;
-		menuitemStyle.Name = "menuitemStyle";
-		menuitemStyle.ShortcutKeyDisplayString = "";
-		menuitemStyle.Size = new Size(264, 22);
-		menuitemStyle.Text = "&Look and Feel";
-		menuitemStyle.MouseEnter += Control_Enter;
-		menuitemStyle.MouseLeave += Control_Leave;
+		toolStripMenuItemStyle.AccessibleDescription = "Changes the style";
+		toolStripMenuItemStyle.AccessibleName = "Look and Feel";
+		toolStripMenuItemStyle.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemStyle.AutoToolTip = true;
+		toolStripMenuItemStyle.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemIconsetFatcow, toolStripMenuItemIconsetSilk, toolStripMenuItemIconsetFugue });
+		toolStripMenuItemStyle.Image = FatcowIcons16px.fatcow_style_16px;
+		toolStripMenuItemStyle.Name = "toolStripMenuItemStyle";
+		toolStripMenuItemStyle.ShortcutKeyDisplayString = "";
+		toolStripMenuItemStyle.Size = new Size(264, 22);
+		toolStripMenuItemStyle.Text = "&Look and Feel";
+		toolStripMenuItemStyle.MouseEnter += Control_Enter;
+		toolStripMenuItemStyle.MouseLeave += Control_Leave;
 		// 
-		// menuitemIconsetFatcow
+		// toolStripMenuItemIconsetFatcow
 		// 
-		menuitemIconsetFatcow.AccessibleDescription = "Changes the icon set to Fatcow icons";
-		menuitemIconsetFatcow.AccessibleName = "Fatcow icons";
-		menuitemIconsetFatcow.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemIconsetFatcow.AutoToolTip = true;
-		menuitemIconsetFatcow.CheckOnClick = true;
-		menuitemIconsetFatcow.Enabled = false;
-		menuitemIconsetFatcow.Name = "menuitemIconsetFatcow";
-		menuitemIconsetFatcow.Size = new Size(143, 22);
-		menuitemIconsetFatcow.Text = "Fatcow icons";
-		menuitemIconsetFatcow.Click += ToolStripMenuItemIconSetFatcow_Click;
-		menuitemIconsetFatcow.MouseEnter += Control_Enter;
-		menuitemIconsetFatcow.MouseLeave += Control_Leave;
+		toolStripMenuItemIconsetFatcow.AccessibleDescription = "Changes the icon set to Fatcow icons";
+		toolStripMenuItemIconsetFatcow.AccessibleName = "Fatcow icons";
+		toolStripMenuItemIconsetFatcow.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemIconsetFatcow.AutoToolTip = true;
+		toolStripMenuItemIconsetFatcow.CheckOnClick = true;
+		toolStripMenuItemIconsetFatcow.Enabled = false;
+		toolStripMenuItemIconsetFatcow.Name = "toolStripMenuItemIconsetFatcow";
+		toolStripMenuItemIconsetFatcow.Size = new Size(180, 22);
+		toolStripMenuItemIconsetFatcow.Text = "Fatcow icons";
+		toolStripMenuItemIconsetFatcow.Click += ToolStripMenuItemIconSetFatcow_Click;
+		toolStripMenuItemIconsetFatcow.MouseEnter += Control_Enter;
+		toolStripMenuItemIconsetFatcow.MouseLeave += Control_Leave;
 		// 
-		// menuitemIconsetSilk
+		// toolStripMenuItemIconsetSilk
 		// 
-		menuitemIconsetSilk.AccessibleDescription = "Changes the icon set to Silk icons";
-		menuitemIconsetSilk.AccessibleName = "Silk icons";
-		menuitemIconsetSilk.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemIconsetSilk.AutoToolTip = true;
-		menuitemIconsetSilk.Checked = true;
-		menuitemIconsetSilk.CheckOnClick = true;
-		menuitemIconsetSilk.CheckState = CheckState.Checked;
-		menuitemIconsetSilk.Enabled = false;
-		menuitemIconsetSilk.Name = "menuitemIconsetSilk";
-		menuitemIconsetSilk.Size = new Size(143, 22);
-		menuitemIconsetSilk.Text = "Silk icons";
-		menuitemIconsetSilk.Click += ToolStripMenuItemIconSetSilk_Click;
-		menuitemIconsetSilk.MouseEnter += Control_Enter;
-		menuitemIconsetSilk.MouseLeave += Control_Leave;
+		toolStripMenuItemIconsetSilk.AccessibleDescription = "Changes the icon set to Silk icons";
+		toolStripMenuItemIconsetSilk.AccessibleName = "Silk icons";
+		toolStripMenuItemIconsetSilk.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemIconsetSilk.AutoToolTip = true;
+		toolStripMenuItemIconsetSilk.Checked = true;
+		toolStripMenuItemIconsetSilk.CheckOnClick = true;
+		toolStripMenuItemIconsetSilk.CheckState = CheckState.Checked;
+		toolStripMenuItemIconsetSilk.Enabled = false;
+		toolStripMenuItemIconsetSilk.Name = "toolStripMenuItemIconsetSilk";
+		toolStripMenuItemIconsetSilk.Size = new Size(180, 22);
+		toolStripMenuItemIconsetSilk.Text = "Silk icons";
+		toolStripMenuItemIconsetSilk.Click += ToolStripMenuItemIconSetSilk_Click;
+		toolStripMenuItemIconsetSilk.MouseEnter += Control_Enter;
+		toolStripMenuItemIconsetSilk.MouseLeave += Control_Leave;
 		// 
-		// menuitemIconsetFugue
+		// toolStripMenuItemIconsetFugue
 		// 
-		menuitemIconsetFugue.AccessibleDescription = "Changes the icon set to Fugue icons";
-		menuitemIconsetFugue.AccessibleName = "Fugue icons";
-		menuitemIconsetFugue.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemIconsetFugue.AutoToolTip = true;
-		menuitemIconsetFugue.CheckOnClick = true;
-		menuitemIconsetFugue.Enabled = false;
-		menuitemIconsetFugue.Name = "menuitemIconsetFugue";
-		menuitemIconsetFugue.Size = new Size(143, 22);
-		menuitemIconsetFugue.Text = "Fugue icons";
-		menuitemIconsetFugue.Click += ToolStripMenuItemIconSetFugue_Click;
-		menuitemIconsetFugue.MouseEnter += Control_Enter;
-		menuitemIconsetFugue.MouseLeave += Control_Leave;
+		toolStripMenuItemIconsetFugue.AccessibleDescription = "Changes the icon set to Fugue icons";
+		toolStripMenuItemIconsetFugue.AccessibleName = "Fugue icons";
+		toolStripMenuItemIconsetFugue.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemIconsetFugue.AutoToolTip = true;
+		toolStripMenuItemIconsetFugue.CheckOnClick = true;
+		toolStripMenuItemIconsetFugue.Enabled = false;
+		toolStripMenuItemIconsetFugue.Name = "toolStripMenuItemIconsetFugue";
+		toolStripMenuItemIconsetFugue.Size = new Size(180, 22);
+		toolStripMenuItemIconsetFugue.Text = "Fugue icons";
+		toolStripMenuItemIconsetFugue.Click += ToolStripMenuItemIconSetFugue_Click;
+		toolStripMenuItemIconsetFugue.MouseEnter += Control_Enter;
+		toolStripMenuItemIconsetFugue.MouseLeave += Control_Leave;
 		// 
 		// toolStripSeparatorOptions
 		// 
@@ -3488,96 +3476,96 @@ partial class PlanetoidDbForm
 		toolStripSeparatorOptions.MouseEnter += Control_Enter;
 		toolStripSeparatorOptions.MouseLeave += Control_Leave;
 		// 
-		// menuitemOptionStayOnTop
+		// toolStripMenuItemOptionStayOnTop
 		// 
-		menuitemOptionStayOnTop.AccessibleDescription = "Stays the application always on top";
-		menuitemOptionStayOnTop.AccessibleName = "Stays always on top";
-		menuitemOptionStayOnTop.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemOptionStayOnTop.AutoToolTip = true;
-		menuitemOptionStayOnTop.CheckOnClick = true;
-		menuitemOptionStayOnTop.Name = "menuitemOptionStayOnTop";
-		menuitemOptionStayOnTop.Size = new Size(264, 22);
-		menuitemOptionStayOnTop.Text = "Stay always on &top";
-		menuitemOptionStayOnTop.Click += ToolStripMenuItemStayOnTop_Click;
-		menuitemOptionStayOnTop.MouseEnter += Control_Enter;
-		menuitemOptionStayOnTop.MouseLeave += Control_Leave;
+		toolStripMenuItemOptionStayOnTop.AccessibleDescription = "Stays the application always on top";
+		toolStripMenuItemOptionStayOnTop.AccessibleName = "Stays always on top";
+		toolStripMenuItemOptionStayOnTop.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemOptionStayOnTop.AutoToolTip = true;
+		toolStripMenuItemOptionStayOnTop.CheckOnClick = true;
+		toolStripMenuItemOptionStayOnTop.Name = "toolStripMenuItemOptionStayOnTop";
+		toolStripMenuItemOptionStayOnTop.Size = new Size(264, 22);
+		toolStripMenuItemOptionStayOnTop.Text = "Stay always on &top";
+		toolStripMenuItemOptionStayOnTop.Click += ToolStripMenuItemStayOnTop_Click;
+		toolStripMenuItemOptionStayOnTop.MouseEnter += Control_Enter;
+		toolStripMenuItemOptionStayOnTop.MouseLeave += Control_Leave;
 		// 
-		// menuitemOptionEnabledCopyingByDoubleClicking
+		// toolStripMenuItemOptionEnabledCopyingByDoubleClicking
 		// 
-		menuitemOptionEnabledCopyingByDoubleClicking.AccessibleDescription = "Enableds copying data to the clipboard by double-clicking";
-		menuitemOptionEnabledCopyingByDoubleClicking.AccessibleName = "Enableds copying by double-clicking";
-		menuitemOptionEnabledCopyingByDoubleClicking.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemOptionEnabledCopyingByDoubleClicking.AutoToolTip = true;
-		menuitemOptionEnabledCopyingByDoubleClicking.Checked = true;
-		menuitemOptionEnabledCopyingByDoubleClicking.CheckOnClick = true;
-		menuitemOptionEnabledCopyingByDoubleClicking.CheckState = CheckState.Checked;
-		menuitemOptionEnabledCopyingByDoubleClicking.Font = new Font("Segoe UI", 9F);
-		menuitemOptionEnabledCopyingByDoubleClicking.Name = "menuitemOptionEnabledCopyingByDoubleClicking";
-		menuitemOptionEnabledCopyingByDoubleClicking.Size = new Size(264, 22);
-		menuitemOptionEnabledCopyingByDoubleClicking.Text = "Enabled &copying by double-clicking";
-		menuitemOptionEnabledCopyingByDoubleClicking.Click += ToolStripMenuItemEnableCopyingByDoubleClicking_Click;
-		menuitemOptionEnabledCopyingByDoubleClicking.MouseEnter += Control_Enter;
-		menuitemOptionEnabledCopyingByDoubleClicking.MouseLeave += Control_Leave;
+		toolStripMenuItemOptionEnabledCopyingByDoubleClicking.AccessibleDescription = "Enableds copying data to the clipboard by double-clicking";
+		toolStripMenuItemOptionEnabledCopyingByDoubleClicking.AccessibleName = "Enableds copying by double-clicking";
+		toolStripMenuItemOptionEnabledCopyingByDoubleClicking.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemOptionEnabledCopyingByDoubleClicking.AutoToolTip = true;
+		toolStripMenuItemOptionEnabledCopyingByDoubleClicking.Checked = true;
+		toolStripMenuItemOptionEnabledCopyingByDoubleClicking.CheckOnClick = true;
+		toolStripMenuItemOptionEnabledCopyingByDoubleClicking.CheckState = CheckState.Checked;
+		toolStripMenuItemOptionEnabledCopyingByDoubleClicking.Font = new Font("Segoe UI", 9F);
+		toolStripMenuItemOptionEnabledCopyingByDoubleClicking.Name = "toolStripMenuItemOptionEnabledCopyingByDoubleClicking";
+		toolStripMenuItemOptionEnabledCopyingByDoubleClicking.Size = new Size(264, 22);
+		toolStripMenuItemOptionEnabledCopyingByDoubleClicking.Text = "Enabled &copying by double-clicking";
+		toolStripMenuItemOptionEnabledCopyingByDoubleClicking.Click += ToolStripMenuItemEnableCopyingByDoubleClicking_Click;
+		toolStripMenuItemOptionEnabledCopyingByDoubleClicking.MouseEnter += Control_Enter;
+		toolStripMenuItemOptionEnabledCopyingByDoubleClicking.MouseLeave += Control_Leave;
 		// 
-		// menuitemOptionEnableLinkingToTerminology
+		// toolStripMenuItemOptionEnableLinkingToTerminology
 		// 
-		menuitemOptionEnableLinkingToTerminology.AccessibleDescription = "Enables linking to terminology";
-		menuitemOptionEnableLinkingToTerminology.AccessibleName = "Enables linking to terminology";
-		menuitemOptionEnableLinkingToTerminology.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemOptionEnableLinkingToTerminology.AutoToolTip = true;
-		menuitemOptionEnableLinkingToTerminology.Checked = true;
-		menuitemOptionEnableLinkingToTerminology.CheckOnClick = true;
-		menuitemOptionEnableLinkingToTerminology.CheckState = CheckState.Checked;
-		menuitemOptionEnableLinkingToTerminology.Enabled = false;
-		menuitemOptionEnableLinkingToTerminology.Name = "menuitemOptionEnableLinkingToTerminology";
-		menuitemOptionEnableLinkingToTerminology.Size = new Size(264, 22);
-		menuitemOptionEnableLinkingToTerminology.Text = "Enable linking to terminolog&y";
-		menuitemOptionEnableLinkingToTerminology.Click += ToolStripMenuItemEnableLinkingToTerminology_Click;
-		menuitemOptionEnableLinkingToTerminology.MouseEnter += Control_Enter;
-		menuitemOptionEnableLinkingToTerminology.MouseLeave += Control_Leave;
+		toolStripMenuItemOptionEnableLinkingToTerminology.AccessibleDescription = "Enables linking to terminology";
+		toolStripMenuItemOptionEnableLinkingToTerminology.AccessibleName = "Enables linking to terminology";
+		toolStripMenuItemOptionEnableLinkingToTerminology.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemOptionEnableLinkingToTerminology.AutoToolTip = true;
+		toolStripMenuItemOptionEnableLinkingToTerminology.Checked = true;
+		toolStripMenuItemOptionEnableLinkingToTerminology.CheckOnClick = true;
+		toolStripMenuItemOptionEnableLinkingToTerminology.CheckState = CheckState.Checked;
+		toolStripMenuItemOptionEnableLinkingToTerminology.Enabled = false;
+		toolStripMenuItemOptionEnableLinkingToTerminology.Name = "toolStripMenuItemOptionEnableLinkingToTerminology";
+		toolStripMenuItemOptionEnableLinkingToTerminology.Size = new Size(264, 22);
+		toolStripMenuItemOptionEnableLinkingToTerminology.Text = "Enable linking to terminolog&y";
+		toolStripMenuItemOptionEnableLinkingToTerminology.Click += ToolStripMenuItemEnableLinkingToTerminology_Click;
+		toolStripMenuItemOptionEnableLinkingToTerminology.MouseEnter += Control_Enter;
+		toolStripMenuItemOptionEnableLinkingToTerminology.MouseLeave += Control_Leave;
 		// 
-		// menuitemHelp
+		// toolStripMenuItemHelp
 		// 
-		menuitemHelp.AccessibleDescription = "Opens the menu \"help\"";
-		menuitemHelp.AccessibleName = "Help";
-		menuitemHelp.AccessibleRole = AccessibleRole.MenuPopup;
-		menuitemHelp.AutoToolTip = true;
-		menuitemHelp.DropDownItems.AddRange(new ToolStripItem[] { menuitemAbout, menuitemLicense, toolStripSeparatorMisc1, menuitemOpenWebsitePDB, menuitemOpenWebsiteMPC, menuitemOpenMPCORBWebsite });
-		menuitemHelp.Name = "menuitemHelp";
-		menuitemHelp.ShortcutKeys = Keys.Alt | Keys.H;
-		menuitemHelp.Size = new Size(44, 24);
-		menuitemHelp.Text = "&Help";
-		menuitemHelp.MouseEnter += Control_Enter;
-		menuitemHelp.MouseLeave += Control_Leave;
+		toolStripMenuItemHelp.AccessibleDescription = "Opens the menu \"help\"";
+		toolStripMenuItemHelp.AccessibleName = "Help";
+		toolStripMenuItemHelp.AccessibleRole = AccessibleRole.MenuPopup;
+		toolStripMenuItemHelp.AutoToolTip = true;
+		toolStripMenuItemHelp.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemAbout, toolStripMenuItemLicense, toolStripSeparatorMisc1, toolStripMenuItemOpenWebsitePDB, toolStripMenuItemOpenWebsiteMPC, toolStripMenuItemOpenMPCORBWebsite });
+		toolStripMenuItemHelp.Name = "toolStripMenuItemHelp";
+		toolStripMenuItemHelp.ShortcutKeys = Keys.Alt | Keys.H;
+		toolStripMenuItemHelp.Size = new Size(44, 24);
+		toolStripMenuItemHelp.Text = "&Help";
+		toolStripMenuItemHelp.MouseEnter += Control_Enter;
+		toolStripMenuItemHelp.MouseLeave += Control_Leave;
 		// 
-		// menuitemAbout
+		// toolStripMenuItemAbout
 		// 
-		menuitemAbout.AccessibleDescription = "More information about the application";
-		menuitemAbout.AccessibleName = "About";
-		menuitemAbout.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemAbout.AutoToolTip = true;
-		menuitemAbout.Image = FatcowIcons16px.fatcow_information_16px;
-		menuitemAbout.Name = "menuitemAbout";
-		menuitemAbout.Size = new Size(236, 22);
-		menuitemAbout.Text = "&About";
-		menuitemAbout.ToolTipText = "More information about the application";
-		menuitemAbout.Click += MenuitemAbout_Click;
-		menuitemAbout.MouseEnter += Control_Enter;
-		menuitemAbout.MouseLeave += Control_Leave;
+		toolStripMenuItemAbout.AccessibleDescription = "More information about the application";
+		toolStripMenuItemAbout.AccessibleName = "About";
+		toolStripMenuItemAbout.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemAbout.AutoToolTip = true;
+		toolStripMenuItemAbout.Image = FatcowIcons16px.fatcow_information_16px;
+		toolStripMenuItemAbout.Name = "toolStripMenuItemAbout";
+		toolStripMenuItemAbout.Size = new Size(236, 22);
+		toolStripMenuItemAbout.Text = "&About";
+		toolStripMenuItemAbout.ToolTipText = "More information about the application";
+		toolStripMenuItemAbout.Click += MenuitemAbout_Click;
+		toolStripMenuItemAbout.MouseEnter += Control_Enter;
+		toolStripMenuItemAbout.MouseLeave += Control_Leave;
 		// 
-		// menuitemLicense
+		// toolStripMenuItemLicense
 		// 
-		menuitemLicense.AccessibleDescription = "License information about the application";
-		menuitemLicense.AccessibleName = "License";
-		menuitemLicense.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemLicense.AutoToolTip = true;
-		menuitemLicense.Image = FatcowIcons16px.fatcow_script_16px;
-		menuitemLicense.Name = "menuitemLicense";
-		menuitemLicense.Size = new Size(236, 22);
-		menuitemLicense.Text = "License";
-		menuitemLicense.Click += MenuitemLicense_Click;
-		menuitemLicense.MouseEnter += Control_Enter;
-		menuitemLicense.MouseLeave += Control_Leave;
+		toolStripMenuItemLicense.AccessibleDescription = "License information about the application";
+		toolStripMenuItemLicense.AccessibleName = "License";
+		toolStripMenuItemLicense.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemLicense.AutoToolTip = true;
+		toolStripMenuItemLicense.Image = FatcowIcons16px.fatcow_script_16px;
+		toolStripMenuItemLicense.Name = "toolStripMenuItemLicense";
+		toolStripMenuItemLicense.Size = new Size(236, 22);
+		toolStripMenuItemLicense.Text = "License";
+		toolStripMenuItemLicense.Click += MenuitemLicense_Click;
+		toolStripMenuItemLicense.MouseEnter += Control_Enter;
+		toolStripMenuItemLicense.MouseLeave += Control_Leave;
 		// 
 		// toolStripSeparatorMisc1
 		// 
@@ -3589,50 +3577,50 @@ partial class PlanetoidDbForm
 		toolStripSeparatorMisc1.MouseEnter += Control_Enter;
 		toolStripSeparatorMisc1.MouseLeave += Control_Leave;
 		// 
-		// menuitemOpenWebsitePDB
+		// toolStripMenuItemOpenWebsitePDB
 		// 
-		menuitemOpenWebsitePDB.AccessibleDescription = "Opens the Planetoid-DB homepage";
-		menuitemOpenWebsitePDB.AccessibleName = "Open Planetoid-DB homepage";
-		menuitemOpenWebsitePDB.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemOpenWebsitePDB.AutoToolTip = true;
-		menuitemOpenWebsitePDB.Image = FatcowIcons16px.fatcow_house_16px;
-		menuitemOpenWebsitePDB.Name = "menuitemOpenWebsitePDB";
-		menuitemOpenWebsitePDB.Size = new Size(236, 22);
-		menuitemOpenWebsitePDB.Text = "Open Planetoid-DB homepage";
-		menuitemOpenWebsitePDB.ToolTipText = "Opens the Planetoid-DB homepage";
-		menuitemOpenWebsitePDB.Click += MenuitemOpenWebsitePDB_Click;
-		menuitemOpenWebsitePDB.MouseEnter += Control_Enter;
-		menuitemOpenWebsitePDB.MouseLeave += Control_Leave;
+		toolStripMenuItemOpenWebsitePDB.AccessibleDescription = "Opens the Planetoid-DB homepage";
+		toolStripMenuItemOpenWebsitePDB.AccessibleName = "Open Planetoid-DB homepage";
+		toolStripMenuItemOpenWebsitePDB.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemOpenWebsitePDB.AutoToolTip = true;
+		toolStripMenuItemOpenWebsitePDB.Image = FatcowIcons16px.fatcow_house_16px;
+		toolStripMenuItemOpenWebsitePDB.Name = "toolStripMenuItemOpenWebsitePDB";
+		toolStripMenuItemOpenWebsitePDB.Size = new Size(236, 22);
+		toolStripMenuItemOpenWebsitePDB.Text = "Open Planetoid-DB homepage";
+		toolStripMenuItemOpenWebsitePDB.ToolTipText = "Opens the Planetoid-DB homepage";
+		toolStripMenuItemOpenWebsitePDB.Click += MenuitemOpenWebsitePDB_Click;
+		toolStripMenuItemOpenWebsitePDB.MouseEnter += Control_Enter;
+		toolStripMenuItemOpenWebsitePDB.MouseLeave += Control_Leave;
 		// 
-		// menuitemOpenWebsiteMPC
+		// toolStripMenuItemOpenWebsiteMPC
 		// 
-		menuitemOpenWebsiteMPC.AccessibleDescription = "Opens the MPC homepage";
-		menuitemOpenWebsiteMPC.AccessibleName = "Open MPC homepage";
-		menuitemOpenWebsiteMPC.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemOpenWebsiteMPC.AutoToolTip = true;
-		menuitemOpenWebsiteMPC.Image = FatcowIcons16px.fatcow_world_16px;
-		menuitemOpenWebsiteMPC.Name = "menuitemOpenWebsiteMPC";
-		menuitemOpenWebsiteMPC.Size = new Size(236, 22);
-		menuitemOpenWebsiteMPC.Text = "Open MPC homepage";
-		menuitemOpenWebsiteMPC.ToolTipText = "Opens the MPC homepage";
-		menuitemOpenWebsiteMPC.Click += MenuitemOpenWebsiteMPC_Click;
-		menuitemOpenWebsiteMPC.MouseEnter += Control_Enter;
-		menuitemOpenWebsiteMPC.MouseLeave += Control_Leave;
+		toolStripMenuItemOpenWebsiteMPC.AccessibleDescription = "Opens the MPC homepage";
+		toolStripMenuItemOpenWebsiteMPC.AccessibleName = "Open MPC homepage";
+		toolStripMenuItemOpenWebsiteMPC.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemOpenWebsiteMPC.AutoToolTip = true;
+		toolStripMenuItemOpenWebsiteMPC.Image = FatcowIcons16px.fatcow_world_16px;
+		toolStripMenuItemOpenWebsiteMPC.Name = "toolStripMenuItemOpenWebsiteMPC";
+		toolStripMenuItemOpenWebsiteMPC.Size = new Size(236, 22);
+		toolStripMenuItemOpenWebsiteMPC.Text = "Open MPC homepage";
+		toolStripMenuItemOpenWebsiteMPC.ToolTipText = "Opens the MPC homepage";
+		toolStripMenuItemOpenWebsiteMPC.Click += MenuitemOpenWebsiteMPC_Click;
+		toolStripMenuItemOpenWebsiteMPC.MouseEnter += Control_Enter;
+		toolStripMenuItemOpenWebsiteMPC.MouseLeave += Control_Leave;
 		// 
-		// menuitemOpenMPCORBWebsite
+		// toolStripMenuItemOpenMPCORBWebsite
 		// 
-		menuitemOpenMPCORBWebsite.AccessibleDescription = "Opens the MPCORB website";
-		menuitemOpenMPCORBWebsite.AccessibleName = "Open MPCORB homepage";
-		menuitemOpenMPCORBWebsite.AccessibleRole = AccessibleRole.MenuItem;
-		menuitemOpenMPCORBWebsite.AutoToolTip = true;
-		menuitemOpenMPCORBWebsite.Image = FatcowIcons16px.fatcow_world_16px;
-		menuitemOpenMPCORBWebsite.Name = "menuitemOpenMPCORBWebsite";
-		menuitemOpenMPCORBWebsite.Size = new Size(236, 22);
-		menuitemOpenMPCORBWebsite.Text = "Open MPCORB website";
-		menuitemOpenMPCORBWebsite.ToolTipText = "Opens the MPCORB website";
-		menuitemOpenMPCORBWebsite.Click += MenuitemOpenMPCORBWebsite_Click;
-		menuitemOpenMPCORBWebsite.MouseEnter += Control_Enter;
-		menuitemOpenMPCORBWebsite.MouseLeave += Control_Leave;
+		toolStripMenuItemOpenMPCORBWebsite.AccessibleDescription = "Opens the MPCORB website";
+		toolStripMenuItemOpenMPCORBWebsite.AccessibleName = "Open MPCORB homepage";
+		toolStripMenuItemOpenMPCORBWebsite.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemOpenMPCORBWebsite.AutoToolTip = true;
+		toolStripMenuItemOpenMPCORBWebsite.Image = FatcowIcons16px.fatcow_world_16px;
+		toolStripMenuItemOpenMPCORBWebsite.Name = "toolStripMenuItemOpenMPCORBWebsite";
+		toolStripMenuItemOpenMPCORBWebsite.Size = new Size(236, 22);
+		toolStripMenuItemOpenMPCORBWebsite.Text = "Open MPCORB website";
+		toolStripMenuItemOpenMPCORBWebsite.ToolTipText = "Opens the MPCORB website";
+		toolStripMenuItemOpenMPCORBWebsite.Click += MenuitemOpenMPCORBWebsite_Click;
+		toolStripMenuItemOpenMPCORBWebsite.MouseEnter += Control_Enter;
+		toolStripMenuItemOpenMPCORBWebsite.MouseLeave += Control_Leave;
 		// 
 		// toolStripButtonObservations
 		// 
@@ -3696,7 +3684,7 @@ partial class PlanetoidDbForm
 		toolStripContainer.TopToolStripPanel.AccessibleDescription = "Upper part of the container panel";
 		toolStripContainer.TopToolStripPanel.AccessibleName = "Upper part of the container panel";
 		toolStripContainer.TopToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.TopToolStripPanel.Controls.Add(menu);
+		toolStripContainer.TopToolStripPanel.Controls.Add(menuStrip);
 		toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripIcons);
 		toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripNavigation);
 		toolStripContainer.Enter += Control_Enter;
@@ -4173,6 +4161,7 @@ partial class PlanetoidDbForm
 		kryptonToolStripNavigation.Size = new Size(852, 25);
 		kryptonToolStripNavigation.Stretch = true;
 		kryptonToolStripNavigation.TabIndex = 2;
+		kryptonToolStripNavigation.TabStop = true;
 		kryptonToolStripNavigation.Text = "Navigation";
 		kryptonToolStripNavigation.Enter += Control_Enter;
 		kryptonToolStripNavigation.Leave += Control_Leave;
@@ -4462,7 +4451,7 @@ partial class PlanetoidDbForm
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.FixedSingle;
 		Icon = (Icon)resources.GetObject("$this.Icon");
-		MainMenuStrip = menu;
+		MainMenuStrip = menuStrip;
 		Margin = new Padding(4, 3, 4, 3);
 		MaximizeBox = false;
 		Name = "PlanetoidDbForm";
@@ -4483,8 +4472,8 @@ partial class PlanetoidDbForm
 		contextMenuTopTenRecords.ResumeLayout(false);
 		contextMenuDistributions.ResumeLayout(false);
 		contextMenuFullCopyToClipboardOrbitalElements.ResumeLayout(false);
-		menu.ResumeLayout(false);
-		menu.PerformLayout();
+		menuStrip.ResumeLayout(false);
+		menuStrip.PerformLayout();
 		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
 		toolStripContainer.BottomToolStripPanel.PerformLayout();
 		toolStripContainer.ContentPanel.ResumeLayout(false);
@@ -4507,21 +4496,21 @@ partial class PlanetoidDbForm
 	#endregion
 	private KryptonStatusStrip kryptonStatusStrip;
     private ContextMenuStrip contextMenuNavigationStep;
-    private ToolStripMenuItem menuitemNavigateStep10;
-    private ToolStripMenuItem menuitemNavigateStep100;
-    private ToolStripMenuItem menuitemNavigateStep1000;
-    private ToolStripMenuItem menuitemNavigateStep10000;
-    private ToolStripMenuItem menuitemNavigateStep100000;
-    private MenuStrip menu;
-    private ToolStripMenuItem menuitemFile;
-    private ToolStripMenuItem menuitemExit;
-    private ToolStripMenuItem menuitemHelp;
-    private ToolStripMenuItem menuitemAbout;
+    private ToolStripMenuItem toolStripMenuItemNavigateStep10;
+    private ToolStripMenuItem toolStripMenuItemNavigateStep100;
+    private ToolStripMenuItem toolStripMenuItemNavigateStep1000;
+    private ToolStripMenuItem toolStripMenuItemNavigateStep10000;
+    private ToolStripMenuItem toolStripMenuItemNavigateStep100000;
+    private MenuStrip menuStrip;
+    private ToolStripMenuItem toolStripMenuItemFile;
+    private ToolStripMenuItem toolStripMenuItemExit;
+    private ToolStripMenuItem toolStripMenuItemHelp;
+    private ToolStripMenuItem toolStripMenuItemAbout;
     private ToolStripSeparator toolStripSeparatorMisc1;
-    private ToolStripMenuItem menuitemOpenWebsitePDB;
-    private ToolStripMenuItem menuitemOpenWebsiteMPC;
-    private ToolStripMenuItem menuitemOpenMPCORBWebsite;
-    private ToolStripMenuItem menuitemOptions;
+    private ToolStripMenuItem toolStripMenuItemOpenWebsitePDB;
+    private ToolStripMenuItem toolStripMenuItemOpenWebsiteMPC;
+    private ToolStripMenuItem toolStripMenuItemOpenMPCORBWebsite;
+    private ToolStripMenuItem toolStripMenuItemOptions;
     private BackgroundWorker backgroundWorkerLoadingDatabase;
     private ToolStripStatusLabel labelInformation;
     private ToolStripStatusLabel toolStripStatusLabelMpcorbDatUpdate;
@@ -4549,16 +4538,16 @@ partial class PlanetoidDbForm
     private ToolStripTextBox toolStripTextBoxGotoIndex;
     private ToolStripButton toolStripButtonGoToIndex;
     private ToolStripButton toolStripButtonPrint;
-    private ToolStripMenuItem menuitemEdit;
-    private ToolStripMenuItem menuitemCopytoClipboard;
-    private ToolStripMenuItem menuitemSearch;
-    private ToolStripMenuItem menuitemPrint;
+    private ToolStripMenuItem toolStripMenuItemEdit;
+    private ToolStripMenuItem toolStripMenuItemCopytoClipboard;
+    private ToolStripMenuItem toolStripMenuItemSearch;
+    private ToolStripMenuItem toolStripMenuItemPrint;
     private ToolStripMenuItem menuitemTableMode;
     private ToolStripSeparator toolStripSeparatorOptions1;
-    private ToolStripMenuItem menuitemDistribution;
+    private ToolStripMenuItem toolStripMenuItemDistribution;
     private ToolStripSeparator toolStripSeparatorOptions2;
     private ToolStripContainer toolStripContainer;
-    private ToolStripMenuItem menuitemStyle;
+    private ToolStripMenuItem toolStripMenuItemStyle;
     private Timer timerCheckForNewMpcorbDatFile;
 	private ToolStripMenuItem menuitemTerminology;
 	private ToolStripButton toolStripButtonTerminology;
@@ -4566,40 +4555,40 @@ partial class PlanetoidDbForm
 	private ToolStripSplitButton toolStripSplitButtonStepForward;
 	private ToolStripButton toolStripButtonLoadRandomMinorPlanet;
 	private ToolStripSeparator toolStripSeparator8;
-	private ToolStripMenuItem menuitemNavigation;
-	private ToolStripMenuItem menuitemRandomMinorPlanet;
+	private ToolStripMenuItem toolStripMenuItemNavigation;
+	private ToolStripMenuItem toolStripMenuItemRandomMinorPlanet;
 	private ToolStripSeparator toolStripSeparatorNavigation1;
-	private ToolStripMenuItem menuitemNavigateToTheBeginning;
-	private ToolStripMenuItem menuitemNavigateSomeDataBackward;
-	private ToolStripMenuItem menuitemNavigateToThePreviousData;
-	private ToolStripMenuItem menuitemNavigateToTheNextData;
-	private ToolStripMenuItem menuitemNavigateSomeDataForward;
-	private ToolStripMenuItem menuitemNavigateToTheEnd;
-	private ToolStripMenuItem menuitemTools;
-	private ToolStripMenuItem menuitemDatabaseInformation;
+	private ToolStripMenuItem toolStripMenuItemNavigateToTheBeginning;
+	private ToolStripMenuItem toolStripMenuItemNavigateSomeDataBackward;
+	private ToolStripMenuItem toolStripMenuItemNavigateToThePreviousData;
+	private ToolStripMenuItem toolStripMenuItemNavigateToTheNextData;
+	private ToolStripMenuItem toolStripMenuItemNavigateSomeDataForward;
+	private ToolStripMenuItem toolStripMenuItemNavigateToTheEnd;
+	private ToolStripMenuItem toolStripMenuItemTools;
+	private ToolStripMenuItem toolStripMenuItemDatabaseInformation;
 	private ToolStripSeparator toolStripSeparatorTools1;
-	private ToolStripMenuItem menuitemSettings;
+	private ToolStripMenuItem toolStripMenuItemSettings;
 	private ToolStripSeparator toolStripSeparatorOptions;
 	private ToolStripSeparator toolStripSeparatorFile1;
-	private ToolStripMenuItem menuitemRestart;
-	private ToolStripMenuItem menuitemDerivedOrbitElements;
+	private ToolStripMenuItem toolStripMenuItemRestart;
+	private ToolStripMenuItem toolStripMenuItemDerivedOrbitElements;
 	private ToolStripSeparator toolStripSeparatorTools2;
 	private ToolStripSeparator toolStripSeparator9;
 	private ToolStripButton toolStripButtonDerivedOrbitElements;
-    private ToolStripMenuItem menuitemExportDataEntry;
+    private ToolStripMenuItem toolStripMenuItemExportDataEntry;
     private ToolStripSeparator toolStripSeparator10;
-    private ToolStripMenuItem menuitemRecords;
-    private ToolStripMenuItem menuitemIconsetSilk;
-    private ToolStripMenuItem menuitemIconsetFatcow;
-    private ToolStripMenuItem menuitemIconsetFugue;
+    private ToolStripMenuItem toolStripMenuItemRecords;
+    private ToolStripMenuItem toolStripMenuItemIconsetSilk;
+    private ToolStripMenuItem toolStripMenuItemIconsetFatcow;
+    private ToolStripMenuItem toolStripMenuItemIconsetFugue;
     private ToolStripSplitButton splitbuttonTopTenRecords;
-    private ToolStripMenuItem menuitemOptionStayOnTop;
-    private ToolStripMenuItem menuitemOptionEnabledCopyingByDoubleClicking;
-    private ToolStripMenuItem menuitemOptionEnableLinkingToTerminology;
-    private ToolStripMenuItem menuitemUpdate;
+    private ToolStripMenuItem toolStripMenuItemOptionStayOnTop;
+    private ToolStripMenuItem toolStripMenuItemOptionEnabledCopyingByDoubleClicking;
+    private ToolStripMenuItem toolStripMenuItemOptionEnableLinkingToTerminology;
+    private ToolStripMenuItem toolStripMenuItemUpdate;
     private ToolStripMenuItem toolStripMenuItemCheckMpcorbDatUpdate;
     private ToolStripMenuItem toolStripMenuItemDownloadMpcorbDat;
-    private ToolStripMenuItem menuitemFilter;
+    private ToolStripMenuItem toolStripMenuItemFilter;
     private KryptonTableLayoutPanel tableLayoutPanelData;
 	private KryptonLabel labelIndexData;
 	private KryptonLabel labelReadableDesignationData;
@@ -4642,76 +4631,76 @@ partial class PlanetoidDbForm
 	private KryptonLabel labelFlagsDesc;
 	private KryptonLabel labelDateLastObservationDesc;
 	private ContextMenuStrip contextMenuTopTenRecords;
-	private ToolStripMenuItem menuitemRecordsSortDirection;
-	private ToolStripMenuItem menuitemRecordsSortDirectionAscending;
-	private ToolStripMenuItem menuitemRecordsSortDirectionDescending;
+	private ToolStripMenuItem toolStripMenuItemRecordsSortDirection;
+	private ToolStripMenuItem toolStripMenuItemRecordsSortDirectionAscending;
+	private ToolStripMenuItem toolStripMenuItemRecordsSortDirectionDescending;
 	private ToolStripSeparator toolStripSeparator12;
-	private ToolStripMenuItem menuitemRecordsMeanAnomalyAtTheEpoch;
-	private ToolStripMenuItem menuitemRecordsArgumentOfThePerihelion;
-	private ToolStripMenuItem menuitemRecordsLongitudeOfTheAscendingNode;
-	private ToolStripMenuItem menuitemRecordsInclination;
-	private ToolStripMenuItem menuitemRecordsOrbitalEccentricity;
-	private ToolStripMenuItem menuitemRecordsMeanDailyMotion;
-	private ToolStripMenuItem menuitemRecordsSemiMajorAxis;
-	private ToolStripMenuItem menuitemRecordsAbsoluteMagnitude;
-	private ToolStripMenuItem menuitemRecordsSlopeParameter;
-	private ToolStripMenuItem menuitemRecordsNumberOfOppositions;
-	private ToolStripMenuItem menuitemRecordsNumberOfObservations;
-	private ToolStripMenuItem menuitemRecordsObservationSpan;
-	private ToolStripMenuItem menuitemRecordsRmsResidual;
-	private ToolStripMenuItem menuitemRecordsComputername;
-	private ToolStripMenuItem menuitemRecordsDateOfTheLastObservation;
+	private ToolStripMenuItem toolStripMenuItemRecordsMeanAnomalyAtTheEpoch;
+	private ToolStripMenuItem toolStripMenuItemRecordsArgumentOfThePerihelion;
+	private ToolStripMenuItem toolStripMenuItemRecordsLongitudeOfTheAscendingNode;
+	private ToolStripMenuItem toolStripMenuItemRecordsInclination;
+	private ToolStripMenuItem toolStripMenuItemRecordsOrbitalEccentricity;
+	private ToolStripMenuItem toolStripMenuItemRecordsMeanDailyMotion;
+	private ToolStripMenuItem toolStripMenuItemRecordsSemiMajorAxis;
+	private ToolStripMenuItem toolStripMenuItemRecordsAbsoluteMagnitude;
+	private ToolStripMenuItem toolStripMenuItemRecordsSlopeParameter;
+	private ToolStripMenuItem toolStripMenuItemRecordsNumberOfOppositions;
+	private ToolStripMenuItem toolStripMenuItemRecordsNumberOfObservations;
+	private ToolStripMenuItem toolStripMenuItemRecordsObservationSpan;
+	private ToolStripMenuItem toolStripMenuItemRecordsRmsResidual;
+	private ToolStripMenuItem toolStripMenuItemRecordsComputername;
+	private ToolStripMenuItem toolStripMenuItemRecordsDateOfTheLastObservation;
 	private ContextMenuStrip contextMenuDistributions;
-	private ToolStripMenuItem menuitemDistributionMeanAnomalyAtTheEpoch;
-	private ToolStripMenuItem menuitemDistributionArgumentOfThePerihelion;
-	private ToolStripMenuItem menuitemDistributionLongitudeOfTheAscendingNode;
-	private ToolStripMenuItem menuitemDistributionInclination;
-	private ToolStripMenuItem menuitemDistributionOrbitalEccentricity;
-	private ToolStripMenuItem menuitemDistributionMeanDailyMotion;
-	private ToolStripMenuItem menuitemDistributionSemiMajorAxis;
-	private ToolStripMenuItem menuitemDistributionAbsoluteMagnitude;
-	private ToolStripMenuItem menuitemDistributionSlopeParameter;
-	private ToolStripMenuItem menuitemDistributionNumberOfOppositions;
-	private ToolStripMenuItem menuitemDistributionNumberOfObservations;
-	private ToolStripMenuItem menuitemDistributionObservationSpan;
-	private ToolStripMenuItem menuitemDistributionRmsResidual;
-	private ToolStripMenuItem menuitemDistributionComputerName;
+	private ToolStripMenuItem toolStripMenuItemDistributionMeanAnomalyAtTheEpoch;
+	private ToolStripMenuItem toolStripMenuItemDistributionArgumentOfThePerihelion;
+	private ToolStripMenuItem toolStripMenuItemDistributionLongitudeOfTheAscendingNode;
+	private ToolStripMenuItem toolStripMenuItemDistributionInclination;
+	private ToolStripMenuItem toolStripMenuItemDistributionOrbitalEccentricity;
+	private ToolStripMenuItem toolStripMenuItemDistributionMeanDailyMotion;
+	private ToolStripMenuItem toolStripMenuItemDistributionSemiMajorAxis;
+	private ToolStripMenuItem toolStripMenuItemDistributionAbsoluteMagnitude;
+	private ToolStripMenuItem toolStripMenuItemDistributionSlopeParameter;
+	private ToolStripMenuItem toolStripMenuItemDistributionNumberOfOppositions;
+	private ToolStripMenuItem toolStripMenuItemDistributionNumberOfObservations;
+	private ToolStripMenuItem toolStripMenuItemDistributionObservationSpan;
+	private ToolStripMenuItem toolStripMenuItemDistributionRmsResidual;
+	private ToolStripMenuItem toolStripMenuItemDistributionComputerName;
 	private ToolStripButton toolStripButtonExport;
 	private ToolStripButton toolStripButtonFilter;
 	private ContextMenuStrip contextMenuFullCopyToClipboardOrbitalElements;
-	private ToolStripMenuItem menuitemCopyToClipboardIndexNumber;
-	private ToolStripMenuItem menuitemCopyToClipboardReadableDesignation;
-	private ToolStripMenuItem menuitemCopyToClipboardEpoch;
-	private ToolStripMenuItem menuitemCopyToClipboardMeanAnomalyAtTheEpoch;
-	private ToolStripMenuItem menuitemCopyToClipboardArgumentOfThePerihelion;
-	private ToolStripMenuItem menuitemCopyToClipboardLongitudeOfTheAscendingNode;
-	private ToolStripMenuItem menuitemCopyToClipboardInclinationToTheEcliptic;
-	private ToolStripMenuItem menuitemCopyToClipboardOrbitalEccentricity;
-	private ToolStripMenuItem menuitemCopyToClipboardMeanDailyMotion;
-	private ToolStripMenuItem menuitemCopyToClipboardSemiMajorAxis;
-	private ToolStripMenuItem menuitemCopyToClipboardAbsoluteMagnitude;
-	private ToolStripMenuItem menuitemCopyToClipboardSlopeParameter;
-	private ToolStripMenuItem menuitemCopyToClipboardReference;
-	private ToolStripMenuItem menuitemCopyToClipboardNumberOfOppositions;
-	private ToolStripMenuItem menuitemCopyToClipboardNumberOfObservations;
-	private ToolStripMenuItem menuitemCopyToClipboardObservationSpan;
-	private ToolStripMenuItem menuitemCopyToClipboardRmsResidual;
-	private ToolStripMenuItem menuitemCopyToClipboardComputerName;
-	private ToolStripMenuItem menuitemCopyToClipboardDateOfTheLastObservation;
-	private ToolStripMenuItem menuitemCopyToClipboardFlags;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardIndexNumber;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardReadableDesignation;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardEpoch;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardMeanAnomalyAtTheEpoch;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardArgumentOfThePerihelion;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardInclinationToTheEcliptic;
+	private ToolStripMenuItem toolStripMenuItemToClipboardOrbitalEccentricity;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardMeanDailyMotion;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardSemiMajorAxis;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardAbsoluteMagnitude;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardSlopeParameter;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardReference;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardNumberOfOppositions;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardNumberOfObservations;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardObservationSpan;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardRmsResidual;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardComputerName;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardDateOfTheLastObservation;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardFlags;
 	private ToolStripButton toolStripButtonListReadableDesignations;
 	private ToolStripSeparator toolStripSeparator11;
-	private ToolStripMenuItem menuitemListReadableDesignations;
+	private ToolStripMenuItem toolStripMenuItemListReadableDesignations;
 	private ToolStripButton toolStripButtonSearch;
 	private ToolStripSeparator toolStripSeparator2;
 	private ToolStripMenuItem toolStripMenuItemCheckAstorbDatUpdate;
 	private ToolStripMenuItem toolStripMenuItemDownloadAstorbDat;
-	private ToolStripMenuItem menuitemLicense;
+	private ToolStripMenuItem toolStripMenuItemLicense;
 	private ToolStripButton toolStripButtonLicense;
 	private OpenFileDialog openFileDialog;
 	private KryptonManager kryptonManager;
 	private ContextMenuStrip contextMenuCopyToClipboard;
-	private ToolStripMenuItem toolStripMenuItemCopyToClipboard;
+	private ToolStripMenuItem toolStripMenuItemCopyToClipboardInContextMenu;
 	private ContextMenuStrip contextMenuOpenTerminology;
 	private ToolStripMenuItem toolStripMenuItemOpenTerminology;
 	private ToolStripMenuItem toolStripMenuItemArchive;
