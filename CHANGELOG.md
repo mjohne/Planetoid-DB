@@ -1,5 +1,20 @@
 # Changelog
 
+## Planetoid-DB 0.9.1.64
+
+* Updated `README.MD` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/669
+* Updated `CHANGELOG` for version 0.9.0.63 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/670
+* Renamed `menuitem*` to `toolStripMenuItem*` in `PlanetoidDBForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/671
+* Added restarting with `PreloadForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/672
+* Fixed `KryptonMessageBoxIcon` in `PlanetoidDBForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/673
+* Removed the menu item "Restart with Preloader" by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/675
+* Fix extracting of resources in `PreloadForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/674
+* Rename some objects and event handlers by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/676
+* Updated to version 0.9.1.64 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/677
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.0.63.667.2213...0.9.1.64.667.2241
+
+
 ## Planetoid-DB 0.9.0.63
 
 * Updated `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/593
