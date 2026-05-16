@@ -49,10 +49,10 @@ partial class PlanetoidDbForm
 		toolStripMenuItemNavigateStep1000 = new ToolStripMenuItem();
 		toolStripMenuItemNavigateStep10000 = new ToolStripMenuItem();
 		toolStripMenuItemNavigateStep100000 = new ToolStripMenuItem();
-		toolStripSplitButtonStepBackward = new ToolStripSplitButton();
-		toolStripMenuItemNavigateSomeDataBackward = new ToolStripMenuItem();
 		toolStripMenuItemNavigateSomeDataForward = new ToolStripMenuItem();
 		toolStripSplitButtonStepForward = new ToolStripSplitButton();
+		toolStripSplitButtonStepBackward = new ToolStripSplitButton();
+		toolStripMenuItemNavigateSomeDataBackward = new ToolStripMenuItem();
 		tableLayoutPanelData = new KryptonTableLayoutPanel();
 		labelIndexData = new KryptonLabel();
 		contextMenuCopyToClipboard = new ContextMenuStrip(components);
@@ -119,7 +119,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemRecordsComputername = new ToolStripMenuItem();
 		toolStripMenuItemRecordsDateOfTheLastObservation = new ToolStripMenuItem();
 		toolStripMenuItemRecords = new ToolStripMenuItem();
-		splitbuttonTopTenRecords = new ToolStripSplitButton();
+		toolStripSplitButtonTopTenRecords = new ToolStripSplitButton();
 		contextMenuDistributions = new ContextMenuStrip(components);
 		toolStripMenuItemDistributionMeanAnomalyAtTheEpoch = new ToolStripMenuItem();
 		toolStripMenuItemDistributionArgumentOfThePerihelion = new ToolStripMenuItem();
@@ -135,7 +135,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemDistributionObservationSpan = new ToolStripMenuItem();
 		toolStripMenuItemDistributionRmsResidual = new ToolStripMenuItem();
 		toolStripMenuItemDistributionComputerName = new ToolStripMenuItem();
-		splitbuttonDistribution = new ToolStripSplitButton();
+		toolStripSplitButtonDistribution = new ToolStripSplitButton();
 		toolStripMenuItemDistribution = new ToolStripMenuItem();
 		contextMenuFullCopyToClipboardOrbitalElements = new ContextMenuStrip(components);
 		toolStripMenuItemCopyToClipboardIndexNumber = new ToolStripMenuItem();
@@ -326,7 +326,7 @@ partial class PlanetoidDbForm
 		contextMenuNavigationStep.Font = new Font("Segoe UI", 9F);
 		contextMenuNavigationStep.Items.AddRange(new ToolStripItem[] { toolStripMenuItemNavigateStep10, toolStripMenuItemNavigateStep100, toolStripMenuItemNavigateStep1000, toolStripMenuItemNavigateStep10000, toolStripMenuItemNavigateStep100000 });
 		contextMenuNavigationStep.Name = "contextMenu";
-		contextMenuNavigationStep.OwnerItem = toolStripSplitButtonStepForward;
+		contextMenuNavigationStep.OwnerItem = toolStripMenuItemNavigateSomeDataBackward;
 		contextMenuNavigationStep.ShowCheckMargin = true;
 		contextMenuNavigationStep.ShowImageMargin = false;
 		contextMenuNavigationStep.Size = new Size(111, 114);
@@ -409,38 +409,6 @@ partial class PlanetoidDbForm
 		toolStripMenuItemNavigateStep100000.MouseEnter += Control_Enter;
 		toolStripMenuItemNavigateStep100000.MouseLeave += Control_Leave;
 		// 
-		// toolStripSplitButtonStepBackward
-		// 
-		toolStripSplitButtonStepBackward.AccessibleDescription = "Navigates some data backward";
-		toolStripSplitButtonStepBackward.AccessibleName = "Navigate some data backward";
-		toolStripSplitButtonStepBackward.AccessibleRole = AccessibleRole.SplitButton;
-		toolStripSplitButtonStepBackward.DisplayStyle = ToolStripItemDisplayStyle.Image;
-		toolStripSplitButtonStepBackward.DropDown = contextMenuNavigationStep;
-		toolStripSplitButtonStepBackward.Image = FatcowIcons16px.fatcow_control_rewind_blue_16px;
-		toolStripSplitButtonStepBackward.ImageTransparentColor = Color.Magenta;
-		toolStripSplitButtonStepBackward.Name = "toolStripSplitButtonStepBackward";
-		toolStripSplitButtonStepBackward.Size = new Size(32, 22);
-		toolStripSplitButtonStepBackward.Text = "Navigate some data backward";
-		toolStripSplitButtonStepBackward.ButtonClick += ToolStripButtonStepBackward_Click;
-		toolStripSplitButtonStepBackward.MouseEnter += Control_Enter;
-		toolStripSplitButtonStepBackward.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemNavigateSomeDataBackward
-		// 
-		toolStripMenuItemNavigateSomeDataBackward.AccessibleDescription = "Navigates some data backward";
-		toolStripMenuItemNavigateSomeDataBackward.AccessibleName = "Navigates some data backward";
-		toolStripMenuItemNavigateSomeDataBackward.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemNavigateSomeDataBackward.AutoToolTip = true;
-		toolStripMenuItemNavigateSomeDataBackward.DropDown = contextMenuNavigationStep;
-		toolStripMenuItemNavigateSomeDataBackward.Image = FatcowIcons16px.fatcow_control_rewind_blue_16px;
-		toolStripMenuItemNavigateSomeDataBackward.Name = "toolStripMenuItemNavigateSomeDataBackward";
-		toolStripMenuItemNavigateSomeDataBackward.ShortcutKeys = Keys.Control | Keys.D2;
-		toolStripMenuItemNavigateSomeDataBackward.Size = new Size(275, 22);
-		toolStripMenuItemNavigateSomeDataBackward.Text = "Navigate some data back&ward";
-		toolStripMenuItemNavigateSomeDataBackward.Click += ToolStripMenuItemNavigateSomeDataBackward_Click;
-		toolStripMenuItemNavigateSomeDataBackward.MouseEnter += Control_Enter;
-		toolStripMenuItemNavigateSomeDataBackward.MouseLeave += Control_Leave;
-		// 
 		// toolStripMenuItemNavigateSomeDataForward
 		// 
 		toolStripMenuItemNavigateSomeDataForward.AccessibleDescription = "Navigates some data forward";
@@ -472,6 +440,38 @@ partial class PlanetoidDbForm
 		toolStripSplitButtonStepForward.ButtonClick += ToolStripButtonStepForward_Click;
 		toolStripSplitButtonStepForward.MouseEnter += Control_Enter;
 		toolStripSplitButtonStepForward.MouseLeave += Control_Leave;
+		// 
+		// toolStripSplitButtonStepBackward
+		// 
+		toolStripSplitButtonStepBackward.AccessibleDescription = "Navigates some data backward";
+		toolStripSplitButtonStepBackward.AccessibleName = "Navigate some data backward";
+		toolStripSplitButtonStepBackward.AccessibleRole = AccessibleRole.SplitButton;
+		toolStripSplitButtonStepBackward.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		toolStripSplitButtonStepBackward.DropDown = contextMenuNavigationStep;
+		toolStripSplitButtonStepBackward.Image = FatcowIcons16px.fatcow_control_rewind_blue_16px;
+		toolStripSplitButtonStepBackward.ImageTransparentColor = Color.Magenta;
+		toolStripSplitButtonStepBackward.Name = "toolStripSplitButtonStepBackward";
+		toolStripSplitButtonStepBackward.Size = new Size(32, 22);
+		toolStripSplitButtonStepBackward.Text = "Navigate some data backward";
+		toolStripSplitButtonStepBackward.ButtonClick += ToolStripButtonStepBackward_Click;
+		toolStripSplitButtonStepBackward.MouseEnter += Control_Enter;
+		toolStripSplitButtonStepBackward.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemNavigateSomeDataBackward
+		// 
+		toolStripMenuItemNavigateSomeDataBackward.AccessibleDescription = "Navigates some data backward";
+		toolStripMenuItemNavigateSomeDataBackward.AccessibleName = "Navigates some data backward";
+		toolStripMenuItemNavigateSomeDataBackward.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemNavigateSomeDataBackward.AutoToolTip = true;
+		toolStripMenuItemNavigateSomeDataBackward.DropDown = contextMenuNavigationStep;
+		toolStripMenuItemNavigateSomeDataBackward.Image = FatcowIcons16px.fatcow_control_rewind_blue_16px;
+		toolStripMenuItemNavigateSomeDataBackward.Name = "toolStripMenuItemNavigateSomeDataBackward";
+		toolStripMenuItemNavigateSomeDataBackward.ShortcutKeys = Keys.Control | Keys.D2;
+		toolStripMenuItemNavigateSomeDataBackward.Size = new Size(275, 22);
+		toolStripMenuItemNavigateSomeDataBackward.Text = "Navigate some data back&ward";
+		toolStripMenuItemNavigateSomeDataBackward.Click += ToolStripMenuItemNavigateSomeDataBackward_Click;
+		toolStripMenuItemNavigateSomeDataBackward.MouseEnter += Control_Enter;
+		toolStripMenuItemNavigateSomeDataBackward.MouseLeave += Control_Leave;
 		// 
 		// tableLayoutPanelData
 		// 
@@ -1595,8 +1595,8 @@ partial class PlanetoidDbForm
 		contextMenuTopTenRecords.Font = new Font("Segoe UI", 9F);
 		contextMenuTopTenRecords.Items.AddRange(new ToolStripItem[] { toolStripMenuItemRecordsSortDirection, toolStripSeparator12, toolStripMenuItemRecordsMeanAnomalyAtTheEpoch, toolStripMenuItemRecordsArgumentOfThePerihelion, toolStripMenuItemRecordsLongitudeOfTheAscendingNode, toolStripMenuItemRecordsInclination, toolStripMenuItemRecordsOrbitalEccentricity, toolStripMenuItemRecordsMeanDailyMotion, toolStripMenuItemRecordsSemiMajorAxis, toolStripMenuItemRecordsAbsoluteMagnitude, toolStripMenuItemRecordsSlopeParameter, toolStripMenuItemRecordsNumberOfOppositions, toolStripMenuItemRecordsNumberOfObservations, toolStripMenuItemRecordsObservationSpan, toolStripMenuItemRecordsRmsResidual, toolStripMenuItemRecordsComputername, toolStripMenuItemRecordsDateOfTheLastObservation });
 		contextMenuTopTenRecords.Name = "contextMenuTopTenRecords";
-		contextMenuTopTenRecords.OwnerItem = splitbuttonTopTenRecords;
-		contextMenuTopTenRecords.Size = new Size(250, 362);
+		contextMenuTopTenRecords.OwnerItem = toolStripSplitButtonTopTenRecords;
+		contextMenuTopTenRecords.Size = new Size(250, 384);
 		contextMenuTopTenRecords.TabStop = true;
 		contextMenuTopTenRecords.Text = "Top ten records";
 		contextMenuTopTenRecords.Enter += Control_Enter;
@@ -1884,22 +1884,22 @@ partial class PlanetoidDbForm
 		toolStripMenuItemRecords.MouseEnter += Control_Enter;
 		toolStripMenuItemRecords.MouseLeave += Control_Leave;
 		// 
-		// splitbuttonTopTenRecords
+		// toolStripSplitButtonTopTenRecords
 		// 
-		splitbuttonTopTenRecords.AccessibleDescription = "Shows the top ten records";
-		splitbuttonTopTenRecords.AccessibleName = "Top ten records";
-		splitbuttonTopTenRecords.AccessibleRole = AccessibleRole.SplitButton;
-		splitbuttonTopTenRecords.DisplayStyle = ToolStripItemDisplayStyle.Image;
-		splitbuttonTopTenRecords.DropDown = contextMenuTopTenRecords;
-		splitbuttonTopTenRecords.Enabled = false;
-		splitbuttonTopTenRecords.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
-		splitbuttonTopTenRecords.ImageTransparentColor = Color.Magenta;
-		splitbuttonTopTenRecords.Name = "splitbuttonTopTenRecords";
-		splitbuttonTopTenRecords.Size = new Size(32, 22);
-		splitbuttonTopTenRecords.Text = "Top ten records";
-		splitbuttonTopTenRecords.ButtonClick += SplitButtonTopTenRecords_ButtonClick;
-		splitbuttonTopTenRecords.MouseEnter += Control_Enter;
-		splitbuttonTopTenRecords.MouseLeave += Control_Leave;
+		toolStripSplitButtonTopTenRecords.AccessibleDescription = "Shows the top ten records";
+		toolStripSplitButtonTopTenRecords.AccessibleName = "Top ten records";
+		toolStripSplitButtonTopTenRecords.AccessibleRole = AccessibleRole.SplitButton;
+		toolStripSplitButtonTopTenRecords.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		toolStripSplitButtonTopTenRecords.DropDown = contextMenuTopTenRecords;
+		toolStripSplitButtonTopTenRecords.Enabled = false;
+		toolStripSplitButtonTopTenRecords.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripSplitButtonTopTenRecords.ImageTransparentColor = Color.Magenta;
+		toolStripSplitButtonTopTenRecords.Name = "toolStripSplitButtonTopTenRecords";
+		toolStripSplitButtonTopTenRecords.Size = new Size(32, 22);
+		toolStripSplitButtonTopTenRecords.Text = "Top ten records";
+		toolStripSplitButtonTopTenRecords.ButtonClick += ToolStripSplitButtonTopTenRecords_ButtonClick;
+		toolStripSplitButtonTopTenRecords.MouseEnter += Control_Enter;
+		toolStripSplitButtonTopTenRecords.MouseLeave += Control_Leave;
 		// 
 		// contextMenuDistributions
 		// 
@@ -1910,7 +1910,6 @@ partial class PlanetoidDbForm
 		contextMenuDistributions.Font = new Font("Segoe UI", 9F);
 		contextMenuDistributions.Items.AddRange(new ToolStripItem[] { toolStripMenuItemDistributionMeanAnomalyAtTheEpoch, toolStripMenuItemDistributionArgumentOfThePerihelion, toolStripMenuItemDistributionLongitudeOfTheAscendingNode, toolStripMenuItemDistributionInclination, toolStripMenuItemDistributionOrbitalEccentricity, toolStripMenuItemDistributionMeanDailyMotion, toolStripMenuItemDistributionSemiMajorAxis, toolStripMenuItemDistributionAbsoluteMagnitude, toolStripMenuItemDistributionSlopeParameter, toolStripMenuItemDistributionNumberOfOppositions, toolStripMenuItemDistributionNumberOfObservations, toolStripMenuItemDistributionObservationSpan, toolStripMenuItemDistributionRmsResidual, toolStripMenuItemDistributionComputerName });
 		contextMenuDistributions.Name = "contextMenuDistributions";
-		contextMenuDistributions.OwnerItem = toolStripMenuItemDistribution;
 		contextMenuDistributions.Size = new Size(250, 312);
 		contextMenuDistributions.TabStop = true;
 		contextMenuDistributions.Text = "Distributions";
@@ -2115,22 +2114,22 @@ partial class PlanetoidDbForm
 		toolStripMenuItemDistributionComputerName.MouseEnter += Control_Enter;
 		toolStripMenuItemDistributionComputerName.MouseLeave += Control_Leave;
 		// 
-		// splitbuttonDistribution
+		// toolStripSplitButtonDistribution
 		// 
-		splitbuttonDistribution.AccessibleDescription = "Shows some distributions";
-		splitbuttonDistribution.AccessibleName = "Distributions";
-		splitbuttonDistribution.AccessibleRole = AccessibleRole.SplitButton;
-		splitbuttonDistribution.DisplayStyle = ToolStripItemDisplayStyle.Image;
-		splitbuttonDistribution.DropDown = contextMenuDistributions;
-		splitbuttonDistribution.Enabled = false;
-		splitbuttonDistribution.Image = FatcowIcons16px.fatcow_chart_bar_16px;
-		splitbuttonDistribution.ImageTransparentColor = Color.Magenta;
-		splitbuttonDistribution.Name = "splitbuttonDistribution";
-		splitbuttonDistribution.Size = new Size(32, 22);
-		splitbuttonDistribution.Text = "Distributions";
-		splitbuttonDistribution.ButtonClick += SplitButtonDistribution_ButtonClick;
-		splitbuttonDistribution.MouseEnter += Control_Enter;
-		splitbuttonDistribution.MouseLeave += Control_Leave;
+		toolStripSplitButtonDistribution.AccessibleDescription = "Shows some distributions";
+		toolStripSplitButtonDistribution.AccessibleName = "Distributions";
+		toolStripSplitButtonDistribution.AccessibleRole = AccessibleRole.SplitButton;
+		toolStripSplitButtonDistribution.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		toolStripSplitButtonDistribution.DropDown = contextMenuDistributions;
+		toolStripSplitButtonDistribution.Enabled = false;
+		toolStripSplitButtonDistribution.Image = FatcowIcons16px.fatcow_chart_bar_16px;
+		toolStripSplitButtonDistribution.ImageTransparentColor = Color.Magenta;
+		toolStripSplitButtonDistribution.Name = "toolStripSplitButtonDistribution";
+		toolStripSplitButtonDistribution.Size = new Size(32, 22);
+		toolStripSplitButtonDistribution.Text = "Distributions";
+		toolStripSplitButtonDistribution.ButtonClick += ToolStripSplitButtonDistribution_ButtonClick;
+		toolStripSplitButtonDistribution.MouseEnter += Control_Enter;
+		toolStripSplitButtonDistribution.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemDistribution
 		// 
@@ -3866,7 +3865,7 @@ partial class PlanetoidDbForm
 		kryptonToolStripIcons.AllowItemReorder = true;
 		kryptonToolStripIcons.Dock = DockStyle.None;
 		kryptonToolStripIcons.Font = new Font("Segoe UI", 9F);
-		kryptonToolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonOpenLocalMpcorbDat, toolStripButtonExport, toolStripButtonPrint, toolStripSeparator14, toolStripButtonArchive, toolStripButtonCompareDatabases, toolStripSeparator15, toolStripDropDownButtonCopyToClipboard, toolStripButtonSearch, toolStripSeparator4, toolStripButtonDatabaseInformation, toolStripButtonTableMode, toolStripButtonTerminology, toolStripSeparator3, splitbuttonTopTenRecords, splitbuttonDistribution, toolStripSeparator5, toolStripButtonCheckMpcorbDat, toolStripButtonDownloadMpcorbDat, toolStripSeparator1, toolStripButtonAbout, toolStripButtonLicense, toolStripButtonOpenWebsitePDB });
+		kryptonToolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripButtonOpenLocalMpcorbDat, toolStripButtonExport, toolStripButtonPrint, toolStripSeparator14, toolStripButtonArchive, toolStripButtonCompareDatabases, toolStripSeparator15, toolStripDropDownButtonCopyToClipboard, toolStripButtonSearch, toolStripSeparator4, toolStripButtonDatabaseInformation, toolStripButtonTableMode, toolStripButtonTerminology, toolStripSeparator3, toolStripSplitButtonTopTenRecords, toolStripSplitButtonDistribution, toolStripSeparator5, toolStripButtonCheckMpcorbDat, toolStripButtonDownloadMpcorbDat, toolStripSeparator1, toolStripButtonAbout, toolStripButtonLicense, toolStripButtonOpenWebsitePDB });
 		kryptonToolStripIcons.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
 		kryptonToolStripIcons.Location = new Point(0, 24);
 		kryptonToolStripIcons.Name = "kryptonToolStripIcons";
@@ -4528,7 +4527,7 @@ partial class PlanetoidDbForm
     private ToolStripSeparator toolStripSeparator3;
     private ToolStripSeparator toolStripSeparator4;
     private ToolStripButton toolStripButtonDatabaseInformation;
-    private ToolStripSplitButton splitbuttonDistribution;
+    private ToolStripSplitButton toolStripSplitButtonDistribution;
     private ToolStripSeparator toolStripSeparator5;
     private KryptonToolStrip kryptonToolStripNavigation;
     private ToolStripButton toolStripButtonStepToBegin;
@@ -4585,7 +4584,7 @@ partial class PlanetoidDbForm
     private ToolStripMenuItem toolStripMenuItemIconsetSilk;
     private ToolStripMenuItem toolStripMenuItemIconsetFatcow;
     private ToolStripMenuItem toolStripMenuItemIconsetFugue;
-    private ToolStripSplitButton splitbuttonTopTenRecords;
+    private ToolStripSplitButton toolStripSplitButtonTopTenRecords;
     private ToolStripMenuItem toolStripMenuItemOptionStayOnTop;
     private ToolStripMenuItem toolStripMenuItemOptionEnabledCopyingByDoubleClicking;
     private ToolStripMenuItem toolStripMenuItemOptionEnableLinkingToTerminology;

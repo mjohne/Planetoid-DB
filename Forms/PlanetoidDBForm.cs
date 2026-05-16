@@ -2515,11 +2515,11 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method is used to show the records selection form.</remarks>
 	private void ToolStripMenuItemRecordsTopTen_Click(object sender, EventArgs e) => ShowRecordsSelection();
 
-	/// <summary>Handles the button click event for the SplitButtonTopTenRecords. Shows the records selection form.</summary>
+	/// <summary>Handles the button click event for the ToolStripSplitButtonTopTenRecords. Shows the records selection form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the records selection form.</remarks>
-	private void SplitButtonTopTenRecords_ButtonClick(object sender, EventArgs e) => ShowRecordsSelection();
+	private void ToolStripSplitButtonTopTenRecords_ButtonClick(object sender, EventArgs e) => ShowRecordsSelection();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsMeanAnomalyAtTheEpoch. Shows the main records form for mean anomaly at the epoch.</summary>
 	/// <param name="sender">The event source.</param>
@@ -2751,11 +2751,11 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		ShowErrorMessage(message: "Not implemented yet");
 	}
 
-	/// <summary>Handles the button click event for the SplitButtonDistribution. Shows the distribution form.</summary>
+	/// <summary>Handles the button click event for the ToolStripSplitButtonDistribution. Shows the distribution form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	///	<remarks>This method is used to show the distribution form for the selected parameter.</remarks>
-	private void SplitButtonDistribution_ButtonClick(object sender, EventArgs e)
+	private void ToolStripSplitButtonDistribution_ButtonClick(object sender, EventArgs e)
 	{
 		// TODO: Not implemented yet
 		ShowErrorMessage(message: "Not implemented yet");
