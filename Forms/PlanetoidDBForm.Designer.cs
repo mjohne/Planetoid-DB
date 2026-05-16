@@ -1873,6 +1873,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemRecords.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemRecords.AutoToolTip = true;
 		toolStripMenuItemRecords.DropDown = contextMenuTopTenRecords;
+		toolStripMenuItemRecords.Enabled = false;
 		toolStripMenuItemRecords.Image = FatcowIcons16px.fatcow_page_white_text_16px;
 		toolStripMenuItemRecords.Name = "toolStripMenuItemRecords";
 		toolStripMenuItemRecords.ShortcutKeyDisplayString = "Strg+R";
@@ -1890,6 +1891,7 @@ partial class PlanetoidDbForm
 		toolStripSplitButtonTopTenRecords.AccessibleRole = AccessibleRole.SplitButton;
 		toolStripSplitButtonTopTenRecords.DisplayStyle = ToolStripItemDisplayStyle.Image;
 		toolStripSplitButtonTopTenRecords.DropDown = contextMenuTopTenRecords;
+		toolStripSplitButtonTopTenRecords.Enabled = false;
 		toolStripSplitButtonTopTenRecords.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
 		toolStripSplitButtonTopTenRecords.ImageTransparentColor = Color.Magenta;
 		toolStripSplitButtonTopTenRecords.Name = "toolStripSplitButtonTopTenRecords";
@@ -3230,7 +3232,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemNearEarthObjectCoordinationCentre.Name = "toolStripMenuItemNearEarthObjectCoordinationCentre";
 		toolStripMenuItemNearEarthObjectCoordinationCentre.Size = new Size(331, 22);
 		toolStripMenuItemNearEarthObjectCoordinationCentre.Text = "Near-Earth Object Coordination Centre (NEOCC)";
-		toolStripMenuItemNearEarthObjectCoordinationCentre.Click += OpenDataPageEarthObjectCoordinationCentre_Click;
+		toolStripMenuItemNearEarthObjectCoordinationCentre.Click += OpenDataPageNearEarthObjectCoordinationCentre_Click;
 		toolStripMenuItemNearEarthObjectCoordinationCentre.MouseEnter += Control_Enter;
 		toolStripMenuItemNearEarthObjectCoordinationCentre.MouseLeave += Control_Leave;
 		// 

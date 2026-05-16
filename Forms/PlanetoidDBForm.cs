@@ -2153,7 +2153,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method is used to show the ASTORB data check form.</remarks>
 	private void CheckAstorbDatUpdate_Click(object sender, EventArgs e) => ShowAstorbDatUpdateCheck();
 
-	/// <summary>Handles the click event for the ToolStripButtonCheckMpcorbDat. Shows the MPCORB data check form.</summary>
+	/// <summary>Handles the click event for the ToolStripButtonCheckMpcorbDatUpdate. Shows the MPCORB data check form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	///	<remarks>
@@ -2178,7 +2178,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method is used to open the table mode form.</remarks>
 	private void TableMode_Click(object sender, EventArgs e) => OpenTableMode();
 
-	/// <summary>Handles the click event for the DatabaseInformation_Click. Shows the database information form.</summary>
+	/// <summary>Handles the click event for the ToolStripButtonDatabaseInformation. Shows the database information form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	///	<remarks>
@@ -2785,7 +2785,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This event handler constructs a URL to the ESA Near-Earth Object Coordination Centre based on the current designation and opens it in the default web browser. Use this handler to provide quick access to detailed asteroid information from the application.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void OpenDataPageEarthObjectCoordinationCentre_Click(object sender, EventArgs e)
+	private void OpenDataPageNearEarthObjectCoordinationCentre_Click(object sender, EventArgs e)
 	{
 		string dataPageUrl = "https://neo.ssa.esa.int/search-for-asteroids?tab=summary&des=" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text);
 		OpenWebsite(fileName: dataPageUrl);
@@ -2803,7 +2803,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		OpenDataPageLowellMinorPlanetServices_Click(sender: sender, e: e);
 		OpenDataPageAsteroidsDynamicSite_Click(sender: sender, e: e);
 		OpenDataPageNearEarthObjectsDynamicSite_Click(sender: sender, e: e);
-		OpenDataPageEarthObjectCoordinationCentre_Click(sender: sender, e: e);
+		OpenDataPageNearEarthObjectCoordinationCentre_Click(sender: sender, e: e);
 	}
 
 	/// <summary>Handles the Click event for the label that displays MPCORB flag data and initiates decoding of the flags.</summary>
