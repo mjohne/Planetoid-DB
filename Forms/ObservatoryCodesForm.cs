@@ -237,7 +237,6 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 		KryptonMessageBox.Show(text: "This application displays a list of observatory codes and their corresponding locations.\n\nYou can find more information about Observatory Codes at the Minor Planet Center website: https://minorplanetcenter.net/iau/info/ObservatoryCodes.html.", caption: "About Observatory Codes", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
-
 	/// <summary>Handles the Click event to export the output as a CSV file.</summary>
 	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a CSV file, including the file filter, default extension, dialog title, and export action.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item for saving as CSV.</param>
