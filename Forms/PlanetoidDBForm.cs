@@ -235,6 +235,26 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		Close();
 	}
 
+	/// <summary>Restarts the application with the preloader.</summary>
+	/// <remarks>This method is used to restart the application with the preloader.</remarks>
+	private void RestartWithPreloader()
+	{
+		// Create a new instance of the PreloaderForm
+		PreloadForm formPreload = new()
+		{
+			// Set the TopMost property to true to keep the form on top of other windows
+			TopMost = TopMost
+		};
+		// Hide the current form before showing the preloader
+		Hide();
+		// Show the preload form as a modal dialog
+		_ = formPreload.ShowDialog();
+		// Dispose the preload form
+		formPreload.Dispose();
+		// Close the current form after the preloader is closed
+		Close();
+	}
+
 	/// <summary>Asks the user if they want to restart the application after downloading the database.</summary>
 	/// <remarks>This method is used to ask the user if they want to restart the application after downloading the database.</remarks>
 	private void AskForRestartAfterDownloadingDatabase()
@@ -2371,6 +2391,12 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method is used to restart the application.</remarks>
 	private void ToolStripMenuItemRestart_Click(object sender, EventArgs e) => Restart();
 
+	/// <summary>Handles the click event for the ToolStripMenuItemRestartWithPreloader. Restarts the application with the preloader.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to restart the application with the preloader.</remarks>
+	private void ToolStripMenuItemRestartWithPreloader_Click(object sender, EventArgs e) => RestartWithPreloader();
+
 	/// <summary>Handles the click event for the ToolStripMenuItemDerivedtiveOrbitElements. Shows the derived orbit elements form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
@@ -2382,6 +2408,12 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to check if the form should stay on top of other windows.</remarks>
 	private void ToolStripMenuItemStayOnTop_Click(object sender, EventArgs e) => CheckStayOnTop();
+
+	/// <summary>Handles the click event for the ToolStripMenuIndexNumberCopyToClipboard_Click. Copies the index number to the clipboard.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to copy the index number to the clipboard.</remarks>
+	private void ToolStripMenuIndexNumberCopyToClipboard_Click(object sender, EventArgs e) => CopyToClipboard(text: labelIndexData.Text);
 
 	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardReadableDesignation. Copies the readable designation to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
