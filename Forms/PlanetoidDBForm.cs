@@ -1346,7 +1346,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 	/// <summary>Checks if the form should stay on top of other windows.</summary>
 	/// <remarks>This method is used to check if the form should stay on top of other windows.</remarks>
-	private void CheckStayOnTop() => TopMost = menuitemOptionStayOnTop.Checked;
+	private void CheckStayOnTop() => TopMost = toolStripMenuItemOptionStayOnTop.Checked;
 
 	/// <summary>Displays the form's <see cref="openFileDialog"/> to allow the user to choose a local MPCORB.DAT file and restarts the application to load the selected file if confirmed.</summary>
 	/// <remarks>Uses the pre-configured <see cref="openFileDialog"/> component. If the user selects a valid, non-empty file, the application prompts for confirmation and restarts with the selected file as a command-line argument. If the file is invalid or empty, an error message is shown and the operation is aborted. This method is intended for scenarios where the user needs to manually specify a new MPCORB.DAT data source.</remarks>
@@ -1942,11 +1942,11 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void ToolStripMenuItem_Clear()
 	{
 		// Clear the checked state of all navigation step menu items
-		menuitemNavigateStep10.Checked = false;
-		menuitemNavigateStep100.Checked = false;
-		menuitemNavigateStep1000.Checked = false;
-		menuitemNavigateStep10000.Checked = false;
-		menuitemNavigateStep100000.Checked = false;
+		toolStripMenuItemNavigateStep10.Checked = false;
+		toolStripMenuItemNavigateStep100.Checked = false;
+		toolStripMenuItemNavigateStep1000.Checked = false;
+		toolStripMenuItemNavigateStep10000.Checked = false;
+		toolStripMenuItemNavigateStep100000.Checked = false;
 	}
 
 	#endregion
@@ -2106,7 +2106,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Clear the checked state of all other menu items
 		ToolStripMenuItem_Clear();
 		// Set the checked state of the menu item to true
-		menuitemNavigateStep10.Checked = true;
+		toolStripMenuItemNavigateStep10.Checked = true;
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItem100. Sets the navigation step to 100 and updates the menu item checked state.</summary>
@@ -2120,7 +2120,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Clear the checked state of all other menu items
 		ToolStripMenuItem_Clear();
 		// Set the checked state of the menu item to true
-		menuitemNavigateStep100.Checked = true;
+		toolStripMenuItemNavigateStep100.Checked = true;
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItem1000. Sets the navigation step to 1000 and updates the menu item checked state.</summary>
@@ -2134,7 +2134,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Clear the checked state of all other menu items
 		ToolStripMenuItem_Clear();
 		// Set the checked state of the menu item to true
-		menuitemNavigateStep1000.Checked = true;
+		toolStripMenuItemNavigateStep1000.Checked = true;
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItem10000. Sets the navigation step to 10000 and updates the menu item checked state.</summary>
@@ -2148,7 +2148,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Clear the checked state of all other menu items
 		ToolStripMenuItem_Clear();
 		// Set the checked state of the menu item to true
-		menuitemNavigateStep10000.Checked = true;
+		toolStripMenuItemNavigateStep10000.Checked = true;
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItem100000. Sets the navigation step to 100000 and updates the menu item checked state.</summary>
@@ -2162,7 +2162,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Clear the checked state of all other menu items
 		ToolStripMenuItem_Clear();
 		// Set the checked state of the menu item to true
-		menuitemNavigateStep100000.Checked = true;
+		toolStripMenuItemNavigateStep100000.Checked = true;
 	}
 
 	/// <summary>Handles the click event for the MenuitemExit. Closes the application.</summary>
