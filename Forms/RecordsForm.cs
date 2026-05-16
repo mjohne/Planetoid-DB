@@ -169,7 +169,7 @@ public partial class RecordsForm : BaseKryptonForm
 			valueLabels[i].Values.Text = "-";
 		}
 		// Reset tracking arrays
-		bool isMax = toolStripButtonSortOrderAscending.Checked;
+		bool isMax = toolStripButtonSortOrderDescending.Checked;
 		for (int i = 0; i < recordValues.Length; i++)
 		{
 			recordValues[i] = isMax ? double.MinValue : double.MaxValue;
@@ -332,7 +332,7 @@ public partial class RecordsForm : BaseKryptonForm
 	private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
 	{
 		// Determine scan mode (max or min) captured before the background thread starts
-		bool isMax = (bool)(e.Argument ?? true);
+		bool isMax = (bool)(e.Argument ?? false);
 		int total = planetoidsDatabase.Count;
 		if (total == 0)
 		{
@@ -457,7 +457,7 @@ public partial class RecordsForm : BaseKryptonForm
 		contextMenuSaveToFile.Enabled = false;
 
 		// Wire up BackgroundWorker events and start the scan
-		backgroundWorker.RunWorkerAsync(argument: toolStripButtonSortOrderAscending.Checked);
+		backgroundWorker.RunWorkerAsync(argument: toolStripButtonSortOrderDescending.Checked);
 	}
 
 	/// <summary>Handles the Click event of the ButtonCancel control. Cancels the ongoing record detection scan.</summary>
@@ -470,8 +470,6 @@ public partial class RecordsForm : BaseKryptonForm
 		isCancelled = true;
 		backgroundWorker.CancelAsync();
 		toolStripButtonCancel.Enabled = false;
-		toolStripDropDownButtonSaveList.Enabled = true;
-		contextMenuSaveToFile.Enabled = true;
 	}
 
 	/// <summary>Handles the Click event of the ToolStripButtonSortOrderAscending control. Selects ascending sort order and deselects descending sort order.</summary>

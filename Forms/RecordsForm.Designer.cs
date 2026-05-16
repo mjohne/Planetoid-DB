@@ -863,7 +863,7 @@ partial class RecordsForm
 		toolStripMenuItemCopyToClipboardInContextMenu.AutoToolTip = true;
 		toolStripMenuItemCopyToClipboardInContextMenu.Image = FatcowIcons16px.fatcow_page_copy_16px;
 		toolStripMenuItemCopyToClipboardInContextMenu.Name = "toolStripMenuItemCopyToClipboardInContextMenu";
-		toolStripMenuItemCopyToClipboardInContextMenu.ShortcutKeyDisplayString = "Strg+C";
+		toolStripMenuItemCopyToClipboardInContextMenu.ShortcutKeyDisplayString = "Ctrl+C";
 		toolStripMenuItemCopyToClipboardInContextMenu.ShortcutKeys = Keys.Control | Keys.C;
 		toolStripMenuItemCopyToClipboardInContextMenu.Size = new Size(213, 22);
 		toolStripMenuItemCopyToClipboardInContextMenu.Text = "&Copy to clipboard";
@@ -922,7 +922,7 @@ partial class RecordsForm
 		labelElementMeanAnomalyAtTheEpoch.TabIndex = 3;
 		labelElementMeanAnomalyAtTheEpoch.ToolTipValues.Description = "Mean anomaly at the epoch";
 		labelElementMeanAnomalyAtTheEpoch.ToolTipValues.EnableToolTips = true;
-		labelElementMeanAnomalyAtTheEpoch.ToolTipValues.Heading = "Mean enomaly at the epoch";
+		labelElementMeanAnomalyAtTheEpoch.ToolTipValues.Heading = "Mean anomaly at the epoch";
 		labelElementMeanAnomalyAtTheEpoch.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		labelElementMeanAnomalyAtTheEpoch.Values.Text = "Mean anomaly at the epoch";
 		labelElementMeanAnomalyAtTheEpoch.Enter += Control_Enter;
@@ -1568,7 +1568,7 @@ partial class RecordsForm
 		// 
 		// labelValueNumberOfOppositions
 		// 
-		labelValueNumberOfOppositions.AccessibleDescription = "Shows the record value for the number of pppositions";
+		labelValueNumberOfOppositions.AccessibleDescription = "Shows the record value for the number of oppositions";
 		labelValueNumberOfOppositions.AccessibleName = "Record value for the number of oppositions";
 		labelValueNumberOfOppositions.AccessibleRole = AccessibleRole.StaticText;
 		labelValueNumberOfOppositions.ContextMenuStrip = contextMenuCopyToClipboard;
