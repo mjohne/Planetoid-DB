@@ -18,7 +18,7 @@ namespace Planetoid_DB;
 /// <summary>Represents a Windows Form that provides a user interface for viewing, navigating, and managing planetoid data from the MPCORB database.</summary>
 /// <remarks>The form offers features such as data navigation, exporting entries, printing, searching, and displaying detailed information about planetoids. It includes context menus, toolbars, and status indicators to facilitate interaction with the database. Use this form to access, filter, and analyze planetoid records in a structured and accessible manner.</remarks>
 partial class PlanetoidDbForm
-  {
+{
 	/// <summary>Required designer variable.</summary>
 	/// <remarks>This field stores the components used by the form.</remarks>
 	private IContainer components = null;
@@ -49,10 +49,10 @@ partial class PlanetoidDbForm
 		toolStripMenuItemNavigateStep1000 = new ToolStripMenuItem();
 		toolStripMenuItemNavigateStep10000 = new ToolStripMenuItem();
 		toolStripMenuItemNavigateStep100000 = new ToolStripMenuItem();
-		toolStripSplitButtonStepForward = new ToolStripSplitButton();
-		toolStripSplitButtonStepBackward = new ToolStripSplitButton();
 		toolStripMenuItemNavigateSomeDataBackward = new ToolStripMenuItem();
 		toolStripMenuItemNavigateSomeDataForward = new ToolStripMenuItem();
+		toolStripSplitButtonStepForward = new ToolStripSplitButton();
+		toolStripSplitButtonStepBackward = new ToolStripSplitButton();
 		tableLayoutPanelData = new KryptonTableLayoutPanel();
 		labelIndexData = new KryptonLabel();
 		contextMenuCopyToClipboard = new ContextMenuStrip(components);
@@ -99,10 +99,6 @@ partial class PlanetoidDbForm
 		labelFlagsDesc = new KryptonLabel();
 		labelDateLastObservationDesc = new KryptonLabel();
 		contextMenuTopTenRecords = new ContextMenuStrip(components);
-		toolStripMenuItemRecordsSortDirection = new ToolStripMenuItem();
-		toolStripMenuItemRecordsSortDirectionAscending = new ToolStripMenuItem();
-		toolStripMenuItemRecordsSortDirectionDescending = new ToolStripMenuItem();
-		toolStripSeparator12 = new ToolStripSeparator();
 		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch = new ToolStripMenuItem();
 		toolStripMenuItemRecordsArgumentOfThePerihelion = new ToolStripMenuItem();
 		toolStripMenuItemRecordsLongitudeOfTheAscendingNode = new ToolStripMenuItem();
@@ -118,8 +114,8 @@ partial class PlanetoidDbForm
 		toolStripMenuItemRecordsRmsResidual = new ToolStripMenuItem();
 		toolStripMenuItemRecordsComputername = new ToolStripMenuItem();
 		toolStripMenuItemRecordsDateOfTheLastObservation = new ToolStripMenuItem();
-		toolStripMenuItemRecords = new ToolStripMenuItem();
 		toolStripSplitButtonTopTenRecords = new ToolStripSplitButton();
+		toolStripMenuItemRecords = new ToolStripMenuItem();
 		contextMenuDistributions = new ContextMenuStrip(components);
 		toolStripMenuItemDistributionMeanAnomalyAtTheEpoch = new ToolStripMenuItem();
 		toolStripMenuItemDistributionArgumentOfThePerihelion = new ToolStripMenuItem();
@@ -326,7 +322,7 @@ partial class PlanetoidDbForm
 		contextMenuNavigationStep.Font = new Font("Segoe UI", 9F);
 		contextMenuNavigationStep.Items.AddRange(new ToolStripItem[] { toolStripMenuItemNavigateStep10, toolStripMenuItemNavigateStep100, toolStripMenuItemNavigateStep1000, toolStripMenuItemNavigateStep10000, toolStripMenuItemNavigateStep100000 });
 		contextMenuNavigationStep.Name = "contextMenu";
-		contextMenuNavigationStep.OwnerItem = toolStripMenuItemNavigateSomeDataForward;
+		contextMenuNavigationStep.OwnerItem = toolStripSplitButtonStepBackward;
 		contextMenuNavigationStep.ShowCheckMargin = true;
 		contextMenuNavigationStep.ShowImageMargin = false;
 		contextMenuNavigationStep.Size = new Size(111, 114);
@@ -409,38 +405,6 @@ partial class PlanetoidDbForm
 		toolStripMenuItemNavigateStep100000.MouseEnter += Control_Enter;
 		toolStripMenuItemNavigateStep100000.MouseLeave += Control_Leave;
 		// 
-		// toolStripSplitButtonStepForward
-		// 
-		toolStripSplitButtonStepForward.AccessibleDescription = "Navigates some data forward";
-		toolStripSplitButtonStepForward.AccessibleName = "Navigate some data forward";
-		toolStripSplitButtonStepForward.AccessibleRole = AccessibleRole.SplitButton;
-		toolStripSplitButtonStepForward.DisplayStyle = ToolStripItemDisplayStyle.Image;
-		toolStripSplitButtonStepForward.DropDown = contextMenuNavigationStep;
-		toolStripSplitButtonStepForward.Image = FatcowIcons16px.fatcow_control_fastforward_blue_16px;
-		toolStripSplitButtonStepForward.ImageTransparentColor = Color.Magenta;
-		toolStripSplitButtonStepForward.Name = "toolStripSplitButtonStepForward";
-		toolStripSplitButtonStepForward.Size = new Size(32, 22);
-		toolStripSplitButtonStepForward.Text = "Navigate some data forward";
-		toolStripSplitButtonStepForward.ButtonClick += NavigateSomeDataForward_Click;
-		toolStripSplitButtonStepForward.MouseEnter += Control_Enter;
-		toolStripSplitButtonStepForward.MouseLeave += Control_Leave;
-		// 
-		// toolStripSplitButtonStepBackward
-		// 
-		toolStripSplitButtonStepBackward.AccessibleDescription = "Navigates some data backward";
-		toolStripSplitButtonStepBackward.AccessibleName = "Navigate some data backward";
-		toolStripSplitButtonStepBackward.AccessibleRole = AccessibleRole.SplitButton;
-		toolStripSplitButtonStepBackward.DisplayStyle = ToolStripItemDisplayStyle.Image;
-		toolStripSplitButtonStepBackward.DropDown = contextMenuNavigationStep;
-		toolStripSplitButtonStepBackward.Image = FatcowIcons16px.fatcow_control_rewind_blue_16px;
-		toolStripSplitButtonStepBackward.ImageTransparentColor = Color.Magenta;
-		toolStripSplitButtonStepBackward.Name = "toolStripSplitButtonStepBackward";
-		toolStripSplitButtonStepBackward.Size = new Size(32, 22);
-		toolStripSplitButtonStepBackward.Text = "Navigate some data backward";
-		toolStripSplitButtonStepBackward.ButtonClick += NavigateSomeDataBackward_Click;
-		toolStripSplitButtonStepBackward.MouseEnter += Control_Enter;
-		toolStripSplitButtonStepBackward.MouseLeave += Control_Leave;
-		// 
 		// toolStripMenuItemNavigateSomeDataBackward
 		// 
 		toolStripMenuItemNavigateSomeDataBackward.AccessibleDescription = "Navigates some data backward";
@@ -472,6 +436,38 @@ partial class PlanetoidDbForm
 		toolStripMenuItemNavigateSomeDataForward.Click += NavigateSomeDataForward_Click;
 		toolStripMenuItemNavigateSomeDataForward.MouseEnter += Control_Enter;
 		toolStripMenuItemNavigateSomeDataForward.MouseLeave += Control_Leave;
+		// 
+		// toolStripSplitButtonStepForward
+		// 
+		toolStripSplitButtonStepForward.AccessibleDescription = "Navigates some data forward";
+		toolStripSplitButtonStepForward.AccessibleName = "Navigate some data forward";
+		toolStripSplitButtonStepForward.AccessibleRole = AccessibleRole.SplitButton;
+		toolStripSplitButtonStepForward.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		toolStripSplitButtonStepForward.DropDown = contextMenuNavigationStep;
+		toolStripSplitButtonStepForward.Image = FatcowIcons16px.fatcow_control_fastforward_blue_16px;
+		toolStripSplitButtonStepForward.ImageTransparentColor = Color.Magenta;
+		toolStripSplitButtonStepForward.Name = "toolStripSplitButtonStepForward";
+		toolStripSplitButtonStepForward.Size = new Size(32, 22);
+		toolStripSplitButtonStepForward.Text = "Navigate some data forward";
+		toolStripSplitButtonStepForward.ButtonClick += NavigateSomeDataForward_Click;
+		toolStripSplitButtonStepForward.MouseEnter += Control_Enter;
+		toolStripSplitButtonStepForward.MouseLeave += Control_Leave;
+		// 
+		// toolStripSplitButtonStepBackward
+		// 
+		toolStripSplitButtonStepBackward.AccessibleDescription = "Navigates some data backward";
+		toolStripSplitButtonStepBackward.AccessibleName = "Navigate some data backward";
+		toolStripSplitButtonStepBackward.AccessibleRole = AccessibleRole.SplitButton;
+		toolStripSplitButtonStepBackward.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		toolStripSplitButtonStepBackward.DropDown = contextMenuNavigationStep;
+		toolStripSplitButtonStepBackward.Image = FatcowIcons16px.fatcow_control_rewind_blue_16px;
+		toolStripSplitButtonStepBackward.ImageTransparentColor = Color.Magenta;
+		toolStripSplitButtonStepBackward.Name = "toolStripSplitButtonStepBackward";
+		toolStripSplitButtonStepBackward.Size = new Size(32, 22);
+		toolStripSplitButtonStepBackward.Text = "Navigate some data backward";
+		toolStripSplitButtonStepBackward.ButtonClick += NavigateSomeDataBackward_Click;
+		toolStripSplitButtonStepBackward.MouseEnter += Control_Enter;
+		toolStripSplitButtonStepBackward.MouseLeave += Control_Leave;
 		// 
 		// tableLayoutPanelData
 		// 
@@ -1593,68 +1589,15 @@ partial class PlanetoidDbForm
 		contextMenuTopTenRecords.AccessibleRole = AccessibleRole.MenuPopup;
 		contextMenuTopTenRecords.AllowClickThrough = true;
 		contextMenuTopTenRecords.Font = new Font("Segoe UI", 9F);
-		contextMenuTopTenRecords.Items.AddRange(new ToolStripItem[] { toolStripMenuItemRecordsSortDirection, toolStripSeparator12, toolStripMenuItemRecordsMeanAnomalyAtTheEpoch, toolStripMenuItemRecordsArgumentOfThePerihelion, toolStripMenuItemRecordsLongitudeOfTheAscendingNode, toolStripMenuItemRecordsInclination, toolStripMenuItemRecordsOrbitalEccentricity, toolStripMenuItemRecordsMeanDailyMotion, toolStripMenuItemRecordsSemiMajorAxis, toolStripMenuItemRecordsAbsoluteMagnitude, toolStripMenuItemRecordsSlopeParameter, toolStripMenuItemRecordsNumberOfOppositions, toolStripMenuItemRecordsNumberOfObservations, toolStripMenuItemRecordsObservationSpan, toolStripMenuItemRecordsRmsResidual, toolStripMenuItemRecordsComputername, toolStripMenuItemRecordsDateOfTheLastObservation });
+		contextMenuTopTenRecords.Items.AddRange(new ToolStripItem[] { toolStripMenuItemRecordsMeanAnomalyAtTheEpoch, toolStripMenuItemRecordsArgumentOfThePerihelion, toolStripMenuItemRecordsLongitudeOfTheAscendingNode, toolStripMenuItemRecordsInclination, toolStripMenuItemRecordsOrbitalEccentricity, toolStripMenuItemRecordsMeanDailyMotion, toolStripMenuItemRecordsSemiMajorAxis, toolStripMenuItemRecordsAbsoluteMagnitude, toolStripMenuItemRecordsSlopeParameter, toolStripMenuItemRecordsNumberOfOppositions, toolStripMenuItemRecordsNumberOfObservations, toolStripMenuItemRecordsObservationSpan, toolStripMenuItemRecordsRmsResidual, toolStripMenuItemRecordsComputername, toolStripMenuItemRecordsDateOfTheLastObservation });
 		contextMenuTopTenRecords.Name = "contextMenuTopTenRecords";
-		contextMenuTopTenRecords.OwnerItem = toolStripSplitButtonTopTenRecords;
-		contextMenuTopTenRecords.Size = new Size(250, 362);
+		contextMenuTopTenRecords.Size = new Size(250, 334);
 		contextMenuTopTenRecords.TabStop = true;
 		contextMenuTopTenRecords.Text = "Top ten records";
 		contextMenuTopTenRecords.Enter += Control_Enter;
 		contextMenuTopTenRecords.Leave += Control_Leave;
 		contextMenuTopTenRecords.MouseEnter += Control_Enter;
 		contextMenuTopTenRecords.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemRecordsSortDirection
-		// 
-		toolStripMenuItemRecordsSortDirection.AccessibleDescription = "Shows the sort direction of the top ten records";
-		toolStripMenuItemRecordsSortDirection.AccessibleName = "Sort direction";
-		toolStripMenuItemRecordsSortDirection.AccessibleRole = AccessibleRole.MenuPopup;
-		toolStripMenuItemRecordsSortDirection.AutoToolTip = true;
-		toolStripMenuItemRecordsSortDirection.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemRecordsSortDirectionAscending, toolStripMenuItemRecordsSortDirectionDescending });
-		toolStripMenuItemRecordsSortDirection.Image = FatcowIcons16px.fatcow_cog_16px;
-		toolStripMenuItemRecordsSortDirection.Name = "toolStripMenuItemRecordsSortDirection";
-		toolStripMenuItemRecordsSortDirection.Size = new Size(249, 22);
-		toolStripMenuItemRecordsSortDirection.Text = "Sort direction";
-		toolStripMenuItemRecordsSortDirection.MouseEnter += Control_Enter;
-		toolStripMenuItemRecordsSortDirection.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemRecordsSortDirectionAscending
-		// 
-		toolStripMenuItemRecordsSortDirectionAscending.AccessibleDescription = "Chooses the ascending sort direction of the top ten records";
-		toolStripMenuItemRecordsSortDirectionAscending.AccessibleName = "Sorted ascending";
-		toolStripMenuItemRecordsSortDirectionAscending.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemRecordsSortDirectionAscending.Checked = true;
-		toolStripMenuItemRecordsSortDirectionAscending.CheckOnClick = true;
-		toolStripMenuItemRecordsSortDirectionAscending.CheckState = CheckState.Checked;
-		toolStripMenuItemRecordsSortDirectionAscending.Name = "toolStripMenuItemRecordsSortDirectionAscending";
-		toolStripMenuItemRecordsSortDirectionAscending.Size = new Size(136, 22);
-		toolStripMenuItemRecordsSortDirectionAscending.Text = "Ascending";
-		toolStripMenuItemRecordsSortDirectionAscending.ToolTipText = "Ascending sort direction";
-		toolStripMenuItemRecordsSortDirectionAscending.MouseEnter += Control_Enter;
-		toolStripMenuItemRecordsSortDirectionAscending.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemRecordsSortDirectionDescending
-		// 
-		toolStripMenuItemRecordsSortDirectionDescending.AccessibleDescription = "Chooses the descending sort direction of the top ten records";
-		toolStripMenuItemRecordsSortDirectionDescending.AccessibleName = "Sorted descending";
-		toolStripMenuItemRecordsSortDirectionDescending.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemRecordsSortDirectionDescending.CheckOnClick = true;
-		toolStripMenuItemRecordsSortDirectionDescending.Name = "toolStripMenuItemRecordsSortDirectionDescending";
-		toolStripMenuItemRecordsSortDirectionDescending.Size = new Size(136, 22);
-		toolStripMenuItemRecordsSortDirectionDescending.Text = "Descending";
-		toolStripMenuItemRecordsSortDirectionDescending.ToolTipText = "Descending sort direction";
-		toolStripMenuItemRecordsSortDirectionDescending.MouseEnter += Control_Enter;
-		toolStripMenuItemRecordsSortDirectionDescending.MouseLeave += Control_Leave;
-		// 
-		// toolStripSeparator12
-		// 
-		toolStripSeparator12.AccessibleDescription = "Just a separator";
-		toolStripSeparator12.AccessibleName = "Just a separator";
-		toolStripSeparator12.AccessibleRole = AccessibleRole.Separator;
-		toolStripSeparator12.Name = "toolStripSeparator12";
-		toolStripSeparator12.Size = new Size(246, 6);
-		toolStripSeparator12.MouseEnter += Control_Enter;
-		toolStripSeparator12.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemRecordsMeanAnomalyAtTheEpoch
 		// 
@@ -1866,6 +1809,22 @@ partial class PlanetoidDbForm
 		toolStripMenuItemRecordsDateOfTheLastObservation.MouseEnter += Control_Enter;
 		toolStripMenuItemRecordsDateOfTheLastObservation.MouseLeave += Control_Leave;
 		// 
+		// toolStripSplitButtonTopTenRecords
+		// 
+		toolStripSplitButtonTopTenRecords.AccessibleDescription = "Shows the top ten records";
+		toolStripSplitButtonTopTenRecords.AccessibleName = "Top ten records";
+		toolStripSplitButtonTopTenRecords.AccessibleRole = AccessibleRole.SplitButton;
+		toolStripSplitButtonTopTenRecords.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		toolStripSplitButtonTopTenRecords.DropDown = contextMenuTopTenRecords;
+		toolStripSplitButtonTopTenRecords.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripSplitButtonTopTenRecords.ImageTransparentColor = Color.Magenta;
+		toolStripSplitButtonTopTenRecords.Name = "toolStripSplitButtonTopTenRecords";
+		toolStripSplitButtonTopTenRecords.Size = new Size(32, 22);
+		toolStripSplitButtonTopTenRecords.Text = "Top ten records";
+		toolStripSplitButtonTopTenRecords.ButtonClick += Records_Click;
+		toolStripSplitButtonTopTenRecords.MouseEnter += Control_Enter;
+		toolStripSplitButtonTopTenRecords.MouseLeave += Control_Leave;
+		// 
 		// toolStripMenuItemRecords
 		// 
 		toolStripMenuItemRecords.AccessibleDescription = "Shows some top ten records";
@@ -1873,7 +1832,6 @@ partial class PlanetoidDbForm
 		toolStripMenuItemRecords.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemRecords.AutoToolTip = true;
 		toolStripMenuItemRecords.DropDown = contextMenuTopTenRecords;
-		toolStripMenuItemRecords.Enabled = false;
 		toolStripMenuItemRecords.Image = FatcowIcons16px.fatcow_page_white_text_16px;
 		toolStripMenuItemRecords.Name = "toolStripMenuItemRecords";
 		toolStripMenuItemRecords.ShortcutKeyDisplayString = "Strg+R";
@@ -1883,23 +1841,6 @@ partial class PlanetoidDbForm
 		toolStripMenuItemRecords.Click += Records_Click;
 		toolStripMenuItemRecords.MouseEnter += Control_Enter;
 		toolStripMenuItemRecords.MouseLeave += Control_Leave;
-		// 
-		// toolStripSplitButtonTopTenRecords
-		// 
-		toolStripSplitButtonTopTenRecords.AccessibleDescription = "Shows the top ten records";
-		toolStripSplitButtonTopTenRecords.AccessibleName = "Top ten records";
-		toolStripSplitButtonTopTenRecords.AccessibleRole = AccessibleRole.SplitButton;
-		toolStripSplitButtonTopTenRecords.DisplayStyle = ToolStripItemDisplayStyle.Image;
-		toolStripSplitButtonTopTenRecords.DropDown = contextMenuTopTenRecords;
-		toolStripSplitButtonTopTenRecords.Enabled = false;
-		toolStripSplitButtonTopTenRecords.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
-		toolStripSplitButtonTopTenRecords.ImageTransparentColor = Color.Magenta;
-		toolStripSplitButtonTopTenRecords.Name = "toolStripSplitButtonTopTenRecords";
-		toolStripSplitButtonTopTenRecords.Size = new Size(32, 22);
-		toolStripSplitButtonTopTenRecords.Text = "Top ten records";
-		toolStripSplitButtonTopTenRecords.ButtonClick += Records_Click;
-		toolStripSplitButtonTopTenRecords.MouseEnter += Control_Enter;
-		toolStripSplitButtonTopTenRecords.MouseLeave += Control_Leave;
 		// 
 		// contextMenuDistributions
 		// 
@@ -4635,10 +4576,6 @@ partial class PlanetoidDbForm
 	private KryptonLabel labelFlagsDesc;
 	private KryptonLabel labelDateLastObservationDesc;
 	private ContextMenuStrip contextMenuTopTenRecords;
-	private ToolStripMenuItem toolStripMenuItemRecordsSortDirection;
-	private ToolStripMenuItem toolStripMenuItemRecordsSortDirectionAscending;
-	private ToolStripMenuItem toolStripMenuItemRecordsSortDirectionDescending;
-	private ToolStripSeparator toolStripSeparator12;
 	private ToolStripMenuItem toolStripMenuItemRecordsMeanAnomalyAtTheEpoch;
 	private ToolStripMenuItem toolStripMenuItemRecordsArgumentOfThePerihelion;
 	private ToolStripMenuItem toolStripMenuItemRecordsLongitudeOfTheAscendingNode;

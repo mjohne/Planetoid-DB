@@ -917,33 +917,9 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formLicense.ShowDialog();
 	}
 
-	/// <summary>Shows the records selection form.</summary>
-	///	<remarks>This method is used to show the records selection form.</remarks>
-	private void ShowRecordsSelection()
-	{
-		// Create a new instance of the RecordsSelectionForm
-		using RecordsSelectionForm formRecordsSelection = new();
-		// Set the TopMost property to true to keep the form on top of other windows
-		formRecordsSelection.TopMost = TopMost;
-		// Show the records selection form as a modal dialog
-		_ = formRecordsSelection.ShowDialog();
-	}
-
-	/// <summary>Shows the main records form.</summary>
-	/// <remarks>This method is used to show the main records form.</remarks>
-	private void ShowRecordsMain()
-	{
-		// Create a new instance of the RecordsMainForm
-		using RecordsMainForm formRecordsMain = new();
-		// Set the TopMost property to true to keep the form on top of other windows
-		formRecordsMain.TopMost = TopMost;
-		// Show the records form as a modal dialog
-		_ = formRecordsMain.ShowDialog();
-	}
-
 	/// <summary>Shows the records form that scans all orbital elements for maximum or minimum record values.</summary>
 	/// <remarks>This method creates the <see cref="RecordsForm"/>, passes a copy of the current planetoid database, and displays the form as a modal dialog.</remarks>
-	private void ShowRecordsForm()
+	private void ShowRecords()
 	{
 		// Create a new instance of the RecordsForm
 		using RecordsForm formRecords = new();
@@ -2395,101 +2371,101 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method is used to export the data sheet.</remarks>
 	private void Export_Click(object sender, EventArgs e) => ExportDataSheet();
 
-	/// <summary>Handles the button click event for the ToolStripSplitButtonTopTenRecords. Shows the records selection form.</summary>
+	/// <summary>Handles the button click event for the ToolStripSplitButtonTopTenRecords. Shows the records main form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the records selection form.</remarks>
-	private void Records_Click(object sender, EventArgs e) => ShowRecordsSelection();
+	/// <remarks>This method is used to show the records main form.</remarks>
+	private void Records_Click(object sender, EventArgs e) => ShowRecords();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsMeanAnomalyAtTheEpoch. Shows the main records form for mean anomaly at the epoch.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the records main form for mean anomaly at the epoch.</remarks>
-	private void RecordsMeanAnomalyAtTheEpoch_Click(object sender, EventArgs e) => ShowRecordsMain();
+	private void RecordsMeanAnomalyAtTheEpoch_Click(object sender, EventArgs e) => ShowRecords();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsArgumentOfThePerihelion. Shows the main records form for argument of perihelion.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the records main form for argument of perihelion.</remarks>
-	private void RecordsArgumentOfThePerihelion_Click(object sender, EventArgs e) => ShowRecordsMain();
+	private void RecordsArgumentOfThePerihelion_Click(object sender, EventArgs e) => ShowRecords();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsLongitudeOfTheAscendingNode. Shows the main records form for the longitude of the ascending node.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the records main form for the longitude of the ascending node.</remarks>
-	private void RecordsLongitudeOfTheAscendingNode_Click(object sender, EventArgs e) => ShowRecordsMain();
+	private void RecordsLongitudeOfTheAscendingNode_Click(object sender, EventArgs e) => ShowRecords();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsInclination. Shows the main records form for inclination.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the records main form for inclination.</remarks>
-	private void RecordsInclination_Click(object sender, EventArgs e) => ShowRecordsMain();
+	private void RecordsInclination_Click(object sender, EventArgs e) => ShowRecords();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsOrbitalEccentricity. Shows the main records form for orbital eccentricity.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the records main form for orbital eccentricity.</remarks>
-	private void RecordsOrbitalEccentricity_Click(object sender, EventArgs e) => ShowRecordsMain();
+	private void RecordsOrbitalEccentricity_Click(object sender, EventArgs e) => ShowRecords();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsMeanDailyMotion. Shows the main records form for mean daily motion.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the records main form for mean daily motion.</remarks>
-	private void RecordsMeanDailyMotion_Click(object sender, EventArgs e) => ShowRecordsMain();
+	private void RecordsMeanDailyMotion_Click(object sender, EventArgs e) => ShowRecords();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsSemiMajorAxis. Shows the main records form for semi-major axis.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the records main form for semi-major axis.</remarks>
-	private void RecordsSemiMajorAxis_Click(object sender, EventArgs e) => ShowRecordsMain();
+	private void RecordsSemiMajorAxis_Click(object sender, EventArgs e) => ShowRecords();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsAbsoluteMagnitude. Shows the main records form for absolute magnitude.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the records main form for absolute magnitude.</remarks>
-	private void RecordsAbsoluteMagnitude_Click(object sender, EventArgs e) => ShowRecordsMain();
+	private void RecordsAbsoluteMagnitude_Click(object sender, EventArgs e) => ShowRecords();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsSlopeParameter. Shows the main records form for slope parameter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the records main form for slope parameter.</remarks>
-	private void RecordsSlopeParameter_Click(object sender, EventArgs e) => ShowRecordsMain();
+	private void RecordsSlopeParameter_Click(object sender, EventArgs e) => ShowRecords();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsNumberOfOppositions. Shows the main records form for number of oppositions.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the records main form for number of oppositions.</remarks>
-	private void RecordsNumberOfOppositions_Click(object sender, EventArgs e) => ShowRecordsMain();
+	private void RecordsNumberOfOppositions_Click(object sender, EventArgs e) => ShowRecords();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsNumberOfObservations. Shows the main records form for number of observations.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the records main form for number of observations.</remarks>
-	private void RecordsNumberOfObservations_Click(object sender, EventArgs e) => ShowRecordsMain();
+	private void RecordsNumberOfObservations_Click(object sender, EventArgs e) => ShowRecords();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsObservationSpan. Shows the main records form for observation span.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the records main form for observation span.</remarks>
-	private void RecordsObservationSpan_Click(object sender, EventArgs e) => ShowRecordsMain();
+	private void RecordsObservationSpan_Click(object sender, EventArgs e) => ShowRecords();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsRmsResidual. Shows the main records form for RMS residual.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the records main form for RMS residual.</remarks>
-	private void RecordsRmsResidual_Click(object sender, EventArgs e) => ShowRecordsMain();
+	private void RecordsRmsResidual_Click(object sender, EventArgs e) => ShowRecords();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsComputerName. Shows the main records form for computer name.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the records main form for computer name.</remarks>
-	private void RecordsComputerName_Click(object sender, EventArgs e) => ShowRecordsMain();
+	private void RecordsComputerName_Click(object sender, EventArgs e) => ShowRecords();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsDateOfTheLastObservation. Shows the main records form for date of the last observation.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the records main form for date of the last observation.</remarks>
-	private void RecordsDateOfTheLastObservation_Click(object sender, EventArgs e) => ShowRecordsMain();
+	private void RecordsDateOfTheLastObservation_Click(object sender, EventArgs e) => ShowRecords();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemDistributionMeanAnomalyAtTheEpoch. Shows the distribution form for mean anomaly at the epoch.</summary>
 	/// <param name="sender">The event source.</param>

@@ -18,9 +18,7 @@ using System.Reflection;
 namespace Planetoid_DB;
 
 /// <summary>Represents the form that scans all orbital elements for maximum or minimum record values.</summary>
-/// <remarks>This form displays the record holder (asteroid with the highest or lowest value) for each
-/// orbital element in the database. The user can choose between maximum and minimum records,
-/// start and cancel the scan at any time.</remarks>
+/// <remarks>This form displays the record holder (asteroid with the highest or lowest value) for each orbital element in the database. The user can choose between maximum and minimum records, start and cancel the scan at any time.</remarks>
 // You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class RecordsForm : BaseKryptonForm
@@ -169,10 +167,10 @@ public partial class RecordsForm : BaseKryptonForm
 			valueLabels[i].Values.Text = "-";
 		}
 		// Reset tracking arrays
-		bool isMax = toolStripButtonSortOrderDescending.Checked;
+		bool isAscending = toolStripButtonSortOrderDescending.Checked;
 		for (int i = 0; i < recordValues.Length; i++)
 		{
-			recordValues[i] = isMax ? double.MinValue : double.MaxValue;
+			recordValues[i] = isAscending ? double.MinValue : double.MaxValue;
 			recordStringValues[i] = string.Empty;
 		}
 	}
@@ -202,13 +200,13 @@ public partial class RecordsForm : BaseKryptonForm
 	/// <param name="value">The numeric value to compare against the current record.</param>
 	/// <param name="stringValue">The original string value from the database to display in the UI.</param>
 	/// <param name="designation">The readable designation of the asteroid.</param>
-	/// <param name="isMax">If <c>true</c>, checks for maximum; otherwise checks for minimum.</param>
+	/// <param name="isAscending">If <c>true</c>, checks for maximum; otherwise checks for minimum.</param>
 	/// <param name="percent">Current scan percentage, forwarded in the progress report.</param>
 	/// <remarks>This method runs on the <see cref="BackgroundWorker"/> DoWork thread. UI updates are performed through the <see cref="BackgroundWorker.ProgressChanged"/> event.</remarks>
-	private void CheckAndReportRecord(int elementIndex, double value, string stringValue, string designation, bool isMax, int percent)
+	private void CheckAndReportRecord(int elementIndex, double value, string stringValue, string designation, bool isAscending, int percent)
 	{
 		// Check if this value is a new record
-		bool isNewRecord = isMax
+		bool isNewRecord = isAscending
 			? value > recordValues[elementIndex]
 			: value < recordValues[elementIndex];
 		// If it's not a new record, simply return without doing anything
@@ -227,10 +225,10 @@ public partial class RecordsForm : BaseKryptonForm
 
 	/// <summary>Processes a single database entry and checks all orbital element values for records.</summary>
 	/// <param name="rawLine">The raw fixed-width line from the MPCORB database.</param>
-	/// <param name="isMax">If <c>true</c>, looks for maximum values; otherwise looks for minimum values.</param>
+	/// <param name="isAscending">If <c>true</c>, looks for maximum values; otherwise looks for minimum values.</param>
 	/// <param name="percent">Current scan percentage, forwarded to record progress reports.</param>
 	/// <remarks>Parses the planetoid record and compares each numeric orbital element value against the current records. A progress report is fired immediately for each new record.</remarks>
-	private void ProcessEntry(string rawLine, bool isMax, int percent)
+	private void ProcessEntry(string rawLine, bool isAscending, int percent)
 	{
 		// Parse the raw line into a PlanetoidRecord
 		PlanetoidRecord record = PlanetoidRecord.Parse(rawLine: rawLine);
@@ -245,62 +243,62 @@ public partial class RecordsForm : BaseKryptonForm
 		// Mean Anomaly at the Epoch
 		if (double.TryParse(s: record.MeanAnomaly, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double meanAnomaly))
 		{
-			CheckAndReportRecord(elementIndex: 0, value: meanAnomaly, stringValue: record.MeanAnomaly, designation: designation, isMax: isMax, percent: percent);
+			CheckAndReportRecord(elementIndex: 0, value: meanAnomaly, stringValue: record.MeanAnomaly, designation: designation, isAscending: isAscending, percent: percent);
 		}
 		// Argument of the Perihelion
 		if (double.TryParse(s: record.ArgPeri, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double argPeri))
 		{
-			CheckAndReportRecord(elementIndex: 1, value: argPeri, stringValue: record.ArgPeri, designation: designation, isMax: isMax, percent: percent);
+			CheckAndReportRecord(elementIndex: 1, value: argPeri, stringValue: record.ArgPeri, designation: designation, isAscending: isAscending, percent: percent);
 		}
 		// Longitude of the Ascending Node
 		if (double.TryParse(s: record.LongAscNode, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double longAscNode))
 		{
-			CheckAndReportRecord(elementIndex: 2, value: longAscNode, stringValue: record.LongAscNode, designation: designation, isMax: isMax, percent: percent);
+			CheckAndReportRecord(elementIndex: 2, value: longAscNode, stringValue: record.LongAscNode, designation: designation, isAscending: isAscending, percent: percent);
 		}
 		// Inclination to the Ecliptic
 		if (double.TryParse(s: record.Incl, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double incl))
 		{
-			CheckAndReportRecord(elementIndex: 3, value: incl, stringValue: record.Incl, designation: designation, isMax: isMax, percent: percent);
+			CheckAndReportRecord(elementIndex: 3, value: incl, stringValue: record.Incl, designation: designation, isAscending: isAscending, percent: percent);
 		}
 		// Orbital Eccentricity
 		if (double.TryParse(s: record.OrbEcc, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double orbEcc))
 		{
-			CheckAndReportRecord(elementIndex: 4, value: orbEcc, stringValue: record.OrbEcc, designation: designation, isMax: isMax, percent: percent);
+			CheckAndReportRecord(elementIndex: 4, value: orbEcc, stringValue: record.OrbEcc, designation: designation, isAscending: isAscending, percent: percent);
 		}
 		// Mean Daily Motion
 		if (double.TryParse(s: record.Motion, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double motion))
 		{
-			CheckAndReportRecord(elementIndex: 5, value: motion, stringValue: record.Motion, designation: designation, isMax: isMax, percent: percent);
+			CheckAndReportRecord(elementIndex: 5, value: motion, stringValue: record.Motion, designation: designation, isAscending: isAscending, percent: percent);
 		}
 		// Semi-Major Axis
 		if (double.TryParse(s: record.SemiMajorAxis, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double semiMajorAxis))
 		{
-			CheckAndReportRecord(elementIndex: 6, value: semiMajorAxis, stringValue: record.SemiMajorAxis, designation: designation, isMax: isMax, percent: percent);
+			CheckAndReportRecord(elementIndex: 6, value: semiMajorAxis, stringValue: record.SemiMajorAxis, designation: designation, isAscending: isAscending, percent: percent);
 		}
 		// Absolute Magnitude (H)
 		if (double.TryParse(s: record.MagAbs, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double magAbs))
 		{
-			CheckAndReportRecord(elementIndex: 7, value: magAbs, stringValue: record.MagAbs, designation: designation, isMax: isMax, percent: percent);
+			CheckAndReportRecord(elementIndex: 7, value: magAbs, stringValue: record.MagAbs, designation: designation, isAscending: isAscending, percent: percent);
 		}
 		// Slope Parameter (G)
 		if (double.TryParse(s: record.SlopeParam, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double slopeParam))
 		{
-			CheckAndReportRecord(elementIndex: 8, value: slopeParam, stringValue: record.SlopeParam, designation: designation, isMax: isMax, percent: percent);
+			CheckAndReportRecord(elementIndex: 8, value: slopeParam, stringValue: record.SlopeParam, designation: designation, isAscending: isAscending, percent: percent);
 		}
 		// Number of Oppositions
 		if (int.TryParse(s: record.NumberOpposition, style: NumberStyles.Integer, provider: CultureInfo.InvariantCulture, result: out int numOpposition))
 		{
-			CheckAndReportRecord(elementIndex: 9, value: numOpposition, stringValue: record.NumberOpposition, designation: designation, isMax: isMax, percent: percent);
+			CheckAndReportRecord(elementIndex: 9, value: numOpposition, stringValue: record.NumberOpposition, designation: designation, isAscending: isAscending, percent: percent);
 		}
 		// Number of Observations
 		if (int.TryParse(s: record.NumberObservation, style: NumberStyles.Integer, provider: CultureInfo.InvariantCulture, result: out int numObservation))
 		{
-			CheckAndReportRecord(elementIndex: 10, value: numObservation, stringValue: record.NumberObservation, designation: designation, isMax: isMax, percent: percent);
+			CheckAndReportRecord(elementIndex: 10, value: numObservation, stringValue: record.NumberObservation, designation: designation, isAscending: isAscending, percent: percent);
 		}
 		// RMS Residual (Observation Span is intentionally skipped)
 		if (double.TryParse(s: record.RmsResidual, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double rmsResidual))
 		{
-			CheckAndReportRecord(elementIndex: 11, value: rmsResidual, stringValue: record.RmsResidual, designation: designation, isMax: isMax, percent: percent);
+			CheckAndReportRecord(elementIndex: 11, value: rmsResidual, stringValue: record.RmsResidual, designation: designation, isAscending: isAscending, percent: percent);
 		}
 		// Note: Observation Span is not included in the record tracking since it can vary based on observation history rather than being an intrinsic orbital property.
 	}
@@ -355,7 +353,7 @@ public partial class RecordsForm : BaseKryptonForm
 			try
 			{
 				// Process the entry and check for records. Any new records will trigger progress reports to update the UI labels.
-				ProcessEntry(rawLine: rawLine, isMax: isMax, percent: percent);
+				ProcessEntry(rawLine: rawLine, isAscending: isMax, percent: percent);
 			}
 			// Catch any exceptions that occur during processing of this entry, log a warning, and continue with the next entry. This ensures that a single bad line does not stop the entire scan.
 			catch (Exception ex)
