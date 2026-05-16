@@ -116,7 +116,7 @@ partial class PreloadForm
 		kryptonCommandLinkButtonDownloadMprcorbDat.AccessibleRole = AccessibleRole.PushButton;
 		kryptonCommandLinkButtonDownloadMprcorbDat.CommandLinkTextValues.Description = "Download MPCORB.DAT from the IAU Minor Planet Center";
 		kryptonCommandLinkButtonDownloadMprcorbDat.CommandLinkTextValues.Heading = "Download MPCORB.DAT";
-		kryptonCommandLinkButtonDownloadMprcorbDat.Location = new Point(0, 78);
+		kryptonCommandLinkButtonDownloadMprcorbDat.Location = new Point(0, 12);
 		kryptonCommandLinkButtonDownloadMprcorbDat.Name = "kryptonCommandLinkButtonDownloadMprcorbDat";
 		kryptonCommandLinkButtonDownloadMprcorbDat.OverrideFocus.Border.Draw = InheritBool.True;
 		kryptonCommandLinkButtonDownloadMprcorbDat.OverrideFocus.Border.DrawBorders = PaletteDrawBorders.Top | PaletteDrawBorders.Bottom | PaletteDrawBorders.Left | PaletteDrawBorders.Right;
@@ -126,7 +126,7 @@ partial class PreloadForm
 		kryptonCommandLinkButtonDownloadMprcorbDat.StateCommon.Content.LongText.TextV = PaletteRelativeAlign.Far;
 		kryptonCommandLinkButtonDownloadMprcorbDat.StateCommon.Content.ShortText.TextH = PaletteRelativeAlign.Near;
 		kryptonCommandLinkButtonDownloadMprcorbDat.StateCommon.Content.ShortText.TextV = PaletteRelativeAlign.Center;
-		kryptonCommandLinkButtonDownloadMprcorbDat.TabIndex = 1;
+		kryptonCommandLinkButtonDownloadMprcorbDat.TabIndex = 0;
 		kryptonCommandLinkButtonDownloadMprcorbDat.ToolTipValues.Description = "Downloads MPCORB.DAT from the IAU Minor Planet Center.";
 		kryptonCommandLinkButtonDownloadMprcorbDat.ToolTipValues.EnableToolTips = true;
 		kryptonCommandLinkButtonDownloadMprcorbDat.ToolTipValues.Heading = "Download MPCORB.DAT";
@@ -144,7 +144,7 @@ partial class PreloadForm
 		kryptonCommandLinkButtonOpenLocalFile.AccessibleRole = AccessibleRole.PushButton;
 		kryptonCommandLinkButtonOpenLocalFile.CommandLinkTextValues.Description = "Open a local MPCORB.DAT file from hard drive";
 		kryptonCommandLinkButtonOpenLocalFile.CommandLinkTextValues.Heading = "Open a local MPCORB.DAT file";
-		kryptonCommandLinkButtonOpenLocalFile.Location = new Point(0, 12);
+		kryptonCommandLinkButtonOpenLocalFile.Location = new Point(0, 78);
 		kryptonCommandLinkButtonOpenLocalFile.Name = "kryptonCommandLinkButtonOpenLocalFile";
 		kryptonCommandLinkButtonOpenLocalFile.OverrideFocus.Border.Draw = InheritBool.True;
 		kryptonCommandLinkButtonOpenLocalFile.OverrideFocus.Border.DrawBorders = PaletteDrawBorders.Top | PaletteDrawBorders.Bottom | PaletteDrawBorders.Left | PaletteDrawBorders.Right;
@@ -154,7 +154,7 @@ partial class PreloadForm
 		kryptonCommandLinkButtonOpenLocalFile.StateCommon.Content.LongText.TextV = PaletteRelativeAlign.Far;
 		kryptonCommandLinkButtonOpenLocalFile.StateCommon.Content.ShortText.TextH = PaletteRelativeAlign.Near;
 		kryptonCommandLinkButtonOpenLocalFile.StateCommon.Content.ShortText.TextV = PaletteRelativeAlign.Center;
-		kryptonCommandLinkButtonOpenLocalFile.TabIndex = 0;
+		kryptonCommandLinkButtonOpenLocalFile.TabIndex = 1;
 		kryptonCommandLinkButtonOpenLocalFile.ToolTipValues.Description = "Opens a local MPCORB.DAT file from hard drive.";
 		kryptonCommandLinkButtonOpenLocalFile.ToolTipValues.EnableToolTips = true;
 		kryptonCommandLinkButtonOpenLocalFile.ToolTipValues.Heading = "Open a local MPCORB.DAT file";
