@@ -265,7 +265,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// and the caption "Information"
 		// If the user clicks "Yes", restart the application
 		// If the user clicks "No", do nothing
-		if (KryptonMessageBox.Show(text: I18nStrings.DownloadCompleteAndRestartQuestionText, caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.YesNo, icon: KryptonMessageBoxIcon.Information, defaultButton: KryptonMessageBoxDefaultButton.Button1) == DialogResult.Yes)
+		if (KryptonMessageBox.Show(text: I18nStrings.DownloadCompleteAndRestartQuestionText, caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.YesNo, icon: KryptonMessageBoxIcon.Question, defaultButton: KryptonMessageBoxDefaultButton.Button1) == DialogResult.Yes)
 		{
 			// Restart the application
 			Restart();
