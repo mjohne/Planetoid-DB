@@ -11,7 +11,6 @@ using Planetoid_DB.Properties;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
-using System.Reflection;
 
 namespace Planetoid_DB;
 
@@ -46,29 +45,17 @@ public partial class PreloadForm : BaseKryptonForm
 	/// <remarks>This method is used to provide a custom display string for the debugger.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
-	/// <summary>Extracts an embedded resource from the assembly and writes it to a specified output directory.</summary>
-	/// <param name="nameSpace">The namespace where the resource is located.</param>
-	/// <param name="outDir">The output directory where the resource will be written.</param>
-	/// <param name="internFilePath">The internal file path within the namespace (optional).</param>
-	/// <param name="resourceName">The name of the resource to extract.</param>
-	/// <exception cref="FileNotFoundException">Thrown if the specified resource is not found in the assembly.</exception>
-	/// <remarks>This method extracts an embedded resource from the assembly and writes it to the specified output directory.</remarks>
-	private static void ExtractResource(string nameSpace, string outDir, string internFilePath, string resourceName)
+	/// <summary>Extracts resource data (byte array) and writes it to the specified output file path.</summary>
+	/// <param name="resourceData">The byte array containing the resource data.</param>
+	/// <param name="outputFilePath">The full path where the resource will be written.</param>
+	/// <exception cref="ArgumentNullException">Thrown if resourceData is null.</exception>
+	/// <remarks>This method writes the provided byte array to the specified file path.</remarks>
+	private static void ExtractResource(byte[] resourceData, string outputFilePath)
 	{
-		// Get the assembly and the resource path
-		Assembly assembly = Assembly.GetExecutingAssembly();
-		// Construct the resource path
-		string resourcePath = $"{nameSpace}.{(string.IsNullOrEmpty(value: internFilePath) ? "" : internFilePath + ".")}{resourceName}";
-		// Open the resource stream and read the bytes
-		using Stream s = assembly.GetManifestResourceStream(name: resourcePath) ?? throw new FileNotFoundException(message: $"Resource '{resourcePath}' not found in assembly.");
-		// Create the output file stream
-		using BinaryReader r = new(input: s);
-		// Create the output file stream and write the bytes to it
-		using FileStream fs = new(path: Path.Combine(path1: outDir, path2: resourceName), mode: FileMode.Create);
-		// Ensure the file stream is writable
-		using BinaryWriter w = new(output: fs);
-		// Read the bytes from the resource stream and write them to the output file
-		w.Write(buffer: r.ReadBytes(count: (int)s.Length));
+		// Validate input
+		ArgumentNullException.ThrowIfNull(argument: resourceData);
+		// Write the resource data to the output file
+		File.WriteAllBytes(path: outputFilePath, bytes: resourceData);
 	}
 
 	/// <summary>Gets the file path of the MPCORB.DAT file.</summary>
@@ -149,10 +136,12 @@ public partial class PreloadForm : BaseKryptonForm
 	/// <remarks>This method is called when the Load Internal Demo Data command link is clicked.</remarks>
 	private void KryptonCommandLinkButtonLoadInternalDemoData_Click(object sender, EventArgs e)
 	{
-		// Extract the demo data file from the embedded resources
-		ExtractResource(nameSpace: "Planetoid_DB", outDir: "", internFilePath: "Resources", resourceName: "demoset-10000.txt");
+		// Define the output file name
+		string outputFileName = "demoset-10000.txt";
+		// Extract the demo data file from the embedded resources using the strongly-typed Resources class
+		ExtractResource(resourceData: Properties.Resources.demoset_10000, outputFilePath: outputFileName);
 		// Set the file path to the extracted demo data file
-		_ = MpcOrbDatFilePath = "demoset-10000.txt";
+		_ = MpcOrbDatFilePath = outputFileName;
 		// Set the dialog result to OK
 		DialogResult = DialogResult.OK;
 	}
