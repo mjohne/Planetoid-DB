@@ -3,17 +3,17 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Reflection;
+
 using Krypton.Toolkit;
 
 using NLog;
 
 using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
-
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Diagnostics;
-using System.Reflection;
 
 namespace Planetoid_DB;
 
@@ -595,13 +595,27 @@ public partial class RecordsTop10Form : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The event data associated with the click.</param>
 	/// <remarks>Ensures only one sort direction is checked at a time.</remarks>
-	private void SetAscendingSortOrder_Click(object sender, EventArgs e) => toolStripButtonSortOrderDescending.Checked = !toolStripButtonSortOrderAscending.Checked;
+	private void SetAscendingSortOrder_Click(object sender, EventArgs e)
+	{
+		if (!toolStripButtonSortOrderAscending.Checked && !toolStripButtonSortOrderDescending.Checked)
+		{
+			toolStripButtonSortOrderAscending.Checked = true;
+		}
+		toolStripButtonSortOrderDescending.Checked = !toolStripButtonSortOrderAscending.Checked;
+	}
 
 	/// <summary>Handles the Click event of the descending sort order button.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The event data associated with the click.</param>
 	/// <remarks>Ensures only one sort direction is checked at a time.</remarks>
-	private void SetDescendingSortOrder_Click(object sender, EventArgs e) => toolStripButtonSortOrderAscending.Checked = !toolStripButtonSortOrderDescending.Checked;
+	private void SetDescendingSortOrder_Click(object sender, EventArgs e)
+	{
+		if (!toolStripButtonSortOrderDescending.Checked && !toolStripButtonSortOrderAscending.Checked)
+		{
+			toolStripButtonSortOrderDescending.Checked = true;
+		}
+		toolStripButtonSortOrderAscending.Checked = !toolStripButtonSortOrderDescending.Checked;
+	}
 
 	/// <summary>Handles the Click event to export the output as a text file.</summary>
 	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
