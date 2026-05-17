@@ -88,10 +88,7 @@
     <Compile Update="Forms\RecordsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\RecordsMainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\RecordsSelectionForm.cs">
+    <Compile Update="Forms\RecordsTop10Form.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\SearchForm.cs">
