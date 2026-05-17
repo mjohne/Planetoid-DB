@@ -1,4 +1,4 @@
-﻿// This file is used by Code Analysis to maintain SuppressMessage
+// This file is used by Code Analysis to maintain SuppressMessage
 // attributes that are applied to this project.
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
@@ -13,7 +13,7 @@ namespace Planetoid_DB;
 
 /// <summary>Represents the main form for displaying and managing the top ten records.</summary>
 /// <remarks>This form provides functionality to detect records and export them in various formats such as JSON, XML, TXT, and HTML. It includes a progress bar to indicate the status of record detection and a status strip for displaying additional information.</remarks>
-partial class RecordsMainForm
+partial class RecordsTop10Form
 {
 	/// <summary>Required designer variable.</summary>
 	/// <remarks>This field stores the components used by the form.</remarks>
@@ -38,7 +38,7 @@ partial class RecordsMainForm
 	private void InitializeComponent()
 	{
 		components = new Container();
-		ComponentResourceManager resources = new ComponentResourceManager(typeof(RecordsMainForm));
+		ComponentResourceManager resources = new ComponentResourceManager(typeof(RecordsTop10Form));
 		kryptonPanelMain = new KryptonPanel();
 		groupBoxExport = new KryptonGroupBox();
 		buttonExportAsJson = new KryptonButton();
@@ -117,7 +117,7 @@ partial class RecordsMainForm
 		kryptonPanelMain.Location = new Point(0, 0);
 		kryptonPanelMain.Name = "kryptonPanelMain";
 		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptonPanelMain.Size = new Size(517, 532);
+		kryptonPanelMain.Size = new Size(517, 525);
 		kryptonPanelMain.TabIndex = 0;
 		kryptonPanelMain.TabStop = true;
 		// 
@@ -1275,7 +1275,7 @@ partial class RecordsMainForm
 		kryptonStatusStrip.AllowItemReorder = true;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-		kryptonStatusStrip.Location = new Point(0, 510);
+		kryptonStatusStrip.Location = new Point(0, 503);
 		kryptonStatusStrip.Name = "kryptonStatusStrip";
 		kryptonStatusStrip.Padding = new Padding(1, 0, 16, 0);
 		kryptonStatusStrip.ProgressBars = null;
@@ -1312,7 +1312,7 @@ partial class RecordsMainForm
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(517, 532);
+		ClientSize = new Size(517, 525);
 		ControlBox = false;
 		Controls.Add(kryptonStatusStrip);
 		Controls.Add(kryptonPanelMain);
