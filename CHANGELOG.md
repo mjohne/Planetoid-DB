@@ -1,5 +1,22 @@
 # Changelog
 
+## Planetoid-DB 0.9.2.65
+
+* Updated image source in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/679
+* Updated CHANGELOG for version 0.9.1.64 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/680
+* Renamed objects and event handlers by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/681
+* Redesigned `RecordsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/682
+* Renamed `RecordsMainForm.resx` to `RecordsTop10Form.resx` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/683
+* Renamed `RecordsMainForm.cs` to `RecordsTop10Form.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/684
+* Updated and renamed `RecordsMainForm.Designer.cs` to `RecordsTop10Form.Designer.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/685
+* Updated description of accessible objects in `RecordsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/686
+* Implement live Top-10 orbital records workflow in `RecordsTop10Form` by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/688
+* Redesigned `RecordsTop10Form` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/689
+* Updated to version 0.9.2.65 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/690
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.1.64.667.2241...0.9.2.65.690.2279
+
+
 ## Planetoid-DB 0.9.1.64
 
 * Updated `README.MD` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/669
