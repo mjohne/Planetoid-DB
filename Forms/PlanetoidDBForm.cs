@@ -936,9 +936,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void ShowRecordsTop10()
 	{
 		// Create a new instance of the RecordsTop10Form
-		using RecordsTop10Form formRecordsTop10 = new();
-		// Pass a copy of the current database to the form
-		//formRecordsTop10.FillArray(arrTemp: planetoidsDatabase);
+		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: null);
 		// Set the TopMost property to keep the form on top of other windows
 		formRecordsTop10.TopMost = TopMost;
 		// Show the records form as a modal dialog
