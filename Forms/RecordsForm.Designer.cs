@@ -134,6 +134,21 @@ partial class RecordsForm
 		toolStripSeparator2 = new ToolStripSeparator();
 		toolStripButtonSortOrderAscending = new ToolStripButton();
 		toolStripButtonSortOrderDescending = new ToolStripButton();
+		toolStripSeparator1 = new ToolStripSeparator();
+		toolStripDropDownButtonTopTenRecords = new ToolStripDropDownButton();
+		contextMenuTopTenRecords = new ContextMenuStrip(components);
+		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch = new ToolStripMenuItem();
+		toolStripMenuItemRecordsArgumentOfThePerihelion = new ToolStripMenuItem();
+		toolStripMenuItemRecordsLongitudeOfTheAscendingNode = new ToolStripMenuItem();
+		toolStripMenuItemRecordsInclination = new ToolStripMenuItem();
+		toolStripMenuItemRecordsOrbitalEccentricity = new ToolStripMenuItem();
+		toolStripMenuItemRecordsMeanDailyMotion = new ToolStripMenuItem();
+		toolStripMenuItemRecordsSemiMajorAxis = new ToolStripMenuItem();
+		toolStripMenuItemRecordsAbsoluteMagnitude = new ToolStripMenuItem();
+		toolStripMenuItemRecordsSlopeParameter = new ToolStripMenuItem();
+		toolStripMenuItemRecordsNumberOfOppositions = new ToolStripMenuItem();
+		toolStripMenuItemRecordsNumberOfObservations = new ToolStripMenuItem();
+		toolStripMenuItemRecordsRmsResidual = new ToolStripMenuItem();
 		toolStripSeparator3 = new ToolStripSeparator();
 		kryptonToolStripProgress = new KryptonToolStrip();
 		toolStripLabelProgress = new ToolStripLabel();
@@ -149,6 +164,7 @@ partial class RecordsForm
 		toolStripContainer.TopToolStripPanel.SuspendLayout();
 		toolStripContainer.SuspendLayout();
 		kryptonToolStripGenerateList.SuspendLayout();
+		contextMenuTopTenRecords.SuspendLayout();
 		kryptonToolStripProgress.SuspendLayout();
 		SuspendLayout();
 		// 
@@ -254,6 +270,7 @@ partial class RecordsForm
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveList";
+		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveList;
 		contextMenuSaveToFile.Size = new Size(202, 158);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
@@ -1833,7 +1850,7 @@ partial class RecordsForm
 		kryptonToolStripGenerateList.AllowItemReorder = true;
 		kryptonToolStripGenerateList.Dock = DockStyle.None;
 		kryptonToolStripGenerateList.Font = new Font("Segoe UI", 9F);
-		kryptonToolStripGenerateList.Items.AddRange(new ToolStripItem[] { toolStripButtonStart, toolStripButtonCancel, toolStripSeparator2, toolStripButtonSortOrderAscending, toolStripButtonSortOrderDescending, toolStripSeparator3, toolStripDropDownButtonSaveList });
+		kryptonToolStripGenerateList.Items.AddRange(new ToolStripItem[] { toolStripButtonStart, toolStripButtonCancel, toolStripSeparator2, toolStripButtonSortOrderAscending, toolStripButtonSortOrderDescending, toolStripSeparator1, toolStripDropDownButtonTopTenRecords, toolStripSeparator3, toolStripDropDownButtonSaveList });
 		kryptonToolStripGenerateList.Location = new Point(0, 0);
 		kryptonToolStripGenerateList.Name = "kryptonToolStripGenerateList";
 		kryptonToolStripGenerateList.Size = new Size(542, 25);
@@ -1880,6 +1897,7 @@ partial class RecordsForm
 		toolStripSeparator2.AccessibleName = "Just a separator";
 		toolStripSeparator2.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator2.Name = "toolStripSeparator2";
+		toolStripSeparator2.Text = "Just a separator	";
 		toolStripSeparator2.Size = new Size(6, 25);
 		toolStripSeparator2.MouseEnter += Control_Enter;
 		toolStripSeparator2.MouseLeave += Control_Leave;
@@ -1916,12 +1934,220 @@ partial class RecordsForm
 		toolStripButtonSortOrderDescending.MouseEnter += Control_Enter;
 		toolStripButtonSortOrderDescending.MouseLeave += Control_Leave;
 		// 
+		// toolStripSeparator1
+		// 
+		toolStripSeparator1.AccessibleDescription = "Just a separator";
+		toolStripSeparator1.AccessibleName = "Just a separator";
+		toolStripSeparator1.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparator1.Name = "toolStripSeparator1";
+		toolStripSeparator1.Text = "Just a separator";
+		toolStripSeparator1.Size = new Size(6, 25);
+		toolStripSeparator1.MouseEnter += Control_Enter;
+		toolStripSeparator1.MouseLeave += Control_Leave;
+		// 
+		// toolStripDropDownButtonTopTenRecords
+		// 
+		toolStripDropDownButtonTopTenRecords.AccessibleDescription = "Shows the top ten records";
+		toolStripDropDownButtonTopTenRecords.AccessibleName = "Top ten records";
+		toolStripDropDownButtonTopTenRecords.AccessibleRole = AccessibleRole.DropList;
+		toolStripDropDownButtonTopTenRecords.DropDown = contextMenuTopTenRecords;
+		toolStripDropDownButtonTopTenRecords.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripDropDownButtonTopTenRecords.ImageTransparentColor = Color.Magenta;
+		toolStripDropDownButtonTopTenRecords.Name = "toolStripDropDownButtonTopTenRecords";
+		toolStripDropDownButtonTopTenRecords.Size = new Size(117, 22);
+		toolStripDropDownButtonTopTenRecords.Text = "&Top ten records";
+		toolStripDropDownButtonTopTenRecords.MouseEnter += Control_Enter;
+		toolStripDropDownButtonTopTenRecords.MouseLeave += Control_Leave;
+		// 
+		// contextMenuTopTenRecords
+		// 
+		contextMenuTopTenRecords.AccessibleDescription = "Shows the context menu of the top ten records";
+		contextMenuTopTenRecords.AccessibleName = "context menu of the top ten records";
+		contextMenuTopTenRecords.AccessibleRole = AccessibleRole.MenuPopup;
+		contextMenuTopTenRecords.AllowClickThrough = true;
+		contextMenuTopTenRecords.Font = new Font("Segoe UI", 9F);
+		contextMenuTopTenRecords.Items.AddRange(new ToolStripItem[] { toolStripMenuItemRecordsMeanAnomalyAtTheEpoch, toolStripMenuItemRecordsArgumentOfThePerihelion, toolStripMenuItemRecordsLongitudeOfTheAscendingNode, toolStripMenuItemRecordsInclination, toolStripMenuItemRecordsOrbitalEccentricity, toolStripMenuItemRecordsMeanDailyMotion, toolStripMenuItemRecordsSemiMajorAxis, toolStripMenuItemRecordsAbsoluteMagnitude, toolStripMenuItemRecordsSlopeParameter, toolStripMenuItemRecordsNumberOfOppositions, toolStripMenuItemRecordsNumberOfObservations, toolStripMenuItemRecordsRmsResidual });
+		contextMenuTopTenRecords.Name = "contextMenuTopTenRecords";
+		contextMenuTopTenRecords.OwnerItem = toolStripDropDownButtonTopTenRecords;
+		contextMenuTopTenRecords.Size = new Size(250, 290);
+		contextMenuTopTenRecords.TabStop = true;
+		contextMenuTopTenRecords.Text = "Top ten records";
+		// 
+		// toolStripMenuItemRecordsMeanAnomalyAtTheEpoch
+		// 
+		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.AccessibleDescription = "Shows the record of the mean anomaly at the epoch";
+		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.AccessibleName = "Record of the mean anomaly at the epoch";
+		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.AutoToolTip = true;
+		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.Name = "toolStripMenuItemRecordsMeanAnomalyAtTheEpoch";
+		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.Size = new Size(249, 22);
+		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.Text = "Mean anomaly at the epoch";
+		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.Click += RecordsMeanAnomalyAtTheEpoch_Click;
+		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsMeanAnomalyAtTheEpoch.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemRecordsArgumentOfThePerihelion
+		// 
+		toolStripMenuItemRecordsArgumentOfThePerihelion.AccessibleDescription = "Shows the record of the argument of the perihelion";
+		toolStripMenuItemRecordsArgumentOfThePerihelion.AccessibleName = "Record of the argument of the perihelion";
+		toolStripMenuItemRecordsArgumentOfThePerihelion.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsArgumentOfThePerihelion.AutoToolTip = true;
+		toolStripMenuItemRecordsArgumentOfThePerihelion.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsArgumentOfThePerihelion.Name = "toolStripMenuItemRecordsArgumentOfThePerihelion";
+		toolStripMenuItemRecordsArgumentOfThePerihelion.Size = new Size(249, 22);
+		toolStripMenuItemRecordsArgumentOfThePerihelion.Text = "Argument of perihelion";
+		toolStripMenuItemRecordsArgumentOfThePerihelion.Click += RecordsArgumentOfThePerihelion_Click;
+		toolStripMenuItemRecordsArgumentOfThePerihelion.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsArgumentOfThePerihelion.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemRecordsLongitudeOfTheAscendingNode
+		// 
+		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.AccessibleDescription = "Shows the record of the longitude of the ascending node";
+		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.AccessibleName = "Record of the longitude of the ascending node";
+		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.AutoToolTip = true;
+		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.Name = "toolStripMenuItemRecordsLongitudeOfTheAscendingNode";
+		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.Size = new Size(249, 22);
+		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.Text = "Longitude of the ascending node";
+		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.Click += RecordsLongitudeOfTheAscendingNode_Click;
+		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsLongitudeOfTheAscendingNode.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemRecordsInclination
+		// 
+		toolStripMenuItemRecordsInclination.AccessibleDescription = "Shows the record of the inclination to the ecliptic";
+		toolStripMenuItemRecordsInclination.AccessibleName = "Record of the inclination to the ecliptic";
+		toolStripMenuItemRecordsInclination.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsInclination.AutoToolTip = true;
+		toolStripMenuItemRecordsInclination.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsInclination.Name = "toolStripMenuItemRecordsInclination";
+		toolStripMenuItemRecordsInclination.Size = new Size(249, 22);
+		toolStripMenuItemRecordsInclination.Text = "Inclination to the ecliptic";
+		toolStripMenuItemRecordsInclination.Click += RecordsInclination_Click;
+		toolStripMenuItemRecordsInclination.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsInclination.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemRecordsOrbitalEccentricity
+		// 
+		toolStripMenuItemRecordsOrbitalEccentricity.AccessibleDescription = "Shows the record of the orbital eccentricity";
+		toolStripMenuItemRecordsOrbitalEccentricity.AccessibleName = "Record of the orbital eccentricity";
+		toolStripMenuItemRecordsOrbitalEccentricity.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsOrbitalEccentricity.AutoToolTip = true;
+		toolStripMenuItemRecordsOrbitalEccentricity.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsOrbitalEccentricity.Name = "toolStripMenuItemRecordsOrbitalEccentricity";
+		toolStripMenuItemRecordsOrbitalEccentricity.Size = new Size(249, 22);
+		toolStripMenuItemRecordsOrbitalEccentricity.Text = "Orbital eccentricity";
+		toolStripMenuItemRecordsOrbitalEccentricity.Click += RecordsOrbitalEccentricity_Click;
+		toolStripMenuItemRecordsOrbitalEccentricity.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsOrbitalEccentricity.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemRecordsMeanDailyMotion
+		// 
+		toolStripMenuItemRecordsMeanDailyMotion.AccessibleDescription = "Shows the record of the mean daily motion";
+		toolStripMenuItemRecordsMeanDailyMotion.AccessibleName = "Record of the mean daily motion";
+		toolStripMenuItemRecordsMeanDailyMotion.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsMeanDailyMotion.AutoToolTip = true;
+		toolStripMenuItemRecordsMeanDailyMotion.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsMeanDailyMotion.Name = "toolStripMenuItemRecordsMeanDailyMotion";
+		toolStripMenuItemRecordsMeanDailyMotion.Size = new Size(249, 22);
+		toolStripMenuItemRecordsMeanDailyMotion.Text = "Mean daily motion";
+		toolStripMenuItemRecordsMeanDailyMotion.Click += RecordsMeanDailyMotion_Click;
+		toolStripMenuItemRecordsMeanDailyMotion.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsMeanDailyMotion.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemRecordsSemiMajorAxis
+		// 
+		toolStripMenuItemRecordsSemiMajorAxis.AccessibleDescription = "Shows the record of the semi-major axis";
+		toolStripMenuItemRecordsSemiMajorAxis.AccessibleName = "Record of the semi-major axis";
+		toolStripMenuItemRecordsSemiMajorAxis.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsSemiMajorAxis.AutoToolTip = true;
+		toolStripMenuItemRecordsSemiMajorAxis.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsSemiMajorAxis.Name = "toolStripMenuItemRecordsSemiMajorAxis";
+		toolStripMenuItemRecordsSemiMajorAxis.Size = new Size(249, 22);
+		toolStripMenuItemRecordsSemiMajorAxis.Text = "Semi-major axis";
+		toolStripMenuItemRecordsSemiMajorAxis.Click += RecordsSemiMajorAxis_Click;
+		toolStripMenuItemRecordsSemiMajorAxis.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsSemiMajorAxis.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemRecordsAbsoluteMagnitude
+		// 
+		toolStripMenuItemRecordsAbsoluteMagnitude.AccessibleDescription = "Shows the record of the absolute magnitude";
+		toolStripMenuItemRecordsAbsoluteMagnitude.AccessibleName = "Record of the absolute magnitude";
+		toolStripMenuItemRecordsAbsoluteMagnitude.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsAbsoluteMagnitude.AutoToolTip = true;
+		toolStripMenuItemRecordsAbsoluteMagnitude.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsAbsoluteMagnitude.Name = "toolStripMenuItemRecordsAbsoluteMagnitude";
+		toolStripMenuItemRecordsAbsoluteMagnitude.Size = new Size(249, 22);
+		toolStripMenuItemRecordsAbsoluteMagnitude.Text = "Absolute magnitude";
+		toolStripMenuItemRecordsAbsoluteMagnitude.Click += RecordsAbsoluteMagnitude_Click;
+		toolStripMenuItemRecordsAbsoluteMagnitude.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsAbsoluteMagnitude.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemRecordsSlopeParameter
+		// 
+		toolStripMenuItemRecordsSlopeParameter.AccessibleDescription = "Shows the record of the slope parameter";
+		toolStripMenuItemRecordsSlopeParameter.AccessibleName = "Record of the slope parameter";
+		toolStripMenuItemRecordsSlopeParameter.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsSlopeParameter.AutoToolTip = true;
+		toolStripMenuItemRecordsSlopeParameter.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsSlopeParameter.Name = "toolStripMenuItemRecordsSlopeParameter";
+		toolStripMenuItemRecordsSlopeParameter.Size = new Size(249, 22);
+		toolStripMenuItemRecordsSlopeParameter.Text = "Slope parameter";
+		toolStripMenuItemRecordsSlopeParameter.Click += RecordsSlopeParameter_Click;
+		toolStripMenuItemRecordsSlopeParameter.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsSlopeParameter.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemRecordsNumberOfOppositions
+		// 
+		toolStripMenuItemRecordsNumberOfOppositions.AccessibleDescription = "Shows the record of the number of oppositions";
+		toolStripMenuItemRecordsNumberOfOppositions.AccessibleName = "Record of the number of oppositions";
+		toolStripMenuItemRecordsNumberOfOppositions.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsNumberOfOppositions.AutoToolTip = true;
+		toolStripMenuItemRecordsNumberOfOppositions.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsNumberOfOppositions.Name = "toolStripMenuItemRecordsNumberOfOppositions";
+		toolStripMenuItemRecordsNumberOfOppositions.Size = new Size(249, 22);
+		toolStripMenuItemRecordsNumberOfOppositions.Text = "Number of oppositions";
+		toolStripMenuItemRecordsNumberOfOppositions.Click += RecordsNumberOfOppositions_Click;
+		toolStripMenuItemRecordsNumberOfOppositions.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsNumberOfOppositions.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemRecordsNumberOfObservations
+		// 
+		toolStripMenuItemRecordsNumberOfObservations.AccessibleDescription = "Shows the record of the number of observations";
+		toolStripMenuItemRecordsNumberOfObservations.AccessibleName = "Record of the number of observations";
+		toolStripMenuItemRecordsNumberOfObservations.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsNumberOfObservations.AutoToolTip = true;
+		toolStripMenuItemRecordsNumberOfObservations.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsNumberOfObservations.Name = "toolStripMenuItemRecordsNumberOfObservations";
+		toolStripMenuItemRecordsNumberOfObservations.Size = new Size(249, 22);
+		toolStripMenuItemRecordsNumberOfObservations.Text = "Number of observations";
+		toolStripMenuItemRecordsNumberOfObservations.Click += RecordsNumberOfObservations_Click;
+		toolStripMenuItemRecordsNumberOfObservations.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsNumberOfObservations.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemRecordsRmsResidual
+		// 
+		toolStripMenuItemRecordsRmsResidual.AccessibleDescription = "Shows the record of the r.m.s. residual";
+		toolStripMenuItemRecordsRmsResidual.AccessibleName = "Record of the r.m.s. residual";
+		toolStripMenuItemRecordsRmsResidual.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemRecordsRmsResidual.AutoToolTip = true;
+		toolStripMenuItemRecordsRmsResidual.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripMenuItemRecordsRmsResidual.Name = "toolStripMenuItemRecordsRmsResidual";
+		toolStripMenuItemRecordsRmsResidual.Size = new Size(249, 22);
+		toolStripMenuItemRecordsRmsResidual.Text = "r.m.s. residual";
+		toolStripMenuItemRecordsRmsResidual.Click += RecordsRmsResidual_Click;
+		toolStripMenuItemRecordsRmsResidual.MouseEnter += Control_Enter;
+		toolStripMenuItemRecordsRmsResidual.MouseLeave += Control_Leave;
+		// 
 		// toolStripSeparator3
 		// 
 		toolStripSeparator3.AccessibleDescription = "Just a separator";
 		toolStripSeparator3.AccessibleName = "Just a separator";
 		toolStripSeparator3.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator3.Name = "toolStripSeparator3";
+		toolStripSeparator3.Text = "Just a separator";
 		toolStripSeparator3.Size = new Size(6, 25);
 		toolStripSeparator3.MouseEnter += Control_Enter;
 		toolStripSeparator3.MouseLeave += Control_Leave;
@@ -2011,6 +2237,7 @@ partial class RecordsForm
 		toolStripContainer.PerformLayout();
 		kryptonToolStripGenerateList.ResumeLayout(false);
 		kryptonToolStripGenerateList.PerformLayout();
+		contextMenuTopTenRecords.ResumeLayout(false);
 		kryptonToolStripProgress.ResumeLayout(false);
 		kryptonToolStripProgress.PerformLayout();
 		ResumeLayout(false);
@@ -2117,4 +2344,19 @@ partial class RecordsForm
 	private KryptonProgressBarToolStripItem kryptonProgressBar;
 	private ContextMenuStrip contextMenuCopyToClipboard;
 	private ToolStripMenuItem toolStripMenuItemCopyToClipboardInContextMenu;
+	private ContextMenuStrip contextMenuTopTenRecords;
+	private ToolStripMenuItem toolStripMenuItemRecordsMeanAnomalyAtTheEpoch;
+	private ToolStripMenuItem toolStripMenuItemRecordsArgumentOfThePerihelion;
+	private ToolStripMenuItem toolStripMenuItemRecordsLongitudeOfTheAscendingNode;
+	private ToolStripMenuItem toolStripMenuItemRecordsInclination;
+	private ToolStripMenuItem toolStripMenuItemRecordsOrbitalEccentricity;
+	private ToolStripMenuItem toolStripMenuItemRecordsMeanDailyMotion;
+	private ToolStripMenuItem toolStripMenuItemRecordsSemiMajorAxis;
+	private ToolStripMenuItem toolStripMenuItemRecordsAbsoluteMagnitude;
+	private ToolStripMenuItem toolStripMenuItemRecordsSlopeParameter;
+	private ToolStripMenuItem toolStripMenuItemRecordsNumberOfOppositions;
+	private ToolStripMenuItem toolStripMenuItemRecordsNumberOfObservations;
+	private ToolStripMenuItem toolStripMenuItemRecordsRmsResidual;
+	private ToolStripDropDownButton toolStripDropDownButtonTopTenRecords;
+	private ToolStripSeparator toolStripSeparator1;
 }

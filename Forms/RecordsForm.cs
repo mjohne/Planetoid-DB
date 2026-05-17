@@ -706,5 +706,149 @@ public partial class RecordsForm : BaseKryptonForm
 	private void ToolStripMenuItemSaveAsChm_Click(object sender, EventArgs e)
 		=> PerformSaveExport(filter: "Compiled HTML Help Files (*.chm)|*.chm|All Files (*.*)|*.*", defaultExt: "chm", dialogTitle: "Save as CHM", exportAction: TableLayoutPanelExporter.SaveAsChm);
 
+	/// <summary>Handles the click event for the ToolStripMenuItemRecordsMeanAnomalyAtTheEpoch. Shows the top ten records form for mean anomaly at the epoch.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the top ten records form for mean anomaly at the epoch.</remarks>
+	private void RecordsMeanAnomalyAtTheEpoch_Click(object sender, EventArgs e)
+	{
+		// Show the top ten records form for mean anomaly at the epoch
+		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Mean anomaly at the epoch");
+		formRecordsTop10.TopMost = TopMost;
+		_ = formRecordsTop10.ShowDialog();
+	}
+
+	/// <summary>Handles the click event for the ToolStripMenuItemRecordsMeanAnomalyAtTheEpoch. Shows the top ten records form for mean anomaly at the epoch.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the top ten records form for the argument of the perihelion.</remarks>
+	private void RecordsArgumentOfThePerihelion_Click(object sender, EventArgs e)
+	{
+		// Show the top ten records form for the argument of the perihelion
+		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Argument of the perihelion");
+		formRecordsTop10.TopMost = TopMost;
+		_ = formRecordsTop10.ShowDialog();
+	}
+
+	/// <summary>Handles the click event for the ToolStripMenuItemRecordsLongitudeOfTheAscendingNode. Shows the top ten records form for the longitude of the ascending node.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the top ten records form for the longitude of the ascending node.</remarks>
+	private void RecordsLongitudeOfTheAscendingNode_Click(object sender, EventArgs e)
+	{
+		// Show the top ten records form for the longitude of the ascending node
+		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Longitude of the ascending node");
+		formRecordsTop10.TopMost = TopMost;
+		_ = formRecordsTop10.ShowDialog();
+	}
+
+	/// <summary>Handles the click event for the ToolStripMenuItemRecordsInclination. Shows the top ten records form for inclination.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the top ten records form for inclination.</remarks>
+	private void RecordsInclination_Click(object sender, EventArgs e)
+	{
+		// Show the top ten records form for inclination
+		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Inclination");
+		formRecordsTop10.TopMost = TopMost;
+		_ = formRecordsTop10.ShowDialog();
+	}
+
+	/// <summary>Handles the click event for the ToolStripMenuItemRecordsOrbitalEccentricity. Shows the top ten records form for orbital eccentricity.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the top ten records form for orbital eccentricity.</remarks>
+	private void RecordsOrbitalEccentricity_Click(object sender, EventArgs e)
+	{
+		// Show the top ten records form for orbital eccentricity
+		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Orbital eccentricity");
+		formRecordsTop10.TopMost = TopMost;
+		_ = formRecordsTop10.ShowDialog();
+	}
+
+	/// <summary>Handles the click event for the ToolStripMenuItemRecordsMeanDailyMotion. Shows the top ten records form for mean daily motion.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the top ten records form for mean daily motion.</remarks>
+	private void RecordsMeanDailyMotion_Click(object sender, EventArgs e)
+	{
+		// Show the top ten records form for mean daily motion
+		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Mean daily motion");
+		formRecordsTop10.TopMost = TopMost;
+		_ = formRecordsTop10.ShowDialog();
+	}
+
+	/// <summary>Handles the click event for the ToolStripMenuItemRecordsSemiMajorAxis. Shows the top ten records form for semi-major axis.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the top ten records form for semi-major axis.</remarks>
+	private void RecordsSemiMajorAxis_Click(object sender, EventArgs e)
+	{
+		// Show the top ten records form for semi-major axis
+		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Semi-major axis");
+		formRecordsTop10.TopMost = TopMost;
+		_ = formRecordsTop10.ShowDialog();
+	}
+
+	/// <summary>Handles the click event for the ToolStripMenuItemRecordsAbsoluteMagnitude. Shows the top ten records form for absolute magnitude.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the top ten records form for absolute magnitude.</remarks>
+	private void RecordsAbsoluteMagnitude_Click(object sender, EventArgs e)
+	{
+		// Show the top ten records form for absolute magnitude
+		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Absolute magnitude");
+		formRecordsTop10.TopMost = TopMost;
+		_ = formRecordsTop10.ShowDialog();
+	}
+
+	/// <summary>Handles the click event for the ToolStripMenuItemRecordsSlopeParameter. Shows the top ten records form for slope parameter.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the top ten records form for slope parameter.</remarks>
+	private void RecordsSlopeParameter_Click(object sender, EventArgs e)
+	{
+		// Show the top ten records form for slope parameter
+		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Slope parameter");
+		formRecordsTop10.TopMost = TopMost;
+		_ = formRecordsTop10.ShowDialog();
+	}
+
+	/// <summary>Handles the click event for the ToolStripMenuItemRecordsNumberOfOppositions. Shows the top ten records form for number of oppositions.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the top ten records form for number of oppositions.</remarks>
+	private void RecordsNumberOfOppositions_Click(object sender, EventArgs e)
+	{
+		// Show the top ten records form for number of oppositions
+		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Number of oppositions");
+		formRecordsTop10.TopMost = TopMost;
+		_ = formRecordsTop10.ShowDialog();
+	}
+
+	/// <summary>Handles the click event for the ToolStripMenuItemRecordsNumberOfObservations. Shows the top ten records form for number of observations.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the top ten records form for number of observations.</remarks>
+	private void RecordsNumberOfObservations_Click(object sender, EventArgs e)
+	{
+		// Show the top ten records form for number of observations
+		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Number of observations");
+		formRecordsTop10.TopMost = TopMost;
+		_ = formRecordsTop10.ShowDialog();
+	}
+
+	/// <summary>Handles the click event for the ToolStripMenuItemRecordsRmsResidual. Shows the top ten records form for RMS residual.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the top ten records form for RMS residual.</remarks>
+	private void RecordsRmsResidual_Click(object sender, EventArgs e)
+	{
+		// Show the top ten records form for RMS residual
+		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "r.m.s. residual");
+		formRecordsTop10.TopMost = TopMost;
+		_ = formRecordsTop10.ShowDialog();
+	}
+
 	#endregion
 }
