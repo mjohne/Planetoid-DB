@@ -49,10 +49,10 @@ partial class PlanetoidDbForm
 		toolStripMenuItemNavigateStep1000 = new ToolStripMenuItem();
 		toolStripMenuItemNavigateStep10000 = new ToolStripMenuItem();
 		toolStripMenuItemNavigateStep100000 = new ToolStripMenuItem();
-		toolStripMenuItemNavigateSomeDataBackward = new ToolStripMenuItem();
-		toolStripMenuItemNavigateSomeDataForward = new ToolStripMenuItem();
 		toolStripSplitButtonStepForward = new ToolStripSplitButton();
 		toolStripSplitButtonStepBackward = new ToolStripSplitButton();
+		toolStripMenuItemNavigateSomeDataBackward = new ToolStripMenuItem();
+		toolStripMenuItemNavigateSomeDataForward = new ToolStripMenuItem();
 		tableLayoutPanelData = new KryptonTableLayoutPanel();
 		labelIndexData = new KryptonLabel();
 		contextMenuCopyToClipboard = new ContextMenuStrip(components);
@@ -110,10 +110,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemRecordsSlopeParameter = new ToolStripMenuItem();
 		toolStripMenuItemRecordsNumberOfOppositions = new ToolStripMenuItem();
 		toolStripMenuItemRecordsNumberOfObservations = new ToolStripMenuItem();
-		toolStripMenuItemRecordsObservationSpan = new ToolStripMenuItem();
 		toolStripMenuItemRecordsRmsResidual = new ToolStripMenuItem();
-		toolStripMenuItemRecordsComputername = new ToolStripMenuItem();
-		toolStripMenuItemRecordsDateOfTheLastObservation = new ToolStripMenuItem();
 		toolStripSplitButtonTopTenRecords = new ToolStripSplitButton();
 		toolStripMenuItemRecords = new ToolStripMenuItem();
 		contextMenuDistributions = new ContextMenuStrip(components);
@@ -322,7 +319,7 @@ partial class PlanetoidDbForm
 		contextMenuNavigationStep.Font = new Font("Segoe UI", 9F);
 		contextMenuNavigationStep.Items.AddRange(new ToolStripItem[] { toolStripMenuItemNavigateStep10, toolStripMenuItemNavigateStep100, toolStripMenuItemNavigateStep1000, toolStripMenuItemNavigateStep10000, toolStripMenuItemNavigateStep100000 });
 		contextMenuNavigationStep.Name = "contextMenu";
-		contextMenuNavigationStep.OwnerItem = toolStripSplitButtonStepBackward;
+		contextMenuNavigationStep.OwnerItem = toolStripMenuItemNavigateSomeDataForward;
 		contextMenuNavigationStep.ShowCheckMargin = true;
 		contextMenuNavigationStep.ShowImageMargin = false;
 		contextMenuNavigationStep.Size = new Size(111, 114);
@@ -405,38 +402,6 @@ partial class PlanetoidDbForm
 		toolStripMenuItemNavigateStep100000.MouseEnter += Control_Enter;
 		toolStripMenuItemNavigateStep100000.MouseLeave += Control_Leave;
 		// 
-		// toolStripMenuItemNavigateSomeDataBackward
-		// 
-		toolStripMenuItemNavigateSomeDataBackward.AccessibleDescription = "Navigates some data backward";
-		toolStripMenuItemNavigateSomeDataBackward.AccessibleName = "Navigates some data backward";
-		toolStripMenuItemNavigateSomeDataBackward.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemNavigateSomeDataBackward.AutoToolTip = true;
-		toolStripMenuItemNavigateSomeDataBackward.DropDown = contextMenuNavigationStep;
-		toolStripMenuItemNavigateSomeDataBackward.Image = FatcowIcons16px.fatcow_control_rewind_blue_16px;
-		toolStripMenuItemNavigateSomeDataBackward.Name = "toolStripMenuItemNavigateSomeDataBackward";
-		toolStripMenuItemNavigateSomeDataBackward.ShortcutKeys = Keys.Control | Keys.D2;
-		toolStripMenuItemNavigateSomeDataBackward.Size = new Size(275, 22);
-		toolStripMenuItemNavigateSomeDataBackward.Text = "Navigate some data back&ward";
-		toolStripMenuItemNavigateSomeDataBackward.Click += NavigateSomeDataBackward_Click;
-		toolStripMenuItemNavigateSomeDataBackward.MouseEnter += Control_Enter;
-		toolStripMenuItemNavigateSomeDataBackward.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemNavigateSomeDataForward
-		// 
-		toolStripMenuItemNavigateSomeDataForward.AccessibleDescription = "Navigates some data forward";
-		toolStripMenuItemNavigateSomeDataForward.AccessibleName = "Navigates some data forward";
-		toolStripMenuItemNavigateSomeDataForward.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemNavigateSomeDataForward.AutoToolTip = true;
-		toolStripMenuItemNavigateSomeDataForward.DropDown = contextMenuNavigationStep;
-		toolStripMenuItemNavigateSomeDataForward.Image = FatcowIcons16px.fatcow_control_fastforward_blue_16px;
-		toolStripMenuItemNavigateSomeDataForward.Name = "toolStripMenuItemNavigateSomeDataForward";
-		toolStripMenuItemNavigateSomeDataForward.ShortcutKeys = Keys.Control | Keys.D5;
-		toolStripMenuItemNavigateSomeDataForward.Size = new Size(275, 22);
-		toolStripMenuItemNavigateSomeDataForward.Text = "Navigate some data &forward";
-		toolStripMenuItemNavigateSomeDataForward.Click += NavigateSomeDataForward_Click;
-		toolStripMenuItemNavigateSomeDataForward.MouseEnter += Control_Enter;
-		toolStripMenuItemNavigateSomeDataForward.MouseLeave += Control_Leave;
-		// 
 		// toolStripSplitButtonStepForward
 		// 
 		toolStripSplitButtonStepForward.AccessibleDescription = "Navigates some data forward";
@@ -468,6 +433,38 @@ partial class PlanetoidDbForm
 		toolStripSplitButtonStepBackward.ButtonClick += NavigateSomeDataBackward_Click;
 		toolStripSplitButtonStepBackward.MouseEnter += Control_Enter;
 		toolStripSplitButtonStepBackward.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemNavigateSomeDataBackward
+		// 
+		toolStripMenuItemNavigateSomeDataBackward.AccessibleDescription = "Navigates some data backward";
+		toolStripMenuItemNavigateSomeDataBackward.AccessibleName = "Navigates some data backward";
+		toolStripMenuItemNavigateSomeDataBackward.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemNavigateSomeDataBackward.AutoToolTip = true;
+		toolStripMenuItemNavigateSomeDataBackward.DropDown = contextMenuNavigationStep;
+		toolStripMenuItemNavigateSomeDataBackward.Image = FatcowIcons16px.fatcow_control_rewind_blue_16px;
+		toolStripMenuItemNavigateSomeDataBackward.Name = "toolStripMenuItemNavigateSomeDataBackward";
+		toolStripMenuItemNavigateSomeDataBackward.ShortcutKeys = Keys.Control | Keys.D2;
+		toolStripMenuItemNavigateSomeDataBackward.Size = new Size(275, 22);
+		toolStripMenuItemNavigateSomeDataBackward.Text = "Navigate some data back&ward";
+		toolStripMenuItemNavigateSomeDataBackward.Click += NavigateSomeDataBackward_Click;
+		toolStripMenuItemNavigateSomeDataBackward.MouseEnter += Control_Enter;
+		toolStripMenuItemNavigateSomeDataBackward.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemNavigateSomeDataForward
+		// 
+		toolStripMenuItemNavigateSomeDataForward.AccessibleDescription = "Navigates some data forward";
+		toolStripMenuItemNavigateSomeDataForward.AccessibleName = "Navigates some data forward";
+		toolStripMenuItemNavigateSomeDataForward.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemNavigateSomeDataForward.AutoToolTip = true;
+		toolStripMenuItemNavigateSomeDataForward.DropDown = contextMenuNavigationStep;
+		toolStripMenuItemNavigateSomeDataForward.Image = FatcowIcons16px.fatcow_control_fastforward_blue_16px;
+		toolStripMenuItemNavigateSomeDataForward.Name = "toolStripMenuItemNavigateSomeDataForward";
+		toolStripMenuItemNavigateSomeDataForward.ShortcutKeys = Keys.Control | Keys.D5;
+		toolStripMenuItemNavigateSomeDataForward.Size = new Size(275, 22);
+		toolStripMenuItemNavigateSomeDataForward.Text = "Navigate some data &forward";
+		toolStripMenuItemNavigateSomeDataForward.Click += NavigateSomeDataForward_Click;
+		toolStripMenuItemNavigateSomeDataForward.MouseEnter += Control_Enter;
+		toolStripMenuItemNavigateSomeDataForward.MouseLeave += Control_Leave;
 		// 
 		// tableLayoutPanelData
 		// 
@@ -1589,9 +1586,9 @@ partial class PlanetoidDbForm
 		contextMenuTopTenRecords.AccessibleRole = AccessibleRole.MenuPopup;
 		contextMenuTopTenRecords.AllowClickThrough = true;
 		contextMenuTopTenRecords.Font = new Font("Segoe UI", 9F);
-		contextMenuTopTenRecords.Items.AddRange(new ToolStripItem[] { toolStripMenuItemRecordsMeanAnomalyAtTheEpoch, toolStripMenuItemRecordsArgumentOfThePerihelion, toolStripMenuItemRecordsLongitudeOfTheAscendingNode, toolStripMenuItemRecordsInclination, toolStripMenuItemRecordsOrbitalEccentricity, toolStripMenuItemRecordsMeanDailyMotion, toolStripMenuItemRecordsSemiMajorAxis, toolStripMenuItemRecordsAbsoluteMagnitude, toolStripMenuItemRecordsSlopeParameter, toolStripMenuItemRecordsNumberOfOppositions, toolStripMenuItemRecordsNumberOfObservations, toolStripMenuItemRecordsObservationSpan, toolStripMenuItemRecordsRmsResidual, toolStripMenuItemRecordsComputername, toolStripMenuItemRecordsDateOfTheLastObservation });
+		contextMenuTopTenRecords.Items.AddRange(new ToolStripItem[] { toolStripMenuItemRecordsMeanAnomalyAtTheEpoch, toolStripMenuItemRecordsArgumentOfThePerihelion, toolStripMenuItemRecordsLongitudeOfTheAscendingNode, toolStripMenuItemRecordsInclination, toolStripMenuItemRecordsOrbitalEccentricity, toolStripMenuItemRecordsMeanDailyMotion, toolStripMenuItemRecordsSemiMajorAxis, toolStripMenuItemRecordsAbsoluteMagnitude, toolStripMenuItemRecordsSlopeParameter, toolStripMenuItemRecordsNumberOfOppositions, toolStripMenuItemRecordsNumberOfObservations, toolStripMenuItemRecordsRmsResidual });
 		contextMenuTopTenRecords.Name = "contextMenuTopTenRecords";
-		contextMenuTopTenRecords.Size = new Size(250, 334);
+		contextMenuTopTenRecords.Size = new Size(250, 268);
 		contextMenuTopTenRecords.TabStop = true;
 		contextMenuTopTenRecords.Text = "Top ten records";
 		contextMenuTopTenRecords.Enter += Control_Enter;
@@ -1753,20 +1750,6 @@ partial class PlanetoidDbForm
 		toolStripMenuItemRecordsNumberOfObservations.MouseEnter += Control_Enter;
 		toolStripMenuItemRecordsNumberOfObservations.MouseLeave += Control_Leave;
 		// 
-		// toolStripMenuItemRecordsObservationSpan
-		// 
-		toolStripMenuItemRecordsObservationSpan.AccessibleDescription = "Shows the record of the observation span";
-		toolStripMenuItemRecordsObservationSpan.AccessibleName = "Record of the observation span";
-		toolStripMenuItemRecordsObservationSpan.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemRecordsObservationSpan.AutoToolTip = true;
-		toolStripMenuItemRecordsObservationSpan.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
-		toolStripMenuItemRecordsObservationSpan.Name = "toolStripMenuItemRecordsObservationSpan";
-		toolStripMenuItemRecordsObservationSpan.Size = new Size(249, 22);
-		toolStripMenuItemRecordsObservationSpan.Text = "Observation span";
-		toolStripMenuItemRecordsObservationSpan.Click += RecordsObservationSpan_Click;
-		toolStripMenuItemRecordsObservationSpan.MouseEnter += Control_Enter;
-		toolStripMenuItemRecordsObservationSpan.MouseLeave += Control_Leave;
-		// 
 		// toolStripMenuItemRecordsRmsResidual
 		// 
 		toolStripMenuItemRecordsRmsResidual.AccessibleDescription = "Shows the record of the r.m.s. residual";
@@ -1780,34 +1763,6 @@ partial class PlanetoidDbForm
 		toolStripMenuItemRecordsRmsResidual.Click += RecordsRmsResidual_Click;
 		toolStripMenuItemRecordsRmsResidual.MouseEnter += Control_Enter;
 		toolStripMenuItemRecordsRmsResidual.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemRecordsComputername
-		// 
-		toolStripMenuItemRecordsComputername.AccessibleDescription = "Shows the record of the computer name";
-		toolStripMenuItemRecordsComputername.AccessibleName = "Record of the computer name";
-		toolStripMenuItemRecordsComputername.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemRecordsComputername.AutoToolTip = true;
-		toolStripMenuItemRecordsComputername.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
-		toolStripMenuItemRecordsComputername.Name = "toolStripMenuItemRecordsComputername";
-		toolStripMenuItemRecordsComputername.Size = new Size(249, 22);
-		toolStripMenuItemRecordsComputername.Text = "Computer name";
-		toolStripMenuItemRecordsComputername.Click += RecordsComputerName_Click;
-		toolStripMenuItemRecordsComputername.MouseEnter += Control_Enter;
-		toolStripMenuItemRecordsComputername.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemRecordsDateOfTheLastObservation
-		// 
-		toolStripMenuItemRecordsDateOfTheLastObservation.AccessibleDescription = "Shows the record of the date of the last observation";
-		toolStripMenuItemRecordsDateOfTheLastObservation.AccessibleName = "Record of the date of the last observation";
-		toolStripMenuItemRecordsDateOfTheLastObservation.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemRecordsDateOfTheLastObservation.AutoToolTip = true;
-		toolStripMenuItemRecordsDateOfTheLastObservation.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
-		toolStripMenuItemRecordsDateOfTheLastObservation.Name = "toolStripMenuItemRecordsDateOfTheLastObservation";
-		toolStripMenuItemRecordsDateOfTheLastObservation.Size = new Size(249, 22);
-		toolStripMenuItemRecordsDateOfTheLastObservation.Text = "Date of the last observation";
-		toolStripMenuItemRecordsDateOfTheLastObservation.Click += RecordsDateOfTheLastObservation_Click;
-		toolStripMenuItemRecordsDateOfTheLastObservation.MouseEnter += Control_Enter;
-		toolStripMenuItemRecordsDateOfTheLastObservation.MouseLeave += Control_Leave;
 		// 
 		// toolStripSplitButtonTopTenRecords
 		// 
@@ -4587,10 +4542,7 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem toolStripMenuItemRecordsSlopeParameter;
 	private ToolStripMenuItem toolStripMenuItemRecordsNumberOfOppositions;
 	private ToolStripMenuItem toolStripMenuItemRecordsNumberOfObservations;
-	private ToolStripMenuItem toolStripMenuItemRecordsObservationSpan;
 	private ToolStripMenuItem toolStripMenuItemRecordsRmsResidual;
-	private ToolStripMenuItem toolStripMenuItemRecordsComputername;
-	private ToolStripMenuItem toolStripMenuItemRecordsDateOfTheLastObservation;
 	private ContextMenuStrip contextMenuDistributions;
 	private ToolStripMenuItem toolStripMenuItemDistributionMeanAnomalyAtTheEpoch;
 	private ToolStripMenuItem toolStripMenuItemDistributionArgumentOfThePerihelion;
