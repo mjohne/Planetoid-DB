@@ -1,4 +1,4 @@
-﻿// This file is used by Code Analysis to maintain SuppressMessage
+// This file is used by Code Analysis to maintain SuppressMessage
 // attributes that are applied to this project.
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
@@ -15,7 +15,7 @@ namespace Planetoid_DB;
 /// <remarks>This form provides a user interface for viewing and editing records in the database.</remarks>
 // You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public partial class RecordsMainForm : BaseKryptonForm
+public partial class RecordsTop10Form : BaseKryptonForm
 {
 	/// <summary>NLog logger instance for the class.</summary>
 	/// <remarks>This logger is used to log messages for the database downloader.</remarks>
@@ -27,9 +27,9 @@ public partial class RecordsMainForm : BaseKryptonForm
 
 	#region constructor
 
-	/// <summary>Initializes a new instance of the <see cref="RecordsMainForm"/> class.</summary>
+	/// <summary>Initializes a new instance of the <see cref="RecordsTop10Form"/> class.</summary>
 	/// <remarks>This constructor initializes the form components.</remarks>
-	public RecordsMainForm() =>
+	public RecordsTop10Form() =>
 		// Initialize the form components
 		InitializeComponent();
 
