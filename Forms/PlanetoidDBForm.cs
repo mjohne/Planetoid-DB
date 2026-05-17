@@ -945,7 +945,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	}
 
 
-
 	/// <summary>Shows the MPCORB data check form.</summary>
 	/// <remarks>This method is used to check the MPCORB data for updates.</remarks>
 	private async void ShowMpcorbDatUpdateCheck()
