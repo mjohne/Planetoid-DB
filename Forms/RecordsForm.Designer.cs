@@ -254,7 +254,6 @@ partial class RecordsForm
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveList";
-		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveList;
 		contextMenuSaveToFile.Size = new Size(202, 158);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
@@ -849,7 +848,7 @@ partial class RecordsForm
 		contextMenuCopyToClipboard.Font = new Font("Segoe UI", 9F);
 		contextMenuCopyToClipboard.Items.AddRange(new ToolStripItem[] { toolStripMenuItemCopyToClipboardInContextMenu });
 		contextMenuCopyToClipboard.Name = "contextMenuStrip";
-		contextMenuCopyToClipboard.Size = new Size(214, 26);
+		contextMenuCopyToClipboard.Size = new Size(212, 26);
 		contextMenuCopyToClipboard.TabStop = true;
 		contextMenuCopyToClipboard.Text = "Copy to clipboard";
 		contextMenuCopyToClipboard.MouseEnter += Control_Enter;
@@ -865,7 +864,7 @@ partial class RecordsForm
 		toolStripMenuItemCopyToClipboardInContextMenu.Name = "toolStripMenuItemCopyToClipboardInContextMenu";
 		toolStripMenuItemCopyToClipboardInContextMenu.ShortcutKeyDisplayString = "Ctrl+C";
 		toolStripMenuItemCopyToClipboardInContextMenu.ShortcutKeys = Keys.Control | Keys.C;
-		toolStripMenuItemCopyToClipboardInContextMenu.Size = new Size(213, 22);
+		toolStripMenuItemCopyToClipboardInContextMenu.Size = new Size(211, 22);
 		toolStripMenuItemCopyToClipboardInContextMenu.Text = "&Copy to clipboard";
 		toolStripMenuItemCopyToClipboardInContextMenu.Click += CopyToClipboard_DoubleClick;
 		toolStripMenuItemCopyToClipboardInContextMenu.MouseEnter += Control_Enter;
@@ -1951,7 +1950,7 @@ partial class RecordsForm
 		// 
 		// toolStripLabelProgress
 		// 
-		toolStripLabelProgress.AccessibleDescription = "Shows the progress of comparing";
+		toolStripLabelProgress.AccessibleDescription = "Shows the progress of generating";
 		toolStripLabelProgress.AccessibleName = "Loading progress";
 		toolStripLabelProgress.AccessibleRole = AccessibleRole.StaticText;
 		toolStripLabelProgress.AutoToolTip = true;
@@ -1963,7 +1962,7 @@ partial class RecordsForm
 		// 
 		// kryptonProgressBar
 		// 
-		kryptonProgressBar.AccessibleDescription = "Shows the progress of loading observation data";
+		kryptonProgressBar.AccessibleDescription = "Shows the progress of generating";
 		kryptonProgressBar.AccessibleName = "Loading progress";
 		kryptonProgressBar.AccessibleRole = AccessibleRole.ProgressBar;
 		kryptonProgressBar.AutoToolTip = true;
