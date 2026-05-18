@@ -284,9 +284,6 @@ public partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <param name="sender">Event source (one of the two combo boxes).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is triggered when the user changes the selection in either combo box. It calls the method to calculate and display the MAXOID based on the current selections.</remarks>
-	/// <summary>Handles the SelectionChangeCommitted event for either planetoid combo box and recalculates the MAXOID.</summary>
-	/// <param name="sender">Event source (one of the planetoid combo boxes).</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	private void ComboBoxPlanetoid_SelectionChangeCommitted(object sender, EventArgs e) => CalculateAndDisplayMaxoid();
 
 	/// <summary>Refreshes the displayed MAXOID state after either combo box text changes.</summary>
