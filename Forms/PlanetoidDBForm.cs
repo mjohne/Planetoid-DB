@@ -834,7 +834,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Set the TopMost property to true to keep the form on top of other windows
 		formMaxoids.TopMost = TopMost;
 		// Pass the parsed orbital elements to the form
-		formMaxoidsoids.SetOrbitalElements(
+		formMaxoids.SetOrbitalElements(
 			semiMajorAxis: semiMajorAxis,
 			eccentricity: eccentricity,
 			inclinationDeg: inclinationDeg,
@@ -2799,7 +2799,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <summary>Handles the click event for the ToolStripMenuItemMaxoids. Shows the MAXOIDs form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the MOIDs form for the currently selected minor planet.</remarks>
+	/// <remarks>This method is used to show the MAXOIDs form for the currently selected minor planet.</remarks>
 	private void Maxoids_Click(object sender, EventArgs e) => ShowMaxoids();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemMoidsOfAllMinorPlanets. Shows the MOIDs of all minor planets form.</summary>
@@ -2811,7 +2811,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <summary>Handles the click event for the ToolStripMenuItemMaxoidsOfAllMinorPlanets. Shows the MAXOIDs of all minor planets form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the MOIDs of all minor planets form.</remarks>
+	/// <remarks>This method is used to show the MAXOIDs of all minor planets form.</remarks>
 	private void MaxoidsOfAllMinorPlanets_Click(object sender, EventArgs e) => ShowMaxoidsOfAllMinorPlanets();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemTisserandParameters. Shows the Tisserand parameters form.</summary>

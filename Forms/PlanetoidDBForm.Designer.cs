@@ -2926,7 +2926,7 @@ partial class PlanetoidDbForm
 		// 
 		// toolStripMenuItemMaxoidsOfAllMinorPlanets
 		// 
-		toolStripMenuItemMaxoidsOfAllMinorPlanets.AccessibleDescription = "Shows the Maxnimum Orbit Intersection Distances (MAXOIDs) of all minor planets relative to the eight solar system planets";
+		toolStripMenuItemMaxoidsOfAllMinorPlanets.AccessibleDescription = "Shows the Maximum Orbit Intersection Distances (MAXOIDs) of all minor planets relative to the eight solar system planets";
 		toolStripMenuItemMaxoidsOfAllMinorPlanets.AccessibleName = "MAXOIDs of all minor planets";
 		toolStripMenuItemMaxoidsOfAllMinorPlanets.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemMaxoidsOfAllMinorPlanets.AutoToolTip = true;
