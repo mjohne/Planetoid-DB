@@ -844,6 +844,67 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formMaxoids.ShowDialog();
 	}
 
+	/// <summary>Shows the MOIDs and MAXOIDs form for the current planetoid.</summary>
+	/// <remarks>Parses the orbital elements from the UI labels and opens the <see cref="MoidsAndMaxoidsOfOneMinorPlanetForm"/>.</remarks>
+	private void ShowMoidsAndMaxoids()
+	{
+		// Create a culture-specific format provider for parsing the orbital elements
+		IFormatProvider provider = CultureInfo.CreateSpecificCulture(name: "en");
+		// Parse the orbital elements from the corresponding labels on the form
+		if (!double.TryParse(s: labelSemiMajorAxisData.Text, style: NumberStyles.Any, provider: provider, result: out double semiMajorAxis))
+		{
+			// If parsing fails, log the error and show an error message to the user
+			logger.Error(message: $"Failed to parse semi-major axis: '{labelSemiMajorAxisData.Text}'");
+			ShowErrorMessage(message: $"Could not parse semi-major axis value: '{labelSemiMajorAxisData.Text}'");
+			return;
+		}
+		// Parse the eccentricity from the corresponding label on the form
+		if (!double.TryParse(s: labelOrbitalEccentricityData.Text, style: NumberStyles.Any, provider: provider, result: out double eccentricity))
+		{
+			// If parsing fails, log the error and show an error message to the user
+			logger.Error(message: $"Failed to parse eccentricity: '{labelOrbitalEccentricityData.Text}'");
+			ShowErrorMessage(message: $"Could not parse eccentricity value: '{labelOrbitalEccentricityData.Text}'");
+			return;
+		}
+		// Parse the inclination to the ecliptic from the corresponding label on the form
+		if (!double.TryParse(s: labelInclinationToTheEclipticData.Text, style: NumberStyles.Any, provider: provider, result: out double inclinationDeg))
+		{
+			// If parsing fails, log the error and show an error message to the user
+			logger.Error(message: $"Failed to parse inclination: '{labelInclinationToTheEclipticData.Text}'");
+			ShowErrorMessage(message: $"Could not parse inclination value: '{labelInclinationToTheEclipticData.Text}'");
+			return;
+		}
+		// Parse the longitude of the ascending node from the corresponding label on the form
+		if (!double.TryParse(s: labelLongitudeOfTheAscendingNodeData.Text, style: NumberStyles.Any, provider: provider, result: out double longitudeAscendingNodeDeg))
+		{
+			// If parsing fails, log the error and show an error message to the user
+			logger.Error(message: $"Failed to parse longitude of ascending node: '{labelLongitudeOfTheAscendingNodeData.Text}'");
+			ShowErrorMessage(message: $"Could not parse longitude of ascending node value: '{labelLongitudeOfTheAscendingNodeData.Text}'");
+			return;
+		}
+		// Parse the argument of perihelion from the corresponding label on the form
+		if (!double.TryParse(s: labelArgumentOfThePerihelionData.Text, style: NumberStyles.Any, provider: provider, result: out double argumentPerihelionDeg))
+		{
+			// If parsing fails, log the error and show an error message to the user
+			logger.Error(message: $"Failed to parse argument of perihelion: '{labelArgumentOfThePerihelionData.Text}'");
+			ShowErrorMessage(message: $"Could not parse argument of perihelion value: '{labelArgumentOfThePerihelionData.Text}'");
+			return;
+		}
+		// Create a new instance of the MoidsAndMaxoidsOfOneMinorPlanetForm
+		using MoidsAndMaxoidsOfOneMinorPlanetForm formMoidsAndMaxoids = new();
+		// Set the TopMost property to true to keep the form on top of other windows
+		formMoidsAndMaxoids.TopMost = TopMost;
+		// Pass the parsed orbital elements to the form
+		formMoidsAndMaxoids.SetOrbitalElements(
+			semiMajorAxis: semiMajorAxis,
+			eccentricity: eccentricity,
+			inclinationDeg: inclinationDeg,
+			longitudeAscendingNodeDeg: longitudeAscendingNodeDeg,
+			argumentPerihelionDeg: argumentPerihelionDeg);
+		// Show the MOIDs and MAXOIDs form as a modal dialog
+		_ = formMoidsAndMaxoids.ShowDialog();
+	}
+
 	/// <summary>Shows the MOIDs of all minor planets form. Opens the form to find MOIDs of all planetoids relative to the solar system planets.</summary>
 	/// <remarks>Passes the full planetoids database to the form so it can iterate over all records.</remarks>
 	private void ShowMoidsOfAllMinorPlanets()
@@ -2777,6 +2838,12 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the MAXOIDs form for the currently selected minor planet.</remarks>
 	private void Maxoids_Click(object sender, EventArgs e) => ShowMaxoids();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemMoidsAndMaxoids. Shows the MOIDs and MAXOIDs form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the MOIDs and MAXOIDs form for the currently selected minor planet.</remarks>
+	private void MoidsAndMaxoids_Click(object sender, EventArgs e) => ShowMoidsAndMaxoids();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemMoidsOfAllMinorPlanets. Shows the MOIDs of all minor planets form.</summary>
 	/// <param name="sender">The event source.</param>
