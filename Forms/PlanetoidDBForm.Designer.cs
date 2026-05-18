@@ -192,6 +192,10 @@ partial class PlanetoidDbForm
 		toolStripMenuItemMoidsOfOneMinorPlanet = new ToolStripMenuItem();
 		toolStripMenuItemMoidsOfAllMinorPlanets = new ToolStripMenuItem();
 		toolStripMenuItemMoidsRelativeToMinorPlanets = new ToolStripMenuItem();
+		toolStripMenuItemMaxoids = new ToolStripMenuItem();
+		toolStripMenuItemMaxoidsOfOneMinorPlanet = new ToolStripMenuItem();
+		toolStripMenuItemMaxoidsOfAllMinorPlanets = new ToolStripMenuItem();
+		toolStripMenuItemMaxoidsRelativeToMinorPlanets = new ToolStripMenuItem();
 		toolStripMenuItemTisserandParameters = new ToolStripMenuItem();
 		toolStripMenuItemTisserandParameterOfOneMinorPlanet = new ToolStripMenuItem();
 		toolStripMenuItemTisserandParameterOfAllMinorPlanets = new ToolStripMenuItem();
@@ -2690,7 +2694,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemTools.AccessibleName = "Tools";
 		toolStripMenuItemTools.AccessibleRole = AccessibleRole.MenuPopup;
 		toolStripMenuItemTools.AutoToolTip = true;
-		toolStripMenuItemTools.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemDerivedOrbitElements, toolStripMenuItemFilter, toolStripSeparatorTools1, toolStripMenuItemRecords, toolStripSeparator10, toolStripMenuItemDistribution, toolStripSeparatorTools2, toolStripMenuItemDatabaseInformation, toolStripMenuItemTableMode, toolStripMenuItemTerminology, toolStripSeparator16, toolStripMenuItemOrbitElementsGrouping, toolStripMenuItemAsteroidFamiliesDetection, toolStripSeparator18, toolStripMenuItemMoids, toolStripMenuItemTisserandParameters, toolStripMenuItemOrbitalResonances, toolStripMenuItemObservations });
+		toolStripMenuItemTools.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemDerivedOrbitElements, toolStripMenuItemFilter, toolStripSeparatorTools1, toolStripMenuItemRecords, toolStripSeparator10, toolStripMenuItemDistribution, toolStripSeparatorTools2, toolStripMenuItemDatabaseInformation, toolStripMenuItemTableMode, toolStripMenuItemTerminology, toolStripSeparator16, toolStripMenuItemOrbitElementsGrouping, toolStripMenuItemAsteroidFamiliesDetection, toolStripSeparator18, toolStripMenuItemMoids, toolStripMenuItemMaxoids, toolStripMenuItemTisserandParameters, toolStripMenuItemOrbitalResonances, toolStripMenuItemObservations });
 		toolStripMenuItemTools.Name = "toolStripMenuItemTools";
 		toolStripMenuItemTools.Size = new Size(46, 24);
 		toolStripMenuItemTools.Text = "&Tools";
@@ -2863,6 +2867,19 @@ partial class PlanetoidDbForm
 		toolStripMenuItemMoids.MouseEnter += Control_Enter;
 		toolStripMenuItemMoids.MouseLeave += Control_Leave;
 		// 
+		// toolStripMenuItemMaxoids
+		// 
+		toolStripMenuItemMaxoids.AccessibleDescription = "Shows the MAXOIDs";
+		toolStripMenuItemMaxoids.AccessibleName = "MAXOIDs";
+		toolStripMenuItemMaxoids.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemMaxoids.AutoToolTip = true;
+		toolStripMenuItemMaxoids.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemMaxoidsOfOneMinorPlanet, toolStripMenuItemMaxoidsOfAllMinorPlanets, toolStripMenuItemMaxoidsRelativeToMinorPlanets });
+		toolStripMenuItemMaxoids.Name = "toolStripMenuItemMaxoids";
+		toolStripMenuItemMaxoids.Size = new Size(227, 22);
+		toolStripMenuItemMaxoids.Text = "MAXOIDs";
+		toolStripMenuItemMaxoids.MouseEnter += Control_Enter;
+		toolStripMenuItemMaxoids.MouseLeave += Control_Leave;
+		// 
 		// toolStripMenuItemMoidsOfOneMinorPlanet
 		// 
 		toolStripMenuItemMoidsOfOneMinorPlanet.AccessibleDescription = "Shows the Minimum Orbit Intersection Distances (MOIDs) of one minor planet relative to the eight solar system planets";
@@ -2878,6 +2895,21 @@ partial class PlanetoidDbForm
 		toolStripMenuItemMoidsOfOneMinorPlanet.MouseEnter += Control_Enter;
 		toolStripMenuItemMoidsOfOneMinorPlanet.MouseLeave += Control_Leave;
 		// 
+		// toolStripMenuItemMaxoidsOfOneMinorPlanet
+		// 
+		toolStripMenuItemMaxoidsOfOneMinorPlanet.AccessibleDescription = "Shows the Maximum Orbit Intersection Distances (MAXOIDs) of one minor planet relative to the eight solar system planets";
+		toolStripMenuItemMaxoidsOfOneMinorPlanet.AccessibleName = "MAXOIDs of one minor planet";
+		toolStripMenuItemMaxoidsOfOneMinorPlanet.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemMaxoidsOfOneMinorPlanet.AutoToolTip = true;
+		toolStripMenuItemMaxoidsOfOneMinorPlanet.Image = FatcowIcons16px.fatcow_layer_shape_round_16px;
+		toolStripMenuItemMaxoidsOfOneMinorPlanet.Name = "toolStripMenuItemMaxoidsOfOneMinorPlanet";
+		toolStripMenuItemMaxoidsOfOneMinorPlanet.Size = new Size(241, 22);
+		toolStripMenuItemMaxoidsOfOneMinorPlanet.Text = "&MAXOIDs of one minor planet";
+		toolStripMenuItemMaxoidsOfOneMinorPlanet.ToolTipText = "Shows the Maximum Orbit Intersection Distances (MAXOIDs) of a minor planet";
+		toolStripMenuItemMaxoidsOfOneMinorPlanet.Click += Maxoids_Click;
+		toolStripMenuItemMaxoidsOfOneMinorPlanet.MouseEnter += Control_Enter;
+		toolStripMenuItemMaxoidsOfOneMinorPlanet.MouseLeave += Control_Leave;
+		// 
 		// toolStripMenuItemMoidsOfAllMinorPlanets
 		// 
 		toolStripMenuItemMoidsOfAllMinorPlanets.AccessibleDescription = "Shows the Minimum Orbit Intersection Distances (MOIDs) of all minor planets relative to the eight solar system planets";
@@ -2892,6 +2924,20 @@ partial class PlanetoidDbForm
 		toolStripMenuItemMoidsOfAllMinorPlanets.MouseEnter += Control_Enter;
 		toolStripMenuItemMoidsOfAllMinorPlanets.MouseLeave += Control_Leave;
 		// 
+		// toolStripMenuItemMaxoidsOfAllMinorPlanets
+		// 
+		toolStripMenuItemMaxoidsOfAllMinorPlanets.AccessibleDescription = "Shows the Maxnimum Orbit Intersection Distances (MAXOIDs) of all minor planets relative to the eight solar system planets";
+		toolStripMenuItemMaxoidsOfAllMinorPlanets.AccessibleName = "MAXOIDs of all minor planets";
+		toolStripMenuItemMaxoidsOfAllMinorPlanets.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemMaxoidsOfAllMinorPlanets.AutoToolTip = true;
+		toolStripMenuItemMaxoidsOfAllMinorPlanets.Image = FatcowIcons16px.fatcow_layer_shape_ellipse_16px;
+		toolStripMenuItemMaxoidsOfAllMinorPlanets.Name = "toolStripMenuItemMaxoidsOfAllMinorPlanets";
+		toolStripMenuItemMaxoidsOfAllMinorPlanets.Size = new Size(241, 22);
+		toolStripMenuItemMaxoidsOfAllMinorPlanets.Text = "MAXOIDs of all minor planets";
+		toolStripMenuItemMaxoidsOfAllMinorPlanets.Click += MaxoidsOfAllMinorPlanets_Click;
+		toolStripMenuItemMaxoidsOfAllMinorPlanets.MouseEnter += Control_Enter;
+		toolStripMenuItemMaxoidsOfAllMinorPlanets.MouseLeave += Control_Leave;
+		// 
 		// toolStripMenuItemMoidsRelativeToMinorPlanets
 		// 
 		toolStripMenuItemMoidsRelativeToMinorPlanets.AccessibleDescription = "Shows the Minimum Orbit Intersection Distance (MOID) between two selected minor planets";
@@ -2905,6 +2951,20 @@ partial class PlanetoidDbForm
 		toolStripMenuItemMoidsRelativeToMinorPlanets.Click += MoidsRelativeToMinorPlanets_Click;
 		toolStripMenuItemMoidsRelativeToMinorPlanets.MouseEnter += Control_Enter;
 		toolStripMenuItemMoidsRelativeToMinorPlanets.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemMaxoidsRelativeToMinorPlanets
+		// 
+		toolStripMenuItemMaxoidsRelativeToMinorPlanets.AccessibleDescription = "Shows the Maximum Orbit Intersection Distance (MAXOID) between two selected minor planets";
+		toolStripMenuItemMaxoidsRelativeToMinorPlanets.AccessibleName = "MAXOIDs relative to minor planets";
+		toolStripMenuItemMaxoidsRelativeToMinorPlanets.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemMaxoidsRelativeToMinorPlanets.AutoToolTip = true;
+		toolStripMenuItemMaxoidsRelativeToMinorPlanets.Image = FatcowIcons16px.fatcow_layer_shape_polyline_16px;
+		toolStripMenuItemMaxoidsRelativeToMinorPlanets.Name = "toolStripMenuItemMaxoidsRelativeToMinorPlanets";
+		toolStripMenuItemMaxoidsRelativeToMinorPlanets.Size = new Size(241, 22);
+		toolStripMenuItemMaxoidsRelativeToMinorPlanets.Text = "MAXOIDs relative to minor planets";
+		toolStripMenuItemMaxoidsRelativeToMinorPlanets.Click += MaxoidsRelativeToMinorPlanets_Click;
+		toolStripMenuItemMaxoidsRelativeToMinorPlanets.MouseEnter += Control_Enter;
+		toolStripMenuItemMaxoidsRelativeToMinorPlanets.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemTisserandParameters
 		// 
@@ -4607,16 +4667,20 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem toolStripMenuItemOrbitElementsGrouping;
 	private ToolStripMenuItem toolStripMenuItemAsteroidFamiliesDetection;
 	private ToolStripMenuItem toolStripMenuItemMoidsOfOneMinorPlanet;
+	private ToolStripMenuItem toolStripMenuItemMaxoidsOfOneMinorPlanet;
 	private ToolStripButton toolStripButtonObservations;
 	private ToolStripMenuItem toolStripMenuItemOpenLocalMpcorbDat;
 	private ToolStripButton toolStripButtonOpenLocalMpcorbDat;
 	private ToolStripDropDownButton toolStripDropDownButtonCopyToClipboard;
 	private ToolStripSeparator toolStripSeparator18;
 	private ToolStripMenuItem toolStripMenuItemMoidsOfAllMinorPlanets;
+	private ToolStripMenuItem toolStripMenuItemMaxoidsOfAllMinorPlanets;
 	private ToolStripMenuItem toolStripMenuItemTisserandParameterOfOneMinorPlanet;
 	private ToolStripMenuItem toolStripMenuItemTisserandParameterOfAllMinorPlanets;
 	private ToolStripMenuItem toolStripMenuItemMoids;
+	private ToolStripMenuItem toolStripMenuItemMaxoids;
 	private ToolStripMenuItem toolStripMenuItemMoidsRelativeToMinorPlanets;
+	private ToolStripMenuItem toolStripMenuItemMaxoidsRelativeToMinorPlanets;
 	private ToolStripMenuItem toolStripMenuItemOrbitalResonances;
 	private ToolStripMenuItem toolStripMenuItemOrbitalResonancesOfOneMinorPlanet;
 	private ToolStripMenuItem toolStripMenuItemOrbitalResonancesOfAllMinorPlanets;
