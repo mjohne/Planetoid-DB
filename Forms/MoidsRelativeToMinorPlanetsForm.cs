@@ -268,7 +268,6 @@ public partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 				.Select(selector: ExtractDesignation)
 				.Where(predicate: static d => d is not null)
 				.Cast<string>()];
-			_designationLookup.Clear();
 			_designationLookup.UnionWith(other: _allNames);
 			// Populate both combo boxes with all planetoid names
 			comboBoxPlanetoid1.Items.AddRange(items: _allNames);
@@ -287,7 +286,7 @@ public partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	}
 
 	/// <summary>Handles the SelectionChangeCommitted event for either combo box and recalculates the MOID.</summary>
-	/// <param name="sender">Event source (one of the two combo boxes).</param>
+	/// <param name="sender">Event source (one of the two planetoid combo boxes).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This event fires only when the user commits an item from the list; at that point both values are stable enough to perform a full MOID calculation.</remarks>
 	private void ComboBoxPlanetoid_SelectionChangeCommitted(object sender, EventArgs e) => CalculateAndDisplayMoid();
