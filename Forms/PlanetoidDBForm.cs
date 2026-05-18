@@ -722,50 +722,70 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formOrbitalResonances.ShowDialog(owner: this);
 	}
 
+	/// <summary>Tries to parse the current planetoid orbital elements from the UI labels.</summary>
+	/// <param name="semiMajorAxis">When this method returns, contains the parsed semi-major axis in AU.</param>
+	/// <param name="eccentricity">When this method returns, contains the parsed eccentricity.</param>
+	/// <param name="inclinationDeg">When this method returns, contains the parsed inclination in degrees.</param>
+	/// <param name="longitudeAscendingNodeDeg">When this method returns, contains the parsed longitude of ascending node in degrees.</param>
+	/// <param name="argumentPerihelionDeg">When this method returns, contains the parsed argument of perihelion in degrees.</param>
+	/// <returns><see langword="true"/> if all orbital elements were parsed successfully; otherwise, <see langword="false"/>.</returns>
+	private bool TryParseCurrentOrbitalElements(
+		out double semiMajorAxis,
+		out double eccentricity,
+		out double inclinationDeg,
+		out double longitudeAscendingNodeDeg,
+		out double argumentPerihelionDeg)
+	{
+		semiMajorAxis = default;
+		eccentricity = default;
+		inclinationDeg = default;
+		longitudeAscendingNodeDeg = default;
+		argumentPerihelionDeg = default;
+		IFormatProvider provider = CultureInfo.CreateSpecificCulture(name: "en");
+		if (!double.TryParse(s: labelSemiMajorAxisData.Text, style: NumberStyles.Any, provider: provider, result: out semiMajorAxis))
+		{
+			logger.Error(message: $"Failed to parse semi-major axis: '{labelSemiMajorAxisData.Text}'");
+			ShowErrorMessage(message: $"Could not parse semi-major axis value: '{labelSemiMajorAxisData.Text}'");
+			return false;
+		}
+		if (!double.TryParse(s: labelOrbitalEccentricityData.Text, style: NumberStyles.Any, provider: provider, result: out eccentricity))
+		{
+			logger.Error(message: $"Failed to parse eccentricity: '{labelOrbitalEccentricityData.Text}'");
+			ShowErrorMessage(message: $"Could not parse eccentricity value: '{labelOrbitalEccentricityData.Text}'");
+			return false;
+		}
+		if (!double.TryParse(s: labelInclinationToTheEclipticData.Text, style: NumberStyles.Any, provider: provider, result: out inclinationDeg))
+		{
+			logger.Error(message: $"Failed to parse inclination: '{labelInclinationToTheEclipticData.Text}'");
+			ShowErrorMessage(message: $"Could not parse inclination value: '{labelInclinationToTheEclipticData.Text}'");
+			return false;
+		}
+		if (!double.TryParse(s: labelLongitudeOfTheAscendingNodeData.Text, style: NumberStyles.Any, provider: provider, result: out longitudeAscendingNodeDeg))
+		{
+			logger.Error(message: $"Failed to parse longitude of ascending node: '{labelLongitudeOfTheAscendingNodeData.Text}'");
+			ShowErrorMessage(message: $"Could not parse longitude of ascending node value: '{labelLongitudeOfTheAscendingNodeData.Text}'");
+			return false;
+		}
+		if (!double.TryParse(s: labelArgumentOfThePerihelionData.Text, style: NumberStyles.Any, provider: provider, result: out argumentPerihelionDeg))
+		{
+			logger.Error(message: $"Failed to parse argument of perihelion: '{labelArgumentOfThePerihelionData.Text}'");
+			ShowErrorMessage(message: $"Could not parse argument of perihelion value: '{labelArgumentOfThePerihelionData.Text}'");
+			return false;
+		}
+		return true;
+	}
+
 	/// <summary>Shows the MOIDs form for the current planetoid.</summary>
 	/// <remarks>Parses the orbital elements from the UI labels and opens the <see cref="MoidsOfOneMinorPlanetForm"/>.</remarks>
 	private void ShowMoids()
 	{
-		// Create a culture-specific format provider for parsing the orbital elements
-		IFormatProvider provider = CultureInfo.CreateSpecificCulture(name: "en");
-		// Parse the orbital elements from the corresponding labels on the form
-		if (!double.TryParse(s: labelSemiMajorAxisData.Text, style: NumberStyles.Any, provider: provider, result: out double semiMajorAxis))
+		if (!TryParseCurrentOrbitalElements(
+			semiMajorAxis: out double semiMajorAxis,
+			eccentricity: out double eccentricity,
+			inclinationDeg: out double inclinationDeg,
+			longitudeAscendingNodeDeg: out double longitudeAscendingNodeDeg,
+			argumentPerihelionDeg: out double argumentPerihelionDeg))
 		{
-			// If parsing fails, log the error and show an error message to the user
-			logger.Error(message: $"Failed to parse semi-major axis: '{labelSemiMajorAxisData.Text}'");
-			ShowErrorMessage(message: $"Could not parse semi-major axis value: '{labelSemiMajorAxisData.Text}'");
-			return;
-		}
-		// Parse the eccentricity from the corresponding label on the form
-		if (!double.TryParse(s: labelOrbitalEccentricityData.Text, style: NumberStyles.Any, provider: provider, result: out double eccentricity))
-		{
-			// If parsing fails, log the error and show an error message to the user
-			logger.Error(message: $"Failed to parse eccentricity: '{labelOrbitalEccentricityData.Text}'");
-			ShowErrorMessage(message: $"Could not parse eccentricity value: '{labelOrbitalEccentricityData.Text}'");
-			return;
-		}
-		// Parse the inclination to the ecliptic from the corresponding label on the form
-		if (!double.TryParse(s: labelInclinationToTheEclipticData.Text, style: NumberStyles.Any, provider: provider, result: out double inclinationDeg))
-		{
-			// If parsing fails, log the error and show an error message to the user
-			logger.Error(message: $"Failed to parse inclination: '{labelInclinationToTheEclipticData.Text}'");
-			ShowErrorMessage(message: $"Could not parse inclination value: '{labelInclinationToTheEclipticData.Text}'");
-			return;
-		}
-		// Parse the longitude of the ascending node from the corresponding label on the form
-		if (!double.TryParse(s: labelLongitudeOfTheAscendingNodeData.Text, style: NumberStyles.Any, provider: provider, result: out double longitudeAscendingNodeDeg))
-		{
-			// If parsing fails, log the error and show an error message to the user
-			logger.Error(message: $"Failed to parse longitude of ascending node: '{labelLongitudeOfTheAscendingNodeData.Text}'");
-			ShowErrorMessage(message: $"Could not parse longitude of ascending node value: '{labelLongitudeOfTheAscendingNodeData.Text}'");
-			return;
-		}
-		// Parse the argument of perihelion from the corresponding label on the form
-		if (!double.TryParse(s: labelArgumentOfThePerihelionData.Text, style: NumberStyles.Any, provider: provider, result: out double argumentPerihelionDeg))
-		{
-			// If parsing fails, log the error and show an error message to the user
-			logger.Error(message: $"Failed to parse argument of perihelion: '{labelArgumentOfThePerihelionData.Text}'");
-			ShowErrorMessage(message: $"Could not parse argument of perihelion value: '{labelArgumentOfThePerihelionData.Text}'");
 			return;
 		}
 		// Create a new instance of the MoidsOfOneMinorPlanetForm
@@ -787,46 +807,13 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>Parses the orbital elements from the UI labels and opens the <see cref="MaxoidsOfOneMinorPlanetForm"/>.</remarks>
 	private void ShowMaxoids()
 	{
-		// Create a culture-specific format provider for parsing the orbital elements
-		IFormatProvider provider = CultureInfo.CreateSpecificCulture(name: "en");
-		// Parse the orbital elements from the corresponding labels on the form
-		if (!double.TryParse(s: labelSemiMajorAxisData.Text, style: NumberStyles.Any, provider: provider, result: out double semiMajorAxis))
+		if (!TryParseCurrentOrbitalElements(
+			semiMajorAxis: out double semiMajorAxis,
+			eccentricity: out double eccentricity,
+			inclinationDeg: out double inclinationDeg,
+			longitudeAscendingNodeDeg: out double longitudeAscendingNodeDeg,
+			argumentPerihelionDeg: out double argumentPerihelionDeg))
 		{
-			// If parsing fails, log the error and show an error message to the user
-			logger.Error(message: $"Failed to parse semi-major axis: '{labelSemiMajorAxisData.Text}'");
-			ShowErrorMessage(message: $"Could not parse semi-major axis value: '{labelSemiMajorAxisData.Text}'");
-			return;
-		}
-		// Parse the eccentricity from the corresponding label on the form
-		if (!double.TryParse(s: labelOrbitalEccentricityData.Text, style: NumberStyles.Any, provider: provider, result: out double eccentricity))
-		{
-			// If parsing fails, log the error and show an error message to the user
-			logger.Error(message: $"Failed to parse eccentricity: '{labelOrbitalEccentricityData.Text}'");
-			ShowErrorMessage(message: $"Could not parse eccentricity value: '{labelOrbitalEccentricityData.Text}'");
-			return;
-		}
-		// Parse the inclination to the ecliptic from the corresponding label on the form
-		if (!double.TryParse(s: labelInclinationToTheEclipticData.Text, style: NumberStyles.Any, provider: provider, result: out double inclinationDeg))
-		{
-			// If parsing fails, log the error and show an error message to the user
-			logger.Error(message: $"Failed to parse inclination: '{labelInclinationToTheEclipticData.Text}'");
-			ShowErrorMessage(message: $"Could not parse inclination value: '{labelInclinationToTheEclipticData.Text}'");
-			return;
-		}
-		// Parse the longitude of the ascending node from the corresponding label on the form
-		if (!double.TryParse(s: labelLongitudeOfTheAscendingNodeData.Text, style: NumberStyles.Any, provider: provider, result: out double longitudeAscendingNodeDeg))
-		{
-			// If parsing fails, log the error and show an error message to the user
-			logger.Error(message: $"Failed to parse longitude of ascending node: '{labelLongitudeOfTheAscendingNodeData.Text}'");
-			ShowErrorMessage(message: $"Could not parse longitude of ascending node value: '{labelLongitudeOfTheAscendingNodeData.Text}'");
-			return;
-		}
-		// Parse the argument of perihelion from the corresponding label on the form
-		if (!double.TryParse(s: labelArgumentOfThePerihelionData.Text, style: NumberStyles.Any, provider: provider, result: out double argumentPerihelionDeg))
-		{
-			// If parsing fails, log the error and show an error message to the user
-			logger.Error(message: $"Failed to parse argument of perihelion: '{labelArgumentOfThePerihelionData.Text}'");
-			ShowErrorMessage(message: $"Could not parse argument of perihelion value: '{labelArgumentOfThePerihelionData.Text}'");
 			return;
 		}
 		// Create a new instance of the MaxoidsOfOneMinorPlanetForm
@@ -848,46 +835,13 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>Parses the orbital elements from the UI labels and opens the <see cref="MoidsAndMaxoidsOfOneMinorPlanetForm"/>.</remarks>
 	private void ShowMoidsAndMaxoids()
 	{
-		// Create a culture-specific format provider for parsing the orbital elements
-		IFormatProvider provider = CultureInfo.CreateSpecificCulture(name: "en");
-		// Parse the orbital elements from the corresponding labels on the form
-		if (!double.TryParse(s: labelSemiMajorAxisData.Text, style: NumberStyles.Any, provider: provider, result: out double semiMajorAxis))
+		if (!TryParseCurrentOrbitalElements(
+			semiMajorAxis: out double semiMajorAxis,
+			eccentricity: out double eccentricity,
+			inclinationDeg: out double inclinationDeg,
+			longitudeAscendingNodeDeg: out double longitudeAscendingNodeDeg,
+			argumentPerihelionDeg: out double argumentPerihelionDeg))
 		{
-			// If parsing fails, log the error and show an error message to the user
-			logger.Error(message: $"Failed to parse semi-major axis: '{labelSemiMajorAxisData.Text}'");
-			ShowErrorMessage(message: $"Could not parse semi-major axis value: '{labelSemiMajorAxisData.Text}'");
-			return;
-		}
-		// Parse the eccentricity from the corresponding label on the form
-		if (!double.TryParse(s: labelOrbitalEccentricityData.Text, style: NumberStyles.Any, provider: provider, result: out double eccentricity))
-		{
-			// If parsing fails, log the error and show an error message to the user
-			logger.Error(message: $"Failed to parse eccentricity: '{labelOrbitalEccentricityData.Text}'");
-			ShowErrorMessage(message: $"Could not parse eccentricity value: '{labelOrbitalEccentricityData.Text}'");
-			return;
-		}
-		// Parse the inclination to the ecliptic from the corresponding label on the form
-		if (!double.TryParse(s: labelInclinationToTheEclipticData.Text, style: NumberStyles.Any, provider: provider, result: out double inclinationDeg))
-		{
-			// If parsing fails, log the error and show an error message to the user
-			logger.Error(message: $"Failed to parse inclination: '{labelInclinationToTheEclipticData.Text}'");
-			ShowErrorMessage(message: $"Could not parse inclination value: '{labelInclinationToTheEclipticData.Text}'");
-			return;
-		}
-		// Parse the longitude of the ascending node from the corresponding label on the form
-		if (!double.TryParse(s: labelLongitudeOfTheAscendingNodeData.Text, style: NumberStyles.Any, provider: provider, result: out double longitudeAscendingNodeDeg))
-		{
-			// If parsing fails, log the error and show an error message to the user
-			logger.Error(message: $"Failed to parse longitude of ascending node: '{labelLongitudeOfTheAscendingNodeData.Text}'");
-			ShowErrorMessage(message: $"Could not parse longitude of ascending node value: '{labelLongitudeOfTheAscendingNodeData.Text}'");
-			return;
-		}
-		// Parse the argument of perihelion from the corresponding label on the form
-		if (!double.TryParse(s: labelArgumentOfThePerihelionData.Text, style: NumberStyles.Any, provider: provider, result: out double argumentPerihelionDeg))
-		{
-			// If parsing fails, log the error and show an error message to the user
-			logger.Error(message: $"Failed to parse argument of perihelion: '{labelArgumentOfThePerihelionData.Text}'");
-			ShowErrorMessage(message: $"Could not parse argument of perihelion value: '{labelArgumentOfThePerihelionData.Text}'");
 			return;
 		}
 		// Create a new instance of the MoidsAndMaxoidsOfOneMinorPlanetForm

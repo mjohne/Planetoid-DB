@@ -12,7 +12,7 @@ using System.ComponentModel;
 namespace Planetoid_DB;
 
 /// <summary>Represents a Windows Form that displays the Minimum Orbit Intersection Distance (MOID) and Maximum Orbit Intersection Distance (MAXOID) of a minor planet relative to each of the eight solar system planets (Mercury through Neptune).</summary>
-/// <remarks>The form presents data in a two-column <see cref="KryptonTableLayoutPanel"/> with eight rows — one per planet. Column 1 shows the planet name; column 2 shows the corresponding MOID in AU. Export to many file formats is available through the toolbar dropdown button. The form does not appear in the taskbar and is intended to be used as a modal dialog.</remarks>
+/// <remarks>The form presents data in a three-column <see cref="KryptonTableLayoutPanel"/> with one header row and eight planet rows (Mercury through Neptune). Column 1 shows the planet name, column 2 shows MOID in AU, and column 3 shows MAXOID in AU. Export to many file formats is available through the toolbar dropdown button. The form does not appear in the taskbar and is intended to be used as a modal dialog.</remarks>
 partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 {
 	/// <summary>Required designer variable.</summary>
@@ -41,6 +41,9 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 	{
 		components = new Container();
 		ComponentResourceManager resources = new ComponentResourceManager(typeof(MoidsAndMaxoidsOfOneMinorPlanetForm));
+		labelPlanetHeader = new KryptonLabel();
+		labelMoidHeader = new KryptonLabel();
+		labelMaxoidHeader = new KryptonLabel();
 		labelMercuryDesc = new KryptonLabel();
 		contextMenuCopyToClipboard = new ContextMenuStrip(components);
 		toolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
@@ -145,6 +148,45 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		contextMenuFullCopyToClipboard.SuspendLayout();
 		SuspendLayout();
 		// 
+		// labelPlanetHeader
+		// 
+		labelPlanetHeader.AccessibleDescription = "Shows the planet column header";
+		labelPlanetHeader.AccessibleName = "Planet";
+		labelPlanetHeader.AccessibleRole = AccessibleRole.StaticText;
+		labelPlanetHeader.Dock = DockStyle.Fill;
+		labelPlanetHeader.LabelStyle = LabelStyle.BoldPanel;
+		labelPlanetHeader.Location = new Point(3, 3);
+		labelPlanetHeader.Name = "labelPlanetHeader";
+		labelPlanetHeader.Size = new Size(95, 24);
+		labelPlanetHeader.TabIndex = 0;
+		labelPlanetHeader.Values.Text = "Planet";
+		// 
+		// labelMoidHeader
+		// 
+		labelMoidHeader.AccessibleDescription = "Shows the MOID column header";
+		labelMoidHeader.AccessibleName = "MOID (AU)";
+		labelMoidHeader.AccessibleRole = AccessibleRole.StaticText;
+		labelMoidHeader.Dock = DockStyle.Fill;
+		labelMoidHeader.LabelStyle = LabelStyle.BoldPanel;
+		labelMoidHeader.Location = new Point(104, 3);
+		labelMoidHeader.Name = "labelMoidHeader";
+		labelMoidHeader.Size = new Size(82, 24);
+		labelMoidHeader.TabIndex = 1;
+		labelMoidHeader.Values.Text = "MOID (AU)";
+		// 
+		// labelMaxoidHeader
+		// 
+		labelMaxoidHeader.AccessibleDescription = "Shows the MAXOID column header";
+		labelMaxoidHeader.AccessibleName = "MAXOID (AU)";
+		labelMaxoidHeader.AccessibleRole = AccessibleRole.StaticText;
+		labelMaxoidHeader.Dock = DockStyle.Fill;
+		labelMaxoidHeader.LabelStyle = LabelStyle.BoldPanel;
+		labelMaxoidHeader.Location = new Point(192, 3);
+		labelMaxoidHeader.Name = "labelMaxoidHeader";
+		labelMaxoidHeader.Size = new Size(89, 24);
+		labelMaxoidHeader.TabIndex = 2;
+		labelMaxoidHeader.Values.Text = "MAXOID (AU)";
+		// 
 		// labelMercuryDesc
 		// 
 		labelMercuryDesc.AccessibleDescription = "Shows the name of the planet Mercury";
@@ -172,7 +214,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		// 
 		// contextMenuCopyToClipboard
 		// 
-		contextMenuCopyToClipboard.AccessibleDescription = "Shows the context menu for copying the MOID value to the clipboard";
+		contextMenuCopyToClipboard.AccessibleDescription = "Shows the context menu for copying the selected value to the clipboard";
 		contextMenuCopyToClipboard.AccessibleName = "Context menu for copying to the clipboard";
 		contextMenuCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
 		contextMenuCopyToClipboard.AllowClickThrough = true;
@@ -189,7 +231,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		// 
 		// toolStripMenuItemCopyToClipboard
 		// 
-		toolStripMenuItemCopyToClipboard.AccessibleDescription = "Copies the MOID value to the clipboard";
+		toolStripMenuItemCopyToClipboard.AccessibleDescription = "Copies the selected value to the clipboard";
 		toolStripMenuItemCopyToClipboard.AccessibleName = "Copy to clipboard";
 		toolStripMenuItemCopyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemCopyToClipboard.AutoToolTip = true;
@@ -662,35 +704,39 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 46.56085F));
 		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 94F));
 		tableLayoutPanel.ContextMenuStrip = contextMenuSaveToFile;
-		tableLayoutPanel.Controls.Add(labelNeptuneMaxoidData, 2, 7);
-		tableLayoutPanel.Controls.Add(labelUranusMaxoidData, 2, 6);
-		tableLayoutPanel.Controls.Add(labelSaturnMaxoidData, 2, 5);
-		tableLayoutPanel.Controls.Add(labelJupiterMaxoidData, 2, 4);
-		tableLayoutPanel.Controls.Add(labelMarsMaxoidData, 2, 3);
-		tableLayoutPanel.Controls.Add(labelEarthMaxoidData, 2, 2);
-		tableLayoutPanel.Controls.Add(labelVenusMaxoidData, 2, 1);
-		tableLayoutPanel.Controls.Add(labelMercuryMaxoidData, 2, 0);
-		tableLayoutPanel.Controls.Add(labelMercuryDesc, 0, 0);
-		tableLayoutPanel.Controls.Add(labelMercuryMoidData, 1, 0);
-		tableLayoutPanel.Controls.Add(labelVenusDesc, 0, 1);
-		tableLayoutPanel.Controls.Add(labelVenusMoidData, 1, 1);
-		tableLayoutPanel.Controls.Add(labelEarthDesc, 0, 2);
-		tableLayoutPanel.Controls.Add(labelEarthMoidData, 1, 2);
-		tableLayoutPanel.Controls.Add(labelMarsDesc, 0, 3);
-		tableLayoutPanel.Controls.Add(labelMarsMoidData, 1, 3);
-		tableLayoutPanel.Controls.Add(labelJupiterDesc, 0, 4);
-		tableLayoutPanel.Controls.Add(labelJupiterMoidData, 1, 4);
-		tableLayoutPanel.Controls.Add(labelSaturnDesc, 0, 5);
-		tableLayoutPanel.Controls.Add(labelSaturnMoidData, 1, 5);
-		tableLayoutPanel.Controls.Add(labelUranusDesc, 0, 6);
-		tableLayoutPanel.Controls.Add(labelUranusMoidData, 1, 6);
-		tableLayoutPanel.Controls.Add(labelNeptuneDesc, 0, 7);
-		tableLayoutPanel.Controls.Add(labelNeptuneMoidData, 1, 7);
+		tableLayoutPanel.Controls.Add(labelPlanetHeader, 0, 0);
+		tableLayoutPanel.Controls.Add(labelMoidHeader, 1, 0);
+		tableLayoutPanel.Controls.Add(labelMaxoidHeader, 2, 0);
+		tableLayoutPanel.Controls.Add(labelNeptuneMaxoidData, 2, 8);
+		tableLayoutPanel.Controls.Add(labelUranusMaxoidData, 2, 7);
+		tableLayoutPanel.Controls.Add(labelSaturnMaxoidData, 2, 6);
+		tableLayoutPanel.Controls.Add(labelJupiterMaxoidData, 2, 5);
+		tableLayoutPanel.Controls.Add(labelMarsMaxoidData, 2, 4);
+		tableLayoutPanel.Controls.Add(labelEarthMaxoidData, 2, 3);
+		tableLayoutPanel.Controls.Add(labelVenusMaxoidData, 2, 2);
+		tableLayoutPanel.Controls.Add(labelMercuryMaxoidData, 2, 1);
+		tableLayoutPanel.Controls.Add(labelMercuryDesc, 0, 1);
+		tableLayoutPanel.Controls.Add(labelMercuryMoidData, 1, 1);
+		tableLayoutPanel.Controls.Add(labelVenusDesc, 0, 2);
+		tableLayoutPanel.Controls.Add(labelVenusMoidData, 1, 2);
+		tableLayoutPanel.Controls.Add(labelEarthDesc, 0, 3);
+		tableLayoutPanel.Controls.Add(labelEarthMoidData, 1, 3);
+		tableLayoutPanel.Controls.Add(labelMarsDesc, 0, 4);
+		tableLayoutPanel.Controls.Add(labelMarsMoidData, 1, 4);
+		tableLayoutPanel.Controls.Add(labelJupiterDesc, 0, 5);
+		tableLayoutPanel.Controls.Add(labelJupiterMoidData, 1, 5);
+		tableLayoutPanel.Controls.Add(labelSaturnDesc, 0, 6);
+		tableLayoutPanel.Controls.Add(labelSaturnMoidData, 1, 6);
+		tableLayoutPanel.Controls.Add(labelUranusDesc, 0, 7);
+		tableLayoutPanel.Controls.Add(labelUranusMoidData, 1, 7);
+		tableLayoutPanel.Controls.Add(labelNeptuneDesc, 0, 8);
+		tableLayoutPanel.Controls.Add(labelNeptuneMoidData, 1, 8);
 		tableLayoutPanel.Dock = DockStyle.Fill;
 		tableLayoutPanel.Location = new Point(0, 0);
 		tableLayoutPanel.Name = "tableLayoutPanel";
 		tableLayoutPanel.PanelBackStyle = PaletteBackStyle.FormMain;
-		tableLayoutPanel.RowCount = 8;
+		tableLayoutPanel.RowCount = 9;
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
@@ -709,16 +755,17 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		// 
 		// contextMenuSaveToFile
 		// 
-		contextMenuSaveToFile.AccessibleDescription = "Save the MOID data as file";
-		contextMenuSaveToFile.AccessibleName = "Save MOID data";
+		contextMenuSaveToFile.AccessibleDescription = "Save the MOID and MAXOID data as file";
+		contextMenuSaveToFile.AccessibleName = "Save MOID and MAXOID data";
 		contextMenuSaveToFile.AccessibleRole = AccessibleRole.MenuPopup;
 		contextMenuSaveToFile.AllowClickThrough = true;
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveToFile";
+		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveToFile;
 		contextMenuSaveToFile.Size = new Size(202, 158);
 		contextMenuSaveToFile.TabStop = true;
-		contextMenuSaveToFile.Text = "&Save MOID data";
+		contextMenuSaveToFile.Text = "&Save MOID and MAXOID data";
 		contextMenuSaveToFile.Enter += Control_Enter;
 		contextMenuSaveToFile.Leave += Control_Leave;
 		contextMenuSaveToFile.MouseEnter += Control_Enter;
@@ -1507,12 +1554,13 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		// 
 		// contextMenuFullCopyToClipboard
 		// 
-		contextMenuFullCopyToClipboard.AccessibleDescription = "Shows the context menu for copying MOID values to the clipboard";
-		contextMenuFullCopyToClipboard.AccessibleName = "Context menu for copying MOID values to the clipboard";
+		contextMenuFullCopyToClipboard.AccessibleDescription = "Shows the context menu for copying MOID and MAXOID values to the clipboard";
+		contextMenuFullCopyToClipboard.AccessibleName = "Context menu for copying MOID and MAXOID values to the clipboard";
 		contextMenuFullCopyToClipboard.AccessibleRole = AccessibleRole.MenuPopup;
 		contextMenuFullCopyToClipboard.Font = new Font("Segoe UI", 9F);
 		contextMenuFullCopyToClipboard.Items.AddRange(new ToolStripItem[] { toolStripMenuItemCopyToClipboardMoidRelativeToMercury, toolStripMenuItemCopyToClipboardMoidRelativeToVenus, toolStripMenuItemCopyToClipboardMoidRelativeToEarth, toolStripMenuItemCopyToClipboardMoidRelativeToMars, toolStripMenuItemCopyToClipboardMoidRelativeToJupiter, toolStripMenuItemCopyToClipboardMoidRelativeToSaturn, toolStripMenuItemCopyToClipboardMoidRelativeToUranus, toolStripMenuItemCopyToClipboardMoidRelativeToNeptune, toolStripSeparator1, toolStripMenuItemCopyToClipboardMaxoidRelativeToMercury, toolStripMenuItemCopyToClipboardMaxoidRelativeToVenus, toolStripMenuItemCopyToClipboardMaxoidRelativeToEarth, toolStripMenuItemCopyToClipboardMaxoidRelativeToMars, toolStripMenuItemCopyToClipboardMaxoidRelativeToJupiter, toolStripMenuItemCopyToClipboardMaxoidRelativeToSaturn, toolStripMenuItemCopyToClipboardMaxoidRelativeToUranus, toolStripMenuItemCopyToClipboardMaxoidRelativeToNeptune });
-		contextMenuFullCopyToClipboard.Name = "Context menu for copying MOID values to the clipboard";
+		contextMenuFullCopyToClipboard.Name = "Context menu for copying MOID and MAXOID values to the clipboard";
+		contextMenuFullCopyToClipboard.OwnerItem = toolStripDropDownButtonCopyToClipboard;
 		contextMenuFullCopyToClipboard.Size = new Size(170, 362);
 		contextMenuFullCopyToClipboard.Text = "Copy to clipboard";
 		contextMenuFullCopyToClipboard.Enter += Control_Enter;
@@ -1738,7 +1786,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		// 
 		// toolStripMenuItemCopyToClipboardMaxoidRelativeToNeptune
 		// 
-		toolStripMenuItemCopyToClipboardMaxoidRelativeToNeptune.AccessibleDescription = "Copies to clipboard: MAXOID relative to CopyToClipboardMaxoidRelativeToNeptune";
+		toolStripMenuItemCopyToClipboardMaxoidRelativeToNeptune.AccessibleDescription = "Copies to clipboard: MAXOID relative to Neptune";
 		toolStripMenuItemCopyToClipboardMaxoidRelativeToNeptune.AccessibleName = "Copy to clipboard: MAXOID relative to Neptune";
 		toolStripMenuItemCopyToClipboardMaxoidRelativeToNeptune.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemCopyToClipboardMaxoidRelativeToNeptune.AutoToolTip = true;
@@ -1807,6 +1855,9 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 	#endregion
 
 	// ── planet description labels ──────────────────────────────────────────
+	private KryptonLabel labelPlanetHeader;
+	private KryptonLabel labelMoidHeader;
+	private KryptonLabel labelMaxoidHeader;
 	private KryptonLabel labelMercuryDesc;
 	private KryptonLabel labelVenusDesc;
 	private KryptonLabel labelEarthDesc;
