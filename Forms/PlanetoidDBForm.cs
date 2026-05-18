@@ -782,7 +782,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Show the MOIDs form as a modal dialog
 		_ = formMoids.ShowDialog();
 	}
-	
+
 	/// <summary>Shows the MAXOIDs form for the current planetoid.</summary>
 	/// <remarks>Parses the orbital elements from the UI labels and opens the <see cref="MaxoidsOfOneMinorPlanetForm"/>.</remarks>
 	private void ShowMaxoids()
@@ -2476,121 +2476,97 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the top ten records form for mean anomaly at the epoch.</remarks>
-	private void RecordsMeanAnomalyAtTheEpoch_Click(object sender, EventArgs e)
-	{
+	private void RecordsMeanAnomalyAtTheEpoch_Click(object sender, EventArgs e) =>
 		// Show the top ten records form for mean anomaly at the epoch
 		ShowRecordsTop10(selectedElement: "Mean anomaly at the epoch");
-	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsArgumentOfThePerihelion. Shows the top ten records form for the argument of the perihelion.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the top ten records form for the argument of the perihelion.</remarks>
-	private void RecordsArgumentOfThePerihelion_Click(object sender, EventArgs e)
-	{
+	private void RecordsArgumentOfThePerihelion_Click(object sender, EventArgs e) =>
 		// Show the top ten records form for the argument of the perihelion
 		ShowRecordsTop10(selectedElement: "Argument of the perihelion");
-	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsLongitudeOfTheAscendingNode. Shows the top ten records form for the longitude of the ascending node.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the top ten records form for the longitude of the ascending node.</remarks>
-	private void RecordsLongitudeOfTheAscendingNode_Click(object sender, EventArgs e)
-	{
+	private void RecordsLongitudeOfTheAscendingNode_Click(object sender, EventArgs e) =>
 		// Show the top ten records form for the longitude of the ascending node
 		ShowRecordsTop10(selectedElement: "Longitude of the ascending node");
-	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsInclination. Shows the top ten records form for inclination.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the top ten records form for inclination.</remarks>
-	private void RecordsInclination_Click(object sender, EventArgs e)
-	{
+	private void RecordsInclination_Click(object sender, EventArgs e) =>
 		// Show the top ten records form for inclination
 		ShowRecordsTop10(selectedElement: "Inclination");
-	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsOrbitalEccentricity. Shows the top ten records form for orbital eccentricity.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the top ten records form for orbital eccentricity.</remarks>
-	private void RecordsOrbitalEccentricity_Click(object sender, EventArgs e)
-	{
+	private void RecordsOrbitalEccentricity_Click(object sender, EventArgs e) =>
 		// Show the top ten records form for orbital eccentricity
 		ShowRecordsTop10(selectedElement: "Orbital eccentricity");
-	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsMeanDailyMotion. Shows the top ten records form for mean daily motion.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the top ten records form for mean daily motion.</remarks>
-	private void RecordsMeanDailyMotion_Click(object sender, EventArgs e)
-	{
+	private void RecordsMeanDailyMotion_Click(object sender, EventArgs e) =>
 		// Show the top ten records form for mean daily motion
 		ShowRecordsTop10(selectedElement: "Mean daily motion");
-	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsSemiMajorAxis. Shows the top ten records form for semi-major axis.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the top ten records form for semi-major axis.</remarks>
-	private void RecordsSemiMajorAxis_Click(object sender, EventArgs e)
-	{
+	private void RecordsSemiMajorAxis_Click(object sender, EventArgs e) =>
 		// Show the top ten records form for semi-major axis
 		ShowRecordsTop10(selectedElement: "Semi-major axis");
-	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsAbsoluteMagnitude. Shows the top ten records form for absolute magnitude.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the top ten records form for absolute magnitude.</remarks>
-	private void RecordsAbsoluteMagnitude_Click(object sender, EventArgs e)
-	{
+	private void RecordsAbsoluteMagnitude_Click(object sender, EventArgs e) =>
 		// Show the top ten records form for absolute magnitude
 		ShowRecordsTop10(selectedElement: "Absolute magnitude");
-	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsSlopeParameter. Shows the top ten records form for slope parameter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the top ten records form for slope parameter.</remarks>
-	private void RecordsSlopeParameter_Click(object sender, EventArgs e)
-	{
+	private void RecordsSlopeParameter_Click(object sender, EventArgs e) =>
 		// Show the top ten records form for slope parameter
 		ShowRecordsTop10(selectedElement: "Slope parameter");
-	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsNumberOfOppositions. Shows the top ten records form for number of oppositions.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the top ten records form for number of oppositions.</remarks>
-	private void RecordsNumberOfOppositions_Click(object sender, EventArgs e)
-	{
+	private void RecordsNumberOfOppositions_Click(object sender, EventArgs e) =>
 		// Show the top ten records form for number of oppositions
 		ShowRecordsTop10(selectedElement: "Number of oppositions");
-	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsNumberOfObservations. Shows the top ten records form for number of observations.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the top ten records form for number of observations.</remarks>
-	private void RecordsNumberOfObservations_Click(object sender, EventArgs e)
-	{
+	private void RecordsNumberOfObservations_Click(object sender, EventArgs e) =>
 		// Show the top ten records form for number of observations
 		ShowRecordsTop10(selectedElement: "Number of observations");
-	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsRmsResidual. Shows the top ten records form for RMS residual.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the top ten records form for RMS residual.</remarks>
-	private void RecordsRmsResidual_Click(object sender, EventArgs e)
-	{
+	private void RecordsRmsResidual_Click(object sender, EventArgs e) =>
 		// Show the top ten records form for RMS residual
 		ShowRecordsTop10(selectedElement: "r.m.s. residual");
-	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemDistributionMeanAnomalyAtTheEpoch. Shows the distribution form for mean anomaly at the epoch.</summary>
 	/// <param name="sender">The event source.</param>

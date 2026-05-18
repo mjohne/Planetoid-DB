@@ -52,6 +52,15 @@
     <Compile Update="Forms\ListReadableDesignationsForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\MaxoidsOfAllMinorPlanetsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\MaxoidsOfOneMinorPlanetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\MaxoidsRelativeToMinorPlanetsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\MoidsOfAllMinorPlanetsForm.cs">
       <SubType>Form</SubType>
     </Compile>
