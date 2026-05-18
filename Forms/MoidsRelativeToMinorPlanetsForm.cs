@@ -11,7 +11,7 @@ using System.Globalization;
 
 namespace Planetoid_DB;
 
-/// <summary>Form for calculating the Minimum Orbit Intersection Distance (MOID) between two minor planets selected by the user from the loaded MPCORB database.</summary>
+/// <summary>Form for calculating the Maximum Orbit Intersection Distance (MOID) between two minor planets selected by the user from the loaded MPCORB database.</summary>
 /// <remarks>The form presents two combo boxes populated with all planetoid designations from the loaded database. A random-selection button next to each combo box picks a random entry. The MOID between the two selected planetoids is computed using the same double-grid search algorithm as <see cref="MoidCalculator"/> and displayed in a label below the combo boxes. The calculation is triggered automatically whenever the selection in either combo box changes.</remarks>
 // You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
@@ -284,19 +284,34 @@ public partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <param name="sender">Event source (one of the two combo boxes).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is triggered when the user changes the selection in either combo box. It calls the method to calculate and display the MOID based on the current selections.</remarks>
+	/// <summary>Handles the SelectionChangeCommitted event for either planetoid combo box and recalculates the MOID.</summary>
+	/// <param name="sender">Event source (one of the planetoid combo boxes).</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	private void ComboBoxPlanetoid_SelectionChangeCommitted(object sender, EventArgs e) => CalculateAndDisplayMoid();
+
+	/// <summary>Refreshes the displayed MOID state after either combo box text changes.</summary>
+	/// <remarks>This ensures that manual typing or pasting updates the displayed result consistently: a valid pair is recalculated, while any invalid text clears a previously displayed stale MOID via <see cref="CalculateAndDisplayMoid"/>.</remarks>
+	private void RecalculateMoidIfBothPlanetoidsAreValid() => CalculateAndDisplayMoid();
 
 	/// <summary>Handles the TextChanged event for the first combo box. Applies a contains-based filter to the first combo box items.</summary>
 	/// <param name="sender">Event source (the first combo box).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is triggered whenever the text in the first combo box changes. It applies a filter to the items in the combo box so that only names containing the current text (case-insensitive) are shown. The cursor is repositioned at the end of the typed text after the update.</remarks>
-	private void ComboBoxPlanetoid1_TextChanged(object sender, EventArgs e) => ApplyContainsFilter(comboBox: comboBoxPlanetoid1);
+	/// <remarks>This method is triggered whenever the text in the first combo box changes. It applies a filter to the items in the combo box so that only names containing the current text (case-insensitive) are shown. The cursor is repositioned at the end of the typed text after the update. If both combo boxes contain valid designations after filtering, the MOID is recalculated.</remarks>
+	private void ComboBoxPlanetoid1_TextChanged(object sender, EventArgs e)
+	{
+		ApplyContainsFilter(comboBox: comboBoxPlanetoid1);
+		RecalculateMoidIfBothPlanetoidsAreValid();
+	}
 
 	/// <summary>Handles the TextChanged event for the second combo box. Applies a contains-based filter to the second combo box items.</summary>
 	/// <param name="sender">Event source (the second combo box).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is triggered whenever the text in the second combo box changes. It applies a filter to the items in the combo box so that only names containing the current text (case-insensitive) are shown. The cursor is repositioned at the end of the typed text after the update.</remarks>
-	private void ComboBoxPlanetoid2_TextChanged(object sender, EventArgs e) => ApplyContainsFilter(comboBox: comboBoxPlanetoid2);
+	/// <remarks>This method is triggered whenever the text in the second combo box changes. It applies a filter to the items in the combo box so that only names containing the current text (case-insensitive) are shown. The cursor is repositioned at the end of the typed text after the update. If both combo boxes contain valid designations after filtering, the MOID is recalculated.</remarks>
+	private void ComboBoxPlanetoid2_TextChanged(object sender, EventArgs e)
+	{
+		ApplyContainsFilter(comboBox: comboBoxPlanetoid2);
+		RecalculateMoidIfBothPlanetoidsAreValid();
+	}
 
 	/// <summary>Handles the Click event of the random-selection button for the first combo box. Picks a random entry from the first combo box and triggers a MOID recalculation.</summary>
 	/// <param name="sender">Event source (the first random button).</param>
