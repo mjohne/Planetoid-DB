@@ -289,18 +289,9 @@ public partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	private void ComboBoxPlanetoid_SelectionChangeCommitted(object sender, EventArgs e) => CalculateAndDisplayMaxoid();
 
-	/// <summary>Recalculates the MAXOID when both combo boxes contain valid planetoid designations.</summary>
-	/// <remarks>This prevents manual typing or pasting of a full valid designation from updating only the filtered list without refreshing the displayed MAXOID.</remarks>
-	private void RecalculateMaxoidIfBothPlanetoidsAreValid()
-	{
-		bool isPlanetoid1Valid = _allNames.Contains(value: comboBoxPlanetoid1.Text, comparer: StringComparer.OrdinalIgnoreCase);
-		bool isPlanetoid2Valid = _allNames.Contains(value: comboBoxPlanetoid2.Text, comparer: StringComparer.OrdinalIgnoreCase);
-
-		if (isPlanetoid1Valid && isPlanetoid2Valid)
-		{
-			CalculateAndDisplayMaxoid();
-		}
-	}
+	/// <summary>Refreshes the displayed MAXOID state after either combo box text changes.</summary>
+	/// <remarks>This ensures that manual typing or pasting updates the displayed result consistently: a valid pair is recalculated, while any invalid text clears a previously displayed stale MAXOID via <see cref="CalculateAndDisplayMaxoid"/>.</remarks>
+	private void RecalculateMaxoidIfBothPlanetoidsAreValid() => CalculateAndDisplayMaxoid();
 
 	/// <summary>Handles the TextChanged event for the first combo box. Applies a contains-based filter to the first combo box items.</summary>
 	/// <param name="sender">Event source (the first combo box).</param>
