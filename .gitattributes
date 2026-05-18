@@ -2,7 +2,6 @@
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
 * text=auto
-* end_of_line = crlf
 * insert_final_newline = false
 
 ###############################################################################
