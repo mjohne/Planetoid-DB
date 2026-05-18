@@ -1,5 +1,22 @@
 # Changelog
 
+## Planetoid-DB 0.9.3.66
+
+* Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/692
+* Updated `CHANGELOG` for version 0.9.2.65 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/693
+* Add `Helpers/MaxoidCalculator.cs` (Maximum Orbit Intersection Distance) by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/699
+* Added `MaxoidsOfOneMinorPlanetForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/701
+* Added `MaxoidsOfAllMinorPlanetsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/702
+* Added `MaxoidsRelativeToMinorPlanetsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/703
+* Refactored `MaxoidsRelativeToMinorPlanetsForm` implementation by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/704
+* Refactored `MoidsRelativeToMinorPlanetsForm` implementation by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/705
+* Integrated the MAXOID calculation into `PlanetoidDBForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/706
+* Updated to version 0.9.3.66 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/707
+* Created `.gitattributes` for line endings and diffs by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/708
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.2.65.690.2279...0.9.3.66.708.2308
+
+
 ## Planetoid-DB 0.9.2.65
 
 * Updated image source in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/679
