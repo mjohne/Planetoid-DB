@@ -643,6 +643,7 @@ partial class MaxoidsOfOneMinorPlanetForm
 		tableLayoutPanel.ColumnCount = 2;
 		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
 		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+		tableLayoutPanel.ContextMenuStrip = contextMenuSaveToFile;
 		tableLayoutPanel.Controls.Add(labelMercuryDesc, 0, 0);
 		tableLayoutPanel.Controls.Add(labelMercuryData, 1, 0);
 		tableLayoutPanel.Controls.Add(labelVenusDesc, 0, 1);
@@ -1303,6 +1304,7 @@ partial class MaxoidsOfOneMinorPlanetForm
 		contextMenuFullCopyToClipboard.Font = new Font("Segoe UI", 9F);
 		contextMenuFullCopyToClipboard.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardMaxoidRelativeToMercury, menuitemCopyToClipboardMaxoidRelativeToVenus, menuitemCopyToClipboardMaxoidRelativeToEarth, menuitemCopyToClipboardMaxoidRelativeToMars, menuitemCopyToClipboardMaxoidRelativeToJupiter, menuitemCopyToClipboardMaxoidRelativeToSaturn, menuitemCopyToClipboardMaxoidRelativeToUranus, menuitemCopyToClipboardMaxoidRelativeToNeptune });
 		contextMenuFullCopyToClipboard.Name = "Context menu for copying MAXOID values to the clipboard";
+		contextMenuFullCopyToClipboard.OwnerItem = toolStripDropDownButtonCopyToClipboard;
 		contextMenuFullCopyToClipboard.Size = new Size(121, 180);
 		contextMenuFullCopyToClipboard.Text = "Copy to clipboard";
 		contextMenuFullCopyToClipboard.Enter += Control_Enter;

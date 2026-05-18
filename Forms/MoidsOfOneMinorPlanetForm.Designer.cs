@@ -643,6 +643,7 @@ partial class MoidsOfOneMinorPlanetForm
 		tableLayoutPanel.ColumnCount = 2;
 		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
 		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+		tableLayoutPanel.ContextMenuStrip = contextMenuSaveToFile;
 		tableLayoutPanel.Controls.Add(labelMercuryDesc, 0, 0);
 		tableLayoutPanel.Controls.Add(labelMercuryData, 1, 0);
 		tableLayoutPanel.Controls.Add(labelVenusDesc, 0, 1);
@@ -1303,6 +1304,7 @@ partial class MoidsOfOneMinorPlanetForm
 		contextMenuFullCopyToClipboard.Font = new Font("Segoe UI", 9F);
 		contextMenuFullCopyToClipboard.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardMoidRelativeToMercury, menuitemCopyToClipboardMoidRelativeToVenus, menuitemCopyToClipboardMoidRelativeToEarth, menuitemCopyToClipboardMoidRelativeToMars, menuitemCopyToClipboardMoidRelativeToJupiter, menuitemCopyToClipboardMoidRelativeToSaturn, menuitemCopyToClipboardMoidRelativeToUranus, menuitemCopyToClipboardMoidRelativeToNeptune });
 		contextMenuFullCopyToClipboard.Name = "Context menu for copying MOID values to the clipboard";
+		contextMenuFullCopyToClipboard.OwnerItem = toolStripDropDownButtonCopyToClipboard;
 		contextMenuFullCopyToClipboard.Size = new Size(121, 180);
 		contextMenuFullCopyToClipboard.Text = "Copy to clipboard";
 		contextMenuFullCopyToClipboard.Enter += Control_Enter;
