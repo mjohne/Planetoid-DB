@@ -284,19 +284,43 @@ public partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <param name="sender">Event source (one of the two combo boxes).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is triggered when the user changes the selection in either combo box. It calls the method to calculate and display the MAXOID based on the current selections.</remarks>
+	/// <summary>Handles the SelectionChangeCommitted event for either planetoid combo box and recalculates the MAXOID.</summary>
+	/// <param name="sender">Event source (one of the planetoid combo boxes).</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	private void ComboBoxPlanetoid_SelectionChangeCommitted(object sender, EventArgs e) => CalculateAndDisplayMaxoid();
+
+	/// <summary>Recalculates the MAXOID when both combo boxes contain valid planetoid designations.</summary>
+	/// <remarks>This prevents manual typing or pasting of a full valid designation from updating only the filtered list without refreshing the displayed MAXOID.</remarks>
+	private void RecalculateMaxoidIfBothPlanetoidsAreValid()
+	{
+		bool isPlanetoid1Valid = _allNames.Contains(value: comboBoxPlanetoid1.Text, comparer: StringComparer.OrdinalIgnoreCase);
+		bool isPlanetoid2Valid = _allNames.Contains(value: comboBoxPlanetoid2.Text, comparer: StringComparer.OrdinalIgnoreCase);
+
+		if (isPlanetoid1Valid && isPlanetoid2Valid)
+		{
+			CalculateAndDisplayMaxoid();
+		}
+	}
 
 	/// <summary>Handles the TextChanged event for the first combo box. Applies a contains-based filter to the first combo box items.</summary>
 	/// <param name="sender">Event source (the first combo box).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is triggered whenever the text in the first combo box changes. It applies a filter to the items in the combo box so that only names containing the current text (case-insensitive) are shown. The cursor is repositioned at the end of the typed text after the update.</remarks>
-	private void ComboBoxPlanetoid1_TextChanged(object sender, EventArgs e) => ApplyContainsFilter(comboBox: comboBoxPlanetoid1);
+	/// <remarks>This method is triggered whenever the text in the first combo box changes. It applies a filter to the items in the combo box so that only names containing the current text (case-insensitive) are shown. The cursor is repositioned at the end of the typed text after the update. If both combo boxes contain valid designations after filtering, the MAXOID is recalculated.</remarks>
+	private void ComboBoxPlanetoid1_TextChanged(object sender, EventArgs e)
+	{
+		ApplyContainsFilter(comboBox: comboBoxPlanetoid1);
+		RecalculateMaxoidIfBothPlanetoidsAreValid();
+	}
 
 	/// <summary>Handles the TextChanged event for the second combo box. Applies a contains-based filter to the second combo box items.</summary>
 	/// <param name="sender">Event source (the second combo box).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is triggered whenever the text in the second combo box changes. It applies a filter to the items in the combo box so that only names containing the current text (case-insensitive) are shown. The cursor is repositioned at the end of the typed text after the update.</remarks>
-	private void ComboBoxPlanetoid2_TextChanged(object sender, EventArgs e) => ApplyContainsFilter(comboBox: comboBoxPlanetoid2);
+	/// <remarks>This method is triggered whenever the text in the second combo box changes. It applies a filter to the items in the combo box so that only names containing the current text (case-insensitive) are shown. The cursor is repositioned at the end of the typed text after the update. If both combo boxes contain valid designations after filtering, the MAXOID is recalculated.</remarks>
+	private void ComboBoxPlanetoid2_TextChanged(object sender, EventArgs e)
+	{
+		ApplyContainsFilter(comboBox: comboBoxPlanetoid2);
+		RecalculateMaxoidIfBothPlanetoidsAreValid();
+	}
 
 	/// <summary>Handles the Click event of the random-selection button for the first combo box. Picks a random entry from the first combo box and triggers a MAXOID recalculation.</summary>
 	/// <param name="sender">Event source (the first random button).</param>
