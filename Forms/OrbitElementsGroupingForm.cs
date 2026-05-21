@@ -1,712 +1,638 @@
-// This file is used by Code Analysis to maintain SuppressMessage
-// attributes that are applied to this project.
-// Project-level suppressions either have no target or are given
-// a specific target and scoped to a namespace, type, member, etc.
 using Krypton.Toolkit;
 
 using NLog;
 
 using Planetoid_DB.Helpers;
 
+using ScottPlot;
 using System.Diagnostics;
 using System.Globalization;
-using System.Text;
 
 namespace Planetoid_DB.Forms;
 
-/// <summary>Form to analyze and group planetoids based on common orbital element ranges.</summary>
-/// <remarks>This form provides functionality to group planetoids based on their orbital elements, allowing for analysis of patterns and similarities.</remarks>
-// You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
+/// <summary>Displays a histogram of counted planetoids for a selected orbital element or derived property.</summary>
+/// <remarks>The form groups planetoids into selectable ranges, renders the distribution as a ScottPlot bar chart, and mirrors the counted bins in a tabular ListView. Users can optionally request live updates while the background counting operation is running.</remarks>
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class OrbitElementsGroupingForm : BaseKryptonForm
 {
-	/// <summary>NLog logger instance.</summary>
-	/// <remarks>This logger is used throughout the form to log important events and errors.</remarks>
-	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+/// <summary>NLog logger instance.</summary>
+/// <remarks>This logger is used to record errors and cancellation events from the histogram generation workflow.</remarks>
+private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>Gets the status label used for displaying information in the status bar.</summary>
-	/// <remarks>Overrides the base class property to return the form-specific status label.</remarks>
-	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
+/// <summary>Gets the status label used for displaying information in the status bar.</summary>
+/// <remarks>Overrides the base class property to return the form-specific status label.</remarks>
+protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
-	/// <summary>The list of planetoid string records to process.</summary>
-	/// <remarks>This list is provided during the form's initialization and is used for grouping operations.</remarks>
-	private readonly IReadOnlyList<string> _planetoids;
+/// <summary>Stores the source MPCORB records passed in by the main form.</summary>
+/// <remarks>A local copy of the required raw data is supplied by the main program so this form can generate its histogram independently.</remarks>
+private readonly IReadOnlyList<string> _planetoids;
 
-	/// <summary>Stores the source used to issue cancellation requests for asynchronous operations.</summary>
-	/// <remarks>This field holds a reference to a CancellationTokenSource, which can be used to signal cancellation to one or more tasks. If null, no cancellation source is currently assigned.</remarks>
-	private CancellationTokenSource? _cancellationTokenSource;
+/// <summary>Stores the currently running cancellation token source.</summary>
+/// <remarks>This field is non-null only while histogram creation is in progress.</remarks>
+private CancellationTokenSource? _cancellationTokenSource;
 
-	/// <summary>Represents immutable data for a planetoid, including its identifier, name, and associated orbital elements.</summary>
-	/// <param name="Index">The unique identifier or catalog index for the planetoid.</param>
-	/// <param name="Name">The name of the planetoid.</param>
-	/// <param name="Elements">An array of double values representing the orbital elements of the planetoid. The array must not be null.</param>
-	/// <remarks>This record is used to store and manage the relevant data for each planetoid during the grouping process. The Elements array typically includes values such as mean anomaly, argument of perihelion, longitude of ascending node, inclination, orbital eccentricity, motion, and semi-major axis.</remarks>
-	private record PlanetoidData(string Index, string Name, double[] Elements);
+/// <summary>Stores the currently displayed histogram results.</summary>
+/// <remarks>The list is refreshed whenever the diagram and the ListView are updated.</remarks>
+private List<HistogramBinResult> _currentResults = [];
 
-	#region Constructor
+/// <summary>Represents one selectable histogram step size.</summary>
+/// <param name="Value">The numeric width of a single histogram bin.</param>
+/// <param name="DisplayText">The text shown in the step-size drop-down.</param>
+/// <remarks>The display text is used directly by the ComboBox, so <see cref="ToString"/> returns <see cref="DisplayText"/>.</remarks>
+private sealed record StepOption(double Value, string DisplayText)
+{
+/// <summary>Returns the display text shown inside ComboBox controls.</summary>
+/// <returns>The preformatted step-size label.</returns>
+public override string ToString() => DisplayText;
+}
 
-	/// <summary>Initializes a new instance of the <see cref="OrbitElementsGroupingForm"/> class.</summary>
-	/// <param name="planetoids">The planetoid string records to process from the database.</param>
-	/// <remarks>Initializes the form and sets up necessary data for grouping operations.</remarks>
-	public OrbitElementsGroupingForm(IReadOnlyList<string> planetoids)
-	{
-		// Log the initialization of the form with the count of planetoids provided
-		InitializeComponent();
-		_planetoids = planetoids;
-		logger.Info(message: "OrbitElementsGroupingForm initialized with {0} planetoids.", argument: _planetoids.Count);
-	}
+/// <summary>Represents one selectable histogram definition.</summary>
+/// <param name="DisplayName">The user-facing name of the orbital element or property.</param>
+/// <param name="AxisLabel">The x-axis label for the chart.</param>
+/// <param name="UnitSuffix">The optional unit suffix used in formatted values.</param>
+/// <param name="StepOptions">The meaningful step sizes offered for the definition.</param>
+/// <param name="ValueSelector">The callback used to extract the numeric value from a raw MPCORB line.</param>
+/// <remarks>The definition centralizes presentation metadata and parsing logic for one histogram mode.</remarks>
+private sealed record HistogramDefinition(
+string DisplayName,
+string AxisLabel,
+string UnitSuffix,
+IReadOnlyList<StepOption> StepOptions,
+Func<string, double?> ValueSelector)
+{
+/// <summary>Returns the display text shown inside ComboBox controls.</summary>
+/// <returns>The histogram definition name.</returns>
+public override string ToString() => DisplayName;
+}
 
-	#endregion
+/// <summary>Represents one counted histogram range.</summary>
+/// <param name="Start">The inclusive lower range boundary.</param>
+/// <param name="End">The exclusive upper range boundary.</param>
+/// <param name="Count">The number of planetoids inside the range.</param>
+/// <remarks>Histogram rows are sorted by their range start value before being displayed.</remarks>
+private sealed record HistogramBinResult(double Start, double End, int Count);
 
-	#region helper methods
+#region Constructor
 
-	/// <summary>Returns a short debugger display string for this instance.</summary>
-	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
-	private string GetDebuggerDisplay() => ToString();
+/// <summary>Initializes a new instance of the <see cref="OrbitElementsGroupingForm"/> class.</summary>
+/// <param name="planetoids">The planetoid string records to process from the database.</param>
+/// <remarks>The main form passes the necessary raw MPCORB data to this dialog so the histogram can be generated without directly accessing shared UI state.</remarks>
+public OrbitElementsGroupingForm(IReadOnlyList<string> planetoids)
+{
+InitializeComponent();
+_planetoids = planetoids;
+InitializeSelections();
+UpdateRunningState(isRunning: false);
+ResetDisplayedResults();
+logger.Info(message: "OrbitElementsGroupingForm initialized with {0} planetoids.", argument: _planetoids.Count);
+}
 
-	/// <summary>Retrieves the name of the orbital element corresponding to the specified index.</summary>
-	/// <remarks>The method maps specific indices to standard orbital element names. If an index outside the range 0–6 is provided, the method returns "Unknown".</remarks>
-	/// <param name="index">The zero-based index of the orbital element. Valid values are 0 through 6.</param>
-	/// <returns>A string representing the name of the orbital element for the given index, or "Unknown" if the index is not recognized.</returns>
-	private static string GetElementName(int index) => index switch
-	{
-		// Map the indices to their corresponding orbital element names. This mapping is based on the order of elements as they are parsed from the planetoid data.
-		0 => "MeanAnomaly",
-		1 => "ArgPeri",
-		2 => "LongAscNode",
-		3 => "Incl",
-		4 => "OrbEcc",
-		5 => "Motion",
-		6 => "SemiMajorAxis",
-		_ => "Unknown"
-	};
+#endregion
 
-	/// <summary>Prepares the save dialog for exporting data.</summary>
-	/// <param name="dialog">The file dialog to prepare.</param>
-	/// <param name="ext">The file extension.</param>
-	/// <returns>True if the dialog was shown successfully; otherwise, false.</returns>
-	/// <remarks>This method is used to prepare the save dialog for exporting data.</remarks>
-	private static bool PrepareSaveDialog(FileDialog dialog, string ext)
-	{
-		// Set up the save dialog properties
-		dialog.InitialDirectory = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyDocuments);
-		// Set default file name
-		dialog.FileName = $"Orbit-Elements-Grouping_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.{ext}";
-		// Show the dialog and return the result
-		return dialog.ShowDialog() == DialogResult.OK;
-	}
+#region Helper methods
 
-	/// <summary>Performs the save export operation by displaying a save dialog and invoking the specified export action.</summary>
-	/// <param name="filter">The file type filter for the save dialog.</param>
-	/// <param name="defaultExt">The default file extension.</param>
-	/// <param name="dialogTitle">The title of the save dialog.</param>
-	/// <param name="exportAction">The export action to invoke with the text box, title, and file name.</param>
-	/// <remarks>This method encapsulates the logic for displaying a save dialog and performing the export action based on the user's selection. It handles the preparation of the dialog, execution of the export action, and manages the cursor state during the operation.</remarks>
-	private void PerformSaveExport(string filter, string defaultExt, string dialogTitle, Action<TextBox, string, string> exportAction)
-	{
-		// Create and configure the save file dialog with the specified filter, default extension, and title. The dialog allows the user to choose where to save the exported file and what name to give it.
-		using SaveFileDialog saveFileDialog = new()
-		{
-			Filter = filter,
-			DefaultExt = defaultExt,
-			Title = dialogTitle
-		};
-		// Prepare and show the save dialog. If the user cancels the dialog, the method returns without performing any export action.
-		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: defaultExt))
-		{
-			return;
-		}
-		// If the user selects a file and confirms the dialog, set the cursor to a wait cursor to indicate that an operation is in progress, and then invoke the specified export action with the text box containing the output, the title for the export, and the selected file name. After the export action is completed, reset the cursor to the default state.
-		try
-		{
-			Cursor.Current = Cursors.WaitCursor;
-			exportAction(kryptonTextBoxOutput.TextBox, "Orbit Elements Grouping", saveFileDialog.FileName);
-		}
-		// Handle any exceptions that may occur during the export action
-		catch (Exception ex)
-		{
-			logger.Error(message: $"An error occurred during export: {ex}");
-			ShowErrorMessage(message: $"An error has occurred during export: {ex.Message}");
-		}
-		// In the finally block, ensure that the cursor is reset to the default state regardless of whether the export action succeeds or fails. This ensures that the user interface remains responsive and provides appropriate feedback to the user.
-		finally
-		{
-			Cursor.Current = Cursors.Default;
-		}
-	}
+/// <summary>Returns a short debugger display string for this instance.</summary>
+/// <returns>A string representation of the current instance for use in the debugger.</returns>
+private string GetDebuggerDisplay() => ToString();
 
-	/// <summary>Generates all possible combinations of a specified length from the provided array of elements.</summary>
-	/// <remarks>The order of elements within each combination matches their order in the input array. The method does not return duplicate combinations. If k is 0, a single empty combination is returned.</remarks>
-	/// <param name="elements">The array of elements from which combinations are generated. Cannot be null.</param>
-	/// <param name="k">The number of elements in each combination. Must be between 0 and the length of the elements array, inclusive.</param>
-	/// <returns>A list of integer arrays, where each array represents a unique combination of k elements from the input array. Returns an empty list if no combinations are possible.</returns>
-	private static List<int[]> GetKCombinations(int[] elements, int k)
-	{
-		// Validate input parameters to ensure they are within acceptable ranges. If k is less than 0 or greater than the length of the elements array, an ArgumentException is thrown.
-		if (k == 0)
-		{
-			return [.. new[] { Array.Empty<int>() }];
-		}
-		// If the elements array is empty, return an empty list of combinations, as no combinations can be generated from an empty set.
-		if (elements.Length == 0)
-		{
-			return [.. Array.Empty<int[]>()];
-		}
-		// If the number of elements in the input array matches k, return a single combination that includes all elements. This is a base case for the recursive generation of combinations.
-		if (elements.Length == k)
-		{
-			return [.. new[] { elements }];
-		}
-		// Initialize a list to hold the resulting combinations. The method uses a recursive approach to generate combinations that include the first element of the input array, as well as combinations that do not include the first element.
-		List<int[]> result = [];
-		// Generate combinations that include the first element of the input array. For each combination generated from the remaining elements (with k reduced by 1), a new combination is created by adding the first element to the front of the combination. This is done using a foreach loop that iterates through the combinations generated from the recursive call.
-		foreach ((int[]? c, int[]? res) in
-			from c in GetKCombinations(elements: [.. elements.Skip(count: 1)], k: k - 1)
-			let res = new int[k]
-			select (c, res))
-		{
-			// For each combination generated from the recursive call, create a new combination that includes the first element of the input array. The first element is assigned to the first position of the new combination array, and the rest of the elements are copied from the combination generated by the recursive call. This new combination is then added to the result list.
-			res[0] = elements[0];
-			Array.Copy(sourceArray: c, sourceIndex: 0, destinationArray: res, destinationIndex: 1, length: k - 1);
-			result.Add(item: res);
-		}
-		// Generate combinations that do not include the first element of the input array by making a recursive call to GetKCombinations with the remaining elements and the same value of k. The resulting combinations are added to the result list.
-		result.AddRange(collection: GetKCombinations(elements: [.. elements.Skip(count: 1)], k: k));
-		// Return the list of generated combinations. Each combination is represented as an array of integers, where the integers correspond to the indices of the orbital elements being analyzed for grouping.
-		return result;
-	}
+/// <summary>Creates all histogram definitions supported by the form.</summary>
+/// <returns>A list of selectable histogram definitions.</returns>
+/// <remarks>The selectable items include directly stored orbital elements and a few useful derived properties computed from semi-major axis and eccentricity.</remarks>
+private static List<HistogramDefinition> CreateHistogramDefinitions() =>
+[
+new HistogramDefinition(
+DisplayName: "Semi-major axis",
+AxisLabel: "Semi-major axis (AU)",
+UnitSuffix: " AU",
+StepOptions:
+[
+new StepOption(Value: 0.1, DisplayText: "0.1 AU"),
+new StepOption(Value: 0.25, DisplayText: "0.25 AU"),
+new StepOption(Value: 0.5, DisplayText: "0.5 AU"),
+new StepOption(Value: 1.0, DisplayText: "1 AU"),
+new StepOption(Value: 2.0, DisplayText: "2 AU")
+],
+ValueSelector: static line => TryParseSemiMajorAxis(line: line, value: out double value) ? value : null),
+new HistogramDefinition(
+DisplayName: "Eccentricity",
+AxisLabel: "Eccentricity",
+UnitSuffix: string.Empty,
+StepOptions:
+[
+new StepOption(Value: 0.01, DisplayText: "0.01"),
+new StepOption(Value: 0.05, DisplayText: "0.05"),
+new StepOption(Value: 0.1, DisplayText: "0.1"),
+new StepOption(Value: 0.2, DisplayText: "0.2")
+],
+ValueSelector: static line => TryParseEccentricity(line: line, value: out double value) ? value : null),
+new HistogramDefinition(
+DisplayName: "Inclination",
+AxisLabel: "Inclination (°)",
+UnitSuffix: "°",
+StepOptions:
+[
+new StepOption(Value: 1.0, DisplayText: "1°"),
+new StepOption(Value: 2.0, DisplayText: "2°"),
+new StepOption(Value: 5.0, DisplayText: "5°"),
+new StepOption(Value: 10.0, DisplayText: "10°")
+],
+ValueSelector: static line => TryParseInclination(line: line, value: out double value) ? value : null),
+new HistogramDefinition(
+DisplayName: "Mean anomaly",
+AxisLabel: "Mean anomaly (°)",
+UnitSuffix: "°",
+StepOptions:
+[
+new StepOption(Value: 5.0, DisplayText: "5°"),
+new StepOption(Value: 10.0, DisplayText: "10°"),
+new StepOption(Value: 15.0, DisplayText: "15°"),
+new StepOption(Value: 30.0, DisplayText: "30°")
+],
+ValueSelector: static line => TryParseMeanAnomaly(line: line, value: out double value) ? value : null),
+new HistogramDefinition(
+DisplayName: "Argument of perihelion",
+AxisLabel: "Argument of perihelion (°)",
+UnitSuffix: "°",
+StepOptions:
+[
+new StepOption(Value: 5.0, DisplayText: "5°"),
+new StepOption(Value: 10.0, DisplayText: "10°"),
+new StepOption(Value: 15.0, DisplayText: "15°"),
+new StepOption(Value: 30.0, DisplayText: "30°")
+],
+ValueSelector: static line => TryParseArgumentOfPerihelion(line: line, value: out double value) ? value : null),
+new HistogramDefinition(
+DisplayName: "Longitude of ascending node",
+AxisLabel: "Longitude of ascending node (°)",
+UnitSuffix: "°",
+StepOptions:
+[
+new StepOption(Value: 5.0, DisplayText: "5°"),
+new StepOption(Value: 10.0, DisplayText: "10°"),
+new StepOption(Value: 15.0, DisplayText: "15°"),
+new StepOption(Value: 30.0, DisplayText: "30°")
+],
+ValueSelector: static line => TryParseLongitudeOfAscendingNode(line: line, value: out double value) ? value : null),
+new HistogramDefinition(
+DisplayName: "Mean daily motion",
+AxisLabel: "Mean daily motion (°/day)",
+UnitSuffix: " °/day",
+StepOptions:
+[
+new StepOption(Value: 0.05, DisplayText: "0.05 °/day"),
+new StepOption(Value: 0.1, DisplayText: "0.1 °/day"),
+new StepOption(Value: 0.25, DisplayText: "0.25 °/day"),
+new StepOption(Value: 0.5, DisplayText: "0.5 °/day")
+],
+ValueSelector: static line => TryParseMeanDailyMotion(line: line, value: out double value) ? value : null),
+new HistogramDefinition(
+DisplayName: "Perihelion distance",
+AxisLabel: "Perihelion distance (AU)",
+UnitSuffix: " AU",
+StepOptions:
+[
+new StepOption(Value: 0.1, DisplayText: "0.1 AU"),
+new StepOption(Value: 0.25, DisplayText: "0.25 AU"),
+new StepOption(Value: 0.5, DisplayText: "0.5 AU"),
+new StepOption(Value: 1.0, DisplayText: "1 AU")
+],
+ValueSelector: static line => TryParsePerihelionDistance(line: line, value: out double value) ? value : null),
+new HistogramDefinition(
+DisplayName: "Aphelion distance",
+AxisLabel: "Aphelion distance (AU)",
+UnitSuffix: " AU",
+StepOptions:
+[
+new StepOption(Value: 0.1, DisplayText: "0.1 AU"),
+new StepOption(Value: 0.25, DisplayText: "0.25 AU"),
+new StepOption(Value: 0.5, DisplayText: "0.5 AU"),
+new StepOption(Value: 1.0, DisplayText: "1 AU"),
+new StepOption(Value: 2.0, DisplayText: "2 AU")
+],
+ValueSelector: static line => TryParseAphelionDistance(line: line, value: out double value) ? value : null),
+new HistogramDefinition(
+DisplayName: "Orbital period",
+AxisLabel: "Orbital period (years)",
+UnitSuffix: " years",
+StepOptions:
+[
+new StepOption(Value: 0.5, DisplayText: "0.5 years"),
+new StepOption(Value: 1.0, DisplayText: "1 year"),
+new StepOption(Value: 2.0, DisplayText: "2 years"),
+new StepOption(Value: 5.0, DisplayText: "5 years")
+],
+ValueSelector: static line => TryParseOrbitalPeriod(line: line, value: out double value) ? value : null)
+];
 
-	#endregion
+/// <summary>Initializes the selectable orbital element and step-size drop-downs.</summary>
+/// <remarks>The step-size list is rebuilt automatically whenever the selected orbital element changes.</remarks>
+private void InitializeSelections()
+{
+toolStripComboBoxOrbitElement.Items.Clear();
+foreach (HistogramDefinition definition in CreateHistogramDefinitions())
+{
+_ = toolStripComboBoxOrbitElement.Items.Add(value: definition);
+}
+if (toolStripComboBoxOrbitElement.Items.Count > 0)
+{
+toolStripComboBoxOrbitElement.SelectedIndex = 0;
+}
+}
 
-	#region Task handlers
+/// <summary>Gets the currently selected histogram definition.</summary>
+/// <returns>The selected histogram definition, or <see langword="null"/> if none is selected.</returns>
+private HistogramDefinition? GetSelectedDefinition() => toolStripComboBoxOrbitElement.SelectedItem as HistogramDefinition;
 
-	/// <summary>Performs asynchronous grouping of planetoid data based on specified orbital element combinations and a tolerance threshold, reporting progress and status messages throughout the operation.</summary>
-	/// <remarks>This method parses planetoid data, generates all possible combinations of the specified number of orbital elements, and groups planetoids whose elements are within the given tolerance. Progress and status messages are reported throughout the process. If the operation is canceled, a cancellation message is reported. Any errors encountered during processing are also reported via the message progress interface.</remarks>
-	/// <param name="elementsCount">The number of orbital elements to use when generating combinations for grouping. Must be between 1 and the total number of available elements.</param>
-	/// <param name="tolerancePercent">The tolerance, as a percentage, used to determine whether planetoid elements are considered similar for grouping purposes. Must be a non-negative value.</param>
-	/// <param name="progress">An object that receives progress updates as integer percentage values representing the overall completion of the operation.</param>
-	/// <param name="messageProgress">An object that receives status or informational messages about the current stage of processing.</param>
-	/// <param name="cancellationToken">A token that can be used to request cancellation of the operation. If cancellation is requested, the method will terminate early.</param>
-	/// <returns>A task that represents the asynchronous grouping operation.</returns>
-	/// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="elementsCount"/> is less than 1, greater than the number of available orbital elements, or when <paramref name="tolerancePercent"/> is negative.</exception>
-	/// <exception cref="ArgumentNullException">Thrown when <paramref name="progress"/> or <paramref name="messageProgress"/> is <see langword="null"/>.</exception>
-	private async Task PerformGroupingAsync(int elementsCount, double tolerancePercent, IProgress<int> progress, IProgress<string> messageProgress, CancellationToken cancellationToken)
-	{
-		const int availableElementsCount = 7;
+/// <summary>Gets the currently selected histogram step size.</summary>
+/// <returns>The selected step size, or <see langword="null"/> if none is selected.</returns>
+private StepOption? GetSelectedStep() => toolStripComboBoxStepSize.SelectedItem as StepOption;
 
-		ArgumentNullException.ThrowIfNull(argument: progress);
-		ArgumentNullException.ThrowIfNull(argument: messageProgress);
-		ArgumentOutOfRangeException.ThrowIfNegative(value: tolerancePercent);
+/// <summary>Updates the toolbar state to reflect whether histogram creation is running.</summary>
+/// <param name="isRunning">True while the background task is active; otherwise false.</param>
+/// <remarks>The same toolbar button is used for both starting and canceling the operation to match the issue requirements.</remarks>
+private void UpdateRunningState(bool isRunning)
+{
+toolStripButtonStartCancel.Text = isRunning ? "&Cancel" : "&Start";
+toolStripButtonStartCancel.Image = isRunning
+? Planetoid_DB.Resources.FatcowIcons16px.fatcow_cancel_16px
+: Planetoid_DB.Resources.FatcowIcons16px.fatcow_page_white_text_16px;
+toolStripComboBoxOrbitElement.Enabled = !isRunning;
+toolStripComboBoxStepSize.Enabled = !isRunning;
+toolStripButtonLiveDisplay.Enabled = !isRunning;
+}
 
-		if (elementsCount < 1 || elementsCount > availableElementsCount)
-		{
-			throw new ArgumentOutOfRangeException(
-				paramName: nameof(elementsCount),
-				actualValue: elementsCount,
-				message: $"The value must be between 1 and {availableElementsCount}.");
-		}
+/// <summary>Resets the displayed ListView and chart results.</summary>
+/// <remarks>The method clears previously counted bins and redraws the empty chart using the currently selected histogram definition.</remarks>
+private void ResetDisplayedResults()
+{
+_currentResults = [];
+listViewResults.BeginUpdate();
+listViewResults.Items.Clear();
+listViewResults.EndUpdate();
+UpdateHistogramPlot(definition: GetSelectedDefinition(), results: _currentResults);
+}
 
-		try
-		{
-			messageProgress.Report(value: "Parsing data...");
-			// Parse valid orbital parameters
-			List<PlanetoidData> parsedData = [];
-			object parseLock = new();
-			int parsedCount = 0;
-			int totalRecords = _planetoids.Count;
-			// Capture the window handle on the UI thread before entering parallel processing.
-			IntPtr windowHandle = Handle;
-			// Use parallel processing to parse the planetoid data efficiently. Each line is processed to extract the relevant orbital elements, and valid entries are added to the parsedData list. Progress is reported every 1000 records processed.
-			_planetoids.AsParallel().WithCancellation(cancellationToken: cancellationToken).ForAll(action: line =>
-			{
-				if (line.Length >= 103)
-				{
-					// Extract the index and designation from the line. The index is taken from the first 7 characters, while the designation is taken from characters 166 to 193 if the line is long enough.
-					string index = line[..7].Trim();
-					string designation = line.Length >= 194 ? line.Substring(startIndex: 166, length: 28).Trim() : "";
-					// Attempt to parse the orbital elements from the line. If all elements are successfully parsed, a new PlanetoidData object is created and added to the parsedData list in a thread-safe manner using a lock.
-					if (double.TryParse(s: line.Substring(startIndex: 26, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double meanAnomaly) &&
-						double.TryParse(s: line.Substring(startIndex: 37, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double argPeri) &&
-						double.TryParse(s: line.Substring(startIndex: 48, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double longAscNode) &&
-						double.TryParse(s: line.Substring(startIndex: 59, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double incl) &&
-						double.TryParse(s: line.Substring(startIndex: 70, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double orbEcc) &&
-						double.TryParse(s: line.Substring(startIndex: 80, length: 11).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double motion) &&
-						double.TryParse(s: line.Substring(startIndex: 92, length: 11).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double semiMajorAxis))
-					{
-						// If all elements are successfully parsed, create a new PlanetoidData object with the index, designation, and elements, and add it to the parsedData list in a thread-safe manner using a lock.
-						double[] elements = [meanAnomaly, argPeri, longAscNode, incl, orbEcc, motion, semiMajorAxis];
-						lock (parseLock)
-						{
-							parsedData.Add(item: new PlanetoidData(Index: index, Name: designation, Elements: elements));
-						}
-					}
-				}
-				// Increment the parsed count and report progress every 1000 records processed. The progress is calculated as a percentage of the total records.
-				int currentCount = Interlocked.Increment(location: ref parsedCount);
-				if (currentCount % 1000 == 0)
-				{
-					// Report progress every 1000 records processed. The progress is calculated as a percentage of the total records, with a step of 10% for parsing.
-					progress.Report(value: currentCount * 10 / totalRecords); // 10% step for parsing
-					TaskbarProgress.SetValue(windowHandle: windowHandle, progressValue: (ulong)(currentCount * 10 / totalRecords), progressMax: 100);
-				}
-			});
-			// After parsing is complete, check for cancellation before proceeding to the next steps. If cancellation has been requested, an OperationCanceledException will be thrown, which is caught in the outer try-catch block.
-			cancellationToken.ThrowIfCancellationRequested();
-			// Report that the extraction of element combinations and grouping is starting. This message is displayed in the output text box to inform the user about the current stage of processing.
-			messageProgress.Report(value: "Extracting element combinations and grouping...");
-			// Define the number of orbital elements to analyze for grouping. This value is taken from the user input and determines how many elements will be considered when generating combinations for grouping the planetoids.
-			int combinationThreshold = elementsCount;
-			// Define combinations
-			int[] indices = [0, 1, 2, 3, 4, 5, 6];
-			// Generate all possible combinations of the specified number of orbital elements to analyze and group the planetoids. The GetKCombinations method is used to generate these combinations based on the indices of the orbital elements.
-			List<int[]> combinations = [.. GetKCombinations(elements: indices, k: combinationThreshold)];
-			// Process each combination
-			int comboIndex = 0;
-			// Store the total number of combinations to analyze, which is used for progress reporting. This value is calculated based on the number of combinations generated and is used to provide feedback to the user about the progress of the grouping operation.
-			int totalCombos = combinations.Count;
-			// Iterate through each combination of orbital elements to analyze and group the planetoids. For each combination, the planetoids are sorted based on the first element in the combination, and then clustered using a binning mechanism with a specified tolerance. Progress is reported throughout the process, and if cancellation is requested, an OperationCanceledException will be thrown to terminate the operation.
-			foreach (int[] combo in combinations)
-			{
-				// Check for cancellation at the start of each combination processing. If cancellation has been requested, an OperationCanceledException will be thrown, which is caught in the outer try-catch block to handle cancellation gracefully.
-				cancellationToken.ThrowIfCancellationRequested();
-				// Report the current combination being analyzed, including the index of the combination and the total number of combinations. This message is displayed in the output text box to inform the user about the current stage of processing.
-				messageProgress.Report(value: $"Analyzing combination {comboIndex + 1}/{totalCombos}...");
-				// A simplified algorithm clusters planetoids using a generic grouping mechanism (binning with tolerance) to group planetoids that have similar values for the specified elements within the given tolerance.
-				List<PlanetoidData> sortedData = [.. parsedData.OrderBy(keySelector: d => d.Elements[combo[0]])];
-				// Initialize a list to hold the clusters of planetoids that are found to be similar based on the current combination of elements. Each cluster is a list of PlanetoidData objects that share similar values for the specified elements within the given tolerance.
-				List<List<PlanetoidData>> clusters = [];
-				// Initialize a temporary list to hold the current cluster of planetoids being analyzed. As the sorted data is processed, planetoids that are found to be similar based on the current combination of elements will be added to this list. When a new cluster is started, this list will be cleared and reused for the next set of similar planetoids.
-				List<PlanetoidData> currentCluster = [];
-				// Iterate through the sorted planetoid data to identify clusters of planetoids that are similar based on the current combination of elements. For each planetoid, the algorithm checks if it is similar to the representative planetoid of the current cluster (the first planetoid in the cluster) by comparing their values for the specified elements within the given tolerance. If they are similar, the current planetoid is added to the current cluster; otherwise, a new cluster is started.
-				for (int i = 0; i < sortedData.Count; i++)
-				{
-					// Check for cancellation at the start of each iteration. If cancellation has been requested, an OperationCanceledException will be thrown, which is caught in the outer try-catch block to handle cancellation gracefully.
-					cancellationToken.ThrowIfCancellationRequested();
-					// Get the current planetoid data being analyzed. This planetoid will be compared to the representative planetoid of the current cluster to determine if it should be added to the cluster or if a new cluster should be started.
-					PlanetoidData current = sortedData[index: i];
-					// If the current cluster is empty, add the current planetoid as the first member of the cluster. This planetoid will serve as the representative for the cluster, and subsequent planetoids will be compared to it to determine if they belong to the same cluster.
-					if (currentCluster.Count == 0)
-					{
-						currentCluster.Add(item: current);
-					}
-					// If the current cluster is not empty, compare the current planetoid to the representative planetoid of the cluster (the first planetoid in the cluster) by checking if their values for the specified elements are within the given tolerance. If they are similar, add the current planetoid to the current cluster; otherwise, if the current cluster has more than one member, add it to the list of clusters and start a new cluster with the current planetoid as its first member.
-					else
-					{
-						// Get the representative planetoid of the current cluster (the first planetoid in the cluster) to compare against the current planetoid. The algorithm will check if the values of the specified elements for the current planetoid are similar to those of the representative planetoid within the given tolerance.
-						PlanetoidData rep = currentCluster[index: 0];
-						// Check if the current planetoid is similar to the representative planetoid of the current cluster by comparing their values for the specified elements within the given tolerance. If all specified elements are similar, the current planetoid is added to the current cluster; otherwise, if the current cluster has more than one member, it is added to the list of clusters, and a new cluster is started with the current planetoid as its first member.
-						bool similar = true;
-						foreach (int idx in combo)
-						{
-							// Calculate the absolute difference between the current planetoid's element value and the representative planetoid's element value for the current index. Then, calculate the threshold for similarity based on the representative planetoid's element value and the specified tolerance percentage. If the difference exceeds the threshold, the planetoids are not considered similar, and the loop breaks to start a new cluster.
-							double diff = Math.Abs(value: current.Elements[idx] - rep.Elements[idx]);
-							double threshold = Math.Max(0.001, rep.Elements[idx] * tolerancePercent);
-							if (diff > threshold)
-							{
-								similar = false;
-								break;
-							}
-						}
-						// If the current planetoid is similar to the representative planetoid of the current cluster, add it to the current cluster. Otherwise, if the current cluster has more than one member, add it to the list of clusters, and start a new cluster with the current planetoid as its first member.
-						if (similar)
-						{
-							currentCluster.Add(item: current);
-						}
-						else
-						{
-							if (currentCluster.Count > 1)
-							{
-								clusters.Add(item: [.. currentCluster]);
-							}
-							currentCluster.Clear();
-							currentCluster.Add(item: current);
-						}
-					}
-					// Report progress every 5000 records processed. The progress is calculated as a percentage of the total combinations and the current position within the sorted data for the current combination.
-					if (i % 5000 == 0)
-					{
-						int currentProgress = 10 + (int)(90.0 * (((double)comboIndex / totalCombos) + ((double)i / sortedData.Count / totalCombos)));
-						progress.Report(value: currentProgress);
-					}
-				}
-				// After processing all planetoids for the current combination, if the current cluster has more than one member, add it to the list of clusters. This ensures that any remaining cluster that was being built at the end of the loop is included in the results if it contains multiple planetoids.
-				if (currentCluster.Count > 1)
-				{
-					clusters.Add(item: currentCluster);
-				}
-				// If any clusters were found for the current combination, build a message to report the details of the clusters, including the number of planetoids in each cluster and their representative planetoid. The message is built using a StringBuilder for efficiency, and it is reported through the message progress interface to be displayed in the output text box.
-				if (clusters.Count != 0)
-				{
-					StringBuilder sb = new();
-					sb.AppendLine(handler: $"--- Clusters for elements {string.Join(separator: ", ", values: combo.Select(GetElementName))} ---");
-					// Order clusters by size and take the top 999 groups to display. This ensures that the most significant clusters are shown to the user, while very small clusters are omitted for clarity.
-					IEnumerable<List<PlanetoidData>> orderedClusters = clusters.OrderByDescending(keySelector: c => c.Count).Take(count: 999); // Show top 999 groups
-					foreach (List<PlanetoidData> group in orderedClusters)
-					{
-						// For each cluster, append a message that includes the number of planetoids in the cluster and the representative planetoid (the first planetoid in the cluster). Then, for each planetoid in the cluster, append a line with its index, name, and the values of the specified elements. This provides detailed information about each cluster and its members.
-						sb.AppendLine(handler: $"Found group with {group.Count} planetoids (Representative: {group[index: 0].Index} - {group[index: 0].Name}):");
-						foreach (PlanetoidData? p in group.Take(count: 999))
-						{
-							// Append a line for each planetoid in the cluster, showing its index, name, and the values of the specified elements. The element values are formatted to four decimal places for readability. This provides detailed information about each member of the cluster.
-							sb.AppendLine(value: $"  {p.Index} '{p.Name}' {string.Join(separator: ", ", values: combo.Select(c => $"{GetElementName(index: c)}={p.Elements[c]:F4}"))}");
-						}
-						// Append a new line after each cluster for better readability in the output text box.
-						sb.AppendLine();
-					}
-					// Report the details of the clusters found for the current combination through the message progress interface, which will display the information in the output text box. This allows the user to see the results of the grouping operation for each combination of elements.
-					messageProgress.Report(value: sb.ToString());
-				}
-				// Increment the combination index to move on to the next combination of elements for analysis. This index is used for progress reporting and to keep track of which combination is currently being processed.
-				comboIndex++;
-			}
-			// After all combinations have been processed, report that the search has been completed successfully. This message is displayed in the output text box to inform the user that the grouping operation has finished.
-			progress.Report(value: 100);
-			messageProgress.Report(value: "Search completed successfully.");
-		}
-		// Handle cancellation of the operation gracefully by catching the OperationCanceledException. When cancellation is requested, a message is reported to inform the user that the search has been canceled.
-		catch (OperationCanceledException)
-		{
-			messageProgress.Report(value: "Search canceled by user.");
-			logger.Info(message: "Search operation was canceled by the user.");
-		}
-		// Catch any other exceptions that may occur during processing and report the error message through the message progress interface. Additionally, log the error using the NLog logger to provide details about the exception for troubleshooting purposes.
-		catch (Exception ex)
-		{
-			messageProgress.Report(value: $"Error during processing: {ex.Message}");
-			logger.Error(message: $"Error during processing: {ex.Message}", exception: ex);
-		}
-		// In the finally block, ensure that the cancellation token source is disposed of to free resources, and reset the UI elements (Start and Cancel buttons) to their default states. This ensures that the form is ready for another operation if needed, and that resources are properly cleaned up regardless of how the operation completed.
-		finally
-		{
-			_cancellationTokenSource?.Dispose();
-			_cancellationTokenSource = null;
-			await InvokeAsync(callback: () =>
-			{
-				toolStripButtonStart.Enabled = true;
-				toolStripButtonCancel.Enabled = false;
-			}, cancellationToken: cancellationToken);
-		}
-	}
+/// <summary>Updates the progress bar value and taskbar progress indicator.</summary>
+/// <param name="percent">The progress percentage to display.</param>
+/// <remarks>The input value is clamped to the 0 to 100 range before it is shown.</remarks>
+private void UpdateProgress(int percent)
+{
+int clampedPercent = Math.Clamp(value: percent, min: 0, max: 100);
+kryptonProgressBar.Value = clampedPercent;
+kryptonProgressBar.Text = $"{clampedPercent}%";
+if (IsHandleCreated)
+{
+TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)clampedPercent, progressMax: 100);
+}
+}
 
-	#endregion
+/// <summary>Applies counted histogram results to both the ListView and the chart.</summary>
+/// <param name="definition">The histogram definition that produced the results.</param>
+/// <param name="results">The histogram bins to display.</param>
+/// <remarks>The method keeps the chart and the tabular view synchronized.</remarks>
+private void ApplyResults(HistogramDefinition? definition, IReadOnlyList<HistogramBinResult> results)
+{
+_currentResults = [.. results];
+listViewResults.BeginUpdate();
+listViewResults.Items.Clear();
+foreach (HistogramBinResult result in results)
+{
+ListViewItem item = new(text: FormatRangeLabel(start: result.Start, end: result.End, unitSuffix: definition?.UnitSuffix ?? string.Empty))
+{
+ToolTipText = $"{result.Count:N0} planetoids"
+};
+_ = item.SubItems.Add(text: FormatNumericValue(value: result.Start));
+_ = item.SubItems.Add(text: FormatNumericValue(value: result.End));
+_ = item.SubItems.Add(text: result.Count.ToString(format: "N0", provider: CultureInfo.InvariantCulture));
+listViewResults.Items.Add(item: item);
+}
+listViewResults.EndUpdate();
+UpdateHistogramPlot(definition: definition, results: results);
+}
 
-	#region Form event handlers
+/// <summary>Redraws the ScottPlot histogram based on the supplied results.</summary>
+/// <param name="definition">The histogram definition that produced the results.</param>
+/// <param name="results">The histogram bins to render.</param>
+/// <remarks>The chart always contains a title, axis labels, and a legend. When no results are available, the axes are still configured but no bars are plotted.</remarks>
+private void UpdateHistogramPlot(HistogramDefinition? definition, IReadOnlyList<HistogramBinResult> results)
+{
+formsPlotHistogram.Plot.Clear();
+formsPlotHistogram.Plot.Title(definition is null ? "Orbit elements histogram" : $"Histogram of {definition.DisplayName}");
+formsPlotHistogram.Plot.Axes.Bottom.Label.Text = definition?.AxisLabel ?? "Selected element";
+formsPlotHistogram.Plot.Axes.Left.Label.Text = "Number of planetoids";
+formsPlotHistogram.Plot.Legend.IsVisible = true;
+formsPlotHistogram.Plot.Legend.Alignment = Alignment.UpperRight;
 
-	/// <summary>Handles the FormClosing event to ensure that any ongoing operations are properly canceled and resources are released.</summary>
-	/// <remarks>Checks if a cancellation token source is available, and if so, issues a cancellation request and disposes of the token source to free resources.</remarks>
-	private void OrbitElementsGroupingForm_FormClosing(object? sender, FormClosingEventArgs e)
-	{
-		// Check if a cancellation token source is currently assigned. If it is, call the Cancel method to signal cancellation to any ongoing operations, and dispose of the token source to free resources.
-		if (_cancellationTokenSource != null)
-		{
-			_cancellationTokenSource.Cancel();
-			_cancellationTokenSource.Dispose();
-		}
-	}
+if (definition is not null && results.Count > 0)
+{
+double[] values = [.. results.Select(selector: static result => (double)result.Count)];
+string[] labels = [.. results.Select(selector: result => FormatRangeLabel(start: result.Start, end: result.End, unitSuffix: definition.UnitSuffix))];
+double[] positions = [.. Enumerable.Range(start: 0, count: results.Count).Select(selector: static index => (double)index)];
+var barPlot = formsPlotHistogram.Plot.Add.Bars(positions, values);
+barPlot.LegendText = "Planetoids";
+barPlot.Color = Colors.SteelBlue;
+formsPlotHistogram.Plot.Axes.Bottom.TickGenerator = new ScottPlot.TickGenerators.NumericManual(positions, labels);
+}
 
-	#endregion
+formsPlotHistogram.Plot.Axes.AutoScale();
+formsPlotHistogram.Refresh();
+}
 
-	#region Click event handlers
+/// <summary>Builds histogram bins for the selected definition on a background thread.</summary>
+/// <param name="definition">The selected histogram definition.</param>
+/// <param name="stepSize">The selected histogram bin size.</param>
+/// <param name="enableLiveDisplay">True to publish intermediate results while counting; otherwise false.</param>
+/// <param name="progress">Receives percentage updates for the progress bar.</param>
+/// <param name="liveResults">Receives intermediate histogram snapshots for live display.</param>
+/// <param name="cancellationToken">The token used to cancel the operation.</param>
+/// <returns>A sorted list of final histogram bins.</returns>
+/// <remarks>The method scans the supplied MPCORB lines once, counts values into bins, and optionally reports intermediate snapshots for live rendering.</remarks>
+private List<HistogramBinResult> BuildHistogram(
+HistogramDefinition definition,
+double stepSize,
+bool enableLiveDisplay,
+IProgress<int> progress,
+IProgress<List<HistogramBinResult>> liveResults,
+CancellationToken cancellationToken)
+{
+SortedDictionary<int, int> counts = [];
+int total = _planetoids.Count;
+int progressInterval = Math.Max(val1: 1, val2: total / 100);
+int liveInterval = Math.Max(val1: 1, val2: total / 25);
+for (int i = 0; i < total; i++)
+{
+cancellationToken.ThrowIfCancellationRequested();
+double? value = definition.ValueSelector(_planetoids[i]);
+if (value.HasValue && double.IsFinite(value.Value))
+{
+int binIndex = (int)Math.Floor(d: value.Value / stepSize);
+counts.TryGetValue(key: binIndex, value: out int currentCount);
+counts[binIndex] = currentCount + 1;
+}
+int processed = i + 1;
+if (processed % progressInterval == 0 || processed == total)
+{
+progress.Report(value: processed * 100 / Math.Max(val1: 1, val2: total));
+}
+if (enableLiveDisplay && (processed % liveInterval == 0 || processed == total))
+{
+liveResults.Report(value: CreateHistogramResults(counts: counts, stepSize: stepSize));
+}
+}
+return CreateHistogramResults(counts: counts, stepSize: stepSize);
+}
 
-	/// <summary>Handles the Click event of the Start button to initiate the planetoid grouping process.</summary>
-	/// <remarks>Disables the Start button, enables the Cancel button, resets progress indicators, and starts the grouping operation asynchronously. Displays an informational message if no planetoid data is available.</remarks>
-	/// <param name="sender">The source of the event, typically the Start button.</param>
-	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private async void ButtonStart_Click(object? sender, EventArgs e)
-	{
-		// Check if there are any planetoid records to process. If not, show an informational message and return.
-		if (_planetoids.Count == 0)
-		{
-			logger.Error(message: "No planetoid data available to process.");
-			_ = KryptonMessageBox.Show(text: "No planetoid data available.", caption: "Information", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
-			return;
-		}
-		// Disable the Start button to prevent multiple concurrent operations and enable the Cancel button to allow cancellation of the ongoing operation.
-		toolStripButtonStart.Enabled = false;
-		toolStripButtonCancel.Enabled = true;
-		toolStripNumericUpDownTolerance.Enabled = false;
-		toolStripNumericUpDownElementsCount.Enabled = false;
-		toolStripDropDownButtonSaveList.Enabled = false;
-		kryptonTextBoxOutput.Clear();
-		kryptonProgressBar.Value = 0;
-		kryptonProgressBar.Text = "0%";
-		// Retrieve the number of elements to group by and the tolerance percentage from the respective numeric up-down controls.
-		int elementsCount = (int)toolStripNumericUpDownElementsCount.Value;
-		double tolerancePercent = (double)toolStripNumericUpDownTolerance.Value / 100.0;
-		// Initialize a new CancellationTokenSource to manage cancellation of the asynchronous grouping operation.
-		_cancellationTokenSource = new();
-		// Set up progress reporting for both percentage completion and message updates. The percentage progress updates the progress bar and its text, while the message progress appends messages to the output text box.
-		Progress<int> progress = new(handler: percent =>
-		{
-			kryptonProgressBar.Value = percent;
-			kryptonProgressBar.Text = $"{percent}%";
-		});
-		// The message progress handler appends messages to the output text box, ensuring that each message is followed by a new line for readability.
-		Progress<string> messageProgress = new(handler: message => kryptonTextBoxOutput.AppendText(text: message + Environment.NewLine));
-		// Start the grouping operation asynchronously using Task.Run, passing the necessary parameters and the cancellation token. The operation will run on a background thread, allowing the UI to remain responsive.
-		try
-		{
-			await Task.Run(function: () => PerformGroupingAsync(elementsCount: elementsCount, tolerancePercent: tolerancePercent, progress: progress, messageProgress: messageProgress, cancellationToken: _cancellationTokenSource.Token), cancellationToken: _cancellationTokenSource.Token);
-		}
-		// Handle cancellation of the operation gracefully by catching the OperationCanceledException. When cancellation is requested, an informational message is logged to indicate that the grouping task was canceled.
-		catch (OperationCanceledException)
-		{
-			logger.Info(message: "Grouping task was canceled.");
-		}
-		// Catch any exceptions that may occur during the execution of the grouping operation and log the error message using the NLog logger. This provides details about any issues that arise during processing for troubleshooting purposes.
-		catch (Exception ex)
-		{
-			logger.Error(message: $"An error occurred during grouping: {ex}");
-			ShowErrorMessage(message: $"An error has occurred during grouping: {ex.Message}");
-		}
-		// In the finally block, ensure that the cancellation token source is disposed of to free resources, and reset the UI elements (Start and Cancel buttons) to their default states. This ensures that the form is ready for another operation if needed, and that resources are properly cleaned up regardless of how the operation completed.
-		finally
-		{
-			// Re-enable the Start button and disable the Cancel button regardless of the outcome.
-			toolStripButtonStart.Enabled = true;
-			toolStripButtonCancel.Enabled = false;
-			toolStripNumericUpDownTolerance.Enabled = true;
-			toolStripNumericUpDownElementsCount.Enabled = true;
-			toolStripDropDownButtonSaveList.Enabled = true;
-		}
-	}
+/// <summary>Converts raw bin counts into sorted histogram rows.</summary>
+/// <param name="counts">The counted planetoid totals per bin index.</param>
+/// <param name="stepSize">The width of each histogram bin.</param>
+/// <returns>A sorted list of histogram rows.</returns>
+private static List<HistogramBinResult> CreateHistogramResults(SortedDictionary<int, int> counts, double stepSize) =>
+[
+.. counts.Select(selector: static pair => pair).Select(selector: pair =>
+new HistogramBinResult(
+Start: pair.Key * stepSize,
+End: (pair.Key + 1) * stepSize,
+Count: pair.Value))
+];
 
-	/// <summary>Handles the Click event of the Cancel button to request cancellation of the ongoing grouping operation.</summary>
-	/// <remarks>Checks if a cancellation token source is available, and if so, issues a cancellation request and disables the Cancel button to prevent multiple cancellation attempts.</remarks>
-	private void ButtonCancel_Click(object? sender, EventArgs e)
-	{
-		// Check if a cancellation token source is currently assigned. If it is, call the Cancel method to signal cancellation to the ongoing operation, and disable the Cancel button to prevent further cancellation attempts.
-		if (_cancellationTokenSource != null)
-		{
-			_cancellationTokenSource.Cancel();
-			toolStripButtonCancel.Enabled = false;
-		}
-	}
+/// <summary>Formats a chart and ListView label for one histogram range.</summary>
+/// <param name="start">The inclusive lower boundary.</param>
+/// <param name="end">The exclusive upper boundary.</param>
+/// <param name="unitSuffix">The unit suffix to append to numeric values.</param>
+/// <returns>A formatted range label.</returns>
+private static string FormatRangeLabel(double start, double end, string unitSuffix) =>
+$"{FormatNumericValue(value: start)}{unitSuffix} .. {FormatNumericValue(value: end)}{unitSuffix}";
 
-	/// <summary>Handles the Click event to export the output as a text file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsText_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "Text Files (*.txt)|*.txt|All Files (*.*)|*.*", defaultExt: "txt", dialogTitle: "Save as Text", exportAction: TextBoxExporter.SaveAsText);
+/// <summary>Formats a numeric value for display in the chart and ListView.</summary>
+/// <param name="value">The value to format.</param>
+/// <returns>The formatted text.</returns>
+private static string FormatNumericValue(double value) => value.ToString(format: "0.####", provider: CultureInfo.InvariantCulture);
 
-	/// <summary>Handles the Click event to export the output as a LaTeX file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsLatex_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "LaTeX Files (*.tex)|*.tex|All Files (*.*)|*.*", defaultExt: "tex", dialogTitle: "Save as LaTeX", exportAction: TextBoxExporter.SaveAsLatex);
+/// <summary>Attempts to parse a floating-point slice from a raw MPCORB record.</summary>
+/// <param name="line">The raw MPCORB line.</param>
+/// <param name="startIndex">The inclusive start index of the numeric field.</param>
+/// <param name="length">The field length.</param>
+/// <param name="value">When this method returns, contains the parsed numeric value if parsing succeeded.</param>
+/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
+private static bool TryParseValue(string line, int startIndex, int length, out double value)
+{
+value = default;
+return line.Length >= startIndex + length &&
+double.TryParse(
+s: line.Substring(startIndex: startIndex, length: length).Trim(),
+style: NumberStyles.Float,
+provider: CultureInfo.InvariantCulture,
+result: out value);
+}
 
-	/// <summary>Handles the Click event to export the output as a Markdown file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsMarkdown_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "Markdown Files (*.md)|*.md|All Files (*.*)|*.*", defaultExt: "md", dialogTitle: "Save as Markdown", exportAction: TextBoxExporter.SaveAsMarkdown);
+/// <summary>Attempts to parse the semi-major axis from a raw MPCORB record.</summary>
+/// <param name="line">The raw MPCORB line.</param>
+/// <param name="value">When this method returns, contains the parsed semi-major axis if parsing succeeded.</param>
+/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
+private static bool TryParseSemiMajorAxis(string line, out double value) => TryParseValue(line: line, startIndex: 92, length: 11, value: out value);
 
-	/// <summary>Handles the Click event to export the output as an AsciiDoc file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsAsciiDoc_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "AsciiDoc Files (*.adoc)|*.adoc|All Files (*.*)|*.*", defaultExt: "adoc", dialogTitle: "Save as AsciiDoc", exportAction: TextBoxExporter.SaveAsAsciiDoc);
+/// <summary>Attempts to parse the orbital eccentricity from a raw MPCORB record.</summary>
+/// <param name="line">The raw MPCORB line.</param>
+/// <param name="value">When this method returns, contains the parsed eccentricity if parsing succeeded.</param>
+/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
+private static bool TryParseEccentricity(string line, out double value) => TryParseValue(line: line, startIndex: 70, length: 9, value: out value);
 
-	/// <summary>Handles the Click event to export the output as a ReStructuredText file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsReStructuredText_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "ReStructuredText Files (*.rst)|*.rst|All Files (*.*)|*.*", defaultExt: "rst", dialogTitle: "Save as ReStructuredText", exportAction: TextBoxExporter.SaveAsReStructuredText);
+/// <summary>Attempts to parse the inclination from a raw MPCORB record.</summary>
+/// <param name="line">The raw MPCORB line.</param>
+/// <param name="value">When this method returns, contains the parsed inclination if parsing succeeded.</param>
+/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
+private static bool TryParseInclination(string line, out double value) => TryParseValue(line: line, startIndex: 59, length: 9, value: out value);
 
-	/// <summary>Handles the Click event to export the output as a Textile file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsTextile_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "Textile Files (*.textile)|*.textile|All Files (*.*)|*.*", defaultExt: "textile", dialogTitle: "Save as Textile", exportAction: TextBoxExporter.SaveAsTextile);
+/// <summary>Attempts to parse the mean anomaly from a raw MPCORB record.</summary>
+/// <param name="line">The raw MPCORB line.</param>
+/// <param name="value">When this method returns, contains the parsed mean anomaly if parsing succeeded.</param>
+/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
+private static bool TryParseMeanAnomaly(string line, out double value) => TryParseValue(line: line, startIndex: 26, length: 9, value: out value);
 
-	/// <summary>Handles the Click event to export the output as a Word file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsWord_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "Word Files (*.docx)|*.docx|All Files (*.*)|*.*", defaultExt: "docx", dialogTitle: "Save as Word", exportAction: TextBoxExporter.SaveAsWord);
+/// <summary>Attempts to parse the argument of perihelion from a raw MPCORB record.</summary>
+/// <param name="line">The raw MPCORB line.</param>
+/// <param name="value">When this method returns, contains the parsed argument of perihelion if parsing succeeded.</param>
+/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
+private static bool TryParseArgumentOfPerihelion(string line, out double value) => TryParseValue(line: line, startIndex: 37, length: 9, value: out value);
 
-	/// <summary>Handles the Click event to export the output as an OpenDocument Text file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsOdt_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "OpenDocument Text Files (*.odt)|*.odt|All Files (*.*)|*.*", defaultExt: "odt", dialogTitle: "Save as OpenDocument Text", exportAction: TextBoxExporter.SaveAsOdt);
+/// <summary>Attempts to parse the longitude of the ascending node from a raw MPCORB record.</summary>
+/// <param name="line">The raw MPCORB line.</param>
+/// <param name="value">When this method returns, contains the parsed longitude of the ascending node if parsing succeeded.</param>
+/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
+private static bool TryParseLongitudeOfAscendingNode(string line, out double value) => TryParseValue(line: line, startIndex: 48, length: 9, value: out value);
 
-	/// <summary>Handles the Click event to export the output as an RTF file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsRtf_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "Rich Text Format Files (*.rtf)|*.rtf|All Files (*.*)|*.*", defaultExt: "rtf", dialogTitle: "Save as RTF", exportAction: TextBoxExporter.SaveAsRtf);
+/// <summary>Attempts to parse the mean daily motion from a raw MPCORB record.</summary>
+/// <param name="line">The raw MPCORB line.</param>
+/// <param name="value">When this method returns, contains the parsed mean daily motion if parsing succeeded.</param>
+/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
+private static bool TryParseMeanDailyMotion(string line, out double value) => TryParseValue(line: line, startIndex: 80, length: 11, value: out value);
 
-	/// <summary>Handles the Click event to export the output as an Abiword file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsAbiword_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "Abiword Files (*.abw)|*.abw|All Files (*.*)|*.*", defaultExt: "abw", dialogTitle: "Save as Abiword", exportAction: TextBoxExporter.SaveAsAbiword);
+/// <summary>Attempts to parse the perihelion distance from a raw MPCORB record.</summary>
+/// <param name="line">The raw MPCORB line.</param>
+/// <param name="value">When this method returns, contains the parsed perihelion distance if parsing succeeded.</param>
+/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
+private static bool TryParsePerihelionDistance(string line, out double value)
+{
+value = default;
+return TryParseSemiMajorAxis(line: line, value: out double semiMajorAxis) &&
+TryParseEccentricity(line: line, value: out double eccentricity)
+? (value = semiMajorAxis * (1 - eccentricity)) >= 0
+: false;
+}
 
-	/// <summary>Handles the Click event to export the output as a WPS file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsWps_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "WPS Files (*.wps)|*.wps|All Files (*.*)|*.*", defaultExt: "wps", dialogTitle: "Save as WPS", exportAction: TextBoxExporter.SaveAsWps);
+/// <summary>Attempts to parse the aphelion distance from a raw MPCORB record.</summary>
+/// <param name="line">The raw MPCORB line.</param>
+/// <param name="value">When this method returns, contains the parsed aphelion distance if parsing succeeded.</param>
+/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
+private static bool TryParseAphelionDistance(string line, out double value)
+{
+value = default;
+return TryParseSemiMajorAxis(line: line, value: out double semiMajorAxis) &&
+TryParseEccentricity(line: line, value: out double eccentricity)
+? (value = semiMajorAxis * (1 + eccentricity)) >= 0
+: false;
+}
 
-	/// <summary>Handles the Click event to export the output as an Excel file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsExcel_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "Excel Files (*.xlsx)|*.xlsx|All Files (*.*)|*.*", defaultExt: "xlsx", dialogTitle: "Save as Excel", exportAction: TextBoxExporter.SaveAsExcel);
+/// <summary>Attempts to parse the orbital period from a raw MPCORB record.</summary>
+/// <param name="line">The raw MPCORB line.</param>
+/// <param name="value">When this method returns, contains the parsed orbital period in years if parsing succeeded.</param>
+/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
+private static bool TryParseOrbitalPeriod(string line, out double value)
+{
+value = default;
+return TryParseSemiMajorAxis(line: line, value: out double semiMajorAxis) && semiMajorAxis >= 0
+? (value = Math.Sqrt(d: Math.Pow(x: semiMajorAxis, y: 3))) >= 0
+: false;
+}
 
-	/// <summary>Handles the Click event to export the output as an ODS file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsOds_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "OpenDocument Spreadsheet Files (*.ods)|*.ods|All Files (*.*)|*.*", defaultExt: "ods", dialogTitle: "Save as ODS", exportAction: TextBoxExporter.SaveAsOds);
+#endregion
 
-	/// <summary>Handles the Click event to export the output as a CSV file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsCsv_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "Comma-Separated Values (*.csv)|*.csv|All Files (*.*)|*.*", defaultExt: "csv", dialogTitle: "Save as CSV", exportAction: TextBoxExporter.SaveAsCsv);
+#region Form event handlers
 
-	/// <summary>Handles the Click event to export the output as a TSV file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsTsv_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "Tab-Separated Values (*.tsv)|*.tsv|All Files (*.*)|*.*", defaultExt: "tsv", dialogTitle: "Save as TSV", exportAction: TextBoxExporter.SaveAsTsv);
+/// <summary>Handles the FormClosing event to cancel any running histogram operation.</summary>
+/// <param name="sender">The source of the event.</param>
+/// <param name="e">The event data associated with the form-closing request.</param>
+/// <remarks>The running task is canceled so the form can close cleanly without leaving background work behind.</remarks>
+private void OrbitElementsGroupingForm_FormClosing(object? sender, FormClosingEventArgs e)
+{
+if (_cancellationTokenSource != null)
+{
+_cancellationTokenSource.Cancel();
+}
+}
 
-	/// <summary>Handles the Click event to export the output as a PSV file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsPsv_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "Pipe-Separated Values (*.psv)|*.psv|All Files (*.*)|*.*", defaultExt: "psv", dialogTitle: "Save as PSV", exportAction: TextBoxExporter.SaveAsPsv);
+#endregion
 
-	/// <summary>Handles the Click event to export the output as an ET file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsEt_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "ET Files (*.et)|*.et|All Files (*.*)|*.*", defaultExt: "et", dialogTitle: "Save as ET", exportAction: TextBoxExporter.SaveAsEt);
+#region Click event handlers
 
-	/// <summary>Handles the Click event to export the output as an HTML file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsHtml_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "HTML Files (*.html)|*.html|All Files (*.*)|*.*", defaultExt: "html", dialogTitle: "Save as HTML", exportAction: TextBoxExporter.SaveAsHtml);
+/// <summary>Handles the Click event of the start/cancel button.</summary>
+/// <param name="sender">The source of the event.</param>
+/// <param name="e">The event data associated with the click.</param>
+/// <remarks>When no task is running the handler starts histogram generation; otherwise it requests cancellation.</remarks>
+private async void ToolStripButtonStartCancel_Click(object? sender, EventArgs e)
+{
+if (_cancellationTokenSource != null)
+{
+_cancellationTokenSource.Cancel();
+return;
+}
+if (_planetoids.Count == 0)
+{
+_ = KryptonMessageBox.Show(text: "No planetoid data available.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+return;
+}
+HistogramDefinition? definition = GetSelectedDefinition();
+StepOption? step = GetSelectedStep();
+if (definition is null || step is null)
+{
+_ = KryptonMessageBox.Show(text: "Please select an orbital element and a step size.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+return;
+}
+ResetDisplayedResults();
+ClearStatusBar(label: labelInformation);
+UpdateProgress(percent: 0);
+UpdateRunningState(isRunning: true);
+bool enableLiveDisplay = toolStripButtonLiveDisplay.Checked;
+_cancellationTokenSource = new CancellationTokenSource();
+try
+{
+Progress<int> progress = new(handler: UpdateProgress);
+Progress<List<HistogramBinResult>> liveResults = new(handler: results => ApplyResults(definition: definition, results: results));
+List<HistogramBinResult> finalResults = await Task.Run(
+function: () => BuildHistogram(
+definition: definition,
+stepSize: step.Value,
+enableLiveDisplay: enableLiveDisplay,
+progress: progress,
+liveResults: liveResults,
+cancellationToken: _cancellationTokenSource.Token),
+cancellationToken: _cancellationTokenSource.Token);
+ApplyResults(definition: definition, results: finalResults);
+labelInformation.Text = finalResults.Count == 0
+? "No planetoid values were available for the selected histogram."
+: $"Histogram created with {finalResults.Count:N0} ranges and {finalResults.Sum(selector: static result => result.Count):N0} counted planetoids.";
+}
+catch (OperationCanceledException)
+{
+logger.Info(message: "Orbit elements histogram generation was canceled by the user.");
+labelInformation.Text = "Histogram creation canceled.";
+}
+catch (Exception ex)
+{
+logger.Error(exception: ex, message: ex.Message);
+ShowErrorMessage(message: $"An error has occurred during histogram creation: {ex.Message}");
+}
+finally
+{
+_cancellationTokenSource?.Dispose();
+_cancellationTokenSource = null;
+UpdateRunningState(isRunning: false);
+}
+}
 
-	/// <summary>Handles the Click event to export the output as an XML file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsXml_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "XML Files (*.xml)|*.xml|All Files (*.*)|*.*", defaultExt: "xml", dialogTitle: "Save as XML", exportAction: TextBoxExporter.SaveAsXml);
+#endregion
 
-	/// <summary>Handles the Click event to export the output as a DocBook file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsDocBook_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "DocBook Files (*.xml)|*.xml|All Files (*.*)|*.*", defaultExt: "xml", dialogTitle: "Save as DocBook", exportAction: TextBoxExporter.SaveAsDocBook);
+#region SelectedIndexChanged event handlers
 
-	/// <summary>Handles the Click event to export the output as a JSON file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsJson_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "JSON Files (*.json)|*.json|All Files (*.*)|*.*", defaultExt: "json", dialogTitle: "Save as JSON", exportAction: TextBoxExporter.SaveAsJson);
+/// <summary>Handles the SelectedIndexChanged event of the orbital-element drop-down.</summary>
+/// <param name="sender">The source of the event.</param>
+/// <param name="e">The event data associated with the selection change.</param>
+/// <remarks>The step-size drop-down is repopulated with values that are meaningful for the selected histogram definition.</remarks>
+private void ToolStripComboBoxOrbitElement_SelectedIndexChanged(object? sender, EventArgs e)
+{
+HistogramDefinition? definition = GetSelectedDefinition();
+toolStripComboBoxStepSize.Items.Clear();
+if (definition is null)
+{
+ResetDisplayedResults();
+return;
+}
+foreach (StepOption stepOption in definition.StepOptions)
+{
+_ = toolStripComboBoxStepSize.Items.Add(value: stepOption);
+}
+if (toolStripComboBoxStepSize.Items.Count > 0)
+{
+toolStripComboBoxStepSize.SelectedIndex = 0;
+}
+else
+{
+ResetDisplayedResults();
+}
+}
 
-	/// <summary>Handles the Click event to export the output as a YAML file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsYaml_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "YAML Files (*.yaml)|*.yaml|All Files (*.*)|*.*", defaultExt: "yaml", dialogTitle: "Save as YAML", exportAction: TextBoxExporter.SaveAsYaml);
+/// <summary>Handles the SelectedIndexChanged event of the step-size drop-down.</summary>
+/// <param name="sender">The source of the event.</param>
+/// <param name="e">The event data associated with the selection change.</param>
+/// <remarks>The empty chart is redrawn so the title and axes immediately reflect the current selection even before a run is started.</remarks>
+private void ToolStripComboBoxStepSize_SelectedIndexChanged(object? sender, EventArgs e) => UpdateHistogramPlot(definition: GetSelectedDefinition(), results: _currentResults);
 
-	/// <summary>Handles the Click event to export the output as a TOML file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsToml_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "TOML Files (*.toml)|*.toml|All Files (*.*)|*.*", defaultExt: "toml", dialogTitle: "Save as TOML", exportAction: TextBoxExporter.SaveAsToml);
+/// <summary>Handles the CheckedChanged event of the live-display button.</summary>
+/// <param name="sender">The source of the event.</param>
+/// <param name="e">The event data associated with the check-state change.</param>
+/// <remarks>The button text mirrors the current state so users can immediately see whether live updates are enabled.</remarks>
+private void ToolStripButtonLiveDisplay_CheckedChanged(object? sender, EventArgs e) =>
+	toolStripButtonLiveDisplay.Text = toolStripButtonLiveDisplay.Checked ? "On" : "Off";
 
-	/// <summary>Handles the Click event to export the output as a SQL file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsSql_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "SQL Files (*.sql)|*.sql|All Files (*.*)|*.*", defaultExt: "sql", dialogTitle: "Save as SQL", exportAction: TextBoxExporter.SaveAsSql);
-
-	/// <summary>Handles the Click event to export the output as a SQLite file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsSqlite_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "SQLite Files (*.sqlite)|*.sqlite|All Files (*.*)|*.*", defaultExt: "sqlite", dialogTitle: "Save as SQLite", exportAction: TextBoxExporter.SaveAsSqlite);
-
-	/// <summary>Handles the Click event to export the output as a PDF file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsPdf_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "PDF Files (*.pdf)|*.pdf|All Files (*.*)|*.*", defaultExt: "pdf", dialogTitle: "Save as PDF", exportAction: TextBoxExporter.SaveAsPdf);
-
-	/// <summary>Handles the Click event to export the output as a PostScript file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsPostScript_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "PostScript Files (*.ps)|*.ps|All Files (*.*)|*.*", defaultExt: "ps", dialogTitle: "Save as PostScript", exportAction: TextBoxExporter.SaveAsPostScript);
-
-	/// <summary>Handles the Click event to export the output as an EPUB file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsEpub_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "EPUB Files (*.epub)|*.epub|All Files (*.*)|*.*", defaultExt: "epub", dialogTitle: "Save as EPUB", exportAction: TextBoxExporter.SaveAsEpub);
-
-	/// <summary>Handles the Click event to export the output as a MOBI file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsMobi_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "MOBI Files (*.mobi)|*.mobi|All Files (*.*)|*.*", defaultExt: "mobi", dialogTitle: "Save as MOBI", exportAction: TextBoxExporter.SaveAsMobi);
-
-	/// <summary>Handles the Click event to export the output as an XPS file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsXps_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "XPS Files (*.xps)|*.xps|All Files (*.*)|*.*", defaultExt: "xps", dialogTitle: "Save as XPS", exportAction: TextBoxExporter.SaveAsXps);
-
-	/// <summary>Handles the Click event to export the output as a FictionBook2 file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsFictionBook2_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "FictionBook2 Files (*.fb2)|*.fb2|All Files (*.*)|*.*", defaultExt: "fb2", dialogTitle: "Save as FictionBook2", exportAction: TextBoxExporter.SaveAsFictionBook2);
-
-	/// <summary>Handles the Click event to export the output as a CHM file.</summary>
-	/// <remarks>Invokes the PerformSaveExport method with parameters specific to exporting as a text file, including the file filter, default extension, dialog title, and export action.</remarks>
-	/// <param name="sender">The source of the event, typically the menu item for saving as text.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	private void ToolStripMenuItemSaveAsChm_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "Compiled HTML Help Files (*.chm)|*.chm|All Files (*.*)|*.*", defaultExt: "chm", dialogTitle: "Save as CHM", exportAction: TextBoxExporter.SaveAsChm);
-
-	#endregion
+#endregion
 }

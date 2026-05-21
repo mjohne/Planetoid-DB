@@ -2820,14 +2820,14 @@ partial class PlanetoidDbForm
 		// 
 		// toolStripMenuItemOrbitElementsGrouping
 		// 
-		toolStripMenuItemOrbitElementsGrouping.AccessibleDescription = "Shows the orbit elements grouping";
-		toolStripMenuItemOrbitElementsGrouping.AccessibleName = "Orbit elements grouping";
+		toolStripMenuItemOrbitElementsGrouping.AccessibleDescription = "Shows the orbit elements histogram";
+		toolStripMenuItemOrbitElementsGrouping.AccessibleName = "Orbit elements histogram";
 		toolStripMenuItemOrbitElementsGrouping.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemOrbitElementsGrouping.AutoToolTip = true;
 		toolStripMenuItemOrbitElementsGrouping.Image = FatcowIcons16px.fatcow_node_16px;
 		toolStripMenuItemOrbitElementsGrouping.Name = "toolStripMenuItemOrbitElementsGrouping";
 		toolStripMenuItemOrbitElementsGrouping.Size = new Size(295, 22);
-		toolStripMenuItemOrbitElementsGrouping.Text = "Orbit &elements grouping";
+		toolStripMenuItemOrbitElementsGrouping.Text = "Orbit &elements histogram";
 		toolStripMenuItemOrbitElementsGrouping.Click += OrbitElementsGrouping_Click;
 		toolStripMenuItemOrbitElementsGrouping.MouseEnter += Control_Enter;
 		toolStripMenuItemOrbitElementsGrouping.MouseLeave += Control_Leave;
