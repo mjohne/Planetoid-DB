@@ -4,7 +4,7 @@
 
 * Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/710
 * Updated CHANGELOG for version 0.9.3.66 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/711
-* Added `contextMenuSaveToFile` to `TableLayountContainer` in `MoidsOfOneMinorPlanetForm` and `MaxoidsOfOneMinorPlanetForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/712
+* Added `contextMenuSaveToFile` to `tableLayoutPanel` in `MoidsOfOneMinorPlanetForm` and `MaxoidsOfOneMinorPlanetForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/712
 * Fixed documentation comments by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/713
 * Added `MoidsAndMaxoidsOfOneMinorPlanetForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/714
 * Updated to 0.9.4.67 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/716
