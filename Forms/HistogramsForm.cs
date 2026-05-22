@@ -276,7 +276,6 @@ public partial class HistogramsForm : BaseKryptonForm
 		int clampedPercent = Math.Clamp(value: percent, min: 0, max: 100);
 		// Update the Krypton progress bar with the clamped percentage value and display it as text.
 		kryptonProgressBar.Value = clampedPercent;
-		kryptonProgressBar.Text = $"{clampedPercent}%";
 		kryptonProgressBar.Values.Text = $"{clampedPercent}%";
 		// Update the taskbar progress indicator for this window, if supported and if the form's handle has been created. The progress value is set to the clamped percentage, with a maximum of 100.
 		if (IsHandleCreated)
@@ -358,7 +357,7 @@ public partial class HistogramsForm : BaseKryptonForm
 			// The NumericAutomatic tick generator is customized to format the tick labels as powers of ten minus one when log scale is enabled. If the tick value is greater than or equal to zero, it is formatted as 10 raised to the power of the tick value minus one; otherwise, an empty string is returned to avoid displaying negative ticks on a logarithmic scale.
 			ScottPlot.TickGenerators.NumericAutomatic logTickGen = new()
 			{
-				LabelFormatter = static v => v >= 0 ? Math.Max(val1: 0, val2: (int)Math.Round(a: Math.Pow(x: 10, y: v) - 1)).ToString(format: "N0", provider: CultureInfo.InvariantCulture) : string.Empty
+				LabelFormatter = static v => v >= 0 ? (Math.Pow(x: 10, y: v) - 1).ToString(format: "N0", provider: CultureInfo.InvariantCulture) : string.Empty
 			};
 			// Apply the custom logarithmic tick generator to the left (y) axis to format the tick labels appropriately when log scale is enabled.
 			formsPlotHistogram.Plot.Axes.Left.TickGenerator = logTickGen;
@@ -442,6 +441,7 @@ public partial class HistogramsForm : BaseKryptonForm
 		=> counts.Count == 0
 		? []
 		: [
+			// Include all bin indices between the lowest and highest observed bins so zero-count gaps are represented explicitly in both chart and table output.
 			.. Enumerable.Range(start: counts.First().Key, count: (counts.Last().Key - counts.First().Key) + 1).Select(selector: binIndex =>
 			{
 				// For each bin index in the full covered range, create a new HistogramBinResult object. The Start property is calculated as the bin index multiplied by the step size, and the End property is calculated as the start value plus the step size. The Count property is set to the count of planetoids for that bin, or zero if no values fell into that bin.
