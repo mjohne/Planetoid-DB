@@ -55,6 +55,12 @@ partial class HistogramForm
 		checkBoxLiveUpdate = new ToolStripButton();
 		toolStripSeparator3 = new ToolStripSeparator();
 		kryptonProgressBar = new KryptonProgressBarToolStripItem();
+		toolStripDropDownButtonExport = new ToolStripDropDownButton();
+		toolStripMenuItemSaveAsText = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsCsv = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsHtml = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsJson = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsMarkdown = new ToolStripMenuItem();
 
 		toolStripContainer.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
@@ -151,7 +157,8 @@ partial class HistogramForm
 			toolStripSeparator2,
 			checkBoxLiveUpdate,
 			toolStripSeparator3,
-			kryptonProgressBar
+			kryptonProgressBar,
+			toolStripDropDownButtonExport
 		});
 		toolStrip.Location = new Point(0, 0);
 		toolStrip.Name = "toolStrip";
@@ -230,6 +237,52 @@ partial class HistogramForm
 		kryptonProgressBar.Value = 0;
 		kryptonProgressBar.DisplayStyle = KryptonProgressBarToolStripItem.ProgressBarDisplayStyle.Text;
 
+		// toolStripDropDownButtonExport
+		toolStripDropDownButtonExport.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		toolStripDropDownButtonExport.DropDownItems.AddRange(new ToolStripItem[] {
+			toolStripMenuItemSaveAsText,
+			toolStripMenuItemSaveAsCsv,
+			toolStripMenuItemSaveAsHtml,
+			toolStripMenuItemSaveAsJson,
+			toolStripMenuItemSaveAsMarkdown
+		});
+		toolStripDropDownButtonExport.Image = Properties.FugueIcons16px.disk;
+		toolStripDropDownButtonExport.Name = "toolStripDropDownButtonExport";
+		toolStripDropDownButtonExport.Size = new Size(29, 22);
+		toolStripDropDownButtonExport.Text = "Export";
+		toolStripDropDownButtonExport.AccessibleDescription = "Export histogram data to various formats";
+		toolStripDropDownButtonExport.AccessibleName = "Export";
+
+		// toolStripMenuItemSaveAsText
+		toolStripMenuItemSaveAsText.Name = "toolStripMenuItemSaveAsText";
+		toolStripMenuItemSaveAsText.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsText.Text = "Text (*.txt)";
+		toolStripMenuItemSaveAsText.Click += ToolStripMenuItemSaveAsText_Click;
+
+		// toolStripMenuItemSaveAsCsv
+		toolStripMenuItemSaveAsCsv.Name = "toolStripMenuItemSaveAsCsv";
+		toolStripMenuItemSaveAsCsv.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsCsv.Text = "CSV (*.csv)";
+		toolStripMenuItemSaveAsCsv.Click += ToolStripMenuItemSaveAsCsv_Click;
+
+		// toolStripMenuItemSaveAsHtml
+		toolStripMenuItemSaveAsHtml.Name = "toolStripMenuItemSaveAsHtml";
+		toolStripMenuItemSaveAsHtml.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsHtml.Text = "HTML (*.html)";
+		toolStripMenuItemSaveAsHtml.Click += ToolStripMenuItemSaveAsHtml_Click;
+
+		// toolStripMenuItemSaveAsJson
+		toolStripMenuItemSaveAsJson.Name = "toolStripMenuItemSaveAsJson";
+		toolStripMenuItemSaveAsJson.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsJson.Text = "JSON (*.json)";
+		toolStripMenuItemSaveAsJson.Click += ToolStripMenuItemSaveAsJson_Click;
+
+		// toolStripMenuItemSaveAsMarkdown
+		toolStripMenuItemSaveAsMarkdown.Name = "toolStripMenuItemSaveAsMarkdown";
+		toolStripMenuItemSaveAsMarkdown.Size = new Size(180, 22);
+		toolStripMenuItemSaveAsMarkdown.Text = "Markdown (*.md)";
+		toolStripMenuItemSaveAsMarkdown.Click += ToolStripMenuItemSaveAsMarkdown_Click;
+
 		// HistogramForm
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
@@ -282,4 +335,10 @@ partial class HistogramForm
 	private ToolStripButton checkBoxLiveUpdate;
 	private ToolStripSeparator toolStripSeparator3;
 	private KryptonProgressBarToolStripItem kryptonProgressBar;
+	private ToolStripDropDownButton toolStripDropDownButtonExport;
+	private ToolStripMenuItem toolStripMenuItemSaveAsText;
+	private ToolStripMenuItem toolStripMenuItemSaveAsCsv;
+	private ToolStripMenuItem toolStripMenuItemSaveAsHtml;
+	private ToolStripMenuItem toolStripMenuItemSaveAsJson;
+	private ToolStripMenuItem toolStripMenuItemSaveAsMarkdown;
 }

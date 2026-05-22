@@ -381,4 +381,63 @@ public partial class HistogramForm : BaseKryptonForm
 	}
 
 	#endregion
+
+	#region export methods
+
+	/// <summary>Performs the save export operation by displaying a save dialog and invoking the specified export action.</summary>
+	/// <param name="filter">The file type filter for the save dialog.</param>
+	/// <param name="defaultExt">The default file extension.</param>
+	/// <param name="dialogTitle">The title of the save dialog.</param>
+	/// <param name="exportAction">The export action to invoke with the list view, title, and file name.</param>
+	private void PerformSaveExport(string filter, string defaultExt, string dialogTitle, Action<ListView, string, string> exportAction)
+	{
+		using SaveFileDialog saveFileDialog = new()
+		{
+			Filter = filter,
+			DefaultExt = defaultExt,
+			Title = dialogTitle,
+			FileName = $"Histogram_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.{defaultExt}"
+		};
+
+		if (saveFileDialog.ShowDialog() == DialogResult.OK)
+		{
+			try
+			{
+				Cursor = Cursors.WaitCursor;
+				exportAction(listView, "Histogram Data", saveFileDialog.FileName);
+				SetStatusBar(label: labelInformation, text: $"Exported to {saveFileDialog.FileName}");
+			}
+			catch (Exception ex)
+			{
+				logger.Error(exception: ex, message: "Error exporting histogram data");
+				ShowErrorMessage(message: $"Error exporting data: {ex.Message}");
+			}
+			finally
+			{
+				Cursor = Cursors.Default;
+			}
+		}
+	}
+
+	/// <summary>Handles the Click event to export as plain text.</summary>
+	private void ToolStripMenuItemSaveAsText_Click(object? sender, EventArgs? e)
+		=> PerformSaveExport(filter: "Text files (*.txt)|*.txt|All Files (*.*)|*.*", defaultExt: "txt", dialogTitle: "Save as Text", exportAction: Helpers.ListViewExporter.SaveAsText);
+
+	/// <summary>Handles the Click event to export as CSV.</summary>
+	private void ToolStripMenuItemSaveAsCsv_Click(object? sender, EventArgs? e)
+		=> PerformSaveExport(filter: "Comma-Separated Values (*.csv)|*.csv|All Files (*.*)|*.*", defaultExt: "csv", dialogTitle: "Save as CSV", exportAction: Helpers.ListViewExporter.SaveAsCsv);
+
+	/// <summary>Handles the Click event to export as HTML.</summary>
+	private void ToolStripMenuItemSaveAsHtml_Click(object? sender, EventArgs? e)
+		=> PerformSaveExport(filter: "HTML files (*.html)|*.html|All Files (*.*)|*.*", defaultExt: "html", dialogTitle: "Save as HTML", exportAction: Helpers.ListViewExporter.SaveAsHtml);
+
+	/// <summary>Handles the Click event to export as JSON.</summary>
+	private void ToolStripMenuItemSaveAsJson_Click(object? sender, EventArgs? e)
+		=> PerformSaveExport(filter: "JSON files (*.json)|*.json|All Files (*.*)|*.*", defaultExt: "json", dialogTitle: "Save as JSON", exportAction: Helpers.ListViewExporter.SaveAsJson);
+
+	/// <summary>Handles the Click event to export as Markdown.</summary>
+	private void ToolStripMenuItemSaveAsMarkdown_Click(object? sender, EventArgs? e)
+		=> PerformSaveExport(filter: "Markdown files (*.md)|*.md|All Files (*.*)|*.*", defaultExt: "md", dialogTitle: "Save as Markdown", exportAction: Helpers.ListViewExporter.SaveAsMarkdown);
+
+	#endregion
 }
