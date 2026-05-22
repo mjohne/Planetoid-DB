@@ -130,6 +130,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemDistributionComputerName = new ToolStripMenuItem();
 		toolStripSplitButtonDistribution = new ToolStripSplitButton();
 		toolStripMenuItemDistribution = new ToolStripMenuItem();
+		toolStripMenuItemHistogram = new ToolStripMenuItem();
 		contextMenuFullCopyToClipboardOrbitalElements = new ContextMenuStrip(components);
 		toolStripMenuItemCopyToClipboardIndexNumber = new ToolStripMenuItem();
 		toolStripMenuItemCopyToClipboardReadableDesignation = new ToolStripMenuItem();
@@ -2051,6 +2052,21 @@ partial class PlanetoidDbForm
 		toolStripMenuItemDistribution.Click += Distributions_Click;
 		toolStripMenuItemDistribution.MouseEnter += Control_Enter;
 		toolStripMenuItemDistribution.MouseLeave += Control_Leave;
+		//
+		// toolStripMenuItemHistogram
+		//
+		toolStripMenuItemHistogram.AccessibleDescription = "Shows histogram of orbital elements and properties";
+		toolStripMenuItemHistogram.AccessibleName = "Histogram";
+		toolStripMenuItemHistogram.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemHistogram.AutoToolTip = true;
+		toolStripMenuItemHistogram.Image = FatcowIcons16px.fatcow_chart_bar_16px;
+		toolStripMenuItemHistogram.Name = "toolStripMenuItemHistogram";
+		toolStripMenuItemHistogram.ShortcutKeys = Keys.Control | Keys.H;
+		toolStripMenuItemHistogram.Size = new Size(295, 22);
+		toolStripMenuItemHistogram.Text = "&Histogram";
+		toolStripMenuItemHistogram.Click += Histogram_Click;
+		toolStripMenuItemHistogram.MouseEnter += Control_Enter;
+		toolStripMenuItemHistogram.MouseLeave += Control_Leave;
 		// 
 		// contextMenuFullCopyToClipboardOrbitalElements
 		// 
@@ -2697,7 +2713,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemTools.AccessibleName = "Tools";
 		toolStripMenuItemTools.AccessibleRole = AccessibleRole.MenuPopup;
 		toolStripMenuItemTools.AutoToolTip = true;
-		toolStripMenuItemTools.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemDerivedOrbitElements, toolStripMenuItemFilter, toolStripSeparatorTools1, toolStripMenuItemRecords, toolStripSeparator10, toolStripMenuItemDistribution, toolStripSeparatorTools2, toolStripMenuItemDatabaseInformation, toolStripMenuItemTableMode, toolStripMenuItemTerminology, toolStripSeparator16, toolStripMenuItemOrbitElementsGrouping, toolStripMenuItemAsteroidFamiliesDetection, toolStripSeparator18, toolStripMenuItemMoids, toolStripMenuItemMaxoids, toolStripMenuItemMoidsAndMaxoidsOfOneMinorPlanet, toolStripSeparator12, toolStripMenuItemTisserandParameters, toolStripMenuItemOrbitalResonances, toolStripMenuItemObservations });
+		toolStripMenuItemTools.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemDerivedOrbitElements, toolStripMenuItemFilter, toolStripSeparatorTools1, toolStripMenuItemRecords, toolStripSeparator10, toolStripMenuItemDistribution, toolStripMenuItemHistogram, toolStripSeparatorTools2, toolStripMenuItemDatabaseInformation, toolStripMenuItemTableMode, toolStripMenuItemTerminology, toolStripSeparator16, toolStripMenuItemOrbitElementsGrouping, toolStripMenuItemAsteroidFamiliesDetection, toolStripSeparator18, toolStripMenuItemMoids, toolStripMenuItemMaxoids, toolStripMenuItemMoidsAndMaxoidsOfOneMinorPlanet, toolStripSeparator12, toolStripMenuItemTisserandParameters, toolStripMenuItemOrbitalResonances, toolStripMenuItemObservations });
 		toolStripMenuItemTools.Name = "toolStripMenuItemTools";
 		toolStripMenuItemTools.Size = new Size(46, 24);
 		toolStripMenuItemTools.Text = "&Tools";
@@ -4530,6 +4546,7 @@ partial class PlanetoidDbForm
     private ToolStripMenuItem toolStripMenuItemTableMode;
     private ToolStripSeparator toolStripSeparatorOptions1;
     private ToolStripMenuItem toolStripMenuItemDistribution;
+    private ToolStripMenuItem toolStripMenuItemHistogram;
     private ToolStripSeparator toolStripSeparatorOptions2;
     private ToolStripContainer toolStripContainer;
     private ToolStripMenuItem toolStripMenuItemStyle;

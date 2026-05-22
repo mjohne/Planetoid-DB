@@ -929,6 +929,16 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formTisserandOfAll.ShowDialog(owner: this);
 	}
 
+	/// <summary>Shows the histogram form. Opens the form to display histograms of orbital elements and properties of all minor planets.</summary>
+	/// <remarks>Passes the full planetoids database to the form so it can create histograms of various properties.</remarks>
+	private void ShowHistogram()
+	{
+		// Create a new instance of the HistogramForm
+		using HistogramForm formHistogram = new(planetoids: planetoidsDatabase);
+		formHistogram.TopMost = TopMost;
+		_ = formHistogram.ShowDialog(owner: this);
+	}
+
 	/// <summary>Shows the bulk observations data downloader form. Opens the form to download observation data files for a range of minor planets from the MPC website and save them to disk.</summary>
 	/// <remarks>Passes the full planetoids database to the form and pre-populates the minimum (1) and maximum (database record count) spinners.</remarks>
 	private void ShowBulkObservationDataDownloader()
@@ -2822,6 +2832,12 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the Tisserand parameters of all minor planets form.</remarks>
 	private void TisserandParametersOfAllMinorPlanets_Click(object sender, EventArgs e) => ShowTisserandParametersOfAllMinorPlanets();
+
+	/// <summary>Handles the click event for the histogram menu item. Shows the histogram form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the histogram form for displaying distributions of orbital elements.</remarks>
+	private void Histogram_Click(object sender, EventArgs e) => ShowHistogram();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemBulkObservationDataDownloader_Click. Shows the bulk observations data downloader form.</summary>
 	/// <param name="sender">The event source.</param>
