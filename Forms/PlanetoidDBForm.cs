@@ -703,6 +703,24 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formOrbitElementsGrouping.ShowDialog();
 	}
 
+	/// <summary>Shows the orbit elements histograms form.</summary>
+	/// <remarks>Passes the full planetoids database to the form so it can generate histograms of all planetoids.</remarks>
+	private void ShowHistograms()
+	{
+		using HistogramsForm formHistograms = new(planetoids: planetoidsDatabase);
+		formHistograms.TopMost = TopMost;
+		_ = formHistograms.ShowDialog(owner: this);
+	}
+
+	/// <summary>Shows the orbit elements scatter plots form.</summary>
+	/// <remarks>Passes the full planetoids database to the form so it can generate scatter plots of all planetoids.</remarks>
+	private void ShowScatterplots()
+	{
+		using ScatterplotsForm formScatterplots = new(planetoids: planetoidsDatabase);
+		formScatterplots.TopMost = TopMost;
+		_ = formScatterplots.ShowDialog(owner: this);
+	}
+
 	/// <summary>Shows the asteroid families form.</summary>
 	/// <remarks>Passes the full planetoids database to the form so it can display asteroid families.</remarks>
 	private void ShowAsteroidFamiliesDetection()
@@ -2768,6 +2786,18 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the orbit elements grouping form.</remarks>
 	private void OrbitElementsGrouping_Click(object sender, EventArgs e) => ShowOrbitElementsGrouping();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemHistograms. Shows the orbit elements histograms form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the orbit elements histograms form for all planetoids.</remarks>
+	private void Histograms_Click(object sender, EventArgs e) => ShowHistograms();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemScatterplots. Shows the orbit elements scatter plots form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the orbit elements scatter plots form for all planetoids.</remarks>
+	private void Scatterplots_Click(object sender, EventArgs e) => ShowScatterplots();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemAsteroidFamiliesDetection. Shows the asteroid families form.</summary>
 	/// <param name="sender">The event source.</param>
