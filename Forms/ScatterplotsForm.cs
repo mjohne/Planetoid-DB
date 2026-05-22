@@ -67,7 +67,7 @@ public partial class ScatterplotsForm : BaseKryptonForm
 	/// <param name="X">The X-axis value of the data point.</param>
 	/// <param name="Y">The Y-axis value of the data point.</param>
 	/// <remarks>Each data point corresponds to one planetoid whose X and Y values were both successfully parsed.</remarks>
-	private sealed record ScatterPoint(double X, double Y);
+	private readonly record struct ScatterPoint(double X, double Y);
 
 	#region Constructor
 
@@ -226,9 +226,9 @@ public partial class ScatterplotsForm : BaseKryptonForm
 	/// <param name="yDefinition">The definition for the Y-axis orbital element.</param>
 	/// <param name="results">The data points to display.</param>
 	/// <remarks>The method keeps the chart and the tabular view synchronised.</remarks>
-	private void ApplyResults(ScatterDefinition? xDefinition, ScatterDefinition? yDefinition, IReadOnlyList<ScatterPoint> results)
+	private void ApplyResults(ScatterDefinition? xDefinition, ScatterDefinition? yDefinition, List<ScatterPoint> results)
 	{
-		_currentResults = [.. results];
+		_currentResults = results;
 		_currentXDefinition = xDefinition;
 		_currentYDefinition = yDefinition;
 		// VirtualMode: only set the count; no ListViewItem objects are created.
@@ -325,10 +325,31 @@ public partial class ScatterplotsForm : BaseKryptonForm
 			// If live display is enabled, report a snapshot of the collected points for chart-only update.
 			if (enableLiveDisplay && (processed % liveInterval == 0 || processed == total))
 			{
-				liveResults.Report(value: [.. points]);
+				liveResults.Report(value: CreateLivePreviewSnapshot(points: points));
 			}
 		}
 		return points;
+	}
+
+	/// <summary>Creates a bounded snapshot for live chart updates without copying the full accumulated results list.</summary>
+	/// <param name="points">The currently accumulated scatter points.</param>
+	/// <returns>A sampled snapshot suitable for intermediate live rendering.</returns>
+	private static List<ScatterPoint> CreateLivePreviewSnapshot(List<ScatterPoint> points)
+	{
+		const int maxPreviewPoints = 20_000;
+		if (points.Count <= maxPreviewPoints)
+		{
+			return [.. points];
+		}
+
+		int step = (int)Math.Ceiling((double)points.Count / maxPreviewPoints);
+		List<ScatterPoint> previewPoints = new(capacity: maxPreviewPoints);
+		for (int i = 0; i < points.Count; i += step)
+		{
+			previewPoints.Add(item: points[i]);
+		}
+
+		return previewPoints;
 	}
 
 	/// <summary>Formats a numeric value for display in the chart and ListView.</summary>
@@ -443,6 +464,12 @@ public partial class ScatterplotsForm : BaseKryptonForm
 	/// <remarks>Called by the ListView in VirtualMode instead of storing all items in memory.</remarks>
 	private void ListViewResults_RetrieveVirtualItem(object? sender, RetrieveVirtualItemEventArgs e)
 	{
+		if (e.ItemIndex < 0 || e.ItemIndex >= _currentResults.Count)
+		{
+			e.Item = new ListViewItem();
+			return;
+		}
+
 		ScatterPoint point = _currentResults[e.ItemIndex];
 		ListViewItem item = new(text: FormatNumericValue(value: point.X) + (_currentXDefinition?.UnitSuffix ?? string.Empty))
 		{
