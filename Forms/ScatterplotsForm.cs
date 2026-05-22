@@ -259,7 +259,7 @@ public partial class ScatterplotsForm : BaseKryptonForm
 		// Clear existing plots and configure the title and axis labels based on the selected definitions.
 		formsPlotScatterplot.Plot.Clear();
 		formsPlotScatterplot.Plot.Title(text: xDefinition is null || yDefinition is null
-			? "Orbit elements scatter plot"
+			? "Orbital elements scatter plot"
 			: $"Scatter plot of {xDefinition.DisplayName} vs. {yDefinition.DisplayName}");
 		formsPlotScatterplot.Plot.Axes.Bottom.Label.Text = xDefinition?.AxisLabel ?? "X axis";
 		formsPlotScatterplot.Plot.Axes.Left.Label.Text = yDefinition?.AxisLabel ?? "Y axis";
@@ -510,7 +510,7 @@ public partial class ScatterplotsForm : BaseKryptonForm
 		// Handle the case where the scatter-plot generation was canceled by the user.
 		catch (OperationCanceledException)
 		{
-			logger.Info(message: "Orbit elements scatter-plot generation was canceled by the user.");
+			logger.Info(message: "Orbital elements scatter-plot generation was canceled by the user.");
 			labelInformation.Text = "Scatter plot creation canceled.";
 		}
 		// Handle any unexpected exceptions that may occur during the scatter-plot generation process.
