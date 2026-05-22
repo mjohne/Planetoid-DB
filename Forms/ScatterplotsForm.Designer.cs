@@ -385,7 +385,7 @@ partial class ScatterplotsForm
 		// 
 		// toolStripButtonLiveDisplay
 		// 
-		toolStripButtonLiveDisplay.AccessibleDescription = "Toggles live updates in the list and the scatter plot";
+		toolStripButtonLiveDisplay.AccessibleDescription = "Toggles live updates in the scatter plot";
 		toolStripButtonLiveDisplay.AccessibleName = "Live display toggle";
 		toolStripButtonLiveDisplay.AccessibleRole = AccessibleRole.CheckButton;
 		toolStripButtonLiveDisplay.Checked = true;
