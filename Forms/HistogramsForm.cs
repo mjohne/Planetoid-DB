@@ -1,4 +1,4 @@
-// This file contains the implementation of the HistogramForm,
+// This file contains the implementation of the HistogramsForm,
 // which displays histogram/bar charts of orbital elements and properties
 // for all minor planets in the database.
 using Krypton.Toolkit;
@@ -203,7 +203,7 @@ public partial class HistogramsForm : BaseKryptonForm
 					new StepOption(Value: 2.0, DisplayText: "2 years"),
 					new StepOption(Value: 5.0, DisplayText: "5 years")
 				],
-			ValueSelector: static line => TryParseOrbitalPeriod(line: line, value: out double value) ? value : null)
+				ValueSelector: static line => TryParseOrbitalPeriod(line: line, value: out double value) ? value : null)
 		];
 
 	/// <summary>Initializes the selectable orbital element and step-size drop-downs.</summary>
@@ -277,6 +277,7 @@ public partial class HistogramsForm : BaseKryptonForm
 		// Update the Krypton progress bar with the clamped percentage value and display it as text.
 		kryptonProgressBar.Value = clampedPercent;
 		kryptonProgressBar.Text = $"{clampedPercent}%";
+		kryptonProgressBar.Values.Text = $"{clampedPercent}%";
 		// Update the taskbar progress indicator for this window, if supported and if the form's handle has been created. The progress value is set to the clamped percentage, with a maximum of 100.
 		if (IsHandleCreated)
 		{
@@ -334,10 +335,10 @@ public partial class HistogramsForm : BaseKryptonForm
 		// If a valid histogram definition is provided and there are results to display, create a bar plot. The bar heights are determined by the count of planetoids in each bin, optionally transformed to a logarithmic scale if the corresponding option is checked. The x-axis positions correspond to the bin indices, and the labels are formatted to show the range of values for each bin with the appropriate unit suffix.
 		if (definition is not null && results.Count > 0)
 		{
-			// Determine whether to apply a logarithmic transformation to the count values based on the state of the log scale option. If log scale is enabled and the count is greater than zero, the height of the bar is set to the base-10 logarithm of the count; otherwise, it is set to the raw count value.
+			// Determine whether to apply a logarithmic transformation to the count values based on the state of the log scale option. If log scale is enabled and the count is greater than zero, the height of the bar is set to the base-10 logarithm of (count + 1); otherwise, it is set to the raw count value.
 			bool logScale = toolStripButtonLogScale.Checked;
 			// Create arrays for the bar heights, labels, and positions based on the histogram results. The values array contains the heights of the bars, the labels array contains the formatted range labels for the x-axis ticks, and the positions array contains the corresponding x-axis positions for each bin.
-			double[] values = [.. results.Select(selector: result => logScale && result.Count > 0 ? Math.Log10(d: result.Count) : result.Count)];
+			double[] values = [.. results.Select(selector: result => logScale && result.Count > 0 ? Math.Log10(d: result.Count + 1) : result.Count)];
 			string[] labels = [.. results.Select(selector: result => FormatRangeLabel(start: result.Start, end: result.End, unitSuffix: definition.UnitSuffix))];
 			double[] positions = [.. Enumerable.Range(start: 0, count: results.Count).Select(selector: static index => (double)index)];
 			// Add a bar plot to the ScottPlot with the calculated positions and values. The bars are colored steel blue, and the legend text is set to "Planetoids" to indicate what the bars represent. The x-axis ticks are configured to use the custom labels corresponding to each histogram bin.
@@ -354,10 +355,10 @@ public partial class HistogramsForm : BaseKryptonForm
 		{
 			// Set the minimum of the y-axis to zero to ensure that the logarithmic scale starts from a defined point. The custom tick generator formats the tick labels to show the original count values corresponding to each logarithmic tick position, using powers of ten for better readability.
 			formsPlotHistogram.Plot.Axes.Left.Min = 0;
-			// The NumericAutomatic tick generator is customized to format the tick labels as powers of ten when log scale is enabled. If the tick value is greater than or equal to zero, it is formatted as 10 raised to the power of the tick value; otherwise, an empty string is returned to avoid displaying negative ticks on a logarithmic scale.
+			// The NumericAutomatic tick generator is customized to format the tick labels as powers of ten minus one when log scale is enabled. If the tick value is greater than or equal to zero, it is formatted as 10 raised to the power of the tick value minus one; otherwise, an empty string is returned to avoid displaying negative ticks on a logarithmic scale.
 			ScottPlot.TickGenerators.NumericAutomatic logTickGen = new()
 			{
-				LabelFormatter = static v => v >= 0 ? Math.Pow(x: 10, y: v).ToString(format: "N0", provider: CultureInfo.InvariantCulture) : string.Empty
+				LabelFormatter = static v => v >= 0 ? Math.Max(val1: 0, val2: (int)Math.Round(a: Math.Pow(x: 10, y: v) - 1)).ToString(format: "N0", provider: CultureInfo.InvariantCulture) : string.Empty
 			};
 			// Apply the custom logarithmic tick generator to the left (y) axis to format the tick labels appropriately when log scale is enabled.
 			formsPlotHistogram.Plot.Axes.Left.TickGenerator = logTickGen;
@@ -438,14 +439,19 @@ public partial class HistogramsForm : BaseKryptonForm
 	/// <remarks>The method transforms the bin indices and counts into a list of HistogramBinResult objects, calculating the start and end values for each bin based on the step size. The resulting list is sorted by the bin index, which corresponds to the range of values for each histogram bin.</remarks>
 	private static List<HistogramBinResult> CreateHistogramResults(SortedDictionary<int, int> counts, double stepSize)
 		// Convert the sorted dictionary of counts into a list of HistogramBinResult objects, where each object represents a histogram bin with its start and end values calculated based on the bin index and step size. The start value of each bin is calculated as the bin index multiplied by the step size, and the end value is calculated as the start value plus the step size. The count for each bin is taken directly from the sorted dictionary.
-		=> [
-			..counts.Select(selector: static pair => pair).Select(selector: pair
-				// For each key-value pair in the sorted dictionary, create a new HistogramBinResult object. The Start property is calculated as the bin index (key) multiplied by the step size, and the End property is calculated as the start value plus the step size. The Count property is set to the count of planetoids for that bin (value).
-				=> new HistogramBinResult(
-					Start: pair.Key * stepSize,
-					End: (pair.Key + 1) * stepSize,
-					Count: pair.Value))
-	];
+		=> counts.Count == 0
+		? []
+		: [
+			.. Enumerable.Range(start: counts.First().Key, count: (counts.Last().Key - counts.First().Key) + 1).Select(selector: binIndex =>
+			{
+				// For each bin index in the full covered range, create a new HistogramBinResult object. The Start property is calculated as the bin index multiplied by the step size, and the End property is calculated as the start value plus the step size. The Count property is set to the count of planetoids for that bin, or zero if no values fell into that bin.
+				counts.TryGetValue(key: binIndex, value: out int count);
+				return new HistogramBinResult(
+					Start: binIndex * stepSize,
+					End: (binIndex + 1) * stepSize,
+					Count: count);
+			})
+		];
 
 	/// <summary>Formats a chart and ListView label for one histogram range.</summary>
 	/// <param name="start">The inclusive lower boundary.</param>

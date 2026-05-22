@@ -192,7 +192,7 @@ partial class HistogramsForm
 		// 
 		splitContainerMain.AccessibleDescription = "Separates the histogram from the counted ranges list";
 		splitContainerMain.AccessibleName = "Histogram and list splitter";
-		splitContainerMain.AccessibleRole = AccessibleRole.SplitButton;
+		splitContainerMain.AccessibleRole = AccessibleRole.Pane;
 		splitContainerMain.Dock = DockStyle.Fill;
 		splitContainerMain.Location = new Point(0, 0);
 		splitContainerMain.Name = "splitContainerMain";
