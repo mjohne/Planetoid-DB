@@ -881,7 +881,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 	/// <summary>Shows the histogram form. Opens the form to display histograms of orbital elements and properties of all minor planets.</summary>
 	/// <remarks>Passes the full planetoids database to the form so it can create histograms of various properties.</remarks>
-	/// <exception cref="InvalidOperationException">Thrown if the planetoids database is null or empty.</exception>
 	private void ShowHistogram()
 	{
 		// Create a new instance of the HistogramsForm
@@ -892,7 +891,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 	/// <summary>Shows the scatterplots form. Opens the form to display scatterplots of orbital elements and properties of all minor planets.</summary>
 	/// <remarks>Passes the full planetoids database to the form so it can create scatterplots of various properties.</remarks>
-	/// <exception cref="InvalidOperationException">Thrown if the planetoids database is null or empty.</exception>
 	private void ShowScatterplot()
 	{
 		// Create a new instance of the ScatterplotsForm

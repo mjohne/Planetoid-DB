@@ -168,10 +168,12 @@ public partial class ScatterplotsForm : BaseKryptonForm
 
 	/// <summary>Gets the currently selected X-axis scatter-plot definition.</summary>
 	/// <returns>The selected X-axis scatter-plot definition, or <see langword="null"/> if none is selected.</returns>
+	/// <remarks>The method casts the selected item to a <see cref="ScatterDefinition"/>; if the cast fails, it returns <see langword="null"/>.</remarks>
 	private ScatterDefinition? GetSelectedXDefinition() => toolStripComboBoxXAxis.SelectedItem as ScatterDefinition;
 
 	/// <summary>Gets the currently selected Y-axis scatter-plot definition.</summary>
 	/// <returns>The selected Y-axis scatter-plot definition, or <see langword="null"/> if none is selected.</returns>
+	/// <remarks>The method casts the selected item to a <see cref="ScatterDefinition"/>; if the cast fails, it returns <see langword="null"/>.</remarks>
 	private ScatterDefinition? GetSelectedYDefinition() => toolStripComboBoxYAxis.SelectedItem as ScatterDefinition;
 
 	/// <summary>Updates the toolbar state to reflect whether scatter-plot creation is running.</summary>
@@ -276,7 +278,7 @@ public partial class ScatterplotsForm : BaseKryptonForm
 						excluded++;
 						continue;
 					}
-					x = Math.Log10(x);
+					x = Math.Log10(d: x);
 				}
 				if (logY)
 				{
@@ -285,10 +287,10 @@ public partial class ScatterplotsForm : BaseKryptonForm
 						excluded++;
 						continue;
 					}
-					y = Math.Log10(y);
+					y = Math.Log10(d: y);
 				}
-				xList.Add(x);
-				yList.Add(y);
+				xList.Add(item: x);
+				yList.Add(item: y);
 			}
 			double[] xs = [.. xList];
 			double[] ys = [.. yList];
@@ -306,9 +308,9 @@ public partial class ScatterplotsForm : BaseKryptonForm
 		{
 			ScottPlot.TickGenerators.NumericAutomatic logTicks = new()
 			{
-				LabelFormatter = static v => $"10^{v:0.##}"
+				LabelFormatter = static v => $"10^{v:0.##}",
+				MinorTickGenerator = new ScottPlot.TickGenerators.LogMinorTickGenerator()
 			};
-			logTicks.MinorTickGenerator = new ScottPlot.TickGenerators.LogMinorTickGenerator();
 			formsPlotScatterplot.Plot.Axes.Bottom.TickGenerator = logTicks;
 		}
 		else
@@ -320,9 +322,9 @@ public partial class ScatterplotsForm : BaseKryptonForm
 		{
 			ScottPlot.TickGenerators.NumericAutomatic logTicks = new()
 			{
-				LabelFormatter = static v => $"10^{v:0.##}"
+				LabelFormatter = static v => $"10^{v:0.##}",
+				MinorTickGenerator = new ScottPlot.TickGenerators.LogMinorTickGenerator()
 			};
-			logTicks.MinorTickGenerator = new ScottPlot.TickGenerators.LogMinorTickGenerator();
 			formsPlotScatterplot.Plot.Axes.Left.TickGenerator = logTicks;
 		}
 		else
@@ -393,6 +395,7 @@ public partial class ScatterplotsForm : BaseKryptonForm
 	/// <summary>Creates a bounded snapshot for live chart updates without copying the full accumulated results list.</summary>
 	/// <param name="points">The currently accumulated scatter points.</param>
 	/// <returns>A sampled snapshot suitable for intermediate live rendering.</returns>
+	/// <remarks>The method creates a snapshot of the accumulated scatter points, limiting the number of points to a maximum for efficient live rendering.</remarks>
 	private static List<ScatterPoint> CreateLivePreviewSnapshot(List<ScatterPoint> points)
 	{
 		const int maxPreviewPoints = 20_000;
@@ -423,6 +426,7 @@ public partial class ScatterplotsForm : BaseKryptonForm
 	/// <param name="length">The field length.</param>
 	/// <param name="value">When this method returns, contains the parsed numeric value if parsing succeeded.</param>
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
+	/// <remarks>The method checks that the specified slice is within the bounds of the line and attempts to parse it as a double using invariant culture formatting. The slice is trimmed of whitespace before parsing.</remarks>
 	private static bool TryParseValue(string line, int startIndex, int length, out double value)
 	{
 		value = default;
@@ -437,48 +441,56 @@ public partial class ScatterplotsForm : BaseKryptonForm
 	/// <param name="line">The raw MPCORB line.</param>
 	/// <param name="value">When this method returns, contains the parsed semi-major axis if parsing succeeded.</param>
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
+	/// <remarks>The semi-major axis is in astronomical units (AU), as specified in the MPCORB format documentation.</remarks>
 	private static bool TryParseSemiMajorAxis(string line, out double value) => TryParseValue(line: line, startIndex: 92, length: 11, value: out value);
 
 	/// <summary>Attempts to parse the orbital eccentricity from a raw MPCORB record.</summary>
 	/// <param name="line">The raw MPCORB line.</param>
 	/// <param name="value">When this method returns, contains the parsed eccentricity if parsing succeeded.</param>
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
+	/// <remarks>The eccentricity is a unitless value, as specified in the MPCORB format documentation.</remarks>
 	private static bool TryParseEccentricity(string line, out double value) => TryParseValue(line: line, startIndex: 70, length: 9, value: out value);
 
 	/// <summary>Attempts to parse the inclination from a raw MPCORB record.</summary>
 	/// <param name="line">The raw MPCORB line.</param>
 	/// <param name="value">When this method returns, contains the parsed inclination if parsing succeeded.</param>
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
+	/// <remarks>The inclination is in degrees, as specified in the MPCORB format documentation.</remarks>
 	private static bool TryParseInclination(string line, out double value) => TryParseValue(line: line, startIndex: 59, length: 9, value: out value);
 
 	/// <summary>Attempts to parse the mean anomaly from a raw MPCORB record.</summary>
 	/// <param name="line">The raw MPCORB line.</param>
 	/// <param name="value">When this method returns, contains the parsed mean anomaly if parsing succeeded.</param>
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
+	/// <remarks>The mean anomaly is in degrees, as specified in the MPCORB format documentation.</remarks>
 	private static bool TryParseMeanAnomaly(string line, out double value) => TryParseValue(line: line, startIndex: 26, length: 9, value: out value);
 
 	/// <summary>Attempts to parse the argument of perihelion from a raw MPCORB record.</summary>
 	/// <param name="line">The raw MPCORB line.</param>
 	/// <param name="value">When this method returns, contains the parsed argument of perihelion if parsing succeeded.</param>
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
+	/// <remarks>The argument of perihelion is in degrees, as specified in the MPCORB format documentation.</remarks>
 	private static bool TryParseArgumentOfPerihelion(string line, out double value) => TryParseValue(line: line, startIndex: 37, length: 9, value: out value);
 
 	/// <summary>Attempts to parse the longitude of the ascending node from a raw MPCORB record.</summary>
 	/// <param name="line">The raw MPCORB line.</param>
 	/// <param name="value">When this method returns, contains the parsed longitude of the ascending node if parsing succeeded.</param>
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
+	/// <remarks>The longitude of the ascending node is in degrees, as specified in the MPCORB format documentation.</remarks>
 	private static bool TryParseLongitudeOfAscendingNode(string line, out double value) => TryParseValue(line: line, startIndex: 48, length: 9, value: out value);
 
 	/// <summary>Attempts to parse the mean daily motion from a raw MPCORB record.</summary>
 	/// <param name="line">The raw MPCORB line.</param>
 	/// <param name="value">When this method returns, contains the parsed mean daily motion if parsing succeeded.</param>
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
+	/// <remarks>The mean daily motion is in degrees per day, as specified in the MPCORB format documentation.</remarks>
 	private static bool TryParseMeanDailyMotion(string line, out double value) => TryParseValue(line: line, startIndex: 80, length: 11, value: out value);
 
 	/// <summary>Attempts to parse the perihelion distance from a raw MPCORB record.</summary>
 	/// <param name="line">The raw MPCORB line.</param>
 	/// <param name="value">When this method returns, contains the parsed perihelion distance if parsing succeeded.</param>
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
+	/// <remarks>The perihelion distance is calculated using the semi-major axis and eccentricity, assuming the semi-major axis is in astronomical units (AU) and the distance is in AU.</remarks>
 	private static bool TryParsePerihelionDistance(string line, out double value)
 	{
 		value = default;
@@ -490,6 +502,7 @@ public partial class ScatterplotsForm : BaseKryptonForm
 	/// <param name="line">The raw MPCORB line.</param>
 	/// <param name="value">When this method returns, contains the parsed aphelion distance if parsing succeeded.</param>
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
+	/// <remarks>The aphelion distance is calculated using the semi-major axis and eccentricity, assuming the semi-major axis is in astronomical units (AU) and the distance is in AU.</remarks>
 	private static bool TryParseAphelionDistance(string line, out double value)
 	{
 		value = default;
@@ -501,6 +514,7 @@ public partial class ScatterplotsForm : BaseKryptonForm
 	/// <param name="line">The raw MPCORB line.</param>
 	/// <param name="value">When this method returns, contains the parsed orbital period in years if parsing succeeded.</param>
 	/// <returns><see langword="true"/> if parsing succeeded; otherwise <see langword="false"/>.</returns>
+	/// <remarks>The orbital period is calculated using Kepler's third law, assuming the semi-major axis is in astronomical units (AU) and the period is in years.</remarks>
 	private static bool TryParseOrbitalPeriod(string line, out double value)
 	{
 		value = default;
