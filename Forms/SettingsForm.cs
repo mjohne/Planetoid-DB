@@ -19,8 +19,9 @@ private string GetDebuggerDisplay() => ToString();
 /// <summary>Handles the Load event of the <see cref="SettingsForm"/>.</summary>
 /// <param name="sender">The event source.</param>
 /// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-/// <remarks>Performs any initialization required when the form is first displayed.</remarks>
+/// <remarks>Intentionally empty. The handler is wired in SettingsForm.Designer.cs; settings initialization is performed by the designer-generated InitializeComponent method.</remarks>
 private void SettingsForm_Load(object? sender, EventArgs e)
 {
+	// Intentionally empty – initialization is handled by InitializeComponent in SettingsForm.Designer.cs.
 }
 }
