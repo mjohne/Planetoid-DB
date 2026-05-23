@@ -1,5 +1,18 @@
 # Changelog
 
+## Planetoid-DB 0.9.5.68
+
+* Replaced old screenshot with new image URL by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/718
+* Updated CHANGELOG for version 0.9.4.67 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/719
+* Added `HistogramsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/724
+* Added `ScatterplotsForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/729
+* Added `Orbit2DTopViewForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/732
+* Added `Orbit2DSideViewForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/735
+* Updated to version 0.9.5.68 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/736
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.6.4.67.716.2321...0.6.5.68.736.2344
+
+
 ## Planetoid-DB 0.9.4.67
 
 * Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/710
