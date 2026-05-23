@@ -929,6 +929,31 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formTisserandOfAll.ShowDialog(owner: this);
 	}
 
+	/// <summary>Shows the orbit visualization form for the current planetoid.</summary>
+	/// <remarks>Parses the semi-major axis, eccentricity, and argument of perihelion from the UI labels and opens the <see cref="OrbitsForm"/>.</remarks>
+	private void ShowOrbits()
+	{
+		if (!TryParseCurrentOrbitalElements(
+			semiMajorAxis: out double semiMajorAxis,
+			eccentricity: out double eccentricity,
+			inclinationDeg: out _,
+			longitudeAscendingNodeDeg: out _,
+			argumentPerihelionDeg: out double argumentPerihelionDeg))
+		{
+			return;
+		}
+		// Use the readable designation as the planetoid label in the diagram title.
+		string planetoidName = labelReadableDesignationData.Text;
+		// Create a new instance of the OrbitsForm and show it as a modal dialog.
+		using OrbitsForm formOrbits = new(
+			planetoidName: planetoidName,
+			semiMajorAxis: semiMajorAxis,
+			eccentricity: eccentricity,
+			argumentPerihelionDeg: argumentPerihelionDeg);
+		formOrbits.TopMost = TopMost;
+		_ = formOrbits.ShowDialog();
+	}
+
 	/// <summary>Shows the bulk observations data downloader form. Opens the form to download observation data files for a range of minor planets from the MPC website and save them to disk.</summary>
 	/// <remarks>Passes the full planetoids database to the form and pre-populates the minimum (1) and maximum (database record count) spinners.</remarks>
 	private void ShowBulkObservationDataDownloader()
@@ -2822,6 +2847,12 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the Tisserand parameters of all minor planets form.</remarks>
 	private void TisserandParametersOfAllMinorPlanets_Click(object sender, EventArgs e) => ShowTisserandParametersOfAllMinorPlanets();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemOrbits. Shows the orbit visualization form for the currently selected minor planet.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method opens the orbit visualization form for the currently selected minor planet.</remarks>
+	private void Orbits_Click(object sender, EventArgs e) => ShowOrbits();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemBulkObservationDataDownloader_Click. Shows the bulk observations data downloader form.</summary>
 	/// <param name="sender">The event source.</param>
