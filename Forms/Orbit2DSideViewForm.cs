@@ -120,7 +120,7 @@ public partial class Orbit2DSideViewForm : BaseKryptonForm
 		formsPlotOrbits.Plot.Clear();
 		// Configure title and axis labels.
 		formsPlotOrbits.Plot.Title(text: $"Side view orbit: {_planetoidName}");
-		formsPlotOrbits.Plot.Axes.Bottom.Label.Text = "Semi-major axis (AU)";
+		formsPlotOrbits.Plot.Axes.Bottom.Label.Text = "Projected orbital distance (AU)";
 		formsPlotOrbits.Plot.Axes.Left.Label.Text = "Inclination height (AU)";
 		formsPlotOrbits.Plot.Legend.IsVisible = true;
 		formsPlotOrbits.Plot.Legend.Alignment = Alignment.UpperRight;
@@ -154,9 +154,18 @@ public partial class Orbit2DSideViewForm : BaseKryptonForm
 		// Scale the visible axes to the planetoid's orbit extent.
 		// The aphelion distance (maximum distance from the Sun) defines the required axis range.
 		// Planet orbits that extend beyond this limit remain drawn and can be explored by zooming out.
-		double aphelion = _semiMajorAxis * (1.0 + _eccentricity);
-		double axisMargin = aphelion * 0.15;
-		double axisLimit = aphelion + axisMargin;
+		double axisLimit;
+		if (_semiMajorAxis > 0.0 && _eccentricity >= 0.0 && _eccentricity < 1.0)
+		{
+			double aphelion = _semiMajorAxis * (1.0 + _eccentricity);
+			double axisMargin = aphelion * 0.15;
+			axisLimit = aphelion + axisMargin;
+		}
+		else
+		{
+			logger.Warn(message: "Invalid planetoid parameters for axis scaling (a={0}, e={1}); using fallback axis limit.", args: [_semiMajorAxis, _eccentricity]);
+			axisLimit = 1.0;
+		}
 		formsPlotOrbits.Plot.Axes.SetLimits(left: -axisLimit, right: axisLimit, bottom: -axisLimit, top: axisLimit);
 		// Ensure both axes use the same scale (1 AU on X equals 1 AU on Y) so inclination angles appear geometrically correct.
 		formsPlotOrbits.Plot.Axes.SquareUnits();
