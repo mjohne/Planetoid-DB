@@ -703,6 +703,29 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formOrbitElementsGrouping.ShowDialog();
 	}
 
+	/// <summary>Shows the 2D side-view orbit diagram for the current planetoid.</summary>
+	/// <remarks>Parses the semi-major axis, eccentricity, and inclination from the UI labels and opens the <see cref="Orbits2DSideViewForm"/>.</remarks>
+	private void ShowOrbit2DSideView()
+	{
+		if (!TryParseCurrentOrbitalElements(
+			semiMajorAxis: out double semiMajorAxis,
+			eccentricity: out double eccentricity,
+			inclinationDeg: out double inclinationDeg,
+			longitudeAscendingNodeDeg: out _,
+			argumentPerihelionDeg: out _))
+		{
+			return;
+		}
+		string planetoidName = labelReadableDesignationData.Text;
+		using Orbits2DSideViewForm formOrbit2DSideView = new(
+			planetoidName: planetoidName,
+			semiMajorAxis: semiMajorAxis,
+			eccentricity: eccentricity,
+			inclinationDeg: inclinationDeg);
+		formOrbit2DSideView.TopMost = TopMost;
+		_ = formOrbit2DSideView.ShowDialog();
+	}
+
 	/// <summary>Shows the asteroid families form.</summary>
 	/// <remarks>Passes the full planetoids database to the form so it can display asteroid families.</remarks>
 	private void ShowAsteroidFamiliesDetection()
@@ -2768,6 +2791,12 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the orbit elements grouping form.</remarks>
 	private void OrbitElementsGrouping_Click(object sender, EventArgs e) => ShowOrbitElementsGrouping();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemOrbit2DSideView. Shows the 2D side-view orbit diagram for the selected minor planet.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the 2D side-view orbit visualization for the currently selected minor planet.</remarks>
+	private void Orbit2DSideView_Click(object sender, EventArgs e) => ShowOrbit2DSideView();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemAsteroidFamiliesDetection. Shows the asteroid families form.</summary>
 	/// <param name="sender">The event source.</param>

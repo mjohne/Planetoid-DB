@@ -186,6 +186,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemTerminology = new ToolStripMenuItem();
 		toolStripSeparator16 = new ToolStripSeparator();
 		toolStripMenuItemOrbitElementsGrouping = new ToolStripMenuItem();
+		toolStripMenuItemOrbit2DSideView = new ToolStripMenuItem();
 		toolStripMenuItemAsteroidFamiliesDetection = new ToolStripMenuItem();
 		toolStripSeparator18 = new ToolStripSeparator();
 		toolStripMenuItemMoids = new ToolStripMenuItem();
@@ -2697,7 +2698,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemTools.AccessibleName = "Tools";
 		toolStripMenuItemTools.AccessibleRole = AccessibleRole.MenuPopup;
 		toolStripMenuItemTools.AutoToolTip = true;
-		toolStripMenuItemTools.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemDerivedOrbitElements, toolStripMenuItemFilter, toolStripSeparatorTools1, toolStripMenuItemRecords, toolStripSeparator10, toolStripMenuItemDistribution, toolStripSeparatorTools2, toolStripMenuItemDatabaseInformation, toolStripMenuItemTableMode, toolStripMenuItemTerminology, toolStripSeparator16, toolStripMenuItemOrbitElementsGrouping, toolStripMenuItemAsteroidFamiliesDetection, toolStripSeparator18, toolStripMenuItemMoids, toolStripMenuItemMaxoids, toolStripMenuItemMoidsAndMaxoidsOfOneMinorPlanet, toolStripSeparator12, toolStripMenuItemTisserandParameters, toolStripMenuItemOrbitalResonances, toolStripMenuItemObservations });
+		toolStripMenuItemTools.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemDerivedOrbitElements, toolStripMenuItemFilter, toolStripSeparatorTools1, toolStripMenuItemRecords, toolStripSeparator10, toolStripMenuItemDistribution, toolStripSeparatorTools2, toolStripMenuItemDatabaseInformation, toolStripMenuItemTableMode, toolStripMenuItemTerminology, toolStripSeparator16, toolStripMenuItemOrbitElementsGrouping, toolStripMenuItemOrbit2DSideView, toolStripMenuItemAsteroidFamiliesDetection, toolStripSeparator18, toolStripMenuItemMoids, toolStripMenuItemMaxoids, toolStripMenuItemMoidsAndMaxoidsOfOneMinorPlanet, toolStripSeparator12, toolStripMenuItemTisserandParameters, toolStripMenuItemOrbitalResonances, toolStripMenuItemObservations });
 		toolStripMenuItemTools.Name = "toolStripMenuItemTools";
 		toolStripMenuItemTools.Size = new Size(46, 24);
 		toolStripMenuItemTools.Text = "&Tools";
@@ -2831,6 +2832,20 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOrbitElementsGrouping.Click += OrbitElementsGrouping_Click;
 		toolStripMenuItemOrbitElementsGrouping.MouseEnter += Control_Enter;
 		toolStripMenuItemOrbitElementsGrouping.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemOrbit2DSideView
+		// 
+		toolStripMenuItemOrbit2DSideView.AccessibleDescription = "Shows the 2D side-view orbit diagram for the selected minor planet";
+		toolStripMenuItemOrbit2DSideView.AccessibleName = "Orbit 2D side view";
+		toolStripMenuItemOrbit2DSideView.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemOrbit2DSideView.AutoToolTip = true;
+		toolStripMenuItemOrbit2DSideView.Image = FatcowIcons16px.fatcow_orbit_16px;
+		toolStripMenuItemOrbit2DSideView.Name = "toolStripMenuItemOrbit2DSideView";
+		toolStripMenuItemOrbit2DSideView.Size = new Size(295, 22);
+		toolStripMenuItemOrbit2DSideView.Text = "Orbit 2D &side view";
+		toolStripMenuItemOrbit2DSideView.Click += Orbit2DSideView_Click;
+		toolStripMenuItemOrbit2DSideView.MouseEnter += Control_Enter;
+		toolStripMenuItemOrbit2DSideView.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemAsteroidFamiliesDetection
 		// 
@@ -4732,4 +4747,5 @@ partial class PlanetoidDbForm
 	private ToolStripStatusLabel toolStripStatusLabelAstorbDatUpdate;
 	private ToolStripSeparator toolStripSeparator12;
 	private ToolStripMenuItem toolStripMenuItemMoidsAndMaxoidsOfOneMinorPlanet;
+	private ToolStripMenuItem toolStripMenuItemOrbit2DSideView;
 }
