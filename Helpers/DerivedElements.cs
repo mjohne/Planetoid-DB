@@ -288,11 +288,7 @@ internal class DerivedElements
 	/// <remarks>The directrix is a line perpendicular to the major axis. For an ellipse, directrix = a/e.</remarks>
 	public static double CalculateDirectrix(double semiMajorAxis, double numericalEccentricity)
 	{
-		if (numericalEccentricity == 0)
-		{
-			return double.PositiveInfinity;
-		}
-		return semiMajorAxis / numericalEccentricity;
+		return numericalEccentricity == 0 ? double.PositiveInfinity : semiMajorAxis / numericalEccentricity;
 	}
 
 	/// <summary>Calculates the orbital velocity at perihelion.</summary>
@@ -324,7 +320,7 @@ internal class DerivedElements
 	public static double CalculateMeanOrbitalVelocity(double semiMajorAxis)
 	{
 		double period = CalculatePeriod(semiMajorAxis: semiMajorAxis);
-		return (2.0 * Math.PI * semiMajorAxis) / period;
+		return 2.0 * Math.PI * semiMajorAxis / period;
 	}
 
 	/// <summary>Calculates the current orbital velocity at a given true anomaly.</summary>
@@ -448,7 +444,7 @@ internal class DerivedElements
 	public static double CalculateFlightPathAngle(double numericalEccentricity, double trueAnomaly)
 	{
 		double trueAnomalyRadians = trueAnomaly * Math.PI / 180.0;
-		double angle = Math.Atan(d: (numericalEccentricity * Math.Sin(a: trueAnomalyRadians)) / (1.0 + (numericalEccentricity * Math.Cos(d: trueAnomalyRadians))));
+		double angle = Math.Atan(d: numericalEccentricity * Math.Sin(a: trueAnomalyRadians) / (1.0 + (numericalEccentricity * Math.Cos(d: trueAnomalyRadians))));
 		return angle * 180.0 / Math.PI;
 	}
 
@@ -489,7 +485,7 @@ internal class DerivedElements
 		{
 			anomalyFromAphelion += 360.0;
 		}
-		return (anomalyFromAphelion / 360.0) * period;
+		return anomalyFromAphelion / 360.0 * period;
 	}
 
 	/// <summary>Calculates the time to next aphelion passage.</summary>
@@ -526,7 +522,7 @@ internal class DerivedElements
 		const double jupiterSemiMajorAxis = 5.2;
 		double inclinationRadians = inclination * Math.PI / 180.0;
 		double term1 = jupiterSemiMajorAxis / semiMajorAxis;
-		double term2 = 2.0 * Math.Cos(d: inclinationRadians) * Math.Sqrt(d: (semiMajorAxis * (1.0 - (numericalEccentricity * numericalEccentricity))) / jupiterSemiMajorAxis);
+		double term2 = 2.0 * Math.Cos(d: inclinationRadians) * Math.Sqrt(d: semiMajorAxis * (1.0 - (numericalEccentricity * numericalEccentricity)) / jupiterSemiMajorAxis);
 		return term1 + term2;
 	}
 
@@ -535,7 +531,7 @@ internal class DerivedElements
 	/// <param name="numericalEccentricity">The numerical eccentricity.</param>
 	/// <returns>The mean distance from focus in AU.</returns>
 	/// <remarks>Calculated as r_mean = a(1 + e²/2).</remarks>
-	public static double CalculateMeanDistanceFromFocus(double semiMajorAxis, double numericalEccentricity) => semiMajorAxis * (1.0 + ((numericalEccentricity * numericalEccentricity) / 2.0));
+	public static double CalculateMeanDistanceFromFocus(double semiMajorAxis, double numericalEccentricity) => semiMajorAxis * (1.0 + (numericalEccentricity * numericalEccentricity / 2.0));
 
 	/// <summary>Calculates the geometric albedo-adjusted diameter.</summary>
 	/// <param name="absoluteMagnitude">The absolute magnitude H.</param>
@@ -544,10 +540,6 @@ internal class DerivedElements
 	/// <remarks>Calculated using D = 1329 / sqrt(albedo) * 10^(-0.2*H).</remarks>
 	public static double CalculateGeometricAlbedoAdjustedDiameter(double absoluteMagnitude, double geometricAlbedo)
 	{
-		if (geometricAlbedo <= 0)
-		{
-			return 0;
-		}
-		return 1329.0 / Math.Sqrt(d: geometricAlbedo) * Math.Pow(x: 10.0, y: -0.2 * absoluteMagnitude);
+		return geometricAlbedo <= 0 ? 0 : 1329.0 / Math.Sqrt(d: geometricAlbedo) * Math.Pow(x: 10.0, y: -0.2 * absoluteMagnitude);
 	}
 }

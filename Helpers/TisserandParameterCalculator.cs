@@ -59,12 +59,12 @@ internal class TisserandParameterCalculator
 		// Convert inclination to radians once
 		double inclinationRad = inclinationDeg * Math.PI / 180.0;
 		double cosInclination = Math.Cos(d: inclinationRad);
-		double oneMinusESq = 1.0 - eccentricity * eccentricity;
+		double oneMinusESq = 1.0 - (eccentricity * eccentricity);
 		foreach (PlanetData planet in Planets)
 		{
 			// T_P = a_P / a + 2 * cos(i) * sqrt(a / a_P * (1 - e²))
-			double tisserand = planet.SemiMajorAxis / semiMajorAxis
-				+ 2.0 * cosInclination * Math.Sqrt(d: semiMajorAxis / planet.SemiMajorAxis * oneMinusESq);
+			double tisserand = (planet.SemiMajorAxis / semiMajorAxis)
+				+ (2.0 * cosInclination * Math.Sqrt(d: semiMajorAxis / planet.SemiMajorAxis * oneMinusESq));
 			results.Add(item: new TisserandResult(PlanetName: planet.Name, TisserandValue: tisserand));
 		}
 		return results;

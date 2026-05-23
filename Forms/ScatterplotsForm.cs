@@ -8,7 +8,7 @@ using NLog;
 using Planetoid_DB.Helpers;
 
 using ScottPlot;
-
+using ScottPlot.Plottables;
 
 using System.Diagnostics;
 using System.Globalization;
@@ -225,8 +225,9 @@ public partial class ScatterplotsForm : BaseKryptonForm
 	/// <param name="xDefinition">The definition for the X-axis orbital element.</param>
 	/// <param name="yDefinition">The definition for the Y-axis orbital element.</param>
 	/// <param name="results">The data points to display.</param>
+	/// <returns>The number of data points excluded from the plot because of a non-positive value under the active log scale.</returns>
 	/// <remarks>The method keeps the chart and the tabular view synchronised.</remarks>
-	private void ApplyResults(ScatterDefinition? xDefinition, ScatterDefinition? yDefinition, List<ScatterPoint> results)
+	private int ApplyResults(ScatterDefinition? xDefinition, ScatterDefinition? yDefinition, List<ScatterPoint> results)
 	{
 		_currentResults = results;
 		_currentXDefinition = xDefinition;
@@ -234,15 +235,16 @@ public partial class ScatterplotsForm : BaseKryptonForm
 		// VirtualMode: only set the count; no ListViewItem objects are created.
 		listViewResults.VirtualListSize = _currentResults.Count;
 		listViewResults.Invalidate();
-		UpdateScatterPlot(xDefinition: xDefinition, yDefinition: yDefinition, results: results);
+		return UpdateScatterPlot(xDefinition: xDefinition, yDefinition: yDefinition, results: results);
 	}
 
 	/// <summary>Redraws the ScottPlot scatter plot based on the supplied results.</summary>
 	/// <param name="xDefinition">The definition for the X-axis orbital element.</param>
 	/// <param name="yDefinition">The definition for the Y-axis orbital element.</param>
 	/// <param name="results">The data points to render.</param>
+	/// <returns>The number of data points excluded from the plot because of a non-positive value under the active log scale.</returns>
 	/// <remarks>The chart always contains a title, axis labels, and a legend. When no results are available, the axes are still configured but no points are plotted.</remarks>
-	private void UpdateScatterPlot(ScatterDefinition? xDefinition, ScatterDefinition? yDefinition, IReadOnlyList<ScatterPoint> results)
+	private int UpdateScatterPlot(ScatterDefinition? xDefinition, ScatterDefinition? yDefinition, IReadOnlyList<ScatterPoint> results)
 	{
 		// Clear existing plots and configure the title and axis labels based on the selected definitions.
 		formsPlotScatterplot.Plot.Clear();
@@ -253,28 +255,85 @@ public partial class ScatterplotsForm : BaseKryptonForm
 		formsPlotScatterplot.Plot.Axes.Left.Label.Text = yDefinition?.AxisLabel ?? "Y axis";
 		formsPlotScatterplot.Plot.Legend.IsVisible = true;
 		formsPlotScatterplot.Plot.Legend.Alignment = Alignment.UpperRight;
+		int excluded = 0;
 		// If valid definitions are provided and there are results to display, create a scatter plot.
 		if (xDefinition is not null && yDefinition is not null && results.Count > 0)
 		{
+			bool logX = toolStripButtonLogScaleX.Checked;
+			bool logY = toolStripButtonLogScaleY.Checked;
 			// Extract the X and Y coordinate arrays from the data points in a single pass.
-			double[] xs = new double[results.Count];
-			double[] ys = new double[results.Count];
+			// When log scale is active, values are log10-transformed so the axis spacing is logarithmic.
+			List<double> xList = new(capacity: results.Count);
+			List<double> yList = new(capacity: results.Count);
 			for (int i = 0; i < results.Count; i++)
 			{
-				xs[i] = results[i].X;
-				ys[i] = results[i].Y;
+				double x = results[index: i].X;
+				double y = results[index: i].Y;
+				if (logX)
+				{
+					if (x <= 0)
+					{
+						excluded++;
+						continue;
+					}
+					x = Math.Log10(x);
+				}
+				if (logY)
+				{
+					if (y <= 0)
+					{
+						excluded++;
+						continue;
+					}
+					y = Math.Log10(y);
+				}
+				xList.Add(x);
+				yList.Add(y);
 			}
+			double[] xs = [.. xList];
+			double[] ys = [.. yList];
 			// Add a scatter plot to the ScottPlot with the collected X and Y values.
-			var scatter = formsPlotScatterplot.Plot.Add.Scatter(xs: xs, ys: ys);
+			Scatter scatter = formsPlotScatterplot.Plot.Add.Scatter(xs: xs, ys: ys);
 			scatter.LegendText = "Planetoids";
 			scatter.Color = Colors.SteelBlue;
 			scatter.MarkerSize = 2;
 			scatter.LineWidth = 0;
 		}
+		// Apply logarithmic scale on the X axis if the toggle button is checked:
+		// X values are already log10-transformed in UpdateScatterPlot when log scale is active.
+		// Replace the tick generator with one that formats ticks as powers of 10.
+		if (toolStripButtonLogScaleX.Checked)
+		{
+			ScottPlot.TickGenerators.NumericAutomatic logTicks = new()
+			{
+				LabelFormatter = static v => $"10^{v:0.##}"
+			};
+			logTicks.MinorTickGenerator = new ScottPlot.TickGenerators.LogMinorTickGenerator();
+			formsPlotScatterplot.Plot.Axes.Bottom.TickGenerator = logTicks;
+		}
+		else
+		{
+			formsPlotScatterplot.Plot.Axes.Bottom.TickGenerator = new ScottPlot.TickGenerators.NumericAutomatic();
+		}
+		// Apply logarithmic scale on the Y axis if the toggle button is checked.
+		if (toolStripButtonLogScaleY.Checked)
+		{
+			ScottPlot.TickGenerators.NumericAutomatic logTicks = new()
+			{
+				LabelFormatter = static v => $"10^{v:0.##}"
+			};
+			logTicks.MinorTickGenerator = new ScottPlot.TickGenerators.LogMinorTickGenerator();
+			formsPlotScatterplot.Plot.Axes.Left.TickGenerator = logTicks;
+		}
+		else
+		{
+			formsPlotScatterplot.Plot.Axes.Left.TickGenerator = new ScottPlot.TickGenerators.NumericAutomatic();
+		}
 		// Auto-scale the axes to fit the displayed data.
 		formsPlotScatterplot.Plot.Axes.AutoScale();
 		// Refresh the plot to apply all changes and render the updated scatter plot.
 		formsPlotScatterplot.Refresh();
+		return excluded;
 	}
 
 	/// <summary>Builds scatter-plot data points for the selected definitions on a background thread.</summary>
@@ -537,11 +596,13 @@ public partial class ScatterplotsForm : BaseKryptonForm
 					cancellationToken: _cancellationTokenSource.Token),
 				cancellationToken: _cancellationTokenSource.Token);
 			// Once the scatter-plot generation is complete, apply the final results to the chart and ListView.
-			ApplyResults(xDefinition: xDefinition, yDefinition: yDefinition, results: finalResults);
+			int excluded = ApplyResults(xDefinition: xDefinition, yDefinition: yDefinition, results: finalResults);
 			// Update the information label to summarise the results of the scatter-plot generation.
 			labelInformation.Text = finalResults.Count == 0
 				? "No planetoid values were available for the selected scatter plot."
-				: $"Scatter plot created with {finalResults.Count:N0} plotted planetoids.";
+				: excluded > 0
+					? $"Scatter plot created with {finalResults.Count - excluded:N0} plotted planetoids ({excluded:N0} excluded: non-positive value for log scale)."
+					: $"Scatter plot created with {finalResults.Count:N0} plotted planetoids.";
 		}
 		// Handle the case where the scatter-plot generation was canceled by the user.
 		catch (OperationCanceledException)
@@ -588,6 +649,36 @@ public partial class ScatterplotsForm : BaseKryptonForm
 	/// <remarks>The button text mirrors the current state so users can immediately see whether live updates are enabled.</remarks>
 	private void ToolStripButtonLiveDisplay_CheckedChanged(object? sender, EventArgs e) =>
 		toolStripButtonLiveDisplay.Text = toolStripButtonLiveDisplay.Checked ? "On" : "Off";
+
+	/// <summary>Handles the CheckedChanged event of the X-axis logarithmic scale button.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data associated with the check-state change.</param>
+	/// <remarks>Immediately redraws the chart with the updated axis scale without requiring a new data run.</remarks>
+	private void ToolStripButtonLogScaleX_CheckedChanged(object? sender, EventArgs e)
+	{
+		int excluded = UpdateScatterPlot(xDefinition: _currentXDefinition, yDefinition: _currentYDefinition, results: _currentResults);
+		if (_currentResults.Count > 0)
+		{
+			labelInformation.Text = excluded > 0
+				? $"{_currentResults.Count - excluded:N0} of {_currentResults.Count:N0} points plotted ({excluded:N0} excluded: non-positive value for log scale)."
+				: $"Scatter plot updated with {_currentResults.Count:N0} plotted planetoids.";
+		}
+	}
+
+	/// <summary>Handles the CheckedChanged event of the Y-axis logarithmic scale button.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data associated with the check-state change.</param>
+	/// <remarks>Immediately redraws the chart with the updated axis scale without requiring a new data run.</remarks>
+	private void ToolStripButtonLogScaleY_CheckedChanged(object? sender, EventArgs e)
+	{
+		int excluded = UpdateScatterPlot(xDefinition: _currentXDefinition, yDefinition: _currentYDefinition, results: _currentResults);
+		if (_currentResults.Count > 0)
+		{
+			labelInformation.Text = excluded > 0
+				? $"{_currentResults.Count - excluded:N0} of {_currentResults.Count:N0} points plotted ({excluded:N0} excluded: non-positive value for log scale)."
+				: $"Scatter plot updated with {_currentResults.Count:N0} plotted planetoids.";
+		}
+	}
 
 	#endregion
 }
