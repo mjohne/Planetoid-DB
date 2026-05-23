@@ -199,7 +199,7 @@ public partial class OrbitElementsGroupingForm : BaseKryptonForm
 		ArgumentNullException.ThrowIfNull(argument: messageProgress);
 		ArgumentOutOfRangeException.ThrowIfNegative(value: tolerancePercent);
 
-		if (elementsCount < 1 || elementsCount > availableElementsCount)
+		if (elementsCount is < 1 or > availableElementsCount)
 		{
 			throw new ArgumentOutOfRangeException(
 				paramName: nameof(elementsCount),

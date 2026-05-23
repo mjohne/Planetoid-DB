@@ -879,6 +879,76 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formMaxoidsOfAll.ShowDialog(owner: this);
 	}
 
+	/// <summary>Shows the histogram form. Opens the form to display histograms of orbital elements and properties of all minor planets.</summary>
+	/// <remarks>Passes the full planetoids database to the form so it can create histograms of various properties.</remarks>
+	/// <exception cref="InvalidOperationException">Thrown if the planetoids database is null or empty.</exception>
+	private void ShowHistogram()
+	{
+		// Create a new instance of the HistogramsForm
+		using HistogramsForm formHistogram = new(planetoids: planetoidsDatabase);
+		formHistogram.TopMost = TopMost;
+		_ = formHistogram.ShowDialog(owner: this);
+	}
+
+	/// <summary>Shows the scatterplots form. Opens the form to display scatterplots of orbital elements and properties of all minor planets.</summary>
+	/// <remarks>Passes the full planetoids database to the form so it can create scatterplots of various properties.</remarks>
+	/// <exception cref="InvalidOperationException">Thrown if the planetoids database is null or empty.</exception>
+	private void ShowScatterplot()
+	{
+		// Create a new instance of the ScatterplotsForm
+		using ScatterplotsForm formScatterplot = new(planetoids: planetoidsDatabase);
+		formScatterplot.TopMost = TopMost;
+		_ = formScatterplot.ShowDialog(owner: this);
+	}
+
+	/// <summary>Shows the orbit visualization form for the current planetoid.</summary>
+	/// <remarks>Parses the semi-major axis, eccentricity, and argument of perihelion from the UI labels and opens the <see cref="Orbit2DTopViewForm"/>.</remarks>
+	private void ShowOrbit2DTopView()
+	{
+		if (!TryParseCurrentOrbitalElements(
+			semiMajorAxis: out double semiMajorAxis,
+			eccentricity: out double eccentricity,
+			inclinationDeg: out _,
+			longitudeAscendingNodeDeg: out _,
+			argumentPerihelionDeg: out double argumentPerihelionDeg))
+		{
+			return;
+		}
+		// Use the readable designation as the planetoid label in the diagram title.
+		string planetoidName = labelReadableDesignationData.Text;
+		// Create a new instance of the Orbit2DTopViewForm and show it as a modal dialog.
+		using Orbit2DTopViewForm formOrbit2DTopView = new(
+			planetoidName: planetoidName,
+			semiMajorAxis: semiMajorAxis,
+			eccentricity: eccentricity,
+			argumentPerihelionDeg: argumentPerihelionDeg);
+		formOrbit2DTopView.TopMost = TopMost;
+		_ = formOrbit2DTopView.ShowDialog();
+	}
+
+	/// <summary>Shows the 2D side-view orbit diagram for the current planetoid.</summary>
+	/// <remarks>Parses the semi-major axis, eccentricity, and inclination from the UI labels and opens the <see cref="Orbit2DSideViewForm"/>.</remarks>
+	private void ShowOrbit2DSideView()
+	{
+		if (!TryParseCurrentOrbitalElements(
+			semiMajorAxis: out double semiMajorAxis,
+			eccentricity: out double eccentricity,
+			inclinationDeg: out double inclinationDeg,
+			longitudeAscendingNodeDeg: out _,
+			argumentPerihelionDeg: out _))
+		{
+			return;
+		}
+		string planetoidName = labelReadableDesignationData.Text;
+		using Orbit2DSideViewForm formOrbit2DSideView = new(
+			planetoidName: planetoidName,
+			semiMajorAxis: semiMajorAxis,
+			eccentricity: eccentricity,
+			inclinationDeg: inclinationDeg);
+		formOrbit2DSideView.TopMost = TopMost;
+		_ = formOrbit2DSideView.ShowDialog();
+	}
+
 	/// <summary>Shows the Tisserand parameters form for the current planetoid.</summary>
 	/// <remarks>Parses the semi-major axis, eccentricity, and inclination from the UI labels and opens the <see cref="TisserandParameterOfOneMinorPlanetForm"/>.</remarks>
 	private void ShowTisserandParameters()

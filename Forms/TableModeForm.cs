@@ -511,15 +511,10 @@ public partial class TableModeForm : BaseKryptonForm
 			stopwatch.Stop();
 			SetUiState(processing: false);
 			// Show completion or cancellation message
-			if (cancellationTokenSource?.IsCancellationRequested == true)
-			{
-				_ = KryptonMessageBox.Show(text: $"{listView.VirtualListSize} objects processed (cancellation).", caption: "cancellation", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
-			}
-			// Show completion message
-			else
-			{
-				_ = KryptonMessageBox.Show(text: $"{listView.VirtualListSize} objects processed in {stopwatch.Elapsed:hh\\:mm\\:ss\\.fff} hh:mm:ss.fff", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
-			}
+			_ = cancellationTokenSource?.IsCancellationRequested == true
+				? KryptonMessageBox.Show(text: $"{listView.VirtualListSize} objects processed (cancellation).", caption: "cancellation", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning)
+				// Show completion message
+				: KryptonMessageBox.Show(text: $"{listView.VirtualListSize} objects processed in {stopwatch.Elapsed:hh\\:mm\\:ss\\.fff} hh:mm:ss.fff", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			// Dispose the cancellation token source
 			cancellationTokenSource?.Dispose();
 			cancellationTokenSource = null;

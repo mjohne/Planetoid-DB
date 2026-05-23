@@ -8,7 +8,7 @@ using NLog;
 using Planetoid_DB.Helpers;
 
 using ScottPlot;
-
+using ScottPlot.Plottables;
 
 using System.Diagnostics;
 using System.Globalization;
@@ -256,20 +256,73 @@ public partial class ScatterplotsForm : BaseKryptonForm
 		// If valid definitions are provided and there are results to display, create a scatter plot.
 		if (xDefinition is not null && yDefinition is not null && results.Count > 0)
 		{
+			bool logX = toolStripButtonLogScaleX.Checked;
+			bool logY = toolStripButtonLogScaleY.Checked;
 			// Extract the X and Y coordinate arrays from the data points in a single pass.
-			double[] xs = new double[results.Count];
-			double[] ys = new double[results.Count];
+			// When log scale is active, values are log10-transformed so the axis spacing is logarithmic.
+			List<double> xList = new(capacity: results.Count);
+			List<double> yList = new(capacity: results.Count);
 			for (int i = 0; i < results.Count; i++)
 			{
-				xs[i] = results[i].X;
-				ys[i] = results[i].Y;
+				double x = results[index: i].X;
+				double y = results[index: i].Y;
+				if (logX)
+				{
+					if (x <= 0)
+					{
+						continue;
+					}
+					x = Math.Log10(x);
+				}
+				if (logY)
+				{
+					if (y <= 0)
+					{
+						continue;
+					}
+					y = Math.Log10(y);
+				}
+				xList.Add(x);
+				yList.Add(y);
 			}
+			double[] xs = [.. xList];
+			double[] ys = [.. yList];
 			// Add a scatter plot to the ScottPlot with the collected X and Y values.
-			var scatter = formsPlotScatterplot.Plot.Add.Scatter(xs: xs, ys: ys);
+			Scatter scatter = formsPlotScatterplot.Plot.Add.Scatter(xs: xs, ys: ys);
 			scatter.LegendText = "Planetoids";
 			scatter.Color = Colors.SteelBlue;
 			scatter.MarkerSize = 2;
 			scatter.LineWidth = 0;
+		}
+		// Apply logarithmic scale on the X axis if the toggle button is checked:
+		// X values are already log10-transformed in UpdateScatterPlot when log scale is active.
+		// Replace the tick generator with one that formats ticks as powers of 10.
+		if (toolStripButtonLogScaleX.Checked)
+		{
+			ScottPlot.TickGenerators.NumericAutomatic logTicks = new()
+			{
+				LabelFormatter = static v => $"10^{v:0.##}"
+			};
+			logTicks.MinorTickGenerator = new ScottPlot.TickGenerators.LogMinorTickGenerator();
+			formsPlotScatterplot.Plot.Axes.Bottom.TickGenerator = logTicks;
+		}
+		else
+		{
+			formsPlotScatterplot.Plot.Axes.Bottom.TickGenerator = new ScottPlot.TickGenerators.NumericAutomatic();
+		}
+		// Apply logarithmic scale on the Y axis if the toggle button is checked.
+		if (toolStripButtonLogScaleY.Checked)
+		{
+			ScottPlot.TickGenerators.NumericAutomatic logTicks = new()
+			{
+				LabelFormatter = static v => $"10^{v:0.##}"
+			};
+			logTicks.MinorTickGenerator = new ScottPlot.TickGenerators.LogMinorTickGenerator();
+			formsPlotScatterplot.Plot.Axes.Left.TickGenerator = logTicks;
+		}
+		else
+		{
+			formsPlotScatterplot.Plot.Axes.Left.TickGenerator = new ScottPlot.TickGenerators.NumericAutomatic();
 		}
 		// Auto-scale the axes to fit the displayed data.
 		formsPlotScatterplot.Plot.Axes.AutoScale();
@@ -588,6 +641,20 @@ public partial class ScatterplotsForm : BaseKryptonForm
 	/// <remarks>The button text mirrors the current state so users can immediately see whether live updates are enabled.</remarks>
 	private void ToolStripButtonLiveDisplay_CheckedChanged(object? sender, EventArgs e) =>
 		toolStripButtonLiveDisplay.Text = toolStripButtonLiveDisplay.Checked ? "On" : "Off";
+
+	/// <summary>Handles the CheckedChanged event of the X-axis logarithmic scale button.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data associated with the check-state change.</param>
+	/// <remarks>Immediately redraws the chart with the updated axis scale without requiring a new data run.</remarks>
+	private void ToolStripButtonLogScaleX_CheckedChanged(object? sender, EventArgs e) =>
+		UpdateScatterPlot(xDefinition: _currentXDefinition, yDefinition: _currentYDefinition, results: _currentResults);
+
+	/// <summary>Handles the CheckedChanged event of the Y-axis logarithmic scale button.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data associated with the check-state change.</param>
+	/// <remarks>Immediately redraws the chart with the updated axis scale without requiring a new data run.</remarks>
+	private void ToolStripButtonLogScaleY_CheckedChanged(object? sender, EventArgs e) =>
+		UpdateScatterPlot(xDefinition: _currentXDefinition, yDefinition: _currentYDefinition, results: _currentResults);
 
 	#endregion
 }

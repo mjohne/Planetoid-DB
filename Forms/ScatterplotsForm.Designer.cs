@@ -59,6 +59,10 @@ partial class ScatterplotsForm
 		toolStripSeparator3 = new ToolStripSeparator();
 		toolStripLabelYAxis = new ToolStripLabel();
 		toolStripComboBoxYAxis = new ToolStripComboBox();
+		toolStripSeparator4 = new ToolStripSeparator();
+		toolStripButtonLogScaleX = new ToolStripButton();
+		toolStripSeparator5 = new ToolStripSeparator();
+		toolStripButtonLogScaleY = new ToolStripButton();
 		kryptonManager = new KryptonManager(components);
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
@@ -335,7 +339,7 @@ partial class ScatterplotsForm
 		kryptonToolStripToolbar.AllowItemReorder = true;
 		kryptonToolStripToolbar.Dock = DockStyle.None;
 		kryptonToolStripToolbar.Font = new Font("Segoe UI", 9F);
-		kryptonToolStripToolbar.Items.AddRange(new ToolStripItem[] { toolStripButtonStartCancel, toolStripSeparator1, toolStripLabelLiveDisplay, toolStripButtonLiveDisplay, toolStripSeparator2, toolStripLabelXAxis, toolStripComboBoxXAxis, toolStripSeparator3, toolStripLabelYAxis, toolStripComboBoxYAxis });
+		kryptonToolStripToolbar.Items.AddRange(new ToolStripItem[] { toolStripButtonStartCancel, toolStripSeparator1, toolStripLabelLiveDisplay, toolStripButtonLiveDisplay, toolStripSeparator2, toolStripLabelXAxis, toolStripComboBoxXAxis, toolStripSeparator3, toolStripLabelYAxis, toolStripComboBoxYAxis, toolStripSeparator4, toolStripButtonLogScaleX, toolStripSeparator5, toolStripButtonLogScaleY });
 		kryptonToolStripToolbar.Location = new Point(0, 25);
 		kryptonToolStripToolbar.Name = "kryptonToolStripToolbar";
 		kryptonToolStripToolbar.Size = new Size(872, 25);
@@ -465,6 +469,56 @@ partial class ScatterplotsForm
 		toolStripComboBoxYAxis.MouseEnter += Control_Enter;
 		toolStripComboBoxYAxis.MouseLeave += Control_Leave;
 		// 
+		// toolStripSeparator4
+		// 
+		toolStripSeparator4.AccessibleDescription = "Just a separator";
+		toolStripSeparator4.AccessibleName = "Just a separator";
+		toolStripSeparator4.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparator4.Name = "toolStripSeparator4";
+		toolStripSeparator4.Size = new Size(6, 25);
+		toolStripSeparator4.MouseEnter += Control_Enter;
+		toolStripSeparator4.MouseLeave += Control_Leave;
+		// 
+		// toolStripButtonLogScaleX
+		// 
+		toolStripButtonLogScaleX.AccessibleDescription = "Toggles logarithmic scale on the X axis";
+		toolStripButtonLogScaleX.AccessibleName = "X axis logarithmic scale toggle";
+		toolStripButtonLogScaleX.AccessibleRole = AccessibleRole.CheckButton;
+		toolStripButtonLogScaleX.CheckOnClick = true;
+		toolStripButtonLogScaleX.DisplayStyle = ToolStripItemDisplayStyle.Text;
+		toolStripButtonLogScaleX.Name = "toolStripButtonLogScaleX";
+		toolStripButtonLogScaleX.Size = new Size(70, 22);
+		toolStripButtonLogScaleX.Text = "X log scale";
+		toolStripButtonLogScaleX.ToolTipText = "Toggle logarithmic scale on the X axis";
+		toolStripButtonLogScaleX.CheckedChanged += ToolStripButtonLogScaleX_CheckedChanged;
+		toolStripButtonLogScaleX.MouseEnter += Control_Enter;
+		toolStripButtonLogScaleX.MouseLeave += Control_Leave;
+		// 
+		// toolStripSeparator5
+		// 
+		toolStripSeparator5.AccessibleDescription = "Just a separator";
+		toolStripSeparator5.AccessibleName = "Just a separator";
+		toolStripSeparator5.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparator5.Name = "toolStripSeparator5";
+		toolStripSeparator5.Size = new Size(6, 25);
+		toolStripSeparator5.MouseEnter += Control_Enter;
+		toolStripSeparator5.MouseLeave += Control_Leave;
+		// 
+		// toolStripButtonLogScaleY
+		// 
+		toolStripButtonLogScaleY.AccessibleDescription = "Toggles logarithmic scale on the Y axis";
+		toolStripButtonLogScaleY.AccessibleName = "Y axis logarithmic scale toggle";
+		toolStripButtonLogScaleY.AccessibleRole = AccessibleRole.CheckButton;
+		toolStripButtonLogScaleY.CheckOnClick = true;
+		toolStripButtonLogScaleY.DisplayStyle = ToolStripItemDisplayStyle.Text;
+		toolStripButtonLogScaleY.Name = "toolStripButtonLogScaleY";
+		toolStripButtonLogScaleY.Size = new Size(70, 22);
+		toolStripButtonLogScaleY.Text = "Y log scale";
+		toolStripButtonLogScaleY.ToolTipText = "Toggle logarithmic scale on the Y axis";
+		toolStripButtonLogScaleY.CheckedChanged += ToolStripButtonLogScaleY_CheckedChanged;
+		toolStripButtonLogScaleY.MouseEnter += Control_Enter;
+		toolStripButtonLogScaleY.MouseLeave += Control_Leave;
+		// 
 		// kryptonManager
 		// 
 		kryptonManager.GlobalPaletteMode = PaletteMode.Global;
@@ -534,6 +588,10 @@ partial class ScatterplotsForm
 	private ToolStripSeparator toolStripSeparator3;
 	private ToolStripLabel toolStripLabelYAxis;
 	private ToolStripComboBox toolStripComboBoxYAxis;
+	private ToolStripSeparator toolStripSeparator4;
+	private ToolStripButton toolStripButtonLogScaleX;
+	private ToolStripSeparator toolStripSeparator5;
+	private ToolStripButton toolStripButtonLogScaleY;
 	private KryptonToolStrip kryptonToolStripProgress;
 	private ToolStripLabel toolStripLabelProgress;
 	private KryptonProgressBarToolStripItem kryptonProgressBar;
