@@ -1,4 +1,4 @@
-// This file contains the implementation of the OrbitsForm,
+// This file contains the implementation of the Orbit2DTopViewForm,
 // which displays a 2D orbital plane visualization of a selected
 // minor planet relative to the eight solar system planets.
 using NLog;
