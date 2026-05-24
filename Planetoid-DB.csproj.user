@@ -82,6 +82,9 @@
     <Compile Update="Forms\ObservatoryCodesForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\Orbit3DForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\OrbitalResonancesOfOneMinorPlanetForm.cs">
       <SubType>Form</SubType>
     </Compile>
