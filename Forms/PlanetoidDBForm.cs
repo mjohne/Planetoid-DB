@@ -947,6 +947,42 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formOrbit2DSideView.ShowDialog();
 	}
 
+	/// <summary>Shows the 3D orbit visualization for the current planetoid.</summary>
+	/// <remarks>Parses all six Keplerian orbital elements plus the mean anomaly and the MPCORB epoch
+	/// from the UI labels and opens the <see cref="Orbit3DForm"/>.</remarks>
+	private void ShowOrbit3D()
+	{
+		if (!TryParseCurrentOrbitalElements(
+			semiMajorAxis: out double semiMajorAxis,
+			eccentricity: out double eccentricity,
+			inclinationDeg: out double inclinationDeg,
+			longitudeAscendingNodeDeg: out double longitudeAscendingNodeDeg,
+			argumentPerihelionDeg: out double argumentPerihelionDeg))
+		{
+			return;
+		}
+		IFormatProvider provider = CultureInfo.CreateSpecificCulture(name: "en");
+		if (!double.TryParse(s: labelMeanAnomalyAtTheEpochData.Text, style: NumberStyles.Any, provider: provider, result: out double meanAnomalyDeg))
+		{
+			logger.Error(message: $"Failed to parse mean anomaly: '{labelMeanAnomalyAtTheEpochData.Text}'");
+			ShowErrorMessage(message: $"Could not parse mean anomaly value: '{labelMeanAnomalyAtTheEpochData.Text}'");
+			return;
+		}
+		string planetoidName = labelReadableDesignationData.Text;
+		string epochMpcorb = labelEpochData.Text;
+		using Orbit3DForm formOrbit3D = new(
+			planetoidName: planetoidName,
+			semiMajorAxis: semiMajorAxis,
+			eccentricity: eccentricity,
+			inclinationDeg: inclinationDeg,
+			longitudeAscendingNodeDeg: longitudeAscendingNodeDeg,
+			argumentPerihelionDeg: argumentPerihelionDeg,
+			meanAnomalyDeg: meanAnomalyDeg,
+			epochMpcorb: epochMpcorb);
+		formOrbit3D.TopMost = TopMost;
+		_ = formOrbit3D.ShowDialog();
+	}
+
 	/// <summary>Shows the Tisserand parameters form for the current planetoid.</summary>
 	/// <remarks>Parses the semi-major axis, eccentricity, and inclination from the UI labels and opens the <see cref="TisserandParameterOfOneMinorPlanetForm"/>.</remarks>
 	private void ShowTisserandParameters()
@@ -2842,6 +2878,24 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the asteroid families form.</remarks>
 	private void AsteroidFamiliesDetection_Click(object sender, EventArgs e) => ShowAsteroidFamiliesDetection();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemOrbit2DTopView. Shows the 2D top-view orbit diagram.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method shows the 2D top-view orbital diagram for the currently selected planetoid.</remarks>
+	private void Orbit2DTopView_Click(object sender, EventArgs e) => ShowOrbit2DTopView();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemOrbit2DSideView. Shows the 2D side-view orbit diagram.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method shows the 2D side-view orbital diagram for the currently selected planetoid.</remarks>
+	private void Orbit2DSideView_Click(object sender, EventArgs e) => ShowOrbit2DSideView();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemOrbit3D. Shows the 3D orbit visualization.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method opens the 3D orbital visualization form for the currently selected planetoid.</remarks>
+	private void Orbit3D_Click(object sender, EventArgs e) => ShowOrbit3D();
 
 	/// <summary>Handles the click event for the MenuitemOrbitalResonancesOfAllMinorPlanets. Shows the orbital resonances of all minor planets form.</summary>
 	/// <param name="sender">The event source.</param>
