@@ -676,6 +676,8 @@ public partial class Orbit3DForm : BaseKryptonForm
 	private void Orbit3DForm_Load(object? sender, EventArgs e)
 	{
 		ClearStatusBar(label: labelInformation);
+		// Require a valid bound orbit: semi-major axis > 0 and eccentricity in [0, 1).
+		// Eccentricity >= 1 describes hyperbolic/parabolic trajectories not supported by the elliptical orbit calculations.
 		if (_semiMajorAxis <= 0.0 || _eccentricity < 0.0 || _eccentricity >= 1.0)
 		{
 			logger.Warn(
