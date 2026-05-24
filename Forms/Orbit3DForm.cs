@@ -227,12 +227,12 @@ public partial class Orbit3DForm : BaseKryptonForm
 	/// <returns>Eccentric anomaly in radians.</returns>
 	private static double SolveKepler(double meanAnomalyRad, double eccentricity)
 	{
-		double e = eccentricity;
+		double ecc = eccentricity;
 		double m = meanAnomalyRad;
 		double bigE = m; // Initial guess
 		for (int i = 0; i < 50; i++)
 		{
-			double deltaE = (m - bigE + (e * Math.Sin(a: bigE))) / (1.0 - (e * Math.Cos(d: bigE)));
+			double deltaE = (m - bigE + (ecc * Math.Sin(a: bigE))) / (1.0 - (ecc * Math.Cos(d: bigE)));
 			bigE += deltaE;
 			if (Math.Abs(value: deltaE) < 1e-12)
 			{
@@ -253,16 +253,17 @@ public partial class Orbit3DForm : BaseKryptonForm
 	private static (double X, double Y, double Z) OrbElemToEcliptic(
 		double a, double e, double iDeg, double omDeg, double periDeg, double mDeg)
 	{
+		double ecc = e;
 		double mRad = mDeg * Math.PI / 180.0;
-		double bigE = SolveKepler(meanAnomalyRad: mRad, eccentricity: e);
+		double bigE = SolveKepler(meanAnomalyRad: mRad, eccentricity: ecc);
 
 		// True anomaly ν via atan2
 		double nu = 2.0 * Math.Atan2(
-			y: Math.Sqrt(d: 1.0 + e) * Math.Sin(a: bigE / 2.0),
-			x: Math.Sqrt(d: 1.0 - e) * Math.Cos(d: bigE / 2.0));
+			y: Math.Sqrt(d: 1.0 + ecc) * Math.Sin(a: bigE / 2.0),
+			x: Math.Sqrt(d: 1.0 - ecc) * Math.Cos(d: bigE / 2.0));
 
 		// Heliocentric distance
-		double r = a * (1.0 - (e * Math.Cos(d: bigE)));
+		double r = a * (1.0 - (ecc * Math.Cos(d: bigE)));
 
 		// Position in orbital plane (perifocal frame)
 		double xOrbital = r * Math.Cos(d: nu);
@@ -350,7 +351,7 @@ public partial class Orbit3DForm : BaseKryptonForm
 			>= 'A' and <= 'V' => packed[index: 4] - 'A' + 10,
 			_ => 0,
 		};
-		if (day < 1 || day > 31)
+		if (day is < 1 or > 31)
 		{
 			return J2000Jd;
 		}
@@ -598,7 +599,7 @@ public partial class Orbit3DForm : BaseKryptonForm
 		for (int k = 0; k < 36; k++)
 		{
 			double angle = k * Math.PI / 18.0;
-			GL.Vertex3(x: (float)(haloRadius * Math.Cos(angle)), y: 0f, z: (float)(haloRadius * Math.Sin(angle)));
+			GL.Vertex3(x: (float)(haloRadius * Math.Cos(d: angle)), y: 0f, z: (float)(haloRadius * Math.Sin(a: angle)));
 		}
 		GL.End();
 		GL.PointSize(size: 1f);
@@ -693,8 +694,8 @@ public partial class Orbit3DForm : BaseKryptonForm
 			_cachedPlanetOrbits = new (double X, double Y, double Z)[Planets.Length][];
 			for (int idx = 0; idx < Planets.Length; idx++)
 			{
-				(_, double a, double e, double i, double om, double peri, _, _) = Planets[idx];
-				_cachedPlanetOrbits[idx] = ComputeOrbitPoints(a: a, e: e, iDeg: i, omDeg: om, periDeg: peri);
+				(_, double a, double ecc, double i, double om, double peri, _, _) = Planets[idx];
+					_cachedPlanetOrbits[idx] = ComputeOrbitPoints(a: a, e: ecc, iDeg: i, omDeg: om, periDeg: peri);
 			}
 			_cachedPlanetoidOrbit = ComputeOrbitPoints(
 				a: _semiMajorAxis,
