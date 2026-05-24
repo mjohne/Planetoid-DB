@@ -104,6 +104,13 @@ public partial class Orbit3DForm : BaseKryptonForm
 	/// <remarks>This field stores the embedded OpenTK GLControl that provides the OpenGL rendering surface.</remarks>
 	private GLControl _glControl = null!;
 
+	/// <summary>Cached orbit point arrays for each of the eight solar system planets, computed once on load.</summary>
+	/// <remarks>Each entry corresponds to the planet at the same index in <see cref="Planets"/>.</remarks>
+	private (double X, double Y, double Z)[][]? _cachedPlanetOrbits;
+
+	/// <summary>Cached orbit point array for the selected planetoid, computed once on load.</summary>
+	private (double X, double Y, double Z)[]? _cachedPlanetoidOrbit;
+
 	/// <summary>Number of orbit path segments computed per orbit (higher = smoother ellipse).</summary>
 	/// <remarks>This constant defines the number of segments used to approximate the orbit paths when rendering. A higher value results in smoother ellipses but may impact performance.</remarks>
 	private const int OrbitSteps = 720;
@@ -205,6 +212,10 @@ public partial class Orbit3DForm : BaseKryptonForm
 		_glControl.MouseUp += GlControl_MouseUp;
 		_glControl.MouseMove += GlControl_MouseMove;
 		_glControl.MouseWheel += GlControl_MouseWheel;
+		_glControl.Enter += Control_Enter;
+		_glControl.Leave += Control_Leave;
+		_glControl.MouseEnter += Control_Enter;
+		_glControl.MouseLeave += Control_Leave;
 		panelGl.Controls.Add(value: _glControl);
 	}
 
@@ -336,9 +347,13 @@ public partial class Orbit3DForm : BaseKryptonForm
 		int day = packed[index: 4] switch
 		{
 			>= '1' and <= '9' => packed[index: 4] - '0',
-			>= 'A' and <= 'Z' => packed[index: 4] - 'A' + 10,
-			_ => 1,
+			>= 'A' and <= 'V' => packed[index: 4] - 'A' + 10,
+			_ => 0,
 		};
+		if (day < 1 || day > 31)
+		{
+			return J2000Jd;
+		}
 		// Gregorian calendar → Julian Day Number (integer part) then add 0.5 for JD epoch
 		int a = (14 - month) / 12;
 		int y = year + 4800 - a;
@@ -451,7 +466,7 @@ public partial class Orbit3DForm : BaseKryptonForm
 		GL.Rotate(angle: _pitch, x: 1f, y: 0f, z: 0f);
 		GL.Rotate(angle: _yaw, x: 0f, y: 1f, z: 0f);
 		DrawEclipticGrid();
-		DrawPlanetOrbits();
+		DrawPlanetOrbits(cachedOrbits: _cachedPlanetOrbits!);
 		DrawPlanetoidOrbit();
 		DrawSun();
 		double nowJd = DateTimeToJd(dt: DateTime.UtcNow);
@@ -484,12 +499,13 @@ public partial class Orbit3DForm : BaseKryptonForm
 
 	/// <summary>Draws the orbit ellipses of the eight solar system planets.</summary>
 	/// <remarks>Each planet's orbit is drawn as a line strip in a distinct color. The colors are dimmed to 60% brightness to ensure the planetoid's orbit stands out more prominently.</remarks>
-	private static void DrawPlanetOrbits()
+	private static void DrawPlanetOrbits((double X, double Y, double Z)[][] cachedOrbits)
 	{
 		GL.LineWidth(width: 1.5f);
-		foreach ((string _, double a, double e, double i, double om, double peri, double _, Color col) in Planets)
+		for (int idx = 0; idx < Planets.Length; idx++)
 		{
-			(double X, double Y, double Z)[] pts = ComputeOrbitPoints(a: a, e: e, iDeg: i, omDeg: om, periDeg: peri);
+			Color col = Planets[idx].Col;
+			(double X, double Y, double Z)[] pts = cachedOrbits[idx];
 			// Dim the planet orbit colors slightly
 			GL.Color3(red: col.R / 255f * 0.6f, green: col.G / 255f * 0.6f, blue: col.B / 255f * 0.6f);
 			GL.Begin(mode: PrimitiveType.LineStrip);
@@ -507,12 +523,7 @@ public partial class Orbit3DForm : BaseKryptonForm
 	/// <remarks>Segments above the ecliptic are drawn in bright orange, while segments below the ecliptic are drawn in semi-transparent violet. Additionally, a faint violet shadow is rendered on the ecliptic plane for all below-ecliptic segments to enhance visual clarity of the orbit's inclination.</remarks>
 	private void DrawPlanetoidOrbit()
 	{
-		(double X, double Y, double Z)[] pts = ComputeOrbitPoints(
-			a: _semiMajorAxis,
-			e: _eccentricity,
-			iDeg: _inclinationDeg,
-			omDeg: _longitudeAscendingNodeDeg,
-			periDeg: _argumentPerihelionDeg);
+		(double X, double Y, double Z)[] pts = _cachedPlanetoidOrbit!;
 
 		// --- Pass 1: draw orbit line with per-segment color ---
 		GL.LineWidth(width: 2.5f);
@@ -665,9 +676,30 @@ public partial class Orbit3DForm : BaseKryptonForm
 	private void Orbit3DForm_Load(object? sender, EventArgs e)
 	{
 		ClearStatusBar(label: labelInformation);
+		if (_semiMajorAxis <= 0.0 || _eccentricity < 0.0 || _eccentricity >= 1.0)
+		{
+			logger.Warn(
+				message: "Orbit3DForm: invalid orbital elements for '{0}': a={1}, e={2}.",
+				args: [_planetoidName, _semiMajorAxis, _eccentricity]);
+			ShowErrorMessage(message: $"Invalid orbital elements for {_planetoidName}: semi-major axis must be > 0 and eccentricity must be in [0, 1).");
+			Close();
+			return;
+		}
 		try
 		{
 			CreateGlControl();
+			_cachedPlanetOrbits = new (double X, double Y, double Z)[Planets.Length][];
+			for (int idx = 0; idx < Planets.Length; idx++)
+			{
+				(_, double a, double e, double i, double om, double peri, _, _) = Planets[idx];
+				_cachedPlanetOrbits[idx] = ComputeOrbitPoints(a: a, e: e, iDeg: i, omDeg: om, periDeg: peri);
+			}
+			_cachedPlanetoidOrbit = ComputeOrbitPoints(
+				a: _semiMajorAxis,
+				e: _eccentricity,
+				iDeg: _inclinationDeg,
+				omDeg: _longitudeAscendingNodeDeg,
+				periDeg: _argumentPerihelionDeg);
 			_glControl.MakeCurrent();
 			GL.Enable(cap: EnableCap.DepthTest);
 			_glReady = true;
