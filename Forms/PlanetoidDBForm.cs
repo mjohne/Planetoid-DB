@@ -1336,15 +1336,26 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	}
 
 	/// <summary>Shows the filter form.</summary>
-	/// <remarks>This method is used to show the filter form.</remarks>
+	/// <remarks>This method passes a copy of the current planetoids database to the filter form. When the user confirms the filter settings, the filtered result replaces the current database and the view is refreshed to the first record.</remarks>
 	private void ShowFilter()
 	{
 		// Create a new instance of the FilterForm
 		using FilterForm formFilter = new();
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formFilter.TopMost = TopMost;
-		// Fill the form with the planetoids database
-		_ = formFilter.ShowDialog();
+		// Pass a copy of the current database to the filter form
+		formFilter.FillArray(arrTemp: planetoidsDatabase);
+		// Show the filter form as a modal dialog
+		if (formFilter.ShowDialog() == DialogResult.OK && formFilter.FilteredDatabase is { } filtered)
+		{
+			// Replace the current database with the filtered result
+			planetoidsDatabase.Clear();
+			planetoidsDatabase.AddRange(collection: filtered);
+			// Navigate to the first record of the filtered database
+			currentPosition = 0;
+			GotoCurrentPosition(position: currentPosition);
+			logger.Info(message: $"Filter applied: database now contains {planetoidsDatabase.Count} records.");
+		}
 	}
 
 	/// <summary>Shows the settings form.</summary>
