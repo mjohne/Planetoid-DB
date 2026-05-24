@@ -642,7 +642,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			38 => TerminologyElement.StandardGravitationalParameter,
 			_ => TerminologyElement.IndexNumber,
 		};
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formTerminology.TopMost = TopMost;
 		// Show the terminology form as a modal dialog
 		_ = formTerminology.ShowDialog();
@@ -654,7 +654,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		// Create a new instance of the TableModeForm
 		using TableModeForm formTableMode = new();
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formTableMode.TopMost = TopMost;
 		// Fill the form with the planetoids database
 		formTableMode.FillArray(arrTemp: planetoidsDatabase);
@@ -667,7 +667,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void ShowOrbitalResonances()
 	{
 		// Try to parse the semi-major axis from the label text using invariant culture to ensure consistent parsing regardless of the user's locale settings
-		IFormatProvider provider = CultureInfo.CreateSpecificCulture(name: "en");
+		IFormatProvider provider = CultureInfo.InvariantCulture;
 		// If parsing fails, log an error and show an error message to the user, then return early to avoid opening the form with invalid data
 		if (!double.TryParse(s: labelSemiMajorAxisData.Text, style: NumberStyles.Any, provider: provider, result: out double semiMajorAxis))
 		{
@@ -677,7 +677,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		}
 		// Create a new instance of the OrbitalResonancesOfOneMinorPlanetForm
 		using OrbitalResonancesOfOneMinorPlanetForm formOrbitalResonances = new();
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formOrbitalResonances.TopMost = TopMost;
 		// Pass the parsed semi-major axis to the form so it can calculate and display the relevant orbital resonances for the current planetoid
 		formOrbitalResonances.SetSemiMajorAxis(semiMajorAxis: semiMajorAxis);
@@ -698,7 +698,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		}
 		// Create a new instance of the ObservationsForm
 		using ObservationsForm formObservations = new();
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formObservations.TopMost = TopMost;
 		// Pass the index data label text to the observations form so it can use it to fetch and display the relevant observations for the current planetoid
 		formObservations.SetIndexData(indexData: labelIndexData.Text);
@@ -706,13 +706,13 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formObservations.ShowDialog();
 	}
 
-	/// <summary>Shows the orbital resonances form for the current planetoid.</summary>
-	/// <remarks>Parses the semi-major axis from the UI label and opens the <see cref="OrbitalResonancesOfOneMinorPlanetForm"/>.</remarks>
+	/// <summary>Shows the orbit elements grouping form.</summary>
+	/// <remarks>Passes the full planetoids database to the <see cref="OrbitElementsGroupingForm"/> and shows it as a modal dialog.</remarks>
 	private void ShowOrbitElementsGrouping()
 	{
-		// Create a new instance of the OrbitElementsGroupingForm and pass the planeto
+		// Create a new instance of the OrbitElementsGroupingForm and pass the planetoids database to it
 		using OrbitElementsGroupingForm formOrbitElementsGrouping = new(planetoids: planetoidsDatabase);
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formOrbitElementsGrouping.TopMost = TopMost;
 		// Show the orbit elements grouping form as a modal dialog
 		_ = formOrbitElementsGrouping.ShowDialog();
@@ -724,7 +724,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		// Create a new instance of the AsteroidFamiliesForm and pass the planetoids database to it
 		using AsteroidFamiliesForm formAsteroidFamilies = new(planetoids: planetoidsDatabase);
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formAsteroidFamilies.TopMost = TopMost;
 		// Show the asteroid families form as a modal dialog
 		_ = formAsteroidFamilies.ShowDialog(owner: this);
@@ -736,7 +736,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		// Create a new instance of the OrbitalResonancesOfAllMinorPlanetsForm
 		using OrbitalResonancesOfAllMinorPlanetsForm formOrbitalResonances = new(planetoids: planetoidsDatabase);
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formOrbitalResonances.TopMost = TopMost;
 		// Show the orbital resonances form as a modal dialog
 		_ = formOrbitalResonances.ShowDialog(owner: this);
@@ -815,7 +815,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		}
 		// Create a new instance of the MoidsOfOneMinorPlanetForm
 		using MoidsOfOneMinorPlanetForm formMoids = new();
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formMoids.TopMost = TopMost;
 		// Pass the parsed orbital elements to the form
 		formMoids.SetOrbitalElements(
@@ -844,7 +844,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		}
 		// Create a new instance of the MaxoidsOfOneMinorPlanetForm
 		using MaxoidsOfOneMinorPlanetForm formMaxoids = new();
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formMaxoids.TopMost = TopMost;
 		// Pass the parsed orbital elements to the form
 		formMaxoids.SetOrbitalElements(
@@ -873,7 +873,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		}
 		// Create a new instance of the MoidsAndMaxoidsOfOneMinorPlanetForm
 		using MoidsAndMaxoidsOfOneMinorPlanetForm formMoidsAndMaxoids = new();
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formMoidsAndMaxoids.TopMost = TopMost;
 		// Pass the parsed orbital elements to the form
 		formMoidsAndMaxoids.SetOrbitalElements(
@@ -892,7 +892,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		// Create a new instance of the MoidsOfAllMinorPlanetsForm
 		using MoidsOfAllMinorPlanetsForm formMoidsOfAll = new(planetoids: planetoidsDatabase);
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formMoidsOfAll.TopMost = TopMost;
 		// Show the MOIDs of all minor planets form as a modal dialog
 		_ = formMoidsOfAll.ShowDialog(owner: this);
@@ -904,7 +904,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		// Create a new instance of the MaxoidsOfAllMinorPlanetsForm
 		using MaxoidsOfAllMinorPlanetsForm formMaxoidsOfAll = new(planetoids: planetoidsDatabase);
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formMaxoidsOfAll.TopMost = TopMost;
 		// Show the MAXOIDs of all minor planets form as a modal dialog
 		_ = formMaxoidsOfAll.ShowDialog(owner: this);
@@ -916,7 +916,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		// Create a new instance of the HistogramsForm
 		using HistogramsForm formHistogram = new(planetoids: planetoidsDatabase);
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formHistogram.TopMost = TopMost;
 		// Show the histogram form as a modal dialog
 		_ = formHistogram.ShowDialog(owner: this);
@@ -928,7 +928,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		// Create a new instance of the ScatterplotsForm
 		using ScatterplotsForm formScatterplot = new(planetoids: planetoidsDatabase);
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formScatterplot.TopMost = TopMost;
 		// Show the scatterplots form as a modal dialog
 		_ = formScatterplot.ShowDialog(owner: this);
@@ -1001,7 +1001,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			return;
 		}
 		// Parse the mean anomaly at the epoch from the corresponding label on the form
-		IFormatProvider provider = CultureInfo.CreateSpecificCulture(name: "en");
+		IFormatProvider provider = CultureInfo.InvariantCulture;
 		// If parsing fails, log the error and show an error message to the user, then return early to avoid opening the form with invalid data
 		if (!double.TryParse(s: labelMeanAnomalyAtTheEpochData.Text, style: NumberStyles.Any, provider: provider, result: out double meanAnomalyDeg))
 		{
@@ -1023,7 +1023,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			argumentPerihelionDeg: argumentPerihelionDeg,
 			meanAnomalyDeg: meanAnomalyDeg,
 			epochMpcorb: epochMpcorb);
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formOrbit3D.TopMost = TopMost;
 		// Show the 3D orbit visualization form as a modal dialog
 		_ = formOrbit3D.ShowDialog();
@@ -1061,7 +1061,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		}
 		// Create a new instance of the TisserandParameterOfOneMinorPlanetForm
 		using TisserandParameterOfOneMinorPlanetForm formTisserand = new();
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formTisserand.TopMost = TopMost;
 		// Pass the parsed orbital elements to the form
 		formTisserand.SetOrbitalElements(semiMajorAxis: semiMajorAxis, eccentricity: eccentricity, inclinationDeg: inclinationDeg);
@@ -1121,7 +1121,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		// Create a new instance of the AppInfoForm
 		using AppInfoForm formAppInfo = new();
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formAppInfo.TopMost = TopMost;
 		// Show the application information form as a modal dialog
 		_ = formAppInfo.ShowDialog();
@@ -1133,7 +1133,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		// Create a new instance of the ArchiveMpcorbForm
 		using ArchiveMpcorbForm formArchive = new();
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formArchive.TopMost = TopMost;
 		// Show the archive form as a modal dialog
 		_ = formArchive.ShowDialog();
@@ -1145,7 +1145,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		// Create a new instance of the DatabaseDifferencesForm
 		using DatabaseDifferencesForm formDataDifferences = new();
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formDataDifferences.TopMost = TopMost;
 		// Show the archive form as a modal dialog
 		_ = formDataDifferences.ShowDialog();
@@ -1157,7 +1157,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		// Create a new instance of the LicenseForm
 		using LicenseForm formLicense = new();
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formLicense.TopMost = TopMost;
 		// Show the application information form as a modal dialog
 		_ = formLicense.ShowDialog();
@@ -1206,7 +1206,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		{
 			// Create and show the MPCORB data check form
 			using CheckDatabaseForm formCheckMpcorbDat = new(url: Settings.Default.systemMpcorbDatUrl, localFilePath: Settings.Default.systemFilenameMpcorb, databaseName: "MPCORB.DAT");
-			// Set the TopMost property to true to keep the form on top of other windows
+			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 			formCheckMpcorbDat.TopMost = TopMost;
 			// Show the MPCORB data check form as a modal dialog
 			_ = formCheckMpcorbDat.ShowDialog();
@@ -1227,7 +1227,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		{
 			// Create and show the ASTORB data check form
 			using CheckDatabaseForm formCheckAstorbDat = new(url: Settings.Default.systemAstorbDatUrl, localFilePath: Settings.Default.systemFilenameAstorb, databaseName: "ASTORB.DAT");
-			// Set the TopMost property to true to keep the form on top of other windows
+			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 			formCheckAstorbDat.TopMost = TopMost;
 			// Show the ASTORB data check form as a modal dialog
 			_ = formCheckAstorbDat.ShowDialog();
@@ -1250,7 +1250,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		{
 			// Create and show the downloader form for the MPCORB database
 			using DatabaseDownloaderForm downloaderForm = new(url: Settings.Default.systemMpcorbDatGzUrl);
-			// Set the TopMost property to true to keep the form on top of other windows
+			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 			downloaderForm.TopMost = TopMost;
 			// Show the downloader form as a modal dialog
 			if (downloaderForm.ShowDialog() == DialogResult.OK)
@@ -1280,7 +1280,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		{
 			// Create and show the downloader form for the ASTORB database
 			using DatabaseDownloaderForm downloaderForm = new(url: Settings.Default.systemAstorbDatGzUrl);
-			// Set the TopMost property to true to keep the form on top of other windows
+			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 			downloaderForm.TopMost = TopMost;
 			// Show the downloader form as a modal dialog
 			if (downloaderForm.ShowDialog() == DialogResult.OK)
@@ -1300,7 +1300,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		// Create a new instance of the DatabaseInformationForm
 		using DatabaseInformationForm formDatabaseInformation = new();
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formDatabaseInformation.TopMost = TopMost;
 		// Fill the form with the planetoids database
 		_ = formDatabaseInformation.ShowDialog();
@@ -1312,7 +1312,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		// Create a new instance of the SearchForm
 		using SearchForm formSearch = new();
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formSearch.TopMost = TopMost;
 
 		_ = formSearch.ShowDialog();
@@ -1341,7 +1341,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		// Create a new instance of the FilterForm
 		using FilterForm formFilter = new();
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formFilter.TopMost = TopMost;
 		// Fill the form with the planetoids database
 		_ = formFilter.ShowDialog();
@@ -1353,7 +1353,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		// Create a new instance of the SettingsForm
 		using SettingsForm formSettings = new();
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formSettings.TopMost = TopMost;
 		// Fill the form with the planetoids database
 		_ = formSettings.ShowDialog();
@@ -1365,7 +1365,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		// Create a new instance of the ListReadableDesignationsForm
 		using ListReadableDesignationsForm formListReadableDesignations = new();
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formListReadableDesignations.TopMost = TopMost;
 		// Fill the form with the planetoids database
 		formListReadableDesignations.FillArray(arrTemp: planetoidsDatabase);
@@ -1435,7 +1435,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		orbitalElements.Add(item: DerivedElements.CalculateStandardGravitationalParameter(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
 		// Create a new instance of the ExportDataSheetForm
 		using ExportDataSheetForm formExportDataSheet = new();
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formExportDataSheet.TopMost = TopMost;
 		// Fill the form with the orbital elements
 		formExportDataSheet.SetDatabase(list: [.. orbitalElements.Cast<string>()]);
@@ -1498,7 +1498,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 		// Create a new instance of the PrintDataSheetForm
 		using PrintDataSheetForm formPrintDataSheet = new();
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formPrintDataSheet.TopMost = TopMost;
 		// Fill the form with the planetoids database
 		formPrintDataSheet.SetDatabase(db: [.. orbitalElements]);
@@ -1572,7 +1572,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 		// Create a new instance of the DerivedOrbitElementsForm
 		using DerivedOrbitElementsForm formDerivedOrbitElements = new();
-		// Set the TopMost property to true to keep the form on top of other windows
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formDerivedOrbitElements.TopMost = TopMost;
 		// Fill the form with the derived orbit elements
 		formDerivedOrbitElements.SetDatabase(list: [.. derivedOrbitElements.Cast<object>()]);
