@@ -1262,6 +1262,10 @@ partial class AppInfoForm
 		kryptonPageComponentScottPlot.Text = "&ScottPlot";
 		kryptonPageComponentScottPlot.ToolTipTitle = "ScottPlot";
 		kryptonPageComponentScottPlot.UniqueName = "1fa1c82f15544874a9ed6d8da4fc3d84";
+		kryptonPageComponentScottPlot.Enter += Control_Enter;
+		kryptonPageComponentScottPlot.Leave += Control_Leave;
+		kryptonPageComponentScottPlot.MouseEnter += Control_Enter;
+		kryptonPageComponentScottPlot.MouseLeave += Control_Leave;
 		// 
 		// kryptonTextBoxLicenseScottPlot
 		// 
@@ -1279,6 +1283,10 @@ partial class AppInfoForm
 		kryptonTextBoxLicenseScottPlot.ToolTipValues.EnableToolTips = true;
 		kryptonTextBoxLicenseScottPlot.ToolTipValues.Heading = "MIT License";
 		kryptonTextBoxLicenseScottPlot.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonTextBoxLicenseScottPlot.Enter += Control_Enter;
+		kryptonTextBoxLicenseScottPlot.Leave += Control_Leave;
+		kryptonTextBoxLicenseScottPlot.MouseEnter += Control_Enter;
+		kryptonTextBoxLicenseScottPlot.MouseLeave += Control_Leave;
 		// 
 		// kryptonLabelHeadingScottPlot
 		// 
@@ -1296,6 +1304,11 @@ partial class AppInfoForm
 		kryptonLabelHeadingScottPlot.ToolTipValues.Heading = "ScottPlot";
 		kryptonLabelHeadingScottPlot.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLabelHeadingScottPlot.Values.Text = "ScottPlot";
+		kryptonLabelHeadingScottPlot.DoubleClick += CopyToClipboard_DoubleClick;
+		kryptonLabelHeadingScottPlot.Enter += Control_Enter;
+		kryptonLabelHeadingScottPlot.Leave += Control_Leave;
+		kryptonLabelHeadingScottPlot.MouseEnter += Control_Enter;
+		kryptonLabelHeadingScottPlot.MouseLeave += Control_Leave;
 		// 
 		// kryptonLabelLicenseScottPlot
 		// 
@@ -1312,6 +1325,11 @@ partial class AppInfoForm
 		kryptonLabelLicenseScottPlot.ToolTipValues.Heading = "ScottPlot license";
 		kryptonLabelLicenseScottPlot.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLabelLicenseScottPlot.Values.Text = "License: MIT license";
+		kryptonLabelLicenseScottPlot.DoubleClick += CopyToClipboard_DoubleClick;
+		kryptonLabelLicenseScottPlot.Enter += Control_Enter;
+		kryptonLabelLicenseScottPlot.Leave += Control_Leave;
+		kryptonLabelLicenseScottPlot.MouseEnter += Control_Enter;
+		kryptonLabelLicenseScottPlot.MouseLeave += Control_Leave;
 		// 
 		// kryptonLabelVersionScottPlot
 		// 
@@ -1328,6 +1346,11 @@ partial class AppInfoForm
 		kryptonLabelVersionScottPlot.ToolTipValues.Heading = "ScottPlot version";
 		kryptonLabelVersionScottPlot.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLabelVersionScottPlot.Values.Text = "Version: 5.1.58";
+		kryptonLabelVersionScottPlot.DoubleClick += CopyToClipboard_DoubleClick;
+		kryptonLabelVersionScottPlot.Enter += Control_Enter;
+		kryptonLabelVersionScottPlot.Leave += Control_Leave;
+		kryptonLabelVersionScottPlot.MouseEnter += Control_Enter;
+		kryptonLabelVersionScottPlot.MouseLeave += Control_Leave;
 		// 
 		// kryptonLinkLabelWebsiteScottPlot
 		// 
@@ -1346,6 +1369,11 @@ partial class AppInfoForm
 		kryptonLinkLabelWebsiteScottPlot.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLinkLabelWebsiteScottPlot.Values.Image = FatcowIcons16px.fatcow_world_16px;
 		kryptonLinkLabelWebsiteScottPlot.Values.Text = "https://scottplot.net";
+		kryptonLinkLabelWebsiteScottPlot.LinkClicked += KryptonLinkLabelWebsite_LinkClick;
+		kryptonLinkLabelWebsiteScottPlot.Enter += Control_Enter;
+		kryptonLinkLabelWebsiteScottPlot.Leave += Control_Leave;
+		kryptonLinkLabelWebsiteScottPlot.MouseEnter += Control_Enter;
+		kryptonLinkLabelWebsiteScottPlot.MouseLeave += Control_Leave;
 		// 
 		// kryptonLabelAuthorsScottPlot
 		// 
@@ -1357,11 +1385,16 @@ partial class AppInfoForm
 		kryptonLabelAuthorsScottPlot.Name = "kryptonLabelAuthorsScottPlot";
 		kryptonLabelAuthorsScottPlot.Size = new Size(126, 20);
 		kryptonLabelAuthorsScottPlot.TabIndex = 9;
-		kryptonLabelAuthorsScottPlot.ToolTipValues.Description = "Shows the NLog authors.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelAuthorsScottPlot.ToolTipValues.Description = "Shows the ScottPlot authors.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		kryptonLabelAuthorsScottPlot.ToolTipValues.EnableToolTips = true;
-		kryptonLabelAuthorsScottPlot.ToolTipValues.Heading = "NLog authors";
+		kryptonLabelAuthorsScottPlot.ToolTipValues.Heading = "ScottPlot authors";
 		kryptonLabelAuthorsScottPlot.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLabelAuthorsScottPlot.Values.Text = "Author: Scott Harden";
+		kryptonLabelAuthorsScottPlot.Enter += Control_Enter;
+		kryptonLabelAuthorsScottPlot.Leave += Control_Leave;
+		kryptonLabelAuthorsScottPlot.MouseEnter += Control_Enter;
+		kryptonLabelAuthorsScottPlot.MouseLeave += Control_Leave;
+		kryptonLabelAuthorsScottPlot.DoubleClick += CopyToClipboard_DoubleClick;
 		// 
 		// kryptonPageComponentOpenTK
 		// 
@@ -1383,6 +1416,10 @@ partial class AppInfoForm
 		kryptonPageComponentOpenTK.Text = "&OpenTK";
 		kryptonPageComponentOpenTK.ToolTipTitle = "OpenTK";
 		kryptonPageComponentOpenTK.UniqueName = "549d2b682ba34d438d61c805e1182f2f";
+		kryptonPageComponentOpenTK.Enter += Control_Enter;
+		kryptonPageComponentOpenTK.Leave += Control_Leave;
+		kryptonPageComponentOpenTK.MouseEnter += Control_Enter;
+		kryptonPageComponentOpenTK.MouseLeave += Control_Leave;
 		// 
 		// kryptonTextBoxLicenseOpenTK
 		// 
@@ -1400,6 +1437,10 @@ partial class AppInfoForm
 		kryptonTextBoxLicenseOpenTK.ToolTipValues.EnableToolTips = true;
 		kryptonTextBoxLicenseOpenTK.ToolTipValues.Heading = "MIT License";
 		kryptonTextBoxLicenseOpenTK.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonTextBoxLicenseOpenTK.Enter += Control_Enter;
+		kryptonTextBoxLicenseOpenTK.Leave += Control_Leave;
+		kryptonTextBoxLicenseOpenTK.MouseEnter += Control_Enter;
+		kryptonTextBoxLicenseOpenTK.MouseLeave += Control_Leave;
 		// 
 		// kryptonLabelHeadingOpenTK
 		// 
@@ -1417,6 +1458,11 @@ partial class AppInfoForm
 		kryptonLabelHeadingOpenTK.ToolTipValues.Heading = "OpenTK";
 		kryptonLabelHeadingOpenTK.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLabelHeadingOpenTK.Values.Text = "OpenTK";
+		kryptonLabelHeadingOpenTK.Enter += Control_Enter;
+		kryptonLabelHeadingOpenTK.Leave += Control_Leave;
+		kryptonLabelHeadingOpenTK.MouseEnter += Control_Enter;
+		kryptonLabelHeadingOpenTK.MouseLeave += Control_Leave;
+		kryptonLabelHeadingOpenTK.DoubleClick += CopyToClipboard_DoubleClick;
 		// 
 		// kryptonLabelLicenseOpenTK
 		// 
@@ -1433,6 +1479,11 @@ partial class AppInfoForm
 		kryptonLabelLicenseOpenTK.ToolTipValues.Heading = "NLog license";
 		kryptonLabelLicenseOpenTK.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLabelLicenseOpenTK.Values.Text = "License: MIT license";
+		kryptonLabelLicenseOpenTK.Enter += Control_Enter;
+		kryptonLabelLicenseOpenTK.Leave += Control_Leave;
+		kryptonLabelLicenseOpenTK.MouseEnter += Control_Enter;
+		kryptonLabelLicenseOpenTK.MouseLeave += Control_Leave;
+		kryptonLabelLicenseOpenTK.DoubleClick += CopyToClipboard_DoubleClick;
 		// 
 		// kryptonLabelVersionOpenTK
 		// 
@@ -1449,6 +1500,11 @@ partial class AppInfoForm
 		kryptonLabelVersionOpenTK.ToolTipValues.Heading = "OpenTK version";
 		kryptonLabelVersionOpenTK.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLabelVersionOpenTK.Values.Text = "Version: 4.9.4";
+		kryptonLabelVersionOpenTK.Enter += Control_Enter;
+		kryptonLabelVersionOpenTK.Leave += Control_Leave;
+		kryptonLabelVersionOpenTK.MouseEnter += Control_Enter;
+		kryptonLabelVersionOpenTK.MouseLeave += Control_Leave;
+		kryptonLabelVersionOpenTK.DoubleClick += CopyToClipboard_DoubleClick;
 		// 
 		// kryptonLinkLabelWebsiteOpenTK
 		// 
@@ -1467,6 +1523,11 @@ partial class AppInfoForm
 		kryptonLinkLabelWebsiteOpenTK.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLinkLabelWebsiteOpenTK.Values.Image = FatcowIcons16px.fatcow_world_16px;
 		kryptonLinkLabelWebsiteOpenTK.Values.Text = "https://github.com/opentk/opentk";
+		kryptonLinkLabelWebsiteOpenTK.LinkClicked += KryptonLinkLabelWebsite_LinkClick;
+		kryptonLinkLabelWebsiteOpenTK.Enter += Control_Enter;
+		kryptonLinkLabelWebsiteOpenTK.Leave += Control_Leave;
+		kryptonLinkLabelWebsiteOpenTK.MouseEnter += Control_Enter;
+		kryptonLinkLabelWebsiteOpenTK.MouseLeave += Control_Leave;
 		// 
 		// kryptonLabelAuthorsOpenTK
 		// 
@@ -1483,6 +1544,11 @@ partial class AppInfoForm
 		kryptonLabelAuthorsOpenTK.ToolTipValues.Heading = "OpenTK authors";
 		kryptonLabelAuthorsOpenTK.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLabelAuthorsOpenTK.Values.Text = "Authors: Team OpenTK";
+		kryptonLabelAuthorsOpenTK.Enter += Control_Enter;
+		kryptonLabelAuthorsOpenTK.Leave += Control_Leave;
+		kryptonLabelAuthorsOpenTK.MouseEnter += Control_Enter;
+		kryptonLabelAuthorsOpenTK.MouseLeave += Control_Leave;
+		kryptonLabelAuthorsOpenTK.DoubleClick += CopyToClipboard_DoubleClick;
 		// 
 		// imageListTabAbout
 		// 

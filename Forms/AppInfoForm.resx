@@ -120,7 +120,39 @@
   <metadata name="contextMenuStripCopyToClipboard.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>310, 17</value>
   </metadata>
-  <data name="kryptonTextBoxLicenseOpenTK.Text" xml:space="preserve">
+  <data name="kryptonTextBoxLicenseNlog.Text" xml:space="preserve">
+    <value>BSD 3-Clause License
+
+Copyright (c) 2004-2024 Jaroslaw Kowalski &lt;jaak@jkowalski.net&gt;, Kim Christensen, Julian Verdurmen
+
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</value>
+  </data>
+  <data name="kryptonTextBoxLicenseScottPlot.Text" xml:space="preserve">
     <value>MIT License
 SPDX identifier
 MIT
@@ -1886,39 +1918,7 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</value>
   </data>
-  <data name="kryptonTextBoxLicenseNlog.Text" xml:space="preserve">
-    <value>BSD 3-Clause License
-
-Copyright (c) 2004-2024 Jaroslaw Kowalski &lt;jaak@jkowalski.net&gt;, Kim Christensen, Julian Verdurmen
-
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
-
-3. Neither the name of the copyright holder nor the names of its
-   contributors may be used to endorse or promote products derived from
-   this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</value>
-  </data>
-  <data name="kryptonTextBoxLicenseScottPlot.Text" xml:space="preserve">
+  <data name="kryptonTextBoxLicenseOpenTK.Text" xml:space="preserve">
     <value>MIT License
 SPDX identifier
 MIT
@@ -1948,9 +1948,9 @@ Data pulled from spdx/license-list-data on November 6, 2024.</value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAALAwAAAJNU0Z0AUkBTAIBAQIB
-        AAHoAQAB6AEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARAi
+        AAHwAQAB8AEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARAi
         AAMWAR4DIgExAyMBMwMjATMDIwEzAyIBMQMWAR4gAAMIAQoDHgEqAyMBMwMeASoDCAEKqAADCwEOAyMB
-        MwFVAlMBqgF5AWgBQQH5Aa0BWQESAf8BrQFZARIB/wGtAVkBEgH/AXkBaAFBAfkBVQJTAaoDIwEzAwsB
+        MwFVAlMBqgF3AWgBQQH5Aa0BWQESAf8BrQFZARIB/wGtAVkBEgH/AXcBaAFBAfkBVQJTAaoDIwEzAwsB
         DhAAAw4BEgMiATEDNgFZAmEBXAHZAcEBjwFPAf8CYQFcAdkDNgFZAyIBMQMOARKcAAMLAQ4DPgFrAa0B
         WgETAf8BygGJAUgB/wHgAa0BbgH/AeYBtwF7Af8B5gG3AXoB/wHmAbcBewH/AeABrQFuAf8BygGJAUgB
         /wGtAVoBEwH/Az4BawMLAQ4IAAMjATMDRAF6AnwBXAH4AdUBogFjAf8B9wHAAYIC/wHdAbMB/wHmAbcB
@@ -1964,9 +1964,9 @@ Data pulled from spdx/license-list-data on November 6, 2024.</value>
         qQHFAYIBPgH/AdwBpwFmAf8B2gGjAWIB/wHZAaEBXgH/AdYBnAFVAf8B7AHQAbAF/wHUAZUBSwH/AdcB
         nwFaAf8B2QGiAWAB/wHaAaMBYgH/AdwBpwFmAf8BxQGCAT4B/wJUAVMBqQQAAb4BjAFMAf8B4gGtAW0B
         /wHhAbgBggH/Ae8B4AHDAf8B3QHRAbgB/wHgAdMBtgH/AeUB5wHWAf8B8AHTAaoB/wH3AccBkgH/AfYB
-        xQGPAf8B6QGjAWcB/wEuAcYBnQH/ASgBqQGFAf8BVwJ8AfgDRAF6AyMBM4AAAXsBaAFBAfkB1QGcAVgB
+        xQGPAf8B6QGjAWcB/wEuAcYBnQH/ASgBqQGFAf8BWQJ8AfgDRAF6AyMBM4AAAXkBaAFBAfkB1QGcAVgB
         /wHZAaABXAH/AdcBngFaAf8B1wGdAVgB/wHVAZgBTwH/AewBzwGvBf8B0wGUAUkB/wHWAZwBVwH/AdcB
-        ngFaAf8B1wGeAVoB/wHZAaABXAH/AdUBnAFYAf8BewFoAUEB+QQAAcIBlgFaAf8B7AHfAcIB/wHfAdAB
+        ngFaAf8B1wGeAVoB/wHZAaABXAH/AdUBnAFYAf8BeQFoAUEB+QQAAcIBlgFaAf8B7AHfAcIB/wHfAdAB
         tAH/AeABswGAAf8B8gHMAaUC/wHfAbcC/wHWAaIB/wH8AdcBpgH/AfkB8gHWAv8B6wHIAf8B7wGjAWIB
         /wE7AdQBpwH/AUsB2QGrAf8BRQHOAaIB/wE1AbsBkgH/ASMBqAGEAf+AAAGvAVsBFQH/AdcBnwFaAf8B
         1AGaAVUB/wHUAZkBVAH/AdQBmAFSAf8B0QGTAUkB/wHrAc0BrAX/AdABjwFDAf8B0wGXAVEB/wHUAZkB
@@ -1979,9 +1979,9 @@ Data pulled from spdx/license-list-data on November 6, 2024.</value>
         /wFDAcEBkQH/ATwBwQGVAf8BIAGnAYIB/4AAAa4BWgETAf8B3gGvAXgB/wHOAY4BRgH/Ac8BkAFIAf8B
         zwGPAUcB/wHMAYgBPQn/AcsBhwE7Af8BzgGOAUcB/wHPAZABSQH/Ac8BkAFIAf8BzgGOAUYB/wHeAa8B
         eAH/Aa4BWgETAf8QAAEZAW8B4gH/ASQBgwHlAf8BKwGcAfIB/wEsAZ4B8wH/ASQBlwHtAf8BkAHWAv8B
-        TgG+Av8BXAHGAv8BUwG2AfoB/wE6AZkB7AH/AScBgQHhAf8BngHmAc0B/wE0AbEBjwH/gAABfAFcAUsB
+        TgG+Av8BXAHGAv8BUwG2AfoB/wE6AZkB7AH/AScBgQHhAf8BngHmAc0B/wE0AbEBjwH/gAABfAFcAU0B
         +AHkAb4BlgH/AcwBiQE9Af8BzQGKAUEB/wHNAYsBQQH/AcsBhwE7Af8BxwF/AS0B/wHHAX0BKwH/AcoB
-        hgE4Af8BzQGLAUEB/wHNAYwBQwH/Ac0BigFBAf8BzAGJAT0B/wHkAb4BlgH/AXwBXAFLAfgQAAEsAXQB
+        hgE4Af8BzQGLAUEB/wHNAYwBQwH/Ac0BigFBAf8BzAGJAT0B/wHkAb4BlgH/AXwBXAFNAfgQAAEsAXQB
         2QH/ASYBmwHwAf8BIwGUAewB/wEdAY4B6QH/ATsBogHuAf8BwgHrAv8BLgGpAf0B/wE9AbEB/QH/AUoB
         uQL/AVcBwwL/AR0BewHdAf8BTwHMAZoB/wErAa0BiQH/gAADTgGVAdUBpgF7Af8B2QGoAW8B/wHIAYQB
         NgH/AckBhgE5Af8BxwGCATMB/wHoAcoBqQX/AcYBgAEvAf8ByQGGAToB/wHJAYYBOgH/AcgBhAE2Af8B
@@ -1994,9 +1994,9 @@ Data pulled from spdx/license-list-data on November 6, 2024.</value>
         /wHPAZMBUQH/AeEBuwGQAf8B5AHDAaAB/wG3AWwBLAH/Ai4BLQFGFAABLQF0AdQB/wFeAasB7gH/AWEB
         ygL/AUUBrwH9Af8BKAGTAfYB/wEuAX4BzAH/AWIByAL/AUMBrQH7Af8BJQGSAfcB/wFgAbcB8QH/ASoB
         iAHcAf+QAAIuAS0BRgGxAV4BGgH/AcwBkwFgAf8B4gHAAZ0B/wHqAc8BsAH/AeoBzgGwAf8B6gHPAbEB
-        /wHiAcABnQH/AcwBkwFgAf8BsQFeARoB/wIuAS0BRhwAAzYBWQFIAWMBawH2ATYBigHWAf8BZQHMAv8B
-        SAGxAf0B/wEqAZUB+AH/AS0BgQHSAf8BSAFjAW0B9gM2AVmcAANOAZUBcwFaAVEB9wGtAVgBEAH/Aa0B
-        WAEPAf8BrQFYARAB/wFzAVoBUQH3A04BlSwAAyEBLwFNAn0B+gEzAYkB2AH/AU0CfQH6AyEBL5QAAUIB
+        /wHiAcABnQH/AcwBkwFgAf8BsQFeARoB/wIuAS0BRhwAAzYBWQFIAWMBaQH2ATYBigHWAf8BZQHMAv8B
+        SAGxAf0B/wEqAZUB+AH/AS0BgQHSAf8BSAFjAWsB9gM2AVmcAANOAZUBcQFaAVEB9wGtAVgBEAH/Aa0B
+        WAEPAf8BrQFYARAB/wFxAVoBUQH3A04BlSwAAyEBLwFNAn0B+gEzAYkB2AH/AU0CfQH6AyEBL5QAAUIB
         TQE+BwABPgMAASgDAAFAAwABEAMAAQEBAAEBBQABgBcAA/8BAAHwAR8B4AH/BAABwAEHAYABPwQAAYAB
         AwEAAR8EAAGAAQMBAAEHBQABAQEAAQEFAAEBBwABAQcAAQEHAAEBAYAGAAEBAeAGAAEBAeAGAAEBAeAB
         AQQAAYABAwHgAQMEAAGAAQMB4AEDBAABwAEHAfABBwQAAfABHwH8AR8EAAs=
