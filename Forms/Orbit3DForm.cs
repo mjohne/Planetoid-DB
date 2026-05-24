@@ -535,20 +535,27 @@ public partial class Orbit3DForm : BaseKryptonForm
 		GL.LineWidth(width: 1f);
 
 		// --- Pass 2: semi-transparent shadow on ecliptic plane for below-ecliptic segments ---
+		// Render each below-ecliptic orbit segment as a quad connecting the orbit arc to the ecliptic plane.
+		// Using GL_QUADS instead of TriangleStrip to avoid artefacts from skipped above-ecliptic vertices.
 		GL.Disable(cap: EnableCap.DepthTest);
 		GL.Color4(red: 0.55f, green: 0.20f, blue: 0.90f, alpha: 0.18f);
-		GL.Begin(mode: PrimitiveType.TriangleStrip);
-		for (int k = 0; k < pts.Length; k++)
+		GL.Begin(mode: PrimitiveType.Quads);
+		for (int k = 0; k < pts.Length - 1; k++)
 		{
-			(double ex, double ey, double ez) = pts[k];
-			if (ez >= 0.0)
+			(double ex0, double ey0, double ez0) = pts[k];
+			(double ex1, double ey1, double ez1) = pts[k + 1];
+			// Only draw the shadow where at least one endpoint is below the ecliptic
+			if (ez0 >= 0.0 && ez1 >= 0.0)
 			{
 				continue;
 			}
-			// Ecliptic-plane projection: same X,Y but ecliptic Z = 0 → OpenGL Y = 0
-			(float gx, _, float gz) = EclToGl(ex: ex, ey: ey, ez: ez);
-			GL.Vertex3(x: gx, y: 0f, z: gz);      // shadow on ecliptic plane
-			GL.Vertex3(x: gx, y: (float)ez, z: gz); // actual orbit point
+			// Clamp the ecliptic-plane projection Y to 0 (shadow lies on the ecliptic)
+			(float gx0, float gy0, float gz0) = EclToGl(ex: ex0, ey: ey0, ez: ez0);
+			(float gx1, float gy1, float gz1) = EclToGl(ex: ex1, ey: ey1, ez: ez1);
+			GL.Vertex3(x: gx0, y: 0f, z: gz0);   // ecliptic projection of pt0
+			GL.Vertex3(x: gx1, y: 0f, z: gz1);   // ecliptic projection of pt1
+			GL.Vertex3(x: gx1, y: gy1, z: gz1);  // actual orbit pt1
+			GL.Vertex3(x: gx0, y: gy0, z: gz0);  // actual orbit pt0
 		}
 		GL.End();
 		GL.Enable(cap: EnableCap.DepthTest);
