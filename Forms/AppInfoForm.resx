@@ -120,6 +120,28 @@
   <metadata name="contextMenuStripCopyToClipboard.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>310, 17</value>
   </metadata>
+  <data name="kryptonTextBoxLicenseOpenTK.Text" xml:space="preserve">
+    <value>MIT License
+SPDX identifier
+MIT
+License text
+MIT License
+
+Copyright (c) &lt;year&gt; &lt;copyright holders&gt;
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice (including the next paragraph) shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+SPDX web page
+https://spdx.org/licenses/MIT.html
+Notice
+This license content is provided by the SPDX project. For more information about licenses.nuget.org, see our documentation.
+
+Data pulled from spdx/license-list-data on November 6, 2024.</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="kryptonPictureBoxGithub.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1896,6 +1918,28 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</value>
   </data>
+  <data name="kryptonTextBoxLicenseScottPlot.Text" xml:space="preserve">
+    <value>MIT License
+SPDX identifier
+MIT
+License text
+MIT License
+
+Copyright (c) &lt;year&gt; &lt;copyright holders&gt;
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice (including the next paragraph) shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+SPDX web page
+https://spdx.org/licenses/MIT.html
+Notice
+This license content is provided by the SPDX project. For more information about licenses.nuget.org, see our documentation.
+
+Data pulled from spdx/license-list-data on November 6, 2024.</value>
+  </data>
   <metadata name="imageListTabAbout.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>551, 17</value>
   </metadata>
@@ -1903,10 +1947,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</value>
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAMAwAAAJNU0Z0AUkBTAIBAQIB
-        AAG4AQABuAEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARAi
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAALAwAAAJNU0Z0AUkBTAIBAQIB
+        AAHoAQAB6AEAARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARAi
         AAMWAR4DIgExAyMBMwMjATMDIwEzAyIBMQMWAR4gAAMIAQoDHgEqAyMBMwMeASoDCAEKqAADCwEOAyMB
-        MwFVAlMBqgGCAWgBQQH5Aa0BWQESAf8BrQFZARIB/wGtAVkBEgH/AYIBaAFBAfkBVQJTAaoDIwEzAwsB
+        MwFVAlMBqgF5AWgBQQH5Aa0BWQESAf8BrQFZARIB/wGtAVkBEgH/AXkBaAFBAfkBVQJTAaoDIwEzAwsB
         DhAAAw4BEgMiATEDNgFZAmEBXAHZAcEBjwFPAf8CYQFcAdkDNgFZAyIBMQMOARKcAAMLAQ4DPgFrAa0B
         WgETAf8BygGJAUgB/wHgAa0BbgH/AeYBtwF7Af8B5gG3AXoB/wHmAbcBewH/AeABrQFuAf8BygGJAUgB
         /wGtAVoBEwH/Az4BawMLAQ4IAAMjATMDRAF6AnwBXAH4AdUBogFjAf8B9wHAAYIC/wHdAbMB/wHmAbcB
@@ -1920,9 +1964,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</value>
         qQHFAYIBPgH/AdwBpwFmAf8B2gGjAWIB/wHZAaEBXgH/AdYBnAFVAf8B7AHQAbAF/wHUAZUBSwH/AdcB
         nwFaAf8B2QGiAWAB/wHaAaMBYgH/AdwBpwFmAf8BxQGCAT4B/wJUAVMBqQQAAb4BjAFMAf8B4gGtAW0B
         /wHhAbgBggH/Ae8B4AHDAf8B3QHRAbgB/wHgAdMBtgH/AeUB5wHWAf8B8AHTAaoB/wH3AccBkgH/AfYB
-        xQGPAf8B6QGjAWcB/wEuAcYBnQH/ASgBqQGFAf8BSwJ8AfgDRAF6AyMBM4AAAYMBaAFBAfkB1QGcAVgB
+        xQGPAf8B6QGjAWcB/wEuAcYBnQH/ASgBqQGFAf8BVwJ8AfgDRAF6AyMBM4AAAXsBaAFBAfkB1QGcAVgB
         /wHZAaABXAH/AdcBngFaAf8B1wGdAVgB/wHVAZgBTwH/AewBzwGvBf8B0wGUAUkB/wHWAZwBVwH/AdcB
-        ngFaAf8B1wGeAVoB/wHZAaABXAH/AdUBnAFYAf8BgwFoAUEB+QQAAcIBlgFaAf8B7AHfAcIB/wHfAdAB
+        ngFaAf8B1wGeAVoB/wHZAaABXAH/AdUBnAFYAf8BewFoAUEB+QQAAcIBlgFaAf8B7AHfAcIB/wHfAdAB
         tAH/AeABswGAAf8B8gHMAaUC/wHfAbcC/wHWAaIB/wH8AdcBpgH/AfkB8gHWAv8B6wHIAf8B7wGjAWIB
         /wE7AdQBpwH/AUsB2QGrAf8BRQHOAaIB/wE1AbsBkgH/ASMBqAGEAf+AAAGvAVsBFQH/AdcBnwFaAf8B
         1AGaAVUB/wHUAZkBVAH/AdQBmAFSAf8B0QGTAUkB/wHrAc0BrAX/AdABjwFDAf8B0wGXAVEB/wHUAZkB
@@ -1935,9 +1979,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</value>
         /wFDAcEBkQH/ATwBwQGVAf8BIAGnAYIB/4AAAa4BWgETAf8B3gGvAXgB/wHOAY4BRgH/Ac8BkAFIAf8B
         zwGPAUcB/wHMAYgBPQn/AcsBhwE7Af8BzgGOAUcB/wHPAZABSQH/Ac8BkAFIAf8BzgGOAUYB/wHeAa8B
         eAH/Aa4BWgETAf8QAAEZAW8B4gH/ASQBgwHlAf8BKwGcAfIB/wEsAZ4B8wH/ASQBlwHtAf8BkAHWAv8B
-        TgG+Av8BXAHGAv8BUwG2AfoB/wE6AZkB7AH/AScBgQHhAf8BngHmAc0B/wE0AbEBjwH/gAABfAFcAUQB
+        TgG+Av8BXAHGAv8BUwG2AfoB/wE6AZkB7AH/AScBgQHhAf8BngHmAc0B/wE0AbEBjwH/gAABfAFcAUsB
         +AHkAb4BlgH/AcwBiQE9Af8BzQGKAUEB/wHNAYsBQQH/AcsBhwE7Af8BxwF/AS0B/wHHAX0BKwH/AcoB
-        hgE4Af8BzQGLAUEB/wHNAYwBQwH/Ac0BigFBAf8BzAGJAT0B/wHkAb4BlgH/AXwBXAFEAfgQAAEsAXQB
+        hgE4Af8BzQGLAUEB/wHNAYwBQwH/Ac0BigFBAf8BzAGJAT0B/wHkAb4BlgH/AXwBXAFLAfgQAAEsAXQB
         2QH/ASYBmwHwAf8BIwGUAewB/wEdAY4B6QH/ATsBogHuAf8BwgHrAv8BLgGpAf0B/wE9AbEB/QH/AUoB
         uQL/AVcBwwL/AR0BewHdAf8BTwHMAZoB/wErAa0BiQH/gAADTgGVAdUBpgF7Af8B2QGoAW8B/wHIAYQB
         NgH/AckBhgE5Af8BxwGCATMB/wHoAcoBqQX/AcYBgAEvAf8ByQGGAToB/wHJAYYBOgH/AcgBhAE2Af8B
@@ -1950,12 +1994,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</value>
         /wHPAZMBUQH/AeEBuwGQAf8B5AHDAaAB/wG3AWwBLAH/Ai4BLQFGFAABLQF0AdQB/wFeAasB7gH/AWEB
         ygL/AUUBrwH9Af8BKAGTAfYB/wEuAX4BzAH/AWIByAL/AUMBrQH7Af8BJQGSAfcB/wFgAbcB8QH/ASoB
         iAHcAf+QAAIuAS0BRgGxAV4BGgH/AcwBkwFgAf8B4gHAAZ0B/wHqAc8BsAH/AeoBzgGwAf8B6gHPAbEB
-        /wHiAcABnQH/AcwBkwFgAf8BsQFeARoB/wIuAS0BRhwAAzYBWQFIAWMBdAH2ATYBigHWAf8BZQHMAv8B
-        SAGxAf0B/wEqAZUB+AH/AS0BgQHSAf8BSAFjAXUB9gM2AVmcAANOAZUBfwFaAVEB9wGtAVgBEAH/Aa0B
-        WAEPAf8BrQFYARAB/wF/AVoBUQH3A04BlSwAAyEBLwFNAX0BigH6ATMBiQHYAf8BRAF9AY0B+gMhAS+U
-        AAFCAU0BPgcAAT4DAAEoAwABQAMAARADAAEBAQABAQUAAYAXAAP/AQAB8AEfAeAB/wQAAcABBwGAAT8E
-        AAGAAQMBAAEfBAABgAEDAQABBwUAAQEBAAEBBQABAQcAAQEHAAEBBwABAQGABgABAQHgBgABAQHgBgAB
-        AQHgAQEEAAGAAQMB4AEDBAABgAEDAeABAwQAAcABBwHwAQcEAAHwAR8B/AEfBAAL
+        /wHiAcABnQH/AcwBkwFgAf8BsQFeARoB/wIuAS0BRhwAAzYBWQFIAWMBawH2ATYBigHWAf8BZQHMAv8B
+        SAGxAf0B/wEqAZUB+AH/AS0BgQHSAf8BSAFjAW0B9gM2AVmcAANOAZUBcwFaAVEB9wGtAVgBEAH/Aa0B
+        WAEPAf8BrQFYARAB/wFzAVoBUQH3A04BlSwAAyEBLwFNAn0B+gEzAYkB2AH/AU0CfQH6AyEBL5QAAUIB
+        TQE+BwABPgMAASgDAAFAAwABEAMAAQEBAAEBBQABgBcAA/8BAAHwAR8B4AH/BAABwAEHAYABPwQAAYAB
+        AwEAAR8EAAGAAQMBAAEHBQABAQEAAQEFAAEBBwABAQcAAQEHAAEBAYAGAAEBAeAGAAEBAeAGAAEBAeAB
+        AQQAAYABAwHgAQMEAAGAAQMB4AEDBAABwAEHAfABBwQAAfABHwH8AR8EAAs=
 </value>
   </data>
   <data name="pictureBoxBanner.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

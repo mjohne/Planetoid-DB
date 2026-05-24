@@ -87,6 +87,20 @@ partial class AppInfoForm
 		kryptonLabelVersionNlog = new KryptonLabel();
 		kryptonLinkLabelWebsiteNlog = new KryptonLinkLabel();
 		kryptonLabelAuthorsNlog = new KryptonLabel();
+		kryptonPageComponentScottPlot = new KryptonPage();
+		kryptonTextBoxLicenseScottPlot = new KryptonTextBox();
+		kryptonLabelHeadingScottPlot = new KryptonLabel();
+		kryptonLabelLicenseScottPlot = new KryptonLabel();
+		kryptonLabelVersionScottPlot = new KryptonLabel();
+		kryptonLinkLabelWebsiteScottPlot = new KryptonLinkLabel();
+		kryptonLabelAuthorsScottPlot = new KryptonLabel();
+		kryptonPageComponentOpenTK = new KryptonPage();
+		kryptonTextBoxLicenseOpenTK = new KryptonTextBox();
+		kryptonLabelHeadingOpenTK = new KryptonLabel();
+		kryptonLabelLicenseOpenTK = new KryptonLabel();
+		kryptonLabelVersionOpenTK = new KryptonLabel();
+		kryptonLinkLabelWebsiteOpenTK = new KryptonLinkLabel();
+		kryptonLabelAuthorsOpenTK = new KryptonLabel();
 		imageListTabAbout = new ImageList(components);
 		pictureBoxBanner = new KryptonPictureBox();
 		kryptonPanelMain = new KryptonPanel();
@@ -114,6 +128,10 @@ partial class AppInfoForm
 		kryptonPageComponentKryptonSuite.SuspendLayout();
 		((ISupportInitialize)kryptonPageComponentNLog).BeginInit();
 		kryptonPageComponentNLog.SuspendLayout();
+		((ISupportInitialize)kryptonPageComponentScottPlot).BeginInit();
+		kryptonPageComponentScottPlot.SuspendLayout();
+		((ISupportInitialize)kryptonPageComponentOpenTK).BeginInit();
+		kryptonPageComponentOpenTK.SuspendLayout();
 		((ISupportInitialize)pictureBoxBanner).BeginInit();
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
@@ -622,7 +640,7 @@ partial class AppInfoForm
 		kryptonNavigatorComponents.NavigatorMode = NavigatorMode.BarTabGroup;
 		kryptonNavigatorComponents.Owner = null;
 		kryptonNavigatorComponents.PageBackStyle = PaletteBackStyle.PanelClient;
-		kryptonNavigatorComponents.Pages.AddRange(new KryptonPage[] { kryptonPageComponentApplicationIcon, kryptonPageIconsetFatcow, kryptonPageComponentKryptonSuite, kryptonPageComponentNLog });
+		kryptonNavigatorComponents.Pages.AddRange(new KryptonPage[] { kryptonPageComponentApplicationIcon, kryptonPageIconsetFatcow, kryptonPageComponentKryptonSuite, kryptonPageComponentNLog, kryptonPageComponentScottPlot, kryptonPageComponentOpenTK });
 		kryptonNavigatorComponents.SelectedIndex = 0;
 		kryptonNavigatorComponents.Size = new Size(498, 256);
 		kryptonNavigatorComponents.TabIndex = 0;
@@ -647,7 +665,6 @@ partial class AppInfoForm
 		kryptonPageComponentApplicationIcon.LastVisibleSet = true;
 		kryptonPageComponentApplicationIcon.MinimumSize = new Size(50, 50);
 		kryptonPageComponentApplicationIcon.Name = "kryptonPageComponentApplicationIcon";
-		kryptonPageComponentApplicationIcon.Padding = new Padding(3);
 		kryptonPageComponentApplicationIcon.Size = new Size(496, 229);
 		kryptonPageComponentApplicationIcon.Text = "Application &icon";
 		kryptonPageComponentApplicationIcon.ToolTipTitle = "Application icon";
@@ -663,7 +680,7 @@ partial class AppInfoForm
 		kryptonLabelLicenseFlaticon.AccessibleName = "Flaticon license";
 		kryptonLabelLicenseFlaticon.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelLicenseFlaticon.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		kryptonLabelLicenseFlaticon.Location = new Point(6, 32);
+		kryptonLabelLicenseFlaticon.Location = new Point(3, 29);
 		kryptonLabelLicenseFlaticon.Name = "kryptonLabelLicenseFlaticon";
 		kryptonLabelLicenseFlaticon.Size = new Size(139, 20);
 		kryptonLabelLicenseFlaticon.TabIndex = 2;
@@ -686,7 +703,7 @@ partial class AppInfoForm
 		kryptonLinkLabelFlaticon.AccessibleRole = AccessibleRole.Link;
 		kryptonLinkLabelFlaticon.ContextMenuStrip = contextMenuStripCopyToClipboard;
 		kryptonLinkLabelFlaticon.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
-		kryptonLinkLabelFlaticon.Location = new Point(172, 6);
+		kryptonLinkLabelFlaticon.Location = new Point(169, 3);
 		kryptonLinkLabelFlaticon.Name = "kryptonLinkLabelFlaticon";
 		kryptonLinkLabelFlaticon.Size = new Size(318, 20);
 		kryptonLinkLabelFlaticon.TabIndex = 1;
@@ -709,7 +726,7 @@ partial class AppInfoForm
 		kryptonLabelAuthorFlaticon.AccessibleName = "Flaticon authors";
 		kryptonLabelAuthorFlaticon.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelAuthorFlaticon.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		kryptonLabelAuthorFlaticon.Location = new Point(387, 32);
+		kryptonLabelAuthorFlaticon.Location = new Point(384, 29);
 		kryptonLabelAuthorFlaticon.Name = "kryptonLabelAuthorFlaticon";
 		kryptonLabelAuthorFlaticon.Size = new Size(100, 20);
 		kryptonLabelAuthorFlaticon.TabIndex = 3;
@@ -754,7 +771,7 @@ partial class AppInfoForm
 		kryptonLabelIconHeadingFlaticon.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelIconHeadingFlaticon.ContextMenuStrip = contextMenuStripCopyToClipboard;
 		kryptonLabelIconHeadingFlaticon.LabelStyle = LabelStyle.BoldControl;
-		kryptonLabelIconHeadingFlaticon.Location = new Point(6, 6);
+		kryptonLabelIconHeadingFlaticon.Location = new Point(3, 3);
 		kryptonLabelIconHeadingFlaticon.Name = "kryptonLabelIconHeadingFlaticon";
 		kryptonLabelIconHeadingFlaticon.Size = new Size(106, 20);
 		kryptonLabelIconHeadingFlaticon.TabIndex = 0;
@@ -785,7 +802,6 @@ partial class AppInfoForm
 		kryptonPageIconsetFatcow.LastVisibleSet = true;
 		kryptonPageIconsetFatcow.MinimumSize = new Size(50, 50);
 		kryptonPageIconsetFatcow.Name = "kryptonPageIconsetFatcow";
-		kryptonPageIconsetFatcow.Padding = new Padding(3);
 		kryptonPageIconsetFatcow.Size = new Size(496, 229);
 		kryptonPageIconsetFatcow.Text = "&FatCow Icons";
 		kryptonPageIconsetFatcow.ToolTipTitle = "FatCow Icons";
@@ -824,7 +840,7 @@ partial class AppInfoForm
 		kryptonLabelHeadingFatcowIcons.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelHeadingFatcowIcons.ContextMenuStrip = contextMenuStripCopyToClipboard;
 		kryptonLabelHeadingFatcowIcons.LabelStyle = LabelStyle.BoldControl;
-		kryptonLabelHeadingFatcowIcons.Location = new Point(6, 6);
+		kryptonLabelHeadingFatcowIcons.Location = new Point(3, 3);
 		kryptonLabelHeadingFatcowIcons.Name = "kryptonLabelHeadingFatcowIcons";
 		kryptonLabelHeadingFatcowIcons.Size = new Size(93, 20);
 		kryptonLabelHeadingFatcowIcons.TabIndex = 0;
@@ -846,7 +862,7 @@ partial class AppInfoForm
 		kryptonLabelLicenseFatcow.AccessibleName = "FatCow Icons license";
 		kryptonLabelLicenseFatcow.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelLicenseFatcow.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		kryptonLabelLicenseFatcow.Location = new Point(6, 32);
+		kryptonLabelLicenseFatcow.Location = new Point(3, 29);
 		kryptonLabelLicenseFatcow.Name = "kryptonLabelLicenseFatcow";
 		kryptonLabelLicenseFatcow.Size = new Size(108, 20);
 		kryptonLabelLicenseFatcow.TabIndex = 2;
@@ -869,7 +885,7 @@ partial class AppInfoForm
 		kryptonLinkLabelWebsiteFatcow.AccessibleRole = AccessibleRole.Link;
 		kryptonLinkLabelWebsiteFatcow.ContextMenuStrip = contextMenuStripCopyToClipboard;
 		kryptonLinkLabelWebsiteFatcow.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
-		kryptonLinkLabelWebsiteFatcow.Location = new Point(301, 6);
+		kryptonLinkLabelWebsiteFatcow.Location = new Point(298, 3);
 		kryptonLinkLabelWebsiteFatcow.Name = "kryptonLinkLabelWebsiteFatcow";
 		kryptonLinkLabelWebsiteFatcow.Size = new Size(189, 20);
 		kryptonLinkLabelWebsiteFatcow.TabIndex = 1;
@@ -892,7 +908,7 @@ partial class AppInfoForm
 		kryptonLabelAuthorsFatcow.AccessibleName = "FatCow Icons author";
 		kryptonLabelAuthorsFatcow.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelAuthorsFatcow.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		kryptonLabelAuthorsFatcow.Location = new Point(321, 32);
+		kryptonLabelAuthorsFatcow.Location = new Point(318, 29);
 		kryptonLabelAuthorsFatcow.Name = "kryptonLabelAuthorsFatcow";
 		kryptonLabelAuthorsFatcow.Size = new Size(169, 20);
 		kryptonLabelAuthorsFatcow.TabIndex = 3;
@@ -924,7 +940,6 @@ partial class AppInfoForm
 		kryptonPageComponentKryptonSuite.LastVisibleSet = true;
 		kryptonPageComponentKryptonSuite.MinimumSize = new Size(50, 50);
 		kryptonPageComponentKryptonSuite.Name = "kryptonPageComponentKryptonSuite";
-		kryptonPageComponentKryptonSuite.Padding = new Padding(3);
 		kryptonPageComponentKryptonSuite.Size = new Size(496, 229);
 		kryptonPageComponentKryptonSuite.Text = "&Krypton Suite";
 		kryptonPageComponentKryptonSuite.ToolTipTitle = "Krypton Suite";
@@ -943,7 +958,7 @@ partial class AppInfoForm
 		kryptonTextBoxLicenseKryptonSuite.Multiline = true;
 		kryptonTextBoxLicenseKryptonSuite.Name = "kryptonTextBoxLicenseKryptonSuite";
 		kryptonTextBoxLicenseKryptonSuite.ScrollBars = ScrollBars.Vertical;
-		kryptonTextBoxLicenseKryptonSuite.Size = new Size(481, 137);
+		kryptonTextBoxLicenseKryptonSuite.Size = new Size(485, 137);
 		kryptonTextBoxLicenseKryptonSuite.TabIndex = 5;
 		kryptonTextBoxLicenseKryptonSuite.Text = resources.GetString("kryptonTextBoxLicenseKryptonSuite.Text");
 		kryptonTextBoxLicenseKryptonSuite.ToolTipValues.Description = "Shows the BSD 3-Clause license";
@@ -962,7 +977,7 @@ partial class AppInfoForm
 		kryptonLabelHeadingKryptonSuite.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelHeadingKryptonSuite.ContextMenuStrip = contextMenuStripCopyToClipboard;
 		kryptonLabelHeadingKryptonSuite.LabelStyle = LabelStyle.BoldControl;
-		kryptonLabelHeadingKryptonSuite.Location = new Point(6, 6);
+		kryptonLabelHeadingKryptonSuite.Location = new Point(3, 3);
 		kryptonLabelHeadingKryptonSuite.Name = "kryptonLabelHeadingKryptonSuite";
 		kryptonLabelHeadingKryptonSuite.Size = new Size(191, 20);
 		kryptonLabelHeadingKryptonSuite.TabIndex = 0;
@@ -984,7 +999,7 @@ partial class AppInfoForm
 		kryptonLabelLicenseKryptonSuite.AccessibleName = "Krypton Suite license";
 		kryptonLabelLicenseKryptonSuite.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelLicenseKryptonSuite.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		kryptonLabelLicenseKryptonSuite.Location = new Point(6, 58);
+		kryptonLabelLicenseKryptonSuite.Location = new Point(3, 55);
 		kryptonLabelLicenseKryptonSuite.Name = "kryptonLabelLicenseKryptonSuite";
 		kryptonLabelLicenseKryptonSuite.Size = new Size(129, 20);
 		kryptonLabelLicenseKryptonSuite.TabIndex = 4;
@@ -1006,7 +1021,7 @@ partial class AppInfoForm
 		kryptonLabelVersionKryptonSuite.AccessibleName = "Krypton Suite version";
 		kryptonLabelVersionKryptonSuite.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelVersionKryptonSuite.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		kryptonLabelVersionKryptonSuite.Location = new Point(6, 32);
+		kryptonLabelVersionKryptonSuite.Location = new Point(3, 29);
 		kryptonLabelVersionKryptonSuite.Name = "kryptonLabelVersionKryptonSuite";
 		kryptonLabelVersionKryptonSuite.Size = new Size(119, 20);
 		kryptonLabelVersionKryptonSuite.TabIndex = 2;
@@ -1029,7 +1044,7 @@ partial class AppInfoForm
 		kryptonLinkLabelWebsiteKryptonSuite.AccessibleRole = AccessibleRole.Link;
 		kryptonLinkLabelWebsiteKryptonSuite.ContextMenuStrip = contextMenuStripCopyToClipboard;
 		kryptonLinkLabelWebsiteKryptonSuite.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
-		kryptonLinkLabelWebsiteKryptonSuite.Location = new Point(280, 6);
+		kryptonLinkLabelWebsiteKryptonSuite.Location = new Point(277, 3);
 		kryptonLinkLabelWebsiteKryptonSuite.Name = "kryptonLinkLabelWebsiteKryptonSuite";
 		kryptonLinkLabelWebsiteKryptonSuite.Size = new Size(210, 20);
 		kryptonLinkLabelWebsiteKryptonSuite.TabIndex = 1;
@@ -1052,7 +1067,7 @@ partial class AppInfoForm
 		kryptonLabelAuthorsKryptonSuite.AccessibleName = "Krypton Suite authors";
 		kryptonLabelAuthorsKryptonSuite.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelAuthorsKryptonSuite.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		kryptonLabelAuthorsKryptonSuite.Location = new Point(285, 32);
+		kryptonLabelAuthorsKryptonSuite.Location = new Point(282, 29);
 		kryptonLabelAuthorsKryptonSuite.Name = "kryptonLabelAuthorsKryptonSuite";
 		kryptonLabelAuthorsKryptonSuite.Size = new Size(205, 20);
 		kryptonLabelAuthorsKryptonSuite.TabIndex = 3;
@@ -1084,7 +1099,6 @@ partial class AppInfoForm
 		kryptonPageComponentNLog.LastVisibleSet = true;
 		kryptonPageComponentNLog.MinimumSize = new Size(50, 50);
 		kryptonPageComponentNLog.Name = "kryptonPageComponentNLog";
-		kryptonPageComponentNLog.Padding = new Padding(3);
 		kryptonPageComponentNLog.Size = new Size(496, 229);
 		kryptonPageComponentNLog.Text = "&NLog";
 		kryptonPageComponentNLog.ToolTipTitle = "NLog";
@@ -1122,7 +1136,7 @@ partial class AppInfoForm
 		kryptonLabelHeadingNlog.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelHeadingNlog.ContextMenuStrip = contextMenuStripCopyToClipboard;
 		kryptonLabelHeadingNlog.LabelStyle = LabelStyle.BoldControl;
-		kryptonLabelHeadingNlog.Location = new Point(6, 6);
+		kryptonLabelHeadingNlog.Location = new Point(3, 3);
 		kryptonLabelHeadingNlog.Name = "kryptonLabelHeadingNlog";
 		kryptonLabelHeadingNlog.Size = new Size(42, 20);
 		kryptonLabelHeadingNlog.TabIndex = 0;
@@ -1144,7 +1158,7 @@ partial class AppInfoForm
 		kryptonLabelLicenseNlog.AccessibleName = "NLog license";
 		kryptonLabelLicenseNlog.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelLicenseNlog.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		kryptonLabelLicenseNlog.Location = new Point(6, 58);
+		kryptonLabelLicenseNlog.Location = new Point(3, 55);
 		kryptonLabelLicenseNlog.Name = "kryptonLabelLicenseNlog";
 		kryptonLabelLicenseNlog.Size = new Size(129, 20);
 		kryptonLabelLicenseNlog.TabIndex = 4;
@@ -1166,7 +1180,7 @@ partial class AppInfoForm
 		kryptonLabelVersionNlog.AccessibleName = "NLog version";
 		kryptonLabelVersionNlog.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelVersionNlog.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		kryptonLabelVersionNlog.Location = new Point(6, 32);
+		kryptonLabelVersionNlog.Location = new Point(3, 29);
 		kryptonLabelVersionNlog.Name = "kryptonLabelVersionNlog";
 		kryptonLabelVersionNlog.Size = new Size(83, 20);
 		kryptonLabelVersionNlog.TabIndex = 2;
@@ -1189,7 +1203,7 @@ partial class AppInfoForm
 		kryptonLinkLabelWebsiteNlog.AccessibleRole = AccessibleRole.Link;
 		kryptonLinkLabelWebsiteNlog.ContextMenuStrip = contextMenuStripCopyToClipboard;
 		kryptonLinkLabelWebsiteNlog.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
-		kryptonLinkLabelWebsiteNlog.Location = new Point(334, 6);
+		kryptonLinkLabelWebsiteNlog.Location = new Point(331, 3);
 		kryptonLinkLabelWebsiteNlog.Name = "kryptonLinkLabelWebsiteNlog";
 		kryptonLinkLabelWebsiteNlog.Size = new Size(157, 20);
 		kryptonLinkLabelWebsiteNlog.TabIndex = 1;
@@ -1212,7 +1226,7 @@ partial class AppInfoForm
 		kryptonLabelAuthorsNlog.AccessibleName = "NLog authors";
 		kryptonLabelAuthorsNlog.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelAuthorsNlog.ContextMenuStrip = contextMenuStripCopyToClipboard;
-		kryptonLabelAuthorsNlog.Location = new Point(214, 32);
+		kryptonLabelAuthorsNlog.Location = new Point(211, 29);
 		kryptonLabelAuthorsNlog.Name = "kryptonLabelAuthorsNlog";
 		kryptonLabelAuthorsNlog.Size = new Size(277, 20);
 		kryptonLabelAuthorsNlog.TabIndex = 3;
@@ -1227,6 +1241,248 @@ partial class AppInfoForm
 		kryptonLabelAuthorsNlog.MouseDown += Control_MouseDown;
 		kryptonLabelAuthorsNlog.MouseEnter += Control_Enter;
 		kryptonLabelAuthorsNlog.MouseLeave += Control_Leave;
+		// 
+		// kryptonPageComponentScottPlot
+		// 
+		kryptonPageComponentScottPlot.AccessibleDescription = "Shows page with ScottPlot information";
+		kryptonPageComponentScottPlot.AccessibleName = "ScottPlot information page";
+		kryptonPageComponentScottPlot.AccessibleRole = AccessibleRole.PageTab;
+		kryptonPageComponentScottPlot.AutoHiddenSlideSize = new Size(200, 200);
+		kryptonPageComponentScottPlot.Controls.Add(kryptonTextBoxLicenseScottPlot);
+		kryptonPageComponentScottPlot.Controls.Add(kryptonLabelHeadingScottPlot);
+		kryptonPageComponentScottPlot.Controls.Add(kryptonLabelLicenseScottPlot);
+		kryptonPageComponentScottPlot.Controls.Add(kryptonLabelVersionScottPlot);
+		kryptonPageComponentScottPlot.Controls.Add(kryptonLinkLabelWebsiteScottPlot);
+		kryptonPageComponentScottPlot.Controls.Add(kryptonLabelAuthorsScottPlot);
+		kryptonPageComponentScottPlot.Flags = 65534;
+		kryptonPageComponentScottPlot.LastVisibleSet = true;
+		kryptonPageComponentScottPlot.MinimumSize = new Size(150, 50);
+		kryptonPageComponentScottPlot.Name = "kryptonPageComponentScottPlot";
+		kryptonPageComponentScottPlot.Size = new Size(496, 229);
+		kryptonPageComponentScottPlot.Text = "&ScottPlot";
+		kryptonPageComponentScottPlot.ToolTipTitle = "ScottPlot";
+		kryptonPageComponentScottPlot.UniqueName = "1fa1c82f15544874a9ed6d8da4fc3d84";
+		// 
+		// kryptonTextBoxLicenseScottPlot
+		// 
+		kryptonTextBoxLicenseScottPlot.AccessibleDescription = "Shows the MIT license";
+		kryptonTextBoxLicenseScottPlot.AccessibleName = "MIT license";
+		kryptonTextBoxLicenseScottPlot.AccessibleRole = AccessibleRole.Text;
+		kryptonTextBoxLicenseScottPlot.Location = new Point(6, 84);
+		kryptonTextBoxLicenseScottPlot.Multiline = true;
+		kryptonTextBoxLicenseScottPlot.Name = "kryptonTextBoxLicenseScottPlot";
+		kryptonTextBoxLicenseScottPlot.ScrollBars = ScrollBars.Vertical;
+		kryptonTextBoxLicenseScottPlot.Size = new Size(484, 137);
+		kryptonTextBoxLicenseScottPlot.TabIndex = 11;
+		kryptonTextBoxLicenseScottPlot.Text = resources.GetString("kryptonTextBoxLicenseScottPlot.Text");
+		kryptonTextBoxLicenseScottPlot.ToolTipValues.Description = "Shows the MIT license";
+		kryptonTextBoxLicenseScottPlot.ToolTipValues.EnableToolTips = true;
+		kryptonTextBoxLicenseScottPlot.ToolTipValues.Heading = "MIT License";
+		kryptonTextBoxLicenseScottPlot.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		// 
+		// kryptonLabelHeadingScottPlot
+		// 
+		kryptonLabelHeadingScottPlot.AccessibleDescription = "Heading for the ScottPlot section";
+		kryptonLabelHeadingScottPlot.AccessibleName = "ScottPlot heading";
+		kryptonLabelHeadingScottPlot.AccessibleRole = AccessibleRole.StaticText;
+		kryptonLabelHeadingScottPlot.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLabelHeadingScottPlot.LabelStyle = LabelStyle.BoldControl;
+		kryptonLabelHeadingScottPlot.Location = new Point(3, 3);
+		kryptonLabelHeadingScottPlot.Name = "kryptonLabelHeadingScottPlot";
+		kryptonLabelHeadingScottPlot.Size = new Size(64, 20);
+		kryptonLabelHeadingScottPlot.TabIndex = 6;
+		kryptonLabelHeadingScottPlot.ToolTipValues.Description = "Heading for the ScottPlot section.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelHeadingScottPlot.ToolTipValues.EnableToolTips = true;
+		kryptonLabelHeadingScottPlot.ToolTipValues.Heading = "ScottPlot";
+		kryptonLabelHeadingScottPlot.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelHeadingScottPlot.Values.Text = "ScottPlot";
+		// 
+		// kryptonLabelLicenseScottPlot
+		// 
+		kryptonLabelLicenseScottPlot.AccessibleDescription = "Shows the ScottPlot license";
+		kryptonLabelLicenseScottPlot.AccessibleName = "ScottPlot license";
+		kryptonLabelLicenseScottPlot.AccessibleRole = AccessibleRole.StaticText;
+		kryptonLabelLicenseScottPlot.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLabelLicenseScottPlot.Location = new Point(3, 55);
+		kryptonLabelLicenseScottPlot.Name = "kryptonLabelLicenseScottPlot";
+		kryptonLabelLicenseScottPlot.Size = new Size(119, 20);
+		kryptonLabelLicenseScottPlot.TabIndex = 10;
+		kryptonLabelLicenseScottPlot.ToolTipValues.Description = "Shows the ScottPlot license.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelLicenseScottPlot.ToolTipValues.EnableToolTips = true;
+		kryptonLabelLicenseScottPlot.ToolTipValues.Heading = "ScottPlot license";
+		kryptonLabelLicenseScottPlot.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelLicenseScottPlot.Values.Text = "License: MIT license";
+		// 
+		// kryptonLabelVersionScottPlot
+		// 
+		kryptonLabelVersionScottPlot.AccessibleDescription = "Shows the ScottPlot version";
+		kryptonLabelVersionScottPlot.AccessibleName = "ScottPlot version";
+		kryptonLabelVersionScottPlot.AccessibleRole = AccessibleRole.StaticText;
+		kryptonLabelVersionScottPlot.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLabelVersionScottPlot.Location = new Point(3, 29);
+		kryptonLabelVersionScottPlot.Name = "kryptonLabelVersionScottPlot";
+		kryptonLabelVersionScottPlot.Size = new Size(89, 20);
+		kryptonLabelVersionScottPlot.TabIndex = 8;
+		kryptonLabelVersionScottPlot.ToolTipValues.Description = "Shows the ScottPlot version.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelVersionScottPlot.ToolTipValues.EnableToolTips = true;
+		kryptonLabelVersionScottPlot.ToolTipValues.Heading = "ScottPlot version";
+		kryptonLabelVersionScottPlot.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelVersionScottPlot.Values.Text = "Version: 5.1.58";
+		// 
+		// kryptonLinkLabelWebsiteScottPlot
+		// 
+		kryptonLinkLabelWebsiteScottPlot.AccessibleDescription = "Opens the ScottPlot website";
+		kryptonLinkLabelWebsiteScottPlot.AccessibleName = "ScottPlot website";
+		kryptonLinkLabelWebsiteScottPlot.AccessibleRole = AccessibleRole.Link;
+		kryptonLinkLabelWebsiteScottPlot.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLinkLabelWebsiteScottPlot.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
+		kryptonLinkLabelWebsiteScottPlot.Location = new Point(352, 3);
+		kryptonLinkLabelWebsiteScottPlot.Name = "kryptonLinkLabelWebsiteScottPlot";
+		kryptonLinkLabelWebsiteScottPlot.Size = new Size(136, 20);
+		kryptonLinkLabelWebsiteScottPlot.TabIndex = 7;
+		kryptonLinkLabelWebsiteScottPlot.ToolTipValues.Description = "Opens the ScottPlot website.\r\nRight-click to copy the information to the clipboard.";
+		kryptonLinkLabelWebsiteScottPlot.ToolTipValues.EnableToolTips = true;
+		kryptonLinkLabelWebsiteScottPlot.ToolTipValues.Heading = "ScottPlot website";
+		kryptonLinkLabelWebsiteScottPlot.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLinkLabelWebsiteScottPlot.Values.Image = FatcowIcons16px.fatcow_world_16px;
+		kryptonLinkLabelWebsiteScottPlot.Values.Text = "https://scottplot.net";
+		// 
+		// kryptonLabelAuthorsScottPlot
+		// 
+		kryptonLabelAuthorsScottPlot.AccessibleDescription = "Shows the ScottPlot author";
+		kryptonLabelAuthorsScottPlot.AccessibleName = "ScottPlot author";
+		kryptonLabelAuthorsScottPlot.AccessibleRole = AccessibleRole.StaticText;
+		kryptonLabelAuthorsScottPlot.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLabelAuthorsScottPlot.Location = new Point(364, 29);
+		kryptonLabelAuthorsScottPlot.Name = "kryptonLabelAuthorsScottPlot";
+		kryptonLabelAuthorsScottPlot.Size = new Size(126, 20);
+		kryptonLabelAuthorsScottPlot.TabIndex = 9;
+		kryptonLabelAuthorsScottPlot.ToolTipValues.Description = "Shows the NLog authors.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelAuthorsScottPlot.ToolTipValues.EnableToolTips = true;
+		kryptonLabelAuthorsScottPlot.ToolTipValues.Heading = "NLog authors";
+		kryptonLabelAuthorsScottPlot.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelAuthorsScottPlot.Values.Text = "Author: Scott Harden";
+		// 
+		// kryptonPageComponentOpenTK
+		// 
+		kryptonPageComponentOpenTK.AccessibleDescription = "Shows page with OpenTK information";
+		kryptonPageComponentOpenTK.AccessibleName = "OpenTK information page";
+		kryptonPageComponentOpenTK.AccessibleRole = AccessibleRole.PageTab;
+		kryptonPageComponentOpenTK.AutoHiddenSlideSize = new Size(200, 200);
+		kryptonPageComponentOpenTK.Controls.Add(kryptonTextBoxLicenseOpenTK);
+		kryptonPageComponentOpenTK.Controls.Add(kryptonLabelHeadingOpenTK);
+		kryptonPageComponentOpenTK.Controls.Add(kryptonLabelLicenseOpenTK);
+		kryptonPageComponentOpenTK.Controls.Add(kryptonLabelVersionOpenTK);
+		kryptonPageComponentOpenTK.Controls.Add(kryptonLinkLabelWebsiteOpenTK);
+		kryptonPageComponentOpenTK.Controls.Add(kryptonLabelAuthorsOpenTK);
+		kryptonPageComponentOpenTK.Flags = 65534;
+		kryptonPageComponentOpenTK.LastVisibleSet = true;
+		kryptonPageComponentOpenTK.MinimumSize = new Size(150, 50);
+		kryptonPageComponentOpenTK.Name = "kryptonPageComponentOpenTK";
+		kryptonPageComponentOpenTK.Size = new Size(496, 229);
+		kryptonPageComponentOpenTK.Text = "&OpenTK";
+		kryptonPageComponentOpenTK.ToolTipTitle = "OpenTK";
+		kryptonPageComponentOpenTK.UniqueName = "549d2b682ba34d438d61c805e1182f2f";
+		// 
+		// kryptonTextBoxLicenseOpenTK
+		// 
+		kryptonTextBoxLicenseOpenTK.AccessibleDescription = "Shows the MIT license";
+		kryptonTextBoxLicenseOpenTK.AccessibleName = "MIT license";
+		kryptonTextBoxLicenseOpenTK.AccessibleRole = AccessibleRole.Text;
+		kryptonTextBoxLicenseOpenTK.Location = new Point(6, 84);
+		kryptonTextBoxLicenseOpenTK.Multiline = true;
+		kryptonTextBoxLicenseOpenTK.Name = "kryptonTextBoxLicenseOpenTK";
+		kryptonTextBoxLicenseOpenTK.ScrollBars = ScrollBars.Vertical;
+		kryptonTextBoxLicenseOpenTK.Size = new Size(484, 137);
+		kryptonTextBoxLicenseOpenTK.TabIndex = 11;
+		kryptonTextBoxLicenseOpenTK.Text = resources.GetString("kryptonTextBoxLicenseOpenTK.Text");
+		kryptonTextBoxLicenseOpenTK.ToolTipValues.Description = "Shows the MIT license";
+		kryptonTextBoxLicenseOpenTK.ToolTipValues.EnableToolTips = true;
+		kryptonTextBoxLicenseOpenTK.ToolTipValues.Heading = "MIT License";
+		kryptonTextBoxLicenseOpenTK.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		// 
+		// kryptonLabelHeadingOpenTK
+		// 
+		kryptonLabelHeadingOpenTK.AccessibleDescription = "Heading for the OpenTK section";
+		kryptonLabelHeadingOpenTK.AccessibleName = "OpenTK heading";
+		kryptonLabelHeadingOpenTK.AccessibleRole = AccessibleRole.StaticText;
+		kryptonLabelHeadingOpenTK.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLabelHeadingOpenTK.LabelStyle = LabelStyle.BoldControl;
+		kryptonLabelHeadingOpenTK.Location = new Point(3, 3);
+		kryptonLabelHeadingOpenTK.Name = "kryptonLabelHeadingOpenTK";
+		kryptonLabelHeadingOpenTK.Size = new Size(57, 20);
+		kryptonLabelHeadingOpenTK.TabIndex = 6;
+		kryptonLabelHeadingOpenTK.ToolTipValues.Description = "Heading for the OpenTK section.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelHeadingOpenTK.ToolTipValues.EnableToolTips = true;
+		kryptonLabelHeadingOpenTK.ToolTipValues.Heading = "OpenTK";
+		kryptonLabelHeadingOpenTK.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelHeadingOpenTK.Values.Text = "OpenTK";
+		// 
+		// kryptonLabelLicenseOpenTK
+		// 
+		kryptonLabelLicenseOpenTK.AccessibleDescription = "Shows the OpenTK license";
+		kryptonLabelLicenseOpenTK.AccessibleName = "OpenTK license";
+		kryptonLabelLicenseOpenTK.AccessibleRole = AccessibleRole.StaticText;
+		kryptonLabelLicenseOpenTK.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLabelLicenseOpenTK.Location = new Point(3, 55);
+		kryptonLabelLicenseOpenTK.Name = "kryptonLabelLicenseOpenTK";
+		kryptonLabelLicenseOpenTK.Size = new Size(129, 20);
+		kryptonLabelLicenseOpenTK.TabIndex = 10;
+		kryptonLabelLicenseOpenTK.ToolTipValues.Description = "Shows the NLog license.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelLicenseOpenTK.ToolTipValues.EnableToolTips = true;
+		kryptonLabelLicenseOpenTK.ToolTipValues.Heading = "NLog license";
+		kryptonLabelLicenseOpenTK.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelLicenseOpenTK.Values.Text = "License: MIT license";
+		// 
+		// kryptonLabelVersionOpenTK
+		// 
+		kryptonLabelVersionOpenTK.AccessibleDescription = "Shows the OpenTK version";
+		kryptonLabelVersionOpenTK.AccessibleName = "OpenTK version";
+		kryptonLabelVersionOpenTK.AccessibleRole = AccessibleRole.StaticText;
+		kryptonLabelVersionOpenTK.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLabelVersionOpenTK.Location = new Point(3, 29);
+		kryptonLabelVersionOpenTK.Name = "kryptonLabelVersionOpenTK";
+		kryptonLabelVersionOpenTK.Size = new Size(83, 20);
+		kryptonLabelVersionOpenTK.TabIndex = 8;
+		kryptonLabelVersionOpenTK.ToolTipValues.Description = "Shows the OpenTK version.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelVersionOpenTK.ToolTipValues.EnableToolTips = true;
+		kryptonLabelVersionOpenTK.ToolTipValues.Heading = "OpenTK version";
+		kryptonLabelVersionOpenTK.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelVersionOpenTK.Values.Text = "Version: 4.9.4";
+		// 
+		// kryptonLinkLabelWebsiteOpenTK
+		// 
+		kryptonLinkLabelWebsiteOpenTK.AccessibleDescription = "Opens the OpenTK website";
+		kryptonLinkLabelWebsiteOpenTK.AccessibleName = "OpenTK website";
+		kryptonLinkLabelWebsiteOpenTK.AccessibleRole = AccessibleRole.Link;
+		kryptonLinkLabelWebsiteOpenTK.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLinkLabelWebsiteOpenTK.LinkBehavior = KryptonLinkBehavior.HoverUnderline;
+		kryptonLinkLabelWebsiteOpenTK.Location = new Point(275, 3);
+		kryptonLinkLabelWebsiteOpenTK.Name = "kryptonLinkLabelWebsiteOpenTK";
+		kryptonLinkLabelWebsiteOpenTK.Size = new Size(216, 20);
+		kryptonLinkLabelWebsiteOpenTK.TabIndex = 7;
+		kryptonLinkLabelWebsiteOpenTK.ToolTipValues.Description = "Opens the OpenTK website.\r\nRight-click to copy the information to the clipboard.";
+		kryptonLinkLabelWebsiteOpenTK.ToolTipValues.EnableToolTips = true;
+		kryptonLinkLabelWebsiteOpenTK.ToolTipValues.Heading = "OpenTK website";
+		kryptonLinkLabelWebsiteOpenTK.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLinkLabelWebsiteOpenTK.Values.Image = FatcowIcons16px.fatcow_world_16px;
+		kryptonLinkLabelWebsiteOpenTK.Values.Text = "https://github.com/opentk/opentk";
+		// 
+		// kryptonLabelAuthorsOpenTK
+		// 
+		kryptonLabelAuthorsOpenTK.AccessibleDescription = "Shows the OpenTK authors";
+		kryptonLabelAuthorsOpenTK.AccessibleName = "OpenTK authors";
+		kryptonLabelAuthorsOpenTK.AccessibleRole = AccessibleRole.StaticText;
+		kryptonLabelAuthorsOpenTK.ContextMenuStrip = contextMenuStripCopyToClipboard;
+		kryptonLabelAuthorsOpenTK.Location = new Point(354, 29);
+		kryptonLabelAuthorsOpenTK.Name = "kryptonLabelAuthorsOpenTK";
+		kryptonLabelAuthorsOpenTK.Size = new Size(136, 20);
+		kryptonLabelAuthorsOpenTK.TabIndex = 9;
+		kryptonLabelAuthorsOpenTK.ToolTipValues.Description = "Shows the OpenTK authors.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelAuthorsOpenTK.ToolTipValues.EnableToolTips = true;
+		kryptonLabelAuthorsOpenTK.ToolTipValues.Heading = "OpenTK authors";
+		kryptonLabelAuthorsOpenTK.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonLabelAuthorsOpenTK.Values.Text = "Authors: Team OpenTK";
 		// 
 		// imageListTabAbout
 		// 
@@ -1369,6 +1625,12 @@ partial class AppInfoForm
 		((ISupportInitialize)kryptonPageComponentNLog).EndInit();
 		kryptonPageComponentNLog.ResumeLayout(false);
 		kryptonPageComponentNLog.PerformLayout();
+		((ISupportInitialize)kryptonPageComponentScottPlot).EndInit();
+		kryptonPageComponentScottPlot.ResumeLayout(false);
+		kryptonPageComponentScottPlot.PerformLayout();
+		((ISupportInitialize)kryptonPageComponentOpenTK).EndInit();
+		kryptonPageComponentOpenTK.ResumeLayout(false);
+		kryptonPageComponentOpenTK.PerformLayout();
 		((ISupportInitialize)pictureBoxBanner).EndInit();
 		((ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);
@@ -1432,4 +1694,18 @@ partial class AppInfoForm
 	private ImageList imageListTabAbout;
 	private KryptonPictureBox kryptonPictureBoxGithub;
 	private KryptonPictureBox kryptonPictureBoxGithubCopilot;
+	private KryptonPage kryptonPageComponentScottPlot;
+	private KryptonPage kryptonPageComponentOpenTK;
+	private KryptonTextBox kryptonTextBoxLicenseScottPlot;
+	private KryptonLabel kryptonLabelHeadingScottPlot;
+	private KryptonLabel kryptonLabelLicenseScottPlot;
+	private KryptonLabel kryptonLabelVersionScottPlot;
+	private KryptonLinkLabel kryptonLinkLabelWebsiteScottPlot;
+	private KryptonLabel kryptonLabelAuthorsScottPlot;
+	private KryptonTextBox kryptonTextBoxLicenseOpenTK;
+	private KryptonLabel kryptonLabelHeadingOpenTK;
+	private KryptonLabel kryptonLabelLicenseOpenTK;
+	private KryptonLabel kryptonLabelVersionOpenTK;
+	private KryptonLinkLabel kryptonLinkLabelWebsiteOpenTK;
+	private KryptonLabel kryptonLabelAuthorsOpenTK;
 }
