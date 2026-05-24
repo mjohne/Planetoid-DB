@@ -11,6 +11,7 @@ using Planetoid_DB.Forms;
 
 using System.Diagnostics;
 using System.Globalization;
+using System.Threading.Tasks;
 
 namespace Planetoid_DB;
 
@@ -44,6 +45,14 @@ public partial class FilterForm : BaseKryptonForm
 
 	/// <summary>Flag used to suppress re-entrant ValueChanged events while programmatically setting spinbutton values.</summary>
 	private bool suppressValueChangedEvents;
+
+	/// <summary>Defines one fixed-width MPCORB orbital element field and the corresponding min/max spinbuttons.</summary>
+	private readonly record struct OrbitalElementFilter(
+		string Name,
+		int Start,
+		int Length,
+		KryptonNumericUpDown MinimumControl,
+		KryptonNumericUpDown MaximumControl);
 
 	#region constructor
 
@@ -83,31 +92,34 @@ public partial class FilterForm : BaseKryptonForm
 			result: out value);
 	}
 
+	/// <summary>Creates the shared orbital-element field definition list used by scanning, resetting, and filtering.</summary>
+	/// <returns>An array of orbital-element filter definitions.</returns>
+	private OrbitalElementFilter[] GetOrbitalElementFilters() =>
+	[
+		new(Name: "MeanAnomaly",          Start: 26,  Length: 9,  MinimumControl: numericUpDownMinimumMeanAnomalyAtTheEpoch,       MaximumControl: numericUpDownMaximumMeanAnomalyAtTheEpoch),
+		new(Name: "ArgPeri",              Start: 37,  Length: 9,  MinimumControl: numericUpDownMinimumArgumentOfThePerihelion,     MaximumControl: numericUpDownMaximumArgumentOfThePerihelion),
+		new(Name: "LongAscNode",          Start: 48,  Length: 9,  MinimumControl: numericUpDownMinimumLongitudeOfTheAscendingNode, MaximumControl: numericUpDownMaximumLongitudeOfTheAscendingNode),
+		new(Name: "Incl",                 Start: 59,  Length: 9,  MinimumControl: numericUpDownMinimumInclination,                 MaximumControl: numericUpDownMaximumInclination),
+		new(Name: "OrbEcc",               Start: 70,  Length: 9,  MinimumControl: numericUpDownMinimumOrbitalEccentricity,         MaximumControl: numericUpDownMaximumOrbitalEccentricity),
+		new(Name: "Motion",               Start: 80,  Length: 11, MinimumControl: numericUpDownMinimumMeanDailyMotion,             MaximumControl: numericUpDownMaximumMeanDailyMotion),
+		new(Name: "SemiMajorAxis",        Start: 92,  Length: 11, MinimumControl: numericUpDownMinimumSemiMajorAxis,               MaximumControl: numericUpDownMaximumSemiMajorAxis),
+		new(Name: "AbsoluteMagnitude",    Start: 8,   Length: 5,  MinimumControl: numericUpDownMinimumAbsoluteMagnitude,           MaximumControl: numericUpDownMaximumAbsoluteMagnitude),
+		new(Name: "SlopeParameter",       Start: 14,  Length: 5,  MinimumControl: numericUpDownMinimumSlopeParameter,              MaximumControl: numericUpDownMaximumSlopeParameter),
+		new(Name: "NumberOfOppositions",  Start: 123, Length: 3,  MinimumControl: numericUpDownMinimumNumberOfOppositions,         MaximumControl: numericUpDownMaximumNumberOfOppositions),
+		new(Name: "NumberOfObservations", Start: 117, Length: 5,  MinimumControl: numericUpDownMinimumNumberOfObservations,        MaximumControl: numericUpDownMaximumNumberOfObservations),
+		new(Name: "RmsResidual",          Start: 137, Length: 4,  MinimumControl: numericUpDownMinimumRmsResidual,                 MaximumControl: numericUpDownMaximumRmsResidual),
+	];
+
 	/// <summary>Computes the minimum and maximum values for all filtered orbital elements across the entire database.</summary>
 	/// <remarks>This method iterates through all records and extracts min/max for each element using fixed-width parsing.</remarks>
 	private void ComputeMinMaxFromDatabase()
 	{
-		// Define the elements: name, startIndex, length
-		(string Name, int Start, int Length)[] elements =
-		[
-			("MeanAnomaly",          26, 9),
-			("ArgPeri",              37, 9),
-			("LongAscNode",          48, 9),
-			("Incl",                 59, 9),
-			("OrbEcc",               70, 9),
-			("Motion",               80, 11),
-			("SemiMajorAxis",        92, 11),
-			("AbsoluteMagnitude",     8, 5),
-			("SlopeParameter",       14, 5),
-			("NumberOfOppositions", 123, 3),
-			("NumberOfObservations",117, 5),
-			("RmsResidual",         137, 4),
-		];
+		OrbitalElementFilter[] elements = GetOrbitalElementFilters();
 
 		// Initialize with inverted extremes
 		Dictionary<string, double> minVals = [];
 		Dictionary<string, double> maxVals = [];
-		foreach ((string Name, int Start, int Length) el in elements)
+		foreach (OrbitalElementFilter el in elements)
 		{
 			minVals[el.Name] = double.MaxValue;
 			maxVals[el.Name] = double.MinValue;
@@ -116,7 +128,7 @@ public partial class FilterForm : BaseKryptonForm
 		// Scan all records
 		foreach (string line in planetoidsDatabase)
 		{
-			foreach ((string Name, int Start, int Length) el in elements)
+			foreach (OrbitalElementFilter el in elements)
 			{
 				if (TryParseField(line: line, startIndex: el.Start, length: el.Length, value: out double val))
 				{
@@ -129,7 +141,7 @@ public partial class FilterForm : BaseKryptonForm
 		// Store defaults; fall back to 0 when no valid values were found
 		defaultMinima.Clear();
 		defaultMaxima.Clear();
-		foreach ((string Name, int Start, int Length) el in elements)
+		foreach (OrbitalElementFilter el in elements)
 		{
 			double mn = minVals[el.Name] == double.MaxValue ? 0 : minVals[el.Name];
 			double mx = maxVals[el.Name] == double.MinValue ? 0 : maxVals[el.Name];
@@ -142,17 +154,19 @@ public partial class FilterForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Clamps and assigns a value to a <see cref="KryptonNumericUpDown"/>, adjusting its range as needed.</summary>
+	/// <summary>Clamps and assigns a value to a <see cref="KryptonNumericUpDown"/> within the provided range.</summary>
 	/// <param name="control">The spinbutton control to update.</param>
 	/// <param name="value">The value to set.</param>
-	/// <param name="lower">The lower bound for the spinbutton range.</param>
-	/// <param name="upper">The upper bound for the spinbutton range.</param>
+	/// <param name="lower">One bound for the spinbutton range.</param>
+	/// <param name="upper">The other bound for the spinbutton range.</param>
+	/// <remarks>If <paramref name="lower"/> is greater than <paramref name="upper"/>, the bounds are reordered automatically.</remarks>
 	private static void SetNumericValue(KryptonNumericUpDown control, decimal value, decimal lower, decimal upper)
 	{
-		// Widen the range to accommodate the value before assigning
-		control.Minimum = Math.Min(val1: control.Minimum, val2: lower);
-		control.Maximum = Math.Max(val1: control.Maximum, val2: upper);
-		control.Value = Math.Max(val1: control.Minimum, val2: Math.Min(val2: control.Maximum, val1: value));
+		decimal minimum = Math.Min(val1: lower, val2: upper);
+		decimal maximum = Math.Max(val1: lower, val2: upper);
+		control.Minimum = minimum;
+		control.Maximum = maximum;
+		control.Value = Math.Max(val1: minimum, val2: Math.Min(val2: maximum, val1: value));
 	}
 
 	/// <summary>Applies the stored default min/max for one orbital element to its pair of spinbuttons.</summary>
@@ -178,18 +192,18 @@ public partial class FilterForm : BaseKryptonForm
 	/// <summary>Resets all spinbuttons to their data-derived default min/max values.</summary>
 	private void ResetAllElements()
 	{
-		ResetElement(key: "MeanAnomaly",           minimumControl: numericUpDownMinimumMeanAnomalyAtTheEpoch,           maximumControl: numericUpDownMaximumMeanAnomalyAtTheEpoch);
-		ResetElement(key: "ArgPeri",               minimumControl: numericUpDownMinimumArgumentOfThePerihelion,         maximumControl: numericUpDownMaximumArgumentOfThePerihelion);
-		ResetElement(key: "LongAscNode",           minimumControl: numericUpDownMinimumLongitudeOfTheAscendingNode,     maximumControl: numericUpDownMaximumLongitudeOfTheAscendingNode);
-		ResetElement(key: "Incl",                  minimumControl: numericUpDownMinimumInclination,                    maximumControl: numericUpDownMaximumInclination);
-		ResetElement(key: "OrbEcc",                minimumControl: numericUpDownMinimumOrbitalEccentricity,             maximumControl: numericUpDownMaximumOrbitalEccentricity);
-		ResetElement(key: "Motion",                minimumControl: numericUpDownMinimumMeanDailyMotion,                 maximumControl: numericUpDownMaximumMeanDailyMotion);
-		ResetElement(key: "SemiMajorAxis",         minimumControl: numericUpDownMinimumSemiMajorAxis,                  maximumControl: numericUpDownMaximumSemiMajorAxis);
-		ResetElement(key: "AbsoluteMagnitude",     minimumControl: numericUpDownMinimumAbsoluteMagnitude,              maximumControl: numericUpDownMaximumAbsoluteMagnitude);
-		ResetElement(key: "SlopeParameter",        minimumControl: numericUpDownMinimumSlopeParameter,                 maximumControl: numericUpDownMaximumSlopeParameter);
-		ResetElement(key: "NumberOfOppositions",   minimumControl: numericUpDownMinimumNumberOfOppositions,            maximumControl: numericUpDownMaximumNumberOfOppositions);
-		ResetElement(key: "NumberOfObservations",  minimumControl: numericUpDownMinimumNumberOfObservations,           maximumControl: numericUpDownMaximumNumberOfObservations);
-		ResetElement(key: "RmsResidual",           minimumControl: numericUpDownMinimumRmsResidual,                    maximumControl: numericUpDownMaximumRmsResidual);
+		foreach (OrbitalElementFilter filter in GetOrbitalElementFilters())
+		{
+			ResetElement(key: filter.Name, minimumControl: filter.MinimumControl, maximumControl: filter.MaximumControl);
+		}
+	}
+
+	/// <summary>Enables or disables the toolbar actions while default ranges are being computed.</summary>
+	/// <param name="isEnabled"><see langword="true"/> to enable toolbar actions; otherwise, <see langword="false"/>.</param>
+	private void SetToolbarActionsEnabled(bool isEnabled)
+	{
+		toolStripButtonApply.Enabled = isEnabled;
+		toolStripButtonReset.Enabled = isEnabled;
 	}
 
 	/// <summary>Enforces that the minimum spinbutton value does not exceed the maximum spinbutton value.</summary>
@@ -246,13 +260,37 @@ public partial class FilterForm : BaseKryptonForm
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to initialize the form and set up any necessary data.</remarks>
-	private void FilterForm_Load(object sender, EventArgs e)
+	private async void FilterForm_Load(object sender, EventArgs e)
 	{
 		ClearStatusBar(label: labelInformation);
-		if (planetoidsDatabase.Count > 0)
+		if (planetoidsDatabase.Count <= 0)
 		{
-			ComputeMinMaxFromDatabase();
-			ResetAllElements();
+			return;
+		}
+
+		SetToolbarActionsEnabled(isEnabled: false);
+		UseWaitCursor = true;
+		try
+		{
+			try
+			{
+				await Task.Run(action: ComputeMinMaxFromDatabase);
+				ResetAllElements();
+			}
+			catch (Exception ex)
+			{
+				logger.Error(exception: ex, message: "Failed to compute initial filter ranges.");
+				_ = KryptonMessageBox.Show(
+					text: "Unable to compute filter ranges from the current database.",
+					caption: I18nStrings.ErrorCaption,
+					buttons: KryptonMessageBoxButtons.OK,
+					icon: KryptonMessageBoxIcon.Error);
+			}
+		}
+		finally
+		{
+			UseWaitCursor = false;
+			SetToolbarActionsEnabled(isEnabled: true);
 		}
 	}
 
@@ -350,28 +388,13 @@ public partial class FilterForm : BaseKryptonForm
 	/// <remarks>Rows that do not fall within the min/max range of every orbital element used in this form are removed. The filtered result is stored in <see cref="FilteredDatabase"/>.</remarks>
 	private void ButtonApply_Click(object sender, EventArgs e)
 	{
-		// Define each filter: element key → start, length, min control, max control
-		(int Start, int Length, KryptonNumericUpDown MinCtrl, KryptonNumericUpDown MaxCtrl)[] filters =
-		[
-			(26,  9,  numericUpDownMinimumMeanAnomalyAtTheEpoch,         numericUpDownMaximumMeanAnomalyAtTheEpoch),
-			(37,  9,  numericUpDownMinimumArgumentOfThePerihelion,        numericUpDownMaximumArgumentOfThePerihelion),
-			(48,  9,  numericUpDownMinimumLongitudeOfTheAscendingNode,    numericUpDownMaximumLongitudeOfTheAscendingNode),
-			(59,  9,  numericUpDownMinimumInclination,                   numericUpDownMaximumInclination),
-			(70,  9,  numericUpDownMinimumOrbitalEccentricity,            numericUpDownMaximumOrbitalEccentricity),
-			(80,  11, numericUpDownMinimumMeanDailyMotion,                numericUpDownMaximumMeanDailyMotion),
-			(92,  11, numericUpDownMinimumSemiMajorAxis,                  numericUpDownMaximumSemiMajorAxis),
-			(8,   5,  numericUpDownMinimumAbsoluteMagnitude,              numericUpDownMaximumAbsoluteMagnitude),
-			(14,  5,  numericUpDownMinimumSlopeParameter,                 numericUpDownMaximumSlopeParameter),
-			(123, 3,  numericUpDownMinimumNumberOfOppositions,            numericUpDownMaximumNumberOfOppositions),
-			(117, 5,  numericUpDownMinimumNumberOfObservations,           numericUpDownMaximumNumberOfObservations),
-			(137, 4,  numericUpDownMinimumRmsResidual,                    numericUpDownMaximumRmsResidual),
-		];
+		OrbitalElementFilter[] filters = GetOrbitalElementFilters();
 
 		FilteredDatabase = planetoidsDatabase
 			.Where(predicate: line => filters.All(predicate: f =>
 				TryParseField(line: line, startIndex: f.Start, length: f.Length, value: out double val) &&
-				val >= (double)f.MinCtrl.Value &&
-				val <= (double)f.MaxCtrl.Value))
+				val >= (double)f.MinimumControl.Value &&
+				val <= (double)f.MaximumControl.Value))
 			.ToList();
 
 		logger.Info(message: $"Filter applied: {FilteredDatabase.Count} of {planetoidsDatabase.Count} records retained.");

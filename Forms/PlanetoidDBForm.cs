@@ -260,6 +260,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Handle the case where the database is empty
 		if (position < 0 || position >= planetoidsDatabase.Count)
 		{
+			ClearCurrentRecordDisplay();
 			toolStripLabelIndexPosition.ToolTipText = "Index: 0";
 			return;
 		}
@@ -268,24 +269,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// If the entry string is null or empty, clear all labels and return early
 		if (string.IsNullOrEmpty(value: entryStr))
 		{
-			// Clear all labels to indicate no data is available
-			toolStripLabelIndexPosition.Text = string.Empty;
-			tableLayoutPanelData.SuspendLayout();
-			try
-			{
-				foreach (Control control in tableLayoutPanelData.Controls)
-				{
-					if (control is KryptonLabel or Label)
-					{
-						control.Text = string.Empty;
-					}
-				}
-			}
-			// Resume layout without performing layout to avoid unnecessary redraws
-			finally
-			{
-				tableLayoutPanelData.ResumeLayout(performLayout: false);
-			}
+			ClearCurrentRecordDisplay();
 			return;
 		}
 		// Suspend both the panel layout and painting to eliminate all flicker
@@ -321,6 +305,27 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		{
 			// Resume layout and perform any pending layout logic.
 			tableLayoutPanelData.ResumeLayout(performLayout: true);
+		}
+	}
+
+	/// <summary>Clears all record display labels in the data panel and index indicator.</summary>
+	private void ClearCurrentRecordDisplay()
+	{
+		toolStripLabelIndexPosition.Text = string.Empty;
+		tableLayoutPanelData.SuspendLayout();
+		try
+		{
+			foreach (Control control in tableLayoutPanelData.Controls)
+			{
+				if (control is KryptonLabel or Label)
+				{
+					control.Text = string.Empty;
+				}
+			}
+		}
+		finally
+		{
+			tableLayoutPanelData.ResumeLayout(performLayout: false);
 		}
 	}
 
