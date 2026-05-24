@@ -1,5 +1,17 @@
 # Changelog
 
+## Planetoid-DB 0.9.6.69
+
+* Updated image link in README.md by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/738
+* Updated CHANGELOG for version 0.9.5.68 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/739
+* Added `Orbit3DForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/742
+* Added `demoset-10000.txt` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/743
+* Updated `AppInfoForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/744
+* Updated to version 0.9.6.69 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/745
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.6.5.68.736.2344...0.9.6.69.745.2361
+
+
 ## Planetoid-DB 0.9.5.68
 
 * Replaced old screenshot with new image URL by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/718
