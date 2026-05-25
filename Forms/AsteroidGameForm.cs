@@ -277,6 +277,7 @@ public sealed class AsteroidGameForm : BaseKryptonForm
 		{
 			API = ContextAPI.OpenGL,
 			Profile = ContextProfile.Any,
+			// OpenGL 2.1 is intentionally used to keep immediate-mode rendering compatibility (GL.Begin/GL.End) aligned with the existing OpenTK forms in this project.
 			APIVersion = new Version(major: 2, minor: 1),
 		};
 		glControl = new GLControl(glControlSettings: settings)
@@ -427,11 +428,18 @@ public sealed class AsteroidGameForm : BaseKryptonForm
 	private void SpawnAsteroid()
 	{
 		float radius = random.Next(minValue: 12, maxValue: 30);
-		float x = random.NextSingle() * Math.Max(val1: 1f, val2: glControl.Width - (2f * radius)) + radius;
+		float x = CalculateRandomAsteroidX(radius: radius);
 		float speed = 90f + (random.NextSingle() * 120f);
 		asteroids.Add(item: new Asteroid { X = x, Y = -radius, Radius = radius, Speed = speed });
 		spawnCooldown = 0.35f + (random.NextSingle() * 0.35f);
 	}
+
+	/// <summary>Calculates a random x-position for a new asteroid.</summary>
+	/// <param name="radius">The asteroid radius.</param>
+	/// <returns>A random x-coordinate that keeps the full asteroid inside horizontal bounds.</returns>
+	/// <remarks>Uses the current GL control width and keeps the asteroid center at least one radius away from each side.</remarks>
+	private float CalculateRandomAsteroidX(float radius) =>
+		(random.NextSingle() * Math.Max(val1: 1f, val2: glControl.Width - (2f * radius))) + radius;
 
 	/// <summary>Processes collisions between bullets and asteroids.</summary>
 	/// <remarks>On hit both entities are removed and score is increased.</remarks>
@@ -443,9 +451,12 @@ public sealed class AsteroidGameForm : BaseKryptonForm
 			for (int bulletIndex = bullets.Count - 1; bulletIndex >= 0; bulletIndex--)
 			{
 				Bullet bullet = bullets[bulletIndex];
-				float dx = bullet.X - asteroid.X;
-				float dy = bullet.Y - asteroid.Y;
-				if ((dx * dx) + (dy * dy) > asteroid.Radius * asteroid.Radius)
+				if (!IsColliding(
+					x1: bullet.X,
+					y1: bullet.Y,
+					x2: asteroid.X,
+					y2: asteroid.Y,
+					collisionRadius: asteroid.Radius))
 				{
 					continue;
 				}
@@ -466,16 +477,33 @@ public sealed class AsteroidGameForm : BaseKryptonForm
 		for (int asteroidIndex = asteroids.Count - 1; asteroidIndex >= 0; asteroidIndex--)
 		{
 			Asteroid asteroid = asteroids[asteroidIndex];
-			float dx = shipX - asteroid.X;
-			float dy = shipY - asteroid.Y;
-			float radius = shipHitRadius + asteroid.Radius;
-			if ((dx * dx) + (dy * dy) > radius * radius)
+			if (!IsColliding(
+				x1: shipX,
+				y1: shipY,
+				x2: asteroid.X,
+				y2: asteroid.Y,
+				collisionRadius: shipHitRadius + asteroid.Radius))
 			{
 				continue;
 			}
 			asteroids.RemoveAt(index: asteroidIndex);
 			RemoveLife();
 		}
+	}
+
+	/// <summary>Determines whether two points are colliding for the given collision radius.</summary>
+	/// <param name="x1">The x-coordinate of the first point.</param>
+	/// <param name="y1">The y-coordinate of the first point.</param>
+	/// <param name="x2">The x-coordinate of the second point.</param>
+	/// <param name="y2">The y-coordinate of the second point.</param>
+	/// <param name="collisionRadius">The collision radius threshold.</param>
+	/// <returns><see langword="true"/> if the squared distance is within the squared radius; otherwise <see langword="false"/>.</returns>
+	/// <remarks>Uses squared-distance math to avoid unnecessary square root calculations.</remarks>
+	private static bool IsColliding(float x1, float y1, float x2, float y2, float collisionRadius)
+	{
+		float dx = x1 - x2;
+		float dy = y1 - y2;
+		return ((dx * dx) + (dy * dy)) <= (collisionRadius * collisionRadius);
 	}
 
 	/// <summary>Removes one life and handles game-over transition.</summary>
