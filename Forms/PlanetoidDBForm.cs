@@ -50,6 +50,10 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This list is used to store the planetoids database entries.</remarks>
 	private readonly List<string> planetoidsDatabase = [];
 
+	/// <summary>Stores a backup of the planetoids database.</summary>
+	/// <remarks>This list is used to store a backup of the planetoids database entries, which can be used for comparison or restoration purposes.</remarks>
+	private List<string> planetoidsDatabaseBackup = [];
+
 	/// <summary>Splash screen form instance.</summary>
 	/// <remarks>This form is displayed while the application is loading.</remarks>
 	private readonly SplashScreenForm formSplashScreen = new();
@@ -929,7 +933,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 	/// <summary>Shows the scatterplots form. Opens the form to display scatterplots of orbital elements and properties of all minor planets.</summary>
 	/// <remarks>Passes the full planetoids database to the form so it can create scatterplots of various properties.</remarks>
-	private void ShowScatterplot()
+	private void ShowScatterPlot()
 	{
 		// Create a new instance of the ScatterplotsForm
 		using ScatterplotsForm formScatterplot = new(planetoids: planetoidsDatabase);
@@ -993,7 +997,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 	/// <summary>Shows the 3D orbit visualization for the current planetoid.</summary>
 	/// <remarks>Parses all six Keplerian orbital elements plus the mean anomaly and the MPCORB epoch from the UI labels and opens the <see cref="Orbit3DForm"/>.</remarks>
-	private void ShowOrbit3D()
+	private void ShowOrbit3DView()
 	{
 		// Use the TryParseCurrentOrbitalElements method to parse the necessary orbital elements from the UI labels.
 		if (!TryParseCurrentOrbitalElements(
@@ -2143,6 +2147,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			streamReader.Close();
 		}
 		formSplashScreen.Close();
+		// Create a backup of the loaded database
+		planetoidsDatabaseBackup = [.. planetoidsDatabase];
 	}
 
 	/// <summary>Handles the ProgressChanged event of the BackgroundWorker for loading the database.</summary>
@@ -2502,6 +2508,21 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the filter form.</remarks>
 	private void Filter_Click(object sender, EventArgs e) => ShowFilter();
+
+	/// <summary>Handles the click event for the ToolStripButtonFilterReset. Resets the filter and restores the original database.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to reset the filter and restore the original database.</remarks>
+	private void FilterReset_Click(object sender, EventArgs e)
+	{
+		// Replace the current database with the backup
+		planetoidsDatabase.Clear();
+		planetoidsDatabase.AddRange(collection: planetoidsDatabaseBackup);
+		// Navigate to the first record of the backup database
+		currentPosition = 0;
+		GotoCurrentPosition(position: currentPosition);
+		logger.Info(message: $"Filter reset: database now contains {planetoidsDatabase.Count} records.");
+	}
 
 	/// <summary>Handles the click event for the ToolStripButtonDerivedOrbitElements. Shows the derived orbit elements form.</summary>
 	/// <param name="sender">The event source.</param>
@@ -2889,15 +2910,17 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		ShowErrorMessage(message: "Not implemented yet");
 	}
 
+	/// <summary>Handles the button click event for the ToolStripSplitButtonDistribution. Shows the histogram form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	///	<remarks>This method is used to show the histogram form for the selected parameter.</remarks>
+	private void Histograms_Click(object sender, EventArgs e) => ShowHistogram();
+
 	/// <summary>Handles the button click event for the ToolStripSplitButtonDistribution. Shows the distribution form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	///	<remarks>This method is used to show the distribution form for the selected parameter.</remarks>
-	private void Distributions_Click(object sender, EventArgs e)
-	{
-		// TODO: Not implemented yet
-		ShowErrorMessage(message: "Not implemented yet");
-	}
+	private void ScatterPlots_Click(object sender, EventArgs e) => ShowScatterPlot();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemListReadableDesignations. Lists readable designations.</summary>
 	/// <param name="sender">The event source.</param>
@@ -3130,6 +3153,12 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		formObservatoryCodes.TopMost = TopMost;
 		_ = formObservatoryCodes.ShowDialog();
 	}
+
+	private void Orbit2DTopView_Click(object sender, EventArgs e) => ShowOrbit2DTopView();
+
+	private void Orbit2DSideView_Click(object sender, EventArgs e) => ShowOrbit2DSideView();
+
+	private void Orbit3DView_Click(object sender, EventArgs e) => ShowOrbit3DView();
 
 	#endregion
 

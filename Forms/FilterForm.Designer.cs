@@ -544,8 +544,6 @@ partial class FilterForm
 		numericUpDownMaximumNumberOfObservations.AccessibleDescription = "Shows the maximum of number of observations ";
 		numericUpDownMaximumNumberOfObservations.AccessibleName = "Maximum of number of observations";
 		numericUpDownMaximumNumberOfObservations.AccessibleRole = AccessibleRole.SpinButton;
-		numericUpDownMaximumNumberOfObservations.AllowDecimals = true;
-		numericUpDownMaximumNumberOfObservations.DecimalPlaces = 8;
 		numericUpDownMaximumNumberOfObservations.Dock = DockStyle.Fill;
 		numericUpDownMaximumNumberOfObservations.Increment = new decimal(new int[] { 1, 0, 0, 0 });
 		numericUpDownMaximumNumberOfObservations.Location = new Point(355, 336);
@@ -571,8 +569,6 @@ partial class FilterForm
 		numericUpDownMaximumNumberOfOppositions.AccessibleDescription = "Shows the maximum of number of oppositions";
 		numericUpDownMaximumNumberOfOppositions.AccessibleName = "Maximum of number of oppositions";
 		numericUpDownMaximumNumberOfOppositions.AccessibleRole = AccessibleRole.SpinButton;
-		numericUpDownMaximumNumberOfOppositions.AllowDecimals = true;
-		numericUpDownMaximumNumberOfOppositions.DecimalPlaces = 8;
 		numericUpDownMaximumNumberOfOppositions.Dock = DockStyle.Fill;
 		numericUpDownMaximumNumberOfOppositions.Increment = new decimal(new int[] { 1, 0, 0, 0 });
 		numericUpDownMaximumNumberOfOppositions.Location = new Point(355, 305);
@@ -868,8 +864,6 @@ partial class FilterForm
 		numericUpDownMinimumNumberOfObservations.AccessibleDescription = "Shows the minimum of number of observations";
 		numericUpDownMinimumNumberOfObservations.AccessibleName = "Minimum of number of observations";
 		numericUpDownMinimumNumberOfObservations.AccessibleRole = AccessibleRole.SpinButton;
-		numericUpDownMinimumNumberOfObservations.AllowDecimals = true;
-		numericUpDownMinimumNumberOfObservations.DecimalPlaces = 8;
 		numericUpDownMinimumNumberOfObservations.Dock = DockStyle.Fill;
 		numericUpDownMinimumNumberOfObservations.Increment = new decimal(new int[] { 1, 0, 0, 0 });
 		numericUpDownMinimumNumberOfObservations.Location = new Point(247, 336);
@@ -895,8 +889,6 @@ partial class FilterForm
 		numericUpDownMinimumNumberOfOppositions.AccessibleDescription = "Shows the minimum of number of oppositions";
 		numericUpDownMinimumNumberOfOppositions.AccessibleName = "Minimum of number of oppositions";
 		numericUpDownMinimumNumberOfOppositions.AccessibleRole = AccessibleRole.SpinButton;
-		numericUpDownMinimumNumberOfOppositions.AllowDecimals = true;
-		numericUpDownMinimumNumberOfOppositions.DecimalPlaces = 8;
 		numericUpDownMinimumNumberOfOppositions.Dock = DockStyle.Fill;
 		numericUpDownMinimumNumberOfOppositions.Increment = new decimal(new int[] { 1, 0, 0, 0 });
 		numericUpDownMinimumNumberOfOppositions.Location = new Point(247, 305);
