@@ -2911,6 +2911,25 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method is used to show the license.</remarks>
 	private void License_Click(object sender, EventArgs e) => ShowLicense();
 
+	/// <summary>Handles the click event for the Asteroid Game menu item. Opens the Asteroids arcade game.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method opens a new instance of the classic Asteroids arcade game implemented using OpenTK.</remarks>
+	private void AsteroidGame_Click(object sender, EventArgs e)
+	{
+		try
+		{
+			using AsteroidGameForm gameForm = new();
+			gameForm.TopMost = TopMost;
+			_ = gameForm.ShowDialog();
+		}
+		catch (Exception ex)
+		{
+			logger.Error(message: "Failed to open Asteroid Game: {0}", args: ex);
+			ShowErrorMessage(message: $"Failed to open Asteroid Game: {ex.Message}");
+		}
+	}
+
 	/// <summary>Handles the click event for the Compare Databases menu item and initiates the process to compare database archives.</summary>
 	/// <remarks>This method is intended to be used as an event handler for a menu item click event. It delegates the comparison operation to the ShowCompareArchives method.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>

@@ -248,6 +248,8 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOpenWebsitePDB = new ToolStripMenuItem();
 		toolStripMenuItemOpenWebsiteMPC = new ToolStripMenuItem();
 		toolStripMenuItemOpenMPCORBWebsite = new ToolStripMenuItem();
+		toolStripSeparatorMisc2 = new ToolStripSeparator();
+		toolStripMenuItemAsteroidGame = new ToolStripMenuItem();
 		toolStripButtonObservations = new ToolStripButton();
 		toolStripContainer = new ToolStripContainer();
 		kryptonStatusStrip = new KryptonStatusStrip();
@@ -3582,7 +3584,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemHelp.AccessibleName = "Help";
 		toolStripMenuItemHelp.AccessibleRole = AccessibleRole.MenuPopup;
 		toolStripMenuItemHelp.AutoToolTip = true;
-		toolStripMenuItemHelp.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemAbout, toolStripMenuItemLicense, toolStripSeparatorMisc1, toolStripMenuItemOpenWebsitePDB, toolStripMenuItemOpenWebsiteMPC, toolStripMenuItemOpenMPCORBWebsite });
+		toolStripMenuItemHelp.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemAbout, toolStripMenuItemLicense, toolStripSeparatorMisc1, toolStripMenuItemOpenWebsitePDB, toolStripMenuItemOpenWebsiteMPC, toolStripMenuItemOpenMPCORBWebsite, toolStripSeparatorMisc2, toolStripMenuItemAsteroidGame });
 		toolStripMenuItemHelp.Name = "toolStripMenuItemHelp";
 		toolStripMenuItemHelp.ShortcutKeys = Keys.Alt | Keys.H;
 		toolStripMenuItemHelp.Size = new Size(44, 24);
@@ -3673,7 +3675,31 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOpenMPCORBWebsite.Click += OpenMpcorbDatWebsite_Click;
 		toolStripMenuItemOpenMPCORBWebsite.MouseEnter += Control_Enter;
 		toolStripMenuItemOpenMPCORBWebsite.MouseLeave += Control_Leave;
-		// 
+		//
+		// toolStripSeparatorMisc2
+		//
+		toolStripSeparatorMisc2.AccessibleDescription = "Just a separator";
+		toolStripSeparatorMisc2.AccessibleName = "Just a separator";
+		toolStripSeparatorMisc2.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparatorMisc2.Name = "toolStripSeparatorMisc2";
+		toolStripSeparatorMisc2.Size = new Size(233, 6);
+		toolStripSeparatorMisc2.MouseEnter += Control_Enter;
+		toolStripSeparatorMisc2.MouseLeave += Control_Leave;
+		//
+		// toolStripMenuItemAsteroidGame
+		//
+		toolStripMenuItemAsteroidGame.AccessibleDescription = "Play the Asteroids arcade game";
+		toolStripMenuItemAsteroidGame.AccessibleName = "Asteroid Game";
+		toolStripMenuItemAsteroidGame.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemAsteroidGame.AutoToolTip = true;
+		toolStripMenuItemAsteroidGame.Name = "toolStripMenuItemAsteroidGame";
+		toolStripMenuItemAsteroidGame.Size = new Size(236, 22);
+		toolStripMenuItemAsteroidGame.Text = "Asteroid &Game";
+		toolStripMenuItemAsteroidGame.ToolTipText = "Play the classic Asteroids arcade game";
+		toolStripMenuItemAsteroidGame.Click += AsteroidGame_Click;
+		toolStripMenuItemAsteroidGame.MouseEnter += Control_Enter;
+		toolStripMenuItemAsteroidGame.MouseLeave += Control_Leave;
+		//
 		// toolStripButtonObservations
 		// 
 		toolStripButtonObservations.AccessibleDescription = "Shows the observations of the minor planet from the MPC";
@@ -4803,4 +4829,6 @@ partial class PlanetoidDbForm
 	private ToolStripStatusLabel toolStripStatusLabelAstorbDatUpdate;
 	private ToolStripSeparator toolStripSeparator12;
 	private ToolStripMenuItem toolStripMenuItemMoidsAndMaxoidsOfOneMinorPlanet;
+	private ToolStripSeparator toolStripSeparatorMisc2;
+	private ToolStripMenuItem toolStripMenuItemAsteroidGame;
 }
