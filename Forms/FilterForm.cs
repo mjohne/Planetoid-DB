@@ -62,6 +62,12 @@ public partial class FilterForm : BaseKryptonForm
 	{
 		// Initialize the form components
 		InitializeComponent();
+		// Center values in all numeric spin buttons
+		foreach (KryptonNumericUpDown nud in Controls.OfType<KryptonNumericUpDown>()
+			.Concat(second: tableLayoutPanel.Controls.OfType<KryptonNumericUpDown>()))
+		{
+			nud.TextAlign = HorizontalAlignment.Center;
+		}
 		// Enable double buffering for the TableLayoutPanel to prevent flickering
 		try
 		{
