@@ -209,6 +209,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOrbitalResonances = new ToolStripMenuItem();
 		toolStripMenuItemOrbitalResonancesOfOneMinorPlanet = new ToolStripMenuItem();
 		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets = new ToolStripMenuItem();
+		toolStripMenuItemAsteroidGame = new ToolStripMenuItem();
 		toolStripMenuItemObservations = new ToolStripMenuItem();
 		toolStripMenuItemObservationLogs = new ToolStripMenuItem();
 		toolStripMenuItemBulkObservationsDataDownloader = new ToolStripMenuItem();
@@ -2754,7 +2755,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemGroupDynamics.AccessibleName = "Dynamics";
 		toolStripMenuItemGroupDynamics.AccessibleRole = AccessibleRole.MenuPopup;
 		toolStripMenuItemGroupDynamics.AutoToolTip = true;
-		toolStripMenuItemGroupDynamics.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemTisserandParameters, toolStripMenuItemOrbitalResonances });
+		toolStripMenuItemGroupDynamics.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemTisserandParameters, toolStripMenuItemOrbitalResonances, toolStripMenuItemAsteroidGame });
 		toolStripMenuItemGroupDynamics.Name = "toolStripMenuItemGroupDynamics";
 		toolStripMenuItemGroupDynamics.Size = new Size(295, 22);
 		toolStripMenuItemGroupDynamics.Text = "&Dynamics";
@@ -3137,6 +3138,19 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.Click += OrbitalResonancesOfAllMinorPlanets_Click;
 		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.MouseEnter += Control_Enter;
 		toolStripMenuItemOrbitalResonancesOfAllMinorPlanets.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemAsteroidGame
+		// 
+		toolStripMenuItemAsteroidGame.AccessibleDescription = "Starts a small Asteroid game using OpenTK";
+		toolStripMenuItemAsteroidGame.AccessibleName = "Asteroid game";
+		toolStripMenuItemAsteroidGame.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemAsteroidGame.AutoToolTip = true;
+		toolStripMenuItemAsteroidGame.Name = "toolStripMenuItemAsteroidGame";
+		toolStripMenuItemAsteroidGame.Size = new Size(295, 22);
+		toolStripMenuItemAsteroidGame.Text = "&Asteroid game";
+		toolStripMenuItemAsteroidGame.Click += AsteroidGame_Click;
+		toolStripMenuItemAsteroidGame.MouseEnter += Control_Enter;
+		toolStripMenuItemAsteroidGame.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemObservations
 		// 
@@ -4780,6 +4794,7 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem toolStripMenuItemOrbitalResonances;
 	private ToolStripMenuItem toolStripMenuItemOrbitalResonancesOfOneMinorPlanet;
 	private ToolStripMenuItem toolStripMenuItemOrbitalResonancesOfAllMinorPlanets;
+	private ToolStripMenuItem toolStripMenuItemAsteroidGame;
 	private ToolStripMenuItem toolStripMenuItemObservations;
 	private ToolStripMenuItem toolStripMenuItemObservationLogs;
 	private ToolStripMenuItem toolStripMenuItemBulkObservationsDataDownloader;

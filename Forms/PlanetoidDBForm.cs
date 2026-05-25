@@ -1034,6 +1034,17 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formOrbit3D.ShowDialog();
 	}
 
+	/// <summary>Shows the Asteroid game form.</summary>
+	/// <remarks>Opens the <see cref="AsteroidGameForm"/> as a modal dialog.</remarks>
+	private void ShowAsteroidGame()
+	{
+		// Create a new instance of the AsteroidGameForm and show it as a modal dialog.
+		using AsteroidGameForm formAsteroidGame = new();
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering.
+		formAsteroidGame.TopMost = TopMost;
+		_ = formAsteroidGame.ShowDialog(owner: this);
+	}
+
 	/// <summary>Shows the Tisserand parameters form for the current planetoid.</summary>
 	/// <remarks>Parses the semi-major axis, eccentricity, and inclination from the UI labels and opens the <see cref="TisserandParameterOfOneMinorPlanetForm"/>.</remarks>
 	private void ShowTisserandParameters()
@@ -2940,6 +2951,12 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the asteroid families form.</remarks>
 	private void AsteroidFamiliesDetection_Click(object sender, EventArgs e) => ShowAsteroidFamiliesDetection();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemAsteroidGame. Shows the asteroid game form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the asteroid game form.</remarks>
+	private void AsteroidGame_Click(object sender, EventArgs e) => ShowAsteroidGame();
 
 	/// <summary>Handles the click event for the MenuitemOrbitalResonancesOfAllMinorPlanets. Shows the orbital resonances of all minor planets form.</summary>
 	/// <param name="sender">The event source.</param>
