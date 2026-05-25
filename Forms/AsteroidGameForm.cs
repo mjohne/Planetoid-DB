@@ -764,12 +764,23 @@ public partial class AsteroidGameForm : BaseKryptonForm
 		GL.Scale(x: scale, y: scale, z: 1f);
 		// Draw character using lines based on the character's shape. Each case in the switch statement corresponds to a specific character and defines the lines needed to render that character. The coordinates for the vertices are chosen to create a recognizable shape for each character, and the lines are drawn using OpenGL's immediate mode rendering.
 		GL.Begin(mode: PrimitiveType.Lines);
-		switch (c)
+		switch (char.ToUpper(c))
 		{
 			case 'A':
-				GL.Vertex2(x: 0f, y: 3f); GL.Vertex2(x: 1.5f, y: 0f);
-				GL.Vertex2(x: 1.5f, y: 0f); GL.Vertex2(x: 3f, y: 3f);
-				GL.Vertex2(x: 0.75f, y: 1.8f); GL.Vertex2(x: 2.25f, y: 1.8f);
+				GL.Vertex2(x: 0f, y: 0f); GL.Vertex2(x: 1.5f, y: 3f);
+				GL.Vertex2(x: 1.5f, y: 3f); GL.Vertex2(x: 3f, y: 0f);
+				GL.Vertex2(x: 0.75f, y: 1.5f); GL.Vertex2(x: 2.25f, y: 1.5f);
+				break;
+			case 'B':
+				GL.Vertex2(x: 0f, y: 0f); GL.Vertex2(x: 0f, y: 3f);
+				GL.Vertex2(x: 0f, y: 3f); GL.Vertex2(x: 2f, y: 3f);
+				GL.Vertex2(x: 2f, y: 3f); GL.Vertex2(x: 2.5f, y: 2.5f);
+				GL.Vertex2(x: 2.5f, y: 2.5f); GL.Vertex2(x: 2f, y: 1.5f);
+				GL.Vertex2(x: 2f, y: 1.5f); GL.Vertex2(x: 0f, y: 1.5f);
+				GL.Vertex2(x: 2f, y: 1.5f); GL.Vertex2(x: 2.8f, y: 1f);
+				GL.Vertex2(x: 2.8f, y: 1f); GL.Vertex2(x: 2.8f, y: 0.5f);
+				GL.Vertex2(x: 2.8f, y: 0.5f); GL.Vertex2(x: 2f, y: 0f);
+				GL.Vertex2(x: 2f, y: 0f); GL.Vertex2(x: 0f, y: 0f);
 				break;
 			case 'C':
 				GL.Vertex2(x: 3f, y: 0.5f); GL.Vertex2(x: 2f, y: 0f);
@@ -794,6 +805,11 @@ public partial class AsteroidGameForm : BaseKryptonForm
 				GL.Vertex2(x: 0f, y: 1.5f); GL.Vertex2(x: 2f, y: 1.5f);
 				GL.Vertex2(x: 0f, y: 0f); GL.Vertex2(x: 3f, y: 0f);
 				break;
+			case 'F':
+				GL.Vertex2(x: 0f, y: 0f); GL.Vertex2(x: 0f, y: 3f);
+				GL.Vertex2(x: 0f, y: 3f); GL.Vertex2(x: 3f, y: 3f);
+				GL.Vertex2(x: 0f, y: 1.5f); GL.Vertex2(x: 2f, y: 1.5f);
+				break;
 			case 'G':
 				GL.Vertex2(x: 3f, y: 0.5f); GL.Vertex2(x: 2f, y: 0f);
 				GL.Vertex2(x: 2f, y: 0f); GL.Vertex2(x: 1f, y: 0f);
@@ -805,10 +821,30 @@ public partial class AsteroidGameForm : BaseKryptonForm
 				GL.Vertex2(x: 3f, y: 2.5f); GL.Vertex2(x: 3f, y: 1.5f);
 				GL.Vertex2(x: 3f, y: 1.5f); GL.Vertex2(x: 1.5f, y: 1.5f);
 				break;
+			case 'H':
+				GL.Vertex2(x: 0f, y: 0f); GL.Vertex2(x: 0f, y: 3f);
+				GL.Vertex2(x: 3f, y: 0f); GL.Vertex2(x: 3f, y: 3f);
+				GL.Vertex2(x: 0f, y: 1.5f); GL.Vertex2(x: 3f, y: 1.5f);
+				break;
 			case 'I':
 				GL.Vertex2(x: 1.5f, y: 0f); GL.Vertex2(x: 1.5f, y: 3f);
 				GL.Vertex2(x: 0.5f, y: 3f); GL.Vertex2(x: 2.5f, y: 3f);
 				GL.Vertex2(x: 0.5f, y: 0f); GL.Vertex2(x: 2.5f, y: 0f);
+				break;
+			case 'J':
+				GL.Vertex2(x: 2.5f, y: 3f); GL.Vertex2(x: 2.5f, y: 0.5f);
+				GL.Vertex2(x: 2.5f, y: 0.5f); GL.Vertex2(x: 2f, y: 0f);
+				GL.Vertex2(x: 2f, y: 0f); GL.Vertex2(x: 1f, y: 0f);
+				GL.Vertex2(x: 1f, y: 0f); GL.Vertex2(x: 0.5f, y: 0.5f);
+				break;
+			case 'K':
+				GL.Vertex2(x: 0f, y: 0f); GL.Vertex2(x: 0f, y: 3f);
+				GL.Vertex2(x: 3f, y: 3f); GL.Vertex2(x: 0f, y: 1.5f);
+				GL.Vertex2(x: 0f, y: 1.5f); GL.Vertex2(x: 3f, y: 0f);
+				break;
+			case 'L':
+				GL.Vertex2(x: 0f, y: 3f); GL.Vertex2(x: 0f, y: 0f);
+				GL.Vertex2(x: 0f, y: 0f); GL.Vertex2(x: 3f, y: 0f);
 				break;
 			case 'M':
 				GL.Vertex2(x: 0f, y: 0f); GL.Vertex2(x: 0f, y: 3f);
@@ -839,6 +875,17 @@ public partial class AsteroidGameForm : BaseKryptonForm
 				GL.Vertex2(x: 3f, y: 1.8f); GL.Vertex2(x: 2f, y: 1.3f);
 				GL.Vertex2(x: 2f, y: 1.3f); GL.Vertex2(x: 0f, y: 1.3f);
 				break;
+			case 'Q':
+				GL.Vertex2(x: 1f, y: 0f); GL.Vertex2(x: 2f, y: 0f);
+				GL.Vertex2(x: 2f, y: 0f); GL.Vertex2(x: 3f, y: 0.5f);
+				GL.Vertex2(x: 3f, y: 0.5f); GL.Vertex2(x: 3f, y: 2.5f);
+				GL.Vertex2(x: 3f, y: 2.5f); GL.Vertex2(x: 2f, y: 3f);
+				GL.Vertex2(x: 2f, y: 3f); GL.Vertex2(x: 1f, y: 3f);
+				GL.Vertex2(x: 1f, y: 3f); GL.Vertex2(x: 0f, y: 2.5f);
+				GL.Vertex2(x: 0f, y: 2.5f); GL.Vertex2(x: 0f, y: 0.5f);
+				GL.Vertex2(x: 0f, y: 0.5f); GL.Vertex2(x: 1f, y: 0f);
+				GL.Vertex2(x: 2f, y: 0.8f); GL.Vertex2(x: 3f, y: 0f);
+				break;
 			case 'R':
 				GL.Vertex2(x: 0f, y: 0f); GL.Vertex2(x: 0f, y: 3f);
 				GL.Vertex2(x: 0f, y: 3f); GL.Vertex2(x: 2f, y: 3f);
@@ -865,6 +912,13 @@ public partial class AsteroidGameForm : BaseKryptonForm
 				GL.Vertex2(x: 0f, y: 3f); GL.Vertex2(x: 3f, y: 3f);
 				GL.Vertex2(x: 1.5f, y: 3f); GL.Vertex2(x: 1.5f, y: 0f);
 				break;
+			case 'U':
+				GL.Vertex2(x: 0f, y: 3f); GL.Vertex2(x: 0f, y: 0.5f);
+				GL.Vertex2(x: 0f, y: 0.5f); GL.Vertex2(x: 1f, y: 0f);
+				GL.Vertex2(x: 1f, y: 0f); GL.Vertex2(x: 2f, y: 0f);
+				GL.Vertex2(x: 2f, y: 0f); GL.Vertex2(x: 3f, y: 0.5f);
+				GL.Vertex2(x: 3f, y: 0.5f); GL.Vertex2(x: 3f, y: 3f);
+				break;
 			case 'V':
 				GL.Vertex2(x: 0f, y: 3f); GL.Vertex2(x: 1.5f, y: 0f);
 				GL.Vertex2(x: 1.5f, y: 0f); GL.Vertex2(x: 3f, y: 3f);
@@ -875,9 +929,188 @@ public partial class AsteroidGameForm : BaseKryptonForm
 				GL.Vertex2(x: 1.5f, y: 1.5f); GL.Vertex2(x: 2.25f, y: 0f);
 				GL.Vertex2(x: 2.25f, y: 0f); GL.Vertex2(x: 3f, y: 3f);
 				break;
+			case 'X':
+				GL.Vertex2(x: 0f, y: 0f); GL.Vertex2(x: 3f, y: 3f);
+				GL.Vertex2(x: 3f, y: 0f); GL.Vertex2(x: 0f, y: 3f);
+				break;
+			case 'Y':
+				GL.Vertex2(x: 0f, y: 3f); GL.Vertex2(x: 1.5f, y: 1.5f);
+				GL.Vertex2(x: 3f, y: 3f); GL.Vertex2(x: 1.5f, y: 1.5f);
+				GL.Vertex2(x: 1.5f, y: 1.5f); GL.Vertex2(x: 1.5f, y: 0f);
+				break;
+			case 'Z':
+				GL.Vertex2(x: 0f, y: 3f); GL.Vertex2(x: 3f, y: 3f);
+				GL.Vertex2(x: 3f, y: 3f); GL.Vertex2(x: 0f, y: 0f);
+				GL.Vertex2(x: 0f, y: 0f); GL.Vertex2(x: 3f, y: 0f);
+				break;
+			case '0':
+				GL.Vertex2(x: 1f, y: 0f); GL.Vertex2(x: 2f, y: 0f);
+				GL.Vertex2(x: 2f, y: 0f); GL.Vertex2(x: 3f, y: 0.5f);
+				GL.Vertex2(x: 3f, y: 0.5f); GL.Vertex2(x: 3f, y: 2.5f);
+				GL.Vertex2(x: 3f, y: 2.5f); GL.Vertex2(x: 2f, y: 3f);
+				GL.Vertex2(x: 2f, y: 3f); GL.Vertex2(x: 1f, y: 3f);
+				GL.Vertex2(x: 1f, y: 3f); GL.Vertex2(x: 0f, y: 2.5f);
+				GL.Vertex2(x: 0f, y: 2.5f); GL.Vertex2(x: 0f, y: 0.5f);
+				GL.Vertex2(x: 0f, y: 0.5f); GL.Vertex2(x: 1f, y: 0f);
+				GL.Vertex2(x: 0.5f, y: 0.5f); GL.Vertex2(x: 2.5f, y: 2.5f);
+				break;
+			case '1':
+				GL.Vertex2(x: 1f, y: 2.5f); GL.Vertex2(x: 1.5f, y: 3f);
+				GL.Vertex2(x: 1.5f, y: 3f); GL.Vertex2(x: 1.5f, y: 0f);
+				GL.Vertex2(x: 0.5f, y: 0f); GL.Vertex2(x: 2.5f, y: 0f);
+				break;
+			case '2':
+				GL.Vertex2(x: 0f, y: 2.5f); GL.Vertex2(x: 1f, y: 3f);
+				GL.Vertex2(x: 1f, y: 3f); GL.Vertex2(x: 2f, y: 3f);
+				GL.Vertex2(x: 2f, y: 3f); GL.Vertex2(x: 3f, y: 2.5f);
+				GL.Vertex2(x: 3f, y: 2.5f); GL.Vertex2(x: 3f, y: 2f);
+				GL.Vertex2(x: 3f, y: 2f); GL.Vertex2(x: 0f, y: 0f);
+				GL.Vertex2(x: 0f, y: 0f); GL.Vertex2(x: 3f, y: 0f);
+				break;
+			case '3':
+				GL.Vertex2(x: 0f, y: 2.5f); GL.Vertex2(x: 1f, y: 3f);
+				GL.Vertex2(x: 1f, y: 3f); GL.Vertex2(x: 2f, y: 3f);
+				GL.Vertex2(x: 2f, y: 3f); GL.Vertex2(x: 3f, y: 2.5f);
+				GL.Vertex2(x: 3f, y: 2.5f); GL.Vertex2(x: 3f, y: 0.5f);
+				GL.Vertex2(x: 3f, y: 0.5f); GL.Vertex2(x: 2f, y: 0f);
+				GL.Vertex2(x: 2f, y: 0f); GL.Vertex2(x: 1f, y: 0f);
+				GL.Vertex2(x: 1f, y: 0f); GL.Vertex2(x: 0f, y: 0.5f);
+				GL.Vertex2(x: 1.5f, y: 1.5f); GL.Vertex2(x: 2.5f, y: 1.5f);
+				break;
+			case '4':
+				GL.Vertex2(x: 2f, y: 0f); GL.Vertex2(x: 2f, y: 3f);
+				GL.Vertex2(x: 2f, y: 3f); GL.Vertex2(x: 0f, y: 1f);
+				GL.Vertex2(x: 0f, y: 1f); GL.Vertex2(x: 3f, y: 1f);
+				break;
+			case '5':
+				GL.Vertex2(x: 3f, y: 3f); GL.Vertex2(x: 0f, y: 3f);
+				GL.Vertex2(x: 0f, y: 3f); GL.Vertex2(x: 0f, y: 1.5f);
+				GL.Vertex2(x: 0f, y: 1.5f); GL.Vertex2(x: 2f, y: 1.5f);
+				GL.Vertex2(x: 2f, y: 1.5f); GL.Vertex2(x: 3f, y: 1f);
+				GL.Vertex2(x: 3f, y: 1f); GL.Vertex2(x: 3f, y: 0.5f);
+				GL.Vertex2(x: 3f, y: 0.5f); GL.Vertex2(x: 2f, y: 0f);
+				GL.Vertex2(x: 2f, y: 0f); GL.Vertex2(x: 1f, y: 0f);
+				GL.Vertex2(x: 1f, y: 0f); GL.Vertex2(x: 0f, y: 0.5f);
+				break;
+			case '6':
+				GL.Vertex2(x: 3f, y: 2.5f); GL.Vertex2(x: 2f, y: 3f);
+				GL.Vertex2(x: 2f, y: 3f); GL.Vertex2(x: 1f, y: 3f);
+				GL.Vertex2(x: 1f, y: 3f); GL.Vertex2(x: 0f, y: 2.5f);
+				GL.Vertex2(x: 0f, y: 2.5f); GL.Vertex2(x: 0f, y: 0.5f);
+				GL.Vertex2(x: 0f, y: 0.5f); GL.Vertex2(x: 1f, y: 0f);
+				GL.Vertex2(x: 1f, y: 0f); GL.Vertex2(x: 2f, y: 0f);
+				GL.Vertex2(x: 2f, y: 0f); GL.Vertex2(x: 3f, y: 0.5f);
+				GL.Vertex2(x: 3f, y: 0.5f); GL.Vertex2(x: 3f, y: 1.5f);
+				GL.Vertex2(x: 3f, y: 1.5f); GL.Vertex2(x: 2f, y: 2f);
+				GL.Vertex2(x: 2f, y: 2f); GL.Vertex2(x: 1f, y: 2f);
+				GL.Vertex2(x: 1f, y: 2f); GL.Vertex2(x: 0f, y: 1.5f);
+				break;
+			case '7':
+				GL.Vertex2(x: 0f, y: 3f); GL.Vertex2(x: 3f, y: 3f);
+				GL.Vertex2(x: 3f, y: 3f); GL.Vertex2(x: 1.5f, y: 0f);
+				break;
+			case '8':
+				GL.Vertex2(x: 1f, y: 0f); GL.Vertex2(x: 2f, y: 0f);
+				GL.Vertex2(x: 2f, y: 0f); GL.Vertex2(x: 3f, y: 0.5f);
+				GL.Vertex2(x: 3f, y: 0.5f); GL.Vertex2(x: 3f, y: 1f);
+				GL.Vertex2(x: 3f, y: 1f); GL.Vertex2(x: 2f, y: 1.5f);
+				GL.Vertex2(x: 2f, y: 1.5f); GL.Vertex2(x: 1f, y: 1.5f);
+				GL.Vertex2(x: 1f, y: 1.5f); GL.Vertex2(x: 0f, y: 1f);
+				GL.Vertex2(x: 0f, y: 1f); GL.Vertex2(x: 0f, y: 0.5f);
+				GL.Vertex2(x: 0f, y: 0.5f); GL.Vertex2(x: 1f, y: 0f);
+				GL.Vertex2(x: 1f, y: 3f); GL.Vertex2(x: 2f, y: 3f);
+				GL.Vertex2(x: 2f, y: 3f); GL.Vertex2(x: 3f, y: 2.5f);
+				GL.Vertex2(x: 3f, y: 2.5f); GL.Vertex2(x: 3f, y: 2f);
+				GL.Vertex2(x: 3f, y: 2f); GL.Vertex2(x: 2f, y: 1.5f);
+				GL.Vertex2(x: 1f, y: 1.5f); GL.Vertex2(x: 0f, y: 2f);
+				GL.Vertex2(x: 0f, y: 2f); GL.Vertex2(x: 0f, y: 2.5f);
+				GL.Vertex2(x: 0f, y: 2.5f); GL.Vertex2(x: 1f, y: 3f);
+				break;
+			case '9':
+				GL.Vertex2(x: 3f, y: 0.5f); GL.Vertex2(x: 2f, y: 0f);
+				GL.Vertex2(x: 2f, y: 0f); GL.Vertex2(x: 1f, y: 0f);
+				GL.Vertex2(x: 1f, y: 0f); GL.Vertex2(x: 0f, y: 0.5f);
+				GL.Vertex2(x: 3f, y: 0.5f); GL.Vertex2(x: 3f, y: 2.5f);
+				GL.Vertex2(x: 3f, y: 2.5f); GL.Vertex2(x: 2f, y: 3f);
+				GL.Vertex2(x: 2f, y: 3f); GL.Vertex2(x: 1f, y: 3f);
+				GL.Vertex2(x: 1f, y: 3f); GL.Vertex2(x: 0f, y: 2.5f);
+				GL.Vertex2(x: 0f, y: 2.5f); GL.Vertex2(x: 0f, y: 1.5f);
+				GL.Vertex2(x: 0f, y: 1.5f); GL.Vertex2(x: 1f, y: 1f);
+				GL.Vertex2(x: 1f, y: 1f); GL.Vertex2(x: 2f, y: 1f);
+				GL.Vertex2(x: 2f, y: 1f); GL.Vertex2(x: 3f, y: 1.5f);
+				break;
+			case '.':
+				GL.Vertex2(x: 1.5f, y: 0f); GL.Vertex2(x: 1.5f, y: 0f);
+				break;
+			case ',':
+				GL.Vertex2(x: 1.5f, y: 0f); GL.Vertex2(x: 1.5f, y: 0f);
+				GL.Vertex2(x: 1.5f, y: 0f); GL.Vertex2(x: 1f, y: -0.5f);
+				break;
+			case '!':
+				GL.Vertex2(x: 1.5f, y: 1f); GL.Vertex2(x: 1.5f, y: 3f);
+				GL.Vertex2(x: 1.5f, y: 0f); GL.Vertex2(x: 1.5f, y: 0f);
+				break;
+			case '?':
+				GL.Vertex2(x: 0f, y: 2.5f); GL.Vertex2(x: 1f, y: 3f);
+				GL.Vertex2(x: 1f, y: 3f); GL.Vertex2(x: 2f, y: 3f);
+				GL.Vertex2(x: 2f, y: 3f); GL.Vertex2(x: 3f, y: 2.5f);
+				GL.Vertex2(x: 3f, y: 2.5f); GL.Vertex2(x: 3f, y: 2f);
+				GL.Vertex2(x: 3f, y: 2f); GL.Vertex2(x: 1.5f, y: 1.5f);
+				GL.Vertex2(x: 1.5f, y: 1.5f); GL.Vertex2(x: 1.5f, y: 1f);
+				GL.Vertex2(x: 1.5f, y: 0f); GL.Vertex2(x: 1.5f, y: 0f);
+				break;
 			case ':':
 				GL.Vertex2(x: 1.5f, y: 1f); GL.Vertex2(x: 1.5f, y: 1f);
 				GL.Vertex2(x: 1.5f, y: 2f); GL.Vertex2(x: 1.5f, y: 2f);
+				break;
+			case ';':
+				GL.Vertex2(x: 1.5f, y: 2f); GL.Vertex2(x: 1.5f, y: 2f);
+				GL.Vertex2(x: 1.5f, y: 0.5f); GL.Vertex2(x: 1.5f, y: 0.5f);
+				GL.Vertex2(x: 1.5f, y: 0.5f); GL.Vertex2(x: 1f, y: 0f);
+				break;
+			case '\'':
+				GL.Vertex2(x: 1.5f, y: 3f); GL.Vertex2(x: 1.5f, y: 2.5f);
+				break;
+			case '"':
+				GL.Vertex2(x: 1f, y: 3f); GL.Vertex2(x: 1f, y: 2.5f);
+				GL.Vertex2(x: 2f, y: 3f); GL.Vertex2(x: 2f, y: 2.5f);
+				break;
+			case '-':
+				GL.Vertex2(x: 0.5f, y: 1.5f); GL.Vertex2(x: 2.5f, y: 1.5f);
+				break;
+			case '+':
+				GL.Vertex2(x: 1.5f, y: 0.5f); GL.Vertex2(x: 1.5f, y: 2.5f);
+				GL.Vertex2(x: 0.5f, y: 1.5f); GL.Vertex2(x: 2.5f, y: 1.5f);
+				break;
+			case '=':
+				GL.Vertex2(x: 0.5f, y: 1.8f); GL.Vertex2(x: 2.5f, y: 1.8f);
+				GL.Vertex2(x: 0.5f, y: 1.2f); GL.Vertex2(x: 2.5f, y: 1.2f);
+				break;
+			case '/':
+				GL.Vertex2(x: 0f, y: 0f); GL.Vertex2(x: 3f, y: 3f);
+				break;
+			case '\\':
+				GL.Vertex2(x: 0f, y: 3f); GL.Vertex2(x: 3f, y: 0f);
+				break;
+			case '(':
+				GL.Vertex2(x: 2f, y: 3f); GL.Vertex2(x: 1f, y: 2f);
+				GL.Vertex2(x: 1f, y: 2f); GL.Vertex2(x: 1f, y: 1f);
+				GL.Vertex2(x: 1f, y: 1f); GL.Vertex2(x: 2f, y: 0f);
+				break;
+			case ')':
+				GL.Vertex2(x: 1f, y: 3f); GL.Vertex2(x: 2f, y: 2f);
+				GL.Vertex2(x: 2f, y: 2f); GL.Vertex2(x: 2f, y: 1f);
+				GL.Vertex2(x: 2f, y: 1f); GL.Vertex2(x: 1f, y: 0f);
+				break;
+			case '[':
+				GL.Vertex2(x: 2f, y: 3f); GL.Vertex2(x: 1f, y: 3f);
+				GL.Vertex2(x: 1f, y: 3f); GL.Vertex2(x: 1f, y: 0f);
+				GL.Vertex2(x: 1f, y: 0f); GL.Vertex2(x: 2f, y: 0f);
+				break;
+			case ']':
+				GL.Vertex2(x: 1f, y: 3f); GL.Vertex2(x: 2f, y: 3f);
+				GL.Vertex2(x: 2f, y: 3f); GL.Vertex2(x: 2f, y: 0f);
+				GL.Vertex2(x: 2f, y: 0f); GL.Vertex2(x: 1f, y: 0f);
 				break;
 			case ' ':
 				// Space - no lines
