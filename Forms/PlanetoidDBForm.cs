@@ -2770,156 +2770,16 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Show the top ten records form for RMS residual
 		ShowRecordsTop10(selectedElement: "r.m.s. residual");
 
-	/// <summary>Handles the click event for the ToolStripMenuItemDistributionMeanAnomalyAtTheEpoch. Shows the distribution form for mean anomaly at the epoch.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the distribution form for mean anomaly at the epoch.</remarks>
-	private void DistributionMeanAnomalyAtTheEpoch_Click(object sender, EventArgs e)
-	{
-		// TODO: Not implemented yet
-		ShowErrorMessage(message: "Not implemented yet");
-	}
-
-	/// <summary>Handles the click event for the ToolStripMenuItemDistributionArgumentOfThePerihelion. Shows the distribution form for argument of perihelion.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the distribution form for argument of perihelion.</remarks>
-	private void DistributionArgumentOfThePerihelion_Click(object sender, EventArgs e)
-	{
-		// TODO: Not implemented yet
-		ShowErrorMessage(message: "Not implemented yet");
-	}
-
-	/// <summary>Handles the click event for the ToolStripMenuItemDistributionLongitudeOfTheAscendingNode. Shows the distribution form for longitude of the ascending node.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the distribution form for longitude of the ascending node.</remarks>
-	private void DistributionLongitudeOfTheAscendingNode_Click(object sender, EventArgs e)
-	{
-		// TODO: Not implemented yet
-		ShowErrorMessage(message: "Not implemented yet");
-	}
-
-	/// <summary>Handles the click event for the ToolStripMenuItemDistributionInclination. Shows the distribution form for inclination.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the distribution form for inclination.</remarks>
-	private void DistributionInclination_Click(object sender, EventArgs e)
-	{
-		// TODO: Not implemented yet
-		ShowErrorMessage(message: "Not implemented yet");
-	}
-
-	/// <summary>Handles the click event for the ToolStripMenuItemDistributionOrbitalEccentricity. Shows the distribution form for orbital eccentricity.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the distribution form for orbital eccentricity.</remarks>
-	private void DistributionOrbitalEccentricity_Click(object sender, EventArgs e)
-	{
-		// TODO: Not implemented yet
-		ShowErrorMessage(message: "Not implemented yet");
-	}
-
-	/// <summary>Handles the click event for the ToolStripMenuItemDistributionMeanDailyMotion. Shows the distribution form for mean daily motion.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the distribution form for mean daily motion.</remarks>
-	private void DistributionMeanDailyMotion_Click(object sender, EventArgs e)
-	{
-		// TODO: Not implemented yet
-		ShowErrorMessage(message: "Not implemented yet");
-	}
-
-	/// <summary>Handles the click event for the ToolStripMenuItemDistributionSemiMajorAxis. Shows the distribution form for semi-major axis.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the distribution form for semi-major axis.</remarks>
-	private void DistributionSemiMajorAxis_Click(object sender, EventArgs e)
-	{
-		// TODO: Not implemented yet
-		ShowErrorMessage(message: "Not implemented yet");
-	}
-
-	/// <summary>Handles the click event for the ToolStripMenuItemDistributionAbsoluteMagnitude. Shows the distribution form for absolute magnitude.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the distribution form for absolute magnitude.</remarks>
-	private void DistributionAbsoluteMagnitude_Click(object sender, EventArgs e)
-	{
-		// TODO: Not implemented yet
-		ShowErrorMessage(message: "Not implemented yet");
-	}
-
-	/// <summary>Handles the click event for the ToolStripMenuItemDistributionSlopeParameter. Shows the distribution form for slope parameter.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the distribution form for slope parameter.</remarks>
-	private void DistributionSlopeParameter_Click(object sender, EventArgs e)
-	{
-		// TODO: Not implemented yet
-		ShowErrorMessage(message: "Not implemented yet");
-	}
-
-	/// <summary>Handles the click event for the ToolStripMenuItemDistributionNumberOfOppositions. Shows the distribution form for number of oppositions.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the distribution form for number of oppositions.</remarks>
-	private void DistributionNumberOfOppositions_Click(object sender, EventArgs e)
-	{
-		// TODO: Not implemented yet
-		ShowErrorMessage(message: "Not implemented yet");
-	}
-
-	/// <summary>Handles the click event for the ToolStripMenuItemDistributionNumberOfObservations. Shows the distribution form for number of observations.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the distribution form for number of observations.</remarks>
-	private void DistributionNumberOfObservations_Click(object sender, EventArgs e)
-	{
-		// TODO: Not implemented yet
-		ShowErrorMessage(message: "Not implemented yet");
-	}
-
-	/// <summary>Handles the click event for the ToolStripMenuItemDistributionObservationSpan. Shows the distribution form for observation span.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the distribution form for observation span.</remarks>
-	private void DistributionObservationSpan_Click(object sender, EventArgs e)
-	{
-		// TODO: Not implemented yet
-		ShowErrorMessage(message: "Not implemented yet");
-	}
-
-	/// <summary>Handles the click event for the ToolStripMenuItemDistributionRmsResidual. Shows the distribution form for RMS residual.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the distribution form for RMS residual.</remarks>
-	private void DistributionRmsResidual_Click(object sender, EventArgs e)
-	{
-		// TODO: Not implemented yet
-		ShowErrorMessage(message: "Not implemented yet");
-	}
-
-	/// <summary>Handles the click event for the ToolStripMenuItemDistributionComputerName. Shows the distribution form for computer name.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the distribution form for computer name.</remarks>
-	private void DistributionComputerName_Click(object sender, EventArgs e)
-	{
-		// TODO: Not implemented yet
-		ShowErrorMessage(message: "Not implemented yet");
-	}
-
-	/// <summary>Handles the button click event for the ToolStripSplitButtonDistribution. Shows the histogram form.</summary>
+	/// <summary>Handles the click event for the histogram menu item or button. Shows the histogram form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	///	<remarks>This method is used to show the histogram form for the selected parameter.</remarks>
 	private void Histograms_Click(object sender, EventArgs e) => ShowHistogram();
 
-	/// <summary>Handles the button click event for the ToolStripSplitButtonDistribution. Shows the distribution form.</summary>
+	/// <summary>Handles the click event for the scatter plot menu item or button. Shows the scatter plot form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	///	<remarks>This method is used to show the distribution form for the selected parameter.</remarks>
+	///	<remarks>This method is used to show the scatter plot form for the selected parameter.</remarks>
 	private void ScatterPlots_Click(object sender, EventArgs e) => ShowScatterPlot();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemListReadableDesignations. Lists readable designations.</summary>
@@ -3154,10 +3014,28 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formObservatoryCodes.ShowDialog();
 	}
 
+	/// <summary>
+	/// Handles the Click event to display the orbit 2D top view.
+	/// </summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
+	/// <remarks>This method displays the 2D top view of the orbit when the corresponding control is clicked.</remarks>
 	private void Orbit2DTopView_Click(object sender, EventArgs e) => ShowOrbit2DTopView();
 
+	/// <summary>
+	/// Handles the Click event to display the orbit 2D side view.
+	/// </summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
+	/// <remarks>This method displays the 2D side view of the orbit when the corresponding control is clicked.</remarks>
 	private void Orbit2DSideView_Click(object sender, EventArgs e) => ShowOrbit2DSideView();
 
+	/// <summary>
+	/// Handles the Click event to display the orbit 3D view.
+	/// </summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
+	/// <remarks>This method displays the 3D view of the orbit when the corresponding control is clicked.</remarks>
 	private void Orbit3DView_Click(object sender, EventArgs e) => ShowOrbit3DView();
 
 	#endregion
