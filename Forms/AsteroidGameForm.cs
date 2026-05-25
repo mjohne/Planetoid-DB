@@ -101,15 +101,6 @@ public partial class AsteroidGameForm : BaseKryptonForm
 	/// <remarks>This constant defines the drag applied to the ship's velocity each frame. It simulates friction in space, causing the ship to gradually slow down when not thrusting. A value less than 1 will cause the ship to lose speed over time, while a value of 1 would mean no drag and the ship would maintain its velocity indefinitely. Adjusting this value can affect the overall feel of the ship's movement and how much control the player has over it.</remarks>
 	private const float ShipDrag = 0.98f;
 
-	/// <summary>Maximum asteroid speed multiplier (lower = slower asteroids).</summary>
-	/// <remarks><para>Asteroid speed is randomized up to this multiplier, and smaller asteroids are faster.</para>
-	/// <para>Large asteroids are slower, while smaller asteroids are faster, creating a dynamic challenge for the player.</para>
-	/// <para>Adjusting this multiplier can make the game easier or harder by controlling how fast the asteroids move across the screen.</para>
-	/// <para>Smaller asteroids will have a speed multiplier that is a fraction of this value, making them more challenging to avoid and shoot.</para>
-	/// <para>A value of 1.0f would mean asteroids can move up to the same speed as the ship, while a value of 2.0f allows them to be significantly faster, increasing the difficulty.</para>
-	/// </remarks>
-	private const float AsteroidSpeedMultiplier = 1.5f;
-
 	/// <summary>Bullet speed.</summary>	 
 	/// <remarks>This constant defines the speed at which bullets travel when fired. A higher value will make bullets move faster, allowing the player to hit targets more quickly, while a lower value will make bullets slower, requiring more precise aiming and timing.</remarks>
 	private const float BulletSpeed = 8f;
@@ -280,17 +271,17 @@ public partial class AsteroidGameForm : BaseKryptonForm
 	private string GetDebuggerDisplay() => ToString();
 
 	/// <summary>Creates and configures the embedded <see cref="GLControl"/> and adds it to the GL panel.</summary>
-	/// <remarks>The control is created with an OpenGL compatibility-profile context so that the immediate-mode GL functions (glBegin/glEnd) used for rendering are available.</remarks>
+	/// <remarks>The control requests an OpenGL 2.1 context because the renderer uses immediate-mode GL functions such as glBegin/glEnd.</remarks>
 	private void CreateGlControl()
 	{
-		// Create GLControl with compatibility profile for immediate mode rendering
+		// Create a GLControl for the OpenGL 2.1 renderer used by the game.
 		GLControlSettings settings = new()
 		{
-			// Request an OpenGL 2.1 context for compatibility mode, which allows us to use the fixed-function pipeline and immediate mode rendering (glBegin/glEnd) for simplicity in this classic game implementation.
+			// Request OpenGL rendering for the immediate-mode renderer used by this form.
 			API = ContextAPI.OpenGL,
-			// Compatibility profile is required to use the fixed-function pipeline and immediate mode rendering, which is simpler for this classic game implementation. Core profile would not allow these deprecated features.
+			// Leave the profile selection to the platform-specific OpenTK defaults for this context request.
 			Profile = ContextProfile.Any,
-			// Requesting OpenGL 2.1 ensures we have access to the necessary features for rendering while maintaining compatibility with older hardware. This version is sufficient for the simple 2D graphics used in the Asteroids game.
+			// OpenGL 2.1 matches the fixed-function rendering path used by the Asteroids game.
 			APIVersion = new Version(major: 2, minor: 1),
 		};
 		// Create the GLControl with the specified settings and add it to the panel. The control is set to fill the panel and has accessibility properties defined for better usability.
@@ -361,10 +352,10 @@ public partial class AsteroidGameForm : BaseKryptonForm
 			X = x ?? ((float)_random.NextDouble() * WorldWidth),
 			// The Y coordinate is similarly randomized or set based on the parameter. This allows for flexible spawning of asteroids, either at specific locations (e.g., when breaking larger asteroids) or randomly across the screen.
 			Y = y ?? ((float)_random.NextDouble() * WorldHeight),
-			// Velocity is randomized with a speed multiplier that decreases with size, making smaller asteroids faster. The velocity is also randomized in both X and Y directions to create varied movement patterns.
-			VelocityX = ((float)_random.NextDouble() - 0.5f) * 2f * (AsteroidSpeedMultiplier - (size * 0.5f)),
-			// The Y velocity is similarly randomized, allowing for movement in any direction. The speed multiplier ensures that smaller asteroids can move faster than larger ones, increasing the challenge as the player progresses.
-			VelocityY = ((float)_random.NextDouble() - 0.5f) * 2f * (AsteroidSpeedMultiplier - (size * 0.5f)),
+			// Velocity is randomized based on size so smaller asteroids move faster while preserving the original gameplay tuning.
+			VelocityX = ((float)_random.NextDouble() - 0.5f) * 2f * (3f - (size * 0.5f)),
+			// The Y velocity is similarly randomized, allowing for movement in any direction while preserving the original gameplay tuning.
+			VelocityY = ((float)_random.NextDouble() - 0.5f) * 2f * (3f - (size * 0.5f)),
 			// The rotation angle is randomized to give each asteroid a unique orientation, and the rotation speed is also randomized to create dynamic movement. The rotation speed can be positive or negative, allowing for both clockwise and counterclockwise rotation.
 			Angle = (float)_random.NextDouble() * 360f,
 			// Rotation speed is randomized to add variety to the asteroids' movement. Smaller asteroids may have faster rotation speeds, making them more visually dynamic and harder to hit.
@@ -960,14 +951,15 @@ public partial class AsteroidGameForm : BaseKryptonForm
 	protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
 	{
 		// Intercept arrow keys and space bar to ensure they are captured for game controls, even if the GLControl does not have focus. This allows the player to control the game using the keyboard without needing to click on the GLControl first. By adding these keys to the _pressedKeys set, we can track their state in the game logic and respond accordingly (e.g., moving the ship or firing bullets). Returning true indicates that we have handled the key press, preventing it from being processed further by WinForms, which might otherwise cause unintended behavior such as changing focus or scrolling.
-		switch (keyData)
+		Keys keyCode = keyData & Keys.KeyCode;
+		switch (keyCode)
 		{
 			case Keys.Left:
 			case Keys.Right:
 			case Keys.Up:
 			case Keys.Down:
 			case Keys.Space:
-				_pressedKeys.Add(item: keyData);
+				_pressedKeys.Add(item: keyCode);
 				return true;
 		}
 		// For all other keys, call the base implementation to allow normal processing. This ensures that keys that are not specifically handled by our game logic will still be processed by the form as usual, allowing for standard behavior such as navigating between controls or triggering other events.

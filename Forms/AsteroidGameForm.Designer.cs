@@ -127,6 +127,7 @@ partial class AsteroidGameForm
 		ClientSize = new Size(982, 553);
 		Controls.Add(toolStripContainer);
 		Icon = (Icon)resources.GetObject("$this.Icon");
+		KeyPreview = true;
 		Margin = new Padding(3, 2, 3, 2);
 		MinimumSize = new Size(640, 480);
 		Name = "AsteroidGameForm";
