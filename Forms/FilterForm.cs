@@ -11,7 +11,7 @@ using Planetoid_DB.Forms;
 
 using System.Diagnostics;
 using System.Globalization;
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace Planetoid_DB;
 
@@ -58,9 +58,25 @@ public partial class FilterForm : BaseKryptonForm
 
 	/// <summary>Initializes a new instance of the <see cref="FilterForm"/> class.</summary>
 	/// <remarks>This constructor initializes the form components.</remarks>
-	public FilterForm() =>
+	public FilterForm()
+	{
 		// Initialize the form components
 		InitializeComponent();
+		// Enable double buffering for the TableLayoutPanel to prevent flickering
+		try
+		{
+			// Set the DoubleBuffered property (protected)
+			PropertyInfo? dbProp = typeof(Control).GetProperty(name: "DoubleBuffered", bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance);
+			dbProp?.SetValue(obj: tableLayoutPanel, value: true, index: null);
+			// Also set specific control styles via reflection just in case
+			MethodInfo? setStyleMethod = typeof(Control).GetMethod(name: "SetStyle", bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance);
+			setStyleMethod?.Invoke(obj: tableLayoutPanel, parameters: [ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true]);
+		}
+		catch (Exception ex)
+		{
+			logger.Warn(exception: ex, message: "Could not set DoubleBuffered on tableLayoutPanel");
+		}
+	}
 
 	#endregion
 
