@@ -1524,7 +1524,7 @@ partial class FilterForm
 		// toolStripContainer.ContentPanel
 		// 
 		toolStripContainer.ContentPanel.AccessibleDescription = "Just a panel";
-		toolStripContainer.ContentPanel.AccessibleName = "Conent panel";
+		toolStripContainer.ContentPanel.AccessibleName = "Content panel";
 		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
 		toolStripContainer.ContentPanel.Size = new Size(512, 396);
