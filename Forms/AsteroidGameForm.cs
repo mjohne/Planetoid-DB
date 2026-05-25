@@ -117,6 +117,10 @@ public partial class AsteroidGameForm : BaseKryptonForm
 	/// <remarks>This constant defines how many asteroids are spawned at the start of the game. A higher number will create a more chaotic and challenging initial scenario, while a lower number will make it easier for the player to survive the early stages of the game. The initial asteroids are typically larger and slower, providing an opportunity for the player to get accustomed to the controls before facing smaller, faster asteroids as they progress.</remarks>
 	private const int InitialAsteroidCount = 4;
 
+	/// <summary>Base speed multiplier for asteroids.</summary>
+	/// <remarks>This constant controls the maximum speed of large asteroids. Smaller asteroids are proportionally faster based on their size. Reduce this value to slow all asteroids down; increase it to make them faster.</remarks>
+	private const float AsteroidMaxSpeed = 2f;
+
 	#region Nested Types
 
 	/// <summary>Represents the game state.</summary>
@@ -352,10 +356,10 @@ public partial class AsteroidGameForm : BaseKryptonForm
 			X = x ?? ((float)_random.NextDouble() * WorldWidth),
 			// The Y coordinate is similarly randomized or set based on the parameter. This allows for flexible spawning of asteroids, either at specific locations (e.g., when breaking larger asteroids) or randomly across the screen.
 			Y = y ?? ((float)_random.NextDouble() * WorldHeight),
-			// Velocity is randomized based on size so smaller asteroids move faster while preserving the original gameplay tuning.
-			VelocityX = ((float)_random.NextDouble() - 0.5f) * 2f * (3f - (size * 0.5f)),
-			// The Y velocity is similarly randomized, allowing for movement in any direction while preserving the original gameplay tuning.
-			VelocityY = ((float)_random.NextDouble() - 0.5f) * 2f * (3f - (size * 0.5f)),
+			// Velocity is randomized based on size so smaller asteroids move faster. AsteroidMaxSpeed controls the overall speed scale.
+			VelocityX = ((float)_random.NextDouble() - 0.5f) * 2f * (AsteroidMaxSpeed - (size * 0.5f)),
+			// The Y velocity is similarly randomized, allowing for movement in any direction.
+			VelocityY = ((float)_random.NextDouble() - 0.5f) * 2f * (AsteroidMaxSpeed - (size * 0.5f)),
 			// The rotation angle is randomized to give each asteroid a unique orientation, and the rotation speed is also randomized to create dynamic movement. The rotation speed can be positive or negative, allowing for both clockwise and counterclockwise rotation.
 			Angle = (float)_random.NextDouble() * 360f,
 			// Rotation speed is randomized to add variety to the asteroids' movement. Smaller asteroids may have faster rotation speeds, making them more visually dynamic and harder to hit.
@@ -717,7 +721,7 @@ public partial class AsteroidGameForm : BaseKryptonForm
 	/// <param name="y">Y position.</param>
 	/// <param name="scale">Text scale.</param>
 	/// <remarks>This method calculates the X position needed to center the text based on its length and the specified scale, and then calls the <see cref="DrawText"/> method to render the text at the calculated position. The text is rendered using simple line-based characters for a retro look, and the scale parameter allows for adjusting the size of the text as needed.</remarks>
-	private void DrawTextCentered(string text, float y, float scale)
+	private static void DrawTextCentered(string text, float y, float scale)
 	{
 		// Simple text rendering using lines (very basic)
 		float x = (WorldWidth / 2f) - (text.Length * 2f * scale);
@@ -730,7 +734,7 @@ public partial class AsteroidGameForm : BaseKryptonForm
 	/// <param name="y">Y position.</param>
 	/// <param name="scale">Text scale.</param>
 	/// <remarks>This method renders the specified text at the given X and Y position with the specified scale. Each character in the text is drawn using simple line-based rendering to create a retro, pixelated look. The method iterates through each character in the string and calls the <see cref="DrawChar"/> method to render it, adjusting the X position for each subsequent character based on the scale.</remarks>
-	private void DrawText(string text, float x, float y, float scale)
+	private static void DrawText(string text, float x, float y, float scale)
 	{
 		// Set color and line width for drawing text
 		GL.Color3(red: 1.0f, green: 1.0f, blue: 1.0f);
