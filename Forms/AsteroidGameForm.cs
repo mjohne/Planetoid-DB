@@ -764,7 +764,7 @@ public partial class AsteroidGameForm : BaseKryptonForm
 		GL.Scale(x: scale, y: scale, z: 1f);
 		// Draw character using lines based on the character's shape. Each case in the switch statement corresponds to a specific character and defines the lines needed to render that character. The coordinates for the vertices are chosen to create a recognizable shape for each character, and the lines are drawn using OpenGL's immediate mode rendering.
 		GL.Begin(mode: PrimitiveType.Lines);
-		switch (char.ToUpper(c))
+		switch (char.ToUpperInvariant(c))
 		{
 			case 'A':
 				GL.Vertex2(x: 0f, y: 0f); GL.Vertex2(x: 1.5f, y: 3f);
@@ -1044,7 +1044,7 @@ public partial class AsteroidGameForm : BaseKryptonForm
 				break;
 			case ',':
 				GL.Vertex2(x: 1.5f, y: 0f); GL.Vertex2(x: 1.5f, y: 0f);
-				GL.Vertex2(x: 1.5f, y: 0f); GL.Vertex2(x: 1f, y: -0.5f);
+				GL.Vertex2(x: 1.5f, y: 0f); GL.Vertex2(x: 1f, y: 0f);
 				break;
 			case '!':
 				GL.Vertex2(x: 1.5f, y: 1f); GL.Vertex2(x: 1.5f, y: 3f);
