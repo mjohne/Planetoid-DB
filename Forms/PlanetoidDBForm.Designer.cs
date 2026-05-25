@@ -164,6 +164,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemDatabaseInformation = new ToolStripMenuItem();
 		toolStripMenuItemTableMode = new ToolStripMenuItem();
 		toolStripMenuItemScatterPlots = new ToolStripMenuItem();
+		toolStripMenuItemDurchschnittsplanetoid = new ToolStripMenuItem();
 		toolStripMenuItemGroupOrbitalAnalysis = new ToolStripMenuItem();
 		toolStripMenuItemFilter = new ToolStripMenuItem();
 		toolStripMenuItemFilterEdit = new ToolStripMenuItem();
@@ -2478,7 +2479,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemGroupDataAndStatistics.AccessibleName = "Data & Statistics";
 		toolStripMenuItemGroupDataAndStatistics.AccessibleRole = AccessibleRole.MenuPopup;
 		toolStripMenuItemGroupDataAndStatistics.AutoToolTip = true;
-		toolStripMenuItemGroupDataAndStatistics.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemDatabaseInformation, toolStripMenuItemTableMode, toolStripMenuItemRecords, toolStripMenuItemDistribution, toolStripMenuItemScatterPlots });
+		toolStripMenuItemGroupDataAndStatistics.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemDatabaseInformation, toolStripMenuItemTableMode, toolStripMenuItemRecords, toolStripMenuItemDistribution, toolStripMenuItemScatterPlots, toolStripMenuItemDurchschnittsplanetoid });
 		toolStripMenuItemGroupDataAndStatistics.Name = "toolStripMenuItemGroupDataAndStatistics";
 		toolStripMenuItemGroupDataAndStatistics.Size = new Size(183, 22);
 		toolStripMenuItemGroupDataAndStatistics.Text = "Data && &Statistics";
@@ -2529,9 +2530,24 @@ partial class PlanetoidDbForm
 		toolStripMenuItemScatterPlots.Click += ScatterPlots_Click;
 		toolStripMenuItemScatterPlots.MouseEnter += Control_Enter;
 		toolStripMenuItemScatterPlots.MouseLeave += Control_Leave;
-		// 
+		//
+		// toolStripMenuItemDurchschnittsplanetoid
+		//
+		toolStripMenuItemDurchschnittsplanetoid.AccessibleDescription = "Shows the theoretical average planetoid";
+		toolStripMenuItemDurchschnittsplanetoid.AccessibleName = "Durchschnittsplanetoid";
+		toolStripMenuItemDurchschnittsplanetoid.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDurchschnittsplanetoid.AutoToolTip = true;
+		toolStripMenuItemDurchschnittsplanetoid.Image = FatcowIcons16px.fatcow_table_16px;
+		toolStripMenuItemDurchschnittsplanetoid.Name = "toolStripMenuItemDurchschnittsplanetoid";
+		toolStripMenuItemDurchschnittsplanetoid.ShortcutKeys = Keys.Control | Keys.D;
+		toolStripMenuItemDurchschnittsplanetoid.Size = new Size(227, 22);
+		toolStripMenuItemDurchschnittsplanetoid.Text = "&Durchschnittsplanetoid";
+		toolStripMenuItemDurchschnittsplanetoid.Click += Durchschnittsplanetoid_Click;
+		toolStripMenuItemDurchschnittsplanetoid.MouseEnter += Control_Enter;
+		toolStripMenuItemDurchschnittsplanetoid.MouseLeave += Control_Leave;
+		//
 		// toolStripMenuItemGroupOrbitalAnalysis
-		// 
+		//
 		toolStripMenuItemGroupOrbitalAnalysis.AccessibleDescription = "Orbital analysis tools";
 		toolStripMenuItemGroupOrbitalAnalysis.AccessibleName = "Orbital Analysis";
 		toolStripMenuItemGroupOrbitalAnalysis.AccessibleRole = AccessibleRole.MenuPopup;
@@ -4701,5 +4717,6 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem toolStripMenuItemOrbit2DSideView;
 	private ToolStripMenuItem toolStripMenuItemOrbit3DView;
 	private ToolStripMenuItem toolStripMenuItemScatterPlots;
+	private ToolStripMenuItem toolStripMenuItemDurchschnittsplanetoid;
 	private ToolStripMenuItem toolStripMenuItemOrbit;
 }

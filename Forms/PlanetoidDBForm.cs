@@ -2782,6 +2782,31 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	///	<remarks>This method is used to show the scatter plot form for the selected parameter.</remarks>
 	private void ScatterPlots_Click(object sender, EventArgs e) => ShowScatterPlot();
 
+	/// <summary>Handles the click event for the Durchschnittsplanetoid menu item. Shows the average planetoid form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the Durchschnittsplanetoid form that displays various types of averages for all orbital elements and astrophysical properties.</remarks>
+	private void Durchschnittsplanetoid_Click(object sender, EventArgs e)
+	{
+		try
+		{
+			if (planetoidsDatabase == null || planetoidsDatabase.Count == 0)
+			{
+				ShowErrorMessage(message: "No planetoid database loaded. Please load a database first.");
+				return;
+			}
+
+			using DurchschnittsplanetoidForm formDurchschnittsplanetoid = new(planetoids: planetoidsDatabase);
+			formDurchschnittsplanetoid.TopMost = TopMost;
+			_ = formDurchschnittsplanetoid.ShowDialog(owner: this);
+		}
+		catch (Exception ex)
+		{
+			logger.Error(message: "Failed to open Durchschnittsplanetoid form: {0}", args: ex);
+			ShowErrorMessage(message: $"Failed to open Durchschnittsplanetoid form: {ex.Message}");
+		}
+	}
+
 	/// <summary>Handles the click event for the ToolStripMenuItemListReadableDesignations. Lists readable designations.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
