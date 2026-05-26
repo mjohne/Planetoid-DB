@@ -61,6 +61,7 @@ public class AEIDiagram3DForm : BaseKryptonForm
 
 	private readonly record struct AeiPoint(double A, double E, double I);
 	private readonly record struct RenderPoint(float X, float Y, float Z);
+	private readonly Font _overlayFont = new("Segoe UI", 9f, FontStyle.Bold);
 
 	/// <summary>Initializes a new instance of the <see cref="AEIDiagram3DForm"/> class.</summary>
 	/// <param name="planetoids">The planetoid records from the database.</param>
@@ -84,6 +85,7 @@ public class AEIDiagram3DForm : BaseKryptonForm
 			_cts?.Dispose();
 			_pauseGate.Dispose();
 			_glControl.Dispose();
+			_overlayFont.Dispose();
 		}
 		base.Dispose(disposing);
 	}
@@ -117,30 +119,62 @@ public class AEIDiagram3DForm : BaseKryptonForm
 		_statusStrip.Dock = DockStyle.None;
 		_statusStrip.Items.AddRange([_labelInformation]);
 		_labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
+		_labelInformation.AccessibleName = "Orbital diagram status information";
+		_labelInformation.AccessibleDescription = "Shows point count, exclusions, and axis details.";
+		_labelInformation.AccessibleRole = AccessibleRole.StaticText;
+		_labelInformation.MouseEnter += Control_Enter;
+		_labelInformation.MouseLeave += Control_Leave;
 
 		_buttonStartPause.Text = "&Start";
 		_buttonStartPause.Image = FatcowIcons16px.fatcow_control_play_blue_16px;
 		_buttonStartPause.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+		_buttonStartPause.AccessibleName = "Start or pause generation";
+		_buttonStartPause.AccessibleDescription = "Starts, pauses, or resumes point generation.";
+		_buttonStartPause.AccessibleRole = AccessibleRole.PushButton;
+		_buttonStartPause.MouseEnter += Control_Enter;
+		_buttonStartPause.MouseLeave += Control_Leave;
 		_buttonStartPause.Click += ToolStripButtonStartPause_Click;
 		_buttonCancel.Text = "&Cancel";
 		_buttonCancel.Image = FatcowIcons16px.fatcow_cancel_16px;
 		_buttonCancel.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+		_buttonCancel.AccessibleName = "Cancel generation";
+		_buttonCancel.AccessibleDescription = "Cancels ongoing point generation.";
+		_buttonCancel.AccessibleRole = AccessibleRole.PushButton;
+		_buttonCancel.MouseEnter += Control_Enter;
+		_buttonCancel.MouseLeave += Control_Leave;
 		_buttonCancel.Click += ToolStripButtonCancel_Click;
 		_buttonLive.CheckOnClick = true;
 		_buttonLive.Checked = true;
 		_buttonLive.Text = "On";
 		_buttonLive.Image = FatcowIcons16px.fatcow_tick_circle_frame_16px;
 		_buttonLive.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+		_buttonLive.AccessibleName = "Live updates";
+		_buttonLive.AccessibleDescription = "Toggles live rendering updates during generation.";
+		_buttonLive.AccessibleRole = AccessibleRole.CheckButton;
+		_buttonLive.MouseEnter += Control_Enter;
+		_buttonLive.MouseLeave += Control_Leave;
 		_buttonLive.CheckedChanged += ToolStripButtonLive_CheckedChanged;
 		_buttonLog.CheckOnClick = true;
 		_buttonLog.Text = "&Log scale";
 		_buttonLog.Image = FatcowIcons16px.fatcow_chart_curve_16px;
 		_buttonLog.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+		_buttonLog.AccessibleName = "Log scale";
+		_buttonLog.AccessibleDescription = "Toggles logarithmic axis scaling.";
+		_buttonLog.AccessibleRole = AccessibleRole.CheckButton;
+		_buttonLog.MouseEnter += Control_Enter;
+		_buttonLog.MouseLeave += Control_Leave;
 		_buttonLog.CheckedChanged += ToolStripButtonLog_CheckedChanged;
 
 		_toolStripMain.Dock = DockStyle.None;
 		_toolStripMain.Location = new Point(0, 0);
 		_toolStripMain.Stretch = true;
+		_toolStripMain.AccessibleName = "Main controls";
+		_toolStripMain.AccessibleDescription = "Controls for generation, cancellation, and display options.";
+		_toolStripMain.AccessibleRole = AccessibleRole.ToolBar;
+		_toolStripMain.Enter += Control_Enter;
+		_toolStripMain.Leave += Control_Leave;
+		_toolStripMain.MouseEnter += Control_Enter;
+		_toolStripMain.MouseLeave += Control_Leave;
 		_toolStripMain.Items.AddRange([_buttonStartPause, _buttonCancel, new ToolStripSeparator(), new ToolStripLabel("Live"), _buttonLive, new ToolStripSeparator(), _buttonLog]);
 
 		ConfigureScaleControl(_scaleX, 1.0m);
@@ -149,14 +183,33 @@ public class AEIDiagram3DForm : BaseKryptonForm
 		_toolStripScaling.Dock = DockStyle.None;
 		_toolStripScaling.Location = new Point(0, 25);
 		_toolStripScaling.Stretch = true;
+		_toolStripScaling.AccessibleName = "Axis scaling controls";
+		_toolStripScaling.AccessibleDescription = "Sets scaling factors for a, e, and i axes.";
+		_toolStripScaling.AccessibleRole = AccessibleRole.ToolBar;
+		_toolStripScaling.Enter += Control_Enter;
+		_toolStripScaling.Leave += Control_Leave;
+		_toolStripScaling.MouseEnter += Control_Enter;
+		_toolStripScaling.MouseLeave += Control_Leave;
 		_toolStripScaling.Items.AddRange([new ToolStripLabel("Scale"), new ToolStripSeparator(), new ToolStripLabel("X(a)"), _scaleX, new ToolStripSeparator(), new ToolStripLabel("Y(e)"), _scaleY, new ToolStripSeparator(), new ToolStripLabel("Z(i)"), _scaleZ]);
 
 		_progressBar.AutoSize = false;
 		_progressBar.Size = new Size(760, 19);
 		_progressBar.Values.Text = "0%";
+		_progressBar.AccessibleName = "Generation progress";
+		_progressBar.AccessibleDescription = "Shows generation progress percentage.";
+		_progressBar.AccessibleRole = AccessibleRole.ProgressBar;
+		_progressBar.MouseEnter += Control_Enter;
+		_progressBar.MouseLeave += Control_Leave;
 		_toolStripProgress.Dock = DockStyle.None;
 		_toolStripProgress.Location = new Point(0, 50);
 		_toolStripProgress.Stretch = true;
+		_toolStripProgress.AccessibleName = "Progress display";
+		_toolStripProgress.AccessibleDescription = "Displays generation progress.";
+		_toolStripProgress.AccessibleRole = AccessibleRole.ToolBar;
+		_toolStripProgress.Enter += Control_Enter;
+		_toolStripProgress.Leave += Control_Leave;
+		_toolStripProgress.MouseEnter += Control_Enter;
+		_toolStripProgress.MouseLeave += Control_Leave;
 		_toolStripProgress.Items.AddRange([new ToolStripLabel("Progress"), _progressBar]);
 
 		Controls.Add(_container);
@@ -172,13 +225,30 @@ public class AEIDiagram3DForm : BaseKryptonForm
 		control.Value = value;
 		control.AutoSize = false;
 		control.Size = new Size(70, 22);
+		control.AccessibleName = "Axis scale value";
+		control.AccessibleDescription = "Sets axis scaling multiplier.";
+		control.AccessibleRole = AccessibleRole.SpinButton;
+		control.Enter += Control_Enter;
+		control.Leave += Control_Leave;
+		control.MouseEnter += Control_Enter;
+		control.MouseLeave += Control_Leave;
 		control.ValueChanged += ToolStripNumericScale_ValueChanged;
 	}
 
 	private void CreateGlControl()
 	{
 		GLControlSettings settings = new() { API = ContextAPI.OpenGL, Profile = ContextProfile.Any, APIVersion = new Version(2, 1) };
-		_glControl = new GLControl(glControlSettings: settings) { Dock = DockStyle.Fill };
+		_glControl = new GLControl(glControlSettings: settings)
+		{
+			Dock = DockStyle.Fill,
+			AccessibleName = "Orbital diagram 3D OpenGL canvas",
+			AccessibleDescription = "Displays the three-dimensional a, e, i point cloud with camera controls.",
+			AccessibleRole = AccessibleRole.Graphic
+		};
+		_glControl.Enter += Control_Enter;
+		_glControl.Leave += Control_Leave;
+		_glControl.MouseEnter += Control_Enter;
+		_glControl.MouseLeave += Control_Leave;
 		_glControl.Paint += GlControl_Paint;
 		_glControl.Resize += GlControl_Resize;
 		_glControl.MouseDown += GlControl_MouseDown;
@@ -277,7 +347,13 @@ public class AEIDiagram3DForm : BaseKryptonForm
 		float sx = (float)_scaleX.Value;
 		float sy = (float)_scaleY.Value;
 		float sz = (float)_scaleZ.Value;
-		List<(double A, double E, double I)> transformed = [];
+		double minA = double.PositiveInfinity;
+		double minE = double.PositiveInfinity;
+		double minI = double.PositiveInfinity;
+		double maxA = double.NegativeInfinity;
+		double maxE = double.NegativeInfinity;
+		double maxI = double.NegativeInfinity;
+		int validCount = 0;
 		_excludedPoints = 0;
 		for (int i = 0; i < _rawPoints.Count; i++)
 		{
@@ -295,19 +371,49 @@ public class AEIDiagram3DForm : BaseKryptonForm
 				e = Math.Log10(e);
 				inc = Math.Log10(inc);
 			}
-			transformed.Add((a, e, inc));
+			minA = Math.Min(minA, a);
+			minE = Math.Min(minE, e);
+			minI = Math.Min(minI, inc);
+			maxA = Math.Max(maxA, a);
+			maxE = Math.Max(maxE, e);
+			maxI = Math.Max(maxI, inc);
+			validCount++;
 		}
-		double minA = transformed.Count == 0 ? 0 : transformed.Min(static v => v.A);
-		double minE = transformed.Count == 0 ? 0 : transformed.Min(static v => v.E);
-		double minI = transformed.Count == 0 ? 0 : transformed.Min(static v => v.I);
-		double maxA = transformed.Count == 0 ? 1 : transformed.Max(static v => v.A);
-		double maxE = transformed.Count == 0 ? 1 : transformed.Max(static v => v.E);
-		double maxI = transformed.Count == 0 ? 1 : transformed.Max(static v => v.I);
+
+		if (validCount == 0)
+		{
+			_renderPoints = [];
+			UpdateStatusLabel();
+			if (_glReady)
+			{
+				_glControl.Invalidate();
+			}
+			return;
+		}
+
 		double rangeA = Math.Max(1E-9, maxA - minA);
 		double rangeE = Math.Max(1E-9, maxE - minE);
 		double rangeI = Math.Max(1E-9, maxI - minI);
 		const float axisBase = 10f;
-		_renderPoints = transformed.Select(v => new RenderPoint((float)((v.A - minA) / rangeA) * axisBase * sx, (float)((v.E - minE) / rangeE) * axisBase * sy, (float)((v.I - minI) / rangeI) * axisBase * sz)).ToList();
+		List<RenderPoint> renderPoints = new(capacity: validCount);
+		for (int i = 0; i < _rawPoints.Count; i++)
+		{
+			double a = _rawPoints[i].A;
+			double e = _rawPoints[i].E;
+			double inc = _rawPoints[i].I;
+			if (log)
+			{
+				if (a <= 0 || e <= 0 || inc <= 0)
+				{
+					continue;
+				}
+				a = Math.Log10(a);
+				e = Math.Log10(e);
+				inc = Math.Log10(inc);
+			}
+			renderPoints.Add(new RenderPoint((float)((a - minA) / rangeA) * axisBase * sx, (float)((e - minE) / rangeE) * axisBase * sy, (float)((inc - minI) / rangeI) * axisBase * sz));
+		}
+		_renderPoints = renderPoints;
 		UpdateStatusLabel();
 		if (_glReady)
 		{
@@ -335,7 +441,7 @@ public class AEIDiagram3DForm : BaseKryptonForm
 		GL.MatrixMode(MatrixMode.Modelview);
 	}
 
-	private void RenderScene()
+	private void RenderScene(Graphics? overlayGraphics)
 	{
 		if (!_glReady)
 		{
@@ -371,12 +477,10 @@ public class AEIDiagram3DForm : BaseKryptonForm
 		GL.End();
 		_glControl.SwapBuffers();
 
-		using Graphics g = _glControl.CreateGraphics();
-		using Font font = new("Segoe UI", 9f, FontStyle.Bold);
-		g.DrawString("X-axis: semi-major axis a [AU]", font, Brushes.IndianRed, 8, 8);
-		g.DrawString("Y-axis: eccentricity e [-]", font, Brushes.LightGreen, 8, 26);
-		g.DrawString("Z-axis: inclination i [°]", font, Brushes.LightSkyBlue, 8, 44);
-		g.DrawString("Rotate: left mouse | Shift: right mouse | Zoom: wheel", font, Brushes.WhiteSmoke, 8, 64);
+		overlayGraphics?.DrawString("X-axis: semi-major axis a [AU]", _overlayFont, Brushes.IndianRed, 8, 8);
+		overlayGraphics?.DrawString("Y-axis: eccentricity e [-]", _overlayFont, Brushes.LightGreen, 8, 26);
+		overlayGraphics?.DrawString("Z-axis: inclination i [°]", _overlayFont, Brushes.LightSkyBlue, 8, 44);
+		overlayGraphics?.DrawString("Rotate: left mouse | Pan: right mouse | Zoom: wheel", _overlayFont, Brushes.WhiteSmoke, 8, 64);
 	}
 
 	/// <summary>Handles the form load and initializes OpenGL state.</summary>
@@ -435,7 +539,10 @@ public class AEIDiagram3DForm : BaseKryptonForm
 			}
 			catch (OperationCanceledException)
 			{
-				_labelInformation.Text = "Generation canceled. Press Start to run again.";
+				if (!IsDisposed && !Disposing)
+				{
+					_labelInformation.Text = "Generation canceled. Press Start to run again.";
+				}
 			}
 			finally
 			{
@@ -443,8 +550,11 @@ public class AEIDiagram3DForm : BaseKryptonForm
 				_cts = null;
 				_isPaused = false;
 				_pauseGate.Set();
-				_buttonLive.Enabled = true;
-				UpdateRunningState(false);
+				if (!IsDisposed && !Disposing)
+				{
+					_buttonLive.Enabled = true;
+					UpdateRunningState(false);
+				}
 			}
 			return;
 		}
@@ -482,7 +592,7 @@ public class AEIDiagram3DForm : BaseKryptonForm
 	private void ToolStripNumericScale_ValueChanged(object? sender, EventArgs e) => RebuildRenderPointsAndInvalidate();
 
 	/// <summary>Handles GL paint events and renders the scene.</summary>
-	private void GlControl_Paint(object? sender, PaintEventArgs e) => RenderScene();
+	private void GlControl_Paint(object? sender, PaintEventArgs e) => RenderScene(e.Graphics);
 
 	/// <summary>Handles GL resize events and updates the projection.</summary>
 	private void GlControl_Resize(object? sender, EventArgs e)
