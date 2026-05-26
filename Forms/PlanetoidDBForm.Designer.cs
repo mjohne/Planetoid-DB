@@ -164,6 +164,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemDatabaseInformation = new ToolStripMenuItem();
 		toolStripMenuItemTableMode = new ToolStripMenuItem();
 		toolStripMenuItemScatterPlots = new ToolStripMenuItem();
+		toolStripMenuItemAEIDiagram = new ToolStripMenuItem();
 		toolStripMenuItemGroupOrbitalAnalysis = new ToolStripMenuItem();
 		toolStripMenuItemFilter = new ToolStripMenuItem();
 		toolStripMenuItemFilterEdit = new ToolStripMenuItem();
@@ -2478,7 +2479,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemGroupDataAndStatistics.AccessibleName = "Data & Statistics";
 		toolStripMenuItemGroupDataAndStatistics.AccessibleRole = AccessibleRole.MenuPopup;
 		toolStripMenuItemGroupDataAndStatistics.AutoToolTip = true;
-		toolStripMenuItemGroupDataAndStatistics.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemDatabaseInformation, toolStripMenuItemTableMode, toolStripMenuItemRecords, toolStripMenuItemDistribution, toolStripMenuItemScatterPlots });
+		toolStripMenuItemGroupDataAndStatistics.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemDatabaseInformation, toolStripMenuItemTableMode, toolStripMenuItemRecords, toolStripMenuItemDistribution, toolStripMenuItemScatterPlots, toolStripMenuItemAEIDiagram });
 		toolStripMenuItemGroupDataAndStatistics.Name = "toolStripMenuItemGroupDataAndStatistics";
 		toolStripMenuItemGroupDataAndStatistics.Size = new Size(183, 22);
 		toolStripMenuItemGroupDataAndStatistics.Text = "Data && &Statistics";
@@ -2529,7 +2530,22 @@ partial class PlanetoidDbForm
 		toolStripMenuItemScatterPlots.Click += ScatterPlots_Click;
 		toolStripMenuItemScatterPlots.MouseEnter += Control_Enter;
 		toolStripMenuItemScatterPlots.MouseLeave += Control_Leave;
-		// 
+		//
+		// toolStripMenuItemAEIDiagram
+		//
+		toolStripMenuItemAEIDiagram.AccessibleDescription = "Shows a 3D diagram of orbital elements (a, e, i)";
+		toolStripMenuItemAEIDiagram.AccessibleName = "a,e,i-Diagram";
+		toolStripMenuItemAEIDiagram.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemAEIDiagram.AutoToolTip = true;
+		toolStripMenuItemAEIDiagram.Enabled = false;
+		toolStripMenuItemAEIDiagram.Image = FatcowIcons16px.fatcow_chart_line_16px;
+		toolStripMenuItemAEIDiagram.Name = "toolStripMenuItemAEIDiagram";
+		toolStripMenuItemAEIDiagram.Size = new Size(227, 22);
+		toolStripMenuItemAEIDiagram.Text = "a,e,i-&Diagram";
+		toolStripMenuItemAEIDiagram.Click += AEIDiagram_Click;
+		toolStripMenuItemAEIDiagram.MouseEnter += Control_Enter;
+		toolStripMenuItemAEIDiagram.MouseLeave += Control_Leave;
+		//
 		// toolStripMenuItemGroupOrbitalAnalysis
 		// 
 		toolStripMenuItemGroupOrbitalAnalysis.AccessibleDescription = "Orbital analysis tools";
@@ -4701,5 +4717,6 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem toolStripMenuItemOrbit2DSideView;
 	private ToolStripMenuItem toolStripMenuItemOrbit3DView;
 	private ToolStripMenuItem toolStripMenuItemScatterPlots;
+	private ToolStripMenuItem toolStripMenuItemAEIDiagram;
 	private ToolStripMenuItem toolStripMenuItemOrbit;
 }

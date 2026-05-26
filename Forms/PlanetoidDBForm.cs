@@ -943,6 +943,26 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formScatterplot.ShowDialog(owner: this);
 	}
 
+	/// <summary>Shows the a,e,i-Diagram form. Opens the form to display a 3D diagram of orbital elements (a, e, i) for all known planetoids.</summary>
+	/// <remarks>Passes the full planetoids database to the form so it can visualize all planetoid orbital elements in 3D space.</remarks>
+	private void ShowAEIDiagram()
+	{
+		try
+		{
+			// Create a new instance of the AEI3DDiagramForm
+			using AEI3DDiagramForm formAEIDiagram = new(planetoidsDatabase: planetoidsDatabase);
+			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
+			formAEIDiagram.TopMost = TopMost;
+			// Show the AEI diagram form as a modal dialog
+			_ = formAEIDiagram.ShowDialog(owner: this);
+		}
+		catch (Exception ex)
+		{
+			logger.Error(message: "Failed to open a,e,i-Diagram: {0}", args: ex);
+			ShowErrorMessage(message: $"Failed to open a,e,i-Diagram: {ex.Message}");
+		}
+	}
+
 	/// <summary>Shows the orbit visualization form for the current planetoid.</summary>
 	/// <remarks>Parses the semi-major axis, eccentricity, and argument of perihelion from the UI labels and opens the <see cref="Orbit2DTopViewForm"/>.</remarks>
 	private void ShowOrbit2DTopView()
@@ -2173,6 +2193,13 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		stepPosition = 100; // Set the step position to 100
 		GotoCurrentPosition(position: currentPosition); // Navigate to the current position
 		Enabled = true; // Enable the form
+
+		// Enable menu items that require the database to be loaded
+		if (planetoidsDatabase.Count > 0)
+		{
+			toolStripMenuItemScatterPlots.Enabled = true;
+			toolStripMenuItemAEIDiagram.Enabled = true;
+		}
 	}
 
 	#endregion
@@ -2781,6 +2808,12 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	///	<remarks>This method is used to show the scatter plot form for the selected parameter.</remarks>
 	private void ScatterPlots_Click(object sender, EventArgs e) => ShowScatterPlot();
+
+	/// <summary>Handles the click event for the a,e,i-Diagram menu item. Shows the 3D diagram of orbital elements.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the 3D diagram form displaying all planetoid orbital elements (a, e, i).</remarks>
+	private void AEIDiagram_Click(object sender, EventArgs e) => ShowAEIDiagram();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemListReadableDesignations. Lists readable designations.</summary>
 	/// <param name="sender">The event source.</param>
