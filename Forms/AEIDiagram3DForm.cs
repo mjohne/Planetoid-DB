@@ -81,7 +81,7 @@ public class AEIDiagram3DForm : BaseKryptonForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		StartPosition = FormStartPosition.CenterScreen;
-		Text = "a,e,i-Diagramm (3D)";
+		Text = "a,e,i Diagram (3D)";
 		Load += AEIDiagram3DForm_Load;
 		FormClosing += AEIDiagram3DForm_FormClosing;
 
@@ -425,7 +425,14 @@ public class AEIDiagram3DForm : BaseKryptonForm
 		}
 
 		_isPaused = !_isPaused;
-		if (_isPaused) _pauseGate.Reset(); else _pauseGate.Set();
+		if (_isPaused)
+		{
+			_pauseGate.Reset();
+		}
+		else
+		{
+			_pauseGate.Set();
+		}
 		UpdateRunningState(true);
 	}
 

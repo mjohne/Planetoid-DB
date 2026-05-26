@@ -2534,14 +2534,14 @@ partial class PlanetoidDbForm
 		// toolStripMenuItemAEIDiagram3D
 		// 
 		toolStripMenuItemAEIDiagram3D.AccessibleDescription = "Shows the 3D a,e,i diagram";
-		toolStripMenuItemAEIDiagram3D.AccessibleName = "a,e,i-Diagramm";
+		toolStripMenuItemAEIDiagram3D.AccessibleName = "a,e,i Diagram";
 		toolStripMenuItemAEIDiagram3D.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemAEIDiagram3D.AutoToolTip = true;
 		toolStripMenuItemAEIDiagram3D.Enabled = false;
 		toolStripMenuItemAEIDiagram3D.Image = FatcowIcons16px.fatcow_diagramm_16px;
 		toolStripMenuItemAEIDiagram3D.Name = "toolStripMenuItemAEIDiagram3D";
 		toolStripMenuItemAEIDiagram3D.Size = new Size(227, 22);
-		toolStripMenuItemAEIDiagram3D.Text = "&a,e,i-Diagramm";
+		toolStripMenuItemAEIDiagram3D.Text = "&a,e,i Diagram";
 		toolStripMenuItemAEIDiagram3D.Click += AEIDiagram3D_Click;
 		toolStripMenuItemAEIDiagram3D.MouseEnter += Control_Enter;
 		toolStripMenuItemAEIDiagram3D.MouseLeave += Control_Leave;

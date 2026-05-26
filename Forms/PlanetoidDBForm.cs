@@ -947,9 +947,9 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>Passes the full planetoids database so the form can generate a 3D point cloud of semi-major axis, eccentricity, and inclination.</remarks>
 	private void ShowAEIDiagram3D()
 	{
-		using AEIDiagram3DForm formAeiDiagram = new(planetoids: planetoidsDatabase);
-		formAeiDiagram.TopMost = TopMost;
-		_ = formAeiDiagram.ShowDialog(owner: this);
+		using AEIDiagram3DForm formAEIDiagram = new(planetoids: planetoidsDatabase);
+		formAEIDiagram.TopMost = TopMost;
+		_ = formAEIDiagram.ShowDialog(owner: this);
 	}
 
 	/// <summary>Shows the orbit visualization form for the current planetoid.</summary>
