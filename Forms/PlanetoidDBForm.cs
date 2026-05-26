@@ -943,6 +943,15 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formScatterplot.ShowDialog(owner: this);
 	}
 
+	/// <summary>Shows the a,e,i 3D diagram form for all known planetoids.</summary>
+	/// <remarks>Passes the full planetoids database so the form can generate a 3D point cloud of semi-major axis, eccentricity, and inclination.</remarks>
+	private void ShowAEIDiagram3D()
+	{
+		using AEIDiagram3DForm formAeiDiagram = new(planetoids: planetoidsDatabase);
+		formAeiDiagram.TopMost = TopMost;
+		_ = formAeiDiagram.ShowDialog(owner: this);
+	}
+
 	/// <summary>Shows the orbit visualization form for the current planetoid.</summary>
 	/// <remarks>Parses the semi-major axis, eccentricity, and argument of perihelion from the UI labels and opens the <see cref="Orbit2DTopViewForm"/>.</remarks>
 	private void ShowOrbit2DTopView()
@@ -2781,6 +2790,12 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	///	<remarks>This method is used to show the scatter plot form for the selected parameter.</remarks>
 	private void ScatterPlots_Click(object sender, EventArgs e) => ShowScatterPlot();
+
+	/// <summary>Handles the click event for the a,e,i diagram menu item and opens the 3D diagram form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	///	<remarks>This method opens the OpenTK-based a,e,i 3D diagram view.</remarks>
+	private void AEIDiagram3D_Click(object sender, EventArgs e) => ShowAEIDiagram3D();
 
 	/// <summary>Handles the click event for the ToolStripMenuItemListReadableDesignations. Lists readable designations.</summary>
 	/// <param name="sender">The event source.</param>
