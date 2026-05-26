@@ -173,6 +173,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOrbit2DTopView = new ToolStripMenuItem();
 		toolStripMenuItemOrbit2DSideView = new ToolStripMenuItem();
 		toolStripMenuItemOrbit3DView = new ToolStripMenuItem();
+		toolStripMenuItemAeiDiagram = new ToolStripMenuItem();
 		toolStripMenuItemDerivedOrbitElements = new ToolStripMenuItem();
 		toolStripMenuItemOrbitElementsGrouping = new ToolStripMenuItem();
 		toolStripMenuItemAsteroidFamiliesDetection = new ToolStripMenuItem();
@@ -2608,9 +2609,9 @@ partial class PlanetoidDbForm
 		contextMenuOrbit.AccessibleRole = AccessibleRole.MenuPopup;
 		contextMenuOrbit.AllowClickThrough = true;
 		contextMenuOrbit.Font = new Font("Segoe UI", 9F);
-		contextMenuOrbit.Items.AddRange(new ToolStripItem[] { toolStripMenuItemOrbit2DTopView, toolStripMenuItemOrbit2DSideView, toolStripMenuItemOrbit3DView });
+		contextMenuOrbit.Items.AddRange(new ToolStripItem[] { toolStripMenuItemOrbit2DTopView, toolStripMenuItemOrbit2DSideView, toolStripMenuItemOrbit3DView, toolStripMenuItemAeiDiagram });
 		contextMenuOrbit.Name = "contextMenuOrbit";
-		contextMenuOrbit.Size = new Size(140, 70);
+		contextMenuOrbit.Size = new Size(187, 92);
 		contextMenuOrbit.TabStop = true;
 		contextMenuOrbit.Text = "Orbit";
 		contextMenuOrbit.MouseEnter += Control_Enter;
@@ -2654,6 +2655,19 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOrbit3DView.Click += Orbit3DView_Click;
 		toolStripMenuItemOrbit3DView.MouseEnter += Control_Enter;
 		toolStripMenuItemOrbit3DView.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemAeiDiagram
+		// 
+		toolStripMenuItemAeiDiagram.AccessibleDescription = "Shows the 3D a,e,i diagram of all known planetoids";
+		toolStripMenuItemAeiDiagram.AccessibleName = "a,e,i diagram";
+		toolStripMenuItemAeiDiagram.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemAeiDiagram.AutoToolTip = true;
+		toolStripMenuItemAeiDiagram.Name = "toolStripMenuItemAeiDiagram";
+		toolStripMenuItemAeiDiagram.Size = new Size(186, 22);
+		toolStripMenuItemAeiDiagram.Text = "a,e,i diagram (3D)";
+		toolStripMenuItemAeiDiagram.Click += AeiDiagram_Click;
+		toolStripMenuItemAeiDiagram.MouseEnter += Control_Enter;
+		toolStripMenuItemAeiDiagram.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemDerivedOrbitElements
 		// 
@@ -4700,6 +4714,7 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem toolStripMenuItemOrbit2DTopView;
 	private ToolStripMenuItem toolStripMenuItemOrbit2DSideView;
 	private ToolStripMenuItem toolStripMenuItemOrbit3DView;
+	private ToolStripMenuItem toolStripMenuItemAeiDiagram;
 	private ToolStripMenuItem toolStripMenuItemScatterPlots;
 	private ToolStripMenuItem toolStripMenuItemOrbit;
 }

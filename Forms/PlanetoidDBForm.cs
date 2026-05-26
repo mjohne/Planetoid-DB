@@ -1038,6 +1038,15 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		_ = formOrbit3D.ShowDialog();
 	}
 
+	/// <summary>Shows the 3D a,e,i diagram for all known planetoids.</summary>
+	/// <remarks>Passes the full planetoids database to the <see cref="AeiDiagramForm"/> so all available records can be processed and plotted.</remarks>
+	private void ShowAeiDiagram()
+	{
+		using AeiDiagramForm formAeiDiagram = new(planetoids: planetoidsDatabase);
+		formAeiDiagram.TopMost = TopMost;
+		_ = formAeiDiagram.ShowDialog(owner: this);
+	}
+
 	/// <summary>Shows the Tisserand parameters form for the current planetoid.</summary>
 	/// <remarks>Parses the semi-major axis, eccentricity, and inclination from the UI labels and opens the <see cref="TisserandParameterOfOneMinorPlanetForm"/>.</remarks>
 	private void ShowTisserandParameters()
@@ -3037,6 +3046,14 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
 	/// <remarks>This method displays the 3D view of the orbit when the corresponding control is clicked.</remarks>
 	private void Orbit3DView_Click(object sender, EventArgs e) => ShowOrbit3DView();
+
+	/// <summary>
+	/// Handles the Click event to display the 3D a,e,i diagram.
+	/// </summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
+	/// <remarks>This method displays the a,e,i diagram when the corresponding control is clicked.</remarks>
+	private void AeiDiagram_Click(object sender, EventArgs e) => ShowAeiDiagram();
 
 	#endregion
 
