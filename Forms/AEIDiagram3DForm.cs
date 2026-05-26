@@ -16,7 +16,7 @@ namespace Planetoid_DB.Forms;
 
 /// <summary>Displays a 3D a,e,i diagram for all known planetoids.</summary>
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public class AEIDiagram3DForm : BaseKryptonForm
+public partial class AEIDiagram3DForm : BaseKryptonForm
 {
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -42,23 +42,6 @@ public class AEIDiagram3DForm : BaseKryptonForm
 	private bool _rightDown;
 	private int _excludedPoints;
 
-	private readonly ToolStripContainer _container = new();
-	private readonly KryptonStatusStrip _statusStrip = new();
-	private readonly ToolStripStatusLabel _labelInformation = new();
-	private readonly KryptonToolStrip _toolStripMain = new();
-	private readonly KryptonToolStrip _toolStripScaling = new();
-	private readonly KryptonToolStrip _toolStripProgress = new();
-	private readonly ToolStripButton _buttonStartPause = new();
-	private readonly ToolStripButton _buttonCancel = new();
-	private readonly ToolStripButton _buttonLive = new();
-	private readonly ToolStripButton _buttonLog = new();
-	private readonly KryptonProgressBarToolStripItem _progressBar = new();
-	private readonly ToolStripNumericUpDown _scaleX = new();
-	private readonly ToolStripNumericUpDown _scaleY = new();
-	private readonly ToolStripNumericUpDown _scaleZ = new();
-	private readonly KryptonPanel _panelMain = new();
-	private readonly Panel _panelGl = new();
-
 	private readonly record struct AeiPoint(double A, double E, double I);
 	private readonly record struct RenderPoint(float X, float Y, float Z);
 	private readonly Font _overlayFont = new("Segoe UI", 9f, FontStyle.Bold);
@@ -76,164 +59,6 @@ public class AEIDiagram3DForm : BaseKryptonForm
 	}
 
 	private string GetDebuggerDisplay() => ToString();
-
-	/// <inheritdoc/>
-	protected override void Dispose(bool disposing)
-	{
-		if (disposing)
-		{
-			_cts?.Dispose();
-			_pauseGate.Dispose();
-			_glControl.Dispose();
-			_overlayFont.Dispose();
-		}
-		base.Dispose(disposing);
-	}
-
-	private void InitializeComponent()
-	{
-		SuspendLayout();
-		ClientSize = new Size(980, 680);
-		ControlBox = false;
-		FormBorderStyle = FormBorderStyle.SizableToolWindow;
-		MaximizeBox = false;
-		MinimizeBox = false;
-		StartPosition = FormStartPosition.CenterScreen;
-		Text = "a,e,i Diagram (3D)";
-		Load += AEIDiagram3DForm_Load;
-		FormClosing += AEIDiagram3DForm_FormClosing;
-
-		_container.Dock = DockStyle.Fill;
-		_container.ContentPanel.Controls.Add(_panelMain);
-		_container.TopToolStripPanel.Controls.Add(_toolStripMain);
-		_container.TopToolStripPanel.Controls.Add(_toolStripScaling);
-		_container.TopToolStripPanel.Controls.Add(_toolStripProgress);
-		_container.BottomToolStripPanel.Controls.Add(_statusStrip);
-
-		_panelMain.Dock = DockStyle.Fill;
-		_panelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		_panelMain.Controls.Add(_panelGl);
-		_panelGl.Dock = DockStyle.Fill;
-		_panelGl.BackColor = Color.Black;
-
-		_statusStrip.Dock = DockStyle.None;
-		_statusStrip.Items.AddRange([_labelInformation]);
-		_labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
-		_labelInformation.AccessibleName = "Orbital diagram status information";
-		_labelInformation.AccessibleDescription = "Shows point count, exclusions, and axis details.";
-		_labelInformation.AccessibleRole = AccessibleRole.StaticText;
-		_labelInformation.MouseEnter += Control_Enter;
-		_labelInformation.MouseLeave += Control_Leave;
-
-		_buttonStartPause.Text = "&Start";
-		_buttonStartPause.Image = FatcowIcons16px.fatcow_control_play_blue_16px;
-		_buttonStartPause.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
-		_buttonStartPause.AccessibleName = "Start or pause generation";
-		_buttonStartPause.AccessibleDescription = "Starts, pauses, or resumes point generation.";
-		_buttonStartPause.AccessibleRole = AccessibleRole.PushButton;
-		_buttonStartPause.MouseEnter += Control_Enter;
-		_buttonStartPause.MouseLeave += Control_Leave;
-		_buttonStartPause.Click += ToolStripButtonStartPause_Click;
-		_buttonCancel.Text = "&Cancel";
-		_buttonCancel.Image = FatcowIcons16px.fatcow_cancel_16px;
-		_buttonCancel.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
-		_buttonCancel.AccessibleName = "Cancel generation";
-		_buttonCancel.AccessibleDescription = "Cancels ongoing point generation.";
-		_buttonCancel.AccessibleRole = AccessibleRole.PushButton;
-		_buttonCancel.MouseEnter += Control_Enter;
-		_buttonCancel.MouseLeave += Control_Leave;
-		_buttonCancel.Click += ToolStripButtonCancel_Click;
-		_buttonLive.CheckOnClick = true;
-		_buttonLive.Checked = true;
-		_buttonLive.Text = "On";
-		_buttonLive.Image = FatcowIcons16px.fatcow_tick_circle_frame_16px;
-		_buttonLive.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
-		_buttonLive.AccessibleName = "Live updates";
-		_buttonLive.AccessibleDescription = "Toggles live rendering updates during generation.";
-		_buttonLive.AccessibleRole = AccessibleRole.CheckButton;
-		_buttonLive.MouseEnter += Control_Enter;
-		_buttonLive.MouseLeave += Control_Leave;
-		_buttonLive.CheckedChanged += ToolStripButtonLive_CheckedChanged;
-		_buttonLog.CheckOnClick = true;
-		_buttonLog.Text = "&Log scale";
-		_buttonLog.Image = FatcowIcons16px.fatcow_chart_curve_16px;
-		_buttonLog.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
-		_buttonLog.AccessibleName = "Log scale";
-		_buttonLog.AccessibleDescription = "Toggles logarithmic axis scaling.";
-		_buttonLog.AccessibleRole = AccessibleRole.CheckButton;
-		_buttonLog.MouseEnter += Control_Enter;
-		_buttonLog.MouseLeave += Control_Leave;
-		_buttonLog.CheckedChanged += ToolStripButtonLog_CheckedChanged;
-
-		_toolStripMain.Dock = DockStyle.None;
-		_toolStripMain.Location = new Point(0, 0);
-		_toolStripMain.Stretch = true;
-		_toolStripMain.AccessibleName = "Main controls";
-		_toolStripMain.AccessibleDescription = "Controls for generation, cancellation, and display options.";
-		_toolStripMain.AccessibleRole = AccessibleRole.ToolBar;
-		_toolStripMain.Enter += Control_Enter;
-		_toolStripMain.Leave += Control_Leave;
-		_toolStripMain.MouseEnter += Control_Enter;
-		_toolStripMain.MouseLeave += Control_Leave;
-		_toolStripMain.Items.AddRange([_buttonStartPause, _buttonCancel, new ToolStripSeparator(), new ToolStripLabel("Live"), _buttonLive, new ToolStripSeparator(), _buttonLog]);
-
-		ConfigureScaleControl(_scaleX, 1.0m);
-		ConfigureScaleControl(_scaleY, 1.0m);
-		ConfigureScaleControl(_scaleZ, 1.0m);
-		_toolStripScaling.Dock = DockStyle.None;
-		_toolStripScaling.Location = new Point(0, 25);
-		_toolStripScaling.Stretch = true;
-		_toolStripScaling.AccessibleName = "Axis scaling controls";
-		_toolStripScaling.AccessibleDescription = "Sets scaling factors for a, e, and i axes.";
-		_toolStripScaling.AccessibleRole = AccessibleRole.ToolBar;
-		_toolStripScaling.Enter += Control_Enter;
-		_toolStripScaling.Leave += Control_Leave;
-		_toolStripScaling.MouseEnter += Control_Enter;
-		_toolStripScaling.MouseLeave += Control_Leave;
-		_toolStripScaling.Items.AddRange([new ToolStripLabel("Scale"), new ToolStripSeparator(), new ToolStripLabel("X(a)"), _scaleX, new ToolStripSeparator(), new ToolStripLabel("Y(e)"), _scaleY, new ToolStripSeparator(), new ToolStripLabel("Z(i)"), _scaleZ]);
-
-		_progressBar.AutoSize = false;
-		_progressBar.Size = new Size(760, 19);
-		_progressBar.Values.Text = "0%";
-		_progressBar.AccessibleName = "Generation progress";
-		_progressBar.AccessibleDescription = "Shows generation progress percentage.";
-		_progressBar.AccessibleRole = AccessibleRole.ProgressBar;
-		_progressBar.MouseEnter += Control_Enter;
-		_progressBar.MouseLeave += Control_Leave;
-		_toolStripProgress.Dock = DockStyle.None;
-		_toolStripProgress.Location = new Point(0, 50);
-		_toolStripProgress.Stretch = true;
-		_toolStripProgress.AccessibleName = "Progress display";
-		_toolStripProgress.AccessibleDescription = "Displays generation progress.";
-		_toolStripProgress.AccessibleRole = AccessibleRole.ToolBar;
-		_toolStripProgress.Enter += Control_Enter;
-		_toolStripProgress.Leave += Control_Leave;
-		_toolStripProgress.MouseEnter += Control_Enter;
-		_toolStripProgress.MouseLeave += Control_Leave;
-		_toolStripProgress.Items.AddRange([new ToolStripLabel("Progress"), _progressBar]);
-
-		Controls.Add(_container);
-		ResumeLayout(performLayout: false);
-	}
-
-	private void ConfigureScaleControl(ToolStripNumericUpDown control, decimal value)
-	{
-		control.Minimum = 0.1m;
-		control.Maximum = 25m;
-		control.Increment = 0.1m;
-		control.DecimalPlaces = 1;
-		control.Value = value;
-		control.AutoSize = false;
-		control.Size = new Size(70, 22);
-		control.AccessibleName = "Axis scale value";
-		control.AccessibleDescription = "Sets axis scaling multiplier.";
-		control.AccessibleRole = AccessibleRole.SpinButton;
-		control.Enter += Control_Enter;
-		control.Leave += Control_Leave;
-		control.MouseEnter += Control_Enter;
-		control.MouseLeave += Control_Leave;
-		control.ValueChanged += ToolStripNumericScale_ValueChanged;
-	}
 
 	private void CreateGlControl()
 	{
