@@ -6,7 +6,7 @@
 * Updated `CHANGELOG` for version 0.9.6.69 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/748
 * Implement FilterForm filter settings for orbital elements by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/749
 * Rearranged the items in menu entry "Tools" by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/750
-* [WIP] Create a small asteroid game using OpenTK by @Claude in https://github.com/mjohne/Planetoid-DB/pull/753
+* Added experimental small asteroid game using OpenTK by @Claude in https://github.com/mjohne/Planetoid-DB/pull/753
 * Add documentation comments by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/754
 * Fix character rendering in AsteroidGameForm: correct orientation and add missing glyphs by @Claude in https://github.com/mjohne/Planetoid-DB/pull/755
 * Updated several packages by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/757
