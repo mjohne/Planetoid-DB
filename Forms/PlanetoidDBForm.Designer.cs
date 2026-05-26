@@ -2537,7 +2537,6 @@ partial class PlanetoidDbForm
 		toolStripMenuItemAEIDiagram3D.AccessibleName = "a,e,i Diagram";
 		toolStripMenuItemAEIDiagram3D.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemAEIDiagram3D.AutoToolTip = true;
-		toolStripMenuItemAEIDiagram3D.Enabled = false;
 		toolStripMenuItemAEIDiagram3D.Image = FatcowIcons16px.fatcow_diagramm_16px;
 		toolStripMenuItemAEIDiagram3D.Name = "toolStripMenuItemAEIDiagram3D";
 		toolStripMenuItemAEIDiagram3D.Size = new Size(227, 22);

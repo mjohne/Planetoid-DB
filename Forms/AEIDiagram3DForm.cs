@@ -72,6 +72,18 @@ public class AEIDiagram3DForm : BaseKryptonForm
 
 	private string GetDebuggerDisplay() => ToString();
 
+	/// <inheritdoc/>
+	protected override void Dispose(bool disposing)
+	{
+		if (disposing)
+		{
+			_cts?.Dispose();
+			_pauseGate.Dispose();
+			_glControl.Dispose();
+		}
+		base.Dispose(disposing);
+	}
+
 	private void InitializeComponent()
 	{
 		SuspendLayout();
@@ -199,6 +211,7 @@ public class AEIDiagram3DForm : BaseKryptonForm
 		int total = _planetoids.Count;
 		int pInterval = Math.Max(1, total / 100);
 		int lInterval = Math.Max(1, total / 25);
+		int lastLiveCount = 0;
 		for (int i = 0; i < total; i++)
 		{
 			token.ThrowIfCancellationRequested();
@@ -214,7 +227,9 @@ public class AEIDiagram3DForm : BaseKryptonForm
 			}
 			if (live && (processed % lInterval == 0 || processed == total))
 			{
-				liveResults.Report([.. points]);
+				List<AeiPoint> batch = points.GetRange(lastLiveCount, points.Count - lastLiveCount);
+				lastLiveCount = points.Count;
+				liveResults.Report(batch);
 			}
 		}
 		return points;
@@ -278,11 +293,17 @@ public class AEIDiagram3DForm : BaseKryptonForm
 			}
 			transformed.Add((a, e, inc));
 		}
-		double maxA = transformed.Count == 0 ? 1 : Math.Max(1E-9, transformed.Max(static v => v.A));
-		double maxE = transformed.Count == 0 ? 1 : Math.Max(1E-9, transformed.Max(static v => v.E));
-		double maxI = transformed.Count == 0 ? 1 : Math.Max(1E-9, transformed.Max(static v => v.I));
+		double minA = transformed.Count == 0 ? 0 : transformed.Min(static v => v.A);
+		double minE = transformed.Count == 0 ? 0 : transformed.Min(static v => v.E);
+		double minI = transformed.Count == 0 ? 0 : transformed.Min(static v => v.I);
+		double maxA = transformed.Count == 0 ? 1 : transformed.Max(static v => v.A);
+		double maxE = transformed.Count == 0 ? 1 : transformed.Max(static v => v.E);
+		double maxI = transformed.Count == 0 ? 1 : transformed.Max(static v => v.I);
+		double rangeA = Math.Max(1E-9, maxA - minA);
+		double rangeE = Math.Max(1E-9, maxE - minE);
+		double rangeI = Math.Max(1E-9, maxI - minI);
 		const float axisBase = 10f;
-		_renderPoints = transformed.Select(v => new RenderPoint((float)(v.A / maxA) * axisBase * sx, (float)(v.E / maxE) * axisBase * sy, (float)(v.I / maxI) * axisBase * sz)).ToList();
+		_renderPoints = transformed.Select(v => new RenderPoint((float)((v.A - minA) / rangeA) * axisBase * sx, (float)((v.E - minE) / rangeE) * axisBase * sy, (float)((v.I - minI) / rangeI) * axisBase * sz)).ToList();
 		UpdateStatusLabel();
 		if (_glReady)
 		{
@@ -402,7 +423,7 @@ public class AEIDiagram3DForm : BaseKryptonForm
 			try
 			{
 				Progress<int> progress = new(UpdateProgress);
-				Progress<List<AeiPoint>> live = new(points => { _rawPoints = points; RebuildRenderPointsAndInvalidate(); });
+				Progress<List<AeiPoint>> live = new(batch => { _rawPoints.AddRange(batch); RebuildRenderPointsAndInvalidate(); });
 				List<AeiPoint> final = await Task.Run(() => BuildPointData(_buttonLive.Checked, progress, live, _cts.Token), _cts.Token);
 				_rawPoints = final;
 				RebuildRenderPointsAndInvalidate();
