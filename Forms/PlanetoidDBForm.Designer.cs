@@ -165,6 +165,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemTableMode = new ToolStripMenuItem();
 		toolStripMenuItemScatterPlots = new ToolStripMenuItem();
 		toolStripMenuItemAverageAsteroid = new ToolStripMenuItem();
+		toolStripMenuItemAEIDiagram3D = new ToolStripMenuItem();
 		toolStripMenuItemGroupOrbitalAnalysis = new ToolStripMenuItem();
 		toolStripMenuItemFilter = new ToolStripMenuItem();
 		toolStripMenuItemFilterEdit = new ToolStripMenuItem();
@@ -2480,7 +2481,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemGroupDataAndStatistics.AccessibleName = "Data & Statistics";
 		toolStripMenuItemGroupDataAndStatistics.AccessibleRole = AccessibleRole.MenuPopup;
 		toolStripMenuItemGroupDataAndStatistics.AutoToolTip = true;
-		toolStripMenuItemGroupDataAndStatistics.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemDatabaseInformation, toolStripMenuItemTableMode, toolStripMenuItemRecords, toolStripMenuItemDistribution, toolStripMenuItemScatterPlots, toolStripMenuItemAverageAsteroid });
+		toolStripMenuItemGroupDataAndStatistics.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemDatabaseInformation, toolStripMenuItemTableMode, toolStripMenuItemRecords, toolStripMenuItemDistribution, toolStripMenuItemScatterPlots, toolStripMenuItemAverageAsteroid, toolStripMenuItemAEIDiagram3D });
 		toolStripMenuItemGroupDataAndStatistics.Name = "toolStripMenuItemGroupDataAndStatistics";
 		toolStripMenuItemGroupDataAndStatistics.Size = new Size(183, 22);
 		toolStripMenuItemGroupDataAndStatistics.Text = "Data && &Statistics";
@@ -2545,6 +2546,19 @@ partial class PlanetoidDbForm
 		toolStripMenuItemAverageAsteroid.Click += AverageAsteroid_Click;
 		toolStripMenuItemAverageAsteroid.MouseEnter += Control_Enter;
 		toolStripMenuItemAverageAsteroid.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemAEIDiagram3D
+		// 
+		toolStripMenuItemAEIDiagram3D.AccessibleDescription = "Shows the 3D a/e/i diagram for all planetoids";
+		toolStripMenuItemAEIDiagram3D.AccessibleName = "a/e/i 3D diagram";
+		toolStripMenuItemAEIDiagram3D.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemAEIDiagram3D.AutoToolTip = true;
+		toolStripMenuItemAEIDiagram3D.Name = "toolStripMenuItemAEIDiagram3D";
+		toolStripMenuItemAEIDiagram3D.Size = new Size(227, 22);
+		toolStripMenuItemAEIDiagram3D.Text = "a/&e/i 3D diagram";
+		toolStripMenuItemAEIDiagram3D.Click += AEIDiagram3D_Click;
+		toolStripMenuItemAEIDiagram3D.MouseEnter += Control_Enter;
+		toolStripMenuItemAEIDiagram3D.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemGroupOrbitalAnalysis
 		// 
@@ -4719,5 +4733,6 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem toolStripMenuItemOrbit3DView;
 	private ToolStripMenuItem toolStripMenuItemScatterPlots;
 	private ToolStripMenuItem toolStripMenuItemAverageAsteroid;
+	private ToolStripMenuItem toolStripMenuItemAEIDiagram3D;
 	private ToolStripMenuItem toolStripMenuItemOrbit;
 }

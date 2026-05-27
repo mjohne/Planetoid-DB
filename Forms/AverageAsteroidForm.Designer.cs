@@ -50,7 +50,7 @@ partial class AverageAsteroidForm
 		columnHeaderQuadraticMean = new ColumnHeader();
 		columnHeaderCubicMean = new ColumnHeader();
 		columnHeaderLogarithmicMean = new ColumnHeader();
-		columnHeaderWindsorMean = new ColumnHeader();
+		columnHeaderWinsorMean = new ColumnHeader();
 		columnHeaderQuartileMean = new ColumnHeader();
 		columnHeaderShortestHalfMean = new ColumnHeader();
 		columnHeaderGastwirthCohenMean = new ColumnHeader();
@@ -148,7 +148,7 @@ partial class AverageAsteroidForm
 		listView.AccessibleName = "Average values list";
 		listView.AccessibleRole = AccessibleRole.List;
 		listView.AllowColumnReorder = true;
-		listView.Columns.AddRange(new ColumnHeader[] { columnHeaderProperty, columnHeaderArithmeticMean, columnHeaderMedian, columnHeaderMode, columnHeaderGeometricMean, columnHeaderHarmonicMean, columnHeaderQuadraticMean, columnHeaderCubicMean, columnHeaderLogarithmicMean, columnHeaderWindsorMean, columnHeaderQuartileMean, columnHeaderShortestHalfMean, columnHeaderGastwirthCohenMean, columnHeaderRangeMean, columnHeaderAMean, columnHeaderMovingAverage, columnHeaderHolderMean, columnHeaderLehmerMean });
+		listView.Columns.AddRange(new ColumnHeader[] { columnHeaderProperty, columnHeaderArithmeticMean, columnHeaderMedian, columnHeaderMode, columnHeaderGeometricMean, columnHeaderHarmonicMean, columnHeaderQuadraticMean, columnHeaderCubicMean, columnHeaderLogarithmicMean, columnHeaderWinsorMean, columnHeaderQuartileMean, columnHeaderShortestHalfMean, columnHeaderGastwirthCohenMean, columnHeaderRangeMean, columnHeaderAMean, columnHeaderMovingAverage, columnHeaderHolderMean, columnHeaderLehmerMean });
 		listView.ContextMenuStrip = contextMenuSaveToFile;
 		listView.Dock = DockStyle.Fill;
 		listView.Font = new Font("Segoe UI", 9F);
@@ -212,10 +212,10 @@ partial class AverageAsteroidForm
 		columnHeaderLogarithmicMean.Text = "Logarithmic Mean";
 		columnHeaderLogarithmicMean.Width = 120;
 		// 
-		// columnHeaderWindsorMean
+		// columnHeaderWinsorMean
 		// 
-		columnHeaderWindsorMean.Text = "Windsor Mean";
-		columnHeaderWindsorMean.Width = 120;
+		columnHeaderWinsorMean.Text = "Winsor Mean";
+		columnHeaderWinsorMean.Width = 120;
 		// 
 		// columnHeaderQuartileMean
 		// 
@@ -259,8 +259,8 @@ partial class AverageAsteroidForm
 		// 
 		// contextMenuSaveToFile
 		// 
-		contextMenuSaveToFile.AccessibleDescription = "Save the MAXOID data as file";
-		contextMenuSaveToFile.AccessibleName = "Save MAXOID data";
+		contextMenuSaveToFile.AccessibleDescription = "Save the average asteroid data as file";
+		contextMenuSaveToFile.AccessibleName = "Save average asteroid data";
 		contextMenuSaveToFile.AccessibleRole = AccessibleRole.MenuPopup;
 		contextMenuSaveToFile.AllowClickThrough = true;
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
@@ -268,7 +268,7 @@ partial class AverageAsteroidForm
 		contextMenuSaveToFile.Name = "contextMenuSaveToFile";
 		contextMenuSaveToFile.Size = new Size(202, 158);
 		contextMenuSaveToFile.TabStop = true;
-		contextMenuSaveToFile.Text = "&Save MAXOID data";
+		contextMenuSaveToFile.Text = "&Save average asteroid data";
 		contextMenuSaveToFile.Enter += Control_Enter;
 		contextMenuSaveToFile.Leave += Control_Leave;
 		contextMenuSaveToFile.MouseEnter += Control_Enter;
@@ -1065,6 +1065,7 @@ partial class AverageAsteroidForm
 		Name = "AverageAsteroidForm";
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "Average asteroid";
+		FormClosing += AverageAsteroidForm_FormClosing;
 		Load += AverageAsteroidForm_Load;
 		((ISupportInitialize)kryptonPanelMain).EndInit();
 		kryptonPanelMain.ResumeLayout(false);
@@ -1096,7 +1097,7 @@ partial class AverageAsteroidForm
 	private ColumnHeader columnHeaderQuadraticMean;
 	private ColumnHeader columnHeaderCubicMean;
 	private ColumnHeader columnHeaderLogarithmicMean;
-	private ColumnHeader columnHeaderWindsorMean;
+	private ColumnHeader columnHeaderWinsorMean;
 	private ColumnHeader columnHeaderQuartileMean;
 	private ColumnHeader columnHeaderShortestHalfMean;
 	private ColumnHeader columnHeaderGastwirthCohenMean;

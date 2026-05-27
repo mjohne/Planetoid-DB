@@ -9,7 +9,6 @@ using NLog;
 
 using Planetoid_DB.Helpers;
 
-using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Globalization;
 
@@ -104,28 +103,44 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 			// Phase 1 (0–90 %): Parse all entries in parallel on a background thread
 			await Task.Run(action: () =>
 			{
-				// Use thread-safe collections to accumulate values from parallel processing
-				ConcurrentBag<double> localM = [];
-				ConcurrentBag<double> localOmega = [];
-				ConcurrentBag<double> localOmegaBig = [];
-				ConcurrentBag<double> localI = [];
-				ConcurrentBag<double> localE = [];
-				ConcurrentBag<double> localN = [];
-				ConcurrentBag<double> localA = [];
-				ConcurrentBag<double> localH = [];
-				ConcurrentBag<double> localG = [];
-				ConcurrentBag<double> localNOpp = [];
-				ConcurrentBag<double> localNObs = [];
-				ConcurrentBag<double> localRms = [];
+				// Use pre-allocated arrays indexed by source position to preserve MPCORB record order;
+				// each parallel iteration writes only to its own slot, so no locking is needed
+				double[] localM = new double[total];
+				double[] localOmega = new double[total];
+				double[] localOmegaBig = new double[total];
+				double[] localI = new double[total];
+				double[] localE = new double[total];
+				double[] localN = new double[total];
+				double[] localA = new double[total];
+				double[] localH = new double[total];
+				double[] localG = new double[total];
+				double[] localNOpp = new double[total];
+				double[] localNObs = new double[total];
+				double[] localRms = new double[total];
+				// Use NaN as a sentinel to distinguish parsed values from unparsed slots
+				Array.Fill(array: localM, value: double.NaN);
+				Array.Fill(array: localOmega, value: double.NaN);
+				Array.Fill(array: localOmegaBig, value: double.NaN);
+				Array.Fill(array: localI, value: double.NaN);
+				Array.Fill(array: localE, value: double.NaN);
+				Array.Fill(array: localN, value: double.NaN);
+				Array.Fill(array: localA, value: double.NaN);
+				Array.Fill(array: localH, value: double.NaN);
+				Array.Fill(array: localG, value: double.NaN);
+				Array.Fill(array: localNOpp, value: double.NaN);
+				Array.Fill(array: localNObs, value: double.NaN);
+				Array.Fill(array: localRms, value: double.NaN);
 				// Track the number of processed entries and the last reported progress percentage to update the progress bar efficiently
 				int processed = 0;
 				int lastReported = -1;
-				// Process each planetoid entry in parallel, extracting the relevant values and adding them to the local collections
-				Parallel.ForEach(
-					source: planetoidsDatabase,
+				// Process each planetoid entry in parallel by index, extracting the relevant values and storing them at the corresponding slot
+				Parallel.For(
+					fromInclusive: 0,
+					toExclusive: total,
 					parallelOptions: new ParallelOptions { CancellationToken = ct },
-					body: entry =>
+					body: i =>
 					{
+						string entry = planetoidsDatabase[i];
 						// Validate the entry format before attempting to parse values; skip entries that are too short or empty
 						if (string.IsNullOrWhiteSpace(value: entry) || entry.Length < 160)
 						{
@@ -136,51 +151,51 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 						{
 							if (double.TryParse(s: entry.Substring(startIndex: 26, length: 9).Trim(), style: NumberStyles.Any, provider: provider, result: out double valM))
 							{
-								localM.Add(item: valM); // Mean anomaly at the epoch
+								localM[i] = valM; // Mean anomaly at the epoch
 							}
 							if (double.TryParse(s: entry.Substring(startIndex: 37, length: 9).Trim(), style: NumberStyles.Any, provider: provider, result: out double valOmega))
 							{
-								localOmega.Add(item: valOmega); // Argument of perihelion
+								localOmega[i] = valOmega; // Argument of perihelion
 							}
 							if (double.TryParse(s: entry.Substring(startIndex: 48, length: 9).Trim(), style: NumberStyles.Any, provider: provider, result: out double valOmegaBig))
 							{
-								localOmegaBig.Add(item: valOmegaBig); // Longitude of ascending node
+								localOmegaBig[i] = valOmegaBig; // Longitude of ascending node
 							}
 							if (double.TryParse(s: entry.Substring(startIndex: 59, length: 9).Trim(), style: NumberStyles.Any, provider: provider, result: out double valI))
 							{
-								localI.Add(item: valI); // Inclination
+								localI[i] = valI; // Inclination
 							}
 							if (double.TryParse(s: entry.Substring(startIndex: 70, length: 9).Trim(), style: NumberStyles.Any, provider: provider, result: out double valE))
 							{
-								localE.Add(item: valE); // Eccentricity
+								localE[i] = valE; // Eccentricity
 							}
 							if (double.TryParse(s: entry.Substring(startIndex: 80, length: 11).Trim(), style: NumberStyles.Any, provider: provider, result: out double valN))
 							{
-								localN.Add(item: valN); // Mean daily motion
+								localN[i] = valN; // Mean daily motion
 							}
 							if (double.TryParse(s: entry.Substring(startIndex: 92, length: 11).Trim(), style: NumberStyles.Any, provider: provider, result: out double valA))
 							{
-								localA.Add(item: valA); // Semi-major axis
+								localA[i] = valA; // Semi-major axis
 							}
 							if (double.TryParse(s: entry.Substring(startIndex: 8, length: 5).Trim(), style: NumberStyles.Any, provider: provider, result: out double valH))
 							{
-								localH.Add(item: valH); // Absolute magnitude
+								localH[i] = valH; // Absolute magnitude
 							}
 							if (double.TryParse(s: entry.Substring(startIndex: 14, length: 5).Trim(), style: NumberStyles.Any, provider: provider, result: out double valG))
 							{
-								localG.Add(item: valG); // Slope parameter
+								localG[i] = valG; // Slope parameter
 							}
 							if (double.TryParse(s: entry.Substring(startIndex: 117, length: 6).Trim(), style: NumberStyles.Any, provider: provider, result: out double valNObs))
 							{
-								localNObs.Add(item: valNObs); // Number of observations
+								localNObs[i] = valNObs; // Number of observations
 							}
 							if (double.TryParse(s: entry.Substring(startIndex: 123, length: 4).Trim(), style: NumberStyles.Any, provider: provider, result: out double valNOpp))
 							{
-								localNOpp.Add(item: valNOpp); // Number of oppositions
+								localNOpp[i] = valNOpp; // Number of oppositions
 							}
 							if (double.TryParse(s: entry.Substring(startIndex: 137, length: 5).Trim(), style: NumberStyles.Any, provider: provider, result: out double valRms))
 							{
-								localRms.Add(item: valRms); // Root mean square error
+								localRms[i] = valRms; // Root mean square error
 							}
 						}
 						// Log any exceptions that occur during parsing of the entry, but do not rethrow to allow processing of remaining entries
@@ -198,19 +213,19 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 							progress.Report(value: percent);
 						}
 					});
-				// After processing all entries, add the collected values from the local concurrent bags to the main lists for each property
-				meanAnomalies.AddRange(collection: localM);
-				argumentsOfPerihelion.AddRange(collection: localOmega);
-				longitudesOfAscendingNode.AddRange(collection: localOmegaBig);
-				inclinations.AddRange(collection: localI);
-				eccentricities.AddRange(collection: localE);
-				meanDailyMotions.AddRange(collection: localN);
-				semiMajorAxes.AddRange(collection: localA);
-				absoluteMagnitudes.AddRange(collection: localH);
-				slopeParameters.AddRange(collection: localG);
-				numberOfOppositions.AddRange(collection: localNOpp);
-				numberOfObservations.AddRange(collection: localNObs);
-				rmsResiduals.AddRange(collection: localRms);
+				// After processing all entries, collect valid values in source-index order for each property
+				meanAnomalies.AddRange(collection: localM.Where(predicate: static v => !double.IsNaN(v)));
+				argumentsOfPerihelion.AddRange(collection: localOmega.Where(predicate: static v => !double.IsNaN(v)));
+				longitudesOfAscendingNode.AddRange(collection: localOmegaBig.Where(predicate: static v => !double.IsNaN(v)));
+				inclinations.AddRange(collection: localI.Where(predicate: static v => !double.IsNaN(v)));
+				eccentricities.AddRange(collection: localE.Where(predicate: static v => !double.IsNaN(v)));
+				meanDailyMotions.AddRange(collection: localN.Where(predicate: static v => !double.IsNaN(v)));
+				semiMajorAxes.AddRange(collection: localA.Where(predicate: static v => !double.IsNaN(v)));
+				absoluteMagnitudes.AddRange(collection: localH.Where(predicate: static v => !double.IsNaN(v)));
+				slopeParameters.AddRange(collection: localG.Where(predicate: static v => !double.IsNaN(v)));
+				numberOfOppositions.AddRange(collection: localNOpp.Where(predicate: static v => !double.IsNaN(v)));
+				numberOfObservations.AddRange(collection: localNObs.Where(predicate: static v => !double.IsNaN(v)));
+				rmsResiduals.AddRange(collection: localRms.Where(predicate: static v => !double.IsNaN(v)));
 			}, cancellationToken: ct);
 			// Check for cancellation after the parsing phase before proceeding to the average calculations
 			ct.ThrowIfCancellationRequested();
@@ -401,6 +416,17 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>Initialises the UI state on load without starting the calculation.</remarks>
 	private void AverageAsteroidForm_Load(object? sender, EventArgs e) => SetCalculationRunning(running: false);
+
+	/// <summary>Handles the FormClosing event to cancel any running calculation and release resources.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="FormClosingEventArgs"/> instance that contains the event data.</param>
+	/// <remarks>Signals cancellation and disposes the token source so that background work does not continue against a disposed form.</remarks>
+	private void AverageAsteroidForm_FormClosing(object? sender, FormClosingEventArgs e)
+	{
+		_calculationCts?.Cancel();
+		_calculationCts?.Dispose();
+		_calculationCts = null;
+	}
 
 	/// <summary>Handles the Click event of the Start button to begin the asynchronous average calculation.</summary>
 	/// <param name="sender">The event source.</param>

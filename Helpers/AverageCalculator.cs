@@ -177,6 +177,8 @@ public static class AverageCalculator
 	/// <remarks>Replaces values below the lower percentile and above the upper percentile with the percentile values themselves.</remarks>
 	public static double WinsorMean(IEnumerable<double> values, double percentile = 0.1)
 	{
+		// Clamp percentile to [0, 0.5) to ensure valid index calculations
+		percentile = Math.Clamp(value: percentile, min: 0.0, max: 0.4999);
 		// Filter out NaN and Infinity values, sort the remaining values, and convert to an array for indexing
 		double[] sorted = [.. values.Where(predicate: static v => !double.IsNaN(d: v) && !double.IsInfinity(d: v)).OrderBy(keySelector: static x => x)];
 		// Return NaN if there are no valid values to calculate the Winsorized mean
@@ -184,10 +186,17 @@ public static class AverageCalculator
 		{
 			return double.NaN;
 		}
+		// Return the single value directly when there is only one element
+		if (sorted.Length == 1)
+		{
+			return sorted[0];
+		}
 		// Calculate the indices for the lower and upper bounds based on the specified percentile
 		int lowerIndex = (int)(sorted.Length * percentile);
-		int upperIndex = (int)(sorted.Length * (1 - percentile));
-		// Ensure the indices are within valid bounds
+		int upperIndex = Math.Max(val1: lowerIndex + 1, val2: (int)(sorted.Length * (1 - percentile)));
+		// Clamp indices to valid array bounds
+		lowerIndex = Math.Clamp(value: lowerIndex, min: 0, max: sorted.Length - 1);
+		upperIndex = Math.Clamp(value: upperIndex, min: 1, max: sorted.Length);
 		double lowerBound = sorted[lowerIndex];
 		double upperBound = sorted[upperIndex - 1];
 		// Create a new array where values below the lower bound are replaced with the lower bound, and values above the upper bound are replaced with the upper bound
@@ -209,9 +218,19 @@ public static class AverageCalculator
 		{
 			return double.NaN;
 		}
+		// For small inputs, return the mean of the entire array to avoid empty slices
+		if (sorted.Length < 4)
+		{
+			return sorted.Average();
+		}
 		// Calculate the indices for the first and third quartiles
 		int q1Index = sorted.Length / 4;
 		int q3Index = sorted.Length * 3 / 4;
+		// Ensure the slice contains at least one element
+		if (q3Index <= q1Index)
+		{
+			q3Index = q1Index + 1;
+		}
 		// Return the average of the values between the first and third quartiles
 		return sorted.Skip(count: q1Index).Take(count: q3Index - q1Index).Average();
 	}
@@ -314,6 +333,11 @@ public static class AverageCalculator
 	/// <remarks>Calculates the average of averages of all windows of the specified size.</remarks>
 	public static double MovingAverage(IEnumerable<double> values, int windowSize = 3)
 	{
+		// Clamp windowSize to at least 1 to avoid empty windows
+		if (windowSize < 1)
+		{
+			windowSize = 1;
+		}
 		// Filter out NaN and Infinity values and convert to an array for indexing
 		double[] valueArray = [.. values.Where(predicate: static v => !double.IsNaN(d: v) && !double.IsInfinity(d: v))];
 		// Return NaN if there are no valid values to calculate the moving average
