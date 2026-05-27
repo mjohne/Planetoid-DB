@@ -170,13 +170,13 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 							{
 								localG.Add(item: valG); // Slope parameter
 							}
-							if (double.TryParse(s: entry.Substring(startIndex: 117, length: 5).Trim(), style: NumberStyles.Any, provider: provider, result: out double valNOpp))
-							{
-								localNOpp.Add(item: valNOpp); // Number of oppositions
-							}
-							if (double.TryParse(s: entry.Substring(startIndex: 123, length: 5).Trim(), style: NumberStyles.Any, provider: provider, result: out double valNObs))
+							if (double.TryParse(s: entry.Substring(startIndex: 117, length: 6).Trim(), style: NumberStyles.Any, provider: provider, result: out double valNObs))
 							{
 								localNObs.Add(item: valNObs); // Number of observations
+							}
+							if (double.TryParse(s: entry.Substring(startIndex: 123, length: 4).Trim(), style: NumberStyles.Any, provider: provider, result: out double valNOpp))
+							{
+								localNOpp.Add(item: valNOpp); // Number of oppositions
 							}
 							if (double.TryParse(s: entry.Substring(startIndex: 137, length: 5).Trim(), style: NumberStyles.Any, provider: provider, result: out double valRms))
 							{
