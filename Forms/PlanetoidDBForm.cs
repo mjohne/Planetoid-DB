@@ -2782,6 +2782,47 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	///	<remarks>This method is used to show the scatter plot form for the selected parameter.</remarks>
 	private void ScatterPlots_Click(object sender, EventArgs e) => ShowScatterPlot();
 
+	/// <summary>Handles the click event by opening a modal dialog displaying a 3D diagram of planetoids.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">An EventArgs that contains the event data.</param>
+	/// <remarks>This method is used to show the 3D diagram form for the selected parameter.</remarks>
+	private void AEIDiagram3D_Click(object sender, EventArgs e)
+	{
+		using AEIDiagram3DForm formAEIDiagram = new(planetoids: planetoidsDatabase);
+		formAEIDiagram.TopMost = TopMost;
+		_ = formAEIDiagram.ShowDialog(owner: this);
+	}
+
+	/// <summary>Handles the click event for the Average Asteroid menu item. Shows the average asteroid form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the Average Asteroid form that displays various types of averages for all orbital elements and astrophysical properties.</remarks>
+	private void AverageAsteroid_Click(object sender, EventArgs e)
+	{
+		// Check if the database is loaded and contains data before attempting to show the form
+		try
+		{
+			// If the database is null or empty, show an error message and return
+			if (planetoidsDatabase == null || planetoidsDatabase.Count == 0)
+			{
+				// Log the error and show an error message to the user
+				ShowErrorMessage(message: "No planetoid database loaded. Please load a database first.");
+				return;
+			}
+			// Show the Average Asteroid form, passing the current planetoids database as a parameter
+			using AverageAsteroidForm formAverageAsteroid = new(planetoids: planetoidsDatabase);
+			formAverageAsteroid.TopMost = TopMost;
+			_ = formAverageAsteroid.ShowDialog(owner: this);
+		}
+		// Catch any exceptions that occur while trying to show the form, log the error, and show an error message to the user
+		catch (Exception ex)
+		{
+			// Log the error with the exception details and show an error message to the user
+			logger.Error(message: "Failed to open Average Asteroid form: {0}", args: ex);
+			ShowErrorMessage(message: $"Failed to open Average Asteroid form: {ex.Message}");
+		}
+	}
+
 	/// <summary>Handles the click event for the ToolStripMenuItemListReadableDesignations. Lists readable designations.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
