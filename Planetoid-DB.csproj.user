@@ -4,6 +4,9 @@
     <_LastSelectedProfileId>D:\Programming\Visual Studio 2026\Planetoid-DB\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Update="Forms\AEIDiagram3DForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\AppInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -35,6 +38,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\DerivedOrbitElementsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\AverageAsteroidForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\EphemerisForm.cs">
@@ -147,6 +153,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Update="Forms\AEIDiagram3DForm.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Update="Forms\AsteroidGameForm.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
