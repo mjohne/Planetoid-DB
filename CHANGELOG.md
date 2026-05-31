@@ -1,5 +1,18 @@
 # Changelog
 
+## Planetoid-DB 0.9.8.71
+
+* Updated image link in README.md by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/764
+* Updated `CHANGELOG` for version 0.9.7.70 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/765
+* Added `AEIDiagram3DForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/770
+* Added `AEIDiagram3DForm.resx` resource file by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/771
+* Added `AEIDiagram3DForm` designer code by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/772
+* Added `AverageCalculator` and `AverageAsteroidForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/773
+* Updated to version 0.9.8.71 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/774
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.7.70.760.2391...0.9.8.71.774.2415
+
+
 ## Planetoid-DB 0.9.7.70
 
 * Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/747
