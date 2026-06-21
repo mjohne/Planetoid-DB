@@ -108,7 +108,7 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 	private void DatabaseInformationForm_Load(object sender, EventArgs e)
 	{
 		// Path to the database file
-		FileInfo fileInfo = new(fileName: Settings.Default.systemFilenameMpcorb);
+		FileInfo fileInfo = new(fileName: Settings.Default.systemFilenameMpcorbDat);
 		// Check if the file exists
 		if (!File.Exists(path: fileInfo.FullName))
 		{

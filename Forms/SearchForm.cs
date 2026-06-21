@@ -270,7 +270,7 @@ public partial class SearchForm : BaseKryptonForm
 			return;
 		}
 		// Get the file path of the planetoid database from the application settings. If the file does not exist at the specified path, show an error message to the user and return without performing any search.
-		string filePath = Settings.Default.systemFilenameMpcorb;
+		string filePath = Settings.Default.systemFilenameMpcorbDat;
 		if (!File.Exists(path: filePath))
 		{
 			// Show an error message indicating that the database file could not be found at the specified path. This is a critical error that prevents the search operation from proceeding, as the search relies on reading data from the database file.

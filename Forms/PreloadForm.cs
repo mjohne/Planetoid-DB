@@ -123,7 +123,7 @@ public partial class PreloadForm : BaseKryptonForm
 			if (formDownloaderForMpcorbDat.ShowDialog() == DialogResult.OK)
 			{
 				// Set the file path to the downloaded MPCORB.DAT file
-				_ = MpcOrbDatFilePath = Settings.Default.systemFilenameMpcorb;
+				_ = MpcOrbDatFilePath = Settings.Default.systemFilenameMpcorbDat;
 				// Set the dialog result to OK
 				DialogResult = DialogResult.OK;
 			}

@@ -213,12 +213,25 @@ partial class PlanetoidDbForm
 		toolStripMenuItemUpdate = new ToolStripMenuItem();
 		toolStripMenuItemShowMpcorbDatUpdateIsAvailable = new ToolStripMenuItem();
 		toolStripMenuItemShowAstorbDatUpdateIsAvailable = new ToolStripMenuItem();
+		toolStripMenuItemShowAllnumCatUpdateIsAvailable = new ToolStripMenuItem();
+		toolStripMenuItemShowUfitobsCatUpdateIsAvailable = new ToolStripMenuItem();
+		toolStripMenuItemShowSingoppCatUpdateIsAvailable = new ToolStripMenuItem();
 		toolStripSeparator19 = new ToolStripSeparator();
 		toolStripMenuItemCheckMpcorbDatUpdate = new ToolStripMenuItem();
 		toolStripMenuItemDownloadMpcorbDat = new ToolStripMenuItem();
 		toolStripSeparator2 = new ToolStripSeparator();
 		toolStripMenuItemCheckAstorbDatUpdate = new ToolStripMenuItem();
 		toolStripMenuItemDownloadAstorbDat = new ToolStripMenuItem();
+		toolStripSeparator18 = new ToolStripSeparator();
+		toolStripMenuItemAstdys2File = new ToolStripMenuItem();
+		toolStripMenuItemCheckAllnumCatUpdate = new ToolStripMenuItem();
+		toolStripMenuItemDownloadAllnumCat = new ToolStripMenuItem();
+		toolStripSeparator20 = new ToolStripSeparator();
+		toolStripMenuItemCheckUfitobsCatUpdate = new ToolStripMenuItem();
+		toolStripMenuItemDownloadUfitobsCat = new ToolStripMenuItem();
+		toolStripSeparator21 = new ToolStripSeparator();
+		toolStripMenuItemCheckSingoppCatUpdate = new ToolStripMenuItem();
+		toolStripMenuItemDownloadSingoppCat = new ToolStripMenuItem();
 		toolStripMenuItemOptions = new ToolStripMenuItem();
 		toolStripMenuItemSettings = new ToolStripMenuItem();
 		toolStripMenuItemStyle = new ToolStripMenuItem();
@@ -236,6 +249,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOpenWebsitePDB = new ToolStripMenuItem();
 		toolStripMenuItemOpenWebsiteMPC = new ToolStripMenuItem();
 		toolStripMenuItemOpenMPCORBWebsite = new ToolStripMenuItem();
+		toolStripDropDownButtonOrbit = new ToolStripDropDownButton();
 		toolStripSeparator10 = new ToolStripSeparator();
 		toolStripSeparator16 = new ToolStripSeparator();
 		toolStripSeparator12 = new ToolStripSeparator();
@@ -263,7 +277,6 @@ partial class PlanetoidDbForm
 		toolStripSeparator3 = new ToolStripSeparator();
 		toolStripButtonHistogram = new ToolStripButton();
 		toolStripButtonScatterPlot = new ToolStripButton();
-		toolStripDropDownButtonOrbit = new ToolStripDropDownButton();
 		toolStripSeparator5 = new ToolStripSeparator();
 		toolStripButtonCheckMpcorbDatUpdate = new ToolStripButton();
 		toolStripButtonDownloadMpcorbDat = new ToolStripButton();
@@ -3162,7 +3175,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemUpdate.AccessibleName = "Update";
 		toolStripMenuItemUpdate.AccessibleRole = AccessibleRole.MenuPopup;
 		toolStripMenuItemUpdate.AutoToolTip = true;
-		toolStripMenuItemUpdate.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemShowMpcorbDatUpdateIsAvailable, toolStripMenuItemShowAstorbDatUpdateIsAvailable, toolStripSeparator19, toolStripMenuItemCheckMpcorbDatUpdate, toolStripMenuItemDownloadMpcorbDat, toolStripSeparator2, toolStripMenuItemCheckAstorbDatUpdate, toolStripMenuItemDownloadAstorbDat });
+		toolStripMenuItemUpdate.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemShowMpcorbDatUpdateIsAvailable, toolStripMenuItemShowAstorbDatUpdateIsAvailable, toolStripMenuItemShowAllnumCatUpdateIsAvailable, toolStripMenuItemShowUfitobsCatUpdateIsAvailable, toolStripMenuItemShowSingoppCatUpdateIsAvailable, toolStripSeparator19, toolStripMenuItemCheckMpcorbDatUpdate, toolStripMenuItemDownloadMpcorbDat, toolStripSeparator2, toolStripMenuItemCheckAstorbDatUpdate, toolStripMenuItemDownloadAstorbDat, toolStripSeparator18, toolStripMenuItemAstdys2File });
 		toolStripMenuItemUpdate.Name = "toolStripMenuItemUpdate";
 		toolStripMenuItemUpdate.Size = new Size(57, 24);
 		toolStripMenuItemUpdate.Text = "&Update";
@@ -3199,6 +3212,45 @@ partial class PlanetoidDbForm
 		toolStripMenuItemShowAstorbDatUpdateIsAvailable.MouseEnter += Control_Enter;
 		toolStripMenuItemShowAstorbDatUpdateIsAvailable.MouseLeave += Control_Leave;
 		// 
+		// toolStripMenuItemShowAllnumCatUpdateIsAvailable
+		// 
+		toolStripMenuItemShowAllnumCatUpdateIsAvailable.AccessibleDescription = "Shows whether an ALLNUM.CAT update is available";
+		toolStripMenuItemShowAllnumCatUpdateIsAvailable.AccessibleName = "ALLNUM.CAT update available";
+		toolStripMenuItemShowAllnumCatUpdateIsAvailable.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemShowAllnumCatUpdateIsAvailable.AutoToolTip = true;
+		toolStripMenuItemShowAllnumCatUpdateIsAvailable.Enabled = false;
+		toolStripMenuItemShowAllnumCatUpdateIsAvailable.Image = FatcowIcons16px.fatcow_new_16px;
+		toolStripMenuItemShowAllnumCatUpdateIsAvailable.Name = "toolStripMenuItemShowAllnumCatUpdateIsAvailable";
+		toolStripMenuItemShowAllnumCatUpdateIsAvailable.Size = new Size(236, 22);
+		toolStripMenuItemShowAllnumCatUpdateIsAvailable.Text = "ALLNUM.CAT update available";
+		toolStripMenuItemShowAllnumCatUpdateIsAvailable.Click += DownloadAllnumCat_Click;
+		// 
+		// toolStripMenuItemShowUfitobsCatUpdateIsAvailable
+		// 
+		toolStripMenuItemShowUfitobsCatUpdateIsAvailable.AccessibleDescription = "Shows whether an UFITOBS.CAT update is available";
+		toolStripMenuItemShowUfitobsCatUpdateIsAvailable.AccessibleName = "UFITOBS.CAT update available";
+		toolStripMenuItemShowUfitobsCatUpdateIsAvailable.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemShowUfitobsCatUpdateIsAvailable.AutoToolTip = true;
+		toolStripMenuItemShowUfitobsCatUpdateIsAvailable.Enabled = false;
+		toolStripMenuItemShowUfitobsCatUpdateIsAvailable.Image = FatcowIcons16px.fatcow_new_16px;
+		toolStripMenuItemShowUfitobsCatUpdateIsAvailable.Name = "toolStripMenuItemShowUfitobsCatUpdateIsAvailable";
+		toolStripMenuItemShowUfitobsCatUpdateIsAvailable.Size = new Size(236, 22);
+		toolStripMenuItemShowUfitobsCatUpdateIsAvailable.Text = "UFITOBS.CAT update available";
+		toolStripMenuItemShowUfitobsCatUpdateIsAvailable.Click += DownloadUfitobsCat_Click;
+		// 
+		// toolStripMenuItemShowSingoppCatUpdateIsAvailable
+		// 
+		toolStripMenuItemShowSingoppCatUpdateIsAvailable.AccessibleDescription = "Shows whether an SINGOPP.CAT update is available";
+		toolStripMenuItemShowSingoppCatUpdateIsAvailable.AccessibleName = "SINGOPP.CAT update available";
+		toolStripMenuItemShowSingoppCatUpdateIsAvailable.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemShowSingoppCatUpdateIsAvailable.AutoToolTip = true;
+		toolStripMenuItemShowSingoppCatUpdateIsAvailable.Enabled = false;
+		toolStripMenuItemShowSingoppCatUpdateIsAvailable.Image = FatcowIcons16px.fatcow_new_16px;
+		toolStripMenuItemShowSingoppCatUpdateIsAvailable.Name = "toolStripMenuItemShowSingoppCatUpdateIsAvailable";
+		toolStripMenuItemShowSingoppCatUpdateIsAvailable.Size = new Size(236, 22);
+		toolStripMenuItemShowSingoppCatUpdateIsAvailable.Text = "SINGOPP.CAT update available";
+		toolStripMenuItemShowSingoppCatUpdateIsAvailable.Click += DownloadSingoppCat_Click;
+		// 
 		// toolStripSeparator19
 		// 
 		toolStripSeparator19.AccessibleDescription = "Just a separator";
@@ -3206,6 +3258,7 @@ partial class PlanetoidDbForm
 		toolStripSeparator19.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator19.Name = "toolStripSeparator19";
 		toolStripSeparator19.Size = new Size(233, 6);
+		toolStripSeparator19.Text = "Just a separator";
 		toolStripSeparator19.Click += AsteroidGame_Click;
 		toolStripSeparator19.MouseEnter += Control_Enter;
 		toolStripSeparator19.MouseLeave += Control_Leave;
@@ -3276,6 +3329,136 @@ partial class PlanetoidDbForm
 		toolStripMenuItemDownloadAstorbDat.Click += DownloadAstorbDat_Click;
 		toolStripMenuItemDownloadAstorbDat.MouseEnter += Control_Enter;
 		toolStripMenuItemDownloadAstorbDat.MouseLeave += Control_Leave;
+		// 
+		// toolStripSeparator18
+		// 
+		toolStripSeparator18.AccessibleDescription = "Just a separator";
+		toolStripSeparator18.AccessibleName = "Just a separator";
+		toolStripSeparator18.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparator18.Name = "toolStripSeparator18";
+		toolStripSeparator18.Size = new Size(233, 6);
+		toolStripSeparator18.Text = "Just a separator";
+		toolStripSeparator18.MouseEnter += Control_Enter;
+		toolStripSeparator18.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemAstdys2File
+		// 
+		toolStripMenuItemAstdys2File.AccessibleDescription = "Shows the AstDyS-2 files";
+		toolStripMenuItemAstdys2File.AccessibleName = "AstDyS-2 files";
+		toolStripMenuItemAstdys2File.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemAstdys2File.AutoToolTip = true;
+		toolStripMenuItemAstdys2File.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemCheckAllnumCatUpdate, toolStripMenuItemDownloadAllnumCat, toolStripSeparator20, toolStripMenuItemCheckUfitobsCatUpdate, toolStripMenuItemDownloadUfitobsCat, toolStripSeparator21, toolStripMenuItemCheckSingoppCatUpdate, toolStripMenuItemDownloadSingoppCat });
+		toolStripMenuItemAstdys2File.Name = "toolStripMenuItemAstdys2File";
+		toolStripMenuItemAstdys2File.Size = new Size(236, 22);
+		toolStripMenuItemAstdys2File.Text = "AstDyS-2 files";
+		toolStripMenuItemAstdys2File.MouseEnter += Control_Enter;
+		toolStripMenuItemAstdys2File.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemCheckAllnumCatUpdate
+		// 
+		toolStripMenuItemCheckAllnumCatUpdate.AccessibleDescription = "Checks for updates of the database ALLNUM.CAT";
+		toolStripMenuItemCheckAllnumCatUpdate.AccessibleName = "Check ALLNUM.CAT";
+		toolStripMenuItemCheckAllnumCatUpdate.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCheckAllnumCatUpdate.AutoToolTip = true;
+		toolStripMenuItemCheckAllnumCatUpdate.Image = FatcowIcons16px.fatcow_database_lightning_16px;
+		toolStripMenuItemCheckAllnumCatUpdate.Name = "toolStripMenuItemCheckAllnumCatUpdate";
+		toolStripMenuItemCheckAllnumCatUpdate.Size = new Size(204, 22);
+		toolStripMenuItemCheckAllnumCatUpdate.Text = "Check ALLNUM.CAT";
+		toolStripMenuItemCheckAllnumCatUpdate.Click += CheckAllnumCatUpdate_Click;
+		toolStripMenuItemCheckAllnumCatUpdate.MouseEnter += Control_Enter;
+		toolStripMenuItemCheckAllnumCatUpdate.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemDownloadAllnumCat
+		// 
+		toolStripMenuItemDownloadAllnumCat.AccessibleDescription = "Downloads the database ALLNUM.CAT";
+		toolStripMenuItemDownloadAllnumCat.AccessibleName = "Download ALLNUM.CAT";
+		toolStripMenuItemDownloadAllnumCat.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDownloadAllnumCat.AutoToolTip = true;
+		toolStripMenuItemDownloadAllnumCat.Image = FatcowIcons16px.fatcow_package_go_16px;
+		toolStripMenuItemDownloadAllnumCat.Name = "toolStripMenuItemDownloadAllnumCat";
+		toolStripMenuItemDownloadAllnumCat.Size = new Size(204, 22);
+		toolStripMenuItemDownloadAllnumCat.Text = "Download ALLNUM.CAT";
+		toolStripMenuItemDownloadAllnumCat.Click += DownloadAllnumCat_Click;
+		toolStripMenuItemDownloadAllnumCat.MouseEnter += Control_Enter;
+		toolStripMenuItemDownloadAllnumCat.MouseLeave += Control_Leave;
+		// 
+		// toolStripSeparator20
+		// 
+		toolStripSeparator20.AccessibleDescription = "Just a separator";
+		toolStripSeparator20.AccessibleName = "Just a separator";
+		toolStripSeparator20.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparator20.Name = "toolStripSeparator20";
+		toolStripSeparator20.Size = new Size(201, 6);
+		toolStripSeparator20.Text = "Just a separator";
+		toolStripSeparator20.MouseEnter += Control_Enter;
+		toolStripSeparator20.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemCheckUfitobsCatUpdate
+		// 
+		toolStripMenuItemCheckUfitobsCatUpdate.AccessibleDescription = "Checks for updates of the database UFITOBS.CAT";
+		toolStripMenuItemCheckUfitobsCatUpdate.AccessibleName = "Check UFITOBS.CAT";
+		toolStripMenuItemCheckUfitobsCatUpdate.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCheckUfitobsCatUpdate.AutoToolTip = true;
+		toolStripMenuItemCheckUfitobsCatUpdate.Image = FatcowIcons16px.fatcow_database_lightning_16px;
+		toolStripMenuItemCheckUfitobsCatUpdate.Name = "toolStripMenuItemCheckUfitobsCatUpdate";
+		toolStripMenuItemCheckUfitobsCatUpdate.Size = new Size(204, 22);
+		toolStripMenuItemCheckUfitobsCatUpdate.Text = "Check UFITOBS.CAT";
+		toolStripMenuItemCheckUfitobsCatUpdate.Click += CheckUfitobsCatUpdate_Click;
+		toolStripMenuItemCheckUfitobsCatUpdate.MouseEnter += Control_Enter;
+		toolStripMenuItemCheckUfitobsCatUpdate.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemDownloadUfitobsCat
+		// 
+		toolStripMenuItemDownloadUfitobsCat.AccessibleDescription = "Downloads the database UFITOBS.CAT";
+		toolStripMenuItemDownloadUfitobsCat.AccessibleName = "Download UFITOBS.CAT";
+		toolStripMenuItemDownloadUfitobsCat.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDownloadUfitobsCat.AutoToolTip = true;
+		toolStripMenuItemDownloadUfitobsCat.Image = FatcowIcons16px.fatcow_package_go_16px;
+		toolStripMenuItemDownloadUfitobsCat.Name = "toolStripMenuItemDownloadUfitobsCat";
+		toolStripMenuItemDownloadUfitobsCat.Size = new Size(204, 22);
+		toolStripMenuItemDownloadUfitobsCat.Text = "Download UFITOBS.CAT";
+		toolStripMenuItemDownloadUfitobsCat.Click += DownloadUfitobsCat_Click;
+		toolStripMenuItemDownloadUfitobsCat.MouseEnter += Control_Enter;
+		toolStripMenuItemDownloadUfitobsCat.MouseLeave += Control_Leave;
+		// 
+		// toolStripSeparator21
+		// 
+		toolStripSeparator21.AccessibleDescription = "Just a separator";
+		toolStripSeparator21.AccessibleName = "Just a separator";
+		toolStripSeparator21.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparator21.Name = "toolStripSeparator21";
+		toolStripSeparator21.Size = new Size(201, 6);
+		toolStripSeparator21.Text = "Just a separator";
+		toolStripSeparator21.MouseEnter += Control_Enter;
+		toolStripSeparator21.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemCheckSingoppCatUpdate
+		// 
+		toolStripMenuItemCheckSingoppCatUpdate.AccessibleDescription = "Checks for updates of the database SINGOPP.CAT";
+		toolStripMenuItemCheckSingoppCatUpdate.AccessibleName = "Check SINGOPP.CAT";
+		toolStripMenuItemCheckSingoppCatUpdate.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCheckSingoppCatUpdate.AutoToolTip = true;
+		toolStripMenuItemCheckSingoppCatUpdate.Image = FatcowIcons16px.fatcow_database_lightning_16px;
+		toolStripMenuItemCheckSingoppCatUpdate.Name = "toolStripMenuItemCheckSingoppCatUpdate";
+		toolStripMenuItemCheckSingoppCatUpdate.Size = new Size(204, 22);
+		toolStripMenuItemCheckSingoppCatUpdate.Text = "Check SINGOPP.CAT";
+		toolStripMenuItemCheckSingoppCatUpdate.Click += CheckSingoppCatUpdate_Click;
+		toolStripMenuItemCheckSingoppCatUpdate.MouseEnter += Control_Enter;
+		toolStripMenuItemCheckSingoppCatUpdate.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemDownloadSingoppCat
+		// 
+		toolStripMenuItemDownloadSingoppCat.AccessibleDescription = "Downloads the database SINGOPP.CAT";
+		toolStripMenuItemDownloadSingoppCat.AccessibleName = "Download SINGOPP.CAT";
+		toolStripMenuItemDownloadSingoppCat.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemDownloadSingoppCat.AutoToolTip = true;
+		toolStripMenuItemDownloadSingoppCat.Image = FatcowIcons16px.fatcow_package_go_16px;
+		toolStripMenuItemDownloadSingoppCat.Name = "toolStripMenuItemDownloadSingoppCat";
+		toolStripMenuItemDownloadSingoppCat.Size = new Size(204, 22);
+		toolStripMenuItemDownloadSingoppCat.Text = "Download SINGOPP.CAT";
+		toolStripMenuItemDownloadSingoppCat.Click += DownloadSingoppCat_Click;
+		toolStripMenuItemDownloadSingoppCat.MouseEnter += Control_Enter;
+		toolStripMenuItemDownloadSingoppCat.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemOptions
 		// 
@@ -3525,6 +3708,22 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOpenMPCORBWebsite.Click += OpenMpcorbDatWebsite_Click;
 		toolStripMenuItemOpenMPCORBWebsite.MouseEnter += Control_Enter;
 		toolStripMenuItemOpenMPCORBWebsite.MouseLeave += Control_Leave;
+		// 
+		// toolStripDropDownButtonOrbit
+		// 
+		toolStripDropDownButtonOrbit.AccessibleDescription = "Shows orbit visualization";
+		toolStripDropDownButtonOrbit.AccessibleName = "Scatter plots";
+		toolStripDropDownButtonOrbit.AccessibleRole = AccessibleRole.PushButton;
+		toolStripDropDownButtonOrbit.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		toolStripDropDownButtonOrbit.DropDown = contextMenuOrbit;
+		toolStripDropDownButtonOrbit.Enabled = false;
+		toolStripDropDownButtonOrbit.Image = FatcowIcons16px.fatcow_orbit_16px;
+		toolStripDropDownButtonOrbit.ImageTransparentColor = Color.Magenta;
+		toolStripDropDownButtonOrbit.Name = "toolStripDropDownButtonOrbit";
+		toolStripDropDownButtonOrbit.Size = new Size(29, 22);
+		toolStripDropDownButtonOrbit.Text = "Orbit visualization";
+		toolStripDropDownButtonOrbit.MouseEnter += Control_Enter;
+		toolStripDropDownButtonOrbit.MouseLeave += Control_Leave;
 		// 
 		// toolStripSeparator10
 		// 
@@ -4018,22 +4217,6 @@ partial class PlanetoidDbForm
 		toolStripButtonScatterPlot.Click += ScatterPlots_Click;
 		toolStripButtonScatterPlot.MouseEnter += Control_Enter;
 		toolStripButtonScatterPlot.MouseLeave += Control_Leave;
-		// 
-		// toolStripDropDownButtonOrbit
-		// 
-		toolStripDropDownButtonOrbit.AccessibleDescription = "Shows orbit visualization";
-		toolStripDropDownButtonOrbit.AccessibleName = "Scatter plots";
-		toolStripDropDownButtonOrbit.AccessibleRole = AccessibleRole.PushButton;
-		toolStripDropDownButtonOrbit.DisplayStyle = ToolStripItemDisplayStyle.Image;
-		toolStripDropDownButtonOrbit.DropDown = contextMenuOrbit;
-		toolStripDropDownButtonOrbit.Enabled = false;
-		toolStripDropDownButtonOrbit.Image = FatcowIcons16px.fatcow_orbit_16px;
-		toolStripDropDownButtonOrbit.ImageTransparentColor = Color.Magenta;
-		toolStripDropDownButtonOrbit.Name = "toolStripDropDownButtonOrbit";
-		toolStripDropDownButtonOrbit.Size = new Size(29, 22);
-		toolStripDropDownButtonOrbit.Text = "Orbit visualization";
-		toolStripDropDownButtonOrbit.MouseEnter += Control_Enter;
-		toolStripDropDownButtonOrbit.MouseLeave += Control_Leave;
 		// 
 		// toolStripSeparator5
 		// 
@@ -4735,4 +4918,17 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem toolStripMenuItemAverageAsteroid;
 	private ToolStripMenuItem toolStripMenuItemAEIDiagram3D;
 	private ToolStripMenuItem toolStripMenuItemOrbit;
+	private ToolStripMenuItem toolStripMenuItemShowAllnumCatUpdateIsAvailable;
+	private ToolStripSeparator toolStripSeparator18;
+	private ToolStripMenuItem toolStripMenuItemAstdys2File;
+	private ToolStripMenuItem toolStripMenuItemCheckAllnumCatUpdate;
+	private ToolStripMenuItem toolStripMenuItemDownloadAllnumCat;
+	private ToolStripSeparator toolStripSeparator20;
+	private ToolStripMenuItem toolStripMenuItemCheckUfitobsCatUpdate;
+	private ToolStripMenuItem toolStripMenuItemDownloadUfitobsCat;
+	private ToolStripSeparator toolStripSeparator21;
+	private ToolStripMenuItem toolStripMenuItemCheckSingoppCatUpdate;
+	private ToolStripMenuItem toolStripMenuItemDownloadSingoppCat;
+	private ToolStripMenuItem toolStripMenuItemShowUfitobsCatUpdateIsAvailable;
+	private ToolStripMenuItem toolStripMenuItemShowSingoppCatUpdateIsAvailable;
 }

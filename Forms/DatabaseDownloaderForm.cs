@@ -112,6 +112,28 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
+	/// <summary>Extracts the filename from the given URL and returns the full destination path within the temporary file directory.</summary>
+	/// <param name="url">The absolute URL from which to extract the filename.</param>
+	/// <returns>The full destination path combining the temporary file directory and the filename from the URL, or <see langword="null"/> if the URL is invalid or contains no filename.</returns>
+	/// <remarks>Uses <see cref="Uri.LocalPath"/> to extract the filename. The result is combined with the directory of <see cref="_filenameTemp"/>.</remarks>
+	private string? GetFileFromUrl(string url)
+	{
+		// Validate the URL and extract the filename
+		if (!Uri.TryCreate(uriString: url, uriKind: UriKind.Absolute, result: out Uri? parsedUri))
+		{
+			return null;
+		}
+		// Extract the filename from the URL's local path
+		string fileName = Path.GetFileName(path: parsedUri.LocalPath);
+		// If the filename is null or whitespace, return null
+		if (string.IsNullOrWhiteSpace(value: fileName))
+		{
+			return null;
+		}
+		// Combine the filename with the directory of the temporary file and return the full path
+		return Path.Combine(path1: Path.GetDirectoryName(path: _filenameTemp) ?? string.Empty, path2: fileName);
+	}
+
 	/// <summary>Extracts a GZIP-compressed file to the specified output file.</summary>
 	/// <param name="gzipFilePath">Full path to the source .gz file.</param>
 	/// <param name="outputFilePath">Full path where the decompressed file will be written.</param>
@@ -146,14 +168,15 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			using HttpRequestMessage request = new(method: HttpMethod.Head, requestUri: url);
 			// Timeout 5 seconds
 			using CancellationTokenSource cts = new(delay: TimeSpan.FromSeconds(seconds: 5));
-
+			// Send the request and get the response
 			using HttpResponseMessage response = await client.SendAsync(
-				request,
+				request: request,
 				completionOption: HttpCompletionOption.ResponseHeadersRead,
 				cancellationToken: cts.Token);
-
+			// Return true if the response status code indicates success (2xx); otherwise, return false
 			return response.IsSuccessStatusCode;
 		}
+		// If any exception occurs (e.g., HttpRequestException, TaskCanceledException), return false
 		catch
 		{
 			return false;
@@ -269,10 +292,20 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			CancellationToken token = cancellationTokenSource.Token;
 			// Start downloading the file asynchronously
 			await DownloadFileAsync(fileUrl: url, destinationPath: _filenameTemp, token: token);
-			// Extract the downloaded GZIP file
-			labelStatusValue.Text = "Extracting...";
-			kryptonProgressBarDownload.Style = ProgressBarStyle.Marquee;
-			await ExtractGzipFileAsync(gzipFilePath: _filenameTemp, outputFilePath: extractFilePath, token: token);
+			// If the downloaded file is a GZIP archive, extract it
+			if (Path.GetExtension(path: url).Equals(value: ".gz", comparisonType: StringComparison.OrdinalIgnoreCase))
+			{
+				// Extract the downloaded GZIP file
+				labelStatusValue.Text = "Extracting...";
+				kryptonProgressBarDownload.Style = ProgressBarStyle.Marquee;
+				await ExtractGzipFileAsync(gzipFilePath: _filenameTemp, outputFilePath: extractFilePath, token: token);
+			}
+			else
+			{
+				string destFilePath = GetFileFromUrl(url) ?? _filenameTemp;
+				// If it's not a GZIP file, just move it to the destFilePath
+				File.Move(sourceFileName: _filenameTemp, destFileName: destFilePath, overwrite: true);
+			}
 			// Notify the user of successful completion
 			labelStatusValue.Text = "Download completed";
 			_ = KryptonMessageBox.Show(text: "Download completed successfully!", caption: "Finished", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);

@@ -114,7 +114,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 	private async void ArchiveMpcorbForm_Load(object sender, EventArgs e)
 	{
 		// Set default file path
-		string defaultPath = Settings.Default.systemFilenameMpcorb;
+		string defaultPath = Settings.Default.systemFilenameMpcorbDat;
 		// If the default path exists, set it in the source textbox
 		if (File.Exists(path: defaultPath))
 		{

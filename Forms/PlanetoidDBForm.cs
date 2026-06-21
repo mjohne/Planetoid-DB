@@ -60,21 +60,48 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 	/// <summary>Filenames for the MPCORB database.</summary>
 	/// <remarks>These strings are used to store the filenames for the MPCORB database.</remarks>
-	private readonly string filenameMpcorb = Settings.Default.systemFilenameMpcorb;
-	private readonly string filenameMpcorbTemp = Settings.Default.systemFilenameMpcorbTemp;
+	private readonly string filenameMpcorbDat = Settings.Default.systemFilenameMpcorbDat;
+	private readonly string filenameMpcorbTemp = Settings.Default.systemFilenameMpcorbDatTemp;
 
 	/// <summary>Filenames for the ASTORB database.</summary>
 	/// <remarks>These strings are used to store the filenames for the ASTORB database.</remarks>
-	private readonly string filenameAstorb = Settings.Default.systemFilenameAstorb;
-	private readonly string filenameAstorbTemp = Settings.Default.systemFilenameAstorbTemp;
+	private readonly string filenameAstorbDat = Settings.Default.systemFilenameAstorbDat;
+	private readonly string filenameAstorbTemp = Settings.Default.systemFilenameAstorbDatTemp;
+
+	/// <summary>Filenames for the ALLNUMCAT database.</summary>
+	/// <remarks>These strings are used to store the filenames for the ALLNUMCAT database.</remarks>
+	private readonly string filenameAllnumCat = Settings.Default.systemFilenameAllnumCat;
+	private readonly string filenameAllnumCatTemp = Settings.Default.systemFilenameAllnumCatTemp;
+
+	/// <summary>Filenames for the UFITOBS database.</summary>
+	/// <remarks>These strings are used to store the filenames for the UFITOBS database.</remarks>
+	private readonly string filenameUfitobsCat = Settings.Default.systemFilenameUfitobsCat;
+	private readonly string filenameUfitobsCatTemp = Settings.Default.systemFilenameUfitobsCatTemp;
+
+	/// <summary>Filenames for the SINGOPP database.</summary>
+	/// <remarks>These strings are used to store the filenames for the SINGOPP database.</remarks>
+	private readonly string filenameSingoppCat = Settings.Default.systemFilenameSingoppCat;
+	private readonly string filenameSingoppCatTemp = Settings.Default.systemFilenameSingoppCatTemp;
 
 	/// <summary>URI for the MPCORB database.</summary>
 	/// <remarks>This URI is used to access the MPCORB database.</remarks>
-	private readonly Uri uriMpcorb = new(uriString: Settings.Default.systemMpcorbDatGzUrl);
+	private readonly Uri uriMpcorbDat = new(uriString: Settings.Default.systemMpcorbDatGzUrl);
 
 	/// <summary>URI for the ASTORB database.</summary>
 	/// <remarks>This URI is used to access the ASTORB database.</remarks>
-	private readonly Uri uriAstorb = new(uriString: Settings.Default.systemAstorbDatGzUrl);
+	private readonly Uri uriAstorbDat = new(uriString: Settings.Default.systemAstorbDatGzUrl);
+
+	/// <summary>URI for the ALLNUMCAT database.</summary>
+	/// <remarks>This URI is used to access the ALLNUMCAT database.</remarks>
+	private readonly Uri uriAllnumCat = new(uriString: Settings.Default.systemAllnumCatUrl);
+
+	/// <summary>URI for the UFITOBS database.</summary>
+	/// <remarks>This URI is used to access the UFITOBS database.</remarks>
+	private readonly Uri uriUfitobsCat = new(uriString: Settings.Default.systemUfitobsCatUrl);
+
+	/// <summary>URI for the SINGOPP database.</summary>
+	/// <remarks>This URI is used to access the SINGOPP database.</remarks>
+	private readonly Uri uriSingoppCat = new(uriString: Settings.Default.systemSingoppCatUrl);
 
 	/*
 	private readonly IProgress<int>? downloadProgress;
@@ -426,20 +453,20 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private bool IsMpcorbDatUpdateAvailable()
 	{
 		// Check if the file exists before attempting to delete it
-		if (!File.Exists(path: filenameMpcorb))
+		if (!File.Exists(path: filenameMpcorbDat))
 		{
 			return true; // If the file does not exist, return true (update available)
 		}
 		// Get the file information for the local file
-		FileInfo fileInfo = new(fileName: filenameMpcorb);
+		FileInfo fileInfo = new(fileName: filenameMpcorbDat);
 		// Get the last modified date of the local file
 		DateTime datetimeFileLocal = fileInfo.LastWriteTime;
 		try
 		{
 			// Get the last modified date of the online file
-			DateTime datetimeFileOnline = GetLastModified(uri: uriMpcorb);
+			DateTime datetimeFileOnline = GetLastModified(uri: uriMpcorbDat);
 			// Get the content length of the online file
-			_ = GetContentLength(uri: uriMpcorb);
+			_ = GetContentLength(uri: uriMpcorbDat);
 			// Get the content length of the local file
 			_ = fileInfo.Length;
 			// Check if the online file is larger than the local file
@@ -463,18 +490,123 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private bool IsAstorbDatUpdateAvailable()
 	{
 		// Check if the file exists before attempting to delete it
-		if (!File.Exists(path: filenameAstorb))
+		if (!File.Exists(path: filenameAstorbDat))
 		{
 			return true; // If the file does not exist, return true (update available)
 		}
 		// Get the file information for the local file
-		FileInfo fileInfo = new(fileName: filenameAstorb);
+		FileInfo fileInfo = new(fileName: filenameAstorbDat);
 		// Get the last modified date of the local file
 		DateTime datetimeFileLocal = fileInfo.LastWriteTime;
 		try
 		{
 			// Get the last modified date of the online file
-			DateTime datetimeFileOnline = GetLastModified(uri: uriAstorb);
+			DateTime datetimeFileOnline = GetLastModified(uri: uriAstorbDat);
+			// Get the content length of the local file
+			_ = fileInfo.Length;
+			// Check if the online file is larger than the local file
+			// If it greater, return true (update available)
+			// Otherwise, return false (no update available)
+			return datetimeFileOnline > datetimeFileLocal;
+		}
+		catch (WebException)
+		{
+			return false;
+		}
+		catch (IOException)
+		{
+			return false;
+		}
+	}
+
+	/// <summary>Checks if an update for the ALLNUMCAT database is available.</summary>
+	/// <returns>true if an update is available, otherwise false.</returns>
+	/// <remarks>This method is used to check if an update for the ALLNUMCAT database is available.</remarks>
+	private bool IsAllnumCatUpdateAvailable()
+	{
+		// Check if the file exists before attempting to delete it
+		if (!File.Exists(path: filenameAllnumCat))
+		{
+			return true; // If the file does not exist, return true (update available)
+		}
+		// Get the file information for the local file
+		FileInfo fileInfo = new(fileName: filenameAllnumCat);
+		// Get the last modified date of the local file
+		DateTime datetimeFileLocal = fileInfo.LastWriteTime;
+		try
+		{
+			// Get the last modified date of the online file
+			DateTime datetimeFileOnline = GetLastModified(uri: uriAllnumCat);
+			// Get the content length of the local file
+			_ = fileInfo.Length;
+			// Check if the online file is larger than the local file
+			// If it greater, return true (update available)
+			// Otherwise, return false (no update available)
+			return datetimeFileOnline > datetimeFileLocal;
+		}
+		catch (WebException)
+		{
+			return false;
+		}
+		catch (IOException)
+		{
+			return false;
+		}
+	}
+
+	/// <summary>Checks if an update for the UFITOBSCAT database is available.</summary>
+	/// <returns>true if an update is available, otherwise false.</returns>
+	/// <remarks>This method is used to check if an update for the UFITOBSCAT database is available.</remarks>
+	private bool IsUfitobsCatUpdateAvailable()
+	{
+		// Check if the file exists before attempting to delete it
+		if (!File.Exists(path: filenameUfitobsCat))
+		{
+			return true; // If the file does not exist, return true (update available)
+		}
+		// Get the file information for the local file
+		FileInfo fileInfo = new(fileName: filenameUfitobsCat);
+		// Get the last modified date of the local file
+		DateTime datetimeFileLocal = fileInfo.LastWriteTime;
+		try
+		{
+			// Get the last modified date of the online file
+			DateTime datetimeFileOnline = GetLastModified(uri: uriUfitobsCat);
+			// Get the content length of the local file
+			_ = fileInfo.Length;
+			// Check if the online file is larger than the local file
+			// If it greater, return true (update available)
+			// Otherwise, return false (no update available)
+			return datetimeFileOnline > datetimeFileLocal;
+		}
+		catch (WebException)
+		{
+			return false;
+		}
+		catch (IOException)
+		{
+			return false;
+		}
+	}
+
+	/// <summary>Checks if an update for the SINGOPP database is available.</summary>
+	/// <returns>true if an update is available, otherwise false.</returns>
+	/// <remarks>This method is used to check if an update for the SINGOPP database is available.</remarks>
+	private bool IsSingoppCatUpdateAvailable()
+	{
+		// Check if the file exists before attempting to delete it
+		if (!File.Exists(path: filenameSingoppCat))
+		{
+			return true; // If the file does not exist, return true (update available)
+		}
+		// Get the file information for the local file
+		FileInfo fileInfo = new(fileName: filenameSingoppCat);
+		// Get the last modified date of the local file
+		DateTime datetimeFileLocal = fileInfo.LastWriteTime;
+		try
+		{
+			// Get the last modified date of the online file
+			DateTime datetimeFileOnline = GetLastModified(uri: uriSingoppCat);
 			// Get the content length of the local file
 			_ = fileInfo.Length;
 			// Check if the online file is larger than the local file
@@ -1214,7 +1346,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		else
 		{
 			// Create and show the MPCORB data check form
-			using CheckDatabaseForm formCheckMpcorbDat = new(url: Settings.Default.systemMpcorbDatUrl, localFilePath: Settings.Default.systemFilenameMpcorb, databaseName: "MPCORB.DAT");
+			using CheckDatabaseForm formCheckMpcorbDat = new(url: Settings.Default.systemMpcorbDatUrl, localFilePath: Settings.Default.systemFilenameMpcorbDat, databaseName: "MPCORB.DAT");
 			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 			formCheckMpcorbDat.TopMost = TopMost;
 			// Show the MPCORB data check form as a modal dialog
@@ -1235,11 +1367,74 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		else
 		{
 			// Create and show the ASTORB data check form
-			using CheckDatabaseForm formCheckAstorbDat = new(url: Settings.Default.systemAstorbDatUrl, localFilePath: Settings.Default.systemFilenameAstorb, databaseName: "ASTORB.DAT");
+			using CheckDatabaseForm formCheckAstorbDat = new(url: Settings.Default.systemAstorbDatUrl, localFilePath: Settings.Default.systemFilenameAstorbDat, databaseName: "ASTORB.DAT");
 			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 			formCheckAstorbDat.TopMost = TopMost;
 			// Show the ASTORB data check form as a modal dialog
 			_ = formCheckAstorbDat.ShowDialog();
+		}
+	}
+
+	/// <summary>Shows the ALLNUM.CAT data check form.</summary>
+	/// <remarks>This method is used to check the ALLNUM.CAT data for updates.</remarks>
+	private void ShowAllnumCatUpdateCheck()
+	{
+		// Check if the network is available before proceeding with the download
+		if (!NetworkInterface.GetIsNetworkAvailable())
+		{
+			// Display an error message if the network is not available
+			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
+		}
+		else
+		{
+			// Create and show the ALLNUM.CAT data check form
+			using CheckDatabaseForm formCheckAllnumCat = new(url: Settings.Default.systemAllnumCatUrl, localFilePath: Settings.Default.systemFilenameAllnumCat, databaseName: "allnum.cat");
+			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
+			formCheckAllnumCat.TopMost = TopMost;
+			// Show the ALLNUM.CAT data check form as a modal dialog
+			_ = formCheckAllnumCat.ShowDialog();
+		}
+	}
+
+	/// <summary>Shows the UFITOBS.CAT data check form.</summary>
+	/// <remarks>This method is used to check the UFITOBS.CAT data for updates.</remarks>
+	private void ShowUfitobsCatUpdateCheck()
+	{
+		// Check if the network is available before proceeding with the download
+		if (!NetworkInterface.GetIsNetworkAvailable())
+		{
+			// Display an error message if the network is not available
+			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
+		}
+		else
+		{
+			// Create and show the UFITOBS.CAT data check form
+			using CheckDatabaseForm formCheckUfitobsCat = new(url: Settings.Default.systemUfitobsCatUrl, localFilePath: Settings.Default.systemFilenameUfitobsCat, databaseName: "ufitobs.cat");
+			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
+			formCheckUfitobsCat.TopMost = TopMost;
+			// Show the UFITOBS.CAT data check form as a modal dialog
+			_ = formCheckUfitobsCat.ShowDialog();
+		}
+	}
+
+	/// <summary>Shows the SINGOPP.CAT data check form.</summary>
+	/// <remarks>This method is used to check the SINGOPP.CAT data for updates.</remarks>
+	private void ShowSingoppCatUpdateCheck()
+	{
+		// Check if the network is available before proceeding with the download
+		if (!NetworkInterface.GetIsNetworkAvailable())
+		{
+			// Display an error message if the network is not available
+			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
+		}
+		else
+		{
+			// Create and show the SINGOPP.CAT data check form
+			using CheckDatabaseForm formCheckSingoppCat = new(url: Settings.Default.systemSingoppCatUrl, localFilePath: Settings.Default.systemFilenameSingoppCat, databaseName: "singopp.cat");
+			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
+			formCheckSingoppCat.TopMost = TopMost;
+			// Show the SINGOPP.CAT data check form as a modal dialog
+			_ = formCheckSingoppCat.ShowDialog();
 		}
 	}
 
@@ -1303,6 +1498,96 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Shows the downloader form for the ALLNUM.CAT database.</summary>
+	/// <remarks>This method is used to show the downloader form for the ALLNUM.CAT database.</remarks>
+	private void ShowAllnumCatDownloader()
+	{
+		// Check if the network is available before proceeding with the download
+		if (!NetworkInterface.GetIsNetworkAvailable())
+		{
+			// Disable the menu item for showing updates is available
+			toolStripMenuItemShowAllnumCatUpdateIsAvailable.Enabled = false;
+			// Display an error message if the network is not available
+			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
+		}
+		else
+		{
+			// Create and show the downloader form for the ALLNUM.CAT database
+			using DatabaseDownloaderForm downloaderForm = new(url: Settings.Default.systemAllnumCatUrl);
+			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
+			downloaderForm.TopMost = TopMost;
+			// Show the downloader form as a modal dialog
+			if (downloaderForm.ShowDialog() == DialogResult.OK)
+			{
+				// Disable the menu item and the status label for showing updates is available
+				toolStripMenuItemShowAllnumCatUpdateIsAvailable.Enabled = false;
+				//toolStripStatusLabelAllnumCatUpdate.Enabled = false;
+				// Ask the user if they want to restart the application after downloading the database
+				AskForRestartAfterDownloadingDatabase();
+			}
+		}
+	}
+
+	/// <summary>Shows the downloader form for the UFITOBS.CAT database.</summary>
+	/// <remarks>This method is used to show the downloader form for the UFITOBS.CAT database.</remarks>
+	private void ShowUfitobsCatDownloader()
+	{
+		// Check if the network is available before proceeding with the download
+		if (!NetworkInterface.GetIsNetworkAvailable())
+		{
+			// Disable the menu item for showing updates is available
+			toolStripMenuItemShowUfitobsCatUpdateIsAvailable.Enabled = false;
+			// Display an error message if the network is not available
+			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
+		}
+		else
+		{
+			// Create and show the downloader form for the UFITOBS.CAT database
+			using DatabaseDownloaderForm downloaderForm = new(url: Settings.Default.systemUfitobsCatUrl);
+			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
+			downloaderForm.TopMost = TopMost;
+			// Show the downloader form as a modal dialog
+			if (downloaderForm.ShowDialog() == DialogResult.OK)
+			{
+				// Disable the menu item and the status label for showing updates is available
+				toolStripMenuItemShowUfitobsCatUpdateIsAvailable.Enabled = false;
+				//toolStripStatusLabelUfitobsCatUpdate.Enabled = false;
+				// Ask the user if they want to restart the application after downloading the database
+				AskForRestartAfterDownloadingDatabase();
+			}
+		}
+	}
+
+	/// <summary>Shows the downloader form for the SINGOPP.CAT database.</summary>
+	/// <remarks>This method is used to show the downloader form for the SINGOPP.CAT database.</remarks>
+	private void ShowSingoppCatDownloader()
+	{
+		// Check if the network is available before proceeding with the download
+		if (!NetworkInterface.GetIsNetworkAvailable())
+		{
+			// Disable the menu item for showing updates is available
+			toolStripMenuItemShowSingoppCatUpdateIsAvailable.Enabled = false;
+			// Display an error message if the network is not available
+			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
+		}
+		else
+		{
+			// Create and show the downloader form for the SINGOPP.CAT database
+			using DatabaseDownloaderForm downloaderForm = new(url: Settings.Default.systemSingoppCatUrl);
+			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
+			downloaderForm.TopMost = TopMost;
+			// Show the downloader form as a modal dialog
+			if (downloaderForm.ShowDialog() == DialogResult.OK)
+			{
+				// Disable the menu item and the status label for showing updates is available
+				toolStripMenuItemShowSingoppCatUpdateIsAvailable.Enabled = false;
+				//toolStripStatusLabelSingoppCatUpdate.Enabled = false;
+				// Ask the user if they want to restart the application after downloading the database
+				AskForRestartAfterDownloadingDatabase();
+			}
+		}
+	}
+
 	/// <summary>Shows the database information form.</summary>
 	/// <remarks>This method is used to show the database information form.</remarks>
 	private void ShowDatabaseInformation()
@@ -1326,22 +1611,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 
 		_ = formSearch.ShowDialog();
 
-		/*
-		// Fill the form with the planetoids database
-		formSearch.FillArray(arrTemp: planetoidsDatabase);
-		// Set the maximum index for the search form
-		formSearch.SetMaxIndex(maxIndex: planetoidsDatabase.Count);
-		// Show the search form as a modal dialog
-		_ = formSearch.ShowDialog();
-		// Check if the dialog result is OK and the selected index is greater than 0
-		_ = KryptonMessageBox.Show(text: formSearch.GetSelectedIndex().ToString());
-		// If so, navigate to the current position in the database
-		if (formSearch.DialogResult == DialogResult.OK && formSearch.GetSelectedIndex() > 0)
-		{
-			// Navigate to the current position in the database
-			GotoCurrentPosition(position: formSearch.GetSelectedIndex());
-		}
-		*/
 	}
 
 	/// <summary>Shows the filter form.</summary>
@@ -2019,7 +2288,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Show the splash screen while loading the database
 		formSplashScreen.Show();
 		// Attempt to get the last modified date of the MPCORB.DAT file and display it in the tab text
-		string resolvedMpcOrbDatFilePath = string.IsNullOrWhiteSpace(value: MpcOrbDatFilePath) ? filenameMpcorb : MpcOrbDatFilePath;
+		string resolvedMpcOrbDatFilePath = string.IsNullOrWhiteSpace(value: MpcOrbDatFilePath) ? filenameMpcorbDat : MpcOrbDatFilePath;
 		if (!string.IsNullOrWhiteSpace(value: resolvedMpcOrbDatFilePath))
 		{
 			// Use a try-catch block to handle potential exceptions when accessing the file information
@@ -2084,6 +2353,42 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			toolStripStatusLabelAstorbDatUpdate.Enabled = false;
 			toolStripStatusLabelAstorbDatUpdate.Visible = false;
 		}
+		// Check if an update is available for the ALLNUM.CAT database and enable the timer for blinking the update label
+		if (IsAllnumCatUpdateAvailable())
+		{
+			toolStripMenuItemShowAllnumCatUpdateIsAvailable.Enabled = true;
+			//toolStripStatusLabelAllnumCatUpdate.Enabled = true;
+		}
+		// Otherwise, disable and hide the update label
+		else
+		{
+			//toolStripStatusLabelAllnumCatUpdate.Enabled = false;
+			//toolStripStatusLabelAllnumCatUpdate.Visible = false;
+		}
+		// Check if an update is available for the UFITOBS.CAT database and enable the timer for blinking the update label
+		if (IsUfitobsCatUpdateAvailable())
+		{
+			toolStripMenuItemShowUfitobsCatUpdateIsAvailable.Enabled = true;
+			//toolStripStatusLabelUfitobsCatUpdate.Enabled = true;
+		}
+		// Otherwise, disable and hide the update label
+		else
+		{
+			//toolStripStatusLabelUfitobsCatUpdate.Enabled = false;
+			//toolStripStatusLabelUfitobsCatUpdate.Visible = false;
+		}
+		// Check if an update is available for the SINGOPP.CAT database and enable the timer for blinking the update label
+		if (IsSingoppCatUpdateAvailable())
+		{
+			toolStripMenuItemShowSingoppCatUpdateIsAvailable.Enabled = true;
+			//toolStripStatusLabelSingoppCatUpdate.Enabled = true;
+		}
+		// Otherwise, disable and hide the update label
+		else
+		{
+			//toolStripStatusLabelSingoppCatUpdate.Enabled = false;
+			//toolStripStatusLabelSingoppCatUpdate.Visible = false;
+		}
 		// Check if the form should stay on top of other windows
 		CheckStayOnTop();
 	}
@@ -2114,7 +2419,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	{
 		Enabled = false; // Disable the form while loading the database
 		int lineNum = 0; // Variable to store the line number being read
-		string filename = !string.IsNullOrEmpty(value: MpcOrbDatFilePath) ? MpcOrbDatFilePath : filenameMpcorb; // Get the file name from the path
+		string filename = !string.IsNullOrEmpty(value: MpcOrbDatFilePath) ? MpcOrbDatFilePath : filenameMpcorbDat; // Get the file name from the path
 		FileInfo fileInfo = new(fileName: filename);
 		long fileSize = fileInfo.Length, fileSizeRead = 0; // Get the size of the file in bytes
 														   // Open the file stream for reading
@@ -2405,11 +2710,23 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method is used to show the downloader form for the ASTORB database.</remarks>
 	private void DownloadAstorbDat_Click(object sender, EventArgs e) => ShowAstorbDatDownloader();
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCheckAstorbDat. Shows the ASTORB data check form.</summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemDownloadAllnumCat. Shows the downloader form for the ALLNUMCAT database.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the ASTORB data check form.</remarks>
-	private void CheckAstorbDatUpdate_Click(object sender, EventArgs e) => ShowAstorbDatUpdateCheck();
+	/// <remarks>This method is used to show the downloader form for the ALLNUMCAT database.</remarks>
+	private void DownloadAllnumCat_Click(object sender, EventArgs e) => ShowAllnumCatDownloader();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemDownloadUfitobsCat. Shows the downloader form for the UFITOBS database.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the downloader form for the UFITOBS database.</remarks>
+	private void DownloadUfitobsCat_Click(object sender, EventArgs e) => ShowUfitobsCatDownloader();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemDownloadSingoppCat. Shows the downloader form for the SINGOPP database.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the downloader form for the SINGOPP database.</remarks>
+	private void DownloadSingoppCat_Click(object sender, EventArgs e) => ShowSingoppCatDownloader();
 
 	/// <summary>Handles the click event for the ToolStripButtonCheckMpcorbDatUpdate. Shows the MPCORB data check form.</summary>
 	/// <param name="sender">The event source.</param>
@@ -2417,6 +2734,30 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	///	<remarks>
 	///	This method is used to show the MPCORB data check form.</remarks>
 	private void CheckMpcorbDatUpdate_Click(object sender, EventArgs e) => ShowMpcorbDatUpdateCheck();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemCheckAstorbDat. Shows the ASTORB data check form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the ASTORB data check form.</remarks>
+	private void CheckAstorbDatUpdate_Click(object sender, EventArgs e) => ShowAstorbDatUpdateCheck();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemCheckAllnumCat. Shows the ALLNUMCAT data check form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the ALLNUMCAT data check form.</remarks>
+	private void CheckAllnumCatUpdate_Click(object sender, EventArgs e) => ShowAllnumCatUpdateCheck();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemCheckUfitobsCat. Shows the UFITOBS data check form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the UFITOBS data check form.</remarks>
+	private void CheckUfitobsCatUpdate_Click(object sender, EventArgs e) => ShowUfitobsCatUpdateCheck();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemCheckSingoppCat. Shows the SINGOPP data check form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the SINGOPP data check form.</remarks>
+	private void CheckSingoppCatUpdate_Click(object sender, EventArgs e) => ShowSingoppCatUpdateCheck();
 
 	/// <summary>Handles the click event for the ToolStripButtonAbout. Shows the application information form.</summary>
 	/// <param name="sender">The event source.</param>

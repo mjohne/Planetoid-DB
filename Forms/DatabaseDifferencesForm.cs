@@ -288,7 +288,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	private void DatabaseDifferencesForm_Load(object sender, EventArgs e)
 	{
 		// Default to the currently configured MPCORB file
-		pathFile1 = Settings.Default.systemFilenameMpcorb;
+		pathFile1 = Settings.Default.systemFilenameMpcorbDat;
 		// Check if the default file exists and update the label accordingly
 		if (!File.Exists(path: pathFile1))
 		{
