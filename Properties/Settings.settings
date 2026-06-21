@@ -29,13 +29,52 @@
     <Setting Name="systemFilenameMpcorb" Type="System.String" Scope="Application">
       <Value Profile="(Default)">mpcorb.dat</Value>
     </Setting>
+    <Setting Name="systemFilenameMpcorbDat" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">mpcorb.dat</Value>
+    </Setting>
     <Setting Name="systemFilenameMpcorbTemp" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">_</Value>
+    </Setting>
+    <Setting Name="systemFilenameMpcorbDatTemp" Type="System.String" Scope="Application">
       <Value Profile="(Default)">_</Value>
     </Setting>
     <Setting Name="systemFilenameAstorb" Type="System.String" Scope="Application">
       <Value Profile="(Default)">astorb.dat</Value>
     </Setting>
+    <Setting Name="systemFilenameAstorbDat" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">astorb.dat</Value>
+    </Setting>
     <Setting Name="systemFilenameAstorbTemp" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">_</Value>
+    </Setting>
+    <Setting Name="systemFilenameAstorbDatTemp" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">_</Value>
+    </Setting>
+    <Setting Name="systemAllnumCatUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://newton.spacedys.com/~astdys2/catalogs/allnum.cat</Value>
+    </Setting>
+    <Setting Name="systemFilenameAllnumCat" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">allnum.cat</Value>
+    </Setting>
+    <Setting Name="systemFilenameAllnumCatTemp" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">_</Value>
+    </Setting>
+    <Setting Name="systemUfitobsCatUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://newton.spacedys.com/~astdys2/catalogs/ufitobs.cat</Value>
+    </Setting>
+    <Setting Name="systemFilenameUfitobsCat" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">ufitobs.cat</Value>
+    </Setting>
+    <Setting Name="systemFilenameUfitobsCatTemp" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">_</Value>
+    </Setting>
+    <Setting Name="systemSingoppCatUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://newton.spacedys.com/~astdys2/catalogs/singopp.cat</Value>
+    </Setting>
+    <Setting Name="systemFilenameSingoppCat" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">singopp.cat</Value>
+    </Setting>
+    <Setting Name="systemFilenameSingoppCatTemp" Type="System.String" Scope="Application">
       <Value Profile="(Default)">_</Value>
     </Setting>
     <Setting Name="systemHomepage" Type="System.String" Scope="Application">

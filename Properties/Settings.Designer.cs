@@ -118,10 +118,28 @@ namespace Planetoid_DB.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("mpcorb.dat")]
+        public string systemFilenameMpcorbDat {
+            get {
+                return ((string)(this["systemFilenameMpcorbDat"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("_")]
         public string systemFilenameMpcorbTemp {
             get {
                 return ((string)(this["systemFilenameMpcorbTemp"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("_")]
+        public string systemFilenameMpcorbDatTemp {
+            get {
+                return ((string)(this["systemFilenameMpcorbDatTemp"]));
             }
         }
         
@@ -136,10 +154,109 @@ namespace Planetoid_DB.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("astorb.dat")]
+        public string systemFilenameAstorbDat {
+            get {
+                return ((string)(this["systemFilenameAstorbDat"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("_")]
         public string systemFilenameAstorbTemp {
             get {
                 return ((string)(this["systemFilenameAstorbTemp"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("_")]
+        public string systemFilenameAstorbDatTemp {
+            get {
+                return ((string)(this["systemFilenameAstorbDatTemp"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://newton.spacedys.com/~astdys2/catalogs/allnum.cat")]
+        public string systemAllnumCatUrl {
+            get {
+                return ((string)(this["systemAllnumCatUrl"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("allnum.cat")]
+        public string systemFilenameAllnumCat {
+            get {
+                return ((string)(this["systemFilenameAllnumCat"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("_")]
+        public string systemFilenameAllnumCatTemp {
+            get {
+                return ((string)(this["systemFilenameAllnumCatTemp"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://newton.spacedys.com/~astdys2/catalogs/ufitobs.cat")]
+        public string systemUfitobsCatUrl {
+            get {
+                return ((string)(this["systemUfitobsCatUrl"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ufitobs.cat")]
+        public string systemFilenameUfitobsCat {
+            get {
+                return ((string)(this["systemFilenameUfitobsCat"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("_")]
+        public string systemFilenameUfitobsCatTemp {
+            get {
+                return ((string)(this["systemFilenameUfitobsCatTemp"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://newton.spacedys.com/~astdys2/catalogs/singopp.cat")]
+        public string systemSingoppCatUrl {
+            get {
+                return ((string)(this["systemSingoppCatUrl"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("singopp.cat")]
+        public string systemFilenameSingoppCat {
+            get {
+                return ((string)(this["systemFilenameSingoppCat"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("_")]
+        public string systemFilenameSingoppCatTemp {
+            get {
+                return ((string)(this["systemFilenameSingoppCatTemp"]));
             }
         }
         
