@@ -2192,7 +2192,6 @@ public static partial class ListViewExporter
 				writer.WriteLine(value: "  <DocumentReference Source=\"/Documents/1/FixedDoc.fdoc\"/>");
 				writer.WriteLine(value: "</FixedDocumentSequence>");
 			}
-			const int pageHeight = 1056;
 			const int startY = 96;
 			const int marginB = 960;
 			const int lineHeight = 16;

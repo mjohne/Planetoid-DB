@@ -1087,7 +1087,6 @@ public static partial class TextBoxExporter
 				writer.WriteLine(value: "</FixedDocumentSequence>");
 			}
 			// Define constants for page dimensions, margins, and line height. These values are used to layout the content on each page of the XPS document. The page width is set to 816 units, the page height is set to 1056 units, the starting Y position for content is set to 96 units, the bottom margin is set to 960 units, and the line height is set to 16 units. These values can be adjusted as needed to fit the desired layout and formatting for the XPS document.
-			const int pageHeight = 1056;
 			const int startY = 96;
 			const int marginB = 960;
 			const int lineHeight = 16;

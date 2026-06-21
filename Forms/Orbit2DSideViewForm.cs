@@ -109,7 +109,7 @@ public partial class Orbit2DSideViewForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>The method currently returns the same string as <see cref="ToString"/>, but can be customized to include more specific information if needed.</remarks>
+	/// <remarks>The method currently returns the same string as <see cref="object.ToString()"/>, but can be customized to include more specific information if needed.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
 	/// <summary>Renders the 2D side-view orbital diagram in the ScottPlot control.</summary>
