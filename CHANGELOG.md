@@ -1,5 +1,15 @@
 # Changelog
 
+## Planetoid-DB 0.9.9.72
+
+* Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/776
+* Updated `CHANGELOG` for version 0.9.8.71 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/777
+* Added support for AstDyS-2 files by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/780
+* Updated to version 0.9.9.72 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/781
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.8.71.774.2415...0.9.9.72.481.2424
+
+
 ## Planetoid-DB 0.9.8.71
 
 * Updated image link in README.md by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/764
