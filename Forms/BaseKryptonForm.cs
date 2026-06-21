@@ -11,10 +11,8 @@ using System.Diagnostics;
 
 namespace Planetoid_DB.Forms;
 
-/// <summary>Base form providing common behaviours for application forms.
-/// Currently: enables <c>KeyPreview</c> and closes the form when the Escape key is pressed.</summary>
-/// <remarks>This class serves as a base form for the application, providing common functionality
-/// and behaviors that can be shared across derived forms.</remarks>
+/// <summary>Base form providing common behaviours for application forms. Currently: enables <c>KeyPreview</c> and closes the form when the Escape key is pressed.</summary>
+/// <remarks>This class serves as a base form for the application, providing common functionality and behaviors that can be shared across derived forms.</remarks>
 // You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public class BaseKryptonForm : KryptonForm
@@ -50,8 +48,7 @@ public class BaseKryptonForm : KryptonForm
 
 	/// <summary>Copies the specified text to the clipboard and shows a confirmation dialog.</summary>
 	/// <param name="text">The text to copy to the clipboard.</param>
-	/// <remarks>On success an informational dialog is shown. On failure the exception is logged
-	/// and an error dialog is displayed. This method is protected so derived forms can use it directly.</remarks>
+	/// <remarks>On success an informational dialog is shown. On failure the exception is logged and an error dialog is displayed. This method is protected so derived forms can use it directly.</remarks>
 	protected static void CopyToClipboard(string text)
 	{
 		// Try to copy the text to the clipboard
@@ -90,8 +87,7 @@ public class BaseKryptonForm : KryptonForm
 
 	/// <summary>Clears the status bar text and disables the information label.</summary>
 	/// <param name="label">The status label to clear.</param>
-	/// <remarks>Resets the UI state of the status area so that no message is shown.
-	/// Use when there is no status to display or when leaving a control.</remarks>
+	/// <remarks>Resets the UI state of the status area so that no message is shown. Use when there is no status to display or when leaving a control.</remarks>
 	protected static void ClearStatusBar(ToolStripStatusLabel label)
 	{
 		// Check if the label is null
@@ -155,8 +151,7 @@ public class BaseKryptonForm : KryptonForm
 	/// <summary>Handles double-click events on controls and copies their text to the clipboard.</summary>
 	/// <param name="sender">Event source — expected to be a <see cref="Control"/> or <see cref="ToolStripItem"/>.</param>
 	/// <param name="e">Event arguments.</param>
-	/// <remarks>This method extracts text from the sender control or uses the current control's text for ToolStripItems,
-	/// then copies it to the clipboard using the <see cref="CopyToClipboard"/> method.</remarks>
+	/// <remarks>This method extracts text from the sender control or uses the current control's text for ToolStripItems, then copies it to the clipboard using the <see cref="CopyToClipboard"/> method.</remarks>
 	protected void CopyToClipboard_DoubleClick(object sender, EventArgs e)
 	{
 		// Check if the sender is null
@@ -214,9 +209,8 @@ public class BaseKryptonForm : KryptonForm
 	}
 
 	/// <summary>Opens the specified website URL in the default web browser.</summary>
-	/// <remarks>If the operation fails or the input is invalid, an error message is displayed and the exception or error is logged.
-	/// The method uses the system's default browser to open the URL.</remarks>
 	/// <param name="fileName">The URL or file name to open in the default browser. If null, empty, or whitespace, an error is logged and shown.</param>
+	/// <remarks>If the operation fails or the input is invalid, an error message is displayed and the exception or error is logged. The method uses the system's default browser to open the URL.</remarks>
 	protected static void OpenWebsite(string fileName)
 	{
 		if (string.IsNullOrWhiteSpace(value: fileName))
