@@ -102,7 +102,7 @@ public partial class HistogramsForm : BaseKryptonForm
 
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
-	/// <remarks>The method currently returns the same string as <see cref="object.ToString()"/>, but it can be customized to include more specific information if needed.</remarks>
+	/// <remarks>The method currently returns the same string as <c>ToString()</c> on this instance, but it can be customized to include more specific information if needed.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
 	/// <summary>Creates all histogram definitions supported by the form.</summary>
