@@ -1432,6 +1432,7 @@ public static partial class TextBoxExporter
 	/// <summary>Escapes a value for use as a YAML single-quoted scalar.</summary>
 	/// <param name="value">The value to escape.</param>
 	/// <returns>A YAML single-quoted scalar that preserves backslashes and escapes embedded single quotes.</returns>
+	/// <remarks>YAML single-quoted scalars preserve backslashes literally and only require escaping of embedded single quotes by doubling them. This method wraps the input value in single quotes and replaces any single quote characters with two single quotes to ensure the resulting YAML scalar is well-formed and preserves the original text content.</remarks>
 	private static string EscapeYamlSingleQuotedScalar(string? value)
 	{
 		return $"'{(value ?? string.Empty).Replace(oldValue: "'", newValue: "''")}'";

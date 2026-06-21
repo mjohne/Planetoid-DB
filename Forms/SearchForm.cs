@@ -249,9 +249,9 @@ public partial class SearchForm : BaseKryptonForm
 	#region Click event handlers
 
 	/// <summary>Handles the Click event of the Search button, performing a search for planetoid records based on the user's input and selected orbital elements.</summary>
-	/// <remarks>Displays progress and search results in the user interface. Disables the Search button and enables the Cancel button during the search operation. Notifies the user if required input is missing or if the database file cannot be found. Supports cancellation of the search operation.</remarks>
 	/// <param name="sender">The source of the event, typically the Search button.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>Displays progress and search results in the user interface. Disables the Search button and enables the Cancel button during the search operation. Notifies the user if required input is missing or if the database file cannot be found. Supports cancellation of the search operation.</remarks>
 	private async void KryptonButtonSearch_Click(object sender, EventArgs e)
 	{
 		// Get the search text entered by the user in the search text box. If the search text is null, empty, or consists only of whitespace, show a warning message to the user and return without performing any search.
@@ -449,7 +449,7 @@ public partial class SearchForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			// Log the error using NLog to provide information about what went wrong during the search operation. This can help with debugging and understanding the circumstances of the error.
-			logger.Error(ex, "An error occurred during the search operation.");
+			logger.Error(exception: ex, message: "An error occurred during the search operation.");
 			kryptonProgressBar.Text = "Error during search.";
 			// Show a message box to the user with the error message, allowing them to understand that an error occurred and what the error message is. This provides feedback to the user about the failure of the search operation.
 			ShowErrorMessage(message: $"Search failed: {ex.Message}");
@@ -768,6 +768,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <summary>Handles the Go To Object toolbar button click by navigating to the selected object and closing the form afterwards.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
+	/// <remarks>When the user clicks the "Go To Object" toolbar button, this event handler is triggered. It calls the GoToObject method with the parameter closeAfterNavigation set to true, which navigates to the selected object in the main application form and then closes the search form.</remarks>
 	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e)
 		=> GoToObject(closeAfterNavigation: true);
 
@@ -863,6 +864,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <param name="result">The SearchResult to get the value from.</param>
 	/// <param name="columnIndex">The column index (0=Index, 1=Designation, 2=Element, 3=Value).</param>
 	/// <returns>The string value for the specified column.</returns>
+	/// <remarks>This method is used to retrieve the value for a specific column from a SearchResult, primarily for sorting purposes.</remarks>
 	private static string GetColumnValue(SearchResult result, int columnIndex) => columnIndex switch
 	{
 		0 => result.Index,

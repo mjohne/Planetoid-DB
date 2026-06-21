@@ -10,6 +10,7 @@ using NLog;
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO.Compression;
+using System.Net;
 using System.Text;
 using System.Text.Json;
 using System.Xml;
@@ -435,14 +436,14 @@ public static class TableLayoutPanelExporter
 				writer.WriteLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
 				writer.WriteLine(value: "<w:document xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\">");
 				writer.WriteLine(value: "  <w:body>");
-				string safeTitle = System.Net.WebUtility.HtmlEncode(value: title) ?? string.Empty;
+				string safeTitle = WebUtility.HtmlEncode(value: title) ?? string.Empty;
 				writer.WriteLine(value: $"    <w:p><w:pPr><w:pStyle w:val=\"Title\"/></w:pPr><w:r><w:t>{safeTitle}</w:t></w:r></w:p>");
 				writer.WriteLine(value: "    <w:tbl>");
 				writer.WriteLine(value: "      <w:tblPr><w:tblStyle w:val=\"TableGrid\"/><w:tblW w:w=\"0\" w:type=\"auto\"/></w:tblPr>");
 				writer.Write(value: "      <w:tr>");
 				foreach (string h in headers)
 				{
-					string safe = System.Net.WebUtility.HtmlEncode(value: h) ?? string.Empty;
+					string safe = WebUtility.HtmlEncode(value: h) ?? string.Empty;
 					writer.Write(value: $"<w:tc><w:p><w:r><w:t>{safe}</w:t></w:r></w:p></w:tc>");
 				}
 				writer.WriteLine(value: "</w:tr>");
@@ -452,7 +453,7 @@ public static class TableLayoutPanelExporter
 					for (int c = 0; c < headers.Length; c++)
 					{
 						string cell = c < row.Length ? row[c] : string.Empty;
-						string safe = System.Net.WebUtility.HtmlEncode(value: cell) ?? string.Empty;
+						string safe = WebUtility.HtmlEncode(value: cell) ?? string.Empty;
 						writer.Write(value: $"<w:tc><w:p><w:r><w:t>{safe}</w:t></w:r></w:p></w:tc>");
 					}
 					writer.WriteLine(value: "</w:tr>");
@@ -613,14 +614,14 @@ public static class TableLayoutPanelExporter
 			writer.WriteLine(value: "<!DOCTYPE abiword PUBLIC \"-//ABISOURCE//DTD AWML 1.0 Strict//EN\" \"http://www.abisource.com/awml.dtd\">");
 			writer.WriteLine(value: "<abiword xmlns:awml=\"http://www.abisource.com/awml.dtd\" version=\"1.9.2\" fileformat=\"1.0\" xmlns=\"http://www.abisource.com/awml.dtd\">");
 			writer.WriteLine(value: "  <section>");
-			string safeTitle = System.Net.WebUtility.HtmlEncode(value: title) ?? string.Empty;
+			string safeTitle = WebUtility.HtmlEncode(value: title) ?? string.Empty;
 			writer.WriteLine(value: $"    <p style=\"Heading 1\">{safeTitle}</p>");
 			writer.WriteLine(value: "    <table>");
 			int rowIdx = 0;
 			for (int c = 0; c < headers.Length; c++)
 			{
 				// Encode the header text to ensure that any special characters are properly represented in the XML output, preventing issues with rendering or XML structure. The HtmlEncode method converts characters like '<', '>', '&', and '"' into their corresponding XML entities.
-				string safeH = System.Net.WebUtility.HtmlEncode(value: headers[c]) ?? string.Empty;
+				string safeH = WebUtility.HtmlEncode(value: headers[c]) ?? string.Empty;
 				writer.WriteLine(value: $"      <cell left-attach=\"{c}\" right-attach=\"{c + 1}\" top-attach=\"{rowIdx}\" bottom-attach=\"{rowIdx + 1}\">");
 				writer.WriteLine(value: $"        <p>{safeH}</p>");
 				writer.WriteLine(value: "      </cell>");
@@ -632,7 +633,7 @@ public static class TableLayoutPanelExporter
 				for (int c = 0; c < headers.Length; c++)
 				{
 					string cell = c < dataRow.Length ? dataRow[c] : string.Empty;
-					string safe = System.Net.WebUtility.HtmlEncode(value: cell) ?? string.Empty;
+					string safe = WebUtility.HtmlEncode(value: cell) ?? string.Empty;
 					writer.WriteLine(value: $"      <cell left-attach=\"{c}\" right-attach=\"{c + 1}\" top-attach=\"{rowIdx}\" bottom-attach=\"{rowIdx + 1}\">");
 					writer.WriteLine(value: $"        <p>{safe}</p>");
 					writer.WriteLine(value: "      </cell>");
@@ -668,15 +669,15 @@ public static class TableLayoutPanelExporter
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
 			writer.WriteLine(value: "<!DOCTYPE html>");
 			writer.WriteLine(value: "<html><head><meta charset=\"utf-8\">");
-			writer.WriteLine(value: $"<title>{System.Net.WebUtility.HtmlEncode(value: title)}</title>");
+			writer.WriteLine(value: $"<title>{WebUtility.HtmlEncode(value: title)}</title>");
 			writer.WriteLine(value: "<style>table{{border-collapse:collapse;width:100%}}th,td{{border:1px solid black;padding:5px;text-align:left}}</style>");
 			writer.WriteLine(value: "</head><body>");
-			writer.WriteLine(value: $"<h1>{System.Net.WebUtility.HtmlEncode(value: title)}</h1>");
+			writer.WriteLine(value: $"<h1>{WebUtility.HtmlEncode(value: title)}</h1>");
 			writer.Write(value: "<table><tr>");
 			foreach (string h in headers)
 			{
 				// Encode the header text to ensure that any special characters are properly represented in the HTML output, preventing issues with rendering or HTML structure. The HtmlEncode method converts characters like '<', '>', '&', and '"' into their corresponding HTML entities.
-				writer.Write(value: $"<th>{System.Net.WebUtility.HtmlEncode(value: h)}</th>");
+				writer.Write(value: $"<th>{WebUtility.HtmlEncode(value: h)}</th>");
 			}
 			writer.WriteLine(value: "</tr>");
 			foreach (string[] row in GetRows(tableLayoutPanel: tableLayoutPanel))
@@ -686,7 +687,7 @@ public static class TableLayoutPanelExporter
 				for (int c = 0; c < headers.Length; c++)
 				{
 					string cell = c < row.Length ? row[c] : string.Empty;
-					writer.Write(value: $"<td>{System.Net.WebUtility.HtmlEncode(value: cell)}</td>");
+					writer.Write(value: $"<td>{WebUtility.HtmlEncode(value: cell)}</td>");
 				}
 				writer.WriteLine(value: "</tr>");
 			}
@@ -1010,15 +1011,15 @@ public static class TableLayoutPanelExporter
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
 			writer.WriteLine(value: "<!DOCTYPE html>");
 			writer.WriteLine(value: "<html><head><meta charset=\"utf-8\">");
-			writer.WriteLine(value: $"<title>{System.Net.WebUtility.HtmlEncode(value: title)}</title>");
+			writer.WriteLine(value: $"<title>{WebUtility.HtmlEncode(value: title)}</title>");
 			writer.WriteLine(value: "<style>table{{border-collapse:collapse;width:100%}}th,td{{border:1px solid #000;padding:5px;text-align:left}}th{{background-color:#f2f2f2}}</style>");
 			writer.WriteLine(value: "</head><body>");
-			writer.WriteLine(value: $"<h1>{System.Net.WebUtility.HtmlEncode(value: title)}</h1>");
+			writer.WriteLine(value: $"<h1>{WebUtility.HtmlEncode(value: title)}</h1>");
 			writer.Write(value: "<table><thead><tr>");
 			foreach (string h in headers)
 			{
 				// Write each column header in the HTML table. Each header is encoded to ensure that special characters do not break the HTML structure. The headers are styled with a background color for better readability when opened in web browsers.
-				writer.Write(value: $"<th>{System.Net.WebUtility.HtmlEncode(value: h)}</th>");
+				writer.Write(value: $"<th>{WebUtility.HtmlEncode(value: h)}</th>");
 			}
 			writer.WriteLine(value: "</tr></thead><tbody>");
 			foreach (string[] row in GetRows(tableLayoutPanel: tableLayoutPanel))
@@ -1028,7 +1029,7 @@ public static class TableLayoutPanelExporter
 				for (int c = 0; c < headers.Length; c++)
 				{
 					string cell = c < row.Length ? row[c] : string.Empty;
-					writer.Write(value: $"<td>{System.Net.WebUtility.HtmlEncode(value: cell)}</td>");
+					writer.Write(value: $"<td>{WebUtility.HtmlEncode(value: cell)}</td>");
 				}
 				writer.WriteLine(value: "</tr>");
 			}
@@ -1645,7 +1646,7 @@ public static class TableLayoutPanelExporter
 				writer.WriteLine(value: "  <rootfiles><rootfile full-path=\"OEBPS/content.opf\" media-type=\"application/oebps-package+xml\"/></rootfiles>");
 				writer.WriteLine(value: "</container>");
 			}
-			string safeTitle = System.Net.WebUtility.HtmlEncode(value: title) ?? string.Empty;
+			string safeTitle = WebUtility.HtmlEncode(value: title) ?? string.Empty;
 			// The content.opf file is created in the OEBPS directory and contains the metadata for the EPUB, including the title, language, identifier, and creator. It also includes a manifest that lists the files included in the EPUB (the TOC and content files) and a spine that defines the reading order of the content.
 			ZipArchiveEntry opfEntry = archive.CreateEntry(entryName: "OEBPS/content.opf", compressionLevel: CompressionLevel.Optimal);
 			using (StreamWriter writer = new(stream: opfEntry.Open(), encoding: Encoding.UTF8))
@@ -1690,7 +1691,7 @@ public static class TableLayoutPanelExporter
 				writer.Write(value: "<table><thead><tr>");
 				foreach (string h in headers)
 				{
-					writer.Write(value: $"<th>{System.Net.WebUtility.HtmlEncode(value: h)}</th>");
+					writer.Write(value: $"<th>{WebUtility.HtmlEncode(value: h)}</th>");
 				}
 				writer.WriteLine(value: "</tr></thead><tbody>");
 				foreach (string[] row in GetRows(tableLayoutPanel: tableLayoutPanel))
@@ -1699,7 +1700,7 @@ public static class TableLayoutPanelExporter
 					for (int c = 0; c < headers.Length; c++)
 					{
 						string cell = c < row.Length ? row[c] : string.Empty;
-						writer.Write(value: $"<td>{System.Net.WebUtility.HtmlEncode(value: cell)}</td>");
+						writer.Write(value: $"<td>{WebUtility.HtmlEncode(value: cell)}</td>");
 					}
 					writer.WriteLine(value: "</tr>");
 				}
@@ -1729,13 +1730,13 @@ public static class TableLayoutPanelExporter
 			string[] headers = GetHeaders(tableLayoutPanel: tableLayoutPanel);
 			// Build the HTML content for the MOBI file. The HTML includes a title, a heading with the title, and a table with the column headers and data rows. Special characters in the title, headers, and cell data are encoded using HTML encoding to ensure that the resulting HTML is well-formed and can be rendered correctly by the CHM compiler and viewers.
 			StringBuilder html = new();
-			html.Append(value: $"<html><head><meta charset=\"UTF-8\"><title>{System.Net.WebUtility.HtmlEncode(value: title)}</title></head><body>");
-			html.Append(value: $"<h1>{System.Net.WebUtility.HtmlEncode(value: title)}</h1>");
+			html.Append(value: $"<html><head><meta charset=\"UTF-8\"><title>{WebUtility.HtmlEncode(value: title)}</title></head><body>");
+			html.Append(value: $"<h1>{WebUtility.HtmlEncode(value: title)}</h1>");
 			html.Append(value: "<table><tr>");
 			foreach (string h in headers)
 			{
 				// Write the column headers in the HTML table. Each header is encoded using HTML encoding to ensure that special characters are properly handled in the resulting HTML content.
-				html.Append(value: $"<th>{System.Net.WebUtility.HtmlEncode(value: h)}</th>");
+				html.Append(value: $"<th>{WebUtility.HtmlEncode(value: h)}</th>");
 			}
 			html.Append(value: "</tr>");
 			foreach (string[] row in GetRows(tableLayoutPanel: tableLayoutPanel))
@@ -1745,7 +1746,7 @@ public static class TableLayoutPanelExporter
 				for (int c = 0; c < headers.Length; c++)
 				{
 					string cell = c < row.Length ? row[c] : string.Empty;
-					html.Append(value: $"<td>{System.Net.WebUtility.HtmlEncode(value: cell)}</td>");
+					html.Append(value: $"<td>{WebUtility.HtmlEncode(value: cell)}</td>");
 				}
 				html.Append(value: "</tr>");
 			}
@@ -1764,25 +1765,25 @@ public static class TableLayoutPanelExporter
 			using (MemoryStream ms = new(buffer: headerRecord))
 			using (BinaryWriter hw = new(output: ms))
 			{
-				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (short)1));
+				hw.Write(value: IPAddress.HostToNetworkOrder(host: (short)1));
 				hw.Write(value: (short)0);
-				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: bodyData.Length));
-				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (short)textRecords.Count));
-				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (short)4096));
-				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (short)0));
-				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (short)0));
+				hw.Write(value: IPAddress.HostToNetworkOrder(host: bodyData.Length));
+				hw.Write(value: IPAddress.HostToNetworkOrder(host: (short)textRecords.Count));
+				hw.Write(value: IPAddress.HostToNetworkOrder(host: (short)4096));
+				hw.Write(value: IPAddress.HostToNetworkOrder(host: (short)0));
+				hw.Write(value: IPAddress.HostToNetworkOrder(host: (short)0));
 				hw.Write(buffer: Encoding.ASCII.GetBytes(s: "MOBI"));
-				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 232));
-				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 2));
-				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 65001));
-				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 0x12345678));
-				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 6));
+				hw.Write(value: IPAddress.HostToNetworkOrder(host: 232));
+				hw.Write(value: IPAddress.HostToNetworkOrder(host: 2));
+				hw.Write(value: IPAddress.HostToNetworkOrder(host: 65001));
+				hw.Write(value: IPAddress.HostToNetworkOrder(host: 0x12345678));
+				hw.Write(value: IPAddress.HostToNetworkOrder(host: 6));
 				ms.Seek(offset: 96, loc: SeekOrigin.Begin);
-				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: textRecords.Count + 1));
+				hw.Write(value: IPAddress.HostToNetworkOrder(host: textRecords.Count + 1));
 				ms.Seek(offset: 100, loc: SeekOrigin.Begin);
-				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 0));
+				hw.Write(value: IPAddress.HostToNetworkOrder(host: 0));
 				ms.Seek(offset: 120, loc: SeekOrigin.Begin);
-				hw.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: 6));
+				hw.Write(value: IPAddress.HostToNetworkOrder(host: 6));
 			}
 			byte[] eofRecord = [0xe9, 0x8e, 0x0d, 0x0a];
 			int totalRecords = 1 + textRecords.Count + 1;
@@ -1795,8 +1796,8 @@ public static class TableLayoutPanelExporter
 			w.Write(value: (short)0);
 			w.Write(value: (short)0);
 			uint secondsSince1904 = (uint)(DateTime.UtcNow - new DateTime(year: 1904, month: 1, day: 1, hour: 0, minute: 0, second: 0, kind: DateTimeKind.Utc)).TotalSeconds;
-			w.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (int)secondsSince1904));
-			w.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (int)secondsSince1904));
+			w.Write(value: IPAddress.HostToNetworkOrder(host: (int)secondsSince1904));
+			w.Write(value: IPAddress.HostToNetworkOrder(host: (int)secondsSince1904));
 			w.Write(value: 0);
 			w.Write(value: 0);
 			w.Write(value: 0);
@@ -1805,18 +1806,18 @@ public static class TableLayoutPanelExporter
 			w.Write(buffer: Encoding.ASCII.GetBytes(s: "MOBI"));
 			w.Write(value: 0);
 			w.Write(value: 0);
-			w.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: (short)totalRecords));
+			w.Write(value: IPAddress.HostToNetworkOrder(host: (short)totalRecords));
 			int currentOffset = 78 + (totalRecords * 8) + 2;
-			w.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: currentOffset));
+			w.Write(value: IPAddress.HostToNetworkOrder(host: currentOffset));
 			w.Write(value: 0);
 			currentOffset += headerRecord.Length;
 			foreach (byte[] rec in textRecords)
 			{
-				w.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: currentOffset));
+				w.Write(value: IPAddress.HostToNetworkOrder(host: currentOffset));
 				w.Write(value: 0);
 				currentOffset += rec.Length;
 			}
-			w.Write(value: System.Net.IPAddress.HostToNetworkOrder(host: currentOffset));
+			w.Write(value: IPAddress.HostToNetworkOrder(host: currentOffset));
 			w.Write(value: 0);
 			w.Write(value: (short)0);
 			w.Write(buffer: headerRecord);
@@ -1947,14 +1948,14 @@ public static class TableLayoutPanelExporter
 			// Write the index.html file with the TableLayoutPanel data formatted as a table. The HTML includes a title, a heading with the title, and a table with the column headers and data rows. Special characters in the title, headers, and cell data are encoded using HTML encoding to ensure that the resulting HTML is well-formed and can be rendered correctly by the CHM compiler and viewers.
 			using (StreamWriter writer = new(path: htmlPath, append: false, encoding: Encoding.UTF8))
 			{
-				string safeTitle = System.Net.WebUtility.HtmlEncode(value: title) ?? string.Empty;
+				string safeTitle = WebUtility.HtmlEncode(value: title) ?? string.Empty;
 				writer.WriteLine(value: $"<!DOCTYPE html><html><head><meta charset=\"utf-8\"><title>{safeTitle}</title>");
 				writer.WriteLine(value: "<style>table{{border-collapse:collapse;width:100%}}th,td{{border:1px solid #000;padding:5px;text-align:left}}th{{background-color:#f2f2f2}}</style></head><body>");
 				writer.WriteLine(value: $"<h1>{safeTitle}</h1>");
 				writer.Write(value: "<table><tr>");
 				foreach (string h in headers)
 				{
-					writer.Write(value: $"<th>{System.Net.WebUtility.HtmlEncode(value: h)}</th>");
+					writer.Write(value: $"<th>{WebUtility.HtmlEncode(value: h)}</th>");
 				}
 				writer.WriteLine(value: "</tr>");
 				foreach (string[] row in GetRows(tableLayoutPanel: tableLayoutPanel))
@@ -1963,7 +1964,7 @@ public static class TableLayoutPanelExporter
 					for (int c = 0; c < headers.Length; c++)
 					{
 						string cell = c < row.Length ? row[c] : string.Empty;
-						writer.Write(value: $"<td>{System.Net.WebUtility.HtmlEncode(value: cell)}</td>");
+						writer.Write(value: $"<td>{WebUtility.HtmlEncode(value: cell)}</td>");
 					}
 					writer.WriteLine(value: "</tr>");
 				}
@@ -1975,7 +1976,7 @@ public static class TableLayoutPanelExporter
 				writer.WriteLine(value: "<HTML><HEAD><meta name=\"GENERATOR\" content=\"Planetoid-DB\"></HEAD><BODY>");
 				writer.WriteLine(value: "<OBJECT type=\"text/site properties\"><param name=\"ImageType\" value=\"Folder\"></OBJECT>");
 				writer.WriteLine(value: "<UL><LI><OBJECT type=\"text/sitemap\">");
-				writer.WriteLine(value: $"<param name=\"Name\" value=\"{System.Net.WebUtility.HtmlEncode(value: title)}\">");
+				writer.WriteLine(value: $"<param name=\"Name\" value=\"{WebUtility.HtmlEncode(value: title)}\">");
 				writer.WriteLine(value: "<param name=\"Local\" value=\"index.html\">");
 				writer.WriteLine(value: "</OBJECT></UL></BODY></HTML>");
 			}

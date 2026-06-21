@@ -13,9 +13,7 @@ using System.Runtime.InteropServices;
 namespace Planetoid_DB;
 
 /// <summary>Provides the main entry point and core initialization logic for the application.</summary>
-/// <remarks>This class is responsible for starting the application, configuring essential features, handling
-/// startup errors, and ensuring proper shutdown of resources. It cannot be instantiated and contains only static
-/// members.</remarks>
+/// <remarks>This class is responsible for starting the application, configuring essential features, handling startup errors, and ensuring proper shutdown of resources. It cannot be instantiated and contains only static members.</remarks>
 internal static class Program
 {
 	/// <summary>NLog logger instance for logging application events.</summary>
@@ -83,7 +81,7 @@ internal static class Program
 			// Initialize the application configuration
 			ApplicationConfiguration.Initialize();
 			// Check if a custom MPCORB.DAT file path was provided as a command line argument
-			string mpcorbFilePath = Settings.Default.systemFilenameMpcorb;
+			string mpcorbFilePath = Settings.Default.systemFilenameMpcorbDat;
 			if (args.Length > 0 && !string.IsNullOrWhiteSpace(value: args[0]))
 			{
 				// Trim any surrounding quotes and whitespace from the provided path
@@ -168,12 +166,8 @@ internal static class Program
 		// Disable navigation sounds for the current process
 		_ = CoInternetSetFeatureEnabled(featureEntry: FeatureDisableNavigationSounds, dwFlags: SetFeatureOnProcess, fEnable: true);
 
-	/// <summary>
-	/// Handles the case when the file is missing.
-	/// </summary>
-	/// <remarks>
-	/// This method handles the case when the file is missing.
-	/// </remarks>
+	/// <summary>Handles the case when the file is missing.</summary>
+	/// <remarks>This method handles the case when the file is missing.</remarks>
 	private static void HandleMissingFile()
 	{
 		// Create an instance of the PreLoadForm
