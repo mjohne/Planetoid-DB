@@ -877,8 +877,8 @@ Public License instead of this License.  But first, please read
     <PackageReference Include="OpenTK.Windowing.Common" Version="4.9.4" />
     <PackageReference Include="OpenTK.Windowing.Desktop" Version="4.9.4" />
     <PackageReference Include="OpenTK.Windowing.GraphicsLibraryFramework" Version="4.9.4" />
-    <PackageReference Include="ScottPlot" Version="5.1.58" />
-    <PackageReference Include="ScottPlot.WinForms" Version="5.1.58" />
+    <PackageReference Include="ScottPlot" Version="5.1.59" />
+    <PackageReference Include="ScottPlot.WinForms" Version="5.1.59" />
     <PackageReference Include="SkiaSharp" Version="3.119.4" />
     <PackageReference Include="SkiaSharp.HarfBuzz" Version="3.119.4" />
     <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="3.119.4" />
