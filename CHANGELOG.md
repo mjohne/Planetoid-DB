@@ -1,5 +1,15 @@
 # Changelog
 
+## Planetoid-DB 0.9.11.74
+
+* Updated image source in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/788
+* Updated `CHANGELOG` for version 0.9.10.73 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/789
+* Refactor: consolidate SaveAs click handlers into BaseKryptonForm by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/791
+* Updated to version 0.9.11.74 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/792
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.10.73.786.2437...0.9.11.74.792.2446
+
+
 ## Planetoid-DB 0.9.10.73
 
 * Reduce noise from resolved build warnings in exporters and form metadata by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/784
