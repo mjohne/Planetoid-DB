@@ -442,7 +442,7 @@ public partial class HistogramsForm : BaseKryptonForm
 		? []
 		: [
 			// Include all bin indices between the lowest and highest observed bins so zero-count gaps are represented explicitly in both chart and table output.
-			.. Enumerable.Range(start: counts.First().Key, count: (counts.Last().Key - counts.First().Key) + 1).Select(selector: binIndex =>
+			.. Enumerable.Range(start: counts.First().Key, count: counts.Last().Key - counts.First().Key + 1).Select(selector: binIndex =>
 			{
 				// For each bin index in the full covered range, create a new HistogramBinResult object. The Start property is calculated as the bin index multiplied by the step size, and the End property is calculated as the start value plus the step size. The Count property is set to the count of planetoids for that bin, or zero if no values fell into that bin.
 				counts.TryGetValue(key: binIndex, value: out int count);
@@ -603,7 +603,7 @@ public partial class HistogramsForm : BaseKryptonForm
 		if (_planetoids.Count == 0)
 		{
 			// Display an informational message to the user indicating that no planetoid data is available for histogram generation. This prevents the user from attempting to generate a histogram when there is no data to process, and provides clear feedback about the issue.
-			_ = KryptonMessageBox.Show(text: "No planetoid data available.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: "No planetoid data available.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
 		// Retrieve the selected histogram definition and step size from the UI. If either selection is invalid (null), display an informational message to the user and return without starting the histogram generation process. This ensures that the user has made valid selections before attempting to generate a histogram.
@@ -613,7 +613,7 @@ public partial class HistogramsForm : BaseKryptonForm
 		if (definition is null || step is null)
 		{
 			// Display an informational message to the user indicating that both an orbital element and a step size must be selected to generate a histogram. This ensures that the user understands the requirements for starting the histogram generation process and provides guidance on how to proceed.
-			_ = KryptonMessageBox.Show(text: "Please select an orbital element and a step size.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: "Please select an orbital element and a step size.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
 		ResetDisplayedResults();

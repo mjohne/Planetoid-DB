@@ -58,6 +58,7 @@ internal class MoidCalculator
 	/// <param name="CosInclination">Precomputed cos(i).</param>
 	/// <param name="SinInclination">Precomputed sin(i).</param>
 	/// <param name="OneMinusEccentricitySquared">Precomputed 1 - e².</param>
+	/// <remarks>These precomputed values are used to optimize the inner loop of the MOID calculation by avoiding repeated trigonometric and arithmetic computations for the planetary orbit during bulk processing.</remarks>
 	private record PlanetComputationData(
 		string Name,
 		double SemiMajorAxis,
@@ -73,6 +74,7 @@ internal class MoidCalculator
 	/// <param name="MinDistanceSquared">Squared distance at the best coarse grid sample.</param>
 	/// <param name="BestF1">Best true anomaly on orbit 1 from the coarse grid.</param>
 	/// <param name="BestF2">Best true anomaly on orbit 2 from the coarse grid.</param>
+	/// <remarks>This struct is used to return multiple values from the coarse grid search phase without needing to allocate a separate class or tuple, and is designed to be efficiently passed by value.</remarks>
 	private record struct CoarseMinimumResult(double MinDistanceSquared, double BestF1, double BestF2);
 
 	/// <summary>Mean orbital elements of the eight solar system planets at J2000.0 (ecliptic reference frame).</summary>
@@ -424,6 +426,7 @@ internal class MoidCalculator
 
 	/// <summary>Builds precomputed constants for all planetary comparison orbits.</summary>
 	/// <returns>An array of precomputed per-planet constants in Mercury-to-Neptune order.</returns>
+	/// <remarks>These precomputed values are used to optimize the inner loop of the MOID calculation by avoiding repeated trigonometric and arithmetic computations for the planetary orbit during bulk processing.</remarks>
 	private static PlanetComputationData[] BuildPrecomputedPlanets()
 	{
 		PlanetComputationData[] data = new PlanetComputationData[Planets.Length];

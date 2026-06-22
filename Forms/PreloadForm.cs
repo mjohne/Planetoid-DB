@@ -84,7 +84,7 @@ public partial class PreloadForm : BaseKryptonForm
 	private void KryptonCommandLinkButtonOpenLocalFile_Click(object sender, EventArgs e)
 	{
 		// Create an OpenFileDialog to select a local file
-		if (openFileDialog.ShowDialog() != DialogResult.OK)
+		if (openFileDialog.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -120,7 +120,7 @@ public partial class PreloadForm : BaseKryptonForm
 			// Open the download form for MPCORB.DAT
 			using DatabaseDownloaderForm formDownloaderForMpcorbDat = new(url: mpcorbUrl);
 			// Show the form as a dialog
-			if (formDownloaderForMpcorbDat.ShowDialog() == DialogResult.OK)
+			if (formDownloaderForMpcorbDat.ShowDialog(owner: this) == DialogResult.OK)
 			{
 				// Set the file path to the downloaded MPCORB.DAT file
 				_ = MpcOrbDatFilePath = Settings.Default.systemFilenameMpcorbDat;

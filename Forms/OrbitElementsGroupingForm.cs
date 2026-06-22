@@ -94,7 +94,7 @@ public partial class OrbitElementsGroupingForm : BaseKryptonForm
 		// Set default file name
 		dialog.FileName = $"Orbit-Elements-Grouping_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.{ext}";
 		// Show the dialog and return the result
-		return dialog.ShowDialog() == DialogResult.OK;
+		return dialog.ShowDialog(owner: Form.ActiveForm) == DialogResult.OK;
 	}
 
 	/// <summary>Performs the save export operation by displaying a save dialog and invoking the specified export action.</summary>
@@ -419,7 +419,7 @@ public partial class OrbitElementsGroupingForm : BaseKryptonForm
 		if (_planetoids.Count == 0)
 		{
 			logger.Error(message: "No planetoid data available to process.");
-			_ = KryptonMessageBox.Show(text: "No planetoid data available.", caption: "Information", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: "No planetoid data available.", caption: "Information", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
 		// Disable the Start button to prevent multiple concurrent operations and enable the Cancel button to allow cancellation of the ongoing operation.

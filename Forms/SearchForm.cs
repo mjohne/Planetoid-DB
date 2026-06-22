@@ -135,7 +135,7 @@ public partial class SearchForm : BaseKryptonForm
 			FileName = $"Search-Results_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.{defaultExt.TrimStart('.')}"
 		};
 		// Show the save dialog. If the user cancels, return without performing any export action.
-		if (saveFileDialog.ShowDialog() != DialogResult.OK)
+		if (saveFileDialog.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -171,7 +171,7 @@ public partial class SearchForm : BaseKryptonForm
 		// Check if any item is selected in the list view. If not, show a warning message to the user and return without performing any navigation.
 		if (listViewResults.SelectedIndices.Count == 0)
 		{
-			_ = KryptonMessageBox.Show(text: "Please select an object to go to.", caption: "Go To Object", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(owner: this, text: "Please select an object to go to.", caption: "Go To Object", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
 		// Get the index of the selected item in the list view. This index will be used to retrieve the corresponding search result from the _searchResults list.
@@ -259,14 +259,14 @@ public partial class SearchForm : BaseKryptonForm
 		if (string.IsNullOrWhiteSpace(value: searchText))
 		{
 			// Show a warning message indicating that the user needs to enter a search term in order to perform a search. This is a validation step to ensure that the search operation has the necessary input to proceed.
-			_ = KryptonMessageBox.Show(text: "Please enter a search term.", caption: "Search", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(owner: this, text: "Please enter a search term.", caption: "Search", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
 		// Check if the user has selected at least one orbital element to search in from the checked list box. If no elements are selected, show a warning message to the user and return without performing any search.
 		if (kryptonCheckedListBoxElements.CheckedItems.Count == 0)
 		{
 			// Show a warning message indicating that the user needs to select at least one orbital element to search in. This is a validation step to ensure that the search operation has the necessary criteria to proceed.
-			_ = KryptonMessageBox.Show(text: "Please select at least one orbital element to search in.", caption: "Search", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(owner: this, text: "Please select at least one orbital element to search in.", caption: "Search", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
 		// Get the file path of the planetoid database from the application settings. If the file does not exist at the specified path, show an error message to the user and return without performing any search.

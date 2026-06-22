@@ -141,7 +141,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		saveFileDialogText.FileName = $"{orbitElements[index: 0]}.{saveFileDialogText.DefaultExt}";
 		// Show the save file dialog to select the file path and name
 		// If the user selects a file, proceed with exporting
-		if (saveFileDialogText.ShowDialog() != DialogResult.OK)
+		if (saveFileDialogText.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -167,7 +167,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 			}
 		}
 		// Show a message box indicating that the data was exported successfully
-		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the Click event of the Export As LaTeX menu item. Exports the selected orbital elements to a LaTeX file.</summary>
@@ -188,7 +188,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Set the initial directory for the save file dialog to the user's documents folder
 		saveFileDialogLatex.FileName = $"{orbitElements[index: 0]}.{saveFileDialogLatex.DefaultExt}";
 		// Show the save file dialog to select the file path and name
-		if (saveFileDialogLatex.ShowDialog() != DialogResult.OK)
+		if (saveFileDialogLatex.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -225,7 +225,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Write the LaTeX content to the file
 		streamWriter.Write(value: sb.ToString());
 		// Show a message box indicating that the data was exported successfully
-		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the Click event of the Export As Markdown menu item. Exports the selected orbital elements to a Markdown file.</summary>
@@ -246,7 +246,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Set the initial directory for the save file dialog to the user's documents folder
 		saveFileDialogMarkdown.FileName = $"{orbitElements[index: 0]}.{saveFileDialogMarkdown.DefaultExt}";
 		// Show the save file dialog to select the file path and name
-		if (saveFileDialogMarkdown.ShowDialog() != DialogResult.OK)
+		if (saveFileDialogMarkdown.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -271,7 +271,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Write the Markdown content to the file
 		streamWriter.Write(value: sb.ToString());
 		// Show a message box indicating that the data was exported successfully
-		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the Click event of the Export As Word menu item. Exports the selected orbital elements to a Word document.</summary>
@@ -292,7 +292,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Set the initial directory for the save file dialog to the user's documents folder
 		saveFileDialogWord.FileName = $"{orbitElements[index: 0]}.{saveFileDialogWord.DefaultExt}";
 		// Show the save file dialog to select the file path and name
-		if (saveFileDialogWord.ShowDialog() != DialogResult.OK)
+		if (saveFileDialogWord.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -392,7 +392,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		AddEntry(entryName: "_rels/.rels", content: rootRelsXml);
 		AddEntry(entryName: "word/document.xml", content: documentXml);
 		// Show a message box indicating that the data was exported successfully
-		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event for exporting data as an ODT document.</summary>
@@ -413,7 +413,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Set the initial directory for the save file dialog to the user's documents folder
 		saveFileDialogOdt.FileName = $"{orbitElements[index: 0]}.{saveFileDialogOdt.DefaultExt}";
 		// Show the save file dialog to select the file path and name
-		if (saveFileDialogOdt.ShowDialog() != DialogResult.OK)
+		if (saveFileDialogOdt.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -529,7 +529,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		AddEntry(entryName: "settings.xml", content: settingsXml);
 		AddEntry(entryName: "META-INF/manifest.xml", content: manifestXml);
 		// Show a message box indicating that the data was exported successfully
-		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event to export selected orbital element data as a Rich Text Format (RTF) document.</summary>
@@ -550,7 +550,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Set the initial directory for the save file dialog to the user's documents folder
 		saveFileDialogRtf.FileName = $"{orbitElements[index: 0]}.{saveFileDialogRtf.DefaultExt}";
 		// Show the save file dialog to select the file path and name
-		if (saveFileDialogRtf.ShowDialog() != DialogResult.OK)
+		if (saveFileDialogRtf.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -592,7 +592,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Write the RTF content to the file
 		streamWriter.Write(value: sb.ToString());
 		// Show a message box indicating that the data was exported successfully
-		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event to export selected orbital element data to an Excel file in .xlsx format.</summary>
@@ -613,7 +613,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Set the initial directory for the save file dialog to the user's documents folder
 		saveFileDialogExcel.FileName = $"{orbitElements[index: 0]}.{saveFileDialogExcel.DefaultExt}";
 		// Show the save file dialog to select the file path and name
-		if (saveFileDialogExcel.ShowDialog() != DialogResult.OK)
+		if (saveFileDialogExcel.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -710,7 +710,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		AddEntry(entryName: "xl/_rels/workbook.xml.rels", content: workbookRelsXml);
 		AddEntry(entryName: "xl/worksheets/sheet1.xml", content: worksheetXml);
 		// Show a message box indicating that the data was exported successfully
-		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event for exporting data as an ODS file.</summary>
@@ -731,7 +731,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Set the initial file name for the save file dialog
 		saveFileDialogOds.FileName = $"{orbitElements[index: 0]}.{saveFileDialogOds.DefaultExt}";
 		// Show the save file dialog to select the file path and name
-		if (saveFileDialogOds.ShowDialog() != DialogResult.OK)
+		if (saveFileDialogOds.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -841,7 +841,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		AddEntry(entryName: "settings.xml", content: settingsXml);
 		AddEntry(entryName: "META-INF/manifest.xml", content: manifestXml);
 		// Show a message box indicating that the data was exported successfully
-		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsCsv control.</summary>
@@ -862,7 +862,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Set the initial directory for the save file dialog to the user's documents folder
 		saveFileDialogCsv.FileName = $"{orbitElements[index: 0]}.{saveFileDialogCsv.DefaultExt}";
 		// Show the save file dialog to select the file path and name
-		if (saveFileDialogCsv.ShowDialog() != DialogResult.OK)
+		if (saveFileDialogCsv.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -888,7 +888,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 			}
 		}
 		// Show a message box indicating that the data was exported successfully
-		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsTsv control.</summary>
@@ -909,7 +909,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Set the initial directory for the save file dialog to the user's documents folder
 		saveFileDialogTsv.FileName = $"{orbitElements[index: 0]}.{saveFileDialogTsv.DefaultExt}";
 		// Show the save file dialog to select the file path and name
-		if (saveFileDialogTsv.ShowDialog() != DialogResult.OK)
+		if (saveFileDialogTsv.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -935,7 +935,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 			}
 		}
 		// Show a message box indicating that the data was exported successfully
-		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsPsv control.</summary>
@@ -956,7 +956,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Set the initial directory for the save file dialog to the user's documents folder
 		saveFileDialogPsv.FileName = $"{orbitElements[index: 0]}.{saveFileDialogPsv.DefaultExt}";
 		// Show the save file dialog to select the file path and name
-		if (saveFileDialogPsv.ShowDialog() != DialogResult.OK)
+		if (saveFileDialogPsv.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -982,7 +982,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 			}
 		}
 		// Show a message box indicating that the data was exported successfully
-		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsHtml control.</summary>
@@ -1003,7 +1003,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Set the initial directory for the save file dialog to the user's documents folder
 		saveFileDialogHtml.FileName = $"{orbitElements[index: 0]}.{saveFileDialogHtml.DefaultExt}";
 		// Show the save file dialog to select the file path and name
-		if (saveFileDialogHtml.ShowDialog() != DialogResult.OK)
+		if (saveFileDialogHtml.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -1049,7 +1049,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Write the HTML content to the file
 		streamWriter.Write(value: sb.ToString());
 		// Show a message box indicating that the data was exported successfully
-		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsXml control.</summary>
@@ -1070,7 +1070,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Set the initial directory for the save file dialog to the user's documents folder
 		saveFileDialogXml.FileName = $"{orbitElements[index: 0]}.{saveFileDialogXml.DefaultExt}";
 		// Show the save file dialog to select the file path and name
-		if (saveFileDialogXml.ShowDialog() != DialogResult.OK)
+		if (saveFileDialogXml.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -1139,7 +1139,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Write the XML content to the file
 		streamWriter.Write(value: sb.ToString());
 		// Show a message box indicating that the data was exported successfully
-		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsJson control.</summary>
@@ -1160,7 +1160,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Set the initial directory for the save file dialog to the user's documents folder
 		saveFileDialogJson.FileName = $"{orbitElements[index: 0]}.{saveFileDialogJson.DefaultExt}";
 		// Show the save file dialog to select the file path and name
-		if (saveFileDialogJson.ShowDialog() != DialogResult.OK)
+		if (saveFileDialogJson.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -1228,7 +1228,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Write the JSON content to the file
 		streamWriter.Write(value: sb.ToString());
 		// Show a message box indicating that the data was exported successfully
-		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsYaml control.</summary>
@@ -1249,7 +1249,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Set the initial directory for the save file dialog to the user's documents folder
 		saveFileDialogYaml.FileName = $"{orbitElements[index: 0]}.{saveFileDialogYaml.DefaultExt}";
 		// Show the save file dialog to select the file path and name
-		if (saveFileDialogYaml.ShowDialog() != DialogResult.OK)
+		if (saveFileDialogYaml.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -1272,7 +1272,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Write the YAML content to the file
 		streamWriter.Write(value: sb.ToString());
 		// Show a message box indicating that the data was exported successfully
-		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsSql control.</summary>
@@ -1293,7 +1293,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Set the initial directory for the save file dialog to the user's documents folder
 		saveFileDialogSql.FileName = $"{orbitElements[index: 0]}.{saveFileDialogSql.DefaultExt}";
 		// Show the save file dialog to select the file path and name
-		if (saveFileDialogSql.ShowDialog() != DialogResult.OK)
+		if (saveFileDialogSql.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -1346,7 +1346,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Write the SQL content to the file
 		streamWriter.Write(value: sb.ToString());
 		// Show a message box indicating that the data was exported successfully
-		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the Click event of the ToolStripMenuItemExportAsPdf control.</summary>
@@ -1367,7 +1367,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Set the initial file name for the save file dialog
 		saveFileDialogPdf.FileName = $"{orbitElements[index: 0]}.{saveFileDialogPdf.DefaultExt}";
 		// Show the save file dialog to select the file path and name
-		if (saveFileDialogPdf.ShowDialog() != DialogResult.OK)
+		if (saveFileDialogPdf.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -1478,7 +1478,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Write the content of the MemoryStream to the specified file path as a PDF file
 		File.WriteAllBytes(path: saveFileDialogPdf.FileName, bytes: memoryStream.ToArray());
 		// Show a message box indicating that the data was exported successfully
-		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event for exporting data as a PostScript file.</summary>
@@ -1499,7 +1499,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Set the initial file name for the save file dialog
 		saveFileDialogPostScript.FileName = $"{orbitElements[index: 0]}.{saveFileDialogPostScript.DefaultExt}";
 		// Show the save file dialog to select the file path and name
-		if (saveFileDialogPostScript.ShowDialog() != DialogResult.OK)
+		if (saveFileDialogPostScript.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -1545,7 +1545,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		_ = sb.AppendLine(value: "showpage");
 		streamWriter.Write(value: sb.ToString());
 		// Show a message box indicating that the data was exported successfully
-		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event for the "Export as EPUB" menu item.</summary>
@@ -1566,7 +1566,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Set the initial file name for the save file dialog
 		saveFileDialogEpub.FileName = $"{orbitElements[index: 0]}.{saveFileDialogEpub.DefaultExt}";
 		// Show the save file dialog to select the file path and name
-		if (saveFileDialogEpub.ShowDialog() != DialogResult.OK)
+		if (saveFileDialogEpub.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -1683,7 +1683,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		AddEntry(entryName: "OEBPS/nav.xhtml", content: navXhtml);
 		AddEntry(entryName: "OEBPS/content.xhtml", content: contentXhtml);
 		// Show a message box indicating that the data was exported successfully
-		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event for the "Export as MOBI" menu item.</summary>
@@ -1704,7 +1704,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Set the initial file name for the save file dialog
 		saveFileDialogMobi.FileName = $"{orbitElements[index: 0]}.{saveFileDialogMobi.DefaultExt}";
 		// Show the save file dialog to select the file path and name
-		if (saveFileDialogMobi.ShowDialog() != DialogResult.OK)
+		if (saveFileDialogMobi.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -1735,7 +1735,7 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Write the content of the StringBuilder to the specified file path as a MOBI file
 		File.WriteAllBytes(path: saveFileDialogMobi.FileName, bytes: Encoding.UTF8.GetBytes(s: sb.ToString()));
 		// Show a message box indicating that the data was exported successfully
-		_ = KryptonMessageBox.Show(text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	#endregion

@@ -213,7 +213,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		// Check if there are any selected indices in the ListView, and if not, return early to prevent errors; if there is a selected index, retrieve the corresponding DifferenceResult and either show a message if the record was deleted or jump to the record in the main form if it still exists
 		if (listViewResults.SelectedIndices.Count == 0)
 		{
-			_ = KryptonMessageBox.Show(text: "Please select a record to jump to.", caption: "No Record Selected", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(owner: this, text: "Please select a record to jump to.", caption: "No Record Selected", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
 		// Get the first selected index from the ListView and check if it is within the bounds of the difference results list; if so, retrieve the corresponding DifferenceResult and determine whether to show a message about a deleted record or to jump to the record in the main form based on the type of difference
@@ -223,7 +223,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 			DifferenceResult result = differenceResults[index: selectedIndex];
 			if (result.Difference.Equals(value: "Deleted record", comparisonType: StringComparison.OrdinalIgnoreCase))
 			{
-				_ = KryptonMessageBox.Show(text: "The selected record has been deleted and is no longer available.", caption: "Record Deleted", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
+				_ = KryptonMessageBox.Show(owner: this, text: "The selected record has been deleted and is no longer available.", caption: "Record Deleted", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			}
 			else
 			{
@@ -254,7 +254,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 			FileName = fileName
 		};
 		// Show the save dialog. If the user cancels, return without performing any export action.
-		if (saveFileDialog.ShowDialog() != DialogResult.OK)
+		if (saveFileDialog.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -320,7 +320,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		dlg.Filter = "MPCORB Files (*.DAT)|*.DAT|All Files (*.*)|*.*";
 		dlg.Title = "Select Reference MPCORB.DAT";
 		// Show the dialog and if the user selects a file, update the path and label with the selected file path
-		if (dlg.ShowDialog() == DialogResult.OK)
+		if (dlg.ShowDialog(owner: this) == DialogResult.OK)
 		{
 			pathFile1 = dlg.FileName;
 			kryptonLabelFile1.Text = pathFile1;
@@ -339,7 +339,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		dlg.Filter = "MPCORB Files (*.DAT)|*.DAT|All Files (*.*)|*.*";
 		dlg.Title = "Select Comparison MPCORB.DAT";
 		// Show the dialog and if the user selects a file, update the path and label with the selected file path
-		if (dlg.ShowDialog() == DialogResult.OK)
+		if (dlg.ShowDialog(owner: this) == DialogResult.OK)
 		{
 			pathFile2 = dlg.FileName;
 			kryptonLabelFile2.Text = pathFile2;
@@ -374,7 +374,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		// If the last write times of both files are identical, show an informational message and abort the comparison since the file contents are likely the same
 		if (date1 == date2)
 		{
-			_ = KryptonMessageBox.Show(text: "The file dates of both files are identical. The file contents of file 1 and file 2 are the same. Further comparison is aborted.", caption: "Notice", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: "The file dates of both files are identical. The file contents of file 1 and file 2 are the same. Further comparison is aborted.", caption: "Notice", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
 		// Determine if file 1 is newer than file 2 based on the last write times, which will be used to determine the direction of the comparison (i.e., whether differences should be reported as added or deleted records)
@@ -437,7 +437,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 						 "Computer - Computer Name\n" +
 						 "Flags - 4-Hexdigit Flag\n" +
 						 "LastObs - Date of the Last Observation";
-		_ = KryptonMessageBox.Show(text: message, caption: "Abbreviations", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this, text: message, caption: "Abbreviations", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event for the Krypton button and initiates navigation to a specific object.</summary>
@@ -883,7 +883,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		if (e.Cancelled)
 		{
 			kryptonProgressBar.Text = "Comparison Cancelled";
-			_ = KryptonMessageBox.Show(text: $"Comparison cancelled by user", caption: "Cancelled", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: $"Comparison cancelled by user", caption: "Cancelled", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 		}
 		else if (e.Error != null)
 		{
@@ -894,7 +894,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		else
 		{
 			kryptonProgressBar.Text = "Comparison Complete";
-			_ = KryptonMessageBox.Show(text: $"Comparison completed successfully.\n\nAdded records: {addedRecords}\nChanged records: {changedRecords}\nDeleted records: {deletedRecords}", caption: "Summary", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: $"Comparison completed successfully.\n\nAdded records: {addedRecords}\nChanged records: {changedRecords}\nDeleted records: {deletedRecords}", caption: "Summary", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 		}
 		// Re-enable the compare and file selection buttons, enable the cancel button, and hide the progress bar now that the comparison is complete or cancelled
 		toolStripButtonCompare.Enabled = true;

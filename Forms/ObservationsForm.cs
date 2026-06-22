@@ -340,13 +340,13 @@ public partial class ObservationsForm : BaseKryptonForm
 					durationStats = $"\nObservation duration: {observationDuration} day(s)\nUsed observation days: {usedDays}\nUnused observation days: {unusedDays}";
 				}
 				// Show a message box with the count of observations, the date range, and the duration statistics
-				_ = KryptonMessageBox.Show(text: $"Number of observations: {count}\nFirst observation: {firstDate}\nLast observation: {lastDate}{durationStats}", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+				_ = KryptonMessageBox.Show(owner: this, text: $"Number of observations: {count}\nFirst observation: {firstDate}\nLast observation: {lastDate}{durationStats}", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			}
 			// If no observations were found, show an information message box indicating that
 			else
 			{
 				// Show a message box indicating that no observations were found
-				_ = KryptonMessageBox.Show(text: "No observations found.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+				_ = KryptonMessageBox.Show(owner: this, text: "No observations found.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			}
 			// Update the status bar with the count of loaded observations
 			SetStatusBar(label: labelInformation, text: $"{count} observation(s) loaded.");
@@ -411,7 +411,7 @@ public partial class ObservationsForm : BaseKryptonForm
 		string timestamp = DateTime.Now.ToString(format: "yyyy-MM-dd_HH-mm-ss");
 		dialog.FileName = $"Observations_{timestamp}.{ext}";
 		// Show the dialog and return the result
-		return dialog.ShowDialog() == DialogResult.OK;
+		return dialog.ShowDialog(owner: Form.ActiveForm) == DialogResult.OK;
 	}
 
 	/// <summary>Performs the save export operation by displaying a save dialog and invoking the specified export action.</summary>
@@ -775,7 +775,7 @@ public partial class ObservationsForm : BaseKryptonForm
 		// Open the ObservatoryCodesForm as a modal dialog to display the list of observatory codes. The form is set to be topmost based on the current state of the main form to ensure it appears above other windows.
 		using ObservatoryCodesForm formObservatoryCodes = new();
 		formObservatoryCodes.TopMost = TopMost;
-		_ = formObservatoryCodes.ShowDialog();
+		_ = formObservatoryCodes.ShowDialog(owner: this);
 	}
 
 	#endregion

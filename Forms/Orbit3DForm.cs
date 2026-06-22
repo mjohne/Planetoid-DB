@@ -109,6 +109,7 @@ public partial class Orbit3DForm : BaseKryptonForm
 	private (double X, double Y, double Z)[][]? _cachedPlanetOrbits;
 
 	/// <summary>Cached orbit point array for the selected planetoid, computed once on load.</summary>
+	/// <remarks>This array contains the heliocentric ecliptic coordinates of points along the planetoid's orbit, computed once on load for efficient rendering.</remarks>
 	private (double X, double Y, double Z)[]? _cachedPlanetoidOrbit;
 
 	/// <summary>Number of orbit path segments computed per orbit (higher = smoother ellipse).</summary>
@@ -695,7 +696,7 @@ public partial class Orbit3DForm : BaseKryptonForm
 			for (int idx = 0; idx < Planets.Length; idx++)
 			{
 				(_, double a, double ecc, double i, double om, double peri, _, _) = Planets[idx];
-					_cachedPlanetOrbits[idx] = ComputeOrbitPoints(a: a, e: ecc, iDeg: i, omDeg: om, periDeg: peri);
+				_cachedPlanetOrbits[idx] = ComputeOrbitPoints(a: a, e: ecc, iDeg: i, omDeg: om, periDeg: peri);
 			}
 			_cachedPlanetoidOrbit = ComputeOrbitPoints(
 				a: _semiMajorAxis,

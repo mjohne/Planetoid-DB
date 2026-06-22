@@ -2,6 +2,8 @@
 // which computes and displays Tisserand parameter values for all minor planets
 // relative to each of the eight solar system planets.
 
+using Krypton.Toolkit;
+
 using NLog;
 
 using Planetoid_DB.Forms;
@@ -97,7 +99,7 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 		// Set default file name
 		dialog.FileName = $"TisserandParametersOfAllMinorPlanets_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.{ext}";
 		// Show the dialog and return the result
-		return dialog.ShowDialog() == DialogResult.OK;
+		return dialog.ShowDialog(owner: Form.ActiveForm) == DialogResult.OK;
 	}
 
 	/// <summary>Performs the save export operation by displaying a save dialog and invoking the specified export action.</summary>
@@ -130,7 +132,7 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			logger.Error(message: $"An error occurred during export: {ex}");
-			MessageBox.Show(text: $"An error has occurred during export: {ex.Message}", caption: "Export Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
+			KryptonMessageBox.Show(owner: this, text: $"An error has occurred during export: {ex.Message}", caption: "Export Error", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
 		}
 		// In the finally block, ensure that the cursor is reset to the default state regardless of whether the export action succeeds or fails.
 		finally
@@ -308,11 +310,12 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 	{
 		if (_planetoids.Count == 0)
 		{
-			_ = MessageBox.Show(
+			_ = KryptonMessageBox.Show(
+				owner: this,
 				text: "No planetoid data available.",
 				caption: I18nStrings.InformationCaption,
-				buttons: MessageBoxButtons.OK,
-				icon: MessageBoxIcon.Information);
+				buttons: KryptonMessageBoxButtons.OK,
+				icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
 		// Disable the Start button and save menu during the calculation

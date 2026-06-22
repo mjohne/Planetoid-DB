@@ -571,7 +571,7 @@ public partial class ScatterplotsForm : BaseKryptonForm
 		// Validate that there is planetoid data available before attempting to generate a scatter plot.
 		if (_planetoids.Count == 0)
 		{
-			_ = KryptonMessageBox.Show(text: "No planetoid data available.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: "No planetoid data available.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
 		// Retrieve the selected X-axis and Y-axis definitions from the UI.
@@ -580,7 +580,7 @@ public partial class ScatterplotsForm : BaseKryptonForm
 		// If either definition is not selected, display an informational message to the user.
 		if (xDefinition is null || yDefinition is null)
 		{
-			_ = KryptonMessageBox.Show(text: "Please select an orbital element for both axes.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: "Please select an orbital element for both axes.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
 		ResetDisplayedResults();

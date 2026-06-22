@@ -154,7 +154,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		dialogPrint.Document = printDoc;
 		dialogPrint.AllowSelection = true;
 		dialogPrint.AllowSomePages = true;
-		if (dialogPrint.ShowDialog() != DialogResult.OK)
+		if (dialogPrint.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -168,7 +168,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		{
 			// Print the document on the UI thread to ensure safe access to UI controls in event handlers
 			printDoc.Print();
-			_ = KryptonMessageBox.Show(text: "Printing completed.", caption: "Print Data Sheet", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: "Printing completed.", caption: "Print Data Sheet", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 		}
 		catch (Exception ex)
 		{
@@ -196,7 +196,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		// Set the document for the print preview dialog
 		previewDialog.Document = printDoc;
 		// Show the print preview dialog
-		_ = previewDialog.ShowDialog();
+		_ = previewDialog.ShowDialog(owner: this);
 	}
 
 	/// <summary>Handles the Click event of the page setup button. Opens a page setup dialog to configure page settings.</summary>
@@ -213,7 +213,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		pageSetupDialog.PrinterSettings = printDoc.PrinterSettings;
 		pageSetupDialog.ShowNetwork = true;
 		// Show the page setup dialog and update the print document's default page settings if the user confirms
-		if (pageSetupDialog.ShowDialog() == DialogResult.OK)
+		if (pageSetupDialog.ShowDialog(owner: this) == DialogResult.OK)
 		{
 			printDoc.DefaultPageSettings = pageSetupDialog.PageSettings;
 		}

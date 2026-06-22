@@ -113,7 +113,7 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		// Set default file name
 		dialog.FileName = $"Derived-Orbit-Elements_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.{ext}";
 		// Show the dialog and return the result
-		return dialog.ShowDialog() == DialogResult.OK;
+		return dialog.ShowDialog(owner: Form.ActiveForm) == DialogResult.OK;
 	}
 
 	/// <summary>Displays a save dialog and exports the table layout panel contents using the specified export action.</summary>
@@ -245,7 +245,7 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		// Set the form to be topmost if the main form is topmost
 		formTerminology.TopMost = TopMost;
 		// Show the terminology form as a dialog
-		_ = formTerminology.ShowDialog();
+		_ = formTerminology.ShowDialog(owner: this);
 	}
 
 	/// <summary>Sets the internal list of derived orbit elements used by the form.</summary>

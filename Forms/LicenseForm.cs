@@ -104,7 +104,7 @@ public partial class LicenseForm : BaseKryptonForm
 	private async void KryptonButtonSaveLicense_ClickAsync(object sender, EventArgs e)
 	{
 		// Create a SaveFileDialog to prompt the user for a file location
-		if (saveFileDialog.ShowDialog() != DialogResult.OK)
+		if (saveFileDialog.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -112,7 +112,7 @@ public partial class LicenseForm : BaseKryptonForm
 		try
 		{
 			await ExtractResourceAsync(nameSpace: resourceRootNamespace, destinationPath: saveFileDialog.FileName, resourceName: licenseResourceName);
-			_ = KryptonMessageBox.Show(text: "License saved successfully.", caption: "Success", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: "License saved successfully.", caption: "Success", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 		}
 		catch (Exception ex)
 		{
