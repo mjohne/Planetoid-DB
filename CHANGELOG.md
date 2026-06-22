@@ -1,5 +1,14 @@
 # Changelog
 
+## Planetoid-DB 0.9.10.73
+
+* Reduce noise from resolved build warnings in exporters and form metadata by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/784
+* Updated `owner` in `Show()` methods by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/785
+* Updated to version 0.9.10.73 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/786
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.9.72.481.2424...0.9.10.73.786.2437
+
+
 ## Planetoid-DB 0.9.9.72
 
 * Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/776
