@@ -22,6 +22,26 @@ namespace Planetoid_DB;
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class SearchForm : BaseKryptonForm
 {
+	#region Export override properties
+
+	/// <summary>Gets the ListView control used for export operations.</summary>
+	/// <remarks>Overrides the base export source to use this form's virtual results list.</remarks>
+	protected override ListView? ExportListView => listViewResults;
+
+	/// <summary>Gets the title used for exported data.</summary>
+	/// <remarks>Overrides the base export title for this form's content.</remarks>
+	protected override string ExportTitle => "Search Results";
+
+	/// <summary>Gets the file name prefix used for exported files.</summary>
+	/// <remarks>Overrides the default export file prefix for this form.</remarks>
+	protected override string ExportFilePrefix => "Search-Results";
+
+	/// <summary>Gets the virtual row provider used during export operations.</summary>
+	/// <remarks>Overrides the base export row provider to read items from the virtual list.</remarks>
+	protected override Func<int, ListViewItem>? ExportVirtualRowProvider => GetVirtualListViewItem;
+
+	#endregion
+
 	/// <summary>List to store search results found during the search operation.</summary>
 	/// <remarks>This list holds the search results as they are found during the search process. Each entry in the list represents a search result that matches the user's search criteria. The list is accessed and modified in a thread-safe manner to ensure that it can be safely updated from the background search task while being read by the UI thread for display.</remarks>
 	private readonly List<SearchResult> _searchResults = [];
@@ -116,46 +136,6 @@ public partial class SearchForm : BaseKryptonForm
 		_propertyMap.Add(key: "Computer name", value: static r => r.ComputerName);
 		_propertyMap.Add(key: "Flags", value: static r => r.Flags);
 		_propertyMap.Add(key: "Date of last observation", value: static r => r.ObservationLastDate);
-	}
-
-	/// <summary>Displays a save file dialog and, if the user confirms, invokes the specified export action to save data to the selected file.</summary>
-	/// <remarks>If the user cancels the save dialog, no export action is performed. Any exceptions thrown during the export are logged and displayed to the user in a message box. The cursor is set to a wait cursor during the export operation and reset afterward.</remarks>
-	/// <param name="filter">The file type filter string that determines the choices available in the save file dialog. For example, "Text Files (*.txt)|*.txt".</param>
-	/// <param name="defaultExt">The default file extension to use if the user does not specify one.</param>
-	/// <param name="dialogTitle">The title displayed in the save file dialog window.</param>
-	/// <param name="exportAction">An action to perform the export, which receives the ListView to export, a title string, the selected file path, and a function to retrieve virtual list view items.</param>
-	private void PerformSaveExport(string filter, string defaultExt, string dialogTitle, Action<ListView, string, string, Func<int, ListViewItem>?> exportAction)
-	{
-		// Create and configure the save file dialog with the specified filter, default extension, and title. The dialog allows the user to choose where to save the exported file and what name to give it.
-		using SaveFileDialog saveFileDialog = new()
-		{
-			Filter = filter,
-			DefaultExt = defaultExt,
-			Title = dialogTitle,
-			FileName = $"Search-Results_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.{defaultExt.TrimStart('.')}"
-		};
-		// Show the save dialog. If the user cancels, return without performing any export action.
-		if (saveFileDialog.ShowDialog(owner: this) != DialogResult.OK)
-		{
-			return;
-		}
-		// If the user selects a file and confirms the dialog, set the cursor to a wait cursor to indicate that an operation is in progress, and then invoke the specified export action with the text box containing the output, the title for the export, and the selected file name. After the export action is completed, reset the cursor to the default state.
-		try
-		{
-			Cursor.Current = Cursors.WaitCursor;
-			exportAction(arg1: listViewResults, arg2: "Search Results", arg3: saveFileDialog.FileName, arg4: GetVirtualListViewItem);
-		}
-		// Handle any exceptions that may occur during the export action
-		catch (Exception ex)
-		{
-			logger.Error(message: $"An error occurred during export: {ex}");
-			ShowErrorMessage(message: $"An error has occurred during export: {ex.Message}");
-		}
-		// In the finally block, ensure that the cursor is reset to the default state regardless of whether the export action succeeds or fails. This ensures that the user interface remains responsive and provides appropriate feedback to the user.
-		finally
-		{
-			Cursor.Current = Cursors.Default;
-		}
 	}
 
 	/// <summary>Navigates to the object currently selected in the search results list, displaying it in the main application form if available.</summary>
@@ -540,230 +520,6 @@ public partial class SearchForm : BaseKryptonForm
 			kryptonCheckedListBoxElements.SetItemChecked(index: i, value: false);
 		}
 	}
-
-	/// <summary>Handles the Click event to export the results as a text file.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as Text" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as a text file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsText_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "Text Files (*.txt)|*.txt|All Files (*.*)|*.*", defaultExt: "txt", dialogTitle: "Save as Text", exportAction: ListViewExporter.SaveAsText);
-
-	/// <summary>Handles the Click event to export the results as a LaTeX file.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as LaTeX" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as a LaTeX file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsLatex_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "LaTeX Files (*.tex)|*.tex|All Files (*.*)|*.*", defaultExt: "tex", dialogTitle: "Save as LaTeX", exportAction: ListViewExporter.SaveAsLatex);
-
-	/// <summary>Handles the Click event to export the results as a Markdown file.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as Markdown" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as a Markdown file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsMarkdown_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "Markdown Files (*.md)|*.md|All Files (*.*)|*.*", defaultExt: "md", dialogTitle: "Save as Markdown", exportAction: ListViewExporter.SaveAsMarkdown);
-
-	/// <summary>Handles the Click event to export the results as a Word document.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as Word" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as a Word document, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsWord_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "Word Documents (*.docx)|*.docx|All Files (*.*)|*.*", defaultExt: "docx", dialogTitle: "Save as Word Document", exportAction: ListViewExporter.SaveAsWord);
-
-	/// <summary>Handles the Click event to export the results as an OpenDocument Text file.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as OpenDocument Text" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as an OpenDocument Text file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsOdt_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "OpenDocument Text (*.odt)|*.odt|All Files (*.*)|*.*", defaultExt: "odt", dialogTitle: "Save as OpenDocument Text", exportAction: ListViewExporter.SaveAsOdt);
-
-	/// <summary>Handles the Click event to export the results as a Rich Text Format file.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as Rich Text Format" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as a Rich Text Format file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsRtf_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "Rich Text Format (*.rtf)|*.rtf|All Files (*.*)|*.*", defaultExt: "rtf", dialogTitle: "Save as Rich Text Format", exportAction: ListViewExporter.SaveAsRtf);
-
-	/// <summary>Handles the Click event to export the results as an Excel spreadsheet.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as Excel" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as an Excel spreadsheet, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsExcel_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "Excel Spreadsheets (*.xlsx)|*.xlsx|All Files (*.*)|*.*", defaultExt: "xlsx", dialogTitle: "Save as Excel Spreadsheet", exportAction: ListViewExporter.SaveAsExcel);
-
-	/// <summary>Handles the Click event to export the results as an OpenDocument Spreadsheet.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as OpenDocument Spreadsheet" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as an OpenDocument Spreadsheet file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsOds_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "OpenDocument Spreadsheets (*.ods)|*.ods|All Files (*.*)|*.*", defaultExt: "ods", dialogTitle: "Save as OpenDocument Spreadsheet", exportAction: ListViewExporter.SaveAsOds);
-
-	/// <summary>Handles the Click event to export the results as a CSV file.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as CSV" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as a CSV file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsCsv_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "Comma-Separated Values (*.csv)|*.csv|All Files (*.*)|*.*", defaultExt: "csv", dialogTitle: "Save as Comma-Separated Values", exportAction: ListViewExporter.SaveAsCsv);
-
-	/// <summary>Handles the Click event to export the results as a TSV file.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as TSV" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as a TSV file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsTsv_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "Tab-Separated Values (*.tsv)|*.tsv|All Files (*.*)|*.*", defaultExt: "tsv", dialogTitle: "Save as Tab-Separated Values", exportAction: ListViewExporter.SaveAsTsv);
-
-	/// <summary>Handles the Click event to export the results as a PSV file.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as PSV" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as a PSV file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsPsv_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "Pipe-Separated Values (*.psv)|*.psv|All Files (*.*)|*.*", defaultExt: "psv", dialogTitle: "Save as Pipe-Separated Values", exportAction: ListViewExporter.SaveAsPsv);
-
-	/// <summary>Handles the Click event to export the results as an HTML file.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as HTML" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as an HTML file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsHtml_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "HTML Files (*.html)|*.html|All Files (*.*)|*.*", defaultExt: "html", dialogTitle: "Save as HTML", exportAction: ListViewExporter.SaveAsHtml);
-
-	/// <summary>Handles the Click event to export the results as an XML file.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as XML" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as an XML file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsXml_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "XML Files (*.xml)|*.xml|All Files (*.*)|*.*", defaultExt: "xml", dialogTitle: "Save as XML", exportAction: ListViewExporter.SaveAsXml);
-
-	/// <summary>Handles the Click event to export the results as a JSON file.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as JSON" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as a JSON file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsJson_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "JSON Files (*.json)|*.json|All Files (*.*)|*.*", defaultExt: "json", dialogTitle: "Save as JSON", exportAction: ListViewExporter.SaveAsJson);
-
-	/// <summary>Handles the Click event to export the results as a YAML file.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as YAML" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as a YAML file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsYaml_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "YAML Files (*.yaml)|*.yaml|All Files (*.*)|*.*", defaultExt: "yaml", dialogTitle: "Save as YAML", exportAction: ListViewExporter.SaveAsYaml);
-
-	/// <summary>Handles the Click event to export the results as a SQL script.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as SQL" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as a SQL script, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsSql_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "SQL Scripts (*.sql)|*.sql|All Files (*.*)|*.*", defaultExt: "sql", dialogTitle: "Save as SQL", exportAction: ListViewExporter.SaveAsSql);
-
-	/// <summary>Handles the Click event to export the results as a PDF file.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as PDF" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as a PDF file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsPdf_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "PDF Files (*.pdf)|*.pdf|All Files (*.*)|*.*", defaultExt: "pdf", dialogTitle: "Save as PDF", exportAction: ListViewExporter.SaveAsPdf);
-
-	/// <summary>Handles the Click event to export the results as a PostScript file.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as PostScript" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as a PostScript file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsPostScript_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "PostScript Files (*.ps)|*.ps|All Files (*.*)|*.*", defaultExt: "ps", dialogTitle: "Save as PostScript", exportAction: ListViewExporter.SaveAsPostScript);
-
-	/// <summary>Handles the Click event to export the results as an EPUB file.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as EPUB" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as an EPUB file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsEpub_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "EPUB Files (*.epub)|*.epub|All Files (*.*)|*.*", defaultExt: "epub", dialogTitle: "Save as EPUB", exportAction: ListViewExporter.SaveAsEpub);
-
-	/// <summary>Handles the Click event to export the results as a Mobi file.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as Mobi" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as a Mobi file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsMobi_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "MOBI Files (*.mobi)|*.mobi|All Files (*.*)|*.*", defaultExt: "mobi", dialogTitle: "Save as Mobi", exportAction: ListViewExporter.SaveAsMobi);
-
-	/// <summary>Handles the Click event to export the results as a TOML file.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as TOML" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as a TOML file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsToml_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "TOML Files (*.toml)|*.toml|All Files (*.*)|*.*", defaultExt: "toml", dialogTitle: "Save as TOML", exportAction: ListViewExporter.SaveAsToml);
-
-	/// <summary>Handles the Click event to export the results as an XPS file.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as XPS" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as an XPS file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsXps_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "XPS Files (*.xps)|*.xps|All Files (*.*)|*.*", defaultExt: "xps", dialogTitle: "Save as XPS", exportAction: ListViewExporter.SaveAsXps);
-
-	/// <summary>Handles the Click event to export the results as a WPS Writer document.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as WPS" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as a WPS Writer document, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsWps_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "WPS Writer Documents (*.wps)|*.wps|All Files (*.*)|*.*", defaultExt: "wps", dialogTitle: "Save as WPS", exportAction: ListViewExporter.SaveAsWps);
-
-	/// <summary>Handles the Click event to export the results as a WPS Spreadsheet file.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as WPS Spreadsheet" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as a WPS Spreadsheet file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsEt_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "WPS Spreadsheets (*.et)|*.et|All Files (*.*)|*.*", defaultExt: "et", dialogTitle: "Save as WPS Spreadsheet", exportAction: ListViewExporter.SaveAsEt);
-
-	/// <summary>Handles the Click event to export the results as a FictionBook2 file.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as FictionBook2" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as a FictionBook2 file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsFictionBook2_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "FictionBook2 Files (*.fb2)|*.fb2|All Files (*.*)|*.*", defaultExt: "fb2", dialogTitle: "Save as FictionBook2", exportAction: ListViewExporter.SaveAsFictionBook2);
-
-	/// <summary>Handles the Click event to export the results as a CHM file.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as CHM" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as a CHM file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsChm_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "CHM Files (*.chm)|*.chm|All Files (*.*)|*.*", defaultExt: "chm", dialogTitle: "Save as CHM", exportAction: ListViewExporter.SaveAsChm);
-
-	/// <summary>Handles the Click event to export the results as a DocBook file.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as DocBook" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as a DocBook file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsDocBook_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "DocBook Files (*.xml)|*.xml|All Files (*.*)|*.*", defaultExt: "xml", dialogTitle: "Save as DocBook", exportAction: ListViewExporter.SaveAsDocBook);
-
-	/// <summary>Handles the Click event to export the results as an AbiWord file.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as AbiWord" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as an AbiWord file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsAbiword_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "AbiWord Files (*.abw)|*.abw|All Files (*.*)|*.*", defaultExt: "abw", dialogTitle: "Save as AbiWord", exportAction: ListViewExporter.SaveAsAbiword);
-
-	/// <summary>Handles the Click event to export the results as an AsciiDoc file.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as AsciiDoc" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as an AsciiDoc file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsAsciiDoc_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "AsciiDoc Files (*.adoc)|*.adoc|All Files (*.*)|*.*", defaultExt: "adoc", dialogTitle: "Save as AsciiDoc", exportAction: ListViewExporter.SaveAsAsciiDoc);
-
-	/// <summary>Handles the Click event to export the results as a reStructuredText file.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as reStructuredText" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as a reStructuredText file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsReStructuredText_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "ReStructuredText Files (*.rst)|*.rst|All Files (*.*)|*.*", defaultExt: "rst", dialogTitle: "Save as reStructuredText", exportAction: ListViewExporter.SaveAsReStructuredText);
-
-	/// <summary>Handles the Click event to export the results as a Textile file.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as Textile" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as a Textile file, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsTextile_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "Textile Files (*.textile)|*.textile|All Files (*.*)|*.*", defaultExt: "textile", dialogTitle: "Save as Textile", exportAction: ListViewExporter.SaveAsTextile);
-
-	/// <summary>Handles the Click event to export the results as a SQLite database.</summary>
-	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
-	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>When the user clicks the "Save as SQLite" menu item, this event handler is triggered. It calls the PerformSaveExport method with parameters specific to exporting the search results as a SQLite database, including the file filter, default extension, dialog title, and the export action to be performed by the ListViewExporter.</remarks>
-	private void ToolStripMenuItemSaveAsSqlite_Click(object sender, EventArgs e)
-		=> PerformSaveExport(filter: "SQLite Files (*.sqlite3;*.sqlite;*.db)|*.sqlite3;*.sqlite;*.db|All Files (*.*)|*.*", defaultExt: "sqlite", dialogTitle: "Save as SQLite", exportAction: ListViewExporter.SaveAsSqlite);
 
 	/// <summary>Handles the Go To Object toolbar button click by navigating to the selected object and closing the form afterwards.</summary>
 	/// <param name="sender">The source of the event.</param>
