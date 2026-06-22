@@ -281,7 +281,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 			openFileDialog.FileName = kryptonTextBoxSource.Text;
 		}
 		// Show the file dialog and if the user selects a file and clicks OK, set the selected file path in the source textbox
-		if (openFileDialog.ShowDialog() == DialogResult.OK)
+		if (openFileDialog.ShowDialog(owner: this) == DialogResult.OK)
 		{
 			kryptonTextBoxSource.Text = openFileDialog.FileName;
 		}
@@ -300,7 +300,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		saveFileDialog.FileName = Path.GetFileName(path: kryptonTextBoxTarget.Text);
 		saveFileDialog.Filter = $"{format} Archive (*{extension})|*{extension}";
 		// Show the save file dialog and if the user does not select a file and click OK, leave the existing target path unchanged
-		if (saveFileDialog.ShowDialog() != DialogResult.OK)
+		if (saveFileDialog.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -386,7 +386,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 			}, cancellationToken: cancellationToken);
 			// If the archiving process completes successfully without cancellation, update the status label and show a success message box
 			labelInformation.Text = "Archiving completed successfully.";
-			KryptonMessageBox.Show(text: "Archiving completed successfully.", caption: "Success", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			KryptonMessageBox.Show(owner: this, text: "Archiving completed successfully.", caption: "Success", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 		}
 		// Catch an OperationCanceledException to handle the case where the archiving process was cancelled by the user. Update the status label and attempt to delete the partially created target file if it exists
 		catch (OperationCanceledException)

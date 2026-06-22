@@ -101,7 +101,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		// If there are no planetoid data lines available, show an informational message and return.
 		if (_planetoids.Count == 0)
 		{
-			KryptonMessageBox.Show(text: "No planetoid data available.", caption: "Information", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			KryptonMessageBox.Show(owner: this, text: "No planetoid data available.", caption: "Information", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
 		// Disable the Start button and enable the Cancel button while detection is in progress. Also disable save buttons until results are available.
@@ -426,7 +426,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 			Title = families.Count == 1 ? "Save Selected Family" : "Save All Families"
 		};
 		// We show the save file dialog and check if the user clicked OK. If the user cancels the dialog, we simply return without doing anything. If the user selects a file and clicks OK, we proceed to write the family data to the specified file.
-		if (dlg.ShowDialog() != DialogResult.OK)
+		if (dlg.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -473,7 +473,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		try
 		{
 			await File.WriteAllTextAsync(path: dlg.FileName, contents: textContent, encoding: Encoding.UTF8);
-			KryptonMessageBox.Show(text: $"Successfully saved to:{Environment.NewLine}{dlg.FileName}", caption: "Saved", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			KryptonMessageBox.Show(owner: this, text: $"Successfully saved to:{Environment.NewLine}{dlg.FileName}", caption: "Saved", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 		}
 		// We catch IOException to handle cases where the file cannot be written due to issues such as disk errors or file locks. We show an error message with details about the failure.
 		catch (IOException ex)

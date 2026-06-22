@@ -137,7 +137,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		// Set default file name
 		dialog.FileName = $"OrbitalResonancesOfAllMinorPlanets_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.{ext}";
 		// Show the dialog and return the result
-		return dialog.ShowDialog() == DialogResult.OK;
+		return dialog.ShowDialog(owner: null) == DialogResult.OK;
 	}
 
 	/// <summary>Performs the save export operation by displaying a save dialog and invoking the specified export action.</summary>
@@ -378,12 +378,12 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		List<string> selectedPlanets = GetSelectedPlanets();
 		if (selectedPlanets.Count == 0)
 		{
-			_ = KryptonMessageBox.Show(text: "Please select at least one planet.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: "Please select at least one planet.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
 		if (_planetoids.Count == 0)
 		{
-			_ = KryptonMessageBox.Show(text: "No planetoid data available.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: "No planetoid data available.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
 		// Disable the Start button and planet selection buttons to prevent changes during the search; also disable the save menu since there are no results yet; these controls will be re-enabled when the search completes or is cancelled

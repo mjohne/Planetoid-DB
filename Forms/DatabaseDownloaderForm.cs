@@ -28,8 +28,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 	/// <remarks>This logger is used to log messages for the form.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>Shared <see cref="HttpClient"/> used for HTTP requests. Initialized in the constructor.
-	/// Reuse to avoid socket exhaustion.</summary>
+	/// <summary>Shared <see cref="HttpClient"/> used for HTTP requests. Initialized in the constructor. Reuse to avoid socket exhaustion.</summary>
 	/// <remarks>This HttpClient instance is reused for all HTTP requests to improve performance.</remarks>
 	private static readonly HttpClient httpClient = new(handler: new HttpClientHandler
 	{
@@ -254,7 +253,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		if (string.IsNullOrWhiteSpace(value: url))
 		{
 			// Show an error message if the URL is invalid
-			_ = KryptonMessageBox.Show(text: "Please enter a valid URL!", caption: "Error", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(owner: this, text: "Please enter a valid URL!", caption: "Error", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
 		// Check if the temporary filename is valid
@@ -308,7 +307,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			}
 			// Notify the user of successful completion
 			labelStatusValue.Text = "Download completed";
-			_ = KryptonMessageBox.Show(text: "Download completed successfully!", caption: "Finished", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: "Download completed successfully!", caption: "Finished", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			logger.Info(message: "Download and extraction completed successfully.");
 			// Set the dialog result to OK and close the form
 			DialogResult = DialogResult.OK;
@@ -322,7 +321,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			// Notify the user that the download was canceled
 			labelStatusValue.Text = "Download canceled";
 			//TODO: Optionally disable the Cancel button here to prevent multiple clicks
-			_ = KryptonMessageBox.Show(text: "Download canceled!", caption: "Canceled", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: "Download canceled!", caption: "Canceled", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			logger.Info(message: "Download canceled by user.");
 		}
 		// Handle other exceptions
@@ -364,8 +363,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 	/// <returns>A <see cref="Task"/> that represents the asynchronous download operation.</returns>
 	/// <exception cref="OperationCanceledException">Thrown when the operation is cancelled through <paramref name="token"/>.</exception>
 	/// <exception cref="HttpRequestException">Thrown when the HTTP request fails (non-success status code).</exception>
-	/// <remarks>The method streams the response to disk to avoid buffering the entire response in memory.
-	/// Progress is reported by updating the form's progress bar when the content length is known.</remarks>
+	/// <remarks>The method streams the response to disk to avoid buffering the entire response in memory. Progress is reported by updating the form's progress bar when the content length is known.</remarks>
 	private async Task DownloadFileAsync(string fileUrl, string destinationPath, CancellationToken token)
 	{
 		// Update status label to indicate download is starting

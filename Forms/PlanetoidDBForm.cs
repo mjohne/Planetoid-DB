@@ -270,13 +270,15 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method is used to ask the user if they want to restart the application after downloading the database.</remarks>
 	private void AskForRestartAfterDownloadingDatabase()
 	{
+		// Bring the main form to the foreground before showing the message box, so it cannot appear behind other application windows.
+		Activate();
 		// Ask the user if they want to restart the application after downloading the database
 		// and show a message box with the option to restart or not
 		// The message box will have the text "Download complete. Do you want to restart the application?"
 		// and the caption "Information"
 		// If the user clicks "Yes", restart the application
 		// If the user clicks "No", do nothing
-		if (KryptonMessageBox.Show(text: I18nStrings.DownloadCompleteAndRestartQuestionText, caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.YesNo, icon: KryptonMessageBoxIcon.Question, defaultButton: KryptonMessageBoxDefaultButton.Button1) == DialogResult.Yes)
+		if (KryptonMessageBox.Show(owner: this, text: I18nStrings.DownloadCompleteAndRestartQuestionText, caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.YesNo, icon: KryptonMessageBoxIcon.Question, defaultButton: KryptonMessageBoxDefaultButton.Button1) == DialogResult.Yes)
 		{
 			// Restart the application
 			Restart();
@@ -786,7 +788,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formTerminology.TopMost = TopMost;
 		// Show the terminology form as a modal dialog
-		_ = formTerminology.ShowDialog();
+		_ = formTerminology.ShowDialog(owner: this);
 	}
 
 	/// <summary>Opens the table mode form.</summary>
@@ -800,7 +802,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Fill the form with the planetoids database
 		formTableMode.FillArray(arrTemp: planetoidsDatabase);
 		// Show the table mode form as a modal dialog
-		_ = formTableMode.ShowDialog();
+		_ = formTableMode.ShowDialog(owner: this);
 	}
 
 	/// <summary>Shows the orbital resonances form for the current planetoid.</summary>
@@ -823,7 +825,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Pass the parsed semi-major axis to the form so it can calculate and display the relevant orbital resonances for the current planetoid
 		formOrbitalResonances.SetSemiMajorAxis(semiMajorAxis: semiMajorAxis);
 		// Show the orbital resonances form as a modal dialog
-		_ = formOrbitalResonances.ShowDialog();
+		_ = formOrbitalResonances.ShowDialog(owner: this);
 	}
 
 	/// <summary>Shows the observations form for the current planetoid.</summary>
@@ -844,7 +846,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Pass the index data label text to the observations form so it can use it to fetch and display the relevant observations for the current planetoid
 		formObservations.SetIndexData(indexData: labelIndexData.Text);
 		// Show the observations form as a modal dialog
-		_ = formObservations.ShowDialog();
+		_ = formObservations.ShowDialog(owner: this);
 	}
 
 	/// <summary>Shows the orbit elements grouping form.</summary>
@@ -856,7 +858,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formOrbitElementsGrouping.TopMost = TopMost;
 		// Show the orbit elements grouping form as a modal dialog
-		_ = formOrbitElementsGrouping.ShowDialog();
+		_ = formOrbitElementsGrouping.ShowDialog(owner: this);
 	}
 
 	/// <summary>Shows the asteroid families form.</summary>
@@ -966,7 +968,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			longitudeAscendingNodeDeg: longitudeAscendingNodeDeg,
 			argumentPerihelionDeg: argumentPerihelionDeg);
 		// Show the MOIDs form as a modal dialog
-		_ = formMoids.ShowDialog();
+		_ = formMoids.ShowDialog(owner: this);
 	}
 
 	/// <summary>Shows the MAXOIDs form for the current planetoid.</summary>
@@ -995,7 +997,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			longitudeAscendingNodeDeg: longitudeAscendingNodeDeg,
 			argumentPerihelionDeg: argumentPerihelionDeg);
 		// Show the MAXOIDs form as a modal dialog
-		_ = formMaxoids.ShowDialog();
+		_ = formMaxoids.ShowDialog(owner: this);
 	}
 
 	/// <summary>Shows the MOIDs and MAXOIDs form for the current planetoid.</summary>
@@ -1024,7 +1026,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			longitudeAscendingNodeDeg: longitudeAscendingNodeDeg,
 			argumentPerihelionDeg: argumentPerihelionDeg);
 		// Show the MOIDs and MAXOIDs form as a modal dialog
-		_ = formMoidsAndMaxoids.ShowDialog();
+		_ = formMoidsAndMaxoids.ShowDialog(owner: this);
 	}
 
 	/// <summary>Shows the MOIDs of all minor planets form. Opens the form to find MOIDs of all planetoids relative to the solar system planets.</summary>
@@ -1098,7 +1100,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			eccentricity: eccentricity,
 			argumentPerihelionDeg: argumentPerihelionDeg);
 		formOrbit2DTopView.TopMost = TopMost;
-		_ = formOrbit2DTopView.ShowDialog();
+		_ = formOrbit2DTopView.ShowDialog(owner: this);
 	}
 
 	/// <summary>Shows the 2D side-view orbit diagram for the current planetoid.</summary>
@@ -1124,7 +1126,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			eccentricity: eccentricity,
 			inclinationDeg: inclinationDeg);
 		formOrbit2DSideView.TopMost = TopMost;
-		_ = formOrbit2DSideView.ShowDialog();
+		_ = formOrbit2DSideView.ShowDialog(owner: this);
 	}
 
 	/// <summary>Shows the 3D orbit visualization for the current planetoid.</summary>
@@ -1167,7 +1169,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formOrbit3D.TopMost = TopMost;
 		// Show the 3D orbit visualization form as a modal dialog
-		_ = formOrbit3D.ShowDialog();
+		_ = formOrbit3D.ShowDialog(owner: this);
 	}
 
 	/// <summary>Shows the Tisserand parameters form for the current planetoid.</summary>
@@ -1207,7 +1209,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Pass the parsed orbital elements to the form
 		formTisserand.SetOrbitalElements(semiMajorAxis: semiMajorAxis, eccentricity: eccentricity, inclinationDeg: inclinationDeg);
 		// Show the Tisserand parameters form as a modal dialog
-		_ = formTisserand.ShowDialog();
+		_ = formTisserand.ShowDialog(owner: this);
 	}
 
 	/// <summary>Shows the Tisserand parameters of all minor planets form. Opens the form to compute Tisserand parameters for all planetoids relative to the solar system planets.</summary>
@@ -1265,7 +1267,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formAppInfo.TopMost = TopMost;
 		// Show the application information form as a modal dialog
-		_ = formAppInfo.ShowDialog();
+		_ = formAppInfo.ShowDialog(owner: this);
 	}
 
 	/// <summary>Displays the archive form as a modal dialog, ensuring it remains on top of other windows.</summary>
@@ -1277,7 +1279,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formArchive.TopMost = TopMost;
 		// Show the archive form as a modal dialog
-		_ = formArchive.ShowDialog();
+		_ = formArchive.ShowDialog(owner: this);
 	}
 
 	/// <summary>Displays the archive comparison form as a modal dialog, allowing users to view differences between database archives.</summary>
@@ -1289,7 +1291,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formDataDifferences.TopMost = TopMost;
 		// Show the archive form as a modal dialog
-		_ = formDataDifferences.ShowDialog();
+		_ = formDataDifferences.ShowDialog(owner: this);
 	}
 
 	/// <summary>Shows the license form.</summary>
@@ -1301,7 +1303,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formLicense.TopMost = TopMost;
 		// Show the application information form as a modal dialog
-		_ = formLicense.ShowDialog();
+		_ = formLicense.ShowDialog(owner: this);
 	}
 
 	/// <summary>Shows the records form that scans all orbital elements for maximum or minimum record values.</summary>
@@ -1315,7 +1317,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Set the TopMost property to keep the form on top of other windows
 		formRecords.TopMost = TopMost;
 		// Show the records form as a modal dialog
-		_ = formRecords.ShowDialog();
+		_ = formRecords.ShowDialog(owner: this);
 	}
 
 	/// <summary>Shows the top ten records form for the specified orbital element.</summary>
@@ -1328,7 +1330,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Set the TopMost property to keep the form on top of other windows
 		formRecordsTop10.TopMost = TopMost;
 		// Show the records form as a modal dialog
-		_ = formRecordsTop10.ShowDialog();
+		_ = formRecordsTop10.ShowDialog(owner: this);
 	}
 
 
@@ -1350,7 +1352,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 			formCheckMpcorbDat.TopMost = TopMost;
 			// Show the MPCORB data check form as a modal dialog
-			_ = formCheckMpcorbDat.ShowDialog();
+			_ = formCheckMpcorbDat.ShowDialog(owner: this);
 		}
 	}
 
@@ -1371,7 +1373,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 			formCheckAstorbDat.TopMost = TopMost;
 			// Show the ASTORB data check form as a modal dialog
-			_ = formCheckAstorbDat.ShowDialog();
+			_ = formCheckAstorbDat.ShowDialog(owner: this);
 		}
 	}
 
@@ -1392,7 +1394,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 			formCheckAllnumCat.TopMost = TopMost;
 			// Show the ALLNUM.CAT data check form as a modal dialog
-			_ = formCheckAllnumCat.ShowDialog();
+			_ = formCheckAllnumCat.ShowDialog(owner: this);
 		}
 	}
 
@@ -1413,7 +1415,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 			formCheckUfitobsCat.TopMost = TopMost;
 			// Show the UFITOBS.CAT data check form as a modal dialog
-			_ = formCheckUfitobsCat.ShowDialog();
+			_ = formCheckUfitobsCat.ShowDialog(owner: this);
 		}
 	}
 
@@ -1434,7 +1436,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 			formCheckSingoppCat.TopMost = TopMost;
 			// Show the SINGOPP.CAT data check form as a modal dialog
-			_ = formCheckSingoppCat.ShowDialog();
+			_ = formCheckSingoppCat.ShowDialog(owner: this);
 		}
 	}
 
@@ -1456,8 +1458,9 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			using DatabaseDownloaderForm downloaderForm = new(url: Settings.Default.systemMpcorbDatGzUrl);
 			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 			downloaderForm.TopMost = TopMost;
-			// Show the downloader form as a modal dialog
-			if (downloaderForm.ShowDialog() == DialogResult.OK)
+			// Show the downloader form as a modal dialog; pass 'this' as owner so Windows
+			// returns focus here when the dialog closes.
+			if (downloaderForm.ShowDialog(owner: this) == DialogResult.OK)
 			{
 				// Disable the menu item and the status label for showing updates is available
 				toolStripMenuItemShowMpcorbDatUpdateIsAvailable.Enabled = false;
@@ -1486,8 +1489,9 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			using DatabaseDownloaderForm downloaderForm = new(url: Settings.Default.systemAstorbDatGzUrl);
 			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 			downloaderForm.TopMost = TopMost;
-			// Show the downloader form as a modal dialog
-			if (downloaderForm.ShowDialog() == DialogResult.OK)
+			// Show the downloader form as a modal dialog; pass 'this' as owner so Windows
+			// returns focus here when the dialog closes.
+			if (downloaderForm.ShowDialog(owner: this) == DialogResult.OK)
 			{
 				// Disable the menu item and the status label for showing updates is available
 				toolStripMenuItemShowAstorbDatUpdateIsAvailable.Enabled = false;
@@ -1516,8 +1520,9 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			using DatabaseDownloaderForm downloaderForm = new(url: Settings.Default.systemAllnumCatUrl);
 			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 			downloaderForm.TopMost = TopMost;
-			// Show the downloader form as a modal dialog
-			if (downloaderForm.ShowDialog() == DialogResult.OK)
+			// Show the downloader form as a modal dialog; pass 'this' as owner so Windows
+			// returns focus here when the dialog closes.
+			if (downloaderForm.ShowDialog(owner: this) == DialogResult.OK)
 			{
 				// Disable the menu item and the status label for showing updates is available
 				toolStripMenuItemShowAllnumCatUpdateIsAvailable.Enabled = false;
@@ -1546,8 +1551,9 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			using DatabaseDownloaderForm downloaderForm = new(url: Settings.Default.systemUfitobsCatUrl);
 			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 			downloaderForm.TopMost = TopMost;
-			// Show the downloader form as a modal dialog
-			if (downloaderForm.ShowDialog() == DialogResult.OK)
+			// Show the downloader form as a modal dialog; pass 'this' as owner so Windows
+			// returns focus here when the dialog closes.
+			if (downloaderForm.ShowDialog(owner: this) == DialogResult.OK)
 			{
 				// Disable the menu item and the status label for showing updates is available
 				toolStripMenuItemShowUfitobsCatUpdateIsAvailable.Enabled = false;
@@ -1576,8 +1582,9 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			using DatabaseDownloaderForm downloaderForm = new(url: Settings.Default.systemSingoppCatUrl);
 			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 			downloaderForm.TopMost = TopMost;
-			// Show the downloader form as a modal dialog
-			if (downloaderForm.ShowDialog() == DialogResult.OK)
+			// Show the downloader form as a modal dialog; pass 'this' as owner so Windows
+			// returns focus here when the dialog closes.
+			if (downloaderForm.ShowDialog(owner: this) == DialogResult.OK)
 			{
 				// Disable the menu item and the status label for showing updates is available
 				toolStripMenuItemShowSingoppCatUpdateIsAvailable.Enabled = false;
@@ -1597,7 +1604,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formDatabaseInformation.TopMost = TopMost;
 		// Fill the form with the planetoids database
-		_ = formDatabaseInformation.ShowDialog();
+		_ = formDatabaseInformation.ShowDialog(owner: this);
 	}
 
 	/// <summary>Shows the search form.</summary>
@@ -1609,7 +1616,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formSearch.TopMost = TopMost;
 
-		_ = formSearch.ShowDialog();
+		_ = formSearch.ShowDialog(owner: this);
 
 	}
 
@@ -1624,7 +1631,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Pass a copy of the current database to the filter form
 		formFilter.FillArray(arrTemp: planetoidsDatabase);
 		// Show the filter form as a modal dialog
-		if (formFilter.ShowDialog() == DialogResult.OK && formFilter.FilteredDatabase is { } filtered)
+		if (formFilter.ShowDialog(owner: this) == DialogResult.OK && formFilter.FilteredDatabase is { } filtered)
 		{
 			// Replace the current database with the filtered result
 			planetoidsDatabase.Clear();
@@ -1645,7 +1652,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formSettings.TopMost = TopMost;
 		// Fill the form with the planetoids database
-		_ = formSettings.ShowDialog();
+		_ = formSettings.ShowDialog(owner: this);
 	}
 
 	/// <summary>Lists readable designations.</summary>
@@ -1661,7 +1668,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Set the maximum index for the form
 		formListReadableDesignations.SetMaxIndex(maxIndex: planetoidsDatabase.Count);
 		// Show the list readable designations form as a modal dialog
-		_ = formListReadableDesignations.ShowDialog();
+		_ = formListReadableDesignations.ShowDialog(owner: this);
 		// Check if the dialog result is OK and the selected index is greater than 0
 		if (formListReadableDesignations.DialogResult == DialogResult.OK && formListReadableDesignations.GetSelectedIndex() > 0)
 		{
@@ -1729,7 +1736,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Fill the form with the orbital elements
 		formExportDataSheet.SetDatabase(list: [.. orbitalElements.Cast<string>()]);
 		// Show the export data sheet form as a modal dialog
-		_ = formExportDataSheet.ShowDialog();
+		_ = formExportDataSheet.ShowDialog(owner: this);
 	}
 
 	/// <summary>Shows the print data sheet form.</summary>
@@ -1791,7 +1798,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		formPrintDataSheet.TopMost = TopMost;
 		// Fill the form with the planetoids database
 		formPrintDataSheet.SetDatabase(db: [.. orbitalElements]);
-		_ = formPrintDataSheet.ShowDialog();
+		_ = formPrintDataSheet.ShowDialog(owner: this);
 	}
 
 	/// <summary>Shows the derived orbit elements form.</summary>
@@ -1866,7 +1873,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Fill the form with the derived orbit elements
 		formDerivedOrbitElements.SetDatabase(list: [.. derivedOrbitElements.Cast<object>()]);
 		// Show the derived orbit elements form as a modal dialog
-		_ = formDerivedOrbitElements.ShowDialog();
+		_ = formDerivedOrbitElements.ShowDialog(owner: this);
 	}
 
 	/// <summary>Checks if the form should stay on top of other windows.</summary>
@@ -1878,7 +1885,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void OpenLocalMpcorbDat()
 	{
 		// Show the dialog and check if the user selected a file
-		if (openFileDialog.ShowDialog() != DialogResult.OK)
+		if (openFileDialog.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
@@ -1905,6 +1912,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			logger.Info(message: $"User selected local MPCORB.DAT file: {selectedFilePath}");
 			// Ask the user if they want to restart the application
 			DialogResult result = KryptonMessageBox.Show(
+				owner: this,
 				text: $"The application will restart to load the selected file:\n\n{selectedFilePath}\n\nDo you want to continue?",
 				caption: I18nStrings.InformationCaption,
 				buttons: KryptonMessageBoxButtons.YesNo,
@@ -1945,6 +1953,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		{
 			logger.Warn(message: "Flag text is empty or whitespace");
 			_ = KryptonMessageBox.Show(
+				owner: this,
 				text: "No flag data available.",
 				caption: "Flag Decoder",
 				buttons: KryptonMessageBoxButtons.OK,
@@ -2017,7 +2026,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 				_ = result.AppendLine(value: "  (none)");
 			}
 			// Display the result in a KryptonMessageBox
-			_ = KryptonMessageBox.Show(text: result.ToString(), caption: "MPCORB Flag Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: result.ToString(), caption: "MPCORB Flag Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 
 			logger.Info(message: $"Decoded MPCORB flag: {flagText} = {flagValue} ({orbitTypeName})");
 		}
@@ -2045,7 +2054,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		if (string.IsNullOrWhiteSpace(value: referenceText))
 		{
 			logger.Warn(message: "Reference text is empty or whitespace");
-			_ = KryptonMessageBox.Show(text: "No reference data available.", caption: "Reference Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(owner: this, text: "No reference data available.", caption: "Reference Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
 		// Attempt to decode the reference and handle any exceptions that may occur during decoding
@@ -2061,7 +2070,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			_ = result.AppendLine(value: "Full Reference:");
 			_ = result.AppendLine(value: $"  {decodedReference}");
 			// Display the result in a KryptonMessageBox
-			_ = KryptonMessageBox.Show(text: result.ToString(), caption: "MPCORB Reference Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: result.ToString(), caption: "MPCORB Reference Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			logger.Info(message: $"Decoded MPCORB reference: '{referenceText}' → '{decodedReference}'");
 		}
 		catch (Exception ex)
@@ -2462,9 +2471,9 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method is used to handle the progress changed event during the database loading process.</remarks>
 	private void BackgroundWorkerLoadingDatabase_ProgressChanged(object? sender, ProgressChangedEventArgs e)
 	{
-		//KryptonMessageBox.Show(text: e.ProgressPercentage.ToString());
+		//KryptonMessageBox.Show(owner: this, text: e.ProgressPercentage.ToString());
 		// TODO: Not implemented yet
-		_ = KryptonMessageBox.Show(text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
+		_ = KryptonMessageBox.Show(owner: this, text: "Not implemented yet", caption: I18nStrings.ErrorCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
 	}
 
 	/// <summary>Handles the RunWorkerCompleted event of the BackgroundWorker for loading the database.</summary>
@@ -3186,7 +3195,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		{
 			using AsteroidGameForm gameForm = new();
 			gameForm.TopMost = TopMost;
-			_ = gameForm.ShowDialog();
+			_ = gameForm.ShowDialog(owner: this);
 		}
 		catch (Exception ex)
 		{
@@ -3393,7 +3402,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Open the ObservatoryCodesForm as a modal dialog to display the list of observatory codes. The form is set to be topmost based on the current state of the main form to ensure it appears above other windows.
 		using ObservatoryCodesForm formObservatoryCodes = new();
 		formObservatoryCodes.TopMost = TopMost;
-		_ = formObservatoryCodes.ShowDialog();
+		_ = formObservatoryCodes.ShowDialog(owner: this);
 	}
 
 	/// <summary>
@@ -3446,7 +3455,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show an Easter egg message when the user double-clicks on a control.</remarks>
-	private void EasterEgg_DoubleClick(object sender, EventArgs e) => KryptonMessageBox.Show(text: I18nStrings.EasterEgg, caption: I18nStrings.ErrorCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+	private void EasterEgg_DoubleClick(object sender, EventArgs e) => KryptonMessageBox.Show(owner: this, text: I18nStrings.EasterEgg, caption: I18nStrings.ErrorCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 
 	#endregion
 
@@ -3459,7 +3468,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void IconSetFatcow_Click(object sender, EventArgs e)
 	{
 		// TODO: Implement icon set change to Fatcow
-		_ = KryptonMessageBox.Show(text: "Fatcow icon set not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = (owner: this, text: "Fatcow icon set not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event for the Silk icon set menu item.</summary>
@@ -3469,7 +3478,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void IconSetSilk_Click(object sender, EventArgs e)
 	{
 		// TODO: Implement icon set change to Silk
-		_ = KryptonMessageBox.Show(text: "Silk icon set not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this, text: "Silk icon set not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event for the Fugue icon set menu item.</summary>
@@ -3479,7 +3488,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void IconSetFugue_Click(object sender, EventArgs e)
 	{
 		// TODO: Implement icon set change to Fugue
-		_ = KryptonMessageBox.Show(text: "Fugue icon set not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this, text: "Fugue icon set not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event for enabling copying by double-clicking option.</summary>
@@ -3489,7 +3498,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void EnableCopyingByDoubleClicking_Click(object sender, EventArgs e)
 	{
 		// TODO: Implement enable/disable copying by double-clicking
-		_ = KryptonMessageBox.Show(text: "Enable copying by double-clicking not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this, text: "Enable copying by double-clicking not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event for enabling linking to terminology option.</summary>
@@ -3499,7 +3508,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void EnableLinkingToTerminology_Click(object sender, EventArgs e)
 	{
 		// TODO: Implement enable/disable linking to terminology
-		_ = KryptonMessageBox.Show(text: "Enable linking to terminology not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this, text: "Enable linking to terminology not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	#endregion

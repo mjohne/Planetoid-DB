@@ -137,7 +137,7 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 		// Set default file name
 		dialog.FileName = $"Bulk-Observations_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.{ext}";
 		// Show the dialog and return the result
-		return dialog.ShowDialog() == DialogResult.OK;
+		return dialog.ShowDialog(owner: null) == DialogResult.OK;
 	}
 
 	/// <summary>Displays a save dialog and exports the table layout panel contents using the specified export action.</summary>
@@ -551,7 +551,7 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 		// Validate that there is data to process
 		if (_planetoids.Count == 0)
 		{
-			_ = KryptonMessageBox.Show(text: "No planetoid data available.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: "No planetoid data available.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
 		// Validate the range

@@ -6,9 +6,9 @@
 namespace Planetoid_DB.Helpers;
 
 /// <summary>Implements the manual sorting of items by column.</summary>
-/// <remarks>This class is used internally by the form to provide custom sorting logic for the ListView control.</remarks>
 /// <param name="column">The column index to sort by.</param>
 /// <param name="order">The sort order (Ascending or Descending).</param>
+/// <remarks>This class is used internally by the form to provide custom sorting logic for the ListView control.</remarks>
 public class ListViewItemComparer(int column, SortOrder order) : System.Collections.IComparer
 {
 	/// <summary>Column index to sort by.</summary>
@@ -23,6 +23,7 @@ public class ListViewItemComparer(int column, SortOrder order) : System.Collecti
 	/// <param name="x">The first object to compare.</param>
 	/// <param name="y">The second object to compare.</param>
 	/// <returns>A signed integer that indicates the relative values of <paramref name="x"/> and <paramref name="y"/>.</returns>
+	/// <remarks>This method implements the comparison logic for sorting ListViewItems based on the specified column and sort order. It handles both numeric and string comparisons to provide a natural sorting experience.</remarks>
 	public int Compare(object? x, object? y)
 	{
 		// Ensure both objects are ListViewItems; if not, consider them equal for sorting purposes

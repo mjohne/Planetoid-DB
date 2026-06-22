@@ -18,12 +18,8 @@ namespace Planetoid_DB;
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class EphemerisForm : BaseKryptonForm
 {
-	/// <summary>
-	/// NLog logger instance for the class.
-	/// </summary>
-	/// <remarks>
-	/// This logger is used to log messages for the form.
-	/// </remarks>
+	/// <summary>NLog logger instance for the class.</summary>
+	/// <remarks>This logger is used to log messages for the form.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 	/// <summary>Gets the status label to be used for displaying information.</summary>

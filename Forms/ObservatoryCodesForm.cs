@@ -97,7 +97,7 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 		{
 			// Log the error and show a message box to the user
 			logger.Error(message: $"An error occurred while loading observatory codes: {ex}");
-			KryptonMessageBox.Show(text: $"An error has occurred while loading observatory codes: {ex.Message}", caption: "Load Error", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
+			KryptonMessageBox.Show(owner: this, text: $"An error has occurred while loading observatory codes: {ex.Message}", caption: "Load Error", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
 			// Update the status bar to show a persistent error message
 			SetStatusBar(label: labelInformation, text: "Error loading observatory codes");
 		}
@@ -123,7 +123,7 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 		string timestamp = DateTime.Now.ToString(format: "yyyy-MM-dd_HH-mm-ss");
 		dialog.FileName = $"ObservatoryCodes_{timestamp}.{ext}";
 		// Show the dialog and return the result
-		return dialog.ShowDialog() == DialogResult.OK;
+		return dialog.ShowDialog(owner: null) == DialogResult.OK;
 	}
 
 	/// <summary>Performs the save export operation by displaying a save dialog and invoking the specified export action.</summary>
@@ -155,7 +155,7 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			logger.Error(message: $"An error occurred during export: {ex}");
-			KryptonMessageBox.Show(text: $"An error has occurred during export: {ex.Message}", caption: "Export Error", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
+			KryptonMessageBox.Show(owner: this, text: $"An error has occurred during export: {ex.Message}", caption: "Export Error", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
 		}
 		finally
 		{
@@ -234,7 +234,7 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 	private void ToolStripButtonInfoAboutObsCodes_Click(object sender, EventArgs e)
 	{
 		// Show a message box with information about observatory codes and a link to the Minor Planet Center website
-		KryptonMessageBox.Show(text: "This application displays a list of observatory codes and their corresponding locations.\n\nYou can find more information about Observatory Codes at the Minor Planet Center website: https://minorplanetcenter.net/iau/info/ObservatoryCodes.html.", caption: "About Observatory Codes", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		KryptonMessageBox.Show(owner: this, text: "This application displays a list of observatory codes and their corresponding locations.\n\nYou can find more information about Observatory Codes at the Minor Planet Center website: https://minorplanetcenter.net/iau/info/ObservatoryCodes.html.", caption: "About Observatory Codes", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the Click event to export the output as a CSV file.</summary>

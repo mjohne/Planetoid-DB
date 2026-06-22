@@ -94,7 +94,7 @@ public partial class TableModeForm : BaseKryptonForm
 		// Set default file name
 		dialog.FileName = $"Table-Mode_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.{ext}";
 		// Show the dialog and return the result
-		return dialog.ShowDialog() == DialogResult.OK;
+		return dialog.ShowDialog(owner: null) == DialogResult.OK;
 	}
 
 	/// <summary>Performs the save export operation by displaying a save dialog and invoking the specified export action.</summary>
@@ -424,7 +424,7 @@ public partial class TableModeForm : BaseKryptonForm
 		// Validate that Minimum is less than Maximum before proceeding
 		if (count <= 0)
 		{
-			_ = KryptonMessageBox.Show(text: "Minimum value must be less than Maximum value.", caption: "Invalid range", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(owner: this, text: "Minimum value must be less than Maximum value.", caption: "Invalid range", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
 		// Start the stopwatch for performance measurement
@@ -512,9 +512,9 @@ public partial class TableModeForm : BaseKryptonForm
 			SetUiState(processing: false);
 			// Show completion or cancellation message
 			_ = cancellationTokenSource?.IsCancellationRequested == true
-				? KryptonMessageBox.Show(text: $"{listView.VirtualListSize} objects processed (cancellation).", caption: "cancellation", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning)
+				? KryptonMessageBox.Show(owner: this, text: $"{listView.VirtualListSize} objects processed (cancellation).", caption: "cancellation", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning)
 				// Show completion message
-				: KryptonMessageBox.Show(text: $"{listView.VirtualListSize} objects processed in {stopwatch.Elapsed:hh\\:mm\\:ss\\.fff} hh:mm:ss.fff", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+				: KryptonMessageBox.Show(owner: this, text: $"{listView.VirtualListSize} objects processed in {stopwatch.Elapsed:hh\\:mm\\:ss\\.fff} hh:mm:ss.fff", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			// Dispose the cancellation token source
 			cancellationTokenSource?.Dispose();
 			cancellationTokenSource = null;

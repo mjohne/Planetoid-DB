@@ -94,7 +94,7 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 		// Set default file name
 		dialog.FileName = $"Database-Information-local-online.{ext}";
 		// Show the dialog and return the result
-		return dialog.ShowDialog() == DialogResult.OK;
+		return dialog.ShowDialog(owner: null) == DialogResult.OK;
 	}
 
 	/// <summary>Performs the save export operation by displaying a save dialog and invoking the specified export action.</summary>
@@ -280,7 +280,7 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 		{
 			string messageNoLocalModifiedDateToCopyText = "No local modified date available to copy to clipboard.";
 			logger.Warn(message: messageNoLocalModifiedDateToCopyText);
-			_ = KryptonMessageBox.Show(text: messageNoLocalModifiedDateToCopyText, caption: "Warning", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(owner: this, text: messageNoLocalModifiedDateToCopyText, caption: "Warning", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
 		CopyToClipboard(text: labelModifiedDateValueLocal.Text);
@@ -296,7 +296,7 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 		{
 			string messageNoLocalContentLengthToCopyText = "No local content length available to copy to clipboard.";
 			logger.Warn(message: messageNoLocalContentLengthToCopyText);
-			_ = KryptonMessageBox.Show(text: messageNoLocalContentLengthToCopyText, caption: "Warning", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(owner: this, text: messageNoLocalContentLengthToCopyText, caption: "Warning", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
 		CopyToClipboard(text: labelContentLengthValueLocal.Text);
@@ -312,7 +312,7 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 		{
 			string messageNoOnlineModifiedDateToCopyText = "No online modified date available to copy to clipboard.";
 			logger.Warn(message: messageNoOnlineModifiedDateToCopyText);
-			_ = KryptonMessageBox.Show(text: messageNoOnlineModifiedDateToCopyText, caption: "Warning", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(owner: this, text: messageNoOnlineModifiedDateToCopyText, caption: "Warning", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
 		CopyToClipboard(text: labelModifiedDateValueOnline.Text);
@@ -328,7 +328,7 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 		{
 			string messageNoOnlineContentLengthToCopyText = "No online content length available to copy to clipboard.";
 			logger.Warn(message: messageNoOnlineContentLengthToCopyText);
-			_ = KryptonMessageBox.Show(text: messageNoOnlineContentLengthToCopyText, caption: "Warning", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
+			_ = KryptonMessageBox.Show(owner: this, text: messageNoOnlineContentLengthToCopyText, caption: "Warning", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
 		CopyToClipboard(text: labelContentLengthValueOnline.Text);

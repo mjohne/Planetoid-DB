@@ -284,7 +284,7 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			logger.Error(message: $"An error occurred while calculating averages: {ex}");
-			KryptonMessageBox.Show(text: $"An error has occurred while calculating averages: {ex.Message}", caption: "Calculation Error", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
+			KryptonMessageBox.Show(owner: this, text: $"An error has occurred while calculating averages: {ex.Message}", caption: "Calculation Error", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
 			SetStatusBar(label: labelInformation, text: "Error calculating averages");
 		}
 		// Ensure the cursor is reset to default and the UI state is updated to reflect that the calculation is no longer running, regardless of success, cancellation, or error
@@ -365,7 +365,7 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 		{
 			dialog.FileName = $"Average-Asteroid_{timestamp}.{ext}";
 		}
-		return dialog.ShowDialog() == DialogResult.OK;
+		return dialog.ShowDialog(owner: null) == DialogResult.OK;
 	}
 
 	/// <summary>Performs the save export operation by displaying a save dialog and invoking the specified export action.</summary>
@@ -398,7 +398,7 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			logger.Error(message: $"An error occurred during export: {ex}");
-			KryptonMessageBox.Show(text: $"An error has occurred during export: {ex.Message}", caption: "Export Error", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
+			KryptonMessageBox.Show(owner: this, text: $"An error has occurred during export: {ex.Message}", caption: "Export Error", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
 		}
 		// Ensure the cursor is reset to default regardless of success or failure
 		finally

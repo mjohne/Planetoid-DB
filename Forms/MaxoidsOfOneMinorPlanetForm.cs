@@ -73,7 +73,7 @@ public partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 		// Set default file name with timestamp
 		dialog.FileName = $"MAXOIDs_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.{ext}";
 		// Show the dialog and return the result
-		return dialog.ShowDialog() == DialogResult.OK;
+		return dialog.ShowDialog(owner: null) == DialogResult.OK;
 	}
 
 	/// <summary>Sets the orbital elements of the minor planet used for computing MAXOID values.</summary>

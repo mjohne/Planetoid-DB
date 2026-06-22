@@ -44,7 +44,7 @@ public partial class AEIDiagram3DForm : BaseKryptonForm
 
 	private readonly record struct AeiPoint(double A, double E, double I);
 	private readonly record struct RenderPoint(float X, float Y, float Z);
-	private readonly Font _overlayFont = new("Segoe UI", 9f, FontStyle.Bold);
+	private readonly Font _overlayFont = new(familyName: "Segoe UI", emSize: 9f, style: FontStyle.Bold);
 
 	/// <summary>Initializes a new instance of the <see cref="AEIDiagram3DForm"/> class.</summary>
 	/// <param name="planetoids">The planetoid records from the database.</param>
@@ -80,27 +80,27 @@ public partial class AEIDiagram3DForm : BaseKryptonForm
 		_glControl.MouseUp += GlControl_MouseUp;
 		_glControl.MouseMove += GlControl_MouseMove;
 		_glControl.MouseWheel += GlControl_MouseWheel;
-		_panelGl.Controls.Add(_glControl);
+		_panelGl.Controls.Add(value: _glControl);
 	}
 
 	private static bool TryParseValue(string line, int start, int len, out double value)
 	{
 		value = default;
-		return line.Length >= start + len && double.TryParse(line.Substring(start, len).Trim(), NumberStyles.Float, CultureInfo.InvariantCulture, out value);
+		return line.Length >= start + len && double.TryParse(s: line.Substring(startIndex: start, length: len).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out value);
 	}
 
 	private static bool TryParseAeiPoint(string line, out AeiPoint point)
 	{
 		point = default;
-		if (!TryParseValue(line, 92, 11, out double a) || !TryParseValue(line, 70, 9, out double e) || !TryParseValue(line, 59, 9, out double i))
+		if (!TryParseValue(line: line, start: 92, len: 11, value: out double a) || !TryParseValue(line: line, start: 70, len: 9, value: out double e) || !TryParseValue(line: line, start: 59, len: 9, value: out double i))
 		{
 			return false;
 		}
-		if (!double.IsFinite(a) || !double.IsFinite(e) || !double.IsFinite(i) || a < 0 || e < 0 || i < 0)
+		if (!double.IsFinite(d: a) || !double.IsFinite(d: e) || !double.IsFinite(d: i) || a < 0 || e < 0 || i < 0)
 		{
 			return false;
 		}
-		point = new AeiPoint(a, e, i);
+		point = new AeiPoint(A: a, E: e, I: i);
 		return true;
 	}
 
@@ -114,21 +114,21 @@ public partial class AEIDiagram3DForm : BaseKryptonForm
 		for (int i = 0; i < total; i++)
 		{
 			token.ThrowIfCancellationRequested();
-			_pauseGate.Wait(token);
-			if (TryParseAeiPoint(_planetoids[i], out AeiPoint point))
+			_pauseGate.Wait(cancellationToken: token);
+			if (TryParseAeiPoint(line: _planetoids[index: i], point: out AeiPoint point))
 			{
-				points.Add(point);
+				points.Add(item: point);
 			}
 			int processed = i + 1;
 			if (processed % pInterval == 0 || processed == total)
 			{
-				progress.Report(processed * 100 / Math.Max(1, total));
+				progress.Report(value: processed * 100 / Math.Max(val1: 1, val2: total));
 			}
 			if (live && (processed % lInterval == 0 || processed == total))
 			{
-				List<AeiPoint> batch = points.GetRange(lastLiveCount, points.Count - lastLiveCount);
+				List<AeiPoint> batch = points.GetRange(index: lastLiveCount, count: points.Count - lastLiveCount);
 				lastLiveCount = points.Count;
-				liveResults.Report(batch);
+				liveResults.Report(value: batch);
 			}
 		}
 		return points;
@@ -136,13 +136,13 @@ public partial class AEIDiagram3DForm : BaseKryptonForm
 
 	private void UpdateProgress(int percent)
 	{
-		int value = Math.Clamp(percent, 0, 100);
+		int value = Math.Clamp(value: percent, min: 0, max: 100);
 		_progressBar.Value = value;
 		_progressBar.Values.Text = $"{value}%";
 		_progressBar.Text = $"{value}%";
 		if (IsHandleCreated)
 		{
-			TaskbarProgress.SetValue(Handle, (ulong)value, 100);
+			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)value, progressMax: 100);
 		}
 	}
 
@@ -182,9 +182,9 @@ public partial class AEIDiagram3DForm : BaseKryptonForm
 		_excludedPoints = 0;
 		for (int i = 0; i < _rawPoints.Count; i++)
 		{
-			double a = _rawPoints[i].A;
-			double e = _rawPoints[i].E;
-			double inc = _rawPoints[i].I;
+			double a = _rawPoints[index: i].A;
+			double e = _rawPoints[index: i].E;
+			double inc = _rawPoints[index: i].I;
 			if (log)
 			{
 				if (a <= 0 || e <= 0 || inc <= 0)
@@ -192,16 +192,16 @@ public partial class AEIDiagram3DForm : BaseKryptonForm
 					_excludedPoints++;
 					continue;
 				}
-				a = Math.Log10(a);
-				e = Math.Log10(e);
-				inc = Math.Log10(inc);
+				a = Math.Log10(d: a);
+				e = Math.Log10(d: e);
+				inc = Math.Log10(d: inc);
 			}
-			minA = Math.Min(minA, a);
-			minE = Math.Min(minE, e);
-			minI = Math.Min(minI, inc);
-			maxA = Math.Max(maxA, a);
-			maxE = Math.Max(maxE, e);
-			maxI = Math.Max(maxI, inc);
+			minA = Math.Min(val1: minA, val2: a);
+			minE = Math.Min(val1: minE, val2: e);
+			minI = Math.Min(val1: minI, val2: inc);
+			maxA = Math.Max(val1: maxA, val2: a);
+			maxE = Math.Max(val1: maxE, val2: e);
+			maxI = Math.Max(val1: maxI, val2: inc);
 			validCount++;
 		}
 
@@ -216,27 +216,27 @@ public partial class AEIDiagram3DForm : BaseKryptonForm
 			return;
 		}
 
-		double rangeA = Math.Max(1E-9, maxA - minA);
-		double rangeE = Math.Max(1E-9, maxE - minE);
-		double rangeI = Math.Max(1E-9, maxI - minI);
+		double rangeA = Math.Max(val1: 1E-9, val2: maxA - minA);
+		double rangeE = Math.Max(val1: 1E-9, val2: maxE - minE);
+		double rangeI = Math.Max(val1: 1E-9, val2: maxI - minI);
 		const float axisBase = 10f;
 		List<RenderPoint> renderPoints = new(capacity: validCount);
 		for (int i = 0; i < _rawPoints.Count; i++)
 		{
-			double a = _rawPoints[i].A;
-			double e = _rawPoints[i].E;
-			double inc = _rawPoints[i].I;
+			double a = _rawPoints[index: i].A;
+			double e = _rawPoints[index: i].E;
+			double inc = _rawPoints[index: i].I;
 			if (log)
 			{
 				if (a <= 0 || e <= 0 || inc <= 0)
 				{
 					continue;
 				}
-				a = Math.Log10(a);
-				e = Math.Log10(e);
-				inc = Math.Log10(inc);
+				a = Math.Log10(d: a);
+				e = Math.Log10(d: e);
+				inc = Math.Log10(d: inc);
 			}
-			renderPoints.Add(new RenderPoint((float)((a - minA) / rangeA) * axisBase * sx, (float)((e - minE) / rangeE) * axisBase * sy, (float)((inc - minI) / rangeI) * axisBase * sz));
+			renderPoints.Add(item: new RenderPoint(X: (float)((a - minA) / rangeA) * axisBase * sx, Y: (float)((e - minE) / rangeE) * axisBase * sy, Z: (float)((inc - minI) / rangeI) * axisBase * sz));
 		}
 		_renderPoints = renderPoints;
 		UpdateStatusLabel();
@@ -255,15 +255,15 @@ public partial class AEIDiagram3DForm : BaseKryptonForm
 	{
 		int w = _glControl.Width;
 		int h = Math.Max(1, _glControl.Height);
-		GL.Viewport(0, 0, w, h);
-		GL.MatrixMode(MatrixMode.Projection);
+		GL.Viewport(x: 0, y: 0, width: w, height: h);
+		GL.MatrixMode(mode: MatrixMode.Projection);
 		GL.LoadIdentity();
 		double aspect = (double)w / h;
 		double fovY = 45.0 * Math.PI / 180.0;
-		double f = 1.0 / Math.Tan(fovY / 2.0);
+		double f = 1.0 / Math.Tan(a: fovY / 2.0);
 		double[] p = [f / aspect, 0, 0, 0, 0, f, 0, 0, 0, 0, (1000.0 + 0.1) / (0.1 - 1000.0), -1.0, 0, 0, 2.0 * 1000.0 * 0.1 / (0.1 - 1000.0), 0];
-		GL.LoadMatrix(ref p[0]);
-		GL.MatrixMode(MatrixMode.Modelview);
+		GL.LoadMatrix(m: ref p[0]);
+		GL.MatrixMode(mode: MatrixMode.Modelview);
 	}
 
 	private void RenderScene(Graphics? overlayGraphics)
@@ -273,39 +273,39 @@ public partial class AEIDiagram3DForm : BaseKryptonForm
 			return;
 		}
 		_glControl.MakeCurrent();
-		GL.ClearColor(0.04f, 0.04f, 0.08f, 1f);
-		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-		GL.Enable(EnableCap.DepthTest);
+		GL.ClearColor(red: 0.04f, green: 0.04f, blue: 0.08f, alpha: 1f);
+		GL.Clear(mask: ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+		GL.Enable(cap: EnableCap.DepthTest);
 		SetupProjection();
 		GL.LoadIdentity();
-		GL.Translate(_panX, _panY, -_zoom);
-		GL.Rotate(_pitch, 1f, 0f, 0f);
-		GL.Rotate(_yaw, 0f, 1f, 0f);
+		GL.Translate(x: _panX, y: _panY, z: -_zoom);
+		GL.Rotate(angle: _pitch, x: 1f, y: 0f, z: 0f);
+		GL.Rotate(angle: _yaw, x: 0f, y: 1f, z: 0f);
 
 		float ax = 10f * (float)_scaleX.Value;
 		float ay = 10f * (float)_scaleY.Value;
 		float az = 10f * (float)_scaleZ.Value;
-		GL.LineWidth(2f);
-		GL.Begin(PrimitiveType.Lines);
-		GL.Color3(1f, .2f, .2f); GL.Vertex3(0f, 0f, 0f); GL.Vertex3(ax, 0f, 0f);
-		GL.Color3(.2f, 1f, .2f); GL.Vertex3(0f, 0f, 0f); GL.Vertex3(0f, ay, 0f);
-		GL.Color3(.3f, .6f, 1f); GL.Vertex3(0f, 0f, 0f); GL.Vertex3(0f, 0f, az);
+		GL.LineWidth(width: 2f);
+		GL.Begin(mode: PrimitiveType.Lines);
+		GL.Color3(red: 1f, green: .2f, blue: .2f); GL.Vertex3(0f, 0f, 0f); GL.Vertex3(ax, 0f, 0f);
+		GL.Color3(red: .2f, green: 1f, blue: .2f); GL.Vertex3(0f, 0f, 0f); GL.Vertex3(0f, ay, 0f);
+		GL.Color3(red: .3f, green: .6f, blue: 1f); GL.Vertex3(0f, 0f, 0f); GL.Vertex3(0f, 0f, az);
 		GL.End();
 
-		GL.PointSize(1f);
-		GL.Color3(1f, .8f, .2f);
-		GL.Begin(PrimitiveType.Points);
+		GL.PointSize(size: 1f);
+		GL.Color3(red: 1f, green: .8f, blue: .2f);
+		GL.Begin(mode: PrimitiveType.Points);
 		for (int i = 0; i < _renderPoints.Count; i++)
 		{
-			GL.Vertex3(_renderPoints[i].X, _renderPoints[i].Y, _renderPoints[i].Z);
+			GL.Vertex3(x: _renderPoints[index: i].X, y: _renderPoints[index: i].Y, z: _renderPoints[index: i].Z);
 		}
 		GL.End();
 		_glControl.SwapBuffers();
 
-		overlayGraphics?.DrawString("X-axis: semi-major axis a [AU]", _overlayFont, Brushes.IndianRed, 8, 8);
-		overlayGraphics?.DrawString("Y-axis: eccentricity e [-]", _overlayFont, Brushes.LightGreen, 8, 26);
-		overlayGraphics?.DrawString("Z-axis: inclination i [°]", _overlayFont, Brushes.LightSkyBlue, 8, 44);
-		overlayGraphics?.DrawString("Rotate: left mouse | Pan: right mouse | Zoom: wheel", _overlayFont, Brushes.WhiteSmoke, 8, 64);
+		overlayGraphics?.DrawString(s: "X-axis: semi-major axis a [AU]", font: _overlayFont, brush: Brushes.IndianRed, x: 8, y: 8);
+		overlayGraphics?.DrawString(s: "Y-axis: eccentricity e [-]", font: _overlayFont, brush: Brushes.LightGreen, x: 8, y: 26);
+		overlayGraphics?.DrawString(s: "Z-axis: inclination i [°]", font: _overlayFont, brush: Brushes.LightSkyBlue, x: 8, y: 44);
+		overlayGraphics?.DrawString(s: "Rotate: left mouse | Pan: right mouse | Zoom: wheel", font: _overlayFont, brush: Brushes.WhiteSmoke, x: 8, y: 64);
 	}
 
 	/// <summary>Handles the form load and initializes OpenGL state.</summary>
@@ -314,15 +314,15 @@ public partial class AEIDiagram3DForm : BaseKryptonForm
 		try
 		{
 			_glControl.MakeCurrent();
-			GL.Enable(EnableCap.DepthTest);
+			GL.Enable(cap: EnableCap.DepthTest);
 			_glReady = true;
 			SetupProjection();
 			_glControl.Invalidate();
 		}
 		catch (Exception ex)
 		{
-			logger.Error(ex, "Failed to initialize a,e,i OpenGL context.");
-			ShowErrorMessage($"Failed to initialize 3D rendering: {ex.Message}");
+			logger.Error(exception: ex, message: "Failed to initialize a,e,i OpenGL context.");
+			ShowErrorMessage(message: $"Failed to initialize 3D rendering: {ex.Message}");
 		}
 	}
 
@@ -340,27 +340,27 @@ public partial class AEIDiagram3DForm : BaseKryptonForm
 		{
 			if (_planetoids.Count == 0)
 			{
-				_ = KryptonMessageBox.Show("No planetoid data available.", I18nStrings.InformationCaption, KryptonMessageBoxButtons.OK, KryptonMessageBoxIcon.Information);
+				_ = KryptonMessageBox.Show(owner: this, text: "No planetoid data available.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 				return;
 			}
 			_rawPoints = [];
 			_renderPoints = [];
-			UpdateProgress(0);
+			UpdateProgress(percent: 0);
 			UpdateStatusLabel();
 			_isPaused = false;
 			_pauseGate.Set();
-			UpdateRunningState(true);
+			UpdateRunningState(isRunning: true);
 			_buttonLive.Enabled = false;
 
 			_cts = new CancellationTokenSource();
 			try
 			{
-				Progress<int> progress = new(UpdateProgress);
-				Progress<List<AeiPoint>> live = new(batch => { _rawPoints.AddRange(batch); RebuildRenderPointsAndInvalidate(); });
-				List<AeiPoint> final = await Task.Run(() => BuildPointData(_buttonLive.Checked, progress, live, _cts.Token), _cts.Token);
+				Progress<int> progress = new(handler: UpdateProgress);
+				Progress<List<AeiPoint>> live = new(handler: batch => { _rawPoints.AddRange(collection: batch); RebuildRenderPointsAndInvalidate(); });
+				List<AeiPoint> final = await Task.Run(function: () => BuildPointData(live: _buttonLive.Checked, progress: progress, liveResults: live, token: _cts.Token), cancellationToken: _cts.Token);
 				_rawPoints = final;
 				RebuildRenderPointsAndInvalidate();
-				UpdateProgress(100);
+				UpdateProgress(percent: 100);
 			}
 			catch (OperationCanceledException)
 			{
@@ -378,7 +378,7 @@ public partial class AEIDiagram3DForm : BaseKryptonForm
 				if (!IsDisposed && !Disposing)
 				{
 					_buttonLive.Enabled = true;
-					UpdateRunningState(false);
+					UpdateRunningState(isRunning: false);
 				}
 			}
 			return;
@@ -393,7 +393,7 @@ public partial class AEIDiagram3DForm : BaseKryptonForm
 		{
 			_pauseGate.Set();
 		}
-		UpdateRunningState(true);
+		UpdateRunningState(isRunning: true);
 	}
 
 	/// <summary>Handles cancel button clicks and requests cancellation.</summary>
@@ -417,7 +417,7 @@ public partial class AEIDiagram3DForm : BaseKryptonForm
 	private void ToolStripNumericScale_ValueChanged(object? sender, EventArgs e) => RebuildRenderPointsAndInvalidate();
 
 	/// <summary>Handles GL paint events and renders the scene.</summary>
-	private void GlControl_Paint(object? sender, PaintEventArgs e) => RenderScene(e.Graphics);
+	private void GlControl_Paint(object? sender, PaintEventArgs e) => RenderScene(overlayGraphics: e.Graphics);
 
 	/// <summary>Handles GL resize events and updates the projection.</summary>
 	private void GlControl_Resize(object? sender, EventArgs e)
@@ -470,7 +470,7 @@ public partial class AEIDiagram3DForm : BaseKryptonForm
 		if (_leftDown)
 		{
 			_yaw += dx * 0.5f;
-			_pitch = Math.Clamp(_pitch + (dy * 0.5f), -89f, 89f);
+			_pitch = Math.Clamp(value: _pitch + (dy * 0.5f), min: -89f, max: 89f);
 			_glControl.Invalidate();
 		}
 		else if (_rightDown)
@@ -484,7 +484,7 @@ public partial class AEIDiagram3DForm : BaseKryptonForm
 	/// <summary>Handles GL mouse wheel events and zooms the camera.</summary>
 	private void GlControl_MouseWheel(object? sender, MouseEventArgs e)
 	{
-		_zoom = Math.Clamp(_zoom - (e.Delta * 0.02f), 2f, 140f);
+		_zoom = Math.Clamp(value: _zoom - (e.Delta * 0.02f), min: 2f, max: 140f);
 		_glControl.Invalidate();
 	}
 }

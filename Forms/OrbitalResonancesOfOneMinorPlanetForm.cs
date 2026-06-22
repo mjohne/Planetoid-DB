@@ -80,7 +80,7 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 		// Set default file name
 		dialog.FileName = $"Orbital-Resonances_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.{ext}";
 		// Show the dialog and return the result
-		return dialog.ShowDialog() == DialogResult.OK;
+		return dialog.ShowDialog(owner: null) == DialogResult.OK;
 	}
 
 	/// <summary>Sets the semi-major axis of the planetoid used for computing orbital resonances.</summary>

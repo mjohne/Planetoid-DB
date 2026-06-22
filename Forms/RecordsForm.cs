@@ -107,7 +107,7 @@ public partial class RecordsForm : BaseKryptonForm
 		// Set default file name
 		dialog.FileName = $"Records_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.{ext}";
 		// Show the dialog and return the result
-		return dialog.ShowDialog() == DialogResult.OK;
+		return dialog.ShowDialog(owner: null) == DialogResult.OK;
 	}
 
 	/// <summary>Displays a save dialog and exports the table layout panel contents using the specified export action.</summary>
@@ -715,7 +715,7 @@ public partial class RecordsForm : BaseKryptonForm
 		// Show the top ten records form for mean anomaly at the epoch
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Mean anomaly at the epoch");
 		formRecordsTop10.TopMost = TopMost;
-		_ = formRecordsTop10.ShowDialog();
+		_ = formRecordsTop10.ShowDialog(owner: this);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsMeanAnomalyAtTheEpoch. Shows the top ten records form for mean anomaly at the epoch.</summary>
@@ -727,7 +727,7 @@ public partial class RecordsForm : BaseKryptonForm
 		// Show the top ten records form for the argument of the perihelion
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Argument of the perihelion");
 		formRecordsTop10.TopMost = TopMost;
-		_ = formRecordsTop10.ShowDialog();
+		_ = formRecordsTop10.ShowDialog(owner: this);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsLongitudeOfTheAscendingNode. Shows the top ten records form for the longitude of the ascending node.</summary>
@@ -739,7 +739,7 @@ public partial class RecordsForm : BaseKryptonForm
 		// Show the top ten records form for the longitude of the ascending node
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Longitude of the ascending node");
 		formRecordsTop10.TopMost = TopMost;
-		_ = formRecordsTop10.ShowDialog();
+		_ = formRecordsTop10.ShowDialog(owner: this);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsInclination. Shows the top ten records form for inclination.</summary>
@@ -751,7 +751,7 @@ public partial class RecordsForm : BaseKryptonForm
 		// Show the top ten records form for inclination
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Inclination");
 		formRecordsTop10.TopMost = TopMost;
-		_ = formRecordsTop10.ShowDialog();
+		_ = formRecordsTop10.ShowDialog(owner: this);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsOrbitalEccentricity. Shows the top ten records form for orbital eccentricity.</summary>
@@ -763,7 +763,7 @@ public partial class RecordsForm : BaseKryptonForm
 		// Show the top ten records form for orbital eccentricity
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Orbital eccentricity");
 		formRecordsTop10.TopMost = TopMost;
-		_ = formRecordsTop10.ShowDialog();
+		_ = formRecordsTop10.ShowDialog(owner: this);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsMeanDailyMotion. Shows the top ten records form for mean daily motion.</summary>
@@ -775,7 +775,7 @@ public partial class RecordsForm : BaseKryptonForm
 		// Show the top ten records form for mean daily motion
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Mean daily motion");
 		formRecordsTop10.TopMost = TopMost;
-		_ = formRecordsTop10.ShowDialog();
+		_ = formRecordsTop10.ShowDialog(owner: this);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsSemiMajorAxis. Shows the top ten records form for semi-major axis.</summary>
@@ -787,7 +787,7 @@ public partial class RecordsForm : BaseKryptonForm
 		// Show the top ten records form for semi-major axis
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Semi-major axis");
 		formRecordsTop10.TopMost = TopMost;
-		_ = formRecordsTop10.ShowDialog();
+		_ = formRecordsTop10.ShowDialog(owner: this);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsAbsoluteMagnitude. Shows the top ten records form for absolute magnitude.</summary>
@@ -799,7 +799,7 @@ public partial class RecordsForm : BaseKryptonForm
 		// Show the top ten records form for absolute magnitude
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Absolute magnitude");
 		formRecordsTop10.TopMost = TopMost;
-		_ = formRecordsTop10.ShowDialog();
+		_ = formRecordsTop10.ShowDialog(owner: this);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsSlopeParameter. Shows the top ten records form for slope parameter.</summary>
@@ -811,7 +811,7 @@ public partial class RecordsForm : BaseKryptonForm
 		// Show the top ten records form for slope parameter
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Slope parameter");
 		formRecordsTop10.TopMost = TopMost;
-		_ = formRecordsTop10.ShowDialog();
+		_ = formRecordsTop10.ShowDialog(owner: this);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsNumberOfOppositions. Shows the top ten records form for number of oppositions.</summary>
@@ -823,7 +823,7 @@ public partial class RecordsForm : BaseKryptonForm
 		// Show the top ten records form for number of oppositions
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Number of oppositions");
 		formRecordsTop10.TopMost = TopMost;
-		_ = formRecordsTop10.ShowDialog();
+		_ = formRecordsTop10.ShowDialog(owner: this);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsNumberOfObservations. Shows the top ten records form for number of observations.</summary>
@@ -835,7 +835,7 @@ public partial class RecordsForm : BaseKryptonForm
 		// Show the top ten records form for number of observations
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Number of observations");
 		formRecordsTop10.TopMost = TopMost;
-		_ = formRecordsTop10.ShowDialog();
+		_ = formRecordsTop10.ShowDialog(owner: this);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemRecordsRmsResidual. Shows the top ten records form for RMS residual.</summary>
@@ -847,7 +847,7 @@ public partial class RecordsForm : BaseKryptonForm
 		// Show the top ten records form for RMS residual
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "r.m.s. residual");
 		formRecordsTop10.TopMost = TopMost;
-		_ = formRecordsTop10.ShowDialog();
+		_ = formRecordsTop10.ShowDialog(owner: this);
 	}
 
 	#endregion

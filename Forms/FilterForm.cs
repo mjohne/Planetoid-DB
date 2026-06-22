@@ -285,30 +285,39 @@ public partial class FilterForm : BaseKryptonForm
 	private async void FilterForm_Load(object sender, EventArgs e)
 	{
 		ClearStatusBar(label: labelInformation);
+		// If the database is empty, skip computing min/max and just leave all spinbuttons at their default 0..100 range
 		if (planetoidsDatabase.Count <= 0)
 		{
 			return;
 		}
-
+		// Compute min/max values for all orbital elements in a background task to avoid freezing the UI, and disable toolbar actions while this is in progress
 		SetToolbarActionsEnabled(isEnabled: false);
 		UseWaitCursor = true;
+		// When the task completes, update the spinbuttons with the computed ranges. If an error occurs, log it and show an error message to the user.
 		try
 		{
+			// Compute min/max values from the database in a background task
 			try
 			{
+				// This may take a while for large databases, so run it in a background task to keep the UI responsive
 				await Task.Run(action: ComputeMinMaxFromDatabase);
 				ResetAllElements();
 			}
+			// Catch any exceptions that occur during the computation and log them, then show an error message to the user
 			catch (Exception ex)
 			{
+				// Log the exception with an error level
 				logger.Error(exception: ex, message: "Failed to compute initial filter ranges.");
+				// Show an error message to the user indicating that the computation failed
 				_ = KryptonMessageBox.Show(
+					owner: this,
 					text: "Unable to compute filter ranges from the current database.",
 					caption: I18nStrings.ErrorCaption,
 					buttons: KryptonMessageBoxButtons.OK,
 					icon: KryptonMessageBoxIcon.Error);
 			}
 		}
+		// Ensure the wait cursor is reset and toolbar actions are re-enabled even if an exception occurs
 		finally
 		{
 			UseWaitCursor = false;
