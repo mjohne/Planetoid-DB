@@ -124,7 +124,7 @@ public partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		// Set default file name
 		dialog.FileName = $"MaxoidsOfAllMinorPlanets_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.{ext}";
 		// Show the dialog and return the result
-		return dialog.ShowDialog() == DialogResult.OK;
+		return dialog.ShowDialog(owner: Form.ActiveForm) == DialogResult.OK;
 	}
 
 	/// <summary>Updates the enabled state of the "Go to object" button.</summary>
@@ -330,7 +330,7 @@ public partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	{
 		if (_planetoids.Count == 0)
 		{
-			_ = KryptonMessageBox.Show(text: "No planetoid data available.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			_ = KryptonMessageBox.Show(owner: this, text: "No planetoid data available.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
 		// Disable the Start button and save menu during the calculation
