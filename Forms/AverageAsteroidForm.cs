@@ -365,7 +365,7 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 		{
 			dialog.FileName = $"Average-Asteroid_{timestamp}.{ext}";
 		}
-		return dialog.ShowDialog(owner: null) == DialogResult.OK;
+		return dialog.ShowDialog(owner: Form.ActiveForm) == DialogResult.OK;
 	}
 
 	/// <summary>Performs the save export operation by displaying a save dialog and invoking the specified export action.</summary>

@@ -123,7 +123,7 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 		string timestamp = DateTime.Now.ToString(format: "yyyy-MM-dd_HH-mm-ss");
 		dialog.FileName = $"ObservatoryCodes_{timestamp}.{ext}";
 		// Show the dialog and return the result
-		return dialog.ShowDialog(owner: null) == DialogResult.OK;
+		return dialog.ShowDialog(owner: Form.ActiveForm) == DialogResult.OK;
 	}
 
 	/// <summary>Performs the save export operation by displaying a save dialog and invoking the specified export action.</summary>

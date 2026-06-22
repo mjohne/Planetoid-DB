@@ -94,7 +94,7 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 		// Set default file name
 		dialog.FileName = $"Database-Information-local-online.{ext}";
 		// Show the dialog and return the result
-		return dialog.ShowDialog(owner: null) == DialogResult.OK;
+		return dialog.ShowDialog(owner: Form.ActiveForm) == DialogResult.OK;
 	}
 
 	/// <summary>Performs the save export operation by displaying a save dialog and invoking the specified export action.</summary>

@@ -73,7 +73,7 @@ public partial class MoidsAndMaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 		// Set default file name with timestamp
 		dialog.FileName = $"MOIDs_AND_MAXOIDs_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.{ext}";
 		// Show the dialog and return the result
-		return dialog.ShowDialog(owner: null) == DialogResult.OK;
+		return dialog.ShowDialog(owner: Form.ActiveForm) == DialogResult.OK;
 	}
 
 	/// <summary>Sets the orbital elements of the minor planet used for computing MOID and MAXOID values.</summary>

@@ -113,7 +113,7 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		// Set default file name
 		dialog.FileName = $"Derived-Orbit-Elements_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.{ext}";
 		// Show the dialog and return the result
-		return dialog.ShowDialog(owner: null) == DialogResult.OK;
+		return dialog.ShowDialog(owner: Form.ActiveForm) == DialogResult.OK;
 	}
 
 	/// <summary>Displays a save dialog and exports the table layout panel contents using the specified export action.</summary>

@@ -124,7 +124,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		// Set default file name
 		dialog.FileName = $"MoidsOfAllMinorPlanets_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.{ext}";
 		// Show the dialog and return the result
-		return dialog.ShowDialog(owner: null) == DialogResult.OK;
+		return dialog.ShowDialog(owner: Form.ActiveForm) == DialogResult.OK;
 	}
 
 	/// <summary>Updates the enabled state of the "Go to object" button.</summary>
