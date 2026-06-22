@@ -3468,7 +3468,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void IconSetFatcow_Click(object sender, EventArgs e)
 	{
 		// TODO: Implement icon set change to Fatcow
-		_ = KryptonMessageBox.Show(owner: this, text: "Fatcow icon set not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this, text: "Fatcow icon set not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
 	/// <summary>Handles the click event for the Silk icon set menu item.</summary>
