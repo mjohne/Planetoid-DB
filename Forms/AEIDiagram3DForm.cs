@@ -287,9 +287,9 @@ public partial class AEIDiagram3DForm : BaseKryptonForm
 		float az = 10f * (float)_scaleZ.Value;
 		GL.LineWidth(width: 2f);
 		GL.Begin(mode: PrimitiveType.Lines);
-		GL.Color3(red: 1f, green: .2f, blue: .2f); GL.Vertex3(0f, 0f, 0f); GL.Vertex3(ax, 0f, 0f);
-		GL.Color3(red: .2f, green: 1f, blue: .2f); GL.Vertex3(0f, 0f, 0f); GL.Vertex3(0f, ay, 0f);
-		GL.Color3(red: .3f, green: .6f, blue: 1f); GL.Vertex3(0f, 0f, 0f); GL.Vertex3(0f, 0f, az);
+		GL.Color3(red: 1f, green: .2f, blue: .2f); GL.Vertex3(x: 0f, y: 0f, z: 0f); GL.Vertex3(ax, 0f, 0f);
+		GL.Color3(red: .2f, green: 1f, blue: .2f); GL.Vertex3(x: 0f, y: 0f, z: 0f); GL.Vertex3(0f, ay, 0f);
+		GL.Color3(red: .3f, green: .6f, blue: 1f); GL.Vertex3(x: 0f, y: 0f, z: 0f); GL.Vertex3(0f, 0f, az);
 		GL.End();
 
 		GL.PointSize(size: 1f);
