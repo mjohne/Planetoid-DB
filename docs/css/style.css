@@ -1,1 +1,276 @@
-body {background-color: coral;}
+/* ==========================
+   GLOBAL
+========================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", sans-serif;
+    background: #02040d;
+    color: white;
+    overflow-x: hidden;
+}
+
+/* ==========================
+   PARALLAX BACKGROUND
+========================== */
+
+.parallax-layer {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-position: center;
+    background-size: cover;
+    z-index: -3;
+}
+
+.stars {
+    background:
+        radial-gradient(circle, white 1px, transparent 1px),
+        radial-gradient(circle, #99ccff 1px, transparent 1px),
+        radial-gradient(circle, #ffffff 2px, transparent 2px);
+    background-size: 80px 80px, 120px 120px, 200px 200px;
+    animation: starDrift 120s linear infinite;
+}
+
+.nebula {
+    background:
+        linear-gradient(
+            rgba(10,20,60,0.6),
+            rgba(0,0,0,0.9)
+        ),
+        url("assets/space-bg.jpg");
+    transform: scale(1.2);
+    animation: nebulaMove 60s ease-in-out infinite alternate;
+}
+
+/* ==========================
+   HEADER
+========================== */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 50px;
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 3px;
+    color: #7bcfff;
+    text-shadow: 0 0 20px #00aaff;
+}
+
+/* ==========================
+   NAVIGATION
+========================== */
+
+nav ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 12px;
+    background: rgba(5, 20, 70, 0.75);
+    border: 1px solid rgba(100, 180, 255, 0.4);
+    box-shadow:
+        0 0 10px rgba(0, 150, 255, 0.3),
+        inset 0 0 10px rgba(0, 100, 255, 0.2);
+    transition: all 0.35s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Glowing Border Animation */
+
+nav a::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(
+        45deg,
+        #00d9ff,
+        #004cff,
+        #7d3cff,
+        #00d9ff
+    );
+    background-size: 300%;
+    animation: glowRotate 6s linear infinite;
+    z-index: -1;
+}
+
+nav a:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow:
+        0 0 25px rgba(0, 180, 255, 0.8),
+        0 0 40px rgba(0, 120, 255, 0.5);
+}
+
+/* ==========================
+   HERO SECTION
+========================== */
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px;
+    animation: fadeInUp 1.5s ease;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 30px #008cff;
+}
+
+.hero p {
+    font-size: 1.3rem;
+    max-width: 700px;
+    line-height: 1.7;
+    color: #cfdfff;
+}
+
+/* ==========================
+   BUTTON
+========================== */
+
+button {
+    margin-top: 30px;
+    width: 220px;
+    padding: 18px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #0057ff, #00d9ff);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 0 20px #008cff;
+    transition: all .3s ease;
+}
+
+button:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 35px #00d9ff;
+}
+
+/* ==========================
+   CARDS
+========================== */
+
+.cards {
+    display: flex;
+    gap: 30px;
+    padding: 50px;
+    flex-wrap: wrap;
+}
+
+.card {
+    flex: 1;
+    min-width: 280px;
+    padding: 30px;
+    border-radius: 18px;
+    background: rgba(10, 25, 80, 0.45);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(120,180,255,0.25);
+    box-shadow:
+        0 0 20px rgba(0,100,255,0.2);
+    transition: all .4s ease;
+    animation: floatCard 5s ease-in-out infinite;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow:
+        0 0 35px rgba(0,180,255,0.5);
+}
+
+.card h2 {
+    margin-bottom: 15px;
+    color: #7bcfff;
+}
+
+/* ==========================
+   ANIMATIONS
+========================== */
+
+@keyframes glowRotate {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
+}
+
+@keyframes starDrift {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-200px);
+    }
+}
+
+@keyframes nebulaMove {
+    from {
+        transform: scale(1.2) translateX(-20px);
+    }
+    to {
+        transform: scale(1.3) translateX(20px);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes floatCard {
+    0%,100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+/* ==========================
+   SCROLLBAR
+========================== */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #050d20;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #0077ff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #00d9ff;
+}
