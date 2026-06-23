@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Space Interface</title>
     <link rel="stylesheet" href="css/style.css">
+    <script>
+        document.addEventListener("mousemove", (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            document.querySelector(".stars").style.transform = `translate(${x * -20}px, ${y * -20}px)`;
+            document.querySelector(".nebula").style.transform = `translate(${x * -40}px, ${y * -40}px) scale(1.2)`;
+        });
+    </script>
 </head>
 <body>
 
