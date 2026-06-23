@@ -886,12 +886,12 @@ Public License instead of this License.  But first, please read
     <PackageReference Include="SkiaSharp.NativeAssets.Win32" Version="4.150.0-preview.1.1" />
     <PackageReference Include="SkiaSharp.Views.Desktop.Common" Version="4.150.0-preview.1.1" />
     <PackageReference Include="SkiaSharp.Views.WindowsForms" Version="4.150.0-preview.1.1" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="11.0.0-preview.2.26159.112" />
-    <PackageReference Include="System.Data.OleDb" Version="11.0.0-preview.2.26159.112" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="11.0.0-preview.5.26302.115" />
+    <PackageReference Include="System.Data.OleDb" Version="11.0.0-preview.5.26302.115" />
     <PackageReference Include="System.Data.SQLite" Version="2.0.3" />
-    <PackageReference Include="System.Diagnostics.EventLog" Version="11.0.0-preview.2.26159.112" />
-    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="11.0.0-preview.2.26159.112" />
-    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="11.0.0-preview.2.26159.112" />
+    <PackageReference Include="System.Diagnostics.EventLog" Version="11.0.0-preview.5.26302.115" />
+    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="11.0.0-preview.5.26302.115" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="11.0.0-preview.5.26302.115" />
   </ItemGroup>
 
   <ItemGroup>
