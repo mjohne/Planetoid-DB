@@ -1399,7 +1399,7 @@ partial class AppInfoForm
 		kryptonLinkLabelWebsiteScottPlot.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLinkLabelWebsiteScottPlot.Values.Image = FatcowIcons16px.fatcow_world_16px;
 		kryptonLinkLabelWebsiteScottPlot.Values.Text = "https://scottplot.net";
-		kryptonLinkLabelWebsiteScottPlot.LinkClicked += KryptonLinkLabelWebsite_LinkClick;
+		kryptonLinkLabelWebsiteScottPlot.LinkClicked += KryptonLinkLabelWebsiteScottPlot_LinkClick;
 		kryptonLinkLabelWebsiteScottPlot.Enter += Control_Enter;
 		kryptonLinkLabelWebsiteScottPlot.Leave += Control_Leave;
 		kryptonLinkLabelWebsiteScottPlot.MouseEnter += Control_Enter;
@@ -1555,7 +1555,7 @@ partial class AppInfoForm
 		kryptonLinkLabelWebsiteOpenTK.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLinkLabelWebsiteOpenTK.Values.Image = FatcowIcons16px.fatcow_world_16px;
 		kryptonLinkLabelWebsiteOpenTK.Values.Text = "https://github.com/opentk/opentk";
-		kryptonLinkLabelWebsiteOpenTK.LinkClicked += KryptonLinkLabelWebsite_LinkClick;
+		kryptonLinkLabelWebsiteOpenTK.LinkClicked += KryptonLinkLabelWebsiteOpenTK_LinkClick;
 		kryptonLinkLabelWebsiteOpenTK.Enter += Control_Enter;
 		kryptonLinkLabelWebsiteOpenTK.Leave += Control_Leave;
 		kryptonLinkLabelWebsiteOpenTK.MouseEnter += Control_Enter;

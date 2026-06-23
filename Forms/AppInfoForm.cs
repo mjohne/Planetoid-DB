@@ -193,13 +193,10 @@ public partial class AppInfoForm : BaseKryptonForm
 
 	#region form event handlers
 
-	/// <summary>Fired when the application info form loads.
-	/// Populates UI labels with product, version, company, description, and copyright information from the assembly,
-	/// sets a static author label, and clears the status area.</summary>
+	/// <summary>Fired when the application info form loads. Populates UI labels with product, version, company, description, and copyright information from the assembly, sets a static author label, and clears the status area.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This event initializes the form's UI elements with information from the assembly where available and assigns
-	/// a predefined author value to the author label.</remarks>
+	/// <remarks>This event initializes the form's UI elements with information from the assembly where available and assigns a predefined author value to the author label.</remarks>
 	private void AppInfoForm_Load(object sender, EventArgs e)
 	{
 		kryptonLabelTitle.Text = AssemblyInfo.AssemblyProduct;
@@ -215,62 +212,66 @@ public partial class AppInfoForm : BaseKryptonForm
 
 	#region Click event handlers
 
-	/// <summary>Handles the LinkClicked event for the website link label and opens the configured system homepage in the default web
-	/// browser.</summary>
+	/// <summary>Handles the LinkClicked event for the website link label and opens the configured system homepage in the default web browser.</summary>
 	/// <param name="sender">The source of the event, typically the link label control that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>This event handler is typically attached to a link label representing the application's website. When the link is clicked, the configured system homepage URL is opened using the default web browser.</remarks>
 	private void KryptonLinkLabelWebsite_LinkClick(object sender, EventArgs e) => OpenWebsite(fileName: Settings.Default.systemHomepage);
 
 	/// <summary>Handles the LinkClicked event of the Flaticon link label and opens the associated website.</summary>
-	/// <remarks>Use this event handler to navigate to the website specified by the link label's text when the label's
-	/// LinkClicked event is raised.</remarks>
+	/// <remarks>Use this event handler to navigate to the website specified by the link label's text when the label's LinkClicked event is raised.</remarks>
 	/// <param name="sender">The source of the event, typically the link label control that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void KryptonLinkLabelFlaticon_LinkClick(object sender, EventArgs e) => OpenWebsite(fileName: kryptonLinkLabelFlaticon.Text);
 
 	/// <summary>Handles the LinkClicked event for the Krypton Suite link label and opens the associated website.</summary>
-	/// <remarks>Use this event handler to navigate to the website specified by the link label's text when the label's
-	/// LinkClicked event is raised.</remarks>
+	/// <remarks>Use this event handler to navigate to the website specified by the link label's text when the label's LinkClicked event is raised.</remarks>
 	/// <param name="sender">The source of the event, typically the link label control that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void KryptonLinkLabelKryptonSuite_LinkClick(object sender, EventArgs e) => OpenWebsite(fileName: kryptonLinkLabelWebsiteKryptonSuite.Text);
 
 	/// <summary>Handles the LinkClicked event for the NLog website link label and opens the associated website in the default browser.</summary>
-	/// <remarks>This event handler is typically attached to a link label representing the NLog website. When the
-	/// link is clicked, the corresponding website URL is opened using the default web browser.</remarks>
+	/// <remarks>This event handler is typically attached to a link label representing the NLog website. When the link is clicked, the corresponding website URL is opened using the default web browser.</remarks>
 	/// <param name="sender">The source of the event, typically the link label control that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void KryptonLinkLabelNLog_LinkClick(object sender, EventArgs e) => OpenWebsite(fileName: kryptonLinkLabelWebsiteNlog.Text);
 
-	/// <summary>Handles the LinkClicked event for the FatCow Icons website link label and opens the associated website in the default browser.</summary>
-	/// <remarks>This event handler is typically attached to a link label representing the FatCow Icons website. When the
-	/// link is clicked, the corresponding website URL is opened using the default web browser.</remarks>
-	/// <param name="sender">The source of the event, typically the link label control that was clicked.</param>
-	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void KryptonLinkLabelFatCow_LinkClick(object sender, EventArgs e) => OpenWebsite(fileName: kryptonLinkLabelWebsiteFatcow.Text);
-
 	/// <summary>Handles the LinkClicked event for the HarfBuzzSharp website link label and opens the associated website in the default browser.</summary>
-	/// <remarks>This event handler is typically attached to a link label representing the HarfBuzzSharp website. When the
-	/// link is clicked, the corresponding website URL is opened using the default web browser.</remarks>
+	/// <remarks>This event handler is typically attached to a link label representing the HarfBuzzSharp website. When the link is clicked, the corresponding website URL is opened using the default web browser.</remarks>
 	/// <param name="sender">The source of the event, typically the link label control that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void KryptonLinkLabelHarfBuzzSharp_LinkClick(object sender, EventArgs e) => OpenWebsite(fileName: kryptonLinkLabelWebsiteHarfBuzzSharp.Text);
 
 	/// <summary>Handles the LinkClicked event for the SkiaSharp website link label and opens the associated website in the default browser.</summary>
-	/// <remarks>This event handler is typically attached to a link label representing the SkiaSharp website. When the
-	/// link is clicked, the corresponding website URL is opened using the default web browser.</remarks>
+	/// <remarks>This event handler is typically attached to a link label representing the SkiaSharp website. When the link is clicked, the corresponding website URL is opened using the default web browser.</remarks>
 	/// <param name="sender">The source of the event, typically the link label control that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void KryptonLinkLabelSkiaSharp_LinkClick(object sender, EventArgs e) => OpenWebsite(fileName: kryptonLinkLabelWebsiteSkiaSharp.Text);
 
-	/// <summary>
-	/// Indicates whether the banner animation is currently running to prevent overlapping animations.
-	/// </summary>
+	/// <summary>Handles the LinkClicked event for the OpenTK website link label and opens the associated website in the default browser.</summary>
+	/// <remarks>This event handler is typically attached to a link label representing the OpenTK website. When the link is clicked, the corresponding website URL is opened using the default web browser.</remarks>
+	/// <param name="sender">The source of the event, typically the link label control that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void KryptonLinkLabelWebsiteOpenTK_LinkClick(object sender, EventArgs e) => OpenWebsite(fileName: kryptonLinkLabelWebsiteOpenTK.Text);
+
+	/// <summary>Handles the LinkClicked event for the ScottPlot website link label and opens the associated website in the default browser.</summary>
+	/// <remarks>This event handler is typically attached to a link label representing the ScottPlot website. When the link is clicked, the corresponding website URL is opened using the default web browser.</remarks>
+	/// <param name="sender">The source of the event, typically the link label control that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void KryptonLinkLabelWebsiteScottPlot_LinkClick(object sender, EventArgs e) => OpenWebsite(fileName: kryptonLinkLabelWebsiteScottPlot.Text);
+
+	/// <summary>Handles the LinkClicked event for the FatCow Icons website link label and opens the associated website in the default browser.</summary>
+	/// <remarks>This event handler is typically attached to a link label representing the FatCow Icons website. When the link is clicked, the corresponding website URL is opened using the default web browser.</remarks>
+	/// <param name="sender">The source of the event, typically the link label control that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void KryptonLinkLabelFatCow_LinkClick(object sender, EventArgs e) => OpenWebsite(fileName: kryptonLinkLabelWebsiteFatcow.Text);
+
+	/// <summary>Indicates whether the banner animation is currently running to prevent overlapping animations.</summary>
+	/// <remarks>This field is used to track the state of the banner animation, ensuring that a new animation does not start while a previous one is still in progress.</remarks>
 	private bool _isBannerAnimationRunning;
 
 	/// <summary>Handles the LinkClicked event for the email link label and attempts to open the user's default mail client with a new message addressed to the application's support email.</summary>
-	/// <remarks>This event handler is typically attached to a link label representing the application's support email. When the
-	/// link is clicked, the default mail client is opened with a new message addressed to the specified email.</remarks>
+	/// <remarks>This event handler is typically attached to a link label representing the application's support email. When the link is clicked, the default mail client is opened with a new message addressed to the specified email.</remarks>
 	/// <param name="sender">The source of the event, typically the link label control that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private async void KryptonLinkLabelEmail_LinkClick(object sender, EventArgs e)
@@ -292,10 +293,8 @@ public partial class AppInfoForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Handles the Click event of the banner PictureBox and initiates an asynchronous operation to apply zoom and
-	/// pixelation effects.</summary>
-	/// <remarks>This event handler triggers an asynchronous image processing operation on the banner PictureBox
-	/// when it is clicked, applying zoom and pixelation effects to the displayed image.</remarks>
+	/// <summary>Handles the Click event of the banner PictureBox and initiates an asynchronous operation to apply zoom and pixelation effects.</summary>
+	/// <remarks>This event handler triggers an asynchronous image processing operation on the banner PictureBox when it is clicked, applying zoom and pixelation effects to the displayed image.</remarks>
 	/// <param name="sender">The source of the event, typically the PictureBox control that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private async void PictureBoxBanner_Click(object sender, EventArgs e)
