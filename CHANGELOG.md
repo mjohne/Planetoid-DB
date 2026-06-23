@@ -7,10 +7,10 @@
 * Updated `ScottPlot` package to version 5.1.19 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/796
 * Updated `HarfBuzzSharp` packages to version 14.2.0-rc.1.2 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/797
 * Updated `SkiaSharp` packages to version 4.150.0-preview.1.1 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/798
-* Updated `OpenTK` packages to version 5.0.0-pre.16 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/800
-* Downgraded `OpenTK` packages to version 4.9.4 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/801
+* Updated some `OpenTK` packages to version 5.0.0-pre.16 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/800
+* Downgraded some `OpenTK` packages to version 4.9.4 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/801
 * Added component tabs in `AppInfoForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/802
-* Bugfixed `AppInfoForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/803
+* Bugfix: Fixed `AppInfoForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/803
 * Updated to version 0.9.12.75 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/804
 
 **Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.11.74.792.2446...0.9.12.75.804.2483
