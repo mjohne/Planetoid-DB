@@ -1687,7 +1687,7 @@ partial class AppInfoForm
 		kryptonLabelVersionHarfBuzzSharp.ToolTipValues.EnableToolTips = true;
 		kryptonLabelVersionHarfBuzzSharp.ToolTipValues.Heading = "HarfBuzzSharp version";
 		kryptonLabelVersionHarfBuzzSharp.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		kryptonLabelVersionHarfBuzzSharp.Values.Text = "Version: 14.2.0-rc.1.2";
+		kryptonLabelVersionHarfBuzzSharp.Values.Text = "Version: 14.2.0";
 		kryptonLabelVersionHarfBuzzSharp.DoubleClick += CopyToClipboard_DoubleClick;
 		kryptonLabelVersionHarfBuzzSharp.Enter += Control_Enter;
 		kryptonLabelVersionHarfBuzzSharp.Leave += Control_Leave;
