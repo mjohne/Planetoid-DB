@@ -1646,6 +1646,7 @@ partial class AppInfoForm
 		kryptonLabelHeadingHarfBuzzSharp.ToolTipValues.Heading = "HarfBuzzSharp";
 		kryptonLabelHeadingHarfBuzzSharp.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLabelHeadingHarfBuzzSharp.Values.Text = "HarfBuzzSharp";
+		kryptonLabelHeadingHarfBuzzSharp.DoubleClick += CopyToClipboard_DoubleClick;
 		kryptonLabelHeadingHarfBuzzSharp.Enter += Control_Enter;
 		kryptonLabelHeadingHarfBuzzSharp.Leave += Control_Leave;
 		kryptonLabelHeadingHarfBuzzSharp.MouseEnter += Control_Enter;
@@ -1666,6 +1667,7 @@ partial class AppInfoForm
 		kryptonLabelLicenseHarfBuzzSharp.ToolTipValues.Heading = "HarfBuzzSharp license";
 		kryptonLabelLicenseHarfBuzzSharp.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLabelLicenseHarfBuzzSharp.Values.Text = "License: MIT license";
+		kryptonLabelLicenseHarfBuzzSharp.DoubleClick += CopyToClipboard_DoubleClick;
 		kryptonLabelLicenseHarfBuzzSharp.Enter += Control_Enter;
 		kryptonLabelLicenseHarfBuzzSharp.Leave += Control_Leave;
 		kryptonLabelLicenseHarfBuzzSharp.MouseEnter += Control_Enter;
@@ -1686,6 +1688,7 @@ partial class AppInfoForm
 		kryptonLabelVersionHarfBuzzSharp.ToolTipValues.Heading = "HarfBuzzSharp version";
 		kryptonLabelVersionHarfBuzzSharp.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLabelVersionHarfBuzzSharp.Values.Text = "Version: 14.2.0-rc.1.2";
+		kryptonLabelVersionHarfBuzzSharp.DoubleClick += CopyToClipboard_DoubleClick;
 		kryptonLabelVersionHarfBuzzSharp.Enter += Control_Enter;
 		kryptonLabelVersionHarfBuzzSharp.Leave += Control_Leave;
 		kryptonLabelVersionHarfBuzzSharp.MouseEnter += Control_Enter;
@@ -1708,6 +1711,7 @@ partial class AppInfoForm
 		kryptonLinkLabelWebsiteHarfBuzzSharp.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLinkLabelWebsiteHarfBuzzSharp.Values.Image = FatcowIcons16px.fatcow_world_16px;
 		kryptonLinkLabelWebsiteHarfBuzzSharp.Values.Text = "https://github.com/mono/SkiaSharp/";
+		kryptonLinkLabelWebsiteHarfBuzzSharp.LinkClicked += KryptonLinkLabelHarfBuzzSharp_LinkClick;
 		kryptonLinkLabelWebsiteHarfBuzzSharp.Enter += Control_Enter;
 		kryptonLinkLabelWebsiteHarfBuzzSharp.Leave += Control_Leave;
 		kryptonLinkLabelWebsiteHarfBuzzSharp.MouseEnter += Control_Enter;
@@ -1728,6 +1732,7 @@ partial class AppInfoForm
 		kryptonLabelAuthorsHarfBuzzSharp.ToolTipValues.Heading = "HarfBuzzSharp authors";
 		kryptonLabelAuthorsHarfBuzzSharp.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLabelAuthorsHarfBuzzSharp.Values.Text = "Authors: Windows";
+		kryptonLabelAuthorsHarfBuzzSharp.DoubleClick += CopyToClipboard_DoubleClick;
 		kryptonLabelAuthorsHarfBuzzSharp.Enter += Control_Enter;
 		kryptonLabelAuthorsHarfBuzzSharp.Leave += Control_Leave;
 		kryptonLabelAuthorsHarfBuzzSharp.MouseEnter += Control_Enter;
@@ -1797,6 +1802,7 @@ partial class AppInfoForm
 		kryptonLabelHeadingSkiaSharp.ToolTipValues.Heading = "SkiaSharp";
 		kryptonLabelHeadingSkiaSharp.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLabelHeadingSkiaSharp.Values.Text = "SkiaSharp";
+		kryptonLabelHeadingSkiaSharp.DoubleClick += CopyToClipboard_DoubleClick;
 		kryptonLabelHeadingSkiaSharp.Enter += Control_Enter;
 		kryptonLabelHeadingSkiaSharp.Leave += Control_Leave;
 		kryptonLabelHeadingSkiaSharp.MouseEnter += Control_Enter;
@@ -1817,6 +1823,7 @@ partial class AppInfoForm
 		kryptonLabelLicenseSkiaSharp.ToolTipValues.Heading = "SkiaSharp license";
 		kryptonLabelLicenseSkiaSharp.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLabelLicenseSkiaSharp.Values.Text = "License: MIT license";
+		kryptonLabelLicenseSkiaSharp.DoubleClick += CopyToClipboard_DoubleClick;
 		kryptonLabelLicenseSkiaSharp.Enter += Control_Enter;
 		kryptonLabelLicenseSkiaSharp.Leave += Control_Leave;
 		kryptonLabelLicenseSkiaSharp.MouseEnter += Control_Enter;
@@ -1837,6 +1844,7 @@ partial class AppInfoForm
 		kryptonLabelVersionSkiaSharp.ToolTipValues.Heading = "SkiaSharp version";
 		kryptonLabelVersionSkiaSharp.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLabelVersionSkiaSharp.Values.Text = "Version: 4.150.0-preview.1.1";
+		kryptonLabelVersionSkiaSharp.DoubleClick += CopyToClipboard_DoubleClick;
 		kryptonLabelVersionSkiaSharp.Enter += Control_Enter;
 		kryptonLabelVersionSkiaSharp.Leave += Control_Leave;
 		kryptonLabelVersionSkiaSharp.MouseEnter += Control_Enter;
@@ -1859,6 +1867,7 @@ partial class AppInfoForm
 		kryptonLinkLabelWebsiteSkiaSharp.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLinkLabelWebsiteSkiaSharp.Values.Image = FatcowIcons16px.fatcow_world_16px;
 		kryptonLinkLabelWebsiteSkiaSharp.Values.Text = "https://github.com/mono/SkiaSharp/";
+		kryptonLinkLabelWebsiteSkiaSharp.LinkClicked += KryptonLinkLabelSkiaSharp_LinkClick;
 		kryptonLinkLabelWebsiteSkiaSharp.Enter += Control_Enter;
 		kryptonLinkLabelWebsiteSkiaSharp.Leave += Control_Leave;
 		kryptonLinkLabelWebsiteSkiaSharp.MouseEnter += Control_Enter;
@@ -1874,11 +1883,12 @@ partial class AppInfoForm
 		kryptonLabelAuthorsSkiaSharp.Name = "kryptonLabelAuthorsSkiaSharp";
 		kryptonLabelAuthorsSkiaSharp.Size = new Size(111, 20);
 		kryptonLabelAuthorsSkiaSharp.TabIndex = 15;
-		kryptonLabelAuthorsSkiaSharp.ToolTipValues.Description = "Shows the OpenTK authors.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		kryptonLabelAuthorsSkiaSharp.ToolTipValues.Description = "Shows the SkiaSharp authors.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		kryptonLabelAuthorsSkiaSharp.ToolTipValues.EnableToolTips = true;
-		kryptonLabelAuthorsSkiaSharp.ToolTipValues.Heading = "OpenTK authors";
+		kryptonLabelAuthorsSkiaSharp.ToolTipValues.Heading = "SkiaSharp authors";
 		kryptonLabelAuthorsSkiaSharp.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		kryptonLabelAuthorsSkiaSharp.Values.Text = "Authors: Microsoft";
+		kryptonLabelAuthorsSkiaSharp.DoubleClick += CopyToClipboard_DoubleClick;
 		kryptonLabelAuthorsSkiaSharp.Enter += Control_Enter;
 		kryptonLabelAuthorsSkiaSharp.Leave += Control_Leave;
 		kryptonLabelAuthorsSkiaSharp.MouseEnter += Control_Enter;

@@ -249,6 +249,20 @@ public partial class AppInfoForm : BaseKryptonForm
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void KryptonLinkLabelFatCow_LinkClick(object sender, EventArgs e) => OpenWebsite(fileName: kryptonLinkLabelWebsiteFatcow.Text);
 
+	/// <summary>Handles the LinkClicked event for the HarfBuzzSharp website link label and opens the associated website in the default browser.</summary>
+	/// <remarks>This event handler is typically attached to a link label representing the HarfBuzzSharp website. When the
+	/// link is clicked, the corresponding website URL is opened using the default web browser.</remarks>
+	/// <param name="sender">The source of the event, typically the link label control that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void KryptonLinkLabelHarfBuzzSharp_LinkClick(object sender, EventArgs e) => OpenWebsite(fileName: kryptonLinkLabelWebsiteHarfBuzzSharp.Text);
+
+	/// <summary>Handles the LinkClicked event for the SkiaSharp website link label and opens the associated website in the default browser.</summary>
+	/// <remarks>This event handler is typically attached to a link label representing the SkiaSharp website. When the
+	/// link is clicked, the corresponding website URL is opened using the default web browser.</remarks>
+	/// <param name="sender">The source of the event, typically the link label control that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	private void KryptonLinkLabelSkiaSharp_LinkClick(object sender, EventArgs e) => OpenWebsite(fileName: kryptonLinkLabelWebsiteSkiaSharp.Text);
+
 	/// <summary>
 	/// Indicates whether the banner animation is currently running to prevent overlapping animations.
 	/// </summary>
