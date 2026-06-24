@@ -90,7 +90,7 @@ public partial class SettingsForm : BaseKryptonForm
 	/// <summary>Handles the click event of the Load Default Settings button.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>Resets all controls to their default values. Persistence logic is not yet implemented.</remarks>
+	/// <remarks>Default settings loading is not yet implemented.</remarks>
 	private void ToolStripButtonLoadDefaultSettings_Click(object sender, EventArgs e)
 	{
 		//TODO: Implement loading default settings

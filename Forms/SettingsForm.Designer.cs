@@ -467,7 +467,7 @@ namespace Planetoid_DB;
 		// ===========================
 
 		// checkBoxCheckUpdateOnStartup
-		checkBoxCheckUpdateOnStartup.AccessibleDescription = "Check whether a MPCORB.DAT update is available each time the application starts";
+		checkBoxCheckUpdateOnStartup.AccessibleDescription = "Check whether an MPCORB.DAT update is available each time the application starts";
 		checkBoxCheckUpdateOnStartup.AccessibleName = "Check MPCORB.DAT update on startup";
 		checkBoxCheckUpdateOnStartup.AccessibleRole = AccessibleRole.CheckButton;
 		checkBoxCheckUpdateOnStartup.Location = new Point(8, 5);
@@ -482,7 +482,7 @@ namespace Planetoid_DB;
 		checkBoxCheckUpdateOnStartup.Leave += Control_Leave;
 
 		// checkBoxAutoDownloadOnStartup
-		checkBoxAutoDownloadOnStartup.AccessibleDescription = "Automatically download a MPCORB.DAT update if one is available on startup";
+		checkBoxAutoDownloadOnStartup.AccessibleDescription = "Automatically download an MPCORB.DAT update if one is available on startup";
 		checkBoxAutoDownloadOnStartup.AccessibleName = "Download automatically the MPCORB.DAT update on startup";
 		checkBoxAutoDownloadOnStartup.AccessibleRole = AccessibleRole.CheckButton;
 		checkBoxAutoDownloadOnStartup.Location = new Point(8, 32);
@@ -497,7 +497,7 @@ namespace Planetoid_DB;
 		checkBoxAutoDownloadOnStartup.Leave += Control_Leave;
 
 		// checkBoxAskForRestartOnStartup
-		checkBoxAskForRestartOnStartup.AccessibleDescription = "Ask the user to restart the application after a MPCORB.DAT update on startup";
+		checkBoxAskForRestartOnStartup.AccessibleDescription = "Ask the user to restart the application after an MPCORB.DAT update on startup";
 		checkBoxAskForRestartOnStartup.AccessibleName = "Ask for restart after the MPCORB.DAT update";
 		checkBoxAskForRestartOnStartup.AccessibleRole = AccessibleRole.CheckButton;
 		checkBoxAskForRestartOnStartup.Location = new Point(8, 59);
@@ -526,7 +526,7 @@ namespace Planetoid_DB;
 		groupBoxStartupUpdate.Panel.Controls.Add(checkBoxAskForRestartOnStartup);
 
 		// checkBoxCheckUpdateInBackground
-		checkBoxCheckUpdateInBackground.AccessibleDescription = "Check for a MPCORB.DAT update every hour while the application is running";
+		checkBoxCheckUpdateInBackground.AccessibleDescription = "Check for an MPCORB.DAT update every hour while the application is running";
 		checkBoxCheckUpdateInBackground.AccessibleName = "Check the MPCORB.DAT update every hour in background";
 		checkBoxCheckUpdateInBackground.AccessibleRole = AccessibleRole.CheckButton;
 		checkBoxCheckUpdateInBackground.Location = new Point(8, 5);
@@ -541,7 +541,7 @@ namespace Planetoid_DB;
 		checkBoxCheckUpdateInBackground.Leave += Control_Leave;
 
 		// checkBoxAutoDownloadInBackground
-		checkBoxAutoDownloadInBackground.AccessibleDescription = "Automatically download a MPCORB.DAT update if one is found in the background";
+		checkBoxAutoDownloadInBackground.AccessibleDescription = "Automatically download an MPCORB.DAT update if one is found in the background";
 		checkBoxAutoDownloadInBackground.AccessibleName = "Download automatically the MPCORB.DAT update in background";
 		checkBoxAutoDownloadInBackground.AccessibleRole = AccessibleRole.CheckButton;
 		checkBoxAutoDownloadInBackground.Location = new Point(8, 32);
@@ -556,7 +556,7 @@ namespace Planetoid_DB;
 		checkBoxAutoDownloadInBackground.Leave += Control_Leave;
 
 		// checkBoxAskForRestartInBackground
-		checkBoxAskForRestartInBackground.AccessibleDescription = "Ask the user to restart after a MPCORB.DAT background update";
+		checkBoxAskForRestartInBackground.AccessibleDescription = "Ask the user to restart after an MPCORB.DAT background update";
 		checkBoxAskForRestartInBackground.AccessibleName = "Ask for restart after the MPCORB.DAT background update";
 		checkBoxAskForRestartInBackground.AccessibleRole = AccessibleRole.CheckButton;
 		checkBoxAskForRestartInBackground.Location = new Point(8, 59);
