@@ -522,4 +522,386 @@ body {
         width: 100%;
         justify-content: flex-end;
     }
+
 }
+
+/* =========================
+    Tabs-System
+   ========================= */
+
+   .tabs-system input {
+    display: none;
+}
+
+.tabs-nav {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.tabs-nav label {
+    padding: 10px 18px;
+    border-radius: 999px;
+    cursor: pointer;
+    background: rgba(15,23,42,.8);
+    border: 1px solid rgba(148,163,184,.3);
+    transition: var(--transition-med);
+}
+
+.tabs-nav label:hover {
+    box-shadow: var(--shadow-glow);
+    border-color: var(--border-glow);
+}
+
+.tab-panel {
+    display: none;
+    animation: tabReveal .5s ease;
+}
+
+#tab1:checked ~ .tabs-content .panel-1,
+#tab2:checked ~ .tabs-content .panel-2,
+#tab3:checked ~ .tabs-content .panel-3 {
+    display: block;
+}
+
+#tab1:checked ~ .tabs-nav label[for="tab1"],
+#tab2:checked ~ .tabs-nav label[for="tab2"],
+#tab3:checked ~ .tabs-nav label[for="tab3"] {
+    background: radial-gradient(circle at top,
+        rgba(56,189,248,.35),
+        rgba(15,23,42,.95));
+    border-color: var(--border-glow);
+    box-shadow: var(--shadow-glow);
+}
+
+@keyframes tabReveal {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+    Tableiste / Tabellenansicht
+   ========================= */
+
+   .space-table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+}
+
+.space-table thead {
+    background: rgba(56,189,248,.15);
+}
+
+.space-table th {
+    padding: 14px;
+    text-align: left;
+    color: var(--accent-strong);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+}
+
+.space-table td {
+    padding: 14px;
+    border-top: 1px solid rgba(148,163,184,.15);
+}
+
+.space-table tbody tr {
+    transition: var(--transition-fast);
+}
+
+.space-table tbody tr:hover {
+    background: rgba(56,189,248,.08);
+    box-shadow: inset 0 0 20px rgba(56,189,248,.12);
+}
+
+.status-ok {
+    color: var(--success);
+}
+
+.status-alert {
+    color: var(--danger);
+}
+
+.space-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap: 20px;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(148,163,184,.25);
+    animation: floatSoft 8s ease-in-out infinite;
+}
+
+.gallery-item img {
+    width: 100%;
+    display: block;
+    transition: transform .6s ease;
+}
+
+.gallery-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg,
+        transparent,
+        rgba(56,189,248,.2));
+    opacity: 0;
+    transition: .4s;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.12) rotate(2deg);
+}
+
+.gallery-item:hover::before {
+    opacity: 1;
+}
+
+.gallery-item:hover {
+    box-shadow: var(--shadow-glow);
+    border-color: var(--border-glow);
+}
+
+/* =========================
+    Timeline / Zeitstrahl
+   ========================= */
+
+.orbit-timeline {
+    position: relative;
+    padding-left: 40px;
+}
+
+.orbit-timeline::before {
+    content: "";
+    position: absolute;
+    left: 14px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(var(--accent), transparent);
+}
+
+.timeline-node {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.orbit-dot {
+    position: absolute;
+    left: -32px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: var(--shadow-glow);
+    animation: orbitPulse 2s infinite;
+}
+
+@keyframes orbitPulse {
+    50% { transform: scale(1.4); }
+}
+
+/* =========================
+    Radar-Chart
+   ========================= */
+
+ .radar-chart {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid rgba(56,189,248,.4);
+}
+
+.radar-ring {
+    position: absolute;
+    inset: 20%;
+    border: 1px solid rgba(56,189,248,.25);
+    border-radius: 50%;
+}
+
+.ring2 { inset: 35%; }
+.ring3 { inset: 50%; }
+
+.radar-sweep {
+    position: absolute;
+    inset: 0;
+    background: conic-gradient(
+        transparent 0deg,
+        rgba(56,189,248,.25) 25deg,
+        transparent 40deg
+    );
+    animation: radarSpin 4s linear infinite;
+}
+
+@keyframes radarSpin {
+    to { transform: rotate(360deg); }
+}
+
+/* =========================
+    Accordion / Ausklappbare Panels
+   ========================= */
+
+   .space-accordion details {
+    margin-bottom: 12px;
+    border-radius: var(--radius-md);
+    background: var(--bg-panel-soft);
+    overflow: hidden;
+}
+
+.space-accordion summary {
+    padding: 14px;
+    cursor: pointer;
+    color: var(--accent-strong);
+}
+
+.space-accordion p {
+    padding: 0 14px 14px;
+}
+
+/* =========================
+    Tooltip / Infobox
+   ========================= */
+
+   .tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.tooltip .tooltip-text {
+    visibility: hidden;
+    width: 180px;
+    background-color: var(--bg-panel-soft);
+    color: var(--text-main);
+    text-align: center;
+    padding: 8px 12px;
+    border-radius: var(--radius-md);
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Position above the element */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* =========================
+    Modal / Dialogfenster
+   ========================= */
+
+   .modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+    background-color: var(--bg-panel-soft);
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid rgba(56,189,248,.4);
+    width: 80%;
+    max-width: 600px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-glow);
+}
+
+/*==========================
+    Matrix-Table / ASCII-Darstellung
+   ========================= */
+
+.matrix-table td {
+    padding: 12px;
+    border: 1px solid rgba(56,189,248,.15);
+    font-family: monospace;
+}
+
+.matrix-table tr:hover {
+    background: rgba(56,189,248,.08);
+}
+
+/*==========================
+    Scrollbar Styling
+   ========================= */
+
+   ::-webkit-scrollbar {
+    width: 10px;
+}
+
+   ::-webkit-scrollbar-thumb {
+    background-color: rgba(56,189,248,.4);
+    border-radius: var(--radius-md);
+}
+
+   ::-webkit-scrollbar-track {
+    background-color: rgba(56,189,248,.1);
+}
+
+/*==========================
+    Dark Mode / Theme Toggle
+   ========================= */
+
+   .dark-mode {
+    --bg-main: #000;
+    --bg-panel: rgba(10, 20, 35, 0.85);
+    --bg-panel-soft: rgba(10, 20, 35, 0.65);
+    --accent: #38bdf8;
+    --accent-soft: #0ea5e9;
+    --accent-strong: #7dd3fc;
+    --text-main: #e5f0ff;
+    --text-muted: #9ca3af;
+    --border-glow: #38bdf8;
+    --danger: #f97373;
+    --success: #4ade80;
+}
+
+/*==========================
+    Print Styles
+   ========================= */
+
+   @media print {
+    body {
+        background: #fff;
+        color: #000;
+    }
+
+    .space-header,
+    .space-footer,
+    .space-nav,
+    .header-actions {
+        display: none;
+    }
+
+    .card {
+        border: 1px solid #000;
+        box-shadow: none;
+        background: #f9f9f9;
+    }
+}
+
