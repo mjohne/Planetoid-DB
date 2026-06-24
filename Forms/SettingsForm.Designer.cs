@@ -12,7 +12,7 @@ using System.ComponentModel;
 namespace Planetoid_DB;
 
 	/// <summary>Represents a settings dialog that enables users to configure application settings across four categories: General, Navigator, Database Update, and Appearance.</summary>
-	/// <remarks>The form provides a tabbed interface to organize settings. Tabs include General (window behavior and interaction), Navigator (start position and step size), Database Update (startup/background update options and download parameters), and Appearance (theme and icon set). Save and cancel actions are provided via a toolbar. Load logic is not yet implemented.</remarks>
+	/// <remarks>The form provides a tabbed interface to organize settings. Tabs include General (window behavior and interaction), Navigator (start position and step size), Database Update (startup/background update options and download parameters), and Appearance (theme and icon set). Save and cancel actions are provided via a toolbar. Logic for loading from and persisting to configuration storage is intentionally stubbed with TODO comments and will be implemented in a future iteration.</remarks>
     partial class SettingsForm
     {
         /// <summary>Required designer variable.</summary>
@@ -679,6 +679,9 @@ namespace Planetoid_DB;
 		comboBoxTheme.AccessibleRole = AccessibleRole.ComboBox;
 		comboBoxTheme.DropDownStyle = ComboBoxStyle.DropDownList;
 		comboBoxTheme.FormattingEnabled = true;
+		// comboBoxTheme items are display strings.
+		// When save logic is implemented, map these strings to the corresponding
+		// PaletteMode enum values (e.g. "Office 2007 Blue" → PaletteMode.Office2007Blue).
 		comboBoxTheme.Items.AddRange(new object[]
 		{
 			"Professional System",
@@ -952,7 +955,7 @@ namespace Planetoid_DB;
 		// FORM
 		// ===========================
 
-		AccessibleDescription = "Configure application settings";
+		AccessibleDescription = "Configure application settings including window behavior, navigation preferences, database update options, and visual appearance.";
 		AccessibleName = "Settings";
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);

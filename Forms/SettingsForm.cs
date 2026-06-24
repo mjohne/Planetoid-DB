@@ -10,7 +10,7 @@ using System.Diagnostics;
 namespace Planetoid_DB;
 
 /// <summary>Represents the settings form of the application, providing a tabbed user interface to configure application settings across the General, Navigator, Database Update, and Appearance categories.</summary>
-/// <remarks>This form presents settings controls for window behavior, navigation preferences, database update options, and visual appearance. Logic for loading and saving settings is not yet implemented.</remarks>
+/// <remarks>This form presents settings controls for window behavior, navigation preferences, database update options, and visual appearance. Logic for loading from and persisting to configuration storage is intentionally stubbed with TODO comments and will be implemented in a future iteration.</remarks>
 // You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class SettingsForm : BaseKryptonForm
