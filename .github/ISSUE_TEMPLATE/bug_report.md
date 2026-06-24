@@ -23,16 +23,12 @@ A clear and concise description of what you expected to happen.
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
-
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+**Environment (please complete the following information):**
+ - Planetoid-DB version: [e.g. 1.2.3]
+ - Windows version: [e.g. Windows 11 24H2]
+ - Install type: [e.g. portable zip, local build from source]
+ - Data source/location (if relevant): [e.g. local MPCORB.DAT]
+ - Attached logs or error files: [e.g. app log, stack trace, screenshot]
 
 **Additional context**
 Add any other context about the problem here.
