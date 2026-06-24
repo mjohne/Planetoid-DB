@@ -1,0 +1,525 @@
+/* =========================
+   Basis & Hintergrund
+   ========================= */
+
+:root {
+    --bg-main: #020617;
+    --bg-panel: rgba(15, 23, 42, 0.85);
+    --bg-panel-soft: rgba(15, 23, 42, 0.65);
+    --accent: #38bdf8;
+    --accent-soft: #0ea5e9;
+    --accent-strong: #7dd3fc;
+    --text-main: #e5f0ff;
+    --text-muted: #9ca3af;
+    --border-glow: #38bdf8;
+    --danger: #f97373;
+    --success: #4ade80;
+    --shadow-glow: 0 0 15px rgba(56, 189, 248, 0.7);
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --transition-fast: 0.2s ease-out;
+    --transition-med: 0.35s ease-out;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--text-main);
+    background: radial-gradient(circle at top, #0b1120 0, #020617 55%, #000 100%);
+    overflow-x: hidden;
+}
+
+/* =========================
+   Parallax & Sternenfeld
+   ========================= */
+
+.parallax-layer {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+}
+
+/* Sternenfeld mit Animation */
+.stars-layer {
+    background: transparent;
+    animation: starDrift 60s linear infinite;
+}
+
+.stars-layer::before,
+.stars-layer::after {
+    content: "";
+    position: absolute;
+    inset: -200px;
+    background-repeat: repeat;
+    background-size: 3px 3px;
+    background-image:
+        radial-gradient(2px 2px at 20px 30px, #ffffff 0, transparent 60%),
+        radial-gradient(2px 2px at 80px 120px, #e0f2fe 0, transparent 60%),
+        radial-gradient(2px 2px at 200px 80px, #bae6fd 0, transparent 60%),
+        radial-gradient(2px 2px at 300px 200px, #f9fafb 0, transparent 60%);
+    opacity: 0.7;
+}
+
+.stars-layer::after {
+    transform: scale(1.6);
+    opacity: 0.4;
+    animation: starParallax 90s linear infinite;
+}
+
+/* Nebel / Galaxie-Ebene */
+.nebula-layer {
+    z-index: -3;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.25), transparent 55%),
+        radial-gradient(circle at 80% 60%, rgba(129, 140, 248, 0.25), transparent 55%),
+        radial-gradient(circle at 50% 90%, rgba(236, 72, 153, 0.18), transparent 60%);
+    filter: blur(2px);
+    animation: nebulaFloat 40s ease-in-out infinite alternate;
+}
+
+/* =========================
+   Layout
+   ========================= */
+
+.space-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 32px;
+    background: linear-gradient(to bottom, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.75));
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.8);
+    animation: fadeDown 0.8s ease-out;
+}
+
+.logo {
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-strong);
+    text-shadow: 0 0 12px rgba(56, 189, 248, 0.7);
+}
+
+.space-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 18px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.7);
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    border: 1px solid transparent;
+    transition: var(--transition-med);
+}
+
+.nav-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: 1px solid rgba(56, 189, 248, 0.0);
+    box-shadow: 0 0 0 rgba(56, 189, 248, 0);
+    transition: var(--transition-med);
+}
+
+.nav-link:hover {
+    color: var(--text-main);
+    border-color: rgba(56, 189, 248, 0.5);
+    background: radial-gradient(circle at top, rgba(56, 189, 248, 0.25), rgba(15, 23, 42, 0.9));
+    transform: translateY(-1px);
+}
+
+.nav-link:hover::after {
+    box-shadow: 0 0 18px rgba(56, 189, 248, 0.8);
+}
+
+.nav-link.active {
+    color: var(--text-main);
+    border-color: rgba(56, 189, 248, 0.9);
+    background: radial-gradient(circle at top, rgba(56, 189, 248, 0.35), rgba(15, 23, 42, 0.95));
+}
+
+/* Header Actions */
+.header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Hauptlayout */
+.space-layout {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 24px;
+    padding: 24px 32px 40px;
+}
+
+.space-sidebar {
+    min-height: 260px;
+}
+
+.space-content {
+    min-height: 400px;
+}
+
+/* Footer */
+.space-footer {
+    padding: 16px 32px 24px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    background: linear-gradient(to top, rgba(15, 23, 42, 0.95), transparent);
+    border-top: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+/* =========================
+   Space-UI Komponenten
+   ========================= */
+
+/* Karten / Panels */
+.card {
+    background: var(--bg-panel);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    padding: 18px 20px;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+    position: relative;
+    overflow: hidden;
+}
+
+.card-glass {
+    background: var(--bg-panel-soft);
+    backdrop-filter: blur(12px);
+}
+
+.card-panel {
+    padding: 20px 22px;
+}
+
+.card-title {
+    margin: 0 0 8px;
+    font-size: 1.1rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-strong);
+}
+
+/* Hover-Effekte */
+.hover-lift {
+    transition: transform var(--transition-med), box-shadow var(--transition-med), border-color var(--transition-med);
+}
+
+.hover-lift:hover {
+    transform: translateY(-6px) translateZ(0);
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 1);
+    border-color: rgba(56, 189, 248, 0.7);
+}
+
+.hover-border-glow {
+    transition: box-shadow var(--transition-med), border-color var(--transition-med), transform var(--transition-med);
+}
+
+.hover-border-glow:hover {
+    border-color: var(--border-glow);
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-4px);
+}
+
+/* Buttons */
+.btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--text-main);
+    background: rgba(15, 23, 42, 0.9);
+    transition: var(--transition-fast);
+}
+
+.btn-sm {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+}
+
+.btn-primary {
+    background: radial-gradient(circle at top, var(--accent-soft), #0369a1);
+    border-color: rgba(56, 189, 248, 0.9);
+    box-shadow: 0 0 18px rgba(56, 189, 248, 0.7);
+}
+
+.btn-outline {
+    background: transparent;
+    border-color: rgba(148, 163, 184, 0.7);
+    color: var(--text-muted);
+}
+
+.btn-secondary {
+    background: rgba(15, 23, 42, 0.9);
+    border-color: rgba(148, 163, 184, 0.7);
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.9);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 0 24px rgba(56, 189, 248, 0.9);
+}
+
+.btn-outline:hover {
+    color: var(--text-main);
+    border-color: rgba(56, 189, 248, 0.7);
+}
+
+/* Sidebar Menü */
+.sidebar-menu {
+    list-style: none;
+    margin: 12px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sidebar-link {
+    display: block;
+    padding: 8px 10px;
+    border-radius: var(--radius-md);
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid transparent;
+    transition: var(--transition-fast);
+}
+
+.sidebar-link:hover {
+    color: var(--text-main);
+    border-color: rgba(56, 189, 248, 0.7);
+    background: radial-gradient(circle at left, rgba(56, 189, 248, 0.25), rgba(15, 23, 42, 0.95));
+}
+
+/* Statusbar / Progress */
+.status-bar {
+    position: relative;
+    width: 100%;
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(148, 163, 184, 0.7);
+    overflow: hidden;
+    margin: 10px 0 8px;
+}
+
+.status-fill {
+    position: absolute;
+    inset: 0;
+    width: 70%;
+    background: linear-gradient(90deg, var(--success), var(--accent), var(--danger));
+    border-radius: inherit;
+}
+
+/* Logliste */
+.log-list {
+    list-style: none;
+    margin: 10px 0 0;
+    padding: 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.log-entry {
+    padding: 4px 0;
+}
+
+/* =========================
+   Utility-Klassen
+   ========================= */
+
+.grid {
+    display: grid;
+    gap: 18px;
+}
+
+.grid-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.mt-lg {
+    margin-top: 26px;
+}
+
+.float-soft {
+    animation: floatSoft 8s ease-in-out infinite;
+}
+
+/* Glow-Puls für Buttons etc. */
+.glow-pulse {
+    animation: glowPulse 2.8s ease-in-out infinite;
+}
+
+/* =========================
+   Animationen
+   ========================= */
+
+/* Header-Einblendung */
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Leichtes Schweben */
+@keyframes floatSoft {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* Glow-Puls */
+@keyframes glowPulse {
+    0% {
+        box-shadow: 0 0 0 rgba(56, 189, 248, 0.0);
+    }
+    50% {
+        box-shadow: 0 0 18px rgba(56, 189, 248, 0.9);
+    }
+    100% {
+        box-shadow: 0 0 0 rgba(56, 189, 248, 0.0);
+    }
+}
+
+/* Statusbar animiert */
+.status-fill-animated {
+    animation: statusFlow 3.5s linear infinite;
+}
+
+@keyframes statusFlow {
+    0% {
+        transform: translateX(-20%);
+    }
+    50% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(10%);
+    }
+}
+
+/* Sternenfeld-Bewegung */
+@keyframes starDrift {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(-200px, -400px, 0);
+    }
+}
+
+@keyframes starParallax {
+    0% {
+        transform: translate3d(0, 0, 0) scale(1.6);
+    }
+    100% {
+        transform: translate3d(200px, 300px, 0) scale(1.6);
+    }
+}
+
+/* Nebel-Drift */
+@keyframes nebulaFloat {
+    0% {
+        transform: translate3d(-40px, 0, 0);
+    }
+    50% {
+        transform: translate3d(20px, -20px, 0);
+    }
+    100% {
+        transform: translate3d(40px, 20px, 0);
+    }
+}
+
+/* =========================
+   Responsive
+   ========================= */
+
+@media (max-width: 960px) {
+    .space-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .space-sidebar {
+        order: 2;
+    }
+
+    .space-content {
+        order: 1;
+    }
+
+    .grid-3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 720px) {
+    .space-header {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .space-layout {
+        padding: 18px 16px 32px;
+    }
+
+    .grid-3,
+    .grid-2 {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}

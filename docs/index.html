@@ -3,62 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Space Interface</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script>
-        document.addEventListener("mousemove", (e) => {
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
-            document.querySelector(".stars").style.transform = `translate(${x * -20}px, ${y * -20}px)`;
-            document.querySelector(".nebula").style.transform = `translate(${x * -40}px, ${y * -40}px) scale(1.2)`;
-        });
-    </script>
+    <title>Space UI Framework Demo</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="parallax-layer stars"></div>
-    <div class="parallax-layer nebula"></div>
+    <!-- Parallax & Sternenfeld -->
+    <div class="parallax-layer stars-layer"></div>
+    <div class="parallax-layer nebula-layer"></div>
 
-    <header>
-        <div class="logo">PLANETOID DB</div>
-        <nav>
+    <header class="space-header">
+        <div class="logo">🚀 SpaceUI</div>
+        <nav class="space-nav">
             <ul>
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Asteroids</a></li>
-                <li><a href="#">Orbits</a></li>
-                <li><a href="#">MOID Analysis</a></li>
-                <li><a href="#">Settings</a></li>
+                <li><a href="#" class="nav-link active">Dashboard</a></li>
+                <li><a href="#" class="nav-link">Missionen</a></li>
+                <li><a href="#" class="nav-link">Crew</a></li>
+                <li><a href="#" class="nav-link">Logbuch</a></li>
             </ul>
         </nav>
+        <div class="header-actions">
+            <button class="btn btn-outline glow-pulse">Login</button>
+            <button class="btn btn-primary glow-pulse">Jetzt starten</button>
+        </div>
     </header>
 
-    <main>
-        <section class="hero">
-            <h1>Deep Space Navigation</h1>
-            <p>
-                Willkommen im interstellaren Kontrollzentrum.
-                Analysiere Planetoiden, Umlaufbahnen und Begegnungsdaten.
-            </p>
-            <button>Start Mission</button>
-        </section>
+    <main class="space-layout">
+        <!-- Sidebar -->
+        <aside class="space-sidebar card float-soft">
+            <h3 class="card-title">Navigation</h3>
+            <ul class="sidebar-menu">
+                <li><a href="#" class="sidebar-link">Übersicht</a></li>
+                <li><a href="#" class="sidebar-link">Sensoren</a></li>
+                <li><a href="#" class="sidebar-link">Kommunikation</a></li>
+                <li><a href="#" class="sidebar-link">Energie</a></li>
+            </ul>
+        </aside>
 
-        <section class="cards">
-            <div class="card">
-                <h2>Orbital Data</h2>
-                <p>Analyse von Bahnelementen und Exzentrizität.</p>
+        <!-- Hauptbereich -->
+        <section class="space-content">
+            <div class="grid grid-3">
+                <article class="card card-glass float-soft hover-lift">
+                    <h2 class="card-title">Missionsstatus</h2>
+                    <p>Alle Systeme laufen stabil. Nächster Sprung in 02:14:37.</p>
+                    <button class="btn btn-secondary btn-sm">Details</button>
+                </article>
+
+                <article class="card card-glass float-soft hover-lift">
+                    <h2 class="card-title">Crew‑Aktivität</h2>
+                    <p>87% der Crew sind aktiv. Trainingssimulationen laufen.</p>
+                    <button class="btn btn-secondary btn-sm">Crew anzeigen</button>
+                </article>
+
+                <article class="card card-glass float-soft hover-lift">
+                    <h2 class="card-title">Sternenkarte</h2>
+                    <p>Neue Route durch den Orion‑Arm berechnet.</p>
+                    <button class="btn btn-secondary btn-sm">Karte öffnen</button>
+                </article>
             </div>
 
-            <div class="card">
-                <h2>Collision Risk</h2>
-                <p>MOID und Encounter Prediction.</p>
-            </div>
+            <div class="grid grid-2 mt-lg">
+                <section class="card card-panel float-soft hover-border-glow">
+                    <h2 class="card-title">Energiefluss</h2>
+                    <div class="status-bar">
+                        <div class="status-fill status-fill-animated"></div>
+                    </div>
+                    <p>Reaktorleistung bei 93%. Schildgeneratoren stabil.</p>
+                </section>
 
-            <div class="card">
-                <h2>Deep Scan</h2>
-                <p>Automatische Suche nach kritischen Objekten.</p>
+                <section class="card card-panel float-soft hover-border-glow">
+                    <h2 class="card-title">Kommunikationslog</h2>
+                    <ul class="log-list">
+                        <li class="log-entry">[12:03] Signal von Außenposten Vega empfangen.</li>
+                        <li class="log-entry">[11:47] Datenpaket an Flottenkommando gesendet.</li>
+                        <li class="log-entry">[11:12] Interne Statusmeldung abgeschlossen.</li>
+                    </ul>
+                </section>
             </div>
         </section>
     </main>
+
+    <footer class="space-footer">
+        <span>© 2126 SpaceUI Command Interface</span>
+    </footer>
 
 </body>
 </html>
