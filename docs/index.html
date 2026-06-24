@@ -1,91 +1,112 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Space UI Framework Demo</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Planetoid-DB</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
 
-    <!-- Parallax & Sternenfeld -->
-    <div class="parallax-layer stars-layer"></div>
-    <div class="parallax-layer nebula-layer"></div>
+        <!-- Parallax & Starfield -->
+        <div class="parallax-layer nebula-layer"></div>
 
-    <header class="space-header">
-        <div class="logo">🚀 SpaceUI</div>
-        <nav class="space-nav">
-            <ul>
-                <li><a href="#" class="nav-link active">Dashboard</a></li>
-                <li><a href="#" class="nav-link">Missionen</a></li>
-                <li><a href="#" class="nav-link">Crew</a></li>
-                <li><a href="#" class="nav-link">Logbuch</a></li>
-            </ul>
-        </nav>
-        <div class="header-actions">
-            <button class="btn btn-outline glow-pulse">Login</button>
-            <button class="btn btn-primary glow-pulse">Jetzt starten</button>
-        </div>
-    </header>
-
-    <main class="space-layout">
-        <!-- Sidebar -->
-        <aside class="space-sidebar card float-soft">
-            <h3 class="card-title">Navigation</h3>
-            <ul class="sidebar-menu">
-                <li><a href="#" class="sidebar-link">Übersicht</a></li>
-                <li><a href="#" class="sidebar-link">Sensoren</a></li>
-                <li><a href="#" class="sidebar-link">Kommunikation</a></li>
-                <li><a href="#" class="sidebar-link">Energie</a></li>
-            </ul>
-        </aside>
-
-        <!-- Hauptbereich -->
-        <section class="space-content">
-            <div class="grid grid-3">
-                <article class="card card-glass float-soft hover-lift">
-                    <h2 class="card-title">Missionsstatus</h2>
-                    <p>Alle Systeme laufen stabil. Nächster Sprung in 02:14:37.</p>
-                    <button class="btn btn-secondary btn-sm">Details</button>
-                </article>
-
-                <article class="card card-glass float-soft hover-lift">
-                    <h2 class="card-title">Crew‑Aktivität</h2>
-                    <p>87% der Crew sind aktiv. Trainingssimulationen laufen.</p>
-                    <button class="btn btn-secondary btn-sm">Crew anzeigen</button>
-                </article>
-
-                <article class="card card-glass float-soft hover-lift">
-                    <h2 class="card-title">Sternenkarte</h2>
-                    <p>Neue Route durch den Orion‑Arm berechnet.</p>
-                    <button class="btn btn-secondary btn-sm">Karte öffnen</button>
-                </article>
+        <header class="space-header">
+            <div class="logo">Planetoid-DB</div>
+            <nav class="space-nav">
+                <ul>
+                    <li><a href="index.html" class="nav-link active">Index</a></li>
+                    <li><a href="news.html" class="nav-link">News</a></li>
+                    <li><a href="downloads.html" class="nav-link">Downloads</a></li>
+                    <li><a href="archive.html" class="nav-link">Archive</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button class="btn btn-outline glow-pulse">Login</button>
+                <button class="btn btn-primary glow-pulse">Get Started</button>
             </div>
+        </header>
 
-            <div class="grid grid-2 mt-lg">
-                <section class="card card-panel float-soft hover-border-glow">
-                    <h2 class="card-title">Energiefluss</h2>
-                    <div class="status-bar">
-                        <div class="status-fill status-fill-animated"></div>
-                    </div>
-                    <p>Reaktorleistung bei 93%. Schildgeneratoren stabil.</p>
-                </section>
+        <main class="space-layout">
+            <!-- Sidebar -->
+            <aside class="space-sidebar card float-soft">
+                <h3 class="card-title">Navigation</h3>
+                <ul class="sidebar-menu">
+                    <li><a href="index.html" class="sidebar-link">Overview</a></li>
+                    <li><a href="sensors.html" class="sidebar-link">Sensors</a></li>
+                    <li><a href="communication.html" class="sidebar-link">Communication</a></li>
+                    <li><a href="energy.html" class="sidebar-link">Energy</a></li>
+                </ul>
+            </aside>
 
-                <section class="card card-panel float-soft hover-border-glow">
-                    <h2 class="card-title">Kommunikationslog</h2>
-                    <ul class="log-list">
-                        <li class="log-entry">[12:03] Signal von Außenposten Vega empfangen.</li>
-                        <li class="log-entry">[11:47] Datenpaket an Flottenkommando gesendet.</li>
-                        <li class="log-entry">[11:12] Interne Statusmeldung abgeschlossen.</li>
-                    </ul>
-                </section>
-            </div>
-        </section>
-    </main>
+            <!-- Main Area -->
+            <section class="space-content">
+                <div class="grid grid-2">
+                    <article class="card card-glass float-soft hover-lift">
+                        <h2 class="card-title">Mission Status</h2>
+                        <p>Planetoid-DB reads the large ASCII database of the Minor Planet Center Orbit Table (MPCORB.DAT), which contains orbital data of hundreds of thousands of small celestial bodies (including orbital elements, absolute brightness, latest observation data, etc.) and displays it in a graphical interface.</p>
+                        <p>This file is the official MPC database for minor planets and comets and contains, among other things, the following information for each object:</p>
+                        <ul>
+                            <li>Orbital elements (semi-major axis, eccentricity, inclination, etc.)</li>
+                            <li>Absolute magnitude and slope parameter</li>
+                            <li>Number of observations and data-arc span</li>
+                            <li>Epoch of the orbital elements</li>
+                            <li>Orbit condition code</li>
+                        </ul>
+                        <p>Planetoid-DB is a free and open-source software that allows users to visualize and analyze the orbital data of minor planets and comets in a user-friendly manner.</p>
+                        <p>It is designed for astronomers, researchers, and enthusiasts who are interested in studying the dynamics of small celestial bodies in our solar system.</p>
+                        <p>With Planetoid-DB, users can easily access and interpret the vast amount of data contained in the MPCORB.DAT file, enabling them to conduct research, track objects, and gain insights into the behavior of these fascinating celestial bodies.</p>
+                        <p>Whether you are a professional astronomer or a hobbyist, Planetoid-DB provides the tools and resources needed to explore the wonders of our solar system and deepen your understanding of the small bodies that inhabit it.</p>
+                        <p>For more information and to download the latest version of Planetoid-DB, please visit our official website or check out our GitHub repository.</p>
+                        <button class="btn btn-secondary btn-sm">Details</button>
+                    </article>
 
-    <footer class="space-footer">
-        <span>© 2126 SpaceUI Command Interface</span>
-    </footer>
+                    <article class="card card-glass float-soft hover-lift">
+                        <h2 class="card-title">Crew Activity</h2>
+                        <p>87% of the crew are active. Training simulations are running.</p>
+                        <button class="btn btn-secondary btn-sm">View Crew</button>
+                    </article>
+                </div>
 
-</body>
+                <div class="grid grid-3 mt-lg">
+
+                    <section class="card card-panel float-soft hover-border-glow">
+                        <h2 class="card-title">News</h2>
+                        <ul class="log-list">
+                            <li class="log-entry">[20260623] Planetoid-DB 0.9.13.76 released</li>
+                            <li class="log-entry">[20260623] Planetoid-DB 0.9.12.75 released</li>
+                            <li class="log-entry">[20260622] Planetoid-DB 0.9.11.74 released</li>
+                            <li class="log-entry">[20260622] Planetoid-DB 0.9.10.73 released</li>
+                            <li class="log-entry">[20260621] Planetoid-DB 0.9.09.72 released</li>
+                        </ul>
+                    </section>
+
+
+                    <section class="card card-panel float-soft hover-border-glow">
+                        <h2 class="card-title">Latest databases</h2>
+                        <ul class="log-list">
+                            <li class="log-entry">[20260624124418] MPCORB.DAT: 1'549'666 asteroids</li>
+                            <li class="log-entry">[20260624044914] ASTRORB.DAT: 1'549'941 asteroids</li>
+                            <li class="log-entry">[20260611051644] ALLNUM.CAT: 895'910 asteroids</li>
+                            <li class="log-entry">[20260609131708] SINGOPP.DAT: 145'147 asteroids</li>
+                            <li class="log-entry">[20260611120540] UFITOBS.DAT: 432'334 asteroids</li>
+                        </ul>
+                    </section>
+
+                    <section class="card card-panel float-soft hover-border-glow">
+                        <h2 class="card-title">Energy Flow</h2>
+                        <div class="status-bar">
+                            <div class="status-fill status-fill-animated">1232</div>
+                        </div>
+                        <p>Reactor output at 93%. Shield generators stable.</p>
+                    </section>
+                </div>
+            </section>
+        </main>
+
+        <footer class="space-footer">
+            <span>2026 &bull; Mijo Software &bull; Planetoid-DB</span></a>
+        </footer>
+
+    </body>
 </html>
