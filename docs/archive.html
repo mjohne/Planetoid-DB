@@ -34,15 +34,50 @@
                 <ul class="sidebar-menu">
                     <li><a href="archive-mpcorb.html" class="sidebar-link">Archive of MPCORB.DAT</a></li>
                     <li><a href="archive-astorb.html" class="sidebar-link">Archive of ASTORB.DAT</a></li>
-                    <li><a href="archive-allnum.html" class="sidebar-link">Archive of ALLNUM.DAT</a></li>
-                    <li><a href="archive-singopp.html" class="sidebar-link">Archive of SINGOPP.DAT</a></li>
-                    <li><a href="archive-ufitobs.html" class="sidebar-link">Archive of UFITOBS.DAT</a></li>
+                    <li><a href="archive-allnum.html" class="sidebar-link">Archive of ALLNUM.CAT</a></li>
+                    <li><a href="archive-singopp.html" class="sidebar-link">Archive of SINGOPP.CAT</a></li>
+                    <li><a href="archive-ufitobs.html" class="sidebar-link">Archive of UFITOBS.CAT</a></li>
                 </ul>
             </aside>
 
             <!-- Main Area -->
             <section class="space-content">
-                <div class="grid grid-2">
+                
+                <div class="grid grid-3 mt-lg">
+                    <!-- Latest databases  -->
+                    <section class="card card-panel float-soft hover-border-glow">
+                        <h2 class="card-title">Latest databases</h2>
+                        <table class="space-table">
+                            <tr><td>[20260624124418]</td><td>MPCORB.DAT</td><td>1'549'666 asteroids</td></tr>
+                            <tr><td>[20260624044914]</td><td>ASTORB.DAT</td><td>1'549'941 asteroids</td></tr>
+                            <tr><td>[20260611051644]</td><td>ALLNUM.CAT</td><td>895'910 asteroids</td></tr>
+                            <tr><td>[20260609131708]</td><td>SINGOPP.CAT</td><td>145'147 asteroids</td></tr>
+                            <tr><td>[20260611120540]</td><td>UFITOBS.CAT</td><td>432'334 asteroids</td></tr>
+                        </table>
+                    </section>
+                    <!-- Number of entries -->
+                    <section class="card card-panel float-soft hover-border-glow">
+                        <h2 class="card-title">Number of entries</h2>
+                        <table class="space-table">
+                            <tr><td>MPCORB.DAT</td><td>123 entries</td><td>2023-2026</td></tr>
+                            <tr><td>ASTORB.DAT</td><td>456 entries</td><td>2025-2026</td></tr>
+                            <tr><td>ALLNUM.CAT</td><td>2 entries</td><td>2026</td></tr>
+                            <tr><td>SINGOPP.CAT</td><td>2 entries</td><td>2026</td></tr>
+                            <tr><td>UFITOBS.CAT</td><td>2 entries</td><td>2026</td></tr>
+                        </table>
+                    </section>
+                    <!-- Sources -->
+                    <section class="card card-panel float-soft hover-border-glow">
+                        <h2 class="card-title">Sources</h2>
+                        <ul class="log-list">
+                            <li class="log-entry">https://www.minorplanetcenter.net/iau/MPCORB.html</li>
+                            <li class="log-entry">https://asteroid.lowell.edu/astorb/</li>
+                            <li class="log-entry">https://newton.spacedys.com/astdys/index.php?pc=4</li>
+                        </ul>
+                    </section>
+                </div>
+
+                <!--<div class="grid grid-2">
                     <article class="card card-glass float-soft hover-lift">
                         <h2 class="card-title">Mission Status</h2>
                         <p>Planetoid-DB reads the large ASCII database of the Minor Planet Center Orbit Table (MPCORB.DAT), which contains orbital data of hundreds of thousands of small celestial bodies (including orbital elements, absolute brightness, latest observation data, etc.) and displays it in a graphical interface.</p>
@@ -67,42 +102,11 @@
                         <p>87% of the crew are active. Training simulations are running.</p>
                         <button class="btn btn-secondary btn-sm">View Crew</button>
                     </article>
-                </div>
+                </div>-->
 
-                <div class="grid grid-3 mt-lg">
+            </section>
 
-                    <section class="card card-panel float-soft hover-border-glow">
-                        <h2 class="card-title">News</h2>
-                        <ul class="log-list">
-                            <li class="log-entry">[20260623] Planetoid-DB 0.9.13.76 released</li>
-                            <li class="log-entry">[20260623] Planetoid-DB 0.9.12.75 released</li>
-                            <li class="log-entry">[20260622] Planetoid-DB 0.9.11.74 released</li>
-                            <li class="log-entry">[20260622] Planetoid-DB 0.9.10.73 released</li>
-                            <li class="log-entry">[20260621] Planetoid-DB 0.9.09.72 released</li>
-                        </ul>
-                    </section>
-
-
-                    <section class="card card-panel float-soft hover-border-glow">
-                        <h2 class="card-title">Latest databases</h2>
-                        <ul class="log-list">
-                            <li class="log-entry">[20260624124418] MPCORB.DAT: 1'549'666 asteroids</li>
-                            <li class="log-entry">[20260624044914] ASTRORB.DAT: 1'549'941 asteroids</li>
-                            <li class="log-entry">[20260611051644] ALLNUM.CAT: 895'910 asteroids</li>
-                            <li class="log-entry">[20260609131708] SINGOPP.DAT: 145'147 asteroids</li>
-                            <li class="log-entry">[20260611120540] UFITOBS.DAT: 432'334 asteroids</li>
-                        </ul>
-                    </section>
-
-                    <section class="card card-panel float-soft hover-border-glow">
-                        <h2 class="card-title">Energy Flow</h2>
-                        <div class="status-bar">
-                            <div class="status-fill status-fill-animated">1232</div>
-                        </div>
-                        <p>Reactor output at 93%. Shield generators stable.</p>
-                    </section>
-                </div>
-
+<!--
 
                 <section class="card card-glass tabs-system">
 
@@ -226,9 +230,8 @@
 </table>
 
 
-            </section>
-
-
+            
+-->
 
 
 
