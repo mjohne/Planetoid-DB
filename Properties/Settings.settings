@@ -39,13 +39,13 @@
       <Value Profile="(Default)">_</Value>
     </Setting>
     <Setting Name="systemHomepage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://planetoid-db.de</Value>
+      <Value Profile="(Default)">https://mjohne.github.io/Planetoid-DB/</Value>
     </Setting>
     <Setting Name="systemHomepageMailExtern" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">info@planetoid-db.de</Value>
+      <Value Profile="(Default)">mailto:mj-programming@gmx.de</Value>
     </Setting>
     <Setting Name="systemHomepageMailIntern" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">mailto:info@planetoid-db.de</Value>
+      <Value Profile="(Default)">mailto:mj-programming@gmx.de</Value>
     </Setting>
     <Setting Name="systemWebsiteMpc" Type="System.String" Scope="Application">
       <Value Profile="(Default)">http://www.minorplanetcenter.org/iau/mpc.html</Value>

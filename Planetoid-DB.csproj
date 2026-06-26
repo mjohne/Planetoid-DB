@@ -10,12 +10,12 @@
     <StartupObject>Planetoid_DB.Program</StartupObject>
     <ApplicationIcon>Resources\Planetoid-DB-3.ico</ApplicationIcon>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <Version>0.9.12.75</Version>
+    <Version>0.9.13.76</Version>
     <Company>Mijo Software</Company>
     <Description>Viewer for the MPC Orbit (MPCORB) Database</Description>
     <Copyright>2010-2026 Michael Johne</Copyright>
     <PackageIcon>PlanetoidDB3.png</PackageIcon>
-    <PackageProjectUrl>https://planetoid-db.de</PackageProjectUrl>
+    <PackageProjectUrl>https://mjohne.github.io/Planetoid-DB/</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Mijo-Software/Planetoid-DB</RepositoryUrl>
     <PackageTags>csharp;astronomy;mpc;minor-planets;planetoid;minor-planet-center</PackageTags>
