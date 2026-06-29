@@ -7,10 +7,9 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-
         <!-- Parallax & Starfield -->
         <div class="parallax-layer nebula-layer"></div>
-
+        <!-- Header -->
         <header class="space-header">
             <div class="logo">Planetoid-DB</div>
             <nav class="space-nav">
@@ -22,28 +21,27 @@
                 </ul>
             </nav>
             <div class="header-actions">
-                <button class="btn btn-outline glow-pulse">Login</button>
-                <button class="btn btn-primary glow-pulse">Get Started</button>
+				<a href="https://github.com/mjohne/Planetoid-DB/" target="_blank"><button class="btn btn-primary glow-pulse">Github repository</button></a>
             </div>
         </header>
-
+        <!-- Main Content -->
         <main class="space-layout">
             <!-- Sidebar -->
             <aside class="space-sidebar card float-soft">
                 <h3 class="card-title">Navigation</h3>
                 <ul class="sidebar-menu">
-                    <li><a href="index.html" class="sidebar-link">Overview</a></li>
-                    <li><a href="sensors.html" class="sidebar-link">Sensors</a></li>
-                    <li><a href="communication.html" class="sidebar-link">Communication</a></li>
-                    <li><a href="energy.html" class="sidebar-link">Energy</a></li>
+                    <li><a href="index.html" class="nav-link active">Index</a></li>
+                    <li><a href="news.html" class="nav-link">News</a></li>
+                    <li><a href="downloads.html" class="nav-link">Downloads</a></li>
+                    <li><a href="archive.html" class="nav-link">Archive</a></li>
                 </ul>
             </aside>
-
             <!-- Main Area -->
             <section class="space-content">
                 <div class="grid grid-2">
+					<!-- About Planetoid-DB -->
                     <article class="card card-glass float-soft hover-lift">
-                        <h2 class="card-title">Mission Status</h2>
+                        <h2 class="card-title">About Planetoid-DB</h2>
                         <p>Planetoid-DB reads the large ASCII database of the Minor Planet Center Orbit Table (MPCORB.DAT), which contains orbital data of hundreds of thousands of small celestial bodies (including orbital elements, absolute brightness, latest observation data, etc.) and displays it in a graphical interface.</p>
                         <p>This file is the official MPC database for minor planets and comets and contains, among other things, the following information for each object:</p>
                         <ul>
@@ -60,205 +58,75 @@
                         <p>For more information and to download the latest version of Planetoid-DB, please visit our official website or check out our GitHub repository.</p>
                         <button class="btn btn-secondary btn-sm">Details</button>
                     </article>
-
+					<!-- Gallery -->
                     <article class="card card-glass float-soft hover-lift">
-                        <h2 class="card-title">Crew Activity</h2>
-                        <p>87% of the crew are active. Training simulations are running.</p>
-                        <button class="btn btn-secondary btn-sm">View Crew</button>
+                        <h2 class="card-title">Gallery</h2>
+                        <p>Some Words.</p>
+                        <section class="space-gallery">
+							<div class="gallery-item"><a href="https://github.com/user-attachments/assets/318b64fe-5ef8-48c1-b173-afd4fce5936d"><img src="https://github.com/user-attachments/assets/318b64fe-5ef8-48c1-b173-afd4fce5936d"></a></div>
+							<div class="gallery-item"><img src="https://github.com/user-attachments/assets/318b64fe-5ef8-48c1-b173-afd4fce5936d"></div>
+							<div class="gallery-item"><img src="https://github.com/user-attachments/assets/318b64fe-5ef8-48c1-b173-afd4fce5936d"></div>
+							<div class="gallery-item"><img src="https://github.com/user-attachments/assets/318b64fe-5ef8-48c1-b173-afd4fce5936d"></div>
+							<div class="gallery-item"><img src="https://github.com/user-attachments/assets/318b64fe-5ef8-48c1-b173-afd4fce5936d"></div>
+							<div class="gallery-item"><img src="https://github.com/user-attachments/assets/318b64fe-5ef8-48c1-b173-afd4fce5936d"></div>
+							<div class="gallery-item"><img src="https://github.com/user-attachments/assets/318b64fe-5ef8-48c1-b173-afd4fce5936d"></div>
+							<div class="gallery-item"><img src="https://github.com/user-attachments/assets/318b64fe-5ef8-48c1-b173-afd4fce5936d"></div>
+							<div class="gallery-item"><img src="https://github.com/user-attachments/assets/318b64fe-5ef8-48c1-b173-afd4fce5936d"></div>
+						</section>
                     </article>
                 </div>
-
                 <div class="grid grid-3 mt-lg">
-
-                    <section class="card card-panel float-soft hover-border-glow">
-                        <h2 class="card-title">News</h2>
-                        <ul class="log-list">
-                            <li class="log-entry">[20260623] Planetoid-DB 0.9.13.76 released</li>
-                            <li class="log-entry">[20260623] Planetoid-DB 0.9.12.75 released</li>
-                            <li class="log-entry">[20260622] Planetoid-DB 0.9.11.74 released</li>
-                            <li class="log-entry">[20260622] Planetoid-DB 0.9.10.73 released</li>
-                            <li class="log-entry">[20260621] Planetoid-DB 0.9.09.72 released</li>
-                        </ul>
-                    </section>
-
-
+					<!-- Latest Planetoid-DB releases -->
+					<section class="card card-glass orbit-timeline float-soft hover-border-glow">
+						<h2>Latest Planetoid-DB releases</h2>
+						<div class="timeline-node">
+							<div class="orbit-dot"></div>
+							<div class="timeline-content">
+								<h4>2026-06-24</h4>
+								<p>Planetoid-DB 0.9.13.76 released</p>
+							</div>
+						</div>
+						<div class="timeline-node">
+							<div class="orbit-dot"></div>
+							<div class="timeline-content">
+								<h4>2026-06-23</h4>
+								<p>Planetoid-DB 0.9.12.75 released</p>
+							</div>
+						</div>
+						<div class="timeline-node">
+							<div class="orbit-dot"></div>
+							<div class="timeline-content">
+								<h4>2026-06-22</h4>
+								<p>Planetoid-DB 0.9.11.74 released</p>
+							</div>
+						</div>
+					</section>
+					<!-- Latest databases -->
                     <section class="card card-panel float-soft hover-border-glow">
                         <h2 class="card-title">Latest databases</h2>
                         <table class="space-table">
-                            <tr><td>[20260624124418]</td><td>MPCORB.DAT</td><td>1'549'666 asteroids</td></tr>
-                            <tr><td>[20260625044854]</td><td>ASTORB.DAT</td><td>1'549'943 asteroids</td></tr>
-                            <tr><td>[20260611051644]</td><td>ALLNUM.CAT</td><td>895'910 asteroids</td></tr>
-                            <tr><td>[20260609131708]</td><td>SINGOPP.CAT</td><td>145'147 asteroids</td></tr>
-                            <tr><td>[20260611120540]</td><td>UFITOBS.CAT</td><td>432'334 asteroids</td></tr>
+							<thea>
+								<tr><th>Date-ID</th><th>Database</th><th>Number of asteroids</th></tr>
+							</thead>
+							<tbody>
+								<tr><td>20260624124418</td><td>MPCORB.DAT</td><td>1'549'666 asteroids</td></tr>
+								<tr><td>20260625044854</td><td>ASTORB.DAT</td><td>1'549'943 asteroids</td></tr>
+								<tr><td>20260611051644</td><td>ALLNUM.CAT</td><td>895'910 asteroids</td></tr>
+								<tr><td>20260609131708</td><td>SINGOPP.CAT</td><td>145'147 asteroids</td></tr>
+								<tr><td>20260611120540</td><td>UFITOBS.CAT</td><td>432'334 asteroids</td></tr>
+							</tbody>
                         </table>
                     </section>
-
+					<!-- Latest download -->
                     <section class="card card-panel float-soft hover-border-glow">
-                        <h2 class="card-title">Energy Flow</h2>
-                        <div class="status-bar">
-                            <div class="status-fill status-fill-animated">1232</div>
-                        </div>
-                        <p>Reactor output at 93%. Shield generators stable.</p>
+                        <h2 class="card-title">Latest download</h2>
+                        <p>Some Words.</p>
                     </section>
                 </div>
-
-
-                <section class="card card-glass tabs-system">
-
-    <input type="radio" name="tabs" id="tab1" checked>
-    <input type="radio" name="tabs" id="tab2">
-    <input type="radio" name="tabs" id="tab3">
-
-    <div class="tabs-nav">
-        <label for="tab1">Asteroids</label>
-        <label for="tab2">Comets</label>
-        <label for="tab3">Moons</label>
-    </div>
-
-    <div class="tabs-content">
-        <div class="tab-panel panel-1">
-            <h3>Asteroids</h3>
-            <p>Main belt objects database.</p>
-        </div>
-
-        <div class="tab-panel panel-2">
-            <h3>Comets</h3>
-            <p>Long-period and short-period comet data.</p>
-        </div>
-
-        <div class="tab-panel panel-3">
-            <h3>Moons</h3>
-            <p>Natural satellite orbital information.</p>
-        </div>
-    </div>
-
-</section>
-
-<table class="space-table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Diameter</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Ceres</td>
-            <td>Dwarf Planet</td>
-            <td>939 km</td>
-            <td><span class="status-ok">Stable</span></td>
-        </tr>
-        <tr>
-            <td>Vesta</td>
-            <td>Asteroid</td>
-            <td>525 km</td>
-            <td><span class="status-alert">Watch</span></td>
-        </tr>
-    </tbody>
-</table>
-
-<section class="space-gallery">
-
-    <div class="gallery-item">
-        <img src="https://github.com/user-attachments/assets/318b64fe-5ef8-48c1-b173-afd4fce5936d">
-    </div>
-
-    <div class="gallery-item">
-        <img src="https://github.com/user-attachments/assets/318b64fe-5ef8-48c1-b173-afd4fce5936d">
-    </div>
-
-    <div class="gallery-item">
-        <img src="https://github.com/user-attachments/assets/318b64fe-5ef8-48c1-b173-afd4fce5936d">
-    </div>
-
-    <div class="gallery-item">
-        <img src="https://github.com/user-attachments/assets/318b64fe-5ef8-48c1-b173-afd4fce5936d">
-    </div>
-
-</section>
-
-
-<section class="card card-glass orbit-timeline">
-    <div class="timeline-node">
-        <div class="orbit-dot"></div>
-        <div class="timeline-content">
-            <h4>2026-06-24</h4>
-            <p>MPCORB updated (1,549,666 objects)</p>
-        </div>
-    </div>
-
-    <div class="timeline-node">
-        <div class="orbit-dot"></div>
-        <div class="timeline-content">
-            <h4>2026-06-23</h4>
-            <p>Planetoid-DB v0.9.13 released</p>
-        </div>
-    </div>
-</section>
-
-<div class="radar-chart">
-    <div class="radar-ring ring1"></div>
-    <div class="radar-ring ring2"></div>
-    <div class="radar-ring ring3"></div>
-    <div class="radar-sweep"></div>
-</div>
-
-<div class="space-accordion">
-
-    <details>
-        <summary>Orbital Elements</summary>
-        <p>Semi-major axis, eccentricity, inclination...</p>
-    </details>
-
-    <details>
-        <summary>Physical Properties</summary>
-        <p>Diameter, albedo, mass...</p>
-    </details>
-
-</div>
-
-<table class="matrix-table">
-    <tr><td>001</td><td>APO</td><td>0.82</td></tr>
-    <tr><td>002</td><td>MBA</td><td>2.77</td></tr>
-</table>
-
-
-            </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         </main>
-
+		<!-- Footer -->
         <footer class="space-footer">
             <span>2026 &bull; Mijo Software &bull; Planetoid-DB</span></a>
         </footer>
-
     </body>
 </html>
