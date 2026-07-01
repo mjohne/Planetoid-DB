@@ -880,13 +880,13 @@ Public License instead of this License.  But first, please read
     <PackageReference Include="OpenTK.Windowing.GraphicsLibraryFramework" Version="4.9.4" />
     <PackageReference Include="ScottPlot" Version="5.1.59" />
     <PackageReference Include="ScottPlot.WinForms" Version="5.1.59" />
-    <PackageReference Include="SkiaSharp" Version="4.150.0-preview.1.1" />
-    <PackageReference Include="SkiaSharp.HarfBuzz" Version="4.150.0-preview.1.1" />
-    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="4.150.0-preview.1.1" />
-    <PackageReference Include="SkiaSharp.NativeAssets.macOS" Version="4.150.0-preview.1.1" />
-    <PackageReference Include="SkiaSharp.NativeAssets.Win32" Version="4.150.0-preview.1.1" />
-    <PackageReference Include="SkiaSharp.Views.Desktop.Common" Version="4.150.0-preview.1.1" />
-    <PackageReference Include="SkiaSharp.Views.WindowsForms" Version="4.150.0-preview.1.1" />
+    <PackageReference Include="SkiaSharp" Version="4.150.0-rc.1.1" />
+    <PackageReference Include="SkiaSharp.HarfBuzz" Version="4.150.0-rc.1.1" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="4.150.0-rc.1.1" />
+    <PackageReference Include="SkiaSharp.NativeAssets.macOS" Version="4.150.0-rc.1.1" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Win32" Version="4.150.0-rc.1.1" />
+    <PackageReference Include="SkiaSharp.Views.Desktop.Common" Version="4.150.0-rc.1.1" />
+    <PackageReference Include="SkiaSharp.Views.WindowsForms" Version="4.150.0-rc.1.1" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="11.0.0-preview.5.26302.115" />
     <PackageReference Include="System.Data.OleDb" Version="11.0.0-preview.5.26302.115" />
     <PackageReference Include="System.Data.SQLite" Version="2.0.3" />
