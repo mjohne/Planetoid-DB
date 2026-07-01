@@ -342,10 +342,14 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	}
 
 	/// <summary>Clears all record display labels in the data panel and index indicator.</summary>
+	/// <remarks>This method is used to clear all record display labels in the data panel and the index indicator.</remarks>
 	private void ClearCurrentRecordDisplay()
 	{
+		// Clear all labels in the data panel and the index indicator
 		toolStripLabelIndexPosition.Text = string.Empty;
+		// Suspend the layout of the TableLayoutPanel to prevent flickering during label updates
 		tableLayoutPanelData.SuspendLayout();
+		// Clear all labels in the TableLayoutPanel
 		try
 		{
 			foreach (Control control in tableLayoutPanelData.Controls)
@@ -356,6 +360,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 				}
 			}
 		}
+		// Resume the layout of the TableLayoutPanel after clearing the labels
 		finally
 		{
 			tableLayoutPanelData.ResumeLayout(performLayout: false);
@@ -365,6 +370,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <summary>Jumps to the record with the specified index or designation.</summary>
 	/// <param name="index">The index of the record.</param>
 	/// <param name="designation">The designation of the record.</param>
+	/// <remarks>This method is used to jump to the record with the specified index or designation in the planetoids database.</remarks>
 	internal void JumpToRecord(string index, string designation)
 	{
 		// Loop through the planetoids database to find the record with the specified index or designation
