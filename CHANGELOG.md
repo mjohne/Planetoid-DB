@@ -1,5 +1,21 @@
 # Changelog
 
+## Planetoid-DB 0.9.14.77
+
+* Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/810
+* Updated `CHANGELOG` for version 0.9.13.76 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/811
+* Feat: rewrite SettingsForm with comprehensive tabbed settings UI by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/813
+* Updated issue templates by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/814
+* Updated website url and email address by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/815
+* Updated `HarfBuzzSharp` packages to version 14.2.1-rc.1.1 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/816
+* Updated `SkiaSharp` packages to version 4.150.0-rc.1.1 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/817
+* Added some comments by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/818
+* Added GitHub Actions workflow to summarize new issues by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/819
+* Updated to version 0.9.14.77 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/820
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.13.76.808.2490...0.9.14.77.820.2620
+
+
 ## Planetoid-DB 0.9.13.76
 
 * Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/806
