@@ -38,15 +38,6 @@
     <Setting Name="systemFilenameAstorbDatTemp" Type="System.String" Scope="Application">
       <Value Profile="(Default)">_</Value>
     </Setting>
-    <Setting Name="systemHomepage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://mjohne.github.io/Planetoid-DB/</Value>
-    </Setting>
-    <Setting Name="systemHomepageMailExtern" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">mailto:mj-programming@gmx.de</Value>
-    </Setting>
-    <Setting Name="systemHomepageMailIntern" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">mailto:mj-programming@gmx.de</Value>
-    </Setting>
     <Setting Name="systemWebsiteMpc" Type="System.String" Scope="Application">
       <Value Profile="(Default)">http://www.minorplanetcenter.org/iau/mpc.html</Value>
     </Setting>
@@ -91,6 +82,15 @@
     </Setting>
     <Setting Name="systemFilenameSingoppCatTemp" Type="System.String" Scope="Application">
       <Value Profile="(Default)">_</Value>
+    </Setting>
+    <Setting Name="systemHomepage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://mjohne.github.io/Planetoid-DB/</Value>
+    </Setting>
+    <Setting Name="systemHomepageMailExtern" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">mj-programming@gmx.de</Value>
+    </Setting>
+    <Setting Name="systemHomepageMailIntern" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">mailto:mj-programming@gmx.de</Value>
     </Setting>
   </Settings>
 </SettingsFile>

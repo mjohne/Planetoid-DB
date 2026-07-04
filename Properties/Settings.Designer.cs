@@ -12,7 +12,7 @@ namespace Planetoid_DB.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "18.6.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "18.7.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -140,33 +140,6 @@ namespace Planetoid_DB.Properties {
         public string systemFilenameAstorbDatTemp {
             get {
                 return ((string)(this["systemFilenameAstorbDatTemp"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://planetoid-db.de")]
-        public string systemHomepage {
-            get {
-                return ((string)(this["systemHomepage"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("info@planetoid-db.de")]
-        public string systemHomepageMailExtern {
-            get {
-                return ((string)(this["systemHomepageMailExtern"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("mailto:info@planetoid-db.de")]
-        public string systemHomepageMailIntern {
-            get {
-                return ((string)(this["systemHomepageMailIntern"]));
             }
         }
         
@@ -317,6 +290,33 @@ namespace Planetoid_DB.Properties {
         public string systemFilenameSingoppCatTemp {
             get {
                 return ((string)(this["systemFilenameSingoppCatTemp"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://mjohne.github.io/Planetoid-DB/")]
+        public string systemHomepage {
+            get {
+                return ((string)(this["systemHomepage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("mj-programming@gmx.de")]
+        public string systemHomepageMailExtern {
+            get {
+                return ((string)(this["systemHomepageMailExtern"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("mailto:mj-programming@gmx.de")]
+        public string systemHomepageMailIntern {
+            get {
+                return ((string)(this["systemHomepageMailIntern"]));
             }
         }
     }
