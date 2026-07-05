@@ -12,7 +12,7 @@
 ![GitHub language count](https://img.shields.io/github/languages/count/mjohne/Planetoid-DB)
 ![GitHub top language](https://img.shields.io/github/languages/top/mjohne/Planetoid-DB)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mjohne/Planetoid-DB)
-![GitHub branch status](https://img.shields.io/github/checks-status/mjohne/Planetoid-DB/master)
+![GitHub branch status](https://img.shields.io/github/checks-status/mjohne/Planetoid-DB/main)
 ![GitHub repo size](https://img.shields.io/github/repo-size/mjohne/Planetoid-DB)
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/mjohne/Planetoid-DB/total)
 ![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/mjohne/Planetoid-DB/latest/total)
