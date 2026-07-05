@@ -1,5 +1,18 @@
 # Changelog
 
+## Planetoid-DB 0.9.15.78
+
+* Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/822
+* Updated `CHANGELOG` for version 0.9.14.77 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/823
+* Changed default branch from 'master' to 'main' by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/824
+* Update branch status badge from 'master' to 'main' by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/825
+* Updated `SkiaSharp` packages to version 4.151.0-preview.1.1 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/826
+* Updated package version numbers by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/827
+* Updated to version 0.9.15.78 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/828
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.14.77.820.2620...0.9.15.78.828.2659
+
+
 ## Planetoid-DB 0.9.14.77
 
 * Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/810
