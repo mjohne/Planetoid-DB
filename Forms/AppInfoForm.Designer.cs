@@ -1687,7 +1687,7 @@ partial class AppInfoForm
 		kryptonLabelVersionHarfBuzzSharp.ToolTipValues.EnableToolTips = true;
 		kryptonLabelVersionHarfBuzzSharp.ToolTipValues.Heading = "HarfBuzzSharp version";
 		kryptonLabelVersionHarfBuzzSharp.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		kryptonLabelVersionHarfBuzzSharp.Values.Text = "Version: 14.2.0";
+		kryptonLabelVersionHarfBuzzSharp.Values.Text = "Version: 14.2.1-rc.1.1";
 		kryptonLabelVersionHarfBuzzSharp.DoubleClick += CopyToClipboard_DoubleClick;
 		kryptonLabelVersionHarfBuzzSharp.Enter += Control_Enter;
 		kryptonLabelVersionHarfBuzzSharp.Leave += Control_Leave;
@@ -1843,7 +1843,7 @@ partial class AppInfoForm
 		kryptonLabelVersionSkiaSharp.ToolTipValues.EnableToolTips = true;
 		kryptonLabelVersionSkiaSharp.ToolTipValues.Heading = "SkiaSharp version";
 		kryptonLabelVersionSkiaSharp.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		kryptonLabelVersionSkiaSharp.Values.Text = "Version: 4.150.0-preview.1.1";
+		kryptonLabelVersionSkiaSharp.Values.Text = "Version: 4.151.0-preview.1.1";
 		kryptonLabelVersionSkiaSharp.DoubleClick += CopyToClipboard_DoubleClick;
 		kryptonLabelVersionSkiaSharp.Enter += Control_Enter;
 		kryptonLabelVersionSkiaSharp.Leave += Control_Leave;
