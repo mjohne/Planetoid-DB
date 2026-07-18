@@ -458,14 +458,17 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to navigate backward by a specified step in the data.</remarks>
 	private void NavigateSomeDataBackward()
 	{
-		// Decrease the current position by the step size
-		currentPosition -= stepPosition;
-		if (currentPosition < 1)
+		if (planetoidsDatabase.Count == 0)
 		{
-			// If the current position is less than 1, wrap around to the end of the database
+			return;
+		}
+
+		currentPosition = (currentPosition - stepPosition) % planetoidsDatabase.Count;
+		if (currentPosition < 0)
+		{
 			currentPosition += planetoidsDatabase.Count;
 		}
-		// Navigate to the current position
+
 		GotoCurrentPosition(position: currentPosition);
 	}
 
