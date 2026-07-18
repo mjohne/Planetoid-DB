@@ -1,11 +1,9 @@
 using Krypton.Toolkit;
 
 using Planetoid_DB.Forms;
-using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Globalization;
 
 namespace Planetoid_DB;
@@ -185,7 +183,7 @@ public partial class PlanetoidDbForm
 			// Create a new instance of the PlanetoidDatabase class
 			StreamReader streamReader = new(stream: fileStream);
 			// Show the splash screen
-			InvokeOnUiThread(action: () => formSplashScreen.Show());
+			InvokeOnUiThread(action: formSplashScreen.Show);
 			while (streamReader.Peek() != -1 && !backgroundWorkerLoadingDatabase.CancellationPending)
 			{
 				string? readLine = streamReader.ReadLine(); // Variable to store the read line from the file
@@ -208,7 +206,7 @@ public partial class PlanetoidDbForm
 			fileStream.Close();
 			streamReader.Close();
 		}
-		InvokeOnUiThread(action: () => formSplashScreen.Close());
+		InvokeOnUiThread(action: formSplashScreen.Close);
 		// Create a backup of the loaded database
 		planetoidsDatabaseBackup = [.. planetoidsDatabase];
 	}
@@ -1154,24 +1152,18 @@ public partial class PlanetoidDbForm
 	}
 
 	/// <summary>
-	/// Handles the Click event to display the orbit 2D top view.
-	/// </summary>
-	/// <param name="sender">The source of the event.</param>
+	/// Handles the Click event to display the orbit 2D top view.</summary>	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
 	/// <remarks>This method displays the 2D top view of the orbit when the corresponding control is clicked.</remarks>
 	private void Orbit2DTopView_Click(object sender, EventArgs e) => ShowOrbit2DTopView();
 
-	/// <summary>
-	/// Handles the Click event to display the orbit 2D side view.
-	/// </summary>
+	/// <summary>Handles the Click event to display the orbit 2D side view.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
 	/// <remarks>This method displays the 2D side view of the orbit when the corresponding control is clicked.</remarks>
 	private void Orbit2DSideView_Click(object sender, EventArgs e) => ShowOrbit2DSideView();
 
-	/// <summary>
-	/// Handles the Click event to display the orbit 3D view.
-	/// </summary>
+	/// <summary>Handles the Click event to display the orbit 3D view.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
 	/// <remarks>This method displays the 3D view of the orbit when the corresponding control is clicked.</remarks>
