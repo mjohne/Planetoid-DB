@@ -161,29 +161,20 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to load the database in a background thread.</remarks>
 	private void BackgroundWorkerLoadingDatabase_DoWork(object sender, DoWorkEventArgs e)
 	{
-		void InvokeOnUiThread(Action action)
-		{
-			if (InvokeRequired)
-			{
-				Invoke(method: action);
-				return;
-			}
-
-			action();
-		}
-
-		InvokeOnUiThread(action: () => Enabled = false); // Disable the form while loading the database
+		Enabled = false; // Disable the form while loading the database
 		int lineNum = 0; // Variable to store the line number being read
 		string filename = !string.IsNullOrEmpty(value: MpcOrbDatFilePath) ? MpcOrbDatFilePath : filenameMpcorbDat; // Get the file name from the path
 		FileInfo fileInfo = new(fileName: filename);
-		long fileSize = fileInfo.Length, fileSizeRead = 0; // Get the size of the file in bytes
-														   // Open the file stream for reading
+		// Get the size of the file in bytes
+		long fileSize = fileInfo.Length, fileSizeRead = 0;
+		// Open the file stream for reading
 		using (FileStream fileStream = new(path: filename, mode: FileMode.Open))
 		{
 			// Create a new instance of the PlanetoidDatabase class
 			StreamReader streamReader = new(stream: fileStream);
 			// Show the splash screen
-			InvokeOnUiThread(action: formSplashScreen.Show);
+			formSplashScreen.Show();
+			formSplashScreen.BringToFront();
 			while (streamReader.Peek() != -1 && !backgroundWorkerLoadingDatabase.CancellationPending)
 			{
 				string? readLine = streamReader.ReadLine(); // Variable to store the read line from the file
@@ -194,7 +185,7 @@ public partial class PlanetoidDbForm
 				// ReSharper disable once PossibleLossOfFraction
 				float percent = 100 * fileSizeRead / fileSize; // Variable to store the percentage of the file read
 															   // Report progress to the background worker
-				InvokeOnUiThread(action: () => formSplashScreen.SetProgressbar(value: (int)percent));
+				formSplashScreen.SetProgressbar(value: (int)percent);
 				lineNum++;
 				// Check if the line number is greater than or equal to 44
 				if ((lineNum >= 44) && (!string.IsNullOrEmpty(value: readLine)))
@@ -206,7 +197,7 @@ public partial class PlanetoidDbForm
 			fileStream.Close();
 			streamReader.Close();
 		}
-		InvokeOnUiThread(action: formSplashScreen.Close);
+		formSplashScreen.Close();
 		// Create a backup of the loaded database
 		planetoidsDatabaseBackup = [.. planetoidsDatabase];
 	}
