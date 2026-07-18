@@ -13,7 +13,6 @@ using Planetoid_DB.Helpers;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Reflection;
 
 namespace Planetoid_DB;
 
@@ -115,24 +114,8 @@ public partial class RecordsTop10Form : BaseKryptonForm
 		// Enable double buffering on the table layout panel to reduce flickering during updates. This is done via reflection since the DoubleBuffered property is protected on Control. If this fails, we log a warning but continue without double buffering.
 		SetGotoButtonsEnabled(isEnabled: false);
 		toolStripButtonCancel.Enabled = false;
-		// The following code attempts to set the DoubleBuffered property of the tableLayoutPanel to true using reflection, and also invokes the SetStyle method to enable optimized double buffering and reduce flickering during updates. If any exceptions occur during this process, a warning is logged but the application continues to function without double buffering.
-		try
-		{
-			// Use reflection to set the protected DoubleBuffered property to true
-			PropertyInfo? dbProp = typeof(Control).GetProperty(name: "DoubleBuffered", bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance);
-			// If the property is found, set it to true for the tableLayoutPanel
-			dbProp?.SetValue(obj: tableLayoutPanel, value: true, index: null);
-			// Additionally, invoke the SetStyle method to enable optimized double buffering and all painting in WM_PAINT to further reduce flickering
-			MethodInfo? setStyleMethod = typeof(Control).GetMethod(name: "SetStyle", bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance);
-			// If the SetStyle method is found, invoke it with the appropriate ControlStyles flags to enable double buffering and reduce flickering
-			setStyleMethod?.Invoke(obj: tableLayoutPanel, parameters: [ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true]);
-		}
-		// Catch any exceptions that may occur during reflection and log a warning. This ensures that if double buffering cannot be enabled for some reason, the application will still run without it, albeit with potentially more flickering during updates.
-		catch (Exception ex)
-		{
-			// Log a warning if we fail to set double buffering, but continue without it
-			logger.Warn(exception: ex, message: "Could not set DoubleBuffered on tableLayoutPanel");
-		}
+		// Enable double buffering on the table layout panel to reduce flickering during updates
+		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanel);
 	}
 
 	/// <summary>Preselects an orbital element by display text when available.</summary>

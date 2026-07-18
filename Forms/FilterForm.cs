@@ -8,10 +8,10 @@ using Krypton.Toolkit;
 using NLog;
 
 using Planetoid_DB.Forms;
+using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
 using System.Globalization;
-using System.Reflection;
 
 namespace Planetoid_DB;
 
@@ -69,19 +69,7 @@ public partial class FilterForm : BaseKryptonForm
 			nud.TextAlign = HorizontalAlignment.Center;
 		}
 		// Enable double buffering for the TableLayoutPanel to prevent flickering
-		try
-		{
-			// Set the DoubleBuffered property (protected)
-			PropertyInfo? dbProp = typeof(Control).GetProperty(name: "DoubleBuffered", bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance);
-			dbProp?.SetValue(obj: tableLayoutPanel, value: true, index: null);
-			// Also set specific control styles via reflection just in case
-			MethodInfo? setStyleMethod = typeof(Control).GetMethod(name: "SetStyle", bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance);
-			setStyleMethod?.Invoke(obj: tableLayoutPanel, parameters: [ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true]);
-		}
-		catch (Exception ex)
-		{
-			logger.Warn(exception: ex, message: "Could not set DoubleBuffered on tableLayoutPanel");
-		}
+		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanel);
 	}
 
 	#endregion

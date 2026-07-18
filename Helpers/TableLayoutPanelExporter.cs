@@ -3,10 +3,6 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
-using Krypton.Toolkit;
-
-using NLog;
-
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO.Compression;
@@ -21,22 +17,12 @@ namespace Planetoid_DB.Helpers;
 /// <remarks>Each method accepts the source <see cref="TableLayoutPanel"/>, a document title used in the file content, and the full file-system path of the output file. Column headers are read from the controls in the first row (row 0); row data is read from controls in subsequent rows. Compressed file formats (DOCX, ODT, ODS, XLSX, EPUB) are written as proper ZIP archives rather than flat XML files. SQLite export requires System.Data.SQLite; CHM export requires Microsoft HTML Help Workshop (hhc.exe).</remarks>
 public static class TableLayoutPanelExporter
 {
-	/// <summary>NLog logger for logging messages and errors.</summary>
-	/// <remarks>Using NLog allows for flexible logging configuration and supports various log targets such as files, console, etc. The logger is initialized for the current class to capture context in log messages.</remarks>
-	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-
 	/// <summary>Reusable JSON serializer options for efficient serialization.</summary>
 	/// <remarks>Creating a static instance of JsonSerializerOptions with WriteIndented set to true allows for consistent formatting of JSON output across all methods that serialize to JSON, while avoiding the overhead of creating new options instances for each serialization operation.</remarks>
 	private static readonly JsonSerializerOptions jsonSerializerOptions = new() { WriteIndented = true };
 
 	#region helpers
 
-	/// <summary>Displays an error message.</summary>
-	/// <param name="message">The error message.</param>
-	/// <remarks>This method is used to display an error message to the user.</remarks>
-	private static void ShowErrorMessage(string message) =>
-		// Show an error message box with the specified message
-		_ = KryptonMessageBox.Show(text: message, caption: I18nStrings.ErrorCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
 
 	/// <summary>Returns the column header texts of the given <see cref="TableLayoutPanel"/> (read from row 0).</summary>
 	/// <param name="tableLayoutPanel">The table layout panel whose first row contains headers.</param>
@@ -73,68 +59,6 @@ public static class TableLayoutPanelExporter
 		}
 	}
 
-	/// <summary>Escapes LaTeX special characters.</summary>
-	/// <param name="input">The raw input string.</param>
-	/// <returns>The escaped string suitable for LaTeX output.</returns>
-	/// <remarks>LaTeX special characters that need escaping include: \ { } % $ amp # _ ^ ~. This method iterates through each character in the input string and appends either the escaped version or the original character to a StringBuilder, which is then returned as the fully escaped string.</remarks>
-	private static string EscapeLatex(string? input) => ExportEscapeHelper.EscapeLatex(input);
-
-	/// <summary>Escapes Markdown table cell characters.</summary>
-	/// <param name="value">The raw cell value.</param>
-	/// <returns>The escaped string suitable for Markdown table output.</returns>
-	/// <remarks>In Markdown tables, the pipe character '|' is used as a column separator, so it must be escaped if it appears in cell content. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it replaces all occurrences of '|' with '\|', which is the standard way to escape a pipe character in Markdown.</remarks>
-	private static string EscapeMarkdownCell(string? value) => ExportEscapeHelper.EscapeMarkdownCell(value);
-
-	/// <summary>Escapes PostScript string literal characters.</summary>
-	/// <param name="input">The raw input string.</param>
-	/// <returns>The escaped string suitable for PostScript output.</returns>
-	/// <remarks>In PostScript string literals, the backslash, parentheses, and control characters need to be escaped. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it replaces backslashes with double backslashes and parentheses with escaped versions to ensure that the resulting string can be safely included in a PostScript string literal.</remarks>
-	private static string EscapePostScript(string? input) => ExportEscapeHelper.EscapePostScript(input);
-
-	/// <summary>Escapes PDF string literal characters.</summary>
-	/// <param name="text">The raw input string.</param>
-	/// <returns>The escaped string suitable for PDF output.</returns>
-	/// <remarks>In PDF string literals, the backslash, parentheses, and control characters need to be escaped. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it iterates through each character in the input string and appends either the escaped version or the original character to a StringBuilder, which is then returned as the fully escaped string. Control characters are escaped using backslash followed by a letter (e.g. \n for newline), while other non-printable characters are escaped using octal escape sequences.</remarks>
-	private static string EscapePdf(string? text) => ExportEscapeHelper.EscapePdf(text);
-
-	/// <summary>Escapes RTF special characters.</summary>
-	/// <param name="input">The raw input string.</param>
-	/// <returns>The escaped string suitable for RTF output.</returns>
-	/// <remarks>In RTF, the backslash, braces, and control characters need to be escaped. Non-ASCII characters can be represented using Unicode escape sequences. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it iterates through each character in the input string and appends either the escaped version or the original character to a StringBuilder, which is then returned as the fully escaped string. Backslashes and braces are escaped with a preceding backslash, newlines are replaced with the \par control word, and non-ASCII characters are represented using \uN? where N is the Unicode code point of the character.</remarks>
-	private static string EscapeRtf(string? input) => ExportEscapeHelper.EscapeRtf(input);
-
-	/// <summary>Escapes a CSV field by doubling internal quotes and wrapping in double quotes.</summary>
-	/// <param name="field">The raw field value.</param>
-	/// <returns>The escaped CSV field suitable for CSV output.</returns>
-	/// <remarks>In CSV, fields that contain commas, quotes, or newlines must be enclosed in double quotes, and internal double quotes are escaped by doubling them. This method first checks if the input field is null and treats it as an empty string; then it replaces any internal double quotes with two double quotes to escape them, and finally wraps the entire field in double quotes to ensure it is treated as a single field in the CSV output.</remarks>
-	private static string EscapeCsvField(string? field) => ExportEscapeHelper.EscapeCsvField(field);
-
-	/// <summary>Escapes a TOML string value.</summary>
-	/// <param name="value">The raw value.</param>
-	/// <returns>The escaped TOML string value suitable for TOML output.</returns>
-	/// <remarks>In TOML, basic string values are enclosed in double quotes, and backslashes and double quotes within the string must be escaped with a backslash. This method checks if the input value is null or empty and returns an empty string in that case; otherwise, it replaces backslashes with double backslashes and double quotes with escaped double quotes to ensure that the resulting string can be safely included as a basic string value in a TOML document.</remarks>
-	private static string EscapeToml(string? value) => ExportEscapeHelper.EscapeToml(value);
-
-	/// <summary>Shows a success message after a file has been saved.</summary>
-	/// <remarks>Logs the successful save operation at the Info level and displays a message box to the user.</remarks>
-	private static void ShowSuccess()
-	{
-		// Log the successful save operation at the Info level.
-		_ = KryptonMessageBox.Show(text: I18nStrings.FileSavedSuccessfully, caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
-	}
-
-	/// <summary>Logs and shows an error that occurred while saving a file.</summary>
-	/// <param name="ex">The exception.</param>
-	/// <param name="format">A label identifying the file format (e.g. "Text").</param>
-	/// <param name="filePath">The target file path.</param>
-	/// <remarks>Logs the error with details about the format and file path, and displays an error message box to the user with the exception message.</remarks>
-	private static void ShowError(Exception ex, string format, string filePath)
-	{
-		// Log the error with details about the format and file path.
-		logger.Error(exception: ex, message: $"Error saving as {format} to '{{FilePath}}'.", args: filePath);
-		ShowErrorMessage(message: $"Error saving as {format}: {ex.Message}");
-	}
-
 	#endregion
 
 	#region Save methods
@@ -162,12 +86,12 @@ public static class TableLayoutPanelExporter
 				writer.WriteLine(value: string.Join(separator: " ", values: row));
 			}
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "Text", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "Text", filePath: fileName);
 		}
 	}
 
@@ -195,25 +119,25 @@ public static class TableLayoutPanelExporter
 			writer.WriteLine(value: "\\centering");
 			writer.WriteLine(value: $"\\begin{{tabular}}{{|{colSpec}|}}");
 			writer.WriteLine(value: "\\hline");
-			writer.WriteLine(value: string.Join(separator: " & ", values: headers.Select(selector: EscapeLatex)) + " \\\\");
+			writer.WriteLine(value: string.Join(separator: " & ", values: headers.Select(selector: ExportEscapeHelper.EscapeLatex)) + " \\\\");
 			writer.WriteLine(value: "\\hline");
 			foreach (string[] row in GetRows(tableLayoutPanel: tableLayoutPanel))
 			{
 				// Escape special characters in each cell for LaTeX and write the row with ' & ' as the column separator and '\\' at the end of the line to indicate a new row in the tabular environment.
-				writer.WriteLine(value: string.Join(separator: " & ", values: row.Select(selector: EscapeLatex)) + " \\\\");
+				writer.WriteLine(value: string.Join(separator: " & ", values: row.Select(selector: ExportEscapeHelper.EscapeLatex)) + " \\\\");
 			}
 			writer.WriteLine(value: "\\hline");
 			writer.WriteLine(value: "\\end{tabular}");
-			writer.WriteLine(value: $"\\caption{{{EscapeLatex(input: title)}}}");
+			writer.WriteLine(value: $"\\caption{{{ExportEscapeHelper.EscapeLatex(input: title)}}}");
 			writer.WriteLine(value: "\\end{table}");
 			writer.WriteLine(value: "\\end{document}");
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "LaTeX", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "LaTeX", filePath: fileName);
 		}
 	}
 
@@ -239,15 +163,15 @@ public static class TableLayoutPanelExporter
 			foreach (string[] row in GetRows(tableLayoutPanel: tableLayoutPanel))
 			{
 				// Escape pipe characters in the cell data to prevent breaking the Markdown table syntax, since '|' is used as a column separator. The escaping is done by replacing '|' with '\|', which is the standard way to escape a pipe in Markdown.
-				writer.WriteLine(value: "| " + string.Join(separator: " | ", values: row.Select(selector: EscapeMarkdownCell)) + " |");
+				writer.WriteLine(value: "| " + string.Join(separator: " | ", values: row.Select(selector: ExportEscapeHelper.EscapeMarkdownCell)) + " |");
 			}
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "Markdown", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "Markdown", filePath: fileName);
 		}
 	}
 
@@ -279,12 +203,12 @@ public static class TableLayoutPanelExporter
 			}
 			writer.WriteLine(value: "|===");
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "AsciiDoc", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "AsciiDoc", filePath: fileName);
 		}
 	}
 
@@ -351,12 +275,12 @@ public static class TableLayoutPanelExporter
 				writer.WriteLine(value: separator);
 			}
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "reStructuredText", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "reStructuredText", filePath: fileName);
 		}
 	}
 
@@ -385,12 +309,12 @@ public static class TableLayoutPanelExporter
 				writer.WriteLine(value: "| " + string.Join(separator: " | ", values: escaped) + " |");
 			}
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "Textile", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "Textile", filePath: fileName);
 		}
 	}
 
@@ -463,12 +387,12 @@ public static class TableLayoutPanelExporter
 				writer.WriteLine(value: "</w:document>");
 			}
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "Word", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "Word", filePath: fileName);
 		}
 	}
 
@@ -537,12 +461,12 @@ public static class TableLayoutPanelExporter
 				writer.WriteLine(value: "</office:document-content>");
 			}
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "ODT", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "ODT", filePath: fileName);
 		}
 	}
 
@@ -564,7 +488,7 @@ public static class TableLayoutPanelExporter
 			writer.WriteLine(value: @"{\rtf1\ansi\deff0");
 			writer.WriteLine(value: @"{\fonttbl{\f0 Arial;}}");
 			writer.WriteLine(value: @"\f0\fs20");
-			writer.WriteLine(value: $@"{{\pard\b\fs24 {EscapeRtf(input: title)}\par\par}}");
+			writer.WriteLine(value: $@"{{\pard\b\fs24 {ExportEscapeHelper.EscapeRtf(input: title)}\par\par}}");
 			foreach (string[] row in GetRows(tableLayoutPanel: tableLayoutPanel))
 			{
 				int cumWidth = 0;
@@ -580,19 +504,19 @@ public static class TableLayoutPanelExporter
 				{
 					string cell = c < row.Length ? row[c] : string.Empty;
 					writer.Write(value: @"\pard\intbl ");
-					writer.Write(value: EscapeRtf(input: cell));
+					writer.Write(value: ExportEscapeHelper.EscapeRtf(input: cell));
 					writer.Write(value: @"\cell");
 				}
 				writer.WriteLine(value: @"\row");
 			}
 			writer.WriteLine(value: "}");
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "RTF", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "RTF", filePath: fileName);
 		}
 	}
 
@@ -644,12 +568,12 @@ public static class TableLayoutPanelExporter
 			writer.WriteLine(value: "  </section>");
 			writer.WriteLine(value: "</abiword>");
 			//
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "AbiWord", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "AbiWord", filePath: fileName);
 		}
 	}
 
@@ -693,12 +617,12 @@ public static class TableLayoutPanelExporter
 			}
 			writer.WriteLine(value: "</table></body></html>");
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "WPS", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "WPS", filePath: fileName);
 		}
 	}
 
@@ -785,12 +709,12 @@ public static class TableLayoutPanelExporter
 				writer.WriteLine(value: "</worksheet>");
 			}
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "Excel", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "Excel", filePath: fileName);
 		}
 	}
 
@@ -858,12 +782,12 @@ public static class TableLayoutPanelExporter
 				writer.WriteLine(value: "</office:document-content>");
 			}
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "ODS", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "ODS", filePath: fileName);
 		}
 	}
 
@@ -881,23 +805,23 @@ public static class TableLayoutPanelExporter
 			string[] headers = GetHeaders(tableLayoutPanel: tableLayoutPanel);
 			// Use a StreamWriter to write the output file in CSV format with UTF-8 encoding. The 'append: false' parameter ensures that the file is overwritten if it already exists. The first line contains the column headers, and each subsequent line contains a data row. Fields that contain special characters are escaped using a helper method to ensure the CSV file is well-formed.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
-			writer.WriteLine(value: string.Join(separator: ";", values: headers.Select(selector: EscapeCsvField)));
+			writer.WriteLine(value: string.Join(separator: ";", values: headers.Select(selector: ExportEscapeHelper.EscapeCsvField)));
 			foreach (string[] row in GetRows(tableLayoutPanel: tableLayoutPanel))
 			{
 				// Write each data row in the CSV file. Each field is processed to escape special characters as needed. The fields are then joined with semicolons to form a single line for each row.
 				writer.WriteLine(value: string.Join(separator: ";", values: Enumerable.Range(start: 0, count: headers.Length).Select(selector: c =>
 				{
 					string cell = c < row.Length ? row[c] : string.Empty;
-					return EscapeCsvField(field: cell);
+					return ExportEscapeHelper.EscapeCsvField(field: cell);
 				})));
 			}
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "CSV", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "CSV", filePath: fileName);
 		}
 	}
 
@@ -922,12 +846,12 @@ public static class TableLayoutPanelExporter
 				writer.WriteLine(value: string.Join(separator: "\t", values: Enumerable.Range(start: 0, count: headers.Length).Select(selector: c => c < row.Length ? row[c] : string.Empty)));
 			}
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "TSV", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "TSV", filePath: fileName);
 		}
 	}
 
@@ -952,12 +876,12 @@ public static class TableLayoutPanelExporter
 				writer.WriteLine(value: string.Join(separator: "|", values: Enumerable.Range(start: 0, count: headers.Length).Select(selector: c => c < row.Length ? row[c] : string.Empty)));
 			}
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "PSV", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "PSV", filePath: fileName);
 		}
 	}
 
@@ -975,23 +899,23 @@ public static class TableLayoutPanelExporter
 			string[] headers = GetHeaders(tableLayoutPanel: tableLayoutPanel);
 			// Use a StreamWriter to write the output file in CSV format with UTF-8 encoding. The 'append: false' parameter ensures that the file is overwritten if it already exists. The first line contains the column headers, and each subsequent line contains a data row. Fields that contain special characters are escaped using a helper method to ensure the CSV file is well-formed.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
-			writer.WriteLine(value: string.Join(separator: ";", values: headers.Select(selector: EscapeCsvField)));
+			writer.WriteLine(value: string.Join(separator: ";", values: headers.Select(selector: ExportEscapeHelper.EscapeCsvField)));
 			foreach (string[] row in GetRows(tableLayoutPanel: tableLayoutPanel))
 			{
 				// Write each data row in the CSV file. Each field is processed to escape special characters as needed. The fields are then joined with semicolons to form a single line for each row.
 				writer.WriteLine(value: string.Join(separator: ";", values: Enumerable.Range(start: 0, count: headers.Length).Select(selector: c =>
 				{
 					string cell = c < row.Length ? row[c] : string.Empty;
-					return EscapeCsvField(field: cell);
+					return ExportEscapeHelper.EscapeCsvField(field: cell);
 				})));
 			}
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "ET", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "ET", filePath: fileName);
 		}
 	}
 
@@ -1035,12 +959,12 @@ public static class TableLayoutPanelExporter
 			}
 			writer.WriteLine(value: "</tbody></table></body></html>");
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "HTML", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "HTML", filePath: fileName);
 		}
 	}
 
@@ -1080,12 +1004,12 @@ public static class TableLayoutPanelExporter
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteEndDocument();
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "XML", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "XML", filePath: fileName);
 		}
 	}
 
@@ -1148,12 +1072,12 @@ public static class TableLayoutPanelExporter
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteEndDocument();
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "DocBook", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "DocBook", filePath: fileName);
 		}
 	}
 
@@ -1186,12 +1110,12 @@ public static class TableLayoutPanelExporter
 			string json = JsonSerializer.Serialize(value: doc, options: jsonSerializerOptions);
 			File.WriteAllText(path: fileName, contents: json);
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "JSON", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "JSON", filePath: fileName);
 		}
 	}
 
@@ -1226,12 +1150,12 @@ public static class TableLayoutPanelExporter
 				}
 			}
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "YAML", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "YAML", filePath: fileName);
 		}
 	}
 
@@ -1249,7 +1173,7 @@ public static class TableLayoutPanelExporter
 			string[] headers = GetHeaders(tableLayoutPanel: tableLayoutPanel);
 			// Use a StreamWriter to write the output file in TOML format with UTF-8 encoding. The 'append: false' parameter ensures that the file is overwritten if it already exists. The TOML document has a "title" key at the top of the file and a list of tables for each row in the TableLayoutPanel. Each table is represented as a TOML array of tables with keys corresponding to the column headers. Special characters in the headers and cell data are escaped by replacing double quotes with escaped double quotes to ensure that the TOML document is well-formed.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
-			writer.WriteLine(value: $"title = \"{EscapeToml(value: title)}\"");
+			writer.WriteLine(value: $"title = \"{ExportEscapeHelper.EscapeToml(value: title)}\"");
 			writer.WriteLine(value: $"created_at = {DateTime.UtcNow:yyyy-MM-ddTHH:mm:ssZ}");
 			writer.WriteLine();
 			foreach (string[] row in GetRows(tableLayoutPanel: tableLayoutPanel))
@@ -1259,17 +1183,17 @@ public static class TableLayoutPanelExporter
 				for (int c = 0; c < headers.Length; c++)
 				{
 					string cell = c < row.Length ? row[c] : string.Empty;
-					writer.WriteLine(value: $"{EscapeToml(value: headers[c])} = \"{EscapeToml(value: cell)}\"");
+					writer.WriteLine(value: $"{ExportEscapeHelper.EscapeToml(value: headers[c])} = \"{ExportEscapeHelper.EscapeToml(value: cell)}\"");
 				}
 				writer.WriteLine();
 			}
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "TOML", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "TOML", filePath: fileName);
 		}
 	}
 
@@ -1314,12 +1238,12 @@ public static class TableLayoutPanelExporter
 			}
 			writer.WriteLine(value: "COMMIT;");
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "SQL", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "SQL", filePath: fileName);
 		}
 	}
 
@@ -1377,12 +1301,12 @@ public static class TableLayoutPanelExporter
 			transaction.Commit();
 			connection.Close();
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex)
 		{
-			ShowError(ex: ex, format: "SQLite", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "SQLite", filePath: fileName);
 		}
 	}
 
@@ -1429,11 +1353,11 @@ public static class TableLayoutPanelExporter
 			pageContentObjIds.Add(item: currentContentObjId);
 			w.WriteLine(value: "<< >> stream");
 			w.WriteLine(value: "BT /F1 10 Tf");
-			w.WriteLine(value: $"1 0 0 1 50 {pageHeight - 40} Tm ({EscapePdf(text: title)}) Tj");
+			w.WriteLine(value: $"1 0 0 1 50 {pageHeight - 40} Tm ({ExportEscapeHelper.EscapePdf(text: title)}) Tj");
 			for (int c = 0; c < headers.Length; c++)
 			{
 				// Write the column headers on the PDF page. Each header is positioned based on the calculated column X coordinates and a fixed Y coordinate near the top of the page. The headers are repeated on each new page to maintain context for the data rows.
-				w.WriteLine(value: $"1 0 0 1 {colX[c]} {pageHeight - 60} Tm ({EscapePdf(text: headers[c])}) Tj");
+				w.WriteLine(value: $"1 0 0 1 {colX[c]} {pageHeight - 60} Tm ({ExportEscapeHelper.EscapePdf(text: headers[c])}) Tj");
 			}
 			currentY = startY - 30;
 			foreach (string[] row in GetRows(tableLayoutPanel: tableLayoutPanel))
@@ -1448,10 +1372,10 @@ public static class TableLayoutPanelExporter
 					pageContentObjIds.Add(item: currentContentObjId);
 					w.WriteLine(value: "<< >> stream");
 					w.WriteLine(value: "BT /F1 10 Tf");
-					w.WriteLine(value: $"1 0 0 1 50 {pageHeight - 40} Tm ({EscapePdf(text: title)} - Cont.) Tj");
+					w.WriteLine(value: $"1 0 0 1 50 {pageHeight - 40} Tm ({ExportEscapeHelper.EscapePdf(text: title)} - Cont.) Tj");
 					for (int c = 0; c < headers.Length; c++)
 					{
-						w.WriteLine(value: $"1 0 0 1 {colX[c]} {pageHeight - 60} Tm ({EscapePdf(text: headers[c])}) Tj");
+						w.WriteLine(value: $"1 0 0 1 {colX[c]} {pageHeight - 60} Tm ({ExportEscapeHelper.EscapePdf(text: headers[c])}) Tj");
 					}
 					currentY = startY - 30;
 				}
@@ -1459,7 +1383,7 @@ public static class TableLayoutPanelExporter
 				{
 					// Write each cell in the current row. If a row has fewer cells than headers, the missing cells are treated as empty strings.
 					string cell = c < row.Length ? row[c] : string.Empty;
-					w.WriteLine(value: $"1 0 0 1 {colX[c]} {currentY} Tm ({EscapePdf(text: cell)}) Tj");
+					w.WriteLine(value: $"1 0 0 1 {colX[c]} {currentY} Tm ({ExportEscapeHelper.EscapePdf(text: cell)}) Tj");
 				}
 				currentY -= lineHeight;
 			}
@@ -1527,12 +1451,12 @@ public static class TableLayoutPanelExporter
 			w.WriteLine(value: xrefOffset);
 			w.WriteLine(value: "%%EOF");
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "PDF", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "PDF", filePath: fileName);
 		}
 	}
 
@@ -1569,16 +1493,16 @@ public static class TableLayoutPanelExporter
 			{
 				writer.WriteLine(value: $"%%Page: {pg} {pg}");
 				writer.WriteLine(value: "/Helvetica-Bold findfont 12 scalefont setfont");
-				writer.WriteLine(value: $"50 {pageHeight - 30} moveto ({EscapePostScript(input: title)} - Page {pg}) show");
+				writer.WriteLine(value: $"50 {pageHeight - 30} moveto ({ExportEscapeHelper.EscapePostScript(input: title)} - Page {pg}) show");
 				writer.WriteLine(value: "/Helvetica findfont 10 scalefont setfont");
 				for (int c = 0; c < headers.Length; c++)
 				{
 					// Write the column headers on the PostScript page. Each header is positioned based on the calculated column X coordinates and a fixed Y coordinate near the top of the page. The headers are repeated on each new page to maintain context for the data rows.
-					writer.WriteLine(value: $"{colX[c]} {pageHeight - 50} moveto ({EscapePostScript(input: headers[c])}) show");
+					writer.WriteLine(value: $"{colX[c]} {pageHeight - 50} moveto ({ExportEscapeHelper.EscapePostScript(input: headers[c])}) show");
 				}
 			}
 			writer.WriteLine(value: "%!PS-Adobe-3.0");
-			writer.WriteLine(value: $"%%Title: {EscapePostScript(input: title)}");
+			writer.WriteLine(value: $"%%Title: {ExportEscapeHelper.EscapePostScript(input: title)}");
 			writer.WriteLine(value: "%%Creator: Planetoid-DB");
 			writer.WriteLine(value: "%%Pages: (atend)");
 			writer.WriteLine(value: "%%EndComments");
@@ -1598,7 +1522,7 @@ public static class TableLayoutPanelExporter
 				{
 					// Write each cell in the current row. If a row has fewer cells than headers, the missing cells are treated as empty strings.
 					string cell = c < row.Length ? row[c] : string.Empty;
-					writer.WriteLine(value: $"{colX[c]} {currentY} moveto ({EscapePostScript(input: cell)}) show");
+					writer.WriteLine(value: $"{colX[c]} {currentY} moveto ({ExportEscapeHelper.EscapePostScript(input: cell)}) show");
 				}
 				currentY -= lineHeight;
 			}
@@ -1607,12 +1531,12 @@ public static class TableLayoutPanelExporter
 			writer.WriteLine(value: $"%%Pages: {pageNumber}");
 			writer.WriteLine(value: "%%EOF");
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "PostScript", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "PostScript", filePath: fileName);
 		}
 	}
 
@@ -1707,12 +1631,12 @@ public static class TableLayoutPanelExporter
 				writer.WriteLine(value: "</tbody></table></body></html>");
 			}
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "EPUB", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "EPUB", filePath: fileName);
 		}
 	}
 
@@ -1827,12 +1751,12 @@ public static class TableLayoutPanelExporter
 			}
 			w.Write(buffer: eofRecord);
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "MOBI", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "MOBI", filePath: fileName);
 		}
 	}
 
@@ -1910,12 +1834,12 @@ public static class TableLayoutPanelExporter
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteEndDocument();
 			// Show a success message after the file has been saved.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "FictionBook2", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "FictionBook2", filePath: fileName);
 		}
 	}
 
@@ -1931,7 +1855,7 @@ public static class TableLayoutPanelExporter
 		string hhcPath = Path.Combine(path1: Environment.GetFolderPath(folder: Environment.SpecialFolder.ProgramFilesX86), path2: @"HTML Help Workshop\hhc.exe");
 		if (!File.Exists(path: hhcPath))
 		{
-			ShowErrorMessage(message: "Microsoft HTML Help Workshop is not installed or not found at the default location. Cannot compile CHM file.");
+			ExportEscapeHelper.ShowErrorMessage(message: "Microsoft HTML Help Workshop is not installed or not found at the default location. Cannot compile CHM file.");
 			return;
 		}
 		// Create a temporary directory to store the intermediate files needed for CHM compilation. The directory is created in the system's temporary path with a unique name generated using a GUID. After the compilation process, the temporary directory and its contents will be deleted to clean up any intermediate files.
@@ -2010,18 +1934,18 @@ public static class TableLayoutPanelExporter
 			{
 				File.Copy(sourceFileName: chmTempPath, destFileName: fileName, overwrite: true);
 				// Show a success message after the CHM file has been successfully created.
-				ShowSuccess();
+				ExportEscapeHelper.ShowSuccess();
 			}
 			else
 			{
 				// If the CHM file was not created, show an error message to the user.
-				ShowErrorMessage(message: "Failed to compile the CHM file.");
+				ExportEscapeHelper.ShowErrorMessage(message: "Failed to compile the CHM file.");
 			}
 		}
 		// Catch any exceptions that occur during the file generation and compilation process, log the error, and show an error message to the user.
 		catch (Exception ex)
 		{
-			ShowError(ex: ex, format: "CHM", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "CHM", filePath: fileName);
 		}
 		// Finally, clean up the temporary directory used for intermediate files.
 		finally
@@ -2191,12 +2115,12 @@ public static class TableLayoutPanelExporter
 				writer.Write(value: "DUMMY");
 			}
 			// Show a success message after the XPS file has been successfully created.
-			ShowSuccess();
+			ExportEscapeHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ShowError(ex: ex, format: "XPS", filePath: fileName);
+			ExportEscapeHelper.ShowError(ex: ex, format: "XPS", filePath: fileName);
 		}
 	}
 
