@@ -112,7 +112,7 @@ public partial class PlanetoidDbForm
 		try
 		{
 			// Batch all text updates with minimal overhead
-			toolStripLabelIndexPosition.ToolTipText = $"Index: {currentPosition + 1}/{planetoidsDatabase.Count}";
+			toolStripLabelIndexPosition.ToolTipText = $"Index: {position + 1}/{planetoidsDatabase.Count}";
 			// Update all labels in one go - use cached string reference
 			labelIndexData.Text = entryStr[..7].Trim();
 			labelAbsoluteMagnitudeData.Text = entryStr.Substring(startIndex: 8, length: 5).Trim();
