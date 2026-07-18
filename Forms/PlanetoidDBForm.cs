@@ -455,31 +455,21 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		return 0;
 	}
 
-	/// <summary>Checks if an update for the MPCORB database is available.</summary>
-	/// <returns>true if an update is available, otherwise false.</returns>
-	/// <remarks>This method is used to check if an update for the MPCORB database is available.</remarks>
-	private bool IsMpcorbDatUpdateAvailable()
+	/// <summary>Checks if an update is available for the specified database file by comparing last-modified timestamps.</summary>
+	/// <param name="localFile">The local file path to compare against.</param>
+	/// <param name="onlineUri">The URI of the remote resource.</param>
+	/// <returns><see langword="true"/> if the local file does not exist or the remote resource is newer; otherwise <see langword="false"/>.</returns>
+	private static bool IsUpdateAvailable(string localFile, Uri onlineUri)
 	{
-		// Check if the file exists before attempting to delete it
-		if (!File.Exists(path: filenameMpcorbDat))
+		if (!File.Exists(path: localFile))
 		{
-			return true; // If the file does not exist, return true (update available)
+			return true;
 		}
-		// Get the file information for the local file
-		FileInfo fileInfo = new(fileName: filenameMpcorbDat);
-		// Get the last modified date of the local file
+		FileInfo fileInfo = new(fileName: localFile);
 		DateTime datetimeFileLocal = fileInfo.LastWriteTime;
 		try
 		{
-			// Get the last modified date of the online file
-			DateTime datetimeFileOnline = GetLastModified(uri: uriMpcorbDat);
-			// Get the content length of the online file
-			_ = GetContentLength(uri: uriMpcorbDat);
-			// Get the content length of the local file
-			_ = fileInfo.Length;
-			// Check if the online file is larger than the local file
-			// If it greater, return true (update available)
-			// Otherwise, return false (no update available)
+			DateTime datetimeFileOnline = GetLastModified(uri: onlineUri);
 			return datetimeFileOnline > datetimeFileLocal;
 		}
 		catch (WebException)
@@ -491,146 +481,31 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			return false;
 		}
 	}
+
+	/// <summary>Checks if an update for the MPCORB database is available.</summary>
+	/// <returns>true if an update is available, otherwise false.</returns>
+	/// <remarks>This method is used to check if an update for the MPCORB database is available.</remarks>
+	private bool IsMpcorbDatUpdateAvailable() => IsUpdateAvailable(localFile: filenameMpcorbDat, onlineUri: uriMpcorbDat);
 
 	/// <summary>Checks if an update for the ASTORB database is available.</summary>
 	/// <returns>true if an update is available, otherwise false.</returns>
 	/// <remarks>This method is used to check if an update for the ASTORB database is available.</remarks>
-	private bool IsAstorbDatUpdateAvailable()
-	{
-		// Check if the file exists before attempting to delete it
-		if (!File.Exists(path: filenameAstorbDat))
-		{
-			return true; // If the file does not exist, return true (update available)
-		}
-		// Get the file information for the local file
-		FileInfo fileInfo = new(fileName: filenameAstorbDat);
-		// Get the last modified date of the local file
-		DateTime datetimeFileLocal = fileInfo.LastWriteTime;
-		try
-		{
-			// Get the last modified date of the online file
-			DateTime datetimeFileOnline = GetLastModified(uri: uriAstorbDat);
-			// Get the content length of the local file
-			_ = fileInfo.Length;
-			// Check if the online file is larger than the local file
-			// If it greater, return true (update available)
-			// Otherwise, return false (no update available)
-			return datetimeFileOnline > datetimeFileLocal;
-		}
-		catch (WebException)
-		{
-			return false;
-		}
-		catch (IOException)
-		{
-			return false;
-		}
-	}
+	private bool IsAstorbDatUpdateAvailable() => IsUpdateAvailable(localFile: filenameAstorbDat, onlineUri: uriAstorbDat);
 
 	/// <summary>Checks if an update for the ALLNUMCAT database is available.</summary>
 	/// <returns>true if an update is available, otherwise false.</returns>
 	/// <remarks>This method is used to check if an update for the ALLNUMCAT database is available.</remarks>
-	private bool IsAllnumCatUpdateAvailable()
-	{
-		// Check if the file exists before attempting to delete it
-		if (!File.Exists(path: filenameAllnumCat))
-		{
-			return true; // If the file does not exist, return true (update available)
-		}
-		// Get the file information for the local file
-		FileInfo fileInfo = new(fileName: filenameAllnumCat);
-		// Get the last modified date of the local file
-		DateTime datetimeFileLocal = fileInfo.LastWriteTime;
-		try
-		{
-			// Get the last modified date of the online file
-			DateTime datetimeFileOnline = GetLastModified(uri: uriAllnumCat);
-			// Get the content length of the local file
-			_ = fileInfo.Length;
-			// Check if the online file is larger than the local file
-			// If it greater, return true (update available)
-			// Otherwise, return false (no update available)
-			return datetimeFileOnline > datetimeFileLocal;
-		}
-		catch (WebException)
-		{
-			return false;
-		}
-		catch (IOException)
-		{
-			return false;
-		}
-	}
+	private bool IsAllnumCatUpdateAvailable() => IsUpdateAvailable(localFile: filenameAllnumCat, onlineUri: uriAllnumCat);
 
 	/// <summary>Checks if an update for the UFITOBSCAT database is available.</summary>
 	/// <returns>true if an update is available, otherwise false.</returns>
 	/// <remarks>This method is used to check if an update for the UFITOBSCAT database is available.</remarks>
-	private bool IsUfitobsCatUpdateAvailable()
-	{
-		// Check if the file exists before attempting to delete it
-		if (!File.Exists(path: filenameUfitobsCat))
-		{
-			return true; // If the file does not exist, return true (update available)
-		}
-		// Get the file information for the local file
-		FileInfo fileInfo = new(fileName: filenameUfitobsCat);
-		// Get the last modified date of the local file
-		DateTime datetimeFileLocal = fileInfo.LastWriteTime;
-		try
-		{
-			// Get the last modified date of the online file
-			DateTime datetimeFileOnline = GetLastModified(uri: uriUfitobsCat);
-			// Get the content length of the local file
-			_ = fileInfo.Length;
-			// Check if the online file is larger than the local file
-			// If it greater, return true (update available)
-			// Otherwise, return false (no update available)
-			return datetimeFileOnline > datetimeFileLocal;
-		}
-		catch (WebException)
-		{
-			return false;
-		}
-		catch (IOException)
-		{
-			return false;
-		}
-	}
+	private bool IsUfitobsCatUpdateAvailable() => IsUpdateAvailable(localFile: filenameUfitobsCat, onlineUri: uriUfitobsCat);
 
 	/// <summary>Checks if an update for the SINGOPP database is available.</summary>
 	/// <returns>true if an update is available, otherwise false.</returns>
 	/// <remarks>This method is used to check if an update for the SINGOPP database is available.</remarks>
-	private bool IsSingoppCatUpdateAvailable()
-	{
-		// Check if the file exists before attempting to delete it
-		if (!File.Exists(path: filenameSingoppCat))
-		{
-			return true; // If the file does not exist, return true (update available)
-		}
-		// Get the file information for the local file
-		FileInfo fileInfo = new(fileName: filenameSingoppCat);
-		// Get the last modified date of the local file
-		DateTime datetimeFileLocal = fileInfo.LastWriteTime;
-		try
-		{
-			// Get the last modified date of the online file
-			DateTime datetimeFileOnline = GetLastModified(uri: uriSingoppCat);
-			// Get the content length of the local file
-			_ = fileInfo.Length;
-			// Check if the online file is larger than the local file
-			// If it greater, return true (update available)
-			// Otherwise, return false (no update available)
-			return datetimeFileOnline > datetimeFileLocal;
-		}
-		catch (WebException)
-		{
-			return false;
-		}
-		catch (IOException)
-		{
-			return false;
-		}
-	}
+	private bool IsSingoppCatUpdateAvailable() => IsUpdateAvailable(localFile: filenameSingoppCat, onlineUri: uriSingoppCat);
 
 	/// <summary>Loads a random minor planet from the database.</summary>
 	/// <remarks>This method is used to load a random minor planet from the database.</remarks>
@@ -1340,266 +1215,86 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	}
 
 
+	/// <summary>Shows the database update-check dialog for the specified database.</summary>
+	/// <param name="url">The remote URL of the database file.</param>
+	/// <param name="localFilePath">The local file path of the database.</param>
+	/// <param name="databaseName">The display name of the database.</param>
+	private void ShowDatabaseUpdateCheckForm(string url, string localFilePath, string databaseName)
+	{
+		if (!NetworkInterface.GetIsNetworkAvailable())
+		{
+			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
+			return;
+		}
+		using CheckDatabaseForm form = new(url: url, localFilePath: localFilePath, databaseName: databaseName);
+		form.TopMost = TopMost;
+		_ = form.ShowDialog(owner: this);
+	}
+
 	/// <summary>Shows the MPCORB data check form.</summary>
 	/// <remarks>This method is used to check the MPCORB data for updates.</remarks>
-	private async void ShowMpcorbDatUpdateCheck()
-	{
-		// Check if the network is available before proceeding with the download
-		if (!NetworkInterface.GetIsNetworkAvailable())
-		//if (!await HasInternetAsync(client: httpClient, url: uriMpcorb.OriginalString))
-		{
-			// Display an error message if the network is not available
-			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
-		}
-		else
-		{
-			// Create and show the MPCORB data check form
-			using CheckDatabaseForm formCheckMpcorbDat = new(url: Settings.Default.systemMpcorbDatUrl, localFilePath: Settings.Default.systemFilenameMpcorbDat, databaseName: "MPCORB.DAT");
-			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
-			formCheckMpcorbDat.TopMost = TopMost;
-			// Show the MPCORB data check form as a modal dialog
-			_ = formCheckMpcorbDat.ShowDialog(owner: this);
-		}
-	}
+	private void ShowMpcorbDatUpdateCheck() => ShowDatabaseUpdateCheckForm(url: Settings.Default.systemMpcorbDatUrl, localFilePath: Settings.Default.systemFilenameMpcorbDat, databaseName: "MPCORB.DAT");
 
 	/// <summary>Shows the ASTORB data check form.</summary>
 	/// <remarks>This method is used to check the ASTORB data for updates.</remarks>
-	private void ShowAstorbDatUpdateCheck()
-	{
-		// Check if the network is available before proceeding with the download
-		if (!NetworkInterface.GetIsNetworkAvailable())
-		{
-			// Display an error message if the network is not available
-			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
-		}
-		else
-		{
-			// Create and show the ASTORB data check form
-			using CheckDatabaseForm formCheckAstorbDat = new(url: Settings.Default.systemAstorbDatUrl, localFilePath: Settings.Default.systemFilenameAstorbDat, databaseName: "ASTORB.DAT");
-			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
-			formCheckAstorbDat.TopMost = TopMost;
-			// Show the ASTORB data check form as a modal dialog
-			_ = formCheckAstorbDat.ShowDialog(owner: this);
-		}
-	}
+	private void ShowAstorbDatUpdateCheck() => ShowDatabaseUpdateCheckForm(url: Settings.Default.systemAstorbDatUrl, localFilePath: Settings.Default.systemFilenameAstorbDat, databaseName: "ASTORB.DAT");
 
 	/// <summary>Shows the ALLNUM.CAT data check form.</summary>
 	/// <remarks>This method is used to check the ALLNUM.CAT data for updates.</remarks>
-	private void ShowAllnumCatUpdateCheck()
-	{
-		// Check if the network is available before proceeding with the download
-		if (!NetworkInterface.GetIsNetworkAvailable())
-		{
-			// Display an error message if the network is not available
-			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
-		}
-		else
-		{
-			// Create and show the ALLNUM.CAT data check form
-			using CheckDatabaseForm formCheckAllnumCat = new(url: Settings.Default.systemAllnumCatUrl, localFilePath: Settings.Default.systemFilenameAllnumCat, databaseName: "allnum.cat");
-			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
-			formCheckAllnumCat.TopMost = TopMost;
-			// Show the ALLNUM.CAT data check form as a modal dialog
-			_ = formCheckAllnumCat.ShowDialog(owner: this);
-		}
-	}
+	private void ShowAllnumCatUpdateCheck() => ShowDatabaseUpdateCheckForm(url: Settings.Default.systemAllnumCatUrl, localFilePath: Settings.Default.systemFilenameAllnumCat, databaseName: "allnum.cat");
 
 	/// <summary>Shows the UFITOBS.CAT data check form.</summary>
 	/// <remarks>This method is used to check the UFITOBS.CAT data for updates.</remarks>
-	private void ShowUfitobsCatUpdateCheck()
-	{
-		// Check if the network is available before proceeding with the download
-		if (!NetworkInterface.GetIsNetworkAvailable())
-		{
-			// Display an error message if the network is not available
-			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
-		}
-		else
-		{
-			// Create and show the UFITOBS.CAT data check form
-			using CheckDatabaseForm formCheckUfitobsCat = new(url: Settings.Default.systemUfitobsCatUrl, localFilePath: Settings.Default.systemFilenameUfitobsCat, databaseName: "ufitobs.cat");
-			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
-			formCheckUfitobsCat.TopMost = TopMost;
-			// Show the UFITOBS.CAT data check form as a modal dialog
-			_ = formCheckUfitobsCat.ShowDialog(owner: this);
-		}
-	}
+	private void ShowUfitobsCatUpdateCheck() => ShowDatabaseUpdateCheckForm(url: Settings.Default.systemUfitobsCatUrl, localFilePath: Settings.Default.systemFilenameUfitobsCat, databaseName: "ufitobs.cat");
 
 	/// <summary>Shows the SINGOPP.CAT data check form.</summary>
 	/// <remarks>This method is used to check the SINGOPP.CAT data for updates.</remarks>
-	private void ShowSingoppCatUpdateCheck()
+	private void ShowSingoppCatUpdateCheck() => ShowDatabaseUpdateCheckForm(url: Settings.Default.systemSingoppCatUrl, localFilePath: Settings.Default.systemFilenameSingoppCat, databaseName: "singopp.cat");
+
+	/// <summary>Shows the database downloader form for the specified database URL.</summary>
+	/// <param name="url">The remote URL of the database archive to download.</param>
+	/// <param name="menuItem">The menu item indicating that an update is available, which will be disabled after a successful download.</param>
+	/// <param name="statusLabel">An optional status-bar label that will be disabled after a successful download.</param>
+	private void ShowDatabaseDownloaderForm(string url, ToolStripMenuItem menuItem, ToolStripStatusLabel? statusLabel = null)
 	{
-		// Check if the network is available before proceeding with the download
 		if (!NetworkInterface.GetIsNetworkAvailable())
 		{
-			// Display an error message if the network is not available
+			menuItem.Enabled = false;
 			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
+			return;
 		}
-		else
+		using DatabaseDownloaderForm downloaderForm = new(url: url);
+		downloaderForm.TopMost = TopMost;
+		if (downloaderForm.ShowDialog(owner: this) == DialogResult.OK)
 		{
-			// Create and show the SINGOPP.CAT data check form
-			using CheckDatabaseForm formCheckSingoppCat = new(url: Settings.Default.systemSingoppCatUrl, localFilePath: Settings.Default.systemFilenameSingoppCat, databaseName: "singopp.cat");
-			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
-			formCheckSingoppCat.TopMost = TopMost;
-			// Show the SINGOPP.CAT data check form as a modal dialog
-			_ = formCheckSingoppCat.ShowDialog(owner: this);
+			menuItem.Enabled = false;
+			if (statusLabel is not null)
+			{
+				statusLabel.Enabled = false;
+			}
+			AskForRestartAfterDownloadingDatabase();
 		}
 	}
 
 	/// <summary>Shows the downloader form for the MPCORB database.</summary>
 	/// <remarks>This method is used to show the downloader form for the MPCORB database.</remarks>
-	private void ShowMpcorbDatDownloader()
-	{
-		// Check if the network is available before proceeding with the download
-		if (!NetworkInterface.GetIsNetworkAvailable())
-		{
-			// Disable the menu item for showing updates is available
-			toolStripMenuItemShowMpcorbDatUpdateIsAvailable.Enabled = false;
-			// Display an error message if the network is not available
-			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
-		}
-		else
-		{
-			// Create and show the downloader form for the MPCORB database
-			using DatabaseDownloaderForm downloaderForm = new(url: Settings.Default.systemMpcorbDatGzUrl);
-			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
-			downloaderForm.TopMost = TopMost;
-			// Show the downloader form as a modal dialog; pass 'this' as owner so Windows
-			// returns focus here when the dialog closes.
-			if (downloaderForm.ShowDialog(owner: this) == DialogResult.OK)
-			{
-				// Disable the menu item and the status label for showing updates is available
-				toolStripMenuItemShowMpcorbDatUpdateIsAvailable.Enabled = false;
-				toolStripStatusLabelMpcorbDatUpdate.Enabled = false;
-				// Ask the user if they want to restart the application after downloading the database
-				AskForRestartAfterDownloadingDatabase();
-			}
-		}
-	}
+	private void ShowMpcorbDatDownloader() => ShowDatabaseDownloaderForm(url: Settings.Default.systemMpcorbDatGzUrl, menuItem: toolStripMenuItemShowMpcorbDatUpdateIsAvailable, statusLabel: toolStripStatusLabelMpcorbDatUpdate);
 
 	/// <summary>Shows the downloader form for the ASTORB database.</summary>
 	/// <remarks>This method is used to show the downloader form for the ASTORB database.</remarks>
-	private void ShowAstorbDatDownloader()
-	{
-		// Check if the network is available before proceeding with the download
-		if (!NetworkInterface.GetIsNetworkAvailable())
-		{
-			// Disable the menu item for showing updates is available
-			toolStripMenuItemShowAstorbDatUpdateIsAvailable.Enabled = false;
-			// Display an error message if the network is not available
-			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
-		}
-		else
-		{
-			// Create and show the downloader form for the ASTORB database
-			using DatabaseDownloaderForm downloaderForm = new(url: Settings.Default.systemAstorbDatGzUrl);
-			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
-			downloaderForm.TopMost = TopMost;
-			// Show the downloader form as a modal dialog; pass 'this' as owner so Windows
-			// returns focus here when the dialog closes.
-			if (downloaderForm.ShowDialog(owner: this) == DialogResult.OK)
-			{
-				// Disable the menu item and the status label for showing updates is available
-				toolStripMenuItemShowAstorbDatUpdateIsAvailable.Enabled = false;
-				toolStripStatusLabelAstorbDatUpdate.Enabled = false;
-				// Ask the user if they want to restart the application after downloading the database
-				AskForRestartAfterDownloadingDatabase();
-			}
-		}
-	}
+	private void ShowAstorbDatDownloader() => ShowDatabaseDownloaderForm(url: Settings.Default.systemAstorbDatGzUrl, menuItem: toolStripMenuItemShowAstorbDatUpdateIsAvailable, statusLabel: toolStripStatusLabelAstorbDatUpdate);
 
 	/// <summary>Shows the downloader form for the ALLNUM.CAT database.</summary>
 	/// <remarks>This method is used to show the downloader form for the ALLNUM.CAT database.</remarks>
-	private void ShowAllnumCatDownloader()
-	{
-		// Check if the network is available before proceeding with the download
-		if (!NetworkInterface.GetIsNetworkAvailable())
-		{
-			// Disable the menu item for showing updates is available
-			toolStripMenuItemShowAllnumCatUpdateIsAvailable.Enabled = false;
-			// Display an error message if the network is not available
-			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
-		}
-		else
-		{
-			// Create and show the downloader form for the ALLNUM.CAT database
-			using DatabaseDownloaderForm downloaderForm = new(url: Settings.Default.systemAllnumCatUrl);
-			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
-			downloaderForm.TopMost = TopMost;
-			// Show the downloader form as a modal dialog; pass 'this' as owner so Windows
-			// returns focus here when the dialog closes.
-			if (downloaderForm.ShowDialog(owner: this) == DialogResult.OK)
-			{
-				// Disable the menu item and the status label for showing updates is available
-				toolStripMenuItemShowAllnumCatUpdateIsAvailable.Enabled = false;
-				//toolStripStatusLabelAllnumCatUpdate.Enabled = false;
-				// Ask the user if they want to restart the application after downloading the database
-				AskForRestartAfterDownloadingDatabase();
-			}
-		}
-	}
+	private void ShowAllnumCatDownloader() => ShowDatabaseDownloaderForm(url: Settings.Default.systemAllnumCatUrl, menuItem: toolStripMenuItemShowAllnumCatUpdateIsAvailable);
 
 	/// <summary>Shows the downloader form for the UFITOBS.CAT database.</summary>
 	/// <remarks>This method is used to show the downloader form for the UFITOBS.CAT database.</remarks>
-	private void ShowUfitobsCatDownloader()
-	{
-		// Check if the network is available before proceeding with the download
-		if (!NetworkInterface.GetIsNetworkAvailable())
-		{
-			// Disable the menu item for showing updates is available
-			toolStripMenuItemShowUfitobsCatUpdateIsAvailable.Enabled = false;
-			// Display an error message if the network is not available
-			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
-		}
-		else
-		{
-			// Create and show the downloader form for the UFITOBS.CAT database
-			using DatabaseDownloaderForm downloaderForm = new(url: Settings.Default.systemUfitobsCatUrl);
-			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
-			downloaderForm.TopMost = TopMost;
-			// Show the downloader form as a modal dialog; pass 'this' as owner so Windows
-			// returns focus here when the dialog closes.
-			if (downloaderForm.ShowDialog(owner: this) == DialogResult.OK)
-			{
-				// Disable the menu item and the status label for showing updates is available
-				toolStripMenuItemShowUfitobsCatUpdateIsAvailable.Enabled = false;
-				//toolStripStatusLabelUfitobsCatUpdate.Enabled = false;
-				// Ask the user if they want to restart the application after downloading the database
-				AskForRestartAfterDownloadingDatabase();
-			}
-		}
-	}
+	private void ShowUfitobsCatDownloader() => ShowDatabaseDownloaderForm(url: Settings.Default.systemUfitobsCatUrl, menuItem: toolStripMenuItemShowUfitobsCatUpdateIsAvailable);
 
 	/// <summary>Shows the downloader form for the SINGOPP.CAT database.</summary>
 	/// <remarks>This method is used to show the downloader form for the SINGOPP.CAT database.</remarks>
-	private void ShowSingoppCatDownloader()
-	{
-		// Check if the network is available before proceeding with the download
-		if (!NetworkInterface.GetIsNetworkAvailable())
-		{
-			// Disable the menu item for showing updates is available
-			toolStripMenuItemShowSingoppCatUpdateIsAvailable.Enabled = false;
-			// Display an error message if the network is not available
-			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
-		}
-		else
-		{
-			// Create and show the downloader form for the SINGOPP.CAT database
-			using DatabaseDownloaderForm downloaderForm = new(url: Settings.Default.systemSingoppCatUrl);
-			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
-			downloaderForm.TopMost = TopMost;
-			// Show the downloader form as a modal dialog; pass 'this' as owner so Windows
-			// returns focus here when the dialog closes.
-			if (downloaderForm.ShowDialog(owner: this) == DialogResult.OK)
-			{
-				// Disable the menu item and the status label for showing updates is available
-				toolStripMenuItemShowSingoppCatUpdateIsAvailable.Enabled = false;
-				//toolStripStatusLabelSingoppCatUpdate.Enabled = false;
-				// Ask the user if they want to restart the application after downloading the database
-				AskForRestartAfterDownloadingDatabase();
-			}
-		}
-	}
+	private void ShowSingoppCatDownloader() => ShowDatabaseDownloaderForm(url: Settings.Default.systemSingoppCatUrl, menuItem: toolStripMenuItemShowSingoppCatUpdateIsAvailable);
 
 	/// <summary>Shows the database information form.</summary>
 	/// <remarks>This method is used to show the database information form.</remarks>
@@ -1683,12 +1378,38 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Builds the base list of 20 orbital element strings from the currently displayed record.</summary>
+	/// <returns>A <see cref="List{T}"/> of 20 strings containing the raw orbital element field values for the current record.</returns>
+	private List<string> BuildBaseOrbitalElementsList() =>
+	[
+		labelIndexData.Text,
+		labelReadableDesignationData.Text,
+		labelEpochData.Text,
+		labelMeanAnomalyAtTheEpochData.Text,
+		labelArgumentOfThePerihelionData.Text,
+		labelLongitudeOfTheAscendingNodeData.Text,
+		labelInclinationToTheEclipticData.Text,
+		labelOrbitalEccentricityData.Text,
+		labelMeanDailyMotionData.Text,
+		labelSemiMajorAxisData.Text,
+		labelAbsoluteMagnitudeData.Text,
+		labelSlopeParameterData.Text,
+		labelReferenceData.Text,
+		labelNumberOfOppositionsData.Text,
+		labelNumberOfObservationsData.Text,
+		labelObservationSpanData.Text,
+		labelRmsResidualData.Text,
+		labelComputerNameData.Text,
+		labelFlagsData.Text,
+		labelDateLastObservationData.Text,
+	];
+
 	/// <summary>Exports the data sheet.</summary>
 	///	<remarks>This method is used to export the data sheet.</remarks>
 	private void ExportDataSheet()
 	{
-		// Create a new list to store the orbital elements
-		List<string> orbitalElements = [];
+		// Build the base orbital elements list (first 20 items)
+		List<string> orbitalElements = BuildBaseOrbitalElementsList();
 		// Create a specific culture for formatting
 		IFormatProvider provider = CultureInfo.CreateSpecificCulture(name: "en");
 		double semiMajorAxis = double.Parse(s: labelSemiMajorAxisData.Text, provider: provider);
@@ -1696,26 +1417,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		double meanAnomaly = double.Parse(s: labelMeanAnomalyAtTheEpochData.Text, provider: provider);
 		double longitudeAscendingNode = double.Parse(s: labelLongitudeOfTheAscendingNodeData.Text, provider: provider);
 		double argumentAphelion = double.Parse(s: labelArgumentOfThePerihelionData.Text, provider: provider);
-		orbitalElements.Add(item: labelIndexData.Text);
-		orbitalElements.Add(item: labelReadableDesignationData.Text);
-		orbitalElements.Add(item: labelEpochData.Text);
-		orbitalElements.Add(item: labelMeanAnomalyAtTheEpochData.Text);
-		orbitalElements.Add(item: labelArgumentOfThePerihelionData.Text);
-		orbitalElements.Add(item: labelLongitudeOfTheAscendingNodeData.Text);
-		orbitalElements.Add(item: labelInclinationToTheEclipticData.Text);
-		orbitalElements.Add(item: labelOrbitalEccentricityData.Text);
-		orbitalElements.Add(item: labelMeanDailyMotionData.Text);
-		orbitalElements.Add(item: labelSemiMajorAxisData.Text);
-		orbitalElements.Add(item: labelAbsoluteMagnitudeData.Text);
-		orbitalElements.Add(item: labelSlopeParameterData.Text);
-		orbitalElements.Add(item: labelReferenceData.Text);
-		orbitalElements.Add(item: labelNumberOfOppositionsData.Text);
-		orbitalElements.Add(item: labelNumberOfObservationsData.Text);
-		orbitalElements.Add(item: labelObservationSpanData.Text);
-		orbitalElements.Add(item: labelRmsResidualData.Text);
-		orbitalElements.Add(item: labelComputerNameData.Text);
-		orbitalElements.Add(item: labelFlagsData.Text);
-		orbitalElements.Add(item: labelDateLastObservationData.Text);
 		orbitalElements.Add(item: DerivedElements.CalculateLinearEccentricity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 		orbitalElements.Add(item: DerivedElements.CalculateSemiMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 		orbitalElements.Add(item: DerivedElements.CalculateMajorAxis(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
@@ -1749,8 +1450,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This method is used to show the print data sheet form.</remarks>
 	private void PrintDataSheet()
 	{
-		// Create a new list to store the orbital elements
-		List<string> orbitalElements = [];
+		// Build the base orbital elements list (first 20 items)
+		List<string> orbitalElements = BuildBaseOrbitalElementsList();
 		// Create a specific culture for formatting
 		IFormatProvider provider = CultureInfo.CreateSpecificCulture(name: "en");
 		double semiMajorAxis = double.Parse(s: labelSemiMajorAxisData.Text, provider: provider);
@@ -1758,26 +1459,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		double meanAnomaly = double.Parse(s: labelMeanAnomalyAtTheEpochData.Text, provider: provider);
 		double longitudeAscendingNode = double.Parse(s: labelLongitudeOfTheAscendingNodeData.Text, provider: provider);
 		double argumentAphelion = double.Parse(s: labelArgumentOfThePerihelionData.Text, provider: provider);
-		orbitalElements.Add(item: labelIndexData.Text);
-		orbitalElements.Add(item: labelReadableDesignationData.Text);
-		orbitalElements.Add(item: labelEpochData.Text);
-		orbitalElements.Add(item: labelMeanAnomalyAtTheEpochData.Text);
-		orbitalElements.Add(item: labelArgumentOfThePerihelionData.Text);
-		orbitalElements.Add(item: labelLongitudeOfTheAscendingNodeData.Text);
-		orbitalElements.Add(item: labelInclinationToTheEclipticData.Text);
-		orbitalElements.Add(item: labelOrbitalEccentricityData.Text);
-		orbitalElements.Add(item: labelMeanDailyMotionData.Text);
-		orbitalElements.Add(item: labelSemiMajorAxisData.Text);
-		orbitalElements.Add(item: labelAbsoluteMagnitudeData.Text);
-		orbitalElements.Add(item: labelSlopeParameterData.Text);
-		orbitalElements.Add(item: labelReferenceData.Text);
-		orbitalElements.Add(item: labelNumberOfOppositionsData.Text);
-		orbitalElements.Add(item: labelNumberOfObservationsData.Text);
-		orbitalElements.Add(item: labelObservationSpanData.Text);
-		orbitalElements.Add(item: labelRmsResidualData.Text);
-		orbitalElements.Add(item: labelComputerNameData.Text);
-		orbitalElements.Add(item: labelFlagsData.Text);
-		orbitalElements.Add(item: labelDateLastObservationData.Text);
 		orbitalElements.Add(item: DerivedElements.CalculateLinearEccentricity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 		orbitalElements.Add(item: DerivedElements.CalculateSemiMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 		orbitalElements.Add(item: DerivedElements.CalculateMajorAxis(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
@@ -1947,339 +1628,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 			ShowErrorMessage(message: $"Error while opening the file:\n\n{ex.Message}");
 		}
 	}
-
-	/// <summary>Decodes the 4-hexdigit flag from MPCORB.DAT and displays the result in a KryptonMessageBox.</summary>
-	/// <remarks>The flag encodes orbit type in the lower 6 bits and additional information in bits 6-15 according to MPC specifications.</remarks>
-	private void DecodeMpcorbFlags()
-	{
-		// Get the flag text from the label
-		string flagText = labelFlagsData.Text;
-		// Validate that the flag text is not empty
-		if (string.IsNullOrWhiteSpace(value: flagText))
-		{
-			logger.Warn(message: "Flag text is empty or whitespace");
-			_ = KryptonMessageBox.Show(
-				owner: this,
-				text: "No flag data available.",
-				caption: "Flag Decoder",
-				buttons: KryptonMessageBoxButtons.OK,
-				icon: KryptonMessageBoxIcon.Warning);
-			return;
-		}
-		// Validate that the flag text is a valid 4-hexdigit string
-		try
-		{
-			// Parse the hex string to an integer
-			int flagValue = Convert.ToInt32(value: flagText, fromBase: 16);
-			// Extract orbit type (lower 6 bits)
-			int orbitType = flagValue & 0x3F; // 0x3F = 0011 1111 (bits 0-5)
-											  // Extract individual flag bits
-			bool isNeo = (flagValue & 2048) != 0;          // Bit 11
-			bool isLargeNeo = (flagValue & 4096) != 0;     // Bit 12
-			bool isOneOppObject = (flagValue & 8192) != 0; // Bit 13
-			bool isCriticalList = (flagValue & 16384) != 0;// Bit 14
-			bool isPha = (flagValue & 32768) != 0;         // Bit 15
-														   // Build the result message
-			System.Text.StringBuilder result = new();
-			_ = result.AppendLine(value: $"MPCORB Flag Decoder");
-			_ = result.AppendLine(value: $"==================");
-			_ = result.AppendLine(value: $"Hex Value: {flagText}");
-			_ = result.AppendLine(value: $"Decimal Value: {flagValue}");
-			_ = result.AppendLine();
-			// Orbit type classification
-			_ = result.AppendLine(value: "Orbit Classification:");
-			string orbitTypeName = orbitType switch
-			{
-				1 => "Atira",
-				2 => "Aten",
-				3 => "Apollo",
-				4 => "Amor",
-				5 => "Object with q < 1.665 AU",
-				6 => "Hungaria",
-				7 => "Unused or internal MPC use only",
-				8 => "Hilda",
-				9 => "Jupiter Trojan",
-				10 => "Distant object",
-				_ => $"Undefined (value: {orbitType})"
-			};
-			_ = result.AppendLine(value: $"  {orbitTypeName}");
-			_ = result.AppendLine();
-			// Additional flags
-			_ = result.AppendLine(value: "Additional Flags:");
-			if (isNeo)
-			{
-				_ = result.AppendLine(value: "  ✓ Near-Earth Object (NEO)");
-			}
-			if (isLargeNeo)
-			{
-				_ = result.AppendLine(value: "  ✓ 1-km (or larger) NEO");
-			}
-			if (isOneOppObject)
-			{
-				_ = result.AppendLine(value: "  ✓ 1-opposition object seen at earlier opposition");
-			}
-			if (isCriticalList)
-			{
-				_ = result.AppendLine(value: "  ✓ Critical list numbered object");
-			}
-			if (isPha)
-			{
-				_ = result.AppendLine(value: "  ✓ Potentially Hazardous Asteroid (PHA)");
-			}
-			// If no additional flags are set
-			if (!isNeo && !isLargeNeo && !isOneOppObject && !isCriticalList && !isPha)
-			{
-				_ = result.AppendLine(value: "  (none)");
-			}
-			// Display the result in a KryptonMessageBox
-			_ = KryptonMessageBox.Show(owner: this, text: result.ToString(), caption: "MPCORB Flag Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
-
-			logger.Info(message: $"Decoded MPCORB flag: {flagText} = {flagValue} ({orbitTypeName})");
-		}
-		// Handle format exceptions when parsing the hex string
-		catch (FormatException ex)
-		{
-			logger.Error(exception: ex, message: $"Failed to parse flag value '{flagText}': {ex.Message}");
-			ShowErrorMessage(message: $"Failed to parse flag value '{flagText}'.\n\nThe flag must be a valid hexadecimal number.\n\nError: {ex.Message}");
-		}
-		// Handle overflow exceptions when the hex value is too large to fit in an integer
-		catch (OverflowException ex)
-		{
-			logger.Error(exception: ex, message: $"Error decoding MPCORB flag: {ex.Message}");
-			ShowErrorMessage(message: $"An error occurred while decoding the flag.\n\nError: {ex.Message}");
-		}
-	}
-
-	/// <summary>Decodes the compressed reference code from MPCORB.DAT and displays the full reference in a KryptonMessageBox.</summary>
-	/// <remarks>Decodes various reference formats according to MPC specifications at http://www.minorplanetcenter.org/iau/info/References.html</remarks>
-	private void DecodeMpcorbReference()
-	{
-		// Get the reference text from the label
-		string referenceText = labelReferenceData.Text;
-		// Validate that the reference text is not empty
-		if (string.IsNullOrWhiteSpace(value: referenceText))
-		{
-			logger.Warn(message: "Reference text is empty or whitespace");
-			_ = KryptonMessageBox.Show(owner: this, text: "No reference data available.", caption: "Reference Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
-			return;
-		}
-		// Attempt to decode the reference and handle any exceptions that may occur during decoding
-		try
-		{
-			string decodedReference = DecodeReference(compressedRef: referenceText.Trim());
-			// Build the result message
-			System.Text.StringBuilder result = new();
-			_ = result.AppendLine(value: "MPCORB Reference Decoder");
-			_ = result.AppendLine(value: "========================");
-			_ = result.AppendLine(value: $"Compressed: {referenceText}");
-			_ = result.AppendLine();
-			_ = result.AppendLine(value: "Full Reference:");
-			_ = result.AppendLine(value: $"  {decodedReference}");
-			// Display the result in a KryptonMessageBox
-			_ = KryptonMessageBox.Show(owner: this, text: result.ToString(), caption: "MPCORB Reference Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
-			logger.Info(message: $"Decoded MPCORB reference: '{referenceText}' → '{decodedReference}'");
-		}
-		catch (Exception ex)
-		{
-			logger.Error(exception: ex, message: $"Error decoding MPCORB reference '{referenceText}': {ex.Message}");
-			ShowErrorMessage(message: $"An error occurred while decoding the reference:\n\n{ex.Message}");
-		}
-	}
-
-	/// <summary>Decodes a compressed MPC reference string to its full form.</summary>
-	/// <param name="compressedRef">The compressed reference string (typically 5 characters).</param>
-	/// <returns>The full reference description.</returns>
-	private static string DecodeReference(string compressedRef)
-	{
-		if (string.IsNullOrWhiteSpace(value: compressedRef))
-		{
-			return "Unknown reference";
-		}
-		// Ensure the reference is exactly 5 characters for proper parsing
-		compressedRef = compressedRef.PadRight(totalWidth: 5);
-		char firstChar = compressedRef[index: 0];
-		// 1: Temporary MPEC References (E + half-month + number)
-		if (firstChar == 'E')
-		{
-			string halfMonth = compressedRef.Substring(startIndex: 1, length: 1);
-			string circularNumber = compressedRef.Substring(startIndex: 2, length: 3).TrimStart(trimChar: '0');
-			return $"MPEC (temporary) - Half-month {halfMonth}, Circular {circularNumber}";
-		}
-		// 2A: Five-digit MPC numbers (00001-99999)
-		if (char.IsDigit(c: firstChar) && compressedRef.All(predicate: c => char.IsDigit(c: c) || char.IsWhiteSpace(c: c)))
-		{
-			if (int.TryParse(s: compressedRef.Trim(), result: out int mpcNumber))
-			{
-				return $"Minor Planet Circular (MPC) {mpcNumber}";
-			}
-		}
-		// 2B: @ + four digits (MPC 100000-109999)
-		if (firstChar == '@')
-		{
-			string digits = compressedRef.Substring(startIndex: 1, length: 4);
-			if (int.TryParse(s: digits, result: out int excess))
-			{
-				return $"Minor Planet Circular (MPC) {100000 + excess}";
-			}
-		}
-		// 2C: # + four Base-62 characters (MPC 110000+)
-		if (firstChar == '#')
-		{
-			string base62 = compressedRef.Substring(startIndex: 1, length: 4);
-			int value = DecodeBase62(encoded: base62);
-			return $"Minor Planet Circular (MPC) {110000 + value}";
-		}
-		// 2D: Lowercase letter + four digits (MPS)
-		if (char.IsLower(c: firstChar))
-		{
-			int multiplier = firstChar - 'a';
-			string digits = compressedRef.Substring(startIndex: 1, length: 4);
-			if (int.TryParse(s: digits, result: out int remainder))
-			{
-				int mpsNumber = (multiplier * 10000) + remainder;
-				return $"Minor Planet Supplement (MPS) {mpsNumber}";
-			}
-		}
-		// 2E: Tilde + four Base-62 characters (MPS 260000+)
-		if (firstChar == '~')
-		{
-			string base62 = compressedRef.Substring(startIndex: 1, length: 4);
-			int value = DecodeBase62(encoded: base62);
-			return $"Minor Planet Supplement (MPS) {260000 + value}";
-		}
-		// 2F: Single uppercase letter + four digits (various journals)
-		if (char.IsUpper(c: firstChar) && compressedRef.Length >= 2 && char.IsDigit(c: compressedRef[index: 1]))
-		{
-			string digits = compressedRef.Substring(startIndex: 1, length: 4);
-			if (int.TryParse(s: digits, result: out int number))
-			{
-				return firstChar switch
-				{
-					'H' => $"Harvard Announcement Card (HAC) {number}",
-					'I' => $"IAU Circular (IAUC) {number}",
-					'M' => $"Minor Planet Circular (MPC) {number}",
-					'R' => $"Planetenzirkular des Astronomischen Rechen-Institut (RI) {number}",
-					_ => $"Journal '{firstChar}' #{number}"
-				};
-			}
-		}
-		// 2G: Two or more letters (various journals)
-		if (compressedRef.Length >= 2)
-		{
-			string journalCode = compressedRef[..2].Trim();
-			string remainder = compressedRef.Length > 2 ? compressedRef[2..].Trim() : "";
-			// Attempt to get the journal name from the code
-			string journalName = GetJournalName(code: journalCode);
-			if (!string.IsNullOrEmpty(value: journalName))
-			{
-				return !string.IsNullOrEmpty(value: remainder) && int.TryParse(s: remainder, result: out int volOrCirc)
-					? $"{journalName}, Vol./Circ. {volOrCirc}"
-					: journalName;
-			}
-		}
-		// If no known format matches, return the original compressed reference with a note
-		return $"Unknown reference format: {compressedRef.Trim()}";
-	}
-
-	/// <summary>Decodes a Base-62 encoded string to an integer.</summary>
-	/// <param name="encoded">The Base-62 encoded string.</param>
-	/// <returns>The decoded integer value.</returns>
-	/// <remarks>Uses characters 0-9, A-Z, a-z to represent digits 0-61.</remarks>
-	private static int DecodeBase62(string encoded)
-	{
-		// Define the character set for Base-62 encoding
-		const string base62Chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-		int result = 0;
-		// Process each character in the encoded string
-		foreach (char c in encoded)
-		{
-			// Find the index of the character in the Base-62 character set
-			int digit = base62Chars.IndexOf(value: c);
-			if (digit == -1)
-			{
-				// If the character is not found in the Base-62 set, throw a format exception
-				throw new FormatException(message: $"Invalid Base-62 character: {c}");
-			}
-			result = (result * 62) + digit;
-		}
-		// Return the decoded integer value
-		return result;
-	}
-
-	/// <summary>Gets the full journal name from a two-letter journal code.</summary>
-	/// <param name="code">The two-letter journal code.</param>
-	/// <returns>The full journal name, or an empty string if not found.</returns>
-	private static string GetJournalName(string code) => code switch
-	{
-		"AA" => "Astronomy and Astrophysics",
-		"AB" => "Bulletin des Astrophysikalischen Observatoriums Abastumani",
-		"AC" => "Astronomisches Zirkular der Akademie der Wissenschaften der UdSSR",
-		"AE" => "Astronomical Papers prepared for the use of the American Ephemeris and Nautical Almanac",
-		"AJ" => "Astronomical Journal",
-		"AN" => "Astronomische Nachrichten",
-		"AP" => "Astrophysical Journal Supplement",
-		"As" => "Astronomy and Astrophysics Supplement",
-		"BA" => "Bulletin Astronomique",
-		"BB" => "Bulletin Astronomique de l'Observatoire Royal de Belgique, Uccle",
-		"BC" => "Bulletin of the Astronomical Institutes of Czechoslovakia",
-		"BG" => "Bulletin de l'Observatoire Astronomique de Beograd",
-		"BN" => "Bulletin of the Astronomical Institutes of the Netherlands",
-		"BP" => "Bulletin de la Societe des amis des sciences et des lettres de Poznan",
-		"BZ" => "Beobachtungs-Zirkulare der Astronomischen Nachrichten",
-		"CB" => "Comet Bulletin of the Orient Astronomical Association",
-		"CC" => "Observatorio Astronomico de Cordoba, Serie Contribuciones",
-		"CD" => "Tsirkulyari Rasadkhonai Stalinobod",
-		"CK" => "Izvestiya Krymskoj Astrofizicheskoj Observatorii",
-		"CM" => "Circulaire de l'Observatoire de Marseille",
-		"CO" => "Odesskij Gosudarstvennyj Universitet Izvestiya Astronomicheskoj Observattorii",
-		"CR" => "Comptes Rendus hebdomadaires de l'academie des sciences de Paris",
-		"CS" => "Soobshcheniya Gosudarstvennogo Astronomicheskogo Instituta imeni P. K. Shternberga",
-		"GO" => "Greenwich Observations",
-		"HA" => "Harvard Annal",
-		"HD" => "Veröffentlichungen der Landessternwarte Heidelberg",
-		"HTCDR" => "Hipparcos-Tycho CD-ROM",
-		"IHW" => "International Halley Watch CD-ROM",
-		"Ic" => "Icarus",
-		"JB" => "Journal of the British Astronomical Association",
-		"JC" => "Japan Astronomical Study Association Circular",
-		"JO" => "Journal des Observateurs",
-		"KB" => "Bulletin of the Kwasan Observatory, Kyoto",
-		"KK" => "Kiev Komet Tsirkular",
-		"LB" => "Lick Observatory Bulletin",
-		"LO" => "Lowell Observatory Bulletin",
-		"LP" => "Publicaciones Observatorio Astronomico de La Plata",
-		"MN" => "Monthly Notices of the Royal Astronomical Society",
-		"NA" => "Annales de l'Observatoire de Nice",
-		"NC" => "Nihondaira Observatory Circular",
-		"NO" => "Publications of the U.S. Naval Observatory, Second Series",
-		"NZ" => "Nachrichtenblatt der Astronomischen Zentralstelle",
-		"OB" => "The Observatory",
-		"PA" => "Publications of the Astronomical Society of the Pacific",
-		"PC" => "Poulkovo Observatory Circular",
-		"PD" => "Tartu Astronoomia Observatooriumi Publikatsioonid",
-		"PK" => "Pyublikatsii Kievskoj Astronomicheskoj Observatorii",
-		"PO" => "Perth Observatory Communication",
-		"PP" => "Izvestiya Glavnoj Astronomicheskoj Observatorii v Pulkove",
-		"PT" => "Pubblicazioni del Osservatorio di Torino",
-		"PZ" => "Zirkular des Astronomischen Hauptobservatoriums Pulkowo",
-		"RA" => "Ricerche Astronomiche",
-		"RM" => "Memoirs of the Royal Astronomical Society",
-		"SA" => "Monthly Notices of the Astronomical Society of Southern Africa",
-		"SOB" => "Observatory Bulletin",
-		"TB" => "Tokyo Astronomical Bulletin",
-		"TC" => "Transval Observatory Circular",
-		"TI" => "Astronomia-Optika Institucio, Universitato de Turku, Informo",
-		"UC" => "Circular of the Union Observatory, Johannesburg",
-		"WO" => "Astronomical Observations of the U.S. Naval Observatory, Washington",
-		"WiA" => "Annalen der Sternwarte der Universität Wien",
-		"pM" => "Mitteilungen der Nikolai-Hauptsternwarte zu Pulkowo",
-		"CMC" => "Carlsberg Meridian Circle Publications",
-		"APO" => "Annales de l'Observatoire de Paris: Observations",
-		"AS" => "Acta Astronomica Sinica",
-		"AZ" => "Astronomicheskij Zhurnal",
-		"AcA" => "Acta Astronomica",
-		_ => string.Empty
-	};
 
 	#endregion
 
