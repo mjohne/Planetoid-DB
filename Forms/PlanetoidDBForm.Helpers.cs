@@ -284,6 +284,10 @@ public partial class PlanetoidDbForm
 			// Otherwise, return false (no update available)
 			return datetimeFileOnline > datetimeFileLocal;
 		}
+		catch (System.Net.Http.HttpRequestException)
+		{
+			return false;
+		}
 		catch (WebException)
 		{
 			return false;
