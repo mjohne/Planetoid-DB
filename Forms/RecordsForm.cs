@@ -13,7 +13,6 @@ using Planetoid_DB.Helpers;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
-using System.Reflection;
 
 namespace Planetoid_DB;
 
@@ -80,20 +79,7 @@ public partial class RecordsForm : BaseKryptonForm
 		// Initialize the form components
 		InitializeComponent();
 		// Enable double buffering for the TableLayoutPanel to prevent flickering
-		try
-		{
-			// Set the DoubleBuffered property (protected)
-			PropertyInfo? dbProp = typeof(Control).GetProperty(name: "DoubleBuffered", bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance);
-			dbProp?.SetValue(obj: tableLayoutPanel, value: true, index: null);
-			// Also set specific control styles via reflection just in case
-			MethodInfo? setStyleMethod = typeof(Control).GetMethod(name: "SetStyle", bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance);
-			setStyleMethod?.Invoke(obj: tableLayoutPanel, parameters: [ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true]);
-		}
-		// Catch any exceptions that may occur during reflection and log a warning, but do not prevent the form from functioning without double buffering
-		catch (Exception ex)
-		{
-			logger.Warn(exception: ex, message: "Could not set DoubleBuffered on tableLayoutPanel");
-		}
+		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanel);
 		// Wire up BackgroundWorker events once at construction time
 #pragma warning disable CS8622
 		backgroundWorker.DoWork += BackgroundWorker_DoWork;
