@@ -1,5 +1,18 @@
 # Changelog
 
+## Planetoid-DB 0.9.17.80
+
+* Update image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/837
+* Updated `CHANGELOG` for version 0.9.16.79 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/838
+* Updated `System` packages to version 11.0.0-preview.6.26359.118 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/839
+* Updated `HarfBuzzSharp` packages to version 14.2.1.1 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/840
+* Updated `SkiaSharp` packages to version 4.151.0-preview.2.1 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/841
+* Updated package version numbers by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/842
+* Updated to version 0.9.17.80 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/843
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.16.79.835.2747...0.9.17.80.843.2844
+
+
 ## Planetoid-DB 0.9.16.79
 
 * Updated image source in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/830
