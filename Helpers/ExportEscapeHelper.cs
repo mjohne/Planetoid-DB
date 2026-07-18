@@ -197,7 +197,7 @@ public static class ExportEscapeHelper
 	/// <remarks>Logs the error with details about the format and file path, and displays an error message box to the user.</remarks>
 	internal static void ShowError(Exception ex, string format, string filePath)
 	{
-		logger.Error(exception: ex, message: "Error saving as {format} to '{{FilePath}}'.", args: filePath);
+		logger.Error(exception: ex, message: "Error saving as {Format} to '{FilePath}'.", args: [format, filePath]);
 		ShowErrorMessage(message: $"Error saving as {format}: {ex.Message}");
 	}
 }
