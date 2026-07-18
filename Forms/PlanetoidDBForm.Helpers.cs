@@ -436,7 +436,15 @@ public partial class PlanetoidDbForm
 
 	/// <summary>Loads a random minor planet from the database.</summary>
 	/// <remarks>This method is used to load a random minor planet from the database.</remarks>
-	private void LoadRandomMinorPlanet() => GotoCurrentPosition(position: currentPosition = new Random().Next(maxValue: planetoidsDatabase.Count + 1));
+	private void LoadRandomMinorPlanet()
+	{
+		if (planetoidsDatabase.Count == 0)
+		{
+			return;
+		}
+		currentPosition = Random.Shared.Next(maxValue: planetoidsDatabase.Count);
+		GotoCurrentPosition(position: currentPosition);
+	}
 
 	/// <summary>Navigates to the beginning of the data.</summary>
 	/// <remarks>This method is used to navigate to the beginning of the data.</remarks>
