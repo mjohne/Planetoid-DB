@@ -1056,61 +1056,37 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method constructs a URL to the Minor Planet Center database using the current object's identifier and opens it in the default web browser.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void OpenDataPageMpcDatabase_Click(object sender, EventArgs e)
-	{
-		string dataPageUrl = "https://www.minorplanetcenter.net/db_search/show_object?utf8=%E2%9C%93&object_id=" + labelIndexData.Text;
-		OpenWebsite(fileName: dataPageUrl);
-	}
+	private void OpenDataPageMpcDatabase_Click(object sender, EventArgs e) => OpenWebsite(fileName: "https://www.minorplanetcenter.net/db_search/show_object?utf8=%E2%9C%93&object_id=" + labelIndexData.Text);
 
 	/// <summary>Handles the Click event for the JPL Small-Body Database menu item and opens the corresponding web page in the default browser.</summary>
 	/// <remarks>This event handler constructs a URL to the JPL Small-Body Database using the current value of the index label and opens it in the user's default web browser.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void OpenDataPageJplSmallBodyDatabase_Click(object sender, EventArgs e)
-	{
-		string dataPageUrl = "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=" + labelIndexData.Text + "&view=OPDA";
-		OpenWebsite(fileName: dataPageUrl);
-	}
+	private void OpenDataPageJplSmallBodyDatabase_Click(object sender, EventArgs e) => OpenWebsite(fileName: "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=" + labelIndexData.Text + "&view=OPDA");
 
 	/// <summary>Handles the Click event for the Lowell Minor Planet Services menu item, opening the corresponding asteroid data page in a web browser.</summary>
 	/// <remarks>This event handler constructs a URL for the Lowell Observatory's asteroid search page based on the current designation and opens it in the default web browser.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void OpenDataPageLowellMinorPlanetServices_Click(object sender, EventArgs e)
-	{
-		string dataPageUrl = "https://asteroid.lowell.edu/gui/search/" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text);
-		OpenWebsite(fileName: dataPageUrl);
-	}
+	private void OpenDataPageLowellMinorPlanetServices_Click(object sender, EventArgs e) => OpenWebsite(fileName: "https://asteroid.lowell.edu/gui/search/" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text));
 
 	/// <summary>Handles the Click event for the Asteroids Dynamic Site menu item, opening the corresponding asteroid data page in a web browser.</summary>
 	/// <remarks>This event handler constructs a URL for the selected asteroid using its readable designation and opens the associated data page in the default web browser.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void OpenDataPageAsteroidsDynamicSite_Click(object sender, EventArgs e)
-	{
-		string dataPageUrl = "https://newton.spacedys.com/astdys/index.php?pc=1.1.0&n=" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text);
-		OpenWebsite(fileName: dataPageUrl);
-	}
+	private void OpenDataPageAsteroidsDynamicSite_Click(object sender, EventArgs e) => OpenWebsite(fileName: "https://newton.spacedys.com/astdys/index.php?pc=1.1.0&n=" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text));
 
 	/// <summary>Handles the Click event for the menu item that opens the Near-Earth Objects dynamic site in a web browser.</summary>
 	/// <remarks>This method constructs a URL for the Near-Earth Objects dynamic site using the current designation and opens it in the default web browser.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void OpenDataPageNearEarthObjectsDynamicSite_Click(object sender, EventArgs e)
-	{
-		string dataPageUrl = "https://newton.spacedys.com/neodys/index.php?pc=1.1.0&n=" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text);
-		OpenWebsite(fileName: dataPageUrl);
-	}
+	private void OpenDataPageNearEarthObjectsDynamicSite_Click(object sender, EventArgs e) => OpenWebsite(fileName: "https://newton.spacedys.com/neodys/index.php?pc=1.1.0&n=" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text));
 
 	/// <summary>Handles the Click event for the Near-Earth Object Coordination Centre menu item, opening the corresponding ESA NEO data page in a web browser.</summary>
 	/// <remarks>This event handler constructs a URL to the ESA Near-Earth Object Coordination Centre based on the current designation and opens it in the default web browser. Use this handler to provide quick access to detailed asteroid information from the application.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void OpenDataPageNearEarthObjectCoordinationCentre_Click(object sender, EventArgs e)
-	{
-		string dataPageUrl = "https://neo.ssa.esa.int/search-for-asteroids?tab=summary&des=" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text);
-		OpenWebsite(fileName: dataPageUrl);
-	}
+	private void OpenDataPageNearEarthObjectCoordinationCentre_Click(object sender, EventArgs e) => OpenWebsite(fileName: "https://neo.ssa.esa.int/search-for-asteroids?tab=summary&des=" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text));
 
 
 	/// <summary>Handles the Click event for the menu item that opens all relevant data pages for the selected object in the default web browser.</summary>
@@ -1151,8 +1127,8 @@ public partial class PlanetoidDbForm
 		_ = formObservatoryCodes.ShowDialog(owner: this);
 	}
 
-	/// <summary>
-	/// Handles the Click event to display the orbit 2D top view.</summary>	/// <param name="sender">The source of the event.</param>
+	/// <summary>Handles the Click event to display the orbit 2D top view.</summary>
+	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
 	/// <remarks>This method displays the 2D top view of the orbit when the corresponding control is clicked.</remarks>
 	private void Orbit2DTopView_Click(object sender, EventArgs e) => ShowOrbit2DTopView();
