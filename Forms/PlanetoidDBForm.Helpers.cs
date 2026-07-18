@@ -530,10 +530,10 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to navigate to the end of the data.</remarks>
 	private void NavigateToTheEndOfTheData() => GotoCurrentPosition(position: currentPosition = planetoidsDatabase.Count - 1);
 
-	/// <summary>Processes a designation string by removing parenthetical content, trimming whitespace, and replacing spaces with plus signs.</summary>
+	/// <summary>Processes a designation string by removing parenthetical content, trimming whitespace, and removing spaces.</summary>
 	/// <param name="input">The input designation string to process.</param>
-	/// <returns>The processed string with parenthetical content removed, trimmed, and spaces replaced by plus signs.</returns>
-	/// <remarks>This method is useful for preparing designation strings for URL queries. For example, "(449127) 2013 AS15" becomes "2013+AS15".</remarks>
+	/// <returns>The processed string with parenthetical content removed, trimmed, and spaces removed.</returns>
+	/// <remarks>This method is useful for preparing designation strings for URL queries. For example, "(449127) 2013 AS15" becomes "2013AS15".</remarks>
 	private static string ProcessDesignationForUrl(string input)
 	{
 		// Validate input
