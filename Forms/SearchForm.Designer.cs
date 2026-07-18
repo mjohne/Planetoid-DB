@@ -10,22 +10,22 @@ namespace Planetoid_DB;
 /// <summary>Represents a form that provides a user interface for searching within the MPCORB.DAT file.</summary>
 /// <remarks>The form enables users to input search criteria, select orbital elements, and view search results. It includes options for full-text search and displays results in a list format. Use this form to facilitate advanced and customizable searches of the MPCORB.DAT dataset.</remarks>
 partial class SearchForm
-    {
-        /// <summary>Required designer variable.</summary>
+	{
+		/// <summary>Required designer variable.</summary>
 		/// <remarks>This field stores the components used by the form.</remarks>
-        private System.ComponentModel.IContainer components = null;
+		private System.ComponentModel.IContainer components = null;
 
-        /// <summary>Clean up any resources being used.</summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        /// <remarks>This method disposes of the resources used by the form.</remarks>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+		/// <summary>Clean up any resources being used.</summary>
+		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+		/// <remarks>This method disposes of the resources used by the form.</remarks>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && (components != null))
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
 
 	#region Windows Form Designer generated code
 
@@ -102,6 +102,7 @@ partial class SearchForm
 		kryptonProgressBar = new KryptonProgressBarToolStripItem();
 		toolStripSeparator3 = new ToolStripSeparator();
 		toolStripButtonGoToObject = new ToolStripButton();
+		toolStripMenuItemSaveAsTypst = new ToolStripMenuItem();
 		((System.ComponentModel.ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
 		((System.ComponentModel.ISupportInitialize)splitContainer).BeginInit();
@@ -284,7 +285,7 @@ partial class SearchForm
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveList";
-		contextMenuSaveToFile.Size = new Size(202, 158);
+		contextMenuSaveToFile.Size = new Size(202, 180);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
 		contextMenuSaveToFile.Enter += Control_Enter;
@@ -298,7 +299,7 @@ partial class SearchForm
 		toolStripMenuItemTextFiles.AccessibleName = "Save as text file";
 		toolStripMenuItemTextFiles.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemTextFiles.AutoToolTip = true;
-		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile });
+		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile, toolStripMenuItemSaveAsTypst });
 		toolStripMenuItemTextFiles.Image = Resources.FatcowIcons16px.fatcow_file_extension_txt_16px;
 		toolStripMenuItemTextFiles.Name = "toolStripMenuItemTextFiles";
 		toolStripMenuItemTextFiles.ShortcutKeyDisplayString = "";
@@ -1132,6 +1133,20 @@ partial class SearchForm
 		toolStripButtonGoToObject.MouseEnter += Control_Enter;
 		toolStripButtonGoToObject.MouseLeave += Control_Leave;
 		// 
+		// toolStripMenuItemSaveAsTypst
+		// 
+		toolStripMenuItemSaveAsTypst.AccessibleDescription = "Save list as Typst file";
+		toolStripMenuItemSaveAsTypst.AccessibleName = "Save as Typst";
+		toolStripMenuItemSaveAsTypst.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsTypst.AutoToolTip = true;
+		toolStripMenuItemSaveAsTypst.Image = Resources.FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsTypst.Name = "toolStripMenuItemSaveAsTypst";
+		toolStripMenuItemSaveAsTypst.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsTypst.Text = "Save as T&ypst";
+		toolStripMenuItemSaveAsTypst.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTypst.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsTypst.Click += SaveAsTypst_Click;
+		// 
 		// SearchForm
 		// 
 		AccessibleDescription = "Dialog to search a word, a keyword or a number";
@@ -1179,12 +1194,12 @@ partial class SearchForm
 	#endregion
 
 	private Krypton.Toolkit.KryptonPanel kryptonPanelMain;
-        private Krypton.Toolkit.KryptonCheckedListBox kryptonCheckedListBoxElements;
-        private System.Windows.Forms.ListView listViewResults;
-        private System.Windows.Forms.ColumnHeader columnHeaderIndex;
-        private System.Windows.Forms.ColumnHeader columnHeaderDesignation;
-        private System.Windows.Forms.ColumnHeader columnHeaderElement;
-        private System.Windows.Forms.ColumnHeader columnHeaderValue;
+	private Krypton.Toolkit.KryptonCheckedListBox kryptonCheckedListBoxElements;
+	private System.Windows.Forms.ListView listViewResults;
+	private System.Windows.Forms.ColumnHeader columnHeaderIndex;
+	private System.Windows.Forms.ColumnHeader columnHeaderDesignation;
+	private System.Windows.Forms.ColumnHeader columnHeaderElement;
+	private System.Windows.Forms.ColumnHeader columnHeaderValue;
 	private ToolStripContainer toolStripContainer;
 	private Krypton.Toolkit.KryptonStatusStrip kryptonStatusStrip;
 	private ToolStripStatusLabel labelInformation;
@@ -1245,4 +1260,5 @@ partial class SearchForm
 	private ToolStripMenuItem toolStripMenuItemSaveAsChm;
 	private ToolStripSeparator toolStripSeparator3;
 	private ToolStripButton toolStripButtonGoToObject;
+	private ToolStripMenuItem toolStripMenuItemSaveAsTypst;
 }

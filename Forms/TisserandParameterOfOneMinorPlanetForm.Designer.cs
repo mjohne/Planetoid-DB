@@ -71,6 +71,7 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsAsciiDoc = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsReStructuredText = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsTextile = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsTypst = new ToolStripMenuItem();
 		toolStripMenuItemWriterDocuments = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsWord = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsOdt = new ToolStripMenuItem();
@@ -135,7 +136,6 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		labelMercuryDesc.Dock = DockStyle.Fill;
 		labelMercuryDesc.LabelStyle = LabelStyle.BoldPanel;
 		labelMercuryDesc.Location = new Point(3, 3);
-		labelMercuryDesc.Values.Text = "Mercury";
 		labelMercuryDesc.Name = "labelMercuryDesc";
 		labelMercuryDesc.Size = new Size(136, 24);
 		labelMercuryDesc.TabIndex = 0;
@@ -144,12 +144,12 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		labelMercuryDesc.ToolTipValues.Heading = "Tisserand parameter relative to Mercury";
 		labelMercuryDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		labelMercuryDesc.Values.Text = "Mercury";
+		labelMercuryDesc.DoubleClick += CopyToClipboard_DoubleClick;
 		labelMercuryDesc.Enter += Control_Enter;
 		labelMercuryDesc.Leave += Control_Leave;
+		labelMercuryDesc.MouseDown += Control_MouseDown;
 		labelMercuryDesc.MouseEnter += Control_Enter;
 		labelMercuryDesc.MouseLeave += Control_Leave;
-		labelMercuryDesc.MouseDown += Control_MouseDown;
-		labelMercuryDesc.DoubleClick += CopyToClipboard_DoubleClick;
 		// 
 		// contextMenuCopyToClipboard
 		// 
@@ -201,10 +201,10 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		labelVenusDesc.ToolTipValues.Heading = "Tisserand parameter relative to Venus";
 		labelVenusDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		labelVenusDesc.Values.Text = "Venus";
+		labelVenusDesc.DoubleClick += CopyToClipboard_DoubleClick;
 		labelVenusDesc.Enter += Control_Enter;
 		labelVenusDesc.Leave += Control_Leave;
 		labelVenusDesc.MouseDown += Control_MouseDown;
-		labelVenusDesc.DoubleClick += CopyToClipboard_DoubleClick;
 		labelVenusDesc.MouseEnter += Control_Enter;
 		labelVenusDesc.MouseLeave += Control_Leave;
 		// 
@@ -225,12 +225,12 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		labelEarthDesc.ToolTipValues.Heading = "Tisserand parameter relative to Earth";
 		labelEarthDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		labelEarthDesc.Values.Text = "Earth";
+		labelEarthDesc.DoubleClick += CopyToClipboard_DoubleClick;
 		labelEarthDesc.Enter += Control_Enter;
 		labelEarthDesc.Leave += Control_Leave;
 		labelEarthDesc.MouseDown += Control_MouseDown;
 		labelEarthDesc.MouseEnter += Control_Enter;
 		labelEarthDesc.MouseLeave += Control_Leave;
-		labelEarthDesc.DoubleClick += CopyToClipboard_DoubleClick;
 		// 
 		// labelMarsDesc
 		// 
@@ -249,12 +249,12 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		labelMarsDesc.ToolTipValues.Heading = "Tisserand parameter relative to Mars";
 		labelMarsDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		labelMarsDesc.Values.Text = "Mars";
+		labelMarsDesc.DoubleClick += CopyToClipboard_DoubleClick;
 		labelMarsDesc.Enter += Control_Enter;
 		labelMarsDesc.Leave += Control_Leave;
 		labelMarsDesc.MouseDown += Control_MouseDown;
 		labelMarsDesc.MouseEnter += Control_Enter;
 		labelMarsDesc.MouseLeave += Control_Leave;
-		labelMarsDesc.DoubleClick += CopyToClipboard_DoubleClick;
 		// 
 		// labelJupiterDesc
 		// 
@@ -273,12 +273,12 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		labelJupiterDesc.ToolTipValues.Heading = "Tisserand parameter relative to Jupiter";
 		labelJupiterDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		labelJupiterDesc.Values.Text = "Jupiter";
+		labelJupiterDesc.DoubleClick += CopyToClipboard_DoubleClick;
 		labelJupiterDesc.Enter += Control_Enter;
 		labelJupiterDesc.Leave += Control_Leave;
 		labelJupiterDesc.MouseDown += Control_MouseDown;
 		labelJupiterDesc.MouseEnter += Control_Enter;
 		labelJupiterDesc.MouseLeave += Control_Leave;
-		labelJupiterDesc.DoubleClick += CopyToClipboard_DoubleClick;
 		// 
 		// labelSaturnDesc
 		// 
@@ -297,12 +297,12 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		labelSaturnDesc.ToolTipValues.Heading = "Tisserand parameter relative to Saturn";
 		labelSaturnDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		labelSaturnDesc.Values.Text = "Saturn";
+		labelSaturnDesc.DoubleClick += CopyToClipboard_DoubleClick;
 		labelSaturnDesc.Enter += Control_Enter;
 		labelSaturnDesc.Leave += Control_Leave;
 		labelSaturnDesc.MouseDown += Control_MouseDown;
 		labelSaturnDesc.MouseEnter += Control_Enter;
 		labelSaturnDesc.MouseLeave += Control_Leave;
-		labelSaturnDesc.DoubleClick += CopyToClipboard_DoubleClick;
 		// 
 		// labelUranusDesc
 		// 
@@ -321,12 +321,12 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		labelUranusDesc.ToolTipValues.Heading = "Tisserand parameter relative to Uranus";
 		labelUranusDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		labelUranusDesc.Values.Text = "Uranus";
+		labelUranusDesc.DoubleClick += CopyToClipboard_DoubleClick;
 		labelUranusDesc.Enter += Control_Enter;
 		labelUranusDesc.Leave += Control_Leave;
 		labelUranusDesc.MouseDown += Control_MouseDown;
 		labelUranusDesc.MouseEnter += Control_Enter;
 		labelUranusDesc.MouseLeave += Control_Leave;
-		labelUranusDesc.DoubleClick += CopyToClipboard_DoubleClick;
 		// 
 		// labelNeptuneDesc
 		// 
@@ -345,12 +345,12 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		labelNeptuneDesc.ToolTipValues.Heading = "Tisserand parameter relative to Neptune";
 		labelNeptuneDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		labelNeptuneDesc.Values.Text = "Neptune";
+		labelNeptuneDesc.DoubleClick += CopyToClipboard_DoubleClick;
 		labelNeptuneDesc.Enter += Control_Enter;
 		labelNeptuneDesc.Leave += Control_Leave;
 		labelNeptuneDesc.MouseDown += Control_MouseDown;
 		labelNeptuneDesc.MouseEnter += Control_Enter;
 		labelNeptuneDesc.MouseLeave += Control_Leave;
-		labelNeptuneDesc.DoubleClick += CopyToClipboard_DoubleClick;
 		// 
 		// labelMercuryData
 		// 
@@ -717,7 +717,7 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveToFile";
-		contextMenuSaveToFile.Size = new Size(202, 158);
+		contextMenuSaveToFile.Size = new Size(202, 180);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save Tisserand parameter data";
 		contextMenuSaveToFile.Enter += Control_Enter;
@@ -731,7 +731,7 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		toolStripMenuItemTextFiles.AccessibleName = "Save as text file";
 		toolStripMenuItemTextFiles.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemTextFiles.AutoToolTip = true;
-		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile });
+		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile, toolStripMenuItemSaveAsTypst });
 		toolStripMenuItemTextFiles.Image = FatcowIcons16px.fatcow_file_extension_txt_16px;
 		toolStripMenuItemTextFiles.Name = "toolStripMenuItemTextFiles";
 		toolStripMenuItemTextFiles.Size = new Size(201, 22);
@@ -822,6 +822,20 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsTextile.Click += SaveAsTextile_Click;
 		toolStripMenuItemSaveAsTextile.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsTextile.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsTypst
+		// 
+		toolStripMenuItemSaveAsTypst.AccessibleDescription = "Saves the data as Typst file";
+		toolStripMenuItemSaveAsTypst.AccessibleName = "Save as Typst";
+		toolStripMenuItemSaveAsTypst.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsTypst.AutoToolTip = true;
+		toolStripMenuItemSaveAsTypst.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsTypst.Name = "toolStripMenuItemSaveAsTypst";
+		toolStripMenuItemSaveAsTypst.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsTypst.Text = "Save as T&ypst";
+		toolStripMenuItemSaveAsTypst.Click += SaveAsTypst_Click;
+		toolStripMenuItemSaveAsTypst.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTypst.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemWriterDocuments
 		// 
@@ -1293,13 +1307,14 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		contextMenuFullCopyToClipboard.Font = new Font("Segoe UI", 9F);
 		contextMenuFullCopyToClipboard.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardTisserandParameterRelativeToMercury, menuitemCopyToClipboardTisserandParameterRelativeToVenus, menuitemCopyToClipboardTisserandParameterRelativeToEarth, menuitemCopyToClipboardTisserandParameterRelativeToMars, menuitemCopyToClipboardTisserandParameterRelativeToJupiter, menuitemCopyToClipboardTisserandParameterRelativeToSaturn, menuitemCopyToClipboardTisserandParameterRelativeToUranus, menuitemCopyToClipboardTisserandParameterRelativeToNeptune });
 		contextMenuFullCopyToClipboard.Name = "Context menu for copying Tisserand parameters to the clipboard";
+		contextMenuFullCopyToClipboard.OwnerItem = toolStripDropDownButtonCopyToClipboard;
 		contextMenuFullCopyToClipboard.Size = new Size(121, 180);
 		contextMenuFullCopyToClipboard.Text = "Copy to clipboard";
 		contextMenuFullCopyToClipboard.Enter += Control_Enter;
 		contextMenuFullCopyToClipboard.Leave += Control_Leave;
 		contextMenuFullCopyToClipboard.MouseEnter += Control_Enter;
 		contextMenuFullCopyToClipboard.MouseLeave += Control_Leave;
-		//
+		// 
 		// menuitemCopyToClipboardTisserandParameterRelativeToMercury
 		// 
 		menuitemCopyToClipboardTisserandParameterRelativeToMercury.AccessibleDescription = "Copies to clipboard: Tisserand parameter relative to Mercury";
@@ -1381,8 +1396,6 @@ partial class TisserandParameterOfOneMinorPlanetForm
 		menuitemCopyToClipboardTisserandParameterRelativeToSaturn.Size = new Size(120, 22);
 		menuitemCopyToClipboardTisserandParameterRelativeToSaturn.Text = "&Saturn";
 		menuitemCopyToClipboardTisserandParameterRelativeToSaturn.Click += MenuitemCopyToClipboardTisserandParameterRelativeToSaturn_Click;
-		menuitemCopyToClipboardTisserandParameterRelativeToSaturn.MouseEnter += Control_Enter;
-		menuitemCopyToClipboardTisserandParameterRelativeToSaturn.MouseLeave += Control_Leave;
 		// 
 		// menuitemCopyToClipboardTisserandParameterRelativeToUranus
 		// 
@@ -1549,4 +1562,5 @@ partial class TisserandParameterOfOneMinorPlanetForm
 	private ToolStripMenuItem menuitemCopyToClipboardTisserandParameterRelativeToUranus;
 	private ToolStripMenuItem menuitemCopyToClipboardTisserandParameterRelativeToNeptune;
 	private ToolStripDropDownButton toolStripDropDownButtonCopyToClipboard;
+	private ToolStripMenuItem toolStripMenuItemSaveAsTypst;
 }

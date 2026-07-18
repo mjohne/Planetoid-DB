@@ -63,8 +63,6 @@ partial class MaxoidsOfOneMinorPlanetForm
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
 		tableLayoutPanel = new KryptonTableLayoutPanel();
-		toolStripIcons = new ToolStrip();
-		toolStripDropDownButtonSaveToFile = new ToolStripDropDownButton();
 		contextMenuSaveToFile = new ContextMenuStrip(components);
 		toolStripMenuItemTextFiles = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsText = new ToolStripMenuItem();
@@ -105,6 +103,8 @@ partial class MaxoidsOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsXps = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsFictionBook2 = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsChm = new ToolStripMenuItem();
+		toolStripDropDownButtonSaveToFile = new ToolStripDropDownButton();
+		toolStripIcons = new ToolStrip();
 		toolStripDropDownButtonCopyToClipboard = new ToolStripDropDownButton();
 		contextMenuFullCopyToClipboard = new ContextMenuStrip(components);
 		menuitemCopyToClipboardMaxoidRelativeToMercury = new ToolStripMenuItem();
@@ -116,6 +116,7 @@ partial class MaxoidsOfOneMinorPlanetForm
 		menuitemCopyToClipboardMaxoidRelativeToUranus = new ToolStripMenuItem();
 		menuitemCopyToClipboardMaxoidRelativeToNeptune = new ToolStripMenuItem();
 		kryptonManager = new KryptonManager(components);
+		toolStripMenuItemSaveAsTypst = new ToolStripMenuItem();
 		contextMenuCopyToClipboard.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
@@ -123,8 +124,8 @@ partial class MaxoidsOfOneMinorPlanetForm
 		toolStripContainer.SuspendLayout();
 		kryptonStatusStrip.SuspendLayout();
 		tableLayoutPanel.SuspendLayout();
-		toolStripIcons.SuspendLayout();
 		contextMenuSaveToFile.SuspendLayout();
+		toolStripIcons.SuspendLayout();
 		contextMenuFullCopyToClipboard.SuspendLayout();
 		SuspendLayout();
 		// 
@@ -681,43 +682,6 @@ partial class MaxoidsOfOneMinorPlanetForm
 		tableLayoutPanel.MouseEnter += Control_Enter;
 		tableLayoutPanel.MouseLeave += Control_Leave;
 		// 
-		// toolStripIcons
-		// 
-		toolStripIcons.AccessibleDescription = "Toolbar for exporting data";
-		toolStripIcons.AccessibleName = "Toolbar for exporting data";
-		toolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
-		toolStripIcons.AllowClickThrough = true;
-		toolStripIcons.AllowItemReorder = true;
-		toolStripIcons.BackColor = Color.Transparent;
-		toolStripIcons.Dock = DockStyle.None;
-		toolStripIcons.Font = new Font("Segoe UI", 9F);
-		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripDropDownButtonSaveToFile, toolStripDropDownButtonCopyToClipboard });
-		toolStripIcons.Location = new Point(0, 0);
-		toolStripIcons.Name = "toolStripIcons";
-		toolStripIcons.Size = new Size(284, 25);
-		toolStripIcons.Stretch = true;
-		toolStripIcons.TabIndex = 0;
-		toolStripIcons.TabStop = true;
-		toolStripIcons.Text = "Toolbar for exporting data";
-		toolStripIcons.Enter += Control_Enter;
-		toolStripIcons.Leave += Control_Leave;
-		toolStripIcons.MouseEnter += Control_Enter;
-		toolStripIcons.MouseLeave += Control_Leave;
-		// 
-		// toolStripDropDownButtonSaveToFile
-		// 
-		toolStripDropDownButtonSaveToFile.AccessibleDescription = "Saves information to file";
-		toolStripDropDownButtonSaveToFile.AccessibleName = "Save to file";
-		toolStripDropDownButtonSaveToFile.AccessibleRole = AccessibleRole.ButtonDropDown;
-		toolStripDropDownButtonSaveToFile.DropDown = contextMenuSaveToFile;
-		toolStripDropDownButtonSaveToFile.Image = FatcowIcons16px.fatcow_diskette_16px;
-		toolStripDropDownButtonSaveToFile.ImageTransparentColor = Color.Magenta;
-		toolStripDropDownButtonSaveToFile.Name = "toolStripDropDownButtonSaveToFile";
-		toolStripDropDownButtonSaveToFile.Size = new Size(93, 22);
-		toolStripDropDownButtonSaveToFile.Text = "&Save to file";
-		toolStripDropDownButtonSaveToFile.MouseEnter += Control_Enter;
-		toolStripDropDownButtonSaveToFile.MouseLeave += Control_Leave;
-		// 
 		// contextMenuSaveToFile
 		// 
 		contextMenuSaveToFile.AccessibleDescription = "Save the MAXOID data as file";
@@ -727,8 +691,7 @@ partial class MaxoidsOfOneMinorPlanetForm
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveToFile";
-		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveToFile;
-		contextMenuSaveToFile.Size = new Size(202, 158);
+		contextMenuSaveToFile.Size = new Size(202, 180);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save MAXOID data";
 		contextMenuSaveToFile.Enter += Control_Enter;
@@ -742,7 +705,7 @@ partial class MaxoidsOfOneMinorPlanetForm
 		toolStripMenuItemTextFiles.AccessibleName = "Save as text file";
 		toolStripMenuItemTextFiles.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemTextFiles.AutoToolTip = true;
-		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile });
+		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile, toolStripMenuItemSaveAsTypst });
 		toolStripMenuItemTextFiles.Image = FatcowIcons16px.fatcow_file_extension_txt_16px;
 		toolStripMenuItemTextFiles.Name = "toolStripMenuItemTextFiles";
 		toolStripMenuItemTextFiles.Size = new Size(201, 22);
@@ -1282,6 +1245,43 @@ partial class MaxoidsOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsChm.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsChm.MouseLeave += Control_Leave;
 		// 
+		// toolStripDropDownButtonSaveToFile
+		// 
+		toolStripDropDownButtonSaveToFile.AccessibleDescription = "Saves information to file";
+		toolStripDropDownButtonSaveToFile.AccessibleName = "Save to file";
+		toolStripDropDownButtonSaveToFile.AccessibleRole = AccessibleRole.ButtonDropDown;
+		toolStripDropDownButtonSaveToFile.DropDown = contextMenuSaveToFile;
+		toolStripDropDownButtonSaveToFile.Image = FatcowIcons16px.fatcow_diskette_16px;
+		toolStripDropDownButtonSaveToFile.ImageTransparentColor = Color.Magenta;
+		toolStripDropDownButtonSaveToFile.Name = "toolStripDropDownButtonSaveToFile";
+		toolStripDropDownButtonSaveToFile.Size = new Size(93, 22);
+		toolStripDropDownButtonSaveToFile.Text = "&Save to file";
+		toolStripDropDownButtonSaveToFile.MouseEnter += Control_Enter;
+		toolStripDropDownButtonSaveToFile.MouseLeave += Control_Leave;
+		// 
+		// toolStripIcons
+		// 
+		toolStripIcons.AccessibleDescription = "Toolbar for exporting data";
+		toolStripIcons.AccessibleName = "Toolbar for exporting data";
+		toolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
+		toolStripIcons.AllowClickThrough = true;
+		toolStripIcons.AllowItemReorder = true;
+		toolStripIcons.BackColor = Color.Transparent;
+		toolStripIcons.Dock = DockStyle.None;
+		toolStripIcons.Font = new Font("Segoe UI", 9F);
+		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripDropDownButtonSaveToFile, toolStripDropDownButtonCopyToClipboard });
+		toolStripIcons.Location = new Point(0, 0);
+		toolStripIcons.Name = "toolStripIcons";
+		toolStripIcons.Size = new Size(284, 25);
+		toolStripIcons.Stretch = true;
+		toolStripIcons.TabIndex = 0;
+		toolStripIcons.TabStop = true;
+		toolStripIcons.Text = "Toolbar for exporting data";
+		toolStripIcons.Enter += Control_Enter;
+		toolStripIcons.Leave += Control_Leave;
+		toolStripIcons.MouseEnter += Control_Enter;
+		toolStripIcons.MouseLeave += Control_Leave;
+		// 
 		// toolStripDropDownButtonCopyToClipboard
 		// 
 		toolStripDropDownButtonCopyToClipboard.AccessibleDescription = "Copies information to clipboard";
@@ -1430,6 +1430,20 @@ partial class MaxoidsOfOneMinorPlanetForm
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 		// 
+		// toolStripMenuItemSaveAsTypst
+		// 
+		toolStripMenuItemSaveAsTypst.AccessibleDescription = "Saves the data as Typst file";
+		toolStripMenuItemSaveAsTypst.AccessibleName = "Save as Typst";
+		toolStripMenuItemSaveAsTypst.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsTypst.AutoToolTip = true;
+		toolStripMenuItemSaveAsTypst.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsTypst.Name = "toolStripMenuItemSaveAsTypst";
+		toolStripMenuItemSaveAsTypst.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsTypst.Text = "Save as T&ypst";
+		toolStripMenuItemSaveAsTypst.Click += SaveAsTypst_Click;
+		toolStripMenuItemSaveAsTypst.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTypst.MouseLeave += Control_Leave;
+		// 
 		// MaxoidsOfOneMinorPlanetForm
 		// 
 		AccessibleDescription = "Shows the MAXOID values of a minor planet relative to the eight solar system planets";
@@ -1466,9 +1480,9 @@ partial class MaxoidsOfOneMinorPlanetForm
 		kryptonStatusStrip.PerformLayout();
 		tableLayoutPanel.ResumeLayout(false);
 		tableLayoutPanel.PerformLayout();
+		contextMenuSaveToFile.ResumeLayout(false);
 		toolStripIcons.ResumeLayout(false);
 		toolStripIcons.PerformLayout();
-		contextMenuSaveToFile.ResumeLayout(false);
 		contextMenuFullCopyToClipboard.ResumeLayout(false);
 		ResumeLayout(false);
 	}
@@ -1549,6 +1563,7 @@ partial class MaxoidsOfOneMinorPlanetForm
 	private ToolStripMenuItem toolStripMenuItemSaveAsXps;
 	private ToolStripMenuItem toolStripMenuItemSaveAsFictionBook2;
 	private ToolStripMenuItem toolStripMenuItemSaveAsChm;
+	private ToolStripMenuItem toolStripMenuItemSaveAsTypst;
 
 	// ── copy-to-clipboard toolbar button ────────────────────────────────────────
 	private ToolStripDropDownButton toolStripDropDownButtonCopyToClipboard;

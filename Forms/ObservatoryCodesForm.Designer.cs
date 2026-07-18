@@ -83,14 +83,15 @@ partial class ObservatoryCodesForm
 		toolStripMenuItemSaveAsXps = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsFictionBook2 = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsChm = new ToolStripMenuItem();
-		toolStripDropDownButtonSaveListInToolbar = new ToolStripDropDownButton();
 		toolStripDropDownButtonSaveList = new ToolStripDropDownButton();
+		toolStripDropDownButtonSaveListInToolbar = new ToolStripDropDownButton();
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
 		kryptonManager = new KryptonManager(components);
 		toolStripContainer = new ToolStripContainer();
 		kryptonToolStripMain = new KryptonToolStrip();
 		toolStripButtonInfoAboutObsCodes = new ToolStripButton();
+		toolStripMenuItemSaveAsTypst = new ToolStripMenuItem();
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
 		contextMenuSaveToFile.SuspendLayout();
@@ -165,9 +166,7 @@ partial class ObservatoryCodesForm
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveList";
-		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveList;
-		contextMenuSaveToFile.RightToLeft = RightToLeft.Inherit;
-		contextMenuSaveToFile.Size = new Size(202, 158);
+		contextMenuSaveToFile.Size = new Size(202, 180);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
 		// 
@@ -177,7 +176,7 @@ partial class ObservatoryCodesForm
 		toolStripMenuItemTextFiles.AccessibleName = "Save as text file";
 		toolStripMenuItemTextFiles.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemTextFiles.AutoToolTip = true;
-		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile });
+		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile, toolStripMenuItemSaveAsTypst });
 		toolStripMenuItemTextFiles.Image = FatcowIcons16px.fatcow_file_extension_txt_16px;
 		toolStripMenuItemTextFiles.Name = "toolStripMenuItemTextFiles";
 		toolStripMenuItemTextFiles.Size = new Size(201, 22);
@@ -639,6 +638,18 @@ partial class ObservatoryCodesForm
 		toolStripMenuItemSaveAsChm.Text = "Save as &CHM";
 		toolStripMenuItemSaveAsChm.Click += SaveAsChm_Click;
 		// 
+		// toolStripDropDownButtonSaveList
+		// 
+		toolStripDropDownButtonSaveList.AccessibleDescription = "Saves the list as file";
+		toolStripDropDownButtonSaveList.AccessibleName = "Save list";
+		toolStripDropDownButtonSaveList.AccessibleRole = AccessibleRole.ButtonDropDown;
+		toolStripDropDownButtonSaveList.DropDown = contextMenuSaveToFile;
+		toolStripDropDownButtonSaveList.Image = FatcowIcons16px.fatcow_diskette_16px;
+		toolStripDropDownButtonSaveList.ImageTransparentColor = Color.Magenta;
+		toolStripDropDownButtonSaveList.Name = "toolStripDropDownButtonSaveList";
+		toolStripDropDownButtonSaveList.Size = new Size(78, 22);
+		toolStripDropDownButtonSaveList.Text = "&Save list";
+		// 
 		// toolStripDropDownButtonSaveListInToolbar
 		// 
 		toolStripDropDownButtonSaveListInToolbar.AccessibleDescription = "Saves the list as file";
@@ -652,18 +663,6 @@ partial class ObservatoryCodesForm
 		toolStripDropDownButtonSaveListInToolbar.Text = "&Save list";
 		toolStripDropDownButtonSaveListInToolbar.MouseEnter += Control_Enter;
 		toolStripDropDownButtonSaveListInToolbar.MouseLeave += Control_Leave;
-		// 
-		// toolStripDropDownButtonSaveList
-		// 
-		toolStripDropDownButtonSaveList.AccessibleDescription = "Saves the list as file";
-		toolStripDropDownButtonSaveList.AccessibleName = "Save list";
-		toolStripDropDownButtonSaveList.AccessibleRole = AccessibleRole.ButtonDropDown;
-		toolStripDropDownButtonSaveList.DropDown = contextMenuSaveToFile;
-		toolStripDropDownButtonSaveList.Image = FatcowIcons16px.fatcow_diskette_16px;
-		toolStripDropDownButtonSaveList.ImageTransparentColor = Color.Magenta;
-		toolStripDropDownButtonSaveList.Name = "toolStripDropDownButtonSaveList";
-		toolStripDropDownButtonSaveList.Size = new Size(78, 22);
-		toolStripDropDownButtonSaveList.Text = "&Save list";
 		// 
 		// kryptonStatusStrip
 		// 
@@ -782,6 +781,19 @@ partial class ObservatoryCodesForm
 		toolStripButtonInfoAboutObsCodes.MouseEnter += Control_Enter;
 		toolStripButtonInfoAboutObsCodes.MouseLeave += Control_Leave;
 		// 
+		// toolStripMenuItemSaveAsTypst
+		// 
+		toolStripMenuItemSaveAsTypst.AccessibleDescription = "Saves the list as Typst file";
+		toolStripMenuItemSaveAsTypst.AccessibleName = "Save as Typst";
+		toolStripMenuItemSaveAsTypst.AutoToolTip = true;
+		toolStripMenuItemSaveAsTypst.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsTypst.Name = "toolStripMenuItemSaveAsTypst";
+		toolStripMenuItemSaveAsTypst.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsTypst.Text = "Save as T&ypst";
+		toolStripMenuItemSaveAsTypst.Click += SaveAsTypst_Click;
+		toolStripMenuItemSaveAsTypst.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTypst.MouseLeave += Control_Leave;
+		// 
 		// ObservatoryCodesForm
 		// 
 		AccessibleDescription = "Shows the list of observatory codes";
@@ -872,4 +884,5 @@ partial class ObservatoryCodesForm
 	private KryptonToolStrip kryptonToolStripMain;
 	private ToolStripDropDownButton toolStripDropDownButtonSaveListInToolbar;
 	private ToolStripButton toolStripButtonInfoAboutObsCodes;
+	private ToolStripMenuItem toolStripMenuItemSaveAsTypst;
 }

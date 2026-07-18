@@ -113,6 +113,7 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		toolStripProgress = new ToolStrip();
 		toolStripLabelProgress = new ToolStripLabel();
 		kryptonProgressBar = new KryptonProgressBarToolStripItem();
+		toolStripMenuItemSaveAsTypst = new ToolStripMenuItem();
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
 		contextMenuSaveToFile.SuspendLayout();
@@ -227,8 +228,7 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveList";
-		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveToFile;
-		contextMenuSaveToFile.Size = new Size(202, 158);
+		contextMenuSaveToFile.Size = new Size(202, 180);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
 		contextMenuSaveToFile.MouseEnter += Control_Enter;
@@ -240,7 +240,7 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		toolStripMenuItemTextFiles.AccessibleName = "Save as text file";
 		toolStripMenuItemTextFiles.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemTextFiles.AutoToolTip = true;
-		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile });
+		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile, toolStripMenuItemSaveAsTypst });
 		toolStripMenuItemTextFiles.Image = FatcowIcons16px.fatcow_file_extension_txt_16px;
 		toolStripMenuItemTextFiles.Name = "toolStripMenuItemTextFiles";
 		toolStripMenuItemTextFiles.Size = new Size(201, 22);
@@ -1192,6 +1192,22 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 		kryptonProgressBar.Values.Text = "";
 		kryptonProgressBar.Enter += Control_Enter;
 		kryptonProgressBar.Leave += Control_Leave;
+		kryptonProgressBar.MouseEnter += Control_Enter;
+		kryptonProgressBar.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsTypst
+		// 
+		toolStripMenuItemSaveAsTypst.AccessibleDescription = "Saves the list as Typst file";
+		toolStripMenuItemSaveAsTypst.AccessibleName = "Save as Typst";
+		toolStripMenuItemSaveAsTypst.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsTypst.AutoToolTip = true;
+		toolStripMenuItemSaveAsTypst.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsTypst.Name = "toolStripMenuItemSaveAsTypst";
+		toolStripMenuItemSaveAsTypst.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsTypst.Text = "Save as T&ypst";
+		toolStripMenuItemSaveAsTypst.Click += SaveAsTypst_Click;
+		toolStripMenuItemSaveAsTypst.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTypst.MouseLeave += Control_Leave;
 		// 
 		// OrbitalResonancesOfAllMinorPlanetsForm
 		// 
@@ -1308,4 +1324,5 @@ partial class OrbitalResonancesOfAllMinorPlanetsForm
 	private ToolStripMenuItem toolStripMenuItemSaveAsChm;
 	private ToolStripSeparator toolStripSeparator1;
 	private ToolStripButton toolStripButtonFilterResonances;
+	private ToolStripMenuItem toolStripMenuItemSaveAsTypst;
 }

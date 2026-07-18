@@ -329,6 +329,48 @@ public static partial class ListViewExporter
 		}
 	}
 
+	/// <summary>Saves the contents of <paramref name="listView"/> as a Typst document.</summary>
+	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
+	/// <param name="title">The document title written as a level-1 heading.</param>
+	/// <param name="fileName">The full path of the output file.</param>
+	/// <param name="virtualRowProvider">An optional delegate invoked with a row index to supply <see cref="ListViewItem"/> instances in virtual mode. When <see langword="null"/>, the <see cref="ListView.Items"/> indexer is used.</param>
+	/// <remarks>The file is a proper Typst document, not a plain text file.</remarks>
+	public static void SaveAsTypst(ListView listView, string title, string fileName, Func<int, ListViewItem>? virtualRowProvider = null)
+	{
+		// Get the column headers and rows, and write the output file with UTF-8 encoding. The output is a Typst-formatted text file with the title as a level-1 heading, followed by a table containing the ListView data. Special characters in the cell data are escaped to prevent breaking the Typst syntax.
+		try
+		{
+			// Get the column headers from the ListView.
+			string[] headers = GetHeaders(listView: listView);
+			// Convert the rows to a list to allow multiple iterations for writing the output.
+			List<string[]> rows = [.. GetRows(listView: listView, virtualRowProvider: virtualRowProvider)];
+			// Use a StreamWriter to write the output file with UTF-8 encoding. The 'append: false' parameter ensures that the file is overwritten if it already exists.
+			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
+			writer.WriteLine(value: $"# {title}");
+			writer.WriteLine();
+			writer.WriteLine(value: "table(");
+			writer.WriteLine(value: "  header: [");
+			writer.WriteLine(value: "    " + string.Join(separator: ", ", values: headers.Select(selector: static h => $"\"{h}\"")) + ",");
+			writer.WriteLine(value: "  ],");
+			writer.WriteLine(value: "  body: [");
+			// Write each row of data as a Typst table row, escaping double quotes in the cell data to prevent breaking the Typst syntax. Each cell is enclosed in double quotes, and rows are separated by commas.
+			foreach (string[] row in rows)
+			{
+				string[] escaped = [.. row.Select(selector: static v => v.Replace(oldValue: "\"", newValue: "\\\""))];
+				writer.WriteLine(value: "    [" + string.Join(separator: ", ", values: escaped.Select(selector: static v => $"\"{v}\"")) + "],");
+			}
+			writer.WriteLine(value: "  ]");
+			writer.WriteLine(value: ")");
+			// Show a success message after the file has been saved.
+			ExportEscapeHelper.ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ExportEscapeHelper.ShowError(ex: ex, format: "Typst", filePath: fileName);
+		}
+	}
+
 	/// <summary>Saves the contents of <paramref name="listView"/> as a Microsoft Word document (DOCX).</summary>
 	/// <param name="listView">The <see cref="ListView"/> containing the data to export.</param>
 	/// <param name="title">The document title written as a styled paragraph at the top.</param>

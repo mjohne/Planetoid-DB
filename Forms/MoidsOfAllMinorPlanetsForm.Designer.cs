@@ -58,6 +58,7 @@ partial class MoidsOfAllMinorPlanetsForm
 		toolStripMenuItemSaveAsAsciiDoc = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsReStructuredText = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsTextile = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsTypst = new ToolStripMenuItem();
 		toolStripMenuItemWriterDocuments = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsWord = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsOdt = new ToolStripMenuItem();
@@ -240,7 +241,7 @@ partial class MoidsOfAllMinorPlanetsForm
 		toolStripMenuItemTextFiles.AccessibleName = "Save as text file";
 		toolStripMenuItemTextFiles.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemTextFiles.AutoToolTip = true;
-		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile });
+		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile, toolStripMenuItemSaveAsTypst });
 		toolStripMenuItemTextFiles.Image = FatcowIcons16px.fatcow_file_extension_txt_16px;
 		toolStripMenuItemTextFiles.Name = "toolStripMenuItemTextFiles";
 		toolStripMenuItemTextFiles.Size = new Size(201, 22);
@@ -331,6 +332,20 @@ partial class MoidsOfAllMinorPlanetsForm
 		toolStripMenuItemSaveAsTextile.Click += SaveAsTextile_Click;
 		toolStripMenuItemSaveAsTextile.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsTextile.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsTypst
+		// 
+		toolStripMenuItemSaveAsTypst.AccessibleDescription = "Saves the list as Typst file";
+		toolStripMenuItemSaveAsTypst.AccessibleName = "Save as Typst";
+		toolStripMenuItemSaveAsTypst.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsTypst.AutoToolTip = true;
+		toolStripMenuItemSaveAsTypst.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsTypst.Name = "toolStripMenuItemSaveAsTypst";
+		toolStripMenuItemSaveAsTypst.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsTypst.Text = "Save as T&ypst";
+		toolStripMenuItemSaveAsTypst.Click += SaveAsTypst_Click;
+		toolStripMenuItemSaveAsTypst.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTypst.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemWriterDocuments
 		// 
@@ -1098,6 +1113,7 @@ partial class MoidsOfAllMinorPlanetsForm
 	private ToolStripMenuItem toolStripMenuItemSaveAsAsciiDoc;
 	private ToolStripMenuItem toolStripMenuItemSaveAsReStructuredText;
 	private ToolStripMenuItem toolStripMenuItemSaveAsTextile;
+	private ToolStripMenuItem toolStripMenuItemSaveAsTypst;
 	private ToolStripMenuItem toolStripMenuItemWriterDocuments;
 	private ToolStripMenuItem toolStripMenuItemSaveAsWord;
 	private ToolStripMenuItem toolStripMenuItemSaveAsOdt;

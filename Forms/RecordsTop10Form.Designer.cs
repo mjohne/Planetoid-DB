@@ -147,6 +147,7 @@ partial class RecordsTop10Form
 		kryptonToolStripProgress = new KryptonToolStrip();
 		toolStripLabelProgress = new ToolStripLabel();
 		kryptonProgressBar = new KryptonProgressBarToolStripItem();
+		toolStripMenuItemSaveAsTypst = new ToolStripMenuItem();
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
 		((ISupportInitialize)splitContainerMain).BeginInit();
@@ -364,8 +365,7 @@ partial class RecordsTop10Form
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveList";
-		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveList;
-		contextMenuSaveToFile.Size = new Size(202, 158);
+		contextMenuSaveToFile.Size = new Size(202, 180);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
 		contextMenuSaveToFile.Enter += Control_Enter;
@@ -379,7 +379,7 @@ partial class RecordsTop10Form
 		toolStripMenuItemTextFiles.AccessibleName = "Save as text file";
 		toolStripMenuItemTextFiles.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemTextFiles.AutoToolTip = true;
-		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile });
+		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile, toolStripMenuItemSaveAsTypst });
 		toolStripMenuItemTextFiles.Image = FatcowIcons16px.fatcow_file_extension_txt_16px;
 		toolStripMenuItemTextFiles.Name = "toolStripMenuItemTextFiles";
 		toolStripMenuItemTextFiles.Size = new Size(201, 22);
@@ -2159,7 +2159,6 @@ partial class RecordsTop10Form
 		toolStripSeparator1.AccessibleName = "Just a separator";
 		toolStripSeparator1.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator1.Name = "toolStripSeparator1";
-		toolStripSeparator1.Text = "Just a separator";
 		toolStripSeparator1.Size = new Size(6, 25);
 		toolStripSeparator1.MouseEnter += Control_Enter;
 		toolStripSeparator1.MouseLeave += Control_Leave;
@@ -2224,6 +2223,20 @@ partial class RecordsTop10Form
 		kryptonProgressBar.Leave += Control_Leave;
 		kryptonProgressBar.MouseEnter += Control_Enter;
 		kryptonProgressBar.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsTypst
+		// 
+		toolStripMenuItemSaveAsTypst.AccessibleDescription = "Saves the list as Typst file";
+		toolStripMenuItemSaveAsTypst.AccessibleName = "Save as Typst";
+		toolStripMenuItemSaveAsTypst.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsTypst.AutoToolTip = true;
+		toolStripMenuItemSaveAsTypst.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsTypst.Name = "toolStripMenuItemSaveAsTypst";
+		toolStripMenuItemSaveAsTypst.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsTypst.Text = "Save as T&ypst";
+		toolStripMenuItemSaveAsTypst.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTypst.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsTypst.Click += SaveAsTypst_Click;
 		// 
 		// RecordsTop10Form
 		// 
@@ -2384,4 +2397,5 @@ partial class RecordsTop10Form
 	private KryptonLabel labelValue10;
 	private KryptonButton buttonGoto10;
 	private ToolStripSeparator toolStripSeparator1;
+	private ToolStripMenuItem toolStripMenuItemSaveAsTypst;
 }

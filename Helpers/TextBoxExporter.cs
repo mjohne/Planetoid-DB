@@ -189,6 +189,35 @@ public static partial class TextBoxExporter
 		}
 	}
 
+	/// <summary>Saves the contents of the specified text box to a file in Typst markup format, using the provided title as a heading.</summary>
+	/// <remarks>Each line from the text box is written as a separate paragraph in the output file. The method writes the title as a level-one heading at the top of the file. The file is saved using UTF-8 encoding. If an I/O or access error occurs, an error message is displayed to the user.</remarks>
+	/// <param name="textBox">The text box whose lines are to be saved as Typst-formatted paragraphs. Cannot be null.</param>
+	/// <param name="title">The title to use as the main heading in the Typst file. This will be written as a level-one heading.</param>
+	/// <param name="fileName">The full path and name of the file to which the Typst content will be saved. If the file exists, it will be overwritten.</param>
+	public static void SaveAsTypst(TextBox textBox, string title, string fileName)
+	{
+		// Use a StreamWriter to write the title as a Typst heading and each line of the text box to the specified file. The file is saved with UTF-8 encoding. If an I/O or access error occurs, an error message is displayed to the user.
+		try
+		{
+			// The 'using' statement ensures that the StreamWriter is properly disposed after use, which will flush and close the underlying file stream.
+			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
+			writer.WriteLine(value: $"# {title}");
+			writer.WriteLine();
+			// Write each line from the text box to the Typst document, escaping special characters as needed.
+			foreach (string line in textBox.Lines)
+			{
+				writer.WriteLine(value: line);
+			}
+			// If the save operation completes successfully, show a success message to the user.
+			ExportEscapeHelper.ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ExportEscapeHelper.ShowError(ex: ex, format: "Typst", filePath: fileName);
+		}
+	}
+
 	/// <summary>Saves the contents of the specified text box as a Microsoft Word document in the .docx format at the given file path, using the provided title as the document heading.</summary>
 	/// <remarks>If a file already exists at the specified path, it will be overwritten. The method creates a minimal .docx file containing the title and each line of the text box as a separate paragraph. If an I/O or access error occurs, an error message is displayed to the user.</remarks>
 	/// <param name="textBox">The text box whose lines will be exported to the Word document. Cannot be null.</param>

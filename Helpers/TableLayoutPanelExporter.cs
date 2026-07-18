@@ -30,11 +30,14 @@ public static class TableLayoutPanelExporter
 	/// <remarks>Reads the text of the control at each column position in row 0. If a cell in row 0 has no control, an empty string is used as the header for that column.</remarks>
 	private static string[] GetHeaders(TableLayoutPanel tableLayoutPanel)
 	{
+		// Row 0 is the header row; read the text of the control at each column position. If a cell has no control, use an empty string as the header for that column.
 		string[] headers = new string[tableLayoutPanel.ColumnCount];
+		// Iterate through each column index and retrieve the control at row 0 for that column. If the control is null, use an empty string; otherwise, use the control's Text property.
 		for (int c = 0; c < tableLayoutPanel.ColumnCount; c++)
 		{
 			headers[c] = tableLayoutPanel.GetControlFromPosition(column: c, row: 0)?.Text ?? string.Empty;
 		}
+		// Return the array of header strings to the caller.
 		return headers;
 	}
 
@@ -315,6 +318,40 @@ public static class TableLayoutPanelExporter
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportEscapeHelper.ShowError(ex: ex, format: "Textile", filePath: fileName);
+		}
+	}
+
+	/// <summary>Saves the contents of <paramref name="tableLayoutPanel"/> as a Typst document.</summary>
+	/// <param name="tableLayoutPanel">The <see cref="TableLayoutPanel"/> containing the data to export.</param>
+	/// <param name="title">The document title written as a level-1 heading.</param>
+	/// <param name="fileName">The full path of the output file.</param>
+	/// <remarks>The file is a proper Typst document, not a plain text file.</remarks>
+	public static void SaveAsTypst(TableLayoutPanel tableLayoutPanel, string title, string fileName)
+	{
+		// Get the column headers and write the output file with UTF-8 encoding. The output is a Typst-formatted text file with the title as a heading, followed by a table containing the TableLayoutPanel data. Special characters in the cell data are escaped to prevent breaking the Typst syntax.
+		try
+		{
+			// Get the column headers from the TableLayoutPanel.
+			string[] headers = GetHeaders(tableLayoutPanel: tableLayoutPanel);
+			// Use a StreamWriter to write the output file with UTF-8 encoding. The 'append: false' parameter ensures that the file is overwritten if it already exists.
+			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
+			// Write the title as a heading, followed by an empty line, then the Typst table header row and each row of data with cells escaped for Typst.
+			writer.WriteLine(value: $"# {title}");
+			writer.WriteLine();
+			writer.WriteLine(value: "| " + string.Join(separator: " | ", values: headers) + " |");
+			writer.WriteLine(value: "| " + string.Join(separator: " | ", values: headers.Select(selector: static _ => "---")) + " |");
+			foreach (string[] row in GetRows(tableLayoutPanel: tableLayoutPanel))
+			{
+				// Escape pipe characters in the cell data to prevent breaking the Typst table syntax, since '|' is used as a column separator. The escaping is done by replacing '|' with '\|', which is the standard way to escape a pipe in Typst.
+				writer.WriteLine(value: "| " + string.Join(separator: " | ", values: row.Select(selector: ExportEscapeHelper.EscapeTypstCell)) + " |");
+			}
+			// Show a success message after the file has been saved.
+			ExportEscapeHelper.ShowSuccess();
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			ExportEscapeHelper.ShowError(ex: ex, format: "Typst", filePath: fileName);
 		}
 	}
 
