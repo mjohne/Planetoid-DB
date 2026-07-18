@@ -494,7 +494,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		catch (UnauthorizedAccessException ex)
 		{
 			logger.Error(exception: ex, message: "Access denied while estimating total lines for file 2 from path '{FilePath}'.", args: p2);
-			ShowErrorMessage(message: "Access denied while estimating total lines for file 2 from path '{FilePath}'.");
+			ShowErrorMessage(message: $"Access denied while estimating total lines for file 2 from path '{p2}'.");
 		}
 		// Initialize counters and batch results for the comparison process
 		long currentLine = 0;
