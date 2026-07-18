@@ -87,7 +87,7 @@ public partial class PlanetoidDbForm
 		// Get the file information for the local file
 		FileInfo fileInfo = new(fileName: localFilePath);
 		// Get the last modified date of the local file
-		DateTime localLastWriteTime = fileInfo.LastWriteTime;
+		DateTime localLastWriteTime = fileInfo.LastWriteTimeUtc;
 		// Compare the last modified dates of the local and remote files
 		try
 		{

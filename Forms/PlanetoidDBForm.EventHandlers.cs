@@ -161,9 +161,13 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to load the database in a background thread.</remarks>
 	private void BackgroundWorkerLoadingDatabase_DoWork(object sender, DoWorkEventArgs e)
 	{
-		Enabled = false; // Disable the form while loading the database
-		int lineNum = 0; // Variable to store the line number being read
-		string filename = !string.IsNullOrEmpty(value: MpcOrbDatFilePath) ? MpcOrbDatFilePath : filenameMpcorbDat; // Get the file name from the path
+		// Disable the form while loading the database
+		Enabled = false;
+		// Initialize the line number counter
+		int lineNum = 0;
+		// Determine the file name to load based on the provided path or default filename
+		string filename = !string.IsNullOrEmpty(value: MpcOrbDatFilePath) ? MpcOrbDatFilePath : filenameMpcorbDat;
+		// Create a FileInfo object to get information about the file
 		FileInfo fileInfo = new(fileName: filename);
 		// Get the size of the file in bytes
 		long fileSize = fileInfo.Length, fileSizeRead = 0;
@@ -174,17 +178,21 @@ public partial class PlanetoidDbForm
 			StreamReader streamReader = new(stream: fileStream);
 			// Show the splash screen
 			formSplashScreen.Show();
+			// Bring the splash screen to the front
 			formSplashScreen.BringToFront();
+			// Read the file line by line until the end of the file or cancellation is requested
 			while (streamReader.Peek() != -1 && !backgroundWorkerLoadingDatabase.CancellationPending)
 			{
-				string? readLine = streamReader.ReadLine(); // Variable to store the read line from the file
+				// Read a line from the file
+				string? readLine = streamReader.ReadLine();
+				// Update the file size read if the line is not null
 				if (readLine != null)
 				{
 					fileSizeRead += readLine.Length;
 				}
-				// ReSharper disable once PossibleLossOfFraction
-				float percent = 100 * fileSizeRead / fileSize; // Variable to store the percentage of the file read
-															   // Report progress to the background worker
+				// Variable to store the percentage of the file read
+				float percent = 100 * fileSizeRead / fileSize;
+				// Report progress to the background worker
 				formSplashScreen.SetProgressbar(value: (int)percent);
 				lineNum++;
 				// Check if the line number is greater than or equal to 44
@@ -197,6 +205,7 @@ public partial class PlanetoidDbForm
 			fileStream.Close();
 			streamReader.Close();
 		}
+		// Close the splash screen after loading the database
 		formSplashScreen.Close();
 		// Create a backup of the loaded database
 		planetoidsDatabaseBackup = [.. planetoidsDatabase];
@@ -219,11 +228,16 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to handle the completion of the database loading process.</remarks>
 	private void BackgroundWorkerLoadingDatabase_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
 	{
-		toolStripTextBoxGotoIndex.Text = 1.ToString(); // Set the initial value of the goto index text box
-		currentPosition = 0; // Set the current position to the first record
-		stepPosition = 100; // Set the step position to 100
-		GotoCurrentPosition(position: currentPosition); // Navigate to the current position
-		Enabled = true; // Enable the form
+		// Set the initial value of the goto index text box
+		toolStripTextBoxGotoIndex.Text = 1.ToString();
+		// Set the current position to the first record
+		currentPosition = 0;
+		// Set the step position to 100
+		stepPosition = 100;
+		// Navigate to the current position
+		GotoCurrentPosition(position: currentPosition);
+		// Enable the form
+		Enabled = true;
 	}
 
 	#endregion
