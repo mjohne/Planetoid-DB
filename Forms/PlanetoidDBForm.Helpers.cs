@@ -518,18 +518,12 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to navigate forward by a specified step in the data.</remarks>
 	private void NavigateSomeDataForward()
 	{
-		// Increase the current position by the step size
-		// This allows the user to navigate through the database in larger increments
-		currentPosition += stepPosition;
-		// If the current position exceeds the total number of entries in the database, wrap around to the beginning
-		if (currentPosition > planetoidsDatabase.Count)
+		if (planetoidsDatabase.Count == 0)
 		{
-			// Set the current position to the beginning of the database
-			// This ensures that when the user navigates forward from the last entry, they go to the first entry
-			// This is useful for circular navigation
-			currentPosition -= planetoidsDatabase.Count;
+			return;
 		}
-		// Navigate to the current position
+
+		currentPosition = (currentPosition + stepPosition) % planetoidsDatabase.Count;
 		GotoCurrentPosition(position: currentPosition);
 	}
 
