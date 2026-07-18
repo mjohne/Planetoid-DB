@@ -55,6 +55,13 @@ public static class ExportEscapeHelper
 		return string.IsNullOrEmpty(value: value) ? string.Empty : value.Replace(oldValue: "|", newValue: "\\|");
 	}
 
+	/// <summary>Escapes Typst table cell characters.</summary>
+	/// <param name="value">The raw cell value.</param>
+	/// <returns>The escaped string suitable for Typst table output.</returns>
+	/// <remarks>In Typst tables, the pipe character '|' is used as a column separator, so it must be escaped if it appears in cell content. This method checks if the input string is null or empty and returns an empty string in that case; otherwise, it replaces all occurrences of '|' with '\|'.</remarks>
+public static string EscapeTypstCell(string? value)
+		=> EscapeMarkdownCell(value);
+
 	/// <summary>Escapes PostScript string literal characters.</summary>
 	/// <param name="input">The raw input string.</param>
 	/// <returns>The escaped string suitable for PostScript output.</returns>
@@ -197,7 +204,7 @@ public static class ExportEscapeHelper
 	/// <remarks>Logs the error with details about the format and file path, and displays an error message box to the user.</remarks>
 	internal static void ShowError(Exception ex, string format, string filePath)
 	{
-		logger.Error(exception: ex, message: "Error saving as {Format} to '{FilePath}'.", args: [format, filePath]);
+		logger.Error(exception: ex, message: "Error saving as {Format} to '{FilePath}'.", args: [format, filePath]);
 		ShowErrorMessage(message: $"Error saving as {format}: {ex.Message}");
 	}
 }

@@ -23,13 +23,13 @@ namespace Planetoid_DB;
 	/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
 	/// <remarks>This method is called by the runtime to release resources used by the form.</remarks>
 	protected override void Dispose(bool disposing)
-    {
-      if (disposing && (components != null))
-      {
-        components.Dispose();
-      }
-      base.Dispose(disposing);
-    }
+	{
+	  if (disposing && (components != null))
+	  {
+		components.Dispose();
+	  }
+	  base.Dispose(disposing);
+	}
 
 	#region Windows Form Designer generated code
 
@@ -69,6 +69,7 @@ namespace Planetoid_DB;
 		toolStripMenuItemSaveAsAsciiDoc = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsReStructuredText = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsTextile = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsTypst = new ToolStripMenuItem();
 		toolStripMenuItemWriterDocuments = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsWord = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsOdt = new ToolStripMenuItem();
@@ -459,6 +460,7 @@ namespace Planetoid_DB;
 		tableLayoutPanel.ColumnCount = 2;
 		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
 		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+		tableLayoutPanel.ContextMenuStrip = contextMenuSaveToFile;
 		tableLayoutPanel.Controls.Add(labelName, 0, 0);
 		tableLayoutPanel.Controls.Add(labelPath, 0, 1);
 		tableLayoutPanel.Controls.Add(labelSize, 0, 2);
@@ -644,7 +646,6 @@ namespace Planetoid_DB;
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveList";
-		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveToFile;
 		contextMenuSaveToFile.Size = new Size(202, 158);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
@@ -657,7 +658,7 @@ namespace Planetoid_DB;
 		toolStripMenuItemTextFiles.AccessibleName = "Save as text file";
 		toolStripMenuItemTextFiles.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemTextFiles.AutoToolTip = true;
-		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile });
+		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile, toolStripMenuItemSaveAsTypst });
 		toolStripMenuItemTextFiles.Image = FatcowIcons16px.fatcow_file_extension_txt_16px;
 		toolStripMenuItemTextFiles.Name = "toolStripMenuItemTextFiles";
 		toolStripMenuItemTextFiles.Size = new Size(201, 22);
@@ -748,6 +749,20 @@ namespace Planetoid_DB;
 		toolStripMenuItemSaveAsTextile.Click += SaveAsTextile_Click;
 		toolStripMenuItemSaveAsTextile.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsTextile.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsTypst
+		// 
+		toolStripMenuItemSaveAsTypst.AccessibleDescription = "Saves the list as Typst file";
+		toolStripMenuItemSaveAsTypst.AccessibleName = "Save as Typst";
+		toolStripMenuItemSaveAsTypst.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsTypst.AutoToolTip = true;
+		toolStripMenuItemSaveAsTypst.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsTypst.Name = "toolStripMenuItemSaveAsTypst";
+		toolStripMenuItemSaveAsTypst.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsTypst.Text = "Save as T&ypst";
+		toolStripMenuItemSaveAsTypst.Click += SaveAsTypst_Click;
+		toolStripMenuItemSaveAsTypst.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTypst.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemWriterDocuments
 		// 
@@ -1220,7 +1235,6 @@ namespace Planetoid_DB;
 		contextMenuFullCopyToClipboard.Font = new Font("Segoe UI", 9F);
 		contextMenuFullCopyToClipboard.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardName, menuitemCopyToClipboardPath, menuitemCopyToClipboardSize, menuitemCopyToClipboardCreationDate, menuitemCopyToClipboardLastAccessDate, menuitemCopyToClipboardLastWriteDate, menuitemCopyToClipboardAttributes });
 		contextMenuFullCopyToClipboard.Name = "Context menu for copying database information to the clipboard";
-		contextMenuFullCopyToClipboard.OwnerItem = toolStripDropDownButtonCopyToClipboard;
 		contextMenuFullCopyToClipboard.Size = new Size(159, 158);
 		contextMenuFullCopyToClipboard.Text = "Copy to clipboard";
 		contextMenuFullCopyToClipboard.MouseEnter += Control_Enter;
@@ -1371,23 +1385,23 @@ namespace Planetoid_DB;
 
 	#endregion
 	private KryptonTableLayoutPanel tableLayoutPanel;
-    private KryptonLabel labelName;
-    private KryptonLabel labelPath;
-    private KryptonLabel labelSize;
-    private KryptonLabel labelDateCreated;
-    private KryptonLabel labelDateAccessed;
-    private KryptonLabel labelDateWrited;
-    private KryptonLabel labelAttributes;
-    private KryptonLabel labelNameValue;
-    private KryptonLabel labelDirectoryValue;
-    private KryptonLabel labelSizeValue;
-    private KryptonLabel labelDateCreatedValue;
-    private KryptonLabel labelDateAccessedValue;
-    private KryptonLabel labelDateWritedValue;
-    private KryptonLabel labelAttributesValue;
-private KryptonStatusStrip kryptonStatusStrip;
-private ToolStripStatusLabel labelInformation;
-private ToolStripContainer toolStripContainer;
+	private KryptonLabel labelName;
+	private KryptonLabel labelPath;
+	private KryptonLabel labelSize;
+	private KryptonLabel labelDateCreated;
+	private KryptonLabel labelDateAccessed;
+	private KryptonLabel labelDateWrited;
+	private KryptonLabel labelAttributes;
+	private KryptonLabel labelNameValue;
+	private KryptonLabel labelDirectoryValue;
+	private KryptonLabel labelSizeValue;
+	private KryptonLabel labelDateCreatedValue;
+	private KryptonLabel labelDateAccessedValue;
+	private KryptonLabel labelDateWritedValue;
+	private KryptonLabel labelAttributesValue;
+	private KryptonStatusStrip kryptonStatusStrip;
+	private ToolStripStatusLabel labelInformation;
+	private ToolStripContainer toolStripContainer;
 	private KryptonManager kryptonManager;
 	private ContextMenuStrip contextMenuCopyToClipboard;
 	private ToolStripMenuItem toolStripMenuItemCopyToClipboard;
@@ -1409,6 +1423,7 @@ private ToolStripContainer toolStripContainer;
 	private ToolStripMenuItem toolStripMenuItemSaveAsAsciiDoc;
 	private ToolStripMenuItem toolStripMenuItemSaveAsReStructuredText;
 	private ToolStripMenuItem toolStripMenuItemSaveAsTextile;
+	private ToolStripMenuItem toolStripMenuItemSaveAsTypst;
 	private ToolStripMenuItem toolStripMenuItemWriterDocuments;
 	private ToolStripMenuItem toolStripMenuItemSaveAsWord;
 	private ToolStripMenuItem toolStripMenuItemSaveAsOdt;

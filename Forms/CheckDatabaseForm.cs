@@ -8,7 +8,6 @@ using Krypton.Toolkit;
 using NLog;
 
 using Planetoid_DB.Forms;
-using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
 using System.Globalization;

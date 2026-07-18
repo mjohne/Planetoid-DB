@@ -126,7 +126,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		toolStripMenuItemCopyToClipboardMoidRelativeToSaturn = new ToolStripMenuItem();
 		toolStripMenuItemCopyToClipboardMoidRelativeToUranus = new ToolStripMenuItem();
 		toolStripMenuItemCopyToClipboardMoidRelativeToNeptune = new ToolStripMenuItem();
-		kryptonManager = new KryptonManager(components);
+		toolStripSeparator1 = new ToolStripSeparator();
 		toolStripMenuItemCopyToClipboardMaxoidRelativeToMercury = new ToolStripMenuItem();
 		toolStripMenuItemCopyToClipboardMaxoidRelativeToVenus = new ToolStripMenuItem();
 		toolStripMenuItemCopyToClipboardMaxoidRelativeToEarth = new ToolStripMenuItem();
@@ -135,7 +135,8 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		toolStripMenuItemCopyToClipboardMaxoidRelativeToSaturn = new ToolStripMenuItem();
 		toolStripMenuItemCopyToClipboardMaxoidRelativeToUranus = new ToolStripMenuItem();
 		toolStripMenuItemCopyToClipboardMaxoidRelativeToNeptune = new ToolStripMenuItem();
-		toolStripSeparator1 = new ToolStripSeparator();
+		kryptonManager = new KryptonManager(components);
+		toolStripMenuItemSaveAsTypst = new ToolStripMenuItem();
 		contextMenuCopyToClipboard.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
@@ -195,7 +196,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelMercuryDesc.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelMercuryDesc.Dock = DockStyle.Fill;
 		labelMercuryDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelMercuryDesc.Location = new Point(3, 3);
+		labelMercuryDesc.Location = new Point(3, 33);
 		labelMercuryDesc.Name = "labelMercuryDesc";
 		labelMercuryDesc.Size = new Size(95, 24);
 		labelMercuryDesc.TabIndex = 0;
@@ -253,7 +254,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelVenusDesc.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelVenusDesc.Dock = DockStyle.Fill;
 		labelVenusDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelVenusDesc.Location = new Point(3, 33);
+		labelVenusDesc.Location = new Point(3, 63);
 		labelVenusDesc.Name = "labelVenusDesc";
 		labelVenusDesc.Size = new Size(95, 24);
 		labelVenusDesc.TabIndex = 2;
@@ -278,7 +279,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelEarthDesc.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelEarthDesc.Dock = DockStyle.Fill;
 		labelEarthDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelEarthDesc.Location = new Point(3, 63);
+		labelEarthDesc.Location = new Point(3, 93);
 		labelEarthDesc.Name = "labelEarthDesc";
 		labelEarthDesc.Size = new Size(95, 24);
 		labelEarthDesc.TabIndex = 4;
@@ -303,7 +304,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelMarsDesc.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelMarsDesc.Dock = DockStyle.Fill;
 		labelMarsDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelMarsDesc.Location = new Point(3, 93);
+		labelMarsDesc.Location = new Point(3, 123);
 		labelMarsDesc.Name = "labelMarsDesc";
 		labelMarsDesc.Size = new Size(95, 24);
 		labelMarsDesc.TabIndex = 6;
@@ -328,7 +329,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelJupiterDesc.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelJupiterDesc.Dock = DockStyle.Fill;
 		labelJupiterDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelJupiterDesc.Location = new Point(3, 123);
+		labelJupiterDesc.Location = new Point(3, 153);
 		labelJupiterDesc.Name = "labelJupiterDesc";
 		labelJupiterDesc.Size = new Size(95, 24);
 		labelJupiterDesc.TabIndex = 8;
@@ -353,7 +354,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelSaturnDesc.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelSaturnDesc.Dock = DockStyle.Fill;
 		labelSaturnDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelSaturnDesc.Location = new Point(3, 153);
+		labelSaturnDesc.Location = new Point(3, 183);
 		labelSaturnDesc.Name = "labelSaturnDesc";
 		labelSaturnDesc.Size = new Size(95, 24);
 		labelSaturnDesc.TabIndex = 10;
@@ -378,7 +379,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelUranusDesc.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelUranusDesc.Dock = DockStyle.Fill;
 		labelUranusDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelUranusDesc.Location = new Point(3, 183);
+		labelUranusDesc.Location = new Point(3, 213);
 		labelUranusDesc.Name = "labelUranusDesc";
 		labelUranusDesc.Size = new Size(95, 24);
 		labelUranusDesc.TabIndex = 12;
@@ -403,9 +404,9 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelNeptuneDesc.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelNeptuneDesc.Dock = DockStyle.Fill;
 		labelNeptuneDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelNeptuneDesc.Location = new Point(3, 213);
+		labelNeptuneDesc.Location = new Point(3, 243);
 		labelNeptuneDesc.Name = "labelNeptuneDesc";
-		labelNeptuneDesc.Size = new Size(95, 27);
+		labelNeptuneDesc.Size = new Size(95, 24);
 		labelNeptuneDesc.TabIndex = 14;
 		labelNeptuneDesc.ToolTipValues.Description = "MOID of the minor planet relative to Neptune (AU).\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelNeptuneDesc.ToolTipValues.EnableToolTips = true;
@@ -427,7 +428,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelMercuryMoidData.AccessibleRole = AccessibleRole.StaticText;
 		labelMercuryMoidData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelMercuryMoidData.Dock = DockStyle.Fill;
-		labelMercuryMoidData.Location = new Point(104, 3);
+		labelMercuryMoidData.Location = new Point(104, 33);
 		labelMercuryMoidData.Name = "labelMercuryMoidData";
 		labelMercuryMoidData.Size = new Size(82, 24);
 		labelMercuryMoidData.TabIndex = 1;
@@ -450,7 +451,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelVenusMoidData.AccessibleRole = AccessibleRole.StaticText;
 		labelVenusMoidData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelVenusMoidData.Dock = DockStyle.Fill;
-		labelVenusMoidData.Location = new Point(104, 33);
+		labelVenusMoidData.Location = new Point(104, 63);
 		labelVenusMoidData.Name = "labelVenusMoidData";
 		labelVenusMoidData.Size = new Size(82, 24);
 		labelVenusMoidData.TabIndex = 3;
@@ -473,7 +474,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelEarthMoidData.AccessibleRole = AccessibleRole.StaticText;
 		labelEarthMoidData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelEarthMoidData.Dock = DockStyle.Fill;
-		labelEarthMoidData.Location = new Point(104, 63);
+		labelEarthMoidData.Location = new Point(104, 93);
 		labelEarthMoidData.Name = "labelEarthMoidData";
 		labelEarthMoidData.Size = new Size(82, 24);
 		labelEarthMoidData.TabIndex = 5;
@@ -496,7 +497,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelMarsMoidData.AccessibleRole = AccessibleRole.StaticText;
 		labelMarsMoidData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelMarsMoidData.Dock = DockStyle.Fill;
-		labelMarsMoidData.Location = new Point(104, 93);
+		labelMarsMoidData.Location = new Point(104, 123);
 		labelMarsMoidData.Name = "labelMarsMoidData";
 		labelMarsMoidData.Size = new Size(82, 24);
 		labelMarsMoidData.TabIndex = 7;
@@ -519,7 +520,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelJupiterMoidData.AccessibleRole = AccessibleRole.StaticText;
 		labelJupiterMoidData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelJupiterMoidData.Dock = DockStyle.Fill;
-		labelJupiterMoidData.Location = new Point(104, 123);
+		labelJupiterMoidData.Location = new Point(104, 153);
 		labelJupiterMoidData.Name = "labelJupiterMoidData";
 		labelJupiterMoidData.Size = new Size(82, 24);
 		labelJupiterMoidData.TabIndex = 9;
@@ -542,7 +543,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelSaturnMoidData.AccessibleRole = AccessibleRole.StaticText;
 		labelSaturnMoidData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelSaturnMoidData.Dock = DockStyle.Fill;
-		labelSaturnMoidData.Location = new Point(104, 153);
+		labelSaturnMoidData.Location = new Point(104, 183);
 		labelSaturnMoidData.Name = "labelSaturnMoidData";
 		labelSaturnMoidData.Size = new Size(82, 24);
 		labelSaturnMoidData.TabIndex = 11;
@@ -565,7 +566,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelUranusMoidData.AccessibleRole = AccessibleRole.StaticText;
 		labelUranusMoidData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelUranusMoidData.Dock = DockStyle.Fill;
-		labelUranusMoidData.Location = new Point(104, 183);
+		labelUranusMoidData.Location = new Point(104, 213);
 		labelUranusMoidData.Name = "labelUranusMoidData";
 		labelUranusMoidData.Size = new Size(82, 24);
 		labelUranusMoidData.TabIndex = 13;
@@ -588,9 +589,9 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelNeptuneMoidData.AccessibleRole = AccessibleRole.StaticText;
 		labelNeptuneMoidData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelNeptuneMoidData.Dock = DockStyle.Fill;
-		labelNeptuneMoidData.Location = new Point(104, 213);
+		labelNeptuneMoidData.Location = new Point(104, 243);
 		labelNeptuneMoidData.Name = "labelNeptuneMoidData";
-		labelNeptuneMoidData.Size = new Size(82, 27);
+		labelNeptuneMoidData.Size = new Size(82, 24);
 		labelNeptuneMoidData.TabIndex = 15;
 		labelNeptuneMoidData.ToolTipValues.Description = "Shows the MOID relative to Neptune in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelNeptuneMoidData.ToolTipValues.EnableToolTips = true;
@@ -762,8 +763,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveToFile";
-		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveToFile;
-		contextMenuSaveToFile.Size = new Size(202, 158);
+		contextMenuSaveToFile.Size = new Size(202, 180);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save MOID and MAXOID data";
 		contextMenuSaveToFile.Enter += Control_Enter;
@@ -777,7 +777,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		toolStripMenuItemTextFiles.AccessibleName = "Save as text file";
 		toolStripMenuItemTextFiles.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemTextFiles.AutoToolTip = true;
-		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile });
+		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile, toolStripMenuItemSaveAsTypst });
 		toolStripMenuItemTextFiles.Image = FatcowIcons16px.fatcow_file_extension_txt_16px;
 		toolStripMenuItemTextFiles.Name = "toolStripMenuItemTextFiles";
 		toolStripMenuItemTextFiles.Size = new Size(201, 22);
@@ -1338,21 +1338,21 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelNeptuneMaxoidData.AccessibleRole = AccessibleRole.StaticText;
 		labelNeptuneMaxoidData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelNeptuneMaxoidData.Dock = DockStyle.Fill;
-		labelNeptuneMaxoidData.Location = new Point(192, 213);
+		labelNeptuneMaxoidData.Location = new Point(192, 243);
 		labelNeptuneMaxoidData.Name = "labelNeptuneMaxoidData";
-		labelNeptuneMaxoidData.Size = new Size(89, 27);
+		labelNeptuneMaxoidData.Size = new Size(89, 24);
 		labelNeptuneMaxoidData.TabIndex = 23;
 		labelNeptuneMaxoidData.ToolTipValues.Description = "Shows the MAXOID relative to Neptune in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelNeptuneMaxoidData.ToolTipValues.EnableToolTips = true;
 		labelNeptuneMaxoidData.ToolTipValues.Heading = "MAXOID to Neptune (AU)";
 		labelNeptuneMaxoidData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		labelNeptuneMaxoidData.Values.Text = "..................";
+		labelNeptuneMaxoidData.DoubleClick += CopyToClipboard_DoubleClick;
 		labelNeptuneMaxoidData.Enter += Control_Enter;
 		labelNeptuneMaxoidData.Leave += Control_Leave;
+		labelNeptuneMaxoidData.MouseDown += Control_MouseDown;
 		labelNeptuneMaxoidData.MouseEnter += Control_Enter;
 		labelNeptuneMaxoidData.MouseLeave += Control_Leave;
-		labelNeptuneMaxoidData.MouseDown += Control_MouseDown;
-		labelNeptuneMaxoidData.DoubleClick += CopyToClipboard_DoubleClick;
 		// 
 		// labelUranusMaxoidData
 		// 
@@ -1361,7 +1361,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelUranusMaxoidData.AccessibleRole = AccessibleRole.StaticText;
 		labelUranusMaxoidData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelUranusMaxoidData.Dock = DockStyle.Fill;
-		labelUranusMaxoidData.Location = new Point(192, 183);
+		labelUranusMaxoidData.Location = new Point(192, 213);
 		labelUranusMaxoidData.Name = "labelUranusMaxoidData";
 		labelUranusMaxoidData.Size = new Size(89, 24);
 		labelUranusMaxoidData.TabIndex = 22;
@@ -1370,12 +1370,12 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelUranusMaxoidData.ToolTipValues.Heading = "MAXOID to Uranus (AU)";
 		labelUranusMaxoidData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		labelUranusMaxoidData.Values.Text = "..................";
+		labelUranusMaxoidData.DoubleClick += CopyToClipboard_DoubleClick;
 		labelUranusMaxoidData.Enter += Control_Enter;
 		labelUranusMaxoidData.Leave += Control_Leave;
+		labelUranusMaxoidData.MouseDown += Control_MouseDown;
 		labelUranusMaxoidData.MouseEnter += Control_Enter;
 		labelUranusMaxoidData.MouseLeave += Control_Leave;
-		labelUranusMaxoidData.MouseDown += Control_MouseDown;
-		labelUranusMaxoidData.DoubleClick += CopyToClipboard_DoubleClick;
 		// 
 		// labelSaturnMaxoidData
 		// 
@@ -1384,7 +1384,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelSaturnMaxoidData.AccessibleRole = AccessibleRole.StaticText;
 		labelSaturnMaxoidData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelSaturnMaxoidData.Dock = DockStyle.Fill;
-		labelSaturnMaxoidData.Location = new Point(192, 153);
+		labelSaturnMaxoidData.Location = new Point(192, 183);
 		labelSaturnMaxoidData.Name = "labelSaturnMaxoidData";
 		labelSaturnMaxoidData.Size = new Size(89, 24);
 		labelSaturnMaxoidData.TabIndex = 21;
@@ -1393,12 +1393,12 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelSaturnMaxoidData.ToolTipValues.Heading = "MAXOID to Saturn (AU)";
 		labelSaturnMaxoidData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		labelSaturnMaxoidData.Values.Text = "..................";
+		labelSaturnMaxoidData.DoubleClick += CopyToClipboard_DoubleClick;
 		labelSaturnMaxoidData.Enter += Control_Enter;
 		labelSaturnMaxoidData.Leave += Control_Leave;
+		labelSaturnMaxoidData.MouseDown += Control_MouseDown;
 		labelSaturnMaxoidData.MouseEnter += Control_Enter;
 		labelSaturnMaxoidData.MouseLeave += Control_Leave;
-		labelSaturnMaxoidData.MouseDown += Control_MouseDown;
-		labelSaturnMaxoidData.DoubleClick += CopyToClipboard_DoubleClick;
 		// 
 		// labelJupiterMaxoidData
 		// 
@@ -1407,7 +1407,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelJupiterMaxoidData.AccessibleRole = AccessibleRole.StaticText;
 		labelJupiterMaxoidData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelJupiterMaxoidData.Dock = DockStyle.Fill;
-		labelJupiterMaxoidData.Location = new Point(192, 123);
+		labelJupiterMaxoidData.Location = new Point(192, 153);
 		labelJupiterMaxoidData.Name = "labelJupiterMaxoidData";
 		labelJupiterMaxoidData.Size = new Size(89, 24);
 		labelJupiterMaxoidData.TabIndex = 20;
@@ -1416,12 +1416,12 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelJupiterMaxoidData.ToolTipValues.Heading = "MAXOID to Jupiter (AU)";
 		labelJupiterMaxoidData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		labelJupiterMaxoidData.Values.Text = "..................";
+		labelJupiterMaxoidData.DoubleClick += CopyToClipboard_DoubleClick;
 		labelJupiterMaxoidData.Enter += Control_Enter;
 		labelJupiterMaxoidData.Leave += Control_Leave;
+		labelJupiterMaxoidData.MouseDown += Control_MouseDown;
 		labelJupiterMaxoidData.MouseEnter += Control_Enter;
 		labelJupiterMaxoidData.MouseLeave += Control_Leave;
-		labelJupiterMaxoidData.MouseDown += Control_MouseDown;
-		labelJupiterMaxoidData.DoubleClick += CopyToClipboard_DoubleClick;
 		// 
 		// labelMarsMaxoidData
 		// 
@@ -1430,7 +1430,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelMarsMaxoidData.AccessibleRole = AccessibleRole.StaticText;
 		labelMarsMaxoidData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelMarsMaxoidData.Dock = DockStyle.Fill;
-		labelMarsMaxoidData.Location = new Point(192, 93);
+		labelMarsMaxoidData.Location = new Point(192, 123);
 		labelMarsMaxoidData.Name = "labelMarsMaxoidData";
 		labelMarsMaxoidData.Size = new Size(89, 24);
 		labelMarsMaxoidData.TabIndex = 19;
@@ -1439,12 +1439,12 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelMarsMaxoidData.ToolTipValues.Heading = "MAXOID to Mars (AU)";
 		labelMarsMaxoidData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		labelMarsMaxoidData.Values.Text = "..................";
+		labelMarsMaxoidData.DoubleClick += CopyToClipboard_DoubleClick;
 		labelMarsMaxoidData.Enter += Control_Enter;
 		labelMarsMaxoidData.Leave += Control_Leave;
+		labelMarsMaxoidData.MouseDown += Control_MouseDown;
 		labelMarsMaxoidData.MouseEnter += Control_Enter;
 		labelMarsMaxoidData.MouseLeave += Control_Leave;
-		labelMarsMaxoidData.MouseDown += Control_MouseDown;
-		labelMarsMaxoidData.DoubleClick += CopyToClipboard_DoubleClick;
 		// 
 		// labelEarthMaxoidData
 		// 
@@ -1453,7 +1453,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelEarthMaxoidData.AccessibleRole = AccessibleRole.StaticText;
 		labelEarthMaxoidData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelEarthMaxoidData.Dock = DockStyle.Fill;
-		labelEarthMaxoidData.Location = new Point(192, 63);
+		labelEarthMaxoidData.Location = new Point(192, 93);
 		labelEarthMaxoidData.Name = "labelEarthMaxoidData";
 		labelEarthMaxoidData.Size = new Size(89, 24);
 		labelEarthMaxoidData.TabIndex = 18;
@@ -1462,12 +1462,12 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelEarthMaxoidData.ToolTipValues.Heading = "MAXOID to Earth (AU)";
 		labelEarthMaxoidData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		labelEarthMaxoidData.Values.Text = "..................";
+		labelEarthMaxoidData.DoubleClick += CopyToClipboard_DoubleClick;
 		labelEarthMaxoidData.Enter += Control_Enter;
 		labelEarthMaxoidData.Leave += Control_Leave;
+		labelEarthMaxoidData.MouseDown += Control_MouseDown;
 		labelEarthMaxoidData.MouseEnter += Control_Enter;
 		labelEarthMaxoidData.MouseLeave += Control_Leave;
-		labelEarthMaxoidData.MouseDown += Control_MouseDown;
-		labelEarthMaxoidData.DoubleClick += CopyToClipboard_DoubleClick;
 		// 
 		// labelVenusMaxoidData
 		// 
@@ -1476,7 +1476,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelVenusMaxoidData.AccessibleRole = AccessibleRole.StaticText;
 		labelVenusMaxoidData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelVenusMaxoidData.Dock = DockStyle.Fill;
-		labelVenusMaxoidData.Location = new Point(192, 33);
+		labelVenusMaxoidData.Location = new Point(192, 63);
 		labelVenusMaxoidData.Name = "labelVenusMaxoidData";
 		labelVenusMaxoidData.Size = new Size(89, 24);
 		labelVenusMaxoidData.TabIndex = 17;
@@ -1485,12 +1485,12 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelVenusMaxoidData.ToolTipValues.Heading = "MAXOID to Venus (AU)";
 		labelVenusMaxoidData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		labelVenusMaxoidData.Values.Text = "..................";
+		labelVenusMaxoidData.DoubleClick += CopyToClipboard_DoubleClick;
 		labelVenusMaxoidData.Enter += Control_Enter;
 		labelVenusMaxoidData.Leave += Control_Leave;
+		labelVenusMaxoidData.MouseDown += Control_MouseDown;
 		labelVenusMaxoidData.MouseEnter += Control_Enter;
 		labelVenusMaxoidData.MouseLeave += Control_Leave;
-		labelVenusMaxoidData.MouseDown += Control_MouseDown;
-		labelVenusMaxoidData.DoubleClick += CopyToClipboard_DoubleClick;
 		// 
 		// labelMercuryMaxoidData
 		// 
@@ -1499,7 +1499,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelMercuryMaxoidData.AccessibleRole = AccessibleRole.StaticText;
 		labelMercuryMaxoidData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelMercuryMaxoidData.Dock = DockStyle.Fill;
-		labelMercuryMaxoidData.Location = new Point(192, 3);
+		labelMercuryMaxoidData.Location = new Point(192, 33);
 		labelMercuryMaxoidData.Name = "labelMercuryMaxoidData";
 		labelMercuryMaxoidData.Size = new Size(89, 24);
 		labelMercuryMaxoidData.TabIndex = 16;
@@ -1508,12 +1508,12 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		labelMercuryMaxoidData.ToolTipValues.Heading = "MAXOID to Mercury (AU)";
 		labelMercuryMaxoidData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		labelMercuryMaxoidData.Values.Text = "..................";
+		labelMercuryMaxoidData.DoubleClick += CopyToClipboard_DoubleClick;
 		labelMercuryMaxoidData.Enter += Control_Enter;
 		labelMercuryMaxoidData.Leave += Control_Leave;
+		labelMercuryMaxoidData.MouseDown += Control_MouseDown;
 		labelMercuryMaxoidData.MouseEnter += Control_Enter;
 		labelMercuryMaxoidData.MouseLeave += Control_Leave;
-		labelMercuryMaxoidData.MouseDown += Control_MouseDown;
-		labelMercuryMaxoidData.DoubleClick += CopyToClipboard_DoubleClick;
 		// 
 		// toolStripIcons
 		// 
@@ -1590,7 +1590,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		toolStripMenuItemCopyToClipboardMoidRelativeToVenus.AutoToolTip = true;
 		toolStripMenuItemCopyToClipboardMoidRelativeToVenus.Image = (Image)resources.GetObject("toolStripMenuItemCopyToClipboardMoidRelativeToVenus.Image");
 		toolStripMenuItemCopyToClipboardMoidRelativeToVenus.Name = "toolStripMenuItemCopyToClipboardMoidRelativeToVenus";
-		toolStripMenuItemCopyToClipboardMoidRelativeToVenus.Size = new Size(180, 22);
+		toolStripMenuItemCopyToClipboardMoidRelativeToVenus.Size = new Size(169, 22);
 		toolStripMenuItemCopyToClipboardMoidRelativeToVenus.Text = "MOID &Venus";
 		toolStripMenuItemCopyToClipboardMoidRelativeToVenus.Click += MenuitemCopyToClipboardMoidRelativeToVenus_Click;
 		toolStripMenuItemCopyToClipboardMoidRelativeToVenus.MouseEnter += Control_Enter;
@@ -1604,7 +1604,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		toolStripMenuItemCopyToClipboardMoidRelativeToEarth.AutoToolTip = true;
 		toolStripMenuItemCopyToClipboardMoidRelativeToEarth.Image = (Image)resources.GetObject("toolStripMenuItemCopyToClipboardMoidRelativeToEarth.Image");
 		toolStripMenuItemCopyToClipboardMoidRelativeToEarth.Name = "toolStripMenuItemCopyToClipboardMoidRelativeToEarth";
-		toolStripMenuItemCopyToClipboardMoidRelativeToEarth.Size = new Size(180, 22);
+		toolStripMenuItemCopyToClipboardMoidRelativeToEarth.Size = new Size(169, 22);
 		toolStripMenuItemCopyToClipboardMoidRelativeToEarth.Text = "MOID &Earth";
 		toolStripMenuItemCopyToClipboardMoidRelativeToEarth.Click += MenuitemCopyToClipboardMoidRelativeToEarth_Click;
 		toolStripMenuItemCopyToClipboardMoidRelativeToEarth.MouseEnter += Control_Enter;
@@ -1618,7 +1618,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		toolStripMenuItemCopyToClipboardMoidRelativeToMars.AutoToolTip = true;
 		toolStripMenuItemCopyToClipboardMoidRelativeToMars.Image = (Image)resources.GetObject("toolStripMenuItemCopyToClipboardMoidRelativeToMars.Image");
 		toolStripMenuItemCopyToClipboardMoidRelativeToMars.Name = "toolStripMenuItemCopyToClipboardMoidRelativeToMars";
-		toolStripMenuItemCopyToClipboardMoidRelativeToMars.Size = new Size(180, 22);
+		toolStripMenuItemCopyToClipboardMoidRelativeToMars.Size = new Size(169, 22);
 		toolStripMenuItemCopyToClipboardMoidRelativeToMars.Text = "MOID M&ars";
 		toolStripMenuItemCopyToClipboardMoidRelativeToMars.Click += MenuitemCopyToClipboardMoidRelativeToMars_Click;
 		toolStripMenuItemCopyToClipboardMoidRelativeToMars.MouseEnter += Control_Enter;
@@ -1632,7 +1632,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		toolStripMenuItemCopyToClipboardMoidRelativeToJupiter.AutoToolTip = true;
 		toolStripMenuItemCopyToClipboardMoidRelativeToJupiter.Image = (Image)resources.GetObject("toolStripMenuItemCopyToClipboardMoidRelativeToJupiter.Image");
 		toolStripMenuItemCopyToClipboardMoidRelativeToJupiter.Name = "toolStripMenuItemCopyToClipboardMoidRelativeToJupiter";
-		toolStripMenuItemCopyToClipboardMoidRelativeToJupiter.Size = new Size(180, 22);
+		toolStripMenuItemCopyToClipboardMoidRelativeToJupiter.Size = new Size(169, 22);
 		toolStripMenuItemCopyToClipboardMoidRelativeToJupiter.Text = "MOID &Jupiter";
 		toolStripMenuItemCopyToClipboardMoidRelativeToJupiter.Click += MenuitemCopyToClipboardMoidRelativeToJupiter_Click;
 		toolStripMenuItemCopyToClipboardMoidRelativeToJupiter.MouseEnter += Control_Enter;
@@ -1646,7 +1646,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		toolStripMenuItemCopyToClipboardMoidRelativeToSaturn.AutoToolTip = true;
 		toolStripMenuItemCopyToClipboardMoidRelativeToSaturn.Image = (Image)resources.GetObject("toolStripMenuItemCopyToClipboardMoidRelativeToSaturn.Image");
 		toolStripMenuItemCopyToClipboardMoidRelativeToSaturn.Name = "toolStripMenuItemCopyToClipboardMoidRelativeToSaturn";
-		toolStripMenuItemCopyToClipboardMoidRelativeToSaturn.Size = new Size(180, 22);
+		toolStripMenuItemCopyToClipboardMoidRelativeToSaturn.Size = new Size(169, 22);
 		toolStripMenuItemCopyToClipboardMoidRelativeToSaturn.Text = "MOID &Saturn";
 		toolStripMenuItemCopyToClipboardMoidRelativeToSaturn.Click += MenuitemCopyToClipboardMoidRelativeToSaturn_Click;
 		toolStripMenuItemCopyToClipboardMoidRelativeToSaturn.MouseEnter += Control_Enter;
@@ -1660,7 +1660,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		toolStripMenuItemCopyToClipboardMoidRelativeToUranus.AutoToolTip = true;
 		toolStripMenuItemCopyToClipboardMoidRelativeToUranus.Image = (Image)resources.GetObject("toolStripMenuItemCopyToClipboardMoidRelativeToUranus.Image");
 		toolStripMenuItemCopyToClipboardMoidRelativeToUranus.Name = "toolStripMenuItemCopyToClipboardMoidRelativeToUranus";
-		toolStripMenuItemCopyToClipboardMoidRelativeToUranus.Size = new Size(180, 22);
+		toolStripMenuItemCopyToClipboardMoidRelativeToUranus.Size = new Size(169, 22);
 		toolStripMenuItemCopyToClipboardMoidRelativeToUranus.Text = "MOID &Uranus";
 		toolStripMenuItemCopyToClipboardMoidRelativeToUranus.Click += MenuitemCopyToClipboardMoidRelativeToUranus_Click;
 		toolStripMenuItemCopyToClipboardMoidRelativeToUranus.MouseEnter += Control_Enter;
@@ -1674,17 +1674,21 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		toolStripMenuItemCopyToClipboardMoidRelativeToNeptune.AutoToolTip = true;
 		toolStripMenuItemCopyToClipboardMoidRelativeToNeptune.Image = (Image)resources.GetObject("toolStripMenuItemCopyToClipboardMoidRelativeToNeptune.Image");
 		toolStripMenuItemCopyToClipboardMoidRelativeToNeptune.Name = "toolStripMenuItemCopyToClipboardMoidRelativeToNeptune";
-		toolStripMenuItemCopyToClipboardMoidRelativeToNeptune.Size = new Size(180, 22);
+		toolStripMenuItemCopyToClipboardMoidRelativeToNeptune.Size = new Size(169, 22);
 		toolStripMenuItemCopyToClipboardMoidRelativeToNeptune.Text = "MOID &Neptune";
 		toolStripMenuItemCopyToClipboardMoidRelativeToNeptune.Click += MenuitemCopyToClipboardMoidRelativeToNeptune_Click;
 		toolStripMenuItemCopyToClipboardMoidRelativeToNeptune.MouseEnter += Control_Enter;
 		toolStripMenuItemCopyToClipboardMoidRelativeToNeptune.MouseLeave += Control_Leave;
 		// 
-		// kryptonManager
+		// toolStripSeparator1
 		// 
-		kryptonManager.GlobalPaletteMode = PaletteMode.Global;
-		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
-		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
+		toolStripSeparator1.AccessibleDescription = "Just a separator";
+		toolStripSeparator1.AccessibleName = "Just a separator";
+		toolStripSeparator1.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparator1.Name = "toolStripSeparator1";
+		toolStripSeparator1.Size = new Size(166, 6);
+		toolStripSeparator1.MouseEnter += Control_Enter;
+		toolStripSeparator1.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemCopyToClipboardMaxoidRelativeToMercury
 		// 
@@ -1798,16 +1802,25 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 		toolStripMenuItemCopyToClipboardMaxoidRelativeToNeptune.MouseEnter += Control_Enter;
 		toolStripMenuItemCopyToClipboardMaxoidRelativeToNeptune.MouseLeave += Control_Leave;
 		// 
-		// toolStripSeparator1
+		// kryptonManager
 		// 
-		toolStripSeparator1.AccessibleDescription = "Just a separator";
-		toolStripSeparator1.AccessibleName = "Just a separator";
-		toolStripSeparator1.AccessibleRole = AccessibleRole.Separator;
-		toolStripSeparator1.Name = "toolStripSeparator1";
-		toolStripSeparator1.Text = "Just a separator";
-		toolStripSeparator1.Size = new Size(177, 6);
-		toolStripSeparator1.MouseEnter += Control_Enter;
-		toolStripSeparator1.MouseLeave += Control_Leave;
+		kryptonManager.GlobalPaletteMode = PaletteMode.Global;
+		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
+		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
+		// 
+		// toolStripMenuItemSaveAsTypst
+		// 
+		toolStripMenuItemSaveAsTypst.AccessibleDescription = "Saves the data as Typst file";
+		toolStripMenuItemSaveAsTypst.AccessibleName = "Save as Typst";
+		toolStripMenuItemSaveAsTypst.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsTypst.AutoToolTip = true;
+		toolStripMenuItemSaveAsTypst.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsTypst.Name = "toolStripMenuItemSaveAsTypst";
+		toolStripMenuItemSaveAsTypst.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsTypst.Text = "Save as T&ypst";
+		toolStripMenuItemSaveAsTypst.Click += SaveAsTypst_Click;
+		toolStripMenuItemSaveAsTypst.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTypst.MouseLeave += Control_Leave;
 		// 
 		// MoidsAndMaxoidsOfOneMinorPlanetForm
 		// 
@@ -1942,6 +1955,7 @@ partial class MoidsAndMaxoidsOfOneMinorPlanetForm
 	private ToolStripMenuItem toolStripMenuItemSaveAsXps;
 	private ToolStripMenuItem toolStripMenuItemSaveAsFictionBook2;
 	private ToolStripMenuItem toolStripMenuItemSaveAsChm;
+	private ToolStripMenuItem toolStripMenuItemSaveAsTypst;
 
 	// ── copy-to-clipboard toolbar button ────────────────────────────────────────
 

@@ -15,21 +15,21 @@ namespace Planetoid_DB;
 /// <remarks>This form is used to display data from the MPCORB.DAT file in a tabular format, allowing users to specify a range and view the results.</remarks>
 partial class TableModeForm
 {
-    /// <summary>Required designer variable.</summary>
+	/// <summary>Required designer variable.</summary>
 	/// <remarks>This field stores the components used by the form.</remarks>
-    private IContainer components = null;
+	private IContainer components = null;
 
-    /// <summary>Clean up any resources being used.</summary>
-    /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-    /// <remarks>This method disposes of the resources used by the form.</remarks>
-    protected override void Dispose(bool disposing)
-    {
-      if (disposing && (components != null))
-      {
-        components.Dispose();
-      }
-      base.Dispose(disposing);
-    }
+	/// <summary>Clean up any resources being used.</summary>
+	/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+	/// <remarks>This method disposes of the resources used by the form.</remarks>
+	protected override void Dispose(bool disposing)
+	{
+	  if (disposing && (components != null))
+	  {
+		components.Dispose();
+	  }
+	  base.Dispose(disposing);
+	}
 
 	#region Windows Form Designer generated code
 
@@ -122,6 +122,7 @@ partial class TableModeForm
 		toolStripSeparator3 = new ToolStripSeparator();
 		toolStripLabelProgress = new ToolStripLabel();
 		kryptonProgressBar = new KryptonProgressBarToolStripItem();
+		toolStripMenuItemSaveAsTypst = new ToolStripMenuItem();
 		contextMenuSaveToFile.SuspendLayout();
 		((ISupportInitialize)kryptoPanelMain).BeginInit();
 		kryptoPanelMain.SuspendLayout();
@@ -281,8 +282,7 @@ partial class TableModeForm
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveList";
-		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveToFile;
-		contextMenuSaveToFile.Size = new Size(202, 158);
+		contextMenuSaveToFile.Size = new Size(202, 180);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
 		contextMenuSaveToFile.MouseEnter += Control_Enter;
@@ -294,7 +294,7 @@ partial class TableModeForm
 		toolStripMenuItemTextFiles.AccessibleName = "Save as text file";
 		toolStripMenuItemTextFiles.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemTextFiles.AutoToolTip = true;
-		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile });
+		toolStripMenuItemTextFiles.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSaveAsText, toolStripMenuItemSaveAsLatex, toolStripMenuItemSaveAsMarkdown, toolStripMenuItemSaveAsAsciiDoc, toolStripMenuItemSaveAsReStructuredText, toolStripMenuItemSaveAsTextile, toolStripMenuItemSaveAsTypst });
 		toolStripMenuItemTextFiles.Image = FatcowIcons16px.fatcow_file_extension_txt_16px;
 		toolStripMenuItemTextFiles.Name = "toolStripMenuItemTextFiles";
 		toolStripMenuItemTextFiles.Size = new Size(201, 22);
@@ -1144,6 +1144,20 @@ partial class TableModeForm
 		kryptonProgressBar.MouseEnter += Control_Enter;
 		kryptonProgressBar.MouseLeave += Control_Leave;
 		// 
+		// toolStripMenuItemSaveAsTypst
+		// 
+		toolStripMenuItemSaveAsTypst.AccessibleDescription = "Saves the list as Typst file";
+		toolStripMenuItemSaveAsTypst.AccessibleName = "Save as Typst";
+		toolStripMenuItemSaveAsTypst.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsTypst.AutoToolTip = true;
+		toolStripMenuItemSaveAsTypst.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsTypst.Name = "toolStripMenuItemSaveAsTypst";
+		toolStripMenuItemSaveAsTypst.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsTypst.Text = "Save as T&ypst";
+		toolStripMenuItemSaveAsTypst.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTypst.MouseLeave += Control_Leave;
+		toolStripMenuItemSaveAsTypst.Click += SaveAsTypst_Click;
+		// 
 		// TableModeForm
 		// 
 		AccessibleDescription = "Lists the MPCORB.DAT into a  table";
@@ -1184,28 +1198,28 @@ partial class TableModeForm
 
 	#endregion
 	private ListView listView;
-    private ColumnHeader columnHeaderIndex;
-    private ColumnHeader columnHeaderReadableDesignation;
-    private ColumnHeader columnHeaderEpoch;
-    private ColumnHeader columnHeaderMeanAnomaly;
-    private ColumnHeader columnHeaderArgumentPerihelion;
-    private ColumnHeader columnHeaderLongitudeAscendingNode;
-    private ColumnHeader columnHeaderInclination;
-    private ColumnHeader columnHeaderOrbitalEccentricity;
-    private ColumnHeader columnHeaderMeanDailyMotion;
-    private ColumnHeader columnHeaderSemimajorAxis;
-    private ColumnHeader columnHeaderAbsoluteMagnitude;
-    private ColumnHeader columnHeaderSlopeParameter;
-    private ColumnHeader columnHeaderReference;
-    private ColumnHeader columnHeaderNumberOppositions;
-    private ColumnHeader columnHeaderNumberObservations;
-    private ColumnHeader columnHeaderObservationSpan;
-    private ColumnHeader columnHeaderRmsResidual;
-    private ColumnHeader columnHeaderComputerName;
-    private ColumnHeader columnHeaderFlags;
-    private ColumnHeader columnHeaderDateLastObservation;
-    private BackgroundWorker backgroundWorker;
-        private KryptonPanel kryptoPanelMain;
+	private ColumnHeader columnHeaderIndex;
+	private ColumnHeader columnHeaderReadableDesignation;
+	private ColumnHeader columnHeaderEpoch;
+	private ColumnHeader columnHeaderMeanAnomaly;
+	private ColumnHeader columnHeaderArgumentPerihelion;
+	private ColumnHeader columnHeaderLongitudeAscendingNode;
+	private ColumnHeader columnHeaderInclination;
+	private ColumnHeader columnHeaderOrbitalEccentricity;
+	private ColumnHeader columnHeaderMeanDailyMotion;
+	private ColumnHeader columnHeaderSemimajorAxis;
+	private ColumnHeader columnHeaderAbsoluteMagnitude;
+	private ColumnHeader columnHeaderSlopeParameter;
+	private ColumnHeader columnHeaderReference;
+	private ColumnHeader columnHeaderNumberOppositions;
+	private ColumnHeader columnHeaderNumberObservations;
+	private ColumnHeader columnHeaderObservationSpan;
+	private ColumnHeader columnHeaderRmsResidual;
+	private ColumnHeader columnHeaderComputerName;
+	private ColumnHeader columnHeaderFlags;
+	private ColumnHeader columnHeaderDateLastObservation;
+	private BackgroundWorker backgroundWorker;
+		private KryptonPanel kryptoPanelMain;
 	private KryptonStatusStrip kryptonStatusStrip;
 	private ToolStripStatusLabel labelInformation;
 	private KryptonManager kryptonManager;
@@ -1265,4 +1279,5 @@ partial class TableModeForm
 	private ToolStripMenuItem toolStripMenuItemSaveAsXps;
 	private ToolStripMenuItem toolStripMenuItemSaveAsFictionBook2;
 	private ToolStripMenuItem toolStripMenuItemSaveAsChm;
+	private ToolStripMenuItem toolStripMenuItemSaveAsTypst;
 }

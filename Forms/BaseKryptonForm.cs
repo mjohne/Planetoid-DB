@@ -384,6 +384,14 @@ public class BaseKryptonForm : KryptonForm
 	protected void SaveAsTextile_Click(object? sender, EventArgs e)
 		=> PerformSaveExport(filter: "Textile Files (*.textile)|*.textile|All Files (*.*)|*.*", defaultExt: "textile", dialogTitle: "Save as Textile", listViewAction: ListViewExporter.SaveAsTextile, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsTextile, textBoxAction: TextBoxExporter.SaveAsTextile);
 
+	/// <summary>Handles the Click event to export data as a Typst file.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>Invokes <see cref="PerformSaveExport"/> with Typst-specific parameters.</remarks>
+	protected void SaveAsTypst_Click(object? sender, EventArgs e)
+		=> PerformSaveExport(filter: "Typst Files (*.typ)|*.typ|All Files (*.*)|*.*", defaultExt: "typ", dialogTitle: "Save as Typst", listViewAction: ListViewExporter.SaveAsTypst, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsTypst, textBoxAction: TextBoxExporter.SaveAsTypst);
+
+
 	/// <summary>Handles the Click event to export data as a Word document.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
