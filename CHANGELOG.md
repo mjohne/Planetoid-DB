@@ -1,5 +1,19 @@
 # Changelog
 
+## Planetoid-DB 0.9.18.81
+
+* Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/845
+* Updated `CHANGELOG` for version 0.9.17.80 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/846
+* Refactor: Extract shared helpers, split PlanetoidDBForm, deduplicate exporter code by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/852
+* Updated documentation comments by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/854
+* Moved database methods to `PlanetoidDBForm.DatabaseUpdates.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/855
+* Moved decoder methods to `PlanetoidDBForm.Decoders.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/856
+* Added export support for Typst files by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/857
+* Updated to version 0.9.18.81 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/858
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.17.80.843.2844...0.9.18.81.858.2891
+
+
 ## Planetoid-DB 0.9.17.80
 
 * Update image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/837
@@ -299,7 +313,6 @@
 
 ## Planetoid-DB 0.8.10.61
 
-## What's Changed
 * Updated image link in README.md by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/583
 * Updated CHANGELOG for version 0.8.9.60 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/584
 * Updated several `Krypton` packages by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/585
@@ -633,7 +646,7 @@
 * Updated to version 0.7.19.46 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/290
 * Fix review comment issues from PR #290 by @Copilot in https://github.com/mjohne/Planetoid-DB/pull/291
 
-## New Contributors
+**New Contributors**
 * @Copilot made their first contribution in https://github.com/mjohne/Planetoid-DB/pull/282
 
 **Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.7.18.45.25.1078...0.7.19.46.291.1142
