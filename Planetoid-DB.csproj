@@ -854,10 +854,10 @@ Public License instead of this License.  But first, please read
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="HarfBuzzSharp" Version="14.2.1" />
-    <PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" Version="14.2.1" />
-    <PackageReference Include="HarfBuzzSharp.NativeAssets.macOS" Version="14.2.1" />
-    <PackageReference Include="HarfBuzzSharp.NativeAssets.Win32" Version="14.2.1" />
+    <PackageReference Include="HarfBuzzSharp" Version="14.2.1.1" />
+    <PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" Version="14.2.1.1" />
+    <PackageReference Include="HarfBuzzSharp.NativeAssets.macOS" Version="14.2.1.1" />
+    <PackageReference Include="HarfBuzzSharp.NativeAssets.Win32" Version="14.2.1.1" />
     <PackageReference Include="Krypton.Docking" Version="105.26.4.110" />
     <PackageReference Include="Krypton.Navigator" Version="105.26.4.110" />
     <PackageReference Include="Krypton.Ribbon" Version="105.26.4.110" />
