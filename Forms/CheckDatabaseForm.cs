@@ -85,7 +85,7 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 		// Set the form title
 		Text = $"Check {databaseName}";
 		// Set accessible info
-		AccessibleDescription = $"Shows the informations about the {databaseName} database local and online";
+		AccessibleDescription = $"Shows the information about the {databaseName} database local and online";
 		AccessibleName = $"Check {databaseName}";
 		// Set label texts for the database file columns
 		labelDatabaseFileLocal.Values.Text = $"{databaseName} local";

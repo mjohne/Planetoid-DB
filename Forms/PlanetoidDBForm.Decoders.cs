@@ -1,4 +1,4 @@
-// This file is part of the PlanetoidDbForm partial class.
+// This file is part of the PlanetoidDbForm partial class.
 // It contains methods for decoding MPCORB flag and reference fields,
 // as well as the static helpers DecodeReference, DecodeBase62, and GetJournalName.
 
