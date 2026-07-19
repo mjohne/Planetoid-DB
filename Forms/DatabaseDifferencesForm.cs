@@ -82,6 +82,10 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// <remarks>This property provides access to the status label used for displaying information in the form's status strip.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
+	/// <summary>Cancellation token source for managing cancellation of asynchronous operations.</summary>
+	/// <remarks>This field is used to signal cancellation requests for ongoing asynchronous operations. It should be properly disposed of when no longer needed to free resources.</remarks>
+	private CancellationTokenSource? _cancellationTokenSource;
+
 	#region Constructor
 
 	/// <summary>Initializes a new instance of the <see cref="DatabaseDifferencesForm"/> class.</summary>
@@ -257,6 +261,174 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Updates the progress bar and status label based on the provided report data.</summary>
+	/// <param name="report">A tuple containing the percentage of completion, status message, and an optional batch of difference results to be added to the list view.</param>
+	/// <remarks>This method is called to update the UI elements that display progress information during the comparison of files. It ensures that the progress bar value is clamped between 0 and 100, updates the text of the progress bar, and sets the taskbar progress value. If a batch of difference results is provided, it adds them to the list view and updates its virtual size accordingly.</remarks>
+	private void UpdateProgress((int Percent, string Status, List<DifferenceResult>? Batch) report)
+	{
+		// Clamp the progress bar value between 0 and 100 to ensure it stays within valid bounds
+		kryptonProgressBar.Value = Math.Max(0, Math.Min(100, report.Percent));
+		// Update the text of the progress bar to show either the status message or the percentage completed, depending on whether a status message is provided
+		kryptonProgressBar.Text = string.IsNullOrEmpty(value: report.Status) ? $"{report.Percent}%" : report.Status;
+		// Update the taskbar progress value to reflect the current percentage of completion, using the window handle of the form and setting the maximum value to 100
+		TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)report.Percent, progressMax: 100);
+		// If a batch of difference results is provided and it contains items, add them to the difference results list and update the virtual list size of the ListView to reflect the new total count of difference results
+		if (report.Batch != null && report.Batch.Count > 0)
+		{
+			differenceResults.AddRange(collection: report.Batch);
+			listViewResults.VirtualListSize = differenceResults.Count;
+		}
+	}
+
+	/// <summary>Compares two MPCORB.DAT files asynchronously and reports progress.</summary>
+	/// <param name="p1">The path to the first MPCORB.DAT file.</param>
+	/// <param name="p2">The path to the second MPCORB.DAT file.</param>
+	/// <param name="file1IsNewer">Indicates whether the first file is newer than the second.</param>
+	/// <param name="progress">An object to report progress updates.</param>
+	/// <param name="token">A cancellation token to cancel the operation.</param>
+	/// <remarks>This method reads the first file into a dictionary of PlanetoidRecord objects, then reads the second file line by line, comparing each record to the corresponding record in the first file. Differences are collected and reported in batches to the progress reporter. The method also checks for added or deleted records and reports them accordingly.</remarks>
+	private void CompareFilesAsync(string p1, string p2, bool file1IsNewer, IProgress<(int, string, List<DifferenceResult>?)> progress, CancellationToken token)
+	{
+		// Report initial progress indicating that the reference file is being loaded
+		progress.Report(value: (0, "Loading Reference File...", null));
+		// Create a dictionary to hold the records from the first file, using the designation name as the key
+		Dictionary<string, PlanetoidRecord> records1 = new();
+		// Read each line from the first file and parse it into a PlanetoidRecord, adding it to the dictionary if it has a valid designation name
+		foreach (string line in File.ReadLines(path: p1))
+		{
+			// Check for cancellation requests and throw an exception if cancellation has been requested
+			token.ThrowIfCancellationRequested();
+			// Only process lines that are long enough to be valid records and do not start with a comment character
+			if (line.Length > 200 && !line.StartsWith(value: '#'))
+			{
+				// Parse the line into a PlanetoidRecord and add it to the dictionary if it has a valid designation name
+				PlanetoidRecord record = PlanetoidRecord.Parse(rawLine: line);
+				if (!string.IsNullOrEmpty(value: record.DesignationName))
+				{
+					records1[key: record.DesignationName] = record;
+				}
+			}
+		}
+		// Report progress indicating that the comparison of files is starting
+		progress.Report(value: (0, "Comparing Files...", null));
+		// Get the total number of bytes in the second file to calculate progress percentage
+		long totalBytesFile2 = new FileInfo(fileName: p2).Length;
+		// Initialize a variable to track the number of bytes read from the second file
+		long currentBytesRead = 0;
+		// Initialize a list to hold the results of differences found during the comparison
+		List<DifferenceResult> batchResults = new();
+		// Initialize variables to track the last time progress was reported and the interval for reporting progress
+		long lastReportTicks = DateTime.Now.Ticks;
+		// Set the interval for reporting progress to 100 milliseconds
+		long reportIntervalTicks = TimeSpan.FromMilliseconds(milliseconds: 100).Ticks;
+		// Open the second file for reading and process it line by line
+		using (StreamReader reader = new(path: p2))
+		{
+			// Read each line from the second file until the end of the file is reached
+			string? line;
+			// For each line, check for cancellation requests, update the number of bytes read, and compare the record to the corresponding record in the first file
+			while ((line = reader.ReadLine()) != null)
+			{
+				// Check for cancellation requests and throw an exception if cancellation has been requested
+				token.ThrowIfCancellationRequested();
+				// Update the current number of bytes read by adding the length of the line and the newline characters (assumed to be 2 bytes for CRLF)
+				currentBytesRead += line.Length + 2;
+				// Only process lines that are long enough to be valid records and do not start with a comment character
+				if (line.Length >= 200 && !line.StartsWith(value: '#'))
+				{
+					// Parse the line into a PlanetoidRecord and check if it has a valid designation name
+					PlanetoidRecord record2 = PlanetoidRecord.Parse(rawLine: line);
+					// If the record has a valid designation name, attempt to find the corresponding record in the first file's dictionary and compare them
+					if (!string.IsNullOrEmpty(value: record2.DesignationName))
+					{
+						// If a corresponding record is found in the first file, compare the two records and add any differences to the batch results; if no corresponding record is found, note that the record was added or deleted based on which file is newer
+						if (records1.TryGetValue(key: record2.DesignationName, value: out PlanetoidRecord record1))
+						{
+							// Compare the two records and get a string describing the differences, if any
+							string diff = file1IsNewer ? CompareRecords(r1: record2, r2: record1) : CompareRecords(r1: record1, r2: record2);
+							// If there are any differences, add a new DifferenceResult to the batch results and increment the count of changed records; then remove the record from the first file's dictionary to track which records have been processed
+							if (!string.IsNullOrEmpty(value: diff))
+							{
+								// Add a new DifferenceResult to the batch results with the index, designation, and description of the differences
+								batchResults.Add(item: new DifferenceResult(record2.Index, Designation: record2.DesignationName, Difference: diff));
+								// Increment the count of changed records to reflect that a difference was found between the two files
+								changedRecords++;
+							}
+							// Remove the record from the first file's dictionary to track which records have been processed and to identify any remaining records that may have been added or deleted
+							records1.Remove(key: record2.DesignationName);
+						}
+						// If no corresponding record is found in the first file's dictionary, determine whether the record was added or deleted based on which file is newer, and add a new DifferenceResult to the batch results accordingly; also increment the count of added or deleted records
+						else
+						{
+							// Determine whether the record was added or deleted based on which file is newer, and create a description of the difference
+							string diffText = file1IsNewer ? "Deleted record" : "Added record";
+							// Add a new DifferenceResult to the batch results with the index, designation, and description of the difference
+							batchResults.Add(item: new DifferenceResult(record2.Index, Designation: record2.DesignationName, Difference: diffText));
+							// Increment the count of added or deleted records based on which file is newer
+							if (file1IsNewer)
+							{
+								deletedRecords++;
+							}
+							else
+							{
+								addedRecords++;
+							}
+						}
+					}
+				}
+				// Check if the batch results have reached a size of 1000, and if so, report the current progress and clear the batch results for the next set of differences
+				long currentTicks = DateTime.Now.Ticks;
+				// If the time since the last report exceeds the report interval, report the current progress and clear the batch results; this ensures that progress is reported at regular intervals even if the batch size has not been reached
+				if (currentTicks - lastReportTicks > reportIntervalTicks)
+				{
+					// Calculate the percentage of completion based on the total bytes read from the second file and the total size of the second file; if the total size is zero, set the percentage to zero to avoid division by zero
+					int percent = totalBytesFile2 > 0 ? (int)((double)currentBytesRead / totalBytesFile2 * 100) : 0;
+					// Report the current progress, including the percentage completed, an empty status message, and a copy of the current batch results; then clear the batch results and update the last report time
+					progress.Report(value: (percent, string.Empty, new List<DifferenceResult>(collection: batchResults)));
+					// Clear the batch results to prepare for the next set of differences to be collected
+					batchResults.Clear();
+					// Update the last report time to the current time to track when the next progress report should be sent
+					lastReportTicks = currentTicks;
+				}
+			}
+		}
+		// After processing all lines in the second file, report progress indicating that the check for added records is starting
+		progress.Report(value: (100, "Checking for added records...", null));
+		// Iterate through any remaining records in the first file's dictionary, which represent records that were not found in the second file, and add them to the batch results as either added or deleted records based on which file is newer; also increment the count of added or deleted records accordingly
+		foreach (var entry in records1)
+		{
+			// Check for cancellation requests and throw an exception if cancellation has been requested
+			token.ThrowIfCancellationRequested();
+			// Determine whether the record was added or deleted based on which file is newer, and create a description of the difference
+			string diffText = file1IsNewer ? "Added record" : "Deleted record";
+			// Add a new DifferenceResult to the batch results with the index, designation, and description of the difference
+			batchResults.Add(item: new DifferenceResult(entry.Value.Index, Designation: entry.Key, Difference: diffText));
+			// Increment the count of added or deleted records based on which file is newer
+			if (file1IsNewer)
+			{
+				addedRecords++;
+			}
+			else
+			{
+				deletedRecords++;
+			}
+			// If the batch results have reached a size of 1000, report the current progress and clear the batch results for the next set of differences
+			if (batchResults.Count >= 1000)
+			{
+				// Report the current progress, including a percentage of 100 (indicating completion), an empty status message, and a copy of the current batch results; then clear the batch results for the next set of differences
+				progress.Report(value: (100, string.Empty, new List<DifferenceResult>(collection: batchResults)));
+				// Clear the batch results to prepare for the next set of differences to be collected
+				batchResults.Clear();
+			}
+		}
+		// After processing all remaining records, if there are any results left in the batch, report them to ensure that all differences are captured and displayed to the user
+		if (batchResults.Count > 0)
+		{
+			// Report the final batch of results, including a percentage of 100 (indicating completion), an empty status message, and a copy of the current batch results; this ensures that any remaining differences are displayed to the user
+			progress.Report(value: (100, string.Empty, new List<DifferenceResult>(collection: batchResults)));
+		}
+	}
+
 	#endregion
 
 	#region Form event handlers
@@ -330,47 +502,79 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// <param name="sender">The source of the event, typically the button that was clicked.</param>
 	/// <param name="e">The event data associated with the click event.</param>
 	/// <remarks>This method validates the selected files and initiates the comparison process by starting the background worker.</remarks>
-	private void ButtonCompare_Click(object sender, EventArgs e)
+	private async void ButtonCompare_Click(object sender, EventArgs e)
 	{
 		// Reset the counters for added, deleted, and changed records before starting the comparison
 		addedRecords = deletedRecords = changedRecords = 0;
-		// Validate that both file paths are set and that the files exist before starting the comparison
+		// Validate that both file paths are not null or empty and that the files exist; if not, show an error message and return early
 		if (string.IsNullOrEmpty(value: pathFile1) || !File.Exists(path: pathFile1))
 		{
-			// Show an error message if the first file is not valid and return early to prevent starting the comparison
 			ShowErrorMessage(message: "Please select a valid reference file (File 1).");
 			return;
 		}
-		// Show an error message if the second file is not valid and return early to prevent starting the comparison
 		if (string.IsNullOrEmpty(value: pathFile2) || !File.Exists(path: pathFile2))
 		{
-			// Show an error message if the second file is not valid and return early to prevent starting the comparison
 			ShowErrorMessage(message: "Please select a valid comparison file (File 2).");
 			return;
 		}
-		// Get the last write times of both files to determine if they are identical or to establish which one is newer for comparison purposes
+		// Get the last write times of both files to determine if they are identical or which one is newer
 		DateTime date1 = File.GetLastWriteTime(path: pathFile1);
 		DateTime date2 = File.GetLastWriteTime(path: pathFile2);
-		// If the last write times of both files are identical, show an informational message and abort the comparison since the file contents are likely the same
+		// If the last write times are identical, show a message indicating that the files are the same and abort further comparison
 		if (date1 == date2)
 		{
-			_ = KryptonMessageBox.Show(owner: this, text: "The file dates of both files are identical. The file contents of file 1 and file 2 are the same. Further comparison is aborted.", caption: "Notice", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			KryptonMessageBox.Show(owner: this, text: "The file dates of both files are identical. The file contents of file 1 and file 2 are the same. Further comparison is aborted.", caption: "Notice", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
-		// Determine if file 1 is newer than file 2 based on the last write times, which will be used to determine the direction of the comparison (i.e., whether differences should be reported as added or deleted records)
+		// Determine whether the first file is newer than the second file based on their last write times
 		bool file1IsNewer = date1 > date2;
-		// Clear previous comparison results and reset the UI elements before starting a new comparison
+		// Clear any previous difference results and reset the ListView to prepare for new comparison results
 		differenceResults.Clear();
 		listViewResults.VirtualListSize = 0;
 		listViewResults.Items.Clear();
-		// Reset the counters for added, deleted, and changed records
+		// Reset the progress bar to 0 and update the UI elements to reflect that a comparison is in progress
 		kryptonProgressBar.Value = 0;
 		toolStripButtonCompare.Enabled = false;
 		kryptonButtonSelectFile1.Enabled = false;
 		kryptonButtonSelectFile2.Enabled = false;
 		toolStripButtonCancel.Enabled = true;
-		// Start the background worker to perform the comparison of the selected files, passing the file paths and the date comparison flag
-		worker.RunWorkerAsync(argument: new object[] { pathFile1, pathFile2, file1IsNewer });
+		// Create a new CancellationTokenSource to allow the user to cancel the comparison operation if needed
+		_cancellationTokenSource = new CancellationTokenSource();
+		// Create a new Progress object to report progress updates from the comparison operation, specifying the UpdateProgress method as the handler for progress updates
+		Progress<(int Percent, string Status, List<DifferenceResult>? Batch)> progress = new(handler: UpdateProgress);
+		// Use a try-catch-finally block to handle exceptions and ensure that UI elements are reset after the comparison operation completes or is canceled
+		try
+		{
+			// Run the comparison operation asynchronously on a separate thread to avoid blocking the UI, passing in the file paths, whether the first file is newer, the progress reporter, and the cancellation token
+			await Task.Run(action: () => CompareFilesAsync(p1: pathFile1, p2: pathFile2, file1IsNewer: file1IsNewer, progress: progress, token: _cancellationTokenSource.Token));
+			// After the comparison operation completes successfully, update the progress bar text to indicate that the comparison is complete and show a message box summarizing the results of the comparison, including the counts of added, changed, and deleted records
+			kryptonProgressBar.Text = "Comparison Complete";
+			KryptonMessageBox.Show(owner: this, text: $"Comparison completed successfully.\n\nAdded records: {addedRecords}\nChanged records: {changedRecords}\nDeleted records: {deletedRecords}", caption: "Summary", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		}
+		// Catch an OperationCanceledException to handle the case where the user cancels the comparison operation, updating the progress bar text and showing a message box to inform the user that the comparison was cancelled
+		catch (OperationCanceledException)
+		{
+			kryptonProgressBar.Text = "Comparison Cancelled";
+			KryptonMessageBox.Show(owner: this, text: "Comparison cancelled by user", caption: "Cancelled", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		}
+		// Catch any other exceptions that may occur during the comparison operation, logging the error and updating the progress bar text and showing a message box to inform the user of the error
+		catch (Exception ex)
+		{
+			logger.Error(exception: ex, message: "Error during comparison");
+			kryptonProgressBar.Text = "Error occurred";
+			ShowErrorMessage(message: $"An error occurred: {ex.Message}");
+		}
+		// In the finally block, reset the UI elements to their default state, re-enable buttons, and dispose of the cancellation token source to clean up resources
+		finally
+		{
+			toolStripButtonCompare.Enabled = true;
+			kryptonButtonSelectFile1.Enabled = true;
+			kryptonButtonSelectFile2.Enabled = true;
+			toolStripButtonCancel.Enabled = false;
+			// Dispose of the cancellation token source to free up resources and set it to null to indicate that there is no ongoing comparison operation
+			_cancellationTokenSource?.Dispose();
+			_cancellationTokenSource = null;
+		}
 	}
 
 	/// <summary>Handles the click event for the cancel button, allowing the user to cancel the ongoing comparison or close the form if no comparison is in progress.</summary>
@@ -379,11 +583,11 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// <remarks>This event is triggered when the user clicks the cancel button, allowing the ongoing comparison to be canceled or the form to be closed if no comparison is in progress.</remarks>
 	private void ButtonCancel_Click(object sender, EventArgs e)
 	{
-		// If the background worker is currently busy with a comparison, request cancellation and disable the cancel button to prevent multiple clicks
-		if (worker.IsBusy)
+		// Check if there is an ongoing comparison operation by verifying that the cancellation token source is not null and that cancellation has not already been requested; if so, cancel the operation and disable the cancel button to prevent further clicks
+		if (_cancellationTokenSource != null && !_cancellationTokenSource.IsCancellationRequested)
 		{
-			worker.CancelAsync();
-			toolStripButtonCancel.Enabled = false; // Prevent multiple clicks
+			_cancellationTokenSource.Cancel();
+			toolStripButtonCancel.Enabled = false;
 		}
 		else
 		{
