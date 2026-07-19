@@ -200,10 +200,11 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	/// <param name="url">The URL that was being processed when the error occurred.</param>
 	/// <param name="errorType">The high-level type/category of the error.</param>
 	/// <param name="errorDescription">A descriptive explanation of the error.</param>
+	/// <remarks>This method increments the error counter and appends a new <see cref="BulkObservationsDownloadErrorEntry"/> to the in-memory list of download errors. The timestamp is set to the current time.</remarks>
 	private void AddDownloadError(string url, string errorType, string errorDescription)
 	{
 		_errorCount++;
-		_downloadErrors.Add(new BulkObservationsDownloadErrorEntry(
+		_downloadErrors.Add(item: new BulkObservationsDownloadErrorEntry(
 			Timestamp: DateTime.Now,
 			Url: string.IsNullOrWhiteSpace(value: url) ? "-" : url,
 			ErrorType: errorType,
