@@ -1,11 +1,8 @@
 ﻿// This file contains the DatabaseInformationForm implementation.
 
-using Krypton.Toolkit;
-
 using NLog;
 
 using Planetoid_DB.Forms;
-using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 
 using System.Diagnostics;
@@ -60,41 +57,86 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
+	/// <summary>Shows the context menu for a ToolStripItem.</summary>
+	/// <param name="sender">The source of the event, typically a ToolStripItem.</param>
+	/// <param name="contextMenu">The context menu to be displayed.</param>
+	/// <remarks>This method is used to display a context menu for a ToolStripItem, such as a button or dropdown.</remarks>
+	private static void ShowContextMenuForToolStripItem(object sender, ContextMenuStrip contextMenu)
+	{
+		// Check if the sender is a ToolStripItem and has an owner
+		// FIX: Use ToolStripItem instead of ToolStripButton to support DropDownButtons as well
+		if (sender is ToolStripItem item && item.Owner is not null)
+		{
+			// Show the context menu at the bottom-left corner of the ToolStripItem
+			contextMenu.Show(control: item.Owner, x: item.Bounds.Left, y: item.Bounds.Bottom);
+		}
+	}
+
 	#endregion
 
 	#region form event handlers
 
-	/// <summary>Fired when the database information form loads.
-	/// Populates UI labels with file information for the configured MPCORB.DAT file and displays detected file attributes.</summary>
+	/// <summary>Fired when the database information form loads. Populates UI labels with file information for the configured MPCORB.DAT file and displays detected file attributes.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the database information form loads.</remarks>
 	private void DatabaseInformationForm_Load(object sender, EventArgs e)
 	{
 		// Path to the database file
-		FileInfo fileInfo = new(fileName: Settings.Default.systemFilenameMpcorbDat);
+		string? dbFilePath = Settings.Default.systemFilenameMpcorbDat;
+
 		// Check if the file exists
-		if (!File.Exists(path: fileInfo.FullName))
+		if (string.IsNullOrWhiteSpace(value: dbFilePath))
 		{
 			// Log an error and show a message if the file does not exist
-			logger.Error(message: $"Database file not found: {fileInfo.FullName}");
-			ShowErrorMessage(message: $"Database file not found: {fileInfo.FullName}");
+			logger.Error(message: $"Database file not found: {dbFilePath}");
+			ShowErrorMessage(message: $"Database file not found: {dbFilePath}");
 			return;
 		}
-		// Set the file information in the labels
-		labelNameValue.Text = fileInfo.Name;
-		// Set the file name in the label
-		labelDirectoryValue.Text = fileInfo.DirectoryName;
-		// Set the file size in the label
-		labelSizeValue.Text = $"{fileInfo.Length:N0} {I18nStrings.BytesText}";
-		// Set the file type in the label
-		labelDateCreatedValue.Text = fileInfo.CreationTime.ToString(format: "G", provider: CultureInfo.CurrentCulture);
-		// Set the file creation time in the label
-		labelDateAccessedValue.Text = fileInfo.LastAccessTime.ToString(format: "G", provider: CultureInfo.CurrentCulture);
-		// Set the file last access time in the label
-		labelDateWritedValue.Text = fileInfo.LastWriteTime.ToString(format: "G", provider: CultureInfo.CurrentCulture);
-		// Set the file attributes in the label
-		labelAttributesValue.Text = $"{fileInfo.Attributes}";
+		// Attempt to read file information and populate the UI labels
+		try
+		{
+			// Create a FileInfo object for the database file
+			FileInfo fileInfo = new(fileName: dbFilePath);
+			// Refresh the file information to ensure it is up-to-date
+			fileInfo.Refresh();
+			// Check if the file exists
+			if (!fileInfo.Exists)
+			{
+				// Log an error and show a message if the file does not exist
+				logger.Error(message: $"Database file not found: {fileInfo.FullName}");
+				ShowErrorMessage(message: $"Database file not found: {fileInfo.FullName}");
+				return;
+			}
+			// Get the current culture for formatting
+			CultureInfo culture = CultureInfo.CurrentCulture;
+			// Set the file information in the labels
+			labelNameValue.Text = fileInfo.Name;
+			// Set the file name in the label
+			labelDirectoryValue.Text = fileInfo.DirectoryName;
+			// Set the file size in the label
+			labelSizeValue.Text = $"{fileInfo.Length:N0} {I18nStrings.BytesText}";
+			// Set the file type in the label
+			labelDateCreatedValue.Text = fileInfo.CreationTime.ToString(format: "G", provider: CultureInfo.CurrentCulture);
+			// Set the file creation time in the label
+			labelDateAccessedValue.Text = fileInfo.LastAccessTime.ToString(format: "G", provider: CultureInfo.CurrentCulture);
+			// Set the file last access time in the label
+			labelDateWritedValue.Text = fileInfo.LastWriteTime.ToString(format: "G", provider: CultureInfo.CurrentCulture);
+			// Set the file attributes in the label
+			labelAttributesValue.Text = $"{fileInfo.Attributes}";
+		}
+		// Handle specific exceptions related to file access
+		catch (Exception ex) when (ex is System.Security.SecurityException or UnauthorizedAccessException)
+		{
+			logger.Error(exception: ex, message: $"Access denied when trying to read: {dbFilePath}");
+			ShowErrorMessage(message: $"Access to the database file was denied. Check permissions for: {dbFilePath}");
+		}
+		// Handle any other unexpected exceptions
+		catch (Exception ex)
+		{
+			logger.Error(exception: ex, message: $"Unexpected error reading database info for: {dbFilePath}");
+			ShowErrorMessage(message: $"An unexpected error occurred: {ex.Message}");
+		}
 	}
 
 	#endregion
@@ -106,14 +148,14 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the copy to clipboard button is clicked.</remarks>
 	private void ToolStripDropDownButtonCopyToClipboard_Click(object sender, EventArgs e)
-	{
-		// Check if the sender is a tool strip button
-		if (sender is ToolStripButton button && button.Owner is not null)
-		{
-			// Show the context menu for copying to the clipboard
-			contextMenuFullCopyToClipboard.Show(control: button.Owner, x: button.Bounds.Left, y: button.Bounds.Bottom);
-		}
-	}
+		=> ShowContextMenuForToolStripItem(sender: sender, contextMenu: contextMenuFullCopyToClipboard);
+
+	/// <summary>Handles the click event of the save to file button.</summary>
+	/// <param name="sender">Event source (the button).</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is called when the save to file button is clicked.</remarks>
+	private void ToolStripButtonSaveToFile_Click(object sender, EventArgs e)
+		=> ShowContextMenuForToolStripItem(sender: sender, contextMenu: contextMenuSaveToFile);
 
 	/// <summary>Handles the click event of the copy to clipboard menu item for the database name.</summary>
 	/// <param name="sender">Event source (the menu item).</param>
@@ -156,20 +198,6 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the copy to clipboard menu item for the database attributes is clicked.</remarks>
 	private void MenuitemCopyToClipboardAttributes_Click(object sender, EventArgs e) => CopyToClipboard(text: labelAttributesValue.Text);
-
-	/// <summary>Handles the click event of the save to file button.</summary>
-	/// <param name="sender">Event source (the button).</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is called when the save to file button is clicked.</remarks>
-	private void ToolStripButtonSaveToFile_Click(object sender, EventArgs e)
-	{
-		// Check if the sender is a tool strip button
-		if (sender is ToolStripButton button && button.Owner is not null)
-		{
-			// Show the context menu for saving to a file
-			contextMenuSaveToFile.Show(control: button.Owner, x: button.Bounds.Left, y: button.Bounds.Bottom);
-		}
-	}
 
 	#endregion
 }
