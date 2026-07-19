@@ -96,7 +96,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>This method is called when the Start button is clicked to initiate the asteroid family detection process.</remarks>
-	private void ToolStripButtonStartSearch_Click(object? sender, EventArgs e)
+	private async void ToolStripButtonStartSearch_Click(object? sender, EventArgs e)
 	{
 		// If there are no planetoid data lines available, show an informational message and return.
 		if (_planetoids.Count == 0)
@@ -121,7 +121,8 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		double tolE = (double)toolStripNumericUpDownToleranceValueNumericEccentricity.Value;
 		double tolI = (double)toolStripNumericUpDownToleranceValueInclination.Value;
 		int minMembers = (int)toolStripNumericUpDownToleranceValueMinimumMembers.Value;
-		// Create a new cancellation token source for this detection run.
+		// Dispose of any existing cancellation token source and create a new one for the current detection process.
+		_cancellationTokenSource?.Dispose();
 		_cancellationTokenSource = new CancellationTokenSource();
 		// Create a progress reporter to update the progress bar and label on the UI thread.
 		Progress<int> progress = new(handler: percent =>
@@ -131,7 +132,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)percent, progressMax: 100);
 		});
 		// Start the detection process on a background thread to keep the UI responsive.
-		Task.Run(
+		await Task.Run(
 			function: () => PerformDetectionAsync(tolA: tolA, tolE: tolE, tolI: tolI, minMembers: minMembers, progress: progress, cancellationToken: _cancellationTokenSource.Token),
 			cancellationToken: _cancellationTokenSource.Token);
 	}
@@ -202,12 +203,13 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 					string index = line[..7].Trim();
 					string name = line.Length >= 194 ? line.Substring(startIndex: 166, length: 28).Trim() : string.Empty;
 					// We attempt to parse the orbital elements using invariant culture to ensure consistent number formatting. If parsing succeeds, we create a PlanetoidEntry and add it to the list.
-					if (double.TryParse(s: line.Substring(startIndex: 92, length: 11).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double a) &&
-						double.TryParse(s: line.Substring(startIndex: 70, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double ecc) &&
-						double.TryParse(s: line.Substring(startIndex: 59, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double incl) &&
-						double.TryParse(s: line.Substring(startIndex: 26, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double meanAnomaly) &&
-						double.TryParse(s: line.Substring(startIndex: 37, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double argPeri) &&
-						double.TryParse(s: line.Substring(startIndex: 48, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double longAscNode))
+					ReadOnlySpan<char> span = line.AsSpan();
+					if (double.TryParse(s: span.Slice(start: 92, length: 11).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double a) &&
+						double.TryParse(s: span.Slice(start: 70, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double ecc) &&
+						double.TryParse(s: span.Slice(start: 59, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double incl) &&
+						double.TryParse(s: span.Slice(start: 26, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double meanAnomaly) &&
+						double.TryParse(s: span.Slice(start: 37, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double argPeri) &&
+						double.TryParse(s: span.Slice(start: 48, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double longAscNode))
 					{
 						// If all parsing operations succeed, we create a new PlanetoidEntry with the extracted values and add it to the parsedData list.
 						parsedData.Add(item: new PlanetoidEntry(Index: index, Name: name, SemiMajorAxis: a, Eccentricity: ecc, Inclination: incl, MeanAnomaly: meanAnomaly, ArgPeri: argPeri, LongAscNode: longAscNode));
@@ -406,18 +408,18 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		await SaveFamiliesToFileAsync(families: _families);
 	}
 
-	/// <summary>Opens a save dialog and writes the specified families to a text file.</summary>
+	/// <summary>Opens a save dialog and writes the specified families to a text file asynchronously.</summary>
 	/// <param name="families">The families to export.</param>
-	/// <remarks>This method opens a save dialog and writes the specified families to a text file.</remarks>
+	/// <remarks>This method opens a save dialog and streams the specified families directly to a text file to minimize memory usage.</remarks>
 	private async Task SaveFamiliesToFileAsync(IReadOnlyList<AsteroidFamily> families)
 	{
-		// We determine a default file name based on the number of families being saved. If there is only one family, we use its name (truncated at the first parenthesis if present) as the default file name, replacing spaces with underscores. If there are multiple families, we use a generic name "AsteroidFamilies" as the default file name.
+		// We determine a default file name based on whether there is a single family or multiple families. If there is one family, we use its name (truncated at the first '(' if present) and replace spaces with underscores. If there are multiple families, we use a generic name "AsteroidFamilies".
 		string defaultFileName = families.Count == 1
 			? (families[index: 0].Name.Contains(value: '(')
 				? families[index: 0].Name[..families[index: 0].Name.IndexOf(value: '(', comparisonType: StringComparison.Ordinal)].Trim().Replace(oldChar: ' ', newChar: '_')
 				: families[index: 0].Name.Replace(oldChar: ' ', newChar: '_'))
 			: "AsteroidFamilies";
-		// We create and configure a SaveFileDialog to allow the user to choose where to save the text file. The dialog is set to filter for text files and all files, with a default extension of "txt". The default file name is set based on the number of families being saved, and the title of the dialog is set accordingly.
+		// We create a SaveFileDialog to allow the user to choose where to save the file. We set the filter to allow text files and all files, set the default extension to "txt", and set the initial file name and title based on the number of families being saved.
 		using SaveFileDialog dlg = new()
 		{
 			Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*",
@@ -425,74 +427,83 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 			FileName = defaultFileName,
 			Title = families.Count == 1 ? "Save Selected Family" : "Save All Families"
 		};
-		// We show the save file dialog and check if the user clicked OK. If the user cancels the dialog, we simply return without doing anything. If the user selects a file and clicks OK, we proceed to write the family data to the specified file.
+		// We show the save dialog and check if the user clicked OK. If the user cancels the dialog, we simply return without doing anything.
 		if (dlg.ShowDialog(owner: this) != DialogResult.OK)
 		{
 			return;
 		}
-		// We create a Progress<int> instance to report progress updates to the UI. The progress handler updates the value and text of the progress bar in the tool strip, as well as the taskbar progress indicator for the application window.
+		// We create a Progress<int> instance to report progress updates to the UI. The handler updates the progress bar and label in the status strip, as well as the taskbar progress indicator.
 		Progress<int> progress = new(handler: percent =>
 		{
 			kryptonProgressBarToolStripItem.Value = percent;
 			kryptonProgressBarToolStripItem.Text = $"{percent}%";
 			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)percent, progressMax: 100);
 		});
-		// We calculate the total number of members across all families being saved to use for progress reporting. This allows us to report progress as we write each member to the file.
+		// We calculate the total number of members across all families to be saved. This is used for progress reporting.
 		int totalMembers = families.Sum(selector: f => f.Members.Count);
 		IProgress<int> progressReporter = progress;
-		// We use a StringBuilder to construct the contents of the text file asynchronously.
-		string textContent = await Task.Run(function: () =>
+		// We use a try-catch-finally block to handle potential exceptions during the file writing process. This ensures that we can log errors and show appropriate messages to the user if something goes wrong.
+		try
 		{
-			StringBuilder sb = new();
+			// We create a FileStreamOptions instance to specify the file access mode, sharing options, buffer size, and asynchronous options for writing to the file. This allows us to write to the file asynchronously and efficiently.
+			FileStreamOptions options = new()
+			{
+				Mode = FileMode.Create,
+				Access = FileAccess.Write,
+				Share = FileShare.None,
+				BufferSize = 65536,
+				Options = FileOptions.Asynchronous
+			};
+			// We create a FileStream and a StreamWriter to write the family data to the specified file. The StreamWriter is configured to use UTF-8 encoding for text output.
+			await using FileStream fs = new(path: dlg.FileName, options: options);
+			await using StreamWriter writer = new(stream: fs, encoding: Encoding.UTF8);
+			// We define a header string that contains the column names for the family data. The columns are aligned using fixed-width formatting to ensure that the output is easy to read. We also create a separator line of dashes that matches the length of the header.
 			string header = $"{"Index",-10} {"Name",-30} {"a (AU)",-12} {"e",-10} {"i (°)",-10} {"M (°)",-12} {"ArgPeri (°)",-14} {"LongAscNode (°)",-16}";
 			string separator = new(c: '-', count: header.Length);
 			int processed = 0;
-			// We loop through each family in the list of families to be saved.
+			// We loop through each family in the list of families to be saved. For each family, we write the family name, header, and separator to the file. We then loop through each member of the family and write their orbital parameters to the file in a formatted manner. We also update the progress reporter every 1000 members processed to keep the user informed about the progress of the save operation.
 			foreach (AsteroidFamily family in families)
 			{
-				sb.AppendLine(handler: $"=== {family.Name} ===");
-				sb.AppendLine(value: header);
-				sb.AppendLine(value: separator);
+				await writer.WriteLineAsync(value: $"=== {family.Name} ===");
+				await writer.WriteLineAsync(value: header);
+				await writer.WriteLineAsync(value: separator);
+				// We loop through each member of the current family and write their orbital parameters to the file in a formatted manner. The values are aligned using fixed-width formatting to ensure that the output is easy to read.
 				foreach (PlanetoidEntry p in family.Members)
 				{
-					sb.AppendLine(
-						value: $"{p.Index,-10} {p.Name,-30} {p.SemiMajorAxis,-12:F4} {p.Eccentricity,-10:F4} {p.Inclination,-10:F4} {p.MeanAnomaly,-12:F4} {p.ArgPeri,-14:F4} {p.LongAscNode,-16:F4}");
-
+					// We write the member's orbital parameters to the file using a formatted string. The values are aligned using fixed-width formatting to ensure that the output is easy to read. We also increment the processed counter to keep track of the total number of members written to the file across all families.
+					await writer.WriteLineAsync(value: $"{p.Index,-10} {p.Name,-30} {p.SemiMajorAxis,-12:F4} {p.Eccentricity,-10:F4} {p.Inclination,-10:F4} {p.MeanAnomaly,-12:F4} {p.ArgPeri,-14:F4} {p.LongAscNode,-16:F4}");
 					processed++;
+					// We report progress every 1000 members processed to keep the user informed about the progress of the save operation. The progress is calculated as a percentage of the total number of members across all families.
 					if (processed % 1000 == 0)
 					{
 						progressReporter.Report(value: processed * 100 / totalMembers);
 					}
 				}
-				sb.AppendLine();
+				await writer.WriteLineAsync(value: string.Empty);
 			}
+			// After writing all families and their members to the file, we flush the StreamWriter to ensure that all buffered data is written to the underlying stream. We also report that we have reached 100% progress.
+			await writer.FlushAsync();
 			progressReporter.Report(value: 100);
-			return sb.ToString();
-		});
-		// We attempt to write the contents constructed by the StringBuilder to the specified file using UTF-8 encoding.
-		try
-		{
-			await File.WriteAllTextAsync(path: dlg.FileName, contents: textContent, encoding: Encoding.UTF8);
+			// We show a message box to inform the user that the save operation was successful and display the path of the saved file.
 			KryptonMessageBox.Show(owner: this, text: $"Successfully saved to:{Environment.NewLine}{dlg.FileName}", caption: "Saved", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 		}
-		// We catch IOException to handle cases where the file cannot be written due to issues such as disk errors or file locks. We show an error message with details about the failure.
+		// We catch specific exceptions that may occur during the file writing process, such as IOException and UnauthorizedAccessException. For each exception, we log the error and show an appropriate error message to the user, including the reason for the failure.
 		catch (IOException ex)
 		{
-			logger.Error(exception: ex, message: "Failed to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
+			logger.Error(exception: ex, message: $"Failed to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
 			ShowErrorMessage(message: $"Failed to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
 		}
-		// We catch UnauthorizedAccessException to handle cases where the user does not have permission to write to the specified location. We show an error message indicating that the user does not have permission to save the file, along with details about the exception.
 		catch (UnauthorizedAccessException ex)
 		{
-			logger.Error(exception: ex, message: "You do not have permission to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
+			logger.Error(exception: ex, message: $"You do not have permission to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
 			ShowErrorMessage(message: $"You do not have permission to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
 		}
-		// We catch any other unexpected exceptions that may occur during the file save operation and show a generic error message with details about the exception. This ensures that any unforeseen issues are communicated clearly to the user without crashing the application.
 		catch (Exception ex)
 		{
-			logger.Error(exception: ex, message: "An unexpected error occurred while saving the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
+			logger.Error(exception: ex, message: $"An unexpected error occurred while saving the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
 			ShowErrorMessage(message: $"An unexpected error occurred while saving the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
 		}
+		// In the finally block, we reset the progress bar and label in the status strip, as well as the taskbar progress indicator, to indicate that the save operation has completed or failed. This ensures that the UI reflects the current state of the application regardless of whether the save operation was successful or encountered an error.
 		finally
 		{
 			kryptonProgressBarToolStripItem.Value = 0;
@@ -593,8 +604,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>When an item in the member list is double-clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
-	private void ListViewMembers_DoubleClick(object? sender, EventArgs e) =>
-		NavigateToSelectedMember(closeAfterNavigation: false);
+	private void ListViewMembers_DoubleClick(object? sender, EventArgs e) => NavigateToSelectedMember(closeAfterNavigation: false);
 
 	#endregion
 
@@ -604,23 +614,25 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>When clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> and this form is closed.</remarks>
-	private void ToolStripButtonGoToObject_Click(object? sender, EventArgs e) =>
-		NavigateToSelectedMember(closeAfterNavigation: true);
+	private void ToolStripButtonGoToObject_Click(object? sender, EventArgs e) => NavigateToSelectedMember(closeAfterNavigation: true);
 
 	/// <summary>Navigates to the currently selected member planetoid in the <see cref="PlanetoidDbForm"/>.</summary>
 	/// <param name="closeAfterNavigation">If <see langword="true"/>, this form is closed after navigation.</param>
 	/// <remarks>Does nothing when no item is selected or the family list is empty.</remarks>
 	private void NavigateToSelectedMember(bool closeAfterNavigation)
 	{
+		// We check if a family is currently selected and if there is at least one selected item in the member ListView. If either condition is not met, we simply return without doing anything.
 		if (_selectedFamily == null || listViewMembers.SelectedIndices.Count == 0)
 		{
 			return;
 		}
+		// We retrieve the index of the first selected item in the member ListView. We then check if this index is valid (i.e., within the bounds of the selected family's member list). If the index is invalid, we return without doing anything.
 		int idx = listViewMembers.SelectedIndices[index: 0];
 		if (idx < 0 || idx >= _selectedFamily.Members.Count)
 		{
 			return;
 		}
+		// We retrieve the PlanetoidEntry corresponding to the selected index from the selected family's member list. If the owner of this form is a PlanetoidDbForm, we call its JumpToRecord method to navigate to the planetoid's record using its index and designation (name). If closeAfterNavigation is true, we close this form after navigation.
 		PlanetoidEntry member = _selectedFamily.Members[index: idx];
 		if (Owner is PlanetoidDbForm planetoidDbForm)
 		{
@@ -628,6 +640,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		}
 		if (closeAfterNavigation)
 		{
+			// Close this form after navigation if the closeAfterNavigation parameter is true.
 			Close();
 		}
 	}
