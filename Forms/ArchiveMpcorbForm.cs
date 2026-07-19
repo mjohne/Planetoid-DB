@@ -97,58 +97,6 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 
 	#endregion
 
-	#region Constructor
-
-	/// <summary>Initializes a new instance of the ArchiveMpcorbForm class.</summary>
-	/// <remarks>This constructor sets up the form's components and prepares it for use.</remarks>
-	public ArchiveMpcorbForm() => InitializeComponent();
-
-	#endregion
-
-	#region Form event handlers
-
-	/// <summary>Handles the initialization of the ArchiveMpcorbForm when it is loaded, including setting the default file path, populating format and compression options, and updating the status with the online last modified date.</summary>
-	/// <remarks>This method is called automatically when the ArchiveMpcorbForm is loaded. It sets up the user interface by selecting default values and attempts to retrieve the last modified date from an online source, updating the status label accordingly. If the online date cannot be retrieved, the status label will indicate the error or fallback to the current time.</remarks>
-	/// <param name="sender">The source of the event, typically the ArchiveMpcorbForm instance.</param>
-	/// <param name="e">The event data associated with the form load event.</param>
-	private async void ArchiveMpcorbForm_Load(object sender, EventArgs e)
-	{
-		// Set default file path
-		string defaultPath = Settings.Default.systemFilenameMpcorbDat;
-		// If the default path exists, set it in the source textbox
-		if (File.Exists(path: defaultPath))
-		{
-			// Set the default path in the source textbox
-			kryptonTextBoxSource.Text = Path.GetFullPath(path: defaultPath);
-		}
-		// Update status label to indicate that the online date is being checked
-		labelInformation.Text = "Checking online date...";
-		// Attempt to retrieve the last modified date from the online source and update the status label accordingly
-		try
-		{
-			// Retrieve the last modified date of the online MPCORB file
-			_onlineLastModified = await GetOnlineLastModifiedAsync();
-			// Update the status label with the retrieved online date or indicate that it could not be retrieved
-			labelInformation.Text = _onlineLastModified.HasValue
-				? $"Online date: {_onlineLastModified.Value}"
-				: "Could not retrieve online date. Using current time.";
-		}
-		// Catch any exceptions that occur during the retrieval of the online date and update the status label with the error message
-		catch (Exception ex)
-		{
-			logger.Error(exception: ex, message: "Error checking online date");
-			ShowErrorMessage(message: $"Error checking online date: {ex.Message}");
-		}
-		// Determine the timestamp for the default file name based on the online last modified date or the current time if the online date is not available
-		DateTime date = _onlineLastModified ?? DateTime.UtcNow;
-		string timestamp = date.ToString(format: "yyyyMMddHHmmss");
-		extension = format == "Zip" ? ".zip" : format == "GZip" ? ".gz" : ".br";
-		string directory = Path.GetDirectoryName(path: kryptonTextBoxSource.Text) ?? string.Empty;
-		kryptonTextBoxTarget.Text = Path.Combine(path1: directory, path2: $"MPCORB-{timestamp}{extension}");
-	}
-
-	#endregion
-
 	#region Task methods
 
 	/// <summary>Retrieves the last modified date of the online MPCORB.DAT.gz file.</summary>
@@ -260,6 +208,58 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 				}
 			}
 		}
+	}
+
+	#endregion
+
+	#region Constructor
+
+	/// <summary>Initializes a new instance of the ArchiveMpcorbForm class.</summary>
+	/// <remarks>This constructor sets up the form's components and prepares it for use.</remarks>
+	public ArchiveMpcorbForm() => InitializeComponent();
+
+	#endregion
+
+	#region Form event handlers
+
+	/// <summary>Handles the initialization of the ArchiveMpcorbForm when it is loaded, including setting the default file path, populating format and compression options, and updating the status with the online last modified date.</summary>
+	/// <remarks>This method is called automatically when the ArchiveMpcorbForm is loaded. It sets up the user interface by selecting default values and attempts to retrieve the last modified date from an online source, updating the status label accordingly. If the online date cannot be retrieved, the status label will indicate the error or fallback to the current time.</remarks>
+	/// <param name="sender">The source of the event, typically the ArchiveMpcorbForm instance.</param>
+	/// <param name="e">The event data associated with the form load event.</param>
+	private async void ArchiveMpcorbForm_Load(object sender, EventArgs e)
+	{
+		// Set default file path
+		string defaultPath = Settings.Default.systemFilenameMpcorbDat;
+		// If the default path exists, set it in the source textbox
+		if (File.Exists(path: defaultPath))
+		{
+			// Set the default path in the source textbox
+			kryptonTextBoxSource.Text = Path.GetFullPath(path: defaultPath);
+		}
+		// Update status label to indicate that the online date is being checked
+		labelInformation.Text = "Checking online date...";
+		// Attempt to retrieve the last modified date from the online source and update the status label accordingly
+		try
+		{
+			// Retrieve the last modified date of the online MPCORB file
+			_onlineLastModified = await GetOnlineLastModifiedAsync();
+			// Update the status label with the retrieved online date or indicate that it could not be retrieved
+			labelInformation.Text = _onlineLastModified.HasValue
+				? $"Online date: {_onlineLastModified.Value}"
+				: "Could not retrieve online date. Using current time.";
+		}
+		// Catch any exceptions that occur during the retrieval of the online date and update the status label with the error message
+		catch (Exception ex)
+		{
+			logger.Error(exception: ex, message: "Error checking online date");
+			ShowErrorMessage(message: $"Error checking online date: {ex.Message}");
+		}
+		// Determine the timestamp for the default file name based on the online last modified date or the current time if the online date is not available
+		DateTime date = _onlineLastModified ?? DateTime.UtcNow;
+		string timestamp = date.ToString(format: "yyyyMMddHHmmss");
+		extension = format == "Zip" ? ".zip" : format == "GZip" ? ".gz" : ".br";
+		string directory = Path.GetDirectoryName(path: kryptonTextBoxSource.Text) ?? string.Empty;
+		kryptonTextBoxTarget.Text = Path.Combine(path1: directory, path2: $"MPCORB-{timestamp}{extension}");
 	}
 
 	#endregion
