@@ -50,8 +50,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 	/// <remarks>This path is derived from the URL and is used to extract the contents of the downloaded archive.</remarks>
 	private readonly string extractFilePath;
 
-	/// <summary>Cancellation token source used to cancel an ongoing download operation.
-	/// May be null when no download is active.</summary>
+	/// <summary>Cancellation token source used to cancel an ongoing download operation. May be null when no download is active.</summary>
 	/// <remarks>This token is used to cancel the download operation if needed.</remarks>
 	private CancellationTokenSource? cancellationTokenSource;
 
@@ -75,18 +74,40 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			// Throw an exception if the URL is null or empty
 			throw new ArgumentException(message: "URL cannot be null or empty.", paramName: nameof(url));
 		}
-		this.url = url;
 		// Derive the extraction file path from the URL and temporary filename
 		if (!Uri.TryCreate(uriString: url, uriKind: UriKind.Absolute, result: out Uri? parsedUri))
 		{
 			throw new ArgumentException(message: "URL is not in a valid format.", paramName: nameof(url));
 		}
+		this.url = url;
 		string localPath = parsedUri.LocalPath;
 		extractFilePath = Path.Combine(
 			Path.GetDirectoryName(path: _filenameTemp) ?? string.Empty,
 			Path.GetFileNameWithoutExtension(path: localPath));
 		// Start download when form is shown
-		Shown += async (_, _) => await StartDownloadAsync();
+		//Shown += async (_, _) => await StartDownloadAsync();
+	}
+
+	/// <summary>Overrides the OnShown method to start the download workflow when the form is displayed.</summary>
+	/// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
+	/// <remarks>This method is called when the form is first shown. It initiates the download process by calling <see cref="StartDownloadAsync"/>.</remarks>
+	protected override async void OnShown(EventArgs e)
+	{
+		// Call the base class implementation of OnShown
+		base.OnShown(e: e);
+		// Start the download workflow asynchronously
+		await StartDownloadAsync();
+	}
+
+	/// <summary>Overrides the OnFormClosing method to cancel any ongoing download operation when the form is closing.</summary>
+	/// <param name="e">A <see cref="FormClosingEventArgs"/> that contains the event data.</param>
+	/// <remarks>This method is called when the form is closing. It cancels any active download operation by calling <see cref="CancellationTokenSource.Cancel()"/> on the <see cref="cancellationTokenSource"/>.</remarks>
+	protected override void OnFormClosing(FormClosingEventArgs e)
+	{
+		// Cancel any ongoing download operation if the cancellation token source is not null
+		cancellationTokenSource?.Cancel();
+		// Call the base class implementation of OnFormClosing
+		base.OnFormClosing(e: e);
 	}
 
 	#endregion
@@ -144,10 +165,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 	/// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if the response indicates success; otherwise, <see langword="false"/>.</returns>
 	private static async Task<bool> HasInternetAsync(HttpClient client, string url)
 	{
-		// Send a GET request to the specified URL
-		// and check if the response indicates success
-		// Return true if the response is successful; otherwise, return false
-		// Catch any exceptions and return false
+		// Use a 5-second timeout for the connectivity check
 		try
 		{
 			// Use a HEAD request instead of GET to save bandwidth
@@ -169,236 +187,206 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		}
 	}
 
-	/// <summary>Updates the progress bar and text based on the current and total bytes processed.</summary>
-	/// <param name="current">The current number of bytes processed.</param>
-	/// <param name="total">The total number of bytes to process.</param>
-	/// <param name="downloadStopwatch">Optional stopwatch to calculate and display download speed and remaining time.</param>
-	/// <remarks>This method updates the progress bar and text to reflect the current download progress.</remarks>
-	private void UpdateProgress(long current, long total, Stopwatch? downloadStopwatch = null)
+	/// <summary>Updates the progress bar and related labels based on the provided <see cref="DownloadProgressInfo"/>. This method is called from the download workflow to reflect the current download status in the UI.</summary>
+	/// <param name="info">The download progress information.</param>
+	/// <remarks>This method updates the progress bar, download speed label, and time label based on the current download progress.</remarks>
+	private void UpdateProgress(DownloadProgressInfo info)
 	{
-		// Avoid division by zero
-		if (total <= 0)
+		// If the total bytes is zero or negative, or if the form is disposed, do not update the UI
+		if (info.TotalBytes <= 0 || IsDisposed)
 		{
 			return;
 		}
-		// Calculate the percentage of completion
-		int percentage = (int)(current * 100 / total);
-		// Avoid flickering by only updating if value changed
+		// Calculate the percentage of the download completed
+		int percentage = (int)(info.CurrentBytes * 100 / info.TotalBytes);
+		// Update the progress bar only if the percentage has changed
 		if (kryptonProgressBarDownload.Value != percentage)
 		{
 			kryptonProgressBarDownload.Value = percentage;
 			kryptonProgressBarDownload.Text = $"{percentage}%";
-			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)Math.Min(percentage, 100), progressMax: 100);
-		}
-
-		if (downloadStopwatch != null)
-		{
-			// Calculate download speed in bytes per second
-			double elapsedSeconds = downloadStopwatch.Elapsed.TotalSeconds;
-			double bytesPerSecond = elapsedSeconds > 0 ? current / elapsedSeconds : 0;
-			labelDownloadSpeedValue.Text = bytesPerSecond > 0 ? $"{bytesPerSecond:N0} {I18nStrings.BytesText}/s" : "...";
-
-			// Calculate elapsed time and estimated remaining time
-			TimeSpan elapsed = downloadStopwatch.Elapsed;
-			if (total > 0 && bytesPerSecond > 0)
+			// Update the Windows taskbar progress indicator if the form handle is created
+			if (IsHandleCreated)
 			{
-				TimeSpan estimated = TimeSpan.FromSeconds(value: (total - current) / bytesPerSecond);
-				labelTimeValue.Text = $"{elapsed:hh\\:mm\\:ss} / {estimated:hh\\:mm\\:ss}";
-			}
-			else
-			{
-				labelTimeValue.Text = $"{elapsed:hh\\:mm\\:ss}";
+				TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)Math.Min(percentage, 100), progressMax: 100);
 			}
 		}
+		// Update the download speed label with formatted bytes per second or "..." if not available
+		labelDownloadSpeedValue.Text = info.BytesPerSecond > 0 ? $"{info.BytesPerSecond:N0} {I18nStrings.BytesText}/s" : "...";
+		// Update the time label with elapsed and estimated time in hh:mm:ss format
+		labelTimeValue.Text = info.Estimated > TimeSpan.Zero
+			? $"{info.Elapsed:hh\\:mm\\:ss} / {info.Estimated:hh\\:mm\\:ss}"
+			: $"{info.Elapsed:hh\\:mm\\:ss}";
 	}
 
 	/// <summary>Starts the download workflow: validates network and input, disables/enables UI controls, downloads the file, extracts the GZIP archive and notifies the user.</summary>
 	/// <remarks>This method is an async void entry point intended for UI usage. It uses an internal <see cref="CancellationTokenSource"/> to support cancellation, updates form controls (buttons, labels, progress bar) and handles exceptions internally (shows message boxes). No exceptions are propagated to the caller.</remarks>
 	private async Task StartDownloadAsync()
 	{
-		// Check if there is an internet connection available
-		// If not, log the error and show an error message
-		// Then return without proceeding further
-		// This prevents attempting to download when offline.
-
-		//if (!NetworkInterface.GetIsNetworkAvailable())
+		// Check for internet connectivity before starting the download
 		bool isServerReachable = await HasInternetAsync(client: httpClient, url: url);
+		// If the server is not reachable, log an error, show a message box and return early
 		if (!isServerReachable)
 		{
-			// Log the error if there is no internet connection
 			logger.Error(message: "No internet connection available.");
-			// Show an error message if there is no internet connection
 			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
 			return;
 		}
-		// Validate the URL and temporary filename
-		// If invalid, show an error message and return
-		// Start the download and extraction process
-		// Update UI elements accordingly
-		// Handle cancellation and errors gracefully
-		// Finally, reset UI elements and clean up resources
-		if (string.IsNullOrWhiteSpace(value: url))
-		{
-			// Show an error message if the URL is invalid
-			_ = KryptonMessageBox.Show(owner: this, text: "Please enter a valid URL!", caption: "Error", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
-			return;
-		}
-		// Check if the temporary filename is valid
-		// If invalid, show an error message and return
-		// This ensures we have a valid location to save the downloaded file
-		// before starting the download process.
-		// If the filename is invalid, we cannot proceed with the download.
-		// Show an error message to inform the user.
+		// Validate that the temporary filename is set; if not, show an error message and return early
 		if (string.IsNullOrWhiteSpace(value: _filenameTemp))
 		{
-			// Show an error message if the temporary filename is invalid
 			ShowErrorMessage(message: "Please select a save location!");
 			return;
 		}
-		// Start the download process
-		// Disable the Download button and enable the Cancel button
-		// Reset progress bar and status labels
-		// Use a CancellationTokenSource to support cancellation
-		// Await the asynchronous download method
-		// On success, extract the downloaded file and notify the user
-		// Handle cancellation and errors appropriately
-		// Finally, reset UI elements and clean up resources
+		// Log the start of the download operation with the URL and temporary filename
+		logger.Info(message: "Starting download. Url={Url}, TempFile={TempFile}", argument1: url, argument2: _filenameTemp);
+		// Disable the Download button and enable the Cancel button, reset progress bar and labels, and create a new CancellationTokenSource
 		try
 		{
 			// Disable the Download button and enable the Cancel button
 			toolStripButtonDownload.Enabled = false;
 			toolStripButtonCancel.Enabled = true;
-			// Reset status labels and progress bar
+			// Reset progress bar and labels
 			kryptonProgressBarDownload.Value = 0;
 			kryptonProgressBarDownload.Text = "0%";
-			// Initialize progress
-			UpdateProgress(current: 0, total: 100);
-			// Create a new CancellationTokenSource for this download
+			// Create a new CancellationTokenSource for this download operation
 			cancellationTokenSource = new CancellationTokenSource();
 			CancellationToken token = cancellationTokenSource.Token;
-			// Start downloading the file asynchronously
-			await DownloadFileAsync(fileUrl: url, destinationPath: _filenameTemp, token: token);
-			// If the downloaded file is a GZIP archive, extract it
+			// Create a progress reporter that calls UpdateProgress on the UI thread
+			Progress<DownloadProgressInfo> progress = new(handler: UpdateProgress);
+			// Start the download operation asynchronously
+			await DownloadFileAsync(fileUrl: url, destinationPath: _filenameTemp, progress: progress, token: token);
+			// After download, check if the file is a GZIP archive and extract it; otherwise, move the file to the destination path
 			if (Path.GetExtension(path: url).Equals(value: ".gz", comparisonType: StringComparison.OrdinalIgnoreCase))
 			{
-				// Extract the downloaded GZIP file
+				// If the downloaded file is a GZIP archive, update the status label and progress bar style, then extract it
 				labelStatusValue.Text = "Extracting...";
 				kryptonProgressBarDownload.Style = ProgressBarStyle.Marquee;
+				// Extract the GZIP file to the specified output path
 				await ExtractGzipFileAsync(gzipFilePath: _filenameTemp, outputFilePath: extractFilePath, token: token);
 			}
+			// If the file is not a GZIP archive, move it to the destination path derived from the URL
 			else
 			{
-				string destFilePath = GetFileFromUrl(url) ?? _filenameTemp;
-				// If it's not a GZIP file, just move it to the destFilePath
-				File.Move(sourceFileName: _filenameTemp, destFileName: destFilePath, overwrite: true);
+				// Determine the destination file path based on the URL or use the extractFilePath as a fallback
+				string destFilePath = GetFileFromUrl(url: url) ?? extractFilePath;
+				// Move the downloaded file to the destination path only if it's different from the temporary filename (case-insensitive comparison)
+				if (!string.Equals(a: _filenameTemp, b: destFilePath, comparisonType: StringComparison.OrdinalIgnoreCase))
+				{
+					File.Move(sourceFileName: _filenameTemp, destFileName: destFilePath, overwrite: true);
+				}
 			}
-			// Notify the user of successful completion
+			// Update the status label to indicate that the download is completed, show a message box to the user, and log the successful completion
 			labelStatusValue.Text = "Download completed";
-			_ = KryptonMessageBox.Show(owner: this, text: "Download completed successfully!", caption: "Finished", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			KryptonMessageBox.Show(owner: this, text: "Download completed successfully!", caption: "Finished", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			logger.Info(message: "Download and extraction completed successfully.");
-			// Set the dialog result to OK and close the form
+			// Set the dialog result to OK to indicate success
 			DialogResult = DialogResult.OK;
 		}
-		// Handle cancellation
-		// Notify the user that the download was canceled
-		// Handle other exceptions and notify the user of errors
-		// Finally, reset UI elements and clean up resources
+		// Handle cancellation by the user: update the status label, show a message box, and log the cancellation
 		catch (OperationCanceledException)
 		{
-			// Notify the user that the download was canceled
 			labelStatusValue.Text = "Download canceled";
-			//TODO: Optionally disable the Cancel button here to prevent multiple clicks
-			_ = KryptonMessageBox.Show(owner: this, text: "Download canceled!", caption: "Canceled", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			KryptonMessageBox.Show(owner: this, text: "Download canceled!", caption: "Canceled", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			logger.Info(message: "Download canceled by user.");
 		}
-		// Handle other exceptions
-		// Notify the user of errors
-		// Log the exception for debugging purposes
-		// Finally, reset UI elements and clean up resources
+		// Handle any other exceptions that occur during the download or extraction process: update the status label, show a message box with the error, and log the exception details
 		catch (Exception ex)
 		{
-			// Log the exception and show an error message
 			labelStatusValue.Text = "Download error";
-			//TODO: Optionally disable the Cancel button here to prevent multiple clicks
 			ShowErrorMessage(message: $"Error during download: {ex.Message}");
-			logger.Error(exception: ex, message: "Download failed. Url={Url}, TempFile={TempFile}", args: (url, _filenameTemp));
+			logger.Error(exception: ex, message: "Download failed. Url={Url}, TempFile={TempFile}", url, _filenameTemp);
 		}
-		// Reset UI elements and clean up resources
+		// In the finally block, clean up resources and reset the UI controls regardless of success, cancellation, or error
 		finally
 		{
-			// Reset UI elements
-			toolStripButtonDownload.Enabled = true;
-			toolStripButtonCancel.Enabled = false;
-			// Reset status labels and progress bar
-			labelDateValue.Text = "-";
-			labelSizeValue.Text = "-";
-			labelSourceValue.Text = "-";
-			labelTimeValue.Text = "-";
-			labelDownloadSpeedValue.Text = "-";
-			kryptonProgressBarDownload.Value = 0;
-			kryptonProgressBarDownload.Text = "0%";
-			// Dispose of the CancellationTokenSource
+			// Attempt to delete the temporary file if it exists, logging a warning if deletion fails
+			if (File.Exists(path: _filenameTemp))
+			{
+				try { File.Delete(path: _filenameTemp); }
+				catch (Exception ex) { logger.Warn(exception: ex, message: "Failed to delete temporary file."); }
+			}
+			// Reset the UI controls to their initial state if the form is not disposed
+			if (!IsDisposed)
+			{
+				toolStripButtonDownload.Enabled = true;
+				toolStripButtonCancel.Enabled = false;
+				labelDateValue.Text = "-";
+				labelSizeValue.Text = "-";
+				labelSourceValue.Text = "-";
+				labelTimeValue.Text = "-";
+				labelDownloadSpeedValue.Text = "-";
+				kryptonProgressBarDownload.Value = 0;
+				kryptonProgressBarDownload.Text = "0%";
+				kryptonProgressBarDownload.Style = ProgressBarStyle.Blocks;
+			}
+			// Dispose of the cancellation token source and set it to null to free resources
 			cancellationTokenSource?.Dispose();
 			cancellationTokenSource = null;
 		}
 	}
 
-	/// <summary>Downloads a file asynchronously from the specified <paramref name="fileUrl"/> and writes it to <paramref name="destinationPath"/>. Updates UI elements (status, progress, size, source, date) while downloading and supports cancellation via <paramref name="token"/>.</summary>
-	/// <param name="fileUrl">The URL to download from.</param>
-	/// <param name="destinationPath">Local file path where the downloaded data will be saved.</param>
-	/// <param name="token">Token used to cancel the download operation.</param>
-	/// <returns>A <see cref="Task"/> that represents the asynchronous download operation.</returns>
-	/// <exception cref="OperationCanceledException">Thrown when the operation is cancelled through <paramref name="token"/>.</exception>
-	/// <exception cref="HttpRequestException">Thrown when the HTTP request fails (non-success status code).</exception>
-	/// <remarks>The method streams the response to disk to avoid buffering the entire response in memory. Progress is reported by updating the form's progress bar when the content length is known.</remarks>
-	private async Task DownloadFileAsync(string fileUrl, string destinationPath, CancellationToken token)
+	/// <summary>Asynchronously downloads a file from the specified URL to the given destination path, reporting progress and supporting cancellation.</summary>
+	/// <param name="fileUrl">The URL of the file to download.</param>
+	/// <param name="destinationPath">The local path where the downloaded file will be saved.</param>
+	/// <param name="progress">An object to report download progress.</param>
+	/// <param name="token">A cancellation token to cancel the download operation.</param>
+	/// <returns>A task representing the asynchronous download operation.</returns>
+	/// <remarks>This method updates the UI with the download progress and handles cancellation.</remarks>
+	private async Task DownloadFileAsync(string fileUrl, string destinationPath, IProgress<DownloadProgressInfo> progress, CancellationToken token)
 	{
-		// Update status label to indicate download is starting
+		// Update the status label to indicate that the download is in progress
 		labelStatusValue.Text = "Downloading...";
-		// Send an HTTP GET request to download the file
+		// Send an HTTP GET request to the specified file URL, requesting only the headers initially to get content length and last modified date
 		using HttpResponseMessage response = await httpClient.GetAsync(requestUri: fileUrl, completionOption: HttpCompletionOption.ResponseHeadersRead, cancellationToken: token);
-		// Ensure the response indicates success
-		_ = response.EnsureSuccessStatusCode();
-		// Get the total content length from the response headers
+		// Ensure that the HTTP response indicates success; if not, throw an exception
+		response.EnsureSuccessStatusCode();
+		// Get the total bytes from the Content-Length header, if available
 		long? totalBytes = response.Content.Headers.ContentLength;
-		// Update UI elements with download information
+		// Get the last modified date from the Last-Modified header, if available
 		DateTime? lastMod = response.Content.Headers.LastModified?.UtcDateTime;
+		// Update the UI labels with the last modified date, source URL, and total size
 		labelDateValue.Text = lastMod.HasValue ? lastMod.ToString() : "-";
 		labelSourceValue.Text = fileUrl;
 		labelSizeValue.Text = totalBytes.HasValue ? $"{totalBytes:N0} {I18nStrings.BytesText}" : "Unknown";
-		//labelSizeValue.Text = totalBytes.HasValue ? $"{totalBytes / 1024.0 / 1024.0:F2} MB" : "Unknown";
-		// Stream the response content to the specified file path
+		// Create a stream to read the content of the response and a file stream to write to the destination path
 		await using Stream contentStream = await response.Content.ReadAsStreamAsync(cancellationToken: token);
-		// Create a file stream to write the downloaded content
 		await using FileStream fileStream = new(path: destinationPath, mode: FileMode.Create, access: FileAccess.Write, share: FileShare.None, bufferSize: 8192, useAsync: true);
-		// Buffer for reading data
+		// Create a buffer to hold chunks of data read from the content stream
 		byte[] buffer = new byte[8192];
-		// Track total bytes read for progress reporting
 		long totalRead = 0;
-		// Number of bytes read in each iteration
 		int bytesRead;
-		// Determine if progress can be reported based on content length availability
-		// Progress Throttling (Don't update UI every 8KB, unnecessary overhead)
-		Stopwatch stopwatch = Stopwatch.StartNew();
-		// Stopwatch to track total download duration for speed and time calculations
+		// Create two stopwatches: one for updating the progress and one for measuring download speed
+		Stopwatch updateStopwatch = Stopwatch.StartNew();
 		Stopwatch downloadStopwatch = Stopwatch.StartNew();
-		// Read from the content stream and write to the file stream
-		// Update progress bar if content length is known
-		// Support cancellation via the provided token
+		// Read from the content stream in a loop until there are no more bytes to read
 		while ((bytesRead = await contentStream.ReadAsync(buffer: buffer, cancellationToken: token)) > 0)
 		{
-			// Write the read bytes to the file
+			// Write the read bytes to the file stream asynchronously
 			await fileStream.WriteAsync(buffer: buffer.AsMemory(start: 0, length: bytesRead), cancellationToken: token);
-			// Update total bytes read
+			// Update the total number of bytes read so far
 			totalRead += bytesRead;
-			// Update UI only if totalBytes is known AND (every 100ms OR finished)
-			if (totalBytes.HasValue && (stopwatch.ElapsedMilliseconds > 100 || totalRead == totalBytes))
+			// Report progress if the total bytes is known and either 100 milliseconds have passed or the download is complete
+			if (totalBytes.HasValue && (updateStopwatch.ElapsedMilliseconds > 100 || totalRead == totalBytes))
 			{
-				UpdateProgress(current: totalRead, total: totalBytes.Value, downloadStopwatch: downloadStopwatch);
-				stopwatch.Restart();
+				// Calculate the elapsed time in seconds and the download speed in bytes per second
+				double elapsedSeconds = downloadStopwatch.Elapsed.TotalSeconds;
+				double bytesPerSecond = elapsedSeconds > 0 ? totalRead / elapsedSeconds : 0;
+				// Estimate the remaining time based on the download speed and total bytes
+				TimeSpan estimated = bytesPerSecond > 0
+					? TimeSpan.FromSeconds(value: (totalBytes.Value - totalRead) / bytesPerSecond)
+					: TimeSpan.Zero;
+				// Report the current download progress to the UI
+				progress.Report(value: new DownloadProgressInfo(
+					CurrentBytes: totalRead,
+					TotalBytes: totalBytes.Value,
+					BytesPerSecond: bytesPerSecond,
+					Elapsed: downloadStopwatch.Elapsed,
+					Estimated: estimated));
+				// Restart the update stopwatch to measure the next interval for progress reporting
+				updateStopwatch.Restart();
 			}
 		}
-		// Ensure all data is flushed to disk
+		// Flush the file stream to ensure all data is written to disk
 		await fileStream.FlushAsync(cancellationToken: token);
 	}
 
