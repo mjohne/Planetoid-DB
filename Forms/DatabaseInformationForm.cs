@@ -89,8 +89,8 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 		if (string.IsNullOrWhiteSpace(value: dbFilePath))
 		{
 			// Log an error and show a message if the file does not exist
-			logger.Error(message: $"Database file not found: {dbFilePath}");
-			ShowErrorMessage(message: $"Database file not found: {dbFilePath}");
+			logger.Error(message: "Database file path is not configured (Settings.Default.systemFilenameMpcorbDat is empty).");
+			ShowErrorMessage(message: "Database file path is not configured. Please set the MPCORB.DAT file location in Settings.");
 			return;
 		}
 		// Attempt to read file information and populate the UI labels
@@ -104,8 +104,8 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 			if (!fileInfo.Exists)
 			{
 				// Log an error and show a message if the file does not exist
-				logger.Error(message: $"Database file not found: {fileInfo.FullName}");
-				ShowErrorMessage(message: $"Database file not found: {fileInfo.FullName}");
+				logger.Error(message: "Database file path is not configured (Settings.Default.systemFilenameMpcorbDat is empty).");
+				ShowErrorMessage(message: "Database file path is not configured. Please set the MPCORB.DAT file location in Settings.");
 				return;
 			}
 			// Get the current culture for formatting
@@ -113,15 +113,15 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 			// Set the file information in the labels
 			labelNameValue.Text = fileInfo.Name;
 			// Set the file name in the label
-			labelDirectoryValue.Text = fileInfo.DirectoryName;
+			labelDirectoryValue.Text = fileInfo.DirectoryName ?? string.Empty;
 			// Set the file size in the label
 			labelSizeValue.Text = $"{fileInfo.Length:N0} {I18nStrings.BytesText}";
 			// Set the file type in the label
-			labelDateCreatedValue.Text = fileInfo.CreationTime.ToString(format: "G", provider: CultureInfo.CurrentCulture);
+			labelDateCreatedValue.Text = fileInfo.CreationTime.ToString(format: "G", provider: culture);
 			// Set the file creation time in the label
-			labelDateAccessedValue.Text = fileInfo.LastAccessTime.ToString(format: "G", provider: CultureInfo.CurrentCulture);
+			labelDateAccessedValue.Text = fileInfo.LastAccessTime.ToString(format: "G", provider: culture);
 			// Set the file last access time in the label
-			labelDateWritedValue.Text = fileInfo.LastWriteTime.ToString(format: "G", provider: CultureInfo.CurrentCulture);
+			labelDateWritedValue.Text = fileInfo.LastWriteTime.ToString(format: "G", provider: culture);
 			// Set the file attributes in the label
 			labelAttributesValue.Text = $"{fileInfo.Attributes}";
 		}
