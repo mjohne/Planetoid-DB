@@ -438,10 +438,10 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 				{
 					File.Delete(path: targetFile);
 				}
-				catch (IOException ex)
-				{
-					logger.Warn(exception: ex, message: "Could not delete partial archive file after cancellation.");
-				}
+catch (Exception ex)
+{
+	logger.Warn(exception: ex, message: "Could not delete partial archive file after cancellation.");
+}
 			}
 		}
 		// Catch any other exceptions that occur during the archiving process, update the status label, and show an error message box with the exception details
