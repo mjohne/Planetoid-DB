@@ -109,58 +109,61 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
+	/// <summary>Copies the specified text to the clipboard.</summary>
+	/// <param name="value">The text to copy to the clipboard.</param>
+	/// <param name="propertyName">The name of the property being copied, used for logging and messages.</param>
+	/// <remarks>This method checks if the value is null or whitespace before copying to the clipboard. If the value is invalid, it logs a warning and shows a message box.</remarks>
+	private void CopyToClipboardSafe(string value, string propertyName)
+	{
+		// Check if the value is null or whitespace
+		if (string.IsNullOrWhiteSpace(value))
+		{
+			// Log a warning and show a message box if the value is invalid
+			string message = $"No {propertyName} available to copy to clipboard.";
+			logger.Warn(message: message);
+			_ = KryptonMessageBox.Show(owner: this, text: message, caption: "Warning", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
+			return;
+		}
+		// Copy the value to the clipboard
+		CopyToClipboard(text: value);
+	}
+
 	#endregion
 
 	#region task methods
 
-	/// <summary>Retrieves the last modified date of the specified URI.</summary>
+	/// <summary>Retrieves the last modified date and content length of the specified URI in a single request.</summary>
 	/// <param name="uri">The URI of the resource.</param>
-	/// <returns>The date of the last modification or <see cref="DateTime.MinValue"/> in case of an error.</returns>
-	/// <remarks>This method sends a HEAD request to the specified URI and retrieves the last modified date from the response headers.</remarks>
-	private static async Task<DateTime> GetLastModifiedAsync(Uri uri)
+	/// <returns>A tuple containing the last modified date and the content length.</returns>
+	/// <remarks>This method sends a HEAD request to the specified URI and retrieves both the last modified date and content length from the response headers.</remarks>
+	private static async Task<(DateTime LastModified, long ContentLength)> GetOnlineFileInfoAsync(Uri uri)
 	{
+		// Send a HEAD request to the specified URI and retrieve the last modified date and content length
 		try
 		{
 			// Send a HEAD request to the specified URI
 			using HttpRequestMessage request = new(method: HttpMethod.Head, requestUri: uri);
+			// Send the request and get the response
 			using HttpResponseMessage response = await client.SendAsync(request: request).ConfigureAwait(continueOnCapturedContext: false);
-			// Check if the response is successful and return the last modified date
-			return response.IsSuccessStatusCode ? response.Content.Headers.LastModified?.UtcDateTime ?? DateTime.MinValue : DateTime.MinValue;
+			// Check if the response is successful
+			if (response.IsSuccessStatusCode)
+			{
+				// Retrieve the last modified date and content length from the response headers
+				DateTime lastModified = response.Content.Headers.LastModified?.UtcDateTime ?? DateTime.MinValue;
+				long contentLength = response.Content.Headers.ContentLength ?? 0;
+				// Return the last modified date and content length as a tuple
+				return (lastModified, contentLength);
+			}
 		}
+		// Catch any HttpRequestException that occurs during the request
 		catch (HttpRequestException ex)
 		{
-			// Log the exception
-			logger.Error(message: "Error retrieving last modified date.", exception: ex);
-			// Show an error message
+			// Log the exception and show an error message
+			logger.Error(exception: ex, message: "Error retrieving online file information (HEAD request failed).");
 			ShowErrorMessage(message: ex.Message);
-			// Return DateTime.MinValue to indicate an error
-			return DateTime.MinValue;
 		}
-	}
-
-	/// <summary>The content length of the specified URI.</summary>
-	/// <param name="uri">The URI of the resource.</param>
-	/// <returns>The content length or 0 in case of error.</returns>
-	/// <remarks>This method sends a HEAD request to the specified URI and retrieves the content length from the response headers.</remarks>
-	private static async Task<long> GetContentLengthAsync(Uri uri)
-	{
-		try
-		{
-			// Send a HEAD request to the specified URI
-			using HttpRequestMessage request = new(method: HttpMethod.Head, requestUri: uri);
-			using HttpResponseMessage response = await client.SendAsync(request: request).ConfigureAwait(continueOnCapturedContext: false);
-			// Check if the response is successful and return the content length
-			return response.IsSuccessStatusCode ? response.Content.Headers.ContentLength ?? 0 : 0;
-		}
-		catch (HttpRequestException ex)
-		{
-			// Log the exception
-			logger.Error(message: "Error retrieving content length.", exception: ex);
-			// Show an error message
-			ShowErrorMessage(message: ex.Message);
-			// Log the exception and return 0
-			return 0;
-		}
+		// Return default values in case of error
+		return (DateTime.MinValue, 0);
 	}
 
 	#endregion
@@ -177,10 +180,10 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 		ClearStatusBar(label: labelInformation);
 		// URI for the database file
 		Uri uri = new(uriString: databaseUrl);
+		// Get the last modified date and content length of the online file in a single request
+		(DateTime datetimeFileOnline, long contentLengthOnline) = await GetOnlineFileInfoAsync(uri);
 		// Local file last modified date
 		DateTime datetimeFileLocal = DateTime.MinValue;
-		// Online file last modified date
-		DateTime datetimeFileOnline = await GetLastModifiedAsync(uri: uri).ConfigureAwait(continueOnCapturedContext: false);
 		// Check if the local file exists
 		if (!File.Exists(path: localFilePath))
 		{
@@ -201,8 +204,7 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 			labelModifiedDateValueLocal.Text = datetimeFileLocal.ToString(provider: CultureInfo.CurrentCulture);
 		}
 		// Set the content length and modified date labels to the online file's information
-		labelContentLengthValueOnline.Text = $"{await GetContentLengthAsync(uri: uri).ConfigureAwait(continueOnCapturedContext: false):N0} {I18nStrings.BytesText}";
-		// Set the modified date label to the online file's last modified date
+		labelContentLengthValueOnline.Text = $"{contentLengthOnline:N0} {I18nStrings.BytesText}";
 		labelModifiedDateValueOnline.Text = datetimeFileOnline.ToString(provider: CultureInfo.CurrentCulture);
 		// Compare the last modified dates of the local and online files
 		if (datetimeFileOnline > datetimeFileLocal)
@@ -253,65 +255,25 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 	/// <remarks>If the local modified date is not available, a warning message is displayed and nothing is copied to the clipboard.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardDatabaseLocalModifiedDate_Click(object sender, EventArgs e)
-	{
-		if (string.IsNullOrEmpty(value: labelModifiedDateValueLocal.Text))
-		{
-			string messageNoLocalModifiedDateToCopyText = "No local modified date available to copy to clipboard.";
-			logger.Warn(message: messageNoLocalModifiedDateToCopyText);
-			_ = KryptonMessageBox.Show(owner: this, text: messageNoLocalModifiedDateToCopyText, caption: "Warning", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
-			return;
-		}
-		CopyToClipboard(text: labelModifiedDateValueLocal.Text);
-	}
+	private void MenuitemCopyToClipboardDatabaseLocalModifiedDate_Click(object sender, EventArgs e) => CopyToClipboardSafe(value: labelModifiedDateValueLocal.Text, propertyName: "local modified date");
 
 	/// <summary>Handles the click event for copying the local content length value to the clipboard.</summary>
 	/// <remarks>If the local content length value is not available, a warning message is displayed and nothing is copied to the clipboard.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardDatabaseLocalContentLength_Click(object sender, EventArgs e)
-	{
-		if (string.IsNullOrEmpty(value: labelContentLengthValueLocal.Text))
-		{
-			string messageNoLocalContentLengthToCopyText = "No local content length available to copy to clipboard.";
-			logger.Warn(message: messageNoLocalContentLengthToCopyText);
-			_ = KryptonMessageBox.Show(owner: this, text: messageNoLocalContentLengthToCopyText, caption: "Warning", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
-			return;
-		}
-		CopyToClipboard(text: labelContentLengthValueLocal.Text);
-	}
+	private void MenuitemCopyToClipboardDatabaseLocalContentLength_Click(object sender, EventArgs e) => CopyToClipboardSafe(value: labelContentLengthValueLocal.Text, propertyName: "local content length");
 
 	/// <summary>Handles the click event for copying the online modified date value to the clipboard.</summary>
 	/// <remarks>If the online modified date value is not available, a warning message is displayed and nothing is copied to the clipboard.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardDatabaseOnlineModifiedDate_Click(object sender, EventArgs e)
-	{
-		if (string.IsNullOrEmpty(value: labelModifiedDateValueOnline.Text))
-		{
-			string messageNoOnlineModifiedDateToCopyText = "No online modified date available to copy to clipboard.";
-			logger.Warn(message: messageNoOnlineModifiedDateToCopyText);
-			_ = KryptonMessageBox.Show(owner: this, text: messageNoOnlineModifiedDateToCopyText, caption: "Warning", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
-			return;
-		}
-		CopyToClipboard(text: labelModifiedDateValueOnline.Text);
-	}
+	private void MenuitemCopyToClipboardDatabaseOnlineModifiedDate_Click(object sender, EventArgs e) => CopyToClipboardSafe(value: labelModifiedDateValueOnline.Text, propertyName: "online modified date");
 
 	/// <summary>Handles the click event for copying the online content length value to the clipboard.</summary>
 	/// <remarks>If the online content length value is not available, a warning message is displayed and nothing is copied to the clipboard.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardDatabaseOnlineContentLength_Click(object sender, EventArgs e)
-	{
-		if (string.IsNullOrEmpty(value: labelContentLengthValueOnline.Text))
-		{
-			string messageNoOnlineContentLengthToCopyText = "No online content length available to copy to clipboard.";
-			logger.Warn(message: messageNoOnlineContentLengthToCopyText);
-			_ = KryptonMessageBox.Show(owner: this, text: messageNoOnlineContentLengthToCopyText, caption: "Warning", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
-			return;
-		}
-		CopyToClipboard(text: labelContentLengthValueOnline.Text);
-	}
+	private void MenuitemCopyToClipboardDatabaseOnlineContentLength_Click(object sender, EventArgs e) => CopyToClipboardSafe(value: labelContentLengthValueOnline.Text, propertyName: "online content length");
 
 	#endregion
 }
