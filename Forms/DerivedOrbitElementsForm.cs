@@ -44,7 +44,7 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 
 	/// <summary>Stores the current tag text of the control.</summary>
 	/// <remarks>This field is used to keep track of the current tag text of the control.</remarks>
-	private string currentTagText = string.Empty;
+	private readonly string currentTagText = string.Empty;
 
 	/// <summary>Gets the status label to be used for displaying information.</summary>
 	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
@@ -54,6 +54,10 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	/// <remarks>This field is used to store the list of derived orbit elements.</remarks>
 	private List<object> derivedOrbitElements = [];
 
+	/// <summary>Array of labels corresponding to the derived orbit elements.</summary>
+	/// <remarks>This array is used to store references to the labels that display the derived orbit elements.</remarks>
+	private readonly KryptonLabel[] orbitDataLabels;
+
 	#region constructor
 
 	/// <summary>Initializes a new instance of the <see cref="DerivedOrbitElementsForm"/> class.</summary>
@@ -62,14 +66,27 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	{
 		// Initialize the form components
 		InitializeComponent();
-		// Apply comprehensive flicker reduction for the TableLayoutPanel
-		OptimizeTableLayoutPanelForFlickerReduction();
+		// Enable double buffering on the table layout panel and its child labels to reduce flickering during updates
+		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanel, includeChildLabels: true);
+		// Map labels in the exact expected order of the incoming database list
+		orbitDataLabels =
+		[
+			labelLinearEccentricityData, labelSemiMinorAxisData, labelMajorAxisData,
+			labelMinorAxisData, labelEccentricAnomalyData, labelTrueAnomalyData,
+			labelPerihelionDistanceData, labelAphelionDistanceData, labelLongitudeDescendingNodeData,
+			labelArgumentAphelionData, labelFocalParameterData, labelSemiLatusRectumData,
+			labelLatusRectumData, labelOrbitalPeriodData, labelOrbitalAreaData,
+			labelOrbitalPerimeterData, labelSemiMeanAxisData, labelMeanAxisData,
+			labelStandardGravitationalParameterData, labelDirectrixData, labelPerihelionVelocityData,
+			labelAphelionVelocityData, labelMeanOrbitalVelocityData, labelCurrentOrbitalVelocityData,
+			labelRadialVelocityComponentData, labelTangentialVelocityComponentData, labelSpecificOrbitalEnergyData,
+			labelSpecificAngularMomentumData, labelVisVivaEnergyData, labelLongitudeOfPerihelionData,
+			labelMeanLongitudeData, labelArgumentOfLatitudeData, labelFlightPathAngleData,
+			labelTimeSincePerihelionData, labelTimeToNextPerihelionData, labelTimeSinceAphelionData,
+			labelTimeToNextAphelionData, labelSynodicPeriodData, labelTisserandParameterData,
+			labelMeanDistanceFromFocusData, labelGeometricAlbedoAdjustedDiameterData
+		];
 	}
-
-	/// <summary>Optimizes the TableLayoutPanel to eliminate flickering during label updates.</summary>
-	/// <remarks>This method enables double buffering and optimized painting styles on the panel and all child labels.</remarks>
-	private void OptimizeTableLayoutPanelForFlickerReduction() => DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanel, includeChildLabels: true);
-
 
 	#endregion
 
@@ -79,6 +96,11 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This method is used to provide a visual representation of the object in the debugger.</remarks>
 	private string GetDebuggerDisplay() => ToString();
+
+	/// <summary>Sets the internal list of derived orbit elements used by the form. The provided list is stored by reference and will be used to populate the UI when the form loads.</summary>
+	/// <param name="list">The list of derived orbit elements to be used by the form.</param>
+	/// <remarks>This method is used to set the internal list of derived orbit elements for the form.</remarks>
+	public void SetDatabase(List<object> list) => derivedOrbitElements = list;
 
 	/// <summary>Tries to parse an integer from the input string.</summary>
 	/// <param name="input">The input string to parse.</param>
@@ -115,68 +137,20 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	/// <remarks>This method is used to open the terminology dialog for a specific derived orbit element.</remarks>
 	private void OpenTerminology(uint index)
 	{
-		// Check if the index is valid
-		// If the index is out of range, set it to 0
-		if (index > 38)
+		// Direct cast replaces the 40-line switch statement, assuming the enum values correspond to the indices.
+		// If out of range, fallback to 0 (IndexNumber).
+		TerminologyElement element = Enum.IsDefined(enumType: typeof(TerminologyElement), value: (int)index)
+			? (TerminologyElement)index
+			: TerminologyElement.IndexNumber;
+		// Create and show the terminology form
+		using TerminologyForm formTerminology = new()
 		{
-			index = 0;
-		}
-		// Create a new instance of the TerminologyForm and set the active terminology based on the index
-		using TerminologyForm formTerminology = new();
-		// Set the active terminology based on the index
-		formTerminology.SelectedElement = index switch
-		{
-			0 => TerminologyElement.IndexNumber,
-			1 => TerminologyElement.ReadableDesignation,
-			2 => TerminologyElement.Epoch,
-			3 => TerminologyElement.MeanAnomalyAtTheEpoch,
-			4 => TerminologyElement.ArgumentOfThePerihelion,
-			5 => TerminologyElement.LongitudeOfTheAscendingNode,
-			6 => TerminologyElement.InclinationToTheEcliptic,
-			7 => TerminologyElement.OrbitalEccentricity,
-			8 => TerminologyElement.MeanDailyMotion,
-			9 => TerminologyElement.SemiMajorAxis,
-			10 => TerminologyElement.AbsoluteMagnitude,
-			11 => TerminologyElement.SlopeParameter,
-			12 => TerminologyElement.Reference,
-			13 => TerminologyElement.NumberOfOppositions,
-			14 => TerminologyElement.NumberOfObservations,
-			15 => TerminologyElement.ObservationSpan,
-			16 => TerminologyElement.RmsResidual,
-			17 => TerminologyElement.ComputerName,
-			18 => TerminologyElement.Flags,
-			19 => TerminologyElement.DateOfLastObservation,
-			20 => TerminologyElement.LinearEccentricity,
-			21 => TerminologyElement.SemiMinorAxis,
-			22 => TerminologyElement.MajorAxis,
-			23 => TerminologyElement.MinorAxis,
-			24 => TerminologyElement.EccentricAnomaly,
-			25 => TerminologyElement.TrueAnomaly,
-			26 => TerminologyElement.PerihelionDistance,
-			27 => TerminologyElement.AphelionDistance,
-			28 => TerminologyElement.LongitudeOfTheDescendingNode,
-			29 => TerminologyElement.ArgumentOfTheAphelion,
-			30 => TerminologyElement.FocalParameter,
-			31 => TerminologyElement.SemiLatusRectum,
-			32 => TerminologyElement.LatusRectum,
-			33 => TerminologyElement.OrbitalPeriod,
-			34 => TerminologyElement.OrbitalArea,
-			35 => TerminologyElement.OrbitalPerimeter,
-			36 => TerminologyElement.SemiMeanAxis,
-			37 => TerminologyElement.MeanAxis,
-			38 => TerminologyElement.StandardGravitationalParameter,
-			_ => TerminologyElement.IndexNumber,
+			SelectedElement = element,
+			TopMost = TopMost
 		};
-		// Set the form to be topmost if the main form is topmost
-		formTerminology.TopMost = TopMost;
-		// Show the terminology form as a dialog
+		// Show the form as a dialog
 		_ = formTerminology.ShowDialog(owner: this);
 	}
-
-	/// <summary>Sets the internal list of derived orbit elements used by the form.</summary>
-	/// <param name="list">A list of derived orbit element values. The list is stored by reference and will be used to populate the UI when the form loads.</param>
-	/// <remarks>This method is used to set the internal list of derived orbit elements.</remarks>
-	public void SetDatabase(List<object> list) => derivedOrbitElements = list;
 
 	#endregion
 
@@ -190,55 +164,19 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	{
 		// Set the status bar text
 		ClearStatusBar(label: labelInformation);
-		if (derivedOrbitElements.Count < 41)
+		// Validate the provided derived orbit elements data
+		if (derivedOrbitElements.Count < orbitDataLabels.Length)
 		{
-			// Log the error and show an error message
-			logger.Error(message: $"Invalid data: Expected at least 41 elements, received {derivedOrbitElements.Count}");
-			ShowErrorMessage(message: $"Invalid data: Expected at least 41 elements, received {derivedOrbitElements.Count}");
+			string errorMsg = $"Invalid data: Expected at least {orbitDataLabels.Length} elements, received {derivedOrbitElements.Count}";
+			logger.Error(message: errorMsg);
+			ShowErrorMessage(message: errorMsg);
 			return;
 		}
-		// Set the text of the labels with the orbit elements
-		labelLinearEccentricityData.Text = derivedOrbitElements[index: 0]?.ToString();
-		labelSemiMinorAxisData.Text = derivedOrbitElements[index: 1]?.ToString();
-		labelMajorAxisData.Text = derivedOrbitElements[index: 2]?.ToString();
-		labelMinorAxisData.Text = derivedOrbitElements[index: 3]?.ToString();
-		labelEccentricAnomalyData.Text = derivedOrbitElements[index: 4]?.ToString();
-		labelTrueAnomalyData.Text = derivedOrbitElements[index: 5]?.ToString();
-		labelPerihelionDistanceData.Text = derivedOrbitElements[index: 6]?.ToString();
-		labelAphelionDistanceData.Text = derivedOrbitElements[index: 7]?.ToString();
-		labelLongitudeDescendingNodeData.Text = derivedOrbitElements[index: 8]?.ToString();
-		labelArgumentAphelionData.Text = derivedOrbitElements[index: 9]?.ToString();
-		labelFocalParameterData.Text = derivedOrbitElements[index: 10]?.ToString();
-		labelSemiLatusRectumData.Text = derivedOrbitElements[index: 11]?.ToString();
-		labelLatusRectumData.Text = derivedOrbitElements[index: 12]?.ToString();
-		labelOrbitalPeriodData.Text = derivedOrbitElements[index: 13]?.ToString();
-		labelOrbitalAreaData.Text = derivedOrbitElements[index: 14]?.ToString();
-		labelOrbitalPerimeterData.Text = derivedOrbitElements[index: 15]?.ToString();
-		labelSemiMeanAxisData.Text = derivedOrbitElements[index: 16]?.ToString();
-		labelMeanAxisData.Text = derivedOrbitElements[index: 17]?.ToString();
-		labelStandardGravitationalParameterData.Text = derivedOrbitElements[index: 18]?.ToString();
-		labelDirectrixData.Text = derivedOrbitElements[index: 19]?.ToString();
-		labelPerihelionVelocityData.Text = derivedOrbitElements[index: 20]?.ToString();
-		labelAphelionVelocityData.Text = derivedOrbitElements[index: 21]?.ToString();
-		labelMeanOrbitalVelocityData.Text = derivedOrbitElements[index: 22]?.ToString();
-		labelCurrentOrbitalVelocityData.Text = derivedOrbitElements[index: 23]?.ToString();
-		labelRadialVelocityComponentData.Text = derivedOrbitElements[index: 24]?.ToString();
-		labelTangentialVelocityComponentData.Text = derivedOrbitElements[index: 25]?.ToString();
-		labelSpecificOrbitalEnergyData.Text = derivedOrbitElements[index: 26]?.ToString();
-		labelSpecificAngularMomentumData.Text = derivedOrbitElements[index: 27]?.ToString();
-		labelVisVivaEnergyData.Text = derivedOrbitElements[index: 28]?.ToString();
-		labelLongitudeOfPerihelionData.Text = derivedOrbitElements[index: 29]?.ToString();
-		labelMeanLongitudeData.Text = derivedOrbitElements[index: 30]?.ToString();
-		labelArgumentOfLatitudeData.Text = derivedOrbitElements[index: 31]?.ToString();
-		labelFlightPathAngleData.Text = derivedOrbitElements[index: 32]?.ToString();
-		labelTimeSincePerihelionData.Text = derivedOrbitElements[index: 33]?.ToString();
-		labelTimeToNextPerihelionData.Text = derivedOrbitElements[index: 34]?.ToString();
-		labelTimeSinceAphelionData.Text = derivedOrbitElements[index: 35]?.ToString();
-		labelTimeToNextAphelionData.Text = derivedOrbitElements[index: 36]?.ToString();
-		labelSynodicPeriodData.Text = derivedOrbitElements[index: 37]?.ToString();
-		labelTisserandParameterData.Text = derivedOrbitElements[index: 38]?.ToString();
-		labelMeanDistanceFromFocusData.Text = derivedOrbitElements[index: 39]?.ToString();
-		labelGeometricAlbedoAdjustedDiameterData.Text = derivedOrbitElements[index: 40]?.ToString();
+		// Dynamically assign values to reduce code duplication
+		for (int i = 0; i < orbitDataLabels.Length; i++)
+		{
+			orbitDataLabels[i].Text = derivedOrbitElements[index: i]?.ToString();
+		}
 	}
 
 	#endregion
@@ -251,13 +189,9 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	/// <remarks>This method is used to store the control that triggered the event for future reference.</remarks>
 	protected override void Control_MouseDown(object sender, MouseEventArgs e)
 	{
-		// Check if the sender is a Control
-		if (sender is Control control)
+		if (sender is ToolStripMenuItem menuItem && menuItem.Tag is Label targetLabel)
 		{
-			// Store the control that triggered the event
-			currentControl = control;
-			// Store the current tag text of the control
-			currentTagText = control.Tag?.ToString() ?? string.Empty;
+			CopyToClipboard(text: targetLabel.Text);
 		}
 	}
 
@@ -265,131 +199,131 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 
 	#region Click event handlers
 
-	/// <summary>Handles the click event for the MenuitemCopyToClipboardLinearEccentricity.
+	/// <summary>Handles the click event for the CopyToClipboardLinearEccentricity.
 	/// Copies the linear eccentricity data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the linear eccentricity data to the clipboard.</remarks>
-	private void MenuitemCopyToClipboardLinearEccentricity_Click(object sender, EventArgs e) => CopyToClipboard(text: labelLinearEccentricityData.Text);
+	private void CopyToClipboardLinearEccentricity_Click(object sender, EventArgs e) => CopyToClipboard(text: labelLinearEccentricityData.Text);
 
-	/// <summary>Handles the click event for the MenuitemCopyToClipboardSemiMinorAxis.
+	/// <summary>Handles the click event for the CopyToClipboardSemiMinorAxis.
 	/// Copies the semi-minor axis data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the semi-minor axis data to the clipboard.</remarks>
-	private void MenuitemCopyToClipboardSemiMinorAxis_Click(object sender, EventArgs e) => CopyToClipboard(text: labelSemiMinorAxisData.Text);
+	private void CopyToClipboardSemiMinorAxis_Click(object sender, EventArgs e) => CopyToClipboard(text: labelSemiMinorAxisData.Text);
 
-	/// <summary>Handles the click event for the MenuitemCopyToClipboardMajorAxis.
+	/// <summary>Handles the click event for the CopyToClipboardMajorAxis.
 	/// Copies the major axis data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the major axis data to the clipboard.</remarks>
-	private void MenuitemCopyToClipboardMajorAxis_Click(object sender, EventArgs e) => CopyToClipboard(text: labelMajorAxisData.Text);
+	private void CopyToClipboardMajorAxis_Click(object sender, EventArgs e) => CopyToClipboard(text: labelMajorAxisData.Text);
 
-	/// <summary>Handles the click event for the MenuitemCopyToClipboardMinorAxis.
+	/// <summary>Handles the click event for the CopyToClipboardMinorAxis.
 	/// Copies the minor axis data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the minor axis data to the clipboard.</remarks>
-	private void MenuitemCopyToClipboardMinorAxis_Click(object sender, EventArgs e) => CopyToClipboard(text: labelMinorAxisData.Text);
+	private void CopyToClipboardMinorAxis_Click(object sender, EventArgs e) => CopyToClipboard(text: labelMinorAxisData.Text);
 
-	/// <summary>Handles the click event for the MenuitemCopyToClipboardEccentricAnomaly.
+	/// <summary>Handles the click event for the CopyToClipboardEccentricAnomaly.
 	/// Copies the eccentric anomaly data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the eccentric anomaly data to the clipboard.</remarks>
-	private void MenuitemCopyToClipboardEccentricAnomaly_Click(object sender, EventArgs e) => CopyToClipboard(text: labelEccentricAnomalyData.Text);
+	private void CopyToClipboardEccentricAnomaly_Click(object sender, EventArgs e) => CopyToClipboard(text: labelEccentricAnomalyData.Text);
 
-	/// <summary>Handles the click event for the MenuitemCopyToClipboardTrueAnomaly.
+	/// <summary>Handles the click event for the CopyToClipboardTrueAnomaly.
 	/// Copies the true anomaly data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the true anomaly data to the clipboard.</remarks>
-	private void MenuitemCopyToClipboardTrueAnomaly_Click(object sender, EventArgs e) => CopyToClipboard(text: labelTrueAnomalyData.Text);
+	private void CopyToClipboardTrueAnomaly_Click(object sender, EventArgs e) => CopyToClipboard(text: labelTrueAnomalyData.Text);
 
-	/// <summary>Handles the click event for the MenuitemCopyToClipboardPerihelionDistance.
+	/// <summary>Handles the click event for the CopyToClipboardPerihelionDistance.
 	/// Copies the perihelion distance data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the perihelion distance data to the clipboard.</remarks>
-	private void MenuitemCopyToClipboardPerihelionDistance_Click(object sender, EventArgs e) => CopyToClipboard(text: labelPerihelionDistanceData.Text);
+	private void CopyToClipboardPerihelionDistance_Click(object sender, EventArgs e) => CopyToClipboard(text: labelPerihelionDistanceData.Text);
 
-	/// <summary>Handles the click event for the MenuitemCopyToClipboardAphelionDistance.
+	/// <summary>Handles the click event for the CopyToClipboardAphelionDistance.
 	/// Copies the aphelion distance data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the aphelion distance data to the clipboard.</remarks>
-	private void MenuitemCopyToClipboardAphelionDistance_Click(object sender, EventArgs e) => CopyToClipboard(text: labelAphelionDistanceData.Text);
+	private void CopyToClipboardAphelionDistance_Click(object sender, EventArgs e) => CopyToClipboard(text: labelAphelionDistanceData.Text);
 
-	/// <summary>Handles the click event for the MenuitemCopyToClipboardLongitudeDescendingNode.
+	/// <summary>Handles the click event for the CopyToClipboardLongitudeDescendingNode.
 	/// Copies the longitude of the descending node data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the longitude of the descending node data to the clipboard.</remarks>
-	private void MenuitemCopyToClipboardLongitudeDescendingNode_Click(object sender, EventArgs e) => CopyToClipboard(text: labelLongitudeDescendingNodeData.Text);
+	private void CopyToClipboardLongitudeDescendingNode_Click(object sender, EventArgs e) => CopyToClipboard(text: labelLongitudeDescendingNodeData.Text);
 
-	/// <summary>Handles the click event for the MenuitemCopyToClipboardArgumentAphelion.
+	/// <summary>Handles the click event for the CopyToClipboardArgumentAphelion.
 	/// Copies the argument of aphelion data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the argument of aphelion data to the clipboard.</remarks>
-	private void MenuitemCopyToClipboardArgumentAphelion_Click(object sender, EventArgs e) => CopyToClipboard(text: labelArgumentAphelionData.Text);
+	private void CopyToClipboardArgumentAphelion_Click(object sender, EventArgs e) => CopyToClipboard(text: labelArgumentAphelionData.Text);
 
-	/// <summary>Handles the click event for the MenuitemCopyToClipboardFocalParameter.
+	/// <summary>Handles the click event for the CopyToClipboardFocalParameter.
 	/// Copies the focal parameter data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the focal parameter data to the clipboard.</remarks>
-	private void MenuitemCopyToClipboardFocalParameter_Click(object sender, EventArgs e) => CopyToClipboard(text: labelFocalParameterData.Text);
+	private void CopyToClipboardFocalParameter_Click(object sender, EventArgs e) => CopyToClipboard(text: labelFocalParameterData.Text);
 
-	/// <summary>Handles the click event for the MenuitemCopyToClipboardSemiLatusRectum.
+	/// <summary>Handles the click event for the CopyToClipboardSemiLatusRectum.
 	/// Copies the semi-latus rectum data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the semi-latus rectum data to the clipboard.</remarks>
-	private void MenuitemCopyToClipboardSemiLatusRectum_Click(object sender, EventArgs e) => CopyToClipboard(text: labelSemiLatusRectumData.Text);
+	private void CopyToClipboardSemiLatusRectum_Click(object sender, EventArgs e) => CopyToClipboard(text: labelSemiLatusRectumData.Text);
 
-	/// <summary>Handles the click event for the MenuitemCopyToClipboardLatusRectum.
+	/// <summary>Handles the click event for the CopyToClipboardLatusRectum.
 	/// Copies the latus rectum data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the latus rectum data to the clipboard.</remarks>
-	private void MenuitemCopyToClipboardLatusRectum_Click(object sender, EventArgs e) => CopyToClipboard(text: labelLatusRectumData.Text);
+	private void CopyToClipboardLatusRectum_Click(object sender, EventArgs e) => CopyToClipboard(text: labelLatusRectumData.Text);
 
-	/// <summary>Handles the click event for the MenuitemCopyToClipboardOrbitalPeriod.
+	/// <summary>Handles the click event for the CopyToClipboardOrbitalPeriod.
 	/// Copies the orbital period data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the orbital period data to the clipboard.</remarks>
-	private void MenuitemCopyToClipboardOrbitalPeriod_Click(object sender, EventArgs e) => CopyToClipboard(text: labelOrbitalPeriodData.Text);
+	private void CopyToClipboardOrbitalPeriod_Click(object sender, EventArgs e) => CopyToClipboard(text: labelOrbitalPeriodData.Text);
 
-	/// <summary>Handles the click event for the MenuitemCopyToClipboardOrbitalArea.
+	/// <summary>Handles the click event for the CopyToClipboardOrbitalArea.
 	/// Copies the orbital area data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the orbital area data to the clipboard.</remarks>
-	private void MenuitemCopyToClipboardOrbitalArea_Click(object sender, EventArgs e) => CopyToClipboard(text: labelOrbitalAreaData.Text);
+	private void CopyToClipboardOrbitalArea_Click(object sender, EventArgs e) => CopyToClipboard(text: labelOrbitalAreaData.Text);
 
-	/// <summary>Handles the click event for the MenuitemCopyToClipboardSemiMeanAxis.
+	/// <summary>Handles the click event for the CopyToClipboardSemiMeanAxis.
 	/// Copies the semi-mean axis data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the semi-mean axis data to the clipboard.</remarks>
-	private void MenuitemCopyToClipboardSemiMeanAxis_Click(object sender, EventArgs e) => CopyToClipboard(text: labelSemiMeanAxisData.Text);
+	private void CopyToClipboardSemiMeanAxis_Click(object sender, EventArgs e) => CopyToClipboard(text: labelSemiMeanAxisData.Text);
 
-	/// <summary>Handles the click event for the MenuitemCopyToClipboardMeanAxis.
+	/// <summary>Handles the click event for the CopyToClipboardMeanAxis.
 	/// Copies the mean axis data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the mean axis data to the clipboard.</remarks>
-	private void MenuitemCopyToClipboardMeanAxis_Click(object sender, EventArgs e) => CopyToClipboard(text: labelMeanAxisData.Text);
+	private void CopyToClipboardMeanAxis_Click(object sender, EventArgs e) => CopyToClipboard(text: labelMeanAxisData.Text);
 
-	/// <summary>Handles the click event for the MenuitemCopyToClipboardStandardGravitationalParameter.
+	/// <summary>Handles the click event for the CopyToClipboardStandardGravitationalParameter.
 	/// Copies the standard gravitational parameter data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the standard gravitational parameter data to the clipboard.</remarks>
-	private void MenuitemCopyToClipboardStandardGravitationalParameter_Click(object sender, EventArgs e) => CopyToClipboard(text: labelStandardGravitationalParameterData.Text);
+	private void CopyToClipboardStandardGravitationalParameter_Click(object sender, EventArgs e) => CopyToClipboard(text: labelStandardGravitationalParameterData.Text);
 
 	#endregion
 
@@ -401,18 +335,22 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	/// <remarks>This method attempts to parse the current tag text as an integer and opens the terminology dialog for the corresponding entry if successful.</remarks>
 	private void OpenTerminology_DoubleClick(object sender, EventArgs e)
 	{
-		// Try to parse the index from the current tag text
-		// If successful, open the terminology dialog for that index
-		// If parsing fails, log an error and show an error message
-		if (TryParseInt(input: currentTagText, value: out int index, errorMessage: out string errorMessage))
+		// Safe casting from sender directly to evaluate the exact control being interacted with
+		if (sender is Control control && control.Tag != null)
 		{
-			// Open the terminology dialog for the parsed index
-			OpenTerminology(index: (uint)index);
-			return;
+			// Retrieve the tag text, ensuring it's not null
+			string tagText = control.Tag.ToString() ?? string.Empty;
+			// Attempt to parse the tag text as an integer
+			if (TryParseInt(input: tagText, value: out int index, errorMessage: out string errorMessage))
+			{
+				// Open the terminology dialog for the parsed index
+				OpenTerminology(index: (uint)index);
+				return;
+			}
+			// Log the error and show an error message
+			logger.Error(message: $"Failed to parse index from tag text '{tagText}': {errorMessage}");
+			ShowErrorMessage(message: $"Failed to parse index from tag text '{tagText}': {errorMessage}");
 		}
-		// Log the error and show an error message
-		logger.Error(message: $"Failed to parse index from tag text '{currentTagText}': {errorMessage}");
-		ShowErrorMessage(message: $"Failed to parse index from tag text '{currentTagText}': {errorMessage}");
 	}
 
 	#endregion
