@@ -199,6 +199,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		}
 		// Calculate the percentage of the download completed
 		int percentage = (int)(info.CurrentBytes * 100 / info.TotalBytes);
+		percentage = Math.Clamp(value: percentage, min: 0, max: 100);
 		// Update the progress bar only if the percentage has changed
 		if (kryptonProgressBarDownload.Value != percentage)
 		{
