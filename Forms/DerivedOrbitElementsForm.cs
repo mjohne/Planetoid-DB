@@ -42,10 +42,6 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	/// <remarks>This logger is used to log messages for the form.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-	/// <summary>Stores the current tag text of the control.</summary>
-	/// <remarks>This field is used to keep track of the current tag text of the control.</remarks>
-	private readonly string currentTagText = string.Empty;
-
 	/// <summary>Gets the status label to be used for displaying information.</summary>
 	/// <remarks>Derived classes should override this property to provide the specific label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
@@ -175,7 +171,7 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 		// Dynamically assign values to reduce code duplication
 		for (int i = 0; i < orbitDataLabels.Length; i++)
 		{
-			orbitDataLabels[i].Text = derivedOrbitElements[index: i]?.ToString();
+			orbitDataLabels[i].Text = derivedOrbitElements[index: i]?.ToString() ?? string.Empty;
 		}
 	}
 
