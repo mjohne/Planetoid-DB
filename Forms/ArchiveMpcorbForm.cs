@@ -109,10 +109,16 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 			"Brotli" => ".br",
 			_ => ".zip"
 		};
-		// Get the directory of the current target file path, or use an empty string if it cannot be determined
+		// Prefer the existing target directory; if empty, default to the source file's directory
 		string directory = Path.GetDirectoryName(path: kryptonTextBoxTarget.Text) ?? string.Empty;
+		if (string.IsNullOrWhiteSpace(value: directory))
+		{
+			directory = Path.GetDirectoryName(path: kryptonTextBoxSource.Text) ?? string.Empty;
+		}
 		// Construct the new target file path using the directory, timestamp, and selected extension, and update the target text box
-		kryptonTextBoxTarget.Text = Path.Combine(path1: directory, path2: $"MPCORB-{timestamp}{extension}");
+		kryptonTextBoxTarget.Text = string.IsNullOrEmpty(value: directory)
+			? $"MPCORB-{timestamp}{extension}"
+			: Path.Combine(path1: directory, path2: $"MPCORB-{timestamp}{extension}");
 	}
 
 	#endregion
@@ -432,16 +438,17 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 			labelInformation.Text = "Archiving cancelled.";
 			// Give Streams time to release locks before trying to delete
 			await Task.Delay(millisecondsDelay: 100);
+			// If the target file exists after cancellation, attempt to delete it to clean up any partial archive. Log a warning if the deletion fails.
 			if (File.Exists(path: targetFile))
 			{
 				try
 				{
 					File.Delete(path: targetFile);
 				}
-catch (Exception ex)
-{
-	logger.Warn(exception: ex, message: "Could not delete partial archive file after cancellation.");
-}
+				catch (Exception ex)
+				{
+					logger.Warn(exception: ex, message: "Could not delete partial archive file after cancellation.");
+				}
 			}
 		}
 		// Catch any other exceptions that occur during the archiving process, update the status label, and show an error message box with the exception details
