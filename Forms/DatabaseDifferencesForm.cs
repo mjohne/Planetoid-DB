@@ -128,7 +128,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		{
 			diffs.Add(item: $"LAN: {r1.LongAscNode} -> {r2.LongAscNode}");
 		}
-		// Compare the Inclination field of the two records ListViewResults_DoubleClickand add a description of any differences to the list
+		// Compare the Inclination field of the two records and add a description of any differences to the list
 		if (r1.Incl != r2.Incl)
 		{
 			diffs.Add(item: $"Incl: {r1.Incl} -> {r2.Incl}");
@@ -244,11 +244,11 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	private void UpdateProgress((int Percent, string Status, List<DifferenceResult>? Batch) report)
 	{
 		// Clamp the progress bar value between 0 and 100 to ensure it stays within valid bounds
-		kryptonProgressBar.Value = Math.Max(0, Math.Min(100, report.Percent));
-		// Update the text of the progress bar to show either the status message or the percentage completed, depending on whether a status message is provided
-		kryptonProgressBar.Text = string.IsNullOrEmpty(value: report.Status) ? $"{report.Percent}%" : report.Status;
-		// Update the taskbar progress value to reflect the current percentage of completion, using the window handle of the form and setting the maximum value to 100
-		TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)report.Percent, progressMax: 100);
+		int clampedPercent = Math.Clamp(value: report.Percent, min: 0, max: 100);
+		// Update the progress bar value and text to reflect the current progress and status message
+		kryptonProgressBar.Value = clampedPercent;
+		kryptonProgressBar.Text = string.IsNullOrEmpty(value: report.Status) ? $"{clampedPercent}%" : report.Status;
+		TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)clampedPercent, progressMax: 100);
 		// If a batch of difference results is provided and it contains items, add them to the difference results list and update the virtual list size of the ListView to reflect the new total count of difference results
 		if (report.Batch != null && report.Batch.Count > 0)
 		{
@@ -264,12 +264,12 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// <param name="progress">An object to report progress updates.</param>
 	/// <param name="token">A cancellation token to cancel the operation.</param>
 	/// <remarks>This method reads the first file into a dictionary of PlanetoidRecord objects, then reads the second file line by line, comparing each record to the corresponding record in the first file. Differences are collected and reported in batches to the progress reporter. The method also checks for added or deleted records and reports them accordingly.</remarks>
-	private void CompareFilesAsync(string p1, string p2, bool file1IsNewer, IProgress<(int, string, List<DifferenceResult>?)> progress, CancellationToken token)
+	private void CompareFiles(string p1, string p2, bool file1IsNewer, IProgress<(int, string, List<DifferenceResult>?)> progress, CancellationToken token)
 	{
 		// Report initial progress indicating that the reference file is being loaded
 		progress.Report(value: (0, "Loading Reference File...", null));
 		// Create a dictionary to hold the records from the first file, using the designation name as the key
-		Dictionary<string, PlanetoidRecord> records1 = new();
+		Dictionary<string, PlanetoidRecord> records1 = [];
 		// Read each line from the first file and parse it into a PlanetoidRecord, adding it to the dictionary if it has a valid designation name
 		foreach (string line in File.ReadLines(path: p1))
 		{
@@ -293,7 +293,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		// Initialize a variable to track the number of bytes read from the second file
 		long currentBytesRead = 0;
 		// Initialize a list to hold the results of differences found during the comparison
-		List<DifferenceResult> batchResults = new();
+		List<DifferenceResult> batchResults = [];
 		// Initialize variables to track the last time progress was reported and the interval for reporting progress
 		long lastReportTicks = DateTime.Now.Ticks;
 		// Set the interval for reporting progress to 100 milliseconds
@@ -353,7 +353,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 						}
 					}
 				}
-				// Check if the batch results have reached a size of 1000, and if so, report the current progress and clear the batch results for the next set of differences
+				// Periodically report progress (based on elapsed time) and flush any collected batch results
 				long currentTicks = DateTime.Now.Ticks;
 				// If the time since the last report exceeds the report interval, report the current progress and clear the batch results; this ensures that progress is reported at regular intervals even if the batch size has not been reached
 				if (currentTicks - lastReportTicks > reportIntervalTicks)
@@ -478,7 +478,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// <summary>Handles the click event for the compare button, initiating the comparison of the selected MPCORB files.</summary>
 	/// <param name="sender">The source of the event, typically the button that was clicked.</param>
 	/// <param name="e">The event data associated with the click event.</param>
-	/// <remarks>This method validates the selected files and initiates the comparison process asynchronously using <see cref="Task.Run"/> and <see cref="IProgress{T}"/>.</remarks>
+	/// <remarks>This method validates the selected files and initiates the comparison process asynchronously using <see cref="Task.Run(Action)"/> and <see cref="IProgress{T}"/>.</remarks>
 	private async void ButtonCompare_Click(object sender, EventArgs e)
 	{
 		// Reset the counters for added, deleted, and changed records before starting the comparison
@@ -523,7 +523,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		try
 		{
 			// Run the comparison operation asynchronously on a separate thread to avoid blocking the UI, passing in the file paths, whether the first file is newer, the progress reporter, and the cancellation token
-			await Task.Run(action: () => CompareFilesAsync(p1: pathFile1, p2: pathFile2, file1IsNewer: file1IsNewer, progress: progress, token: _cancellationTokenSource.Token));
+			await Task.Run(action: () => CompareFiles(p1: pathFile1, p2: pathFile2, file1IsNewer: file1IsNewer, progress: progress, token: _cancellationTokenSource.Token));
 			// After the comparison operation completes successfully, update the progress bar text to indicate that the comparison is complete and show a message box summarizing the results of the comparison, including the counts of added, changed, and deleted records
 			kryptonProgressBar.Text = "Comparison Complete";
 			KryptonMessageBox.Show(owner: this, text: $"Comparison completed successfully.\n\nAdded records: {addedRecords}\nChanged records: {changedRecords}\nDeleted records: {deletedRecords}", caption: "Summary", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
@@ -547,7 +547,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 			toolStripButtonCompare.Enabled = true;
 			kryptonButtonSelectFile1.Enabled = true;
 			kryptonButtonSelectFile2.Enabled = true;
-			toolStripButtonCancel.Enabled = false;
+			toolStripButtonCancel.Enabled = true;
 			// Dispose of the cancellation token source to free up resources and set it to null to indicate that there is no ongoing comparison operation
 			_cancellationTokenSource?.Dispose();
 			_cancellationTokenSource = null;
