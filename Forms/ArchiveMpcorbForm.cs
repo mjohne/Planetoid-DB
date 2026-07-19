@@ -95,6 +95,26 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		return $"{len:0.00} {sizes[order]}";
 	}
 
+	/// <summary>Updates the target text box with the newly formatted file name based on selected extension.</summary>
+	/// <remarks>This method constructs a new file name using the current date and time, along with the selected compression format's extension, and updates the target text box accordingly.</remarks>
+	private void UpdateTargetFileName()
+	{
+		// Determine the timestamp for the default file name based on the online last modified date or the current time if the online date is not available
+		DateTime date = _onlineLastModified ?? DateTime.UtcNow;
+		string timestamp = date.ToString(format: "yyyyMMddHHmmss");
+		// Determine the file extension based on the selected compression format
+		extension = format switch
+		{
+			"GZip" => ".gz",
+			"Brotli" => ".br",
+			_ => ".zip"
+		};
+		// Get the directory of the current target file path, or use an empty string if it cannot be determined
+		string directory = Path.GetDirectoryName(path: kryptonTextBoxTarget.Text) ?? string.Empty;
+		// Construct the new target file path using the directory, timestamp, and selected extension, and update the target text box
+		kryptonTextBoxTarget.Text = Path.Combine(path1: directory, path2: $"MPCORB-{timestamp}{extension}");
+	}
+
 	#endregion
 
 	#region Task methods
@@ -151,6 +171,12 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		long totalRead = 0;
 		// Read from the source stream until there are no more bytes to read
 		int read;
+
+		// Initialize the last report time to zero and set the report interval to 100 milliseconds
+		long lastReportTime = 0;
+		// Set the report interval to 100 milliseconds to control how often progress updates are sent to the UI
+		const int reportIntervalMs = 100;
+
 		// Loop to read data from the source stream in chunks
 		while ((read = await source.ReadAsync(buffer, cancellationToken: token)) > 0)
 		{
@@ -160,8 +186,8 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 			await destination.WriteAsync(buffer: buffer.AsMemory(start: 0, length: read), cancellationToken: token);
 			// Update the total number of bytes read
 			totalRead += read;
-			// If the total number of bytes is greater than zero, calculate progress and update the UI
-			if (totalBytes > 0)
+			// Check if it's time to report progress based on the elapsed time and the report interval
+			if (totalBytes > 0 && (stopwatch.ElapsedMilliseconds - lastReportTime > reportIntervalMs || totalRead == totalBytes))
 			{
 				// Calculate the progress percentage
 				int progress = (int)((double)totalRead / totalBytes * 100);
@@ -169,31 +195,39 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 				long totalWritten = outputStream.Length;
 				// Calculate elapsed time, estimated remaining time, and compression ratio
 				TimeSpan elapsed = stopwatch.Elapsed;
+				// Ensure that the total seconds is at least 0.001 to avoid division by zero in subsequent calculations
+				double totalSeconds = Math.Max(0.001, elapsed.TotalSeconds);
 				// Calculate the current processing rate in bytes per second
-				double rate = totalRead / elapsed.TotalSeconds;
-				// Calculate the remaining bytes and estimated remaining time based on the current processing rate
-				double remainingBytes = totalBytes - totalRead;
-				// Calculate the estimated remaining time in seconds, handling the case where the rate is zero to avoid division by zero
-				double remainingSeconds = rate > 0 ? remainingBytes / rate : 0;
+				double rate = totalRead / totalSeconds;
+				// Calculate the estimated remaining time in seconds based on the current processing rate and the total bytes left to read
+				double remainingSeconds = rate > 0 ? (totalBytes - totalRead) / rate : 0;
 				// Create a TimeSpan object for the estimated remaining time
 				TimeSpan remaining = TimeSpan.FromSeconds(value: remainingSeconds);
 				// Calculate the compression ratio based on the total bytes read and written, handling the case where totalRead is zero to avoid division by zero
 				double ratio = totalRead > 0 ? (double)totalWritten / totalRead : 0;
 				// Calculate the estimated final size of the compressed file based on the current compression ratio
 				long estimatedSize = (long)(totalBytes * ratio);
+				// Update the last report time to the current elapsed milliseconds
+				lastReportTime = stopwatch.ElapsedMilliseconds;
 				// Update the progress bar and status label on the UI thread
 				if (IsHandleCreated && !IsDisposed)
 				{
+					// Use a try-catch block to handle potential exceptions that may occur when updating the UI elements, such as ObjectDisposedException or InvalidOperationException
 					try
 					{
+						// Use BeginInvoke to update the UI elements on the main thread, ensuring thread safety
 						BeginInvoke(method: new Action(() =>
 						{
 							// Ensure the progress value does not exceed 100%
 							int currentProgress = Math.Min(progress, 100);
+							// Update the progress bar value and text to reflect the current progress percentage
 							kryptonProgressBarToolStripItemCompression.Value = currentProgress;
 							kryptonProgressBarToolStripItemCompression.Text = $"{currentProgress} %";
+							// Update the tooltip text of the progress bar to provide additional information to the user
 							kryptonProgressBarToolStripItemCompression.ToolTipText = kryptonProgressBarToolStripItemCompression.Text;
+							// Update the status label with detailed information about the archiving process, including elapsed time, estimated remaining time, compression level, bytes read, bytes written, and estimated final size
 							labelInformation.Text = $"Time: {elapsed:hh\\:mm\\:ss} / {remaining:hh\\:mm\\:ss} | Level: {compressionLevel} | Read: {FormatBytes(bytes: totalRead)} | Written: {FormatBytes(bytes: totalWritten)} | Est. Size: {FormatBytes(bytes: estimatedSize)}";
+							// Update the Windows taskbar progress indicator to reflect the current progress percentage, ensuring that the progress value is clamped between 0 and 100
 							TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)currentProgress, progressMax: 100);
 						}));
 					}
@@ -254,12 +288,8 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 			logger.Error(exception: ex, message: "Error checking online date");
 			ShowErrorMessage(message: $"Error checking online date: {ex.Message}");
 		}
-		// Determine the timestamp for the default file name based on the online last modified date or the current time if the online date is not available
-		DateTime date = _onlineLastModified ?? DateTime.UtcNow;
-		string timestamp = date.ToString(format: "yyyyMMddHHmmss");
-		extension = format == "Zip" ? ".zip" : format == "GZip" ? ".gz" : ".br";
-		string directory = Path.GetDirectoryName(path: kryptonTextBoxSource.Text) ?? string.Empty;
-		kryptonTextBoxTarget.Text = Path.Combine(path1: directory, path2: $"MPCORB-{timestamp}{extension}");
+		// Update the target file name based on the selected format and online last modified date
+		UpdateTargetFileName();
 	}
 
 	#endregion
@@ -273,8 +303,10 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 	private void KryptonButtonBrowseSource_Click(object sender, EventArgs e)
 	{
 		// Create and configure an OpenFileDialog to allow the user to select a source file
-		using OpenFileDialog openFileDialog = new();
-		openFileDialog.Filter = "DAT files (*.dat)|*.dat|All files (*.*)|*.*";
+		using OpenFileDialog openFileDialog = new()
+		{
+			Filter = "DAT files (*.dat)|*.dat|All files (*.*)|*.*"
+		};
 		// If the current text in the source textbox is a valid file path, set it as the initial file name in the dialog
 		if (File.Exists(path: kryptonTextBoxSource.Text))
 		{
@@ -294,17 +326,18 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 	private void KryptonButtonBrowseTarget_Click(object sender, EventArgs e)
 	{
 		// Create and configure a SaveFileDialog to allow the user to select a target file path for the archive
-		using SaveFileDialog saveFileDialog = new();
-		saveFileDialog.RestoreDirectory = false;
-		saveFileDialog.InitialDirectory = Path.GetDirectoryName(path: kryptonTextBoxTarget.Text);
-		saveFileDialog.FileName = Path.GetFileName(path: kryptonTextBoxTarget.Text);
-		saveFileDialog.Filter = $"{format} Archive (*{extension})|*{extension}";
-		// Show the save file dialog and if the user does not select a file and click OK, leave the existing target path unchanged
-		if (saveFileDialog.ShowDialog(owner: this) != DialogResult.OK)
+		using SaveFileDialog saveFileDialog = new()
 		{
-			return;
+			RestoreDirectory = false,
+			InitialDirectory = Path.GetDirectoryName(path: kryptonTextBoxTarget.Text),
+			FileName = Path.GetFileName(path: kryptonTextBoxTarget.Text),
+			Filter = $"{format} Archive (*{extension})|*{extension}"
+		};
+		// Show the save file dialog and if the user does not select a file and click OK, leave the existing target path unchanged
+		if (saveFileDialog.ShowDialog(owner: this) == DialogResult.OK)
+		{
+			kryptonTextBoxTarget.Text = saveFileDialog.FileName;
 		}
-		kryptonTextBoxTarget.Text = saveFileDialog.FileName;
 	}
 
 	/// <summary>Handles the click event for the archive button, initiating the asynchronous archiving process for the selected source file. If an archiving operation is already in progress, clicking the button cancels the current operation.</summary>
@@ -350,6 +383,9 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		// Start the archiving process in a background task to avoid blocking the UI thread
 		try
 		{
+			// Safe capture of values before entering Task.Run
+			string currentFormat = format;
+			string currentCompressionStr = compressionString;
 			// Use Task.Run to perform the archiving operation asynchronously, allowing for cancellation and progress reporting
 			await Task.Run(function: async () =>
 			{
@@ -358,8 +394,10 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 				// Open the source file for reading and the target file for writing, ensuring proper access and sharing modes
 				using FileStream sourceStream = new(path: sourceFile, mode: FileMode.Open, access: FileAccess.Read, share: FileShare.Read);
 				using FileStream targetStream = new(path: targetFile, mode: FileMode.Create, access: FileAccess.Write, share: FileShare.None);
+				// Get the total number of bytes in the source stream to calculate progress
+				long totalBytes = sourceStream.Length;
 				// Depending on the selected format, create the appropriate compression stream and copy the data from the source stream to the destination stream while reporting progress
-				switch (format)
+				switch (currentFormat)
 				{
 					default:
 					case "Zip":
@@ -367,19 +405,19 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 							using ZipArchive archive = new(stream: targetStream, mode: ZipArchiveMode.Create);
 							ZipArchiveEntry entry = archive.CreateEntry(entryName: Path.GetFileName(path: sourceFile), compressionLevel: compressionLevel);
 							using Stream entryStream = entry.Open();
-							await CopyStreamWithProgressAsync(source: sourceStream, destination: entryStream, totalBytes: sourceStream.Length, outputStream: targetStream, compressionLevel: compressionString, stopwatch: stopwatch, token: cancellationToken);
+							await CopyStreamWithProgressAsync(source: sourceStream, destination: entryStream, totalBytes: totalBytes, outputStream: targetStream, compressionLevel: currentCompressionStr, stopwatch: stopwatch, token: cancellationToken);
 							break;
 						}
 					case "GZip":
 						{
 							using GZipStream compressionStream = new(stream: targetStream, compressionLevel: compressionLevel);
-							await CopyStreamWithProgressAsync(source: sourceStream, destination: compressionStream, totalBytes: sourceStream.Length, outputStream: targetStream, compressionLevel: compressionString, stopwatch: stopwatch, token: cancellationToken);
+							await CopyStreamWithProgressAsync(source: sourceStream, destination: compressionStream, totalBytes: totalBytes, outputStream: targetStream, compressionLevel: currentCompressionStr, stopwatch: stopwatch, token: cancellationToken);
 							break;
 						}
 					case "Brotli":
 						{
 							using BrotliStream compressionStream = new(stream: targetStream, compressionLevel: compressionLevel);
-							await CopyStreamWithProgressAsync(source: sourceStream, destination: compressionStream, totalBytes: sourceStream.Length, outputStream: targetStream, compressionLevel: compressionString, stopwatch: stopwatch, token: cancellationToken);
+							await CopyStreamWithProgressAsync(source: sourceStream, destination: compressionStream, totalBytes: totalBytes, outputStream: targetStream, compressionLevel: currentCompressionStr, stopwatch: stopwatch, token: cancellationToken);
 							break;
 						}
 				}
@@ -392,14 +430,24 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		catch (OperationCanceledException)
 		{
 			labelInformation.Text = "Archiving cancelled.";
+			// Give Streams time to release locks before trying to delete
+			await Task.Delay(millisecondsDelay: 100);
 			if (File.Exists(path: targetFile))
 			{
-				try { File.Delete(path: targetFile); } catch { }
+				try
+				{
+					File.Delete(path: targetFile);
+				}
+catch (Exception ex)
+{
+	logger.Warn(exception: ex, message: "Could not delete partial archive file after cancellation.");
+}
 			}
 		}
 		// Catch any other exceptions that occur during the archiving process, update the status label, and show an error message box with the exception details
 		catch (Exception ex)
 		{
+			logger.Error(exception: ex, message: "Archiving failed.");
 			labelInformation.Text = "Archiving failed.";
 			ShowErrorMessage(message: $"Archiving failed: {ex.Message}");
 		}
@@ -433,12 +481,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		// Set the format to "Zip" when the corresponding menu item is clicked, and uncheck the other format options
 		format = formats[0];
 		// Determine the timestamp for the default file name based on the online last modified date or the current time if the online date is not available
-		DateTime date = _onlineLastModified ?? DateTime.UtcNow;
-		string timestamp = date.ToString(format: "yyyyMMddHHmmss");
-		extension = format == "Zip" ? ".zip" : format == "GZip" ? ".gz" : ".br";
-		string defaultFileName = $"MPCORB-{timestamp}{extension}";
-		string directory = Path.GetDirectoryName(path: kryptonTextBoxTarget.Text) ?? string.Empty;
-		kryptonTextBoxTarget.Text = Path.Combine(path1: directory, path2: defaultFileName);
+		UpdateTargetFileName();
 	}
 
 	/// <summary>Handles the click event for the 'GZip' format menu item, selecting the 'GZip' format and ensuring that other format options are deselected.</summary>
@@ -452,14 +495,8 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		toolStripMenuItemFormatBrotli.Checked = false;
 		// Set the format to "GZip" when the corresponding menu item is clicked, and uncheck the other format options
 		format = formats[1];
-
 		// Determine the timestamp for the default file name based on the online last modified date or the current time if the online date is not available
-		DateTime date = _onlineLastModified ?? DateTime.UtcNow;
-		string timestamp = date.ToString(format: "yyyyMMddHHmmss");
-		extension = format == "Zip" ? ".zip" : format == "GZip" ? ".gz" : ".br";
-		string defaultFileName = $"MPCORB-{timestamp}{extension}";
-		string directory = Path.GetDirectoryName(path: kryptonTextBoxTarget.Text) ?? string.Empty;
-		kryptonTextBoxTarget.Text = Path.Combine(path1: directory, path2: defaultFileName);
+		UpdateTargetFileName();
 	}
 
 	/// <summary>Handles the click event for the 'Brotli' format menu item, selecting the 'Brotli' format and ensuring that other format options are deselected.</summary>
@@ -473,14 +510,8 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		toolStripMenuItemFormatGzip.Checked = false;
 		// Set the format to "Brotli" when the corresponding menu item is clicked, and uncheck the other format options
 		format = formats[2];
-
 		// Determine the timestamp for the default file name based on the online last modified date or the current time if the online date is not available
-		DateTime date = _onlineLastModified ?? DateTime.UtcNow;
-		string timestamp = date.ToString(format: "yyyyMMddHHmmss");
-		extension = format == "Zip" ? ".zip" : format == "GZip" ? ".gz" : ".br";
-		string defaultFileName = $"MPCORB-{timestamp}{extension}";
-		string directory = Path.GetDirectoryName(path: kryptonTextBoxTarget.Text) ?? string.Empty;
-		kryptonTextBoxTarget.Text = Path.Combine(path1: directory, path2: defaultFileName);
+		UpdateTargetFileName();
 	}
 
 	/// <summary>Handles the click event for the 'Optimal' compression level menu item, selecting the 'Optimal' compression level and ensuring that other compression level options are deselected.</summary>
