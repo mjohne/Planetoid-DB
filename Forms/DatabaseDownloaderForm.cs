@@ -81,11 +81,10 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		}
 		this.url = url;
 		string localPath = parsedUri.LocalPath;
+		// Combine the directory of the temporary filename with the filename without extension from the URL to derive the extraction path
 		extractFilePath = Path.Combine(
 			Path.GetDirectoryName(path: _filenameTemp) ?? string.Empty,
 			Path.GetFileNameWithoutExtension(path: localPath));
-		// Start download when form is shown
-		//Shown += async (_, _) => await StartDownloadAsync();
 	}
 
 	/// <summary>Overrides the OnShown method to start the download workflow when the form is displayed.</summary>
@@ -220,7 +219,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 	}
 
 	/// <summary>Starts the download workflow: validates network and input, disables/enables UI controls, downloads the file, extracts the GZIP archive and notifies the user.</summary>
-	/// <remarks>This method is an async void entry point intended for UI usage. It uses an internal <see cref="CancellationTokenSource"/> to support cancellation, updates form controls (buttons, labels, progress bar) and handles exceptions internally (shows message boxes). No exceptions are propagated to the caller.</remarks>
+	/// <remarks>This method is an async Task entry point intended for UI usage. It uses an internal <see cref="CancellationTokenSource"/> to support cancellation, updates form controls (buttons, labels, progress bar) and handles exceptions internally (shows message boxes). No exceptions are propagated to the caller.</remarks>
 	private async Task StartDownloadAsync()
 	{
 		// Check for internet connectivity before starting the download
