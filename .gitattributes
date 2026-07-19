@@ -4,6 +4,15 @@
 * text=auto
 
 ###############################################################################
+# Declare files that will always have CRLF line endings on checkout.
+###############################################################################
+*.cs   text eol=crlf
+*.sln  text eol=crlf
+*.slnx text eol=crlf
+*.resx text eol=crlf
+*.user text eol=crlf
+
+###############################################################################
 # Set default behavior for command prompt diff.
 #
 # This is needed for earlier builds of msysgit that does not have it on by
