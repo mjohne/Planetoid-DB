@@ -165,51 +165,52 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 						// Attempt to parse each relevant value from the entry using the specified substring positions and lengths; log any parsing errors without throwing exceptions
 						try
 						{
-							if (double.TryParse(s: entry.Substring(startIndex: 26, length: 9).Trim(), style: NumberStyles.Any, provider: provider, result: out double valM))
+							ReadOnlySpan<char> entrySpan = entry.AsSpan();
+							if (double.TryParse(s: entrySpan.Slice(start: 26, length: 9).Trim(), style: NumberStyles.Any, provider: provider, result: out double valM))
 							{
 								localM[i] = valM; // Mean anomaly at the epoch
 							}
-							if (double.TryParse(s: entry.Substring(startIndex: 37, length: 9).Trim(), style: NumberStyles.Any, provider: provider, result: out double valOmega))
+							if (double.TryParse(s: entrySpan.Slice(start: 37, length: 9).Trim(), style: NumberStyles.Any, provider: provider, result: out double valOmega))
 							{
 								localOmega[i] = valOmega; // Argument of perihelion
 							}
-							if (double.TryParse(s: entry.Substring(startIndex: 48, length: 9).Trim(), style: NumberStyles.Any, provider: provider, result: out double valOmegaBig))
+							if (double.TryParse(s: entrySpan.Slice(start: 48, length: 9).Trim(), style: NumberStyles.Any, provider: provider, result: out double valOmegaBig))
 							{
 								localOmegaBig[i] = valOmegaBig; // Longitude of ascending node
 							}
-							if (double.TryParse(s: entry.Substring(startIndex: 59, length: 9).Trim(), style: NumberStyles.Any, provider: provider, result: out double valI))
+							if (double.TryParse(s: entrySpan.Slice(start: 59, length: 9).Trim(), style: NumberStyles.Any, provider: provider, result: out double valI))
 							{
 								localI[i] = valI; // Inclination
 							}
-							if (double.TryParse(s: entry.Substring(startIndex: 70, length: 9).Trim(), style: NumberStyles.Any, provider: provider, result: out double valE))
+							if (double.TryParse(s: entrySpan.Slice(start: 70, length: 9).Trim(), style: NumberStyles.Any, provider: provider, result: out double valE))
 							{
 								localE[i] = valE; // Eccentricity
 							}
-							if (double.TryParse(s: entry.Substring(startIndex: 80, length: 11).Trim(), style: NumberStyles.Any, provider: provider, result: out double valN))
+							if (double.TryParse(s: entrySpan.Slice(start: 80, length: 11).Trim(), style: NumberStyles.Any, provider: provider, result: out double valN))
 							{
 								localN[i] = valN; // Mean daily motion
 							}
-							if (double.TryParse(s: entry.Substring(startIndex: 92, length: 11).Trim(), style: NumberStyles.Any, provider: provider, result: out double valA))
+							if (double.TryParse(s: entrySpan.Slice(start: 92, length: 11).Trim(), style: NumberStyles.Any, provider: provider, result: out double valA))
 							{
 								localA[i] = valA; // Semi-major axis
 							}
-							if (double.TryParse(s: entry.Substring(startIndex: 8, length: 5).Trim(), style: NumberStyles.Any, provider: provider, result: out double valH))
+							if (double.TryParse(s: entrySpan.Slice(start: 8, length: 5).Trim(), style: NumberStyles.Any, provider: provider, result: out double valH))
 							{
 								localH[i] = valH; // Absolute magnitude
 							}
-							if (double.TryParse(s: entry.Substring(startIndex: 14, length: 5).Trim(), style: NumberStyles.Any, provider: provider, result: out double valG))
+							if (double.TryParse(s: entrySpan.Slice(start: 14, length: 5).Trim(), style: NumberStyles.Any, provider: provider, result: out double valG))
 							{
 								localG[i] = valG; // Slope parameter
 							}
-							if (double.TryParse(s: entry.Substring(startIndex: 117, length: 6).Trim(), style: NumberStyles.Any, provider: provider, result: out double valNObs))
+							if (double.TryParse(s: entrySpan.Slice(start: 117, length: 6).Trim(), style: NumberStyles.Any, provider: provider, result: out double valNObs))
 							{
 								localNObs[i] = valNObs; // Number of observations
 							}
-							if (double.TryParse(s: entry.Substring(startIndex: 123, length: 4).Trim(), style: NumberStyles.Any, provider: provider, result: out double valNOpp))
+							if (double.TryParse(s: entrySpan.Slice(start: 123, length: 4).Trim(), style: NumberStyles.Any, provider: provider, result: out double valNOpp))
 							{
 								localNOpp[i] = valNOpp; // Number of oppositions
 							}
-							if (double.TryParse(s: entry.Substring(startIndex: 137, length: 5).Trim(), style: NumberStyles.Any, provider: provider, result: out double valRms))
+							if (double.TryParse(s: entrySpan.Slice(start: 137, length: 5).Trim(), style: NumberStyles.Any, provider: provider, result: out double valRms))
 							{
 								localRms[i] = valRms; // Root mean square error
 							}
@@ -230,18 +231,18 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 						}
 					});
 				// After processing all entries, collect valid values in source-index order for each property
-				meanAnomalies.AddRange(collection: localM.Where(predicate: static v => !double.IsNaN(v)));
-				argumentsOfPerihelion.AddRange(collection: localOmega.Where(predicate: static v => !double.IsNaN(v)));
-				longitudesOfAscendingNode.AddRange(collection: localOmegaBig.Where(predicate: static v => !double.IsNaN(v)));
-				inclinations.AddRange(collection: localI.Where(predicate: static v => !double.IsNaN(v)));
-				eccentricities.AddRange(collection: localE.Where(predicate: static v => !double.IsNaN(v)));
-				meanDailyMotions.AddRange(collection: localN.Where(predicate: static v => !double.IsNaN(v)));
-				semiMajorAxes.AddRange(collection: localA.Where(predicate: static v => !double.IsNaN(v)));
-				absoluteMagnitudes.AddRange(collection: localH.Where(predicate: static v => !double.IsNaN(v)));
-				slopeParameters.AddRange(collection: localG.Where(predicate: static v => !double.IsNaN(v)));
-				numberOfOppositions.AddRange(collection: localNOpp.Where(predicate: static v => !double.IsNaN(v)));
-				numberOfObservations.AddRange(collection: localNObs.Where(predicate: static v => !double.IsNaN(v)));
-				rmsResiduals.AddRange(collection: localRms.Where(predicate: static v => !double.IsNaN(v)));
+				meanAnomalies.AddRange(collection: localM.Where(predicate: static v => !double.IsNaN(d: v)));
+				argumentsOfPerihelion.AddRange(collection: localOmega.Where(predicate: static v => !double.IsNaN(d: v)));
+				longitudesOfAscendingNode.AddRange(collection: localOmegaBig.Where(predicate: static v => !double.IsNaN(d: v)));
+				inclinations.AddRange(collection: localI.Where(predicate: static v => !double.IsNaN(d: v)));
+				eccentricities.AddRange(collection: localE.Where(predicate: static v => !double.IsNaN(d: v)));
+				meanDailyMotions.AddRange(collection: localN.Where(predicate: static v => !double.IsNaN(d: v)));
+				semiMajorAxes.AddRange(collection: localA.Where(predicate: static v => !double.IsNaN(d: v)));
+				absoluteMagnitudes.AddRange(collection: localH.Where(predicate: static v => !double.IsNaN(d: v)));
+				slopeParameters.AddRange(collection: localG.Where(predicate: static v => !double.IsNaN(d: v)));
+				numberOfOppositions.AddRange(collection: localNOpp.Where(predicate: static v => !double.IsNaN(d: v)));
+				numberOfObservations.AddRange(collection: localNObs.Where(predicate: static v => !double.IsNaN(d: v)));
+				rmsResiduals.AddRange(collection: localRms.Where(predicate: static v => !double.IsNaN(d: v)));
 			}, cancellationToken: ct);
 			// Check for cancellation after the parsing phase before proceeding to the average calculations
 			ct.ThrowIfCancellationRequested();
@@ -484,12 +485,15 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 	/// <remarks>All sub-items of the selected row are joined with a tab character before being placed on the clipboard. If no row is selected the method returns without action.</remarks>
 	private void ToolStripMenuItemCopyToClipboard_Click(object sender, EventArgs e)
 	{
+		// Ensure that there is at least one selected item in the ListView before attempting to copy
 		if (listView.SelectedItems.Count == 0)
 		{
 			return;
 		}
+		// Get the first selected item and extract the text of all its sub-items
 		ListViewItem selectedItem = listView.SelectedItems[index: 0];
 		IEnumerable<string> subItemTexts = selectedItem.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(selector: static s => s.Text);
+		// Join the sub-item texts with a tab character to create a single string for the clipboard
 		string text = string.Join(separator: "\t", values: subItemTexts);
 		CopyToClipboard(text: text);
 	}
