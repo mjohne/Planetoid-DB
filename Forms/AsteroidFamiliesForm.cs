@@ -121,8 +121,11 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		double tolE = (double)toolStripNumericUpDownToleranceValueNumericEccentricity.Value;
 		double tolI = (double)toolStripNumericUpDownToleranceValueInclination.Value;
 		int minMembers = (int)toolStripNumericUpDownToleranceValueMinimumMembers.Value;
-		// Dispose of any existing cancellation token source and create a new one for the current detection process.
-		_cancellationTokenSource?.Dispose();
+		// Create a new cancellation token source for this detection run (prevent overlapping runs).
+		if (_cancellationTokenSource != null)
+		{
+			return;
+		}
 		_cancellationTokenSource = new CancellationTokenSource();
 		// Create a progress reporter to update the progress bar and label on the UI thread.
 		Progress<int> progress = new(handler: percent =>
@@ -132,9 +135,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)percent, progressMax: 100);
 		});
 		// Start the detection process on a background thread to keep the UI responsive.
-		await Task.Run(
-			function: () => PerformDetectionAsync(tolA: tolA, tolE: tolE, tolI: tolI, minMembers: minMembers, progress: progress, cancellationToken: _cancellationTokenSource.Token),
-			cancellationToken: _cancellationTokenSource.Token);
+		await Task.Run(function: () => PerformDetectionAsync(tolA: tolA, tolE: tolE, tolI: tolI, minMembers: minMembers, progress: progress, cancellationToken: _cancellationTokenSource.Token));
 	}
 
 	/// <summary>Cancels the ongoing detection when the Cancel button is clicked.</summary>
