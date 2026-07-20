@@ -308,7 +308,7 @@ public partial class AppInfoForm : BaseKryptonForm
 
 		try
 		{
-			await ApplyZoomAndPixelateAsync(pictureBoxBanner);
+			await ApplyZoomAndPixelateAsync(pictureBox: pictureBoxBanner);
 		}
 		catch (Exception ex)
 		{
