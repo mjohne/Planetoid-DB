@@ -858,12 +858,12 @@ Public License instead of this License.  But first, please read
     <PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" Version="14.2.1.1" />
     <PackageReference Include="HarfBuzzSharp.NativeAssets.macOS" Version="14.2.1.1" />
     <PackageReference Include="HarfBuzzSharp.NativeAssets.Win32" Version="14.2.1.1" />
-    <PackageReference Include="Krypton.Docking" Version="105.26.4.110" />
-    <PackageReference Include="Krypton.Navigator" Version="105.26.4.110" />
-    <PackageReference Include="Krypton.Ribbon" Version="105.26.4.110" />
-    <PackageReference Include="Krypton.Toolkit" Version="105.26.4.110" />
+    <PackageReference Include="Krypton.Docking" Version="105.26.7.201" />
+    <PackageReference Include="Krypton.Navigator" Version="105.26.7.201" />
+    <PackageReference Include="Krypton.Ribbon" Version="105.26.7.201" />
+    <PackageReference Include="Krypton.Toolkit" Version="105.26.7.201" />
     <PackageReference Include="Krypton.Toolkit.Suite.Extended.Ultimate" Version="95.25.5.145" />
-    <PackageReference Include="Krypton.Workspace" Version="105.26.4.110" />
+    <PackageReference Include="Krypton.Workspace" Version="105.26.7.201" />
     <PackageReference Include="NLog" Version="6.1.4" />
     <PackageReference Include="OpenTK" Version="4.9.4" />
     <PackageReference Include="OpenTK.Audio" Version="5.0.0-pre.16" />
