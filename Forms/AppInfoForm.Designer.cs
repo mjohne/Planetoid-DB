@@ -1057,7 +1057,7 @@ partial class AppInfoForm
 		kryptonLabelVersionKryptonSuite.ToolTipValues.EnableToolTips = true;
 		kryptonLabelVersionKryptonSuite.ToolTipValues.Heading = "Krypton Suite version";
 		kryptonLabelVersionKryptonSuite.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		kryptonLabelVersionKryptonSuite.Values.Text = "Version: 100.26.1.19";
+		kryptonLabelVersionKryptonSuite.Values.Text = "Version: 105.26.7.201";
 		kryptonLabelVersionKryptonSuite.DoubleClick += CopyToClipboard_DoubleClick;
 		kryptonLabelVersionKryptonSuite.Enter += Control_Enter;
 		kryptonLabelVersionKryptonSuite.Leave += Control_Leave;
