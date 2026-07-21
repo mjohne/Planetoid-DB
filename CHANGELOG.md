@@ -1,5 +1,24 @@
 # Changelog
 
+## Planetoid-DB 0.9.19.82
+
+* Updated image source in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/860
+* Updated `CHANGELOG` for version 0.9.18.81 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/861
+* Refactored `ArchiveMpcorbForm.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/862
+* Refactored `AsteroidFamiliesForm.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/863
+* Refactored `AverageAsteroidForm.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/864
+* Refactored `CheckDatabaseForm.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/865
+* Refactored `DatabaseDifferencesForm.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/866
+* Refactored `DatabaseDownloaderForm.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/867
+* Refactored `DatabaseInformationForm.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/868
+* Refactored `DerivedOrbitElementsForm.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/869
+* Updated `Krypton` packages to version 105.26.7.201 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/870
+* Updated package version numbers by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/871
+* Updated to application version 0.9.19.82 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/872
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.18.81.858.2891...0.9.19.82
+
+
 ## Planetoid-DB 0.9.18.81
 
 * Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/845
