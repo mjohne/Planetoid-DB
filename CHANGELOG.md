@@ -1,5 +1,14 @@
 # Changelog
 
+## Planetoid-DB 0.9.20.83
+
+* Updated `SkiaSharp` packages to version 4.151.0-rc.1.1 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/935
+* Updated package version numbers by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/936
+* Updated to version 0.9.20.83 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/937
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.19.82.872.2961...0.9.20.83.78.3005
+
+
 ## Planetoid-DB 0.9.19.82
 
 * Updated image source in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/860
