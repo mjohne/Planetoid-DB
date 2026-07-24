@@ -5,6 +5,7 @@
 
 using Planetoid_DB.Forms;
 
+using System.ComponentModel;
 using System.Diagnostics;
 
 namespace Planetoid_DB;
@@ -15,6 +16,9 @@ namespace Planetoid_DB;
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public partial class TerminologyForm : BaseKryptonForm
 {
+	private TerminologyElement _selectedElement = TerminologyElement.IndexNumber;
+	private TerminologyElement selectedElement = TerminologyElement.IndexNumber;
+
 	#region constructor
 
 	/// <summary>Initializes a new instance of the <see cref="TerminologyForm"/> class.</summary>
@@ -51,26 +55,29 @@ public partial class TerminologyForm : BaseKryptonForm
 	/// <summary>Retrieves or sets the currently selected terminology element. Automatically updates the display when set.</summary>
 	/// <value>The currently selected terminology element.</value>
 	/// <remarks>This property is configured for code serialization.</remarks>
-	[System.ComponentModel.DesignerSerializationVisibility(visibility: System.ComponentModel.DesignerSerializationVisibility.Visible)]
+	[DesignerSerializationVisibility(visibility: DesignerSerializationVisibility.Visible)]
 	public TerminologyElement SelectedElement
 	{
-		get;
+		// Gets or sets the currently selected terminology element. Automatically updates the display when set.
+		get => _selectedElement;
 		set
 		{
-			// Check if the value is different from the current field
-			if (field != value)
+			// Guard Clause: Prevents unnecessary updates if the selected element is already set to the specified value.
+			if (_selectedElement == value)
 			{
-				// Update the field and refresh the browser content
-				field = value;
-				UpdateBrowserContent();
-				// Update the list box selection if needed
-				if ((int)value >= -1 && (int)value < listBox.Items.Count && listBox.SelectedIndex != (int)value)
-				{
-					listBox.SelectedIndex = (int)value;
-				}
+				return;
+			}
+			// Update the selected element and refresh the browser content
+			_selectedElement = value;
+			UpdateBrowserContent();
+			// Update the list box selection to reflect the new selected element
+			int newIndex = (int)value;
+			if (newIndex >= 0 && newIndex < listBox.Items.Count && listBox.SelectedIndex != newIndex)
+			{
+				listBox.SelectedIndex = newIndex;
 			}
 		}
-	} = TerminologyElement.IndexNumber;
+	}
 
 	#endregion
 
@@ -98,6 +105,11 @@ public partial class TerminologyForm : BaseKryptonForm
 	/// <remarks>This event is triggered when the selected value in the list box changes.</remarks>
 	private void ListBox_SelectedValueChanged(object sender, EventArgs e)
 	{
+		// Guard Clause: Prevents errors when the selection is cleared.
+		if (listBox.SelectedIndex == -1)
+		{
+			return;
+		}
 		// Get the selected element from the list box
 		SelectedElement = (TerminologyElement)listBox.SelectedIndex;
 	}
