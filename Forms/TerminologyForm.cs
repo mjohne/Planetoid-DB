@@ -17,7 +17,6 @@ namespace Planetoid_DB;
 public partial class TerminologyForm : BaseKryptonForm
 {
 	private TerminologyElement _selectedElement = TerminologyElement.IndexNumber;
-	private TerminologyElement selectedElement = TerminologyElement.IndexNumber;
 
 	#region constructor
 
