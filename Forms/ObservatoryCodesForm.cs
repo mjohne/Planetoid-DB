@@ -83,28 +83,34 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 			// Use BeginUpdate/EndUpdate to improve performance when adding multiple items to the ListView
 			listView.BeginUpdate();
 			listView.Items.Clear();
-			// Add each entry from the ObservatoryCodes resource to the ListView
+			// Read the observatory codes from the embedded resource
 			string resourceText = Properties.Resources.ObservatoryCodes ?? string.Empty;
-			// Split the resource text into lines and process each line
-			foreach (string resourceLine in resourceText.Split(separator: '\n'))
+			// Use a StringReader to read the resource text line by line
+			using StringReader reader = new(s: resourceText);
+			// Preallocate a list to hold the ListViewItems for performance
+			List<ListViewItem> items = new(capacity: 4000);
+			// Read each line from the resource text
+			string? line;
+			// Process each line to extract the observatory code and location
+			while ((line = reader.ReadLine()) != null)
 			{
-				// Trim any trailing carriage return characters and skip empty lines
-				string trimmedLine = resourceLine.TrimEnd(trimChars: ['\r']);
 				// Skip empty lines
-				if (string.IsNullOrEmpty(value: trimmedLine))
+				if (string.IsNullOrWhiteSpace(line))
 				{
 					continue;
 				}
-				// Split the line into parts using the pipe character as a separator
-				string[] parts = trimmedLine.Split(separator: '|');
-				// If there are at least two parts (code and location), create a ListViewItem and add it to the ListView
-				if (parts.Length >= 2)
+				// Split the line into parts using the pipe character as a separator, limiting to 2 parts (code and location)
+				string[] parts = line.Split(separator: '|', count: 2);
+				// If the line contains both a code and a location, create a ListViewItem and add it to the list
+				if (parts.Length == 2)
 				{
-					ListViewItem item = new(text: parts[0]);
-					_ = item.SubItems.Add(text: parts[1]);
-					_ = listView.Items.Add(value: item);
+					ListViewItem item = new(parts[0]);
+					item.SubItems.Add(text: parts[1]);
+					items.Add(item: item);
 				}
 			}
+			// Add the items to the ListView
+			listView.Items.AddRange([.. items]);
 			// Update status bar with count
 			SetStatusBar(label: labelInformation, text: $"{listView.Items.Count} observatory codes loaded");
 		}
@@ -112,8 +118,12 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			// Log the error and show a message box to the user
-			logger.Error(message: $"An error occurred while loading observatory codes: {ex}");
-			KryptonMessageBox.Show(owner: this, text: $"An error has occurred while loading observatory codes: {ex.Message}", caption: "Load Error", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Error);
+			logger.Error(exception: ex, message: "An error occurred while loading observatory codes.");
+			_ = KryptonMessageBox.Show(owner: this,
+				text: $"An error has occurred while loading observatory codes: {ex.Message}",
+				caption: "Load Error",
+				buttons: KryptonMessageBoxButtons.OK,
+				icon: KryptonMessageBoxIcon.Error);
 			// Update the status bar to show a persistent error message
 			SetStatusBar(label: labelInformation, text: "Error loading observatory codes");
 		}
@@ -153,16 +163,13 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 		{
 			return;
 		}
-		// Determine the new sort order
-		if (e.Column == sortColumn)
-		{
-			sortOrder = sortOrder == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
-		}
-		else
-		{
-			sortColumn = e.Column;
-			sortOrder = SortOrder.Ascending;
-		}
+		// Determine the new sort order based on the clicked column and current sort state
+		sortOrder = (e.Column == sortColumn && sortOrder == SortOrder.Ascending)
+			? SortOrder.Descending
+			: SortOrder.Ascending;
+		// Update the sort column to the one that was clicked
+		sortColumn = e.Column;
+
 		// Update the column headers to indicate the current sort column and order
 		for (int i = 0; i < listView.Columns.Count; i++)
 		{
@@ -197,7 +204,11 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 	private void ToolStripButtonInfoAboutObsCodes_Click(object sender, EventArgs e)
 	{
 		// Show a message box with information about observatory codes and a link to the Minor Planet Center website
-		KryptonMessageBox.Show(owner: this, text: "This application displays a list of observatory codes and their corresponding locations.\n\nYou can find more information about Observatory Codes at the Minor Planet Center website: https://minorplanetcenter.net/iau/info/ObservatoryCodes.html.", caption: "About Observatory Codes", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+		_ = KryptonMessageBox.Show(owner: this,
+			text: "This application displays a list of observatory codes and their corresponding locations.\n\nYou can find more information about Observatory Codes at the Minor Planet Center website: https://minorplanetcenter.net/iau/info/ObservatoryCodes.html.",
+			caption: "About Observatory Codes",
+			buttons: KryptonMessageBoxButtons.OK,
+			icon: KryptonMessageBoxIcon.Information);
 	}
 
 	#endregion
