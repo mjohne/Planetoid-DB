@@ -48,14 +48,18 @@ public static class AssemblyInfo
 	#region Helpers
 
 	/// <summary>Helper method to safely retrieve a specific assembly attribute.</summary>
-	/// <remarks>This method retrieves a specific assembly attribute of type <typeparamref name="T"/>. If the attribute is not found or an error occurs, it logs the error and returns null.</remarks>
+	// <remarks>This method retrieves a specific assembly attribute of type <typeparamref name="T"/>. If the attribute is not found, it returns null. If an error occurs, it logs the error and returns null.</remarks>
 	private static T? GetAttribute<T>() where T : Attribute
 	{
 		// Attempt to retrieve the specified assembly attribute
 		try
 		{
 			// Use reflection to get the custom attribute of type T from the current assembly
-			return CurrentAssembly.GetCustomAttribute<T>();
+			foreach (T attribute in CurrentAssembly.GetCustomAttributes<T>())
+			{
+				return attribute;
+			}
+			return null;
 		}
 		// Catch any exceptions that may occur during the retrieval process
 		catch (Exception ex)
