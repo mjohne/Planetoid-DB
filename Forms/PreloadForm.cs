@@ -45,17 +45,28 @@ public partial class PreloadForm : BaseKryptonForm
 	/// <remarks>This method is used to provide a custom display string for the debugger.</remarks>
 	private string GetDebuggerDisplay() => ToString();
 
-	/// <summary>Extracts resource data (byte array) and writes it to the specified output file path.</summary>
+	/// <summary>Safely extracts resource data bytes to the specified output file path.</summary>
 	/// <param name="resourceData">The byte array containing the resource data.</param>
 	/// <param name="outputFilePath">The full path where the resource will be written.</param>
 	/// <exception cref="ArgumentNullException">Thrown if resourceData is null.</exception>
 	/// <remarks>This method writes the provided byte array to the specified file path.</remarks>
-	private static void ExtractResource(byte[] resourceData, string outputFilePath)
+	private static bool TryExtractResource(byte[] resourceData, string outputFilePath)
 	{
 		// Validate input
 		ArgumentNullException.ThrowIfNull(argument: resourceData);
 		// Write the resource data to the output file
 		File.WriteAllBytes(path: outputFilePath, bytes: resourceData);
+		try
+		{
+			File.WriteAllBytes(outputFilePath, resourceData);
+			return true;
+		}
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			logger.Error(ex, $"Failed to extract resource file to '{outputFilePath}'.");
+			return false;
+		}
+
 	}
 
 	/// <summary>Gets the file path of the MPCORB.DAT file.</summary>
@@ -98,7 +109,7 @@ public partial class PreloadForm : BaseKryptonForm
 	/// <param name="sender">Event source (the command link button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the Download MPCORB.DAT command link is clicked.</remarks>
-	private void KryptonCommandLinkButtonDownloadMprcorbDat_Click(object sender, EventArgs e)
+	private void KryptonCommandLinkButtonDownloadMpcorbDat_Click(object sender, EventArgs e)
 	{
 		// Check if there is an internet connection available
 		if (!NetworkInterface.GetIsNetworkAvailable())
@@ -106,27 +117,25 @@ public partial class PreloadForm : BaseKryptonForm
 			// Log the error and show an error message if there is no internet connection
 			logger.Error(message: "No internet connection");
 			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
+			return;
 		}
-		else
+		// Resolve and validate the download URL, falling back to the default MPC URL if necessary
+		string mpcorbUrl = Settings.Default.systemMpcorbDatGzUrl;
+		if (string.IsNullOrWhiteSpace(value: mpcorbUrl) || !Uri.TryCreate(uriString: mpcorbUrl, uriKind: UriKind.Absolute, result: out Uri? parsedUri) || parsedUri.Scheme != Uri.UriSchemeHttps)
 		{
-			// Resolve and validate the download URL, falling back to the default MPC URL if necessary
-			string mpcorbUrl = Settings.Default.systemMpcorbDatGzUrl;
-			if (string.IsNullOrWhiteSpace(value: mpcorbUrl) || !Uri.TryCreate(uriString: mpcorbUrl, uriKind: UriKind.Absolute, result: out _))
-			{
-				// Log a warning and use the default MPC URL as a fallback
-				logger.Warn(message: $"systemMpcorbDatGzUrl setting is invalid ('{mpcorbUrl}'). Falling back to default MPC URL.");
-				mpcorbUrl = "https://www.minorplanetcenter.org/iau/MPCORB/MPCORB.DAT.gz";
-			}
-			// Open the download form for MPCORB.DAT
-			using DatabaseDownloaderForm formDownloaderForMpcorbDat = new(url: mpcorbUrl);
-			// Show the form as a dialog
-			if (formDownloaderForMpcorbDat.ShowDialog(owner: this) == DialogResult.OK)
-			{
-				// Set the file path to the downloaded MPCORB.DAT file
-				_ = MpcOrbDatFilePath = Settings.Default.systemFilenameMpcorbDat;
-				// Set the dialog result to OK
-				DialogResult = DialogResult.OK;
-			}
+			// Log a warning and use the default MPC URL as a fallback
+			logger.Warn(message: $"systemMpcorbDatGzUrl setting is invalid ('{mpcorbUrl}'). Falling back to default MPC URL.");
+			mpcorbUrl = "https://www.minorplanetcenter.org/iau/MPCORB/MPCORB.DAT.gz";
+		}
+		// Open the download form for MPCORB.DAT
+		using DatabaseDownloaderForm formDownloaderForMpcorbDat = new(url: mpcorbUrl);
+		// Show the form as a dialog
+		if (formDownloaderForMpcorbDat.ShowDialog(owner: this) == DialogResult.OK)
+		{
+			// Set the file path to the downloaded MPCORB.DAT file
+			_ = MpcOrbDatFilePath = Settings.Default.systemFilenameMpcorbDat;
+			// Set the dialog result to OK
+			DialogResult = DialogResult.OK;
 		}
 	}
 
@@ -138,12 +147,16 @@ public partial class PreloadForm : BaseKryptonForm
 	{
 		// Define the output file name
 		string outputFileName = "demoset-10000.txt";
-		// Extract the demo data file from the embedded resources using the strongly-typed Resources class
-		ExtractResource(resourceData: Properties.Resources.demoset_10000, outputFilePath: outputFileName);
-		// Set the file path to the extracted demo data file
-		_ = MpcOrbDatFilePath = outputFileName;
-		// Set the dialog result to OK
-		DialogResult = DialogResult.OK;
+		// Combine the application's startup path with the output file name to get the full output path
+		string outputPath = Path.Combine(path1: Application.StartupPath, path2: outputFileName);
+		// Attempt to extract the embedded demo data resource to the output path
+		if (TryExtractResource(resourceData: Properties.Resources.demoset_10000, outputFilePath: outputPath))
+		{
+			// Set the file path to the extracted demo data file
+			_ = MpcOrbDatFilePath = outputPath;
+			DialogResult = DialogResult.OK;
+			// Set the dialog result to OK
+		}
 	}
 
 	#endregion
