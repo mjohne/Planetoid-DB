@@ -13,97 +13,171 @@ public static class TaskbarProgress
 {
 	/// <summary>Provides a synchronization lock for operations related to the taskbar instance.</summary>
 	/// <remarks>Use this lock to ensure thread safety when accessing or modifying shared taskbar-related resources.</remarks>
-	private static readonly Lock _taskbarInstanceLock = new();
+	private static readonly Lock TaskbarLock = new();
 
-	/// <summary>Lazily evaluates and caches whether the current OS supports the taskbar progress API.</summary>
-	/// <remarks>Uses <see cref="Lazy{T}"/> with thread-safe initialization to perform the OS version check exactly once, eliminating the need for manual double-checked locking and ensuring correct memory visibility across threads.</remarks>
-	private static readonly Lazy<bool> _isTaskbarSupported = new(valueFactory: static () => Environment.OSVersion.Version >= new Version(major: 6, minor: 1), isThreadSafe: true);
+	/// <summary>Holds a cached instance of the ITaskbarList3 COM interface for interacting with the Windows taskbar.</summary>
+	/// <remarks>This instance is lazily initialized and reused to minimize COM interop overhead.</remarks>
+	private static ITaskbarList3? _taskbarInstance;
 
-	/// <summary>Gets the instance of the taskbar interface used to manage taskbar features such as progress indicators and thumbnail previews.</summary>
-	/// <remarks>This property initializes the taskbar instance only if it has not been created yet, ensuring thread safety. It requires Windows 7 or later for proper functionality, and explicit initialization is necessary for Windows 10. On unsupported OS versions, the support state is cached to avoid repeated locking and version checks.</remarks>
-	// Lazy Initialization (Thread-safe), the instance is only created when it is actually needed.
-	private static ITaskbarList3? TaskbarInstance
+	/// <summary>Determines whether the current operating system supports the taskbar progress API (Windows 7 / Server 2008 R2 or later).</summary>
+	/// <remarks>This property checks the OS version to ensure that taskbar progress features are available before attempting to use them.</remarks>
+	public static bool IsSupported => OperatingSystem.IsWindowsVersionAtLeast(major: 6, minor: 1);
+
+	/// <summary>Retrieves the cached taskbar COM instance or initializes it in a thread-safe manner.</summary>
+	/// <remarks>This method ensures that the taskbar instance is created only once and reused for subsequent operations.</remarks>
+	private static ITaskbarList3? GetTaskbarInstance()
 	{
-		get
+		// If the taskbar progress API is not supported, return null immediately.
+		if (!IsSupported)
 		{
-			// On unsupported OS versions, short-circuit before acquiring the lock.
-			if (!_isTaskbarSupported.Value)
+			return null;
+		}
+		// If the cached instance is null, attempt to create it in a thread-safe manner.
+		if (_taskbarInstance == null)
+		{
+			// Lock to ensure that only one thread can initialize the taskbar instance at a time.
+			lock (TaskbarLock)
 			{
-				return null;
-			}
-			if (field == null)
-			{
-				lock (_taskbarInstanceLock)
+				// Double-check if the instance is still null after acquiring the lock.
+				if (_taskbarInstance == null)
 				{
-					if (field == null)
+					// Attempt to create a new instance of the TaskbarInstance COM object and initialize it.
+					try
 					{
-						field = new TaskbarInstance() as ITaskbarList3;
-						field?.HrInit(); // IMPORTANT: Windows 10 often requires this explicit initialization
+						// Create a new instance of the TaskbarInstance COM object and cast it to ITaskbarList3.
+						ITaskbarList3? instance = new TaskbarInstance() as ITaskbarList3;
+						// Call the HrInit method to initialize the taskbar instance.
+						instance?.HrInit();
+						// Cache the initialized instance for future use.
+						_taskbarInstance = instance;
+					}
+					// Catch specific exceptions that may occur during COM interop and initialization.
+					catch (Exception ex) when (ex is COMException or UnauthorizedAccessException or DllNotFoundException)
+					{
+						// If an exception occurs, log the error and set the cached instance to null to indicate failure.
+						_taskbarInstance = null;
 					}
 				}
 			}
-			return field;
 		}
+		// Return the cached taskbar instance, which may be null if initialization failed.
+		return _taskbarInstance;
 	}
 
 	/// <summary>Sets the state of the taskbar progress bar (e.g., Normal, Paused, Error).</summary>
-	/// <param name="windowHandle">The handle of the window whose taskbar progress state is being set.</param>
-	/// <param name="state">The state to set for the taskbar progress bar.</param>
-	/// <remarks>This method requires Windows 7 or later for proper functionality.</remarks>
+	/// <param name="windowHandle">The handle of the target window.</param>
+	/// <param name="state">The state to set.</param>
+	/// <remarks>This method updates the taskbar progress bar state for the specified window handle, allowing for visual feedback on the taskbar.</remarks>
 	public static void SetState(IntPtr windowHandle, TaskbarProgressState state)
 	{
-		// Prevent calls before the window has a valid handle
-		if (windowHandle == IntPtr.Zero)
+		// If the window handle is invalid or the taskbar progress API is not supported, exit early.
+		if (windowHandle == IntPtr.Zero || !IsSupported)
 		{
 			return;
 		}
-
-		TaskbarInstance?.SetProgressState(hwnd: windowHandle, tbpFlags: state);
+		// Attempt to set the taskbar progress state using the cached taskbar instance.
+		try
+		{
+			// Call the SetProgressState method on the taskbar instance to update the progress bar state.
+			GetTaskbarInstance()?.SetProgressState(hwnd: windowHandle, tbpFlags: state);
+		}
+		// Catch any COM exceptions that may occur during the operation, such as when the Explorer process is restarted.
+		catch (COMException)
+		{
+			// On COM errors (e.g., Explorer restart), discard the invalid instance
+			ResetInstance();
+		}
 	}
 
 	/// <summary>Sets the current value of the taskbar progress bar.</summary>
-	/// <param name="windowHandle">The handle of the window whose taskbar progress value is being set.</param>
+	/// <param name="windowHandle">The handle of the target window.</param>
 	/// <param name="progressValue">The current progress value.</param>
 	/// <param name="progressMax">The maximum progress value.</param>
-	/// <remarks>This method requires Windows 7 or later for proper functionality.</remarks>
+	/// <remarks>This method updates the taskbar progress bar value for the specified window handle, allowing for visual feedback on the taskbar.</remarks>
 	public static void SetValue(IntPtr windowHandle, ulong progressValue, ulong progressMax)
 	{
-		if (windowHandle == IntPtr.Zero)
+		// If the window handle is invalid or the taskbar progress API is not supported, exit early.
+		if (windowHandle == IntPtr.Zero || !IsSupported)
 		{
 			return;
 		}
+		// Attempt to set the taskbar progress value using the cached taskbar instance.
+		try
+		{
+			// Call the SetProgressValue method on the taskbar instance to update the progress bar value.
+			GetTaskbarInstance()?.SetProgressValue(hwnd: windowHandle, ullCompleted: progressValue, ullTotal: progressMax);
+		}
+		// Catch any COM exceptions that may occur during the operation, such as when the Explorer process is restarted.
+		catch (COMException)
+		{
+			// On COM errors, discard the invalid instance
+			ResetInstance();
+		}
+	}
 
-		TaskbarInstance?.SetProgressValue(hwnd: windowHandle, ullCompleted: progressValue, ullTotal: progressMax);
+	/// <summary>Discards the current COM instance and releases its native resources.</summary>
+	/// <remarks>This method releases the COM object associated with the taskbar instance, ensuring that native resources are properly cleaned up.</remarks>
+	private static void ResetInstance()
+	{
+		// Lock to ensure that only one thread can reset the taskbar instance at a time.
+		lock (TaskbarLock)
+		{
+			// If the cached taskbar instance is not null, attempt to release it.
+			if (_taskbarInstance != null)
+			{
+				// Release the COM object and handle any exceptions that may occur during the release process.
+				try
+				{
+					// Release the COM object to free native resources.
+					Marshal.ReleaseComObject(o: _taskbarInstance);
+				}
+				catch
+				{
+					// Ignore if the object has already been released
+				}
+				finally
+				{
+					// Set the cached instance to null to indicate that it has been released.
+					_taskbarInstance = null;
+				}
+			}
+		}
 	}
 }
 
 /// <summary>Defines the possible states of the taskbar progress bar.</summary>
-/// <remarks>This enumeration is used to specify the state of the taskbar progress bar.</remarks>
+/// <remarks>This enumeration represents the different visual states that the taskbar progress bar can display, providing feedback to the user about the progress of an operation.</remarks>
 public enum TaskbarProgressState
 {
-	/// <summary>Represents a state indicating that no progress has been made.</summary>
-	/// <remarks>This state is used when there is no progress to report.</remarks>
-	NoProgress = 0,
-	/// <summary>Represents a state indicating that the progress is indeterminate.</summary>
-	/// <remarks>This state is used when the progress is unknown or cannot be determined.</remarks>
+	/// <summary>Disables the taskbar progress bar.</summary>
+	/// <remarks>Use this state to hide the progress bar and indicate that no progress is being tracked.</remarks>
+	NoProgress = 0x0,
+
+	/// <summary>Displays an indeterminate (marquee) progress.</summary>
+	/// <remarks>Use this state to indicate that the progress is ongoing but the exact amount of completion is unknown.</remarks>
 	Indeterminate = 0x1,
-	/// <summary>Represents a state indicating that the progress is normal.</summary>
-	/// <remarks>This state is used when the progress is being tracked normally.</remarks>
+
+	/// <summary>Displays a normal green progress bar.</summary>
+	/// <remarks>Use this state to indicate that the operation is progressing normally.</remarks>
 	Normal = 0x2,
-	/// <summary>Represents a state indicating that an error has occurred.</summary>
-	/// <remarks>This state is used when an error has occurred during the progress.</remarks>
+
+	/// <summary>Displays a red progress bar for errors.</summary>
+	/// <remarks>Use this state to indicate that an error has occurred during the operation.</remarks>
 	Error = 0x4,
-	/// <summary>Represents a state indicating that the progress is paused.</summary>
-	/// <remarks>This state is used when the progress is paused.</remarks>
+
+	/// <summary>Displays a yellow progress bar for paused operations.</summary>
+	/// <remarks>Use this state to indicate that the operation has been paused.</remarks>
 	Paused = 0x8
 }
 
 #region COM Interop (Native Windows API)
 
-[ComImport]
-[Guid(guid: "ea1afb91-9e28-4b86-90e9-9e9f8a5eefaf")]
-[InterfaceType(interfaceType: ComInterfaceType.InterfaceIsIUnknown)]
-internal partial interface ITaskbarList3
+/// <summary>Represents the COM interface for interacting with the Windows taskbar.</summary>
+/// <remarks>This interface provides methods for managing taskbar tabs, progress, and other taskbar-related functionalities.</remarks>
+[ComImport] // Indicates that the interface is imported from a COM type library
+[Guid("ea1afb91-9e28-4b86-90e9-9e9f8a5eefaf")] // Specifies the GUID of the COM interface
+[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)] // Specifies that the interface uses the IUnknown interface type for COM interop
+internal interface ITaskbarList3
 {
 	// ITaskbarList
 	void HrInit();
@@ -111,18 +185,16 @@ internal partial interface ITaskbarList3
 	void DeleteTab(IntPtr hwnd);
 	void ActivateTab(IntPtr hwnd);
 	void SetActiveAlt(IntPtr hwnd);
-
 	// ITaskbarList2
 	void MarkFullscreenWindow(IntPtr hwnd, [MarshalAs(unmanagedType: UnmanagedType.Bool)] bool fFullscreen);
-
 	// ITaskbarList3
 	void SetProgressValue(IntPtr hwnd, ulong ullCompleted, ulong ullTotal);
 	void SetProgressState(IntPtr hwnd, TaskbarProgressState tbpFlags);
 }
 
-[ComImport()]
-[Guid(guid: "56FDF344-FD6D-11d0-958A-006097C9A090")]
-[ClassInterface(classInterfaceType: ClassInterfaceType.None)]
+[ComImport] // Indicates that the class is imported from a COM type library
+[Guid("56FDF344-FD6D-11d0-958A-006097C9A090")] // Specifies the GUID of the COM class
+[ClassInterface(ClassInterfaceType.None)] // Specifies that no class interface is generated for the COM class
 internal class TaskbarInstance { }
 
 #endregion
