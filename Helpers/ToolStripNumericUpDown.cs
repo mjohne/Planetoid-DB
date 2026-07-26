@@ -17,8 +17,7 @@ public class ToolStripNumericUpDown : ToolStripControlHost
 {
 	/// <summary>Initializes a new instance of the ToolStripNumericUpDown class.</summary>
 	/// <remarks>This constructor creates a new instance of the ToolStripNumericUpDown class and initializes the hosted NumericUpDown control.</remarks>
-	public ToolStripNumericUpDown()
-		: base(c: CreateControlInstance())
+	public ToolStripNumericUpDown() : base(c: CreateControlInstance())
 	{
 	}
 
@@ -28,14 +27,13 @@ public class ToolStripNumericUpDown : ToolStripControlHost
 	private static NumericUpDown CreateControlInstance()
 	{
 		// Create a new NumericUpDown control with specific properties for use in the ToolStrip.
-		NumericUpDown n = new()
+		return new NumericUpDown
 		{
 			AutoSize = false,
 			Size = new Size(width: 60, height: 22),
 			Minimum = 0,
 			Maximum = 100
 		};
-		return n;
 	}
 
 	/// <summary>Gets the hosted NumericUpDown control.</summary>
@@ -266,6 +264,7 @@ public class ToolStripNumericUpDown : ToolStripControlHost
 
 	/// <summary>Unsubscribes from events from the hosted control.</summary>
 	/// <param name="control">The hosted control.</param>
+	/// <remarks>This method unsubscribes from events from the underlying NumericUpDown control hosted within the ToolStripNumericUpDown item.</remarks>
 	protected override void OnUnsubscribeControlEvents(Control? control)
 	{
 		// Call the base method to ensure that any necessary event unsubscriptions are handled by the base class.
