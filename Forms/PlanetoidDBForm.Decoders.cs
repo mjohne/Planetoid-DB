@@ -166,7 +166,7 @@ public partial class PlanetoidDbForm
 		// 1: Temporary MPEC References
 		if (firstChar == 'E')
 		{
-			return $"MPEC (temporary) - Half-month {compressedRef.AsSpan(start: 1, length: 1)}, Circular {compressedRef.AsSpan(start: 2, length: 3).TrimStart('0')}";
+			return $"MPEC (temporary) - Half-month {compressedRef.AsSpan(start: 1, length: 1)}, Circular {compressedRef.AsSpan(start: 2, length: 3).TrimStart(trimChar: '0')}";
 		}
 		// 2A: Five-digit MPC numbers
 		if (char.IsDigit(c: firstChar) && compressedRef.All(predicate: static c => char.IsDigit(c: c) || char.IsWhiteSpace(c: c)))
@@ -206,7 +206,7 @@ public partial class PlanetoidDbForm
 				_ => $"Journal '{firstChar}' #{number}"
 			};
 		}
-		// 2G: Two or more letters (various journals) - BUG BEHOBEN!
+		// 2G: Two or more leading letters (journal codes of varying length)
 		if (compressedRef.Length >= 2 && char.IsLetter(c: firstChar))
 		{
 			// Count the number of leading letters in the compressed reference
