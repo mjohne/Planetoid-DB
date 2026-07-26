@@ -115,7 +115,7 @@ public partial class PreloadForm : BaseKryptonForm
 			{
 				// Log a warning and use the default MPC URL as a fallback
 				logger.Warn(message: $"systemMpcorbDatGzUrl setting is invalid ('{mpcorbUrl}'). Falling back to default MPC URL.");
-				mpcorbUrl = "http://www.minorplanetcenter.org/iau/MPCORB/MPCORB.DAT.gz";
+				mpcorbUrl = "https://www.minorplanetcenter.org/iau/MPCORB/MPCORB.DAT.gz";
 			}
 			// Open the download form for MPCORB.DAT
 			using DatabaseDownloaderForm formDownloaderForMpcorbDat = new(url: mpcorbUrl);

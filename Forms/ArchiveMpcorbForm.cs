@@ -137,7 +137,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 			string uriString = Settings.Default.systemMpcorbDatGzUrl;
 			if (string.IsNullOrEmpty(value: uriString))
 			{
-				uriString = "http://www.minorplanetcenter.org/iau/MPCORB/MPCORB.DAT.gz";
+				uriString = "https://www.minorplanetcenter.org/iau/MPCORB/MPCORB.DAT.gz";
 			}
 			// Create an HTTP HEAD request to the specified URL
 			using HttpRequestMessage request = new(method: HttpMethod.Head, requestUri: new Uri(uriString: uriString));
