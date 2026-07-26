@@ -23,6 +23,10 @@ public partial class PlanetoidDbForm
 	/// <remarks>This property is used to store the file path of the MPCORB.DAT file.</remarks>
 	private string MpcOrbDatFilePath { get; set; } = string.Empty;
 
+	/// <summary>Shared HttpClient instance for making HTTP requests.</summary>
+	/// <remarks>This instance is shared across the application to reuse connections and improve performance.</remarks>
+	private static readonly HttpClient client = new();
+
 	/// <summary>Returns a short debugger display string for this instance.</summary>
 	/// <returns>A string representation of the current instance for use in the debugger.</returns>
 	/// <remarks>This method is used to provide a custom display string for the debugger.</remarks>
@@ -62,9 +66,9 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to restart the application.</remarks>
 	private void Restart()
 	{
-		// Close the current form and start a new instance of the application
-		_ = Process.Start(fileName: Application.ExecutablePath);
-		Close();
+		// Restart the application and exit the current instance with an exit code of 0 (indicating a normal exit)
+		Application.Restart();
+		Environment.Exit(exitCode: 0);
 	}
 
 	/// <summary>Asks the user if they want to restart the application after downloading the database.</summary>
@@ -73,12 +77,7 @@ public partial class PlanetoidDbForm
 	{
 		// Bring the main form to the foreground before showing the message box, so it cannot appear behind other application windows.
 		Activate();
-		// Ask the user if they want to restart the application after downloading the database
-		// and show a message box with the option to restart or not
-		// The message box will have the text "Download complete. Do you want to restart the application?"
-		// and the caption "Information"
-		// If the user clicks "Yes", restart the application
-		// If the user clicks "No", do nothing
+		// Ask the user if they want to restart the application after downloading the database and show a message box with the option to restart or not
 		if (KryptonMessageBox.Show(owner: this, text: I18nStrings.DownloadCompleteAndRestartQuestionText, caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.YesNo, icon: KryptonMessageBoxIcon.Question, defaultButton: KryptonMessageBoxDefaultButton.Button1) == DialogResult.Yes)
 		{
 			// Restart the application
@@ -106,6 +105,13 @@ public partial class PlanetoidDbForm
 			ClearCurrentRecordDisplay();
 			return;
 		}
+		// Convert string to ReadOnlySpan<char> to avoid heap allocations during parsing
+		ReadOnlySpan<char> entrySpan = entryStr.AsSpan();
+		// Local helper method to safely extract, slice, and trim fields without string overhead
+		static string ExtractField(ReadOnlySpan<char> span, int start, int length)
+		{
+			return span.Length < start + length ? string.Empty : span.Slice(start: start, length: length).Trim().ToString();
+		}
 		// Suspend both the panel layout and painting to eliminate all flicker
 		tableLayoutPanelData.SuspendLayout();
 		try
@@ -113,26 +119,26 @@ public partial class PlanetoidDbForm
 			// Batch all text updates with minimal overhead
 			toolStripLabelIndexPosition.ToolTipText = $"Index: {position + 1}/{planetoidsDatabase.Count}";
 			// Update all labels in one go - use cached string reference
-			labelIndexData.Text = entryStr[..7].Trim();
-			labelAbsoluteMagnitudeData.Text = entryStr.Substring(startIndex: 8, length: 5).Trim();
-			labelSlopeParameterData.Text = entryStr.Substring(startIndex: 14, length: 5).Trim();
-			labelEpochData.Text = entryStr.Substring(startIndex: 20, length: 5).Trim();
-			labelMeanAnomalyAtTheEpochData.Text = entryStr.Substring(startIndex: 26, length: 9).Trim();
-			labelArgumentOfThePerihelionData.Text = entryStr.Substring(startIndex: 37, length: 9).Trim();
-			labelLongitudeOfTheAscendingNodeData.Text = entryStr.Substring(startIndex: 48, length: 9).Trim();
-			labelInclinationToTheEclipticData.Text = entryStr.Substring(startIndex: 59, length: 9).Trim();
-			labelOrbitalEccentricityData.Text = entryStr.Substring(startIndex: 70, length: 9).Trim();
-			labelMeanDailyMotionData.Text = entryStr.Substring(startIndex: 80, length: 11).Trim();
-			labelSemiMajorAxisData.Text = entryStr.Substring(startIndex: 92, length: 11).Trim();
-			labelReferenceData.Text = entryStr.Substring(startIndex: 107, length: 9).Trim();
-			labelNumberOfObservationsData.Text = entryStr.Substring(startIndex: 117, length: 5).Trim();
-			labelNumberOfOppositionsData.Text = entryStr.Substring(startIndex: 123, length: 3).Trim();
-			labelObservationSpanData.Text = entryStr.Substring(startIndex: 127, length: 9).Trim();
-			labelRmsResidualData.Text = entryStr.Substring(startIndex: 137, length: 4).Trim();
-			labelComputerNameData.Text = entryStr.Substring(startIndex: 150, length: 10).Trim();
-			labelFlagsData.Text = entryStr.Substring(startIndex: 161, length: 4).Trim();
-			labelReadableDesignationData.Text = entryStr.Substring(startIndex: 166, length: 28).Trim();
-			labelDateLastObservationData.Text = entryStr.Substring(startIndex: 194, length: 8).Trim();
+			labelIndexData.Text = ExtractField(span: entrySpan, start: 0, length: 7);
+			labelAbsoluteMagnitudeData.Text = ExtractField(span: entrySpan, start: 8, length: 5);
+			labelSlopeParameterData.Text = ExtractField(span: entrySpan, start: 14, length: 5);
+			labelEpochData.Text = ExtractField(span: entrySpan, start: 20, length: 5);
+			labelMeanAnomalyAtTheEpochData.Text = ExtractField(span: entrySpan, start: 26, length: 9);
+			labelArgumentOfThePerihelionData.Text = ExtractField(span: entrySpan, start: 37, length: 9);
+			labelLongitudeOfTheAscendingNodeData.Text = ExtractField(span: entrySpan, start: 48, length: 9);
+			labelInclinationToTheEclipticData.Text = ExtractField(span: entrySpan, start: 59, length: 9);
+			labelOrbitalEccentricityData.Text = ExtractField(span: entrySpan, start: 70, length: 9);
+			labelMeanDailyMotionData.Text = ExtractField(span: entrySpan, start: 80, length: 11);
+			labelSemiMajorAxisData.Text = ExtractField(span: entrySpan, start: 92, length: 11);
+			labelReferenceData.Text = ExtractField(span: entrySpan, start: 107, length: 9);
+			labelNumberOfObservationsData.Text = ExtractField(span: entrySpan, start: 117, length: 5);
+			labelNumberOfOppositionsData.Text = ExtractField(span: entrySpan, start: 123, length: 3);
+			labelObservationSpanData.Text = ExtractField(span: entrySpan, start: 127, length: 9);
+			labelRmsResidualData.Text = ExtractField(span: entrySpan, start: 137, length: 4);
+			labelComputerNameData.Text = ExtractField(span: entrySpan, start: 150, length: 10);
+			labelFlagsData.Text = ExtractField(span: entrySpan, start: 161, length: 4);
+			labelReadableDesignationData.Text = ExtractField(span: entrySpan, start: 166, length: 28);
+			labelDateLastObservationData.Text = ExtractField(span: entrySpan, start: 194, length: 8);
 			toolStripLabelIndexPosition.Text = $@"{I18nStrings.Index}: {position + 1:N0} / {planetoidsDatabase.Count:N0}";
 		}
 		finally
@@ -206,14 +212,12 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to retrieve the last modified date and time of a resource.</remarks>
 	private static DateTime GetLastModified(Uri uri)
 	{
-		// Validate the input URI
+		// Throw an exception if the URI is null
 		ArgumentNullException.ThrowIfNull(argument: uri);
-		// Use HttpClient to retrieve only the headers (HEAD request)
-		using HttpClient client = new();
 		// Create a HEAD request to get only the headers
 		using HttpRequestMessage request = new(method: HttpMethod.Head, requestUri: uri);
 		// Send the request and get the response
-		using HttpResponseMessage response = client.Send(request);
+		using HttpResponseMessage response = client.Send(request: request);
 		// Check if the request was successful
 		if (response.IsSuccessStatusCode)
 		{
@@ -228,20 +232,40 @@ public partial class PlanetoidDbForm
 		return DateTime.MinValue;
 	}
 
+	/// <summary>Retrieves the last modified date and time (in UTC) asynchronously.</summary>
+	/// <param name="uri">The URI of the resource to check.</param>
+	/// <returns>The <see cref="DateTime"/> representing the last modified date and time in UTC if available; otherwise, <see cref="DateTime.MinValue"/>.</returns>
+	/// <remarks>This method is used to retrieve the last modified date and time of a resource asynchronously.</remarks>
+	private static async Task<DateTime> GetLastModifiedAsync(Uri uri)
+	{
+		// Throw an exception if the URI is null
+		ArgumentNullException.ThrowIfNull(argument: uri);
+		// Create a HEAD request to get only the headers of the resource
+		using HttpRequestMessage request = new(method: HttpMethod.Head, requestUri: uri);
+		// Send the request asynchronously and get the response
+		using HttpResponseMessage response = await client.SendAsync(request: request);
+		// Check if the request was successful and if the Last-Modified header is present
+		if (response.IsSuccessStatusCode && response.Content.Headers.LastModified.HasValue)
+		{
+			// Return the last modified date in UTC
+			return response.Content.Headers.LastModified.Value.UtcDateTime;
+		}
+		// If the Last-Modified header is not present or the request failed, return DateTime.MinValue
+		return DateTime.MinValue;
+	}
+
 	/// <summary>Gets the content length of the specified URI.</summary>
 	/// <param name="uri">The URI to check.</param>
 	/// <returns>The content length of the URI.</returns>
 	/// <remarks>This method is used to retrieve the content length of a resource.</remarks>
 	private static long GetContentLength(Uri uri)
 	{
-		// Validate the input URI
+		// Throw an exception if the URI is null
 		ArgumentNullException.ThrowIfNull(argument: uri);
-		// Use HttpClient to retrieve only the headers (HEAD request)
-		using HttpClient client = new();
 		// Create a HEAD request to get only the headers
 		using HttpRequestMessage request = new(method: HttpMethod.Head, requestUri: uri);
 		// Send the request and get the response
-		using HttpResponseMessage response = client.Send(request);
+		using HttpResponseMessage response = client.Send(request: request);
 		// Check if the request was successful
 		if (response.IsSuccessStatusCode)
 		{
@@ -251,6 +275,27 @@ public partial class PlanetoidDbForm
 				// Return the content length
 				return response.Content.Headers.ContentLength.Value;
 			}
+		}
+		// If the Content-Length header is not present or the request failed, return 0
+		return 0;
+	}
+
+	/// <summary>Asynchronously retrieves the content length of the specified URI.</summary>
+	/// <param name="uri">The URI of the resource to check.</param>
+	/// <returns>The content length of the resource if available; otherwise, 0.</returns>
+	private static async Task<long> GetContentLengthAsync(Uri uri)
+	{
+		// Throw an exception if the URI is null
+		ArgumentNullException.ThrowIfNull(argument: uri);
+		// Create a HEAD request to get only the headers of the resource
+		using HttpRequestMessage request = new(method: HttpMethod.Head, requestUri: uri);
+		// Send the request asynchronously and get the response
+		using HttpResponseMessage response = await client.SendAsync(request: request);
+		// Check if the request was successful and if the Content-Length header is present
+		if (response.IsSuccessStatusCode && response.Content.Headers.ContentLength.HasValue)
+		{
+			// Return the content length
+			return response.Content.Headers.ContentLength.Value;
 		}
 		// If the Content-Length header is not present or the request failed, return 0
 		return 0;
@@ -1157,64 +1202,72 @@ public partial class PlanetoidDbForm
 		}
 	}
 
+	/// <summary>Generates a complete list of orbital and derived elements safely.</summary>
+	/// <remarks>This method parses the orbital elements from the UI labels, calculates derived elements, and returns a list of strings representing all relevant data.</remarks>
+	private List<string> GenerateFullOrbitalElementsList()
+	{
+		// Create a list to hold the orbital and derived elements
+		List<string> elements = [];
+		// Use the invariant culture for consistent parsing of numeric values
+		IFormatProvider provider = CultureInfo.InvariantCulture;
+		// Parse the necessary orbital elements from the UI labels, using TryParse to handle potential parsing errors gracefully
+		double.TryParse(s: labelSemiMajorAxisData.Text, style: NumberStyles.Any, provider: provider, result: out double semiMajorAxis);
+		double.TryParse(s: labelOrbitalEccentricityData.Text, style: NumberStyles.Any, provider: provider, result: out double numericalEccentricity);
+		double.TryParse(s: labelMeanAnomalyAtTheEpochData.Text, style: NumberStyles.Any, provider: provider, result: out double meanAnomaly);
+		double.TryParse(s: labelLongitudeOfTheAscendingNodeData.Text, style: NumberStyles.Any, provider: provider, result: out double longitudeAscendingNode);
+		double.TryParse(s: labelArgumentOfThePerihelionData.Text, style: NumberStyles.Any, provider: provider, result: out double argumentAphelion);
+		// Add the original orbital elements to the list
+		elements.Add(item: labelIndexData.Text);
+		elements.Add(item: labelReadableDesignationData.Text);
+		elements.Add(item: labelEpochData.Text);
+		elements.Add(item: labelMeanAnomalyAtTheEpochData.Text);
+		elements.Add(item: labelArgumentOfThePerihelionData.Text);
+		elements.Add(item: labelLongitudeOfTheAscendingNodeData.Text);
+		elements.Add(item: labelInclinationToTheEclipticData.Text);
+		elements.Add(item: labelOrbitalEccentricityData.Text);
+		elements.Add(item: labelMeanDailyMotionData.Text);
+		elements.Add(item: labelSemiMajorAxisData.Text);
+		elements.Add(item: labelAbsoluteMagnitudeData.Text);
+		elements.Add(item: labelSlopeParameterData.Text);
+		elements.Add(item: labelReferenceData.Text);
+		elements.Add(item: labelNumberOfOppositionsData.Text);
+		elements.Add(item: labelNumberOfObservationsData.Text);
+		elements.Add(item: labelObservationSpanData.Text);
+		elements.Add(item: labelRmsResidualData.Text);
+		elements.Add(item: labelComputerNameData.Text);
+		elements.Add(item: labelFlagsData.Text);
+		elements.Add(item: labelDateLastObservationData.Text);
+		elements.Add(item: DerivedElements.CalculateLinearEccentricity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		elements.Add(item: DerivedElements.CalculateSemiMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		elements.Add(item: DerivedElements.CalculateMajorAxis(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+		elements.Add(item: DerivedElements.CalculateMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		elements.Add(item: DerivedElements.CalculateEccentricAnomaly(meanAnomaly: meanAnomaly, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		elements.Add(item: DerivedElements.CalculateTrueAnomaly(meanAnomaly: meanAnomaly, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		elements.Add(item: DerivedElements.CalculatePerihelionDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		elements.Add(item: DerivedElements.CalculateAphelionDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		elements.Add(item: DerivedElements.CalculateLongitudeDescendingNode(longitudeAscendingNode: longitudeAscendingNode).ToString(provider: provider));
+		elements.Add(item: DerivedElements.CalculateArgumentOfAphelion(argumentAphelion: argumentAphelion).ToString(provider: provider));
+		elements.Add(item: DerivedElements.CalculateFocalParameter(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		elements.Add(item: DerivedElements.CalculateSemiLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		elements.Add(item: DerivedElements.CalculateLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		elements.Add(item: DerivedElements.CalculatePeriod(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+		elements.Add(item: DerivedElements.CalculateOrbitalArea(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		elements.Add(item: DerivedElements.CalculateOrbitalPerimeter(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		elements.Add(item: DerivedElements.CalculateSemiMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		elements.Add(item: DerivedElements.CalculateMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
+		elements.Add(item: DerivedElements.CalculateStandardGravitationalParameter(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
+		// Return the complete list of orbital and derived elements
+		return elements;
+	}
+
 	/// <summary>Exports the data sheet.</summary>
 	///	<remarks>This method is used to export the data sheet.</remarks>
 	private void ExportDataSheet()
 	{
-		// Create a new list to store the orbital elements
-		List<string> orbitalElements = [];
-		// Create a specific culture for formatting
-		IFormatProvider provider = CultureInfo.CreateSpecificCulture(name: "en");
-		double semiMajorAxis = double.Parse(s: labelSemiMajorAxisData.Text, provider: provider);
-		double numericalEccentricity = double.Parse(s: labelOrbitalEccentricityData.Text, provider: provider);
-		double meanAnomaly = double.Parse(s: labelMeanAnomalyAtTheEpochData.Text, provider: provider);
-		double longitudeAscendingNode = double.Parse(s: labelLongitudeOfTheAscendingNodeData.Text, provider: provider);
-		double argumentAphelion = double.Parse(s: labelArgumentOfThePerihelionData.Text, provider: provider);
-		orbitalElements.Add(item: labelIndexData.Text);
-		orbitalElements.Add(item: labelReadableDesignationData.Text);
-		orbitalElements.Add(item: labelEpochData.Text);
-		orbitalElements.Add(item: labelMeanAnomalyAtTheEpochData.Text);
-		orbitalElements.Add(item: labelArgumentOfThePerihelionData.Text);
-		orbitalElements.Add(item: labelLongitudeOfTheAscendingNodeData.Text);
-		orbitalElements.Add(item: labelInclinationToTheEclipticData.Text);
-		orbitalElements.Add(item: labelOrbitalEccentricityData.Text);
-		orbitalElements.Add(item: labelMeanDailyMotionData.Text);
-		orbitalElements.Add(item: labelSemiMajorAxisData.Text);
-		orbitalElements.Add(item: labelAbsoluteMagnitudeData.Text);
-		orbitalElements.Add(item: labelSlopeParameterData.Text);
-		orbitalElements.Add(item: labelReferenceData.Text);
-		orbitalElements.Add(item: labelNumberOfOppositionsData.Text);
-		orbitalElements.Add(item: labelNumberOfObservationsData.Text);
-		orbitalElements.Add(item: labelObservationSpanData.Text);
-		orbitalElements.Add(item: labelRmsResidualData.Text);
-		orbitalElements.Add(item: labelComputerNameData.Text);
-		orbitalElements.Add(item: labelFlagsData.Text);
-		orbitalElements.Add(item: labelDateLastObservationData.Text);
-		orbitalElements.Add(item: DerivedElements.CalculateLinearEccentricity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateSemiMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateMajorAxis(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateEccentricAnomaly(meanAnomaly: meanAnomaly, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateTrueAnomaly(meanAnomaly: meanAnomaly, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculatePerihelionDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateAphelionDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateLongitudeDescendingNode(longitudeAscendingNode: longitudeAscendingNode).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateArgumentOfAphelion(argumentAphelion: argumentAphelion).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateFocalParameter(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateSemiLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculatePeriod(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateOrbitalArea(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateOrbitalPerimeter(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateSemiMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateStandardGravitationalParameter(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
 		// Create a new instance of the ExportDataSheetForm
-		using ExportDataSheetForm formExportDataSheet = new();
-		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
-		formExportDataSheet.TopMost = TopMost;
-		// Fill the form with the orbital elements
-		formExportDataSheet.SetDatabase(list: [.. orbitalElements.Cast<string>()]);
+		using ExportDataSheetForm formExportDataSheet = new() { TopMost = this.TopMost };
+		// Fill the form with the complete list of orbital and derived elements
+		formExportDataSheet.SetDatabase(GenerateFullOrbitalElementsList());
 		// Show the export data sheet form as a modal dialog
 		_ = formExportDataSheet.ShowDialog(owner: this);
 	}
@@ -1223,61 +1276,11 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the print data sheet form.</remarks>
 	private void PrintDataSheet()
 	{
-		// Create a new list to store the orbital elements
-		List<string> orbitalElements = [];
-		// Create a specific culture for formatting
-		IFormatProvider provider = CultureInfo.CreateSpecificCulture(name: "en");
-		double semiMajorAxis = double.Parse(s: labelSemiMajorAxisData.Text, provider: provider);
-		double numericalEccentricity = double.Parse(s: labelOrbitalEccentricityData.Text, provider: provider);
-		double meanAnomaly = double.Parse(s: labelMeanAnomalyAtTheEpochData.Text, provider: provider);
-		double longitudeAscendingNode = double.Parse(s: labelLongitudeOfTheAscendingNodeData.Text, provider: provider);
-		double argumentAphelion = double.Parse(s: labelArgumentOfThePerihelionData.Text, provider: provider);
-		orbitalElements.Add(item: labelIndexData.Text);
-		orbitalElements.Add(item: labelReadableDesignationData.Text);
-		orbitalElements.Add(item: labelEpochData.Text);
-		orbitalElements.Add(item: labelMeanAnomalyAtTheEpochData.Text);
-		orbitalElements.Add(item: labelArgumentOfThePerihelionData.Text);
-		orbitalElements.Add(item: labelLongitudeOfTheAscendingNodeData.Text);
-		orbitalElements.Add(item: labelInclinationToTheEclipticData.Text);
-		orbitalElements.Add(item: labelOrbitalEccentricityData.Text);
-		orbitalElements.Add(item: labelMeanDailyMotionData.Text);
-		orbitalElements.Add(item: labelSemiMajorAxisData.Text);
-		orbitalElements.Add(item: labelAbsoluteMagnitudeData.Text);
-		orbitalElements.Add(item: labelSlopeParameterData.Text);
-		orbitalElements.Add(item: labelReferenceData.Text);
-		orbitalElements.Add(item: labelNumberOfOppositionsData.Text);
-		orbitalElements.Add(item: labelNumberOfObservationsData.Text);
-		orbitalElements.Add(item: labelObservationSpanData.Text);
-		orbitalElements.Add(item: labelRmsResidualData.Text);
-		orbitalElements.Add(item: labelComputerNameData.Text);
-		orbitalElements.Add(item: labelFlagsData.Text);
-		orbitalElements.Add(item: labelDateLastObservationData.Text);
-		orbitalElements.Add(item: DerivedElements.CalculateLinearEccentricity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateSemiMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateMajorAxis(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateEccentricAnomaly(meanAnomaly: meanAnomaly, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateTrueAnomaly(meanAnomaly: meanAnomaly, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculatePerihelionDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateAphelionDistance(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateLongitudeDescendingNode(longitudeAscendingNode: longitudeAscendingNode).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateArgumentOfAphelion(argumentAphelion: argumentAphelion).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateFocalParameter(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateSemiLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculatePeriod(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateOrbitalArea(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateOrbitalPerimeter(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateSemiMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
-		orbitalElements.Add(item: DerivedElements.CalculateStandardGravitationalParameter(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
-
 		// Create a new instance of the PrintDataSheetForm
-		using PrintDataSheetForm formPrintDataSheet = new();
-		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
-		formPrintDataSheet.TopMost = TopMost;
-		// Fill the form with the planetoids database
-		formPrintDataSheet.SetDatabase(db: [.. orbitalElements]);
+		using PrintDataSheetForm formPrintDataSheet = new() { TopMost = this.TopMost };
+		// Fill the form with the complete list of orbital and derived elements
+		formPrintDataSheet.SetDatabase(GenerateFullOrbitalElementsList());
+		// Show the print data sheet form as a modal dialog
 		_ = formPrintDataSheet.ShowDialog(owner: this);
 	}
 
@@ -1286,9 +1289,9 @@ public partial class PlanetoidDbForm
 	private void ShowDerivedOrbitElements()
 	{
 		// Create a new list to store the derived orbit elements
-		List<string> derivedOrbitElements = [];
+		List<string> derivedOrbitElements = new();
 		// Create a specific culture for formatting
-		IFormatProvider provider = CultureInfo.CreateSpecificCulture(name: "en");
+		IFormatProvider provider = CultureInfo.InvariantCulture;
 		double semiMajorAxis = double.Parse(s: labelSemiMajorAxisData.Text, provider: provider);
 		double numericalEccentricity = double.Parse(s: labelOrbitalEccentricityData.Text, provider: provider);
 		double meanAnomaly = double.Parse(s: labelMeanAnomalyAtTheEpochData.Text, provider: provider);
