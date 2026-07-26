@@ -259,7 +259,7 @@ internal class DerivedElements
 		// Initialize a list to hold the results of the orbital resonance calculations.
 		List<OrbitalResonance> results = new(capacity: SolarSystemPlanets.Length);
 		// Iterate through each planet in the solar system to calculate its resonance with the planetoid.
-		foreach ((string? planetName, double planetPeriod) in SolarSystemPlanets)
+		foreach ((string planetName, double planetPeriod) in SolarSystemPlanets)
 		{
 			// Calculate the ratio of the planet's orbital period to the planetoid's orbital period.
 			double ratio = planetPeriod / planetoidPeriod;
@@ -366,7 +366,8 @@ internal class DerivedElements
 		// Calculate the semi-latus rectum (p) of the orbit, which is used in the vis-viva equation.
 		double semiLatusRectum = CalculateSemiLatusRectum(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity);
 		// Use the vis-viva equation to calculate the tangential velocity component: v_t = sqrt(GM/p) * (1 + e*cos(ν)), where ν is the true anomaly.
-		return Math.Sqrt(d: gm / semiLatusRectum) * (1.0 + (numericalEccentricity * Math.Cos(d: trueAnomalyRad)));
+		//return Math.Sqrt(d: gm / semiLatusRectum) * (1.0 + (numericalEccentricity * Math.Cos(d: trueAnomalyRad)));
+		return Math.Sqrt(d: gm / semiLatusRectum) * numericalEccentricity * Math.Sin(a: trueAnomalyRad);
 	}
 
 	/// <summary>Calculates the specific orbital energy.</summary>
