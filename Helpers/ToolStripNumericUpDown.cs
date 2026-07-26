@@ -420,7 +420,11 @@ public class ToolStripNumericUpDown : ToolStripControlHost
 	/// <remarks>This handler is attached to the hosted control's <see cref="Control.TextChanged"/> event. It delegates to the base <see cref="ToolStripItem.OnTextChanged(EventArgs)"/> method so that the standard ToolStripItem event pipeline is used.</remarks>
 	/// <param name="sender">The source of the event, typically the hosted control whose text was modified.</param>
 	/// <param name="e">An <see cref="EventArgs"/> instance containing the event data associated with the text change.</param>
-	private void OnTextChanged(object? sender, EventArgs e) => base.OnTextChanged(e: e);
+	private void OnTextChanged(object? sender, EventArgs e)
+	{
+		base.OnTextChanged(e: e);
+		TextChanged?.Invoke(sender: this, e: e);
+	}
 
 	/// <summary>Raises the Click event, passing the event data to any registered event handlers.</summary>
 	/// <remarks>This handler is attached to the hosted control's <see cref="Control.Click"/> event. It calls <see cref="ToolStripItem.OnClick(EventArgs)"/> to raise the standard ToolStripItem Click event and to ensure that any overrides in derived classes are honored.</remarks>
