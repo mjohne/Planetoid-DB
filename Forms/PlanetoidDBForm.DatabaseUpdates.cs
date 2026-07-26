@@ -79,7 +79,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method checks if a remote database file is newer than the local file by comparing their last modified dates. If the local file does not exist, it returns <see langword="true"/> (update available). If the remote file is newer, it also returns <see langword="true"/>. If any exceptions occur during the process, it returns <see langword="false"/>.</remarks>
 	private static bool IsDatabaseUpdateAvailable(string localFilePath, Uri sourceUri, bool readContentLength = false)
 	{
-		// Check if the file exists before attempting to delete it
+		// Check if the file exists before attempting to access its metadata
 		if (!File.Exists(path: localFilePath))
 		{
 			// If the file does not exist, return true (update available)
@@ -108,7 +108,7 @@ public partial class PlanetoidDbForm
 		catch (Exception ex) when (ex is HttpRequestException or WebException or IOException)
 		{
 			// Log the exception and return false (no update available)
-			logger.Error(exception: ex, message: $"Error checking update availability for '{sourceUri}': {ex.Message}");
+			logger.Error(exception: ex, message: "Error checking update availability for '{SourceUri}'.", args: [sourceUri]);
 			return false;
 		}
 	}
