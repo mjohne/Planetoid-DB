@@ -33,15 +33,15 @@ public partial class PlanetoidDbForm
 		{
 			// Parse the hex string to an integer
 			int flagValue = Convert.ToInt32(value: flagText, fromBase: 16);
-			// Extract orbit type (lower 6 bits)
-			int orbitType = flagValue & 0x3F; // 0x3F = 0011 1111 (bits 0-5)
-											  // Extract individual flag bits
-			bool isNeo = (flagValue & 2048) != 0;          // Bit 11
-			bool isLargeNeo = (flagValue & 4096) != 0;     // Bit 12
-			bool isOneOppObject = (flagValue & 8192) != 0; // Bit 13
-			bool isCriticalList = (flagValue & 16384) != 0;// Bit 14
-			bool isPha = (flagValue & 32768) != 0;         // Bit 15
-														   // Build the result message
+			// Extract orbit type (lower 6 bits); 0x3F = 0011 1111 (bits 0-5)
+			int orbitType = flagValue & 0x3F;
+			// Extract individual flag bits (bits 11-15) using bitwise AND and check if they are set
+			bool isNeo = (flagValue & 2048) != 0;
+			bool isLargeNeo = (flagValue & 4096) != 0;
+			bool isOneOppObject = (flagValue & 8192) != 0;
+			bool isCriticalList = (flagValue & 16384) != 0;
+			bool isPha = (flagValue & 32768) != 0;
+			// Build the result message
 			System.Text.StringBuilder result = new();
 			_ = result.AppendLine(value: $"MPCORB Flag Decoder");
 			_ = result.AppendLine(value: $"==================");
@@ -117,9 +117,9 @@ public partial class PlanetoidDbForm
 	private void DecodeMpcorbReference()
 	{
 		// Get the reference text from the label
-		string referenceText = labelReferenceData.Text;
+		string compressedRef = labelReferenceData.Text;
 		// Validate that the reference text is not empty
-		if (string.IsNullOrWhiteSpace(value: referenceText))
+		if (string.IsNullOrWhiteSpace(value: compressedRef))
 		{
 			logger.Warn(message: "Reference text is empty or whitespace");
 			_ = KryptonMessageBox.Show(owner: this, text: "No reference data available.", caption: "Reference Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
@@ -128,22 +128,22 @@ public partial class PlanetoidDbForm
 		// Attempt to decode the reference and handle any exceptions that may occur during decoding
 		try
 		{
-			string decodedReference = DecodeReference(compressedRef: referenceText.Trim());
+			string decodedReference = DecodeReference(compressedRef: compressedRef.Trim());
 			// Build the result message
 			System.Text.StringBuilder result = new();
 			_ = result.AppendLine(value: "MPCORB Reference Decoder");
 			_ = result.AppendLine(value: "========================");
-			_ = result.AppendLine(value: $"Compressed: {referenceText}");
+			_ = result.AppendLine(value: $"Compressed: {compressedRef}");
 			_ = result.AppendLine();
 			_ = result.AppendLine(value: "Full Reference:");
 			_ = result.AppendLine(value: $"  {decodedReference}");
 			// Display the result in a KryptonMessageBox
 			_ = KryptonMessageBox.Show(owner: this, text: result.ToString(), caption: "MPCORB Reference Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
-			logger.Info(message: $"Decoded MPCORB reference: '{referenceText}' → '{decodedReference}'");
+			logger.Info(message: $"Decoded MPCORB reference: '{compressedRef}' → '{decodedReference}'");
 		}
 		catch (Exception ex)
 		{
-			logger.Error(exception: ex, message: $"Error decoding MPCORB reference '{referenceText}': {ex.Message}");
+			logger.Error(exception: ex, message: $"Error decoding MPCORB reference '{compressedRef}': {ex.Message}");
 			ShowErrorMessage(message: $"An error occurred while decoding the reference:\n\n{ex.Message}");
 		}
 	}
@@ -154,101 +154,88 @@ public partial class PlanetoidDbForm
 	/// <remarks>Handles various formats including MPEC, MPC, MPS, and journal references according to MPC specifications.</remarks>
 	private static string DecodeReference(string compressedRef)
 	{
+		// Validate input
 		if (string.IsNullOrWhiteSpace(value: compressedRef))
 		{
 			return "Unknown reference";
 		}
-		// Ensure the reference is exactly 5 characters for proper parsing
+		// Pad the compressed reference to ensure it has at least 5 characters for consistent processing
 		compressedRef = compressedRef.PadRight(totalWidth: 5);
+		// Get the first character to determine the reference type
 		char firstChar = compressedRef[index: 0];
-		// 1: Temporary MPEC References (E + half-month + number)
+		// 1: Temporary MPEC References
 		if (firstChar == 'E')
 		{
-			string halfMonth = compressedRef.Substring(startIndex: 1, length: 1);
-			string circularNumber = compressedRef.Substring(startIndex: 2, length: 3).TrimStart(trimChar: '0');
-			return $"MPEC (temporary) - Half-month {halfMonth}, Circular {circularNumber}";
+			return $"MPEC (temporary) - Half-month {compressedRef.AsSpan(start: 1, length: 1)}, Circular {compressedRef.AsSpan(start: 2, length: 3).TrimStart('0')}";
 		}
-		// 2A: Five-digit MPC numbers (00001-99999)
-		if (char.IsDigit(c: firstChar) && compressedRef.All(predicate: c => char.IsDigit(c: c) || char.IsWhiteSpace(c: c)))
+		// 2A: Five-digit MPC numbers
+		if (char.IsDigit(c: firstChar) && compressedRef.All(predicate: static c => char.IsDigit(c: c) || char.IsWhiteSpace(c: c)))
 		{
-			if (int.TryParse(s: compressedRef.Trim(), result: out int mpcNumber))
-			{
-				return $"Minor Planet Circular (MPC) {mpcNumber}";
-			}
+			return int.TryParse(s: compressedRef.Trim(), result: out int mpcNumber) ? $"Minor Planet Circular (MPC) {mpcNumber}" : "Unknown reference";
 		}
-		// 2B: @ + four digits (MPC 100000-109999)
-		if (firstChar == '@')
+		// 2B: @ + four digits
+		if (firstChar == '@' && int.TryParse(compressedRef.AsSpan(start: 1, length: 4), out int excess))
 		{
-			string digits = compressedRef.Substring(startIndex: 1, length: 4);
-			if (int.TryParse(s: digits, result: out int excess))
-			{
-				return $"Minor Planet Circular (MPC) {100000 + excess}";
-			}
+			return $"Minor Planet Circular (MPC) {100000 + excess}";
 		}
-		// 2C: # + four Base-62 characters (MPC 110000+)
+		// 2C: # + four Base-62 characters
 		if (firstChar == '#')
 		{
-			string base62 = compressedRef.Substring(startIndex: 1, length: 4);
-			int value = DecodeBase62(encoded: base62);
-			return $"Minor Planet Circular (MPC) {110000 + value}";
+			return $"Minor Planet Circular (MPC) {110000 + DecodeBase62(encoded: compressedRef.AsSpan(start: 1, length: 4))}";
 		}
-		// 2D: Lowercase letter + four digits (MPS)
-		if (char.IsLower(c: firstChar))
+
+		// 2D: Lowercase letter + four digits
+		if (char.IsLower(c: firstChar) && int.TryParse(compressedRef.AsSpan(start: 1, length: 4), out int remainder))
 		{
-			int multiplier = firstChar - 'a';
-			string digits = compressedRef.Substring(startIndex: 1, length: 4);
-			if (int.TryParse(s: digits, result: out int remainder))
-			{
-				int mpsNumber = (multiplier * 10000) + remainder;
-				return $"Minor Planet Supplement (MPS) {mpsNumber}";
-			}
+			return $"Minor Planet Supplement (MPS) {((firstChar - 'a') * 10000) + remainder}";
 		}
-		// 2E: Tilde + four Base-62 characters (MPS 260000+)
+		// 2E: Tilde + four Base-62 characters
 		if (firstChar == '~')
 		{
-			string base62 = compressedRef.Substring(startIndex: 1, length: 4);
-			int value = DecodeBase62(encoded: base62);
-			return $"Minor Planet Supplement (MPS) {260000 + value}";
+			return $"Minor Planet Supplement (MPS) {260000 + DecodeBase62(encoded: compressedRef.AsSpan(start: 1, length: 4))}";
 		}
-		// 2F: Single uppercase letter + four digits (various journals)
-		if (char.IsUpper(c: firstChar) && compressedRef.Length >= 2 && char.IsDigit(c: compressedRef[index: 1]))
+		// 2F: Single uppercase letter + four digits
+		if (char.IsUpper(c: firstChar) && compressedRef.Length >= 2 && char.IsDigit(c: compressedRef[index: 1]) && int.TryParse(s: compressedRef.AsSpan(start: 1, length: 4), result: out int number))
 		{
-			string digits = compressedRef.Substring(startIndex: 1, length: 4);
-			if (int.TryParse(s: digits, result: out int number))
+			return firstChar switch
 			{
-				return firstChar switch
+				'H' => $"Harvard Announcement Card (HAC) {number}",
+				'I' => $"IAU Circular (IAUC) {number}",
+				'M' => $"Minor Planet Circular (MPC) {number}",
+				'R' => $"Planetenzirkular des Astronomischen Rechen-Institut (RI) {number}",
+				_ => $"Journal '{firstChar}' #{number}"
+			};
+		}
+		// 2G: Two or more letters (various journals) - BUG BEHOBEN!
+		if (compressedRef.Length >= 2 && char.IsLetter(c: firstChar))
+		{
+			// Count the number of leading letters in the compressed reference
+			int lettersCount = compressedRef.TakeWhile(char.IsLetter).Count();
+			// If there are at least two leading letters, attempt to decode the journal reference
+			if (lettersCount >= 2)
+			{
+				// Extract the journal code and the remaining part of the reference
+				string journalCode = compressedRef[..lettersCount];
+				string remain = compressedRef[lettersCount..].Trim();
+				string journalName = GetJournalName(code: journalCode);
+				// If a valid journal name is found, format the output accordingly
+				if (!string.IsNullOrEmpty(value: journalName))
 				{
-					'H' => $"Harvard Announcement Card (HAC) {number}",
-					'I' => $"IAU Circular (IAUC) {number}",
-					'M' => $"Minor Planet Circular (MPC) {number}",
-					'R' => $"Planetenzirkular des Astronomischen Rechen-Institut (RI) {number}",
-					_ => $"Journal '{firstChar}' #{number}"
-				};
+					return !string.IsNullOrEmpty(value: remain) && int.TryParse(s: remain, result: out int volOrCirc)
+						? $"{journalName}, Vol./Circ. {volOrCirc}"
+						: journalName;
+				}
 			}
 		}
-		// 2G: Two or more letters (various journals)
-		if (compressedRef.Length >= 2)
-		{
-			string journalCode = compressedRef[..2].Trim();
-			string remainder = compressedRef.Length > 2 ? compressedRef[2..].Trim() : "";
-			// Attempt to get the journal name from the code
-			string journalName = GetJournalName(code: journalCode);
-			if (!string.IsNullOrEmpty(value: journalName))
-			{
-				return !string.IsNullOrEmpty(value: remainder) && int.TryParse(s: remainder, result: out int volOrCirc)
-					? $"{journalName}, Vol./Circ. {volOrCirc}"
-					: journalName;
-			}
-		}
-		// If no known format matches, return the original compressed reference with a note
+		// If none of the above formats matched, return an unknown reference format message
 		return $"Unknown reference format: {compressedRef.Trim()}";
 	}
 
 	/// <summary>Decodes a Base-62 encoded string to an integer.</summary>
-	/// <param name="encoded">The Base-62 encoded string.</param>
+	/// <param name="encoded">The Base-62 encoded span.</param>
 	/// <returns>The decoded integer value.</returns>
 	/// <remarks>Uses characters 0-9, A-Z, a-z to represent digits 0-61.</remarks>
-	private static int DecodeBase62(string encoded)
+	private static int DecodeBase62(ReadOnlySpan<char> encoded)
 	{
 		// Define the character set for Base-62 encoding
 		const string base62Chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -272,6 +259,7 @@ public partial class PlanetoidDbForm
 	/// <summary>Gets the full journal name from a two-letter journal code.</summary>
 	/// <param name="code">The two-letter journal code.</param>
 	/// <returns>The full journal name, or an empty string if not found.</returns>
+	/// <remarks>Supports various journal codes as specified by the Minor Planet Center; taken from https://www.minorplanetcenter.net/iau/info/References.html.</remarks>
 	private static string GetJournalName(string code) => code switch
 	{
 		"AA" => "Astronomy and Astrophysics",
