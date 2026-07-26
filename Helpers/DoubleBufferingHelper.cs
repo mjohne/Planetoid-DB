@@ -7,7 +7,7 @@ using System.Reflection;
 namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides helper methods to enable double buffering on controls via compiled delegates for maximum performance.</summary>
-/// <remarks>Uses reflection to access the protected <c>DoubleBuffered</c> property and <c>SetStyle</c> method on <see cref="Control"/> instances. If enabling double buffering fails, a warning is logged but the application continues to function normally.</remarks>
+/// <remarks>Uses reflection once to create a delegate for the protected <c>SetStyle</c> method on <see cref="Control"/> instances. If enabling double buffering fails, a warning is logged but the application continues to function normally.</remarks>
 internal static class DoubleBufferingHelper
 {
 	/// <summary>NLog logger for logging warnings when double buffering cannot be enabled.</summary>
