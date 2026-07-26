@@ -82,7 +82,8 @@ public partial class PlanetoidDbForm
 		// Check if the file exists before attempting to delete it
 		if (!File.Exists(path: localFilePath))
 		{
-			return true; // If the file does not exist, return true (update available)
+			// If the file does not exist, return true (update available)
+			return true;
 		}
 		// Get the file information for the local file
 		FileInfo fileInfo = new(fileName: localFilePath);
@@ -93,7 +94,7 @@ public partial class PlanetoidDbForm
 		{
 			// Get the last modified date of the online file
 			DateTime remoteLastModified = GetLastModified(uri: sourceUri);
-			// If the remote file is newer than the local file, return true (update available)
+			// If the readContentLength flag is set to true, also get the content length of the online file
 			if (readContentLength)
 			{
 				// Get the content length of the online file
@@ -101,21 +102,14 @@ public partial class PlanetoidDbForm
 			}
 			// Get the content length of the local file
 			_ = fileInfo.Length;
-			// Check if the online file is larger than the local file
-			// If it greater, return true (update available)
-			// Otherwise, return false (no update available)
+			// Return true if the remote file is newer than the local file; otherwise, return false
 			return remoteLastModified > localLastWriteTime;
 		}
-		catch (HttpRequestException)
+		catch (Exception ex) when (ex is HttpRequestException or WebException or IOException)
 		{
-			return false;
-		}
-		catch (WebException)
-		{
-			return false;
-		}
-		catch (IOException)
-		{
+			// Log the exception and return false (no update available)
+			logger.Error(exception: ex, message: ex.Message);
+			ShowErrorMessage(message: ex.Message);
 			return false;
 		}
 	}
