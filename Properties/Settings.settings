@@ -3,13 +3,13 @@
   <Profiles />
   <Settings>
     <Setting Name="systemMpcorbDatGzUrl" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://www.minorplanetcenter.org/iau/MPCORB/MPCORB.DAT.gz</Value>
+      <Value Profile="(Default)">https://www.minorplanetcenter.org/iau/MPCORB/MPCORB.DAT.gz</Value>
     </Setting>
     <Setting Name="userMpcorbDatGzUrl" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="systemMpcorbDatUrl" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://www.minorplanetcenter.org/iau/MPCORB/MPCORB.DAT</Value>
+      <Value Profile="(Default)">https://www.minorplanetcenter.org/iau/MPCORB/MPCORB.DAT</Value>
     </Setting>
     <Setting Name="userMpcorbDatUrl" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -39,10 +39,10 @@
       <Value Profile="(Default)">_</Value>
     </Setting>
     <Setting Name="systemWebsiteMpc" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://www.minorplanetcenter.org/iau/mpc.html</Value>
+      <Value Profile="(Default)">https://www.minorplanetcenter.org/iau/mpc.html</Value>
     </Setting>
     <Setting Name="systemWebsiteMpcorb" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://www.minorplanetcenter.org/iau/MPCORB.html</Value>
+      <Value Profile="(Default)">https://www.minorplanetcenter.org/iau/MPCORB.html</Value>
     </Setting>
     <Setting Name="systemFilenameTemp" Type="System.String" Scope="Application">
       <Value Profile="(Default)">_</Value>

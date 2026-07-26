@@ -25,7 +25,7 @@ namespace Planetoid_DB.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://www.minorplanetcenter.org/iau/MPCORB/MPCORB.DAT.gz")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.minorplanetcenter.org/iau/MPCORB/MPCORB.DAT.gz")]
         public string systemMpcorbDatGzUrl {
             get {
                 return ((string)(this["systemMpcorbDatGzUrl"]));
@@ -46,7 +46,7 @@ namespace Planetoid_DB.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://www.minorplanetcenter.org/iau/MPCORB/MPCORB.DAT")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.minorplanetcenter.org/iau/MPCORB/MPCORB.DAT")]
         public string systemMpcorbDatUrl {
             get {
                 return ((string)(this["systemMpcorbDatUrl"]));
@@ -145,7 +145,7 @@ namespace Planetoid_DB.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://www.minorplanetcenter.org/iau/mpc.html")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.minorplanetcenter.org/iau/mpc.html")]
         public string systemWebsiteMpc {
             get {
                 return ((string)(this["systemWebsiteMpc"]));
@@ -154,7 +154,7 @@ namespace Planetoid_DB.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://www.minorplanetcenter.org/iau/MPCORB.html")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.minorplanetcenter.org/iau/MPCORB.html")]
         public string systemWebsiteMpcorb {
             get {
                 return ((string)(this["systemWebsiteMpcorb"]));
