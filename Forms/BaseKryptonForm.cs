@@ -26,7 +26,6 @@ public class BaseKryptonForm : KryptonForm
 	/// <summary>Stores the currently selected control for clipboard operations.</summary>
 	/// <remarks>This control is used for clipboard operations such as copy and paste.</remarks>
 	protected Control? currentControl;
-	private string? currentTagText;
 
 	/// <summary>Initializes a new instance of the <see cref="BaseKryptonForm"/> class.</summary>
 	/// <remarks>This constructor sets up the form to receive key events and handle them appropriately.</remarks>
