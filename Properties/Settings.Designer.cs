@@ -12,7 +12,7 @@ namespace Planetoid_DB.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "18.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "18.8.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -25,7 +25,7 @@ namespace Planetoid_DB.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://www.minorplanetcenter.org/iau/MPCORB/MPCORB.DAT.gz")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.minorplanetcenter.net/iau/MPCORB/MPCORB.DAT.gz")]
         public string systemMpcorbDatGzUrl {
             get {
                 return ((string)(this["systemMpcorbDatGzUrl"]));
@@ -46,7 +46,7 @@ namespace Planetoid_DB.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://www.minorplanetcenter.org/iau/MPCORB/MPCORB.DAT")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.minorplanetcenter.net/iau/MPCORB/MPCORB.DAT")]
         public string systemMpcorbDatUrl {
             get {
                 return ((string)(this["systemMpcorbDatUrl"]));
