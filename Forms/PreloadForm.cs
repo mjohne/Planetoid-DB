@@ -55,7 +55,6 @@ public partial class PreloadForm : BaseKryptonForm
 		// Validate input
 		ArgumentNullException.ThrowIfNull(argument: resourceData);
 		// Write the resource data to the output file
-		File.WriteAllBytes(path: outputFilePath, bytes: resourceData);
 		try
 		{
 			File.WriteAllBytes(outputFilePath, resourceData);
@@ -156,6 +155,12 @@ public partial class PreloadForm : BaseKryptonForm
 			_ = MpcOrbDatFilePath = outputPath;
 			DialogResult = DialogResult.OK;
 			// Set the dialog result to OK
+		}
+		// If extraction fails, log an error and show an error message
+		else
+		{
+			ShowErrorMessage(message: $"Failed to extract demo data to '{outputPath}'.");
+			logger.Error(message: $"Failed to extract demo data to '{outputPath}'.");
 		}
 	}
 
