@@ -3,45 +3,64 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using System.Globalization;
+
 namespace Planetoid_DB.Helpers;
 
-/// <summary>Implements the manual sorting of items by column.</summary>
+/// <summary>Implements manual sorting of items by column for a <see cref="ListView"/>. Handles numeric values, text comparisons, and ensures strict sorting transitivity.</summary>
 /// <param name="column">The column index to sort by.</param>
-/// <param name="order">The sort order (Ascending or Descending).</param>
-/// <remarks>This class is used internally by the form to provide custom sorting logic for the ListView control.</remarks>
+/// <param name="order">The sort order (<see cref="SortOrder.Ascending"/> or <see cref="SortOrder.Descending"/>).</param>
+/// <remarks>This comparer ensures that numeric values are sorted before text values and that sorting is transitive, meaning if A &lt; B and B &lt; C, then A &lt; C.</remarks>
 public class ListViewItemComparer(int column, SortOrder order) : System.Collections.IComparer
 {
-	/// <summary>Column index to sort by.</summary>
-	/// <remarks>This field stores the index of the column that is currently being sorted. It is used in the Compare method to determine which subitem's text to compare for sorting.</remarks>
-	private readonly int col = column;
-
-	/// <summary>Specifies the sort order used by the containing type.</summary>
-	/// <remarks>This field indicates whether the sorting should be performed in ascending or descending order. It is used in the Compare method to determine how to return the comparison result.</remarks>
-	private readonly SortOrder _order = order;
-
 	/// <summary>Compares two objects and returns a value indicating whether one is less than, equal to, or greater than the other.</summary>
 	/// <param name="x">The first object to compare.</param>
 	/// <param name="y">The second object to compare.</param>
-	/// <returns>A signed integer that indicates the relative values of <paramref name="x"/> and <paramref name="y"/>.</returns>
-	/// <remarks>This method implements the comparison logic for sorting ListViewItems based on the specified column and sort order. It handles both numeric and string comparisons to provide a natural sorting experience.</remarks>
+	/// <returns>A signed integer indicating the relative values of <paramref name="x"/> and <paramref name="y"/>.</returns>
+	/// <remarks>This method ensures that numeric values are sorted before text values and that sorting is transitive.</remarks>
 	public int Compare(object? x, object? y)
 	{
-		// Ensure both objects are ListViewItems; if not, consider them equal for sorting purposes
-		if (x is not ListViewItem itemX || y is not ListViewItem itemY)
+		// Short-circuit if no sorting is required
+		if (order == SortOrder.None)
 		{
 			return 0;
 		}
-		// Retrieve the text for the specified column from both items; if the column index is out of range for an item, use an empty string for comparison
-		string textX = itemX.SubItems.Count > col ? itemX.SubItems[index: col].Text : string.Empty;
-		string textY = itemY.SubItems.Count > col ? itemY.SubItems[index: col].Text : string.Empty;
-		// Attempt to parse the text as numbers for a more natural sorting order; if both can be parsed as numbers, compare them numerically; otherwise, compare them as strings
-		bool hasNumericX = double.TryParse(s: textX, style: System.Globalization.NumberStyles.Any, provider: System.Globalization.CultureInfo.CurrentCulture, result: out double numX);
-		bool hasNumericY = double.TryParse(s: textY, style: System.Globalization.NumberStyles.Any, provider: System.Globalization.CultureInfo.CurrentCulture, result: out double numY);
-		// If both items have numeric values, compare them as numbers; otherwise, compare them as strings (case-insensitive)
-		int result = hasNumericX && hasNumericY
-			? numX.CompareTo(value: numY)
-			: string.Compare(strA: textX, strB: textY, comparisonType: StringComparison.OrdinalIgnoreCase);
-		// Return the comparison result, adjusting for the specified sort order (ascending or descending)
-		return _order == SortOrder.Descending ? -result : result;
+		// Handle null/type mismatches deterministically
+		if (x is not ListViewItem itemX)
+		{
+			return y is ListViewItem ? -1 : 0;
+		}
+		if (y is not ListViewItem itemY)
+		{
+			return 1;
+		}
+		// Extract subitem text safely using the captured primary constructor parameter 'column'
+		string textX = column < itemX.SubItems.Count ? itemX.SubItems[column].Text : string.Empty;
+		string textY = column < itemY.SubItems.Count ? itemY.SubItems[column].Text : string.Empty;
+		// Attempt to parse both texts as numbers using the current culture for accurate numeric comparison
+		bool isNumX = double.TryParse(s: textX, style: NumberStyles.Any, provider: CultureInfo.CurrentCulture, result: out double numX);
+		bool isNumY = double.TryParse(s: textY, style: NumberStyles.Any, provider: CultureInfo.CurrentCulture, result: out double numY);
+		// Initialize the result variable to hold the comparison outcome
+		int result;
+		// Guaranteed transitivity: numbers and text are categorized into distinct strict domains
+		if (isNumX && isNumY)
+		{
+			result = numX.CompareTo(value: numY);
+		}
+		// If only the first value is numeric, it should come before the second value
+		else if (isNumX)
+		{
+			result = -1;
+		}
+		// If only the second value is numeric, it should come before the first value
+		else
+		{
+			result = isNumY
+				? 1
+				// If both values are non-numeric text, perform a case-insensitive comparison
+				: string.Compare(strA: textX, strB: textY, comparisonType: StringComparison.OrdinalIgnoreCase);
+		}
+		// Adjust the result based on the specified sort order
+		return order == SortOrder.Descending ? -result : result;
 	}
 }
