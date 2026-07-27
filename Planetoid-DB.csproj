@@ -759,61 +759,61 @@ Public License instead of this License.  But first, please read
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-windows|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-windows|AnyCPU'">
     <IsTrimmable>True</IsTrimmable>
     <PreferNativeArm64>False</PreferNativeArm64>
     <IsAotCompatible>True</IsAotCompatible>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-windows|ARM32'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-windows|ARM32'">
     <IsTrimmable>True</IsTrimmable>
     <PreferNativeArm64>False</PreferNativeArm64>
     <IsAotCompatible>True</IsAotCompatible>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-windows|ARM64'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-windows|ARM64'">
     <IsTrimmable>True</IsTrimmable>
     <PreferNativeArm64>False</PreferNativeArm64>
     <IsAotCompatible>True</IsAotCompatible>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-windows|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-windows|x64'">
     <IsTrimmable>True</IsTrimmable>
     <PreferNativeArm64>False</PreferNativeArm64>
     <IsAotCompatible>True</IsAotCompatible>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-windows|x86'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-windows|x86'">
     <IsTrimmable>True</IsTrimmable>
     <PreferNativeArm64>False</PreferNativeArm64>
     <IsAotCompatible>True</IsAotCompatible>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-windows|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-windows|AnyCPU'">
     <IsTrimmable>True</IsTrimmable>
     <PreferNativeArm64>False</PreferNativeArm64>
     <IsAotCompatible>True</IsAotCompatible>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-windows|ARM32'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-windows|ARM32'">
     <IsTrimmable>True</IsTrimmable>
     <PreferNativeArm64>False</PreferNativeArm64>
     <IsAotCompatible>True</IsAotCompatible>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-windows|ARM64'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-windows|ARM64'">
     <IsTrimmable>True</IsTrimmable>
     <PreferNativeArm64>False</PreferNativeArm64>
     <IsAotCompatible>True</IsAotCompatible>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-windows|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-windows|x64'">
     <IsTrimmable>True</IsTrimmable>
     <PreferNativeArm64>False</PreferNativeArm64>
     <IsAotCompatible>True</IsAotCompatible>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-windows|x86'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-windows|x86'">
     <IsTrimmable>True</IsTrimmable>
     <PreferNativeArm64>False</PreferNativeArm64>
     <IsAotCompatible>True</IsAotCompatible>
@@ -826,6 +826,7 @@ Public License instead of this License.  But first, please read
   <ItemGroup>
     <EmbeddedResource Remove="PlanetoidDBForm.CalculateDerivatedElements.resx" />
     <EmbeddedResource Remove="PlanetoidDBForm.DerivatedElements.resx" />
+    <EmbeddedResource Remove="Forms\PlanetoidDBForm.Helpers.resx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -894,6 +895,15 @@ Public License instead of this License.  But first, please read
     <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="11.0.0-preview.6.26359.118" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="11.0.0-preview.6.26359.118" />
   </ItemGroup>
+
+  <!-- Remove the old monolithic OpenTK.dll (3.x) bundled by Krypton.Toolkit.Suite.Extended.Ultimate.Nightly
+       before assembly resolution, to prevent CS0433 type ambiguity with OpenTK.Graphics 4.x.
+       OpenTK 4.x uses separate assemblies (OpenTK.Graphics.dll, etc.); no code references OpenTK.dll directly. -->
+  <Target Name="RemoveConflictingLegacyOpenTKAssembly" BeforeTargets="ResolveAssemblyReferences">
+    <ItemGroup>
+      <Reference Remove="@(Reference)" Condition="'%(Reference.HintPath)' != '' AND $([System.String]::Copy('%(Reference.HintPath)').ToLower().EndsWith('\opentk.dll'))" />
+    </ItemGroup>
+  </Target>
 
   <ItemGroup>
     <Compile Update="Properties\Settings.Designer.cs">
