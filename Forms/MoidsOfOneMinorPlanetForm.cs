@@ -122,20 +122,20 @@ public partial class MoidsOfOneMinorPlanetForm : BaseKryptonForm
 			// Populate the data labels (one per planet row, index 0 = Mercury … 7 = Neptune)
 			if (moids.Count >= 8)
 			{
-				labelMercuryData.Text = moids[index: 0].MoidAu.ToString(format: "F8");
-				labelVenusData.Text = moids[index: 1].MoidAu.ToString(format: "F8");
-				labelEarthData.Text = moids[index: 2].MoidAu.ToString(format: "F8");
-				labelMarsData.Text = moids[index: 3].MoidAu.ToString(format: "F8");
-				labelJupiterData.Text = moids[index: 4].MoidAu.ToString(format: "F8");
-				labelSaturnData.Text = moids[index: 5].MoidAu.ToString(format: "F8");
-				labelUranusData.Text = moids[index: 6].MoidAu.ToString(format: "F8");
-				labelNeptuneData.Text = moids[index: 7].MoidAu.ToString(format: "F8");
+				labelMercuryData.Text = moids[index: 0].MoidAu.ToString();
+				labelVenusData.Text = moids[index: 1].MoidAu.ToString();
+				labelEarthData.Text = moids[index: 2].MoidAu.ToString();
+				labelMarsData.Text = moids[index: 3].MoidAu.ToString();
+				labelJupiterData.Text = moids[index: 4].MoidAu.ToString();
+				labelSaturnData.Text = moids[index: 5].MoidAu.ToString();
+				labelUranusData.Text = moids[index: 6].MoidAu.ToString();
+				labelNeptuneData.Text = moids[index: 7].MoidAu.ToString();
 			}
 		}
 		// Handle any exceptions that may occur during MOID calculation and display an error message
 		catch (Exception ex)
 		{
-			logger.Error(message: $"Error computing MOID values: {ex}");
+			logger.Error(exception: ex, message: "Error computing MOID values");
 			ShowErrorMessage(message: $"Error computing MOID values: {ex.Message}");
 		}
 	}

@@ -71,6 +71,7 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsAsciiDoc = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsReStructuredText = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsTextile = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsTypst = new ToolStripMenuItem();
 		toolStripMenuItemWriterDocuments = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsWord = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsOdt = new ToolStripMenuItem();
@@ -103,8 +104,8 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsXps = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsFictionBook2 = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsChm = new ToolStripMenuItem();
-		toolStripDropDownButtonSaveToFile = new ToolStripDropDownButton();
 		toolStripIcons = new ToolStrip();
+		toolStripDropDownButtonSaveToFile = new ToolStripDropDownButton();
 		toolStripDropDownButtonCopyToClipboard = new ToolStripDropDownButton();
 		contextMenuFullCopyToClipboard = new ContextMenuStrip(components);
 		menuitemCopyToClipboardMoidRelativeToMercury = new ToolStripMenuItem();
@@ -116,7 +117,6 @@ partial class MoidsOfOneMinorPlanetForm
 		menuitemCopyToClipboardMoidRelativeToUranus = new ToolStripMenuItem();
 		menuitemCopyToClipboardMoidRelativeToNeptune = new ToolStripMenuItem();
 		kryptonManager = new KryptonManager(components);
-		toolStripMenuItemSaveAsTypst = new ToolStripMenuItem();
 		contextMenuCopyToClipboard.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
@@ -139,7 +139,7 @@ partial class MoidsOfOneMinorPlanetForm
 		labelMercuryDesc.LabelStyle = LabelStyle.BoldPanel;
 		labelMercuryDesc.Location = new Point(3, 3);
 		labelMercuryDesc.Name = "labelMercuryDesc";
-		labelMercuryDesc.Size = new Size(136, 24);
+		labelMercuryDesc.Size = new Size(136, 20);
 		labelMercuryDesc.TabIndex = 0;
 		labelMercuryDesc.ToolTipValues.Description = "MOID of the minor planet relative to Mercury (AU).\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelMercuryDesc.ToolTipValues.EnableToolTips = true;
@@ -195,9 +195,9 @@ partial class MoidsOfOneMinorPlanetForm
 		labelVenusDesc.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelVenusDesc.Dock = DockStyle.Fill;
 		labelVenusDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelVenusDesc.Location = new Point(3, 33);
+		labelVenusDesc.Location = new Point(3, 29);
 		labelVenusDesc.Name = "labelVenusDesc";
-		labelVenusDesc.Size = new Size(136, 24);
+		labelVenusDesc.Size = new Size(136, 20);
 		labelVenusDesc.TabIndex = 2;
 		labelVenusDesc.ToolTipValues.Description = "MOID of the minor planet relative to Venus (AU).\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelVenusDesc.ToolTipValues.EnableToolTips = true;
@@ -220,9 +220,9 @@ partial class MoidsOfOneMinorPlanetForm
 		labelEarthDesc.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelEarthDesc.Dock = DockStyle.Fill;
 		labelEarthDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelEarthDesc.Location = new Point(3, 63);
+		labelEarthDesc.Location = new Point(3, 55);
 		labelEarthDesc.Name = "labelEarthDesc";
-		labelEarthDesc.Size = new Size(136, 24);
+		labelEarthDesc.Size = new Size(136, 20);
 		labelEarthDesc.TabIndex = 4;
 		labelEarthDesc.ToolTipValues.Description = "MOID of the minor planet relative to Earth (AU).\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelEarthDesc.ToolTipValues.EnableToolTips = true;
@@ -245,9 +245,9 @@ partial class MoidsOfOneMinorPlanetForm
 		labelMarsDesc.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelMarsDesc.Dock = DockStyle.Fill;
 		labelMarsDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelMarsDesc.Location = new Point(3, 93);
+		labelMarsDesc.Location = new Point(3, 81);
 		labelMarsDesc.Name = "labelMarsDesc";
-		labelMarsDesc.Size = new Size(136, 24);
+		labelMarsDesc.Size = new Size(136, 20);
 		labelMarsDesc.TabIndex = 6;
 		labelMarsDesc.ToolTipValues.Description = "MOID of the minor planet relative to Mars (AU).\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelMarsDesc.ToolTipValues.EnableToolTips = true;
@@ -270,9 +270,9 @@ partial class MoidsOfOneMinorPlanetForm
 		labelJupiterDesc.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelJupiterDesc.Dock = DockStyle.Fill;
 		labelJupiterDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelJupiterDesc.Location = new Point(3, 123);
+		labelJupiterDesc.Location = new Point(3, 107);
 		labelJupiterDesc.Name = "labelJupiterDesc";
-		labelJupiterDesc.Size = new Size(136, 24);
+		labelJupiterDesc.Size = new Size(136, 20);
 		labelJupiterDesc.TabIndex = 8;
 		labelJupiterDesc.ToolTipValues.Description = "MOID of the minor planet relative to Jupiter (AU).\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelJupiterDesc.ToolTipValues.EnableToolTips = true;
@@ -295,9 +295,9 @@ partial class MoidsOfOneMinorPlanetForm
 		labelSaturnDesc.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelSaturnDesc.Dock = DockStyle.Fill;
 		labelSaturnDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelSaturnDesc.Location = new Point(3, 153);
+		labelSaturnDesc.Location = new Point(3, 133);
 		labelSaturnDesc.Name = "labelSaturnDesc";
-		labelSaturnDesc.Size = new Size(136, 24);
+		labelSaturnDesc.Size = new Size(136, 20);
 		labelSaturnDesc.TabIndex = 10;
 		labelSaturnDesc.ToolTipValues.Description = "MOID of the minor planet relative to Saturn (AU).\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelSaturnDesc.ToolTipValues.EnableToolTips = true;
@@ -320,9 +320,9 @@ partial class MoidsOfOneMinorPlanetForm
 		labelUranusDesc.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelUranusDesc.Dock = DockStyle.Fill;
 		labelUranusDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelUranusDesc.Location = new Point(3, 183);
+		labelUranusDesc.Location = new Point(3, 159);
 		labelUranusDesc.Name = "labelUranusDesc";
-		labelUranusDesc.Size = new Size(136, 24);
+		labelUranusDesc.Size = new Size(136, 20);
 		labelUranusDesc.TabIndex = 12;
 		labelUranusDesc.ToolTipValues.Description = "MOID of the minor planet relative to Uranus (AU).\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelUranusDesc.ToolTipValues.EnableToolTips = true;
@@ -345,9 +345,9 @@ partial class MoidsOfOneMinorPlanetForm
 		labelNeptuneDesc.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelNeptuneDesc.Dock = DockStyle.Fill;
 		labelNeptuneDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelNeptuneDesc.Location = new Point(3, 213);
+		labelNeptuneDesc.Location = new Point(3, 185);
 		labelNeptuneDesc.Name = "labelNeptuneDesc";
-		labelNeptuneDesc.Size = new Size(136, 27);
+		labelNeptuneDesc.Size = new Size(136, 26);
 		labelNeptuneDesc.TabIndex = 14;
 		labelNeptuneDesc.ToolTipValues.Description = "MOID of the minor planet relative to Neptune (AU).\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelNeptuneDesc.ToolTipValues.EnableToolTips = true;
@@ -371,7 +371,7 @@ partial class MoidsOfOneMinorPlanetForm
 		labelMercuryData.Dock = DockStyle.Fill;
 		labelMercuryData.Location = new Point(145, 3);
 		labelMercuryData.Name = "labelMercuryData";
-		labelMercuryData.Size = new Size(136, 24);
+		labelMercuryData.Size = new Size(136, 20);
 		labelMercuryData.TabIndex = 1;
 		labelMercuryData.ToolTipValues.Description = "Shows the MOID relative to Mercury in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelMercuryData.ToolTipValues.EnableToolTips = true;
@@ -392,9 +392,9 @@ partial class MoidsOfOneMinorPlanetForm
 		labelVenusData.AccessibleRole = AccessibleRole.StaticText;
 		labelVenusData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelVenusData.Dock = DockStyle.Fill;
-		labelVenusData.Location = new Point(145, 33);
+		labelVenusData.Location = new Point(145, 29);
 		labelVenusData.Name = "labelVenusData";
-		labelVenusData.Size = new Size(136, 24);
+		labelVenusData.Size = new Size(136, 20);
 		labelVenusData.TabIndex = 3;
 		labelVenusData.ToolTipValues.Description = "Shows the MOID relative to Venus in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelVenusData.ToolTipValues.EnableToolTips = true;
@@ -415,9 +415,9 @@ partial class MoidsOfOneMinorPlanetForm
 		labelEarthData.AccessibleRole = AccessibleRole.StaticText;
 		labelEarthData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelEarthData.Dock = DockStyle.Fill;
-		labelEarthData.Location = new Point(145, 63);
+		labelEarthData.Location = new Point(145, 55);
 		labelEarthData.Name = "labelEarthData";
-		labelEarthData.Size = new Size(136, 24);
+		labelEarthData.Size = new Size(136, 20);
 		labelEarthData.TabIndex = 5;
 		labelEarthData.ToolTipValues.Description = "Shows the MOID relative to Earth in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelEarthData.ToolTipValues.EnableToolTips = true;
@@ -438,9 +438,9 @@ partial class MoidsOfOneMinorPlanetForm
 		labelMarsData.AccessibleRole = AccessibleRole.StaticText;
 		labelMarsData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelMarsData.Dock = DockStyle.Fill;
-		labelMarsData.Location = new Point(145, 93);
+		labelMarsData.Location = new Point(145, 81);
 		labelMarsData.Name = "labelMarsData";
-		labelMarsData.Size = new Size(136, 24);
+		labelMarsData.Size = new Size(136, 20);
 		labelMarsData.TabIndex = 7;
 		labelMarsData.ToolTipValues.Description = "Shows the MOID relative to Mars in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelMarsData.ToolTipValues.EnableToolTips = true;
@@ -461,9 +461,9 @@ partial class MoidsOfOneMinorPlanetForm
 		labelJupiterData.AccessibleRole = AccessibleRole.StaticText;
 		labelJupiterData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelJupiterData.Dock = DockStyle.Fill;
-		labelJupiterData.Location = new Point(145, 123);
+		labelJupiterData.Location = new Point(145, 107);
 		labelJupiterData.Name = "labelJupiterData";
-		labelJupiterData.Size = new Size(136, 24);
+		labelJupiterData.Size = new Size(136, 20);
 		labelJupiterData.TabIndex = 9;
 		labelJupiterData.ToolTipValues.Description = "Shows the MOID relative to Jupiter in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelJupiterData.ToolTipValues.EnableToolTips = true;
@@ -484,9 +484,9 @@ partial class MoidsOfOneMinorPlanetForm
 		labelSaturnData.AccessibleRole = AccessibleRole.StaticText;
 		labelSaturnData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelSaturnData.Dock = DockStyle.Fill;
-		labelSaturnData.Location = new Point(145, 153);
+		labelSaturnData.Location = new Point(145, 133);
 		labelSaturnData.Name = "labelSaturnData";
-		labelSaturnData.Size = new Size(136, 24);
+		labelSaturnData.Size = new Size(136, 20);
 		labelSaturnData.TabIndex = 11;
 		labelSaturnData.ToolTipValues.Description = "Shows the MOID relative to Saturn in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelSaturnData.ToolTipValues.EnableToolTips = true;
@@ -507,9 +507,9 @@ partial class MoidsOfOneMinorPlanetForm
 		labelUranusData.AccessibleRole = AccessibleRole.StaticText;
 		labelUranusData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelUranusData.Dock = DockStyle.Fill;
-		labelUranusData.Location = new Point(145, 183);
+		labelUranusData.Location = new Point(145, 159);
 		labelUranusData.Name = "labelUranusData";
-		labelUranusData.Size = new Size(136, 24);
+		labelUranusData.Size = new Size(136, 20);
 		labelUranusData.TabIndex = 13;
 		labelUranusData.ToolTipValues.Description = "Shows the MOID relative to Uranus in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelUranusData.ToolTipValues.EnableToolTips = true;
@@ -530,9 +530,9 @@ partial class MoidsOfOneMinorPlanetForm
 		labelNeptuneData.AccessibleRole = AccessibleRole.StaticText;
 		labelNeptuneData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelNeptuneData.Dock = DockStyle.Fill;
-		labelNeptuneData.Location = new Point(145, 213);
+		labelNeptuneData.Location = new Point(145, 185);
 		labelNeptuneData.Name = "labelNeptuneData";
-		labelNeptuneData.Size = new Size(136, 27);
+		labelNeptuneData.Size = new Size(136, 26);
 		labelNeptuneData.TabIndex = 15;
 		labelNeptuneData.ToolTipValues.Description = "Shows the MOID relative to Neptune in AU.\r\nDouble-click or right-click to copy the value to the clipboard.";
 		labelNeptuneData.ToolTipValues.EnableToolTips = true;
@@ -566,7 +566,7 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.ContentPanel.Controls.Add(tableLayoutPanel);
 		toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
-		toolStripContainer.ContentPanel.Size = new Size(284, 243);
+		toolStripContainer.ContentPanel.Size = new Size(284, 214);
 		toolStripContainer.Dock = DockStyle.Fill;
 		// 
 		// toolStripContainer.LeftToolStripPanel
@@ -582,7 +582,7 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
 		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
 		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.Size = new Size(284, 290);
+		toolStripContainer.Size = new Size(284, 261);
 		toolStripContainer.TabIndex = 0;
 		toolStripContainer.Text = "toolStripContainer";
 		// 
@@ -674,7 +674,7 @@ partial class MoidsOfOneMinorPlanetForm
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
-		tableLayoutPanel.Size = new Size(284, 243);
+		tableLayoutPanel.Size = new Size(284, 214);
 		tableLayoutPanel.TabIndex = 0;
 		tableLayoutPanel.TabStop = true;
 		tableLayoutPanel.Enter += Control_Enter;
@@ -691,7 +691,8 @@ partial class MoidsOfOneMinorPlanetForm
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveToFile";
-		contextMenuSaveToFile.Size = new Size(202, 180);
+		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveToFile;
+		contextMenuSaveToFile.Size = new Size(202, 158);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save MOID data";
 		contextMenuSaveToFile.Enter += Control_Enter;
@@ -796,6 +797,20 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsTextile.Click += SaveAsTextile_Click;
 		toolStripMenuItemSaveAsTextile.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsTextile.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsTypst
+		// 
+		toolStripMenuItemSaveAsTypst.AccessibleDescription = "Saves the data as Typst file";
+		toolStripMenuItemSaveAsTypst.AccessibleName = "Save as Typst";
+		toolStripMenuItemSaveAsTypst.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsTypst.AutoToolTip = true;
+		toolStripMenuItemSaveAsTypst.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsTypst.Name = "toolStripMenuItemSaveAsTypst";
+		toolStripMenuItemSaveAsTypst.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsTypst.Text = "Save as T&ypst";
+		toolStripMenuItemSaveAsTypst.Click += SaveAsTypst_Click;
+		toolStripMenuItemSaveAsTypst.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTypst.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemWriterDocuments
 		// 
@@ -1245,20 +1260,6 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripMenuItemSaveAsChm.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsChm.MouseLeave += Control_Leave;
 		// 
-		// toolStripDropDownButtonSaveToFile
-		// 
-		toolStripDropDownButtonSaveToFile.AccessibleDescription = "Saves information to file";
-		toolStripDropDownButtonSaveToFile.AccessibleName = "Save to file";
-		toolStripDropDownButtonSaveToFile.AccessibleRole = AccessibleRole.ButtonDropDown;
-		toolStripDropDownButtonSaveToFile.DropDown = contextMenuSaveToFile;
-		toolStripDropDownButtonSaveToFile.Image = FatcowIcons16px.fatcow_diskette_16px;
-		toolStripDropDownButtonSaveToFile.ImageTransparentColor = Color.Magenta;
-		toolStripDropDownButtonSaveToFile.Name = "toolStripDropDownButtonSaveToFile";
-		toolStripDropDownButtonSaveToFile.Size = new Size(93, 22);
-		toolStripDropDownButtonSaveToFile.Text = "&Save to file";
-		toolStripDropDownButtonSaveToFile.MouseEnter += Control_Enter;
-		toolStripDropDownButtonSaveToFile.MouseLeave += Control_Leave;
-		// 
 		// toolStripIcons
 		// 
 		toolStripIcons.AccessibleDescription = "Toolbar for exporting data";
@@ -1282,6 +1283,20 @@ partial class MoidsOfOneMinorPlanetForm
 		toolStripIcons.MouseEnter += Control_Enter;
 		toolStripIcons.MouseLeave += Control_Leave;
 		// 
+		// toolStripDropDownButtonSaveToFile
+		// 
+		toolStripDropDownButtonSaveToFile.AccessibleDescription = "Saves information to file";
+		toolStripDropDownButtonSaveToFile.AccessibleName = "Save to file";
+		toolStripDropDownButtonSaveToFile.AccessibleRole = AccessibleRole.ButtonDropDown;
+		toolStripDropDownButtonSaveToFile.DropDown = contextMenuSaveToFile;
+		toolStripDropDownButtonSaveToFile.Image = FatcowIcons16px.fatcow_diskette_16px;
+		toolStripDropDownButtonSaveToFile.ImageTransparentColor = Color.Magenta;
+		toolStripDropDownButtonSaveToFile.Name = "toolStripDropDownButtonSaveToFile";
+		toolStripDropDownButtonSaveToFile.Size = new Size(93, 22);
+		toolStripDropDownButtonSaveToFile.Text = "&Save to file";
+		toolStripDropDownButtonSaveToFile.MouseEnter += Control_Enter;
+		toolStripDropDownButtonSaveToFile.MouseLeave += Control_Leave;
+		// 
 		// toolStripDropDownButtonCopyToClipboard
 		// 
 		toolStripDropDownButtonCopyToClipboard.AccessibleDescription = "Copies information to clipboard";
@@ -1304,6 +1319,7 @@ partial class MoidsOfOneMinorPlanetForm
 		contextMenuFullCopyToClipboard.Font = new Font("Segoe UI", 9F);
 		contextMenuFullCopyToClipboard.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardMoidRelativeToMercury, menuitemCopyToClipboardMoidRelativeToVenus, menuitemCopyToClipboardMoidRelativeToEarth, menuitemCopyToClipboardMoidRelativeToMars, menuitemCopyToClipboardMoidRelativeToJupiter, menuitemCopyToClipboardMoidRelativeToSaturn, menuitemCopyToClipboardMoidRelativeToUranus, menuitemCopyToClipboardMoidRelativeToNeptune });
 		contextMenuFullCopyToClipboard.Name = "Context menu for copying MOID values to the clipboard";
+		contextMenuFullCopyToClipboard.OwnerItem = toolStripDropDownButtonCopyToClipboard;
 		contextMenuFullCopyToClipboard.Size = new Size(121, 180);
 		contextMenuFullCopyToClipboard.Text = "Copy to clipboard";
 		contextMenuFullCopyToClipboard.Enter += Control_Enter;
@@ -1429,21 +1445,6 @@ partial class MoidsOfOneMinorPlanetForm
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 		// 
-		// toolStripMenuItemSaveAsTypst
-		// 
-		toolStripMenuItemSaveAsTypst.AccessibleDescription = "Saves the data as Typst file";
-		toolStripMenuItemSaveAsTypst.AccessibleName = "Save as Typst";
-		toolStripMenuItemSaveAsTypst.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemSaveAsTypst.AutoToolTip = true;
-		toolStripMenuItemSaveAsTypst.Image = FatcowIcons16px.fatcow_page_white_text_16px;
-		toolStripMenuItemSaveAsTypst.Name = "toolStripMenuItemSaveAsTypst";
-		toolStripMenuItemSaveAsTypst.Size = new Size(201, 22);
-		toolStripMenuItemSaveAsTypst.Text = "Save as T&ypst";
-		toolStripMenuItemSaveAsTypst.Click += SaveAsTypst_Click;
-		toolStripMenuItemSaveAsTypst.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAsTypst.MouseLeave += Control_Leave;
-
-		// 
 		// MoidsOfOneMinorPlanetForm
 		// 
 		AccessibleDescription = "Shows the MOID values of a minor planet relative to the eight solar system planets";
@@ -1451,7 +1452,7 @@ partial class MoidsOfOneMinorPlanetForm
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(284, 290);
+		ClientSize = new Size(284, 261);
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
