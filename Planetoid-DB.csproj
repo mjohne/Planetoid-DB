@@ -824,12 +824,6 @@ Public License instead of this License.  But first, please read
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Remove="PlanetoidDBForm.CalculateDerivatedElements.resx" />
-    <EmbeddedResource Remove="PlanetoidDBForm.DerivatedElements.resx" />
-    <EmbeddedResource Remove="Forms\PlanetoidDBForm.Helpers.resx" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="LICENSE" />
     <None Remove="README.md" />
     <None Remove="Resources\demoset-10000.txt" />
