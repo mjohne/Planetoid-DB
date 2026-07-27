@@ -60,31 +60,34 @@ public readonly record struct PlanetoidRecord(
 		// Validate input
 		if (string.IsNullOrWhiteSpace(value: rawLine) || rawLine.Length < 202)
 		{
-			// Return an empty PlanetoidRecord if the input is invalid
-			return new PlanetoidRecord();
+			// Throw an exception if the raw line is invalid or does not meet the minimum length requirement
+			throw new ArgumentException(message: "The raw line is invalid or does not meet the minimum length of 202 characters.", paramName: nameof(rawLine));
 		}
+		// Use ReadOnlySpan for zero-allocation slicing before calling .ToString()
+		ReadOnlySpan<char> span = rawLine.AsSpan();
 		// Extract fields based on fixed-width positions
 		return new PlanetoidRecord(
-			Index: rawLine[..7].Trim(),
-			MagAbs: rawLine[8..13].Trim(),
-			SlopeParam: rawLine[14..19].Trim(),
-			Epoch: rawLine[20..25].Trim(),
-			MeanAnomaly: rawLine[26..35].Trim(),
-			ArgPeri: rawLine[37..46].Trim(),
-			LongAscNode: rawLine[48..57].Trim(),
-			Incl: rawLine[59..68].Trim(),
-			OrbEcc: rawLine[70..79].Trim(),
-			Motion: rawLine[80..91].Trim(),
-			SemiMajorAxis: rawLine[92..103].Trim(),
-			Ref: rawLine[107..116].Trim(),
-			NumberObservation: rawLine[117..122].Trim(),
-			NumberOpposition: rawLine[123..126].Trim(),
-			ObsSpan: rawLine[127..136].Trim(),
-			RmsResidual: rawLine[137..141].Trim(),
-			ComputerName: rawLine[150..160].Trim(),
-			Flags: rawLine[161..165].Trim(),
-			DesignationName: rawLine[166..194].Trim(),
-			ObservationLastDate: rawLine[194..202].Trim()
+			Index: span[..7].Trim().ToString(),
+			MagAbs: span.Slice(start: 8, length: 5).Trim().ToString(),
+			SlopeParam: span.Slice(start: 14, length: 5).Trim().ToString(),
+			Epoch: span.Slice(start: 20, length: 5).Trim().ToString(),
+			MeanAnomaly: span.Slice(start: 26, length: 9).Trim().ToString(),
+			ArgPeri: span.Slice(start: 37, length: 9).Trim().ToString(),
+			LongAscNode: span.Slice(start: 48, length: 9).Trim().ToString(),
+			Incl: span.Slice(start: 59, length: 9).Trim().ToString(),
+			OrbEcc: span.Slice(start: 70, length: 9).Trim().ToString(),
+			Motion: span.Slice(start: 80, length: 11).Trim().ToString(),
+			SemiMajorAxis: span.Slice(start: 92, length: 11).Trim().ToString(),
+			Ref: span.Slice(start: 107, length: 9).Trim().ToString(),
+			NumberObservation: span.Slice(start: 117, length: 5).Trim().ToString(),
+			NumberOpposition: span.Slice(start: 123, length: 3).Trim().ToString(),
+			ObsSpan: span.Slice(start: 127, length: 9).Trim().ToString(),
+			RmsResidual: span.Slice(start: 137, length: 4).Trim().ToString(),
+			ComputerName: span.Slice(start: 150, length: 10).Trim().ToString(),
+			Flags: span.Slice(start: 161, length: 4).Trim().ToString(),
+			DesignationName: span.Slice(start: 166, length: 28).Trim().ToString(),
+			ObservationLastDate: span.Slice(start: 194, length: 8).Trim().ToString()
 		);
+
 	}
 }
