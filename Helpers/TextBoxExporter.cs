@@ -39,12 +39,12 @@ public static partial class TextBoxExporter
 			writer.WriteLine(value: new string(c: '-', count: title.Length));
 			writer.WriteLine(value: textBox.Text);
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "Text", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "Text", filePath: fileName);
 		}
 	}
 
@@ -72,12 +72,12 @@ public static partial class TextBoxExporter
 			}
 			writer.WriteLine(value: "\\end{document}");
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "LaTeX", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "LaTeX", filePath: fileName);
 		}
 	}
 
@@ -98,11 +98,11 @@ public static partial class TextBoxExporter
 			writer.WriteLine();
 			writer.WriteLine(value: textBox.Text);
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "Markdown", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "Markdown", filePath: fileName);
 		}
 	}
 
@@ -123,12 +123,12 @@ public static partial class TextBoxExporter
 			writer.WriteLine();
 			writer.WriteLine(value: textBox.Text);
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "AsciiDoc", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "AsciiDoc", filePath: fileName);
 		}
 	}
 
@@ -151,12 +151,12 @@ public static partial class TextBoxExporter
 			writer.WriteLine();
 			writer.WriteLine(value: textBox.Text);
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "reStructuredText", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "reStructuredText", filePath: fileName);
 		}
 	}
 
@@ -180,12 +180,12 @@ public static partial class TextBoxExporter
 				writer.WriteLine(value: $"p. {line}");
 			}
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "Textile", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "Textile", filePath: fileName);
 		}
 	}
 
@@ -209,12 +209,12 @@ public static partial class TextBoxExporter
 				writer.WriteLine(value: line);
 			}
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "Typst", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "Typst", filePath: fileName);
 		}
 	}
 
@@ -272,12 +272,12 @@ public static partial class TextBoxExporter
 				writer.WriteLine(value: "</w:document>");
 			}
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "Word", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "Word", filePath: fileName);
 		}
 	}
 
@@ -332,12 +332,12 @@ public static partial class TextBoxExporter
 				writer.WriteLine(value: "</office:document-content>");
 			}
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "ODT", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "ODT", filePath: fileName);
 		}
 	}
 
@@ -411,12 +411,12 @@ public static partial class TextBoxExporter
 				writer.WriteLine(value: "</worksheet>");
 			}
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "Excel", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "Excel", filePath: fileName);
 		}
 	}
 
@@ -470,12 +470,12 @@ public static partial class TextBoxExporter
 				writer.WriteLine(value: "</office:document-content>");
 			}
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "ODS", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "ODS", filePath: fileName);
 		}
 	}
 
@@ -502,12 +502,12 @@ public static partial class TextBoxExporter
 			}
 			writer.WriteLine(value: "}");
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "RTF", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "RTF", filePath: fileName);
 		}
 	}
 
@@ -561,12 +561,12 @@ public static partial class TextBoxExporter
 			writer.WriteEndDocument();
 			writer.Flush();
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "AbiWord", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "AbiWord", filePath: fileName);
 		}
 	}
 
@@ -594,12 +594,12 @@ public static partial class TextBoxExporter
 			}
 			writer.WriteLine(value: "</body></html>");
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "WPS", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "WPS", filePath: fileName);
 		}
 	}
 
@@ -701,10 +701,10 @@ public static partial class TextBoxExporter
 				writer.WriteLine(value: "endobj");
 				// Build the page content stream in a MemoryStream so the /Length value is known before writing.
 				StringBuilder sb = new();
-				sb.AppendLine(value: "BT /F1 10 Tf");
+				_ = sb.AppendLine(value: "BT /F1 10 Tf");
 				if (pageIndex == 0)
 				{
-					sb.AppendLine(value: $"1 0 0 1 50 {pageHeight - 40} Tm ({ExportEscapeHelper.EscapePdf(text: title)}) Tj");
+					_ = sb.AppendLine(value: $"1 0 0 1 50 {pageHeight - 40} Tm ({ExportEscapeHelper.EscapePdf(input: title)}) Tj");
 				}
 				// Start the body text 30 points below the top content margin to leave space after the title line.
 				int currentY = startY - 30;
@@ -712,10 +712,10 @@ public static partial class TextBoxExporter
 				int endLineIndex = Math.Min(val1: startLineIndex + linesPerPage, val2: textBox.Lines.Length);
 				for (int lineIndex = startLineIndex; lineIndex < endLineIndex; lineIndex++)
 				{
-					sb.AppendLine(value: $"1 0 0 1 50 {currentY} Tm ({ExportEscapeHelper.EscapePdf(text: textBox.Lines[lineIndex])}) Tj");
+					_ = sb.AppendLine(value: $"1 0 0 1 50 {currentY} Tm ({ExportEscapeHelper.EscapePdf(input: textBox.Lines[lineIndex])}) Tj");
 					currentY -= lineHeight;
 				}
-				sb.AppendLine(value: "ET");
+				_ = sb.AppendLine(value: "ET");
 				// Encode the content to ASCII bytes so the byte length is exact.
 				using MemoryStream ms = new();
 				using (StreamWriter sw = new(stream: ms, encoding: Encoding.ASCII, bufferSize: 1024, leaveOpen: true) { NewLine = "\n" })
@@ -765,12 +765,12 @@ public static partial class TextBoxExporter
 			writer.WriteLine(value: xrefOffset.ToString());
 			writer.WriteLine(value: "%%EOF");
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "PDF", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "PDF", filePath: fileName);
 		}
 	}
 
@@ -869,12 +869,12 @@ public static partial class TextBoxExporter
 			// End the XML document after writing all content for the FB2 file.
 			xmlWriter.WriteEndDocument();
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "FictionBook2", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "FictionBook2", filePath: fileName);
 		}
 	}
 
@@ -890,7 +890,7 @@ public static partial class TextBoxExporter
 		// Check if the hhc.exe file exists at the expected location. If it does not exist, show an error message to the user indicating that Microsoft HTML Help Workshop is not installed or not found, and return from the method without attempting to compile the CHM file.
 		if (!File.Exists(path: hhcPath))
 		{
-			ExportEscapeHelper.ShowErrorMessage(message: "Microsoft HTML Help Workshop is not installed or not found at the default location. Cannot compile CHM file.");
+			ExportFeedbackHelper.ShowErrorMessage(message: "Microsoft HTML Help Workshop is not installed or not found at the default location. Cannot compile CHM file.");
 			return;
 		}
 		// Create a temporary directory to store the HTML, HHC, and HHP files needed for compiling the CHM. The directory is created in the system's temporary folder with a unique name generated using a GUID. This ensures that the temporary files do not conflict with any existing files and can be safely cleaned up after the compilation process.
@@ -961,17 +961,17 @@ public static partial class TextBoxExporter
 			if (File.Exists(path: chmTempPath))
 			{
 				File.Copy(sourceFileName: chmTempPath, destFileName: fileName, overwrite: true);
-				ExportEscapeHelper.ShowSuccess();
+				ExportFeedbackHelper.ShowSuccess();
 			}
 			else
 			{
-				ExportEscapeHelper.ShowErrorMessage(message: "Failed to compile the CHM file.");
+				ExportFeedbackHelper.ShowErrorMessage(message: "Failed to compile the CHM file.");
 			}
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "CHM", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "CHM", filePath: fileName);
 		}
 		// The finally block ensures that the temporary directory is deleted after the compilation process, regardless of whether it succeeds or fails. This is important for cleaning up any temporary files created during the process and preventing clutter in the system's temporary folder.
 		finally
@@ -1052,18 +1052,18 @@ public static partial class TextBoxExporter
 			// Define a local function to start a new page in the XPS document. This function initializes the currentPageBuilder with the necessary XML structure for a fixed page, including the title and page number. The title is displayed at the top of the page, and the current Y position is updated to account for the space taken by the title. This function is called whenever a new page needs to be started, such as when the content exceeds the bottom margin.
 			void StartNewPage()
 			{
-				currentPageBuilder.Clear();
-				currentPageBuilder.AppendLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-				currentPageBuilder.AppendLine(value: "<FixedPage Width=\"816\" Height=\"1056\" xmlns=\"http://schemas.microsoft.com/xps/2005/06\" xml:lang=\"en-US\">");
+				_ = currentPageBuilder.Clear();
+				_ = currentPageBuilder.AppendLine(value: "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+				_ = currentPageBuilder.AppendLine(value: "<FixedPage Width=\"816\" Height=\"1056\" xmlns=\"http://schemas.microsoft.com/xps/2005/06\" xml:lang=\"en-US\">");
 				string safeTitle = System.Security.SecurityElement.Escape(str: title) ?? string.Empty;
 				int titleY = Math.Max(val1: 0, val2: currentY - 24);
-				currentPageBuilder.AppendLine(value: $"  <Glyphs Fill=\"#FF000000\" FontUri=\"/Resources/Dummy.ttf\" DeviceFontName=\"Arial\" FontRenderingEmSize=\"14\" OriginX=\"96\" OriginY=\"{titleY}\" UnicodeString=\"{safeTitle} - Page {pageNumber}\"/>");
+				_ = currentPageBuilder.AppendLine(value: $"  <Glyphs Fill=\"#FF000000\" FontUri=\"/Resources/Dummy.ttf\" DeviceFontName=\"Arial\" FontRenderingEmSize=\"14\" OriginX=\"96\" OriginY=\"{titleY}\" UnicodeString=\"{safeTitle} - Page {pageNumber}\"/>");
 				currentY += lineHeight * 2;
 			}
 			// Define a local function to finish the current page and add it to the XPS document. This function appends the closing tag for the fixed page, creates a new entry in the ZIP archive for the page, and writes the XML content for the page. It also creates a relationships entry for the page that references a dummy font resource. This function is called whenever a page is completed, such as when the content exceeds the bottom margin or when all lines have been processed.
 			void FinishCurrentPage()
 			{
-				currentPageBuilder.AppendLine(value: "</FixedPage>");
+				_ = currentPageBuilder.AppendLine(value: "</FixedPage>");
 				string pageName = $"{pageNumber}.fpage";
 				string pagePath = $"Documents/1/Pages/{pageName}";
 				pageEntries.Add(item: pageName);
@@ -1092,7 +1092,7 @@ public static partial class TextBoxExporter
 				string safeCell = System.Security.SecurityElement.Escape(str: line) ?? string.Empty;
 				if (!string.IsNullOrEmpty(value: safeCell))
 				{
-					currentPageBuilder.AppendLine(value: $"  <Glyphs Fill=\"#FF000000\" FontUri=\"/Resources/Dummy.ttf\" DeviceFontName=\"Arial\" FontRenderingEmSize=\"12\" OriginX=\"96\" OriginY=\"{currentY}\" UnicodeString=\"{safeCell}\"/>");
+					_ = currentPageBuilder.AppendLine(value: $"  <Glyphs Fill=\"#FF000000\" FontUri=\"/Resources/Dummy.ttf\" DeviceFontName=\"Arial\" FontRenderingEmSize=\"12\" OriginX=\"96\" OriginY=\"{currentY}\" UnicodeString=\"{safeCell}\"/>");
 				}
 				currentY += lineHeight;
 			}
@@ -1132,12 +1132,12 @@ public static partial class TextBoxExporter
 				writer.Write(value: "DUMMY");
 			}
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "XPS", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "XPS", filePath: fileName);
 		}
 	}
 
@@ -1154,18 +1154,18 @@ public static partial class TextBoxExporter
 			// The 'using' statement ensures that the StreamWriter is properly disposed after use, which will flush and close the underlying file stream.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
 			// Write the title as the first row, followed by each line from the TextBox as a separate row in the CSV file. Fields are escaped to handle special characters.
-			writer.WriteLine(value: ExportEscapeHelper.EscapeCsvField(field: title));
+			writer.WriteLine(value: ExportEscapeHelper.EscapeCsvField(input: title));
 			foreach (string line in textBox.Lines)
 			{
-				writer.WriteLine(value: ExportEscapeHelper.EscapeCsvField(field: line));
+				writer.WriteLine(value: ExportEscapeHelper.EscapeCsvField(input: line));
 			}
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "CSV", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "CSV", filePath: fileName);
 		}
 	}
 
@@ -1188,12 +1188,12 @@ public static partial class TextBoxExporter
 				writer.WriteLine(value: line);
 			}
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "TSV", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "TSV", filePath: fileName);
 		}
 	}
 
@@ -1216,12 +1216,12 @@ public static partial class TextBoxExporter
 				writer.WriteLine(value: line);
 			}
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "PSV", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "PSV", filePath: fileName);
 		}
 	}
 
@@ -1238,18 +1238,18 @@ public static partial class TextBoxExporter
 			// The 'using' statement ensures that the StreamWriter is properly disposed after use, which will flush and close the underlying file stream.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
 			// Write the title as the first row, followed by each line from the TextBox as a separate row in the CSV file. Fields are escaped to handle special characters.
-			writer.WriteLine(value: ExportEscapeHelper.EscapeCsvField(field: title));
+			writer.WriteLine(value: ExportEscapeHelper.EscapeCsvField(input: title));
 			foreach (string line in textBox.Lines)
 			{
-				writer.WriteLine(value: ExportEscapeHelper.EscapeCsvField(field: line));
+				writer.WriteLine(value: ExportEscapeHelper.EscapeCsvField(input: line));
 			}
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "ET", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "ET", filePath: fileName);
 		}
 	}
 
@@ -1278,12 +1278,12 @@ public static partial class TextBoxExporter
 			}
 			writer.WriteLine(value: "</body></html>");
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "HTML", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "HTML", filePath: fileName);
 		}
 	}
 
@@ -1311,12 +1311,12 @@ public static partial class TextBoxExporter
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteEndDocument();
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "XML", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "XML", filePath: fileName);
 		}
 	}
 
@@ -1349,12 +1349,12 @@ public static partial class TextBoxExporter
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteEndDocument();
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "DocBook", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "DocBook", filePath: fileName);
 		}
 	}
 
@@ -1373,12 +1373,12 @@ public static partial class TextBoxExporter
 			string json = JsonSerializer.Serialize(value: doc, options: jsonSerializerOptions);
 			File.WriteAllText(path: fileName, contents: json);
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "JSON", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "JSON", filePath: fileName);
 		}
 	}
 
@@ -1413,12 +1413,12 @@ public static partial class TextBoxExporter
 				writer.WriteLine(value: $"  - {EscapeYamlSingleQuotedScalar(value: line)}");
 			}
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "YAML", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "YAML", filePath: fileName);
 		}
 	}
 
@@ -1434,7 +1434,7 @@ public static partial class TextBoxExporter
 		{
 			// The 'using' statement ensures that the StreamWriter is properly disposed after use, which will flush and close the underlying file stream.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
-			writer.WriteLine(value: $"title = \"{ExportEscapeHelper.EscapeToml(value: title)}\"");
+			writer.WriteLine(value: $"title = \"{ExportEscapeHelper.EscapeToml(input: title)}\"");
 			writer.WriteLine(value: $"created_at = {DateTime.UtcNow:yyyy-MM-ddTHH:mm:ssZ}");
 			writer.WriteLine();
 			writer.Write(value: "lines = [");
@@ -1445,16 +1445,16 @@ public static partial class TextBoxExporter
 				{
 					writer.Write(value: ", ");
 				}
-				writer.Write(value: $"\"{ExportEscapeHelper.EscapeToml(value: textBox.Lines[i])}\"");
+				writer.Write(value: $"\"{ExportEscapeHelper.EscapeToml(input: textBox.Lines[i])}\"");
 			}
 			writer.WriteLine(value: "]");
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "TOML", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "TOML", filePath: fileName);
 		}
 	}
 
@@ -1492,12 +1492,12 @@ public static partial class TextBoxExporter
 			}
 			writer.WriteLine(value: "COMMIT;");
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "SQL", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "SQL", filePath: fileName);
 		}
 	}
 
@@ -1545,12 +1545,12 @@ public static partial class TextBoxExporter
 			transaction.Commit();
 			connection.Close();
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch any exceptions during SQLite operations, log the error, and show an error message to the user.
 		catch (Exception ex)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "SQLite", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "SQLite", filePath: fileName);
 		}
 	}
 
@@ -1610,12 +1610,12 @@ public static partial class TextBoxExporter
 			writer.WriteLine(value: "showpage");
 			writer.WriteLine(value: "%%EOF");
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "PostScript", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "PostScript", filePath: fileName);
 		}
 	}
 
@@ -1697,12 +1697,12 @@ public static partial class TextBoxExporter
 				writer.WriteLine(value: "</body></html>");
 			}
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "EPUB", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "EPUB", filePath: fileName);
 		}
 	}
 
@@ -1718,13 +1718,13 @@ public static partial class TextBoxExporter
 		{
 			// Build the HTML content for the MOBI file. The HTML includes a title, a heading with the title, and paragraphs for each line from the TextBox. Special characters are HTML-encoded to ensure valid output.
 			StringBuilder html = new();
-			html.Append(value: $"<html><head><meta charset=\"UTF-8\"><title>{System.Net.WebUtility.HtmlEncode(value: title)}</title></head><body>");
-			html.Append(value: $"<h1>{System.Net.WebUtility.HtmlEncode(value: title)}</h1>");
+			_ = html.Append(value: $"<html><head><meta charset=\"UTF-8\"><title>{System.Net.WebUtility.HtmlEncode(value: title)}</title></head><body>");
+			_ = html.Append(value: $"<h1>{System.Net.WebUtility.HtmlEncode(value: title)}</h1>");
 			foreach (string line in textBox.Lines)
 			{
-				html.Append(value: $"<p>{System.Net.WebUtility.HtmlEncode(value: line)}</p>");
+				_ = html.Append(value: $"<p>{System.Net.WebUtility.HtmlEncode(value: line)}</p>");
 			}
-			html.Append(value: "</body></html>");
+			_ = html.Append(value: "</body></html>");
 			byte[] bodyData = Encoding.UTF8.GetBytes(s: html.ToString());
 			// Split the HTML content into chunks of 4096 bytes to create multiple text records for the MOBI file.
 			List<byte[]> textRecords = [];
@@ -1803,12 +1803,12 @@ public static partial class TextBoxExporter
 			}
 			w.Write(buffer: eofRecord);
 			// If the save operation completes successfully, show a success message to the user.
-			ExportEscapeHelper.ShowSuccess();
+			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			ExportEscapeHelper.ShowError(ex: ex, format: "MOBI", filePath: fileName);
+			ExportFeedbackHelper.ShowError(ex: ex, format: "MOBI", filePath: fileName);
 		}
 	}
 
