@@ -153,15 +153,15 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 			designation = line[..7].Trim();
 		}
 		// Calculate the Tisserand parameters for all eight planets
-		List<TisserandParameterCalculator.TisserandResult> tisserandResults = TisserandParameterCalculator.CalculateTisserandParameters(
+		TisserandParameterCalculator.TisserandResult[] tisserandResults = TisserandParameterCalculator.CalculateTisserandParameters(
 			semiMajorAxis: semiMajorAxis,
 			eccentricity: eccentricity,
 			inclinationDeg: inclinationDeg);
 		// Build the Tisserand parameter array in planet order (Mercury … Neptune)
 		double[] tisserandValues = new double[PlanetCount];
-		for (int i = 0; i < Math.Min(val1: tisserandResults.Count, val2: PlanetCount); i++)
+		for (int i = 0; i < Math.Min(val1: tisserandResults.Length, val2: PlanetCount); i++)
 		{
-			tisserandValues[i] = tisserandResults[index: i].TisserandValue;
+			tisserandValues[i] = tisserandResults[i].TisserandValue;
 		}
 		results.Add(item: new TisserandRowResult(PlanetoidName: designation, TisserandValues: tisserandValues));
 	}
@@ -196,7 +196,7 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 		{
 			return;
 		}
-		int index = listView.SelectedIndices[index: 0];
+		int index = listView.SelectedIndices[0];
 		if (index < 0 || index >= _results.Count)
 		{
 			return;
@@ -249,7 +249,7 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 			e.Item = new ListViewItem();
 			return;
 		}
-		TisserandRowResult result = _results[index: e.ItemIndex];
+		TisserandRowResult result = _results[e.ItemIndex];
 		ListViewItem item = new(text: result.PlanetoidName);
 		string[] subItems = new string[PlanetCount];
 		for (int i = 0; i < PlanetCount; i++)
@@ -307,7 +307,7 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 				for (int i = 0; i < total; i++)
 				{
 					token.ThrowIfCancellationRequested();
-					ProcessPlanetoidLine(line: _planetoids[index: i], results: localResults);
+					ProcessPlanetoidLine(line: _planetoids[i], results: localResults);
 					if (i % reportInterval == 0 || i == total - 1)
 					{
 						progress.Report(value: (i + 1) * 100 / total);
@@ -413,12 +413,12 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 		// Update the column headers to reflect the current sort column and direction
 		for (int i = 0; i < listView.Columns.Count; i++)
 		{
-			string headerText = listView.Columns[index: i].Text;
+			string headerText = listView.Columns[i].Text;
 			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.Ordinal) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.Ordinal))
 			{
 				headerText = headerText[SortIndicatorPrefixLength..];
 			}
-			listView.Columns[index: i].Text = i == sortColumn
+			listView.Columns[i].Text = i == sortColumn
 				? $"{(sortOrder == SortOrder.Ascending ? "▲" : "▼")} {headerText}"
 				: headerText;
 		}

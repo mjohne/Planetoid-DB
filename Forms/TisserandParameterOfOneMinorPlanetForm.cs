@@ -99,21 +99,21 @@ public partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 		try
 		{
 			// Calculate Tisserand parameters for all 8 planets
-			List<TisserandParameterCalculator.TisserandResult> results = TisserandParameterCalculator.CalculateTisserandParameters(
+			TisserandParameterCalculator.TisserandResult[] tisserandResults = TisserandParameterCalculator.CalculateTisserandParameters(
 				semiMajorAxis: semiMajorAxis,
 				eccentricity: eccentricity,
 				inclinationDeg: inclinationDeg);
 			// Populate the data labels (one per planet row, index 0 = Mercury … 7 = Neptune)
-			if (results.Count >= 8)
+			if (tisserandResults.Length >= 8)
 			{
-				labelMercuryData.Text = results[index: 0].TisserandValue.ToString(format: "F6");
-				labelVenusData.Text = results[index: 1].TisserandValue.ToString(format: "F6");
-				labelEarthData.Text = results[index: 2].TisserandValue.ToString(format: "F6");
-				labelMarsData.Text = results[index: 3].TisserandValue.ToString(format: "F6");
-				labelJupiterData.Text = results[index: 4].TisserandValue.ToString(format: "F6");
-				labelSaturnData.Text = results[index: 5].TisserandValue.ToString(format: "F6");
-				labelUranusData.Text = results[index: 6].TisserandValue.ToString(format: "F6");
-				labelNeptuneData.Text = results[index: 7].TisserandValue.ToString(format: "F6");
+				labelMercuryData.Text = tisserandResults[0].TisserandValue.ToString(format: "F6");
+				labelVenusData.Text = tisserandResults[1].TisserandValue.ToString(format: "F6");
+				labelEarthData.Text = tisserandResults[2].TisserandValue.ToString(format: "F6");
+				labelMarsData.Text = tisserandResults[3].TisserandValue.ToString(format: "F6");
+				labelJupiterData.Text = tisserandResults[4].TisserandValue.ToString(format: "F6");
+				labelSaturnData.Text = tisserandResults[5].TisserandValue.ToString(format: "F6");
+				labelUranusData.Text = tisserandResults[6].TisserandValue.ToString(format: "F6");
+				labelNeptuneData.Text = tisserandResults[7].TisserandValue.ToString(format: "F6");
 			}
 		}
 		// Log any exceptions that occur during the calculation and show an error message to the user
