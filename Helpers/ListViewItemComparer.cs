@@ -40,27 +40,16 @@ public class ListViewItemComparer(int column, SortOrder order) : System.Collecti
 		// Attempt to parse both texts as numbers using the current culture for accurate numeric comparison
 		bool isNumX = double.TryParse(s: textX, style: NumberStyles.Any, provider: CultureInfo.CurrentCulture, result: out double numX);
 		bool isNumY = double.TryParse(s: textY, style: NumberStyles.Any, provider: CultureInfo.CurrentCulture, result: out double numY);
-		// Initialize the result variable to hold the comparison outcome
-		int result;
-		// Guaranteed transitivity: numbers and text are categorized into distinct strict domains
-		if (isNumX && isNumY)
+		// Compare numeric/text category first to keep numeric values grouped before text values (regardless of sort direction).
+		int categoryResult = (isNumX ? 0 : 1).CompareTo(isNumY ? 0 : 1);
+		if (categoryResult != 0)
 		{
-			result = numX.CompareTo(value: numY);
+			return categoryResult;
 		}
-		// If only the first value is numeric, it should come before the second value
-		else if (isNumX)
-		{
-			result = -1;
-		}
-		// If only the second value is numeric, it should come before the first value
-		else
-		{
-			result = isNumY
-				? 1
-				// If both values are non-numeric text, perform a case-insensitive comparison
-				: string.Compare(strA: textX, strB: textY, comparisonType: StringComparison.OrdinalIgnoreCase);
-		}
-		// Adjust the result based on the specified sort order
-		return order == SortOrder.Descending ? -result : result;
+		// Both values are in the same category; compare within that category and apply the requested sort direction.
+		int valueResult = isNumX
+			? numX.CompareTo(value: numY)
+			: string.Compare(strA: textX, strB: textY, comparisonType: StringComparison.OrdinalIgnoreCase);
+		return order == SortOrder.Descending ? -valueResult : valueResult;
 	}
 }
