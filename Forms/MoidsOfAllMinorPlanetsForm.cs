@@ -48,7 +48,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <param name="PlanetoidName">The designation of the minor planet.</param>
 	/// <param name="Moids">Array of eight MOID values in AU, one per planet in order Mercury–Neptune.</param>
 	/// <remarks>The <paramref name="Moids"/> array always has exactly eight elements corresponding to the eight solar system planets: Mercury (0), Venus (1), Earth (2), Mars (3), Jupiter (4), Saturn (5), Uranus (6), Neptune (7).</remarks>
-	private record MoidRowResult(string PlanetoidName, double[] Moids);
+	private readonly record struct MoidRowResult(string PlanetoidName, double[] Moids);
 
 	/// <summary>Number of planets whose MOIDs are computed (Mercury through Neptune).</summary>
 	/// <remarks>This constant matches the number of planets in <see cref="MoidCalculator"/>.</remarks>
@@ -58,10 +58,6 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Used for sorting comparisons against the specific column type.</remarks>
 	private const int ColumnIndexPlanetoid = 0;
 
-	/// <summary>Prefix length added to column headers to display sort indicators (e.g., "▲ " or "▼ ").</summary>
-	/// <remarks>This is used to trim the sort indicator prefix when updating column headers.</remarks>
-	private const int SortIndicatorPrefixLength = 2;
-
 	/// <summary>The read-only list of raw MPCORB database records to process.</summary>
 	/// <remarks>Each element is one line from the MPCORB file. Passed in by the caller via the constructor.</remarks>
 	private readonly IReadOnlyList<string> _planetoids;
@@ -69,6 +65,10 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <summary>The complete list of MOID results after the last completed calculation.</summary>
 	/// <remarks>This list is only updated on the UI thread after the background calculation finishes.</remarks>
 	private List<MoidRowResult> _results = [];
+
+	/// <summary>Array of original column headers for the ListView.</summary>
+	/// <remarks>Used to restore column headers when toggling sort arrows.</remarks>
+	private readonly string[] _originalColumnHeaders;
 
 	/// <summary>Cancellation token source for the running background calculation task.</summary>
 	/// <remarks>Set to <c>null</c> when no calculation is running.</remarks>
@@ -89,9 +89,16 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Each element in <paramref name="planetoids"/> must be a raw MPCORB-format string.</remarks>
 	public MoidsOfAllMinorPlanetsForm(IReadOnlyList<string> planetoids)
 	{
+		// Initialize the form components and controls
 		InitializeComponent();
-		// Cache the planetoid records for use during the calculation; this allows the calculation method to access the raw data without needing to pass it around or access it from a shared resource
+		// Store the planetoid data for processing
 		_planetoids = planetoids;
+		// Cache original header titles to safely toggle sort arrows
+		_originalColumnHeaders = new string[listView.Columns.Count];
+		for (int i = 0; i < listView.Columns.Count; i++)
+		{
+			_originalColumnHeaders[i] = listView.Columns[index: i].Text;
+		}
 	}
 
 	#endregion
@@ -113,11 +120,14 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		{
 			return false;
 		}
+		// Get the index of the selected item
 		int index = listView.SelectedIndices[index: 0];
+		// Validate the index against the results list
 		if (index < 0 || index >= _results.Count)
 		{
 			return false;
 		}
+		// Retrieve the corresponding MoidRowResult for the selected index
 		MoidRowResult result = _results[index];
 		// If the Owner of this form is a PlanetoidDbForm, call its JumpToRecord method
 		if (Owner is PlanetoidDbForm planetoidDbForm)
@@ -125,13 +135,13 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 			planetoidDbForm.JumpToRecord(index: result.PlanetoidName, designation: result.PlanetoidName);
 			return true;
 		}
+		// If the owner is not a PlanetoidDbForm, no action is taken
 		return false;
 	}
 
 	/// <summary>Updates the enabled state of the "Go to object" button.</summary>
 	/// <remarks>The button is enabled only when a result row is selected.</remarks>
-	private void UpdateGoToObjectButtonState() =>
-		toolStripButtonGoToObject.Enabled = listView.SelectedIndices.Count > 0;
+	private void UpdateGoToObjectButtonState() => toolStripButtonGoToObject.Enabled = listView.SelectedIndices.Count > 0;
 
 	/// <summary>Updates the progress bar value and text label.</summary>
 	/// <param name="percent">Progress value from 0 to 100.</param>
@@ -145,83 +155,90 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)clampedPercent, progressMax: 100);
 	}
 
-	/// <summary>Processes one raw MPCORB database record and appends the MOID result row to <paramref name="results"/>.</summary>
-	/// <param name="line">The raw MPCORB record string.</param>
-	/// <param name="results">The list to which matching <see cref="MoidRowResult"/> items are appended.</param>
-	/// <remarks>Lines that are too short or have invalid orbital elements are silently skipped.</remarks>
-	private static void ProcessPlanetoidLine(string line, List<MoidRowResult> results)
+	/// <summary>Zero-allocation parsing of a raw MPCORB line using ReadOnlySpan.</summary>
+	/// <param name="line">The raw MPCORB line to parse.</param>
+	/// <param name="result">The parsed <see cref="MoidRowResult"/> if successful; otherwise, <c>default</c>.</param>
+	/// <returns><c>true</c> if parsing was successful; otherwise, <c>false</c>.</returns>
+	/// <remarks>This method extracts the necessary orbital elements from the fixed-width MPCORB line format and computes the MOIDs for all eight planets. It avoids memory allocations by using <see cref="ReadOnlySpan{T}"/> for string slicing and parsing.</remarks>
+	private static bool TryProcessPlanetoidLine(ReadOnlySpan<char> line, out MoidRowResult result)
 	{
-		// Validate the line length to ensure it contains the required orbital element fields
+		// Initialize the out parameter to default in case of early return
+		result = default;
+		// Ensure the line is long enough to contain all required fields
 		if (line.Length < 103)
 		{
-			return;
+			return false;
 		}
-		// Extract and parse the semi-major axis (positions 92-102)
-		string semiMajorAxisText = line.Substring(startIndex: 92, length: 11).Trim();
-		if (!double.TryParse(s: semiMajorAxisText, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double semiMajorAxis) || semiMajorAxis <= 0)
+		// Extract and parse semi-major axis (positions 92-102)
+		if (!double.TryParse(line.Slice(start: 92, length: 11).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double semiMajorAxis) || semiMajorAxis <= 0)
 		{
-			return;
+			return false;
 		}
-		// Extract and parse the eccentricity (positions 70-78)
-		string eccentricityText = line.Substring(startIndex: 70, length: 9).Trim();
-		if (!double.TryParse(s: eccentricityText, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double eccentricity))
+		// Extract and parse eccentricity (positions 70-78)
+		if (!double.TryParse(line.Slice(start: 70, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double eccentricity))
 		{
-			return;
+			return false;
 		}
-		// Extract and parse the inclination to the ecliptic (positions 59-67)
-		string inclinationText = line.Substring(startIndex: 59, length: 9).Trim();
-		if (!double.TryParse(s: inclinationText, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double inclinationDeg))
+		// Extract and parse inclination (positions 59-67)
+		if (!double.TryParse(line.Slice(start: 59, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double inclinationDeg))
 		{
-			return;
+			return false;
 		}
-		// Extract and parse the longitude of the ascending node (positions 48-56)
-		string longitudeText = line.Substring(startIndex: 48, length: 9).Trim();
-		if (!double.TryParse(s: longitudeText, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double longitudeAscendingNodeDeg))
+		// Extract and parse longitude of ascending node (positions 48-56)
+		if (!double.TryParse(line.Slice(start: 48, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double longitudeAscendingNodeDeg))
 		{
-			return;
+			return false;
 		}
-		// Extract and parse the argument of perihelion (positions 37-45)
-		string argumentText = line.Substring(startIndex: 37, length: 9).Trim();
-		if (!double.TryParse(s: argumentText, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double argumentPerihelionDeg))
+		// Extract and parse argument of perihelion (positions 37-45)
+		if (!double.TryParse(line.Slice(start: 37, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double argumentPerihelionDeg))
 		{
-			return;
+			return false;
 		}
-		// Extract the designation (readable designation or packed designation)
-		string designation = line.Length >= 194
-			? line.Substring(startIndex: 166, length: 28).Trim()
-			: line[..7].Trim();
-		if (string.IsNullOrEmpty(value: designation))
+		// Extract designation span
+		ReadOnlySpan<char> designationSpan = line.Length >= 194 ? line.Slice(start: 166, length: 28).Trim() : line[..7].Trim();
+		// Fallback to first 7 characters if the line is too short for the full designation
+		if (designationSpan.IsEmpty)
 		{
-			designation = line[..7].Trim();
+			designationSpan = line[..7].Trim();
 		}
-		// Calculate the MOIDs for all eight planets (Mercury ... Neptune) in fixed order
+		// Compute MOIDs for all eight planets using the extracted orbital elements
 		double[] moids = MoidCalculator.CalculateMoidsInPlanetOrder(
 			semiMajorAxis: semiMajorAxis,
 			eccentricity: eccentricity,
 			inclinationDeg: inclinationDeg,
 			longitudeAscendingNodeDeg: longitudeAscendingNodeDeg,
 			argumentPerihelionDeg: argumentPerihelionDeg);
-		results.Add(item: new MoidRowResult(PlanetoidName: designation, Moids: moids));
+		// Create the result record with the planetoid designation and computed MOIDs
+		result = new MoidRowResult(designationSpan.ToString(), moids);
+		// Indicate successful parsing and computation
+		return true;
 	}
 
 	/// <summary>Sorts <see cref="_results"/> by the currently selected column and sort order.</summary>
 	/// <remarks>Column 0 (Planetoid) is sorted as a string; all other columns (MOID values) are sorted numerically.</remarks>
 	private void SortResults()
 	{
+		// If no sort column is selected, do not perform any sorting
 		int col = sortColumn;
+		// Determine if the sort order is ascending or descending
 		bool ascending = sortOrder == SortOrder.Ascending;
+		// Sort based on the selected column
 		if (col == ColumnIndexPlanetoid)
 		{
-			_results = ascending
-				? [.. _results.OrderBy(keySelector: static r => r.PlanetoidName, comparer: StringComparer.OrdinalIgnoreCase)]
-				: [.. _results.OrderByDescending(keySelector: static r => r.PlanetoidName, comparer: StringComparer.OrdinalIgnoreCase)];
+			// Sort by Planetoid name (string comparison, case-insensitive)
+			_results.Sort(comparison: (x, y) => ascending
+				? string.Compare(strA: x.PlanetoidName, strB: y.PlanetoidName, comparisonType: StringComparison.OrdinalIgnoreCase)
+				: string.Compare(strA: y.PlanetoidName, strB: x.PlanetoidName, comparisonType: StringComparison.OrdinalIgnoreCase));
 		}
+		// Sort by MOID values for the selected planet column (numeric comparison)
 		else if (col is >= 1 and <= PlanetCount)
 		{
+			// Adjust for zero-based index in the Moids array
 			int planetIndex = col - 1;
-			_results = ascending
-				? [.. _results.OrderBy(keySelector: r => r.Moids[planetIndex])]
-				: [.. _results.OrderByDescending(keySelector: r => r.Moids[planetIndex])];
+			// Sort by MOID value for the selected planet
+			_results.Sort(comparison: (x, y) => ascending
+				? x.Moids[planetIndex].CompareTo(value: y.Moids[planetIndex])
+				: y.Moids[planetIndex].CompareTo(value: x.Moids[planetIndex]));
 		}
 	}
 
@@ -233,23 +250,13 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 	/// <remarks>Clears the status bar when the form is loaded.</remarks>
-	private void MoidsOfAllMinorPlanetsForm_Load(object sender, EventArgs e) =>
-		ClearStatusBar(label: labelInformation);
+	private void MoidsOfAllMinorPlanetsForm_Load(object sender, EventArgs e) => ClearStatusBar(label: labelInformation);
 
 	/// <summary>Handles the FormClosing event. Cancels any running calculation and disposes the cancellation token source.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="FormClosingEventArgs"/> instance containing the event data.</param>
 	/// <remarks>Cancels any running calculation and disposes the cancellation token source when the form is closing.</remarks>
-	private void MoidsOfAllMinorPlanetsForm_FormClosing(object sender, FormClosingEventArgs e)
-	{
-		// If a calculation is currently running, signal cancellation and dispose of the token source
-		if (_cancellationTokenSource != null)
-		{
-			_cancellationTokenSource.Cancel();
-			_cancellationTokenSource.Dispose();
-			_cancellationTokenSource = null;
-		}
-	}
+	private void MoidsOfAllMinorPlanetsForm_FormClosing(object sender, FormClosingEventArgs e) => _cancellationTokenSource?.Cancel();
 
 	#endregion
 
@@ -261,22 +268,23 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Called by the ListView for each visible row. Must be fast and must not modify <see cref="_results"/>.</remarks>
 	private void ListView_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
 	{
-		// Validate the requested index and return an empty item if it's out of range
+		// Validate the requested index against the results list
 		if (e.ItemIndex < 0 || e.ItemIndex >= _results.Count)
 		{
+			// If the index is out of bounds, provide an empty ListViewItem to avoid exceptions
 			e.Item = new ListViewItem();
 			return;
 		}
-		// Retrieve the MOID result for the requested index and create a ListViewItem with the planetoid name and MOID values as subitems
-		MoidRowResult result = _results[index: e.ItemIndex];
+		// Retrieve the corresponding MoidRowResult for the requested index
+		MoidRowResult result = _results[e.ItemIndex];
+		// Create a new ListViewItem with the planetoid name as the first column
 		ListViewItem item = new(text: result.PlanetoidName);
-		// Format the MOID values to six decimal places and add them as subitems
-		string[] subItems = new string[PlanetCount];
+		// Add the MOID values for each planet as subitems
 		for (int i = 0; i < PlanetCount; i++)
 		{
-			subItems[i] = result.Moids[i].ToString(format: "F6");
+			item.SubItems.Add(text: result.Moids[i].ToString(provider: CultureInfo.InvariantCulture));
 		}
-		item.SubItems.AddRange(items: subItems);
+		// Assign the constructed ListViewItem to the event args
 		e.Item = item;
 	}
 
@@ -290,84 +298,121 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>The calculation runs on a background thread. Progress is reported via the progress bar. The user can cancel at any time using the Cancel button.</remarks>
 	private async void ButtonStart_Click(object sender, EventArgs e)
 	{
+		// Check if there are any planetoids to process
 		if (_planetoids.Count == 0)
 		{
+			// Show an informational message box if no planetoid data is available
 			_ = KryptonMessageBox.Show(owner: this, text: "No planetoid data available.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
-		// Disable the Start button and save menu during the calculation
+		// Disable the Start button and enable the Cancel button to prevent multiple concurrent calculations
 		toolStripDropDownButtonSaveToFile.Enabled = false;
 		toolStripButtonStart.Enabled = false;
 		toolStripButtonCancel.Enabled = true;
 		toolStripButtonGoToObject.Enabled = false;
 		listView.Enabled = false;
-		_results = [];
+		// Clear previous results and reset the ListView
+		_results = new List<MoidRowResult>(_planetoids.Count);
 		listView.VirtualListSize = 0;
+		// Reset the progress bar and status label
 		UpdateProgress(percent: 0);
 		ClearStatusBar(label: labelInformation);
-		// Create a new cancellation token source for the calculation task
+		// Create a new cancellation token source for this calculation
 		_cancellationTokenSource = new CancellationTokenSource();
 		CancellationToken token = _cancellationTokenSource.Token;
-		// Create a local list to store results from the background calculation
-		List<MoidRowResult> localResults = [];
-		// Create a progress reporter that updates the progress bar on the UI thread
+		// Create a progress reporter that updates the progress bar and status label
 		IProgress<int> progress = new Progress<int>(handler: UpdateProgress);
+		// Start the MOID calculation in a background task
 		try
 		{
-			// Calculate the total number of planetoids and determine the interval at which to report progress
+			// Calculate the total number of planetoids and determine the reporting interval for progress updates
 			int total = _planetoids.Count;
 			int reportInterval = Math.Max(val1: 1, val2: total / 100);
-			// Run the calculation on a background thread
-			await Task.Run(action: () =>
+			int processedCount = 0;
+			// Run computation parallelized across CPU cores
+			List<MoidRowResult> localResults = await Task.Run(() =>
 			{
-				for (int i = 0; i < total; i++)
-				{
-					token.ThrowIfCancellationRequested();
-					ProcessPlanetoidLine(line: _planetoids[index: i], results: localResults);
-					if (i % reportInterval == 0 || i == total - 1)
+				// Use a thread-safe list to collect results from parallel tasks
+				List<MoidRowResult> threadSafeResults = new(capacity: total);
+				// Use Parallel.For to process each planetoid line in parallel
+				_ = Parallel.For(
+					// Define the range of indices to process
+					fromInclusive: 0,
+					toExclusive: total,
+					// Define parallel options with cancellation support
+					parallelOptions: new ParallelOptions { CancellationToken = token },
+					// Initialize a local list for each thread to avoid contention
+					localInit: () => new List<MoidRowResult>(),
+					// Define the body of the parallel loop
+					body: (i, loopState, localList) =>
 					{
-						progress.Report(value: (i + 1) * 100 / total);
-					}
-				}
-				logger.Info(message: $"MOID calculation completed. Total results: {localResults.Count}");
-			}, cancellationToken: token);
+						// Process the planetoid line and compute MOIDs
+						if (TryProcessPlanetoidLine(line: _planetoids[index: i].AsSpan(), result: out MoidRowResult result))
+						{
+							localList.Add(item: result);
+						}
+						// Increment the processed count and report progress at defined intervals
+						int current = Interlocked.Increment(location: ref processedCount);
+						if (current % reportInterval == 0 || current == total)
+						{
+							progress.Report(value: current * 100 / total);
+						}
+						// Return the local list of results for this thread
+						return localList;
+					},
+					// Finalize the local list by adding it to the thread-safe results
+					localFinally: localList =>
+					{
+						// Lock the shared results list to safely add the local results from this thread
+						lock (threadSafeResults)
+						{
+							threadSafeResults.AddRange(collection: localList);
+						}
+					});
+				// Log the completion of the MOID calculation with the total number of results
+				logger.Info(message: $"MOID calculation completed. Total results: {threadSafeResults.Count}");
+				// Return the aggregated results from all threads
+				return threadSafeResults;
+			}, token);
+			// Update the main results list on the UI thread after successful completion
+			_results = localResults;
 		}
-		// Catch the OperationCanceledException to handle user cancellation gracefully
+		// Handle cancellation gracefully
 		catch (OperationCanceledException)
 		{
 			logger.Info(message: "MOID calculation cancelled by user.");
 		}
-		// Catch any other exceptions that may occur during the calculation
 		catch (Exception ex)
 		{
 			logger.Error(exception: ex, message: ex.Message);
 			ShowErrorMessage(message: $"Error during calculation: {ex.Message}");
 		}
-		// Finally block to clean up resources and reset UI elements after the calculation completes or is cancelled
+		// Ensure that the UI is updated regardless of success, cancellation, or error
 		finally
 		{
+			// Update the ListView and buttons on the UI thread after the calculation task completes
 			try
 			{
+				// Only update the ListView if the form is still valid and not disposed
 				if (IsHandleCreated && !IsDisposed && !Disposing)
 				{
-					_results = localResults;
+					// Set the virtual list size to the number of results and refresh the ListView
 					listView.VirtualListSize = _results.Count;
 					listView.Refresh();
+					// Re-enable the ListView and buttons after the calculation is complete
 					listView.Enabled = true;
 					toolStripButtonStart.Enabled = true;
 					toolStripButtonCancel.Enabled = false;
+					// Update the "Go to object" button state based on the current selection
 					UpdateGoToObjectButtonState();
+					// Enable the "Save to file" button only if there are results to save
 					toolStripDropDownButtonSaveToFile.Enabled = _results.Count > 0;
 				}
 			}
-			// Catch ObjectDisposedException and InvalidOperationException that may occur if the form is closing
-			catch (ObjectDisposedException)
+			// Catch specific exceptions that may occur if the form is closing or disposed during the update
+			catch (Exception ex) when (ex is ObjectDisposedException or InvalidOperationException)
 			{
-				// Ignore exceptions caused by controls being disposed during form shutdown.
-			}
-			catch (InvalidOperationException)
-			{
-				// Ignore exceptions related to invalid control state during form shutdown.
+				// Form closing cleanup
 			}
 			// Dispose of the cancellation token source to free resources
 			finally
@@ -398,8 +443,10 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>When the "Go to Object" button is clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> and this form is closed.</remarks>
 	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e)
 	{
+		// Attempt to select the currently highlighted planetoid in the main form
 		if (SelectedPlanetoidInMainForm())
 		{
+			// If successful, close this form to return focus to the main form
 			Close();
 		}
 	}
@@ -414,12 +461,14 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Toggles the sort order for the clicked column (ascending/descending) and re-sorts the results list. Column headers are updated with a ▲ or ▼ indicator to show the current sort direction.</remarks>
 	private void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
 	{
-		// If there are no results to sort, exit the method early
+		// If there are no results, do not attempt to sort
 		if (_results.Count == 0)
 		{
 			return;
 		}
-		// Check if the clicked column is the same as the current sort column; if so, toggle the sort order
+		// Clear selection state so index mismatch doesn't occur after sorting
+		listView.SelectedIndices.Clear();
+		// If the clicked column is the same as the current sort column, toggle the sort order; otherwise, set the new sort column and default to ascending order
 		if (e.Column == sortColumn)
 		{
 			sortOrder = sortOrder == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
@@ -429,19 +478,15 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 			sortColumn = e.Column;
 			sortOrder = SortOrder.Ascending;
 		}
-		// Update the column headers to reflect the current sort column and direction
+		// Update the column headers to reflect the current sort order with arrows
 		for (int i = 0; i < listView.Columns.Count; i++)
 		{
-			string headerText = listView.Columns[index: i].Text;
-			if (headerText.StartsWith(value: "▲ ", comparisonType: StringComparison.Ordinal) || headerText.StartsWith(value: "▼ ", comparisonType: StringComparison.Ordinal))
-			{
-				headerText = headerText[SortIndicatorPrefixLength..];
-			}
-			listView.Columns[index: i].Text = i == sortColumn
-				? $"{(sortOrder == SortOrder.Ascending ? "▲" : "▼")} {headerText}"
-				: headerText;
+			string baseHeader = _originalColumnHeaders[i];
+			listView.Columns[i].Text = i == sortColumn
+				? $"{(sortOrder == SortOrder.Ascending ? "▲" : "▼")} {baseHeader}"
+				: baseHeader;
 		}
-		// Re-sort the results and refresh the ListView
+		// Perform the sorting of the results based on the selected column and order
 		SortResults();
 		listView.Refresh();
 	}
@@ -454,8 +499,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Enables the "Go to object" button when a row is selected.</remarks>
-	private void ListView_SelectedIndexChanged(object sender, EventArgs e) =>
-		UpdateGoToObjectButtonState();
+	private void ListView_SelectedIndexChanged(object sender, EventArgs e) => UpdateGoToObjectButtonState();
 
 	#endregion
 
