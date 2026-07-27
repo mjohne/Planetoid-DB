@@ -155,11 +155,11 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)clampedPercent, progressMax: 100);
 	}
 
-	/// <summary>Zero-allocation parsing of a raw MPCORB line using ReadOnlySpan.</summary>
+	/// <summary>Parses a raw MPCORB line using <see cref="ReadOnlySpan{T}"/> to minimize allocations.</summary>
 	/// <param name="line">The raw MPCORB line to parse.</param>
 	/// <param name="result">The parsed <see cref="MoidRowResult"/> if successful; otherwise, <c>default</c>.</param>
 	/// <returns><c>true</c> if parsing was successful; otherwise, <c>false</c>.</returns>
-	/// <remarks>This method extracts the necessary orbital elements from the fixed-width MPCORB line format and computes the MOIDs for all eight planets. It avoids memory allocations by using <see cref="ReadOnlySpan{T}"/> for string slicing and parsing.</remarks>
+	/// <remarks>This method extracts the necessary orbital elements from the fixed-width MPCORB line format and computes the MOIDs for all eight planets. It uses <see cref="ReadOnlySpan{T}"/> for slicing/parsing to reduce intermediate string allocations, but still allocates the MOID array and the final designation string.</remarks>
 	private static bool TryProcessPlanetoidLine(ReadOnlySpan<char> line, out MoidRowResult result)
 	{
 		// Initialize the out parameter to default in case of early return
@@ -252,10 +252,10 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Clears the status bar when the form is loaded.</remarks>
 	private void MoidsOfAllMinorPlanetsForm_Load(object sender, EventArgs e) => ClearStatusBar(label: labelInformation);
 
-	/// <summary>Handles the FormClosing event. Cancels any running calculation and disposes the cancellation token source.</summary>
+	/// <summary>Handles the FormClosing event. Cancels any running calculation.</summary>
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="FormClosingEventArgs"/> instance containing the event data.</param>
-	/// <remarks>Cancels any running calculation and disposes the cancellation token source when the form is closing.</remarks>
+	/// <remarks>Cancels any running calculation when the form is closing.</remarks>
 	private void MoidsOfAllMinorPlanetsForm_FormClosing(object sender, FormClosingEventArgs e) => _cancellationTokenSource?.Cancel();
 
 	#endregion
