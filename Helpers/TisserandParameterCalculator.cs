@@ -40,7 +40,8 @@ internal class TisserandParameterCalculator
 	/// <param name="eccentricity">The orbital eccentricity of the minor planet (dimensionless, 0 &lt;= e &lt; 1).</param>
 	/// <param name="inclinationDeg">The orbital inclination of the minor planet to the ecliptic in degrees.</param>
 	/// <returns>An array of <see cref="TisserandResult"/> records, one per planet, ordered from Mercury to Neptune.</returns>
-	/// <exception cref="ArgumentOutOfRangeException">Thrown when eccentricity is not strictly between 0 and 1.</exception>
+	/// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="eccentricity"/> is outside the valid range 0 (inclusive) to 1 (exclusive).</exception>
+	/// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="semiMajorAxis"/> is not positive.</exception>
 	/// <remarks>The Tisserand parameter is a quasi-conserved quantity derived from the Jacobi constant in the circular restricted three-body problem. It is defined as: <para><c>T_P = a_P / a + 2 * cos(i) * sqrt(a / a_P * (1 - e²))</c></para> where <c>a_P</c> is the semi-major axis of the reference planet, <c>a</c> is the semi-major axis of the minor planet, <c>e</c> is the eccentricity of the minor planet, and <c>i</c> is the orbital inclination of the minor planet. By convention <c>T_J</c> (relative to Jupiter) is the most commonly used form and is widely employed to classify small solar-system bodies.</remarks>
 	public static TisserandResult[] CalculateTisserandParameters(double semiMajorAxis, double eccentricity, double inclinationDeg)
 	{
@@ -49,6 +50,11 @@ internal class TisserandParameterCalculator
 		{
 			// Throw an exception for invalid eccentricity values to prevent NaN results in the square root calculation
 			throw new ArgumentOutOfRangeException(paramName: nameof(eccentricity), message: "Eccentricity must be between 0 (inclusive) and 1 (exclusive) for valid Tisserand parameters.");
+		}
+		if (semiMajorAxis <= 0.0)
+		{
+			// Throw an exception for non-positive semi-major axis values to prevent division by zero and invalid Tisserand parameter calculations
+			throw new ArgumentOutOfRangeException(paramName: nameof(semiMajorAxis), message: "Semi-major axis must be positive for valid Tisserand parameters.");
 		}
 		// Pre-allocate the array based on known length to prevent dynamic resizing
 		TisserandResult[] results = new TisserandResult[Planets.Length];

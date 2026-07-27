@@ -152,6 +152,17 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 		{
 			designation = line[..7].Trim();
 		}
+		// Validate the orbital elements before calculation
+		if (eccentricity is < 0.0 or >= 1.0)
+		{
+			ShowErrorMessage(message: "Eccentricity must be between 0 (inclusive) and 1 (exclusive) for valid Tisserand parameters.");
+			return;
+		}
+		if (semiMajorAxis <= 0.0)
+		{
+			ShowErrorMessage(message: "Semi-major axis must be positive for valid Tisserand parameters.");
+			return;
+		}
 		// Calculate the Tisserand parameters for all eight planets
 		TisserandParameterCalculator.TisserandResult[] tisserandResults = TisserandParameterCalculator.CalculateTisserandParameters(
 			semiMajorAxis: semiMajorAxis,

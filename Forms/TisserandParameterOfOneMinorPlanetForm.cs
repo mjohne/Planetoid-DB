@@ -98,6 +98,17 @@ public partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 		ClearStatusBar(label: labelInformation);
 		try
 		{
+			// Validate the orbital elements before calculation
+			if (eccentricity is < 0.0 or >= 1.0)
+			{
+				ShowErrorMessage(message: "Eccentricity must be between 0 (inclusive) and 1 (exclusive) for valid Tisserand parameters.");
+				return;
+			}
+			if (semiMajorAxis <= 0.0)
+			{
+				ShowErrorMessage(message: "Semi-major axis must be positive for valid Tisserand parameters.");
+				return;
+			}
 			// Calculate Tisserand parameters for all 8 planets
 			TisserandParameterCalculator.TisserandResult[] tisserandResults = TisserandParameterCalculator.CalculateTisserandParameters(
 				semiMajorAxis: semiMajorAxis,
