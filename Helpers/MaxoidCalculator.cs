@@ -110,7 +110,7 @@ internal class MaxoidCalculator
 			inclinationDeg: inclinationDeg,
 			longitudeAscendingNodeDeg: longitudeAscendingNodeDeg,
 			argumentPerihelionDeg: argumentPerihelionDeg);
-		// Return the square root of the maximum squared distance to get the final MAXOID in AU
+		// Values returned by CalculateMaxoidsInPlanetOrder are already final MAXOID distances in AU
 		List<MaxoidResult> results = new(capacity: Planets.Length);
 		// Build the result list in planet order
 		for (int i = 0; i < Planets.Length; i++)
@@ -445,27 +445,18 @@ internal class MaxoidCalculator
 						}
 					}
 				}
-				// Attempt to update the global maximum squared distance using atomic operations
-				while (true)
+				// After processing the assigned range, update the global maximum in a thread-safe manner
+				lock (pos1Cache)
 				{
-					// Read the current maximum squared distance in a thread-safe manner
-					long currentMaxBits = Interlocked.Read(location: ref maxDistSquaredBits);
-					// Convert the bit representation back to a double for comparison
-					double currentMax = BitConverter.Int64BitsToDouble(value: currentMaxBits);
-					// If the local maximum is not greater than the current global maximum, exit the loop
-					if (localMaxDistSq <= currentMax)
+					// Atomically compare and update the global maximum squared distance and corresponding indices if the local maximum is greater
+					double currentMax = BitConverter.Int64BitsToDouble(value: maxDistSquaredBits);
+					// If the local maximum squared distance found in this partition is greater than the current global maximum, update the global values
+					if (localMaxDistSq > currentMax)
 					{
-						break;
-					}
-					// Convert the local maximum squared distance to its bit representation for atomic update
-					long newMaxBits = BitConverter.DoubleToInt64Bits(value: localMaxDistSq);
-					// Attempt to update the global maximum squared distance atomically
-					if (Interlocked.CompareExchange(location1: ref maxDistSquaredBits, value: newMaxBits, comparand: currentMaxBits) == currentMaxBits)
-					{
-						// If the update was successful, also update the best true anomalies for both orbits
-						Interlocked.Exchange(location1: ref bestF1Bits, value: BitConverter.DoubleToInt64Bits(value: localBestI * GridStepSize));
-						Interlocked.Exchange(location1: ref bestF2Bits, value: BitConverter.DoubleToInt64Bits(value: localBestJ * GridStepSize));
-						break;
+						// Update the global maximum squared distance and corresponding indices using atomic operations
+						maxDistSquaredBits = BitConverter.DoubleToInt64Bits(value: localMaxDistSq);
+						bestF1Bits = BitConverter.DoubleToInt64Bits(value: localBestI * GridStepSize);
+						bestF2Bits = BitConverter.DoubleToInt64Bits(value: localBestJ * GridStepSize);
 					}
 				}
 			});
