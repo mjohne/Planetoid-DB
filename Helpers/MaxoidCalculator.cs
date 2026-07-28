@@ -103,17 +103,22 @@ internal class MaxoidCalculator
 		double longitudeAscendingNodeDeg,
 		double argumentPerihelionDeg)
 	{
+		// Compute the MAXOID values for all eight planets in a single pass
 		double[] maxoidValues = CalculateMaxoidsInPlanetOrder(
 			semiMajorAxis: semiMajorAxis,
 			eccentricity: eccentricity,
 			inclinationDeg: inclinationDeg,
 			longitudeAscendingNodeDeg: longitudeAscendingNodeDeg,
 			argumentPerihelionDeg: argumentPerihelionDeg);
+		// Return the square root of the maximum squared distance to get the final MAXOID in AU
 		List<MaxoidResult> results = new(capacity: Planets.Length);
+		// Build the result list in planet order
 		for (int i = 0; i < Planets.Length; i++)
 		{
+			// Create a MaxoidResult for each planet with the corresponding MAXOID value
 			results.Add(item: new MaxoidResult(PlanetName: Planets[i].Name, MaxoidAu: maxoidValues[i]));
 		}
+		// Return the list of MAXOID results
 		return results;
 	}
 
@@ -142,27 +147,37 @@ internal class MaxoidCalculator
 		double cosi1 = Math.Cos(d: i1);
 		double sini1 = Math.Sin(a: i1);
 		double oneMinusE1Sq = 1.0 - (eccentricity * eccentricity);
+		// Rent a single coarse position cache for orbit 1 to avoid repeated allocations
 		(double X, double Y, double Z)[] pos1Cache = ArrayPool<(double X, double Y, double Z)>.Shared.Rent(minimumLength: GridSteps);
+		// Use a try-finally block to ensure the rented array is returned to the pool even if an exception occurs
 		try
 		{
+			// Precompute the coarse grid positions for orbit 1
 			for (int idx = 0; idx < GridSteps; idx++)
 			{
+				// Compute the true anomaly for this grid index
 				double f = idx * GridStepSize;
+				// Store the precomputed position in the cache
 				pos1Cache[idx] = OrbitPositionOptimized(
 					a: semiMajorAxis, e: eccentricity, w: w1, f: f,
 					cosO: cosO1, sinO: sinO1, cosi: cosi1, sini: sini1, oneMinusESq: oneMinusE1Sq);
 			}
+			// Compute the MAXOID for each planet using the precomputed orbit 1 cache
 			double[] maxoidValues = new double[PrecomputedPlanets.Length];
+			// Loop over each planet and calculate the MAXOID using the cached orbit 1 positions
 			for (int i = 0; i < PrecomputedPlanets.Length; i++)
 			{
+				// Calculate the MAXOID to the i-th planet using the precomputed orbit 1 cache
 				maxoidValues[i] = CalculateMaxoidUsingFirstOrbitCache(
 					a1: semiMajorAxis, e1: eccentricity, w1: w1,
 					cosO1: cosO1, sinO1: sinO1, cosi1: cosi1, sini1: sini1, oneMinusE1Sq: oneMinusE1Sq,
 					pos1Cache: pos1Cache,
 					planet: PrecomputedPlanets[i]);
 			}
+			// Return the array of MAXOID values in planet order
 			return maxoidValues;
 		}
+		// Ensure that the rented array is returned to the pool even if an exception occurs
 		finally
 		{
 			ArrayPool<(double X, double Y, double Z)>.Shared.Return(array: pos1Cache);
@@ -252,10 +267,13 @@ internal class MaxoidCalculator
 				},
 				body: idx =>
 				{
+					// Compute the true anomaly for this grid index
 					double f = idx * GridStepSize;
+					// Store the precomputed positions for both orbits in their respective caches
 					pos1Cache[idx] = OrbitPositionOptimized(a: a1, e: e1, w: w1, f: f, cosO: cosO1, sinO: sinO1, cosi: cosi1, sini: sini1, oneMinusESq: oneMinusE1Sq);
 					pos2Cache[idx] = OrbitPositionOptimized(a: a2, e: e2, w: w2, f: f, cosO: cosO2, sinO: sinO2, cosi: cosi2, sini: sini2, oneMinusESq: oneMinusE2Sq);
 				});
+			// Find the best coarse-grid candidate across both orbits
 			CoarseMaximumResult coarseMaximum = FindCoarseMaximum(pos1Cache: pos1Cache, pos2Cache: pos2Cache);
 			// Local refinement via coordinate ascent with precomputed trig values
 			return RefineMaximumOptimized(
@@ -264,6 +282,7 @@ internal class MaxoidCalculator
 				f1Start: coarseMaximum.BestF1, f2Start: coarseMaximum.BestF2, initialStep: GridStepSize,
 				coarseMax: Math.Sqrt(d: coarseMaximum.MaxDistanceSquared));
 		}
+		// Ensure that rented arrays are returned to the pool even if an exception occurs
 		finally
 		{
 			// Return rented arrays to pool
@@ -291,9 +310,12 @@ internal class MaxoidCalculator
 		(double X, double Y, double Z)[] pos1Cache,
 		PlanetComputationData planet)
 	{
+		// Precompute the coarse position cache for the planetary orbit
 		(double X, double Y, double Z)[] pos2Cache = ArrayPool<(double X, double Y, double Z)>.Shared.Rent(minimumLength: GridSteps);
+		// Use a try-finally block to ensure the rented array is returned to the pool even if an exception occurs
 		try
 		{
+			// Precompute the coarse grid positions for the planetary orbit in parallel
 			_ = Parallel.For(
 				fromInclusive: 0,
 				toExclusive: GridSteps,
@@ -301,16 +323,20 @@ internal class MaxoidCalculator
 				{
 					MaxDegreeOfParallelism = Environment.ProcessorCount
 				},
+				// Compute the planetary orbit positions for each grid index
 				body: idx =>
 				{
+					// Compute the true anomaly for this grid index
 					double f = idx * GridStepSize;
+					// Store the precomputed position for the planetary orbit in the cache
 					pos2Cache[idx] = OrbitPositionOptimized(
 						a: planet.SemiMajorAxis, e: planet.Eccentricity, w: planet.ArgumentPerihelionRad, f: f,
 						cosO: planet.CosLongitudeAscendingNode, sinO: planet.SinLongitudeAscendingNode,
 						cosi: planet.CosInclination, sini: planet.SinInclination, oneMinusESq: planet.OneMinusEccentricitySquared);
 				});
-
+			// Find the best coarse-grid candidate across both orbits
 			CoarseMaximumResult coarseMaximum = FindCoarseMaximum(pos1Cache: pos1Cache, pos2Cache: pos2Cache);
+			// Local refinement via coordinate ascent with precomputed trig values
 			return RefineMaximumOptimized(
 				a1: a1, e1: e1, w1: w1, cosO1: cosO1, sinO1: sinO1, cosi1: cosi1, sini1: sini1, oneMinusE1Sq: oneMinusE1Sq,
 				a2: planet.SemiMajorAxis, e2: planet.Eccentricity, w2: planet.ArgumentPerihelionRad,
@@ -318,6 +344,7 @@ internal class MaxoidCalculator
 				f1Start: coarseMaximum.BestF1, f2Start: coarseMaximum.BestF2, initialStep: GridStepSize,
 				coarseMax: Math.Sqrt(d: coarseMaximum.MaxDistanceSquared));
 		}
+		// Ensure that the rented array is returned to the pool even if an exception occurs
 		finally
 		{
 			ArrayPool<(double X, double Y, double Z)>.Shared.Return(array: pos2Cache);
@@ -333,59 +360,84 @@ internal class MaxoidCalculator
 		(double X, double Y, double Z)[] pos1Cache,
 		(double X, double Y, double Z)[] pos2Cache)
 	{
+		// Use long integers to store the bit representation of the maximum squared distance for atomic operations
 		long maxDistSquaredBits = BitConverter.DoubleToInt64Bits(value: 0.0);
 		long bestF1Bits = 0;
 		long bestF2Bits = 0;
+		// Create a partitioner to divide the grid steps into ranges for parallel processing
 		Partitioner<Tuple<int, int>> partitioner = Partitioner.Create(fromInclusive: 0, toExclusive: GridSteps, rangeSize: Math.Max(1, GridSteps / (Environment.ProcessorCount * 4)));
+		// Perform a parallel search over the partitioned ranges to find the maximum squared distance
 		_ = Parallel.ForEach(
 			source: partitioner,
 			parallelOptions: new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
 			body: range =>
 			{
+				// Local variables to track the maximum squared distance and corresponding indices within this partition
 				double localMaxDistSq = 0.0;
 				int localBestI = 0;
 				int localBestJ = 0;
+				// Iterate over the assigned range of indices for orbit 1
 				for (int i = range.Item1; i < range.Item2; i++)
 				{
+					// Get the precomputed position for orbit 1 at index i
 					(double X, double Y, double Z) p1 = pos1Cache[i];
+					// Use SIMD acceleration if available and the grid size is sufficient
 					if (Vector256.IsHardwareAccelerated && GridSteps >= Vector256<double>.Count)
 					{
+						// Process orbit 2 positions in chunks of 4 for SIMD optimization
 						int j = 0;
 						int simdEnd = GridSteps - (GridSteps % 4);
+						// Loop over orbit 2 positions in chunks of 4
 						for (; j < simdEnd; j += 4)
 						{
+							// Compute the squared distances for 4 positions of orbit 2 simultaneously
 							for (int k = 0; k < 4; k++)
 							{
+								// Get the precomputed position for orbit 2 at index j + k
 								(double X, double Y, double Z) p2 = pos2Cache[j + k];
+								// Calculate the squared distance between p1 and p2
 								double distSq = DistanceSquared(p1: p1, p2: p2);
+								// Update the local maximum if this distance is greater
 								if (distSq > localMaxDistSq)
 								{
+									// Update the local maximum squared distance and corresponding indices
 									localMaxDistSq = distSq;
 									localBestI = i;
 									localBestJ = j + k;
 								}
 							}
 						}
+						// Handle any remaining positions of orbit 2 that were not processed in the SIMD loop
 						for (; j < GridSteps; j++)
 						{
+							// Get the precomputed position for orbit 2 at index j
 							(double X, double Y, double Z) p2 = pos2Cache[j];
+							// Calculate the squared distance between p1 and p2
 							double distSq = DistanceSquared(p1: p1, p2: p2);
+							// Update the local maximum if this distance is greater
 							if (distSq > localMaxDistSq)
 							{
+								// Update the local maximum squared distance and corresponding indices
 								localMaxDistSq = distSq;
 								localBestI = i;
 								localBestJ = j;
 							}
 						}
 					}
+					// If SIMD is not available or the grid size is too small, fall back to a simple loop
 					else
 					{
+						// Iterate over all positions of orbit 2 for the current position of orbit 1
 						for (int j = 0; j < GridSteps; j++)
 						{
+							// Get the precomputed position for orbit 2 at index j
 							(double X, double Y, double Z) p2 = pos2Cache[j];
+							// Calculate the squared distance between p1 and p2
 							double distSq = DistanceSquared(p1: p1, p2: p2);
+							// Update the local maximum if this distance is greater
 							if (distSq > localMaxDistSq)
 							{
+								// Update the local maximum squared distance and corresponding indices
 								localMaxDistSq = distSq;
 								localBestI = i;
 								localBestJ = j;
@@ -393,24 +445,31 @@ internal class MaxoidCalculator
 						}
 					}
 				}
+				// Attempt to update the global maximum squared distance using atomic operations
 				while (true)
 				{
+					// Read the current maximum squared distance in a thread-safe manner
 					long currentMaxBits = Interlocked.Read(location: ref maxDistSquaredBits);
+					// Convert the bit representation back to a double for comparison
 					double currentMax = BitConverter.Int64BitsToDouble(value: currentMaxBits);
+					// If the local maximum is not greater than the current global maximum, exit the loop
 					if (localMaxDistSq <= currentMax)
 					{
 						break;
 					}
+					// Convert the local maximum squared distance to its bit representation for atomic update
 					long newMaxBits = BitConverter.DoubleToInt64Bits(value: localMaxDistSq);
+					// Attempt to update the global maximum squared distance atomically
 					if (Interlocked.CompareExchange(location1: ref maxDistSquaredBits, value: newMaxBits, comparand: currentMaxBits) == currentMaxBits)
 					{
+						// If the update was successful, also update the best true anomalies for both orbits
 						Interlocked.Exchange(location1: ref bestF1Bits, value: BitConverter.DoubleToInt64Bits(value: localBestI * GridStepSize));
 						Interlocked.Exchange(location1: ref bestF2Bits, value: BitConverter.DoubleToInt64Bits(value: localBestJ * GridStepSize));
 						break;
 					}
 				}
 			});
-
+		// Return the best coarse maximum result with the maximum squared distance and corresponding true anomalies
 		return new CoarseMaximumResult(
 			MaxDistanceSquared: BitConverter.Int64BitsToDouble(value: Interlocked.Read(location: ref maxDistSquaredBits)),
 			BestF1: BitConverter.Int64BitsToDouble(value: Interlocked.Read(location: ref bestF1Bits)),
@@ -421,12 +480,17 @@ internal class MaxoidCalculator
 	/// <returns>An array of precomputed per-planet constants in Mercury-to-Neptune order.</returns>
 	private static PlanetComputationData[] BuildPrecomputedPlanets()
 	{
+		// Precompute trigonometric values for all planets to avoid repeated calculations during MAXOID computations
 		PlanetComputationData[] data = new PlanetComputationData[Planets.Length];
+		// Loop over each planet and compute the necessary constants
 		for (int i = 0; i < Planets.Length; i++)
 		{
+			// Get the current planet's orbital elements
 			PlanetElements planet = Planets[i];
+			// Convert inclination and longitude of ascending node from degrees to radians for trigonometric calculations
 			double inclinationRad = planet.InclinationDeg * Math.PI / 180.0;
 			double longitudeAscendingNodeRad = planet.LongitudeAscendingNodeDeg * Math.PI / 180.0;
+			// Create a new PlanetComputationData record with precomputed values for this planet
 			data[i] = new PlanetComputationData(
 				Name: planet.Name,
 				SemiMajorAxis: planet.SemiMajorAxis,
@@ -438,6 +502,7 @@ internal class MaxoidCalculator
 				SinInclination: Math.Sin(a: inclinationRad),
 				OneMinusEccentricitySquared: 1.0 - (planet.Eccentricity * planet.Eccentricity));
 		}
+		// Return the array of precomputed planetary constants
 		return data;
 	}
 
@@ -510,7 +575,7 @@ internal class MaxoidCalculator
 				step *= 0.5;
 			}
 		}
-
+		// Return the square root of the maximum squared distance to get the final MAXOID in AU
 		return Math.Sqrt(d: maxDistSquared);
 	}
 
@@ -541,6 +606,7 @@ internal class MaxoidCalculator
 		double x = r * ((cosO * cosu) - (sinO * sinu * cosi));
 		double y = r * ((sinO * cosu) + (cosO * sinu * cosi));
 		double z = r * sinu * sini;
+		// Return the Cartesian coordinates as a tuple
 		return (X: x, Y: y, Z: z);
 	}
 
@@ -554,9 +620,11 @@ internal class MaxoidCalculator
 		(double X, double Y, double Z) p1,
 		(double X, double Y, double Z) p2)
 	{
+		// Compute the differences in each coordinate
 		double dx = p1.X - p2.X;
 		double dy = p1.Y - p2.Y;
 		double dz = p1.Z - p2.Z;
+		// Return the sum of squares of the differences (squared Euclidean distance)
 		return (dx * dx) + (dy * dy) + (dz * dz);
 	}
 }
