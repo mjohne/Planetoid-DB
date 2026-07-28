@@ -9,6 +9,7 @@ using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Planetoid_DB;
 
@@ -34,6 +35,22 @@ public partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 
 	#endregion
 
+
+	/// <summary>Represents the orbital elements of a minor planet used for MAXOID calculations.</summary>
+	/// <param name="SemiMajorAxis">The semi-major axis of the orbit in astronomical units (AU).</param>
+	/// <param name="Eccentricity">The orbital eccentricity.</param>
+	/// <param name="InclinationDeg">The orbital inclination in degrees.</param>
+	/// <param name="LongitudeAscendingNodeDeg">The longitude of the ascending node in degrees.</param>
+	/// <param name="ArgumentPerihelionDeg">The argument of perihelion in degrees.</param>
+	/// <remarks>This record is used to encapsulate the orbital parameters of a minor planet for MAXOID calculations.</remarks>
+	public record OrbitalElements(
+		double SemiMajorAxis,
+		double Eccentricity,
+		double InclinationDeg,
+		double LongitudeAscendingNodeDeg,
+		double ArgumentPerihelionDeg
+	);
+
 	/// <summary>NLog logger instance.</summary>
 	/// <remarks>This logger is used throughout the form to log important events and errors.</remarks>
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
@@ -42,25 +59,9 @@ public partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	/// <remarks>Overrides the base class property to return the form-specific status label.</remarks>
 	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
-	/// <summary>Semi-major axis of the minor planet in AU.</summary>
-	/// <remarks>Set via <see cref="SetOrbitalElements"/> before the form is shown.</remarks>
-	private double semiMajorAxis;
-
-	/// <summary>Orbital eccentricity of the minor planet.</summary>
-	/// <remarks>Set via <see cref="SetOrbitalElements"/> before the form is shown.</remarks>
-	private double eccentricity;
-
-	/// <summary>Orbital inclination of the minor planet in degrees.</summary>
-	/// <remarks>Set via <see cref="SetOrbitalElements"/> before the form is shown.</remarks>
-	private double inclinationDeg;
-
-	/// <summary>Longitude of the ascending node of the minor planet in degrees.</summary>
-	/// <remarks>Set via <see cref="SetOrbitalElements"/> before the form is shown.</remarks>
-	private double longitudeAscendingNodeDeg;
-
-	/// <summary>Argument of perihelion of the minor planet in degrees.</summary>
-	/// <remarks>Set via <see cref="SetOrbitalElements"/> before the form is shown.</remarks>
-	private double argumentPerihelionDeg;
+	/// <summary>Represents the orbital elements of the minor planet for which MAXOID values are being calculated.</summary>
+	/// <remarks>This field is set via the SetOrbitalElements method and is used during the form's Load event to compute MAXOID values.</remarks>
+	private OrbitalElements? _orbitalElements;
 
 	#region constructor
 
@@ -91,11 +92,41 @@ public partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 		double longitudeAscendingNodeDeg,
 		double argumentPerihelionDeg)
 	{
-		this.semiMajorAxis = semiMajorAxis;
-		this.eccentricity = eccentricity;
-		this.inclinationDeg = inclinationDeg;
-		this.longitudeAscendingNodeDeg = longitudeAscendingNodeDeg;
-		this.argumentPerihelionDeg = argumentPerihelionDeg;
+		// Create a new instance of OrbitalElements with the provided parameters and assign it to the private field
+		_orbitalElements = new OrbitalElements(
+			SemiMajorAxis: semiMajorAxis,
+			Eccentricity: eccentricity,
+			InclinationDeg: inclinationDeg,
+			LongitudeAscendingNodeDeg: longitudeAscendingNodeDeg,
+			ArgumentPerihelionDeg: argumentPerihelionDeg);
+	}
+
+	/// <summary>Sets the orbital elements of the minor planet used for computing MAXOID values.</summary>
+	/// <param name="elements">The orbital elements to set.</param>
+	/// <remarks>Call this method before showing the form so that the MAXOID data is available on load.</remarks>
+	public void SetOrbitalElements(OrbitalElements elements) => _orbitalElements = elements ?? throw new ArgumentNullException(paramName: nameof(elements));
+
+	/// <summary>Updates the UI labels with the calculated data using InvariantCulture.</summary>
+	/// <param name="maxoids">The list of MAXOID results for each planet.</param>
+	/// <remarks>This method updates the text of the labels for each planet with the corresponding MAXOID value formatted to eight decimal places. It uses InvariantCulture to ensure consistent formatting regardless of the system's locale.</remarks>
+	private void UpdatePlanetLabels(List<MaxoidCalculator.MaxoidResult> maxoids)
+	{
+		// Ensure that we have results for all eight planets before updating the labels
+		if (maxoids.Count < 8)
+		{
+			return;
+		}
+		// Use InvariantCulture for consistent formatting of the MAXOID values
+		CultureInfo culture = CultureInfo.InvariantCulture;
+		// Update each label with the corresponding MAXOID value formatted to eight decimal places
+		labelMercuryData.Text = maxoids[0].MaxoidAu.ToString(provider: culture);
+		labelVenusData.Text = maxoids[1].MaxoidAu.ToString(provider: culture);
+		labelEarthData.Text = maxoids[2].MaxoidAu.ToString(provider: culture);
+		labelMarsData.Text = maxoids[3].MaxoidAu.ToString(provider: culture);
+		labelJupiterData.Text = maxoids[4].MaxoidAu.ToString(provider: culture);
+		labelSaturnData.Text = maxoids[5].MaxoidAu.ToString(provider: culture);
+		labelUranusData.Text = maxoids[6].MaxoidAu.ToString(provider: culture);
+		labelNeptuneData.Text = maxoids[7].MaxoidAu.ToString(provider: culture);
 	}
 
 	#endregion
@@ -112,25 +143,21 @@ public partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 		ClearStatusBar(label: labelInformation);
 		try
 		{
+			// Ensure that orbital elements have been set before attempting to compute MAXOID values
+			if (_orbitalElements == null)
+			{
+				throw new InvalidOperationException(message: "Orbital elements have not been set.");
+			}
+
 			// Calculate MAXOIDs for all 8 planets
 			List<MaxoidCalculator.MaxoidResult> maxoids = MaxoidCalculator.CalculateMaxoids(
-				semiMajorAxis: semiMajorAxis,
-				eccentricity: eccentricity,
-				inclinationDeg: inclinationDeg,
-				longitudeAscendingNodeDeg: longitudeAscendingNodeDeg,
-				argumentPerihelionDeg: argumentPerihelionDeg);
-			// Populate the data labels (one per planet row, index 0 = Mercury … 7 = Neptune)
-			if (maxoids.Count >= 8)
-			{
-				labelMercuryData.Text = maxoids[index: 0].MaxoidAu.ToString(format: "F8");
-				labelVenusData.Text = maxoids[index: 1].MaxoidAu.ToString(format: "F8");
-				labelEarthData.Text = maxoids[index: 2].MaxoidAu.ToString(format: "F8");
-				labelMarsData.Text = maxoids[index: 3].MaxoidAu.ToString(format: "F8");
-				labelJupiterData.Text = maxoids[index: 4].MaxoidAu.ToString(format: "F8");
-				labelSaturnData.Text = maxoids[index: 5].MaxoidAu.ToString(format: "F8");
-				labelUranusData.Text = maxoids[index: 6].MaxoidAu.ToString(format: "F8");
-				labelNeptuneData.Text = maxoids[index: 7].MaxoidAu.ToString(format: "F8");
-			}
+				semiMajorAxis: _orbitalElements.SemiMajorAxis,
+				eccentricity: _orbitalElements.Eccentricity,
+				inclinationDeg: _orbitalElements.InclinationDeg,
+				longitudeAscendingNodeDeg: _orbitalElements.LongitudeAscendingNodeDeg,
+				argumentPerihelionDeg: _orbitalElements.ArgumentPerihelionDeg);
+			// Update the UI labels with the calculated MAXOID values
+			UpdatePlanetLabels(maxoids: maxoids);
 		}
 		// Handle any exceptions that may occur during MAXOID calculation and display an error message
 		catch (Exception ex)
