@@ -197,7 +197,7 @@ public static class AverageCalculator
 	public static double LogarithmicMean(IEnumerable<double> values)
 	{
 		// Filter out NaN, Infinity, and non-positive values before calculating the logarithmic mean
-		double[] valueArray = [.. GetValidSortedValues(values: values).Where(predicate: static v => v > 0)];
+		double[] valueArray = GetValidSortedValues(values: values.Where(predicate: static v => v > 0));
 		// Return NaN if there are no valid values to calculate the logarithmic mean
 		switch (valueArray.Length)
 		{
@@ -299,8 +299,6 @@ public static class AverageCalculator
 	/// <remarks>Finds the shortest contiguous half of the sorted values and calculates their mean.</remarks>
 	public static double ShortestHalfMean(IEnumerable<double> values)
 	{
-		//
-
 		// Filter out NaN and Infinity values, sort the remaining values, and convert to an array for indexing
 		double[] sorted = GetValidSortedValues(values: values);
 		// Return NaN if there are no valid values to calculate the mean of the shortest half
@@ -491,7 +489,7 @@ public static class AverageCalculator
 	public static double LehmerMean(IEnumerable<double> values, double p = 2)
 	{
 		// Filter out NaN, Infinity, and negative values before calculating the Lehmer mean, as it is typically defined for non-negative values
-		double[] valueArray = [.. GetValidSortedValues(values: values).Where(predicate: static v => v >= 0)];
+		double[] valueArray = GetValidSortedValues(values: values.Where(predicate: static v => v >= 0));
 		// Return NaN if there are no valid values to calculate the Lehmer mean
 		if (valueArray.Length == 0)
 		{
