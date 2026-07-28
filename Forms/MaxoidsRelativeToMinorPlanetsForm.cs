@@ -206,7 +206,7 @@ public partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 				semiMajorAxis2: sma2, eccentricity2: e2, inclinationDeg2: i2,
 				longitudeAscendingNodeDeg2: omega2, argumentPerihelionDeg2: w2);
 			// Display the MAXOID in AU formatted to 8 decimal places
-			kryptonLabelMaxoidValue.Text = maxoid.ToString(format: "F8");
+			kryptonLabelMaxoidValue.Text = maxoid.ToString();
 		}
 		catch (Exception ex)
 		{
