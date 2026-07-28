@@ -233,123 +233,6 @@ internal class MoidCalculator
 		}
 	}
 
-	/// <summary>Finds the coarse minimum distance between two sets of precomputed orbit positions using parallel processing.</summary>
-	/// <param name="pos1Cache">The precomputed positions of the first orbit.</param>
-	/// <param name="pos2Cache">The precomputed positions of the second orbit.</param>
-	/// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-	/// <returns>A <see cref="CoarseMinimumResult"/> containing the minimum distance and corresponding indices.</returns>
-	/// <remarks>This method uses a parallelized approach to efficiently compute the minimum distance between two sets of orbit positions. It leverages SIMD instructions when available and divides the work among multiple threads to maximize performance.</remarks>
-	private static CoarseMinimumResult FindCoarseMinimum(
-		(double X, double Y, double Z)[] pos1Cache,
-		(double X, double Y, double Z)[] pos2Cache,
-		CancellationToken cancellationToken)
-	{
-		// Initialize global minimum distance squared and corresponding indices
-		double globalMinDistSq = double.MaxValue;
-		int globalBestI = 0;
-		int globalBestJ = 0;
-		object syncLock = new();
-		// Use an orderable partitioner to divide the work into ranges for parallel processing
-		OrderablePartitioner<Tuple<int, int>> partitioner = Partitioner.Create(fromInclusive: 0, toExclusive: GridSteps, rangeSize: Math.Max(val1: 1, val2: GridSteps / (Environment.ProcessorCount * 4)));
-		// Use Parallel.ForEach to process each range in parallel, with thread-local state to track local minima
-		Parallel.ForEach(
-			partitioner,
-			new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount, CancellationToken = cancellationToken },
-			() => (LocalMin: double.MaxValue, BestI: 0, BestJ: 0),
-			(range, loopState, localState) =>
-			{
-				// Initialize local minimum distance squared and corresponding indices for this thread
-				double localMinDistSq = localState.LocalMin;
-				int localBestI = localState.BestI;
-				int localBestJ = localState.BestJ;
-				// Iterate over the assigned range of indices for the first orbit
-				for (int i = range.Item1; i < range.Item2; i++)
-				{
-					// Check for cancellation requests to allow responsive termination of long-running calculations
-					cancellationToken.ThrowIfCancellationRequested();
-					// Retrieve the precomputed position for the current index of the first orbit
-					(double X, double Y, double Z) p1 = pos1Cache[i];
-					// Use SIMD acceleration if available and the grid size is sufficient for vectorization
-					if (Vector256.IsHardwareAccelerated && GridSteps >= Vector256<double>.Count)
-					{
-						// Process the second orbit's positions in chunks of 4 for SIMD optimization
-						int j = 0;
-						int simdEnd = GridSteps - (GridSteps % 4);
-						// Loop over the second orbit's positions in steps of 4 to leverage SIMD vectorization
-						for (; j < simdEnd; j += 4)
-						{
-							// Compute the squared distances for 4 positions at once using SIMD
-							for (int k = 0; k < 4; k++)
-							{
-								// Calculate the squared distance between the current position of the first orbit and the k-th position of the second orbit
-								double distSq = DistanceSquared(p1: p1, p2: pos2Cache[j + k]);
-								// Update the local minimum if a smaller distance is found
-								if (distSq < localMinDistSq)
-								{
-									// Update the local minimum distance squared and corresponding indices
-									localMinDistSq = distSq;
-									localBestI = i;
-									localBestJ = j + k;
-								}
-							}
-						}
-						// Handle any remaining positions in the second orbit that were not processed in the SIMD loop
-						for (; j < GridSteps; j++)
-						{
-							// Calculate the squared distance for the remaining positions
-							double distSq = DistanceSquared(p1: p1, p2: pos2Cache[j]);
-							// Update the local minimum if a smaller distance is found
-							if (distSq < localMinDistSq)
-							{
-								// Update the local minimum distance squared and corresponding indices
-								localMinDistSq = distSq;
-								localBestI = i;
-								localBestJ = j;
-							}
-						}
-					}
-					// If SIMD is not available or the grid size is too small, fall back to a simple loop over the second orbit's positions
-					else
-					{
-						// Iterate over all positions of the second orbit to compute distances
-						for (int j = 0; j < GridSteps; j++)
-						{
-							// Calculate the squared distance between the current position of the first orbit and the current position of the second orbit
-							double distSq = DistanceSquared(p1: p1, p2: pos2Cache[j]);
-							// Update the local minimum if a smaller distance is found
-							if (distSq < localMinDistSq)
-							{
-								// Update the local minimum distance squared and corresponding indices
-								localMinDistSq = distSq;
-								localBestI = i;
-								localBestJ = j;
-							}
-						}
-					}
-				}
-				// Return the local minimum distance squared and corresponding indices for this thread to the main loop for aggregation
-				return (localMinDistSq, localBestI, localBestJ);
-			},
-			// Aggregate the local minima from each thread to find the global minimum distance squared and corresponding indices
-			localState =>
-			{
-				// Use a lock to ensure thread-safe updates to the global minimum distance squared and corresponding indices
-				lock (syncLock)
-				{
-					// Update the global minimum if a smaller distance is found in this thread's local state
-					if (localState.LocalMin < globalMinDistSq)
-					{
-						// Update the global minimum distance squared and corresponding indices with the local minimum from this thread
-						globalMinDistSq = localState.LocalMin;
-						globalBestI = localState.BestI;
-						globalBestJ = localState.BestJ;
-					}
-				}
-			});
-		// Return the final global minimum distance squared and corresponding indices as a CoarseMinimumResult
-		return new CoarseMinimumResult(MinDistanceSquared: globalMinDistSq, BestF1: globalBestI * GridStepSize, BestF2: globalBestJ * GridStepSize);
-	}
-
 	/// <summary>Calculates the MOID between two minor planets using their Keplerian orbital elements.</summary>
 	/// <param name="semiMajorAxis1">The semi-major axis of the first minor planet in AU.</param>
 	/// <param name="eccentricity1">The eccentricity of the first minor planet's orbit.</param>
@@ -456,11 +339,13 @@ internal class MoidCalculator
 	/// <summary>Finds the best coarse-grid candidate across two sampled orbits.</summary>
 	/// <param name="pos1Cache">Sampled positions for orbit 1.</param>
 	/// <param name="pos2Cache">Sampled positions for orbit 2.</param>
+	/// <param name="cancellationToken">Token used to cancel the coarse search.</param>
 	/// <returns>The best coarse-grid squared distance and associated anomaly pair.</returns>
 	/// <remarks>Performs a lock-free parallel search and returns the best coarse starting point for local refinement.</remarks>
 	private static CoarseMinimumResult FindCoarseMinimum(
 		(double X, double Y, double Z)[] pos1Cache,
-		(double X, double Y, double Z)[] pos2Cache)
+		(double X, double Y, double Z)[] pos2Cache,
+		CancellationToken cancellationToken = default)
 	{
 		long minDistSquaredBits = BitConverter.DoubleToInt64Bits(value: double.MaxValue);
 		long bestF1Bits = 0;
@@ -468,7 +353,7 @@ internal class MoidCalculator
 		Partitioner<Tuple<int, int>> partitioner = Partitioner.Create(fromInclusive: 0, toExclusive: GridSteps, rangeSize: Math.Max(1, GridSteps / (Environment.ProcessorCount * 4)));
 		_ = Parallel.ForEach(
 			source: partitioner,
-			parallelOptions: new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
+			parallelOptions: new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount, CancellationToken = cancellationToken },
 			body: range =>
 			{
 				double localMinDistSq = double.MaxValue;
@@ -476,6 +361,7 @@ internal class MoidCalculator
 				int localBestJ = 0;
 				for (int i = range.Item1; i < range.Item2; i++)
 				{
+					cancellationToken.ThrowIfCancellationRequested();
 					(double X, double Y, double Z) p1 = pos1Cache[i];
 					if (Vector256.IsHardwareAccelerated && GridSteps >= Vector256<double>.Count)
 					{
@@ -524,6 +410,7 @@ internal class MoidCalculator
 				}
 				while (true)
 				{
+					cancellationToken.ThrowIfCancellationRequested();
 					long currentMinBits = Interlocked.Read(location: ref minDistSquaredBits);
 					double currentMin = BitConverter.Int64BitsToDouble(value: currentMinBits);
 					if (localMinDistSq >= currentMin)
