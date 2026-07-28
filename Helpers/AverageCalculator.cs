@@ -9,16 +9,49 @@ namespace Planetoid_DB.Helpers;
 /// <remarks>This class implements multiple averaging methods including arithmetic mean, median, mode, geometric mean, harmonic mean, quadratic mean, cubic mean, logarithmic mean, Winsor mean, quartile mean, shortest half mean, Gastwirth-Cohen mean, range mean, a-mean, moving average, Hölder mean of shortest half, and Lehmer mean.</remarks>
 public static class AverageCalculator
 {
+
+	#region Helper Methods
+
+	/// <summary>Determines whether a given double value is valid (not NaN or Infinity).</summary>
+	/// <param name="v">The value to check.</param>
+	/// <returns><c>true</c> if the value is valid; otherwise, <c>false</c>.</returns>
+	/// <remarks>This method is used internally to filter out invalid values before performing calculations.</remarks>
+	private static bool IsValid(double v) => !double.IsNaN(d: v) && !double.IsInfinity(d: v);
+
+	/// <summary>Filters out invalid values (NaN and Infinity) from the input collection and returns a sorted array of valid values.</summary>
+	/// <param name="values">The collection of numeric values to filter and sort.</param>
+	/// <returns>A sorted array of valid numeric values.</returns>
+	/// <remarks>This method is used internally to prepare data for averaging calculations by removing invalid values and sorting the remaining values.</remarks>
+	private static double[] GetValidSortedValues(IEnumerable<double> values)
+	{
+		double[] arr = [.. values.Where(predicate: IsValid)];
+		Array.Sort(array: arr);
+		return arr;
+	}
+
+	#endregion
+
 	/// <summary>Calculates the arithmetic mean (average) of a collection of values.</summary>
 	/// <param name="values">The collection of numeric values.</param>
 	/// <returns>The arithmetic mean, or <c>double.NaN</c> if the collection is empty.</returns>
 	/// <remarks>The arithmetic mean is the sum of all values divided by the count of values.</remarks>
 	public static double ArithmeticMean(IEnumerable<double> values)
 	{
-		// Filter out NaN and Infinity values before calculating the average
-		double[] valueArray = [.. values.Where(predicate: static v => !double.IsNaN(d: v) && !double.IsInfinity(d: v))];
-		// Return NaN if there are no valid values to average
-		return valueArray.Length == 0 ? double.NaN : valueArray.Average();
+		// Initialize sum and count variables to accumulate the total and number of valid values
+		double sum = 0;
+		int count = 0;
+		// Iterate through each value in the input collection
+		foreach (double v in values)
+		{
+			// Check if the value is valid (not NaN or Infinity) before including it in the sum and count
+			if (IsValid(v: v))
+			{
+				sum += v;
+				count++;
+			}
+		}
+		// Return the arithmetic mean as the sum divided by the count, or NaN if there are no valid values
+		return count == 0 ? double.NaN : sum / count;
 	}
 
 	/// <summary>Calculates the median of a collection of values.</summary>
@@ -28,15 +61,13 @@ public static class AverageCalculator
 	public static double Median(IEnumerable<double> values)
 	{
 		// Filter out NaN and Infinity values, sort the remaining values, and convert to an array for indexing
-		double[] sorted = [.. values.Where(predicate: static v => !double.IsNaN(d: v) && !double.IsInfinity(d: v)).OrderBy(keySelector: static x => x)];
-		// Return NaN if there are no valid values to calculate the median
+		double[] sorted = GetValidSortedValues(values: values);
 		if (sorted.Length == 0)
 		{
 			return double.NaN;
 		}
-		// Calculate the median based on whether the count of values is odd or even
+
 		int mid = sorted.Length / 2;
-		// If the number of values is even, return the average of the two middle values; otherwise, return the middle value
 		return sorted.Length % 2 == 0 ? (sorted[mid - 1] + sorted[mid]) / 2.0 : sorted[mid];
 	}
 
@@ -46,18 +77,28 @@ public static class AverageCalculator
 	/// <remarks>The mode is the value that appears most frequently. If all values are unique, returns NaN.</remarks>
 	public static double Mode(IEnumerable<double> values)
 	{
-		// Filter out NaN and Infinity values before calculating the mode
-		double[] valueArray = [.. values.Where(predicate: static v => !double.IsNaN(d: v) && !double.IsInfinity(d: v))];
-		// Return NaN if there are no valid values to calculate the mode
-		if (valueArray.Length == 0)
+		// Use a dictionary to store the frequency of each rounded value (to avoid floating-point precision issues)
+		Dictionary<double, int> frequencies = [];
+		// Iterate through each value in the input collection
+		foreach (double v in values)
+		{
+			// Check if the value is valid (not NaN or Infinity) before including it in the frequency count
+			if (IsValid(v: v))
+			{
+				double rounded = Math.Round(value: v, digits: 6);
+				frequencies[rounded] = frequencies.GetValueOrDefault(key: rounded) + 1;
+			}
+		}
+		// If there are no valid values, return NaN
+		if (frequencies.Count == 0)
 		{
 			return double.NaN;
 		}
-		// Group values by their rounded value (to handle floating-point precision issues) and order groups by their count in descending order
-		IOrderedEnumerable<IGrouping<double, double>> grouped = valueArray.GroupBy(keySelector: static x => Math.Round(value: x, digits: 6)).OrderByDescending(keySelector: static g => g.Count());
-		IGrouping<double, double>? modeGroup = grouped.FirstOrDefault();
-		// Return NaN if all values appear only once
-		return modeGroup?.Count() > 1 ? modeGroup.Key : double.NaN;
+		// Find the value with the maximum frequency
+		KeyValuePair<double, int> maxFrequency = frequencies.MaxBy(kvp => kvp.Value);
+		// If the maximum frequency is greater than 1, return the corresponding value; otherwise, return NaN to indicate no mode
+		return maxFrequency.Value > 1 ? maxFrequency.Key : double.NaN;
+
 	}
 
 	/// <summary>Calculates the geometric mean of a collection of values.</summary>
@@ -67,15 +108,21 @@ public static class AverageCalculator
 	public static double GeometricMean(IEnumerable<double> values)
 	{
 		// Filter out NaN, Infinity, and non-positive values before calculating the geometric mean
-		double[] valueArray = [.. values.Where(predicate: static v => !double.IsNaN(d: v) && !double.IsInfinity(d: v) && v > 0)];
-		// Return NaN if there are no valid values to calculate the geometric mean
-		if (valueArray.Length == 0)
+		double logSum = 0;
+		int count = 0;
+		// Iterate through each value in the input collection
+		foreach (double v in values)
 		{
-			return double.NaN;
+			// Check if the value is valid (not NaN or Infinity) and positive before including it in the logarithmic sum and count
+			if (IsValid(v: v) && v > 0)
+			{
+				logSum += Math.Log(d: v);
+				count++;
+			}
 		}
-		// Use logarithms to avoid overflow when multiplying many values together, then exponentiate the average log value
-		double logSum = valueArray.Sum(selector: static v => Math.Log(d: v));
-		return Math.Exp(d: logSum / valueArray.Length);
+		// Return the geometric mean as the exponential of the average of the logarithmic sums, or NaN if there are no valid values
+		return count == 0 ? double.NaN : Math.Exp(d: logSum / count);
+
 	}
 
 	/// <summary>Calculates the harmonic mean of a collection of values.</summary>
@@ -85,15 +132,20 @@ public static class AverageCalculator
 	public static double HarmonicMean(IEnumerable<double> values)
 	{
 		// Filter out NaN, Infinity, and non-positive values before calculating the harmonic mean
-		double[] valueArray = [.. values.Where(predicate: static v => !double.IsNaN(d: v) && !double.IsInfinity(d: v) && v > 0)];
-		// Return NaN if there are no valid values to calculate the harmonic mean
-		if (valueArray.Length == 0)
+		double reciprocalSum = 0;
+		int count = 0;
+		// Iterate through each value in the input collection
+		foreach (double v in values)
 		{
-			return double.NaN;
+			// Check if the value is valid (not NaN or Infinity) and positive before including it in the reciprocal sum and count
+			if (IsValid(v: v) && v > 0)
+			{
+				reciprocalSum += 1.0 / v;
+				count++;
+			}
 		}
-		// Calculate the sum of the reciprocals of the values, then return the number of values divided by this sum
-		double reciprocalSum = valueArray.Sum(selector: static v => 1.0 / v);
-		return valueArray.Length / reciprocalSum;
+		// Return the harmonic mean as the count divided by the sum of reciprocals, or NaN if there are no valid values
+		return count == 0 ? double.NaN : count / reciprocalSum;
 	}
 
 	/// <summary>Calculates the quadratic mean (root mean square) of a collection of values.</summary>
@@ -103,15 +155,21 @@ public static class AverageCalculator
 	public static double QuadraticMean(IEnumerable<double> values)
 	{
 		// Filter out NaN and Infinity values before calculating the quadratic mean
-		double[] valueArray = [.. values.Where(predicate: static v => !double.IsNaN(d: v) && !double.IsInfinity(d: v))];
-		// Return NaN if there are no valid values to calculate the quadratic mean
-		if (valueArray.Length == 0)
+		double sumOfSquares = 0;
+		int count = 0;
+		// Iterate through each value in the input collection
+		foreach (double v in values)
 		{
-			return double.NaN;
+			// Check if the value is valid (not NaN or Infinity) before including it in the sum of squares and count
+			if (IsValid(v: v))
+			{
+				sumOfSquares += v * v;
+				count++;
+			}
 		}
-		// Calculate the sum of the squares of the values, then return the square root of the average of these squares
-		double sumOfSquares = valueArray.Sum(selector: static v => v * v);
-		return Math.Sqrt(d: sumOfSquares / valueArray.Length);
+		// Return the quadratic mean as the square root of the average of the squares, or NaN if there are no valid values
+		return count == 0 ? double.NaN : Math.Sqrt(d: sumOfSquares / count);
+
 	}
 
 	/// <summary>Calculates the cubic mean of a collection of values.</summary>
@@ -121,7 +179,7 @@ public static class AverageCalculator
 	public static double CubicMean(IEnumerable<double> values)
 	{
 		// Filter out NaN and Infinity values before calculating the cubic mean
-		double[] valueArray = [.. values.Where(predicate: static v => !double.IsNaN(d: v) && !double.IsInfinity(d: v))];
+		double[] valueArray = GetValidSortedValues(values);
 		// Return NaN if there are no valid values to calculate the cubic mean
 		if (valueArray.Length == 0)
 		{
@@ -139,7 +197,7 @@ public static class AverageCalculator
 	public static double LogarithmicMean(IEnumerable<double> values)
 	{
 		// Filter out NaN, Infinity, and non-positive values before calculating the logarithmic mean
-		double[] valueArray = [.. values.Where(predicate: static v => !double.IsNaN(d: v) && !double.IsInfinity(d: v) && v > 0).OrderBy(keySelector: static x => x)];
+		double[] valueArray = [.. GetValidSortedValues(values: values).Where(predicate: static v => v > 0)];
 		// Return NaN if there are no valid values to calculate the logarithmic mean
 		switch (valueArray.Length)
 		{
@@ -180,7 +238,7 @@ public static class AverageCalculator
 		// Clamp percentile to [0, 0.5) to ensure valid index calculations
 		percentile = Math.Clamp(value: percentile, min: 0.0, max: 0.4999);
 		// Filter out NaN and Infinity values, sort the remaining values, and convert to an array for indexing
-		double[] sorted = [.. values.Where(predicate: static v => !double.IsNaN(d: v) && !double.IsInfinity(d: v)).OrderBy(keySelector: static x => x)];
+		double[] sorted = GetValidSortedValues(values: values);
 		// Return NaN if there are no valid values to calculate the Winsorized mean
 		if (sorted.Length == 0)
 		{
@@ -212,7 +270,7 @@ public static class AverageCalculator
 	public static double QuartileMean(IEnumerable<double> values)
 	{
 		// Filter out NaN and Infinity values, sort the remaining values, and convert to an array for indexing
-		double[] sorted = [.. values.Where(predicate: static v => !double.IsNaN(d: v) && !double.IsInfinity(d: v)).OrderBy(keySelector: static x => x)];
+		double[] sorted = GetValidSortedValues(values: values);
 		// Return NaN if there are no valid values to calculate the quartile mean
 		if (sorted.Length == 0)
 		{
@@ -241,17 +299,20 @@ public static class AverageCalculator
 	/// <remarks>Finds the shortest contiguous half of the sorted values and calculates their mean.</remarks>
 	public static double ShortestHalfMean(IEnumerable<double> values)
 	{
+		//
+
 		// Filter out NaN and Infinity values, sort the remaining values, and convert to an array for indexing
-		double[] sorted = [.. values.Where(predicate: static v => !double.IsNaN(d: v) && !double.IsInfinity(d: v)).OrderBy(keySelector: static x => x)];
-		// Return NaN if there are no valid values to calculate the shortest half mean
+		double[] sorted = GetValidSortedValues(values: values);
+		// Return NaN if there are no valid values to calculate the mean of the shortest half
 		if (sorted.Length == 0)
 		{
 			return double.NaN;
 		}
 		// Calculate the length of the half to consider, which is half of the total number of values (rounded up)
 		int halfLength = (sorted.Length + 1) / 2;
-		// Initialize variables to track the minimum range and the starting index of the best half
+		// Initialize variables to track the minimum range found and the starting index of the best half
 		double minRange = double.MaxValue;
+		// Initialize the starting index of the best half to zero
 		int bestStart = 0;
 		// Iterate through all possible contiguous halves of the sorted array, calculate their range, and keep track of the half with the smallest range
 		for (int i = 0; i <= sorted.Length - halfLength; i++)
@@ -265,8 +326,16 @@ public static class AverageCalculator
 				bestStart = i;
 			}
 		}
-		// Return the average of the values in the shortest half found
-		return sorted.Skip(count: bestStart).Take(count: halfLength).Average();
+		// Calculate the sum of the values in the shortest half found and return their average
+		double sum = 0;
+		// Iterate through the values in the shortest half and accumulate their sum
+		for (int i = bestStart; i < bestStart + halfLength; i++)
+		{
+			sum += sorted[i];
+		}
+		// Return the mean of the shortest half as the sum divided by the length of the half
+		return sum / halfLength;
+
 	}
 
 	/// <summary>Calculates the Gastwirth-Cohen mean.</summary>
@@ -276,7 +345,7 @@ public static class AverageCalculator
 	public static double GastwirthCohenMean(IEnumerable<double> values)
 	{
 		// Filter out NaN and Infinity values, sort the remaining values, and convert to an array for indexing
-		double[] sorted = [.. values.Where(predicate: static v => !double.IsNaN(d: v) && !double.IsInfinity(d: v)).OrderBy(keySelector: static x => x)];
+		double[] sorted = GetValidSortedValues(values: values);
 		// Return NaN if there are no valid values to calculate the Gastwirth-Cohen mean
 		if (sorted.Length == 0)
 		{
@@ -302,7 +371,7 @@ public static class AverageCalculator
 	public static double RangeMean(IEnumerable<double> values)
 	{
 		// Filter out NaN and Infinity values and convert to an array for indexing
-		double[] valueArray = [.. values.Where(predicate: static v => !double.IsNaN(d: v) && !double.IsInfinity(d: v))];
+		double[] valueArray = GetValidSortedValues(values: values);
 		// Return NaN if there are no valid values to calculate the range mean
 		return valueArray.Length == 0 ? double.NaN : (valueArray.Min() + valueArray.Max()) / 2.0;
 	}
@@ -314,14 +383,14 @@ public static class AverageCalculator
 	public static double AMean(IEnumerable<double> values)
 	{
 		// Filter out NaN and Infinity values and convert to an array for indexing
-		double[] valueArray = [.. values.Where(predicate: static v => !double.IsNaN(d: v) && !double.IsInfinity(d: v))];
+		double[] valueArray = GetValidSortedValues(values: values);
 		// Return NaN if there are no valid values to calculate the "a"-mean
 		if (valueArray.Length == 0)
 		{
 			return double.NaN;
 		}
 		// Calculate the sum of the squares of the values and the sum of the values, then return the contraharmonic mean as the sum of squares divided by the sum
-		double sumOfSquares = valueArray.Sum(selector: v => v * v);
+		double sumOfSquares = valueArray.Sum(selector: static v => v * v);
 		double sum = valueArray.Sum();
 		return sum != 0 ? sumOfSquares / sum : double.NaN;
 	}
@@ -333,31 +402,43 @@ public static class AverageCalculator
 	/// <remarks>Calculates the average of averages of all windows of the specified size.</remarks>
 	public static double MovingAverage(IEnumerable<double> values, int windowSize = 3)
 	{
-		// Clamp windowSize to at least 1 to avoid empty windows
+		// Ensure the window size is at least 1 to avoid division by zero
 		if (windowSize < 1)
 		{
 			windowSize = 1;
 		}
 		// Filter out NaN and Infinity values and convert to an array for indexing
-		double[] valueArray = [.. values.Where(predicate: static v => !double.IsNaN(d: v) && !double.IsInfinity(d: v))];
+		double[] arr = [.. values.Where(predicate: IsValid)];
 		// Return NaN if there are no valid values to calculate the moving average
-		if (valueArray.Length == 0)
+		if (arr.Length == 0)
 		{
 			return double.NaN;
 		}
-		// If the window size is larger than the number of values, adjust it to the length of the array
-		if (valueArray.Length < windowSize)
+		// If the window size is larger than the number of valid values, adjust it to the length of the array
+		if (arr.Length < windowSize)
 		{
-			windowSize = valueArray.Length;
+			windowSize = arr.Length;
 		}
-		// Calculate the moving averages for all windows of the specified size and store them in a list
-		List<double> movingAverages = [];
-		for (int i = 0; i <= valueArray.Length - windowSize; i++)
+		// Initialize the sum of the current window and calculate the sum for the first window
+		double currentWindowSum = 0;
+		for (int i = 0; i < windowSize; i++)
 		{
-			movingAverages.Add(item: valueArray.Skip(count: i).Take(count: windowSize).Average());
+			currentWindowSum += arr[i];
 		}
-		// Return the average of the moving averages, or NaN if there are no moving averages calculated
-		return movingAverages.Count > 0 ? movingAverages.Average() : double.NaN;
+		// Initialize the total sum of averages and the count of windows processed
+		double totalAveragesSum = currentWindowSum / windowSize;
+		int windowCount = 1;
+		// Slide the window across the array, updating the current window sum and accumulating the total averages sum
+		for (int i = windowSize; i < arr.Length; i++)
+		{
+			// Update the current window sum by subtracting the value that is leaving the window and adding the new value that is entering the window
+			currentWindowSum += arr[i] - arr[i - windowSize];
+			totalAveragesSum += currentWindowSum / windowSize;
+			windowCount++;
+		}
+		// Return the overall moving average as the total sum of averages divided by the number of windows processed
+		return totalAveragesSum / windowCount;
+
 	}
 
 	/// <summary>Calculates the Hölder mean of the shortest half.</summary>
@@ -368,7 +449,7 @@ public static class AverageCalculator
 	public static double HolderMeanShortestHalf(IEnumerable<double> values, double p = 2)
 	{
 		// Filter out NaN and Infinity values and convert to an array for indexing
-		double[] sorted = [.. values.Where(predicate: static v => !double.IsNaN(d: v) && !double.IsInfinity(d: v)).OrderBy(keySelector: static x => x)];
+		double[] sorted = GetValidSortedValues(values: values);
 		// Return NaN if there are no valid values to calculate the Hölder mean of the shortest half
 		if (sorted.Length == 0)
 		{
@@ -410,7 +491,7 @@ public static class AverageCalculator
 	public static double LehmerMean(IEnumerable<double> values, double p = 2)
 	{
 		// Filter out NaN, Infinity, and negative values before calculating the Lehmer mean, as it is typically defined for non-negative values
-		double[] valueArray = [.. values.Where(predicate: static v => !double.IsNaN(d: v) && !double.IsInfinity(d: v) && v >= 0)];
+		double[] valueArray = [.. GetValidSortedValues(values: values).Where(predicate: static v => v >= 0)];
 		// Return NaN if there are no valid values to calculate the Lehmer mean
 		if (valueArray.Length == 0)
 		{
