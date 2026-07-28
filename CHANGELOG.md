@@ -1,5 +1,47 @@
 # Changelog
 
+## Planetoid-DB 0.9.21.84
+
+* Refactored `TerminologyForm.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/941
+* Refactored `ObservatoryCodesForm.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/942
+* Refactored `AssemblyInfo.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/943
+* Refactored `DerivedElements.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/944
+* Refactored `PlanetoidDBForm.Helpers.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/949
+* Refactored `PlanetoidDBForm.Decoders.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/950
+* Refactored `PlanetoidDBForm.DatabaseUpdates.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/951
+* Updated internal url of `MPCORB.DAT` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/952
+* Fix remaining HTTP→HTTPS URL gaps missed by initial settings update by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/953
+* Refactored `PreloadForm.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/954
+* Refactored `TaskbarProgress.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/956
+* Refactored `ToolStripNumericUpDown.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/957
+* Refactored `DoubleBufferingHelper.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/958
+* Refactored `ExportEscapeHelper.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/959
+* Refactored `ListViewItemComparer.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/960
+* Updated `Planetoid-DB.csproj` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/961
+* Removed embed resource group by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/962
+* Refactored `TisserandParameterCalculator.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/963
+* Refactored `PlanetoidRecord.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/964
+* Refactored `MoidsOfOneMinorPlanetForm.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/965
+* Refactored `MoidsOfAllMinorPlanetsForm.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/966
+* Refactored `MoidCalculator.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/969
+* Refactored `MaxoidCalculator.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/970
+* Refactored `AverageCalculator.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/971
+* Refactored `MaxoidsOfOneMinorPlanetForm.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/972
+* Update internal database `demoset-10000.txt` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/973
+* Updated to version 0.9.21.84 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/975
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.20.83.934.3005...0.9.21.84.975.3158
+
+
+## Planetoid-DB 0.9.20.83
+
+* Updated `SkiaSharp` packages to version 4.151.0-rc.1.1 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/935
+* Updated package version numbers by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/936
+* Updated to version 0.9.20.83 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/937
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.20.83.78.3005...0.9.20.83.934.3005
+
+
 ## Planetoid-DB 0.9.19.82
 
 * Updated image source in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/860
