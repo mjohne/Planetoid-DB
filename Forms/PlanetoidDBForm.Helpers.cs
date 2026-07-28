@@ -64,7 +64,7 @@ public partial class PlanetoidDbForm
 
 	/// <summary>Restarts the application.</summary>
 	/// <remarks>This method is used to restart the application.</remarks>
-	private void Restart()
+	private static void Restart()
 	{
 		// Restart the application and exit the current instance with an exit code of 0 (indicating a normal exit)
 		Application.Restart();
@@ -1289,7 +1289,7 @@ public partial class PlanetoidDbForm
 	private void ShowDerivedOrbitElements()
 	{
 		// Create a new list to store the derived orbit elements
-		List<string> derivedOrbitElements = new();
+		List<string> derivedOrbitElements = [];
 		// Create a specific culture for formatting
 		IFormatProvider provider = CultureInfo.InvariantCulture;
 		double semiMajorAxis = double.Parse(s: labelSemiMajorAxisData.Text, provider: provider);
