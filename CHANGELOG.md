@@ -9,8 +9,8 @@
 * Refactored `PlanetoidDBForm.Helpers.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/949
 * Refactored `PlanetoidDBForm.Decoders.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/950
 * Refactored `PlanetoidDBForm.DatabaseUpdates.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/951
-* Updated internal url of `MPCORB.DAT` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/952
-* Fix remaining HTTP→HTTPS URL gaps missed by initial settings update by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/953
+* Updated internal URL of `MPCORB.DAT` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/952
+* Fixed remaining HTTP→HTTPS URL gaps missed by initial settings update by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/953
 * Refactored `PreloadForm.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/954
 * Refactored `TaskbarProgress.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/956
 * Refactored `ToolStripNumericUpDown.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/957
@@ -18,7 +18,7 @@
 * Refactored `ExportEscapeHelper.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/959
 * Refactored `ListViewItemComparer.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/960
 * Updated `Planetoid-DB.csproj` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/961
-* Removed embed resource group by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/962
+* Removed embedded resource group by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/962
 * Refactored `TisserandParameterCalculator.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/963
 * Refactored `PlanetoidRecord.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/964
 * Refactored `MoidsOfOneMinorPlanetForm.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/965
