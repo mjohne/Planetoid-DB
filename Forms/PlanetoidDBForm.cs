@@ -49,49 +49,58 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This form is displayed while the application is loading.</remarks>
 	private readonly SplashScreenForm formSplashScreen = new();
 
-	/// <summary>Filenames for the MPCORB database.</summary>
-	/// <remarks>These strings are used to store the filenames for the MPCORB database.</remarks>
+	/// <summary>Filenames for the MPCORB.DAT database.</summary>
+	/// <remarks>These strings are used to store the filenames for the MPCORB.DAT database.</remarks>
 	private readonly string filenameMpcorbDat = Settings.Default.systemFilenameMpcorbDat;
 	private readonly string filenameMpcorbTemp = Settings.Default.systemFilenameMpcorbDatTemp;
 
-	/// <summary>Filenames for the ASTORB database.</summary>
-	/// <remarks>These strings are used to store the filenames for the ASTORB database.</remarks>
+	/// <summary>Filenames for the MPCORB.JSON database.</summary>
+	/// <remarks>These strings are used to store the filenames for the MPCORB.JSON database.</remarks>
+	private readonly string filenameMpcorbJson = Settings.Default.systemFilenameMpcorbJson;
+	private readonly string filenameMpcorbJsonTemp = Settings.Default.systemFilenameMpcorbJsonTemp;
+
+	/// <summary>Filenames for the ASTORB.DAT database.</summary>
+	/// <remarks>These strings are used to store the filenames for the ASTORB.DAT database.</remarks>
 	private readonly string filenameAstorbDat = Settings.Default.systemFilenameAstorbDat;
 	private readonly string filenameAstorbTemp = Settings.Default.systemFilenameAstorbDatTemp;
 
-	/// <summary>Filenames for the ALLNUMCAT database.</summary>
-	/// <remarks>These strings are used to store the filenames for the ALLNUMCAT database.</remarks>
+	/// <summary>Filenames for the ALLNUM.CAT database.</summary>
+	/// <remarks>These strings are used to store the filenames for the ALLNUM.CAT database.</remarks>
 	private readonly string filenameAllnumCat = Settings.Default.systemFilenameAllnumCat;
 	private readonly string filenameAllnumCatTemp = Settings.Default.systemFilenameAllnumCatTemp;
 
-	/// <summary>Filenames for the UFITOBS database.</summary>
-	/// <remarks>These strings are used to store the filenames for the UFITOBS database.</remarks>
+	/// <summary>Filenames for the UFITOBS.CAT database.</summary>
+	/// <remarks>These strings are used to store the filenames for the UFITOBS.CAT database.</remarks>
 	private readonly string filenameUfitobsCat = Settings.Default.systemFilenameUfitobsCat;
 	private readonly string filenameUfitobsCatTemp = Settings.Default.systemFilenameUfitobsCatTemp;
 
-	/// <summary>Filenames for the SINGOPP database.</summary>
-	/// <remarks>These strings are used to store the filenames for the SINGOPP database.</remarks>
+	/// <summary>Filenames for the SINGOPP.CAT database.</summary>
+	/// <remarks>These strings are used to store the filenames for the SINGOPP.CAT database.</remarks>
 	private readonly string filenameSingoppCat = Settings.Default.systemFilenameSingoppCat;
 	private readonly string filenameSingoppCatTemp = Settings.Default.systemFilenameSingoppCatTemp;
 
-	/// <summary>URI for the MPCORB database.</summary>
-	/// <remarks>This URI is used to access the MPCORB database.</remarks>
+	/// <summary>URI for the MPCORB.DAT database.</summary>
+	/// <remarks>This URI is used to access the MPCORB.DAT database.</remarks>
 	private readonly Uri uriMpcorbDat = new(uriString: Settings.Default.systemMpcorbDatGzUrl);
 
-	/// <summary>URI for the ASTORB database.</summary>
-	/// <remarks>This URI is used to access the ASTORB database.</remarks>
+	/// <summary>URI for the MPCORB.JSON database.</summary>
+	/// <remarks>This URI is used to access the MPCORB.JSON database.</remarks>
+	private readonly Uri uriMpcorbJson = new(uriString: Settings.Default.systemMpcorbJsonGzUrl);
+
+	/// <summary>URI for the ASTORB.DAT database.</summary>
+	/// <remarks>This URI is used to access the ASTORB.DAT database.</remarks>
 	private readonly Uri uriAstorbDat = new(uriString: Settings.Default.systemAstorbDatGzUrl);
 
-	/// <summary>URI for the ALLNUMCAT database.</summary>
-	/// <remarks>This URI is used to access the ALLNUMCAT database.</remarks>
+	/// <summary>URI for the ALLNUM.CAT database.</summary>
+	/// <remarks>This URI is used to access the ALLNUM.CAT database.</remarks>
 	private readonly Uri uriAllnumCat = new(uriString: Settings.Default.systemAllnumCatUrl);
 
-	/// <summary>URI for the UFITOBS database.</summary>
-	/// <remarks>This URI is used to access the UFITOBS database.</remarks>
+	/// <summary>URI for the UFITOBS.CAT database.</summary>
+	/// <remarks>This URI is used to access the UFITOBS.CAT database.</remarks>
 	private readonly Uri uriUfitobsCat = new(uriString: Settings.Default.systemUfitobsCatUrl);
 
-	/// <summary>URI for the SINGOPP database.</summary>
-	/// <remarks>This URI is used to access the SINGOPP database.</remarks>
+	/// <summary>URI for the SINGOPP.CAT database.</summary>
+	/// <remarks>This URI is used to access the SINGOPP.CAT database.</remarks>
 	private readonly Uri uriSingoppCat = new(uriString: Settings.Default.systemSingoppCatUrl);
 
 	/*

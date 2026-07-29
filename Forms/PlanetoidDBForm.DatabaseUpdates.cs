@@ -6,17 +6,22 @@ using System.Net.NetworkInformation;
 namespace Planetoid_DB;
 
 /// <summary>Partial class for handling database updates in the PlanetoidDbForm.</summary>
-/// <remarks>This partial class contains methods for checking for updates to various databases (MPCORB, ASTORB, ALLNUM.CAT, UFITOBS.CAT, SINGOPP.CAT) and displaying the corresponding downloader forms. It also includes a generic method for checking if a remote database file is newer than the local file and a method for showing the downloader workflow.</remarks>
+/// <remarks>This partial class contains methods for checking for updates to various databases (MPCORB.DAT, MPCORB.JSON, ASTORB.DAT, ALLNUM.CAT, UFITOBS.CAT, SINGOPP.CAT) and displaying the corresponding downloader forms. It also includes a generic method for checking if a remote database file is newer than the local file and a method for showing the downloader workflow.</remarks>
 public partial class PlanetoidDbForm
 {
-	/// <summary>Checks if an update for the MPCORB database is available.</summary>
+	/// <summary>Checks if an update for the MPCORB.DAT database is available.</summary>
 	/// <returns><see langword="true"/> if an update is available; otherwise, <see langword="false"/>.</returns>
-	/// <remarks>This method checks if an update for the MPCORB database is available by comparing the last modified date of the local file with the remote file. If the local file does not exist, it returns <see langword="true"/> (update available). If the remote file is newer, it also returns <see langword="true"/>. If any exceptions occur during the process, it returns <see langword="false"/>.</remarks>
+	/// <remarks>This method checks if an update for the MPCORB.DAT database is available by comparing the last modified date of the local file with the remote file. If the local file does not exist, it returns <see langword="true"/> (update available). If the remote file is newer, it also returns <see langword="true"/>. If any exceptions occur during the process, it returns <see langword="false"/>.</remarks>
 	private bool IsMpcorbDatUpdateAvailable() => IsDatabaseUpdateAvailable(localFilePath: filenameMpcorbDat, sourceUri: uriMpcorbDat, readContentLength: true);
 
-	/// <summary>Checks if an update for the ASTORB database is available.</summary>
+	/// <summary>Checks if an update for the MPCORB.JSON database is available.</summary>
 	/// <returns><see langword="true"/> if an update is available; otherwise, <see langword="false"/>.</returns>
-	/// <remarks>This method checks if an update for the ASTORB database is available by comparing the last modified date of the local file with the remote file. If the local file does not exist, it returns <see langword="true"/> (update available). If the remote file is newer, it also returns <see langword="true"/>. If any exceptions occur during the process, it returns <see langword="false"/>.</remarks>
+	/// <remarks>This method checks if an update for the MPCORB.JSON database is available by comparing the last modified date of the local file with the remote file. If the local file does not exist, it returns <see langword="true"/> (update available). If the remote file is newer, it also returns <see langword="true"/>. If any exceptions occur during the process, it returns <see langword="false"/>.</remarks>
+	private bool IsMpcorbJsonUpdateAvailable() => IsDatabaseUpdateAvailable(localFilePath: filenameMpcorbJson, sourceUri: uriMpcorbJson, readContentLength: true);
+
+	/// <summary>Checks if an update for the ASTORB.DAT database is available.</summary>
+	/// <returns><see langword="true"/> if an update is available; otherwise, <see langword="false"/>.</returns>
+	/// <remarks>This method checks if an update for the ASTORB.DAT database is available by comparing the last modified date of the local file with the remote file. If the local file does not exist, it returns <see langword="true"/> (update available). If the remote file is newer, it also returns <see langword="true"/>. If any exceptions occur during the process, it returns <see langword="false"/>.</remarks>
 	private bool IsAstorbDatUpdateAvailable() => IsDatabaseUpdateAvailable(localFilePath: filenameAstorbDat, sourceUri: uriAstorbDat);
 
 	/// <summary>Checks if an update for the ALLNUM.CAT database is available.</summary>
@@ -34,16 +39,23 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method checks if an update for the SINGOPP.CAT database is available by comparing the last modified date of the local file with the remote file. If the local file does not exist, it returns <see langword="true"/> (update available). If the remote file is newer, it also returns <see langword="true"/>. If any exceptions occur during the process, it returns <see langword="false"/>.</remarks>
 	private bool IsSingoppCatUpdateAvailable() => IsDatabaseUpdateAvailable(localFilePath: filenameSingoppCat, sourceUri: uriSingoppCat);
 
-	/// <summary>Shows the downloader form for the MPCORB database.</summary>
-	/// <remarks>This method is used to display the downloader form for the MPCORB database.</remarks>
+	/// <summary>Shows the downloader form for the MPCORB.DAT database.</summary>
+	/// <remarks>This method is used to display the downloader form for the MPCORB.DAT database.</remarks>
 	private void ShowMpcorbDatDownloader() =>
 		ShowDatabaseDownloader(
 			downloadUrl: Settings.Default.systemMpcorbDatGzUrl,
 			updateAvailableMenuItem: toolStripMenuItemShowMpcorbDatUpdateIsAvailable,
 			updateStatusItem: toolStripStatusLabelMpcorbDatUpdate);
 
-	/// <summary>Shows the downloader form for the ASTORB database.</summary>
-	/// <remarks>This method is used to display the downloader form for the ASTORB database.</remarks>
+	/// <summary>Shows the downloader form for the MPCORB.JSON database.</summary>
+	/// <remarks>This method is used to display the downloader form for the MPCORB.JSON database.</remarks>
+	private void ShowMpcorbJsonDownloader() =>
+		ShowDatabaseDownloader(
+			downloadUrl: Settings.Default.systemMpcorbJsonGzUrl,
+			updateAvailableMenuItem: toolStripMenuItemShowMpcorbJsonUpdateIsAvailable);
+
+	/// <summary>Shows the downloader form for the ASTORB.DAT database.</summary>
+	/// <remarks>This method is used to display the downloader form for the ASTORB.DAT database.</remarks>
 	private void ShowAstorbDatDownloader() =>
 		ShowDatabaseDownloader(
 			downloadUrl: Settings.Default.systemAstorbDatGzUrl,

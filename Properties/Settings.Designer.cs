@@ -319,5 +319,44 @@ namespace Planetoid_DB.Properties {
                 return ((string)(this["systemHomepageMailIntern"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://minorplanetcenter.net/Extended_Files/mpcorb_extended.json.gz")]
+        public string systemMpcorbJsonGzUrl {
+            get {
+                return ((string)(this["systemMpcorbJsonGzUrl"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string userMpcorbJsonGzUrl {
+            get {
+                return ((string)(this["userMpcorbJsonGzUrl"]));
+            }
+            set {
+                this["userMpcorbJsonGzUrl"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("mpcorb.json")]
+        public string systemFilenameMpcorbJson {
+            get {
+                return ((string)(this["systemFilenameMpcorbJson"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("_")]
+        public string systemFilenameMpcorbJsonTemp {
+            get {
+                return ((string)(this["systemFilenameMpcorbJsonTemp"]));
+            }
+        }
     }
 }
