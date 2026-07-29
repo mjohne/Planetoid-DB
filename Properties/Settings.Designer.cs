@@ -343,7 +343,7 @@ namespace Planetoid_DB.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("mpcorb.json")]
+        [global::System.Configuration.DefaultSettingValueAttribute("mpcorb_extended.json")]
         public string systemFilenameMpcorbJson {
             get {
                 return ((string)(this["systemFilenameMpcorbJson"]));

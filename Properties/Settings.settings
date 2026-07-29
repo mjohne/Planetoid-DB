@@ -99,7 +99,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="systemFilenameMpcorbJson" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">mpcorb.json</Value>
+      <Value Profile="(Default)">mpcorb_extended.json</Value>
     </Setting>
     <Setting Name="systemFilenameMpcorbJsonTemp" Type="System.String" Scope="Application">
       <Value Profile="(Default)">_</Value>
