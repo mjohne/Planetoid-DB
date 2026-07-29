@@ -1,5 +1,16 @@
 # Changelog
 
+## Planetoid-DB 0.9.22.85
+
+* Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/977
+* Updated `CHANGELOG` for version 0.9.21.84 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/978
+* Added support for the update check and downloading `MPCORB.JSON` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/979
+* Added a database selection option to the menu bar for updates and downloads by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/980
+* Updated to version 0.9.22.85 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/981
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.21.84.975.3158...0.9.22.85.891.3283
+
+
 ## Planetoid-DB 0.9.21.84
 
 * Refactored `TerminologyForm.cs` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/941
