@@ -208,7 +208,8 @@ internal class MoidCalculator
 			// Precompute the positions of the planet's orbit at each coarse grid step in parallel for efficiency
 			Parallel.For(fromInclusive: 0, toExclusive: GridSteps, parallelOptions: new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount, CancellationToken = cancellationToken }, body: idx =>
 			{
-				// Check for cancellation requests to allow responsive termination of long-running calculations
+				// Cancellation is observed via ParallelOptions.CancellationToken
+				cancellationToken.ThrowIfCancellationRequested();
 				double f = idx * GridStepSize;
 				// Store the computed position in the cache using the optimized orbit position calculation for the planet
 				pos2Cache[idx] = OrbitPositionOptimized(
@@ -316,10 +317,13 @@ internal class MoidCalculator
 				},
 				body: idx =>
 				{
+					// Compute the true anomaly for the current grid index
 					double f = idx * GridStepSize;
+					// Store the computed positions in the respective caches using the optimized orbit position calculation
 					pos1Cache[idx] = OrbitPositionOptimized(a: a1, e: e1, w: w1, f: f, cosO: cosO1, sinO: sinO1, cosi: cosi1, sini: sini1, oneMinusESq: oneMinusE1Sq);
 					pos2Cache[idx] = OrbitPositionOptimized(a: a2, e: e2, w: w2, f: f, cosO: cosO2, sinO: sinO2, cosi: cosi2, sini: sini2, oneMinusESq: oneMinusE2Sq);
 				});
+			// Perform a coarse grid search to find the approximate minimum distance between the two orbits
 			CoarseMinimumResult coarseMinimum = FindCoarseMinimum(pos1Cache: pos1Cache, pos2Cache: pos2Cache);
 			// Local refinement via coordinate descent with precomputed trig values
 			return RefineMinimumOptimized(
@@ -347,10 +351,13 @@ internal class MoidCalculator
 		(double X, double Y, double Z)[] pos2Cache,
 		CancellationToken cancellationToken = default)
 	{
+		// Use long bits to avoid locking on double values; this allows atomic updates of the minimum distance found so far
 		long minDistSquaredBits = BitConverter.DoubleToInt64Bits(value: double.MaxValue);
 		long bestF1Bits = 0;
 		long bestF2Bits = 0;
-		Partitioner<Tuple<int, int>> partitioner = Partitioner.Create(fromInclusive: 0, toExclusive: GridSteps, rangeSize: Math.Max(1, GridSteps / (Environment.ProcessorCount * 4)));
+		// Use a partitioner to divide the work into chunks for better load balancing across threads
+		Partitioner<Tuple<int, int>> partitioner = Partitioner.Create(fromInclusive: 0, toExclusive: GridSteps, rangeSize: Math.Max(val1: 1, val2: GridSteps / (Environment.ProcessorCount * 4)));
+		// Perform a parallel search over the coarse grid using the partitioner
 		_ = Parallel.ForEach(
 			source: partitioner,
 			parallelOptions: new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount, CancellationToken = cancellationToken },
@@ -359,48 +366,69 @@ internal class MoidCalculator
 				double localMinDistSq = double.MaxValue;
 				int localBestI = 0;
 				int localBestJ = 0;
+				// Loop over the assigned range of indices for orbit 1
 				for (int i = range.Item1; i < range.Item2; i++)
 				{
+					// Check for cancellation requests to allow responsive termination of long-running calculations
 					cancellationToken.ThrowIfCancellationRequested();
+					// Get the precomputed position for orbit 1 at index i
 					(double X, double Y, double Z) p1 = pos1Cache[i];
+					// Use SIMD acceleration if available and the grid size is sufficient for vectorization
 					if (Vector256.IsHardwareAccelerated && GridSteps >= Vector256<double>.Count)
 					{
+						// Process orbit 2 positions in chunks of 4 for SIMD optimization
 						int j = 0;
 						int simdEnd = GridSteps - (GridSteps % 4);
+						// Loop over orbit 2 positions in chunks of 4 for SIMD optimization
 						for (; j < simdEnd; j += 4)
 						{
+							// Compute distances for 4 positions of orbit 2 in parallel using SIMD
 							for (int k = 0; k < 4; k++)
 							{
+								// Get the precomputed position for orbit 2 at index j + k
 								(double X, double Y, double Z) p2 = pos2Cache[j + k];
+								// Compute the squared distance between the two positions
 								double distSq = DistanceSquared(p1: p1, p2: p2);
+								// Update the local minimum if a smaller distance is found
 								if (distSq < localMinDistSq)
 								{
+									// Update the local minimum distance and the corresponding indices
 									localMinDistSq = distSq;
 									localBestI = i;
 									localBestJ = j + k;
 								}
 							}
 						}
+						// Handle any remaining positions of orbit 2 that were not processed in the SIMD loop
 						for (; j < GridSteps; j++)
 						{
+							// Get the precomputed position for orbit 2 at index j
 							(double X, double Y, double Z) p2 = pos2Cache[j];
+							// Compute the squared distance between the two positions
 							double distSq = DistanceSquared(p1: p1, p2: p2);
 							if (distSq < localMinDistSq)
 							{
+								// Update the local minimum distance and the corresponding indices
 								localMinDistSq = distSq;
 								localBestI = i;
 								localBestJ = j;
 							}
 						}
 					}
+					// If SIMD is not available or the grid size is too small, fall back to a simple loop over orbit 2 positions
 					else
 					{
+						// Loop over all positions of orbit 2 to compute distances
 						for (int j = 0; j < GridSteps; j++)
 						{
+							// Get the precomputed position for orbit 2 at index j
 							(double X, double Y, double Z) p2 = pos2Cache[j];
+							// Compute the squared distance between the two positions
 							double distSq = DistanceSquared(p1: p1, p2: p2);
+							// Update the local minimum if a smaller distance is found
 							if (distSq < localMinDistSq)
 							{
+								// Update the local minimum distance and the corresponding indices
 								localMinDistSq = distSq;
 								localBestI = i;
 								localBestJ = j;
@@ -408,16 +436,22 @@ internal class MoidCalculator
 						}
 					}
 				}
+				// After processing the assigned range, attempt to update the global minimum using atomic operations
 				while (true)
 				{
+					// Check for cancellation requests before attempting to update the global minimum
 					cancellationToken.ThrowIfCancellationRequested();
+					// Read the current global minimum distance in a thread-safe manner
 					long currentMinBits = Interlocked.Read(location: ref minDistSquaredBits);
 					double currentMin = BitConverter.Int64BitsToDouble(value: currentMinBits);
+					// If the local minimum found in this thread is not better than the current global minimum, exit the loop
 					if (localMinDistSq >= currentMin)
 					{
 						break;
 					}
+					// Attempt to update the global minimum distance using CompareExchange to ensure thread safety
 					long newMinBits = BitConverter.DoubleToInt64Bits(value: localMinDistSq);
+					// If the CompareExchange succeeds, update the best indices and exit the loop
 					if (Interlocked.CompareExchange(location1: ref minDistSquaredBits, value: newMinBits, comparand: currentMinBits) == currentMinBits)
 					{
 						Interlocked.Exchange(location1: ref bestF1Bits, value: BitConverter.DoubleToInt64Bits(value: localBestI * GridStepSize));
@@ -426,7 +460,7 @@ internal class MoidCalculator
 					}
 				}
 			});
-
+		// Return the best coarse minimum found across all threads
 		return new CoarseMinimumResult(
 			MinDistanceSquared: BitConverter.Int64BitsToDouble(value: Interlocked.Read(location: ref minDistSquaredBits)),
 			BestF1: BitConverter.Int64BitsToDouble(value: Interlocked.Read(location: ref bestF1Bits)),
@@ -438,12 +472,16 @@ internal class MoidCalculator
 	/// <remarks>These precomputed values are used to optimize the inner loop of the MOID calculation by avoiding repeated trigonometric and arithmetic computations for the planetary orbit during bulk processing.</remarks>
 	private static PlanetComputationData[] BuildPrecomputedPlanets()
 	{
+		// Precompute trigonometric values for all planets to avoid repeated calculations during MOID computations
 		PlanetComputationData[] data = new PlanetComputationData[Planets.Length];
+		// Loop over each planet and compute the necessary constants for MOID calculations
 		for (int i = 0; i < Planets.Length; i++)
 		{
+			// Convert the inclination and longitude of ascending node from degrees to radians for the current planet
 			PlanetElements planet = Planets[i];
 			double inclinationRad = planet.InclinationDeg * Math.PI / 180.0;
 			double longitudeAscendingNodeRad = planet.LongitudeAscendingNodeDeg * Math.PI / 180.0;
+			// Store the precomputed constants in the PlanetComputationData struct for efficient access during MOID calculations
 			data[i] = new PlanetComputationData(
 				Name: planet.Name,
 				SemiMajorAxis: planet.SemiMajorAxis,
@@ -455,6 +493,7 @@ internal class MoidCalculator
 				SinInclination: Math.Sin(a: inclinationRad),
 				OneMinusEccentricitySquared: 1.0 - (planet.Eccentricity * planet.Eccentricity));
 		}
+		// Return the array of precomputed planetary constants for use in MOID calculations
 		return data;
 	}
 

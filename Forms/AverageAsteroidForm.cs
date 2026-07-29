@@ -224,9 +224,9 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 						int current = Interlocked.Increment(location: ref processed);
 						int percent = total > 0 ? (int)((double)current / total * 90) : 90;
 						// Only report progress if the percentage has changed to avoid excessive updates to the progress bar
-						if (percent != lastReported)
+						int prev = Interlocked.CompareExchange(location1: ref lastReported, value: 0, comparand: 0);
+						if (percent > prev && Interlocked.CompareExchange(location1: ref lastReported, value: percent, comparand: prev) == prev)
 						{
-							lastReported = percent;
 							progress.Report(value: percent);
 						}
 					});

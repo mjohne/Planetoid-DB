@@ -3,10 +3,17 @@
 using NLog;
 
 using OpenTK.GLControl;
-using OpenTK.Graphics.OpenGL;
 using OpenTK.Windowing.Common;
 
 using System.Diagnostics;
+
+using BlendingFactor = OpenTK.Graphics.OpenGL.BlendingFactor;  // Explicit alias to resolve ambiguity
+using EnableCap = OpenTK.Graphics.OpenGL.EnableCap;  // Explicit alias to resolve ambiguity
+using GL = OpenTK.Graphics.OpenGL.GL;  // Explicit alias to resolve ambiguity
+using HintMode = OpenTK.Graphics.OpenGL.HintMode;  // Explicit alias to resolve ambiguity
+using HintTarget = OpenTK.Graphics.OpenGL.HintTarget;  // Explicit alias to resolve ambiguity
+using MatrixMode = OpenTK.Graphics.OpenGL.MatrixMode;  // Explicit alias to resolve ambiguity
+using PrimitiveType = OpenTK.Graphics.OpenGL.PrimitiveType;  // Explicit alias to resolve ambiguity
 
 namespace Planetoid_DB.Forms;
 
@@ -597,7 +604,6 @@ public partial class AsteroidGameForm : BaseKryptonForm
 		// Set up OpenGL state for 2D rendering
 		_glControl.MakeCurrent();
 		GL.ClearColor(red: 0.0f, green: 0.0f, blue: 0.0f, alpha: 1f);
-		GL.Clear(mask: ClearBufferMask.ColorBufferBit);
 		GL.Enable(cap: EnableCap.Blend);
 		GL.BlendFunc(sfactor: BlendingFactor.SrcAlpha, dfactor: BlendingFactor.OneMinusSrcAlpha);
 		GL.Enable(cap: EnableCap.LineSmooth);
