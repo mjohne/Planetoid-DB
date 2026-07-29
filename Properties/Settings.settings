@@ -92,5 +92,17 @@
     <Setting Name="systemHomepageMailIntern" Type="System.String" Scope="Application">
       <Value Profile="(Default)">mailto:mj-programming@gmx.de</Value>
     </Setting>
+    <Setting Name="systemMpcorbJsonGzUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://minorplanetcenter.net/Extended_Files/mpcorb_extended.json.gz</Value>
+    </Setting>
+    <Setting Name="userMpcorbJsonGzUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="systemFilenameMpcorbJson" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">mpcorb.json</Value>
+    </Setting>
+    <Setting Name="systemFilenameMpcorbJsonTemp" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">_</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

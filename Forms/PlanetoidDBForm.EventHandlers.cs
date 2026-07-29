@@ -73,7 +73,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to handle the shown event of the form.</remarks>
 	private void PlanetoidDBForm_Shown(object sender, EventArgs e)
 	{
-		// Check if an update is available for the MPCORB database and enable the timer for blinking the update label
+		// Check if an update is available for the MPCORB.DAT database and enable the timer for blinking the update label
 		if (IsMpcorbDatUpdateAvailable())
 		{
 			toolStripMenuItemShowMpcorbDatUpdateIsAvailable.Enabled = true;
@@ -85,7 +85,19 @@ public partial class PlanetoidDbForm
 			toolStripStatusLabelMpcorbDatUpdate.Enabled = false;
 			toolStripStatusLabelMpcorbDatUpdate.Visible = false;
 		}
-		// Check if an update is available for the ASTORB database and enable the timer for blinking the update label
+		// Check if an update is available for the MPCORB.JSON database and enable the timer for blinking the update label
+		if (IsMpcorbJsonUpdateAvailable())
+		{
+			toolStripMenuItemShowMpcorbJsonUpdateIsAvailable.Enabled = true;
+			//toolStripStatusLabelMpcorbJsonUpdate.Enabled = true;
+		}
+		// Otherwise, disable and hide the update label
+		else
+		{
+			//toolStripStatusLabelMpcorbJsonUpdate.Enabled = false;
+			//toolStripStatusLabelMpcorbJsonUpdate.Visible = false;
+		}
+		// Check if an update is available for the ASTORB.DAT database and enable the timer for blinking the update label
 		if (IsAstorbDatUpdateAvailable())
 		{
 			toolStripMenuItemShowAstorbDatUpdateIsAvailable.Enabled = true;
@@ -458,65 +470,78 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to open the MPCORB website.</remarks>
 	private void OpenMpcorbDatWebsite_Click(object sender, EventArgs e) => OpenWebsite(fileName: Settings.Default.systemWebsiteMpcorb);
 
-	/// <summary>Handles the click event for the ToolStripMenuItemDownloadMpcorbDat. Shows the downloader form for the MPCORB database.</summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemDownloadMpcorbDat. Shows the downloader form for the MPCORB.DAT database.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the downloader form for the MPCORB database.</remarks>
+	/// <remarks>This method is used to show the downloader form for the MPCORB.DAT database.</remarks>
 	private void DownloadMpcorbDat_Click(object sender, EventArgs e) => ShowMpcorbDatDownloader();
 
-	/// <summary>Handles the click event for the ToolStripMenuItemDownloadAstorbDat. Shows the downloader form for the ASTORB database.</summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemDownloadMpcorbJson. Shows the downloader form for the MPCORB.JSON database.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the downloader form for the ASTORB database.</remarks>
+	/// <remarks>This method is used to show the downloader form for the MPCORB.JSON database.</remarks>
+	private void DownloadMpcorbJson_Click(object sender, EventArgs e) => ShowMpcorbJsonDownloader();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemDownloadAstorbDat. Shows the downloader form for the ASTORB.DAT database.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the downloader form for the ASTORB.DAT database.</remarks>
 	private void DownloadAstorbDat_Click(object sender, EventArgs e) => ShowAstorbDatDownloader();
 
-	/// <summary>Handles the click event for the ToolStripMenuItemDownloadAllnumCat. Shows the downloader form for the ALLNUMCAT database.</summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemDownloadAllnumCat. Shows the downloader form for the ALLNUM.CAT database.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the downloader form for the ALLNUMCAT database.</remarks>
+	/// <remarks>This method is used to show the downloader form for the ALLNUM.CAT database.</remarks>
 	private void DownloadAllnumCat_Click(object sender, EventArgs e) => ShowAllnumCatDownloader();
 
-	/// <summary>Handles the click event for the ToolStripMenuItemDownloadUfitobsCat. Shows the downloader form for the UFITOBS database.</summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemDownloadUfitobsCat. Shows the downloader form for the UFITOBS.CAT database.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the downloader form for the UFITOBS database.</remarks>
+	/// <remarks>This method is used to show the downloader form for the UFITOBS.CAT database.</remarks>
 	private void DownloadUfitobsCat_Click(object sender, EventArgs e) => ShowUfitobsCatDownloader();
 
-	/// <summary>Handles the click event for the ToolStripMenuItemDownloadSingoppCat. Shows the downloader form for the SINGOPP database.</summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemDownloadSingoppCat. Shows the downloader form for the SINGOPP.CAT database.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the downloader form for the SINGOPP database.</remarks>
+	/// <remarks>This method is used to show the downloader form for the SINGOPP.CAT database.</remarks>
 	private void DownloadSingoppCat_Click(object sender, EventArgs e) => ShowSingoppCatDownloader();
 
-	/// <summary>Handles the click event for the ToolStripButtonCheckMpcorbDatUpdate. Shows the MPCORB data check form.</summary>
+	/// <summary>Handles the click event for the ToolStripButtonCheckMpcorbDatUpdate. Shows the MPCORB.DAT data check form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	///	<remarks>
-	///	This method is used to show the MPCORB data check form.</remarks>
+	///	This method is used to show the MPCORB.DAT data check form.</remarks>
 	private void CheckMpcorbDatUpdate_Click(object sender, EventArgs e) => ShowMpcorbDatUpdateCheck();
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCheckAstorbDat. Shows the ASTORB data check form.</summary>
+	/// <summary>Handles the click event for the ToolStripButtonCheckMpcorbJsonUpdate. Shows the MPCORB.JSON data check form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the ASTORB data check form.</remarks>
+	///	<remarks>
+	///	This method is used to show the MPCORB.JSON data check form.</remarks>
+	private void CheckMpcorbJsonUpdate_Click(object sender, EventArgs e) => ShowMpcorbJsonUpdateCheck();
+
+	/// <summary>Handles the click event for the ToolStripMenuItemCheckAstorbDat. Shows the ASTORB.DAT data check form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the ASTORB.DAT data check form.</remarks>
 	private void CheckAstorbDatUpdate_Click(object sender, EventArgs e) => ShowAstorbDatUpdateCheck();
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCheckAllnumCat. Shows the ALLNUMCAT data check form.</summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemCheckAllnumCat. Shows the ALLNUM.CAT data check form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the ALLNUMCAT data check form.</remarks>
+	/// <remarks>This method is used to show the ALLNUM.CAT data check form.</remarks>
 	private void CheckAllnumCatUpdate_Click(object sender, EventArgs e) => ShowAllnumCatUpdateCheck();
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCheckUfitobsCat. Shows the UFITOBS data check form.</summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemCheckUfitobsCat. Shows the UFITOBS.CAT data check form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the UFITOBS data check form.</remarks>
+	/// <remarks>This method is used to show the UFITOBS.CAT data check form.</remarks>
 	private void CheckUfitobsCatUpdate_Click(object sender, EventArgs e) => ShowUfitobsCatUpdateCheck();
 
-	/// <summary>Handles the click event for the ToolStripMenuItemCheckSingoppCat. Shows the SINGOPP data check form.</summary>
+	/// <summary>Handles the click event for the ToolStripMenuItemCheckSingoppCat. Shows the SINGOPP.CAT data check form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method is used to show the SINGOPP data check form.</remarks>
+	/// <remarks>This method is used to show the SINGOPP.CAT data check form.</remarks>
 	private void CheckSingoppCatUpdate_Click(object sender, EventArgs e) => ShowSingoppCatUpdateCheck();
 
 	/// <summary>Handles the click event for the ToolStripButtonAbout. Shows the application information form.</summary>

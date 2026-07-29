@@ -1014,8 +1014,8 @@ public partial class PlanetoidDbForm
 	}
 
 
-	/// <summary>Shows the MPCORB data check form.</summary>
-	/// <remarks>This method is used to check the MPCORB data for updates.</remarks>
+	/// <summary>Shows the MPCORB.DAT data check form.</summary>
+	/// <remarks>This method is used to check the MPCORB.DAT data for updates.</remarks>
 	private async void ShowMpcorbDatUpdateCheck()
 	{
 		// Check if the network is available before proceeding with the download
@@ -1033,6 +1033,28 @@ public partial class PlanetoidDbForm
 			formCheckMpcorbDat.TopMost = TopMost;
 			// Show the MPCORB data check form as a modal dialog
 			_ = formCheckMpcorbDat.ShowDialog(owner: this);
+		}
+	}
+
+	/// <summary>Shows the MPCORB.JSON data check form.</summary>
+	/// <remarks>This method is used to check the MPCORB.JSON data for updates.</remarks>
+	private async void ShowMpcorbJsonUpdateCheck()
+	{
+		// Check if the network is available before proceeding with the download
+		if (!NetworkInterface.GetIsNetworkAvailable())
+		//if (!await HasInternetAsync(client: httpClient, url: uriMpcorb.OriginalString))
+		{
+			// Display an error message if the network is not available
+			ShowErrorMessage(message: I18nStrings.NoInternetConnectionText);
+		}
+		else
+		{
+			// Create and show the MPCORB.JSON data check form
+			using CheckDatabaseForm formCheckMpcorbJson = new(url: Settings.Default.systemMpcorbJsonGzUrl, localFilePath: Settings.Default.systemFilenameMpcorbJson, databaseName: "MPCORB.JSON");
+			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
+			formCheckMpcorbJson.TopMost = TopMost;
+			// Show the MPCORB.JSON data check form as a modal dialog
+			_ = formCheckMpcorbJson.ShowDialog(owner: this);
 		}
 	}
 
