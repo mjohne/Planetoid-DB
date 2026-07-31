@@ -8,7 +8,7 @@
 * Updated package version numbers by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/986
 * Updated internal database `demoset-10000.txt` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/987
 * Redesigned update menu for better clarity by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/989
-* Add `AGENTS.md` with AI agent guidance by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/990
+* Added `AGENTS.md` with AI agent guidance by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/990
 * Updated to version 0.9.23.86 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/992
 
 **Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.22.85.891.3283...0.9.23.86.992.3326
