@@ -41,4 +41,4 @@ The MPCORB.DAT dataset originates from the Minor Planet Center, the central repo
 
 Planetoid-DB serves this purpose by providing a user-friendly interface to read, filter, and graphically/tabularly examine this large text file — especially for users who do not want to work directly with scripts or data parsing in Python/Fortran etc.
 
-<img width="868" height="449" alt="Screenshot of Planetoid-DB showing a tabular view of MPCORB.DAT orbital data" src="https://github.com/user-attachments/assets/9a72f699-fb52-42bb-880a-cab04ccf3a83" />
+<img width="868" height="449" alt="Screenshot of Planetoid-DB showing a tabular view of MPCORB.DAT orbital data" src="https://github.com/user-attachments/assets/d35f019e-c17f-4997-b70c-4bc45cae36f6" />
