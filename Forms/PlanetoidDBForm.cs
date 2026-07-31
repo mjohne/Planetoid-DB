@@ -14,8 +14,8 @@ using System.Reflection;
 
 namespace Planetoid_DB;
 
-/// <summary>Represents a form that displays terminology information.</summary>
-/// <remarks>This form is responsible for displaying and managing terminology information within the application.</remarks>
+/// <summary>Represents the main application form for browsing and managing the Planetoid-DB database.</summary>
+/// <remarks>This form provides the primary UI for loading databases, navigating records, and accessing tools such as updates and downloads.</remarks>
 // You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 
