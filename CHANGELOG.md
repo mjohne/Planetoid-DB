@@ -1,5 +1,19 @@
 # Changelog
 
+## Planetoid-DB 0.9.23.86
+
+* Updated `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/983
+* Updated `CHANGELOG.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/984
+* Updated `SkiaSharp` packages to version 4.151.0 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/985
+* Updated package version numbers by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/986
+* Updated internal database `demoset-10000.txt` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/987
+* Redesigned update menu for better clarity by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/989
+* Add `AGENTS.md` with AI agent guidance by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/990
+* Updated to version 0.9.23.86 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/992
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.22.85.891.3283...0.9.23.86.992.3326
+
+
 ## Planetoid-DB 0.9.22.85
 
 * Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/977
