@@ -1260,21 +1260,20 @@ public partial class PlanetoidDbForm
 	/// <summary>Handles the click event for the ToolStripMenuItemExperimentalFeatures. Toggles the experimental features on or off based on the current state.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>This method checks if the experimental features menu item is enabled and calls the appropriate method to enable or disable experimental features.</remarks>
+	/// <remarks>This method checks the checked state of the experimental features menu item and calls the appropriate method to enable or disable experimental features.</remarks>
 	private void ToolStripMenuItemExperimentalFeatures_Click(object sender, EventArgs e)
 	{
-		// Toggle experimental features based on the current state of the menu item
-		if (toolStripMenuItemExperimentalFeatures.Enabled)
+		// Toggle experimental features based on the current checked state of the menu item
+		if (toolStripMenuItemExperimentalFeatures.Checked)
 		{
-			// If the experimental features menu item is enabled, call the method to enable experimental features
+			// If the experimental features menu item is checked, enable experimental features
 			EnableExperimentalFeatures();
 		}
 		else
 		{
-			// If the experimental features menu item is not enabled, call the method to disable experimental features
+			// If the experimental features menu item is not checked, disable experimental features
 			DisableExperimentalFeatures();
 		}
-
 	}
 
 	#endregion
