@@ -1,11 +1,23 @@
 # Changelog
 
+## Planetoid-DB 0.9.25.88
+
+* Updated CHANGELOG for version 0.9.24.87 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1002
+* Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1001
+* Rearranged the download and update menu items by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1003
+* Added option to enable or disable experimental features by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1004
+* Updated internal database `demoset-10000.txt` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1005
+* Updated to version 0.9.25.88 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1006
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.24.87.999.3350...0.9.25.88.1006.3382
+
+
 ## Planetoid-DB 0.9.24.87
 
 * Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/994
 * Updated CHANGELOG for version 0.9.23.86 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/995
 * Downgraded `OpenTK` packages by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/996
-* * Disabled menu entry for the a/e/i 3D diagram by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/997
+* Disabled menu entry for the a/e/i 3D diagram by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/997
 * Removed `HarfBuzzSharp` and `SkiaSharp` tabs by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/998
 * Updated to version 0.9.24.87 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/999
 
