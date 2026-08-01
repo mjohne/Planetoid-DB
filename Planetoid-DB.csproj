@@ -849,10 +849,6 @@ Public License instead of this License.  But first, please read
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="HarfBuzzSharp" Version="14.2.1.1" />
-    <PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" Version="14.2.1.1" />
-    <PackageReference Include="HarfBuzzSharp.NativeAssets.macOS" Version="14.2.1.1" />
-    <PackageReference Include="HarfBuzzSharp.NativeAssets.Win32" Version="14.2.1.1" />
     <PackageReference Include="Krypton.Docking" Version="105.26.7.201" />
     <PackageReference Include="Krypton.Navigator" Version="105.26.7.201" />
     <PackageReference Include="Krypton.Ribbon" Version="105.26.7.201" />
@@ -861,33 +857,10 @@ Public License instead of this License.  But first, please read
     <PackageReference Include="Krypton.Workspace" Version="105.26.7.201" />
     <PackageReference Include="NLog" Version="6.1.4" />
     <PackageReference Include="OpenTK" Version="4.9.4" />
-    <PackageReference Include="OpenTK.Audio" Version="5.0.0-pre.16" />
-    <PackageReference Include="OpenTK.Audio.OpenAL" Version="4.9.4" />
-    <PackageReference Include="OpenTK.Compute" Version="4.9.4" />
-    <PackageReference Include="OpenTK.Core" Version="5.0.0-pre.16" />
     <PackageReference Include="OpenTK.GLControl" Version="4.0.2" />
-    <PackageReference Include="OpenTK.Graphics" Version="4.9.4" />
-    <PackageReference Include="OpenTK.Input" Version="4.9.4" />
-    <PackageReference Include="OpenTK.Mathematics" Version="5.0.0-pre.16" />
-    <PackageReference Include="OpenTK.redist.glfw" Version="3.4.0.47" />
-    <PackageReference Include="OpenTK.Windowing.Common" Version="4.9.4" />
-    <PackageReference Include="OpenTK.Windowing.Desktop" Version="4.9.4" />
-    <PackageReference Include="OpenTK.Windowing.GraphicsLibraryFramework" Version="4.9.4" />
     <PackageReference Include="ScottPlot" Version="5.1.59" />
     <PackageReference Include="ScottPlot.WinForms" Version="5.1.59" />
-    <PackageReference Include="SkiaSharp" Version="4.151.0" />
-    <PackageReference Include="SkiaSharp.HarfBuzz" Version="4.151.0" />
-    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="4.151.0" />
-    <PackageReference Include="SkiaSharp.NativeAssets.macOS" Version="4.151.0" />
-    <PackageReference Include="SkiaSharp.NativeAssets.Win32" Version="4.151.0" />
-    <PackageReference Include="SkiaSharp.Views.Desktop.Common" Version="4.151.0" />
-    <PackageReference Include="SkiaSharp.Views.WindowsForms" Version="4.151.0" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="11.0.0-preview.6.26359.118" />
-    <PackageReference Include="System.Data.OleDb" Version="11.0.0-preview.6.26359.118" />
     <PackageReference Include="System.Data.SQLite" Version="2.0.3" />
-    <PackageReference Include="System.Diagnostics.EventLog" Version="11.0.0-preview.6.26359.118" />
-    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="11.0.0-preview.6.26359.118" />
-    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="11.0.0-preview.6.26359.118" />
   </ItemGroup>
 
   <!-- Remove the old monolithic OpenTK.dll (3.x) bundled by Krypton.Toolkit.Suite.Extended.Ultimate.Nightly
