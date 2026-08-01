@@ -1201,7 +1201,7 @@ public partial class PlanetoidDbForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show an Easter egg message when the user double-clicks on a control.</remarks>
-	private void EasterEgg_DoubleClick(object sender, EventArgs e) => KryptonMessageBox.Show(owner: this, text: I18nStrings.EasterEgg, caption: I18nStrings.ErrorCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+	private void EasterEgg_DoubleClick(object sender, EventArgs e) => _ = KryptonMessageBox.Show(owner: this, text: I18nStrings.EasterEgg, caption: I18nStrings.ErrorCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 
 	#endregion
 
@@ -1255,6 +1255,26 @@ public partial class PlanetoidDbForm
 	{
 		// TODO: Implement enable/disable linking to terminology
 		_ = KryptonMessageBox.Show(owner: this, text: "Enable linking to terminology not implemented yet", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+	}
+
+	/// <summary>Handles the click event for the ToolStripMenuItemExperimentalFeatures. Toggles the experimental features on or off based on the current state.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method checks if the experimental features menu item is enabled and calls the appropriate method to enable or disable experimental features.</remarks>
+	private void ToolStripMenuItemExperimentalFeatures_Click(object sender, EventArgs e)
+	{
+		// Toggle experimental features based on the current state of the menu item
+		if (toolStripMenuItemExperimentalFeatures.Enabled)
+		{
+			// If the experimental features menu item is enabled, call the method to enable experimental features
+			EnableExperimentalFeatures();
+		}
+		else
+		{
+			// If the experimental features menu item is not enabled, call the method to disable experimental features
+			DisableExperimentalFeatures();
+		}
+
 	}
 
 	#endregion

@@ -1416,7 +1416,7 @@ public partial class PlanetoidDbForm
 		{
 			logger.Info(message: $"User selected local MPCORB.DAT file: {selectedFilePath}");
 			// Ask the user if they want to restart the application
-			DialogResult result = KryptonMessageBox.Show(
+			DialogResult result = _ = KryptonMessageBox.Show(
 				owner: this,
 				text: $"The application will restart to load the selected file:\n\n{selectedFilePath}\n\nDo you want to continue?",
 				caption: I18nStrings.InformationCaption,
@@ -1445,6 +1445,52 @@ public partial class PlanetoidDbForm
 			logger.Error(exception: ex, message: $"Error while opening local MPCORB.DAT file: {ex.Message}");
 			ShowErrorMessage(message: $"Error while opening the file:\n\n{ex.Message}");
 		}
+	}
+
+	private void EnableExperimentalFeatures()
+	{
+		// Enable experimental features in the application
+		toolStripMenuItemDistributions.Enabled = true;
+		toolStripMenuItemScatterPlots.Enabled = true;
+		toolStripMenuItemAEIDiagram3D.Enabled = true;
+		toolStripMenuItemOrbit.Enabled = true;
+		//Settings.Default.EnableExperimentalFeatures = true;
+		//Settings.Default.Save();
+		// Log the enabling of experimental features
+		logger.Info(message: "Experimental features enabled.");
+		// Show a message box to inform the user about the enabled experimental features
+		_ = KryptonMessageBox.Show(
+			owner: this,
+			text: "Experimental features have been enabled. Please note that these features are in development and may not be fully stable.\n\n" +
+				"- distributions\n" +
+				"- scatter plots\n" +
+				"- a/e/i 3D diagram\n" +
+				"- orbit visualization",
+			caption: I18nStrings.InformationCaption,
+			buttons: KryptonMessageBoxButtons.OK,
+			icon: KryptonMessageBoxIcon.Information,
+			defaultButton: KryptonMessageBoxDefaultButton.Button1);
+	}
+
+	private void DisableExperimentalFeatures()
+	{
+		// Disable experimental features in the application
+		toolStripMenuItemDistributions.Enabled = false;
+		toolStripMenuItemScatterPlots.Enabled = false;
+		toolStripMenuItemAEIDiagram3D.Enabled = false;
+		toolStripMenuItemOrbit.Enabled = false;
+		//Settings.Default.EnableExperimentalFeatures = false;
+		//Settings.Default.Save();
+		// Log the disabling of experimental features
+		logger.Info(message: "Experimental features disabled.");
+		// Show a message box to inform the user about the disabled experimental features
+		_ = KryptonMessageBox.Show(
+			owner: this,
+			text: "Experimental features have been disabled.",
+			caption: I18nStrings.InformationCaption,
+			buttons: KryptonMessageBoxButtons.OK,
+			icon: KryptonMessageBoxIcon.Information,
+			defaultButton: KryptonMessageBoxDefaultButton.Button1);
 	}
 
 	#endregion
