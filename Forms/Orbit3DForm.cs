@@ -10,6 +10,14 @@ using OpenTK.Windowing.Common;
 using System.Diagnostics;
 using System.Globalization;
 
+using BlendingFactor = OpenTK.Graphics.OpenGL.BlendingFactor;  // Explicit alias to resolve ambiguity
+using EnableCap = OpenTK.Graphics.OpenGL.EnableCap;  // Explicit alias to resolve ambiguity
+using GL = OpenTK.Graphics.OpenGL.GL;  // Explicit alias to resolve ambiguity
+using HintMode = OpenTK.Graphics.OpenGL.HintMode;  // Explicit alias to resolve ambiguity
+using HintTarget = OpenTK.Graphics.OpenGL.HintTarget;  // Explicit alias to resolve ambiguity
+using MatrixMode = OpenTK.Graphics.OpenGL.MatrixMode;  // Explicit alias to resolve ambiguity
+using PrimitiveType = OpenTK.Graphics.OpenGL.PrimitiveType;  // Explicit alias to resolve ambiguity
+
 namespace Planetoid_DB.Forms;
 
 /// <summary>Displays a 3D orbital visualization of a selected minor planet relative to the eight solar system planets.</summary>
