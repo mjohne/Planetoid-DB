@@ -179,4 +179,5 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void OptimizeTableLayoutPanelForFlickerReduction() => DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanelData, includeChildLabels: true);
 
 	#endregion
+
 }
