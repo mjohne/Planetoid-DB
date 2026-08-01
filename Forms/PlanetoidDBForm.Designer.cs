@@ -2707,7 +2707,7 @@ partial class PlanetoidDbForm
 		// toolStripDropDownButtonOrbit
 		// 
 		toolStripDropDownButtonOrbit.AccessibleDescription = "Shows orbit visualization";
-		toolStripDropDownButtonOrbit.AccessibleName = "Scatter plots";
+		toolStripDropDownButtonOrbit.AccessibleName = "Orbit visualization";
 		toolStripDropDownButtonOrbit.AccessibleRole = AccessibleRole.PushButton;
 		toolStripDropDownButtonOrbit.DisplayStyle = ToolStripItemDisplayStyle.Image;
 		toolStripDropDownButtonOrbit.DropDown = contextMenuOrbit;
