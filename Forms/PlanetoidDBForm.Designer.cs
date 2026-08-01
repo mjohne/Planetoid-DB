@@ -49,10 +49,10 @@ partial class PlanetoidDbForm
 		toolStripMenuItemNavigateStep1000 = new ToolStripMenuItem();
 		toolStripMenuItemNavigateStep10000 = new ToolStripMenuItem();
 		toolStripMenuItemNavigateStep100000 = new ToolStripMenuItem();
+		toolStripMenuItemNavigateSomeDataForward = new ToolStripMenuItem();
 		toolStripSplitButtonStepForward = new ToolStripSplitButton();
 		toolStripSplitButtonStepBackward = new ToolStripSplitButton();
 		toolStripMenuItemNavigateSomeDataBackward = new ToolStripMenuItem();
-		toolStripMenuItemNavigateSomeDataForward = new ToolStripMenuItem();
 		tableLayoutPanelData = new KryptonTableLayoutPanel();
 		labelIndexData = new KryptonLabel();
 		contextMenuCopyToClipboard = new ContextMenuStrip(components);
@@ -111,8 +111,8 @@ partial class PlanetoidDbForm
 		toolStripMenuItemRecordsNumberOfOppositions = new ToolStripMenuItem();
 		toolStripMenuItemRecordsNumberOfObservations = new ToolStripMenuItem();
 		toolStripMenuItemRecordsRmsResidual = new ToolStripMenuItem();
-		toolStripMenuItemRecords = new ToolStripMenuItem();
 		toolStripSplitButtonTopTenRecords = new ToolStripSplitButton();
+		toolStripMenuItemRecords = new ToolStripMenuItem();
 		toolStripMenuItemDistribution = new ToolStripMenuItem();
 		contextMenuFullCopyToClipboardOrbitalElements = new ContextMenuStrip(components);
 		toolStripMenuItemCopyToClipboardIndexNumber = new ToolStripMenuItem();
@@ -135,8 +135,8 @@ partial class PlanetoidDbForm
 		toolStripMenuItemCopyToClipboardComputerName = new ToolStripMenuItem();
 		toolStripMenuItemCopyToClipboardFlags = new ToolStripMenuItem();
 		toolStripMenuItemCopyToClipboardDateOfTheLastObservation = new ToolStripMenuItem();
-		toolStripDropDownButtonCopyToClipboard = new ToolStripDropDownButton();
 		toolStripMenuItemCopytoClipboard = new ToolStripMenuItem();
+		toolStripDropDownButtonCopyToClipboard = new ToolStripDropDownButton();
 		menuStrip = new MenuStrip();
 		toolStripMenuItemFile = new ToolStripMenuItem();
 		toolStripMenuItemOpenLocalMpcorbDat = new ToolStripMenuItem();
@@ -175,6 +175,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOrbit2DTopView = new ToolStripMenuItem();
 		toolStripMenuItemOrbit2DSideView = new ToolStripMenuItem();
 		toolStripMenuItemOrbit3DView = new ToolStripMenuItem();
+		toolStripDropDownButtonOrbit = new ToolStripDropDownButton();
 		toolStripMenuItemDerivedOrbitElements = new ToolStripMenuItem();
 		toolStripMenuItemOrbitElementsGrouping = new ToolStripMenuItem();
 		toolStripMenuItemAsteroidFamiliesDetection = new ToolStripMenuItem();
@@ -226,6 +227,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemCheckAllnumCatUpdate = new ToolStripMenuItem();
 		toolStripMenuItemCheckUfitobsCatUpdate = new ToolStripMenuItem();
 		toolStripMenuItemCheckSingoppCatUpdate = new ToolStripMenuItem();
+		toolStripDropDownButtonCheckUpdates = new ToolStripDropDownButton();
 		toolStripMenuItemDownloadDatabases = new ToolStripMenuItem();
 		contextMenuDownloadDatabases = new ContextMenuStrip(components);
 		toolStripMenuItemDownloadMpcorbDatInContext = new ToolStripMenuItem();
@@ -234,6 +236,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemDownloadAllnumCatInContext = new ToolStripMenuItem();
 		toolStripMenuItemDownloadUfitobsCatInContext = new ToolStripMenuItem();
 		toolStripMenuItemDownloadSingoppCatInContext = new ToolStripMenuItem();
+		toolStripDropDownButtonDownloadDatabases = new ToolStripDropDownButton();
 		toolStripMenuItemOptions = new ToolStripMenuItem();
 		toolStripMenuItemSettings = new ToolStripMenuItem();
 		toolStripMenuItemStyle = new ToolStripMenuItem();
@@ -251,7 +254,6 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOpenWebsitePDB = new ToolStripMenuItem();
 		toolStripMenuItemOpenWebsiteMPC = new ToolStripMenuItem();
 		toolStripMenuItemOpenMPCORBWebsite = new ToolStripMenuItem();
-		toolStripDropDownButtonOrbit = new ToolStripDropDownButton();
 		toolStripSeparator10 = new ToolStripSeparator();
 		toolStripSeparator16 = new ToolStripSeparator();
 		toolStripSeparator12 = new ToolStripSeparator();
@@ -280,8 +282,6 @@ partial class PlanetoidDbForm
 		toolStripButtonHistogram = new ToolStripButton();
 		toolStripButtonScatterPlot = new ToolStripButton();
 		toolStripSeparator5 = new ToolStripSeparator();
-		toolStripDropDownButtonCheckUpdates = new ToolStripDropDownButton();
-		toolStripDropDownButtonDownloadDatabases = new ToolStripDropDownButton();
 		toolStripSeparator1 = new ToolStripSeparator();
 		toolStripButtonAbout = new ToolStripButton();
 		toolStripButtonLicense = new ToolStripButton();
@@ -341,7 +341,7 @@ partial class PlanetoidDbForm
 		contextMenuNavigationStep.Font = new Font("Segoe UI", 9F);
 		contextMenuNavigationStep.Items.AddRange(new ToolStripItem[] { toolStripMenuItemNavigateStep10, toolStripMenuItemNavigateStep100, toolStripMenuItemNavigateStep1000, toolStripMenuItemNavigateStep10000, toolStripMenuItemNavigateStep100000 });
 		contextMenuNavigationStep.Name = "contextMenu";
-		contextMenuNavigationStep.OwnerItem = toolStripMenuItemNavigateSomeDataForward;
+		contextMenuNavigationStep.OwnerItem = toolStripMenuItemNavigateSomeDataBackward;
 		contextMenuNavigationStep.ShowCheckMargin = true;
 		contextMenuNavigationStep.ShowImageMargin = false;
 		contextMenuNavigationStep.Size = new Size(111, 114);
@@ -424,6 +424,22 @@ partial class PlanetoidDbForm
 		toolStripMenuItemNavigateStep100000.MouseEnter += Control_Enter;
 		toolStripMenuItemNavigateStep100000.MouseLeave += Control_Leave;
 		// 
+		// toolStripMenuItemNavigateSomeDataForward
+		// 
+		toolStripMenuItemNavigateSomeDataForward.AccessibleDescription = "Navigates some data forward";
+		toolStripMenuItemNavigateSomeDataForward.AccessibleName = "Navigates some data forward";
+		toolStripMenuItemNavigateSomeDataForward.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemNavigateSomeDataForward.AutoToolTip = true;
+		toolStripMenuItemNavigateSomeDataForward.DropDown = contextMenuNavigationStep;
+		toolStripMenuItemNavigateSomeDataForward.Image = FatcowIcons16px.fatcow_control_fastforward_blue_16px;
+		toolStripMenuItemNavigateSomeDataForward.Name = "toolStripMenuItemNavigateSomeDataForward";
+		toolStripMenuItemNavigateSomeDataForward.ShortcutKeys = Keys.Control | Keys.D5;
+		toolStripMenuItemNavigateSomeDataForward.Size = new Size(275, 22);
+		toolStripMenuItemNavigateSomeDataForward.Text = "Navigate some data &forward";
+		toolStripMenuItemNavigateSomeDataForward.Click += NavigateSomeDataForward_Click;
+		toolStripMenuItemNavigateSomeDataForward.MouseEnter += Control_Enter;
+		toolStripMenuItemNavigateSomeDataForward.MouseLeave += Control_Leave;
+		// 
 		// toolStripSplitButtonStepForward
 		// 
 		toolStripSplitButtonStepForward.AccessibleDescription = "Navigates some data forward";
@@ -471,22 +487,6 @@ partial class PlanetoidDbForm
 		toolStripMenuItemNavigateSomeDataBackward.Click += NavigateSomeDataBackward_Click;
 		toolStripMenuItemNavigateSomeDataBackward.MouseEnter += Control_Enter;
 		toolStripMenuItemNavigateSomeDataBackward.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemNavigateSomeDataForward
-		// 
-		toolStripMenuItemNavigateSomeDataForward.AccessibleDescription = "Navigates some data forward";
-		toolStripMenuItemNavigateSomeDataForward.AccessibleName = "Navigates some data forward";
-		toolStripMenuItemNavigateSomeDataForward.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemNavigateSomeDataForward.AutoToolTip = true;
-		toolStripMenuItemNavigateSomeDataForward.DropDown = contextMenuNavigationStep;
-		toolStripMenuItemNavigateSomeDataForward.Image = FatcowIcons16px.fatcow_control_fastforward_blue_16px;
-		toolStripMenuItemNavigateSomeDataForward.Name = "toolStripMenuItemNavigateSomeDataForward";
-		toolStripMenuItemNavigateSomeDataForward.ShortcutKeys = Keys.Control | Keys.D5;
-		toolStripMenuItemNavigateSomeDataForward.Size = new Size(275, 22);
-		toolStripMenuItemNavigateSomeDataForward.Text = "Navigate some data &forward";
-		toolStripMenuItemNavigateSomeDataForward.Click += NavigateSomeDataForward_Click;
-		toolStripMenuItemNavigateSomeDataForward.MouseEnter += Control_Enter;
-		toolStripMenuItemNavigateSomeDataForward.MouseLeave += Control_Leave;
 		// 
 		// tableLayoutPanelData
 		// 
@@ -554,7 +554,7 @@ partial class PlanetoidDbForm
 		tableLayoutPanelData.RowStyles.Add(new RowStyle());
 		tableLayoutPanelData.RowStyles.Add(new RowStyle());
 		tableLayoutPanelData.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-		tableLayoutPanelData.Size = new Size(852, 289);
+		tableLayoutPanelData.Size = new Size(850, 287);
 		tableLayoutPanelData.TabIndex = 0;
 		tableLayoutPanelData.TabStop = true;
 		tableLayoutPanelData.Enter += Control_Enter;
@@ -569,7 +569,7 @@ partial class PlanetoidDbForm
 		labelIndexData.AccessibleRole = AccessibleRole.StatusBar;
 		labelIndexData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelIndexData.Dock = DockStyle.Fill;
-		labelIndexData.Location = new Point(272, 3);
+		labelIndexData.Location = new Point(273, 3);
 		labelIndexData.Name = "labelIndexData";
 		labelIndexData.Size = new Size(168, 20);
 		labelIndexData.TabIndex = 1;
@@ -625,7 +625,7 @@ partial class PlanetoidDbForm
 		labelReadableDesignationData.AccessibleRole = AccessibleRole.StaticText;
 		labelReadableDesignationData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelReadableDesignationData.Dock = DockStyle.Fill;
-		labelReadableDesignationData.Location = new Point(272, 29);
+		labelReadableDesignationData.Location = new Point(273, 29);
 		labelReadableDesignationData.Name = "labelReadableDesignationData";
 		labelReadableDesignationData.Size = new Size(168, 20);
 		labelReadableDesignationData.TabIndex = 3;
@@ -648,7 +648,7 @@ partial class PlanetoidDbForm
 		labelEpochData.AccessibleRole = AccessibleRole.StatusBar;
 		labelEpochData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelEpochData.Dock = DockStyle.Fill;
-		labelEpochData.Location = new Point(272, 55);
+		labelEpochData.Location = new Point(273, 55);
 		labelEpochData.Name = "labelEpochData";
 		labelEpochData.Size = new Size(168, 20);
 		labelEpochData.TabIndex = 5;
@@ -671,7 +671,7 @@ partial class PlanetoidDbForm
 		labelMeanAnomalyAtTheEpochData.AccessibleRole = AccessibleRole.StaticText;
 		labelMeanAnomalyAtTheEpochData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelMeanAnomalyAtTheEpochData.Dock = DockStyle.Fill;
-		labelMeanAnomalyAtTheEpochData.Location = new Point(272, 81);
+		labelMeanAnomalyAtTheEpochData.Location = new Point(273, 81);
 		labelMeanAnomalyAtTheEpochData.Name = "labelMeanAnomalyAtTheEpochData";
 		labelMeanAnomalyAtTheEpochData.Size = new Size(168, 20);
 		labelMeanAnomalyAtTheEpochData.TabIndex = 7;
@@ -694,7 +694,7 @@ partial class PlanetoidDbForm
 		labelArgumentOfThePerihelionData.AccessibleRole = AccessibleRole.StaticText;
 		labelArgumentOfThePerihelionData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelArgumentOfThePerihelionData.Dock = DockStyle.Fill;
-		labelArgumentOfThePerihelionData.Location = new Point(272, 107);
+		labelArgumentOfThePerihelionData.Location = new Point(273, 107);
 		labelArgumentOfThePerihelionData.Name = "labelArgumentOfThePerihelionData";
 		labelArgumentOfThePerihelionData.Size = new Size(168, 20);
 		labelArgumentOfThePerihelionData.TabIndex = 9;
@@ -717,7 +717,7 @@ partial class PlanetoidDbForm
 		labelLongitudeOfTheAscendingNodeData.AccessibleRole = AccessibleRole.StaticText;
 		labelLongitudeOfTheAscendingNodeData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelLongitudeOfTheAscendingNodeData.Dock = DockStyle.Fill;
-		labelLongitudeOfTheAscendingNodeData.Location = new Point(272, 133);
+		labelLongitudeOfTheAscendingNodeData.Location = new Point(273, 133);
 		labelLongitudeOfTheAscendingNodeData.Name = "labelLongitudeOfTheAscendingNodeData";
 		labelLongitudeOfTheAscendingNodeData.Size = new Size(168, 20);
 		labelLongitudeOfTheAscendingNodeData.TabIndex = 11;
@@ -740,7 +740,7 @@ partial class PlanetoidDbForm
 		labelInclinationToTheEclipticData.AccessibleRole = AccessibleRole.StaticText;
 		labelInclinationToTheEclipticData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelInclinationToTheEclipticData.Dock = DockStyle.Fill;
-		labelInclinationToTheEclipticData.Location = new Point(272, 159);
+		labelInclinationToTheEclipticData.Location = new Point(273, 159);
 		labelInclinationToTheEclipticData.Name = "labelInclinationToTheEclipticData";
 		labelInclinationToTheEclipticData.Size = new Size(168, 20);
 		labelInclinationToTheEclipticData.TabIndex = 13;
@@ -763,7 +763,7 @@ partial class PlanetoidDbForm
 		labelOrbitalEccentricityData.AccessibleRole = AccessibleRole.StaticText;
 		labelOrbitalEccentricityData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelOrbitalEccentricityData.Dock = DockStyle.Fill;
-		labelOrbitalEccentricityData.Location = new Point(272, 185);
+		labelOrbitalEccentricityData.Location = new Point(273, 185);
 		labelOrbitalEccentricityData.Name = "labelOrbitalEccentricityData";
 		labelOrbitalEccentricityData.Size = new Size(168, 20);
 		labelOrbitalEccentricityData.TabIndex = 15;
@@ -786,7 +786,7 @@ partial class PlanetoidDbForm
 		labelMeanDailyMotionData.AccessibleRole = AccessibleRole.StaticText;
 		labelMeanDailyMotionData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelMeanDailyMotionData.Dock = DockStyle.Fill;
-		labelMeanDailyMotionData.Location = new Point(272, 211);
+		labelMeanDailyMotionData.Location = new Point(273, 211);
 		labelMeanDailyMotionData.Name = "labelMeanDailyMotionData";
 		labelMeanDailyMotionData.Size = new Size(168, 20);
 		labelMeanDailyMotionData.TabIndex = 17;
@@ -809,7 +809,7 @@ partial class PlanetoidDbForm
 		labelSemiMajorAxisData.AccessibleRole = AccessibleRole.StaticText;
 		labelSemiMajorAxisData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelSemiMajorAxisData.Dock = DockStyle.Fill;
-		labelSemiMajorAxisData.Location = new Point(272, 237);
+		labelSemiMajorAxisData.Location = new Point(273, 237);
 		labelSemiMajorAxisData.Name = "labelSemiMajorAxisData";
 		labelSemiMajorAxisData.Size = new Size(168, 20);
 		labelSemiMajorAxisData.TabIndex = 19;
@@ -832,9 +832,9 @@ partial class PlanetoidDbForm
 		labelAbsoluteMagnitudeData.AccessibleRole = AccessibleRole.StaticText;
 		labelAbsoluteMagnitudeData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelAbsoluteMagnitudeData.Dock = DockStyle.Fill;
-		labelAbsoluteMagnitudeData.Location = new Point(272, 263);
+		labelAbsoluteMagnitudeData.Location = new Point(273, 263);
 		labelAbsoluteMagnitudeData.Name = "labelAbsoluteMagnitudeData";
-		labelAbsoluteMagnitudeData.Size = new Size(168, 23);
+		labelAbsoluteMagnitudeData.Size = new Size(168, 21);
 		labelAbsoluteMagnitudeData.TabIndex = 21;
 		labelAbsoluteMagnitudeData.ToolTipValues.Description = "Shows the information of \"Absolute magnitude, H\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelAbsoluteMagnitudeData.ToolTipValues.EnableToolTips = true;
@@ -855,9 +855,9 @@ partial class PlanetoidDbForm
 		labelSlopeParameterData.AccessibleRole = AccessibleRole.StaticText;
 		labelSlopeParameterData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelSlopeParameterData.Dock = DockStyle.Fill;
-		labelSlopeParameterData.Location = new Point(673, 29);
+		labelSlopeParameterData.Location = new Point(675, 29);
 		labelSlopeParameterData.Name = "labelSlopeParameterData";
-		labelSlopeParameterData.Size = new Size(176, 20);
+		labelSlopeParameterData.Size = new Size(172, 20);
 		labelSlopeParameterData.TabIndex = 23;
 		labelSlopeParameterData.ToolTipValues.Description = "Shows the information of \"Slope parameter, G\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelSlopeParameterData.ToolTipValues.EnableToolTips = true;
@@ -879,9 +879,9 @@ partial class PlanetoidDbForm
 		labelReferenceData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelReferenceData.Cursor = Cursors.Hand;
 		labelReferenceData.Dock = DockStyle.Fill;
-		labelReferenceData.Location = new Point(673, 55);
+		labelReferenceData.Location = new Point(675, 55);
 		labelReferenceData.Name = "labelReferenceData";
-		labelReferenceData.Size = new Size(176, 20);
+		labelReferenceData.Size = new Size(172, 20);
 		labelReferenceData.TabIndex = 25;
 		labelReferenceData.ToolTipValues.Description = "Shows the information of \"Reference\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelReferenceData.ToolTipValues.EnableToolTips = true;
@@ -903,9 +903,9 @@ partial class PlanetoidDbForm
 		labelNumberOfOppositionsData.AccessibleRole = AccessibleRole.StaticText;
 		labelNumberOfOppositionsData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelNumberOfOppositionsData.Dock = DockStyle.Fill;
-		labelNumberOfOppositionsData.Location = new Point(673, 81);
+		labelNumberOfOppositionsData.Location = new Point(675, 81);
 		labelNumberOfOppositionsData.Name = "labelNumberOfOppositionsData";
-		labelNumberOfOppositionsData.Size = new Size(176, 20);
+		labelNumberOfOppositionsData.Size = new Size(172, 20);
 		labelNumberOfOppositionsData.TabIndex = 27;
 		labelNumberOfOppositionsData.ToolTipValues.Description = "Shows the information of \"Number of oppositions\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelNumberOfOppositionsData.ToolTipValues.EnableToolTips = true;
@@ -926,9 +926,9 @@ partial class PlanetoidDbForm
 		labelNumberOfObservationsData.AccessibleRole = AccessibleRole.StaticText;
 		labelNumberOfObservationsData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelNumberOfObservationsData.Dock = DockStyle.Fill;
-		labelNumberOfObservationsData.Location = new Point(673, 107);
+		labelNumberOfObservationsData.Location = new Point(675, 107);
 		labelNumberOfObservationsData.Name = "labelNumberOfObservationsData";
-		labelNumberOfObservationsData.Size = new Size(176, 20);
+		labelNumberOfObservationsData.Size = new Size(172, 20);
 		labelNumberOfObservationsData.TabIndex = 29;
 		labelNumberOfObservationsData.ToolTipValues.Description = "Shows the information of \"Number of observations\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelNumberOfObservationsData.ToolTipValues.EnableToolTips = true;
@@ -949,9 +949,9 @@ partial class PlanetoidDbForm
 		labelObservationSpanData.AccessibleRole = AccessibleRole.StaticText;
 		labelObservationSpanData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelObservationSpanData.Dock = DockStyle.Fill;
-		labelObservationSpanData.Location = new Point(673, 133);
+		labelObservationSpanData.Location = new Point(675, 133);
 		labelObservationSpanData.Name = "labelObservationSpanData";
-		labelObservationSpanData.Size = new Size(176, 20);
+		labelObservationSpanData.Size = new Size(172, 20);
 		labelObservationSpanData.TabIndex = 31;
 		labelObservationSpanData.ToolTipValues.Description = "Shows the information of \"Observation span\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelObservationSpanData.ToolTipValues.EnableToolTips = true;
@@ -972,9 +972,9 @@ partial class PlanetoidDbForm
 		labelRmsResidualData.AccessibleRole = AccessibleRole.StaticText;
 		labelRmsResidualData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelRmsResidualData.Dock = DockStyle.Fill;
-		labelRmsResidualData.Location = new Point(673, 159);
+		labelRmsResidualData.Location = new Point(675, 159);
 		labelRmsResidualData.Name = "labelRmsResidualData";
-		labelRmsResidualData.Size = new Size(176, 20);
+		labelRmsResidualData.Size = new Size(172, 20);
 		labelRmsResidualData.TabIndex = 33;
 		labelRmsResidualData.ToolTipValues.Description = "Shows the information of \"r.m.s residual (\")\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelRmsResidualData.ToolTipValues.EnableToolTips = true;
@@ -995,9 +995,9 @@ partial class PlanetoidDbForm
 		labelComputerNameData.AccessibleRole = AccessibleRole.StaticText;
 		labelComputerNameData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelComputerNameData.Dock = DockStyle.Fill;
-		labelComputerNameData.Location = new Point(673, 185);
+		labelComputerNameData.Location = new Point(675, 185);
 		labelComputerNameData.Name = "labelComputerNameData";
-		labelComputerNameData.Size = new Size(176, 20);
+		labelComputerNameData.Size = new Size(172, 20);
 		labelComputerNameData.TabIndex = 35;
 		labelComputerNameData.ToolTipValues.Description = "Shows the information of \"Computer name\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelComputerNameData.ToolTipValues.EnableToolTips = true;
@@ -1019,9 +1019,9 @@ partial class PlanetoidDbForm
 		labelFlagsData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelFlagsData.Cursor = Cursors.Hand;
 		labelFlagsData.Dock = DockStyle.Fill;
-		labelFlagsData.Location = new Point(673, 211);
+		labelFlagsData.Location = new Point(675, 211);
 		labelFlagsData.Name = "labelFlagsData";
-		labelFlagsData.Size = new Size(176, 20);
+		labelFlagsData.Size = new Size(172, 20);
 		labelFlagsData.TabIndex = 37;
 		labelFlagsData.ToolTipValues.Description = "Shows the information of \"4-hexdigit flags\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelFlagsData.ToolTipValues.EnableToolTips = true;
@@ -1043,9 +1043,9 @@ partial class PlanetoidDbForm
 		labelDateLastObservationData.AccessibleRole = AccessibleRole.StaticText;
 		labelDateLastObservationData.ContextMenuStrip = contextMenuCopyToClipboard;
 		labelDateLastObservationData.Dock = DockStyle.Fill;
-		labelDateLastObservationData.Location = new Point(673, 237);
+		labelDateLastObservationData.Location = new Point(675, 237);
 		labelDateLastObservationData.Name = "labelDateLastObservationData";
-		labelDateLastObservationData.Size = new Size(176, 20);
+		labelDateLastObservationData.Size = new Size(172, 20);
 		labelDateLastObservationData.TabIndex = 39;
 		labelDateLastObservationData.ToolTipValues.Description = "Shows the information of \"Date of last observation\".\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelDateLastObservationData.ToolTipValues.EnableToolTips = true;
@@ -1069,7 +1069,7 @@ partial class PlanetoidDbForm
 		labelIndexDesc.LabelStyle = LabelStyle.BoldControl;
 		labelIndexDesc.Location = new Point(3, 3);
 		labelIndexDesc.Name = "labelIndexDesc";
-		labelIndexDesc.Size = new Size(263, 20);
+		labelIndexDesc.Size = new Size(264, 20);
 		labelIndexDesc.TabIndex = 0;
 		labelIndexDesc.Tag = "0";
 		labelIndexDesc.ToolTipValues.Description = "Shows the information of \"Index No.\".\r\nDouble-click or right-click to open the terminology.";
@@ -1127,7 +1127,7 @@ partial class PlanetoidDbForm
 		labelReadableDesignationDesc.LabelStyle = LabelStyle.BoldPanel;
 		labelReadableDesignationDesc.Location = new Point(3, 29);
 		labelReadableDesignationDesc.Name = "labelReadableDesignationDesc";
-		labelReadableDesignationDesc.Size = new Size(263, 20);
+		labelReadableDesignationDesc.Size = new Size(264, 20);
 		labelReadableDesignationDesc.TabIndex = 2;
 		labelReadableDesignationDesc.Tag = "1";
 		labelReadableDesignationDesc.ToolTipValues.Description = "Shows the information of \"Readable designation\".\r\nDouble-click or right-click to open the terminology.";
@@ -1152,7 +1152,7 @@ partial class PlanetoidDbForm
 		labelEpochDesc.LabelStyle = LabelStyle.BoldPanel;
 		labelEpochDesc.Location = new Point(3, 55);
 		labelEpochDesc.Name = "labelEpochDesc";
-		labelEpochDesc.Size = new Size(263, 20);
+		labelEpochDesc.Size = new Size(264, 20);
 		labelEpochDesc.TabIndex = 4;
 		labelEpochDesc.Tag = "2";
 		labelEpochDesc.ToolTipValues.Description = "Shows the information of \"Epoch (in packed form, .0 TT)\".\r\nDouble-click or right-click to open the terminology.";
@@ -1177,7 +1177,7 @@ partial class PlanetoidDbForm
 		labelMeanAnomalyAtTheEpochDesc.LabelStyle = LabelStyle.BoldPanel;
 		labelMeanAnomalyAtTheEpochDesc.Location = new Point(3, 81);
 		labelMeanAnomalyAtTheEpochDesc.Name = "labelMeanAnomalyAtTheEpochDesc";
-		labelMeanAnomalyAtTheEpochDesc.Size = new Size(263, 20);
+		labelMeanAnomalyAtTheEpochDesc.Size = new Size(264, 20);
 		labelMeanAnomalyAtTheEpochDesc.TabIndex = 6;
 		labelMeanAnomalyAtTheEpochDesc.Tag = "3";
 		labelMeanAnomalyAtTheEpochDesc.ToolTipValues.Description = "Shows the information of \"Mean anomaly at the epoch, in degrees\".\r\nDouble-click or right-click to open the terminology.";
@@ -1203,7 +1203,7 @@ partial class PlanetoidDbForm
 		labelArgumentOfThePerihelionDesc.LabelStyle = LabelStyle.BoldPanel;
 		labelArgumentOfThePerihelionDesc.Location = new Point(3, 107);
 		labelArgumentOfThePerihelionDesc.Name = "labelArgumentOfThePerihelionDesc";
-		labelArgumentOfThePerihelionDesc.Size = new Size(263, 20);
+		labelArgumentOfThePerihelionDesc.Size = new Size(264, 20);
 		labelArgumentOfThePerihelionDesc.TabIndex = 8;
 		labelArgumentOfThePerihelionDesc.Tag = "4";
 		labelArgumentOfThePerihelionDesc.ToolTipValues.Description = "Shows the information of \"Argument of the perihelion, J2000.0 (degrees)\".\r\nDouble-click or right-click to open the terminology.";
@@ -1229,7 +1229,7 @@ partial class PlanetoidDbForm
 		labelLongitudeOfTheAscendingNodeDesc.LabelStyle = LabelStyle.BoldPanel;
 		labelLongitudeOfTheAscendingNodeDesc.Location = new Point(3, 133);
 		labelLongitudeOfTheAscendingNodeDesc.Name = "labelLongitudeOfTheAscendingNodeDesc";
-		labelLongitudeOfTheAscendingNodeDesc.Size = new Size(263, 20);
+		labelLongitudeOfTheAscendingNodeDesc.Size = new Size(264, 20);
 		labelLongitudeOfTheAscendingNodeDesc.TabIndex = 10;
 		labelLongitudeOfTheAscendingNodeDesc.Tag = "5";
 		labelLongitudeOfTheAscendingNodeDesc.ToolTipValues.Description = "Shows the information of \"Longitude of the ascending node, J2000.0 (degrees)\".\r\nDouble-click or right-click to open the terminology.";
@@ -1255,7 +1255,7 @@ partial class PlanetoidDbForm
 		labelInclinationToTheEclipticDesc.LabelStyle = LabelStyle.BoldPanel;
 		labelInclinationToTheEclipticDesc.Location = new Point(3, 159);
 		labelInclinationToTheEclipticDesc.Name = "labelInclinationToTheEclipticDesc";
-		labelInclinationToTheEclipticDesc.Size = new Size(263, 20);
+		labelInclinationToTheEclipticDesc.Size = new Size(264, 20);
 		labelInclinationToTheEclipticDesc.TabIndex = 12;
 		labelInclinationToTheEclipticDesc.Tag = "6";
 		labelInclinationToTheEclipticDesc.ToolTipValues.Description = "Shows the information of \"Inclination to the ecliptic, J2000.0 (degrees)\".\r\nDouble-click or right-click to open the terminology.";
@@ -1281,7 +1281,7 @@ partial class PlanetoidDbForm
 		labelOrbitalEccentricityDesc.LabelStyle = LabelStyle.BoldPanel;
 		labelOrbitalEccentricityDesc.Location = new Point(3, 185);
 		labelOrbitalEccentricityDesc.Name = "labelOrbitalEccentricityDesc";
-		labelOrbitalEccentricityDesc.Size = new Size(263, 20);
+		labelOrbitalEccentricityDesc.Size = new Size(264, 20);
 		labelOrbitalEccentricityDesc.TabIndex = 14;
 		labelOrbitalEccentricityDesc.Tag = "7";
 		labelOrbitalEccentricityDesc.ToolTipValues.Description = "Shows the information of \"Orbital eccentricity\".\r\nDouble-click or right-click to open the terminology.";
@@ -1306,7 +1306,7 @@ partial class PlanetoidDbForm
 		labelMeanDailyMotionDesc.LabelStyle = LabelStyle.BoldPanel;
 		labelMeanDailyMotionDesc.Location = new Point(3, 211);
 		labelMeanDailyMotionDesc.Name = "labelMeanDailyMotionDesc";
-		labelMeanDailyMotionDesc.Size = new Size(263, 20);
+		labelMeanDailyMotionDesc.Size = new Size(264, 20);
 		labelMeanDailyMotionDesc.TabIndex = 16;
 		labelMeanDailyMotionDesc.Tag = "8";
 		labelMeanDailyMotionDesc.ToolTipValues.Description = "Shows the information of \"Mean daily motion (degrees per day)\".\r\nDouble-click or right-click to open the terminology.";
@@ -1332,7 +1332,7 @@ partial class PlanetoidDbForm
 		labelSemiMajorAxisDesc.LabelStyle = LabelStyle.BoldPanel;
 		labelSemiMajorAxisDesc.Location = new Point(3, 237);
 		labelSemiMajorAxisDesc.Name = "labelSemiMajorAxisDesc";
-		labelSemiMajorAxisDesc.Size = new Size(263, 20);
+		labelSemiMajorAxisDesc.Size = new Size(264, 20);
 		labelSemiMajorAxisDesc.TabIndex = 18;
 		labelSemiMajorAxisDesc.Tag = "9";
 		labelSemiMajorAxisDesc.ToolTipValues.Description = "Shows the information of \"Semi-major axis (AU)\".\r\nDouble-click or right-click to open the terminology.";
@@ -1358,7 +1358,7 @@ partial class PlanetoidDbForm
 		labelAbsoluteMagnitudeDesc.LabelStyle = LabelStyle.BoldPanel;
 		labelAbsoluteMagnitudeDesc.Location = new Point(3, 263);
 		labelAbsoluteMagnitudeDesc.Name = "labelAbsoluteMagnitudeDesc";
-		labelAbsoluteMagnitudeDesc.Size = new Size(263, 23);
+		labelAbsoluteMagnitudeDesc.Size = new Size(264, 21);
 		labelAbsoluteMagnitudeDesc.TabIndex = 20;
 		labelAbsoluteMagnitudeDesc.Tag = "10";
 		labelAbsoluteMagnitudeDesc.ToolTipValues.Description = "Shows the information of \"Absolute magnitude, H\".\r\nDouble-click or right-click to open the terminology.";
@@ -1382,9 +1382,9 @@ partial class PlanetoidDbForm
 		labelSlopeParameterDesc.ContextMenuStrip = contextMenuOpenTerminology;
 		labelSlopeParameterDesc.Dock = DockStyle.Fill;
 		labelSlopeParameterDesc.LabelStyle = LabelStyle.BoldControl;
-		labelSlopeParameterDesc.Location = new Point(446, 29);
+		labelSlopeParameterDesc.Location = new Point(447, 29);
 		labelSlopeParameterDesc.Name = "labelSlopeParameterDesc";
-		labelSlopeParameterDesc.Size = new Size(221, 20);
+		labelSlopeParameterDesc.Size = new Size(222, 20);
 		labelSlopeParameterDesc.TabIndex = 22;
 		labelSlopeParameterDesc.Tag = "11";
 		labelSlopeParameterDesc.ToolTipValues.Description = "Shows the information of \"Slope parameter, G\".\r\nDouble-click or right-click to open the terminology.";
@@ -1407,9 +1407,9 @@ partial class PlanetoidDbForm
 		labelReferenceDesc.ContextMenuStrip = contextMenuOpenTerminology;
 		labelReferenceDesc.Dock = DockStyle.Fill;
 		labelReferenceDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelReferenceDesc.Location = new Point(446, 55);
+		labelReferenceDesc.Location = new Point(447, 55);
 		labelReferenceDesc.Name = "labelReferenceDesc";
-		labelReferenceDesc.Size = new Size(221, 20);
+		labelReferenceDesc.Size = new Size(222, 20);
 		labelReferenceDesc.TabIndex = 24;
 		labelReferenceDesc.Tag = "12";
 		labelReferenceDesc.ToolTipValues.Description = "Shows the information of \"Reference\".\r\nDouble-click or right-click to open the terminology.";
@@ -1432,9 +1432,9 @@ partial class PlanetoidDbForm
 		labelNumberOfOppositionsDesc.ContextMenuStrip = contextMenuOpenTerminology;
 		labelNumberOfOppositionsDesc.Dock = DockStyle.Fill;
 		labelNumberOfOppositionsDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelNumberOfOppositionsDesc.Location = new Point(446, 81);
+		labelNumberOfOppositionsDesc.Location = new Point(447, 81);
 		labelNumberOfOppositionsDesc.Name = "labelNumberOfOppositionsDesc";
-		labelNumberOfOppositionsDesc.Size = new Size(221, 20);
+		labelNumberOfOppositionsDesc.Size = new Size(222, 20);
 		labelNumberOfOppositionsDesc.TabIndex = 26;
 		labelNumberOfOppositionsDesc.Tag = "13";
 		labelNumberOfOppositionsDesc.ToolTipValues.Description = "Shows the information of \"Number of oppositions\".\r\nDouble-click or right-click to open the terminology.";
@@ -1457,9 +1457,9 @@ partial class PlanetoidDbForm
 		labelNumberOfObservationsDesc.ContextMenuStrip = contextMenuOpenTerminology;
 		labelNumberOfObservationsDesc.Dock = DockStyle.Fill;
 		labelNumberOfObservationsDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelNumberOfObservationsDesc.Location = new Point(446, 107);
+		labelNumberOfObservationsDesc.Location = new Point(447, 107);
 		labelNumberOfObservationsDesc.Name = "labelNumberOfObservationsDesc";
-		labelNumberOfObservationsDesc.Size = new Size(221, 20);
+		labelNumberOfObservationsDesc.Size = new Size(222, 20);
 		labelNumberOfObservationsDesc.TabIndex = 28;
 		labelNumberOfObservationsDesc.Tag = "14";
 		labelNumberOfObservationsDesc.ToolTipValues.Description = "Shows the information of \"Number of observations\".\r\nDouble-click or right-click to open the terminology.";
@@ -1482,9 +1482,9 @@ partial class PlanetoidDbForm
 		labelObservationSpanDesc.ContextMenuStrip = contextMenuOpenTerminology;
 		labelObservationSpanDesc.Dock = DockStyle.Fill;
 		labelObservationSpanDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelObservationSpanDesc.Location = new Point(446, 133);
+		labelObservationSpanDesc.Location = new Point(447, 133);
 		labelObservationSpanDesc.Name = "labelObservationSpanDesc";
-		labelObservationSpanDesc.Size = new Size(221, 20);
+		labelObservationSpanDesc.Size = new Size(222, 20);
 		labelObservationSpanDesc.TabIndex = 30;
 		labelObservationSpanDesc.Tag = "15";
 		labelObservationSpanDesc.ToolTipValues.Description = "Shows the information of \"Observation span\".\r\nDouble-click or right-click to open the terminology.";
@@ -1507,9 +1507,9 @@ partial class PlanetoidDbForm
 		labelRmsResidualDesc.ContextMenuStrip = contextMenuOpenTerminology;
 		labelRmsResidualDesc.Dock = DockStyle.Fill;
 		labelRmsResidualDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelRmsResidualDesc.Location = new Point(446, 159);
+		labelRmsResidualDesc.Location = new Point(447, 159);
 		labelRmsResidualDesc.Name = "labelRmsResidualDesc";
-		labelRmsResidualDesc.Size = new Size(221, 20);
+		labelRmsResidualDesc.Size = new Size(222, 20);
 		labelRmsResidualDesc.TabIndex = 32;
 		labelRmsResidualDesc.Tag = "16";
 		labelRmsResidualDesc.ToolTipValues.Description = "Shows the information of \"r.m.s residual (arcseconds)\".\r\nDouble-click or right-click to open the terminology.";
@@ -1533,9 +1533,9 @@ partial class PlanetoidDbForm
 		labelComputerNameDesc.ContextMenuStrip = contextMenuOpenTerminology;
 		labelComputerNameDesc.Dock = DockStyle.Fill;
 		labelComputerNameDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelComputerNameDesc.Location = new Point(446, 185);
+		labelComputerNameDesc.Location = new Point(447, 185);
 		labelComputerNameDesc.Name = "labelComputerNameDesc";
-		labelComputerNameDesc.Size = new Size(221, 20);
+		labelComputerNameDesc.Size = new Size(222, 20);
 		labelComputerNameDesc.TabIndex = 34;
 		labelComputerNameDesc.Tag = "17";
 		labelComputerNameDesc.ToolTipValues.Description = "Shows the information of \"Computer name\".\r\nDouble-click or right-click to open the terminology.";
@@ -1558,9 +1558,9 @@ partial class PlanetoidDbForm
 		labelFlagsDesc.ContextMenuStrip = contextMenuOpenTerminology;
 		labelFlagsDesc.Dock = DockStyle.Fill;
 		labelFlagsDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelFlagsDesc.Location = new Point(446, 211);
+		labelFlagsDesc.Location = new Point(447, 211);
 		labelFlagsDesc.Name = "labelFlagsDesc";
-		labelFlagsDesc.Size = new Size(221, 20);
+		labelFlagsDesc.Size = new Size(222, 20);
 		labelFlagsDesc.TabIndex = 36;
 		labelFlagsDesc.Tag = "18";
 		labelFlagsDesc.ToolTipValues.Description = "Shows the information of \"4-hexdigit flags\".\r\nDouble-click or right-click to open the terminology.";
@@ -1583,9 +1583,9 @@ partial class PlanetoidDbForm
 		labelDateLastObservationDesc.ContextMenuStrip = contextMenuOpenTerminology;
 		labelDateLastObservationDesc.Dock = DockStyle.Fill;
 		labelDateLastObservationDesc.LabelStyle = LabelStyle.BoldPanel;
-		labelDateLastObservationDesc.Location = new Point(446, 237);
+		labelDateLastObservationDesc.Location = new Point(447, 237);
 		labelDateLastObservationDesc.Name = "labelDateLastObservationDesc";
-		labelDateLastObservationDesc.Size = new Size(221, 20);
+		labelDateLastObservationDesc.Size = new Size(222, 20);
 		labelDateLastObservationDesc.TabIndex = 38;
 		labelDateLastObservationDesc.Tag = "19";
 		labelDateLastObservationDesc.ToolTipValues.Description = "Shows the information of \"Date of last observation\".\r\nDouble-click or right-click to open the terminology.";
@@ -1610,7 +1610,7 @@ partial class PlanetoidDbForm
 		contextMenuTopTenRecords.Font = new Font("Segoe UI", 9F);
 		contextMenuTopTenRecords.Items.AddRange(new ToolStripItem[] { toolStripMenuItemRecordsMeanAnomalyAtTheEpoch, toolStripMenuItemRecordsArgumentOfThePerihelion, toolStripMenuItemRecordsLongitudeOfTheAscendingNode, toolStripMenuItemRecordsInclination, toolStripMenuItemRecordsOrbitalEccentricity, toolStripMenuItemRecordsMeanDailyMotion, toolStripMenuItemRecordsSemiMajorAxis, toolStripMenuItemRecordsAbsoluteMagnitude, toolStripMenuItemRecordsSlopeParameter, toolStripMenuItemRecordsNumberOfOppositions, toolStripMenuItemRecordsNumberOfObservations, toolStripMenuItemRecordsRmsResidual });
 		contextMenuTopTenRecords.Name = "contextMenuTopTenRecords";
-		contextMenuTopTenRecords.OwnerItem = toolStripSplitButtonTopTenRecords;
+		contextMenuTopTenRecords.OwnerItem = toolStripMenuItemRecords;
 		contextMenuTopTenRecords.Size = new Size(250, 268);
 		contextMenuTopTenRecords.TabStop = true;
 		contextMenuTopTenRecords.Text = "Top ten records";
@@ -1787,6 +1787,22 @@ partial class PlanetoidDbForm
 		toolStripMenuItemRecordsRmsResidual.MouseEnter += Control_Enter;
 		toolStripMenuItemRecordsRmsResidual.MouseLeave += Control_Leave;
 		// 
+		// toolStripSplitButtonTopTenRecords
+		// 
+		toolStripSplitButtonTopTenRecords.AccessibleDescription = "Shows the top ten records";
+		toolStripSplitButtonTopTenRecords.AccessibleName = "Top ten records";
+		toolStripSplitButtonTopTenRecords.AccessibleRole = AccessibleRole.SplitButton;
+		toolStripSplitButtonTopTenRecords.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		toolStripSplitButtonTopTenRecords.DropDown = contextMenuTopTenRecords;
+		toolStripSplitButtonTopTenRecords.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
+		toolStripSplitButtonTopTenRecords.ImageTransparentColor = Color.Magenta;
+		toolStripSplitButtonTopTenRecords.Name = "toolStripSplitButtonTopTenRecords";
+		toolStripSplitButtonTopTenRecords.Size = new Size(32, 22);
+		toolStripSplitButtonTopTenRecords.Text = "Top ten records";
+		toolStripSplitButtonTopTenRecords.ButtonClick += Records_Click;
+		toolStripSplitButtonTopTenRecords.MouseEnter += Control_Enter;
+		toolStripSplitButtonTopTenRecords.MouseLeave += Control_Leave;
+		// 
 		// toolStripMenuItemRecords
 		// 
 		toolStripMenuItemRecords.AccessibleDescription = "Shows some top ten records";
@@ -1803,22 +1819,6 @@ partial class PlanetoidDbForm
 		toolStripMenuItemRecords.Click += Records_Click;
 		toolStripMenuItemRecords.MouseEnter += Control_Enter;
 		toolStripMenuItemRecords.MouseLeave += Control_Leave;
-		// 
-		// toolStripSplitButtonTopTenRecords
-		// 
-		toolStripSplitButtonTopTenRecords.AccessibleDescription = "Shows the top ten records";
-		toolStripSplitButtonTopTenRecords.AccessibleName = "Top ten records";
-		toolStripSplitButtonTopTenRecords.AccessibleRole = AccessibleRole.SplitButton;
-		toolStripSplitButtonTopTenRecords.DisplayStyle = ToolStripItemDisplayStyle.Image;
-		toolStripSplitButtonTopTenRecords.DropDown = contextMenuTopTenRecords;
-		toolStripSplitButtonTopTenRecords.Image = FatcowIcons16px.fatcow_text_list_numbers_16px;
-		toolStripSplitButtonTopTenRecords.ImageTransparentColor = Color.Magenta;
-		toolStripSplitButtonTopTenRecords.Name = "toolStripSplitButtonTopTenRecords";
-		toolStripSplitButtonTopTenRecords.Size = new Size(32, 22);
-		toolStripSplitButtonTopTenRecords.Text = "Top ten records";
-		toolStripSplitButtonTopTenRecords.ButtonClick += Records_Click;
-		toolStripSplitButtonTopTenRecords.MouseEnter += Control_Enter;
-		toolStripSplitButtonTopTenRecords.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemDistribution
 		// 
@@ -1845,7 +1845,7 @@ partial class PlanetoidDbForm
 		contextMenuFullCopyToClipboardOrbitalElements.Font = new Font("Segoe UI", 9F);
 		contextMenuFullCopyToClipboardOrbitalElements.Items.AddRange(new ToolStripItem[] { toolStripMenuItemCopyToClipboardIndexNumber, toolStripMenuItemCopyToClipboardReadableDesignation, toolStripMenuItemCopyToClipboardEpoch, toolStripMenuItemCopyToClipboardMeanAnomalyAtTheEpoch, toolStripMenuItemCopyToClipboardArgumentOfThePerihelion, toolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode, toolStripMenuItemCopyToClipboardInclinationToTheEcliptic, toolStripMenuItemToClipboardOrbitalEccentricity, toolStripMenuItemCopyToClipboardMeanDailyMotion, toolStripMenuItemCopyToClipboardSemiMajorAxis, toolStripMenuItemCopyToClipboardAbsoluteMagnitude, toolStripMenuItemCopyToClipboardSlopeParameter, toolStripMenuItemCopyToClipboardReference, toolStripMenuItemCopyToClipboardNumberOfOppositions, toolStripMenuItemCopyToClipboardNumberOfObservations, toolStripMenuItemCopyToClipboardObservationSpan, toolStripMenuItemCopyToClipboardRmsResidual, toolStripMenuItemCopyToClipboardComputerName, toolStripMenuItemCopyToClipboardFlags, toolStripMenuItemCopyToClipboardDateOfTheLastObservation });
 		contextMenuFullCopyToClipboardOrbitalElements.Name = "Context menu of copying to clipboard of orbital elements";
-		contextMenuFullCopyToClipboardOrbitalElements.OwnerItem = toolStripMenuItemCopytoClipboard;
+		contextMenuFullCopyToClipboardOrbitalElements.OwnerItem = toolStripDropDownButtonCopyToClipboard;
 		contextMenuFullCopyToClipboardOrbitalElements.Size = new Size(309, 444);
 		contextMenuFullCopyToClipboardOrbitalElements.TabStop = true;
 		contextMenuFullCopyToClipboardOrbitalElements.Text = "Copy to clipboard";
@@ -2134,6 +2134,21 @@ partial class PlanetoidDbForm
 		toolStripMenuItemCopyToClipboardDateOfTheLastObservation.MouseEnter += Control_Enter;
 		toolStripMenuItemCopyToClipboardDateOfTheLastObservation.MouseLeave += Control_Leave;
 		// 
+		// toolStripMenuItemCopytoClipboard
+		// 
+		toolStripMenuItemCopytoClipboard.AccessibleDescription = "Copies to clipboard";
+		toolStripMenuItemCopytoClipboard.AccessibleName = "Copy to clipboard";
+		toolStripMenuItemCopytoClipboard.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopytoClipboard.AutoToolTip = true;
+		toolStripMenuItemCopytoClipboard.DropDown = contextMenuFullCopyToClipboardOrbitalElements;
+		toolStripMenuItemCopytoClipboard.Image = FatcowIcons16px.fatcow_page_white_copy_16px;
+		toolStripMenuItemCopytoClipboard.Name = "toolStripMenuItemCopytoClipboard";
+		toolStripMenuItemCopytoClipboard.ShortcutKeys = Keys.Control | Keys.C;
+		toolStripMenuItemCopytoClipboard.Size = new Size(151, 22);
+		toolStripMenuItemCopytoClipboard.Text = "&Copy";
+		toolStripMenuItemCopytoClipboard.MouseEnter += Control_Enter;
+		toolStripMenuItemCopytoClipboard.MouseLeave += Control_Leave;
+		// 
 		// toolStripDropDownButtonCopyToClipboard
 		// 
 		toolStripDropDownButtonCopyToClipboard.AccessibleDescription = "Copies to clipboard";
@@ -2148,21 +2163,6 @@ partial class PlanetoidDbForm
 		toolStripDropDownButtonCopyToClipboard.Text = "Copy to clipboard";
 		toolStripDropDownButtonCopyToClipboard.MouseEnter += Control_Enter;
 		toolStripDropDownButtonCopyToClipboard.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemCopytoClipboard
-		// 
-		toolStripMenuItemCopytoClipboard.AccessibleDescription = "Copies to clipboard";
-		toolStripMenuItemCopytoClipboard.AccessibleName = "Copy to clipboard";
-		toolStripMenuItemCopytoClipboard.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemCopytoClipboard.AutoToolTip = true;
-		toolStripMenuItemCopytoClipboard.DropDown = contextMenuFullCopyToClipboardOrbitalElements;
-		toolStripMenuItemCopytoClipboard.Image = FatcowIcons16px.fatcow_page_white_copy_16px;
-		toolStripMenuItemCopytoClipboard.Name = "toolStripMenuItemCopytoClipboard";
-		toolStripMenuItemCopytoClipboard.ShortcutKeys = Keys.Control | Keys.C;
-		toolStripMenuItemCopytoClipboard.Size = new Size(180, 22);
-		toolStripMenuItemCopytoClipboard.Text = "&Copy";
-		toolStripMenuItemCopytoClipboard.MouseEnter += Control_Enter;
-		toolStripMenuItemCopytoClipboard.MouseLeave += Control_Leave;
 		// 
 		// menuStrip
 		// 
@@ -2570,6 +2570,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemAEIDiagram3D.AccessibleName = "a/e/i 3D diagram";
 		toolStripMenuItemAEIDiagram3D.AccessibleRole = AccessibleRole.MenuItem;
 		toolStripMenuItemAEIDiagram3D.AutoToolTip = true;
+		toolStripMenuItemAEIDiagram3D.Enabled = false;
 		toolStripMenuItemAEIDiagram3D.Name = "toolStripMenuItemAEIDiagram3D";
 		toolStripMenuItemAEIDiagram3D.Size = new Size(227, 22);
 		toolStripMenuItemAEIDiagram3D.Text = "a/&e/i 3D diagram";
@@ -2657,7 +2658,7 @@ partial class PlanetoidDbForm
 		contextMenuOrbit.Font = new Font("Segoe UI", 9F);
 		contextMenuOrbit.Items.AddRange(new ToolStripItem[] { toolStripMenuItemOrbit2DTopView, toolStripMenuItemOrbit2DSideView, toolStripMenuItemOrbit3DView });
 		contextMenuOrbit.Name = "contextMenuOrbit";
-		contextMenuOrbit.OwnerItem = toolStripDropDownButtonOrbit;
+		contextMenuOrbit.OwnerItem = toolStripMenuItemOrbit;
 		contextMenuOrbit.Size = new Size(140, 70);
 		contextMenuOrbit.TabStop = true;
 		contextMenuOrbit.Text = "Orbit";
@@ -2702,6 +2703,22 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOrbit3DView.Click += Orbit3DView_Click;
 		toolStripMenuItemOrbit3DView.MouseEnter += Control_Enter;
 		toolStripMenuItemOrbit3DView.MouseLeave += Control_Leave;
+		// 
+		// toolStripDropDownButtonOrbit
+		// 
+		toolStripDropDownButtonOrbit.AccessibleDescription = "Shows orbit visualization";
+		toolStripDropDownButtonOrbit.AccessibleName = "Scatter plots";
+		toolStripDropDownButtonOrbit.AccessibleRole = AccessibleRole.PushButton;
+		toolStripDropDownButtonOrbit.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		toolStripDropDownButtonOrbit.DropDown = contextMenuOrbit;
+		toolStripDropDownButtonOrbit.Enabled = false;
+		toolStripDropDownButtonOrbit.Image = FatcowIcons16px.fatcow_orbit_16px;
+		toolStripDropDownButtonOrbit.ImageTransparentColor = Color.Magenta;
+		toolStripDropDownButtonOrbit.Name = "toolStripDropDownButtonOrbit";
+		toolStripDropDownButtonOrbit.Size = new Size(29, 22);
+		toolStripDropDownButtonOrbit.Text = "Orbit visualization";
+		toolStripDropDownButtonOrbit.MouseEnter += Control_Enter;
+		toolStripDropDownButtonOrbit.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemDerivedOrbitElements
 		// 
@@ -3303,7 +3320,7 @@ partial class PlanetoidDbForm
 		contextMenuCheckDatabaseUpdates.Font = new Font("Segoe UI", 9F);
 		contextMenuCheckDatabaseUpdates.Items.AddRange(new ToolStripItem[] { toolStripMenuItemCheckMpcorbDatUpdate, toolStripMenuItemCheckMpcorbJsonUpdate, toolStripMenuItemCheckAstorbDatUpdate, toolStripMenuItemCheckAllnumCatUpdate, toolStripMenuItemCheckUfitobsCatUpdate, toolStripMenuItemCheckSingoppCatUpdate });
 		contextMenuCheckDatabaseUpdates.Name = "contextMenuStripCheckUpdates";
-		contextMenuCheckDatabaseUpdates.OwnerItem = toolStripDropDownButtonCheckUpdates;
+		contextMenuCheckDatabaseUpdates.OwnerItem = toolStripMenuItemCheckDatabaseUpdates;
 		contextMenuCheckDatabaseUpdates.Size = new Size(191, 136);
 		contextMenuCheckDatabaseUpdates.TabStop = true;
 		contextMenuCheckDatabaseUpdates.Text = "Check database updates";
@@ -3394,6 +3411,19 @@ partial class PlanetoidDbForm
 		toolStripMenuItemCheckSingoppCatUpdate.MouseEnter += Control_Enter;
 		toolStripMenuItemCheckSingoppCatUpdate.MouseLeave += Control_Leave;
 		// 
+		// toolStripDropDownButtonCheckUpdates
+		// 
+		toolStripDropDownButtonCheckUpdates.AccessibleDescription = "Checks for updates of the databases";
+		toolStripDropDownButtonCheckUpdates.AccessibleName = "Check database updates";
+		toolStripDropDownButtonCheckUpdates.AccessibleRole = AccessibleRole.SplitButton;
+		toolStripDropDownButtonCheckUpdates.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		toolStripDropDownButtonCheckUpdates.DropDown = contextMenuCheckDatabaseUpdates;
+		toolStripDropDownButtonCheckUpdates.Image = FatcowIcons16px.fatcow_database_lightning_16px;
+		toolStripDropDownButtonCheckUpdates.ImageTransparentColor = Color.Magenta;
+		toolStripDropDownButtonCheckUpdates.Name = "toolStripDropDownButtonCheckUpdates";
+		toolStripDropDownButtonCheckUpdates.Size = new Size(29, 22);
+		toolStripDropDownButtonCheckUpdates.Text = "Check database updates";
+		// 
 		// toolStripMenuItemDownloadDatabases
 		// 
 		toolStripMenuItemDownloadDatabases.AccessibleDescription = "Shows the database downloads";
@@ -3417,7 +3447,7 @@ partial class PlanetoidDbForm
 		contextMenuDownloadDatabases.Font = new Font("Segoe UI", 9F);
 		contextMenuDownloadDatabases.Items.AddRange(new ToolStripItem[] { toolStripMenuItemDownloadMpcorbDatInContext, toolStripMenuItemDownloadMpcorbJsonInContext, toolStripMenuItemDownloadAstorbDatInContext, toolStripMenuItemDownloadAllnumCatInContext, toolStripMenuItemDownloadUfitobsCatInContext, toolStripMenuItemDownloadSingoppCatInContext });
 		contextMenuDownloadDatabases.Name = "contextMenuStripDownloadDatabases";
-		contextMenuDownloadDatabases.OwnerItem = toolStripDropDownButtonDownloadDatabases;
+		contextMenuDownloadDatabases.OwnerItem = toolStripMenuItemDownloadDatabases;
 		contextMenuDownloadDatabases.Size = new Size(212, 136);
 		contextMenuDownloadDatabases.TabStop = true;
 		contextMenuDownloadDatabases.Text = "Database downloads";
@@ -3507,6 +3537,19 @@ partial class PlanetoidDbForm
 		toolStripMenuItemDownloadSingoppCatInContext.Click += DownloadSingoppCat_Click;
 		toolStripMenuItemDownloadSingoppCatInContext.MouseEnter += Control_Enter;
 		toolStripMenuItemDownloadSingoppCatInContext.MouseLeave += Control_Leave;
+		// 
+		// toolStripDropDownButtonDownloadDatabases
+		// 
+		toolStripDropDownButtonDownloadDatabases.AccessibleDescription = "Downloads the databases";
+		toolStripDropDownButtonDownloadDatabases.AccessibleName = "Download databases";
+		toolStripDropDownButtonDownloadDatabases.AccessibleRole = AccessibleRole.SplitButton;
+		toolStripDropDownButtonDownloadDatabases.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		toolStripDropDownButtonDownloadDatabases.DropDown = contextMenuDownloadDatabases;
+		toolStripDropDownButtonDownloadDatabases.Image = FatcowIcons16px.fatcow_package_go_16px;
+		toolStripDropDownButtonDownloadDatabases.ImageTransparentColor = Color.Magenta;
+		toolStripDropDownButtonDownloadDatabases.Name = "toolStripDropDownButtonDownloadDatabases";
+		toolStripDropDownButtonDownloadDatabases.Size = new Size(29, 22);
+		toolStripDropDownButtonDownloadDatabases.Text = "Download databases";
 		// 
 		// toolStripMenuItemOptions
 		// 
@@ -3757,22 +3800,6 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOpenMPCORBWebsite.MouseEnter += Control_Enter;
 		toolStripMenuItemOpenMPCORBWebsite.MouseLeave += Control_Leave;
 		// 
-		// toolStripDropDownButtonOrbit
-		// 
-		toolStripDropDownButtonOrbit.AccessibleDescription = "Shows orbit visualization";
-		toolStripDropDownButtonOrbit.AccessibleName = "Scatter plots";
-		toolStripDropDownButtonOrbit.AccessibleRole = AccessibleRole.PushButton;
-		toolStripDropDownButtonOrbit.DisplayStyle = ToolStripItemDisplayStyle.Image;
-		toolStripDropDownButtonOrbit.DropDown = contextMenuOrbit;
-		toolStripDropDownButtonOrbit.Enabled = false;
-		toolStripDropDownButtonOrbit.Image = FatcowIcons16px.fatcow_orbit_16px;
-		toolStripDropDownButtonOrbit.ImageTransparentColor = Color.Magenta;
-		toolStripDropDownButtonOrbit.Name = "toolStripDropDownButtonOrbit";
-		toolStripDropDownButtonOrbit.Size = new Size(29, 22);
-		toolStripDropDownButtonOrbit.Text = "Orbit visualization";
-		toolStripDropDownButtonOrbit.MouseEnter += Control_Enter;
-		toolStripDropDownButtonOrbit.MouseLeave += Control_Leave;
-		// 
 		// toolStripSeparator10
 		// 
 		toolStripSeparator10.AccessibleDescription = "Just a separator";
@@ -4011,7 +4038,7 @@ partial class PlanetoidDbForm
 		kryptonPageMpcorbDat.LastVisibleSet = true;
 		kryptonPageMpcorbDat.MinimumSize = new Size(150, 50);
 		kryptonPageMpcorbDat.Name = "kryptonPageMpcorbDat";
-		kryptonPageMpcorbDat.Size = new Size(852, 289);
+		kryptonPageMpcorbDat.Size = new Size(850, 287);
 		kryptonPageMpcorbDat.Text = "MPCORB.DAT";
 		kryptonPageMpcorbDat.TextDescription = "Shows the MPCORB.DAT";
 		kryptonPageMpcorbDat.TextTitle = "MPCORB.DAT";
@@ -4276,32 +4303,6 @@ partial class PlanetoidDbForm
 		toolStripSeparator5.Click += AsteroidGame_Click;
 		toolStripSeparator5.MouseEnter += Control_Enter;
 		toolStripSeparator5.MouseLeave += Control_Leave;
-		// 
-		// toolStripDropDownButtonCheckUpdates
-		// 
-		toolStripDropDownButtonCheckUpdates.AccessibleDescription = "Checks for updates of the databases";
-		toolStripDropDownButtonCheckUpdates.AccessibleName = "Check database updates";
-		toolStripDropDownButtonCheckUpdates.AccessibleRole = AccessibleRole.SplitButton;
-		toolStripDropDownButtonCheckUpdates.DisplayStyle = ToolStripItemDisplayStyle.Image;
-		toolStripDropDownButtonCheckUpdates.DropDown = contextMenuCheckDatabaseUpdates;
-		toolStripDropDownButtonCheckUpdates.Image = FatcowIcons16px.fatcow_database_lightning_16px;
-		toolStripDropDownButtonCheckUpdates.ImageTransparentColor = Color.Magenta;
-		toolStripDropDownButtonCheckUpdates.Name = "toolStripDropDownButtonCheckUpdates";
-		toolStripDropDownButtonCheckUpdates.Size = new Size(29, 22);
-		toolStripDropDownButtonCheckUpdates.Text = "Check database updates";
-		// 
-		// toolStripDropDownButtonDownloadDatabases
-		// 
-		toolStripDropDownButtonDownloadDatabases.AccessibleDescription = "Downloads the databases";
-		toolStripDropDownButtonDownloadDatabases.AccessibleName = "Download databases";
-		toolStripDropDownButtonDownloadDatabases.AccessibleRole = AccessibleRole.SplitButton;
-		toolStripDropDownButtonDownloadDatabases.DisplayStyle = ToolStripItemDisplayStyle.Image;
-		toolStripDropDownButtonDownloadDatabases.DropDown = contextMenuDownloadDatabases;
-		toolStripDropDownButtonDownloadDatabases.Image = FatcowIcons16px.fatcow_package_go_16px;
-		toolStripDropDownButtonDownloadDatabases.ImageTransparentColor = Color.Magenta;
-		toolStripDropDownButtonDownloadDatabases.Name = "toolStripDropDownButtonDownloadDatabases";
-		toolStripDropDownButtonDownloadDatabases.Size = new Size(29, 22);
-		toolStripDropDownButtonDownloadDatabases.Text = "Download databases";
 		// 
 		// toolStripSeparator1
 		// 
