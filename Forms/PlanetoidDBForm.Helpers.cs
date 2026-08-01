@@ -1454,6 +1454,9 @@ public partial class PlanetoidDbForm
 		toolStripMenuItemScatterPlots.Enabled = true;
 		toolStripMenuItemAEIDiagram3D.Enabled = true;
 		toolStripMenuItemOrbit.Enabled = true;
+		toolStripButtonDistributions.Enabled = true;
+		toolStripButtonScatterPlots.Enabled = true;
+		toolStripDropDownButtonOrbit.Enabled = true;
 		//Settings.Default.EnableExperimentalFeatures = true;
 		//Settings.Default.Save();
 		// Log the enabling of experimental features
@@ -1479,6 +1482,9 @@ public partial class PlanetoidDbForm
 		toolStripMenuItemScatterPlots.Enabled = false;
 		toolStripMenuItemAEIDiagram3D.Enabled = false;
 		toolStripMenuItemOrbit.Enabled = false;
+		toolStripButtonDistributions.Enabled = false;
+		toolStripButtonScatterPlots.Enabled = false;
+		toolStripDropDownButtonOrbit.Enabled = false;
 		//Settings.Default.EnableExperimentalFeatures = false;
 		//Settings.Default.Save();
 		// Log the disabling of experimental features
