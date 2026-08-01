@@ -1,5 +1,17 @@
 # Changelog
 
+## Planetoid-DB 0.9.24.87
+
+* Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/994
+* Updated CHANGELOG for version 0.9.23.86 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/995
+* Downgraded `OpenTK` packages by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/996
+* Disabled menu entry of the a/e/i 3D diagram by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/997
+* Removed `HarfBuzzSharp` and `SkiaSharp` tabs by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/998
+* Updated to version 0.9.24.87 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/999
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.23.86.992.3326...0.9.24.87.999.3350
+
+
 ## Planetoid-DB 0.9.23.86
 
 * Updated `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/983
