@@ -1833,7 +1833,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemDistributions.ShortcutKeys = Keys.Control | Keys.D;
 		toolStripMenuItemDistributions.Size = new Size(227, 22);
 		toolStripMenuItemDistributions.Text = "&Distributions";
-		toolStripMenuItemDistributions.Click += Histograms_Click;
+		toolStripMenuItemDistributions.Click += Distributions_Click;
 		toolStripMenuItemDistributions.MouseEnter += Control_Enter;
 		toolStripMenuItemDistributions.MouseLeave += Control_Leave;
 		// 
@@ -3305,7 +3305,7 @@ partial class PlanetoidDbForm
 		// 
 		toolStripDropDownButtonCheckUpdates.AccessibleDescription = "Checks for updates of the databases";
 		toolStripDropDownButtonCheckUpdates.AccessibleName = "Check database updates";
-		toolStripDropDownButtonCheckUpdates.AccessibleRole = AccessibleRole.SplitButton;
+		toolStripDropDownButtonCheckUpdates.AccessibleRole = AccessibleRole.DropList;
 		toolStripDropDownButtonCheckUpdates.DisplayStyle = ToolStripItemDisplayStyle.Image;
 		toolStripDropDownButtonCheckUpdates.DropDown = contextMenuCheckDatabaseUpdates;
 		toolStripDropDownButtonCheckUpdates.Image = FatcowIcons16px.fatcow_database_lightning_16px;
@@ -4293,7 +4293,7 @@ partial class PlanetoidDbForm
 		toolStripButtonDistributions.Name = "toolStripButtonDistributions";
 		toolStripButtonDistributions.Size = new Size(23, 22);
 		toolStripButtonDistributions.Text = "Histograms";
-		toolStripButtonDistributions.Click += Histograms_Click;
+		toolStripButtonDistributions.Click += Distributions_Click;
 		toolStripButtonDistributions.MouseEnter += Control_Enter;
 		toolStripButtonDistributions.MouseLeave += Control_Leave;
 		// 
