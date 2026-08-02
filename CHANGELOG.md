@@ -1,5 +1,12 @@
 # Changelog
 
+## Planetoid-DB 0.9.26.89
+
+* Added `LogViewerForm` to browse stored NLog log events by @copilot in https://github.com/mjohne/Planetoid-DB/pull/1014
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.25.88.1006.3382...HEAD
+
+
 ## Planetoid-DB 0.9.25.88
 
 * Updated CHANGELOG for version 0.9.24.87 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1002
