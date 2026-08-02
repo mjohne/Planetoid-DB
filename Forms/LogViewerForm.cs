@@ -35,7 +35,7 @@ public partial class LogViewerForm : BaseKryptonForm
 	/// <param name="dialog">The dialog to configure before it is displayed.</param>
 	/// <param name="ext">The file extension selected for the export.</param>
 	/// <returns><see langword="true"/> if the user confirms the dialog; otherwise, <see langword="false"/>.</returns>
-	/// <remarks>Overrides the default file naming to preserve the selected minimum and maximum range in the export file name.</remarks>
+	/// <remarks>Overrides the default file naming to use <c>logs.&lt;ext&gt;</c> as the suggested file name.</remarks>
 	protected override bool PrepareSaveDialog(FileDialog dialog, string ext)
 	{
 		dialog.InitialDirectory = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyDocuments);
@@ -310,12 +310,15 @@ public partial class LogViewerForm : BaseKryptonForm
 		}
 		// Precompute sort keys once per index to avoid repeated work during comparison
 		Dictionary<int, (bool HasNumeric, long NumericValue, string TextValue)> sortKeyCache = new(capacity: count);
+		// Populate the sort key cache for each index in sortedIndices
 		foreach (int index in sortedIndices)
 		{
+			// Skip invalid indices to avoid exceptions
 			if (index < 0 || index >= _displayCache.Count)
 			{
 				continue;
 			}
+			// Retrieve the log event for the current index
 			LogEventInfo logEvent = _displayCache[index: index];
 			string value = sortColumn switch
 			{
@@ -328,23 +331,18 @@ public partial class LogViewerForm : BaseKryptonForm
 				_ => string.Empty
 			};
 			// For the timestamp column use the raw ticks for numeric comparison
-			bool hasNumeric = sortColumn == 0
-				? (hasNumeric: true, numericValue: logEvent.TimeStamp.Ticks) is var _ && true
-				: false;
+			bool hasNumeric = sortColumn == 0 && (hasNumeric: true, numericValue: logEvent.TimeStamp.Ticks) is var _ && true;
 			long numericValue = sortColumn == 0 ? logEvent.TimeStamp.Ticks : 0;
 			sortKeyCache[key: index] = (hasNumeric, numericValue, value);
 		}
 		// Sort the indices using the precomputed sort keys
 		sortedIndices.Sort(comparison: (a, b) =>
 		{
-			(bool HasNumeric, long NumericValue, string TextValue) ka = sortKeyCache.TryGetValue(key: a, value: out (bool HasNumeric, long NumericValue, string TextValue) va) ? va : (false, 0, string.Empty);
+			(bool HasNumeric, long NumericValue, string TextValue) = sortKeyCache.TryGetValue(key: a, value: out (bool HasNumeric, long NumericValue, string TextValue) va) ? va : (false, 0, string.Empty);
 			(bool HasNumeric, long NumericValue, string TextValue) kb = sortKeyCache.TryGetValue(key: b, value: out (bool HasNumeric, long NumericValue, string TextValue) vb) ? vb : (false, 0, string.Empty);
-			int result = ka.HasNumeric && kb.HasNumeric
-				? ka.NumericValue.CompareTo(value: kb.NumericValue)
-				: string.Compare(
-					strA: ka.TextValue,
-					strB: kb.TextValue,
-					comparisonType: StringComparison.OrdinalIgnoreCase);
+			int result = HasNumeric && kb.HasNumeric
+				? NumericValue.CompareTo(value: kb.NumericValue)
+				: string.Compare(strA: TextValue, strB: kb.TextValue, comparisonType: StringComparison.OrdinalIgnoreCase);
 			return sortOrder == SortOrder.Descending ? -result : result;
 		});
 		// Refresh the ListView to reflect the new order
@@ -366,18 +364,28 @@ public partial class LogViewerForm : BaseKryptonForm
 		{
 			return;
 		}
-		// Collect selected indices
-		List<int> selectedIndices = [.. listView.SelectedIndices.Cast<int>()];
-		// Remove from the backing store
-		LogEventStore.RemoveAt(indices: selectedIndices);
+		// Collect selected indices (virtual indices in the current view)
+		List<int> selectedViewIndices = [.. listView.SelectedIndices.Cast<int>()];
+
+		// Map view indices to real indices when a sort is active
+		List<int> selectedRealIndices = [.. selectedViewIndices
+			.Select(i => sortedIndices != null && i >= 0 && i < sortedIndices.Count ? sortedIndices[i] : i)
+			.Distinct()
+			.OrderByDescending(i => i)];
+		// Remove from the backing store (expects indices in snapshot order)
+		LogEventStore.RemoveAt(indices: selectedRealIndices);
 		// Remove from the local display cache (descending to preserve indices)
-		foreach (int index in selectedIndices.OrderByDescending(keySelector: i => i))
+		foreach (int index in selectedRealIndices)
 		{
 			if (index >= 0 && index < _displayCache.Count)
 			{
 				_displayCache.RemoveAt(index: index);
 			}
 		}
+		// Reset sorting state because index mappings are no longer valid after removals
+		sortedIndices = null;
+		sortColumn = -1;
+		sortOrder = SortOrder.None;
 		// Update the ListView virtual size
 		listView.VirtualListSize = _displayCache.Count;
 		// Clear selection
