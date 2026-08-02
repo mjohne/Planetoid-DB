@@ -104,5 +104,11 @@
     <Setting Name="systemFilenameMpcorbJsonTemp" Type="System.String" Scope="Application">
       <Value Profile="(Default)">_</Value>
     </Setting>
+    <Setting Name="systemEnableExperimentalFeatures" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="userEnableExperimentalFeatures" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
