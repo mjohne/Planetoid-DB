@@ -1457,13 +1457,15 @@ public partial class PlanetoidDbForm
 		toolStripButtonDistributions.Enabled = true;
 		toolStripButtonScatterPlots.Enabled = true;
 		toolStripDropDownButtonOrbit.Enabled = true;
-		// Update the user setting to enable experimental features
-		Settings.Default.userEnableExperimentalFeatures = true;
-		Settings.Default.Save();
-		// Log the enabling of experimental features
-		logger.Info(message: "Experimental features enabled.");
+		// Persist and log only when the setting actually changes
+		if (!Settings.Default.userEnableExperimentalFeatures)
+		{
+			Settings.Default.userEnableExperimentalFeatures = true;
+			Settings.Default.Save();
+			logger.Info(message: "Experimental features enabled.");
+		}
 		// Show a message box to inform the user about the enabled experimental features
-		if (silent != true)
+		if (!silent)
 		{
 			_ = KryptonMessageBox.Show(
 				owner: this,
