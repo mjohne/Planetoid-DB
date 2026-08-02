@@ -1285,5 +1285,19 @@ public partial class PlanetoidDbForm
 		}
 	}
 
+	/// <summary>Handles the Click event for the Log Viewer menu item and opens the <see cref="LogViewerForm"/>.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>Opens the <see cref="LogViewerForm"/> as a modal dialog to display all stored NLog log events.</remarks>
+	private void LogViewer_Click(object sender, EventArgs e)
+	{
+		// Log the action of opening the Log Viewer form
+		logger.Info(message: "Opening Log Viewer form");
+		// Open the LogViewerForm as a modal dialog to display all stored NLog log events. The form is set to be topmost based on the current state of the main form to ensure it appears above other windows.
+		using LogViewerForm formLogViewer = new();
+		formLogViewer.TopMost = TopMost;
+		_ = formLogViewer.ShowDialog(owner: this);
+	}
+
 	#endregion
 }

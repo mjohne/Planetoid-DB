@@ -379,5 +379,47 @@ namespace Planetoid_DB.Properties {
                 this["userEnableExperimentalFeatures"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("log-events.json")]
+        public string systemLogEventsFilename {
+            get {
+                return ((string)(this["systemLogEventsFilename"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("log-events.json")]
+        public string userLogEventsFilename {
+            get {
+                return ((string)(this["userLogEventsFilename"]));
+            }
+            set {
+                this["userLogEventsFilename"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Planetoid-DB")]
+        public string systemAppDirectory {
+            get {
+                return ((string)(this["systemAppDirectory"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Planetoid-DB")]
+        public string userAppDirectory {
+            get {
+                return ((string)(this["userAppDirectory"]));
+            }
+            set {
+                this["userAppDirectory"] = value;
+            }
+        }
     }
 }

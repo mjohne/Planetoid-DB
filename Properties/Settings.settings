@@ -110,5 +110,17 @@
     <Setting Name="userEnableExperimentalFeatures" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="systemLogEventsFilename" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">log-events.json</Value>
+    </Setting>
+    <Setting Name="userLogEventsFilename" Type="System.String" Scope="User">
+      <Value Profile="(Default)">log-events.json</Value>
+    </Setting>
+    <Setting Name="systemAppDirectory" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Planetoid-DB</Value>
+    </Setting>
+    <Setting Name="userAppDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Planetoid-DB</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
