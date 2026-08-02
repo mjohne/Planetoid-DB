@@ -407,16 +407,17 @@ public partial class FilterForm : BaseKryptonForm
 	/// <remarks>Rows that do not fall within the min/max range of every orbital element used in this form are removed. The filtered result is stored in <see cref="FilteredDatabase"/>.</remarks>
 	private void ButtonApply_Click(object sender, EventArgs e)
 	{
+		// Apply the filter settings to the planetoids database and store the filtered result in FilteredDatabase
 		OrbitalElementFilter[] filters = GetOrbitalElementFilters();
-
-		FilteredDatabase = planetoidsDatabase
+		// Use LINQ to filter the database based on the min/max values of each orbital element
+		FilteredDatabase = [.. planetoidsDatabase
 			.Where(predicate: line => filters.All(predicate: f =>
 				TryParseField(line: line, startIndex: f.Start, length: f.Length, value: out double val) &&
 				val >= (double)f.MinimumControl.Value &&
-				val <= (double)f.MaximumControl.Value))
-			.ToList();
-
+				val <= (double)f.MaximumControl.Value))];
+		// Log the number of records retained after filtering
 		logger.Info(message: $"Filter applied: {FilteredDatabase.Count} of {planetoidsDatabase.Count} records retained.");
+		// Set the dialog result to OK and close the form
 		DialogResult = DialogResult.OK;
 		Close();
 	}
@@ -427,6 +428,7 @@ public partial class FilterForm : BaseKryptonForm
 	/// <remarks>This method is used to cancel the filter settings and close the form.</remarks>
 	private void ButtonCancel_Click(object sender, EventArgs e)
 	{
+		// Clear the filtered database since the user cancelled the operation
 		FilteredDatabase = null;
 		DialogResult = DialogResult.Cancel;
 		Close();
