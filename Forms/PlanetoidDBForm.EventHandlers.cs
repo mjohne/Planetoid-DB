@@ -20,7 +20,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to initialize the form and its controls.</remarks>
 	private void PlanetoidDBForm_Load(object sender, EventArgs e)
 	{
-		// Set the initial status bar text to indicate that the database is loading
+		// Clear the status bar before loading the database
 		ClearStatusBar(label: labelInformation);
 		// Reload the application settings to ensure the latest configuration is applied
 		Settings.Default.Reload();
