@@ -1447,7 +1447,7 @@ public partial class PlanetoidDbForm
 		}
 	}
 
-	private void EnableExperimentalFeatures()
+	private void EnableExperimentalFeatures(bool silent = false)
 	{
 		// Enable experimental features in the application
 		toolStripMenuItemDistributions.Enabled = true;
@@ -1457,25 +1457,29 @@ public partial class PlanetoidDbForm
 		toolStripButtonDistributions.Enabled = true;
 		toolStripButtonScatterPlots.Enabled = true;
 		toolStripDropDownButtonOrbit.Enabled = true;
-		//Settings.Default.EnableExperimentalFeatures = true;
-		//Settings.Default.Save();
+		// Update the user setting to enable experimental features
+		Settings.Default.userEnableExperimentalFeatures = true;
+		Settings.Default.Save();
 		// Log the enabling of experimental features
 		logger.Info(message: "Experimental features enabled.");
 		// Show a message box to inform the user about the enabled experimental features
-		_ = KryptonMessageBox.Show(
-			owner: this,
-			text: "Experimental features have been enabled. Please note that these features are in development and may not be fully stable.\n\n" +
-				"- distributions\n" +
-				"- scatter plots\n" +
-				"- a/e/i 3D diagram\n" +
-				"- orbit visualization",
+		if (silent != true)
+		{
+			_ = KryptonMessageBox.Show(
+				owner: this,
+				text: "Experimental features have been enabled. Please note that these features are in development and may not be fully stable.\n\n" +
+					"- distributions\n" +
+					"- scatter plots\n" +
+					"- a/e/i 3D diagram\n" +
+					"- orbit visualization",
 			caption: I18nStrings.InformationCaption,
 			buttons: KryptonMessageBoxButtons.OK,
 			icon: KryptonMessageBoxIcon.Information,
 			defaultButton: KryptonMessageBoxDefaultButton.Button1);
+		}
 	}
 
-	private void DisableExperimentalFeatures()
+	private void DisableExperimentalFeatures(bool silent = false)
 	{
 		// Disable experimental features in the application
 		toolStripMenuItemDistributions.Enabled = false;
@@ -1485,18 +1489,22 @@ public partial class PlanetoidDbForm
 		toolStripButtonDistributions.Enabled = false;
 		toolStripButtonScatterPlots.Enabled = false;
 		toolStripDropDownButtonOrbit.Enabled = false;
-		//Settings.Default.EnableExperimentalFeatures = false;
-		//Settings.Default.Save();
+		// Update the user setting to disable experimental features
+		Settings.Default.userEnableExperimentalFeatures = false;
+		Settings.Default.Save();
 		// Log the disabling of experimental features
 		logger.Info(message: "Experimental features disabled.");
 		// Show a message box to inform the user about the disabled experimental features
-		_ = KryptonMessageBox.Show(
-			owner: this,
-			text: "Experimental features have been disabled.",
-			caption: I18nStrings.InformationCaption,
-			buttons: KryptonMessageBoxButtons.OK,
-			icon: KryptonMessageBoxIcon.Information,
-			defaultButton: KryptonMessageBoxDefaultButton.Button1);
+		if (silent != true)
+		{
+			_ = KryptonMessageBox.Show(
+				owner: this,
+				text: "Experimental features have been disabled.",
+				caption: I18nStrings.InformationCaption,
+				buttons: KryptonMessageBoxButtons.OK,
+				icon: KryptonMessageBoxIcon.Information,
+				defaultButton: KryptonMessageBoxDefaultButton.Button1);
+		}
 	}
 
 	#endregion

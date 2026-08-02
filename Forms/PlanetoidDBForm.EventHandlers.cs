@@ -20,7 +20,16 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to initialize the form and its controls.</remarks>
 	private void PlanetoidDBForm_Load(object sender, EventArgs e)
 	{
+		// Set the initial status bar text to indicate that the database is loading
 		ClearStatusBar(label: labelInformation);
+		// Reload the application settings to ensure the latest configuration is applied
+		Settings.Default.Reload();
+		// Check if experimental features are enabled in the settings and enable them if so
+		if (Settings.Default.userEnableExperimentalFeatures)
+		{
+			toolStripMenuItemExperimentalFeatures.Checked = Settings.Default.userEnableExperimentalFeatures;
+			EnableExperimentalFeatures(silent: true);
+		}
 		// Set the initial text of the MPCORB.DAT tab to indicate that the database is loading
 		kryptonPageMpcorbDat.Text = $"MPCORB.DAT ({I18nStrings.DataLoading})";
 		// Configure the BackgroundWorker for loading the database
@@ -900,7 +909,7 @@ public partial class PlanetoidDbForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	///	<remarks>This method is used to show the histogram form for the selected parameter.</remarks>
-	private void Histograms_Click(object sender, EventArgs e) => ShowHistogram();
+	private void Distributions_Click(object sender, EventArgs e) => ShowHistogram();
 
 	/// <summary>Handles the click event for the scatter plot menu item or button. Shows the scatter plot form.</summary>
 	/// <param name="sender">The event source.</param>
