@@ -82,7 +82,7 @@ internal static class Program
 			// so that no log statement issued before this call is silently dropped.
 			ConfigureLogEventStore();
 			// Restore log events that were persisted during the previous session.
-			LogEventStore.LoadAsync().GetAwaiter().GetResult();
+			Task.Run(LogEventStore.LoadAsync).GetAwaiter().GetResult();
 			// Disable navigation sounds
 			DisableNavigationSounds();
 			// Initialize the application configuration
