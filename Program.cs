@@ -4,7 +4,9 @@
 // a specific target and scoped to a namespace, type, member, etc.
 
 using NLog;
+using NLog.Config;
 
+using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
 
 using System.Net.NetworkInformation;
@@ -76,6 +78,11 @@ internal static class Program
 		// Try to set the application to use the default font settings
 		try
 		{
+			// Configure NLog to capture log events for the LogViewerForm — must be first
+			// so that no log statement issued before this call is silently dropped.
+			ConfigureLogEventStore();
+			// Restore log events that were persisted during the previous session.
+			LogEventStore.LoadAsync().GetAwaiter().GetResult();
 			// Disable navigation sounds
 			DisableNavigationSounds();
 			// Initialize the application configuration
@@ -155,6 +162,8 @@ internal static class Program
 		}
 		finally
 		{
+			// Persist all log events collected during this session for the next start.
+			LogEventStore.SaveAsync().GetAwaiter().GetResult();
 			// Ensure that the logger is properly shut down
 			LogManager.Shutdown();
 		}
@@ -165,6 +174,27 @@ internal static class Program
 	private static void DisableNavigationSounds() =>
 		// Disable navigation sounds for the current process
 		_ = CoInternetSetFeatureEnabled(featureEntry: FeatureDisableNavigationSounds, dwFlags: SetFeatureOnProcess, fEnable: true);
+
+	/// <summary>Registers a <see cref="LogEventTarget"/> with the current NLog configuration so that every log event is also captured in <see cref="Helpers.LogEventStore"/>.</summary>
+	/// <remarks>
+	/// If NLog already has a configuration, the target is appended; otherwise a new <see cref="LoggingConfiguration"/> is created.
+	/// The method calls <see cref="LogManager.ReconfigExistingLoggers()"/> so that loggers created before this call also route events to the new target.
+	/// </remarks>
+	private static void ConfigureLogEventStore()
+	{
+		// Get the existing NLog configuration, or create a new one if none exists
+		LoggingConfiguration config = LogManager.Configuration ?? new LoggingConfiguration();
+		// Create the custom in-memory target
+		LogEventTarget storeTarget = new(name: "logEventStore");
+		// Register the target
+		config.AddTarget(target: storeTarget);
+		// Route all levels from all loggers to this target
+		config.AddRule(minLevel: LogLevel.Trace, maxLevel: LogLevel.Fatal, target: storeTarget, loggerNamePattern: "*");
+		// Apply the updated configuration
+		LogManager.Configuration = config;
+		// Reconfigure existing loggers so they pick up the new rule
+		LogManager.ReconfigExistingLoggers();
+	}
 
 	/// <summary>Handles the case when the file is missing.</summary>
 	/// <remarks>This method handles the case when the file is missing.</remarks>
