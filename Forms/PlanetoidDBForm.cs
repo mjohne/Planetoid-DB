@@ -168,7 +168,6 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		// Initialize the form components
 		InitializeComponent();
 		TextExtra = $"{Assembly.GetExecutingAssembly().GetName().Version}";
-		ClearStatusBar(label: labelInformation);
 		MpcOrbDatFilePath = mpcorbDatFilePath;
 		// Apply comprehensive flicker reduction for the TableLayoutPanel
 		OptimizeTableLayoutPanelForFlickerReduction();

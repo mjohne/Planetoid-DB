@@ -358,5 +358,26 @@ namespace Planetoid_DB.Properties {
                 return ((string)(this["systemFilenameMpcorbJsonTemp"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool systemEnableExperimentalFeatures {
+            get {
+                return ((bool)(this["systemEnableExperimentalFeatures"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool userEnableExperimentalFeatures {
+            get {
+                return ((bool)(this["userEnableExperimentalFeatures"]));
+            }
+            set {
+                this["userEnableExperimentalFeatures"] = value;
+            }
+        }
     }
 }
