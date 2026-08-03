@@ -3,6 +3,8 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using NLog;
+
 using System.Runtime.InteropServices;
 
 namespace Planetoid_DB.Helpers;
@@ -22,6 +24,10 @@ public static class TaskbarProgress
 	/// <summary>Determines whether the current operating system supports the taskbar progress API (Windows 7 / Server 2008 R2 or later).</summary>
 	/// <remarks>This property checks the OS version to ensure that taskbar progress features are available before attempting to use them.</remarks>
 	public static bool IsSupported => OperatingSystem.IsWindowsVersionAtLeast(major: 6, minor: 1);
+
+	/// <summary>NLog logger instance.</summary>
+	/// <remarks>This logger is used throughout the application to log important events and errors.</remarks>
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 	/// <summary>Retrieves the cached taskbar COM instance or initializes it in a thread-safe manner.</summary>
 	/// <remarks>This method ensures that the taskbar instance is created only once and reused for subsequent operations.</remarks>
@@ -56,6 +62,8 @@ public static class TaskbarProgress
 					{
 						// If an exception occurs, log the error and set the cached instance to null to indicate failure.
 						_taskbarInstance = null;
+						// Log an error message indicating that initializing the taskbar instance failed.
+						logger.Error(exception: ex, message: "Error initializing taskbar instance");
 					}
 				}
 			}
@@ -86,6 +94,8 @@ public static class TaskbarProgress
 		{
 			// On COM errors (e.g., Explorer restart), discard the invalid instance
 			ResetInstance();
+			// Log an error message indicating that setting the taskbar progress state failed.
+			logger.Error(message: $"Error setting taskbar progress state for window handle: {windowHandle}");
 		}
 	}
 
@@ -112,6 +122,8 @@ public static class TaskbarProgress
 		{
 			// On COM errors, discard the invalid instance
 			ResetInstance();
+			// Log an error message indicating that setting the taskbar progress value failed.
+			logger.Error(message: $"Error setting taskbar progress value for window handle: {windowHandle}");
 		}
 	}
 

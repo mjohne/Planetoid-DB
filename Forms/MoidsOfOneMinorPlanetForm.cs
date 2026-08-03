@@ -148,49 +148,81 @@ public partial class MoidsOfOneMinorPlanetForm : BaseKryptonForm
 	/// <remarks>This event handler copies the current text value associated with Mercury data to the system clipboard. Use this menu item to quickly copy the MOID value for further use.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardMoidRelativeToMercury_Click(object sender, EventArgs e) => CopyToClipboard(text: labelMercuryData.Text);
+	private void MenuitemCopyToClipboardMoidRelativeToMercury_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying Mercury MOID value to clipboard: {labelMercuryData.Text}");
+		CopyToClipboard(text: labelMercuryData.Text);
+	}
 
 	/// <summary>Handles the click event for copying the Venus MOID value to the clipboard.</summary>
 	/// <remarks>This event handler copies the current text value associated with Venus data to the system clipboard. Use this menu item to quickly copy the MOID value for further use.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardMoidRelativeToVenus_Click(object sender, EventArgs e) => CopyToClipboard(text: labelVenusData.Text);
+	private void MenuitemCopyToClipboardMoidRelativeToVenus_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying Venus MOID value to clipboard: {labelVenusData.Text}");
+		CopyToClipboard(text: labelVenusData.Text);
+	}
 
 	/// <summary>Handles the click event for copying the Earth MOID value to the clipboard.</summary>
 	/// <remarks>This event handler copies the current text value associated with Earth data to the system clipboard. Use this menu item to quickly copy the MOID value for further use.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardMoidRelativeToEarth_Click(object sender, EventArgs e) => CopyToClipboard(text: labelEarthData.Text);
+	private void MenuitemCopyToClipboardMoidRelativeToEarth_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying Earth MOID value to clipboard: {labelEarthData.Text}");
+		CopyToClipboard(text: labelEarthData.Text);
+	}
 
 	/// <summary>Handles the click event for copying the Mars MOID value to the clipboard.</summary>
 	/// <remarks>This event handler copies the current text value associated with Mars data to the system clipboard. Use this menu item to quickly copy the MOID value for further use.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardMoidRelativeToMars_Click(object sender, EventArgs e) => CopyToClipboard(text: labelMarsData.Text);
+	private void MenuitemCopyToClipboardMoidRelativeToMars_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying Mars MOID value to clipboard: {labelMarsData.Text}");
+		CopyToClipboard(text: labelMarsData.Text);
+	}
 
 	/// <summary>Handles the click event for copying the Jupiter MOID value to the clipboard.</summary>
 	/// <remarks>This event handler copies the current text value associated with Jupiter data to the system clipboard. Use this menu item to quickly copy the MOID value for further use.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardMoidRelativeToJupiter_Click(object sender, EventArgs e) => CopyToClipboard(text: labelJupiterData.Text);
+	private void MenuitemCopyToClipboardMoidRelativeToJupiter_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying Jupiter MOID value to clipboard: {labelJupiterData.Text}");
+		CopyToClipboard(text: labelJupiterData.Text);
+	}
 
 	/// <summary>Handles the click event for copying the Saturn MOID value to the clipboard.</summary>
 	/// <remarks>This event handler copies the current text value associated with Saturn data to the system clipboard. Use this menu item to quickly copy the MOID value for further use.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardMoidRelativeToSaturn_Click(object sender, EventArgs e) => CopyToClipboard(text: labelSaturnData.Text);
+	private void MenuitemCopyToClipboardMoidRelativeToSaturn_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying Saturn MOID value to clipboard: {labelSaturnData.Text}");
+		CopyToClipboard(text: labelSaturnData.Text);
+	}
 
 	/// <summary>Handles the click event for copying the Uranus MOID value to the clipboard.</summary>
 	/// <remarks>This event handler copies the current text value associated with Uranus data to the system clipboard. Use this menu item to quickly copy the MOID value for further use.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardMoidRelativeToUranus_Click(object sender, EventArgs e) => CopyToClipboard(text: labelUranusData.Text);
+	private void MenuitemCopyToClipboardMoidRelativeToUranus_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying Uranus MOID value to clipboard: {labelUranusData.Text}");
+		CopyToClipboard(text: labelUranusData.Text);
+	}
 
 	/// <summary>Handles the click event for copying the Neptune MOID value to the clipboard.</summary>
 	/// <remarks>This event handler copies the current text value associated with Neptune data to the system clipboard. Use this menu item to quickly copy the MOID value for further use.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardMoidRelativeToNeptune_Click(object sender, EventArgs e) => CopyToClipboard(text: labelNeptuneData.Text);
+	private void MenuitemCopyToClipboardMoidRelativeToNeptune_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying Neptune MOID value to clipboard: {labelNeptuneData.Text}");
+		CopyToClipboard(text: labelNeptuneData.Text);
+	}
 
 	#endregion
 }

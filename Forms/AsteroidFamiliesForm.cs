@@ -92,78 +92,110 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		public List<PlanetoidEntry> Members { get; } = [];
 	}
 
-	/// <summary>Starts the asteroid family detection when the Start button is clicked.</summary>
-	/// <param name="sender">The source of the event.</param>
-	/// <param name="e">The event data.</param>
-	/// <remarks>This method is called when the Start button is clicked to initiate the asteroid family detection process.</remarks>
-	private async void ToolStripButtonStartSearch_Click(object? sender, EventArgs e)
+	#region Helpers
+
+	/// <summary>Opens a save dialog and writes the specified families to a text file asynchronously.</summary>
+	/// <param name="families">The families to export.</param>
+	/// <remarks>This method opens a save dialog and streams the specified families directly to a text file to minimize memory usage.</remarks>
+	private async Task SaveFamiliesToFileAsync(IReadOnlyList<AsteroidFamily> families)
 	{
-		// If there are no planetoid data lines available, show an informational message and return.
-		if (_planetoids.Count == 0)
+		// We determine a default file name based on whether there is a single family or multiple families. If there is one family, we use its name (truncated at the first '(' if present) and replace spaces with underscores. If there are multiple families, we use a generic name "AsteroidFamilies".
+		string defaultFileName = families.Count == 1
+			? (families[index: 0].Name.Contains(value: '(')
+				? families[index: 0].Name[..families[index: 0].Name.IndexOf(value: '(', comparisonType: StringComparison.Ordinal)].Trim().Replace(oldChar: ' ', newChar: '_')
+				: families[index: 0].Name.Replace(oldChar: ' ', newChar: '_'))
+			: "AsteroidFamilies";
+		// We create a SaveFileDialog to allow the user to choose where to save the file. We set the filter to allow text files and all files, set the default extension to "txt", and set the initial file name and title based on the number of families being saved.
+		using SaveFileDialog dlg = new()
 		{
-			KryptonMessageBox.Show(owner: this, text: "No planetoid data available.", caption: "Information", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*",
+			DefaultExt = "txt",
+			FileName = defaultFileName,
+			Title = families.Count == 1 ? "Save Selected Family" : "Save All Families"
+		};
+		// We show the save dialog and check if the user clicked OK. If the user cancels the dialog, we simply return without doing anything.
+		if (dlg.ShowDialog(owner: this) != DialogResult.OK)
+		{
+			logger.Warn(message: "User cancelled the save operation. No file was saved.");
 			return;
 		}
-		// Disable the Start button and enable the Cancel button while detection is in progress. Also disable save buttons until results are available.
-		toolStripButtonStartSearch.Enabled = false;
-		toolStripButtonCancel.Enabled = true;
-		toolStripButtonSaveListSelectedFamily.Enabled = false;
-		toolStripButtonSaveListAllFamilies.Enabled = false;
-		// Clear previous results and reset progress indicators.
-		treeViewFamilies.Nodes.Clear();
-		listViewMembers.VirtualListSize = 0;
-		_families.Clear();
-		_selectedFamily = null;
-		kryptonProgressBarToolStripItem.Value = 0;
-		kryptonProgressBarToolStripItem.Text = "0%";
-		// Read tolerance values and minimum members from the UI controls.
-		double tolA = (double)toolStripNumericUpDownToleranceValueSemiMajorAxis.Value;
-		double tolE = (double)toolStripNumericUpDownToleranceValueNumericEccentricity.Value;
-		double tolI = (double)toolStripNumericUpDownToleranceValueInclination.Value;
-		int minMembers = (int)toolStripNumericUpDownToleranceValueMinimumMembers.Value;
-		// Create a new cancellation token source for this detection run (prevent overlapping runs).
-		if (_cancellationTokenSource != null)
-		{
-			return;
-		}
-		_cancellationTokenSource = new CancellationTokenSource();
-		// Create a progress reporter to update the progress bar and label on the UI thread.
+		// We create a Progress<int> instance to report progress updates to the UI. The handler updates the progress bar and label in the status strip, as well as the taskbar progress indicator.
 		Progress<int> progress = new(handler: percent =>
 		{
 			kryptonProgressBarToolStripItem.Value = percent;
 			kryptonProgressBarToolStripItem.Text = $"{percent}%";
 			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)percent, progressMax: 100);
 		});
-		// Start the detection process on a background thread to keep the UI responsive.
-		await Task.Run(function: () => PerformDetectionAsync(tolA: tolA, tolE: tolE, tolI: tolI, minMembers: minMembers, progress: progress, cancellationToken: _cancellationTokenSource.Token));
-	}
-
-	/// <summary>Cancels the ongoing detection when the Cancel button is clicked.</summary>
-	/// <param name="sender">The source of the event.</param>
-	/// <param name="e">The event data.</param>
-	/// <remarks>This method is called when the Cancel button is clicked to stop the ongoing detection process.</remarks>
-	private void ToolStripButtonCancel_Click(object? sender, EventArgs e)
-	{
-		// If a cancellation token source exists, signal cancellation to stop the detection process. Also disable the Cancel button and re-enable the Start button to allow the user to start a new detection if desired.
-		if (_cancellationTokenSource != null)
+		// We calculate the total number of members across all families to be saved. This is used for progress reporting.
+		int totalMembers = families.Sum(selector: f => f.Members.Count);
+		IProgress<int> progressReporter = progress;
+		// We use a try-catch-finally block to handle potential exceptions during the file writing process. This ensures that we can log errors and show appropriate messages to the user if something goes wrong.
+		try
 		{
-			_cancellationTokenSource.Cancel();
-			toolStripButtonCancel.Enabled = false;
-			toolStripButtonStartSearch.Enabled = true;
+			// We create a FileStreamOptions instance to specify the file access mode, sharing options, buffer size, and asynchronous options for writing to the file. This allows us to write to the file asynchronously and efficiently.
+			FileStreamOptions options = new()
+			{
+				Mode = FileMode.Create,
+				Access = FileAccess.Write,
+				Share = FileShare.None,
+				BufferSize = 65536,
+				Options = FileOptions.Asynchronous
+			};
+			// We create a FileStream and a StreamWriter to write the family data to the specified file. The StreamWriter is configured to use UTF-8 encoding for text output.
+			await using FileStream fs = new(path: dlg.FileName, options: options);
+			await using StreamWriter writer = new(stream: fs, encoding: Encoding.UTF8);
+			// We define a header string that contains the column names for the family data. The columns are aligned using fixed-width formatting to ensure that the output is easy to read. We also create a separator line of dashes that matches the length of the header.
+			string header = $"{"Index",-10} {"Name",-30} {"a (AU)",-12} {"e",-10} {"i (°)",-10} {"M (°)",-12} {"ArgPeri (°)",-14} {"LongAscNode (°)",-16}";
+			string separator = new(c: '-', count: header.Length);
+			int processed = 0;
+			// We loop through each family in the list of families to be saved. For each family, we write the family name, header, and separator to the file. We then loop through each member of the family and write their orbital parameters to the file in a formatted manner. We also update the progress reporter every 1000 members processed to keep the user informed about the progress of the save operation.
+			foreach (AsteroidFamily family in families)
+			{
+				await writer.WriteLineAsync(value: $"=== {family.Name} ===");
+				await writer.WriteLineAsync(value: header);
+				await writer.WriteLineAsync(value: separator);
+				// We loop through each member of the current family and write their orbital parameters to the file in a formatted manner. The values are aligned using fixed-width formatting to ensure that the output is easy to read.
+				foreach (PlanetoidEntry p in family.Members)
+				{
+					// We write the member's orbital parameters to the file using a formatted string. The values are aligned using fixed-width formatting to ensure that the output is easy to read. We also increment the processed counter to keep track of the total number of members written to the file across all families.
+					await writer.WriteLineAsync(value: $"{p.Index,-10} {p.Name,-30} {p.SemiMajorAxis,-12:F4} {p.Eccentricity,-10:F4} {p.Inclination,-10:F4} {p.MeanAnomaly,-12:F4} {p.ArgPeri,-14:F4} {p.LongAscNode,-16:F4}");
+					processed++;
+					// We report progress every 1000 members processed to keep the user informed about the progress of the save operation. The progress is calculated as a percentage of the total number of members across all families.
+					if (processed % 1000 == 0)
+					{
+						progressReporter.Report(value: processed * 100 / totalMembers);
+					}
+				}
+				await writer.WriteLineAsync(value: string.Empty);
+			}
+			// After writing all families and their members to the file, we flush the StreamWriter to ensure that all buffered data is written to the underlying stream. We also report that we have reached 100% progress.
+			await writer.FlushAsync();
+			progressReporter.Report(value: 100);
+			// We show a message box to inform the user that the save operation was successful and display the path of the saved file.
+			KryptonMessageBox.Show(owner: this, text: $"Successfully saved to:{Environment.NewLine}{dlg.FileName}", caption: "Saved", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 		}
-	}
-
-	/// <summary>Cancels any active detection and releases resources when the form is closing.</summary>
-	/// <param name="sender">The source of the event.</param>
-	/// <param name="e">The event data.</param>
-	/// <remarks>This method is called when the form is closing to cancel any active detection and release resources.</remarks>
-	private void AsteroidFamiliesForm_FormClosing(object? sender, FormClosingEventArgs e)
-	{
-		// If a cancellation token source exists, signal cancellation and dispose of it to release resources.
-		if (_cancellationTokenSource != null)
+		// We catch specific exceptions that may occur during the file writing process, such as IOException and UnauthorizedAccessException. For each exception, we log the error and show an appropriate error message to the user, including the reason for the failure.
+		catch (IOException ex)
 		{
-			_cancellationTokenSource.Cancel();
-			_cancellationTokenSource.Dispose();
+			logger.Error(exception: ex, message: $"Failed to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
+			ShowErrorMessage(message: $"Failed to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
+		}
+		catch (UnauthorizedAccessException ex)
+		{
+			logger.Error(exception: ex, message: $"You do not have permission to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
+			ShowErrorMessage(message: $"You do not have permission to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
+		}
+		catch (Exception ex)
+		{
+			logger.Error(exception: ex, message: $"An unexpected error occurred while saving the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
+			ShowErrorMessage(message: $"An unexpected error occurred while saving the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
+		}
+		// In the finally block, we reset the progress bar and label in the status strip, as well as the taskbar progress indicator, to indicate that the save operation has completed or failed. This ensures that the UI reflects the current state of the application regardless of whether the save operation was successful or encountered an error.
+		finally
+		{
+			kryptonProgressBarToolStripItem.Value = 0;
+			kryptonProgressBarToolStripItem.Text = "0%";
+			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: 0, progressMax: 100);
 		}
 	}
 
@@ -285,13 +317,14 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 			}, cancellationToken: cancellationToken);
 		}
 		// We catch OperationCanceledException to handle the case where the detection was cancelled by the user. In this case, we simply ignore the exception since cancellation is an expected outcome.
-		catch (OperationCanceledException)
+		catch (OperationCanceledException CancelEx)
 		{
-			// Detection was cancelled by the user — no action needed.
+			logger.Warn(exception: CancelEx, message: "Asteroid family detection was cancelled by the user.");
 		}
 		// We catch any other exceptions that may occur during the detection process and show an error message to the user. This ensures that unexpected errors are communicated clearly without crashing the application.
 		catch (Exception ex)
 		{
+			logger.Error(exception: ex, message: "An unexpected error occurred during asteroid family detection.");
 			// An unexpected error occurred during detection. We show an error message to the user with details about the exception.
 			await InvokeAsync(callback: () => ShowErrorMessage(message: $"An error occurred during family detection: {ex.Message}"), cancellationToken: cancellationToken);
 		}
@@ -355,6 +388,62 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		}
 	}
 
+	/// <summary>Navigates to the currently selected member planetoid in the <see cref="PlanetoidDbForm"/>.</summary>
+	/// <param name="closeAfterNavigation">If <see langword="true"/>, this form is closed after navigation.</param>
+	/// <remarks>Does nothing when no item is selected or the family list is empty.</remarks>
+	private void NavigateToSelectedMember(bool closeAfterNavigation)
+	{
+		// We check if a family is currently selected and if there is at least one selected item in the member ListView. If either condition is not met, we simply return without doing anything.
+		if (_selectedFamily == null || listViewMembers.SelectedIndices.Count == 0)
+		{
+			logger.Warn(message: "No family selected or no member selected. Navigation aborted.");
+			return;
+		}
+		// We retrieve the index of the first selected item in the member ListView. We then check if this index is valid (i.e., within the bounds of the selected family's member list). If the index is invalid, we return without doing anything.
+		int idx = listViewMembers.SelectedIndices[index: 0];
+		if (idx < 0 || idx >= _selectedFamily.Members.Count)
+		{
+			logger.Warn(message: "Invalid member index {0}. Navigation aborted.", idx);
+			return;
+		}
+		// We retrieve the PlanetoidEntry corresponding to the selected index from the selected family's member list. If the owner of this form is a PlanetoidDbForm, we call its JumpToRecord method to navigate to the planetoid's record using its index and designation (name). If closeAfterNavigation is true, we close this form after navigation.
+		PlanetoidEntry member = _selectedFamily.Members[index: idx];
+		if (Owner is PlanetoidDbForm planetoidDbForm)
+		{
+			logger.Info(message: "Navigating to planetoid {0} (Index: {1}) in PlanetoidDbForm.", member.Name, member.Index);
+			planetoidDbForm.JumpToRecord(index: member.Index, designation: member.Name);
+		}
+		if (closeAfterNavigation)
+		{
+			logger.Info(message: "Closing AsteroidFamiliesForm after navigation to planetoid {0} (Index: {1}).", member.Name, member.Index);
+			// Close this form after navigation if the closeAfterNavigation parameter is true.
+			Close();
+		}
+	}
+
+	#endregion
+
+	#region Form event handlers
+
+	/// <summary>Cancels any active detection and releases resources when the form is closing.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>This method is called when the form is closing to cancel any active detection and release resources.</remarks>
+	private void AsteroidFamiliesForm_FormClosing(object? sender, FormClosingEventArgs e)
+	{
+		logger.Info(message: "Form is closing. Cancelling any active detection and releasing resources.");
+		// If a cancellation token source exists, signal cancellation and dispose of it to release resources.
+		if (_cancellationTokenSource != null)
+		{
+			_cancellationTokenSource.Cancel();
+			_cancellationTokenSource.Dispose();
+		}
+	}
+
+	#endregion
+
+	#region RetrieveVirtualItem event handlers
+
 	/// <summary>Provides ListView items on demand for VirtualMode.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">A RetrieveVirtualItemEventArgs that contains the event data.</param>
@@ -364,6 +453,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		// We check if a family is currently selected and if the requested item index is within the bounds of the selected family's member list. If not, we return a placeholder item with a "?" text. Otherwise, we create a new ListViewItem with the planetoid's index and add subitems for the name, semi-major axis, eccentricity, inclination, mean anomaly, argument of perihelion, and longitude of ascending node, all formatted appropriately.
 		if (_selectedFamily == null || e.ItemIndex >= _selectedFamily.Members.Count)
 		{
+			logger.Warn("RetrieveVirtualItem called with invalid index {0} or no family selected.", e.ItemIndex);
 			e.Item = new ListViewItem(text: "?");
 			return;
 		}
@@ -380,15 +470,86 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		e.Item = item;
 	}
 
+	#endregion
+
+	#region Click event handlers
+
+	/// <summary>Starts the asteroid family detection when the Start button is clicked.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>This method is called when the Start button is clicked to initiate the asteroid family detection process.</remarks>
+	private async void ToolStripButtonStartSearch_Click(object? sender, EventArgs e)
+	{
+		logger.Info(message: "User initiated asteroid family detection.");
+		// If there are no planetoid data lines available, show an informational message and return.
+		if (_planetoids.Count == 0)
+		{
+			logger.Warn(message: "No planetoid data available for family detection.");
+			KryptonMessageBox.Show(owner: this, text: "No planetoid data available.", caption: "Information", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			return;
+		}
+		// Disable the Start button and enable the Cancel button while detection is in progress. Also disable save buttons until results are available.
+		toolStripButtonStartSearch.Enabled = false;
+		toolStripButtonCancel.Enabled = true;
+		toolStripButtonSaveListSelectedFamily.Enabled = false;
+		toolStripButtonSaveListAllFamilies.Enabled = false;
+		// Clear previous results and reset progress indicators.
+		treeViewFamilies.Nodes.Clear();
+		listViewMembers.VirtualListSize = 0;
+		_families.Clear();
+		_selectedFamily = null;
+		kryptonProgressBarToolStripItem.Value = 0;
+		kryptonProgressBarToolStripItem.Text = "0%";
+		// Read tolerance values and minimum members from the UI controls.
+		double tolA = (double)toolStripNumericUpDownToleranceValueSemiMajorAxis.Value;
+		double tolE = (double)toolStripNumericUpDownToleranceValueNumericEccentricity.Value;
+		double tolI = (double)toolStripNumericUpDownToleranceValueInclination.Value;
+		int minMembers = (int)toolStripNumericUpDownToleranceValueMinimumMembers.Value;
+		// Create a new cancellation token source for this detection run (prevent overlapping runs).
+		if (_cancellationTokenSource != null)
+		{
+			logger.Warn(message: "Detection is already in progress. Please wait for it to complete or cancel it before starting a new detection.");
+			return;
+		}
+		_cancellationTokenSource = new CancellationTokenSource();
+		// Create a progress reporter to update the progress bar and label on the UI thread.
+		Progress<int> progress = new(handler: percent =>
+		{
+			kryptonProgressBarToolStripItem.Value = percent;
+			kryptonProgressBarToolStripItem.Text = $"{percent}%";
+			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)percent, progressMax: 100);
+		});
+		// Start the detection process on a background thread to keep the UI responsive.
+		await Task.Run(function: () => PerformDetectionAsync(tolA: tolA, tolE: tolE, tolI: tolI, minMembers: minMembers, progress: progress, cancellationToken: _cancellationTokenSource.Token));
+	}
+
+	/// <summary>Cancels the ongoing detection when the Cancel button is clicked.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>This method is called when the Cancel button is clicked to stop the ongoing detection process.</remarks>
+	private void ToolStripButtonCancel_Click(object? sender, EventArgs e)
+	{
+		logger.Info(message: "User requested cancellation of the asteroid family detection.");
+		// If a cancellation token source exists, signal cancellation to stop the detection process. Also disable the Cancel button and re-enable the Start button to allow the user to start a new detection if desired.
+		if (_cancellationTokenSource != null)
+		{
+			_cancellationTokenSource.Cancel();
+			toolStripButtonCancel.Enabled = false;
+			toolStripButtonStartSearch.Enabled = true;
+		}
+	}
+
 	/// <summary>Saves the currently selected family to a text file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">An EventArgs that contains the event data.</param>
 	/// <remarks>This method saves the currently selected family to a text file.</remarks>
 	private async void ToolStripButtonSaveSelected_Click(object? sender, EventArgs e)
 	{
+		logger.Info(message: "User requested to save the currently selected family to a text file.");
 		// We check if a family is currently selected. If not, we simply return without doing anything. If a family is selected, we call the SaveFamiliesToFile method with a list containing just the selected family to save it to a text file.
 		if (_selectedFamily == null)
 		{
+			logger.Warn(message: "No family selected for saving. Please select a family from the tree view before attempting to save.");
 			return;
 		}
 		await SaveFamiliesToFileAsync(families: [_selectedFamily]);
@@ -400,118 +561,28 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// <remarks>This method saves all detected families to a single text file.</remarks>
 	private async void ToolStripButtonSaveAll_Click(object? sender, EventArgs e)
 	{
+		logger.Info(message: "User requested to save all detected families to a single text file.");
 		// We check if there are any detected families in the _families list. If the list is empty, we simply return without doing anything. If there are families detected, we call the SaveFamiliesToFile method with the entire list of families to save them all to a single text file.
 		if (_families.Count == 0)
 		{
+			logger.Warn(message: "No families detected to save. Please run the detection process before attempting to save.");
 			return;
 		}
 		// We call the SaveFamiliesToFile method with the entire list of detected families to save them all to a single text file.
 		await SaveFamiliesToFileAsync(families: _families);
 	}
 
-	/// <summary>Opens a save dialog and writes the specified families to a text file asynchronously.</summary>
-	/// <param name="families">The families to export.</param>
-	/// <remarks>This method opens a save dialog and streams the specified families directly to a text file to minimize memory usage.</remarks>
-	private async Task SaveFamiliesToFileAsync(IReadOnlyList<AsteroidFamily> families)
+	/// <summary>Handles the Click event of the 'Go to object' toolbar button.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The event data.</param>
+	/// <remarks>When clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> and this form is closed.</remarks>
+	private void ToolStripButtonGoToObject_Click(object? sender, EventArgs e)
 	{
-		// We determine a default file name based on whether there is a single family or multiple families. If there is one family, we use its name (truncated at the first '(' if present) and replace spaces with underscores. If there are multiple families, we use a generic name "AsteroidFamilies".
-		string defaultFileName = families.Count == 1
-			? (families[index: 0].Name.Contains(value: '(')
-				? families[index: 0].Name[..families[index: 0].Name.IndexOf(value: '(', comparisonType: StringComparison.Ordinal)].Trim().Replace(oldChar: ' ', newChar: '_')
-				: families[index: 0].Name.Replace(oldChar: ' ', newChar: '_'))
-			: "AsteroidFamilies";
-		// We create a SaveFileDialog to allow the user to choose where to save the file. We set the filter to allow text files and all files, set the default extension to "txt", and set the initial file name and title based on the number of families being saved.
-		using SaveFileDialog dlg = new()
-		{
-			Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*",
-			DefaultExt = "txt",
-			FileName = defaultFileName,
-			Title = families.Count == 1 ? "Save Selected Family" : "Save All Families"
-		};
-		// We show the save dialog and check if the user clicked OK. If the user cancels the dialog, we simply return without doing anything.
-		if (dlg.ShowDialog(owner: this) != DialogResult.OK)
-		{
-			return;
-		}
-		// We create a Progress<int> instance to report progress updates to the UI. The handler updates the progress bar and label in the status strip, as well as the taskbar progress indicator.
-		Progress<int> progress = new(handler: percent =>
-		{
-			kryptonProgressBarToolStripItem.Value = percent;
-			kryptonProgressBarToolStripItem.Text = $"{percent}%";
-			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)percent, progressMax: 100);
-		});
-		// We calculate the total number of members across all families to be saved. This is used for progress reporting.
-		int totalMembers = families.Sum(selector: f => f.Members.Count);
-		IProgress<int> progressReporter = progress;
-		// We use a try-catch-finally block to handle potential exceptions during the file writing process. This ensures that we can log errors and show appropriate messages to the user if something goes wrong.
-		try
-		{
-			// We create a FileStreamOptions instance to specify the file access mode, sharing options, buffer size, and asynchronous options for writing to the file. This allows us to write to the file asynchronously and efficiently.
-			FileStreamOptions options = new()
-			{
-				Mode = FileMode.Create,
-				Access = FileAccess.Write,
-				Share = FileShare.None,
-				BufferSize = 65536,
-				Options = FileOptions.Asynchronous
-			};
-			// We create a FileStream and a StreamWriter to write the family data to the specified file. The StreamWriter is configured to use UTF-8 encoding for text output.
-			await using FileStream fs = new(path: dlg.FileName, options: options);
-			await using StreamWriter writer = new(stream: fs, encoding: Encoding.UTF8);
-			// We define a header string that contains the column names for the family data. The columns are aligned using fixed-width formatting to ensure that the output is easy to read. We also create a separator line of dashes that matches the length of the header.
-			string header = $"{"Index",-10} {"Name",-30} {"a (AU)",-12} {"e",-10} {"i (°)",-10} {"M (°)",-12} {"ArgPeri (°)",-14} {"LongAscNode (°)",-16}";
-			string separator = new(c: '-', count: header.Length);
-			int processed = 0;
-			// We loop through each family in the list of families to be saved. For each family, we write the family name, header, and separator to the file. We then loop through each member of the family and write their orbital parameters to the file in a formatted manner. We also update the progress reporter every 1000 members processed to keep the user informed about the progress of the save operation.
-			foreach (AsteroidFamily family in families)
-			{
-				await writer.WriteLineAsync(value: $"=== {family.Name} ===");
-				await writer.WriteLineAsync(value: header);
-				await writer.WriteLineAsync(value: separator);
-				// We loop through each member of the current family and write their orbital parameters to the file in a formatted manner. The values are aligned using fixed-width formatting to ensure that the output is easy to read.
-				foreach (PlanetoidEntry p in family.Members)
-				{
-					// We write the member's orbital parameters to the file using a formatted string. The values are aligned using fixed-width formatting to ensure that the output is easy to read. We also increment the processed counter to keep track of the total number of members written to the file across all families.
-					await writer.WriteLineAsync(value: $"{p.Index,-10} {p.Name,-30} {p.SemiMajorAxis,-12:F4} {p.Eccentricity,-10:F4} {p.Inclination,-10:F4} {p.MeanAnomaly,-12:F4} {p.ArgPeri,-14:F4} {p.LongAscNode,-16:F4}");
-					processed++;
-					// We report progress every 1000 members processed to keep the user informed about the progress of the save operation. The progress is calculated as a percentage of the total number of members across all families.
-					if (processed % 1000 == 0)
-					{
-						progressReporter.Report(value: processed * 100 / totalMembers);
-					}
-				}
-				await writer.WriteLineAsync(value: string.Empty);
-			}
-			// After writing all families and their members to the file, we flush the StreamWriter to ensure that all buffered data is written to the underlying stream. We also report that we have reached 100% progress.
-			await writer.FlushAsync();
-			progressReporter.Report(value: 100);
-			// We show a message box to inform the user that the save operation was successful and display the path of the saved file.
-			KryptonMessageBox.Show(owner: this, text: $"Successfully saved to:{Environment.NewLine}{dlg.FileName}", caption: "Saved", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
-		}
-		// We catch specific exceptions that may occur during the file writing process, such as IOException and UnauthorizedAccessException. For each exception, we log the error and show an appropriate error message to the user, including the reason for the failure.
-		catch (IOException ex)
-		{
-			logger.Error(exception: ex, message: $"Failed to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
-			ShowErrorMessage(message: $"Failed to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
-		}
-		catch (UnauthorizedAccessException ex)
-		{
-			logger.Error(exception: ex, message: $"You do not have permission to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
-			ShowErrorMessage(message: $"You do not have permission to save the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
-		}
-		catch (Exception ex)
-		{
-			logger.Error(exception: ex, message: $"An unexpected error occurred while saving the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
-			ShowErrorMessage(message: $"An unexpected error occurred while saving the file:{Environment.NewLine}{dlg.FileName}{Environment.NewLine}{Environment.NewLine}Reason: {ex.Message}");
-		}
-		// In the finally block, we reset the progress bar and label in the status strip, as well as the taskbar progress indicator, to indicate that the save operation has completed or failed. This ensures that the UI reflects the current state of the application regardless of whether the save operation was successful or encountered an error.
-		finally
-		{
-			kryptonProgressBarToolStripItem.Value = 0;
-			kryptonProgressBarToolStripItem.Text = "0%";
-			TaskbarProgress.SetValue(windowHandle: Handle, progressValue: 0, progressMax: 100);
-		}
+		logger.Info(message: "User clicked 'Go to object' button. Navigating to selected member and closing the form.");
+		NavigateToSelectedMember(closeAfterNavigation: true);
 	}
+
+	#endregion
 
 	#region ColumnClick event handler
 
@@ -524,6 +595,7 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 		// Nothing to sort if no family is selected or the list is empty
 		if (_selectedFamily == null || _selectedFamily.Members.Count == 0)
 		{
+			logger.Warn(message: "Column click ignored because no family is selected or the member list is empty.");
 			return;
 		}
 		// Determine the new sort order based on the clicked column
@@ -605,45 +677,10 @@ public partial class AsteroidFamiliesForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>When an item in the member list is double-clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
-	private void ListViewMembers_DoubleClick(object? sender, EventArgs e) => NavigateToSelectedMember(closeAfterNavigation: false);
-
-	#endregion
-
-	#region Go to object event handler
-
-	/// <summary>Handles the Click event of the 'Go to object' toolbar button.</summary>
-	/// <param name="sender">The source of the event.</param>
-	/// <param name="e">The event data.</param>
-	/// <remarks>When clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> and this form is closed.</remarks>
-	private void ToolStripButtonGoToObject_Click(object? sender, EventArgs e) => NavigateToSelectedMember(closeAfterNavigation: true);
-
-	/// <summary>Navigates to the currently selected member planetoid in the <see cref="PlanetoidDbForm"/>.</summary>
-	/// <param name="closeAfterNavigation">If <see langword="true"/>, this form is closed after navigation.</param>
-	/// <remarks>Does nothing when no item is selected or the family list is empty.</remarks>
-	private void NavigateToSelectedMember(bool closeAfterNavigation)
+	private void ListViewMembers_DoubleClick(object? sender, EventArgs e)
 	{
-		// We check if a family is currently selected and if there is at least one selected item in the member ListView. If either condition is not met, we simply return without doing anything.
-		if (_selectedFamily == null || listViewMembers.SelectedIndices.Count == 0)
-		{
-			return;
-		}
-		// We retrieve the index of the first selected item in the member ListView. We then check if this index is valid (i.e., within the bounds of the selected family's member list). If the index is invalid, we return without doing anything.
-		int idx = listViewMembers.SelectedIndices[index: 0];
-		if (idx < 0 || idx >= _selectedFamily.Members.Count)
-		{
-			return;
-		}
-		// We retrieve the PlanetoidEntry corresponding to the selected index from the selected family's member list. If the owner of this form is a PlanetoidDbForm, we call its JumpToRecord method to navigate to the planetoid's record using its index and designation (name). If closeAfterNavigation is true, we close this form after navigation.
-		PlanetoidEntry member = _selectedFamily.Members[index: idx];
-		if (Owner is PlanetoidDbForm planetoidDbForm)
-		{
-			planetoidDbForm.JumpToRecord(index: member.Index, designation: member.Name);
-		}
-		if (closeAfterNavigation)
-		{
-			// Close this form after navigation if the closeAfterNavigation parameter is true.
-			Close();
-		}
+		logger.Info(message: "User double-clicked a member. Navigating to selected member without closing the form.");
+		NavigateToSelectedMember(closeAfterNavigation: false);
 	}
 
 	#endregion

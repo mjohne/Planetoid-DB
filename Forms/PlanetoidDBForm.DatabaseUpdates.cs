@@ -41,47 +41,65 @@ public partial class PlanetoidDbForm
 
 	/// <summary>Shows the downloader form for the MPCORB.DAT database.</summary>
 	/// <remarks>This method is used to display the downloader form for the MPCORB.DAT database.</remarks>
-	private void ShowMpcorbDatDownloader() =>
+	private void ShowMpcorbDatDownloader()
+	{
+		logger.Info(message: "Showing MPCORB.DAT downloader form.");
 		ShowDatabaseDownloader(
 			downloadUrl: Settings.Default.systemMpcorbDatGzUrl,
 			updateAvailableMenuItem: toolStripMenuItemShowMpcorbDatUpdateIsAvailable,
 			updateStatusItem: toolStripStatusLabelMpcorbDatUpdate);
+	}
 
 	/// <summary>Shows the downloader form for the MPCORB.JSON database.</summary>
 	/// <remarks>This method is used to display the downloader form for the MPCORB.JSON database.</remarks>
-	private void ShowMpcorbJsonDownloader() =>
+	private void ShowMpcorbJsonDownloader()
+	{
+		logger.Info(message: "Showing MPCORB.JSON downloader form.");
 		ShowDatabaseDownloader(
 			downloadUrl: Settings.Default.systemMpcorbJsonGzUrl,
 			updateAvailableMenuItem: toolStripMenuItemShowMpcorbJsonUpdateIsAvailable);
+	}
 
 	/// <summary>Shows the downloader form for the ASTORB.DAT database.</summary>
 	/// <remarks>This method is used to display the downloader form for the ASTORB.DAT database.</remarks>
-	private void ShowAstorbDatDownloader() =>
+	private void ShowAstorbDatDownloader()
+	{
+		logger.Info(message: "Showing ASTORB.DAT downloader form.");
 		ShowDatabaseDownloader(
 			downloadUrl: Settings.Default.systemAstorbDatGzUrl,
 			updateAvailableMenuItem: toolStripMenuItemShowAstorbDatUpdateIsAvailable,
 			updateStatusItem: toolStripStatusLabelAstorbDatUpdate);
+	}
 
 	/// <summary>Shows the downloader form for the ALLNUM.CAT database.</summary>
 	/// <remarks>This method is used to display the downloader form for the ALLNUM.CAT database.</remarks>
-	private void ShowAllnumCatDownloader() =>
+	private void ShowAllnumCatDownloader()
+	{
+		logger.Info(message: "Showing ALLNUM.CAT downloader form.");
 		ShowDatabaseDownloader(
 			downloadUrl: Settings.Default.systemAllnumCatUrl,
 			updateAvailableMenuItem: toolStripMenuItemShowAllnumCatUpdateIsAvailable);
+	}
 
 	/// <summary>Shows the downloader form for the UFITOBS.CAT database.</summary>
 	/// <remarks>This method is used to display the downloader form for the UFITOBS.CAT database.</remarks>
-	private void ShowUfitobsCatDownloader() =>
+	private void ShowUfitobsCatDownloader()
+	{
+		logger.Info(message: "Showing UFITOBS.CAT downloader form.");
 		ShowDatabaseDownloader(
 			downloadUrl: Settings.Default.systemUfitobsCatUrl,
 			updateAvailableMenuItem: toolStripMenuItemShowUfitobsCatUpdateIsAvailable);
+	}
 
 	/// <summary>Shows the downloader form for the SINGOPP.CAT database.</summary>
 	/// <remarks>This method is used to display the downloader form for the SINGOPP.CAT database.</remarks>
-	private void ShowSingoppCatDownloader() =>
+	private void ShowSingoppCatDownloader()
+	{
+		logger.Info(message: "Showing SINGOPP.CAT downloader form.");
 		ShowDatabaseDownloader(
 			downloadUrl: Settings.Default.systemSingoppCatUrl,
 			updateAvailableMenuItem: toolStripMenuItemShowSingoppCatUpdateIsAvailable);
+	}
 
 	/// <summary>Checks if a remote database file is newer than the local file.</summary>
 	/// <param name="localFilePath">Path to the local database file.</param>

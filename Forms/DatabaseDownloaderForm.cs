@@ -72,11 +72,13 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		if (string.IsNullOrWhiteSpace(value: url))
 		{
 			// Throw an exception if the URL is null or empty
+			logger.Fatal(message: $"URL cannot be null or empty: {url}");
 			throw new ArgumentException(message: "URL cannot be null or empty.", paramName: nameof(url));
 		}
 		// Derive the extraction file path from the URL and temporary filename
 		if (!Uri.TryCreate(uriString: url, uriKind: UriKind.Absolute, result: out Uri? parsedUri))
 		{
+			logger.Fatal(message: $"URL is not in a valid format: {url}");
 			throw new ArgumentException(message: "URL is not in a valid format.", paramName: nameof(url));
 		}
 		this.url = url;
@@ -85,6 +87,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		extractFilePath = Path.Combine(
 			Path.GetDirectoryName(path: _filenameTemp) ?? string.Empty,
 			Path.GetFileNameWithoutExtension(path: localPath));
+		logger.Info(message: "DatabaseDownloaderForm initialized. Url={Url}, TempFile={TempFile}, ExtractFile={ExtractFile}", argument1: url, argument2: _filenameTemp, argument3: extractFilePath);
 	}
 
 	/// <summary>Overrides the OnShown method to start the download workflow when the form is displayed.</summary>
@@ -103,6 +106,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 	/// <remarks>This method is called when the form is closing. It cancels any active download operation by calling <see cref="CancellationTokenSource.Cancel()"/> on the <see cref="cancellationTokenSource"/>.</remarks>
 	protected override void OnFormClosing(FormClosingEventArgs e)
 	{
+		logger.Info(message: "Form is closing. Canceling any ongoing download operation.");
 		// Cancel any ongoing download operation if the cancellation token source is not null
 		cancellationTokenSource?.Cancel();
 		// Call the base class implementation of OnFormClosing
@@ -127,6 +131,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		// Validate the URL and extract the filename
 		if (!Uri.TryCreate(uriString: url, uriKind: UriKind.Absolute, result: out Uri? parsedUri))
 		{
+			logger.Warn(message: $"URL is not in a valid format: {url}");
 			return null;
 		}
 		// Extract the filename from the URL's local path
@@ -134,6 +139,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		// If the filename is null or whitespace, return null
 		if (string.IsNullOrWhiteSpace(value: fileName))
 		{
+			logger.Warn(message: $"URL does not contain a valid filename: {url}");
 			return null;
 		}
 		// Combine the filename with the directory of the temporary file and return the full path
@@ -147,6 +153,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 	/// <remarks>The method streams the compressed input to the output file using <see cref="GZipStream"/>. It throws exceptions (e.g. <see cref="IOException"/>, <see cref="InvalidDataException"/>) to the caller.</remarks>
 	protected static async Task ExtractGzipFileAsync(string gzipFilePath, string outputFilePath, CancellationToken token)
 	{
+		logger.Info(message: $"Extracting GZIP file: {gzipFilePath} to {outputFilePath}");
 		// Open the gzip file and create a new file stream for the output file
 		await using FileStream sourceStream = new(path: gzipFilePath, mode: FileMode.Open, access: FileAccess.Read, share: FileShare.Read, bufferSize: 4096, options: FileOptions.Asynchronous);
 		// Create a new file stream for the output file
@@ -179,9 +186,10 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 			// Return true if the response status code indicates success (2xx); otherwise, return false
 			return response.IsSuccessStatusCode;
 		}
-		// If any exception occurs (e.g., HttpRequestException, TaskCanceledException), return false
-		catch
+		// If any exception occurs (e.g., HttpRequestException, TaskCanceledException), log a warning and return false
+		catch (Exception ex)
 		{
+			logger.Warn(message: $"Exception occurred while checking internet connectivity: {ex.Message}");
 			return false;
 		}
 	}
@@ -194,6 +202,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		// If the total bytes is zero or negative, or if the form is disposed, do not update the UI
 		if (info.TotalBytes <= 0 || IsDisposed)
 		{
+			logger.Warn(message: "Invalid total bytes or form is disposed. Skipping progress update.");
 			return;
 		}
 		// Calculate the percentage of the download completed
@@ -234,6 +243,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		// Validate that the temporary filename is set; if not, show an error message and return early
 		if (string.IsNullOrWhiteSpace(value: _filenameTemp))
 		{
+			logger.Warn(message: "Temporary filename is not set. Cannot proceed with download.");
 			ShowErrorMessage(message: "Please select a save location!");
 			return;
 		}
@@ -287,7 +297,7 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 		{
 			labelStatusValue.Text = "Download canceled";
 			KryptonMessageBox.Show(owner: this, text: "Download canceled!", caption: "Canceled", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
-			logger.Info(message: "Download canceled by user.");
+			logger.Warn(message: "Download canceled by user.");
 		}
 		// Handle any other exceptions that occur during the download or extraction process: update the status label, show a message box with the error, and log the exception details
 		catch (Exception ex)
@@ -398,13 +408,21 @@ public partial class DatabaseDownloaderForm : BaseKryptonForm
 	/// <param name="sender">The event source (the Download button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the Download button is clicked.</remarks>
-	private async void ButtonDownload_Click(object sender, EventArgs e) => await StartDownloadAsync();
+	private async void ButtonDownload_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Download button clicked. Starting download workflow.");
+		await StartDownloadAsync();
+	}
 
 	/// <summary>Click handler for the Cancel button. Cancels the active download operation if one is running.</summary>
 	/// <param name="sender">The event source (the Cancel button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the Cancel button is clicked.</remarks>
-	private void ButtonCancel_Click(object sender, EventArgs e) => cancellationTokenSource?.Cancel();
+	private void ButtonCancel_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Cancel button clicked. Canceling download workflow.");
+		cancellationTokenSource?.Cancel();
+	}
 
 	#endregion
 }

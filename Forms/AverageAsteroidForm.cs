@@ -70,6 +70,7 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 		InitializeComponent();
 		// Ensure the planetoids database is not null
 		planetoidsDatabase = planetoids ?? throw new ArgumentNullException(paramName: nameof(planetoids));
+		logger.Info(message: $"AverageAsteroidForm initialized with {planetoidsDatabase.Count} planetoids");
 	}
 
 	#endregion
@@ -294,6 +295,7 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 		// Handle cancellation by clearing the ListView, resetting the progress bar, and updating the status bar to indicate that the calculation was cancelled
 		catch (OperationCanceledException)
 		{
+			logger.Warn(message: "Average calculation cancelled by user.");
 			listView.Items.Clear();
 			ResetProgress();
 			SetStatusBar(label: labelInformation, text: "Calculation cancelled");
@@ -383,6 +385,7 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 	/// <remarks>Signals cancellation and disposes the token source so that background work does not continue against a disposed form.</remarks>
 	private void AverageAsteroidForm_FormClosing(object? sender, FormClosingEventArgs e)
 	{
+		logger.Info(message: "Form is closing. Cancelling any running calculation.");
 		_calculationCts?.Cancel();
 		_calculationCts?.Dispose();
 		_calculationCts = null;
@@ -394,6 +397,7 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 	/// <remarks>This method initializes the cancellation token source, updates the UI state to indicate that a calculation is running, and starts the asynchronous calculation of averages. It also includes error handling to log any unexpected exceptions that occur during the calculation.</remarks>
 	private async void ToolStripButtonStart_Click(object? sender, EventArgs e)
 	{
+		logger.Info(message: "User clicked Start button. Beginning average calculation.");
 		// Dispose of any existing cancellation token source to ensure that previous calculations are properly cancelled before starting a new one
 		_calculationCts?.Dispose();
 		// Create a new cancellation token source for the upcoming calculation
@@ -435,6 +439,7 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 		// Ensure the sender is a ListView and that it contains items before attempting to sort
 		if (listView.Items.Count == 0)
 		{
+			logger.Warn(message: "Column click ignored because the ListView is empty.");
 			return;
 		}
 		// Determine the new sort order
@@ -488,6 +493,7 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 		// Ensure that there is at least one selected item in the ListView before attempting to copy
 		if (listView.SelectedItems.Count == 0)
 		{
+			logger.Warn(message: "Copy to clipboard ignored because no item is selected.");
 			return;
 		}
 		// Get the first selected item and extract the text of all its sub-items
@@ -495,6 +501,7 @@ public partial class AverageAsteroidForm : BaseKryptonForm
 		IEnumerable<string> subItemTexts = selectedItem.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(selector: static s => s.Text);
 		// Join the sub-item texts with a tab character to create a single string for the clipboard
 		string text = string.Join(separator: "\t", values: subItemTexts);
+		logger.Info(message: $"Copying selected item to clipboard: {text}");
 		CopyToClipboard(text: text);
 	}
 

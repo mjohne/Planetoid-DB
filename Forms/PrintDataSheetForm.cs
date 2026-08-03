@@ -154,8 +154,10 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		dialogPrint.Document = printDoc;
 		dialogPrint.AllowSelection = true;
 		dialogPrint.AllowSomePages = true;
+		// Show the print dialog and check if the user confirmed the print operation
 		if (dialogPrint.ShowDialog(owner: this) != DialogResult.OK)
 		{
+			logger.Error(message: "Print dialog was canceled or failed to open.");
 			return;
 		}
 		toolStripProgressBarPrinting.Visible = true;
@@ -168,6 +170,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		{
 			// Print the document on the UI thread to ensure safe access to UI controls in event handlers
 			printDoc.Print();
+			logger.Info(message: "Printing completed successfully.");
 			_ = KryptonMessageBox.Show(owner: this, text: "Printing completed.", caption: "Print Data Sheet", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 		}
 		catch (Exception ex)
@@ -195,6 +198,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		using PrintPreviewDialog previewDialog = new();
 		// Set the document for the print preview dialog
 		previewDialog.Document = printDoc;
+		logger.Info(message: "Opening print preview dialog.");
 		// Show the print preview dialog
 		_ = previewDialog.ShowDialog(owner: this);
 	}
@@ -212,6 +216,7 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 		pageSetupDialog.PageSettings = printDoc.DefaultPageSettings;
 		pageSetupDialog.PrinterSettings = printDoc.PrinterSettings;
 		pageSetupDialog.ShowNetwork = true;
+		logger.Info(message: "Opening page setup dialog.");
 		// Show the page setup dialog and update the print document's default page settings if the user confirms
 		if (pageSetupDialog.ShowDialog(owner: this) == DialogResult.OK)
 		{
@@ -223,7 +228,11 @@ public partial class PrintDataSheetForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>This method sets the cancelPrinting flag to true, indicating that the printing process should be canceled.</remarks>
-	private void ToolStripButtonCancelPrint_Click(object sender, EventArgs e) => cancelPrinting = true;
+	private void ToolStripButtonCancelPrint_Click(object sender, EventArgs e)
+	{
+		logger.Warn(message: "User requested to cancel printing.");
+		cancelPrinting = true;
+	}
 
 	/// <summary>Handles the click event for the 'Mark All' button, marking all items as checked.</summary>
 	/// <param name="sender">The event source.</param>

@@ -27,6 +27,10 @@ public static class LogEventStore
 	/// <remarks>Creating a static instance of JsonSerializerOptions with WriteIndented set to true allows for consistent formatting of JSON output across all methods that serialize to JSON, while avoiding the overhead of creating new options instances for each serialization operation.</remarks>
 	private static readonly JsonSerializerOptions jsonSerializerOptions = new() { WriteIndented = true };
 
+	/// <summary>NLog logger instance.</summary>
+	/// <remarks>This logger is used throughout the application to log important events and errors.</remarks>
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
 	/// <summary>Adds a log event to the store.</summary>
 	/// <param name="logEvent">The <see cref="LogEventInfo"/> to add. Must not be <see langword="null"/>.</param>
 	/// <remarks>This method is called by <see cref="LogEventTarget"/> on every log write and is safe to call from multiple threads.</remarks>
@@ -189,10 +193,13 @@ public static class LogEventStore
 				utf8Json: fs,
 				value: dtos,
 				options: jsonSerializerOptions);
+			// Log a success message indicating that the log events were saved successfully.
+			logger.Info(message: $"Successfully saved log events to: {StoragePath}");
 		}
-		catch (Exception)
+		catch (Exception ex)
 		{
-			// A failed save must never crash or delay shutdown.
+			// Log an error message if saving the log events fails.
+			logger.Error(exception: ex, message: $"Error saving log events to: {StoragePath}");
 		}
 	}
 
@@ -256,9 +263,10 @@ public static class LogEventStore
 				_lock.ExitWriteLock();
 			}
 		}
-		catch (Exception)
+		catch (Exception ex)
 		{
-			// A corrupt or unreadable file must never prevent the application from starting.
+			// Log an error message if loading the log events fails.
+			logger.Error(exception: ex, message: $"Error loading log events from: {StoragePath}");
 		}
 	}
 }

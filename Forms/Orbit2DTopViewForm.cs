@@ -234,7 +234,7 @@ public partial class Orbit2DTopViewForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			// Log the error with details about the planetoid and the exception message for troubleshooting.
-			logger.Error(message: $"Failed to render orbit plot for '{_planetoidName}': {ex}");
+			logger.Error(exception: ex, message: $"Failed to render orbit plot for '{_planetoidName}': {ex}");
 			ShowErrorMessage(message: $"An error occurred while rendering the orbital diagram: {ex.Message}");
 		}
 	}

@@ -228,6 +228,7 @@ public partial class PlanetoidDbForm
 			}
 		}
 		// If none of the above formats matched, return an unknown reference format message
+		logger.Warn(message: $"Unknown reference format for '{compressedRef}'");
 		return $"Unknown reference format: {compressedRef.Trim()}";
 	}
 

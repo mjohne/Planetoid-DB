@@ -44,9 +44,13 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 
 	/// <summary>Initializes a new instance of the <see cref="DatabaseInformationForm"/> class.</summary>
 	/// <remarks>This constructor initializes the form components.</remarks>
-	public DatabaseInformationForm() =>
+	public DatabaseInformationForm()
+	{
 		// Initialize the form components
 		InitializeComponent();
+		// Log a debug message indicating that the form has been initialized
+		logger.Debug(message: "DatabaseInformationForm initialized.");
+	}
 
 	#endregion
 
@@ -148,56 +152,90 @@ public partial class DatabaseInformationForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the copy to clipboard button is clicked.</remarks>
 	private void ToolStripDropDownButtonCopyToClipboard_Click(object sender, EventArgs e)
-		=> ShowContextMenuForToolStripItem(sender: sender, contextMenu: contextMenuFullCopyToClipboard);
+	{
+		logger.Info(message: "Copy to clipboard button clicked. Showing context menu.");
+		ShowContextMenuForToolStripItem(sender: sender, contextMenu: contextMenuFullCopyToClipboard);
+	}
 
 	/// <summary>Handles the click event of the save to file button.</summary>
 	/// <param name="sender">Event source (the button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the save to file button is clicked.</remarks>
 	private void ToolStripButtonSaveToFile_Click(object sender, EventArgs e)
-		=> ShowContextMenuForToolStripItem(sender: sender, contextMenu: contextMenuSaveToFile);
+	{
+		logger.Info(message: "Save to file button clicked. Showing context menu.");
+		ShowContextMenuForToolStripItem(sender: sender, contextMenu: contextMenuSaveToFile);
+	}
 
 	/// <summary>Handles the click event of the copy to clipboard menu item for the database name.</summary>
 	/// <param name="sender">Event source (the menu item).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the copy to clipboard menu item for the database name is clicked.</remarks>
-	private void MenuitemCopyToClipboardName_Click(object sender, EventArgs e) => CopyToClipboard(text: labelNameValue.Text);
+	private void MenuitemCopyToClipboardName_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copy to clipboard for database name clicked: {labelNameValue.Text}");
+		CopyToClipboard(text: labelNameValue.Text);
+	}
 
 	/// <summary>Handles the click event of the copy to clipboard menu item for the database path.</summary>
 	/// <param name="sender">Event source (the menu item).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the copy to clipboard menu item for the database path is clicked.</remarks>
-	private void MenuitemCopyToClipboardPath_Click(object sender, EventArgs e) => CopyToClipboard(text: labelDirectoryValue.Text);
+	private void MenuitemCopyToClipboardPath_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copy to clipboard for database path clicked: {labelDirectoryValue.Text}");
+		CopyToClipboard(text: labelDirectoryValue.Text);
+	}
 
 	/// <summary>Handles the click event of the copy to clipboard menu item for the database size.</summary>
 	/// <param name="sender">Event source (the menu item).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the copy to clipboard menu item for the database size is clicked.</remarks>
-	private void MenuitemCopyToClipboardSize_Click(object sender, EventArgs e) => CopyToClipboard(text: labelSizeValue.Text);
+	private void MenuitemCopyToClipboardSize_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copy to clipboard for database size clicked: {labelSizeValue.Text}");
+		CopyToClipboard(text: labelSizeValue.Text);
+	}
 
 	/// <summary>Handles the click event of the copy to clipboard menu item for the database creation date.</summary>
 	/// <param name="sender">Event source (the menu item).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the copy to clipboard menu item for the database creation date is clicked.</remarks>
-	private void MenuitemCopyToClipboardCreationDate_Click(object sender, EventArgs e) => CopyToClipboard(text: labelDateCreatedValue.Text);
+	private void MenuitemCopyToClipboardCreationDate_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copy to clipboard for database creation date clicked: {labelDateCreatedValue.Text}");
+		CopyToClipboard(text: labelDateCreatedValue.Text);
+	}
 
 	/// <summary>Handles the click event of the copy to clipboard menu item for the database last access date.</summary>
 	/// <param name="sender">Event source (the menu item).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the copy to clipboard menu item for the database last access date is clicked.</remarks>
-	private void MenuitemCopyToClipboardLastAccessDate_Click(object sender, EventArgs e) => CopyToClipboard(text: labelDateAccessedValue.Text);
+	private void MenuitemCopyToClipboardLastAccessDate_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copy to clipboard for database last access date clicked: {labelDateAccessedValue.Text}");
+		CopyToClipboard(text: labelDateAccessedValue.Text);
+	}
 
 	/// <summary>Handles the click event of the copy to clipboard menu item for the database last write date.</summary>
 	/// <param name="sender">Event source (the menu item).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the copy to clipboard menu item for the database last write date is clicked.</remarks>
-	private void MenuitemCopyToClipboardLastWriteDate_Click(object sender, EventArgs e) => CopyToClipboard(text: labelDateWritedValue.Text);
+	private void MenuitemCopyToClipboardLastWriteDate_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copy to clipboard for database last write date clicked: {labelDateWritedValue.Text}");
+		CopyToClipboard(text: labelDateWritedValue.Text);
+	}
 
 	/// <summary>Handles the click event of the copy to clipboard menu item for the database attributes.</summary>
 	/// <param name="sender">Event source (the menu item).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is called when the copy to clipboard menu item for the database attributes is clicked.</remarks>
-	private void MenuitemCopyToClipboardAttributes_Click(object sender, EventArgs e) => CopyToClipboard(text: labelAttributesValue.Text);
+	private void MenuitemCopyToClipboardAttributes_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copy to clipboard for database attributes clicked: {labelAttributesValue.Text}");
+		CopyToClipboard(text: labelAttributesValue.Text);
+	}
 
 	#endregion
 }

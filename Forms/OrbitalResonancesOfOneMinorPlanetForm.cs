@@ -87,8 +87,7 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 	/// <summary>Sets the semi-major axis of the planetoid used for computing orbital resonances.</summary>
 	/// <param name="semiMajorAxis">The semi-major axis in AU.</param>
 	/// <remarks>Call this method before showing the form so that the resonance data is available on load.</remarks>
-	public void SetSemiMajorAxis(double semiMajorAxis) =>
-		this.semiMajorAxis = semiMajorAxis;
+	public void SetSemiMajorAxis(double semiMajorAxis) => this.semiMajorAxis = semiMajorAxis;
 
 	/// <summary>Populates the <see cref="listView"/> with orbital resonance data from the <see cref="allResonances"/> field, optionally filtering to only true resonances.</summary>
 	/// <remarks>Each resonance is shown as one row. The "Is Resonance" column shows "Yes" when the deviation is below 1%. Rows are colored green for resonances and red for non-resonances.</remarks>
@@ -164,6 +163,9 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 		// If there are no items, do not attempt to sort
 		if (listView.Items.Count == 0)
 		{
+			// Log an error message indicating that sorting was attempted on an empty ListView
+			logger.Error(message: "Attempted to sort an empty ListView.");
+			// No items to sort, exit the method
 			return;
 		}
 		// Determine the new sort order based on the clicked column
@@ -215,6 +217,9 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 	/// <remarks>When the button is clicked, it checks the state of the button (checked or unchecked) and calls the PopulateListView method to refresh the list view based on the current filter setting. If the button is checked, only rows representing true resonances will be shown; if unchecked, all rows will be displayed.</remarks>
 	private void ToolStripButtonFilterResonances_Click(object sender, EventArgs e)
 	{
+		// Toggle the checked state of the filter button to switch between showing all rows and only resonance rows
+		logger.Info(message: $"Toggling filter resonances");
+		// Refresh the list view to reflect the new filter state
 		PopulateListView();
 	}
 
@@ -226,11 +231,14 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 	{
 		if (listView.SelectedItems.Count == 0)
 		{
+			// Log a warning indicating that the copy operation was attempted with no selected items
+			logger.Warn(message: "No items selected to copy to clipboard.");
 			return;
 		}
 		ListViewItem selectedItem = listView.SelectedItems[index: 0];
 		IEnumerable<string> subItemTexts = selectedItem.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(selector: static s => s.Text);
 		string text = string.Join(separator: "\t", values: subItemTexts);
+		logger.Info(message: $"Copying to clipboard: {text}");
 		CopyToClipboard(text: text);
 	}
 

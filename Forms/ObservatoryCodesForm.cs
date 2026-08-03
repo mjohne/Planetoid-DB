@@ -144,9 +144,12 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>Clears the status bar and loads the observatory codes into the ListView.</remarks>
-	private void ObservatoryCodesForm_Load(object sender, EventArgs e) =>
+	private void ObservatoryCodesForm_Load(object sender, EventArgs e)
+	{
+		logger.Info(message: "ObservatoryCodesForm loaded.");
 		// Clear the status bar and load the observatory codes into the ListView
 		LoadObservatoryCodesList();
+	}
 
 	#endregion
 
@@ -161,6 +164,7 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 		// If there are no items in the ListView, do not attempt to sort
 		if (listView.Items.Count == 0)
 		{
+			logger.Warn(message: "Column click event ignored because the ListView is empty.");
 			return;
 		}
 		// Determine the new sort order based on the clicked column and current sort state
@@ -169,7 +173,6 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 			: SortOrder.Ascending;
 		// Update the sort column to the one that was clicked
 		sortColumn = e.Column;
-
 		// Update the column headers to indicate the current sort column and order
 		for (int i = 0; i < listView.Columns.Count; i++)
 		{
@@ -203,6 +206,7 @@ public partial class ObservatoryCodesForm : BaseKryptonForm
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void ToolStripButtonInfoAboutObsCodes_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Displaying information about observatory codes.");
 		// Show a message box with information about observatory codes and a link to the Minor Planet Center website
 		_ = KryptonMessageBox.Show(owner: this,
 			text: "This application displays a list of observatory codes and their corresponding locations.\n\nYou can find more information about Observatory Codes at the Minor Planet Center website: https://minorplanetcenter.net/iau/info/ObservatoryCodes.html.",

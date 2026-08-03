@@ -155,11 +155,13 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 		// Validate the orbital elements before calculation
 		if (eccentricity is < 0.0 or >= 1.0)
 		{
+			logger.Warn(message: $"Invalid eccentricity {eccentricity} for planetoid {designation}. Skipping calculation.");
 			ShowErrorMessage(message: "Eccentricity must be between 0 (inclusive) and 1 (exclusive) for valid Tisserand parameters.");
 			return;
 		}
 		if (semiMajorAxis <= 0.0)
 		{
+			logger.Warn(message: $"Invalid semi-major axis {semiMajorAxis} for planetoid {designation}. Skipping calculation.");
 			ShowErrorMessage(message: "Semi-major axis must be positive for valid Tisserand parameters.");
 			return;
 		}
@@ -216,6 +218,7 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 		// If the Owner of this form is a PlanetoidDbForm, call its JumpToRecord method
 		if (Owner is PlanetoidDbForm planetoidDbForm)
 		{
+			logger.Info(message: $"Navigating to planetoid {result.PlanetoidName} in the main form.");
 			planetoidDbForm.JumpToRecord(index: result.PlanetoidName, designation: result.PlanetoidName);
 		}
 	}
@@ -330,7 +333,7 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 		// Catch the OperationCanceledException to handle user cancellation gracefully
 		catch (OperationCanceledException)
 		{
-			logger.Info(message: "Tisserand parameter calculation cancelled by user.");
+			logger.Warn(message: "Tisserand parameter calculation cancelled by user.");
 		}
 		// Catch any other exceptions that may occur during the calculation
 		catch (Exception ex)
@@ -357,11 +360,11 @@ public partial class TisserandParameterOfAllMinorPlanetsForm : BaseKryptonForm
 			// Catch ObjectDisposedException and InvalidOperationException that may occur if the form is closing
 			catch (ObjectDisposedException)
 			{
-				// Ignore exceptions caused by controls being disposed during form shutdown.
+				logger.Warn(message: "Form disposed before calculation could complete. Skipping UI update.");
 			}
 			catch (InvalidOperationException)
 			{
-				// Ignore exceptions related to invalid control state during form shutdown.
+				logger.Warn(message: "Invalid operation during form shutdown. Skipping UI update.");
 			}
 			// Dispose of the cancellation token source to free resources
 			finally

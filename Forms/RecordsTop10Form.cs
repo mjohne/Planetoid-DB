@@ -109,6 +109,7 @@ public partial class RecordsTop10Form : BaseKryptonForm
 		// Wire sort order toggle behavior to ensure only one can be active at a time
 		if (listBox.SelectedIndex < 0 && listBox.Items.Count > 0)
 		{
+			logger.Warn(message: "No orbital element selected; defaulting to first item.");
 			listBox.SelectedIndex = 0;
 		}
 		// Enable double buffering on the table layout panel to reduce flickering during updates. This is done via reflection since the DoubleBuffered property is protected on Control. If this fails, we log a warning but continue without double buffering.
@@ -126,6 +127,7 @@ public partial class RecordsTop10Form : BaseKryptonForm
 		// If the provided selectedElement text is null, empty, or consists only of whitespace, or if the list box has no items, we default to selecting the first item (index 0) if nothing is currently selected. This ensures that there is always a valid selection when the form is initialized, even if the input for preselection is not valid.
 		if (string.IsNullOrWhiteSpace(value: selectedElement) || listBox.Items.Count == 0)
 		{
+			logger.Warn(message: "No valid preselection text or no items in the list box; defaulting to first item.");
 			// No valid preselection text or no items in the list box, default to selecting the first item if nothing is currently selected
 			if (listBox.SelectedIndex < 0)
 			{
@@ -238,6 +240,7 @@ public partial class RecordsTop10Form : BaseKryptonForm
 		if (string.IsNullOrWhiteSpace(value: stringValue))
 		{
 			numericValue = 0;
+			logger.Error(message: $"Selected element index {selectedElementIndex} has no valid value in record with designation '{record.DesignationName}'.");
 			return false;
 		}
 		// Determine if the selected element is an integer field (Number of Oppositions or Number of Observations) based on the selected index. This is important because we need to use different parsing logic for integer fields versus floating-point fields. The method uses int.TryParse for integer fields and double.TryParse for floating-point fields, both with invariant culture to ensure consistent parsing regardless of the user's locale settings.
@@ -255,6 +258,7 @@ public partial class RecordsTop10Form : BaseKryptonForm
 		}
 		// If we reach this point, it means that parsing failed for the selected element, so we set numericValue to 0 and return false to indicate that extraction and parsing did not succeed.
 		numericValue = 0;
+		logger.Error(message: $"Failed to parse value '{stringValue}' for selected element index {selectedElementIndex} in record with designation '{record.DesignationName}'.");
 		return false;
 	}
 
@@ -353,7 +357,7 @@ public partial class RecordsTop10Form : BaseKryptonForm
 				catch (Exception ex)
 				{
 					// Log a warning if we fail to parse the record or extract the value, including the index of the record being processed and the exception message. This helps with debugging and allows us to identify any issues with specific records in the database without crashing the entire scan.
-					logger.Warn(exception: ex, message: $"Skipping entry at index {i}: {ex.Message}");
+					logger.Error(exception: ex, message: $"Skipping entry at index {i}: {ex.Message}");
 				}
 				// Report progress with the current percentage. We only report when the percentage changes to avoid excessive updates to the UI, which can cause performance issues. The progress report includes the current percentage and optionally the updated list of top entries if a new top record was found.
 				if (percent != lastPercent)
@@ -438,12 +442,14 @@ public partial class RecordsTop10Form : BaseKryptonForm
 		// Validate that the planetoids database is loaded and that an orbital element is selected before starting the scan. If the database is empty, we show an error message to the user indicating that the MPCORB.DAT file was not found and return without starting the scan. If no orbital element is selected in the list box, we show an error message prompting the user to select an orbital element and return without starting the scan. This ensures that we have the necessary data and user input to perform a meaningful scan before we proceed.
 		if (planetoidsDatabase.Count == 0)
 		{
+			logger.Error(message: "Planetoids database is empty; cannot start scan.");
 			ShowErrorMessage(message: I18nStrings.MpcorbDatNotFoundText);
 			return;
 		}
 		// Check if an orbital element is selected in the list box. If not, show an error message prompting the user to select an orbital element and return without starting the scan. This ensures that we have a valid selection for the orbital element to rank by before we proceed with the scan.
 		if (listBox.SelectedIndex < 0)
 		{
+			logger.Error(message: "No orbital element selected; cannot start scan.");
 			ShowErrorMessage(message: "Please select an orbital element first.");
 			return;
 		}
@@ -478,12 +484,13 @@ public partial class RecordsTop10Form : BaseKryptonForm
 		// Catch the OperationCanceledException to handle the case when the scan is cancelled by the user. We update the progress bar text to indicate that the scan was cancelled, providing feedback to the user that their cancellation request was acknowledged and processed.
 		catch (OperationCanceledException)
 		{
+			logger.Warn(message: "Scan was cancelled by the user.");
 			kryptonProgressBar.Text = "Scan cancelled";
 		}
 		// Catch any other exceptions that may occur during the scan, log an error with the exception details, and update the progress bar text to show an error message. This ensures that we handle unexpected errors gracefully and provide feedback to the user about what went wrong.
 		catch (Exception ex)
 		{
-			logger.Error(exception: ex, message: ex.Message);
+			logger.Error(exception: ex, message: $"An error occurred during the scan: {ex.Message}");
 			kryptonProgressBar.Text = I18nStrings.ErrorCaption;
 		}
 		// In the finally block, we reset the enabled state of the buttons and controls to allow for a new scan to be started, enable navigation if there are valid top-ten records, and dispose of the cancellation token source to clean up resources. This ensures that the UI is returned to a ready state for the user to start a new scan or navigate to records after the current scan has completed or been cancelled.
@@ -510,6 +517,7 @@ public partial class RecordsTop10Form : BaseKryptonForm
 	{
 		// When the Cancel button is clicked, we call Cancel on the cancellation token source to signal that the ongoing scan should be cancelled. We also disable the Cancel button to prevent multiple cancellation requests while the cancellation is being processed. The actual handling of the cancellation will occur in the ScanTopRecordsAsync method, where we check for cancellation and throw an OperationCanceledException to exit the scan loop gracefully.
 		cancellationTokenSource?.Cancel();
+		logger.Warn(message: "Scan was cancelled by the user.");
 		toolStripButtonCancel.Enabled = false;
 	}
 

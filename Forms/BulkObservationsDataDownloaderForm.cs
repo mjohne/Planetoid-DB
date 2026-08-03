@@ -130,6 +130,7 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 		// Configure UI timer (fires every second to update elapsed/estimated time labels)
 		_uiTimer = new System.Windows.Forms.Timer { Interval = 1000 };
 		_uiTimer.Tick += UiTimer_Tick;
+		logger.Info(message: $"BulkObservationsDataDownloaderForm initialized with {planetoids.Count} planetoid records.");
 	}
 
 	#endregion
@@ -220,6 +221,7 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 		// Avoid division by zero
 		if (total <= 0)
 		{
+			logger.Warn(message: "Total file count is zero or negative; cannot update progress.");
 			return;
 		}
 		// Calculate the percentage of completion
@@ -387,14 +389,16 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 					UpdateStatusLabels(status: $"Saved: {fileName}", downloaded: downloaded, total: total);
 				}
 				// A single file failure must not abort the entire session; log, count, and continue
-				catch (OperationCanceledException)
+				catch (OperationCanceledException ex)
 				{
+					logger.Warn(exception: ex, message: $"Download canceled for '{packedNumber}': {ex.Message}");
 					// Propagate cancellation so the outer try/catch can handle it
 					throw;
 				}
-				catch (ObjectDisposedException) when (_isDisposing)
+				catch (ObjectDisposedException ex) when (_isDisposing)
 				{
 					// HttpClient was disposed during shutdown - treat as cancellation
+					logger.Error(exception: ex, message: $"HttpClient disposed during shutdown for '{packedNumber}': {ex.Message}");
 					throw new OperationCanceledException();
 				}
 				catch (Exception ex)
@@ -430,6 +434,7 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 		// Only update when the form is still open
 		if (!IsHandleCreated || IsDisposed || Disposing)
 		{
+			logger.Warn(message: "UI timer tick fired after form was disposed; skipping update.");
 			return;
 		}
 		TimeSpan elapsed = _elapsedStopwatch.Elapsed;
@@ -456,7 +461,13 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 			{
 				numericUpDownMaximum.Maximum = count;
 				numericUpDownMaximum.Value = count;
+				logger.Info(message: $"Spinner maximum initialized to {count}.");
 			}
+			logger.Info(message: $"Form loaded with {_planetoids.Count} planetoid records.");
+		}
+		else
+		{
+			logger.Warn(message: "Form loaded with no planetoid records; spinners remain at default values.");
 		}
 	}
 
@@ -466,6 +477,7 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	/// <remarks>Ensures the background download is stopped when the form is closed. Resources are disposed in the Dispose method.</remarks>
 	private void BulkObservationsDataDownloaderForm_FormClosing(object sender, FormClosingEventArgs e)
 	{
+		logger.Info(message: "Form closing; cancelling any active download.");
 		// Signal cancellation to the running download
 		_cancellationTokenSource?.Cancel();
 		// Resume any awaiting pause so the download task can observe the cancellation
@@ -489,6 +501,7 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	/// </list></remarks>
 	private async void ButtonStart_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Start/Pause button clicked.");
 		// If a download is active and not paused, pause it
 		if (_cancellationTokenSource != null && !_isPaused)
 		{
@@ -497,6 +510,7 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 			buttonStart.Text = "&Resume";
 			buttonStart.Image = FatcowIcons16px.fatcow_control_play_blue_16px;
 			SetStatusBar(label: labelInformation, text: "Download paused.");
+			logger.Info(message: "Download paused.");
 			return;
 		}
 		// If paused, resume the download
@@ -505,6 +519,7 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 			_isPaused = false;
 			TaskCompletionSource<bool>? tcs = _resumeTcs;
 			_resumeTcs = null;
+			logger.Info(message: "Resuming download.");
 			tcs?.TrySetResult(result: true);
 			buttonStart.Text = "&Pause";
 			buttonStart.Image = FatcowIcons16px.fatcow_control_pause_16px;
@@ -514,12 +529,14 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 		// Validate that there is data to process
 		if (_planetoids.Count == 0)
 		{
+			logger.Error(message: "No planetoid data available; download cannot start.");
 			_ = KryptonMessageBox.Show(owner: this, text: "No planetoid data available.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
 		// Validate the range
 		if (numericUpDownMinimum.Value > numericUpDownMaximum.Value)
 		{
+			logger.Error(message: "Minimum index is greater than the maximum index; download cannot start.");
 			ShowErrorMessage(message: "Minimum index must not be greater than the maximum index.");
 			return;
 		}
@@ -545,7 +562,7 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 		{
 			labelStatusValue.Text = "Cancelled";
 			SetStatusBar(label: labelInformation, text: "Download cancelled.");
-			logger.Info(message: "Bulk download cancelled by user.");
+			logger.Warn(message: "Bulk download cancelled by user.");
 		}
 		// Handle unexpected errors without crashing the form
 		catch (Exception ex)
@@ -576,6 +593,7 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	/// <remarks>If the download is currently paused, the pause is released first so the task can observe the cancellation token.</remarks>
 	private void ButtonCancel_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Cancel button clicked; cancelling download.");
 		// If currently paused, unblock the awaiting task before cancelling
 		if (_isPaused)
 		{
@@ -594,6 +612,7 @@ public partial class BulkObservationsDataDownloaderForm : BaseKryptonForm
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 	private void ButtonErrorLog_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Error log button clicked; displaying download errors.");
 		using BulkObservationsDownloadErrorsForm form = new(entries: _downloadErrors);
 		_ = form.ShowDialog(owner: this);
 	}

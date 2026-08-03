@@ -35,7 +35,6 @@ public partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 
 	#endregion
 
-
 	/// <summary>Represents the orbital elements of a minor planet used for MAXOID calculations.</summary>
 	/// <param name="SemiMajorAxis">The semi-major axis of the orbit in astronomical units (AU).</param>
 	/// <param name="Eccentricity">The orbital eccentricity.</param>
@@ -114,6 +113,7 @@ public partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 		// Ensure that we have results for all eight planets before updating the labels
 		if (maxoids.Count < 8)
 		{
+			logger.Warn(message: "Insufficient MAXOID results to update planet labels. Expected 8, but got {0}.", maxoids.Count);
 			return;
 		}
 		// Use InvariantCulture for consistent formatting of the MAXOID values
@@ -175,49 +175,81 @@ public partial class MaxoidsOfOneMinorPlanetForm : BaseKryptonForm
 	/// <remarks>This event handler copies the current text value associated with Mercury data to the system clipboard. Use this menu item to quickly copy the MAXOID value for further use.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardMaxoidRelativeToMercury_Click(object sender, EventArgs e) => CopyToClipboard(text: labelMercuryData.Text);
+	private void MenuitemCopyToClipboardMaxoidRelativeToMercury_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Copying Mercury MAXOID value to clipboard: {0}", labelMercuryData.Text);
+		CopyToClipboard(text: labelMercuryData.Text);
+	}
 
 	/// <summary>Handles the click event for copying the Venus MAXOID value to the clipboard.</summary>
 	/// <remarks>This event handler copies the current text value associated with Venus data to the system clipboard. Use this menu item to quickly copy the MAXOID value for further use.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardMaxoidRelativeToVenus_Click(object sender, EventArgs e) => CopyToClipboard(text: labelVenusData.Text);
+	private void MenuitemCopyToClipboardMaxoidRelativeToVenus_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Copying Venus MAXOID value to clipboard: {0}", labelVenusData.Text);
+		CopyToClipboard(text: labelVenusData.Text);
+	}
 
 	/// <summary>Handles the click event for copying the Earth MAXOID value to the clipboard.</summary>
 	/// <remarks>This event handler copies the current text value associated with Earth data to the system clipboard. Use this menu item to quickly copy the MAXOID value for further use.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardMaxoidRelativeToEarth_Click(object sender, EventArgs e) => CopyToClipboard(text: labelEarthData.Text);
+	private void MenuitemCopyToClipboardMaxoidRelativeToEarth_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Copying Earth MAXOID value to clipboard: {0}", labelEarthData.Text);
+		CopyToClipboard(text: labelEarthData.Text);
+	}
 
 	/// <summary>Handles the click event for copying the Mars MAXOID value to the clipboard.</summary>
 	/// <remarks>This event handler copies the current text value associated with Mars data to the system clipboard. Use this menu item to quickly copy the MAXOID value for further use.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardMaxoidRelativeToMars_Click(object sender, EventArgs e) => CopyToClipboard(text: labelMarsData.Text);
+	private void MenuitemCopyToClipboardMaxoidRelativeToMars_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Copying Mars MAXOID value to clipboard: {0}", labelMarsData.Text);
+		CopyToClipboard(text: labelMarsData.Text);
+	}
 
 	/// <summary>Handles the click event for copying the Jupiter MAXOID value to the clipboard.</summary>
 	/// <remarks>This event handler copies the current text value associated with Jupiter data to the system clipboard. Use this menu item to quickly copy the MAXOID value for further use.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardMaxoidRelativeToJupiter_Click(object sender, EventArgs e) => CopyToClipboard(text: labelJupiterData.Text);
+	private void MenuitemCopyToClipboardMaxoidRelativeToJupiter_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Copying Jupiter MAXOID value to clipboard: {0}", labelJupiterData.Text);
+		CopyToClipboard(text: labelJupiterData.Text);
+	}
 
 	/// <summary>Handles the click event for copying the Saturn MAXOID value to the clipboard.</summary>
 	/// <remarks>This event handler copies the current text value associated with Saturn data to the system clipboard. Use this menu item to quickly copy the MAXOID value for further use.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardMaxoidRelativeToSaturn_Click(object sender, EventArgs e) => CopyToClipboard(text: labelSaturnData.Text);
+	private void MenuitemCopyToClipboardMaxoidRelativeToSaturn_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Copying Saturn MAXOID value to clipboard: {0}", labelSaturnData.Text);
+		CopyToClipboard(text: labelSaturnData.Text);
+	}
 
 	/// <summary>Handles the click event for copying the Uranus MAXOID value to the clipboard.</summary>
 	/// <remarks>This event handler copies the current text value associated with Uranus data to the system clipboard. Use this menu item to quickly copy the MAXOID value for further use.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardMaxoidRelativeToUranus_Click(object sender, EventArgs e) => CopyToClipboard(text: labelUranusData.Text);
+	private void MenuitemCopyToClipboardMaxoidRelativeToUranus_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Copying Uranus MAXOID value to clipboard: {0}", labelUranusData.Text);
+		CopyToClipboard(text: labelUranusData.Text);
+	}
 
 	/// <summary>Handles the click event for copying the Neptune MAXOID value to the clipboard.</summary>
 	/// <remarks>This event handler copies the current text value associated with Neptune data to the system clipboard. Use this menu item to quickly copy the MAXOID value for further use.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardMaxoidRelativeToNeptune_Click(object sender, EventArgs e) => CopyToClipboard(text: labelNeptuneData.Text);
+	private void MenuitemCopyToClipboardMaxoidRelativeToNeptune_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Copying Neptune MAXOID value to clipboard: {0}", labelNeptuneData.Text);
+		CopyToClipboard(text: labelNeptuneData.Text);
+	}
 
 	#endregion
 }

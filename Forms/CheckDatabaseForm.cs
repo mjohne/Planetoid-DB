@@ -98,6 +98,7 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 		labelDatabaseFileOnline.AccessibleName = $"Online {databaseName} file";
 		labelDatabaseFileOnline.ToolTipValues.Description = $"Information about the online {databaseName} file";
 		labelDatabaseFileOnline.ToolTipValues.Heading = $"Online {databaseName} file";
+		logger.Info(message: $"Initialized CheckDatabaseForm for {databaseName} with URL: {url} and local file path: {localFilePath}");
 	}
 
 	#endregion
@@ -191,6 +192,8 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 			labelContentLengthValueLocal.Text = I18nStrings.NoFileFoundText;
 			// Set the modified date label to indicate no file found
 			labelModifiedDateValueLocal.Text = I18nStrings.NoFileFoundText;
+			// Log a warning that the local file was not found
+			logger.Warn(message: $"Local file not found at path: {localFilePath}");
 		}
 		else
 		{
@@ -255,25 +258,41 @@ public partial class CheckDatabaseForm : BaseKryptonForm
 	/// <remarks>If the local modified date is not available, a warning message is displayed and nothing is copied to the clipboard.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardDatabaseLocalModifiedDate_Click(object sender, EventArgs e) => CopyToClipboardSafe(value: labelModifiedDateValueLocal.Text, propertyName: "local modified date");
+	private void MenuitemCopyToClipboardDatabaseLocalModifiedDate_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying local modified date to clipboard: {labelModifiedDateValueLocal.Text}");
+		CopyToClipboardSafe(value: labelModifiedDateValueLocal.Text, propertyName: "local modified date");
+	}
 
 	/// <summary>Handles the click event for copying the local content length value to the clipboard.</summary>
 	/// <remarks>If the local content length value is not available, a warning message is displayed and nothing is copied to the clipboard.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardDatabaseLocalContentLength_Click(object sender, EventArgs e) => CopyToClipboardSafe(value: labelContentLengthValueLocal.Text, propertyName: "local content length");
+	private void MenuitemCopyToClipboardDatabaseLocalContentLength_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying local content length to clipboard: {labelContentLengthValueLocal.Text}");
+		CopyToClipboardSafe(value: labelContentLengthValueLocal.Text, propertyName: "local content length");
+	}
 
 	/// <summary>Handles the click event for copying the online modified date value to the clipboard.</summary>
 	/// <remarks>If the online modified date value is not available, a warning message is displayed and nothing is copied to the clipboard.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardDatabaseOnlineModifiedDate_Click(object sender, EventArgs e) => CopyToClipboardSafe(value: labelModifiedDateValueOnline.Text, propertyName: "online modified date");
+	private void MenuitemCopyToClipboardDatabaseOnlineModifiedDate_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying online modified date to clipboard: {labelModifiedDateValueOnline.Text}");
+		CopyToClipboardSafe(value: labelModifiedDateValueOnline.Text, propertyName: "online modified date");
+	}
 
 	/// <summary>Handles the click event for copying the online content length value to the clipboard.</summary>
 	/// <remarks>If the online content length value is not available, a warning message is displayed and nothing is copied to the clipboard.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void MenuitemCopyToClipboardDatabaseOnlineContentLength_Click(object sender, EventArgs e) => CopyToClipboardSafe(value: labelContentLengthValueOnline.Text, propertyName: "online content length");
+	private void MenuitemCopyToClipboardDatabaseOnlineContentLength_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying online content length to clipboard: {labelContentLengthValueOnline.Text}");
+		CopyToClipboardSafe(value: labelContentLengthValueOnline.Text, propertyName: "online content length");
+	}
 
 	#endregion
 }

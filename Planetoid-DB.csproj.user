@@ -55,13 +55,16 @@
     <Compile Update="Forms\DatabaseDownloaderForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\HistogramsForm.cs">
+    <Compile Update="Forms\DistributionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\LicenseForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\ListReadableDesignationsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\LogViewerForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\MaxoidsOfAllMinorPlanetsForm.cs">

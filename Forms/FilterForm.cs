@@ -125,7 +125,6 @@ public partial class FilterForm : BaseKryptonForm
 	private void ComputeMinMaxFromDatabase()
 	{
 		OrbitalElementFilter[] elements = GetOrbitalElementFilters();
-
 		// Initialize with inverted extremes
 		Dictionary<string, double> minVals = [];
 		Dictionary<string, double> maxVals = [];
@@ -134,7 +133,6 @@ public partial class FilterForm : BaseKryptonForm
 			minVals[el.Name] = double.MaxValue;
 			maxVals[el.Name] = double.MinValue;
 		}
-
 		// Scan all records
 		foreach (string line in planetoidsDatabase)
 		{
@@ -147,7 +145,6 @@ public partial class FilterForm : BaseKryptonForm
 				}
 			}
 		}
-
 		// Store defaults; fall back to 0 when no valid values were found
 		defaultMinima.Clear();
 		defaultMaxima.Clear();
@@ -185,6 +182,7 @@ public partial class FilterForm : BaseKryptonForm
 	/// <param name="maximumControl">The maximum spinbutton.</param>
 	private void ResetElement(string key, KryptonNumericUpDown minimumControl, KryptonNumericUpDown maximumControl)
 	{
+		logger.Info(message: $"Resetting orbital element '{key}' to default min/max values.");
 		suppressValueChangedEvents = true;
 		try
 		{
@@ -192,6 +190,10 @@ public partial class FilterForm : BaseKryptonForm
 			decimal maxVal = defaultMaxima.TryGetValue(key: key, value: out decimal mx) ? mx : 0m;
 			SetNumericValue(control: minimumControl, value: minVal, lower: minVal, upper: maxVal);
 			SetNumericValue(control: maximumControl, value: maxVal, lower: minVal, upper: maxVal);
+		}
+		catch (Exception ex)
+		{
+			logger.Error(exception: ex, message: $"Failed to reset orbital element '{key}' to default min/max values.");
 		}
 		finally
 		{
@@ -233,6 +235,10 @@ public partial class FilterForm : BaseKryptonForm
 				maximumControl.Value = minimumControl.Value;
 			}
 		}
+		catch (Exception ex)
+		{
+			logger.Error(exception: ex, message: "Failed to enforce minimum not exceeding maximum.");
+		}
 		finally
 		{
 			suppressValueChangedEvents = false;
@@ -255,6 +261,10 @@ public partial class FilterForm : BaseKryptonForm
 			{
 				minimumControl.Value = maximumControl.Value;
 			}
+		}
+		catch (Exception ex)
+		{
+			logger.Error(exception: ex, message: "Failed to enforce maximum not below minimum.");
 		}
 		finally
 		{
@@ -304,6 +314,10 @@ public partial class FilterForm : BaseKryptonForm
 					buttons: KryptonMessageBoxButtons.OK,
 					icon: KryptonMessageBoxIcon.Error);
 			}
+		}
+		catch (Exception ex)
+		{
+			logger.Error(exception: ex, message: "Failed to compute initial filter ranges.");
 		}
 		// Ensure the wait cursor is reset and toolbar actions are re-enabled even if an exception occurs
 		finally
@@ -407,19 +421,26 @@ public partial class FilterForm : BaseKryptonForm
 	/// <remarks>Rows that do not fall within the min/max range of every orbital element used in this form are removed. The filtered result is stored in <see cref="FilteredDatabase"/>.</remarks>
 	private void ButtonApply_Click(object sender, EventArgs e)
 	{
-		// Apply the filter settings to the planetoids database and store the filtered result in FilteredDatabase
-		OrbitalElementFilter[] filters = GetOrbitalElementFilters();
-		// Use LINQ to filter the database based on the min/max values of each orbital element
-		FilteredDatabase = [.. planetoidsDatabase
-			.Where(predicate: line => filters.All(predicate: f =>
-				TryParseField(line: line, startIndex: f.Start, length: f.Length, value: out double val) &&
+		try
+		{
+			// Apply the filter settings to the planetoids database and store the filtered result in FilteredDatabase
+			OrbitalElementFilter[] filters = GetOrbitalElementFilters();
+			// Use LINQ to filter the database based on the min/max values of each orbital element
+			FilteredDatabase = [.. planetoidsDatabase
+				.Where(predicate: line => filters.All(predicate: f =>
+					TryParseField(line: line, startIndex: f.Start, length: f.Length, value: out double val) &&
 				val >= (double)f.MinimumControl.Value &&
 				val <= (double)f.MaximumControl.Value))];
-		// Log the number of records retained after filtering
-		logger.Info(message: $"Filter applied: {FilteredDatabase.Count} of {planetoidsDatabase.Count} records retained.");
-		// Set the dialog result to OK and close the form
-		DialogResult = DialogResult.OK;
-		Close();
+			// Log the number of records retained after filtering
+			logger.Info(message: $"Filter applied: {FilteredDatabase.Count} of {planetoidsDatabase.Count} records retained.");
+			// Set the dialog result to OK and close the form
+			DialogResult = DialogResult.OK;
+			Close();
+		}
+		catch (Exception ex)
+		{
+			logger.Error(exception: ex, message: "Failed to apply filter settings.");
+		}
 	}
 
 	/// <summary>Handles the Click event of the ButtonCancel. Cancels the filter settings and closes the form.</summary>

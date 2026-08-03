@@ -101,11 +101,13 @@ public partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 			// Validate the orbital elements before calculation
 			if (eccentricity is < 0.0 or >= 1.0)
 			{
+				logger.Error(message: $"Invalid eccentricity value: {eccentricity}. Must be between 0 (inclusive) and 1 (exclusive).");
 				ShowErrorMessage(message: "Eccentricity must be between 0 (inclusive) and 1 (exclusive) for valid Tisserand parameters.");
 				return;
 			}
 			if (semiMajorAxis <= 0.0)
 			{
+				logger.Error(message: $"Invalid semi-major axis value: {semiMajorAxis}. Must be positive.");
 				ShowErrorMessage(message: "Semi-major axis must be positive for valid Tisserand parameters.");
 				return;
 			}
@@ -114,6 +116,8 @@ public partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 				semiMajorAxis: semiMajorAxis,
 				eccentricity: eccentricity,
 				inclinationDeg: inclinationDeg);
+			// Log a message indicating that the Tisserand parameters were successfully calculated.
+			logger.Info(message: $"Successfully calculated Tisserand parameters for semi-major axis={semiMajorAxis}, eccentricity={eccentricity}, inclination={inclinationDeg}");
 			// Populate the data labels (one per planet row, index 0 = Mercury … 7 = Neptune)
 			if (tisserandResults.Length >= 8)
 			{
@@ -130,7 +134,7 @@ public partial class TisserandParameterOfOneMinorPlanetForm : BaseKryptonForm
 		// Log any exceptions that occur during the calculation and show an error message to the user
 		catch (Exception ex)
 		{
-			logger.Error(message: $"Error computing Tisserand parameter values: {ex}");
+			logger.Error(exception: ex, message: $"Error computing Tisserand parameter values: {ex}");
 			ShowErrorMessage(message: $"Error computing Tisserand parameter values: {ex.Message}");
 		}
 	}

@@ -114,6 +114,7 @@ public partial class LogViewerForm : BaseKryptonForm
 		_ = item.SubItems.Add(text: levelText);
 		_ = item.SubItems.Add(text: exceptionType);
 		_ = item.SubItems.Add(text: message);
+		logger.Info(message: $"Created ListViewItem for log event: {timestampText} | {levelText} | {exceptionType} | {message}");
 		// Return the constructed ListViewItem
 		return item;
 	}
@@ -168,6 +169,7 @@ public partial class LogViewerForm : BaseKryptonForm
 				progress.Report(value: 0);
 				return events;
 			});
+			logger.Info(message: $"Loaded {snapshot.Count} log events from the store.");
 			// The snapshot is ready; update the UI-bound cache on the UI thread
 			_displayCache = snapshot;
 			// Reset sort state so indices are rebuilt on next column click
@@ -185,7 +187,8 @@ public partial class LogViewerForm : BaseKryptonForm
 			listView.VirtualListSize = total;
 			// Stop the stopwatch and log the elapsed time
 			stopwatch.Stop();
-			// Show completion message
+			// Log and Show completion message
+			logger.Info(message: $"Log events loaded in {stopwatch.Elapsed:hh\\:mm\\:ss\\.fff} hh:mm:ss.fff.");
 			_ = KryptonMessageBox.Show(
 				owner: this,
 				text: $"{total} log {(total == 1 ? "entry" : "entries")} loaded in {stopwatch.Elapsed:hh\\:mm\\:ss\\.fff} hh:mm:ss.fff.",
@@ -246,6 +249,7 @@ public partial class LogViewerForm : BaseKryptonForm
 			: e.ItemIndex;
 		if (realIndex < 0 || realIndex >= _displayCache.Count)
 		{
+			logger.Warn(message: $"Invalid realIndex {realIndex} for ListView_RetrieveVirtualItem.");
 			e.Item = new ListViewItem(text: "Error");
 			return;
 		}
@@ -267,6 +271,7 @@ public partial class LogViewerForm : BaseKryptonForm
 		// If there are no items, do not attempt to sort
 		if (listView.VirtualListSize == 0)
 		{
+			logger.Warn(message: "Attempted to sort an empty list view.");
 			return;
 		}
 		// Determine the new sort order based on the clicked column
@@ -316,6 +321,7 @@ public partial class LogViewerForm : BaseKryptonForm
 			// Skip invalid indices to avoid exceptions
 			if (index < 0 || index >= _displayCache.Count)
 			{
+				logger.Warn(message: $"Invalid index {index} encountered while populating sort key cache.");
 				continue;
 			}
 			// Retrieve the log event for the current index
@@ -359,9 +365,11 @@ public partial class LogViewerForm : BaseKryptonForm
 	/// <remarks>Removes all currently selected entries from both the <see cref="ListView"/> display cache and the underlying <see cref="LogEventStore"/>.</remarks>
 	private void ToolStripButtonDeleteSelected_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Delete Selected button clicked.");
 		// If no items are selected, do nothing
 		if (listView.SelectedIndices.Count == 0)
 		{
+			logger.Warn(message: "Delete Selected button clicked with no selected items.");
 			return;
 		}
 		// Collect selected indices (virtual indices in the current view)
@@ -401,6 +409,7 @@ public partial class LogViewerForm : BaseKryptonForm
 	/// <remarks>Clears all entries from both the <see cref="ListView"/> display cache and the underlying <see cref="LogEventStore"/>.</remarks>
 	private void ToolStripButtonDeleteAll_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Delete All button clicked.");
 		// Clear the backing store
 		LogEventStore.Clear();
 		// Clear the local display cache

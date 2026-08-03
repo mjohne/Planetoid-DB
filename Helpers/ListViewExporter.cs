@@ -3,6 +3,8 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using NLog;
+
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO.Compression;
@@ -19,6 +21,10 @@ public static partial class ListViewExporter
 	/// <summary>Reusable JSON serializer options for efficient serialization.</summary>
 	/// <remarks>Creating a static instance of JsonSerializerOptions with WriteIndented set to true allows for consistent formatting of JSON output across all methods that serialize to JSON, while avoiding the overhead of creating new options instances for each serialization operation.</remarks>
 	private static readonly JsonSerializerOptions jsonSerializerOptions = new() { WriteIndented = true };
+
+	/// <summary>NLog logger instance.</summary>
+	/// <remarks>This logger is used throughout the application to log important events and errors.</remarks>
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 	#region helpers
 
@@ -91,12 +97,15 @@ public static partial class ListViewExporter
 				// Write each row of data as tab-delimited values. Note that if any cell contains a tab character, it will cause misalignment in the output since no escaping is performed.
 				writer.WriteLine(value: string.Join(separator: " ", values: row));
 			}
+			// Log a success message indicating that the text file was saved successfully.
+			logger.Info(message: $"Successfully saved text file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving text file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "Text", filePath: fileName);
 		}
 	}
@@ -138,12 +147,15 @@ public static partial class ListViewExporter
 			writer.WriteLine(value: $"\\caption{{{ExportEscapeHelper.EscapeLatex(input: title)}}}");
 			writer.WriteLine(value: "\\end{table}");
 			writer.WriteLine(value: "\\end{document}");
+			// Log a success message indicating that the LaTeX file was saved successfully.
+			logger.Info(message: $"Successfully saved LaTeX file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving LaTeX file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "LaTeX", filePath: fileName);
 		}
 	}
@@ -173,12 +185,17 @@ public static partial class ListViewExporter
 				// Escape pipe characters in the cell data to prevent breaking the Markdown table syntax, since '|' is used as a column separator. The escaping is done by replacing '|' with '\|', which is the standard way to escape a pipe in Markdown.
 				writer.WriteLine(value: "| " + string.Join(separator: " | ", values: row.Select(selector: ExportEscapeHelper.EscapeMarkdownCell)) + " |");
 			}
+			// Log a success message indicating that the Markdown file was saved successfully.
+			logger.Info(message: $"Successfully saved Markdown file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			// Log an error message indicating that there was an error saving the Markdown file.
+			logger.Error(exception: ex, message: $"Error saving Markdown file: {fileName}");
+			// Show an error message to the user with details about the exception, the format, and the file path.
 			ExportFeedbackHelper.ShowError(ex: ex, format: "Markdown", filePath: fileName);
 		}
 	}
@@ -211,12 +228,15 @@ public static partial class ListViewExporter
 				writer.WriteLine(value: "|" + string.Join(separator: "|", values: escaped));
 			}
 			writer.WriteLine(value: "|===");
+			// Log a success message indicating that the AsciiDoc file was saved successfully.
+			logger.Info(message: $"Successfully saved AsciiDoc file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving AsciiDoc file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "AsciiDoc", filePath: fileName);
 		}
 	}
@@ -257,9 +277,9 @@ public static partial class ListViewExporter
 				}
 			}
 			// Construct the separator lines for the grid table based on the calculated column widths.
-			string separator = "+" + string.Join(separator: "+", values: widths.Select(selector: w => new string(c: '-', count: w))) + "+";
+			string separator = $"+{string.Join(separator: "+", values: widths.Select(selector: w => new string(c: '-', count: w)))}+";
 			// The header separator uses '=' characters instead of '-' to visually distinguish the header row from the data rows.
-			string headerSep = "+" + string.Join(separator: "+", values: widths.Select(selector: w => new string(c: '=', count: w))) + "+";
+			string headerSep = $"+{string.Join(separator: "+", values: widths.Select(selector: w => new string(c: '=', count: w)))}+";
 			// Use a StreamWriter to write the output file with UTF-8 encoding. The 'append: false' parameter ensures that the file is overwritten if it already exists.
 			using StreamWriter writer = new(path: fileName, append: false, encoding: Encoding.UTF8);
 			// Write the title as the main heading, followed by an empty line, then the grid table with proper separators and alignment. The header row is separated from the data rows with a distinct separator line.
@@ -274,22 +294,25 @@ public static partial class ListViewExporter
 			// Write each data row with proper padding to align with the column widths, and separate rows with the standard separator line.
 			foreach (string[] row in rows)
 			{
-				string dataRow = "|" + string.Join(separator: "|", values: Enumerable.Range(start: 0, count: headers.Length).Select(selector: c =>
+				string dataRow = $"|{string.Join(separator: "|", values: Enumerable.Range(start: 0, count: headers.Length).Select(selector: c =>
 				{
 					string cell = c < row.Length ? row[c] : string.Empty;
 					// Escape pipe characters in the cell data to prevent breaking the Textile table syntax, since '|' is used as a column separator. The escaping is done by replacing '|' with '&#124;', which is the HTML entity for the pipe character.
 					cell = cell.Replace(oldValue: "|", newValue: "&#124;");
 					return $" {cell.PadRight(totalWidth: widths[c] - 1)}";
-				})) + "|";
+				}))}|";
 				writer.WriteLine(value: dataRow);
 				writer.WriteLine(value: separator);
 			}
+			// Log a success message indicating that the reStructuredText file was saved successfully.
+			logger.Info(message: $"Successfully saved reStructuredText file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving reStructuredText file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "reStructuredText", filePath: fileName);
 		}
 	}
@@ -319,12 +342,15 @@ public static partial class ListViewExporter
 				string[] escaped = [.. row.Select(selector: static v => v.Replace(oldValue: "|", newValue: "&#124;"))];
 				writer.WriteLine(value: "| " + string.Join(separator: " | ", values: escaped) + " |");
 			}
+			// Log a success message indicating that the Textile file was saved successfully.
+			logger.Info(message: $"Successfully saved Textile file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving Textile file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "Textile", filePath: fileName);
 		}
 	}
@@ -361,12 +387,15 @@ public static partial class ListViewExporter
 			}
 			writer.WriteLine(value: "  ]");
 			writer.WriteLine(value: ")");
+			// Log a success message indicating that the Typst file was saved successfully.
+			logger.Info(message: $"Successfully saved Typst file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving Typst file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "Typst", filePath: fileName);
 		}
 	}
@@ -440,12 +469,15 @@ public static partial class ListViewExporter
 				writer.WriteLine(value: "  </w:body>");
 				writer.WriteLine(value: "</w:document>");
 			}
+			// Log a success message indicating that the Word file was saved successfully.
+			logger.Info(message: $"Successfully saved Word file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving Word file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "Word", filePath: fileName);
 		}
 	}
@@ -515,12 +547,15 @@ public static partial class ListViewExporter
 				writer.WriteLine(value: "  </office:text></office:body>");
 				writer.WriteLine(value: "</office:document-content>");
 			}
+			// Log a success message indicating that the ODT file was saved successfully.
+			logger.Info(message: $"Successfully saved ODT file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving ODT file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "ODT", filePath: fileName);
 		}
 	}
@@ -566,12 +601,15 @@ public static partial class ListViewExporter
 				writer.WriteLine(value: @"\row");
 			}
 			writer.WriteLine(value: "}");
+			// Log a success message indicating that the RTF file was saved successfully.
+			logger.Info(message: $"Successfully saved RTF file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving RTF file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "RTF", filePath: fileName);
 		}
 	}
@@ -624,12 +662,15 @@ public static partial class ListViewExporter
 			writer.WriteLine(value: "    </table>");
 			writer.WriteLine(value: "  </section>");
 			writer.WriteLine(value: "</abiword>");
-			//
+			// Log a success message indicating that the ABW file was saved successfully.
+			logger.Info(message: $"Successfully saved ABW file: {fileName}");
+			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving ABW file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "AbiWord", filePath: fileName);
 		}
 	}
@@ -674,12 +715,15 @@ public static partial class ListViewExporter
 				writer.WriteLine(value: "</tr>");
 			}
 			writer.WriteLine(value: "</table></body></html>");
+			// Log a success message indicating that the WPS file was saved successfully.
+			logger.Info(message: $"Successfully saved WPS file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving WPS file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "WPS", filePath: fileName);
 		}
 	}
@@ -767,12 +811,15 @@ public static partial class ListViewExporter
 				writer.WriteLine(value: "  </sheetData>");
 				writer.WriteLine(value: "</worksheet>");
 			}
+			// Log a success message indicating that the Excel file was saved successfully.
+			logger.Info(message: $"Successfully saved Excel file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving Excel file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "Excel", filePath: fileName);
 		}
 	}
@@ -841,12 +888,15 @@ public static partial class ListViewExporter
 				writer.WriteLine(value: "  </office:spreadsheet></office:body>");
 				writer.WriteLine(value: "</office:document-content>");
 			}
+			// Log a success message indicating that the ODS file was saved successfully.
+			logger.Info(message: $"Successfully saved ODS file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving ODS file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "ODS", filePath: fileName);
 		}
 	}
@@ -876,12 +926,15 @@ public static partial class ListViewExporter
 					return ExportEscapeHelper.EscapeCsvField(input: cell);
 				})));
 			}
+			// Log a success message indicating that the CSV file was saved successfully.
+			logger.Info(message: $"Successfully saved CSV file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving CSV file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "CSV", filePath: fileName);
 		}
 	}
@@ -907,12 +960,15 @@ public static partial class ListViewExporter
 				// Write each data row in the TSV file. Each field is processed to escape tabs and newlines as needed. The fields are then joined with tabs to form a single line for each row.
 				writer.WriteLine(value: string.Join(separator: "\t", values: Enumerable.Range(start: 0, count: headers.Length).Select(selector: c => c < row.Length ? row[c] : string.Empty)));
 			}
+			// Log a success message indicating that the TSV file was saved successfully.
+			logger.Info(message: $"Successfully saved TSV file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving TSV file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "TSV", filePath: fileName);
 		}
 	}
@@ -938,12 +994,15 @@ public static partial class ListViewExporter
 				// Write each data row in the PSV file. Each field is processed to escape pipe characters and newlines as needed. The fields are then joined with pipe characters to form a single line for each row.
 				writer.WriteLine(value: string.Join(separator: "|", values: Enumerable.Range(start: 0, count: headers.Length).Select(selector: c => c < row.Length ? row[c] : string.Empty)));
 			}
+			// Log a success message indicating that the PSV file was saved successfully.
+			logger.Info(message: $"Successfully saved PSV file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving PSV file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "PSV", filePath: fileName);
 		}
 	}
@@ -973,12 +1032,15 @@ public static partial class ListViewExporter
 					return ExportEscapeHelper.EscapeCsvField(input: cell);
 				})));
 			}
+			// Log a success message indicating that the ET file was saved successfully.
+			logger.Info(message: $"Successfully saved ET file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving ET file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "ET", filePath: fileName);
 		}
 	}
@@ -1022,12 +1084,15 @@ public static partial class ListViewExporter
 				writer.WriteLine(value: "</tr>");
 			}
 			writer.WriteLine(value: "</tbody></table></body></html>");
+			// Log a success message indicating that the HTML file was saved successfully.
+			logger.Info(message: $"Successfully saved HTML file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving HTML file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "HTML", filePath: fileName);
 		}
 	}
@@ -1068,12 +1133,15 @@ public static partial class ListViewExporter
 			}
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteEndDocument();
+			// Log a success message indicating that the XML file was saved successfully.
+			logger.Info(message: $"Successfully saved XML file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving XML file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "XML", filePath: fileName);
 		}
 	}
@@ -1137,12 +1205,15 @@ public static partial class ListViewExporter
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteEndDocument();
+			// Log a success message indicating that the DocBook XML file was saved successfully.
+			logger.Info(message: $"Successfully saved DocBook XML file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving DocBook XML file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "DocBook", filePath: fileName);
 		}
 	}
@@ -1176,12 +1247,15 @@ public static partial class ListViewExporter
 			NewRecord doc = new(Title: title, Rows: records);
 			string json = JsonSerializer.Serialize(value: doc, options: jsonSerializerOptions);
 			File.WriteAllText(path: fileName, contents: json);
+			// Log a success message indicating that the JSON file was saved successfully.
+			logger.Info(message: $"Successfully saved JSON file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving JSON file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "JSON", filePath: fileName);
 		}
 	}
@@ -1216,12 +1290,15 @@ public static partial class ListViewExporter
 				}
 				writer.WriteLine();
 			}
+			// Log a success message indicating that the YAML file was saved successfully.
+			logger.Info(message: $"Successfully saved YAML file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving YAML file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "YAML", filePath: fileName);
 		}
 	}
@@ -1255,12 +1332,15 @@ public static partial class ListViewExporter
 				}
 				writer.WriteLine();
 			}
+			// Log a success message indicating that the TOML file was saved successfully.
+			logger.Info(message: $"Successfully saved TOML file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			// Log an error message indicating that there was an issue saving the TOML file, including the exception details. This helps in diagnosing the problem and provides feedback to the user.
 			ExportFeedbackHelper.ShowError(ex: ex, format: "TOML", filePath: fileName);
 		}
 	}
@@ -1306,12 +1386,15 @@ public static partial class ListViewExporter
 				writer.WriteLine(value: $"INSERT INTO [{tableName}] ({colList}) VALUES ({values});");
 			}
 			writer.WriteLine(value: "COMMIT;");
+			// Log a success message indicating that the SQL script was saved successfully.
+			logger.Info(message: $"Successfully saved SQL file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving SQL file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "SQL", filePath: fileName);
 		}
 	}
@@ -1344,13 +1427,13 @@ public static partial class ListViewExporter
 			connection.Open();
 			using (SQLiteCommand cmd = connection.CreateCommand())
 			{
-				string colDefs = string.Join(separator: ", ", values: headers.Select(selector: h => $"[{h}] TEXT"));
+				string colDefs = string.Join(separator: ", ", values: headers.Select(selector: static h => $"[{h}] TEXT"));
 				cmd.CommandText = $"CREATE TABLE IF NOT EXISTS [{tableName}] ({colDefs});";
 				cmd.ExecuteNonQuery();
 			}
 			using SQLiteTransaction transaction = connection.BeginTransaction();
-			string colNames = string.Join(separator: ", ", values: headers.Select(selector: h => $"[{h}]"));
-			string paramNames = string.Join(separator: ", ", values: headers.Select(selector: (_, i) => $"@p{i}"));
+			string colNames = string.Join(separator: ", ", values: headers.Select(selector: static h => $"[{h}]"));
+			string paramNames = string.Join(separator: ", ", values: headers.Select(selector: static (_, i) => $"@p{i}"));
 			using SQLiteCommand insertCmd = connection.CreateCommand();
 			insertCmd.CommandText = $"INSERT INTO [{tableName}] ({colNames}) VALUES ({paramNames});";
 			SQLiteParameter[] parameters = new SQLiteParameter[headers.Length];
@@ -1370,12 +1453,15 @@ public static partial class ListViewExporter
 			}
 			transaction.Commit();
 			connection.Close();
+			// Log a success message indicating that the SQLite database file was saved successfully.
+			logger.Info(message: $"Successfully saved SQLite file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex)
 		{
+			logger.Error(exception: ex, message: $"Error saving SQLite file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "SQLite", filePath: fileName);
 		}
 	}
@@ -1527,12 +1613,15 @@ public static partial class ListViewExporter
 			writer.WriteLine(value: "startxref");
 			writer.WriteLine(value: xrefOffset);
 			writer.WriteLine(value: "%%EOF");
+			// Log a success message indicating that the PDF file was saved successfully.
+			logger.Info(message: $"Successfully saved PDF file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving PDF file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "PDF", filePath: fileName);
 		}
 	}
@@ -1678,12 +1767,15 @@ public static partial class ListViewExporter
 			writer.WriteLine(value: "startxref");
 			writer.WriteLine(value: xrefOffset);
 			writer.WriteLine(value: "%%EOF");
+			// Log a success message indicating that the PostScript file was saved successfully.
+			logger.Info(message: $"Successfully saved PostScript file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving PostScript file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "PostScript", filePath: fileName);
 		}
 	}
@@ -1781,12 +1873,15 @@ public static partial class ListViewExporter
 				}
 				writer.WriteLine(value: "</tbody></table></body></html>");
 			}
+			// Log a success message indicating that the EPUB file was saved successfully.
+			logger.Info(message: $"Successfully saved EPUB file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving EPUB file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "EPUB", filePath: fileName);
 		}
 	}
@@ -1902,12 +1997,15 @@ public static partial class ListViewExporter
 				w.Write(buffer: rec);
 			}
 			w.Write(buffer: eofRecord);
+			// Log a success message indicating that the MOBI file was saved successfully.
+			logger.Info(message: $"Successfully saved MOBI file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving MOBI file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "MOBI", filePath: fileName);
 		}
 	}
@@ -1984,12 +2082,15 @@ public static partial class ListViewExporter
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteEndElement();
 			xmlWriter.WriteEndDocument();
+			// Log a success message indicating that the FB2 file was saved successfully.
+			logger.Info(message: $"Successfully saved FB2 file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO and unauthorized access exceptions and show an error message.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving FB2 file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "FictionBook2", filePath: fileName);
 		}
 	}
@@ -2010,6 +2111,7 @@ public static partial class ListViewExporter
 		if (!File.Exists(path: hhcPath))
 		{
 			ExportFeedbackHelper.ShowErrorMessage(message: "Microsoft HTML Help Workshop is not installed or not found at the default location. Cannot compile CHM file.");
+			logger.Error(message: "Microsoft HTML Help Workshop is not installed or not found at the default location. Cannot compile CHM file.");
 			return;
 		}
 		// Create a temporary directory to store the intermediate files needed for CHM compilation. The directory is created in the system's temporary path with a unique name generated using a GUID. After the compilation process, the temporary directory and its contents will be deleted to clean up any intermediate files.
@@ -2087,18 +2189,22 @@ public static partial class ListViewExporter
 			if (File.Exists(path: chmTempPath))
 			{
 				File.Copy(sourceFileName: chmTempPath, destFileName: fileName, overwrite: true);
+				// Log a success message indicating that the CHM file was saved successfully.
+				logger.Info(message: $"Successfully saved CHM file: {fileName}");
 				// Show a success message after the CHM file has been successfully created.
 				ExportFeedbackHelper.ShowSuccess();
 			}
 			else
 			{
-				// If the CHM file was not created, show an error message to the user.
+				// If the CHM file was not created, log an error message and show an error message to the user.
+				logger.Error(message: $"Failed to compile CHM file: {fileName}");
 				ExportFeedbackHelper.ShowErrorMessage(message: "Failed to compile the CHM file.");
 			}
 		}
 		// Catch any exceptions that occur during the file generation and compilation process, log the error, and show an error message to the user.
 		catch (Exception ex)
 		{
+			logger.Error(exception: ex, message: $"Error saving CHM file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "CHM", filePath: fileName);
 		}
 		// Finally, clean up the temporary directory used for intermediate files.
@@ -2107,6 +2213,7 @@ public static partial class ListViewExporter
 			if (Directory.Exists(path: tempDir))
 			{
 				Directory.Delete(path: tempDir, recursive: true);
+				logger.Info(message: $"Deleted temporary directory: {tempDir}");
 			}
 		}
 	}
@@ -2262,12 +2369,15 @@ public static partial class ListViewExporter
 			{
 				writer.Write(value: "DUMMY");
 			}
+			// Log a success message indicating that the XPS file was saved successfully.
+			logger.Info(message: $"Successfully saved XPS file: {fileName}");
 			// Show a success message after the XPS file has been successfully created.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			logger.Error(exception: ex, message: $"Error saving XPS file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "XPS", filePath: fileName);
 		}
 	}

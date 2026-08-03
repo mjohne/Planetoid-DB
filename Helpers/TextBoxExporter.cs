@@ -3,6 +3,8 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using NLog;
+
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO.Compression;
@@ -19,6 +21,10 @@ public static partial class TextBoxExporter
 	/// <summary>Reusable JSON serializer options for efficient serialization.</summary>
 	/// <remarks>Creating a static instance of JsonSerializerOptions with WriteIndented set to true allows for consistent formatting of JSON output across all methods that serialize to JSON, while avoiding the overhead of creating new options instances for each serialization operation.</remarks>
 	private static readonly JsonSerializerOptions jsonSerializerOptions = new() { WriteIndented = true };
+
+	/// <summary>NLog logger instance.</summary>
+	/// <remarks>This logger is used throughout the application to log important events and errors.</remarks>
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 	#region Save methods
 
@@ -40,11 +46,15 @@ public static partial class TextBoxExporter
 			writer.WriteLine(value: textBox.Text);
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the text file was saved successfully.
+			logger.Info(message: $"Successfully saved text file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "Text", filePath: fileName);
+			// Log an error message indicating that saving the text file failed.
+			logger.Error(exception: ex, message: $"Error saving text file: {fileName}");
 		}
 	}
 
@@ -73,11 +83,15 @@ public static partial class TextBoxExporter
 			writer.WriteLine(value: "\\end{document}");
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the LaTeX file was saved successfully.
+			logger.Info(message: $"Successfully saved LaTeX file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "LaTeX", filePath: fileName);
+			// Log an error message indicating that saving the LaTeX file failed.
+			logger.Error(exception: ex, message: $"Error saving LaTeX file: {fileName}");
 		}
 	}
 
@@ -99,10 +113,15 @@ public static partial class TextBoxExporter
 			writer.WriteLine(value: textBox.Text);
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
-		}// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
+			// Log a success message indicating that the Markdown file was saved successfully.
+			logger.Info(message: $"Successfully saved Markdown file: {fileName}");
+		}
+		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "Markdown", filePath: fileName);
+			// Log an error message indicating that saving the Markdown file failed.
+			logger.Error(exception: ex, message: $"Error saving Markdown file: {fileName}");
 		}
 	}
 
@@ -124,11 +143,15 @@ public static partial class TextBoxExporter
 			writer.WriteLine(value: textBox.Text);
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the AsciiDoc file was saved successfully.
+			logger.Info(message: $"Successfully saved AsciiDoc file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "AsciiDoc", filePath: fileName);
+			// Log an error message indicating that saving the AsciiDoc file failed.
+			logger.Error(exception: ex, message: $"Error saving AsciiDoc file: {fileName}");
 		}
 	}
 
@@ -152,11 +175,15 @@ public static partial class TextBoxExporter
 			writer.WriteLine(value: textBox.Text);
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the reStructuredText file was saved successfully.
+			logger.Info(message: $"Successfully saved reStructuredText file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "reStructuredText", filePath: fileName);
+			// Log an error message indicating that saving the reStructuredText file failed.
+			logger.Error(exception: ex, message: $"Error saving reStructuredText file: {fileName}");
 		}
 	}
 
@@ -181,11 +208,15 @@ public static partial class TextBoxExporter
 			}
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the Textile file was saved successfully.
+			logger.Info(message: $"Successfully saved Textile file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "Textile", filePath: fileName);
+			// Log an error message indicating that saving the Textile file failed.
+			logger.Error(exception: ex, message: $"Error saving Textile file: {fileName}");
 		}
 	}
 
@@ -210,11 +241,15 @@ public static partial class TextBoxExporter
 			}
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the Typst file was saved successfully.
+			logger.Info(message: $"Successfully saved Typst file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "Typst", filePath: fileName);
+			// Log an error message indicating that saving the Typst file failed.
+			logger.Error(exception: ex, message: $"Error saving Typst file: {fileName}");
 		}
 	}
 
@@ -273,11 +308,15 @@ public static partial class TextBoxExporter
 			}
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the Word file was saved successfully.
+			logger.Info(message: $"Successfully saved Word file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "Word", filePath: fileName);
+			// Log an error message indicating that saving the Word file failed.
+			logger.Error(exception: ex, message: $"Error saving Word file: {fileName}");
 		}
 	}
 
@@ -333,11 +372,15 @@ public static partial class TextBoxExporter
 			}
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the ODT file was saved successfully.
+			logger.Info(message: $"Successfully saved ODT file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "ODT", filePath: fileName);
+			// Log an error message indicating that saving the ODT file failed.
+			logger.Error(exception: ex, message: $"Error saving ODT file: {fileName}");
 		}
 	}
 
@@ -412,11 +455,15 @@ public static partial class TextBoxExporter
 			}
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the Excel file was saved successfully.
+			logger.Info(message: $"Successfully saved Excel file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "Excel", filePath: fileName);
+			// Log an error message indicating that saving the Excel file failed.
+			logger.Error(exception: ex, message: $"Error saving Excel file: {fileName}");
 		}
 	}
 
@@ -471,11 +518,15 @@ public static partial class TextBoxExporter
 			}
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the ODS file was saved successfully.
+			logger.Info(message: $"Successfully saved ODS file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "ODS", filePath: fileName);
+			// Log an error message indicating that saving the ODS file failed.
+			logger.Error(exception: ex, message: $"Error saving ODS file: {fileName}");
 		}
 	}
 
@@ -503,11 +554,15 @@ public static partial class TextBoxExporter
 			writer.WriteLine(value: "}");
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the RTF file was saved successfully.
+			logger.Info(message: $"Successfully saved RTF file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "RTF", filePath: fileName);
+			// Log an error message indicating that saving the RTF file failed.
+			logger.Error(exception: ex, message: $"Error saving RTF file: {fileName}");
 		}
 	}
 
@@ -562,11 +617,15 @@ public static partial class TextBoxExporter
 			writer.Flush();
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the AbiWord file was saved successfully.
+			logger.Info(message: $"Successfully saved AbiWord file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "AbiWord", filePath: fileName);
+			// Log an error message indicating that saving the AbiWord file failed.
+			logger.Error(exception: ex, message: $"Error saving AbiWord file: {fileName}");
 		}
 	}
 
@@ -595,11 +654,15 @@ public static partial class TextBoxExporter
 			writer.WriteLine(value: "</body></html>");
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the WPS file was saved successfully.
+			logger.Info(message: $"Successfully saved WPS file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "WPS", filePath: fileName);
+			// Log an error message indicating that saving the WPS file failed.
+			logger.Error(exception: ex, message: $"Error saving WPS file: {fileName}");
 		}
 	}
 
@@ -766,11 +829,15 @@ public static partial class TextBoxExporter
 			writer.WriteLine(value: "%%EOF");
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the PDF file was saved successfully.
+			logger.Info(message: $"Successfully saved PDF file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "PDF", filePath: fileName);
+			// Log an error message indicating that saving the PDF file failed.
+			logger.Error(exception: ex, message: $"Error saving PDF file: {fileName}");
 		}
 	}
 
@@ -870,11 +937,15 @@ public static partial class TextBoxExporter
 			xmlWriter.WriteEndDocument();
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the FB2 file was saved successfully.
+			logger.Info(message: $"Successfully saved FB2 file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "FictionBook2", filePath: fileName);
+			// Log an error message indicating that saving the FB2 file failed.
+			logger.Error(exception: ex, message: $"Error saving FB2 file: {fileName}");
 		}
 	}
 
@@ -891,6 +962,8 @@ public static partial class TextBoxExporter
 		if (!File.Exists(path: hhcPath))
 		{
 			ExportFeedbackHelper.ShowErrorMessage(message: "Microsoft HTML Help Workshop is not installed or not found at the default location. Cannot compile CHM file.");
+			// Log an error message indicating that Microsoft HTML Help Workshop is not installed or not found.
+			logger.Error(message: "Microsoft HTML Help Workshop is not installed or not found at the default location. Cannot compile CHM file.");
 			return;
 		}
 		// Create a temporary directory to store the HTML, HHC, and HHP files needed for compiling the CHM. The directory is created in the system's temporary folder with a unique name generated using a GUID. This ensures that the temporary files do not conflict with any existing files and can be safely cleaned up after the compilation process.
@@ -962,16 +1035,19 @@ public static partial class TextBoxExporter
 			{
 				File.Copy(sourceFileName: chmTempPath, destFileName: fileName, overwrite: true);
 				ExportFeedbackHelper.ShowSuccess();
+				logger.Info(message: $"Successfully compiled CHM file: {fileName}");
 			}
 			else
 			{
 				ExportFeedbackHelper.ShowErrorMessage(message: "Failed to compile the CHM file.");
+				logger.Error(message: $"Failed to compile CHM file: {fileName}");
 			}
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "CHM", filePath: fileName);
+			logger.Error(exception: ex, message: $"Error compiling CHM file: {fileName}");
 		}
 		// The finally block ensures that the temporary directory is deleted after the compilation process, regardless of whether it succeeds or fails. This is important for cleaning up any temporary files created during the process and preventing clutter in the system's temporary folder.
 		finally
@@ -979,6 +1055,7 @@ public static partial class TextBoxExporter
 			if (Directory.Exists(path: tempDir))
 			{
 				Directory.Delete(path: tempDir, recursive: true);
+				logger.Info(message: $"Deleted temporary directory: {tempDir}");
 			}
 		}
 	}
@@ -1133,11 +1210,15 @@ public static partial class TextBoxExporter
 			}
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the XPS file was saved successfully.
+			logger.Info(message: $"Successfully saved XPS file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "XPS", filePath: fileName);
+			// Log an error message indicating that saving the XPS file failed.
+			logger.Error(exception: ex, message: $"Error saving XPS file: {fileName}");
 		}
 	}
 
@@ -1161,11 +1242,15 @@ public static partial class TextBoxExporter
 			}
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the CSV file was saved successfully.
+			logger.Info(message: $"Successfully saved CSV file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "CSV", filePath: fileName);
+			// Log an error message indicating that saving the CSV file failed.
+			logger.Error(exception: ex, message: $"Error saving CSV file: {fileName}");
 		}
 	}
 
@@ -1189,11 +1274,15 @@ public static partial class TextBoxExporter
 			}
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the TSV file was saved successfully.
+			logger.Info(message: $"Successfully saved TSV file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "TSV", filePath: fileName);
+			// Log an error message indicating that saving the TSV file failed.
+			logger.Error(exception: ex, message: $"Error saving TSV file: {fileName}");
 		}
 	}
 
@@ -1217,11 +1306,15 @@ public static partial class TextBoxExporter
 			}
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the PSV file was saved successfully.
+			logger.Info(message: $"Successfully saved PSV file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "PSV", filePath: fileName);
+			// Log an error message indicating that saving the PSV file failed.
+			logger.Error(exception: ex, message: $"Error saving PSV file: {fileName}");
 		}
 	}
 
@@ -1245,11 +1338,15 @@ public static partial class TextBoxExporter
 			}
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the ET file was saved successfully.
+			logger.Info(message: $"Successfully saved ET file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "ET", filePath: fileName);
+			// Log an error message indicating that saving the ET file failed.
+			logger.Error(exception: ex, message: $"Error saving ET file: {fileName}");
 		}
 	}
 
@@ -1279,11 +1376,15 @@ public static partial class TextBoxExporter
 			writer.WriteLine(value: "</body></html>");
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the HTML file was saved successfully.
+			logger.Info(message: $"Successfully saved HTML file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "HTML", filePath: fileName);
+			// Log an error message indicating that saving the HTML file failed.
+			logger.Error(exception: ex, message: $"Error saving HTML file: {fileName}");
 		}
 	}
 
@@ -1312,11 +1413,15 @@ public static partial class TextBoxExporter
 			xmlWriter.WriteEndDocument();
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the XML file was saved successfully.
+			logger.Info(message: $"Successfully saved XML file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "XML", filePath: fileName);
+			// Log an error message indicating that saving the XML file failed.
+			logger.Error(exception: ex, message: $"Error saving XML file: {fileName}");
 		}
 	}
 
@@ -1350,11 +1455,15 @@ public static partial class TextBoxExporter
 			xmlWriter.WriteEndDocument();
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the DocBook file was saved successfully.
+			logger.Info(message: $"Successfully saved DocBook file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "DocBook", filePath: fileName);
+			// Log an error message indicating that saving the DocBook file failed.
+			logger.Error(exception: ex, message: $"Error saving DocBook file: {fileName}");
 		}
 	}
 
@@ -1374,11 +1483,15 @@ public static partial class TextBoxExporter
 			File.WriteAllText(path: fileName, contents: json);
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the JSON file was saved successfully.
+			logger.Info(message: $"Successfully saved JSON file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "JSON", filePath: fileName);
+			// Log an error message indicating that saving the JSON file failed.
+			logger.Error(exception: ex, message: $"Error saving JSON file: {fileName}");
 		}
 	}
 
@@ -1414,11 +1527,15 @@ public static partial class TextBoxExporter
 			}
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the YAML file was saved successfully.
+			logger.Info(message: $"Successfully saved YAML file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "YAML", filePath: fileName);
+			// Log an error message indicating that saving the YAML file failed.
+			logger.Error(exception: ex, message: $"Error saving YAML file: {fileName}");
 		}
 	}
 
@@ -1450,11 +1567,15 @@ public static partial class TextBoxExporter
 			writer.WriteLine(value: "]");
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the TOML file was saved successfully.
+			logger.Info(message: $"Successfully saved TOML file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "TOML", filePath: fileName);
+			// Log an error message indicating that saving the TOML file failed.
+			logger.Error(exception: ex, message: $"Error saving TOML file: {fileName}");
 		}
 	}
 
@@ -1493,11 +1614,15 @@ public static partial class TextBoxExporter
 			writer.WriteLine(value: "COMMIT;");
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the SQL file was saved successfully.
+			logger.Info(message: $"Successfully saved SQL file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "SQL", filePath: fileName);
+			// Log an error message indicating that saving the SQL file failed.
+			logger.Error(exception: ex, message: $"Error saving SQL file: {fileName}");
 		}
 	}
 
@@ -1546,11 +1671,15 @@ public static partial class TextBoxExporter
 			connection.Close();
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the SQLite file was saved successfully.
+			logger.Info(message: $"Successfully saved SQLite file: {fileName}");
 		}
 		// Catch any exceptions during SQLite operations, log the error, and show an error message to the user.
 		catch (Exception ex)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "SQLite", filePath: fileName);
+			// Log an error message indicating that saving the SQLite file failed.
+			logger.Error(exception: ex, message: $"Error saving SQLite file: {fileName}");
 		}
 	}
 
@@ -1611,11 +1740,15 @@ public static partial class TextBoxExporter
 			writer.WriteLine(value: "%%EOF");
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the PostScript file was saved successfully.
+			logger.Info(message: $"Successfully saved PostScript file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "PostScript", filePath: fileName);
+			// Log an error message indicating that saving the PostScript file failed.
+			logger.Error(exception: ex, message: $"Error saving PostScript file: {fileName}");
 		}
 	}
 
@@ -1698,11 +1831,15 @@ public static partial class TextBoxExporter
 			}
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the EPUB file was saved successfully.
+			logger.Info(message: $"Successfully saved EPUB file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "EPUB", filePath: fileName);
+			// Log an error message indicating that saving the EPUB file failed.
+			logger.Error(exception: ex, message: $"Error saving EPUB file: {fileName}");
 		}
 	}
 
@@ -1804,11 +1941,15 @@ public static partial class TextBoxExporter
 			w.Write(buffer: eofRecord);
 			// If the save operation completes successfully, show a success message to the user.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a success message indicating that the MOBI file was saved successfully.
+			logger.Info(message: $"Successfully saved MOBI file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "MOBI", filePath: fileName);
+			// Log an error message indicating that saving the MOBI file failed.
+			logger.Error(exception: ex, message: $"Error saving MOBI file: {fileName}");
 		}
 	}
 

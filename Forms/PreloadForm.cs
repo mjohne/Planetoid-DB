@@ -57,12 +57,12 @@ public partial class PreloadForm : BaseKryptonForm
 		// Write the resource data to the output file
 		try
 		{
-			File.WriteAllBytes(outputFilePath, resourceData);
+			File.WriteAllBytes(path: outputFilePath, bytes: resourceData);
 			return true;
 		}
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
-			logger.Error(ex, $"Failed to extract resource file to '{outputFilePath}'.");
+			logger.Error(exception: ex, message: $"Failed to extract resource file to '{outputFilePath}'.");
 			return false;
 		}
 
@@ -98,6 +98,7 @@ public partial class PreloadForm : BaseKryptonForm
 		{
 			return;
 		}
+		logger.Info(message: $"User selected local file '{openFileDialog.FileName}'");
 		// Set the file path to the selected file
 		_ = MpcOrbDatFilePath = openFileDialog.FileName;
 		// Set the dialog result to OK
@@ -126,6 +127,7 @@ public partial class PreloadForm : BaseKryptonForm
 			logger.Warn(message: $"systemMpcorbDatGzUrl setting is invalid ('{mpcorbUrl}'). Falling back to default MPC URL.");
 			mpcorbUrl = "https://www.minorplanetcenter.org/iau/MPCORB/MPCORB.DAT.gz";
 		}
+		logger.Info(message: $"Using MPCORB.DAT download URL: '{mpcorbUrl}'");
 		// Open the download form for MPCORB.DAT
 		using DatabaseDownloaderForm formDownloaderForMpcorbDat = new(url: mpcorbUrl);
 		// Show the form as a dialog
@@ -151,6 +153,7 @@ public partial class PreloadForm : BaseKryptonForm
 		// Attempt to extract the embedded demo data resource to the output path
 		if (TryExtractResource(resourceData: Properties.Resources.demoset_10000, outputFilePath: outputPath))
 		{
+			logger.Info(message: $"Successfully extracted demo data to '{outputPath}'");
 			// Set the file path to the extracted demo data file
 			_ = MpcOrbDatFilePath = outputPath;
 			DialogResult = DialogResult.OK;

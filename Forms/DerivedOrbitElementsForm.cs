@@ -187,6 +187,7 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	{
 		if (sender is ToolStripMenuItem menuItem && menuItem.Tag is Label targetLabel)
 		{
+			logger.Info(message: $"Copying text from label '{targetLabel.Name}' to clipboard: {targetLabel.Text}");
 			CopyToClipboard(text: targetLabel.Text);
 		}
 	}
@@ -200,126 +201,198 @@ public partial class DerivedOrbitElementsForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the linear eccentricity data to the clipboard.</remarks>
-	private void CopyToClipboardLinearEccentricity_Click(object sender, EventArgs e) => CopyToClipboard(text: labelLinearEccentricityData.Text);
+	private void CopyToClipboardLinearEccentricity_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying linear eccentricity data to clipboard: {labelLinearEccentricityData.Text}");
+		CopyToClipboard(text: labelLinearEccentricityData.Text);
+	}
 
 	/// <summary>Handles the click event for the CopyToClipboardSemiMinorAxis.
 	/// Copies the semi-minor axis data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the semi-minor axis data to the clipboard.</remarks>
-	private void CopyToClipboardSemiMinorAxis_Click(object sender, EventArgs e) => CopyToClipboard(text: labelSemiMinorAxisData.Text);
+	private void CopyToClipboardSemiMinorAxis_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying semi-minor axis data to clipboard: {labelSemiMinorAxisData.Text}");
+		CopyToClipboard(text: labelSemiMinorAxisData.Text);
+	}
 
 	/// <summary>Handles the click event for the CopyToClipboardMajorAxis.
 	/// Copies the major axis data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the major axis data to the clipboard.</remarks>
-	private void CopyToClipboardMajorAxis_Click(object sender, EventArgs e) => CopyToClipboard(text: labelMajorAxisData.Text);
+	private void CopyToClipboardMajorAxis_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying major axis data to clipboard: {labelMajorAxisData.Text}");
+		CopyToClipboard(text: labelMajorAxisData.Text);
+	}
 
 	/// <summary>Handles the click event for the CopyToClipboardMinorAxis.
 	/// Copies the minor axis data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the minor axis data to the clipboard.</remarks>
-	private void CopyToClipboardMinorAxis_Click(object sender, EventArgs e) => CopyToClipboard(text: labelMinorAxisData.Text);
+	private void CopyToClipboardMinorAxis_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying minor axis data to clipboard: {labelMinorAxisData.Text}");
+		CopyToClipboard(text: labelMinorAxisData.Text);
+	}
 
 	/// <summary>Handles the click event for the CopyToClipboardEccentricAnomaly.
 	/// Copies the eccentric anomaly data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the eccentric anomaly data to the clipboard.</remarks>
-	private void CopyToClipboardEccentricAnomaly_Click(object sender, EventArgs e) => CopyToClipboard(text: labelEccentricAnomalyData.Text);
+	private void CopyToClipboardEccentricAnomaly_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying eccentric anomaly data to clipboard: {labelEccentricAnomalyData.Text}");
+		CopyToClipboard(text: labelEccentricAnomalyData.Text);
+	}
 
 	/// <summary>Handles the click event for the CopyToClipboardTrueAnomaly.
 	/// Copies the true anomaly data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the true anomaly data to the clipboard.</remarks>
-	private void CopyToClipboardTrueAnomaly_Click(object sender, EventArgs e) => CopyToClipboard(text: labelTrueAnomalyData.Text);
+	private void CopyToClipboardTrueAnomaly_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying true anomaly data to clipboard: {labelTrueAnomalyData.Text}");
+		CopyToClipboard(text: labelTrueAnomalyData.Text);
+	}
 
 	/// <summary>Handles the click event for the CopyToClipboardPerihelionDistance.
 	/// Copies the perihelion distance data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the perihelion distance data to the clipboard.</remarks>
-	private void CopyToClipboardPerihelionDistance_Click(object sender, EventArgs e) => CopyToClipboard(text: labelPerihelionDistanceData.Text);
+	private void CopyToClipboardPerihelionDistance_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying perihelion distance data to clipboard: {labelPerihelionDistanceData.Text}");
+		CopyToClipboard(text: labelPerihelionDistanceData.Text);
+	}
 
 	/// <summary>Handles the click event for the CopyToClipboardAphelionDistance.
 	/// Copies the aphelion distance data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the aphelion distance data to the clipboard.</remarks>
-	private void CopyToClipboardAphelionDistance_Click(object sender, EventArgs e) => CopyToClipboard(text: labelAphelionDistanceData.Text);
+	private void CopyToClipboardAphelionDistance_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying aphelion distance data to clipboard: {labelAphelionDistanceData.Text}");
+		CopyToClipboard(text: labelAphelionDistanceData.Text);
+	}
 
 	/// <summary>Handles the click event for the CopyToClipboardLongitudeDescendingNode.
 	/// Copies the longitude of the descending node data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the longitude of the descending node data to the clipboard.</remarks>
-	private void CopyToClipboardLongitudeDescendingNode_Click(object sender, EventArgs e) => CopyToClipboard(text: labelLongitudeDescendingNodeData.Text);
+	private void CopyToClipboardLongitudeDescendingNode_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying longitude of the descending node data to clipboard: {labelLongitudeDescendingNodeData.Text}");
+		CopyToClipboard(text: labelLongitudeDescendingNodeData.Text);
+	}
 
 	/// <summary>Handles the click event for the CopyToClipboardArgumentAphelion.
 	/// Copies the argument of aphelion data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the argument of aphelion data to the clipboard.</remarks>
-	private void CopyToClipboardArgumentAphelion_Click(object sender, EventArgs e) => CopyToClipboard(text: labelArgumentAphelionData.Text);
+	private void CopyToClipboardArgumentAphelion_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying argument of aphelion data to clipboard: {labelArgumentAphelionData.Text}");
+		CopyToClipboard(text: labelArgumentAphelionData.Text);
+	}
 
 	/// <summary>Handles the click event for the CopyToClipboardFocalParameter.
 	/// Copies the focal parameter data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the focal parameter data to the clipboard.</remarks>
-	private void CopyToClipboardFocalParameter_Click(object sender, EventArgs e) => CopyToClipboard(text: labelFocalParameterData.Text);
+	private void CopyToClipboardFocalParameter_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying focal parameter data to clipboard: {labelFocalParameterData.Text}");
+		CopyToClipboard(text: labelFocalParameterData.Text);
+	}
 
 	/// <summary>Handles the click event for the CopyToClipboardSemiLatusRectum.
 	/// Copies the semi-latus rectum data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the semi-latus rectum data to the clipboard.</remarks>
-	private void CopyToClipboardSemiLatusRectum_Click(object sender, EventArgs e) => CopyToClipboard(text: labelSemiLatusRectumData.Text);
+	private void CopyToClipboardSemiLatusRectum_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying semi-latus rectum data to clipboard: {labelSemiLatusRectumData.Text}");
+		CopyToClipboard(text: labelSemiLatusRectumData.Text);
+	}
 
 	/// <summary>Handles the click event for the CopyToClipboardLatusRectum.
 	/// Copies the latus rectum data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the latus rectum data to the clipboard.</remarks>
-	private void CopyToClipboardLatusRectum_Click(object sender, EventArgs e) => CopyToClipboard(text: labelLatusRectumData.Text);
+	private void CopyToClipboardLatusRectum_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying latus rectum data to clipboard: {labelLatusRectumData.Text}");
+		CopyToClipboard(text: labelLatusRectumData.Text);
+	}
 
 	/// <summary>Handles the click event for the CopyToClipboardOrbitalPeriod.
 	/// Copies the orbital period data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the orbital period data to the clipboard.</remarks>
-	private void CopyToClipboardOrbitalPeriod_Click(object sender, EventArgs e) => CopyToClipboard(text: labelOrbitalPeriodData.Text);
+	private void CopyToClipboardOrbitalPeriod_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying orbital period data to clipboard: {labelOrbitalPeriodData.Text}");
+		CopyToClipboard(text: labelOrbitalPeriodData.Text);
+	}
 
 	/// <summary>Handles the click event for the CopyToClipboardOrbitalArea.
 	/// Copies the orbital area data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the orbital area data to the clipboard.</remarks>
-	private void CopyToClipboardOrbitalArea_Click(object sender, EventArgs e) => CopyToClipboard(text: labelOrbitalAreaData.Text);
+	private void CopyToClipboardOrbitalArea_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying orbital area data to clipboard: {labelOrbitalAreaData.Text}");
+		CopyToClipboard(text: labelOrbitalAreaData.Text);
+	}
 
 	/// <summary>Handles the click event for the CopyToClipboardSemiMeanAxis.
 	/// Copies the semi-mean axis data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the semi-mean axis data to the clipboard.</remarks>
-	private void CopyToClipboardSemiMeanAxis_Click(object sender, EventArgs e) => CopyToClipboard(text: labelSemiMeanAxisData.Text);
+	private void CopyToClipboardSemiMeanAxis_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying semi-mean axis data to clipboard: {labelSemiMeanAxisData.Text}");
+		CopyToClipboard(text: labelSemiMeanAxisData.Text);
+	}
 
 	/// <summary>Handles the click event for the CopyToClipboardMeanAxis.
 	/// Copies the mean axis data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the mean axis data to the clipboard.</remarks>
-	private void CopyToClipboardMeanAxis_Click(object sender, EventArgs e) => CopyToClipboard(text: labelMeanAxisData.Text);
+	private void CopyToClipboardMeanAxis_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying mean axis data to clipboard: {labelMeanAxisData.Text}");
+		CopyToClipboard(text: labelMeanAxisData.Text);
+	}
 
 	/// <summary>Handles the click event for the CopyToClipboardStandardGravitationalParameter.
 	/// Copies the standard gravitational parameter data to the clipboard.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the standard gravitational parameter data to the clipboard.</remarks>
-	private void CopyToClipboardStandardGravitationalParameter_Click(object sender, EventArgs e) => CopyToClipboard(text: labelStandardGravitationalParameterData.Text);
+	private void CopyToClipboardStandardGravitationalParameter_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Copying standard gravitational parameter data to clipboard: {labelStandardGravitationalParameterData.Text}");
+		CopyToClipboard(text: labelStandardGravitationalParameterData.Text);
+	}
 
 	#endregion
 

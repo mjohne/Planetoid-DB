@@ -216,6 +216,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// Check if the index is valid
 		if (dbIndex < 0 || dbIndex >= planetoidsDatabase.Count)
 		{
+			logger.Warn(message: $"Invalid database index {dbIndex} for selected index {selectedIndex}.");
 			return false;
 		}
 		// Get the record string
@@ -223,13 +224,15 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// Parse index and designation using shared parsing logic
 		if (!TryParsePlanetoidRecord(record: currentData, recordIndex: dbIndex, parsedIndex: out string strIndex, parsedDesignation: out string strDesignation))
 		{
-			// If parsing fails, show an error message and return
+			// If parsing fails, log and show an error message and return
+			logger.Warn(message: $"Failed to parse planetoid record at database index {dbIndex}.");
 			ShowErrorMessage(message: "Invalid record format.");
 			return false;
 		}
 		// Jump to the record in the main form
 		if (Application.OpenForms.OfType<PlanetoidDbForm>().FirstOrDefault() is PlanetoidDbForm mainForm)
 		{
+			logger.Info(message: $"Navigating to planetoid record: Index={strIndex}, Designation={strDesignation}");
 			mainForm.JumpToRecord(index: strIndex, designation: strDesignation);
 			mainForm.BringToFront();
 		}
@@ -245,6 +248,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// Check if there are any selected indices
 		if (listView.SelectedIndices.Count <= 0)
 		{
+			logger.Warn(message: "No item is selected in the list view.");
 			SetStatusBar(label: labelInformation, text: string.Empty);
 			toolStripButtonGoToObject.Enabled = false;
 			return;
@@ -283,6 +287,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// Check if the planetoids database is empty
 		if (planetoidsDatabase.Count <= 0)
 		{
+			logger.Warn(message: "Planetoids database is empty on form load.");
 			return;
 		}
 		// Set numeric up/down ranges based on the planetoids database
@@ -315,6 +320,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// If there are no items, do not attempt to sort
 		if (listView.VirtualListSize == 0)
 		{
+			logger.Warn(message: "Attempted to sort an empty list view.");
 			return;
 		}
 		// Determine the new sort order based on the clicked column
@@ -367,6 +373,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 			int realIndexBeforeSort = sortedIndices != null && selectedVirtualIndex < sortedIndices.Count
 				? sortedIndices[index: selectedVirtualIndex]
 				: virtualListOffset + selectedVirtualIndex;
+			logger.Info(message: $"Selected database index before sort: {realIndexBeforeSort}");
 			selectedDatabaseIndex = realIndexBeforeSort;
 		}
 		// Precompute sort keys once per index to avoid repeated substring/trim/parse work during comparison
@@ -448,6 +455,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		}
 		else
 		{
+			logger.Warn(message: $"Failed to create ListViewItem for database index {realIndex}.");
 			e.Item = new ListViewItem(text: "Error");
 			e.Item.SubItems.Add(text: "Invalid Data");
 		}
@@ -468,6 +476,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// Check if the database is loaded
 		if (planetoidsDatabase.Count == 0)
 		{
+			logger.Warn(message: "Planetoids database is empty.");
 			return;
 		}
 		// Define columns (as in the original)
@@ -536,6 +545,7 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 		// Select the planetoid in the main form; only close if navigation succeeded
 		if (SelectPlanetoidInMainForm())
 		{
+			logger.Info(message: "Navigating to selected planetoid succeeded.");
 			DialogResult = DialogResult.OK;
 			Close();
 		}
@@ -549,7 +559,11 @@ public partial class ListReadableDesignationsForm : BaseKryptonForm
 	/// <remarks>If no item is selected or the selected record is invalid, the method does not perform any action. When a valid record is selected, the corresponding entry is located and displayed in the main form. An error message is shown if the record format is invalid.</remarks>
 	/// <param name="sender">The source of the event, typically the list view control.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
-	private void ListView_DoubleClick(object sender, EventArgs e) => SelectPlanetoidInMainForm();
+	private void ListView_DoubleClick(object sender, EventArgs e)
+	{
+		logger.Info(message: "List view item double-clicked.");
+		SelectPlanetoidInMainForm();
+	}
 
 	#endregion
 }

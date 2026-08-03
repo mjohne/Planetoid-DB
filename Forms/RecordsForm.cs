@@ -360,10 +360,11 @@ public partial class RecordsForm : BaseKryptonForm
 		{
 			kryptonProgressBar.Text = "Scan cancelled";
 			ClearStatusBar(label: labelInformation);
+			logger.Warn(message: "Record scan cancelled by user.");
 		}
 		else if (e.Error != null)
 		{
-			logger.Error(exception: e.Error, message: e.Error.Message);
+			logger.Error(exception: e.Error, message: $"An error occurred during the record scan: {e.Error.Message}");
 			kryptonProgressBar.Text = I18nStrings.ErrorCaption;
 			ClearStatusBar(label: labelInformation);
 		}
@@ -401,7 +402,6 @@ public partial class RecordsForm : BaseKryptonForm
 		toolStripButtonSortOrderDescending.Enabled = false;
 		toolStripDropDownButtonSaveList.Enabled = false;
 		contextMenuSaveToFile.Enabled = false;
-
 		// Wire up BackgroundWorker events and start the scan
 		backgroundWorker.RunWorkerAsync(argument: toolStripButtonSortOrderDescending.Checked);
 	}
@@ -436,6 +436,7 @@ public partial class RecordsForm : BaseKryptonForm
 	/// <remarks>This method is used to show the top ten records form for mean anomaly at the epoch.</remarks>
 	private void RecordsMeanAnomalyAtTheEpoch_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "User requested to view the top ten records for Mean Anomaly at the Epoch.");
 		// Show the top ten records form for mean anomaly at the epoch
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Mean anomaly at the epoch");
 		formRecordsTop10.TopMost = TopMost;
@@ -448,6 +449,7 @@ public partial class RecordsForm : BaseKryptonForm
 	/// <remarks>This method is used to show the top ten records form for the argument of the perihelion.</remarks>
 	private void RecordsArgumentOfThePerihelion_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "User requested to view the top ten records for Argument of the Perihelion.");
 		// Show the top ten records form for the argument of the perihelion
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Argument of the perihelion");
 		formRecordsTop10.TopMost = TopMost;
@@ -460,6 +462,7 @@ public partial class RecordsForm : BaseKryptonForm
 	/// <remarks>This method is used to show the top ten records form for the longitude of the ascending node.</remarks>
 	private void RecordsLongitudeOfTheAscendingNode_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "User requested to view the top ten records for Longitude of the Ascending Node.");
 		// Show the top ten records form for the longitude of the ascending node
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Longitude of the ascending node");
 		formRecordsTop10.TopMost = TopMost;
@@ -472,6 +475,7 @@ public partial class RecordsForm : BaseKryptonForm
 	/// <remarks>This method is used to show the top ten records form for inclination.</remarks>
 	private void RecordsInclination_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "User requested to view the top ten records for Inclination.");
 		// Show the top ten records form for inclination
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Inclination");
 		formRecordsTop10.TopMost = TopMost;
@@ -484,6 +488,7 @@ public partial class RecordsForm : BaseKryptonForm
 	/// <remarks>This method is used to show the top ten records form for orbital eccentricity.</remarks>
 	private void RecordsOrbitalEccentricity_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "User requested to view the top ten records for Orbital Eccentricity.");
 		// Show the top ten records form for orbital eccentricity
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Orbital eccentricity");
 		formRecordsTop10.TopMost = TopMost;
@@ -496,6 +501,7 @@ public partial class RecordsForm : BaseKryptonForm
 	/// <remarks>This method is used to show the top ten records form for mean daily motion.</remarks>
 	private void RecordsMeanDailyMotion_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "User requested to view the top ten records for Mean Daily Motion.");
 		// Show the top ten records form for mean daily motion
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Mean daily motion");
 		formRecordsTop10.TopMost = TopMost;
@@ -508,6 +514,7 @@ public partial class RecordsForm : BaseKryptonForm
 	/// <remarks>This method is used to show the top ten records form for semi-major axis.</remarks>
 	private void RecordsSemiMajorAxis_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "User requested to view the top ten records for Semi-Major Axis.");
 		// Show the top ten records form for semi-major axis
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Semi-major axis");
 		formRecordsTop10.TopMost = TopMost;
@@ -520,6 +527,7 @@ public partial class RecordsForm : BaseKryptonForm
 	/// <remarks>This method is used to show the top ten records form for absolute magnitude.</remarks>
 	private void RecordsAbsoluteMagnitude_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "User requested to view the top ten records for Absolute Magnitude.");
 		// Show the top ten records form for absolute magnitude
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Absolute magnitude");
 		formRecordsTop10.TopMost = TopMost;
@@ -532,6 +540,7 @@ public partial class RecordsForm : BaseKryptonForm
 	/// <remarks>This method is used to show the top ten records form for slope parameter.</remarks>
 	private void RecordsSlopeParameter_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "User requested to view the top ten records for Slope Parameter.");
 		// Show the top ten records form for slope parameter
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Slope parameter");
 		formRecordsTop10.TopMost = TopMost;
@@ -544,6 +553,7 @@ public partial class RecordsForm : BaseKryptonForm
 	/// <remarks>This method is used to show the top ten records form for number of oppositions.</remarks>
 	private void RecordsNumberOfOppositions_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "User requested to view the top ten records for Number of Oppositions.");
 		// Show the top ten records form for number of oppositions
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Number of oppositions");
 		formRecordsTop10.TopMost = TopMost;
@@ -556,6 +566,7 @@ public partial class RecordsForm : BaseKryptonForm
 	/// <remarks>This method is used to show the top ten records form for number of observations.</remarks>
 	private void RecordsNumberOfObservations_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "User requested to view the top ten records for Number of Observations.");
 		// Show the top ten records form for number of observations
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "Number of observations");
 		formRecordsTop10.TopMost = TopMost;
@@ -568,6 +579,7 @@ public partial class RecordsForm : BaseKryptonForm
 	/// <remarks>This method is used to show the top ten records form for RMS residual.</remarks>
 	private void RecordsRmsResidual_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "User requested to view the top ten records for RMS Residual.");
 		// Show the top ten records form for RMS residual
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: "r.m.s. residual");
 		formRecordsTop10.TopMost = TopMost;
