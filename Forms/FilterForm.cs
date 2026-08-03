@@ -70,6 +70,8 @@ public partial class FilterForm : BaseKryptonForm
 		}
 		// Enable double buffering for the TableLayoutPanel to prevent flickering
 		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanel);
+		// Log that the form has been initialized successfully
+		logger.Info(message: "FilterForm initialized successfully.");
 	}
 
 	#endregion
@@ -237,7 +239,7 @@ public partial class FilterForm : BaseKryptonForm
 		}
 		catch (Exception ex)
 		{
-			logger.Error(exception: ex, message: "Failed to enforce minimum not exceeding maximum.");
+			logger.Error(exception: ex, message: $"Failed to enforce minimum not exceeding maximum: {ex.Message}");
 		}
 		finally
 		{
@@ -264,7 +266,7 @@ public partial class FilterForm : BaseKryptonForm
 		}
 		catch (Exception ex)
 		{
-			logger.Error(exception: ex, message: "Failed to enforce maximum not below minimum.");
+			logger.Error(exception: ex, message: $"Failed to enforce maximum not below minimum: {ex.Message}");
 		}
 		finally
 		{
@@ -307,17 +309,13 @@ public partial class FilterForm : BaseKryptonForm
 				// Log the exception with an error level
 				logger.Error(exception: ex, message: "Failed to compute initial filter ranges.");
 				// Show an error message to the user indicating that the computation failed
-				_ = KryptonMessageBox.Show(
-					owner: this,
-					text: "Unable to compute filter ranges from the current database.",
-					caption: I18nStrings.ErrorCaption,
-					buttons: KryptonMessageBoxButtons.OK,
-					icon: KryptonMessageBoxIcon.Error);
+				ShowErrorMessage(message: $"Unable to compute filter ranges from the current database: {ex.Message}");
 			}
 		}
 		catch (Exception ex)
 		{
 			logger.Error(exception: ex, message: "Failed to compute initial filter ranges.");
+			ShowErrorMessage(message: $"Unable to compute filter ranges from the current database: {ex.Message}");
 		}
 		// Ensure the wait cursor is reset and toolbar actions are re-enabled even if an exception occurs
 		finally
@@ -335,85 +333,121 @@ public partial class FilterForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset the mean anomaly at the epoch filter.</remarks>
-	private void ButtonResetMeanAnomalyAtTheEpoch_Click(object sender, EventArgs e) =>
+	private void ButtonResetMeanAnomalyAtTheEpoch_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Resetting mean anomaly at the epoch filter to default min/max values.");
 		ResetElement(key: "MeanAnomaly", minimumControl: numericUpDownMinimumMeanAnomalyAtTheEpoch, maximumControl: numericUpDownMaximumMeanAnomalyAtTheEpoch);
+	}
 
 	/// <summary>Handles the Click event of the ButtonResetArgumentOfThePerihelion. Resets the argument of the perihelion filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset the argument of the perihelion filter.</remarks>
-	private void ButtonResetArgumentOfThePerihelion_Click(object sender, EventArgs e) =>
+	private void ButtonResetArgumentOfThePerihelion_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Resetting argument of the perihelion filter to default min/max values.");
 		ResetElement(key: "ArgPeri", minimumControl: numericUpDownMinimumArgumentOfThePerihelion, maximumControl: numericUpDownMaximumArgumentOfThePerihelion);
+	}
 
 	/// <summary>Handles the Click event of the ButtonResetLongitudeOfTheAscendingNode. Resets the longitude of the ascending node filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset the longitude of the ascending node filter.</remarks>
-	private void ButtonResetLongitudeOfTheAscendingNode_Click(object sender, EventArgs e) =>
+	private void ButtonResetLongitudeOfTheAscendingNode_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Resetting longitude of the ascending node filter to default min/max values.");
 		ResetElement(key: "LongAscNode", minimumControl: numericUpDownMinimumLongitudeOfTheAscendingNode, maximumControl: numericUpDownMaximumLongitudeOfTheAscendingNode);
+	}
 
 	/// <summary>Handles the Click event of the ButtonResetInclination. Resets the inclination filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset the inclination filter.</remarks>
-	private void ButtonResetInclination_Click(object sender, EventArgs e) =>
+	private void ButtonResetInclination_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Resetting inclination filter to default min/max values.");
 		ResetElement(key: "Incl", minimumControl: numericUpDownMinimumInclination, maximumControl: numericUpDownMaximumInclination);
+	}
 
 	/// <summary>Handles the Click event of the ButtonResetOrbitalEccentricity. Resets the orbital eccentricity filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset the orbital eccentricity filter.</remarks>
-	private void ButtonResetOrbitalEccentricity_Click(object sender, EventArgs e) =>
+	private void ButtonResetOrbitalEccentricity_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Resetting orbital eccentricity filter to default min/max values.");
 		ResetElement(key: "OrbEcc", minimumControl: numericUpDownMinimumOrbitalEccentricity, maximumControl: numericUpDownMaximumOrbitalEccentricity);
+	}
 
 	/// <summary>Handles the Click event of the ButtonResetMeanDailyMotion. Resets the mean daily motion filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset the mean daily motion filter.</remarks>
-	private void ButtonResetMeanDailyMotion_Click(object sender, EventArgs e) =>
+	private void ButtonResetMeanDailyMotion_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Resetting mean daily motion filter to default min/max values.");
 		ResetElement(key: "Motion", minimumControl: numericUpDownMinimumMeanDailyMotion, maximumControl: numericUpDownMaximumMeanDailyMotion);
+	}
 
 	/// <summary>Handles the Click event of the ButtonResetSemiMajorAxis. Resets the semi-major axis filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset the semi-major axis filter.</remarks>
-	private void ButtonResetSemiMajorAxis_Click(object sender, EventArgs e) =>
+	private void ButtonResetSemiMajorAxis_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Resetting semi-major axis filter to default min/max values.");
 		ResetElement(key: "SemiMajorAxis", minimumControl: numericUpDownMinimumSemiMajorAxis, maximumControl: numericUpDownMaximumSemiMajorAxis);
+	}
 
 	/// <summary>Handles the Click event of the ButtonResetAbsoluteMagnitude. Resets the absolute magnitude filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset the absolute magnitude filter.</remarks>
-	private void ButtonResetAbsoluteMagnitude_Click(object sender, EventArgs e) =>
+	private void ButtonResetAbsoluteMagnitude_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Resetting absolute magnitude filter to default min/max values.");
 		ResetElement(key: "AbsoluteMagnitude", minimumControl: numericUpDownMinimumAbsoluteMagnitude, maximumControl: numericUpDownMaximumAbsoluteMagnitude);
+	}
 
 	/// <summary>Handles the Click event of the ButtonResetSlopeParameter. Resets the slope parameter filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset the slope parameter filter.</remarks>
-	private void ButtonResetSlopeParameter_Click(object sender, EventArgs e) =>
+	private void ButtonResetSlopeParameter_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Resetting slope parameter filter to default min/max values.");
 		ResetElement(key: "SlopeParameter", minimumControl: numericUpDownMinimumSlopeParameter, maximumControl: numericUpDownMaximumSlopeParameter);
+	}
 
 	/// <summary>Handles the Click event of the ButtonNumberOfOppositions. Resets the number of oppositions filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset the number of oppositions filter.</remarks>
-	private void ButtonNumberOfOppositions_Click(object sender, EventArgs e) =>
+	private void ButtonNumberOfOppositions_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Resetting number of oppositions filter to default min/max values.");
 		ResetElement(key: "NumberOfOppositions", minimumControl: numericUpDownMinimumNumberOfOppositions, maximumControl: numericUpDownMaximumNumberOfOppositions);
+	}
 
 	/// <summary>Handles the Click event of the ButtonResetNumberOfObservations. Resets the number of observations filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset the number of observations filter.</remarks>
-	private void ButtonResetNumberOfObservations_Click(object sender, EventArgs e) =>
+	private void ButtonResetNumberOfObservations_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Resetting number of observations filter to default min/max values.");
 		ResetElement(key: "NumberOfObservations", minimumControl: numericUpDownMinimumNumberOfObservations, maximumControl: numericUpDownMaximumNumberOfObservations);
+	}
 
 	/// <summary>Handles the Click event of the ButtonResetRmsResidual. Resets the RMS residual filter.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset the RMS residual filter.</remarks>
-	private void ButtonResetRmsResidual_Click(object sender, EventArgs e) =>
+	private void ButtonResetRmsResidual_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Resetting RMS residual filter to default min/max values.");
 		ResetElement(key: "RmsResidual", minimumControl: numericUpDownMinimumRmsResidual, maximumControl: numericUpDownMaximumRmsResidual);
+	}
 
 	/// <summary>Handles the Click event of the ButtonApply. Applies the filter settings and returns the filtered database.</summary>
 	/// <param name="sender">The event source.</param>
@@ -421,6 +455,7 @@ public partial class FilterForm : BaseKryptonForm
 	/// <remarks>Rows that do not fall within the min/max range of every orbital element used in this form are removed. The filtered result is stored in <see cref="FilteredDatabase"/>.</remarks>
 	private void ButtonApply_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Applying filter settings to the planetoids database.");
 		try
 		{
 			// Apply the filter settings to the planetoids database and store the filtered result in FilteredDatabase
@@ -440,6 +475,7 @@ public partial class FilterForm : BaseKryptonForm
 		catch (Exception ex)
 		{
 			logger.Error(exception: ex, message: "Failed to apply filter settings.");
+			ShowErrorMessage(message: $"Failed to apply filter settings: {ex.Message}");
 		}
 	}
 
@@ -449,6 +485,7 @@ public partial class FilterForm : BaseKryptonForm
 	/// <remarks>This method is used to cancel the filter settings and close the form.</remarks>
 	private void ButtonCancel_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Cancelling filter settings and closing the form.");
 		// Clear the filtered database since the user cancelled the operation
 		FilteredDatabase = null;
 		DialogResult = DialogResult.Cancel;
@@ -459,7 +496,11 @@ public partial class FilterForm : BaseKryptonForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to reset all filter settings to their default values.</remarks>
-	private void ButtonReset_Click(object sender, EventArgs e) => ResetAllElements();
+	private void ButtonReset_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Resetting all filter settings to their default values.");
+		ResetAllElements();
+	}
 
 	#endregion
 

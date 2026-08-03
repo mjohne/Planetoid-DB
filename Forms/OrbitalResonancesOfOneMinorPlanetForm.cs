@@ -163,8 +163,8 @@ public partial class OrbitalResonancesOfOneMinorPlanetForm : BaseKryptonForm
 		// If there are no items, do not attempt to sort
 		if (listView.Items.Count == 0)
 		{
-			// Log an error message indicating that sorting was attempted on an empty ListView
-			logger.Error(message: "Attempted to sort an empty ListView.");
+			// No items to sort, ignore the request.
+			logger.Debug(message: "Column click ignored because the ListView is empty.");
 			// No items to sort, exit the method
 			return;
 		}

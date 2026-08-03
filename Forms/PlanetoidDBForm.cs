@@ -158,6 +158,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		TextExtra = $"{Assembly.GetExecutingAssembly().GetName().Version}";
 		// Apply comprehensive flicker reduction for the TableLayoutPanel
 		OptimizeTableLayoutPanelForFlickerReduction();
+		logger.Info(message: "PlanetoidDbForm initialized without MPCORB.DAT file path.");
 	}
 
 	/// <summary>Initializes a new instance of the <see cref="PlanetoidDbForm"/> class with a specified MPCORB.DAT file path.</summary>
@@ -171,6 +172,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		MpcOrbDatFilePath = mpcorbDatFilePath;
 		// Apply comprehensive flicker reduction for the TableLayoutPanel
 		OptimizeTableLayoutPanelForFlickerReduction();
+		logger.Info(message: $"PlanetoidDbForm initialized with MPCORB.DAT file path: {mpcorbDatFilePath}");
 	}
 
 	/// <summary>Optimizes the TableLayoutPanel to eliminate flickering during label updates.</summary>

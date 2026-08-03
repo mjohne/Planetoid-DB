@@ -90,12 +90,12 @@ public static class TaskbarProgress
 			GetTaskbarInstance()?.SetProgressState(hwnd: windowHandle, tbpFlags: state);
 		}
 		// Catch any COM exceptions that may occur during the operation, such as when the Explorer process is restarted.
-		catch (COMException)
+		catch (COMException ex)
 		{
 			// On COM errors (e.g., Explorer restart), discard the invalid instance
 			ResetInstance();
 			// Log an error message indicating that setting the taskbar progress state failed.
-			logger.Error(message: $"Error setting taskbar progress state for window handle: {windowHandle}");
+			logger.Error(exception: ex, message: $"Error setting taskbar progress state for window handle: {windowHandle}");
 		}
 	}
 
@@ -118,12 +118,12 @@ public static class TaskbarProgress
 			GetTaskbarInstance()?.SetProgressValue(hwnd: windowHandle, ullCompleted: progressValue, ullTotal: progressMax);
 		}
 		// Catch any COM exceptions that may occur during the operation, such as when the Explorer process is restarted.
-		catch (COMException)
+		catch (COMException ex)
 		{
 			// On COM errors, discard the invalid instance
 			ResetInstance();
 			// Log an error message indicating that setting the taskbar progress value failed.
-			logger.Error(message: $"Error setting taskbar progress value for window handle: {windowHandle}");
+			logger.Error(exception: ex, message: $"Error setting taskbar progress value for window handle: {windowHandle}");
 		}
 	}
 
@@ -143,9 +143,10 @@ public static class TaskbarProgress
 					// Release the COM object to free native resources.
 					Marshal.ReleaseComObject(o: _taskbarInstance);
 				}
-				catch
+				catch (COMException ex) when (_taskbarInstance != null)
 				{
 					// Ignore if the object has already been released
+					logger.Error(exception: ex, message: $"Error releasing taskbar instance: {_taskbarInstance}");
 				}
 				finally
 				{

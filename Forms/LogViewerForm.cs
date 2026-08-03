@@ -114,7 +114,6 @@ public partial class LogViewerForm : BaseKryptonForm
 		_ = item.SubItems.Add(text: levelText);
 		_ = item.SubItems.Add(text: exceptionType);
 		_ = item.SubItems.Add(text: message);
-		logger.Info(message: $"Created ListViewItem for log event: {timestampText} | {levelText} | {exceptionType} | {message}");
 		// Return the constructed ListViewItem
 		return item;
 	}
