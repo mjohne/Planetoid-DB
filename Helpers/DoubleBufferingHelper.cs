@@ -1,3 +1,8 @@
+// This file is used by Code Analysis to maintain SuppressMessage
+// attributes that are applied to this project.
+// Project-level suppressions either have no target or are given
+// a specific target and scoped to a namespace, type, member, etc.
+
 using Krypton.Toolkit;
 
 using NLog;
@@ -37,7 +42,7 @@ internal static class DoubleBufferingHelper
 			// If the method is found, create a delegate for it to allow high-performance invocation.
 			if (methodInfo != null)
 			{
-				SetStyle = (SetStyleDelegate)Delegate.CreateDelegate(typeof(SetStyleDelegate), methodInfo);
+				SetStyle = (SetStyleDelegate)Delegate.CreateDelegate(type: typeof(SetStyleDelegate), method: methodInfo);
 			}
 		}
 		// Log an error if the delegate creation fails, indicating that double buffering cannot be applied.
@@ -68,17 +73,14 @@ internal static class DoubleBufferingHelper
 			if (includeChildLabels)
 			{
 				// Apply a comprehensive set of styles to the control to enable double buffering, optimized painting, and user-defined painting.
-				ApplyDoubleBufferingStyles(control, ControlStyles.OptimizedDoubleBuffer |
-													ControlStyles.AllPaintingInWmPaint |
-													ControlStyles.UserPaint |
-													ControlStyles.ResizeRedraw);
+				ApplyDoubleBufferingStyles(control: control, styles: ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.ResizeRedraw);
 				// Recursively enable double buffering for all child Label and KryptonLabel controls.
-				EnableDoubleBufferingForChildLabels(control);
+				EnableDoubleBufferingForChildLabels(parent: control);
 			}
 			// If includeChildLabels is false, apply only the essential double buffering styles to the control.
 			else
 			{
-				ApplyDoubleBufferingStyles(control, ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint);
+				ApplyDoubleBufferingStyles(control: control, styles: ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint);
 			}
 		}
 		// Log a warning if an exception occurs while enabling double buffering, including the control's name and type for context.
@@ -100,7 +102,7 @@ internal static class DoubleBufferingHelper
 			if (child is Label or KryptonLabel)
 			{
 				// Apply double buffering styles to the child label control to reduce flickering during repainting.
-				ApplyDoubleBufferingStyles(child, ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint);
+				ApplyDoubleBufferingStyles(control: child, styles: ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint);
 			}
 			// If the child control has its own children, recursively enable double buffering for those child labels as well.
 			if (child.HasChildren)

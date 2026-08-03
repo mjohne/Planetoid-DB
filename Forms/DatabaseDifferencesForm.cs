@@ -89,6 +89,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	{
 		// Initialize the form's components, setting up the user interface elements and layout as defined in the designer file.
 		InitializeComponent();
+		logger.Info(message: "DatabaseDifferencesForm initialized.");
 	}
 
 	#endregion
@@ -214,6 +215,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		// Check if there are any selected indices in the ListView, and if not, return early to prevent errors; if there is a selected index, retrieve the corresponding DifferenceResult and either show a message if the record was deleted or jump to the record in the main form if it still exists
 		if (listViewResults.SelectedIndices.Count == 0)
 		{
+			logger.Warn(message: "No record selected to jump to.");
 			_ = KryptonMessageBox.Show(owner: this, text: "Please select a record to jump to.", caption: "No Record Selected", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
@@ -224,6 +226,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 			DifferenceResult result = differenceResults[index: selectedIndex];
 			if (result.Difference.Equals(value: "Deleted record", comparisonType: StringComparison.OrdinalIgnoreCase))
 			{
+				logger.Warn(message: "Selected record has been deleted and is no longer available.");
 				_ = KryptonMessageBox.Show(owner: this, text: "The selected record has been deleted and is no longer available.", caption: "Record Deleted", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			}
 			else
@@ -232,6 +235,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 				if (Application.OpenForms.OfType<PlanetoidDbForm>().FirstOrDefault() is PlanetoidDbForm mainForm)
 				{
 					Close();
+					logger.Info(message: $"Jumping to record: Index={result.Index}, Designation={result.Designation}");
 					mainForm.JumpToRecord(index: result.Index, designation: result.Designation);
 				}
 			}
@@ -421,6 +425,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		// Check if the default file exists and update the label accordingly
 		if (!File.Exists(path: pathFile1))
 		{
+			logger.Warn(message: $"Default MPCORB file not found at {pathFile1}. Resetting to empty path.");
 			pathFile1 = string.Empty;
 			kryptonLabelFile1.Text = "No file selected";
 		}
@@ -431,6 +436,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		// Initialize the second file path and label
 		pathFile2 = string.Empty;
 		kryptonLabelFile2.Text = "No file selected";
+		logger.Warn(message: "DatabaseDifferencesForm loaded with initial file paths.");
 	}
 
 	#endregion
@@ -443,6 +449,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// <param name="e">The event data associated with the click event.</param>
 	private void ButtonSelectFile1_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Select File 1 button clicked. Opening file dialog for reference MPCORB.DAT selection.");
 		// Open a file dialog to allow the user to select the first MPCORB file for comparison
 		using OpenFileDialog dlg = new();
 		// Set the filter to show only .DAT files and all files, and set the title of the dialog
@@ -453,6 +460,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		{
 			pathFile1 = dlg.FileName;
 			kryptonLabelFile1.Text = pathFile1;
+			logger.Info(message: $"File 1 selected: {pathFile1}");
 		}
 	}
 
@@ -462,6 +470,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// <param name="e">The event data associated with the click event.</param>
 	private void ButtonSelectFile2_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Select File 2 button clicked. Opening file dialog for comparison MPCORB.DAT selection.");
 		// Open a file dialog to allow the user to select the second MPCORB file for comparison
 		using OpenFileDialog dlg = new();
 		// Set the filter to show only .DAT files and all files, and set the title of the dialog
@@ -472,6 +481,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		{
 			pathFile2 = dlg.FileName;
 			kryptonLabelFile2.Text = pathFile2;
+			logger.Info(message: $"File 2 selected: {pathFile2}");
 		}
 	}
 
@@ -481,16 +491,19 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// <remarks>This method validates the selected files and initiates the comparison process asynchronously using <see cref="Task.Run(Action)"/> and <see cref="IProgress{T}"/>.</remarks>
 	private async void ButtonCompare_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Compare button clicked. Starting comparison of selected MPCORB.DAT files.");
 		// Reset the counters for added, deleted, and changed records before starting the comparison
 		addedRecords = deletedRecords = changedRecords = 0;
 		// Validate that both file paths are not null or empty and that the files exist; if not, show an error message and return early
 		if (string.IsNullOrEmpty(value: pathFile1) || !File.Exists(path: pathFile1))
 		{
+			logger.Error(message: "Invalid reference file (File 1) selected. Comparison aborted.");
 			ShowErrorMessage(message: "Please select a valid reference file (File 1).");
 			return;
 		}
 		if (string.IsNullOrEmpty(value: pathFile2) || !File.Exists(path: pathFile2))
 		{
+			logger.Error(message: "Invalid comparison file (File 2) selected. Comparison aborted.");
 			ShowErrorMessage(message: "Please select a valid comparison file (File 2).");
 			return;
 		}
@@ -500,6 +513,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		// If the last write times are identical, show a message indicating that the files are the same and abort further comparison
 		if (date1 == date2)
 		{
+			logger.Info(message: "The file dates of both files are identical. Further comparison is aborted.");
 			KryptonMessageBox.Show(owner: this, text: "The file dates of both files are identical. The file contents of file 1 and file 2 are the same. Further comparison is aborted.", caption: "Notice", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
@@ -531,6 +545,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 		// Catch an OperationCanceledException to handle the case where the user cancels the comparison operation, updating the progress bar text and showing a message box to inform the user that the comparison was cancelled
 		catch (OperationCanceledException)
 		{
+			logger.Warn(message: "Comparison operation was cancelled by the user.");
 			kryptonProgressBar.Text = "Comparison Cancelled";
 			KryptonMessageBox.Show(owner: this, text: "Comparison cancelled by user", caption: "Cancelled", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 		}
@@ -560,10 +575,13 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// <remarks>This event is triggered when the user clicks the cancel button, allowing the ongoing comparison to be canceled or the form to be closed if no comparison is in progress.</remarks>
 	private void ButtonCancel_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Cancel button clicked. Attempting to cancel ongoing comparison or close the form.");
 		// Check if there is an ongoing comparison operation by verifying that the cancellation token source is not null and that cancellation has not already been requested; if so, cancel the operation and disable the cancel button to prevent further clicks
 		if (_cancellationTokenSource != null && !_cancellationTokenSource.IsCancellationRequested)
 		{
 			_cancellationTokenSource.Cancel();
+			logger.Warn(message: "Cancel button clicked; cancelling comparison.");
+
 			toolStripButtonCancel.Enabled = false;
 		}
 		else
@@ -598,6 +616,7 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 						 "Computer - Computer Name\n" +
 						 "Flags - 4-Hexdigit Flag\n" +
 						 "LastObs - Date of the Last Observation";
+		logger.Info(message: "Abbreviations message box displayed.");
 		_ = KryptonMessageBox.Show(owner: this, text: message, caption: "Abbreviations", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
 
@@ -616,7 +635,11 @@ public partial class DatabaseDifferencesForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data associated with the DoubleClick event.</param>
 	/// <remarks>This event is triggered when the user double-clicks on an item in the ListView.</remarks>
-	private void ListViewResults_DoubleClick(object? sender, EventArgs e) => GoToObject();
+	private void ListViewResults_DoubleClick(object? sender, EventArgs e)
+	{
+		logger.Info(message: "ListView item double-clicked. Navigating to the selected object.");
+		GoToObject();
+	}
 
 	#endregion
 

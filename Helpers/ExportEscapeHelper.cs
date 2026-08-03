@@ -24,20 +24,20 @@ public static class ExportEscapeHelper
 		// Iterate through each character in the input string and escape special characters as needed.
 		foreach (char ch in input)
 		{
-			switch (ch)
+			_ = ch switch
 			{
-				case '\\': builder.Append(value: "\\textbackslash{}"); break;
-				case '{': builder.Append(value: "\\{"); break;
-				case '}': builder.Append(value: "\\}"); break;
-				case '%': builder.Append(value: "\\%"); break;
-				case '$': builder.Append(value: "\\$"); break;
-				case '&': builder.Append(value: "\\&"); break;
-				case '#': builder.Append(value: "\\#"); break;
-				case '_': builder.Append(value: "\\_"); break;
-				case '^': builder.Append(value: "\\^{}"); break;
-				case '~': builder.Append(value: "\\~{}"); break;
-				default: builder.Append(value: ch); break;
-			}
+				'\\' => builder.Append(value: "\\textbackslash{}"),
+				'{' => builder.Append(value: "\\{"),
+				'}' => builder.Append(value: "\\}"),
+				'%' => builder.Append(value: "\\%"),
+				'$' => builder.Append(value: "\\$"),
+				'&' => builder.Append(value: "\\&"),
+				'#' => builder.Append(value: "\\#"),
+				'_' => builder.Append(value: "\\_"),
+				'^' => builder.Append(value: "\\^{}"),
+				'~' => builder.Append(value: "\\~{}"),
+				_ => builder.Append(value: ch),
+			};
 		}
 		// Return the fully escaped string.
 		return builder.ToString();
@@ -76,13 +76,13 @@ public static class ExportEscapeHelper
 		foreach (char ch in input)
 		{
 			// Escape backslash and parentheses with a backslash. For other characters, append them as-is.
-			switch (ch)
+			_ = ch switch
 			{
-				case '\\': builder.Append(value: "\\\\"); break;
-				case '(': builder.Append(value: "\\("); break;
-				case ')': builder.Append(value: "\\)"); break;
-				default: builder.Append(value: ch); break;
-			}
+				'\\' => builder.Append(value: "\\\\"),
+				'(' => builder.Append(value: "\\("),
+				')' => builder.Append(value: "\\)"),
+				_ => builder.Append(value: ch),
+			};
 		}
 		// Return the fully escaped string.
 		return builder.ToString();
@@ -105,27 +105,18 @@ public static class ExportEscapeHelper
 		foreach (char ch in input)
 		{
 			// Escape backslash, parentheses, and control characters with a backslash. For other non-printable characters, use octal escape sequences.
-			switch (ch)
+			_ = ch switch
 			{
-				case '\\': builder.Append(value: "\\\\"); break;
-				case '(': builder.Append(value: "\\("); break;
-				case ')': builder.Append(value: "\\)"); break;
-				case '\n': builder.Append(value: "\\n"); break;
-				case '\r': builder.Append(value: "\\r"); break;
-				case '\t': builder.Append(value: "\\t"); break;
-				case '\b': builder.Append(value: "\\b"); break;
-				case '\f': builder.Append(value: "\\f"); break;
-				default:
-					if (ch < ' ')
-					{
-						builder.Append(value: $"\\{(int)ch:000}");
-					}
-					else
-					{
-						builder.Append(value: ch);
-					}
-					break;
-			}
+				'\\' => builder.Append(value: "\\\\"),
+				'(' => builder.Append(value: "\\("),
+				')' => builder.Append(value: "\\)"),
+				'\n' => builder.Append(value: "\\n"),
+				'\r' => builder.Append(value: "\\r"),
+				'\t' => builder.Append(value: "\\t"),
+				'\b' => builder.Append(value: "\\b"),
+				'\f' => builder.Append(value: "\\f"),
+				_ => ch < ' ' ? builder.Append(value: $"\\{(int)ch:000}") : builder.Append(value: ch),
+			};
 		}
 		// Return the fully escaped string.
 		return builder.ToString();
@@ -149,21 +140,14 @@ public static class ExportEscapeHelper
 			// Escape backslash and braces with a backslash. For newlines, use the \par control word. For other non-ASCII characters, use Unicode escape sequences.
 			switch (ch)
 			{
-				case '\\': builder.Append(value: "\\\\"); break;
-				case '{': builder.Append(value: "\\{"); break;
-				case '}': builder.Append(value: "\\}"); break;
+				case '\\': _ = builder.Append(value: "\\\\"); break;
+				case '{': _ = builder.Append(value: "\\{"); break;
+				case '}': _ = builder.Append(value: "\\}"); break;
 				// Ignore carriage return characters, as they are handled by the newline case; Bugfix: Prevents \r\par with Windows line breaks.
 				case '\r': break;
-				case '\n': builder.Append(value: "\\par "); break;
+				case '\n': _ = builder.Append(value: "\\par "); break;
 				default:
-					if (ch > 127)
-					{
-						builder.Append(value: $"\\u{(int)ch}?");
-					}
-					else
-					{
-						builder.Append(value: ch);
-					}
+					_ = ch > 127 ? builder.Append(value: $"\\u{(int)ch}?") : builder.Append(value: ch);
 					break;
 			}
 		}
@@ -203,12 +187,12 @@ public static class ExportEscapeHelper
 		// Iterate through each character in the input string and escape backslashes and double quotes with a backslash. For other characters, append them as-is.
 		foreach (char ch in input)
 		{
-			switch (ch)
+			_ = ch switch
 			{
-				case '\\': builder.Append(value: "\\\\"); break;
-				case '\"': builder.Append(value: "\\\""); break;
-				default: builder.Append(value: ch); break;
-			}
+				'\\' => builder.Append(value: "\\\\"),
+				'\"' => builder.Append(value: "\\\""),
+				_ => builder.Append(value: ch),
+			};
 		}
 		// Return the fully escaped string.
 		return builder.ToString();

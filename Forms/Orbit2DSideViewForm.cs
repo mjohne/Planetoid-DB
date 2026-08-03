@@ -248,7 +248,7 @@ public partial class Orbit2DSideViewForm : BaseKryptonForm
 		}
 		catch (Exception ex)
 		{
-			logger.Error(message: $"Failed to render side-view orbit plot for '{_planetoidName}': {ex}");
+			logger.Error(exception: ex, message: $"Failed to render side-view orbit plot for '{_planetoidName}': {ex}");
 			ShowErrorMessage(message: $"An error occurred while rendering the orbital diagram: {ex.Message}");
 		}
 	}

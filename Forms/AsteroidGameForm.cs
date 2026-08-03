@@ -398,6 +398,7 @@ public partial class AsteroidGameForm : BaseKryptonForm
 		// If the game is not currently in the Playing state, we do not update the game logic. This allows us to pause the game when it is in the Ready or GameOver states, preventing any movement or interactions until the player starts a new game.
 		if (_gameState != GameState.Playing)
 		{
+			logger.Warn("UpdateGame called while not in Playing state. Ignoring update.");
 			return;
 		}
 		// Update time since last shot for bullet firing cooldown
@@ -599,6 +600,7 @@ public partial class AsteroidGameForm : BaseKryptonForm
 		// If the OpenGL context is not ready, we cannot render anything, so we return early. This check prevents any rendering attempts before the GLControl has been fully initialized and the OpenGL context is available, which could lead to errors or crashes.
 		if (!_glReady)
 		{
+			logger.Warn("RenderScene called before OpenGL context is ready. Ignoring render.");
 			return;
 		}
 		// Set up OpenGL state for 2D rendering
@@ -1281,6 +1283,7 @@ public partial class AsteroidGameForm : BaseKryptonForm
 		// If the OpenGL context is not ready, we cannot update the viewport or projection, so we return early. This check prevents potential errors that could occur if we try to make OpenGL calls before the context has been properly initialized. If the context is ready, we make it current, call SetupProjection() to update the projection matrix based on the new size of the GL control, and then invalidate the control to trigger a repaint with the updated viewport.
 		if (!_glReady)
 		{
+			logger.Warn(message: "GlControl_Resize: OpenGL context not ready, skipping resize handling.");
 			return;
 		}
 		_glControl.MakeCurrent();

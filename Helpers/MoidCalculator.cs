@@ -566,7 +566,6 @@ internal class MoidCalculator
 				step *= 0.5;
 			}
 		}
-
 		return Math.Sqrt(d: minDistSquared);
 	}
 

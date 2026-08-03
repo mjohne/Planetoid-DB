@@ -288,6 +288,7 @@ public partial class TableModeForm : BaseKryptonForm
 		// Check if the planetoids database is empty
 		if (planetoidsDatabase.Count <= 0)
 		{
+			logger.Error(message: "Planetoids database is empty. Cannot initialize numeric controls.");
 			return;
 		}
 		// Update the numeric up-down controls
@@ -327,6 +328,7 @@ public partial class TableModeForm : BaseKryptonForm
 		// Cast the sender to a ListView
 		if (sender is not ListView listView)
 		{
+			logger.Error(message: "ListViewTableMode_SelectedIndexChanged called with invalid sender. Expected ListView, got {SenderType}.", argument: sender?.GetType().FullName ?? "null");
 			return;
 		}
 		// Enable or disable the "Go To Object" button based on the current selection count
@@ -334,6 +336,7 @@ public partial class TableModeForm : BaseKryptonForm
 		// Check if there are any selected indices
 		if (listView.SelectedIndices.Count <= 0)
 		{
+			logger.Debug(message: "No items selected in the ListView. Status bar will not be updated.");
 			return;
 		}
 		// Get the selected index from the list view
@@ -366,6 +369,8 @@ public partial class TableModeForm : BaseKryptonForm
 		{
 			// Fallback for error cases
 			e.Item = new ListViewItem(text: "Error");
+			logger.Error(message: "Invalid item index {ItemIndex} requested in ListView_RetrieveVirtualItem.", argument: e.ItemIndex);
+			ShowErrorMessage(message: $"Invalid item index {e.ItemIndex} requested. This may indicate a logic error in the application.");
 		}
 	}
 
@@ -386,6 +391,7 @@ public partial class TableModeForm : BaseKryptonForm
 		// Validate that Minimum is less than Maximum before proceeding
 		if (count <= 0)
 		{
+			logger.Warn(message: "Invalid range specified: Minimum ({Min}) is not less than Maximum ({Max}).", argument1: minIndex + 1, argument2: maxIndex);
 			_ = KryptonMessageBox.Show(owner: this, text: "Minimum value must be less than Maximum value.", caption: "Invalid range", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
@@ -428,6 +434,7 @@ public partial class TableModeForm : BaseKryptonForm
 				{
 					if (token.IsCancellationRequested)
 					{
+						logger.Warn(message: "Background processing cancelled by user.");
 						break;
 					}
 					// Parse the line into a PlanetoidRecord and add it to the temporary results
@@ -477,6 +484,7 @@ public partial class TableModeForm : BaseKryptonForm
 				? KryptonMessageBox.Show(owner: this, text: $"{listView.VirtualListSize} objects processed (cancellation).", caption: "cancellation", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning)
 				// Show completion message
 				: KryptonMessageBox.Show(owner: this, text: $"{listView.VirtualListSize} objects processed in {stopwatch.Elapsed:hh\\:mm\\:ss\\.fff} hh:mm:ss.fff", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			logger.Info(message: $"{listView.VirtualListSize} objects processed in {stopwatch.Elapsed:hh\\:mm\\:ss\\.fff} hh:mm:ss.fff");
 			// Dispose the cancellation token source
 			cancellationTokenSource?.Dispose();
 			cancellationTokenSource = null;
@@ -581,12 +589,14 @@ public partial class TableModeForm : BaseKryptonForm
 		// If no item is selected or the display cache is empty, do nothing
 		if (listView.SelectedIndices.Count == 0)
 		{
+			logger.Warn(message: "GoToObject called with no selected item. No action will be taken.");
 			return;
 		}
 		// Get the index of the selected item and validate it against the display cache; if valid, retrieve the corresponding planetoid record and navigate to it in the PlanetoidDbForm; optionally close this form after navigation
 		int idx = listView.SelectedIndices[index: 0];
 		if (idx < 0 || idx >= displayCache.Count)
 		{
+			logger.Warn(message: "GoToObject called with an invalid selected index {Index}. No action will be taken.", argument: idx);
 			return;
 		}
 		PlanetoidRecord record = displayCache[index: idx];

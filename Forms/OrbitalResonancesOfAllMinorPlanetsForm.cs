@@ -226,12 +226,14 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		// Validate the line length to ensure it contains the expected fields; if the line is too short, it cannot be processed and is skipped without logging an error, as this may be common for malformed records
 		if (line.Length < 103)
 		{
+			logger.Error(message: $"Skipping line due to insufficient length: {line}");
 			return;
 		}
 		// Extract the semi-major axis from the fixed-width field in the MPCORB record; the semi-major axis is located at characters 92-102 (11 characters total) and is parsed as a double; if parsing fails or if the value is non-positive, the line is skipped without logging an error, as this may be common for records with missing or invalid data
 		string semiMajorAxisText = line.Substring(startIndex: 92, length: 11).Trim();
 		if (!double.TryParse(s: semiMajorAxisText, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double semiMajorAxis) || semiMajorAxis <= 0)
 		{
+			logger.Error(message: $"Skipping line due to invalid semi-major axis: {line}");
 			return;
 		}
 		string designation = line.Length >= 194
@@ -257,8 +259,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 	/// <remarks>Clears the status bar when the form is loaded.</remarks>
-	private void OrbitalResonancesOfAllMinorPlanetsForm_Load(object sender, EventArgs e) =>
-		ClearStatusBar(label: labelInformation);
+	private void OrbitalResonancesOfAllMinorPlanetsForm_Load(object sender, EventArgs e) => ClearStatusBar(label: labelInformation);
 
 	/// <summary>Handles the FormClosing event. Cancels any running search and disposes the cancellation token source.</summary>
 	/// <param name="sender">Event source (the form).</param>
@@ -269,6 +270,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		// If a search is currently running (indicated by a non-null cancellation token source), signal cancellation and dispose of the token source to free resources; this ensures that any background tasks are properly cancelled when the form is closed, preventing potential issues with lingering tasks or resource leaks
 		if (_cancellationTokenSource != null)
 		{
+			logger.Warn(message: "Form is closing. Cancelling the currently running search.");
 			_cancellationTokenSource.Cancel();
 			_cancellationTokenSource.Dispose();
 			_cancellationTokenSource = null;
@@ -285,15 +287,21 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Called by the ListView for each visible row. Must be fast and must not modify <see cref="_results"/>.</remarks>
 	private void ListView_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
 	{
+		// Validate the requested index to ensure it is within the bounds of the _results list; if the index is invalid, log a warning and provide a default empty ListViewItem to avoid exceptions in the ListView, allowing it to continue functioning even if an invalid index is requested
 		if (e.ItemIndex < 0 || e.ItemIndex >= _results.Count)
 		{
+			// Log a warning if the requested index is out of bounds; this should not normally happen, but it can occur if the ListView requests an item index that is not valid due to a mismatch between the VirtualListSize and the actual results count
+			logger.Warn(message: $"ListView_RetrieveVirtualItem: Invalid index {e.ItemIndex}. Valid range is 0 to {_results.Count - 1}.");
 			e.Item = new ListViewItem();
+			// Set the item to a default empty ListViewItem to avoid exceptions in the ListView; this ensures that the ListView can continue to function even if an invalid index is requested
 			return;
 		}
+		// Retrieve the resonance result for the requested index and determine if it is a near-resonance based on the deviation percent; this information is used to populate the ListViewItem and to set its text color accordingly
 		ResonanceResult result = _results[index: e.ItemIndex];
 		bool isResonanceValue = result.Resonance.DeviationPercent < ResonanceThresholdPercent;
 		string isResonance = isResonanceValue ? "Yes" : "No";
 		ListViewItem item = new(text: result.PlanetoidName);
+		// Add sub-items for the resonance data, including the planet name, periods, ratio, resonance ratio, deviation percent, and whether it is a near-resonance; these sub-items correspond to the columns in the ListView and provide detailed information about each resonance result
 		item.SubItems.AddRange(items:
 		[
 			result.Resonance.PlanetName,
@@ -304,7 +312,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 			result.Resonance.DeviationPercent.ToString(format: "F2"),
 			isResonance
 		]);
-
+		// Set the text color of the entire row based on whether the result is a near-resonance; if the deviation percent is below the threshold, the text is colored green to indicate a near-resonance, otherwise it is colored red to indicate that it is not a near-resonance
 		item.ForeColor = isResonanceValue ? Color.Green : Color.Red;
 		e.Item = item;
 	}
@@ -340,11 +348,13 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		List<string> selectedPlanets = GetSelectedPlanets();
 		if (selectedPlanets.Count == 0)
 		{
+			logger.Warn(message: "No planets selected. Please select at least one planet before starting the search.");
 			_ = KryptonMessageBox.Show(owner: this, text: "Please select at least one planet.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
 		if (_planetoids.Count == 0)
 		{
+			logger.Warn(message: "No planetoid data available.");
 			_ = KryptonMessageBox.Show(owner: this, text: "No planetoid data available.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
@@ -399,14 +409,14 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 			}, cancellationToken: token);
 		}
 		// Catch the OperationCanceledException to handle user cancellation gracefully; log the cancellation event and update the status label to inform the user that the search was cancelled
-		catch (OperationCanceledException)
+		catch (OperationCanceledException ex)
 		{
-			logger.Info(message: "Orbital resonance search cancelled by user.");
+			logger.Warn(exception: ex, message: "Orbital resonance search cancelled by user.");
 		}
 		// Catch any other exceptions that may occur during the search; log the error and show an error message to the user with details about the exception
 		catch (Exception ex)
 		{
-			logger.Error(exception: ex, message: ex.Message);
+			logger.Error(exception: ex, message: $"Error during search: {ex.Message}");
 			ShowErrorMessage(message: $"Error during search: {ex.Message}");
 		}
 		// Finally block to clean up resources and reset UI elements after the search completes or is cancelled
@@ -436,13 +446,15 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 				}
 			}
 			// Catch ObjectDisposedException and InvalidOperationException that may occur if the form is closing while the search is still running; these exceptions can be safely ignored as they indicate that the form is being disposed and the search is being cancelled
-			catch (ObjectDisposedException)
+			catch (ObjectDisposedException ex)
 			{
-				// Ignore exceptions caused by controls being disposed during form shutdown.
+				// Log a warning indicating that an ObjectDisposedException was caught during form shutdown
+				logger.Warn(exception: ex, message: "ObjectDisposedException caught during form shutdown.");
 			}
-			catch (InvalidOperationException)
+			catch (InvalidOperationException ex)
 			{
-				// Ignore exceptions related to invalid control state during form shutdown.
+				// Log a warning indicating that an InvalidOperationException was caught during form shutdown
+				logger.Warn(exception: ex, message: "InvalidOperationException caught during form shutdown.");
 			}
 			// Dispose of the cancellation token source to free resources; set it to null to indicate that there is no active search
 			finally
@@ -465,6 +477,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		// applied on the UI thread by the normal completion logic.
 		if (_cancellationTokenSource != null)
 		{
+			logger.Warn(message: "Cancelling the currently running search.");
 			_cancellationTokenSource.Cancel();
 			toolStripButtonCancel.Enabled = false;
 		}
@@ -479,15 +492,19 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		// Check if any item is selected in the list view; if not, return without doing anything; if an item is selected, get the index of the first selected item and validate it against the _results list; if the index is valid, retrieve the corresponding ResonanceResult and format its data into a tab-separated string; finally, copy the formatted string to the clipboard
 		if (listView.SelectedIndices.Count == 0)
 		{
+			logger.Warn(message: "No row selected in the list view. Copy to clipboard action aborted.");
 			return;
 		}
 		int index = listView.SelectedIndices[index: 0];
 		if (index < 0 || index >= _results.Count)
 		{
+			logger.Warn(message: $"Selected index {index} is out of bounds. Valid range is 0 to {_results.Count - 1}. Copy to clipboard action aborted.");
 			return;
 		}
+		// Retrieve the resonance result for the selected index and determine if it is a near-resonance based on the deviation percent; this information is used to format the text that will be copied to the clipboard
 		ResonanceResult result = _results[index];
 		string isResonance = result.Resonance.DeviationPercent < ResonanceThresholdPercent ? "Yes" : "No";
+		// Join the resonance result fields into a tab-separated string for easy pasting into spreadsheets or text editors; the fields include the planetoid name, planet name, periods, ratio, resonance ratio, deviation percent, and whether it is a near-resonance
 		string text = string.Join(separator: "\t", values: new[]
 		{
 			result.PlanetoidName,
@@ -499,6 +516,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 			result.Resonance.DeviationPercent.ToString(format: "F2"),
 			isResonance
 		});
+		logger.Info(message: $"Copying selected row to clipboard: {text}");
 		CopyToClipboard(text: text);
 	}
 
@@ -515,6 +533,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		// If there are no results to sort, exit the method early to avoid unnecessary processing and potential errors when trying to access column headers or sort the empty list
 		if (_results.Count == 0)
 		{
+			logger.Warn(message: "No results available to sort. Column click action aborted.");
 			return;
 		}
 		// Check if the clicked column is the same as the current sort column; if so, toggle the sort order between ascending and descending; if it's a different column, set it as the new sort column and default to ascending order
@@ -600,6 +619,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		// Ensure that an item is selected and that the index is within the bounds of the results list; if so, retrieve the corresponding ResonanceResult and use its PlanetoidName to jump to the record in the PlanetoidDbForm
 		if (listView.SelectedIndices.Count == 0)
 		{
+			logger.Warn(message: "No item selected in the list view. Double-click action aborted.");
 			return;
 		}
 		// Get the index of the first selected item in the ListView; since multi-select is disabled, there will only be one selected item, so we can safely use index 0 to retrieve it
@@ -607,6 +627,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		// Check if the index is valid (non-negative and within the bounds of the _results list); if not, return without taking any action
 		if (index < 0 || index >= _results.Count)
 		{
+			logger.Warn(message: $"Selected index {index} is out of bounds. Valid range is 0 to {_results.Count - 1}. Double-click action aborted.");
 			return;
 		}
 		// Retrieve the ResonanceResult corresponding to the selected item in the ListView
@@ -614,6 +635,7 @@ public partial class OrbitalResonancesOfAllMinorPlanetsForm : BaseKryptonForm
 		// If the Owner of this form is a PlanetoidDbForm, call its JumpToRecord method with the PlanetoidName from the selected ResonanceResult to display the corresponding record
 		if (Owner is PlanetoidDbForm planetoidDbForm)
 		{
+			logger.Info(message: $"Jumping to record for planetoid '{result.PlanetoidName}' in PlanetoidDbForm.");
 			planetoidDbForm.JumpToRecord(index: result.PlanetoidName, designation: result.PlanetoidName);
 		}
 	}

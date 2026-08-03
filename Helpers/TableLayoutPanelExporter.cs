@@ -3,6 +3,8 @@
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
 
+using NLog;
+
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO.Compression;
@@ -21,8 +23,11 @@ public static class TableLayoutPanelExporter
 	/// <remarks>Creating a static instance of JsonSerializerOptions with WriteIndented set to true allows for consistent formatting of JSON output across all methods that serialize to JSON, while avoiding the overhead of creating new options instances for each serialization operation.</remarks>
 	private static readonly JsonSerializerOptions jsonSerializerOptions = new() { WriteIndented = true };
 
-	#region helpers
+	/// <summary>NLog logger instance.</summary>
+	/// <remarks>This logger is used throughout the application to log important events and errors.</remarks>
+	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
+	#region helpers
 
 	/// <summary>Returns the column header texts of the given <see cref="TableLayoutPanel"/> (read from row 0).</summary>
 	/// <param name="tableLayoutPanel">The table layout panel whose first row contains headers.</param>
@@ -88,12 +93,16 @@ public static class TableLayoutPanelExporter
 				// Write each row of data as tab-delimited values. Note that if any cell contains a tab character, it will cause misalignment in the output since no escaping is performed.
 				writer.WriteLine(value: string.Join(separator: " ", values: row));
 			}
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to text file: {fileName}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
+			// Log an error message indicating that saving the text file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to text file: {fileName}");
 			ExportFeedbackHelper.ShowError(ex: ex, format: "Text", filePath: fileName);
 		}
 	}
@@ -136,11 +145,15 @@ public static class TableLayoutPanelExporter
 			writer.WriteLine(value: "\\end{document}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to LaTeX file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "LaTeX", filePath: fileName);
+			// Log an error message indicating that saving the LaTeX file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to LaTeX file: {fileName}");
 		}
 	}
 
@@ -170,11 +183,15 @@ public static class TableLayoutPanelExporter
 			}
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to Markdown file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "Markdown", filePath: fileName);
+			// Log an error message indicating that saving the Markdown file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to Markdown file: {fileName}");
 		}
 	}
 
@@ -207,11 +224,15 @@ public static class TableLayoutPanelExporter
 			writer.WriteLine(value: "|===");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to AsciiDoc file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "AsciiDoc", filePath: fileName);
+			// Log an error message indicating that saving the AsciiDoc file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to AsciiDoc file: {fileName}");
 		}
 	}
 
@@ -279,11 +300,15 @@ public static class TableLayoutPanelExporter
 			}
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to reStructuredText file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "reStructuredText", filePath: fileName);
+			// Log an error message indicating that saving the reStructuredText file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to reStructuredText file: {fileName}");
 		}
 	}
 
@@ -313,11 +338,15 @@ public static class TableLayoutPanelExporter
 			}
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to Textile file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "Textile", filePath: fileName);
+			// Log an error message indicating that saving the Textile file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to Textile file: {fileName}");
 		}
 	}
 
@@ -347,11 +376,15 @@ public static class TableLayoutPanelExporter
 			}
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to Typst file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "Typst", filePath: fileName);
+			// Log an error message indicating that saving the Typst file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to Typst file: {fileName}");
 		}
 	}
 
@@ -425,11 +458,15 @@ public static class TableLayoutPanelExporter
 			}
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to Word file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "Word", filePath: fileName);
+			// Log an error message indicating that saving the Word file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to Word file: {fileName}");
 		}
 	}
 
@@ -499,11 +536,15 @@ public static class TableLayoutPanelExporter
 			}
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to ODT file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "ODT", filePath: fileName);
+			// Log an error message indicating that saving the ODT file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to ODT file: {fileName}");
 		}
 	}
 
@@ -549,11 +590,15 @@ public static class TableLayoutPanelExporter
 			writer.WriteLine(value: "}");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to RTF file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "RTF", filePath: fileName);
+			// Log an error message indicating that saving the RTF file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to RTF file: {fileName}");
 		}
 	}
 
@@ -604,13 +649,17 @@ public static class TableLayoutPanelExporter
 			writer.WriteLine(value: "    </table>");
 			writer.WriteLine(value: "  </section>");
 			writer.WriteLine(value: "</abiword>");
-			//
+			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to AbiWord file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "AbiWord", filePath: fileName);
+			// Log an error message indicating that saving the AbiWord file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to AbiWord file: {fileName}");
 		}
 	}
 
@@ -655,11 +704,15 @@ public static class TableLayoutPanelExporter
 			writer.WriteLine(value: "</table></body></html>");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to WPS file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "WPS", filePath: fileName);
+			// Log an error message indicating that saving the WPS file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to WPS file: {fileName}");
 		}
 	}
 
@@ -747,11 +800,15 @@ public static class TableLayoutPanelExporter
 			}
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to Excel file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "Excel", filePath: fileName);
+			// Log an error message indicating that saving the Excel file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to Excel file: {fileName}");
 		}
 	}
 
@@ -820,11 +877,15 @@ public static class TableLayoutPanelExporter
 			}
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to ODS file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "ODS", filePath: fileName);
+			// Log an error message indicating that saving the ODS file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to ODS file: {fileName}");
 		}
 	}
 
@@ -854,11 +915,15 @@ public static class TableLayoutPanelExporter
 			}
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to CSV file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "CSV", filePath: fileName);
+			// Log an error message indicating that saving the CSV file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to CSV file: {fileName}");
 		}
 	}
 
@@ -884,11 +949,15 @@ public static class TableLayoutPanelExporter
 			}
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to TSV file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "TSV", filePath: fileName);
+			// Log an error message indicating that saving the TSV file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to TSV file: {fileName}");
 		}
 	}
 
@@ -914,11 +983,15 @@ public static class TableLayoutPanelExporter
 			}
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to PSV file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "PSV", filePath: fileName);
+			// Log an error message indicating that saving the PSV file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to PSV file: {fileName}");
 		}
 	}
 
@@ -948,11 +1021,15 @@ public static class TableLayoutPanelExporter
 			}
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to ET file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "ET", filePath: fileName);
+			// Log an error message indicating that saving the ET file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to ET file: {fileName}");
 		}
 	}
 
@@ -997,11 +1074,15 @@ public static class TableLayoutPanelExporter
 			writer.WriteLine(value: "</tbody></table></body></html>");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to HTML file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "HTML", filePath: fileName);
+			// Log an error message indicating that saving the HTML file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to HTML file: {fileName}");
 		}
 	}
 
@@ -1030,9 +1111,7 @@ public static class TableLayoutPanelExporter
 				for (int c = 0; c < headers.Length; c++)
 				{
 					// Create a valid XML element name from the column header. If the header is empty, use a default name like "col{index}". The header is encoded to ensure that it can be used as an XML element name without issues.
-					string elementName = headers[c].Length > 0
-						? XmlConvert.EncodeName(name: headers[c]) ?? $"col{c}"
-						: $"col{c}";
+					string elementName = headers[c].Length > 0 ? XmlConvert.EncodeName(name: headers[c]) ?? $"col{c}" : $"col{c}";
 					string cell = c < row.Length ? row[c] : string.Empty;
 					xmlWriter.WriteElementString(localName: elementName, value: cell);
 				}
@@ -1042,11 +1121,15 @@ public static class TableLayoutPanelExporter
 			xmlWriter.WriteEndDocument();
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to XML file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "XML", filePath: fileName);
+			// Log an error message indicating that saving the XML file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to XML file: {fileName}");
 		}
 	}
 
@@ -1110,11 +1193,15 @@ public static class TableLayoutPanelExporter
 			xmlWriter.WriteEndDocument();
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to DocBook file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "DocBook", filePath: fileName);
+			// Log an error message indicating that saving the DocBook file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to DocBook file: {fileName}");
 		}
 	}
 
@@ -1148,11 +1235,15 @@ public static class TableLayoutPanelExporter
 			File.WriteAllText(path: fileName, contents: json);
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to JSON file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "JSON", filePath: fileName);
+			// Log an error message indicating that saving the JSON file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to JSON file: {fileName}");
 		}
 	}
 
@@ -1188,11 +1279,15 @@ public static class TableLayoutPanelExporter
 			}
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to YAML file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "YAML", filePath: fileName);
+			// Log an error message indicating that saving the YAML file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to YAML file: {fileName}");
 		}
 	}
 
@@ -1226,11 +1321,15 @@ public static class TableLayoutPanelExporter
 			}
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to TOML file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "TOML", filePath: fileName);
+			// Log an error message indicating that saving the TOML file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to TOML file: {fileName}");
 		}
 	}
 
@@ -1276,11 +1375,15 @@ public static class TableLayoutPanelExporter
 			writer.WriteLine(value: "COMMIT;");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to SQL file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "SQL", filePath: fileName);
+			// Log an error message indicating that saving the SQL file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to SQL file: {fileName}");
 		}
 	}
 
@@ -1339,11 +1442,15 @@ public static class TableLayoutPanelExporter
 			connection.Close();
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to SQLite file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "SQLite", filePath: fileName);
+			// Log an error message indicating that saving the SQLite file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to SQLite file: {fileName}");
 		}
 	}
 
@@ -1489,11 +1596,15 @@ public static class TableLayoutPanelExporter
 			w.WriteLine(value: "%%EOF");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to PDF file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "PDF", filePath: fileName);
+			// Log an error message indicating that saving the PDF file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to PDF file: {fileName}");
 		}
 	}
 
@@ -1569,11 +1680,15 @@ public static class TableLayoutPanelExporter
 			writer.WriteLine(value: "%%EOF");
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to PostScript file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "PostScript", filePath: fileName);
+			// Log an error message indicating that saving the PostScript file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to PostScript file: {fileName}");
 		}
 	}
 
@@ -1669,11 +1784,15 @@ public static class TableLayoutPanelExporter
 			}
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to EPUB file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "EPUB", filePath: fileName);
+			// Log an error message indicating that saving the EPUB file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to EPUB file: {fileName}");
 		}
 	}
 
@@ -1789,11 +1908,15 @@ public static class TableLayoutPanelExporter
 			w.Write(buffer: eofRecord);
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to MOBI file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "MOBI", filePath: fileName);
+			// Log an error message indicating that saving the MOBI file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to MOBI file: {fileName}");
 		}
 	}
 
@@ -1872,11 +1995,15 @@ public static class TableLayoutPanelExporter
 			xmlWriter.WriteEndDocument();
 			// Show a success message after the file has been saved.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to FictionBook2 file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "FictionBook2", filePath: fileName);
+			// Log an error message indicating that saving the FictionBook2 file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to FictionBook2 file: {fileName}");
 		}
 	}
 
@@ -1893,6 +2020,7 @@ public static class TableLayoutPanelExporter
 		if (!File.Exists(path: hhcPath))
 		{
 			ExportFeedbackHelper.ShowErrorMessage(message: "Microsoft HTML Help Workshop is not installed or not found at the default location. Cannot compile CHM file.");
+			logger.Error(message: $"Microsoft HTML Help Workshop is not installed or not found at the default location. Cannot compile CHM file: {fileName}");
 			return;
 		}
 		// Create a temporary directory to store the intermediate files needed for CHM compilation. The directory is created in the system's temporary path with a unique name generated using a GUID. After the compilation process, the temporary directory and its contents will be deleted to clean up any intermediate files.
@@ -1972,17 +2100,23 @@ public static class TableLayoutPanelExporter
 				File.Copy(sourceFileName: chmTempPath, destFileName: fileName, overwrite: true);
 				// Show a success message after the CHM file has been successfully created.
 				ExportFeedbackHelper.ShowSuccess();
+				// Log a message indicating that the file was successfully saved.
+				logger.Info(message: $"Successfully saved TableLayoutPanel data to CHM file: {fileName}");
 			}
 			else
 			{
 				// If the CHM file was not created, show an error message to the user.
 				ExportFeedbackHelper.ShowErrorMessage(message: "Failed to compile the CHM file.");
+				// Log an error message indicating that compiling the CHM file failed.
+				logger.Error(message: $"Failed to compile CHM file: {fileName}");
 			}
 		}
 		// Catch any exceptions that occur during the file generation and compilation process, log the error, and show an error message to the user.
 		catch (Exception ex)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "CHM", filePath: fileName);
+			// Log an error message indicating that saving the CHM file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to CHM file: {fileName}");
 		}
 		// Finally, clean up the temporary directory used for intermediate files.
 		finally
@@ -1990,6 +2124,8 @@ public static class TableLayoutPanelExporter
 			if (Directory.Exists(path: tempDir))
 			{
 				Directory.Delete(path: tempDir, recursive: true);
+				// Log a message indicating that the temporary directory was deleted.
+				logger.Info(message: $"Deleted temporary directory: {tempDir}");
 			}
 		}
 	}
@@ -2153,11 +2289,15 @@ public static class TableLayoutPanelExporter
 			}
 			// Show a success message after the XPS file has been successfully created.
 			ExportFeedbackHelper.ShowSuccess();
+			// Log a message indicating that the file was successfully saved.
+			logger.Info(message: $"Successfully saved TableLayoutPanel data to XPS file: {fileName}");
 		}
 		// Catch IO-related exceptions such as IOException and UnauthorizedAccessException, log the error, and show an error message to the user.
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			ExportFeedbackHelper.ShowError(ex: ex, format: "XPS", filePath: fileName);
+			// Log an error message indicating that saving the XPS file failed.
+			logger.Error(exception: ex, message: $"Error saving TableLayoutPanel data to XPS file: {fileName}");
 		}
 	}
 

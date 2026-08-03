@@ -146,11 +146,13 @@ public partial class SearchForm : BaseKryptonForm
 		// If a cancellation token source is active, it means a search operation is in progress, and we should not attempt to navigate to an object. In this case, simply return without doing anything.
 		if (_cts != null)
 		{
+			logger.Warn(message: "GoToObject called while a search operation is in progress. No action will be taken.");
 			return;
 		}
 		// Check if any item is selected in the list view. If not, show a warning message to the user and return without performing any navigation.
 		if (listViewResults.SelectedIndices.Count == 0)
 		{
+			logger.Warn(message: "GoToObject called with no selected item. No action will be taken.");
 			_ = KryptonMessageBox.Show(owner: this, text: "Please select an object to go to.", caption: "Go To Object", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
 			return;
 		}
@@ -171,6 +173,7 @@ public partial class SearchForm : BaseKryptonForm
 			else
 			{
 				// Show an error message indicating that the selected index is out of range, which means that the user has selected an item that does not correspond to a valid search result. This could happen if the search results have been updated while the user is interacting with the list view.
+				logger.Error(message: "GoToObject called with an invalid selected index {Index}. No action will be taken.", argument: selectedIndex);
 				ShowErrorMessage(message: "Selected index is out of range.");
 				return;
 			}
@@ -180,6 +183,7 @@ public partial class SearchForm : BaseKryptonForm
 		if (string.IsNullOrWhiteSpace(value: designation))
 		{
 			// Show an error message indicating that the selected object does not have a valid designation, which is necessary for navigating to the object in the main form. This could happen if the search result item is incomplete or if there was an issue during the search process.
+			logger.Error(message: "GoToObject called with a selected item that has an invalid designation. No action will be taken.");
 			ShowErrorMessage(message: "Selected object does not have a valid designation.");
 			return;
 		}
@@ -199,6 +203,7 @@ public partial class SearchForm : BaseKryptonForm
 		else
 		{
 			// Show an error message indicating that the main form was not found, which means that the application cannot navigate to the selected object. This could happen if the main form has not been opened yet or if it has been closed. The user may need to open the main form and perform the search again to navigate to the desired object.
+			logger.Error(message: "Main form not found. Cannot go to object.");
 			ShowErrorMessage(message: "Main form not found. Cannot go to object.");
 		}
 	}
@@ -240,6 +245,7 @@ public partial class SearchForm : BaseKryptonForm
 		{
 			// Show a warning message indicating that the user needs to enter a search term in order to perform a search. This is a validation step to ensure that the search operation has the necessary input to proceed.
 			_ = KryptonMessageBox.Show(owner: this, text: "Please enter a search term.", caption: "Search", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
+			logger.Warn(message: "Search button clicked with empty search text. No action will be taken.");
 			return;
 		}
 		// Check if the user has selected at least one orbital element to search in from the checked list box. If no elements are selected, show a warning message to the user and return without performing any search.
@@ -247,6 +253,7 @@ public partial class SearchForm : BaseKryptonForm
 		{
 			// Show a warning message indicating that the user needs to select at least one orbital element to search in. This is a validation step to ensure that the search operation has the necessary criteria to proceed.
 			_ = KryptonMessageBox.Show(owner: this, text: "Please select at least one orbital element to search in.", caption: "Search", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
+			logger.Warn(message: "Search button clicked with no orbital elements selected. No action will be taken.");
 			return;
 		}
 		// Get the file path of the planetoid database from the application settings. If the file does not exist at the specified path, show an error message to the user and return without performing any search.
@@ -254,6 +261,7 @@ public partial class SearchForm : BaseKryptonForm
 		if (!File.Exists(path: filePath))
 		{
 			// Show an error message indicating that the database file could not be found at the specified path. This is a critical error that prevents the search operation from proceeding, as the search relies on reading data from the database file.
+			logger.Error(message: "Database file not found at: {FilePath}. No action will be taken.", argument: filePath);
 			ShowErrorMessage(message: $"Database file not found at: {filePath}");
 			return;
 		}
@@ -411,10 +419,12 @@ public partial class SearchForm : BaseKryptonForm
 							catch (ObjectDisposedException)
 							{
 								// Form is disposed; ignore update.
+								logger.Warn(message: "Form is disposed; ignoring UI update.");
 							}
 							catch (InvalidOperationException)
 							{
 								// Form handle is no longer valid; ignore update.
+								logger.Warn(message: "Form handle is no longer valid; ignoring UI update.");
 							}
 						}
 					}
@@ -472,6 +482,7 @@ public partial class SearchForm : BaseKryptonForm
 		if (_cts != null && !_cts.IsCancellationRequested)
 		{
 			_cts.Cancel();
+			logger.Warn(message: "Search operation cancellation requested by user.");
 		}
 	}
 
@@ -484,11 +495,13 @@ public partial class SearchForm : BaseKryptonForm
 		// If there are no items in the checked list box, there is nothing to mark, so return without doing anything.
 		if (kryptonCheckedListBoxElements.Items.Count == 0)
 		{
+			logger.Warn(message: "Mark All clicked with no items in the checked list box. No action will be taken.");
 			return;
 		}
 		// If all items in the checked list box are already checked, there is no need to mark them again, so return without doing anything.
 		if (kryptonCheckedListBoxElements.Items.Count == kryptonCheckedListBoxElements.CheckedItems.Count)
 		{
+			logger.Warn(message: "Mark All clicked but all items are already checked. No action will be taken.");
 			return;
 		}
 		// Iterate through all items in the checked list box and set their checked state to true
@@ -507,11 +520,13 @@ public partial class SearchForm : BaseKryptonForm
 		// If there are no items in the checked list box, there is nothing to unmark, so return without doing anything.
 		if (kryptonCheckedListBoxElements.Items.Count == 0)
 		{
+			logger.Warn(message: "Unmark All clicked with no items in the checked list box. No action will be taken.");
 			return;
 		}
 		// If all items in the checked list box are already unchecked, there is no need to unmark them again, so return without doing anything.
 		if (kryptonCheckedListBoxElements.CheckedItems.Count == 0)
 		{
+			logger.Warn(message: "Unmark All clicked but all items are already unchecked. No action will be taken.");
 			return;
 		}
 		// Iterate through all items in the checked list box and set their checked state to false
@@ -525,8 +540,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>When the user clicks the "Go To Object" toolbar button, this event handler is triggered. It calls the GoToObject method with the parameter closeAfterNavigation set to true, which navigates to the selected object in the main application form and then closes the search form.</remarks>
-	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e)
-		=> GoToObject(closeAfterNavigation: true);
+	private void ToolStripButtonGoToObject_Click(object sender, EventArgs e) => GoToObject(closeAfterNavigation: true);
 
 	#endregion
 
@@ -551,6 +565,7 @@ public partial class SearchForm : BaseKryptonForm
 		// If there are no items, do not attempt to sort
 		if (listViewResults.VirtualListSize == 0)
 		{
+			logger.Warn(message: "Column clicked but there are no items to sort. No action will be taken.");
 			return;
 		}
 		// Determine the new sort order based on the clicked column
@@ -634,8 +649,7 @@ public partial class SearchForm : BaseKryptonForm
 	/// <param name="sender">The source of the event, typically the ListView.</param>
 	/// <param name="e">The event data associated with the selection change.</param>
 	/// <remarks>Enables or disables the Go To Object toolbar button based on whether an item is currently selected in the list view.</remarks>
-	private void ListViewResults_SelectedIndexChanged(object? sender, EventArgs e)
-		=> toolStripButtonGoToObject.Enabled = listViewResults.SelectedIndices.Count > 0;
+	private void ListViewResults_SelectedIndexChanged(object? sender, EventArgs e) => toolStripButtonGoToObject.Enabled = listViewResults.SelectedIndices.Count > 0;
 
 	#endregion
 
@@ -660,6 +674,7 @@ public partial class SearchForm : BaseKryptonForm
 			else
 			{
 				// If the index is out of range, return without setting the item. This should not happen if VirtualListSize is managed correctly, as it should reflect the number of items in _searchResults.
+				logger.Warn(message: "RetrieveVirtualItem called with an invalid item index {Index}. No action will be taken.", argument: e.ItemIndex);
 				return;
 			}
 		}
@@ -684,6 +699,7 @@ public partial class SearchForm : BaseKryptonForm
 			SearchResult result = _searchResults[index: index];
 			return new ListViewItem(items: [result.Index.ToString(), result.Designation, result.Element, result.Value]);
 		}
+		logger.Warn(message: "GetVirtualListViewItem called with an invalid item index {Index}. Returning an empty ListViewItem.", argument: index);
 		return new ListViewItem();
 	}
 

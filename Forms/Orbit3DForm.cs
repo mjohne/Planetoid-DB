@@ -265,19 +265,15 @@ public partial class Orbit3DForm : BaseKryptonForm
 		double ecc = e;
 		double mRad = mDeg * Math.PI / 180.0;
 		double bigE = SolveKepler(meanAnomalyRad: mRad, eccentricity: ecc);
-
 		// True anomaly ν via atan2
 		double nu = 2.0 * Math.Atan2(
 			y: Math.Sqrt(d: 1.0 + ecc) * Math.Sin(a: bigE / 2.0),
 			x: Math.Sqrt(d: 1.0 - ecc) * Math.Cos(d: bigE / 2.0));
-
 		// Heliocentric distance
 		double r = a * (1.0 - (ecc * Math.Cos(d: bigE)));
-
 		// Position in orbital plane (perifocal frame)
 		double xOrbital = r * Math.Cos(d: nu);
 		double yOrbital = r * Math.Sin(a: nu);
-
 		// Pre-compute trig values for the three Euler angles
 		double iRad = iDeg * Math.PI / 180.0;
 		double omRad = omDeg * Math.PI / 180.0;
@@ -288,7 +284,6 @@ public partial class Orbit3DForm : BaseKryptonForm
 		double sinI = Math.Sin(a: iRad);
 		double cosPeri = Math.Cos(d: periRad);
 		double sinPeri = Math.Sin(a: periRad);
-
 		// Rotation matrix: R = Rz(Ω) · Rx(i) · Rz(ω)
 		// Applied to (xOrbital, yOrbital, 0)
 		double x = (((cosOm * cosPeri) - (sinOm * sinPeri * cosI)) * xOrbital)
@@ -297,7 +292,7 @@ public partial class Orbit3DForm : BaseKryptonForm
 				 + (((-sinOm * sinPeri) + (cosOm * cosPeri * cosI)) * yOrbital);
 		double z = (sinPeri * sinI * xOrbital)
 				 + (cosPeri * sinI * yOrbital);
-
+		// Return the heliocentric ecliptic coordinates in AU
 		return (x, y, z);
 	}
 
@@ -413,8 +408,7 @@ public partial class Orbit3DForm : BaseKryptonForm
 	/// <param name="ey">Ecliptic Y in AU.</param>
 	/// <param name="ez">Ecliptic Z in AU (positive = above ecliptic plane).</param>
 	/// <returns>OpenGL (glX, glY, glZ) floats.</returns>
-	private static (float Gx, float Gy, float Gz) EclToGl(double ex, double ey, double ez)
-		=> ((float)ex, (float)ez, (float)-ey);
+	private static (float Gx, float Gy, float Gz) EclToGl(double ex, double ey, double ez) => ((float)ex, (float)ez, (float)-ey);
 
 	// ---- OpenGL rendering ----
 
@@ -458,6 +452,7 @@ public partial class Orbit3DForm : BaseKryptonForm
 	{
 		if (!_glReady)
 		{
+			logger.Error(message: "OpenGL context is not ready; skipping render.");
 			return;
 		}
 		_glControl.MakeCurrent();
@@ -562,7 +557,6 @@ public partial class Orbit3DForm : BaseKryptonForm
 		}
 		GL.End();
 		GL.LineWidth(width: 1f);
-
 		// --- Pass 2: semi-transparent shadow on ecliptic plane for below-ecliptic segments ---
 		// Render each below-ecliptic orbit segment as a quad connecting the orbit arc to the ecliptic plane.
 		// Using GL_QUADS instead of TriangleStrip to avoid artefacts from skipped above-ecliptic vertices.
@@ -720,7 +714,7 @@ public partial class Orbit3DForm : BaseKryptonForm
 		}
 		catch (Exception ex)
 		{
-			logger.Error(message: "Orbit3DForm: failed to initialize OpenGL context for '{0}': {1}", args: [_planetoidName, ex]);
+			logger.Error(exception: ex, message: "Orbit3DForm: failed to initialize OpenGL context for '{0}': {1}", args: [_planetoidName, ex]);
 			ShowErrorMessage(message: $"Failed to initialize 3D rendering: {ex.Message}");
 		}
 	}
@@ -743,6 +737,7 @@ public partial class Orbit3DForm : BaseKryptonForm
 	{
 		if (!_glReady)
 		{
+			logger.Error(message: "OpenGL context is not ready; skipping resize handling.");
 			return;
 		}
 		_glControl.MakeCurrent();

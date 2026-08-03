@@ -71,6 +71,7 @@ public partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 		// Lines must be at least 7 characters to hold the packed index
 		if (line.Length < 7)
 		{
+			logger.Warn(message: $"Line too short to extract designation: '{line}'");
 			return null;
 		}
 		// Prefer the full readable designation (positions 166-193)
@@ -110,30 +111,40 @@ public partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 		// Lines shorter than 103 characters do not contain all required fields
 		if (line.Length < 103)
 		{
+			logger.Warn(message: $"Line too short to parse orbital elements: '{line}'");
 			return false;
 		}
 		// Semi-major axis: positions 92-102
 		if (!double.TryParse(s: line.Substring(startIndex: 92, length: 11).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out semiMajorAxis) || semiMajorAxis <= 0)
 		{
+			logger.Warn(message: $"Failed to parse semi-major axis: '{line.Substring(startIndex: 92, length: 11).Trim()}'");
 			return false;
 		}
 		// Eccentricity: positions 70-78
 		if (!double.TryParse(s: line.Substring(startIndex: 70, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out eccentricity))
 		{
+			logger.Warn(message: $"Failed to parse eccentricity: '{line.Substring(startIndex: 70, length: 9).Trim()}'");
 			return false;
 		}
 		// Inclination: positions 59-67
 		if (!double.TryParse(s: line.Substring(startIndex: 59, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out inclinationDeg))
 		{
+			logger.Warn(message: $"Failed to parse inclination: '{line.Substring(startIndex: 59, length: 9).Trim()}'");
 			return false;
 		}
 		// Longitude of ascending node: positions 48-56
 		if (!double.TryParse(s: line.Substring(startIndex: 48, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out longitudeAscendingNodeDeg))
 		{
+			logger.Warn(message: $"Failed to parse longitude of ascending node: '{line.Substring(startIndex: 48, length: 9).Trim()}'");
 			return false;
 		}
 		// Argument of perihelion: positions 37-45
-		return double.TryParse(s: line.Substring(startIndex: 37, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out argumentPerihelionDeg);
+		if (!double.TryParse(s: line.Substring(startIndex: 37, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out argumentPerihelionDeg))
+		{
+			logger.Warn(message: $"Failed to parse argument of perihelion: '{line.Substring(startIndex: 37, length: 9).Trim()}'");
+			return false;
+		}
+		return true;
 	}
 
 	/// <summary>Finds the raw MPCORB record line whose designation matches the given name.</summary>
@@ -150,6 +161,7 @@ public partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 				return line;
 			}
 		}
+		logger.Warn(message: $"No matching line found for designation: '{name}'");
 		return null;
 	}
 
@@ -210,7 +222,7 @@ public partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 		}
 		catch (Exception ex)
 		{
-			logger.Error(message: $"Error calculating MAXOID between '{name1}' and '{name2}': {ex}");
+			logger.Error(exception: ex, message: $"Error calculating MAXOID between '{name1}' and '{name2}': {ex}");
 			kryptonLabelMaxoidValue.Text = "-";
 		}
 	}
@@ -238,6 +250,10 @@ public partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 			comboBox.Text = text;
 			comboBox.SelectionStart = text.Length;
 			comboBox.SelectionLength = 0;
+		}
+		catch (Exception ex)
+		{
+			logger.Error(exception: ex, message: $"Error applying filter to combo box: {ex}");
 		}
 		finally
 		{
@@ -275,7 +291,7 @@ public partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 		}
 		catch (Exception ex)
 		{
-			logger.Error(message: $"Error loading planetoid names: {ex}");
+			logger.Error(exception: ex, message: $"Error loading planetoid names: {ex}");
 			ShowErrorMessage(message: $"Error loading planetoid names: {ex.Message}");
 		}
 	}
@@ -296,8 +312,15 @@ public partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>This method is triggered whenever the text in the first combo box changes. It applies a filter to the items in the combo box so that only names containing the current text (case-insensitive) are shown. The cursor is repositioned at the end of the typed text after the update. If both combo boxes contain valid designations after filtering, the MAXOID is recalculated.</remarks>
 	private void ComboBoxPlanetoid1_TextChanged(object sender, EventArgs e)
 	{
-		ApplyContainsFilter(comboBox: comboBoxPlanetoid1);
-		RecalculateMaxoidIfBothPlanetoidsAreValid();
+		try
+		{
+			ApplyContainsFilter(comboBox: comboBoxPlanetoid1);
+			RecalculateMaxoidIfBothPlanetoidsAreValid();
+		}
+		catch (Exception ex)
+		{
+			logger.Error(exception: ex, message: $"Error handling TextChanged event for ComboBoxPlanetoid1: {ex}");
+		}
 	}
 
 	/// <summary>Handles the TextChanged event for the second combo box. Applies a contains-based filter to the second combo box items.</summary>
@@ -306,8 +329,15 @@ public partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>This method is triggered whenever the text in the second combo box changes. It applies a filter to the items in the combo box so that only names containing the current text (case-insensitive) are shown. The cursor is repositioned at the end of the typed text after the update. If both combo boxes contain valid designations after filtering, the MAXOID is recalculated.</remarks>
 	private void ComboBoxPlanetoid2_TextChanged(object sender, EventArgs e)
 	{
-		ApplyContainsFilter(comboBox: comboBoxPlanetoid2);
-		RecalculateMaxoidIfBothPlanetoidsAreValid();
+		try
+		{
+			ApplyContainsFilter(comboBox: comboBoxPlanetoid2);
+			RecalculateMaxoidIfBothPlanetoidsAreValid();
+		}
+		catch (Exception ex)
+		{
+			logger.Error(exception: ex, message: $"Error handling TextChanged event for ComboBoxPlanetoid2: {ex}");
+		}
 	}
 
 	/// <summary>Handles the Click event of the random-selection button for the first combo box. Picks a random entry from the first combo box and triggers a MAXOID recalculation.</summary>
@@ -323,6 +353,10 @@ public partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 			comboBoxPlanetoid1.Text = _allNames[index];
 			CalculateAndDisplayMaxoid();
 		}
+		else
+		{
+			logger.Warn(message: "Random selection attempted with empty planetoid list.");
+		}
 	}
 
 	/// <summary>Handles the Click event of the random-selection button for the second combo box. Picks a random entry from the second combo box and triggers a MAXOID recalculation.</summary>
@@ -337,6 +371,10 @@ public partial class MaxoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 			int index = random.Next(maxValue: _allNames.Length);
 			comboBoxPlanetoid2.Text = _allNames[index];
 			CalculateAndDisplayMaxoid();
+		}
+		else
+		{
+			logger.Warn(message: "Random selection attempted with empty planetoid list.");
 		}
 	}
 

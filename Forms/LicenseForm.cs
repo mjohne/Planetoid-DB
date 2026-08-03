@@ -106,16 +106,19 @@ public partial class LicenseForm : BaseKryptonForm
 		// Create a SaveFileDialog to prompt the user for a file location
 		if (saveFileDialog.ShowDialog(owner: this) != DialogResult.OK)
 		{
+			logger.Warn(message: "Save License operation was canceled by the user.");
 			return;
 		}
 		// Extract the LICENSE file from the embedded resources and copy it to the selected file location
 		try
 		{
 			await ExtractResourceAsync(nameSpace: resourceRootNamespace, destinationPath: saveFileDialog.FileName, resourceName: licenseResourceName);
+			logger.Info(message: "License saved successfully.");
 			_ = KryptonMessageBox.Show(owner: this, text: "License saved successfully.", caption: "Success", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 		}
 		catch (Exception ex)
 		{
+			logger.Error(ex, message: "Error saving license.");
 			ShowErrorMessage(message: $"Error saving license: {ex.Message}");
 		}
 	}
@@ -124,9 +127,12 @@ public partial class LicenseForm : BaseKryptonForm
 	/// <param name="sender">Event source (the copy button).</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to copy the license text to the clipboard.</remarks>
-	private void KryptonButtonCopyLicenseToClipboard_Click(object sender, EventArgs e) =>
+	private void KryptonButtonCopyLicenseToClipboard_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Copy License to Clipboard button clicked.");
 		// Copy the text from the KryptonTextBox to the clipboard
 		CopyToClipboard(text: kryptonTextBoxLicense.Text);
+	}
 
 	#endregion
 }

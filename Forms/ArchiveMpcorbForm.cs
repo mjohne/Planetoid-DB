@@ -113,6 +113,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		string directory = Path.GetDirectoryName(path: kryptonTextBoxTarget.Text) ?? string.Empty;
 		if (string.IsNullOrWhiteSpace(value: directory))
 		{
+			logger.Debug(message: "Target directory is empty, using source file's directory.");
 			directory = Path.GetDirectoryName(path: kryptonTextBoxSource.Text) ?? string.Empty;
 		}
 		// Construct the new target file path using the directory, timestamp, and selected extension, and update the target text box
@@ -137,6 +138,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 			string uriString = Settings.Default.systemMpcorbDatGzUrl;
 			if (string.IsNullOrEmpty(value: uriString))
 			{
+				logger.Warn(message: "MPCORB.DAT.gz URL is not set in settings. Using default URL.");
 				uriString = "https://www.minorplanetcenter.org/iau/MPCORB/MPCORB.DAT.gz";
 			}
 			// Create an HTTP HEAD request to the specified URL
@@ -177,12 +179,10 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		long totalRead = 0;
 		// Read from the source stream until there are no more bytes to read
 		int read;
-
 		// Initialize the last report time to zero and set the report interval to 100 milliseconds
 		long lastReportTime = 0;
 		// Set the report interval to 100 milliseconds to control how often progress updates are sent to the UI
 		const int reportIntervalMs = 100;
-
 		// Loop to read data from the source stream in chunks
 		while ((read = await source.ReadAsync(buffer, cancellationToken: token)) > 0)
 		{
@@ -237,13 +237,13 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 							TaskbarProgress.SetValue(windowHandle: Handle, progressValue: (ulong)currentProgress, progressMax: 100);
 						}));
 					}
-					catch (ObjectDisposedException)
+					catch (ObjectDisposedException ex)
 					{
-						// The form or its handle has been disposed; ignore further UI updates.
+						logger.Warn(exception: ex, message: "ObjectDisposedException occurred while updating UI.");
 					}
-					catch (InvalidOperationException)
+					catch (InvalidOperationException ex)
 					{
-						// The form is not in a valid state for UI updates; ignore this progress update.
+						logger.Warn(exception: ex, message: "InvalidOperationException occurred while updating UI.");
 					}
 				}
 			}
@@ -275,6 +275,10 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		{
 			// Set the default path in the source textbox
 			kryptonTextBoxSource.Text = Path.GetFullPath(path: defaultPath);
+		}
+		else
+		{
+			logger.Warn(message: "Default MPCORB.DAT file not found.");
 		}
 		// Update status label to indicate that the online date is being checked
 		labelInformation.Text = "Checking online date...";
@@ -308,6 +312,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 	/// <remarks>This method opens a file dialog for the user to select a source file. If the current text in the source textbox is a valid file path, it will be pre-selected in the dialog. Once the user selects a file and confirms, the selected file path is set in the source textbox.</remarks>
 	private void KryptonButtonBrowseSource_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Browse Source button clicked.");
 		// Create and configure an OpenFileDialog to allow the user to select a source file
 		using OpenFileDialog openFileDialog = new()
 		{
@@ -318,9 +323,14 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		{
 			openFileDialog.FileName = kryptonTextBoxSource.Text;
 		}
+		else
+		{
+			logger.Warn(message: "Source file does not exist. Showing open file dialog.");
+		}
 		// Show the file dialog and if the user selects a file and clicks OK, set the selected file path in the source textbox
 		if (openFileDialog.ShowDialog(owner: this) == DialogResult.OK)
 		{
+			logger.Debug(message: $"Selected source file: {openFileDialog.FileName}");
 			kryptonTextBoxSource.Text = openFileDialog.FileName;
 		}
 	}
@@ -331,6 +341,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 	/// <remarks>This event handler uses a SaveFileDialog to allow the user to select a target file path for the archive. The selected path is then displayed in the corresponding text box.</remarks>
 	private void KryptonButtonBrowseTarget_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Browse Target button clicked.");
 		// Create and configure a SaveFileDialog to allow the user to select a target file path for the archive
 		using SaveFileDialog saveFileDialog = new()
 		{
@@ -342,6 +353,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		// Show the save file dialog and if the user does not select a file and click OK, leave the existing target path unchanged
 		if (saveFileDialog.ShowDialog(owner: this) == DialogResult.OK)
 		{
+			logger.Debug(message: $"Selected target file: {saveFileDialog.FileName}");
 			kryptonTextBoxTarget.Text = saveFileDialog.FileName;
 		}
 	}
@@ -352,9 +364,11 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 	/// <param name="e">An EventArgs instance containing data related to the click event.</param>
 	private async void ToolStripButtonArchive_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Archive button clicked.");
 		// If a cancellation token source already exists, it means an archiving operation is in progress, so we cancel it and return
 		if (cancellationTokenSource != null)
 		{
+			logger.Info(message: "Archiving operation is in progress. Cancelling the operation.");
 			cancellationTokenSource.Cancel();
 			return;
 		}
@@ -362,12 +376,14 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 		string sourceFile = kryptonTextBoxSource.Text;
 		if (!File.Exists(path: sourceFile))
 		{
+			logger.Warn(message: $"Source file not found: {sourceFile}");
 			ShowErrorMessage(message: "Source file not found.");
 			return;
 		}
 		// Try to parse the selected compression level string into a CompressionLevel enum value. If parsing fails, default to CompressionLevel.Optimal
 		if (!Enum.TryParse(value: compressionString, result: out CompressionLevel compressionLevel))
 		{
+			logger.Warn(message: $"Invalid compression level: {compressionString}. Defaulting to CompressionLevel.Optimal.");
 			compressionLevel = CompressionLevel.Optimal;
 		}
 		// Get the target file path from the save file dialog
@@ -433,8 +449,9 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 			KryptonMessageBox.Show(owner: this, text: "Archiving completed successfully.", caption: "Success", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 		}
 		// Catch an OperationCanceledException to handle the case where the archiving process was cancelled by the user. Update the status label and attempt to delete the partially created target file if it exists
-		catch (OperationCanceledException)
+		catch (OperationCanceledException CancelEx)
 		{
+			logger.Warn(exception: CancelEx, message: "Archiving operation was cancelled by the user.");
 			labelInformation.Text = "Archiving cancelled.";
 			// Give Streams time to release locks before trying to delete
 			await Task.Delay(millisecondsDelay: 100);
@@ -482,6 +499,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 	/// <param name="e">An EventArgs instance containing data related to the click event.</param>
 	private void ToolStripMenuItemFormatZip_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Zip format selected.");
 		// Uncheck the other format options when the "Zip" menu item is clicked
 		toolStripMenuItemFormatGzip.Checked = false;
 		toolStripMenuItemFormatBrotli.Checked = false;
@@ -497,6 +515,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 	/// <param name="e">An EventArgs instance containing data related to the click event.</param>
 	private void ToolStripMenuItemFormatGzip_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "GZip format selected.");
 		// Uncheck the other format options when the "GZip" menu item is clicked
 		toolStripMenuItemFormatZip.Checked = false;
 		toolStripMenuItemFormatBrotli.Checked = false;
@@ -512,6 +531,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 	/// <param name="e">An EventArgs instance containing data related to the click event.</param>
 	private void ToolStripMenuItemFormatBrotli_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Brotli format selected.");
 		// Uncheck the other format options when the "Brotli" menu item is clicked
 		toolStripMenuItemFormatZip.Checked = false;
 		toolStripMenuItemFormatGzip.Checked = false;
@@ -527,6 +547,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 	/// <param name="e">An EventArgs instance containing data related to the click event.</param>
 	private void ToolStripMenuItemCompressionOptimal_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Optimal compression level selected.");
 		// Uncheck the other compression level options when the "Optimal" menu item is clicked
 		toolStripMenuItemCompressionFastest.Checked = false;
 		toolStripMenuItemCompressionNo.Checked = false;
@@ -541,6 +562,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 	/// <param name="e">An EventArgs instance containing data related to the click event.</param>
 	private void ToolStripMenuItemCompressionFastest_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Fastest compression level selected.");
 		// Uncheck the other compression level options when the "Fastest" menu item is clicked
 		toolStripMenuItemCompressionOptimal.Checked = false;
 		toolStripMenuItemCompressionNo.Checked = false;
@@ -555,6 +577,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 	/// <param name="e">An EventArgs instance containing data related to the click event.</param>
 	private void ToolStripMenuItemCompressionNo_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "No compression level selected.");
 		// Uncheck the other compression level options when the "No" menu item is clicked
 		toolStripMenuItemCompressionOptimal.Checked = false;
 		toolStripMenuItemCompressionFastest.Checked = false;
@@ -569,6 +592,7 @@ public partial class ArchiveMpcorbForm : BaseKryptonForm
 	/// <param name="e">An EventArgs instance containing data related to the click event.</param>
 	private void ToolStripMenuItemCompressionSmallestSize_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "SmallestSize compression level selected.");
 		// Uncheck the other compression level options when the "SmallestSize" menu item is clicked
 		toolStripMenuItemCompressionOptimal.Checked = false;
 		toolStripMenuItemCompressionFastest.Checked = false;

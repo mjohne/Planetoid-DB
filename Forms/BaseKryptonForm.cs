@@ -119,6 +119,7 @@ public class BaseKryptonForm : KryptonForm
 		// Check if the status label is null
 		if (StatusLabel is null)
 		{
+			logger.Warn(message: "StatusLabel is null. Cannot set status bar text.");
 			return;
 		}
 		// Get the accessible description based on the sender type
@@ -132,6 +133,10 @@ public class BaseKryptonForm : KryptonForm
 		if (description != null)
 		{
 			SetStatusBar(label: StatusLabel, text: description);
+		}
+		else
+		{
+			logger.Warn(message: "AccessibleDescription is null. Cannot set status bar text.");
 		}
 	}
 
@@ -147,6 +152,10 @@ public class BaseKryptonForm : KryptonForm
 		{
 			// Clear the status bar text
 			ClearStatusBar(label: StatusLabel);
+		}
+		else
+		{
+			logger.Warn(message: "StatusLabel is null. Cannot clear status bar text.");
 		}
 	}
 
@@ -308,6 +317,7 @@ public class BaseKryptonForm : KryptonForm
 		// Prepare and show the save dialog; if the user cancels, return without performing the export
 		if (!PrepareSaveDialog(dialog: saveFileDialog, ext: defaultExt))
 		{
+			logger.Warn(message: "User cancelled the save dialog.");
 			return;
 		}
 		try
@@ -325,6 +335,10 @@ public class BaseKryptonForm : KryptonForm
 			else if (ExportTextBox is not null && textBoxAction is not null)
 			{
 				textBoxAction(ExportTextBox, ExportTitle, saveFileDialog.FileName);
+			}
+			else
+			{
+				logger.Warn(message: "No export control is configured. Export operation cannot proceed.");
 			}
 		}
 		catch (Exception ex)
@@ -347,232 +361,330 @@ public class BaseKryptonForm : KryptonForm
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with text-specific parameters.</remarks>
 	protected void SaveAsText_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "Text Files (*.txt)|*.txt|All Files (*.*)|*.*", defaultExt: "txt", dialogTitle: "Save as Text", listViewAction: ListViewExporter.SaveAsText, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsText, textBoxAction: TextBoxExporter.SaveAsText);
+	{
+		logger.Info(message: "Initiating export to text file.");
+		PerformSaveExport(filter: "Text Files (*.txt)|*.txt|All Files (*.*)|*.*", defaultExt: "txt", dialogTitle: "Save as Text", listViewAction: ListViewExporter.SaveAsText, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsText, textBoxAction: TextBoxExporter.SaveAsText);
+	}
 
 	/// <summary>Handles the Click event to export data as a LaTeX file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with LaTeX-specific parameters.</remarks>
 	protected void SaveAsLatex_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "LaTeX Files (*.tex)|*.tex|All Files (*.*)|*.*", defaultExt: "tex", dialogTitle: "Save as LaTeX", listViewAction: ListViewExporter.SaveAsLatex, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsLatex, textBoxAction: TextBoxExporter.SaveAsLatex);
+	{
+		logger.Info(message: "Initiating export to LaTeX file.");
+		PerformSaveExport(filter: "LaTeX Files (*.tex)|*.tex|All Files (*.*)|*.*", defaultExt: "tex", dialogTitle: "Save as LaTeX", listViewAction: ListViewExporter.SaveAsLatex, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsLatex, textBoxAction: TextBoxExporter.SaveAsLatex);
+	}
 
 	/// <summary>Handles the Click event to export data as a Markdown file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with Markdown-specific parameters.</remarks>
 	protected void SaveAsMarkdown_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "Markdown Files (*.md)|*.md|All Files (*.*)|*.*", defaultExt: "md", dialogTitle: "Save as Markdown", listViewAction: ListViewExporter.SaveAsMarkdown, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsMarkdown, textBoxAction: TextBoxExporter.SaveAsMarkdown);
+	{
+		logger.Info(message: "Initiating export to Markdown file.");
+		PerformSaveExport(filter: "Markdown Files (*.md)|*.md|All Files (*.*)|*.*", defaultExt: "md", dialogTitle: "Save as Markdown", listViewAction: ListViewExporter.SaveAsMarkdown, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsMarkdown, textBoxAction: TextBoxExporter.SaveAsMarkdown);
+	}
 
 	/// <summary>Handles the Click event to export data as an AsciiDoc file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with AsciiDoc-specific parameters.</remarks>
 	protected void SaveAsAsciiDoc_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "AsciiDoc Files (*.adoc)|*.adoc|All Files (*.*)|*.*", defaultExt: "adoc", dialogTitle: "Save as AsciiDoc", listViewAction: ListViewExporter.SaveAsAsciiDoc, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsAsciiDoc, textBoxAction: TextBoxExporter.SaveAsAsciiDoc);
+	{
+		logger.Info(message: "Initiating export to AsciiDoc file.");
+		PerformSaveExport(filter: "AsciiDoc Files (*.adoc)|*.adoc|All Files (*.*)|*.*", defaultExt: "adoc", dialogTitle: "Save as AsciiDoc", listViewAction: ListViewExporter.SaveAsAsciiDoc, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsAsciiDoc, textBoxAction: TextBoxExporter.SaveAsAsciiDoc);
+	}
 
 	/// <summary>Handles the Click event to export data as a reStructuredText file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with reStructuredText-specific parameters.</remarks>
 	protected void SaveAsReStructuredText_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "reStructuredText Files (*.rst)|*.rst|All Files (*.*)|*.*", defaultExt: "rst", dialogTitle: "Save as reStructuredText", listViewAction: ListViewExporter.SaveAsReStructuredText, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsReStructuredText, textBoxAction: TextBoxExporter.SaveAsReStructuredText);
+	{
+		logger.Info(message: "Initiating export to reStructuredText file.");
+		PerformSaveExport(filter: "reStructuredText Files (*.rst)|*.rst|All Files (*.*)|*.*", defaultExt: "rst", dialogTitle: "Save as reStructuredText", listViewAction: ListViewExporter.SaveAsReStructuredText, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsReStructuredText, textBoxAction: TextBoxExporter.SaveAsReStructuredText);
+	}
 
 	/// <summary>Handles the Click event to export data as a Textile file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with Textile-specific parameters.</remarks>
 	protected void SaveAsTextile_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "Textile Files (*.textile)|*.textile|All Files (*.*)|*.*", defaultExt: "textile", dialogTitle: "Save as Textile", listViewAction: ListViewExporter.SaveAsTextile, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsTextile, textBoxAction: TextBoxExporter.SaveAsTextile);
+	{
+		logger.Info(message: "Initiating export to Textile file.");
+		PerformSaveExport(filter: "Textile Files (*.textile)|*.textile|All Files (*.*)|*.*", defaultExt: "textile", dialogTitle: "Save as Textile", listViewAction: ListViewExporter.SaveAsTextile, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsTextile, textBoxAction: TextBoxExporter.SaveAsTextile);
+	}
 
 	/// <summary>Handles the Click event to export data as a Typst file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with Typst-specific parameters.</remarks>
 	protected void SaveAsTypst_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "Typst Files (*.typ)|*.typ|All Files (*.*)|*.*", defaultExt: "typ", dialogTitle: "Save as Typst", listViewAction: ListViewExporter.SaveAsTypst, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsTypst, textBoxAction: TextBoxExporter.SaveAsTypst);
-
+	{
+		logger.Info(message: "Initiating export to Typst file.");
+		PerformSaveExport(filter: "Typst Files (*.typ)|*.typ|All Files (*.*)|*.*", defaultExt: "typ", dialogTitle: "Save as Typst", listViewAction: ListViewExporter.SaveAsTypst, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsTypst, textBoxAction: TextBoxExporter.SaveAsTypst);
+	}
 
 	/// <summary>Handles the Click event to export data as a Word document.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with Word-specific parameters.</remarks>
 	protected void SaveAsWord_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "Word Documents (*.docx)|*.docx|All Files (*.*)|*.*", defaultExt: "docx", dialogTitle: "Save as Word", listViewAction: ListViewExporter.SaveAsWord, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsWord, textBoxAction: TextBoxExporter.SaveAsWord);
+	{
+		logger.Info(message: "Initiating export to Word file.");
+		PerformSaveExport(filter: "Word Documents (*.docx)|*.docx|All Files (*.*)|*.*", defaultExt: "docx", dialogTitle: "Save as Word", listViewAction: ListViewExporter.SaveAsWord, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsWord, textBoxAction: TextBoxExporter.SaveAsWord);
+	}
 
 	/// <summary>Handles the Click event to export data as an OpenDocument Text file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with ODT-specific parameters.</remarks>
 	protected void SaveAsOdt_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "OpenDocument Text Files (*.odt)|*.odt|All Files (*.*)|*.*", defaultExt: "odt", dialogTitle: "Save as OpenDocument Text", listViewAction: ListViewExporter.SaveAsOdt, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsOdt, textBoxAction: TextBoxExporter.SaveAsOdt);
+	{
+		logger.Info(message: "Initiating export to OpenDocument Text file.");
+		PerformSaveExport(filter: "OpenDocument Text Files (*.odt)|*.odt|All Files (*.*)|*.*", defaultExt: "odt", dialogTitle: "Save as OpenDocument Text", listViewAction: ListViewExporter.SaveAsOdt, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsOdt, textBoxAction: TextBoxExporter.SaveAsOdt);
+	}
 
 	/// <summary>Handles the Click event to export data as a Rich Text Format file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with RTF-specific parameters.</remarks>
 	protected void SaveAsRtf_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "Rich Text Format Files (*.rtf)|*.rtf|All Files (*.*)|*.*", defaultExt: "rtf", dialogTitle: "Save as RTF", listViewAction: ListViewExporter.SaveAsRtf, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsRtf, textBoxAction: TextBoxExporter.SaveAsRtf);
+	{
+		logger.Info(message: "Initiating export to Rich Text Format file.");
+		PerformSaveExport(filter: "Rich Text Format Files (*.rtf)|*.rtf|All Files (*.*)|*.*", defaultExt: "rtf", dialogTitle: "Save as RTF", listViewAction: ListViewExporter.SaveAsRtf, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsRtf, textBoxAction: TextBoxExporter.SaveAsRtf);
+	}
 
 	/// <summary>Handles the Click event to export data as an Abiword file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with Abiword-specific parameters.</remarks>
 	protected void SaveAsAbiword_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "Abiword Files (*.abw)|*.abw|All Files (*.*)|*.*", defaultExt: "abw", dialogTitle: "Save as Abiword", listViewAction: ListViewExporter.SaveAsAbiword, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsAbiword, textBoxAction: TextBoxExporter.SaveAsAbiword);
+	{
+		logger.Info(message: "Initiating export to Abiword file.");
+		PerformSaveExport(filter: "Abiword Files (*.abw)|*.abw|All Files (*.*)|*.*", defaultExt: "abw", dialogTitle: "Save as Abiword", listViewAction: ListViewExporter.SaveAsAbiword, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsAbiword, textBoxAction: TextBoxExporter.SaveAsAbiword);
+	}
 
 	/// <summary>Handles the Click event to export data as a WPS Writer file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with WPS-specific parameters.</remarks>
 	protected void SaveAsWps_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "WPS Writer Files (*.wps)|*.wps|All Files (*.*)|*.*", defaultExt: "wps", dialogTitle: "Save as WPS Writer", listViewAction: ListViewExporter.SaveAsWps, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsWps, textBoxAction: TextBoxExporter.SaveAsWps);
+	{
+		logger.Info(message: "Initiating export to WPS Writer file.");
+		PerformSaveExport(filter: "WPS Writer Files (*.wps)|*.wps|All Files (*.*)|*.*", defaultExt: "wps", dialogTitle: "Save as WPS Writer", listViewAction: ListViewExporter.SaveAsWps, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsWps, textBoxAction: TextBoxExporter.SaveAsWps);
+	}
 
 	/// <summary>Handles the Click event to export data as an Excel spreadsheet.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with Excel-specific parameters.</remarks>
 	protected void SaveAsExcel_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "Excel Spreadsheets (*.xlsx)|*.xlsx|All Files (*.*)|*.*", defaultExt: "xlsx", dialogTitle: "Save as Excel", listViewAction: ListViewExporter.SaveAsExcel, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsExcel, textBoxAction: TextBoxExporter.SaveAsExcel);
+	{
+		logger.Info(message: "Initiating export to Excel file.");
+		PerformSaveExport(filter: "Excel Spreadsheets (*.xlsx)|*.xlsx|All Files (*.*)|*.*", defaultExt: "xlsx", dialogTitle: "Save as Excel", listViewAction: ListViewExporter.SaveAsExcel, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsExcel, textBoxAction: TextBoxExporter.SaveAsExcel);
+	}
 
 	/// <summary>Handles the Click event to export data as an OpenDocument Spreadsheet file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with ODS-specific parameters.</remarks>
 	protected void SaveAsOds_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "OpenDocument Spreadsheet Files (*.ods)|*.ods|All Files (*.*)|*.*", defaultExt: "ods", dialogTitle: "Save as OpenDocument Spreadsheet", listViewAction: ListViewExporter.SaveAsOds, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsOds, textBoxAction: TextBoxExporter.SaveAsOds);
+	{
+		logger.Info(message: "Initiating export to OpenDocument Spreadsheet file.");
+		PerformSaveExport(filter: "OpenDocument Spreadsheet Files (*.ods)|*.ods|All Files (*.*)|*.*", defaultExt: "ods", dialogTitle: "Save as OpenDocument Spreadsheet", listViewAction: ListViewExporter.SaveAsOds, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsOds, textBoxAction: TextBoxExporter.SaveAsOds);
+	}
 
 	/// <summary>Handles the Click event to export data as a CSV file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with CSV-specific parameters.</remarks>
 	protected void SaveAsCsv_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "Comma-Separated Values (*.csv)|*.csv|All Files (*.*)|*.*", defaultExt: "csv", dialogTitle: "Save as CSV", listViewAction: ListViewExporter.SaveAsCsv, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsCsv, textBoxAction: TextBoxExporter.SaveAsCsv);
+	{
+		logger.Info(message: "Initiating export to CSV file.");
+		PerformSaveExport(filter: "Comma-Separated Values (*.csv)|*.csv|All Files (*.*)|*.*", defaultExt: "csv", dialogTitle: "Save as CSV", listViewAction: ListViewExporter.SaveAsCsv, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsCsv, textBoxAction: TextBoxExporter.SaveAsCsv);
+	}
 
 	/// <summary>Handles the Click event to export data as a TSV file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with TSV-specific parameters.</remarks>
 	protected void SaveAsTsv_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "Tab-Separated Values (*.tsv)|*.tsv|All Files (*.*)|*.*", defaultExt: "tsv", dialogTitle: "Save as TSV", listViewAction: ListViewExporter.SaveAsTsv, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsTsv, textBoxAction: TextBoxExporter.SaveAsTsv);
+	{
+		logger.Info(message: "Initiating export to TSV file.");
+		PerformSaveExport(filter: "Tab-Separated Values (*.tsv)|*.tsv|All Files (*.*)|*.*", defaultExt: "tsv", dialogTitle: "Save as TSV", listViewAction: ListViewExporter.SaveAsTsv, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsTsv, textBoxAction: TextBoxExporter.SaveAsTsv);
+	}
 
 	/// <summary>Handles the Click event to export data as a PSV file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with PSV-specific parameters.</remarks>
 	protected void SaveAsPsv_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "Pipe-Separated Values (*.psv)|*.psv|All Files (*.*)|*.*", defaultExt: "psv", dialogTitle: "Save as PSV", listViewAction: ListViewExporter.SaveAsPsv, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsPsv, textBoxAction: TextBoxExporter.SaveAsPsv);
+	{
+		logger.Info(message: "Initiating export to PSV file.");
+		PerformSaveExport(filter: "Pipe-Separated Values (*.psv)|*.psv|All Files (*.*)|*.*", defaultExt: "psv", dialogTitle: "Save as PSV", listViewAction: ListViewExporter.SaveAsPsv, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsPsv, textBoxAction: TextBoxExporter.SaveAsPsv);
+	}
 
 	/// <summary>Handles the Click event to export data as a WPS Spreadsheets (ET) file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with ET-specific parameters.</remarks>
 	protected void SaveAsEt_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "WPS Spreadsheets (*.et)|*.et|All Files (*.*)|*.*", defaultExt: "et", dialogTitle: "Save as WPS Spreadsheets", listViewAction: ListViewExporter.SaveAsEt, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsEt, textBoxAction: TextBoxExporter.SaveAsEt);
+	{
+		logger.Info(message: "Initiating export to WPS Spreadsheets file.");
+		PerformSaveExport(filter: "WPS Spreadsheets (*.et)|*.et|All Files (*.*)|*.*", defaultExt: "et", dialogTitle: "Save as WPS Spreadsheets", listViewAction: ListViewExporter.SaveAsEt, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsEt, textBoxAction: TextBoxExporter.SaveAsEt);
+	}
 
 	/// <summary>Handles the Click event to export data as an HTML file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with HTML-specific parameters.</remarks>
 	protected void SaveAsHtml_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "HTML Files (*.html)|*.html|All Files (*.*)|*.*", defaultExt: "html", dialogTitle: "Save as HTML", listViewAction: ListViewExporter.SaveAsHtml, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsHtml, textBoxAction: TextBoxExporter.SaveAsHtml);
+	{
+		logger.Info(message: "Initiating export to HTML file.");
+		PerformSaveExport(filter: "HTML Files (*.html)|*.html|All Files (*.*)|*.*", defaultExt: "html", dialogTitle: "Save as HTML", listViewAction: ListViewExporter.SaveAsHtml, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsHtml, textBoxAction: TextBoxExporter.SaveAsHtml);
+	}
 
 	/// <summary>Handles the Click event to export data as an XML file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with XML-specific parameters.</remarks>
 	protected void SaveAsXml_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "XML Files (*.xml)|*.xml|All Files (*.*)|*.*", defaultExt: "xml", dialogTitle: "Save as XML", listViewAction: ListViewExporter.SaveAsXml, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsXml, textBoxAction: TextBoxExporter.SaveAsXml);
+	{
+		logger.Info(message: "Initiating export to XML file.");
+		PerformSaveExport(filter: "XML Files (*.xml)|*.xml|All Files (*.*)|*.*", defaultExt: "xml", dialogTitle: "Save as XML", listViewAction: ListViewExporter.SaveAsXml, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsXml, textBoxAction: TextBoxExporter.SaveAsXml);
+	}
 
 	/// <summary>Handles the Click event to export data as a DocBook XML file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with DocBook-specific parameters.</remarks>
 	protected void SaveAsDocBook_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "DocBook Files (*.xml)|*.xml|All Files (*.*)|*.*", defaultExt: "xml", dialogTitle: "Save as DocBook", listViewAction: ListViewExporter.SaveAsDocBook, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsDocBook, textBoxAction: TextBoxExporter.SaveAsDocBook);
+	{
+		logger.Info(message: "Initiating export to DocBook XML file.");
+		PerformSaveExport(filter: "DocBook Files (*.xml)|*.xml|All Files (*.*)|*.*", defaultExt: "xml", dialogTitle: "Save as DocBook", listViewAction: ListViewExporter.SaveAsDocBook, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsDocBook, textBoxAction: TextBoxExporter.SaveAsDocBook);
+	}
 
 	/// <summary>Handles the Click event to export data as a JSON file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with JSON-specific parameters.</remarks>
 	protected void SaveAsJson_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "JSON Files (*.json)|*.json|All Files (*.*)|*.*", defaultExt: "json", dialogTitle: "Save as JSON", listViewAction: ListViewExporter.SaveAsJson, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsJson, textBoxAction: TextBoxExporter.SaveAsJson);
+	{
+		logger.Info(message: "Initiating export to JSON file.");
+		PerformSaveExport(filter: "JSON Files (*.json)|*.json|All Files (*.*)|*.*", defaultExt: "json", dialogTitle: "Save as JSON", listViewAction: ListViewExporter.SaveAsJson, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsJson, textBoxAction: TextBoxExporter.SaveAsJson);
+	}
 
 	/// <summary>Handles the Click event to export data as a YAML file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with YAML-specific parameters.</remarks>
 	protected void SaveAsYaml_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "YAML Files (*.yaml)|*.yaml|All Files (*.*)|*.*", defaultExt: "yaml", dialogTitle: "Save as YAML", listViewAction: ListViewExporter.SaveAsYaml, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsYaml, textBoxAction: TextBoxExporter.SaveAsYaml);
+	{
+		logger.Info(message: "Initiating export to YAML file.");
+		PerformSaveExport(filter: "YAML Files (*.yaml)|*.yaml|All Files (*.*)|*.*", defaultExt: "yaml", dialogTitle: "Save as YAML", listViewAction: ListViewExporter.SaveAsYaml, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsYaml, textBoxAction: TextBoxExporter.SaveAsYaml);
+	}
 
 	/// <summary>Handles the Click event to export data as a TOML file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with TOML-specific parameters.</remarks>
 	protected void SaveAsToml_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "TOML Files (*.toml)|*.toml|All Files (*.*)|*.*", defaultExt: "toml", dialogTitle: "Save as TOML", listViewAction: ListViewExporter.SaveAsToml, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsToml, textBoxAction: TextBoxExporter.SaveAsToml);
+	{
+		logger.Info(message: "Initiating export to TOML file.");
+		PerformSaveExport(filter: "TOML Files (*.toml)|*.toml|All Files (*.*)|*.*", defaultExt: "toml", dialogTitle: "Save as TOML", listViewAction: ListViewExporter.SaveAsToml, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsToml, textBoxAction: TextBoxExporter.SaveAsToml);
+	}
 
 	/// <summary>Handles the Click event to export data as a SQL script file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with SQL-specific parameters.</remarks>
 	protected void SaveAsSql_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "SQL Scripts (*.sql)|*.sql|All Files (*.*)|*.*", defaultExt: "sql", dialogTitle: "Save as SQL", listViewAction: ListViewExporter.SaveAsSql, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsSql, textBoxAction: TextBoxExporter.SaveAsSql);
+	{
+		logger.Info(message: "Initiating export to SQL file.");
+		PerformSaveExport(filter: "SQL Scripts (*.sql)|*.sql|All Files (*.*)|*.*", defaultExt: "sql", dialogTitle: "Save as SQL", listViewAction: ListViewExporter.SaveAsSql, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsSql, textBoxAction: TextBoxExporter.SaveAsSql);
+	}
 
 	/// <summary>Handles the Click event to export data as a SQLite database file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with SQLite-specific parameters.</remarks>
 	protected void SaveAsSqlite_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "SQLite Database Files (*.sqlite)|*.sqlite|All Files (*.*)|*.*", defaultExt: "sqlite", dialogTitle: "Save as SQLite", listViewAction: ListViewExporter.SaveAsSqlite, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsSqlite, textBoxAction: TextBoxExporter.SaveAsSqlite);
+	{
+		logger.Info(message: "Initiating export to SQLite file.");
+		PerformSaveExport(filter: "SQLite Database Files (*.sqlite)|*.sqlite|All Files (*.*)|*.*", defaultExt: "sqlite", dialogTitle: "Save as SQLite", listViewAction: ListViewExporter.SaveAsSqlite, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsSqlite, textBoxAction: TextBoxExporter.SaveAsSqlite);
+	}
 
 	/// <summary>Handles the Click event to export data as a PDF file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with PDF-specific parameters.</remarks>
 	protected void SaveAsPdf_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "PDF Files (*.pdf)|*.pdf|All Files (*.*)|*.*", defaultExt: "pdf", dialogTitle: "Save as PDF", listViewAction: ListViewExporter.SaveAsPdf, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsPdf, textBoxAction: TextBoxExporter.SaveAsPdf);
+	{
+		logger.Info(message: "Initiating export to PDF file.");
+		PerformSaveExport(filter: "PDF Files (*.pdf)|*.pdf|All Files (*.*)|*.*", defaultExt: "pdf", dialogTitle: "Save as PDF", listViewAction: ListViewExporter.SaveAsPdf, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsPdf, textBoxAction: TextBoxExporter.SaveAsPdf);
+	}
 
 	/// <summary>Handles the Click event to export data as a PostScript file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with PostScript-specific parameters.</remarks>
 	protected void SaveAsPostScript_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "PostScript Files (*.ps)|*.ps|All Files (*.*)|*.*", defaultExt: "ps", dialogTitle: "Save as PostScript", listViewAction: ListViewExporter.SaveAsPostScript, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsPostScript, textBoxAction: TextBoxExporter.SaveAsPostScript);
+	{
+		logger.Info(message: "Initiating export to PostScript file.");
+		PerformSaveExport(filter: "PostScript Files (*.ps)|*.ps|All Files (*.*)|*.*", defaultExt: "ps", dialogTitle: "Save as PostScript", listViewAction: ListViewExporter.SaveAsPostScript, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsPostScript, textBoxAction: TextBoxExporter.SaveAsPostScript);
+	}
 
 	/// <summary>Handles the Click event to export data as an EPUB file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with EPUB-specific parameters.</remarks>
 	protected void SaveAsEpub_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "EPUB Files (*.epub)|*.epub|All Files (*.*)|*.*", defaultExt: "epub", dialogTitle: "Save as EPUB", listViewAction: ListViewExporter.SaveAsEpub, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsEpub, textBoxAction: TextBoxExporter.SaveAsEpub);
+	{
+		logger.Info(message: "Initiating export to EPUB file.");
+		PerformSaveExport(filter: "EPUB Files (*.epub)|*.epub|All Files (*.*)|*.*", defaultExt: "epub", dialogTitle: "Save as EPUB", listViewAction: ListViewExporter.SaveAsEpub, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsEpub, textBoxAction: TextBoxExporter.SaveAsEpub);
+	}
 
 	/// <summary>Handles the Click event to export data as a MOBI file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with MOBI-specific parameters.</remarks>
 	protected void SaveAsMobi_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "MOBI Files (*.mobi)|*.mobi|All Files (*.*)|*.*", defaultExt: "mobi", dialogTitle: "Save as MOBI", listViewAction: ListViewExporter.SaveAsMobi, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsMobi, textBoxAction: TextBoxExporter.SaveAsMobi);
+	{
+		logger.Info(message: "Initiating export to MOBI file.");
+		PerformSaveExport(filter: "MOBI Files (*.mobi)|*.mobi|All Files (*.*)|*.*", defaultExt: "mobi", dialogTitle: "Save as MOBI", listViewAction: ListViewExporter.SaveAsMobi, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsMobi, textBoxAction: TextBoxExporter.SaveAsMobi);
+	}
 
 	/// <summary>Handles the Click event to export data as a FictionBook2 file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with FictionBook2-specific parameters.</remarks>
 	protected void SaveAsFictionBook2_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "FictionBook2 Files (*.fb2)|*.fb2|All Files (*.*)|*.*", defaultExt: "fb2", dialogTitle: "Save as FictionBook2", listViewAction: ListViewExporter.SaveAsFictionBook2, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsFictionBook2, textBoxAction: TextBoxExporter.SaveAsFictionBook2);
+	{
+		logger.Info(message: "Initiating export to FictionBook2 file.");
+		PerformSaveExport(filter: "FictionBook2 Files (*.fb2)|*.fb2|All Files (*.*)|*.*", defaultExt: "fb2", dialogTitle: "Save as FictionBook2", listViewAction: ListViewExporter.SaveAsFictionBook2, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsFictionBook2, textBoxAction: TextBoxExporter.SaveAsFictionBook2);
+	}
 
 	/// <summary>Handles the Click event to export data as a Compiled HTML Help (CHM) file.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with CHM-specific parameters.</remarks>
 	protected void SaveAsChm_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "Compiled HTML Help Files (*.chm)|*.chm|All Files (*.*)|*.*", defaultExt: "chm", dialogTitle: "Save as CHM", listViewAction: ListViewExporter.SaveAsChm, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsChm, textBoxAction: TextBoxExporter.SaveAsChm);
+	{
+		logger.Info(message: "Initiating export to CHM file.");
+		PerformSaveExport(filter: "Compiled HTML Help Files (*.chm)|*.chm|All Files (*.*)|*.*", defaultExt: "chm", dialogTitle: "Save as CHM", listViewAction: ListViewExporter.SaveAsChm, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsChm, textBoxAction: TextBoxExporter.SaveAsChm);
+	}
 
 	/// <summary>Handles the Click event to export data as an XPS document.</summary>
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Invokes <see cref="PerformSaveExport"/> with XPS-specific parameters.</remarks>
 	protected void SaveAsXps_Click(object? sender, EventArgs e)
-		=> PerformSaveExport(filter: "XPS Files (*.xps)|*.xps|All Files (*.*)|*.*", defaultExt: "xps", dialogTitle: "Save as XPS", listViewAction: ListViewExporter.SaveAsXps, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsXps, textBoxAction: TextBoxExporter.SaveAsXps);
+	{
+		logger.Info(message: "Initiating export to XPS file.");
+		PerformSaveExport(filter: "XPS Files (*.xps)|*.xps|All Files (*.*)|*.*", defaultExt: "xps", dialogTitle: "Save as XPS", listViewAction: ListViewExporter.SaveAsXps, tableLayoutPanelAction: TableLayoutPanelExporter.SaveAsXps, textBoxAction: TextBoxExporter.SaveAsXps);
+	}
 
 	#endregion
 }

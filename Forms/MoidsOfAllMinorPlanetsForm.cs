@@ -118,6 +118,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		// Ensure that an item is selected
 		if (listView.SelectedIndices.Count == 0)
 		{
+			logger.Warn(message: "No planetoid selected in the list view.");
 			return false;
 		}
 		// Get the index of the selected item
@@ -125,6 +126,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		// Validate the index against the results list
 		if (index < 0 || index >= _results.Count)
 		{
+			logger.Warn(message: $"Selected index {index} is out of bounds for results count {_results.Count}.");
 			return false;
 		}
 		// Retrieve the corresponding MoidRowResult for the selected index
@@ -132,6 +134,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		// If the Owner of this form is a PlanetoidDbForm, call its JumpToRecord method
 		if (Owner is PlanetoidDbForm planetoidDbForm)
 		{
+			logger.Info(message: $"Navigating to planetoid {result.PlanetoidName} in the main form.");
 			planetoidDbForm.JumpToRecord(index: result.PlanetoidName, designation: result.PlanetoidName);
 			return true;
 		}
@@ -167,31 +170,37 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		// Ensure the line is long enough to contain all required fields
 		if (line.Length < 103)
 		{
+			logger.Warn(message: $"Line is too short to parse: {line}");
 			return false;
 		}
 		// Extract and parse semi-major axis (positions 92-102)
 		if (!double.TryParse(line.Slice(start: 92, length: 11).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double semiMajorAxis) || semiMajorAxis <= 0)
 		{
+			logger.Warn(message: $"Invalid semi-major axis in line: {line}");
 			return false;
 		}
 		// Extract and parse eccentricity (positions 70-78)
 		if (!double.TryParse(line.Slice(start: 70, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double eccentricity))
 		{
+			logger.Warn(message: $"Invalid eccentricity in line: {line}");
 			return false;
 		}
 		// Extract and parse inclination (positions 59-67)
 		if (!double.TryParse(line.Slice(start: 59, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double inclinationDeg))
 		{
+			logger.Warn(message: $"Invalid inclination in line: {line}");
 			return false;
 		}
 		// Extract and parse longitude of ascending node (positions 48-56)
 		if (!double.TryParse(line.Slice(start: 48, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double longitudeAscendingNodeDeg))
 		{
+			logger.Warn(message: $"Invalid longitude of ascending node in line: {line}");
 			return false;
 		}
 		// Extract and parse argument of perihelion (positions 37-45)
 		if (!double.TryParse(line.Slice(start: 37, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double argumentPerihelionDeg))
 		{
+			logger.Warn(message: $"Invalid argument of perihelion in line: {line}");
 			return false;
 		}
 		// Extract designation span
@@ -199,6 +208,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		// Fallback to first 7 characters if the line is too short for the full designation
 		if (designationSpan.IsEmpty)
 		{
+			logger.Warn(message: $"Designation span is empty in line: {line}");
 			designationSpan = line[..7].Trim();
 		}
 		// Compute MOIDs for all eight planets using the extracted orbital elements
@@ -256,7 +266,11 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <param name="sender">Event source (the form).</param>
 	/// <param name="e">The <see cref="FormClosingEventArgs"/> instance containing the event data.</param>
 	/// <remarks>Cancels any running calculation when the form is closing.</remarks>
-	private void MoidsOfAllMinorPlanetsForm_FormClosing(object sender, FormClosingEventArgs e) => _cancellationTokenSource?.Cancel();
+	private void MoidsOfAllMinorPlanetsForm_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		logger.Info(message: "Form is closing. Cancelling any running calculation.");
+		_cancellationTokenSource?.Cancel();
+	}
 
 	#endregion
 
@@ -272,6 +286,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		if (e.ItemIndex < 0 || e.ItemIndex >= _results.Count)
 		{
 			// If the index is out of bounds, provide an empty ListViewItem to avoid exceptions
+			logger.Warn(message: $"Requested index {e.ItemIndex} is out of bounds for results count {_results.Count}.");
 			e.Item = new ListViewItem();
 			return;
 		}
@@ -301,7 +316,8 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		// Check if there are any planetoids to process
 		if (_planetoids.Count == 0)
 		{
-			// Show an informational message box if no planetoid data is available
+			// Log and show an informational message box if no planetoid data is available
+			logger.Warn(message: "No planetoid data available.");
 			_ = KryptonMessageBox.Show(owner: this, text: "No planetoid data available.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
@@ -378,9 +394,9 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 			_results = localResults;
 		}
 		// Handle cancellation gracefully
-		catch (OperationCanceledException)
+		catch (OperationCanceledException ex)
 		{
-			logger.Info(message: "MOID calculation cancelled by user.");
+			logger.Info(exception: ex, message: "MOID calculation cancelled by user.");
 		}
 		catch (Exception ex)
 		{
@@ -412,7 +428,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 			// Catch specific exceptions that may occur if the form is closing or disposed during the update
 			catch (Exception ex) when (ex is ObjectDisposedException or InvalidOperationException)
 			{
-				// Form closing cleanup
+				logger.Warn(exception: ex, message: "Exception occurred while updating the UI during form closing.");
 			}
 			// Dispose of the cancellation token source to free resources
 			finally
@@ -432,6 +448,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		// If a calculation is currently running, request cancellation and prevent repeated cancel clicks.
 		if (_cancellationTokenSource != null)
 		{
+			logger.Info(message: "User requested cancellation of the MOID calculation.");
 			_cancellationTokenSource.Cancel();
 			toolStripButtonCancel.Enabled = false;
 		}
@@ -446,6 +463,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		// Attempt to select the currently highlighted planetoid in the main form
 		if (SelectedPlanetoidInMainForm())
 		{
+			logger.Info(message: "Navigated to selected planetoid in main form. Closing MOID form.");
 			// If successful, close this form to return focus to the main form
 			Close();
 		}
@@ -464,6 +482,7 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		// If there are no results, do not attempt to sort
 		if (_results.Count == 0)
 		{
+			logger.Warn(message: "Column click ignored because there are no results to sort.");
 			return;
 		}
 		// Clear selection state so index mismatch doesn't occur after sorting
@@ -509,7 +528,11 @@ public partial class MoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>When an item is double-clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
-	private void ListView_DoubleClick(object sender, EventArgs e) => SelectedPlanetoidInMainForm();
+	private void ListView_DoubleClick(object sender, EventArgs e)
+	{
+		logger.Info(message: "ListView item double-clicked. Navigating to selected planetoid in main form.");
+		SelectedPlanetoidInMainForm();
+	}
 
 	#endregion
 }

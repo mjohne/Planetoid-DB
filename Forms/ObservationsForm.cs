@@ -220,7 +220,8 @@ public partial class ObservationsForm : BaseKryptonForm
 		// Validate that index data is provided before attempting to load observations
 		if (string.IsNullOrWhiteSpace(value: indexData))
 		{
-			// If no index data is provided, show an error message and return early
+			// If no index data is provided, log and show an error message and return early
+			logger.Error(message: "No object identifier was provided for loading observations.");
 			ShowErrorMessage(message: "No object identifier was provided.");
 			return;
 		}
@@ -361,7 +362,8 @@ public partial class ObservationsForm : BaseKryptonForm
 			// If no observations were found, show an information message box indicating that
 			else
 			{
-				// Show a message box indicating that no observations were found
+				// Log and show a message box indicating that no observations were found
+				logger.Info(message: "No observations found.");
 				_ = KryptonMessageBox.Show(owner: this, text: "No observations found.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			}
 			// Update the status bar with the count of loaded observations
@@ -393,6 +395,7 @@ public partial class ObservationsForm : BaseKryptonForm
 		// If the start index is beyond the end of the string, return an empty string
 		if (startIndex >= value.Length)
 		{
+			logger.Warn(message: $"SafeSubstring: startIndex {startIndex} is beyond the end of the string (length {value.Length}). Returning empty string.");
 			return string.Empty;
 		}
 		// Calculate the available length to extract, ensuring we don't go past the end of the string
@@ -452,6 +455,7 @@ public partial class ObservationsForm : BaseKryptonForm
 		// If there are no items in the ListView, do not attempt to sort
 		if (listView.Items.Count == 0)
 		{
+			logger.Warn(message: "ListView_ColumnClick: No items to sort.");
 			return;
 		}
 		// Determine the new sort order based on whether the same column was clicked again or a different column was selected
@@ -498,9 +502,12 @@ public partial class ObservationsForm : BaseKryptonForm
 	/// <param name="sender">The source of the event, typically the Reload button.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>When the Reload button is clicked, this event handler clears the status bar and initiates the loading of observatory codes by calling the LoadObservatoryCodes method.</remarks>
-	private void ToolStripButtonReload_Click(object sender, EventArgs e) =>
+	private void ToolStripButtonReload_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Reloading observatory codes.");
 		// Clear the status bar and load the observatory codes when the form loads
 		LoadObservatoryCodes();
+	}
 
 	/// <summary>Handles the Click event of the Observatory Codes button to open the <see cref="ObservatoryCodesForm"/>.</summary>
 	/// <param name="sender">The source of the event, typically the Observatory Codes button.</param>
@@ -508,6 +515,7 @@ public partial class ObservationsForm : BaseKryptonForm
 	/// <remarks>Opens the <see cref="ObservatoryCodesForm"/> as a modal dialog to display the list of observatory codes.</remarks>
 	private void ToolStripButtonObservatoryCodes_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Opening ObservatoryCodesForm.");
 		// Open the ObservatoryCodesForm as a modal dialog to display the list of observatory codes. The form is set to be topmost based on the current state of the main form to ensure it appears above other windows.
 		using ObservatoryCodesForm formObservatoryCodes = new();
 		formObservatoryCodes.TopMost = TopMost;

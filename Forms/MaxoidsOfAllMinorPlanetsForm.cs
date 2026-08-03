@@ -111,17 +111,20 @@ public partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		// Ensure that an item is selected
 		if (listView.SelectedIndices.Count == 0)
 		{
+			logger.Warn(message: "No planetoid selected in the list view.");
 			return false;
 		}
 		int index = listView.SelectedIndices[index: 0];
 		if (index < 0 || index >= _results.Count)
 		{
+			logger.Warn(message: $"Invalid selected index {index}.");
 			return false;
 		}
 		MaxoidRowResult result = _results[index];
 		// If the Owner of this form is a PlanetoidDbForm, call its JumpToRecord method
 		if (Owner is PlanetoidDbForm planetoidDbForm)
 		{
+			logger.Info(message: $"Navigating to planetoid record: {result.PlanetoidName}");
 			planetoidDbForm.JumpToRecord(index: result.PlanetoidName, designation: result.PlanetoidName);
 			return true;
 		}
@@ -130,8 +133,12 @@ public partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 
 	/// <summary>Updates the enabled state of the "Go to object" button.</summary>
 	/// <remarks>The button is enabled only when a result row is selected.</remarks>
-	private void UpdateGoToObjectButtonState() =>
-		toolStripButtonGoToObject.Enabled = listView.SelectedIndices.Count > 0;
+	private void UpdateGoToObjectButtonState()
+	{
+		bool enabled = listView.SelectedIndices.Count > 0;
+		toolStripButtonGoToObject.Enabled = enabled;
+		logger.Info(message: $"Go to object button enabled state updated to {enabled}.");
+	}
 
 	/// <summary>Updates the progress bar value and text label.</summary>
 	/// <param name="percent">Progress value from 0 to 100.</param>
@@ -154,36 +161,42 @@ public partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		// Validate the line length to ensure it contains the required orbital element fields
 		if (line.Length < 103)
 		{
+			logger.Warn(message: $"Skipping line due to insufficient length: {line}");
 			return;
 		}
 		// Extract and parse the semi-major axis (positions 92-102)
 		string semiMajorAxisText = line.Substring(startIndex: 92, length: 11).Trim();
 		if (!double.TryParse(s: semiMajorAxisText, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double semiMajorAxis) || semiMajorAxis <= 0)
 		{
+			logger.Warn(message: $"Skipping line due to invalid semi-major axis: {semiMajorAxisText}");
 			return;
 		}
 		// Extract and parse the eccentricity (positions 70-78)
 		string eccentricityText = line.Substring(startIndex: 70, length: 9).Trim();
 		if (!double.TryParse(s: eccentricityText, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double eccentricity))
 		{
+			logger.Warn(message: $"Skipping line due to invalid eccentricity: {eccentricityText}");
 			return;
 		}
 		// Extract and parse the inclination to the ecliptic (positions 59-67)
 		string inclinationText = line.Substring(startIndex: 59, length: 9).Trim();
 		if (!double.TryParse(s: inclinationText, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double inclinationDeg))
 		{
+			logger.Warn(message: $"Skipping line due to invalid inclination: {inclinationText}");
 			return;
 		}
 		// Extract and parse the longitude of the ascending node (positions 48-56)
 		string longitudeText = line.Substring(startIndex: 48, length: 9).Trim();
 		if (!double.TryParse(s: longitudeText, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double longitudeAscendingNodeDeg))
 		{
+			logger.Warn(message: $"Skipping line due to invalid longitude of ascending node: {longitudeText}");
 			return;
 		}
 		// Extract and parse the argument of perihelion (positions 37-45)
 		string argumentText = line.Substring(startIndex: 37, length: 9).Trim();
 		if (!double.TryParse(s: argumentText, style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out double argumentPerihelionDeg))
 		{
+			logger.Warn(message: $"Skipping line due to invalid argument of perihelion: {argumentText}");
 			return;
 		}
 		// Extract the designation (readable designation or packed designation)
@@ -242,6 +255,7 @@ public partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <remarks>Cancels any running calculation and disposes the cancellation token source when the form is closing.</remarks>
 	private void MaxoidsOfAllMinorPlanetsForm_FormClosing(object sender, FormClosingEventArgs e)
 	{
+		logger.Info(message: "Form is closing. Cancelling any running calculation.");
 		// If a calculation is currently running, signal cancellation and dispose of the token source
 		if (_cancellationTokenSource != null)
 		{
@@ -264,6 +278,7 @@ public partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		// Validate the requested index and return an empty item if it's out of range
 		if (e.ItemIndex < 0 || e.ItemIndex >= _results.Count)
 		{
+			logger.Warn(message: $"RetrieveVirtualItem called with out-of-range index {e.ItemIndex}. Returning empty item.");
 			e.Item = new ListViewItem();
 			return;
 		}
@@ -292,6 +307,7 @@ public partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	{
 		if (_planetoids.Count == 0)
 		{
+			logger.Warn(message: "No planetoid data available to process.");
 			_ = KryptonMessageBox.Show(owner: this, text: "No planetoid data available.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
@@ -333,9 +349,9 @@ public partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 			}, cancellationToken: token);
 		}
 		// Catch the OperationCanceledException to handle user cancellation gracefully
-		catch (OperationCanceledException)
+		catch (OperationCanceledException ex)
 		{
-			logger.Info(message: "MAXOID calculation cancelled by user.");
+			logger.Warn(exception: ex, message: "MAXOID calculation cancelled by user.");
 		}
 		// Catch any other exceptions that may occur during the calculation
 		catch (Exception ex)
@@ -361,13 +377,13 @@ public partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 				}
 			}
 			// Catch ObjectDisposedException and InvalidOperationException that may occur if the form is closing
-			catch (ObjectDisposedException)
+			catch (ObjectDisposedException ex)
 			{
-				// Ignore exceptions caused by controls being disposed during form shutdown.
+				logger.Warn(exception: ex, message: "ObjectDisposedException caught while updating UI after calculation.");
 			}
-			catch (InvalidOperationException)
+			catch (InvalidOperationException ex)
 			{
-				// Ignore exceptions related to invalid control state during form shutdown.
+				logger.Warn(exception: ex, message: "InvalidOperationException caught while updating UI after calculation.");
 			}
 			// Dispose of the cancellation token source to free resources
 			finally
@@ -387,6 +403,7 @@ public partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		// If a calculation is currently running, request cancellation and prevent repeated cancel clicks.
 		if (_cancellationTokenSource != null)
 		{
+			logger.Info(message: "Cancellation requested by user.");
 			_cancellationTokenSource.Cancel();
 			toolStripButtonCancel.Enabled = false;
 		}
@@ -400,6 +417,7 @@ public partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	{
 		if (SelectedPlanetoidInMainForm())
 		{
+			logger.Info(message: "Navigated to selected planetoid in main form. Closing MaxoidsOfAllMinorPlanetsForm.");
 			Close();
 		}
 	}
@@ -417,6 +435,7 @@ public partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 		// If there are no results to sort, exit the method early
 		if (_results.Count == 0)
 		{
+			logger.Warn(message: "No results to sort.");
 			return;
 		}
 		// Check if the clicked column is the same as the current sort column; if so, toggle the sort order
@@ -454,8 +473,11 @@ public partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>Enables the "Go to object" button when a row is selected.</remarks>
-	private void ListView_SelectedIndexChanged(object sender, EventArgs e) =>
+	private void ListView_SelectedIndexChanged(object sender, EventArgs e)
+	{
+		logger.Info(message: "ListView selection changed.");
 		UpdateGoToObjectButtonState();
+	}
 
 	#endregion
 
@@ -465,7 +487,11 @@ public partial class MaxoidsOfAllMinorPlanetsForm : BaseKryptonForm
 	/// <param name="sender">The source of the event.</param>
 	/// <param name="e">The event data.</param>
 	/// <remarks>When an item is double-clicked, the corresponding planetoid is displayed in the <see cref="PlanetoidDbForm"/> without closing this form.</remarks>
-	private void ListView_DoubleClick(object sender, EventArgs e) => SelectedPlanetoidInMainForm();
+	private void ListView_DoubleClick(object sender, EventArgs e)
+	{
+		logger.Info(message: "ListView item double-clicked.");
+		SelectedPlanetoidInMainForm();
+	}
 
 	#endregion
 }

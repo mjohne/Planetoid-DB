@@ -537,17 +537,21 @@ public partial class ScatterplotsForm : BaseKryptonForm
 	/// <remarks>Called by the ListView in VirtualMode instead of storing all items in memory.</remarks>
 	private void ListViewResults_RetrieveVirtualItem(object? sender, RetrieveVirtualItemEventArgs e)
 	{
+		// Validate the requested index to ensure it is within the bounds of the current results list.
 		if (e.ItemIndex < 0 || e.ItemIndex >= _currentResults.Count)
 		{
+			// If the index is out of bounds, provide an empty ListViewItem to avoid exceptions.
+			logger.Warn(message: "RetrieveVirtualItem called with an invalid item index {Index}. No action will be taken.", argument: e.ItemIndex);
 			e.Item = new ListViewItem();
 			return;
 		}
-
+		// Retrieve the ScatterPoint corresponding to the requested index and create a ListViewItem for display.
 		ScatterPoint point = _currentResults[e.ItemIndex];
 		ListViewItem item = new(text: FormatNumericValue(value: point.X) + (_currentXDefinition?.UnitSuffix ?? string.Empty))
 		{
 			ToolTipText = $"X: {FormatNumericValue(value: point.X)}{_currentXDefinition?.UnitSuffix}, Y: {FormatNumericValue(value: point.Y)}{_currentYDefinition?.UnitSuffix}"
 		};
+		// Add the Y value as a subitem, formatted with the appropriate unit suffix.
 		_ = item.SubItems.Add(text: FormatNumericValue(value: point.Y) + (_currentYDefinition?.UnitSuffix ?? string.Empty));
 		e.Item = item;
 	}
@@ -566,11 +570,13 @@ public partial class ScatterplotsForm : BaseKryptonForm
 		if (_cancellationTokenSource != null)
 		{
 			_cancellationTokenSource.Cancel();
+			logger.Info("User requested cancellation of the scatter-plot generation task.");
 			return;
 		}
 		// Validate that there is planetoid data available before attempting to generate a scatter plot.
 		if (_planetoids.Count == 0)
 		{
+			logger.Warn("Scatter-plot generation requested but no planetoid data is available.");
 			_ = KryptonMessageBox.Show(owner: this, text: "No planetoid data available.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
@@ -580,6 +586,7 @@ public partial class ScatterplotsForm : BaseKryptonForm
 		// If either definition is not selected, display an informational message to the user.
 		if (xDefinition is null || yDefinition is null)
 		{
+			logger.Warn("Scatter-plot generation requested but one or both axis definitions are not selected.");
 			_ = KryptonMessageBox.Show(owner: this, text: "Please select an orbital element for both axes.", caption: I18nStrings.InformationCaption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 			return;
 		}
@@ -676,6 +683,7 @@ public partial class ScatterplotsForm : BaseKryptonForm
 			labelInformation.Text = excluded > 0
 				? $"{_currentResults.Count - excluded:N0} of {_currentResults.Count:N0} points plotted ({excluded:N0} excluded: non-positive value for log scale)."
 				: $"Scatter plot updated with {_currentResults.Count:N0} plotted planetoids.";
+			logger.Info(message: "X-axis log scale changed. Scatter plot updated with {Plotted:N0} points, {Excluded:N0} excluded due to non-positive values.", argument1: _currentResults.Count - excluded, argument2: excluded);
 		}
 	}
 
@@ -691,6 +699,7 @@ public partial class ScatterplotsForm : BaseKryptonForm
 			labelInformation.Text = excluded > 0
 				? $"{_currentResults.Count - excluded:N0} of {_currentResults.Count:N0} points plotted ({excluded:N0} excluded: non-positive value for log scale)."
 				: $"Scatter plot updated with {_currentResults.Count:N0} plotted planetoids.";
+			logger.Info(message: "Y-axis log scale changed. Scatter plot updated with {Plotted:N0} points, {Excluded:N0} excluded due to non-positive values.", argument1: _currentResults.Count - excluded, argument2: excluded);
 		}
 	}
 

@@ -156,19 +156,20 @@ public partial class OrbitElementsGroupingForm : BaseKryptonForm
 	private async Task PerformGroupingAsync(int elementsCount, double tolerancePercent, IProgress<int> progress, IProgress<string> messageProgress, CancellationToken cancellationToken)
 	{
 		const int availableElementsCount = 7;
-
+		// Validate input parameters to ensure they are within acceptable ranges and not null. If any parameter is invalid, an appropriate exception is thrown to indicate the error.
 		ArgumentNullException.ThrowIfNull(argument: progress);
 		ArgumentNullException.ThrowIfNull(argument: messageProgress);
 		ArgumentOutOfRangeException.ThrowIfNegative(value: tolerancePercent);
-
+		// Validate that the number of elements to group by is within the valid range. If it is less than 1 or greater than the number of available orbital elements, an ArgumentOutOfRangeException is thrown with a descriptive message.
 		if (elementsCount is < 1 or > availableElementsCount)
 		{
+			logger.Fatal(message: "Invalid elementsCount value: {0}. Must be between 1 and {1}.", argument1: elementsCount, argument2: availableElementsCount);
 			throw new ArgumentOutOfRangeException(
 				paramName: nameof(elementsCount),
 				actualValue: elementsCount,
 				message: $"The value must be between 1 and {availableElementsCount}.");
 		}
-
+		// Validate that the tolerance percentage is non-negative. If it is negative, an ArgumentOutOfRangeException is thrown with a descriptive message.
 		try
 		{
 			messageProgress.Report(value: "Parsing data...");
@@ -330,7 +331,7 @@ public partial class OrbitElementsGroupingForm : BaseKryptonForm
 		catch (OperationCanceledException)
 		{
 			messageProgress.Report(value: "Search canceled by user.");
-			logger.Info(message: "Search operation was canceled by the user.");
+			logger.Warn(message: "Search operation was canceled by the user.");
 		}
 		// Catch any other exceptions that may occur during processing and report the error message through the message progress interface. Additionally, log the error using the NLog logger to provide details about the exception for troubleshooting purposes.
 		catch (Exception ex)
@@ -362,6 +363,7 @@ public partial class OrbitElementsGroupingForm : BaseKryptonForm
 		// Check if a cancellation token source is currently assigned. If it is, call the Cancel method to signal cancellation to any ongoing operations, and dispose of the token source to free resources.
 		if (_cancellationTokenSource != null)
 		{
+			logger.Warn(message: "Form is closing. Canceling any ongoing operations.");
 			_cancellationTokenSource.Cancel();
 			_cancellationTokenSource.Dispose();
 		}
@@ -412,14 +414,14 @@ public partial class OrbitElementsGroupingForm : BaseKryptonForm
 			await Task.Run(function: () => PerformGroupingAsync(elementsCount: elementsCount, tolerancePercent: tolerancePercent, progress: progress, messageProgress: messageProgress, cancellationToken: _cancellationTokenSource.Token), cancellationToken: _cancellationTokenSource.Token);
 		}
 		// Handle cancellation of the operation gracefully by catching the OperationCanceledException. When cancellation is requested, an informational message is logged to indicate that the grouping task was canceled.
-		catch (OperationCanceledException)
+		catch (OperationCanceledException ex)
 		{
-			logger.Info(message: "Grouping task was canceled.");
+			logger.Warn(exception: ex, message: $"Grouping task was canceled: {ex.Message}");
 		}
 		// Catch any exceptions that may occur during the execution of the grouping operation and log the error message using the NLog logger. This provides details about any issues that arise during processing for troubleshooting purposes.
 		catch (Exception ex)
 		{
-			logger.Error(message: $"An error occurred during grouping: {ex}");
+			logger.Error(exception: ex, message: $"An error occurred during grouping: {ex.Message}");
 			ShowErrorMessage(message: $"An error has occurred during grouping: {ex.Message}");
 		}
 		// In the finally block, ensure that the cancellation token source is disposed of to free resources, and reset the UI elements (Start and Cancel buttons) to their default states. This ensures that the form is ready for another operation if needed, and that resources are properly cleaned up regardless of how the operation completed.
@@ -441,6 +443,7 @@ public partial class OrbitElementsGroupingForm : BaseKryptonForm
 		// Check if a cancellation token source is currently assigned. If it is, call the Cancel method to signal cancellation to the ongoing operation, and disable the Cancel button to prevent further cancellation attempts.
 		if (_cancellationTokenSource != null)
 		{
+			logger.Warn(message: "User requested cancellation of the grouping operation.");
 			_cancellationTokenSource.Cancel();
 			toolStripButtonCancel.Enabled = false;
 		}

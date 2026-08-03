@@ -75,6 +75,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to ask the user if they want to restart the application after downloading the database.</remarks>
 	private void AskForRestartAfterDownloadingDatabase()
 	{
+		logger.Info(message: "Asking user if they want to restart the application after downloading the database.");
 		// Bring the main form to the foreground before showing the message box, so it cannot appear behind other application windows.
 		Activate();
 		// Ask the user if they want to restart the application after downloading the database and show a message box with the option to restart or not
@@ -141,6 +142,12 @@ public partial class PlanetoidDbForm
 			labelDateLastObservationData.Text = ExtractField(span: entrySpan, start: 194, length: 8);
 			toolStripLabelIndexPosition.Text = $@"{I18nStrings.Index}: {position + 1:N0} / {planetoidsDatabase.Count:N0}";
 		}
+		catch (Exception ex)
+		{
+			// Log the exception and show an error message to the user
+			logger.Error(message: $"Error navigating to position {position}: {ex.Message}", exception: ex);
+			ShowErrorMessage(message: $"An error occurred while navigating to the record at position {position + 1}. Please try again.");
+		}
 		finally
 		{
 			// Resume layout and perform any pending layout logic.
@@ -166,6 +173,12 @@ public partial class PlanetoidDbForm
 					control.Text = string.Empty;
 				}
 			}
+		}
+		catch (Exception ex)
+		{
+			// Log the exception and show an error message to the user
+			logger.Error(message: $"Error clearing record display: {ex.Message}", exception: ex);
+			ShowErrorMessage(message: "An error occurred while clearing the record display. Please try again.");
 		}
 		// Resume the layout of the TableLayoutPanel after clearing the labels
 		finally
@@ -202,7 +215,8 @@ public partial class PlanetoidDbForm
 				return;
 			}
 		}
-		// If no matching record is found, show an error message box to the user
+		// If no matching record is found, log and show an error message box to the user
+		logger.Warn(message: $"Record not found in the current loaded database. Index: {index}, Designation: {designation}");
 		ShowErrorMessage(message: "Record not found in the current loaded database.");
 	}
 
@@ -228,7 +242,8 @@ public partial class PlanetoidDbForm
 				return response.Content.Headers.LastModified.Value.UtcDateTime;
 			}
 		}
-		// If the Last-Modified header is not present or the request failed, return DateTime.MinValue
+		// If the Last-Modified header is not present or the request failed, log a warning and return DateTime.MinValue
+		logger.Warn(message: $"Failed to retrieve Last-Modified header for URI: {uri}");
 		return DateTime.MinValue;
 	}
 
@@ -250,7 +265,8 @@ public partial class PlanetoidDbForm
 			// Return the last modified date in UTC
 			return response.Content.Headers.LastModified.Value.UtcDateTime;
 		}
-		// If the Last-Modified header is not present or the request failed, return DateTime.MinValue
+		// If the Last-Modified header is not present or the request failed, log a warning and return DateTime.MinValue
+		logger.Warn(message: $"Failed to retrieve Last-Modified header for URI: {uri}");
 		return DateTime.MinValue;
 	}
 
@@ -276,7 +292,8 @@ public partial class PlanetoidDbForm
 				return response.Content.Headers.ContentLength.Value;
 			}
 		}
-		// If the Content-Length header is not present or the request failed, return 0
+		// If the Content-Length header is not present or the request failed, log a warning and return 0
+		logger.Warn(message: $"Failed to retrieve Content-Length header for URI: {uri}");
 		return 0;
 	}
 
@@ -297,7 +314,8 @@ public partial class PlanetoidDbForm
 			// Return the content length
 			return response.Content.Headers.ContentLength.Value;
 		}
-		// If the Content-Length header is not present or the request failed, return 0
+		// If the Content-Length header is not present or the request failed, log a warning and return 0
+		logger.Warn(message: $"Failed to retrieve Content-Length header for URI: {uri}");
 		return 0;
 	}
 
@@ -305,10 +323,13 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to load a random minor planet from the database.</remarks>
 	private void LoadRandomMinorPlanet()
 	{
+		// Check if the planetoids database is empty before attempting to load a random minor planet
 		if (planetoidsDatabase.Count == 0)
 		{
+			logger.Warn(message: "Attempted to load a random minor planet, but the database is empty.");
 			return;
 		}
+		// Generate a random index within the bounds of the planetoids database
 		currentPosition = Random.Shared.Next(maxValue: planetoidsDatabase.Count);
 		GotoCurrentPosition(position: currentPosition);
 	}
@@ -321,17 +342,19 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to navigate backward by a specified step in the data.</remarks>
 	private void NavigateSomeDataBackward()
 	{
+		// Check if the planetoids database is empty before attempting to navigate backward
 		if (planetoidsDatabase.Count == 0)
 		{
+			logger.Warn(message: "Attempted to navigate backward, but the planetoids database is empty.");
 			return;
 		}
-
+		// Calculate the new position by subtracting the step position and wrapping around using modulo
 		currentPosition = (currentPosition - stepPosition) % planetoidsDatabase.Count;
 		if (currentPosition < 0)
 		{
 			currentPosition += planetoidsDatabase.Count;
 		}
-
+		// Navigate to the new position
 		GotoCurrentPosition(position: currentPosition);
 	}
 
@@ -343,8 +366,6 @@ public partial class PlanetoidDbForm
 		if (currentPosition == 0)
 		{
 			// Set the current position to the last entry in the database
-			// This ensures that when the user navigates backward from the first entry, they go to the last entry
-			// This is useful for circular navigation
 			currentPosition = planetoidsDatabase.Count - 1;
 		}
 		else
@@ -364,8 +385,6 @@ public partial class PlanetoidDbForm
 		if (currentPosition == planetoidsDatabase.Count - 1)
 		{
 			// Set the current position to 0 (the first entry in the database)
-			// This ensures that when the user navigates forward from the last entry, they go to the first entry
-			// This is useful for circular navigation
 			currentPosition = 0;
 		}
 		else
@@ -381,12 +400,15 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to navigate forward by a specified step in the data.</remarks>
 	private void NavigateSomeDataForward()
 	{
+		// Check if the planetoids database is empty before attempting to navigate forward
 		if (planetoidsDatabase.Count == 0)
 		{
+			logger.Warn(message: "Attempted to navigate forward, but the planetoids database is empty.");
 			return;
 		}
-
+		// Calculate the new position by adding the step position and wrapping around using modulo
 		currentPosition = (currentPosition + stepPosition) % planetoidsDatabase.Count;
+		// Navigate to the new position
 		GotoCurrentPosition(position: currentPosition);
 	}
 
@@ -465,6 +487,8 @@ public partial class PlanetoidDbForm
 			38 => TerminologyElement.StandardGravitationalParameter,
 			_ => TerminologyElement.IndexNumber,
 		};
+		// Log the action of opening the terminology form with the selected element
+		logger.Info(message: $"Opening terminology form with selected element: {formTerminology.SelectedElement}");
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formTerminology.TopMost = TopMost;
 		// Show the terminology form as a modal dialog
@@ -481,6 +505,8 @@ public partial class PlanetoidDbForm
 		formTableMode.TopMost = TopMost;
 		// Fill the form with the planetoids database
 		formTableMode.FillArray(arrTemp: planetoidsDatabase);
+		// Log the action of opening the table mode form with the current planetoids database
+		logger.Info(message: "Opening table mode form with the current planetoids database.");
 		// Show the table mode form as a modal dialog
 		_ = formTableMode.ShowDialog(owner: this);
 	}
@@ -504,6 +530,8 @@ public partial class PlanetoidDbForm
 		formOrbitalResonances.TopMost = TopMost;
 		// Pass the parsed semi-major axis to the form so it can calculate and display the relevant orbital resonances for the current planetoid
 		formOrbitalResonances.SetSemiMajorAxis(semiMajorAxis: semiMajorAxis);
+		// Log the action of opening the orbital resonances form with the parsed semi-major axis
+		logger.Info(message: $"Opening orbital resonances form with semi-major axis: {semiMajorAxis}");
 		// Show the orbital resonances form as a modal dialog
 		_ = formOrbitalResonances.ShowDialog(owner: this);
 	}
@@ -525,6 +553,8 @@ public partial class PlanetoidDbForm
 		formObservations.TopMost = TopMost;
 		// Pass the index data label text to the observations form so it can use it to fetch and display the relevant observations for the current planetoid
 		formObservations.SetIndexData(indexData: labelIndexData.Text);
+		// Log the action of opening the observations form with the provided index data
+		logger.Info(message: $"Opening observations form with index data: {labelIndexData.Text}");
 		// Show the observations form as a modal dialog
 		_ = formObservations.ShowDialog(owner: this);
 	}
@@ -537,6 +567,8 @@ public partial class PlanetoidDbForm
 		using OrbitElementsGroupingForm formOrbitElementsGrouping = new(planetoids: planetoidsDatabase);
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formOrbitElementsGrouping.TopMost = TopMost;
+		// Log the action of opening the orbit elements grouping form with the current planetoids database
+		logger.Info(message: "Opening orbit elements grouping form with the current planetoids database.");
 		// Show the orbit elements grouping form as a modal dialog
 		_ = formOrbitElementsGrouping.ShowDialog(owner: this);
 	}
@@ -549,6 +581,8 @@ public partial class PlanetoidDbForm
 		using AsteroidFamiliesForm formAsteroidFamilies = new(planetoids: planetoidsDatabase);
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formAsteroidFamilies.TopMost = TopMost;
+		// Log the action of opening the asteroid families form with the current planetoids database
+		logger.Info(message: "Opening asteroid families form with the current planetoids database.");
 		// Show the asteroid families form as a modal dialog
 		_ = formAsteroidFamilies.ShowDialog(owner: this);
 	}
@@ -561,6 +595,8 @@ public partial class PlanetoidDbForm
 		using OrbitalResonancesOfAllMinorPlanetsForm formOrbitalResonances = new(planetoids: planetoidsDatabase);
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formOrbitalResonances.TopMost = TopMost;
+		// Log the action of opening the orbital resonances form with the current planetoids database
+		logger.Info(message: "Opening orbital resonances form with the current planetoids database.");
 		// Show the orbital resonances form as a modal dialog
 		_ = formOrbitalResonances.ShowDialog(owner: this);
 	}
@@ -634,8 +670,11 @@ public partial class PlanetoidDbForm
 			longitudeAscendingNodeDeg: out double longitudeAscendingNodeDeg,
 			argumentPerihelionDeg: out double argumentPerihelionDeg))
 		{
+			logger.Error(message: "Failed to parse orbital elements for MOIDs form.");
 			return;
 		}
+		// Log the action of opening the MOIDs form with the parsed orbital elements
+		logger.Info(message: $"Opening MOIDs form with orbital elements: semi-major axis={semiMajorAxis}, eccentricity={eccentricity}, inclination={inclinationDeg}, longitude of ascending node={longitudeAscendingNodeDeg}, argument of perihelion={argumentPerihelionDeg}");
 		// Create a new instance of the MoidsOfOneMinorPlanetForm
 		using MoidsOfOneMinorPlanetForm formMoids = new();
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
@@ -663,8 +702,11 @@ public partial class PlanetoidDbForm
 			longitudeAscendingNodeDeg: out double longitudeAscendingNodeDeg,
 			argumentPerihelionDeg: out double argumentPerihelionDeg))
 		{
+			logger.Error(message: "Failed to parse orbital elements for MAXOIDs form.");
 			return;
 		}
+		// Log the action of opening the MAXOIDs form with the parsed orbital elements
+		logger.Info(message: $"Opening MAXOIDs form with orbital elements: semi-major axis={semiMajorAxis}, eccentricity={eccentricity}, inclination={inclinationDeg}, longitude of ascending node={longitudeAscendingNodeDeg}, argument of perihelion={argumentPerihelionDeg}");
 		// Create a new instance of the MaxoidsOfOneMinorPlanetForm
 		using MaxoidsOfOneMinorPlanetForm formMaxoids = new();
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
@@ -692,8 +734,11 @@ public partial class PlanetoidDbForm
 			longitudeAscendingNodeDeg: out double longitudeAscendingNodeDeg,
 			argumentPerihelionDeg: out double argumentPerihelionDeg))
 		{
+			logger.Error(message: "Failed to parse orbital elements for MOIDs and MAXOIDs form.");
 			return;
 		}
+		// Log the action of opening the MOIDs and MAXOIDs form with the parsed orbital elements
+		logger.Info(message: $"Opening MOIDs and MAXOIDs form with orbital elements: semi-major axis={semiMajorAxis}, eccentricity={eccentricity}, inclination={inclinationDeg}, longitude of ascending node={longitudeAscendingNodeDeg}, argument of perihelion={argumentPerihelionDeg}");
 		// Create a new instance of the MoidsAndMaxoidsOfOneMinorPlanetForm
 		using MoidsAndMaxoidsOfOneMinorPlanetForm formMoidsAndMaxoids = new();
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
@@ -713,6 +758,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>Passes the full planetoids database to the form so it can iterate over all records.</remarks>
 	private void ShowMoidsOfAllMinorPlanets()
 	{
+		// Log the action of opening the MOIDs of all minor planets form with the current planetoids database
+		logger.Info(message: "Opening MOIDs of all minor planets form with the current planetoids database.");
 		// Create a new instance of the MoidsOfAllMinorPlanetsForm
 		using MoidsOfAllMinorPlanetsForm formMoidsOfAll = new(planetoids: planetoidsDatabase);
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
@@ -725,6 +772,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>Passes the full planetoids database to the form so it can iterate over all records.</remarks>
 	private void ShowMaxoidsOfAllMinorPlanets()
 	{
+		// Log the action of opening the MAXOIDs of all minor planets form with the current planetoids database
+		logger.Info(message: "Opening MAXOIDs of all minor planets form with the current planetoids database.");
 		// Create a new instance of the MaxoidsOfAllMinorPlanetsForm
 		using MaxoidsOfAllMinorPlanetsForm formMaxoidsOfAll = new(planetoids: planetoidsDatabase);
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
@@ -737,8 +786,10 @@ public partial class PlanetoidDbForm
 	/// <remarks>Passes the full planetoids database to the form so it can create histograms of various properties.</remarks>
 	private void ShowHistogram()
 	{
+		// Log the action of opening the histogram form with the current planetoids database
+		logger.Info(message: "Opening histogram form with the current planetoids database.");
 		// Create a new instance of the HistogramsForm
-		using HistogramsForm formHistogram = new(planetoids: planetoidsDatabase);
+		using DistributionsForm formHistogram = new(planetoids: planetoidsDatabase);
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formHistogram.TopMost = TopMost;
 		// Show the histogram form as a modal dialog
@@ -749,6 +800,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>Passes the full planetoids database to the form so it can create scatterplots of various properties.</remarks>
 	private void ShowScatterPlot()
 	{
+		// Log the action of opening the scatterplots form with the current planetoids database
+		logger.Info(message: "Opening scatterplots form with the current planetoids database.");
 		// Create a new instance of the ScatterplotsForm
 		using ScatterplotsForm formScatterplot = new(planetoids: planetoidsDatabase);
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
@@ -769,8 +822,11 @@ public partial class PlanetoidDbForm
 			longitudeAscendingNodeDeg: out _,
 			argumentPerihelionDeg: out double argumentPerihelionDeg))
 		{
+			logger.Error(message: "Failed to parse orbital elements for Orbit2DTopView form.");
 			return;
 		}
+		// Log the action of opening the Orbit2DTopView form with the parsed orbital elements
+		logger.Info(message: $"Opening Orbit2DTopView form with orbital elements: semi-major axis={semiMajorAxis}, eccentricity={eccentricity}, argument of perihelion={argumentPerihelionDeg}");
 		// Use the readable designation as the planetoid label in the diagram title.
 		string planetoidName = labelReadableDesignationData.Text;
 		// Create a new instance of the Orbit2DTopViewForm and show it as a modal dialog.
@@ -795,8 +851,11 @@ public partial class PlanetoidDbForm
 			longitudeAscendingNodeDeg: out _,
 			argumentPerihelionDeg: out _))
 		{
+			logger.Error(message: "Failed to parse orbital elements for Orbit2DSideView form.");
 			return;
 		}
+		// Log the action of opening the Orbit2DSideView form with the parsed orbital elements
+		logger.Info(message: $"Opening Orbit2DSideView form with orbital elements: semi-major axis={semiMajorAxis}, eccentricity={eccentricity}, inclination={inclinationDeg}");
 		// Use the readable designation as the planetoid label in the diagram title.
 		string planetoidName = labelReadableDesignationData.Text;
 		// Create a new instance of the Orbit2DSideViewForm and show it as a modal dialog.
@@ -821,6 +880,7 @@ public partial class PlanetoidDbForm
 			longitudeAscendingNodeDeg: out double longitudeAscendingNodeDeg,
 			argumentPerihelionDeg: out double argumentPerihelionDeg))
 		{
+			logger.Error(message: "Failed to parse orbital elements for Orbit3DForm.");
 			return;
 		}
 		// Parse the mean anomaly at the epoch from the corresponding label on the form
@@ -836,6 +896,8 @@ public partial class PlanetoidDbForm
 		string planetoidName = labelReadableDesignationData.Text;
 		// Parse the epoch from the corresponding label on the form
 		string epochMpcorb = labelEpochData.Text;
+		// Log the action of opening the Orbit3DForm with the parsed orbital elements
+		logger.Info(message: $"Opening Orbit3DForm with orbital elements: semi-major axis={semiMajorAxis}, eccentricity={eccentricity}, inclination={inclinationDeg}, longitude of ascending node={longitudeAscendingNodeDeg}, argument of perihelion={argumentPerihelionDeg}, mean anomaly={meanAnomalyDeg}, epoch={epochMpcorb}");
 		// Create a new instance of the Orbit3DForm and show it as a modal dialog.
 		using Orbit3DForm formOrbit3D = new(
 			planetoidName: planetoidName,
@@ -888,6 +950,8 @@ public partial class PlanetoidDbForm
 		formTisserand.TopMost = TopMost;
 		// Pass the parsed orbital elements to the form
 		formTisserand.SetOrbitalElements(semiMajorAxis: semiMajorAxis, eccentricity: eccentricity, inclinationDeg: inclinationDeg);
+		// Log the action of opening the TisserandParameterOfOneMinorPlanetForm with the parsed orbital elements
+		logger.Info(message: $"Opening TisserandParameterOfOneMinorPlanetForm with orbital elements: semi-major axis={semiMajorAxis}, eccentricity={eccentricity}, inclination={inclinationDeg}");
 		// Show the Tisserand parameters form as a modal dialog
 		_ = formTisserand.ShowDialog(owner: this);
 	}
@@ -915,6 +979,8 @@ public partial class PlanetoidDbForm
 		formBulkDownloader.TopMost = TopMost;
 		formBulkDownloader.SetMinimum(minimum: 1);
 		formBulkDownloader.SetMaximum(maximum: planetoidsDatabase.Count);
+		// Log the action of opening the BulkObservationsDataDownloaderForm with the current planetoids database
+		logger.Info(message: "Opening BulkObservationsDataDownloaderForm with the current planetoids database.");
 		_ = formBulkDownloader.ShowDialog(owner: this);
 	}
 
@@ -925,6 +991,8 @@ public partial class PlanetoidDbForm
 		// Create a new instance of the MoidsRelativeToMinorPlanetsForm
 		using MoidsRelativeToMinorPlanetsForm formMoidsRelative = new(planetoids: planetoidsDatabase);
 		formMoidsRelative.TopMost = TopMost;
+		// Log the action of opening the MoidsRelativeToMinorPlanetsForm with the current planetoids database
+		logger.Info(message: "Opening MoidsRelativeToMinorPlanetsForm with the current planetoids database.");
 		_ = formMoidsRelative.ShowDialog(owner: this);
 	}
 
@@ -935,6 +1003,8 @@ public partial class PlanetoidDbForm
 		// Create a new instance of the MaxoidsRelativeToMinorPlanetsForm
 		using MaxoidsRelativeToMinorPlanetsForm formMaxoidsRelative = new(planetoids: planetoidsDatabase);
 		formMaxoidsRelative.TopMost = TopMost;
+		// Log the action of opening the MaxoidsRelativeToMinorPlanetsForm with the current planetoids database
+		logger.Info(message: "Opening MaxoidsRelativeToMinorPlanetsForm with the current planetoids database.");
 		_ = formMaxoidsRelative.ShowDialog(owner: this);
 	}
 
@@ -946,6 +1016,8 @@ public partial class PlanetoidDbForm
 		using AppInfoForm formAppInfo = new();
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formAppInfo.TopMost = TopMost;
+		// Log the action of opening the AppInfoForm
+		logger.Info(message: "Opening AppInfoForm.");
 		// Show the application information form as a modal dialog
 		_ = formAppInfo.ShowDialog(owner: this);
 	}
@@ -958,6 +1030,8 @@ public partial class PlanetoidDbForm
 		using ArchiveMpcorbForm formArchive = new();
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formArchive.TopMost = TopMost;
+		// Log the action of opening the ArchiveMpcorbForm
+		logger.Info(message: "Opening ArchiveMpcorbForm.");
 		// Show the archive form as a modal dialog
 		_ = formArchive.ShowDialog(owner: this);
 	}
@@ -970,6 +1044,8 @@ public partial class PlanetoidDbForm
 		using DatabaseDifferencesForm formDataDifferences = new();
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formDataDifferences.TopMost = TopMost;
+		// Log the action of opening the DatabaseDifferencesForm
+		logger.Info(message: "Opening DatabaseDifferencesForm.");
 		// Show the archive form as a modal dialog
 		_ = formDataDifferences.ShowDialog(owner: this);
 	}
@@ -982,7 +1058,9 @@ public partial class PlanetoidDbForm
 		using LicenseForm formLicense = new();
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formLicense.TopMost = TopMost;
-		// Show the application information form as a modal dialog
+		// Log the action of opening the LicenseForm
+		logger.Info(message: "Opening LicenseForm.");
+		// Show the license form as a modal dialog
 		_ = formLicense.ShowDialog(owner: this);
 	}
 
@@ -996,6 +1074,8 @@ public partial class PlanetoidDbForm
 		formRecords.FillArray(arrTemp: planetoidsDatabase);
 		// Set the TopMost property to keep the form on top of other windows
 		formRecords.TopMost = TopMost;
+		// Log the action of opening the RecordsForm
+		logger.Info(message: "Opening RecordsForm with the current planetoids database.");
 		// Show the records form as a modal dialog
 		_ = formRecords.ShowDialog(owner: this);
 	}
@@ -1009,6 +1089,8 @@ public partial class PlanetoidDbForm
 		using RecordsTop10Form formRecordsTop10 = new(arrTemp: planetoidsDatabase, selectedElement: selectedElement);
 		// Set the TopMost property to keep the form on top of other windows
 		formRecordsTop10.TopMost = TopMost;
+		// Log the action of opening the RecordsTop10Form
+		logger.Info(message: $"Opening RecordsTop10Form with the current planetoids database and selected element: {selectedElement}");
 		// Show the records form as a modal dialog
 		_ = formRecordsTop10.ShowDialog(owner: this);
 	}
@@ -1031,6 +1113,8 @@ public partial class PlanetoidDbForm
 			using CheckDatabaseForm formCheckMpcorbDat = new(url: Settings.Default.systemMpcorbDatUrl, localFilePath: Settings.Default.systemFilenameMpcorbDat, databaseName: "MPCORB.DAT");
 			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 			formCheckMpcorbDat.TopMost = TopMost;
+			// Log the action of opening the CheckDatabaseForm for MPCORB.DAT
+			logger.Info(message: "Opening CheckDatabaseForm for MPCORB.DAT.");
 			// Show the MPCORB data check form as a modal dialog
 			_ = formCheckMpcorbDat.ShowDialog(owner: this);
 		}
@@ -1053,6 +1137,8 @@ public partial class PlanetoidDbForm
 			using CheckDatabaseForm formCheckMpcorbJson = new(url: Settings.Default.systemMpcorbJsonGzUrl, localFilePath: Settings.Default.systemFilenameMpcorbJson, databaseName: "MPCORB.JSON");
 			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 			formCheckMpcorbJson.TopMost = TopMost;
+			// Log the action of opening the CheckDatabaseForm for MPCORB.JSON
+			logger.Info(message: "Opening CheckDatabaseForm for MPCORB.JSON.");
 			// Show the MPCORB.JSON data check form as a modal dialog
 			_ = formCheckMpcorbJson.ShowDialog(owner: this);
 		}
@@ -1074,6 +1160,8 @@ public partial class PlanetoidDbForm
 			using CheckDatabaseForm formCheckAstorbDat = new(url: Settings.Default.systemAstorbDatUrl, localFilePath: Settings.Default.systemFilenameAstorbDat, databaseName: "ASTORB.DAT");
 			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 			formCheckAstorbDat.TopMost = TopMost;
+			// Log the action of opening the CheckDatabaseForm for ASTORB.DAT
+			logger.Info(message: "Opening CheckDatabaseForm for ASTORB.DAT.");
 			// Show the ASTORB data check form as a modal dialog
 			_ = formCheckAstorbDat.ShowDialog(owner: this);
 		}
@@ -1095,6 +1183,8 @@ public partial class PlanetoidDbForm
 			using CheckDatabaseForm formCheckAllnumCat = new(url: Settings.Default.systemAllnumCatUrl, localFilePath: Settings.Default.systemFilenameAllnumCat, databaseName: "allnum.cat");
 			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 			formCheckAllnumCat.TopMost = TopMost;
+			// Log the action of opening the CheckDatabaseForm for ALLNUM.CAT
+			logger.Info(message: "Opening CheckDatabaseForm for ALLNUM.CAT.");
 			// Show the ALLNUM.CAT data check form as a modal dialog
 			_ = formCheckAllnumCat.ShowDialog(owner: this);
 		}
@@ -1116,6 +1206,8 @@ public partial class PlanetoidDbForm
 			using CheckDatabaseForm formCheckUfitobsCat = new(url: Settings.Default.systemUfitobsCatUrl, localFilePath: Settings.Default.systemFilenameUfitobsCat, databaseName: "ufitobs.cat");
 			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 			formCheckUfitobsCat.TopMost = TopMost;
+			// Log the action of opening the CheckDatabaseForm for UFITOBS.CAT
+			logger.Info(message: "Opening CheckDatabaseForm for UFITOBS.CAT.");
 			// Show the UFITOBS.CAT data check form as a modal dialog
 			_ = formCheckUfitobsCat.ShowDialog(owner: this);
 		}
@@ -1137,6 +1229,8 @@ public partial class PlanetoidDbForm
 			using CheckDatabaseForm formCheckSingoppCat = new(url: Settings.Default.systemSingoppCatUrl, localFilePath: Settings.Default.systemFilenameSingoppCat, databaseName: "singopp.cat");
 			// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 			formCheckSingoppCat.TopMost = TopMost;
+			// Log the action of opening the CheckDatabaseForm for SINGOPP.CAT
+			logger.Info(message: "Opening CheckDatabaseForm for SINGOPP.CAT.");
 			// Show the SINGOPP.CAT data check form as a modal dialog
 			_ = formCheckSingoppCat.ShowDialog(owner: this);
 		}
@@ -1150,6 +1244,8 @@ public partial class PlanetoidDbForm
 		using DatabaseInformationForm formDatabaseInformation = new();
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formDatabaseInformation.TopMost = TopMost;
+		// Log the action of opening the DatabaseInformationForm
+		logger.Info(message: "Opening DatabaseInformationForm.");
 		// Fill the form with the planetoids database
 		_ = formDatabaseInformation.ShowDialog(owner: this);
 	}
@@ -1162,9 +1258,10 @@ public partial class PlanetoidDbForm
 		using SearchForm formSearch = new();
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formSearch.TopMost = TopMost;
-
+		// Log the action of opening the SearchForm
+		logger.Info(message: "Opening SearchForm.");
+		// Show the search form as a modal dialog
 		_ = formSearch.ShowDialog(owner: this);
-
 	}
 
 	/// <summary>Shows the filter form.</summary>
@@ -1177,6 +1274,8 @@ public partial class PlanetoidDbForm
 		formFilter.TopMost = TopMost;
 		// Pass a copy of the current database to the filter form
 		formFilter.FillArray(arrTemp: planetoidsDatabase);
+		// Log the action of opening the FilterForm with the current planetoids database
+		logger.Info(message: "Opening FilterForm with the current planetoids database.");
 		// Show the filter form as a modal dialog
 		if (formFilter.ShowDialog(owner: this) == DialogResult.OK && formFilter.FilteredDatabase is { } filtered)
 		{
@@ -1198,6 +1297,8 @@ public partial class PlanetoidDbForm
 		using SettingsForm formSettings = new();
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formSettings.TopMost = TopMost;
+		// Log the action of opening the SettingsForm
+		logger.Info(message: "Opening SettingsForm.");
 		// Fill the form with the planetoids database
 		_ = formSettings.ShowDialog(owner: this);
 	}
@@ -1214,6 +1315,8 @@ public partial class PlanetoidDbForm
 		formListReadableDesignations.FillArray(arrTemp: planetoidsDatabase);
 		// Set the maximum index for the form
 		formListReadableDesignations.SetMaxIndex(maxIndex: planetoidsDatabase.Count);
+		// Log the action of opening the ListReadableDesignationsForm
+		logger.Info(message: "Opening ListReadableDesignationsForm.");
 		// Show the list readable designations form as a modal dialog
 		_ = formListReadableDesignations.ShowDialog(owner: this);
 		// Check if the dialog result is OK and the selected index is greater than 0
@@ -1289,7 +1392,9 @@ public partial class PlanetoidDbForm
 		// Create a new instance of the ExportDataSheetForm
 		using ExportDataSheetForm formExportDataSheet = new() { TopMost = this.TopMost };
 		// Fill the form with the complete list of orbital and derived elements
-		formExportDataSheet.SetDatabase(GenerateFullOrbitalElementsList());
+		formExportDataSheet.SetDatabase(list: GenerateFullOrbitalElementsList());
+		// Log the action of opening the ExportDataSheetForm with the current planetoids database
+		logger.Info(message: "Opening ExportDataSheetForm with the current planetoids database.");
 		// Show the export data sheet form as a modal dialog
 		_ = formExportDataSheet.ShowDialog(owner: this);
 	}
@@ -1301,7 +1406,9 @@ public partial class PlanetoidDbForm
 		// Create a new instance of the PrintDataSheetForm
 		using PrintDataSheetForm formPrintDataSheet = new() { TopMost = this.TopMost };
 		// Fill the form with the complete list of orbital and derived elements
-		formPrintDataSheet.SetDatabase(GenerateFullOrbitalElementsList());
+		formPrintDataSheet.SetDatabase(db: GenerateFullOrbitalElementsList());
+		// Log the action of opening the PrintDataSheetForm with the current planetoids database
+		logger.Info(message: "Opening PrintDataSheetForm with the current planetoids database.");
 		// Show the print data sheet form as a modal dialog
 		_ = formPrintDataSheet.ShowDialog(owner: this);
 	}
@@ -1321,10 +1428,8 @@ public partial class PlanetoidDbForm
 		double argumentPerihelion = double.Parse(s: labelArgumentOfThePerihelionData.Text, provider: provider);
 		double inclination = double.Parse(s: labelInclinationToTheEclipticData.Text, provider: provider);
 		double absoluteMagnitude = double.Parse(s: labelAbsoluteMagnitudeData.Text, provider: provider);
-
 		// Calculate true anomaly for velocity and energy calculations
 		double trueAnomaly = DerivedElements.CalculateTrueAnomaly(meanAnomaly: meanAnomaly, numericalEccentricity: numericalEccentricity);
-
 		// Original 19 elements
 		derivedOrbitElements.Add(item: DerivedElements.CalculateLinearEccentricity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 		derivedOrbitElements.Add(item: DerivedElements.CalculateSemiMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
@@ -1345,7 +1450,6 @@ public partial class PlanetoidDbForm
 		derivedOrbitElements.Add(item: DerivedElements.CalculateSemiMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 		derivedOrbitElements.Add(item: DerivedElements.CalculateMeanAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 		derivedOrbitElements.Add(item: DerivedElements.CalculateStandardGravitationalParameter(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
-
 		// New 22 elements
 		derivedOrbitElements.Add(item: DerivedElements.CalculateDirectrix(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 		derivedOrbitElements.Add(item: DerivedElements.CalculatePerihelionVelocity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
@@ -1370,13 +1474,14 @@ public partial class PlanetoidDbForm
 		derivedOrbitElements.Add(item: DerivedElements.CalculateMeanDistanceFromFocus(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 		// Assume standard albedo of 0.154 for C-type asteroids if not specified
 		derivedOrbitElements.Add(item: DerivedElements.CalculateGeometricAlbedoAdjustedDiameter(absoluteMagnitude: absoluteMagnitude, geometricAlbedo: 0.154).ToString(provider: provider));
-
 		// Create a new instance of the DerivedOrbitElementsForm
 		using DerivedOrbitElementsForm formDerivedOrbitElements = new();
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formDerivedOrbitElements.TopMost = TopMost;
 		// Fill the form with the derived orbit elements
 		formDerivedOrbitElements.SetDatabase(list: [.. derivedOrbitElements.Cast<object>()]);
+		// Log the action of opening the DerivedOrbitElementsForm with the current planetoids database
+		logger.Info(message: "Opening DerivedOrbitElementsForm with the current planetoids database.");
 		// Show the derived orbit elements form as a modal dialog
 		_ = formDerivedOrbitElements.ShowDialog(owner: this);
 	}
@@ -1392,6 +1497,7 @@ public partial class PlanetoidDbForm
 		// Show the dialog and check if the user selected a file
 		if (openFileDialog.ShowDialog(owner: this) != DialogResult.OK)
 		{
+			logger.Warn(message: "User canceled the file selection dialog for local MPCORB.DAT.");
 			return;
 		}
 		// Get the selected file path
@@ -1469,11 +1575,7 @@ public partial class PlanetoidDbForm
 		{
 			_ = KryptonMessageBox.Show(
 				owner: this,
-				text: "Experimental features have been enabled. Please note that these features are in development and may not be fully stable.\n\n" +
-					"- distributions\n" +
-					"- scatter plots\n" +
-					"- a/e/i 3D diagram\n" +
-					"- orbit visualization",
+				text: "Experimental features have been enabled. Please note that these features are in development and may not be fully stable.",
 			caption: I18nStrings.InformationCaption,
 			buttons: KryptonMessageBoxButtons.OK,
 			icon: KryptonMessageBoxIcon.Information,

@@ -75,6 +75,7 @@ public partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 		// Lines must be at least 7 characters to hold the packed index
 		if (line.Length < 7)
 		{
+			logger.Warn(message: $"Line too short to extract designation: '{line}'");
 			return null;
 		}
 		// Prefer the full readable designation (positions 166-193)
@@ -114,30 +115,40 @@ public partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 		// Lines shorter than 103 characters do not contain all required fields
 		if (line.Length < 103)
 		{
+			logger.Warn(message: $"Line too short to parse orbital elements: '{line}'");
 			return false;
 		}
 		// Semi-major axis: positions 92-102
 		if (!double.TryParse(s: line.Substring(startIndex: 92, length: 11).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out semiMajorAxis) || semiMajorAxis <= 0)
 		{
+			logger.Warn(message: $"Invalid semi-major axis in line: '{line}'");
 			return false;
 		}
 		// Eccentricity: positions 70-78
 		if (!double.TryParse(s: line.Substring(startIndex: 70, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out eccentricity))
 		{
+			logger.Warn(message: $"Invalid eccentricity in line: '{line}'");
 			return false;
 		}
 		// Inclination: positions 59-67
 		if (!double.TryParse(s: line.Substring(startIndex: 59, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out inclinationDeg))
 		{
+			logger.Warn(message: $"Invalid inclination in line: '{line}'");
 			return false;
 		}
 		// Longitude of ascending node: positions 48-56
 		if (!double.TryParse(s: line.Substring(startIndex: 48, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out longitudeAscendingNodeDeg))
 		{
+			logger.Warn(message: $"Invalid longitude of ascending node in line: '{line}'");
 			return false;
 		}
 		// Argument of perihelion: positions 37-45
-		return double.TryParse(s: line.Substring(startIndex: 37, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out argumentPerihelionDeg);
+		if (!double.TryParse(s: line.Substring(startIndex: 37, length: 9).Trim(), style: NumberStyles.Float, provider: CultureInfo.InvariantCulture, result: out argumentPerihelionDeg))
+		{
+			logger.Warn(message: $"Invalid argument of perihelion in line: '{line}'");
+			return false;
+		}
+		return true;
 	}
 
 	/// <summary>Finds the raw MPCORB record line whose designation matches the given name.</summary>
@@ -154,6 +165,7 @@ public partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 				return line;
 			}
 		}
+		logger.Warn(message: $"No matching line found for designation '{name}'");
 		return null;
 	}
 
@@ -214,7 +226,7 @@ public partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 		}
 		catch (Exception ex)
 		{
-			logger.Error(message: $"Error calculating MOID between '{name1}' and '{name2}': {ex}");
+			logger.Error(exception: ex, message: $"Error calculating MOID between '{name1}' and '{name2}': {ex}");
 			kryptonLabelMoidValue.Text = "-";
 		}
 	}
@@ -226,6 +238,7 @@ public partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 	{
 		if (_updatingComboBox)
 		{
+			logger.Warn(message: "Re-entrant call to ApplyContainsFilter detected; skipping update.");
 			return;
 		}
 		_updatingComboBox = true;
@@ -242,6 +255,10 @@ public partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 			comboBox.Text = text;
 			comboBox.SelectionStart = text.Length;
 			comboBox.SelectionLength = 0;
+		}
+		catch (Exception ex)
+		{
+			logger.Error(exception: ex, message: $"Error applying filter to combo box '{comboBox.Name}': {ex}");
 		}
 		finally
 		{
@@ -280,7 +297,7 @@ public partial class MoidsRelativeToMinorPlanetsForm : BaseKryptonForm
 		}
 		catch (Exception ex)
 		{
-			logger.Error(message: $"Error loading planetoid names: {ex}");
+			logger.Error(exception: ex, message: $"Error loading planetoid names: {ex}");
 			ShowErrorMessage(message: $"Error loading planetoid names: {ex.Message}");
 		}
 	}

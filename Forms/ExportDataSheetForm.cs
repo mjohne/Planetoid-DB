@@ -139,12 +139,14 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		saveFileDialogText.InitialDirectory = Environment.GetFolderPath(folder: Environment.SpecialFolder.MyDocuments);
 		// Set the initial directory for the save file dialog to the user's documents folder
 		saveFileDialogText.FileName = $"{orbitElements[index: 0]}.{saveFileDialogText.DefaultExt}";
-		// Show the save file dialog to select the file path and name
-		// If the user selects a file, proceed with exporting
+		// Show the save file dialog to select the file path and name. If the user selects a file, proceed with exporting
 		if (saveFileDialogText.ShowDialog(owner: this) != DialogResult.OK)
 		{
+			logger.Warn(message: "Export operation canceled by the user.");
 			return;
 		}
+		// Log the file name selected by the user for exporting data
+		logger.Info(message: $"Exporting data to text file: {saveFileDialogText.FileName}");
 		// Create a new StreamWriter to write the text content to the specified file
 		using StreamWriter streamWriter = new(path: saveFileDialogText.FileName);
 		// Write the orbit elements to the text file
@@ -166,6 +168,8 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 				streamWriter.Write(value: Environment.NewLine);
 			}
 		}
+		// Log that the data was exported successfully
+		logger.Info(message: $"Data exported successfully to text file: {saveFileDialogText.FileName}");
 		// Show a message box indicating that the data was exported successfully
 		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
@@ -190,8 +194,11 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Show the save file dialog to select the file path and name
 		if (saveFileDialogLatex.ShowDialog(owner: this) != DialogResult.OK)
 		{
+			logger.Warn(message: "Export operation canceled by the user.");
 			return;
 		}
+		// Log the file name selected by the user for exporting data
+		logger.Info(message: $"Exporting data to LaTeX file: {saveFileDialogLatex.FileName}");
 		// Create a new StreamWriter to write the LaTeX content to the specified file
 		using StreamWriter streamWriter = new(path: saveFileDialogLatex.FileName);
 		// Create a StringBuilder to build the LaTeX content
@@ -224,6 +231,8 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		_ = sb.AppendLine(value: "\\end{document}");
 		// Write the LaTeX content to the file
 		streamWriter.Write(value: sb.ToString());
+		// Log that the data was exported successfully
+		logger.Info(message: $"Data exported successfully to LaTeX file: {saveFileDialogLatex.FileName}");
 		// Show a message box indicating that the data was exported successfully
 		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
@@ -248,8 +257,11 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Show the save file dialog to select the file path and name
 		if (saveFileDialogMarkdown.ShowDialog(owner: this) != DialogResult.OK)
 		{
+			logger.Warn(message: "Export operation canceled by the user.");
 			return;
 		}
+		// Log the file name selected by the user for exporting data
+		logger.Info(message: $"Exporting data to Markdown file: {saveFileDialogMarkdown.FileName}");
 		// Create a new StreamWriter to write the Markdown content to the specified file
 		using StreamWriter streamWriter = new(path: saveFileDialogMarkdown.FileName);
 		// Create a StringBuilder to build the Markdown content
@@ -270,6 +282,8 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		}
 		// Write the Markdown content to the file
 		streamWriter.Write(value: sb.ToString());
+		// Log that the data was exported successfully
+		logger.Info(message: $"Data exported successfully to Markdown file: {saveFileDialogMarkdown.FileName}");
 		// Show a message box indicating that the data was exported successfully
 		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
@@ -294,8 +308,11 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Show the save file dialog to select the file path and name
 		if (saveFileDialogWord.ShowDialog(owner: this) != DialogResult.OK)
 		{
+			logger.Warn(message: "Export operation canceled by the user.");
 			return;
 		}
+		// Log the file name selected by the user for exporting data
+		logger.Info(message: $"Exporting data to Word file: {saveFileDialogWord.FileName}");
 		// Helper method to escape special XML characters in the content
 		static string EscapeXml(string value) => value
 			.Replace(oldValue: "&", newValue: "&amp;", comparisonType: StringComparison.Ordinal)
@@ -391,6 +408,8 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		AddEntry(entryName: "[Content_Types].xml", content: contentTypesXml);
 		AddEntry(entryName: "_rels/.rels", content: rootRelsXml);
 		AddEntry(entryName: "word/document.xml", content: documentXml);
+		// Log that the data was exported successfully
+		logger.Info(message: $"Data exported successfully to Word file: {saveFileDialogWord.FileName}");
 		// Show a message box indicating that the data was exported successfully
 		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
@@ -415,8 +434,11 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Show the save file dialog to select the file path and name
 		if (saveFileDialogOdt.ShowDialog(owner: this) != DialogResult.OK)
 		{
+			logger.Warn(message: "Export operation canceled by the user.");
 			return;
 		}
+		// Log the file name selected by the user for exporting data
+		logger.Info(message: $"Exporting data to ODT file: {saveFileDialogOdt.FileName}");
 		// Helper method to escape special XML characters in the content
 		static string EscapeXml(string value) => value
 			.Replace(oldValue: "&", newValue: "&amp;", comparisonType: StringComparison.Ordinal)
@@ -528,6 +550,8 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		AddEntry(entryName: "meta.xml", content: metaXml);
 		AddEntry(entryName: "settings.xml", content: settingsXml);
 		AddEntry(entryName: "META-INF/manifest.xml", content: manifestXml);
+		// Log the successful export operation
+		logger.Info(message: $"Data exported successfully to ODT file: {saveFileDialogOdt.FileName}");
 		// Show a message box indicating that the data was exported successfully
 		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
@@ -552,8 +576,11 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Show the save file dialog to select the file path and name
 		if (saveFileDialogRtf.ShowDialog(owner: this) != DialogResult.OK)
 		{
+			logger.Warn(message: "Export operation canceled by the user.");
 			return;
 		}
+		// Log the file name selected by the user for exporting data
+		logger.Info(message: $"Exporting data to RTF file: {saveFileDialogRtf.FileName}");
 		// Helper method to escape special characters in RTF format
 		static string EscapeRtf(string value) => value
 			.Replace(oldValue: "\\", newValue: "\\\\", comparisonType: StringComparison.Ordinal)
@@ -591,6 +618,8 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		using StreamWriter streamWriter = new(path: saveFileDialogRtf.FileName);
 		// Write the RTF content to the file
 		streamWriter.Write(value: sb.ToString());
+		// Log that the data was exported successfully
+		logger.Info(message: $"Data exported successfully to RTF file: {saveFileDialogRtf.FileName}");
 		// Show a message box indicating that the data was exported successfully
 		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
@@ -615,8 +644,11 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Show the save file dialog to select the file path and name
 		if (saveFileDialogExcel.ShowDialog(owner: this) != DialogResult.OK)
 		{
+			logger.Warn(message: "Export operation canceled by the user.");
 			return;
 		}
+		// Log the file name selected by the user for exporting data
+		logger.Info(message: $"Exporting data to Excel file: {saveFileDialogExcel.FileName}");
 		// Helper method to escape special XML characters in the content
 		static string EscapeXml(string value) => value
 			.Replace(oldValue: "&", newValue: "&amp;", comparisonType: StringComparison.Ordinal)
@@ -709,6 +741,8 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		AddEntry(entryName: "xl/workbook.xml", content: workbookXml);
 		AddEntry(entryName: "xl/_rels/workbook.xml.rels", content: workbookRelsXml);
 		AddEntry(entryName: "xl/worksheets/sheet1.xml", content: worksheetXml);
+		// Log that the data was exported successfully
+		logger.Info(message: $"Data exported successfully to Excel file: {saveFileDialogExcel.FileName}");
 		// Show a message box indicating that the data was exported successfully
 		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
@@ -733,8 +767,11 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Show the save file dialog to select the file path and name
 		if (saveFileDialogOds.ShowDialog(owner: this) != DialogResult.OK)
 		{
+			logger.Warn(message: "Export operation canceled by the user.");
 			return;
 		}
+		// Log the file name selected by the user for exporting data
+		logger.Info(message: $"Exporting data to ODS file: {saveFileDialogOds.FileName}");
 		// Helper method to escape special XML characters in the content
 		static string EscapeXml(string value) => value
 			.Replace(oldValue: "&", newValue: "&amp;", comparisonType: StringComparison.Ordinal)
@@ -840,6 +877,8 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		AddEntry(entryName: "meta.xml", content: metaXml);
 		AddEntry(entryName: "settings.xml", content: settingsXml);
 		AddEntry(entryName: "META-INF/manifest.xml", content: manifestXml);
+		// Log that the data was exported successfully
+		logger.Info(message: $"Data exported successfully to ODS file: {saveFileDialogOds.FileName}");
 		// Show a message box indicating that the data was exported successfully
 		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
@@ -864,8 +903,11 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Show the save file dialog to select the file path and name
 		if (saveFileDialogCsv.ShowDialog(owner: this) != DialogResult.OK)
 		{
+			logger.Warn(message: "Export operation canceled by the user.");
 			return;
 		}
+		// Log the file name selected by the user for exporting data
+		logger.Info(message: $"Exporting data to CSV file: {saveFileDialogCsv.FileName}");
 		// Create a new StreamWriter to write the CSV content to the specified file
 		using StreamWriter streamWriter = new(path: saveFileDialogCsv.FileName);
 		// Write the orbit elements to the CSV file
@@ -887,6 +929,8 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 				streamWriter.Write(value: Environment.NewLine);
 			}
 		}
+		// Log that the data was exported successfully
+		logger.Info(message: $"Data exported successfully to CSV file: {saveFileDialogCsv.FileName}");
 		// Show a message box indicating that the data was exported successfully
 		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
@@ -911,8 +955,11 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Show the save file dialog to select the file path and name
 		if (saveFileDialogTsv.ShowDialog(owner: this) != DialogResult.OK)
 		{
+			logger.Warn(message: "Export operation canceled by the user.");
 			return;
 		}
+		// Log the file name selected by the user for exporting data
+		logger.Info(message: $"Exporting data to TSV file: {saveFileDialogTsv.FileName}");
 		// Create a new StreamWriter to write the TSV content to the specified file
 		using StreamWriter streamWriter = new(path: saveFileDialogTsv.FileName);
 		// Write the orbit elements to the TSV file
@@ -934,6 +981,8 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 				streamWriter.Write(value: Environment.NewLine);
 			}
 		}
+		// Log that the data was exported successfully
+		logger.Info(message: $"Data exported successfully to TSV file: {saveFileDialogTsv.FileName}");
 		// Show a message box indicating that the data was exported successfully
 		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
@@ -958,8 +1007,11 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Show the save file dialog to select the file path and name
 		if (saveFileDialogPsv.ShowDialog(owner: this) != DialogResult.OK)
 		{
+			logger.Warn(message: "Export operation canceled by the user.");
 			return;
 		}
+		// Log the file name selected by the user for exporting data
+		logger.Info(message: $"Exporting data to PSV file: {saveFileDialogPsv.FileName}");
 		// Create a new StreamWriter to write the PSV content to the specified file
 		using StreamWriter streamWriter = new(path: saveFileDialogPsv.FileName);
 		// Write the orbit elements to the PSV file
@@ -981,6 +1033,8 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 				streamWriter.Write(value: Environment.NewLine);
 			}
 		}
+		// Log that the data was exported successfully
+		logger.Info(message: $"Data exported successfully to PSV file: {saveFileDialogPsv.FileName}");
 		// Show a message box indicating that the data was exported successfully
 		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
@@ -1005,8 +1059,11 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Show the save file dialog to select the file path and name
 		if (saveFileDialogHtml.ShowDialog(owner: this) != DialogResult.OK)
 		{
+			logger.Warn(message: "Export operation canceled by the user.");
 			return;
 		}
+		// Log the file name selected by the user for exporting data
+		logger.Info(message: $"Exporting data to HTML file: {saveFileDialogHtml.FileName}");
 		// Create a new StreamWriter to write the HTML content to the specified file
 		using StreamWriter streamWriter = new(path: saveFileDialogHtml.FileName);
 		// Create a StringBuilder to build the HTML content
@@ -1048,6 +1105,8 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		_ = sb.Append(value: "</html>");
 		// Write the HTML content to the file
 		streamWriter.Write(value: sb.ToString());
+		// Log that the data was exported successfully
+		logger.Info(message: $"Data exported successfully to HTML file: {saveFileDialogHtml.FileName}");
 		// Show a message box indicating that the data was exported successfully
 		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
@@ -1072,15 +1131,18 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Show the save file dialog to select the file path and name
 		if (saveFileDialogXml.ShowDialog(owner: this) != DialogResult.OK)
 		{
+			logger.Warn(message: "Export operation canceled by the user.");
 			return;
 		}
+		// Log the file name selected by the user for exporting data
+		logger.Info(message: $"Exporting data to XML file: {saveFileDialogXml.FileName}");
 		// Create a new StreamWriter to write the XML content to the specified file
 		using StreamWriter streamWriter = new(path: saveFileDialogXml.FileName);
 		// Create a StringBuilder to build the XML content
 		StringBuilder sb = new();
 		// Append the XML content to the StringBuilder
 		_ = sb.AppendLine(value: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
-		_ = sb.AppendLine(value: "<MinorPlanet xmlns=\"https://planet-db.de\">");
+		_ = sb.AppendLine(value: "<MinorPlanet xmlns=\"https://github.com/mjohne/Planetoid-DB\">");
 		// Append the orbit elements to the XML content
 		for (int i = 0; i < checkedListBoxOrbitalElements.Items.Count; i++)
 		{
@@ -1138,6 +1200,8 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		_ = sb.Append(value: "</MinorPlanet>");
 		// Write the XML content to the file
 		streamWriter.Write(value: sb.ToString());
+		// Log that the data was exported successfully
+		logger.Info(message: $"Data exported successfully to XML file: {saveFileDialogXml.FileName}");
 		// Show a message box indicating that the data was exported successfully
 		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
@@ -1162,8 +1226,11 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Show the save file dialog to select the file path and name
 		if (saveFileDialogJson.ShowDialog(owner: this) != DialogResult.OK)
 		{
+			logger.Warn(message: "Export operation canceled by the user.");
 			return;
 		}
+		// Log the file name selected by the user for exporting data
+		logger.Info(message: $"Exporting data to JSON file: {saveFileDialogJson.FileName}");
 		// Create a new StreamWriter to write the JSON content to the specified file
 		using StreamWriter streamWriter = new(path: saveFileDialogJson.FileName);
 		// Create a StringBuilder to build the JSON content
@@ -1227,6 +1294,8 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		_ = sb.AppendLine(value: "}");
 		// Write the JSON content to the file
 		streamWriter.Write(value: sb.ToString());
+		// Log that the data was exported successfully
+		logger.Info(message: $"Data exported successfully to JSON file: {saveFileDialogJson.FileName}");
 		// Show a message box indicating that the data was exported successfully
 		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
@@ -1251,8 +1320,11 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Show the save file dialog to select the file path and name
 		if (saveFileDialogYaml.ShowDialog(owner: this) != DialogResult.OK)
 		{
+			logger.Warn(message: "Export operation canceled by the user.");
 			return;
 		}
+		// Log the file name selected by the user for exporting data
+		logger.Info(message: $"Exporting data to YAML file: {saveFileDialogYaml.FileName}");
 		// Create a new StreamWriter to write the YAML content to the specified file
 		using StreamWriter streamWriter = new(path: saveFileDialogYaml.FileName);
 		// Create a StringBuilder to build the YAML content
@@ -1271,6 +1343,8 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		}
 		// Write the YAML content to the file
 		streamWriter.Write(value: sb.ToString());
+		// Log that the data was exported successfully
+		logger.Info(message: $"Data exported successfully to YAML file: {saveFileDialogYaml.FileName}");
 		// Show a message box indicating that the data was exported successfully
 		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
@@ -1295,8 +1369,11 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Show the save file dialog to select the file path and name
 		if (saveFileDialogSql.ShowDialog(owner: this) != DialogResult.OK)
 		{
+			logger.Warn(message: "Export operation canceled by the user.");
 			return;
 		}
+		// Log the file name selected by the user for exporting data
+		logger.Info(message: $"Exporting data to RTF file: {saveFileDialogSql.FileName}");
 		// Create a new StreamWriter to write the SQL content to the specified file
 		using StreamWriter streamWriter = new(path: saveFileDialogSql.FileName);
 		StringBuilder sb = new();
@@ -1345,6 +1422,8 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		_ = sb.AppendLine(value: ");");
 		// Write the SQL content to the file
 		streamWriter.Write(value: sb.ToString());
+		// Log that the data was exported successfully
+		logger.Info(message: $"Data exported successfully to SQL file: {saveFileDialogSql.FileName}");
 		// Show a message box indicating that the data was exported successfully
 		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
@@ -1369,8 +1448,11 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Show the save file dialog to select the file path and name
 		if (saveFileDialogPdf.ShowDialog(owner: this) != DialogResult.OK)
 		{
+			logger.Warn(message: "Export operation canceled by the user.");
 			return;
 		}
+		// Log the file name selected by the user for exporting data
+		logger.Info(message: $"Exporting data to PDF file: {saveFileDialogPdf.FileName}");
 		// Define a method to escape special characters in PDF text
 		static string EscapePdfText(string value)
 		{
@@ -1477,6 +1559,8 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		WriteAscii(value: "%%EOF");
 		// Write the content of the MemoryStream to the specified file path as a PDF file
 		File.WriteAllBytes(path: saveFileDialogPdf.FileName, bytes: memoryStream.ToArray());
+		// Log that the data was exported successfully
+		logger.Info(message: $"Data exported successfully to PDF file: {saveFileDialogPdf.FileName}");
 		// Show a message box indicating that the data was exported successfully
 		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
@@ -1501,8 +1585,11 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Show the save file dialog to select the file path and name
 		if (saveFileDialogPostScript.ShowDialog(owner: this) != DialogResult.OK)
 		{
+			logger.Warn(message: "Export operation canceled by the user.");
 			return;
 		}
+		// Log the file name selected by the user for exporting data
+		logger.Info(message: $"Exporting data to PostScript file: {saveFileDialogPostScript.FileName}");
 		// Define a method to escape special characters in PostScript strings
 		static string EscapePostScriptString(string value) => value
 			.Replace(oldValue: "\\", newValue: "\\\\", comparisonType: StringComparison.Ordinal)
@@ -1544,6 +1631,8 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Append the showpage operator to the PostScript content to indicate the end of the page
 		_ = sb.AppendLine(value: "showpage");
 		streamWriter.Write(value: sb.ToString());
+		// Log that the data was exported successfully
+		logger.Info(message: $"Data exported successfully to PostScript file: {saveFileDialogPostScript.FileName}");
 		// Show a message box indicating that the data was exported successfully
 		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
@@ -1568,8 +1657,11 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Show the save file dialog to select the file path and name
 		if (saveFileDialogEpub.ShowDialog(owner: this) != DialogResult.OK)
 		{
+			logger.Warn(message: "Export operation canceled by the user.");
 			return;
 		}
+		// Log the file name selected by the user for exporting data
+		logger.Info(message: $"Exporting data to EPUB file: {saveFileDialogEpub.FileName}");
 		// Create a new StreamWriter to write the EPUB content to the specified file
 		static string EscapeXml(string value) => value
 			.Replace(oldValue: "&", newValue: "&amp;", comparisonType: StringComparison.Ordinal)
@@ -1682,6 +1774,8 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		AddEntry(entryName: "OEBPS/content.opf", content: contentOpf);
 		AddEntry(entryName: "OEBPS/nav.xhtml", content: navXhtml);
 		AddEntry(entryName: "OEBPS/content.xhtml", content: contentXhtml);
+		// Log that the data was exported successfully
+		logger.Info(message: $"Data exported successfully to EPUB file: {saveFileDialogEpub.FileName}");
 		// Show a message box indicating that the data was exported successfully
 		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
@@ -1706,8 +1800,11 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		// Show the save file dialog to select the file path and name
 		if (saveFileDialogMobi.ShowDialog(owner: this) != DialogResult.OK)
 		{
+			logger.Warn(message: "Export operation canceled by the user.");
 			return;
 		}
+		// Log the file name selected by the user for exporting data
+		logger.Info(message: $"Exporting data to MOBI file: {saveFileDialogMobi.FileName}");
 		// Create a StringBuilder to build the content of the MOBI file
 		StringBuilder sb = new();
 		// Append the content to the StringBuilder in a simple text format for the MOBI file
@@ -1734,6 +1831,8 @@ public partial class ExportDataSheetForm : BaseKryptonForm
 		}
 		// Write the content of the StringBuilder to the specified file path as a MOBI file
 		File.WriteAllBytes(path: saveFileDialogMobi.FileName, bytes: Encoding.UTF8.GetBytes(s: sb.ToString()));
+		// Log that the data was exported successfully
+		logger.Info(message: $"Data exported successfully to MOBI file: {saveFileDialogMobi.FileName}");
 		// Show a message box indicating that the data was exported successfully
 		_ = KryptonMessageBox.Show(owner: this, text: "Data exported successfully.", caption: "Export Complete", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
 	}
