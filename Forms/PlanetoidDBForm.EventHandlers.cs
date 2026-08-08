@@ -753,6 +753,16 @@ public partial class PlanetoidDbForm
 		ShowSettings();
 	}
 
+	/// <summary>Handles the click event for the ToolStripMenuItemExportSettings. Shows the settings export form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the settings export form.</remarks>
+	private void ExportSettings_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Showing settings export form.");
+		ShowSettingsExport();
+	}
+
 	/// <summary>Handles the click event for the ToolStripButtonFilter. Shows the filter form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
