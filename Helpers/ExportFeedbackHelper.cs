@@ -47,4 +47,27 @@ public static class ExportFeedbackHelper
 		logger.Error(exception: ex, message: $"Error saving as {format} to '{filePath}'.");
 		ShowErrorMessage(message: $"Error saving as {format}: {ex.Message}");
 	}
+
+	/// <summary>Shows a success message box after settings have been imported successfully.</summary>
+	/// <param name="count">The number of settings that were applied.</param>
+	/// <remarks>Displays a message box to the user confirming how many settings were imported.</remarks>
+	public static void ShowImportSuccess(int count)
+	{
+		_ = KryptonMessageBox.Show(
+			text: $"{count} setting(s) imported successfully.",
+			caption: I18nStrings.InformationCaption,
+			buttons: KryptonMessageBoxButtons.OK,
+			icon: KryptonMessageBoxIcon.Information);
+	}
+
+	/// <summary>Logs and shows an error that occurred while importing a settings file.</summary>
+	/// <param name="ex">The exception that occurred.</param>
+	/// <param name="format">A label identifying the file format (e.g. "CSV", "JSON").</param>
+	/// <param name="filePath">The source file path.</param>
+	/// <remarks>Logs the error with details about the format and file path, and displays an error message box to the user.</remarks>
+	public static void ShowImportError(Exception ex, string format, string filePath)
+	{
+		logger.Error(exception: ex, message: $"Error importing from {format} file '{filePath}'.");
+		ShowErrorMessage(message: $"Error importing from {format}: {ex.Message}");
+	}
 }
