@@ -1,4 +1,4 @@
-// Imports application settings (from various file formats) into Settings.settings.
+// Imports user-scoped application settings (from various file formats) into the current user profile via Settings.Default.
 
 using NLog;
 
