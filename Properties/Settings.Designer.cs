@@ -421,5 +421,38 @@ namespace Planetoid_DB.Properties {
                 this["userAppDirectory"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool systemEnableLogging {
+            get {
+                return ((bool)(this["systemEnableLogging"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool userEnableLogging {
+            get {
+                return ((bool)(this["userEnableLogging"]));
+            }
+            set {
+                this["userEnableLogging"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool userUpgradeRequired {
+            get {
+                return ((bool)(this["userUpgradeRequired"]));
+            }
+            set {
+                this["userUpgradeRequired"] = value;
+            }
+        }
     }
 }

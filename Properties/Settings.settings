@@ -122,5 +122,14 @@
     <Setting Name="userAppDirectory" Type="System.String" Scope="User">
       <Value Profile="(Default)">Planetoid-DB</Value>
     </Setting>
+    <Setting Name="systemEnableLogging" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="userEnableLogging" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="userUpgradeRequired" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

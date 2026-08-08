@@ -1579,10 +1579,10 @@ public partial class PlanetoidDbForm
 			_ = KryptonMessageBox.Show(
 				owner: this,
 				text: "Experimental features have been enabled. Please note that these features are in development and may not be fully stable.",
-			caption: I18nStrings.InformationCaption,
-			buttons: KryptonMessageBoxButtons.OK,
-			icon: KryptonMessageBoxIcon.Information,
-			defaultButton: KryptonMessageBoxDefaultButton.Button1);
+				caption: I18nStrings.InformationCaption,
+				buttons: KryptonMessageBoxButtons.OK,
+				icon: KryptonMessageBoxIcon.Information,
+				defaultButton: KryptonMessageBoxDefaultButton.Button1);
 		}
 	}
 

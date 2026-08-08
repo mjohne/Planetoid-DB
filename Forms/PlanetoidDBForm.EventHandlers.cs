@@ -1,5 +1,7 @@
 using Krypton.Toolkit;
 
+using NLog;
+
 using Planetoid_DB.Forms;
 using Planetoid_DB.Properties;
 
@@ -24,6 +26,15 @@ public partial class PlanetoidDbForm
 		ClearStatusBar(label: labelInformation);
 		// Reload the application settings to ensure the latest configuration is applied
 		Settings.Default.Reload();
+		// Check if a user upgrade is required and perform the upgrade if necessary
+		if (Properties.Settings.Default.userUpgradeRequired)
+		{
+			Properties.Settings.Default.Upgrade();
+			Properties.Settings.Default.userUpgradeRequired = false;
+			Properties.Settings.Default.Save();
+		}
+		// Set the checked state of the logging menu item based on the user settings
+		toolStripMenuItemLogging.Checked = Settings.Default.userEnableLogging;
 		// Check if experimental features are enabled in the settings and enable them if so
 		if (Settings.Default.userEnableExperimentalFeatures)
 		{
@@ -58,20 +69,25 @@ public partial class PlanetoidDbForm
 					kryptonPageMpcorbDat.Text = $"MPCORB.DAT ({datetimeFileLocal.ToString(provider: CultureInfo.CurrentCulture)})";
 				}
 			}
+			// Catch specific exceptions related to file access and log the errors
 			catch (ArgumentException ArgEx)
 			{
+				// Log the error message for an invalid file path format
 				logger.Error(exception: ArgEx, message: $"Invalid file path format: {resolvedMpcOrbDatFilePath}");
 			}
 			catch (NotSupportedException NotSupEx)
 			{
+				// Log the error message for an unsupported file path format
 				logger.Error(exception: NotSupEx, message: $"Invalid file path format: {resolvedMpcOrbDatFilePath}");
 			}
 			catch (PathTooLongException PathTooLongEx)
 			{
+				// Log the error message for a file path that is too long
 				logger.Error(exception: PathTooLongEx, message: $"File path is too long: {resolvedMpcOrbDatFilePath}");
 			}
 			catch (UnauthorizedAccessException UnauthorizedAccessEx)
 			{
+				// Log the error message for unauthorized access to the file path
 				logger.Error(exception: UnauthorizedAccessEx, message: $"Unauthorized access to file path: {resolvedMpcOrbDatFilePath}");
 			}
 		}
@@ -1557,6 +1573,30 @@ public partial class PlanetoidDbForm
 	{
 		logger.Info(message: $"Displaying 3D view of the orbit for object {labelIndexData.Text}");
 		ShowOrbit3DView();
+	}
+
+	/// <summary>Handles the click event for the ToolStripMenuItemLogging menu item. Toggles logging on or off based on the checked state of the menu item and updates user settings accordingly.</summary>
+	/// <param name="sender">The source of the event, typically the ToolStripMenuItemLogging menu item.</param>
+	/// <param name="e">An <see cref="EventArgs"/> object that contains the event data.</param>
+	/// <remarks>This method enables or disables logging based on the checked state of the ToolStripMenuItemLogging menu item. It also updates the user settings to reflect the current logging preference and enables or disables the logging level menu items accordingly.</remarks>
+	private void ToolStripMenuItemLogging_Click(object sender, EventArgs e)
+	{
+		if (toolStripMenuItemLogging.Checked)
+		{
+			// Enable logging
+			LogManager.ResumeLogging();
+			logger.Info(message: "Logging enabled");
+		}
+		else
+		{
+			// Disable logging
+			logger.Info(message: "Logging disabled");
+			logger.Log(level: LogLevel.Off, message: "Logging has been disabled.");
+			LogManager.SuspendLogging();
+		}
+		// Save the logging preference to user settings
+		Settings.Default.userEnableLogging = toolStripMenuItemLogging.Checked;
+		Settings.Default.Save();
 	}
 
 	#endregion
