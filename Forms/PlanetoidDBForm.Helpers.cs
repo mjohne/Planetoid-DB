@@ -1303,6 +1303,19 @@ public partial class PlanetoidDbForm
 		_ = formSettings.ShowDialog(owner: this);
 	}
 
+	/// <summary>Shows the settings export form.</summary>
+	/// <remarks>Opens a modal dialog that lets the user export all program settings to CSV, INI, XML, JSON, or YAML.</remarks>
+	private void ShowSettingsExport()
+	{
+		// Create a new instance of the SettingsExportForm
+		using SettingsExportForm formSettingsExport = new();
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
+		formSettingsExport.TopMost = TopMost;
+		// Log the action of opening the SettingsExportForm
+		logger.Info(message: "Opening SettingsExportForm.");
+		_ = formSettingsExport.ShowDialog(owner: this);
+	}
+
 	/// <summary>Lists readable designations.</summary>
 	/// <remarks>This method is used to show the list of readable designations.</remarks>
 	private void ListReadableDesignations()
