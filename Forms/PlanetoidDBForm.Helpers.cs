@@ -1553,6 +1553,9 @@ public partial class PlanetoidDbForm
 		}
 	}
 
+	/// <summary>Enables experimental features in the application and updates the user settings accordingly. If the 'silent' parameter is set to false, a message box will be displayed to inform the user about the enabled experimental features.</summary>
+	/// <param name="silent">If set to true, no message box will be displayed.</param>
+	/// <remarks>This method updates the user settings and logs the changes. It also enables the corresponding UI elements for the experimental features.</remarks>
 	private void EnableExperimentalFeatures(bool silent = false)
 	{
 		// Enable experimental features in the application
@@ -1583,6 +1586,9 @@ public partial class PlanetoidDbForm
 		}
 	}
 
+	/// <summary>Disables experimental features in the application and updates the user settings accordingly. If the 'silent' parameter is set to false, a message box will be displayed to inform the user about the disabled experimental features.</summary>
+	/// <param name="silent">If set to true, no message box will be displayed.</param>
+	/// <remarks>This method updates the user settings and logs the changes. It also disables the corresponding UI elements for the experimental features.</remarks>
 	private void DisableExperimentalFeatures(bool silent = false)
 	{
 		// Disable experimental features in the application
