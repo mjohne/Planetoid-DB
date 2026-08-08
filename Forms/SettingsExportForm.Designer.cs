@@ -8,9 +8,7 @@ namespace Planetoid_DB;
 
 /// <summary>Represents a dialog that exports program settings to CSV, INI, XML, JSON, or YAML.</summary>
 /// <remarks>The form provides five equally-sized, horizontally-arranged export buttons placed on a
-/// <see cref="KryptonPanel"/>. A <see cref="KryptonStatusStrip"/> shows context help at the bottom.
-/// This file is maintained by hand because no WinForms designer session is available in this
-/// environment; it follows the same hand-written style used by <c>SettingsForm.Designer.cs</c>.</remarks>
+/// <see cref="KryptonPanel"/>. A <see cref="KryptonStatusStrip"/> shows context help at the bottom.</remarks>
 partial class SettingsExportForm
 {
 	/// <summary>Required designer variable.</summary>
