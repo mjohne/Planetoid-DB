@@ -763,6 +763,16 @@ public partial class PlanetoidDbForm
 		ShowSettingsExport();
 	}
 
+	/// <summary>Handles the click event for the ToolStripMenuItemImportSettings. Shows the settings import form.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is used to show the settings import form.</remarks>
+	private void ImportSettings_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Showing settings import form.");
+		ShowSettingsImport();
+	}
+
 	/// <summary>Handles the click event for the ToolStripButtonFilter. Shows the filter form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>

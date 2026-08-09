@@ -238,6 +238,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOptions = new ToolStripMenuItem();
 		toolStripMenuItemSettings = new ToolStripMenuItem();
 		toolStripMenuItemExportSettings = new ToolStripMenuItem();
+		toolStripMenuItemImportSettings = new ToolStripMenuItem();
 		toolStripMenuItemStyle = new ToolStripMenuItem();
 		toolStripMenuItemIconsetFatcow = new ToolStripMenuItem();
 		toolStripMenuItemIconsetSilk = new ToolStripMenuItem();
@@ -3537,7 +3538,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOptions.AccessibleName = "Options";
 		toolStripMenuItemOptions.AccessibleRole = AccessibleRole.MenuPopup;
 		toolStripMenuItemOptions.AutoToolTip = true;
-		toolStripMenuItemOptions.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSettings, toolStripMenuItemExportSettings, toolStripMenuItemStyle, toolStripSeparatorOptions, toolStripMenuItemOptionStayOnTop, toolStripMenuItemOptionEnabledCopyingByDoubleClicking, toolStripMenuItemOptionEnableLinkingToTerminology, toolStripMenuItemExperimentalFeatures, toolStripMenuItemLogging });
+		toolStripMenuItemOptions.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSettings, toolStripMenuItemExportSettings, toolStripMenuItemImportSettings, toolStripMenuItemStyle, toolStripSeparatorOptions, toolStripMenuItemOptionStayOnTop, toolStripMenuItemOptionEnabledCopyingByDoubleClicking, toolStripMenuItemOptionEnableLinkingToTerminology, toolStripMenuItemExperimentalFeatures, toolStripMenuItemLogging });
 		toolStripMenuItemOptions.Name = "toolStripMenuItemOptions";
 		toolStripMenuItemOptions.ShortcutKeys = Keys.Alt | Keys.O;
 		toolStripMenuItemOptions.Size = new Size(61, 24);
@@ -3573,6 +3574,20 @@ partial class PlanetoidDbForm
 		toolStripMenuItemExportSettings.Click += ExportSettings_Click;
 		toolStripMenuItemExportSettings.MouseEnter += Control_Enter;
 		toolStripMenuItemExportSettings.MouseLeave += Control_Leave;
+		//
+		// toolStripMenuItemImportSettings
+		//
+		toolStripMenuItemImportSettings.AccessibleDescription = "Imports program settings from a file";
+		toolStripMenuItemImportSettings.AccessibleName = "Import Settings";
+		toolStripMenuItemImportSettings.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemImportSettings.AutoToolTip = true;
+		toolStripMenuItemImportSettings.Image = FatcowIcons16px.fatcow_page_add_16px;
+		toolStripMenuItemImportSettings.Name = "toolStripMenuItemImportSettings";
+		toolStripMenuItemImportSettings.Size = new Size(268, 22);
+		toolStripMenuItemImportSettings.Text = "I&mport Settings";
+		toolStripMenuItemImportSettings.Click += ImportSettings_Click;
+		toolStripMenuItemImportSettings.MouseEnter += Control_Enter;
+		toolStripMenuItemImportSettings.MouseLeave += Control_Leave;
 		// 
 		toolStripMenuItemStyle.AccessibleDescription = "Changes the style";
 		toolStripMenuItemStyle.AccessibleName = "Look and Feel";
@@ -4873,6 +4888,7 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem toolStripMenuItemDatabaseInformation;
 	private ToolStripMenuItem toolStripMenuItemSettings;
 	private ToolStripMenuItem toolStripMenuItemExportSettings;
+	private ToolStripMenuItem toolStripMenuItemImportSettings;
 	private ToolStripSeparator toolStripSeparatorOptions;
 	private ToolStripSeparator toolStripSeparatorFile1;
 	private ToolStripMenuItem toolStripMenuItemRestart;
