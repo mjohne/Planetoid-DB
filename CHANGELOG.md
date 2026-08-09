@@ -1,5 +1,23 @@
 # Changelog
 
+## Planetoid-DB 0.9.26.89
+
+* Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1008
+* Updated CHANGELOG for version 0.9.25.88 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1009
+* Updated option to enable or disable experimental features by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1010
+* Added experimental features to the application settings by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1012
+* Created a log viewer (`LogViewerForm`) by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1016
+* Added logging commands by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1017
+* Updated `System.Data.SQLite` to version 2.0.4 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1018
+* Created `SettingsExportForm` for exporting application settings by @mjohne with @Claude in https://github.com/mjohne/Planetoid-DB/pull/1020
+* Created `SettingsImportForm` for importing application settings by @mjohne with @Claude in https://github.com/mjohne/Planetoid-DB/pull/1022
+* Updated internal database `demoset-10000.txt` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1023
+* Created code review guidelines for Planetoid-DB by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1024
+* Updated to version 0.9.26.89 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1025
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.25.88.1006.3382...0.9.26.89.1025.3502
+
+
 ## Planetoid-DB 0.9.25.88
 
 * Updated CHANGELOG for version 0.9.24.87 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1002
