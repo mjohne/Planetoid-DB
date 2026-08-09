@@ -54,8 +54,8 @@ compression, AppData-based caching/preferences).
 - Magic numbers (thresholds for family classification, proper-element cutoffs) are named constants with
   a comment on their origin (e.g., citing AstDyS/MPC convention) rather than bare literals.
 - No obvious duplication of logic that already exists elsewhere in the codebase.
-- Public methods/classes have enough doc comments for a future maintainer to understand intent, not just
-  behavior.
+- Public and internal methods, constructors, fields, properties, and event handlers have XML documentation
+  comments written in English (required by the project via `<GenerateDocumentationFile>True</GenerateDocumentationFile>`).
 
 ### Tests (if present)
 - New logic (especially orbital element math, parsing) has at least a basic unit test covering a normal
