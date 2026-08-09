@@ -49,10 +49,10 @@ partial class PlanetoidDbForm
 		toolStripMenuItemNavigateStep1000 = new ToolStripMenuItem();
 		toolStripMenuItemNavigateStep10000 = new ToolStripMenuItem();
 		toolStripMenuItemNavigateStep100000 = new ToolStripMenuItem();
-		toolStripMenuItemNavigateSomeDataBackward = new ToolStripMenuItem();
-		toolStripMenuItemNavigateSomeDataForward = new ToolStripMenuItem();
 		toolStripSplitButtonStepForward = new ToolStripSplitButton();
 		toolStripSplitButtonStepBackward = new ToolStripSplitButton();
+		toolStripMenuItemNavigateSomeDataBackward = new ToolStripMenuItem();
+		toolStripMenuItemNavigateSomeDataForward = new ToolStripMenuItem();
 		tableLayoutPanelData = new KryptonTableLayoutPanel();
 		labelIndexData = new KryptonLabel();
 		contextMenuCopyToClipboard = new ContextMenuStrip(components);
@@ -237,18 +237,19 @@ partial class PlanetoidDbForm
 		toolStripMenuItemShowSingoppCatUpdateIsAvailable = new ToolStripMenuItem();
 		toolStripMenuItemOptions = new ToolStripMenuItem();
 		toolStripMenuItemSettings = new ToolStripMenuItem();
-		toolStripMenuItemExportSettings = new ToolStripMenuItem();
-		toolStripMenuItemImportSettings = new ToolStripMenuItem();
 		toolStripMenuItemStyle = new ToolStripMenuItem();
 		toolStripMenuItemIconsetFatcow = new ToolStripMenuItem();
 		toolStripMenuItemIconsetSilk = new ToolStripMenuItem();
 		toolStripMenuItemIconsetFugue = new ToolStripMenuItem();
-		toolStripSeparatorOptions = new ToolStripSeparator();
+		toolStripSeparator19 = new ToolStripSeparator();
 		toolStripMenuItemOptionStayOnTop = new ToolStripMenuItem();
 		toolStripMenuItemOptionEnabledCopyingByDoubleClicking = new ToolStripMenuItem();
 		toolStripMenuItemOptionEnableLinkingToTerminology = new ToolStripMenuItem();
 		toolStripMenuItemExperimentalFeatures = new ToolStripMenuItem();
 		toolStripMenuItemLogging = new ToolStripMenuItem();
+		toolStripSeparatorOptions = new ToolStripSeparator();
+		toolStripMenuItemImportSettings = new ToolStripMenuItem();
+		toolStripMenuItemExportSettings = new ToolStripMenuItem();
 		toolStripMenuItemHelp = new ToolStripMenuItem();
 		toolStripMenuItemAbout = new ToolStripMenuItem();
 		toolStripMenuItemLicense = new ToolStripMenuItem();
@@ -347,7 +348,7 @@ partial class PlanetoidDbForm
 		contextMenuNavigationStep.Font = new Font("Segoe UI", 9F);
 		contextMenuNavigationStep.Items.AddRange(new ToolStripItem[] { toolStripMenuItemNavigateStep10, toolStripMenuItemNavigateStep100, toolStripMenuItemNavigateStep1000, toolStripMenuItemNavigateStep10000, toolStripMenuItemNavigateStep100000 });
 		contextMenuNavigationStep.Name = "contextMenu";
-		contextMenuNavigationStep.OwnerItem = toolStripSplitButtonStepBackward;
+		contextMenuNavigationStep.OwnerItem = toolStripMenuItemNavigateSomeDataForward;
 		contextMenuNavigationStep.ShowCheckMargin = true;
 		contextMenuNavigationStep.ShowImageMargin = false;
 		contextMenuNavigationStep.Size = new Size(111, 114);
@@ -430,38 +431,6 @@ partial class PlanetoidDbForm
 		toolStripMenuItemNavigateStep100000.MouseEnter += Control_Enter;
 		toolStripMenuItemNavigateStep100000.MouseLeave += Control_Leave;
 		// 
-		// toolStripMenuItemNavigateSomeDataBackward
-		// 
-		toolStripMenuItemNavigateSomeDataBackward.AccessibleDescription = "Navigates some data backward";
-		toolStripMenuItemNavigateSomeDataBackward.AccessibleName = "Navigates some data backward";
-		toolStripMenuItemNavigateSomeDataBackward.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemNavigateSomeDataBackward.AutoToolTip = true;
-		toolStripMenuItemNavigateSomeDataBackward.DropDown = contextMenuNavigationStep;
-		toolStripMenuItemNavigateSomeDataBackward.Image = FatcowIcons16px.fatcow_control_rewind_blue_16px;
-		toolStripMenuItemNavigateSomeDataBackward.Name = "toolStripMenuItemNavigateSomeDataBackward";
-		toolStripMenuItemNavigateSomeDataBackward.ShortcutKeys = Keys.Control | Keys.D2;
-		toolStripMenuItemNavigateSomeDataBackward.Size = new Size(275, 22);
-		toolStripMenuItemNavigateSomeDataBackward.Text = "Navigate some data back&ward";
-		toolStripMenuItemNavigateSomeDataBackward.Click += NavigateSomeDataBackward_Click;
-		toolStripMenuItemNavigateSomeDataBackward.MouseEnter += Control_Enter;
-		toolStripMenuItemNavigateSomeDataBackward.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemNavigateSomeDataForward
-		// 
-		toolStripMenuItemNavigateSomeDataForward.AccessibleDescription = "Navigates some data forward";
-		toolStripMenuItemNavigateSomeDataForward.AccessibleName = "Navigates some data forward";
-		toolStripMenuItemNavigateSomeDataForward.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemNavigateSomeDataForward.AutoToolTip = true;
-		toolStripMenuItemNavigateSomeDataForward.DropDown = contextMenuNavigationStep;
-		toolStripMenuItemNavigateSomeDataForward.Image = FatcowIcons16px.fatcow_control_fastforward_blue_16px;
-		toolStripMenuItemNavigateSomeDataForward.Name = "toolStripMenuItemNavigateSomeDataForward";
-		toolStripMenuItemNavigateSomeDataForward.ShortcutKeys = Keys.Control | Keys.D5;
-		toolStripMenuItemNavigateSomeDataForward.Size = new Size(275, 22);
-		toolStripMenuItemNavigateSomeDataForward.Text = "Navigate some data &forward";
-		toolStripMenuItemNavigateSomeDataForward.Click += NavigateSomeDataForward_Click;
-		toolStripMenuItemNavigateSomeDataForward.MouseEnter += Control_Enter;
-		toolStripMenuItemNavigateSomeDataForward.MouseLeave += Control_Leave;
-		// 
 		// toolStripSplitButtonStepForward
 		// 
 		toolStripSplitButtonStepForward.AccessibleDescription = "Navigates some data forward";
@@ -493,6 +462,38 @@ partial class PlanetoidDbForm
 		toolStripSplitButtonStepBackward.ButtonClick += NavigateSomeDataBackward_Click;
 		toolStripSplitButtonStepBackward.MouseEnter += Control_Enter;
 		toolStripSplitButtonStepBackward.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemNavigateSomeDataBackward
+		// 
+		toolStripMenuItemNavigateSomeDataBackward.AccessibleDescription = "Navigates some data backward";
+		toolStripMenuItemNavigateSomeDataBackward.AccessibleName = "Navigates some data backward";
+		toolStripMenuItemNavigateSomeDataBackward.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemNavigateSomeDataBackward.AutoToolTip = true;
+		toolStripMenuItemNavigateSomeDataBackward.DropDown = contextMenuNavigationStep;
+		toolStripMenuItemNavigateSomeDataBackward.Image = FatcowIcons16px.fatcow_control_rewind_blue_16px;
+		toolStripMenuItemNavigateSomeDataBackward.Name = "toolStripMenuItemNavigateSomeDataBackward";
+		toolStripMenuItemNavigateSomeDataBackward.ShortcutKeys = Keys.Control | Keys.D2;
+		toolStripMenuItemNavigateSomeDataBackward.Size = new Size(275, 22);
+		toolStripMenuItemNavigateSomeDataBackward.Text = "Navigate some data back&ward";
+		toolStripMenuItemNavigateSomeDataBackward.Click += NavigateSomeDataBackward_Click;
+		toolStripMenuItemNavigateSomeDataBackward.MouseEnter += Control_Enter;
+		toolStripMenuItemNavigateSomeDataBackward.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemNavigateSomeDataForward
+		// 
+		toolStripMenuItemNavigateSomeDataForward.AccessibleDescription = "Navigates some data forward";
+		toolStripMenuItemNavigateSomeDataForward.AccessibleName = "Navigates some data forward";
+		toolStripMenuItemNavigateSomeDataForward.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemNavigateSomeDataForward.AutoToolTip = true;
+		toolStripMenuItemNavigateSomeDataForward.DropDown = contextMenuNavigationStep;
+		toolStripMenuItemNavigateSomeDataForward.Image = FatcowIcons16px.fatcow_control_fastforward_blue_16px;
+		toolStripMenuItemNavigateSomeDataForward.Name = "toolStripMenuItemNavigateSomeDataForward";
+		toolStripMenuItemNavigateSomeDataForward.ShortcutKeys = Keys.Control | Keys.D5;
+		toolStripMenuItemNavigateSomeDataForward.Size = new Size(275, 22);
+		toolStripMenuItemNavigateSomeDataForward.Text = "Navigate some data &forward";
+		toolStripMenuItemNavigateSomeDataForward.Click += NavigateSomeDataForward_Click;
+		toolStripMenuItemNavigateSomeDataForward.MouseEnter += Control_Enter;
+		toolStripMenuItemNavigateSomeDataForward.MouseLeave += Control_Leave;
 		// 
 		// tableLayoutPanelData
 		// 
@@ -3538,7 +3539,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemOptions.AccessibleName = "Options";
 		toolStripMenuItemOptions.AccessibleRole = AccessibleRole.MenuPopup;
 		toolStripMenuItemOptions.AutoToolTip = true;
-		toolStripMenuItemOptions.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSettings, toolStripMenuItemExportSettings, toolStripMenuItemImportSettings, toolStripMenuItemStyle, toolStripSeparatorOptions, toolStripMenuItemOptionStayOnTop, toolStripMenuItemOptionEnabledCopyingByDoubleClicking, toolStripMenuItemOptionEnableLinkingToTerminology, toolStripMenuItemExperimentalFeatures, toolStripMenuItemLogging });
+		toolStripMenuItemOptions.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemSettings, toolStripMenuItemStyle, toolStripSeparator19, toolStripMenuItemOptionStayOnTop, toolStripMenuItemOptionEnabledCopyingByDoubleClicking, toolStripMenuItemOptionEnableLinkingToTerminology, toolStripMenuItemExperimentalFeatures, toolStripMenuItemLogging, toolStripSeparatorOptions, toolStripMenuItemImportSettings, toolStripMenuItemExportSettings });
 		toolStripMenuItemOptions.Name = "toolStripMenuItemOptions";
 		toolStripMenuItemOptions.ShortcutKeys = Keys.Alt | Keys.O;
 		toolStripMenuItemOptions.Size = new Size(61, 24);
@@ -3560,34 +3561,8 @@ partial class PlanetoidDbForm
 		toolStripMenuItemSettings.Click += Settings_Click;
 		toolStripMenuItemSettings.MouseEnter += Control_Enter;
 		toolStripMenuItemSettings.MouseLeave += Control_Leave;
-		//
-		// toolStripMenuItemExportSettings
-		//
-		toolStripMenuItemExportSettings.AccessibleDescription = "Exports program settings to a file";
-		toolStripMenuItemExportSettings.AccessibleName = "Export Settings";
-		toolStripMenuItemExportSettings.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemExportSettings.AutoToolTip = true;
-		toolStripMenuItemExportSettings.Image = FatcowIcons16px.fatcow_page_save_16px;
-		toolStripMenuItemExportSettings.Name = "toolStripMenuItemExportSettings";
-		toolStripMenuItemExportSettings.Size = new Size(268, 22);
-		toolStripMenuItemExportSettings.Text = "E&xport Settings";
-		toolStripMenuItemExportSettings.Click += ExportSettings_Click;
-		toolStripMenuItemExportSettings.MouseEnter += Control_Enter;
-		toolStripMenuItemExportSettings.MouseLeave += Control_Leave;
-		//
-		// toolStripMenuItemImportSettings
-		//
-		toolStripMenuItemImportSettings.AccessibleDescription = "Imports program settings from a file";
-		toolStripMenuItemImportSettings.AccessibleName = "Import Settings";
-		toolStripMenuItemImportSettings.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemImportSettings.AutoToolTip = true;
-		toolStripMenuItemImportSettings.Image = FatcowIcons16px.fatcow_page_add_16px;
-		toolStripMenuItemImportSettings.Name = "toolStripMenuItemImportSettings";
-		toolStripMenuItemImportSettings.Size = new Size(268, 22);
-		toolStripMenuItemImportSettings.Text = "I&mport Settings";
-		toolStripMenuItemImportSettings.Click += ImportSettings_Click;
-		toolStripMenuItemImportSettings.MouseEnter += Control_Enter;
-		toolStripMenuItemImportSettings.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemStyle
 		// 
 		toolStripMenuItemStyle.AccessibleDescription = "Changes the style";
 		toolStripMenuItemStyle.AccessibleName = "Look and Feel";
@@ -3650,17 +3625,17 @@ partial class PlanetoidDbForm
 		toolStripMenuItemIconsetFugue.MouseEnter += Control_Enter;
 		toolStripMenuItemIconsetFugue.MouseLeave += Control_Leave;
 		// 
-		// toolStripSeparatorOptions
+		// toolStripSeparator19
 		// 
-		toolStripSeparatorOptions.AccessibleDescription = "Just a separator";
-		toolStripSeparatorOptions.AccessibleName = "Just a separator";
-		toolStripSeparatorOptions.AccessibleRole = AccessibleRole.Separator;
-		toolStripSeparatorOptions.Name = "toolStripSeparatorOptions";
-		toolStripSeparatorOptions.Size = new Size(265, 6);
-		toolStripSeparatorOptions.Visible = false;
-		toolStripSeparatorOptions.Click += AsteroidGame_Click;
-		toolStripSeparatorOptions.MouseEnter += Control_Enter;
-		toolStripSeparatorOptions.MouseLeave += Control_Leave;
+		toolStripSeparator19.AccessibleDescription = "Just a separator";
+		toolStripSeparator19.AccessibleName = "Just a separator";
+		toolStripSeparator19.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparator19.Name = "toolStripSeparator19";
+		toolStripSeparator19.Size = new Size(265, 6);
+		toolStripSeparator19.Visible = false;
+		toolStripSeparator19.Click += AsteroidGame_Click;
+		toolStripSeparator19.MouseEnter += Control_Enter;
+		toolStripSeparator19.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemOptionStayOnTop
 		// 
@@ -3724,7 +3699,7 @@ partial class PlanetoidDbForm
 		toolStripMenuItemExperimentalFeatures.Name = "toolStripMenuItemExperimentalFeatures";
 		toolStripMenuItemExperimentalFeatures.Size = new Size(268, 22);
 		toolStripMenuItemExperimentalFeatures.Text = "Enable/disable experimental features";
-		toolStripMenuItemExperimentalFeatures.Click += this.ToolStripMenuItemExperimentalFeatures_Click;
+		toolStripMenuItemExperimentalFeatures.Click += ToolStripMenuItemExperimentalFeatures_Click;
 		toolStripMenuItemExperimentalFeatures.MouseEnter += Control_Enter;
 		toolStripMenuItemExperimentalFeatures.MouseLeave += Control_Leave;
 		// 
@@ -3740,6 +3715,47 @@ partial class PlanetoidDbForm
 		toolStripMenuItemLogging.Size = new Size(268, 22);
 		toolStripMenuItemLogging.Text = "Enable lo&gging";
 		toolStripMenuItemLogging.Click += ToolStripMenuItemLogging_Click;
+		// 
+		// toolStripSeparatorOptions
+		// 
+		toolStripSeparatorOptions.AccessibleDescription = "Just a separator";
+		toolStripSeparatorOptions.AccessibleName = "Just a separator";
+		toolStripSeparatorOptions.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparatorOptions.Name = "toolStripSeparatorOptions";
+		toolStripSeparatorOptions.Size = new Size(265, 6);
+		toolStripSeparatorOptions.Click += AsteroidGame_Click;
+		toolStripSeparatorOptions.MouseEnter += Control_Enter;
+		toolStripSeparatorOptions.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemImportSettings
+		// 
+		toolStripMenuItemImportSettings.AccessibleDescription = "Imports program settings from a file";
+		toolStripMenuItemImportSettings.AccessibleName = "Import settings";
+		toolStripMenuItemImportSettings.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemImportSettings.AutoToolTip = true;
+		toolStripMenuItemImportSettings.Image = FatcowIcons16px.fatcow_page_add_16px;
+		toolStripMenuItemImportSettings.Name = "toolStripMenuItemImportSettings";
+		toolStripMenuItemImportSettings.Size = new Size(268, 22);
+		toolStripMenuItemImportSettings.Text = "I&mport Settings";
+		toolStripMenuItemImportSettings.ToolTipText = "Import settings";
+		toolStripMenuItemImportSettings.Click += ImportSettings_Click;
+		toolStripMenuItemImportSettings.MouseEnter += Control_Enter;
+		toolStripMenuItemImportSettings.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemExportSettings
+		// 
+		toolStripMenuItemExportSettings.AccessibleDescription = "Exports program settings to a file";
+		toolStripMenuItemExportSettings.AccessibleName = "Export settings";
+		toolStripMenuItemExportSettings.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemExportSettings.AutoToolTip = true;
+		toolStripMenuItemExportSettings.Image = FatcowIcons16px.fatcow_page_save_16px;
+		toolStripMenuItemExportSettings.Name = "toolStripMenuItemExportSettings";
+		toolStripMenuItemExportSettings.Size = new Size(268, 22);
+		toolStripMenuItemExportSettings.Text = "E&xport Settings";
+		toolStripMenuItemExportSettings.ToolTipText = "Export settings";
+		toolStripMenuItemExportSettings.Click += ExportSettings_Click;
+		toolStripMenuItemExportSettings.MouseEnter += Control_Enter;
+		toolStripMenuItemExportSettings.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemHelp
 		// 
@@ -5085,4 +5101,5 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem toolStripMenuItemLogViewer;
 	private ToolStripSeparator toolStripSeparator2;
 	private ToolStripMenuItem toolStripMenuItemLogging;
+	private ToolStripSeparator toolStripSeparator19;
 }

@@ -145,7 +145,13 @@
     <Compile Update="Forms\SearchForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\SettingsExportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SettingsImportForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\SplashScreenForm.cs">

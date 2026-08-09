@@ -42,6 +42,14 @@ public class BaseKryptonForm : KryptonForm
 	private string GetDebuggerDisplay() => ToString();
 
 	/// <summary>Displays an error message.</summary>
+	/// <param name="caption">The caption of the message.</param>
+	/// <param name="message">The error message.</param>
+	/// <remarks>This method is used to display an error message to the user.</remarks>
+	protected static void ShowWarnMessage(string caption, string message) =>
+		// Show an error message box with the specified message
+		_ = KryptonMessageBox.Show(text: message, caption: caption, buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
+
+	/// <summary>Displays an error message.</summary>
 	/// <param name="message">The error message.</param>
 	/// <remarks>This method is used to display an error message to the user.</remarks>
 	protected static void ShowErrorMessage(string message) =>
@@ -153,6 +161,7 @@ public class BaseKryptonForm : KryptonForm
 			// Clear the status bar text
 			ClearStatusBar(label: StatusLabel);
 		}
+		// Log a warning if the status label is null
 		else
 		{
 			logger.Warn(message: "StatusLabel is null. Cannot clear status bar text.");
