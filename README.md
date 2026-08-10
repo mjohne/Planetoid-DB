@@ -23,7 +23,7 @@
 
 ---
 
-Planetoid-DB reads the large ASCII database of the Minor Planet Center Orbit Table (MPCORB.DAT), which contains orbital data of hundreds of thousands of small celestial bodies (including orbital elements, absolute brightness, latest observation data, etc.) and displays it in a graphical interface.
+Planetoid-DB reads the Minor Planet Center Orbit Table catalog file (MPCORB.DAT), which contains orbital data for hundreds of thousands of small celestial bodies (including orbital elements, absolute brightness, latest observation data, etc.) and displays it in a graphical interface.
 
 This file is the official MPC database for minor planets and comets and contains, among other things, the following information for each object:
 
