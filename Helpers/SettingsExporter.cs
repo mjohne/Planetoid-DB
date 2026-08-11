@@ -1,4 +1,17 @@
-// Exports application settings (from Settings.settings) to various file formats.
+/*
+ * File:        SettingsExporter.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Provides static methods to export all application settings (user-scoped and application-scoped) from Settings to CSV, INI, XML, JSON, and YAML files.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
 
 using NLog;
 
@@ -8,13 +21,13 @@ using System.Configuration;
 using System.Text;
 using System.Xml;
 
-namespace Planetoid_DB.Helpers;
+namespace Planetoid_DB;
 
 /// <summary>Provides static methods to export all application settings (user-scoped and application-scoped)
-/// from <see cref="Settings"/> to CSV, INI, XML, JSON, and YAML files.</summary>
+ from <see cref="Settings"/> to CSV, INI, XML, JSON, and YAML files.</summary>
 /// <remarks>Each setting is exported with its name, data type, scope (User/Application), and current value.
-/// Settings are discovered at run time via the <see cref="SettingsBase.Properties"/> collection so that
-/// any future additions to <c>Settings.settings</c> are picked up automatically.</remarks>
+ Settings are discovered at run time via the <see cref="SettingsBase.Properties"/> collection so that
+ any future additions to <c>Settings.settings</c> are picked up automatically.</remarks>
 public static class SettingsExporter
 {
 	/// <summary>NLog logger for the class.</summary>

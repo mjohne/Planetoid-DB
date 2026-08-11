@@ -1,7 +1,17 @@
-// This file is used by Code Analysis to maintain SuppressMessage
-// attributes that are applied to this project.
-// Project-level suppressions either have no target or are given
-// a specific target and scoped to a namespace, type, member, etc.
+/*
+ * File:        BaseKryptonForm.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Base form providing common behaviours for application forms.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
 
 using Krypton.Toolkit;
 
@@ -11,9 +21,9 @@ using Planetoid_DB.Helpers;
 
 using System.Diagnostics;
 
-namespace Planetoid_DB.Forms;
+namespace Planetoid_DB;
 
-/// <summary>Base form providing common behaviours for application forms. Currently: enables <c>KeyPreview</c> and closes the form when the Escape key is pressed.</summary>
+/// <summary>Base form providing common behaviours for application forms.</summary>
 /// <remarks>This class serves as a base form for the application, providing common functionality and behaviors that can be shared across derived forms.</remarks>
 // You can customize the debugger display for this class by providing a method that returns a string representation of the instance, which will be shown in the debugger when you inspect an object of this class. In this case, the GetDebuggerDisplay method is used to return a string representation of the instance, and the DebuggerDisplay attribute is applied to the class to specify that this method should be used for the debugger display.
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]

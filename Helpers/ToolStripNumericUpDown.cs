@@ -1,12 +1,22 @@
-// This file is used by Code Analysis to maintain SuppressMessage
-// attributes that are applied to this project.
-// Project-level suppressions either have no target or are given
-// a specific target and scoped to a namespace, type, member, etc.
+/*
+ * File:        ToolStripNumericUpDown.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Represents a numeric up-down control hosted in a ToolStrip
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
 
 using System.ComponentModel;
 using System.Windows.Forms.Design;
 
-namespace Planetoid_DB.Helpers;
+namespace Planetoid_DB;
 
 /// <summary>Represents a numeric up-down control hosted in a ToolStrip.</summary>
 /// <remarks>This class provides a convenient way to include a NumericUpDown control within a ToolStrip or StatusStrip, allowing for easy integration of numeric input functionality in these UI components.</remarks>

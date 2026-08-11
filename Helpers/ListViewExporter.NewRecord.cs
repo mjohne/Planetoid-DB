@@ -1,9 +1,19 @@
-// This file is used by Code Analysis to maintain SuppressMessage
-// attributes that are applied to this project.
-// Project-level suppressions either have no target or are given
-// a specific target and scoped to a namespace, type, member, etc.
+/*
+ * File:        ListViewExporter.NewRecord.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Provides static methods for exporting data from a ListView control.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
 
-namespace Planetoid_DB.Helpers;
+namespace Planetoid_DB;
 
 /// <summary>Provides static methods for exporting data from a ListView control.</summary>
 /// <remarks>This class is intended to support operations related to exporting ListView data, such as formatting or serializing the contents for external use. All members are static and the class cannot be instantiated.</remarks>

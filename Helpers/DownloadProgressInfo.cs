@@ -1,9 +1,19 @@
-// This file is used by Code Analysis to maintain SuppressMessage
-// attributes that are applied to this project.
-// Project-level suppressions either have no target or are given
-// a specific target and scoped to a namespace, type, member, etc.
+/*
+ * File:        DownloadProgressInfo.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Represents the progress of a download operation, including the current number of bytes downloaded, the total number of bytes to be downloaded, the download speed in bytes per second, the elapsed time since the download started, and the estimated time remaining for the download to complete.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
 
-namespace Planetoid_DB.Helpers;
+namespace Planetoid_DB;
 
 /// <summary>Represents the progress of a download operation, including the current number of bytes downloaded, the total number of bytes to be downloaded, the download speed in bytes per second, the elapsed time since the download started, and the estimated time remaining for the download to complete.</summary>
 /// <param name="CurrentBytes">The current number of bytes downloaded.</param>

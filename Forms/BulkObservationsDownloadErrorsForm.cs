@@ -1,11 +1,23 @@
-// Defines the bulk observations download error entry record and
-// the dialog form used to display bulk download errors to the user.
+/*
+ * File:        BulkObservationsDownloadErrorsForm.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Dialog form that displays detailed bulk-download errors in a list view.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
 
 using Planetoid_DB.Resources;
 
 using System.Globalization;
 
-namespace Planetoid_DB.Forms;
+namespace Planetoid_DB;
 
 /// <summary>Represents a single error entry produced during bulk observations download.</summary>
 /// <param name="Timestamp">Date and time when the error occurred.</param>

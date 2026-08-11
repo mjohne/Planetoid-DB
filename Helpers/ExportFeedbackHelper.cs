@@ -1,10 +1,23 @@
-// Provides user-facing success/error dialogs and logging during export operations.
+/*
+ * File:        ExportFeedbackHelper.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Handles UI feedback and logging during export operations.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
 
 using Krypton.Toolkit;
 
 using NLog;
 
-namespace Planetoid_DB.Helpers;
+namespace Planetoid_DB;
 
 /// <summary>Handles UI feedback and logging during export operations.</summary>
 /// <remarks>This static class provides methods for displaying success and error messages to the user, as well as logging errors that occur during file export operations.</remarks>

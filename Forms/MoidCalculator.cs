@@ -2,7 +2,7 @@
  * File:        MoidCalculator.cs
  * Project:     Planetoid-DB
  * Namespace:   Planetoid_DB
- * Description: Provides methods for calculating the Minimum Orbit Intersection Distance (MOID) between a minor planet and the eight solar system planets.
+ * Description: Represents the splash screen form of the application.
  *
  * Autor:       Michael Johne
  * Company:     Mijo Software
@@ -86,6 +86,7 @@ internal class MoidCalculator
 	/// <param name="BestF2">Best true anomaly on orbit 2 from the coarse grid.</param>
 	/// <remarks>This struct is used to return multiple values from the coarse grid search phase without needing to allocate a separate class or tuple, and is designed to be efficiently passed by value.</remarks>
 	private readonly record struct CoarseMinimumResult(double MinDistanceSquared, double BestF1, double BestF2);
+
 
 	/// <summary>Mean orbital elements of the eight solar system planets at J2000.0 (ecliptic reference frame).</summary>
 	/// <remarks>These constants follow the commonly cited IAU-JPL mean planetary elements at J2000.0 as published by Standish (1992). The reference frame is the J2000.0 ecliptic and equinox. The stored <c>ArgumentPerihelionDeg</c> values are the argument of perihelion (<c>ω</c>), derived from the published longitude of perihelion (<c>ϖ</c>) and longitude of the ascending node (<c>Ω</c>) using <c>ω = ϖ - Ω</c>.</remarks>
@@ -575,6 +576,7 @@ internal class MoidCalculator
 				step *= 0.5;
 			}
 		}
+
 		return Math.Sqrt(d: minDistSquared);
 	}
 

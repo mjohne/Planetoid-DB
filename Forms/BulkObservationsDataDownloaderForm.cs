@@ -1,6 +1,17 @@
-// This file contains the implementation of BulkObservationsDataDownloaderForm,
-// which provides bulk downloading of MPC observations data files for a configurable
-// range of minor planets with start, pause, resume and cancel support.
+/*
+ * File:        BulkObservationsDataDownloaderForm.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Form for bulk-downloading MPC observations data files for a range of minor planets.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
 
 using Krypton.Toolkit;
 

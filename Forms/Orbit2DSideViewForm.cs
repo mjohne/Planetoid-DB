@@ -1,9 +1,18 @@
-// This file contains the implementation of the Orbits2DSideViewForm,
-// which displays a 2D side-view orbit visualization of a selected
-// minor planet relative to the eight solar system planets.
-// Each orbit is drawn as a line through the origin (Sun), where the
-// inclination angle determines the slope and the semi-major axis with
-// eccentricity determines the perihelion/aphelion arm lengths.
+/*
+ * File:        Orbit2DSideViewForm.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Displays a 2D side-view orbit visualization of a selected minor planet relative to the eight solar system planets.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
+
 using NLog;
 
 using Planetoid_DB.Helpers;
@@ -14,7 +23,7 @@ using ScottPlot.Plottables;
 using System.Diagnostics;
 using System.Globalization;
 
-namespace Planetoid_DB.Forms;
+namespace Planetoid_DB;
 
 /// <summary>Displays a 2D side-view orbit visualization of a selected minor planet relative to the eight solar system planets.</summary>
 /// <remarks>The form renders each orbit as a straight line through the origin (Sun) where the slope of the line corresponds to the orbital inclination. The perihelion arm (length = a·(1–e)) is drawn above the ecliptic plane and the aphelion arm (length = a·(1+e)) below it. The X- and Y-axes are scaled to the extent of the planetoid's orbit; planet orbits that extend beyond this range are still rendered and can be revealed by zooming out.</remarks>

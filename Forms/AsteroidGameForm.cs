@@ -1,5 +1,18 @@
-// This file contains the implementation of the AsteroidGameForm,
-// which provides a classic Asteroids arcade game using OpenTK (OpenGL).
+/*
+ * File:        AsteroidGameForm.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Displays a classic Asteroids arcade game using OpenTK/OpenGL.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
+
 using NLog;
 
 using OpenTK.GLControl;
@@ -15,7 +28,7 @@ using HintTarget = OpenTK.Graphics.OpenGL.HintTarget;  // Explicit alias to reso
 using MatrixMode = OpenTK.Graphics.OpenGL.MatrixMode;  // Explicit alias to resolve ambiguity
 using PrimitiveType = OpenTK.Graphics.OpenGL.PrimitiveType;  // Explicit alias to resolve ambiguity
 
-namespace Planetoid_DB.Forms;
+namespace Planetoid_DB;
 
 /// <summary>Displays a classic Asteroids arcade game using OpenTK/OpenGL.</summary>
 /// <remarks><para>The form implements the classic Asteroids game where the player controls a triangular ship and must destroy asteroids by shooting them. Larger asteroids break into smaller pieces when hit.</para>

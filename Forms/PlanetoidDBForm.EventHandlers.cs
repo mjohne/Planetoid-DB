@@ -1,3 +1,18 @@
+/*
+ * File:        PlanetoidDbForm.EventHandlers.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Partial class containing event handler methods for the PlanetoidDbForm.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
+
 using Krypton.Toolkit;
 
 using NLog;
