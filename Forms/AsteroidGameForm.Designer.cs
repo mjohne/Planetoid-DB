@@ -2,10 +2,10 @@
  * File:        AsteroidGameForm.Designer.cs
  * Project:     Planetoid-DB
  * Namespace:   Planetoid_DB
- * Description: ...
+ * Description: Provides the designer-generated user interface for the Asteroids game form.s
  * Remarks:     This file contains the Windows Forms designer-generated code for the AsteroidGameForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne
@@ -14,16 +14,14 @@
  * See LICENSE file in the project root for license information.
  */
 
+namespace Planetoid_DB;
+
 using Krypton.Toolkit;
 
 using System.ComponentModel;
 
-namespace Planetoid_DB.Forms;
-
 /// <summary>Provides the designer-generated user interface for the Asteroids game form.</summary>
-
 /// <remarks>This file contains Windows Forms designer-generated code for <see cref="AsteroidGameForm"/>. Do not modify this file manually.</remarks>
-
 partial class AsteroidGameForm
 {
 	/// <summary>Required designer variable.</summary>

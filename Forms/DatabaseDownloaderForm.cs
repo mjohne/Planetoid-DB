@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Form to handle downloading updates for the application.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Form to detect and display potential asteroid families based on orbital elements (a, e, i). Uses a binning algorithm to group planetoids whose semi-major axis, eccentricity, and inclination fall within user-defined tolerance ranges.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

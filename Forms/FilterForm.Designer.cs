@@ -5,7 +5,7 @@
  * Description: Represents a dialog form that enables users to filter orbital elements based on configurable criteria such as r.m.s. residual, number of observations, and various orbital parameters.
  * Remarks:     This file contains the Windows Forms designer-generated code for the FilterForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

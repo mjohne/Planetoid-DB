@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Represents a form that displays the list of MPC observatory codes and their corresponding locations.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

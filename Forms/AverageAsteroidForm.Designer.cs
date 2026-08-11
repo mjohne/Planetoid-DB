@@ -5,7 +5,7 @@
  * Description: Represents a Windows Form that displays the theoretical average planetoid calculated from all orbital elements and astrophysical values.
  * Remarks:     This file contains the Windows Forms designer-generated code for the AverageAsteroidForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

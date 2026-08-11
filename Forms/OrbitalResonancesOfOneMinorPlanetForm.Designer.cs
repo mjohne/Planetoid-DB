@@ -5,7 +5,7 @@
  * Description: Represents a Windows Form that displays the orbital resonances of a minor planet relative to the eight planets in the solar system.
  * Remarks:     This file contains the Windows Forms designer-generated code for the OrbitalResonancesOfOneMinorPlanetForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

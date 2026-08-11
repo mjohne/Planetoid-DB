@@ -5,7 +5,7 @@
  * Description: Represents a dialog form for bulk downloading observations data files for a range of minor planets.
  * Remarks:     This file contains the Windows Forms designer-generated code for the BulkObservationsDataDownloaderForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

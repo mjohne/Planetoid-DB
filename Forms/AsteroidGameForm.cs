@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Displays a classic Asteroids arcade game using OpenTK/OpenGL.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

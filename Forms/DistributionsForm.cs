@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Displays a histogram of counted planetoids for a selected orbital element or derived property.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

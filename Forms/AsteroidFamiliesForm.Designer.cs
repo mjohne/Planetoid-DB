@@ -5,7 +5,7 @@
  * Description: Represents a Windows Form that provides a user interface for detecting, displaying, and managing asteroid families and their members within the Planetoid-DB application.
  * Remarks:     This file contains the Windows Forms designer-generated code for the AsteroidFamiliesForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

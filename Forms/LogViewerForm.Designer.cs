@@ -5,7 +5,7 @@
  * Description: Represents the designer-generated partial class for LogViewerForm.
  * Remarks:     This file contains the Windows Forms designer-generated code for the LogViewerForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

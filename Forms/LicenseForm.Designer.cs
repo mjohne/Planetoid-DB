@@ -5,7 +5,7 @@
  * Description: Represents a dialog form that displays license information and provides options to copy or save the license text.
  * Remarks:     This file contains the Windows Forms designer-generated code for the LicenseForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

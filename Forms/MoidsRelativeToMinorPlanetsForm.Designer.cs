@@ -5,7 +5,7 @@
  * Description: Represents a Windows Form that calculates and displays the Minimum Orbit Intersection Distance (MOID) between two minor planets selected by the user from the loaded database.
  * Remarks:     This file contains the Windows Forms designer-generated code for the MoidsRelativeToMinorPlanetsForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

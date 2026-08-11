@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Base form providing common behaviours for application forms.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

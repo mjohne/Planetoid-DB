@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Dialog form that displays detailed bulk-download errors in a list view.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

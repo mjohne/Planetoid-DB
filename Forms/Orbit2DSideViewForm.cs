@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Displays a 2D side-view orbit visualization of a selected minor planet relative to the eight solar system planets.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

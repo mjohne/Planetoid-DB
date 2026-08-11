@@ -5,7 +5,7 @@
  * Description: Represents a Windows Form that displays detailed information about a database, including its name, path, size, creation date, last access date, last write date, and attributes.
  * Remarks:     This file contains the Windows Forms designer-generated code for the DatabaseInformationForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

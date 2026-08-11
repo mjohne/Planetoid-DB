@@ -5,7 +5,7 @@
  * Description: Represents a dialog form that enables users to archive the MPCORB.DAT file by specifying source and target paths, selecting compression formats and methods, and monitoring progress.
  * Remarks:     This file contains the Windows Forms designer-generated code for the ArchiveMpcorbForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

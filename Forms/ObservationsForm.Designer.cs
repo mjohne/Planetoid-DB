@@ -5,7 +5,7 @@
  * Description: Represents a Windows Form that displays the observation records for a minor planet retrieved from the Minor Planet Center website.
  * Remarks:     This file contains the Windows Forms designer-generated code for the ObservationsForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

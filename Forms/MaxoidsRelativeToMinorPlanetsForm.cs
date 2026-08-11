@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Form for calculating the Maximum Orbit Intersection Distance (MAXOID) between two minor planets selected by the user from the loaded MPCORB database.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

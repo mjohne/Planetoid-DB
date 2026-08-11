@@ -5,7 +5,7 @@
  * Description: Represents a form that enables users to export data sheets with selectable orbital elements and multiple file format options.
  * Remarks:     This file contains the Windows Forms designer-generated code for the ExportDataSheetForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

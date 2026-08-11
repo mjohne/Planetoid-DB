@@ -5,7 +5,7 @@
  * Description: Represents a dialog form that displays essential application information, including the version, title, description, company, author, and copyright details, as well as information about third-party components used by the application.
  * Remarks:     This file contains the Windows Forms designer-generated code for the AppInfoForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

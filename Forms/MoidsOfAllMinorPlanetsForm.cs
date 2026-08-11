@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Form for displaying the Minimum Orbit Intersection Distance (MOID) of all minor planets relative to each of the eight solar system planets.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

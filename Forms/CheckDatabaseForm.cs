@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Database Data Verification Form.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

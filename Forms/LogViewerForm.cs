@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: A form that displays all NLog log events captured during the current application session.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

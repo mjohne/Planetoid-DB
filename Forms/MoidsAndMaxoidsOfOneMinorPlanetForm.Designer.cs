@@ -5,7 +5,7 @@
  * Description: Represents a Windows Form that displays the Minimum Orbit Intersection Distance (MOID) and Maximum Orbit Intersection Distance (MAXOID) of a minor planet relative to each of the eight solar system planets (Mercury through Neptune).
  * Remarks:     This file contains the Windows Forms designer-generated code for the MoidsAndMaxoidsOfOneMinorPlanetForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

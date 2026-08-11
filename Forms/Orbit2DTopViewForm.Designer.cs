@@ -5,7 +5,7 @@
  * Description: Provides a user interface for displaying a 2D orbital plane visualization of a selected minor planet relative to the eight solar system planets.
  * Remarks:     This file contains the Windows Forms designer-generated code for the Orbit2DTopViewForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

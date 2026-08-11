@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Form for finding orbital resonances of all minor planets relative to the 8 known solar system planets.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

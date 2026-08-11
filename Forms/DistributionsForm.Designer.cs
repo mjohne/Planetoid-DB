@@ -5,7 +5,7 @@
  * Description: Provides a user interface for counting planetoids in orbital-element ranges and displaying the result as a histogram.
  * Remarks:     This file contains the Windows Forms designer-generated code for the DistributionsForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

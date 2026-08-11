@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Form for exporting data sheets with various formats.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne
