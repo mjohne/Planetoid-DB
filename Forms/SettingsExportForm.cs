@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Represents a dialog that exports all application settings to one of five formats: CSV, INI, XML, JSON, or YAML.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

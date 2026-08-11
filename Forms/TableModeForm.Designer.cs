@@ -5,7 +5,7 @@
  * Description: Represents a form that displays data in a table format.
  * Remarks:     This file contains the Windows Forms designer-generated code for the TableModeForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

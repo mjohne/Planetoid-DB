@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Represents a form that provides advanced search functionality for planetoid records, allowing users to search, filter, and export search results in various formats.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

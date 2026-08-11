@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Represents the form that scans all orbital elements for maximum or minimum record values.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

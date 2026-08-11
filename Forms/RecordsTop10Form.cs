@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Main form for managing records in the Planetoid database.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

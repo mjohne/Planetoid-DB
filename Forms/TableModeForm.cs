@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Represents the form for displaying planetoids data in table mode.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

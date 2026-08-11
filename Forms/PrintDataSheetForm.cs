@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Represents a form that enables users to print data sheets for orbital elements, providing options to select elements, configure print settings, and manage printing operations.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

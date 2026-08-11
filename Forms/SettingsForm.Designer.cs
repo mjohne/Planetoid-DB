@@ -5,7 +5,7 @@
  * Description: Represents a settings dialog that enables users to configure application settings across four categories: General, Navigator, Database Update, and Appearance.
  * Remarks:     This file contains the Windows Forms designer-generated code for the SettingsForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

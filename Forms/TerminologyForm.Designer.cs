@@ -5,7 +5,7 @@
  * Description: Represents a form that provides a user interface for browsing terminology and viewing definitions.
  * Remarks:     This file contains the Windows Forms designer-generated code for the TerminologyForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

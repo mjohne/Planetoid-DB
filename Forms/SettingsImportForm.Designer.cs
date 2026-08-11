@@ -5,7 +5,7 @@
  * Description: Represents a dialog that imports program settings from CSV, INI, XML, JSON, or YAML.
  * Remarks:     This file contains the Windows Forms designer-generated code for the SettingsImportForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

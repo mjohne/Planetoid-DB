@@ -5,7 +5,7 @@
  * Description: Represents a form that provides a user interface for searching within the MPCORB.DAT file.
  * Remarks:     This file contains the Windows Forms designer-generated code for the SearchForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

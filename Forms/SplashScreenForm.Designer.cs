@@ -5,7 +5,7 @@
  * Description: A form that displays a splash screen during application startup.
  * Remarks:     This file contains the Windows Forms designer-generated code for the SplashScreenForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

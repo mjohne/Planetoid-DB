@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Enumeration of terminology elements used in the application.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

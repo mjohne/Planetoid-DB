@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Represents the settings form of the application, providing a tabbed user interface to configure application settings across the General, Navigator, Database Update, and Appearance categories.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

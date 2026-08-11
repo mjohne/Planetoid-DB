@@ -5,7 +5,7 @@
  * Description: Represents a dialog that exports program settings to CSV, INI, XML, JSON, or YAML.
  * Remarks:     This file contains the Windows Forms designer-generated code for the SettingsExportForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

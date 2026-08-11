@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: A form that gets the file MPCORB.DAT.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

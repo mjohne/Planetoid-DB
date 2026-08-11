@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Partial class containing helper methods for the PlanetoidDbForm.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

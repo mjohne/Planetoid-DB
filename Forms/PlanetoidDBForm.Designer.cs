@@ -5,7 +5,7 @@
  * Description: Represents a Windows Form that provides a user interface for viewing, navigating, and managing planetoid data from the MPCORB database.
  * Remarks:     This file contains the Windows Forms designer-generated code for the PlanetoidDbForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

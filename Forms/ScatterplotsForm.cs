@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Displays a scatter plot of two selected orbital elements or derived properties for all planetoids in the database.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

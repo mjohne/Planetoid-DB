@@ -5,7 +5,7 @@
  * Description: Represents a dialog form that enables users to print a data sheet containing selected orbital elements.
  * Remarks:     This file contains the Windows Forms designer-generated code for the PrintDataSheetForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

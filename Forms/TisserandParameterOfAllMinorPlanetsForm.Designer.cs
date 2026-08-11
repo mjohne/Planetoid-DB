@@ -5,7 +5,7 @@
  * Description: Represents a dialog form that displays the Tisserand parameter of all minor planets relative to each of the eight solar system planets.
  * Remarks:     This file contains the Windows Forms designer-generated code for the TisserandParameterOfAllMinorPlanetForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

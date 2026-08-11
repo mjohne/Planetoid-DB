@@ -5,7 +5,7 @@
  * Description: Represents a form that enables users to preload the MPCORB.DAT file by providing options to load internal demo data, download the file, or open a local file.
  * Remarks:     This file contains the Windows Forms designer-generated code for the PreloadForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

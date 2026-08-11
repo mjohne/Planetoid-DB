@@ -5,7 +5,7 @@
  * Description: Represents a form that displays and manages orbital element records, allowing users to view record values and associated designations for various orbital elements.
  * Remarks:     This file contains the Windows Forms designer-generated code for the RecordsForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

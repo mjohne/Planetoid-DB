@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Represents a form that displays terminology information.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

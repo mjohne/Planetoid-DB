@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Partial class for PlanetoidDbForm containing methods for decoding MPCORB flags and references.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

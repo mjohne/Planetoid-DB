@@ -5,7 +5,7 @@
  * Description: Provides a user interface for plotting planetoids as a scatter plot of two user-selected orbital elements or derived properties.
  * Remarks:     This file contains the Windows Forms designer-generated code for the ScatterplotsForm. Do not modify this file manually.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne
