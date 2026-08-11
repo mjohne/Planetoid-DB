@@ -1,3 +1,18 @@
+/*
+ * File:        AEIDiagram3DForm.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: ...
+ *
+ * Author:      Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
+
 using Krypton.Toolkit;
 
 using NLog;
@@ -12,7 +27,7 @@ using Planetoid_DB.Resources;
 using System.Diagnostics;
 using System.Globalization;
 
-namespace Planetoid_DB.Forms;
+namespace Planetoid_DB;
 
 /// <summary>Displays a 3D a,e,i diagram for all known planetoids.</summary>
 [DebuggerDisplay(value: "{" + nameof(GetDebuggerDisplay) + "(),nq}")]
