@@ -1,6 +1,18 @@
-// This file contains the implementation of the ScatterplotsForm,
-// which displays scatter plots of orbital elements and properties
-// for all minor planets in the database.
+/*
+ * File:        ScatterplotsForm.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Displays a scatter plot of two selected orbital elements or derived properties for all planetoids in the database.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
+
 using Krypton.Toolkit;
 
 using NLog;
@@ -13,7 +25,7 @@ using ScottPlot.Plottables;
 using System.Diagnostics;
 using System.Globalization;
 
-namespace Planetoid_DB.Forms;
+namespace Planetoid_DB;
 
 /// <summary>Displays a scatter plot of two selected orbital elements or derived properties for all planetoids in the database.</summary>
 /// <remarks>The form plots each planetoid as a point with user-selected X-axis and Y-axis orbital elements. The chart and a tabular ListView are shown side by side. Users can optionally request live updates while the background data-collection operation is running.</remarks>

@@ -1,11 +1,21 @@
-// This file is used by Code Analysis to maintain SuppressMessage
-// attributes that are applied to this project.
-// Project-level suppressions either have no target or are given
-// a specific target and scoped to a namespace, type, member, etc.
+/*
+ * File:        ListViewItemComparer.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Implements manual sorting of items by column for a ListView. Handles numeric values, text comparisons, and ensures strict sorting transitivity.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
 
 using System.Globalization;
 
-namespace Planetoid_DB.Helpers;
+namespace Planetoid_DB;
 
 /// <summary>Implements manual sorting of items by column for a <see cref="ListView"/>. Handles numeric values, text comparisons, and ensures strict sorting transitivity.</summary>
 /// <param name="column">The column index to sort by.</param>

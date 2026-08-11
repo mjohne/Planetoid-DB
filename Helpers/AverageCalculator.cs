@@ -1,9 +1,19 @@
-// This file is used by Code Analysis to maintain SuppressMessage
-// attributes that are applied to this project.
-// Project-level suppressions either have no target or are given
-// a specific target and scoped to a namespace, type, member, etc.
+/*
+ * File:        AverageCalculator.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Provides methods to calculate various types of averages from a collection of numeric values.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
 
-namespace Planetoid_DB.Helpers;
+namespace Planetoid_DB;
 
 /// <summary>Provides methods to calculate various types of averages from a collection of numeric values.</summary>
 /// <remarks>This class implements multiple averaging methods including arithmetic mean, median, mode, geometric mean, harmonic mean, quadratic mean, cubic mean, logarithmic mean, Winsor mean, quartile mean, shortest half mean, Gastwirth-Cohen mean, range mean, a-mean, moving average, Hölder mean of shortest half, and Lehmer mean.</remarks>

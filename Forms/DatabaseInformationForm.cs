@@ -1,4 +1,18 @@
-﻿// This file contains the DatabaseInformationForm implementation.
+﻿/*
+ * File:        DatabaseInformationForm.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Form to display database information.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
+
 
 using NLog;
 

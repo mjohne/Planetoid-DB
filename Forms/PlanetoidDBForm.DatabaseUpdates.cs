@@ -1,3 +1,19 @@
+/*
+ * File:        PlanetoidDbForm.DatabaseUpdates.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Partial class for handling database updates in the PlanetoidDbForm.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
+
+
 using Planetoid_DB.Properties;
 
 using System.Net;
@@ -5,7 +21,7 @@ using System.Net.NetworkInformation;
 
 namespace Planetoid_DB;
 
-/// <summary>Partial class for handling database updates in the PlanetoidDbForm.</summary>
+/// <summary>Partial class for handling database updates in the <see cref="PlanetoidDbForm"/>.</summary>
 /// <remarks>This partial class contains methods for checking for updates to various databases (MPCORB.DAT, MPCORB.JSON, ASTORB.DAT, ALLNUM.CAT, UFITOBS.CAT, SINGOPP.CAT) and displaying the corresponding downloader forms. It also includes a generic method for checking if a remote database file is newer than the local file and a method for showing the downloader workflow.</remarks>
 public partial class PlanetoidDbForm
 {

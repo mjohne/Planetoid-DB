@@ -1,7 +1,17 @@
-// This file is used by Code Analysis to maintain SuppressMessage
-// attributes that are applied to this project.
-// Project-level suppressions either have no target or are given
-// a specific target and scoped to a namespace, type, member, etc.
+/*
+ * File:        LogEventStore.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Thread-safe in-memory store for NLog LogEventInfo instances captured during the application session.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
 
 using NLog;
 
@@ -9,7 +19,7 @@ using Planetoid_DB.Properties;
 
 using System.Text.Json;
 
-namespace Planetoid_DB.Helpers;
+namespace Planetoid_DB;
 
 /// <summary>Thread-safe in-memory store for NLog <see cref="LogEventInfo"/> instances captured during the application session.</summary>
 /// <remarks> <see cref="LogEventTarget"/> writes every received <see cref="LogEventInfo"/> into this store. The <c>LogViewerForm</c> reads from it to populate the list view. All public members are thread-safe.</remarks>

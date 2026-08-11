@@ -1,7 +1,18 @@
-// This file is used by Code Analysis to maintain SuppressMessage
-// attributes that are applied to this project.
-// Project-level suppressions either have no target or are given
-// a specific target and scoped to a namespace, type, member, etc.
+/*
+ * File:        OrbitElementsGroupingForm.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Form to analyze and group planetoids based on common orbital element ranges.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
+
 using Krypton.Toolkit;
 
 using NLog;
@@ -12,7 +23,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 
-namespace Planetoid_DB.Forms;
+namespace Planetoid_DB;
 
 /// <summary>Form to analyze and group planetoids based on common orbital element ranges.</summary>
 /// <remarks>This form provides functionality to group planetoids based on their orbital elements, allowing for analysis of patterns and similarities.</remarks>

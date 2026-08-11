@@ -1,8 +1,21 @@
-// Helper methods for escaping strings in various export formats.
+/*
+ * File:        ExportEscapeHelper.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Provides static helper methods for escaping strings in various document formats, as well as shared UI feedback methods used by all exporter classes.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
 
 using System.Text;
 
-namespace Planetoid_DB.Helpers;
+namespace Planetoid_DB;
 
 /// <summary>Provides static helper methods for escaping strings in various document formats, as well as shared UI feedback methods used by all exporter classes.</summary>
 /// <remarks>This class contains methods for escaping special characters in LaTeX, Markdown, PostScript, PDF, RTF, CSV, and TOML formats, and shared methods for displaying success and error messages during export operations.</remarks>

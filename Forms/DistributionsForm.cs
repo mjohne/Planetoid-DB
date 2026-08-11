@@ -1,6 +1,18 @@
-// This file contains the implementation of the HistogramsForm,
-// which displays histogram/bar charts of orbital elements and properties
-// for all minor planets in the database.
+/*
+ * File:        DistributionsForm.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Displays a histogram of counted planetoids for a selected orbital element or derived property.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
+
 using Krypton.Toolkit;
 
 using NLog;
@@ -13,7 +25,7 @@ using ScottPlot.Plottables;
 using System.Diagnostics;
 using System.Globalization;
 
-namespace Planetoid_DB.Forms;
+namespace Planetoid_DB;
 
 /// <summary>Displays a histogram of counted planetoids for a selected orbital element or derived property.</summary>
 /// <remarks>The form groups planetoids into selectable ranges, renders the distribution as a ScottPlot bar chart, and mirrors the counted bins in a tabular ListView. Users can optionally request live updates while the background counting operation is running.</remarks>

@@ -1,3 +1,19 @@
+/*
+ * File:        PlanetoidDbForm.Decoders.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Partial class for PlanetoidDbForm containing methods for decoding MPCORB flags and references.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
+
+
 // This file is part of the PlanetoidDbForm partial class.
 // It contains methods for decoding MPCORB flag and reference fields,
 // as well as the static helpers DecodeReference, DecodeBase62, and GetJournalName.
@@ -6,7 +22,7 @@ using Krypton.Toolkit;
 
 namespace Planetoid_DB;
 
-/// <summary>Partial class for PlanetoidDbForm containing methods for decoding MPCORB flags and references.</summary>
+/// <summary>Partial class for <see cref="PlanetoidDbForm"/> containing methods for decoding MPCORB flags and references.</summary>
 /// <remarks>This partial class is part of the PlanetoidDbForm and provides functionality to decode the 4-hexdigit flag and compressed reference code from MPCORB.DAT.</remarks>
 public partial class PlanetoidDbForm
 {

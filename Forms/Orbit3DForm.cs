@@ -1,6 +1,18 @@
-// This file contains the implementation of the Orbit3DForm,
-// which displays a 3D orbital visualization of a selected minor planet
-// relative to the eight solar system planets using OpenTK (OpenGL).
+/*
+ * File:        Orbit3DForm.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Displays a 3D orbital visualization of a selected minor planet relative to the eight solar system planets.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
+
 using NLog;
 
 using OpenTK.GLControl;
@@ -18,7 +30,7 @@ using HintTarget = OpenTK.Graphics.OpenGL.HintTarget;  // Explicit alias to reso
 using MatrixMode = OpenTK.Graphics.OpenGL.MatrixMode;  // Explicit alias to resolve ambiguity
 using PrimitiveType = OpenTK.Graphics.OpenGL.PrimitiveType;  // Explicit alias to resolve ambiguity
 
-namespace Planetoid_DB.Forms;
+namespace Planetoid_DB;
 
 /// <summary>Displays a 3D orbital visualization of a selected minor planet relative to the eight solar system planets.</summary>
 /// <remarks><para>The form renders the orbit of the selected planetoid and all eight solar system planets as 3D ellipses in the ecliptic coordinate frame using OpenTK/OpenGL. The Sun is represented as a yellow point at the origin.</para>

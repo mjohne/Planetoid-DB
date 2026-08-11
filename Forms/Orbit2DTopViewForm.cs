@@ -1,6 +1,18 @@
-// This file contains the implementation of the Orbit2DTopViewForm,
-// which displays a 2D orbital plane visualization of a selected
-// minor planet relative to the eight solar system planets.
+/*
+ * File:        Displays a 2D orbital plane visualization of a selected minor planet relative to the eight solar system planets.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Represents the splash screen form of the application.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
+
 using NLog;
 
 using Planetoid_DB.Helpers;
@@ -11,7 +23,7 @@ using ScottPlot.Plottables;
 using System.Diagnostics;
 using System.Globalization;
 
-namespace Planetoid_DB.Forms;
+namespace Planetoid_DB;
 
 /// <summary>Displays a 2D orbital plane visualization of a selected minor planet relative to the eight solar system planets.</summary>
 /// <remarks>The form renders the orbit of the selected planetoid and all eight solar system planets as ellipses in the ecliptic plane using ScottPlot. The Sun is represented as a yellow circle at the focal point. The X- and Y-axes are scaled to the extent of the planetoid's orbit; planet orbits that extend beyond this range are still rendered and can be revealed by zooming out.</remarks>

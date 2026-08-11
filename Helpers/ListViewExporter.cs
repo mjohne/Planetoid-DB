@@ -1,7 +1,17 @@
-// This file is used by Code Analysis to maintain SuppressMessage
-// attributes that are applied to this project.
-// Project-level suppressions either have no target or are given
-// a specific target and scoped to a namespace, type, member, etc.
+/*
+ * File:        ListViewExporter.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Provides static methods for saving the contents of a ListView to various file formats.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
 
 using NLog;
 
@@ -12,7 +22,7 @@ using System.Text;
 using System.Text.Json;
 using System.Xml;
 
-namespace Planetoid_DB.Helpers;
+namespace Planetoid_DB;
 
 /// <summary>Provides static methods for saving the contents of a <see cref="ListView"/> to various file formats.</summary>
 /// <remarks>Each method accepts the source <see cref="ListView"/>, a document title used in the file content, and the full file-system path of the output file. Column headers are read from the ListView column collection; row data is read from either the normal items collection or (in virtual mode) by requesting items via the <see cref="ListView.RetrieveVirtualItem"/> event handler of the owning form. Compressed file formats (DOCX, ODT, ODS, XLSX, EPUB) are written as proper ZIP archives rather than flat XML files. SQLite export requires System.Data.SQLite; CHM export requires Microsoft HTML Help Workshop (hhc.exe).</remarks>

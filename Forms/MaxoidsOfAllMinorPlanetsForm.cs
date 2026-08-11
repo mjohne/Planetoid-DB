@@ -1,6 +1,17 @@
-// This file contains the implementation of the MaxoidsOfAllMinorPlanetsForm,
-// which computes and displays MAXOID values for all minor planets
-// relative to each of the eight solar system planets.
+/*
+ * File:        MaxoidsOfAllMinorPlanetsForm.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Form for displaying the Maximum Orbit Intersection Distance (MAXOID) of all minor planets relative to each of the eight solar system planets.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
 
 using Krypton.Toolkit;
 

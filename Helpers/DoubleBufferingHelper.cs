@@ -1,7 +1,17 @@
-// This file is used by Code Analysis to maintain SuppressMessage
-// attributes that are applied to this project.
-// Project-level suppressions either have no target or are given
-// a specific target and scoped to a namespace, type, member, etc.
+/*
+ * File:        DoubleBufferingHelper.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Provides helper methods to enable double buffering on controls via compiled delegates for maximum performance.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
 
 using Krypton.Toolkit;
 
@@ -9,7 +19,7 @@ using NLog;
 
 using System.Reflection;
 
-namespace Planetoid_DB.Helpers;
+namespace Planetoid_DB;
 
 /// <summary>Provides helper methods to enable double buffering on controls via compiled delegates for maximum performance.</summary>
 /// <remarks>Uses reflection once to create a delegate for the protected <c>SetStyle</c> method on <see cref="Control"/> instances. If enabling double buffering fails, a warning is logged but the application continues to function normally.</remarks>

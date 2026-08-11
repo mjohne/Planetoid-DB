@@ -1,4 +1,17 @@
-// Imports user-scoped application settings (from various file formats) into the current user profile via Settings.Default.
+/*
+ * File:        SettingsImporter.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Provides static methods to import user-scoped application settings from CSV, INI, XML, JSON, and YAML files into Settings.Default.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
 
 using NLog;
 
@@ -9,7 +22,7 @@ using System.Globalization;
 using System.Text;
 using System.Xml;
 
-namespace Planetoid_DB.Helpers;
+namespace Planetoid_DB;
 
 /// <summary>Provides static methods to import user-scoped application settings from CSV, INI, XML, JSON, and YAML files into <see cref="Settings.Default"/>.</summary>
 /// <remarks>Only user-scoped settings can be written back; application-scoped settings that appear in the file are silently skipped. After a successful import <see cref="Settings.Default"/> is saved automatically.</remarks>

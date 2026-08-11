@@ -1,5 +1,17 @@
-// This file contains the implementation of the MoidsRelativeToMinorPlanetsForm,
-// which calculates and displays the MOID between two user-selected minor planets.
+/*
+ * File:        MoidsRelativeToMinorPlanetsForm.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Form for calculating the Minimum Orbit Intersection Distance (MOID) between two minor planets selected by the user from the loaded MPCORB database.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
 
 using NLog;
 
