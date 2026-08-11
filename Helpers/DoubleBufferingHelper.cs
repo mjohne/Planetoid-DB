@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Provides helper methods to enable double buffering on controls via compiled delegates for maximum performance.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

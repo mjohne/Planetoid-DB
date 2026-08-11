@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Represents a numeric up-down control hosted in a ToolStrip
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

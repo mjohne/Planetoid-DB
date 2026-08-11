@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Handles UI feedback and logging during export operations.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

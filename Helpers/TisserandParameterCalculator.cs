@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Provides methods for calculating the Tisserand parameter of a minor planet relative to each of the eight solar system planets.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

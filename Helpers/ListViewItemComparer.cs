@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Implements manual sorting of items by column for a ListView. Handles numeric values, text comparisons, and ensures strict sorting transitivity.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

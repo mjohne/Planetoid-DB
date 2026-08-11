@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Provides static helper methods for escaping strings in various document formats, as well as shared UI feedback methods used by all exporter classes.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

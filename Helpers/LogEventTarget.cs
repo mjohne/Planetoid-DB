@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Custom NLog target that forwards every received LogEventInfo to LogEventStore for later retrieval by the log viewer UI.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

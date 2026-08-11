@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Represents the progress of a download operation, including the current number of bytes downloaded, the total number of bytes to be downloaded, the download speed in bytes per second, the elapsed time since the download started, and the estimated time remaining for the download to complete.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

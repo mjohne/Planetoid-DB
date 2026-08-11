@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Thread-safe in-memory store for NLog LogEventInfo instances captured during the application session.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

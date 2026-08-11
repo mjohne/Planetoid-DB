@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: A serialization-friendly snapshot of a single NLog log event.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

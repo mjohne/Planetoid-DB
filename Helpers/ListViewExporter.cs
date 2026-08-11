@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Provides static methods for saving the contents of a ListView to various file formats.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Provides static methods to export all application settings (user-scoped and application-scoped) from Settings to CSV, INI, XML, JSON, and YAML files.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne

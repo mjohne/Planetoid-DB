@@ -4,7 +4,7 @@
  * Namespace:   Planetoid_DB
  * Description: Provides static methods to import user-scoped application settings from CSV, INI, XML, JSON, and YAML files into Settings.Default.
  *
- * Autor:       Michael Johne
+ * Author:      Michael Johne
  * Company:     Mijo Software
  * 
  * Copyright (c) 2026 Michael Johne
