@@ -1,8 +1,25 @@
+/*
+ * File:        AEIDiagram3DForm.Designer.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: 
+ * Remarks:     This file contains the Windows Forms designer-generated code for the AEIDiagram3DForm. Do not modify this file manually.
+ *
+ * Author:      Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
+
+
 using Krypton.Toolkit;
 
 using Planetoid_DB.Helpers;
 
-namespace Planetoid_DB.Forms;
+namespace Planetoid_DB;
 
 partial class AEIDiagram3DForm
 {
