@@ -1,3 +1,19 @@
+/*
+ * File:        ScatterplotsForm.Designer.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Provides a user interface for plotting planetoids as a scatter plot of two user-selected orbital elements or derived properties.
+ * Remarks:     This file contains the Windows Forms designer-generated code for the ScatterplotsForm. Do not modify this file manually.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
+
 using Krypton.Toolkit;
 
 using Planetoid_DB.Helpers;
@@ -7,7 +23,7 @@ using ScottPlot.WinForms;
 
 using System.ComponentModel;
 
-namespace Planetoid_DB.Forms;
+namespace Planetoid_DB;
 
 /// <summary>Provides a user interface for plotting planetoids as a scatter plot of two user-selected orbital elements or derived properties.</summary>
 /// <remarks>The form contains a ScottPlot chart, a ListView with the plotted data points, toolbar controls for the X-axis and Y-axis element selection, and a progress bar for the background operation.</remarks>

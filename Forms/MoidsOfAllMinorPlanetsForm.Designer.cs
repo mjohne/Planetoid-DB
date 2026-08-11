@@ -1,5 +1,18 @@
-// This file contains the Windows Forms designer-generated code
-// for the MoidsOfAllMinorPlanetsForm. Do not modify this file manually.
+/*
+ * File:        MoidsOfAllMinorPlanetsForm.Designer.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Represents a dialog form that displays the Minimum Orbit Intersection Distance (MOID) of all minor planets relative to each of the eight solar system planets.
+ * Remarks:     This file contains the Windows Forms designer-generated code for the MoidsOfAllMinorPlanetsForm. Do not modify this file manually.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
 
 using Krypton.Toolkit;
 

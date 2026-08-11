@@ -1,4 +1,18 @@
-// Designer file for SettingsExportForm.
+/*
+ * File:        SettingsExportForm.Designer.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Represents a dialog that exports program settings to CSV, INI, XML, JSON, or YAML.
+ * Remarks:     This file contains the Windows Forms designer-generated code for the SettingsExportForm. Do not modify this file manually.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
 
 using Krypton.Toolkit;
 

@@ -1,7 +1,18 @@
-﻿// This file is used by Code Analysis to maintain SuppressMessage
-// attributes that are applied to this project.
-// Project-level suppressions either have no target or are given
-// a specific target and scoped to a namespace, type, member, etc.
+﻿/*
+ * File:        AppInfoForm.Designer.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Represents a dialog form that displays essential application information, including the version, title, description, company, author, and copyright details, as well as information about third-party components used by the application.
+ * Remarks:     This file contains the Windows Forms designer-generated code for the AppInfoForm. Do not modify this file manually.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
 
 using Krypton.Navigator;
 using Krypton.Toolkit;
