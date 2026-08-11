@@ -1,7 +1,19 @@
-﻿// This file is used by Code Analysis to maintain SuppressMessage
-// attributes that are applied to this project.
-// Project-level suppressions either have no target or are given
-// a specific target and scoped to a namespace, type, member, etc.
+﻿/*
+ * File:        ListReadableDesignationsForm.Designer.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Represents a dialog form that lists readable designations, allowing users to specify minimum and maximum values,
+ view the list, and save it in various file formats.
+ * Remarks:     This file contains the Windows Forms designer-generated code for the ListReadableDesignationsForm. Do not modify this file manually.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
 
 using Krypton.Toolkit;
 
@@ -12,7 +24,7 @@ using System.ComponentModel;
 namespace Planetoid_DB;
 
 /// <summary>Represents a dialog form that lists readable designations, allowing users to specify minimum and maximum values,
-/// view the list, and save it in various file formats.</summary>
+ view the list, and save it in various file formats.</summary>
 /// <remarks>The form provides controls for filtering the list by minimum and maximum values, displaying the results in a list view, and saving the list in formats such as text, CSV, JSON, and more. It includes a status bar for displaying information and supports accessibility features. The form is intended to be used as a modal dialog within a parent application.</remarks>
 partial class ListReadableDesignationsForm
 {

@@ -1,3 +1,19 @@
+/*
+ * File:        DistributionsForm.Designer.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Provides a user interface for counting planetoids in orbital-element ranges and displaying the result as a histogram.
+ * Remarks:     This file contains the Windows Forms designer-generated code for the DistributionsForm. Do not modify this file manually.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
+
 using Krypton.Toolkit;
 
 using Planetoid_DB.Helpers;
@@ -7,7 +23,7 @@ using ScottPlot.WinForms;
 
 using System.ComponentModel;
 
-namespace Planetoid_DB.Forms;
+namespace Planetoid_DB;
 
 /// <summary>Provides a user interface for counting planetoids in orbital-element ranges and displaying the result as a histogram.</summary>
 /// <remarks>The form contains a ScottPlot chart, a ListView with the counted histogram bins, toolbar controls for the selected element and step size, and a progress bar for the background operation.</remarks>

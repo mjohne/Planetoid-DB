@@ -1,10 +1,26 @@
+/*
+ * File:        Orbit3DForm.Designer.cs
+ * Project:     Planetoid-DB
+ * Namespace:   Planetoid_DB
+ * Description: Provides the designer-generated user interface for the 3D orbital visualization form.
+ * Remarks:     This file contains the Windows Forms designer-generated code for the Orbit3DForm. Do not modify this file manually.
+ *
+ * Autor:       Michael Johne
+ * Company:     Mijo Software
+ * 
+ * Copyright (c) 2026 Michael Johne
+ *
+ * Licensed under the GNU General Public License v3.0.
+ * See LICENSE file in the project root for license information.
+ */
+
 using Krypton.Toolkit;
 
 using Planetoid_DB.Resources;
 
 using System.ComponentModel;
 
-namespace Planetoid_DB.Forms;
+namespace Planetoid_DB;
 
 /// <summary>Provides the designer-generated user interface for the 3D orbital visualization form.</summary>
 /// <remarks>The form contains a <see cref="System.Windows.Forms.Panel"/> that hosts the OpenGL rendering surface and a <see cref="KryptonStatusStrip"/> with an informational status label below.</remarks>
