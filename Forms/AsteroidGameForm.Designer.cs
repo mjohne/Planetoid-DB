@@ -14,14 +14,16 @@
  * See LICENSE file in the project root for license information.
  */
 
-namespace Planetoid_DB;
-
 using Krypton.Toolkit;
 
 using System.ComponentModel;
 
-/// <summary>Provides the designer-generated user interface for the Asteroids game form.</summary>
-/// <remarks>This file contains Windows Forms designer-generated code for <see cref="AsteroidGameForm"/>. Do not modify this file manually.</remarks>
+namespace Planetoid_DB.Forms;
+
+/// <summary>Provides the designer-generated user interface for the Asteroids game form.</summary>
+
+/// <remarks>This file contains Windows Forms designer-generated code for <see cref="AsteroidGameForm"/>. Do not modify this file manually.</remarks>
+
 partial class AsteroidGameForm
 {
 	/// <summary>Required designer variable.</summary>
