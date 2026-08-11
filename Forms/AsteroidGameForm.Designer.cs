@@ -20,8 +20,8 @@ using Krypton.Toolkit;
 
 using System.ComponentModel;
 
-/// <summary>...</summary>
-/// <remarks>...</remarks>
+/// <summary>Provides the designer-generated user interface for the Asteroids game form.</summary>
+/// <remarks>This file contains Windows Forms designer-generated code for <see cref="AsteroidGameForm"/>. Do not modify this file manually.</remarks>
 partial class AsteroidGameForm
 {
 	/// <summary>Required designer variable.</summary>
