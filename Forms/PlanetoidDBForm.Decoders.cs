@@ -445,11 +445,11 @@ public partial class PlanetoidDbForm
 		if (packed.Length == 7 && packed[0] is 'I' or 'J' or 'K')
 		{
 			int century = packed[0] switch
-				{
-					'I' => 1800,
-					'J' => 1900,
-					_ => 2000  // 'K'
-				};
+			{
+				'I' => 1800,
+				'J' => 1900,
+				_ => 2000  // 'K'
+			};
 			if (!int.TryParse(s: packed.AsSpan(start: 1, length: 2), result: out int yearInCentury))
 			{
 				throw new FormatException(message: $"Invalid year digits in packed designation '{packed}'");
@@ -493,7 +493,7 @@ public partial class PlanetoidDbForm
 				}
 			}
 			// Alphanumeric prefix (A-Z or a-z) + 4 digits
-				if (char.IsAsciiLetter(c: first))
+			if (char.IsAsciiLetter(c: first))
 			{
 				int prefixValue = char.IsAsciiLetterUpper(c: first) ? first - 'A' + 10 : first - 'a' + 36;
 				if (int.TryParse(s: packed.AsSpan(start: 1, length: 4), result: out int suffix))
@@ -502,11 +502,11 @@ public partial class PlanetoidDbForm
 					return asteroidNumber.ToString(provider: System.Globalization.CultureInfo.InvariantCulture);
 				}
 			}
-				// Tilde prefix encodes very large asteroid numbers (> 619999) in base-62 — not decoded here
-				if (first == '~')
-				{
-					return $"Extended packed number (tilde format): {packed}";
-				}
+			// Tilde prefix encodes very large asteroid numbers (> 619999) in base-62 — not decoded here
+			if (first == '~')
+			{
+				return $"Extended packed number (tilde format): {packed}";
+			}
 		}
 		// Fallback: return the input unchanged
 		return packed;
