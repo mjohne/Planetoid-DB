@@ -670,7 +670,7 @@ partial class PlanetoidDbForm
 		labelEpochData.Name = "labelEpochData";
 		labelEpochData.Size = new Size(168, 20);
 		labelEpochData.TabIndex = 5;
-		labelEpochData.ToolTipValues.Description = "Shows the information of \"Epoch (in packed form, .0 TT)\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelEpochData.ToolTipValues.Description = "Shows the information of \"Epoch (in packed form, .0 TT)\".\r\nDouble-click to decode or right-click to copy the information to the clipboard.";
 		labelEpochData.ToolTipValues.EnableToolTips = true;
 		labelEpochData.ToolTipValues.Heading = "Epoch (in packed form, .0 TT)";
 		labelEpochData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
@@ -901,7 +901,7 @@ partial class PlanetoidDbForm
 		labelReferenceData.Name = "labelReferenceData";
 		labelReferenceData.Size = new Size(172, 20);
 		labelReferenceData.TabIndex = 25;
-		labelReferenceData.ToolTipValues.Description = "Shows the information of \"Reference\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelReferenceData.ToolTipValues.Description = "Shows the information of \"Reference\".\r\nClick to decode or double-click/right-click to copy the information to the clipboard.";
 		labelReferenceData.ToolTipValues.EnableToolTips = true;
 		labelReferenceData.ToolTipValues.Heading = "Reference";
 		labelReferenceData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
@@ -1041,7 +1041,7 @@ partial class PlanetoidDbForm
 		labelFlagsData.Name = "labelFlagsData";
 		labelFlagsData.Size = new Size(172, 20);
 		labelFlagsData.TabIndex = 37;
-		labelFlagsData.ToolTipValues.Description = "Shows the information of \"4-hexdigit flags\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelFlagsData.ToolTipValues.Description = "Shows the information of \"4-hexdigit flags\".\r\nDouble-click to decode or right-click to copy the information to the clipboard.";
 		labelFlagsData.ToolTipValues.EnableToolTips = true;
 		labelFlagsData.ToolTipValues.Heading = "4-hexdigit flags";
 		labelFlagsData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
