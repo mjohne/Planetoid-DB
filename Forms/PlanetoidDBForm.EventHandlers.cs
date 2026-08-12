@@ -1577,6 +1577,16 @@ public partial class PlanetoidDbForm
 		DecodePackedEpoch();
 	}
 
+	/// <summary>Handles the DoubleClick event for the label that displays the readable designation and initiates decoding of the designation.</summary>
+	/// <param name="sender">The source of the event, typically the label control that was double-clicked.</param>
+	/// <param name="e">An <see cref="EventArgs"/> object that contains the event data.</param>
+	/// <remarks>This method decodes the packed readable designation when the label is double-clicked.</remarks>
+	private void LabelReadableDesignationData_DoubleClick(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Decoding readable designation for object {labelIndexData.Text}");
+		DecodeReadableDesignation();
+	}
+
 	/// <summary>Handles the Click event of the Observatory Codes button to open the <see cref="ObservatoryCodesForm"/>.</summary>
 	/// <param name="sender">The source of the event, typically the Observatory Codes button.</param>
 	/// <param name="e">An <see cref="EventArgs"/> object that contains the event data.</param>

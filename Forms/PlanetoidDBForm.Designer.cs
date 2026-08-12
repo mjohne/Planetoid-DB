@@ -652,7 +652,7 @@ partial class PlanetoidDbForm
 		labelReadableDesignationData.ToolTipValues.Heading = "Readable designation";
 		labelReadableDesignationData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		labelReadableDesignationData.Values.Text = "..................";
-		labelReadableDesignationData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelReadableDesignationData.DoubleClick += LabelReadableDesignationData_DoubleClick;
 		labelReadableDesignationData.Enter += Control_Enter;
 		labelReadableDesignationData.Leave += Control_Leave;
 		labelReadableDesignationData.MouseDown += Control_MouseDown;
