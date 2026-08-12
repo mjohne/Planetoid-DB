@@ -13,7 +13,7 @@
  * See LICENSE file in the project root for license information.
  */
 
-namespace Planetoid_DB;
+namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides methods to calculate various types of averages from a collection of numeric values.</summary>
 /// <remarks>This class implements multiple averaging methods including arithmetic mean, median, mode, geometric mean, harmonic mean, quadratic mean, cubic mean, logarithmic mean, Winsor mean, quartile mean, shortest half mean, Gastwirth-Cohen mean, range mean, a-mean, moving average, Hölder mean of shortest half, and Lehmer mean.</remarks>

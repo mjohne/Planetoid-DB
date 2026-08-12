@@ -13,7 +13,7 @@
  * See LICENSE file in the project root for license information.
  */
 
-namespace Planetoid_DB;
+namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides methods for calculating the Tisserand parameter of a minor planet relative to each of the eight solar system planets.</summary>
 /// <remarks>The Tisserand parameter is a quasi-conserved quantity derived from the Jacobi constant in the circular restricted three-body problem. It is defined as: <para><c>T_P = a_P / a + 2 * cos(i) * sqrt(a / a_P * (1 - e²))</c></para> where <c>a_P</c> is the semi-major axis of the reference planet, <c>a</c> is the semi-major axis of the minor planet, <c>e</c> is the eccentricity of the minor planet, and <c>i</c> is the orbital inclination of the minor planet. By convention <c>T_J</c> (relative to Jupiter) is the most commonly used form and is widely employed to classify small solar-system bodies.</remarks>

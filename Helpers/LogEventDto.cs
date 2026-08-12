@@ -13,7 +13,7 @@
  * See LICENSE file in the project root for license information.
  */
 
-namespace Planetoid_DB;
+namespace Planetoid_DB.Helpers;
 
 /// <summary>A serialization-friendly snapshot of a single NLog log event.</summary>
 /// <param name="TimeStamp">The timestamp of the log event (as provided by NLog).</param>

@@ -13,7 +13,7 @@
  * See LICENSE file in the project root for license information.
  */
 
-namespace Planetoid_DB;
+namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides methods for calculating various orbital elements.</summary>
 /// <remarks>This class contains methods for calculating the semi-minor axis, linear eccentricity, major axis, minor axis, and other orbital elements.</remarks>

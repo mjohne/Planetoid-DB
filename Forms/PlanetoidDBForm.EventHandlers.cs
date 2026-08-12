@@ -17,7 +17,6 @@ using Krypton.Toolkit;
 
 using NLog;
 
-using Planetoid_DB.Forms;
 using Planetoid_DB.Properties;
 
 using System.ComponentModel;

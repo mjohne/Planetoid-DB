@@ -23,7 +23,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 
-namespace Planetoid_DB;
+namespace Planetoid_DB.Forms;
 
 /// <summary>Form to analyze and group planetoids based on common orbital element ranges.</summary>
 /// <remarks>This form provides functionality to group planetoids based on their orbital elements, allowing for analysis of patterns and similarities.</remarks>

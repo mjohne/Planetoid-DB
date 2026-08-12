@@ -18,7 +18,7 @@ using System.Collections.Concurrent;
 using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics;
 
-namespace Planetoid_DB;
+namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides methods for calculating the Minimum Orbit Intersection Distance (MOID) between a minor planet and the eight solar system planets.</summary>
 /// <remarks>This class implements a fast, high-precision numerical double-grid search algorithm with local refinement, equivalent to the approach used by the Minor Planet Center (MPC) for computing MOID values. The method samples both orbits on a fine angular grid to locate the global minimum distance, then refines it using coordinate-descent optimization to achieve sub-milliarcsecond accuracy.</remarks>

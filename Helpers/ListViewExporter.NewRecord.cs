@@ -13,7 +13,7 @@
  * See LICENSE file in the project root for license information.
  */
 
-namespace Planetoid_DB;
+namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides static methods for exporting data from a ListView control.</summary>
 /// <remarks>This class is intended to support operations related to exporting ListView data, such as formatting or serializing the contents for external use. All members are static and the class cannot be instantiated.</remarks>

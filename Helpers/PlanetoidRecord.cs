@@ -13,7 +13,7 @@
  * See LICENSE file in the project root for license information.
  */
 
-namespace Planetoid_DB;
+namespace Planetoid_DB.Helpers;
 
 /// <summary>Represents a single planetoid dataset.</summary>
 /// <param name="Index">index of the planetoid</param>

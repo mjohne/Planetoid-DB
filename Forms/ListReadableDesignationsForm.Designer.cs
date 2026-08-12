@@ -17,14 +17,14 @@
 
 using Krypton.Toolkit;
 
+using Planetoid_DB.Helpers;
 using Planetoid_DB.Resources;
 
 using System.ComponentModel;
 
 namespace Planetoid_DB;
 
-/// <summary>Represents a dialog form that lists readable designations, allowing users to specify minimum and maximum values,
- view the list, and save it in various file formats.</summary>
+/// <summary>Represents a dialog form that lists readable designations, allowing users to specify minimum and maximum values, view the list, and save it in various file formats.</summary>
 /// <remarks>The form provides controls for filtering the list by minimum and maximum values, displaying the results in a list view, and saving the list in formats such as text, CSV, JSON, and more. It includes a status bar for displaying information and supports accessibility features. The form is intended to be used as a modal dialog within a parent application.</remarks>
 partial class ListReadableDesignationsForm
 {
@@ -1125,10 +1125,10 @@ partial class ListReadableDesignationsForm
 	private KryptonToolStrip kryptonToolStripSaveList;
 	private ToolStripButton toolStripButtonGoToObject;
 	private ToolStripSeparator toolStripSeparator1;
-	private Helpers.ToolStripNumericUpDown toolStripNumericUpDownMinimum;
+	private ToolStripNumericUpDown toolStripNumericUpDownMinimum;
 	private ToolStripLabel toolStripLabelMinimum;
 	private ToolStripLabel toolStripLabelMaximum;
-	private Helpers.ToolStripNumericUpDown toolStripNumericUpDownMaximum;
+	private ToolStripNumericUpDown toolStripNumericUpDownMaximum;
 	private ToolStripSeparator toolStripSeparator2;
 	private ToolStripDropDownButton toolStripDropDownButtonSaveList;
 	private ToolStripMenuItem toolStripMenuItemTextFiles;

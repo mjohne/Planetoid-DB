@@ -22,7 +22,7 @@ using System.Globalization;
 using System.Text;
 using System.Xml;
 
-namespace Planetoid_DB;
+namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides static methods to import user-scoped application settings from CSV, INI, XML, JSON, and YAML files into <see cref="Settings.Default"/>.</summary>
 /// <remarks>Only user-scoped settings can be written back; application-scoped settings that appear in the file are silently skipped. After a successful import <see cref="Settings.Default"/> is saved automatically.</remarks>
