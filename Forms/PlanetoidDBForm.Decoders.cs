@@ -15,8 +15,8 @@
 
 
 // This file is part of the PlanetoidDbForm partial class.
-// It contains methods for decoding MPCORB flag, reference, and packed epoch fields,
-// as well as the static helpers DecodeReference, DecodeBase62, GetJournalName, and DecodePackedEpochDate.
+// It contains methods for decoding MPCORB flag, reference, packed epoch, and readable designation fields,
+// as well as the static helpers DecodeReference, DecodeBase62, GetJournalName, DecodePackedEpochDate, and UnpackReadableDesignation.
 
 using Krypton.Toolkit;
 
@@ -358,6 +358,158 @@ public partial class PlanetoidDbForm
 		};
 		// Return the unpacked date as a string in yyyy-MM-dd format
 		return new DateOnly(year: year, month: month, day: day).ToString(format: "yyyy-MM-dd");
+	}
+
+	/// <summary>Decodes the readable designation from the label and displays the unpacked form in a KryptonMessageBox.</summary>
+	/// <remarks>The packed designation format is defined at https://www.minorplanetcenter.net/iau/info/DesDoc.html and https://www.minorplanetcenter.net/iau/info/PackedDes.html.</remarks>
+	private void DecodeReadableDesignation()
+	{
+		// Get the packed designation text from the label
+		string packed = labelReadableDesignationData.Text;
+		// Validate that the designation text is not empty
+		if (string.IsNullOrWhiteSpace(value: packed))
+		{
+			logger.Warn(message: "Readable designation text is empty or whitespace");
+			_ = KryptonMessageBox.Show(
+				owner: this,
+				text: "No readable designation data available.",
+				caption: "Readable Designation Decoder",
+				buttons: KryptonMessageBoxButtons.OK,
+				icon: KryptonMessageBoxIcon.Warning);
+			return;
+		}
+		// Attempt to decode the packed designation
+		try
+		{
+			string unpacked = UnpackReadableDesignation(packed: packed.Trim());
+			// Build the result message
+			System.Text.StringBuilder result = new();
+			_ = result.AppendLine(value: "Readable Designation Decoder");
+			_ = result.AppendLine(value: "============================");
+			_ = result.AppendLine(value: $"Packed:   {packed}");
+			_ = result.AppendLine();
+			_ = result.AppendLine(value: "Unpacked:");
+			_ = result.AppendLine(value: $"  {unpacked}");
+			// Display the result in a KryptonMessageBox
+			_ = KryptonMessageBox.Show(owner: this, text: result.ToString(), caption: "Readable Designation Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			logger.Info(message: $"Decoded readable designation: '{packed}' → '{unpacked}'");
+		}
+		catch (Exception ex)
+		{
+			logger.Error(exception: ex, message: $"Error decoding readable designation '{packed}': {ex.Message}");
+			ShowErrorMessage(message: $"An error occurred while decoding the readable designation:\n\n{ex.Message}");
+		}
+	}
+
+	/// <summary>Unpacks a packed MPC designation string to its human-readable form.</summary>
+	/// <param name="packed">The packed designation string as defined by the Minor Planet Center.</param>
+	/// <returns>The unpacked, human-readable designation string.</returns>
+	/// <remarks>Handles numbered asteroid designations, packed provisional designations (e.g. "J95X00A" → "1995 XA"),
+	/// and survey designations (P-L, T-1, T-2, T-3) as specified at
+	/// https://www.minorplanetcenter.net/iau/info/DesDoc.html and https://www.minorplanetcenter.net/iau/info/PackedDes.html.</remarks>
+	internal static string UnpackReadableDesignation(string packed)
+	{
+		if (string.IsNullOrWhiteSpace(value: packed))
+		{
+			throw new FormatException(message: "Designation string must not be empty.");
+		}
+		// Already unpacked if it contains a space (e.g. "1995 XA")
+		if (packed.Contains(value: ' '))
+		{
+			return packed;
+		}
+		// Survey designations: 6 chars — "PL" + 4 digits, or "T1"/"T2"/"T3" + 4 digits
+		// e.g. "PL4354" → "4354 P-L", "T14354" → "4354 T-1"
+		if (packed.Length == 6)
+		{
+			string prefix = packed[..2];
+			string numPart = packed[2..];
+			if (int.TryParse(s: numPart, result: out int surveyNum))
+			{
+				string surveyName = prefix switch
+				{
+					"PL" => "P-L",
+					"T1" => "T-1",
+					"T2" => "T-2",
+					"T3" => "T-3",
+					_ => string.Empty
+				};
+				if (!string.IsNullOrEmpty(value: surveyName))
+				{
+					return $"{surveyNum} {surveyName}";
+				}
+			}
+		}
+		// Provisional designations: 7 chars starting with century letter I, J, or K
+		// e.g. "J95X00A" → "1995 XA", "J95X01L" → "1995 XL1", "J98SA8Q" → "1998 SQ108"
+		if (packed.Length == 7 && packed[0] is 'I' or 'J' or 'K')
+		{
+			int century = packed[0] switch
+				{
+					'I' => 1800,
+					'J' => 1900,
+					_ => 2000  // 'K'
+				};
+			if (!int.TryParse(s: packed.AsSpan(start: 1, length: 2), result: out int yearInCentury))
+			{
+				throw new FormatException(message: $"Invalid year digits in packed designation '{packed}'");
+			}
+			int year = century + yearInCentury;
+			char halfMonthLetter = packed[3];
+			char subscriptTens = packed[4];
+			char subscriptOnes = packed[5];
+			char orderLetter = packed[6];
+			// Decode the subscript tens character (0-9 → 0-9, A-Z → 10-35)
+			int tens = subscriptTens switch
+			{
+				>= '0' and <= '9' => subscriptTens - '0',
+				>= 'A' and <= 'Z' => subscriptTens - 'A' + 10,
+				_ => throw new FormatException(message: $"Invalid subscript tens character '{subscriptTens}' in packed designation '{packed}'")
+			};
+			// subscriptOnes must be a digit
+			if (subscriptOnes is < '0' or > '9')
+			{
+				throw new FormatException(message: $"Invalid subscript ones character '{subscriptOnes}' in packed designation '{packed}'");
+			}
+			int subscript = (tens * 10) + (subscriptOnes - '0');
+			// Build the unpacked designation
+			string subscriptStr = subscript == 0 ? string.Empty : subscript.ToString(provider: System.Globalization.CultureInfo.InvariantCulture);
+			return $"{year} {halfMonthLetter}{orderLetter}{subscriptStr}";
+		}
+		// Numbered asteroid designations: 5 chars
+		// "00001"–"99999" → numeric value (strip leading zeros)
+		// "A0001"–"Z9999" → (A-Z encodes 10–35) * 10000 + remaining 4 digits
+		// "a0000"–"z9999" → (a-z encodes 36–61) * 10000 + remaining 4 digits
+		// "~xxxx" → very large numbers encoded in base-62 (out of scope for typical data)
+		if (packed.Length == 5)
+		{
+			char first = packed[0];
+			// All-digit: strip leading zeros
+			if (char.IsAsciiDigit(c: first))
+			{
+				if (int.TryParse(s: packed, result: out int number))
+				{
+					return number.ToString(provider: System.Globalization.CultureInfo.InvariantCulture);
+				}
+			}
+			// Alphanumeric prefix (A-Z or a-z) + 4 digits
+				if (char.IsAsciiLetter(c: first))
+			{
+				int prefixValue = char.IsAsciiLetterUpper(c: first) ? first - 'A' + 10 : first - 'a' + 36;
+				if (int.TryParse(s: packed.AsSpan(start: 1, length: 4), result: out int suffix))
+				{
+					int asteroidNumber = prefixValue * 10000 + suffix;
+					return asteroidNumber.ToString(provider: System.Globalization.CultureInfo.InvariantCulture);
+				}
+			}
+				// Tilde prefix encodes very large asteroid numbers (> 619999) in base-62 — not decoded here
+				if (first == '~')
+				{
+					return $"Extended packed number (tilde format): {packed}";
+				}
+		}
+		// Fallback: return the input unchanged
+		return packed;
 	}
 
 	/// <summary>Gets the full journal name from a two-letter journal code.</summary>
