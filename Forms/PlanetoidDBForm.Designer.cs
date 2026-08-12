@@ -901,7 +901,7 @@ partial class PlanetoidDbForm
 		labelReferenceData.Name = "labelReferenceData";
 		labelReferenceData.Size = new Size(172, 20);
 		labelReferenceData.TabIndex = 25;
-		labelReferenceData.ToolTipValues.Description = "Shows the information of \"Reference\".\r\nDouble-click to decode or right-click to copy the information to the clipboard.";
+		labelReferenceData.ToolTipValues.Description = "Shows the information of \"Reference\".\r\nClick to decode or double-click/right-click to copy the information to the clipboard.";
 		labelReferenceData.ToolTipValues.EnableToolTips = true;
 		labelReferenceData.ToolTipValues.Heading = "Reference";
 		labelReferenceData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
