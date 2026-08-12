@@ -2,6 +2,7 @@
 
 ## Planetoid-DB 0.9.26.89
 
+* Added `DecodePackedEpoch` method and `LabelEpochData_DoubleClick` event handler to decode packed MPC epoch dates by @copilot in https://github.com/mjohne/Planetoid-DB/pull/1043
 * Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1008
 * Updated CHANGELOG for version 0.9.25.88 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1009
 * Updated option to enable or disable experimental features by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1010

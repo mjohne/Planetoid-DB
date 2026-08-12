@@ -1567,6 +1567,16 @@ public partial class PlanetoidDbForm
 		DecodeMpcorbReference();
 	}
 
+	/// <summary>Handles the DoubleClick event for the label that displays the packed epoch and initiates decoding of the epoch.</summary>
+	/// <param name="sender">The source of the event, typically the label control that was double-clicked.</param>
+	/// <param name="e">An <see cref="EventArgs"/> object that contains the event data.</param>
+	/// <remarks>This method decodes the packed epoch when the label is double-clicked.</remarks>
+	private void LabelEpochData_DoubleClick(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Decoding packed epoch for object {labelIndexData.Text}");
+		DecodePackedEpoch();
+	}
+
 	/// <summary>Handles the Click event of the Observatory Codes button to open the <see cref="ObservatoryCodesForm"/>.</summary>
 	/// <param name="sender">The source of the event, typically the Observatory Codes button.</param>
 	/// <param name="e">An <see cref="EventArgs"/> object that contains the event data.</param>
