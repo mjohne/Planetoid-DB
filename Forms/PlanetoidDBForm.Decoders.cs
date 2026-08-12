@@ -15,8 +15,8 @@
 
 
 // This file is part of the PlanetoidDbForm partial class.
-// It contains methods for decoding MPCORB flag and reference fields,
-// as well as the static helpers DecodeReference, DecodeBase62, and GetJournalName.
+// It contains methods for decoding MPCORB flag, reference, and packed epoch fields,
+// as well as the static helpers DecodeReference, DecodeBase62, GetJournalName, and DecodePackedEpochDate.
 
 using Krypton.Toolkit;
 
@@ -271,6 +271,93 @@ public partial class PlanetoidDbForm
 		}
 		// Return the decoded integer value
 		return result;
+	}
+
+	/// <summary>Decodes the packed epoch from the epoch label and displays the unpacked date in a KryptonMessageBox.</summary>
+	/// <remarks>The packed epoch format is defined at https://www.minorplanetcenter.net/iau/info/PackedDates.html.</remarks>
+	private void DecodePackedEpoch()
+	{
+		// Get the packed epoch text from the label
+		string packedEpoch = labelEpochData.Text;
+		// Validate that the packed epoch text is not empty
+		if (string.IsNullOrWhiteSpace(value: packedEpoch))
+		{
+			logger.Warn(message: "Packed epoch text is empty or whitespace");
+			_ = KryptonMessageBox.Show(
+				owner: this,
+				text: "No epoch data available.",
+				caption: "Packed Epoch Decoder",
+				buttons: KryptonMessageBoxButtons.OK,
+				icon: KryptonMessageBoxIcon.Warning);
+			return;
+		}
+		// Attempt to decode the packed epoch
+		try
+		{
+			string decodedEpoch = DecodePackedEpochDate(packedEpoch: packedEpoch.Trim());
+			// Build the result message
+			System.Text.StringBuilder result = new();
+			_ = result.AppendLine(value: "Packed Epoch Decoder");
+			_ = result.AppendLine(value: "====================");
+			_ = result.AppendLine(value: $"Packed: {packedEpoch}");
+			_ = result.AppendLine();
+			_ = result.AppendLine(value: "Unpacked Date (TT):");
+			_ = result.AppendLine(value: $"  {decodedEpoch}");
+			// Display the result in a KryptonMessageBox
+			_ = KryptonMessageBox.Show(owner: this, text: result.ToString(), caption: "Packed Epoch Decoder", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Information);
+			logger.Info(message: $"Decoded packed epoch: '{packedEpoch}' → '{decodedEpoch}'");
+		}
+		catch (Exception ex)
+		{
+			logger.Error(exception: ex, message: $"Error decoding packed epoch '{packedEpoch}': {ex.Message}");
+			ShowErrorMessage(message: $"An error occurred while decoding the packed epoch:\n\n{ex.Message}");
+		}
+	}
+
+	/// <summary>Decodes a packed MPC epoch string to its full date form.</summary>
+	/// <param name="packedEpoch">The packed epoch string (5 characters, e.g. "K134Q").</param>
+	/// <returns>The unpacked date as a string in <c>yyyy-MM-dd</c> format.</returns>
+	/// <remarks>The packed epoch format is defined at https://www.minorplanetcenter.net/iau/info/PackedDates.html.
+	/// Century letters: I = 1800, J = 1900, K = 2000. Month/day digits 1–9 map to 1–9; letters A–C (month) or A–V (day) map to 10–12 or 10–31 respectively.</remarks>
+	internal static string DecodePackedEpochDate(string packedEpoch)
+	{
+		// Validate that the packed epoch is exactly 5 characters
+		if (string.IsNullOrWhiteSpace(value: packedEpoch) || packedEpoch.Length != 5)
+		{
+			throw new FormatException(message: $"Packed epoch must be exactly 5 characters, got: '{packedEpoch}'");
+		}
+		// Decode the century from the first character
+		int century = packedEpoch[index: 0] switch
+		{
+			'I' => 1800,
+			'J' => 1900,
+			'K' => 2000,
+			_ => throw new FormatException(message: $"Unknown century character '{packedEpoch[index: 0]}' in packed epoch '{packedEpoch}'")
+		};
+		// Decode the two-digit year within the century
+		if (!int.TryParse(s: packedEpoch.AsSpan(start: 1, length: 2), result: out int yearInCentury))
+		{
+			throw new FormatException(message: $"Invalid year digits in packed epoch '{packedEpoch}'");
+		}
+		int year = century + yearInCentury;
+		// Decode the month character
+		char monthChar = packedEpoch[index: 3];
+		int month = monthChar switch
+		{
+			>= '1' and <= '9' => monthChar - '0',
+			>= 'A' and <= 'C' => monthChar - 'A' + 10,
+			_ => throw new FormatException(message: $"Invalid month character '{monthChar}' in packed epoch '{packedEpoch}'")
+		};
+		// Decode the day character
+		char dayChar = packedEpoch[index: 4];
+		int day = dayChar switch
+		{
+			>= '1' and <= '9' => dayChar - '0',
+			>= 'A' and <= 'V' => dayChar - 'A' + 10,
+			_ => throw new FormatException(message: $"Invalid day character '{dayChar}' in packed epoch '{packedEpoch}'")
+		};
+		// Return the unpacked date as a string in yyyy-MM-dd format
+		return new DateOnly(year: year, month: month, day: day).ToString(format: "yyyy-MM-dd");
 	}
 
 	/// <summary>Gets the full journal name from a two-letter journal code.</summary>

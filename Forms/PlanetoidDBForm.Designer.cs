@@ -675,7 +675,7 @@ partial class PlanetoidDbForm
 		labelEpochData.ToolTipValues.Heading = "Epoch (in packed form, .0 TT)";
 		labelEpochData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
 		labelEpochData.Values.Text = "..................";
-		labelEpochData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelEpochData.DoubleClick += LabelEpochData_DoubleClick;
 		labelEpochData.Enter += Control_Enter;
 		labelEpochData.Leave += Control_Leave;
 		labelEpochData.MouseDown += Control_MouseDown;
