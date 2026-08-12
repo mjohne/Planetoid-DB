@@ -647,7 +647,7 @@ partial class PlanetoidDbForm
 		labelReadableDesignationData.Name = "labelReadableDesignationData";
 		labelReadableDesignationData.Size = new Size(168, 20);
 		labelReadableDesignationData.TabIndex = 3;
-		labelReadableDesignationData.ToolTipValues.Description = "Shows the information of \"Readable designation\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelReadableDesignationData.ToolTipValues.Description = "Shows the information of \"Readable designation\".\r\nDouble-click to decode or right-click to copy the information to the clipboard.";
 		labelReadableDesignationData.ToolTipValues.EnableToolTips = true;
 		labelReadableDesignationData.ToolTipValues.Heading = "Readable designation";
 		labelReadableDesignationData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
