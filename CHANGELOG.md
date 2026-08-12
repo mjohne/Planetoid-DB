@@ -2,7 +2,6 @@
 
 ## Planetoid-DB 0.9.26.89
 
-* Created method `DecodeReadableDesignation` in `PlanetoidDBForm.Decoders.cs` to unpack packed MPC designations by @copilot in https://github.com/mjohne/Planetoid-DB/pull/1046
 * Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1008
 * Updated CHANGELOG for version 0.9.25.88 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1009
 * Updated option to enable or disable experimental features by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1010
