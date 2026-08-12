@@ -19,7 +19,7 @@ using Planetoid_DB.Properties;
 
 using System.Text.Json;
 
-namespace Planetoid_DB;
+namespace Planetoid_DB.Helpers;
 
 /// <summary>Thread-safe in-memory store for NLog <see cref="LogEventInfo"/> instances captured during the application session.</summary>
 /// <remarks> <see cref="LogEventTarget"/> writes every received <see cref="LogEventInfo"/> into this store. The <c>LogViewerForm</c> reads from it to populate the list view. All public members are thread-safe.</remarks>

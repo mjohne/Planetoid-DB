@@ -16,7 +16,7 @@
 using System.ComponentModel;
 using System.Windows.Forms.Design;
 
-namespace Planetoid_DB;
+namespace Planetoid_DB.Helpers;
 
 /// <summary>Represents a numeric up-down control hosted in a ToolStrip.</summary>
 /// <remarks>This class provides a convenient way to include a NumericUpDown control within a ToolStrip or StatusStrip, allowing for easy integration of numeric input functionality in these UI components.</remarks>

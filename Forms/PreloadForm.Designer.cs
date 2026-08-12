@@ -142,7 +142,7 @@ partial class PreloadForm
 		kryptonCommandLinkButtonDownloadMprcorbDat.ToolTipValues.EnableToolTips = true;
 		kryptonCommandLinkButtonDownloadMprcorbDat.ToolTipValues.Heading = "Download MPCORB.DAT";
 		kryptonCommandLinkButtonDownloadMprcorbDat.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		kryptonCommandLinkButtonDownloadMprcorbDat.Click += KryptonCommandLinkButtonDownloadMprcorbDat_Click;
+		kryptonCommandLinkButtonDownloadMprcorbDat.Click += KryptonCommandLinkButtonDownloadMpcorbDat_Click;
 		kryptonCommandLinkButtonDownloadMprcorbDat.Enter += Control_Enter;
 		kryptonCommandLinkButtonDownloadMprcorbDat.Leave += Control_Leave;
 		kryptonCommandLinkButtonDownloadMprcorbDat.MouseEnter += Control_Enter;

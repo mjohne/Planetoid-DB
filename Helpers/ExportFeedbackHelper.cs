@@ -17,7 +17,7 @@ using Krypton.Toolkit;
 
 using NLog;
 
-namespace Planetoid_DB;
+namespace Planetoid_DB.Helpers;
 
 /// <summary>Handles UI feedback and logging during export operations.</summary>
 /// <remarks>This static class provides methods for displaying success and error messages to the user, as well as logging errors that occur during file export operations.</remarks>

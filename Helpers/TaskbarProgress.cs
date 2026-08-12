@@ -17,7 +17,7 @@ using NLog;
 
 using System.Runtime.InteropServices;
 
-namespace Planetoid_DB;
+namespace Planetoid_DB.Helpers;
 
 /// <summary>Controls the progress bar of the program icon in the Windows taskbar.</summary>
 /// <remarks>This class provides methods to interact with the Windows taskbar to display progress.</remarks>

@@ -13,7 +13,12 @@
  * See LICENSE file in the project root for license information.
  */
 
-namespace Planetoid_DB;
+using System.Buffers;
+using System.Collections.Concurrent;
+using System.Runtime.CompilerServices;
+using System.Runtime.Intrinsics;
+
+namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides methods for calculating the Maximum Orbit Intersection Distance (MAXOID) between a minor planet and the eight solar system planets.</summary>
 /// <remarks>This class implements a fast, high-precision numerical double-grid search algorithm with local refinement. The method samples both orbits on a fine angular grid to locate the global maximum distance, then refines it using coordinate-ascent optimization to achieve sub-milliarcsecond accuracy.</remarks>

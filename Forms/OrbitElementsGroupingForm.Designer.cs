@@ -22,7 +22,7 @@ namespace Planetoid_DB.Forms;
 
 /// <summary>Provides a user interface for grouping orbital elements of planetoids.</summary>
 /// <remarks>This form allows users to specify parameters for grouping orbital elements, including tolerance and the number of elements to compare. It also displays progress during the grouping operation.</remarks>
-partial class OrbitElementsGroupingForm
+partial class OrbitElementsGroupingForm : BaseKryptonForm
 {
 	/// <summary>Required designer variable.</summary>
 	/// <remarks>This field stores the components used by the form.</remarks>

@@ -15,7 +15,7 @@
 
 using System.Globalization;
 
-namespace Planetoid_DB;
+namespace Planetoid_DB.Helpers;
 
 /// <summary>Implements manual sorting of items by column for a <see cref="ListView"/>. Handles numeric values, text comparisons, and ensures strict sorting transitivity.</summary>
 /// <param name="column">The column index to sort by.</param>

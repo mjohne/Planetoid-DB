@@ -16,7 +16,7 @@
 using NLog;
 using NLog.Targets;
 
-namespace Planetoid_DB;
+namespace Planetoid_DB.Helpers;
 
 /// <summary>Custom NLog target that forwards every received <see cref="LogEventInfo"/> to <see cref="LogEventStore"/> for later retrieval by the log viewer UI.</summary>
 /// <remarks>Register an instance of this target with the NLog configuration before calling <see cref="LogManager.ReconfigExistingLoggers()"/>. The target is thread-safe because <see cref="LogEventStore.Add"/> is thread-safe. </remarks>

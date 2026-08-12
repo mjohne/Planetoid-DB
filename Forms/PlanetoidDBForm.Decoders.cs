@@ -498,7 +498,7 @@ public partial class PlanetoidDbForm
 				int prefixValue = char.IsAsciiLetterUpper(c: first) ? first - 'A' + 10 : first - 'a' + 36;
 				if (int.TryParse(s: packed.AsSpan(start: 1, length: 4), result: out int suffix))
 				{
-					int asteroidNumber = prefixValue * 10000 + suffix;
+					int asteroidNumber = (prefixValue * 10000) + suffix;
 					return asteroidNumber.ToString(provider: System.Globalization.CultureInfo.InvariantCulture);
 				}
 			}

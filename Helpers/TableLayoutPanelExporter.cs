@@ -23,7 +23,7 @@ using System.Text;
 using System.Text.Json;
 using System.Xml;
 
-namespace Planetoid_DB;
+namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides static methods for saving the contents of a <see cref="TableLayoutPanel"/> to various file formats.</summary>
 /// <remarks>Each method accepts the source <see cref="TableLayoutPanel"/>, a document title used in the file content, and the full file-system path of the output file. Column headers are read from the controls in the first row (row 0); row data is read from controls in subsequent rows. Compressed file formats (DOCX, ODT, ODS, XLSX, EPUB) are written as proper ZIP archives rather than flat XML files. SQLite export requires System.Data.SQLite; CHM export requires Microsoft HTML Help Workshop (hhc.exe).</remarks>

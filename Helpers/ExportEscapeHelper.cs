@@ -15,7 +15,7 @@
 
 using System.Text;
 
-namespace Planetoid_DB;
+namespace Planetoid_DB.Helpers;
 
 /// <summary>Provides static helper methods for escaping strings in various document formats, as well as shared UI feedback methods used by all exporter classes.</summary>
 /// <remarks>This class contains methods for escaping special characters in LaTeX, Markdown, PostScript, PDF, RTF, CSV, and TOML formats, and shared methods for displaying success and error messages during export operations.</remarks>
