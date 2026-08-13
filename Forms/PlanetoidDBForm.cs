@@ -194,8 +194,8 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		logger.Info(message: $"PlanetoidDbForm initialized with MPCORB.DAT file path: {mpcorbDatFilePath}");
 	}
 
-	/// <summary>Optimizes the TableLayoutPanel to eliminate flickering during label updates.</summary>
-	/// <remarks>This method enables double buffering and optimized painting styles on the panel and all child labels.</remarks>
+	/// <summary>Optimizes the TableLayoutPanels to eliminate flickering during label updates.</summary>
+	/// <remarks>This method enables double buffering and optimized painting styles on the MPCORB and ASTORB panels and all child labels.</remarks>
 	private void OptimizeTableLayoutPanelForFlickerReduction()
 	{
 		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanelMpcorbData, includeChildLabels: true);
