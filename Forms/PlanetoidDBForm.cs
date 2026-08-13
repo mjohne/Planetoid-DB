@@ -50,6 +50,10 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This integer is used to mirror the current navigation position for the ASTORB.DAT tab display.</remarks>
 	private int currentAstorbPosition;
 
+	/// <summary>Stores the current position in the ALLNUM.CAT database.</summary>
+	/// <remarks>This integer is used to mirror the current navigation position for the ALLNUM.CAT tab display.</remarks>
+	private int currentAllnumCatPosition;
+
 	/// <summary>Stores the planetoids database.</summary>
 	/// <remarks>This list is used to store the planetoids database entries.</remarks>
 	private readonly List<string> planetoidsDatabase = [];
@@ -57,6 +61,10 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <summary>Stores the ASTORB.DAT database entries.</summary>
 	/// <remarks>This list is used to store the loaded lines from the ASTORB.DAT file for display in the ASTORB.DAT tab.</remarks>
 	private readonly List<string> astorbDatabase = [];
+
+	/// <summary>Stores the ALLNUM.CAT database entries.</summary>
+	/// <remarks>This list is used to store the loaded lines from the ALLNUM.CAT file for display in the ALLNUM.CAT tab.</remarks>
+	private readonly List<string> allnumCatDatabase = [];
 
 	/// <summary>Stores a backup of the planetoids database.</summary>
 	/// <remarks>This list is used to store a backup of the planetoids database entries, which can be used for comparison or restoration purposes.</remarks>
@@ -195,11 +203,12 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	}
 
 	/// <summary>Optimizes the TableLayoutPanels to eliminate flickering during label updates.</summary>
-	/// <remarks>This method enables double buffering and optimized painting styles on the MPCORB and ASTORB panels and all child labels.</remarks>
+	/// <remarks>This method enables double buffering and optimized painting styles on the MPCORB, ASTORB, and ALLNUM.CAT panels and all child labels.</remarks>
 	private void OptimizeTableLayoutPanelForFlickerReduction()
 	{
 		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanelMpcorbData, includeChildLabels: true);
 		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanelAstorbData, includeChildLabels: true);
+		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanelAllnumCatData, includeChildLabels: true);
 	}
 
 	#endregion

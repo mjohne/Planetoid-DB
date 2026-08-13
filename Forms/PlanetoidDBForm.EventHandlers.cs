@@ -109,6 +109,8 @@ public partial class PlanetoidDbForm
 		}
 		// Load the ASTORB.DAT file and update the tab text with the last modified date
 		LoadAstorbDatabase();
+		// Load the ALLNUM.CAT file and update the tab text with the last modified date
+		LoadAllnumCatDatabase();
 	}
 
 	/// <summary>Handles the shown event of the PlanetoidDBForm.</summary>

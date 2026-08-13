@@ -221,6 +221,8 @@ public partial class PlanetoidDbForm
 				GotoCurrentPosition(position: currentPosition);
 				currentAstorbPosition = currentPosition;
 				GotoCurrentAstorbPosition(position: currentAstorbPosition);
+				currentAllnumCatPosition = currentPosition;
+				GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 				return;
 			}
 			// If the index does not match, check if the designation matches the current entry's designation (characters 166-193)
@@ -231,6 +233,8 @@ public partial class PlanetoidDbForm
 				GotoCurrentPosition(position: currentPosition);
 				currentAstorbPosition = currentPosition;
 				GotoCurrentAstorbPosition(position: currentAstorbPosition);
+				currentAllnumCatPosition = currentPosition;
+				GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 				return;
 			}
 		}
@@ -353,6 +357,8 @@ public partial class PlanetoidDbForm
 		GotoCurrentPosition(position: currentPosition);
 		currentAstorbPosition = currentPosition;
 		GotoCurrentAstorbPosition(position: currentAstorbPosition);
+		currentAllnumCatPosition = currentPosition;
+		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 	}
 
 	/// <summary>Navigates to the beginning of the data.</summary>
@@ -362,6 +368,8 @@ public partial class PlanetoidDbForm
 		GotoCurrentPosition(position: currentPosition = 0);
 		currentAstorbPosition = currentPosition;
 		GotoCurrentAstorbPosition(position: currentAstorbPosition);
+		currentAllnumCatPosition = currentPosition;
+		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 	}
 
 	/// <summary>Navigates backward by a specified step in the data.</summary>
@@ -384,6 +392,8 @@ public partial class PlanetoidDbForm
 		GotoCurrentPosition(position: currentPosition);
 		currentAstorbPosition = currentPosition;
 		GotoCurrentAstorbPosition(position: currentAstorbPosition);
+		currentAllnumCatPosition = currentPosition;
+		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 	}
 
 	/// <summary>Navigates to the previous data entry.</summary>
@@ -405,6 +415,8 @@ public partial class PlanetoidDbForm
 		GotoCurrentPosition(position: currentPosition);
 		currentAstorbPosition = currentPosition;
 		GotoCurrentAstorbPosition(position: currentAstorbPosition);
+		currentAllnumCatPosition = currentPosition;
+		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 	}
 
 	/// <summary>Navigates to the next data entry.</summary>
@@ -426,6 +438,8 @@ public partial class PlanetoidDbForm
 		GotoCurrentPosition(position: currentPosition);
 		currentAstorbPosition = currentPosition;
 		GotoCurrentAstorbPosition(position: currentAstorbPosition);
+		currentAllnumCatPosition = currentPosition;
+		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 	}
 
 	/// <summary>Navigates forward by a specified step in the data.</summary>
@@ -444,6 +458,8 @@ public partial class PlanetoidDbForm
 		GotoCurrentPosition(position: currentPosition);
 		currentAstorbPosition = currentPosition;
 		GotoCurrentAstorbPosition(position: currentAstorbPosition);
+		currentAllnumCatPosition = currentPosition;
+		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 	}
 
 	/// <summary>Navigates to the end of the data.</summary>
@@ -453,6 +469,8 @@ public partial class PlanetoidDbForm
 		GotoCurrentPosition(position: currentPosition = planetoidsDatabase.Count - 1);
 		currentAstorbPosition = currentPosition;
 		GotoCurrentAstorbPosition(position: currentAstorbPosition);
+		currentAllnumCatPosition = currentPosition;
+		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 	}
 
 	/// <summary>Processes a designation string by removing parenthetical content, trimming whitespace, and removing spaces.</summary>
@@ -1326,6 +1344,8 @@ public partial class PlanetoidDbForm
 			GotoCurrentPosition(position: currentPosition);
 			currentAstorbPosition = currentPosition;
 			GotoCurrentAstorbPosition(position: currentAstorbPosition);
+			currentAllnumCatPosition = currentPosition;
+			GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 			logger.Info(message: $"Filter applied: database now contains {planetoidsDatabase.Count} records.");
 		}
 	}
@@ -1393,6 +1413,8 @@ public partial class PlanetoidDbForm
 			GotoCurrentPosition(position: formListReadableDesignations.GetSelectedIndex());
 			currentAstorbPosition = currentPosition;
 			GotoCurrentAstorbPosition(position: currentAstorbPosition);
+			currentAllnumCatPosition = currentPosition;
+			GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 		}
 	}
 
@@ -1855,6 +1877,122 @@ public partial class PlanetoidDbForm
 		finally
 		{
 			tableLayoutPanelAstorbData.ResumeLayout(performLayout: false);
+		}
+	}
+
+	/// <summary>Loads the ALLNUM.CAT database from the configured file path into <see cref="allnumCatDatabase"/>.</summary>
+	/// <remarks>This method reads all lines from the ALLNUM.CAT file, skips the 6 header lines, populates the <see cref="allnumCatDatabase"/> list, and updates the tab page text with the file's last-write date. If the file does not exist, the tab text is updated to reflect that the file is missing.</remarks>
+	internal void LoadAllnumCatDatabase()
+	{
+		// Clear any previously loaded entries
+		allnumCatDatabase.Clear();
+		// Check if the ALLNUM.CAT file exists
+		if (!File.Exists(path: filenameAllnumCat))
+		{
+			logger.Warn(message: $"ALLNUM.CAT file not found: {filenameAllnumCat}");
+			kryptonPageAllnumCat.Text = "ALLNUM.CAT (file not found)";
+			return;
+		}
+		try
+		{
+			// Read all lines from the ALLNUM.CAT file, skip the 6 header lines, and add data lines to the list
+			allnumCatDatabase.AddRange(collection: File.ReadAllLines(path: filenameAllnumCat).Skip(count: 6));
+			// Get the last write time of the ALLNUM.CAT file for display in the tab
+			string fileDate = File.GetLastWriteTime(path: filenameAllnumCat).ToString(format: "yyyy-MM-dd", provider: CultureInfo.InvariantCulture);
+			kryptonPageAllnumCat.Text = $"ALLNUM.CAT ({fileDate})";
+			logger.Info(message: $"ALLNUM.CAT loaded: {allnumCatDatabase.Count} lines, dated {fileDate}.");
+		}
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			logger.Error(exception: ex, message: $"Error loading ALLNUM.CAT: {ex.Message}");
+			kryptonPageAllnumCat.Text = $"ALLNUM.CAT ({I18nStrings.ErrorCaption})";
+		}
+	}
+
+	/// <summary>Navigates to the specified position in the ALLNUM.CAT database and updates all ALLNUM.CAT labels.</summary>
+	/// <param name="position">The zero-based position to navigate to in <see cref="allnumCatDatabase"/>.</param>
+	/// <remarks>This method parses the fixed-width fields of the ALLNUM.CAT record at the given position and updates the corresponding UI labels. If the position is out of range or the database is empty, all labels are cleared.</remarks>
+	internal void GotoCurrentAllnumCatPosition(int position)
+	{
+		// Handle the case where the database is empty or position is out of range
+		if (allnumCatDatabase.Count == 0 || position < 0 || position >= allnumCatDatabase.Count)
+		{
+			ClearCurrentAllnumCatRecordDisplay();
+			return;
+		}
+		// Get the entry string for the requested position
+		string? entryStr = allnumCatDatabase[index: position]?.ToString();
+		// If the entry string is null or empty, clear all labels and return early
+		if (string.IsNullOrEmpty(value: entryStr))
+		{
+			ClearCurrentAllnumCatRecordDisplay();
+			return;
+		}
+		// Convert string to ReadOnlySpan<char> to avoid heap allocations during parsing
+		ReadOnlySpan<char> entrySpan = entryStr.AsSpan();
+		// Local helper to safely extract and trim a fixed-width field (1-based column indices from ALLNUM.CAT format)
+		static string ExtractField(ReadOnlySpan<char> span, int start, int length)
+		{
+			return span.Length < start + length ? string.Empty : span.Slice(start: start, length: length).Trim().ToString();
+		}
+		// Suspend layout to avoid flicker while updating labels
+		tableLayoutPanelAllnumCatData.SuspendLayout();
+		try
+		{
+			// ALLNUM.CAT fixed-width field definitions (0-based start, length):
+			// Col 1-14 (0-based 0,14): Name
+			labelAllnumCatNameData.Text = ExtractField(span: entrySpan, start: 0, length: 14);
+			// Col 16-27 (0-based 15,12): Epoch (MJD)
+			labelAllnumCatEpochData.Text = ExtractField(span: entrySpan, start: 15, length: 12);
+			// Col 29-52 (0-based 28,24): Semi-major axis
+			labelAllnumCatSemiMajorAxisData.Text = ExtractField(span: entrySpan, start: 28, length: 24);
+			// Col 56-77 (0-based 55,22): Orbital eccentricity
+			labelAllnumCatOrbitalEccentricityData.Text = ExtractField(span: entrySpan, start: 55, length: 22);
+			// Col 81-102 (0-based 80,22): Inclination to the ecliptic
+			labelAllnumCatInclinationData.Text = ExtractField(span: entrySpan, start: 80, length: 22);
+			// Col 106-127 (0-based 105,22): Longitude of the ascending node
+			labelAllnumCatLongAscNodeData.Text = ExtractField(span: entrySpan, start: 105, length: 22);
+			// Col 131-152 (0-based 130,22): Argument of the perihelion
+			labelAllnumCatArgOfPerihelionData.Text = ExtractField(span: entrySpan, start: 130, length: 22);
+			// Col 159-177 (0-based 158,19): Mean anomaly
+			labelAllnumCatMeanAnomalyData.Text = ExtractField(span: entrySpan, start: 158, length: 19);
+			// Col 179-183 (0-based 178,5): Absolute magnitude
+			labelAllnumCatAbsoluteMagnitudeData.Text = ExtractField(span: entrySpan, start: 178, length: 5);
+			// Col 185-189 (0-based 184,5): Slope parameter
+			labelAllnumCatSlopeParameterData.Text = ExtractField(span: entrySpan, start: 184, length: 5);
+			logger.Debug(message: $"ALLNUM.CAT record at position {position} displayed.");
+		}
+		catch (Exception ex)
+		{
+			logger.Error(message: $"Error navigating to ALLNUM.CAT position {position}: {ex.Message}", exception: ex);
+		}
+		finally
+		{
+			tableLayoutPanelAllnumCatData.ResumeLayout(performLayout: true);
+		}
+	}
+
+	/// <summary>Clears all ALLNUM.CAT record display labels in the ALLNUM.CAT data panel.</summary>
+	/// <remarks>This method clears all UI labels used to display ALLNUM.CAT record fields.</remarks>
+	private void ClearCurrentAllnumCatRecordDisplay()
+	{
+		tableLayoutPanelAllnumCatData.SuspendLayout();
+		try
+		{
+			labelAllnumCatNameData.Text = string.Empty;
+			labelAllnumCatEpochData.Text = string.Empty;
+			labelAllnumCatSemiMajorAxisData.Text = string.Empty;
+			labelAllnumCatOrbitalEccentricityData.Text = string.Empty;
+			labelAllnumCatInclinationData.Text = string.Empty;
+			labelAllnumCatLongAscNodeData.Text = string.Empty;
+			labelAllnumCatArgOfPerihelionData.Text = string.Empty;
+			labelAllnumCatMeanAnomalyData.Text = string.Empty;
+			labelAllnumCatAbsoluteMagnitudeData.Text = string.Empty;
+			labelAllnumCatSlopeParameterData.Text = string.Empty;
+		}
+		finally
+		{
+			tableLayoutPanelAllnumCatData.ResumeLayout(performLayout: false);
 		}
 	}
 
