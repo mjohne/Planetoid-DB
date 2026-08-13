@@ -285,6 +285,28 @@ partial class PlanetoidDbForm
 		kryptonPageAstorbDat = new Krypton.Navigator.KryptonPage();
 		tableLayoutPanelAstorbData = new KryptonTableLayoutPanel();
 		labelAstorbNumberDesc = new KryptonLabel();
+		kryptonPageAllnumCat = new Krypton.Navigator.KryptonPage();
+		tableLayoutPanelAllnumCatData = new KryptonTableLayoutPanel();
+		labelAllnumCatNameDesc = new KryptonLabel();
+		labelAllnumCatNameData = new KryptonLabel();
+		labelAllnumCatEpochDesc = new KryptonLabel();
+		labelAllnumCatEpochData = new KryptonLabel();
+		labelAllnumCatSemiMajorAxisDesc = new KryptonLabel();
+		labelAllnumCatSemiMajorAxisData = new KryptonLabel();
+		labelAllnumCatOrbitalEccentricityDesc = new KryptonLabel();
+		labelAllnumCatOrbitalEccentricityData = new KryptonLabel();
+		labelAllnumCatInclinationDesc = new KryptonLabel();
+		labelAllnumCatInclinationData = new KryptonLabel();
+		labelAllnumCatLongAscNodeDesc = new KryptonLabel();
+		labelAllnumCatLongAscNodeData = new KryptonLabel();
+		labelAllnumCatArgOfPerihelionDesc = new KryptonLabel();
+		labelAllnumCatArgOfPerihelionData = new KryptonLabel();
+		labelAllnumCatMeanAnomalyDesc = new KryptonLabel();
+		labelAllnumCatMeanAnomalyData = new KryptonLabel();
+		labelAllnumCatAbsoluteMagnitudeDesc = new KryptonLabel();
+		labelAllnumCatAbsoluteMagnitudeData = new KryptonLabel();
+		labelAllnumCatSlopeParameterDesc = new KryptonLabel();
+		labelAllnumCatSlopeParameterData = new KryptonLabel();
 		labelAstorbNumberData = new KryptonLabel();
 		labelAstorbNameDesc = new KryptonLabel();
 		labelAstorbNameData = new KryptonLabel();
@@ -407,6 +429,9 @@ partial class PlanetoidDbForm
 		((ISupportInitialize)kryptonPageAstorbDat).BeginInit();
 		kryptonPageAstorbDat.SuspendLayout();
 		tableLayoutPanelAstorbData.SuspendLayout();
+		((ISupportInitialize)kryptonPageAllnumCat).BeginInit();
+		kryptonPageAllnumCat.SuspendLayout();
+		tableLayoutPanelAllnumCatData.SuspendLayout();
 		kryptonToolStripIcons.SuspendLayout();
 		kryptonToolStripNavigation.SuspendLayout();
 		SuspendLayout();
@@ -4200,7 +4225,7 @@ partial class PlanetoidDbForm
 		kryptonNavigatorMain.NavigatorMode = Krypton.Navigator.NavigatorMode.BarTabGroup;
 		kryptonNavigatorMain.Owner = this;
 		kryptonNavigatorMain.PageBackStyle = PaletteBackStyle.PanelClient;
-		kryptonNavigatorMain.Pages.AddRange(new Krypton.Navigator.KryptonPage[] { kryptonPageMpcorbDat, kryptonPageAstorbDat });
+		kryptonNavigatorMain.Pages.AddRange(new Krypton.Navigator.KryptonPage[] { kryptonPageMpcorbDat, kryptonPageAstorbDat, kryptonPageAllnumCat });
 		kryptonNavigatorMain.SelectedIndex = 0;
 		kryptonNavigatorMain.Size = new Size(852, 314);
 		kryptonNavigatorMain.TabIndex = 0;
@@ -5615,7 +5640,524 @@ partial class PlanetoidDbForm
 		labelAstorbAphelionDistData.MouseDown += Control_MouseDown;
 		labelAstorbAphelionDistData.MouseEnter += Control_Enter;
 		labelAstorbAphelionDistData.MouseLeave += Control_Leave;
-		// 
+		//
+		// kryptonPageAllnumCat
+		//
+		kryptonPageAllnumCat.AccessibleDescription = "Shows the ALLNUM.CAT page tab";
+		kryptonPageAllnumCat.AccessibleName = "ALLNUM.CAT page tab";
+		kryptonPageAllnumCat.AccessibleRole = AccessibleRole.PageTab;
+		kryptonPageAllnumCat.AutoHiddenSlideSize = new Size(200, 200);
+		kryptonPageAllnumCat.Controls.Add(tableLayoutPanelAllnumCatData);
+		kryptonPageAllnumCat.Flags = 65534;
+		kryptonPageAllnumCat.LastVisibleSet = true;
+		kryptonPageAllnumCat.MinimumSize = new Size(150, 50);
+		kryptonPageAllnumCat.Name = "kryptonPageAllnumCat";
+		kryptonPageAllnumCat.Size = new Size(850, 287);
+		kryptonPageAllnumCat.Text = "ALLNUM.CAT";
+		kryptonPageAllnumCat.TextDescription = "Shows the ALLNUM.CAT";
+		kryptonPageAllnumCat.TextTitle = "ALLNUM.CAT";
+		kryptonPageAllnumCat.ToolTipBody = "Shows the ALLNUM.CAT";
+		kryptonPageAllnumCat.ToolTipTitle = "Shows the ALLNUM.CAT";
+		kryptonPageAllnumCat.UniqueName = "c496f94g8g0866h6035d55f80g490ff3";
+		//
+		// tableLayoutPanelAllnumCatData
+		//
+		tableLayoutPanelAllnumCatData.AccessibleDescription = "Groups the ALLNUM.CAT data";
+		tableLayoutPanelAllnumCatData.AccessibleName = "ALLNUM.CAT table panel";
+		tableLayoutPanelAllnumCatData.AccessibleRole = AccessibleRole.Pane;
+		tableLayoutPanelAllnumCatData.ColumnCount = 4;
+		tableLayoutPanelAllnumCatData.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanelAllnumCatData.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 174F));
+		tableLayoutPanelAllnumCatData.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanelAllnumCatData.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanelAllnumCatData.Controls.Add(labelAllnumCatNameDesc, 0, 0);
+		tableLayoutPanelAllnumCatData.Controls.Add(labelAllnumCatNameData, 1, 0);
+		tableLayoutPanelAllnumCatData.Controls.Add(labelAllnumCatEpochDesc, 2, 0);
+		tableLayoutPanelAllnumCatData.Controls.Add(labelAllnumCatEpochData, 3, 0);
+		tableLayoutPanelAllnumCatData.Controls.Add(labelAllnumCatSemiMajorAxisDesc, 0, 1);
+		tableLayoutPanelAllnumCatData.Controls.Add(labelAllnumCatSemiMajorAxisData, 1, 1);
+		tableLayoutPanelAllnumCatData.Controls.Add(labelAllnumCatOrbitalEccentricityDesc, 2, 1);
+		tableLayoutPanelAllnumCatData.Controls.Add(labelAllnumCatOrbitalEccentricityData, 3, 1);
+		tableLayoutPanelAllnumCatData.Controls.Add(labelAllnumCatInclinationDesc, 0, 2);
+		tableLayoutPanelAllnumCatData.Controls.Add(labelAllnumCatInclinationData, 1, 2);
+		tableLayoutPanelAllnumCatData.Controls.Add(labelAllnumCatLongAscNodeDesc, 2, 2);
+		tableLayoutPanelAllnumCatData.Controls.Add(labelAllnumCatLongAscNodeData, 3, 2);
+		tableLayoutPanelAllnumCatData.Controls.Add(labelAllnumCatArgOfPerihelionDesc, 0, 3);
+		tableLayoutPanelAllnumCatData.Controls.Add(labelAllnumCatArgOfPerihelionData, 1, 3);
+		tableLayoutPanelAllnumCatData.Controls.Add(labelAllnumCatMeanAnomalyDesc, 2, 3);
+		tableLayoutPanelAllnumCatData.Controls.Add(labelAllnumCatMeanAnomalyData, 3, 3);
+		tableLayoutPanelAllnumCatData.Controls.Add(labelAllnumCatAbsoluteMagnitudeDesc, 0, 4);
+		tableLayoutPanelAllnumCatData.Controls.Add(labelAllnumCatAbsoluteMagnitudeData, 1, 4);
+		tableLayoutPanelAllnumCatData.Controls.Add(labelAllnumCatSlopeParameterDesc, 2, 4);
+		tableLayoutPanelAllnumCatData.Controls.Add(labelAllnumCatSlopeParameterData, 3, 4);
+		tableLayoutPanelAllnumCatData.Dock = DockStyle.Fill;
+		tableLayoutPanelAllnumCatData.Location = new Point(0, 0);
+		tableLayoutPanelAllnumCatData.Name = "tableLayoutPanelAllnumCatData";
+		tableLayoutPanelAllnumCatData.RowCount = 5;
+		tableLayoutPanelAllnumCatData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelAllnumCatData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelAllnumCatData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelAllnumCatData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelAllnumCatData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelAllnumCatData.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+		tableLayoutPanelAllnumCatData.Size = new Size(850, 287);
+		tableLayoutPanelAllnumCatData.TabIndex = 0;
+		tableLayoutPanelAllnumCatData.TabStop = true;
+		tableLayoutPanelAllnumCatData.Enter += Control_Enter;
+		tableLayoutPanelAllnumCatData.Leave += Control_Leave;
+		tableLayoutPanelAllnumCatData.MouseEnter += Control_Enter;
+		tableLayoutPanelAllnumCatData.MouseLeave += Control_Leave;
+		//
+		// labelAllnumCatNameDesc
+		//
+		labelAllnumCatNameDesc.AccessibleDescription = "Name";
+		labelAllnumCatNameDesc.AccessibleName = "Name";
+		labelAllnumCatNameDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAllnumCatNameDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAllnumCatNameDesc.Dock = DockStyle.Fill;
+		labelAllnumCatNameDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAllnumCatNameDesc.Location = new Point(3, 3);
+		labelAllnumCatNameDesc.Name = "labelAllnumCatNameDesc";
+		labelAllnumCatNameDesc.Size = new Size(222, 20);
+		labelAllnumCatNameDesc.TabIndex = 0;
+		labelAllnumCatNameDesc.ToolTipValues.Description = "Shows the name.\r\nDouble-click or right-click to open the terminology.";
+		labelAllnumCatNameDesc.ToolTipValues.EnableToolTips = true;
+		labelAllnumCatNameDesc.ToolTipValues.Heading = "Name";
+		labelAllnumCatNameDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAllnumCatNameDesc.Values.Text = "Name";
+		labelAllnumCatNameDesc.Enter += Control_Enter;
+		labelAllnumCatNameDesc.Leave += Control_Leave;
+		labelAllnumCatNameDesc.MouseEnter += Control_Enter;
+		labelAllnumCatNameDesc.MouseLeave += Control_Leave;
+		//
+		// labelAllnumCatNameData
+		//
+		labelAllnumCatNameData.AccessibleDescription = "Shows the name";
+		labelAllnumCatNameData.AccessibleName = "Shows the name";
+		labelAllnumCatNameData.AccessibleRole = AccessibleRole.StatusBar;
+		labelAllnumCatNameData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAllnumCatNameData.Dock = DockStyle.Fill;
+		labelAllnumCatNameData.Location = new Point(231, 3);
+		labelAllnumCatNameData.Name = "labelAllnumCatNameData";
+		labelAllnumCatNameData.Size = new Size(168, 20);
+		labelAllnumCatNameData.TabIndex = 1;
+		labelAllnumCatNameData.ToolTipValues.Description = "Shows the name.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAllnumCatNameData.ToolTipValues.EnableToolTips = true;
+		labelAllnumCatNameData.ToolTipValues.Heading = "Name";
+		labelAllnumCatNameData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAllnumCatNameData.Values.Text = "..................";
+		labelAllnumCatNameData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAllnumCatNameData.Enter += Control_Enter;
+		labelAllnumCatNameData.Leave += Control_Leave;
+		labelAllnumCatNameData.MouseDown += Control_MouseDown;
+		labelAllnumCatNameData.MouseEnter += Control_Enter;
+		labelAllnumCatNameData.MouseLeave += Control_Leave;
+		//
+		// labelAllnumCatEpochDesc
+		//
+		labelAllnumCatEpochDesc.AccessibleDescription = "Epoch (MJD)";
+		labelAllnumCatEpochDesc.AccessibleName = "Epoch (MJD)";
+		labelAllnumCatEpochDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAllnumCatEpochDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAllnumCatEpochDesc.Dock = DockStyle.Fill;
+		labelAllnumCatEpochDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAllnumCatEpochDesc.Location = new Point(405, 3);
+		labelAllnumCatEpochDesc.Name = "labelAllnumCatEpochDesc";
+		labelAllnumCatEpochDesc.Size = new Size(225, 20);
+		labelAllnumCatEpochDesc.TabIndex = 2;
+		labelAllnumCatEpochDesc.ToolTipValues.Description = "Shows the epoch (MJD).\r\nDouble-click or right-click to open the terminology.";
+		labelAllnumCatEpochDesc.ToolTipValues.EnableToolTips = true;
+		labelAllnumCatEpochDesc.ToolTipValues.Heading = "Epoch (MJD)";
+		labelAllnumCatEpochDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAllnumCatEpochDesc.Values.Text = "Epoch (MJD)";
+		labelAllnumCatEpochDesc.Enter += Control_Enter;
+		labelAllnumCatEpochDesc.Leave += Control_Leave;
+		labelAllnumCatEpochDesc.MouseEnter += Control_Enter;
+		labelAllnumCatEpochDesc.MouseLeave += Control_Leave;
+		//
+		// labelAllnumCatEpochData
+		//
+		labelAllnumCatEpochData.AccessibleDescription = "Shows the epoch (MJD)";
+		labelAllnumCatEpochData.AccessibleName = "Shows the epoch (MJD)";
+		labelAllnumCatEpochData.AccessibleRole = AccessibleRole.StatusBar;
+		labelAllnumCatEpochData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAllnumCatEpochData.Dock = DockStyle.Fill;
+		labelAllnumCatEpochData.Location = new Point(636, 3);
+		labelAllnumCatEpochData.Name = "labelAllnumCatEpochData";
+		labelAllnumCatEpochData.Size = new Size(211, 20);
+		labelAllnumCatEpochData.TabIndex = 3;
+		labelAllnumCatEpochData.ToolTipValues.Description = "Shows the epoch (MJD).\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAllnumCatEpochData.ToolTipValues.EnableToolTips = true;
+		labelAllnumCatEpochData.ToolTipValues.Heading = "Epoch (MJD)";
+		labelAllnumCatEpochData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAllnumCatEpochData.Values.Text = "..................";
+		labelAllnumCatEpochData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAllnumCatEpochData.Enter += Control_Enter;
+		labelAllnumCatEpochData.Leave += Control_Leave;
+		labelAllnumCatEpochData.MouseDown += Control_MouseDown;
+		labelAllnumCatEpochData.MouseEnter += Control_Enter;
+		labelAllnumCatEpochData.MouseLeave += Control_Leave;
+		//
+		// labelAllnumCatSemiMajorAxisDesc
+		//
+		labelAllnumCatSemiMajorAxisDesc.AccessibleDescription = "Semi-major axis";
+		labelAllnumCatSemiMajorAxisDesc.AccessibleName = "Semi-major axis";
+		labelAllnumCatSemiMajorAxisDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAllnumCatSemiMajorAxisDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAllnumCatSemiMajorAxisDesc.Dock = DockStyle.Fill;
+		labelAllnumCatSemiMajorAxisDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAllnumCatSemiMajorAxisDesc.Location = new Point(3, 29);
+		labelAllnumCatSemiMajorAxisDesc.Name = "labelAllnumCatSemiMajorAxisDesc";
+		labelAllnumCatSemiMajorAxisDesc.Size = new Size(222, 20);
+		labelAllnumCatSemiMajorAxisDesc.TabIndex = 4;
+		labelAllnumCatSemiMajorAxisDesc.ToolTipValues.Description = "Shows the semi-major axis.\r\nDouble-click or right-click to open the terminology.";
+		labelAllnumCatSemiMajorAxisDesc.ToolTipValues.EnableToolTips = true;
+		labelAllnumCatSemiMajorAxisDesc.ToolTipValues.Heading = "Semi-major axis";
+		labelAllnumCatSemiMajorAxisDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAllnumCatSemiMajorAxisDesc.Values.Text = "Semi-major axis";
+		labelAllnumCatSemiMajorAxisDesc.Enter += Control_Enter;
+		labelAllnumCatSemiMajorAxisDesc.Leave += Control_Leave;
+		labelAllnumCatSemiMajorAxisDesc.MouseEnter += Control_Enter;
+		labelAllnumCatSemiMajorAxisDesc.MouseLeave += Control_Leave;
+		//
+		// labelAllnumCatSemiMajorAxisData
+		//
+		labelAllnumCatSemiMajorAxisData.AccessibleDescription = "Shows the semi-major axis";
+		labelAllnumCatSemiMajorAxisData.AccessibleName = "Shows the semi-major axis";
+		labelAllnumCatSemiMajorAxisData.AccessibleRole = AccessibleRole.StatusBar;
+		labelAllnumCatSemiMajorAxisData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAllnumCatSemiMajorAxisData.Dock = DockStyle.Fill;
+		labelAllnumCatSemiMajorAxisData.Location = new Point(231, 29);
+		labelAllnumCatSemiMajorAxisData.Name = "labelAllnumCatSemiMajorAxisData";
+		labelAllnumCatSemiMajorAxisData.Size = new Size(168, 20);
+		labelAllnumCatSemiMajorAxisData.TabIndex = 5;
+		labelAllnumCatSemiMajorAxisData.ToolTipValues.Description = "Shows the semi-major axis.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAllnumCatSemiMajorAxisData.ToolTipValues.EnableToolTips = true;
+		labelAllnumCatSemiMajorAxisData.ToolTipValues.Heading = "Semi-major axis";
+		labelAllnumCatSemiMajorAxisData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAllnumCatSemiMajorAxisData.Values.Text = "..................";
+		labelAllnumCatSemiMajorAxisData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAllnumCatSemiMajorAxisData.Enter += Control_Enter;
+		labelAllnumCatSemiMajorAxisData.Leave += Control_Leave;
+		labelAllnumCatSemiMajorAxisData.MouseDown += Control_MouseDown;
+		labelAllnumCatSemiMajorAxisData.MouseEnter += Control_Enter;
+		labelAllnumCatSemiMajorAxisData.MouseLeave += Control_Leave;
+		//
+		// labelAllnumCatOrbitalEccentricityDesc
+		//
+		labelAllnumCatOrbitalEccentricityDesc.AccessibleDescription = "Orbital eccentricity";
+		labelAllnumCatOrbitalEccentricityDesc.AccessibleName = "Orbital eccentricity";
+		labelAllnumCatOrbitalEccentricityDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAllnumCatOrbitalEccentricityDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAllnumCatOrbitalEccentricityDesc.Dock = DockStyle.Fill;
+		labelAllnumCatOrbitalEccentricityDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAllnumCatOrbitalEccentricityDesc.Location = new Point(405, 29);
+		labelAllnumCatOrbitalEccentricityDesc.Name = "labelAllnumCatOrbitalEccentricityDesc";
+		labelAllnumCatOrbitalEccentricityDesc.Size = new Size(225, 20);
+		labelAllnumCatOrbitalEccentricityDesc.TabIndex = 6;
+		labelAllnumCatOrbitalEccentricityDesc.ToolTipValues.Description = "Shows the orbital eccentricity.\r\nDouble-click or right-click to open the terminology.";
+		labelAllnumCatOrbitalEccentricityDesc.ToolTipValues.EnableToolTips = true;
+		labelAllnumCatOrbitalEccentricityDesc.ToolTipValues.Heading = "Orbital eccentricity";
+		labelAllnumCatOrbitalEccentricityDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAllnumCatOrbitalEccentricityDesc.Values.Text = "Orbital eccentricity";
+		labelAllnumCatOrbitalEccentricityDesc.Enter += Control_Enter;
+		labelAllnumCatOrbitalEccentricityDesc.Leave += Control_Leave;
+		labelAllnumCatOrbitalEccentricityDesc.MouseEnter += Control_Enter;
+		labelAllnumCatOrbitalEccentricityDesc.MouseLeave += Control_Leave;
+		//
+		// labelAllnumCatOrbitalEccentricityData
+		//
+		labelAllnumCatOrbitalEccentricityData.AccessibleDescription = "Shows the orbital eccentricity";
+		labelAllnumCatOrbitalEccentricityData.AccessibleName = "Shows the orbital eccentricity";
+		labelAllnumCatOrbitalEccentricityData.AccessibleRole = AccessibleRole.StatusBar;
+		labelAllnumCatOrbitalEccentricityData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAllnumCatOrbitalEccentricityData.Dock = DockStyle.Fill;
+		labelAllnumCatOrbitalEccentricityData.Location = new Point(636, 29);
+		labelAllnumCatOrbitalEccentricityData.Name = "labelAllnumCatOrbitalEccentricityData";
+		labelAllnumCatOrbitalEccentricityData.Size = new Size(211, 20);
+		labelAllnumCatOrbitalEccentricityData.TabIndex = 7;
+		labelAllnumCatOrbitalEccentricityData.ToolTipValues.Description = "Shows the orbital eccentricity.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAllnumCatOrbitalEccentricityData.ToolTipValues.EnableToolTips = true;
+		labelAllnumCatOrbitalEccentricityData.ToolTipValues.Heading = "Orbital eccentricity";
+		labelAllnumCatOrbitalEccentricityData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAllnumCatOrbitalEccentricityData.Values.Text = "..................";
+		labelAllnumCatOrbitalEccentricityData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAllnumCatOrbitalEccentricityData.Enter += Control_Enter;
+		labelAllnumCatOrbitalEccentricityData.Leave += Control_Leave;
+		labelAllnumCatOrbitalEccentricityData.MouseDown += Control_MouseDown;
+		labelAllnumCatOrbitalEccentricityData.MouseEnter += Control_Enter;
+		labelAllnumCatOrbitalEccentricityData.MouseLeave += Control_Leave;
+		//
+		// labelAllnumCatInclinationDesc
+		//
+		labelAllnumCatInclinationDesc.AccessibleDescription = "Inclination to the ecliptic";
+		labelAllnumCatInclinationDesc.AccessibleName = "Inclination to the ecliptic";
+		labelAllnumCatInclinationDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAllnumCatInclinationDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAllnumCatInclinationDesc.Dock = DockStyle.Fill;
+		labelAllnumCatInclinationDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAllnumCatInclinationDesc.Location = new Point(3, 55);
+		labelAllnumCatInclinationDesc.Name = "labelAllnumCatInclinationDesc";
+		labelAllnumCatInclinationDesc.Size = new Size(222, 20);
+		labelAllnumCatInclinationDesc.TabIndex = 8;
+		labelAllnumCatInclinationDesc.ToolTipValues.Description = "Shows the inclination to the ecliptic.\r\nDouble-click or right-click to open the terminology.";
+		labelAllnumCatInclinationDesc.ToolTipValues.EnableToolTips = true;
+		labelAllnumCatInclinationDesc.ToolTipValues.Heading = "Inclination to the ecliptic";
+		labelAllnumCatInclinationDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAllnumCatInclinationDesc.Values.Text = "Inclination to the ecliptic";
+		labelAllnumCatInclinationDesc.Enter += Control_Enter;
+		labelAllnumCatInclinationDesc.Leave += Control_Leave;
+		labelAllnumCatInclinationDesc.MouseEnter += Control_Enter;
+		labelAllnumCatInclinationDesc.MouseLeave += Control_Leave;
+		//
+		// labelAllnumCatInclinationData
+		//
+		labelAllnumCatInclinationData.AccessibleDescription = "Shows the inclination to the ecliptic";
+		labelAllnumCatInclinationData.AccessibleName = "Shows the inclination to the ecliptic";
+		labelAllnumCatInclinationData.AccessibleRole = AccessibleRole.StatusBar;
+		labelAllnumCatInclinationData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAllnumCatInclinationData.Dock = DockStyle.Fill;
+		labelAllnumCatInclinationData.Location = new Point(231, 55);
+		labelAllnumCatInclinationData.Name = "labelAllnumCatInclinationData";
+		labelAllnumCatInclinationData.Size = new Size(168, 20);
+		labelAllnumCatInclinationData.TabIndex = 9;
+		labelAllnumCatInclinationData.ToolTipValues.Description = "Shows the inclination to the ecliptic.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAllnumCatInclinationData.ToolTipValues.EnableToolTips = true;
+		labelAllnumCatInclinationData.ToolTipValues.Heading = "Inclination to the ecliptic";
+		labelAllnumCatInclinationData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAllnumCatInclinationData.Values.Text = "..................";
+		labelAllnumCatInclinationData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAllnumCatInclinationData.Enter += Control_Enter;
+		labelAllnumCatInclinationData.Leave += Control_Leave;
+		labelAllnumCatInclinationData.MouseDown += Control_MouseDown;
+		labelAllnumCatInclinationData.MouseEnter += Control_Enter;
+		labelAllnumCatInclinationData.MouseLeave += Control_Leave;
+		//
+		// labelAllnumCatLongAscNodeDesc
+		//
+		labelAllnumCatLongAscNodeDesc.AccessibleDescription = "Longitude of the ascending node";
+		labelAllnumCatLongAscNodeDesc.AccessibleName = "Longitude of the ascending node";
+		labelAllnumCatLongAscNodeDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAllnumCatLongAscNodeDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAllnumCatLongAscNodeDesc.Dock = DockStyle.Fill;
+		labelAllnumCatLongAscNodeDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAllnumCatLongAscNodeDesc.Location = new Point(405, 55);
+		labelAllnumCatLongAscNodeDesc.Name = "labelAllnumCatLongAscNodeDesc";
+		labelAllnumCatLongAscNodeDesc.Size = new Size(225, 20);
+		labelAllnumCatLongAscNodeDesc.TabIndex = 10;
+		labelAllnumCatLongAscNodeDesc.ToolTipValues.Description = "Shows the longitude of the ascending node.\r\nDouble-click or right-click to open the terminology.";
+		labelAllnumCatLongAscNodeDesc.ToolTipValues.EnableToolTips = true;
+		labelAllnumCatLongAscNodeDesc.ToolTipValues.Heading = "Longitude of the ascending node";
+		labelAllnumCatLongAscNodeDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAllnumCatLongAscNodeDesc.Values.Text = "Longitude of the ascending node";
+		labelAllnumCatLongAscNodeDesc.Enter += Control_Enter;
+		labelAllnumCatLongAscNodeDesc.Leave += Control_Leave;
+		labelAllnumCatLongAscNodeDesc.MouseEnter += Control_Enter;
+		labelAllnumCatLongAscNodeDesc.MouseLeave += Control_Leave;
+		//
+		// labelAllnumCatLongAscNodeData
+		//
+		labelAllnumCatLongAscNodeData.AccessibleDescription = "Shows the longitude of the ascending node";
+		labelAllnumCatLongAscNodeData.AccessibleName = "Shows the longitude of the ascending node";
+		labelAllnumCatLongAscNodeData.AccessibleRole = AccessibleRole.StatusBar;
+		labelAllnumCatLongAscNodeData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAllnumCatLongAscNodeData.Dock = DockStyle.Fill;
+		labelAllnumCatLongAscNodeData.Location = new Point(636, 55);
+		labelAllnumCatLongAscNodeData.Name = "labelAllnumCatLongAscNodeData";
+		labelAllnumCatLongAscNodeData.Size = new Size(211, 20);
+		labelAllnumCatLongAscNodeData.TabIndex = 11;
+		labelAllnumCatLongAscNodeData.ToolTipValues.Description = "Shows the longitude of the ascending node.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAllnumCatLongAscNodeData.ToolTipValues.EnableToolTips = true;
+		labelAllnumCatLongAscNodeData.ToolTipValues.Heading = "Longitude of the ascending node";
+		labelAllnumCatLongAscNodeData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAllnumCatLongAscNodeData.Values.Text = "..................";
+		labelAllnumCatLongAscNodeData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAllnumCatLongAscNodeData.Enter += Control_Enter;
+		labelAllnumCatLongAscNodeData.Leave += Control_Leave;
+		labelAllnumCatLongAscNodeData.MouseDown += Control_MouseDown;
+		labelAllnumCatLongAscNodeData.MouseEnter += Control_Enter;
+		labelAllnumCatLongAscNodeData.MouseLeave += Control_Leave;
+		//
+		// labelAllnumCatArgOfPerihelionDesc
+		//
+		labelAllnumCatArgOfPerihelionDesc.AccessibleDescription = "Argument of the perihelion";
+		labelAllnumCatArgOfPerihelionDesc.AccessibleName = "Argument of the perihelion";
+		labelAllnumCatArgOfPerihelionDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAllnumCatArgOfPerihelionDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAllnumCatArgOfPerihelionDesc.Dock = DockStyle.Fill;
+		labelAllnumCatArgOfPerihelionDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAllnumCatArgOfPerihelionDesc.Location = new Point(3, 81);
+		labelAllnumCatArgOfPerihelionDesc.Name = "labelAllnumCatArgOfPerihelionDesc";
+		labelAllnumCatArgOfPerihelionDesc.Size = new Size(222, 20);
+		labelAllnumCatArgOfPerihelionDesc.TabIndex = 12;
+		labelAllnumCatArgOfPerihelionDesc.ToolTipValues.Description = "Shows the argument of the perihelion.\r\nDouble-click or right-click to open the terminology.";
+		labelAllnumCatArgOfPerihelionDesc.ToolTipValues.EnableToolTips = true;
+		labelAllnumCatArgOfPerihelionDesc.ToolTipValues.Heading = "Argument of the perihelion";
+		labelAllnumCatArgOfPerihelionDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAllnumCatArgOfPerihelionDesc.Values.Text = "Argument of the perihelion";
+		labelAllnumCatArgOfPerihelionDesc.Enter += Control_Enter;
+		labelAllnumCatArgOfPerihelionDesc.Leave += Control_Leave;
+		labelAllnumCatArgOfPerihelionDesc.MouseEnter += Control_Enter;
+		labelAllnumCatArgOfPerihelionDesc.MouseLeave += Control_Leave;
+		//
+		// labelAllnumCatArgOfPerihelionData
+		//
+		labelAllnumCatArgOfPerihelionData.AccessibleDescription = "Shows the argument of the perihelion";
+		labelAllnumCatArgOfPerihelionData.AccessibleName = "Shows the argument of the perihelion";
+		labelAllnumCatArgOfPerihelionData.AccessibleRole = AccessibleRole.StatusBar;
+		labelAllnumCatArgOfPerihelionData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAllnumCatArgOfPerihelionData.Dock = DockStyle.Fill;
+		labelAllnumCatArgOfPerihelionData.Location = new Point(231, 81);
+		labelAllnumCatArgOfPerihelionData.Name = "labelAllnumCatArgOfPerihelionData";
+		labelAllnumCatArgOfPerihelionData.Size = new Size(168, 20);
+		labelAllnumCatArgOfPerihelionData.TabIndex = 13;
+		labelAllnumCatArgOfPerihelionData.ToolTipValues.Description = "Shows the argument of the perihelion.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAllnumCatArgOfPerihelionData.ToolTipValues.EnableToolTips = true;
+		labelAllnumCatArgOfPerihelionData.ToolTipValues.Heading = "Argument of the perihelion";
+		labelAllnumCatArgOfPerihelionData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAllnumCatArgOfPerihelionData.Values.Text = "..................";
+		labelAllnumCatArgOfPerihelionData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAllnumCatArgOfPerihelionData.Enter += Control_Enter;
+		labelAllnumCatArgOfPerihelionData.Leave += Control_Leave;
+		labelAllnumCatArgOfPerihelionData.MouseDown += Control_MouseDown;
+		labelAllnumCatArgOfPerihelionData.MouseEnter += Control_Enter;
+		labelAllnumCatArgOfPerihelionData.MouseLeave += Control_Leave;
+		//
+		// labelAllnumCatMeanAnomalyDesc
+		//
+		labelAllnumCatMeanAnomalyDesc.AccessibleDescription = "Mean anomaly";
+		labelAllnumCatMeanAnomalyDesc.AccessibleName = "Mean anomaly";
+		labelAllnumCatMeanAnomalyDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAllnumCatMeanAnomalyDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAllnumCatMeanAnomalyDesc.Dock = DockStyle.Fill;
+		labelAllnumCatMeanAnomalyDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAllnumCatMeanAnomalyDesc.Location = new Point(405, 81);
+		labelAllnumCatMeanAnomalyDesc.Name = "labelAllnumCatMeanAnomalyDesc";
+		labelAllnumCatMeanAnomalyDesc.Size = new Size(225, 20);
+		labelAllnumCatMeanAnomalyDesc.TabIndex = 14;
+		labelAllnumCatMeanAnomalyDesc.ToolTipValues.Description = "Shows the mean anomaly.\r\nDouble-click or right-click to open the terminology.";
+		labelAllnumCatMeanAnomalyDesc.ToolTipValues.EnableToolTips = true;
+		labelAllnumCatMeanAnomalyDesc.ToolTipValues.Heading = "Mean anomaly";
+		labelAllnumCatMeanAnomalyDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAllnumCatMeanAnomalyDesc.Values.Text = "Mean anomaly";
+		labelAllnumCatMeanAnomalyDesc.Enter += Control_Enter;
+		labelAllnumCatMeanAnomalyDesc.Leave += Control_Leave;
+		labelAllnumCatMeanAnomalyDesc.MouseEnter += Control_Enter;
+		labelAllnumCatMeanAnomalyDesc.MouseLeave += Control_Leave;
+		//
+		// labelAllnumCatMeanAnomalyData
+		//
+		labelAllnumCatMeanAnomalyData.AccessibleDescription = "Shows the mean anomaly";
+		labelAllnumCatMeanAnomalyData.AccessibleName = "Shows the mean anomaly";
+		labelAllnumCatMeanAnomalyData.AccessibleRole = AccessibleRole.StatusBar;
+		labelAllnumCatMeanAnomalyData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAllnumCatMeanAnomalyData.Dock = DockStyle.Fill;
+		labelAllnumCatMeanAnomalyData.Location = new Point(636, 81);
+		labelAllnumCatMeanAnomalyData.Name = "labelAllnumCatMeanAnomalyData";
+		labelAllnumCatMeanAnomalyData.Size = new Size(211, 20);
+		labelAllnumCatMeanAnomalyData.TabIndex = 15;
+		labelAllnumCatMeanAnomalyData.ToolTipValues.Description = "Shows the mean anomaly.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAllnumCatMeanAnomalyData.ToolTipValues.EnableToolTips = true;
+		labelAllnumCatMeanAnomalyData.ToolTipValues.Heading = "Mean anomaly";
+		labelAllnumCatMeanAnomalyData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAllnumCatMeanAnomalyData.Values.Text = "..................";
+		labelAllnumCatMeanAnomalyData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAllnumCatMeanAnomalyData.Enter += Control_Enter;
+		labelAllnumCatMeanAnomalyData.Leave += Control_Leave;
+		labelAllnumCatMeanAnomalyData.MouseDown += Control_MouseDown;
+		labelAllnumCatMeanAnomalyData.MouseEnter += Control_Enter;
+		labelAllnumCatMeanAnomalyData.MouseLeave += Control_Leave;
+		//
+		// labelAllnumCatAbsoluteMagnitudeDesc
+		//
+		labelAllnumCatAbsoluteMagnitudeDesc.AccessibleDescription = "Absolute magnitude";
+		labelAllnumCatAbsoluteMagnitudeDesc.AccessibleName = "Absolute magnitude";
+		labelAllnumCatAbsoluteMagnitudeDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAllnumCatAbsoluteMagnitudeDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAllnumCatAbsoluteMagnitudeDesc.Dock = DockStyle.Fill;
+		labelAllnumCatAbsoluteMagnitudeDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAllnumCatAbsoluteMagnitudeDesc.Location = new Point(3, 107);
+		labelAllnumCatAbsoluteMagnitudeDesc.Name = "labelAllnumCatAbsoluteMagnitudeDesc";
+		labelAllnumCatAbsoluteMagnitudeDesc.Size = new Size(222, 20);
+		labelAllnumCatAbsoluteMagnitudeDesc.TabIndex = 16;
+		labelAllnumCatAbsoluteMagnitudeDesc.ToolTipValues.Description = "Shows the absolute magnitude.\r\nDouble-click or right-click to open the terminology.";
+		labelAllnumCatAbsoluteMagnitudeDesc.ToolTipValues.EnableToolTips = true;
+		labelAllnumCatAbsoluteMagnitudeDesc.ToolTipValues.Heading = "Absolute magnitude";
+		labelAllnumCatAbsoluteMagnitudeDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAllnumCatAbsoluteMagnitudeDesc.Values.Text = "Absolute magnitude";
+		labelAllnumCatAbsoluteMagnitudeDesc.Enter += Control_Enter;
+		labelAllnumCatAbsoluteMagnitudeDesc.Leave += Control_Leave;
+		labelAllnumCatAbsoluteMagnitudeDesc.MouseEnter += Control_Enter;
+		labelAllnumCatAbsoluteMagnitudeDesc.MouseLeave += Control_Leave;
+		//
+		// labelAllnumCatAbsoluteMagnitudeData
+		//
+		labelAllnumCatAbsoluteMagnitudeData.AccessibleDescription = "Shows the absolute magnitude";
+		labelAllnumCatAbsoluteMagnitudeData.AccessibleName = "Shows the absolute magnitude";
+		labelAllnumCatAbsoluteMagnitudeData.AccessibleRole = AccessibleRole.StatusBar;
+		labelAllnumCatAbsoluteMagnitudeData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAllnumCatAbsoluteMagnitudeData.Dock = DockStyle.Fill;
+		labelAllnumCatAbsoluteMagnitudeData.Location = new Point(231, 107);
+		labelAllnumCatAbsoluteMagnitudeData.Name = "labelAllnumCatAbsoluteMagnitudeData";
+		labelAllnumCatAbsoluteMagnitudeData.Size = new Size(168, 20);
+		labelAllnumCatAbsoluteMagnitudeData.TabIndex = 17;
+		labelAllnumCatAbsoluteMagnitudeData.ToolTipValues.Description = "Shows the absolute magnitude.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAllnumCatAbsoluteMagnitudeData.ToolTipValues.EnableToolTips = true;
+		labelAllnumCatAbsoluteMagnitudeData.ToolTipValues.Heading = "Absolute magnitude";
+		labelAllnumCatAbsoluteMagnitudeData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAllnumCatAbsoluteMagnitudeData.Values.Text = "..................";
+		labelAllnumCatAbsoluteMagnitudeData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAllnumCatAbsoluteMagnitudeData.Enter += Control_Enter;
+		labelAllnumCatAbsoluteMagnitudeData.Leave += Control_Leave;
+		labelAllnumCatAbsoluteMagnitudeData.MouseDown += Control_MouseDown;
+		labelAllnumCatAbsoluteMagnitudeData.MouseEnter += Control_Enter;
+		labelAllnumCatAbsoluteMagnitudeData.MouseLeave += Control_Leave;
+		//
+		// labelAllnumCatSlopeParameterDesc
+		//
+		labelAllnumCatSlopeParameterDesc.AccessibleDescription = "Slope parameter";
+		labelAllnumCatSlopeParameterDesc.AccessibleName = "Slope parameter";
+		labelAllnumCatSlopeParameterDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAllnumCatSlopeParameterDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAllnumCatSlopeParameterDesc.Dock = DockStyle.Fill;
+		labelAllnumCatSlopeParameterDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAllnumCatSlopeParameterDesc.Location = new Point(405, 107);
+		labelAllnumCatSlopeParameterDesc.Name = "labelAllnumCatSlopeParameterDesc";
+		labelAllnumCatSlopeParameterDesc.Size = new Size(225, 20);
+		labelAllnumCatSlopeParameterDesc.TabIndex = 18;
+		labelAllnumCatSlopeParameterDesc.ToolTipValues.Description = "Shows the slope parameter.\r\nDouble-click or right-click to open the terminology.";
+		labelAllnumCatSlopeParameterDesc.ToolTipValues.EnableToolTips = true;
+		labelAllnumCatSlopeParameterDesc.ToolTipValues.Heading = "Slope parameter";
+		labelAllnumCatSlopeParameterDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAllnumCatSlopeParameterDesc.Values.Text = "Slope parameter";
+		labelAllnumCatSlopeParameterDesc.Enter += Control_Enter;
+		labelAllnumCatSlopeParameterDesc.Leave += Control_Leave;
+		labelAllnumCatSlopeParameterDesc.MouseEnter += Control_Enter;
+		labelAllnumCatSlopeParameterDesc.MouseLeave += Control_Leave;
+		//
+		// labelAllnumCatSlopeParameterData
+		//
+		labelAllnumCatSlopeParameterData.AccessibleDescription = "Shows the slope parameter";
+		labelAllnumCatSlopeParameterData.AccessibleName = "Shows the slope parameter";
+		labelAllnumCatSlopeParameterData.AccessibleRole = AccessibleRole.StatusBar;
+		labelAllnumCatSlopeParameterData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAllnumCatSlopeParameterData.Dock = DockStyle.Fill;
+		labelAllnumCatSlopeParameterData.Location = new Point(636, 107);
+		labelAllnumCatSlopeParameterData.Name = "labelAllnumCatSlopeParameterData";
+		labelAllnumCatSlopeParameterData.Size = new Size(211, 20);
+		labelAllnumCatSlopeParameterData.TabIndex = 19;
+		labelAllnumCatSlopeParameterData.ToolTipValues.Description = "Shows the slope parameter.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAllnumCatSlopeParameterData.ToolTipValues.EnableToolTips = true;
+		labelAllnumCatSlopeParameterData.ToolTipValues.Heading = "Slope parameter";
+		labelAllnumCatSlopeParameterData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAllnumCatSlopeParameterData.Values.Text = "..................";
+		labelAllnumCatSlopeParameterData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAllnumCatSlopeParameterData.Enter += Control_Enter;
+		labelAllnumCatSlopeParameterData.Leave += Control_Leave;
+		labelAllnumCatSlopeParameterData.MouseDown += Control_MouseDown;
+		labelAllnumCatSlopeParameterData.MouseEnter += Control_Enter;
+		labelAllnumCatSlopeParameterData.MouseLeave += Control_Leave;
+		//
 		// kryptonToolStripIcons
 		// 
 		kryptonToolStripIcons.AccessibleDescription = "Toolbar of main functions";
@@ -6284,6 +6826,10 @@ partial class PlanetoidDbForm
 		kryptonPageAstorbDat.ResumeLayout(false);
 		tableLayoutPanelAstorbData.ResumeLayout(false);
 		tableLayoutPanelAstorbData.PerformLayout();
+		((ISupportInitialize)kryptonPageAllnumCat).EndInit();
+		kryptonPageAllnumCat.ResumeLayout(false);
+		tableLayoutPanelAllnumCatData.ResumeLayout(false);
+		tableLayoutPanelAllnumCatData.PerformLayout();
 		kryptonToolStripIcons.ResumeLayout(false);
 		kryptonToolStripIcons.PerformLayout();
 		kryptonToolStripNavigation.ResumeLayout(false);
@@ -6519,6 +7065,28 @@ partial class PlanetoidDbForm
 	private Krypton.Navigator.KryptonNavigator kryptonNavigatorMain;
 	private Krypton.Navigator.KryptonPage kryptonPageMpcorbDat;
 	private Krypton.Navigator.KryptonPage kryptonPageAstorbDat;
+	private Krypton.Navigator.KryptonPage kryptonPageAllnumCat;
+	private KryptonTableLayoutPanel tableLayoutPanelAllnumCatData;
+	private KryptonLabel labelAllnumCatNameDesc;
+	private KryptonLabel labelAllnumCatNameData;
+	private KryptonLabel labelAllnumCatEpochDesc;
+	private KryptonLabel labelAllnumCatEpochData;
+	private KryptonLabel labelAllnumCatSemiMajorAxisDesc;
+	private KryptonLabel labelAllnumCatSemiMajorAxisData;
+	private KryptonLabel labelAllnumCatOrbitalEccentricityDesc;
+	private KryptonLabel labelAllnumCatOrbitalEccentricityData;
+	private KryptonLabel labelAllnumCatInclinationDesc;
+	private KryptonLabel labelAllnumCatInclinationData;
+	private KryptonLabel labelAllnumCatLongAscNodeDesc;
+	private KryptonLabel labelAllnumCatLongAscNodeData;
+	private KryptonLabel labelAllnumCatArgOfPerihelionDesc;
+	private KryptonLabel labelAllnumCatArgOfPerihelionData;
+	private KryptonLabel labelAllnumCatMeanAnomalyDesc;
+	private KryptonLabel labelAllnumCatMeanAnomalyData;
+	private KryptonLabel labelAllnumCatAbsoluteMagnitudeDesc;
+	private KryptonLabel labelAllnumCatAbsoluteMagnitudeData;
+	private KryptonLabel labelAllnumCatSlopeParameterDesc;
+	private KryptonLabel labelAllnumCatSlopeParameterData;
 	private KryptonTableLayoutPanel tableLayoutPanelAstorbData;
 	private KryptonLabel labelAstorbNumberDesc;
 	private KryptonLabel labelAstorbNumberData;
