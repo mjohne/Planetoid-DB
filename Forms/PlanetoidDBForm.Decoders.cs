@@ -31,7 +31,7 @@ public partial class PlanetoidDbForm
 	private void DecodeMpcorbFlags()
 	{
 		// Get the flag text from the label
-		string flagText = labelFlagsData.Text;
+		string flagText = labelMpcorbFlagsData.Text;
 		// Validate that the flag text is not empty
 		if (string.IsNullOrWhiteSpace(value: flagText))
 		{
@@ -133,7 +133,7 @@ public partial class PlanetoidDbForm
 	private void DecodeMpcorbReference()
 	{
 		// Get the reference text from the label
-		string compressedRef = labelReferenceData.Text;
+		string compressedRef = labelMpcorbReferenceData.Text;
 		// Validate that the reference text is not empty
 		if (string.IsNullOrWhiteSpace(value: compressedRef))
 		{
@@ -278,7 +278,7 @@ public partial class PlanetoidDbForm
 	private void DecodePackedEpoch()
 	{
 		// Get the packed epoch text from the label
-		string packedEpoch = labelEpochData.Text;
+		string packedEpoch = labelMpcorbEpochData.Text;
 		// Validate that the packed epoch text is not empty
 		if (string.IsNullOrWhiteSpace(value: packedEpoch))
 		{
@@ -365,7 +365,7 @@ public partial class PlanetoidDbForm
 	private void DecodeReadableDesignation()
 	{
 		// Get the packed designation text from the label
-		string packed = labelReadableDesignationData.Text;
+		string packed = labelMpcorbReadableDesignationData.Text;
 		// Validate that the designation text is not empty
 		if (string.IsNullOrWhiteSpace(value: packed))
 		{

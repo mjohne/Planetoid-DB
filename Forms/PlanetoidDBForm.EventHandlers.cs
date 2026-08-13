@@ -860,8 +860,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to copy the index number to the clipboard.</remarks>
 	private void CopyToClipboardIndexNumber_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Copying index number to clipboard: {labelIndexData.Text}");
-		CopyToClipboard(text: labelIndexData.Text);
+		logger.Info(message: $"Copying index number to clipboard: {labelMpcorbIndexData.Text}");
+		CopyToClipboard(text: labelMpcorbIndexData.Text);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardReadableDesignation. Copies the readable designation to the clipboard.</summary>
@@ -870,8 +870,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to copy the readable designation to the clipboard.</remarks>
 	private void CopyToClipboardReadableDesignation_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Copying readable designation to clipboard: {labelReadableDesignationData.Text}");
-		CopyToClipboard(text: labelReadableDesignationData.Text);
+		logger.Info(message: $"Copying readable designation to clipboard: {labelMpcorbReadableDesignationData.Text}");
+		CopyToClipboard(text: labelMpcorbReadableDesignationData.Text);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardEpoch. Copies the epoch to the clipboard.</summary>
@@ -880,8 +880,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to copy the epoch to the clipboard.</remarks>
 	private void CopyToClipboardEpoch_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Copying epoch to clipboard: {labelEpochData.Text}");
-		CopyToClipboard(text: labelEpochData.Text);
+		logger.Info(message: $"Copying epoch to clipboard: {labelMpcorbEpochData.Text}");
+		CopyToClipboard(text: labelMpcorbEpochData.Text);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardMeanAnomaly. Copies the mean anomaly to the clipboard.</summary>
@@ -890,8 +890,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to copy the mean anomaly to the clipboard.</remarks>
 	private void CopyToClipboardMeanAnomaly_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Copying mean anomaly to clipboard: {labelMeanAnomalyAtTheEpochData.Text}");
-		CopyToClipboard(text: labelMeanAnomalyAtTheEpochData.Text);
+		logger.Info(message: $"Copying mean anomaly to clipboard: {labelMpcorbMeanAnomalyAtTheEpochData.Text}");
+		CopyToClipboard(text: labelMpcorbMeanAnomalyAtTheEpochData.Text);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardArgumentOfThePerihelion. Copies the argument of perihelion to the clipboard.</summary>
@@ -900,8 +900,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to copy the argument of perihelion to the clipboard.</remarks>
 	private void CopyToClipboardArgumentOfThePerihelion_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Copying argument of perihelion to clipboard: {labelArgumentOfThePerihelionData.Text}");
-		CopyToClipboard(text: labelArgumentOfThePerihelionData.Text);
+		logger.Info(message: $"Copying argument of perihelion to clipboard: {labelMpcorbArgumentOfThePerihelionData.Text}");
+		CopyToClipboard(text: labelMpcorbArgumentOfThePerihelionData.Text);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardLongitudeOfTheAscendingNode. Copies the longitude of the ascending node to the clipboard.</summary>
@@ -910,8 +910,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to copy the longitude of the ascending node to the clipboard.</remarks>
 	private void CopyToClipboardLongitudeOfTheAscendingNode_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Copying longitude of the ascending node to clipboard: {labelLongitudeOfTheAscendingNodeData.Text}");
-		CopyToClipboard(text: labelLongitudeOfTheAscendingNodeData.Text);
+		logger.Info(message: $"Copying longitude of the ascending node to clipboard: {labelMpcorbLongitudeOfTheAscendingNodeData.Text}");
+		CopyToClipboard(text: labelMpcorbLongitudeOfTheAscendingNodeData.Text);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardInclinationToTheEcliptic. Copies the inclination to the ecliptic data to the clipboard.</summary>
@@ -920,8 +920,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to copy the inclination to the ecliptic data to the clipboard.</remarks>
 	private void CopyToClipboardInclinationToTheEcliptic_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Copying inclination to the ecliptic to clipboard: {labelInclinationToTheEclipticData.Text}");
-		CopyToClipboard(text: labelInclinationToTheEclipticData.Text);
+		logger.Info(message: $"Copying inclination to the ecliptic to clipboard: {labelMpcorbInclinationToTheEclipticData.Text}");
+		CopyToClipboard(text: labelMpcorbInclinationToTheEclipticData.Text);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardOrbitalEccentricity. Copies the orbital eccentricity data to the clipboard.</summary>
@@ -930,8 +930,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to copy the orbital eccentricity data to the clipboard.</remarks>
 	private void CopyToClipboardOrbitalEccentricity_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Copying orbital eccentricity to clipboard: {labelOrbitalEccentricityData.Text}");
-		CopyToClipboard(text: labelOrbitalEccentricityData.Text);
+		logger.Info(message: $"Copying orbital eccentricity to clipboard: {labelMpcorbOrbitalEccentricityData.Text}");
+		CopyToClipboard(text: labelMpcorbOrbitalEccentricityData.Text);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardMeanDailyMotion. Copies the mean daily motion data to the clipboard.</summary>
@@ -940,8 +940,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to copy the mean daily motion data to the clipboard.</remarks>
 	private void CopyToClipboardMeanDailyMotion_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Copying mean daily motion to clipboard: {labelMeanDailyMotionData.Text}");
-		CopyToClipboard(text: labelMeanDailyMotionData.Text);
+		logger.Info(message: $"Copying mean daily motion to clipboard: {labelMpcorbMeanDailyMotionData.Text}");
+		CopyToClipboard(text: labelMpcorbMeanDailyMotionData.Text);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardSemiMajorAxis. Copies the semi-major axis data to the clipboard.</summary>
@@ -950,8 +950,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to copy the semi-major axis data to the clipboard.</remarks>
 	private void CopyToClipboardSemiMajorAxis_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Copying semi-major axis to clipboard: {labelSemiMajorAxisData.Text}");
-		CopyToClipboard(text: labelSemiMajorAxisData.Text);
+		logger.Info(message: $"Copying semi-major axis to clipboard: {labelMpcorbSemiMajorAxisData.Text}");
+		CopyToClipboard(text: labelMpcorbSemiMajorAxisData.Text);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardAbsoluteMagnitude. Copies the absolute magnitude data to the clipboard.</summary>
@@ -960,8 +960,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to copy the absolute magnitude data to the clipboard.</remarks>
 	private void CopyToClipboardAbsoluteMagnitude_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Copying absolute magnitude to clipboard: {labelAbsoluteMagnitudeData.Text}");
-		CopyToClipboard(text: labelAbsoluteMagnitudeData.Text);
+		logger.Info(message: $"Copying absolute magnitude to clipboard: {labelMpcorbAbsoluteMagnitudeData.Text}");
+		CopyToClipboard(text: labelMpcorbAbsoluteMagnitudeData.Text);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardSlopeParameter. Copies the slope parameter data to the clipboard.</summary>
@@ -970,8 +970,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to copy the slope parameter data to the clipboard.</remarks>
 	private void CopyToClipboardSlopeParameter_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Copying slope parameter to clipboard: {labelSlopeParameterData.Text}");
-		CopyToClipboard(text: labelSlopeParameterData.Text);
+		logger.Info(message: $"Copying slope parameter to clipboard: {labelMpcorbSlopeParameterData.Text}");
+		CopyToClipboard(text: labelMpcorbSlopeParameterData.Text);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardReference. Copies the reference data to the clipboard.</summary>
@@ -980,8 +980,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to copy the reference data to the clipboard.</remarks>
 	private void CopyToClipboardReference_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Copying reference to clipboard: {labelReferenceData.Text}");
-		CopyToClipboard(text: labelReferenceData.Text);
+		logger.Info(message: $"Copying reference to clipboard: {labelMpcorbReferenceData.Text}");
+		CopyToClipboard(text: labelMpcorbReferenceData.Text);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardNumberOfOppositions. Copies the number of oppositions data to the clipboard.</summary>
@@ -990,8 +990,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to copy the number of oppositions data to the clipboard.</remarks>
 	private void CopyToClipboardNumberOfOppositions_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Copying number of oppositions to clipboard: {labelNumberOfOppositionsData.Text}");
-		CopyToClipboard(text: labelNumberOfOppositionsData.Text);
+		logger.Info(message: $"Copying number of oppositions to clipboard: {labelMpcorbNumberOfOppositionsData.Text}");
+		CopyToClipboard(text: labelMpcorbNumberOfOppositionsData.Text);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardNumberOfObservations. Copies the number of observations data to the clipboard.</summary>
@@ -1000,8 +1000,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to copy the number of observations data to the clipboard.</remarks>
 	private void CopyToClipboardNumberOfObservations_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Copying number of observations to clipboard: {labelNumberOfObservationsData.Text}");
-		CopyToClipboard(text: labelNumberOfObservationsData.Text);
+		logger.Info(message: $"Copying number of observations to clipboard: {labelMpcorbNumberOfObservationsData.Text}");
+		CopyToClipboard(text: labelMpcorbNumberOfObservationsData.Text);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardObservationSpan. Copies the observation span data to the clipboard.</summary>
@@ -1010,8 +1010,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to copy the observation span data to the clipboard.</remarks>
 	private void CopyToClipboardObservationSpan_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Copying observation span to clipboard: {labelObservationSpanData.Text}");
-		CopyToClipboard(text: labelObservationSpanData.Text);
+		logger.Info(message: $"Copying observation span to clipboard: {labelMpcorbObservationSpanData.Text}");
+		CopyToClipboard(text: labelMpcorbObservationSpanData.Text);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardRmsResidual. Copies the RMS residual data to the clipboard.</summary>
@@ -1020,8 +1020,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to copy the RMS residual data to the clipboard.</remarks>
 	private void CopyToClipboardRmsResidual_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Copying RMS residual to clipboard: {labelRmsResidualData.Text}");
-		CopyToClipboard(text: labelRmsResidualData.Text);
+		logger.Info(message: $"Copying RMS residual to clipboard: {labelMpcorbRmsResidualData.Text}");
+		CopyToClipboard(text: labelMpcorbRmsResidualData.Text);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardComputerName. Copies the computer name data to the clipboard.</summary>
@@ -1030,8 +1030,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to copy the computer name data to the clipboard.</remarks>
 	private void CopyToClipboardComputerName_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Copying computer name to clipboard: {labelComputerNameData.Text}");
-		CopyToClipboard(text: labelComputerNameData.Text);
+		logger.Info(message: $"Copying computer name to clipboard: {labelMpcorbComputerNameData.Text}");
+		CopyToClipboard(text: labelMpcorbComputerNameData.Text);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardDateOfLastObservation. Copies the date of last observation data to the clipboard.</summary>
@@ -1040,8 +1040,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to copy the date of last observation data to the clipboard.</remarks>
 	private void CopyToClipboardDateOfLastObservation_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Copying date of last observation to clipboard: {labelDateLastObservationData.Text}");
-		CopyToClipboard(text: labelDateLastObservationData.Text);
+		logger.Info(message: $"Copying date of last observation to clipboard: {labelMpcorbDateLastObservationData.Text}");
+		CopyToClipboard(text: labelMpcorbDateLastObservationData.Text);
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemCopyToClipboardFlags. Copies the flags data to the clipboard.</summary>
@@ -1050,8 +1050,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to copy the flags data to the clipboard.</remarks>
 	private void CopyToClipboardFlags_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Copying flags to clipboard: {labelFlagsData.Text}");
-		CopyToClipboard(text: labelFlagsData.Text);
+		logger.Info(message: $"Copying flags to clipboard: {labelMpcorbFlagsData.Text}");
+		CopyToClipboard(text: labelMpcorbFlagsData.Text);
 	}
 
 	/// <summary>Handles the click event for the ToolStripButtonExport. Exports the data sheet.</summary>
@@ -1488,8 +1488,8 @@ public partial class PlanetoidDbForm
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void OpenDataPageMpcDatabase_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Opening MPC Database page for object {labelIndexData.Text}");
-		OpenWebsite(fileName: "https://www.minorplanetcenter.net/db_search/show_object?utf8=%E2%9C%93&object_id=" + labelIndexData.Text);
+		logger.Info(message: $"Opening MPC Database page for object {labelMpcorbIndexData.Text}");
+		OpenWebsite(fileName: "https://www.minorplanetcenter.net/db_search/show_object?utf8=%E2%9C%93&object_id=" + labelMpcorbIndexData.Text);
 	}
 
 	/// <summary>Handles the Click event for the JPL Small-Body Database menu item and opens the corresponding web page in the default browser.</summary>
@@ -1498,8 +1498,8 @@ public partial class PlanetoidDbForm
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void OpenDataPageJplSmallBodyDatabase_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Opening JPL Small-Body Database page for object {labelIndexData.Text}");
-		OpenWebsite(fileName: "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=" + labelIndexData.Text + "&view=OPDA");
+		logger.Info(message: $"Opening JPL Small-Body Database page for object {labelMpcorbIndexData.Text}");
+		OpenWebsite(fileName: "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=" + labelMpcorbIndexData.Text + "&view=OPDA");
 	}
 
 	/// <summary>Handles the Click event for the Lowell Minor Planet Services menu item, opening the corresponding asteroid data page in a web browser.</summary>
@@ -1508,8 +1508,8 @@ public partial class PlanetoidDbForm
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void OpenDataPageLowellMinorPlanetServices_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Opening Lowell Minor Planet Services page for object {labelIndexData.Text}");
-		OpenWebsite(fileName: "https://asteroid.lowell.edu/gui/search/" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text));
+		logger.Info(message: $"Opening Lowell Minor Planet Services page for object {labelMpcorbIndexData.Text}");
+		OpenWebsite(fileName: "https://asteroid.lowell.edu/gui/search/" + ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text));
 	}
 
 	/// <summary>Handles the Click event for the Asteroids Dynamic Site menu item, opening the corresponding asteroid data page in a web browser.</summary>
@@ -1518,8 +1518,8 @@ public partial class PlanetoidDbForm
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void OpenDataPageAsteroidsDynamicSite_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Opening Asteroids Dynamic Site page for object {labelIndexData.Text}");
-		OpenWebsite(fileName: "https://newton.spacedys.com/astdys/index.php?pc=1.1.0&n=" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text));
+		logger.Info(message: $"Opening Asteroids Dynamic Site page for object {labelMpcorbIndexData.Text}");
+		OpenWebsite(fileName: "https://newton.spacedys.com/astdys/index.php?pc=1.1.0&n=" + ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text));
 	}
 
 	/// <summary>Handles the Click event for the menu item that opens the Near-Earth Objects dynamic site in a web browser.</summary>
@@ -1528,8 +1528,8 @@ public partial class PlanetoidDbForm
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void OpenDataPageNearEarthObjectsDynamicSite_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Opening Near-Earth Objects Dynamic Site page for object {labelIndexData.Text}");
-		OpenWebsite(fileName: "https://newton.spacedys.com/neodys/index.php?pc=1.1.0&n=" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text));
+		logger.Info(message: $"Opening Near-Earth Objects Dynamic Site page for object {labelMpcorbIndexData.Text}");
+		OpenWebsite(fileName: "https://newton.spacedys.com/neodys/index.php?pc=1.1.0&n=" + ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text));
 	}
 
 	/// <summary>Handles the Click event for the Near-Earth Object Coordination Centre menu item, opening the corresponding ESA NEO data page in a web browser.</summary>
@@ -1538,8 +1538,8 @@ public partial class PlanetoidDbForm
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void OpenDataPageNearEarthObjectCoordinationCentre_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Opening Near-Earth Object Coordination Centre page for object {labelIndexData.Text}");
-		OpenWebsite(fileName: "https://neo.ssa.esa.int/search-for-asteroids?tab=summary&des=" + ProcessDesignationForUrl(input: labelReadableDesignationData.Text));
+		logger.Info(message: $"Opening Near-Earth Object Coordination Centre page for object {labelMpcorbIndexData.Text}");
+		OpenWebsite(fileName: "https://neo.ssa.esa.int/search-for-asteroids?tab=summary&des=" + ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text));
 	}
 
 
@@ -1563,7 +1563,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method decodes the MPCORB flags when the label is clicked.</remarks>
 	private void LabelFlagsData_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Decoding MPCORB flags for object {labelIndexData.Text}");
+		logger.Info(message: $"Decoding MPCORB flags for object {labelMpcorbIndexData.Text}");
 		DecodeMpcorbFlags();
 	}
 
@@ -1573,7 +1573,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method decodes the MPCORB reference when the label is clicked.</remarks>
 	private void LabelReferenceData_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Decoding MPCORB reference for object {labelIndexData.Text}");
+		logger.Info(message: $"Decoding MPCORB reference for object {labelMpcorbIndexData.Text}");
 		DecodeMpcorbReference();
 	}
 
@@ -1583,7 +1583,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method decodes the packed epoch when the label is double-clicked.</remarks>
 	private void LabelEpochData_DoubleClick(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Decoding packed epoch for object {labelIndexData.Text}");
+		logger.Info(message: $"Decoding packed epoch for object {labelMpcorbIndexData.Text}");
 		DecodePackedEpoch();
 	}
 
@@ -1593,7 +1593,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method decodes the packed readable designation when the label is double-clicked.</remarks>
 	private void LabelReadableDesignationData_DoubleClick(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Decoding readable designation for object {labelIndexData.Text}");
+		logger.Info(message: $"Decoding readable designation for object {labelMpcorbIndexData.Text}");
 		DecodeReadableDesignation();
 	}
 
@@ -1616,7 +1616,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method displays the 2D top view of the orbit when the corresponding control is clicked.</remarks>
 	private void Orbit2DTopView_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Displaying 2D top view of the orbit for object {labelIndexData.Text}");
+		logger.Info(message: $"Displaying 2D top view of the orbit for object {labelMpcorbIndexData.Text}");
 		ShowOrbit2DTopView();
 	}
 
@@ -1626,7 +1626,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method displays the 2D side view of the orbit when the corresponding control is clicked.</remarks>
 	private void Orbit2DSideView_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Displaying 2D side view of the orbit for object {labelIndexData.Text}");
+		logger.Info(message: $"Displaying 2D side view of the orbit for object {labelMpcorbIndexData.Text}");
 		ShowOrbit2DSideView();
 	}
 
@@ -1636,7 +1636,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method displays the 3D view of the orbit when the corresponding control is clicked.</remarks>
 	private void Orbit3DView_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Displaying 3D view of the orbit for object {labelIndexData.Text}");
+		logger.Info(message: $"Displaying 3D view of the orbit for object {labelMpcorbIndexData.Text}");
 		ShowOrbit3DView();
 	}
 
