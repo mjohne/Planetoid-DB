@@ -168,20 +168,15 @@ public static class ExportEscapeHelper
 		return builder.ToString();
 	}
 
-	/// <summary>Escapes a CSV field by doubling internal quotes and wrapping in double quotes.</summary>
-	/// <param name="input">The raw field value.</param>
-	/// <returns>The escaped CSV field suitable for CSV output.</returns>
-	/// <remarks>In CSV, fields that contain commas, quotes, or newlines must be enclosed in double quotes, and internal double quotes are escaped by doubling them. This method first checks if the input field is null and treats it as an empty string; then it replaces any internal double quotes with two double quotes to escape them, and finally wraps the entire field in double quotes to ensure it is treated as a single field in the CSV output.</remarks>
 	public static string EscapeCsvField(string? input)
 	{
-		// If the input string is null or empty, return an empty string to avoid processing.
+		// RFC 4180 allows empty fields; return an explicit quoted empty field to keep output consistent.
 		if (string.IsNullOrEmpty(value: input))
 		{
-			return string.Empty;
+			return "\"\"";
 		}
 		// Replace any internal double quotes with two double quotes to escape them, and wrap the entire field in double quotes.
 		return $"\"{input.Replace("\"", "\"\"")}\"";
-
 	}
 
 	/// <summary>Escapes a TOML string value.</summary>
