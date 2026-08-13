@@ -46,9 +46,17 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This integer is used to store the current position in the planetoids database and the step position for navigation.</remarks>
 	private int currentPosition, stepPosition;
 
+	/// <summary>Stores the current position in the ASTORB database.</summary>
+	/// <remarks>This integer is used to mirror the current navigation position for the ASTORB.DAT tab display.</remarks>
+	private int currentAstorbPosition;
+
 	/// <summary>Stores the planetoids database.</summary>
 	/// <remarks>This list is used to store the planetoids database entries.</remarks>
 	private readonly List<string> planetoidsDatabase = [];
+
+	/// <summary>Stores the ASTORB.DAT database entries.</summary>
+	/// <remarks>This list is used to store the loaded lines from the ASTORB.DAT file for display in the ASTORB.DAT tab.</remarks>
+	private readonly List<string> astorbDatabase = [];
 
 	/// <summary>Stores a backup of the planetoids database.</summary>
 	/// <remarks>This list is used to store a backup of the planetoids database entries, which can be used for comparison or restoration purposes.</remarks>

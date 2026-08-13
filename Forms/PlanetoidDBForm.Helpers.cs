@@ -219,6 +219,8 @@ public partial class PlanetoidDbForm
 				// If the index matches, set the current position to the index and navigate to that position
 				currentPosition = i;
 				GotoCurrentPosition(position: currentPosition);
+				currentAstorbPosition = currentPosition;
+				GotoCurrentAstorbPosition(position: currentAstorbPosition);
 				return;
 			}
 			// If the index does not match, check if the designation matches the current entry's designation (characters 166-193)
@@ -227,6 +229,8 @@ public partial class PlanetoidDbForm
 				// If the designation matches, set the current position to the index and navigate to that position
 				currentPosition = i;
 				GotoCurrentPosition(position: currentPosition);
+				currentAstorbPosition = currentPosition;
+				GotoCurrentAstorbPosition(position: currentAstorbPosition);
 				return;
 			}
 		}
@@ -347,11 +351,18 @@ public partial class PlanetoidDbForm
 		// Generate a random index within the bounds of the planetoids database
 		currentPosition = Random.Shared.Next(maxValue: planetoidsDatabase.Count);
 		GotoCurrentPosition(position: currentPosition);
+		currentAstorbPosition = currentPosition;
+		GotoCurrentAstorbPosition(position: currentAstorbPosition);
 	}
 
 	/// <summary>Navigates to the beginning of the data.</summary>
 	/// <remarks>This method is used to navigate to the beginning of the data.</remarks>
-	private void NavigateToTheBeginOfTheData() => GotoCurrentPosition(position: currentPosition = 0);
+	private void NavigateToTheBeginOfTheData()
+	{
+		GotoCurrentPosition(position: currentPosition = 0);
+		currentAstorbPosition = currentPosition;
+		GotoCurrentAstorbPosition(position: currentAstorbPosition);
+	}
 
 	/// <summary>Navigates backward by a specified step in the data.</summary>
 	/// <remarks>This method is used to navigate backward by a specified step in the data.</remarks>
@@ -371,6 +382,8 @@ public partial class PlanetoidDbForm
 		}
 		// Navigate to the new position
 		GotoCurrentPosition(position: currentPosition);
+		currentAstorbPosition = currentPosition;
+		GotoCurrentAstorbPosition(position: currentAstorbPosition);
 	}
 
 	/// <summary>Navigates to the previous data entry.</summary>
@@ -390,6 +403,8 @@ public partial class PlanetoidDbForm
 		}
 		// Navigate to the current position
 		GotoCurrentPosition(position: currentPosition);
+		currentAstorbPosition = currentPosition;
+		GotoCurrentAstorbPosition(position: currentAstorbPosition);
 	}
 
 	/// <summary>Navigates to the next data entry.</summary>
@@ -409,6 +424,8 @@ public partial class PlanetoidDbForm
 		}
 		// Navigate to the current position
 		GotoCurrentPosition(position: currentPosition);
+		currentAstorbPosition = currentPosition;
+		GotoCurrentAstorbPosition(position: currentAstorbPosition);
 	}
 
 	/// <summary>Navigates forward by a specified step in the data.</summary>
@@ -425,11 +442,18 @@ public partial class PlanetoidDbForm
 		currentPosition = (currentPosition + stepPosition) % planetoidsDatabase.Count;
 		// Navigate to the new position
 		GotoCurrentPosition(position: currentPosition);
+		currentAstorbPosition = currentPosition;
+		GotoCurrentAstorbPosition(position: currentAstorbPosition);
 	}
 
 	/// <summary>Navigates to the end of the data.</summary>
 	/// <remarks>This method is used to navigate to the end of the data.</remarks>
-	private void NavigateToTheEndOfTheData() => GotoCurrentPosition(position: currentPosition = planetoidsDatabase.Count - 1);
+	private void NavigateToTheEndOfTheData()
+	{
+		GotoCurrentPosition(position: currentPosition = planetoidsDatabase.Count - 1);
+		currentAstorbPosition = currentPosition;
+		GotoCurrentAstorbPosition(position: currentAstorbPosition);
+	}
 
 	/// <summary>Processes a designation string by removing parenthetical content, trimming whitespace, and removing spaces.</summary>
 	/// <param name="input">The input designation string to process.</param>
@@ -1300,6 +1324,8 @@ public partial class PlanetoidDbForm
 			// Navigate to the first record of the filtered database
 			currentPosition = 0;
 			GotoCurrentPosition(position: currentPosition);
+			currentAstorbPosition = currentPosition;
+			GotoCurrentAstorbPosition(position: currentAstorbPosition);
 			logger.Info(message: $"Filter applied: database now contains {planetoidsDatabase.Count} records.");
 		}
 	}
@@ -1365,6 +1391,8 @@ public partial class PlanetoidDbForm
 		{
 			// Navigate to the current position in the database
 			GotoCurrentPosition(position: formListReadableDesignations.GetSelectedIndex());
+			currentAstorbPosition = currentPosition;
+			GotoCurrentAstorbPosition(position: currentAstorbPosition);
 		}
 	}
 
@@ -1657,6 +1685,176 @@ public partial class PlanetoidDbForm
 				buttons: KryptonMessageBoxButtons.OK,
 				icon: KryptonMessageBoxIcon.Information,
 				defaultButton: KryptonMessageBoxDefaultButton.Button1);
+		}
+	}
+
+	/// <summary>Loads the ASTORB.DAT database from the configured file path into <see cref="astorbDatabase"/>.</summary>
+	/// <remarks>This method reads all lines from the ASTORB.DAT file, populates the <see cref="astorbDatabase"/> list, and updates the tab page text with the file's last-write date. If the file does not exist, the tab text is updated to reflect that the file is missing.</remarks>
+	internal void LoadAstorbDatabase()
+	{
+		// Clear any previously loaded entries
+		astorbDatabase.Clear();
+		// Check if the ASTORB.DAT file exists
+		if (!File.Exists(path: filenameAstorbDat))
+		{
+			logger.Warn(message: $"ASTORB.DAT file not found: {filenameAstorbDat}");
+			kryptonPageAstorbDat.Text = "ASTORB.DAT (file not found)";
+			return;
+		}
+		try
+		{
+			// Read all lines from the ASTORB.DAT file and add them to the database list
+			astorbDatabase.AddRange(collection: File.ReadAllLines(path: filenameAstorbDat));
+			// Get the last write time of the ASTORB.DAT file for display in the tab
+			string fileDate = File.GetLastWriteTime(path: filenameAstorbDat).ToString(format: "yyyy-MM-dd", provider: CultureInfo.InvariantCulture);
+			kryptonPageAstorbDat.Text = $"ASTORB.DAT ({fileDate})";
+			logger.Info(message: $"ASTORB.DAT loaded: {astorbDatabase.Count} lines, dated {fileDate}.");
+		}
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			logger.Error(exception: ex, message: $"Error loading ASTORB.DAT: {ex.Message}");
+			kryptonPageAstorbDat.Text = $"ASTORB.DAT ({I18nStrings.ErrorCaption})";
+		}
+	}
+
+	/// <summary>Navigates to the specified position in the ASTORB.DAT database and updates all ASTORB labels.</summary>
+	/// <param name="position">The zero-based position to navigate to in <see cref="astorbDatabase"/>.</param>
+	/// <remarks>This method parses the fixed-width fields of the ASTORB.DAT record at the given position and updates the corresponding UI labels. If the position is out of range or the database is empty, all labels are cleared.</remarks>
+	internal void GotoCurrentAstorbPosition(int position)
+	{
+		// Handle the case where the database is empty or position is out of range
+		if (astorbDatabase.Count == 0 || position < 0 || position >= astorbDatabase.Count)
+		{
+			ClearCurrentAstorbRecordDisplay();
+			return;
+		}
+		// Get the entry string for the requested position
+		string? entryStr = astorbDatabase[index: position]?.ToString();
+		// If the entry string is null or empty, clear all labels and return early
+		if (string.IsNullOrEmpty(value: entryStr))
+		{
+			ClearCurrentAstorbRecordDisplay();
+			return;
+		}
+		// Convert string to ReadOnlySpan<char> to avoid heap allocations during parsing
+		ReadOnlySpan<char> entrySpan = entryStr.AsSpan();
+		// Local helper to safely extract and trim a fixed-width field (1-based column indices from ASTORB format)
+		static string ExtractField(ReadOnlySpan<char> span, int start, int length)
+		{
+			return span.Length < start + length ? string.Empty : span.Slice(start: start, length: length).Trim().ToString();
+		}
+		// Suspend layout to avoid flicker while updating labels
+		tableLayoutPanelAstorbData.SuspendLayout();
+		try
+		{
+			// ASTORB.DAT fixed-width field definitions (0-based start, length):
+			// Col 1-6 (0-based 0,6): Asteroid number
+			labelAstorbNumberData.Text = ExtractField(span: entrySpan, start: 0, length: 6);
+			// Col 7-25 (0-based 6,19): Name
+			labelAstorbNameData.Text = ExtractField(span: entrySpan, start: 6, length: 19);
+			// Col 26-44 (0-based 25,19): Provisional designation
+			labelAstorbDesignationData.Text = ExtractField(span: entrySpan, start: 25, length: 19);
+			// Col 45-50 (0-based 44,6): Computer name
+			labelAstorbComputerNameData.Text = ExtractField(span: entrySpan, start: 44, length: 6);
+			// Col 51-55 (0-based 50,5): H (absolute magnitude)
+			labelAstorbAbsoluteMagnitudeData.Text = ExtractField(span: entrySpan, start: 50, length: 5);
+			// Col 56-60 (0-based 55,5): G (slope parameter)
+			labelAstorbSlopeParameterData.Text = ExtractField(span: entrySpan, start: 55, length: 5);
+			// Col 61-63 (0-based 60,3): B-V color index
+			labelAstorbColorIndexData.Text = ExtractField(span: entrySpan, start: 60, length: 3);
+			// Col 64-68 (0-based 63,5): IRAS diameter (km)
+			labelAstorbIrasDiameterData.Text = ExtractField(span: entrySpan, start: 63, length: 5);
+			// Col 69-72 (0-based 68,4): IRAS taxonomic class
+			labelAstorbIrasTaxClassData.Text = ExtractField(span: entrySpan, start: 68, length: 4);
+			// Col 73-78 (0-based 72,6): 6-digit flags
+			labelAstorbFlagsData.Text = ExtractField(span: entrySpan, start: 72, length: 6);
+			// Col 79-82 (0-based 78,4): Orbital arc (days)
+			labelAstorbOrbitalArcData.Text = ExtractField(span: entrySpan, start: 78, length: 4);
+			// Col 83-87 (0-based 82,5): Number of observations
+			labelAstorbNumberOfObsData.Text = ExtractField(span: entrySpan, start: 82, length: 5);
+			// Col 88-95 (0-based 87,8): Epoch (YYYYMMDD)
+			labelAstorbEpochData.Text = ExtractField(span: entrySpan, start: 87, length: 8);
+			// Col 96-105 (0-based 95,10): Mean anomaly (degrees)
+			labelAstorbMeanAnomalyData.Text = ExtractField(span: entrySpan, start: 95, length: 10);
+			// Col 106-115 (0-based 105,10): Argument of perihelion (degrees)
+			labelAstorbArgOfPerihelionData.Text = ExtractField(span: entrySpan, start: 105, length: 10);
+			// Col 116-125 (0-based 115,10): Longitude of ascending node (degrees)
+			labelAstorbLongAscNodeData.Text = ExtractField(span: entrySpan, start: 115, length: 10);
+			// Col 126-135 (0-based 125,10): Inclination (degrees)
+			labelAstorbInclinationData.Text = ExtractField(span: entrySpan, start: 125, length: 10);
+			// Col 136-144 (0-based 135,9): Orbital eccentricity
+			labelAstorbEccentricityData.Text = ExtractField(span: entrySpan, start: 135, length: 9);
+			// Col 145-154 (0-based 144,10): Semi-major axis (AU)
+			labelAstorbSemiMajorAxisData.Text = ExtractField(span: entrySpan, start: 144, length: 10);
+			// Col 155-162 (0-based 154,8): Date of first observation (YYYYMMDD)
+			labelAstorbDateFirstObsData.Text = ExtractField(span: entrySpan, start: 154, length: 8);
+			// Col 163-170 (0-based 162,8): Date of last observation (YYYYMMDD)
+			labelAstorbDateLastObsData.Text = ExtractField(span: entrySpan, start: 162, length: 8);
+			// Col 171-179 (0-based 170,9): Earth MOID (AU)
+			labelAstorbEarthMoidData.Text = ExtractField(span: entrySpan, start: 170, length: 9);
+			// Col 180-188 (0-based 179,9): Earth MOID date (YYYYMMDD)
+			labelAstorbEarthMoidDateData.Text = ExtractField(span: entrySpan, start: 179, length: 9);
+			// Col 189-197 (0-based 188,9): Orbital period (years)
+			labelAstorbPeriodData.Text = ExtractField(span: entrySpan, start: 188, length: 9);
+			// Col 198-206 (0-based 197,9): Perihelion date (YYYYMMDD)
+			labelAstorbPerihelionDateData.Text = ExtractField(span: entrySpan, start: 197, length: 9);
+			// Col 207-214 (0-based 206,8): Tisserand parameter w.r.t. Jupiter
+			labelAstorbTisserandJupData.Text = ExtractField(span: entrySpan, start: 206, length: 8);
+			// Col 215-223 (0-based 214,9): Perihelion distance (AU)
+			labelAstorbPerihelionDistData.Text = ExtractField(span: entrySpan, start: 214, length: 9);
+			// Col 224-232 (0-based 223,9): Aphelion distance (AU)
+			labelAstorbAphelionDistData.Text = ExtractField(span: entrySpan, start: 223, length: 9);
+			logger.Debug(message: $"ASTORB record at position {position} displayed.");
+		}
+		catch (Exception ex)
+		{
+			logger.Error(message: $"Error navigating to ASTORB position {position}: {ex.Message}", exception: ex);
+		}
+		finally
+		{
+			tableLayoutPanelAstorbData.ResumeLayout(performLayout: true);
+		}
+	}
+
+	/// <summary>Clears all ASTORB record display labels in the ASTORB data panel.</summary>
+	/// <remarks>This method clears all UI labels used to display ASTORB.DAT record fields.</remarks>
+	private void ClearCurrentAstorbRecordDisplay()
+	{
+		tableLayoutPanelAstorbData.SuspendLayout();
+		try
+		{
+			labelAstorbNumberData.Text = string.Empty;
+			labelAstorbNameData.Text = string.Empty;
+			labelAstorbDesignationData.Text = string.Empty;
+			labelAstorbComputerNameData.Text = string.Empty;
+			labelAstorbAbsoluteMagnitudeData.Text = string.Empty;
+			labelAstorbSlopeParameterData.Text = string.Empty;
+			labelAstorbColorIndexData.Text = string.Empty;
+			labelAstorbIrasDiameterData.Text = string.Empty;
+			labelAstorbIrasTaxClassData.Text = string.Empty;
+			labelAstorbFlagsData.Text = string.Empty;
+			labelAstorbOrbitalArcData.Text = string.Empty;
+			labelAstorbNumberOfObsData.Text = string.Empty;
+			labelAstorbEpochData.Text = string.Empty;
+			labelAstorbMeanAnomalyData.Text = string.Empty;
+			labelAstorbArgOfPerihelionData.Text = string.Empty;
+			labelAstorbLongAscNodeData.Text = string.Empty;
+			labelAstorbInclinationData.Text = string.Empty;
+			labelAstorbEccentricityData.Text = string.Empty;
+			labelAstorbSemiMajorAxisData.Text = string.Empty;
+			labelAstorbDateFirstObsData.Text = string.Empty;
+			labelAstorbDateLastObsData.Text = string.Empty;
+			labelAstorbEarthMoidData.Text = string.Empty;
+			labelAstorbEarthMoidDateData.Text = string.Empty;
+			labelAstorbPeriodData.Text = string.Empty;
+			labelAstorbPerihelionDateData.Text = string.Empty;
+			labelAstorbTisserandJupData.Text = string.Empty;
+			labelAstorbPerihelionDistData.Text = string.Empty;
+			labelAstorbAphelionDistData.Text = string.Empty;
+		}
+		finally
+		{
+			tableLayoutPanelAstorbData.ResumeLayout(performLayout: false);
 		}
 	}
 

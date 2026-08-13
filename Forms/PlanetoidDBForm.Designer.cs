@@ -328,8 +328,67 @@ partial class PlanetoidDbForm
 		openFileDialog = new OpenFileDialog();
 		kryptonManager = new KryptonManager(components);
 		timerCheckForNewAstorbDatFile = new Timer(components);
+		tableLayoutPanelAstorbData = new KryptonTableLayoutPanel();
+		kryptonPageAstorbDat = new Krypton.Navigator.KryptonPage();
+		labelAstorbNumberDesc = new KryptonLabel();
+		labelAstorbNumberData = new KryptonLabel();
+		labelAstorbNameDesc = new KryptonLabel();
+		labelAstorbNameData = new KryptonLabel();
+		labelAstorbDesignationDesc = new KryptonLabel();
+		labelAstorbDesignationData = new KryptonLabel();
+		labelAstorbComputerNameDesc = new KryptonLabel();
+		labelAstorbComputerNameData = new KryptonLabel();
+		labelAstorbAbsoluteMagnitudeDesc = new KryptonLabel();
+		labelAstorbAbsoluteMagnitudeData = new KryptonLabel();
+		labelAstorbSlopeParameterDesc = new KryptonLabel();
+		labelAstorbSlopeParameterData = new KryptonLabel();
+		labelAstorbColorIndexDesc = new KryptonLabel();
+		labelAstorbColorIndexData = new KryptonLabel();
+		labelAstorbIrasDiameterDesc = new KryptonLabel();
+		labelAstorbIrasDiameterData = new KryptonLabel();
+		labelAstorbIrasTaxClassDesc = new KryptonLabel();
+		labelAstorbIrasTaxClassData = new KryptonLabel();
+		labelAstorbFlagsDesc = new KryptonLabel();
+		labelAstorbFlagsData = new KryptonLabel();
+		labelAstorbOrbitalArcDesc = new KryptonLabel();
+		labelAstorbOrbitalArcData = new KryptonLabel();
+		labelAstorbNumberOfObsDesc = new KryptonLabel();
+		labelAstorbNumberOfObsData = new KryptonLabel();
+		labelAstorbEpochDesc = new KryptonLabel();
+		labelAstorbEpochData = new KryptonLabel();
+		labelAstorbMeanAnomalyDesc = new KryptonLabel();
+		labelAstorbMeanAnomalyData = new KryptonLabel();
+		labelAstorbArgOfPerihelionDesc = new KryptonLabel();
+		labelAstorbArgOfPerihelionData = new KryptonLabel();
+		labelAstorbLongAscNodeDesc = new KryptonLabel();
+		labelAstorbLongAscNodeData = new KryptonLabel();
+		labelAstorbInclinationDesc = new KryptonLabel();
+		labelAstorbInclinationData = new KryptonLabel();
+		labelAstorbEccentricityDesc = new KryptonLabel();
+		labelAstorbEccentricityData = new KryptonLabel();
+		labelAstorbSemiMajorAxisDesc = new KryptonLabel();
+		labelAstorbSemiMajorAxisData = new KryptonLabel();
+		labelAstorbDateFirstObsDesc = new KryptonLabel();
+		labelAstorbDateFirstObsData = new KryptonLabel();
+		labelAstorbDateLastObsDesc = new KryptonLabel();
+		labelAstorbDateLastObsData = new KryptonLabel();
+		labelAstorbEarthMoidDesc = new KryptonLabel();
+		labelAstorbEarthMoidData = new KryptonLabel();
+		labelAstorbEarthMoidDateDesc = new KryptonLabel();
+		labelAstorbEarthMoidDateData = new KryptonLabel();
+		labelAstorbPeriodDesc = new KryptonLabel();
+		labelAstorbPeriodData = new KryptonLabel();
+		labelAstorbPerihelionDateDesc = new KryptonLabel();
+		labelAstorbPerihelionDateData = new KryptonLabel();
+		labelAstorbTisserandJupDesc = new KryptonLabel();
+		labelAstorbTisserandJupData = new KryptonLabel();
+		labelAstorbPerihelionDistDesc = new KryptonLabel();
+		labelAstorbPerihelionDistData = new KryptonLabel();
+		labelAstorbAphelionDistDesc = new KryptonLabel();
+		labelAstorbAphelionDistData = new KryptonLabel();
 		contextMenuNavigationStep.SuspendLayout();
 		tableLayoutPanelData.SuspendLayout();
+		tableLayoutPanelAstorbData.SuspendLayout();
 		contextMenuCopyToClipboard.SuspendLayout();
 		contextMenuOpenTerminology.SuspendLayout();
 		contextMenuTopTenRecords.SuspendLayout();
@@ -346,6 +405,8 @@ partial class PlanetoidDbForm
 		((ISupportInitialize)kryptonNavigatorMain).BeginInit();
 		((ISupportInitialize)kryptonPageMpcorbDat).BeginInit();
 		kryptonPageMpcorbDat.SuspendLayout();
+		((ISupportInitialize)kryptonPageAstorbDat).BeginInit();
+		kryptonPageAstorbDat.SuspendLayout();
 		kryptonToolStripIcons.SuspendLayout();
 		kryptonToolStripNavigation.SuspendLayout();
 		SuspendLayout();
@@ -4139,7 +4200,7 @@ partial class PlanetoidDbForm
 		kryptonNavigatorMain.NavigatorMode = Krypton.Navigator.NavigatorMode.BarTabGroup;
 		kryptonNavigatorMain.Owner = this;
 		kryptonNavigatorMain.PageBackStyle = PaletteBackStyle.PanelClient;
-		kryptonNavigatorMain.Pages.AddRange(new Krypton.Navigator.KryptonPage[] { kryptonPageMpcorbDat });
+		kryptonNavigatorMain.Pages.AddRange(new Krypton.Navigator.KryptonPage[] { kryptonPageMpcorbDat, kryptonPageAstorbDat });
 		kryptonNavigatorMain.SelectedIndex = 0;
 		kryptonNavigatorMain.Size = new Size(852, 314);
 		kryptonNavigatorMain.TabIndex = 0;
@@ -4166,7 +4227,1297 @@ partial class PlanetoidDbForm
 		kryptonPageMpcorbDat.ToolTipBody = "Shows the MPCORB.DAT";
 		kryptonPageMpcorbDat.ToolTipTitle = "Shows the MPCORB.DAT";
 		kryptonPageMpcorbDat.UniqueName = "a274f72e6e8644f4813b33d68e278dd1";
-		// 
+		//
+		// kryptonPageAstorbDat
+		//
+		kryptonPageAstorbDat.AccessibleDescription = "Shows the ASTORB.DAT page tab";
+		kryptonPageAstorbDat.AccessibleName = "ASTORB.DAT page tab";
+		kryptonPageAstorbDat.AccessibleRole = AccessibleRole.PageTab;
+		kryptonPageAstorbDat.AutoHiddenSlideSize = new Size(200, 200);
+		kryptonPageAstorbDat.Controls.Add(tableLayoutPanelAstorbData);
+		kryptonPageAstorbDat.Flags = 65534;
+		kryptonPageAstorbDat.LastVisibleSet = true;
+		kryptonPageAstorbDat.MinimumSize = new Size(150, 50);
+		kryptonPageAstorbDat.Name = "kryptonPageAstorbDat";
+		kryptonPageAstorbDat.Size = new Size(850, 287);
+		kryptonPageAstorbDat.Text = "ASTORB.DAT";
+		kryptonPageAstorbDat.TextDescription = "Shows the ASTORB.DAT";
+		kryptonPageAstorbDat.TextTitle = "ASTORB.DAT";
+		kryptonPageAstorbDat.ToolTipBody = "Shows the ASTORB.DAT";
+		kryptonPageAstorbDat.ToolTipTitle = "Shows the ASTORB.DAT";
+		kryptonPageAstorbDat.UniqueName = "b385e83f7f9755g5924c44e79f389ee2";
+		//
+		// tableLayoutPanelAstorbData
+		//
+		tableLayoutPanelAstorbData.AccessibleDescription = "Groups the ASTORB.DAT data";
+		tableLayoutPanelAstorbData.AccessibleName = "ASTORB.DAT table panel";
+		tableLayoutPanelAstorbData.AccessibleRole = AccessibleRole.Pane;
+		tableLayoutPanelAstorbData.ColumnCount = 4;
+		tableLayoutPanelAstorbData.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanelAstorbData.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 174F));
+		tableLayoutPanelAstorbData.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanelAstorbData.ColumnStyles.Add(new ColumnStyle());
+		// Row 0: Number / Name
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbNumberDesc, 0, 0);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbNumberData, 1, 0);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbNameDesc, 2, 0);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbNameData, 3, 0);
+		// Row 1: Designation / Computer name
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbDesignationDesc, 0, 1);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbDesignationData, 1, 1);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbComputerNameDesc, 2, 1);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbComputerNameData, 3, 1);
+		// Row 2: H (abs. magnitude) / G (slope parameter)
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbAbsoluteMagnitudeDesc, 0, 2);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbAbsoluteMagnitudeData, 1, 2);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbSlopeParameterDesc, 2, 2);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbSlopeParameterData, 3, 2);
+		// Row 3: B-V / IRAS diameter
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbColorIndexDesc, 0, 3);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbColorIndexData, 1, 3);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbIrasDiameterDesc, 2, 3);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbIrasDiameterData, 3, 3);
+		// Row 4: IRAS tax. class / Flags
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbIrasTaxClassDesc, 0, 4);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbIrasTaxClassData, 1, 4);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbFlagsDesc, 2, 4);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbFlagsData, 3, 4);
+		// Row 5: Orbital arc / Number of observations
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbOrbitalArcDesc, 0, 5);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbOrbitalArcData, 1, 5);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbNumberOfObsDesc, 2, 5);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbNumberOfObsData, 3, 5);
+		// Row 6: Epoch / Mean anomaly
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbEpochDesc, 0, 6);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbEpochData, 1, 6);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbMeanAnomalyDesc, 2, 6);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbMeanAnomalyData, 3, 6);
+		// Row 7: Arg. of perihelion / Long. of asc. node
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbArgOfPerihelionDesc, 0, 7);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbArgOfPerihelionData, 1, 7);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbLongAscNodeDesc, 2, 7);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbLongAscNodeData, 3, 7);
+		// Row 8: Inclination / Eccentricity
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbInclinationDesc, 0, 8);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbInclinationData, 1, 8);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbEccentricityDesc, 2, 8);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbEccentricityData, 3, 8);
+		// Row 9: Semi-major axis / Date of first obs
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbSemiMajorAxisDesc, 0, 9);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbSemiMajorAxisData, 1, 9);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbDateFirstObsDesc, 2, 9);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbDateFirstObsData, 3, 9);
+		// Row 10: Date of last obs / Earth MOID
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbDateLastObsDesc, 0, 10);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbDateLastObsData, 1, 10);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbEarthMoidDesc, 2, 10);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbEarthMoidData, 3, 10);
+		// Row 11: Earth MOID date / Orbital period
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbEarthMoidDateDesc, 0, 11);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbEarthMoidDateData, 1, 11);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbPeriodDesc, 2, 11);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbPeriodData, 3, 11);
+		// Row 12: Perihelion date / Tisserand wrt Jupiter
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbPerihelionDateDesc, 0, 12);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbPerihelionDateData, 1, 12);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbTisserandJupDesc, 2, 12);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbTisserandJupData, 3, 12);
+		// Row 13: Perihelion distance / Aphelion distance
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbPerihelionDistDesc, 0, 13);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbPerihelionDistData, 1, 13);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbAphelionDistDesc, 2, 13);
+		tableLayoutPanelAstorbData.Controls.Add(labelAstorbAphelionDistData, 3, 13);
+		tableLayoutPanelAstorbData.Dock = DockStyle.Fill;
+		tableLayoutPanelAstorbData.Location = new Point(0, 0);
+		tableLayoutPanelAstorbData.Name = "tableLayoutPanelAstorbData";
+		tableLayoutPanelAstorbData.RowCount = 14;
+		tableLayoutPanelAstorbData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelAstorbData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelAstorbData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelAstorbData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelAstorbData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelAstorbData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelAstorbData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelAstorbData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelAstorbData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelAstorbData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelAstorbData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelAstorbData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelAstorbData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelAstorbData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelAstorbData.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+		tableLayoutPanelAstorbData.Size = new Size(850, 287);
+		tableLayoutPanelAstorbData.TabIndex = 0;
+		tableLayoutPanelAstorbData.TabStop = true;
+		tableLayoutPanelAstorbData.Enter += Control_Enter;
+		tableLayoutPanelAstorbData.Leave += Control_Leave;
+		tableLayoutPanelAstorbData.MouseEnter += Control_Enter;
+		tableLayoutPanelAstorbData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbNumberDesc
+		//
+		labelAstorbNumberDesc.AccessibleDescription = "Asteroid number";
+		labelAstorbNumberDesc.AccessibleName = "Asteroid number";
+		labelAstorbNumberDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbNumberDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbNumberDesc.Dock = DockStyle.Fill;
+		labelAstorbNumberDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbNumberDesc.Name = "labelAstorbNumberDesc";
+		labelAstorbNumberDesc.TabIndex = 0;
+		labelAstorbNumberDesc.ToolTipValues.Description = "Shows the asteroid number.\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbNumberDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbNumberDesc.ToolTipValues.Heading = "Asteroid number";
+		labelAstorbNumberDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbNumberDesc.Values.Text = "Asteroid number";
+		labelAstorbNumberDesc.Enter += Control_Enter;
+		labelAstorbNumberDesc.Leave += Control_Leave;
+		labelAstorbNumberDesc.MouseEnter += Control_Enter;
+		labelAstorbNumberDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbNumberData
+		//
+		labelAstorbNumberData.AccessibleDescription = "Shows the asteroid number";
+		labelAstorbNumberData.AccessibleName = "Shows the asteroid number";
+		labelAstorbNumberData.AccessibleRole = AccessibleRole.StatusBar;
+		labelAstorbNumberData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbNumberData.Dock = DockStyle.Fill;
+		labelAstorbNumberData.Name = "labelAstorbNumberData";
+		labelAstorbNumberData.TabIndex = 1;
+		labelAstorbNumberData.ToolTipValues.Description = "Shows the asteroid number.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbNumberData.ToolTipValues.EnableToolTips = true;
+		labelAstorbNumberData.ToolTipValues.Heading = "Asteroid number";
+		labelAstorbNumberData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbNumberData.Values.Text = "..................";
+		labelAstorbNumberData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbNumberData.Enter += Control_Enter;
+		labelAstorbNumberData.Leave += Control_Leave;
+		labelAstorbNumberData.MouseDown += Control_MouseDown;
+		labelAstorbNumberData.MouseEnter += Control_Enter;
+		labelAstorbNumberData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbNameDesc
+		//
+		labelAstorbNameDesc.AccessibleDescription = "Name";
+		labelAstorbNameDesc.AccessibleName = "Name";
+		labelAstorbNameDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbNameDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbNameDesc.Dock = DockStyle.Fill;
+		labelAstorbNameDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbNameDesc.Name = "labelAstorbNameDesc";
+		labelAstorbNameDesc.TabIndex = 2;
+		labelAstorbNameDesc.ToolTipValues.Description = "Shows the asteroid name.\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbNameDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbNameDesc.ToolTipValues.Heading = "Name";
+		labelAstorbNameDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbNameDesc.Values.Text = "Name";
+		labelAstorbNameDesc.Enter += Control_Enter;
+		labelAstorbNameDesc.Leave += Control_Leave;
+		labelAstorbNameDesc.MouseEnter += Control_Enter;
+		labelAstorbNameDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbNameData
+		//
+		labelAstorbNameData.AccessibleDescription = "Shows the asteroid name";
+		labelAstorbNameData.AccessibleName = "Shows the asteroid name";
+		labelAstorbNameData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbNameData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbNameData.Dock = DockStyle.Fill;
+		labelAstorbNameData.Name = "labelAstorbNameData";
+		labelAstorbNameData.TabIndex = 3;
+		labelAstorbNameData.ToolTipValues.Description = "Shows the asteroid name.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbNameData.ToolTipValues.EnableToolTips = true;
+		labelAstorbNameData.ToolTipValues.Heading = "Name";
+		labelAstorbNameData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbNameData.Values.Text = "..................";
+		labelAstorbNameData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbNameData.Enter += Control_Enter;
+		labelAstorbNameData.Leave += Control_Leave;
+		labelAstorbNameData.MouseDown += Control_MouseDown;
+		labelAstorbNameData.MouseEnter += Control_Enter;
+		labelAstorbNameData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbDesignationDesc
+		//
+		labelAstorbDesignationDesc.AccessibleDescription = "Designation";
+		labelAstorbDesignationDesc.AccessibleName = "Designation";
+		labelAstorbDesignationDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbDesignationDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbDesignationDesc.Dock = DockStyle.Fill;
+		labelAstorbDesignationDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbDesignationDesc.Name = "labelAstorbDesignationDesc";
+		labelAstorbDesignationDesc.TabIndex = 4;
+		labelAstorbDesignationDesc.ToolTipValues.Description = "Shows the asteroid designation.\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbDesignationDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbDesignationDesc.ToolTipValues.Heading = "Designation";
+		labelAstorbDesignationDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbDesignationDesc.Values.Text = "Designation";
+		labelAstorbDesignationDesc.Enter += Control_Enter;
+		labelAstorbDesignationDesc.Leave += Control_Leave;
+		labelAstorbDesignationDesc.MouseEnter += Control_Enter;
+		labelAstorbDesignationDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbDesignationData
+		//
+		labelAstorbDesignationData.AccessibleDescription = "Shows the asteroid designation";
+		labelAstorbDesignationData.AccessibleName = "Shows the asteroid designation";
+		labelAstorbDesignationData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbDesignationData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbDesignationData.Dock = DockStyle.Fill;
+		labelAstorbDesignationData.Name = "labelAstorbDesignationData";
+		labelAstorbDesignationData.TabIndex = 5;
+		labelAstorbDesignationData.ToolTipValues.Description = "Shows the asteroid designation.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbDesignationData.ToolTipValues.EnableToolTips = true;
+		labelAstorbDesignationData.ToolTipValues.Heading = "Designation";
+		labelAstorbDesignationData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbDesignationData.Values.Text = "..................";
+		labelAstorbDesignationData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbDesignationData.Enter += Control_Enter;
+		labelAstorbDesignationData.Leave += Control_Leave;
+		labelAstorbDesignationData.MouseDown += Control_MouseDown;
+		labelAstorbDesignationData.MouseEnter += Control_Enter;
+		labelAstorbDesignationData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbComputerNameDesc
+		//
+		labelAstorbComputerNameDesc.AccessibleDescription = "Computer name";
+		labelAstorbComputerNameDesc.AccessibleName = "Computer name";
+		labelAstorbComputerNameDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbComputerNameDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbComputerNameDesc.Dock = DockStyle.Fill;
+		labelAstorbComputerNameDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbComputerNameDesc.Name = "labelAstorbComputerNameDesc";
+		labelAstorbComputerNameDesc.TabIndex = 6;
+		labelAstorbComputerNameDesc.ToolTipValues.Description = "Shows the computer name.\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbComputerNameDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbComputerNameDesc.ToolTipValues.Heading = "Computer name";
+		labelAstorbComputerNameDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbComputerNameDesc.Values.Text = "Computer name";
+		labelAstorbComputerNameDesc.Enter += Control_Enter;
+		labelAstorbComputerNameDesc.Leave += Control_Leave;
+		labelAstorbComputerNameDesc.MouseEnter += Control_Enter;
+		labelAstorbComputerNameDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbComputerNameData
+		//
+		labelAstorbComputerNameData.AccessibleDescription = "Shows the computer name";
+		labelAstorbComputerNameData.AccessibleName = "Shows the computer name";
+		labelAstorbComputerNameData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbComputerNameData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbComputerNameData.Dock = DockStyle.Fill;
+		labelAstorbComputerNameData.Name = "labelAstorbComputerNameData";
+		labelAstorbComputerNameData.TabIndex = 7;
+		labelAstorbComputerNameData.ToolTipValues.Description = "Shows the computer name.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbComputerNameData.ToolTipValues.EnableToolTips = true;
+		labelAstorbComputerNameData.ToolTipValues.Heading = "Computer name";
+		labelAstorbComputerNameData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbComputerNameData.Values.Text = "..................";
+		labelAstorbComputerNameData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbComputerNameData.Enter += Control_Enter;
+		labelAstorbComputerNameData.Leave += Control_Leave;
+		labelAstorbComputerNameData.MouseDown += Control_MouseDown;
+		labelAstorbComputerNameData.MouseEnter += Control_Enter;
+		labelAstorbComputerNameData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbAbsoluteMagnitudeDesc
+		//
+		labelAstorbAbsoluteMagnitudeDesc.AccessibleDescription = "Absolute magnitude H";
+		labelAstorbAbsoluteMagnitudeDesc.AccessibleName = "Absolute magnitude H";
+		labelAstorbAbsoluteMagnitudeDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbAbsoluteMagnitudeDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbAbsoluteMagnitudeDesc.Dock = DockStyle.Fill;
+		labelAstorbAbsoluteMagnitudeDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbAbsoluteMagnitudeDesc.Name = "labelAstorbAbsoluteMagnitudeDesc";
+		labelAstorbAbsoluteMagnitudeDesc.TabIndex = 8;
+		labelAstorbAbsoluteMagnitudeDesc.ToolTipValues.Description = "Shows the absolute magnitude H.\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbAbsoluteMagnitudeDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbAbsoluteMagnitudeDesc.ToolTipValues.Heading = "Absolute magnitude H";
+		labelAstorbAbsoluteMagnitudeDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbAbsoluteMagnitudeDesc.Values.Text = "Absolute magnitude H";
+		labelAstorbAbsoluteMagnitudeDesc.Enter += Control_Enter;
+		labelAstorbAbsoluteMagnitudeDesc.Leave += Control_Leave;
+		labelAstorbAbsoluteMagnitudeDesc.MouseEnter += Control_Enter;
+		labelAstorbAbsoluteMagnitudeDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbAbsoluteMagnitudeData
+		//
+		labelAstorbAbsoluteMagnitudeData.AccessibleDescription = "Shows the absolute magnitude H";
+		labelAstorbAbsoluteMagnitudeData.AccessibleName = "Shows the absolute magnitude H";
+		labelAstorbAbsoluteMagnitudeData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbAbsoluteMagnitudeData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbAbsoluteMagnitudeData.Dock = DockStyle.Fill;
+		labelAstorbAbsoluteMagnitudeData.Name = "labelAstorbAbsoluteMagnitudeData";
+		labelAstorbAbsoluteMagnitudeData.TabIndex = 9;
+		labelAstorbAbsoluteMagnitudeData.ToolTipValues.Description = "Shows the absolute magnitude H.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbAbsoluteMagnitudeData.ToolTipValues.EnableToolTips = true;
+		labelAstorbAbsoluteMagnitudeData.ToolTipValues.Heading = "Absolute magnitude H";
+		labelAstorbAbsoluteMagnitudeData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbAbsoluteMagnitudeData.Values.Text = "..................";
+		labelAstorbAbsoluteMagnitudeData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbAbsoluteMagnitudeData.Enter += Control_Enter;
+		labelAstorbAbsoluteMagnitudeData.Leave += Control_Leave;
+		labelAstorbAbsoluteMagnitudeData.MouseDown += Control_MouseDown;
+		labelAstorbAbsoluteMagnitudeData.MouseEnter += Control_Enter;
+		labelAstorbAbsoluteMagnitudeData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbSlopeParameterDesc
+		//
+		labelAstorbSlopeParameterDesc.AccessibleDescription = "Slope parameter G";
+		labelAstorbSlopeParameterDesc.AccessibleName = "Slope parameter G";
+		labelAstorbSlopeParameterDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbSlopeParameterDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbSlopeParameterDesc.Dock = DockStyle.Fill;
+		labelAstorbSlopeParameterDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbSlopeParameterDesc.Name = "labelAstorbSlopeParameterDesc";
+		labelAstorbSlopeParameterDesc.TabIndex = 10;
+		labelAstorbSlopeParameterDesc.ToolTipValues.Description = "Shows the slope parameter G.\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbSlopeParameterDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbSlopeParameterDesc.ToolTipValues.Heading = "Slope parameter G";
+		labelAstorbSlopeParameterDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbSlopeParameterDesc.Values.Text = "Slope parameter G";
+		labelAstorbSlopeParameterDesc.Enter += Control_Enter;
+		labelAstorbSlopeParameterDesc.Leave += Control_Leave;
+		labelAstorbSlopeParameterDesc.MouseEnter += Control_Enter;
+		labelAstorbSlopeParameterDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbSlopeParameterData
+		//
+		labelAstorbSlopeParameterData.AccessibleDescription = "Shows the slope parameter G";
+		labelAstorbSlopeParameterData.AccessibleName = "Shows the slope parameter G";
+		labelAstorbSlopeParameterData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbSlopeParameterData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbSlopeParameterData.Dock = DockStyle.Fill;
+		labelAstorbSlopeParameterData.Name = "labelAstorbSlopeParameterData";
+		labelAstorbSlopeParameterData.TabIndex = 11;
+		labelAstorbSlopeParameterData.ToolTipValues.Description = "Shows the slope parameter G.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbSlopeParameterData.ToolTipValues.EnableToolTips = true;
+		labelAstorbSlopeParameterData.ToolTipValues.Heading = "Slope parameter G";
+		labelAstorbSlopeParameterData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbSlopeParameterData.Values.Text = "..................";
+		labelAstorbSlopeParameterData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbSlopeParameterData.Enter += Control_Enter;
+		labelAstorbSlopeParameterData.Leave += Control_Leave;
+		labelAstorbSlopeParameterData.MouseDown += Control_MouseDown;
+		labelAstorbSlopeParameterData.MouseEnter += Control_Enter;
+		labelAstorbSlopeParameterData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbColorIndexDesc
+		//
+		labelAstorbColorIndexDesc.AccessibleDescription = "Color index B-V";
+		labelAstorbColorIndexDesc.AccessibleName = "Color index B-V";
+		labelAstorbColorIndexDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbColorIndexDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbColorIndexDesc.Dock = DockStyle.Fill;
+		labelAstorbColorIndexDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbColorIndexDesc.Name = "labelAstorbColorIndexDesc";
+		labelAstorbColorIndexDesc.TabIndex = 12;
+		labelAstorbColorIndexDesc.ToolTipValues.Description = "Shows the color index B-V.\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbColorIndexDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbColorIndexDesc.ToolTipValues.Heading = "Color index B-V";
+		labelAstorbColorIndexDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbColorIndexDesc.Values.Text = "Color index B-V";
+		labelAstorbColorIndexDesc.Enter += Control_Enter;
+		labelAstorbColorIndexDesc.Leave += Control_Leave;
+		labelAstorbColorIndexDesc.MouseEnter += Control_Enter;
+		labelAstorbColorIndexDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbColorIndexData
+		//
+		labelAstorbColorIndexData.AccessibleDescription = "Shows the color index B-V";
+		labelAstorbColorIndexData.AccessibleName = "Shows the color index B-V";
+		labelAstorbColorIndexData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbColorIndexData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbColorIndexData.Dock = DockStyle.Fill;
+		labelAstorbColorIndexData.Name = "labelAstorbColorIndexData";
+		labelAstorbColorIndexData.TabIndex = 13;
+		labelAstorbColorIndexData.ToolTipValues.Description = "Shows the color index B-V.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbColorIndexData.ToolTipValues.EnableToolTips = true;
+		labelAstorbColorIndexData.ToolTipValues.Heading = "Color index B-V";
+		labelAstorbColorIndexData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbColorIndexData.Values.Text = "..................";
+		labelAstorbColorIndexData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbColorIndexData.Enter += Control_Enter;
+		labelAstorbColorIndexData.Leave += Control_Leave;
+		labelAstorbColorIndexData.MouseDown += Control_MouseDown;
+		labelAstorbColorIndexData.MouseEnter += Control_Enter;
+		labelAstorbColorIndexData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbIrasDiameterDesc
+		//
+		labelAstorbIrasDiameterDesc.AccessibleDescription = "IRAS diameter (km)";
+		labelAstorbIrasDiameterDesc.AccessibleName = "IRAS diameter (km)";
+		labelAstorbIrasDiameterDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbIrasDiameterDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbIrasDiameterDesc.Dock = DockStyle.Fill;
+		labelAstorbIrasDiameterDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbIrasDiameterDesc.Name = "labelAstorbIrasDiameterDesc";
+		labelAstorbIrasDiameterDesc.TabIndex = 14;
+		labelAstorbIrasDiameterDesc.ToolTipValues.Description = "Shows the IRAS diameter in km.\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbIrasDiameterDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbIrasDiameterDesc.ToolTipValues.Heading = "IRAS diameter (km)";
+		labelAstorbIrasDiameterDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbIrasDiameterDesc.Values.Text = "IRAS diameter";
+		labelAstorbIrasDiameterDesc.Values.ExtraText = "km";
+		labelAstorbIrasDiameterDesc.Enter += Control_Enter;
+		labelAstorbIrasDiameterDesc.Leave += Control_Leave;
+		labelAstorbIrasDiameterDesc.MouseEnter += Control_Enter;
+		labelAstorbIrasDiameterDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbIrasDiameterData
+		//
+		labelAstorbIrasDiameterData.AccessibleDescription = "Shows the IRAS diameter (km)";
+		labelAstorbIrasDiameterData.AccessibleName = "Shows the IRAS diameter (km)";
+		labelAstorbIrasDiameterData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbIrasDiameterData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbIrasDiameterData.Dock = DockStyle.Fill;
+		labelAstorbIrasDiameterData.Name = "labelAstorbIrasDiameterData";
+		labelAstorbIrasDiameterData.TabIndex = 15;
+		labelAstorbIrasDiameterData.ToolTipValues.Description = "Shows the IRAS diameter in km.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbIrasDiameterData.ToolTipValues.EnableToolTips = true;
+		labelAstorbIrasDiameterData.ToolTipValues.Heading = "IRAS diameter (km)";
+		labelAstorbIrasDiameterData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbIrasDiameterData.Values.Text = "..................";
+		labelAstorbIrasDiameterData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbIrasDiameterData.Enter += Control_Enter;
+		labelAstorbIrasDiameterData.Leave += Control_Leave;
+		labelAstorbIrasDiameterData.MouseDown += Control_MouseDown;
+		labelAstorbIrasDiameterData.MouseEnter += Control_Enter;
+		labelAstorbIrasDiameterData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbIrasTaxClassDesc
+		//
+		labelAstorbIrasTaxClassDesc.AccessibleDescription = "IRAS taxonomic class";
+		labelAstorbIrasTaxClassDesc.AccessibleName = "IRAS taxonomic class";
+		labelAstorbIrasTaxClassDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbIrasTaxClassDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbIrasTaxClassDesc.Dock = DockStyle.Fill;
+		labelAstorbIrasTaxClassDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbIrasTaxClassDesc.Name = "labelAstorbIrasTaxClassDesc";
+		labelAstorbIrasTaxClassDesc.TabIndex = 16;
+		labelAstorbIrasTaxClassDesc.ToolTipValues.Description = "Shows the IRAS taxonomic class.\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbIrasTaxClassDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbIrasTaxClassDesc.ToolTipValues.Heading = "IRAS taxonomic class";
+		labelAstorbIrasTaxClassDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbIrasTaxClassDesc.Values.Text = "IRAS taxonomic class";
+		labelAstorbIrasTaxClassDesc.Enter += Control_Enter;
+		labelAstorbIrasTaxClassDesc.Leave += Control_Leave;
+		labelAstorbIrasTaxClassDesc.MouseEnter += Control_Enter;
+		labelAstorbIrasTaxClassDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbIrasTaxClassData
+		//
+		labelAstorbIrasTaxClassData.AccessibleDescription = "Shows the IRAS taxonomic class";
+		labelAstorbIrasTaxClassData.AccessibleName = "Shows the IRAS taxonomic class";
+		labelAstorbIrasTaxClassData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbIrasTaxClassData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbIrasTaxClassData.Dock = DockStyle.Fill;
+		labelAstorbIrasTaxClassData.Name = "labelAstorbIrasTaxClassData";
+		labelAstorbIrasTaxClassData.TabIndex = 17;
+		labelAstorbIrasTaxClassData.ToolTipValues.Description = "Shows the IRAS taxonomic class.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbIrasTaxClassData.ToolTipValues.EnableToolTips = true;
+		labelAstorbIrasTaxClassData.ToolTipValues.Heading = "IRAS taxonomic class";
+		labelAstorbIrasTaxClassData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbIrasTaxClassData.Values.Text = "..................";
+		labelAstorbIrasTaxClassData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbIrasTaxClassData.Enter += Control_Enter;
+		labelAstorbIrasTaxClassData.Leave += Control_Leave;
+		labelAstorbIrasTaxClassData.MouseDown += Control_MouseDown;
+		labelAstorbIrasTaxClassData.MouseEnter += Control_Enter;
+		labelAstorbIrasTaxClassData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbFlagsDesc
+		//
+		labelAstorbFlagsDesc.AccessibleDescription = "6-digit flags";
+		labelAstorbFlagsDesc.AccessibleName = "6-digit flags";
+		labelAstorbFlagsDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbFlagsDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbFlagsDesc.Dock = DockStyle.Fill;
+		labelAstorbFlagsDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbFlagsDesc.Name = "labelAstorbFlagsDesc";
+		labelAstorbFlagsDesc.TabIndex = 18;
+		labelAstorbFlagsDesc.ToolTipValues.Description = "Shows the 6-digit flags.\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbFlagsDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbFlagsDesc.ToolTipValues.Heading = "6-digit flags";
+		labelAstorbFlagsDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbFlagsDesc.Values.Text = "6-digit flags";
+		labelAstorbFlagsDesc.Enter += Control_Enter;
+		labelAstorbFlagsDesc.Leave += Control_Leave;
+		labelAstorbFlagsDesc.MouseEnter += Control_Enter;
+		labelAstorbFlagsDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbFlagsData
+		//
+		labelAstorbFlagsData.AccessibleDescription = "Shows the 6-digit flags";
+		labelAstorbFlagsData.AccessibleName = "Shows the 6-digit flags";
+		labelAstorbFlagsData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbFlagsData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbFlagsData.Dock = DockStyle.Fill;
+		labelAstorbFlagsData.Name = "labelAstorbFlagsData";
+		labelAstorbFlagsData.TabIndex = 19;
+		labelAstorbFlagsData.ToolTipValues.Description = "Shows the 6-digit flags.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbFlagsData.ToolTipValues.EnableToolTips = true;
+		labelAstorbFlagsData.ToolTipValues.Heading = "6-digit flags";
+		labelAstorbFlagsData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbFlagsData.Values.Text = "..................";
+		labelAstorbFlagsData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbFlagsData.Enter += Control_Enter;
+		labelAstorbFlagsData.Leave += Control_Leave;
+		labelAstorbFlagsData.MouseDown += Control_MouseDown;
+		labelAstorbFlagsData.MouseEnter += Control_Enter;
+		labelAstorbFlagsData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbOrbitalArcDesc
+		//
+		labelAstorbOrbitalArcDesc.AccessibleDescription = "Orbital arc (days)";
+		labelAstorbOrbitalArcDesc.AccessibleName = "Orbital arc (days)";
+		labelAstorbOrbitalArcDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbOrbitalArcDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbOrbitalArcDesc.Dock = DockStyle.Fill;
+		labelAstorbOrbitalArcDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbOrbitalArcDesc.Name = "labelAstorbOrbitalArcDesc";
+		labelAstorbOrbitalArcDesc.TabIndex = 20;
+		labelAstorbOrbitalArcDesc.ToolTipValues.Description = "Shows the orbital arc in days.\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbOrbitalArcDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbOrbitalArcDesc.ToolTipValues.Heading = "Orbital arc (days)";
+		labelAstorbOrbitalArcDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbOrbitalArcDesc.Values.Text = "Orbital arc";
+		labelAstorbOrbitalArcDesc.Values.ExtraText = "d";
+		labelAstorbOrbitalArcDesc.Enter += Control_Enter;
+		labelAstorbOrbitalArcDesc.Leave += Control_Leave;
+		labelAstorbOrbitalArcDesc.MouseEnter += Control_Enter;
+		labelAstorbOrbitalArcDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbOrbitalArcData
+		//
+		labelAstorbOrbitalArcData.AccessibleDescription = "Shows the orbital arc (days)";
+		labelAstorbOrbitalArcData.AccessibleName = "Shows the orbital arc (days)";
+		labelAstorbOrbitalArcData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbOrbitalArcData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbOrbitalArcData.Dock = DockStyle.Fill;
+		labelAstorbOrbitalArcData.Name = "labelAstorbOrbitalArcData";
+		labelAstorbOrbitalArcData.TabIndex = 21;
+		labelAstorbOrbitalArcData.ToolTipValues.Description = "Shows the orbital arc in days.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbOrbitalArcData.ToolTipValues.EnableToolTips = true;
+		labelAstorbOrbitalArcData.ToolTipValues.Heading = "Orbital arc (days)";
+		labelAstorbOrbitalArcData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbOrbitalArcData.Values.Text = "..................";
+		labelAstorbOrbitalArcData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbOrbitalArcData.Enter += Control_Enter;
+		labelAstorbOrbitalArcData.Leave += Control_Leave;
+		labelAstorbOrbitalArcData.MouseDown += Control_MouseDown;
+		labelAstorbOrbitalArcData.MouseEnter += Control_Enter;
+		labelAstorbOrbitalArcData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbNumberOfObsDesc
+		//
+		labelAstorbNumberOfObsDesc.AccessibleDescription = "Number of observations";
+		labelAstorbNumberOfObsDesc.AccessibleName = "Number of observations";
+		labelAstorbNumberOfObsDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbNumberOfObsDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbNumberOfObsDesc.Dock = DockStyle.Fill;
+		labelAstorbNumberOfObsDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbNumberOfObsDesc.Name = "labelAstorbNumberOfObsDesc";
+		labelAstorbNumberOfObsDesc.TabIndex = 22;
+		labelAstorbNumberOfObsDesc.ToolTipValues.Description = "Shows the number of observations.\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbNumberOfObsDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbNumberOfObsDesc.ToolTipValues.Heading = "Number of observations";
+		labelAstorbNumberOfObsDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbNumberOfObsDesc.Values.Text = "Number of observations";
+		labelAstorbNumberOfObsDesc.Enter += Control_Enter;
+		labelAstorbNumberOfObsDesc.Leave += Control_Leave;
+		labelAstorbNumberOfObsDesc.MouseEnter += Control_Enter;
+		labelAstorbNumberOfObsDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbNumberOfObsData
+		//
+		labelAstorbNumberOfObsData.AccessibleDescription = "Shows the number of observations";
+		labelAstorbNumberOfObsData.AccessibleName = "Shows the number of observations";
+		labelAstorbNumberOfObsData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbNumberOfObsData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbNumberOfObsData.Dock = DockStyle.Fill;
+		labelAstorbNumberOfObsData.Name = "labelAstorbNumberOfObsData";
+		labelAstorbNumberOfObsData.TabIndex = 23;
+		labelAstorbNumberOfObsData.ToolTipValues.Description = "Shows the number of observations.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbNumberOfObsData.ToolTipValues.EnableToolTips = true;
+		labelAstorbNumberOfObsData.ToolTipValues.Heading = "Number of observations";
+		labelAstorbNumberOfObsData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbNumberOfObsData.Values.Text = "..................";
+		labelAstorbNumberOfObsData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbNumberOfObsData.Enter += Control_Enter;
+		labelAstorbNumberOfObsData.Leave += Control_Leave;
+		labelAstorbNumberOfObsData.MouseDown += Control_MouseDown;
+		labelAstorbNumberOfObsData.MouseEnter += Control_Enter;
+		labelAstorbNumberOfObsData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbEpochDesc
+		//
+		labelAstorbEpochDesc.AccessibleDescription = "Epoch (YYYYMMDD)";
+		labelAstorbEpochDesc.AccessibleName = "Epoch (YYYYMMDD)";
+		labelAstorbEpochDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbEpochDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbEpochDesc.Dock = DockStyle.Fill;
+		labelAstorbEpochDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbEpochDesc.Name = "labelAstorbEpochDesc";
+		labelAstorbEpochDesc.TabIndex = 24;
+		labelAstorbEpochDesc.ToolTipValues.Description = "Shows the epoch (YYYYMMDD).\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbEpochDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbEpochDesc.ToolTipValues.Heading = "Epoch (YYYYMMDD)";
+		labelAstorbEpochDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbEpochDesc.Values.Text = "Epoch";
+		labelAstorbEpochDesc.Values.ExtraText = "YYYYMMDD";
+		labelAstorbEpochDesc.Enter += Control_Enter;
+		labelAstorbEpochDesc.Leave += Control_Leave;
+		labelAstorbEpochDesc.MouseEnter += Control_Enter;
+		labelAstorbEpochDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbEpochData
+		//
+		labelAstorbEpochData.AccessibleDescription = "Shows the epoch (YYYYMMDD)";
+		labelAstorbEpochData.AccessibleName = "Shows the epoch (YYYYMMDD)";
+		labelAstorbEpochData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbEpochData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbEpochData.Dock = DockStyle.Fill;
+		labelAstorbEpochData.Name = "labelAstorbEpochData";
+		labelAstorbEpochData.TabIndex = 25;
+		labelAstorbEpochData.ToolTipValues.Description = "Shows the epoch (YYYYMMDD).\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbEpochData.ToolTipValues.EnableToolTips = true;
+		labelAstorbEpochData.ToolTipValues.Heading = "Epoch (YYYYMMDD)";
+		labelAstorbEpochData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbEpochData.Values.Text = "..................";
+		labelAstorbEpochData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbEpochData.Enter += Control_Enter;
+		labelAstorbEpochData.Leave += Control_Leave;
+		labelAstorbEpochData.MouseDown += Control_MouseDown;
+		labelAstorbEpochData.MouseEnter += Control_Enter;
+		labelAstorbEpochData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbMeanAnomalyDesc
+		//
+		labelAstorbMeanAnomalyDesc.AccessibleDescription = "Mean anomaly (degrees)";
+		labelAstorbMeanAnomalyDesc.AccessibleName = "Mean anomaly (degrees)";
+		labelAstorbMeanAnomalyDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbMeanAnomalyDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbMeanAnomalyDesc.Dock = DockStyle.Fill;
+		labelAstorbMeanAnomalyDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbMeanAnomalyDesc.Name = "labelAstorbMeanAnomalyDesc";
+		labelAstorbMeanAnomalyDesc.TabIndex = 26;
+		labelAstorbMeanAnomalyDesc.ToolTipValues.Description = "Shows the mean anomaly in degrees.\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbMeanAnomalyDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbMeanAnomalyDesc.ToolTipValues.Heading = "Mean anomaly (degrees)";
+		labelAstorbMeanAnomalyDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbMeanAnomalyDesc.Values.Text = "Mean anomaly";
+		labelAstorbMeanAnomalyDesc.Values.ExtraText = "°";
+		labelAstorbMeanAnomalyDesc.Enter += Control_Enter;
+		labelAstorbMeanAnomalyDesc.Leave += Control_Leave;
+		labelAstorbMeanAnomalyDesc.MouseEnter += Control_Enter;
+		labelAstorbMeanAnomalyDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbMeanAnomalyData
+		//
+		labelAstorbMeanAnomalyData.AccessibleDescription = "Shows the mean anomaly (degrees)";
+		labelAstorbMeanAnomalyData.AccessibleName = "Shows the mean anomaly (degrees)";
+		labelAstorbMeanAnomalyData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbMeanAnomalyData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbMeanAnomalyData.Dock = DockStyle.Fill;
+		labelAstorbMeanAnomalyData.Name = "labelAstorbMeanAnomalyData";
+		labelAstorbMeanAnomalyData.TabIndex = 27;
+		labelAstorbMeanAnomalyData.ToolTipValues.Description = "Shows the mean anomaly in degrees.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbMeanAnomalyData.ToolTipValues.EnableToolTips = true;
+		labelAstorbMeanAnomalyData.ToolTipValues.Heading = "Mean anomaly (degrees)";
+		labelAstorbMeanAnomalyData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbMeanAnomalyData.Values.Text = "..................";
+		labelAstorbMeanAnomalyData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbMeanAnomalyData.Enter += Control_Enter;
+		labelAstorbMeanAnomalyData.Leave += Control_Leave;
+		labelAstorbMeanAnomalyData.MouseDown += Control_MouseDown;
+		labelAstorbMeanAnomalyData.MouseEnter += Control_Enter;
+		labelAstorbMeanAnomalyData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbArgOfPerihelionDesc
+		//
+		labelAstorbArgOfPerihelionDesc.AccessibleDescription = "Argument of perihelion (degrees)";
+		labelAstorbArgOfPerihelionDesc.AccessibleName = "Argument of perihelion (degrees)";
+		labelAstorbArgOfPerihelionDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbArgOfPerihelionDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbArgOfPerihelionDesc.Dock = DockStyle.Fill;
+		labelAstorbArgOfPerihelionDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbArgOfPerihelionDesc.Name = "labelAstorbArgOfPerihelionDesc";
+		labelAstorbArgOfPerihelionDesc.TabIndex = 28;
+		labelAstorbArgOfPerihelionDesc.ToolTipValues.Description = "Shows the argument of perihelion in degrees.\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbArgOfPerihelionDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbArgOfPerihelionDesc.ToolTipValues.Heading = "Argument of perihelion (degrees)";
+		labelAstorbArgOfPerihelionDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbArgOfPerihelionDesc.Values.Text = "Argument of perihelion";
+		labelAstorbArgOfPerihelionDesc.Values.ExtraText = "°";
+		labelAstorbArgOfPerihelionDesc.Enter += Control_Enter;
+		labelAstorbArgOfPerihelionDesc.Leave += Control_Leave;
+		labelAstorbArgOfPerihelionDesc.MouseEnter += Control_Enter;
+		labelAstorbArgOfPerihelionDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbArgOfPerihelionData
+		//
+		labelAstorbArgOfPerihelionData.AccessibleDescription = "Shows the argument of perihelion (degrees)";
+		labelAstorbArgOfPerihelionData.AccessibleName = "Shows the argument of perihelion (degrees)";
+		labelAstorbArgOfPerihelionData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbArgOfPerihelionData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbArgOfPerihelionData.Dock = DockStyle.Fill;
+		labelAstorbArgOfPerihelionData.Name = "labelAstorbArgOfPerihelionData";
+		labelAstorbArgOfPerihelionData.TabIndex = 29;
+		labelAstorbArgOfPerihelionData.ToolTipValues.Description = "Shows the argument of perihelion in degrees.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbArgOfPerihelionData.ToolTipValues.EnableToolTips = true;
+		labelAstorbArgOfPerihelionData.ToolTipValues.Heading = "Argument of perihelion (degrees)";
+		labelAstorbArgOfPerihelionData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbArgOfPerihelionData.Values.Text = "..................";
+		labelAstorbArgOfPerihelionData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbArgOfPerihelionData.Enter += Control_Enter;
+		labelAstorbArgOfPerihelionData.Leave += Control_Leave;
+		labelAstorbArgOfPerihelionData.MouseDown += Control_MouseDown;
+		labelAstorbArgOfPerihelionData.MouseEnter += Control_Enter;
+		labelAstorbArgOfPerihelionData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbLongAscNodeDesc
+		//
+		labelAstorbLongAscNodeDesc.AccessibleDescription = "Longitude of ascending node (degrees)";
+		labelAstorbLongAscNodeDesc.AccessibleName = "Longitude of ascending node (degrees)";
+		labelAstorbLongAscNodeDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbLongAscNodeDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbLongAscNodeDesc.Dock = DockStyle.Fill;
+		labelAstorbLongAscNodeDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbLongAscNodeDesc.Name = "labelAstorbLongAscNodeDesc";
+		labelAstorbLongAscNodeDesc.TabIndex = 30;
+		labelAstorbLongAscNodeDesc.ToolTipValues.Description = "Shows the longitude of ascending node in degrees.\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbLongAscNodeDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbLongAscNodeDesc.ToolTipValues.Heading = "Longitude of ascending node (degrees)";
+		labelAstorbLongAscNodeDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbLongAscNodeDesc.Values.Text = "Long. of ascending node";
+		labelAstorbLongAscNodeDesc.Values.ExtraText = "°";
+		labelAstorbLongAscNodeDesc.Enter += Control_Enter;
+		labelAstorbLongAscNodeDesc.Leave += Control_Leave;
+		labelAstorbLongAscNodeDesc.MouseEnter += Control_Enter;
+		labelAstorbLongAscNodeDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbLongAscNodeData
+		//
+		labelAstorbLongAscNodeData.AccessibleDescription = "Shows the longitude of ascending node (degrees)";
+		labelAstorbLongAscNodeData.AccessibleName = "Shows the longitude of ascending node (degrees)";
+		labelAstorbLongAscNodeData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbLongAscNodeData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbLongAscNodeData.Dock = DockStyle.Fill;
+		labelAstorbLongAscNodeData.Name = "labelAstorbLongAscNodeData";
+		labelAstorbLongAscNodeData.TabIndex = 31;
+		labelAstorbLongAscNodeData.ToolTipValues.Description = "Shows the longitude of ascending node in degrees.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbLongAscNodeData.ToolTipValues.EnableToolTips = true;
+		labelAstorbLongAscNodeData.ToolTipValues.Heading = "Longitude of ascending node (degrees)";
+		labelAstorbLongAscNodeData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbLongAscNodeData.Values.Text = "..................";
+		labelAstorbLongAscNodeData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbLongAscNodeData.Enter += Control_Enter;
+		labelAstorbLongAscNodeData.Leave += Control_Leave;
+		labelAstorbLongAscNodeData.MouseDown += Control_MouseDown;
+		labelAstorbLongAscNodeData.MouseEnter += Control_Enter;
+		labelAstorbLongAscNodeData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbInclinationDesc
+		//
+		labelAstorbInclinationDesc.AccessibleDescription = "Inclination (degrees)";
+		labelAstorbInclinationDesc.AccessibleName = "Inclination (degrees)";
+		labelAstorbInclinationDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbInclinationDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbInclinationDesc.Dock = DockStyle.Fill;
+		labelAstorbInclinationDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbInclinationDesc.Name = "labelAstorbInclinationDesc";
+		labelAstorbInclinationDesc.TabIndex = 32;
+		labelAstorbInclinationDesc.ToolTipValues.Description = "Shows the inclination in degrees.\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbInclinationDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbInclinationDesc.ToolTipValues.Heading = "Inclination (degrees)";
+		labelAstorbInclinationDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbInclinationDesc.Values.Text = "Inclination";
+		labelAstorbInclinationDesc.Values.ExtraText = "°";
+		labelAstorbInclinationDesc.Enter += Control_Enter;
+		labelAstorbInclinationDesc.Leave += Control_Leave;
+		labelAstorbInclinationDesc.MouseEnter += Control_Enter;
+		labelAstorbInclinationDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbInclinationData
+		//
+		labelAstorbInclinationData.AccessibleDescription = "Shows the inclination (degrees)";
+		labelAstorbInclinationData.AccessibleName = "Shows the inclination (degrees)";
+		labelAstorbInclinationData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbInclinationData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbInclinationData.Dock = DockStyle.Fill;
+		labelAstorbInclinationData.Name = "labelAstorbInclinationData";
+		labelAstorbInclinationData.TabIndex = 33;
+		labelAstorbInclinationData.ToolTipValues.Description = "Shows the inclination in degrees.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbInclinationData.ToolTipValues.EnableToolTips = true;
+		labelAstorbInclinationData.ToolTipValues.Heading = "Inclination (degrees)";
+		labelAstorbInclinationData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbInclinationData.Values.Text = "..................";
+		labelAstorbInclinationData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbInclinationData.Enter += Control_Enter;
+		labelAstorbInclinationData.Leave += Control_Leave;
+		labelAstorbInclinationData.MouseDown += Control_MouseDown;
+		labelAstorbInclinationData.MouseEnter += Control_Enter;
+		labelAstorbInclinationData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbEccentricityDesc
+		//
+		labelAstorbEccentricityDesc.AccessibleDescription = "Orbital eccentricity";
+		labelAstorbEccentricityDesc.AccessibleName = "Orbital eccentricity";
+		labelAstorbEccentricityDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbEccentricityDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbEccentricityDesc.Dock = DockStyle.Fill;
+		labelAstorbEccentricityDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbEccentricityDesc.Name = "labelAstorbEccentricityDesc";
+		labelAstorbEccentricityDesc.TabIndex = 34;
+		labelAstorbEccentricityDesc.ToolTipValues.Description = "Shows the orbital eccentricity.\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbEccentricityDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbEccentricityDesc.ToolTipValues.Heading = "Orbital eccentricity";
+		labelAstorbEccentricityDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbEccentricityDesc.Values.Text = "Orbital eccentricity";
+		labelAstorbEccentricityDesc.Enter += Control_Enter;
+		labelAstorbEccentricityDesc.Leave += Control_Leave;
+		labelAstorbEccentricityDesc.MouseEnter += Control_Enter;
+		labelAstorbEccentricityDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbEccentricityData
+		//
+		labelAstorbEccentricityData.AccessibleDescription = "Shows the orbital eccentricity";
+		labelAstorbEccentricityData.AccessibleName = "Shows the orbital eccentricity";
+		labelAstorbEccentricityData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbEccentricityData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbEccentricityData.Dock = DockStyle.Fill;
+		labelAstorbEccentricityData.Name = "labelAstorbEccentricityData";
+		labelAstorbEccentricityData.TabIndex = 35;
+		labelAstorbEccentricityData.ToolTipValues.Description = "Shows the orbital eccentricity.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbEccentricityData.ToolTipValues.EnableToolTips = true;
+		labelAstorbEccentricityData.ToolTipValues.Heading = "Orbital eccentricity";
+		labelAstorbEccentricityData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbEccentricityData.Values.Text = "..................";
+		labelAstorbEccentricityData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbEccentricityData.Enter += Control_Enter;
+		labelAstorbEccentricityData.Leave += Control_Leave;
+		labelAstorbEccentricityData.MouseDown += Control_MouseDown;
+		labelAstorbEccentricityData.MouseEnter += Control_Enter;
+		labelAstorbEccentricityData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbSemiMajorAxisDesc
+		//
+		labelAstorbSemiMajorAxisDesc.AccessibleDescription = "Semi-major axis (AU)";
+		labelAstorbSemiMajorAxisDesc.AccessibleName = "Semi-major axis (AU)";
+		labelAstorbSemiMajorAxisDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbSemiMajorAxisDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbSemiMajorAxisDesc.Dock = DockStyle.Fill;
+		labelAstorbSemiMajorAxisDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbSemiMajorAxisDesc.Name = "labelAstorbSemiMajorAxisDesc";
+		labelAstorbSemiMajorAxisDesc.TabIndex = 36;
+		labelAstorbSemiMajorAxisDesc.ToolTipValues.Description = "Shows the semi-major axis in AU.\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbSemiMajorAxisDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbSemiMajorAxisDesc.ToolTipValues.Heading = "Semi-major axis (AU)";
+		labelAstorbSemiMajorAxisDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbSemiMajorAxisDesc.Values.Text = "Semi-major axis";
+		labelAstorbSemiMajorAxisDesc.Values.ExtraText = "AU";
+		labelAstorbSemiMajorAxisDesc.Enter += Control_Enter;
+		labelAstorbSemiMajorAxisDesc.Leave += Control_Leave;
+		labelAstorbSemiMajorAxisDesc.MouseEnter += Control_Enter;
+		labelAstorbSemiMajorAxisDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbSemiMajorAxisData
+		//
+		labelAstorbSemiMajorAxisData.AccessibleDescription = "Shows the semi-major axis (AU)";
+		labelAstorbSemiMajorAxisData.AccessibleName = "Shows the semi-major axis (AU)";
+		labelAstorbSemiMajorAxisData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbSemiMajorAxisData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbSemiMajorAxisData.Dock = DockStyle.Fill;
+		labelAstorbSemiMajorAxisData.Name = "labelAstorbSemiMajorAxisData";
+		labelAstorbSemiMajorAxisData.TabIndex = 37;
+		labelAstorbSemiMajorAxisData.ToolTipValues.Description = "Shows the semi-major axis in AU.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbSemiMajorAxisData.ToolTipValues.EnableToolTips = true;
+		labelAstorbSemiMajorAxisData.ToolTipValues.Heading = "Semi-major axis (AU)";
+		labelAstorbSemiMajorAxisData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbSemiMajorAxisData.Values.Text = "..................";
+		labelAstorbSemiMajorAxisData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbSemiMajorAxisData.Enter += Control_Enter;
+		labelAstorbSemiMajorAxisData.Leave += Control_Leave;
+		labelAstorbSemiMajorAxisData.MouseDown += Control_MouseDown;
+		labelAstorbSemiMajorAxisData.MouseEnter += Control_Enter;
+		labelAstorbSemiMajorAxisData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbDateFirstObsDesc
+		//
+		labelAstorbDateFirstObsDesc.AccessibleDescription = "Date of first observation (YYYYMMDD)";
+		labelAstorbDateFirstObsDesc.AccessibleName = "Date of first observation (YYYYMMDD)";
+		labelAstorbDateFirstObsDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbDateFirstObsDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbDateFirstObsDesc.Dock = DockStyle.Fill;
+		labelAstorbDateFirstObsDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbDateFirstObsDesc.Name = "labelAstorbDateFirstObsDesc";
+		labelAstorbDateFirstObsDesc.TabIndex = 38;
+		labelAstorbDateFirstObsDesc.ToolTipValues.Description = "Shows the date of first observation (YYYYMMDD).\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbDateFirstObsDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbDateFirstObsDesc.ToolTipValues.Heading = "Date of first observation (YYYYMMDD)";
+		labelAstorbDateFirstObsDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbDateFirstObsDesc.Values.Text = "Date of first observation";
+		labelAstorbDateFirstObsDesc.Values.ExtraText = "YYYYMMDD";
+		labelAstorbDateFirstObsDesc.Enter += Control_Enter;
+		labelAstorbDateFirstObsDesc.Leave += Control_Leave;
+		labelAstorbDateFirstObsDesc.MouseEnter += Control_Enter;
+		labelAstorbDateFirstObsDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbDateFirstObsData
+		//
+		labelAstorbDateFirstObsData.AccessibleDescription = "Shows the date of first observation (YYYYMMDD)";
+		labelAstorbDateFirstObsData.AccessibleName = "Shows the date of first observation (YYYYMMDD)";
+		labelAstorbDateFirstObsData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbDateFirstObsData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbDateFirstObsData.Dock = DockStyle.Fill;
+		labelAstorbDateFirstObsData.Name = "labelAstorbDateFirstObsData";
+		labelAstorbDateFirstObsData.TabIndex = 39;
+		labelAstorbDateFirstObsData.ToolTipValues.Description = "Shows the date of first observation (YYYYMMDD).\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbDateFirstObsData.ToolTipValues.EnableToolTips = true;
+		labelAstorbDateFirstObsData.ToolTipValues.Heading = "Date of first observation (YYYYMMDD)";
+		labelAstorbDateFirstObsData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbDateFirstObsData.Values.Text = "..................";
+		labelAstorbDateFirstObsData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbDateFirstObsData.Enter += Control_Enter;
+		labelAstorbDateFirstObsData.Leave += Control_Leave;
+		labelAstorbDateFirstObsData.MouseDown += Control_MouseDown;
+		labelAstorbDateFirstObsData.MouseEnter += Control_Enter;
+		labelAstorbDateFirstObsData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbDateLastObsDesc
+		//
+		labelAstorbDateLastObsDesc.AccessibleDescription = "Date of last observation (YYYYMMDD)";
+		labelAstorbDateLastObsDesc.AccessibleName = "Date of last observation (YYYYMMDD)";
+		labelAstorbDateLastObsDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbDateLastObsDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbDateLastObsDesc.Dock = DockStyle.Fill;
+		labelAstorbDateLastObsDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbDateLastObsDesc.Name = "labelAstorbDateLastObsDesc";
+		labelAstorbDateLastObsDesc.TabIndex = 40;
+		labelAstorbDateLastObsDesc.ToolTipValues.Description = "Shows the date of last observation (YYYYMMDD).\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbDateLastObsDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbDateLastObsDesc.ToolTipValues.Heading = "Date of last observation (YYYYMMDD)";
+		labelAstorbDateLastObsDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbDateLastObsDesc.Values.Text = "Date of last observation";
+		labelAstorbDateLastObsDesc.Values.ExtraText = "YYYYMMDD";
+		labelAstorbDateLastObsDesc.Enter += Control_Enter;
+		labelAstorbDateLastObsDesc.Leave += Control_Leave;
+		labelAstorbDateLastObsDesc.MouseEnter += Control_Enter;
+		labelAstorbDateLastObsDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbDateLastObsData
+		//
+		labelAstorbDateLastObsData.AccessibleDescription = "Shows the date of last observation (YYYYMMDD)";
+		labelAstorbDateLastObsData.AccessibleName = "Shows the date of last observation (YYYYMMDD)";
+		labelAstorbDateLastObsData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbDateLastObsData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbDateLastObsData.Dock = DockStyle.Fill;
+		labelAstorbDateLastObsData.Name = "labelAstorbDateLastObsData";
+		labelAstorbDateLastObsData.TabIndex = 41;
+		labelAstorbDateLastObsData.ToolTipValues.Description = "Shows the date of last observation (YYYYMMDD).\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbDateLastObsData.ToolTipValues.EnableToolTips = true;
+		labelAstorbDateLastObsData.ToolTipValues.Heading = "Date of last observation (YYYYMMDD)";
+		labelAstorbDateLastObsData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbDateLastObsData.Values.Text = "..................";
+		labelAstorbDateLastObsData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbDateLastObsData.Enter += Control_Enter;
+		labelAstorbDateLastObsData.Leave += Control_Leave;
+		labelAstorbDateLastObsData.MouseDown += Control_MouseDown;
+		labelAstorbDateLastObsData.MouseEnter += Control_Enter;
+		labelAstorbDateLastObsData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbEarthMoidDesc
+		//
+		labelAstorbEarthMoidDesc.AccessibleDescription = "Earth MOID (AU)";
+		labelAstorbEarthMoidDesc.AccessibleName = "Earth MOID (AU)";
+		labelAstorbEarthMoidDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbEarthMoidDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbEarthMoidDesc.Dock = DockStyle.Fill;
+		labelAstorbEarthMoidDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbEarthMoidDesc.Name = "labelAstorbEarthMoidDesc";
+		labelAstorbEarthMoidDesc.TabIndex = 42;
+		labelAstorbEarthMoidDesc.ToolTipValues.Description = "Shows the Earth MOID in AU.\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbEarthMoidDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbEarthMoidDesc.ToolTipValues.Heading = "Earth MOID (AU)";
+		labelAstorbEarthMoidDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbEarthMoidDesc.Values.Text = "Earth MOID";
+		labelAstorbEarthMoidDesc.Values.ExtraText = "AU";
+		labelAstorbEarthMoidDesc.Enter += Control_Enter;
+		labelAstorbEarthMoidDesc.Leave += Control_Leave;
+		labelAstorbEarthMoidDesc.MouseEnter += Control_Enter;
+		labelAstorbEarthMoidDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbEarthMoidData
+		//
+		labelAstorbEarthMoidData.AccessibleDescription = "Shows the Earth MOID (AU)";
+		labelAstorbEarthMoidData.AccessibleName = "Shows the Earth MOID (AU)";
+		labelAstorbEarthMoidData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbEarthMoidData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbEarthMoidData.Dock = DockStyle.Fill;
+		labelAstorbEarthMoidData.Name = "labelAstorbEarthMoidData";
+		labelAstorbEarthMoidData.TabIndex = 43;
+		labelAstorbEarthMoidData.ToolTipValues.Description = "Shows the Earth MOID in AU.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbEarthMoidData.ToolTipValues.EnableToolTips = true;
+		labelAstorbEarthMoidData.ToolTipValues.Heading = "Earth MOID (AU)";
+		labelAstorbEarthMoidData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbEarthMoidData.Values.Text = "..................";
+		labelAstorbEarthMoidData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbEarthMoidData.Enter += Control_Enter;
+		labelAstorbEarthMoidData.Leave += Control_Leave;
+		labelAstorbEarthMoidData.MouseDown += Control_MouseDown;
+		labelAstorbEarthMoidData.MouseEnter += Control_Enter;
+		labelAstorbEarthMoidData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbEarthMoidDateDesc
+		//
+		labelAstorbEarthMoidDateDesc.AccessibleDescription = "Earth MOID date (YYYYMMDD)";
+		labelAstorbEarthMoidDateDesc.AccessibleName = "Earth MOID date (YYYYMMDD)";
+		labelAstorbEarthMoidDateDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbEarthMoidDateDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbEarthMoidDateDesc.Dock = DockStyle.Fill;
+		labelAstorbEarthMoidDateDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbEarthMoidDateDesc.Name = "labelAstorbEarthMoidDateDesc";
+		labelAstorbEarthMoidDateDesc.TabIndex = 44;
+		labelAstorbEarthMoidDateDesc.ToolTipValues.Description = "Shows the Earth MOID date (YYYYMMDD).\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbEarthMoidDateDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbEarthMoidDateDesc.ToolTipValues.Heading = "Earth MOID date (YYYYMMDD)";
+		labelAstorbEarthMoidDateDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbEarthMoidDateDesc.Values.Text = "Earth MOID date";
+		labelAstorbEarthMoidDateDesc.Values.ExtraText = "YYYYMMDD";
+		labelAstorbEarthMoidDateDesc.Enter += Control_Enter;
+		labelAstorbEarthMoidDateDesc.Leave += Control_Leave;
+		labelAstorbEarthMoidDateDesc.MouseEnter += Control_Enter;
+		labelAstorbEarthMoidDateDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbEarthMoidDateData
+		//
+		labelAstorbEarthMoidDateData.AccessibleDescription = "Shows the Earth MOID date (YYYYMMDD)";
+		labelAstorbEarthMoidDateData.AccessibleName = "Shows the Earth MOID date (YYYYMMDD)";
+		labelAstorbEarthMoidDateData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbEarthMoidDateData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbEarthMoidDateData.Dock = DockStyle.Fill;
+		labelAstorbEarthMoidDateData.Name = "labelAstorbEarthMoidDateData";
+		labelAstorbEarthMoidDateData.TabIndex = 45;
+		labelAstorbEarthMoidDateData.ToolTipValues.Description = "Shows the Earth MOID date (YYYYMMDD).\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbEarthMoidDateData.ToolTipValues.EnableToolTips = true;
+		labelAstorbEarthMoidDateData.ToolTipValues.Heading = "Earth MOID date (YYYYMMDD)";
+		labelAstorbEarthMoidDateData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbEarthMoidDateData.Values.Text = "..................";
+		labelAstorbEarthMoidDateData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbEarthMoidDateData.Enter += Control_Enter;
+		labelAstorbEarthMoidDateData.Leave += Control_Leave;
+		labelAstorbEarthMoidDateData.MouseDown += Control_MouseDown;
+		labelAstorbEarthMoidDateData.MouseEnter += Control_Enter;
+		labelAstorbEarthMoidDateData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbPeriodDesc
+		//
+		labelAstorbPeriodDesc.AccessibleDescription = "Orbital period (years)";
+		labelAstorbPeriodDesc.AccessibleName = "Orbital period (years)";
+		labelAstorbPeriodDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbPeriodDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbPeriodDesc.Dock = DockStyle.Fill;
+		labelAstorbPeriodDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbPeriodDesc.Name = "labelAstorbPeriodDesc";
+		labelAstorbPeriodDesc.TabIndex = 46;
+		labelAstorbPeriodDesc.ToolTipValues.Description = "Shows the orbital period in years.\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbPeriodDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbPeriodDesc.ToolTipValues.Heading = "Orbital period (years)";
+		labelAstorbPeriodDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbPeriodDesc.Values.Text = "Orbital period";
+		labelAstorbPeriodDesc.Values.ExtraText = "yr";
+		labelAstorbPeriodDesc.Enter += Control_Enter;
+		labelAstorbPeriodDesc.Leave += Control_Leave;
+		labelAstorbPeriodDesc.MouseEnter += Control_Enter;
+		labelAstorbPeriodDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbPeriodData
+		//
+		labelAstorbPeriodData.AccessibleDescription = "Shows the orbital period (years)";
+		labelAstorbPeriodData.AccessibleName = "Shows the orbital period (years)";
+		labelAstorbPeriodData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbPeriodData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbPeriodData.Dock = DockStyle.Fill;
+		labelAstorbPeriodData.Name = "labelAstorbPeriodData";
+		labelAstorbPeriodData.TabIndex = 47;
+		labelAstorbPeriodData.ToolTipValues.Description = "Shows the orbital period in years.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbPeriodData.ToolTipValues.EnableToolTips = true;
+		labelAstorbPeriodData.ToolTipValues.Heading = "Orbital period (years)";
+		labelAstorbPeriodData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbPeriodData.Values.Text = "..................";
+		labelAstorbPeriodData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbPeriodData.Enter += Control_Enter;
+		labelAstorbPeriodData.Leave += Control_Leave;
+		labelAstorbPeriodData.MouseDown += Control_MouseDown;
+		labelAstorbPeriodData.MouseEnter += Control_Enter;
+		labelAstorbPeriodData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbPerihelionDateDesc
+		//
+		labelAstorbPerihelionDateDesc.AccessibleDescription = "Perihelion date (YYYYMMDD)";
+		labelAstorbPerihelionDateDesc.AccessibleName = "Perihelion date (YYYYMMDD)";
+		labelAstorbPerihelionDateDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbPerihelionDateDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbPerihelionDateDesc.Dock = DockStyle.Fill;
+		labelAstorbPerihelionDateDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbPerihelionDateDesc.Name = "labelAstorbPerihelionDateDesc";
+		labelAstorbPerihelionDateDesc.TabIndex = 48;
+		labelAstorbPerihelionDateDesc.ToolTipValues.Description = "Shows the perihelion date (YYYYMMDD).\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbPerihelionDateDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbPerihelionDateDesc.ToolTipValues.Heading = "Perihelion date (YYYYMMDD)";
+		labelAstorbPerihelionDateDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbPerihelionDateDesc.Values.Text = "Perihelion date";
+		labelAstorbPerihelionDateDesc.Values.ExtraText = "YYYYMMDD";
+		labelAstorbPerihelionDateDesc.Enter += Control_Enter;
+		labelAstorbPerihelionDateDesc.Leave += Control_Leave;
+		labelAstorbPerihelionDateDesc.MouseEnter += Control_Enter;
+		labelAstorbPerihelionDateDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbPerihelionDateData
+		//
+		labelAstorbPerihelionDateData.AccessibleDescription = "Shows the perihelion date (YYYYMMDD)";
+		labelAstorbPerihelionDateData.AccessibleName = "Shows the perihelion date (YYYYMMDD)";
+		labelAstorbPerihelionDateData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbPerihelionDateData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbPerihelionDateData.Dock = DockStyle.Fill;
+		labelAstorbPerihelionDateData.Name = "labelAstorbPerihelionDateData";
+		labelAstorbPerihelionDateData.TabIndex = 49;
+		labelAstorbPerihelionDateData.ToolTipValues.Description = "Shows the perihelion date (YYYYMMDD).\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbPerihelionDateData.ToolTipValues.EnableToolTips = true;
+		labelAstorbPerihelionDateData.ToolTipValues.Heading = "Perihelion date (YYYYMMDD)";
+		labelAstorbPerihelionDateData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbPerihelionDateData.Values.Text = "..................";
+		labelAstorbPerihelionDateData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbPerihelionDateData.Enter += Control_Enter;
+		labelAstorbPerihelionDateData.Leave += Control_Leave;
+		labelAstorbPerihelionDateData.MouseDown += Control_MouseDown;
+		labelAstorbPerihelionDateData.MouseEnter += Control_Enter;
+		labelAstorbPerihelionDateData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbTisserandJupDesc
+		//
+		labelAstorbTisserandJupDesc.AccessibleDescription = "Tisserand parameter w.r.t. Jupiter";
+		labelAstorbTisserandJupDesc.AccessibleName = "Tisserand parameter w.r.t. Jupiter";
+		labelAstorbTisserandJupDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbTisserandJupDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbTisserandJupDesc.Dock = DockStyle.Fill;
+		labelAstorbTisserandJupDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbTisserandJupDesc.Name = "labelAstorbTisserandJupDesc";
+		labelAstorbTisserandJupDesc.TabIndex = 50;
+		labelAstorbTisserandJupDesc.ToolTipValues.Description = "Shows the Tisserand parameter with respect to Jupiter.\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbTisserandJupDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbTisserandJupDesc.ToolTipValues.Heading = "Tisserand parameter w.r.t. Jupiter";
+		labelAstorbTisserandJupDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbTisserandJupDesc.Values.Text = "Tisserand (Jupiter)";
+		labelAstorbTisserandJupDesc.Enter += Control_Enter;
+		labelAstorbTisserandJupDesc.Leave += Control_Leave;
+		labelAstorbTisserandJupDesc.MouseEnter += Control_Enter;
+		labelAstorbTisserandJupDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbTisserandJupData
+		//
+		labelAstorbTisserandJupData.AccessibleDescription = "Shows the Tisserand parameter w.r.t. Jupiter";
+		labelAstorbTisserandJupData.AccessibleName = "Shows the Tisserand parameter w.r.t. Jupiter";
+		labelAstorbTisserandJupData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbTisserandJupData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbTisserandJupData.Dock = DockStyle.Fill;
+		labelAstorbTisserandJupData.Name = "labelAstorbTisserandJupData";
+		labelAstorbTisserandJupData.TabIndex = 51;
+		labelAstorbTisserandJupData.ToolTipValues.Description = "Shows the Tisserand parameter with respect to Jupiter.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbTisserandJupData.ToolTipValues.EnableToolTips = true;
+		labelAstorbTisserandJupData.ToolTipValues.Heading = "Tisserand parameter w.r.t. Jupiter";
+		labelAstorbTisserandJupData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbTisserandJupData.Values.Text = "..................";
+		labelAstorbTisserandJupData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbTisserandJupData.Enter += Control_Enter;
+		labelAstorbTisserandJupData.Leave += Control_Leave;
+		labelAstorbTisserandJupData.MouseDown += Control_MouseDown;
+		labelAstorbTisserandJupData.MouseEnter += Control_Enter;
+		labelAstorbTisserandJupData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbPerihelionDistDesc
+		//
+		labelAstorbPerihelionDistDesc.AccessibleDescription = "Perihelion distance (AU)";
+		labelAstorbPerihelionDistDesc.AccessibleName = "Perihelion distance (AU)";
+		labelAstorbPerihelionDistDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbPerihelionDistDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbPerihelionDistDesc.Dock = DockStyle.Fill;
+		labelAstorbPerihelionDistDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbPerihelionDistDesc.Name = "labelAstorbPerihelionDistDesc";
+		labelAstorbPerihelionDistDesc.TabIndex = 52;
+		labelAstorbPerihelionDistDesc.ToolTipValues.Description = "Shows the perihelion distance in AU.\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbPerihelionDistDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbPerihelionDistDesc.ToolTipValues.Heading = "Perihelion distance (AU)";
+		labelAstorbPerihelionDistDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbPerihelionDistDesc.Values.Text = "Perihelion distance";
+		labelAstorbPerihelionDistDesc.Values.ExtraText = "AU";
+		labelAstorbPerihelionDistDesc.Enter += Control_Enter;
+		labelAstorbPerihelionDistDesc.Leave += Control_Leave;
+		labelAstorbPerihelionDistDesc.MouseEnter += Control_Enter;
+		labelAstorbPerihelionDistDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbPerihelionDistData
+		//
+		labelAstorbPerihelionDistData.AccessibleDescription = "Shows the perihelion distance (AU)";
+		labelAstorbPerihelionDistData.AccessibleName = "Shows the perihelion distance (AU)";
+		labelAstorbPerihelionDistData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbPerihelionDistData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbPerihelionDistData.Dock = DockStyle.Fill;
+		labelAstorbPerihelionDistData.Name = "labelAstorbPerihelionDistData";
+		labelAstorbPerihelionDistData.TabIndex = 53;
+		labelAstorbPerihelionDistData.ToolTipValues.Description = "Shows the perihelion distance in AU.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbPerihelionDistData.ToolTipValues.EnableToolTips = true;
+		labelAstorbPerihelionDistData.ToolTipValues.Heading = "Perihelion distance (AU)";
+		labelAstorbPerihelionDistData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbPerihelionDistData.Values.Text = "..................";
+		labelAstorbPerihelionDistData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbPerihelionDistData.Enter += Control_Enter;
+		labelAstorbPerihelionDistData.Leave += Control_Leave;
+		labelAstorbPerihelionDistData.MouseDown += Control_MouseDown;
+		labelAstorbPerihelionDistData.MouseEnter += Control_Enter;
+		labelAstorbPerihelionDistData.MouseLeave += Control_Leave;
+		//
+		// labelAstorbAphelionDistDesc
+		//
+		labelAstorbAphelionDistDesc.AccessibleDescription = "Aphelion distance (AU)";
+		labelAstorbAphelionDistDesc.AccessibleName = "Aphelion distance (AU)";
+		labelAstorbAphelionDistDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbAphelionDistDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelAstorbAphelionDistDesc.Dock = DockStyle.Fill;
+		labelAstorbAphelionDistDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelAstorbAphelionDistDesc.Name = "labelAstorbAphelionDistDesc";
+		labelAstorbAphelionDistDesc.TabIndex = 54;
+		labelAstorbAphelionDistDesc.ToolTipValues.Description = "Shows the aphelion distance in AU.\r\nDouble-click or right-click to open the terminology.";
+		labelAstorbAphelionDistDesc.ToolTipValues.EnableToolTips = true;
+		labelAstorbAphelionDistDesc.ToolTipValues.Heading = "Aphelion distance (AU)";
+		labelAstorbAphelionDistDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbAphelionDistDesc.Values.Text = "Aphelion distance";
+		labelAstorbAphelionDistDesc.Values.ExtraText = "AU";
+		labelAstorbAphelionDistDesc.Enter += Control_Enter;
+		labelAstorbAphelionDistDesc.Leave += Control_Leave;
+		labelAstorbAphelionDistDesc.MouseEnter += Control_Enter;
+		labelAstorbAphelionDistDesc.MouseLeave += Control_Leave;
+		//
+		// labelAstorbAphelionDistData
+		//
+		labelAstorbAphelionDistData.AccessibleDescription = "Shows the aphelion distance (AU)";
+		labelAstorbAphelionDistData.AccessibleName = "Shows the aphelion distance (AU)";
+		labelAstorbAphelionDistData.AccessibleRole = AccessibleRole.StaticText;
+		labelAstorbAphelionDistData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAstorbAphelionDistData.Dock = DockStyle.Fill;
+		labelAstorbAphelionDistData.Name = "labelAstorbAphelionDistData";
+		labelAstorbAphelionDistData.TabIndex = 55;
+		labelAstorbAphelionDistData.ToolTipValues.Description = "Shows the aphelion distance in AU.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAstorbAphelionDistData.ToolTipValues.EnableToolTips = true;
+		labelAstorbAphelionDistData.ToolTipValues.Heading = "Aphelion distance (AU)";
+		labelAstorbAphelionDistData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAstorbAphelionDistData.Values.Text = "..................";
+		labelAstorbAphelionDistData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAstorbAphelionDistData.Enter += Control_Enter;
+		labelAstorbAphelionDistData.Leave += Control_Leave;
+		labelAstorbAphelionDistData.MouseDown += Control_MouseDown;
+		labelAstorbAphelionDistData.MouseEnter += Control_Enter;
+		labelAstorbAphelionDistData.MouseLeave += Control_Leave;
+		//
 		// kryptonToolStripIcons
 		// 
 		kryptonToolStripIcons.AccessibleDescription = "Toolbar of main functions";
@@ -4831,6 +6182,9 @@ partial class PlanetoidDbForm
 		((ISupportInitialize)kryptonNavigatorMain).EndInit();
 		((ISupportInitialize)kryptonPageMpcorbDat).EndInit();
 		kryptonPageMpcorbDat.ResumeLayout(false);
+		((ISupportInitialize)kryptonPageAstorbDat).EndInit();
+		kryptonPageAstorbDat.ResumeLayout(false);
+		tableLayoutPanelAstorbData.ResumeLayout(false);
 		kryptonToolStripIcons.ResumeLayout(false);
 		kryptonToolStripIcons.PerformLayout();
 		kryptonToolStripNavigation.ResumeLayout(false);
@@ -5065,6 +6419,64 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem toolStripMenuItemObservatoryCodes;
 	private Krypton.Navigator.KryptonNavigator kryptonNavigatorMain;
 	private Krypton.Navigator.KryptonPage kryptonPageMpcorbDat;
+	private Krypton.Navigator.KryptonPage kryptonPageAstorbDat;
+	private KryptonTableLayoutPanel tableLayoutPanelAstorbData;
+	private KryptonLabel labelAstorbNumberDesc;
+	private KryptonLabel labelAstorbNumberData;
+	private KryptonLabel labelAstorbNameDesc;
+	private KryptonLabel labelAstorbNameData;
+	private KryptonLabel labelAstorbDesignationDesc;
+	private KryptonLabel labelAstorbDesignationData;
+	private KryptonLabel labelAstorbComputerNameDesc;
+	private KryptonLabel labelAstorbComputerNameData;
+	private KryptonLabel labelAstorbAbsoluteMagnitudeDesc;
+	private KryptonLabel labelAstorbAbsoluteMagnitudeData;
+	private KryptonLabel labelAstorbSlopeParameterDesc;
+	private KryptonLabel labelAstorbSlopeParameterData;
+	private KryptonLabel labelAstorbColorIndexDesc;
+	private KryptonLabel labelAstorbColorIndexData;
+	private KryptonLabel labelAstorbIrasDiameterDesc;
+	private KryptonLabel labelAstorbIrasDiameterData;
+	private KryptonLabel labelAstorbIrasTaxClassDesc;
+	private KryptonLabel labelAstorbIrasTaxClassData;
+	private KryptonLabel labelAstorbFlagsDesc;
+	private KryptonLabel labelAstorbFlagsData;
+	private KryptonLabel labelAstorbOrbitalArcDesc;
+	private KryptonLabel labelAstorbOrbitalArcData;
+	private KryptonLabel labelAstorbNumberOfObsDesc;
+	private KryptonLabel labelAstorbNumberOfObsData;
+	private KryptonLabel labelAstorbEpochDesc;
+	private KryptonLabel labelAstorbEpochData;
+	private KryptonLabel labelAstorbMeanAnomalyDesc;
+	private KryptonLabel labelAstorbMeanAnomalyData;
+	private KryptonLabel labelAstorbArgOfPerihelionDesc;
+	private KryptonLabel labelAstorbArgOfPerihelionData;
+	private KryptonLabel labelAstorbLongAscNodeDesc;
+	private KryptonLabel labelAstorbLongAscNodeData;
+	private KryptonLabel labelAstorbInclinationDesc;
+	private KryptonLabel labelAstorbInclinationData;
+	private KryptonLabel labelAstorbEccentricityDesc;
+	private KryptonLabel labelAstorbEccentricityData;
+	private KryptonLabel labelAstorbSemiMajorAxisDesc;
+	private KryptonLabel labelAstorbSemiMajorAxisData;
+	private KryptonLabel labelAstorbDateFirstObsDesc;
+	private KryptonLabel labelAstorbDateFirstObsData;
+	private KryptonLabel labelAstorbDateLastObsDesc;
+	private KryptonLabel labelAstorbDateLastObsData;
+	private KryptonLabel labelAstorbEarthMoidDesc;
+	private KryptonLabel labelAstorbEarthMoidData;
+	private KryptonLabel labelAstorbEarthMoidDateDesc;
+	private KryptonLabel labelAstorbEarthMoidDateData;
+	private KryptonLabel labelAstorbPeriodDesc;
+	private KryptonLabel labelAstorbPeriodData;
+	private KryptonLabel labelAstorbPerihelionDateDesc;
+	private KryptonLabel labelAstorbPerihelionDateData;
+	private KryptonLabel labelAstorbTisserandJupDesc;
+	private KryptonLabel labelAstorbTisserandJupData;
+	private KryptonLabel labelAstorbPerihelionDistDesc;
+	private KryptonLabel labelAstorbPerihelionDistData;
+	private KryptonLabel labelAstorbAphelionDistDesc;
+	private KryptonLabel labelAstorbAphelionDistData;
 	private ToolStripMenuItem toolStripMenuItemShowMpcorbDatUpdateIsAvailable;
 	private ToolStripMenuItem toolStripMenuItemShowAstorbDatUpdateIsAvailable;
 	private Timer timerCheckForNewAstorbDatFile;

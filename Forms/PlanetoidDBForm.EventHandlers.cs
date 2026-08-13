@@ -57,6 +57,8 @@ public partial class PlanetoidDbForm
 		}
 		// Set the initial text of the MPCORB.DAT tab to indicate that the database is loading
 		kryptonPageMpcorbDat.Text = $"MPCORB.DAT ({I18nStrings.DataLoading})";
+		// Set the initial text of the ASTORB.DAT tab to indicate that the database is loading
+		kryptonPageAstorbDat.Text = $"ASTORB.DAT ({I18nStrings.DataLoading})";
 		// Configure the BackgroundWorker for loading the database
 		backgroundWorkerLoadingDatabase.WorkerReportsProgress = true;
 		backgroundWorkerLoadingDatabase.WorkerSupportsCancellation = true;
@@ -105,6 +107,8 @@ public partial class PlanetoidDbForm
 				logger.Error(exception: UnauthorizedAccessEx, message: $"Unauthorized access to file path: {resolvedMpcOrbDatFilePath}");
 			}
 		}
+		// Load the ASTORB.DAT file and update the tab text with the last modified date
+		LoadAstorbDatabase();
 	}
 
 	/// <summary>Handles the shown event of the PlanetoidDBForm.</summary>
@@ -290,6 +294,9 @@ public partial class PlanetoidDbForm
 		stepPosition = 100;
 		// Navigate to the current position
 		GotoCurrentPosition(position: currentPosition);
+		// Show the ASTORB data for the same position (position 0 initially)
+		currentAstorbPosition = 0;
+		GotoCurrentAstorbPosition(position: currentAstorbPosition);
 		// Enable the form
 		Enabled = true;
 	}
@@ -415,6 +422,8 @@ public partial class PlanetoidDbForm
 			// Navigate to the specified index
 			currentPosition = pos - 1;
 			GotoCurrentPosition(position: currentPosition);
+			currentAstorbPosition = currentPosition;
+			GotoCurrentAstorbPosition(position: currentAstorbPosition);
 		}
 	}
 
@@ -810,6 +819,8 @@ public partial class PlanetoidDbForm
 		// Navigate to the first record of the backup database
 		currentPosition = 0;
 		GotoCurrentPosition(position: currentPosition);
+		currentAstorbPosition = 0;
+		GotoCurrentAstorbPosition(position: currentAstorbPosition);
 		logger.Info(message: $"Filter reset: database now contains {planetoidsDatabase.Count} records.");
 	}
 
