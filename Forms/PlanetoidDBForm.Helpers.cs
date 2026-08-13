@@ -1895,8 +1895,8 @@ public partial class PlanetoidDbForm
 		}
 		try
 		{
-			// Read all lines from the ALLNUM.CAT file, skip the 6 header lines, and add data lines to the list
-			allnumCatDatabase.AddRange(collection: File.ReadAllLines(path: filenameAllnumCat).Skip(count: 6));
+			// Read lines from the ALLNUM.CAT file lazily, skip the 6 header lines, and add data lines to the list
+			allnumCatDatabase.AddRange(collection: File.ReadLines(path: filenameAllnumCat).Skip(count: 6));
 			// Get the last write time of the ALLNUM.CAT file for display in the tab
 			string fileDate = File.GetLastWriteTime(path: filenameAllnumCat).ToString(format: "yyyy-MM-dd", provider: CultureInfo.InvariantCulture);
 			kryptonPageAllnumCat.Text = $"ALLNUM.CAT ({fileDate})";
@@ -1965,6 +1965,7 @@ public partial class PlanetoidDbForm
 		catch (Exception ex)
 		{
 			logger.Error(message: $"Error navigating to ALLNUM.CAT position {position}: {ex.Message}", exception: ex);
+			ClearCurrentAllnumCatRecordDisplay();
 		}
 		finally
 		{
