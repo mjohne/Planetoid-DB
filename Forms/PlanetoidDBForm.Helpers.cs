@@ -129,32 +129,32 @@ public partial class PlanetoidDbForm
 			return span.Length < start + length ? string.Empty : span.Slice(start: start, length: length).Trim().ToString();
 		}
 		// Suspend both the panel layout and painting to eliminate all flicker
-		tableLayoutPanelData.SuspendLayout();
+		tableLayoutPanelMpcorbData.SuspendLayout();
 		try
 		{
 			// Batch all text updates with minimal overhead
 			toolStripLabelIndexPosition.ToolTipText = $"Index: {position + 1}/{planetoidsDatabase.Count}";
 			// Update all labels in one go - use cached string reference
-			labelIndexData.Text = ExtractField(span: entrySpan, start: 0, length: 7);
-			labelAbsoluteMagnitudeData.Text = ExtractField(span: entrySpan, start: 8, length: 5);
-			labelSlopeParameterData.Text = ExtractField(span: entrySpan, start: 14, length: 5);
-			labelEpochData.Text = ExtractField(span: entrySpan, start: 20, length: 5);
-			labelMeanAnomalyAtTheEpochData.Text = ExtractField(span: entrySpan, start: 26, length: 9);
-			labelArgumentOfThePerihelionData.Text = ExtractField(span: entrySpan, start: 37, length: 9);
-			labelLongitudeOfTheAscendingNodeData.Text = ExtractField(span: entrySpan, start: 48, length: 9);
-			labelInclinationToTheEclipticData.Text = ExtractField(span: entrySpan, start: 59, length: 9);
-			labelOrbitalEccentricityData.Text = ExtractField(span: entrySpan, start: 70, length: 9);
-			labelMeanDailyMotionData.Text = ExtractField(span: entrySpan, start: 80, length: 11);
-			labelSemiMajorAxisData.Text = ExtractField(span: entrySpan, start: 92, length: 11);
-			labelReferenceData.Text = ExtractField(span: entrySpan, start: 107, length: 9);
-			labelNumberOfObservationsData.Text = ExtractField(span: entrySpan, start: 117, length: 5);
-			labelNumberOfOppositionsData.Text = ExtractField(span: entrySpan, start: 123, length: 3);
-			labelObservationSpanData.Text = ExtractField(span: entrySpan, start: 127, length: 9);
-			labelRmsResidualData.Text = ExtractField(span: entrySpan, start: 137, length: 4);
-			labelComputerNameData.Text = ExtractField(span: entrySpan, start: 150, length: 10);
-			labelFlagsData.Text = ExtractField(span: entrySpan, start: 161, length: 4);
-			labelReadableDesignationData.Text = ExtractField(span: entrySpan, start: 166, length: 28);
-			labelDateLastObservationData.Text = ExtractField(span: entrySpan, start: 194, length: 8);
+			labelMpcorbIndexData.Text = ExtractField(span: entrySpan, start: 0, length: 7);
+			labelMpcorbAbsoluteMagnitudeData.Text = ExtractField(span: entrySpan, start: 8, length: 5);
+			labelMpcorbSlopeParameterData.Text = ExtractField(span: entrySpan, start: 14, length: 5);
+			labelMpcorbEpochData.Text = ExtractField(span: entrySpan, start: 20, length: 5);
+			labelMpcorbMeanAnomalyAtTheEpochData.Text = ExtractField(span: entrySpan, start: 26, length: 9);
+			labelMpcorbArgumentOfThePerihelionData.Text = ExtractField(span: entrySpan, start: 37, length: 9);
+			labelMpcorbLongitudeOfTheAscendingNodeData.Text = ExtractField(span: entrySpan, start: 48, length: 9);
+			labelMpcorbInclinationToTheEclipticData.Text = ExtractField(span: entrySpan, start: 59, length: 9);
+			labelMpcorbOrbitalEccentricityData.Text = ExtractField(span: entrySpan, start: 70, length: 9);
+			labelMpcorbMeanDailyMotionData.Text = ExtractField(span: entrySpan, start: 80, length: 11);
+			labelMpcorbSemiMajorAxisData.Text = ExtractField(span: entrySpan, start: 92, length: 11);
+			labelMpcorbReferenceData.Text = ExtractField(span: entrySpan, start: 107, length: 9);
+			labelMpcorbNumberOfObservationsData.Text = ExtractField(span: entrySpan, start: 117, length: 5);
+			labelMpcorbNumberOfOppositionsData.Text = ExtractField(span: entrySpan, start: 123, length: 3);
+			labelMpcorbObservationSpanData.Text = ExtractField(span: entrySpan, start: 127, length: 9);
+			labelMpcorbRmsResidualData.Text = ExtractField(span: entrySpan, start: 137, length: 4);
+			labelMpcorbComputerNameData.Text = ExtractField(span: entrySpan, start: 150, length: 10);
+			labelMpcorbFlagsData.Text = ExtractField(span: entrySpan, start: 161, length: 4);
+			labelMpcorbReadableDesignationData.Text = ExtractField(span: entrySpan, start: 166, length: 28);
+			labelMpcorbDateLastObservationData.Text = ExtractField(span: entrySpan, start: 194, length: 8);
 			toolStripLabelIndexPosition.Text = $@"{I18nStrings.Index}: {position + 1:N0} / {planetoidsDatabase.Count:N0}";
 		}
 		catch (Exception ex)
@@ -166,7 +166,7 @@ public partial class PlanetoidDbForm
 		finally
 		{
 			// Resume layout and perform any pending layout logic.
-			tableLayoutPanelData.ResumeLayout(performLayout: true);
+			tableLayoutPanelMpcorbData.ResumeLayout(performLayout: true);
 		}
 	}
 
@@ -177,11 +177,11 @@ public partial class PlanetoidDbForm
 		// Clear all labels in the data panel and the index indicator
 		toolStripLabelIndexPosition.Text = string.Empty;
 		// Suspend the layout of the TableLayoutPanel to prevent flickering during label updates
-		tableLayoutPanelData.SuspendLayout();
+		tableLayoutPanelMpcorbData.SuspendLayout();
 		// Clear all labels in the TableLayoutPanel
 		try
 		{
-			foreach (Control control in tableLayoutPanelData.Controls)
+			foreach (Control control in tableLayoutPanelMpcorbData.Controls)
 			{
 				if (control is KryptonLabel or Label)
 				{
@@ -198,7 +198,7 @@ public partial class PlanetoidDbForm
 		// Resume the layout of the TableLayoutPanel after clearing the labels
 		finally
 		{
-			tableLayoutPanelData.ResumeLayout(performLayout: false);
+			tableLayoutPanelMpcorbData.ResumeLayout(performLayout: false);
 		}
 	}
 
@@ -557,10 +557,10 @@ public partial class PlanetoidDbForm
 		// Try to parse the semi-major axis from the label text using invariant culture to ensure consistent parsing regardless of the user's locale settings
 		IFormatProvider provider = CultureInfo.InvariantCulture;
 		// If parsing fails, log an error and show an error message to the user, then return early to avoid opening the form with invalid data
-		if (!double.TryParse(s: labelSemiMajorAxisData.Text, style: NumberStyles.Any, provider: provider, result: out double semiMajorAxis))
+		if (!double.TryParse(s: labelMpcorbSemiMajorAxisData.Text, style: NumberStyles.Any, provider: provider, result: out double semiMajorAxis))
 		{
-			logger.Error(message: $"Failed to parse semi-major axis: '{labelSemiMajorAxisData.Text}'");
-			ShowErrorMessage(message: $"Could not parse semi-major axis value: '{labelSemiMajorAxisData.Text}'");
+			logger.Error(message: $"Failed to parse semi-major axis: '{labelMpcorbSemiMajorAxisData.Text}'");
+			ShowErrorMessage(message: $"Could not parse semi-major axis value: '{labelMpcorbSemiMajorAxisData.Text}'");
 			return;
 		}
 		// Create a new instance of the OrbitalResonancesOfOneMinorPlanetForm
@@ -591,9 +591,9 @@ public partial class PlanetoidDbForm
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formObservations.TopMost = TopMost;
 		// Pass the index data label text to the observations form so it can use it to fetch and display the relevant observations for the current planetoid
-		formObservations.SetIndexData(indexData: labelIndexData.Text);
+		formObservations.SetIndexData(indexData: labelMpcorbIndexData.Text);
 		// Log the action of opening the observations form with the provided index data
-		logger.Info(message: $"Opening observations form with index data: {labelIndexData.Text}");
+		logger.Info(message: $"Opening observations form with index data: {labelMpcorbIndexData.Text}");
 		// Show the observations form as a modal dialog
 		_ = formObservations.ShowDialog(owner: this);
 	}
@@ -647,7 +647,7 @@ public partial class PlanetoidDbForm
 	/// <param name="longitudeAscendingNodeDeg">When this method returns, contains the parsed longitude of ascending node in degrees.</param>
 	/// <param name="argumentPerihelionDeg">When this method returns, contains the parsed argument of perihelion in degrees.</param>
 	/// <returns><see langword="true"/> if all orbital elements were parsed successfully; otherwise, <see langword="false"/>.</returns>
-	/// <remarks>This method uses the <see cref="labelSemiMajorAxisData"/>, <see cref="labelOrbitalEccentricityData"/>, <see cref="labelInclinationToTheEclipticData"/>, <see cref="labelLongitudeOfTheAscendingNodeData"/>, and <see cref="labelArgumentOfThePerihelionData"/> labels to parse the orbital elements.</remarks>
+	/// <remarks>This method uses the <see cref="labelMpcorbSemiMajorAxisData"/>, <see cref="labelMpcorbOrbitalEccentricityData"/>, <see cref="labelMpcorbInclinationToTheEclipticData"/>, <see cref="labelMpcorbLongitudeOfTheAscendingNodeData"/>, and <see cref="labelMpcorbArgumentOfThePerihelionData"/> labels to parse the orbital elements.</remarks>
 	private bool TryParseCurrentOrbitalElements(
 		out double semiMajorAxis,
 		out double eccentricity,
@@ -664,34 +664,34 @@ public partial class PlanetoidDbForm
 		// Use a consistent culture for parsing to ensure that decimal separators are handled correctly
 		IFormatProvider provider = CultureInfo.CreateSpecificCulture(name: "en");
 		// Try to parse each orbital element from the corresponding label
-		if (!double.TryParse(s: labelSemiMajorAxisData.Text, style: NumberStyles.Any, provider: provider, result: out semiMajorAxis))
+		if (!double.TryParse(s: labelMpcorbSemiMajorAxisData.Text, style: NumberStyles.Any, provider: provider, result: out semiMajorAxis))
 		{
-			logger.Error(message: $"Failed to parse semi-major axis: '{labelSemiMajorAxisData.Text}'");
-			ShowErrorMessage(message: $"Could not parse semi-major axis value: '{labelSemiMajorAxisData.Text}'");
+			logger.Error(message: $"Failed to parse semi-major axis: '{labelMpcorbSemiMajorAxisData.Text}'");
+			ShowErrorMessage(message: $"Could not parse semi-major axis value: '{labelMpcorbSemiMajorAxisData.Text}'");
 			return false;
 		}
-		if (!double.TryParse(s: labelOrbitalEccentricityData.Text, style: NumberStyles.Any, provider: provider, result: out eccentricity))
+		if (!double.TryParse(s: labelMpcorbOrbitalEccentricityData.Text, style: NumberStyles.Any, provider: provider, result: out eccentricity))
 		{
-			logger.Error(message: $"Failed to parse eccentricity: '{labelOrbitalEccentricityData.Text}'");
-			ShowErrorMessage(message: $"Could not parse eccentricity value: '{labelOrbitalEccentricityData.Text}'");
+			logger.Error(message: $"Failed to parse eccentricity: '{labelMpcorbOrbitalEccentricityData.Text}'");
+			ShowErrorMessage(message: $"Could not parse eccentricity value: '{labelMpcorbOrbitalEccentricityData.Text}'");
 			return false;
 		}
-		if (!double.TryParse(s: labelInclinationToTheEclipticData.Text, style: NumberStyles.Any, provider: provider, result: out inclinationDeg))
+		if (!double.TryParse(s: labelMpcorbInclinationToTheEclipticData.Text, style: NumberStyles.Any, provider: provider, result: out inclinationDeg))
 		{
-			logger.Error(message: $"Failed to parse inclination: '{labelInclinationToTheEclipticData.Text}'");
-			ShowErrorMessage(message: $"Could not parse inclination value: '{labelInclinationToTheEclipticData.Text}'");
+			logger.Error(message: $"Failed to parse inclination: '{labelMpcorbInclinationToTheEclipticData.Text}'");
+			ShowErrorMessage(message: $"Could not parse inclination value: '{labelMpcorbInclinationToTheEclipticData.Text}'");
 			return false;
 		}
-		if (!double.TryParse(s: labelLongitudeOfTheAscendingNodeData.Text, style: NumberStyles.Any, provider: provider, result: out longitudeAscendingNodeDeg))
+		if (!double.TryParse(s: labelMpcorbLongitudeOfTheAscendingNodeData.Text, style: NumberStyles.Any, provider: provider, result: out longitudeAscendingNodeDeg))
 		{
-			logger.Error(message: $"Failed to parse longitude of ascending node: '{labelLongitudeOfTheAscendingNodeData.Text}'");
-			ShowErrorMessage(message: $"Could not parse longitude of ascending node value: '{labelLongitudeOfTheAscendingNodeData.Text}'");
+			logger.Error(message: $"Failed to parse longitude of ascending node: '{labelMpcorbLongitudeOfTheAscendingNodeData.Text}'");
+			ShowErrorMessage(message: $"Could not parse longitude of ascending node value: '{labelMpcorbLongitudeOfTheAscendingNodeData.Text}'");
 			return false;
 		}
-		if (!double.TryParse(s: labelArgumentOfThePerihelionData.Text, style: NumberStyles.Any, provider: provider, result: out argumentPerihelionDeg))
+		if (!double.TryParse(s: labelMpcorbArgumentOfThePerihelionData.Text, style: NumberStyles.Any, provider: provider, result: out argumentPerihelionDeg))
 		{
-			logger.Error(message: $"Failed to parse argument of perihelion: '{labelArgumentOfThePerihelionData.Text}'");
-			ShowErrorMessage(message: $"Could not parse argument of perihelion value: '{labelArgumentOfThePerihelionData.Text}'");
+			logger.Error(message: $"Failed to parse argument of perihelion: '{labelMpcorbArgumentOfThePerihelionData.Text}'");
+			ShowErrorMessage(message: $"Could not parse argument of perihelion value: '{labelMpcorbArgumentOfThePerihelionData.Text}'");
 			return false;
 		}
 		return true;
@@ -867,7 +867,7 @@ public partial class PlanetoidDbForm
 		// Log the action of opening the Orbit2DTopView form with the parsed orbital elements
 		logger.Info(message: $"Opening Orbit2DTopView form with orbital elements: semi-major axis={semiMajorAxis}, eccentricity={eccentricity}, argument of perihelion={argumentPerihelionDeg}");
 		// Use the readable designation as the planetoid label in the diagram title.
-		string planetoidName = labelReadableDesignationData.Text;
+		string planetoidName = labelMpcorbReadableDesignationData.Text;
 		// Create a new instance of the Orbit2DTopViewForm and show it as a modal dialog.
 		using Orbit2DTopViewForm formOrbit2DTopView = new(
 			planetoidName: planetoidName,
@@ -896,7 +896,7 @@ public partial class PlanetoidDbForm
 		// Log the action of opening the Orbit2DSideView form with the parsed orbital elements
 		logger.Info(message: $"Opening Orbit2DSideView form with orbital elements: semi-major axis={semiMajorAxis}, eccentricity={eccentricity}, inclination={inclinationDeg}");
 		// Use the readable designation as the planetoid label in the diagram title.
-		string planetoidName = labelReadableDesignationData.Text;
+		string planetoidName = labelMpcorbReadableDesignationData.Text;
 		// Create a new instance of the Orbit2DSideViewForm and show it as a modal dialog.
 		using Orbit2DSideViewForm formOrbit2DSideView = new(
 			planetoidName: planetoidName,
@@ -925,16 +925,16 @@ public partial class PlanetoidDbForm
 		// Parse the mean anomaly at the epoch from the corresponding label on the form
 		IFormatProvider provider = CultureInfo.InvariantCulture;
 		// If parsing fails, log the error and show an error message to the user, then return early to avoid opening the form with invalid data
-		if (!double.TryParse(s: labelMeanAnomalyAtTheEpochData.Text, style: NumberStyles.Any, provider: provider, result: out double meanAnomalyDeg))
+		if (!double.TryParse(s: labelMpcorbMeanAnomalyAtTheEpochData.Text, style: NumberStyles.Any, provider: provider, result: out double meanAnomalyDeg))
 		{
-			logger.Error(message: $"Failed to parse mean anomaly: '{labelMeanAnomalyAtTheEpochData.Text}'");
-			ShowErrorMessage(message: $"Could not parse mean anomaly value: '{labelMeanAnomalyAtTheEpochData.Text}'");
+			logger.Error(message: $"Failed to parse mean anomaly: '{labelMpcorbMeanAnomalyAtTheEpochData.Text}'");
+			ShowErrorMessage(message: $"Could not parse mean anomaly value: '{labelMpcorbMeanAnomalyAtTheEpochData.Text}'");
 			return;
 		}
 		// Use the readable designation as the planetoid label in the diagram title.
-		string planetoidName = labelReadableDesignationData.Text;
+		string planetoidName = labelMpcorbReadableDesignationData.Text;
 		// Parse the epoch from the corresponding label on the form
-		string epochMpcorb = labelEpochData.Text;
+		string epochMpcorb = labelMpcorbEpochData.Text;
 		// Log the action of opening the Orbit3DForm with the parsed orbital elements
 		logger.Info(message: $"Opening Orbit3DForm with orbital elements: semi-major axis={semiMajorAxis}, eccentricity={eccentricity}, inclination={inclinationDeg}, longitude of ascending node={longitudeAscendingNodeDeg}, argument of perihelion={argumentPerihelionDeg}, mean anomaly={meanAnomalyDeg}, epoch={epochMpcorb}");
 		// Create a new instance of the Orbit3DForm and show it as a modal dialog.
@@ -960,27 +960,27 @@ public partial class PlanetoidDbForm
 		// Create a culture-specific format provider for parsing the orbital elements
 		IFormatProvider provider = CultureInfo.CreateSpecificCulture(name: "en");
 		// Parse the semi-major axis from the corresponding label on the form
-		if (!double.TryParse(s: labelSemiMajorAxisData.Text, style: NumberStyles.Any, provider: provider, result: out double semiMajorAxis))
+		if (!double.TryParse(s: labelMpcorbSemiMajorAxisData.Text, style: NumberStyles.Any, provider: provider, result: out double semiMajorAxis))
 		{
 			// If parsing fails, log the error and show an error message to the user
-			logger.Error(message: $"Failed to parse semi-major axis: '{labelSemiMajorAxisData.Text}'");
-			ShowErrorMessage(message: $"Could not parse semi-major axis value: '{labelSemiMajorAxisData.Text}'");
+			logger.Error(message: $"Failed to parse semi-major axis: '{labelMpcorbSemiMajorAxisData.Text}'");
+			ShowErrorMessage(message: $"Could not parse semi-major axis value: '{labelMpcorbSemiMajorAxisData.Text}'");
 			return;
 		}
 		// Parse the eccentricity from the corresponding label on the form
-		if (!double.TryParse(s: labelOrbitalEccentricityData.Text, style: NumberStyles.Any, provider: provider, result: out double eccentricity))
+		if (!double.TryParse(s: labelMpcorbOrbitalEccentricityData.Text, style: NumberStyles.Any, provider: provider, result: out double eccentricity))
 		{
 			// If parsing fails, log the error and show an error message to the user
-			logger.Error(message: $"Failed to parse eccentricity: '{labelOrbitalEccentricityData.Text}'");
-			ShowErrorMessage(message: $"Could not parse eccentricity value: '{labelOrbitalEccentricityData.Text}'");
+			logger.Error(message: $"Failed to parse eccentricity: '{labelMpcorbOrbitalEccentricityData.Text}'");
+			ShowErrorMessage(message: $"Could not parse eccentricity value: '{labelMpcorbOrbitalEccentricityData.Text}'");
 			return;
 		}
 		// Parse the inclination to the ecliptic from the corresponding label on the form
-		if (!double.TryParse(s: labelInclinationToTheEclipticData.Text, style: NumberStyles.Any, provider: provider, result: out double inclinationDeg))
+		if (!double.TryParse(s: labelMpcorbInclinationToTheEclipticData.Text, style: NumberStyles.Any, provider: provider, result: out double inclinationDeg))
 		{
 			// If parsing fails, log the error and show an error message to the user
-			logger.Error(message: $"Failed to parse inclination: '{labelInclinationToTheEclipticData.Text}'");
-			ShowErrorMessage(message: $"Could not parse inclination value: '{labelInclinationToTheEclipticData.Text}'");
+			logger.Error(message: $"Failed to parse inclination: '{labelMpcorbInclinationToTheEclipticData.Text}'");
+			ShowErrorMessage(message: $"Could not parse inclination value: '{labelMpcorbInclinationToTheEclipticData.Text}'");
 			return;
 		}
 		// Create a new instance of the TisserandParameterOfOneMinorPlanetForm
@@ -1405,32 +1405,32 @@ public partial class PlanetoidDbForm
 		// Use the invariant culture for consistent parsing of numeric values
 		IFormatProvider provider = CultureInfo.InvariantCulture;
 		// Parse the necessary orbital elements from the UI labels, using TryParse to handle potential parsing errors gracefully
-		double.TryParse(s: labelSemiMajorAxisData.Text, style: NumberStyles.Any, provider: provider, result: out double semiMajorAxis);
-		double.TryParse(s: labelOrbitalEccentricityData.Text, style: NumberStyles.Any, provider: provider, result: out double numericalEccentricity);
-		double.TryParse(s: labelMeanAnomalyAtTheEpochData.Text, style: NumberStyles.Any, provider: provider, result: out double meanAnomaly);
-		double.TryParse(s: labelLongitudeOfTheAscendingNodeData.Text, style: NumberStyles.Any, provider: provider, result: out double longitudeAscendingNode);
-		double.TryParse(s: labelArgumentOfThePerihelionData.Text, style: NumberStyles.Any, provider: provider, result: out double argumentAphelion);
+		double.TryParse(s: labelMpcorbSemiMajorAxisData.Text, style: NumberStyles.Any, provider: provider, result: out double semiMajorAxis);
+		double.TryParse(s: labelMpcorbOrbitalEccentricityData.Text, style: NumberStyles.Any, provider: provider, result: out double numericalEccentricity);
+		double.TryParse(s: labelMpcorbMeanAnomalyAtTheEpochData.Text, style: NumberStyles.Any, provider: provider, result: out double meanAnomaly);
+		double.TryParse(s: labelMpcorbLongitudeOfTheAscendingNodeData.Text, style: NumberStyles.Any, provider: provider, result: out double longitudeAscendingNode);
+		double.TryParse(s: labelMpcorbArgumentOfThePerihelionData.Text, style: NumberStyles.Any, provider: provider, result: out double argumentAphelion);
 		// Add the original orbital elements to the list
-		elements.Add(item: labelIndexData.Text);
-		elements.Add(item: labelReadableDesignationData.Text);
-		elements.Add(item: labelEpochData.Text);
-		elements.Add(item: labelMeanAnomalyAtTheEpochData.Text);
-		elements.Add(item: labelArgumentOfThePerihelionData.Text);
-		elements.Add(item: labelLongitudeOfTheAscendingNodeData.Text);
-		elements.Add(item: labelInclinationToTheEclipticData.Text);
-		elements.Add(item: labelOrbitalEccentricityData.Text);
-		elements.Add(item: labelMeanDailyMotionData.Text);
-		elements.Add(item: labelSemiMajorAxisData.Text);
-		elements.Add(item: labelAbsoluteMagnitudeData.Text);
-		elements.Add(item: labelSlopeParameterData.Text);
-		elements.Add(item: labelReferenceData.Text);
-		elements.Add(item: labelNumberOfOppositionsData.Text);
-		elements.Add(item: labelNumberOfObservationsData.Text);
-		elements.Add(item: labelObservationSpanData.Text);
-		elements.Add(item: labelRmsResidualData.Text);
-		elements.Add(item: labelComputerNameData.Text);
-		elements.Add(item: labelFlagsData.Text);
-		elements.Add(item: labelDateLastObservationData.Text);
+		elements.Add(item: labelMpcorbIndexData.Text);
+		elements.Add(item: labelMpcorbReadableDesignationData.Text);
+		elements.Add(item: labelMpcorbEpochData.Text);
+		elements.Add(item: labelMpcorbMeanAnomalyAtTheEpochData.Text);
+		elements.Add(item: labelMpcorbArgumentOfThePerihelionData.Text);
+		elements.Add(item: labelMpcorbLongitudeOfTheAscendingNodeData.Text);
+		elements.Add(item: labelMpcorbInclinationToTheEclipticData.Text);
+		elements.Add(item: labelMpcorbOrbitalEccentricityData.Text);
+		elements.Add(item: labelMpcorbMeanDailyMotionData.Text);
+		elements.Add(item: labelMpcorbSemiMajorAxisData.Text);
+		elements.Add(item: labelMpcorbAbsoluteMagnitudeData.Text);
+		elements.Add(item: labelMpcorbSlopeParameterData.Text);
+		elements.Add(item: labelMpcorbReferenceData.Text);
+		elements.Add(item: labelMpcorbNumberOfOppositionsData.Text);
+		elements.Add(item: labelMpcorbNumberOfObservationsData.Text);
+		elements.Add(item: labelMpcorbObservationSpanData.Text);
+		elements.Add(item: labelMpcorbRmsResidualData.Text);
+		elements.Add(item: labelMpcorbComputerNameData.Text);
+		elements.Add(item: labelMpcorbFlagsData.Text);
+		elements.Add(item: labelMpcorbDateLastObservationData.Text);
 		elements.Add(item: DerivedElements.CalculateLinearEccentricity(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 		elements.Add(item: DerivedElements.CalculateSemiMinorAxis(semiMajorAxis: semiMajorAxis, numericalEccentricity: numericalEccentricity).ToString(provider: provider));
 		elements.Add(item: DerivedElements.CalculateMajorAxis(semiMajorAxis: semiMajorAxis).ToString(provider: provider));
@@ -1490,13 +1490,13 @@ public partial class PlanetoidDbForm
 		List<string> derivedOrbitElements = [];
 		// Create a specific culture for formatting
 		IFormatProvider provider = CultureInfo.InvariantCulture;
-		double semiMajorAxis = double.Parse(s: labelSemiMajorAxisData.Text, provider: provider);
-		double numericalEccentricity = double.Parse(s: labelOrbitalEccentricityData.Text, provider: provider);
-		double meanAnomaly = double.Parse(s: labelMeanAnomalyAtTheEpochData.Text, provider: provider);
-		double longitudeAscendingNode = double.Parse(s: labelLongitudeOfTheAscendingNodeData.Text, provider: provider);
-		double argumentPerihelion = double.Parse(s: labelArgumentOfThePerihelionData.Text, provider: provider);
-		double inclination = double.Parse(s: labelInclinationToTheEclipticData.Text, provider: provider);
-		double absoluteMagnitude = double.Parse(s: labelAbsoluteMagnitudeData.Text, provider: provider);
+		double semiMajorAxis = double.Parse(s: labelMpcorbSemiMajorAxisData.Text, provider: provider);
+		double numericalEccentricity = double.Parse(s: labelMpcorbOrbitalEccentricityData.Text, provider: provider);
+		double meanAnomaly = double.Parse(s: labelMpcorbMeanAnomalyAtTheEpochData.Text, provider: provider);
+		double longitudeAscendingNode = double.Parse(s: labelMpcorbLongitudeOfTheAscendingNodeData.Text, provider: provider);
+		double argumentPerihelion = double.Parse(s: labelMpcorbArgumentOfThePerihelionData.Text, provider: provider);
+		double inclination = double.Parse(s: labelMpcorbInclinationToTheEclipticData.Text, provider: provider);
+		double absoluteMagnitude = double.Parse(s: labelMpcorbAbsoluteMagnitudeData.Text, provider: provider);
 		// Calculate true anomaly for velocity and energy calculations
 		double trueAnomaly = DerivedElements.CalculateTrueAnomaly(meanAnomaly: meanAnomaly, numericalEccentricity: numericalEccentricity);
 		// Original 19 elements
