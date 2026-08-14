@@ -2025,7 +2025,7 @@ public partial class PlanetoidDbForm
 		if (!File.Exists(path: filenameSingoppCat))
 		{
 			logger.Warn(message: $"SINGOPP.CAT file not found: {filenameSingoppCat}");
-			kryptonPagSingoppCat.Text = "SINGOPP.CAT (file not found)";
+			kryptonPageSingoppCat.Text = "SINGOPP.CAT (file not found)";
 			return;
 		}
 		try
@@ -2034,13 +2034,13 @@ public partial class PlanetoidDbForm
 			singoppCatDatabase.AddRange(collection: File.ReadLines(path: filenameSingoppCat).Skip(count: 6));
 			// Get the last write time of the SINGOPP.CAT file for display in the tab
 			string fileDate = File.GetLastWriteTime(path: filenameSingoppCat).ToString(format: "yyyy-MM-dd", provider: CultureInfo.InvariantCulture);
-			kryptonPagSingoppCat.Text = $"SINGOPP.CAT ({fileDate})";
+			kryptonPageSingoppCat.Text = $"SINGOPP.CAT ({fileDate})";
 			logger.Info(message: $"SINGOPP.CAT loaded: {singoppCatDatabase.Count} lines, dated {fileDate}.");
 		}
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			logger.Error(exception: ex, message: $"Error loading SINGOPP.CAT: {ex.Message}");
-			kryptonPagSingoppCat.Text = $"SINGOPP.CAT ({I18nStrings.ErrorCaption})";
+			kryptonPageSingoppCat.Text = $"SINGOPP.CAT ({I18nStrings.ErrorCaption})";
 		}
 	}
 

@@ -307,7 +307,7 @@ partial class PlanetoidDbForm
 		labelAllnumCatAbsoluteMagnitudeData = new KryptonLabel();
 		labelAllnumCatSlopeParameterDesc = new KryptonLabel();
 		labelAllnumCatSlopeParameterData = new KryptonLabel();
-		kryptonPagSingoppCat = new Krypton.Navigator.KryptonPage();
+		kryptonPageSingoppCat = new Krypton.Navigator.KryptonPage();
 		tableLayoutPanelSingoppCatData = new KryptonTableLayoutPanel();
 		labelSingoppCatNameDesc = new KryptonLabel();
 		labelSingoppCatNameData = new KryptonLabel();
@@ -454,8 +454,8 @@ partial class PlanetoidDbForm
 		((ISupportInitialize)kryptonPageAllnumCat).BeginInit();
 		kryptonPageAllnumCat.SuspendLayout();
 		tableLayoutPanelAllnumCatData.SuspendLayout();
-		((ISupportInitialize)kryptonPagSingoppCat).BeginInit();
-		kryptonPagSingoppCat.SuspendLayout();
+		((ISupportInitialize)kryptonPageSingoppCat).BeginInit();
+		kryptonPageSingoppCat.SuspendLayout();
 		tableLayoutPanelSingoppCatData.SuspendLayout();
 		kryptonToolStripIcons.SuspendLayout();
 		kryptonToolStripNavigation.SuspendLayout();
@@ -4250,7 +4250,7 @@ partial class PlanetoidDbForm
 		kryptonNavigatorMain.NavigatorMode = Krypton.Navigator.NavigatorMode.BarTabGroup;
 		kryptonNavigatorMain.Owner = this;
 		kryptonNavigatorMain.PageBackStyle = PaletteBackStyle.PanelClient;
-		kryptonNavigatorMain.Pages.AddRange(new Krypton.Navigator.KryptonPage[] { kryptonPageMpcorbDat, kryptonPageAstorbDat, kryptonPageAllnumCat, kryptonPagSingoppCat });
+		kryptonNavigatorMain.Pages.AddRange(new Krypton.Navigator.KryptonPage[] { kryptonPageMpcorbDat, kryptonPageAstorbDat, kryptonPageAllnumCat, kryptonPageSingoppCat });
 		kryptonNavigatorMain.SelectedIndex = 0;
 		kryptonNavigatorMain.Size = new Size(852, 314);
 		kryptonNavigatorMain.TabIndex = 0;
@@ -6183,24 +6183,24 @@ partial class PlanetoidDbForm
 		labelAllnumCatSlopeParameterData.MouseEnter += Control_Enter;
 		labelAllnumCatSlopeParameterData.MouseLeave += Control_Leave;
 		//
-		// kryptonPagSingoppCat
+		// kryptonPageSingoppCat
 		//
-		kryptonPagSingoppCat.AccessibleDescription = "Shows the SINGOPP.CAT page tab";
-		kryptonPagSingoppCat.AccessibleName = "SINGOPP.CAT page tab";
-		kryptonPagSingoppCat.AccessibleRole = AccessibleRole.PageTab;
-		kryptonPagSingoppCat.AutoHiddenSlideSize = new Size(200, 200);
-		kryptonPagSingoppCat.Controls.Add(tableLayoutPanelSingoppCatData);
-		kryptonPagSingoppCat.Flags = 65534;
-		kryptonPagSingoppCat.LastVisibleSet = true;
-		kryptonPagSingoppCat.MinimumSize = new Size(150, 50);
-		kryptonPagSingoppCat.Name = "kryptonPagSingoppCat";
-		kryptonPagSingoppCat.Size = new Size(850, 287);
-		kryptonPagSingoppCat.Text = "SINGOPP.CAT";
-		kryptonPagSingoppCat.TextDescription = "Shows the SINGOPP.CAT";
-		kryptonPagSingoppCat.TextTitle = "SINGOPP.CAT";
-		kryptonPagSingoppCat.ToolTipBody = "Shows the SINGOPP.CAT";
-		kryptonPagSingoppCat.ToolTipTitle = "Shows the SINGOPP.CAT";
-		kryptonPagSingoppCat.UniqueName = "b382f75h7f0977g7146e66g91f501gg4";
+		kryptonPageSingoppCat.AccessibleDescription = "Shows the SINGOPP.CAT page tab";
+		kryptonPageSingoppCat.AccessibleName = "SINGOPP.CAT page tab";
+		kryptonPageSingoppCat.AccessibleRole = AccessibleRole.PageTab;
+		kryptonPageSingoppCat.AutoHiddenSlideSize = new Size(200, 200);
+		kryptonPageSingoppCat.Controls.Add(tableLayoutPanelSingoppCatData);
+		kryptonPageSingoppCat.Flags = 65534;
+		kryptonPageSingoppCat.LastVisibleSet = true;
+		kryptonPageSingoppCat.MinimumSize = new Size(150, 50);
+		kryptonPageSingoppCat.Name = "kryptonPageSingoppCat";
+		kryptonPageSingoppCat.Size = new Size(850, 287);
+		kryptonPageSingoppCat.Text = "SINGOPP.CAT";
+		kryptonPageSingoppCat.TextDescription = "Shows the SINGOPP.CAT";
+		kryptonPageSingoppCat.TextTitle = "SINGOPP.CAT";
+		kryptonPageSingoppCat.ToolTipBody = "Shows the SINGOPP.CAT";
+		kryptonPageSingoppCat.ToolTipTitle = "Shows the SINGOPP.CAT";
+		kryptonPageSingoppCat.UniqueName = "b382f75h7f0977g7146e66g91f501gg4";
 		//
 		// tableLayoutPanelSingoppCatData
 		//
@@ -7372,8 +7372,8 @@ partial class PlanetoidDbForm
 		kryptonPageAllnumCat.ResumeLayout(false);
 		tableLayoutPanelAllnumCatData.ResumeLayout(false);
 		tableLayoutPanelAllnumCatData.PerformLayout();
-		((ISupportInitialize)kryptonPagSingoppCat).EndInit();
-		kryptonPagSingoppCat.ResumeLayout(false);
+		((ISupportInitialize)kryptonPageSingoppCat).EndInit();
+		kryptonPageSingoppCat.ResumeLayout(false);
 		tableLayoutPanelSingoppCatData.ResumeLayout(false);
 		tableLayoutPanelSingoppCatData.PerformLayout();
 		kryptonToolStripIcons.ResumeLayout(false);
@@ -7633,7 +7633,7 @@ partial class PlanetoidDbForm
 	private KryptonLabel labelAllnumCatAbsoluteMagnitudeData;
 	private KryptonLabel labelAllnumCatSlopeParameterDesc;
 	private KryptonLabel labelAllnumCatSlopeParameterData;
-	private Krypton.Navigator.KryptonPage kryptonPagSingoppCat;
+	private Krypton.Navigator.KryptonPage kryptonPageSingoppCat;
 	private KryptonTableLayoutPanel tableLayoutPanelSingoppCatData;
 	private KryptonLabel labelSingoppCatNameDesc;
 	private KryptonLabel labelSingoppCatNameData;
