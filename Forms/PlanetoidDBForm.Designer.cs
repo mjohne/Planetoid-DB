@@ -282,6 +282,54 @@ partial class PlanetoidDbForm
 		toolStripStatusLabelMpcorbDatUpdate = new ToolStripStatusLabel();
 		kryptonNavigatorMain = new Krypton.Navigator.KryptonNavigator();
 		kryptonPageMpcorbDat = new Krypton.Navigator.KryptonPage();
+		kryptonPageMpcorbJson = new Krypton.Navigator.KryptonPage();
+		tableLayoutPanelMpcorbJsonData = new KryptonTableLayoutPanel();
+		labelMpcorbJsonMpcdesDesc = new KryptonLabel();
+		labelMpcorbJsonMpcdesData = new KryptonLabel();
+		labelMpcorbJsonReadableDesDesc = new KryptonLabel();
+		labelMpcorbJsonReadableDesData = new KryptonLabel();
+		labelMpcorbJsonHDesc = new KryptonLabel();
+		labelMpcorbJsonHData = new KryptonLabel();
+		labelMpcorbJsonGDesc = new KryptonLabel();
+		labelMpcorbJsonGData = new KryptonLabel();
+		labelMpcorbJsonEpochDesc = new KryptonLabel();
+		labelMpcorbJsonEpochData = new KryptonLabel();
+		labelMpcorbJsonMDesc = new KryptonLabel();
+		labelMpcorbJsonMData = new KryptonLabel();
+		labelMpcorbJsonPeriDesc = new KryptonLabel();
+		labelMpcorbJsonPeriData = new KryptonLabel();
+		labelMpcorbJsonNodeDesc = new KryptonLabel();
+		labelMpcorbJsonNodeData = new KryptonLabel();
+		labelMpcorbJsonIDesc = new KryptonLabel();
+		labelMpcorbJsonIData = new KryptonLabel();
+		labelMpcorbJsonEDesc = new KryptonLabel();
+		labelMpcorbJsonEData = new KryptonLabel();
+		labelMpcorbJsonNDesc = new KryptonLabel();
+		labelMpcorbJsonNData = new KryptonLabel();
+		labelMpcorbJsonADesc = new KryptonLabel();
+		labelMpcorbJsonAData = new KryptonLabel();
+		labelMpcorbJsonUDesc = new KryptonLabel();
+		labelMpcorbJsonUData = new KryptonLabel();
+		labelMpcorbJsonReferenceDesc = new KryptonLabel();
+		labelMpcorbJsonReferenceData = new KryptonLabel();
+		labelMpcorbJsonNumObsDesc = new KryptonLabel();
+		labelMpcorbJsonNumObsData = new KryptonLabel();
+		labelMpcorbJsonNumOppDesc = new KryptonLabel();
+		labelMpcorbJsonNumOppData = new KryptonLabel();
+		labelMpcorbJsonArcDesc = new KryptonLabel();
+		labelMpcorbJsonArcData = new KryptonLabel();
+		labelMpcorbJsonRmsDesc = new KryptonLabel();
+		labelMpcorbJsonRmsData = new KryptonLabel();
+		labelMpcorbJsonPerturbersDesc = new KryptonLabel();
+		labelMpcorbJsonPerturbersData = new KryptonLabel();
+		labelMpcorbJsonPerturbers2Desc = new KryptonLabel();
+		labelMpcorbJsonPerturbers2Data = new KryptonLabel();
+		labelMpcorbJsonComputerDesc = new KryptonLabel();
+		labelMpcorbJsonComputerData = new KryptonLabel();
+		labelMpcorbJsonFlagsDesc = new KryptonLabel();
+		labelMpcorbJsonFlagsData = new KryptonLabel();
+		labelMpcorbJsonLastObsDesc = new KryptonLabel();
+		labelMpcorbJsonLastObsData = new KryptonLabel();
 		kryptonPageAstorbDat = new Krypton.Navigator.KryptonPage();
 		tableLayoutPanelAstorbData = new KryptonTableLayoutPanel();
 		labelAstorbNumberDesc = new KryptonLabel();
@@ -470,6 +518,9 @@ partial class PlanetoidDbForm
 		((ISupportInitialize)kryptonNavigatorMain).BeginInit();
 		((ISupportInitialize)kryptonPageMpcorbDat).BeginInit();
 		kryptonPageMpcorbDat.SuspendLayout();
+		((ISupportInitialize)kryptonPageMpcorbJson).BeginInit();
+		kryptonPageMpcorbJson.SuspendLayout();
+		tableLayoutPanelMpcorbJsonData.SuspendLayout();
 		((ISupportInitialize)kryptonPageAstorbDat).BeginInit();
 		kryptonPageAstorbDat.SuspendLayout();
 		tableLayoutPanelAstorbData.SuspendLayout();
@@ -4275,7 +4326,7 @@ partial class PlanetoidDbForm
 		kryptonNavigatorMain.NavigatorMode = Krypton.Navigator.NavigatorMode.BarTabGroup;
 		kryptonNavigatorMain.Owner = this;
 		kryptonNavigatorMain.PageBackStyle = PaletteBackStyle.PanelClient;
-		kryptonNavigatorMain.Pages.AddRange(new Krypton.Navigator.KryptonPage[] { kryptonPageMpcorbDat, kryptonPageAstorbDat, kryptonPageAllnumCat, kryptonPageSingoppCat, kryptonPageUfitobsCat });
+		kryptonNavigatorMain.Pages.AddRange(new Krypton.Navigator.KryptonPage[] { kryptonPageMpcorbDat, kryptonPageMpcorbJson, kryptonPageAstorbDat, kryptonPageAllnumCat, kryptonPageSingoppCat, kryptonPageUfitobsCat });
 		kryptonNavigatorMain.SelectedIndex = 0;
 		kryptonNavigatorMain.Size = new Size(852, 314);
 		kryptonNavigatorMain.TabIndex = 0;
@@ -4302,7 +4353,1050 @@ partial class PlanetoidDbForm
 		kryptonPageMpcorbDat.ToolTipBody = "Shows the MPCORB.DAT";
 		kryptonPageMpcorbDat.ToolTipTitle = "Shows the MPCORB.DAT";
 		kryptonPageMpcorbDat.UniqueName = "a274f72e6e8644f4813b33d68e278dd1";
-		// 
+		//
+		// kryptonPageMpcorbJson
+		//
+		kryptonPageMpcorbJson.AccessibleDescription = "Shows the MPCORB.JSON page tab";
+		kryptonPageMpcorbJson.AccessibleName = "MPCORB.JSON page tab";
+		kryptonPageMpcorbJson.AccessibleRole = AccessibleRole.PageTab;
+		kryptonPageMpcorbJson.AutoHiddenSlideSize = new Size(200, 200);
+		kryptonPageMpcorbJson.Controls.Add(tableLayoutPanelMpcorbJsonData);
+		kryptonPageMpcorbJson.Flags = 65534;
+		kryptonPageMpcorbJson.LastVisibleSet = true;
+		kryptonPageMpcorbJson.MinimumSize = new Size(150, 50);
+		kryptonPageMpcorbJson.Name = "kryptonPageMpcorbJson";
+		kryptonPageMpcorbJson.Size = new Size(850, 287);
+		kryptonPageMpcorbJson.Text = "MPCORB.JSON";
+		kryptonPageMpcorbJson.TextDescription = "Shows the MPCORB.JSON";
+		kryptonPageMpcorbJson.TextTitle = "MPCORB.JSON";
+		kryptonPageMpcorbJson.ToolTipBody = "Shows the MPCORB.JSON";
+		kryptonPageMpcorbJson.ToolTipTitle = "Shows the MPCORB.JSON";
+		kryptonPageMpcorbJson.UniqueName = "c396f94h8h0766h5025d55f80g490ff3";
+		//
+		// tableLayoutPanelMpcorbJsonData
+		//
+		tableLayoutPanelMpcorbJsonData.AccessibleDescription = "Groups the MPCORB.JSON data";
+		tableLayoutPanelMpcorbJsonData.AccessibleName = "MPCORB.JSON table panel";
+		tableLayoutPanelMpcorbJsonData.AccessibleRole = AccessibleRole.Pane;
+		tableLayoutPanelMpcorbJsonData.ColumnCount = 4;
+		tableLayoutPanelMpcorbJsonData.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanelMpcorbJsonData.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 174F));
+		tableLayoutPanelMpcorbJsonData.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanelMpcorbJsonData.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonMpcdesDesc, 0, 0);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonMpcdesData, 1, 0);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonUDesc, 2, 0);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonUData, 3, 0);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonReadableDesDesc, 0, 1);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonReadableDesData, 1, 1);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonReferenceDesc, 2, 1);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonReferenceData, 3, 1);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonHDesc, 0, 2);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonHData, 1, 2);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonNumObsDesc, 2, 2);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonNumObsData, 3, 2);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonGDesc, 0, 3);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonGData, 1, 3);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonNumOppDesc, 2, 3);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonNumOppData, 3, 3);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonEpochDesc, 0, 4);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonEpochData, 1, 4);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonArcDesc, 2, 4);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonArcData, 3, 4);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonMDesc, 0, 5);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonMData, 1, 5);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonRmsDesc, 2, 5);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonRmsData, 3, 5);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonPeriDesc, 0, 6);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonPeriData, 1, 6);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonPerturbersDesc, 2, 6);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonPerturbersData, 3, 6);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonNodeDesc, 0, 7);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonNodeData, 1, 7);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonPerturbers2Desc, 2, 7);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonPerturbers2Data, 3, 7);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonIDesc, 0, 8);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonIData, 1, 8);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonComputerDesc, 2, 8);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonComputerData, 3, 8);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonEDesc, 0, 9);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonEData, 1, 9);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonFlagsDesc, 2, 9);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonFlagsData, 3, 9);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonNDesc, 0, 10);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonNData, 1, 10);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonLastObsDesc, 2, 10);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonLastObsData, 3, 10);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonADesc, 0, 11);
+		tableLayoutPanelMpcorbJsonData.Controls.Add(labelMpcorbJsonAData, 1, 11);
+		tableLayoutPanelMpcorbJsonData.Dock = DockStyle.Fill;
+		tableLayoutPanelMpcorbJsonData.Location = new Point(0, 0);
+		tableLayoutPanelMpcorbJsonData.Name = "tableLayoutPanelMpcorbJsonData";
+		tableLayoutPanelMpcorbJsonData.RowCount = 12;
+		tableLayoutPanelMpcorbJsonData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelMpcorbJsonData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelMpcorbJsonData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelMpcorbJsonData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelMpcorbJsonData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelMpcorbJsonData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelMpcorbJsonData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelMpcorbJsonData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelMpcorbJsonData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelMpcorbJsonData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelMpcorbJsonData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelMpcorbJsonData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelMpcorbJsonData.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+		tableLayoutPanelMpcorbJsonData.Size = new Size(850, 287);
+		tableLayoutPanelMpcorbJsonData.TabIndex = 0;
+		tableLayoutPanelMpcorbJsonData.TabStop = true;
+		tableLayoutPanelMpcorbJsonData.Enter += Control_Enter;
+		tableLayoutPanelMpcorbJsonData.Leave += Control_Leave;
+		tableLayoutPanelMpcorbJsonData.MouseEnter += Control_Enter;
+		tableLayoutPanelMpcorbJsonData.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonMpcdesDesc
+		//
+		labelMpcorbJsonMpcdesDesc.AccessibleDescription = "MPC designation (packed)";
+		labelMpcorbJsonMpcdesDesc.AccessibleName = "MPC designation (packed)";
+		labelMpcorbJsonMpcdesDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonMpcdesDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonMpcdesDesc.Dock = DockStyle.Fill;
+		labelMpcorbJsonMpcdesDesc.LabelStyle = LabelStyle.BoldControl;
+		labelMpcorbJsonMpcdesDesc.Name = "labelMpcorbJsonMpcdesDesc";
+		labelMpcorbJsonMpcdesDesc.TabIndex = 0;
+		labelMpcorbJsonMpcdesDesc.ToolTipValues.Description = "Shows the information of \"MPC designation (packed)\".";
+		labelMpcorbJsonMpcdesDesc.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonMpcdesDesc.ToolTipValues.Heading = "MPC designation (packed)";
+		labelMpcorbJsonMpcdesDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonMpcdesDesc.Values.Text = "MPC designation (packed)";
+		labelMpcorbJsonMpcdesDesc.Enter += Control_Enter;
+		labelMpcorbJsonMpcdesDesc.Leave += Control_Leave;
+		labelMpcorbJsonMpcdesDesc.MouseEnter += Control_Enter;
+		labelMpcorbJsonMpcdesDesc.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonMpcdesData
+		//
+		labelMpcorbJsonMpcdesData.AccessibleDescription = "Shows the information of \"MPC designation (packed)\"";
+		labelMpcorbJsonMpcdesData.AccessibleName = "Shows the information of \"MPC designation (packed)\"";
+		labelMpcorbJsonMpcdesData.AccessibleRole = AccessibleRole.StatusBar;
+		labelMpcorbJsonMpcdesData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonMpcdesData.Dock = DockStyle.Fill;
+		labelMpcorbJsonMpcdesData.Name = "labelMpcorbJsonMpcdesData";
+		labelMpcorbJsonMpcdesData.TabIndex = 1;
+		labelMpcorbJsonMpcdesData.ToolTipValues.Description = "Shows the information of \"MPC designation (packed)\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMpcorbJsonMpcdesData.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonMpcdesData.ToolTipValues.Heading = "MPC designation (packed)";
+		labelMpcorbJsonMpcdesData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonMpcdesData.Values.Text = "..................";
+		labelMpcorbJsonMpcdesData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMpcorbJsonMpcdesData.Enter += Control_Enter;
+		labelMpcorbJsonMpcdesData.Leave += Control_Leave;
+		labelMpcorbJsonMpcdesData.MouseDown += Control_MouseDown;
+		labelMpcorbJsonMpcdesData.MouseEnter += Control_Enter;
+		labelMpcorbJsonMpcdesData.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonUDesc
+		//
+		labelMpcorbJsonUDesc.AccessibleDescription = "Uncertainty parameter";
+		labelMpcorbJsonUDesc.AccessibleName = "Uncertainty parameter";
+		labelMpcorbJsonUDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonUDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonUDesc.Dock = DockStyle.Fill;
+		labelMpcorbJsonUDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelMpcorbJsonUDesc.Name = "labelMpcorbJsonUDesc";
+		labelMpcorbJsonUDesc.TabIndex = 2;
+		labelMpcorbJsonUDesc.ToolTipValues.Description = "Shows the information of \"Uncertainty parameter\".";
+		labelMpcorbJsonUDesc.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonUDesc.ToolTipValues.Heading = "Uncertainty parameter";
+		labelMpcorbJsonUDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonUDesc.Values.Text = "Uncertainty parameter";
+		labelMpcorbJsonUDesc.Enter += Control_Enter;
+		labelMpcorbJsonUDesc.Leave += Control_Leave;
+		labelMpcorbJsonUDesc.MouseEnter += Control_Enter;
+		labelMpcorbJsonUDesc.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonUData
+		//
+		labelMpcorbJsonUData.AccessibleDescription = "Shows the information of \"Uncertainty parameter\"";
+		labelMpcorbJsonUData.AccessibleName = "Shows the information of \"Uncertainty parameter\"";
+		labelMpcorbJsonUData.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonUData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonUData.Dock = DockStyle.Fill;
+		labelMpcorbJsonUData.Name = "labelMpcorbJsonUData";
+		labelMpcorbJsonUData.TabIndex = 3;
+		labelMpcorbJsonUData.ToolTipValues.Description = "Shows the information of \"Uncertainty parameter\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMpcorbJsonUData.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonUData.ToolTipValues.Heading = "Uncertainty parameter";
+		labelMpcorbJsonUData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonUData.Values.Text = "..................";
+		labelMpcorbJsonUData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMpcorbJsonUData.Enter += Control_Enter;
+		labelMpcorbJsonUData.Leave += Control_Leave;
+		labelMpcorbJsonUData.MouseDown += Control_MouseDown;
+		labelMpcorbJsonUData.MouseEnter += Control_Enter;
+		labelMpcorbJsonUData.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonReadableDesDesc
+		//
+		labelMpcorbJsonReadableDesDesc.AccessibleDescription = "Readable designation";
+		labelMpcorbJsonReadableDesDesc.AccessibleName = "Readable designation";
+		labelMpcorbJsonReadableDesDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonReadableDesDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonReadableDesDesc.Dock = DockStyle.Fill;
+		labelMpcorbJsonReadableDesDesc.LabelStyle = LabelStyle.BoldControl;
+		labelMpcorbJsonReadableDesDesc.Name = "labelMpcorbJsonReadableDesDesc";
+		labelMpcorbJsonReadableDesDesc.TabIndex = 4;
+		labelMpcorbJsonReadableDesDesc.ToolTipValues.Description = "Shows the information of \"Readable designation\".";
+		labelMpcorbJsonReadableDesDesc.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonReadableDesDesc.ToolTipValues.Heading = "Readable designation";
+		labelMpcorbJsonReadableDesDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonReadableDesDesc.Values.Text = "Readable designation";
+		labelMpcorbJsonReadableDesDesc.Enter += Control_Enter;
+		labelMpcorbJsonReadableDesDesc.Leave += Control_Leave;
+		labelMpcorbJsonReadableDesDesc.MouseEnter += Control_Enter;
+		labelMpcorbJsonReadableDesDesc.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonReadableDesData
+		//
+		labelMpcorbJsonReadableDesData.AccessibleDescription = "Shows the information of \"Readable designation\"";
+		labelMpcorbJsonReadableDesData.AccessibleName = "Shows the information of \"Readable designation\"";
+		labelMpcorbJsonReadableDesData.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonReadableDesData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonReadableDesData.Dock = DockStyle.Fill;
+		labelMpcorbJsonReadableDesData.Name = "labelMpcorbJsonReadableDesData";
+		labelMpcorbJsonReadableDesData.TabIndex = 5;
+		labelMpcorbJsonReadableDesData.ToolTipValues.Description = "Shows the information of \"Readable designation\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMpcorbJsonReadableDesData.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonReadableDesData.ToolTipValues.Heading = "Readable designation";
+		labelMpcorbJsonReadableDesData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonReadableDesData.Values.Text = "..................";
+		labelMpcorbJsonReadableDesData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMpcorbJsonReadableDesData.Enter += Control_Enter;
+		labelMpcorbJsonReadableDesData.Leave += Control_Leave;
+		labelMpcorbJsonReadableDesData.MouseDown += Control_MouseDown;
+		labelMpcorbJsonReadableDesData.MouseEnter += Control_Enter;
+		labelMpcorbJsonReadableDesData.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonReferenceDesc
+		//
+		labelMpcorbJsonReferenceDesc.AccessibleDescription = "Reference";
+		labelMpcorbJsonReferenceDesc.AccessibleName = "Reference";
+		labelMpcorbJsonReferenceDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonReferenceDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonReferenceDesc.Dock = DockStyle.Fill;
+		labelMpcorbJsonReferenceDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelMpcorbJsonReferenceDesc.Name = "labelMpcorbJsonReferenceDesc";
+		labelMpcorbJsonReferenceDesc.TabIndex = 6;
+		labelMpcorbJsonReferenceDesc.ToolTipValues.Description = "Shows the information of \"Reference\".";
+		labelMpcorbJsonReferenceDesc.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonReferenceDesc.ToolTipValues.Heading = "Reference";
+		labelMpcorbJsonReferenceDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonReferenceDesc.Values.Text = "Reference";
+		labelMpcorbJsonReferenceDesc.Enter += Control_Enter;
+		labelMpcorbJsonReferenceDesc.Leave += Control_Leave;
+		labelMpcorbJsonReferenceDesc.MouseEnter += Control_Enter;
+		labelMpcorbJsonReferenceDesc.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonReferenceData
+		//
+		labelMpcorbJsonReferenceData.AccessibleDescription = "Shows the information of \"Reference\"";
+		labelMpcorbJsonReferenceData.AccessibleName = "Shows the information of \"Reference\"";
+		labelMpcorbJsonReferenceData.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonReferenceData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonReferenceData.Dock = DockStyle.Fill;
+		labelMpcorbJsonReferenceData.Name = "labelMpcorbJsonReferenceData";
+		labelMpcorbJsonReferenceData.TabIndex = 7;
+		labelMpcorbJsonReferenceData.ToolTipValues.Description = "Shows the information of \"Reference\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMpcorbJsonReferenceData.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonReferenceData.ToolTipValues.Heading = "Reference";
+		labelMpcorbJsonReferenceData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonReferenceData.Values.Text = "..................";
+		labelMpcorbJsonReferenceData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMpcorbJsonReferenceData.Enter += Control_Enter;
+		labelMpcorbJsonReferenceData.Leave += Control_Leave;
+		labelMpcorbJsonReferenceData.MouseDown += Control_MouseDown;
+		labelMpcorbJsonReferenceData.MouseEnter += Control_Enter;
+		labelMpcorbJsonReferenceData.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonHDesc
+		//
+		labelMpcorbJsonHDesc.AccessibleDescription = "Absolute magnitude (H)";
+		labelMpcorbJsonHDesc.AccessibleName = "Absolute magnitude (H)";
+		labelMpcorbJsonHDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonHDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonHDesc.Dock = DockStyle.Fill;
+		labelMpcorbJsonHDesc.LabelStyle = LabelStyle.BoldControl;
+		labelMpcorbJsonHDesc.Name = "labelMpcorbJsonHDesc";
+		labelMpcorbJsonHDesc.TabIndex = 8;
+		labelMpcorbJsonHDesc.ToolTipValues.Description = "Shows the information of \"Absolute magnitude (H)\".";
+		labelMpcorbJsonHDesc.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonHDesc.ToolTipValues.Heading = "Absolute magnitude (H)";
+		labelMpcorbJsonHDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonHDesc.Values.Text = "Absolute magnitude (H)";
+		labelMpcorbJsonHDesc.Enter += Control_Enter;
+		labelMpcorbJsonHDesc.Leave += Control_Leave;
+		labelMpcorbJsonHDesc.MouseEnter += Control_Enter;
+		labelMpcorbJsonHDesc.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonHData
+		//
+		labelMpcorbJsonHData.AccessibleDescription = "Shows the information of \"Absolute magnitude (H)\"";
+		labelMpcorbJsonHData.AccessibleName = "Shows the information of \"Absolute magnitude (H)\"";
+		labelMpcorbJsonHData.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonHData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonHData.Dock = DockStyle.Fill;
+		labelMpcorbJsonHData.Name = "labelMpcorbJsonHData";
+		labelMpcorbJsonHData.TabIndex = 9;
+		labelMpcorbJsonHData.ToolTipValues.Description = "Shows the information of \"Absolute magnitude (H)\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMpcorbJsonHData.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonHData.ToolTipValues.Heading = "Absolute magnitude (H)";
+		labelMpcorbJsonHData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonHData.Values.Text = "..................";
+		labelMpcorbJsonHData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMpcorbJsonHData.Enter += Control_Enter;
+		labelMpcorbJsonHData.Leave += Control_Leave;
+		labelMpcorbJsonHData.MouseDown += Control_MouseDown;
+		labelMpcorbJsonHData.MouseEnter += Control_Enter;
+		labelMpcorbJsonHData.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonNumObsDesc
+		//
+		labelMpcorbJsonNumObsDesc.AccessibleDescription = "Number of observations";
+		labelMpcorbJsonNumObsDesc.AccessibleName = "Number of observations";
+		labelMpcorbJsonNumObsDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonNumObsDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonNumObsDesc.Dock = DockStyle.Fill;
+		labelMpcorbJsonNumObsDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelMpcorbJsonNumObsDesc.Name = "labelMpcorbJsonNumObsDesc";
+		labelMpcorbJsonNumObsDesc.TabIndex = 10;
+		labelMpcorbJsonNumObsDesc.ToolTipValues.Description = "Shows the information of \"Number of observations\".";
+		labelMpcorbJsonNumObsDesc.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonNumObsDesc.ToolTipValues.Heading = "Number of observations";
+		labelMpcorbJsonNumObsDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonNumObsDesc.Values.Text = "Number of observations";
+		labelMpcorbJsonNumObsDesc.Enter += Control_Enter;
+		labelMpcorbJsonNumObsDesc.Leave += Control_Leave;
+		labelMpcorbJsonNumObsDesc.MouseEnter += Control_Enter;
+		labelMpcorbJsonNumObsDesc.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonNumObsData
+		//
+		labelMpcorbJsonNumObsData.AccessibleDescription = "Shows the information of \"Number of observations\"";
+		labelMpcorbJsonNumObsData.AccessibleName = "Shows the information of \"Number of observations\"";
+		labelMpcorbJsonNumObsData.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonNumObsData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonNumObsData.Dock = DockStyle.Fill;
+		labelMpcorbJsonNumObsData.Name = "labelMpcorbJsonNumObsData";
+		labelMpcorbJsonNumObsData.TabIndex = 11;
+		labelMpcorbJsonNumObsData.ToolTipValues.Description = "Shows the information of \"Number of observations\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMpcorbJsonNumObsData.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonNumObsData.ToolTipValues.Heading = "Number of observations";
+		labelMpcorbJsonNumObsData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonNumObsData.Values.Text = "..................";
+		labelMpcorbJsonNumObsData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMpcorbJsonNumObsData.Enter += Control_Enter;
+		labelMpcorbJsonNumObsData.Leave += Control_Leave;
+		labelMpcorbJsonNumObsData.MouseDown += Control_MouseDown;
+		labelMpcorbJsonNumObsData.MouseEnter += Control_Enter;
+		labelMpcorbJsonNumObsData.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonGDesc
+		//
+		labelMpcorbJsonGDesc.AccessibleDescription = "Slope parameter (G)";
+		labelMpcorbJsonGDesc.AccessibleName = "Slope parameter (G)";
+		labelMpcorbJsonGDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonGDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonGDesc.Dock = DockStyle.Fill;
+		labelMpcorbJsonGDesc.LabelStyle = LabelStyle.BoldControl;
+		labelMpcorbJsonGDesc.Name = "labelMpcorbJsonGDesc";
+		labelMpcorbJsonGDesc.TabIndex = 12;
+		labelMpcorbJsonGDesc.ToolTipValues.Description = "Shows the information of \"Slope parameter (G)\".";
+		labelMpcorbJsonGDesc.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonGDesc.ToolTipValues.Heading = "Slope parameter (G)";
+		labelMpcorbJsonGDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonGDesc.Values.Text = "Slope parameter (G)";
+		labelMpcorbJsonGDesc.Enter += Control_Enter;
+		labelMpcorbJsonGDesc.Leave += Control_Leave;
+		labelMpcorbJsonGDesc.MouseEnter += Control_Enter;
+		labelMpcorbJsonGDesc.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonGData
+		//
+		labelMpcorbJsonGData.AccessibleDescription = "Shows the information of \"Slope parameter (G)\"";
+		labelMpcorbJsonGData.AccessibleName = "Shows the information of \"Slope parameter (G)\"";
+		labelMpcorbJsonGData.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonGData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonGData.Dock = DockStyle.Fill;
+		labelMpcorbJsonGData.Name = "labelMpcorbJsonGData";
+		labelMpcorbJsonGData.TabIndex = 13;
+		labelMpcorbJsonGData.ToolTipValues.Description = "Shows the information of \"Slope parameter (G)\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMpcorbJsonGData.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonGData.ToolTipValues.Heading = "Slope parameter (G)";
+		labelMpcorbJsonGData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonGData.Values.Text = "..................";
+		labelMpcorbJsonGData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMpcorbJsonGData.Enter += Control_Enter;
+		labelMpcorbJsonGData.Leave += Control_Leave;
+		labelMpcorbJsonGData.MouseDown += Control_MouseDown;
+		labelMpcorbJsonGData.MouseEnter += Control_Enter;
+		labelMpcorbJsonGData.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonNumOppDesc
+		//
+		labelMpcorbJsonNumOppDesc.AccessibleDescription = "Number of oppositions";
+		labelMpcorbJsonNumOppDesc.AccessibleName = "Number of oppositions";
+		labelMpcorbJsonNumOppDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonNumOppDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonNumOppDesc.Dock = DockStyle.Fill;
+		labelMpcorbJsonNumOppDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelMpcorbJsonNumOppDesc.Name = "labelMpcorbJsonNumOppDesc";
+		labelMpcorbJsonNumOppDesc.TabIndex = 14;
+		labelMpcorbJsonNumOppDesc.ToolTipValues.Description = "Shows the information of \"Number of oppositions\".";
+		labelMpcorbJsonNumOppDesc.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonNumOppDesc.ToolTipValues.Heading = "Number of oppositions";
+		labelMpcorbJsonNumOppDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonNumOppDesc.Values.Text = "Number of oppositions";
+		labelMpcorbJsonNumOppDesc.Enter += Control_Enter;
+		labelMpcorbJsonNumOppDesc.Leave += Control_Leave;
+		labelMpcorbJsonNumOppDesc.MouseEnter += Control_Enter;
+		labelMpcorbJsonNumOppDesc.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonNumOppData
+		//
+		labelMpcorbJsonNumOppData.AccessibleDescription = "Shows the information of \"Number of oppositions\"";
+		labelMpcorbJsonNumOppData.AccessibleName = "Shows the information of \"Number of oppositions\"";
+		labelMpcorbJsonNumOppData.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonNumOppData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonNumOppData.Dock = DockStyle.Fill;
+		labelMpcorbJsonNumOppData.Name = "labelMpcorbJsonNumOppData";
+		labelMpcorbJsonNumOppData.TabIndex = 15;
+		labelMpcorbJsonNumOppData.ToolTipValues.Description = "Shows the information of \"Number of oppositions\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMpcorbJsonNumOppData.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonNumOppData.ToolTipValues.Heading = "Number of oppositions";
+		labelMpcorbJsonNumOppData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonNumOppData.Values.Text = "..................";
+		labelMpcorbJsonNumOppData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMpcorbJsonNumOppData.Enter += Control_Enter;
+		labelMpcorbJsonNumOppData.Leave += Control_Leave;
+		labelMpcorbJsonNumOppData.MouseDown += Control_MouseDown;
+		labelMpcorbJsonNumOppData.MouseEnter += Control_Enter;
+		labelMpcorbJsonNumOppData.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonEpochDesc
+		//
+		labelMpcorbJsonEpochDesc.AccessibleDescription = "Epoch (in packed form, .0 TT)";
+		labelMpcorbJsonEpochDesc.AccessibleName = "Epoch (in packed form, .0 TT)";
+		labelMpcorbJsonEpochDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonEpochDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonEpochDesc.Dock = DockStyle.Fill;
+		labelMpcorbJsonEpochDesc.LabelStyle = LabelStyle.BoldControl;
+		labelMpcorbJsonEpochDesc.Name = "labelMpcorbJsonEpochDesc";
+		labelMpcorbJsonEpochDesc.TabIndex = 16;
+		labelMpcorbJsonEpochDesc.ToolTipValues.Description = "Shows the information of \"Epoch (in packed form, .0 TT)\".";
+		labelMpcorbJsonEpochDesc.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonEpochDesc.ToolTipValues.Heading = "Epoch (in packed form, .0 TT)";
+		labelMpcorbJsonEpochDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonEpochDesc.Values.Text = "Epoch (in packed form, .0 TT)";
+		labelMpcorbJsonEpochDesc.Enter += Control_Enter;
+		labelMpcorbJsonEpochDesc.Leave += Control_Leave;
+		labelMpcorbJsonEpochDesc.MouseEnter += Control_Enter;
+		labelMpcorbJsonEpochDesc.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonEpochData
+		//
+		labelMpcorbJsonEpochData.AccessibleDescription = "Shows the information of \"Epoch (in packed form, .0 TT)\"";
+		labelMpcorbJsonEpochData.AccessibleName = "Shows the information of \"Epoch (in packed form, .0 TT)\"";
+		labelMpcorbJsonEpochData.AccessibleRole = AccessibleRole.StatusBar;
+		labelMpcorbJsonEpochData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonEpochData.Dock = DockStyle.Fill;
+		labelMpcorbJsonEpochData.Name = "labelMpcorbJsonEpochData";
+		labelMpcorbJsonEpochData.TabIndex = 17;
+		labelMpcorbJsonEpochData.ToolTipValues.Description = "Shows the information of \"Epoch (in packed form, .0 TT)\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMpcorbJsonEpochData.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonEpochData.ToolTipValues.Heading = "Epoch (in packed form, .0 TT)";
+		labelMpcorbJsonEpochData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonEpochData.Values.Text = "..................";
+		labelMpcorbJsonEpochData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMpcorbJsonEpochData.Enter += Control_Enter;
+		labelMpcorbJsonEpochData.Leave += Control_Leave;
+		labelMpcorbJsonEpochData.MouseDown += Control_MouseDown;
+		labelMpcorbJsonEpochData.MouseEnter += Control_Enter;
+		labelMpcorbJsonEpochData.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonArcDesc
+		//
+		labelMpcorbJsonArcDesc.AccessibleDescription = "Arc length (days)";
+		labelMpcorbJsonArcDesc.AccessibleName = "Arc length (days)";
+		labelMpcorbJsonArcDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonArcDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonArcDesc.Dock = DockStyle.Fill;
+		labelMpcorbJsonArcDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelMpcorbJsonArcDesc.Name = "labelMpcorbJsonArcDesc";
+		labelMpcorbJsonArcDesc.TabIndex = 18;
+		labelMpcorbJsonArcDesc.ToolTipValues.Description = "Shows the information of \"Arc length (days)\".";
+		labelMpcorbJsonArcDesc.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonArcDesc.ToolTipValues.Heading = "Arc length (days)";
+		labelMpcorbJsonArcDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonArcDesc.Values.Text = "Arc length (days)";
+		labelMpcorbJsonArcDesc.Enter += Control_Enter;
+		labelMpcorbJsonArcDesc.Leave += Control_Leave;
+		labelMpcorbJsonArcDesc.MouseEnter += Control_Enter;
+		labelMpcorbJsonArcDesc.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonArcData
+		//
+		labelMpcorbJsonArcData.AccessibleDescription = "Shows the information of \"Arc length (days)\"";
+		labelMpcorbJsonArcData.AccessibleName = "Shows the information of \"Arc length (days)\"";
+		labelMpcorbJsonArcData.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonArcData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonArcData.Dock = DockStyle.Fill;
+		labelMpcorbJsonArcData.Name = "labelMpcorbJsonArcData";
+		labelMpcorbJsonArcData.TabIndex = 19;
+		labelMpcorbJsonArcData.ToolTipValues.Description = "Shows the information of \"Arc length (days)\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMpcorbJsonArcData.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonArcData.ToolTipValues.Heading = "Arc length (days)";
+		labelMpcorbJsonArcData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonArcData.Values.Text = "..................";
+		labelMpcorbJsonArcData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMpcorbJsonArcData.Enter += Control_Enter;
+		labelMpcorbJsonArcData.Leave += Control_Leave;
+		labelMpcorbJsonArcData.MouseDown += Control_MouseDown;
+		labelMpcorbJsonArcData.MouseEnter += Control_Enter;
+		labelMpcorbJsonArcData.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonMDesc
+		//
+		labelMpcorbJsonMDesc.AccessibleDescription = "Mean anomaly at epoch (degrees)";
+		labelMpcorbJsonMDesc.AccessibleName = "Mean anomaly at epoch (degrees)";
+		labelMpcorbJsonMDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonMDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonMDesc.Dock = DockStyle.Fill;
+		labelMpcorbJsonMDesc.LabelStyle = LabelStyle.BoldControl;
+		labelMpcorbJsonMDesc.Name = "labelMpcorbJsonMDesc";
+		labelMpcorbJsonMDesc.TabIndex = 20;
+		labelMpcorbJsonMDesc.ToolTipValues.Description = "Shows the information of \"Mean anomaly at epoch (degrees)\".";
+		labelMpcorbJsonMDesc.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonMDesc.ToolTipValues.Heading = "Mean anomaly at epoch (degrees)";
+		labelMpcorbJsonMDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonMDesc.Values.Text = "Mean anomaly at epoch (degrees)";
+		labelMpcorbJsonMDesc.Enter += Control_Enter;
+		labelMpcorbJsonMDesc.Leave += Control_Leave;
+		labelMpcorbJsonMDesc.MouseEnter += Control_Enter;
+		labelMpcorbJsonMDesc.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonMData
+		//
+		labelMpcorbJsonMData.AccessibleDescription = "Shows the information of \"Mean anomaly at epoch (degrees)\"";
+		labelMpcorbJsonMData.AccessibleName = "Shows the information of \"Mean anomaly at epoch (degrees)\"";
+		labelMpcorbJsonMData.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonMData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonMData.Dock = DockStyle.Fill;
+		labelMpcorbJsonMData.Name = "labelMpcorbJsonMData";
+		labelMpcorbJsonMData.TabIndex = 21;
+		labelMpcorbJsonMData.ToolTipValues.Description = "Shows the information of \"Mean anomaly at epoch (degrees)\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMpcorbJsonMData.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonMData.ToolTipValues.Heading = "Mean anomaly at epoch (degrees)";
+		labelMpcorbJsonMData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonMData.Values.Text = "..................";
+		labelMpcorbJsonMData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMpcorbJsonMData.Enter += Control_Enter;
+		labelMpcorbJsonMData.Leave += Control_Leave;
+		labelMpcorbJsonMData.MouseDown += Control_MouseDown;
+		labelMpcorbJsonMData.MouseEnter += Control_Enter;
+		labelMpcorbJsonMData.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonRmsDesc
+		//
+		labelMpcorbJsonRmsDesc.AccessibleDescription = "r.m.s. residual (arcseconds)";
+		labelMpcorbJsonRmsDesc.AccessibleName = "r.m.s. residual (arcseconds)";
+		labelMpcorbJsonRmsDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonRmsDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonRmsDesc.Dock = DockStyle.Fill;
+		labelMpcorbJsonRmsDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelMpcorbJsonRmsDesc.Name = "labelMpcorbJsonRmsDesc";
+		labelMpcorbJsonRmsDesc.TabIndex = 22;
+		labelMpcorbJsonRmsDesc.ToolTipValues.Description = "Shows the information of \"r.m.s. residual (arcseconds)\".";
+		labelMpcorbJsonRmsDesc.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonRmsDesc.ToolTipValues.Heading = "r.m.s. residual (arcseconds)";
+		labelMpcorbJsonRmsDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonRmsDesc.Values.Text = "r.m.s. residual";
+		labelMpcorbJsonRmsDesc.Enter += Control_Enter;
+		labelMpcorbJsonRmsDesc.Leave += Control_Leave;
+		labelMpcorbJsonRmsDesc.MouseEnter += Control_Enter;
+		labelMpcorbJsonRmsDesc.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonRmsData
+		//
+		labelMpcorbJsonRmsData.AccessibleDescription = "Shows the information of \"r.m.s. residual (arcseconds)\"";
+		labelMpcorbJsonRmsData.AccessibleName = "Shows the information of \"r.m.s. residual (arcseconds)\"";
+		labelMpcorbJsonRmsData.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonRmsData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonRmsData.Dock = DockStyle.Fill;
+		labelMpcorbJsonRmsData.Name = "labelMpcorbJsonRmsData";
+		labelMpcorbJsonRmsData.TabIndex = 23;
+		labelMpcorbJsonRmsData.ToolTipValues.Description = "Shows the information of \"r.m.s. residual (arcseconds)\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMpcorbJsonRmsData.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonRmsData.ToolTipValues.Heading = "r.m.s. residual (arcseconds)";
+		labelMpcorbJsonRmsData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonRmsData.Values.Text = "..................";
+		labelMpcorbJsonRmsData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMpcorbJsonRmsData.Enter += Control_Enter;
+		labelMpcorbJsonRmsData.Leave += Control_Leave;
+		labelMpcorbJsonRmsData.MouseDown += Control_MouseDown;
+		labelMpcorbJsonRmsData.MouseEnter += Control_Enter;
+		labelMpcorbJsonRmsData.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonPeriDesc
+		//
+		labelMpcorbJsonPeriDesc.AccessibleDescription = "Argument of perihelion, J2000.0 (degrees)";
+		labelMpcorbJsonPeriDesc.AccessibleName = "Argument of perihelion, J2000.0 (degrees)";
+		labelMpcorbJsonPeriDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonPeriDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonPeriDesc.Dock = DockStyle.Fill;
+		labelMpcorbJsonPeriDesc.LabelStyle = LabelStyle.BoldControl;
+		labelMpcorbJsonPeriDesc.Name = "labelMpcorbJsonPeriDesc";
+		labelMpcorbJsonPeriDesc.TabIndex = 24;
+		labelMpcorbJsonPeriDesc.ToolTipValues.Description = "Shows the information of \"Argument of perihelion, J2000.0 (degrees)\".";
+		labelMpcorbJsonPeriDesc.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonPeriDesc.ToolTipValues.Heading = "Argument of perihelion, J2000.0 (degrees)";
+		labelMpcorbJsonPeriDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonPeriDesc.Values.Text = "Argument of perihelion, J2000.0 (degrees)";
+		labelMpcorbJsonPeriDesc.Enter += Control_Enter;
+		labelMpcorbJsonPeriDesc.Leave += Control_Leave;
+		labelMpcorbJsonPeriDesc.MouseEnter += Control_Enter;
+		labelMpcorbJsonPeriDesc.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonPeriData
+		//
+		labelMpcorbJsonPeriData.AccessibleDescription = "Shows the information of \"Argument of perihelion, J2000.0 (degrees)\"";
+		labelMpcorbJsonPeriData.AccessibleName = "Shows the information of \"Argument of perihelion, J2000.0 (degrees)\"";
+		labelMpcorbJsonPeriData.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonPeriData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonPeriData.Dock = DockStyle.Fill;
+		labelMpcorbJsonPeriData.Name = "labelMpcorbJsonPeriData";
+		labelMpcorbJsonPeriData.TabIndex = 25;
+		labelMpcorbJsonPeriData.ToolTipValues.Description = "Shows the information of \"Argument of perihelion, J2000.0 (degrees)\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMpcorbJsonPeriData.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonPeriData.ToolTipValues.Heading = "Argument of perihelion, J2000.0 (degrees)";
+		labelMpcorbJsonPeriData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonPeriData.Values.Text = "..................";
+		labelMpcorbJsonPeriData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMpcorbJsonPeriData.Enter += Control_Enter;
+		labelMpcorbJsonPeriData.Leave += Control_Leave;
+		labelMpcorbJsonPeriData.MouseDown += Control_MouseDown;
+		labelMpcorbJsonPeriData.MouseEnter += Control_Enter;
+		labelMpcorbJsonPeriData.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonPerturbersDesc
+		//
+		labelMpcorbJsonPerturbersDesc.AccessibleDescription = "Perturbers (coarse indicator)";
+		labelMpcorbJsonPerturbersDesc.AccessibleName = "Perturbers (coarse indicator)";
+		labelMpcorbJsonPerturbersDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonPerturbersDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonPerturbersDesc.Dock = DockStyle.Fill;
+		labelMpcorbJsonPerturbersDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelMpcorbJsonPerturbersDesc.Name = "labelMpcorbJsonPerturbersDesc";
+		labelMpcorbJsonPerturbersDesc.TabIndex = 26;
+		labelMpcorbJsonPerturbersDesc.ToolTipValues.Description = "Shows the information of \"Perturbers (coarse indicator)\".";
+		labelMpcorbJsonPerturbersDesc.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonPerturbersDesc.ToolTipValues.Heading = "Perturbers (coarse indicator)";
+		labelMpcorbJsonPerturbersDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonPerturbersDesc.Values.Text = "Perturbers (coarse indicator)";
+		labelMpcorbJsonPerturbersDesc.Enter += Control_Enter;
+		labelMpcorbJsonPerturbersDesc.Leave += Control_Leave;
+		labelMpcorbJsonPerturbersDesc.MouseEnter += Control_Enter;
+		labelMpcorbJsonPerturbersDesc.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonPerturbersData
+		//
+		labelMpcorbJsonPerturbersData.AccessibleDescription = "Shows the information of \"Perturbers (coarse indicator)\"";
+		labelMpcorbJsonPerturbersData.AccessibleName = "Shows the information of \"Perturbers (coarse indicator)\"";
+		labelMpcorbJsonPerturbersData.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonPerturbersData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonPerturbersData.Dock = DockStyle.Fill;
+		labelMpcorbJsonPerturbersData.Name = "labelMpcorbJsonPerturbersData";
+		labelMpcorbJsonPerturbersData.TabIndex = 27;
+		labelMpcorbJsonPerturbersData.ToolTipValues.Description = "Shows the information of \"Perturbers (coarse indicator)\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMpcorbJsonPerturbersData.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonPerturbersData.ToolTipValues.Heading = "Perturbers (coarse indicator)";
+		labelMpcorbJsonPerturbersData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonPerturbersData.Values.Text = "..................";
+		labelMpcorbJsonPerturbersData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMpcorbJsonPerturbersData.Enter += Control_Enter;
+		labelMpcorbJsonPerturbersData.Leave += Control_Leave;
+		labelMpcorbJsonPerturbersData.MouseDown += Control_MouseDown;
+		labelMpcorbJsonPerturbersData.MouseEnter += Control_Enter;
+		labelMpcorbJsonPerturbersData.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonNodeDesc
+		//
+		labelMpcorbJsonNodeDesc.AccessibleDescription = "Longitude of ascending node, J2000.0 (degrees)";
+		labelMpcorbJsonNodeDesc.AccessibleName = "Longitude of ascending node, J2000.0 (degrees)";
+		labelMpcorbJsonNodeDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonNodeDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonNodeDesc.Dock = DockStyle.Fill;
+		labelMpcorbJsonNodeDesc.LabelStyle = LabelStyle.BoldControl;
+		labelMpcorbJsonNodeDesc.Name = "labelMpcorbJsonNodeDesc";
+		labelMpcorbJsonNodeDesc.TabIndex = 28;
+		labelMpcorbJsonNodeDesc.ToolTipValues.Description = "Shows the information of \"Longitude of ascending node, J2000.0 (degrees)\".";
+		labelMpcorbJsonNodeDesc.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonNodeDesc.ToolTipValues.Heading = "Longitude of ascending node, J2000.0 (degrees)";
+		labelMpcorbJsonNodeDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonNodeDesc.Values.Text = "Longitude of ascending node, J2000.0 (degrees)";
+		labelMpcorbJsonNodeDesc.Enter += Control_Enter;
+		labelMpcorbJsonNodeDesc.Leave += Control_Leave;
+		labelMpcorbJsonNodeDesc.MouseEnter += Control_Enter;
+		labelMpcorbJsonNodeDesc.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonNodeData
+		//
+		labelMpcorbJsonNodeData.AccessibleDescription = "Shows the information of \"Longitude of ascending node, J2000.0 (degrees)\"";
+		labelMpcorbJsonNodeData.AccessibleName = "Shows the information of \"Longitude of ascending node, J2000.0 (degrees)\"";
+		labelMpcorbJsonNodeData.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonNodeData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonNodeData.Dock = DockStyle.Fill;
+		labelMpcorbJsonNodeData.Name = "labelMpcorbJsonNodeData";
+		labelMpcorbJsonNodeData.TabIndex = 29;
+		labelMpcorbJsonNodeData.ToolTipValues.Description = "Shows the information of \"Longitude of ascending node, J2000.0 (degrees)\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMpcorbJsonNodeData.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonNodeData.ToolTipValues.Heading = "Longitude of ascending node, J2000.0 (degrees)";
+		labelMpcorbJsonNodeData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonNodeData.Values.Text = "..................";
+		labelMpcorbJsonNodeData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMpcorbJsonNodeData.Enter += Control_Enter;
+		labelMpcorbJsonNodeData.Leave += Control_Leave;
+		labelMpcorbJsonNodeData.MouseDown += Control_MouseDown;
+		labelMpcorbJsonNodeData.MouseEnter += Control_Enter;
+		labelMpcorbJsonNodeData.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonPerturbers2Desc
+		//
+		labelMpcorbJsonPerturbers2Desc.AccessibleDescription = "Perturbers (precise indicator)";
+		labelMpcorbJsonPerturbers2Desc.AccessibleName = "Perturbers (precise indicator)";
+		labelMpcorbJsonPerturbers2Desc.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonPerturbers2Desc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonPerturbers2Desc.Dock = DockStyle.Fill;
+		labelMpcorbJsonPerturbers2Desc.LabelStyle = LabelStyle.BoldPanel;
+		labelMpcorbJsonPerturbers2Desc.Name = "labelMpcorbJsonPerturbers2Desc";
+		labelMpcorbJsonPerturbers2Desc.TabIndex = 30;
+		labelMpcorbJsonPerturbers2Desc.ToolTipValues.Description = "Shows the information of \"Perturbers (precise indicator)\".";
+		labelMpcorbJsonPerturbers2Desc.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonPerturbers2Desc.ToolTipValues.Heading = "Perturbers (precise indicator)";
+		labelMpcorbJsonPerturbers2Desc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonPerturbers2Desc.Values.Text = "Perturbers (precise indicator)";
+		labelMpcorbJsonPerturbers2Desc.Enter += Control_Enter;
+		labelMpcorbJsonPerturbers2Desc.Leave += Control_Leave;
+		labelMpcorbJsonPerturbers2Desc.MouseEnter += Control_Enter;
+		labelMpcorbJsonPerturbers2Desc.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonPerturbers2Data
+		//
+		labelMpcorbJsonPerturbers2Data.AccessibleDescription = "Shows the information of \"Perturbers (precise indicator)\"";
+		labelMpcorbJsonPerturbers2Data.AccessibleName = "Shows the information of \"Perturbers (precise indicator)\"";
+		labelMpcorbJsonPerturbers2Data.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonPerturbers2Data.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonPerturbers2Data.Dock = DockStyle.Fill;
+		labelMpcorbJsonPerturbers2Data.Name = "labelMpcorbJsonPerturbers2Data";
+		labelMpcorbJsonPerturbers2Data.TabIndex = 31;
+		labelMpcorbJsonPerturbers2Data.ToolTipValues.Description = "Shows the information of \"Perturbers (precise indicator)\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMpcorbJsonPerturbers2Data.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonPerturbers2Data.ToolTipValues.Heading = "Perturbers (precise indicator)";
+		labelMpcorbJsonPerturbers2Data.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonPerturbers2Data.Values.Text = "..................";
+		labelMpcorbJsonPerturbers2Data.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMpcorbJsonPerturbers2Data.Enter += Control_Enter;
+		labelMpcorbJsonPerturbers2Data.Leave += Control_Leave;
+		labelMpcorbJsonPerturbers2Data.MouseDown += Control_MouseDown;
+		labelMpcorbJsonPerturbers2Data.MouseEnter += Control_Enter;
+		labelMpcorbJsonPerturbers2Data.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonIDesc
+		//
+		labelMpcorbJsonIDesc.AccessibleDescription = "Inclination to the ecliptic, J2000.0 (degrees)";
+		labelMpcorbJsonIDesc.AccessibleName = "Inclination to the ecliptic, J2000.0 (degrees)";
+		labelMpcorbJsonIDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonIDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonIDesc.Dock = DockStyle.Fill;
+		labelMpcorbJsonIDesc.LabelStyle = LabelStyle.BoldControl;
+		labelMpcorbJsonIDesc.Name = "labelMpcorbJsonIDesc";
+		labelMpcorbJsonIDesc.TabIndex = 32;
+		labelMpcorbJsonIDesc.ToolTipValues.Description = "Shows the information of \"Inclination to the ecliptic, J2000.0 (degrees)\".";
+		labelMpcorbJsonIDesc.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonIDesc.ToolTipValues.Heading = "Inclination to the ecliptic, J2000.0 (degrees)";
+		labelMpcorbJsonIDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonIDesc.Values.Text = "Inclination to the ecliptic, J2000.0 (degrees)";
+		labelMpcorbJsonIDesc.Enter += Control_Enter;
+		labelMpcorbJsonIDesc.Leave += Control_Leave;
+		labelMpcorbJsonIDesc.MouseEnter += Control_Enter;
+		labelMpcorbJsonIDesc.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonIData
+		//
+		labelMpcorbJsonIData.AccessibleDescription = "Shows the information of \"Inclination to the ecliptic, J2000.0 (degrees)\"";
+		labelMpcorbJsonIData.AccessibleName = "Shows the information of \"Inclination to the ecliptic, J2000.0 (degrees)\"";
+		labelMpcorbJsonIData.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonIData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonIData.Dock = DockStyle.Fill;
+		labelMpcorbJsonIData.Name = "labelMpcorbJsonIData";
+		labelMpcorbJsonIData.TabIndex = 33;
+		labelMpcorbJsonIData.ToolTipValues.Description = "Shows the information of \"Inclination to the ecliptic, J2000.0 (degrees)\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMpcorbJsonIData.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonIData.ToolTipValues.Heading = "Inclination to the ecliptic, J2000.0 (degrees)";
+		labelMpcorbJsonIData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonIData.Values.Text = "..................";
+		labelMpcorbJsonIData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMpcorbJsonIData.Enter += Control_Enter;
+		labelMpcorbJsonIData.Leave += Control_Leave;
+		labelMpcorbJsonIData.MouseDown += Control_MouseDown;
+		labelMpcorbJsonIData.MouseEnter += Control_Enter;
+		labelMpcorbJsonIData.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonComputerDesc
+		//
+		labelMpcorbJsonComputerDesc.AccessibleDescription = "Computer name";
+		labelMpcorbJsonComputerDesc.AccessibleName = "Computer name";
+		labelMpcorbJsonComputerDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonComputerDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonComputerDesc.Dock = DockStyle.Fill;
+		labelMpcorbJsonComputerDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelMpcorbJsonComputerDesc.Name = "labelMpcorbJsonComputerDesc";
+		labelMpcorbJsonComputerDesc.TabIndex = 34;
+		labelMpcorbJsonComputerDesc.ToolTipValues.Description = "Shows the information of \"Computer name\".";
+		labelMpcorbJsonComputerDesc.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonComputerDesc.ToolTipValues.Heading = "Computer name";
+		labelMpcorbJsonComputerDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonComputerDesc.Values.Text = "Computer name";
+		labelMpcorbJsonComputerDesc.Enter += Control_Enter;
+		labelMpcorbJsonComputerDesc.Leave += Control_Leave;
+		labelMpcorbJsonComputerDesc.MouseEnter += Control_Enter;
+		labelMpcorbJsonComputerDesc.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonComputerData
+		//
+		labelMpcorbJsonComputerData.AccessibleDescription = "Shows the information of \"Computer name\"";
+		labelMpcorbJsonComputerData.AccessibleName = "Shows the information of \"Computer name\"";
+		labelMpcorbJsonComputerData.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonComputerData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonComputerData.Dock = DockStyle.Fill;
+		labelMpcorbJsonComputerData.Name = "labelMpcorbJsonComputerData";
+		labelMpcorbJsonComputerData.TabIndex = 35;
+		labelMpcorbJsonComputerData.ToolTipValues.Description = "Shows the information of \"Computer name\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMpcorbJsonComputerData.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonComputerData.ToolTipValues.Heading = "Computer name";
+		labelMpcorbJsonComputerData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonComputerData.Values.Text = "..................";
+		labelMpcorbJsonComputerData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMpcorbJsonComputerData.Enter += Control_Enter;
+		labelMpcorbJsonComputerData.Leave += Control_Leave;
+		labelMpcorbJsonComputerData.MouseDown += Control_MouseDown;
+		labelMpcorbJsonComputerData.MouseEnter += Control_Enter;
+		labelMpcorbJsonComputerData.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonEDesc
+		//
+		labelMpcorbJsonEDesc.AccessibleDescription = "Orbital eccentricity";
+		labelMpcorbJsonEDesc.AccessibleName = "Orbital eccentricity";
+		labelMpcorbJsonEDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonEDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonEDesc.Dock = DockStyle.Fill;
+		labelMpcorbJsonEDesc.LabelStyle = LabelStyle.BoldControl;
+		labelMpcorbJsonEDesc.Name = "labelMpcorbJsonEDesc";
+		labelMpcorbJsonEDesc.TabIndex = 36;
+		labelMpcorbJsonEDesc.ToolTipValues.Description = "Shows the information of \"Orbital eccentricity\".";
+		labelMpcorbJsonEDesc.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonEDesc.ToolTipValues.Heading = "Orbital eccentricity";
+		labelMpcorbJsonEDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonEDesc.Values.Text = "Orbital eccentricity";
+		labelMpcorbJsonEDesc.Enter += Control_Enter;
+		labelMpcorbJsonEDesc.Leave += Control_Leave;
+		labelMpcorbJsonEDesc.MouseEnter += Control_Enter;
+		labelMpcorbJsonEDesc.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonEData
+		//
+		labelMpcorbJsonEData.AccessibleDescription = "Shows the information of \"Orbital eccentricity\"";
+		labelMpcorbJsonEData.AccessibleName = "Shows the information of \"Orbital eccentricity\"";
+		labelMpcorbJsonEData.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonEData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonEData.Dock = DockStyle.Fill;
+		labelMpcorbJsonEData.Name = "labelMpcorbJsonEData";
+		labelMpcorbJsonEData.TabIndex = 37;
+		labelMpcorbJsonEData.ToolTipValues.Description = "Shows the information of \"Orbital eccentricity\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMpcorbJsonEData.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonEData.ToolTipValues.Heading = "Orbital eccentricity";
+		labelMpcorbJsonEData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonEData.Values.Text = "..................";
+		labelMpcorbJsonEData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMpcorbJsonEData.Enter += Control_Enter;
+		labelMpcorbJsonEData.Leave += Control_Leave;
+		labelMpcorbJsonEData.MouseDown += Control_MouseDown;
+		labelMpcorbJsonEData.MouseEnter += Control_Enter;
+		labelMpcorbJsonEData.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonFlagsDesc
+		//
+		labelMpcorbJsonFlagsDesc.AccessibleDescription = "4-hexdigit flags";
+		labelMpcorbJsonFlagsDesc.AccessibleName = "4-hexdigit flags";
+		labelMpcorbJsonFlagsDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonFlagsDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonFlagsDesc.Dock = DockStyle.Fill;
+		labelMpcorbJsonFlagsDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelMpcorbJsonFlagsDesc.Name = "labelMpcorbJsonFlagsDesc";
+		labelMpcorbJsonFlagsDesc.TabIndex = 38;
+		labelMpcorbJsonFlagsDesc.ToolTipValues.Description = "Shows the information of \"4-hexdigit flags\".";
+		labelMpcorbJsonFlagsDesc.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonFlagsDesc.ToolTipValues.Heading = "4-hexdigit flags";
+		labelMpcorbJsonFlagsDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonFlagsDesc.Values.Text = "4-hexdigit flags";
+		labelMpcorbJsonFlagsDesc.Enter += Control_Enter;
+		labelMpcorbJsonFlagsDesc.Leave += Control_Leave;
+		labelMpcorbJsonFlagsDesc.MouseEnter += Control_Enter;
+		labelMpcorbJsonFlagsDesc.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonFlagsData
+		//
+		labelMpcorbJsonFlagsData.AccessibleDescription = "Shows the information of \"4-hexdigit flags\"";
+		labelMpcorbJsonFlagsData.AccessibleName = "Shows the information of \"4-hexdigit flags\"";
+		labelMpcorbJsonFlagsData.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonFlagsData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonFlagsData.Dock = DockStyle.Fill;
+		labelMpcorbJsonFlagsData.Name = "labelMpcorbJsonFlagsData";
+		labelMpcorbJsonFlagsData.TabIndex = 39;
+		labelMpcorbJsonFlagsData.ToolTipValues.Description = "Shows the information of \"4-hexdigit flags\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMpcorbJsonFlagsData.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonFlagsData.ToolTipValues.Heading = "4-hexdigit flags";
+		labelMpcorbJsonFlagsData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonFlagsData.Values.Text = "..................";
+		labelMpcorbJsonFlagsData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMpcorbJsonFlagsData.Enter += Control_Enter;
+		labelMpcorbJsonFlagsData.Leave += Control_Leave;
+		labelMpcorbJsonFlagsData.MouseDown += Control_MouseDown;
+		labelMpcorbJsonFlagsData.MouseEnter += Control_Enter;
+		labelMpcorbJsonFlagsData.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonNDesc
+		//
+		labelMpcorbJsonNDesc.AccessibleDescription = "Mean daily motion (degrees/day)";
+		labelMpcorbJsonNDesc.AccessibleName = "Mean daily motion (degrees/day)";
+		labelMpcorbJsonNDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonNDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonNDesc.Dock = DockStyle.Fill;
+		labelMpcorbJsonNDesc.LabelStyle = LabelStyle.BoldControl;
+		labelMpcorbJsonNDesc.Name = "labelMpcorbJsonNDesc";
+		labelMpcorbJsonNDesc.TabIndex = 40;
+		labelMpcorbJsonNDesc.ToolTipValues.Description = "Shows the information of \"Mean daily motion (degrees/day)\".";
+		labelMpcorbJsonNDesc.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonNDesc.ToolTipValues.Heading = "Mean daily motion (degrees/day)";
+		labelMpcorbJsonNDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonNDesc.Values.Text = "Mean daily motion (degrees/day)";
+		labelMpcorbJsonNDesc.Enter += Control_Enter;
+		labelMpcorbJsonNDesc.Leave += Control_Leave;
+		labelMpcorbJsonNDesc.MouseEnter += Control_Enter;
+		labelMpcorbJsonNDesc.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonNData
+		//
+		labelMpcorbJsonNData.AccessibleDescription = "Shows the information of \"Mean daily motion (degrees/day)\"";
+		labelMpcorbJsonNData.AccessibleName = "Shows the information of \"Mean daily motion (degrees/day)\"";
+		labelMpcorbJsonNData.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonNData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonNData.Dock = DockStyle.Fill;
+		labelMpcorbJsonNData.Name = "labelMpcorbJsonNData";
+		labelMpcorbJsonNData.TabIndex = 41;
+		labelMpcorbJsonNData.ToolTipValues.Description = "Shows the information of \"Mean daily motion (degrees/day)\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMpcorbJsonNData.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonNData.ToolTipValues.Heading = "Mean daily motion (degrees/day)";
+		labelMpcorbJsonNData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonNData.Values.Text = "..................";
+		labelMpcorbJsonNData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMpcorbJsonNData.Enter += Control_Enter;
+		labelMpcorbJsonNData.Leave += Control_Leave;
+		labelMpcorbJsonNData.MouseDown += Control_MouseDown;
+		labelMpcorbJsonNData.MouseEnter += Control_Enter;
+		labelMpcorbJsonNData.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonLastObsDesc
+		//
+		labelMpcorbJsonLastObsDesc.AccessibleDescription = "Date of last observation (YYYYMMDD)";
+		labelMpcorbJsonLastObsDesc.AccessibleName = "Date of last observation (YYYYMMDD)";
+		labelMpcorbJsonLastObsDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonLastObsDesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonLastObsDesc.Dock = DockStyle.Fill;
+		labelMpcorbJsonLastObsDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelMpcorbJsonLastObsDesc.Name = "labelMpcorbJsonLastObsDesc";
+		labelMpcorbJsonLastObsDesc.TabIndex = 42;
+		labelMpcorbJsonLastObsDesc.ToolTipValues.Description = "Shows the information of \"Date of last observation (YYYYMMDD)\".";
+		labelMpcorbJsonLastObsDesc.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonLastObsDesc.ToolTipValues.Heading = "Date of last observation (YYYYMMDD)";
+		labelMpcorbJsonLastObsDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonLastObsDesc.Values.Text = "Date of last observation";
+		labelMpcorbJsonLastObsDesc.Enter += Control_Enter;
+		labelMpcorbJsonLastObsDesc.Leave += Control_Leave;
+		labelMpcorbJsonLastObsDesc.MouseEnter += Control_Enter;
+		labelMpcorbJsonLastObsDesc.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonLastObsData
+		//
+		labelMpcorbJsonLastObsData.AccessibleDescription = "Shows the information of \"Date of last observation (YYYYMMDD)\"";
+		labelMpcorbJsonLastObsData.AccessibleName = "Shows the information of \"Date of last observation (YYYYMMDD)\"";
+		labelMpcorbJsonLastObsData.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonLastObsData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonLastObsData.Dock = DockStyle.Fill;
+		labelMpcorbJsonLastObsData.Name = "labelMpcorbJsonLastObsData";
+		labelMpcorbJsonLastObsData.TabIndex = 43;
+		labelMpcorbJsonLastObsData.ToolTipValues.Description = "Shows the information of \"Date of last observation (YYYYMMDD)\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMpcorbJsonLastObsData.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonLastObsData.ToolTipValues.Heading = "Date of last observation (YYYYMMDD)";
+		labelMpcorbJsonLastObsData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonLastObsData.Values.Text = "..................";
+		labelMpcorbJsonLastObsData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMpcorbJsonLastObsData.Enter += Control_Enter;
+		labelMpcorbJsonLastObsData.Leave += Control_Leave;
+		labelMpcorbJsonLastObsData.MouseDown += Control_MouseDown;
+		labelMpcorbJsonLastObsData.MouseEnter += Control_Enter;
+		labelMpcorbJsonLastObsData.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonADesc
+		//
+		labelMpcorbJsonADesc.AccessibleDescription = "Semi-major axis (AU)";
+		labelMpcorbJsonADesc.AccessibleName = "Semi-major axis (AU)";
+		labelMpcorbJsonADesc.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonADesc.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonADesc.Dock = DockStyle.Fill;
+		labelMpcorbJsonADesc.LabelStyle = LabelStyle.BoldControl;
+		labelMpcorbJsonADesc.Name = "labelMpcorbJsonADesc";
+		labelMpcorbJsonADesc.TabIndex = 44;
+		labelMpcorbJsonADesc.ToolTipValues.Description = "Shows the information of \"Semi-major axis (AU)\".";
+		labelMpcorbJsonADesc.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonADesc.ToolTipValues.Heading = "Semi-major axis (AU)";
+		labelMpcorbJsonADesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonADesc.Values.Text = "Semi-major axis (AU)";
+		labelMpcorbJsonADesc.Enter += Control_Enter;
+		labelMpcorbJsonADesc.Leave += Control_Leave;
+		labelMpcorbJsonADesc.MouseEnter += Control_Enter;
+		labelMpcorbJsonADesc.MouseLeave += Control_Leave;
+		//
+		// labelMpcorbJsonAData
+		//
+		labelMpcorbJsonAData.AccessibleDescription = "Shows the information of \"Semi-major axis (AU)\"";
+		labelMpcorbJsonAData.AccessibleName = "Shows the information of \"Semi-major axis (AU)\"";
+		labelMpcorbJsonAData.AccessibleRole = AccessibleRole.StaticText;
+		labelMpcorbJsonAData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelMpcorbJsonAData.Dock = DockStyle.Fill;
+		labelMpcorbJsonAData.Name = "labelMpcorbJsonAData";
+		labelMpcorbJsonAData.TabIndex = 45;
+		labelMpcorbJsonAData.ToolTipValues.Description = "Shows the information of \"Semi-major axis (AU)\".\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelMpcorbJsonAData.ToolTipValues.EnableToolTips = true;
+		labelMpcorbJsonAData.ToolTipValues.Heading = "Semi-major axis (AU)";
+		labelMpcorbJsonAData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelMpcorbJsonAData.Values.Text = "..................";
+		labelMpcorbJsonAData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelMpcorbJsonAData.Enter += Control_Enter;
+		labelMpcorbJsonAData.Leave += Control_Leave;
+		labelMpcorbJsonAData.MouseDown += Control_MouseDown;
+		labelMpcorbJsonAData.MouseEnter += Control_Enter;
+		labelMpcorbJsonAData.MouseLeave += Control_Leave;
+		//
 		// kryptonPageAstorbDat
 		// 
 		kryptonPageAstorbDat.AccessibleDescription = "Shows the ASTORB.DAT page tab";
@@ -7906,6 +9000,10 @@ partial class PlanetoidDbForm
 		((ISupportInitialize)kryptonNavigatorMain).EndInit();
 		((ISupportInitialize)kryptonPageMpcorbDat).EndInit();
 		kryptonPageMpcorbDat.ResumeLayout(false);
+		((ISupportInitialize)kryptonPageMpcorbJson).EndInit();
+		kryptonPageMpcorbJson.ResumeLayout(false);
+		tableLayoutPanelMpcorbJsonData.ResumeLayout(false);
+		tableLayoutPanelMpcorbJsonData.PerformLayout();
 		((ISupportInitialize)kryptonPageAstorbDat).EndInit();
 		kryptonPageAstorbDat.ResumeLayout(false);
 		tableLayoutPanelAstorbData.ResumeLayout(false);
@@ -8156,6 +9254,54 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem toolStripMenuItemObservatoryCodes;
 	private Krypton.Navigator.KryptonNavigator kryptonNavigatorMain;
 	private Krypton.Navigator.KryptonPage kryptonPageMpcorbDat;
+	private Krypton.Navigator.KryptonPage kryptonPageMpcorbJson;
+	private KryptonTableLayoutPanel tableLayoutPanelMpcorbJsonData;
+	private KryptonLabel labelMpcorbJsonMpcdesDesc;
+	private KryptonLabel labelMpcorbJsonMpcdesData;
+	private KryptonLabel labelMpcorbJsonReadableDesDesc;
+	private KryptonLabel labelMpcorbJsonReadableDesData;
+	private KryptonLabel labelMpcorbJsonHDesc;
+	private KryptonLabel labelMpcorbJsonHData;
+	private KryptonLabel labelMpcorbJsonGDesc;
+	private KryptonLabel labelMpcorbJsonGData;
+	private KryptonLabel labelMpcorbJsonEpochDesc;
+	private KryptonLabel labelMpcorbJsonEpochData;
+	private KryptonLabel labelMpcorbJsonMDesc;
+	private KryptonLabel labelMpcorbJsonMData;
+	private KryptonLabel labelMpcorbJsonPeriDesc;
+	private KryptonLabel labelMpcorbJsonPeriData;
+	private KryptonLabel labelMpcorbJsonNodeDesc;
+	private KryptonLabel labelMpcorbJsonNodeData;
+	private KryptonLabel labelMpcorbJsonIDesc;
+	private KryptonLabel labelMpcorbJsonIData;
+	private KryptonLabel labelMpcorbJsonEDesc;
+	private KryptonLabel labelMpcorbJsonEData;
+	private KryptonLabel labelMpcorbJsonNDesc;
+	private KryptonLabel labelMpcorbJsonNData;
+	private KryptonLabel labelMpcorbJsonADesc;
+	private KryptonLabel labelMpcorbJsonAData;
+	private KryptonLabel labelMpcorbJsonUDesc;
+	private KryptonLabel labelMpcorbJsonUData;
+	private KryptonLabel labelMpcorbJsonReferenceDesc;
+	private KryptonLabel labelMpcorbJsonReferenceData;
+	private KryptonLabel labelMpcorbJsonNumObsDesc;
+	private KryptonLabel labelMpcorbJsonNumObsData;
+	private KryptonLabel labelMpcorbJsonNumOppDesc;
+	private KryptonLabel labelMpcorbJsonNumOppData;
+	private KryptonLabel labelMpcorbJsonArcDesc;
+	private KryptonLabel labelMpcorbJsonArcData;
+	private KryptonLabel labelMpcorbJsonRmsDesc;
+	private KryptonLabel labelMpcorbJsonRmsData;
+	private KryptonLabel labelMpcorbJsonPerturbersDesc;
+	private KryptonLabel labelMpcorbJsonPerturbersData;
+	private KryptonLabel labelMpcorbJsonPerturbers2Desc;
+	private KryptonLabel labelMpcorbJsonPerturbers2Data;
+	private KryptonLabel labelMpcorbJsonComputerDesc;
+	private KryptonLabel labelMpcorbJsonComputerData;
+	private KryptonLabel labelMpcorbJsonFlagsDesc;
+	private KryptonLabel labelMpcorbJsonFlagsData;
+	private KryptonLabel labelMpcorbJsonLastObsDesc;
+	private KryptonLabel labelMpcorbJsonLastObsData;
 	private Krypton.Navigator.KryptonPage kryptonPageAstorbDat;
 	private Krypton.Navigator.KryptonPage kryptonPageAllnumCat;
 	private KryptonTableLayoutPanel tableLayoutPanelAllnumCatData;
