@@ -318,7 +318,7 @@ public partial class PlanetoidDbForm
 		stepPosition = 100;
 		// Navigate to the current position
 		GotoCurrentPosition(position: currentPosition);
-		// TODO: remove the folling if statement when the other databases are implemented, but keep the code for loading the other databases in place
+		// TODO: remove the following if statement when the other databases are implemented, but keep the code for loading the other databases in place
 		// Check if experimental features are enabled and load the corresponding databases
 		if (toolStripMenuItemExperimentalFeatures.Checked)
 		{
@@ -339,9 +339,10 @@ public partial class PlanetoidDbForm
 			// If ALLNUM.CAT is checked, load the ALLNUM.CAT file and show the data for the same position (position 0 initially)
 			if (toolStripMenuItemLoadDatabaseOnStartupAllnumCat.Checked)
 			{
-				currentAllnumCatPosition = 0;
-				GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
-			}
+					LoadAllnumCatDatabase();
+					currentAllnumCatPosition = 0;
+					GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
+				}
 			// If SINGOPP.CAT is checked, load the SINGOPP.CAT file and show the data for the same position (position 0 initially)
 			if (toolStripMenuItemLoadDatabaseOnStartupSingoppCat.Checked)
 			{

@@ -167,7 +167,7 @@ public partial class PlanetoidDbForm
 		catch (Exception ex) when (ex is HttpRequestException or WebException or IOException)
 		{
 			// Log the exception and return false (no update available)
-			logger.Error(exception: ex, message: "Error checking update availability for '{SourceUri}'.", args: [sourceUri]);
+			logger.Error(exception: ex, message: "Error checking update availability for '{0}'.", args: [sourceUri]);
 			return false;
 		}
 	}
