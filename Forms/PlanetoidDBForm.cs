@@ -62,6 +62,10 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This integer is used to mirror the current navigation position for the UFITOBS.CAT tab display.</remarks>
 	private int currentUfitobsCatPosition;
 
+	/// <summary>Stores the current position in the MPCORB.JSON database.</summary>
+	/// <remarks>This integer is used to mirror the current navigation position for the MPCORB.JSON tab display.</remarks>
+	private int currentMpcorbJsonPosition;
+
 	/// <summary>Stores the planetoids database.</summary>
 	/// <remarks>This list is used to store the planetoids database entries.</remarks>
 	private readonly List<string> planetoidsDatabase = [];
@@ -81,6 +85,10 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <summary>Stores the UFITOBS.CAT database entries.</summary>
 	/// <remarks>This list is used to store the loaded lines from the UFITOBS.CAT file for display in the UFITOBS.CAT tab.</remarks>
 	private readonly List<string> ufitobsCatDatabase = [];
+
+	/// <summary>Stores the MPCORB.JSON database entries.</summary>
+	/// <remarks>This list is used to store the loaded JSON object strings from the MPCORB.JSON file for display in the MPCORB.JSON tab.</remarks>
+	private readonly List<System.Text.Json.JsonElement> mpcorbJsonDatabase = [];
 
 	/// <summary>Stores a backup of the planetoids database.</summary>
 	/// <remarks>This list is used to store a backup of the planetoids database entries, which can be used for comparison or restoration purposes.</remarks>
@@ -223,6 +231,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	private void OptimizeTableLayoutPanelForFlickerReduction()
 	{
 		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanelMpcorbData, includeChildLabels: true);
+		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanelMpcorbJsonData, includeChildLabels: true);
 		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanelAstorbData, includeChildLabels: true);
 		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanelAllnumCatData, includeChildLabels: true);
 		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanelSingoppCatData, includeChildLabels: true);

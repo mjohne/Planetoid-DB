@@ -221,6 +221,8 @@ public partial class PlanetoidDbForm
 				GotoCurrentPosition(position: currentPosition);
 				currentAstorbPosition = currentPosition;
 				GotoCurrentAstorbPosition(position: currentAstorbPosition);
+				currentMpcorbJsonPosition = currentPosition;
+				GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
 				currentAllnumCatPosition = currentPosition;
 				GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 				currentSingoppCatPosition = currentPosition;
@@ -237,6 +239,8 @@ public partial class PlanetoidDbForm
 				GotoCurrentPosition(position: currentPosition);
 				currentAstorbPosition = currentPosition;
 				GotoCurrentAstorbPosition(position: currentAstorbPosition);
+				currentMpcorbJsonPosition = currentPosition;
+				GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
 				currentAllnumCatPosition = currentPosition;
 				GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 				currentSingoppCatPosition = currentPosition;
@@ -363,6 +367,8 @@ public partial class PlanetoidDbForm
 		GotoCurrentPosition(position: currentPosition);
 		currentAstorbPosition = currentPosition;
 		GotoCurrentAstorbPosition(position: currentAstorbPosition);
+		currentMpcorbJsonPosition = currentPosition;
+		GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
 		currentAllnumCatPosition = currentPosition;
 		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 		currentSingoppCatPosition = currentPosition;
@@ -378,6 +384,8 @@ public partial class PlanetoidDbForm
 		GotoCurrentPosition(position: currentPosition = 0);
 		currentAstorbPosition = currentPosition;
 		GotoCurrentAstorbPosition(position: currentAstorbPosition);
+		currentMpcorbJsonPosition = currentPosition;
+		GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
 		currentAllnumCatPosition = currentPosition;
 		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 		currentSingoppCatPosition = currentPosition;
@@ -406,6 +414,8 @@ public partial class PlanetoidDbForm
 		GotoCurrentPosition(position: currentPosition);
 		currentAstorbPosition = currentPosition;
 		GotoCurrentAstorbPosition(position: currentAstorbPosition);
+		currentMpcorbJsonPosition = currentPosition;
+		GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
 		currentAllnumCatPosition = currentPosition;
 		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 		currentSingoppCatPosition = currentPosition;
@@ -433,6 +443,8 @@ public partial class PlanetoidDbForm
 		GotoCurrentPosition(position: currentPosition);
 		currentAstorbPosition = currentPosition;
 		GotoCurrentAstorbPosition(position: currentAstorbPosition);
+		currentMpcorbJsonPosition = currentPosition;
+		GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
 		currentAllnumCatPosition = currentPosition;
 		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 		currentSingoppCatPosition = currentPosition;
@@ -460,6 +472,8 @@ public partial class PlanetoidDbForm
 		GotoCurrentPosition(position: currentPosition);
 		currentAstorbPosition = currentPosition;
 		GotoCurrentAstorbPosition(position: currentAstorbPosition);
+		currentMpcorbJsonPosition = currentPosition;
+		GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
 		currentAllnumCatPosition = currentPosition;
 		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 		currentSingoppCatPosition = currentPosition;
@@ -484,6 +498,8 @@ public partial class PlanetoidDbForm
 		GotoCurrentPosition(position: currentPosition);
 		currentAstorbPosition = currentPosition;
 		GotoCurrentAstorbPosition(position: currentAstorbPosition);
+		currentMpcorbJsonPosition = currentPosition;
+		GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
 		currentAllnumCatPosition = currentPosition;
 		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 		currentSingoppCatPosition = currentPosition;
@@ -499,6 +515,8 @@ public partial class PlanetoidDbForm
 		GotoCurrentPosition(position: currentPosition = planetoidsDatabase.Count - 1);
 		currentAstorbPosition = currentPosition;
 		GotoCurrentAstorbPosition(position: currentAstorbPosition);
+		currentMpcorbJsonPosition = currentPosition;
+		GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
 		currentAllnumCatPosition = currentPosition;
 		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 		currentSingoppCatPosition = currentPosition;
@@ -1378,6 +1396,8 @@ public partial class PlanetoidDbForm
 			GotoCurrentPosition(position: currentPosition);
 			currentAstorbPosition = currentPosition;
 			GotoCurrentAstorbPosition(position: currentAstorbPosition);
+			currentMpcorbJsonPosition = currentPosition;
+			GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
 			currentAllnumCatPosition = currentPosition;
 			GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 			logger.Info(message: $"Filter applied: database now contains {planetoidsDatabase.Count} records.");
@@ -1447,6 +1467,8 @@ public partial class PlanetoidDbForm
 			GotoCurrentPosition(position: formListReadableDesignations.GetSelectedIndex());
 			currentAstorbPosition = currentPosition;
 			GotoCurrentAstorbPosition(position: currentAstorbPosition);
+			currentMpcorbJsonPosition = currentPosition;
+			GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
 			currentAllnumCatPosition = currentPosition;
 			GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 		}
@@ -2255,6 +2277,148 @@ public partial class PlanetoidDbForm
 		finally
 		{
 			tableLayoutPanelUfitobsCatData.ResumeLayout(performLayout: false);
+		}
+	}
+
+	/// <summary>Loads the MPCORB.JSON database from the configured file path into <see cref="mpcorbJsonDatabase"/>.</summary>
+	/// <remarks>This method reads and parses the MPCORB.JSON file, populates the <see cref="mpcorbJsonDatabase"/> list, and updates the tab page text with the file's last-write date. If the file does not exist, the tab text is updated to reflect that the file is missing.</remarks>
+	internal void LoadMpcorbJsonDatabase()
+	{
+		// Clear any previously loaded entries
+		mpcorbJsonDatabase.Clear();
+		// Check if the MPCORB.JSON file exists
+		if (!File.Exists(path: filenameMpcorbJson))
+		{
+			logger.Warn(message: $"MPCORB.JSON file not found: {filenameMpcorbJson}");
+			kryptonPageMpcorbJson.Text = "MPCORB.JSON (file not found)";
+			return;
+		}
+		try
+		{
+			// Read the JSON file and parse each orbit entry
+			string jsonText = File.ReadAllText(path: filenameMpcorbJson);
+			using System.Text.Json.JsonDocument doc = System.Text.Json.JsonDocument.Parse(jsonText);
+			System.Text.Json.JsonElement root = doc.RootElement;
+			// The MPCORB.JSON file is a JSON object with a "data" array containing orbit records
+			if (root.ValueKind == System.Text.Json.JsonValueKind.Array)
+			{
+				foreach (System.Text.Json.JsonElement element in root.EnumerateArray())
+				{
+					mpcorbJsonDatabase.Add(item: element.Clone());
+				}
+			}
+			else if (root.TryGetProperty(propertyName: "data", value: out System.Text.Json.JsonElement dataArray) &&
+			         dataArray.ValueKind == System.Text.Json.JsonValueKind.Array)
+			{
+				foreach (System.Text.Json.JsonElement element in dataArray.EnumerateArray())
+				{
+					mpcorbJsonDatabase.Add(item: element.Clone());
+				}
+			}
+			// Get the last write time of the MPCORB.JSON file for display in the tab
+			string fileDate = File.GetLastWriteTime(path: filenameMpcorbJson).ToString(format: "yyyy-MM-dd", provider: CultureInfo.InvariantCulture);
+			kryptonPageMpcorbJson.Text = $"MPCORB.JSON ({fileDate})";
+			logger.Info(message: $"MPCORB.JSON loaded: {mpcorbJsonDatabase.Count} entries, dated {fileDate}.");
+		}
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or System.Text.Json.JsonException)
+		{
+			logger.Error(exception: ex, message: $"Error loading MPCORB.JSON: {ex.Message}");
+			kryptonPageMpcorbJson.Text = $"MPCORB.JSON ({I18nStrings.ErrorCaption})";
+		}
+	}
+
+	/// <summary>Navigates to the specified position in the MPCORB.JSON database and updates all MPCORB.JSON labels.</summary>
+	/// <param name="position">The zero-based position to navigate to in <see cref="mpcorbJsonDatabase"/>.</param>
+	/// <remarks>This method reads the JSON fields of the MPCORB.JSON record at the given position and updates the corresponding UI labels. If the position is out of range or the database is empty, all labels are cleared.</remarks>
+	internal void GotoCurrentMpcorbJsonPosition(int position)
+	{
+		// Handle the case where the database is empty or position is out of range
+		if (mpcorbJsonDatabase.Count == 0 || position < 0 || position >= mpcorbJsonDatabase.Count)
+		{
+			ClearCurrentMpcorbJsonRecordDisplay();
+			return;
+		}
+		// Local helper to safely get a string value from a JSON element property
+		static string GetJsonString(System.Text.Json.JsonElement element, string propertyName)
+		{
+			return element.TryGetProperty(propertyName: propertyName, value: out System.Text.Json.JsonElement prop)
+				? (prop.ValueKind == System.Text.Json.JsonValueKind.Null ? string.Empty : prop.ToString())
+				: string.Empty;
+		}
+		System.Text.Json.JsonElement entry = mpcorbJsonDatabase[index: position];
+		// Suspend layout to avoid flicker while updating labels
+		tableLayoutPanelMpcorbJsonData.SuspendLayout();
+		try
+		{
+			labelMpcorbJsonMpcdesData.Text = GetJsonString(element: entry, propertyName: "mpcdes");
+			labelMpcorbJsonUData.Text = GetJsonString(element: entry, propertyName: "u");
+			labelMpcorbJsonReadableDesData.Text = GetJsonString(element: entry, propertyName: "readable_des");
+			labelMpcorbJsonReferenceData.Text = GetJsonString(element: entry, propertyName: "ref");
+			labelMpcorbJsonHData.Text = GetJsonString(element: entry, propertyName: "H");
+			labelMpcorbJsonNumObsData.Text = GetJsonString(element: entry, propertyName: "num_obs");
+			labelMpcorbJsonGData.Text = GetJsonString(element: entry, propertyName: "G");
+			labelMpcorbJsonNumOppData.Text = GetJsonString(element: entry, propertyName: "num_opp");
+			labelMpcorbJsonEpochData.Text = GetJsonString(element: entry, propertyName: "epoch");
+			labelMpcorbJsonArcData.Text = GetJsonString(element: entry, propertyName: "arc");
+			labelMpcorbJsonMData.Text = GetJsonString(element: entry, propertyName: "M");
+			labelMpcorbJsonRmsData.Text = GetJsonString(element: entry, propertyName: "rms");
+			labelMpcorbJsonPeriData.Text = GetJsonString(element: entry, propertyName: "peri");
+			labelMpcorbJsonPerturbersData.Text = GetJsonString(element: entry, propertyName: "perturbers");
+			labelMpcorbJsonNodeData.Text = GetJsonString(element: entry, propertyName: "node");
+			labelMpcorbJsonPerturbers2Data.Text = GetJsonString(element: entry, propertyName: "perturbers_2");
+			labelMpcorbJsonIData.Text = GetJsonString(element: entry, propertyName: "i");
+			labelMpcorbJsonComputerData.Text = GetJsonString(element: entry, propertyName: "computer");
+			labelMpcorbJsonEData.Text = GetJsonString(element: entry, propertyName: "e");
+			labelMpcorbJsonFlagsData.Text = GetJsonString(element: entry, propertyName: "flags");
+			labelMpcorbJsonNData.Text = GetJsonString(element: entry, propertyName: "N");
+			labelMpcorbJsonLastObsData.Text = GetJsonString(element: entry, propertyName: "last_obs");
+			labelMpcorbJsonAData.Text = GetJsonString(element: entry, propertyName: "a");
+			logger.Debug(message: $"MPCORB.JSON record at position {position} displayed.");
+		}
+		catch (Exception ex)
+		{
+			logger.Error(message: $"Error navigating to MPCORB.JSON position {position}: {ex.Message}", exception: ex);
+		}
+		finally
+		{
+			tableLayoutPanelMpcorbJsonData.ResumeLayout(performLayout: true);
+		}
+	}
+
+	/// <summary>Clears all MPCORB.JSON record display labels in the MPCORB.JSON data panel.</summary>
+	/// <remarks>This method clears all UI labels used to display MPCORB.JSON record fields.</remarks>
+	private void ClearCurrentMpcorbJsonRecordDisplay()
+	{
+		tableLayoutPanelMpcorbJsonData.SuspendLayout();
+		try
+		{
+			labelMpcorbJsonMpcdesData.Text = string.Empty;
+			labelMpcorbJsonUData.Text = string.Empty;
+			labelMpcorbJsonReadableDesData.Text = string.Empty;
+			labelMpcorbJsonReferenceData.Text = string.Empty;
+			labelMpcorbJsonHData.Text = string.Empty;
+			labelMpcorbJsonNumObsData.Text = string.Empty;
+			labelMpcorbJsonGData.Text = string.Empty;
+			labelMpcorbJsonNumOppData.Text = string.Empty;
+			labelMpcorbJsonEpochData.Text = string.Empty;
+			labelMpcorbJsonArcData.Text = string.Empty;
+			labelMpcorbJsonMData.Text = string.Empty;
+			labelMpcorbJsonRmsData.Text = string.Empty;
+			labelMpcorbJsonPeriData.Text = string.Empty;
+			labelMpcorbJsonPerturbersData.Text = string.Empty;
+			labelMpcorbJsonNodeData.Text = string.Empty;
+			labelMpcorbJsonPerturbers2Data.Text = string.Empty;
+			labelMpcorbJsonIData.Text = string.Empty;
+			labelMpcorbJsonComputerData.Text = string.Empty;
+			labelMpcorbJsonEData.Text = string.Empty;
+			labelMpcorbJsonFlagsData.Text = string.Empty;
+			labelMpcorbJsonNData.Text = string.Empty;
+			labelMpcorbJsonLastObsData.Text = string.Empty;
+			labelMpcorbJsonAData.Text = string.Empty;
+		}
+		finally
+		{
+			tableLayoutPanelMpcorbJsonData.ResumeLayout(performLayout: false);
 		}
 	}
 
