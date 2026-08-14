@@ -2177,9 +2177,9 @@ public partial class PlanetoidDbForm
 		}
 	}
 
-	/// <param name="position">The zero-based position to navigate to in <see cref="ufitobsCatDatabase"/>.</param>
 	/// <summary>Navigates to and displays the UFITOBS.CAT record at the specified position.</summary>
-	internal void GotoCurrentUfitobsCatPosition(int position)
+	/// <param name="position">The zero-based position to navigate to in <see cref="ufitobsCatDatabase"/>.</param>
+	/// <remarks>If the position is out of range or the database is empty, all UFITOBS.CAT labels are cleared.</remarks>
 	{
 		if (ufitobsCatDatabase.Count == 0 || position < 0 || position >= ufitobsCatDatabase.Count)
 		{
