@@ -227,9 +227,11 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	}
 
 	/// <summary>Optimizes the TableLayoutPanels to eliminate flickering during label updates.</summary>
-	/// <remarks>This method enables double buffering and optimized painting styles on the MPCORB, ASTORB, and ALLNUM.CAT panels and all child labels.</remarks>
+	/// <remarks>This method enables double buffering and optimized painting styles on the MPCORB, ASTORB, ALLNUM.CAT, SINGOPP.CAT, and UFITOBS.CAT panels and all child labels.</remarks>
 	private void OptimizeTableLayoutPanelForFlickerReduction()
 	{
+		logger.Info(message: "Optimizing TableLayoutPanels for flicker reduction.");
+		// Enable double buffering for the TableLayoutPanels and their child labels to reduce flickering during updates
 		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanelMpcorbData, includeChildLabels: true);
 		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanelMpcorbJsonData, includeChildLabels: true);
 		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanelAstorbData, includeChildLabels: true);
