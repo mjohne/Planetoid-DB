@@ -1713,6 +1713,7 @@ public partial class PlanetoidDbForm
 		toolStripButtonDistributions.Enabled = true;
 		toolStripButtonScatterPlots.Enabled = true;
 		toolStripDropDownButtonOrbit.Enabled = true;
+		toolStripMenuItemLoadAdditionalDatabasesOnStartup.Enabled = true;
 		// Persist and log only when the setting actually changes
 		if (!Settings.Default.userEnableExperimentalFeatures)
 		{
@@ -1728,7 +1729,7 @@ public partial class PlanetoidDbForm
 				text: "Experimental features have been enabled. Please note that these features are in development and may not be fully stable.",
 				caption: I18nStrings.InformationCaption,
 				buttons: KryptonMessageBoxButtons.OK,
-				icon: KryptonMessageBoxIcon.Information,
+				icon: KryptonMessageBoxIcon.Warning,
 				defaultButton: KryptonMessageBoxDefaultButton.Button1);
 		}
 	}
@@ -1746,6 +1747,7 @@ public partial class PlanetoidDbForm
 		toolStripButtonDistributions.Enabled = false;
 		toolStripButtonScatterPlots.Enabled = false;
 		toolStripDropDownButtonOrbit.Enabled = false;
+		toolStripMenuItemLoadAdditionalDatabasesOnStartup.Enabled = false;
 		// Persist and log only when the setting actually changes
 		if (Settings.Default.userEnableExperimentalFeatures)
 		{
@@ -1779,6 +1781,7 @@ public partial class PlanetoidDbForm
 			kryptonPageAstorbDat.Text = "ASTORB.DAT (file not found)";
 			return;
 		}
+		// Attempt to read the ASTORB.DAT file and handle potential exceptions
 		try
 		{
 			// Read all lines from the ASTORB.DAT file and add them to the database list
@@ -1788,6 +1791,7 @@ public partial class PlanetoidDbForm
 			kryptonPageAstorbDat.Text = $"ASTORB.DAT ({fileDate})";
 			logger.Info(message: $"ASTORB.DAT loaded: {astorbDatabase.Count} lines, dated {fileDate}.");
 		}
+		// Handle specific exceptions related to file access and log them
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			logger.Error(exception: ex, message: $"Error loading ASTORB.DAT: {ex.Message}");
@@ -1884,10 +1888,12 @@ public partial class PlanetoidDbForm
 			labelAstorbAphelionDistData.Text = ExtractField(span: entrySpan, start: 223, length: 9);
 			logger.Debug(message: $"ASTORB record at position {position} displayed.");
 		}
+		// Handle any unexpected exceptions during the parsing and display process
 		catch (Exception ex)
 		{
 			logger.Error(message: $"Error navigating to ASTORB position {position}: {ex.Message}", exception: ex);
 		}
+		// Resume layout after updating labels
 		finally
 		{
 			tableLayoutPanelAstorbData.ResumeLayout(performLayout: true);
@@ -1898,7 +1904,9 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method clears all UI labels used to display ASTORB.DAT record fields.</remarks>
 	private void ClearCurrentAstorbRecordDisplay()
 	{
+		// Suspend layout to improve performance while clearing labels
 		tableLayoutPanelAstorbData.SuspendLayout();
+		// Clear all ASTORB record display labels
 		try
 		{
 			labelAstorbNumberData.Text = string.Empty;
@@ -1930,6 +1938,13 @@ public partial class PlanetoidDbForm
 			labelAstorbPerihelionDistData.Text = string.Empty;
 			labelAstorbAphelionDistData.Text = string.Empty;
 		}
+		// Handle any unexpected exceptions during the clearing process
+		catch (Exception ex)
+		{
+			logger.Error(message: $"Error clearing ASTORB record display: {ex.Message}", exception: ex);
+			ShowErrorMessage(message: $"Error clearing ASTORB record display:\n\n{ex.Message}");
+		}
+		// Resume layout after clearing labels
 		finally
 		{
 			tableLayoutPanelAstorbData.ResumeLayout(performLayout: false);
@@ -1949,6 +1964,7 @@ public partial class PlanetoidDbForm
 			kryptonPageAllnumCat.Text = "ALLNUM.CAT (file not found)";
 			return;
 		}
+		// Attempt to read the ALLNUM.CAT file and handle potential exceptions
 		try
 		{
 			// Read lines from the ALLNUM.CAT file lazily, skip the 6 header lines, and add data lines to the list
@@ -1958,6 +1974,7 @@ public partial class PlanetoidDbForm
 			kryptonPageAllnumCat.Text = $"ALLNUM.CAT ({fileDate})";
 			logger.Info(message: $"ALLNUM.CAT loaded: {allnumCatDatabase.Count} lines, dated {fileDate}.");
 		}
+		// Handle specific exceptions related to file access and log them
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			logger.Error(exception: ex, message: $"Error loading ALLNUM.CAT: {ex.Message}");
@@ -2018,11 +2035,13 @@ public partial class PlanetoidDbForm
 			labelAllnumCatSlopeParameterData.Text = ExtractField(span: entrySpan, start: 184, length: 5);
 			logger.Debug(message: $"ALLNUM.CAT record at position {position} displayed.");
 		}
+		// Handle any unexpected exceptions during the parsing and display process
 		catch (Exception ex)
 		{
 			logger.Error(message: $"Error navigating to ALLNUM.CAT position {position}: {ex.Message}", exception: ex);
 			ClearCurrentAllnumCatRecordDisplay();
 		}
+		// Resume layout after updating labels
 		finally
 		{
 			tableLayoutPanelAllnumCatData.ResumeLayout(performLayout: true);
@@ -2033,7 +2052,9 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method clears all UI labels used to display ALLNUM.CAT record fields.</remarks>
 	private void ClearCurrentAllnumCatRecordDisplay()
 	{
+		// Suspend layout to improve performance while clearing labels
 		tableLayoutPanelAllnumCatData.SuspendLayout();
+		// Clear all ALLNUM.CAT record display labels
 		try
 		{
 			labelAllnumCatNameData.Text = string.Empty;
@@ -2047,6 +2068,13 @@ public partial class PlanetoidDbForm
 			labelAllnumCatAbsoluteMagnitudeData.Text = string.Empty;
 			labelAllnumCatSlopeParameterData.Text = string.Empty;
 		}
+		// Handle any unexpected exceptions during the clearing process
+		catch (Exception ex)
+		{
+			logger.Error(message: $"Error clearing ALLNUM.CAT record display: {ex.Message}", exception: ex);
+			ShowErrorMessage(message: $"Error clearing ALLNUM.CAT record display:\n\n{ex.Message}");
+		}
+		// Resume layout after clearing labels
 		finally
 		{
 			tableLayoutPanelAllnumCatData.ResumeLayout(performLayout: false);
@@ -2066,6 +2094,7 @@ public partial class PlanetoidDbForm
 			kryptonPageSingoppCat.Text = "SINGOPP.CAT (file not found)";
 			return;
 		}
+		// Attempt to read the SINGOPP.CAT file and handle potential exceptions
 		try
 		{
 			// Read lines from the SINGOPP.CAT file lazily, skip the 6 header lines, and add data lines to the list
@@ -2075,6 +2104,7 @@ public partial class PlanetoidDbForm
 			kryptonPageSingoppCat.Text = $"SINGOPP.CAT ({fileDate})";
 			logger.Info(message: $"SINGOPP.CAT loaded: {singoppCatDatabase.Count} lines, dated {fileDate}.");
 		}
+		// Handle specific exceptions related to file access and log them
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			logger.Error(exception: ex, message: $"Error loading SINGOPP.CAT: {ex.Message}");
@@ -2110,6 +2140,7 @@ public partial class PlanetoidDbForm
 		}
 		// Suspend layout to avoid flicker while updating labels
 		tableLayoutPanelSingoppCatData.SuspendLayout();
+		// Attempt to parse and display the SINGOPP.CAT record fields
 		try
 		{
 			// SINGOPP.CAT fixed-width field definitions (0-based start, length):
@@ -2135,11 +2166,13 @@ public partial class PlanetoidDbForm
 			labelSingoppCatSlopeParameterData.Text = ExtractField(span: entrySpan, start: 184, length: 5);
 			logger.Debug(message: $"SINGOPP.CAT record at position {position} displayed.");
 		}
+		// Handle any unexpected exceptions during the parsing and display process
 		catch (Exception ex)
 		{
 			logger.Error(message: $"Error navigating to SINGOPP.CAT position {position}: {ex.Message}", exception: ex);
 			ClearCurrentSingoppCatRecordDisplay();
 		}
+		// Resume layout after updating labels
 		finally
 		{
 			tableLayoutPanelSingoppCatData.ResumeLayout(performLayout: true);
@@ -2150,7 +2183,9 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method clears all UI labels used to display SINGOPP.CAT record fields.</remarks>
 	private void ClearCurrentSingoppCatRecordDisplay()
 	{
+		// Suspend layout to improve performance while clearing labels
 		tableLayoutPanelSingoppCatData.SuspendLayout();
+		// Clear all SINGOPP.CAT record display labels
 		try
 		{
 			labelSingoppCatNameData.Text = string.Empty;
@@ -2164,6 +2199,13 @@ public partial class PlanetoidDbForm
 			labelSingoppCatAbsoluteMagnitudeData.Text = string.Empty;
 			labelSingoppCatSlopeParameterData.Text = string.Empty;
 		}
+		// Handle any unexpected exceptions during the clearing process
+		catch (Exception ex)
+		{
+			logger.Error(message: $"Error clearing SINGOPP.CAT record display: {ex.Message}", exception: ex);
+			ShowErrorMessage(message: $"Error clearing SINGOPP.CAT record display:\n\n{ex.Message}");
+		}
+		// Resume layout after clearing labels
 		finally
 		{
 			tableLayoutPanelSingoppCatData.ResumeLayout(performLayout: false);
@@ -2183,6 +2225,7 @@ public partial class PlanetoidDbForm
 			kryptonPageUfitobsCat.Text = "UFITOBS.CAT (file not found)";
 			return;
 		}
+		// Attempt to read the UFITOBS.CAT file and handle potential exceptions
 		try
 		{
 			// Read lines from the UFITOBS.CAT file lazily, skip the 6 header lines, and add data lines to the list
@@ -2192,6 +2235,7 @@ public partial class PlanetoidDbForm
 			kryptonPageUfitobsCat.Text = $"UFITOBS.CAT ({fileDate})";
 			logger.Info(message: $"UFITOBS.CAT loaded: {ufitobsCatDatabase.Count} lines, dated {fileDate}.");
 		}
+		// Handle specific exceptions related to file access and log them
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
 		{
 			logger.Error(exception: ex, message: $"Error loading UFITOBS.CAT: {ex.Message}");
@@ -2204,24 +2248,30 @@ public partial class PlanetoidDbForm
 	/// <remarks>If the position is out of range or the database is empty, all UFITOBS.CAT labels are cleared.</remarks>
 	internal void GotoCurrentUfitobsCatPosition(int position)
 	{
+		//
 		if (ufitobsCatDatabase.Count == 0 || position < 0 || position >= ufitobsCatDatabase.Count)
 		{
 			ClearCurrentUfitobsCatRecordDisplay();
 			return;
 		}
+		// Get the entry string for the requested position
 		string? entryStr = ufitobsCatDatabase[index: position]?.ToString();
+		// If the entry string is null or empty, clear all labels and return early
 		if (string.IsNullOrEmpty(value: entryStr))
 		{
 			ClearCurrentUfitobsCatRecordDisplay();
 			return;
 		}
+		// Convert string to ReadOnlySpan<char> to avoid heap allocations during parsing
 		ReadOnlySpan<char> entrySpan = entryStr.AsSpan();
 		// Local helper to safely extract and trim a fixed-width field (1-based column indices from UFITOBS.CAT format)
 		static string ExtractField(ReadOnlySpan<char> span, int start, int length)
 		{
 			return span.Length < start + length ? string.Empty : span.Slice(start: start, length: length).Trim().ToString();
 		}
+		// Suspend layout to avoid flicker while updating labels
 		tableLayoutPanelUfitobsCatData.SuspendLayout();
+		// Attempt to parse and display the UFITOBS.CAT record fields
 		try
 		{
 			// 1. "Name" columns 1-14 (0-based: start=0, length=14)
@@ -2245,11 +2295,13 @@ public partial class PlanetoidDbForm
 			// 10. "Slope parameter" columns 185-189 (0-based: start=184, length=5)
 			labelUfitobsCatSlopeParameterData.Text = ExtractField(span: entrySpan, start: 184, length: 5);
 		}
+		// Handle any unexpected exceptions during the parsing and display process
 		catch (Exception ex)
 		{
 			logger.Error(exception: ex, message: $"Error displaying UFITOBS.CAT record at position {position}: {ex.Message}");
 			ClearCurrentUfitobsCatRecordDisplay();
 		}
+		// Resume layout after updating labels
 		finally
 		{
 			tableLayoutPanelUfitobsCatData.ResumeLayout(performLayout: true);
@@ -2260,7 +2312,9 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method clears all UI labels used to display UFITOBS.CAT record fields.</remarks>
 	private void ClearCurrentUfitobsCatRecordDisplay()
 	{
+		// Suspend layout to improve performance while clearing labels
 		tableLayoutPanelUfitobsCatData.SuspendLayout();
+		// Clear all UFITOBS.CAT record display labels
 		try
 		{
 			labelUfitobsCatNameData.Text = string.Empty;
@@ -2274,6 +2328,13 @@ public partial class PlanetoidDbForm
 			labelUfitobsCatAbsoluteMagnitudeData.Text = string.Empty;
 			labelUfitobsCatSlopeParameterData.Text = string.Empty;
 		}
+		// Handle any unexpected exceptions during the clearing process
+		catch (Exception ex)
+		{
+			logger.Error(exception: ex, message: $"Error clearing UFITOBS.CAT record display: {ex.Message}");
+			ShowErrorMessage(message: $"Error clearing UFITOBS.CAT record display:\n\n{ex.Message}");
+		}
+		// Resume layout after clearing labels
 		finally
 		{
 			tableLayoutPanelUfitobsCatData.ResumeLayout(performLayout: false);
@@ -2302,14 +2363,17 @@ public partial class PlanetoidDbForm
 			// The MPCORB.JSON file is a JSON object with a "data" array containing orbit records
 			if (root.ValueKind == System.Text.Json.JsonValueKind.Array)
 			{
+				// If the root is an array, iterate through each element and add it to the database
 				foreach (System.Text.Json.JsonElement element in root.EnumerateArray())
 				{
 					mpcorbJsonDatabase.Add(item: element.Clone());
 				}
 			}
+			// If the root is an object, look for a "data" property that contains the array of orbit records
 			else if (root.TryGetProperty(propertyName: "data", value: out System.Text.Json.JsonElement dataArray) &&
-			         dataArray.ValueKind == System.Text.Json.JsonValueKind.Array)
+					 dataArray.ValueKind == System.Text.Json.JsonValueKind.Array)
 			{
+				// If the "data" property is an array, iterate through each element and add it to the database
 				foreach (System.Text.Json.JsonElement element in dataArray.EnumerateArray())
 				{
 					mpcorbJsonDatabase.Add(item: element.Clone());
@@ -2320,6 +2384,7 @@ public partial class PlanetoidDbForm
 			kryptonPageMpcorbJson.Text = $"MPCORB.JSON ({fileDate})";
 			logger.Info(message: $"MPCORB.JSON loaded: {mpcorbJsonDatabase.Count} entries, dated {fileDate}.");
 		}
+		// Handle specific exceptions related to file access and JSON parsing, and log them
 		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or System.Text.Json.JsonException)
 		{
 			logger.Error(exception: ex, message: $"Error loading MPCORB.JSON: {ex.Message}");
@@ -2335,6 +2400,7 @@ public partial class PlanetoidDbForm
 		// Handle the case where the database is empty or position is out of range
 		if (mpcorbJsonDatabase.Count == 0 || position < 0 || position >= mpcorbJsonDatabase.Count)
 		{
+			// Clear all MPCORB.JSON record display labels
 			ClearCurrentMpcorbJsonRecordDisplay();
 			return;
 		}
@@ -2348,6 +2414,7 @@ public partial class PlanetoidDbForm
 		System.Text.Json.JsonElement entry = mpcorbJsonDatabase[index: position];
 		// Suspend layout to avoid flicker while updating labels
 		tableLayoutPanelMpcorbJsonData.SuspendLayout();
+		// Attempt to parse and display the MPCORB.JSON record fields
 		try
 		{
 			labelMpcorbJsonMpcdesData.Text = GetJsonString(element: entry, propertyName: "mpcdes");
@@ -2375,10 +2442,12 @@ public partial class PlanetoidDbForm
 			labelMpcorbJsonAData.Text = GetJsonString(element: entry, propertyName: "a");
 			logger.Debug(message: $"MPCORB.JSON record at position {position} displayed.");
 		}
+		// Handle any unexpected exceptions during the parsing and display process
 		catch (Exception ex)
 		{
 			logger.Error(message: $"Error navigating to MPCORB.JSON position {position}: {ex.Message}", exception: ex);
 		}
+		// Resume layout after updating labels
 		finally
 		{
 			tableLayoutPanelMpcorbJsonData.ResumeLayout(performLayout: true);
@@ -2389,7 +2458,9 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method clears all UI labels used to display MPCORB.JSON record fields.</remarks>
 	private void ClearCurrentMpcorbJsonRecordDisplay()
 	{
+		// Suspend layout to improve performance while clearing labels
 		tableLayoutPanelMpcorbJsonData.SuspendLayout();
+		// Clear all MPCORB.JSON record display labels
 		try
 		{
 			labelMpcorbJsonMpcdesData.Text = string.Empty;
@@ -2416,6 +2487,13 @@ public partial class PlanetoidDbForm
 			labelMpcorbJsonLastObsData.Text = string.Empty;
 			labelMpcorbJsonAData.Text = string.Empty;
 		}
+		// Handle any unexpected exceptions during the clearing process
+		catch (Exception ex)
+		{
+			logger.Error(message: $"Error clearing MPCORB.JSON record display: {ex.Message}", exception: ex);
+			ShowErrorMessage(message: $"Error clearing MPCORB.JSON record display:\n\n{ex.Message}");
+		}
+		// Resume layout after clearing labels
 		finally
 		{
 			tableLayoutPanelMpcorbJsonData.ResumeLayout(performLayout: false);

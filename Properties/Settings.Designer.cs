@@ -445,6 +445,66 @@ namespace Planetoid_DB.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool userLoadAdditionalDatabaseOnStartupMpcorbJson {
+            get {
+                return ((bool)(this["userLoadAdditionalDatabaseOnStartupMpcorbJson"]));
+            }
+            set {
+                this["userLoadAdditionalDatabaseOnStartupMpcorbJson"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool userLoadAdditionalDatabaseOnStartupAstorbDat {
+            get {
+                return ((bool)(this["userLoadAdditionalDatabaseOnStartupAstorbDat"]));
+            }
+            set {
+                this["userLoadAdditionalDatabaseOnStartupAstorbDat"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool userLoadAdditionalDatabaseOnStartupAllnumCat {
+            get {
+                return ((bool)(this["userLoadAdditionalDatabaseOnStartupAllnumCat"]));
+            }
+            set {
+                this["userLoadAdditionalDatabaseOnStartupAllnumCat"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool userLoadAdditionalDatabaseOnStartupSingoppCat {
+            get {
+                return ((bool)(this["userLoadAdditionalDatabaseOnStartupSingoppCat"]));
+            }
+            set {
+                this["userLoadAdditionalDatabaseOnStartupSingoppCat"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool userLoadAdditionalDatabaseOnStartupUfitobsCat {
+            get {
+                return ((bool)(this["userLoadAdditionalDatabaseOnStartupUfitobsCat"]));
+            }
+            set {
+                this["userLoadAdditionalDatabaseOnStartupUfitobsCat"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool userUpgradeRequired {
             get {

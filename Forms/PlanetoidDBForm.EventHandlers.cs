@@ -41,14 +41,36 @@ public partial class PlanetoidDbForm
 		// Reload the application settings to ensure the latest configuration is applied
 		Settings.Default.Reload();
 		// Check if a user upgrade is required and perform the upgrade if necessary
-		if (Properties.Settings.Default.userUpgradeRequired)
+		if (Settings.Default.userUpgradeRequired)
 		{
-			Properties.Settings.Default.Upgrade();
-			Properties.Settings.Default.userUpgradeRequired = false;
-			Properties.Settings.Default.Save();
+			Settings.Default.Upgrade();
+			Settings.Default.userUpgradeRequired = false;
+			Settings.Default.Save();
 		}
 		// Set the checked state of the logging menu item based on the user settings
 		toolStripMenuItemLogging.Checked = Settings.Default.userEnableLogging;
+		// Set the checked state of the load database on startup menu items based on the user settings
+		toolStripMenuItemLoadAdditionalDatabasesOnStartup.Enabled = Settings.Default.userEnableExperimentalFeatures; // TODO: Remove this line when the other databases are implemented
+		toolStripMenuItemLoadDatabaseOnStartupMpcorbJson.Checked = Settings.Default.userLoadAdditionalDatabaseOnStartupMpcorbJson;
+		toolStripMenuItemLoadDatabaseOnStartupAstorbDat.Checked = Settings.Default.userLoadAdditionalDatabaseOnStartupAstorbDat;
+		toolStripMenuItemLoadDatabaseOnStartupAllnumCat.Checked = Settings.Default.userLoadAdditionalDatabaseOnStartupAllnumCat;
+		toolStripMenuItemLoadDatabaseOnStartupSingoppCat.Checked = Settings.Default.userLoadAdditionalDatabaseOnStartupSingoppCat;
+		toolStripMenuItemLoadDatabaseOnStartupUfitobsCat.Checked = Settings.Default.userLoadAdditionalDatabaseOnStartupUfitobsCat;
+		// Set the visibility of the additional database tabs to false initially
+		kryptonPageMpcorbJson.Visible = false;
+		kryptonPageAstorbDat.Visible = false;
+		kryptonPageAllnumCat.Visible = false;
+		kryptonPageSingoppCat.Visible = false;
+		kryptonPageUfitobsCat.Visible = false;
+		// If the load additional databases on startup menu item is enabled, set the visibility of the corresponding tabs based on the user settings
+		if (toolStripMenuItemLoadAdditionalDatabasesOnStartup.Enabled)
+		{
+			kryptonPageMpcorbJson.Visible = Settings.Default.userLoadAdditionalDatabaseOnStartupMpcorbJson;
+			kryptonPageAstorbDat.Visible = Settings.Default.userLoadAdditionalDatabaseOnStartupAstorbDat;
+			kryptonPageAllnumCat.Visible = Settings.Default.userLoadAdditionalDatabaseOnStartupAllnumCat;
+			kryptonPageSingoppCat.Visible = Settings.Default.userLoadAdditionalDatabaseOnStartupSingoppCat;
+			kryptonPageUfitobsCat.Visible = Settings.Default.userLoadAdditionalDatabaseOnStartupUfitobsCat;
+		}
 		// Check if experimental features are enabled in the settings and enable them if so
 		if (Settings.Default.userEnableExperimentalFeatures)
 		{
@@ -110,7 +132,7 @@ public partial class PlanetoidDbForm
 			}
 		}
 		// Load the ASTORB.DAT file and update the tab text with the last modified date
-		LoadAstorbDatabase();
+		//LoadAstorbDatabase();
 	}
 
 	/// <summary>Handles the shown event of the PlanetoidDBForm.</summary>
@@ -296,28 +318,46 @@ public partial class PlanetoidDbForm
 		stepPosition = 100;
 		// Navigate to the current position
 		GotoCurrentPosition(position: currentPosition);
-		// Show the ASTORB data for the same position (position 0 initially)
-		currentAstorbPosition = 0;
-		GotoCurrentAstorbPosition(position: currentAstorbPosition);
-		// Load the MPCORB.JSON file and show the data for the first position
-		LoadMpcorbJsonDatabase();
-		currentMpcorbJsonPosition = 0;
-		GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
-		// Load the ALLNUM.CAT file and update the tab text with the last modified date
-		LoadAllnumCatDatabase();
-		// Show the ALLNUM.CAT data for the same position (position 0 initially)
-		currentAllnumCatPosition = 0;
-		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
-		// Load the SINGOPP.CAT file and update the tab text with the last modified date
-		LoadSingoppCatDatabase();
-		// Show the SINGOPP.CAT data for the same position (position 0 initially)
-		currentSingoppCatPosition = 0;
-		GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
-		// Load the UFITOBS.CAT file and update the tab text with the last modified date
-		LoadUfitobsCatDatabase();
-		// Show the UFITOBS.CAT data for the same position (position 0 initially)
-		currentUfitobsCatPosition = 0;
-		GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
+		// TODO: remove the following if statement when the other databases are implemented, but keep the code for loading the other databases in place
+		// Check if experimental features are enabled and load the corresponding databases
+		if (toolStripMenuItemExperimentalFeatures.Checked)
+		{
+			// If MPCORB.JSON is checked, load the MPCORB.JSON file and show the data for the same position (position 0 initially)
+			if (toolStripMenuItemLoadDatabaseOnStartupMpcorbJson.Checked)
+			{
+				LoadMpcorbJsonDatabase();
+				currentMpcorbJsonPosition = 0;
+				GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
+			}
+			// If ASTORB.DAT is checked, load the ASTORB.DAT file and show the data for the same position (position 0 initially)
+			if (toolStripMenuItemLoadDatabaseOnStartupAstorbDat.Checked)
+			{
+				LoadAstorbDatabase();
+				currentAstorbPosition = 0;
+				GotoCurrentAstorbPosition(position: currentAstorbPosition);
+			}
+			// If ALLNUM.CAT is checked, load the ALLNUM.CAT file and show the data for the same position (position 0 initially)
+			if (toolStripMenuItemLoadDatabaseOnStartupAllnumCat.Checked)
+			{
+					LoadAllnumCatDatabase();
+					currentAllnumCatPosition = 0;
+					GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
+				}
+			// If SINGOPP.CAT is checked, load the SINGOPP.CAT file and show the data for the same position (position 0 initially)
+			if (toolStripMenuItemLoadDatabaseOnStartupSingoppCat.Checked)
+			{
+				LoadSingoppCatDatabase();
+				currentSingoppCatPosition = 0;
+				GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
+			}
+			// If UFITOBS.CAT is checked, load the UFITOBS.CAT file and show the data for the same position (position 0 initially)
+			if (toolStripMenuItemLoadDatabaseOnStartupUfitobsCat.Checked)
+			{
+				LoadUfitobsCatDatabase();
+				currentUfitobsCatPosition = 0;
+				GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
+			}
+		}
 		// Enable the form
 		Enabled = true;
 	}
@@ -447,12 +487,12 @@ public partial class PlanetoidDbForm
 			GotoCurrentAstorbPosition(position: currentAstorbPosition);
 			currentMpcorbJsonPosition = currentPosition;
 			GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
-				currentAllnumCatPosition = currentPosition;
-				GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
-				currentSingoppCatPosition = currentPosition;
-				GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
-				currentUfitobsCatPosition = currentPosition;
-				GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
+			currentAllnumCatPosition = currentPosition;
+			GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
+			currentSingoppCatPosition = currentPosition;
+			GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
+			currentUfitobsCatPosition = currentPosition;
+			GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 		}
 	}
 
@@ -1698,6 +1738,76 @@ public partial class PlanetoidDbForm
 		}
 		// Save the logging preference to user settings
 		Settings.Default.userEnableLogging = toolStripMenuItemLogging.Checked;
+		Settings.Default.Save();
+	}
+
+	/// <summary>Handles the click event for the "Load Database on Startup" menu item for MPCORB.JSON.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+	/// <remarks>This method toggles the visibility of the MPCORB.JSON tab and updates the user settings accordingly.</remarks>
+	private void ToolStripMenuItemLoadDatabaseOnStartupMpcorbJson_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Load Database on Startup for MPCORB.JSON menu item clicked. Checked state: {toolStripMenuItemLoadDatabaseOnStartupMpcorbJson.Checked}");
+		// Toggle the visibility of the MPCORB.JSON tab based on the menu item checked state
+		kryptonPageMpcorbJson.Visible = toolStripMenuItemLoadDatabaseOnStartupMpcorbJson.Checked;
+		// Update the user setting to reflect the new state
+		Settings.Default.userLoadAdditionalDatabaseOnStartupMpcorbJson = toolStripMenuItemLoadDatabaseOnStartupMpcorbJson.Checked;
+		Settings.Default.Save();
+	}
+
+	/// <summary>Handles the click event for the "Load Database on Startup" menu item for ASTORB.DAT.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+	/// <remarks>This method toggles the visibility of the ASTORB.DAT tab and updates the user settings accordingly.</remarks>
+	private void ToolStripMenuItemLoadDatabaseOnStartupAstorbDat_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Load Database on Startup for ASTORB.DAT menu item clicked. Checked state: {toolStripMenuItemLoadDatabaseOnStartupAstorbDat.Checked}");
+		// Toggle the visibility of the ASTORB.DAT tab based on the menu item checked state
+		kryptonPageAstorbDat.Visible = toolStripMenuItemLoadDatabaseOnStartupAstorbDat.Checked;
+		// Update the user setting to reflect the new state
+		Settings.Default.userLoadAdditionalDatabaseOnStartupAstorbDat = toolStripMenuItemLoadDatabaseOnStartupAstorbDat.Checked;
+		Settings.Default.Save();
+	}
+
+	/// <summary>Handles the click event for the "Load Database on Startup" menu item for ALLNUM.CAT.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+	/// <remarks>This method toggles the visibility of the ALLNUM.CAT tab and updates the user settings accordingly.</remarks>
+	private void ToolStripMenuItemLoadDatabaseOnStartupAllnumCat_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Load Database on Startup for ALLNUM.CAT menu item clicked. Checked state: {toolStripMenuItemLoadDatabaseOnStartupAllnumCat.Checked}");
+		// Toggle the visibility of the ALLNUM.CAT tab based on the menu item checked state
+		kryptonPageAllnumCat.Visible = toolStripMenuItemLoadDatabaseOnStartupAllnumCat.Checked;
+		// Update the user setting to reflect the new state
+		Settings.Default.userLoadAdditionalDatabaseOnStartupAllnumCat = toolStripMenuItemLoadDatabaseOnStartupAllnumCat.Checked;
+		Settings.Default.Save();
+	}
+
+	/// <summary>Handles the click event for the "Load Database on Startup" menu item for SINGOPP.CAT.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+	/// <remarks>This method toggles the visibility of the SINGOPP.CAT tab and updates the user settings accordingly.</remarks>
+	private void ToolStripMenuItemLoadDatabaseOnStartupSingoppCat_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Load Database on Startup for SINGOPP.CAT menu item clicked. Checked state: {toolStripMenuItemLoadDatabaseOnStartupSingoppCat.Checked}");
+		// Toggle the visibility of the SINGOPP.CAT tab based on the menu item checked state
+		kryptonPageSingoppCat.Visible = toolStripMenuItemLoadDatabaseOnStartupSingoppCat.Checked;
+		// Update the user setting to reflect the new state
+		Settings.Default.userLoadAdditionalDatabaseOnStartupSingoppCat = toolStripMenuItemLoadDatabaseOnStartupSingoppCat.Checked;
+		Settings.Default.Save();
+	}
+
+	/// <summary>Handles the click event for the "Load Database on Startup" menu item for UFITOBS.CAT.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+	/// <remarks>This method toggles the visibility of the UFITOBS.CAT tab and updates the user settings accordingly.</remarks>
+	private void ToolStripMenuItemLoadDatabaseOnStartupUfitobsCat_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Load Database on Startup for UFITOBS.CAT menu item clicked. Checked state: {toolStripMenuItemLoadDatabaseOnStartupUfitobsCat.Checked}");
+		// Toggle the visibility of the UFITOBS.CAT tab based on the menu item checked state
+		kryptonPageUfitobsCat.Visible = toolStripMenuItemLoadDatabaseOnStartupUfitobsCat.Checked;
+		// Update the user setting to reflect the new state
+		Settings.Default.userLoadAdditionalDatabaseOnStartupUfitobsCat = toolStripMenuItemLoadDatabaseOnStartupUfitobsCat.Checked;
 		Settings.Default.Save();
 	}
 

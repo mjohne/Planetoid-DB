@@ -59,7 +59,9 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to display the downloader form for the MPCORB.DAT database.</remarks>
 	private void ShowMpcorbDatDownloader()
 	{
+		// Log the action of showing the MPCORB.DAT downloader form
 		logger.Info(message: "Showing MPCORB.DAT downloader form.");
+		// Call the generic method to show the database downloader form for MPCORB.DAT
 		ShowDatabaseDownloader(
 			downloadUrl: Settings.Default.systemMpcorbDatGzUrl,
 			updateAvailableMenuItem: toolStripMenuItemShowMpcorbDatUpdateIsAvailable,
@@ -70,7 +72,9 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to display the downloader form for the MPCORB.JSON database.</remarks>
 	private void ShowMpcorbJsonDownloader()
 	{
+		// Log the action of showing the MPCORB.JSON downloader form
 		logger.Info(message: "Showing MPCORB.JSON downloader form.");
+		// Call the generic method to show the database downloader form for MPCORB.JSON
 		ShowDatabaseDownloader(
 			downloadUrl: Settings.Default.systemMpcorbJsonGzUrl,
 			updateAvailableMenuItem: toolStripMenuItemShowMpcorbJsonUpdateIsAvailable);
@@ -80,7 +84,9 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to display the downloader form for the ASTORB.DAT database.</remarks>
 	private void ShowAstorbDatDownloader()
 	{
+		// Log the action of showing the ASTORB.DAT downloader form
 		logger.Info(message: "Showing ASTORB.DAT downloader form.");
+		// Call the generic method to show the database downloader form for ASTORB.DAT
 		ShowDatabaseDownloader(
 			downloadUrl: Settings.Default.systemAstorbDatGzUrl,
 			updateAvailableMenuItem: toolStripMenuItemShowAstorbDatUpdateIsAvailable,
@@ -91,7 +97,9 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to display the downloader form for the ALLNUM.CAT database.</remarks>
 	private void ShowAllnumCatDownloader()
 	{
+		// Log the action of showing the ALLNUM.CAT downloader form
 		logger.Info(message: "Showing ALLNUM.CAT downloader form.");
+		// Call the generic method to show the database downloader form for ALLNUM.CAT
 		ShowDatabaseDownloader(
 			downloadUrl: Settings.Default.systemAllnumCatUrl,
 			updateAvailableMenuItem: toolStripMenuItemShowAllnumCatUpdateIsAvailable);
@@ -101,7 +109,9 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to display the downloader form for the UFITOBS.CAT database.</remarks>
 	private void ShowUfitobsCatDownloader()
 	{
+		// Log the action of showing the UFITOBS.CAT downloader form
 		logger.Info(message: "Showing UFITOBS.CAT downloader form.");
+		// Call the generic method to show the database downloader form for UFITOBS.CAT
 		ShowDatabaseDownloader(
 			downloadUrl: Settings.Default.systemUfitobsCatUrl,
 			updateAvailableMenuItem: toolStripMenuItemShowUfitobsCatUpdateIsAvailable);
@@ -111,7 +121,9 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to display the downloader form for the SINGOPP.CAT database.</remarks>
 	private void ShowSingoppCatDownloader()
 	{
+		// Log the action of showing the SINGOPP.CAT downloader form
 		logger.Info(message: "Showing SINGOPP.CAT downloader form.");
+		// Call the generic method to show the database downloader form for SINGOPP.CAT
 		ShowDatabaseDownloader(
 			downloadUrl: Settings.Default.systemSingoppCatUrl,
 			updateAvailableMenuItem: toolStripMenuItemShowSingoppCatUpdateIsAvailable);
@@ -151,10 +163,11 @@ public partial class PlanetoidDbForm
 			// Return true if the remote file is newer than the local file; otherwise, return false
 			return remoteLastModified > localLastWriteTime;
 		}
+		// Catch specific exceptions related to network and file access issues
 		catch (Exception ex) when (ex is HttpRequestException or WebException or IOException)
 		{
 			// Log the exception and return false (no update available)
-			logger.Error(exception: ex, message: "Error checking update availability for '{SourceUri}'.", args: [sourceUri]);
+			logger.Error(exception: ex, message: "Error checking update availability for '{0}'.", args: [sourceUri]);
 			return false;
 		}
 	}
