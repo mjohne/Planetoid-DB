@@ -54,6 +54,10 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This integer is used to mirror the current navigation position for the ALLNUM.CAT tab display.</remarks>
 	private int currentAllnumCatPosition;
 
+	/// <summary>Stores the current position in the SINGOPP.CAT database.</summary>
+	/// <remarks>This integer is used to mirror the current navigation position for the SINGOPP.CAT tab display.</remarks>
+	private int currentSingoppCatPosition;
+
 	/// <summary>Stores the planetoids database.</summary>
 	/// <remarks>This list is used to store the planetoids database entries.</remarks>
 	private readonly List<string> planetoidsDatabase = [];
@@ -65,6 +69,10 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <summary>Stores the ALLNUM.CAT database entries.</summary>
 	/// <remarks>This list is used to store the loaded lines from the ALLNUM.CAT file for display in the ALLNUM.CAT tab.</remarks>
 	private readonly List<string> allnumCatDatabase = [];
+
+	/// <summary>Stores the SINGOPP.CAT database entries.</summary>
+	/// <remarks>This list is used to store the loaded lines from the SINGOPP.CAT file for display in the SINGOPP.CAT tab.</remarks>
+	private readonly List<string> singoppCatDatabase = [];
 
 	/// <summary>Stores a backup of the planetoids database.</summary>
 	/// <remarks>This list is used to store a backup of the planetoids database entries, which can be used for comparison or restoration purposes.</remarks>
@@ -209,6 +217,7 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanelMpcorbData, includeChildLabels: true);
 		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanelAstorbData, includeChildLabels: true);
 		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanelAllnumCatData, includeChildLabels: true);
+		DoubleBufferingHelper.EnableDoubleBuffering(control: tableLayoutPanelSingoppCatData, includeChildLabels: true);
 	}
 
 	#endregion
