@@ -307,6 +307,11 @@ public partial class PlanetoidDbForm
 		// Show the SINGOPP.CAT data for the same position (position 0 initially)
 		currentSingoppCatPosition = 0;
 		GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
+		// Load the UFITOBS.CAT file and update the tab text with the last modified date
+		LoadUfitobsCatDatabase();
+		// Show the UFITOBS.CAT data for the same position (position 0 initially)
+		currentUfitobsCatPosition = 0;
+		GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 		// Enable the form
 		Enabled = true;
 	}
@@ -438,6 +443,8 @@ public partial class PlanetoidDbForm
 				GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 				currentSingoppCatPosition = currentPosition;
 				GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
+				currentUfitobsCatPosition = currentPosition;
+				GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 		}
 	}
 
@@ -839,6 +846,8 @@ public partial class PlanetoidDbForm
 		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 		currentSingoppCatPosition = 0;
 		GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
+		currentUfitobsCatPosition = 0;
+		GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 		logger.Info(message: $"Filter reset: database now contains {planetoidsDatabase.Count} records.");
 	}
 
