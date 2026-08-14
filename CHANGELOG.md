@@ -3,6 +3,7 @@
 ## Planetoid-DB 0.9.27.90
 
 * Added `kryptonPageAstorbDat` tab to `PlanetoidDbForm` to display ASTORB.DAT orbital data (28 fields, 4 columns × 14 rows) by @mjohne with @Claude in https://github.com/mjohne/Planetoid-DB/pull/1049
+* Added `kryptonPageUfitobsCat` tab to `PlanetoidDBForm` to display UFITOBS.CAT orbital data (10 fields, 4 columns × 5 rows) by @mjohne with @Claude in https://github.com/mjohne/Planetoid-DB/pull/1059
 
 **Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.26.89.1025.3502...HEAD
 

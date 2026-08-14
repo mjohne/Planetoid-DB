@@ -225,6 +225,8 @@ public partial class PlanetoidDbForm
 				GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 				currentSingoppCatPosition = currentPosition;
 				GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
+				currentUfitobsCatPosition = currentPosition;
+				GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 				return;
 			}
 			// If the index does not match, check if the designation matches the current entry's designation (characters 166-193)
@@ -365,6 +367,8 @@ public partial class PlanetoidDbForm
 		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 		currentSingoppCatPosition = currentPosition;
 		GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
+		currentUfitobsCatPosition = currentPosition;
+		GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 	}
 
 	/// <summary>Navigates to the beginning of the data.</summary>
@@ -378,6 +382,8 @@ public partial class PlanetoidDbForm
 		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 		currentSingoppCatPosition = currentPosition;
 		GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
+		currentUfitobsCatPosition = currentPosition;
+		GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 	}
 
 	/// <summary>Navigates backward by a specified step in the data.</summary>
@@ -404,6 +410,8 @@ public partial class PlanetoidDbForm
 		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 		currentSingoppCatPosition = currentPosition;
 		GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
+		currentUfitobsCatPosition = currentPosition;
+		GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 	}
 
 	/// <summary>Navigates to the previous data entry.</summary>
@@ -429,6 +437,8 @@ public partial class PlanetoidDbForm
 		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 		currentSingoppCatPosition = currentPosition;
 		GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
+		currentUfitobsCatPosition = currentPosition;
+		GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 	}
 
 	/// <summary>Navigates to the next data entry.</summary>
@@ -454,6 +464,8 @@ public partial class PlanetoidDbForm
 		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 		currentSingoppCatPosition = currentPosition;
 		GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
+		currentUfitobsCatPosition = currentPosition;
+		GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 	}
 
 	/// <summary>Navigates forward by a specified step in the data.</summary>
@@ -476,6 +488,8 @@ public partial class PlanetoidDbForm
 		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 		currentSingoppCatPosition = currentPosition;
 		GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
+		currentUfitobsCatPosition = currentPosition;
+		GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 	}
 
 	/// <summary>Navigates to the end of the data.</summary>
@@ -489,6 +503,8 @@ public partial class PlanetoidDbForm
 		GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 		currentSingoppCatPosition = currentPosition;
 		GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
+		currentUfitobsCatPosition = currentPosition;
+		GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 	}
 
 	/// <summary>Processes a designation string by removing parenthetical content, trimming whitespace, and removing spaces.</summary>
@@ -2129,6 +2145,115 @@ public partial class PlanetoidDbForm
 		finally
 		{
 			tableLayoutPanelSingoppCatData.ResumeLayout(performLayout: false);
+		}
+	}
+
+	/// <summary>Loads the UFITOBS.CAT database from the configured file path into <see cref="ufitobsCatDatabase"/>.</summary>
+	/// <remarks>This method reads all lines from the UFITOBS.CAT file, skips the 6 header lines, populates the <see cref="ufitobsCatDatabase"/> list, and updates the tab page text with the file's last-write date. If the file does not exist, the tab text is updated to reflect that the file is missing.</remarks>
+	internal void LoadUfitobsCatDatabase()
+	{
+		// Clear any previously loaded entries
+		ufitobsCatDatabase.Clear();
+		// Check if the UFITOBS.CAT file exists
+		if (!File.Exists(path: filenameUfitobsCat))
+		{
+			logger.Warn(message: $"UFITOBS.CAT file not found: {filenameUfitobsCat}");
+			kryptonPageUfitobsCat.Text = "UFITOBS.CAT (file not found)";
+			return;
+		}
+		try
+		{
+			// Read lines from the UFITOBS.CAT file lazily, skip the 6 header lines, and add data lines to the list
+			ufitobsCatDatabase.AddRange(collection: File.ReadLines(path: filenameUfitobsCat).Skip(count: 6));
+			// Get the last write time of the UFITOBS.CAT file for display in the tab
+			string fileDate = File.GetLastWriteTime(path: filenameUfitobsCat).ToString(format: "yyyy-MM-dd", provider: CultureInfo.InvariantCulture);
+			kryptonPageUfitobsCat.Text = $"UFITOBS.CAT ({fileDate})";
+			logger.Info(message: $"UFITOBS.CAT loaded: {ufitobsCatDatabase.Count} lines, dated {fileDate}.");
+		}
+		catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+		{
+			logger.Error(exception: ex, message: $"Error loading UFITOBS.CAT: {ex.Message}");
+			kryptonPageUfitobsCat.Text = $"UFITOBS.CAT ({I18nStrings.ErrorCaption})";
+		}
+	}
+
+	/// <summary>Navigates to and displays the UFITOBS.CAT record at the specified position.</summary>
+	/// <param name="position">The zero-based position to navigate to in <see cref="ufitobsCatDatabase"/>.</param>
+	/// <remarks>If the position is out of range or the database is empty, all UFITOBS.CAT labels are cleared.</remarks>
+	{
+		if (ufitobsCatDatabase.Count == 0 || position < 0 || position >= ufitobsCatDatabase.Count)
+		{
+			ClearCurrentUfitobsCatRecordDisplay();
+			return;
+		}
+		string? entryStr = ufitobsCatDatabase[index: position]?.ToString();
+		if (string.IsNullOrEmpty(value: entryStr))
+		{
+			ClearCurrentUfitobsCatRecordDisplay();
+			return;
+		}
+		ReadOnlySpan<char> entrySpan = entryStr.AsSpan();
+		// Local helper to safely extract and trim a fixed-width field (1-based column indices from UFITOBS.CAT format)
+		static string ExtractField(ReadOnlySpan<char> span, int start, int length)
+		{
+			return span.Length < start + length ? string.Empty : span.Slice(start: start, length: length).Trim().ToString();
+		}
+		tableLayoutPanelUfitobsCatData.SuspendLayout();
+		try
+		{
+			// 1. "Name" columns 1-14 (0-based: start=0, length=14)
+			labelUfitobsCatNameData.Text = ExtractField(span: entrySpan, start: 0, length: 14);
+			// 2. "Epoch (MJD)" columns 16-27 (0-based: start=15, length=12)
+			labelUfitobsCatEpochData.Text = ExtractField(span: entrySpan, start: 15, length: 12);
+			// 3. "Semi-major axis" columns 29-52 (0-based: start=28, length=24)
+			labelUfitobsCatSemiMajorAxisData.Text = ExtractField(span: entrySpan, start: 28, length: 24);
+			// 4. "Orbital eccentricity" columns 56-77 (0-based: start=55, length=22)
+			labelUfitobsCatOrbitalEccentricityData.Text = ExtractField(span: entrySpan, start: 55, length: 22);
+			// 5. "Inclination to the ecliptic" columns 81-102 (0-based: start=80, length=22)
+			labelUfitobsCatInclinationData.Text = ExtractField(span: entrySpan, start: 80, length: 22);
+			// 6. "Longitude of the ascending node" columns 106-127 (0-based: start=105, length=22)
+			labelUfitobsCatLongAscNodeData.Text = ExtractField(span: entrySpan, start: 105, length: 22);
+			// 7. "Argument of the perihelion" columns 131-152 (0-based: start=130, length=22)
+			labelUfitobsCatArgOfPerihelionData.Text = ExtractField(span: entrySpan, start: 130, length: 22);
+			// 8. "Mean anomaly" columns 159-177 (0-based: start=158, length=19)
+			labelUfitobsCatMeanAnomalyData.Text = ExtractField(span: entrySpan, start: 158, length: 19);
+			// 9. "Absolute magnitude" columns 179-183 (0-based: start=178, length=5)
+			labelUfitobsCatAbsoluteMagnitudeData.Text = ExtractField(span: entrySpan, start: 178, length: 5);
+			// 10. "Slope parameter" columns 185-189 (0-based: start=184, length=5)
+			labelUfitobsCatSlopeParameterData.Text = ExtractField(span: entrySpan, start: 184, length: 5);
+		}
+		catch (Exception ex)
+		{
+			logger.Error(exception: ex, message: $"Error displaying UFITOBS.CAT record at position {position}: {ex.Message}");
+			ClearCurrentUfitobsCatRecordDisplay();
+		}
+		finally
+		{
+			tableLayoutPanelUfitobsCatData.ResumeLayout(performLayout: true);
+		}
+	}
+
+	/// <summary>Clears all UFITOBS.CAT record display labels in the UFITOBS.CAT data panel.</summary>
+	/// <remarks>This method clears all UI labels used to display UFITOBS.CAT record fields.</remarks>
+	private void ClearCurrentUfitobsCatRecordDisplay()
+	{
+		tableLayoutPanelUfitobsCatData.SuspendLayout();
+		try
+		{
+			labelUfitobsCatNameData.Text = string.Empty;
+			labelUfitobsCatEpochData.Text = string.Empty;
+			labelUfitobsCatSemiMajorAxisData.Text = string.Empty;
+			labelUfitobsCatOrbitalEccentricityData.Text = string.Empty;
+			labelUfitobsCatInclinationData.Text = string.Empty;
+			labelUfitobsCatLongAscNodeData.Text = string.Empty;
+			labelUfitobsCatArgOfPerihelionData.Text = string.Empty;
+			labelUfitobsCatMeanAnomalyData.Text = string.Empty;
+			labelUfitobsCatAbsoluteMagnitudeData.Text = string.Empty;
+			labelUfitobsCatSlopeParameterData.Text = string.Empty;
+		}
+		finally
+		{
+			tableLayoutPanelUfitobsCatData.ResumeLayout(performLayout: false);
 		}
 	}
 

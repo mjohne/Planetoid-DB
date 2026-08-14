@@ -329,6 +329,28 @@ partial class PlanetoidDbForm
 		labelSingoppCatAbsoluteMagnitudeData = new KryptonLabel();
 		labelSingoppCatSlopeParameterDesc = new KryptonLabel();
 		labelSingoppCatSlopeParameterData = new KryptonLabel();
+		kryptonPageUfitobsCat = new Krypton.Navigator.KryptonPage();
+		tableLayoutPanelUfitobsCatData = new KryptonTableLayoutPanel();
+		labelUfitobsCatNameDesc = new KryptonLabel();
+		labelUfitobsCatNameData = new KryptonLabel();
+		labelUfitobsCatEpochDesc = new KryptonLabel();
+		labelUfitobsCatEpochData = new KryptonLabel();
+		labelUfitobsCatSemiMajorAxisDesc = new KryptonLabel();
+		labelUfitobsCatSemiMajorAxisData = new KryptonLabel();
+		labelUfitobsCatOrbitalEccentricityDesc = new KryptonLabel();
+		labelUfitobsCatOrbitalEccentricityData = new KryptonLabel();
+		labelUfitobsCatInclinationDesc = new KryptonLabel();
+		labelUfitobsCatInclinationData = new KryptonLabel();
+		labelUfitobsCatLongAscNodeDesc = new KryptonLabel();
+		labelUfitobsCatLongAscNodeData = new KryptonLabel();
+		labelUfitobsCatArgOfPerihelionDesc = new KryptonLabel();
+		labelUfitobsCatArgOfPerihelionData = new KryptonLabel();
+		labelUfitobsCatMeanAnomalyDesc = new KryptonLabel();
+		labelUfitobsCatMeanAnomalyData = new KryptonLabel();
+		labelUfitobsCatAbsoluteMagnitudeDesc = new KryptonLabel();
+		labelUfitobsCatAbsoluteMagnitudeData = new KryptonLabel();
+		labelUfitobsCatSlopeParameterDesc = new KryptonLabel();
+		labelUfitobsCatSlopeParameterData = new KryptonLabel();
 		labelAstorbNumberData = new KryptonLabel();
 		labelAstorbNameDesc = new KryptonLabel();
 		labelAstorbNameData = new KryptonLabel();
@@ -457,6 +479,9 @@ partial class PlanetoidDbForm
 		((ISupportInitialize)kryptonPageSingoppCat).BeginInit();
 		kryptonPageSingoppCat.SuspendLayout();
 		tableLayoutPanelSingoppCatData.SuspendLayout();
+		((ISupportInitialize)kryptonPageUfitobsCat).BeginInit();
+		kryptonPageUfitobsCat.SuspendLayout();
+		tableLayoutPanelUfitobsCatData.SuspendLayout();
 		kryptonToolStripIcons.SuspendLayout();
 		kryptonToolStripNavigation.SuspendLayout();
 		SuspendLayout();
@@ -4250,7 +4275,7 @@ partial class PlanetoidDbForm
 		kryptonNavigatorMain.NavigatorMode = Krypton.Navigator.NavigatorMode.BarTabGroup;
 		kryptonNavigatorMain.Owner = this;
 		kryptonNavigatorMain.PageBackStyle = PaletteBackStyle.PanelClient;
-		kryptonNavigatorMain.Pages.AddRange(new Krypton.Navigator.KryptonPage[] { kryptonPageMpcorbDat, kryptonPageAstorbDat, kryptonPageAllnumCat, kryptonPageSingoppCat });
+		kryptonNavigatorMain.Pages.AddRange(new Krypton.Navigator.KryptonPage[] { kryptonPageMpcorbDat, kryptonPageAstorbDat, kryptonPageAllnumCat, kryptonPageSingoppCat, kryptonPageUfitobsCat });
 		kryptonNavigatorMain.SelectedIndex = 0;
 		kryptonNavigatorMain.Size = new Size(852, 314);
 		kryptonNavigatorMain.TabIndex = 0;
@@ -6700,6 +6725,523 @@ partial class PlanetoidDbForm
 		labelSingoppCatSlopeParameterData.MouseEnter += Control_Enter;
 		labelSingoppCatSlopeParameterData.MouseLeave += Control_Leave;
 		//
+		// kryptonPageUfitobsCat
+		//
+		kryptonPageUfitobsCat.AccessibleDescription = "Shows the UFITOBS.CAT page tab";
+		kryptonPageUfitobsCat.AccessibleName = "UFITOBS.CAT page tab";
+		kryptonPageUfitobsCat.AccessibleRole = AccessibleRole.PageTab;
+		kryptonPageUfitobsCat.AutoHiddenSlideSize = new Size(200, 200);
+		kryptonPageUfitobsCat.Controls.Add(tableLayoutPanelUfitobsCatData);
+		kryptonPageUfitobsCat.Flags = 65534;
+		kryptonPageUfitobsCat.LastVisibleSet = true;
+		kryptonPageUfitobsCat.MinimumSize = new Size(150, 50);
+		kryptonPageUfitobsCat.Name = "kryptonPageUfitobsCat";
+		kryptonPageUfitobsCat.Size = new Size(850, 287);
+		kryptonPageUfitobsCat.Text = "UFITOBS.CAT";
+		kryptonPageUfitobsCat.TextDescription = "Shows the UFITOBS.CAT";
+		kryptonPageUfitobsCat.TextTitle = "UFITOBS.CAT";
+		kryptonPageUfitobsCat.ToolTipBody = "Shows the UFITOBS.CAT";
+		kryptonPageUfitobsCat.ToolTipTitle = "Shows the UFITOBS.CAT";
+		kryptonPageUfitobsCat.UniqueName = "c493g86i8g1088h8257f77h02g612hh5";
+		//
+		// tableLayoutPanelUfitobsCatData
+		//
+		tableLayoutPanelUfitobsCatData.AccessibleDescription = "Groups the UFITOBS.CAT data";
+		tableLayoutPanelUfitobsCatData.AccessibleName = "UFITOBS.CAT table panel";
+		tableLayoutPanelUfitobsCatData.AccessibleRole = AccessibleRole.Pane;
+		tableLayoutPanelUfitobsCatData.ColumnCount = 4;
+		tableLayoutPanelUfitobsCatData.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanelUfitobsCatData.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 174F));
+		tableLayoutPanelUfitobsCatData.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanelUfitobsCatData.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanelUfitobsCatData.Controls.Add(labelUfitobsCatNameDesc, 0, 0);
+		tableLayoutPanelUfitobsCatData.Controls.Add(labelUfitobsCatNameData, 1, 0);
+		tableLayoutPanelUfitobsCatData.Controls.Add(labelUfitobsCatEpochDesc, 2, 0);
+		tableLayoutPanelUfitobsCatData.Controls.Add(labelUfitobsCatEpochData, 3, 0);
+		tableLayoutPanelUfitobsCatData.Controls.Add(labelUfitobsCatSemiMajorAxisDesc, 0, 1);
+		tableLayoutPanelUfitobsCatData.Controls.Add(labelUfitobsCatSemiMajorAxisData, 1, 1);
+		tableLayoutPanelUfitobsCatData.Controls.Add(labelUfitobsCatOrbitalEccentricityDesc, 2, 1);
+		tableLayoutPanelUfitobsCatData.Controls.Add(labelUfitobsCatOrbitalEccentricityData, 3, 1);
+		tableLayoutPanelUfitobsCatData.Controls.Add(labelUfitobsCatInclinationDesc, 0, 2);
+		tableLayoutPanelUfitobsCatData.Controls.Add(labelUfitobsCatInclinationData, 1, 2);
+		tableLayoutPanelUfitobsCatData.Controls.Add(labelUfitobsCatLongAscNodeDesc, 2, 2);
+		tableLayoutPanelUfitobsCatData.Controls.Add(labelUfitobsCatLongAscNodeData, 3, 2);
+		tableLayoutPanelUfitobsCatData.Controls.Add(labelUfitobsCatArgOfPerihelionDesc, 0, 3);
+		tableLayoutPanelUfitobsCatData.Controls.Add(labelUfitobsCatArgOfPerihelionData, 1, 3);
+		tableLayoutPanelUfitobsCatData.Controls.Add(labelUfitobsCatMeanAnomalyDesc, 2, 3);
+		tableLayoutPanelUfitobsCatData.Controls.Add(labelUfitobsCatMeanAnomalyData, 3, 3);
+		tableLayoutPanelUfitobsCatData.Controls.Add(labelUfitobsCatAbsoluteMagnitudeDesc, 0, 4);
+		tableLayoutPanelUfitobsCatData.Controls.Add(labelUfitobsCatAbsoluteMagnitudeData, 1, 4);
+		tableLayoutPanelUfitobsCatData.Controls.Add(labelUfitobsCatSlopeParameterDesc, 2, 4);
+		tableLayoutPanelUfitobsCatData.Controls.Add(labelUfitobsCatSlopeParameterData, 3, 4);
+		tableLayoutPanelUfitobsCatData.Dock = DockStyle.Fill;
+		tableLayoutPanelUfitobsCatData.Location = new Point(0, 0);
+		tableLayoutPanelUfitobsCatData.Name = "tableLayoutPanelUfitobsCatData";
+		tableLayoutPanelUfitobsCatData.RowCount = 5;
+		tableLayoutPanelUfitobsCatData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelUfitobsCatData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelUfitobsCatData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelUfitobsCatData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelUfitobsCatData.RowStyles.Add(new RowStyle());
+		tableLayoutPanelUfitobsCatData.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+		tableLayoutPanelUfitobsCatData.Size = new Size(850, 287);
+		tableLayoutPanelUfitobsCatData.TabIndex = 0;
+		tableLayoutPanelUfitobsCatData.TabStop = true;
+		tableLayoutPanelUfitobsCatData.Enter += Control_Enter;
+		tableLayoutPanelUfitobsCatData.Leave += Control_Leave;
+		tableLayoutPanelUfitobsCatData.MouseEnter += Control_Enter;
+		tableLayoutPanelUfitobsCatData.MouseLeave += Control_Leave;
+		//
+		// labelUfitobsCatNameDesc
+		//
+		labelUfitobsCatNameDesc.AccessibleDescription = "Name";
+		labelUfitobsCatNameDesc.AccessibleName = "Name";
+		labelUfitobsCatNameDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelUfitobsCatNameDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelUfitobsCatNameDesc.Dock = DockStyle.Fill;
+		labelUfitobsCatNameDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelUfitobsCatNameDesc.Location = new Point(3, 3);
+		labelUfitobsCatNameDesc.Name = "labelUfitobsCatNameDesc";
+		labelUfitobsCatNameDesc.Size = new Size(222, 20);
+		labelUfitobsCatNameDesc.TabIndex = 0;
+		labelUfitobsCatNameDesc.ToolTipValues.Description = "Shows the name.\r\nDouble-click or right-click to open the terminology.";
+		labelUfitobsCatNameDesc.ToolTipValues.EnableToolTips = true;
+		labelUfitobsCatNameDesc.ToolTipValues.Heading = "Name";
+		labelUfitobsCatNameDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelUfitobsCatNameDesc.Values.Text = "Name";
+		labelUfitobsCatNameDesc.Enter += Control_Enter;
+		labelUfitobsCatNameDesc.Leave += Control_Leave;
+		labelUfitobsCatNameDesc.MouseEnter += Control_Enter;
+		labelUfitobsCatNameDesc.MouseLeave += Control_Leave;
+		//
+		// labelUfitobsCatNameData
+		//
+		labelUfitobsCatNameData.AccessibleDescription = "Shows the name";
+		labelUfitobsCatNameData.AccessibleName = "Shows the name";
+		labelUfitobsCatNameData.AccessibleRole = AccessibleRole.StatusBar;
+		labelUfitobsCatNameData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelUfitobsCatNameData.Dock = DockStyle.Fill;
+		labelUfitobsCatNameData.Location = new Point(231, 3);
+		labelUfitobsCatNameData.Name = "labelUfitobsCatNameData";
+		labelUfitobsCatNameData.Size = new Size(168, 20);
+		labelUfitobsCatNameData.TabIndex = 1;
+		labelUfitobsCatNameData.ToolTipValues.Description = "Shows the name.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelUfitobsCatNameData.ToolTipValues.EnableToolTips = true;
+		labelUfitobsCatNameData.ToolTipValues.Heading = "Name";
+		labelUfitobsCatNameData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelUfitobsCatNameData.Values.Text = "..................";
+		labelUfitobsCatNameData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelUfitobsCatNameData.Enter += Control_Enter;
+		labelUfitobsCatNameData.Leave += Control_Leave;
+		labelUfitobsCatNameData.MouseDown += Control_MouseDown;
+		labelUfitobsCatNameData.MouseEnter += Control_Enter;
+		labelUfitobsCatNameData.MouseLeave += Control_Leave;
+		//
+		// labelUfitobsCatEpochDesc
+		//
+		labelUfitobsCatEpochDesc.AccessibleDescription = "Epoch (MJD)";
+		labelUfitobsCatEpochDesc.AccessibleName = "Epoch (MJD)";
+		labelUfitobsCatEpochDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelUfitobsCatEpochDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelUfitobsCatEpochDesc.Dock = DockStyle.Fill;
+		labelUfitobsCatEpochDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelUfitobsCatEpochDesc.Location = new Point(405, 3);
+		labelUfitobsCatEpochDesc.Name = "labelUfitobsCatEpochDesc";
+		labelUfitobsCatEpochDesc.Size = new Size(225, 20);
+		labelUfitobsCatEpochDesc.TabIndex = 2;
+		labelUfitobsCatEpochDesc.ToolTipValues.Description = "Shows the epoch (MJD).\r\nDouble-click or right-click to open the terminology.";
+		labelUfitobsCatEpochDesc.ToolTipValues.EnableToolTips = true;
+		labelUfitobsCatEpochDesc.ToolTipValues.Heading = "Epoch (MJD)";
+		labelUfitobsCatEpochDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelUfitobsCatEpochDesc.Values.Text = "Epoch (MJD)";
+		labelUfitobsCatEpochDesc.Enter += Control_Enter;
+		labelUfitobsCatEpochDesc.Leave += Control_Leave;
+		labelUfitobsCatEpochDesc.MouseEnter += Control_Enter;
+		labelUfitobsCatEpochDesc.MouseLeave += Control_Leave;
+		//
+		// labelUfitobsCatEpochData
+		//
+		labelUfitobsCatEpochData.AccessibleDescription = "Shows the epoch (MJD)";
+		labelUfitobsCatEpochData.AccessibleName = "Shows the epoch (MJD)";
+		labelUfitobsCatEpochData.AccessibleRole = AccessibleRole.StatusBar;
+		labelUfitobsCatEpochData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelUfitobsCatEpochData.Dock = DockStyle.Fill;
+		labelUfitobsCatEpochData.Location = new Point(636, 3);
+		labelUfitobsCatEpochData.Name = "labelUfitobsCatEpochData";
+		labelUfitobsCatEpochData.Size = new Size(211, 20);
+		labelUfitobsCatEpochData.TabIndex = 3;
+		labelUfitobsCatEpochData.ToolTipValues.Description = "Shows the epoch (MJD).\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelUfitobsCatEpochData.ToolTipValues.EnableToolTips = true;
+		labelUfitobsCatEpochData.ToolTipValues.Heading = "Epoch (MJD)";
+		labelUfitobsCatEpochData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelUfitobsCatEpochData.Values.Text = "..................";
+		labelUfitobsCatEpochData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelUfitobsCatEpochData.Enter += Control_Enter;
+		labelUfitobsCatEpochData.Leave += Control_Leave;
+		labelUfitobsCatEpochData.MouseDown += Control_MouseDown;
+		labelUfitobsCatEpochData.MouseEnter += Control_Enter;
+		labelUfitobsCatEpochData.MouseLeave += Control_Leave;
+		//
+		// labelUfitobsCatSemiMajorAxisDesc
+		//
+		labelUfitobsCatSemiMajorAxisDesc.AccessibleDescription = "Semi-major axis";
+		labelUfitobsCatSemiMajorAxisDesc.AccessibleName = "Semi-major axis";
+		labelUfitobsCatSemiMajorAxisDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelUfitobsCatSemiMajorAxisDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelUfitobsCatSemiMajorAxisDesc.Dock = DockStyle.Fill;
+		labelUfitobsCatSemiMajorAxisDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelUfitobsCatSemiMajorAxisDesc.Location = new Point(3, 29);
+		labelUfitobsCatSemiMajorAxisDesc.Name = "labelUfitobsCatSemiMajorAxisDesc";
+		labelUfitobsCatSemiMajorAxisDesc.Size = new Size(222, 20);
+		labelUfitobsCatSemiMajorAxisDesc.TabIndex = 4;
+		labelUfitobsCatSemiMajorAxisDesc.ToolTipValues.Description = "Shows the semi-major axis.\r\nDouble-click or right-click to open the terminology.";
+		labelUfitobsCatSemiMajorAxisDesc.ToolTipValues.EnableToolTips = true;
+		labelUfitobsCatSemiMajorAxisDesc.ToolTipValues.Heading = "Semi-major axis";
+		labelUfitobsCatSemiMajorAxisDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelUfitobsCatSemiMajorAxisDesc.Values.Text = "Semi-major axis";
+		labelUfitobsCatSemiMajorAxisDesc.Enter += Control_Enter;
+		labelUfitobsCatSemiMajorAxisDesc.Leave += Control_Leave;
+		labelUfitobsCatSemiMajorAxisDesc.MouseEnter += Control_Enter;
+		labelUfitobsCatSemiMajorAxisDesc.MouseLeave += Control_Leave;
+		//
+		// labelUfitobsCatSemiMajorAxisData
+		//
+		labelUfitobsCatSemiMajorAxisData.AccessibleDescription = "Shows the semi-major axis";
+		labelUfitobsCatSemiMajorAxisData.AccessibleName = "Shows the semi-major axis";
+		labelUfitobsCatSemiMajorAxisData.AccessibleRole = AccessibleRole.StatusBar;
+		labelUfitobsCatSemiMajorAxisData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelUfitobsCatSemiMajorAxisData.Dock = DockStyle.Fill;
+		labelUfitobsCatSemiMajorAxisData.Location = new Point(231, 29);
+		labelUfitobsCatSemiMajorAxisData.Name = "labelUfitobsCatSemiMajorAxisData";
+		labelUfitobsCatSemiMajorAxisData.Size = new Size(168, 20);
+		labelUfitobsCatSemiMajorAxisData.TabIndex = 5;
+		labelUfitobsCatSemiMajorAxisData.ToolTipValues.Description = "Shows the semi-major axis.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelUfitobsCatSemiMajorAxisData.ToolTipValues.EnableToolTips = true;
+		labelUfitobsCatSemiMajorAxisData.ToolTipValues.Heading = "Semi-major axis";
+		labelUfitobsCatSemiMajorAxisData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelUfitobsCatSemiMajorAxisData.Values.Text = "..................";
+		labelUfitobsCatSemiMajorAxisData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelUfitobsCatSemiMajorAxisData.Enter += Control_Enter;
+		labelUfitobsCatSemiMajorAxisData.Leave += Control_Leave;
+		labelUfitobsCatSemiMajorAxisData.MouseDown += Control_MouseDown;
+		labelUfitobsCatSemiMajorAxisData.MouseEnter += Control_Enter;
+		labelUfitobsCatSemiMajorAxisData.MouseLeave += Control_Leave;
+		//
+		// labelUfitobsCatOrbitalEccentricityDesc
+		//
+		labelUfitobsCatOrbitalEccentricityDesc.AccessibleDescription = "Orbital eccentricity";
+		labelUfitobsCatOrbitalEccentricityDesc.AccessibleName = "Orbital eccentricity";
+		labelUfitobsCatOrbitalEccentricityDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelUfitobsCatOrbitalEccentricityDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelUfitobsCatOrbitalEccentricityDesc.Dock = DockStyle.Fill;
+		labelUfitobsCatOrbitalEccentricityDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelUfitobsCatOrbitalEccentricityDesc.Location = new Point(405, 29);
+		labelUfitobsCatOrbitalEccentricityDesc.Name = "labelUfitobsCatOrbitalEccentricityDesc";
+		labelUfitobsCatOrbitalEccentricityDesc.Size = new Size(225, 20);
+		labelUfitobsCatOrbitalEccentricityDesc.TabIndex = 6;
+		labelUfitobsCatOrbitalEccentricityDesc.ToolTipValues.Description = "Shows the orbital eccentricity.\r\nDouble-click or right-click to open the terminology.";
+		labelUfitobsCatOrbitalEccentricityDesc.ToolTipValues.EnableToolTips = true;
+		labelUfitobsCatOrbitalEccentricityDesc.ToolTipValues.Heading = "Orbital eccentricity";
+		labelUfitobsCatOrbitalEccentricityDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelUfitobsCatOrbitalEccentricityDesc.Values.Text = "Orbital eccentricity";
+		labelUfitobsCatOrbitalEccentricityDesc.Enter += Control_Enter;
+		labelUfitobsCatOrbitalEccentricityDesc.Leave += Control_Leave;
+		labelUfitobsCatOrbitalEccentricityDesc.MouseEnter += Control_Enter;
+		labelUfitobsCatOrbitalEccentricityDesc.MouseLeave += Control_Leave;
+		//
+		// labelUfitobsCatOrbitalEccentricityData
+		//
+		labelUfitobsCatOrbitalEccentricityData.AccessibleDescription = "Shows the orbital eccentricity";
+		labelUfitobsCatOrbitalEccentricityData.AccessibleName = "Shows the orbital eccentricity";
+		labelUfitobsCatOrbitalEccentricityData.AccessibleRole = AccessibleRole.StatusBar;
+		labelUfitobsCatOrbitalEccentricityData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelUfitobsCatOrbitalEccentricityData.Dock = DockStyle.Fill;
+		labelUfitobsCatOrbitalEccentricityData.Location = new Point(636, 29);
+		labelUfitobsCatOrbitalEccentricityData.Name = "labelUfitobsCatOrbitalEccentricityData";
+		labelUfitobsCatOrbitalEccentricityData.Size = new Size(211, 20);
+		labelUfitobsCatOrbitalEccentricityData.TabIndex = 7;
+		labelUfitobsCatOrbitalEccentricityData.ToolTipValues.Description = "Shows the orbital eccentricity.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelUfitobsCatOrbitalEccentricityData.ToolTipValues.EnableToolTips = true;
+		labelUfitobsCatOrbitalEccentricityData.ToolTipValues.Heading = "Orbital eccentricity";
+		labelUfitobsCatOrbitalEccentricityData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelUfitobsCatOrbitalEccentricityData.Values.Text = "..................";
+		labelUfitobsCatOrbitalEccentricityData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelUfitobsCatOrbitalEccentricityData.Enter += Control_Enter;
+		labelUfitobsCatOrbitalEccentricityData.Leave += Control_Leave;
+		labelUfitobsCatOrbitalEccentricityData.MouseDown += Control_MouseDown;
+		labelUfitobsCatOrbitalEccentricityData.MouseEnter += Control_Enter;
+		labelUfitobsCatOrbitalEccentricityData.MouseLeave += Control_Leave;
+		//
+		// labelUfitobsCatInclinationDesc
+		//
+		labelUfitobsCatInclinationDesc.AccessibleDescription = "Inclination to the ecliptic";
+		labelUfitobsCatInclinationDesc.AccessibleName = "Inclination to the ecliptic";
+		labelUfitobsCatInclinationDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelUfitobsCatInclinationDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelUfitobsCatInclinationDesc.Dock = DockStyle.Fill;
+		labelUfitobsCatInclinationDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelUfitobsCatInclinationDesc.Location = new Point(3, 55);
+		labelUfitobsCatInclinationDesc.Name = "labelUfitobsCatInclinationDesc";
+		labelUfitobsCatInclinationDesc.Size = new Size(222, 20);
+		labelUfitobsCatInclinationDesc.TabIndex = 8;
+		labelUfitobsCatInclinationDesc.ToolTipValues.Description = "Shows the inclination to the ecliptic.\r\nDouble-click or right-click to open the terminology.";
+		labelUfitobsCatInclinationDesc.ToolTipValues.EnableToolTips = true;
+		labelUfitobsCatInclinationDesc.ToolTipValues.Heading = "Inclination to the ecliptic";
+		labelUfitobsCatInclinationDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelUfitobsCatInclinationDesc.Values.Text = "Inclination to the ecliptic";
+		labelUfitobsCatInclinationDesc.Enter += Control_Enter;
+		labelUfitobsCatInclinationDesc.Leave += Control_Leave;
+		labelUfitobsCatInclinationDesc.MouseEnter += Control_Enter;
+		labelUfitobsCatInclinationDesc.MouseLeave += Control_Leave;
+		//
+		// labelUfitobsCatInclinationData
+		//
+		labelUfitobsCatInclinationData.AccessibleDescription = "Shows the inclination to the ecliptic";
+		labelUfitobsCatInclinationData.AccessibleName = "Shows the inclination to the ecliptic";
+		labelUfitobsCatInclinationData.AccessibleRole = AccessibleRole.StatusBar;
+		labelUfitobsCatInclinationData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelUfitobsCatInclinationData.Dock = DockStyle.Fill;
+		labelUfitobsCatInclinationData.Location = new Point(231, 55);
+		labelUfitobsCatInclinationData.Name = "labelUfitobsCatInclinationData";
+		labelUfitobsCatInclinationData.Size = new Size(168, 20);
+		labelUfitobsCatInclinationData.TabIndex = 9;
+		labelUfitobsCatInclinationData.ToolTipValues.Description = "Shows the inclination to the ecliptic.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelUfitobsCatInclinationData.ToolTipValues.EnableToolTips = true;
+		labelUfitobsCatInclinationData.ToolTipValues.Heading = "Inclination to the ecliptic";
+		labelUfitobsCatInclinationData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelUfitobsCatInclinationData.Values.Text = "..................";
+		labelUfitobsCatInclinationData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelUfitobsCatInclinationData.Enter += Control_Enter;
+		labelUfitobsCatInclinationData.Leave += Control_Leave;
+		labelUfitobsCatInclinationData.MouseDown += Control_MouseDown;
+		labelUfitobsCatInclinationData.MouseEnter += Control_Enter;
+		labelUfitobsCatInclinationData.MouseLeave += Control_Leave;
+		//
+		// labelUfitobsCatLongAscNodeDesc
+		//
+		labelUfitobsCatLongAscNodeDesc.AccessibleDescription = "Longitude of the ascending node";
+		labelUfitobsCatLongAscNodeDesc.AccessibleName = "Longitude of the ascending node";
+		labelUfitobsCatLongAscNodeDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelUfitobsCatLongAscNodeDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelUfitobsCatLongAscNodeDesc.Dock = DockStyle.Fill;
+		labelUfitobsCatLongAscNodeDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelUfitobsCatLongAscNodeDesc.Location = new Point(405, 55);
+		labelUfitobsCatLongAscNodeDesc.Name = "labelUfitobsCatLongAscNodeDesc";
+		labelUfitobsCatLongAscNodeDesc.Size = new Size(225, 20);
+		labelUfitobsCatLongAscNodeDesc.TabIndex = 10;
+		labelUfitobsCatLongAscNodeDesc.ToolTipValues.Description = "Shows the longitude of the ascending node.\r\nDouble-click or right-click to open the terminology.";
+		labelUfitobsCatLongAscNodeDesc.ToolTipValues.EnableToolTips = true;
+		labelUfitobsCatLongAscNodeDesc.ToolTipValues.Heading = "Longitude of the ascending node";
+		labelUfitobsCatLongAscNodeDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelUfitobsCatLongAscNodeDesc.Values.Text = "Longitude of the ascending node";
+		labelUfitobsCatLongAscNodeDesc.Enter += Control_Enter;
+		labelUfitobsCatLongAscNodeDesc.Leave += Control_Leave;
+		labelUfitobsCatLongAscNodeDesc.MouseEnter += Control_Enter;
+		labelUfitobsCatLongAscNodeDesc.MouseLeave += Control_Leave;
+		//
+		// labelUfitobsCatLongAscNodeData
+		//
+		labelUfitobsCatLongAscNodeData.AccessibleDescription = "Shows the longitude of the ascending node";
+		labelUfitobsCatLongAscNodeData.AccessibleName = "Shows the longitude of the ascending node";
+		labelUfitobsCatLongAscNodeData.AccessibleRole = AccessibleRole.StatusBar;
+		labelUfitobsCatLongAscNodeData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelUfitobsCatLongAscNodeData.Dock = DockStyle.Fill;
+		labelUfitobsCatLongAscNodeData.Location = new Point(636, 55);
+		labelUfitobsCatLongAscNodeData.Name = "labelUfitobsCatLongAscNodeData";
+		labelUfitobsCatLongAscNodeData.Size = new Size(211, 20);
+		labelUfitobsCatLongAscNodeData.TabIndex = 11;
+		labelUfitobsCatLongAscNodeData.ToolTipValues.Description = "Shows the longitude of the ascending node.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelUfitobsCatLongAscNodeData.ToolTipValues.EnableToolTips = true;
+		labelUfitobsCatLongAscNodeData.ToolTipValues.Heading = "Longitude of the ascending node";
+		labelUfitobsCatLongAscNodeData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelUfitobsCatLongAscNodeData.Values.Text = "..................";
+		labelUfitobsCatLongAscNodeData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelUfitobsCatLongAscNodeData.Enter += Control_Enter;
+		labelUfitobsCatLongAscNodeData.Leave += Control_Leave;
+		labelUfitobsCatLongAscNodeData.MouseDown += Control_MouseDown;
+		labelUfitobsCatLongAscNodeData.MouseEnter += Control_Enter;
+		labelUfitobsCatLongAscNodeData.MouseLeave += Control_Leave;
+		//
+		// labelUfitobsCatArgOfPerihelionDesc
+		//
+		labelUfitobsCatArgOfPerihelionDesc.AccessibleDescription = "Argument of the perihelion";
+		labelUfitobsCatArgOfPerihelionDesc.AccessibleName = "Argument of the perihelion";
+		labelUfitobsCatArgOfPerihelionDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelUfitobsCatArgOfPerihelionDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelUfitobsCatArgOfPerihelionDesc.Dock = DockStyle.Fill;
+		labelUfitobsCatArgOfPerihelionDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelUfitobsCatArgOfPerihelionDesc.Location = new Point(3, 81);
+		labelUfitobsCatArgOfPerihelionDesc.Name = "labelUfitobsCatArgOfPerihelionDesc";
+		labelUfitobsCatArgOfPerihelionDesc.Size = new Size(222, 20);
+		labelUfitobsCatArgOfPerihelionDesc.TabIndex = 12;
+		labelUfitobsCatArgOfPerihelionDesc.ToolTipValues.Description = "Shows the argument of the perihelion.\r\nDouble-click or right-click to open the terminology.";
+		labelUfitobsCatArgOfPerihelionDesc.ToolTipValues.EnableToolTips = true;
+		labelUfitobsCatArgOfPerihelionDesc.ToolTipValues.Heading = "Argument of the perihelion";
+		labelUfitobsCatArgOfPerihelionDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelUfitobsCatArgOfPerihelionDesc.Values.Text = "Argument of the perihelion";
+		labelUfitobsCatArgOfPerihelionDesc.Enter += Control_Enter;
+		labelUfitobsCatArgOfPerihelionDesc.Leave += Control_Leave;
+		labelUfitobsCatArgOfPerihelionDesc.MouseEnter += Control_Enter;
+		labelUfitobsCatArgOfPerihelionDesc.MouseLeave += Control_Leave;
+		//
+		// labelUfitobsCatArgOfPerihelionData
+		//
+		labelUfitobsCatArgOfPerihelionData.AccessibleDescription = "Shows the argument of the perihelion";
+		labelUfitobsCatArgOfPerihelionData.AccessibleName = "Shows the argument of the perihelion";
+		labelUfitobsCatArgOfPerihelionData.AccessibleRole = AccessibleRole.StatusBar;
+		labelUfitobsCatArgOfPerihelionData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelUfitobsCatArgOfPerihelionData.Dock = DockStyle.Fill;
+		labelUfitobsCatArgOfPerihelionData.Location = new Point(231, 81);
+		labelUfitobsCatArgOfPerihelionData.Name = "labelUfitobsCatArgOfPerihelionData";
+		labelUfitobsCatArgOfPerihelionData.Size = new Size(168, 20);
+		labelUfitobsCatArgOfPerihelionData.TabIndex = 13;
+		labelUfitobsCatArgOfPerihelionData.ToolTipValues.Description = "Shows the argument of the perihelion.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelUfitobsCatArgOfPerihelionData.ToolTipValues.EnableToolTips = true;
+		labelUfitobsCatArgOfPerihelionData.ToolTipValues.Heading = "Argument of the perihelion";
+		labelUfitobsCatArgOfPerihelionData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelUfitobsCatArgOfPerihelionData.Values.Text = "..................";
+		labelUfitobsCatArgOfPerihelionData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelUfitobsCatArgOfPerihelionData.Enter += Control_Enter;
+		labelUfitobsCatArgOfPerihelionData.Leave += Control_Leave;
+		labelUfitobsCatArgOfPerihelionData.MouseDown += Control_MouseDown;
+		labelUfitobsCatArgOfPerihelionData.MouseEnter += Control_Enter;
+		labelUfitobsCatArgOfPerihelionData.MouseLeave += Control_Leave;
+		//
+		// labelUfitobsCatMeanAnomalyDesc
+		//
+		labelUfitobsCatMeanAnomalyDesc.AccessibleDescription = "Mean anomaly";
+		labelUfitobsCatMeanAnomalyDesc.AccessibleName = "Mean anomaly";
+		labelUfitobsCatMeanAnomalyDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelUfitobsCatMeanAnomalyDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelUfitobsCatMeanAnomalyDesc.Dock = DockStyle.Fill;
+		labelUfitobsCatMeanAnomalyDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelUfitobsCatMeanAnomalyDesc.Location = new Point(405, 81);
+		labelUfitobsCatMeanAnomalyDesc.Name = "labelUfitobsCatMeanAnomalyDesc";
+		labelUfitobsCatMeanAnomalyDesc.Size = new Size(225, 20);
+		labelUfitobsCatMeanAnomalyDesc.TabIndex = 14;
+		labelUfitobsCatMeanAnomalyDesc.ToolTipValues.Description = "Shows the mean anomaly.\r\nDouble-click or right-click to open the terminology.";
+		labelUfitobsCatMeanAnomalyDesc.ToolTipValues.EnableToolTips = true;
+		labelUfitobsCatMeanAnomalyDesc.ToolTipValues.Heading = "Mean anomaly";
+		labelUfitobsCatMeanAnomalyDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelUfitobsCatMeanAnomalyDesc.Values.Text = "Mean anomaly";
+		labelUfitobsCatMeanAnomalyDesc.Enter += Control_Enter;
+		labelUfitobsCatMeanAnomalyDesc.Leave += Control_Leave;
+		labelUfitobsCatMeanAnomalyDesc.MouseEnter += Control_Enter;
+		labelUfitobsCatMeanAnomalyDesc.MouseLeave += Control_Leave;
+		//
+		// labelUfitobsCatMeanAnomalyData
+		//
+		labelUfitobsCatMeanAnomalyData.AccessibleDescription = "Shows the mean anomaly";
+		labelUfitobsCatMeanAnomalyData.AccessibleName = "Shows the mean anomaly";
+		labelUfitobsCatMeanAnomalyData.AccessibleRole = AccessibleRole.StatusBar;
+		labelUfitobsCatMeanAnomalyData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelUfitobsCatMeanAnomalyData.Dock = DockStyle.Fill;
+		labelUfitobsCatMeanAnomalyData.Location = new Point(636, 81);
+		labelUfitobsCatMeanAnomalyData.Name = "labelUfitobsCatMeanAnomalyData";
+		labelUfitobsCatMeanAnomalyData.Size = new Size(211, 20);
+		labelUfitobsCatMeanAnomalyData.TabIndex = 15;
+		labelUfitobsCatMeanAnomalyData.ToolTipValues.Description = "Shows the mean anomaly.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelUfitobsCatMeanAnomalyData.ToolTipValues.EnableToolTips = true;
+		labelUfitobsCatMeanAnomalyData.ToolTipValues.Heading = "Mean anomaly";
+		labelUfitobsCatMeanAnomalyData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelUfitobsCatMeanAnomalyData.Values.Text = "..................";
+		labelUfitobsCatMeanAnomalyData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelUfitobsCatMeanAnomalyData.Enter += Control_Enter;
+		labelUfitobsCatMeanAnomalyData.Leave += Control_Leave;
+		labelUfitobsCatMeanAnomalyData.MouseDown += Control_MouseDown;
+		labelUfitobsCatMeanAnomalyData.MouseEnter += Control_Enter;
+		labelUfitobsCatMeanAnomalyData.MouseLeave += Control_Leave;
+		//
+		// labelUfitobsCatAbsoluteMagnitudeDesc
+		//
+		labelUfitobsCatAbsoluteMagnitudeDesc.AccessibleDescription = "Absolute magnitude";
+		labelUfitobsCatAbsoluteMagnitudeDesc.AccessibleName = "Absolute magnitude";
+		labelUfitobsCatAbsoluteMagnitudeDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelUfitobsCatAbsoluteMagnitudeDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelUfitobsCatAbsoluteMagnitudeDesc.Dock = DockStyle.Fill;
+		labelUfitobsCatAbsoluteMagnitudeDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelUfitobsCatAbsoluteMagnitudeDesc.Location = new Point(3, 107);
+		labelUfitobsCatAbsoluteMagnitudeDesc.Name = "labelUfitobsCatAbsoluteMagnitudeDesc";
+		labelUfitobsCatAbsoluteMagnitudeDesc.Size = new Size(222, 20);
+		labelUfitobsCatAbsoluteMagnitudeDesc.TabIndex = 16;
+		labelUfitobsCatAbsoluteMagnitudeDesc.ToolTipValues.Description = "Shows the absolute magnitude.\r\nDouble-click or right-click to open the terminology.";
+		labelUfitobsCatAbsoluteMagnitudeDesc.ToolTipValues.EnableToolTips = true;
+		labelUfitobsCatAbsoluteMagnitudeDesc.ToolTipValues.Heading = "Absolute magnitude";
+		labelUfitobsCatAbsoluteMagnitudeDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelUfitobsCatAbsoluteMagnitudeDesc.Values.Text = "Absolute magnitude";
+		labelUfitobsCatAbsoluteMagnitudeDesc.Enter += Control_Enter;
+		labelUfitobsCatAbsoluteMagnitudeDesc.Leave += Control_Leave;
+		labelUfitobsCatAbsoluteMagnitudeDesc.MouseEnter += Control_Enter;
+		labelUfitobsCatAbsoluteMagnitudeDesc.MouseLeave += Control_Leave;
+		//
+		// labelUfitobsCatAbsoluteMagnitudeData
+		//
+		labelUfitobsCatAbsoluteMagnitudeData.AccessibleDescription = "Shows the absolute magnitude";
+		labelUfitobsCatAbsoluteMagnitudeData.AccessibleName = "Shows the absolute magnitude";
+		labelUfitobsCatAbsoluteMagnitudeData.AccessibleRole = AccessibleRole.StatusBar;
+		labelUfitobsCatAbsoluteMagnitudeData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelUfitobsCatAbsoluteMagnitudeData.Dock = DockStyle.Fill;
+		labelUfitobsCatAbsoluteMagnitudeData.Location = new Point(231, 107);
+		labelUfitobsCatAbsoluteMagnitudeData.Name = "labelUfitobsCatAbsoluteMagnitudeData";
+		labelUfitobsCatAbsoluteMagnitudeData.Size = new Size(168, 20);
+		labelUfitobsCatAbsoluteMagnitudeData.TabIndex = 17;
+		labelUfitobsCatAbsoluteMagnitudeData.ToolTipValues.Description = "Shows the absolute magnitude.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelUfitobsCatAbsoluteMagnitudeData.ToolTipValues.EnableToolTips = true;
+		labelUfitobsCatAbsoluteMagnitudeData.ToolTipValues.Heading = "Absolute magnitude";
+		labelUfitobsCatAbsoluteMagnitudeData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelUfitobsCatAbsoluteMagnitudeData.Values.Text = "..................";
+		labelUfitobsCatAbsoluteMagnitudeData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelUfitobsCatAbsoluteMagnitudeData.Enter += Control_Enter;
+		labelUfitobsCatAbsoluteMagnitudeData.Leave += Control_Leave;
+		labelUfitobsCatAbsoluteMagnitudeData.MouseDown += Control_MouseDown;
+		labelUfitobsCatAbsoluteMagnitudeData.MouseEnter += Control_Enter;
+		labelUfitobsCatAbsoluteMagnitudeData.MouseLeave += Control_Leave;
+		//
+		// labelUfitobsCatSlopeParameterDesc
+		//
+		labelUfitobsCatSlopeParameterDesc.AccessibleDescription = "Slope parameter";
+		labelUfitobsCatSlopeParameterDesc.AccessibleName = "Slope parameter";
+		labelUfitobsCatSlopeParameterDesc.AccessibleRole = AccessibleRole.StaticText;
+		labelUfitobsCatSlopeParameterDesc.ContextMenuStrip = contextMenuOpenTerminology;
+		labelUfitobsCatSlopeParameterDesc.Dock = DockStyle.Fill;
+		labelUfitobsCatSlopeParameterDesc.LabelStyle = LabelStyle.BoldPanel;
+		labelUfitobsCatSlopeParameterDesc.Location = new Point(405, 107);
+		labelUfitobsCatSlopeParameterDesc.Name = "labelUfitobsCatSlopeParameterDesc";
+		labelUfitobsCatSlopeParameterDesc.Size = new Size(225, 20);
+		labelUfitobsCatSlopeParameterDesc.TabIndex = 18;
+		labelUfitobsCatSlopeParameterDesc.ToolTipValues.Description = "Shows the slope parameter.\r\nDouble-click or right-click to open the terminology.";
+		labelUfitobsCatSlopeParameterDesc.ToolTipValues.EnableToolTips = true;
+		labelUfitobsCatSlopeParameterDesc.ToolTipValues.Heading = "Slope parameter";
+		labelUfitobsCatSlopeParameterDesc.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelUfitobsCatSlopeParameterDesc.Values.Text = "Slope parameter";
+		labelUfitobsCatSlopeParameterDesc.Enter += Control_Enter;
+		labelUfitobsCatSlopeParameterDesc.Leave += Control_Leave;
+		labelUfitobsCatSlopeParameterDesc.MouseEnter += Control_Enter;
+		labelUfitobsCatSlopeParameterDesc.MouseLeave += Control_Leave;
+		//
+		// labelUfitobsCatSlopeParameterData
+		//
+		labelUfitobsCatSlopeParameterData.AccessibleDescription = "Shows the slope parameter";
+		labelUfitobsCatSlopeParameterData.AccessibleName = "Shows the slope parameter";
+		labelUfitobsCatSlopeParameterData.AccessibleRole = AccessibleRole.StatusBar;
+		labelUfitobsCatSlopeParameterData.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelUfitobsCatSlopeParameterData.Dock = DockStyle.Fill;
+		labelUfitobsCatSlopeParameterData.Location = new Point(636, 107);
+		labelUfitobsCatSlopeParameterData.Name = "labelUfitobsCatSlopeParameterData";
+		labelUfitobsCatSlopeParameterData.Size = new Size(211, 20);
+		labelUfitobsCatSlopeParameterData.TabIndex = 19;
+		labelUfitobsCatSlopeParameterData.ToolTipValues.Description = "Shows the slope parameter.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelUfitobsCatSlopeParameterData.ToolTipValues.EnableToolTips = true;
+		labelUfitobsCatSlopeParameterData.ToolTipValues.Heading = "Slope parameter";
+		labelUfitobsCatSlopeParameterData.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelUfitobsCatSlopeParameterData.Values.Text = "..................";
+		labelUfitobsCatSlopeParameterData.DoubleClick += CopyToClipboard_DoubleClick;
+		labelUfitobsCatSlopeParameterData.Enter += Control_Enter;
+		labelUfitobsCatSlopeParameterData.Leave += Control_Leave;
+		labelUfitobsCatSlopeParameterData.MouseDown += Control_MouseDown;
+		labelUfitobsCatSlopeParameterData.MouseEnter += Control_Enter;
+		labelUfitobsCatSlopeParameterData.MouseLeave += Control_Leave;
+		//
 		// kryptonToolStripIcons
 		// 
 		kryptonToolStripIcons.AccessibleDescription = "Toolbar of main functions";
@@ -7376,6 +7918,10 @@ partial class PlanetoidDbForm
 		kryptonPageSingoppCat.ResumeLayout(false);
 		tableLayoutPanelSingoppCatData.ResumeLayout(false);
 		tableLayoutPanelSingoppCatData.PerformLayout();
+		((ISupportInitialize)kryptonPageUfitobsCat).EndInit();
+		kryptonPageUfitobsCat.ResumeLayout(false);
+		tableLayoutPanelUfitobsCatData.ResumeLayout(false);
+		tableLayoutPanelUfitobsCatData.PerformLayout();
 		kryptonToolStripIcons.ResumeLayout(false);
 		kryptonToolStripIcons.PerformLayout();
 		kryptonToolStripNavigation.ResumeLayout(false);
@@ -7655,6 +8201,28 @@ partial class PlanetoidDbForm
 	private KryptonLabel labelSingoppCatAbsoluteMagnitudeData;
 	private KryptonLabel labelSingoppCatSlopeParameterDesc;
 	private KryptonLabel labelSingoppCatSlopeParameterData;
+	private Krypton.Navigator.KryptonPage kryptonPageUfitobsCat;
+	private KryptonTableLayoutPanel tableLayoutPanelUfitobsCatData;
+	private KryptonLabel labelUfitobsCatNameDesc;
+	private KryptonLabel labelUfitobsCatNameData;
+	private KryptonLabel labelUfitobsCatEpochDesc;
+	private KryptonLabel labelUfitobsCatEpochData;
+	private KryptonLabel labelUfitobsCatSemiMajorAxisDesc;
+	private KryptonLabel labelUfitobsCatSemiMajorAxisData;
+	private KryptonLabel labelUfitobsCatOrbitalEccentricityDesc;
+	private KryptonLabel labelUfitobsCatOrbitalEccentricityData;
+	private KryptonLabel labelUfitobsCatInclinationDesc;
+	private KryptonLabel labelUfitobsCatInclinationData;
+	private KryptonLabel labelUfitobsCatLongAscNodeDesc;
+	private KryptonLabel labelUfitobsCatLongAscNodeData;
+	private KryptonLabel labelUfitobsCatArgOfPerihelionDesc;
+	private KryptonLabel labelUfitobsCatArgOfPerihelionData;
+	private KryptonLabel labelUfitobsCatMeanAnomalyDesc;
+	private KryptonLabel labelUfitobsCatMeanAnomalyData;
+	private KryptonLabel labelUfitobsCatAbsoluteMagnitudeDesc;
+	private KryptonLabel labelUfitobsCatAbsoluteMagnitudeData;
+	private KryptonLabel labelUfitobsCatSlopeParameterDesc;
+	private KryptonLabel labelUfitobsCatSlopeParameterData;
 	private KryptonTableLayoutPanel tableLayoutPanelAstorbData;
 	private KryptonLabel labelAstorbNumberDesc;
 	private KryptonLabel labelAstorbNumberData;
