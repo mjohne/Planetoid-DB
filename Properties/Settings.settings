@@ -128,23 +128,38 @@
     <Setting Name="userEnableLogging" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="userUpgradeRequired" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="systemLoadAdditionalDatabaseOnStartupMpcorbJson" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
     <Setting Name="userLoadAdditionalDatabaseOnStartupMpcorbJson" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="userLoadAdditionalDatabaseOnStartupAstorbDat" Type="System.Boolean" Scope="User">
+    <Setting Name="systemLoadAdditionalDatabaseOnStartupAllnumCat" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="userLoadAdditionalDatabaseOnStartupAllnumCat" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="systemLoadAdditionalDatabaseOnStartupSingoppCat" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
     <Setting Name="userLoadAdditionalDatabaseOnStartupSingoppCat" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="systemLoadAdditionalDatabaseOnStartupUfitobsCat" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="userLoadAdditionalDatabaseOnStartupUfitobsCat" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="userUpgradeRequired" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+    <Setting Name="systemLoadAdditionalDatabaseOnStartupAstorbDat" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="userLoadAdditionalDatabaseOnStartupAstorbDat" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

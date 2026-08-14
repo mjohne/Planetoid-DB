@@ -339,10 +339,10 @@ public partial class PlanetoidDbForm
 			// If ALLNUM.CAT is checked, load the ALLNUM.CAT file and show the data for the same position (position 0 initially)
 			if (toolStripMenuItemLoadDatabaseOnStartupAllnumCat.Checked)
 			{
-					LoadAllnumCatDatabase();
-					currentAllnumCatPosition = 0;
-					GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
-				}
+				LoadAllnumCatDatabase();
+				currentAllnumCatPosition = 0;
+				GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
+			}
 			// If SINGOPP.CAT is checked, load the SINGOPP.CAT file and show the data for the same position (position 0 initially)
 			if (toolStripMenuItemLoadDatabaseOnStartupSingoppCat.Checked)
 			{

@@ -12,7 +12,7 @@ namespace Planetoid_DB.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "18.8.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "18.9.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -445,6 +445,27 @@ namespace Planetoid_DB.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool userUpgradeRequired {
+            get {
+                return ((bool)(this["userUpgradeRequired"]));
+            }
+            set {
+                this["userUpgradeRequired"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool systemLoadAdditionalDatabaseOnStartupMpcorbJson {
+            get {
+                return ((bool)(this["systemLoadAdditionalDatabaseOnStartupMpcorbJson"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool userLoadAdditionalDatabaseOnStartupMpcorbJson {
             get {
@@ -455,15 +476,12 @@ namespace Planetoid_DB.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool userLoadAdditionalDatabaseOnStartupAstorbDat {
+        public bool systemLoadAdditionalDatabaseOnStartupAllnumCat {
             get {
-                return ((bool)(this["userLoadAdditionalDatabaseOnStartupAstorbDat"]));
-            }
-            set {
-                this["userLoadAdditionalDatabaseOnStartupAstorbDat"] = value;
+                return ((bool)(this["systemLoadAdditionalDatabaseOnStartupAllnumCat"]));
             }
         }
         
@@ -479,6 +497,15 @@ namespace Planetoid_DB.Properties {
             }
         }
         
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool systemLoadAdditionalDatabaseOnStartupSingoppCat {
+            get {
+                return ((bool)(this["systemLoadAdditionalDatabaseOnStartupSingoppCat"]));
+            }
+        }
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -488,6 +515,15 @@ namespace Planetoid_DB.Properties {
             }
             set {
                 this["userLoadAdditionalDatabaseOnStartupSingoppCat"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool systemLoadAdditionalDatabaseOnStartupUfitobsCat {
+            get {
+                return ((bool)(this["systemLoadAdditionalDatabaseOnStartupUfitobsCat"]));
             }
         }
         
@@ -503,15 +539,24 @@ namespace Planetoid_DB.Properties {
             }
         }
         
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool systemLoadAdditionalDatabaseOnStartupAstorbDat {
+            get {
+                return ((bool)(this["systemLoadAdditionalDatabaseOnStartupAstorbDat"]));
+            }
+        }
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool userUpgradeRequired {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool userLoadAdditionalDatabaseOnStartupAstorbDat {
             get {
-                return ((bool)(this["userUpgradeRequired"]));
+                return ((bool)(this["userLoadAdditionalDatabaseOnStartupAstorbDat"]));
             }
             set {
-                this["userUpgradeRequired"] = value;
+                this["userLoadAdditionalDatabaseOnStartupAstorbDat"] = value;
             }
         }
     }
