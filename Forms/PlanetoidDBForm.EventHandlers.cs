@@ -57,6 +57,8 @@ public partial class PlanetoidDbForm
 		}
 		// Set the initial text of the MPCORB.DAT tab to indicate that the database is loading
 		kryptonPageMpcorbDat.Text = $"MPCORB.DAT ({I18nStrings.DataLoading})";
+		// Set the initial text of the MPCORB.JSON tab to indicate that the database is loading
+		kryptonPageMpcorbJson.Text = $"MPCORB.JSON ({I18nStrings.DataLoading})";
 		// Set the initial text of the ASTORB.DAT tab to indicate that the database is loading
 		kryptonPageAstorbDat.Text = $"ASTORB.DAT ({I18nStrings.DataLoading})";
 		// Configure the BackgroundWorker for loading the database
