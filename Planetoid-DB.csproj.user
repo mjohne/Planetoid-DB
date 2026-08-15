@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_LastSelectedProfileId>D:\Programming\Visual Studio 2026\Planetoid-DB\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="Forms\AEIDiagram3DForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\AppInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ArchiveMpcorbForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\AsteroidFamiliesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\AsteroidGameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\BaseKryptonForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\BulkObservationsDataDownloaderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\BulkObservationsDownloadErrorsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\CheckDatabaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\DatabaseDifferencesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\DatabaseInformationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\DerivedOrbitElementsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\AverageAsteroidForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\EphemerisForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ExportDataSheetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\FilterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\DatabaseDownloaderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\DistributionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\LicenseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ListReadableDesignationsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\LogViewerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\MaxoidsOfAllMinorPlanetsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\MaxoidsOfOneMinorPlanetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\MaxoidsRelativeToMinorPlanetsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\MoidsAndMaxoidsOfOneMinorPlanetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\MoidsOfAllMinorPlanetsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\MoidsOfOneMinorPlanetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\MoidsRelativeToMinorPlanetsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ObservationsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ObservatoryCodesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Orbit3DForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\OrbitalResonancesOfOneMinorPlanetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\OrbitalResonancesOfAllMinorPlanetsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\OrbitElementsGroupingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Orbit2DTopViewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Orbit2DSideViewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\PlanetoidDBForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\PlanetoidDBForm.DatabaseUpdates.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\PlanetoidDBForm.Decoders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\PlanetoidDBForm.EventHandlers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\PlanetoidDBForm.Helpers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\PreloadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\PrintDataSheetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\RecordsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\RecordsTop10Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ScatterplotsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SearchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SettingsExportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SettingsImportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SplashScreenForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\TableModeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\TerminologyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\TerminologyForm.TerminologyElement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\TisserandParameterOfAllMinorPlanetsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\TisserandParameterOfOneMinorPlanetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Forms\AEIDiagram3DForm.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Forms\AsteroidGameForm.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="I18nStrings.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\FatcowIcons16px.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Forms\SettingsForm.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

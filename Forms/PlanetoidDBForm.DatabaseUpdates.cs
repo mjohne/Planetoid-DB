@@ -28,32 +28,116 @@ public partial class PlanetoidDbForm
 	/// <summary>Checks if an update for the MPCORB.DAT database is available.</summary>
 	/// <returns><see langword="true"/> if an update is available; otherwise, <see langword="false"/>.</returns>
 	/// <remarks>This method checks if an update for the MPCORB.DAT database is available by comparing the last modified date of the local file with the remote file. If the local file does not exist, it returns <see langword="true"/> (update available). If the remote file is newer, it also returns <see langword="true"/>. If any exceptions occur during the process, it returns <see langword="false"/>.</remarks>
-	private bool IsMpcorbDatUpdateAvailable() => IsDatabaseUpdateAvailable(localFilePath: filenameMpcorbDat, sourceUri: uriMpcorbDat, readContentLength: true);
+	private bool IsMpcorbDatUpdateAvailable()
+	{
+		// Check if the user has enabled the option to check for database updates on startup
+		if (toolStripMenuItemCheckingDatabaseUpdatesOnStartup.Checked)
+		{
+			// Call the generic method to check if an update for MPCORB.DAT is available
+			logger.Info(message: "Database update check on startup is enabled. Checking MPCORB.DAT update availability.");
+			return IsDatabaseUpdateAvailable(localFilePath: filenameMpcorbDat, sourceUri: uriMpcorbDat, readContentLength: true);
+		}
+		// If the user has disabled the option to check for database updates on startup, log this information and return false
+		logger.Info(message: "Database update check on startup is disabled. Skipping MPCORB.DAT update check.");
+		return false;
+	}
 
 	/// <summary>Checks if an update for the MPCORB.JSON database is available.</summary>
 	/// <returns><see langword="true"/> if an update is available; otherwise, <see langword="false"/>.</returns>
 	/// <remarks>This method checks if an update for the MPCORB.JSON database is available by comparing the last modified date of the local file with the remote file. If the local file does not exist, it returns <see langword="true"/> (update available). If the remote file is newer, it also returns <see langword="true"/>. If any exceptions occur during the process, it returns <see langword="false"/>.</remarks>
-	private bool IsMpcorbJsonUpdateAvailable() => IsDatabaseUpdateAvailable(localFilePath: filenameMpcorbJson, sourceUri: uriMpcorbJson, readContentLength: true);
+	private bool IsMpcorbJsonUpdateAvailable()
+	{
+		// Check if the user has enabled the option to check for database updates on startup
+		if (toolStripMenuItemCheckingDatabaseUpdatesOnStartup.Checked)
+		{
+			// Call the generic method to check if an update for MPCORB.JSON is available
+			logger.Info(message: "Database update check on startup is enabled. Checking MPCORB.JSON update availability.");
+			return IsDatabaseUpdateAvailable(localFilePath: filenameMpcorbJson, sourceUri: uriMpcorbJson, readContentLength: true);
+		}
+		// If the user has disabled the option to check for database updates on startup, log this information and return false
+		logger.Info(message: "Database update check on startup is disabled. Skipping MPCORB.JSON update check.");
+		return false;
+	}
 
 	/// <summary>Checks if an update for the ASTORB.DAT database is available.</summary>
 	/// <returns><see langword="true"/> if an update is available; otherwise, <see langword="false"/>.</returns>
 	/// <remarks>This method checks if an update for the ASTORB.DAT database is available by comparing the last modified date of the local file with the remote file. If the local file does not exist, it returns <see langword="true"/> (update available). If the remote file is newer, it also returns <see langword="true"/>. If any exceptions occur during the process, it returns <see langword="false"/>.</remarks>
-	private bool IsAstorbDatUpdateAvailable() => IsDatabaseUpdateAvailable(localFilePath: filenameAstorbDat, sourceUri: uriAstorbDat);
+	private bool IsAstorbDatUpdateAvailable()
+	{
+		// Check if the user has enabled the option to check for database updates on startup
+		if (toolStripMenuItemCheckingDatabaseUpdatesOnStartup.Checked)
+		{
+			// Call the generic method to check if an update for ASTORB.DAT is available
+			logger.Info(message: "Database update check on startup is enabled. Checking ASTORB.DAT update availability.");
+			return IsDatabaseUpdateAvailable(localFilePath: filenameAstorbDat, sourceUri: uriAstorbDat, readContentLength: true);
+		}
+		else
+		{
+			// If the user has disabled the option to check for database updates on startup, log this information and return false
+			logger.Info(message: "Database update check on startup is disabled. Skipping ASTORB.DAT update check.");
+			return false;
+		}
+	}
 
 	/// <summary>Checks if an update for the ALLNUM.CAT database is available.</summary>
 	/// <returns><see langword="true"/> if an update is available; otherwise, <see langword="false"/>.</returns>
 	/// <remarks>This method checks if an update for the ALLNUM.CAT database is available by comparing the last modified date of the local file with the remote file. If the local file does not exist, it returns <see langword="true"/> (update available). If the remote file is newer, it also returns <see langword="true"/>. If any exceptions occur during the process, it returns <see langword="false"/>.</remarks>
-	private bool IsAllnumCatUpdateAvailable() => IsDatabaseUpdateAvailable(localFilePath: filenameAllnumCat, sourceUri: uriAllnumCat);
+	private bool IsAllnumCatUpdateAvailable()
+	{
+		// Check if the user has enabled the option to check for database updates on startup
+		if (toolStripMenuItemCheckingDatabaseUpdatesOnStartup.Checked)
+		{
+			// Call the generic method to check if an update for ALLNUM.CAT is available
+			logger.Info(message: "Database update check on startup is enabled. Checking ALLNUM.CAT update availability.");
+			return IsDatabaseUpdateAvailable(localFilePath: filenameAllnumCat, sourceUri: uriAllnumCat);
+		}
+		else
+		{
+			// If the user has disabled the option to check for database updates on startup, log this information and return false
+			logger.Info(message: "Database update check on startup is disabled. Skipping ALLNUM.CAT update check.");
+			return false;
+		}
+	}
 
 	/// <summary>Checks if an update for the UFITOBS.CAT database is available.</summary>
 	/// <returns><see langword="true"/> if an update is available; otherwise, <see langword="false"/>.</returns>
 	/// <remarks>This method checks if an update for the UFITOBS.CAT database is available by comparing the last modified date of the local file with the remote file. If the local file does not exist, it returns <see langword="true"/> (update available). If the remote file is newer, it also returns <see langword="true"/>. If any exceptions occur during the process, it returns <see langword="false"/>.</remarks>
-	private bool IsUfitobsCatUpdateAvailable() => IsDatabaseUpdateAvailable(localFilePath: filenameUfitobsCat, sourceUri: uriUfitobsCat);
+	private bool IsUfitobsCatUpdateAvailable()
+	{
+		// Check if the user has enabled the option to check for database updates on startup
+		if (toolStripMenuItemCheckingDatabaseUpdatesOnStartup.Checked)
+		{
+			// Call the generic method to check if an update for UFITOBS.CAT is available
+			logger.Info(message: "Database update check on startup is enabled. Checking UFITOBS.CAT update availability.");
+			return IsDatabaseUpdateAvailable(localFilePath: filenameUfitobsCat, sourceUri: uriUfitobsCat);
+		}
+		else
+		{
+			// If the user has disabled the option to check for database updates on startup, log this information and return false
+			logger.Info(message: "Database update check on startup is disabled. Skipping UFITOBS.CAT update check.");
+			return false;
+		}
+	}
 
 	/// <summary>Checks if an update for the SINGOPP.CAT database is available.</summary>
 	/// <returns><see langword="true"/> if an update is available; otherwise, <see langword="false"/>.</returns>
 	/// <remarks>This method checks if an update for the SINGOPP.CAT database is available by comparing the last modified date of the local file with the remote file. If the local file does not exist, it returns <see langword="true"/> (update available). If the remote file is newer, it also returns <see langword="true"/>. If any exceptions occur during the process, it returns <see langword="false"/>.</remarks>
-	private bool IsSingoppCatUpdateAvailable() => IsDatabaseUpdateAvailable(localFilePath: filenameSingoppCat, sourceUri: uriSingoppCat);
+	private bool IsSingoppCatUpdateAvailable()
+	{
+		// Check if the user has enabled the option to check for database updates on startup
+		if (toolStripMenuItemCheckingDatabaseUpdatesOnStartup.Checked)
+		{
+			// Call the generic method to check if an update for SINGOPP.CAT is available
+			logger.Info(message: "Database update check on startup is enabled. Checking SINGOPP.CAT update availability.");
+			return IsDatabaseUpdateAvailable(localFilePath: filenameSingoppCat, sourceUri: uriSingoppCat);
+		}
+		else
+		{
+			// If the user has disabled the option to check for database updates on startup, log this information and return false
+			logger.Info(message: "Database update check on startup is disabled. Skipping SINGOPP.CAT update check.");
+			return false;
+		}
+	}
 
 	/// <summary>Shows the downloader form for the MPCORB.DAT database.</summary>
 	/// <remarks>This method is used to display the downloader form for the MPCORB.DAT database.</remarks>

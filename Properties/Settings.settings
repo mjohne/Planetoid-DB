@@ -161,5 +161,11 @@
     <Setting Name="userLoadAdditionalDatabaseOnStartupAstorbDat" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="systemCheckingDatabaseUpdatesOnStartup" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="userCheckingDatabaseUpdatesOnStartup" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

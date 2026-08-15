@@ -559,5 +559,26 @@ namespace Planetoid_DB.Properties {
                 this["userLoadAdditionalDatabaseOnStartupAstorbDat"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool systemCheckingDatabaseUpdatesOnStartup {
+            get {
+                return ((bool)(this["systemCheckingDatabaseUpdatesOnStartup"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool userCheckingDatabaseUpdatesOnStartup {
+            get {
+                return ((bool)(this["userCheckingDatabaseUpdatesOnStartup"]));
+            }
+            set {
+                this["userCheckingDatabaseUpdatesOnStartup"] = value;
+            }
+        }
     }
 }
