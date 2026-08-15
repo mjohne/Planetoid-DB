@@ -139,7 +139,7 @@ partial class CheckDatabaseForm
 		labelUpdateNeeded.LabelStyle = LabelStyle.TitleControl;
 		labelUpdateNeeded.Location = new Point(3, 81);
 		labelUpdateNeeded.Name = "labelUpdateNeeded";
-		labelUpdateNeeded.Size = new Size(363, 29);
+		labelUpdateNeeded.Size = new Size(368, 29);
 		labelUpdateNeeded.TabIndex = 8;
 		labelUpdateNeeded.ToolTipValues.Description = "Informs if an update is recommended.\r\nDouble-click to refresh the information.";
 		labelUpdateNeeded.ToolTipValues.EnableToolTips = true;
@@ -183,7 +183,7 @@ partial class CheckDatabaseForm
 		labelDatabaseFileOnline.LabelStyle = LabelStyle.BoldControl;
 		labelDatabaseFileOnline.Location = new Point(219, 3);
 		labelDatabaseFileOnline.Name = "labelDatabaseFileOnline";
-		labelDatabaseFileOnline.Size = new Size(147, 20);
+		labelDatabaseFileOnline.Size = new Size(152, 20);
 		labelDatabaseFileOnline.TabIndex = 1;
 		labelDatabaseFileOnline.ToolTipValues.Description = "Information about the online database file";
 		labelDatabaseFileOnline.ToolTipValues.EnableToolTips = true;
@@ -323,7 +323,7 @@ partial class CheckDatabaseForm
 		labelContentLengthValueOnline.Dock = DockStyle.Top;
 		labelContentLengthValueOnline.Location = new Point(219, 29);
 		labelContentLengthValueOnline.Name = "labelContentLengthValueOnline";
-		labelContentLengthValueOnline.Size = new Size(147, 20);
+		labelContentLengthValueOnline.Size = new Size(152, 20);
 		labelContentLengthValueOnline.TabIndex = 4;
 		labelContentLengthValueOnline.ToolTipValues.Description = "Shows the online content length.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelContentLengthValueOnline.ToolTipValues.EnableToolTips = true;
@@ -346,7 +346,7 @@ partial class CheckDatabaseForm
 		labelModifiedDateValueOnline.Dock = DockStyle.Top;
 		labelModifiedDateValueOnline.Location = new Point(219, 55);
 		labelModifiedDateValueOnline.Name = "labelModifiedDateValueOnline";
-		labelModifiedDateValueOnline.Size = new Size(147, 20);
+		labelModifiedDateValueOnline.Size = new Size(152, 20);
 		labelModifiedDateValueOnline.TabIndex = 7;
 		labelModifiedDateValueOnline.ToolTipValues.Description = "Shows the online modified date.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelModifiedDateValueOnline.ToolTipValues.EnableToolTips = true;
@@ -389,7 +389,7 @@ partial class CheckDatabaseForm
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
-		tableLayoutPanel.Size = new Size(369, 117);
+		tableLayoutPanel.Size = new Size(374, 121);
 		tableLayoutPanel.TabIndex = 0;
 		// 
 		// contextMenuSaveToFile
@@ -1002,7 +1002,7 @@ partial class CheckDatabaseForm
 		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.ContentPanel.Controls.Add(tableLayoutPanel);
 		toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
-		toolStripContainer.ContentPanel.Size = new Size(369, 117);
+		toolStripContainer.ContentPanel.Size = new Size(374, 121);
 		toolStripContainer.Dock = DockStyle.Fill;
 		// 
 		// toolStripContainer.LeftToolStripPanel
@@ -1018,7 +1018,7 @@ partial class CheckDatabaseForm
 		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
 		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
 		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.Size = new Size(369, 164);
+		toolStripContainer.Size = new Size(374, 168);
 		toolStripContainer.TabIndex = 3;
 		toolStripContainer.Text = "toolStripContainer";
 		// 
@@ -1044,7 +1044,7 @@ partial class CheckDatabaseForm
 		kryptonStatusStrip.ProgressBars = null;
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
 		kryptonStatusStrip.ShowItemToolTips = true;
-		kryptonStatusStrip.Size = new Size(369, 22);
+		kryptonStatusStrip.Size = new Size(374, 22);
 		kryptonStatusStrip.TabIndex = 0;
 		kryptonStatusStrip.TabStop = true;
 		kryptonStatusStrip.Text = "Status bar";
@@ -1079,7 +1079,7 @@ partial class CheckDatabaseForm
 		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripDropDownButtonSaveToFile, toolStripDropDownButtonCopyToClipboard });
 		toolStripIcons.Location = new Point(0, 0);
 		toolStripIcons.Name = "toolStripIcons";
-		toolStripIcons.Size = new Size(369, 25);
+		toolStripIcons.Size = new Size(374, 25);
 		toolStripIcons.Stretch = true;
 		toolStripIcons.TabIndex = 1;
 		toolStripIcons.TabStop = true;
@@ -1184,7 +1184,7 @@ partial class CheckDatabaseForm
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(369, 164);
+		ClientSize = new Size(374, 168);
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
@@ -1193,6 +1193,7 @@ partial class CheckDatabaseForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "CheckDatabaseForm";
+		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Check database";
 		Load += CheckDatabaseForm_Load;
