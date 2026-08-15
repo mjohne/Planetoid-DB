@@ -49,6 +49,8 @@ public partial class PlanetoidDbForm
 		}
 		// Set the checked state of the logging menu item based on the user settings
 		toolStripMenuItemLogging.Checked = Settings.Default.userEnableLogging;
+		// Set the checked state of the check for database updates on startup menu item based on the user settings
+		toolStripMenuItemCheckingDatabaseUpdatesOnStartup.Checked = Settings.Default.userCheckingDatabaseUpdatesOnStartup;
 		// Set the checked state of the load database on startup menu items based on the user settings
 		toolStripMenuItemLoadAdditionalDatabasesOnStartup.Enabled = Settings.Default.userEnableExperimentalFeatures; // TODO: Remove this line when the other databases are implemented
 		toolStripMenuItemLoadDatabaseOnStartupMpcorbJson.Checked = Settings.Default.userLoadAdditionalDatabaseOnStartupMpcorbJson;
@@ -1868,6 +1870,19 @@ public partial class PlanetoidDbForm
 		Settings.Default.Save();
 	}
 
+	/// <summary>Handles the click event for the "Checking Database Updates on Startup" menu item.</summary>
+	/// <param name="e">The event data associated with the click event.</param>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <remarks>This method updates the user setting for checking database updates on startup and saves the settings.</remarks>
+	private void ToolStripMenuItemCheckingDatabaseUpdatesOnStartup_Click(object sender, EventArgs e)
+	{
+		// Log the action of toggling the setting and the new checked state
+		logger.Info(message: $"Toggling the 'Checking Database Updates on Startup' setting. Check state: {toolStripMenuItemCheckingDatabaseUpdatesOnStartup.Checked}");
+		// Update the user setting based on the checked state of the menu item
+		Settings.Default.userCheckingDatabaseUpdatesOnStartup = toolStripMenuItemCheckingDatabaseUpdatesOnStartup.Checked;
+		Settings.Default.Save();
+	}
+
 	#endregion
 
 	#region DoubleClick event handlers
@@ -1890,6 +1905,35 @@ public partial class PlanetoidDbForm
 		// Log the error and show an error message
 		logger.Error(message: $"Failed to parse index from tag text '{currentTagText}': {errorMessage}");
 		ShowErrorMessage(message: $"Failed to parse index from tag text '{currentTagText}': {errorMessage}");
+	}
+
+	/// <summary>Handles the double-click event on the "Load Additional Databases on Startup" menu item.</summary>
+	/// <param name="sender">The source of the event.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+	/// <remarks>This method sets the checked state of the menu items to true and updates the visibility of the corresponding pages based on the checked state.</remarks>
+	private void ToolStripMenuItemLoadAdditionalDatabasesOnStartup_DoubleClick(object sender, EventArgs e)
+	{
+		// Log the action of loading additional databases on startup via double-click
+		logger.Info(message: "Loading additional databases on startup via double-click.");
+		// Set the checked state of the menu items to true for loading additional databases on startup
+		toolStripMenuItemLoadDatabaseOnStartupMpcorbJson.Checked = true;
+		toolStripMenuItemLoadDatabaseOnStartupAstorbDat.Checked = true;
+		toolStripMenuItemLoadDatabaseOnStartupAllnumCat.Checked = true;
+		toolStripMenuItemLoadDatabaseOnStartupSingoppCat.Checked = true;
+		toolStripMenuItemLoadDatabaseOnStartupUfitobsCat.Checked = true;
+		// Update the visibility of the corresponding pages based on the checked state of the menu items
+		kryptonPageMpcorbJson.Visible = toolStripMenuItemLoadDatabaseOnStartupMpcorbJson.Checked;
+		kryptonPageAstorbDat.Visible = toolStripMenuItemLoadDatabaseOnStartupAstorbDat.Checked;
+		kryptonPageAllnumCat.Visible = toolStripMenuItemLoadDatabaseOnStartupAllnumCat.Checked;
+		kryptonPageSingoppCat.Visible = toolStripMenuItemLoadDatabaseOnStartupSingoppCat.Checked;
+		kryptonPageUfitobsCat.Visible = toolStripMenuItemLoadDatabaseOnStartupUfitobsCat.Checked;
+		// Save the user preferences for loading additional databases on startup
+		Settings.Default.userLoadAdditionalDatabaseOnStartupMpcorbJson = toolStripMenuItemLoadDatabaseOnStartupMpcorbJson.Checked;
+		Settings.Default.userLoadAdditionalDatabaseOnStartupAstorbDat = toolStripMenuItemLoadDatabaseOnStartupAstorbDat.Checked;
+		Settings.Default.userLoadAdditionalDatabaseOnStartupAllnumCat = toolStripMenuItemLoadDatabaseOnStartupAllnumCat.Checked;
+		Settings.Default.userLoadAdditionalDatabaseOnStartupSingoppCat = toolStripMenuItemLoadDatabaseOnStartupSingoppCat.Checked;
+		Settings.Default.userLoadAdditionalDatabaseOnStartupUfitobsCat = toolStripMenuItemLoadDatabaseOnStartupUfitobsCat.Checked;
+		Settings.Default.Save();
 	}
 
 	/// <summary>Handles the double-click event to show an Easter egg message.</summary>
