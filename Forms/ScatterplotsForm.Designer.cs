@@ -61,9 +61,6 @@ partial class ScatterplotsForm
 		listViewResults = new ListView();
 		columnHeaderX = new ColumnHeader();
 		columnHeaderY = new ColumnHeader();
-		kryptonToolStripProgress = new KryptonToolStrip();
-		toolStripLabelProgress = new ToolStripLabel();
-		kryptonProgressBar = new KryptonProgressBarToolStripItem();
 		kryptonToolStripToolbar = new KryptonToolStrip();
 		toolStripButtonStartCancel = new ToolStripButton();
 		toolStripSeparator1 = new ToolStripSeparator();
@@ -79,6 +76,9 @@ partial class ScatterplotsForm
 		toolStripButtonLogScaleX = new ToolStripButton();
 		toolStripSeparator5 = new ToolStripSeparator();
 		toolStripButtonLogScaleY = new ToolStripButton();
+		kryptonToolStripProgress = new KryptonToolStrip();
+		toolStripLabelProgress = new ToolStripLabel();
+		kryptonProgressBar = new KryptonProgressBarToolStripItem();
 		kryptonManager = new KryptonManager(components);
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
@@ -93,8 +93,8 @@ partial class ScatterplotsForm
 		splitContainerMain.SuspendLayout();
 		((ISupportInitialize)kryptonPanelChart).BeginInit();
 		kryptonPanelChart.SuspendLayout();
-		kryptonToolStripProgress.SuspendLayout();
 		kryptonToolStripToolbar.SuspendLayout();
+		kryptonToolStripProgress.SuspendLayout();
 		SuspendLayout();
 		// 
 		// toolStripContainer
@@ -141,8 +141,8 @@ partial class ScatterplotsForm
 		toolStripContainer.TopToolStripPanel.AccessibleDescription = "Top panel";
 		toolStripContainer.TopToolStripPanel.AccessibleName = "Top panel";
 		toolStripContainer.TopToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripToolbar);
 		toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripProgress);
+		toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripToolbar);
 		toolStripContainer.Enter += Control_Enter;
 		toolStripContainer.Leave += Control_Leave;
 		toolStripContainer.MouseEnter += Control_Enter;
@@ -155,7 +155,6 @@ partial class ScatterplotsForm
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
-		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
 		kryptonStatusStrip.Location = new Point(0, 0);
@@ -182,7 +181,6 @@ partial class ScatterplotsForm
 		labelInformation.Name = "labelInformation";
 		labelInformation.Size = new Size(144, 17);
 		labelInformation.Text = "some information here";
-		labelInformation.ToolTipText = "Shows some information";
 		labelInformation.MouseEnter += Control_Enter;
 		labelInformation.MouseLeave += Control_Leave;
 		// 
@@ -281,11 +279,11 @@ partial class ScatterplotsForm
 		listViewResults.UseCompatibleStateImageBehavior = false;
 		listViewResults.View = View.Details;
 		listViewResults.VirtualMode = true;
+		listViewResults.RetrieveVirtualItem += ListViewResults_RetrieveVirtualItem;
 		listViewResults.Enter += Control_Enter;
 		listViewResults.Leave += Control_Leave;
 		listViewResults.MouseEnter += Control_Enter;
 		listViewResults.MouseLeave += Control_Leave;
-		listViewResults.RetrieveVirtualItem += ListViewResults_RetrieveVirtualItem;
 		// 
 		// columnHeaderX
 		// 
@@ -297,54 +295,6 @@ partial class ScatterplotsForm
 		columnHeaderY.Text = "Y value";
 		columnHeaderY.TextAlign = HorizontalAlignment.Right;
 		columnHeaderY.Width = 200;
-		// 
-		// kryptonToolStripProgress
-		// 
-		kryptonToolStripProgress.AccessibleDescription = "Shows the progress of the scatter plot creation";
-		kryptonToolStripProgress.AccessibleName = "Progress toolbar";
-		kryptonToolStripProgress.AccessibleRole = AccessibleRole.ToolBar;
-		kryptonToolStripProgress.AllowClickThrough = true;
-		kryptonToolStripProgress.AllowItemReorder = true;
-		kryptonToolStripProgress.Dock = DockStyle.None;
-		kryptonToolStripProgress.Font = new Font("Segoe UI", 9F);
-		kryptonToolStripProgress.Items.AddRange(new ToolStripItem[] { toolStripLabelProgress, kryptonProgressBar });
-		kryptonToolStripProgress.Location = new Point(0, 0);
-		kryptonToolStripProgress.Name = "kryptonToolStripProgress";
-		kryptonToolStripProgress.Size = new Size(872, 25);
-		kryptonToolStripProgress.Stretch = true;
-		kryptonToolStripProgress.TabIndex = 1;
-		kryptonToolStripProgress.TabStop = true;
-		kryptonToolStripProgress.Text = "Progress toolbar";
-		kryptonToolStripProgress.Enter += Control_Enter;
-		kryptonToolStripProgress.Leave += Control_Leave;
-		kryptonToolStripProgress.MouseEnter += Control_Enter;
-		kryptonToolStripProgress.MouseLeave += Control_Leave;
-		// 
-		// toolStripLabelProgress
-		// 
-		toolStripLabelProgress.AccessibleDescription = "Shows the current progress";
-		toolStripLabelProgress.AccessibleName = "Progress label";
-		toolStripLabelProgress.AccessibleRole = AccessibleRole.StaticText;
-		toolStripLabelProgress.AutoToolTip = true;
-		toolStripLabelProgress.Name = "toolStripLabelProgress";
-		toolStripLabelProgress.Size = new Size(52, 22);
-		toolStripLabelProgress.Text = "Progress";
-		toolStripLabelProgress.MouseEnter += Control_Enter;
-		toolStripLabelProgress.MouseLeave += Control_Leave;
-		// 
-		// kryptonProgressBar
-		// 
-		kryptonProgressBar.AccessibleDescription = "Shows the progress of the scatter plot creation";
-		kryptonProgressBar.AccessibleName = "Progress bar";
-		kryptonProgressBar.AutoSize = false;
-		kryptonProgressBar.Margin = new Padding(5, 2, 1, 2);
-		kryptonProgressBar.Name = "kryptonProgressBar";
-		kryptonProgressBar.Size = new Size(700, 19);
-		kryptonProgressBar.Text = "0%";
-		kryptonProgressBar.ToolTipText = "Shows the progress of the scatter plot creation";
-		kryptonProgressBar.Values.Text = "0%";
-		kryptonProgressBar.MouseEnter += Control_Enter;
-		kryptonProgressBar.MouseLeave += Control_Leave;
 		// 
 		// kryptonToolStripToolbar
 		// 
@@ -503,7 +453,7 @@ partial class ScatterplotsForm
 		toolStripButtonLogScaleX.CheckOnClick = true;
 		toolStripButtonLogScaleX.DisplayStyle = ToolStripItemDisplayStyle.Text;
 		toolStripButtonLogScaleX.Name = "toolStripButtonLogScaleX";
-		toolStripButtonLogScaleX.Size = new Size(70, 22);
+		toolStripButtonLogScaleX.Size = new Size(67, 22);
 		toolStripButtonLogScaleX.Text = "X log scale";
 		toolStripButtonLogScaleX.ToolTipText = "Toggle logarithmic scale on the X axis";
 		toolStripButtonLogScaleX.CheckedChanged += ToolStripButtonLogScaleX_CheckedChanged;
@@ -528,12 +478,60 @@ partial class ScatterplotsForm
 		toolStripButtonLogScaleY.CheckOnClick = true;
 		toolStripButtonLogScaleY.DisplayStyle = ToolStripItemDisplayStyle.Text;
 		toolStripButtonLogScaleY.Name = "toolStripButtonLogScaleY";
-		toolStripButtonLogScaleY.Size = new Size(70, 22);
+		toolStripButtonLogScaleY.Size = new Size(67, 22);
 		toolStripButtonLogScaleY.Text = "Y log scale";
 		toolStripButtonLogScaleY.ToolTipText = "Toggle logarithmic scale on the Y axis";
 		toolStripButtonLogScaleY.CheckedChanged += ToolStripButtonLogScaleY_CheckedChanged;
 		toolStripButtonLogScaleY.MouseEnter += Control_Enter;
 		toolStripButtonLogScaleY.MouseLeave += Control_Leave;
+		// 
+		// kryptonToolStripProgress
+		// 
+		kryptonToolStripProgress.AccessibleDescription = "Shows the progress of the scatter plot creation";
+		kryptonToolStripProgress.AccessibleName = "Progress toolbar";
+		kryptonToolStripProgress.AccessibleRole = AccessibleRole.ToolBar;
+		kryptonToolStripProgress.AllowClickThrough = true;
+		kryptonToolStripProgress.AllowItemReorder = true;
+		kryptonToolStripProgress.Dock = DockStyle.None;
+		kryptonToolStripProgress.Font = new Font("Segoe UI", 9F);
+		kryptonToolStripProgress.Items.AddRange(new ToolStripItem[] { toolStripLabelProgress, kryptonProgressBar });
+		kryptonToolStripProgress.Location = new Point(0, 0);
+		kryptonToolStripProgress.Name = "kryptonToolStripProgress";
+		kryptonToolStripProgress.Size = new Size(872, 25);
+		kryptonToolStripProgress.Stretch = true;
+		kryptonToolStripProgress.TabIndex = 1;
+		kryptonToolStripProgress.TabStop = true;
+		kryptonToolStripProgress.Text = "Progress toolbar";
+		kryptonToolStripProgress.Enter += Control_Enter;
+		kryptonToolStripProgress.Leave += Control_Leave;
+		kryptonToolStripProgress.MouseEnter += Control_Enter;
+		kryptonToolStripProgress.MouseLeave += Control_Leave;
+		// 
+		// toolStripLabelProgress
+		// 
+		toolStripLabelProgress.AccessibleDescription = "Shows the current progress";
+		toolStripLabelProgress.AccessibleName = "Progress label";
+		toolStripLabelProgress.AccessibleRole = AccessibleRole.StaticText;
+		toolStripLabelProgress.AutoToolTip = true;
+		toolStripLabelProgress.Name = "toolStripLabelProgress";
+		toolStripLabelProgress.Size = new Size(52, 22);
+		toolStripLabelProgress.Text = "Progress";
+		toolStripLabelProgress.MouseEnter += Control_Enter;
+		toolStripLabelProgress.MouseLeave += Control_Leave;
+		// 
+		// kryptonProgressBar
+		// 
+		kryptonProgressBar.AccessibleDescription = "Shows the progress of the scatter plot creation";
+		kryptonProgressBar.AccessibleName = "Progress bar";
+		kryptonProgressBar.AutoSize = false;
+		kryptonProgressBar.Margin = new Padding(5, 2, 1, 2);
+		kryptonProgressBar.Name = "kryptonProgressBar";
+		kryptonProgressBar.Size = new Size(700, 19);
+		kryptonProgressBar.Text = "0%";
+		kryptonProgressBar.ToolTipText = "Shows the progress of the scatter plot creation";
+		kryptonProgressBar.Values.Text = "0%";
+		kryptonProgressBar.MouseEnter += Control_Enter;
+		kryptonProgressBar.MouseLeave += Control_Leave;
 		// 
 		// kryptonManager
 		// 
@@ -549,13 +547,13 @@ partial class ScatterplotsForm
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(872, 508);
-		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "ScatterplotsForm";
+		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Orbit elements scatter plot";
 		FormClosing += ScatterplotsForm_FormClosing;
@@ -576,10 +574,10 @@ partial class ScatterplotsForm
 		splitContainerMain.ResumeLayout(false);
 		((ISupportInitialize)kryptonPanelChart).EndInit();
 		kryptonPanelChart.ResumeLayout(false);
-		kryptonToolStripProgress.ResumeLayout(false);
-		kryptonToolStripProgress.PerformLayout();
 		kryptonToolStripToolbar.ResumeLayout(false);
 		kryptonToolStripToolbar.PerformLayout();
+		kryptonToolStripProgress.ResumeLayout(false);
+		kryptonToolStripProgress.PerformLayout();
 		ResumeLayout(false);
 	}
 

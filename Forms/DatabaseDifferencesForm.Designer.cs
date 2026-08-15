@@ -1059,7 +1059,6 @@ partial class DatabaseDifferencesForm
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
 		kryptonStatusStrip.ShowItemToolTips = true;
 		kryptonStatusStrip.Size = new Size(643, 22);
-		kryptonStatusStrip.SizingGrip = false;
 		kryptonStatusStrip.TabIndex = 0;
 		kryptonStatusStrip.TabStop = true;
 		kryptonStatusStrip.Text = "Status bar";
@@ -1071,7 +1070,7 @@ partial class DatabaseDifferencesForm
 		// labelInformation
 		// 
 		labelInformation.AccessibleDescription = "Shows some information";
-		labelInformation.AccessibleName = "Show some information";
+		labelInformation.AccessibleName = "Some information";
 		labelInformation.AccessibleRole = AccessibleRole.StaticText;
 		labelInformation.AutoToolTip = true;
 		labelInformation.Image = Resources.FatcowIcons16px.fatcow_lightbulb_16px;
@@ -1232,7 +1231,8 @@ partial class DatabaseDifferencesForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "DatabaseDifferencesForm";
-		StartPosition = FormStartPosition.CenterParent;
+		SizeGripStyle = SizeGripStyle.Hide;
+		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Database Differences";
 		Load += DatabaseDifferencesForm_Load;
 		((ISupportInitialize)kryptonPanelMain).EndInit();

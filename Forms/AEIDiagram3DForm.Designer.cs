@@ -41,7 +41,10 @@ partial class AEIDiagram3DForm
 
 	private void InitializeComponent()
 	{
+		System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AEIDiagram3DForm));
 		_container = new ToolStripContainer();
+		_statusStrip = new KryptonStatusStrip();
+		labelInformation = new ToolStripStatusLabel();
 		_panelMain = new KryptonPanel();
 		_panelGl = new Panel();
 		_toolStripMain = new KryptonToolStrip();
@@ -55,18 +58,16 @@ partial class AEIDiagram3DForm
 		_scaleZ = new ToolStripNumericUpDown();
 		_toolStripProgress = new KryptonToolStrip();
 		_progressBar = new KryptonProgressBarToolStripItem();
-		_statusStrip = new KryptonStatusStrip();
-		_labelInformation = new ToolStripStatusLabel();
 		_container.BottomToolStripPanel.SuspendLayout();
 		_container.ContentPanel.SuspendLayout();
 		_container.TopToolStripPanel.SuspendLayout();
 		_container.SuspendLayout();
+		_statusStrip.SuspendLayout();
 		((System.ComponentModel.ISupportInitialize)_panelMain).BeginInit();
 		_panelMain.SuspendLayout();
 		_toolStripMain.SuspendLayout();
 		_toolStripScaling.SuspendLayout();
 		_toolStripProgress.SuspendLayout();
-		_statusStrip.SuspendLayout();
 		SuspendLayout();
 		// 
 		// _container
@@ -88,9 +89,38 @@ partial class AEIDiagram3DForm
 		// 
 		// _container.TopToolStripPanel
 		// 
-		_container.TopToolStripPanel.Controls.Add(_toolStripMain);
 		_container.TopToolStripPanel.Controls.Add(_toolStripScaling);
+		_container.TopToolStripPanel.Controls.Add(_toolStripMain);
 		_container.TopToolStripPanel.Controls.Add(_toolStripProgress);
+		// 
+		// _statusStrip
+		// 
+		_statusStrip.AllowClickThrough = true;
+		_statusStrip.AllowItemReorder = true;
+		_statusStrip.Dock = DockStyle.None;
+		_statusStrip.Font = new Font("Segoe UI", 9F);
+		_statusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
+		_statusStrip.Location = new Point(0, 0);
+		_statusStrip.Name = "_statusStrip";
+		_statusStrip.ProgressBars = null;
+		_statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+		_statusStrip.ShowItemToolTips = true;
+		_statusStrip.Size = new Size(980, 22);
+		_statusStrip.TabIndex = 0;
+		_statusStrip.TabStop = true;
+		// 
+		// labelInformation
+		// 
+		labelInformation.AccessibleDescription = "Shows point count, exclusions, and axis details.";
+		labelInformation.AccessibleName = "Orbital diagram status information";
+		labelInformation.AccessibleRole = AccessibleRole.StaticText;
+		labelInformation.AutoToolTip = true;
+		labelInformation.Image = Resources.FatcowIcons16px.fatcow_lightbulb_16px;
+		labelInformation.Name = "labelInformation";
+		labelInformation.Size = new Size(44, 17);
+		labelInformation.Text = "Info";
+		labelInformation.MouseEnter += Control_Enter;
+		labelInformation.MouseLeave += Control_Leave;
 		// 
 		// _panelMain
 		// 
@@ -119,9 +149,9 @@ partial class AEIDiagram3DForm
 		_toolStripMain.Dock = DockStyle.None;
 		_toolStripMain.Font = new Font("Segoe UI", 9F);
 		_toolStripMain.Items.AddRange(new ToolStripItem[] { _buttonStartPause, _buttonCancel, _buttonLive, _buttonLog });
-		_toolStripMain.Location = new Point(3, 0);
+		_toolStripMain.Location = new Point(138, 0);
 		_toolStripMain.Name = "_toolStripMain";
-		_toolStripMain.Size = new Size(285, 25);
+		_toolStripMain.Size = new Size(245, 25);
 		_toolStripMain.TabIndex = 0;
 		_toolStripMain.Enter += Control_Enter;
 		_toolStripMain.Leave += Control_Leave;
@@ -192,9 +222,9 @@ partial class AEIDiagram3DForm
 		_toolStripScaling.Dock = DockStyle.None;
 		_toolStripScaling.Font = new Font("Segoe UI", 9F);
 		_toolStripScaling.Items.AddRange(new ToolStripItem[] { _scaleX, _scaleY, _scaleZ });
-		_toolStripScaling.Location = new Point(288, 0);
+		_toolStripScaling.Location = new Point(3, 0);
 		_toolStripScaling.Name = "_toolStripScaling";
-		_toolStripScaling.Size = new Size(268, 26);
+		_toolStripScaling.Size = new Size(135, 26);
 		_toolStripScaling.TabIndex = 1;
 		_toolStripScaling.Enter += Control_Enter;
 		_toolStripScaling.Leave += Control_Leave;
@@ -253,38 +283,16 @@ partial class AEIDiagram3DForm
 		_progressBar.MouseEnter += Control_Enter;
 		_progressBar.MouseLeave += Control_Leave;
 		// 
-		// _statusStrip
-		// 
-		_statusStrip.Dock = DockStyle.None;
-		_statusStrip.Font = new Font("Segoe UI", 9F);
-		_statusStrip.Items.AddRange(new ToolStripItem[] { _labelInformation });
-		_statusStrip.Location = new Point(0, 0);
-		_statusStrip.Name = "_statusStrip";
-		_statusStrip.ProgressBars = null;
-		_statusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-		_statusStrip.Size = new Size(980, 22);
-		_statusStrip.TabIndex = 0;
-		// 
-		// _labelInformation
-		// 
-		_labelInformation.AccessibleDescription = "Shows point count, exclusions, and axis details.";
-		_labelInformation.AccessibleName = "Orbital diagram status information";
-		_labelInformation.AccessibleRole = AccessibleRole.StaticText;
-		_labelInformation.Image = Resources.FatcowIcons16px.fatcow_lightbulb_16px;
-		_labelInformation.Name = "_labelInformation";
-		_labelInformation.Size = new Size(16, 17);
-		_labelInformation.MouseEnter += Control_Enter;
-		_labelInformation.MouseLeave += Control_Leave;
-		// 
 		// AEIDiagram3DForm
 		// 
 		ClientSize = new Size(980, 680);
-		ControlBox = false;
 		Controls.Add(_container);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
+		Icon = (Icon)resources.GetObject("$this.Icon");
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "AEIDiagram3DForm";
+		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "a,e,i Diagram (3D)";
 		FormClosing += AEIDiagram3DForm_FormClosing;
@@ -296,6 +304,8 @@ partial class AEIDiagram3DForm
 		_container.TopToolStripPanel.PerformLayout();
 		_container.ResumeLayout(false);
 		_container.PerformLayout();
+		_statusStrip.ResumeLayout(false);
+		_statusStrip.PerformLayout();
 		((System.ComponentModel.ISupportInitialize)_panelMain).EndInit();
 		_panelMain.ResumeLayout(false);
 		_toolStripMain.ResumeLayout(false);
@@ -304,8 +314,6 @@ partial class AEIDiagram3DForm
 		_toolStripScaling.PerformLayout();
 		_toolStripProgress.ResumeLayout(false);
 		_toolStripProgress.PerformLayout();
-		_statusStrip.ResumeLayout(false);
-		_statusStrip.PerformLayout();
 		ResumeLayout(false);
 	}
 
@@ -332,7 +340,7 @@ partial class AEIDiagram3DForm
 
 	private ToolStripContainer _container;
 	private KryptonStatusStrip _statusStrip;
-	private ToolStripStatusLabel _labelInformation;
+	private ToolStripStatusLabel labelInformation;
 	private KryptonToolStrip _toolStripMain;
 	private KryptonToolStrip _toolStripScaling;
 	private KryptonToolStrip _toolStripProgress;

@@ -83,7 +83,7 @@ partial class Orbit2DTopViewForm
 		toolStripContainer.ContentPanel.AccessibleName = "Content panel";
 		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
-		toolStripContainer.ContentPanel.Size = new Size(900, 600);
+		toolStripContainer.ContentPanel.Size = new Size(900, 575);
 		toolStripContainer.Dock = DockStyle.Fill;
 		// 
 		// toolStripContainer.LeftToolStripPanel
@@ -147,7 +147,6 @@ partial class Orbit2DTopViewForm
 		labelInformation.Name = "labelInformation";
 		labelInformation.Size = new Size(144, 17);
 		labelInformation.Text = "some information here";
-		labelInformation.ToolTipText = "Shows orbital element information for the selected planetoid";
 		labelInformation.MouseEnter += Control_Enter;
 		labelInformation.MouseLeave += Control_Leave;
 		// 
@@ -161,7 +160,7 @@ partial class Orbit2DTopViewForm
 		kryptonPanelMain.Location = new Point(0, 0);
 		kryptonPanelMain.Name = "kryptonPanelMain";
 		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptonPanelMain.Size = new Size(900, 600);
+		kryptonPanelMain.Size = new Size(900, 575);
 		kryptonPanelMain.TabIndex = 0;
 		kryptonPanelMain.TabStop = true;
 		kryptonPanelMain.Text = "Main panel";
@@ -178,7 +177,7 @@ partial class Orbit2DTopViewForm
 		formsPlotOrbits.Dock = DockStyle.Fill;
 		formsPlotOrbits.Location = new Point(0, 0);
 		formsPlotOrbits.Name = "formsPlotOrbits";
-		formsPlotOrbits.Size = new Size(900, 600);
+		formsPlotOrbits.Size = new Size(900, 575);
 		formsPlotOrbits.TabIndex = 0;
 		formsPlotOrbits.Enter += Control_Enter;
 		formsPlotOrbits.Leave += Control_Leave;
@@ -191,7 +190,7 @@ partial class Orbit2DTopViewForm
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 		// 
-		// OrbitsForm
+		// Orbit2DTopViewForm
 		// 
 		AccessibleDescription = "Displays a 2D orbital plane visualization of the selected minor planet relative to the eight solar system planets";
 		AccessibleName = "Orbit visualization form";
@@ -205,7 +204,8 @@ partial class Orbit2DTopViewForm
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		MaximizeBox = false;
 		MinimizeBox = false;
-		Name = "OrbitsForm";
+		Name = "Orbit2DTopViewForm";
+		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Orbit visualization";
 		Load += OrbitsForm_Load;

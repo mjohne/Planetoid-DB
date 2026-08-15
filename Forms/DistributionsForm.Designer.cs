@@ -140,8 +140,8 @@ partial class DistributionsForm
 		toolStripContainer.TopToolStripPanel.AccessibleDescription = "Top panel";
 		toolStripContainer.TopToolStripPanel.AccessibleName = "Top panel";
 		toolStripContainer.TopToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripToolbar);
 		toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripProgress);
+		toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripToolbar);
 		toolStripContainer.Enter += Control_Enter;
 		toolStripContainer.Leave += Control_Leave;
 		toolStripContainer.MouseEnter += Control_Enter;
@@ -181,7 +181,6 @@ partial class DistributionsForm
 		labelInformation.Name = "labelInformation";
 		labelInformation.Size = new Size(144, 17);
 		labelInformation.Text = "some information here";
-		labelInformation.ToolTipText = "Shows some information";
 		labelInformation.MouseEnter += Control_Enter;
 		labelInformation.MouseLeave += Control_Leave;
 		// 
@@ -515,7 +514,7 @@ partial class DistributionsForm
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 		// 
-		// HistogramsForm
+		// DistributionsForm
 		// 
 		AccessibleDescription = "Counts planetoids in orbital-element ranges and displays the result as a histogram";
 		AccessibleName = "Orbit elements histogram form";
@@ -529,7 +528,8 @@ partial class DistributionsForm
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		MaximizeBox = false;
 		MinimizeBox = false;
-		Name = "HistogramsForm";
+		Name = "DistributionsForm";
+		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Orbit elements histogram";
 		FormClosing += DistributionsForm_FormClosing;

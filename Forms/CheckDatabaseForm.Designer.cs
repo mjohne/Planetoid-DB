@@ -64,11 +64,6 @@ partial class CheckDatabaseForm
 		labelContentLengthValueOnline = new KryptonLabel();
 		labelModifiedDateValueOnline = new KryptonLabel();
 		tableLayoutPanel = new KryptonTableLayoutPanel();
-		toolStripContainer = new ToolStripContainer();
-		kryptonStatusStrip = new KryptonStatusStrip();
-		labelInformation = new ToolStripStatusLabel();
-		toolStripIcons = new ToolStrip();
-		toolStripDropDownButtonSaveToFile = new ToolStripDropDownButton();
 		contextMenuSaveToFile = new ContextMenuStrip(components);
 		toolStripMenuItemTextFiles = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsText = new ToolStripMenuItem();
@@ -110,6 +105,11 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsXps = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsFictionBook2 = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsChm = new ToolStripMenuItem();
+		toolStripDropDownButtonSaveToFile = new ToolStripDropDownButton();
+		toolStripContainer = new ToolStripContainer();
+		kryptonStatusStrip = new KryptonStatusStrip();
+		labelInformation = new ToolStripStatusLabel();
+		toolStripIcons = new ToolStrip();
 		toolStripDropDownButtonCopyToClipboard = new ToolStripDropDownButton();
 		contextMenuFullCopyToClipboard = new ContextMenuStrip(components);
 		menuitemCopyToClipboardDatabaseLocalModifiedDate = new ToolStripMenuItem();
@@ -119,13 +119,13 @@ partial class CheckDatabaseForm
 		kryptonManager = new KryptonManager(components);
 		contextMenuCopyToClipboard.SuspendLayout();
 		tableLayoutPanel.SuspendLayout();
+		contextMenuSaveToFile.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
 		toolStripContainer.TopToolStripPanel.SuspendLayout();
 		toolStripContainer.SuspendLayout();
 		kryptonStatusStrip.SuspendLayout();
 		toolStripIcons.SuspendLayout();
-		contextMenuSaveToFile.SuspendLayout();
 		contextMenuFullCopyToClipboard.SuspendLayout();
 		SuspendLayout();
 		// 
@@ -135,11 +135,11 @@ partial class CheckDatabaseForm
 		labelUpdateNeeded.AccessibleName = "Update text";
 		labelUpdateNeeded.AccessibleRole = AccessibleRole.Text;
 		tableLayoutPanel.SetColumnSpan(labelUpdateNeeded, 3);
-		labelUpdateNeeded.Dock = DockStyle.Fill;
+		labelUpdateNeeded.Dock = DockStyle.Top;
 		labelUpdateNeeded.LabelStyle = LabelStyle.TitleControl;
 		labelUpdateNeeded.Location = new Point(3, 81);
 		labelUpdateNeeded.Name = "labelUpdateNeeded";
-		labelUpdateNeeded.Size = new Size(365, 29);
+		labelUpdateNeeded.Size = new Size(363, 29);
 		labelUpdateNeeded.TabIndex = 8;
 		labelUpdateNeeded.ToolTipValues.Description = "Informs if an update is recommended.\r\nDouble-click to refresh the information.";
 		labelUpdateNeeded.ToolTipValues.EnableToolTips = true;
@@ -158,11 +158,11 @@ partial class CheckDatabaseForm
 		labelDatabaseFileLocal.AccessibleDescription = "Information about the local database file";
 		labelDatabaseFileLocal.AccessibleName = "Local database file";
 		labelDatabaseFileLocal.AccessibleRole = AccessibleRole.Text;
-		labelDatabaseFileLocal.Dock = DockStyle.Fill;
+		labelDatabaseFileLocal.Dock = DockStyle.Top;
 		labelDatabaseFileLocal.LabelStyle = LabelStyle.BoldControl;
 		labelDatabaseFileLocal.Location = new Point(110, 3);
 		labelDatabaseFileLocal.Name = "labelDatabaseFileLocal";
-		labelDatabaseFileLocal.Size = new Size(118, 20);
+		labelDatabaseFileLocal.Size = new Size(103, 20);
 		labelDatabaseFileLocal.TabIndex = 0;
 		labelDatabaseFileLocal.ToolTipValues.Description = "Information about the local database file";
 		labelDatabaseFileLocal.ToolTipValues.EnableToolTips = true;
@@ -179,11 +179,11 @@ partial class CheckDatabaseForm
 		labelDatabaseFileOnline.AccessibleDescription = "Information about the online database file";
 		labelDatabaseFileOnline.AccessibleName = "Online database file";
 		labelDatabaseFileOnline.AccessibleRole = AccessibleRole.Text;
-		labelDatabaseFileOnline.Dock = DockStyle.Fill;
+		labelDatabaseFileOnline.Dock = DockStyle.Top;
 		labelDatabaseFileOnline.LabelStyle = LabelStyle.BoldControl;
-		labelDatabaseFileOnline.Location = new Point(234, 3);
+		labelDatabaseFileOnline.Location = new Point(219, 3);
 		labelDatabaseFileOnline.Name = "labelDatabaseFileOnline";
-		labelDatabaseFileOnline.Size = new Size(134, 20);
+		labelDatabaseFileOnline.Size = new Size(147, 20);
 		labelDatabaseFileOnline.TabIndex = 1;
 		labelDatabaseFileOnline.ToolTipValues.Description = "Information about the online database file";
 		labelDatabaseFileOnline.ToolTipValues.EnableToolTips = true;
@@ -200,6 +200,7 @@ partial class CheckDatabaseForm
 		labelContentLengthText.AccessibleDescription = "Shows the content length";
 		labelContentLengthText.AccessibleName = "Content length";
 		labelContentLengthText.AccessibleRole = AccessibleRole.Text;
+		labelContentLengthText.Dock = DockStyle.Top;
 		labelContentLengthText.LabelStyle = LabelStyle.BoldControl;
 		labelContentLengthText.Location = new Point(3, 29);
 		labelContentLengthText.Name = "labelContentLengthText";
@@ -220,11 +221,11 @@ partial class CheckDatabaseForm
 		labelModifiedDateText.AccessibleDescription = "Shows the modified date";
 		labelModifiedDateText.AccessibleName = "Modified date";
 		labelModifiedDateText.AccessibleRole = AccessibleRole.Text;
-		labelModifiedDateText.Dock = DockStyle.Left;
+		labelModifiedDateText.Dock = DockStyle.Top;
 		labelModifiedDateText.LabelStyle = LabelStyle.BoldControl;
 		labelModifiedDateText.Location = new Point(3, 55);
 		labelModifiedDateText.Name = "labelModifiedDateText";
-		labelModifiedDateText.Size = new Size(96, 20);
+		labelModifiedDateText.Size = new Size(101, 20);
 		labelModifiedDateText.TabIndex = 5;
 		labelModifiedDateText.ToolTipValues.Description = "Shows the modified date.";
 		labelModifiedDateText.ToolTipValues.EnableToolTips = true;
@@ -242,10 +243,10 @@ partial class CheckDatabaseForm
 		labelContentLengthValueLocal.AccessibleName = "Local content length";
 		labelContentLengthValueLocal.AccessibleRole = AccessibleRole.Text;
 		labelContentLengthValueLocal.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelContentLengthValueLocal.Dock = DockStyle.Fill;
+		labelContentLengthValueLocal.Dock = DockStyle.Top;
 		labelContentLengthValueLocal.Location = new Point(110, 29);
 		labelContentLengthValueLocal.Name = "labelContentLengthValueLocal";
-		labelContentLengthValueLocal.Size = new Size(118, 20);
+		labelContentLengthValueLocal.Size = new Size(103, 20);
 		labelContentLengthValueLocal.TabIndex = 3;
 		labelContentLengthValueLocal.ToolTipValues.Description = "Shows the local content length.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelContentLengthValueLocal.ToolTipValues.EnableToolTips = true;
@@ -296,10 +297,10 @@ partial class CheckDatabaseForm
 		labelModifiedDateValueLocal.AccessibleName = "Local modified date";
 		labelModifiedDateValueLocal.AccessibleRole = AccessibleRole.Text;
 		labelModifiedDateValueLocal.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelModifiedDateValueLocal.Dock = DockStyle.Fill;
+		labelModifiedDateValueLocal.Dock = DockStyle.Top;
 		labelModifiedDateValueLocal.Location = new Point(110, 55);
 		labelModifiedDateValueLocal.Name = "labelModifiedDateValueLocal";
-		labelModifiedDateValueLocal.Size = new Size(118, 20);
+		labelModifiedDateValueLocal.Size = new Size(103, 20);
 		labelModifiedDateValueLocal.TabIndex = 6;
 		labelModifiedDateValueLocal.ToolTipValues.Description = "Shows the local modified date.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelModifiedDateValueLocal.ToolTipValues.EnableToolTips = true;
@@ -319,10 +320,10 @@ partial class CheckDatabaseForm
 		labelContentLengthValueOnline.AccessibleName = "Online content length";
 		labelContentLengthValueOnline.AccessibleRole = AccessibleRole.Text;
 		labelContentLengthValueOnline.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelContentLengthValueOnline.Dock = DockStyle.Fill;
-		labelContentLengthValueOnline.Location = new Point(234, 29);
+		labelContentLengthValueOnline.Dock = DockStyle.Top;
+		labelContentLengthValueOnline.Location = new Point(219, 29);
 		labelContentLengthValueOnline.Name = "labelContentLengthValueOnline";
-		labelContentLengthValueOnline.Size = new Size(134, 20);
+		labelContentLengthValueOnline.Size = new Size(147, 20);
 		labelContentLengthValueOnline.TabIndex = 4;
 		labelContentLengthValueOnline.ToolTipValues.Description = "Shows the online content length.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelContentLengthValueOnline.ToolTipValues.EnableToolTips = true;
@@ -342,10 +343,10 @@ partial class CheckDatabaseForm
 		labelModifiedDateValueOnline.AccessibleName = "Online modified date";
 		labelModifiedDateValueOnline.AccessibleRole = AccessibleRole.Text;
 		labelModifiedDateValueOnline.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelModifiedDateValueOnline.Dock = DockStyle.Fill;
-		labelModifiedDateValueOnline.Location = new Point(234, 55);
+		labelModifiedDateValueOnline.Dock = DockStyle.Top;
+		labelModifiedDateValueOnline.Location = new Point(219, 55);
 		labelModifiedDateValueOnline.Name = "labelModifiedDateValueOnline";
-		labelModifiedDateValueOnline.Size = new Size(134, 20);
+		labelModifiedDateValueOnline.Size = new Size(147, 20);
 		labelModifiedDateValueOnline.TabIndex = 7;
 		labelModifiedDateValueOnline.ToolTipValues.Description = "Shows the online modified date.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelModifiedDateValueOnline.ToolTipValues.EnableToolTips = true;
@@ -364,6 +365,7 @@ partial class CheckDatabaseForm
 		tableLayoutPanel.AccessibleDescription = "Groups the data";
 		tableLayoutPanel.AccessibleName = "Group pane";
 		tableLayoutPanel.AccessibleRole = AccessibleRole.Pane;
+		tableLayoutPanel.AutoScroll = true;
 		tableLayoutPanel.ColumnCount = 3;
 		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
 		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
@@ -387,129 +389,8 @@ partial class CheckDatabaseForm
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
-		tableLayoutPanel.Size = new Size(369, 112);
+		tableLayoutPanel.Size = new Size(369, 117);
 		tableLayoutPanel.TabIndex = 0;
-		// 
-		// toolStripContainer
-		// 
-		toolStripContainer.AccessibleDescription = "Container to arrange the toolbars";
-		toolStripContainer.AccessibleName = "Container to arrange the toolbars";
-		toolStripContainer.AccessibleRole = AccessibleRole.Grouping;
-		// 
-		// toolStripContainer.BottomToolStripPanel
-		// 
-		toolStripContainer.BottomToolStripPanel.AccessibleDescription = "Just a panel";
-		toolStripContainer.BottomToolStripPanel.AccessibleName = "Bottom panel";
-		toolStripContainer.BottomToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
-		// 
-		// toolStripContainer.ContentPanel
-		// 
-		toolStripContainer.ContentPanel.AccessibleDescription = "Just a panel";
-		toolStripContainer.ContentPanel.AccessibleName = "Content panel";
-		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.ContentPanel.Controls.Add(tableLayoutPanel);
-		toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
-		toolStripContainer.ContentPanel.Size = new Size(369, 112);
-		toolStripContainer.Dock = DockStyle.Fill;
-		// 
-		// toolStripContainer.LeftToolStripPanel
-		// 
-		toolStripContainer.LeftToolStripPanel.AccessibleDescription = "Just a panel";
-		toolStripContainer.LeftToolStripPanel.AccessibleName = "Left panel";
-		toolStripContainer.LeftToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.Location = new Point(0, 0);
-		toolStripContainer.Name = "toolStripContainer";
-		// 
-		// toolStripContainer.RightToolStripPanel
-		// 
-		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
-		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
-		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.Size = new Size(369, 159);
-		toolStripContainer.TabIndex = 3;
-		toolStripContainer.Text = "toolStripContainer";
-		// 
-		// toolStripContainer.TopToolStripPanel
-		// 
-		toolStripContainer.TopToolStripPanel.AccessibleDescription = "Just a panel";
-		toolStripContainer.TopToolStripPanel.AccessibleName = "Top panel";
-		toolStripContainer.TopToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.TopToolStripPanel.Controls.Add(toolStripIcons);
-		// 
-		// kryptonStatusStrip
-		// 
-		kryptonStatusStrip.AccessibleDescription = "Shows some information";
-		kryptonStatusStrip.AccessibleName = "Status bar with some information";
-		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
-		kryptonStatusStrip.AllowClickThrough = true;
-		kryptonStatusStrip.AllowItemReorder = true;
-		kryptonStatusStrip.Dock = DockStyle.None;
-		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
-		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-		kryptonStatusStrip.Location = new Point(0, 0);
-		kryptonStatusStrip.Name = "kryptonStatusStrip";
-		kryptonStatusStrip.ProgressBars = null;
-		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-		kryptonStatusStrip.ShowItemToolTips = true;
-		kryptonStatusStrip.Size = new Size(369, 22);
-		kryptonStatusStrip.SizingGrip = false;
-		kryptonStatusStrip.TabIndex = 0;
-		kryptonStatusStrip.TabStop = true;
-		kryptonStatusStrip.Text = "Status bar";
-		kryptonStatusStrip.Enter += Control_Enter;
-		kryptonStatusStrip.Leave += Control_Leave;
-		kryptonStatusStrip.MouseEnter += Control_Enter;
-		kryptonStatusStrip.MouseLeave += Control_Leave;
-		// 
-		// labelInformation
-		// 
-		labelInformation.AccessibleDescription = "Shows some information";
-		labelInformation.AccessibleName = "Shows some information";
-		labelInformation.AccessibleRole = AccessibleRole.StaticText;
-		labelInformation.AutoToolTip = true;
-		labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
-		labelInformation.Name = "labelInformation";
-		labelInformation.Size = new Size(144, 17);
-		labelInformation.Text = "some information here";
-		labelInformation.ToolTipText = "Shows some information";
-		labelInformation.MouseEnter += Control_Enter;
-		labelInformation.MouseLeave += Control_Leave;
-		// 
-		// toolStripIcons
-		// 
-		toolStripIcons.AccessibleDescription = "Toolbar of copying, printing and exporting";
-		toolStripIcons.AccessibleName = "Toolbar of copying, printing and exporting";
-		toolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
-		toolStripIcons.AllowClickThrough = true;
-		toolStripIcons.AllowItemReorder = true;
-		toolStripIcons.BackColor = Color.Transparent;
-		toolStripIcons.Dock = DockStyle.None;
-		toolStripIcons.Font = new Font("Segoe UI", 9F);
-		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripDropDownButtonSaveToFile, toolStripDropDownButtonCopyToClipboard });
-		toolStripIcons.Location = new Point(0, 0);
-		toolStripIcons.Name = "toolStripIcons";
-		toolStripIcons.Size = new Size(369, 25);
-		toolStripIcons.Stretch = true;
-		toolStripIcons.TabIndex = 1;
-		toolStripIcons.TabStop = true;
-		toolStripIcons.Text = "Toolbar of copying, printing and exporting";
-		toolStripIcons.MouseEnter += Control_Enter;
-		toolStripIcons.MouseLeave += Control_Leave;
-		// 
-		// toolStripDropDownButtonSaveToFile
-		// 
-		toolStripDropDownButtonSaveToFile.AccessibleDescription = "Saves information to file";
-		toolStripDropDownButtonSaveToFile.AccessibleName = "Save to file";
-		toolStripDropDownButtonSaveToFile.AccessibleRole = AccessibleRole.ButtonDropDown;
-		toolStripDropDownButtonSaveToFile.DropDown = contextMenuSaveToFile;
-		toolStripDropDownButtonSaveToFile.Image = FatcowIcons16px.fatcow_diskette_16px;
-		toolStripDropDownButtonSaveToFile.ImageTransparentColor = Color.Magenta;
-		toolStripDropDownButtonSaveToFile.Name = "toolStripDropDownButtonSaveToFile";
-		toolStripDropDownButtonSaveToFile.Size = new Size(93, 22);
-		toolStripDropDownButtonSaveToFile.Text = "&Save to file";
-		toolStripDropDownButtonSaveToFile.MouseEnter += Control_Enter;
-		toolStripDropDownButtonSaveToFile.MouseLeave += Control_Leave;
 		// 
 		// contextMenuSaveToFile
 		// 
@@ -1087,6 +968,125 @@ partial class CheckDatabaseForm
 		toolStripMenuItemSaveAsChm.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsChm.MouseLeave += Control_Leave;
 		// 
+		// toolStripDropDownButtonSaveToFile
+		// 
+		toolStripDropDownButtonSaveToFile.AccessibleDescription = "Saves information to file";
+		toolStripDropDownButtonSaveToFile.AccessibleName = "Save to file";
+		toolStripDropDownButtonSaveToFile.AccessibleRole = AccessibleRole.ButtonDropDown;
+		toolStripDropDownButtonSaveToFile.DropDown = contextMenuSaveToFile;
+		toolStripDropDownButtonSaveToFile.Image = FatcowIcons16px.fatcow_diskette_16px;
+		toolStripDropDownButtonSaveToFile.ImageTransparentColor = Color.Magenta;
+		toolStripDropDownButtonSaveToFile.Name = "toolStripDropDownButtonSaveToFile";
+		toolStripDropDownButtonSaveToFile.Size = new Size(93, 22);
+		toolStripDropDownButtonSaveToFile.Text = "&Save to file";
+		toolStripDropDownButtonSaveToFile.MouseEnter += Control_Enter;
+		toolStripDropDownButtonSaveToFile.MouseLeave += Control_Leave;
+		// 
+		// toolStripContainer
+		// 
+		toolStripContainer.AccessibleDescription = "Container to arrange the toolbars";
+		toolStripContainer.AccessibleName = "Container to arrange the toolbars";
+		toolStripContainer.AccessibleRole = AccessibleRole.Grouping;
+		// 
+		// toolStripContainer.BottomToolStripPanel
+		// 
+		toolStripContainer.BottomToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.BottomToolStripPanel.AccessibleName = "Bottom panel";
+		toolStripContainer.BottomToolStripPanel.AccessibleRole = AccessibleRole.Pane;
+		toolStripContainer.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
+		// 
+		// toolStripContainer.ContentPanel
+		// 
+		toolStripContainer.ContentPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.ContentPanel.AccessibleName = "Content panel";
+		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
+		toolStripContainer.ContentPanel.Controls.Add(tableLayoutPanel);
+		toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
+		toolStripContainer.ContentPanel.Size = new Size(369, 117);
+		toolStripContainer.Dock = DockStyle.Fill;
+		// 
+		// toolStripContainer.LeftToolStripPanel
+		// 
+		toolStripContainer.LeftToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.LeftToolStripPanel.AccessibleName = "Left panel";
+		toolStripContainer.LeftToolStripPanel.AccessibleRole = AccessibleRole.Pane;
+		toolStripContainer.Location = new Point(0, 0);
+		toolStripContainer.Name = "toolStripContainer";
+		// 
+		// toolStripContainer.RightToolStripPanel
+		// 
+		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
+		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
+		toolStripContainer.Size = new Size(369, 164);
+		toolStripContainer.TabIndex = 3;
+		toolStripContainer.Text = "toolStripContainer";
+		// 
+		// toolStripContainer.TopToolStripPanel
+		// 
+		toolStripContainer.TopToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.TopToolStripPanel.AccessibleName = "Top panel";
+		toolStripContainer.TopToolStripPanel.AccessibleRole = AccessibleRole.Pane;
+		toolStripContainer.TopToolStripPanel.Controls.Add(toolStripIcons);
+		// 
+		// kryptonStatusStrip
+		// 
+		kryptonStatusStrip.AccessibleDescription = "Shows some information";
+		kryptonStatusStrip.AccessibleName = "Status bar with some information";
+		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
+		kryptonStatusStrip.AllowClickThrough = true;
+		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.Dock = DockStyle.None;
+		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
+		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
+		kryptonStatusStrip.Location = new Point(0, 0);
+		kryptonStatusStrip.Name = "kryptonStatusStrip";
+		kryptonStatusStrip.ProgressBars = null;
+		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+		kryptonStatusStrip.ShowItemToolTips = true;
+		kryptonStatusStrip.Size = new Size(369, 22);
+		kryptonStatusStrip.TabIndex = 0;
+		kryptonStatusStrip.TabStop = true;
+		kryptonStatusStrip.Text = "Status bar";
+		kryptonStatusStrip.Enter += Control_Enter;
+		kryptonStatusStrip.Leave += Control_Leave;
+		kryptonStatusStrip.MouseEnter += Control_Enter;
+		kryptonStatusStrip.MouseLeave += Control_Leave;
+		// 
+		// labelInformation
+		// 
+		labelInformation.AccessibleDescription = "Shows some information";
+		labelInformation.AccessibleName = "Some information";
+		labelInformation.AccessibleRole = AccessibleRole.StaticText;
+		labelInformation.AutoToolTip = true;
+		labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
+		labelInformation.Name = "labelInformation";
+		labelInformation.Size = new Size(144, 17);
+		labelInformation.Text = "some information here";
+		labelInformation.MouseEnter += Control_Enter;
+		labelInformation.MouseLeave += Control_Leave;
+		// 
+		// toolStripIcons
+		// 
+		toolStripIcons.AccessibleDescription = "Toolbar of copying, printing and exporting";
+		toolStripIcons.AccessibleName = "Toolbar of copying, printing and exporting";
+		toolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
+		toolStripIcons.AllowClickThrough = true;
+		toolStripIcons.AllowItemReorder = true;
+		toolStripIcons.BackColor = Color.Transparent;
+		toolStripIcons.Dock = DockStyle.None;
+		toolStripIcons.Font = new Font("Segoe UI", 9F);
+		toolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripDropDownButtonSaveToFile, toolStripDropDownButtonCopyToClipboard });
+		toolStripIcons.Location = new Point(0, 0);
+		toolStripIcons.Name = "toolStripIcons";
+		toolStripIcons.Size = new Size(369, 25);
+		toolStripIcons.Stretch = true;
+		toolStripIcons.TabIndex = 1;
+		toolStripIcons.TabStop = true;
+		toolStripIcons.Text = "Toolbar of copying, printing and exporting";
+		toolStripIcons.MouseEnter += Control_Enter;
+		toolStripIcons.MouseLeave += Control_Leave;
+		// 
 		// toolStripDropDownButtonCopyToClipboard
 		// 
 		toolStripDropDownButtonCopyToClipboard.AccessibleDescription = "Copies information to clipboard";
@@ -1184,21 +1184,22 @@ partial class CheckDatabaseForm
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(369, 159);
+		ClientSize = new Size(369, 164);
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
-		FormBorderStyle = FormBorderStyle.FixedToolWindow;
+		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		Margin = new Padding(4, 3, 4, 3);
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "CheckDatabaseForm";
-		StartPosition = FormStartPosition.CenterParent;
+		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Check database";
 		Load += CheckDatabaseForm_Load;
 		contextMenuCopyToClipboard.ResumeLayout(false);
 		tableLayoutPanel.ResumeLayout(false);
 		tableLayoutPanel.PerformLayout();
+		contextMenuSaveToFile.ResumeLayout(false);
 		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
 		toolStripContainer.BottomToolStripPanel.PerformLayout();
 		toolStripContainer.ContentPanel.ResumeLayout(false);
@@ -1210,7 +1211,6 @@ partial class CheckDatabaseForm
 		kryptonStatusStrip.PerformLayout();
 		toolStripIcons.ResumeLayout(false);
 		toolStripIcons.PerformLayout();
-		contextMenuSaveToFile.ResumeLayout(false);
 		contextMenuFullCopyToClipboard.ResumeLayout(false);
 		ResumeLayout(false);
 

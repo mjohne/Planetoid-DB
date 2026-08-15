@@ -120,14 +120,13 @@ partial class ExportDataSheetForm
 		// labelInformation
 		// 
 		labelInformation.AccessibleDescription = "Shows some information";
-		labelInformation.AccessibleName = "Show some information";
+		labelInformation.AccessibleName = "Some information";
 		labelInformation.AccessibleRole = AccessibleRole.StaticText;
 		labelInformation.AutoToolTip = true;
 		labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
 		labelInformation.Name = "labelInformation";
 		labelInformation.Size = new Size(144, 17);
 		labelInformation.Text = "some information here";
-		labelInformation.ToolTipText = "Shows some information";
 		labelInformation.MouseEnter += Control_Enter;
 		labelInformation.MouseLeave += Control_Leave;
 		// 
@@ -273,6 +272,7 @@ partial class ExportDataSheetForm
 		contextMenuExport.Font = new Font("Segoe UI", 9F);
 		contextMenuExport.Items.AddRange(new ToolStripItem[] { toolStripMenuItemExportAsText, toolStripMenuItemExportAsLatex, toolStripMenuItemExportAsMarkdown, toolStripMenuItemExportAsWord, toolStripMenuItemExportAsOdt, toolStripMenuItemExportAsRtf, toolStripMenuItemExportAsExcel, toolStripMenuItemExportAsOds, toolStripMenuItemExportAsCsv, toolStripMenuItemExportAsTsv, toolStripMenuItemExportAsPsv, toolStripMenuItemExportAsHtml, toolStripMenuItemExportAsXml, toolStripMenuItemExportAsJson, toolStripMenuItemExportAsYaml, toolStripMenuItemExportAsSql, toolStripMenuItemExportAsPdf, toolStripMenuItemExportAsPostScript, toolStripMenuItemExportAsEpub, toolStripMenuItemExportAsMobi });
 		contextMenuExport.Name = "contextMenuSaveToFile";
+		contextMenuExport.OwnerItem = toolStripDropDownButtonExport;
 		contextMenuExport.Size = new Size(226, 444);
 		contextMenuExport.TabStop = true;
 		contextMenuExport.Text = "Export";
@@ -653,6 +653,7 @@ partial class ExportDataSheetForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "ExportDataSheetForm";
+		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Export data sheet";
 		Load += ExportDataSheetForm_Load;

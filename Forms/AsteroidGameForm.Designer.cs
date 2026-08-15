@@ -88,24 +88,27 @@ partial class AsteroidGameForm
 		kryptonStatusStrip.AccessibleDescription = "Status strip for the Asteroid game";
 		kryptonStatusStrip.AccessibleName = "Status strip";
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
-		kryptonStatusStrip.Dock = DockStyle.None;
+		kryptonStatusStrip.AllowClickThrough = true;
+		kryptonStatusStrip.AllowItemReorder = true;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.ImageScalingSize = new Size(20, 20);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
 		kryptonStatusStrip.Location = new Point(0, 0);
 		kryptonStatusStrip.Name = "kryptonStatusStrip";
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+		kryptonStatusStrip.ShowItemToolTips = true;
 		kryptonStatusStrip.Size = new Size(982, 22);
 		kryptonStatusStrip.TabIndex = 0;
+		kryptonStatusStrip.TabStop = true;
 		// 
 		// labelInformation
 		// 
 		labelInformation.AccessibleDescription = "Game information and status";
 		labelInformation.AccessibleName = "Information label";
 		labelInformation.AccessibleRole = AccessibleRole.StaticText;
+		labelInformation.AutoToolTip = true;
 		labelInformation.Name = "labelInformation";
-		labelInformation.Size = new Size(967, 17);
-		labelInformation.Spring = true;
+		labelInformation.Size = new Size(236, 17);
 		labelInformation.Text = "Arrow keys: move, Space: shoot, Enter: start";
 		labelInformation.TextAlign = ContentAlignment.MiddleLeft;
 		// 
@@ -144,11 +147,14 @@ partial class AsteroidGameForm
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(982, 553);
 		Controls.Add(toolStripContainer);
+		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
-		KeyPreview = true;
 		Margin = new Padding(3, 2, 3, 2);
+		MaximizeBox = false;
+		MinimizeBox = false;
 		MinimumSize = new Size(640, 480);
 		Name = "AsteroidGameForm";
+		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Asteroids Game";
 		FormClosing += AsteroidGameForm_FormClosing;

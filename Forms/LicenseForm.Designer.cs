@@ -209,7 +209,6 @@ partial class LicenseForm
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
 		kryptonStatusStrip.ShowItemToolTips = true;
 		kryptonStatusStrip.Size = new Size(577, 22);
-		kryptonStatusStrip.SizingGrip = false;
 		kryptonStatusStrip.TabIndex = 4;
 		kryptonStatusStrip.TabStop = true;
 		kryptonStatusStrip.Text = "Status bar";
@@ -217,14 +216,13 @@ partial class LicenseForm
 		// labelInformation
 		// 
 		labelInformation.AccessibleDescription = "Shows some information";
-		labelInformation.AccessibleName = "Shows some information";
+		labelInformation.AccessibleName = "Some information";
 		labelInformation.AccessibleRole = AccessibleRole.StaticText;
 		labelInformation.AutoToolTip = true;
 		labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
 		labelInformation.Name = "labelInformation";
 		labelInformation.Size = new Size(144, 17);
 		labelInformation.Text = "some information here";
-		labelInformation.ToolTipText = "Shows some information";
 		// 
 		// saveFileDialog
 		// 
@@ -251,7 +249,7 @@ partial class LicenseForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "LicenseForm";
-		StartPosition = FormStartPosition.CenterParent;
+		StartPosition = FormStartPosition.CenterScreen;
 		Text = "License: GPL-3.0";
 		Load += LicenseForm_Load;
 		((ISupportInitialize)kryptonPanelMain).EndInit();
