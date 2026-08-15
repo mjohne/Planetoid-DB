@@ -241,6 +241,7 @@ partial class PreloadForm
 		AccessibleDescription = "Handles of the file MPCORB.DAT ist missing";
 		AccessibleName = "Preloader";
 		AccessibleRole = AccessibleRole.Window;
+		AllowDrop = true;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
 		CancelButton = kryptonCommandLinkButtonExit;
@@ -254,6 +255,9 @@ partial class PreloadForm
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Planetoid-DB Preloader";
 		Load += PreloadForm_Load;
+		DragDrop += PreloadForm_DragDrop;
+		DragEnter += PreloadForm_DragEnter;
+		DragLeave += PreloadForm_DragLeave;
 		kryptonStatusStrip.ResumeLayout(false);
 		kryptonStatusStrip.PerformLayout();
 		((ISupportInitialize)kryptonPanelMain).EndInit();
