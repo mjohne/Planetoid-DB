@@ -840,7 +840,6 @@ partial class MoidsOfAllMinorPlanetsForm
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
 		kryptonStatusStrip.ShowItemToolTips = true;
 		kryptonStatusStrip.Size = new Size(1013, 22);
-		kryptonStatusStrip.SizingGrip = false;
 		kryptonStatusStrip.TabIndex = 0;
 		kryptonStatusStrip.TabStop = true;
 		kryptonStatusStrip.Text = "Status bar";
@@ -852,14 +851,13 @@ partial class MoidsOfAllMinorPlanetsForm
 		// labelInformation
 		// 
 		labelInformation.AccessibleDescription = "Shows some information";
-		labelInformation.AccessibleName = "Shows some information";
+		labelInformation.AccessibleName = "Some information";
 		labelInformation.AccessibleRole = AccessibleRole.StaticText;
 		labelInformation.AutoToolTip = true;
 		labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
 		labelInformation.Name = "labelInformation";
 		labelInformation.Size = new Size(144, 17);
 		labelInformation.Text = "some information here";
-		labelInformation.ToolTipText = "Shows some information";
 		labelInformation.MouseEnter += Control_Enter;
 		labelInformation.MouseLeave += Control_Leave;
 		// 
@@ -978,7 +976,6 @@ partial class MoidsOfAllMinorPlanetsForm
 		toolStripSeparator1.AccessibleName = "Just a separator";
 		toolStripSeparator1.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator1.Name = "toolStripSeparator1";
-		toolStripSeparator1.Text = "Just a separator";
 		toolStripSeparator1.Size = new Size(6, 25);
 		toolStripSeparator1.MouseEnter += Control_Enter;
 		toolStripSeparator1.MouseLeave += Control_Leave;
@@ -1066,6 +1063,7 @@ partial class MoidsOfAllMinorPlanetsForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "MoidsOfAllMinorPlanetsForm";
+		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "MOIDs of all minor planets";
 		FormClosing += MoidsOfAllMinorPlanetsForm_FormClosing;

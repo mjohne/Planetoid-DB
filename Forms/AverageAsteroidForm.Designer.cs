@@ -111,19 +111,19 @@ partial class AverageAsteroidForm
 		toolStripMenuItemSaveAsXps = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsFictionBook2 = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsChm = new ToolStripMenuItem();
+		toolStripDropDownButtonSaveToFile = new ToolStripDropDownButton();
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
 		kryptonManager = new KryptonManager(components);
 		toolStripContainer = new ToolStripContainer();
 		kryptonToolStripMain = new KryptonToolStrip();
-		toolStripDropDownButtonSaveToFile = new ToolStripDropDownButton();
+		toolStripButtonStart = new ToolStripButton();
+		toolStripButtonCancel = new ToolStripButton();
+		toolStripSeparator2 = new ToolStripSeparator();
 		toolStripMenuItemCopyToClipboard = new ToolStripMenuItem();
 		toolStripSeparator1 = new ToolStripSeparator();
 		toolStripLabelProgress = new ToolStripLabel();
 		kryptonProgressBar = new KryptonProgressBarToolStripItem();
-		toolStripButtonStart = new ToolStripButton();
-		toolStripButtonCancel = new ToolStripButton();
-		toolStripSeparator2 = new ToolStripSeparator();
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
 		contextMenuSaveToFile.SuspendLayout();
@@ -278,6 +278,7 @@ partial class AverageAsteroidForm
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveToFile";
+		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveToFile;
 		contextMenuSaveToFile.Size = new Size(202, 158);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save average asteroid data";
@@ -846,6 +847,20 @@ partial class AverageAsteroidForm
 		toolStripMenuItemSaveAsChm.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsChm.MouseLeave += Control_Leave;
 		// 
+		// toolStripDropDownButtonSaveToFile
+		// 
+		toolStripDropDownButtonSaveToFile.AccessibleDescription = "Saves information to file";
+		toolStripDropDownButtonSaveToFile.AccessibleName = "Save to file";
+		toolStripDropDownButtonSaveToFile.AccessibleRole = AccessibleRole.ButtonDropDown;
+		toolStripDropDownButtonSaveToFile.DropDown = contextMenuSaveToFile;
+		toolStripDropDownButtonSaveToFile.Image = FatcowIcons16px.fatcow_diskette_16px;
+		toolStripDropDownButtonSaveToFile.ImageTransparentColor = Color.Magenta;
+		toolStripDropDownButtonSaveToFile.Name = "toolStripDropDownButtonSaveToFile";
+		toolStripDropDownButtonSaveToFile.Size = new Size(93, 23);
+		toolStripDropDownButtonSaveToFile.Text = "&Save to file";
+		toolStripDropDownButtonSaveToFile.MouseEnter += Control_Enter;
+		toolStripDropDownButtonSaveToFile.MouseLeave += Control_Leave;
+		// 
 		// kryptonStatusStrip
 		// 
 		kryptonStatusStrip.AccessibleDescription = "Shows some information";
@@ -873,14 +888,13 @@ partial class AverageAsteroidForm
 		// labelInformation
 		// 
 		labelInformation.AccessibleDescription = "Shows some information";
-		labelInformation.AccessibleName = "Shows some information";
+		labelInformation.AccessibleName = "Some information";
 		labelInformation.AccessibleRole = AccessibleRole.StaticText;
 		labelInformation.AutoToolTip = true;
 		labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
 		labelInformation.Name = "labelInformation";
 		labelInformation.Size = new Size(144, 17);
 		labelInformation.Text = "some information here";
-		labelInformation.ToolTipText = "Shows some information";
 		labelInformation.MouseEnter += Control_Enter;
 		labelInformation.MouseLeave += Control_Leave;
 		// 
@@ -963,76 +977,6 @@ partial class AverageAsteroidForm
 		kryptonToolStripMain.MouseEnter += Control_Enter;
 		kryptonToolStripMain.MouseLeave += Control_Leave;
 		// 
-		// toolStripDropDownButtonSaveToFile
-		// 
-		toolStripDropDownButtonSaveToFile.AccessibleDescription = "Saves information to file";
-		toolStripDropDownButtonSaveToFile.AccessibleName = "Save to file";
-		toolStripDropDownButtonSaveToFile.AccessibleRole = AccessibleRole.ButtonDropDown;
-		toolStripDropDownButtonSaveToFile.DropDown = contextMenuSaveToFile;
-		toolStripDropDownButtonSaveToFile.Image = FatcowIcons16px.fatcow_diskette_16px;
-		toolStripDropDownButtonSaveToFile.ImageTransparentColor = Color.Magenta;
-		toolStripDropDownButtonSaveToFile.Name = "toolStripDropDownButtonSaveToFile";
-		toolStripDropDownButtonSaveToFile.Size = new Size(93, 23);
-		toolStripDropDownButtonSaveToFile.Text = "&Save to file";
-		toolStripDropDownButtonSaveToFile.MouseEnter += Control_Enter;
-		toolStripDropDownButtonSaveToFile.MouseLeave += Control_Leave;
-		// 
-		// toolStripMenuItemCopyToClipboard
-		// 
-		toolStripMenuItemCopyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
-		toolStripMenuItemCopyToClipboard.AccessibleName = "Copy to clipboard";
-		toolStripMenuItemCopyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemCopyToClipboard.AutoToolTip = true;
-		toolStripMenuItemCopyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
-		toolStripMenuItemCopyToClipboard.Name = "toolStripMenuItemCopyToClipboard";
-		toolStripMenuItemCopyToClipboard.ShortcutKeyDisplayString = "Strg+C";
-		toolStripMenuItemCopyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
-		toolStripMenuItemCopyToClipboard.Size = new Size(130, 26);
-		toolStripMenuItemCopyToClipboard.Text = "&Copy to clipboard";
-		toolStripMenuItemCopyToClipboard.Click += ToolStripMenuItemCopyToClipboard_Click;
-		toolStripMenuItemCopyToClipboard.MouseEnter += Control_Enter;
-		toolStripMenuItemCopyToClipboard.MouseLeave += Control_Leave;
-		// 
-		// toolStripSeparator1
-		// 
-		toolStripSeparator1.AccessibleDescription = "Just a separator";
-		toolStripSeparator1.AccessibleName = "Separator";
-		toolStripSeparator1.AccessibleRole = AccessibleRole.Separator;
-		toolStripSeparator1.Name = "toolStripSeparator1";
-		toolStripSeparator1.Text = "Just a separator";
-		toolStripSeparator1.Size = new Size(6, 26);
-		toolStripSeparator1.MouseEnter += Control_Enter;
-		toolStripSeparator1.MouseLeave += Control_Leave;
-		// 
-		// toolStripLabelProgress
-		// 
-		toolStripLabelProgress.AccessibleDescription = "Shows the progress";
-		toolStripLabelProgress.AccessibleName = "Progress";
-		toolStripLabelProgress.AccessibleRole = AccessibleRole.StaticText;
-		toolStripLabelProgress.AutoToolTip = true;
-		toolStripLabelProgress.Name = "toolStripLabelProgress";
-		toolStripLabelProgress.Size = new Size(52, 23);
-		toolStripLabelProgress.Text = "Pro&gress";
-		toolStripLabelProgress.MouseEnter += Control_Enter;
-		toolStripLabelProgress.MouseLeave += Control_Leave;
-		// 
-		// kryptonProgressBar
-		// 
-		kryptonProgressBar.AccessibleDescription = "Shows the progress";
-		kryptonProgressBar.AccessibleName = "Progress";
-		kryptonProgressBar.AccessibleRole = AccessibleRole.ProgressBar;
-		kryptonProgressBar.AutoToolTip = true;
-		kryptonProgressBar.Name = "kryptonProgressBar";
-		kryptonProgressBar.Size = new Size(300, 23);
-		kryptonProgressBar.StateCommon.Back.Color1 = Color.Green;
-		kryptonProgressBar.StateDisabled.Back.ColorStyle = PaletteColorStyle.OneNote;
-		kryptonProgressBar.StateNormal.Back.ColorStyle = PaletteColorStyle.OneNote;
-		kryptonProgressBar.Values.Text = "";
-		kryptonProgressBar.Enter += Control_Enter;
-		kryptonProgressBar.Leave += Control_Leave;
-		kryptonProgressBar.MouseEnter += Control_Enter;
-		kryptonProgressBar.MouseLeave += Control_Leave;
-		// 
 		// toolStripButtonStart
 		// 
 		toolStripButtonStart.AccessibleDescription = "Starts the calculation";
@@ -1068,10 +1012,64 @@ partial class AverageAsteroidForm
 		toolStripSeparator2.AccessibleName = "Separator";
 		toolStripSeparator2.AccessibleRole = AccessibleRole.Separator;
 		toolStripSeparator2.Name = "toolStripSeparator2";
-		toolStripSeparator2.Text = "Just a separator";
 		toolStripSeparator2.Size = new Size(6, 26);
 		toolStripSeparator2.MouseEnter += Control_Enter;
 		toolStripSeparator2.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemCopyToClipboard
+		// 
+		toolStripMenuItemCopyToClipboard.AccessibleDescription = "Copies the text/value to the clipboard";
+		toolStripMenuItemCopyToClipboard.AccessibleName = "Copy to clipboard";
+		toolStripMenuItemCopyToClipboard.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemCopyToClipboard.AutoToolTip = true;
+		toolStripMenuItemCopyToClipboard.Image = FatcowIcons16px.fatcow_page_copy_16px;
+		toolStripMenuItemCopyToClipboard.Name = "toolStripMenuItemCopyToClipboard";
+		toolStripMenuItemCopyToClipboard.ShortcutKeyDisplayString = "Strg+C";
+		toolStripMenuItemCopyToClipboard.ShortcutKeys = Keys.Control | Keys.C;
+		toolStripMenuItemCopyToClipboard.Size = new Size(130, 26);
+		toolStripMenuItemCopyToClipboard.Text = "&Copy to clipboard";
+		toolStripMenuItemCopyToClipboard.Click += ToolStripMenuItemCopyToClipboard_Click;
+		toolStripMenuItemCopyToClipboard.MouseEnter += Control_Enter;
+		toolStripMenuItemCopyToClipboard.MouseLeave += Control_Leave;
+		// 
+		// toolStripSeparator1
+		// 
+		toolStripSeparator1.AccessibleDescription = "Just a separator";
+		toolStripSeparator1.AccessibleName = "Separator";
+		toolStripSeparator1.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparator1.Name = "toolStripSeparator1";
+		toolStripSeparator1.Size = new Size(6, 26);
+		toolStripSeparator1.MouseEnter += Control_Enter;
+		toolStripSeparator1.MouseLeave += Control_Leave;
+		// 
+		// toolStripLabelProgress
+		// 
+		toolStripLabelProgress.AccessibleDescription = "Shows the progress";
+		toolStripLabelProgress.AccessibleName = "Progress";
+		toolStripLabelProgress.AccessibleRole = AccessibleRole.StaticText;
+		toolStripLabelProgress.AutoToolTip = true;
+		toolStripLabelProgress.Name = "toolStripLabelProgress";
+		toolStripLabelProgress.Size = new Size(52, 23);
+		toolStripLabelProgress.Text = "Pro&gress";
+		toolStripLabelProgress.MouseEnter += Control_Enter;
+		toolStripLabelProgress.MouseLeave += Control_Leave;
+		// 
+		// kryptonProgressBar
+		// 
+		kryptonProgressBar.AccessibleDescription = "Shows the progress";
+		kryptonProgressBar.AccessibleName = "Progress";
+		kryptonProgressBar.AccessibleRole = AccessibleRole.ProgressBar;
+		kryptonProgressBar.AutoToolTip = true;
+		kryptonProgressBar.Name = "kryptonProgressBar";
+		kryptonProgressBar.Size = new Size(300, 23);
+		kryptonProgressBar.StateCommon.Back.Color1 = Color.Green;
+		kryptonProgressBar.StateDisabled.Back.ColorStyle = PaletteColorStyle.OneNote;
+		kryptonProgressBar.StateNormal.Back.ColorStyle = PaletteColorStyle.OneNote;
+		kryptonProgressBar.Values.Text = "";
+		kryptonProgressBar.Enter += Control_Enter;
+		kryptonProgressBar.Leave += Control_Leave;
+		kryptonProgressBar.MouseEnter += Control_Enter;
+		kryptonProgressBar.MouseLeave += Control_Leave;
 		// 
 		// AverageAsteroidForm
 		// 
@@ -1089,7 +1087,8 @@ partial class AverageAsteroidForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "AverageAsteroidForm";
-		StartPosition = FormStartPosition.CenterParent;
+		SizeGripStyle = SizeGripStyle.Hide;
+		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Average asteroid";
 		FormClosing += AverageAsteroidForm_FormClosing;
 		Load += AverageAsteroidForm_Load;

@@ -145,7 +145,6 @@ partial class ArchiveMpcorbForm
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
 		kryptonStatusStrip.ShowItemToolTips = true;
 		kryptonStatusStrip.Size = new Size(657, 22);
-		kryptonStatusStrip.SizingGrip = false;
 		kryptonStatusStrip.TabIndex = 0;
 		kryptonStatusStrip.TabStop = true;
 		kryptonStatusStrip.Text = "Status bar";
@@ -157,7 +156,7 @@ partial class ArchiveMpcorbForm
 		// labelInformation
 		// 
 		labelInformation.AccessibleDescription = "Shows some information";
-		labelInformation.AccessibleName = "Show some information";
+		labelInformation.AccessibleName = "Some information";
 		labelInformation.AccessibleRole = AccessibleRole.StaticText;
 		labelInformation.AutoToolTip = true;
 		labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
@@ -250,7 +249,7 @@ partial class ArchiveMpcorbForm
 		kryptonLabelTarget.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelTarget.Location = new Point(7, 22);
 		kryptonLabelTarget.Name = "kryptonLabelTarget";
-		kryptonLabelTarget.Size = new Size(89, 23);
+		kryptonLabelTarget.Size = new Size(88, 20);
 		kryptonLabelTarget.TabIndex = 0;
 		kryptonLabelTarget.ToolTipValues.Description = "Shows the full path name of the MPCORB.DAT file as target";
 		kryptonLabelTarget.ToolTipValues.EnableToolTips = true;
@@ -321,7 +320,7 @@ partial class ArchiveMpcorbForm
 		kryptonLabelSource.AccessibleRole = AccessibleRole.StaticText;
 		kryptonLabelSource.Location = new Point(7, 22);
 		kryptonLabelSource.Name = "kryptonLabelSource";
-		kryptonLabelSource.Size = new Size(89, 23);
+		kryptonLabelSource.Size = new Size(88, 20);
 		kryptonLabelSource.TabIndex = 0;
 		kryptonLabelSource.ToolTipValues.Description = "Shows the full path name of the MPCORB.DAT file as source";
 		kryptonLabelSource.ToolTipValues.EnableToolTips = true;
@@ -576,7 +575,8 @@ partial class ArchiveMpcorbForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "ArchiveMpcorbForm";
-		StartPosition = FormStartPosition.CenterParent;
+		SizeGripStyle = SizeGripStyle.Hide;
+		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Archive MPCORB.DAT";
 		Load += ArchiveMpcorbForm_Load;
 		kryptonStatusStrip.ResumeLayout(false);

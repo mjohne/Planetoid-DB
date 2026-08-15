@@ -69,6 +69,7 @@ partial class OrbitElementsGroupingForm : BaseKryptonForm
 		toolStripMenuItemSaveAsAsciiDoc = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsReStructuredText = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsTextile = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsTypst = new ToolStripMenuItem();
 		toolStripMenuItemWriterDocuments = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsWord = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsOdt = new ToolStripMenuItem();
@@ -105,7 +106,6 @@ partial class OrbitElementsGroupingForm : BaseKryptonForm
 		toolStripLabelProgress = new ToolStripLabel();
 		kryptonProgressBar = new KryptonProgressBarToolStripItem();
 		kryptonManager = new KryptonManager(components);
-		toolStripMenuItemSaveAsTypst = new ToolStripMenuItem();
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
 		kryptonStatusStrip.SuspendLayout();
@@ -165,7 +165,6 @@ partial class OrbitElementsGroupingForm : BaseKryptonForm
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
-		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
 		kryptonStatusStrip.Location = new Point(0, 0);
@@ -192,7 +191,6 @@ partial class OrbitElementsGroupingForm : BaseKryptonForm
 		labelInformation.Name = "labelInformation";
 		labelInformation.Size = new Size(144, 17);
 		labelInformation.Text = "some information here";
-		labelInformation.ToolTipText = "Shows some information";
 		labelInformation.MouseEnter += Control_Enter;
 		labelInformation.MouseLeave += Control_Leave;
 		// 
@@ -398,7 +396,8 @@ partial class OrbitElementsGroupingForm : BaseKryptonForm
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveList";
-		contextMenuSaveToFile.Size = new Size(202, 180);
+		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveList;
+		contextMenuSaveToFile.Size = new Size(202, 158);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
 		contextMenuSaveToFile.MouseEnter += Control_Enter;
@@ -501,6 +500,20 @@ partial class OrbitElementsGroupingForm : BaseKryptonForm
 		toolStripMenuItemSaveAsTextile.Click += SaveAsTextile_Click;
 		toolStripMenuItemSaveAsTextile.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsTextile.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsTypst
+		// 
+		toolStripMenuItemSaveAsTypst.AccessibleDescription = "Saves the list as Typst file";
+		toolStripMenuItemSaveAsTypst.AccessibleName = "Save as Typst";
+		toolStripMenuItemSaveAsTypst.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsTypst.AutoToolTip = true;
+		toolStripMenuItemSaveAsTypst.Image = Resources.FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsTypst.Name = "toolStripMenuItemSaveAsTypst";
+		toolStripMenuItemSaveAsTypst.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsTypst.Text = "Save as T&ypst";
+		toolStripMenuItemSaveAsTypst.Click += SaveAsTypst_Click;
+		toolStripMenuItemSaveAsTypst.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTypst.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemWriterDocuments
 		// 
@@ -1007,20 +1020,6 @@ partial class OrbitElementsGroupingForm : BaseKryptonForm
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 		// 
-		// toolStripMenuItemSaveAsTypst
-		// 
-		toolStripMenuItemSaveAsTypst.AccessibleDescription = "Saves the list as Typst file";
-		toolStripMenuItemSaveAsTypst.AccessibleName = "Save as Typst";
-		toolStripMenuItemSaveAsTypst.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemSaveAsTypst.AutoToolTip = true;
-		toolStripMenuItemSaveAsTypst.Image = Resources.FatcowIcons16px.fatcow_page_white_text_16px;
-		toolStripMenuItemSaveAsTypst.Name = "toolStripMenuItemSaveAsTypst";
-		toolStripMenuItemSaveAsTypst.Size = new Size(201, 22);
-		toolStripMenuItemSaveAsTypst.Text = "Save as T&ypst";
-		toolStripMenuItemSaveAsTypst.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAsTypst.MouseLeave += Control_Leave;
-		toolStripMenuItemSaveAsTypst.Click += SaveAsTypst_Click;
-		// 
 		// OrbitElementsGroupingForm
 		// 
 		AccessibleDescription = "Shows orbit element grouping";
@@ -1029,14 +1028,14 @@ partial class OrbitElementsGroupingForm : BaseKryptonForm
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(617, 412);
-		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "OrbitElementsGroupingForm";
-		StartPosition = FormStartPosition.CenterParent;
+		SizeGripStyle = SizeGripStyle.Hide;
+		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Planetoid Orbital Elements Grouping";
 		FormClosing += OrbitElementsGroupingForm_FormClosing;
 		((ISupportInitialize)kryptonPanelMain).EndInit();

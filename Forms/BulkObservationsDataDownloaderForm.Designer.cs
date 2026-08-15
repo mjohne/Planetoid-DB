@@ -169,7 +169,7 @@ partial class BulkObservationsDataDownloaderForm
 		kryptonPanelMain.Location = new Point(0, 0);
 		kryptonPanelMain.Name = "kryptonPanelMain";
 		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptonPanelMain.Size = new Size(675, 137);
+		kryptonPanelMain.Size = new Size(675, 131);
 		kryptonPanelMain.TabIndex = 0;
 		kryptonPanelMain.TabStop = true;
 		kryptonPanelMain.Text = "Main Panel";
@@ -183,9 +183,10 @@ partial class BulkObservationsDataDownloaderForm
 		tableLayoutPanel.AccessibleDescription = "Shows the download information";
 		tableLayoutPanel.AccessibleName = "Download information";
 		tableLayoutPanel.AccessibleRole = AccessibleRole.Pane;
+		tableLayoutPanel.AutoScroll = true;
 		tableLayoutPanel.ColumnCount = 2;
-		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
-		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
 		tableLayoutPanel.ContextMenuStrip = contextMenuSaveToFile;
 		tableLayoutPanel.Controls.Add(labelStatusText, 0, 0);
 		tableLayoutPanel.Controls.Add(labelStatusValue, 1, 0);
@@ -202,12 +203,12 @@ partial class BulkObservationsDataDownloaderForm
 		tableLayoutPanel.Name = "tableLayoutPanel";
 		tableLayoutPanel.PanelBackStyle = PaletteBackStyle.FormMain;
 		tableLayoutPanel.RowCount = 5;
-		tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 28F));
-		tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 28F));
-		tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 28F));
-		tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 28F));
-		tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 28F));
-		tableLayoutPanel.Size = new Size(675, 137);
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.Size = new Size(675, 131);
 		tableLayoutPanel.TabIndex = 0;
 		tableLayoutPanel.Enter += Control_Enter;
 		tableLayoutPanel.Leave += Control_Leave;
@@ -796,10 +797,10 @@ partial class BulkObservationsDataDownloaderForm
 		labelStatusText.AccessibleDescription = "Label for the current download status";
 		labelStatusText.AccessibleName = "Status label";
 		labelStatusText.AccessibleRole = AccessibleRole.Text;
-		labelStatusText.Dock = DockStyle.Fill;
+		labelStatusText.Dock = DockStyle.Top;
 		labelStatusText.Location = new Point(3, 3);
 		labelStatusText.Name = "labelStatusText";
-		labelStatusText.Size = new Size(124, 22);
+		labelStatusText.Size = new Size(55, 20);
 		labelStatusText.TabIndex = 0;
 		labelStatusText.ToolTipValues.Description = "Shows the current download status.\r\nDouble-click to copy to clipboard.";
 		labelStatusText.ToolTipValues.EnableToolTips = true;
@@ -817,10 +818,10 @@ partial class BulkObservationsDataDownloaderForm
 		labelStatusValue.AccessibleDescription = "Shows the current download status";
 		labelStatusValue.AccessibleName = "Status value";
 		labelStatusValue.AccessibleRole = AccessibleRole.Text;
-		labelStatusValue.Dock = DockStyle.Fill;
-		labelStatusValue.Location = new Point(133, 3);
+		labelStatusValue.Dock = DockStyle.Top;
+		labelStatusValue.Location = new Point(64, 3);
 		labelStatusValue.Name = "labelStatusValue";
-		labelStatusValue.Size = new Size(539, 22);
+		labelStatusValue.Size = new Size(608, 20);
 		labelStatusValue.TabIndex = 1;
 		labelStatusValue.ToolTipValues.Description = "Shows the current download status.\r\nDouble-click to copy to clipboard.";
 		labelStatusValue.ToolTipValues.EnableToolTips = true;
@@ -838,10 +839,10 @@ partial class BulkObservationsDataDownloaderForm
 		labelFileCountText.AccessibleDescription = "Label for the number of downloaded files";
 		labelFileCountText.AccessibleName = "File count label";
 		labelFileCountText.AccessibleRole = AccessibleRole.Text;
-		labelFileCountText.Dock = DockStyle.Fill;
-		labelFileCountText.Location = new Point(3, 31);
+		labelFileCountText.Dock = DockStyle.Top;
+		labelFileCountText.Location = new Point(3, 29);
 		labelFileCountText.Name = "labelFileCountText";
-		labelFileCountText.Size = new Size(124, 22);
+		labelFileCountText.Size = new Size(55, 20);
 		labelFileCountText.TabIndex = 2;
 		labelFileCountText.ToolTipValues.Description = "Shows the number of downloaded files vs. total files.\r\nDouble-click to copy to clipboard.";
 		labelFileCountText.ToolTipValues.EnableToolTips = true;
@@ -859,10 +860,10 @@ partial class BulkObservationsDataDownloaderForm
 		labelFileCountValue.AccessibleDescription = "Shows the number of downloaded files vs. total files";
 		labelFileCountValue.AccessibleName = "File count value";
 		labelFileCountValue.AccessibleRole = AccessibleRole.Text;
-		labelFileCountValue.Dock = DockStyle.Fill;
-		labelFileCountValue.Location = new Point(133, 31);
+		labelFileCountValue.Dock = DockStyle.Top;
+		labelFileCountValue.Location = new Point(64, 29);
 		labelFileCountValue.Name = "labelFileCountValue";
-		labelFileCountValue.Size = new Size(539, 22);
+		labelFileCountValue.Size = new Size(608, 20);
 		labelFileCountValue.TabIndex = 3;
 		labelFileCountValue.ToolTipValues.Description = "Shows the number of downloaded files vs. total files.\r\nDouble-click to copy to clipboard.";
 		labelFileCountValue.ToolTipValues.EnableToolTips = true;
@@ -880,10 +881,10 @@ partial class BulkObservationsDataDownloaderForm
 		labelFileSizeText.AccessibleDescription = "Label for the file size information";
 		labelFileSizeText.AccessibleName = "File size label";
 		labelFileSizeText.AccessibleRole = AccessibleRole.Text;
-		labelFileSizeText.Dock = DockStyle.Fill;
-		labelFileSizeText.Location = new Point(3, 59);
+		labelFileSizeText.Dock = DockStyle.Top;
+		labelFileSizeText.Location = new Point(3, 55);
 		labelFileSizeText.Name = "labelFileSizeText";
-		labelFileSizeText.Size = new Size(124, 22);
+		labelFileSizeText.Size = new Size(55, 20);
 		labelFileSizeText.TabIndex = 4;
 		labelFileSizeText.ToolTipValues.Description = "Shows the file size of the current download vs. total size.\r\nDouble-click to copy to clipboard.";
 		labelFileSizeText.ToolTipValues.EnableToolTips = true;
@@ -901,10 +902,10 @@ partial class BulkObservationsDataDownloaderForm
 		labelFileSizeValue.AccessibleDescription = "Shows the file size of the current download vs. total size";
 		labelFileSizeValue.AccessibleName = "File size value";
 		labelFileSizeValue.AccessibleRole = AccessibleRole.Text;
-		labelFileSizeValue.Dock = DockStyle.Fill;
-		labelFileSizeValue.Location = new Point(133, 59);
+		labelFileSizeValue.Dock = DockStyle.Top;
+		labelFileSizeValue.Location = new Point(64, 55);
 		labelFileSizeValue.Name = "labelFileSizeValue";
-		labelFileSizeValue.Size = new Size(539, 22);
+		labelFileSizeValue.Size = new Size(608, 20);
 		labelFileSizeValue.TabIndex = 5;
 		labelFileSizeValue.ToolTipValues.Description = "Shows the file size of the current download vs. total size.\r\nDouble-click to copy to clipboard.";
 		labelFileSizeValue.ToolTipValues.EnableToolTips = true;
@@ -922,10 +923,10 @@ partial class BulkObservationsDataDownloaderForm
 		labelTimeText.AccessibleDescription = "Label for elapsed and estimated remaining time";
 		labelTimeText.AccessibleName = "Time label";
 		labelTimeText.AccessibleRole = AccessibleRole.Text;
-		labelTimeText.Dock = DockStyle.Fill;
-		labelTimeText.Location = new Point(3, 87);
+		labelTimeText.Dock = DockStyle.Top;
+		labelTimeText.Location = new Point(3, 81);
 		labelTimeText.Name = "labelTimeText";
-		labelTimeText.Size = new Size(124, 22);
+		labelTimeText.Size = new Size(55, 20);
 		labelTimeText.TabIndex = 6;
 		labelTimeText.ToolTipValues.Description = "Shows elapsed time and estimated remaining time.\r\nDouble-click to copy to clipboard.";
 		labelTimeText.ToolTipValues.EnableToolTips = true;
@@ -943,10 +944,10 @@ partial class BulkObservationsDataDownloaderForm
 		labelTimeValue.AccessibleDescription = "Shows elapsed time and estimated remaining time";
 		labelTimeValue.AccessibleName = "Time value";
 		labelTimeValue.AccessibleRole = AccessibleRole.Text;
-		labelTimeValue.Dock = DockStyle.Fill;
-		labelTimeValue.Location = new Point(133, 87);
+		labelTimeValue.Dock = DockStyle.Top;
+		labelTimeValue.Location = new Point(64, 81);
 		labelTimeValue.Name = "labelTimeValue";
-		labelTimeValue.Size = new Size(539, 22);
+		labelTimeValue.Size = new Size(608, 20);
 		labelTimeValue.TabIndex = 7;
 		labelTimeValue.ToolTipValues.Description = "Shows elapsed time and estimated remaining time.\r\nDouble-click to copy to clipboard.";
 		labelTimeValue.ToolTipValues.EnableToolTips = true;
@@ -964,10 +965,10 @@ partial class BulkObservationsDataDownloaderForm
 		labelErrorCountText.AccessibleDescription = "Label for the number of download errors";
 		labelErrorCountText.AccessibleName = "Error count label";
 		labelErrorCountText.AccessibleRole = AccessibleRole.Text;
-		labelErrorCountText.Dock = DockStyle.Fill;
-		labelErrorCountText.Location = new Point(3, 115);
+		labelErrorCountText.Dock = DockStyle.Top;
+		labelErrorCountText.Location = new Point(3, 107);
 		labelErrorCountText.Name = "labelErrorCountText";
-		labelErrorCountText.Size = new Size(124, 22);
+		labelErrorCountText.Size = new Size(55, 20);
 		labelErrorCountText.TabIndex = 8;
 		labelErrorCountText.ToolTipValues.Description = "Shows the number of download errors.\r\nDouble-click to copy to clipboard.";
 		labelErrorCountText.ToolTipValues.EnableToolTips = true;
@@ -985,10 +986,10 @@ partial class BulkObservationsDataDownloaderForm
 		labelErrorCountValue.AccessibleDescription = "Shows the number of download errors";
 		labelErrorCountValue.AccessibleName = "Error count value";
 		labelErrorCountValue.AccessibleRole = AccessibleRole.Text;
-		labelErrorCountValue.Dock = DockStyle.Fill;
-		labelErrorCountValue.Location = new Point(133, 115);
+		labelErrorCountValue.Dock = DockStyle.Top;
+		labelErrorCountValue.Location = new Point(64, 107);
 		labelErrorCountValue.Name = "labelErrorCountValue";
-		labelErrorCountValue.Size = new Size(539, 22);
+		labelErrorCountValue.Size = new Size(608, 20);
 		labelErrorCountValue.TabIndex = 9;
 		labelErrorCountValue.ToolTipValues.Description = "Shows the number of download errors.\r\nDouble-click to copy to clipboard.";
 		labelErrorCountValue.ToolTipValues.EnableToolTips = true;
@@ -1007,6 +1008,7 @@ partial class BulkObservationsDataDownloaderForm
 		kryptonStatusStrip.AccessibleName = "Status bar";
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
+		kryptonStatusStrip.AllowItemReorder = true;
 		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
@@ -1034,7 +1036,6 @@ partial class BulkObservationsDataDownloaderForm
 		labelInformation.Name = "labelInformation";
 		labelInformation.Size = new Size(55, 17);
 		labelInformation.Text = "Ready";
-		labelInformation.ToolTipText = "Shows some information";
 		labelInformation.MouseEnter += Control_Enter;
 		labelInformation.MouseLeave += Control_Leave;
 		// 
@@ -1063,7 +1064,7 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripContainer.ContentPanel.AccessibleName = "Content panel";
 		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
-		toolStripContainer.ContentPanel.Size = new Size(675, 137);
+		toolStripContainer.ContentPanel.Size = new Size(675, 131);
 		toolStripContainer.Dock = DockStyle.Fill;
 		// 
 		// toolStripContainer.LeftToolStripPanel
@@ -1079,7 +1080,7 @@ partial class BulkObservationsDataDownloaderForm
 		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
 		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
 		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.Size = new Size(675, 185);
+		toolStripContainer.Size = new Size(675, 179);
 		toolStripContainer.TabIndex = 0;
 		toolStripContainer.Text = "toolStripContainer";
 		// 
@@ -1271,7 +1272,7 @@ partial class BulkObservationsDataDownloaderForm
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(675, 185);
+		ClientSize = new Size(675, 179);
 		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
@@ -1279,7 +1280,8 @@ partial class BulkObservationsDataDownloaderForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "BulkObservationsDataDownloaderForm";
-		StartPosition = FormStartPosition.CenterParent;
+		SizeGripStyle = SizeGripStyle.Hide;
+		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Bulk Observations Data Downloader";
 		FormClosing += BulkObservationsDataDownloaderForm_FormClosing;
 		Load += BulkObservationsDataDownloaderForm_Load;

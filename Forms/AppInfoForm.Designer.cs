@@ -1649,7 +1649,7 @@ partial class AppInfoForm
 		// labelInformation
 		// 
 		labelInformation.AccessibleDescription = "Shows some information";
-		labelInformation.AccessibleName = "Shows some information";
+		labelInformation.AccessibleName = "Some information";
 		labelInformation.AccessibleRole = AccessibleRole.StaticText;
 		labelInformation.AutoToolTip = true;
 		labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
@@ -1657,7 +1657,6 @@ partial class AppInfoForm
 		labelInformation.Name = "labelInformation";
 		labelInformation.Size = new Size(144, 22);
 		labelInformation.Text = "some information here";
-		labelInformation.ToolTipText = "Shows some information";
 		labelInformation.MouseEnter += Control_Enter;
 		labelInformation.MouseLeave += Control_Leave;
 		// 
@@ -1683,7 +1682,7 @@ partial class AppInfoForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "AppInfoForm";
-		StartPosition = FormStartPosition.CenterParent;
+		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Program information";
 		Load += AppInfoForm_Load;
 		Enter += Control_Enter;

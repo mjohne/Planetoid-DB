@@ -64,6 +64,7 @@ partial class RecordsTop10Form
 		toolStripMenuItemSaveAsAsciiDoc = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsReStructuredText = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsTextile = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsTypst = new ToolStripMenuItem();
 		toolStripMenuItemWriterDocuments = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsWord = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsOdt = new ToolStripMenuItem();
@@ -119,7 +120,6 @@ partial class RecordsTop10Form
 		labelPlace07 = new KryptonLabel();
 		labelPlace08 = new KryptonLabel();
 		labelPlace09 = new KryptonLabel();
-		buttonGoto01 = new KryptonButton();
 		labelReadableDesignationHeader = new KryptonLabel();
 		labelValueHeader = new KryptonLabel();
 		labelReadableDesignation01 = new KryptonLabel();
@@ -143,6 +143,7 @@ partial class RecordsTop10Form
 		labelValue09 = new KryptonLabel();
 		labelValue10 = new KryptonLabel();
 		buttonGoto10 = new KryptonButton();
+		buttonGoto01 = new KryptonButton();
 		kryptonStatusStrip = new KryptonStatusStrip();
 		labelInformation = new ToolStripStatusLabel();
 		kryptonManager = new KryptonManager(components);
@@ -158,7 +159,6 @@ partial class RecordsTop10Form
 		kryptonToolStripProgress = new KryptonToolStrip();
 		toolStripLabelProgress = new ToolStripLabel();
 		kryptonProgressBar = new KryptonProgressBarToolStripItem();
-		toolStripMenuItemSaveAsTypst = new ToolStripMenuItem();
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
 		((ISupportInitialize)splitContainerMain).BeginInit();
@@ -295,11 +295,12 @@ partial class RecordsTop10Form
 		tableLayoutPanel.AccessibleDescription = "Groups the data";
 		tableLayoutPanel.AccessibleName = "Table panel";
 		tableLayoutPanel.AccessibleRole = AccessibleRole.Grouping;
+		tableLayoutPanel.AutoScroll = true;
 		tableLayoutPanel.ColumnCount = 4;
-		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.2068968F));
-		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40.08621F));
-		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 27.37069F));
-		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.9051723F));
+		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
 		tableLayoutPanel.ContextMenuStrip = contextMenuSaveToFile;
 		tableLayoutPanel.Controls.Add(labelGoToObjectHeader, 3, 0);
 		tableLayoutPanel.Controls.Add(labelPlaceHeader, 0, 0);
@@ -321,7 +322,6 @@ partial class RecordsTop10Form
 		tableLayoutPanel.Controls.Add(labelPlace07, 0, 7);
 		tableLayoutPanel.Controls.Add(labelPlace08, 0, 8);
 		tableLayoutPanel.Controls.Add(labelPlace09, 0, 9);
-		tableLayoutPanel.Controls.Add(buttonGoto01, 3, 1);
 		tableLayoutPanel.Controls.Add(labelReadableDesignationHeader, 1, 0);
 		tableLayoutPanel.Controls.Add(labelValueHeader, 2, 0);
 		tableLayoutPanel.Controls.Add(labelReadableDesignation01, 1, 1);
@@ -345,6 +345,7 @@ partial class RecordsTop10Form
 		tableLayoutPanel.Controls.Add(labelValue09, 2, 9);
 		tableLayoutPanel.Controls.Add(labelValue10, 2, 10);
 		tableLayoutPanel.Controls.Add(buttonGoto10, 3, 10);
+		tableLayoutPanel.Controls.Add(buttonGoto01, 3, 1);
 		tableLayoutPanel.Dock = DockStyle.Fill;
 		tableLayoutPanel.Location = new Point(0, 0);
 		tableLayoutPanel.Name = "tableLayoutPanel";
@@ -359,7 +360,7 @@ partial class RecordsTop10Form
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.RowStyles.Add(new RowStyle());
-		tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
 		tableLayoutPanel.Size = new Size(464, 332);
 		tableLayoutPanel.TabIndex = 0;
 		tableLayoutPanel.Enter += Control_Enter;
@@ -376,7 +377,8 @@ partial class RecordsTop10Form
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveList";
-		contextMenuSaveToFile.Size = new Size(202, 180);
+		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveList;
+		contextMenuSaveToFile.Size = new Size(202, 158);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
 		contextMenuSaveToFile.Enter += Control_Enter;
@@ -481,6 +483,20 @@ partial class RecordsTop10Form
 		toolStripMenuItemSaveAsTextile.Click += SaveAsTextile_Click;
 		toolStripMenuItemSaveAsTextile.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsTextile.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsTypst
+		// 
+		toolStripMenuItemSaveAsTypst.AccessibleDescription = "Saves the list as Typst file";
+		toolStripMenuItemSaveAsTypst.AccessibleName = "Save as Typst";
+		toolStripMenuItemSaveAsTypst.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsTypst.AutoToolTip = true;
+		toolStripMenuItemSaveAsTypst.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsTypst.Name = "toolStripMenuItemSaveAsTypst";
+		toolStripMenuItemSaveAsTypst.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsTypst.Text = "Save as T&ypst";
+		toolStripMenuItemSaveAsTypst.Click += SaveAsTypst_Click;
+		toolStripMenuItemSaveAsTypst.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTypst.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemWriterDocuments
 		// 
@@ -950,11 +966,11 @@ partial class RecordsTop10Form
 		labelGoToObjectHeader.AccessibleName = "Go to object header";
 		labelGoToObjectHeader.AccessibleRole = AccessibleRole.StaticText;
 		labelGoToObjectHeader.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelGoToObjectHeader.Dock = DockStyle.Fill;
+		labelGoToObjectHeader.Dock = DockStyle.Top;
 		labelGoToObjectHeader.LabelStyle = LabelStyle.BoldPanel;
-		labelGoToObjectHeader.Location = new Point(368, 3);
+		labelGoToObjectHeader.Location = new Point(241, 3);
 		labelGoToObjectHeader.Name = "labelGoToObjectHeader";
-		labelGoToObjectHeader.Size = new Size(93, 36);
+		labelGoToObjectHeader.Size = new Size(220, 20);
 		labelGoToObjectHeader.TabIndex = 3;
 		labelGoToObjectHeader.ToolTipValues.Description = "Shows the go to object header.";
 		labelGoToObjectHeader.ToolTipValues.EnableToolTips = true;
@@ -1006,11 +1022,11 @@ partial class RecordsTop10Form
 		labelPlaceHeader.AccessibleName = "Place header";
 		labelPlaceHeader.AccessibleRole = AccessibleRole.StaticText;
 		labelPlaceHeader.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelPlaceHeader.Dock = DockStyle.Fill;
+		labelPlaceHeader.Dock = DockStyle.Top;
 		labelPlaceHeader.LabelStyle = LabelStyle.BoldPanel;
 		labelPlaceHeader.Location = new Point(3, 3);
 		labelPlaceHeader.Name = "labelPlaceHeader";
-		labelPlaceHeader.Size = new Size(46, 36);
+		labelPlaceHeader.Size = new Size(41, 20);
 		labelPlaceHeader.TabIndex = 0;
 		labelPlaceHeader.ToolTipValues.Description = "Shows the place header.";
 		labelPlaceHeader.ToolTipValues.EnableToolTips = true;
@@ -1029,10 +1045,9 @@ partial class RecordsTop10Form
 		buttonGoto09.AccessibleName = "Go to the element of the place no. 9";
 		buttonGoto09.AccessibleRole = AccessibleRole.PushButton;
 		buttonGoto09.ButtonStyle = ButtonStyle.Form;
-		buttonGoto09.Dock = DockStyle.Fill;
-		buttonGoto09.Location = new Point(368, 277);
+		buttonGoto09.Location = new Point(241, 261);
 		buttonGoto09.Name = "buttonGoto09";
-		buttonGoto09.Size = new Size(93, 23);
+		buttonGoto09.Size = new Size(69, 23);
 		buttonGoto09.TabIndex = 39;
 		buttonGoto09.ToolTipValues.Description = "Goes to the element of the place no. 9.";
 		buttonGoto09.ToolTipValues.EnableToolTips = true;
@@ -1053,10 +1068,9 @@ partial class RecordsTop10Form
 		buttonGoto08.AccessibleName = "Go to the element of the place no. 8";
 		buttonGoto08.AccessibleRole = AccessibleRole.PushButton;
 		buttonGoto08.ButtonStyle = ButtonStyle.Form;
-		buttonGoto08.Dock = DockStyle.Fill;
-		buttonGoto08.Location = new Point(368, 248);
+		buttonGoto08.Location = new Point(241, 232);
 		buttonGoto08.Name = "buttonGoto08";
-		buttonGoto08.Size = new Size(93, 23);
+		buttonGoto08.Size = new Size(69, 23);
 		buttonGoto08.TabIndex = 35;
 		buttonGoto08.ToolTipValues.Description = "Goes to the element of the place no. 8.";
 		buttonGoto08.ToolTipValues.EnableToolTips = true;
@@ -1077,10 +1091,9 @@ partial class RecordsTop10Form
 		buttonGoto07.AccessibleName = "Go to the element of the place no. 7";
 		buttonGoto07.AccessibleRole = AccessibleRole.PushButton;
 		buttonGoto07.ButtonStyle = ButtonStyle.Form;
-		buttonGoto07.Dock = DockStyle.Fill;
-		buttonGoto07.Location = new Point(368, 219);
+		buttonGoto07.Location = new Point(241, 203);
 		buttonGoto07.Name = "buttonGoto07";
-		buttonGoto07.Size = new Size(93, 23);
+		buttonGoto07.Size = new Size(69, 23);
 		buttonGoto07.TabIndex = 31;
 		buttonGoto07.ToolTipValues.Description = "Goes to the element of the place no. 7.";
 		buttonGoto07.ToolTipValues.EnableToolTips = true;
@@ -1101,10 +1114,9 @@ partial class RecordsTop10Form
 		buttonGoto06.AccessibleName = "Go to the element of the place no. 6";
 		buttonGoto06.AccessibleRole = AccessibleRole.PushButton;
 		buttonGoto06.ButtonStyle = ButtonStyle.Form;
-		buttonGoto06.Dock = DockStyle.Fill;
-		buttonGoto06.Location = new Point(368, 190);
+		buttonGoto06.Location = new Point(241, 174);
 		buttonGoto06.Name = "buttonGoto06";
-		buttonGoto06.Size = new Size(93, 23);
+		buttonGoto06.Size = new Size(69, 23);
 		buttonGoto06.TabIndex = 27;
 		buttonGoto06.ToolTipValues.Description = "Goes to the element of the place no. 6.";
 		buttonGoto06.ToolTipValues.EnableToolTips = true;
@@ -1125,10 +1137,9 @@ partial class RecordsTop10Form
 		buttonGoto05.AccessibleName = "Go to the element of the place no. 5";
 		buttonGoto05.AccessibleRole = AccessibleRole.PushButton;
 		buttonGoto05.ButtonStyle = ButtonStyle.Form;
-		buttonGoto05.Dock = DockStyle.Fill;
-		buttonGoto05.Location = new Point(368, 161);
+		buttonGoto05.Location = new Point(241, 145);
 		buttonGoto05.Name = "buttonGoto05";
-		buttonGoto05.Size = new Size(93, 23);
+		buttonGoto05.Size = new Size(69, 23);
 		buttonGoto05.TabIndex = 23;
 		buttonGoto05.ToolTipValues.Description = "Goes to the element of the place no. 5.";
 		buttonGoto05.ToolTipValues.EnableToolTips = true;
@@ -1149,10 +1160,9 @@ partial class RecordsTop10Form
 		buttonGoto04.AccessibleName = "Go to the element of the place no. 4";
 		buttonGoto04.AccessibleRole = AccessibleRole.PushButton;
 		buttonGoto04.ButtonStyle = ButtonStyle.Form;
-		buttonGoto04.Dock = DockStyle.Fill;
-		buttonGoto04.Location = new Point(368, 132);
+		buttonGoto04.Location = new Point(241, 116);
 		buttonGoto04.Name = "buttonGoto04";
-		buttonGoto04.Size = new Size(93, 23);
+		buttonGoto04.Size = new Size(69, 23);
 		buttonGoto04.TabIndex = 19;
 		buttonGoto04.ToolTipValues.Description = "Goes to the element of the place no. 4.";
 		buttonGoto04.ToolTipValues.EnableToolTips = true;
@@ -1173,10 +1183,9 @@ partial class RecordsTop10Form
 		buttonGoto03.AccessibleName = "Go to the element of the place no. 3";
 		buttonGoto03.AccessibleRole = AccessibleRole.PushButton;
 		buttonGoto03.ButtonStyle = ButtonStyle.Form;
-		buttonGoto03.Dock = DockStyle.Fill;
-		buttonGoto03.Location = new Point(368, 103);
+		buttonGoto03.Location = new Point(241, 87);
 		buttonGoto03.Name = "buttonGoto03";
-		buttonGoto03.Size = new Size(93, 23);
+		buttonGoto03.Size = new Size(69, 23);
 		buttonGoto03.TabIndex = 15;
 		buttonGoto03.ToolTipValues.Description = "Goes to the element of the place no. 3.";
 		buttonGoto03.ToolTipValues.EnableToolTips = true;
@@ -1197,10 +1206,9 @@ partial class RecordsTop10Form
 		buttonGoto02.AccessibleName = "Go to the element of the place no. 2";
 		buttonGoto02.AccessibleRole = AccessibleRole.PushButton;
 		buttonGoto02.ButtonStyle = ButtonStyle.Form;
-		buttonGoto02.Dock = DockStyle.Fill;
-		buttonGoto02.Location = new Point(368, 74);
+		buttonGoto02.Location = new Point(241, 58);
 		buttonGoto02.Name = "buttonGoto02";
-		buttonGoto02.Size = new Size(93, 23);
+		buttonGoto02.Size = new Size(69, 23);
 		buttonGoto02.TabIndex = 11;
 		buttonGoto02.ToolTipValues.Description = "Goes to the element of the place no. 2.";
 		buttonGoto02.ToolTipValues.EnableToolTips = true;
@@ -1221,11 +1229,11 @@ partial class RecordsTop10Form
 		labelPlace10.AccessibleName = "Record place no. 10";
 		labelPlace10.AccessibleRole = AccessibleRole.StaticText;
 		labelPlace10.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelPlace10.Dock = DockStyle.Fill;
+		labelPlace10.Dock = DockStyle.Top;
 		labelPlace10.LabelStyle = LabelStyle.ItalicPanel;
-		labelPlace10.Location = new Point(3, 306);
+		labelPlace10.Location = new Point(3, 290);
 		labelPlace10.Name = "labelPlace10";
-		labelPlace10.Size = new Size(46, 23);
+		labelPlace10.Size = new Size(41, 20);
 		labelPlace10.TabIndex = 40;
 		labelPlace10.ToolTipValues.Description = "Shows the record place no. 10.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelPlace10.ToolTipValues.EnableToolTips = true;
@@ -1244,11 +1252,11 @@ partial class RecordsTop10Form
 		labelPlace05.AccessibleName = "Record place no. 5";
 		labelPlace05.AccessibleRole = AccessibleRole.StaticText;
 		labelPlace05.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelPlace05.Dock = DockStyle.Fill;
+		labelPlace05.Dock = DockStyle.Top;
 		labelPlace05.LabelStyle = LabelStyle.ItalicPanel;
-		labelPlace05.Location = new Point(3, 161);
+		labelPlace05.Location = new Point(3, 145);
 		labelPlace05.Name = "labelPlace05";
-		labelPlace05.Size = new Size(46, 23);
+		labelPlace05.Size = new Size(41, 20);
 		labelPlace05.TabIndex = 20;
 		labelPlace05.ToolTipValues.Description = "Shows the record place no. 5.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelPlace05.ToolTipValues.EnableToolTips = true;
@@ -1267,11 +1275,11 @@ partial class RecordsTop10Form
 		labelPlace04.AccessibleName = "Record place no. 4";
 		labelPlace04.AccessibleRole = AccessibleRole.StaticText;
 		labelPlace04.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelPlace04.Dock = DockStyle.Fill;
+		labelPlace04.Dock = DockStyle.Top;
 		labelPlace04.LabelStyle = LabelStyle.ItalicPanel;
-		labelPlace04.Location = new Point(3, 132);
+		labelPlace04.Location = new Point(3, 116);
 		labelPlace04.Name = "labelPlace04";
-		labelPlace04.Size = new Size(46, 23);
+		labelPlace04.Size = new Size(41, 20);
 		labelPlace04.TabIndex = 16;
 		labelPlace04.ToolTipValues.Description = "Shows the record place no. 4.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelPlace04.ToolTipValues.EnableToolTips = true;
@@ -1290,11 +1298,11 @@ partial class RecordsTop10Form
 		labelPlace03.AccessibleName = "Record place no. 3";
 		labelPlace03.AccessibleRole = AccessibleRole.StaticText;
 		labelPlace03.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelPlace03.Dock = DockStyle.Fill;
+		labelPlace03.Dock = DockStyle.Top;
 		labelPlace03.LabelStyle = LabelStyle.ItalicPanel;
-		labelPlace03.Location = new Point(3, 103);
+		labelPlace03.Location = new Point(3, 87);
 		labelPlace03.Name = "labelPlace03";
-		labelPlace03.Size = new Size(46, 23);
+		labelPlace03.Size = new Size(41, 20);
 		labelPlace03.TabIndex = 12;
 		labelPlace03.ToolTipValues.Description = "Shows the record place no. 3.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelPlace03.ToolTipValues.EnableToolTips = true;
@@ -1313,11 +1321,11 @@ partial class RecordsTop10Form
 		labelPlace01.AccessibleName = "Record place no.";
 		labelPlace01.AccessibleRole = AccessibleRole.StaticText;
 		labelPlace01.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelPlace01.Dock = DockStyle.Fill;
+		labelPlace01.Dock = DockStyle.Top;
 		labelPlace01.LabelStyle = LabelStyle.ItalicPanel;
-		labelPlace01.Location = new Point(3, 45);
+		labelPlace01.Location = new Point(3, 29);
 		labelPlace01.Name = "labelPlace01";
-		labelPlace01.Size = new Size(46, 23);
+		labelPlace01.Size = new Size(41, 20);
 		labelPlace01.TabIndex = 4;
 		labelPlace01.ToolTipValues.Description = "Shows the record place no 1.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelPlace01.ToolTipValues.EnableToolTips = true;
@@ -1336,11 +1344,11 @@ partial class RecordsTop10Form
 		labelPlace02.AccessibleName = "Record place no. 2";
 		labelPlace02.AccessibleRole = AccessibleRole.StaticText;
 		labelPlace02.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelPlace02.Dock = DockStyle.Fill;
+		labelPlace02.Dock = DockStyle.Top;
 		labelPlace02.LabelStyle = LabelStyle.ItalicPanel;
-		labelPlace02.Location = new Point(3, 74);
+		labelPlace02.Location = new Point(3, 58);
 		labelPlace02.Name = "labelPlace02";
-		labelPlace02.Size = new Size(46, 23);
+		labelPlace02.Size = new Size(41, 20);
 		labelPlace02.TabIndex = 8;
 		labelPlace02.ToolTipValues.Description = "Shows the record place no. 2.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelPlace02.ToolTipValues.EnableToolTips = true;
@@ -1359,11 +1367,11 @@ partial class RecordsTop10Form
 		labelPlace06.AccessibleName = "Record place no. 6";
 		labelPlace06.AccessibleRole = AccessibleRole.StaticText;
 		labelPlace06.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelPlace06.Dock = DockStyle.Fill;
+		labelPlace06.Dock = DockStyle.Top;
 		labelPlace06.LabelStyle = LabelStyle.ItalicPanel;
-		labelPlace06.Location = new Point(3, 190);
+		labelPlace06.Location = new Point(3, 174);
 		labelPlace06.Name = "labelPlace06";
-		labelPlace06.Size = new Size(46, 23);
+		labelPlace06.Size = new Size(41, 20);
 		labelPlace06.TabIndex = 24;
 		labelPlace06.ToolTipValues.Description = "Shows the record place no. 6.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelPlace06.ToolTipValues.EnableToolTips = true;
@@ -1382,11 +1390,11 @@ partial class RecordsTop10Form
 		labelPlace07.AccessibleName = "Record place no. 7";
 		labelPlace07.AccessibleRole = AccessibleRole.StaticText;
 		labelPlace07.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelPlace07.Dock = DockStyle.Fill;
+		labelPlace07.Dock = DockStyle.Top;
 		labelPlace07.LabelStyle = LabelStyle.ItalicPanel;
-		labelPlace07.Location = new Point(3, 219);
+		labelPlace07.Location = new Point(3, 203);
 		labelPlace07.Name = "labelPlace07";
-		labelPlace07.Size = new Size(46, 23);
+		labelPlace07.Size = new Size(41, 20);
 		labelPlace07.TabIndex = 28;
 		labelPlace07.ToolTipValues.Description = "Shows the record place no. 7.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelPlace07.ToolTipValues.EnableToolTips = true;
@@ -1405,11 +1413,11 @@ partial class RecordsTop10Form
 		labelPlace08.AccessibleName = "Record place no. 8";
 		labelPlace08.AccessibleRole = AccessibleRole.StaticText;
 		labelPlace08.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelPlace08.Dock = DockStyle.Fill;
+		labelPlace08.Dock = DockStyle.Top;
 		labelPlace08.LabelStyle = LabelStyle.ItalicPanel;
-		labelPlace08.Location = new Point(3, 248);
+		labelPlace08.Location = new Point(3, 232);
 		labelPlace08.Name = "labelPlace08";
-		labelPlace08.Size = new Size(46, 23);
+		labelPlace08.Size = new Size(41, 20);
 		labelPlace08.TabIndex = 32;
 		labelPlace08.ToolTipValues.Description = "Shows the record place no. 8.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelPlace08.ToolTipValues.EnableToolTips = true;
@@ -1428,11 +1436,11 @@ partial class RecordsTop10Form
 		labelPlace09.AccessibleName = "Record place no. 9";
 		labelPlace09.AccessibleRole = AccessibleRole.StaticText;
 		labelPlace09.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelPlace09.Dock = DockStyle.Fill;
+		labelPlace09.Dock = DockStyle.Top;
 		labelPlace09.LabelStyle = LabelStyle.ItalicPanel;
-		labelPlace09.Location = new Point(3, 277);
+		labelPlace09.Location = new Point(3, 261);
 		labelPlace09.Name = "labelPlace09";
-		labelPlace09.Size = new Size(46, 23);
+		labelPlace09.Size = new Size(41, 20);
 		labelPlace09.TabIndex = 36;
 		labelPlace09.ToolTipValues.Description = "Shows the record place no. 9.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelPlace09.ToolTipValues.EnableToolTips = true;
@@ -1445,47 +1453,23 @@ partial class RecordsTop10Form
 		labelPlace09.MouseEnter += Control_Enter;
 		labelPlace09.MouseLeave += Control_Leave;
 		// 
-		// buttonGoto01
-		// 
-		buttonGoto01.AccessibleDescription = "Goes to the element of the place no. 1";
-		buttonGoto01.AccessibleName = "Go to the element of the place no. 1";
-		buttonGoto01.AccessibleRole = AccessibleRole.PushButton;
-		buttonGoto01.ButtonStyle = ButtonStyle.Form;
-		buttonGoto01.Dock = DockStyle.Fill;
-		buttonGoto01.Location = new Point(368, 45);
-		buttonGoto01.Name = "buttonGoto01";
-		buttonGoto01.Size = new Size(93, 23);
-		buttonGoto01.TabIndex = 7;
-		buttonGoto01.ToolTipValues.Description = "Goes to the element of the place no. 1.";
-		buttonGoto01.ToolTipValues.EnableToolTips = true;
-		buttonGoto01.ToolTipValues.Heading = "Go to the element of the place no. 1";
-		buttonGoto01.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		buttonGoto01.Values.DropDownArrowColor = Color.Empty;
-		buttonGoto01.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
-		buttonGoto01.Values.Text = "Goto";
-		buttonGoto01.Click += Goto01_Click;
-		buttonGoto01.Enter += Control_Enter;
-		buttonGoto01.Leave += Control_Leave;
-		buttonGoto01.MouseEnter += Control_Enter;
-		buttonGoto01.MouseLeave += Control_Leave;
-		// 
 		// labelReadableDesignationHeader
 		// 
 		labelReadableDesignationHeader.AccessibleDescription = "Shows the readable designation header";
 		labelReadableDesignationHeader.AccessibleName = "Readable designation header";
 		labelReadableDesignationHeader.AccessibleRole = AccessibleRole.StaticText;
 		labelReadableDesignationHeader.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelReadableDesignationHeader.Dock = DockStyle.Fill;
+		labelReadableDesignationHeader.Dock = DockStyle.Top;
 		labelReadableDesignationHeader.LabelStyle = LabelStyle.BoldPanel;
-		labelReadableDesignationHeader.Location = new Point(55, 3);
+		labelReadableDesignationHeader.Location = new Point(50, 3);
 		labelReadableDesignationHeader.Name = "labelReadableDesignationHeader";
-		labelReadableDesignationHeader.Size = new Size(180, 36);
+		labelReadableDesignationHeader.Size = new Size(136, 20);
 		labelReadableDesignationHeader.TabIndex = 1;
 		labelReadableDesignationHeader.ToolTipValues.Description = "Shows the readable designation header.";
 		labelReadableDesignationHeader.ToolTipValues.EnableToolTips = true;
 		labelReadableDesignationHeader.ToolTipValues.Heading = "Readable designation header";
 		labelReadableDesignationHeader.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelReadableDesignationHeader.Values.Text = "Readable \r\ndesignation";
+		labelReadableDesignationHeader.Values.Text = "Readable designation";
 		labelReadableDesignationHeader.Enter += Control_Enter;
 		labelReadableDesignationHeader.Leave += Control_Leave;
 		labelReadableDesignationHeader.MouseDown += Control_MouseDown;
@@ -1498,11 +1482,11 @@ partial class RecordsTop10Form
 		labelValueHeader.AccessibleName = "Value header";
 		labelValueHeader.AccessibleRole = AccessibleRole.StaticText;
 		labelValueHeader.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelValueHeader.Dock = DockStyle.Fill;
+		labelValueHeader.Dock = DockStyle.Top;
 		labelValueHeader.LabelStyle = LabelStyle.BoldPanel;
-		labelValueHeader.Location = new Point(241, 3);
+		labelValueHeader.Location = new Point(192, 3);
 		labelValueHeader.Name = "labelValueHeader";
-		labelValueHeader.Size = new Size(121, 36);
+		labelValueHeader.Size = new Size(43, 20);
 		labelValueHeader.TabIndex = 2;
 		labelValueHeader.ToolTipValues.Description = "Shows the value header.";
 		labelValueHeader.ToolTipValues.EnableToolTips = true;
@@ -1521,10 +1505,10 @@ partial class RecordsTop10Form
 		labelReadableDesignation01.AccessibleName = "Readable designation no. 1";
 		labelReadableDesignation01.AccessibleRole = AccessibleRole.StaticText;
 		labelReadableDesignation01.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelReadableDesignation01.Dock = DockStyle.Fill;
-		labelReadableDesignation01.Location = new Point(55, 45);
+		labelReadableDesignation01.Dock = DockStyle.Top;
+		labelReadableDesignation01.Location = new Point(50, 29);
 		labelReadableDesignation01.Name = "labelReadableDesignation01";
-		labelReadableDesignation01.Size = new Size(180, 23);
+		labelReadableDesignation01.Size = new Size(136, 20);
 		labelReadableDesignation01.TabIndex = 5;
 		labelReadableDesignation01.ToolTipValues.Description = "Shows the readable designation of place no. 1.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelReadableDesignation01.ToolTipValues.EnableToolTips = true;
@@ -1544,10 +1528,10 @@ partial class RecordsTop10Form
 		labelReadableDesignation02.AccessibleName = "Readable designation no. 2";
 		labelReadableDesignation02.AccessibleRole = AccessibleRole.StaticText;
 		labelReadableDesignation02.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelReadableDesignation02.Dock = DockStyle.Fill;
-		labelReadableDesignation02.Location = new Point(55, 74);
+		labelReadableDesignation02.Dock = DockStyle.Top;
+		labelReadableDesignation02.Location = new Point(50, 58);
 		labelReadableDesignation02.Name = "labelReadableDesignation02";
-		labelReadableDesignation02.Size = new Size(180, 23);
+		labelReadableDesignation02.Size = new Size(136, 20);
 		labelReadableDesignation02.TabIndex = 9;
 		labelReadableDesignation02.ToolTipValues.Description = "Shows the readable designation of place no. 2.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelReadableDesignation02.ToolTipValues.EnableToolTips = true;
@@ -1567,10 +1551,10 @@ partial class RecordsTop10Form
 		labelReadableDesignation03.AccessibleName = "Readable designation no. 3";
 		labelReadableDesignation03.AccessibleRole = AccessibleRole.StaticText;
 		labelReadableDesignation03.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelReadableDesignation03.Dock = DockStyle.Fill;
-		labelReadableDesignation03.Location = new Point(55, 103);
+		labelReadableDesignation03.Dock = DockStyle.Top;
+		labelReadableDesignation03.Location = new Point(50, 87);
 		labelReadableDesignation03.Name = "labelReadableDesignation03";
-		labelReadableDesignation03.Size = new Size(180, 23);
+		labelReadableDesignation03.Size = new Size(136, 20);
 		labelReadableDesignation03.TabIndex = 13;
 		labelReadableDesignation03.ToolTipValues.Description = "Shows the readable designation of place no. 3.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelReadableDesignation03.ToolTipValues.EnableToolTips = true;
@@ -1590,10 +1574,10 @@ partial class RecordsTop10Form
 		labelReadableDesignation04.AccessibleName = "Readable designation no. 4";
 		labelReadableDesignation04.AccessibleRole = AccessibleRole.StaticText;
 		labelReadableDesignation04.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelReadableDesignation04.Dock = DockStyle.Fill;
-		labelReadableDesignation04.Location = new Point(55, 132);
+		labelReadableDesignation04.Dock = DockStyle.Top;
+		labelReadableDesignation04.Location = new Point(50, 116);
 		labelReadableDesignation04.Name = "labelReadableDesignation04";
-		labelReadableDesignation04.Size = new Size(180, 23);
+		labelReadableDesignation04.Size = new Size(136, 20);
 		labelReadableDesignation04.TabIndex = 17;
 		labelReadableDesignation04.ToolTipValues.Description = "Shows the readable designation of place no. 4.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelReadableDesignation04.ToolTipValues.EnableToolTips = true;
@@ -1613,10 +1597,10 @@ partial class RecordsTop10Form
 		labelReadableDesignation05.AccessibleName = "Readable designation no. 5";
 		labelReadableDesignation05.AccessibleRole = AccessibleRole.StaticText;
 		labelReadableDesignation05.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelReadableDesignation05.Dock = DockStyle.Fill;
-		labelReadableDesignation05.Location = new Point(55, 161);
+		labelReadableDesignation05.Dock = DockStyle.Top;
+		labelReadableDesignation05.Location = new Point(50, 145);
 		labelReadableDesignation05.Name = "labelReadableDesignation05";
-		labelReadableDesignation05.Size = new Size(180, 23);
+		labelReadableDesignation05.Size = new Size(136, 20);
 		labelReadableDesignation05.TabIndex = 21;
 		labelReadableDesignation05.ToolTipValues.Description = "Shows the readable designation of place no. 5.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelReadableDesignation05.ToolTipValues.EnableToolTips = true;
@@ -1636,10 +1620,10 @@ partial class RecordsTop10Form
 		labelReadableDesignation06.AccessibleName = "Readable designation no. 6";
 		labelReadableDesignation06.AccessibleRole = AccessibleRole.StaticText;
 		labelReadableDesignation06.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelReadableDesignation06.Dock = DockStyle.Fill;
-		labelReadableDesignation06.Location = new Point(55, 190);
+		labelReadableDesignation06.Dock = DockStyle.Top;
+		labelReadableDesignation06.Location = new Point(50, 174);
 		labelReadableDesignation06.Name = "labelReadableDesignation06";
-		labelReadableDesignation06.Size = new Size(180, 23);
+		labelReadableDesignation06.Size = new Size(136, 20);
 		labelReadableDesignation06.TabIndex = 25;
 		labelReadableDesignation06.ToolTipValues.Description = "Shows the readable designation of place no. 6.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelReadableDesignation06.ToolTipValues.EnableToolTips = true;
@@ -1659,10 +1643,10 @@ partial class RecordsTop10Form
 		labelReadableDesignation07.AccessibleName = "Readable designation no. 7";
 		labelReadableDesignation07.AccessibleRole = AccessibleRole.StaticText;
 		labelReadableDesignation07.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelReadableDesignation07.Dock = DockStyle.Fill;
-		labelReadableDesignation07.Location = new Point(55, 219);
+		labelReadableDesignation07.Dock = DockStyle.Top;
+		labelReadableDesignation07.Location = new Point(50, 203);
 		labelReadableDesignation07.Name = "labelReadableDesignation07";
-		labelReadableDesignation07.Size = new Size(180, 23);
+		labelReadableDesignation07.Size = new Size(136, 20);
 		labelReadableDesignation07.TabIndex = 29;
 		labelReadableDesignation07.ToolTipValues.Description = "Shows the readable designation of place no. 7.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelReadableDesignation07.ToolTipValues.EnableToolTips = true;
@@ -1682,10 +1666,10 @@ partial class RecordsTop10Form
 		labelReadableDesignation08.AccessibleName = "Readable designation no. 8";
 		labelReadableDesignation08.AccessibleRole = AccessibleRole.StaticText;
 		labelReadableDesignation08.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelReadableDesignation08.Dock = DockStyle.Fill;
-		labelReadableDesignation08.Location = new Point(55, 248);
+		labelReadableDesignation08.Dock = DockStyle.Top;
+		labelReadableDesignation08.Location = new Point(50, 232);
 		labelReadableDesignation08.Name = "labelReadableDesignation08";
-		labelReadableDesignation08.Size = new Size(180, 23);
+		labelReadableDesignation08.Size = new Size(136, 20);
 		labelReadableDesignation08.TabIndex = 33;
 		labelReadableDesignation08.ToolTipValues.Description = "Shows the readable designation of place no. 8.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelReadableDesignation08.ToolTipValues.EnableToolTips = true;
@@ -1705,10 +1689,10 @@ partial class RecordsTop10Form
 		labelReadableDesignation09.AccessibleName = "Readable designation no. 9";
 		labelReadableDesignation09.AccessibleRole = AccessibleRole.StaticText;
 		labelReadableDesignation09.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelReadableDesignation09.Dock = DockStyle.Fill;
-		labelReadableDesignation09.Location = new Point(55, 277);
+		labelReadableDesignation09.Dock = DockStyle.Top;
+		labelReadableDesignation09.Location = new Point(50, 261);
 		labelReadableDesignation09.Name = "labelReadableDesignation09";
-		labelReadableDesignation09.Size = new Size(180, 23);
+		labelReadableDesignation09.Size = new Size(136, 20);
 		labelReadableDesignation09.TabIndex = 37;
 		labelReadableDesignation09.ToolTipValues.Description = "Shows the readable designation of place no. 9.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelReadableDesignation09.ToolTipValues.EnableToolTips = true;
@@ -1728,10 +1712,10 @@ partial class RecordsTop10Form
 		labelReadableDesignation10.AccessibleName = "Readable designation no. 10";
 		labelReadableDesignation10.AccessibleRole = AccessibleRole.StaticText;
 		labelReadableDesignation10.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelReadableDesignation10.Dock = DockStyle.Fill;
-		labelReadableDesignation10.Location = new Point(55, 306);
+		labelReadableDesignation10.Dock = DockStyle.Top;
+		labelReadableDesignation10.Location = new Point(50, 290);
 		labelReadableDesignation10.Name = "labelReadableDesignation10";
-		labelReadableDesignation10.Size = new Size(180, 23);
+		labelReadableDesignation10.Size = new Size(136, 20);
 		labelReadableDesignation10.TabIndex = 41;
 		labelReadableDesignation10.ToolTipValues.Description = "Shows the readable designation of place no. 10.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelReadableDesignation10.ToolTipValues.EnableToolTips = true;
@@ -1751,10 +1735,10 @@ partial class RecordsTop10Form
 		labelValue01.AccessibleName = "Value no. 1";
 		labelValue01.AccessibleRole = AccessibleRole.StaticText;
 		labelValue01.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelValue01.Dock = DockStyle.Fill;
-		labelValue01.Location = new Point(241, 45);
+		labelValue01.Dock = DockStyle.Top;
+		labelValue01.Location = new Point(192, 29);
 		labelValue01.Name = "labelValue01";
-		labelValue01.Size = new Size(121, 23);
+		labelValue01.Size = new Size(43, 20);
 		labelValue01.TabIndex = 6;
 		labelValue01.ToolTipValues.Description = "Shows the value of place  no. 1.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelValue01.ToolTipValues.EnableToolTips = true;
@@ -1774,10 +1758,10 @@ partial class RecordsTop10Form
 		labelValue02.AccessibleName = "Value no. 2";
 		labelValue02.AccessibleRole = AccessibleRole.StaticText;
 		labelValue02.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelValue02.Dock = DockStyle.Fill;
-		labelValue02.Location = new Point(241, 74);
+		labelValue02.Dock = DockStyle.Top;
+		labelValue02.Location = new Point(192, 58);
 		labelValue02.Name = "labelValue02";
-		labelValue02.Size = new Size(121, 23);
+		labelValue02.Size = new Size(43, 20);
 		labelValue02.TabIndex = 10;
 		labelValue02.ToolTipValues.Description = "Shows the value of place no. 2.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelValue02.ToolTipValues.EnableToolTips = true;
@@ -1797,10 +1781,10 @@ partial class RecordsTop10Form
 		labelValue03.AccessibleName = "Value no. 3";
 		labelValue03.AccessibleRole = AccessibleRole.StaticText;
 		labelValue03.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelValue03.Dock = DockStyle.Fill;
-		labelValue03.Location = new Point(241, 103);
+		labelValue03.Dock = DockStyle.Top;
+		labelValue03.Location = new Point(192, 87);
 		labelValue03.Name = "labelValue03";
-		labelValue03.Size = new Size(121, 23);
+		labelValue03.Size = new Size(43, 20);
 		labelValue03.TabIndex = 14;
 		labelValue03.ToolTipValues.Description = "Shows the value of place no. 3.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelValue03.ToolTipValues.EnableToolTips = true;
@@ -1820,10 +1804,10 @@ partial class RecordsTop10Form
 		labelValue04.AccessibleName = "Value no. 4";
 		labelValue04.AccessibleRole = AccessibleRole.StaticText;
 		labelValue04.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelValue04.Dock = DockStyle.Fill;
-		labelValue04.Location = new Point(241, 132);
+		labelValue04.Dock = DockStyle.Top;
+		labelValue04.Location = new Point(192, 116);
 		labelValue04.Name = "labelValue04";
-		labelValue04.Size = new Size(121, 23);
+		labelValue04.Size = new Size(43, 20);
 		labelValue04.TabIndex = 18;
 		labelValue04.ToolTipValues.Description = "Shows the value of place no. 4.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelValue04.ToolTipValues.EnableToolTips = true;
@@ -1843,10 +1827,10 @@ partial class RecordsTop10Form
 		labelValue05.AccessibleName = "Value no. 5";
 		labelValue05.AccessibleRole = AccessibleRole.StaticText;
 		labelValue05.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelValue05.Dock = DockStyle.Fill;
-		labelValue05.Location = new Point(241, 161);
+		labelValue05.Dock = DockStyle.Top;
+		labelValue05.Location = new Point(192, 145);
 		labelValue05.Name = "labelValue05";
-		labelValue05.Size = new Size(121, 23);
+		labelValue05.Size = new Size(43, 20);
 		labelValue05.TabIndex = 22;
 		labelValue05.ToolTipValues.Description = "Shows the value of place no. 5.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelValue05.ToolTipValues.EnableToolTips = true;
@@ -1866,10 +1850,10 @@ partial class RecordsTop10Form
 		labelValue06.AccessibleName = "Value no. 6";
 		labelValue06.AccessibleRole = AccessibleRole.StaticText;
 		labelValue06.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelValue06.Dock = DockStyle.Fill;
-		labelValue06.Location = new Point(241, 190);
+		labelValue06.Dock = DockStyle.Top;
+		labelValue06.Location = new Point(192, 174);
 		labelValue06.Name = "labelValue06";
-		labelValue06.Size = new Size(121, 23);
+		labelValue06.Size = new Size(43, 20);
 		labelValue06.TabIndex = 26;
 		labelValue06.ToolTipValues.Description = "Shows the value of place no. 6.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelValue06.ToolTipValues.EnableToolTips = true;
@@ -1889,10 +1873,10 @@ partial class RecordsTop10Form
 		labelValue07.AccessibleName = "Value no. 7";
 		labelValue07.AccessibleRole = AccessibleRole.StaticText;
 		labelValue07.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelValue07.Dock = DockStyle.Fill;
-		labelValue07.Location = new Point(241, 219);
+		labelValue07.Dock = DockStyle.Top;
+		labelValue07.Location = new Point(192, 203);
 		labelValue07.Name = "labelValue07";
-		labelValue07.Size = new Size(121, 23);
+		labelValue07.Size = new Size(43, 20);
 		labelValue07.TabIndex = 30;
 		labelValue07.ToolTipValues.Description = "Shows the value of place no. 7.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelValue07.ToolTipValues.EnableToolTips = true;
@@ -1912,10 +1896,10 @@ partial class RecordsTop10Form
 		labelValue08.AccessibleName = "Value no. 8";
 		labelValue08.AccessibleRole = AccessibleRole.StaticText;
 		labelValue08.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelValue08.Dock = DockStyle.Fill;
-		labelValue08.Location = new Point(241, 248);
+		labelValue08.Dock = DockStyle.Top;
+		labelValue08.Location = new Point(192, 232);
 		labelValue08.Name = "labelValue08";
-		labelValue08.Size = new Size(121, 23);
+		labelValue08.Size = new Size(43, 20);
 		labelValue08.TabIndex = 34;
 		labelValue08.ToolTipValues.Description = "Shows the value of place no. 8.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelValue08.ToolTipValues.EnableToolTips = true;
@@ -1935,10 +1919,10 @@ partial class RecordsTop10Form
 		labelValue09.AccessibleName = "Value no. 9";
 		labelValue09.AccessibleRole = AccessibleRole.StaticText;
 		labelValue09.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelValue09.Dock = DockStyle.Fill;
-		labelValue09.Location = new Point(241, 277);
+		labelValue09.Dock = DockStyle.Top;
+		labelValue09.Location = new Point(192, 261);
 		labelValue09.Name = "labelValue09";
-		labelValue09.Size = new Size(121, 23);
+		labelValue09.Size = new Size(43, 20);
 		labelValue09.TabIndex = 38;
 		labelValue09.ToolTipValues.Description = "Shows the value of place no. 9.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelValue09.ToolTipValues.EnableToolTips = true;
@@ -1958,10 +1942,10 @@ partial class RecordsTop10Form
 		labelValue10.AccessibleName = "Value no. 10";
 		labelValue10.AccessibleRole = AccessibleRole.StaticText;
 		labelValue10.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelValue10.Dock = DockStyle.Fill;
-		labelValue10.Location = new Point(241, 306);
+		labelValue10.Dock = DockStyle.Top;
+		labelValue10.Location = new Point(192, 290);
 		labelValue10.Name = "labelValue10";
-		labelValue10.Size = new Size(121, 23);
+		labelValue10.Size = new Size(43, 20);
 		labelValue10.TabIndex = 42;
 		labelValue10.ToolTipValues.Description = "Shows the value of place no. 10.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelValue10.ToolTipValues.EnableToolTips = true;
@@ -1981,10 +1965,9 @@ partial class RecordsTop10Form
 		buttonGoto10.AccessibleName = "Go to the element of the place no. 10";
 		buttonGoto10.AccessibleRole = AccessibleRole.PushButton;
 		buttonGoto10.ButtonStyle = ButtonStyle.Form;
-		buttonGoto10.Dock = DockStyle.Fill;
-		buttonGoto10.Location = new Point(368, 306);
+		buttonGoto10.Location = new Point(241, 290);
 		buttonGoto10.Name = "buttonGoto10";
-		buttonGoto10.Size = new Size(93, 23);
+		buttonGoto10.Size = new Size(69, 23);
 		buttonGoto10.TabIndex = 43;
 		buttonGoto10.ToolTipValues.Description = "Goes to the element of the place no. 10.";
 		buttonGoto10.ToolTipValues.EnableToolTips = true;
@@ -1998,6 +1981,29 @@ partial class RecordsTop10Form
 		buttonGoto10.Leave += Control_Leave;
 		buttonGoto10.MouseEnter += Control_Enter;
 		buttonGoto10.MouseLeave += Control_Leave;
+		// 
+		// buttonGoto01
+		// 
+		buttonGoto01.AccessibleDescription = "Goes to the element of the place no. 1";
+		buttonGoto01.AccessibleName = "Go to the element of the place no. 1";
+		buttonGoto01.AccessibleRole = AccessibleRole.PushButton;
+		buttonGoto01.ButtonStyle = ButtonStyle.Form;
+		buttonGoto01.Location = new Point(241, 29);
+		buttonGoto01.Name = "buttonGoto01";
+		buttonGoto01.Size = new Size(69, 23);
+		buttonGoto01.TabIndex = 7;
+		buttonGoto01.ToolTipValues.Description = "Goes to the element of the place no. 1.";
+		buttonGoto01.ToolTipValues.EnableToolTips = true;
+		buttonGoto01.ToolTipValues.Heading = "Go to the element of the place no. 1";
+		buttonGoto01.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		buttonGoto01.Values.DropDownArrowColor = Color.Empty;
+		buttonGoto01.Values.Image = FatcowIcons16px.fatcow_bullet_go_16px;
+		buttonGoto01.Values.Text = "Goto";
+		buttonGoto01.Click += Goto01_Click;
+		buttonGoto01.Enter += Control_Enter;
+		buttonGoto01.Leave += Control_Leave;
+		buttonGoto01.MouseEnter += Control_Enter;
+		buttonGoto01.MouseLeave += Control_Leave;
 		// 
 		// kryptonStatusStrip
 		// 
@@ -2016,7 +2022,6 @@ partial class RecordsTop10Form
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
 		kryptonStatusStrip.ShowItemToolTips = true;
 		kryptonStatusStrip.Size = new Size(706, 22);
-		kryptonStatusStrip.SizingGrip = false;
 		kryptonStatusStrip.TabIndex = 0;
 		kryptonStatusStrip.TabStop = true;
 		kryptonStatusStrip.Text = "Status bar";
@@ -2028,14 +2033,13 @@ partial class RecordsTop10Form
 		// labelInformation
 		// 
 		labelInformation.AccessibleDescription = "Shows some information";
-		labelInformation.AccessibleName = "Shows some information";
+		labelInformation.AccessibleName = "Some information";
 		labelInformation.AccessibleRole = AccessibleRole.StaticText;
 		labelInformation.AutoToolTip = true;
 		labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
 		labelInformation.Name = "labelInformation";
 		labelInformation.Size = new Size(144, 17);
 		labelInformation.Text = "some information here";
-		labelInformation.ToolTipText = "Show some information";
 		labelInformation.MouseEnter += Control_Enter;
 		labelInformation.MouseLeave += Control_Leave;
 		// 
@@ -2235,20 +2239,6 @@ partial class RecordsTop10Form
 		kryptonProgressBar.MouseEnter += Control_Enter;
 		kryptonProgressBar.MouseLeave += Control_Leave;
 		// 
-		// toolStripMenuItemSaveAsTypst
-		// 
-		toolStripMenuItemSaveAsTypst.AccessibleDescription = "Saves the list as Typst file";
-		toolStripMenuItemSaveAsTypst.AccessibleName = "Save as Typst";
-		toolStripMenuItemSaveAsTypst.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemSaveAsTypst.AutoToolTip = true;
-		toolStripMenuItemSaveAsTypst.Image = FatcowIcons16px.fatcow_page_white_text_16px;
-		toolStripMenuItemSaveAsTypst.Name = "toolStripMenuItemSaveAsTypst";
-		toolStripMenuItemSaveAsTypst.Size = new Size(201, 22);
-		toolStripMenuItemSaveAsTypst.Text = "Save as T&ypst";
-		toolStripMenuItemSaveAsTypst.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAsTypst.MouseLeave += Control_Leave;
-		toolStripMenuItemSaveAsTypst.Click += SaveAsTypst_Click;
-		// 
 		// RecordsTop10Form
 		// 
 		AccessibleDescription = "Shows the top ten records";
@@ -2257,15 +2247,15 @@ partial class RecordsTop10Form
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(706, 404);
-		ControlBox = false;
 		Controls.Add(toolStripContainer);
-		FormBorderStyle = FormBorderStyle.FixedToolWindow;
+		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		Margin = new Padding(4, 3, 4, 3);
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "RecordsTop10Form";
-		StartPosition = FormStartPosition.CenterParent;
+		SizeGripStyle = SizeGripStyle.Hide;
+		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Top ten records";
 		Load += RecordsMainForm_Load;
 		((ISupportInitialize)kryptonPanelMain).EndInit();

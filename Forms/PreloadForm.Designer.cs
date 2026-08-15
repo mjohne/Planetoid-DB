@@ -190,8 +190,7 @@ partial class PreloadForm
 		kryptonStatusStrip.ProgressBars = null;
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
 		kryptonStatusStrip.ShowItemToolTips = true;
-		kryptonStatusStrip.Size = new Size(334, 22);
-		kryptonStatusStrip.SizingGrip = false;
+		kryptonStatusStrip.Size = new Size(339, 22);
 		kryptonStatusStrip.TabIndex = 1;
 		kryptonStatusStrip.TabStop = true;
 		kryptonStatusStrip.Text = "Status bar";
@@ -199,14 +198,13 @@ partial class PreloadForm
 		// labelInformation
 		// 
 		labelInformation.AccessibleDescription = "Shows some information";
-		labelInformation.AccessibleName = "Shows some information";
+		labelInformation.AccessibleName = "Some information";
 		labelInformation.AccessibleRole = AccessibleRole.StaticText;
 		labelInformation.AutoToolTip = true;
 		labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
 		labelInformation.Name = "labelInformation";
 		labelInformation.Size = new Size(144, 17);
 		labelInformation.Text = "some information here";
-		labelInformation.ToolTipText = "Shows some information";
 		// 
 		// kryptonPanelMain
 		// 
@@ -221,7 +219,7 @@ partial class PreloadForm
 		kryptonPanelMain.Location = new Point(0, 0);
 		kryptonPanelMain.Name = "kryptonPanelMain";
 		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptonPanelMain.Size = new Size(334, 278);
+		kryptonPanelMain.Size = new Size(339, 278);
 		kryptonPanelMain.TabIndex = 0;
 		kryptonPanelMain.TabStop = true;
 		// 
@@ -246,15 +244,13 @@ partial class PreloadForm
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
 		CancelButton = kryptonCommandLinkButtonExit;
-		ClientSize = new Size(334, 300);
-		ControlBox = false;
+		ClientSize = new Size(339, 300);
 		Controls.Add(kryptonPanelMain);
 		Controls.Add(kryptonStatusStrip);
-		FormBorderStyle = FormBorderStyle.FixedToolWindow;
+		FormBorderStyle = FormBorderStyle.FixedSingle;
 		Icon = (Icon)resources.GetObject("$this.Icon");
-		MaximizeBox = false;
-		MinimizeBox = false;
 		Name = "PreloadForm";
+		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Planetoid-DB Preloader";
 		Load += PreloadForm_Load;

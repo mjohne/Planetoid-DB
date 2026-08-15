@@ -89,6 +89,7 @@ partial class SettingsImportForm
 		tableLayoutPanelButtons.AccessibleDescription = "Groups the data";
 		tableLayoutPanelButtons.AccessibleName = "Table panel";
 		tableLayoutPanelButtons.AccessibleRole = AccessibleRole.Pane;
+		tableLayoutPanelButtons.AutoScroll = true;
 		tableLayoutPanelButtons.ColumnCount = 5;
 		tableLayoutPanelButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
 		tableLayoutPanelButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
@@ -232,14 +233,13 @@ partial class SettingsImportForm
 		// labelInformation
 		// 
 		labelInformation.AccessibleDescription = "Shows some information";
-		labelInformation.AccessibleName = "Shows some information";
+		labelInformation.AccessibleName = "Some information";
 		labelInformation.AccessibleRole = AccessibleRole.StaticText;
 		labelInformation.AutoToolTip = true;
 		labelInformation.Image = Resources.FatcowIcons16px.fatcow_lightbulb_16px;
 		labelInformation.Name = "labelInformation";
-		labelInformation.Size = new Size(0, 17);
+		labelInformation.Size = new Size(144, 17);
 		labelInformation.Text = "some information here";
-		labelInformation.ToolTipText = "Shows some information";
 		labelInformation.MouseEnter += Control_Enter;
 		labelInformation.MouseLeave += Control_Leave;
 		// 
@@ -252,7 +252,6 @@ partial class SettingsImportForm
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(444, 91);
-		ControlBox = false;
 		Controls.Add(kryptonPanel);
 		Controls.Add(kryptonStatusStrip);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
@@ -261,6 +260,7 @@ partial class SettingsImportForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "SettingsImportForm";
+		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Import Settings";
 		Load += SettingsImportForm_Load;

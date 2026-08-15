@@ -17,7 +17,7 @@ using Planetoid_DB.Resources;
 
 using System.Globalization;
 
-namespace Planetoid_DB;
+namespace Planetoid_DB.Forms;
 
 /// <summary>Represents a single error entry produced during bulk observations download.</summary>
 /// <param name="Timestamp">Date and time when the error occurred.</param>

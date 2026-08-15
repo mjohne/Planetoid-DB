@@ -66,12 +66,6 @@ namespace Planetoid_DB;
 		labelDateAccessedValue = new KryptonLabel();
 		labelDateWritedValue = new KryptonLabel();
 		tableLayoutPanel = new KryptonTableLayoutPanel();
-		labelAttributesValue = new KryptonLabel();
-		toolStripContainer = new ToolStripContainer();
-		kryptonStatusStrip = new KryptonStatusStrip();
-		labelInformation = new ToolStripStatusLabel();
-		kryptonToolStripIcons = new KryptonToolStrip();
-		toolStripDropDownButtonSaveToFile = new ToolStripDropDownButton();
 		contextMenuSaveToFile = new ContextMenuStrip(components);
 		toolStripMenuItemTextFiles = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsText = new ToolStripMenuItem();
@@ -113,6 +107,12 @@ namespace Planetoid_DB;
 		toolStripMenuItemSaveAsXps = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsFictionBook2 = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsChm = new ToolStripMenuItem();
+		toolStripDropDownButtonSaveToFile = new ToolStripDropDownButton();
+		labelAttributesValue = new KryptonLabel();
+		toolStripContainer = new ToolStripContainer();
+		kryptonStatusStrip = new KryptonStatusStrip();
+		labelInformation = new ToolStripStatusLabel();
+		kryptonToolStripIcons = new KryptonToolStrip();
 		toolStripDropDownButtonCopyToClipboard = new ToolStripDropDownButton();
 		contextMenuFullCopyToClipboard = new ContextMenuStrip(components);
 		menuitemCopyToClipboardName = new ToolStripMenuItem();
@@ -125,13 +125,13 @@ namespace Planetoid_DB;
 		kryptonManager = new KryptonManager(components);
 		contextMenuCopyToClipboard.SuspendLayout();
 		tableLayoutPanel.SuspendLayout();
+		contextMenuSaveToFile.SuspendLayout();
 		toolStripContainer.BottomToolStripPanel.SuspendLayout();
 		toolStripContainer.ContentPanel.SuspendLayout();
 		toolStripContainer.TopToolStripPanel.SuspendLayout();
 		toolStripContainer.SuspendLayout();
 		kryptonStatusStrip.SuspendLayout();
 		kryptonToolStripIcons.SuspendLayout();
-		contextMenuSaveToFile.SuspendLayout();
 		contextMenuFullCopyToClipboard.SuspendLayout();
 		SuspendLayout();
 		// 
@@ -140,7 +140,7 @@ namespace Planetoid_DB;
 		labelName.AccessibleDescription = "Shows the name of the database";
 		labelName.AccessibleName = "Name";
 		labelName.AccessibleRole = AccessibleRole.Text;
-		labelName.Dock = DockStyle.Fill;
+		labelName.Dock = DockStyle.Top;
 		labelName.LabelStyle = LabelStyle.BoldPanel;
 		labelName.Location = new Point(3, 3);
 		labelName.Name = "labelName";
@@ -162,7 +162,7 @@ namespace Planetoid_DB;
 		labelPath.AccessibleDescription = "Shows the path of the database";
 		labelPath.AccessibleName = "Path";
 		labelPath.AccessibleRole = AccessibleRole.Text;
-		labelPath.Dock = DockStyle.Fill;
+		labelPath.Dock = DockStyle.Top;
 		labelPath.LabelStyle = LabelStyle.BoldPanel;
 		labelPath.Location = new Point(3, 29);
 		labelPath.Name = "labelPath";
@@ -184,7 +184,7 @@ namespace Planetoid_DB;
 		labelSize.AccessibleDescription = "Shows the size of the database";
 		labelSize.AccessibleName = "Size";
 		labelSize.AccessibleRole = AccessibleRole.Text;
-		labelSize.Dock = DockStyle.Fill;
+		labelSize.Dock = DockStyle.Top;
 		labelSize.LabelStyle = LabelStyle.BoldPanel;
 		labelSize.Location = new Point(3, 55);
 		labelSize.Name = "labelSize";
@@ -206,7 +206,7 @@ namespace Planetoid_DB;
 		labelDateCreated.AccessibleDescription = "Shows the creation date of the database";
 		labelDateCreated.AccessibleName = "Creation date";
 		labelDateCreated.AccessibleRole = AccessibleRole.Text;
-		labelDateCreated.Dock = DockStyle.Fill;
+		labelDateCreated.Dock = DockStyle.Top;
 		labelDateCreated.LabelStyle = LabelStyle.BoldPanel;
 		labelDateCreated.Location = new Point(3, 81);
 		labelDateCreated.Name = "labelDateCreated";
@@ -228,7 +228,7 @@ namespace Planetoid_DB;
 		labelDateAccessed.AccessibleDescription = "Shows the last access date of the database";
 		labelDateAccessed.AccessibleName = "Last access date";
 		labelDateAccessed.AccessibleRole = AccessibleRole.Text;
-		labelDateAccessed.Dock = DockStyle.Fill;
+		labelDateAccessed.Dock = DockStyle.Top;
 		labelDateAccessed.LabelStyle = LabelStyle.BoldPanel;
 		labelDateAccessed.Location = new Point(4, 107);
 		labelDateAccessed.Margin = new Padding(4, 3, 4, 3);
@@ -251,7 +251,7 @@ namespace Planetoid_DB;
 		labelDateWrited.AccessibleDescription = "Shows the last write date of the database";
 		labelDateWrited.AccessibleName = "Last write date";
 		labelDateWrited.AccessibleRole = AccessibleRole.Text;
-		labelDateWrited.Dock = DockStyle.Fill;
+		labelDateWrited.Dock = DockStyle.Top;
 		labelDateWrited.LabelStyle = LabelStyle.BoldPanel;
 		labelDateWrited.Location = new Point(3, 133);
 		labelDateWrited.Name = "labelDateWrited";
@@ -273,12 +273,12 @@ namespace Planetoid_DB;
 		labelAttributes.AccessibleDescription = "Shows the attributes of the database";
 		labelAttributes.AccessibleName = "Attributes";
 		labelAttributes.AccessibleRole = AccessibleRole.Text;
-		labelAttributes.Dock = DockStyle.Fill;
+		labelAttributes.Dock = DockStyle.Top;
 		labelAttributes.LabelStyle = LabelStyle.BoldPanel;
 		labelAttributes.Location = new Point(4, 159);
 		labelAttributes.Margin = new Padding(4, 3, 4, 3);
 		labelAttributes.Name = "labelAttributes";
-		labelAttributes.Size = new Size(102, 25);
+		labelAttributes.Size = new Size(102, 20);
 		labelAttributes.TabIndex = 12;
 		labelAttributes.ToolTipValues.Description = "Shows the attributes of the database.\r\nDouble-click or right-click to copy the information to the clipboard.";
 		labelAttributes.ToolTipValues.EnableToolTips = true;
@@ -297,7 +297,7 @@ namespace Planetoid_DB;
 		labelNameValue.AccessibleName = "Name value";
 		labelNameValue.AccessibleRole = AccessibleRole.Text;
 		labelNameValue.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelNameValue.Dock = DockStyle.Fill;
+		labelNameValue.Dock = DockStyle.Top;
 		labelNameValue.Location = new Point(114, 3);
 		labelNameValue.Margin = new Padding(4, 3, 4, 3);
 		labelNameValue.Name = "labelNameValue";
@@ -352,7 +352,7 @@ namespace Planetoid_DB;
 		labelDirectoryValue.AccessibleName = "Path value";
 		labelDirectoryValue.AccessibleRole = AccessibleRole.Text;
 		labelDirectoryValue.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelDirectoryValue.Dock = DockStyle.Fill;
+		labelDirectoryValue.Dock = DockStyle.Top;
 		labelDirectoryValue.Location = new Point(113, 29);
 		labelDirectoryValue.Name = "labelDirectoryValue";
 		labelDirectoryValue.Size = new Size(292, 20);
@@ -375,7 +375,7 @@ namespace Planetoid_DB;
 		labelSizeValue.AccessibleName = "Size value";
 		labelSizeValue.AccessibleRole = AccessibleRole.Text;
 		labelSizeValue.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelSizeValue.Dock = DockStyle.Fill;
+		labelSizeValue.Dock = DockStyle.Top;
 		labelSizeValue.Location = new Point(113, 55);
 		labelSizeValue.Name = "labelSizeValue";
 		labelSizeValue.Size = new Size(292, 20);
@@ -398,7 +398,7 @@ namespace Planetoid_DB;
 		labelDateCreatedValue.AccessibleName = "Creation date value";
 		labelDateCreatedValue.AccessibleRole = AccessibleRole.Text;
 		labelDateCreatedValue.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelDateCreatedValue.Dock = DockStyle.Fill;
+		labelDateCreatedValue.Dock = DockStyle.Top;
 		labelDateCreatedValue.Location = new Point(113, 81);
 		labelDateCreatedValue.Name = "labelDateCreatedValue";
 		labelDateCreatedValue.Size = new Size(292, 20);
@@ -421,7 +421,7 @@ namespace Planetoid_DB;
 		labelDateAccessedValue.AccessibleName = "Last access date value";
 		labelDateAccessedValue.AccessibleRole = AccessibleRole.Text;
 		labelDateAccessedValue.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelDateAccessedValue.Dock = DockStyle.Fill;
+		labelDateAccessedValue.Dock = DockStyle.Top;
 		labelDateAccessedValue.Location = new Point(114, 107);
 		labelDateAccessedValue.Margin = new Padding(4, 3, 4, 3);
 		labelDateAccessedValue.Name = "labelDateAccessedValue";
@@ -445,7 +445,7 @@ namespace Planetoid_DB;
 		labelDateWritedValue.AccessibleName = "Last write date value";
 		labelDateWritedValue.AccessibleRole = AccessibleRole.Text;
 		labelDateWritedValue.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelDateWritedValue.Dock = DockStyle.Fill;
+		labelDateWritedValue.Dock = DockStyle.Top;
 		labelDateWritedValue.Location = new Point(113, 133);
 		labelDateWritedValue.Name = "labelDateWritedValue";
 		labelDateWritedValue.Size = new Size(292, 20);
@@ -470,7 +470,7 @@ namespace Planetoid_DB;
 		tableLayoutPanel.AutoScroll = true;
 		tableLayoutPanel.ColumnCount = 2;
 		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
-		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
 		tableLayoutPanel.ContextMenuStrip = contextMenuSaveToFile;
 		tableLayoutPanel.Controls.Add(labelName, 0, 0);
 		tableLayoutPanel.Controls.Add(labelPath, 0, 1);
@@ -506,148 +506,6 @@ namespace Planetoid_DB;
 		tableLayoutPanel.MouseEnter += Control_Enter;
 		tableLayoutPanel.MouseLeave += Control_Leave;
 		// 
-		// labelAttributesValue
-		// 
-		labelAttributesValue.AccessibleDescription = "Shows the attributes of the database";
-		labelAttributesValue.AccessibleName = "Attributes value";
-		labelAttributesValue.AccessibleRole = AccessibleRole.Text;
-		labelAttributesValue.ContextMenuStrip = contextMenuCopyToClipboard;
-		labelAttributesValue.Dock = DockStyle.Fill;
-		labelAttributesValue.Location = new Point(114, 159);
-		labelAttributesValue.Margin = new Padding(4, 3, 4, 3);
-		labelAttributesValue.Name = "labelAttributesValue";
-		labelAttributesValue.Size = new Size(290, 25);
-		labelAttributesValue.TabIndex = 13;
-		labelAttributesValue.ToolTipValues.Description = "Shows the attributes of the database.\r\nDouble-click or right-click to copy the information to the clipboard.";
-		labelAttributesValue.ToolTipValues.EnableToolTips = true;
-		labelAttributesValue.ToolTipValues.Heading = "Attributes value";
-		labelAttributesValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
-		labelAttributesValue.Values.Text = "..........";
-		labelAttributesValue.DoubleClick += CopyToClipboard_DoubleClick;
-		labelAttributesValue.Enter += Control_Enter;
-		labelAttributesValue.Leave += Control_Leave;
-		labelAttributesValue.MouseDown += Control_MouseDown;
-		labelAttributesValue.MouseEnter += Control_Enter;
-		labelAttributesValue.MouseLeave += Control_Leave;
-		// 
-		// toolStripContainer
-		// 
-		toolStripContainer.AccessibleDescription = "Container to arrange the toolbars";
-		toolStripContainer.AccessibleName = "Container to arrange the toolbars";
-		toolStripContainer.AccessibleRole = AccessibleRole.Grouping;
-		// 
-		// toolStripContainer.BottomToolStripPanel
-		// 
-		toolStripContainer.BottomToolStripPanel.AccessibleDescription = "Just a panel";
-		toolStripContainer.BottomToolStripPanel.AccessibleName = "Bottom panel";
-		toolStripContainer.BottomToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
-		// 
-		// toolStripContainer.ContentPanel
-		// 
-		toolStripContainer.ContentPanel.AccessibleDescription = "Just a panel";
-		toolStripContainer.ContentPanel.AccessibleName = "Content panel";
-		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.ContentPanel.Controls.Add(tableLayoutPanel);
-		toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
-		toolStripContainer.ContentPanel.Size = new Size(408, 187);
-		toolStripContainer.Dock = DockStyle.Fill;
-		// 
-		// toolStripContainer.LeftToolStripPanel
-		// 
-		toolStripContainer.LeftToolStripPanel.AccessibleDescription = "Just a panel";
-		toolStripContainer.LeftToolStripPanel.AccessibleName = "Left panel";
-		toolStripContainer.LeftToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.Location = new Point(0, 0);
-		toolStripContainer.Name = "toolStripContainer";
-		// 
-		// toolStripContainer.RightToolStripPanel
-		// 
-		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
-		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
-		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.Size = new Size(408, 234);
-		toolStripContainer.TabIndex = 3;
-		toolStripContainer.Text = "toolStripContainer";
-		// 
-		// toolStripContainer.TopToolStripPanel
-		// 
-		toolStripContainer.TopToolStripPanel.AccessibleDescription = "Just a panel";
-		toolStripContainer.TopToolStripPanel.AccessibleName = "Top panel";
-		toolStripContainer.TopToolStripPanel.AccessibleRole = AccessibleRole.Pane;
-		toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripIcons);
-		// 
-		// kryptonStatusStrip
-		// 
-		kryptonStatusStrip.AccessibleDescription = "Shows some information";
-		kryptonStatusStrip.AccessibleName = "Status bar with some information";
-		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
-		kryptonStatusStrip.AllowClickThrough = true;
-		kryptonStatusStrip.AllowItemReorder = true;
-		kryptonStatusStrip.Dock = DockStyle.None;
-		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
-		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-		kryptonStatusStrip.Location = new Point(0, 0);
-		kryptonStatusStrip.Name = "kryptonStatusStrip";
-		kryptonStatusStrip.ProgressBars = null;
-		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-		kryptonStatusStrip.ShowItemToolTips = true;
-		kryptonStatusStrip.Size = new Size(408, 22);
-		kryptonStatusStrip.TabIndex = 2;
-		kryptonStatusStrip.TabStop = true;
-		kryptonStatusStrip.Text = "Status bar";
-		kryptonStatusStrip.MouseEnter += Control_Enter;
-		kryptonStatusStrip.MouseLeave += Control_Leave;
-		// 
-		// labelInformation
-		// 
-		labelInformation.AccessibleDescription = "Shows some information";
-		labelInformation.AccessibleName = "Shows some information";
-		labelInformation.AccessibleRole = AccessibleRole.StaticText;
-		labelInformation.AutoToolTip = true;
-		labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
-		labelInformation.Margin = new Padding(3);
-		labelInformation.Name = "labelInformation";
-		labelInformation.Size = new Size(144, 16);
-		labelInformation.Text = "some information here";
-		labelInformation.ToolTipText = "Shows some information";
-		labelInformation.MouseEnter += Control_Enter;
-		labelInformation.MouseLeave += Control_Leave;
-		// 
-		// kryptonToolStripIcons
-		// 
-		kryptonToolStripIcons.AccessibleDescription = "Toolbar of copying and saving information";
-		kryptonToolStripIcons.AccessibleName = "Toolbar of copying and saving information";
-		kryptonToolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
-		kryptonToolStripIcons.AllowClickThrough = true;
-		kryptonToolStripIcons.AllowItemReorder = true;
-		kryptonToolStripIcons.Dock = DockStyle.None;
-		kryptonToolStripIcons.Font = new Font("Segoe UI", 9F);
-		kryptonToolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripDropDownButtonSaveToFile, toolStripDropDownButtonCopyToClipboard });
-		kryptonToolStripIcons.Location = new Point(0, 0);
-		kryptonToolStripIcons.Name = "kryptonToolStripIcons";
-		kryptonToolStripIcons.Size = new Size(408, 25);
-		kryptonToolStripIcons.Stretch = true;
-		kryptonToolStripIcons.TabIndex = 0;
-		kryptonToolStripIcons.TabStop = true;
-		kryptonToolStripIcons.Text = "Toolbar of copying and saving information";
-		kryptonToolStripIcons.MouseEnter += Control_Enter;
-		kryptonToolStripIcons.MouseLeave += Control_Leave;
-		// 
-		// toolStripDropDownButtonSaveToFile
-		// 
-		toolStripDropDownButtonSaveToFile.AccessibleDescription = "Saves information to file";
-		toolStripDropDownButtonSaveToFile.AccessibleName = "Save to file";
-		toolStripDropDownButtonSaveToFile.AccessibleRole = AccessibleRole.ButtonDropDown;
-		toolStripDropDownButtonSaveToFile.DropDown = contextMenuSaveToFile;
-		toolStripDropDownButtonSaveToFile.Image = FatcowIcons16px.fatcow_diskette_16px;
-		toolStripDropDownButtonSaveToFile.ImageTransparentColor = Color.Magenta;
-		toolStripDropDownButtonSaveToFile.Name = "toolStripDropDownButtonSaveToFile";
-		toolStripDropDownButtonSaveToFile.Size = new Size(93, 22);
-		toolStripDropDownButtonSaveToFile.Text = "&Save to file";
-		toolStripDropDownButtonSaveToFile.MouseEnter += Control_Enter;
-		toolStripDropDownButtonSaveToFile.MouseLeave += Control_Leave;
-		// 
 		// contextMenuSaveToFile
 		// 
 		contextMenuSaveToFile.AccessibleDescription = "Save the list as file";
@@ -657,6 +515,7 @@ namespace Planetoid_DB;
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveList";
+		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveToFile;
 		contextMenuSaveToFile.Size = new Size(202, 158);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
@@ -1223,6 +1082,147 @@ namespace Planetoid_DB;
 		toolStripMenuItemSaveAsChm.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsChm.MouseLeave += Control_Leave;
 		// 
+		// toolStripDropDownButtonSaveToFile
+		// 
+		toolStripDropDownButtonSaveToFile.AccessibleDescription = "Saves information to file";
+		toolStripDropDownButtonSaveToFile.AccessibleName = "Save to file";
+		toolStripDropDownButtonSaveToFile.AccessibleRole = AccessibleRole.ButtonDropDown;
+		toolStripDropDownButtonSaveToFile.DropDown = contextMenuSaveToFile;
+		toolStripDropDownButtonSaveToFile.Image = FatcowIcons16px.fatcow_diskette_16px;
+		toolStripDropDownButtonSaveToFile.ImageTransparentColor = Color.Magenta;
+		toolStripDropDownButtonSaveToFile.Name = "toolStripDropDownButtonSaveToFile";
+		toolStripDropDownButtonSaveToFile.Size = new Size(93, 22);
+		toolStripDropDownButtonSaveToFile.Text = "&Save to file";
+		toolStripDropDownButtonSaveToFile.MouseEnter += Control_Enter;
+		toolStripDropDownButtonSaveToFile.MouseLeave += Control_Leave;
+		// 
+		// labelAttributesValue
+		// 
+		labelAttributesValue.AccessibleDescription = "Shows the attributes of the database";
+		labelAttributesValue.AccessibleName = "Attributes value";
+		labelAttributesValue.AccessibleRole = AccessibleRole.Text;
+		labelAttributesValue.ContextMenuStrip = contextMenuCopyToClipboard;
+		labelAttributesValue.Dock = DockStyle.Top;
+		labelAttributesValue.Location = new Point(114, 159);
+		labelAttributesValue.Margin = new Padding(4, 3, 4, 3);
+		labelAttributesValue.Name = "labelAttributesValue";
+		labelAttributesValue.Size = new Size(290, 20);
+		labelAttributesValue.TabIndex = 13;
+		labelAttributesValue.ToolTipValues.Description = "Shows the attributes of the database.\r\nDouble-click or right-click to copy the information to the clipboard.";
+		labelAttributesValue.ToolTipValues.EnableToolTips = true;
+		labelAttributesValue.ToolTipValues.Heading = "Attributes value";
+		labelAttributesValue.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		labelAttributesValue.Values.Text = "..........";
+		labelAttributesValue.DoubleClick += CopyToClipboard_DoubleClick;
+		labelAttributesValue.Enter += Control_Enter;
+		labelAttributesValue.Leave += Control_Leave;
+		labelAttributesValue.MouseDown += Control_MouseDown;
+		labelAttributesValue.MouseEnter += Control_Enter;
+		labelAttributesValue.MouseLeave += Control_Leave;
+		// 
+		// toolStripContainer
+		// 
+		toolStripContainer.AccessibleDescription = "Container to arrange the toolbars";
+		toolStripContainer.AccessibleName = "Container to arrange the toolbars";
+		toolStripContainer.AccessibleRole = AccessibleRole.Grouping;
+		// 
+		// toolStripContainer.BottomToolStripPanel
+		// 
+		toolStripContainer.BottomToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.BottomToolStripPanel.AccessibleName = "Bottom panel";
+		toolStripContainer.BottomToolStripPanel.AccessibleRole = AccessibleRole.Pane;
+		toolStripContainer.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
+		// 
+		// toolStripContainer.ContentPanel
+		// 
+		toolStripContainer.ContentPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.ContentPanel.AccessibleName = "Content panel";
+		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
+		toolStripContainer.ContentPanel.Controls.Add(tableLayoutPanel);
+		toolStripContainer.ContentPanel.Margin = new Padding(4, 3, 4, 3);
+		toolStripContainer.ContentPanel.Size = new Size(408, 187);
+		toolStripContainer.Dock = DockStyle.Fill;
+		// 
+		// toolStripContainer.LeftToolStripPanel
+		// 
+		toolStripContainer.LeftToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.LeftToolStripPanel.AccessibleName = "Left panel";
+		toolStripContainer.LeftToolStripPanel.AccessibleRole = AccessibleRole.Pane;
+		toolStripContainer.Location = new Point(0, 0);
+		toolStripContainer.Name = "toolStripContainer";
+		// 
+		// toolStripContainer.RightToolStripPanel
+		// 
+		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
+		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
+		toolStripContainer.Size = new Size(408, 234);
+		toolStripContainer.TabIndex = 3;
+		toolStripContainer.Text = "toolStripContainer";
+		// 
+		// toolStripContainer.TopToolStripPanel
+		// 
+		toolStripContainer.TopToolStripPanel.AccessibleDescription = "Just a panel";
+		toolStripContainer.TopToolStripPanel.AccessibleName = "Top panel";
+		toolStripContainer.TopToolStripPanel.AccessibleRole = AccessibleRole.Pane;
+		toolStripContainer.TopToolStripPanel.Controls.Add(kryptonToolStripIcons);
+		// 
+		// kryptonStatusStrip
+		// 
+		kryptonStatusStrip.AccessibleDescription = "Shows some information";
+		kryptonStatusStrip.AccessibleName = "Status bar with some information";
+		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
+		kryptonStatusStrip.AllowClickThrough = true;
+		kryptonStatusStrip.AllowItemReorder = true;
+		kryptonStatusStrip.Dock = DockStyle.None;
+		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
+		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
+		kryptonStatusStrip.Location = new Point(0, 0);
+		kryptonStatusStrip.Name = "kryptonStatusStrip";
+		kryptonStatusStrip.ProgressBars = null;
+		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+		kryptonStatusStrip.ShowItemToolTips = true;
+		kryptonStatusStrip.Size = new Size(408, 22);
+		kryptonStatusStrip.TabIndex = 2;
+		kryptonStatusStrip.TabStop = true;
+		kryptonStatusStrip.Text = "Status bar";
+		kryptonStatusStrip.MouseEnter += Control_Enter;
+		kryptonStatusStrip.MouseLeave += Control_Leave;
+		// 
+		// labelInformation
+		// 
+		labelInformation.AccessibleDescription = "Shows some information";
+		labelInformation.AccessibleName = "Some information";
+		labelInformation.AccessibleRole = AccessibleRole.StaticText;
+		labelInformation.AutoToolTip = true;
+		labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
+		labelInformation.Margin = new Padding(3);
+		labelInformation.Name = "labelInformation";
+		labelInformation.Size = new Size(144, 16);
+		labelInformation.Text = "some information here";
+		labelInformation.MouseEnter += Control_Enter;
+		labelInformation.MouseLeave += Control_Leave;
+		// 
+		// kryptonToolStripIcons
+		// 
+		kryptonToolStripIcons.AccessibleDescription = "Toolbar of copying and saving information";
+		kryptonToolStripIcons.AccessibleName = "Toolbar of copying and saving information";
+		kryptonToolStripIcons.AccessibleRole = AccessibleRole.ToolBar;
+		kryptonToolStripIcons.AllowClickThrough = true;
+		kryptonToolStripIcons.AllowItemReorder = true;
+		kryptonToolStripIcons.Dock = DockStyle.None;
+		kryptonToolStripIcons.Font = new Font("Segoe UI", 9F);
+		kryptonToolStripIcons.Items.AddRange(new ToolStripItem[] { toolStripDropDownButtonSaveToFile, toolStripDropDownButtonCopyToClipboard });
+		kryptonToolStripIcons.Location = new Point(0, 0);
+		kryptonToolStripIcons.Name = "kryptonToolStripIcons";
+		kryptonToolStripIcons.Size = new Size(408, 25);
+		kryptonToolStripIcons.Stretch = true;
+		kryptonToolStripIcons.TabIndex = 0;
+		kryptonToolStripIcons.TabStop = true;
+		kryptonToolStripIcons.Text = "Toolbar of copying and saving information";
+		kryptonToolStripIcons.MouseEnter += Control_Enter;
+		kryptonToolStripIcons.MouseLeave += Control_Leave;
+		// 
 		// toolStripDropDownButtonCopyToClipboard
 		// 
 		toolStripDropDownButtonCopyToClipboard.AccessibleDescription = "Copies information to clipboard";
@@ -1246,6 +1246,7 @@ namespace Planetoid_DB;
 		contextMenuFullCopyToClipboard.Font = new Font("Segoe UI", 9F);
 		contextMenuFullCopyToClipboard.Items.AddRange(new ToolStripItem[] { menuitemCopyToClipboardName, menuitemCopyToClipboardPath, menuitemCopyToClipboardSize, menuitemCopyToClipboardCreationDate, menuitemCopyToClipboardLastAccessDate, menuitemCopyToClipboardLastWriteDate, menuitemCopyToClipboardAttributes });
 		contextMenuFullCopyToClipboard.Name = "Context menu for copying database information to the clipboard";
+		contextMenuFullCopyToClipboard.OwnerItem = toolStripDropDownButtonCopyToClipboard;
 		contextMenuFullCopyToClipboard.Size = new Size(159, 158);
 		contextMenuFullCopyToClipboard.Text = "Copy to clipboard";
 		contextMenuFullCopyToClipboard.MouseEnter += Control_Enter;
@@ -1371,12 +1372,14 @@ namespace Planetoid_DB;
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "DatabaseInformationForm";
-		StartPosition = FormStartPosition.CenterParent;
+		SizeGripStyle = SizeGripStyle.Hide;
+		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Database information";
 		Load += DatabaseInformationForm_Load;
 		contextMenuCopyToClipboard.ResumeLayout(false);
 		tableLayoutPanel.ResumeLayout(false);
 		tableLayoutPanel.PerformLayout();
+		contextMenuSaveToFile.ResumeLayout(false);
 		toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
 		toolStripContainer.BottomToolStripPanel.PerformLayout();
 		toolStripContainer.ContentPanel.ResumeLayout(false);
@@ -1388,7 +1391,6 @@ namespace Planetoid_DB;
 		kryptonStatusStrip.PerformLayout();
 		kryptonToolStripIcons.ResumeLayout(false);
 		kryptonToolStripIcons.PerformLayout();
-		contextMenuSaveToFile.ResumeLayout(false);
 		contextMenuFullCopyToClipboard.ResumeLayout(false);
 		ResumeLayout(false);
 

@@ -78,7 +78,7 @@ partial class MaxoidsRelativeToMinorPlanetsForm
 		kryptonPanelMain.Location = new Point(0, 0);
 		kryptonPanelMain.Name = "kryptonPanelMain";
 		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptonPanelMain.Size = new Size(560, 160);
+		kryptonPanelMain.Size = new Size(560, 111);
 		kryptonPanelMain.TabIndex = 0;
 		kryptonPanelMain.TabStop = true;
 		// 
@@ -87,23 +87,24 @@ partial class MaxoidsRelativeToMinorPlanetsForm
 		tableLayoutPanel.AccessibleDescription = "Layout for the two combo boxes and the MAXOID label";
 		tableLayoutPanel.AccessibleName = "Layout panel";
 		tableLayoutPanel.AccessibleRole = AccessibleRole.Pane;
-		tableLayoutPanel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+		tableLayoutPanel.AutoScroll = true;
 		tableLayoutPanel.ColumnCount = 2;
-		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
+		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
+		tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
 		tableLayoutPanel.Controls.Add(comboBoxPlanetoid1, 0, 0);
 		tableLayoutPanel.Controls.Add(kryptonButtonRandomPlanetoid1, 1, 0);
 		tableLayoutPanel.Controls.Add(comboBoxPlanetoid2, 0, 1);
 		tableLayoutPanel.Controls.Add(kryptonButtonRandomPlanetoid2, 1, 1);
 		tableLayoutPanel.Controls.Add(kryptonLabelMaxoidDesc, 0, 2);
 		tableLayoutPanel.Controls.Add(kryptonLabelMaxoidValue, 1, 2);
-		tableLayoutPanel.Location = new Point(8, 8);
+		tableLayoutPanel.Dock = DockStyle.Fill;
+		tableLayoutPanel.Location = new Point(0, 0);
 		tableLayoutPanel.Name = "tableLayoutPanel";
 		tableLayoutPanel.RowCount = 3;
-		tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 36F));
-		tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 36F));
-		tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 36F));
-		tableLayoutPanel.Size = new Size(544, 108);
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.RowStyles.Add(new RowStyle());
+		tableLayoutPanel.Size = new Size(560, 89);
 		tableLayoutPanel.TabIndex = 1;
 		// 
 		// comboBoxPlanetoid1
@@ -114,7 +115,7 @@ partial class MaxoidsRelativeToMinorPlanetsForm
 		comboBoxPlanetoid1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 		comboBoxPlanetoid1.AutoCompleteMode = AutoCompleteMode.Suggest;
 		comboBoxPlanetoid1.AutoCompleteSource = AutoCompleteSource.CustomSource;
-		comboBoxPlanetoid1.Location = new Point(3, 6);
+		comboBoxPlanetoid1.Location = new Point(3, 4);
 		comboBoxPlanetoid1.Name = "comboBoxPlanetoid1";
 		comboBoxPlanetoid1.Size = new Size(428, 23);
 		comboBoxPlanetoid1.TabIndex = 0;
@@ -129,9 +130,9 @@ partial class MaxoidsRelativeToMinorPlanetsForm
 		kryptonButtonRandomPlanetoid1.AccessibleName = "Random first minor planet";
 		kryptonButtonRandomPlanetoid1.AccessibleRole = AccessibleRole.PushButton;
 		kryptonButtonRandomPlanetoid1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-		kryptonButtonRandomPlanetoid1.Location = new Point(437, 5);
+		kryptonButtonRandomPlanetoid1.Location = new Point(437, 3);
 		kryptonButtonRandomPlanetoid1.Name = "kryptonButtonRandomPlanetoid1";
-		kryptonButtonRandomPlanetoid1.Size = new Size(104, 25);
+		kryptonButtonRandomPlanetoid1.Size = new Size(120, 25);
 		kryptonButtonRandomPlanetoid1.TabIndex = 1;
 		kryptonButtonRandomPlanetoid1.ToolTipValues.Description = "Selects a random minor planet from the first list.";
 		kryptonButtonRandomPlanetoid1.ToolTipValues.EnableToolTips = true;
@@ -152,7 +153,7 @@ partial class MaxoidsRelativeToMinorPlanetsForm
 		comboBoxPlanetoid2.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 		comboBoxPlanetoid2.AutoCompleteMode = AutoCompleteMode.Suggest;
 		comboBoxPlanetoid2.AutoCompleteSource = AutoCompleteSource.CustomSource;
-		comboBoxPlanetoid2.Location = new Point(3, 42);
+		comboBoxPlanetoid2.Location = new Point(3, 35);
 		comboBoxPlanetoid2.Name = "comboBoxPlanetoid2";
 		comboBoxPlanetoid2.Size = new Size(428, 23);
 		comboBoxPlanetoid2.TabIndex = 2;
@@ -167,9 +168,9 @@ partial class MaxoidsRelativeToMinorPlanetsForm
 		kryptonButtonRandomPlanetoid2.AccessibleName = "Random second minor planet";
 		kryptonButtonRandomPlanetoid2.AccessibleRole = AccessibleRole.PushButton;
 		kryptonButtonRandomPlanetoid2.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-		kryptonButtonRandomPlanetoid2.Location = new Point(437, 41);
+		kryptonButtonRandomPlanetoid2.Location = new Point(437, 34);
 		kryptonButtonRandomPlanetoid2.Name = "kryptonButtonRandomPlanetoid2";
-		kryptonButtonRandomPlanetoid2.Size = new Size(104, 25);
+		kryptonButtonRandomPlanetoid2.Size = new Size(120, 25);
 		kryptonButtonRandomPlanetoid2.TabIndex = 3;
 		kryptonButtonRandomPlanetoid2.ToolTipValues.Description = "Selects a random minor planet from the second list.";
 		kryptonButtonRandomPlanetoid2.ToolTipValues.EnableToolTips = true;
@@ -187,11 +188,11 @@ partial class MaxoidsRelativeToMinorPlanetsForm
 		kryptonLabelMaxoidDesc.AccessibleDescription = "Describes the MAXOID value label";
 		kryptonLabelMaxoidDesc.AccessibleName = "MAXOID description";
 		kryptonLabelMaxoidDesc.AccessibleRole = AccessibleRole.StaticText;
-		kryptonLabelMaxoidDesc.Anchor = AnchorStyles.Left;
+		kryptonLabelMaxoidDesc.Dock = DockStyle.Top;
 		kryptonLabelMaxoidDesc.LabelStyle = LabelStyle.BoldPanel;
-		kryptonLabelMaxoidDesc.Location = new Point(3, 80);
+		kryptonLabelMaxoidDesc.Location = new Point(3, 65);
 		kryptonLabelMaxoidDesc.Name = "kryptonLabelMaxoidDesc";
-		kryptonLabelMaxoidDesc.Size = new Size(200, 20);
+		kryptonLabelMaxoidDesc.Size = new Size(428, 20);
 		kryptonLabelMaxoidDesc.TabIndex = 4;
 		kryptonLabelMaxoidDesc.Values.ExtraText = "AU";
 		kryptonLabelMaxoidDesc.Values.Text = "MAXOID:";
@@ -205,10 +206,10 @@ partial class MaxoidsRelativeToMinorPlanetsForm
 		kryptonLabelMaxoidValue.AccessibleDescription = "Shows the calculated MAXOID value in AU";
 		kryptonLabelMaxoidValue.AccessibleName = "MAXOID value";
 		kryptonLabelMaxoidValue.AccessibleRole = AccessibleRole.StaticText;
-		kryptonLabelMaxoidValue.Anchor = AnchorStyles.Left;
-		kryptonLabelMaxoidValue.Location = new Point(437, 80);
+		kryptonLabelMaxoidValue.Dock = DockStyle.Top;
+		kryptonLabelMaxoidValue.Location = new Point(437, 65);
 		kryptonLabelMaxoidValue.Name = "kryptonLabelMaxoidValue";
-		kryptonLabelMaxoidValue.Size = new Size(104, 20);
+		kryptonLabelMaxoidValue.Size = new Size(120, 20);
 		kryptonLabelMaxoidValue.TabIndex = 5;
 		kryptonLabelMaxoidValue.Values.Text = "-";
 		kryptonLabelMaxoidValue.Enter += Control_Enter;
@@ -221,24 +222,28 @@ partial class MaxoidsRelativeToMinorPlanetsForm
 		kryptonStatusStrip.AccessibleDescription = "Status bar";
 		kryptonStatusStrip.AccessibleName = "Status bar";
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
+		kryptonStatusStrip.AllowClickThrough = true;
+		kryptonStatusStrip.AllowItemReorder = true;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-		kryptonStatusStrip.Location = new Point(0, 138);
+		kryptonStatusStrip.Location = new Point(0, 89);
 		kryptonStatusStrip.Name = "kryptonStatusStrip";
 		kryptonStatusStrip.ProgressBars = null;
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+		kryptonStatusStrip.ShowItemToolTips = true;
 		kryptonStatusStrip.Size = new Size(560, 22);
 		kryptonStatusStrip.TabIndex = 0;
+		kryptonStatusStrip.TabStop = true;
 		// 
 		// labelInformation
 		// 
 		labelInformation.AccessibleDescription = "Shows information about the selected control";
 		labelInformation.AccessibleName = "Information";
 		labelInformation.AccessibleRole = AccessibleRole.StaticText;
-		labelInformation.Enabled = false;
+		labelInformation.AutoToolTip = true;
 		labelInformation.Name = "labelInformation";
-		labelInformation.Size = new Size(545, 17);
-		labelInformation.Spring = true;
+		labelInformation.Size = new Size(28, 17);
+		labelInformation.Text = "Info";
 		labelInformation.TextAlign = ContentAlignment.MiddleLeft;
 		// 
 		// kryptonManager
@@ -254,7 +259,7 @@ partial class MaxoidsRelativeToMinorPlanetsForm
 		AccessibleRole = AccessibleRole.Window;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
-		ClientSize = new Size(560, 160);
+		ClientSize = new Size(560, 111);
 		ControlBox = false;
 		Controls.Add(kryptonPanelMain);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
@@ -263,6 +268,7 @@ partial class MaxoidsRelativeToMinorPlanetsForm
 		MinimizeBox = false;
 		Name = "MaxoidsRelativeToMinorPlanetsForm";
 		ShowInTaskbar = false;
+		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterParent;
 		Text = "MAXOIDs relative to minor planets";
 		Load += MaxoidsRelativeToMinorPlanetsForm_Load;

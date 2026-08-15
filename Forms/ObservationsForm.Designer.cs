@@ -68,6 +68,7 @@ partial class ObservationsForm
 		toolStripMenuItemSaveAsAsciiDoc = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsReStructuredText = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsTextile = new ToolStripMenuItem();
+		toolStripMenuItemSaveAsTypst = new ToolStripMenuItem();
 		toolStripMenuItemWriterDocuments = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsWord = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsOdt = new ToolStripMenuItem();
@@ -111,7 +112,6 @@ partial class ObservationsForm
 		toolStripSeparator1 = new ToolStripSeparator();
 		toolStripLabelProgress = new ToolStripLabel();
 		kryptonProgressBar = new KryptonProgressBarToolStripItem();
-		toolStripMenuItemSaveAsTypst = new ToolStripMenuItem();
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
 		contextMenuSaveToFile.SuspendLayout();
@@ -216,7 +216,8 @@ partial class ObservationsForm
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveList";
-		contextMenuSaveToFile.Size = new Size(202, 180);
+		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveList;
+		contextMenuSaveToFile.Size = new Size(202, 158);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
 		contextMenuSaveToFile.Enter += Control_Enter;
@@ -321,6 +322,20 @@ partial class ObservationsForm
 		toolStripMenuItemSaveAsTextile.Click += SaveAsTextile_Click;
 		toolStripMenuItemSaveAsTextile.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsTextile.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAsTypst
+		// 
+		toolStripMenuItemSaveAsTypst.AccessibleDescription = "Saves the list as Typst file";
+		toolStripMenuItemSaveAsTypst.AccessibleName = "Save as Typst";
+		toolStripMenuItemSaveAsTypst.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAsTypst.AutoToolTip = true;
+		toolStripMenuItemSaveAsTypst.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAsTypst.Name = "toolStripMenuItemSaveAsTypst";
+		toolStripMenuItemSaveAsTypst.Size = new Size(201, 22);
+		toolStripMenuItemSaveAsTypst.Text = "Save as T&ypst";
+		toolStripMenuItemSaveAsTypst.Click += SaveAsTypst_Click;
+		toolStripMenuItemSaveAsTypst.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAsTypst.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemWriterDocuments
 		// 
@@ -818,7 +833,6 @@ partial class ObservationsForm
 		labelInformation.Name = "labelInformation";
 		labelInformation.Size = new Size(145, 17);
 		labelInformation.Text = "Some information here";
-		labelInformation.ToolTipText = "Shows some information";
 		labelInformation.MouseEnter += Control_Enter;
 		labelInformation.MouseLeave += Control_Leave;
 		// 
@@ -967,20 +981,6 @@ partial class ObservationsForm
 		kryptonProgressBar.MouseEnter += Control_Enter;
 		kryptonProgressBar.MouseLeave += Control_Leave;
 		// 
-		// toolStripMenuItemSaveAsTypst
-		// 
-		toolStripMenuItemSaveAsTypst.AccessibleDescription = "Saves the list as Typst file";
-		toolStripMenuItemSaveAsTypst.AccessibleName = "Save as Typst";
-		toolStripMenuItemSaveAsTypst.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemSaveAsTypst.AutoToolTip = true;
-		toolStripMenuItemSaveAsTypst.Image = FatcowIcons16px.fatcow_page_white_text_16px;
-		toolStripMenuItemSaveAsTypst.Name = "toolStripMenuItemSaveAsTypst";
-		toolStripMenuItemSaveAsTypst.Size = new Size(201, 22);
-		toolStripMenuItemSaveAsTypst.Text = "Save as T&ypst";
-		toolStripMenuItemSaveAsTypst.Click += SaveAsTypst_Click;
-		toolStripMenuItemSaveAsTypst.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAsTypst.MouseLeave += Control_Leave;
-		// 
 		// ObservationsForm
 		// 
 		AccessibleDescription = "Shows the observations of the minor planet from the MPC";
@@ -997,7 +997,8 @@ partial class ObservationsForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "ObservationsForm";
-		StartPosition = FormStartPosition.CenterParent;
+		SizeGripStyle = SizeGripStyle.Hide;
+		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Observations";
 		Load += ObservationsForm_Load;
 		((ISupportInitialize)kryptonPanelMain).EndInit();

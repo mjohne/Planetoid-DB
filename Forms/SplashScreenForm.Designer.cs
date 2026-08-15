@@ -143,12 +143,10 @@ partial class SplashScreenForm
 		Controls.Add(labelVersion);
 		Controls.Add(progressBarSplash);
 		Cursor = Cursors.AppStarting;
-		FormBorderStyle = FormBorderStyle.Fixed3D;
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		Margin = new Padding(4, 3, 4, 3);
-		MaximizeBox = false;
-		MinimizeBox = false;
 		Name = "SplashScreenForm";
+		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Splash Screen";
 		toolTip.SetToolTip(this, "Splash screen");

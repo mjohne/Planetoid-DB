@@ -111,9 +111,9 @@ partial class ListReadableDesignationsForm
 		toolStripButtonCreateList = new ToolStripButton();
 		toolStripSeparator1 = new ToolStripSeparator();
 		toolStripLabelMinimum = new ToolStripLabel();
-		toolStripNumericUpDownMinimum = new Planetoid_DB.Helpers.ToolStripNumericUpDown();
+		toolStripNumericUpDownMinimum = new ToolStripNumericUpDown();
 		toolStripLabelMaximum = new ToolStripLabel();
-		toolStripNumericUpDownMaximum = new Planetoid_DB.Helpers.ToolStripNumericUpDown();
+		toolStripNumericUpDownMaximum = new ToolStripNumericUpDown();
 		kryptonToolStripSaveList = new KryptonToolStrip();
 		toolStripButtonGoToObject = new ToolStripButton();
 		toolStripSeparator2 = new ToolStripSeparator();
@@ -165,7 +165,6 @@ partial class ListReadableDesignationsForm
 		labelInformation.Name = "labelInformation";
 		labelInformation.Size = new Size(144, 17);
 		labelInformation.Text = "some information here";
-		labelInformation.ToolTipText = "Shows some information";
 		labelInformation.MouseEnter += Control_Enter;
 		labelInformation.MouseLeave += Control_Leave;
 		// 
@@ -852,7 +851,7 @@ partial class ListReadableDesignationsForm
 		// 
 		// planetoidRecordBindingSource
 		// 
-		planetoidRecordBindingSource.DataSource = typeof(Helpers.PlanetoidRecord);
+		planetoidRecordBindingSource.DataSource = typeof(PlanetoidRecord);
 		// 
 		// kryptonManager
 		// 
@@ -1073,7 +1072,8 @@ partial class ListReadableDesignationsForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "ListReadableDesignationsForm";
-		StartPosition = FormStartPosition.CenterParent;
+		SizeGripStyle = SizeGripStyle.Hide;
+		StartPosition = FormStartPosition.CenterScreen;
 		Text = "List of readable designations";
 		FormClosed += ListReadableDesignationsForm_FormClosed;
 		Load += ListReadableDesignationsForm_Load;

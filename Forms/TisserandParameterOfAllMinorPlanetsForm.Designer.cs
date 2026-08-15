@@ -71,6 +71,7 @@ partial class TisserandParameterOfAllMinorPlanetsForm
 		toolStripMenuItemSaveAsAsciiDoc = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsReStructuredText = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsTextile = new ToolStripMenuItem();
+		toolStripMenuItemSaveAstypst = new ToolStripMenuItem();
 		toolStripMenuItemWriterDocuments = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsWord = new ToolStripMenuItem();
 		toolStripMenuItemSaveAsOdt = new ToolStripMenuItem();
@@ -116,7 +117,6 @@ partial class TisserandParameterOfAllMinorPlanetsForm
 		toolStripProgress = new ToolStrip();
 		toolStripLabelProgress = new ToolStripLabel();
 		kryptonProgressBar = new KryptonProgressBarToolStripItem();
-		toolStripMenuItemSaveAstypst = new ToolStripMenuItem();
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
 		contextMenuSaveToFile.SuspendLayout();
@@ -238,7 +238,8 @@ partial class TisserandParameterOfAllMinorPlanetsForm
 		contextMenuSaveToFile.Font = new Font("Segoe UI", 9F);
 		contextMenuSaveToFile.Items.AddRange(new ToolStripItem[] { toolStripMenuItemTextFiles, toolStripMenuItemWriterDocuments, toolStripMenuItemSpreadsheetDocuments, toolStripMenuItemXmlDocuments, toolStripMenuItemConfigurationFiles, toolStripMenuItemDatabaseScripts, toolStripMenuItemPortableDocuments });
 		contextMenuSaveToFile.Name = "contextMenuSaveList";
-		contextMenuSaveToFile.Size = new Size(202, 180);
+		contextMenuSaveToFile.OwnerItem = toolStripDropDownButtonSaveToFile;
+		contextMenuSaveToFile.Size = new Size(202, 158);
 		contextMenuSaveToFile.TabStop = true;
 		contextMenuSaveToFile.Text = "&Save list";
 		contextMenuSaveToFile.Enter += Control_Enter;
@@ -343,6 +344,20 @@ partial class TisserandParameterOfAllMinorPlanetsForm
 		toolStripMenuItemSaveAsTextile.Click += SaveAsTextile_Click;
 		toolStripMenuItemSaveAsTextile.MouseEnter += Control_Enter;
 		toolStripMenuItemSaveAsTextile.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemSaveAstypst
+		// 
+		toolStripMenuItemSaveAstypst.AccessibleDescription = "Saves the list as Typst file";
+		toolStripMenuItemSaveAstypst.AccessibleName = "Save as Typst";
+		toolStripMenuItemSaveAstypst.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemSaveAstypst.AutoToolTip = true;
+		toolStripMenuItemSaveAstypst.Image = FatcowIcons16px.fatcow_page_white_text_16px;
+		toolStripMenuItemSaveAstypst.Name = "toolStripMenuItemSaveAstypst";
+		toolStripMenuItemSaveAstypst.Size = new Size(201, 22);
+		toolStripMenuItemSaveAstypst.Text = "Save as T&ypst";
+		toolStripMenuItemSaveAstypst.Click += SaveAsTypst_Click;
+		toolStripMenuItemSaveAstypst.MouseEnter += Control_Enter;
+		toolStripMenuItemSaveAstypst.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemWriterDocuments
 		// 
@@ -816,7 +831,6 @@ partial class TisserandParameterOfAllMinorPlanetsForm
 		kryptonStatusStrip.AllowItemReorder = true;
 		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
-		kryptonStatusStrip.GripStyle = ToolStripGripStyle.Visible;
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
 		kryptonStatusStrip.Location = new Point(0, 0);
 		kryptonStatusStrip.Name = "kryptonStatusStrip";
@@ -836,14 +850,13 @@ partial class TisserandParameterOfAllMinorPlanetsForm
 		// labelInformation
 		// 
 		labelInformation.AccessibleDescription = "Shows some information";
-		labelInformation.AccessibleName = "Shows some information";
+		labelInformation.AccessibleName = "Show some information";
 		labelInformation.AccessibleRole = AccessibleRole.StaticText;
 		labelInformation.AutoToolTip = true;
 		labelInformation.Image = FatcowIcons16px.fatcow_lightbulb_16px;
 		labelInformation.Name = "labelInformation";
 		labelInformation.Size = new Size(144, 17);
 		labelInformation.Text = "some information here";
-		labelInformation.ToolTipText = "Shows some information";
 		labelInformation.MouseEnter += Control_Enter;
 		labelInformation.MouseLeave += Control_Leave;
 		// 
@@ -1033,20 +1046,6 @@ partial class TisserandParameterOfAllMinorPlanetsForm
 		kryptonProgressBar.MouseEnter += Control_Enter;
 		kryptonProgressBar.MouseLeave += Control_Leave;
 		// 
-		// toolStripMenuItemSaveAstypst
-		// 
-		toolStripMenuItemSaveAstypst.AccessibleDescription = "Saves the list as Typst file";
-		toolStripMenuItemSaveAstypst.AccessibleName = "Save as Typst";
-		toolStripMenuItemSaveAstypst.AccessibleRole = AccessibleRole.MenuItem;
-		toolStripMenuItemSaveAstypst.AutoToolTip = true;
-		toolStripMenuItemSaveAstypst.Image = FatcowIcons16px.fatcow_page_white_text_16px;
-		toolStripMenuItemSaveAstypst.Name = "toolStripMenuItemSaveAstypst";
-		toolStripMenuItemSaveAstypst.Size = new Size(201, 22);
-		toolStripMenuItemSaveAstypst.Text = "Save as T&ypst";
-		toolStripMenuItemSaveAstypst.MouseEnter += Control_Enter;
-		toolStripMenuItemSaveAstypst.MouseLeave += Control_Leave;
-		toolStripMenuItemSaveAstypst.Click += SaveAsTypst_Click;
-		// 
 		// TisserandParameterOfAllMinorPlanetsForm
 		// 
 		AccessibleDescription = "Shows the Tisserand parameters of all minor planets relative to the 8 solar system planets";
@@ -1063,7 +1062,8 @@ partial class TisserandParameterOfAllMinorPlanetsForm
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "TisserandParameterOfAllMinorPlanetsForm";
-		StartPosition = FormStartPosition.CenterParent;
+		SizeGripStyle = SizeGripStyle.Hide;
+		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Tisserand parameters of all minor planets";
 		FormClosing += TisserandParameterOfAllMinorPlanetsForm_FormClosing;
 		Load += TisserandParameterOfAllMinorPlanetsForm_Load;

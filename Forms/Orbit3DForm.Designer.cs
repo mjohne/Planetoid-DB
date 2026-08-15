@@ -61,48 +61,48 @@ partial class Orbit3DForm
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
 		SuspendLayout();
-		//
+		// 
 		// toolStripContainer
-		//
+		// 
 		toolStripContainer.AccessibleDescription = "Container to arrange the toolbars";
 		toolStripContainer.AccessibleName = "Toolbar container";
 		toolStripContainer.AccessibleRole = AccessibleRole.Grouping;
-		//
+		// 
 		// toolStripContainer.BottomToolStripPanel
-		//
+		// 
 		toolStripContainer.BottomToolStripPanel.AccessibleDescription = "Bottom panel";
 		toolStripContainer.BottomToolStripPanel.AccessibleName = "Bottom panel";
 		toolStripContainer.BottomToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.BottomToolStripPanel.Controls.Add(kryptonStatusStrip);
-		//
+		// 
 		// toolStripContainer.ContentPanel
-		//
+		// 
 		toolStripContainer.ContentPanel.AccessibleDescription = "Content panel";
 		toolStripContainer.ContentPanel.AccessibleName = "Content panel";
 		toolStripContainer.ContentPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.ContentPanel.Controls.Add(kryptonPanelMain);
-		toolStripContainer.ContentPanel.Size = new Size(900, 600);
+		toolStripContainer.ContentPanel.Size = new Size(900, 575);
 		toolStripContainer.Dock = DockStyle.Fill;
-		//
+		// 
 		// toolStripContainer.LeftToolStripPanel
-		//
+		// 
 		toolStripContainer.LeftToolStripPanel.AccessibleDescription = "Left panel";
 		toolStripContainer.LeftToolStripPanel.AccessibleName = "Left panel";
 		toolStripContainer.LeftToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.Location = new Point(0, 0);
 		toolStripContainer.Name = "toolStripContainer";
-		//
+		// 
 		// toolStripContainer.RightToolStripPanel
-		//
+		// 
 		toolStripContainer.RightToolStripPanel.AccessibleDescription = "Right panel";
 		toolStripContainer.RightToolStripPanel.AccessibleName = "Right panel";
 		toolStripContainer.RightToolStripPanel.AccessibleRole = AccessibleRole.Pane;
 		toolStripContainer.Size = new Size(900, 622);
 		toolStripContainer.TabIndex = 0;
 		toolStripContainer.Text = "toolStripContainer";
-		//
+		// 
 		// toolStripContainer.TopToolStripPanel
-		//
+		// 
 		toolStripContainer.TopToolStripPanel.AccessibleDescription = "Top panel";
 		toolStripContainer.TopToolStripPanel.AccessibleName = "Top panel";
 		toolStripContainer.TopToolStripPanel.AccessibleRole = AccessibleRole.Pane;
@@ -110,15 +110,14 @@ partial class Orbit3DForm
 		toolStripContainer.Leave += Control_Leave;
 		toolStripContainer.MouseEnter += Control_Enter;
 		toolStripContainer.MouseLeave += Control_Leave;
-		//
+		// 
 		// kryptonStatusStrip
-		//
+		// 
 		kryptonStatusStrip.AccessibleDescription = "Shows orbital element information for the selected planetoid";
 		kryptonStatusStrip.AccessibleName = "Status bar with orbital information";
 		kryptonStatusStrip.AccessibleRole = AccessibleRole.StatusBar;
 		kryptonStatusStrip.AllowClickThrough = true;
 		kryptonStatusStrip.AllowItemReorder = true;
-		kryptonStatusStrip.Dock = DockStyle.None;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
 		kryptonStatusStrip.Location = new Point(0, 0);
@@ -134,9 +133,9 @@ partial class Orbit3DForm
 		kryptonStatusStrip.Leave += Control_Leave;
 		kryptonStatusStrip.MouseEnter += Control_Enter;
 		kryptonStatusStrip.MouseLeave += Control_Leave;
-		//
+		// 
 		// labelInformation
-		//
+		// 
 		labelInformation.AccessibleDescription = "Shows orbital element information for the selected planetoid";
 		labelInformation.AccessibleName = "Orbital element information";
 		labelInformation.AccessibleRole = AccessibleRole.StaticText;
@@ -148,9 +147,9 @@ partial class Orbit3DForm
 		labelInformation.ToolTipText = "Shows orbital element information for the selected planetoid";
 		labelInformation.MouseEnter += Control_Enter;
 		labelInformation.MouseLeave += Control_Leave;
-		//
+		// 
 		// kryptonPanelMain
-		//
+		// 
 		kryptonPanelMain.AccessibleDescription = "Contains the 3D orbit visualization";
 		kryptonPanelMain.AccessibleName = "Main panel";
 		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
@@ -159,7 +158,7 @@ partial class Orbit3DForm
 		kryptonPanelMain.Location = new Point(0, 0);
 		kryptonPanelMain.Name = "kryptonPanelMain";
 		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptonPanelMain.Size = new Size(900, 600);
+		kryptonPanelMain.Size = new Size(900, 575);
 		kryptonPanelMain.TabIndex = 0;
 		kryptonPanelMain.TabStop = true;
 		kryptonPanelMain.Text = "Main panel";
@@ -167,9 +166,9 @@ partial class Orbit3DForm
 		kryptonPanelMain.Leave += Control_Leave;
 		kryptonPanelMain.MouseEnter += Control_Enter;
 		kryptonPanelMain.MouseLeave += Control_Leave;
-		//
+		// 
 		// panelGl
-		//
+		// 
 		panelGl.AccessibleDescription = "OpenGL rendering surface for the 3D orbit visualization";
 		panelGl.AccessibleName = "3D orbit rendering surface";
 		panelGl.AccessibleRole = AccessibleRole.Client;
@@ -177,34 +176,34 @@ partial class Orbit3DForm
 		panelGl.Dock = DockStyle.Fill;
 		panelGl.Location = new Point(0, 0);
 		panelGl.Name = "panelGl";
-		panelGl.Size = new Size(900, 600);
+		panelGl.Size = new Size(900, 575);
 		panelGl.TabIndex = 0;
 		panelGl.Enter += Control_Enter;
 		panelGl.Leave += Control_Leave;
 		panelGl.MouseEnter += Control_Enter;
 		panelGl.MouseLeave += Control_Leave;
-		//
+		// 
 		// kryptonManager
-		//
+		// 
 		kryptonManager.GlobalPaletteMode = PaletteMode.Global;
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
-		//
+		// 
 		// Orbit3DForm
-		//
+		// 
 		AccessibleDescription = "Displays a 3D orbit visualization of the selected minor planet relative to the eight solar system planets";
 		AccessibleName = "Orbit 3D visualization form";
 		AccessibleRole = AccessibleRole.Dialog;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
 		ClientSize = new Size(900, 622);
-		ControlBox = false;
 		Controls.Add(toolStripContainer);
 		FormBorderStyle = FormBorderStyle.SizableToolWindow;
 		Icon = (Icon)resources.GetObject("$this.Icon");
 		MaximizeBox = false;
 		MinimizeBox = false;
 		Name = "Orbit3DForm";
+		SizeGripStyle = SizeGripStyle.Hide;
 		StartPosition = FormStartPosition.CenterScreen;
 		Text = "Orbit 3D visualization";
 		Load += Orbit3DForm_Load;

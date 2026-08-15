@@ -36,7 +36,7 @@ public partial class AEIDiagram3DForm : BaseKryptonForm
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 	/// <summary>Gets the status label used for informational text in this form.</summary>
-	protected override ToolStripStatusLabel? StatusLabel => _labelInformation;
+	protected override ToolStripStatusLabel? StatusLabel => labelInformation;
 
 	private readonly IReadOnlyList<string> _planetoids;
 	private List<AeiPoint> _rawPoints = [];
@@ -263,7 +263,7 @@ public partial class AEIDiagram3DForm : BaseKryptonForm
 
 	private void UpdateStatusLabel()
 	{
-		_labelInformation.Text = $"Points: {_renderPoints.Count:N0} / Raw: {_rawPoints.Count:N0} | Excluded: {_excludedPoints:N0} | Axes: X=a [AU], Y=e [-], Z=i [°]";
+		labelInformation.Text = $"Points: {_renderPoints.Count:N0} / Raw: {_rawPoints.Count:N0} | Excluded: {_excludedPoints:N0} | Axes: X=a [AU], Y=e [-], Z=i [°]";
 	}
 
 	private void SetupProjection()
@@ -381,7 +381,7 @@ public partial class AEIDiagram3DForm : BaseKryptonForm
 			{
 				if (!IsDisposed && !Disposing)
 				{
-					_labelInformation.Text = "Generation canceled. Press Start to run again.";
+					labelInformation.Text = "Generation canceled. Press Start to run again.";
 				}
 			}
 			finally
