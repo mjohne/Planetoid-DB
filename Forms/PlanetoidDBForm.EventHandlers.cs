@@ -809,31 +809,51 @@ public partial class PlanetoidDbForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to navigate backward by a specified step in the data.</remarks>
-	private void NavigateSomeDataBackward_Click(object sender, EventArgs e) => NavigateSomeDataBackward();
+	private void NavigateSomeDataBackward_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Navigating backward by a specified step in the data");
+		NavigateSomeDataBackward();
+	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemNavigateToThePreviousData. Navigates to the previous data entry.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to navigate to the previous data entry.</remarks>
-	private void NavigateToThePreviousData_Click(object sender, EventArgs e) => NavigateToThePreviousData();
+	private void NavigateToThePreviousData_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Navigating to the previous data entry");
+		NavigateToThePreviousData();
+	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemNavigateToTheNextData. Navigates to the next data entry.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to navigate to the next data entry.</remarks>
-	private void NavigateToTheNextData_Click(object sender, EventArgs e) => NavigateToTheNextData();
+	private void NavigateToTheNextData_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Navigating to the next data entry");
+		NavigateToTheNextData();
+	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemNavigateSomeDataForward. Navigates forward by a specified step in the data.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to navigate forward by a specified step in the data.</remarks>
-	private void NavigateSomeDataForward_Click(object sender, EventArgs e) => NavigateSomeDataForward();
+	private void NavigateSomeDataForward_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Navigating forward by a specified step in the data");
+		NavigateSomeDataForward();
+	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemNavigateToTheEnd. Navigates to the end of the data.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to navigate to the end of the data.</remarks>
-	private void NavigateToTheEnd_Click(object sender, EventArgs e) => NavigateToTheEndOfTheData();
+	private void NavigateToTheEnd_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Navigating to the end of the data");
+		NavigateToTheEndOfTheData();
+	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemSettings. Shows the settings form.</summary>
 	/// <param name="sender">The event source.</param>
@@ -1560,70 +1580,98 @@ public partial class PlanetoidDbForm
 	}
 
 	/// <summary>Handles the Click event for the MPC Database menu item and opens the Minor Planet Center database page for the selected object.</summary>
-	/// <remarks>This method constructs a URL to the Minor Planet Center database using the current object's identifier and opens it in the default web browser.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>This method constructs a URL to the Minor Planet Center database using the current object's identifier and opens it in the default web browser.</remarks>
 	private void OpenDataPageMpcDatabase_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening MPC Database page for object {labelMpcorbIndexData.Text}");
-		OpenWebsite(fileName: "https://www.minorplanetcenter.net/db_search/show_object?utf8=%E2%9C%93&object_id=" + labelMpcorbIndexData.Text);
+		OpenWebsite(fileName: $"https://www.minorplanetcenter.net/db_search/show_object?utf8=%E2%9C%93&object_id={labelMpcorbIndexData.Text}");
 	}
 
 	/// <summary>Handles the Click event for the JPL Small-Body Database menu item and opens the corresponding web page in the default browser.</summary>
-	/// <remarks>This event handler constructs a URL to the JPL Small-Body Database using the current value of the index label and opens it in the user's default web browser.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>This event handler constructs a URL to the JPL Small-Body Database using the current value of the index label and opens it in the user's default web browser.</remarks>
 	private void OpenDataPageJplSmallBodyDatabase_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening JPL Small-Body Database page for object {labelMpcorbIndexData.Text}");
-		OpenWebsite(fileName: "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=" + labelMpcorbIndexData.Text + "&view=OPDA");
+		OpenWebsite(fileName: $"https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr={labelMpcorbIndexData.Text}&view=OPDA");
 	}
 
 	/// <summary>Handles the Click event for the Lowell Minor Planet Services menu item, opening the corresponding asteroid data page in a web browser.</summary>
-	/// <remarks>This event handler constructs a URL for the Lowell Observatory's asteroid search page based on the current designation and opens it in the default web browser.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>This event handler constructs a URL for the Lowell Observatory's asteroid search page based on the current designation and opens it in the default web browser.</remarks>
 	private void OpenDataPageLowellMinorPlanetServices_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening Lowell Minor Planet Services page for object {labelMpcorbIndexData.Text}");
-		OpenWebsite(fileName: "https://asteroid.lowell.edu/gui/search/" + ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text));
+		OpenWebsite(fileName: $"https://asteroid.lowell.edu/gui/search/{ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text)}");
 	}
 
 	/// <summary>Handles the Click event for the Asteroids Dynamic Site menu item, opening the corresponding asteroid data page in a web browser.</summary>
-	/// <remarks>This event handler constructs a URL for the selected asteroid using its readable designation and opens the associated data page in the default web browser.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>This event handler constructs a URL for the selected asteroid using its readable designation and opens the associated data page in the default web browser.</remarks>
 	private void OpenDataPageAsteroidsDynamicSite_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening Asteroids Dynamic Site page for object {labelMpcorbIndexData.Text}");
-		OpenWebsite(fileName: "https://newton.spacedys.com/astdys/index.php?pc=1.1.0&n=" + ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text));
+		OpenWebsite(fileName: $"https://newton.spacedys.com/astdys/index.php?pc=1.1.0&n={ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text)}");
 	}
 
 	/// <summary>Handles the Click event for the menu item that opens the Near-Earth Objects dynamic site in a web browser.</summary>
-	/// <remarks>This method constructs a URL for the Near-Earth Objects dynamic site using the current designation and opens it in the default web browser.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>This method constructs a URL for the Near-Earth Objects dynamic site using the current designation and opens it in the default web browser.</remarks>
 	private void OpenDataPageNearEarthObjectsDynamicSite_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening Near-Earth Objects Dynamic Site page for object {labelMpcorbIndexData.Text}");
-		OpenWebsite(fileName: "https://newton.spacedys.com/neodys/index.php?pc=1.1.0&n=" + ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text));
+		OpenWebsite(fileName: $"https://newton.spacedys.com/neodys/index.php?pc=1.1.0&n={ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text)}");
 	}
 
 	/// <summary>Handles the Click event for the Near-Earth Object Coordination Centre menu item, opening the corresponding ESA NEO data page in a web browser.</summary>
-	/// <remarks>This event handler constructs a URL to the ESA Near-Earth Object Coordination Centre based on the current designation and opens it in the default web browser. Use this handler to provide quick access to detailed asteroid information from the application.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>This event handler constructs a URL to the ESA Near-Earth Object Coordination Centre based on the current designation and opens it in the default web browser. Use this handler to provide quick access to detailed asteroid information from the application.</remarks>
 	private void OpenDataPageNearEarthObjectCoordinationCentre_Click(object sender, EventArgs e)
 	{
 		logger.Info(message: $"Opening Near-Earth Object Coordination Centre page for object {labelMpcorbIndexData.Text}");
-		OpenWebsite(fileName: "https://neo.ssa.esa.int/search-for-asteroids?tab=summary&des=" + ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text));
+		OpenWebsite(fileName: $"https://neo.ssa.esa.int/search-for-asteroids?tab=summary&des={ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text)}");
+	}
+
+	/*
+	private void OpenDataPageAsteroidFamilies_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Opening Asteroid Families page for object {labelMpcorbIndexData.Text}");
+		OpenWebsite(fileName: $"https://newton.spacedys.com/astdys/index.php?pc=1.1.0&n={ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text)}&f=2");
+	}
+	*/
+
+	/// <summary>Handles the Click event for the SsoCard menu item, opening the corresponding SsoCard data page in a web browser.</summary>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>This method constructs a URL to the SsoCard data page based on the current designation and opens it in the default web browser. Use this handler to provide quick access to detailed asteroid information from the application.</remarks>
+	private void OpenDataPageSsoCard_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Opening SsoCard page for object {labelMpcorbIndexData.Text}");
+		OpenWebsite(fileName: $"https://ssp.imcce.fr/forms/ssocard/{ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text)}");
+	}
+
+	/// <summary>Handles the Click event for the NeoTools OVT menu item, opening the corresponding NeoTools OVT data page in a web browser.</summary>
+	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>This method constructs a URL to the NeoTools OVT data page based on the current designation and opens it in the default web browser. Use this handler to provide quick access to detailed asteroid information from the application.</remarks>
+	private void OpenDataPageNeoToolsOvt_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: $"Opening NeoTools OVT page for object {labelMpcorbIndexData.Text}");
+		OpenWebsite(fileName: $"https://neotools.neo.s2p.esa.int/ovt?object={ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text)}");
 	}
 
 
 	/// <summary>Handles the Click event for the menu item that opens all relevant data pages for the selected object in the default web browser.</summary>
-	/// <remarks>This method constructs URLs for multiple astronomical data sources using the current object's identifiers and opens each page in the default web browser. The method is intended to provide quick access to external resources for further information about the selected object.</remarks>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
+	/// <remarks>This method constructs URLs for multiple astronomical data sources using the current object's identifiers and opens each page in the default web browser. The method is intended to provide quick access to external resources for further information about the selected object.</remarks>
 	private void OpenAllDataPages_Click(object sender, EventArgs e)
 	{
 		OpenDataPageMpcDatabase_Click(sender: sender, e: e);
@@ -1632,6 +1680,8 @@ public partial class PlanetoidDbForm
 		OpenDataPageAsteroidsDynamicSite_Click(sender: sender, e: e);
 		OpenDataPageNearEarthObjectsDynamicSite_Click(sender: sender, e: e);
 		OpenDataPageNearEarthObjectCoordinationCentre_Click(sender: sender, e: e);
+		OpenDataPageSsoCard_Click(sender: sender, e: e);
+		OpenDataPageNeoToolsOvt_Click(sender: sender, e: e);
 	}
 
 	/// <summary>Handles the Click event for the label that displays MPCORB flag data and initiates decoding of the flags.</summary>
