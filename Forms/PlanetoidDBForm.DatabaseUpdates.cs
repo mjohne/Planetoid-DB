@@ -31,7 +31,7 @@ public partial class PlanetoidDbForm
 	private bool IsMpcorbDatUpdateAvailable()
 	{
 		// Check if the user has enabled the option to check for database updates on startup
-		if (toolStripMenuItemCheckingDatabaseUpdatesOnStartup.Checked)
+		if (Settings.Default.userCheckingDatabaseUpdatesOnStartup)
 		{
 			// Call the generic method to check if an update for MPCORB.DAT is available
 			logger.Info(message: "Database update check on startup is enabled. Checking MPCORB.DAT update availability.");
@@ -48,7 +48,7 @@ public partial class PlanetoidDbForm
 	private bool IsMpcorbJsonUpdateAvailable()
 	{
 		// Check if the user has enabled the option to check for database updates on startup
-		if (toolStripMenuItemCheckingDatabaseUpdatesOnStartup.Checked)
+		if (Settings.Default.userCheckingDatabaseUpdatesOnStartup)
 		{
 			// Call the generic method to check if an update for MPCORB.JSON is available
 			logger.Info(message: "Database update check on startup is enabled. Checking MPCORB.JSON update availability.");
@@ -65,7 +65,7 @@ public partial class PlanetoidDbForm
 	private bool IsAstorbDatUpdateAvailable()
 	{
 		// Check if the user has enabled the option to check for database updates on startup
-		if (toolStripMenuItemCheckingDatabaseUpdatesOnStartup.Checked)
+		if (Settings.Default.userCheckingDatabaseUpdatesOnStartup)
 		{
 			// Call the generic method to check if an update for ASTORB.DAT is available
 			logger.Info(message: "Database update check on startup is enabled. Checking ASTORB.DAT update availability.");
@@ -85,7 +85,7 @@ public partial class PlanetoidDbForm
 	private bool IsAllnumCatUpdateAvailable()
 	{
 		// Check if the user has enabled the option to check for database updates on startup
-		if (toolStripMenuItemCheckingDatabaseUpdatesOnStartup.Checked)
+		if (Settings.Default.userCheckingDatabaseUpdatesOnStartup)
 		{
 			// Call the generic method to check if an update for ALLNUM.CAT is available
 			logger.Info(message: "Database update check on startup is enabled. Checking ALLNUM.CAT update availability.");
@@ -105,7 +105,7 @@ public partial class PlanetoidDbForm
 	private bool IsUfitobsCatUpdateAvailable()
 	{
 		// Check if the user has enabled the option to check for database updates on startup
-		if (toolStripMenuItemCheckingDatabaseUpdatesOnStartup.Checked)
+		if (Settings.Default.userCheckingDatabaseUpdatesOnStartup)
 		{
 			// Call the generic method to check if an update for UFITOBS.CAT is available
 			logger.Info(message: "Database update check on startup is enabled. Checking UFITOBS.CAT update availability.");
@@ -125,7 +125,7 @@ public partial class PlanetoidDbForm
 	private bool IsSingoppCatUpdateAvailable()
 	{
 		// Check if the user has enabled the option to check for database updates on startup
-		if (toolStripMenuItemCheckingDatabaseUpdatesOnStartup.Checked)
+		if (Settings.Default.userCheckingDatabaseUpdatesOnStartup)
 		{
 			// Call the generic method to check if an update for SINGOPP.CAT is available
 			logger.Info(message: "Database update check on startup is enabled. Checking SINGOPP.CAT update availability.");

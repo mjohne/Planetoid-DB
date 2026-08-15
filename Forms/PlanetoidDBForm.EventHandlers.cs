@@ -1871,8 +1871,8 @@ public partial class PlanetoidDbForm
 	}
 
 	/// <summary>Handles the click event for the "Checking Database Updates on Startup" menu item.</summary>
-	/// <param name="e">The event data associated with the click event.</param>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
+	/// <param name="e">The event data associated with the click event.</param>
 	/// <remarks>This method updates the user setting for checking database updates on startup and saves the settings.</remarks>
 	private void ToolStripMenuItemCheckingDatabaseUpdatesOnStartup_Click(object sender, EventArgs e)
 	{
