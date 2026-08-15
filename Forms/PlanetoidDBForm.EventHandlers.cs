@@ -242,6 +242,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to load the database in a background thread.</remarks>
 	private void BackgroundWorkerLoadingDatabase_DoWork(object sender, DoWorkEventArgs e)
 	{
+		// Log the start of the database loading process
+		logger.Info(message: "Loading database in background worker");
 		// Disable the form while loading the database
 		Enabled = false;
 		// Initialize the line number counter
@@ -310,6 +312,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to handle the completion of the database loading process.</remarks>
 	private void BackgroundWorkerLoadingDatabase_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
 	{
+		// Log the completion of the database loading process
+		logger.Info(message: "Database loading completed");
 		// Set the initial value of the goto index text box
 		toolStripTextBoxGotoIndex.Text = 1.ToString();
 		// Set the current position to the first record
@@ -446,7 +450,11 @@ public partial class PlanetoidDbForm
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show the archive.</remarks>
-	private void Archive_Click(object sender, EventArgs e) => ShowArchive();
+	private void Archive_Click(object sender, EventArgs e)
+	{
+		logger.Info(message: "Showing archive form");
+		ShowArchive();
+	}
 
 	/// <summary>Handles the click event for the ToolStripButtonGoToIndex. Navigates to the specified index in the data.</summary>
 	/// <param name="sender">The event source.</param>
@@ -608,7 +616,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the downloader form for the MPCORB.DAT database.</remarks>
 	private void DownloadMpcorbDat_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing downloader form for MPCORB.DAT database");
+		logger.Info(message: "Showing downloader form for MPCORB.DAT database");
 		ShowMpcorbDatDownloader();
 	}
 
@@ -618,7 +626,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the downloader form for the MPCORB.JSON database.</remarks>
 	private void DownloadMpcorbJson_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing downloader form for MPCORB.JSON database");
+		logger.Info(message: "Showing downloader form for MPCORB.JSON database");
 		ShowMpcorbJsonDownloader();
 	}
 
@@ -628,7 +636,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the downloader form for the ASTORB.DAT database.</remarks>
 	private void DownloadAstorbDat_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing downloader form for ASTORB.DAT database");
+		logger.Info(message: "Showing downloader form for ASTORB.DAT database");
 		ShowAstorbDatDownloader();
 	}
 
@@ -638,7 +646,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the downloader form for the ALLNUM.CAT database.</remarks>
 	private void DownloadAllnumCat_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing downloader form for ALLNUM.CAT database");
+		logger.Info(message: "Showing downloader form for ALLNUM.CAT database");
 		ShowAllnumCatDownloader();
 	}
 
@@ -648,7 +656,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the downloader form for the UFITOBS.CAT database.</remarks>
 	private void DownloadUfitobsCat_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing downloader form for UFITOBS.CAT database");
+		logger.Info(message: "Showing downloader form for UFITOBS.CAT database");
 		ShowUfitobsCatDownloader();
 	}
 
@@ -658,7 +666,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the downloader form for the SINGOPP.CAT database.</remarks>
 	private void DownloadSingoppCat_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing downloader form for SINGOPP.CAT database");
+		logger.Info(message: "Showing downloader form for SINGOPP.CAT database");
 		ShowSingoppCatDownloader();
 	}
 
@@ -669,7 +677,7 @@ public partial class PlanetoidDbForm
 	///	This method is used to show the MPCORB.DAT data check form.</remarks>
 	private void CheckMpcorbDatUpdate_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing data check form for MPCORB.DAT database");
+		logger.Info(message: "Showing data check form for MPCORB.DAT database");
 		ShowMpcorbDatUpdateCheck();
 	}
 
@@ -680,7 +688,7 @@ public partial class PlanetoidDbForm
 	///	This method is used to show the MPCORB.JSON data check form.</remarks>
 	private void CheckMpcorbJsonUpdate_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing data check form for MPCORB.JSON database");
+		logger.Info(message: "Showing data check form for MPCORB.JSON database");
 		ShowMpcorbJsonUpdateCheck();
 	}
 
@@ -690,7 +698,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the ASTORB.DAT data check form.</remarks>
 	private void CheckAstorbDatUpdate_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing data check form for ASTORB.DAT database");
+		logger.Info(message: "Showing data check form for ASTORB.DAT database");
 		ShowAstorbDatUpdateCheck();
 	}
 
@@ -700,7 +708,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the ALLNUM.CAT data check form.</remarks>
 	private void CheckAllnumCatUpdate_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing data check form for ALLNUM.CAT database");
+		logger.Info(message: "Showing data check form for ALLNUM.CAT database");
 		ShowAllnumCatUpdateCheck();
 	}
 
@@ -710,7 +718,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the UFITOBS.CAT data check form.</remarks>
 	private void CheckUfitobsCatUpdate_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing data check form for UFITOBS.CAT database");
+		logger.Info(message: "Showing data check form for UFITOBS.CAT database");
 		ShowUfitobsCatUpdateCheck();
 	}
 
@@ -720,7 +728,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the SINGOPP.CAT data check form.</remarks>
 	private void CheckSingoppCatUpdate_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing data check form for SINGOPP.CAT database");
+		logger.Info(message: "Showing data check form for SINGOPP.CAT database");
 		ShowSingoppCatUpdateCheck();
 	}
 
@@ -730,7 +738,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the application information form.</remarks>
 	private void About_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing application information form");
+		logger.Info(message: "Showing application information form");
 		ShowAppInfo();
 	}
 
@@ -750,7 +758,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to open the table mode form.</remarks>
 	private void TableMode_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Opening table mode form");
+		logger.Info(message: "Opening table mode form");
 		OpenTableMode();
 	}
 
@@ -761,7 +769,7 @@ public partial class PlanetoidDbForm
 	///	This method is used to show the database information form.</remarks>
 	private void DatabaseInformation_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing database information form");
+		logger.Info(message: "Showing database information form");
 		ShowDatabaseInformation();
 	}
 
@@ -771,7 +779,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the print data sheet form.</remarks>
 	private void PrintDataSheet_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing print data sheet form");
+		logger.Info(message: "Showing print data sheet form");
 		PrintDataSheet();
 	}
 
@@ -781,7 +789,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the search form.</remarks>
 	private void Search_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing search form");
+		logger.Info(message: "Showing search form");
 		ShowSearch();
 	}
 
@@ -791,7 +799,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to load a random minor planet from the database.</remarks>
 	private void LoadRandomMinorPlanet_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Loading a random minor planet from the database");
+		logger.Info(message: "Loading a random minor planet from the database");
 		LoadRandomMinorPlanet();
 	}
 
@@ -801,7 +809,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to navigate to the beginning of the data.</remarks>
 	private void NavigateToTheBegin_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Navigating to the beginning of the data");
+		logger.Info(message: "Navigating to the beginning of the data");
 		NavigateToTheBeginOfTheData();
 	}
 
@@ -811,7 +819,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to navigate backward by a specified step in the data.</remarks>
 	private void NavigateSomeDataBackward_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Navigating backward by a specified step in the data");
+		logger.Info(message: "Navigating backward by a specified step in the data");
 		NavigateSomeDataBackward();
 	}
 
@@ -821,7 +829,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to navigate to the previous data entry.</remarks>
 	private void NavigateToThePreviousData_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Navigating to the previous data entry");
+		logger.Info(message: "Navigating to the previous data entry");
 		NavigateToThePreviousData();
 	}
 
@@ -831,7 +839,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to navigate to the next data entry.</remarks>
 	private void NavigateToTheNextData_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Navigating to the next data entry");
+		logger.Info(message: "Navigating to the next data entry");
 		NavigateToTheNextData();
 	}
 
@@ -841,7 +849,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to navigate forward by a specified step in the data.</remarks>
 	private void NavigateSomeDataForward_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Navigating forward by a specified step in the data");
+		logger.Info(message: "Navigating forward by a specified step in the data");
 		NavigateSomeDataForward();
 	}
 
@@ -851,7 +859,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to navigate to the end of the data.</remarks>
 	private void NavigateToTheEnd_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Navigating to the end of the data");
+		logger.Info(message: "Navigating to the end of the data");
 		NavigateToTheEndOfTheData();
 	}
 
@@ -861,7 +869,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the settings form.</remarks>
 	private void Settings_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing settings form");
+		logger.Info(message: "Showing settings form");
 		ShowSettings();
 	}
 
@@ -891,7 +899,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the filter form.</remarks>
 	private void Filter_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing filter form");
+		logger.Info(message: "Showing filter form");
 		ShowFilter();
 	}
 
@@ -901,7 +909,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to reset the filter and restore the original database.</remarks>
 	private void FilterReset_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Resetting filter and restoring original database");
+		logger.Info(message: "Resetting filter and restoring original database");
 		// Replace the current database with the backup
 		planetoidsDatabase.Clear();
 		planetoidsDatabase.AddRange(collection: planetoidsDatabaseBackup);
@@ -927,7 +935,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the derived orbit elements form.</remarks>
 	private void DerivedOrbitElements_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing derived orbit elements form");
+		logger.Info(message: "Showing derived orbit elements form");
 		ShowDerivedOrbitElements();
 	}
 
@@ -937,7 +945,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to restart the application.</remarks>
 	private void Restart_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Restarting application");
+		logger.Info(message: "Restarting application");
 		Restart();
 	}
 
@@ -947,7 +955,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to check if the form should stay on top of other windows.</remarks>
 	private void StayOnTop_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Checking if the form should stay on top of other windows");
+		logger.Info(message: "Checking if the form should stay on top of other windows");
 		CheckStayOnTop();
 	}
 
@@ -1157,7 +1165,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to export the data sheet.</remarks>
 	private void Export_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Exporting data sheet");
+		logger.Info(message: "Exporting data sheet");
 		ExportDataSheet();
 	}
 
@@ -1167,7 +1175,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the records main form.</remarks>
 	private void Records_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing records main form");
+		logger.Info(message: "Showing records main form");
 		ShowRecords();
 	}
 
@@ -1177,7 +1185,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the top ten records form for mean anomaly at the epoch.</remarks>
 	private void RecordsMeanAnomalyAtTheEpoch_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing top ten records form for mean anomaly at the epoch");
+		logger.Info(message: "Showing top ten records form for mean anomaly at the epoch");
 		// Show the top ten records form for mean anomaly at the epoch
 		ShowRecordsTop10(selectedElement: "Mean anomaly at the epoch");
 	}
@@ -1188,7 +1196,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the top ten records form for the argument of the perihelion.</remarks>
 	private void RecordsArgumentOfThePerihelion_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing top ten records form for argument of the perihelion");
+		logger.Info(message: "Showing top ten records form for argument of the perihelion");
 		// Show the top ten records form for the argument of the perihelion
 		ShowRecordsTop10(selectedElement: "Argument of the perihelion");
 	}
@@ -1199,7 +1207,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the top ten records form for the longitude of the ascending node.</remarks>
 	private void RecordsLongitudeOfTheAscendingNode_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing top ten records form for longitude of the ascending node");
+		logger.Info(message: "Showing top ten records form for longitude of the ascending node");
 		// Show the top ten records form for the longitude of the ascending node
 		ShowRecordsTop10(selectedElement: "Longitude of the ascending node");
 	}
@@ -1210,7 +1218,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the top ten records form for inclination.</remarks>
 	private void RecordsInclination_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing top ten records form for inclination");
+		logger.Info(message: "Showing top ten records form for inclination");
 		// Show the top ten records form for inclination
 		ShowRecordsTop10(selectedElement: "Inclination");
 	}
@@ -1221,7 +1229,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the top ten records form for orbital eccentricity.</remarks>
 	private void RecordsOrbitalEccentricity_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing top ten records form for orbital eccentricity");
+		logger.Info(message: "Showing top ten records form for orbital eccentricity");
 		// Show the top ten records form for orbital eccentricity
 		ShowRecordsTop10(selectedElement: "Orbital eccentricity");
 	}
@@ -1232,7 +1240,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the top ten records form for mean daily motion.</remarks>
 	private void RecordsMeanDailyMotion_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing top ten records form for mean daily motion");
+		logger.Info(message: "Showing top ten records form for mean daily motion");
 		// Show the top ten records form for mean daily motion
 		ShowRecordsTop10(selectedElement: "Mean daily motion");
 	}
@@ -1243,7 +1251,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the top ten records form for semi-major axis.</remarks>
 	private void RecordsSemiMajorAxis_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing top ten records form for semi-major axis");
+		logger.Info(message: "Showing top ten records form for semi-major axis");
 		// Show the top ten records form for semi-major axis
 		ShowRecordsTop10(selectedElement: "Semi-major axis");
 	}
@@ -1254,7 +1262,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the top ten records form for absolute magnitude.</remarks>
 	private void RecordsAbsoluteMagnitude_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing top ten records form for absolute magnitude");
+		logger.Info(message: "Showing top ten records form for absolute magnitude");
 		// Show the top ten records form for absolute magnitude
 		ShowRecordsTop10(selectedElement: "Absolute magnitude");
 	}
@@ -1265,7 +1273,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the top ten records form for slope parameter.</remarks>
 	private void RecordsSlopeParameter_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing top ten records form for slope parameter");
+		logger.Info(message: "Showing top ten records form for slope parameter");
 		// Show the top ten records form for slope parameter
 		ShowRecordsTop10(selectedElement: "Slope parameter");
 	}
@@ -1276,7 +1284,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the top ten records form for number of oppositions.</remarks>
 	private void RecordsNumberOfOppositions_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing top ten records form for number of oppositions");
+		logger.Info(message: "Showing top ten records form for number of oppositions");
 		// Show the top ten records form for number of oppositions
 		ShowRecordsTop10(selectedElement: "Number of oppositions");
 	}
@@ -1287,7 +1295,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the top ten records form for number of observations.</remarks>
 	private void RecordsNumberOfObservations_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing top ten records form for number of observations");
+		logger.Info(message: "Showing top ten records form for number of observations");
 		// Show the top ten records form for number of observations
 		ShowRecordsTop10(selectedElement: "Number of observations");
 	}
@@ -1298,7 +1306,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the top ten records form for RMS residual.</remarks>
 	private void RecordsRmsResidual_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing top ten records form for RMS residual");
+		logger.Info(message: "Showing top ten records form for RMS residual");
 		// Show the top ten records form for RMS residual
 		ShowRecordsTop10(selectedElement: "r.m.s. residual");
 	}
@@ -1309,7 +1317,7 @@ public partial class PlanetoidDbForm
 	///	<remarks>This method is used to show the histogram form for the selected parameter.</remarks>
 	private void Distributions_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing histogram form for the selected parameter");
+		logger.Info(message: "Showing histogram form for the selected parameter");
 		// Show the histogram form for the selected parameter
 		ShowHistogram();
 	}
@@ -1320,7 +1328,7 @@ public partial class PlanetoidDbForm
 	///	<remarks>This method is used to show the scatter plot form for the selected parameter.</remarks>
 	private void ScatterPlots_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing scatter plot form for the selected parameter");
+		logger.Info(message: "Showing scatter plot form for the selected parameter");
 		// Show the scatter plot form for the selected parameter
 		ShowScatterPlot();
 	}
@@ -1331,7 +1339,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the 3D diagram form for the selected parameter.</remarks>
 	private void AEIDiagram3D_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing 3D diagram form for the selected parameter");
+		logger.Info(message: "Showing 3D diagram form for the selected parameter");
 		using AEIDiagram3DForm formAEIDiagram = new(planetoids: planetoidsDatabase);
 		formAEIDiagram.TopMost = TopMost;
 		_ = formAEIDiagram.ShowDialog(owner: this);
@@ -1343,6 +1351,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the Average Asteroid form that displays various types of averages for all orbital elements and astrophysical properties.</remarks>
 	private void AverageAsteroid_Click(object sender, EventArgs e)
 	{
+		logger.Info(message: "Showing Average Asteroid form");
 		// Check if the database is loaded and contains data before attempting to show the form
 		try
 		{
@@ -1375,7 +1384,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the distribution form for the selected parameter.</remarks>
 	private void ListReadableDesignations_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Listing readable designations");
+		logger.Info(message: "Listing readable designations");
 		ListReadableDesignations();
 	}
 
@@ -1385,7 +1394,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the license.</remarks>
 	private void License_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing license");
+		logger.Info(message: "Showing license");
 		ShowLicense();
 	}
 
@@ -1415,7 +1424,7 @@ public partial class PlanetoidDbForm
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	private void CompareDatabases_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Comparing database archives");
+		logger.Info(message: "Comparing database archives");
 		ShowCompareArchives();
 	}
 
@@ -1425,7 +1434,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the orbital resonances form.</remarks>
 	private void OrbitalResonances_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing orbital resonances form");
+		logger.Info(message: "Showing orbital resonances form");
 		ShowOrbitalResonances();
 	}
 
@@ -1435,7 +1444,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the observations form.</remarks>
 	private void Observations_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing observations form");
+		logger.Info(message: "Showing observations form");
 		ShowObservations();
 	}
 
@@ -1445,7 +1454,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the orbit elements grouping form.</remarks>
 	private void OrbitElementsGrouping_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing orbit elements grouping form");
+		logger.Info(message: "Showing orbit elements grouping form");
 		ShowOrbitElementsGrouping();
 	}
 
@@ -1455,7 +1464,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the asteroid families form.</remarks>
 	private void AsteroidFamiliesDetection_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing asteroid families form");
+		logger.Info(message: "Showing asteroid families form");
 		ShowAsteroidFamiliesDetection();
 	}
 
@@ -1465,7 +1474,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the orbital resonances of all minor planets form.</remarks>
 	private void OrbitalResonancesOfAllMinorPlanets_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing orbital resonances of all minor planets form");
+		logger.Info(message: "Showing orbital resonances of all minor planets form");
 		ShowOrbitalResonancesOfAllMinorPlanets();
 	}
 
@@ -1475,7 +1484,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the MOIDs form for the currently selected minor planet.</remarks>
 	private void Moids_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing MOIDs form");
+		logger.Info(message: "Showing MOIDs form");
 		ShowMoids();
 	}
 
@@ -1485,7 +1494,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the MAXOIDs form for the currently selected minor planet.</remarks>
 	private void Maxoids_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing MAXOIDs form");
+		logger.Info(message: "Showing MAXOIDs form");
 		ShowMaxoids();
 	}
 
@@ -1495,7 +1504,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the MOIDs and MAXOIDs form for the currently selected minor planet.</remarks>
 	private void MoidsAndMaxoids_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing MOIDs and MAXOIDs form");
+		logger.Info(message: "Showing MOIDs and MAXOIDs form");
 		ShowMoidsAndMaxoids();
 	}
 
@@ -1505,7 +1514,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the MOIDs of all minor planets form.</remarks>
 	private void MoidsOfAllMinorPlanets_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing MOIDs of all minor planets form");
+		logger.Info(message: "Showing MOIDs of all minor planets form");
 		ShowMoidsOfAllMinorPlanets();
 	}
 
@@ -1515,7 +1524,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the MAXOIDs of all minor planets form.</remarks>
 	private void MaxoidsOfAllMinorPlanets_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing MAXOIDs of all minor planets form");
+		logger.Info(message: "Showing MAXOIDs of all minor planets form");
 		ShowMaxoidsOfAllMinorPlanets();
 	}
 
@@ -1525,7 +1534,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the Tisserand parameters form for the currently selected minor planet.</remarks>
 	private void TisserandParameters_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing Tisserand parameters form");
+		logger.Info(message: "Showing Tisserand parameters form");
 		ShowTisserandParameters();
 	}
 
@@ -1535,7 +1544,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the Tisserand parameters of all minor planets form.</remarks>
 	private void TisserandParametersOfAllMinorPlanets_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing Tisserand parameters of all minor planets form");
+		logger.Info(message: "Showing Tisserand parameters of all minor planets form");
 		ShowTisserandParametersOfAllMinorPlanets();
 	}
 
@@ -1545,7 +1554,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to show the bulk observations data downloader form.</remarks>
 	private void BulkObservationDataDownloader_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing bulk observations data downloader form");
+		logger.Info(message: "Showing bulk observations data downloader form");
 		ShowBulkObservationDataDownloader();
 	}
 
@@ -1555,7 +1564,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method opens the form for calculating the MOID between two user-selected minor planets.</remarks>
 	private void MoidsRelativeToMinorPlanets_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing MOIDs relative to minor planets form");
+		logger.Info(message: "Showing MOIDs relative to minor planets form");
 		ShowMoidsRelativeToMinorPlanets();
 	}
 
@@ -1565,7 +1574,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method opens the form for calculating the MAXOID between two user-selected minor planets.</remarks>
 	private void MaxoidsRelativeToMinorPlanets_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Showing MAXOIDs relative to minor planets form");
+		logger.Info(message: "Showing MAXOIDs relative to minor planets form");
 		ShowMaxoidsRelativeToMinorPlanets();
 	}
 
@@ -1575,7 +1584,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method allows the user to select a custom local MPCORB.DAT file instead of using the default one.</remarks>
 	private void OpenLocalMpcorbDat_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Opening local MPCORB.DAT file");
+		logger.Info(message: "Opening local MPCORB.DAT file");
 		OpenLocalMpcorbDat();
 	}
 
@@ -1639,14 +1648,6 @@ public partial class PlanetoidDbForm
 		OpenWebsite(fileName: $"https://neo.ssa.esa.int/search-for-asteroids?tab=summary&des={ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text)}");
 	}
 
-	/*
-	private void OpenDataPageAsteroidFamilies_Click(object sender, EventArgs e)
-	{
-		logger.Info(message: $"Opening Asteroid Families page for object {labelMpcorbIndexData.Text}");
-		OpenWebsite(fileName: $"https://newton.spacedys.com/astdys/index.php?pc=1.1.0&n={ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text)}&f=2");
-	}
-	*/
-
 	/// <summary>Handles the Click event for the SsoCard menu item, opening the corresponding SsoCard data page in a web browser.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
@@ -1674,6 +1675,9 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method constructs URLs for multiple astronomical data sources using the current object's identifiers and opens each page in the default web browser. The method is intended to provide quick access to external resources for further information about the selected object.</remarks>
 	private void OpenAllDataPages_Click(object sender, EventArgs e)
 	{
+		// Log the action of opening all relevant data pages for the selected object
+		logger.Info(message: $"Opening all relevant data pages for object {labelMpcorbIndexData.Text}");
+		// Call the individual methods to open each data page, passing the same sender and event arguments to maintain context
 		OpenDataPageMpcDatabase_Click(sender: sender, e: e);
 		OpenDataPageJplSmallBodyDatabase_Click(sender: sender, e: e);
 		OpenDataPageLowellMinorPlanetServices_Click(sender: sender, e: e);
@@ -1730,7 +1734,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>Opens the <see cref="ObservatoryCodesForm"/> as a modal dialog to display the list of observatory codes.</remarks>
 	private void ObservatoryCodes_Click(object sender, EventArgs e)
 	{
-		logger.Info(message: $"Opening Observatory Codes form");
+		logger.Info(message: "Opening Observatory Codes form");
 		// Open the ObservatoryCodesForm as a modal dialog to display the list of observatory codes. The form is set to be topmost based on the current state of the main form to ensure it appears above other windows.
 		using ObservatoryCodesForm formObservatoryCodes = new();
 		formObservatoryCodes.TopMost = TopMost;
@@ -1773,6 +1777,9 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method enables or disables logging based on the checked state of the ToolStripMenuItemLogging menu item. It also updates the user settings to reflect the current logging preference and enables or disables the logging level menu items accordingly.</remarks>
 	private void ToolStripMenuItemLogging_Click(object sender, EventArgs e)
 	{
+		// Log the click event and the current checked state of the logging menu item
+		logger.Info(message: $"Logging menu item clicked. Checked state: {toolStripMenuItemLogging.Checked}");
+		// Enable or disable logging based on the checked state of the menu item
 		if (toolStripMenuItemLogging.Checked)
 		{
 			// Enable logging
@@ -1871,6 +1878,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method attempts to parse the current tag text as an integer and opens the terminology dialog for the corresponding entry if successful.</remarks>
 	private void OpenTerminology_DoubleClick(object sender, EventArgs e)
 	{
+		// Get the current tag text from the sender control
+		logger.Info(message: $"Double-click event triggered on control '{sender?.GetType().Name}' to open terminology dialog.");
 		// Try to parse the index from the current tag text
 		if (TryParseInt(input: currentTagText, value: out int index, errorMessage: out string errorMessage))
 		{
@@ -1949,6 +1958,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method checks the checked state of the experimental features menu item and calls the appropriate method to enable or disable experimental features.</remarks>
 	private void ToolStripMenuItemExperimentalFeatures_Click(object sender, EventArgs e)
 	{
+		// Log the click event and the current checked state of the experimental features menu item
+		logger.Info(message: $"Experimental Features menu item clicked. Checked state: {toolStripMenuItemExperimentalFeatures.Checked}");
 		// Toggle experimental features based on the current checked state of the menu item
 		if (toolStripMenuItemExperimentalFeatures.Checked)
 		{
