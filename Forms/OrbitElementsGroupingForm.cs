@@ -1,7 +1,7 @@
 /*
  * File:        OrbitElementsGroupingForm.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Forms
  * Description: Form to analyze and group planetoids based on common orbital element ranges.
  *
  * Author:      Michael Johne

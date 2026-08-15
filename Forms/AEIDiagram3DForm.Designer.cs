@@ -14,7 +14,6 @@
  * See LICENSE file in the project root for license information.
  */
 
-
 using Krypton.Toolkit;
 
 using Planetoid_DB.Helpers;

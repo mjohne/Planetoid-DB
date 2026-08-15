@@ -13,11 +13,6 @@
  * See LICENSE file in the project root for license information.
  */
 
-
-// This file is part of the PlanetoidDbForm partial class.
-// It contains methods for decoding MPCORB flag, reference, packed epoch, and readable designation fields,
-// as well as the static helpers DecodeReference, DecodeBase62, GetJournalName, DecodePackedEpochDate, and UnpackReadableDesignation.
-
 using Krypton.Toolkit;
 
 namespace Planetoid_DB;

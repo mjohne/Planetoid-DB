@@ -1,7 +1,7 @@
 /*
  * File:        OrbitElementsGroupingForm.Designer.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Forms
  * Description: Provides a user interface for grouping orbital elements of planetoids.
  * Remarks:     This file contains the Windows Forms designer-generated code for the OrbitElementsGroupingForm. Do not modify this file manually.
  *

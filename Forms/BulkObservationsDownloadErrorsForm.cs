@@ -1,7 +1,7 @@
 /*
  * File:        BulkObservationsDownloadErrorsForm.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Forms
  * Description: Dialog form that displays detailed bulk-download errors in a list view.
  *
  * Author:      Michael Johne
