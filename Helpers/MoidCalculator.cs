@@ -1,7 +1,7 @@
 /*
  * File:        MoidCalculator.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Helpers
  * Description: Provides methods for calculating the Minimum Orbit Intersection Distance (MOID) between a minor planet and the eight solar system planets.
  *
  * Author:      Michael Johne

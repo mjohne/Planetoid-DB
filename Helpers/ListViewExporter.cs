@@ -1,7 +1,7 @@
 /*
  * File:        ListViewExporter.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Helpers
  * Description: Provides static methods for saving the contents of a ListView to various file formats.
  *
  * Author:      Michael Johne
@@ -37,7 +37,6 @@ public static partial class ListViewExporter
 	private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 	#region helpers
-
 
 	/// <summary>Returns the column header texts of the given <see cref="ListView"/>.</summary>
 	/// <param name="listView">The list view whose columns to read.</param>

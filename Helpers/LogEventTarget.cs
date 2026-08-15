@@ -1,7 +1,7 @@
 /*
  * File:        LogEventTarget.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Helpers
  * Description: Custom NLog target that forwards every received LogEventInfo to LogEventStore for later retrieval by the log viewer UI.
  *
  * Author:      Michael Johne

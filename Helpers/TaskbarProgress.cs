@@ -1,7 +1,7 @@
 /*
  * File:        TaskbarProgress.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Helpers
  * Description: Controls the progress bar of the program icon in the Windows taskbar.
  *
  * Author:      Michael Johne

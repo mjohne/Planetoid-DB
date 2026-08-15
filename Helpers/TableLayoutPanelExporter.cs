@@ -1,7 +1,7 @@
 /*
  * File:        TableLayoutPanelExporter.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Helpers
  * Description: Provides static methods for saving the contents of a TableLayoutPanel to various file formats.
  *
  * Author:      Michael Johne

@@ -1,7 +1,7 @@
 /*
  * File:        ExportFeedbackHelper.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Helpers
  * Description: Handles UI feedback and logging during export operations.
  *
  * Author:      Michael Johne

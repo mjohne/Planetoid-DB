@@ -1,7 +1,7 @@
 /*
  * File:        DoubleBufferingHelper.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Helpers
  * Description: Provides helper methods to enable double buffering on controls via compiled delegates for maximum performance.
  *
  * Author:      Michael Johne

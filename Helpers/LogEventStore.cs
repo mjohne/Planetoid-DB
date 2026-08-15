@@ -1,7 +1,7 @@
 /*
  * File:        LogEventStore.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Helpers
  * Description: Thread-safe in-memory store for NLog LogEventInfo instances captured during the application session.
  *
  * Author:      Michael Johne

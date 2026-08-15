@@ -1,7 +1,7 @@
 /*
  * File:        SettingsExporter.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Helpers
  * Description: Provides static methods to export all application settings (user-scoped and application-scoped) from Settings to CSV, INI, XML, JSON, and YAML files.
  *
  * Author:      Michael Johne

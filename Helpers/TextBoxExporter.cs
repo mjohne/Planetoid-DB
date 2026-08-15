@@ -1,7 +1,7 @@
 /*
  * File:        TextBoxExporter.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Helpers
  * Description: Provides static methods for saving the contents of a textbox to various file formats.
  *
  * Author:      Michael Johne

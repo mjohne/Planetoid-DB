@@ -1,7 +1,7 @@
 ﻿/*
  * File:        DerivedElements.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Helpers
  * Description: Provides methods for calculating various orbital elements.
  *
  * Author:      Michael Johne

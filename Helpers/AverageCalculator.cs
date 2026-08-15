@@ -1,7 +1,7 @@
 /*
  * File:        AverageCalculator.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Helpers
  * Description: Provides methods to calculate various types of averages from a collection of numeric values.
  *
  * Author:      Michael Johne

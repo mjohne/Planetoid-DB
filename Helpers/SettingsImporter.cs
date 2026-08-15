@@ -1,7 +1,7 @@
 /*
  * File:        SettingsImporter.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Helpers
  * Description: Provides static methods to import user-scoped application settings from CSV, INI, XML, JSON, and YAML files into Settings.Default.
  *
  * Author:      Michael Johne

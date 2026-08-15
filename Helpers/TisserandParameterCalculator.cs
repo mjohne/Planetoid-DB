@@ -1,7 +1,7 @@
 /*
  * File:        TisserandParameterCalculator.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Helpers
  * Description: Provides methods for calculating the Tisserand parameter of a minor planet relative to each of the eight solar system planets.
  *
  * Author:      Michael Johne

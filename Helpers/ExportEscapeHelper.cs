@@ -1,7 +1,7 @@
 /*
  * File:        ExportEscapeHelper.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Helpers
  * Description: Provides static helper methods for escaping strings in various document formats, as well as shared UI feedback methods used by all exporter classes.
  *
  * Author:      Michael Johne

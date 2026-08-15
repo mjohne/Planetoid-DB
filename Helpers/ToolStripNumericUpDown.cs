@@ -1,7 +1,7 @@
 /*
  * File:        ToolStripNumericUpDown.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Helpers
  * Description: Represents a numeric up-down control hosted in a ToolStrip
  *
  * Author:      Michael Johne

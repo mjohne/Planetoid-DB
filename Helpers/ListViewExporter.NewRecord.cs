@@ -1,7 +1,7 @@
 /*
  * File:        ListViewExporter.NewRecord.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Helpers
  * Description: Provides static methods for exporting data from a ListView control.
  *
  * Author:      Michael Johne

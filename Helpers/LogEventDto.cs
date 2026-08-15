@@ -1,7 +1,7 @@
 /*
  * File:        LogEventDto.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Helpers
  * Description: A serialization-friendly snapshot of a single NLog log event.
  *
  * Author:      Michael Johne

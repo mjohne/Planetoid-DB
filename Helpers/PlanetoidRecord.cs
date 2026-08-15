@@ -1,7 +1,7 @@
 /*
  * File:        PlanetoidRecord.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Helpers
  * Description: Represents a single planetoid dataset.
  *
  * Author:      Michael Johne

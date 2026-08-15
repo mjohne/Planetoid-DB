@@ -1,7 +1,7 @@
 /*
  * File:        MaxoidCalculator.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Helpers
  * Description: Provides methods for calculating the Maximum Orbit Intersection Distance (MAXOID) between a minor planet and the eight solar system planets.
  *
  * Author:      Michael Johne

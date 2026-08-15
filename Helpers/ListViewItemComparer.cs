@@ -1,7 +1,7 @@
 /*
  * File:        ListViewItemComparer.cs
  * Project:     Planetoid-DB
- * Namespace:   Planetoid_DB
+ * Namespace:   Planetoid_DB.Helpers
  * Description: Implements manual sorting of items by column for a ListView. Handles numeric values, text comparisons, and ensures strict sorting transitivity.
  *
  * Author:      Michael Johne
