@@ -91,12 +91,24 @@ public partial class PreloadForm : BaseKryptonForm
 		// Create an OpenFileDialog to select a local file
 		if (openFileDialog.ShowDialog(owner: this) != DialogResult.OK)
 		{
+			// Log a warning if the user cancels the file selection dialog
 			logger.Warn(message: "User canceled the Open Local File dialog.");
 			return;
 		}
-		logger.Info(message: $"User selected local file '{openFileDialog.FileName}'");
+		// Get the selected file path from the OpenFileDialog
+		string selectedFilePath = openFileDialog.FileName;
+		// Log the selected file path
+		logger.Info(message: $"User selected local file '{selectedFilePath}'");
+		// Validate the selected file
+		if (string.IsNullOrWhiteSpace(value: selectedFilePath) || !File.Exists(path: selectedFilePath))
+		{
+			// Log an error and show an error message if the selected file does not exist
+			logger.Error(message: $"Selected file does not exist: {selectedFilePath}");
+			ShowErrorMessage(message: "The selected file does not exist.");
+			return;
+		}
 		// Set the file path to the selected file
-		_ = MpcOrbDatFilePath = openFileDialog.FileName;
+		_ = MpcOrbDatFilePath = selectedFilePath;
 		// Set the dialog result to OK
 		DialogResult = DialogResult.OK;
 	}
