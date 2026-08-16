@@ -168,6 +168,10 @@ public static class ExportEscapeHelper
 		return builder.ToString();
 	}
 
+	/// <summary>Escapes a CSV field according to RFC 4180.</summary>
+	/// <param name="input">The raw input string.</param>
+	/// <returns>The escaped CSV field suitable for CSV output.</returns>
+	/// <remarks>In CSV, fields that contain commas, double quotes, or line breaks must be enclosed in double quotes, and any double quotes within the field must be escaped by doubling them. This method checks if the input string is null or empty and returns an explicit quoted empty field in that case; otherwise, it replaces any internal double quotes with two double quotes to escape them and wraps the entire field in double quotes.</remarks>
 	public static string EscapeCsvField(string? input)
 	{
 		// RFC 4180 allows empty fields; return an explicit quoted empty field to keep output consistent.
