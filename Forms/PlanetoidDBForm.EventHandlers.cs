@@ -490,6 +490,8 @@ public partial class PlanetoidDbForm
 		}
 		else
 		{
+			// Record the current position in the navigation history before navigating
+			PushNavigationHistory(previousPosition: currentPosition);
 			// Navigate to the specified index
 			currentPosition = pos - 1;
 			GotoCurrentPosition(position: currentPosition);
@@ -863,6 +865,80 @@ public partial class PlanetoidDbForm
 	{
 		logger.Info(message: "Navigating to the end of the data");
 		NavigateToTheEndOfTheData();
+	}
+
+	/// <summary>Handles the ButtonClick event for the back history split button. Navigates one step back in the planetoid visit history.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>Clicking the button part of the split button navigates one step backward in the history.</remarks>
+	private void HistoryBack_ButtonClick(object sender, EventArgs e)
+	{
+		logger.Info(message: "Navigating back in the planetoid history");
+		NavigateHistoryBack();
+	}
+
+	/// <summary>Handles the ButtonClick event for the forward history split button. Navigates one step forward in the planetoid visit history.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>Clicking the button part of the split button navigates one step forward in the history.</remarks>
+	private void HistoryForward_ButtonClick(object sender, EventArgs e)
+	{
+		logger.Info(message: "Navigating forward in the planetoid history");
+		NavigateHistoryForward();
+	}
+
+	/// <summary>Handles the DropDownOpening event for the back history split button. Populates the drop-down menu with the back-history entries.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>The drop-down lists the positions that can be reached by clicking back, from most recent to oldest. Clicking a menu item navigates directly to that position and adjusts the history stacks accordingly.</remarks>
+	private void HistoryBack_DropDownOpening(object sender, EventArgs e)
+	{
+		toolStripSplitButtonHistoryBack.DropDownItems.Clear();
+		// Build items from the back-history (top = most recent)
+		int[] backPositions = navigationHistoryBack.ToArray();
+		foreach (int pos in backPositions)
+		{
+			int capturedPos = pos;
+			string name = GetPlanetoidNameAtPosition(position: capturedPos);
+			string label = string.IsNullOrWhiteSpace(value: name) ? $"{I18nStrings.Index}: {capturedPos + 1}" : name;
+			ToolStripMenuItem item = new(text: label)
+			{
+				Tag = capturedPos
+			};
+			item.Click += (s, ev) =>
+			{
+				// Navigate directly to the chosen history position
+				NavigateHistoryToPosition(targetPosition: capturedPos, fromBack: true);
+			};
+			toolStripSplitButtonHistoryBack.DropDownItems.Add(value: item);
+		}
+	}
+
+	/// <summary>Handles the DropDownOpening event for the forward history split button. Populates the drop-down menu with the forward-history entries.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>The drop-down lists the positions that can be reached by clicking forward, from most recent to oldest. Clicking a menu item navigates directly to that position and adjusts the history stacks accordingly.</remarks>
+	private void HistoryForward_DropDownOpening(object sender, EventArgs e)
+	{
+		toolStripSplitButtonHistoryForward.DropDownItems.Clear();
+		// Build items from the forward-history (top = most recent)
+		int[] forwardPositions = navigationHistoryForward.ToArray();
+		foreach (int pos in forwardPositions)
+		{
+			int capturedPos = pos;
+			string name = GetPlanetoidNameAtPosition(position: capturedPos);
+			string label = string.IsNullOrWhiteSpace(value: name) ? $"{I18nStrings.Index}: {capturedPos + 1}" : name;
+			ToolStripMenuItem item = new(text: label)
+			{
+				Tag = capturedPos
+			};
+			item.Click += (s, ev) =>
+			{
+				// Navigate directly to the chosen history position
+				NavigateHistoryToPosition(targetPosition: capturedPos, fromBack: false);
+			};
+			toolStripSplitButtonHistoryForward.DropDownItems.Add(value: item);
+		}
 	}
 
 	/// <summary>Handles the click event for the ToolStripMenuItemSettings. Shows the settings form.</summary>

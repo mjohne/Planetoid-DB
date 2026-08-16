@@ -2,6 +2,7 @@
 
 ## Planetoid-DB 0.9.27.90
 
+* Added browser-like history navigation `SplitButton`s (back/forward) to the navigation toolbar, allowing users to undo and redo planetoid navigation steps by @mjohne with @claude in https://github.com/mjohne/Planetoid-DB/pull/1089
 * Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1027
 * Updated CHANGELOG for version 0.9.26.89 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1028
 * Clarified description of Planetoid-DB in README by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1036

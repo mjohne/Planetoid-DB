@@ -94,6 +94,18 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This list is used to store a backup of the planetoids database entries, which can be used for comparison or restoration purposes.</remarks>
 	private List<string> planetoidsDatabaseBackup = [];
 
+	/// <summary>Stores the back-navigation history stack of visited planetoid positions.</summary>
+	/// <remarks>Each entry is a zero-based index into <see cref="planetoidsDatabase"/>. The top of the stack is the previous position relative to the current one.</remarks>
+	private readonly Stack<int> navigationHistoryBack = new();
+
+	/// <summary>Stores the forward-navigation history stack of visited planetoid positions.</summary>
+	/// <remarks>Each entry is a zero-based index into <see cref="planetoidsDatabase"/>. The top of the stack is the next position when redoing navigation.</remarks>
+	private readonly Stack<int> navigationHistoryForward = new();
+
+	/// <summary>Indicates whether the current navigation is driven by a history traversal.</summary>
+	/// <remarks>When <c>true</c>, the navigation code must not push the new position onto the history back-stack to avoid an infinite push loop.</remarks>
+	private bool isNavigatingHistory;
+
 	/// <summary>Splash screen form instance.</summary>
 	/// <remarks>This form is displayed while the application is loading.</remarks>
 	private readonly SplashScreenForm formSplashScreen = new();
