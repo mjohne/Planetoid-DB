@@ -247,6 +247,8 @@ public partial class PlanetoidDbForm
 				GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 				currentSingoppCatPosition = currentPosition;
 				GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
+				currentUfitobsCatPosition = currentPosition;
+				GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 				return;
 			}
 		}
@@ -561,8 +563,8 @@ public partial class PlanetoidDbForm
 		UpdateHistoryNavigationButtons();
 	}
 
-	/// <summary>Updates the enabled state and drop-down menus of the history navigation <see cref="ToolStripSplitButton"/> controls.</summary>
-	/// <remarks>This method should be called whenever the history stacks change.</remarks>
+	/// <summary>Updates the enabled state of the history navigation <see cref="ToolStripSplitButton"/> controls based on the current back and forward history stacks.</summary>
+	/// <remarks>This method should be called whenever the history stacks change. The drop-down menus are populated lazily in the DropDownOpening handlers.</remarks>
 	private void UpdateHistoryNavigationButtons()
 	{
 		// Enable/disable the back button depending on whether there is any back history
@@ -673,30 +675,42 @@ public partial class PlanetoidDbForm
 	{
 		if (fromBack)
 		{
-			// Pop entries from the back stack until we reach the target, moving them to the forward stack
+			// Collect intermediate entries popped from the back stack
+			var intermediates = new System.Collections.Generic.List<int>();
 			while (navigationHistoryBack.Count > 0 && navigationHistoryBack.Peek() != targetPosition)
 			{
-				navigationHistoryForward.Push(item: navigationHistoryBack.Pop());
+				intermediates.Add(item: navigationHistoryBack.Pop());
 			}
 			if (navigationHistoryBack.Count > 0)
 			{
-				// Move the current position to forward before navigating
-				navigationHistoryForward.Push(item: currentPosition);
 				navigationHistoryBack.Pop(); // remove the target from back stack
+				// Push currentPosition first so it is the next forward step
+				navigationHistoryForward.Push(item: currentPosition);
+				// Push intermediate entries in pop-order so the nearest entry is on top
+				foreach (int entry in intermediates)
+				{
+					navigationHistoryForward.Push(item: entry);
+				}
 			}
 		}
 		else
 		{
-			// Pop entries from the forward stack until we reach the target, moving them to the back stack
+			// Collect intermediate entries popped from the forward stack
+			var intermediates = new System.Collections.Generic.List<int>();
 			while (navigationHistoryForward.Count > 0 && navigationHistoryForward.Peek() != targetPosition)
 			{
-				navigationHistoryBack.Push(item: navigationHistoryForward.Pop());
+				intermediates.Add(item: navigationHistoryForward.Pop());
 			}
 			if (navigationHistoryForward.Count > 0)
 			{
-				// Move the current position to back before navigating
-				navigationHistoryBack.Push(item: currentPosition);
 				navigationHistoryForward.Pop(); // remove the target from forward stack
+				// Push currentPosition first so it is the next back step
+				navigationHistoryBack.Push(item: currentPosition);
+				// Push intermediate entries in pop-order so the nearest entry is on top
+				foreach (int entry in intermediates)
+				{
+					navigationHistoryBack.Push(item: entry);
+				}
 			}
 		}
 		// Navigate to the target position without re-entering history logic
