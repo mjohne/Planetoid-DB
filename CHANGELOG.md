@@ -1,5 +1,36 @@
 # Changelog
 
+## Planetoid-DB 0.9.27.90
+
+* Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1027
+* Updated CHANGELOG for version 0.9.26.89 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1028
+* Clarified description of Planetoid-DB in README  by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1036
+* Added standardized header banner in designer files by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1040
+* Added standardized header banner in code files by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1041
+* Added `DecodePackedEpoch` method to decode MPC packed epoch dates on double-click by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1043
+* Modified tooltip descriptions for `labelEpochData`, `labelReferenceData` and `labelFlagsData` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1044
+* Added `DecodeReadableDesignation` method with packed MPC designation unpacking by @mjohne with @Copilot in https://github.com/mjohne/Planetoid-DB/pull/1047
+* Fixed incorrect `using`-statements and namespaces by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1048
+* Added new tab for `ASTORB.DAT` data in `PlanetoidDBForm` by @mjohne with @Claude in https://github.com/mjohne/Planetoid-DB/pull/1050
+* Renamed severals gui variable of `kryptonNavigatorMain` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1051
+* Added flicker-reduction initialization to `tableLayoutPanelAstorbData` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1052
+* Added new tab for `ALLNUM.CAT` data in `PlanetoidDBForm` by @mjohne with @Claude in https://github.com/mjohne/Planetoid-DB/pull/1057
+* Added new tab for `kryptonPagSingoppCat` in `PlanetoidDBForm` by @mjohne with @Claude in https://github.com/mjohne/Planetoid-DB/pull/1058
+* Added `kryptonPageUfitobsCat` tab for `UFITOBS.CAT` data by @mjohne with @Claude in https://github.com/mjohne/Planetoid-DB/pull/1059
+* Added `KryptonTagPage`s for orbital element catalog files by @mjohne with @Claude in https://github.com/mjohne/Planetoid-DB/pull/1064
+* Added `kryptonPageMpcorbJson` tab for `MPCORB.JSON` data by @mjohne with @Claude in https://github.com/mjohne/Planetoid-DB/pull/1065
+* Declared the startup of additional orbital element catalog files as settings and experimental feature by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1067
+* Adjusted the behavior of the `TableLayoutPanel`, `KryptonForm` and `Statusbar` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1070
+* Supported Drag-n-Drop of `MPCORB.DAT` in `PreloaderForm` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1071
+* Added further linking to external data pages by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1073
+* Added checking database updates on startup by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1074
+* Updated internal database `demoset-10000.txt` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1075
+* Updated to version 0.9.27.90 by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1076
+* Added new publishing profiles by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1077
+
+**Full Changelog**: https://github.com/mjohne/Planetoid-DB/compare/0.9.26.89.1025.3502...0.9.27.30.1077.3740
+
+
 ## Planetoid-DB 0.9.26.89
 
 * Updated image link in `README.md` by @mjohne in https://github.com/mjohne/Planetoid-DB/pull/1008
