@@ -59,6 +59,7 @@ partial class PreloadForm
 		kryptonPanelMain = new KryptonPanel();
 		openFileDialog = new OpenFileDialog();
 		kryptonManager = new KryptonManager(components);
+		kryptonCommandLinkButtonAppInfo = new KryptonCommandLinkButton();
 		kryptonStatusStrip.SuspendLayout();
 		((ISupportInitialize)kryptonPanelMain).BeginInit();
 		kryptonPanelMain.SuspendLayout();
@@ -72,17 +73,17 @@ partial class PreloadForm
 		kryptonCommandLinkButtonExit.CommandLinkTextValues.Description = "Cancel and quit the application";
 		kryptonCommandLinkButtonExit.CommandLinkTextValues.Heading = "Quit the application";
 		kryptonCommandLinkButtonExit.DialogResult = DialogResult.Cancel;
-		kryptonCommandLinkButtonExit.Location = new Point(0, 210);
+		kryptonCommandLinkButtonExit.Location = new Point(0, 276);
 		kryptonCommandLinkButtonExit.Name = "kryptonCommandLinkButtonExit";
 		kryptonCommandLinkButtonExit.OverrideFocus.Border.Draw = InheritBool.True;
 		kryptonCommandLinkButtonExit.OverrideFocus.Border.DrawBorders = PaletteDrawBorders.Top | PaletteDrawBorders.Bottom | PaletteDrawBorders.Left | PaletteDrawBorders.Right;
 		kryptonCommandLinkButtonExit.OverrideFocus.Border.GraphicsHint = PaletteGraphicsHint.AntiAlias;
-		kryptonCommandLinkButtonExit.Size = new Size(353, 60);
+		kryptonCommandLinkButtonExit.Size = new Size(356, 60);
 		kryptonCommandLinkButtonExit.StateCommon.Content.LongText.TextH = PaletteRelativeAlign.Near;
 		kryptonCommandLinkButtonExit.StateCommon.Content.LongText.TextV = PaletteRelativeAlign.Far;
 		kryptonCommandLinkButtonExit.StateCommon.Content.ShortText.TextH = PaletteRelativeAlign.Near;
 		kryptonCommandLinkButtonExit.StateCommon.Content.ShortText.TextV = PaletteRelativeAlign.Center;
-		kryptonCommandLinkButtonExit.TabIndex = 3;
+		kryptonCommandLinkButtonExit.TabIndex = 4;
 		kryptonCommandLinkButtonExit.ToolTipValues.Description = "Cancels and quits the application.";
 		kryptonCommandLinkButtonExit.ToolTipValues.EnableToolTips = true;
 		kryptonCommandLinkButtonExit.ToolTipValues.Heading = "Quit the application";
@@ -185,7 +186,7 @@ partial class PreloadForm
 		kryptonStatusStrip.AllowItemReorder = true;
 		kryptonStatusStrip.Font = new Font("Segoe UI", 9F);
 		kryptonStatusStrip.Items.AddRange(new ToolStripItem[] { labelInformation });
-		kryptonStatusStrip.Location = new Point(0, 278);
+		kryptonStatusStrip.Location = new Point(0, 340);
 		kryptonStatusStrip.Name = "kryptonStatusStrip";
 		kryptonStatusStrip.ProgressBars = null;
 		kryptonStatusStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
@@ -211,6 +212,7 @@ partial class PreloadForm
 		kryptonPanelMain.AccessibleDescription = "Groups the data";
 		kryptonPanelMain.AccessibleName = "Panel";
 		kryptonPanelMain.AccessibleRole = AccessibleRole.Pane;
+		kryptonPanelMain.Controls.Add(kryptonCommandLinkButtonAppInfo);
 		kryptonPanelMain.Controls.Add(kryptonCommandLinkButtonExit);
 		kryptonPanelMain.Controls.Add(kryptonCommandLinkButtonLoadInternalDemoData);
 		kryptonPanelMain.Controls.Add(kryptonCommandLinkButtonDownloadMprcorbDat);
@@ -219,7 +221,7 @@ partial class PreloadForm
 		kryptonPanelMain.Location = new Point(0, 0);
 		kryptonPanelMain.Name = "kryptonPanelMain";
 		kryptonPanelMain.PanelBackStyle = PaletteBackStyle.FormMain;
-		kryptonPanelMain.Size = new Size(356, 278);
+		kryptonPanelMain.Size = new Size(356, 340);
 		kryptonPanelMain.TabIndex = 0;
 		kryptonPanelMain.TabStop = true;
 		// 
@@ -236,16 +238,44 @@ partial class PreloadForm
 		kryptonManager.ToolkitStrings.MessageBoxStrings.LessDetails = "L&ess Details...";
 		kryptonManager.ToolkitStrings.MessageBoxStrings.MoreDetails = "&More Details...";
 		// 
+		// kryptonCommandLinkButtonAppInfo
+		// 
+		kryptonCommandLinkButtonAppInfo.AccessibleDescription = "Shows more information about the application";
+		kryptonCommandLinkButtonAppInfo.AccessibleName = "More information about the application";
+		kryptonCommandLinkButtonAppInfo.AccessibleRole = AccessibleRole.PushButton;
+		kryptonCommandLinkButtonAppInfo.CommandLinkTextValues.Description = "Show more information about the application";
+		kryptonCommandLinkButtonAppInfo.CommandLinkTextValues.Heading = "Application information";
+		kryptonCommandLinkButtonAppInfo.Location = new Point(0, 210);
+		kryptonCommandLinkButtonAppInfo.Name = "kryptonCommandLinkButtonAppInfo";
+		kryptonCommandLinkButtonAppInfo.OverrideFocus.Border.Draw = InheritBool.True;
+		kryptonCommandLinkButtonAppInfo.OverrideFocus.Border.DrawBorders = PaletteDrawBorders.Top | PaletteDrawBorders.Bottom | PaletteDrawBorders.Left | PaletteDrawBorders.Right;
+		kryptonCommandLinkButtonAppInfo.OverrideFocus.Border.GraphicsHint = PaletteGraphicsHint.AntiAlias;
+		kryptonCommandLinkButtonAppInfo.Size = new Size(356, 60);
+		kryptonCommandLinkButtonAppInfo.StateCommon.Content.LongText.TextH = PaletteRelativeAlign.Near;
+		kryptonCommandLinkButtonAppInfo.StateCommon.Content.LongText.TextV = PaletteRelativeAlign.Far;
+		kryptonCommandLinkButtonAppInfo.StateCommon.Content.ShortText.TextH = PaletteRelativeAlign.Near;
+		kryptonCommandLinkButtonAppInfo.StateCommon.Content.ShortText.TextV = PaletteRelativeAlign.Center;
+		kryptonCommandLinkButtonAppInfo.TabIndex = 3;
+		kryptonCommandLinkButtonAppInfo.ToolTipValues.Description = "Shows more information about the application";
+		kryptonCommandLinkButtonAppInfo.ToolTipValues.EnableToolTips = true;
+		kryptonCommandLinkButtonAppInfo.ToolTipValues.Heading = "Application information";
+		kryptonCommandLinkButtonAppInfo.ToolTipValues.Image = FatcowIcons16px.fatcow_information_16px;
+		kryptonCommandLinkButtonAppInfo.Click += KryptonCommandLinkButtonAppInfo_Click;
+		kryptonCommandLinkButtonAppInfo.Enter += Control_Enter;
+		kryptonCommandLinkButtonAppInfo.Leave += Control_Leave;
+		kryptonCommandLinkButtonAppInfo.MouseEnter += Control_Enter;
+		kryptonCommandLinkButtonAppInfo.MouseLeave += Control_Leave;
+		// 
 		// PreloadForm
 		// 
-		AccessibleDescription = "Handles of the file MPCORB.DAT ist missing";
+		AccessibleDescription = "Indicates that the MPCORB.DAT file is missing";
 		AccessibleName = "Preloader";
 		AccessibleRole = AccessibleRole.Window;
 		AllowDrop = true;
 		AutoScaleDimensions = new SizeF(7F, 15F);
 		AutoScaleMode = AutoScaleMode.Font;
 		CancelButton = kryptonCommandLinkButtonExit;
-		ClientSize = new Size(356, 300);
+		ClientSize = new Size(356, 362);
 		Controls.Add(kryptonPanelMain);
 		Controls.Add(kryptonStatusStrip);
 		FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -269,13 +299,44 @@ partial class PreloadForm
 	}
 
 	#endregion
+
+	/// <summary>Required designer variable for the KryptonStatusStrip component that displays the status strip.</summary>
+	/// <remarks>This variable is used by the designer to manage the KryptonStatusStrip component that displays the status strip.</remarks>
 	private KryptonStatusStrip kryptonStatusStrip;
+
+	/// <summary>Required designer variable for the ToolStripStatusLabel component that displays information in the status strip.</summary>
+	/// <remarks>This variable is used by the designer to manage the ToolStripStatusLabel component that displays information in the status strip.</remarks>
 	private ToolStripStatusLabel labelInformation;
+
+	/// <summary>Required designer variable for the KryptonPanel component that serves as the main container for the form's controls.</summary>
+	/// <remarks>This variable is used by the designer to manage the KryptonPanel component that serves as the main container for the form's controls.</remarks>
 	private KryptonPanel kryptonPanelMain;
+
+	/// <summary>Required designer variable for the KryptonCommandLinkButton component that opens a local file.</summary>
+	/// <remarks>This variable is used by the designer to manage the KryptonCommandLinkButton component that opens a local file.</remarks>
 	private KryptonCommandLinkButton kryptonCommandLinkButtonOpenLocalFile;
+
+	/// <summary>Required designer variable for the KryptonCommandLinkButton component that exits the application.</summary>
+	/// <remarks>This variable is used by the designer to manage the KryptonCommandLinkButton component that exits the application.</remarks>
 	private KryptonCommandLinkButton kryptonCommandLinkButtonExit;
+
+	/// <summary>Required designer variable for the KryptonCommandLinkButton component that loads internal demo data.</summary>
+	/// <remarks>This variable is used by the designer to manage the KryptonCommandLinkButton component that loads internal demo data.</remarks>
 	private KryptonCommandLinkButton kryptonCommandLinkButtonLoadInternalDemoData;
+
+	/// <summary>Required designer variable for the KryptonCommandLinkButton component that downloads the MPCORB.DAT file.</summary>
+	/// <remarks>This variable is used by the designer to manage the KryptonCommandLinkButton component that downloads the MPCORB.DAT file.</remarks>
 	private KryptonCommandLinkButton kryptonCommandLinkButtonDownloadMprcorbDat;
+	
+	/// <summary>Required designer variable for the OpenFileDialog component.</summary>
+	/// <remarks>This variable is used by the designer to manage the OpenFileDialog component.</remarks>
 	private OpenFileDialog openFileDialog;
+
+	/// <summary>Required designer variable for the KryptonManager component.</summary>
+	/// <remarks>This variable is used by the designer to manage the KryptonManager component.</remarks>
 	private KryptonManager kryptonManager;
+
+	/// <summary>Required designer variable for the KryptonCommandLinkButton component that shows application information.</summary>
+	/// <remarks>This variable is used by the designer to manage the KryptonCommandLinkButton component that shows application information.</remarks>
+	private KryptonCommandLinkButton kryptonCommandLinkButtonAppInfo;
 }

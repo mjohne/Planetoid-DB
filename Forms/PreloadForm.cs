@@ -20,6 +20,7 @@ using Planetoid_DB.Properties;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
+using System.Reflection;
 
 namespace Planetoid_DB;
 
@@ -46,9 +47,13 @@ public partial class PreloadForm : BaseKryptonForm
 
 	/// <summary>Initializes a new instance of the <see cref="PreloadForm"/> class.</summary>
 	/// <remarks>This constructor initializes the form components.</remarks>
-	public PreloadForm() =>
+	public PreloadForm()
+	{
 		// Initialize the form components
 		InitializeComponent();
+		// Set the version text to the current assembly version
+		TextExtra = $"{Assembly.GetExecutingAssembly().GetName().Version}";
+	}
 
 	#endregion
 
@@ -68,6 +73,9 @@ public partial class PreloadForm : BaseKryptonForm
 	{
 		// Validate input
 		ArgumentNullException.ThrowIfNull(argument: resourceData);
+		// Log the attempt to extract the resource data to the specified output file path
+		logger.Info(message: $"Attempting to extract resource data to '{outputFilePath}'.");
+		// Use a try-catch block to handle potential exceptions during file writing
 		try
 		{
 			// Write the resource data to the specified output file path
@@ -81,7 +89,6 @@ public partial class PreloadForm : BaseKryptonForm
 			logger.Error(exception: ex, message: $"Failed to extract resource file to '{outputFilePath}'.");
 			return false;
 		}
-
 	}
 
 	/// <summary>Opens a file dialog to allow the user to select a local MPCORB.DAT file. If a file is selected, sets the <see cref="MpcOrbDatFilePath"/> property to the selected file path and closes the form with <see cref="DialogResult.OK"/>.</summary>
@@ -113,6 +120,22 @@ public partial class PreloadForm : BaseKryptonForm
 		DialogResult = DialogResult.OK;
 	}
 
+	/// <summary>Shows the application information form.</summary>
+	/// <remarks>This method is used to show the application information form.</remarks>
+	private void ShowAppInfo()
+	{
+		// Log the action of preparing to open the AppInfoForm
+		logger.Info(message: "Preparing to open AppInfoForm.");
+		// Create a new instance of the AppInfoForm
+		using AppInfoForm formAppInfo = new();
+		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
+		formAppInfo.TopMost = TopMost;
+		// Log the action of opening the AppInfoForm
+		logger.Info(message: "Opening AppInfoForm.");
+		// Show the application information form as a modal dialog
+		_ = formAppInfo.ShowDialog(owner: this);
+	}
+
 	#endregion
 
 	#region form event handlers
@@ -138,7 +161,9 @@ public partial class PreloadForm : BaseKryptonForm
 	/// <remarks>This method is called when the Open Local File command link is clicked.</remarks>
 	private void KryptonCommandLinkButtonOpenLocalFile_Click(object sender, EventArgs e)
 	{
+		// Log that the user clicked the Open Local File command link
 		logger.Info(message: "User clicked 'Open Local File' command link.");
+		// Call the method to open a local file
 		OpenLocalFile();
 	}
 
@@ -148,6 +173,7 @@ public partial class PreloadForm : BaseKryptonForm
 	/// <remarks>This method is called when the Download MPCORB.DAT command link is clicked.</remarks>
 	private void KryptonCommandLinkButtonDownloadMpcorbDat_Click(object sender, EventArgs e)
 	{
+		// Log that the user clicked the Download MPCORB.DAT command link
 		logger.Info(message: "User clicked 'Download MPCORB.DAT' command link.");
 		// Check if there is an internet connection available
 		if (!NetworkInterface.GetIsNetworkAvailable())
@@ -165,6 +191,7 @@ public partial class PreloadForm : BaseKryptonForm
 			logger.Warn(message: $"systemMpcorbDatGzUrl setting is invalid ('{mpcorbUrl}'). Falling back to default MPC URL.");
 			mpcorbUrl = "https://www.minorplanetcenter.org/iau/MPCORB/MPCORB.DAT.gz";
 		}
+		// Log the URL being used for downloading MPCORB.DAT
 		logger.Info(message: $"Using MPCORB.DAT download URL: '{mpcorbUrl}'");
 		// Open the download form for MPCORB.DAT
 		using DatabaseDownloaderForm formDownloaderForMpcorbDat = new(url: mpcorbUrl);
@@ -204,6 +231,18 @@ public partial class PreloadForm : BaseKryptonForm
 			ShowErrorMessage(message: $"Failed to extract demo data to '{outputPath}'.");
 			logger.Error(message: $"Failed to extract demo data to '{outputPath}'.");
 		}
+	}
+
+	/// <summary>Handles the click event for showing application information. Opens the AppInfoForm to display details about the application.</summary>
+	/// <param name="sender">Event source (the command link button).</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>This method is called when the App Info command link is clicked.</remarks>
+	private void KryptonCommandLinkButtonAppInfo_Click(object sender, EventArgs e)
+	{
+		// Log that the user clicked the App Info command link
+		logger.Info(message: "User clicked 'App Info' command link.");
+		// Call the method to show the application information form
+		ShowAppInfo();
 	}
 
 	#endregion
