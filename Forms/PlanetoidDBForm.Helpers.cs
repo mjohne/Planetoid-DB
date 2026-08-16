@@ -217,6 +217,7 @@ public partial class PlanetoidDbForm
 			if (!string.IsNullOrWhiteSpace(value: index) && entry.Length >= 7 && entry[..7].Trim().Equals(value: index, comparisonType: StringComparison.OrdinalIgnoreCase))
 			{
 				// If the index matches, set the current position to the index and navigate to that position
+				PushNavigationHistory(previousPosition: currentPosition);
 				currentPosition = i;
 				GotoCurrentPosition(position: currentPosition);
 				currentAstorbPosition = currentPosition;
@@ -235,6 +236,7 @@ public partial class PlanetoidDbForm
 			if (!string.IsNullOrEmpty(value: designation) && entry.Length >= 194 && entry.Substring(startIndex: 166, length: 28).Trim().Equals(value: designation, comparisonType: StringComparison.OrdinalIgnoreCase))
 			{
 				// If the designation matches, set the current position to the index and navigate to that position
+				PushNavigationHistory(previousPosition: currentPosition);
 				currentPosition = i;
 				GotoCurrentPosition(position: currentPosition);
 				currentAstorbPosition = currentPosition;
@@ -245,6 +247,8 @@ public partial class PlanetoidDbForm
 				GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
 				currentSingoppCatPosition = currentPosition;
 				GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
+				currentUfitobsCatPosition = currentPosition;
+				GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 				return;
 			}
 		}
@@ -362,6 +366,8 @@ public partial class PlanetoidDbForm
 			logger.Warn(message: "Attempted to load a random minor planet, but the database is empty.");
 			return;
 		}
+		// Record the current position in the navigation history before navigating
+		PushNavigationHistory(previousPosition: currentPosition);
 		// Generate a random index within the bounds of the planetoids database
 		currentPosition = Random.Shared.Next(maxValue: planetoidsDatabase.Count);
 		GotoCurrentPosition(position: currentPosition);
@@ -381,6 +387,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to navigate to the beginning of the data.</remarks>
 	private void NavigateToTheBeginOfTheData()
 	{
+		// Record the current position in the navigation history before navigating
+		PushNavigationHistory(previousPosition: currentPosition);
 		GotoCurrentPosition(position: currentPosition = 0);
 		currentAstorbPosition = currentPosition;
 		GotoCurrentAstorbPosition(position: currentAstorbPosition);
@@ -404,6 +412,8 @@ public partial class PlanetoidDbForm
 			logger.Warn(message: "Attempted to navigate backward, but the planetoids database is empty.");
 			return;
 		}
+		// Record the current position in the navigation history before navigating
+		PushNavigationHistory(previousPosition: currentPosition);
 		// Calculate the new position by subtracting the step position and wrapping around using modulo
 		currentPosition = (currentPosition - stepPosition) % planetoidsDatabase.Count;
 		if (currentPosition < 0)
@@ -428,6 +438,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to navigate to the previous data entry in the planetoids database.</remarks>
 	private void NavigateToThePreviousData()
 	{
+		// Record the current position in the navigation history before navigating
+		PushNavigationHistory(previousPosition: currentPosition);
 		// If the current position is 0, wrap around to the last entry in the database
 		if (currentPosition == 0)
 		{
@@ -457,6 +469,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to navigate to the next data entry in the planetoids database.</remarks>
 	private void NavigateToTheNextData()
 	{
+		// Record the current position in the navigation history before navigating
+		PushNavigationHistory(previousPosition: currentPosition);
 		// If the current position is the last entry in the database, wrap around to the first entry
 		if (currentPosition == planetoidsDatabase.Count - 1)
 		{
@@ -492,6 +506,8 @@ public partial class PlanetoidDbForm
 			logger.Warn(message: "Attempted to navigate forward, but the planetoids database is empty.");
 			return;
 		}
+		// Record the current position in the navigation history before navigating
+		PushNavigationHistory(previousPosition: currentPosition);
 		// Calculate the new position by adding the step position and wrapping around using modulo
 		currentPosition = (currentPosition + stepPosition) % planetoidsDatabase.Count;
 		// Navigate to the new position
@@ -512,6 +528,8 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method is used to navigate to the end of the data.</remarks>
 	private void NavigateToTheEndOfTheData()
 	{
+		// Record the current position in the navigation history before navigating
+		PushNavigationHistory(previousPosition: currentPosition);
 		GotoCurrentPosition(position: currentPosition = planetoidsDatabase.Count - 1);
 		currentAstorbPosition = currentPosition;
 		GotoCurrentAstorbPosition(position: currentAstorbPosition);
@@ -523,6 +541,200 @@ public partial class PlanetoidDbForm
 		GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
 		currentUfitobsCatPosition = currentPosition;
 		GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
+	}
+
+	/// <summary>Pushes the specified position onto the navigation history back-stack and updates the history navigation buttons.</summary>
+	/// <param name="previousPosition">The zero-based index of the position to record in the back-history.</param>
+	/// <remarks>
+	/// Call this method before changing <see cref="currentPosition"/> so that the <em>previous</em> position is recorded.
+	/// When a new position is pushed, the forward-history stack is cleared because the user started a new navigation branch.
+	/// This method has no effect when <see cref="isNavigatingHistory"/> is <c>true</c> to avoid re-entrancy.
+	/// </remarks>
+	private void PushNavigationHistory(int previousPosition)
+	{
+		if (isNavigatingHistory)
+		{
+			return;
+		}
+		// Record the current position before the navigation
+		navigationHistoryBack.Push(item: previousPosition);
+		// Starting a new branch clears the forward history
+		navigationHistoryForward.Clear();
+		UpdateHistoryNavigationButtons();
+	}
+
+	/// <summary>Updates the enabled state of the history navigation <see cref="ToolStripSplitButton"/> controls based on the current back and forward history stacks.</summary>
+	/// <remarks>This method should be called whenever the history stacks change. The drop-down menus are populated lazily in the DropDownOpening handlers.</remarks>
+	private void UpdateHistoryNavigationButtons()
+	{
+		// Enable/disable the back button depending on whether there is any back history
+		toolStripSplitButtonHistoryBack.Enabled = navigationHistoryBack.Count > 0;
+		// Enable/disable the forward button depending on whether there is any forward history
+		toolStripSplitButtonHistoryForward.Enabled = navigationHistoryForward.Count > 0;
+	}
+
+	/// <summary>Navigates back one step in the planetoid history.</summary>
+	/// <remarks>Pops the top entry from the back-history stack, pushes the current position onto the forward-history stack, and displays the planetoid at the popped position.</remarks>
+	private void NavigateHistoryBack()
+	{
+		if (navigationHistoryBack.Count == 0)
+		{
+			return;
+		}
+		// Push current position to forward stack before moving back
+		navigationHistoryForward.Push(item: currentPosition);
+		// Pop the previous position from the back stack
+		int targetPosition = navigationHistoryBack.Pop();
+		// Set the flag so PushNavigationHistory does not fire during this internal navigation
+		isNavigatingHistory = true;
+		try
+		{
+			currentPosition = targetPosition;
+			GotoCurrentPosition(position: currentPosition);
+			currentAstorbPosition = currentPosition;
+			GotoCurrentAstorbPosition(position: currentAstorbPosition);
+			currentMpcorbJsonPosition = currentPosition;
+			GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
+			currentAllnumCatPosition = currentPosition;
+			GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
+			currentSingoppCatPosition = currentPosition;
+			GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
+			currentUfitobsCatPosition = currentPosition;
+			GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
+		}
+		finally
+		{
+			isNavigatingHistory = false;
+		}
+		UpdateHistoryNavigationButtons();
+	}
+
+	/// <summary>Navigates forward one step in the planetoid history.</summary>
+	/// <remarks>Pops the top entry from the forward-history stack, pushes the current position onto the back-history stack, and displays the planetoid at the popped position.</remarks>
+	private void NavigateHistoryForward()
+	{
+		if (navigationHistoryForward.Count == 0)
+		{
+			return;
+		}
+		// Push current position to back stack before moving forward
+		navigationHistoryBack.Push(item: currentPosition);
+		// Pop the next position from the forward stack
+		int targetPosition = navigationHistoryForward.Pop();
+		// Set the flag so PushNavigationHistory does not fire during this internal navigation
+		isNavigatingHistory = true;
+		try
+		{
+			currentPosition = targetPosition;
+			GotoCurrentPosition(position: currentPosition);
+			currentAstorbPosition = currentPosition;
+			GotoCurrentAstorbPosition(position: currentAstorbPosition);
+			currentMpcorbJsonPosition = currentPosition;
+			GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
+			currentAllnumCatPosition = currentPosition;
+			GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
+			currentSingoppCatPosition = currentPosition;
+			GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
+			currentUfitobsCatPosition = currentPosition;
+			GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
+		}
+		finally
+		{
+			isNavigatingHistory = false;
+		}
+		UpdateHistoryNavigationButtons();
+	}
+
+	/// <summary>Returns the readable designation (name) for the planetoid at the specified zero-based database position.</summary>
+	/// <param name="position">The zero-based index into the planetoids database.</param>
+	/// <returns>The trimmed readable designation string, or an empty string when the position is out of range or the entry is too short.</returns>
+	private string GetPlanetoidNameAtPosition(int position)
+	{
+		if (position < 0 || position >= planetoidsDatabase.Count)
+		{
+			return string.Empty;
+		}
+		string entry = planetoidsDatabase[index: position];
+		if (entry.Length < 194)
+		{
+			return string.Empty;
+		}
+		return entry.Substring(startIndex: 166, length: 28).Trim();
+	}
+
+	/// <summary>Navigates directly to a specific position in the history, adjusting both back and forward stacks to reflect the jump.</summary>
+	/// <param name="targetPosition">The zero-based database index to navigate to.</param>
+	/// <param name="fromBack">
+	/// When <c>true</c>, the target was chosen from the back-history drop-down; when <c>false</c>, it was chosen from the forward-history drop-down.
+	/// </param>
+	/// <remarks>
+	/// All history entries between the current position and the selected entry are moved to the opposite stack so that the
+	/// full history remains navigable after the jump, just as in a classic web browser.
+	/// </remarks>
+	private void NavigateHistoryToPosition(int targetPosition, bool fromBack)
+	{
+		if (fromBack)
+		{
+			// Collect intermediate entries popped from the back stack
+			var intermediates = new System.Collections.Generic.List<int>();
+			while (navigationHistoryBack.Count > 0 && navigationHistoryBack.Peek() != targetPosition)
+			{
+				intermediates.Add(item: navigationHistoryBack.Pop());
+			}
+			if (navigationHistoryBack.Count > 0)
+			{
+				navigationHistoryBack.Pop(); // remove the target from back stack
+				// Push currentPosition first so it is the next forward step
+				navigationHistoryForward.Push(item: currentPosition);
+				// Push intermediate entries in pop-order so the nearest entry is on top
+				foreach (int entry in intermediates)
+				{
+					navigationHistoryForward.Push(item: entry);
+				}
+			}
+		}
+		else
+		{
+			// Collect intermediate entries popped from the forward stack
+			var intermediates = new System.Collections.Generic.List<int>();
+			while (navigationHistoryForward.Count > 0 && navigationHistoryForward.Peek() != targetPosition)
+			{
+				intermediates.Add(item: navigationHistoryForward.Pop());
+			}
+			if (navigationHistoryForward.Count > 0)
+			{
+				navigationHistoryForward.Pop(); // remove the target from forward stack
+				// Push currentPosition first so it is the next back step
+				navigationHistoryBack.Push(item: currentPosition);
+				// Push intermediate entries in pop-order so the nearest entry is on top
+				foreach (int entry in intermediates)
+				{
+					navigationHistoryBack.Push(item: entry);
+				}
+			}
+		}
+		// Navigate to the target position without re-entering history logic
+		isNavigatingHistory = true;
+		try
+		{
+			currentPosition = targetPosition;
+			GotoCurrentPosition(position: currentPosition);
+			currentAstorbPosition = currentPosition;
+			GotoCurrentAstorbPosition(position: currentAstorbPosition);
+			currentMpcorbJsonPosition = currentPosition;
+			GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
+			currentAllnumCatPosition = currentPosition;
+			GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
+			currentSingoppCatPosition = currentPosition;
+			GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
+			currentUfitobsCatPosition = currentPosition;
+			GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
+		}
+		finally
+		{
+			isNavigatingHistory = false;
+		}
+		UpdateHistoryNavigationButtons();
 	}
 
 	/// <summary>Processes a designation string by removing parenthetical content, trimming whitespace, and removing spaces.</summary>

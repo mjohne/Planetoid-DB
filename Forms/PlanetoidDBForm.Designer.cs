@@ -64,6 +64,9 @@ partial class PlanetoidDbForm
 		toolStripMenuItemNavigateSomeDataForward = new ToolStripMenuItem();
 		toolStripSplitButtonStepForward = new ToolStripSplitButton();
 		toolStripSplitButtonStepBackward = new ToolStripSplitButton();
+		toolStripSplitButtonHistoryBack = new ToolStripSplitButton();
+		toolStripSplitButtonHistoryForward = new ToolStripSplitButton();
+		toolStripSeparatorHistory = new ToolStripSeparator();
 		tableLayoutPanelMpcorbData = new KryptonTableLayoutPanel();
 		labelMpcorbIndexData = new KryptonLabel();
 		contextMenuCopyToClipboard = new ContextMenuStrip(components);
@@ -703,6 +706,51 @@ partial class PlanetoidDbForm
 		toolStripSplitButtonStepBackward.ButtonClick += NavigateSomeDataBackward_Click;
 		toolStripSplitButtonStepBackward.MouseEnter += Control_Enter;
 		toolStripSplitButtonStepBackward.MouseLeave += Control_Leave;
+		//
+		// toolStripSplitButtonHistoryBack
+		//
+		toolStripSplitButtonHistoryBack.AccessibleDescription = "Navigates back in the planetoid history";
+		toolStripSplitButtonHistoryBack.AccessibleName = "Navigate back in history";
+		toolStripSplitButtonHistoryBack.AccessibleRole = AccessibleRole.SplitButton;
+		toolStripSplitButtonHistoryBack.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		toolStripSplitButtonHistoryBack.Enabled = false;
+		toolStripSplitButtonHistoryBack.Image = FatcowIcons16px.fatcow_arrow_left_16px;
+		toolStripSplitButtonHistoryBack.ImageTransparentColor = Color.Magenta;
+		toolStripSplitButtonHistoryBack.Name = "toolStripSplitButtonHistoryBack";
+		toolStripSplitButtonHistoryBack.Size = new Size(32, 22);
+		toolStripSplitButtonHistoryBack.Text = "Navigate back in history";
+		toolStripSplitButtonHistoryBack.ButtonClick += HistoryBack_ButtonClick;
+		toolStripSplitButtonHistoryBack.DropDownOpening += HistoryBack_DropDownOpening;
+		toolStripSplitButtonHistoryBack.MouseEnter += Control_Enter;
+		toolStripSplitButtonHistoryBack.MouseLeave += Control_Leave;
+		//
+		// toolStripSplitButtonHistoryForward
+		//
+		toolStripSplitButtonHistoryForward.AccessibleDescription = "Navigates forward in the planetoid history";
+		toolStripSplitButtonHistoryForward.AccessibleName = "Navigate forward in history";
+		toolStripSplitButtonHistoryForward.AccessibleRole = AccessibleRole.SplitButton;
+		toolStripSplitButtonHistoryForward.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		toolStripSplitButtonHistoryForward.Enabled = false;
+		toolStripSplitButtonHistoryForward.Image = FatcowIcons16px.fatcow_arrow_right_16px;
+		toolStripSplitButtonHistoryForward.ImageTransparentColor = Color.Magenta;
+		toolStripSplitButtonHistoryForward.Name = "toolStripSplitButtonHistoryForward";
+		toolStripSplitButtonHistoryForward.Size = new Size(32, 22);
+		toolStripSplitButtonHistoryForward.Text = "Navigate forward in history";
+		toolStripSplitButtonHistoryForward.ButtonClick += HistoryForward_ButtonClick;
+		toolStripSplitButtonHistoryForward.DropDownOpening += HistoryForward_DropDownOpening;
+		toolStripSplitButtonHistoryForward.MouseEnter += Control_Enter;
+		toolStripSplitButtonHistoryForward.MouseLeave += Control_Leave;
+		//
+		// toolStripSeparatorHistory
+		//
+		toolStripSeparatorHistory.AccessibleDescription = "Just a separator";
+		toolStripSeparatorHistory.AccessibleName = "Just a separator";
+		toolStripSeparatorHistory.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparatorHistory.Name = "toolStripSeparatorHistory";
+		toolStripSeparatorHistory.Size = new Size(6, 25);
+		toolStripSeparatorHistory.Click += AsteroidGame_Click;
+		toolStripSeparatorHistory.MouseEnter += Control_Enter;
+		toolStripSeparatorHistory.MouseLeave += Control_Leave;
 		// 
 		// tableLayoutPanelMpcorbData
 		// 
@@ -8916,7 +8964,7 @@ partial class PlanetoidDbForm
 		kryptonToolStripNavigation.AllowItemReorder = true;
 		kryptonToolStripNavigation.Dock = DockStyle.None;
 		kryptonToolStripNavigation.Font = new Font("Segoe UI", 9F);
-		kryptonToolStripNavigation.Items.AddRange(new ToolStripItem[] { toolStripButtonLoadRandomMinorPlanet, toolStripSeparator8, toolStripButtonStepToBegin, toolStripSplitButtonStepBackward, toolStripButtonStepBackwardOne, toolStripButtonStepForwardOne, toolStripSplitButtonStepForward, toolStripButtonStepToEnd, toolStripSeparator6, toolStripLabelIndexPosition, toolStripSeparator7, toolStripLabelGoToIndex, toolStripTextBoxGotoIndex, toolStripButtonGoToIndex, toolStripButtonListReadableDesignations, toolStripSeparator9, toolStripButtonFilter, toolStripButtonFilterResetToDefault });
+		kryptonToolStripNavigation.Items.AddRange(new ToolStripItem[] { toolStripButtonLoadRandomMinorPlanet, toolStripSeparator8, toolStripSplitButtonHistoryBack, toolStripSplitButtonHistoryForward, toolStripSeparatorHistory, toolStripButtonStepToBegin, toolStripSplitButtonStepBackward, toolStripButtonStepBackwardOne, toolStripButtonStepForwardOne, toolStripSplitButtonStepForward, toolStripButtonStepToEnd, toolStripSeparator6, toolStripLabelIndexPosition, toolStripSeparator7, toolStripLabelGoToIndex, toolStripTextBoxGotoIndex, toolStripButtonGoToIndex, toolStripButtonListReadableDesignations, toolStripSeparator9, toolStripButtonFilter, toolStripButtonFilterResetToDefault });
 		kryptonToolStripNavigation.Location = new Point(0, 49);
 		kryptonToolStripNavigation.Name = "kryptonToolStripNavigation";
 		kryptonToolStripNavigation.Size = new Size(852, 25);
@@ -9739,4 +9787,7 @@ partial class PlanetoidDbForm
 	private ToolStripMenuItem toolStripMenuItemSsoCard;
 	private ToolStripMenuItem toolStripMenuItemNeotoolsOrbitVisualisationTool;
 	private ToolStripMenuItem toolStripMenuItemCheckingDatabaseUpdatesOnStartup;
+	private ToolStripSplitButton toolStripSplitButtonHistoryBack;
+	private ToolStripSplitButton toolStripSplitButtonHistoryForward;
+	private ToolStripSeparator toolStripSeparatorHistory;
 }
