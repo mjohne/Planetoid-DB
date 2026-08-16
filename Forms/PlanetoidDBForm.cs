@@ -203,7 +203,9 @@ public partial class PlanetoidDbForm : BaseKryptonForm
 	/// <remarks>This constructor initializes the form and sets the version text.</remarks>
 	public PlanetoidDbForm()
 	{
+		// Initialize the form components
 		InitializeComponent();
+		// Set the version text to the current assembly version
 		TextExtra = $"{Assembly.GetExecutingAssembly().GetName().Version}";
 		// Apply comprehensive flicker reduction for the TableLayoutPanel
 		OptimizeTableLayoutPanelForFlickerReduction();
