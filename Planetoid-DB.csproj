@@ -855,7 +855,7 @@ Public License instead of this License.  But first, please read
     <PackageReference Include="Krypton.Toolkit" Version="105.26.7.201" />
     <PackageReference Include="Krypton.Toolkit.Suite.Extended.Ultimate" Version="95.25.5.145" />
     <PackageReference Include="Krypton.Workspace" Version="105.26.7.201" />
-    <PackageReference Include="NLog" Version="6.1.4" />
+    <PackageReference Include="NLog" Version="6.2.0" />
     <PackageReference Include="OpenTK" Version="4.9.4" />
     <PackageReference Include="OpenTK.GLControl" Version="4.0.2" />
     <PackageReference Include="ScottPlot" Version="5.1.59" />
