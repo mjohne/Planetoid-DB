@@ -358,4 +358,7 @@
   <data name="FileSavedSuccessfully" xml:space="preserve">
     <value>File saved successfully.</value>
   </data>
+  <data name="BookmarkNoEntries" xml:space="preserve">
+    <value>(No bookmarks)</value>
+  </data>
 </root>

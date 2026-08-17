@@ -165,6 +165,22 @@ partial class PlanetoidDbForm
 		toolStripMenuItemEdit = new ToolStripMenuItem();
 		toolStripMenuItemSearch = new ToolStripMenuItem();
 		toolStripMenuItemNavigation = new ToolStripMenuItem();
+		toolStripMenuItemBookmark = new ToolStripMenuItem();
+		toolStripMenuItemBookmarkToggle = new ToolStripMenuItem();
+		toolStripMenuItemBookmarkClearAll = new ToolStripMenuItem();
+		toolStripMenuItemBookmarkClearMpcorbDat = new ToolStripMenuItem();
+		toolStripMenuItemBookmarkClearMpcorbJson = new ToolStripMenuItem();
+		toolStripMenuItemBookmarkClearAstorbDat = new ToolStripMenuItem();
+		toolStripMenuItemBookmarkClearAllnumCat = new ToolStripMenuItem();
+		toolStripMenuItemBookmarkClearSingoppCat = new ToolStripMenuItem();
+		toolStripMenuItemBookmarkClearUfitobsCat = new ToolStripMenuItem();
+		toolStripSeparatorBookmarkList = new ToolStripSeparator();
+		toolStripMenuItemBookmarkListMpcorbDat = new ToolStripMenuItem();
+		toolStripMenuItemBookmarkListMpcorbJson = new ToolStripMenuItem();
+		toolStripMenuItemBookmarkListAstorbDat = new ToolStripMenuItem();
+		toolStripMenuItemBookmarkListAllnumCat = new ToolStripMenuItem();
+		toolStripMenuItemBookmarkListSingoppCat = new ToolStripMenuItem();
+		toolStripMenuItemBookmarkListUfitobsCat = new ToolStripMenuItem();
 		toolStripMenuItemRandomMinorPlanet = new ToolStripMenuItem();
 		toolStripSeparatorNavigation1 = new ToolStripSeparator();
 		toolStripMenuItemNavigateToTheBeginning = new ToolStripMenuItem();
@@ -506,6 +522,8 @@ partial class PlanetoidDbForm
 		toolStripSeparator9 = new ToolStripSeparator();
 		toolStripButtonFilter = new ToolStripButton();
 		toolStripButtonFilterResetToDefault = new ToolStripButton();
+		toolStripSeparatorBookmark = new ToolStripSeparator();
+		toolStripButtonBookmark = new ToolStripButton();
 		toolStripSeparatorOptions2 = new ToolStripSeparator();
 		toolStripSeparatorOptions1 = new ToolStripSeparator();
 		backgroundWorkerLoadingDatabase = new BackgroundWorker();
@@ -2439,7 +2457,7 @@ partial class PlanetoidDbForm
 		menuStrip.Font = new Font("Segoe UI", 9F);
 		menuStrip.GripMargin = new Padding(3);
 		menuStrip.GripStyle = ToolStripGripStyle.Visible;
-		menuStrip.Items.AddRange(new ToolStripItem[] { toolStripMenuItemFile, toolStripMenuItemEdit, toolStripMenuItemNavigation, toolStripMenuItemTools, toolStripMenuItemExternalDataPages, toolStripMenuItemUpdate, toolStripMenuItemOptions, toolStripMenuItemHelp });
+		menuStrip.Items.AddRange(new ToolStripItem[] { toolStripMenuItemFile, toolStripMenuItemEdit, toolStripMenuItemNavigation, toolStripMenuItemBookmark, toolStripMenuItemTools, toolStripMenuItemExternalDataPages, toolStripMenuItemUpdate, toolStripMenuItemOptions, toolStripMenuItemHelp });
 		menuStrip.Location = new Point(0, 0);
 		menuStrip.Name = "menuStrip";
 		menuStrip.Padding = new Padding(0);
@@ -2742,6 +2760,214 @@ partial class PlanetoidDbForm
 		toolStripMenuItemListReadableDesignations.Click += ListReadableDesignations_Click;
 		toolStripMenuItemListReadableDesignations.MouseEnter += Control_Enter;
 		toolStripMenuItemListReadableDesignations.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemBookmark
+		// 
+		toolStripMenuItemBookmark.AccessibleDescription = "Opens the bookmark menu";
+		toolStripMenuItemBookmark.AccessibleName = "Bookmark";
+		toolStripMenuItemBookmark.AccessibleRole = AccessibleRole.MenuPopup;
+		toolStripMenuItemBookmark.AutoToolTip = true;
+		toolStripMenuItemBookmark.Image = FatcowIcons16px.fatcow_bookmark_16px;
+		toolStripMenuItemBookmark.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemBookmarkToggle, toolStripMenuItemBookmarkClearAll, toolStripSeparatorBookmarkList, toolStripMenuItemBookmarkListMpcorbDat, toolStripMenuItemBookmarkListMpcorbJson, toolStripMenuItemBookmarkListAstorbDat, toolStripMenuItemBookmarkListAllnumCat, toolStripMenuItemBookmarkListSingoppCat, toolStripMenuItemBookmarkListUfitobsCat });
+		toolStripMenuItemBookmark.Name = "toolStripMenuItemBookmark";
+		toolStripMenuItemBookmark.Size = new Size(77, 24);
+		toolStripMenuItemBookmark.Text = "&Bookmark";
+		toolStripMenuItemBookmark.MouseEnter += Control_Enter;
+		toolStripMenuItemBookmark.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemBookmarkToggle
+		// 
+		toolStripMenuItemBookmarkToggle.AccessibleDescription = "Toggles the bookmark for the current planetoid entry";
+		toolStripMenuItemBookmarkToggle.AccessibleName = "Toggle bookmark";
+		toolStripMenuItemBookmarkToggle.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemBookmarkToggle.AutoToolTip = true;
+		toolStripMenuItemBookmarkToggle.CheckOnClick = true;
+		toolStripMenuItemBookmarkToggle.Image = FatcowIcons16px.fatcow_bookmark_16px;
+		toolStripMenuItemBookmarkToggle.Name = "toolStripMenuItemBookmarkToggle";
+		toolStripMenuItemBookmarkToggle.ShortcutKeys = Keys.Control | Keys.B;
+		toolStripMenuItemBookmarkToggle.Size = new Size(210, 22);
+		toolStripMenuItemBookmarkToggle.Text = "&Bookmark this entry";
+		toolStripMenuItemBookmarkToggle.Click += ToggleBookmark_Click;
+		toolStripMenuItemBookmarkToggle.MouseEnter += Control_Enter;
+		toolStripMenuItemBookmarkToggle.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemBookmarkClearAll
+		// 
+		toolStripMenuItemBookmarkClearAll.AccessibleDescription = "Opens the submenu to clear all bookmarks for a database";
+		toolStripMenuItemBookmarkClearAll.AccessibleName = "Clear bookmarks";
+		toolStripMenuItemBookmarkClearAll.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemBookmarkClearAll.AutoToolTip = true;
+		toolStripMenuItemBookmarkClearAll.Image = FatcowIcons16px.fatcow_bookmark_red_16px;
+		toolStripMenuItemBookmarkClearAll.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItemBookmarkClearMpcorbDat, toolStripMenuItemBookmarkClearMpcorbJson, toolStripMenuItemBookmarkClearAstorbDat, toolStripMenuItemBookmarkClearAllnumCat, toolStripMenuItemBookmarkClearSingoppCat, toolStripMenuItemBookmarkClearUfitobsCat });
+		toolStripMenuItemBookmarkClearAll.Name = "toolStripMenuItemBookmarkClearAll";
+		toolStripMenuItemBookmarkClearAll.Size = new Size(210, 22);
+		toolStripMenuItemBookmarkClearAll.Text = "&Clear bookmarks";
+		toolStripMenuItemBookmarkClearAll.MouseEnter += Control_Enter;
+		toolStripMenuItemBookmarkClearAll.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemBookmarkClearMpcorbDat
+		// 
+		toolStripMenuItemBookmarkClearMpcorbDat.AccessibleDescription = "Clears all bookmarks for the MPCORB.DAT database";
+		toolStripMenuItemBookmarkClearMpcorbDat.AccessibleName = "Clear MPCORB.DAT bookmarks";
+		toolStripMenuItemBookmarkClearMpcorbDat.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemBookmarkClearMpcorbDat.AutoToolTip = true;
+		toolStripMenuItemBookmarkClearMpcorbDat.Name = "toolStripMenuItemBookmarkClearMpcorbDat";
+		toolStripMenuItemBookmarkClearMpcorbDat.Size = new Size(210, 22);
+		toolStripMenuItemBookmarkClearMpcorbDat.Text = "MPCORB.DAT";
+		toolStripMenuItemBookmarkClearMpcorbDat.Click += BookmarkClearMpcorbDat_Click;
+		toolStripMenuItemBookmarkClearMpcorbDat.MouseEnter += Control_Enter;
+		toolStripMenuItemBookmarkClearMpcorbDat.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemBookmarkClearMpcorbJson
+		// 
+		toolStripMenuItemBookmarkClearMpcorbJson.AccessibleDescription = "Clears all bookmarks for the MPCORB.JSON database";
+		toolStripMenuItemBookmarkClearMpcorbJson.AccessibleName = "Clear MPCORB.JSON bookmarks";
+		toolStripMenuItemBookmarkClearMpcorbJson.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemBookmarkClearMpcorbJson.AutoToolTip = true;
+		toolStripMenuItemBookmarkClearMpcorbJson.Name = "toolStripMenuItemBookmarkClearMpcorbJson";
+		toolStripMenuItemBookmarkClearMpcorbJson.Size = new Size(210, 22);
+		toolStripMenuItemBookmarkClearMpcorbJson.Text = "MPCORB.JSON";
+		toolStripMenuItemBookmarkClearMpcorbJson.Click += BookmarkClearMpcorbJson_Click;
+		toolStripMenuItemBookmarkClearMpcorbJson.MouseEnter += Control_Enter;
+		toolStripMenuItemBookmarkClearMpcorbJson.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemBookmarkClearAstorbDat
+		// 
+		toolStripMenuItemBookmarkClearAstorbDat.AccessibleDescription = "Clears all bookmarks for the ASTORB.DAT database";
+		toolStripMenuItemBookmarkClearAstorbDat.AccessibleName = "Clear ASTORB.DAT bookmarks";
+		toolStripMenuItemBookmarkClearAstorbDat.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemBookmarkClearAstorbDat.AutoToolTip = true;
+		toolStripMenuItemBookmarkClearAstorbDat.Name = "toolStripMenuItemBookmarkClearAstorbDat";
+		toolStripMenuItemBookmarkClearAstorbDat.Size = new Size(210, 22);
+		toolStripMenuItemBookmarkClearAstorbDat.Text = "ASTORB.DAT";
+		toolStripMenuItemBookmarkClearAstorbDat.Click += BookmarkClearAstorbDat_Click;
+		toolStripMenuItemBookmarkClearAstorbDat.MouseEnter += Control_Enter;
+		toolStripMenuItemBookmarkClearAstorbDat.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemBookmarkClearAllnumCat
+		// 
+		toolStripMenuItemBookmarkClearAllnumCat.AccessibleDescription = "Clears all bookmarks for the ALLNUM.CAT database";
+		toolStripMenuItemBookmarkClearAllnumCat.AccessibleName = "Clear ALLNUM.CAT bookmarks";
+		toolStripMenuItemBookmarkClearAllnumCat.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemBookmarkClearAllnumCat.AutoToolTip = true;
+		toolStripMenuItemBookmarkClearAllnumCat.Name = "toolStripMenuItemBookmarkClearAllnumCat";
+		toolStripMenuItemBookmarkClearAllnumCat.Size = new Size(210, 22);
+		toolStripMenuItemBookmarkClearAllnumCat.Text = "ALLNUM.CAT";
+		toolStripMenuItemBookmarkClearAllnumCat.Click += BookmarkClearAllnumCat_Click;
+		toolStripMenuItemBookmarkClearAllnumCat.MouseEnter += Control_Enter;
+		toolStripMenuItemBookmarkClearAllnumCat.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemBookmarkClearSingoppCat
+		// 
+		toolStripMenuItemBookmarkClearSingoppCat.AccessibleDescription = "Clears all bookmarks for the SINGOPP.CAT database";
+		toolStripMenuItemBookmarkClearSingoppCat.AccessibleName = "Clear SINGOPP.CAT bookmarks";
+		toolStripMenuItemBookmarkClearSingoppCat.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemBookmarkClearSingoppCat.AutoToolTip = true;
+		toolStripMenuItemBookmarkClearSingoppCat.Name = "toolStripMenuItemBookmarkClearSingoppCat";
+		toolStripMenuItemBookmarkClearSingoppCat.Size = new Size(210, 22);
+		toolStripMenuItemBookmarkClearSingoppCat.Text = "SINGOPP.CAT";
+		toolStripMenuItemBookmarkClearSingoppCat.Click += BookmarkClearSingoppCat_Click;
+		toolStripMenuItemBookmarkClearSingoppCat.MouseEnter += Control_Enter;
+		toolStripMenuItemBookmarkClearSingoppCat.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemBookmarkClearUfitobsCat
+		// 
+		toolStripMenuItemBookmarkClearUfitobsCat.AccessibleDescription = "Clears all bookmarks for the UFITOBS.CAT database";
+		toolStripMenuItemBookmarkClearUfitobsCat.AccessibleName = "Clear UFITOBS.CAT bookmarks";
+		toolStripMenuItemBookmarkClearUfitobsCat.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemBookmarkClearUfitobsCat.AutoToolTip = true;
+		toolStripMenuItemBookmarkClearUfitobsCat.Name = "toolStripMenuItemBookmarkClearUfitobsCat";
+		toolStripMenuItemBookmarkClearUfitobsCat.Size = new Size(210, 22);
+		toolStripMenuItemBookmarkClearUfitobsCat.Text = "UFITOBS.CAT";
+		toolStripMenuItemBookmarkClearUfitobsCat.Click += BookmarkClearUfitobsCat_Click;
+		toolStripMenuItemBookmarkClearUfitobsCat.MouseEnter += Control_Enter;
+		toolStripMenuItemBookmarkClearUfitobsCat.MouseLeave += Control_Leave;
+		// 
+		// toolStripSeparatorBookmarkList
+		// 
+		toolStripSeparatorBookmarkList.AccessibleDescription = "Just a separator";
+		toolStripSeparatorBookmarkList.AccessibleName = "Just a separator";
+		toolStripSeparatorBookmarkList.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparatorBookmarkList.Name = "toolStripSeparatorBookmarkList";
+		toolStripSeparatorBookmarkList.Size = new Size(207, 6);
+		// 
+		// toolStripMenuItemBookmarkListMpcorbDat
+		// 
+		toolStripMenuItemBookmarkListMpcorbDat.AccessibleDescription = "Shows the bookmarked entries for the MPCORB.DAT database";
+		toolStripMenuItemBookmarkListMpcorbDat.AccessibleName = "MPCORB.DAT bookmarks";
+		toolStripMenuItemBookmarkListMpcorbDat.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemBookmarkListMpcorbDat.AutoToolTip = true;
+		toolStripMenuItemBookmarkListMpcorbDat.Name = "toolStripMenuItemBookmarkListMpcorbDat";
+		toolStripMenuItemBookmarkListMpcorbDat.Size = new Size(210, 22);
+		toolStripMenuItemBookmarkListMpcorbDat.Text = "MPCORB.DAT";
+		toolStripMenuItemBookmarkListMpcorbDat.DropDownOpening += BookmarkListMpcorbDat_DropDownOpening;
+		toolStripMenuItemBookmarkListMpcorbDat.MouseEnter += Control_Enter;
+		toolStripMenuItemBookmarkListMpcorbDat.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemBookmarkListMpcorbJson
+		// 
+		toolStripMenuItemBookmarkListMpcorbJson.AccessibleDescription = "Shows the bookmarked entries for the MPCORB.JSON database";
+		toolStripMenuItemBookmarkListMpcorbJson.AccessibleName = "MPCORB.JSON bookmarks";
+		toolStripMenuItemBookmarkListMpcorbJson.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemBookmarkListMpcorbJson.AutoToolTip = true;
+		toolStripMenuItemBookmarkListMpcorbJson.Name = "toolStripMenuItemBookmarkListMpcorbJson";
+		toolStripMenuItemBookmarkListMpcorbJson.Size = new Size(210, 22);
+		toolStripMenuItemBookmarkListMpcorbJson.Text = "MPCORB.JSON";
+		toolStripMenuItemBookmarkListMpcorbJson.DropDownOpening += BookmarkListMpcorbJson_DropDownOpening;
+		toolStripMenuItemBookmarkListMpcorbJson.MouseEnter += Control_Enter;
+		toolStripMenuItemBookmarkListMpcorbJson.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemBookmarkListAstorbDat
+		// 
+		toolStripMenuItemBookmarkListAstorbDat.AccessibleDescription = "Shows the bookmarked entries for the ASTORB.DAT database";
+		toolStripMenuItemBookmarkListAstorbDat.AccessibleName = "ASTORB.DAT bookmarks";
+		toolStripMenuItemBookmarkListAstorbDat.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemBookmarkListAstorbDat.AutoToolTip = true;
+		toolStripMenuItemBookmarkListAstorbDat.Name = "toolStripMenuItemBookmarkListAstorbDat";
+		toolStripMenuItemBookmarkListAstorbDat.Size = new Size(210, 22);
+		toolStripMenuItemBookmarkListAstorbDat.Text = "ASTORB.DAT";
+		toolStripMenuItemBookmarkListAstorbDat.DropDownOpening += BookmarkListAstorbDat_DropDownOpening;
+		toolStripMenuItemBookmarkListAstorbDat.MouseEnter += Control_Enter;
+		toolStripMenuItemBookmarkListAstorbDat.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemBookmarkListAllnumCat
+		// 
+		toolStripMenuItemBookmarkListAllnumCat.AccessibleDescription = "Shows the bookmarked entries for the ALLNUM.CAT database";
+		toolStripMenuItemBookmarkListAllnumCat.AccessibleName = "ALLNUM.CAT bookmarks";
+		toolStripMenuItemBookmarkListAllnumCat.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemBookmarkListAllnumCat.AutoToolTip = true;
+		toolStripMenuItemBookmarkListAllnumCat.Name = "toolStripMenuItemBookmarkListAllnumCat";
+		toolStripMenuItemBookmarkListAllnumCat.Size = new Size(210, 22);
+		toolStripMenuItemBookmarkListAllnumCat.Text = "ALLNUM.CAT";
+		toolStripMenuItemBookmarkListAllnumCat.DropDownOpening += BookmarkListAllnumCat_DropDownOpening;
+		toolStripMenuItemBookmarkListAllnumCat.MouseEnter += Control_Enter;
+		toolStripMenuItemBookmarkListAllnumCat.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemBookmarkListSingoppCat
+		// 
+		toolStripMenuItemBookmarkListSingoppCat.AccessibleDescription = "Shows the bookmarked entries for the SINGOPP.CAT database";
+		toolStripMenuItemBookmarkListSingoppCat.AccessibleName = "SINGOPP.CAT bookmarks";
+		toolStripMenuItemBookmarkListSingoppCat.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemBookmarkListSingoppCat.AutoToolTip = true;
+		toolStripMenuItemBookmarkListSingoppCat.Name = "toolStripMenuItemBookmarkListSingoppCat";
+		toolStripMenuItemBookmarkListSingoppCat.Size = new Size(210, 22);
+		toolStripMenuItemBookmarkListSingoppCat.Text = "SINGOPP.CAT";
+		toolStripMenuItemBookmarkListSingoppCat.DropDownOpening += BookmarkListSingoppCat_DropDownOpening;
+		toolStripMenuItemBookmarkListSingoppCat.MouseEnter += Control_Enter;
+		toolStripMenuItemBookmarkListSingoppCat.MouseLeave += Control_Leave;
+		// 
+		// toolStripMenuItemBookmarkListUfitobsCat
+		// 
+		toolStripMenuItemBookmarkListUfitobsCat.AccessibleDescription = "Shows the bookmarked entries for the UFITOBS.CAT database";
+		toolStripMenuItemBookmarkListUfitobsCat.AccessibleName = "UFITOBS.CAT bookmarks";
+		toolStripMenuItemBookmarkListUfitobsCat.AccessibleRole = AccessibleRole.MenuItem;
+		toolStripMenuItemBookmarkListUfitobsCat.AutoToolTip = true;
+		toolStripMenuItemBookmarkListUfitobsCat.Name = "toolStripMenuItemBookmarkListUfitobsCat";
+		toolStripMenuItemBookmarkListUfitobsCat.Size = new Size(210, 22);
+		toolStripMenuItemBookmarkListUfitobsCat.Text = "UFITOBS.CAT";
+		toolStripMenuItemBookmarkListUfitobsCat.DropDownOpening += BookmarkListUfitobsCat_DropDownOpening;
+		toolStripMenuItemBookmarkListUfitobsCat.MouseEnter += Control_Enter;
+		toolStripMenuItemBookmarkListUfitobsCat.MouseLeave += Control_Leave;
 		// 
 		// toolStripMenuItemTools
 		// 
@@ -8964,7 +9190,7 @@ partial class PlanetoidDbForm
 		kryptonToolStripNavigation.AllowItemReorder = true;
 		kryptonToolStripNavigation.Dock = DockStyle.None;
 		kryptonToolStripNavigation.Font = new Font("Segoe UI", 9F);
-		kryptonToolStripNavigation.Items.AddRange(new ToolStripItem[] { toolStripButtonStepToBegin, toolStripSplitButtonStepBackward, toolStripButtonStepBackwardOne, toolStripButtonStepForwardOne, toolStripSplitButtonStepForward, toolStripButtonStepToEnd, toolStripSeparator6, toolStripSplitButtonHistoryBack, toolStripSplitButtonHistoryForward, toolStripSeparator8, toolStripButtonLoadRandomMinorPlanet, toolStripSeparatorHistory, toolStripLabelIndexPosition, toolStripSeparator7, toolStripLabelGoToIndex, toolStripTextBoxGotoIndex, toolStripButtonGoToIndex, toolStripButtonListReadableDesignations, toolStripSeparator9, toolStripButtonFilter, toolStripButtonFilterResetToDefault });
+		kryptonToolStripNavigation.Items.AddRange(new ToolStripItem[] { toolStripButtonStepToBegin, toolStripSplitButtonStepBackward, toolStripButtonStepBackwardOne, toolStripButtonStepForwardOne, toolStripSplitButtonStepForward, toolStripButtonStepToEnd, toolStripSeparator6, toolStripSplitButtonHistoryBack, toolStripSplitButtonHistoryForward, toolStripSeparator8, toolStripButtonLoadRandomMinorPlanet, toolStripSeparatorHistory, toolStripLabelIndexPosition, toolStripSeparator7, toolStripLabelGoToIndex, toolStripTextBoxGotoIndex, toolStripButtonGoToIndex, toolStripButtonListReadableDesignations, toolStripSeparator9, toolStripButtonFilter, toolStripButtonFilterResetToDefault, toolStripSeparatorBookmark, toolStripButtonBookmark });
 		kryptonToolStripNavigation.Location = new Point(0, 49);
 		kryptonToolStripNavigation.Name = "kryptonToolStripNavigation";
 		kryptonToolStripNavigation.Size = new Size(852, 25);
@@ -9199,6 +9425,33 @@ partial class PlanetoidDbForm
 		toolStripButtonFilterResetToDefault.Click += FilterReset_Click;
 		toolStripButtonFilterResetToDefault.MouseEnter += Control_Enter;
 		toolStripButtonFilterResetToDefault.MouseLeave += Control_Leave;
+		// 
+		// toolStripSeparatorBookmark
+		// 
+		toolStripSeparatorBookmark.AccessibleDescription = "Just a separator";
+		toolStripSeparatorBookmark.AccessibleName = "Just a separator";
+		toolStripSeparatorBookmark.AccessibleRole = AccessibleRole.Separator;
+		toolStripSeparatorBookmark.Name = "toolStripSeparatorBookmark";
+		toolStripSeparatorBookmark.Size = new Size(6, 25);
+		toolStripSeparatorBookmark.MouseEnter += Control_Enter;
+		toolStripSeparatorBookmark.MouseLeave += Control_Leave;
+		// 
+		// toolStripButtonBookmark
+		// 
+		toolStripButtonBookmark.AccessibleDescription = "Toggles the bookmark for the current planetoid entry";
+		toolStripButtonBookmark.AccessibleName = "Bookmark";
+		toolStripButtonBookmark.AccessibleRole = AccessibleRole.CheckButton;
+		toolStripButtonBookmark.CheckOnClick = true;
+		toolStripButtonBookmark.DisplayStyle = ToolStripItemDisplayStyle.Image;
+		toolStripButtonBookmark.Image = FatcowIcons16px.fatcow_bookmark_16px;
+		toolStripButtonBookmark.ImageTransparentColor = Color.Magenta;
+		toolStripButtonBookmark.Name = "toolStripButtonBookmark";
+		toolStripButtonBookmark.Size = new Size(23, 22);
+		toolStripButtonBookmark.Text = "Bookmark";
+		toolStripButtonBookmark.ToolTipText = "Toggle bookmark for the current planetoid entry";
+		toolStripButtonBookmark.Click += ToggleBookmark_Click;
+		toolStripButtonBookmark.MouseEnter += Control_Enter;
+		toolStripButtonBookmark.MouseLeave += Control_Leave;
 		// 
 		// toolStripSeparatorOptions2
 		// 
@@ -9790,4 +10043,22 @@ partial class PlanetoidDbForm
 	private ToolStripSplitButton toolStripSplitButtonHistoryBack;
 	private ToolStripSplitButton toolStripSplitButtonHistoryForward;
 	private ToolStripSeparator toolStripSeparatorHistory;
+	private ToolStripSeparator toolStripSeparatorBookmark;
+	private ToolStripButton toolStripButtonBookmark;
+	private ToolStripMenuItem toolStripMenuItemBookmark;
+	private ToolStripMenuItem toolStripMenuItemBookmarkToggle;
+	private ToolStripMenuItem toolStripMenuItemBookmarkClearAll;
+	private ToolStripMenuItem toolStripMenuItemBookmarkClearMpcorbDat;
+	private ToolStripMenuItem toolStripMenuItemBookmarkClearMpcorbJson;
+	private ToolStripMenuItem toolStripMenuItemBookmarkClearAstorbDat;
+	private ToolStripMenuItem toolStripMenuItemBookmarkClearAllnumCat;
+	private ToolStripMenuItem toolStripMenuItemBookmarkClearSingoppCat;
+	private ToolStripMenuItem toolStripMenuItemBookmarkClearUfitobsCat;
+	private ToolStripSeparator toolStripSeparatorBookmarkList;
+	private ToolStripMenuItem toolStripMenuItemBookmarkListMpcorbDat;
+	private ToolStripMenuItem toolStripMenuItemBookmarkListMpcorbJson;
+	private ToolStripMenuItem toolStripMenuItemBookmarkListAstorbDat;
+	private ToolStripMenuItem toolStripMenuItemBookmarkListAllnumCat;
+	private ToolStripMenuItem toolStripMenuItemBookmarkListSingoppCat;
+	private ToolStripMenuItem toolStripMenuItemBookmarkListUfitobsCat;
 }

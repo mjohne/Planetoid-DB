@@ -135,6 +135,8 @@ public partial class PlanetoidDbForm
 		}
 		// Load the ASTORB.DAT file and update the tab text with the last modified date
 		//LoadAstorbDatabase();
+		// Load all bookmarks from disk into memory at startup
+		LoadAllBookmarks();
 	}
 
 	/// <summary>Handles the shown event of the PlanetoidDBForm.</summary>
@@ -2141,6 +2143,45 @@ public partial class PlanetoidDbForm
 			toolStripSplitButtonHistoryForward.DropDownItems.Add(value: item);
 		}
 	}
+
+	#region bookmark event handlers
+
+	/// <summary>Handles the Click event of the bookmark toolbar button and menu item to toggle the bookmark state of the current MPCORB.DAT entry.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	private void ToggleBookmark_Click(object? sender, EventArgs e) => ToggleMpcorbDatBookmark();
+
+	/// <summary>Handles the Click event of the "Clear MPCORB.DAT bookmarks" menu item.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	private void BookmarkClearMpcorbDat_Click(object? sender, EventArgs e) => ClearMpcorbDatBookmarks();
+
+	/// <summary>Handles the Click event of the "Clear MPCORB.JSON bookmarks" menu item.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	private void BookmarkClearMpcorbJson_Click(object? sender, EventArgs e) => ClearMpcorbJsonBookmarks();
+
+	/// <summary>Handles the Click event of the "Clear ASTORB.DAT bookmarks" menu item.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	private void BookmarkClearAstorbDat_Click(object? sender, EventArgs e) => ClearAstorbDatBookmarks();
+
+	/// <summary>Handles the Click event of the "Clear ALLNUM.CAT bookmarks" menu item.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	private void BookmarkClearAllnumCat_Click(object? sender, EventArgs e) => ClearAllnumCatBookmarks();
+
+	/// <summary>Handles the Click event of the "Clear SINGOPP.CAT bookmarks" menu item.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	private void BookmarkClearSingoppCat_Click(object? sender, EventArgs e) => ClearSingoppCatBookmarks();
+
+	/// <summary>Handles the Click event of the "Clear UFITOBS.CAT bookmarks" menu item.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	private void BookmarkClearUfitobsCat_Click(object? sender, EventArgs e) => ClearUfitobsCatBookmarks();
+
+	#endregion
 
 	#endregion
 }

@@ -1407,5 +1407,16 @@ namespace Planetoid_DB {
 				return ResourceManager.GetString("FileSavedSuccessfully", resourceCulture);
 			}
 		}
+
+		/// <summary>
+		///   Looks up a localized string similar to (No bookmarks).
+		/// </summary>
+		internal static string BookmarkNoEntries
+		{
+			get
+			{
+				return ResourceManager.GetString("BookmarkNoEntries", resourceCulture);
+			}
+		}
 	}
 }
