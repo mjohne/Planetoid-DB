@@ -18,6 +18,7 @@ using Krypton.Toolkit;
 using Planetoid_DB.Forms;
 using Planetoid_DB.Helpers;
 using Planetoid_DB.Properties;
+using Planetoid_DB.Resources;
 
 using System.Diagnostics;
 using System.Globalization;
@@ -168,6 +169,9 @@ public partial class PlanetoidDbForm
 			// Resume layout and perform any pending layout logic.
 			tableLayoutPanelMpcorbData.ResumeLayout(performLayout: true);
 		}
+		// Update bookmark UI state for the new position
+		UpdateBookmarkButtonState();
+		UpdateBookmarkMenuToggleState();
 	}
 
 	/// <summary>Clears all record display labels in the data panel and index indicator.</summary>
@@ -2740,6 +2744,318 @@ public partial class PlanetoidDbForm
 			tableLayoutPanelMpcorbJsonData.ResumeLayout(performLayout: false);
 		}
 	}
+
+	#region bookmark methods
+
+	/// <summary>In-memory list of bookmarks for the MPCORB.DAT database.</summary>
+	private List<BookmarkEntry> bookmarksMpcorbDat = [];
+
+	/// <summary>In-memory list of bookmarks for the MPCORB.JSON database.</summary>
+	private List<BookmarkEntry> bookmarksMpcorbJson = [];
+
+	/// <summary>In-memory list of bookmarks for the ASTORB.DAT database.</summary>
+	private List<BookmarkEntry> bookmarksAstorbDat = [];
+
+	/// <summary>In-memory list of bookmarks for the ALLNUM.CAT database.</summary>
+	private List<BookmarkEntry> bookmarksAllnumCat = [];
+
+	/// <summary>In-memory list of bookmarks for the SINGOPP.CAT database.</summary>
+	private List<BookmarkEntry> bookmarksSingoppCat = [];
+
+	/// <summary>In-memory list of bookmarks for the UFITOBS.CAT database.</summary>
+	private List<BookmarkEntry> bookmarksUfitobsCat = [];
+
+	/// <summary>Loads all bookmark lists from disk into memory.</summary>
+	/// <remarks>Should be called once at application startup.</remarks>
+	internal void LoadAllBookmarks()
+	{
+		bookmarksMpcorbDat = BookmarkStore.Load(filenameMpcorbDat);
+		bookmarksMpcorbJson = BookmarkStore.Load(filenameMpcorbJson);
+		bookmarksAstorbDat = BookmarkStore.Load(filenameAstorbDat);
+		bookmarksAllnumCat = BookmarkStore.Load(filenameAllnumCat);
+		bookmarksSingoppCat = BookmarkStore.Load(filenameSingoppCat);
+		bookmarksUfitobsCat = BookmarkStore.Load(filenameUfitobsCat);
+		logger.Info(message: "All bookmarks loaded from disk.");
+	}
+
+	/// <summary>Returns the readable designation for the planetoid at the given position in the MPCORB.DAT database.</summary>
+	/// <param name="position">The zero-based index position in the database.</param>
+	/// <returns>The readable designation string, or an empty string if out of range.</returns>
+	private string GetMpcorbDatDesignationAt(int position)
+	{
+		if (position < 0 || position >= planetoidsDatabase.Count)
+		{
+			return string.Empty;
+		}
+		string? entry = planetoidsDatabase[position];
+		if (string.IsNullOrEmpty(entry) || entry.Length < 194)
+		{
+			return string.Empty;
+		}
+		return entry.AsSpan(166, 28).Trim().ToString();
+	}
+
+	/// <summary>Determines whether the entry at the given MPCORB.DAT position is currently bookmarked.</summary>
+	/// <param name="position">The zero-based index position to check.</param>
+	/// <returns><c>true</c> if a bookmark exists for this position; otherwise <c>false</c>.</returns>
+	private bool IsMpcorbDatPositionBookmarked(int position) =>
+		bookmarksMpcorbDat.Exists(b => b.Position == position);
+
+	/// <summary>Toggles the bookmark state for the current MPCORB.DAT position.</summary>
+	/// <remarks>Adds a new bookmark if none exists for the current position, otherwise removes the existing one.</remarks>
+	internal void ToggleMpcorbDatBookmark()
+	{
+		if (planetoidsDatabase.Count == 0)
+		{
+			return;
+		}
+		int pos = currentPosition;
+		int existingIndex = bookmarksMpcorbDat.FindIndex(b => b.Position == pos);
+		if (existingIndex >= 0)
+		{
+			bookmarksMpcorbDat.RemoveAt(existingIndex);
+			logger.Info(message: $"Bookmark removed at MPCORB.DAT position {pos}.");
+		}
+		else
+		{
+			bookmarksMpcorbDat.Add(new BookmarkEntry
+			{
+				SavedAt = DateTime.Now,
+				Position = pos,
+				Name = GetMpcorbDatDesignationAt(pos)
+			});
+			logger.Info(message: $"Bookmark added at MPCORB.DAT position {pos}.");
+		}
+		BookmarkStore.Save(filenameMpcorbDat, bookmarksMpcorbDat);
+		UpdateBookmarkButtonState();
+		UpdateBookmarkMenuToggleState();
+	}
+
+	/// <summary>Updates the toolbar bookmark button checked state based on the current MPCORB.DAT position.</summary>
+	internal void UpdateBookmarkButtonState()
+	{
+		bool isBookmarked = IsMpcorbDatPositionBookmarked(currentPosition);
+		toolStripButtonBookmark.CheckedChanged -= ToggleBookmark_Click;
+		toolStripButtonBookmark.Checked = isBookmarked;
+		toolStripButtonBookmark.CheckedChanged += ToggleBookmark_Click;
+		toolStripButtonBookmark.Image = isBookmarked
+			? FatcowIcons16px.fatcow_bookmark_red_16px
+			: FatcowIcons16px.fatcow_bookmark_16px;
+	}
+
+	/// <summary>Updates the menu item bookmark toggle checked state based on the current MPCORB.DAT position.</summary>
+	internal void UpdateBookmarkMenuToggleState()
+	{
+		bool isBookmarked = IsMpcorbDatPositionBookmarked(currentPosition);
+		toolStripMenuItemBookmarkToggle.CheckedChanged -= ToggleBookmark_Click;
+		toolStripMenuItemBookmarkToggle.Checked = isBookmarked;
+		toolStripMenuItemBookmarkToggle.CheckedChanged += ToggleBookmark_Click;
+	}
+
+	/// <summary>Populates the bookmark list drop-down for the given database with menu items for each stored bookmark entry.</summary>
+	/// <param name="parentItem">The parent menu item whose drop-down items will be populated.</param>
+	/// <param name="bookmarks">The list of bookmark entries to display.</param>
+	/// <param name="onClickHandler">The event handler invoked when the user clicks a bookmark entry item.</param>
+	private static void PopulateBookmarkDropDown(
+		ToolStripMenuItem parentItem,
+		IReadOnlyList<BookmarkEntry> bookmarks,
+		EventHandler onClickHandler)
+	{
+		parentItem.DropDownItems.Clear();
+		if (bookmarks.Count == 0)
+		{
+			var empty = new ToolStripMenuItem(I18nStrings.BookmarkNoEntries)
+			{
+				Enabled = false
+			};
+			parentItem.DropDownItems.Add(empty);
+			return;
+		}
+		foreach (var entry in bookmarks)
+		{
+			var item = new ToolStripMenuItem
+			{
+				Text = $"{entry.Name} ({entry.SavedAt:yyyy-MM-dd HH:mm:ss})",
+				Tag = entry,
+				Image = FatcowIcons16px.fatcow_bookmark_16px
+			};
+			item.Click += onClickHandler;
+			parentItem.DropDownItems.Add(item);
+		}
+	}
+
+	/// <summary>Clears all bookmarks for the MPCORB.DAT database and refreshes the UI.</summary>
+	internal void ClearMpcorbDatBookmarks()
+	{
+		bookmarksMpcorbDat.Clear();
+		BookmarkStore.ClearAll(filenameMpcorbDat);
+		UpdateBookmarkButtonState();
+		UpdateBookmarkMenuToggleState();
+		logger.Info(message: "All MPCORB.DAT bookmarks cleared.");
+	}
+
+	/// <summary>Clears all bookmarks for the MPCORB.JSON database.</summary>
+	internal void ClearMpcorbJsonBookmarks()
+	{
+		bookmarksMpcorbJson.Clear();
+		BookmarkStore.ClearAll(filenameMpcorbJson);
+		logger.Info(message: "All MPCORB.JSON bookmarks cleared.");
+	}
+
+	/// <summary>Clears all bookmarks for the ASTORB.DAT database.</summary>
+	internal void ClearAstorbDatBookmarks()
+	{
+		bookmarksAstorbDat.Clear();
+		BookmarkStore.ClearAll(filenameAstorbDat);
+		logger.Info(message: "All ASTORB.DAT bookmarks cleared.");
+	}
+
+	/// <summary>Clears all bookmarks for the ALLNUM.CAT database.</summary>
+	internal void ClearAllnumCatBookmarks()
+	{
+		bookmarksAllnumCat.Clear();
+		BookmarkStore.ClearAll(filenameAllnumCat);
+		logger.Info(message: "All ALLNUM.CAT bookmarks cleared.");
+	}
+
+	/// <summary>Clears all bookmarks for the SINGOPP.CAT database.</summary>
+	internal void ClearSingoppCatBookmarks()
+	{
+		bookmarksSingoppCat.Clear();
+		BookmarkStore.ClearAll(filenameSingoppCat);
+		logger.Info(message: "All SINGOPP.CAT bookmarks cleared.");
+	}
+
+	/// <summary>Clears all bookmarks for the UFITOBS.CAT database.</summary>
+	internal void ClearUfitobsCatBookmarks()
+	{
+		bookmarksUfitobsCat.Clear();
+		BookmarkStore.ClearAll(filenameUfitobsCat);
+		logger.Info(message: "All UFITOBS.CAT bookmarks cleared.");
+	}
+
+	/// <summary>Populates the MPCORB.DAT bookmark drop-down when the user opens it.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">Event data.</param>
+	internal void BookmarkListMpcorbDat_DropDownOpening(object? sender, EventArgs e) =>
+		PopulateBookmarkDropDown(toolStripMenuItemBookmarkListMpcorbDat, bookmarksMpcorbDat, BookmarkNavigateMpcorbDat_Click);
+
+	/// <summary>Populates the MPCORB.JSON bookmark drop-down when the user opens it.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">Event data.</param>
+	internal void BookmarkListMpcorbJson_DropDownOpening(object? sender, EventArgs e) =>
+		PopulateBookmarkDropDown(toolStripMenuItemBookmarkListMpcorbJson, bookmarksMpcorbJson, BookmarkNavigateMpcorbJson_Click);
+
+	/// <summary>Populates the ASTORB.DAT bookmark drop-down when the user opens it.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">Event data.</param>
+	internal void BookmarkListAstorbDat_DropDownOpening(object? sender, EventArgs e) =>
+		PopulateBookmarkDropDown(toolStripMenuItemBookmarkListAstorbDat, bookmarksAstorbDat, BookmarkNavigateAstorbDat_Click);
+
+	/// <summary>Populates the ALLNUM.CAT bookmark drop-down when the user opens it.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">Event data.</param>
+	internal void BookmarkListAllnumCat_DropDownOpening(object? sender, EventArgs e) =>
+		PopulateBookmarkDropDown(toolStripMenuItemBookmarkListAllnumCat, bookmarksAllnumCat, BookmarkNavigateAllnumCat_Click);
+
+	/// <summary>Populates the SINGOPP.CAT bookmark drop-down when the user opens it.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">Event data.</param>
+	internal void BookmarkListSingoppCat_DropDownOpening(object? sender, EventArgs e) =>
+		PopulateBookmarkDropDown(toolStripMenuItemBookmarkListSingoppCat, bookmarksSingoppCat, BookmarkNavigateSingoppCat_Click);
+
+	/// <summary>Populates the UFITOBS.CAT bookmark drop-down when the user opens it.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">Event data.</param>
+	internal void BookmarkListUfitobsCat_DropDownOpening(object? sender, EventArgs e) =>
+		PopulateBookmarkDropDown(toolStripMenuItemBookmarkListUfitobsCat, bookmarksUfitobsCat, BookmarkNavigateUfitobsCat_Click);
+
+	/// <summary>Navigates to the MPCORB.DAT record stored in the clicked bookmark item.</summary>
+	/// <param name="sender">The clicked menu item whose <see cref="ToolStripItem.Tag"/> is a <see cref="BookmarkEntry"/>.</param>
+	/// <param name="e">Event data.</param>
+	private void BookmarkNavigateMpcorbDat_Click(object? sender, EventArgs e)
+	{
+		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
+		{
+			PushNavigationHistory(previousPosition: currentPosition);
+			currentPosition = entry.Position;
+			GotoCurrentPosition(position: currentPosition);
+			currentAstorbPosition = currentPosition;
+			currentMpcorbJsonPosition = currentPosition;
+			currentAllnumCatPosition = currentPosition;
+			currentSingoppCatPosition = currentPosition;
+			currentUfitobsCatPosition = currentPosition;
+			UpdateBookmarkButtonState();
+			UpdateBookmarkMenuToggleState();
+		}
+	}
+
+	/// <summary>Navigates to the MPCORB.JSON record stored in the clicked bookmark item.</summary>
+	/// <param name="sender">The clicked menu item whose <see cref="ToolStripItem.Tag"/> is a <see cref="BookmarkEntry"/>.</param>
+	/// <param name="e">Event data.</param>
+	private void BookmarkNavigateMpcorbJson_Click(object? sender, EventArgs e)
+	{
+		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
+		{
+			PushNavigationHistory(previousPosition: currentPosition);
+			currentMpcorbJsonPosition = entry.Position;
+			GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
+		}
+	}
+
+	/// <summary>Navigates to the ASTORB.DAT record stored in the clicked bookmark item.</summary>
+	/// <param name="sender">The clicked menu item whose <see cref="ToolStripItem.Tag"/> is a <see cref="BookmarkEntry"/>.</param>
+	/// <param name="e">Event data.</param>
+	private void BookmarkNavigateAstorbDat_Click(object? sender, EventArgs e)
+	{
+		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
+		{
+			PushNavigationHistory(previousPosition: currentPosition);
+			currentAstorbPosition = entry.Position;
+			GotoCurrentAstorbPosition(position: currentAstorbPosition);
+		}
+	}
+
+	/// <summary>Navigates to the ALLNUM.CAT record stored in the clicked bookmark item.</summary>
+	/// <param name="sender">The clicked menu item whose <see cref="ToolStripItem.Tag"/> is a <see cref="BookmarkEntry"/>.</param>
+	/// <param name="e">Event data.</param>
+	private void BookmarkNavigateAllnumCat_Click(object? sender, EventArgs e)
+	{
+		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
+		{
+			PushNavigationHistory(previousPosition: currentPosition);
+			currentAllnumCatPosition = entry.Position;
+			GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
+		}
+	}
+
+	/// <summary>Navigates to the SINGOPP.CAT record stored in the clicked bookmark item.</summary>
+	/// <param name="sender">The clicked menu item whose <see cref="ToolStripItem.Tag"/> is a <see cref="BookmarkEntry"/>.</param>
+	/// <param name="e">Event data.</param>
+	private void BookmarkNavigateSingoppCat_Click(object? sender, EventArgs e)
+	{
+		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
+		{
+			PushNavigationHistory(previousPosition: currentPosition);
+			currentSingoppCatPosition = entry.Position;
+			GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
+		}
+	}
+
+	/// <summary>Navigates to the UFITOBS.CAT record stored in the clicked bookmark item.</summary>
+	/// <param name="sender">The clicked menu item whose <see cref="ToolStripItem.Tag"/> is a <see cref="BookmarkEntry"/>.</param>
+	/// <param name="e">Event data.</param>
+	private void BookmarkNavigateUfitobsCat_Click(object? sender, EventArgs e)
+	{
+		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
+		{
+			PushNavigationHistory(previousPosition: currentPosition);
+			currentUfitobsCatPosition = entry.Position;
+			GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
+		}
+	}
+
+	#endregion
 
 	#endregion
 }
