@@ -545,13 +545,10 @@ public partial class PlanetoidDbForm
 
 	/// <summary>Pushes the specified position onto the navigation history back-stack and updates the history navigation buttons.</summary>
 	/// <param name="previousPosition">The zero-based index of the position to record in the back-history.</param>
-	/// <remarks>
-	/// Call this method before changing <see cref="currentPosition"/> so that the <em>previous</em> position is recorded.
-	/// When a new position is pushed, the forward-history stack is cleared because the user started a new navigation branch.
-	/// This method has no effect when <see cref="isNavigatingHistory"/> is <c>true</c> to avoid re-entrancy.
-	/// </remarks>
+	/// <remarks>Call this method before changing <see cref="currentPosition"/> so that the <em>previous</em> position is recorded. When a new position is pushed, the forward-history stack is cleared because the user started a new navigation branch. This method has no effect when <see cref="isNavigatingHistory"/> is <c>true</c> to avoid re-entrancy.</remarks>
 	private void PushNavigationHistory(int previousPosition)
 	{
+		// Avoid pushing history when navigating through history to prevent re-entrancy issues
 		if (isNavigatingHistory)
 		{
 			return;
@@ -577,6 +574,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>Pops the top entry from the back-history stack, pushes the current position onto the forward-history stack, and displays the planetoid at the popped position.</remarks>
 	private void NavigateHistoryBack()
 	{
+		// If there is no back history, do nothing
 		if (navigationHistoryBack.Count == 0)
 		{
 			return;
@@ -587,6 +585,7 @@ public partial class PlanetoidDbForm
 		int targetPosition = navigationHistoryBack.Pop();
 		// Set the flag so PushNavigationHistory does not fire during this internal navigation
 		isNavigatingHistory = true;
+		// Navigate to the target position and update all related positions
 		try
 		{
 			currentPosition = targetPosition;
@@ -602,10 +601,18 @@ public partial class PlanetoidDbForm
 			currentUfitobsCatPosition = currentPosition;
 			GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 		}
+		// Catch any exceptions that occur during navigation and log them
+		catch (Exception ex)
+		{
+			logger.Error(message: $"Error navigating back in history to position {targetPosition}: {ex.Message}", exception: ex);
+			ShowErrorMessage(message: $"An error occurred while navigating back in history to position {targetPosition + 1}. Please try again.");
+		}
+		// Ensure that the navigation flag is reset even if an exception occurs
 		finally
 		{
 			isNavigatingHistory = false;
 		}
+		// Update the enabled state of the history navigation buttons after navigating
 		UpdateHistoryNavigationButtons();
 	}
 
@@ -613,6 +620,7 @@ public partial class PlanetoidDbForm
 	/// <remarks>Pops the top entry from the forward-history stack, pushes the current position onto the back-history stack, and displays the planetoid at the popped position.</remarks>
 	private void NavigateHistoryForward()
 	{
+		// If there is no forward history, do nothing
 		if (navigationHistoryForward.Count == 0)
 		{
 			return;
@@ -623,6 +631,7 @@ public partial class PlanetoidDbForm
 		int targetPosition = navigationHistoryForward.Pop();
 		// Set the flag so PushNavigationHistory does not fire during this internal navigation
 		isNavigatingHistory = true;
+		// Navigate to the target position and update all related positions
 		try
 		{
 			currentPosition = targetPosition;
@@ -638,10 +647,18 @@ public partial class PlanetoidDbForm
 			currentUfitobsCatPosition = currentPosition;
 			GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 		}
+		// Catch any exceptions that occur during navigation and log them
+		catch (Exception ex)
+		{
+			logger.Error(message: $"Error navigating forward in history to position {targetPosition}: {ex.Message}", exception: ex);
+			ShowErrorMessage(message: $"An error occurred while navigating forward in history to position {targetPosition + 1}. Please try again.");
+		}
+		// Ensure that the navigation flag is reset even if an exception occurs
 		finally
 		{
 			isNavigatingHistory = false;
 		}
+		// Update the enabled state of the history navigation buttons after navigating
 		UpdateHistoryNavigationButtons();
 	}
 
@@ -650,40 +667,39 @@ public partial class PlanetoidDbForm
 	/// <returns>The trimmed readable designation string, or an empty string when the position is out of range or the entry is too short.</returns>
 	private string GetPlanetoidNameAtPosition(int position)
 	{
+		// Validate the position to ensure it is within the bounds of the planetoids database
 		if (position < 0 || position >= planetoidsDatabase.Count)
 		{
+			logger.Warn(message: $"Attempted to get planetoid name at invalid position {position}. Database count: {planetoidsDatabase.Count}");
 			return string.Empty;
 		}
+		// Retrieve the entry from the planetoids database at the specified position
 		string entry = planetoidsDatabase[index: position];
-		if (entry.Length < 194)
-		{
-			return string.Empty;
-		}
-		return entry.Substring(startIndex: 166, length: 28).Trim();
+		// Check if the entry is long enough to contain the readable designation field
+		return entry.Length < 194 ? string.Empty : entry.Substring(startIndex: 166, length: 28).Trim();
 	}
 
 	/// <summary>Navigates directly to a specific position in the history, adjusting both back and forward stacks to reflect the jump.</summary>
 	/// <param name="targetPosition">The zero-based database index to navigate to.</param>
-	/// <param name="fromBack">
-	/// When <c>true</c>, the target was chosen from the back-history drop-down; when <c>false</c>, it was chosen from the forward-history drop-down.
-	/// </param>
-	/// <remarks>
-	/// All history entries between the current position and the selected entry are moved to the opposite stack so that the
-	/// full history remains navigable after the jump, just as in a classic web browser.
-	/// </remarks>
+	/// <param name="fromBack">When <c>true</c>, the target was chosen from the back-history drop-down; when <c>false</c>, it was chosen from the forward-history drop-down.</param>
+	/// <remarks>All history entries between the current position and the selected entry are moved to the opposite stack so that the full history remains navigable after the jump, just as in a classic web browser.</remarks>
 	private void NavigateHistoryToPosition(int targetPosition, bool fromBack)
 	{
+		// If the target position is the same as the current position, do nothing
 		if (fromBack)
 		{
 			// Collect intermediate entries popped from the back stack
-			var intermediates = new System.Collections.Generic.List<int>();
+			List<int> intermediates = [];
+			// Pop entries from the back stack until we find the target position or the stack is empty
 			while (navigationHistoryBack.Count > 0 && navigationHistoryBack.Peek() != targetPosition)
 			{
 				intermediates.Add(item: navigationHistoryBack.Pop());
 			}
+			// If we found the target position in the back stack, pop it and push the current position and intermediate entries onto the forward stack
 			if (navigationHistoryBack.Count > 0)
 			{
-				navigationHistoryBack.Pop(); // remove the target from back stack
+				// Remove the target from back stack
+				navigationHistoryBack.Pop();
 				// Push currentPosition first so it is the next forward step
 				navigationHistoryForward.Push(item: currentPosition);
 				// Push intermediate entries in pop-order so the nearest entry is on top
@@ -693,17 +709,21 @@ public partial class PlanetoidDbForm
 				}
 			}
 		}
+		// If the target position is from the forward history, handle it accordingly
 		else
 		{
 			// Collect intermediate entries popped from the forward stack
-			var intermediates = new System.Collections.Generic.List<int>();
+			List<int> intermediates = [];
+			// Pop entries from the forward stack until we find the target position or the stack is empty
 			while (navigationHistoryForward.Count > 0 && navigationHistoryForward.Peek() != targetPosition)
 			{
 				intermediates.Add(item: navigationHistoryForward.Pop());
 			}
+			// If we found the target position in the forward stack, pop it and push the current position and intermediate entries onto the back stack
 			if (navigationHistoryForward.Count > 0)
 			{
-				navigationHistoryForward.Pop(); // remove the target from forward stack
+				// Remove the target from forward stack
+				navigationHistoryForward.Pop();
 				// Push currentPosition first so it is the next back step
 				navigationHistoryBack.Push(item: currentPosition);
 				// Push intermediate entries in pop-order so the nearest entry is on top
@@ -715,6 +735,7 @@ public partial class PlanetoidDbForm
 		}
 		// Navigate to the target position without re-entering history logic
 		isNavigatingHistory = true;
+		// Update the current position and navigate to it
 		try
 		{
 			currentPosition = targetPosition;
@@ -730,10 +751,18 @@ public partial class PlanetoidDbForm
 			currentUfitobsCatPosition = currentPosition;
 			GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
 		}
+		// Catch any exceptions that occur during navigation and log them
+		catch (Exception ex)
+		{
+			logger.Error(message: $"Error navigating to history position {targetPosition}: {ex.Message}", exception: ex);
+			ShowErrorMessage(message: $"An error occurred while navigating to history position {targetPosition + 1}. Please try again.");
+		}
+		// Ensure that the navigation flag is reset even if an exception occurs
 		finally
 		{
 			isNavigatingHistory = false;
 		}
+		// Update the enabled state of the history navigation buttons after navigating
 		UpdateHistoryNavigationButtons();
 	}
 

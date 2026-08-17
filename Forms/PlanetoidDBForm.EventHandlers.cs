@@ -887,60 +887,6 @@ public partial class PlanetoidDbForm
 		NavigateHistoryForward();
 	}
 
-	/// <summary>Handles the DropDownOpening event for the back history split button. Populates the drop-down menu with the back-history entries.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>The drop-down lists the positions that can be reached by clicking back, from most recent to oldest. Clicking a menu item navigates directly to that position and adjusts the history stacks accordingly.</remarks>
-	private void HistoryBack_DropDownOpening(object sender, EventArgs e)
-	{
-		toolStripSplitButtonHistoryBack.DropDownItems.Clear();
-		// Build items from the back-history (top = most recent)
-		int[] backPositions = navigationHistoryBack.ToArray();
-		foreach (int pos in backPositions)
-		{
-			int capturedPos = pos;
-			string name = GetPlanetoidNameAtPosition(position: capturedPos);
-			string label = string.IsNullOrWhiteSpace(value: name) ? $"{I18nStrings.Index}: {capturedPos + 1}" : name;
-			ToolStripMenuItem item = new(text: label)
-			{
-				Tag = capturedPos
-			};
-			item.Click += (s, ev) =>
-			{
-				// Navigate directly to the chosen history position
-				NavigateHistoryToPosition(targetPosition: capturedPos, fromBack: true);
-			};
-			toolStripSplitButtonHistoryBack.DropDownItems.Add(value: item);
-		}
-	}
-
-	/// <summary>Handles the DropDownOpening event for the forward history split button. Populates the drop-down menu with the forward-history entries.</summary>
-	/// <param name="sender">The event source.</param>
-	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
-	/// <remarks>The drop-down lists the positions that can be reached by clicking forward, from most recent to oldest. Clicking a menu item navigates directly to that position and adjusts the history stacks accordingly.</remarks>
-	private void HistoryForward_DropDownOpening(object sender, EventArgs e)
-	{
-		toolStripSplitButtonHistoryForward.DropDownItems.Clear();
-		// Build items from the forward-history (top = most recent)
-		int[] forwardPositions = navigationHistoryForward.ToArray();
-		foreach (int pos in forwardPositions)
-		{
-			int capturedPos = pos;
-			string name = GetPlanetoidNameAtPosition(position: capturedPos);
-			string label = string.IsNullOrWhiteSpace(value: name) ? $"{I18nStrings.Index}: {capturedPos + 1}" : name;
-			ToolStripMenuItem item = new(text: label)
-			{
-				Tag = capturedPos
-			};
-			item.Click += (s, ev) =>
-			{
-				// Navigate directly to the chosen history position
-				NavigateHistoryToPosition(targetPosition: capturedPos, fromBack: false);
-			};
-			toolStripSplitButtonHistoryForward.DropDownItems.Add(value: item);
-		}
-	}
-
 	/// <summary>Handles the click event for the ToolStripMenuItemSettings. Shows the settings form.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
@@ -1482,13 +1428,15 @@ public partial class PlanetoidDbForm
 	/// <remarks>This method opens a new instance of the classic Asteroids arcade game implemented using OpenTK.</remarks>
 	private void AsteroidGame_Click(object sender, EventArgs e)
 	{
+		// Attempt to open the Asteroid Game form and handle any exceptions that may occur
 		try
 		{
-			logger.Info(message: $"Opening Asteroid Game");
+			logger.Info(message: "Opening Asteroid Game");
 			using AsteroidGameForm gameForm = new();
 			gameForm.TopMost = TopMost;
 			_ = gameForm.ShowDialog(owner: this);
 		}
+		// Catch any exceptions that occur while trying to open the Asteroid Game form, log the error, and show an error message to the user
 		catch (Exception ex)
 		{
 			logger.Error(message: "Failed to open Asteroid Game: {0}", args: ex);
@@ -1686,7 +1634,7 @@ public partial class PlanetoidDbForm
 		OpenWebsite(fileName: $"https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr={labelMpcorbIndexData.Text}&view=OPDA");
 	}
 
-	/// <summary>Handles the Click event for the Lowell Minor Planet Services menu item, opening the corresponding asteroid data page in a web browser.</summary>
+	/// <summary>Handles the click event for the Lowell Minor Planet Services menu item, opening the corresponding asteroid data page in a web browser.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler constructs a URL for the Lowell Observatory's asteroid search page based on the current designation and opens it in the default web browser.</remarks>
@@ -1696,7 +1644,7 @@ public partial class PlanetoidDbForm
 		OpenWebsite(fileName: $"https://asteroid.lowell.edu/gui/search/{ProcessDesignationForUrl(input: labelMpcorbReadableDesignationData.Text)}");
 	}
 
-	/// <summary>Handles the Click event for the Asteroids Dynamic Site menu item, opening the corresponding asteroid data page in a web browser.</summary>
+	/// <summary>Handles the click event for the Asteroids Dynamic Site menu item, opening the corresponding asteroid data page in a web browser.</summary>
 	/// <param name="sender">The source of the event, typically the menu item that was clicked.</param>
 	/// <param name="e">An EventArgs object that contains the event data.</param>
 	/// <remarks>This event handler constructs a URL for the selected asteroid using its readable designation and opens the associated data page in the default web browser.</remarks>
@@ -1851,7 +1799,7 @@ public partial class PlanetoidDbForm
 
 	/// <summary>Handles the click event for the ToolStripMenuItemLogging menu item. Toggles logging on or off based on the checked state of the menu item and updates user settings accordingly.</summary>
 	/// <param name="sender">The source of the event, typically the ToolStripMenuItemLogging menu item.</param>
-	/// <param name="e">An <see cref="EventArgs"/> object that contains the event data.</param>
+	/// <param name="e">The event data associated with the click event.</param>
 	/// <remarks>This method enables or disables logging based on the checked state of the ToolStripMenuItemLogging menu item. It also updates the user settings to reflect the current logging preference and enables or disables the logging level menu items accordingly.</remarks>
 	private void ToolStripMenuItemLogging_Click(object sender, EventArgs e)
 	{
@@ -2012,7 +1960,7 @@ public partial class PlanetoidDbForm
 		Settings.Default.Save();
 	}
 
-	/// <summary>Handles the double-click event to show an Easter egg message.</summary>
+	/// <summary>Handles the click event to show an Easter egg message.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	/// <remarks>This method is used to show an Easter egg message when the user double-clicks on a control.</remarks>
@@ -2105,6 +2053,93 @@ public partial class PlanetoidDbForm
 		using LogViewerForm formLogViewer = new();
 		formLogViewer.TopMost = TopMost;
 		_ = formLogViewer.ShowDialog(owner: this);
+	}
+
+	#endregion
+
+	#region DropDown event handlers
+	/// <summary>Handles the DropDownOpening event for the back history split button. Populates the drop-down menu with the back-history entries.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>The drop-down lists the positions that can be reached by clicking back, from most recent to oldest. Clicking a menu item navigates directly to that position and adjusts the history stacks accordingly.</remarks>
+	private void HistoryBack_DropDownOpening(object sender, EventArgs e)
+	{
+		// Clear existing items in the back-history drop-down menu
+		toolStripSplitButtonHistoryBack.DropDownItems.Clear();
+		// Build items from the back-history (top = most recent)
+		int[] backPositions = [.. navigationHistoryBack];
+		// Iterate through each position in the back-history
+		foreach (int pos in backPositions)
+		{
+			// Capture the current position in a local variable to avoid closure issues
+			int capturedPos = pos;
+			// Get the planetoid name at the captured position
+			string name = GetPlanetoidNameAtPosition(position: capturedPos);
+			// Create a label for the menu item, using the planetoid name if available, otherwise using the index
+			string label = string.IsNullOrWhiteSpace(value: name) ? $"{I18nStrings.Index}: {capturedPos + 1}" : name;
+			// Create a new ToolStripMenuItem with the label and store the captured position in the Tag property
+			ToolStripMenuItem item = new(text: label)
+			{
+				Tag = capturedPos,
+				AutoToolTip = true,
+				AccessibleRole = AccessibleRole.MenuItem,
+				AccessibleName = label,
+				AccessibleDescription = $"Navigate to history position {capturedPos + 1} ({label})"
+			};
+			// Handle the click event for the history item
+			item.Click += (s, ev) =>
+			{
+				// Navigate directly to the chosen history position
+				NavigateHistoryToPosition(targetPosition: capturedPos, fromBack: true);
+			};
+			// Add mouse enter and leave event handlers for visual feedback
+			item.MouseEnter += Control_Enter;
+			item.MouseLeave += Control_Leave;
+			// Add the item to the back-history drop-down menu
+			toolStripSplitButtonHistoryBack.DropDownItems.Add(value: item);
+		}
+	}
+
+	/// <summary>Handles the DropDownOpening event for the forward history split button. Populates the drop-down menu with the forward-history entries.</summary>
+	/// <param name="sender">The event source.</param>
+	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
+	/// <remarks>The drop-down lists the positions that can be reached by clicking forward, from most recent to oldest. Clicking a menu item navigates directly to that position and adjusts the history stacks accordingly.</remarks>
+	private void HistoryForward_DropDownOpening(object sender, EventArgs e)
+	{
+		// Clear existing items in the forward-history drop-down menu
+		toolStripSplitButtonHistoryForward.DropDownItems.Clear();
+		// Build items from the forward-history (top = most recent)
+		int[] forwardPositions = [.. navigationHistoryForward];
+		// Iterate through each position in the forward-history
+		foreach (int pos in forwardPositions)
+		{
+			// Capture the current position in a local variable to avoid closure issues
+			int capturedPos = pos;
+			// Get the planetoid name at the captured position
+			string name = GetPlanetoidNameAtPosition(position: capturedPos);
+			// Create a label for the menu item, using the planetoid name if available, otherwise using the index
+			string label = string.IsNullOrWhiteSpace(value: name) ? $"{I18nStrings.Index}: {capturedPos + 1}" : name;
+			// Create a new ToolStripMenuItem with the label and store the captured position in the Tag property
+			ToolStripMenuItem item = new(text: label)
+			{
+				Tag = capturedPos,
+				AutoToolTip = true,
+				AccessibleRole = AccessibleRole.MenuItem,
+				AccessibleName = label,
+				AccessibleDescription = $"Navigate to history position {capturedPos + 1} ({label})"
+			};
+			// Handle the click event for the history item
+			item.Click += (s, ev) =>
+			{
+				// Navigate directly to the chosen history position
+				NavigateHistoryToPosition(targetPosition: capturedPos, fromBack: false);
+			};
+			// Add mouse enter and leave event handlers for visual feedback
+			item.MouseEnter += Control_Enter;
+			item.MouseLeave += Control_Leave;
+			// Add the item to the forward-history drop-down menu
+			toolStripSplitButtonHistoryForward.DropDownItems.Add(value: item);
+		}
 	}
 
 	#endregion
