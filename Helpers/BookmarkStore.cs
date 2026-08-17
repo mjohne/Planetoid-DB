@@ -38,9 +38,15 @@ public sealed class BookmarkStore
 	/// <summary>Returns the full path of the bookmark file for the given database filename.</summary>
 	/// <param name="databaseFilename">The base filename of the database (e.g. "mpcorb.dat").</param>
 	/// <returns>The full path to the corresponding bookmark JSON file.</returns>
+	/// <exception cref="ArgumentException"><paramref name="databaseFilename"/> is <see langword="null"/>, whitespace, or does not contain a valid file name.</exception>
 	public static string GetBookmarkFilePath(string databaseFilename)
 	{
-		string sanitised = Path.GetFileName(databaseFilename).ToLowerInvariant();
+		ArgumentException.ThrowIfNullOrWhiteSpace(databaseFilename);
+
+		string sanitised = Path.GetFileName(databaseFilename);
+		ArgumentException.ThrowIfNullOrWhiteSpace(sanitised);
+		sanitised = sanitised.ToLowerInvariant();
+
 		return Path.Combine(bookmarkDirectory, $"bookmarks_{sanitised}.json");
 	}
 
@@ -49,19 +55,22 @@ public sealed class BookmarkStore
 	/// <returns>A list of <see cref="BookmarkEntry"/> objects, or an empty list if none are found or an error occurs.</returns>
 	public static List<BookmarkEntry> Load(string databaseFilename)
 	{
-		string path = GetBookmarkFilePath(databaseFilename);
-		if (!File.Exists(path))
-		{
-			return [];
-		}
+		string? path = null;
+
 		try
 		{
+			path = GetBookmarkFilePath(databaseFilename);
+			if (!File.Exists(path))
+			{
+				return [];
+			}
+
 			string json = File.ReadAllText(path);
 			return JsonSerializer.Deserialize<List<BookmarkEntry>>(json) ?? [];
 		}
 		catch (Exception ex)
 		{
-			logger.Error(exception: ex, message: $"Failed to load bookmarks from '{path}': {ex.Message}");
+			logger.Error(exception: ex, message: $"Failed to load bookmarks from '{path ?? databaseFilename}': {ex.Message}");
 			return [];
 		}
 	}
@@ -71,16 +80,18 @@ public sealed class BookmarkStore
 	/// <param name="entries">The list of bookmark entries to persist.</param>
 	public static void Save(string databaseFilename, IEnumerable<BookmarkEntry> entries)
 	{
-		string path = GetBookmarkFilePath(databaseFilename);
+		string? path = null;
+
 		try
 		{
+			path = GetBookmarkFilePath(databaseFilename);
 			Directory.CreateDirectory(bookmarkDirectory);
 			string json = JsonSerializer.Serialize(entries, serializerOptions);
 			File.WriteAllText(path, json);
 		}
 		catch (Exception ex)
 		{
-			logger.Error(exception: ex, message: $"Failed to save bookmarks to '{path}': {ex.Message}");
+			logger.Error(exception: ex, message: $"Failed to save bookmarks to '{path ?? databaseFilename}': {ex.Message}");
 		}
 	}
 
@@ -88,6 +99,19 @@ public sealed class BookmarkStore
 	/// <param name="databaseFilename">The base filename of the database.</param>
 	public static void ClearAll(string databaseFilename)
 	{
-		Save(databaseFilename, []);
+		string? path = null;
+
+		try
+		{
+			path = GetBookmarkFilePath(databaseFilename);
+			if (File.Exists(path))
+			{
+				File.Delete(path);
+			}
+		}
+		catch (Exception ex)
+		{
+			logger.Error(exception: ex, message: $"Failed to clear bookmarks from '{path ?? databaseFilename}': {ex.Message}");
+		}
 	}
 }
