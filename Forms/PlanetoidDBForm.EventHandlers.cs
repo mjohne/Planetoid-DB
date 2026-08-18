@@ -2146,7 +2146,7 @@ public partial class PlanetoidDbForm
 
 	#region bookmark event handlers
 
-	/// <summary>Handles the Click event of the bookmark toolbar button and menu item to toggle the bookmark state of the current MPCORB.DAT entry.</summary>
+	/// <summary>Handles the CheckedChanged event of the bookmark toolbar button and menu item to toggle the bookmark state of the current MPCORB.DAT entry.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">The <see cref="EventArgs"/> instance that contains the event data.</param>
 	private void ToggleBookmark_Click(object? sender, EventArgs e) => ToggleMpcorbDatBookmark();
