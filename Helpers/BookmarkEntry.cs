@@ -20,11 +20,14 @@ namespace Planetoid_DB.Helpers;
 public sealed class BookmarkEntry
 {
 	/// <summary>Gets or sets the date and time when this bookmark was created.</summary>
+	/// <remarks>The value is stored in local time.</remarks>
 	public DateTime SavedAt { get; set; }
 
 	/// <summary>Gets or sets the zero-based index position of the planetoid record in the database.</summary>
+	/// <remarks>This value is used to quickly locate the planetoid record in the database without needing to search by name or other attributes.</remarks>
 	public int Position { get; set; }
 
 	/// <summary>Gets or sets the readable designation (name) of the bookmarked planetoid.</summary>
+	/// <remarks>This value is used for display purposes in the user interface.</remarks>
 	public string Name { get; set; } = string.Empty;
 }
