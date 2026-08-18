@@ -20,7 +20,7 @@ namespace Planetoid_DB.Helpers;
 public sealed class BookmarkEntry
 {
 	/// <summary>Gets or sets the date and time when this bookmark was created.</summary>
-	/// <remarks>The value is stored in local time.</remarks>
+	/// <remarks>The value is stored in UTC.</remarks>
 	public DateTime SavedAt { get; set; }
 
 	/// <summary>Gets or sets the zero-based index position of the planetoid record in the database.</summary>

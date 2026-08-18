@@ -39,12 +39,14 @@ public sealed class BookmarkStore
 	/// <param name="databaseFilename">The base filename of the database (e.g. "mpcorb.dat").</param>
 	/// <returns>The full path to the corresponding bookmark JSON file.</returns>
 	/// <exception cref="ArgumentException"><paramref name="databaseFilename"/> is <see langword="null"/>, whitespace, or does not contain a valid file name.</exception>
-	/// <remarks>The bookmark file is named "bookmarks_{lowercasedBaseFileName}.json" and is located in the user's application-data directory under the "Planetoid-DB\Bookmarks" sub-folder.</remarks>
+	/// <remarks>The bookmark file is named "bookmarks_{sanitised}.json", where <c>sanitised</c> is the lower-cased base file name of <paramref name="databaseFilename"/>. The file is stored under the user's application-data directory in the "Planetoid-DB\Bookmarks" sub-folder.</remarks>
 	public static string GetBookmarkFilePath(string databaseFilename)
 	{
 		// Validate the input database filename
 		if (string.IsNullOrWhiteSpace(value: databaseFilename))
 		{
+			// Log the error and throw an exception if the database filename is null or whitespace
+			logger.Error(message: "Database filename must not be null or whitespace.");
 			throw new ArgumentException(message: "Database filename must not be null or whitespace.", paramName: nameof(databaseFilename));
 		}
 		// Sanitize the database filename to ensure it is a valid file name
@@ -52,6 +54,8 @@ public sealed class BookmarkStore
 		// Check if the sanitized filename is still valid
 		if (string.IsNullOrWhiteSpace(value: sanitised))
 		{
+			// Log the error and throw an exception if the sanitized filename is invalid
+			logger.Error(message: "Database filename must contain a valid file name.");
 			throw new ArgumentException(message: "Database filename must contain a valid file name.", paramName: nameof(databaseFilename));
 		}
 		// Construct and return the full path to the bookmark file
@@ -106,14 +110,13 @@ public sealed class BookmarkStore
 			path = GetBookmarkFilePath(databaseFilename: databaseFilename);
 			// Ensure the bookmark directory exists; create it if it does not
 			Directory.CreateDirectory(path: bookmarkDirectory);
-			// Materialise the enumerable once to avoid double enumeration during serialisation and count logging
-			List<BookmarkEntry> entriesList = entries as List<BookmarkEntry> ?? [.. entries];
 			// Serialize the list of bookmark entries to JSON format with indentation for readability
-			string json = JsonSerializer.Serialize(value: entriesList, options: serializerOptions);
+			List<BookmarkEntry> entryList = entries as List<BookmarkEntry> ?? [.. entries];
 			// Write the serialized JSON content to the bookmark file, overwriting any existing content
+			string json = JsonSerializer.Serialize(value: entryList, options: serializerOptions);
 			File.WriteAllText(path: path, contents: json);
 			// Log the successful saving of bookmarks, including the count of entries saved
-			logger.Info(message: $"Saved {entriesList.Count} bookmarks to '{path}' for database '{databaseFilename}'.");
+			logger.Info(message: $"Saved {entries.Count()} bookmarks to '{path}' for database '{databaseFilename}'.");
 		}
 		// Catch any exceptions that occur during the saving process and log the error
 		catch (Exception ex)
