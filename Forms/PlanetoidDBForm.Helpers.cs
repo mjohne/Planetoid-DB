@@ -2748,310 +2748,488 @@ public partial class PlanetoidDbForm
 	#region bookmark methods
 
 	/// <summary>In-memory list of bookmarks for the MPCORB.DAT database.</summary>
+	/// <remarks>This list is loaded from disk at application startup and updated in memory as bookmarks are added or removed. Changes are persisted to disk when bookmarks are modified.</remarks>
 	private List<BookmarkEntry> bookmarksMpcorbDat = [];
 
 	/// <summary>In-memory list of bookmarks for the MPCORB.JSON database.</summary>
+	/// <remarks>This list is loaded from disk at application startup and updated in memory as bookmarks are added or removed. Changes are persisted to disk when bookmarks are modified.</remarks>
 	private List<BookmarkEntry> bookmarksMpcorbJson = [];
 
 	/// <summary>In-memory list of bookmarks for the ASTORB.DAT database.</summary>
+	/// <remarks>This list is loaded from disk at application startup and updated in memory as bookmarks are added or removed. Changes are persisted to disk when bookmarks are modified.</remarks>
 	private List<BookmarkEntry> bookmarksAstorbDat = [];
 
 	/// <summary>In-memory list of bookmarks for the ALLNUM.CAT database.</summary>
+	/// <remarks>This list is loaded from disk at application startup and updated in memory as bookmarks are added or removed. Changes are persisted to disk when bookmarks are modified.</remarks>
 	private List<BookmarkEntry> bookmarksAllnumCat = [];
 
 	/// <summary>In-memory list of bookmarks for the SINGOPP.CAT database.</summary>
+	/// <remarks>This list is loaded from disk at application startup and updated in memory as bookmarks are added or removed. Changes are persisted to disk when bookmarks are modified.</remarks>
 	private List<BookmarkEntry> bookmarksSingoppCat = [];
 
 	/// <summary>In-memory list of bookmarks for the UFITOBS.CAT database.</summary>
+	/// <remarks>This list is loaded from disk at application startup and updated in memory as bookmarks are added or removed. Changes are persisted to disk when bookmarks are modified.</remarks>
 	private List<BookmarkEntry> bookmarksUfitobsCat = [];
 
 	/// <summary>Loads all bookmark lists from disk into memory.</summary>
 	/// <remarks>Should be called once at application startup.</remarks>
 	internal void LoadAllBookmarks()
 	{
-		bookmarksMpcorbDat = BookmarkStore.Load(filenameMpcorbDat);
-		bookmarksMpcorbJson = BookmarkStore.Load(filenameMpcorbJson);
-		bookmarksAstorbDat = BookmarkStore.Load(filenameAstorbDat);
-		bookmarksAllnumCat = BookmarkStore.Load(filenameAllnumCat);
-		bookmarksSingoppCat = BookmarkStore.Load(filenameSingoppCat);
-		bookmarksUfitobsCat = BookmarkStore.Load(filenameUfitobsCat);
+		bookmarksMpcorbDat = BookmarkStore.Load(databaseFilename: filenameMpcorbDat);
+		bookmarksMpcorbJson = BookmarkStore.Load(databaseFilename: filenameMpcorbJson);
+		bookmarksAstorbDat = BookmarkStore.Load(databaseFilename: filenameAstorbDat);
+		bookmarksAllnumCat = BookmarkStore.Load(databaseFilename: filenameAllnumCat);
+		bookmarksSingoppCat = BookmarkStore.Load(databaseFilename: filenameSingoppCat);
+		bookmarksUfitobsCat = BookmarkStore.Load(databaseFilename: filenameUfitobsCat);
 		logger.Info(message: "All bookmarks loaded from disk.");
 	}
 
 	/// <summary>Returns the readable designation for the planetoid at the given position in the MPCORB.DAT database.</summary>
 	/// <param name="position">The zero-based index position in the database.</param>
 	/// <returns>The readable designation string, or an empty string if out of range.</returns>
+	/// <remarks>This method extracts the designation from the fixed-width MPCORB.DAT record format, specifically from columns 167-194 (0-based indices 166-193).</remarks>
 	private string GetMpcorbDatDesignationAt(int position)
 	{
+		// Validate the position is within the bounds of the database
 		if (position < 0 || position >= planetoidsDatabase.Count)
 		{
+			// Log a warning if the position is out of range
+			logger.Warn(message: $"Requested MPCORB.DAT position {position} is out of range (0 to {planetoidsDatabase.Count - 1}).");
+			// Return an empty string to indicate no valid designation
 			return string.Empty;
 		}
+		// Retrieve the entry string at the specified position
 		string? entry = planetoidsDatabase[position];
+		// Validate the entry is not null or too short to contain the designation
 		if (string.IsNullOrEmpty(entry) || entry.Length < 194)
 		{
+			// Log a warning if the entry is invalid
+			logger.Warn(message: $"MPCORB.DAT entry at position {position} is invalid or too short to extract designation.");
+			// Return an empty string to indicate no valid designation
 			return string.Empty;
 		}
-		return entry.AsSpan(166, 28).Trim().ToString();
+		// Extract and return the designation from columns 167-194 (0-based indices 166-193)
+		return entry.AsSpan(start: 166, length: 28).Trim().ToString();
 	}
 
 	/// <summary>Determines whether the entry at the given MPCORB.DAT position is currently bookmarked.</summary>
 	/// <param name="position">The zero-based index position to check.</param>
 	/// <returns><c>true</c> if a bookmark exists for this position; otherwise <c>false</c>.</returns>
-	private bool IsMpcorbDatPositionBookmarked(int position) =>
-		bookmarksMpcorbDat.Exists(b => b.Position == position);
+	/// <remarks>This method checks the in-memory list of bookmarks for the MPCORB.DAT database to see if an entry exists for the specified position.</remarks>
+	private bool IsMpcorbDatPositionBookmarked(int position) => bookmarksMpcorbDat.Exists(match: b => b.Position == position);
 
 	/// <summary>Toggles the bookmark state for the current MPCORB.DAT position.</summary>
 	/// <remarks>Adds a new bookmark if none exists for the current position, otherwise removes the existing one.</remarks>
 	internal void ToggleMpcorbDatBookmark()
 	{
+		// If the planetoids database is empty, do not allow bookmarking
 		if (planetoidsDatabase.Count == 0)
 		{
+			logger.Warn(message: "Cannot toggle bookmark: MPCORB.DAT database is empty.");
+			// Optionally, show a message to the user indicating that bookmarking is not possible
+			KryptonMessageBox.Show(owner: this, text: "Cannot toggle bookmark: MPCORB.DAT database is empty.", caption: "Warning", buttons: KryptonMessageBoxButtons.OK, icon: KryptonMessageBoxIcon.Warning);
+			// Exit early since there is no valid position to bookmark
 			return;
 		}
+		// Get the current position in the MPCORB.DAT database
 		int pos = currentPosition;
-		int existingIndex = bookmarksMpcorbDat.FindIndex(b => b.Position == pos);
+		// Check if a bookmark already exists for this position
+		int existingIndex = bookmarksMpcorbDat.FindIndex(match: b => b.Position == pos);
+		// If a bookmark exists, remove it; otherwise, add a new bookmark entry
 		if (existingIndex >= 0)
 		{
-			bookmarksMpcorbDat.RemoveAt(existingIndex);
+			bookmarksMpcorbDat.RemoveAt(index: existingIndex);
 			logger.Info(message: $"Bookmark removed at MPCORB.DAT position {pos}.");
 		}
 		else
 		{
-			bookmarksMpcorbDat.Add(new BookmarkEntry
+			bookmarksMpcorbDat.Add(item: new BookmarkEntry
 			{
 				SavedAt = DateTime.Now,
 				Position = pos,
-				Name = GetMpcorbDatDesignationAt(pos)
+				Name = GetMpcorbDatDesignationAt(position: pos)
 			});
 			logger.Info(message: $"Bookmark added at MPCORB.DAT position {pos}.");
 		}
-		BookmarkStore.Save(filenameMpcorbDat, bookmarksMpcorbDat);
+		// Persist the updated bookmarks to disk
+		BookmarkStore.Save(databaseFilename: filenameMpcorbDat, entries: bookmarksMpcorbDat);
 		UpdateBookmarkButtonState();
 		UpdateBookmarkMenuToggleState();
 	}
 
 	/// <summary>Updates the toolbar bookmark button checked state based on the current MPCORB.DAT position.</summary>
+	/// <remarks>This method checks if the current position is bookmarked and updates the toolbar button's checked state and icon accordingly. It temporarily unsubscribes from the CheckedChanged event to avoid triggering the toggle logic during the update.</remarks>
 	internal void UpdateBookmarkButtonState()
 	{
-		bool isBookmarked = IsMpcorbDatPositionBookmarked(currentPosition);
-		toolStripButtonBookmark.CheckedChanged -= ToggleBookmark_Click;
+		// Determine if the current position is bookmarked
+		bool isBookmarked = IsMpcorbDatPositionBookmarked(position: currentPosition);
+		// Update the toolbar button's checked state and icon based on the bookmark status
 		toolStripButtonBookmark.Checked = isBookmarked;
-		toolStripButtonBookmark.CheckedChanged += ToggleBookmark_Click;
-		toolStripButtonBookmark.Image = isBookmarked
-			? FatcowIcons16px.fatcow_bookmark_red_16px
-			: FatcowIcons16px.fatcow_bookmark_16px;
 	}
 
 	/// <summary>Updates the menu item bookmark toggle checked state based on the current MPCORB.DAT position.</summary>
 	internal void UpdateBookmarkMenuToggleState()
 	{
-		bool isBookmarked = IsMpcorbDatPositionBookmarked(currentPosition);
-		toolStripMenuItemBookmarkToggle.CheckedChanged -= ToggleBookmark_Click;
+		// Determine if the current position is bookmarked
+		bool isBookmarked = IsMpcorbDatPositionBookmarked(position: currentPosition);
+		// Update the toolbar button's checked state and icon based on the bookmark status
 		toolStripMenuItemBookmarkToggle.Checked = isBookmarked;
-		toolStripMenuItemBookmarkToggle.CheckedChanged += ToggleBookmark_Click;
 	}
 
 	/// <summary>Populates the bookmark list drop-down for the given database with menu items for each stored bookmark entry.</summary>
 	/// <param name="parentItem">The parent menu item whose drop-down items will be populated.</param>
 	/// <param name="bookmarks">The list of bookmark entries to display.</param>
 	/// <param name="onClickHandler">The event handler invoked when the user clicks a bookmark entry item.</param>
-	private static void PopulateBookmarkDropDown(
-		ToolStripMenuItem parentItem,
-		IReadOnlyList<BookmarkEntry> bookmarks,
-		EventHandler onClickHandler)
+	/// <remarks>This method clears any existing drop-down items, adds a disabled "No entries" item if the list is empty, or creates a menu item for each bookmark entry with its name and saved timestamp. Each item is associated with the provided click event handler.</remarks>
+	private void PopulateBookmarkDropDown(ToolStripMenuItem parentItem, List<BookmarkEntry> bookmarks, EventHandler onClickHandler)
 	{
+		// Clear existing drop-down items to avoid duplicates
 		parentItem.DropDownItems.Clear();
+		// If there are no bookmarks, add a disabled "No entries" item and return early
 		if (bookmarks.Count == 0)
 		{
-			var empty = new ToolStripMenuItem(I18nStrings.BookmarkNoEntries)
+			ToolStripMenuItem empty = new(text: I18nStrings.BookmarkNoEntries)
 			{
-				Enabled = false
+				Enabled = false,
+				AccessibleRole = AccessibleRole.MenuItem,
+				AccessibleName = I18nStrings.BookmarkNoEntries,
+				AccessibleDescription = I18nStrings.BookmarkNoEntries
 			};
-			parentItem.DropDownItems.Add(empty);
+			empty.MouseEnter += Control_Enter;
+			parentItem.DropDownItems.Add(value: empty);
 			return;
 		}
+		// Iterate through each bookmark entry and create a corresponding menu item
 		foreach (var entry in bookmarks)
 		{
-			var item = new ToolStripMenuItem
+			ToolStripMenuItem item = new()
 			{
-				Text = $"{entry.Name} ({entry.SavedAt:yyyy-MM-dd HH:mm:ss})",
+				Text = $"{entry.Name}",
 				Tag = entry,
-				Image = FatcowIcons16px.fatcow_bookmark_16px
+				Image = FatcowIcons16px.fatcow_bookmark_16px,
+				AccessibleRole = AccessibleRole.MenuItem,
+				AccessibleName = $"Bookmark: {entry.Name}, saved at {entry.SavedAt}",
+				AccessibleDescription = $"Bookmark: {entry.Name}, saved at {entry.SavedAt}"
 			};
 			item.Click += onClickHandler;
-			parentItem.DropDownItems.Add(item);
+			item.MouseEnter += Control_Enter;
+			parentItem.DropDownItems.Add(value: item);
 		}
 	}
 
 	/// <summary>Clears all bookmarks for the MPCORB.DAT database and refreshes the UI.</summary>
+	/// <remarks>This method clears the in-memory list of bookmarks for MPCORB.DAT, removes all entries from the persistent storage, and updates the bookmark button and menu toggle states to reflect that there are no bookmarks.</remarks>
 	internal void ClearMpcorbDatBookmarks()
 	{
+		// Clear the in-memory list of bookmarks for MPCORB.DAT
 		bookmarksMpcorbDat.Clear();
-		BookmarkStore.ClearAll(filenameMpcorbDat);
+		// Clear all bookmarks from the persistent storage for MPCORB.DAT
+		BookmarkStore.ClearAll(databaseFilename: filenameMpcorbDat);
+		// Update the UI to reflect that there are no bookmarks
 		UpdateBookmarkButtonState();
 		UpdateBookmarkMenuToggleState();
+		// Log the action for auditing purposes
 		logger.Info(message: "All MPCORB.DAT bookmarks cleared.");
 	}
 
 	/// <summary>Clears all bookmarks for the MPCORB.JSON database.</summary>
+	/// <remarks>This method clears the in-memory list of bookmarks for MPCORB.JSON and removes all entries from the persistent storage.</remarks>
 	internal void ClearMpcorbJsonBookmarks()
 	{
+		// Clear the in-memory list of bookmarks for MPCORB.JSON
 		bookmarksMpcorbJson.Clear();
-		BookmarkStore.ClearAll(filenameMpcorbJson);
+		// Clear all bookmarks from the persistent storage for MPCORB.JSON
+		BookmarkStore.ClearAll(databaseFilename: filenameMpcorbJson);
+		// Log the action for auditing purposes
 		logger.Info(message: "All MPCORB.JSON bookmarks cleared.");
 	}
 
 	/// <summary>Clears all bookmarks for the ASTORB.DAT database.</summary>
 	internal void ClearAstorbDatBookmarks()
 	{
+		// Clear the in-memory list of bookmarks for ASTORB.DAT
 		bookmarksAstorbDat.Clear();
-		BookmarkStore.ClearAll(filenameAstorbDat);
+		// Clear all bookmarks from the persistent storage for ASTORB.DAT
+		BookmarkStore.ClearAll(databaseFilename: filenameAstorbDat);
+		// Log the action for auditing purposes
 		logger.Info(message: "All ASTORB.DAT bookmarks cleared.");
 	}
 
 	/// <summary>Clears all bookmarks for the ALLNUM.CAT database.</summary>
 	internal void ClearAllnumCatBookmarks()
 	{
+		// Clear the in-memory list of bookmarks for ALLNUM.CAT
 		bookmarksAllnumCat.Clear();
-		BookmarkStore.ClearAll(filenameAllnumCat);
+		// Clear all bookmarks from the persistent storage for ALLNUM.CAT
+		BookmarkStore.ClearAll(databaseFilename: filenameAllnumCat);
+		// Log the action for auditing purposes
 		logger.Info(message: "All ALLNUM.CAT bookmarks cleared.");
 	}
 
 	/// <summary>Clears all bookmarks for the SINGOPP.CAT database.</summary>
 	internal void ClearSingoppCatBookmarks()
 	{
+		// Clear the in-memory list of bookmarks for SINGOPP.CAT
 		bookmarksSingoppCat.Clear();
-		BookmarkStore.ClearAll(filenameSingoppCat);
+		// Clear all bookmarks from the persistent storage for SINGOPP.CAT
+		BookmarkStore.ClearAll(databaseFilename: filenameSingoppCat);
+		// Log the action for auditing purposes
 		logger.Info(message: "All SINGOPP.CAT bookmarks cleared.");
 	}
 
 	/// <summary>Clears all bookmarks for the UFITOBS.CAT database.</summary>
 	internal void ClearUfitobsCatBookmarks()
 	{
+		// Clear the in-memory list of bookmarks for UFITOBS.CAT
 		bookmarksUfitobsCat.Clear();
-		BookmarkStore.ClearAll(filenameUfitobsCat);
+		// Clear all bookmarks from the persistent storage for UFITOBS.CAT
+		BookmarkStore.ClearAll(databaseFilename: filenameUfitobsCat);
+		// Log the action for auditing purposes
 		logger.Info(message: "All UFITOBS.CAT bookmarks cleared.");
 	}
 
 	/// <summary>Populates the MPCORB.DAT bookmark drop-down when the user opens it.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event data.</param>
+	/// <remarks>This method is called when the user opens the MPCORB.DAT bookmark drop-down menu. It populates the drop-down with the current list of bookmarks for MPCORB.DAT, creating a menu item for each bookmark entry and associating it with the appropriate click event handler.</remarks>
 	internal void BookmarkListMpcorbDat_DropDownOpening(object? sender, EventArgs e) =>
-		PopulateBookmarkDropDown(toolStripMenuItemBookmarkListMpcorbDat, bookmarksMpcorbDat, BookmarkNavigateMpcorbDat_Click);
+		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListMpcorbDat, bookmarks: bookmarksMpcorbDat, onClickHandler: BookmarkNavigateMpcorbDat_Click);
 
 	/// <summary>Populates the MPCORB.JSON bookmark drop-down when the user opens it.</summary>
 	/// <param name="sender">The event source.</param>
-	/// <param name="e">Event data.</param>
+	/// <param name="e">Event data.</param>												   
+	/// <remarks>This method is called when the user opens the MPCORB.JSON bookmark drop-down menu. It populates the drop-down with the current list of bookmarks for MPCORB.JSON, creating a menu item for each bookmark entry and associating it with the appropriate click event handler.</remarks>
 	internal void BookmarkListMpcorbJson_DropDownOpening(object? sender, EventArgs e) =>
-		PopulateBookmarkDropDown(toolStripMenuItemBookmarkListMpcorbJson, bookmarksMpcorbJson, BookmarkNavigateMpcorbJson_Click);
+		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListMpcorbJson, bookmarks: bookmarksMpcorbJson, onClickHandler: BookmarkNavigateMpcorbJson_Click);
 
 	/// <summary>Populates the ASTORB.DAT bookmark drop-down when the user opens it.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event data.</param>
+	/// <remarks>This method is called when the user opens the ASTORB.DAT bookmark drop-down menu. It populates the drop-down with the current list of bookmarks for ASTORB.DAT, creating a menu item for each bookmark entry and associating it with the appropriate click event handler.</remarks>
 	internal void BookmarkListAstorbDat_DropDownOpening(object? sender, EventArgs e) =>
-		PopulateBookmarkDropDown(toolStripMenuItemBookmarkListAstorbDat, bookmarksAstorbDat, BookmarkNavigateAstorbDat_Click);
+		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListAstorbDat, bookmarks: bookmarksAstorbDat, onClickHandler: BookmarkNavigateAstorbDat_Click);
 
 	/// <summary>Populates the ALLNUM.CAT bookmark drop-down when the user opens it.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event data.</param>
+	/// <remarks>This method is called when the user opens the ALLNUM.CAT bookmark drop-down menu. It populates the drop-down with the current list of bookmarks for ALLNUM.CAT, creating a menu item for each bookmark entry and associating it with the appropriate click event handler.</remarks>
 	internal void BookmarkListAllnumCat_DropDownOpening(object? sender, EventArgs e) =>
-		PopulateBookmarkDropDown(toolStripMenuItemBookmarkListAllnumCat, bookmarksAllnumCat, BookmarkNavigateAllnumCat_Click);
+		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListAllnumCat, bookmarks: bookmarksAllnumCat, onClickHandler: BookmarkNavigateAllnumCat_Click);
 
 	/// <summary>Populates the SINGOPP.CAT bookmark drop-down when the user opens it.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event data.</param>
+	/// <remarks>This method is called when the user opens the SINGOPP.CAT bookmark drop-down menu. It populates the drop-down with the current list of bookmarks for SINGOPP.CAT, creating a menu item for each bookmark entry and associating it with the appropriate click event handler.</remarks>
 	internal void BookmarkListSingoppCat_DropDownOpening(object? sender, EventArgs e) =>
-		PopulateBookmarkDropDown(toolStripMenuItemBookmarkListSingoppCat, bookmarksSingoppCat, BookmarkNavigateSingoppCat_Click);
+		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListSingoppCat, bookmarks: bookmarksSingoppCat, onClickHandler: BookmarkNavigateSingoppCat_Click);
 
 	/// <summary>Populates the UFITOBS.CAT bookmark drop-down when the user opens it.</summary>
 	/// <param name="sender">The event source.</param>
 	/// <param name="e">Event data.</param>
+	/// <remarks>This method is called when the user opens the UFITOBS.CAT bookmark drop-down menu. It populates the drop-down with the current list of bookmarks for UFITOBS.CAT, creating a menu item for each bookmark entry and associating it with the appropriate click event handler.</remarks>
 	internal void BookmarkListUfitobsCat_DropDownOpening(object? sender, EventArgs e) =>
-		PopulateBookmarkDropDown(toolStripMenuItemBookmarkListUfitobsCat, bookmarksUfitobsCat, BookmarkNavigateUfitobsCat_Click);
+		PopulateBookmarkDropDown(parentItem: toolStripMenuItemBookmarkListUfitobsCat, bookmarks: bookmarksUfitobsCat, onClickHandler: BookmarkNavigateUfitobsCat_Click);
 
 	/// <summary>Navigates to the MPCORB.DAT record stored in the clicked bookmark item.</summary>
 	/// <param name="sender">The clicked menu item whose <see cref="ToolStripItem.Tag"/> is a <see cref="BookmarkEntry"/>.</param>
 	/// <param name="e">Event data.</param>
+	/// <remarks>This method is called when the user clicks a bookmark item in the MPCORB.DAT drop-down menu. It navigates to the record stored in the clicked bookmark item.</remarks>
 	private void BookmarkNavigateMpcorbDat_Click(object? sender, EventArgs e)
 	{
+		// Ensure the sender is a ToolStripMenuItem with a BookmarkEntry in its Tag
 		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
 		{
+			// Save the current position to the navigation history before navigating to the bookmarked position
 			PushNavigationHistory(previousPosition: currentPosition);
+			// Update the current position to the bookmarked position and navigate to it
 			currentPosition = entry.Position;
+			// Call the method to navigate to the current position in the MPCORB.DAT database
 			GotoCurrentPosition(position: currentPosition);
+			// Update the current positions for all other databases to match the new position
 			currentAstorbPosition = currentPosition;
 			currentMpcorbJsonPosition = currentPosition;
 			currentAllnumCatPosition = currentPosition;
 			currentSingoppCatPosition = currentPosition;
 			currentUfitobsCatPosition = currentPosition;
+			// Update the bookmark button and menu toggle states to reflect the new position
 			UpdateBookmarkButtonState();
 			UpdateBookmarkMenuToggleState();
+			logger.Info(message: $"Navigated to MPCORB.DAT bookmark at position {currentPosition}.");
+		}
+		else
+		{
+			// Log a warning if the sender is not a valid ToolStripMenuItem with a BookmarkEntry
+			logger.Warn(message: "Bookmark navigation failed: sender is not a valid ToolStripMenuItem with a BookmarkEntry.");
 		}
 	}
 
 	/// <summary>Navigates to the MPCORB.JSON record stored in the clicked bookmark item.</summary>
 	/// <param name="sender">The clicked menu item whose <see cref="ToolStripItem.Tag"/> is a <see cref="BookmarkEntry"/>.</param>
 	/// <param name="e">Event data.</param>
+	/// <remarks>This method is called when the user clicks a bookmark item in the MPCORB.JSON drop-down menu. It navigates to the record stored in the clicked bookmark item.</remarks>
 	private void BookmarkNavigateMpcorbJson_Click(object? sender, EventArgs e)
 	{
+		// Ensure the sender is a ToolStripMenuItem with a BookmarkEntry in its Tag
 		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
 		{
+			// Save the current position to the navigation history before navigating to the bookmarked position
 			PushNavigationHistory(previousPosition: currentPosition);
+			// Update the current MPCORB.JSON position to the bookmarked position and navigate to it
 			currentMpcorbJsonPosition = entry.Position;
+			// Call the method to navigate to the current position in the MPCORB.JSON database
 			GotoCurrentMpcorbJsonPosition(position: currentMpcorbJsonPosition);
+			// Update the current positions for all other databases to match the new position
+			currentPosition = currentMpcorbJsonPosition;
+			currentAstorbPosition = currentMpcorbJsonPosition;
+			currentAllnumCatPosition = currentMpcorbJsonPosition;
+			currentSingoppCatPosition = currentMpcorbJsonPosition;
+			currentUfitobsCatPosition = currentMpcorbJsonPosition;
+			// Update the bookmark button and menu toggle states to reflect the new position
+			UpdateBookmarkButtonState();
+			UpdateBookmarkMenuToggleState();
+			// Log the navigation action for auditing purposes
+			logger.Info(message: $"Navigated to MPCORB.JSON bookmark at position {currentMpcorbJsonPosition}.");
+		}
+		else
+		{
+			// Log a warning if the sender is not a valid ToolStripMenuItem with a BookmarkEntry
+			logger.Warn(message: "Bookmark navigation failed: sender is not a valid ToolStripMenuItem with a BookmarkEntry.");
 		}
 	}
 
 	/// <summary>Navigates to the ASTORB.DAT record stored in the clicked bookmark item.</summary>
 	/// <param name="sender">The clicked menu item whose <see cref="ToolStripItem.Tag"/> is a <see cref="BookmarkEntry"/>.</param>
 	/// <param name="e">Event data.</param>
+	/// <remarks>This method is called when the user clicks a bookmark item in the ASTORB.DAT drop-down menu. It navigates to the record stored in the clicked bookmark item.</remarks>
 	private void BookmarkNavigateAstorbDat_Click(object? sender, EventArgs e)
 	{
+		// Ensure the sender is a ToolStripMenuItem with a BookmarkEntry in its Tag
 		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
 		{
+			// Save the current position to the navigation history before navigating to the bookmarked position
 			PushNavigationHistory(previousPosition: currentPosition);
+			// Update the current ASTORB.DAT position to the bookmarked position and navigate to it
 			currentAstorbPosition = entry.Position;
+			// Call the method to navigate to the current position in the ASTORB.DAT database
 			GotoCurrentAstorbPosition(position: currentAstorbPosition);
+			// Update the current positions for all other databases to match the new position
+			currentPosition = currentAstorbPosition;
+			currentMpcorbJsonPosition = currentAstorbPosition;
+			currentAllnumCatPosition = currentAstorbPosition;
+			currentSingoppCatPosition = currentAstorbPosition;
+			currentUfitobsCatPosition = currentAstorbPosition;
+			// Update the bookmark button and menu toggle states to reflect the new position
+			UpdateBookmarkButtonState();
+			UpdateBookmarkMenuToggleState();
+			// Log the navigation action for auditing purposes
+			logger.Info(message: $"Navigated to ASTORB.DAT bookmark at position {currentAstorbPosition}.");
+		}
+		else
+		{
+			// Log a warning if the sender is not a valid ToolStripMenuItem with a BookmarkEntry
+			logger.Warn(message: "Bookmark navigation failed: sender is not a valid ToolStripMenuItem with a BookmarkEntry.");
 		}
 	}
 
 	/// <summary>Navigates to the ALLNUM.CAT record stored in the clicked bookmark item.</summary>
 	/// <param name="sender">The clicked menu item whose <see cref="ToolStripItem.Tag"/> is a <see cref="BookmarkEntry"/>.</param>
 	/// <param name="e">Event data.</param>
+	/// <remarks>This method is called when the user clicks a bookmark item in the ALLNUM.CAT drop-down menu. It navigates to the record stored in the clicked bookmark item.</remarks>
 	private void BookmarkNavigateAllnumCat_Click(object? sender, EventArgs e)
 	{
+		// Ensure the sender is a ToolStripMenuItem with a BookmarkEntry in its Tag
 		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
 		{
+			// Save the current position to the navigation history before navigating to the bookmarked position
 			PushNavigationHistory(previousPosition: currentPosition);
+			// Update the current ALLNUM.CAT position to the bookmarked position and navigate to it
 			currentAllnumCatPosition = entry.Position;
+			// Call the method to navigate to the current position in the ALLNUM.CAT database
 			GotoCurrentAllnumCatPosition(position: currentAllnumCatPosition);
+			// Update the current positions for all other databases to match the new position
+			currentPosition = currentAllnumCatPosition;
+			currentMpcorbJsonPosition = currentAllnumCatPosition;
+			currentAstorbPosition = currentAllnumCatPosition;
+			currentSingoppCatPosition = currentAllnumCatPosition;
+			currentUfitobsCatPosition = currentAllnumCatPosition;
+			// Update the bookmark button and menu toggle states to reflect the new position
+			UpdateBookmarkButtonState();
+			UpdateBookmarkMenuToggleState();
+			// Log the navigation action for auditing purposes
+			logger.Info(message: $"Navigated to ALLNUM.CAT bookmark at position {currentAllnumCatPosition}.");
+		}
+		else
+		{
+			// Log a warning if the sender is not a valid ToolStripMenuItem with a BookmarkEntry
+			logger.Warn(message: "Bookmark navigation failed: sender is not a valid ToolStripMenuItem with a BookmarkEntry.");
 		}
 	}
 
 	/// <summary>Navigates to the SINGOPP.CAT record stored in the clicked bookmark item.</summary>
 	/// <param name="sender">The clicked menu item whose <see cref="ToolStripItem.Tag"/> is a <see cref="BookmarkEntry"/>.</param>
 	/// <param name="e">Event data.</param>
+	/// <remarks>This method is called when the user clicks a bookmark item in the SINGOPP.CAT drop-down menu. It navigates to the record stored in the clicked bookmark item.</remarks>
 	private void BookmarkNavigateSingoppCat_Click(object? sender, EventArgs e)
 	{
+		// Ensure the sender is a ToolStripMenuItem with a BookmarkEntry in its Tag
 		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
 		{
+			// Save the current position to the navigation history before navigating to the bookmarked position
 			PushNavigationHistory(previousPosition: currentPosition);
+			// Update the current SINGOPP.CAT position to the bookmarked position and navigate to it
 			currentSingoppCatPosition = entry.Position;
+			// Call the method to navigate to the current position in the SINGOPP.CAT database
 			GotoCurrentSingoppCatPosition(position: currentSingoppCatPosition);
+			// Update the current positions for all other databases to match the new position
+			currentPosition = currentSingoppCatPosition;
+			currentMpcorbJsonPosition = currentSingoppCatPosition;
+			currentAstorbPosition = currentSingoppCatPosition;
+			currentAllnumCatPosition = currentSingoppCatPosition;
+			currentUfitobsCatPosition = currentSingoppCatPosition;
+			// Update the bookmark button and menu toggle states to reflect the new position
+			UpdateBookmarkButtonState();
+			UpdateBookmarkMenuToggleState();
+			// Log the navigation action for auditing purposes
+			logger.Info(message: $"Navigated to SINGOPP.CAT bookmark at position {currentSingoppCatPosition}.");
+		}
+		else
+		{
+			// Log a warning if the sender is not a valid ToolStripMenuItem with a BookmarkEntry
+			logger.Warn(message: "Bookmark navigation failed: sender is not a valid ToolStripMenuItem with a BookmarkEntry.");
 		}
 	}
 
 	/// <summary>Navigates to the UFITOBS.CAT record stored in the clicked bookmark item.</summary>
 	/// <param name="sender">The clicked menu item whose <see cref="ToolStripItem.Tag"/> is a <see cref="BookmarkEntry"/>.</param>
 	/// <param name="e">Event data.</param>
+	/// <remarks>This method is called when the user clicks a bookmark item in the UFITOBS.CAT drop-down menu. It navigates to the record stored in the clicked bookmark item.</remarks>
 	private void BookmarkNavigateUfitobsCat_Click(object? sender, EventArgs e)
 	{
+		// Ensure the sender is a ToolStripMenuItem with a BookmarkEntry in its Tag
 		if (sender is ToolStripMenuItem { Tag: BookmarkEntry entry })
 		{
+			// Save the current position to the navigation history before navigating to the bookmarked position
 			PushNavigationHistory(previousPosition: currentPosition);
+			// Update the current UFITOBS.CAT position to the bookmarked position and navigate to it
 			currentUfitobsCatPosition = entry.Position;
+			// Call the method to navigate to the current position in the UFITOBS.CAT database
 			GotoCurrentUfitobsCatPosition(position: currentUfitobsCatPosition);
+			// Update the current positions for all other databases to match the new position
+			currentPosition = currentUfitobsCatPosition;
+			currentSingoppCatPosition = currentUfitobsCatPosition;
+			currentMpcorbJsonPosition = currentUfitobsCatPosition;
+			currentAstorbPosition = currentUfitobsCatPosition;
+			currentAllnumCatPosition = currentUfitobsCatPosition;
+			// Update the bookmark button and menu toggle states to reflect the new position
+			UpdateBookmarkButtonState();
+			UpdateBookmarkMenuToggleState();
+			// Log the navigation action for auditing purposes
+			logger.Info(message: $"Navigated to UFITOBS.CAT bookmark at position {currentUfitobsCatPosition}.");
+		}
+		else
+		{
+			// Log a warning if the sender is not a valid ToolStripMenuItem with a BookmarkEntry
+			logger.Warn(message: "Bookmark navigation failed: sender is not a valid ToolStripMenuItem with a BookmarkEntry.");
 		}
 	}
 
