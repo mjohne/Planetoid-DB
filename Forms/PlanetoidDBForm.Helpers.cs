@@ -1698,9 +1698,9 @@ public partial class PlanetoidDbForm
 		// Set the TopMost property to match the current form's TopMost value to maintain consistent window layering
 		formListReadableDesignations.TopMost = TopMost;
 		// Fill the form with the planetoids database
-		formListReadableDesignations.FillArray(arrTemp: planetoidsDatabase);
+		formListReadableDesignations.SetDatabaseReference(database: planetoidsDatabase);
 		// Set the maximum index for the form
-		formListReadableDesignations.SetMaxIndex(maxIndex: planetoidsDatabase.Count);
+		//formListReadableDesignations.SetMaxIndex(maxIndex: planetoidsDatabase.Count);
 		// Log the action of opening the ListReadableDesignationsForm
 		logger.Info(message: "Opening ListReadableDesignationsForm.");
 		// Show the list readable designations form as a modal dialog
